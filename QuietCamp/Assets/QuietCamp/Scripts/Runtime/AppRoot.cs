@@ -9,15 +9,18 @@ namespace QuietCamp
     /// </summary>
     public sealed class AppRoot : MonoBehaviour
     {
+        private static AppRoot _instance;
+
         [SerializeField] private string _firstSceneName = "MainMenu";
 
         private void Awake()
         {
-            if (FindObjectsByType<AppRoot>(FindObjectsSortMode.None).Length > 1)
+            if (_instance != null && _instance != this)
             {
                 Destroy(gameObject);
                 return;
             }
+            _instance = this;
             DontDestroyOnLoad(gameObject);
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = QualitySettings.GetQualityLevel() >= 2 ? 60 : 30;

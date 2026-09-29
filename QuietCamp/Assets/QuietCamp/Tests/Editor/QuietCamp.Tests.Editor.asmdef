@@ -1,1 +1,1 @@
-{"name":"QuietCamp.Tests.Editor","references":["QuietCamp.Domain","Unity.Newtonsoft.Json"],"includePlatforms":["Editor"],"optionalUnityReferences":["TestAssemblies"],"autoReferenced":false}
+{"name":"QuietCamp.Tests.Editor","references":["QuietCamp.Domain"],"includePlatforms":["Editor"],"optionalUnityReferences":["TestAssemblies"],"overrideReferences":true,"precompiledReferences":["Newtonsoft.Json.dll","nunit.framework.dll"],"autoReferenced":false}
