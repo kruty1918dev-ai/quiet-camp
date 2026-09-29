@@ -1,0 +1,125 @@
+{
+  "coordinateSystem": "Unity XZ; +Y up; 1 cell = 1 metre; centred board",
+  "camera": {
+    "euler": [
+      55,
+      225,
+      0
+    ],
+    "target": [
+      0,
+      0,
+      0
+    ],
+    "distance": 20,
+    "projection": "orthographic",
+    "near": 0.1,
+    "far": 60,
+    "size6x6Initial": 5.4,
+    "viewportFrom": "CanvasRoot/SafeArea/Gameplay/BoardViewport",
+    "fitFormula": "max(projectedWidth/(2*aspect), projectedHeight/2) * 1.08",
+    "audioListener": true
+  },
+  "rendering": {
+    "pipeline": "URP 17.6.0",
+    "colorSpace": "Linear",
+    "HDR": false,
+    "MSAA": 2,
+    "renderScale": 1.0,
+    "shadowDistance": 20,
+    "shadowResolution": 1024,
+    "cascades": 1,
+    "postProcessing": true
+  },
+  "lighting": {
+    "day": {
+      "directionalEuler": [
+        50,
+        -35,
+        0
+      ],
+      "intensity": 1.05,
+      "color": "#FFF0D6",
+      "ambient": "#B9C9CB",
+      "exposure": 0,
+      "bloom": 0
+    },
+    "evening": {
+      "directionalEuler": [
+        18,
+        -35,
+        0
+      ],
+      "intensity": 0.4,
+      "color": "#FFD29B",
+      "ambient": "#738F9B",
+      "exposure": 0.2,
+      "bloom": 0.12,
+      "fireLight": {
+        "range": 3,
+        "intensity": 1.2,
+        "shadows": false,
+        "color": "#FFA34A"
+      }
+    }
+  },
+  "testDecor": [
+    {
+      "assetId": "tree_default",
+      "position": [
+        -3.7,
+        0,
+        -2.8
+      ],
+      "height": 2.6
+    },
+    {
+      "assetId": "tree_default",
+      "position": [
+        -2,
+        0,
+        -3.6
+      ],
+      "height": 2.4
+    },
+    {
+      "assetId": "tree_pineRoundA",
+      "position": [
+        0.3,
+        0,
+        -3.7
+      ],
+      "height": 2.8
+    },
+    {
+      "assetId": "tree_pineRoundA",
+      "position": [
+        2.8,
+        0,
+        -3.6
+      ],
+      "height": 2.6
+    },
+    {
+      "assetId": "tree_default",
+      "position": [
+        -3.6,
+        0,
+        0.3
+      ],
+      "height": 1.8
+    }
+  ],
+  "board": {
+    "topY": 0,
+    "baseCenterY": -0.15,
+    "baseThickness": 0.3,
+    "overhang": 0.1,
+    "bevel": 0.06,
+    "gridLineWidth": 0.018,
+    "gridY": 0.006,
+    "overlayY": 0.014,
+    "tentY": 0.02,
+    "selectedLift": 0.08
+  }
+}

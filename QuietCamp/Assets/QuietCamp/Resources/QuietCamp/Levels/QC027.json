@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "id": "QC027",
+  "order": 27,
+  "chapter": 2,
+  "seed": 29305839,
+  "generatorVersion": "qc-python-1",
+  "generationAttempt": 0,
+  "width": 6,
+  "height": 6,
+  "entry": [
+    5,
+    5
+  ],
+  "blocked": [
+    [
+      3,
+      4
+    ],
+    [
+      5,
+      0
+    ],
+    [
+      5,
+      2
+    ],
+    [
+      1,
+      5
+    ]
+  ],
+  "shade": [
+    [
+      2,
+      1
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      3,
+      0
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      4,
+      0
+    ],
+    [
+      4,
+      1
+    ],
+    [
+      5,
+      0
+    ],
+    [
+      5,
+      2
+    ]
+  ],
+  "noise": [
+    [
+      3,
+      4
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [
+    [
+      "g1",
+      "g3"
+    ]
+  ],
+  "witness": [
+    {
+      "x": 3,
+      "z": 0,
+      "rotation": 0,
+      "guestId": "g1"
+    },
+    {
+      "x": 4,
+      "z": 3,
+      "rotation": 0,
+      "guestId": "g2"
+    },
+    {
+      "x": 0,
+      "z": 3,
+      "rotation": 1,
+      "guestId": "g3"
+    },
+    {
+      "x": 0,
+      "z": 1,
+      "rotation": 2,
+      "guestId": "g4"
+    }
+  ],
+  "lighting": "day",
+  "tutorialKey": "",
+  "decorSeed": 29325515,
+  "contentHash": "b560e4af9f01cc7c25662f07fa774f22e19932a8afcf39bc9b808b3f66bc86a0"
+}

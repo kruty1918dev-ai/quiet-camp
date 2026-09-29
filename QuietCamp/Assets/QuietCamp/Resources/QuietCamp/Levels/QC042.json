@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "id": "QC042",
+  "order": 42,
+  "chapter": 3,
+  "seed": 29424624,
+  "generatorVersion": "qc-python-1",
+  "generationAttempt": 0,
+  "width": 7,
+  "height": 7,
+  "entry": [
+    6,
+    6
+  ],
+  "blocked": [
+    [
+      0,
+      6
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      3,
+      4
+    ]
+  ],
+  "shade": [
+    [
+      4,
+      1
+    ],
+    [
+      4,
+      2
+    ],
+    [
+      5,
+      0
+    ],
+    [
+      5,
+      1
+    ],
+    [
+      6,
+      0
+    ],
+    [
+      6,
+      1
+    ],
+    [
+      6,
+      2
+    ]
+  ],
+  "noise": [
+    [
+      0,
+      6
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g5",
+      "nameKey": "guest.5",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [
+    [
+      "g4",
+      "g5"
+    ]
+  ],
+  "witness": [
+    {
+      "x": 5,
+      "z": 0,
+      "rotation": 3,
+      "guestId": "g1"
+    },
+    {
+      "x": 2,
+      "z": 1,
+      "rotation": 2,
+      "guestId": "g2"
+    },
+    {
+      "x": 2,
+      "z": 5,
+      "rotation": 2,
+      "guestId": "g3"
+    },
+    {
+      "x": 0,
+      "z": 3,
+      "rotation": 1,
+      "guestId": "g4"
+    },
+    {
+      "x": 5,
+      "z": 4,
+      "rotation": 2,
+      "guestId": "g5"
+    }
+  ],
+  "lighting": "evening",
+  "tutorialKey": "",
+  "decorSeed": 29403348,
+  "contentHash": "4bf6b71c489fc0c958c8a74b6ca6aa33707688e561389e83584bd2e6fd6bec54"
+}

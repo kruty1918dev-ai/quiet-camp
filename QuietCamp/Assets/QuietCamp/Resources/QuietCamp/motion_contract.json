@@ -1,0 +1,95 @@
+{
+  "reducedMotion": {
+    "positionDuration": 0,
+    "rotationDuration": 0,
+    "alphaDuration": 0.08,
+    "cameraMotion": false,
+    "particles": false
+  },
+  "animations": [
+    {
+      "key": "panel.open",
+      "duration": 0.18,
+      "ease": "OutQuad",
+      "action": "alpha 0->1; slide +18px->0"
+    },
+    {
+      "key": "panel.close",
+      "duration": 0.12,
+      "ease": "InQuad",
+      "action": "alpha 1->0"
+    },
+    {
+      "key": "placement.preview",
+      "duration": 0.1,
+      "ease": "OutQuad",
+      "action": "lift y +0.08m"
+    },
+    {
+      "key": "placement.commit",
+      "duration": 0.16,
+      "ease": "OutQuad",
+      "action": "visual position to committed cell"
+    },
+    {
+      "key": "placement.reject",
+      "duration": 0.15,
+      "ease": "OutQuad",
+      "action": "return to committed pose"
+    },
+    {
+      "key": "placement.rotate",
+      "duration": 0.14,
+      "ease": "OutQuad",
+      "action": "yaw +90 deg, no overshoot"
+    },
+    {
+      "key": "placement.undo",
+      "duration": 0.16,
+      "ease": "OutQuad",
+      "action": "visual pose matches restored snapshot"
+    },
+    {
+      "key": "button.press",
+      "duration": 0.06,
+      "ease": "OutQuad",
+      "action": "scale 1->0.97"
+    },
+    {
+      "key": "button.release",
+      "duration": 0.1,
+      "ease": "OutQuad",
+      "action": "scale 0.97->1"
+    },
+    {
+      "key": "rule.satisfied",
+      "duration": 0.18,
+      "ease": "OutQuad",
+      "action": "check alpha 0->1"
+    },
+    {
+      "key": "level.complete",
+      "duration": 0.45,
+      "ease": "InOutSine",
+      "action": "grid alpha 1->0; no camera jump"
+    },
+    {
+      "key": "lighting.evening",
+      "duration": 1.2,
+      "ease": "InOutSine",
+      "action": "day to evening; rule masks stay fixed"
+    },
+    {
+      "key": "scene.cover",
+      "duration": 0.2,
+      "ease": "Linear",
+      "action": "fade to cream"
+    },
+    {
+      "key": "scene.reveal",
+      "duration": 0.25,
+      "ease": "Linear",
+      "action": "fade from cream"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "com.kruty1918.ui-actions",
+  "version": "0.1.0",
+  "displayName": "Kruty1918 UI Actions",
+  "description": "Game-agnostic UI action routing for Unity: action router with duplicate-registration checks, context stack with layers/priorities, hotkey bindings with conflict detection, and escape routing. Game projects supply their own action ID catalog and default keymap.",
+  "unity": "6000.3",
+  "author": {
+    "name": "Kruty1918"
+  },
+  "dependencies": {
+    "com.unity.inputsystem": "1.11.2",
+    "com.unity.ugui": "2.0.0",
+    "com.kruty1918.input-context": "0.1.0"
+  },
+  "keywords": [
+    "ui",
+    "actions",
+    "hotkeys",
+    "context"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "com.kruty1918.save-system",
+  "version": "0.1.0",
+  "displayName": "Kruty1918 Save System",
+  "description": "Binary save-file pipeline for Unity: module contracts (ISaveModule/IStagedSaveModule), block codec with CRC32, module registry and execution ordering, atomic writes, slot policy and inspector services. Games own their SaveService orchestration, signals and concrete modules.",
+  "unity": "6000.3",
+  "author": {
+    "name": "Kruty1918"
+  },
+  "dependencies": {},
+  "keywords": [
+    "save",
+    "persistence",
+    "binary",
+    "slots"
+  ]
+}

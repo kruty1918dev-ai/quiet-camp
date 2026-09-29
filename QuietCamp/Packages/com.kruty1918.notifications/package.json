@@ -1,0 +1,19 @@
+{
+  "name": "com.kruty1918.notifications",
+  "version": "0.1.0",
+  "displayName": "Kruty1918 Notifications",
+  "description": "Gameplay notification queue for Unity: dedup keys, hold durations, FIFO presentation through an IGameplayNotificationPresenter contract, plus a default TMP/CanvasGroup toast presenter (DOTween-accelerated when available).",
+  "unity": "6000.3",
+  "author": {
+    "name": "Kruty1918"
+  },
+  "dependencies": {
+    "com.unity.ugui": "2.0.0"
+  },
+  "keywords": [
+    "notifications",
+    "ui",
+    "toast",
+    "queue"
+  ]
+}

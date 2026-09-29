@@ -1,0 +1,10 @@
+<!-- IL2CPP linker preserve rules for Quiet Camp.
+     Newtonsoft.Json deserializes level JSON via reflection; keep its metadata. -->
+<linker>
+  <assembly fullname="Newtonsoft.Json" preserve="all"/>
+  <assembly fullname="Unity.Newtonsoft.Json" preserve="all"/>
+  <assembly fullname="QuietCamp.Domain" preserve="all"/>
+  <assembly fullname="QuietCamp.Runtime" preserve="all"/>
+  <assembly fullname="DOTween" preserve="all"/>
+  <assembly fullname="DOTweenPro" preserve="all"/>
+</linker>

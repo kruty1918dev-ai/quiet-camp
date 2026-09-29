@@ -1,0 +1,19 @@
+{
+  "name": "com.kruty1918.input-context",
+  "version": "0.1.0",
+  "displayName": "Kruty1918 Input Context",
+  "description": "Gameplay input routing policy for Unity: pointer-over-UI detection, per-pointer capture, global input blocking leases and text-input focus checks, via the IGameplayInputPolicy contract.",
+  "unity": "6000.3",
+  "author": {
+    "name": "Kruty1918"
+  },
+  "dependencies": {
+    "com.unity.ugui": "2.0.0"
+  },
+  "keywords": [
+    "input",
+    "routing",
+    "ui",
+    "pointer"
+  ]
+}

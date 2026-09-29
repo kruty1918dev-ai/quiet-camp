@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "id": "QC009",
+  "order": 9,
+  "chapter": 1,
+  "seed": 29163297,
+  "generatorVersion": "qc-python-1",
+  "generationAttempt": 0,
+  "width": 6,
+  "height": 6,
+  "entry": [
+    5,
+    5
+  ],
+  "blocked": [
+    [
+      3,
+      5
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      0,
+      5
+    ]
+  ],
+  "shade": [
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      3,
+      3
+    ],
+    [
+      4,
+      3
+    ],
+    [
+      4,
+      4
+    ]
+  ],
+  "noise": [
+    [
+      3,
+      5
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [
+    [
+      "g1",
+      "g3"
+    ]
+  ],
+  "witness": [
+    {
+      "x": 2,
+      "z": 2,
+      "rotation": 1,
+      "guestId": "g1"
+    },
+    {
+      "x": 1,
+      "z": 0,
+      "rotation": 3,
+      "guestId": "g2"
+    },
+    {
+      "x": 4,
+      "z": 0,
+      "rotation": 0,
+      "guestId": "g3"
+    }
+  ],
+  "lighting": "day",
+  "tutorialKey": "",
+  "decorSeed": 29142021,
+  "contentHash": "604d4afcf85ac121d80474b529cddc08588fbec5d73fc345f1a8bdd5f808c9c2"
+}

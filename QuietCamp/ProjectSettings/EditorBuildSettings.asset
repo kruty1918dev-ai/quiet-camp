@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/QuietCamp/Scenes/Boot.unity
+    guid: adc5ecb5984c4c3b94d0a1cf812475b3
+  - enabled: 1
+    path: Assets/QuietCamp/Scenes/MainMenu.unity
+    guid: 76d34402cf9546c3a7ad463315d782bb
+  - enabled: 1
+    path: Assets/QuietCamp/Scenes/Camp.unity
+    guid: 0ec4151cae324316acce6ba730a03465
+  m_configObjects: {}

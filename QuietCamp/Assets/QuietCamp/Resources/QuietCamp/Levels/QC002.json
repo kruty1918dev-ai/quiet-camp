@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "id": "QC002",
+  "order": 2,
+  "chapter": 1,
+  "seed": 29107864,
+  "generatorVersion": "qc-python-1",
+  "generationAttempt": 0,
+  "width": 5,
+  "height": 5,
+  "entry": [
+    4,
+    4
+  ],
+  "blocked": [],
+  "shade": [],
+  "noise": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "x": 2,
+      "z": 1,
+      "rotation": 1,
+      "guestId": "g1"
+    },
+    {
+      "x": 0,
+      "z": 1,
+      "rotation": 2,
+      "guestId": "g2"
+    }
+  ],
+  "lighting": "day",
+  "tutorialKey": "tutorial.2",
+  "decorSeed": 29128124,
+  "contentHash": "d00967cc148a0d098fb1e2c8b553185fc1ca9fa03af94458517e71e484422532"
+}

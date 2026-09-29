@@ -1,0 +1,20 @@
+{
+  "name": "com.kruty1918.audio",
+  "version": "0.1.0",
+  "displayName": "Kruty1918 Audio",
+  "description": "Reusable audio runtime: AudioMixer bus/channel routing, pooled AudioSource playback with ducking, per-scene overrides and scene-profile music with crossfade. Host supplies the sound catalog, overrides and music profiles.",
+  "unity": "6000.0",
+  "unityRelease": "0f1",
+  "author": {
+    "name": "Kruty1918"
+  },
+  "dependencies": {
+    "com.unity.ugui": "2.0.0"
+  },
+  "keywords": [
+    "kruty1918",
+    "audio",
+    "mixer",
+    "music"
+  ]
+}
