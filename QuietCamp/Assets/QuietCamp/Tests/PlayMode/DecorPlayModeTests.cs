@@ -6,7 +6,7 @@ using UnityEngine.TestTools;
 
 namespace QuietCamp.Tests
 {
-    /// <summary>Camp diorama must actually spawn the meadow + forest ring.</summary>
+    /// <summary>Camp diorama must spawn the floating decor ring — no ground slab.</summary>
     public class DecorPlayModeTests
     {
         [UnityTest]
@@ -20,13 +20,11 @@ namespace QuietCamp.Tests
             var decor = FindRoot("DecorRoot");
             Assert.IsNotNull(decor, "Camp scene needs DecorRoot");
             Assert.Greater(decor.childCount, 20,
-                $"Expected meadow + decor ring, got {decor.childCount} children");
+                $"Expected a decor ring, got {decor.childCount} children");
 
-            var meadow = decor.Find("Meadow");
-            Assert.IsNotNull(meadow, "Meadow apron missing");
-
-            // Board top must sit above the meadow surface.
-            Assert.Less(meadow.position.y, 0.01f, "Meadow must stay below the board top");
+            // Floating-diorama style: decor floats around the board on the
+            // skybox background — no meadow slab under it.
+            Assert.IsNull(decor.Find("Meadow"), "Meadow apron must not exist");
 
             // Skybox + opaque pass sanity: the camera must clear to skybox.
             var cam = Camera.main;

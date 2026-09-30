@@ -5,29 +5,27 @@ using UnityEngine;
 namespace QuietCamp.Presentation.World
 {
     /// <summary>
-    /// Decorative meadow around the board: a wide grass slab ("apron") the
-    /// board sits in, a seeded ring of pines/trees/stones/grass/flowers on it
-    /// (decorSeed keeps layout deterministic per level), plus the camp sign
-    /// just outside the entry edge. All decor lives on the Decor layer with
-    /// colliders stripped by the prefabs' configuration.
+    /// Floating-diorama decor around the board, like the reference render:
+    /// no ground slab — a seeded ring of pines/trees/stones/grass/flowers
+    /// floats at board level just outside the field (decorSeed keeps the
+    /// layout deterministic per level), plus the camp sign just outside the
+    /// entry edge. All decor lives on the Decor layer with colliders
+    /// stripped by the prefabs' configuration.
     /// </summary>
     public static class DecorSpawner
     {
-        /// <summary>How far the meadow apron extends beyond the board edge.</summary>
+        /// <summary>How far the decor ring extends beyond the board edge.</summary>
         public const float Apron = 2.1f;
 
-        static readonly Color MeadowColor = new Color(0.37f, 0.49f, 0.30f);
-        static readonly Color MeadowSideColor = new Color(0.28f, 0.22f, 0.16f);
-
-        // Fixed QC_TEST accents from the scene contract; pushed outside the
-        // board ring automatically for larger levels.
-        static readonly (string id, float x, float z)[] TestDecor =
+        // Fixed accents from the scene contract (position + height); pushed
+        // outside the board ring automatically for larger levels.
+        static readonly (string id, float x, float z, float height)[] TestDecor =
         {
-            ("tree_default", -3.7f, -2.8f),
-            ("tree_default", -2.0f, -3.6f),
-            ("tree_pineRoundA", 0.3f, -3.7f),
-            ("tree_pineRoundA", 2.8f, -3.6f),
-            ("tree_default", -3.6f, 0.3f),
+            ("tree_default", -3.7f, -2.8f, 2.6f),
+            ("tree_default", -2.0f, -3.6f, 2.4f),
+            ("tree_pineRoundA", 0.3f, -3.7f, 2.8f),
+            ("tree_pineRoundA", 2.8f, -3.6f, 2.6f),
+            ("tree_default", -3.6f, 0.3f, 1.8f),
         };
 
         public static void Spawn(LevelData level, AssetCatalog catalog, Transform decorRoot)
@@ -39,13 +37,12 @@ namespace QuietCamp.Presentation.World
             float forbiddenX = halfW + 0.45f, forbiddenZ = halfH + 0.45f;
             float meadowX = halfW + Apron, meadowZ = halfH + Apron;
 
-            BuildMeadow(decorRoot, meadowX, meadowZ);
-
             foreach (var d in TestDecor)
             {
                 var pos = new Vector3(d.x, 0f, d.z);
                 ClampOutside(ref pos, forbiddenX, forbiddenZ, meadowX, meadowZ);
-                Spawn(catalog, decorRoot, d.id, pos, rng.Next(360));
+                var go = Spawn(catalog, decorRoot, d.id, pos, rng.Next(360));
+                if (go != null) ScaleToHeight(go, d.height);
             }
 
             Scatter(catalog, decorRoot, rng, "tree_pineRoundA",
@@ -71,17 +68,15 @@ namespace QuietCamp.Presentation.World
             Spawn(catalog, decorRoot, "sign", signPos, rng.Next(360));
         }
 
-        /// <summary>Grass apron + dark soil side — the board floats on a meadow.</summary>
-        static void BuildMeadow(Transform root, float meadowX, float meadowZ)
+        /// <summary>Scales the instance so its rendered height matches the contract.</summary>
+        static void ScaleToHeight(GameObject go, float targetHeight)
         {
-            const float thickness = 0.26f;
-            var top = Primitive(PrimitiveType.Cube, "Meadow", root,
-                new Vector3(meadowX * 2f, thickness, meadowZ * 2f),
-                new Vector3(0f, -thickness / 2f - 0.015f, 0f), MeadowColor);
-            var side = Primitive(PrimitiveType.Cube, "MeadowSide", root,
-                new Vector3(meadowX * 2f + 0.05f, thickness - 0.06f, meadowZ * 2f + 0.05f),
-                new Vector3(0f, -thickness / 2f - 0.035f, 0f), MeadowSideColor);
-            _ = top; _ = side;
+            var renderers = go.GetComponentsInChildren<Renderer>();
+            if (renderers.Length == 0) return;
+            var bounds = renderers[0].bounds;
+            foreach (var r in renderers) bounds.Encapsulate(r.bounds);
+            if (bounds.size.y <= 0.001f) return;
+            go.transform.localScale *= targetHeight / bounds.size.y;
         }
 
         static int TestDecorCount(string id)
@@ -123,16 +118,17 @@ namespace QuietCamp.Presentation.World
             pos.z = Mathf.Clamp(pos.z, -meadowZ, meadowZ);
         }
 
-        static void Spawn(AssetCatalog catalog, Transform root, string assetId,
+        static GameObject Spawn(AssetCatalog catalog, Transform root, string assetId,
             Vector3 pos, int yaw)
         {
-            if (!catalog.TryGet(assetId, out var entry) || entry.prefab == null) return;
+            if (!catalog.TryGet(assetId, out var entry) || entry.prefab == null) return null;
             var go = Object.Instantiate(entry.prefab, root);
             go.transform.localPosition = pos;
             go.transform.localEulerAngles = new Vector3(0f, yaw, 0f);
             if (assetId == "grass" || assetId.StartsWith("flower"))
                 ApplySway(go);
             SetLayer(go, BoardRenderer.DecorLayer);
+            return go;
         }
 
         /// <summary>
@@ -159,25 +155,6 @@ namespace QuietCamp.Presentation.World
             }
         }
         static Dictionary<Color, Material> _swayMats;
-
-        static GameObject Primitive(PrimitiveType type, string name, Transform parent,
-            Vector3 scale, Vector3 localPos, Color color)
-        {
-            var go = GameObject.CreatePrimitive(type);
-            go.name = name;
-            go.transform.SetParent(parent, false);
-            go.transform.localScale = scale;
-            go.transform.localPosition = localPos;
-            var collider = go.GetComponent<Collider>();
-            if (collider != null) Object.Destroy(collider);
-            var renderer = go.GetComponent<Renderer>();
-            var shader = Shader.Find("Universal Render Pipeline/Simple Lit");
-            var mat = new Material(shader);
-            mat.SetColor("_BaseColor", color);
-            renderer.sharedMaterial = mat;
-            go.layer = BoardRenderer.DecorLayer;
-            return go;
-        }
 
         static void SetLayer(GameObject go, int layer)
         {

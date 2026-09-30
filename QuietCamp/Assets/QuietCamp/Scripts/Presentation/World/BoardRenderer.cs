@@ -22,9 +22,7 @@ namespace QuietCamp.Presentation.World
         static readonly Color BaseSideColor = new Color(0.38f, 0.30f, 0.22f);
         static readonly Color GrassA = new Color(0.55f, 0.66f, 0.47f);
         static readonly Color GrassB = new Color(0.50f, 0.61f, 0.42f);
-        static readonly Color ShadeTint = new Color(0.34f, 0.46f, 0.40f);
-        static readonly Color NoiseTint = new Color(0.66f, 0.55f, 0.34f);
-        static readonly Color EntryTint = new Color(0.70f, 0.73f, 0.42f);
+        static readonly Color ShadeTint = new Color(0.44f, 0.55f, 0.38f);
         static readonly Color PathColor = new Color(1f, 0.88f, 0.45f, 0.55f);
 
         readonly LevelData _level;
@@ -78,39 +76,25 @@ namespace QuietCamp.Presentation.World
         }
 
         /// <summary>
-        /// One raised tile per playable cell: checker grass tones, cooler tint
-        /// for shade cells, warm earth for the noise ring, sunlit patch on the
-        /// entry. The gaps between tiles read as the grid over the darker slab.
+        /// One raised tile per playable cell: subtle checker grass tones and a
+        /// darker green for shade cells — the only zone painted on the field,
+        /// like the reference render. Thin gaps between tiles read as grid
+        /// lines over the darker slab.
         /// </summary>
         void BuildCells()
         {
             var shade = new HashSet<Cell>();
             foreach (var s in _level.shade) shade.Add(new Cell(s[0], s[1]));
-            var noise = new HashSet<Cell>();
-            foreach (var n in _level.noise)
-            {
-                var nc = new Cell(n[0], n[1]);
-                for (var dx = -2; dx <= 2; dx++)
-                for (var dz = -2; dz <= 2; dz++)
-                {
-                    if (Mathf.Abs(dx) + Mathf.Abs(dz) > 2) continue;
-                    var c = new Cell(nc.X + dx, nc.Z + dz);
-                    if (RuleEvaluator.Inside(_level, c)) noise.Add(c);
-                }
-            }
-            var entry = new Cell(_level.entry[0], _level.entry[1]);
 
             for (var x = 0; x < _level.width; x++)
             for (var z = 0; z < _level.height; z++)
             {
                 var cell = new Cell(x, z);
-                var color = cell.Equals(entry) ? EntryTint
-                    : shade.Contains(cell) ? ShadeTint
-                    : noise.Contains(cell) ? NoiseTint
+                var color = shade.Contains(cell) ? ShadeTint
                     : ((x + z) & 1) == 0 ? GrassA : GrassB;
                 var tile = NewPrimitive(PrimitiveType.Cube, $"Cell_{x}_{z}", _gridRoot,
-                    new Vector3(0.92f, 0.016f, 0.92f),
-                    BoardMath.CellCenterWorld(_level, cell) + new Vector3(0f, 0.008f, 0f),
+                    new Vector3(0.97f, 0.014f, 0.97f),
+                    BoardMath.CellCenterWorld(_level, cell) + new Vector3(0f, 0.007f, 0f),
                     color, BoardSurfaceLayer);
                 _tintObjects.Add(tile);
             }
@@ -161,7 +145,7 @@ namespace QuietCamp.Presentation.World
                 {
                     var logs = SpawnModel("log_stack", go.transform,
                         new Vector3(0f, 0.03f, 0f), 45, GameplayObstacleLayer);
-                    var fx = FireFx.Create(go.transform);
+                    FireFx.Create(go.transform);
                 }
             }
         }
