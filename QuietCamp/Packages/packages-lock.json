@@ -22,6 +22,14 @@
         "com.unity.ugui": "2.0.0"
       }
     },
+    "com.kruty1918.levelkit": {
+      "version": "file:../../../level-kit",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.2.2"
+      }
+    },
     "com.kruty1918.localization": {
       "version": "file:com.kruty1918.localization",
       "depth": 0,

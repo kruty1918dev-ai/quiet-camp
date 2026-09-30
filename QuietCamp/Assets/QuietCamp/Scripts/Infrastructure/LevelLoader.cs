@@ -20,14 +20,23 @@ namespace QuietCamp.Infrastructure
             public string[] mvpLevelIds, campaignLevelIds;
         }
 
-        /// <summary>Loads and validates a level; throws on parse or validation failure.</summary>
+        /// <summary>
+        /// Loads and validates a level via the universal LevelKit codec:
+        /// parse (with the QC format profile) -> adapt to LevelData ->
+        /// game validation -> consume. Throws on parse or validation failure.
+        /// </summary>
         public static LevelData Load(string levelId)
         {
             var asset = Resources.Load<TextAsset>($"{LevelsFolder}/{levelId}");
             if (asset == null) throw new InvalidOperationException($"Level '{levelId}' not found in Resources.");
-            LevelData level;
-            try { level = JsonConvert.DeserializeObject<LevelData>(asset.text); }
-            catch (Exception e) { throw new InvalidOperationException($"Level '{levelId}' JSON parse failed: {e.Message}", e); }
+            var result = Kruty1918.LevelKit.LevelJson.Parse(
+                asset.text, QuietCampLevelAdapter.Profile);
+            if (!result.Ok)
+            {
+                var msg = string.Join(",", result.Issues.ConvertAll(i => i.ToString()));
+                throw new InvalidOperationException($"Level '{levelId}' invalid: {msg}");
+            }
+            var level = QuietCampLevelAdapter.ToLevelData(result.Document);
             var errors = LevelContentValidator.Validate(level);
             if (errors.Count > 0)
                 throw new InvalidOperationException($"Level '{levelId}' invalid: {string.Join(",", errors)}");
