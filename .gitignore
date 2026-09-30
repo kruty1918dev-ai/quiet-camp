@@ -65,3 +65,6 @@ TestResults*.xml
 TestResults/
 DeviceScreenshots/
 *.zip
+
+# Unity performance-test artifacts
+QuietCamp/Assets/Resources/PerformanceTestRun*.json*
