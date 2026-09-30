@@ -51,6 +51,19 @@ namespace QuietCamp.Tests
             }
         }
 
+        [Test]
+        public void SkyMaterials_LoadWithValidShader()
+        {
+            foreach (var name in new[] { "SkyDay", "SkyEvening" })
+            {
+                var mat = Resources.Load<Material>("QuietCamp/Sky/" + name);
+                Assert.IsNotNull(mat, $"Sky material '{name}' missing");
+                Assert.IsNotNull(mat.shader, $"Sky material '{name}' lost its shader");
+                Assert.AreNotEqual("Hidden/InternalErrorShader", mat.shader.name,
+                    $"Sky material '{name}' fell back to error shader");
+            }
+        }
+
         [UnityTest]
         public IEnumerator AudioService_PlaysLoopedAmbience()
         {
