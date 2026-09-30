@@ -63,6 +63,8 @@ namespace QuietCamp.Editor
                 Fail($"Build failed: {summary.result}, {summary.totalErrors} errors.");
             if (!File.Exists(outputPath) || new FileInfo(outputPath).Length == 0)
                 Fail("Build reported success but APK missing or empty.");
+            if (UnityEngine.Application.isBatchMode)
+                EditorApplication.Exit(0);
         }
 
         private static void Fail(string message)
