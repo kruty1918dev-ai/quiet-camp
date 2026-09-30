@@ -11,6 +11,7 @@ using QuietCamp.Application;
 using QuietCamp.Infrastructure;
 using QuietCamp.Presentation.UI;
 using QuietCamp.Presentation.World;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -59,6 +60,8 @@ namespace QuietCamp.Presentation
                 localization.TrySetLanguage(save.Settings.language);
             LocalizedLabel.Localization = localization;
             LocalizedLabel.TextScale = save.Settings.textScale;
+
+            BuildSplash();
 
             var audioCatalog = QuietCampAudioCatalog.Load();
             if (audioCatalog == null)
@@ -116,6 +119,55 @@ namespace QuietCamp.Presentation
             _audio.SetBusVolume(AudioBus.Ambience, s.ambience);
             _audio.SetBusVolume(AudioBus.Ui, s.effects);
             _audio.SetBusVolume(AudioBus.Sfx, s.effects);
+        }
+
+        // ─── Boot splash ───────────────────────────────────────────────────
+
+        GameObject _splash;
+
+        /// <summary>
+        /// Warm illustrated splash shown while Boot composes services and the
+        /// first scene loads — same artwork as the menu so the transition is
+        /// seamless. Destroyed on the first sceneLoaded callback.
+        /// </summary>
+        void BuildSplash()
+        {
+            _splash = new GameObject("BootSplash", typeof(RectTransform));
+            _splash.transform.SetParent(transform, false);
+            var canvas = _splash.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.sortingOrder = 70; // below the toast overlay (80)
+            var scaler = _splash.AddComponent<UnityEngine.UI.CanvasScaler>();
+            scaler.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1080, 1920);
+            scaler.screenMatchMode = UnityEngine.UI.CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+            scaler.matchWidthOrHeight = 0.5f;
+
+            var rt = _splash.transform as RectTransform;
+            MenuArt.BuildBackground(rt);
+            var header = QcUi.Anchor(rt, "Title",
+                new Vector2(0.06f, 1f), new Vector2(0.94f, 1f),
+                new Vector2(0f, -560f), new Vector2(0f, -120f));
+            var layout = header.gameObject.AddComponent<UnityEngine.UI.VerticalLayoutGroup>();
+            layout.childAlignment = TextAnchor.UpperCenter;
+            layout.childForceExpandWidth = true;
+            layout.childForceExpandHeight = false;
+            SplashTitle(header, "menu.title.line1");
+            SplashTitle(header, "menu.title.line2");
+            QcUi.Label(header, "menu.tagline", 42f,
+                TextAlignmentOptions.Center, MenuArt.ForestText)
+                .gameObject.AddComponent<UnityEngine.UI.LayoutElement>().minHeight = 90;
+        }
+
+        static void SplashTitle(RectTransform parent, string key)
+        {
+            var label = QcUi.Label(parent, key, 118f,
+                TextAlignmentOptions.Center, MenuArt.Forest);
+            var tmp = label.GetComponent<TMPro.TextMeshProUGUI>();
+            tmp.fontStyle = TMPro.FontStyles.Bold;
+            tmp.characterSpacing = -1.2f;
+            tmp.lineSpacing = -18f;
+            label.gameObject.AddComponent<UnityEngine.UI.LayoutElement>().minHeight = 150;
         }
 
         // ─── Persistent toast overlay ────────────────────────────────────────
@@ -197,6 +249,11 @@ namespace QuietCamp.Presentation
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            if (_splash != null)
+            {
+                Destroy(_splash);
+                _splash = null;
+            }
             var go = new GameObject(scene.name + "Host");
             SceneManager.MoveGameObjectToScene(go, scene);
             if (scene.name == "Camp")
