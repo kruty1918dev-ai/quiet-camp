@@ -64,7 +64,10 @@ namespace QuietCamp.Presentation.UI
         {
             if (_text == null) _text = GetComponent<TMP_Text>();
             if (_text == null) return;
-            _text.fontSize = _baseSize * _textScale;
+            // Awake is deferred on inactive objects — capture lazily so the
+            // first Bind on an inactive label does not zero the font size.
+            if (_baseSize <= 0f && _text.fontSize > 0f) _baseSize = _text.fontSize;
+            if (_baseSize > 0f) _text.fontSize = _baseSize * _textScale;
             if (_localization == null || string.IsNullOrEmpty(_key)) return;
             _text.text = _args == null || _args.Length == 0
                 ? _localization.T(_key)
