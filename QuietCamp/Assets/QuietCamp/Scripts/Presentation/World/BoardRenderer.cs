@@ -21,9 +21,9 @@ namespace QuietCamp.Presentation.World
         static readonly Color GroundColor = new Color(0.55f, 0.66f, 0.47f);
         static readonly Color BaseSideColor = new Color(0.38f, 0.30f, 0.22f);
         static readonly Color GridColor = new Color(0.42f, 0.52f, 0.38f, 0.9f);
-        static readonly Color ShadeColor = new Color(0.22f, 0.36f, 0.44f, 0.42f);
-        static readonly Color NoiseColor = new Color(0.95f, 0.62f, 0.22f, 0.34f);
-        static readonly Color EntryColor = new Color(0.45f, 0.85f, 0.45f, 0.45f);
+        static readonly Color ShadeColor = new Color(0.22f, 0.36f, 0.44f, 0.30f);
+        static readonly Color NoiseColor = new Color(0.95f, 0.62f, 0.22f, 0.24f);
+        static readonly Color EntryColor = new Color(0.45f, 0.85f, 0.45f, 0.32f);
         static readonly Color PathColor = new Color(1f, 0.88f, 0.45f, 0.55f);
 
         readonly LevelData _level;
@@ -274,7 +274,8 @@ namespace QuietCamp.Presentation.World
             if (collider != null) Object.Destroy(collider);
             var renderer = go.GetComponent<Renderer>();
             if (material != null) renderer.sharedMaterial = material;
-            else if (color.HasValue) Tint(go, color.Value);
+            else if (color.HasValue)
+                renderer.sharedMaterial = MakeLitMaterial(color.Value);
             go.layer = layer;
             return go;
         }
