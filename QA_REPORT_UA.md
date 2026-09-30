@@ -23,8 +23,8 @@
 | Чистий імпорт проєкту (batchmode) | OK |
 | `QuietCampProjectSetup.Run` (TMP, шрифт, build profiles) | OK, ідемпотентно |
 | Компіляція всіх asmdef | OK, без error CS |
-| EditMode tests | **6/6 passed** — правила, witness-карти, undo/redo |
-| PlayMode tests | **4/4 passed** — bootstrap, сцени, скриншот-кадри |
+| EditMode tests | **66/66 passed** — правила, witness-карти, undo/redo |
+| PlayMode tests | **27/27 passed** — bootstrap, сцени, скриншот-кадри |
 | `Tools/verify_bundle.py` (кіт) | **OK** — 61 карта, witness-розв'язки, хеші моделей/аудіо/маніфесту (потребує `PYTHONUTF8=1` на Windows) |
 | Build profiles | Android Development (dev+QC_TEST) і Android Release |
 | Android Release APK | `QuietCamp-MVP-0.1.0.apk`, 38 MB, `Result: Success` |
@@ -54,6 +54,25 @@
   в `Refresh()`. Скриншот меню підтверджує рендер.
 - Batchmode play-mode не пампає `EditorApplication.update` —
   скриншоти перенесено у `[UnityTest]` (UTF пампає кадри).
+
+## Immersive UI (ітерація за `Design/ImmersiveUI/`)
+
+- `SafeAreaFitter` вносить `Screen.safeArea` у контентні шари меню й
+  табору: інтерактивні елементи не потрапляють під виріз/жести,
+  фонові текстури лишаються full-bleed.
+- Мовний рядок замінено на сегментований вибір UK/EN/DE —
+  крихкий шаблон `TMP_Dropdown` прибрано.
+- Налаштування згруповані («Звук», «Зручність», «Мова й вигляд»),
+  повзунки — плоский трек + кругла ручка, чекбокси зі спрайтованим
+  станом; аудіо-семпл грає лише на відпусканні повзунка.
+- HUD: людські назви рівнів через `LevelDisplay` («Галявина NN»,
+  тестовий рівень підписаний явно), короткі чіпси правил +
+  `MessageSlot` для повного тексту, контекстний док дій.
+- Пауза — нижній sheet із видимим табором і однією первинною дією.
+- Модалі блокують pointer-ввід і гарячі клавіші через context-стек;
+  tutorial-підказки під ними не просвічують.
+- Стейдж: пом'якшені шви тайлів і борт основи, контактні тіні під
+  декором; перехід `transition.json` — маси листя з перекриттям.
 
 ## НЕ перевірено (блокери)
 

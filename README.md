@@ -32,7 +32,7 @@ Layered assemblies under `Assets/QuietCamp/Scripts/`:
 | `QuietCamp.Domain` | Pure C# rules: `BoardState`, `RuleEvaluator`, `CampSolver`, `CommandHistory`, `LevelContentValidator`. No UnityEngine logic. |
 | `QuietCamp.Application` | `CampSession` (single mutation authority), `PlacementCommand`, `HintService`, `ProgressionService`, `TutorialDirector`, `CampEvent`, `qc.*.v1` save DTOs |
 | `QuietCamp.Infrastructure` | `LevelLoader` (JSON from `Resources` via the LevelKit codec + `QuietCampLevelAdapter`), `AssetCatalog`, `QuietCampAudioCatalog`, `SaveAdapter` (modular save-system), `QuietCampLocalization` |
-| `QuietCamp.Presentation` | `QuietCampBootstrap` (persistent composition root), `ScreenRouter`, `QcActionHandler`, uGUI screens via `QcUi`, `BoardRenderer`, `TentPresenter`, `PlacementController` (touch+mouse), `CameraFitter`, `DecorSpawner` |
+| `QuietCamp.Presentation` | `QuietCampBootstrap` (persistent composition root), `ScreenRouter`, `QcActionHandler`, uGUI screens via `QcUi`, `SafeAreaFitter`, `LevelDisplay` (localized level names), `BoardRenderer`, `TentPresenter`, `PlacementController` (touch+mouse), `CameraFitter`, `DecorSpawner` |
 
 Rules of thumb:
 
