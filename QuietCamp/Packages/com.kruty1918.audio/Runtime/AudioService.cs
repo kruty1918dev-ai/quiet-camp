@@ -34,6 +34,10 @@ namespace Kruty1918.Audio
         private readonly Dictionary<AudioSource, float> _activeBaseVolumeBySource = new Dictionary<AudioSource, float>();
         private readonly Dictionary<AudioSource, string> _activeChannelBySource = new Dictionary<AudioSource, string>();
         private readonly Dictionary<AudioSource, float> _activeScaleBySource = new Dictionary<AudioSource, float>();
+        private readonly Dictionary<AudioSource, int> _activeGeneration = new Dictionary<AudioSource, int>();
+        private readonly Dictionary<string, float> _lastPlayTimeByKey = new Dictionary<string, float>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<AudioSource, float> _tailSeconds = new Dictionary<AudioSource, float>();
+        private readonly Dictionary<AudioSource, float> _tailDeadline = new Dictionary<AudioSource, float>();
         private readonly Dictionary<string, float> _channelVolumes = new Dictionary<string, float>(StringComparer.OrdinalIgnoreCase);
         private readonly List<BusDuck> _ducks = new List<BusDuck>();
         private readonly HashSet<string> _warnedMissingKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -42,6 +46,12 @@ namespace Kruty1918.Audio
 
         private GameObject _root;
         private UnityEngine.SceneManagement.SceneHandle _lastProcessedSceneHandle = default;
+
+        /// <summary>
+        /// Бюджет одночасних playback (із хвостами ефектів). Понад бюджет першими
+        /// пропускаються декоративні one-shot; loop-шари запускаються завжди.
+        /// </summary>
+        public int MaxActiveVoices { get; set; } = 16;
 
         public AudioService(IAudioCatalog catalog, IAudioSceneOverrides sceneOverrides)
         {
@@ -104,6 +114,23 @@ namespace Kruty1918.Audio
                 if (source.loop || source.isPlaying)
                     continue;
 
+                // A globally paused listener must not retire suspended sources.
+                if (AudioListener.pause)
+                    continue;
+
+                // Echo/reverb tail: a finished clip keeps the source alive for a
+                // bounded window instead of returning to the pool mid-ring.
+                if (_tailSeconds.TryGetValue(source, out float tail) && tail > 0f)
+                {
+                    if (!_tailDeadline.TryGetValue(source, out float deadline))
+                    {
+                        _tailDeadline[source] = Time.unscaledTime + tail;
+                        continue;
+                    }
+                    if (Time.unscaledTime < deadline)
+                        continue;
+                }
+
                 Release(source);
             }
         }
@@ -126,6 +153,12 @@ namespace Kruty1918.Audio
             _activeCountByKey.Clear();
             _activeChannelBySource.Clear();
             _activeScaleBySource.Clear();
+            _activeBusBySource.Clear();
+            _activeBaseVolumeBySource.Clear();
+            _activeGeneration.Clear();
+            _tailSeconds.Clear();
+            _tailDeadline.Clear();
+            _lastPlayTimeByKey.Clear();
             _ducks.Clear();
             _awakeSources.Clear();
         }
@@ -251,7 +284,7 @@ namespace Kruty1918.Audio
         public void SetPlaybackScale(AudioHandle handle, float scale)
         {
             var source = handle.Source;
-            if (source == null || !_active.Contains(source))
+            if (source == null || !handle.IsValid || !_active.Contains(source))
                 return;
 
             float clamped = Mathf.Clamp01(scale);
@@ -268,10 +301,24 @@ namespace Kruty1918.Audio
         public float GetPlaybackScale(AudioHandle handle)
         {
             var source = handle.Source;
-            if (source == null)
+            if (source == null || !handle.IsValid)
                 return 1f;
 
             return _activeScaleBySource.TryGetValue(source, out float scale) ? scale : 1f;
+        }
+
+        /// <summary>True while the source still belongs to the same playback
+        /// generation — stale handles from a recycled pooled source fail this.</summary>
+        internal bool IsCurrent(AudioSource source, int generation)
+            => source != null
+                && _activeGeneration.TryGetValue(source, out int current)
+                && current == generation;
+
+        internal void StopHandle(AudioHandle handle)
+        {
+            var source = handle.Source;
+            if (source != null && IsCurrent(source, handle.Generation))
+                source.Stop();
         }
 
         private void TickDucks(float dt)
@@ -345,6 +392,21 @@ namespace Kruty1918.Audio
                 return default;
             }
 
+            // Per-key cooldown absorbs input spam (rapid taps, rotate bursts)
+            // instead of stacking identical one-shots.
+            if (sound.Cooldown > 0f
+                && _lastPlayTimeByKey.TryGetValue(sound.Key, out float lastPlay)
+                && Time.unscaledTime - lastPlay < sound.Cooldown)
+            {
+                return default;
+            }
+
+            // Voice budget: decorative one-shots yield first; ambient loops
+            // (a fixed handful by design) always start.
+            bool wantsLoop = options.LoopOverride ?? sound.Loop;
+            if (!wantsLoop && _active.Count >= MaxActiveVoices)
+                return default;
+
             var source = GetConfiguredSourceInternal(sound, options.Parent);
             source.clip = clip;
             float baseVolume = Mathf.Clamp01(ResolveVolume(sound) * options.VolumeScale);
@@ -385,14 +447,18 @@ namespace Kruty1918.Audio
             }
 
             ApplyBusVolume(source, sound.Bus, baseVolume);
-            RegisterActive(source, sound.Key, sound.Bus, baseVolume, sound.Channel);
+            RegisterActive(source, sound.Key, sound.Bus, baseVolume, sound.Channel,
+                TailSeconds(sound));
 
             var duck = sound.Duck;
             if (duck != null && duck.Enabled)
                 DuckBus(duck.TargetBus, duck.Amount, duck.Attack, duck.Hold, duck.Release);
 
+            if (sound.Cooldown > 0f)
+                _lastPlayTimeByKey[sound.Key] = Time.unscaledTime;
+
             source.Play();
-            return new AudioHandle(source);
+            return new AudioHandle(source, this, _activeGeneration[source]);
         }
 
         private void RefreshAutoPlayForCurrentScene()
@@ -589,7 +655,9 @@ namespace Kruty1918.Audio
                 return;
             }
 
-            filter ??= go.AddComponent<AudioLowPassFilter>();
+            // GetComponent returns a fake-null object in the Editor, so ??=
+            // must not be used on Unity objects — use an == null check.
+            if (filter == null) filter = go.AddComponent<AudioLowPassFilter>();
             filter.enabled = true;
             filter.cutoffFrequency = effects.LowPassCutoff;
             filter.lowpassResonanceQ = effects.LowPassResonance;
@@ -604,7 +672,7 @@ namespace Kruty1918.Audio
                 return;
             }
 
-            filter ??= go.AddComponent<AudioHighPassFilter>();
+            if (filter == null) filter = go.AddComponent<AudioHighPassFilter>();
             filter.enabled = true;
             filter.cutoffFrequency = effects.HighPassCutoff;
             filter.highpassResonanceQ = effects.HighPassResonance;
@@ -619,7 +687,7 @@ namespace Kruty1918.Audio
                 return;
             }
 
-            filter ??= go.AddComponent<AudioEchoFilter>();
+            if (filter == null) filter = go.AddComponent<AudioEchoFilter>();
             filter.enabled = true;
             filter.delay = effects.EchoDelay;
             filter.decayRatio = effects.EchoDecayRatio;
@@ -636,7 +704,7 @@ namespace Kruty1918.Audio
                 return;
             }
 
-            filter ??= go.AddComponent<AudioReverbFilter>();
+            if (filter == null) filter = go.AddComponent<AudioReverbFilter>();
             filter.enabled = true;
             filter.reverbPreset = effects.ReverbPreset;
         }
@@ -650,7 +718,7 @@ namespace Kruty1918.Audio
                 return;
             }
 
-            filter ??= go.AddComponent<AudioDistortionFilter>();
+            if (filter == null) filter = go.AddComponent<AudioDistortionFilter>();
             filter.enabled = true;
             filter.distortionLevel = effects.DistortionLevel;
         }
@@ -664,7 +732,7 @@ namespace Kruty1918.Audio
                 return;
             }
 
-            filter ??= go.AddComponent<AudioChorusFilter>();
+            if (filter == null) filter = go.AddComponent<AudioChorusFilter>();
             filter.enabled = true;
             filter.dryMix = effects.ChorusDryMix;
             filter.wetMix1 = effects.ChorusWetMix1;
@@ -735,7 +803,8 @@ namespace Kruty1918.Audio
         private int GetBusIndex(AudioBus bus)
             => Mathf.Clamp((int)bus, 0, _busVolumes.Length - 1);
 
-        private void RegisterActive(AudioSource source, string key, AudioBus bus, float baseVolume, string channel = null)
+        private void RegisterActive(AudioSource source, string key, AudioBus bus,
+            float baseVolume, string channel = null, float tailSeconds = 0f)
         {
             if (!_active.Contains(source))
                 _active.Add(source);
@@ -750,6 +819,20 @@ namespace Kruty1918.Audio
             _activeCountByKey.TryGetValue(key, out int count);
             _activeCountByKey[key] = count + 1;
             _activeScaleBySource[source] = 1f;
+            _activeGeneration.TryGetValue(source, out int generation);
+            _activeGeneration[source] = generation + 1;
+            _tailSeconds[source] = tailSeconds;
+            _tailDeadline.Remove(source);
+        }
+
+        /// <summary>Bounded wet-tail window for echo/reverb sources: one repeat
+        /// plus a decay margin so a finished clip is not pooled mid-ring.</summary>
+        static float TailSeconds(AudioSoundDefinition sound)
+        {
+            var fx = sound?.Effects;
+            if (fx == null || !fx.EnableEcho)
+                return 0f;
+            return Mathf.Clamp(fx.EchoDelay / 1000f * (1f + fx.EchoDecayRatio * 4f), 0.3f, 1.5f);
         }
 
         private void Release(AudioSource source)
@@ -773,6 +856,13 @@ namespace Kruty1918.Audio
             _activeBaseVolumeBySource.Remove(source);
             _activeChannelBySource.Remove(source);
             _activeScaleBySource.Remove(source);
+            // Generation must not reset on release: a recycled source would
+            // restart at the same counter and stale handles would match it.
+            // Bump immediately so any outstanding handle goes stale at once.
+            _activeGeneration.TryGetValue(source, out int releasedGeneration);
+            _activeGeneration[source] = releasedGeneration + 1;
+            _tailSeconds.Remove(source);
+            _tailDeadline.Remove(source);
 
             source.Stop();
             source.clip = null;

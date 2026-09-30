@@ -118,6 +118,8 @@ namespace Kruty1918.Audio
         public AudioRolloffMode RolloffMode = AudioRolloffMode.Logarithmic;
 
         public bool Loop;
+        [Tooltip("Мінімальна пауза між запусками цього ключа — захист від спаму кліками/ротейтами.")]
+        [Min(0f)] public float Cooldown;
         [Min(0)] public int PoolWarmup = 1;
         [Min(1)] public int MaxSimultaneous = 8;
         public AudioEffectSettings Effects = new AudioEffectSettings();
@@ -150,23 +152,41 @@ namespace Kruty1918.Audio
         }
     }
 
+    /// <summary>
+    /// Посилання на конкретне відтворення: пул може повторно використати той
+    /// самий AudioSource, тому handle несе generation token — застарілий
+    /// handle не зупиняє й не масштабує новий playback на тому ж source.
+    /// </summary>
     public readonly struct AudioHandle
     {
         private readonly AudioSource _source;
+        private readonly AudioService _owner;
+        private readonly int _generation;
 
         public AudioHandle(AudioSource source)
         {
             _source = source;
+            _owner = null;
+            _generation = 0;
         }
 
-        public bool IsValid => _source != null;
-        public bool IsPlaying => _source != null && _source.isPlaying;
+        internal AudioHandle(AudioSource source, AudioService owner, int generation)
+        {
+            _source = source;
+            _owner = owner;
+            _generation = generation;
+        }
+
+        public bool IsValid => _source != null
+            && (_owner == null || _owner.IsCurrent(_source, _generation));
+        public bool IsPlaying => IsValid && _source.isPlaying;
         public AudioSource Source => _source;
+        internal int Generation => _generation;
 
         public void Stop()
         {
-            if (_source != null)
-                _source.Stop();
+            if (_owner != null) _owner.StopHandle(this);
+            else if (_source != null) _source.Stop();
         }
     }
 
