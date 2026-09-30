@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Kruty1918.Atmos;
 using Kruty1918.UIActions.API;
 using QuietCamp.Application;
 using QuietCamp.Domain;
@@ -73,7 +74,7 @@ namespace QuietCamp.Presentation.World
             if (fire != null)
             {
                 Spawn("log_stack", Vector3.zero, 45, fire.transform);
-                FireFx.Create(fire.transform);
+                Campfire.Create(fire.transform);
             }
 
             foreach (var p in level.witness)

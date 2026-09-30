@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Kruty1918.Atmos;
 using QuietCamp.Domain;
 using QuietCamp.Infrastructure;
 using UnityEngine;
@@ -126,35 +127,10 @@ namespace QuietCamp.Presentation.World
             go.transform.localPosition = pos;
             go.transform.localEulerAngles = new Vector3(0f, yaw, 0f);
             if (assetId == "grass" || assetId.StartsWith("flower"))
-                ApplySway(go);
+                FoliageSway.Shared.Apply(go);
             SetLayer(go, BoardRenderer.DecorLayer);
             return go;
         }
-
-        /// <summary>
-        /// Swaps grass/flower materials to the breeze-sway shader, preserving
-        /// each renderer's base color. One shared material per color.
-        /// </summary>
-        static void ApplySway(GameObject go)
-        {
-            var shader = Shader.Find("QuietCamp/FoliageSway");
-            if (shader == null) return;
-            _swayMats ??= new Dictionary<Color, Material>();
-            foreach (var r in go.GetComponentsInChildren<Renderer>())
-            {
-                var src = r.sharedMaterial;
-                var c = src != null && src.HasProperty("_BaseColor")
-                    ? src.GetColor("_BaseColor") : Color.white;
-                if (!_swayMats.TryGetValue(c, out var mat))
-                {
-                    mat = new Material(shader);
-                    mat.SetColor("_BaseColor", c);
-                    _swayMats[c] = mat;
-                }
-                r.sharedMaterial = mat;
-            }
-        }
-        static Dictionary<Color, Material> _swayMats;
 
         static void SetLayer(GameObject go, int layer)
         {

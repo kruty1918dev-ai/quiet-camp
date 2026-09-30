@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Kruty1918.Atmos;
 using QuietCamp.Domain;
 using QuietCamp.Infrastructure;
 using UnityEngine;
@@ -145,7 +146,7 @@ namespace QuietCamp.Presentation.World
                 {
                     var logs = SpawnModel("log_stack", go.transform,
                         new Vector3(0f, 0.03f, 0f), 45, GameplayObstacleLayer);
-                    FireFx.Create(go.transform);
+                    Campfire.Create(go.transform);
                 }
             }
         }
