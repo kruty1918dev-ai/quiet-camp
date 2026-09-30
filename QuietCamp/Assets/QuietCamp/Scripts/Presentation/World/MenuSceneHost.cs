@@ -45,6 +45,8 @@ namespace QuietCamp.Presentation.World
             // Illustrated full-bleed backdrop behind SafeArea; the static art
             // replaces the old runtime 3D diorama.
             MenuArt.BuildBackground(canvasRoot).transform.SetAsFirstSibling();
+            if (safeArea.GetComponent<SafeAreaFitter>() == null)
+                safeArea.gameObject.AddComponent<SafeAreaFitter>();
             _screens = new MenuScreens(_services, safeArea);
             RegisterActions();
             _menuContext = _services.ContextStack.Push(new UiContextRegistration(

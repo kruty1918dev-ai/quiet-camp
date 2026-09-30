@@ -31,6 +31,7 @@ namespace QuietCamp.Presentation.World
         HintService _hint;
         TutorialDirector _tutorial;
         LocalizedLabel _tutorialLabel;
+        GameObject _tutorialBar;
         readonly List<System.IDisposable> _leases = new List<System.IDisposable>();
         IDisposable _gameplayContext;
         float _birdTimer = 30f;
@@ -227,6 +228,8 @@ namespace QuietCamp.Presentation.World
                 Debug.LogError("[QuietCamp] Camp scene lacks CanvasRoot/SafeArea.");
                 return;
             }
+            if (safeArea.GetComponent<SafeAreaFitter>() == null)
+                safeArea.gameObject.AddComponent<SafeAreaFitter>();
             _hud = new CampHud(_services, _session, safeArea, _router);
             _hud.AreaShown += cells => ShowAreaOverlay(cells);
             _hud.MoveShown += move => ShowMoveOverlay(move);
@@ -237,6 +240,12 @@ namespace QuietCamp.Presentation.World
                     new Vector2(24, -420), new Vector2(-24, -330));
                 bar.gameObject.AddComponent<UnityEngine.UI.Image>().color =
                     new Color(0.14f, 0.11f, 0.09f, 0.85f);
+                // Gameplay hint sits under ModalLayer — a modal (settings,
+                // pause, hint panel) always renders above gameplay chrome.
+                var modalLayer = safeArea.Find("ModalLayer");
+                if (modalLayer != null)
+                    bar.SetSiblingIndex(modalLayer.GetSiblingIndex());
+                _tutorialBar = bar.gameObject;
                 _tutorialLabel = QcUi.Label(bar, _tutorial.ActiveKey,
                     QcUi.TextSmall, TMPro.TextAlignmentOptions.Center, QcUi.Cream);
                 _tutorial.Changed += () =>
@@ -552,6 +561,14 @@ namespace QuietCamp.Presentation.World
         void Update()
         {
             _hud?.PumpHint();
+            // Gameplay hints never render over an open modal — restore the
+            // bar only once every modal has fully closed.
+            if (_tutorialBar != null)
+            {
+                var modalOpen = _hud != null && _hud.HasModalOpen;
+                if (_tutorialBar.activeSelf == modalOpen)
+                    _tutorialBar.SetActive(!modalOpen);
+            }
             _rustleCooldown -= Time.deltaTime;
             _gustSoundCooldown -= Time.deltaTime;
             _twigCooldown -= Time.deltaTime;
