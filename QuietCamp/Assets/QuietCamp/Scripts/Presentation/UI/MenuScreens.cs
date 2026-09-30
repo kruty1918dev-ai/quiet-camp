@@ -383,18 +383,26 @@ namespace QuietCamp.Presentation.UI
         {
             var slider = parent.gameObject.AddComponent<Slider>();
             slider.minValue = min; slider.maxValue = max;
-            var track = QcUi.Stretch(parent, "track");
+            var track = QcUi.Anchor(parent, "track",
+                new Vector2(0, 0.35f), new Vector2(1, 0.65f), Vector2.zero, Vector2.zero);
             var bg = track.gameObject.AddComponent<Image>();
-            bg.color = QcUi.CreamDark;
+            bg.sprite = QcUi.Sprite(QcUi.SlideTrack);
+            bg.type = Image.Type.Sliced;
+            if (bg.sprite == null) bg.color = QcUi.CreamDark;
             var handle = QcUi.Anchor(parent, "handle",
                 new Vector2(0, 0), new Vector2(0, 1),
-                new Vector2(-14, -6), new Vector2(14, 6));
+                new Vector2(-18, -4), new Vector2(18, 4));
             var handleImg = handle.gameObject.AddComponent<Image>();
-            handleImg.color = QcUi.Green;
+            handleImg.sprite = QcUi.Sprite(QcUi.SlideHandle);
+            handleImg.preserveAspect = true;
+            if (handleImg.sprite == null) handleImg.color = QcUi.Green;
             var fillArea = QcUi.Stretch(parent, "FillArea");
-            var fill = QcUi.Stretch(fillArea, "Fill");
+            var fill = QcUi.Anchor(fillArea, "Fill",
+                new Vector2(0, 0.35f), new Vector2(0, 0.65f), Vector2.zero, Vector2.zero);
             var fillImg = fill.gameObject.AddComponent<Image>();
-            fillImg.color = QcUi.GreenDark;
+            fillImg.sprite = QcUi.Sprite(QcUi.SlideFill);
+            fillImg.type = Image.Type.Sliced;
+            if (fillImg.sprite == null) fillImg.color = QcUi.GreenDark;
             slider.fillRect = fill;
             slider.handleRect = handle;
             slider.targetGraphic = handleImg;
@@ -412,13 +420,18 @@ namespace QuietCamp.Presentation.UI
                 new Vector2(0, 0), new Vector2(0.75f, 1), Vector2.zero, Vector2.zero);
             QcUi.Label(label, key, QcUi.TextSmall, TextAlignmentOptions.MidlineLeft, QcUi.Ink);
             var boxGo = QcUi.Anchor(row, "t",
-                new Vector2(0.8f, 0.15f), new Vector2(1, 0.85f), Vector2.zero, Vector2.zero);
-            var box = QcUi.PanelImage(boxGo, "bg", QcUi.CreamDark);
+                new Vector2(0.8f, 0.1f), new Vector2(1, 0.9f), Vector2.zero, Vector2.zero);
+            var box = boxGo.gameObject.AddComponent<Image>();
+            box.sprite = QcUi.Sprite(QcUi.Checkbox);
+            if (box.sprite == null) box.color = QcUi.CreamDark;
             var toggle = boxGo.gameObject.AddComponent<Toggle>();
             var check = QcUi.Anchor(boxGo, "check",
-                Vector2.zero, Vector2.one, new Vector2(8, 8), new Vector2(-8, -8));
+                new Vector2(0.15f, 0.15f), new Vector2(0.85f, 0.85f), Vector2.zero, Vector2.zero);
             var checkImg = check.gameObject.AddComponent<Image>();
-            checkImg.color = QcUi.Green;
+            checkImg.sprite = QcUi.Sprite(QcUi.IconCheck);
+            checkImg.preserveAspect = true;
+            if (checkImg.sprite == null) checkImg.color = QcUi.Green;
+            checkImg.raycastTarget = false;
             toggle.graphic = checkImg;
             toggle.targetGraphic = box;
             toggle.SetIsOnWithoutNotify(value);
@@ -437,7 +450,10 @@ namespace QuietCamp.Presentation.UI
             var dropGo = QcUi.Anchor(row, "d",
                 new Vector2(0.45f, 0.15f), new Vector2(1, 0.85f), Vector2.zero, Vector2.zero);
             var bg = dropGo.gameObject.AddComponent<Image>();
-            bg.color = QcUi.CreamDark;
+            bg.sprite = QcUi.Sprite(QcUi.BtnSecondary);
+            bg.type = Image.Type.Sliced;
+            bg.color = QcUi.Cream;
+            if (bg.sprite == null) bg.color = QcUi.CreamDark;
             var drop = dropGo.gameObject.AddComponent<TMP_Dropdown>();
             var captionGo = QcUi.Stretch(dropGo, "Caption");
             var caption = captionGo.gameObject.AddComponent<TextMeshProUGUI>();
@@ -445,12 +461,21 @@ namespace QuietCamp.Presentation.UI
             caption.color = QcUi.Ink;
             caption.alignment = TextAlignmentOptions.Center;
             drop.captionText = caption;
+            var arrowGo = QcUi.Anchor(dropGo, "arrow",
+                new Vector2(1, 0.5f), new Vector2(1, 0.5f),
+                new Vector2(-52, -16), new Vector2(-20, 16));
+            var arrowImg = arrowGo.gameObject.AddComponent<Image>();
+            arrowImg.sprite = QcUi.Sprite(QcUi.IconArrowDown);
+            arrowImg.preserveAspect = true;
+            arrowImg.raycastTarget = false;
             var templateGo = QcUi.Anchor(dropGo, "Template",
                 new Vector2(0, 0), new Vector2(1, 0),
                 new Vector2(0, -options.Length * 90f), new Vector2(0, 0));
             templateGo.gameObject.SetActive(false);
             var templateBg = templateGo.gameObject.AddComponent<Image>();
-            templateBg.color = QcUi.Cream;
+            templateBg.sprite = QcUi.Sprite(QcUi.CardSurface);
+            templateBg.type = Image.Type.Sliced;
+            if (templateBg.sprite == null) templateBg.color = QcUi.Cream;
             var templateScroll = templateGo.gameObject.AddComponent<ScrollRect>();
             var item = QcUi.Anchor(templateGo, "Item",
                 new Vector2(0, 1), new Vector2(1, 1),
@@ -472,8 +497,6 @@ namespace QuietCamp.Presentation.UI
             templateScroll.content = content;
             templateScroll.viewport = templateGo;
             item.SetParent(content, false);
-            var itemCheck = QcUi.Anchor(item, "check",
-                Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
             itemToggle.graphic = null;
             drop.options.Clear();
             foreach (var o in options) drop.options.Add(new TMP_Dropdown.OptionData(o));

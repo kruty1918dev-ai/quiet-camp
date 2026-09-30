@@ -32,6 +32,12 @@ namespace QuietCamp.Editor
             "Extra/Default/icon_repeat_dark.png",
             "Extra/Default/icon_play_light.png",
             "Extra/Default/icon_arrow_up_dark.png",
+            "Extra/Default/icon_arrow_down_dark.png",
+            "Grey/Default/slide_horizontal_grey.png",
+            "Green/Default/slide_horizontal_color.png",
+            "Grey/Default/slide_hangle.png",
+            "Grey/Default/check_square_grey.png",
+            "Grey/Default/check_square_grey_checkmark.png",
         };
 
         [MenuItem("QuietCamp/Import UI Sprites")]

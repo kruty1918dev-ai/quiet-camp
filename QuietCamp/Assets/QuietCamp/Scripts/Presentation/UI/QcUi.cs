@@ -37,6 +37,13 @@ namespace QuietCamp.Presentation.UI
         public const string IconRepeat = UiRoot + "Extra/Default/icon_repeat_dark";
         public const string IconPlay = UiRoot + "Extra/Default/icon_play_light";
         public const string IconArrowUp = UiRoot + "Extra/Default/icon_arrow_up_dark";
+        public const string IconArrowDown = UiRoot + "Extra/Default/icon_arrow_down_dark";
+        public const string SlideTrack = UiRoot + "Grey/Default/slide_horizontal_grey";
+        public const string SlideFill = UiRoot + "Green/Default/slide_horizontal_color";
+        public const string SlideHandle = UiRoot + "Grey/Default/slide_hangle";
+        public const string Checkbox = UiRoot + "Grey/Default/check_square_grey";
+        public const string BtnSecondary = BtnGrey;
+        public const string CardSurface = CardSprite;
 
         static readonly Dictionary<string, Sprite> _sprites = new Dictionary<string, Sprite>();
 
