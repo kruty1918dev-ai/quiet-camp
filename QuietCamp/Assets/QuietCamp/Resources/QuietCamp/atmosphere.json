@@ -40,7 +40,8 @@
       "whiteBalance": 3,
       "saturation": -3,
       "contrast": 2,
-      "bloom": 0.04
+      "bloom": 0.04,
+      "windAudio": 0.75
     },
     {
       "id": "noon",
@@ -67,7 +68,8 @@
       "whiteBalance": 1,
       "saturation": -4,
       "contrast": 3,
-      "bloom": 0.02
+      "bloom": 0.02,
+      "windAudio": 1.0
     },
     {
       "id": "evening",
@@ -94,7 +96,8 @@
       "whiteBalance": 5,
       "saturation": -2,
       "contrast": 2,
-      "bloom": 0.08
+      "bloom": 0.08,
+      "windAudio": 0.65
     },
     {
       "id": "night",
@@ -121,7 +124,8 @@
       "whiteBalance": -3,
       "saturation": -7,
       "contrast": 0,
-      "bloom": 0.06
+      "bloom": 0.06,
+      "windAudio": 0.45
     }
   ]
 }

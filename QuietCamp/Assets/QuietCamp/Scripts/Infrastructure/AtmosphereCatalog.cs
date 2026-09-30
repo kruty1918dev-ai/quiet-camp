@@ -18,6 +18,7 @@ namespace QuietCamp.Infrastructure
         {
             public string id, sun, ambient, foreground;
             public float sunIntensity, elevation, wind, birdMin, birdMax, crickets;
+            public float windAudio = 1f;
             public bool fire;
             public float owlMin, owlMax, gustMin = 20f, gustMax = 45f;
             public int leaves = 4, nearLeaf = 1, dust, fireflies, smoke;
@@ -34,6 +35,9 @@ namespace QuietCamp.Infrastructure
             public float SunIntensity { get; }
             public float Elevation { get; }
             public float Wind { get; }
+            /// <summary>Audible weight of the persistent wind bed per phase —
+            /// separate from the visual <see cref="Wind"/> strength.</summary>
+            public float WindAudio { get; }
             public float BirdMin { get; }
             public float BirdMax { get; }
             public float Crickets { get; }
@@ -56,12 +60,13 @@ namespace QuietCamp.Infrastructure
 
             internal Profile(string id, Color sun, Color ambient, Color foreground, float intensity,
                 float elevation, float wind, float birdMin, float birdMax, float crickets, bool fire,
-                float owlMin, float owlMax, float gustMin, float gustMax,
+                float owlMin, float owlMax, float gustMin, float gustMax, float windAudio,
                 int leaves, int nearLeaf, int dust, int fireflies, int smoke, bool mist,
                 float whiteBalance, float saturation, float contrast, float bloom)
             {
                 Id = id; Sun = sun; Ambient = ambient; Foreground = foreground;
                 SunIntensity = intensity; Elevation = elevation; Wind = wind;
+                WindAudio = windAudio;
                 BirdMin = birdMin; BirdMax = birdMax; Crickets = crickets; Fire = fire;
                 OwlMin = owlMin; OwlMax = owlMax; GustMin = gustMin; GustMax = gustMax;
                 Leaves = leaves; NearLeaf = nearLeaf; Dust = dust; Fireflies = fireflies;
@@ -94,7 +99,8 @@ namespace QuietCamp.Infrastructure
             {
                 if (p == null || !IsPhase(p.id) || profiles.ContainsKey(p.id)
                     || !InRange(p.sunIntensity, 0, 2) || !InRange(p.elevation, 0, 90)
-                    || !InRange(p.wind, 0, 1) || !InRange(p.crickets, 0, 1)
+                    || !InRange(p.wind, 0, 1) || !InRange(p.windAudio, 0, 1)
+                    || !InRange(p.crickets, 0, 1)
                     || !InRange(p.birdMin, 0, 300) || !InRange(p.birdMax, p.birdMin, 300)
                     || (p.birdMin == 0 && p.birdMax != 0)
                     || !InRange(p.owlMin, 0, 600) || !InRange(p.owlMax, p.owlMin, 600)
@@ -112,7 +118,7 @@ namespace QuietCamp.Infrastructure
                     throw new InvalidOperationException("Invalid atmosphere color: " + p.id);
                 profiles.Add(p.id, new Profile(p.id, sun, ambient, foreground, p.sunIntensity,
                     p.elevation, p.wind, p.birdMin, p.birdMax, p.crickets, p.fire,
-                    p.owlMin, p.owlMax, p.gustMin, p.gustMax,
+                    p.owlMin, p.owlMax, p.gustMin, p.gustMax, p.windAudio,
                     p.leaves, p.nearLeaf, p.dust, p.fireflies, p.smoke, p.mist,
                     p.whiteBalance, p.saturation, p.contrast, p.bloom));
             }

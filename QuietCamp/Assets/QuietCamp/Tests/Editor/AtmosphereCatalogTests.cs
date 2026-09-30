@@ -47,6 +47,17 @@ namespace QuietCamp.Tests.Editor
             Assert.IsTrue(catalog.Get("morning").Mist);
         }
 
+        [Test] public void PhaseProfilesCarryAudibleWindWeights()
+        {
+            var catalog = AtmosphereCatalog.Parse(Json);
+            // The audible wind bed weight is decoupled from the visual sway
+            // strength: noon is the fullest bed, night the quietest.
+            Assert.AreEqual(1.0f, catalog.Get("noon").WindAudio, 0.001f);
+            Assert.Greater(catalog.Get("morning").WindAudio, catalog.Get("night").WindAudio);
+            foreach (var id in new[] { "morning", "noon", "evening", "night" })
+                Assert.That(catalog.Get(id).WindAudio, Is.InRange(0f, 1f));
+        }
+
         [TestCase(.4615f, 6, 6)]
         [TestCase(.5625f, 10, 8)]
         [TestCase(1.3333f, 12, 12)]
