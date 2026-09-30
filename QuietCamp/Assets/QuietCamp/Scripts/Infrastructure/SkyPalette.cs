@@ -29,14 +29,9 @@ namespace QuietCamp.Infrastructure
             if (sky != null) RenderSettings.skybox = sky;
             if (camera != null) camera.clearFlags = CameraClearFlags.Skybox;
 
-            // Gentle depth cue: thin fog tinted toward the horizon color.
-            RenderSettings.fog = true;
-            RenderSettings.fogMode = FogMode.Linear;
-            RenderSettings.fogStartDistance = 18f;
-            RenderSettings.fogEndDistance = 42f;
-            RenderSettings.fogColor = evening
-                ? new Color(0.55f, 0.32f, 0.28f)
-                : new Color(0.85f, 0.82f, 0.70f);
+            // The reference diorama renders flat: no distance fog washing out
+            // the decor colors.
+            RenderSettings.fog = false;
 
             DynamicGI.UpdateEnvironment();
         }

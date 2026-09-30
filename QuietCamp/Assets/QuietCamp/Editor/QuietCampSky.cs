@@ -25,9 +25,9 @@ namespace QuietCamp.Editor
             }
 
             var day = new Material(shader) { name = "SkyDay" };
-            day.SetColor("_ZenithColor", new Color(0.40f, 0.62f, 0.85f));
-            day.SetColor("_HorizonColor", new Color(0.99f, 0.90f, 0.72f));
-            day.SetColor("_GroundColor", new Color(0.52f, 0.60f, 0.47f));
+            day.SetColor("_ZenithColor", new Color(0.55f, 0.70f, 0.82f));
+            day.SetColor("_HorizonColor", new Color(0.93f, 0.90f, 0.78f));
+            day.SetColor("_GroundColor", new Color(0.86f, 0.89f, 0.85f));
             day.SetColor("_SunColor", new Color(1.0f, 0.87f, 0.62f));
             day.SetVector("_SunDir", new Vector4(0.42f, 0.62f, 0.30f, 0f));
             day.SetFloat("_SunSize", 0.055f);
