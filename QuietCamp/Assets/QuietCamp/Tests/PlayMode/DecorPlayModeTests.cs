@@ -26,11 +26,13 @@ namespace QuietCamp.Tests
             // skybox background — no meadow slab under it.
             Assert.IsNull(decor.Find("Meadow"), "Meadow apron must not exist");
 
-            // Skybox + opaque pass sanity: the camera must clear to skybox.
+            // Full-screen scenery replaces the old cropped skybox.
             var cam = Camera.main;
             Assert.IsNotNull(cam, "Main camera missing");
-            Assert.AreEqual(CameraClearFlags.Skybox, cam.clearFlags,
-                "Camp camera must render the skybox background");
+            Assert.AreEqual(CameraClearFlags.SolidColor, cam.clearFlags);
+            Assert.AreEqual(new Rect(0, 0, 1, 1), cam.rect);
+            Assert.IsNotNull(cam.transform.Find("ForestBackdrop"));
+            Assert.IsNotNull(cam.transform.Find("NearFoliage"));
         }
 
         static Transform FindRoot(string name)
