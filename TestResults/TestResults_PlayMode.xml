@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="4" result="Passed" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-30 06:34:22Z" end-time="2026-09-30 06:34:28Z" duration="6,1135999">
+  <test-suite type="TestSuite" id="1013" name="Quiet Camp" fullname="Quiet Camp" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-09-30 06:34:22Z" end-time="2026-09-30 06:34:28Z" duration="6.113600" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1007" name="QuietCamp.Tests.PlayMode.dll" fullname="C:/Users/yelyzaveta.khodos.TP-GE26-20/Documents/GitHub/quiet-camp/QuietCamp/Library/ScriptAssemblies/QuietCamp.Tests.PlayMode.dll" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-09-30 06:34:22Z" end-time="2026-09-30 06:34:28Z" duration="6.106172" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="29088" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1008" name="QuietCamp" fullname="QuietCamp" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-09-30 06:34:22Z" end-time="2026-09-30 06:34:28Z" duration="6.105440" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1009" name="Tests" fullname="QuietCamp.Tests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-09-30 06:34:22Z" end-time="2026-09-30 06:34:28Z" duration="6.105223" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="BootstrapPlayModeTests" fullname="QuietCamp.Tests.BootstrapPlayModeTests" classname="QuietCamp.Tests.BootstrapPlayModeTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-30 06:34:22Z" end-time="2026-09-30 06:34:23Z" duration="1.015750" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1002" name="BootCreatesSingleBootstrapAndReachesMenu" fullname="QuietCamp.Tests.BootstrapPlayModeTests.BootCreatesSingleBootstrapAndReachesMenu" methodname="BootCreatesSingleBootstrapAndReachesMenu" classname="QuietCamp.Tests.BootstrapPlayModeTests" runstate="Runnable" seed="663079891" result="Passed" start-time="2026-09-30 06:34:22Z" end-time="2026-09-30 06:34:23Z" duration="0.510115" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1004" name="ExactlyOneEventSystemAndAudioListenerExist" fullname="QuietCamp.Tests.BootstrapPlayModeTests.ExactlyOneEventSystemAndAudioListenerExist" methodname="ExactlyOneEventSystemAndAudioListenerExist" classname="QuietCamp.Tests.BootstrapPlayModeTests" runstate="Runnable" seed="1992818556" result="Passed" start-time="2026-09-30 06:34:23Z" end-time="2026-09-30 06:34:23Z" duration="0.189545" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1003" name="ReloadingBootDoesNotDuplicateBootstrap" fullname="QuietCamp.Tests.BootstrapPlayModeTests.ReloadingBootDoesNotDuplicateBootstrap" methodname="ReloadingBootDoesNotDuplicateBootstrap" classname="QuietCamp.Tests.BootstrapPlayModeTests" runstate="Runnable" seed="1754329777" result="Passed" start-time="2026-09-30 06:34:23Z" end-time="2026-09-30 06:34:23Z" duration="0.306211" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1005" name="ScreenshotPlayModeTest" fullname="QuietCamp.Tests.ScreenshotPlayModeTest" classname="QuietCamp.Tests.ScreenshotPlayModeTest" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-30 06:34:23Z" end-time="2026-09-30 06:34:28Z" duration="5.088462" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1006" name="CaptureMenuAndCamp" fullname="QuietCamp.Tests.ScreenshotPlayModeTest.CaptureMenuAndCamp" methodname="CaptureMenuAndCamp" classname="QuietCamp.Tests.ScreenshotPlayModeTest" runstate="Runnable" seed="827734193" result="Passed" start-time="2026-09-30 06:34:23Z" end-time="2026-09-30 06:34:28Z" duration="5.065127" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[QC-UI] canvas OverlayCanvas enabled=True mode=ScreenSpaceOverlay order=80
+[QC-UI] canvas CanvasRoot enabled=True mode=ScreenSpaceOverlay order=0
+[QC-UI] tmp CanvasRoot/SafeArea/Screen_Main/col/Btn_menu_album/Label text='Мої кемпінги' active=True enabled=True font=DejaVuSans SDF size=34 rect=600x120
+[QC-UI] tmp CanvasRoot/SafeArea/Screen_Main/col/Btn_menu_continue/Label text='Продовжити' active=True enabled=True font=DejaVuSans SDF size=34 rect=600x120
+[QC-UI] tmp CanvasRoot/SafeArea/Screen_Main/col/Btn_menu_levels/Label text='Стежка рівнів' active=True enabled=True font=DejaVuSans SDF size=34 rect=600x120
+[QC-UI] tmp CanvasRoot/SafeArea/Screen_Main/col/menu_title text='Тихий кемпінг' active=True enabled=True font=DejaVuSans SDF size=64 rect=600x110
+[QC-UI] tmp CanvasRoot/SafeArea/Screen_Main/col/Btn_menu_settings/Label text='Налаштування' active=True enabled=True font=DejaVuSans SDF size=34 rect=600x120
+[QuietCamp] Screenshot → C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Screenshots\01_main_menu.png
+[QuietCamp] Screenshot → C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Screenshots\02_camp_day.png
+Saving results to: C:/Users/yelyzaveta.khodos.TP-GE26-20/AppData/LocalLow/kruty1918/Quiet Camp\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
