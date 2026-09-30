@@ -44,6 +44,14 @@ Rules of thumb:
   consumed as plain C#. Levels are authored by hand in **Tools →
   Level Kit → Level Designer** (grid painter, entity editing,
   validation, JSON save/load) — not auto-generated.
+- The endless tail after QC010 is generated at load by the
+  [LevelGen](https://github.com/kruty1918dev-ai/levelgen) package
+  (`com.kruty1918.levelgen`, local `file:` dependency): `gen:<recipe>:<index>`
+  ids run a JSON recipe pipeline (`Resources/QuietCamp/Recipes/*.json` —
+  grid/shape/path/placement steps with declarative `require` checks and
+  retries), map the result to `LevelData`, and keep only candidates the
+  `CampSolver` proves solvable. LevelGen stands alone; its LevelKit bridge
+  assembly compiles only when LevelKit is also installed.
 - Sky, campfire and foliage-sway visuals come from the
   [Atmos](https://github.com/kruty1918dev-ai/atmos) package
   (`com.kruty1918.atmos`, local `file:` dependency): `SkyPalette` delegates
@@ -64,7 +72,7 @@ Rules of thumb:
 | `Assets/QuietCamp/Prefabs/Models` | Normalized wrappers for the 12 kit models |
 | `Assets/QuietCamp/Settings/URP` | QC_Low / QC_Balanced / QC_High pipeline assets |
 | `Assets/ThirdParty` | Kenney models/UI, audio packs, DOTween |
-| `Packages` | manifest + 9 embedded `com.kruty1918.*` UPM packages (audio, save-system, localization, input-context, ui-actions, ui-foundation, notifications, runtime-diagnostics, adaptive-performance) + `com.kruty1918.levelkit` (sibling repo `../level-kit`, universal level authoring/JSON toolkit) + `com.kruty1918.atmos` (sibling repo `../atmos`, procedural sky + stylized shader toolkit) |
+| `Packages` | manifest + 9 embedded `com.kruty1918.*` UPM packages (audio, save-system, localization, input-context, ui-actions, ui-foundation, notifications, runtime-diagnostics, adaptive-performance) + `com.kruty1918.levelkit` (sibling repo `../level-kit`, universal level authoring/JSON toolkit) + `com.kruty1918.atmos` (sibling repo `../atmos`, procedural sky + stylized shader toolkit) + `com.kruty1918.levelgen` (sibling repo `../levelgen`, JSON-driven level generation toolkit) |
 
 ## Build profiles
 
