@@ -14,6 +14,8 @@ namespace QuietCamp.Infrastructure
         public const string ResourcePath = "QuietCamp/AudioCatalog";
 
         [SerializeField] AudioSoundDefinition[] _sounds = new AudioSoundDefinition[0];
+        /// <summary>Procedurally generated extras merged in alongside the kit sounds.</summary>
+        [SerializeField] AudioSoundDefinition[] _extraSounds = new AudioSoundDefinition[0];
         [SerializeField] AudioChannelDefinition[] _channels = new AudioChannelDefinition[0];
         [SerializeField] AudioBusGroupBinding[] _busGroups = new AudioBusGroupBinding[0];
         [SerializeField] SoundSceneOverride[] _sceneOverrides = new SoundSceneOverride[0];
@@ -23,6 +25,7 @@ namespace QuietCamp.Infrastructure
         Dictionary<string, AudioSoundDefinition> _map;
 
         public AudioSoundDefinition[] Sounds => _sounds;
+        public AudioSoundDefinition[] ExtraSounds => _extraSounds;
         public AudioChannelDefinition[] Channels => _channels;
         public int DefaultPoolSize => _defaultPoolSize;
         public bool PersistAcrossScenes => _persistAcrossScenes;
@@ -41,6 +44,9 @@ namespace QuietCamp.Infrastructure
                 {
                     _map = new Dictionary<string, AudioSoundDefinition>(StringComparer.OrdinalIgnoreCase);
                     foreach (var s in _sounds)
+                        if (s != null && !string.IsNullOrEmpty(s.Key))
+                            _map[s.Key] = s;
+                    foreach (var s in _extraSounds)
                         if (s != null && !string.IsNullOrEmpty(s.Key))
                             _map[s.Key] = s;
                 }
