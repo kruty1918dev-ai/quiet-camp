@@ -17,6 +17,7 @@ namespace QuietCamp.Infrastructure
         [Serializable] sealed class CampaignData
         {
             public int schemaVersion, freeLevelCount;
+            public string testLevelId;
             public string[] mvpLevelIds, campaignLevelIds, generatedLevelIds;
         }
 
@@ -78,6 +79,12 @@ namespace QuietCamp.Infrastructure
         {
             var campaign = LoadCampaign();
             return campaign?.freeLevelCount ?? 12;
+        }
+
+        /// <summary>Development/test level id — never part of the player path.</summary>
+        public static string TestLevelId()
+        {
+            return LoadCampaign()?.testLevelId;
         }
 
         static CampaignData LoadCampaign()

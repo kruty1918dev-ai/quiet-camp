@@ -45,6 +45,9 @@ namespace QuietCamp.Presentation.UI
         public const string SlideFill = UiRoot + "Green/Default/slide_horizontal_color";
         public const string SlideHandle = UiRoot + "Grey/Default/slide_hangle";
         public const string Checkbox = UiRoot + "Grey/Default/check_square_grey";
+        public const string CheckboxChecked = UiRoot + "Grey/Default/check_square_grey_checkmark";
+        public const string IconCircle = UiRoot + "Green/Default/icon_circle";
+        public const string IconCircleOutline = UiRoot + "Green/Default/icon_outline_circle";
         public const string BtnSecondary = BtnGrey;
         public const string CardSurface = CardSprite;
 
