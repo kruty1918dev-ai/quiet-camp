@@ -1,1 +1,15 @@
-{"name":"QuietCamp.Infrastructure","rootNamespace":"QuietCamp.Infrastructure","references":["QuietCamp.Domain","QuietCamp.Application","Kruty1918.SaveSystem","Kruty1918.Audio","Kruty1918.Localization","Kruty1918.LevelKit","Newtonsoft.Json"],"autoReferenced":true}
+{
+    "name": "QuietCamp.Infrastructure",
+    "rootNamespace": "QuietCamp.Infrastructure",
+    "references": [
+        "QuietCamp.Domain",
+        "QuietCamp.Application",
+        "Kruty1918.SaveSystem",
+        "Kruty1918.Audio",
+        "Kruty1918.Localization",
+        "Kruty1918.LevelKit",
+        "Newtonsoft.Json",
+        "Kruty1918.Atmos"
+    ],
+    "autoReferenced": true
+}
