@@ -120,10 +120,10 @@ namespace QuietCamp.Presentation
                 if (s != null) named[s.name] = s;
             var byIndex = new[]
             {
-                named.TryGetValue("sage", out var a) ? a : null,
-                named.TryGetValue("olive", out var b) ? b : null,
-                named.TryGetValue("twig", out var c) ? c : null,
-                named.TryGetValue("amber", out var d) ? d : null,
+                named.TryGetValue("leaf_sage", out var a) ? a : null,
+                named.TryGetValue("leaf_olive", out var b) ? b : null,
+                named.TryGetValue("leaf_twig", out var c) ? c : null,
+                named.TryGetValue("leaf_amber", out var d) ? d : null,
             };
             _leaves = new Image[TransitionConfig.MaxLeaves];
             for (var i = 0; i < _leaves.Length; i++)
@@ -423,6 +423,10 @@ namespace QuietCamp.Presentation
         string _targetPhase;
         string TargetPhase() => _targetPhase;
 
+        // Depth variance: later leaves sit slightly darker/lighter so the
+        // canopy reads as layered masses instead of one flat silhouette.
+        static readonly float[] LeafShade = { 1.0f, 0.78f, 1.16f, 0.88f, 1.07f, 0.72f };
+
         static float Smooth(float t) => t * t * (3f - 2f * t);
         static Color Alpha(Color c, float a) { c.a = Mathf.Clamp01(a); return c; }
 
@@ -450,6 +454,10 @@ namespace QuietCamp.Presentation
                 _leaves[i].rectTransform.localRotation = Quaternion.Euler(0f, 0f,
                     cfg.LeafRotation[i] + cfg.LeafSpin[i] * lp);
                 var c = _leafTint;
+                // Per-leaf brightness offset keeps the masses readable as
+                // separate layers even at full cover.
+                var m = LeafShade[i % LeafShade.Length];
+                c.r *= m; c.g *= m; c.b *= m;
                 c.a = Mathf.Clamp01(lp * 1.6f);
                 _leaves[i].color = c;
             }
