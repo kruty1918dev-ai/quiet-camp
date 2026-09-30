@@ -21,7 +21,11 @@ namespace QuietCamp.Tests.Editor
             "Universal Render Pipeline/Lit",            // CreatePrimitive default material
             "Universal Render Pipeline/Simple Lit",     // BoardRenderer lit props
             "Universal Render Pipeline/Unlit",          // grid, overlays, markers, ghost
-            "Universal Render Pipeline/Particles/Unlit" // FireFx
+            "Universal Render Pipeline/Particles/Unlit",// Campfire embers
+            "Atmos/SkyGradient",                        // skybox (Kruty1918.Atmos)
+            "Atmos/FoliageSway",                        // grass/flower sway
+            "Atmos/FireGlow",                           // campfire ground glow
+            "Atmos/FireFlame"                           // campfire flames
         };
 
         static string GraphicsSettingsPath =>
