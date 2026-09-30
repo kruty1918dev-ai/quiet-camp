@@ -32,6 +32,7 @@ namespace QuietCamp.Editor
             var settings = EnsureTmpSettingsAsset();
             var fontAsset = EnsureTmpFont();
             EnsureTmpSettingsFont(settings, fontAsset);
+            KenneyUiImporter.Run();
             EnsureBuildProfiles();
             AssetDatabase.SaveAssets();
             Debug.Log("[QuietCamp] Project setup complete.");
