@@ -11,7 +11,7 @@ namespace QuietCamp.Tests
         LevelData Control()=>JsonConvert.DeserializeObject<LevelData>(File.ReadAllText(Root+"QC_TEST.json"));
         [Test] public void EveryShippedWitnessIsSolved()
         {
-            var paths=Directory.GetFiles(Root,"*.json");Assert.That(paths.Length,Is.EqualTo(61));
+            var paths=Directory.GetFiles(Root,"*.json");Assert.That(paths.Length,Is.EqualTo(11));
             foreach(var path in paths)
             {
                 var level=JsonConvert.DeserializeObject<LevelData>(File.ReadAllText(path));

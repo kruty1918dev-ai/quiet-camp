@@ -53,7 +53,7 @@ Rules of thumb:
 | Path | Contents |
 |---|---|
 | `Assets/QuietCamp/Scenes` | `Boot` → `MainMenu` → `Camp` (reusable, JSON-driven) |
-| `Assets/QuietCamp/Resources/QuietCamp/Levels` | 60 campaign maps + `QC_TEST` |
+| `Assets/QuietCamp/Resources/QuietCamp/Levels` | 10 hand-authored campaign levels (QC001–QC010) + `QC_TEST` |
 | `Assets/QuietCamp/Resources/QuietCampLocales` | uk / en / de catalogs |
 | `Assets/QuietCamp/Prefabs/Models` | Normalized wrappers for the 12 kit models |
 | `Assets/QuietCamp/Settings/URP` | QC_Low / QC_Balanced / QC_High pipeline assets |
