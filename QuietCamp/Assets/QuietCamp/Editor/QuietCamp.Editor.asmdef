@@ -1,1 +1,1 @@
-{"name":"QuietCamp.Editor","rootNamespace":"QuietCamp.Editor","references":["QuietCamp.Runtime","QuietCamp.Domain","Unity.TextMeshPro"],"includePlatforms":["Editor"],"autoReferenced":true}
+{"name": "QuietCamp.Editor", "rootNamespace": "QuietCamp.Editor", "references": ["QuietCamp.Domain", "QuietCamp.Application", "QuietCamp.Infrastructure", "QuietCamp.Presentation", "Unity.TextMeshPro", "Unity.RenderPipelines.Universal.Runtime", "Newtonsoft.Json", "Kruty1918.Audio"], "includePlatforms": ["Editor"], "autoReferenced": true}

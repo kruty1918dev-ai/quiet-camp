@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a6813b42882e4a4ebe25a138f2eea28, type: 3}
+  m_Name: AssetCatalog
+  m_EditorClassIdentifier: QuietCamp.Infrastructure::QuietCamp.Infrastructure.AssetCatalog
+  _entries:
+  - assetId: campfire_stones
+    prefab: {fileID: 6200212498273073867, guid: acaea0d9348ea2440a37f773463782f0, type: 3}
+    logicalFootprint: 1x1
+    role: "\u041A\u0440\u0443\u0433 \u0432\u043E\u0433\u043D\u0438\u0449\u0430 \u0443 noiseCell"
+    visualYaw: 0
+  - assetId: flower_yellowA
+    prefab: {fileID: 8575052148178371959, guid: a0833807ce5c193409f8afb5cd2bdb3a, type: 3}
+    logicalFootprint: decor
+    role: "\u041A\u0432\u0456\u0442\u0438 \u043F\u043E\u0437\u0430 \u043F\u043E\u043B\u0435\u043C"
+    visualYaw: 0
+  - assetId: grass
+    prefab: {fileID: 4066954704931294318, guid: 7a28a67847661cf46813ace3d6dbc1a0, type: 3}
+    logicalFootprint: decor
+    role: "\u0422\u0440\u0430\u0432\u0430 \u043F\u043E\u0437\u0430 \u0456\u0433\u0440\u043E\u0432\u0438\u043C\u0438 \u043A\u043B\u0456\u0442\u0438\u043D\u0430\u043C\u0438"
+    visualYaw: 0
+  - assetId: log
+    prefab: {fileID: 480799402731740559, guid: 8fbedaa61afec874991c1d70aaedc5d3, type: 3}
+    logicalFootprint: decor
+    role: "\u041A\u043E\u043B\u043E\u0434\u0430 \u043F\u043E\u0437\u0430 \u043F\u043E\u043B\u0435\u043C"
+    visualYaw: 0
+  - assetId: log_stack
+    prefab: {fileID: 6993458424202840644, guid: 88f6ad3d97df5cf42af97dffec6c4b6d, type: 3}
+    logicalFootprint: child
+    role: "\u0414\u0440\u043E\u0432\u0430 \u0432\u0441\u0435\u0440\u0435\u0434\u0438\u043D\u0456 \u0432\u043E\u0433\u043D\u0438\u0449\u0430"
+    visualYaw: 0
+  - assetId: sign
+    prefab: {fileID: 199794507196368971, guid: e881eee0dacd787479d24e1f45b641df, type: 3}
+    logicalFootprint: decor
+    role: "\u0417\u043D\u0430\u043A \u043F\u043E\u0437\u0430 \u043F\u043E\u043B\u0435\u043C \u0431\u0456\u043B\u044F \u0432\u0445\u043E\u0434\u0443"
+    visualYaw: 0
+  - assetId: stone_largeA
+    prefab: {fileID: 2352607999073067455, guid: e213be3a515838640856da922a4485f5, type: 3}
+    logicalFootprint: 1x1
+    role: "\u0411\u043B\u043E\u043A\u043E\u0432\u0430\u043D\u0430 \u043A\u043B\u0456\u0442\u0438\u043D\u0430 \u043A\u0430\u043C\u0435\u043D\u044F"
+    visualYaw: 0
+  - assetId: stump_round
+    prefab: {fileID: 2835226208501649336, guid: 23ae20c2df87d204eb9e2d46038e2c97, type: 3}
+    logicalFootprint: decor
+    role: "\u041F\u0435\u043D\u044C \u043F\u043E\u0437\u0430 \u043F\u043E\u043B\u0435\u043C"
+    visualYaw: 0
+  - assetId: tent_detailedOpen
+    prefab: {fileID: 6792370748743197050, guid: 920599e2399aea149b7164f819a5080c, type: 3}
+    logicalFootprint: 2x2
+    role: "\u041D\u0430\u043C\u0435\u0442 \u0433\u043E\u0441\u0442\u0435\u0439 3 \u0434\u043E 6"
+    visualYaw: 0
+  - assetId: tent_smallOpen
+    prefab: {fileID: 8815022688134931242, guid: 16c3bd7def1921442a5dddda5d1ead56, type: 3}
+    logicalFootprint: 2x2
+    role: "\u041D\u0430\u043C\u0435\u0442 \u0433\u043E\u0441\u0442\u0435\u0439 1 \u0442\u0430 2"
+    visualYaw: 0
+  - assetId: tree_default
+    prefab: {fileID: 1811350865058455160, guid: 9654818299704f84b899b54da524547a, type: 3}
+    logicalFootprint: decor
+    role: "\u041B\u0438\u0441\u0442\u044F\u043D\u0456 \u0434\u0435\u0440\u0435\u0432\u0430 \u043F\u043E\u0437\u0430 \u043F\u043E\u043B\u0435\u043C"
+    visualYaw: 0
+  - assetId: tree_pineRoundA
+    prefab: {fileID: 5667191420697707758, guid: 528a3a35464bbf048a2f18d3d23c7b99, type: 3}
+    logicalFootprint: decor
+    role: "\u0421\u043E\u0441\u043D\u0438 \u043F\u043E\u0437\u0430 \u043F\u043E\u043B\u0435\u043C"
+    visualYaw: 0

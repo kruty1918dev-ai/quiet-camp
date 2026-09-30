@@ -55,3 +55,8 @@ crashlytics-build.properties
 # OS clutter
 .DS_Store
 Thumbs.db
+
+# Local QA logs / test artifacts
+qc_*.log
+qc_*.xml
+TestResults*.xml

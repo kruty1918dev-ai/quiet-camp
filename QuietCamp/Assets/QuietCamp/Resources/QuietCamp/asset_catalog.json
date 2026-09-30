@@ -1,0 +1,437 @@
+{
+  "version": 1,
+  "models": [
+    {
+      "pack": "nature",
+      "file": "nature/Models/OBJ format/campfire_stones.obj",
+      "name": "campfire_stones",
+      "vertices": 132,
+      "triangles": 264,
+      "boundsMin": [
+        -0.2908635,
+        0.0,
+        -0.2577535
+      ],
+      "boundsMax": [
+        0.2499744,
+        0.077751,
+        0.2577535
+      ],
+      "size": [
+        0.5408379,
+        0.077751,
+        0.515507
+      ],
+      "selected": true,
+      "normalizeBy": "width",
+      "target": 0.85,
+      "uniformScaleOBJ": 1.5716354197810471,
+      "normalizedSize": [
+        0.85,
+        0.12219622552339619,
+        0.8101890603450683
+      ],
+      "role": "Круг вогнища у noiseCell",
+      "logicalFootprint": "1x1",
+      "prefab": "Assets/QuietCamp/Prefabs/Models/campfire_stones.prefab",
+      "sourceUnity": "Assets/ThirdParty/KenneyNature/Models/campfire_stones.obj",
+      "visualYaw": 0
+    },
+    {
+      "pack": "nature",
+      "file": "nature/Models/OBJ format/flower_yellowA.obj",
+      "name": "flower_yellowA",
+      "vertices": 33,
+      "triangles": 76,
+      "boundsMin": [
+        -0.05456302,
+        0.0,
+        -0.09052953
+      ],
+      "boundsMax": [
+        0.1045345,
+        0.1925,
+        0.09052953
+      ],
+      "size": [
+        0.15909752,
+        0.1925,
+        0.18105906
+      ],
+      "selected": true,
+      "normalizeBy": "height",
+      "target": 0.24,
+      "uniformScaleOBJ": 1.2467532467532467,
+      "normalizedSize": [
+        0.1983553496103896,
+        0.24,
+        0.2257359709090909
+      ],
+      "role": "Квіти поза полем",
+      "logicalFootprint": "decor",
+      "prefab": "Assets/QuietCamp/Prefabs/Models/flower_yellowA.prefab",
+      "sourceUnity": "Assets/ThirdParty/KenneyNature/Models/flower_yellowA.obj",
+      "visualYaw": 0
+    },
+    {
+      "pack": "nature",
+      "file": "nature/Models/OBJ format/grass.obj",
+      "name": "grass",
+      "vertices": 84,
+      "triangles": 132,
+      "boundsMin": [
+        -0.1822374,
+        0.0,
+        -0.152844
+      ],
+      "boundsMax": [
+        0.1988366,
+        0.254,
+        0.2393388
+      ],
+      "size": [
+        0.381074,
+        0.254,
+        0.3921828
+      ],
+      "selected": true,
+      "normalizeBy": "height",
+      "target": 0.18,
+      "uniformScaleOBJ": 0.7086614173228346,
+      "normalizedSize": [
+        0.2700524409448819,
+        0.18,
+        0.27792481889763776
+      ],
+      "role": "Трава поза ігровими клітинами",
+      "logicalFootprint": "decor",
+      "prefab": "Assets/QuietCamp/Prefabs/Models/grass.prefab",
+      "sourceUnity": "Assets/ThirdParty/KenneyNature/Models/grass.obj",
+      "visualYaw": 0
+    },
+    {
+      "pack": "nature",
+      "file": "nature/Models/OBJ format/log.obj",
+      "name": "log",
+      "vertices": 52,
+      "triangles": 200,
+      "boundsMin": [
+        -0.1247172,
+        0.0,
+        -0.355
+      ],
+      "boundsMax": [
+        0.1092439,
+        0.1732051,
+        0.355
+      ],
+      "size": [
+        0.2339611,
+        0.1732051,
+        0.71
+      ],
+      "selected": true,
+      "normalizeBy": "width",
+      "target": 0.7,
+      "uniformScaleOBJ": 0.9859154929577465,
+      "normalizedSize": [
+        0.23066587323943663,
+        0.17076559154929577,
+        0.7
+      ],
+      "role": "Колода поза полем",
+      "logicalFootprint": "decor",
+      "prefab": "Assets/QuietCamp/Prefabs/Models/log.prefab",
+      "sourceUnity": "Assets/ThirdParty/KenneyNature/Models/log.obj",
+      "visualYaw": 0
+    },
+    {
+      "pack": "nature",
+      "file": "nature/Models/OBJ format/log_stack.obj",
+      "name": "log_stack",
+      "vertices": 92,
+      "triangles": 184,
+      "boundsMin": [
+        -0.2,
+        -8.195639e-08,
+        -0.355
+      ],
+      "boundsMax": [
+        0.2247171,
+        0.3464101,
+        0.355
+      ],
+      "size": [
+        0.4247171,
+        0.34641018195639,
+        0.71
+      ],
+      "selected": true,
+      "normalizeBy": "width",
+      "target": 0.55,
+      "uniformScaleOBJ": 0.7746478873239437,
+      "normalizedSize": [
+        0.32900620422535215,
+        0.26834591560002047,
+        0.55
+      ],
+      "role": "Дрова всередині вогнища",
+      "logicalFootprint": "child",
+      "prefab": "Assets/QuietCamp/Prefabs/Models/log_stack.prefab",
+      "sourceUnity": "Assets/ThirdParty/KenneyNature/Models/log_stack.obj",
+      "visualYaw": 0
+    },
+    {
+      "pack": "nature",
+      "file": "nature/Models/OBJ format/sign.obj",
+      "name": "sign",
+      "vertices": 24,
+      "triangles": 44,
+      "boundsMin": [
+        -0.15,
+        0.0,
+        -0.0175
+      ],
+      "boundsMax": [
+        0.15,
+        0.4087705,
+        0.0525
+      ],
+      "size": [
+        0.3,
+        0.4087705,
+        0.07
+      ],
+      "selected": true,
+      "normalizeBy": "height",
+      "target": 0.65,
+      "uniformScaleOBJ": 1.5901343174226126,
+      "normalizedSize": [
+        0.47704029522678376,
+        0.65,
+        0.1113094022195829
+      ],
+      "role": "Знак поза полем біля входу",
+      "logicalFootprint": "decor",
+      "prefab": "Assets/QuietCamp/Prefabs/Models/sign.prefab",
+      "sourceUnity": "Assets/ThirdParty/KenneyNature/Models/sign.obj",
+      "visualYaw": 0
+    },
+    {
+      "pack": "nature",
+      "file": "nature/Models/OBJ format/stone_largeA.obj",
+      "name": "stone_largeA",
+      "vertices": 42,
+      "triangles": 80,
+      "boundsMin": [
+        -0.3924533,
+        0.0,
+        -0.5077307
+      ],
+      "boundsMax": [
+        0.3924533,
+        0.259776,
+        0.5077307
+      ],
+      "size": [
+        0.7849066,
+        0.259776,
+        1.0154614
+      ],
+      "selected": true,
+      "normalizeBy": "width",
+      "target": 0.8,
+      "uniformScaleOBJ": 0.7878192120350415,
+      "normalizedSize": [
+        0.6183644991331034,
+        0.20465652362561493,
+        0.8
+      ],
+      "role": "Блокована клітина каменя",
+      "logicalFootprint": "1x1",
+      "prefab": "Assets/QuietCamp/Prefabs/Models/stone_largeA.prefab",
+      "sourceUnity": "Assets/ThirdParty/KenneyNature/Models/stone_largeA.obj",
+      "visualYaw": 0
+    },
+    {
+      "pack": "nature",
+      "file": "nature/Models/OBJ format/stump_round.obj",
+      "name": "stump_round",
+      "vertices": 30,
+      "triangles": 56,
+      "boundsMin": [
+        -0.1606477,
+        0.0,
+        -0.1855
+      ],
+      "boundsMax": [
+        0.1606477,
+        0.2065,
+        0.1855
+      ],
+      "size": [
+        0.3212954,
+        0.2065,
+        0.371
+      ],
+      "selected": true,
+      "normalizeBy": "width",
+      "target": 0.5,
+      "uniformScaleOBJ": 1.3477088948787062,
+      "normalizedSize": [
+        0.43301266846361186,
+        0.2783018867924528,
+        0.5
+      ],
+      "role": "Пень поза полем",
+      "logicalFootprint": "decor",
+      "prefab": "Assets/QuietCamp/Prefabs/Models/stump_round.prefab",
+      "sourceUnity": "Assets/ThirdParty/KenneyNature/Models/stump_round.obj",
+      "visualYaw": 0
+    },
+    {
+      "pack": "nature",
+      "file": "nature/Models/OBJ format/tent_detailedOpen.obj",
+      "name": "tent_detailedOpen",
+      "vertices": 89,
+      "triangles": 232,
+      "boundsMin": [
+        -0.437464,
+        0.0,
+        -0.3182
+      ],
+      "boundsMax": [
+        0.437464,
+        0.5611308,
+        0.3482
+      ],
+      "size": [
+        0.874928,
+        0.5611308,
+        0.6664
+      ],
+      "selected": true,
+      "normalizeBy": "width",
+      "target": 1.7,
+      "uniformScaleOBJ": 1.9430170254009471,
+      "normalizedSize": [
+        1.7,
+        1.090286697876854,
+        1.2948265457271912
+      ],
+      "role": "Намет гостей 3 до 6",
+      "logicalFootprint": "2x2",
+      "prefab": "Assets/QuietCamp/Prefabs/Models/tent_detailedOpen.prefab",
+      "sourceUnity": "Assets/ThirdParty/KenneyNature/Models/tent_detailedOpen.obj",
+      "visualYaw": 0
+    },
+    {
+      "pack": "nature",
+      "file": "nature/Models/OBJ format/tent_smallOpen.obj",
+      "name": "tent_smallOpen",
+      "vertices": 69,
+      "triangles": 224,
+      "boundsMin": [
+        -0.2738,
+        0.0,
+        -0.3182
+      ],
+      "boundsMax": [
+        0.2738,
+        0.5611308,
+        0.3482
+      ],
+      "size": [
+        0.5476,
+        0.5611308,
+        0.6664
+      ],
+      "selected": true,
+      "normalizeBy": "width",
+      "target": 1.7,
+      "uniformScaleOBJ": 2.5510204081632653,
+      "normalizedSize": [
+        1.396938775510204,
+        1.4314561224489797,
+        1.7
+      ],
+      "role": "Намет гостей 1 та 2",
+      "logicalFootprint": "2x2",
+      "prefab": "Assets/QuietCamp/Prefabs/Models/tent_smallOpen.prefab",
+      "sourceUnity": "Assets/ThirdParty/KenneyNature/Models/tent_smallOpen.obj",
+      "visualYaw": 0
+    },
+    {
+      "pack": "nature",
+      "file": "nature/Models/OBJ format/tree_default.obj",
+      "name": "tree_default",
+      "vertices": 59,
+      "triangles": 114,
+      "boundsMin": [
+        -0.3775,
+        0.0,
+        -0.3269245
+      ],
+      "boundsMax": [
+        0.3775,
+        1.707887,
+        0.3269245
+      ],
+      "size": [
+        0.755,
+        1.707887,
+        0.653849
+      ],
+      "selected": true,
+      "normalizeBy": "height",
+      "target": 2.6,
+      "uniformScaleOBJ": 1.52234896102611,
+      "normalizedSize": [
+        1.1493734655747132,
+        2.6,
+        0.995386345817961
+      ],
+      "role": "Листяні дерева поза полем",
+      "logicalFootprint": "decor",
+      "prefab": "Assets/QuietCamp/Prefabs/Models/tree_default.prefab",
+      "sourceUnity": "Assets/ThirdParty/KenneyNature/Models/tree_default.obj",
+      "visualYaw": 0
+    },
+    {
+      "pack": "nature",
+      "file": "nature/Models/OBJ format/tree_pineRoundA.obj",
+      "name": "tree_pineRoundA",
+      "vertices": 104,
+      "triangles": 204,
+      "boundsMin": [
+        -0.3085094,
+        0.0,
+        -0.356236
+      ],
+      "boundsMax": [
+        0.3085094,
+        1.366437,
+        0.356236
+      ],
+      "size": [
+        0.6170188,
+        1.366437,
+        0.712472
+      ],
+      "selected": true,
+      "normalizeBy": "height",
+      "target": 2.8,
+      "uniformScaleOBJ": 2.049124840735431,
+      "normalizedSize": [
+        1.2643485502807668,
+        2.8,
+        1.459944073528454
+      ],
+      "role": "Сосни поза полем",
+      "logicalFootprint": "decor",
+      "prefab": "Assets/QuietCamp/Prefabs/Models/tree_pineRoundA.prefab",
+      "sourceUnity": "Assets/ThirdParty/KenneyNature/Models/tree_pineRoundA.obj",
+      "visualYaw": 0
+    }
+  ]
+}

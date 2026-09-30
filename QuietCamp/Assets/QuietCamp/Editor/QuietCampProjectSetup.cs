@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using System.Reflection;
 using TMPro;
 using UnityEditor;
 using UnityEditor.Build.Profile;
@@ -16,16 +18,57 @@ namespace QuietCamp.Editor
         private const string FontPath = "Assets/QuietCamp/Resources/Fonts/DejaVuSans.ttf";
         private const string FontAssetPath = "Assets/QuietCamp/Resources/Fonts/DejaVuSans SDF.asset";
         private const string TmpSettingsPath = "Assets/QuietCamp/Resources/TMP Settings.asset";
-        private const string BuildProfileDir = "Assets/QuietCamp/Settings/Build Profiles";
 
         [MenuItem("Tools/Quiet Camp/Setup Project")]
         public static void Run()
         {
+            // TMP's Distance Field shaders ship inside a .unitypackage in the
+            // ugui package — import it once so font-asset materials resolve.
+            EnsureTmpEssentials();
+            // TMP_Settings.instance must exist before CreateFontAsset — it reads
+            // settings during atlas allocation. Settings first, font second.
+            var settings = EnsureTmpSettingsAsset();
             var fontAsset = EnsureTmpFont();
-            EnsureTmpSettings(fontAsset);
+            EnsureTmpSettingsFont(settings, fontAsset);
             EnsureBuildProfiles();
             AssetDatabase.SaveAssets();
             Debug.Log("[QuietCamp] Project setup complete.");
+        }
+
+        private static void EnsureTmpEssentials()
+        {
+            const string marker = "Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader";
+            var pkg = UnityEditor.PackageManager.PackageInfo.FindForPackageName("com.unity.ugui");
+            var full = pkg != null
+                ? Path.Combine(pkg.resolvedPath, "Package Resources", "TMP Essential Resources.unitypackage")
+                : null;
+            if (AssetDatabase.LoadAssetAtPath<Shader>(marker) == null
+                && Shader.Find("TextMeshPro/Mobile/Distance Field") == null
+                && full != null && File.Exists(full))
+            {
+                AssetDatabase.ImportPackage(full, false);
+                AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+            }
+            if (Shader.Find("TextMeshPro/Mobile/Distance Field") == null
+                && AssetDatabase.LoadAssetAtPath<Shader>(marker) == null)
+                Debug.LogError("[QuietCamp] TMP shaders unavailable — TMP text will not render.");
+        }
+
+        private static TMP_Settings EnsureTmpSettingsAsset()
+        {
+            var settings = AssetDatabase.LoadAssetAtPath<TMP_Settings>(TmpSettingsPath);
+            if (settings != null) return settings;
+            settings = ScriptableObject.CreateInstance<TMP_Settings>();
+            AssetDatabase.CreateAsset(settings, TmpSettingsPath);
+            return settings;
+        }
+
+        private static void EnsureTmpSettingsFont(TMP_Settings settings, TMP_FontAsset fontAsset)
+        {
+            if (settings == null || fontAsset == null) return;
+            var so = new SerializedObject(settings);
+            var prop = so.FindProperty("m_defaultFontAsset");
+            if (prop != null) { prop.objectReferenceValue = fontAsset; so.ApplyModifiedPropertiesWithoutUndo(); }
         }
 
         private static TMP_FontAsset EnsureTmpFont()
@@ -38,47 +81,95 @@ namespace QuietCamp.Editor
             asset.name = "DejaVuSans SDF";
             asset.atlasPopulationMode = AtlasPopulationMode.Dynamic;
             AssetDatabase.CreateAsset(asset, FontAssetPath);
+            var atlas = new Texture2D(asset.atlasWidth, asset.atlasHeight, TextureFormat.Alpha8, false)
+            {
+                name = "DejaVuSans Atlas",
+                hideFlags = HideFlags.HideInHierarchy
+            };
+            AssetDatabase.AddObjectToAsset(atlas, asset);
+            asset.atlasTextures = new[] { atlas };
+            EditorUtility.SetDirty(asset);
             return asset;
-        }
-
-        private static void EnsureTmpSettings(TMP_FontAsset fontAsset)
-        {
-            var settings = AssetDatabase.LoadAssetAtPath<TMP_Settings>(TmpSettingsPath);
-            if (settings == null)
-            {
-                settings = ScriptableObject.CreateInstance<TMP_Settings>();
-                AssetDatabase.CreateAsset(settings, TmpSettingsPath);
-            }
-            if (fontAsset != null)
-            {
-                var so = new SerializedObject(settings);
-                var prop = so.FindProperty("m_defaultFontAsset");
-                if (prop != null) { prop.objectReferenceValue = fontAsset; so.ApplyModifiedPropertiesWithoutUndo(); }
-            }
         }
 
         private static void EnsureBuildProfiles()
         {
-            Directory.CreateDirectory(BuildProfileDir);
             GUID? android = null;
             foreach (var module in BuildProfile.GetInstalledPlatformModules())
                 if (module.displayName.Contains("Android")) { android = module.platformGuid; break; }
-            if (android == null) { Debug.LogWarning("[QuietCamp] Android module not installed — skipping build profiles."); return; }
-
-            EnsureProfile(android.Value, Path.Combine(BuildProfileDir, "Android Development.asset"), development: true);
-            EnsureProfile(android.Value, Path.Combine(BuildProfileDir, "Android Release.asset"), development: false);
+            if (android == null)
+            {
+                Debug.LogWarning("[QuietCamp] Android module not installed — skipping build profiles.");
+                return;
+            }
+            EnsureProfile(android.Value, "Android Development", development: true);
+            EnsureProfile(android.Value, "Android Release", development: false);
         }
 
-        private static void EnsureProfile(GUID platformGuid, string path, bool development)
+        /// <summary>
+        /// CreateBuildProfile registers its callback as a persistent listener —
+        /// the delegate target must be a UnityEngine.Object, so lambdas crash.
+        /// A transient ScriptableObject holder carries the config instead.
+        /// </summary>
+        private sealed class ProfileReady : ScriptableObject
         {
-            if (AssetDatabase.LoadAssetAtPath<BuildProfile>(path) != null) return;
-            BuildProfile.CreateBuildProfile(platformGuid, path, profile =>
+            public bool development;
+            public string[] defines;
+
+            public void OnReady(BuildProfile profile)
             {
-                if (development) profile.scriptingDefines = new[] { "QC_TEST" };
-                var so = new SerializedObject(profile);
-                var dev = so.FindProperty("m_Development") ?? so.FindProperty("m_DevelopmentBuild");
-                if (dev != null) { dev.boolValue = development; so.ApplyModifiedPropertiesWithoutUndo(); }
-            });
+                var comp = typeof(BuildProfile)
+                    .GetField("m_PlatformBuildProfile",
+                        BindingFlags.NonPublic | BindingFlags.Instance)
+                    ?.GetValue(profile);
+                var devField = comp?.GetType().GetField("m_Development",
+                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                devField?.SetValue(comp, development);
+                if (defines != null && defines.Length > 0)
+                    profile.scriptingDefines = defines;
+                EditorUtility.SetDirty(profile);
+                DestroyImmediate(this);
+            }
+        }
+
+        private static void EnsureProfile(GUID platformGuid, string name, bool development)
+        {
+            var path = $"Assets/Settings/Build Profiles/{name}.asset";
+            var profile = AssetDatabase.LoadAssetAtPath<BuildProfile>(path);
+            if (profile == null)
+            {
+                var holder = ScriptableObject.CreateInstance<ProfileReady>();
+                holder.development = development;
+                holder.defines = development ? new[] { "QC_TEST" } : null;
+                BuildProfile.CreateBuildProfile(platformGuid, name, holder.OnReady);
+                AssetDatabase.ImportAsset(path);
+                profile = AssetDatabase.LoadAssetAtPath<BuildProfile>(path);
+                if (profile == null)
+                {
+                    Debug.LogError($"[QuietCamp] Build profile not created at {path}");
+                    return;
+                }
+            }
+            var comp = typeof(BuildProfile)
+                .GetField("m_PlatformBuildProfile", BindingFlags.NonPublic | BindingFlags.Instance)
+                ?.GetValue(profile);
+            if (comp == null)
+            {
+                Debug.LogWarning($"[QuietCamp] {name}: platform build settings component missing.");
+                return;
+            }
+            FieldInfo devField = null;
+            for (var t = comp.GetType(); t != null && devField == null; t = t.BaseType)
+                devField = t.GetField("m_Development",
+                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+            if (devField == null)
+            {
+                Debug.LogWarning($"[QuietCamp] {name}: m_Development not found on {comp.GetType().Name} hierarchy.");
+                return;
+            }
+            devField.SetValue(comp, development);
+            EditorUtility.SetDirty(profile);
+            AssetDatabase.SaveAssetIfDirty(profile);
         }
     }
 }
