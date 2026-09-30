@@ -219,7 +219,7 @@ namespace QuietCamp.Presentation.World
             {
                 var next = _services.Progression.NextAfter(_session.Level.id, LevelLoader.MvpLevelIds());
                 _services.Save.Save();
-                if (next != null) _router.GoToCamp(next);
+                if (next != null) _router.GoToNextCamp(next);
                 else _router.GoToMenu();
                 return Performed();
             }));
