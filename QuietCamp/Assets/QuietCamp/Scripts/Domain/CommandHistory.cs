@@ -7,6 +7,8 @@ namespace QuietCamp.Domain
         readonly Stack<Placement[]> undo=new Stack<Placement[]>();
         readonly Stack<Placement[]> redo=new Stack<Placement[]>();
         public Placement[] Current { get; private set; }=new Placement[0];
+        public bool CanUndo=>undo.Count>0;
+        public bool CanRedo=>redo.Count>0;
         static Placement[] Copy(IEnumerable<Placement> a)=>a.Select(p=>p.Copy()).ToArray();
         public bool Commit(LevelData level,IEnumerable<Placement> next)
         {
