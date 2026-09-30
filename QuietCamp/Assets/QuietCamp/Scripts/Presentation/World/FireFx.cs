@@ -2,8 +2,10 @@ using UnityEngine;
 namespace QuietCamp.Presentation.World
 {
     /// <summary>
-    /// Small owned campfire FX: a few warm billboards over the fire cell.
-    /// Disabled entirely under reduced motion — no particle drift, no smoke storm.
+    /// Small owned campfire FX: procedural flame quads + radial glow +
+    /// flickering point light, plus a few warm particle billboards.
+    /// Disabled entirely under reduced motion — no particle drift.
+    /// All shaders live in Always-Included so device builds keep the fire.
     /// </summary>
     public static class FireFx
     {
@@ -49,7 +51,87 @@ namespace QuietCamp.Presentation.World
             material.SetInt("_ZWrite", 0);
             material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
             renderer.sharedMaterial = material;
+
+            AddGlow(parent);
+            AddFlames(parent);
+            AddLight(parent);
             return ps;
+        }
+
+        /// <summary>Warm radial glow lying on the ground under the logs.</summary>
+        static void AddGlow(Transform parent)
+        {
+            var shader = Shader.Find("QuietCamp/FireGlow");
+            if (shader == null) return;
+            var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+            quad.name = "FireGlow";
+            quad.transform.SetParent(parent, false);
+            quad.transform.localPosition = new Vector3(0f, 0.06f, 0f);
+            quad.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+            quad.transform.localScale = Vector3.one * 2.8f;
+            var col = quad.GetComponent<Collider>();
+            if (col != null) Object.Destroy(col);
+            var mat = new Material(shader);
+            mat.SetColor("_Color", new Color(1f, 0.55f, 0.2f, 0.65f));
+            mat.SetFloat("_Intensity", 1.4f);
+            mat.SetFloat("_Seed", 3.7f);
+            quad.GetComponent<Renderer>().sharedMaterial = mat;
+        }
+
+        /// <summary>Two crossed procedural flame quads — readable from any side.</summary>
+        static void AddFlames(Transform parent)
+        {
+            var shader = Shader.Find("QuietCamp/FireFlame");
+            if (shader == null) return;
+            for (var i = 0; i < 2; i++)
+            {
+                var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                quad.name = "Flame" + i;
+                quad.transform.SetParent(parent, false);
+                quad.transform.localPosition = new Vector3(0f, 0.42f, 0f);
+                quad.transform.localRotation = Quaternion.Euler(0f, 45f + 90f * i, 0f);
+                quad.transform.localScale = new Vector3(0.7f, 1.0f, 0.7f);
+                var col = quad.GetComponent<Collider>();
+                if (col != null) Object.Destroy(col);
+                var mat = new Material(shader);
+                mat.SetFloat("_Seed", 11f * i + 2f);
+                quad.GetComponent<Renderer>().sharedMaterial = mat;
+            }
+        }
+
+        /// <summary>Warm point light with Perlin flicker — the "volume" of the fire.</summary>
+        static void AddLight(Transform parent)
+        {
+            var go = new GameObject("FireLight");
+            go.transform.SetParent(parent, false);
+            go.transform.localPosition = new Vector3(0f, 0.8f, 0f);
+            var light = go.AddComponent<Light>();
+            light.type = LightType.Point;
+            light.color = new Color(1f, 0.55f, 0.22f);
+            light.intensity = 1.6f;
+            light.range = 6.5f;
+            light.shadows = LightShadows.None;
+            go.AddComponent<FireFlicker>();
+        }
+    }
+
+    /// <summary>Subtle Perlin flicker on a fire light.</summary>
+    public sealed class FireFlicker : MonoBehaviour
+    {
+        Light _light;
+        float _base;
+
+        void Awake()
+        {
+            _light = GetComponent<Light>();
+            _base = _light != null ? _light.intensity : 1f;
+        }
+
+        void Update()
+        {
+            if (_light == null) return;
+            var n = Mathf.PerlinNoise(Time.time * 2.6f, 0.31f);
+            _light.intensity = _base * (0.72f + 0.55f * n);
         }
     }
 }
