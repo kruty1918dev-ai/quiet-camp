@@ -113,7 +113,8 @@ namespace QuietCamp.Presentation.World
             var inputGo = new GameObject("PlacementController");
             _placement = inputGo.AddComponent<PlacementController>();
             _placement.Configure(_session, _renderer, _services.InputPolicy, camera,
-                _services.Assets, () => _services.ReducedMotion);
+                _services.Assets, () => _services.ReducedMotion,
+                () => _services.MotionScale);
             _placement.PlacementFailed += key
                 => _services.Notifications.Show(_services.Localization.T(key),
                     GameplayNotificationKind.Warning, dedupKey: key + _session.SelectedGuestId);
@@ -163,7 +164,7 @@ namespace QuietCamp.Presentation.World
 
             _leases.Add(h.Register(new UiActionId("qc.back"), () =>
             {
-                if (_hud.HasModalOpen) { _hud.CloseAllModals(); return Performed(); }
+                if (_hud.HasModalOpen) { _hud.CloseTopModal(); return Performed(); }
                 if (_placement.HasPreview) { _placement.Cancel(); return Performed(); }
                 _hud.ShowPause();
                 return Performed();
@@ -206,7 +207,7 @@ namespace QuietCamp.Presentation.World
                 return Performed();
             }));
             _leases.Add(h.Register(new UiActionId("qc.hint"), () => { _hud.ShowHint(); return Performed(); }));
-            _leases.Add(h.Register(new UiActionId("qc.settings"), () => { _hud.ShowPause(); return Performed(); }));
+            _leases.Add(h.Register(new UiActionId("qc.settings"), () => { _hud.ShowSettings(); return Performed(); }));
             _leases.Add(h.Register(new UiActionId("qc.levels"), () =>
             {
                 PersistSession();
@@ -248,7 +249,8 @@ namespace QuietCamp.Presentation.World
                 case CampEventKind.BoardCommitted:
                     if (_session.State.Contains(e.GuestId))
                         _tutorial.ReportAction("commit");
-                    _renderer.SyncPlacements(_session.State.Placements, _session.Level);
+                    _renderer.SyncPlacements(_session.State.Placements, _session.Level,
+                        _services.MotionScale);
                     break;
                 case CampEventKind.LevelCompleted:
                     OnLevelCompleted();
