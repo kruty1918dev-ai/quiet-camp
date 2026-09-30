@@ -31,13 +31,19 @@ Layered assemblies under `Assets/QuietCamp/Scripts/`:
 |---|---|
 | `QuietCamp.Domain` | Pure C# rules: `BoardState`, `RuleEvaluator`, `CampSolver`, `CommandHistory`, `LevelContentValidator`. No UnityEngine logic. |
 | `QuietCamp.Application` | `CampSession` (single mutation authority), `PlacementCommand`, `HintService`, `ProgressionService`, `TutorialDirector`, `CampEvent`, `qc.*.v1` save DTOs |
-| `QuietCamp.Infrastructure` | `LevelLoader` (JSON from `Resources`), `AssetCatalog`, `QuietCampAudioCatalog`, `SaveAdapter` (modular save-system), `QuietCampLocalization` |
+| `QuietCamp.Infrastructure` | `LevelLoader` (JSON from `Resources` via the LevelKit codec + `QuietCampLevelAdapter`), `AssetCatalog`, `QuietCampAudioCatalog`, `SaveAdapter` (modular save-system), `QuietCampLocalization` |
 | `QuietCamp.Presentation` | `QuietCampBootstrap` (persistent composition root), `ScreenRouter`, `QcActionHandler`, uGUI screens via `QcUi`, `BoardRenderer`, `TentPresenter`, `PlacementController` (touch+mouse), `CameraFitter`, `DecorSpawner`, `FireFx` |
 
 Rules of thumb:
 
 - JSON under `Resources/QuietCamp/` is the level source of truth —
-  loaded, validated, then consumed as plain C#.
+  parsed by the universal
+  [LevelKit](https://github.com/kruty1918dev-ai/level-kit) codec
+  (`com.kruty1918.levelkit`, local `file:` dependency) with the Quiet
+  Camp format profile, adapted to typed `LevelData`, validated, then
+  consumed as plain C#. Levels are authored by hand in **Tools →
+  Level Kit → Level Designer** (grid painter, entity editing,
+  validation, JSON save/load) — not auto-generated.
 - UI and input never mutate board state directly; everything goes
   through `CampSession` commands.
 - World layers 8–12: board, tents, obstacles, decor, rule overlays.
@@ -52,7 +58,7 @@ Rules of thumb:
 | `Assets/QuietCamp/Prefabs/Models` | Normalized wrappers for the 12 kit models |
 | `Assets/QuietCamp/Settings/URP` | QC_Low / QC_Balanced / QC_High pipeline assets |
 | `Assets/ThirdParty` | Kenney models/UI, audio packs, DOTween |
-| `Packages` | manifest + 9 local `com.kruty1918.*` UPM packages (audio, save-system, localization, input-context, ui-actions, ui-foundation, notifications, runtime-diagnostics, adaptive-performance) |
+| `Packages` | manifest + 9 embedded `com.kruty1918.*` UPM packages (audio, save-system, localization, input-context, ui-actions, ui-foundation, notifications, runtime-diagnostics, adaptive-performance) + `com.kruty1918.levelkit` (sibling repo `../level-kit`, universal level authoring/JSON toolkit) |
 
 ## Build profiles
 
