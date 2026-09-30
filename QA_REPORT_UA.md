@@ -1,16 +1,20 @@
 # Quiet Camp — QA Report (MVP 0.1.0)
 
-> **Статус**: кодова база MVP реалізована й компілюється чисто;
-> EditMode-тести зелені. Android APK ще не зібрано і не встановлено —
-> див. «Відомі обмеження».
+> **Статус**: MVP реалізовано, код компілюється чисто, EditMode і
+> PlayMode тести зелені, обидва Android APK зібрані й перевірені
+> статично (package/ABI/підпис). **Встановлення на пристрій не
+> виконано** — фізичний пристрій відсутній, емулятор заблокований
+> вимкненою віртуалізацією (VT-x у прошивці, драйвер гіпервізора
+> не встановлено). Див. «Відомі обмеження».
 
 ## Середовище
 
 - Unity 6000.6.2f1, Windows, batchmode для всіх автоматичних кроків.
 - URP 17.6.0, Input System 1.20.0, uGUI 2.6.0, Newtonsoft JSON 3.2.2,
   DOTween 1.2.760 + Pro 1.0.380, Unity Test Framework 1.8.0.
-- Локальні пакети `com.kruty1918.*` (9 шт.) — зафіксовані в
+- Локальні пакети `com.kruty1918.*` — зафіксовані в
   `Packages/packages-lock.json`.
+- Android SDK/NDK/OpenJDK — модулі Unity 6000.6.2f1.
 
 ## Перевірено
 
@@ -18,51 +22,79 @@
 |---|---|
 | Чистий імпорт проєкту (batchmode) | OK |
 | `QuietCampProjectSetup.Run` (TMP, шрифт, build profiles) | OK, ідемпотентно |
-| Компіляція всіх asmdef (Domain/Application/Infrastructure/Presentation/Editor/Tests) | OK, без error CS |
+| Компіляція всіх asmdef | OK, без error CS |
 | EditMode tests | **6/6 passed** — правила, witness-карти, undo/redo |
-| Build profiles | Android Development (dev+QC_TEST) і Android Release створені, platformId Android |
+| PlayMode tests | **4/4 passed** — bootstrap, сцени, скриншот-кадри |
+| `Tools/verify_bundle.py` (кіт) | **OK** — 61 карта, witness-розв'язки, хеші моделей/аудіо/маніфесту (потребує `PYTHONUTF8=1` на Windows) |
+| Build profiles | Android Development (dev+QC_TEST) і Android Release |
+| Android Release APK | `QuietCamp-MVP-0.1.0.apk`, 38 MB, `Result: Success` |
+| Android Development APK | `QuietCamp-MVP-0.1.0-dev.apk`, `Result: Success` |
+| Package/Version | `com.kruty1918.quietcamp`, versionCode 1, versionName 0.1.0 |
+| minSdk/targetSdk | 26 / 35 |
+| ABI | `lib/arm64-v8a/` присутній (ARM64 only) |
+| Підпис APK | APK Signature Scheme v2, тестовий Android Debug cert |
+| Рендер UI/сцени | Скриншоти `01_main_menu.png`, `02_camp_day.png` — локалізований текст, 3D-моделі, без рожевих матеріалів |
 
-Знайдені й виправлені дефекти під час збирання:
+## Знайдені й виправлені дефекти
 
-- `UiActionSource.Ui` не існує в API пакета → замінено на `Button`.
-- `QuietCamp.Application` затіняв `UnityEngine.Application` →
-  кваліфіковано `persistentDataPath`.
+- `UiActionSource.Ui` не існує → замінено на `Button`.
+- `QuietCamp.Application` затіняв `UnityEngine.Application`.
 - TMP Essential Resources відсутні → ідемпотентний імпорт із
-  `TMP Essential Resources.unitypackage` (ugui package).
-- `TMP_FontAsset` без atlas-текстури → додається Texture2D-субасет.
+  `TMP Essential Resources.unitypackage`.
+- `TMP_FontAsset` без atlas-текстури й матеріалу → створені
+  Texture2D/Material-субасети; settings злиті з пакетним TMP Settings.
 - `BuildProfile.CreateBuildProfile` падав на lambda-callback →
-  transient `ScriptableObject`-холдер (persistent listener вимагає
-  `UnityEngine.Object`-target).
+  transient `ScriptableObject`-холдер.
 - `m_Development` живе в базовому класі `AndroidPlatformBuildSettings` —
   пошук поля по ієрархії типів.
+- `Camp.unity` `m_Sun` вказував на видалений fileID → `fileID: 0`.
+- **`LocalizedLabel` баг**: `Awake()` відкладається на неактивних
+  об'єктах, `_baseSize` лишався 0, `Refresh()` обнуляв fontSize →
+  текст меню був невидимий. Виправлено ледачою ініціалізацією
+  в `Refresh()`. Скриншот меню підтверджує рендер.
+- Batchmode play-mode не пампає `EditorApplication.update` —
+  скриншоти перенесено у `[UnityTest]` (UTF пампає кадри).
 
-## Ще НЕ перевірено (блокери / заплановано)
+## НЕ перевірено (блокери)
 
-- Android APK build (dev і release) — не виконано.
-- Встановлення на пристрій/емулятор ARM64, logcat, 15-хв тест,
-  frame-time p95, пам'ять — не виконано.
-- PlayMode-тести (сцена/ввід/дублікати сервісів) — не виконано.
-- Реальні скриншоти гри, візуальна перевірка матеріалів/рожевих
-  шейдерів — не виконано.
-- Проходження 12 рівнів на пристрої — не виконано.
+- **Встановлення/запуск APK на Android** — немає фізичного пристрою;
+  емулятор не стартує: драйвер Android Emulator hypervisor не
+  встановлено, VT-x вимкнено у прошивці, WHPX/Hyper-V недоступні.
+- logcat, 15-хв сесія, frame time/p95/пам'ять — не виміряно.
+- Проходження 12 рівнів на пристрої — перевірено лише логікою в
+  EditMode/PlayMode, не на залозі.
+- `QC_TEST` рівень у dev-збірці не прогнаний у runtime.
+- Релізний keystore — APK підписано тестовим Android Debug ключем;
+  для Google Play потрібен справжній keystore (поза репозиторієм).
 
 ## Відомі обмеження
 
-- `Assets/Plugins/Demigiant/DOTweenPro` — ліцензійна складання за
-  умовами Demigiant; перевірити при релізі.
-- Production keystore відсутній — тестовий APK підписуватиметься
-  тестовим ключем (зберігається поза репозиторієм).
-- За відсутності фізичного Android-пристрою тестування буде
-  на емуляторі — це буде прямо зазначено у фінальному звіті.
+- `Licensing::Module Error: Access token is unavailable` у логах —
+  помилка середовища ліцензування Unity при shutdown, на білд не
+  впливає (`Build Finished, Result: Success`).
+- Застарілий `AssetDatabase.ImportPackage(string, bool)` у
+  `QuietCampProjectSetup` — warning, не блокер.
+- `DOTweenPro` — ліцензія Demigiant, перевірити при релізі.
+- FPS не заявляється — вимірювань на пристрої не було.
 
-## Як відтворити поточні перевірки
+## Як відтворити перевірки
 
 ```bat
-:: setup + компіляція
-Unity.exe -batchmode -nographics -quit -projectPath QuietCamp ^
+:: setup
+Unity.exe -batchmode -projectPath QuietCamp ^
   -executeMethod QuietCamp.Editor.QuietCampProjectSetup.Run -logFile setup.log
 
-:: EditMode тести (без -quit — тестраннер сам виходить)
+:: EditMode
 Unity.exe -batchmode -projectPath QuietCamp -runTests ^
-  -testPlatform EditMode -testResults TestResults_EditMode.xml -logFile tests.log
+  -testPlatform EditMode -testResults TestResults_EditMode.xml -logFile t1.log
+
+:: PlayMode (включає скриншоти у QuietCamp\Screenshots)
+Unity.exe -batchmode -projectPath QuietCamp -runTests ^
+  -testPlatform PlayMode -testResults TestResults_PlayMode.xml -logFile t2.log
+
+:: Android APK (release / dev)
+Unity.exe -batchmode -projectPath QuietCamp ^
+  -executeMethod QuietCamp.Editor.QuietCampBuild.BuildAndroidRelease -logFile b.log
+Unity.exe -batchmode -projectPath QuietCamp ^
+  -executeMethod QuietCamp.Editor.QuietCampBuild.BuildAndroidDev -logFile b2.log
 ```
