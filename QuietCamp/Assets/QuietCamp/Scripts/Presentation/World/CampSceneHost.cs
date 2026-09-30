@@ -43,6 +43,8 @@ namespace QuietCamp.Presentation.World
         bool _completed;
         float _owlTimer = 60f;
         float _rustleCooldown;
+        float _gustSoundCooldown;
+        float _twigCooldown;
         readonly List<Vector3> _canopyAnchors = new List<Vector3>();
         readonly List<Vector3> _edgeAnchors = new List<Vector3>();
         Vector3 _firePos;
@@ -142,7 +144,7 @@ namespace QuietCamp.Presentation.World
             if (camListener != null) camListener.enabled = false;
             var proxy = new GameObject("ListenerProxy");
             proxy.transform.SetPositionAndRotation(
-                new Vector3(0f, 1.6f, 0f), camera.transform.rotation);
+                new Vector3(0f, 2f * BoardMath.CellSize, 0f), camera.transform.rotation);
             proxy.AddComponent<AudioListener>();
 
             var inputGo = new GameObject("PlacementController");
@@ -153,11 +155,7 @@ namespace QuietCamp.Presentation.World
             _placement.PlacementFailed += key
                 => _services.Notifications.Show(_services.Localization.T(key),
                     GameplayNotificationKind.Warning, dedupKey: key + _session.SelectedGuestId);
-            _placement.PlacementCommitted += () =>
-            {
-                PlayAudio("placement.commit");
-                PersistSession();
-            };
+            _placement.PlacementCommitted += PersistSession;
             _placement.Cancelled += () => PlayAudio("ui.back");
             _placement.TentGrabbed += _ => PlayAudio("sfx.rustle");
         }
@@ -254,7 +252,7 @@ namespace QuietCamp.Presentation.World
                 var id = _session.SelectedGuestId;
                 var wasPlaced = id != null && _session.State.Find(id) != null;
                 _placement.Remove();
-                if (wasPlaced) PlayAudio("sfx.twig");
+                if (wasPlaced && _twigCooldown <= 0f) { _twigCooldown = 2f; PlayAudio("sfx.twig"); }
                 return Performed();
             }));
             _leases.Add(h.Register(new UiActionId("qc.check"), () =>
@@ -315,6 +313,12 @@ namespace QuietCamp.Presentation.World
                         _tutorial.ReportAction("commit");
                     _renderer.SyncPlacements(_session.State.Placements, _session.Level,
                         _services.MotionScale);
+                    // Commit lands where the guest sits, not flat at the listener.
+                    var placed = _session.State.Find(e.GuestId);
+                    if (placed != null)
+                        _services.Audio?.PlayAt("placement.commit",
+                            BoardMath.CellCenterWorld(_session.Level,
+                                new Cell(placed.x, placed.z)) + Vector3.up * .4f);
                     break;
                 case CampEventKind.LevelCompleted:
                     OnLevelCompleted();
@@ -330,7 +334,7 @@ namespace QuietCamp.Presentation.World
             // 900 ms) instead of silencing it — ordinary taps never duck.
             _services.Audio?.DuckBus(Kruty1918.Audio.AudioBus.Ambience, .75f, .1f, .5f, .9f);
             PlayAudio("level.complete");
-            _services.Audio?.Play("sfx.chime", new Kruty1918.Audio.AudioPlayOptions(volumeScale: .3f));
+            StartCoroutine(ChimeAfter(.18f));
             var level = _session.Level;
             var first = _services.Progression.MarkCompleted(level.id);
             var album = _services.Save.Album;
@@ -355,6 +359,14 @@ namespace QuietCamp.Presentation.World
             {
                 // DemoComplete follows the completion panel via qc.next.
             }
+        }
+
+        /// <summary>The completion chime is a soft afterglow, not a second
+        /// fanfare — it follows the main cue instead of stacking onto it.</summary>
+        System.Collections.IEnumerator ChimeAfter(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            _services.Audio?.Play("sfx.chime");
         }
 
         void PersistSession()
@@ -401,7 +413,8 @@ namespace QuietCamp.Presentation.World
         /// one rustle at the nearest decorative anchor (cooldown-gated).</summary>
         void OnWindGust()
         {
-            if (_services.Audio == null) return;
+            if (_services.Audio == null || _gustSoundCooldown > 0f) return;
+            _gustSoundCooldown = 18f; // spec: at least 18 s between gust one-shots
             var dir = _atmosphere.Wind.DirectionXZ;
             var dir3 = new Vector3(dir.x, 0f, dir.y);
             float meadow = Mathf.Max(_session.Level.width, _session.Level.height) * .5f
@@ -482,6 +495,8 @@ namespace QuietCamp.Presentation.World
         {
             _hud?.PumpHint();
             _rustleCooldown -= Time.deltaTime;
+            _gustSoundCooldown -= Time.deltaTime;
+            _twigCooldown -= Time.deltaTime;
             if (_atmosphereProfile == null) return;
             _birdTimer -= Time.deltaTime;
             if (_birdTimer <= 0f)

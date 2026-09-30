@@ -201,7 +201,7 @@ namespace QuietCamp.Presentation.World
                 foreach (var pair in _foliage) pair.Key.SetFloat(SwayAmp, amp * pair.Value.AmpScale);
             }
             var sway = reduced ? 0f : Mathf.Sin(_clock * .65f) * _wind.Strength;
-            _near.localRotation = Quaternion.Euler(0, 0, sway * .6f);
+            _near.localRotation = Quaternion.Euler(0, 0, sway * .4f);
         }
 
         public void RefreshLayout()
