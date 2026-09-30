@@ -66,6 +66,15 @@ namespace QuietCamp.Presentation.UI
             BuildActions(root);
             BuildNav(root);
             BuildModals();
+            // The camera renders full-screen scenery, but interactive geometry stays clear of the HUD.
+            var viewport = root.Find("BoardViewport") as RectTransform;
+            if (viewport != null)
+            {
+                viewport.anchorMin = Vector2.zero;
+                viewport.anchorMax = Vector2.one;
+                viewport.offsetMin = new Vector2(16, 396);
+                viewport.offsetMax = new Vector2(-16, -208);
+            }
         }
 
         void BuildHeader(RectTransform root)

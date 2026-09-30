@@ -19,7 +19,7 @@ namespace QuietCamp.Presentation.World
         public static void Configure(Camera camera)
         {
             camera.orthographic = true;
-            camera.clearFlags = CameraClearFlags.Skybox;
+            camera.clearFlags = CameraClearFlags.SolidColor;
             camera.nearClipPlane = Near;
             camera.farClipPlane = Far;
             camera.transform.rotation = Quaternion.Euler(Euler);
@@ -30,8 +30,9 @@ namespace QuietCamp.Presentation.World
         public static void Fit(Camera camera, LevelData level, RectTransform viewport)
         {
             var rect = ViewportRect(viewport);
-            camera.rect = rect;
-            var aspect = rect.width * Screen.width / Mathf.Max(1f, rect.height * Screen.height);
+            // Render scenery across the full display, but fit the board inside the UI viewport.
+            camera.rect = new Rect(0f, 0f, 1f, 1f);
+            var aspect = camera.aspect;
 
             var half = new Vector3(level.width / 2f + BoardMath.Overhang + SceneryMargin, 0.4f,
                 level.height / 2f + BoardMath.Overhang + SceneryMargin);
@@ -43,7 +44,6 @@ namespace QuietCamp.Presentation.World
                     (i & 1) == 0 ? -half.x : half.x,
                     (i & 2) == 0 ? -half.y : half.y,
                     (i & 4) == 0 ? -half.z : half.z);
-                var local = camT.InverseTransformPoint(corner + camT.position);
                 // project onto right/up relative to camera facing the board centre
                 var dir = corner;
                 var right = Vector3.Dot(dir, camT.right);
@@ -51,8 +51,12 @@ namespace QuietCamp.Presentation.World
                 maxRight = Mathf.Max(maxRight, Mathf.Abs(right));
                 maxUp = Mathf.Max(maxUp, Mathf.Abs(up));
             }
-            camera.orthographicSize = Mathf.Max(maxRight / aspect, maxUp) * FitMargin;
-            camera.transform.position = -camT.forward * Distance;
+            camera.orthographicSize = Mathf.Max(maxRight / (aspect * rect.width),
+                maxUp / rect.height) * FitMargin;
+            var halfHeight = camera.orthographicSize;
+            camera.transform.position = -camT.forward * Distance
+                + camT.right * ((1f - 2f * rect.center.x) * halfHeight * aspect)
+                + camT.up * ((1f - 2f * rect.center.y) * halfHeight);
         }
 
         static Rect ViewportRect(RectTransform viewport)

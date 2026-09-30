@@ -35,12 +35,18 @@ namespace QuietCamp.Presentation.World
         IDisposable _gameplayContext;
         float _birdTimer = 30f;
         float _ambienceTimer = 20f;
-        bool _evening;
+        AtmosphereCatalog _atmosphereCatalog;
+        AtmosphereCatalog.Profile _atmosphereProfile;
+        CampAtmosphere _atmosphere;
+        FireVisual[] _fireVisuals;
+        AudioHandle _fireSound, _cricketSound;
+        System.Random _ambienceRandom;
         bool _completed;
 
         public static CampSceneHost Current { get; private set; }
 
         public CampSession Session => _session;
+        public CampAtmosphere Atmosphere => _atmosphere;
 
         public void Configure(GameServices services, ScreenRouter router)
         {
@@ -65,7 +71,7 @@ namespace QuietCamp.Presentation.World
             BuildWorld(level);
             BuildHud(level);
             RegisterActions();
-            ApplyLighting(level.lighting == "evening");
+            ConfigureAtmosphere(level);
             _services.PendingLevelId = null;
         }
 
@@ -298,7 +304,7 @@ namespace QuietCamp.Presentation.World
             if (!_services.Save.Save())
                 _services.Notifications.Show(_services.Localization.T("save.failed"),
                     GameplayNotificationKind.Error);
-            ApplyLighting(evening: true);
+            // Completion must not turn a night level back into an evening level.
             _services.Motion.Cancel(this);
             var mvp = LevelLoader.MvpLevelIds();
             if (mvp.Count > 0 && level.id == mvp[mvp.Count - 1])
@@ -324,10 +330,25 @@ namespace QuietCamp.Presentation.World
 
         // ─── Lighting ────────────────────────────────────────────────────────
 
-        void ApplyLighting(bool evening)
+        void ConfigureAtmosphere(LevelData level)
         {
-            _evening = evening;
-            SkyPalette.Apply(evening, FindCamera());
+            _atmosphereCatalog = AtmosphereCatalog.Load();
+            _ambienceRandom = new System.Random(level.decorSeed);
+            _fireVisuals = FindObjectsByType<FireVisual>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            _atmosphere = gameObject.AddComponent<CampAtmosphere>();
+            var viewport = Find("CanvasRoot/SafeArea/Gameplay/BoardViewport")?.transform as RectTransform;
+            var profile = _atmosphereCatalog.Resolve(level.id, level.lighting);
+            _atmosphere.Configure(FindCamera(), level, viewport, profile, () => _services.ReducedMotion);
+            SetAtmospherePhase(profile.Id);
+        }
+
+        /// <summary>One presentation authority for light, scenery, fire and phase-dependent audio.</summary>
+        public void SetAtmospherePhase(string phase)
+        {
+            var profile = _atmosphereCatalog.Get(phase);
+            if (_atmosphereProfile == profile) return;
+            _atmosphereProfile = profile;
+            _atmosphere.Apply(profile);
             var lighting = Find("LightingRoot");
             var dir = lighting != null ? lighting.transform.Find("DirectionalLight") : null;
             var fire = lighting != null ? lighting.transform.Find("FireLight") : null;
@@ -336,54 +357,49 @@ namespace QuietCamp.Presentation.World
                 var light = dir.GetComponent<Light>();
                 if (light != null)
                 {
-                    if (evening)
-                    {
-                        dir.localEulerAngles = new Vector3(18f, -35f, 0f);
-                        light.intensity = 0.40f;
-                        light.color = new Color(1f, 0.824f, 0.608f);
-                    }
-                    else
-                    {
-                        dir.localEulerAngles = new Vector3(50f, -35f, 0f);
-                        light.intensity = 1.05f;
-                        light.color = new Color(1f, 0.941f, 0.839f);
-                    }
+                    dir.localEulerAngles = new Vector3(profile.Elevation, -35f, 0f);
+                    light.intensity = profile.SunIntensity;
+                    light.color = profile.Sun;
                 }
             }
-            RenderSettings.ambientLight = evening
-                ? new Color(0.451f, 0.561f, 0.608f)
-                : new Color(0.725f, 0.788f, 0.796f);
-            if (fire != null) fire.gameObject.SetActive(evening);
-            foreach (var fv in FindObjectsByType<FireVisual>(FindObjectsSortMode.None))
-                fv.SetBurning(evening);
-            if (evening)
+            bool hasFire = _fireVisuals.Length > 0 && profile.Fire;
+            if (fire != null) fire.gameObject.SetActive(hasFire);
+            foreach (var fv in _fireVisuals) if (fv != null) fv.SetBurning(hasFire);
+            _fireSound.Stop();
+            _cricketSound.Stop();
+            _fireSound = default;
+            _cricketSound = default;
+            if (hasFire && _services.Audio != null) _fireSound = _services.Audio.Play("ambience.fire");
+            if (profile.Crickets > 0 && _services.Audio != null)
             {
-                PlayAudio("ambience.fire");
-                PlayAudio("ambience.crickets");
+                _cricketSound = _services.Audio.Play("ambience.crickets");
+                _services.Audio.SetPlaybackScale(_cricketSound, profile.Crickets);
             }
-            else
-            {
-                _services?.Audio?.StopByKey("ambience.fire");
-                _services?.Audio?.StopByKey("ambience.crickets");
-            }
+            _birdTimer = NextBirdDelay();
+            _ambienceTimer = 35f;
         }
+
+        float NextBirdDelay() => _atmosphereProfile == null || _atmosphereProfile.BirdMax == 0
+            ? float.PositiveInfinity : Mathf.Lerp(_atmosphereProfile.BirdMin,
+                _atmosphereProfile.BirdMax, (float)_ambienceRandom.NextDouble());
 
         // ─── Frame loop ──────────────────────────────────────────────────────
 
         void Update()
         {
             _hud?.PumpHint();
+            if (_atmosphereProfile == null) return;
             _birdTimer -= Time.deltaTime;
             if (_birdTimer <= 0f)
             {
-                _birdTimer = 25f + UnityEngine.Random.value * 20f;
+                _birdTimer = NextBirdDelay();
                 PlayAudio("ambience.bird");
             }
             _ambienceTimer -= Time.deltaTime;
             if (_ambienceTimer <= 0f)
             {
-                _ambienceTimer = 35f + UnityEngine.Random.value * 35f;
-                PlayAudio(_evening ? "ambience.owl" : "ambience.gust");
+                _ambienceTimer = 40f + (float)_ambienceRandom.NextDouble() * 40f;
+                PlayAudio(_atmosphereProfile.Fire ? "ambience.owl" : "ambience.gust");
             }
         }
 
@@ -392,6 +408,8 @@ namespace QuietCamp.Presentation.World
 
         void OnDestroy()
         {
+            _fireSound.Stop();
+            _cricketSound.Stop();
             if (_session != null) _session.Evented -= OnSessionEvent;
             _session?.Dispose();
             _hud?.Dispose();
