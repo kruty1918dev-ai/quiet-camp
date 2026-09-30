@@ -73,7 +73,7 @@ namespace QuietCamp.Presentation.UI
             var card = QcUi.Anchor(root.transform as RectTransform, "Card",
                 new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 new Vector2(-460, -700), new Vector2(460, 700));
-            card.gameObject.AddComponent<Image>().color = QcUi.Cream;
+            QcUi.PanelImage(card, "bg", Color.white);
             var col = QcUi.Stretch(card, "col");
             var layout = col.gameObject.AddComponent<VerticalLayoutGroup>();
             layout.padding = new RectOffset(36, 36, 30, 30);
@@ -132,7 +132,7 @@ namespace QuietCamp.Presentation.UI
             var card = QcUi.Anchor(root.transform as RectTransform, "Card",
                 new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 new Vector2(-440, -720), new Vector2(440, 720));
-            card.gameObject.AddComponent<Image>().color = QcUi.Cream;
+            QcUi.PanelImage(card, "bg", Color.white);
             var scroll = QcUi.Stretch(card, "scroll");
             var scrollRect = scroll.gameObject.AddComponent<ScrollRect>();
             scrollRect.horizontal = false;
@@ -237,7 +237,7 @@ namespace QuietCamp.Presentation.UI
             var card = QcUi.Anchor(root.transform as RectTransform, "Card",
                 new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 new Vector2(-460, -700), new Vector2(460, 700));
-            card.gameObject.AddComponent<Image>().color = QcUi.Cream;
+            QcUi.PanelImage(card, "bg", Color.white);
             var col = QcUi.Stretch(card, "col");
             var layout = col.gameObject.AddComponent<VerticalLayoutGroup>();
             layout.padding = new RectOffset(36, 36, 30, 30);
@@ -282,7 +282,7 @@ namespace QuietCamp.Presentation.UI
             {
                 var row = QcUi.Root(_albumList, "entry_" + e.levelId);
                 row.sizeDelta = new Vector2(0, 100);
-                row.gameObject.AddComponent<Image>().color = QcUi.CreamDark;
+                QcUi.PanelImage(row, "bg", QcUi.CreamDark);
                 var btn = row.gameObject.AddComponent<Button>();
                 var levelId = e.levelId;
                 btn.onClick.AddListener(() => Action("qc.play", levelId));
@@ -300,7 +300,7 @@ namespace QuietCamp.Presentation.UI
             var card = QcUi.Anchor(root.transform as RectTransform, "Card",
                 new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 new Vector2(-400, -320), new Vector2(400, 320));
-            card.gameObject.AddComponent<Image>().color = QcUi.Cream;
+            QcUi.PanelImage(card, "bg", Color.white);
             var col = QcUi.Stretch(card, "col");
             var layout = col.gameObject.AddComponent<VerticalLayoutGroup>();
             layout.padding = new RectOffset(36, 36, 36, 36);
@@ -413,8 +413,7 @@ namespace QuietCamp.Presentation.UI
             QcUi.Label(label, key, QcUi.TextSmall, TextAlignmentOptions.MidlineLeft, QcUi.Ink);
             var boxGo = QcUi.Anchor(row, "t",
                 new Vector2(0.8f, 0.15f), new Vector2(1, 0.85f), Vector2.zero, Vector2.zero);
-            var box = boxGo.gameObject.AddComponent<Image>();
-            box.color = QcUi.CreamDark;
+            var box = QcUi.PanelImage(boxGo, "bg", QcUi.CreamDark);
             var toggle = boxGo.gameObject.AddComponent<Toggle>();
             var check = QcUi.Anchor(boxGo, "check",
                 Vector2.zero, Vector2.one, new Vector2(8, 8), new Vector2(-8, -8));

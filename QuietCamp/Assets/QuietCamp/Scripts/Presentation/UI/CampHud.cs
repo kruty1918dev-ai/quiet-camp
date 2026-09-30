@@ -109,8 +109,7 @@ namespace QuietCamp.Presentation.UI
                 var chip = QcUi.Anchor(row, "chip_" + used[i],
                     new Vector2(i * w + 0.005f, 0), new Vector2((i + 1) * w - 0.005f, 1),
                     Vector2.zero, Vector2.zero);
-                var img = chip.gameObject.AddComponent<Image>();
-                img.color = QcUi.CreamDark;
+                var img = QcUi.PanelImage(chip, "bg", QcUi.CreamDark);
                 _chips[used[i]] = img;
                 QcUi.Label(chip, used[i], QcUi.TextSmall,
                     TMPro.TextAlignmentOptions.Center, QcUi.Ink);
@@ -147,10 +146,10 @@ namespace QuietCamp.Presentation.UI
             {
                 var card = QcUi.Root(content, "card_" + g.id);
                 card.sizeDelta = new Vector2(230f, 140f);
-                var img = card.gameObject.AddComponent<Image>();
-                img.color = QcUi.Cream;
+                var img = QcUi.PanelImage(card, "bg", QcUi.Cream);
                 img.raycastTarget = true;
                 var btn = card.gameObject.AddComponent<Button>();
+                btn.targetGraphic = img;
                 var guestId = g.id;
                 btn.onClick.AddListener(() => _services.Actions.Execute(
                     new UiActionRequest(new UiActionId("qc.select"), UiActionSource.Button, "Gameplay", guestId, guestId)));
@@ -237,7 +236,7 @@ namespace QuietCamp.Presentation.UI
             var card = QcUi.Anchor(group.transform as RectTransform, "Card",
                 new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 new Vector2(-330, -260), new Vector2(330, 260));
-            card.gameObject.AddComponent<Image>().color = QcUi.Cream;
+            QcUi.PanelImage(card, "bg", Color.white);
             var col = QcUi.Stretch(card, "col");
             var layout = col.gameObject.AddComponent<VerticalLayoutGroup>();
             layout.padding = new RectOffset(30, 30, 30, 30);
@@ -257,7 +256,7 @@ namespace QuietCamp.Presentation.UI
             var card = QcUi.Anchor(group.transform as RectTransform, "Card",
                 new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 new Vector2(-340, -220), new Vector2(340, 220));
-            card.gameObject.AddComponent<Image>().color = QcUi.Cream;
+            QcUi.PanelImage(card, "bg", Color.white);
             var col = QcUi.Stretch(card, "col");
             var layout = col.gameObject.AddComponent<VerticalLayoutGroup>();
             layout.padding = new RectOffset(30, 30, 30, 30);
@@ -280,7 +279,7 @@ namespace QuietCamp.Presentation.UI
             var card = QcUi.Anchor(group.transform as RectTransform, "Card",
                 new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 new Vector2(-360, -280), new Vector2(360, 280));
-            card.gameObject.AddComponent<Image>().color = QcUi.Cream;
+            QcUi.PanelImage(card, "bg", Color.white);
             var col = QcUi.Stretch(card, "col");
             var layout = col.gameObject.AddComponent<VerticalLayoutGroup>();
             layout.padding = new RectOffset(30, 30, 30, 30);
@@ -366,7 +365,7 @@ namespace QuietCamp.Presentation.UI
             {
                 var g = _session.Level.guests[i];
                 var placed = _session.State.Contains(g.id);
-                var img = _guestCards[i].GetComponent<Image>();
+                var img = _guestCards[i].GetComponentInChildren<Image>();
                 img.color = placed
                     ? new Color(0.72f, 0.84f, 0.70f)
                     : _session.SelectedGuestId == g.id ? QcUi.Amber : QcUi.Cream;

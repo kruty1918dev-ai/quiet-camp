@@ -1,11 +1,15 @@
 using System;
+using System.Collections.Generic;
 using Kruty1918.Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 namespace QuietCamp.Presentation.UI
 {
-    /// <summary>Runtime uGUI factory: consistent fonts, colors and 48dp targets.</summary>
+    /// <summary>
+    /// Runtime uGUI factory: Kenney UI sprites (bundled in the kit) with the
+    /// quiet-camp palette, consistent fonts and 48dp touch targets.
+    /// </summary>
     public static class QcUi
     {
         public static readonly Color Cream = new Color(0.949f, 0.910f, 0.835f);
@@ -20,6 +24,35 @@ namespace QuietCamp.Presentation.UI
 
         public const float MinTouch = 88f; // ~48 dp at reference scale
         public const float TextBody = 30f, TextButton = 34f, TextTitle = 42f, TextSmall = 26f;
+
+        // ─── Kenney UI sprites (mirrored to Resources by KenneyUiImporter) ────
+
+        const string UiRoot = "QuietCamp/UI/";
+        const string BtnGreen = UiRoot + "Green/Default/button_rectangle_depth_flat";
+        const string BtnGrey = UiRoot + "Grey/Default/button_rectangle_depth_flat";
+        const string BtnRed = UiRoot + "Red/Default/button_rectangle_depth_flat";
+        const string CardSprite = UiRoot + "Extra/Default/input_rectangle";
+        public const string IconCheck = UiRoot + "Green/Default/icon_checkmark";
+        public const string IconCross = UiRoot + "Red/Default/icon_cross";
+        public const string IconRepeat = UiRoot + "Extra/Default/icon_repeat_dark";
+        public const string IconPlay = UiRoot + "Extra/Default/icon_play_light";
+        public const string IconArrowUp = UiRoot + "Extra/Default/icon_arrow_up_dark";
+
+        static readonly Dictionary<string, Sprite> _sprites = new Dictionary<string, Sprite>();
+
+        public static Sprite Sprite(string resourcePath)
+        {
+            if (_sprites.TryGetValue(resourcePath, out var s)) return s;
+            s = Resources.Load<Sprite>(resourcePath);
+            if (s == null)
+            {
+                Debug.LogWarning($"[QuietCamp] UI sprite missing: {resourcePath}");
+            }
+            _sprites[resourcePath] = s;
+            return s;
+        }
+
+        // ─── Layout helpers ──────────────────────────────────────────────────
 
         public static RectTransform Root(Transform parent, string name)
         {
@@ -45,6 +78,8 @@ namespace QuietCamp.Presentation.UI
             return r;
         }
 
+        // ─── Images ──────────────────────────────────────────────────────────
+
         public static Image Image(RectTransform parent, string name, Color color)
         {
             var r = Stretch(parent, name);
@@ -53,10 +88,39 @@ namespace QuietCamp.Presentation.UI
             return img;
         }
 
+        /// <summary>Sliced Kenney sprite stretched under a parent.</summary>
+        public static Image Sliced(RectTransform parent, string name,
+            string spritePath, Color tint)
+        {
+            var r = Stretch(parent, name);
+            var img = r.gameObject.AddComponent<UnityEngine.UI.Image>();
+            img.sprite = Sprite(spritePath);
+            img.type = UnityEngine.UI.Image.Type.Sliced;
+            img.color = tint;
+            return img;
+        }
+
+        /// <summary>Card/panel surface — light outlined input_rectangle.</summary>
         public static Image PanelImage(RectTransform parent, string name, Color color, float rounding = 0f)
         {
-            return Image(parent, name, color);
+            return Sliced(parent, name, CardSprite, color);
         }
+
+        /// <summary>Free-positioned icon image.</summary>
+        public static Image Icon(RectTransform parent, string spritePath,
+            float size = 64f, Color? tint = null)
+        {
+            var r = Root(parent, "icon");
+            r.sizeDelta = new Vector2(size, size);
+            var img = r.gameObject.AddComponent<UnityEngine.UI.Image>();
+            img.sprite = Sprite(spritePath);
+            img.preserveAspect = true;
+            img.color = tint ?? Color.white;
+            img.raycastTarget = false;
+            return img;
+        }
+
+        // ─── Text ────────────────────────────────────────────────────────────
 
         /// <summary>Non-interactive localized label. Registers for language refresh.</summary>
         public static LocalizedLabel Label(RectTransform parent, string key,
@@ -90,11 +154,25 @@ namespace QuietCamp.Presentation.UI
             return tmp;
         }
 
-        /// <summary>uGUI Button with a localized child label and press scale animation.</summary>
+        // ─── Buttons ─────────────────────────────────────────────────────────
+
+        /// <summary>
+        /// uGUI Button backed by a sliced Kenney sprite. The Color argument picks
+        /// the semantic variant: Green/Amber/GreenDark → green sprite tinted,
+        /// Brown/Disabled → light secondary, Danger → red sprite.
+        /// </summary>
         public static Button Button(RectTransform parent, string key, Action onClick,
             Color? bg = null, Vector2? minSize = null)
         {
-            var img = Image(parent, "Btn_" + key.Replace('.', '_'), bg ?? Green);
+            var c = bg ?? Green;
+            var isLight = c == Brown || c == Disabled;
+            var sprite = c == Danger ? BtnRed : isLight ? BtnGrey : BtnGreen;
+            var tint = c == Green ? Color.white
+                : c == GreenDark ? new Color(0.62f, 0.72f, 0.62f)
+                : c == Amber ? new Color(1f, 0.78f, 0.45f)
+                : c == Danger ? Color.white
+                : isLight ? Cream : Color.white;
+            var img = Sliced(parent, "Btn_" + key.Replace('.', '_'), sprite, tint);
             img.raycastTarget = true;
             var btn = img.gameObject.AddComponent<Button>();
             var rt = img.rectTransform;
@@ -104,14 +182,41 @@ namespace QuietCamp.Presentation.UI
             var tmp = labelRect.gameObject.AddComponent<TextMeshProUGUI>();
             tmp.fontSize = TextButton;
             tmp.alignment = TextAlignmentOptions.Center;
-            tmp.color = Cream;
+            tmp.color = isLight ? Ink : Cream;
             tmp.raycastTarget = false;
             var loc = labelRect.gameObject.AddComponent<LocalizedLabel>();
             loc.Bind(key);
             var colors = btn.colors;
-            colors.highlightedColor = Color.Lerp(bg ?? Green, Color.white, 0.12f);
-            colors.pressedColor = Color.Lerp(bg ?? Green, Color.black, 0.12f);
-            colors.disabledColor = Disabled;
+            colors.highlightedColor = new Color(1.1f, 1.1f, 1.1f);
+            colors.pressedColor = new Color(0.82f, 0.82f, 0.82f);
+            colors.disabledColor = new Color(0.55f, 0.55f, 0.55f, 0.7f);
+            colors.fadeDuration = 0.08f;
+            btn.colors = colors;
+            if (onClick != null) btn.onClick.AddListener(() => onClick());
+            return btn;
+        }
+
+        /// <summary>Icon button — square sprite + icon child.</summary>
+        public static Button IconButton(RectTransform parent, string spritePath,
+            Action onClick, Color? bg = null, float size = 96f)
+        {
+            var c = bg ?? Green;
+            var sprite = c == Danger ? BtnGrey : BtnGreen;
+            var img = Sliced(parent, "IconBtn", sprite,
+                c == Green ? Color.white : c);
+            img.raycastTarget = true;
+            var rt = img.rectTransform;
+            rt.sizeDelta = new Vector2(size, size);
+            var btn = img.gameObject.AddComponent<Button>();
+            var icon = Icon(rt, spritePath, size * 0.55f,
+                c == Brown ? Ink : Color.white);
+            icon.rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+            icon.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+            icon.rectTransform.anchoredPosition = Vector2.zero;
+            var colors = btn.colors;
+            colors.pressedColor = new Color(0.82f, 0.82f, 0.82f);
+            colors.disabledColor = new Color(0.55f, 0.55f, 0.55f, 0.7f);
+            colors.fadeDuration = 0.08f;
             btn.colors = colors;
             if (onClick != null) btn.onClick.AddListener(() => onClick());
             return btn;
