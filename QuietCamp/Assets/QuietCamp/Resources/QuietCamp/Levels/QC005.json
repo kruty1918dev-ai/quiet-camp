@@ -1,104 +1,67 @@
 {
-  "schemaVersion": 1,
-  "ruleVersion": 1,
-  "id": "QC005",
-  "order": 5,
-  "chapter": 1,
-  "seed": 29131621,
-  "generatorVersion": "qc-python-1",
-  "generationAttempt": 0,
-  "width": 5,
-  "height": 5,
-  "entry": [
-    4,
-    4
+ "schemaVersion": 1,
+ "ruleVersion": 1,
+ "id": "QC005",
+ "order": 5,
+ "chapter": 1,
+ "seed": 808093535,
+ "generatorVersion": "levelkit-hand-1",
+ "generationAttempt": 0,
+ "width": 5,
+ "height": 5,
+ "entry": [
+  4,
+  4
+ ],
+ "blocked": [
+  [
+   1,
+   2
   ],
-  "blocked": [
-    [
-      0,
-      4
-    ]
+  [
+   2,
+   2
   ],
-  "shade": [
-    [
-      1,
-      3
-    ],
-    [
-      1,
-      4
-    ],
-    [
-      2,
-      1
-    ],
-    [
-      2,
-      2
-    ],
-    [
-      2,
-      3
-    ],
-    [
-      3,
-      1
-    ],
-    [
-      3,
-      2
-    ],
-    [
-      3,
-      3
-    ],
-    [
-      4,
-      1
-    ],
-    [
-      4,
-      2
-    ],
-    [
-      4,
-      4
-    ]
-  ],
-  "noise": [],
-  "guests": [
-    {
-      "id": "g1",
-      "nameKey": "guest.1",
-      "assetId": "tent_smallOpen",
-      "shade": true,
-      "quiet": false
-    },
-    {
-      "id": "g2",
-      "nameKey": "guest.2",
-      "assetId": "tent_smallOpen",
-      "shade": false,
-      "quiet": false
-    }
-  ],
-  "friends": [],
-  "witness": [
-    {
-      "x": 2,
-      "z": 2,
-      "rotation": 0,
-      "guestId": "g1"
-    },
-    {
-      "x": 0,
-      "z": 2,
-      "rotation": 0,
-      "guestId": "g2"
-    }
-  ],
-  "lighting": "day",
-  "tutorialKey": "tutorial.5",
-  "decorSeed": 29151297,
-  "contentHash": "5adebea735acfe54cea23e544ce49380ef5b2279a31db5fe3ad65a80cf396f76"
+  [
+   3,
+   2
+  ]
+ ],
+ "shade": [],
+ "noise": [],
+ "guests": [
+  {
+   "id": "g1",
+   "nameKey": "guest.1",
+   "assetId": "tent_smallOpen",
+   "shade": false,
+   "quiet": false
+  },
+  {
+   "id": "g2",
+   "nameKey": "guest.2",
+   "assetId": "tent_smallOpen",
+   "shade": false,
+   "quiet": false
+  }
+ ],
+ "friends": [],
+ "witness": [
+  {
+   "x": 1,
+   "z": 0,
+   "rotation": 1,
+   "guestId": "g1"
+  },
+  {
+   "x": 0,
+   "z": 3,
+   "rotation": 1,
+   "guestId": "g2"
+  }
+ ],
+ "lighting": "day",
+ "tutorialKey": "tutorial.5",
+ "decorSeed": 1391955193,
+ "contentHash": "e7dadc7ad262e43425d0fa05137c8128bf951345de3e6fea81fed7894803a7e3"
 }

@@ -1,54 +1,54 @@
 {
-  "schemaVersion": 1,
-  "ruleVersion": 1,
-  "id": "QC001",
-  "order": 1,
-  "chapter": 1,
-  "seed": 29099945,
-  "generatorVersion": "qc-python-1",
-  "generationAttempt": 0,
-  "width": 5,
-  "height": 5,
-  "entry": [
-    4,
-    4
-  ],
-  "blocked": [],
-  "shade": [],
-  "noise": [],
-  "guests": [
-    {
-      "id": "g1",
-      "nameKey": "guest.1",
-      "assetId": "tent_smallOpen",
-      "shade": false,
-      "quiet": false
-    },
-    {
-      "id": "g2",
-      "nameKey": "guest.2",
-      "assetId": "tent_smallOpen",
-      "shade": false,
-      "quiet": false
-    }
-  ],
-  "friends": [],
-  "witness": [
-    {
-      "x": 3,
-      "z": 1,
-      "rotation": 3,
-      "guestId": "g1"
-    },
-    {
-      "x": 0,
-      "z": 2,
-      "rotation": 0,
-      "guestId": "g2"
-    }
-  ],
-  "lighting": "day",
-  "tutorialKey": "tutorial.1",
-  "decorSeed": 29119629,
-  "contentHash": "8b9ca5d70332b8bf1d8f2e55f2ee19cdbb77520b07f856de019c708f03d4fcbf"
+ "schemaVersion": 1,
+ "ruleVersion": 1,
+ "id": "QC001",
+ "order": 1,
+ "chapter": 1,
+ "seed": 636711415,
+ "generatorVersion": "levelkit-hand-1",
+ "generationAttempt": 0,
+ "width": 5,
+ "height": 5,
+ "entry": [
+  4,
+  4
+ ],
+ "blocked": [],
+ "shade": [],
+ "noise": [],
+ "guests": [
+  {
+   "id": "g1",
+   "nameKey": "guest.1",
+   "assetId": "tent_smallOpen",
+   "shade": false,
+   "quiet": false
+  },
+  {
+   "id": "g2",
+   "nameKey": "guest.2",
+   "assetId": "tent_smallOpen",
+   "shade": false,
+   "quiet": false
+  }
+ ],
+ "friends": [],
+ "witness": [
+  {
+   "x": 0,
+   "z": 0,
+   "rotation": 0,
+   "guestId": "g1"
+  },
+  {
+   "x": 2,
+   "z": 3,
+   "rotation": 2,
+   "guestId": "g2"
+  }
+ ],
+ "lighting": "day",
+ "tutorialKey": "tutorial.1",
+ "decorSeed": 1049484283,
+ "contentHash": "6c865462f753a9487f461cfc6f4ec1a0db28faf4c1249e93986886f00433d0b4"
 }
