@@ -72,32 +72,35 @@ namespace QuietCamp.Presentation.UI
         {
             var header = QcUi.Anchor(root, "Header",
                 new Vector2(0, 1), new Vector2(1, 1),
-                new Vector2(24, -200), new Vector2(-24, -48));
-            var back = QcUi.Button(header, "action.back",
+                new Vector2(16, -116), new Vector2(-16, -20));
+            var back = QcUi.IconButton(header, QcUi.IconBack,
                 () => _services.Actions.Execute(new UiActionId("qc.back"), UiActionSource.Button, "Gameplay"),
-                QcUi.Brown);
+                QcUi.Cream, 96f);
             var backRt = (RectTransform)back.transform;
-            backRt.anchorMin = new Vector2(0, 0); backRt.anchorMax = new Vector2(0, 1);
-            backRt.offsetMin = new Vector2(0, 8); backRt.offsetMax = new Vector2(150, -8);
+            backRt.anchorMin = new Vector2(0, 0.5f); backRt.anchorMax = new Vector2(0, 0.5f);
+            backRt.pivot = new Vector2(0, 0.5f);
+            backRt.anchoredPosition = Vector2.zero;
             var title = QcUi.Anchor(header, "Title",
                 new Vector2(0.5f, 0), new Vector2(0.5f, 1),
                 new Vector2(-300, 0), new Vector2(300, 0));
             _statusText = new TextMeshProUGUICompat(
-                QcUi.PlainText(title, "", QcUi.TextTitle, TMPro.TextAlignmentOptions.Center, QcUi.Ink).gameObject);
+                QcUi.PlainText(title, "", QcUi.TextButton, TMPro.TextAlignmentOptions.Center, QcUi.Ink).gameObject);
             SetLevelTitle();
             var pause = QcUi.Button(header, "qc.pause.button",
                 () => _services.Actions.Execute(new UiActionId("qc.pause"), UiActionSource.Button, "Gameplay"),
-                QcUi.Brown);
+                QcUi.Cream);
             var pauseRt = (RectTransform)pause.transform;
-            pauseRt.anchorMin = new Vector2(1, 0); pauseRt.anchorMax = new Vector2(1, 1);
-            pauseRt.offsetMin = new Vector2(-150, 8); pauseRt.offsetMax = new Vector2(0, -8);
+            pauseRt.anchorMin = new Vector2(1, 0.5f); pauseRt.anchorMax = new Vector2(1, 0.5f);
+            pauseRt.pivot = new Vector2(1, 0.5f);
+            pauseRt.sizeDelta = new Vector2(190f, 96f);
+            pauseRt.anchoredPosition = Vector2.zero;
         }
 
         void BuildRulesRow(RectTransform root)
         {
             var row = QcUi.Anchor(root, "RulesRow",
                 new Vector2(0, 1), new Vector2(1, 1),
-                new Vector2(24, -305), new Vector2(-24, -210));
+                new Vector2(16, -192), new Vector2(-16, -128));
             var used = new List<string>();
             foreach (var g in _session.Level.guests)
             {
@@ -108,14 +111,15 @@ namespace QuietCamp.Presentation.UI
                 used.Add("rule.friends");
             used.Add("rule.path");
             float w = 1f / Mathf.Max(1, used.Count);
+            var chipBg = new Color(QcUi.CreamDark.r, QcUi.CreamDark.g, QcUi.CreamDark.b, 0.72f);
             for (var i = 0; i < used.Count; i++)
             {
                 var chip = QcUi.Anchor(row, "chip_" + used[i],
-                    new Vector2(i * w + 0.005f, 0), new Vector2((i + 1) * w - 0.005f, 1),
+                    new Vector2(i * w + 0.004f, 0), new Vector2((i + 1) * w - 0.004f, 1),
                     Vector2.zero, Vector2.zero);
-                var img = QcUi.PanelImage(chip, "bg", QcUi.CreamDark);
+                var img = QcUi.PanelImage(chip, "bg", chipBg);
                 _chips[used[i]] = img;
-                QcUi.Label(chip, used[i], QcUi.TextSmall,
+                QcUi.Label(chip, used[i], QcUi.TextSmall - 4f,
                     TMPro.TextAlignmentOptions.Center, QcUi.Ink);
             }
         }
@@ -124,7 +128,7 @@ namespace QuietCamp.Presentation.UI
         {
             var tray = QcUi.Anchor(root, "GuestTray",
                 new Vector2(0, 0), new Vector2(1, 0),
-                new Vector2(24, 370), new Vector2(-24, 520));
+                new Vector2(16, 252), new Vector2(-16, 378));
             var scroll = QcUi.Stretch(tray, "Scroll");
             var scrollRect = scroll.gameObject.AddComponent<ScrollRect>();
             scrollRect.horizontal = true;
@@ -149,7 +153,7 @@ namespace QuietCamp.Presentation.UI
             foreach (var g in _session.Level.guests)
             {
                 var card = QcUi.Root(content, "card_" + g.id);
-                card.sizeDelta = new Vector2(230f, 140f);
+                card.sizeDelta = new Vector2(200f, 118f);
                 var img = QcUi.PanelImage(card, "bg", QcUi.Cream);
                 img.raycastTarget = true;
                 var btn = card.gameObject.AddComponent<Button>();
@@ -178,16 +182,16 @@ namespace QuietCamp.Presentation.UI
 
         void BuildActions(RectTransform root)
         {
-            var panel = QcUi.Anchor(root, "ActionPanel",
+            var panel = QcUi.Anchor(root, "ActionStrip",
                 new Vector2(0, 0), new Vector2(1, 0),
-                new Vector2(24, 140), new Vector2(-24, 355));
-            var bg = QcUi.Image(panel, "bg", new Color(0.85f, 0.80f, 0.70f, 0.55f));
+                new Vector2(16, 148), new Vector2(-16, 240));
+            var bg = QcUi.Image(panel, "bg", new Color(0.85f, 0.80f, 0.70f, 0.30f));
             bg.raycastTarget = false;
 
-            var row = QcUi.Anchor(panel, "row",
-                new Vector2(0, 0.5f), new Vector2(1, 1), new Vector2(12, 8), new Vector2(-12, -8));
+            var row = QcUi.Stretch(panel, "row");
             var layout = row.gameObject.AddComponent<HorizontalLayoutGroup>();
-            layout.spacing = 10;
+            layout.padding = new RectOffset(6, 6, 6, 6);
+            layout.spacing = 8;
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = true;
 
@@ -198,29 +202,27 @@ namespace QuietCamp.Presentation.UI
             _redoButton = QcUi.Button(row, "action.redo",
                 () => Action("qc.redo"), QcUi.GreenDark);
             _removeButton = QcUi.Button(row, "action.remove",
-                () => Action("qc.remove"), QcUi.Brown);
-
-            var checkRow = QcUi.Anchor(panel, "check",
-                new Vector2(0, 0), new Vector2(1, 0.52f), new Vector2(12, 6), new Vector2(-12, -4));
-            _checkButton = QcUi.Button(checkRow, "action.check",
-                () => Action("qc.check"), QcUi.Green);
+                () => Action("qc.remove"), QcUi.Cream);
         }
 
         void BuildNav(RectTransform root)
         {
             var nav = QcUi.Anchor(root, "BottomNav",
                 new Vector2(0, 0), new Vector2(1, 0),
-                new Vector2(24, 30), new Vector2(-24, 120));
+                new Vector2(16, 28), new Vector2(-16, 132));
             var layout = nav.gameObject.AddComponent<HorizontalLayoutGroup>();
             layout.spacing = 12;
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = true;
             _hintButton = QcUi.Button(nav, "action.hint",
                 () => Action("qc.hint"), QcUi.Amber);
-            QcUi.Button(nav, "menu.settings",
-                () => Action("qc.settings"), QcUi.Brown);
-            QcUi.Button(nav, "menu.levels",
-                () => Action("qc.levels"), QcUi.Brown);
+            _hintButton.gameObject.AddComponent<LayoutElement>().flexibleWidth = 0.8f;
+            _checkButton = QcUi.Button(nav, "action.check",
+                () => Action("qc.check"), QcUi.Green);
+            _checkButton.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1.6f;
+            var levels = QcUi.Button(nav, "menu.levels",
+                () => Action("qc.levels"), QcUi.Cream);
+            levels.gameObject.AddComponent<LayoutElement>().flexibleWidth = 0.8f;
         }
 
         void BuildModals()

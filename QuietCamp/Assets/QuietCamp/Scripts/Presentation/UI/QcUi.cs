@@ -38,6 +38,9 @@ namespace QuietCamp.Presentation.UI
         public const string IconPlay = UiRoot + "Extra/Default/icon_play_light";
         public const string IconArrowUp = UiRoot + "Extra/Default/icon_arrow_up_dark";
         public const string IconArrowDown = UiRoot + "Extra/Default/icon_arrow_down_dark";
+        public const string IconBack = UiRoot + "Grey/Default/arrow_basic_w";
+        public const string IconUndo = UiRoot + "Extra/Default/icon_repeat_light";
+        public const string IconPause = UiRoot + "Green/Default/icon_square";
         public const string SlideTrack = UiRoot + "Grey/Default/slide_horizontal_grey";
         public const string SlideFill = UiRoot + "Green/Default/slide_horizontal_color";
         public const string SlideHandle = UiRoot + "Grey/Default/slide_hangle";
@@ -172,7 +175,7 @@ namespace QuietCamp.Presentation.UI
             Color? bg = null, Vector2? minSize = null)
         {
             var c = bg ?? Green;
-            var isLight = c == Brown || c == Disabled;
+            var isLight = c == Brown || c == Disabled || c == Cream || c == CreamDark;
             var sprite = c == Danger ? BtnRed : isLight ? BtnGrey : BtnGreen;
             var tint = c == Green ? Color.white
                 : c == GreenDark ? new Color(0.62f, 0.72f, 0.62f)
@@ -205,18 +208,18 @@ namespace QuietCamp.Presentation.UI
 
         /// <summary>Icon button — square sprite + icon child.</summary>
         public static Button IconButton(RectTransform parent, string spritePath,
-            Action onClick, Color? bg = null, float size = 96f)
+            Action onClick, Color? bg = null, float size = 96f, Color? iconTint = null)
         {
             var c = bg ?? Green;
-            var sprite = c == Danger ? BtnGrey : BtnGreen;
+            var sprite = c == Danger || c == Cream ? BtnGrey : BtnGreen;
             var img = Sliced(parent, "IconBtn", sprite,
-                c == Green ? Color.white : c);
+                c == Green ? Color.white : c == Cream ? Color.white : c);
             img.raycastTarget = true;
             var rt = img.rectTransform;
             rt.sizeDelta = new Vector2(size, size);
             var btn = img.gameObject.AddComponent<Button>();
             var icon = Icon(rt, spritePath, size * 0.55f,
-                c == Brown ? Ink : Color.white);
+                iconTint ?? (c == Cream ? Ink : Color.white));
             icon.rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
             icon.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
             icon.rectTransform.anchoredPosition = Vector2.zero;
