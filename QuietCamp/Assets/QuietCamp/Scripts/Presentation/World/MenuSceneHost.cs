@@ -92,6 +92,7 @@ namespace QuietCamp.Presentation.World
                 camera.transform.rotation = Quaternion.Euler(45f, 0f, 0f);
                 camera.orthographic = true;
                 camera.orthographicSize = 4.6f;
+                SkyPalette.Apply(evening: false, camera);
             }
             var lighting = new GameObject("MenuLight").transform;
             lighting.SetParent(_diorama, false);
@@ -131,9 +132,10 @@ namespace QuietCamp.Presentation.World
         {
             var renderer = go.GetComponent<Renderer>();
             if (renderer == null) return;
-            var mat = renderer.material;
-            if (mat.HasProperty("_BaseColor")) mat.SetColor("_BaseColor", color);
-            else if (mat.HasProperty("_Color")) mat.SetColor("_Color", color);
+            var shader = Shader.Find("Universal Render Pipeline/Simple Lit");
+            var mat = new Material(shader);
+            mat.SetColor("_BaseColor", color);
+            renderer.sharedMaterial = mat;
         }
 
         // ─── Actions ─────────────────────────────────────────────────────────

@@ -98,7 +98,7 @@ namespace QuietCamp.Presentation.World
                 Child("Tent"), Child("Overlay"));
             _renderer.SyncPlacements(_session.State.Placements, level);
 
-            var decorRoot = world != null ? world.transform.Find("DecorRoot") : null;
+            var decorRoot = Find("DecorRoot")?.transform;
             if (decorRoot != null)
             {
                 for (var i = decorRoot.childCount - 1; i >= 0; i--)
@@ -315,6 +315,7 @@ namespace QuietCamp.Presentation.World
         void ApplyLighting(bool evening)
         {
             _evening = evening;
+            SkyPalette.Apply(evening, FindCamera());
             var lighting = Find("LightingRoot");
             var dir = lighting != null ? lighting.transform.Find("DirectionalLight") : null;
             var fire = lighting != null ? lighting.transform.Find("FireLight") : null;

@@ -13,10 +13,13 @@ namespace QuietCamp.Presentation.World
         public const float Distance = 20f;
         public const float Near = 0.1f, Far = 60f;
         public const float FitMargin = 1.08f;
+        /// <summary>Extra world-space margin so meadow/decor frame the board.</summary>
+        public const float SceneryMargin = 1.9f;
 
         public static void Configure(Camera camera)
         {
             camera.orthographic = true;
+            camera.clearFlags = CameraClearFlags.Skybox;
             camera.nearClipPlane = Near;
             camera.farClipPlane = Far;
             camera.transform.rotation = Quaternion.Euler(Euler);
@@ -30,8 +33,8 @@ namespace QuietCamp.Presentation.World
             camera.rect = rect;
             var aspect = rect.width * Screen.width / Mathf.Max(1f, rect.height * Screen.height);
 
-            var half = new Vector3(level.width / 2f + BoardMath.Overhang, 0.4f,
-                level.height / 2f + BoardMath.Overhang);
+            var half = new Vector3(level.width / 2f + BoardMath.Overhang + SceneryMargin, 0.4f,
+                level.height / 2f + BoardMath.Overhang + SceneryMargin);
             float maxRight = 0f, maxUp = 0f;
             var camT = camera.transform;
             for (var i = 0; i < 8; i++)
