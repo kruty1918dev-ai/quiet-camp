@@ -35,18 +35,73 @@ namespace QuietCamp.Tests
             DumpUi();
             var menuMagenta = Shot(outDir, "01_main_menu");
 
+            // Navigate to the Settings screen via the real button — exercises
+            // the same action path as a user tap.
+            ClickButton("Btn_menu_settings");
+            yield return Settle(30);
+            var settingsMagenta = Shot(outDir, "02_menu_settings");
+
+            ClickButton("Btn_action_back"); // Settings → Main
+            yield return Settle(20);
+            ClickButton("Btn_menu_levels");
+            yield return Settle(30);
+            var levelsMagenta = Shot(outDir, "03_menu_levels");
+
             yield return SceneManager.LoadSceneAsync("Camp", LoadSceneMode.Single);
             yield return WaitForActiveScene("Camp", 20f);
             yield return new WaitUntil(() => CampSceneHost.Current != null);
             yield return Settle(60);
-            var campMagenta = Shot(outDir, "02_camp_day");
+            var campMagenta = Shot(outDir, "04_camp_day");
 
-            Assert.IsTrue(File.Exists(System.IO.Path.Combine(outDir, "01_main_menu.png")));
-            Assert.IsTrue(File.Exists(System.IO.Path.Combine(outDir, "02_camp_day.png")));
+            // Pause modal → shot; then in-game settings modal → shot.
+            ClickButton("Btn_qc_pause_button");
+            yield return Settle(30);
+            var pauseMagenta = Shot(outDir, "05_camp_pause");
+
+            ClickModalButton("PausePanel", "Btn_menu_settings");
+            yield return Settle(30);
+            var campSettingsMagenta = Shot(outDir, "06_camp_settings");
+
+            var names = new[] { "01_main_menu", "02_menu_settings", "03_menu_levels",
+                "04_camp_day", "05_camp_pause", "06_camp_settings" };
+            foreach (var n in names)
+                Assert.IsTrue(File.Exists(System.IO.Path.Combine(outDir, n + ".png")),
+                    "Missing screenshot " + n);
             // Missing shaders render as pure magenta — catch stripped-shader
             // regressions (e.g. URP Lit/Unlit absent from Always Included).
-            Assert.Less(menuMagenta, 0.02f, "Menu screenshot is magenta — missing shader.");
-            Assert.Less(campMagenta, 0.02f, "Camp screenshot is magenta — missing shader.");
+            var mags = new (string name, float v)[]
+            {
+                ("menu", menuMagenta), ("settings", settingsMagenta),
+                ("levels", levelsMagenta), ("camp", campMagenta),
+                ("pause", pauseMagenta), ("camp settings", campSettingsMagenta)
+            };
+            foreach (var m in mags)
+                Assert.Less(m.v, 0.02f, $"{m.name} screenshot is magenta — missing shader.");
+        }
+
+        static void ClickButton(string goName)
+        {
+            var btn = FindButton(null, goName);
+            Assert.IsNotNull(btn, $"Button '{goName}' not found");
+            btn.onClick.Invoke();
+        }
+
+        static void ClickModalButton(string panelName, string goName)
+        {
+            var panel = Object.FindObjectsByType<Transform>(FindObjectsSortMode.None)
+                .FirstOrDefault(t => t.name == panelName && t.gameObject.activeInHierarchy);
+            Assert.IsNotNull(panel, $"Modal panel '{panelName}' not active");
+            var btn = FindButton(panel, goName);
+            Assert.IsNotNull(btn, $"Button '{goName}' not found under {panelName}");
+            btn.onClick.Invoke();
+        }
+
+        static UnityEngine.UI.Button FindButton(Transform root, string name)
+        {
+            var buttons = root == null
+                ? Object.FindObjectsByType<UnityEngine.UI.Button>(FindObjectsSortMode.None)
+                : root.GetComponentsInChildren<UnityEngine.UI.Button>(true);
+            return buttons.FirstOrDefault(b => b.name == name && b.gameObject.activeInHierarchy);
         }
 
         static IEnumerator WaitForActiveScene(string name, float timeout)

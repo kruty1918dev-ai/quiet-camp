@@ -81,5 +81,45 @@ namespace QuietCamp.Tests
 
             Object.Destroy(canvasGo);
         }
+
+        [UnityTest]
+        public IEnumerator SettingsWidgets_AreSpriteBacked()
+        {
+            var canvasGo = new GameObject("canvas", typeof(Canvas));
+            var canvas = canvasGo.GetComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            var root = new GameObject("content", typeof(RectTransform));
+            root.transform.SetParent(canvas.transform, false);
+            var rt = (RectTransform)root.transform;
+            rt.sizeDelta = new Vector2(800, 1200);
+            var layout = root.AddComponent<UnityEngine.UI.VerticalLayoutGroup>();
+            layout.childForceExpandWidth = true;
+            layout.childForceExpandHeight = false;
+            yield return null;
+
+            var changed = -1f;
+            var slider = SettingsPanel.AddSliderRow(rt, "settings.music", 0.5f, v => changed = v);
+            Assert.IsNotNull(slider.GetComponentInChildren<Image>().sprite,
+                "Slider handle sprite missing");
+            slider.value = 0.8f;
+            Assert.AreEqual(0.8f, changed, 0.001f, "Slider onChange not fired");
+
+            var toggled = false;
+            var toggle = SettingsPanel.AddToggleRow(rt, "settings.calm", false, v => toggled = v);
+            toggle.isOn = true;
+            Assert.IsTrue(toggled, "Toggle onValueChanged not fired");
+            var imgs = toggle.GetComponentsInChildren<Image>(true);
+            Assert.IsTrue(imgs.Length >= 2, "Toggle lacks box+check images");
+
+            var picked = -1;
+            var drop = SettingsPanel.AddDropdownRow(rt, "settings.language",
+                new[] { "Українська", "English", "Deutsch" }, "en", v => picked = v);
+            Assert.IsNotNull(drop.template, "Dropdown template missing");
+            Assert.AreEqual(1, drop.value, "Dropdown initial value mismatch");
+            drop.value = 2;
+            Assert.AreEqual(2, picked, "Dropdown onValueChanged not fired");
+
+            Object.Destroy(canvasGo);
+        }
     }
 }
