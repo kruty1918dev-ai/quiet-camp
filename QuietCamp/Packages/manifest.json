@@ -29,10 +29,12 @@
         "com.kruty1918.runtime-diagnostics": "file:com.kruty1918.runtime-diagnostics",
         "com.kruty1918.adaptive-performance": "file:com.kruty1918.adaptive-performance",
         "com.kruty1918.atmos": "file:../../../atmos",
-        "com.kruty1918.levelkit": "file:../../../level-kit"
+        "com.kruty1918.levelkit": "file:../../../level-kit",
+        "com.kruty1918.levelgen": "file:../../../levelgen"
     },
     "testables": [
         "com.kruty1918.levelkit",
-        "com.kruty1918.atmos"
+        "com.kruty1918.atmos",
+        "com.kruty1918.levelgen"
     ]
 }

@@ -1,0 +1,17 @@
+{
+  "name": "qc_camp",
+  "width": 6, "height": 6, "seed": 7700, "seedStrategy": "increment", "maxAttempts": 12,
+  "props": { "genre": "puzzle-camp" },
+  "steps": [
+    { "type": "rect", "layer": "entry_band", "from": [0, 5], "size": [6, 1] },
+    { "type": "rect", "layer": "top_band", "from": [0, 0], "size": [6, 3] },
+    { "type": "scatter", "layer": "entry", "count": 1, "on": ["entry_band"], "strict": true },
+    { "type": "scatter", "layer": "blocked", "count": 2, "minDist": 2, "on": ["top_band"], "avoid": ["entry_band", "entry"] },
+    { "type": "noise", "layer": "shade", "scale": 2.0, "threshold": 0.55 },
+    { "type": "scatter", "layer": "noise", "count": 1, "on": ["top_band"], "avoid": ["blocked"], "strict": true },
+    { "type": "require", "check": "maskCount", "layer": "shade", "min": 3, "max": 10 },
+    { "type": "require", "check": "notOverlap", "a": "blocked", "b": "shade" },
+    { "type": "require", "check": "notOverlap", "a": "blocked", "b": "noise" },
+    { "type": "require", "check": "notOverlap", "a": "entry", "b": "shade" }
+  ]
+}

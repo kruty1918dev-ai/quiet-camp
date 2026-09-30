@@ -17,7 +17,7 @@ namespace QuietCamp.Infrastructure
         [Serializable] sealed class CampaignData
         {
             public int schemaVersion, freeLevelCount;
-            public string[] mvpLevelIds, campaignLevelIds;
+            public string[] mvpLevelIds, campaignLevelIds, generatedLevelIds;
         }
 
         /// <summary>
@@ -27,6 +27,12 @@ namespace QuietCamp.Infrastructure
         /// </summary>
         public static LevelData Load(string levelId)
         {
+            if (GeneratedCampSource.IsGeneratedId(levelId))
+            {
+                if (!GeneratedCampSource.TryParseId(levelId, out var recipeName, out var index))
+                    throw new InvalidOperationException($"Generated level id malformed: '{levelId}'");
+                return GeneratedCampSource.Generate(recipeName, index);
+            }
             var asset = Resources.Load<TextAsset>($"{LevelsFolder}/{levelId}");
             if (asset == null) throw new InvalidOperationException($"Level '{levelId}' not found in Resources.");
             var result = Kruty1918.LevelKit.LevelJson.Parse(
@@ -48,7 +54,15 @@ namespace QuietCamp.Infrastructure
         {
             var campaign = LoadCampaign();
             if (campaign?.mvpLevelIds != null && campaign.mvpLevelIds.Length > 0)
-                return campaign.mvpLevelIds;
+            {
+                // Endless tail: deterministic generated levels after the authored set.
+                var gen = campaign.generatedLevelIds;
+                if (gen == null || gen.Length == 0) return campaign.mvpLevelIds;
+                var all = new string[campaign.mvpLevelIds.Length + gen.Length];
+                campaign.mvpLevelIds.CopyTo(all, 0);
+                gen.CopyTo(all, campaign.mvpLevelIds.Length);
+                return all;
+            }
             var fallback = new string[12];
             for (var i = 0; i < 12; i++) fallback[i] = $"QC{i + 1:000}";
             return fallback;

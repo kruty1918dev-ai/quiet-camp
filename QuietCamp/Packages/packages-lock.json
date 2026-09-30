@@ -28,6 +28,12 @@
         "com.unity.ugui": "2.0.0"
       }
     },
+    "com.kruty1918.levelgen": {
+      "version": "file:../../../levelgen",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.kruty1918.levelkit": {
       "version": "file:../../../level-kit",
       "depth": 0,
