@@ -34,8 +34,11 @@ namespace QuietCamp.Presentation.UI
         }
 
         void Action(string id, object payload = null)
-            => _services.Actions.Execute(new UiActionRequest(
+        {
+            _services.Audio?.Play("ui.click");
+            _services.Actions.Execute(new UiActionRequest(
                 new UiActionId(id), UiActionSource.Button, "Menu", null, payload));
+        }
 
         // ─── Main ────────────────────────────────────────────────────────────
 
@@ -280,6 +283,7 @@ namespace QuietCamp.Presentation.UI
 
         public void Back()
         {
+            _services.Audio?.Play("ui.back");
             var target = _history.Count > 0 ? _history.Pop() : "Main";
             Current = null; // avoid re-push
             foreach (var kv in _screens) kv.Value.gameObject.SetActive(false);

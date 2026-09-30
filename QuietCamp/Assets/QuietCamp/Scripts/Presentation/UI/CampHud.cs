@@ -359,6 +359,7 @@ namespace QuietCamp.Presentation.UI
         void CloseModal(CanvasGroup panel)
         {
             if (panel == null || !panel.gameObject.activeSelf) return;
+            _services.Audio?.Play("ui.back");
             _services.Motion.SetPanelVisible(panel, panel.transform as RectTransform, false, 0.12f);
             _openStack.Remove(panel);
             if (_modalContexts.TryGetValue(panel, out var leases))
@@ -371,7 +372,10 @@ namespace QuietCamp.Presentation.UI
         // ─── Events & refresh ────────────────────────────────────────────────
 
         void Action(string id)
-            => _services.Actions.Execute(new UiActionId(id), UiActionSource.Button, "Gameplay");
+        {
+            _services.Audio?.Play("ui.click");
+            _services.Actions.Execute(new UiActionId(id), UiActionSource.Button, "Gameplay");
+        }
 
         void OnSessionEvent(CampEvent e)
         {
@@ -475,6 +479,7 @@ namespace QuietCamp.Presentation.UI
 
         void NextHint()
         {
+            _services.Audio?.Play("sfx.chime");
             var level = _session.Level;
             switch (_hint.NextStage)
             {

@@ -42,6 +42,8 @@ namespace QuietCamp.Presentation.World
         public event System.Action<string> PlacementFailed;
         public event System.Action PlacementCommitted;
         public event System.Action Cancelled;
+        /// <summary>Raised when a committed tent is picked up to move it.</summary>
+        public event System.Action<string> TentGrabbed;
 
         /// <summary>True while a ghost preview is on screen (press/drag/cancel pending).</summary>
         public bool HasPreview => _preview != null;
@@ -129,6 +131,7 @@ namespace QuietCamp.Presentation.World
                         BoardMath.CellOf(_level, Hit(sample.Position)).Z - placement.z);
                     _renderer.Tents.TryGetValue(picked, out var presenter);
                     presenter?.SetLifted(true, ReducedMotion(), MotionScale());
+                    TentGrabbed?.Invoke(picked);
                 }
                 return;
             }

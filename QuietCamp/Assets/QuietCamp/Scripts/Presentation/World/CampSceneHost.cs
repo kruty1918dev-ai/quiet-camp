@@ -32,6 +32,8 @@ namespace QuietCamp.Presentation.World
         readonly List<System.IDisposable> _leases = new List<System.IDisposable>();
         IDisposable _gameplayContext;
         float _birdTimer = 30f;
+        float _ambienceTimer = 20f;
+        bool _evening;
         bool _completed;
 
         public static CampSceneHost Current { get; private set; }
@@ -124,6 +126,7 @@ namespace QuietCamp.Presentation.World
                 PersistSession();
             };
             _placement.Cancelled += () => PlayAudio("ui.back");
+            _placement.TentGrabbed += _ => PlayAudio("sfx.rustle");
         }
 
         void BuildHud(LevelData level)
@@ -190,7 +193,10 @@ namespace QuietCamp.Presentation.World
             }));
             _leases.Add(h.Register(new UiActionId("qc.remove"), () =>
             {
+                var id = _session.SelectedGuestId;
+                var wasPlaced = id != null && _session.State.Find(id) != null;
                 _placement.Remove();
+                if (wasPlaced) PlayAudio("sfx.twig");
                 return Performed();
             }));
             _leases.Add(h.Register(new UiActionId("qc.check"), () =>
@@ -308,6 +314,7 @@ namespace QuietCamp.Presentation.World
 
         void ApplyLighting(bool evening)
         {
+            _evening = evening;
             var lighting = Find("LightingRoot");
             var dir = lighting != null ? lighting.transform.Find("DirectionalLight") : null;
             var fire = lighting != null ? lighting.transform.Find("FireLight") : null;
@@ -334,6 +341,16 @@ namespace QuietCamp.Presentation.World
                 ? new Color(0.451f, 0.561f, 0.608f)
                 : new Color(0.725f, 0.788f, 0.796f);
             if (fire != null) fire.gameObject.SetActive(evening);
+            if (evening)
+            {
+                PlayAudio("ambience.fire");
+                PlayAudio("ambience.crickets");
+            }
+            else
+            {
+                _services?.Audio?.StopByKey("ambience.fire");
+                _services?.Audio?.StopByKey("ambience.crickets");
+            }
         }
 
         // ─── Frame loop ──────────────────────────────────────────────────────
@@ -346,6 +363,12 @@ namespace QuietCamp.Presentation.World
             {
                 _birdTimer = 25f + UnityEngine.Random.value * 20f;
                 PlayAudio("ambience.bird");
+            }
+            _ambienceTimer -= Time.deltaTime;
+            if (_ambienceTimer <= 0f)
+            {
+                _ambienceTimer = 35f + UnityEngine.Random.value * 35f;
+                PlayAudio(_evening ? "ambience.owl" : "ambience.gust");
             }
         }
 

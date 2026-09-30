@@ -188,6 +188,9 @@ namespace QuietCamp.Presentation
             // Smooth 60 fps target where the device allows it; calm/balanced
             // pacing stays controlled by Settings.calmMode.
             UnityEngine.Application.targetFrameRate = 60;
+            // Forest base layer — a persistent wind loop living on the
+            // DontDestroyOnLoad audio root across menu and camp scenes.
+            _audio?.Play("ambience.wind");
             if (SceneManager.GetActiveScene().name != _firstSceneName)
                 SceneManager.LoadScene(_firstSceneName);
         }
