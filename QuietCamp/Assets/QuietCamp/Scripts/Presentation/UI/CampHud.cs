@@ -23,9 +23,12 @@ namespace QuietCamp.Presentation.UI
         readonly List<Button> _guestCards = new List<Button>();
         readonly Dictionary<string, Image> _chips = new Dictionary<string, Image>();
         readonly List<IDisposable> _contexts = new List<IDisposable>();
+        readonly Dictionary<CanvasGroup, List<IDisposable>> _modalContexts =
+            new Dictionary<CanvasGroup, List<IDisposable>>();
+        readonly List<CanvasGroup> _openStack = new List<CanvasGroup>();
 
         Button _checkButton, _rotateButton, _undoButton, _redoButton, _removeButton, _hintButton;
-        CanvasGroup _pausePanel, _hintPanel, _completionPanel;
+        CanvasGroup _pausePanel, _hintPanel, _completionPanel, _settingsPanel;
         TextMeshProUGUICompat _statusText;
         RuleReport _lastReport;
         HintService _hint;
@@ -34,7 +37,8 @@ namespace QuietCamp.Presentation.UI
         public bool HasModalOpen =>
             (_pausePanel != null && _pausePanel.gameObject.activeSelf)
             || (_hintPanel != null && _hintPanel.gameObject.activeSelf)
-            || (_completionPanel != null && _completionPanel.gameObject.activeSelf);
+            || (_completionPanel != null && _completionPanel.gameObject.activeSelf)
+            || (_settingsPanel != null && _settingsPanel.gameObject.activeSelf);
         public event Action<string> GuestSelected;
 
         public CampHud(GameServices services, CampSession session, RectTransform safeArea,
@@ -226,6 +230,7 @@ namespace QuietCamp.Presentation.UI
             _pausePanel = BuildPausePanel(modalLayer);
             _hintPanel = BuildHintPanel(modalLayer);
             _completionPanel = BuildCompletionPanel(modalLayer);
+            _settingsPanel = BuildSettingsPanel(modalLayer);
             ToastLayer = QcUi.Stretch(_safeArea, "ToastLayer");
             ToastLayer.SetAsLastSibling();
         }
@@ -293,6 +298,41 @@ namespace QuietCamp.Presentation.UI
             return group;
         }
 
+        /// <summary>In-game settings: same rows as the menu Settings screen.</summary>
+        CanvasGroup BuildSettingsPanel(RectTransform layer)
+        {
+            var group = QcUi.Modal(layer, "SettingsPanel", new Color(0.1f, 0.08f, 0.06f, 0.6f));
+            var card = QcUi.Anchor(group.transform as RectTransform, "Card",
+                new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
+                new Vector2(-440, -720), new Vector2(440, 720));
+            QcUi.PanelImage(card, "bg", Color.white);
+            var scroll = QcUi.Stretch(card, "scroll");
+            var scrollRect = scroll.gameObject.AddComponent<ScrollRect>();
+            scrollRect.horizontal = false;
+            var content = QcUi.Anchor(scroll, "Content",
+                new Vector2(0, 1), new Vector2(1, 1), Vector2.zero, Vector2.zero);
+            scrollRect.content = content;
+            scrollRect.viewport = scroll;
+            var layout = content.gameObject.AddComponent<VerticalLayoutGroup>();
+            layout.padding = new RectOffset(36, 36, 28, 28);
+            layout.spacing = 14;
+            layout.childForceExpandWidth = true;
+            layout.childForceExpandHeight = false;
+            content.gameObject.AddComponent<ContentSizeFitter>().verticalFit =
+                ContentSizeFitter.FitMode.PreferredSize;
+
+            QcUi.Label(content, "menu.settings", QcUi.TextTitle,
+                TMPro.TextAlignmentOptions.Center, QcUi.Ink)
+                .gameObject.AddComponent<LayoutElement>().minHeight = 80;
+
+            SettingsPanel.BuildRows(_services, content);
+
+            var back = QcUi.Button(content, "action.back",
+                () => CloseModal(_settingsPanel), QcUi.Brown);
+            back.gameObject.AddComponent<LayoutElement>().minHeight = 110;
+            return group;
+        }
+
         TMPro.TMP_Text _hintText;
         string _hintFocusGuest;
 
@@ -302,22 +342,30 @@ namespace QuietCamp.Presentation.UI
         {
             if (panel.gameObject.activeSelf) return;
             panel.gameObject.SetActive(true);
+            var leases = new List<IDisposable>();
             var block = _services.InputPolicy?.AcquireBlock(GameplayInputKind.AllPointer, this);
-            if (block != null) _contexts.Add(block);
+            if (block != null) leases.Add(block);
             _services.Motion.SetPanelVisible(panel, panel.transform as RectTransform, true, 0.18f);
             var ctx = _services.ContextStack.Push(new UiContextRegistration(
                 contextId, UiContextLayer.Modal, 100, () => panel.gameObject.activeSelf,
                 new UiActionId("qc.back"), blocksLowerHotkeys: true,
                 allowedHotkeyActionIds: new[] { new UiActionId("qc.back") }));
-            _contexts.Add(ctx);
+            leases.Add(ctx);
+            _modalContexts[panel] = leases;
+            _openStack.Remove(panel);
+            _openStack.Add(panel);
         }
 
         void CloseModal(CanvasGroup panel)
         {
             if (panel == null || !panel.gameObject.activeSelf) return;
             _services.Motion.SetPanelVisible(panel, panel.transform as RectTransform, false, 0.12f);
-            foreach (var b in _contexts) b.Dispose();
-            _contexts.Clear();
+            _openStack.Remove(panel);
+            if (_modalContexts.TryGetValue(panel, out var leases))
+            {
+                foreach (var b in leases) b.Dispose();
+                _modalContexts.Remove(panel);
+            }
         }
 
         // ─── Events & refresh ────────────────────────────────────────────────
@@ -393,12 +441,30 @@ namespace QuietCamp.Presentation.UI
 
         public void SelectGuest(string guestId) => _session.Select(guestId);
         public void ShowPause() => OpenModal(_pausePanel, "Pause");
+        public void ShowSettings() => OpenModal(_settingsPanel, "Settings");
         public void HidePause() => CloseModal(_pausePanel);
+
+        /// <summary>Closes only the topmost modal — used by Android Back / Escape.</summary>
+        public bool CloseTopModal()
+        {
+            while (_openStack.Count > 0)
+            {
+                var top = _openStack[_openStack.Count - 1];
+                if (top != null && top.gameObject.activeSelf)
+                {
+                    CloseModal(top);
+                    return true;
+                }
+                _openStack.RemoveAt(_openStack.Count - 1);
+            }
+            return false;
+        }
         public void CloseAllModals()
         {
             CloseModal(_pausePanel);
             CloseModal(_hintPanel);
             CloseModal(_completionPanel);
+            CloseModal(_settingsPanel);
         }
 
         public void ShowHint()
@@ -479,7 +545,9 @@ namespace QuietCamp.Presentation.UI
         public void Dispose()
         {
             _session.Evented -= OnSessionEvent;
-            foreach (var c in _contexts) c.Dispose();
+            foreach (var kv in _modalContexts)
+                foreach (var c in kv.Value) c.Dispose();
+            _modalContexts.Clear();
             _contexts.Clear();
         }
 

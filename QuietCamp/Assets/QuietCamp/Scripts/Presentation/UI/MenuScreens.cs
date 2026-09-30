@@ -121,10 +121,6 @@ namespace QuietCamp.Presentation.UI
 
         // ─── Settings ────────────────────────────────────────────────────────
 
-        Slider _musicSlider, _ambienceSlider, _effectsSlider, _textSlider, _scrollSlider;
-        Toggle _motionToggle, _hapticsToggle, _contrastToggle;
-        TMP_Dropdown _languageDrop;
-
         void BuildSettings()
         {
             var root = Screen("Settings");
@@ -152,57 +148,8 @@ namespace QuietCamp.Presentation.UI
                 TextAlignmentOptions.Center, QcUi.Ink)
                 .gameObject.AddComponent<LayoutElement>().minHeight = 80;
 
-            _languageDrop = AddDropdown(content, "settings.language",
-                new[] { "Українська", "English", "Deutsch" }, _services.Settings.language,
-                v =>
-                {
-                    var ids = new[] { "uk", "en", "de" };
-                    _services.Localization.TrySetLanguage(ids[Mathf.Clamp(v, 0, 2)]);
-                    _services.Settings.language = _services.Localization.CurrentLanguageId;
-                    _services.Save.Save();
-                });
+            SettingsPanel.BuildRows(_services, content);
 
-            _musicSlider = AddSlider(content, "settings.music",
-                _services.Settings.music, v => SetBus(Kruty1918.Audio.AudioBus.Music, v));
-            _ambienceSlider = AddSlider(content, "settings.ambience",
-                _services.Settings.ambience, v => SetBus(Kruty1918.Audio.AudioBus.Ambience, v));
-            _effectsSlider = AddSlider(content, "settings.effects",
-                _services.Settings.effects, v =>
-                {
-                    SetBus(Kruty1918.Audio.AudioBus.Ui, v);
-                    SetBus(Kruty1918.Audio.AudioBus.Sfx, v);
-                });
-            _textSlider = AddSlider(content, "settings.textSize",
-                _services.Settings.textScale, v =>
-                {
-                    _services.Settings.textScale = Mathf.Clamp(v, 0.85f, 1.3f);
-                    LocalizedLabel.TextScale = _services.Settings.textScale;
-                    _services.Save.Save();
-                }, 0.85f, 1.3f);
-            _scrollSlider = AddSlider(content, "settings.scroll",
-                _services.Settings.scrollSensitivity, v =>
-                {
-                    _services.Settings.scrollSensitivity = v;
-                    _services.Save.Save();
-                }, 3f, 24f);
-            _motionToggle = AddToggle(content, "settings.reducedMotion",
-                _services.Settings.reducedMotion, v =>
-                {
-                    _services.ReducedMotion = v;
-                    _services.Save.Save();
-                });
-            _contrastToggle = AddToggle(content, "settings.contrast",
-                _services.Settings.highContrast, v =>
-                {
-                    _services.Settings.highContrast = v;
-                    _services.Save.Save();
-                });
-            _hapticsToggle = AddToggle(content, "settings.haptics",
-                _services.Settings.haptics, v =>
-                {
-                    _services.Settings.haptics = v;
-                    _services.Save.Save();
-                });
             AddBtn(content, "settings.reset", () =>
             {
                 _services.Progression.Restore(null, null, 0);
@@ -212,18 +159,6 @@ namespace QuietCamp.Presentation.UI
                 RebuildLevelButtons();
             }, QcUi.Danger, 110);
             AddBtn(content, "action.back", () => Back(), QcUi.Brown, 110);
-        }
-
-        void SetBus(Kruty1918.Audio.AudioBus bus, float v)
-        {
-            _services.Audio?.SetBusVolume(bus, v);
-            switch (bus)
-            {
-                case Kruty1918.Audio.AudioBus.Music: _services.Settings.music = v; break;
-                case Kruty1918.Audio.AudioBus.Ambience: _services.Settings.ambience = v; break;
-                default: _services.Settings.effects = v; break;
-            }
-            _services.Save.Save();
         }
 
         // ─── Album ───────────────────────────────────────────────────────────
@@ -334,6 +269,8 @@ namespace QuietCamp.Presentation.UI
                 g.alpha = 1f;
                 g.interactable = true;
                 g.blocksRaycasts = true;
+                // Gentle fade-in between screens (UiMotion honors reduced motion).
+                _services.Motion?.SetPanelVisible(g, g.transform as RectTransform, true, 0.16f);
             }
             if (Current != name && Current != null) _history.Push(Current);
             Current = name;
@@ -352,6 +289,7 @@ namespace QuietCamp.Presentation.UI
                 g.alpha = 1f;
                 g.interactable = true;
                 g.blocksRaycasts = true;
+                _services.Motion?.SetPanelVisible(g, g.transform as RectTransform, true, 0.16f);
             }
             Current = target;
         }
@@ -364,147 +302,5 @@ namespace QuietCamp.Presentation.UI
             btn.gameObject.AddComponent<LayoutElement>().minHeight = height;
         }
 
-        Slider AddSlider(RectTransform parent, string key, float value,
-            Action<float> onChange, float min = 0f, float max = 1f)
-        {
-            var row = QcUi.Root(parent, "row_" + key);
-            row.sizeDelta = new Vector2(0, 96);
-            row.gameObject.AddComponent<LayoutElement>().minHeight = 96;
-            var label = QcUi.Anchor(row, "l",
-                new Vector2(0, 0), new Vector2(0.45f, 1), Vector2.zero, Vector2.zero);
-            QcUi.Label(label, key, QcUi.TextSmall, TextAlignmentOptions.MidlineLeft, QcUi.Ink);
-            var sliderGo = QcUi.Anchor(row, "s",
-                new Vector2(0.45f, 0.2f), new Vector2(1, 0.8f), Vector2.zero, Vector2.zero);
-            var slider = BuildSlider(sliderGo, min, max, value, onChange);
-            return slider;
-        }
-
-        Slider BuildSlider(RectTransform parent, float min, float max, float value, Action<float> onChange)
-        {
-            var slider = parent.gameObject.AddComponent<Slider>();
-            slider.minValue = min; slider.maxValue = max;
-            var track = QcUi.Anchor(parent, "track",
-                new Vector2(0, 0.35f), new Vector2(1, 0.65f), Vector2.zero, Vector2.zero);
-            var bg = track.gameObject.AddComponent<Image>();
-            bg.sprite = QcUi.Sprite(QcUi.SlideTrack);
-            bg.type = Image.Type.Sliced;
-            if (bg.sprite == null) bg.color = QcUi.CreamDark;
-            var handle = QcUi.Anchor(parent, "handle",
-                new Vector2(0, 0), new Vector2(0, 1),
-                new Vector2(-18, -4), new Vector2(18, 4));
-            var handleImg = handle.gameObject.AddComponent<Image>();
-            handleImg.sprite = QcUi.Sprite(QcUi.SlideHandle);
-            handleImg.preserveAspect = true;
-            if (handleImg.sprite == null) handleImg.color = QcUi.Green;
-            var fillArea = QcUi.Stretch(parent, "FillArea");
-            var fill = QcUi.Anchor(fillArea, "Fill",
-                new Vector2(0, 0.35f), new Vector2(0, 0.65f), Vector2.zero, Vector2.zero);
-            var fillImg = fill.gameObject.AddComponent<Image>();
-            fillImg.sprite = QcUi.Sprite(QcUi.SlideFill);
-            fillImg.type = Image.Type.Sliced;
-            if (fillImg.sprite == null) fillImg.color = QcUi.GreenDark;
-            slider.fillRect = fill;
-            slider.handleRect = handle;
-            slider.targetGraphic = handleImg;
-            slider.direction = Slider.Direction.LeftToRight;
-            slider.onValueChanged.AddListener(v => onChange(v));
-            slider.SetValueWithoutNotify(value);
-            return slider;
-        }
-
-        Toggle AddToggle(RectTransform parent, string key, bool value, Action<bool> onChange)
-        {
-            var row = QcUi.Root(parent, "row_" + key);
-            row.gameObject.AddComponent<LayoutElement>().minHeight = 96;
-            var label = QcUi.Anchor(row, "l",
-                new Vector2(0, 0), new Vector2(0.75f, 1), Vector2.zero, Vector2.zero);
-            QcUi.Label(label, key, QcUi.TextSmall, TextAlignmentOptions.MidlineLeft, QcUi.Ink);
-            var boxGo = QcUi.Anchor(row, "t",
-                new Vector2(0.8f, 0.1f), new Vector2(1, 0.9f), Vector2.zero, Vector2.zero);
-            var box = boxGo.gameObject.AddComponent<Image>();
-            box.sprite = QcUi.Sprite(QcUi.Checkbox);
-            if (box.sprite == null) box.color = QcUi.CreamDark;
-            var toggle = boxGo.gameObject.AddComponent<Toggle>();
-            var check = QcUi.Anchor(boxGo, "check",
-                new Vector2(0.15f, 0.15f), new Vector2(0.85f, 0.85f), Vector2.zero, Vector2.zero);
-            var checkImg = check.gameObject.AddComponent<Image>();
-            checkImg.sprite = QcUi.Sprite(QcUi.IconCheck);
-            checkImg.preserveAspect = true;
-            if (checkImg.sprite == null) checkImg.color = QcUi.Green;
-            checkImg.raycastTarget = false;
-            toggle.graphic = checkImg;
-            toggle.targetGraphic = box;
-            toggle.SetIsOnWithoutNotify(value);
-            toggle.onValueChanged.AddListener(v => onChange(v));
-            return toggle;
-        }
-
-        TMP_Dropdown AddDropdown(RectTransform parent, string key, string[] options,
-            string currentId, Action<int> onChange)
-        {
-            var row = QcUi.Root(parent, "row_" + key);
-            row.gameObject.AddComponent<LayoutElement>().minHeight = 96;
-            var label = QcUi.Anchor(row, "l",
-                new Vector2(0, 0), new Vector2(0.45f, 1), Vector2.zero, Vector2.zero);
-            QcUi.Label(label, key, QcUi.TextSmall, TextAlignmentOptions.MidlineLeft, QcUi.Ink);
-            var dropGo = QcUi.Anchor(row, "d",
-                new Vector2(0.45f, 0.15f), new Vector2(1, 0.85f), Vector2.zero, Vector2.zero);
-            var bg = dropGo.gameObject.AddComponent<Image>();
-            bg.sprite = QcUi.Sprite(QcUi.BtnSecondary);
-            bg.type = Image.Type.Sliced;
-            bg.color = QcUi.Cream;
-            if (bg.sprite == null) bg.color = QcUi.CreamDark;
-            var drop = dropGo.gameObject.AddComponent<TMP_Dropdown>();
-            var captionGo = QcUi.Stretch(dropGo, "Caption");
-            var caption = captionGo.gameObject.AddComponent<TextMeshProUGUI>();
-            caption.fontSize = QcUi.TextSmall;
-            caption.color = QcUi.Ink;
-            caption.alignment = TextAlignmentOptions.Center;
-            drop.captionText = caption;
-            var arrowGo = QcUi.Anchor(dropGo, "arrow",
-                new Vector2(1, 0.5f), new Vector2(1, 0.5f),
-                new Vector2(-52, -16), new Vector2(-20, 16));
-            var arrowImg = arrowGo.gameObject.AddComponent<Image>();
-            arrowImg.sprite = QcUi.Sprite(QcUi.IconArrowDown);
-            arrowImg.preserveAspect = true;
-            arrowImg.raycastTarget = false;
-            var templateGo = QcUi.Anchor(dropGo, "Template",
-                new Vector2(0, 0), new Vector2(1, 0),
-                new Vector2(0, -options.Length * 90f), new Vector2(0, 0));
-            templateGo.gameObject.SetActive(false);
-            var templateBg = templateGo.gameObject.AddComponent<Image>();
-            templateBg.sprite = QcUi.Sprite(QcUi.CardSurface);
-            templateBg.type = Image.Type.Sliced;
-            if (templateBg.sprite == null) templateBg.color = QcUi.Cream;
-            var templateScroll = templateGo.gameObject.AddComponent<ScrollRect>();
-            var item = QcUi.Anchor(templateGo, "Item",
-                new Vector2(0, 1), new Vector2(1, 1),
-                new Vector2(0, -90), new Vector2(0, 0));
-            var itemToggle = item.gameObject.AddComponent<Toggle>();
-            var itemLabelGo = QcUi.Stretch(item, "Label");
-            var itemLabel = itemLabelGo.gameObject.AddComponent<TextMeshProUGUI>();
-            itemLabel.fontSize = QcUi.TextSmall;
-            itemLabel.color = QcUi.Ink;
-            itemLabel.alignment = TextAlignmentOptions.Center;
-            drop.template = templateGo;
-            drop.itemText = itemLabel;
-            var content = QcUi.Anchor(templateGo, "Content",
-                new Vector2(0, 1), new Vector2(1, 1), Vector2.zero, Vector2.zero);
-            var vl = content.gameObject.AddComponent<VerticalLayoutGroup>();
-            vl.childForceExpandWidth = true;
-            content.gameObject.AddComponent<ContentSizeFitter>().verticalFit =
-                ContentSizeFitter.FitMode.PreferredSize;
-            templateScroll.content = content;
-            templateScroll.viewport = templateGo;
-            item.SetParent(content, false);
-            itemToggle.graphic = null;
-            drop.options.Clear();
-            foreach (var o in options) drop.options.Add(new TMP_Dropdown.OptionData(o));
-            var ids = new[] { "uk", "en", "de" };
-            drop.SetValueWithoutNotify(Math.Max(0, Array.IndexOf(ids, currentId)));
-            drop.RefreshShownValue();
-            drop.onValueChanged.AddListener(v => onChange(v));
-            return drop;
-        }
     }
 }
