@@ -26,9 +26,25 @@ namespace QuietCamp.Tests.Editor
 
         [Test] public void InvalidConfigurationIsRejectedBeforeConsumption()
         {
-            Assert.Throws<InvalidOperationException>(() => AtmosphereCatalog.Parse(Json.Replace("\"schemaVersion\": 1", "\"schemaVersion\": 9")));
+            Assert.Throws<InvalidOperationException>(() => AtmosphereCatalog.Parse(Json.Replace("\"schemaVersion\": 2", "\"schemaVersion\": 9")));
             Assert.Throws<InvalidOperationException>(() => AtmosphereCatalog.Parse(Json.Replace("#FFE3BE", "not-a-color")));
             Assert.Throws<InvalidOperationException>(() => AtmosphereCatalog.Parse(Json.Replace("\"QC001\": \"morning\"", "\"QC001\": \"missing\"")));
+            Assert.Throws<InvalidOperationException>(() => AtmosphereCatalog.Parse(Json.Replace("\"bloom\": 0.04", "\"bloom\": 7")));
+            Assert.Throws<InvalidOperationException>(() => AtmosphereCatalog.Parse(Json.Replace("\"gustMax\": 45", "\"gustMax\": 5")));
+        }
+
+        [Test] public void PhaseProfilesCarryAmbienceAndPostFxParameters()
+        {
+            var catalog = AtmosphereCatalog.Parse(Json);
+            var night = catalog.Get("night");
+            Assert.AreEqual(0, night.BirdMax);
+            Assert.Greater(night.OwlMax, 0f, "Night must schedule the owl.");
+            Assert.AreEqual(0, catalog.Get("noon").OwlMax, "Day phases stay silent of owls.");
+            Assert.GreaterOrEqual(catalog.Get("morning").Dust, 0);
+            Assert.Greater(catalog.Get("evening").Fireflies, 0);
+            Assert.That(night.Bloom, Is.InRange(0f, 1f));
+            Assert.AreEqual("morning", catalog.Get("morning").Id);
+            Assert.IsTrue(catalog.Get("morning").Mist);
         }
 
         [TestCase(.4615f, 6, 6)]

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "levelPhases": {
     "QC001": "morning",
     "QC002": "noon",
@@ -26,7 +26,21 @@
       "birdMin": 18,
       "birdMax": 35,
       "crickets": 0,
-      "fire": false
+      "fire": false,
+      "owlMin": 0,
+      "owlMax": 0,
+      "gustMin": 20,
+      "gustMax": 45,
+      "leaves": 4,
+      "nearLeaf": 1,
+      "dust": 6,
+      "fireflies": 0,
+      "smoke": 0,
+      "mist": true,
+      "whiteBalance": 3,
+      "saturation": -3,
+      "contrast": 2,
+      "bloom": 0.04
     },
     {
       "id": "noon",
@@ -39,7 +53,21 @@
       "birdMin": 30,
       "birdMax": 60,
       "crickets": 0,
-      "fire": false
+      "fire": false,
+      "owlMin": 0,
+      "owlMax": 0,
+      "gustMin": 20,
+      "gustMax": 45,
+      "leaves": 4,
+      "nearLeaf": 1,
+      "dust": 6,
+      "fireflies": 0,
+      "smoke": 0,
+      "mist": false,
+      "whiteBalance": 1,
+      "saturation": -4,
+      "contrast": 3,
+      "bloom": 0.02
     },
     {
       "id": "evening",
@@ -52,7 +80,21 @@
       "birdMin": 60,
       "birdMax": 100,
       "crickets": 0.3,
-      "fire": true
+      "fire": true,
+      "owlMin": 120,
+      "owlMax": 200,
+      "gustMin": 20,
+      "gustMax": 45,
+      "leaves": 4,
+      "nearLeaf": 1,
+      "dust": 0,
+      "fireflies": 3,
+      "smoke": 2,
+      "mist": false,
+      "whiteBalance": 5,
+      "saturation": -2,
+      "contrast": 2,
+      "bloom": 0.08
     },
     {
       "id": "night",
@@ -65,7 +107,21 @@
       "birdMin": 0,
       "birdMax": 0,
       "crickets": 1,
-      "fire": true
+      "fire": true,
+      "owlMin": 45,
+      "owlMax": 90,
+      "gustMin": 35,
+      "gustMax": 70,
+      "leaves": 4,
+      "nearLeaf": 1,
+      "dust": 0,
+      "fireflies": 2,
+      "smoke": 2,
+      "mist": false,
+      "whiteBalance": -3,
+      "saturation": -7,
+      "contrast": 0,
+      "bloom": 0.06
     }
   ]
 }

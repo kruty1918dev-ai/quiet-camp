@@ -19,6 +19,10 @@ namespace QuietCamp.Infrastructure
             public string id, sun, ambient, foreground;
             public float sunIntensity, elevation, wind, birdMin, birdMax, crickets;
             public bool fire;
+            public float owlMin, owlMax, gustMin = 20f, gustMax = 45f;
+            public int leaves = 4, nearLeaf = 1, dust, fireflies, smoke;
+            public bool mist;
+            public float whiteBalance, saturation, contrast, bloom;
         }
 
         public sealed class Profile
@@ -34,13 +38,36 @@ namespace QuietCamp.Infrastructure
             public float BirdMax { get; }
             public float Crickets { get; }
             public bool Fire { get; }
+            public float OwlMin { get; }
+            public float OwlMax { get; }
+            public float GustMin { get; }
+            public float GustMax { get; }
+            /// <summary>Balanced-tier particle budgets; Low/High derive in code.</summary>
+            public int Leaves { get; }
+            public int NearLeaf { get; }
+            public int Dust { get; }
+            public int Fireflies { get; }
+            public int Smoke { get; }
+            public bool Mist { get; }
+            public float WhiteBalance { get; }
+            public float Saturation { get; }
+            public float Contrast { get; }
+            public float Bloom { get; }
 
             internal Profile(string id, Color sun, Color ambient, Color foreground, float intensity,
-                float elevation, float wind, float birdMin, float birdMax, float crickets, bool fire)
+                float elevation, float wind, float birdMin, float birdMax, float crickets, bool fire,
+                float owlMin, float owlMax, float gustMin, float gustMax,
+                int leaves, int nearLeaf, int dust, int fireflies, int smoke, bool mist,
+                float whiteBalance, float saturation, float contrast, float bloom)
             {
                 Id = id; Sun = sun; Ambient = ambient; Foreground = foreground;
                 SunIntensity = intensity; Elevation = elevation; Wind = wind;
                 BirdMin = birdMin; BirdMax = birdMax; Crickets = crickets; Fire = fire;
+                OwlMin = owlMin; OwlMax = owlMax; GustMin = gustMin; GustMax = gustMax;
+                Leaves = leaves; NearLeaf = nearLeaf; Dust = dust; Fireflies = fireflies;
+                Smoke = smoke; Mist = mist;
+                WhiteBalance = whiteBalance; Saturation = saturation;
+                Contrast = contrast; Bloom = bloom;
             }
         }
 
@@ -60,7 +87,7 @@ namespace QuietCamp.Infrastructure
         public static AtmosphereCatalog Parse(string json)
         {
             var doc = JsonConvert.DeserializeObject<Document>(json);
-            if (doc == null || doc.schemaVersion != 1 || doc.profiles == null)
+            if (doc == null || (doc.schemaVersion != 1 && doc.schemaVersion != 2) || doc.profiles == null)
                 throw new InvalidOperationException("Invalid atmosphere schema.");
             var profiles = new Dictionary<string, Profile>(StringComparer.Ordinal);
             foreach (var p in doc.profiles)
@@ -69,14 +96,25 @@ namespace QuietCamp.Infrastructure
                     || !InRange(p.sunIntensity, 0, 2) || !InRange(p.elevation, 0, 90)
                     || !InRange(p.wind, 0, 1) || !InRange(p.crickets, 0, 1)
                     || !InRange(p.birdMin, 0, 300) || !InRange(p.birdMax, p.birdMin, 300)
-                    || (p.birdMin == 0 && p.birdMax != 0))
+                    || (p.birdMin == 0 && p.birdMax != 0)
+                    || !InRange(p.owlMin, 0, 600) || !InRange(p.owlMax, p.owlMin, 600)
+                    || (p.owlMin == 0 && p.owlMax != 0)
+                    || !InRange(p.gustMin, 1, 600) || !InRange(p.gustMax, p.gustMin, 600)
+                    || !InRange(p.leaves, 0, 16) || !InRange(p.nearLeaf, 0, 8)
+                    || !InRange(p.dust, 0, 24) || !InRange(p.fireflies, 0, 16)
+                    || !InRange(p.smoke, 0, 8)
+                    || !InRange(p.whiteBalance, -100, 100) || !InRange(p.saturation, -100, 100)
+                    || !InRange(p.contrast, -100, 100) || !InRange(p.bloom, 0, 1))
                     throw new InvalidOperationException("Invalid or duplicate atmosphere profile.");
                 if (!ColorUtility.TryParseHtmlString(p.sun, out var sun)
                     || !ColorUtility.TryParseHtmlString(p.ambient, out var ambient)
                     || !ColorUtility.TryParseHtmlString(p.foreground, out var foreground))
                     throw new InvalidOperationException("Invalid atmosphere color: " + p.id);
                 profiles.Add(p.id, new Profile(p.id, sun, ambient, foreground, p.sunIntensity,
-                    p.elevation, p.wind, p.birdMin, p.birdMax, p.crickets, p.fire));
+                    p.elevation, p.wind, p.birdMin, p.birdMax, p.crickets, p.fire,
+                    p.owlMin, p.owlMax, p.gustMin, p.gustMax,
+                    p.leaves, p.nearLeaf, p.dust, p.fireflies, p.smoke, p.mist,
+                    p.whiteBalance, p.saturation, p.contrast, p.bloom));
             }
             if (profiles.Count != 4) throw new InvalidOperationException("All four atmosphere phases are required.");
             var levels = new Dictionary<string, string>(StringComparer.Ordinal);
