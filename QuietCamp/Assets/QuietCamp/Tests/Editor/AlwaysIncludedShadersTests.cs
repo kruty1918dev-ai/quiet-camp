@@ -78,6 +78,23 @@ namespace QuietCamp.Tests.Editor
         }
 
         [Test]
+        public void ProjectSettings_LocksPortraitOnly()
+        {
+            // A cutout drifting to the bottom means the device was flipped —
+            // the app must stay portrait so the OS keeps status bar and
+            // safe area in the app's coordinate space.
+            var text = File.ReadAllText(Path.Combine(
+                Directory.GetCurrentDirectory(), "ProjectSettings", "ProjectSettings.asset"));
+            Assert.IsTrue(Regex.IsMatch(text, @"defaultScreenOrientation: 1\b"),
+                "defaultScreenOrientation must be Portrait (1).");
+            Assert.IsTrue(Regex.IsMatch(text, @"allowedAutorotateToPortraitUpsideDown: 0"),
+                "Upside-down portrait must stay disabled.");
+            Assert.IsTrue(Regex.IsMatch(text, @"allowedAutorotateToLandscapeRight: 0")
+                && Regex.IsMatch(text, @"allowedAutorotateToLandscapeLeft: 0"),
+                "Landscape auto-rotation must stay disabled.");
+        }
+
+        [Test]
         public void ResourcesUiSprites_AllPresent()
         {
             var needed = new[]
@@ -90,10 +107,11 @@ namespace QuietCamp.Tests.Editor
                 "QuietCamp/UI/Red/Default/icon_cross",
                 "QuietCamp/UI/Extra/Default/icon_repeat_dark",
                 "QuietCamp/UI/Extra/Default/icon_arrow_down_dark",
-                "QuietCamp/UI/Grey/Default/slide_horizontal_grey",
-                "QuietCamp/UI/Green/Default/slide_horizontal_color",
-                "QuietCamp/UI/Grey/Default/slide_hangle",
-                "QuietCamp/UI/Grey/Default/check_square_grey"
+                "QuietCamp/UI/Extra/Default/icon_repeat_light",
+                "QuietCamp/UI/Green/Default/icon_circle",
+                "QuietCamp/UI/Green/Default/icon_outline_circle",
+                "QuietCamp/UI/Grey/Default/check_square_grey",
+                "QuietCamp/UI/Grey/Default/check_square_grey_checkmark"
             };
             foreach (var path in needed)
             {
