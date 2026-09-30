@@ -45,17 +45,18 @@ namespace QuietCamp.Editor
                 Def("ambience.crickets", "crickets_loop.wav", AudioBus.Ambience, 0.14f, loop: true,
                     maxSimultaneous: 1),
                 Def("ambience.owl", "owl_hoot.wav", AudioBus.Ambience, 0.18f,
-                    spatial: 1f, minDist: 3f, maxDist: 30f, maxSimultaneous: 1,
+                    spatial: 1f, minDist: 4f, maxDist: 24f, maxSimultaneous: 1,
+                    // Outdoor echo only: a faint single slapback, never a room.
                     echo: new AudioEffectSettings
                     {
-                        EnableEcho = true, EchoDelay = 180f, EchoDecayRatio = .25f,
-                        EchoWetMix = .12f, EchoDryMix = 1f
+                        EnableEcho = true, EchoDelay = 110f, EchoDecayRatio = .14f,
+                        EchoWetMix = .04f, EchoDryMix = 1f
                     }),
-                Def("ambience.gust", "wind_gust.wav", AudioBus.Ambience, 0.22f,
-                    spatial: 1f, minDist: 4f, maxDist: 26f, maxSimultaneous: 1),
+                Def("ambience.gust", "wind_gust.wav", AudioBus.Ambience, 0.20f,
+                    spatial: 1f, minDist: 4f, maxDist: 24f, maxSimultaneous: 1),
                 Def("sfx.rustle", "leaf_rustle.wav", AudioBus.Sfx, 0.30f,
-                    minDist: 2f, maxDist: 18f, maxSimultaneous: 2),
-                Def("sfx.twig", "twig_snap.wav", AudioBus.Sfx, 0.26f, maxSimultaneous: 2),
+                    minDist: 1.5f, maxDist: 8f, maxSimultaneous: 2),
+                Def("sfx.twig", "twig_snap.wav", AudioBus.Sfx, 0.10f, maxSimultaneous: 2),
                 Def("sfx.chime", "chime_soft.wav", AudioBus.Ui, 0.12f, maxSimultaneous: 1),
             };
 

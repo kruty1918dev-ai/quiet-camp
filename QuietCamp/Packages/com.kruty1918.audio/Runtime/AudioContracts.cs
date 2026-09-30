@@ -135,14 +135,18 @@ namespace Kruty1918.Audio
         public readonly float VolumeScale;
         public readonly float PitchOffset;
         public readonly bool? LoopOverride;
+        /// <summary>Stereo pan −1..+1 for 2D playback; null leaves the pooled
+        /// default. Kept optional so positional plays stay untouched.</summary>
+        public readonly float? PanStereo;
 
-        public AudioPlayOptions(Vector3? position = null, Transform parent = null, float volumeScale = 1f, float pitchOffset = 0f, bool? loopOverride = null)
+        public AudioPlayOptions(Vector3? position = null, Transform parent = null, float volumeScale = 1f, float pitchOffset = 0f, bool? loopOverride = null, float? panStereo = null)
         {
             Position = position;
             Parent = parent;
             VolumeScale = Mathf.Max(0f, volumeScale);
             PitchOffset = pitchOffset;
             LoopOverride = loopOverride;
+            PanStereo = panStereo;
         }
     }
 

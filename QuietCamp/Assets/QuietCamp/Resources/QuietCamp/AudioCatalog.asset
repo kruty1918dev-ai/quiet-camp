@@ -427,7 +427,7 @@ MonoBehaviour:
     Bus: 4
     Channel: 
     MixerGroup: {fileID: 0}
-    Volume: 0.2
+    Volume: 0.15
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
@@ -478,7 +478,7 @@ MonoBehaviour:
     Bus: 4
     Channel: 
     MixerGroup: {fileID: 0}
-    Volume: 0.18
+    Volume: 0.42
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
@@ -487,7 +487,7 @@ MonoBehaviour:
     ReverbZoneMix: 0
     Priority: 120
     MinDistance: 2
-    MaxDistance: 14
+    MaxDistance: 12
     RolloffMode: 0
     Loop: 1
     PoolWarmup: 1

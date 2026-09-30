@@ -351,6 +351,8 @@ namespace Kruty1918.Audio
             source.volume = baseVolume;
             source.pitch = Mathf.Clamp(ResolvePitch(sound) + options.PitchOffset, -3f, 3f);
             source.loop = options.LoopOverride ?? sound.Loop;
+            if (options.PanStereo.HasValue)
+                source.panStereo = Mathf.Clamp(options.PanStereo.Value, -1f, 1f);
 
             if (options.Position.HasValue)
             {
@@ -789,6 +791,7 @@ namespace Kruty1918.Audio
             source.pitch = 1f;
             source.loop = false;
             source.mute = false;
+            source.panStereo = 0f;
             source.spatialBlend = 0f;
             source.dopplerLevel = 0f;
             source.reverbZoneMix = 1f;

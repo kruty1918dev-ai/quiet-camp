@@ -140,7 +140,7 @@
       "key": "ambience.wind",
       "assetPath": "Assets/Moyva/Audio/Ambience/Wind Soft Loop.wav",
       "bus": "Ambience",
-      "volume": 0.2,
+      "volume": 0.15,
       "loop": true,
       "spatialBlend": 0.0,
       "durationSeconds": 24.0,
@@ -157,7 +157,7 @@
       "key": "ambience.fire",
       "assetPath": "Assets/ThirdParty/Audio/NaPH - RPG & Fantasy Sounds Bundle/Environment/Fire Burning Loop 5.wav",
       "bus": "Ambience",
-      "volume": 0.18,
+      "volume": 0.42,
       "loop": true,
       "spatialBlend": 1,
       "durationSeconds": 30.0,
@@ -170,7 +170,7 @@
       "priority": 120,
       "maxSimultaneous": 1,
       "minDistance": 2,
-      "maxDistance": 14
+      "maxDistance": 12
     },
     {
       "key": "ambience.bird",
