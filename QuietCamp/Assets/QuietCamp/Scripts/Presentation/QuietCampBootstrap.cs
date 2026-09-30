@@ -185,6 +185,9 @@ namespace QuietCamp.Presentation
 
         void Start()
         {
+            // Smooth 60 fps target where the device allows it; calm/balanced
+            // pacing stays controlled by Settings.calmMode.
+            UnityEngine.Application.targetFrameRate = 60;
             if (SceneManager.GetActiveScene().name != _firstSceneName)
                 SceneManager.LoadScene(_firstSceneName);
         }

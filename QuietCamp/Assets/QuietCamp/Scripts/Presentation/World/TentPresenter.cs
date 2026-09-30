@@ -47,7 +47,7 @@ namespace QuietCamp.Presentation.World
         }
 
         /// <summary>Applies a committed placement; animates unless instant.</summary>
-        public void ApplyPlacement(Placement p, bool instant)
+        public void ApplyPlacement(Placement p, bool instant, float durationScale = 1f)
         {
             _placement = p?.Copy();
             var targetPos = BoardMath.TentCenter(_level, p.x, p.z);
@@ -58,20 +58,21 @@ namespace QuietCamp.Presentation.World
                 _root.transform.localEulerAngles = new Vector3(0f, targetYaw, 0f);
                 return;
             }
+            var d = 0.16f * Mathf.Max(0.01f, durationScale);
             _moveTween?.Kill();
             _rotateTween?.Kill();
-            _moveTween = _root.transform.DOLocalMove(targetPos, 0.16f).SetEase(Ease.OutQuad);
-            _rotateTween = _root.transform.DOLocalRotate(new Vector3(0f, targetYaw, 0f), 0.16f)
+            _moveTween = _root.transform.DOLocalMove(targetPos, d).SetEase(Ease.OutQuad);
+            _rotateTween = _root.transform.DOLocalRotate(new Vector3(0f, targetYaw, 0f), d)
                 .SetEase(Ease.OutQuad);
         }
 
         /// <summary>Lifts the visual node while the tent is selected/dragged.</summary>
-        public void SetLifted(bool lifted, bool reducedMotion)
+        public void SetLifted(bool lifted, bool reducedMotion, float durationScale = 1f)
         {
             _liftNode.DOKill();
             var y = lifted ? BoardMath.SelectedLift : 0f;
             if (reducedMotion) { _liftNode.localPosition = new Vector3(0f, y, 0f); return; }
-            _liftNode.DOLocalMoveY(y, 0.1f).SetEase(Ease.OutQuad);
+            _liftNode.DOLocalMoveY(y, 0.1f * Mathf.Max(0.01f, durationScale)).SetEase(Ease.OutQuad);
         }
 
         public void SetDoorMarkerVisible(bool visible)

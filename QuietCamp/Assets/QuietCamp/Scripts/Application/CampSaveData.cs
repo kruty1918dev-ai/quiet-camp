@@ -27,6 +27,8 @@ namespace QuietCamp.Application
         public string language = "uk";
         public float master = 1f, music = 1f, ambience = 1f, effects = 1f;
         public bool reducedMotion, haptics = true, highContrast;
+        /// <summary>Relaxed pace: tweens run ~1.6× slower, gentle feel.</summary>
+        public bool calmMode;
         public float textScale = 1f, scrollSensitivity = 12f;
         public int quality;
     }

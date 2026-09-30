@@ -23,6 +23,7 @@ namespace QuietCamp.Presentation.World
         LevelData _level;
         Infrastructure.AssetCatalog _assets;
         System.Func<bool> _reducedMotion;
+        System.Func<float> _motionScale;
         Plane _plane = new Plane(Vector3.up, Vector3.zero);
 
         Phase _phase = Phase.Idle;
@@ -47,7 +48,8 @@ namespace QuietCamp.Presentation.World
 
         public void Configure(CampSession session, BoardRenderer renderer,
             IGameplayInputPolicy policy, Camera camera,
-            Infrastructure.AssetCatalog assets, System.Func<bool> reducedMotion)
+            Infrastructure.AssetCatalog assets, System.Func<bool> reducedMotion,
+            System.Func<float> motionScale = null)
         {
             _session = session;
             _renderer = renderer;
@@ -55,6 +57,7 @@ namespace QuietCamp.Presentation.World
             _camera = camera;
             _assets = assets;
             _reducedMotion = reducedMotion;
+            _motionScale = motionScale;
             _level = session.Level;
             _ghostMaterial = MakeGhostMaterial();
             session.Evented += OnSessionEvent;
@@ -125,7 +128,7 @@ namespace QuietCamp.Presentation.World
                         BoardMath.CellOf(_level, Hit(sample.Position)).X - placement.x,
                         BoardMath.CellOf(_level, Hit(sample.Position)).Z - placement.z);
                     _renderer.Tents.TryGetValue(picked, out var presenter);
-                    presenter?.SetLifted(true, ReducedMotion());
+                    presenter?.SetLifted(true, ReducedMotion(), MotionScale());
                 }
                 return;
             }
@@ -212,7 +215,7 @@ namespace QuietCamp.Presentation.World
                 // Hard-invalid: keep the committed layout, flash amber, explain.
                 TintGhost(new Color(1f, 0.62f, 0.15f, 0.55f));
                 if (_movedOriginal != null)
-                    _renderer.Tents[_preview.guestId]?.ApplyPlacement(_movedOriginal, instant: false);
+                    _renderer.Tents[_preview.guestId]?.ApplyPlacement(_movedOriginal, instant: false, MotionScale());
                 var issue = report.Issues.Count > 0 ? report.Issues[0].Code : "bounds";
                 if (Time.unscaledTime > _invalidToastCooldown)
                 {
@@ -266,7 +269,7 @@ namespace QuietCamp.Presentation.World
             _movedOriginal = null;
             _renderer.HidePath();
             if (_ghost != null) _ghost.SetActive(false);
-            foreach (var p in _renderer.Tents.Values) p.SetLifted(false, ReducedMotion());
+            foreach (var p in _renderer.Tents.Values) p.SetLifted(false, ReducedMotion(), MotionScale());
         }
 
         // ─── Ghost visual ────────────────────────────────────────────────────
@@ -371,6 +374,7 @@ namespace QuietCamp.Presentation.World
         }
 
         bool ReducedMotion() => _reducedMotion?.Invoke() == true;
+        float MotionScale() => _motionScale?.Invoke() ?? 1f;
 
         // ─── Unified pointer ─────────────────────────────────────────────────
 

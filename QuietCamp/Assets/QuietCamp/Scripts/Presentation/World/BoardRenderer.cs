@@ -211,7 +211,8 @@ namespace QuietCamp.Presentation.World
         }
 
         /// <summary>Re-renders the committed layout snapshot (post commit/undo/redo).</summary>
-        public void SyncPlacements(IReadOnlyList<Placement> placements, LevelData level)
+        public void SyncPlacements(IReadOnlyList<Placement> placements, LevelData level,
+            float durationScale = 1f)
         {
             var alive = new HashSet<string>();
             foreach (var p in placements)
@@ -223,7 +224,7 @@ namespace QuietCamp.Presentation.World
                     if (guest == null) continue;
                     presenter = PlaceTent(p.guestId, guest.assetId, p);
                 }
-                else presenter.ApplyPlacement(p, instant: false);
+                else presenter.ApplyPlacement(p, instant: false, durationScale);
             }
             var remove = new List<string>();
             foreach (var kv in _tents)
