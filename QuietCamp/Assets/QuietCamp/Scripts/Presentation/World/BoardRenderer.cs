@@ -18,12 +18,13 @@ namespace QuietCamp.Presentation.World
         public const int DecorLayer = 11;
         public const int RuleOverlayLayer = 12;
 
-        static readonly Color GroundColor = new Color(0.55f, 0.66f, 0.47f);
+        static readonly Color GroundColor = new Color(0.34f, 0.42f, 0.30f);
         static readonly Color BaseSideColor = new Color(0.38f, 0.30f, 0.22f);
-        static readonly Color GridColor = new Color(0.42f, 0.52f, 0.38f, 0.9f);
-        static readonly Color ShadeColor = new Color(0.22f, 0.36f, 0.44f, 0.30f);
-        static readonly Color NoiseColor = new Color(0.95f, 0.62f, 0.22f, 0.24f);
-        static readonly Color EntryColor = new Color(0.45f, 0.85f, 0.45f, 0.32f);
+        static readonly Color GrassA = new Color(0.55f, 0.66f, 0.47f);
+        static readonly Color GrassB = new Color(0.50f, 0.61f, 0.42f);
+        static readonly Color ShadeTint = new Color(0.34f, 0.46f, 0.40f);
+        static readonly Color NoiseTint = new Color(0.66f, 0.55f, 0.34f);
+        static readonly Color EntryTint = new Color(0.70f, 0.73f, 0.42f);
         static readonly Color PathColor = new Color(1f, 0.88f, 0.45f, 0.55f);
 
         readonly LevelData _level;
@@ -55,11 +56,9 @@ namespace QuietCamp.Presentation.World
         void Build()
         {
             BuildBase();
-            BuildGrid();
+            BuildCells();
             BuildObstacles();
-            BuildShadeOverlay();
-            BuildNoiseOverlay();
-            BuildEntryMarker();
+            BuildTufts();
         }
 
         // ─── Base ────────────────────────────────────────────────────────────
@@ -78,17 +77,65 @@ namespace QuietCamp.Presentation.World
             _tintObjects.Add(side);
         }
 
-        void BuildGrid()
+        /// <summary>
+        /// One raised tile per playable cell: checker grass tones, cooler tint
+        /// for shade cells, warm earth for the noise ring, sunlit patch on the
+        /// entry. The gaps between tiles read as the grid over the darker slab.
+        /// </summary>
+        void BuildCells()
         {
-            var material = MakeLitMaterial(GridColor);
-            for (var x = 0; x <= _level.width; x++)
-                NewPrimitive(PrimitiveType.Cube, $"GridX{x}", _gridRoot,
-                    new Vector3(BoardMath.GridLineWidth, 0.002f, _level.height),
-                    new Vector3(x - _level.width / 2f, BoardMath.GridY, 0f), null, BoardSurfaceLayer, material);
-            for (var z = 0; z <= _level.height; z++)
-                NewPrimitive(PrimitiveType.Cube, $"GridZ{z}", _gridRoot,
-                    new Vector3(_level.width, 0.002f, BoardMath.GridLineWidth),
-                    new Vector3(0f, BoardMath.GridY, z - _level.height / 2f), null, BoardSurfaceLayer, material);
+            var shade = new HashSet<Cell>();
+            foreach (var s in _level.shade) shade.Add(new Cell(s[0], s[1]));
+            var noise = new HashSet<Cell>();
+            foreach (var n in _level.noise)
+            {
+                var nc = new Cell(n[0], n[1]);
+                for (var dx = -2; dx <= 2; dx++)
+                for (var dz = -2; dz <= 2; dz++)
+                {
+                    if (Mathf.Abs(dx) + Mathf.Abs(dz) > 2) continue;
+                    var c = new Cell(nc.X + dx, nc.Z + dz);
+                    if (RuleEvaluator.Inside(_level, c)) noise.Add(c);
+                }
+            }
+            var entry = new Cell(_level.entry[0], _level.entry[1]);
+
+            for (var x = 0; x < _level.width; x++)
+            for (var z = 0; z < _level.height; z++)
+            {
+                var cell = new Cell(x, z);
+                var color = cell.Equals(entry) ? EntryTint
+                    : shade.Contains(cell) ? ShadeTint
+                    : noise.Contains(cell) ? NoiseTint
+                    : ((x + z) & 1) == 0 ? GrassA : GrassB;
+                var tile = NewPrimitive(PrimitiveType.Cube, $"Cell_{x}_{z}", _gridRoot,
+                    new Vector3(0.92f, 0.016f, 0.92f),
+                    BoardMath.CellCenterWorld(_level, cell) + new Vector3(0f, 0.008f, 0f),
+                    color, BoardSurfaceLayer);
+                _tintObjects.Add(tile);
+            }
+        }
+
+        /// <summary>Deterministic grass tufts on some free cells — meadow feel.</summary>
+        void BuildTufts()
+        {
+            if (_catalog == null) return;
+            var blocked = new HashSet<Cell>();
+            foreach (var b in _level.blocked) blocked.Add(new Cell(b[0], b[1]));
+            foreach (var n in _level.noise) blocked.Add(new Cell(n[0], n[1]));
+            var rng = new System.Random(_level.decorSeed * 7919 + 13);
+            for (var x = 0; x < _level.width; x++)
+            for (var z = 0; z < _level.height; z++)
+            {
+                var cell = new Cell(x, z);
+                if (blocked.Contains(cell) || rng.NextDouble() > 0.28) continue;
+                var p = BoardMath.CellCenterWorld(_level, cell);
+                p.x += (float)(rng.NextDouble() * 0.5 - 0.25);
+                p.z += (float)(rng.NextDouble() * 0.5 - 0.25);
+                p.y = 0.016f;
+                var go = SpawnModel("grass", _gridRoot, p, rng.Next(360), DecorLayer);
+                if (go != null) go.transform.localScale *= 0.65f;
+            }
         }
 
         // ─── Obstacles ───────────────────────────────────────────────────────
@@ -120,36 +167,6 @@ namespace QuietCamp.Presentation.World
         }
 
         // ─── Overlays ────────────────────────────────────────────────────────
-
-        void BuildShadeOverlay()
-        {
-            foreach (var s in _level.shade)
-            {
-                var cell = new Cell(s[0], s[1]);
-                OverlayCell("shade_" + cell, cell, ShadeColor);
-            }
-        }
-
-        void BuildNoiseOverlay()
-        {
-            // Manhattan diamond radius 2 around every noise cell.
-            var cells = new HashSet<Cell>();
-            foreach (var n in _level.noise)
-            {
-                var nc = new Cell(n[0], n[1]);
-                for (var dx = -2; dx <= 2; dx++)
-                for (var dz = -2; dz <= 2; dz++)
-                {
-                    if (Mathf.Abs(dx) + Mathf.Abs(dz) > 2) continue;
-                    var c = new Cell(nc.X + dx, nc.Z + dz);
-                    if (RuleEvaluator.Inside(_level, c)) cells.Add(c);
-                }
-            }
-            foreach (var c in cells) OverlayCell("noise_" + c, c, NoiseColor);
-        }
-
-        void BuildEntryMarker()
-            => OverlayCell("entry", new Cell(_level.entry[0], _level.entry[1]), EntryColor);
 
         /// <summary>Toggles the BFS path entry->door overlay for the selected guest.</summary>
         public void ShowPath(Cell door, HashSet<Cell> occupied)

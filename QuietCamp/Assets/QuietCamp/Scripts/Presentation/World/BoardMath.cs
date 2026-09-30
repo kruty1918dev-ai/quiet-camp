@@ -13,7 +13,7 @@ namespace QuietCamp.Presentation.World
         public const float Overhang = 0.10f;
         public const float GridLineWidth = 0.018f;
         public const float GridY = 0.006f;
-        public const float OverlayY = 0.014f;
+        public const float OverlayY = 0.03f;
         public const float TentY = 0.02f;
         public const float SelectedLift = 0.08f;
         public const float DragThresholdDp = 8f;
