@@ -269,6 +269,8 @@ namespace QuietCamp.Editor
                     Debug.LogWarning($"[QuietCamp] Audio clip missing: {assetPath}");
                     continue;
                 }
+                ApplyAudioImportSettings(assetPath,
+                    s.Value<string>("importLoadType"), s.Value<string>("importCompression"));
                 var busName = s.Value<string>("bus");
                 sounds.Add(new AudioSoundDefinition
                 {
@@ -282,6 +284,7 @@ namespace QuietCamp.Editor
                     MaxDistance = s.Value<float?>("maxDistance") ?? 0f,
                     Priority = s.Value<int?>("priority") ?? 128,
                     MaxSimultaneous = s.Value<int?>("maxSimultaneous") ?? 8,
+                    Cooldown = s.Value<float?>("cooldown") ?? 0f,
                     Channel = s.Value<string>("channel") ?? string.Empty,
                 });
             }
@@ -314,6 +317,7 @@ namespace QuietCamp.Editor
                 e.FindPropertyRelative("Pitch").floatValue = 1f;
                 e.FindPropertyRelative("Priority").intValue = def.Priority;
                 e.FindPropertyRelative("MaxSimultaneous").intValue = def.MaxSimultaneous;
+                e.FindPropertyRelative("Cooldown").floatValue = def.Cooldown;
                 e.FindPropertyRelative("PoolWarmup").intValue = 1;
             });
             WriteArray(so.FindProperty("_busGroups"), busGroups.Count, (e, i) =>
@@ -325,6 +329,23 @@ namespace QuietCamp.Editor
             so.FindProperty("_persistAcrossScenes").boolValue = true;
             so.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(catalog);
+        }
+
+        /// <summary>Consumes the JSON import fields — a documented
+        /// loadType/compression with no importer effect would be dead config.</summary>
+        internal static void ApplyAudioImportSettings(string assetPath, string loadType, string compression)
+        {
+            var importer = AssetImporter.GetAtPath(assetPath) as AudioImporter;
+            if (importer == null) return;
+            var settings = importer.defaultSampleSettings;
+            if (!string.IsNullOrEmpty(loadType)
+                && Enum.TryParse(loadType, out AudioClipLoadType lt))
+                settings.loadType = lt;
+            if (!string.IsNullOrEmpty(compression)
+                && Enum.TryParse(compression, out AudioCompressionFormat fmt))
+                settings.compressionFormat = fmt;
+            importer.defaultSampleSettings = settings;
+            importer.SaveAndReimport();
         }
 
         static void WriteArray(SerializedProperty prop, int size, Action<SerializedProperty, int> write)

@@ -14,8 +14,9 @@
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
       "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
-      "priority": 200,
-      "maxSimultaneous": 2
+      "priority": 96,
+      "maxSimultaneous": 2,
+      "cooldown": 0.08
     },
     {
       "key": "ui.back",
@@ -31,8 +32,9 @@
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
       "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
-      "priority": 200,
-      "maxSimultaneous": 2
+      "priority": 96,
+      "maxSimultaneous": 2,
+      "cooldown": 0.08
     },
     {
       "key": "ui.select",
@@ -48,8 +50,9 @@
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
       "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
-      "priority": 200,
-      "maxSimultaneous": 2
+      "priority": 96,
+      "maxSimultaneous": 2,
+      "cooldown": 0.08
     },
     {
       "key": "placement.rotate",
@@ -65,8 +68,9 @@
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
       "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
-      "priority": 180,
-      "maxSimultaneous": 2
+      "priority": 112,
+      "maxSimultaneous": 2,
+      "cooldown": 0.1
     },
     {
       "key": "placement.commit",
@@ -82,8 +86,10 @@
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
       "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
-      "priority": 180,
-      "maxSimultaneous": 2
+      "priority": 112,
+      "maxSimultaneous": 2,
+      "minDistance": 2,
+      "maxDistance": 12
     },
     {
       "key": "placement.undo",
@@ -99,8 +105,9 @@
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
       "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
-      "priority": 180,
-      "maxSimultaneous": 2
+      "priority": 112,
+      "maxSimultaneous": 2,
+      "cooldown": 0.1
     },
     {
       "key": "rule.invalid",
@@ -116,8 +123,9 @@
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
       "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
-      "priority": 180,
-      "maxSimultaneous": 1
+      "priority": 112,
+      "maxSimultaneous": 1,
+      "cooldown": 0.4
     },
     {
       "key": "level.complete",
@@ -133,25 +141,27 @@
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
       "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
-      "priority": 180,
-      "maxSimultaneous": 1
+      "priority": 96,
+      "maxSimultaneous": 1,
+      "cooldown": 1.0
     },
     {
       "key": "ambience.wind",
-      "assetPath": "Assets/Moyva/Audio/Ambience/Wind Soft Loop.wav",
+      "assetPath": "Assets/QuietCamp/Audio/Generated/wind_loop.wav",
       "bus": "Ambience",
       "volume": 0.15,
       "loop": true,
       "spatialBlend": 0.0,
-      "durationSeconds": 24.0,
+      "durationSeconds": 23.8,
       "channels": 2,
       "sampleRate": 44100,
-      "sha256": "fd8a4a9fa9e77de2d926b6087303eebe3f59f1be5575a8b13e22f4dc5acb9811",
+      "sha256": "2456fe6e2a945d6c6650600122cbf980359a20e6d3cd5d35bf08370f325bb39b",
       "importLoadType": "Streaming",
       "importCompression": "Vorbis",
-      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
-      "priority": 120,
-      "maxSimultaneous": 1
+      "licenseStatus": "Procedurally generated for QuietCamp; supersedes the Moyva wind file which measured as mostly sub-audible DC drift",
+      "priority": 176,
+      "maxSimultaneous": 1,
+      "derivedFrom": "Assets/Moyva/Audio/Ambience/Wind Soft Loop.wav"
     },
     {
       "key": "ambience.fire",
@@ -167,10 +177,10 @@
       "importLoadType": "Streaming",
       "importCompression": "Vorbis",
       "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
-      "priority": 120,
+      "priority": 168,
       "maxSimultaneous": 1,
       "minDistance": 2,
-      "maxDistance": 12
+      "maxDistance": 14
     },
     {
       "key": "ambience.bird",
@@ -186,7 +196,7 @@
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
       "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
-      "priority": 140,
+      "priority": 160,
       "maxSimultaneous": 1,
       "minDistance": 4,
       "maxDistance": 24
