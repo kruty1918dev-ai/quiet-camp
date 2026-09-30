@@ -68,3 +68,7 @@ DeviceScreenshots/
 
 # Unity performance-test artifacts
 QuietCamp/Assets/Resources/PerformanceTestRun*.json*
+
+# AgentVerify staging files (agent run artifacts)
+agentverify.commands.json
+agentverify.results.json
