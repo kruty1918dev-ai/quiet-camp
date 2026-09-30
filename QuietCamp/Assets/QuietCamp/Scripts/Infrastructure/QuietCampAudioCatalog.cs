@@ -67,8 +67,9 @@ namespace QuietCamp.Infrastructure
 
         public string[] GetKeys()
         {
-            var keys = new string[_sounds.Length];
+            var keys = new string[_sounds.Length + _extraSounds.Length];
             for (var i = 0; i < _sounds.Length; i++) keys[i] = _sounds[i]?.Key;
+            for (var i = 0; i < _extraSounds.Length; i++) keys[_sounds.Length + i] = _extraSounds[i]?.Key;
             return keys;
         }
 

@@ -42,12 +42,21 @@ namespace QuietCamp.Editor
 
             var extras = new List<AudioSoundDefinition>
             {
-                Def("ambience.crickets", "crickets_loop.wav", AudioBus.Ambience, 0.22f, loop: true),
-                Def("ambience.owl", "owl_hoot.wav", AudioBus.Ambience, 0.30f),
-                Def("ambience.gust", "wind_gust.wav", AudioBus.Ambience, 0.26f),
-                Def("sfx.rustle", "leaf_rustle.wav", AudioBus.Sfx, 0.32f),
-                Def("sfx.twig", "twig_snap.wav", AudioBus.Sfx, 0.38f),
-                Def("sfx.chime", "chime_soft.wav", AudioBus.Ui, 0.34f),
+                Def("ambience.crickets", "crickets_loop.wav", AudioBus.Ambience, 0.14f, loop: true,
+                    maxSimultaneous: 1),
+                Def("ambience.owl", "owl_hoot.wav", AudioBus.Ambience, 0.18f,
+                    spatial: 1f, minDist: 3f, maxDist: 30f, maxSimultaneous: 1,
+                    echo: new AudioEffectSettings
+                    {
+                        EnableEcho = true, EchoDelay = 180f, EchoDecayRatio = .25f,
+                        EchoWetMix = .12f, EchoDryMix = 1f
+                    }),
+                Def("ambience.gust", "wind_gust.wav", AudioBus.Ambience, 0.22f,
+                    spatial: 1f, minDist: 4f, maxDist: 26f, maxSimultaneous: 1),
+                Def("sfx.rustle", "leaf_rustle.wav", AudioBus.Sfx, 0.30f,
+                    minDist: 2f, maxDist: 18f, maxSimultaneous: 2),
+                Def("sfx.twig", "twig_snap.wav", AudioBus.Sfx, 0.26f, maxSimultaneous: 2),
+                Def("sfx.chime", "chime_soft.wav", AudioBus.Ui, 0.12f, maxSimultaneous: 1),
             };
 
             var so = new SerializedObject(catalog);
@@ -62,11 +71,22 @@ namespace QuietCamp.Editor
                 e.FindPropertyRelative("Bus").enumValueIndex = (int)d.Bus;
                 e.FindPropertyRelative("Volume").floatValue = d.Volume;
                 e.FindPropertyRelative("Loop").boolValue = d.Loop;
-                e.FindPropertyRelative("SpatialBlend").floatValue = 0f;
+                e.FindPropertyRelative("SpatialBlend").floatValue = d.SpatialBlend;
+                e.FindPropertyRelative("MinDistance").floatValue = d.MinDistance;
+                e.FindPropertyRelative("MaxDistance").floatValue = d.MaxDistance;
                 e.FindPropertyRelative("Pitch").floatValue = 1f;
-                e.FindPropertyRelative("Priority").intValue = 128;
-                e.FindPropertyRelative("MaxSimultaneous").intValue = 8;
+                e.FindPropertyRelative("Priority").intValue = 140;
+                e.FindPropertyRelative("MaxSimultaneous").intValue = d.MaxSimultaneous;
                 e.FindPropertyRelative("PoolWarmup").intValue = 1;
+                var fx = e.FindPropertyRelative("Effects");
+                fx.FindPropertyRelative("EnableEcho").boolValue = d.Effects != null && d.Effects.EnableEcho;
+                if (d.Effects != null && d.Effects.EnableEcho)
+                {
+                    fx.FindPropertyRelative("EchoDelay").floatValue = d.Effects.EchoDelay;
+                    fx.FindPropertyRelative("EchoDecayRatio").floatValue = d.Effects.EchoDecayRatio;
+                    fx.FindPropertyRelative("EchoWetMix").floatValue = d.Effects.EchoWetMix;
+                    fx.FindPropertyRelative("EchoDryMix").floatValue = d.Effects.EchoDryMix;
+                }
             }
             so.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(catalog);
@@ -74,7 +94,9 @@ namespace QuietCamp.Editor
             Debug.Log($"[QuietCamp] {extras.Count} generated sounds registered in AudioCatalog.");
         }
 
-        static AudioSoundDefinition Def(string key, string file, AudioBus bus, float volume, bool loop = false)
+        static AudioSoundDefinition Def(string key, string file, AudioBus bus, float volume,
+            bool loop = false, float spatial = 0f, float minDist = 0f, float maxDist = 0f,
+            int maxSimultaneous = 8, AudioEffectSettings echo = null)
             => new AudioSoundDefinition
             {
                 Key = key,
@@ -82,6 +104,11 @@ namespace QuietCamp.Editor
                 Bus = bus,
                 Volume = volume,
                 Loop = loop,
+                SpatialBlend = spatial,
+                MinDistance = minDist,
+                MaxDistance = maxDist,
+                MaxSimultaneous = maxSimultaneous,
+                Effects = echo,
             };
 
         // ─── Synthesizers ───────────────────────────────────────────────────
@@ -95,7 +122,25 @@ namespace QuietCamp.Editor
             // Two overlapping "crickets" with different tempos — stereo feel on one channel.
             ChirpTrain(s, rng, 4200f, 4, 0.55f, 0.028f, 0.9f);
             ChirpTrain(s, rng, 5100f, 3, 0.73f, 0.020f, 0.6f);
+            // Kill the wrap click: blend the tail into the head over 150 ms.
+            var fade = (int)(Rate * .15f);
+            for (var i = 0; i < fade; i++)
+            {
+                var k = i / (float)fade;
+                s[n - fade + i] = Mathf.Lerp(s[n - fade + i], s[i], k);
+            }
+            // Overlapping trains can exceed full scale — normalize to -4.4 dBFS.
+            NormalizeTo(s, 0.6f);
             return s;
+        }
+
+        static void NormalizeTo(float[] s, float target)
+        {
+            var peak = 0f;
+            foreach (var v in s) peak = Mathf.Max(peak, Mathf.Abs(v));
+            if (peak <= 0f) return;
+            var g = target / peak;
+            for (var i = 0; i < s.Length; i++) s[i] *= g;
         }
 
         static void ChirpTrain(float[] s, System.Random rng, float freq,
@@ -196,7 +241,7 @@ namespace QuietCamp.Editor
                 var noise = (float)rng.NextDouble() * 2f - 1f;
                 var env = Mathf.Exp(-60f * t);                 // fast decay
                 var click = t < 0.006f ? 1f - t / 0.006f : 0f; // initial crack
-                s[i] = noise * env * 0.9f + click * 0.7f;
+                s[i] = noise * env * 0.55f + click * 0.4f;
             }
             return s;
         }

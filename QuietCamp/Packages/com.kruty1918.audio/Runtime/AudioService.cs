@@ -517,9 +517,16 @@ namespace Kruty1918.Audio
 
         private AudioSource GetConfiguredSourceInternal(AudioSoundDefinition sound, Transform parent)
         {
-            var source = _available.Count > 0 ? _available.Dequeue() : CreateSource();
+            // Pooled sources are children of _root — when a non-persistent root is
+            // destroyed with its scene the queue still holds dead references.
+            AudioSource source = null;
+            while (_available.Count > 0 && source == null)
+                source = _available.Dequeue();
+            if (source == null)
+                source = CreateSource();
             source.gameObject.SetActive(true);
-            source.transform.SetParent(parent != null ? parent : _root.transform, false);
+            var fallback = _root != null ? _root.transform : null;
+            source.transform.SetParent(parent != null ? parent : fallback, false);
             ConfigureSource(source, sound);
             return source;
         }
@@ -545,7 +552,10 @@ namespace Kruty1918.Audio
             source.dopplerLevel = Mathf.Max(0f, sound.DopplerLevel);
             source.reverbZoneMix = Mathf.Clamp(sound.ReverbZoneMix, 0f, 1.1f);
 
-            if (sound.SpatialBlend > 0f)
+            // Distances apply whenever configured: PlayAt() may raise
+            // spatialBlend to 1 after this call for a 2D-defaulted sound,
+            // and pre-set distances must then be in place already.
+            if (sound.SpatialBlend > 0f || sound.MinDistance > 0f || sound.MaxDistance > 0f)
             {
                 source.rolloffMode = sound.RolloffMode;
                 if (sound.MinDistance > 0f) source.minDistance = sound.MinDistance;

@@ -278,6 +278,11 @@ namespace QuietCamp.Editor
                     Volume = s.Value<float?>("volume") ?? 1f,
                     Loop = s.Value<bool?>("loop") ?? false,
                     SpatialBlend = s.Value<float?>("spatialBlend") ?? 0f,
+                    MinDistance = s.Value<float?>("minDistance") ?? 0f,
+                    MaxDistance = s.Value<float?>("maxDistance") ?? 0f,
+                    Priority = s.Value<int?>("priority") ?? 128,
+                    MaxSimultaneous = s.Value<int?>("maxSimultaneous") ?? 8,
+                    Channel = s.Value<string>("channel") ?? string.Empty,
                 });
             }
 
@@ -303,9 +308,12 @@ namespace QuietCamp.Editor
                 e.FindPropertyRelative("Volume").floatValue = def.Volume;
                 e.FindPropertyRelative("Loop").boolValue = def.Loop;
                 e.FindPropertyRelative("SpatialBlend").floatValue = def.SpatialBlend;
+                e.FindPropertyRelative("MinDistance").floatValue = def.MinDistance;
+                e.FindPropertyRelative("MaxDistance").floatValue = def.MaxDistance;
+                e.FindPropertyRelative("Channel").stringValue = def.Channel ?? string.Empty;
                 e.FindPropertyRelative("Pitch").floatValue = 1f;
-                e.FindPropertyRelative("Priority").intValue = 128;
-                e.FindPropertyRelative("MaxSimultaneous").intValue = 8;
+                e.FindPropertyRelative("Priority").intValue = def.Priority;
+                e.FindPropertyRelative("MaxSimultaneous").intValue = def.MaxSimultaneous;
                 e.FindPropertyRelative("PoolWarmup").intValue = 1;
             });
             WriteArray(so.FindProperty("_busGroups"), busGroups.Count, (e, i) =>

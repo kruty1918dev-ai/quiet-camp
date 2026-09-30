@@ -4,7 +4,7 @@
       "key": "ui.click",
       "assetPath": "Assets/ThirdParty/Audio/UI Soundpack/WAV/Minimalist1.wav",
       "bus": "Ui",
-      "volume": 0.5,
+      "volume": 0.35,
       "loop": false,
       "spatialBlend": 0.0,
       "durationSeconds": 0.7563,
@@ -13,13 +13,15 @@
       "sha256": "64160d1edb36a343c269ccbc98c0e0c48fdfa35c38fef1df5a8c31057946da2a",
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
-      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
+      "priority": 200,
+      "maxSimultaneous": 2
     },
     {
       "key": "ui.back",
       "assetPath": "Assets/ThirdParty/Audio/UI Soundpack/WAV/Minimalist2.wav",
       "bus": "Ui",
-      "volume": 0.42,
+      "volume": 0.3,
       "loop": false,
       "spatialBlend": 0.0,
       "durationSeconds": 0.7563,
@@ -28,13 +30,15 @@
       "sha256": "60953576246a7ca2bf6464afc1027f3def105bf8c7284c8e02a77b782b519153",
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
-      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
+      "priority": 200,
+      "maxSimultaneous": 2
     },
     {
       "key": "ui.select",
       "assetPath": "Assets/ThirdParty/Audio/UI Soundpack/WAV/Minimalist3.wav",
       "bus": "Ui",
-      "volume": 0.38,
+      "volume": 0.28,
       "loop": false,
       "spatialBlend": 0.0,
       "durationSeconds": 0.7506,
@@ -43,13 +47,15 @@
       "sha256": "33b039a822edb3eae9704041803da20fc78c859ebf7bc602bed09aa74df1c1a0",
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
-      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
+      "priority": 200,
+      "maxSimultaneous": 2
     },
     {
       "key": "placement.rotate",
       "assetPath": "Assets/ThirdParty/Audio/UI Soundpack/WAV/Minimalist4.wav",
       "bus": "Sfx",
-      "volume": 0.4,
+      "volume": 0.3,
       "loop": false,
       "spatialBlend": 0.0,
       "durationSeconds": 0.7506,
@@ -58,13 +64,15 @@
       "sha256": "3a441242497e198bf25258e869f065c856c852e1ada7753635144f73b66f222b",
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
-      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
+      "priority": 180,
+      "maxSimultaneous": 2
     },
     {
       "key": "placement.commit",
       "assetPath": "Assets/ThirdParty/Audio/UI Soundpack/WAV/Wood Block1.wav",
       "bus": "Sfx",
-      "volume": 0.45,
+      "volume": 0.48,
       "loop": false,
       "spatialBlend": 0.0,
       "durationSeconds": 1.2857,
@@ -73,7 +81,9 @@
       "sha256": "df5be4198e50c55b0ffca2eb655f5e191b0e89de917c3faf8b2a0659a3ea6a36",
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
-      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
+      "priority": 180,
+      "maxSimultaneous": 2
     },
     {
       "key": "placement.undo",
@@ -88,13 +98,15 @@
       "sha256": "cfc254e6a1a5127723fc20f31255a3633d4262b949b7f1e14a0f958a2a48f3e8",
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
-      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
+      "priority": 180,
+      "maxSimultaneous": 2
     },
     {
       "key": "rule.invalid",
       "assetPath": "Assets/ThirdParty/Audio/UI Soundpack/WAV/Minimalist5.wav",
       "bus": "Ui",
-      "volume": 0.32,
+      "volume": 0.22,
       "loop": false,
       "spatialBlend": 0.0,
       "durationSeconds": 0.7506,
@@ -103,13 +115,15 @@
       "sha256": "a2bbf72890c4109ad67d9e2a8688efd80d22df37e0a48bcd19ef9aebd5649345",
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
-      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
+      "priority": 180,
+      "maxSimultaneous": 1
     },
     {
       "key": "level.complete",
       "assetPath": "Assets/ThirdParty/Audio/UI Soundpack/WAV/Minimalist6.wav",
       "bus": "Ui",
-      "volume": 0.5,
+      "volume": 0.45,
       "loop": false,
       "spatialBlend": 0.0,
       "durationSeconds": 0.7506,
@@ -118,13 +132,15 @@
       "sha256": "fa3aea2c04ea3932d1ef239015cf962c600c1ea5ecbad6e70aba00955ced0dfd",
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
-      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
+      "priority": 180,
+      "maxSimultaneous": 1
     },
     {
       "key": "ambience.wind",
       "assetPath": "Assets/Moyva/Audio/Ambience/Wind Soft Loop.wav",
       "bus": "Ambience",
-      "volume": 0.15,
+      "volume": 0.2,
       "loop": true,
       "spatialBlend": 0.0,
       "durationSeconds": 24.0,
@@ -133,22 +149,28 @@
       "sha256": "fd8a4a9fa9e77de2d926b6087303eebe3f59f1be5575a8b13e22f4dc5acb9811",
       "importLoadType": "Streaming",
       "importCompression": "Vorbis",
-      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
+      "priority": 120,
+      "maxSimultaneous": 1
     },
     {
       "key": "ambience.fire",
       "assetPath": "Assets/ThirdParty/Audio/NaPH - RPG & Fantasy Sounds Bundle/Environment/Fire Burning Loop 5.wav",
       "bus": "Ambience",
-      "volume": 0.2,
+      "volume": 0.18,
       "loop": true,
-      "spatialBlend": 0.0,
+      "spatialBlend": 1,
       "durationSeconds": 30.0,
       "channels": 2,
       "sampleRate": 44100,
       "sha256": "018d0e8d77a01a371c5fdefedc00b2b4da00a06d66871d21e81eeed7eb8217e5",
       "importLoadType": "Streaming",
       "importCompression": "Vorbis",
-      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
+      "priority": 120,
+      "maxSimultaneous": 1,
+      "minDistance": 2,
+      "maxDistance": 14
     },
     {
       "key": "ambience.bird",
@@ -156,14 +178,18 @@
       "bus": "Ambience",
       "volume": 0.1,
       "loop": false,
-      "spatialBlend": 0.0,
+      "spatialBlend": 1,
       "durationSeconds": 1.4674,
       "channels": 2,
       "sampleRate": 44100,
       "sha256": "0ee289593df4934c6a4b5caf4193d91fb8a90b8edcabdbd896df0591be33a564",
       "importLoadType": "DecompressOnLoad",
       "importCompression": "PCM",
-      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0",
+      "priority": 140,
+      "maxSimultaneous": 1,
+      "minDistance": 4,
+      "maxDistance": 24
     }
   ],
   "music": null,

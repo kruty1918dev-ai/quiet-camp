@@ -19,20 +19,20 @@ MonoBehaviour:
     Bus: 3
     Channel: 
     MixerGroup: {fileID: 0}
-    Volume: 0.5
+    Volume: 0.35
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
     SpatialBlend: 0
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 128
+    Priority: 200
     MinDistance: 0
     MaxDistance: 0
     RolloffMode: 0
     Loop: 0
     PoolWarmup: 1
-    MaxSimultaneous: 8
+    MaxSimultaneous: 2
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -70,20 +70,20 @@ MonoBehaviour:
     Bus: 3
     Channel: 
     MixerGroup: {fileID: 0}
-    Volume: 0.42
+    Volume: 0.3
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
     SpatialBlend: 0
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 128
+    Priority: 200
     MinDistance: 0
     MaxDistance: 0
     RolloffMode: 0
     Loop: 0
     PoolWarmup: 1
-    MaxSimultaneous: 8
+    MaxSimultaneous: 2
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -121,20 +121,20 @@ MonoBehaviour:
     Bus: 3
     Channel: 
     MixerGroup: {fileID: 0}
-    Volume: 0.38
+    Volume: 0.28
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
     SpatialBlend: 0
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 128
+    Priority: 200
     MinDistance: 0
     MaxDistance: 0
     RolloffMode: 0
     Loop: 0
     PoolWarmup: 1
-    MaxSimultaneous: 8
+    MaxSimultaneous: 2
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -172,20 +172,20 @@ MonoBehaviour:
     Bus: 2
     Channel: 
     MixerGroup: {fileID: 0}
-    Volume: 0.4
+    Volume: 0.3
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
     SpatialBlend: 0
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 128
+    Priority: 180
     MinDistance: 0
     MaxDistance: 0
     RolloffMode: 0
     Loop: 0
     PoolWarmup: 1
-    MaxSimultaneous: 8
+    MaxSimultaneous: 2
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -223,20 +223,20 @@ MonoBehaviour:
     Bus: 2
     Channel: 
     MixerGroup: {fileID: 0}
-    Volume: 0.45
+    Volume: 0.48
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
     SpatialBlend: 0
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 128
+    Priority: 180
     MinDistance: 0
     MaxDistance: 0
     RolloffMode: 0
     Loop: 0
     PoolWarmup: 1
-    MaxSimultaneous: 8
+    MaxSimultaneous: 2
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -281,13 +281,13 @@ MonoBehaviour:
     SpatialBlend: 0
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 128
+    Priority: 180
     MinDistance: 0
     MaxDistance: 0
     RolloffMode: 0
     Loop: 0
     PoolWarmup: 1
-    MaxSimultaneous: 8
+    MaxSimultaneous: 2
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -325,20 +325,20 @@ MonoBehaviour:
     Bus: 3
     Channel: 
     MixerGroup: {fileID: 0}
-    Volume: 0.32
+    Volume: 0.22
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
     SpatialBlend: 0
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 128
+    Priority: 180
     MinDistance: 0
     MaxDistance: 0
     RolloffMode: 0
     Loop: 0
     PoolWarmup: 1
-    MaxSimultaneous: 8
+    MaxSimultaneous: 1
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -376,20 +376,20 @@ MonoBehaviour:
     Bus: 3
     Channel: 
     MixerGroup: {fileID: 0}
-    Volume: 0.5
+    Volume: 0.45
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
     SpatialBlend: 0
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 128
+    Priority: 180
     MinDistance: 0
     MaxDistance: 0
     RolloffMode: 0
     Loop: 0
     PoolWarmup: 1
-    MaxSimultaneous: 8
+    MaxSimultaneous: 1
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -427,20 +427,20 @@ MonoBehaviour:
     Bus: 4
     Channel: 
     MixerGroup: {fileID: 0}
-    Volume: 0.15
+    Volume: 0.2
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
     SpatialBlend: 0
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 128
+    Priority: 120
     MinDistance: 0
     MaxDistance: 0
     RolloffMode: 0
     Loop: 1
     PoolWarmup: 1
-    MaxSimultaneous: 8
+    MaxSimultaneous: 1
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -478,20 +478,20 @@ MonoBehaviour:
     Bus: 4
     Channel: 
     MixerGroup: {fileID: 0}
-    Volume: 0.2
+    Volume: 0.18
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
-    SpatialBlend: 0
+    SpatialBlend: 1
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 128
-    MinDistance: 0
-    MaxDistance: 0
+    Priority: 120
+    MinDistance: 2
+    MaxDistance: 14
     RolloffMode: 0
     Loop: 1
     PoolWarmup: 1
-    MaxSimultaneous: 8
+    MaxSimultaneous: 1
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -533,16 +533,16 @@ MonoBehaviour:
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
-    SpatialBlend: 0
+    SpatialBlend: 1
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 128
-    MinDistance: 0
-    MaxDistance: 0
+    Priority: 140
+    MinDistance: 4
+    MaxDistance: 24
     RolloffMode: 0
     Loop: 0
     PoolWarmup: 1
-    MaxSimultaneous: 8
+    MaxSimultaneous: 1
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -581,20 +581,20 @@ MonoBehaviour:
     Bus: 4
     Channel: 
     MixerGroup: {fileID: 0}
-    Volume: 0.22
+    Volume: 0.14
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
     SpatialBlend: 0
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 128
+    Priority: 140
     MinDistance: 0
     MaxDistance: 0
     RolloffMode: 0
     Loop: 1
     PoolWarmup: 1
-    MaxSimultaneous: 8
+    MaxSimultaneous: 1
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -632,20 +632,20 @@ MonoBehaviour:
     Bus: 4
     Channel: 
     MixerGroup: {fileID: 0}
-    Volume: 0.3
+    Volume: 0.18
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
-    SpatialBlend: 0
+    SpatialBlend: 1
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 128
-    MinDistance: 0
-    MaxDistance: 0
+    Priority: 140
+    MinDistance: 3
+    MaxDistance: 30
     RolloffMode: 0
     Loop: 0
     PoolWarmup: 1
-    MaxSimultaneous: 8
+    MaxSimultaneous: 1
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -653,11 +653,11 @@ MonoBehaviour:
       EnableHighPass: 0
       HighPassCutoff: 0
       HighPassResonance: 0
-      EnableEcho: 0
-      EchoDelay: 0
-      EchoDecayRatio: 0
-      EchoWetMix: 0
-      EchoDryMix: 0
+      EnableEcho: 1
+      EchoDelay: 180
+      EchoDecayRatio: 0.25
+      EchoWetMix: 0.12
+      EchoDryMix: 1
       EnableReverb: 0
       ReverbPreset: 0
       EnableDistortion: 0
@@ -683,20 +683,20 @@ MonoBehaviour:
     Bus: 4
     Channel: 
     MixerGroup: {fileID: 0}
-    Volume: 0.26
+    Volume: 0.22
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
-    SpatialBlend: 0
+    SpatialBlend: 1
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 128
-    MinDistance: 0
-    MaxDistance: 0
+    Priority: 140
+    MinDistance: 4
+    MaxDistance: 26
     RolloffMode: 0
     Loop: 0
     PoolWarmup: 1
-    MaxSimultaneous: 8
+    MaxSimultaneous: 1
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -734,20 +734,20 @@ MonoBehaviour:
     Bus: 2
     Channel: 
     MixerGroup: {fileID: 0}
-    Volume: 0.32
+    Volume: 0.3
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
     SpatialBlend: 0
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 128
-    MinDistance: 0
-    MaxDistance: 0
+    Priority: 140
+    MinDistance: 2
+    MaxDistance: 18
     RolloffMode: 0
     Loop: 0
     PoolWarmup: 1
-    MaxSimultaneous: 8
+    MaxSimultaneous: 2
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -785,20 +785,20 @@ MonoBehaviour:
     Bus: 2
     Channel: 
     MixerGroup: {fileID: 0}
-    Volume: 0.38
+    Volume: 0.26
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
     SpatialBlend: 0
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 128
+    Priority: 140
     MinDistance: 0
     MaxDistance: 0
     RolloffMode: 0
     Loop: 0
     PoolWarmup: 1
-    MaxSimultaneous: 8
+    MaxSimultaneous: 2
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -836,20 +836,20 @@ MonoBehaviour:
     Bus: 3
     Channel: 
     MixerGroup: {fileID: 0}
-    Volume: 0.34
+    Volume: 0.12
     VolumeRandom: 0
     Pitch: 1
     PitchRandom: 0
     SpatialBlend: 0
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 128
+    Priority: 140
     MinDistance: 0
     MaxDistance: 0
     RolloffMode: 0
     Loop: 0
     PoolWarmup: 1
-    MaxSimultaneous: 8
+    MaxSimultaneous: 1
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
