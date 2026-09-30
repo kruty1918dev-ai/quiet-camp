@@ -12,9 +12,10 @@ namespace QuietCamp.Presentation.World
         public static readonly Vector3 Euler = new Vector3(55f, 225f, 0f);
         public const float Distance = 20f;
         public const float Near = 0.1f, Far = 60f;
-        public const float FitMargin = 1.08f;
-        /// <summary>Extra world-space margin so meadow/decor frame the board.</summary>
-        public const float SceneryMargin = 1.9f;
+        public const float FitMargin = 1.05f;
+        /// <summary>Extra world-space margin so meadow/decor frame the board.
+        /// Kept tight — the board must read as the scene's main subject.</summary>
+        public const float SceneryMargin = 1.15f;
 
         public static void Configure(Camera camera)
         {

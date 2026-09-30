@@ -132,8 +132,41 @@ namespace QuietCamp.Presentation.World
                 // Canopy bends via the shader's height mask; the trunk under
                 // ~0.6 world units keeps ~zero weight and stays planted.
                 FoliageSway.Shared.Apply(go, amplitude: .03f, frequency: .5f);
+            if (assetId.StartsWith("tree") || assetId.StartsWith("stone")
+                || assetId == "log" || assetId == "stump_round" || assetId == "sign")
+                AddContactShadow(go);
             SetLayer(go, BoardRenderer.DecorLayer);
             return go;
+        }
+
+        /// <summary>Soft contact blob under solid decor — trunks read as
+        /// planted on the meadow instead of hovering over the backdrop.</summary>
+        static void AddContactShadow(GameObject go)
+        {
+            var renderers = go.GetComponentsInChildren<Renderer>();
+            if (renderers.Length == 0) return;
+            var bounds = renderers[0].bounds;
+            foreach (var r in renderers) bounds.Encapsulate(r.bounds);
+            var radius = Mathf.Max(bounds.size.x, bounds.size.z) * 0.30f;
+            if (radius <= 0.01f) return;
+            var disc = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            disc.name = "ContactShadow";
+            var col = disc.GetComponent<Collider>();
+            if (col != null) Object.Destroy(col);
+            disc.transform.SetParent(go.transform.parent, true);
+            // World-space disc under the trunk pivot — reads as grounding.
+            disc.transform.position = new Vector3(go.transform.position.x, 0.006f,
+                go.transform.position.z);
+            disc.transform.localScale = new Vector3(radius * 2f, 0.002f, radius * 2f);
+            var shadowMat = new Material(Shader.Find("Universal Render Pipeline/Unlit"));
+            shadowMat.SetFloat("_Surface", 1f);
+            shadowMat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            shadowMat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            shadowMat.SetInt("_ZWrite", 0);
+            shadowMat.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+            shadowMat.SetColor("_BaseColor", new Color(0.08f, 0.14f, 0.08f, 0.22f));
+            disc.GetComponent<Renderer>().sharedMaterial = shadowMat;
+            disc.layer = BoardRenderer.DecorLayer;
         }
 
         static void SetLayer(GameObject go, int layer)

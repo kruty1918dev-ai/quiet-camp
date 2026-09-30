@@ -20,9 +20,9 @@ namespace QuietCamp.Presentation.World
         public const int RuleOverlayLayer = 12;
 
         static readonly Color GroundColor = new Color(0.34f, 0.42f, 0.30f);
-        static readonly Color BaseSideColor = new Color(0.38f, 0.30f, 0.22f);
+        static readonly Color BaseSideColor = new Color(0.42f, 0.36f, 0.24f);
         static readonly Color GrassA = new Color(0.55f, 0.66f, 0.47f);
-        static readonly Color GrassB = new Color(0.50f, 0.61f, 0.42f);
+        static readonly Color GrassB = new Color(0.52f, 0.63f, 0.44f);
         static readonly Color ShadeTint = new Color(0.44f, 0.55f, 0.38f);
         static readonly Color PathColor = new Color(1f, 0.88f, 0.45f, 0.55f);
 
@@ -94,7 +94,7 @@ namespace QuietCamp.Presentation.World
                 var color = shade.Contains(cell) ? ShadeTint
                     : ((x + z) & 1) == 0 ? GrassA : GrassB;
                 var tile = NewPrimitive(PrimitiveType.Cube, $"Cell_{x}_{z}", _gridRoot,
-                    new Vector3(0.97f, 0.014f, 0.97f),
+                    new Vector3(0.988f, 0.014f, 0.988f),
                     BoardMath.CellCenterWorld(_level, cell) + new Vector3(0f, 0.007f, 0f),
                     color, BoardSurfaceLayer);
                 _tintObjects.Add(tile);
