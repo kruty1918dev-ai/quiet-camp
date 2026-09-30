@@ -206,6 +206,54 @@ namespace QuietCamp.Presentation.UI
             return btn;
         }
 
+        /// <summary>
+        /// Tinted menu button on the neutral grey depth sprite: explicit bg
+        /// tint + label color (the illustrated menu needs exact palette
+        /// buttons rather than the semantic Green/Brown variants). Optional
+        /// leading icon before the label.
+        /// </summary>
+        public static Button MenuButton(RectTransform parent, string key,
+            Action onClick, Color bg, Color labelColor,
+            float fontSize = TextButton, string iconPath = null)
+        {
+            var img = Sliced(parent, "Btn_" + key.Replace('.', '_'), BtnGrey, bg);
+            img.raycastTarget = true;
+            var btn = img.gameObject.AddComponent<Button>();
+            var rt = img.rectTransform;
+            Transform labelParent = rt;
+            if (iconPath != null)
+            {
+                // Row centers icon + label as a group for any label width.
+                var row = Stretch(rt, "Row");
+                var h = row.gameObject.AddComponent<HorizontalLayoutGroup>();
+                h.childAlignment = TextAnchor.MiddleCenter;
+                h.spacing = fontSize * 0.45f;
+                h.childForceExpandWidth = false;
+                h.childForceExpandHeight = false;
+                h.childControlWidth = true;
+                h.childControlHeight = false;
+                var icon = Icon(row, iconPath, fontSize * 1.35f, labelColor);
+                icon.gameObject.AddComponent<LayoutElement>().preferredWidth = fontSize * 1.35f;
+                labelParent = row;
+            }
+            var labelRect = Stretch(labelParent, "Label");
+            var tmp = labelRect.gameObject.AddComponent<TextMeshProUGUI>();
+            tmp.fontSize = fontSize;
+            tmp.alignment = TextAlignmentOptions.Center;
+            tmp.color = labelColor;
+            tmp.raycastTarget = false;
+            var loc = labelRect.gameObject.AddComponent<LocalizedLabel>();
+            loc.Bind(key);
+            var colors = btn.colors;
+            colors.highlightedColor = new Color(1.08f, 1.08f, 1.08f);
+            colors.pressedColor = new Color(0.82f, 0.82f, 0.82f);
+            colors.disabledColor = new Color(0.55f, 0.55f, 0.55f, 0.7f);
+            colors.fadeDuration = 0.08f;
+            btn.colors = colors;
+            if (onClick != null) btn.onClick.AddListener(() => onClick());
+            return btn;
+        }
+
         /// <summary>Icon button — square sprite + icon child.</summary>
         public static Button IconButton(RectTransform parent, string spritePath,
             Action onClick, Color? bg = null, float size = 96f, Color? iconTint = null)

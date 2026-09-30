@@ -45,26 +45,62 @@ namespace QuietCamp.Presentation.UI
         void BuildMain()
         {
             var root = Screen("Main");
-            var bg = QcUi.Image(root.transform as RectTransform, "bg",
-                new Color(0f, 0f, 0f, 0.25f));
-            bg.raycastTarget = false;
-            var col = QcUi.Anchor(root.transform as RectTransform, "col",
-                new Vector2(0.5f, 0f), new Vector2(0.5f, 1f),
-                new Vector2(-300, 220), new Vector2(300, -200));
-            var layout = col.gameObject.AddComponent<VerticalLayoutGroup>();
+            var rt = root.transform as RectTransform;
+
+            // Header — two-line title + tagline over the clean sky band of the
+            // illustrated background (top ~7%–28% of the canvas).
+            var header = QcUi.Anchor(rt, "Header",
+                new Vector2(0.06f, 1f), new Vector2(0.94f, 1f),
+                new Vector2(0f, -560f), new Vector2(0f, -120f));
+            var headerLayout = header.gameObject.AddComponent<VerticalLayoutGroup>();
+            headerLayout.childAlignment = TextAnchor.UpperCenter;
+            headerLayout.childForceExpandWidth = true;
+            headerLayout.childForceExpandHeight = false;
+            headerLayout.spacing = 0f;
+            TitleLabel(header, "menu.title.line1");
+            TitleLabel(header, "menu.title.line2");
+            QcUi.Label(header, "menu.tagline", 42f,
+                TextAlignmentOptions.Center, MenuArt.ForestText)
+                .gameObject.AddComponent<LayoutElement>().minHeight = 90;
+
+            // Actions — 84% wide column hugging the bottom safe area.
+            var actions = QcUi.Anchor(rt, "Actions",
+                new Vector2(0.08f, 0f), new Vector2(0.92f, 0f),
+                new Vector2(0f, 56f), new Vector2(0f, 56f + 760f));
+            var layout = actions.gameObject.AddComponent<VerticalLayoutGroup>();
             layout.spacing = 22;
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = false;
-            layout.childAlignment = TextAnchor.MiddleCenter;
+            layout.childAlignment = TextAnchor.LowerCenter;
 
-            QcUi.Label(col, "menu.title", 64f, TextAlignmentOptions.Center, QcUi.Cream)
-                .gameObject.AddComponent<LayoutElement>().minHeight = 110;
             var hasSave = _services.Progression.CompletedCount > 0 || _services.Save.HasSave;
-            AddBtn(col, hasSave ? "menu.continue" : "menu.start",
-                () => Action("qc.continue"), QcUi.Green, 120);
-            AddBtn(col, "menu.levels", () => Action("qc.levels"), QcUi.GreenDark, 120);
-            AddBtn(col, "menu.album", () => Action("qc.album"), QcUi.GreenDark, 120);
-            AddBtn(col, "menu.settings", () => Action("qc.settings"), QcUi.Brown, 120);
+            var primary = QcUi.MenuButton(actions,
+                hasSave ? "menu.continue" : "menu.start",
+                () => Action("qc.continue"), MenuArt.Forest, MenuArt.Cream,
+                58f, QcUi.IconPlay);
+            primary.gameObject.AddComponent<LayoutElement>().minHeight = 162;
+            MenuBtn(actions, "menu.levels", () => Action("qc.levels"), false);
+            MenuBtn(actions, "menu.album", () => Action("qc.album"), false);
+            MenuBtn(actions, "menu.settings", () => Action("qc.settings"), true);
+        }
+
+        static void TitleLabel(RectTransform parent, string key)
+        {
+            var label = QcUi.Label(parent, key, 118f,
+                TextAlignmentOptions.Center, MenuArt.Forest);
+            var tmp = label.GetComponent<TextMeshProUGUI>();
+            tmp.fontStyle = FontStyles.Bold;
+            tmp.characterSpacing = -1.2f;
+            tmp.lineSpacing = -18f;
+            label.gameObject.AddComponent<LayoutElement>().minHeight = 150;
+        }
+
+        static void MenuBtn(RectTransform parent, string key, Action onClick, bool dark)
+        {
+            var btn = QcUi.MenuButton(parent, key, onClick,
+                dark ? MenuArt.Forest : MenuArt.Cream,
+                dark ? MenuArt.Cream : MenuArt.Forest, 52f);
+            btn.gameObject.AddComponent<LayoutElement>().minHeight = 144;
         }
 
         // ─── LevelPath ───────────────────────────────────────────────────────
@@ -86,11 +122,18 @@ namespace QuietCamp.Presentation.UI
             QcUi.Label(col, "menu.levels", QcUi.TextTitle, TextAlignmentOptions.Center, QcUi.Ink)
                 .gameObject.AddComponent<LayoutElement>().minHeight = 80;
 
-            var grid = QcUi.Root(col, "grid");
-            grid.gameObject.AddComponent<LayoutElement>().flexibleHeight = 1;
+            var scroll = QcUi.Root(col, "scroll");
+            scroll.gameObject.AddComponent<LayoutElement>().flexibleHeight = 1;
+            var sr = scroll.gameObject.AddComponent<ScrollRect>();
+            sr.horizontal = false;
+            scroll.gameObject.AddComponent<RectMask2D>();
+            var grid = QcUi.Anchor(scroll, "grid",
+                new Vector2(0, 1), new Vector2(1, 1), Vector2.zero, Vector2.zero);
+            sr.content = grid; sr.viewport = scroll;
             var gridLayout = grid.gameObject.AddComponent<GridLayoutGroup>();
             gridLayout.cellSize = new Vector2(250f, 130f);
             gridLayout.spacing = new Vector2(16f, 16f);
+            gridLayout.childAlignment = TextAnchor.UpperCenter;
             var fitter = grid.gameObject.AddComponent<ContentSizeFitter>();
             fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
