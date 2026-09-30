@@ -19,6 +19,8 @@ namespace QuietCamp.Domain
             public string GuestId;
             public List<Placement> Candidates;
             public int Next;
+            /// <summary>The pose this frame currently contributes to _assigned (null before first pick / after retract).</summary>
+            public Placement Current;
         }
 
         readonly LevelData _level;
@@ -27,7 +29,6 @@ namespace QuietCamp.Domain
         readonly HashSet<Cell> _noise;
         readonly Cell _entry;
         readonly List<Placement> _assigned;
-        readonly int _pinnedCount;
         readonly Stack<Frame> _frames = new Stack<Frame>();
         readonly double _budgetSeconds;
         readonly Stopwatch _watch = new Stopwatch();
@@ -47,8 +48,7 @@ namespace QuietCamp.Domain
             _assigned = (initial ?? Enumerable.Empty<Placement>())
                 .Where(p => p != null && _guests.ContainsKey(p.guestId))
                 .Select(p => p.Copy()).ToList();
-            _pinnedCount = _assigned.Count;
-            if (_pinnedCount != (initial?.Count() ?? 0)
+            if (_assigned.Count != (initial?.Count() ?? 0)
                 || !RuleEvaluator.Evaluate(_level, _assigned, false).CanCommit)
                 _status = Status.Unsatisfiable;
             _watch.Start();
@@ -84,30 +84,50 @@ namespace QuietCamp.Domain
                     _solution = _assigned.Select(p => p.Copy()).ToArray();
                     _status = Status.Solved;
                 }
-                else Backtrack();
+                else RetractDeepest();
                 return;
             }
 
-            if (_frames.Count == _assigned.Count - _pinnedCount)
+            // Descend only once the top frame holds a live pose — its subtree
+            // for that pose is what the deeper frames explore.
+            if (_frames.Count == 0 || _frames.Peek().Current != null)
             {
-                // Depth boundary: pick the unassigned guest with fewest legal poses.
                 var chosen = PickMrv(out var candidates);
-                if (chosen == null) { Backtrack(); return; }
+                if (chosen == null) { RetractDeepest(); return; }
                 _frames.Push(new Frame { GuestId = chosen, Candidates = candidates, Next = 0 });
             }
 
             var frame = _frames.Peek();
-            if (frame.Next >= frame.Candidates.Count) { _frames.Pop(); return; }
-            var candidate = frame.Candidates[frame.Next++];
-            _assigned.Add(candidate);
+            if (frame.Next >= frame.Candidates.Count)
+            {
+                // Level exhausted: drop this frame's pose (if it ever had one)
+                // and make the parent advance to its next candidate.
+                _frames.Pop();
+                if (frame.Current != null)
+                    _assigned.RemoveAt(_assigned.Count - 1);
+                RetractDeepest();
+                return;
+            }
+            frame.Current = frame.Candidates[frame.Next++];
+            _assigned.Add(frame.Current);
             Nodes++;
         }
 
-        void Backtrack()
+        /// <summary>
+        /// Drop the deepest live pose so its frame advances on the next step.
+        /// Frames with no live pose are simply discarded.
+        /// </summary>
+        void RetractDeepest()
         {
-            if (_frames.Count == 0) { _status = Status.Unsatisfiable; return; }
-            _frames.Pop();
-            _assigned.RemoveAt(_assigned.Count - 1);
+            while (_frames.Count > 0)
+            {
+                var f = _frames.Peek();
+                if (f.Current == null) { _frames.Pop(); continue; }
+                _assigned.RemoveAt(_assigned.Count - 1);
+                f.Current = null;
+                return;
+            }
+            _status = Status.Unsatisfiable;
         }
 
         string PickMrv(out List<Placement> best)
@@ -159,7 +179,11 @@ namespace QuietCamp.Domain
             occupied.UnionWith(footprint);
             var door = RuleEvaluator.Door(p);
             if (!RuleEvaluator.Inside(_level, door) || occupied.Contains(door)) return false;
-            if (RuleEvaluator.Path(_level, occupied, _entry, door) == null) return false;
+            // Path() rejects an occupied start — the entry must stay blocked for
+            // footprints but walkable as the path origin.
+            var open = new HashSet<Cell>(occupied);
+            open.Remove(_entry);
+            if (RuleEvaluator.Path(_level, open, _entry, door) == null) return false;
             if (_level.friends != null)
                 foreach (var pair in _level.friends)
                 {
@@ -167,7 +191,7 @@ namespace QuietCamp.Domain
                     if (partner == null) continue;
                     var partnerPlacement = _assigned.FirstOrDefault(a => a.guestId == partner);
                     if (partnerPlacement == null) continue;
-                    var path = RuleEvaluator.Path(_level, occupied, door, RuleEvaluator.Door(partnerPlacement));
+                    var path = RuleEvaluator.Path(_level, open, door, RuleEvaluator.Door(partnerPlacement));
                     if (path == null || path.Count - 1 > 3) return false;
                 }
             return true;
