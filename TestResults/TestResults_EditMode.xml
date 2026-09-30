@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-30 05:32:57Z" end-time="2026-09-30 05:32:57Z" duration="0,1734586">
-  <test-suite type="TestSuite" id="1000" name="Quiet Camp" fullname="Quiet Camp" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-09-30 05:32:57Z" end-time="2026-09-30 05:32:57Z" duration="0.173459" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-30 06:56:11Z" end-time="2026-09-30 06:56:11Z" duration="0,1694713">
+  <test-suite type="TestSuite" id="1000" name="Quiet Camp" fullname="Quiet Camp" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-09-30 06:56:11Z" end-time="2026-09-30 06:56:11Z" duration="0.169471" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
     <properties>
       <property name="platform" value="EditMode" />
     </properties>
-    <test-suite type="Assembly" id="1008" name="QuietCamp.Tests.Editor.dll" fullname="C:/Users/yelyzaveta.khodos.TP-GE26-20/Documents/GitHub/quiet-camp/QuietCamp/Library/ScriptAssemblies/QuietCamp.Tests.Editor.dll" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-09-30 05:32:57Z" end-time="2026-09-30 05:32:57Z" duration="0.167722" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <test-suite type="Assembly" id="1008" name="QuietCamp.Tests.Editor.dll" fullname="C:/Users/yelyzaveta.khodos.TP-GE26-20/Documents/GitHub/quiet-camp/QuietCamp/Library/ScriptAssemblies/QuietCamp.Tests.Editor.dll" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-09-30 06:56:11Z" end-time="2026-09-30 06:56:11Z" duration="0.163167" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
       <properties>
-        <property name="_PID" value="26968" />
+        <property name="_PID" value="29840" />
         <property name="_APPDOMAIN" value="Unity Child Domain" />
         <property name="platform" value="EditMode" />
         <property name="EditorOnly" value="True" />
       </properties>
-      <test-suite type="TestSuite" id="1009" name="QuietCamp" fullname="QuietCamp" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-09-30 05:32:57Z" end-time="2026-09-30 05:32:57Z" duration="0.167381" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestSuite" id="1009" name="QuietCamp" fullname="QuietCamp" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-09-30 06:56:11Z" end-time="2026-09-30 06:56:11Z" duration="0.162869" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-suite type="TestSuite" id="1010" name="Tests" fullname="QuietCamp.Tests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-09-30 05:32:57Z" end-time="2026-09-30 05:32:57Z" duration="0.167268" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <test-suite type="TestSuite" id="1010" name="Tests" fullname="QuietCamp.Tests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-09-30 06:56:11Z" end-time="2026-09-30 06:56:11Z" duration="0.162760" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
           <properties />
-          <test-suite type="TestFixture" id="1001" name="RulesTests" fullname="QuietCamp.Tests.RulesTests" classname="QuietCamp.Tests.RulesTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-09-30 05:32:57Z" end-time="2026-09-30 05:32:57Z" duration="0.166320" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1001" name="RulesTests" fullname="QuietCamp.Tests.RulesTests" classname="QuietCamp.Tests.RulesTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-09-30 06:56:11Z" end-time="2026-09-30 06:56:11Z" duration="0.161968" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1006" name="CommitUndoRedoUsesCopies" fullname="QuietCamp.Tests.RulesTests.CommitUndoRedoUsesCopies" methodname="CommitUndoRedoUsesCopies" classname="QuietCamp.Tests.RulesTests" runstate="Runnable" seed="1790634550" result="Passed" start-time="2026-09-30 05:32:57Z" end-time="2026-09-30 05:32:57Z" duration="0.090125" asserts="0">
+            <test-case id="1006" name="CommitUndoRedoUsesCopies" fullname="QuietCamp.Tests.RulesTests.CommitUndoRedoUsesCopies" methodname="CommitUndoRedoUsesCopies" classname="QuietCamp.Tests.RulesTests" runstate="Runnable" seed="1209821465" result="Passed" start-time="2026-09-30 06:56:11Z" end-time="2026-09-30 06:56:11Z" duration="0.106586" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1007" name="EmptyBoardIsNotSolved" fullname="QuietCamp.Tests.RulesTests.EmptyBoardIsNotSolved" methodname="EmptyBoardIsNotSolved" classname="QuietCamp.Tests.RulesTests" runstate="Runnable" seed="527713582" result="Passed" start-time="2026-09-30 05:32:57Z" end-time="2026-09-30 05:32:57Z" duration="0.001644" asserts="0">
+            <test-case id="1007" name="EmptyBoardIsNotSolved" fullname="QuietCamp.Tests.RulesTests.EmptyBoardIsNotSolved" methodname="EmptyBoardIsNotSolved" classname="QuietCamp.Tests.RulesTests" runstate="Runnable" seed="156466075" result="Passed" start-time="2026-09-30 06:56:11Z" end-time="2026-09-30 06:56:11Z" duration="0.001083" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1002" name="EveryShippedWitnessIsSolved" fullname="QuietCamp.Tests.RulesTests.EveryShippedWitnessIsSolved" methodname="EveryShippedWitnessIsSolved" classname="QuietCamp.Tests.RulesTests" runstate="Runnable" seed="194721129" result="Passed" start-time="2026-09-30 05:32:57Z" end-time="2026-09-30 05:32:57Z" duration="0.060650" asserts="0">
+            <test-case id="1002" name="EveryShippedWitnessIsSolved" fullname="QuietCamp.Tests.RulesTests.EveryShippedWitnessIsSolved" methodname="EveryShippedWitnessIsSolved" classname="QuietCamp.Tests.RulesTests" runstate="Runnable" seed="354888251" result="Passed" start-time="2026-09-30 06:56:11Z" end-time="2026-09-30 06:56:11Z" duration="0.036454" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1004" name="NoiseIsSoftFailure" fullname="QuietCamp.Tests.RulesTests.NoiseIsSoftFailure" methodname="NoiseIsSoftFailure" classname="QuietCamp.Tests.RulesTests" runstate="Runnable" seed="426923593" result="Passed" start-time="2026-09-30 05:32:57Z" end-time="2026-09-30 05:32:57Z" duration="0.001420" asserts="0">
+            <test-case id="1004" name="NoiseIsSoftFailure" fullname="QuietCamp.Tests.RulesTests.NoiseIsSoftFailure" methodname="NoiseIsSoftFailure" classname="QuietCamp.Tests.RulesTests" runstate="Runnable" seed="1079793191" result="Passed" start-time="2026-09-30 06:56:11Z" end-time="2026-09-30 06:56:11Z" duration="0.004042" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1003" name="OverlapIsHardRejected" fullname="QuietCamp.Tests.RulesTests.OverlapIsHardRejected" methodname="OverlapIsHardRejected" classname="QuietCamp.Tests.RulesTests" runstate="Runnable" seed="1143843911" result="Passed" start-time="2026-09-30 05:32:57Z" end-time="2026-09-30 05:32:57Z" duration="0.000706" asserts="0">
+            <test-case id="1003" name="OverlapIsHardRejected" fullname="QuietCamp.Tests.RulesTests.OverlapIsHardRejected" methodname="OverlapIsHardRejected" classname="QuietCamp.Tests.RulesTests" runstate="Runnable" seed="274650266" result="Passed" start-time="2026-09-30 06:56:11Z" end-time="2026-09-30 06:56:11Z" duration="0.000615" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1005" name="RotationChangesDoor" fullname="QuietCamp.Tests.RulesTests.RotationChangesDoor" methodname="RotationChangesDoor" classname="QuietCamp.Tests.RulesTests" runstate="Runnable" seed="1279481221" result="Passed" start-time="2026-09-30 05:32:57Z" end-time="2026-09-30 05:32:57Z" duration="0.001742" asserts="0">
+            <test-case id="1005" name="RotationChangesDoor" fullname="QuietCamp.Tests.RulesTests.RotationChangesDoor" methodname="RotationChangesDoor" classname="QuietCamp.Tests.RulesTests" runstate="Runnable" seed="2033099215" result="Passed" start-time="2026-09-30 06:56:11Z" end-time="2026-09-30 06:56:11Z" duration="0.001480" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
