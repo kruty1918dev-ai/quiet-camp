@@ -47,10 +47,15 @@
 
 ## Аудіо (промпт 02)
 - Усе йде через наявний `AudioService` — пули, буси, `PlayAt` для позиційних джерел. Нових паралельних систем немає.
-- Фазові ваги bird/crickets/owl беруть той самий phase snapshot, що й світло. Сова розкладена на вечір/ніч; порив вітру (`GustStarted`) синхронно запускає `ambience.gust` + `sfx.rustle` — один звук, без дублів.
-- Один `AudioListener`-proxy над центром поля; камерний listener вимкнено, 3D-джерела коректно пануються.
-- Завершення рівня — короткий celebration accent + duck буса, фаза доби не перемикається.
-- Згенеровані кліпи: crickets loop (шов зведено кросфейдом, нормалізація -4.4 dBFS), owl hoot, wind gust, leaf rustle, twig snap, chime. Виміри — [AUDIO-MEASUREMENTS.md](AUDIO-MEASUREMENTS.md); це PCM-метрики, не доказ сприйнятої якості петлі.
+- `AudioHandle` несе generation token: пул переиспользує той самий `AudioSource`, і застарілий handle не може зупинити/масштабувати новий playback (регресійний PlayMode-тест проганяє 60 циклів пулу).
+- Per-key cooldown у каталозі поглинає спам (`ui.click` 80мс тощо); voice budget — декоративні one-shot пропускаються першими, loop-шари йдуть завжди; `MaxSimultaneous` обмежує кожен ключ.
+- Echo-tail hold: джерело з `EnableEcho` не повертається в пул в кадр Stop — bounded wet-tail window (delay×(1+4·decay), 0.3–1.5с), хвіст не зрізається. Pause-guard: `AudioListener.pause` не «завершує» призупинені сорси.
+- Фазові ваги bird/crickets/owl + `windAudio` (ранок .75/полудень 1/вечір .65/ніч .45) беруть той самий phase snapshot, що й світло. Сова розкладена на вечір/ніч; порив вітру (`GustStarted`) синхронно запускає `ambience.gust` + `sfx.rustle` з окремими cooldown'ами — один звук на подію, без дублів.
+- Перші ~10с після входу в сцену — calm window без сови й гучних акцентів; декоративні one-shot мовчать під час переходів, паузи й модальних вікон.
+- Один `AudioListener`-proxy над центром поля; камерний listener вимкнено, 3D-джерела пануються за екранною орієнтацією; anchors не повторюються підряд, позиційний pitch jitter відділений від gameplay RNG (seeded за `decorSeed`).
+- Завершення рівня — один головний акцент `level.complete` + duck буса (target .75, attack .1s, release .9s); `sfx.chime` максимум один раз; фаза доби не перемикається.
+- Імпорт: `importLoadType`/`importCompression` з `audio_catalog.json` реально застосовуються `MvpContentBuilder` через `AudioImporter` (Streaming для loops, DecompressOnLoad для UI/one-shot); sha256 хеші в каталозі актуальні.
+- Згенеровані кліпи: wind bed (процедурний — Moyva-джерело виявилось суб-чутливим DC-дрейфом), crickets loop (truncating cyclic crossfade, шов 0.005), owl hoot (+echo 180мс), wind gust, leaf rustle, twig snap (onset-рампа, DC-очищено), chime. Виміри — [AUDIO-MEASUREMENTS.md](AUDIO-MEASUREMENTS.md); це PCM-метрики, не доказ сприйнятої якості петлі.
 
 ## Перехід FoliageDive (промпт 04)
 - `FoliageDiveTransition` — єдиний перехід у `ScreenRouter` (Doors/Iris/Curtain для сцен більше не використовуються). Стани Idle→Covering→CoveredLoading→Preparing→Revealing→Idle, помилка/timeout→Recover з гарантованим звільненням та генераційним токеном проти воскресіння застарілих очікувань.
@@ -73,6 +78,6 @@
 Під час роботи локальні FireFx/Sky/Foliage шейдери перенесли у Kruty1918.Atmos. Цей перенос збережено. Новий код використовує актуальний FireVisual пакета; його API не змінювався. Трава/квіти лишаються на Atmos/FoliageSway з локальними material copies й налаштованими _BaseColor/_SwayAmp.
 
 ## Перевірка
-Звіти Unity зберігаються в ігнорованій папці quiet-camp/Temp/ai/atmosphere/ поза Unity-проєктом: Unity очищає власний Temp при наступних запусках. Перевірено компіляцію, **65 EditMode** і **21 PlayMode** тестів. PlayMode охоплює фази, наявність шарів, підтримку shader, відсутність рожевих пікселів, недублювання loop, атлас 2×2 і бюджети частинок, спільний вітер, єдиний listener-proxy, dive-перехід із відновленням вводу, вихід у меню й повернення реальною кнопкою Start/Continue, а також recovery без воскресіння CoveredLoading, ретракцію листя на reveal, policy-гейт і reduced-motion гілку переходу.
+Звіти Unity зберігаються в ігнорованій папці quiet-camp/Temp/ai/atmosphere/ поза Unity-проєктом: Unity очищає власний Temp при наступних запусках. Перевірено компіляцію, **66 EditMode** і **27 PlayMode** тестів. PlayMode охоплює фази, наявність шарів, підтримку shader, відсутність рожевих пікселів, недублювання loop, атлас 2×2 і бюджети частинок, спільний вітер, єдиний listener-proxy, dive-перехід із відновленням вводу, вихід у меню й повернення реальною кнопкою Start/Continue, recovery без воскресіння CoveredLoading, ретракцію листя на reveal, policy-гейт і reduced-motion гілку переходу; аудіо — усі 17 ключів каталогу, пріоритети UI>ambience, stale-handle після рециркуляції пулу, cooldown-поглинання, bounded echo-tail і нульову гучність на Master=0.
 
 Кадри з камери Unity показують world без overlay HUD; це не рекламні рендери й не повні device screenshots. Тести в Editor не є перевіркою fps/нагріву/ASTC на Android чи iPhone. Окрему Android-збірку, яку паралельно виконував інший процес, не зараховано до перевірок цієї зміни.
