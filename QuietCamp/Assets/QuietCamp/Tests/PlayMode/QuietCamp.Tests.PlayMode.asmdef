@@ -1,1 +1,23 @@
-{"name":"QuietCamp.Tests.PlayMode","rootNamespace":"QuietCamp.Tests","references":["QuietCamp.Presentation","QuietCamp.Application","QuietCamp.Infrastructure","QuietCamp.Domain","Unity.TextMeshPro","Kruty1918.UiFoundation"],"includePlatforms":[],"excludePlatforms":[],"optionalUnityReferences":["TestAssemblies"],"overrideReferences":true,"precompiledReferences":["nunit.framework.dll"],"autoReferenced":false}
+{
+  "name": "QuietCamp.Tests.PlayMode",
+  "rootNamespace": "QuietCamp.Tests",
+  "references": [
+    "QuietCamp.Presentation",
+    "QuietCamp.Application",
+    "QuietCamp.Infrastructure",
+    "QuietCamp.Domain",
+    "Unity.TextMeshPro",
+    "Kruty1918.UiFoundation",
+    "Kruty1918.Audio"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll"
+  ],
+  "autoReferenced": false
+}

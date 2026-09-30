@@ -60,3 +60,8 @@ Thumbs.db
 qc_*.log
 qc_*.xml
 TestResults*.xml
+
+# Test runner output + device captures
+TestResults/
+DeviceScreenshots/
+*.zip
