@@ -2,17 +2,23 @@ using UnityEngine;
 namespace QuietCamp.Presentation.World
 {
     /// <summary>
-    /// Small owned campfire FX: procedural flame quads + radial glow +
-    /// flickering point light, plus a few warm particle billboards.
+    /// Small owned campfire FX living under one "FireFx" child: procedural
+    /// flame quads + radial glow + flickering point light, plus a few warm
+    /// particle billboards. Burning visuals are evening-only per the scene
+    /// contract — daytime shows just the stone ring and log stack.
     /// Disabled entirely under reduced motion — no particle drift.
     /// All shaders live in Always-Included so device builds keep the fire.
     /// </summary>
     public static class FireFx
     {
-        public static ParticleSystem Create(Transform parent)
+        public static FireVisual Create(Transform parent)
         {
+            var fxRoot = new GameObject("FireFx");
+            fxRoot.transform.SetParent(parent, false);
+            var visual = fxRoot.AddComponent<FireVisual>();
+
             var go = new GameObject("FireParticles");
-            go.transform.SetParent(parent, false);
+            go.transform.SetParent(fxRoot.transform, false);
             go.transform.localPosition = new Vector3(0f, 0.10f, 0f);
             var ps = go.AddComponent<ParticleSystem>();
             var main = ps.main;
@@ -41,7 +47,7 @@ namespace QuietCamp.Presentation.World
             if (shader == null)
             {
                 Debug.LogWarning("[QuietCamp] Particles/Unlit shader missing; campfire FX disabled");
-                return ps;
+                return visual;
             }
             var material = new Material(shader);
             material.SetColor("_BaseColor", new Color(1f, 0.55f, 0.15f, 0.85f));
@@ -52,10 +58,10 @@ namespace QuietCamp.Presentation.World
             material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
             renderer.sharedMaterial = material;
 
-            AddGlow(parent);
-            AddFlames(parent);
-            AddLight(parent);
-            return ps;
+            AddGlow(fxRoot.transform);
+            AddFlames(fxRoot.transform);
+            AddLight(fxRoot.transform);
+            return visual;
         }
 
         /// <summary>Warm radial glow lying on the ground under the logs.</summary>
@@ -68,12 +74,12 @@ namespace QuietCamp.Presentation.World
             quad.transform.SetParent(parent, false);
             quad.transform.localPosition = new Vector3(0f, 0.06f, 0f);
             quad.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
-            quad.transform.localScale = Vector3.one * 2.8f;
+            quad.transform.localScale = Vector3.one * 1.6f;
             var col = quad.GetComponent<Collider>();
             if (col != null) Object.Destroy(col);
             var mat = new Material(shader);
-            mat.SetColor("_Color", new Color(1f, 0.55f, 0.2f, 0.65f));
-            mat.SetFloat("_Intensity", 1.4f);
+            mat.SetColor("_Color", new Color(1f, 0.55f, 0.2f, 0.4f));
+            mat.SetFloat("_Intensity", 1.0f);
             mat.SetFloat("_Seed", 3.7f);
             quad.GetComponent<Renderer>().sharedMaterial = mat;
         }
@@ -107,12 +113,21 @@ namespace QuietCamp.Presentation.World
             go.transform.localPosition = new Vector3(0f, 0.8f, 0f);
             var light = go.AddComponent<Light>();
             light.type = LightType.Point;
-            light.color = new Color(1f, 0.55f, 0.22f);
-            light.intensity = 1.6f;
-            light.range = 6.5f;
+            light.color = new Color(1f, 0.639f, 0.29f); // #FFA34A per scene contract
+            light.intensity = 1.2f;
+            light.range = 3f;
             light.shadows = LightShadows.None;
             go.AddComponent<FireFlicker>();
         }
+    }
+
+    /// <summary>
+    /// Marker on a campfire's FX root; the scene host toggles burning
+    /// visuals (flames, glow, embers, point light) with the lighting preset.
+    /// </summary>
+    public sealed class FireVisual : MonoBehaviour
+    {
+        public void SetBurning(bool burning) => gameObject.SetActive(burning);
     }
 
     /// <summary>Subtle Perlin flicker on a fire light.</summary>

@@ -106,6 +106,16 @@ namespace QuietCamp.Presentation.World
                 DecorSpawner.Spawn(level, _services.Assets, decorRoot);
             }
 
+            // The scene's evening fire light must sit over this level's fire
+            // cell — the prefab position was authored for a fixed cell.
+            var lightingRoot = Find("LightingRoot");
+            var fireLightT = lightingRoot != null ? lightingRoot.transform.Find("FireLight") : null;
+            if (fireLightT != null && level.noise != null && level.noise.Length > 0)
+            {
+                fireLightT.position = BoardMath.CellCenterWorld(level,
+                    new Cell(level.noise[0][0], level.noise[0][1])) + new Vector3(0f, 0.5f, 0f);
+            }
+
             var camera = FindCamera();
             var viewportGo = Find("CanvasRoot/SafeArea/Gameplay/BoardViewport");
             var viewport = viewportGo != null ? viewportGo.transform as RectTransform : null;
@@ -342,6 +352,8 @@ namespace QuietCamp.Presentation.World
                 ? new Color(0.451f, 0.561f, 0.608f)
                 : new Color(0.725f, 0.788f, 0.796f);
             if (fire != null) fire.gameObject.SetActive(evening);
+            foreach (var fv in FindObjectsByType<FireVisual>(FindObjectsSortMode.None))
+                fv.SetBurning(evening);
             if (evening)
             {
                 PlayAudio("ambience.fire");
