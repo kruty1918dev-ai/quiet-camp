@@ -1,0 +1,488 @@
+using System;
+using System.Collections.Generic;
+using Kruty1918.UIActions.API;
+using QuietCamp.Infrastructure;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+namespace QuietCamp.Presentation.UI
+{
+    /// <summary>
+    /// Main-menu screen set built at runtime under CanvasRoot/SafeArea:
+    /// MainMenu, LevelPath, Settings, Album, DemoComplete. All button actions
+    /// dispatch through the shared UiAction ids so hotkeys and touches agree.
+    /// </summary>
+    public sealed class MenuScreens
+    {
+        readonly GameServices _services;
+        readonly RectTransform _safeArea;
+        readonly Dictionary<string, CanvasGroup> _screens = new Dictionary<string, CanvasGroup>();
+        readonly Stack<string> _history = new Stack<string>();
+
+        public string Current { get; private set; } = "Main";
+
+        public MenuScreens(GameServices services, RectTransform safeArea)
+        {
+            _services = services;
+            _safeArea = safeArea;
+            BuildMain();
+            BuildLevelPath();
+            BuildSettings();
+            BuildAlbum();
+            BuildDemoComplete();
+            Show("Main");
+        }
+
+        void Action(string id, object payload = null)
+            => _services.Actions.Execute(new UiActionRequest(
+                new UiActionId(id), UiActionSource.Button, "Menu", null, payload));
+
+        // ─── Main ────────────────────────────────────────────────────────────
+
+        void BuildMain()
+        {
+            var root = Screen("Main");
+            var bg = QcUi.Image(root.transform as RectTransform, "bg",
+                new Color(0f, 0f, 0f, 0.25f));
+            bg.raycastTarget = false;
+            var col = QcUi.Anchor(root.transform as RectTransform, "col",
+                new Vector2(0.5f, 0f), new Vector2(0.5f, 1f),
+                new Vector2(-300, 220), new Vector2(300, -200));
+            var layout = col.gameObject.AddComponent<VerticalLayoutGroup>();
+            layout.spacing = 22;
+            layout.childForceExpandWidth = true;
+            layout.childForceExpandHeight = false;
+            layout.childAlignment = TextAnchor.MiddleCenter;
+
+            QcUi.Label(col, "menu.title", 64f, TextAlignmentOptions.Center, QcUi.Cream)
+                .gameObject.AddComponent<LayoutElement>().minHeight = 110;
+            var hasSave = _services.Progression.CompletedCount > 0 || _services.Save.HasSave;
+            AddBtn(col, hasSave ? "menu.continue" : "menu.start",
+                () => Action("qc.continue"), QcUi.Green, 120);
+            AddBtn(col, "menu.levels", () => Action("qc.levels"), QcUi.GreenDark, 120);
+            AddBtn(col, "menu.album", () => Action("qc.album"), QcUi.GreenDark, 120);
+            AddBtn(col, "menu.settings", () => Action("qc.settings"), QcUi.Brown, 120);
+        }
+
+        // ─── LevelPath ───────────────────────────────────────────────────────
+
+        void BuildLevelPath()
+        {
+            var root = Screen("Levels");
+            QcUi.Image(root.transform as RectTransform, "bg", new Color(0f, 0f, 0f, 0.45f));
+            var card = QcUi.Anchor(root.transform as RectTransform, "Card",
+                new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
+                new Vector2(-460, -700), new Vector2(460, 700));
+            card.gameObject.AddComponent<Image>().color = QcUi.Cream;
+            var col = QcUi.Stretch(card, "col");
+            var layout = col.gameObject.AddComponent<VerticalLayoutGroup>();
+            layout.padding = new RectOffset(36, 36, 30, 30);
+            layout.spacing = 18;
+            layout.childForceExpandWidth = true;
+            layout.childForceExpandHeight = false;
+            QcUi.Label(col, "menu.levels", QcUi.TextTitle, TextAlignmentOptions.Center, QcUi.Ink)
+                .gameObject.AddComponent<LayoutElement>().minHeight = 80;
+
+            var grid = QcUi.Root(col, "grid");
+            grid.gameObject.AddComponent<LayoutElement>().flexibleHeight = 1;
+            var gridLayout = grid.gameObject.AddComponent<GridLayoutGroup>();
+            gridLayout.cellSize = new Vector2(250f, 130f);
+            gridLayout.spacing = new Vector2(16f, 16f);
+            var fitter = grid.gameObject.AddComponent<ContentSizeFitter>();
+            fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+            _levelGrid = grid;
+            RebuildLevelButtons();
+            AddBtn(col, "action.back", () => Back(), QcUi.Brown, 110);
+        }
+
+        RectTransform _levelGrid;
+        readonly List<Button> _levelButtons = new List<Button>();
+
+        public void RebuildLevelButtons()
+        {
+            if (_levelGrid == null) return;
+            foreach (var b in _levelButtons) if (b != null) UnityEngine.Object.Destroy(b.gameObject);
+            _levelButtons.Clear();
+            var ids = LevelLoader.MvpLevelIds();
+            foreach (var id in ids)
+            {
+                var unlocked = _services.Progression.IsUnlocked(id, ids);
+                var completed = _services.Progression.IsCompleted(id);
+                var btn = QcUi.Button(_levelGrid, id,
+                    null, completed ? QcUi.Green : unlocked ? QcUi.GreenDark : QcUi.Disabled);
+                btn.GetComponentInChildren<LocalizedLabel>().Bind(id);
+                btn.interactable = unlocked;
+                var levelId = id;
+                btn.onClick.AddListener(() => Action("qc.play", levelId));
+                _levelButtons.Add(btn);
+            }
+        }
+
+        // ─── Settings ────────────────────────────────────────────────────────
+
+        Slider _musicSlider, _ambienceSlider, _effectsSlider, _textSlider, _scrollSlider;
+        Toggle _motionToggle, _hapticsToggle, _contrastToggle;
+        TMP_Dropdown _languageDrop;
+
+        void BuildSettings()
+        {
+            var root = Screen("Settings");
+            QcUi.Image(root.transform as RectTransform, "bg", new Color(0f, 0f, 0f, 0.45f));
+            var card = QcUi.Anchor(root.transform as RectTransform, "Card",
+                new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
+                new Vector2(-440, -720), new Vector2(440, 720));
+            card.gameObject.AddComponent<Image>().color = QcUi.Cream;
+            var scroll = QcUi.Stretch(card, "scroll");
+            var scrollRect = scroll.gameObject.AddComponent<ScrollRect>();
+            scrollRect.horizontal = false;
+            var content = QcUi.Anchor(scroll, "Content",
+                new Vector2(0, 1), new Vector2(1, 1), Vector2.zero, Vector2.zero);
+            scrollRect.content = content;
+            scrollRect.viewport = scroll;
+            var layout = content.gameObject.AddComponent<VerticalLayoutGroup>();
+            layout.padding = new RectOffset(36, 36, 28, 28);
+            layout.spacing = 14;
+            layout.childForceExpandWidth = true;
+            layout.childForceExpandHeight = false;
+            content.gameObject.AddComponent<ContentSizeFitter>().verticalFit =
+                ContentSizeFitter.FitMode.PreferredSize;
+
+            QcUi.Label(content, "menu.settings", QcUi.TextTitle,
+                TextAlignmentOptions.Center, QcUi.Ink)
+                .gameObject.AddComponent<LayoutElement>().minHeight = 80;
+
+            _languageDrop = AddDropdown(content, "settings.language",
+                new[] { "Українська", "English", "Deutsch" }, _services.Settings.language,
+                v =>
+                {
+                    var ids = new[] { "uk", "en", "de" };
+                    _services.Localization.TrySetLanguage(ids[Mathf.Clamp(v, 0, 2)]);
+                    _services.Settings.language = _services.Localization.CurrentLanguageId;
+                    _services.Save.Save();
+                });
+
+            _musicSlider = AddSlider(content, "settings.music",
+                _services.Settings.music, v => SetBus(Kruty1918.Audio.AudioBus.Music, v));
+            _ambienceSlider = AddSlider(content, "settings.ambience",
+                _services.Settings.ambience, v => SetBus(Kruty1918.Audio.AudioBus.Ambience, v));
+            _effectsSlider = AddSlider(content, "settings.effects",
+                _services.Settings.effects, v =>
+                {
+                    SetBus(Kruty1918.Audio.AudioBus.Ui, v);
+                    SetBus(Kruty1918.Audio.AudioBus.Sfx, v);
+                });
+            _textSlider = AddSlider(content, "settings.textSize",
+                _services.Settings.textScale, v =>
+                {
+                    _services.Settings.textScale = Mathf.Clamp(v, 0.85f, 1.3f);
+                    LocalizedLabel.TextScale = _services.Settings.textScale;
+                    _services.Save.Save();
+                }, 0.85f, 1.3f);
+            _scrollSlider = AddSlider(content, "settings.scroll",
+                _services.Settings.scrollSensitivity, v =>
+                {
+                    _services.Settings.scrollSensitivity = v;
+                    _services.Save.Save();
+                }, 3f, 24f);
+            _motionToggle = AddToggle(content, "settings.reducedMotion",
+                _services.Settings.reducedMotion, v =>
+                {
+                    _services.ReducedMotion = v;
+                    _services.Save.Save();
+                });
+            _contrastToggle = AddToggle(content, "settings.contrast",
+                _services.Settings.highContrast, v =>
+                {
+                    _services.Settings.highContrast = v;
+                    _services.Save.Save();
+                });
+            _hapticsToggle = AddToggle(content, "settings.haptics",
+                _services.Settings.haptics, v =>
+                {
+                    _services.Settings.haptics = v;
+                    _services.Save.Save();
+                });
+            AddBtn(content, "settings.reset", () =>
+            {
+                _services.Progression.Restore(null, null, 0);
+                _services.Save.Progress = new Application.ProgressSaveData();
+                _services.Save.Album = new Application.AlbumSaveData();
+                _services.Save.Save();
+                RebuildLevelButtons();
+            }, QcUi.Danger, 110);
+            AddBtn(content, "action.back", () => Back(), QcUi.Brown, 110);
+        }
+
+        void SetBus(Kruty1918.Audio.AudioBus bus, float v)
+        {
+            _services.Audio?.SetBusVolume(bus, v);
+            switch (bus)
+            {
+                case Kruty1918.Audio.AudioBus.Music: _services.Settings.music = v; break;
+                case Kruty1918.Audio.AudioBus.Ambience: _services.Settings.ambience = v; break;
+                default: _services.Settings.effects = v; break;
+            }
+            _services.Save.Save();
+        }
+
+        // ─── Album ───────────────────────────────────────────────────────────
+
+        RectTransform _albumList;
+
+        void BuildAlbum()
+        {
+            var root = Screen("Album");
+            QcUi.Image(root.transform as RectTransform, "bg", new Color(0f, 0f, 0f, 0.45f));
+            var card = QcUi.Anchor(root.transform as RectTransform, "Card",
+                new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
+                new Vector2(-460, -700), new Vector2(460, 700));
+            card.gameObject.AddComponent<Image>().color = QcUi.Cream;
+            var col = QcUi.Stretch(card, "col");
+            var layout = col.gameObject.AddComponent<VerticalLayoutGroup>();
+            layout.padding = new RectOffset(36, 36, 30, 30);
+            layout.spacing = 16;
+            layout.childForceExpandWidth = true;
+            layout.childForceExpandHeight = false;
+            QcUi.Label(col, "menu.album", QcUi.TextTitle, TextAlignmentOptions.Center, QcUi.Ink)
+                .gameObject.AddComponent<LayoutElement>().minHeight = 80;
+            var scroll = QcUi.Root(col, "scroll");
+            scroll.gameObject.AddComponent<LayoutElement>().flexibleHeight = 1;
+            var sr = scroll.gameObject.AddComponent<ScrollRect>();
+            sr.horizontal = false;
+            var content = QcUi.Anchor(scroll, "Content",
+                new Vector2(0, 1), new Vector2(1, 1), Vector2.zero, Vector2.zero);
+            sr.content = content; sr.viewport = scroll;
+            var vlayout = content.gameObject.AddComponent<VerticalLayoutGroup>();
+            vlayout.childForceExpandWidth = true;
+            vlayout.childForceExpandHeight = false;
+            vlayout.spacing = 12;
+            content.gameObject.AddComponent<ContentSizeFitter>().verticalFit =
+                ContentSizeFitter.FitMode.PreferredSize;
+            _albumList = content;
+            RebuildAlbum();
+            AddBtn(col, "action.back", () => Back(), QcUi.Brown, 110);
+        }
+
+        public void RebuildAlbum()
+        {
+            if (_albumList == null) return;
+            for (var i = _albumList.childCount - 1; i >= 0; i--)
+                UnityEngine.Object.Destroy(_albumList.GetChild(i).gameObject);
+            var entries = _services.Save.Album.entries;
+            if (entries == null || entries.Length == 0)
+            {
+                var empty = QcUi.Root(_albumList, "empty");
+                empty.sizeDelta = new Vector2(0, 90);
+                QcUi.Label(empty, "menu.album", QcUi.TextSmall,
+                    TextAlignmentOptions.Center, QcUi.Ink);
+                return;
+            }
+            foreach (var e in entries)
+            {
+                var row = QcUi.Root(_albumList, "entry_" + e.levelId);
+                row.sizeDelta = new Vector2(0, 100);
+                row.gameObject.AddComponent<Image>().color = QcUi.CreamDark;
+                var btn = row.gameObject.AddComponent<Button>();
+                var levelId = e.levelId;
+                btn.onClick.AddListener(() => Action("qc.play", levelId));
+                QcUi.Label(row, e.levelId, QcUi.TextBody,
+                    TextAlignmentOptions.Center, QcUi.Ink);
+            }
+        }
+
+        // ─── DemoComplete ────────────────────────────────────────────────────
+
+        void BuildDemoComplete()
+        {
+            var root = Screen("DemoComplete");
+            QcUi.Image(root.transform as RectTransform, "bg", new Color(0f, 0f, 0f, 0.5f));
+            var card = QcUi.Anchor(root.transform as RectTransform, "Card",
+                new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
+                new Vector2(-400, -320), new Vector2(400, 320));
+            card.gameObject.AddComponent<Image>().color = QcUi.Cream;
+            var col = QcUi.Stretch(card, "col");
+            var layout = col.gameObject.AddComponent<VerticalLayoutGroup>();
+            layout.padding = new RectOffset(36, 36, 36, 36);
+            layout.spacing = 22;
+            layout.childForceExpandWidth = true;
+            layout.childForceExpandHeight = false;
+            QcUi.Label(col, "demo.complete", QcUi.TextTitle,
+                TextAlignmentOptions.Center, QcUi.Ink)
+                .gameObject.AddComponent<LayoutElement>().flexibleHeight = 1;
+            AddBtn(col, "menu.album", () => Action("qc.album"), QcUi.Green, 110);
+            AddBtn(col, "action.back", () => Back(), QcUi.Brown, 110);
+        }
+
+        // ─── Shared builders ─────────────────────────────────────────────────
+
+        CanvasGroup Screen(string name)
+        {
+            var rt = QcUi.Stretch(_safeArea, "Screen_" + name);
+            var group = rt.gameObject.AddComponent<CanvasGroup>();
+            _screens[name] = group;
+            rt.gameObject.SetActive(false);
+            return group;
+        }
+
+        public void Show(string name)
+        {
+            foreach (var kv in _screens) kv.Value.gameObject.SetActive(false);
+            if (_screens.TryGetValue(name, out var g))
+            {
+                g.gameObject.SetActive(true);
+                g.alpha = 1f;
+                g.interactable = true;
+                g.blocksRaycasts = true;
+            }
+            if (Current != name && Current != null) _history.Push(Current);
+            Current = name;
+            if (name == "Album") RebuildAlbum();
+            if (name == "Levels") RebuildLevelButtons();
+        }
+
+        public void Back()
+        {
+            var target = _history.Count > 0 ? _history.Pop() : "Main";
+            Current = null; // avoid re-push
+            foreach (var kv in _screens) kv.Value.gameObject.SetActive(false);
+            if (_screens.TryGetValue(target, out var g))
+            {
+                g.gameObject.SetActive(true);
+                g.alpha = 1f;
+                g.interactable = true;
+                g.blocksRaycasts = true;
+            }
+            Current = target;
+        }
+
+        public void ShowDemoComplete() => Show("DemoComplete");
+
+        void AddBtn(RectTransform parent, string key, Action onClick, Color color, float height)
+        {
+            var btn = QcUi.Button(parent, key, onClick, color);
+            btn.gameObject.AddComponent<LayoutElement>().minHeight = height;
+        }
+
+        Slider AddSlider(RectTransform parent, string key, float value,
+            Action<float> onChange, float min = 0f, float max = 1f)
+        {
+            var row = QcUi.Root(parent, "row_" + key);
+            row.sizeDelta = new Vector2(0, 96);
+            row.gameObject.AddComponent<LayoutElement>().minHeight = 96;
+            var label = QcUi.Anchor(row, "l",
+                new Vector2(0, 0), new Vector2(0.45f, 1), Vector2.zero, Vector2.zero);
+            QcUi.Label(label, key, QcUi.TextSmall, TextAlignmentOptions.MidlineLeft, QcUi.Ink);
+            var sliderGo = QcUi.Anchor(row, "s",
+                new Vector2(0.45f, 0.2f), new Vector2(1, 0.8f), Vector2.zero, Vector2.zero);
+            var slider = BuildSlider(sliderGo, min, max, value, onChange);
+            return slider;
+        }
+
+        Slider BuildSlider(RectTransform parent, float min, float max, float value, Action<float> onChange)
+        {
+            var slider = parent.gameObject.AddComponent<Slider>();
+            slider.minValue = min; slider.maxValue = max;
+            var track = QcUi.Stretch(parent, "track");
+            var bg = track.gameObject.AddComponent<Image>();
+            bg.color = QcUi.CreamDark;
+            var handle = QcUi.Anchor(parent, "handle",
+                new Vector2(0, 0), new Vector2(0, 1),
+                new Vector2(-14, -6), new Vector2(14, 6));
+            var handleImg = handle.gameObject.AddComponent<Image>();
+            handleImg.color = QcUi.Green;
+            var fillArea = QcUi.Stretch(parent, "FillArea");
+            var fill = QcUi.Stretch(fillArea, "Fill");
+            var fillImg = fill.gameObject.AddComponent<Image>();
+            fillImg.color = QcUi.GreenDark;
+            slider.fillRect = fill;
+            slider.handleRect = handle;
+            slider.targetGraphic = handleImg;
+            slider.direction = Slider.Direction.LeftToRight;
+            slider.onValueChanged.AddListener(v => onChange(v));
+            slider.SetValueWithoutNotify(value);
+            return slider;
+        }
+
+        Toggle AddToggle(RectTransform parent, string key, bool value, Action<bool> onChange)
+        {
+            var row = QcUi.Root(parent, "row_" + key);
+            row.gameObject.AddComponent<LayoutElement>().minHeight = 96;
+            var label = QcUi.Anchor(row, "l",
+                new Vector2(0, 0), new Vector2(0.75f, 1), Vector2.zero, Vector2.zero);
+            QcUi.Label(label, key, QcUi.TextSmall, TextAlignmentOptions.MidlineLeft, QcUi.Ink);
+            var boxGo = QcUi.Anchor(row, "t",
+                new Vector2(0.8f, 0.15f), new Vector2(1, 0.85f), Vector2.zero, Vector2.zero);
+            var box = boxGo.gameObject.AddComponent<Image>();
+            box.color = QcUi.CreamDark;
+            var toggle = boxGo.gameObject.AddComponent<Toggle>();
+            var check = QcUi.Anchor(boxGo, "check",
+                Vector2.zero, Vector2.one, new Vector2(8, 8), new Vector2(-8, -8));
+            var checkImg = check.gameObject.AddComponent<Image>();
+            checkImg.color = QcUi.Green;
+            toggle.graphic = checkImg;
+            toggle.targetGraphic = box;
+            toggle.SetIsOnWithoutNotify(value);
+            toggle.onValueChanged.AddListener(v => onChange(v));
+            return toggle;
+        }
+
+        TMP_Dropdown AddDropdown(RectTransform parent, string key, string[] options,
+            string currentId, Action<int> onChange)
+        {
+            var row = QcUi.Root(parent, "row_" + key);
+            row.gameObject.AddComponent<LayoutElement>().minHeight = 96;
+            var label = QcUi.Anchor(row, "l",
+                new Vector2(0, 0), new Vector2(0.45f, 1), Vector2.zero, Vector2.zero);
+            QcUi.Label(label, key, QcUi.TextSmall, TextAlignmentOptions.MidlineLeft, QcUi.Ink);
+            var dropGo = QcUi.Anchor(row, "d",
+                new Vector2(0.45f, 0.15f), new Vector2(1, 0.85f), Vector2.zero, Vector2.zero);
+            var bg = dropGo.gameObject.AddComponent<Image>();
+            bg.color = QcUi.CreamDark;
+            var drop = dropGo.gameObject.AddComponent<TMP_Dropdown>();
+            var captionGo = QcUi.Stretch(dropGo, "Caption");
+            var caption = captionGo.gameObject.AddComponent<TextMeshProUGUI>();
+            caption.fontSize = QcUi.TextSmall;
+            caption.color = QcUi.Ink;
+            caption.alignment = TextAlignmentOptions.Center;
+            drop.captionText = caption;
+            var templateGo = QcUi.Anchor(dropGo, "Template",
+                new Vector2(0, 0), new Vector2(1, 0),
+                new Vector2(0, -options.Length * 90f), new Vector2(0, 0));
+            templateGo.gameObject.SetActive(false);
+            var templateBg = templateGo.gameObject.AddComponent<Image>();
+            templateBg.color = QcUi.Cream;
+            var templateScroll = templateGo.gameObject.AddComponent<ScrollRect>();
+            var item = QcUi.Anchor(templateGo, "Item",
+                new Vector2(0, 1), new Vector2(1, 1),
+                new Vector2(0, -90), new Vector2(0, 0));
+            var itemToggle = item.gameObject.AddComponent<Toggle>();
+            var itemLabelGo = QcUi.Stretch(item, "Label");
+            var itemLabel = itemLabelGo.gameObject.AddComponent<TextMeshProUGUI>();
+            itemLabel.fontSize = QcUi.TextSmall;
+            itemLabel.color = QcUi.Ink;
+            itemLabel.alignment = TextAlignmentOptions.Center;
+            drop.template = templateGo;
+            drop.itemText = itemLabel;
+            var content = QcUi.Anchor(templateGo, "Content",
+                new Vector2(0, 1), new Vector2(1, 1), Vector2.zero, Vector2.zero);
+            var vl = content.gameObject.AddComponent<VerticalLayoutGroup>();
+            vl.childForceExpandWidth = true;
+            content.gameObject.AddComponent<ContentSizeFitter>().verticalFit =
+                ContentSizeFitter.FitMode.PreferredSize;
+            templateScroll.content = content;
+            templateScroll.viewport = templateGo;
+            item.SetParent(content, false);
+            var itemCheck = QcUi.Anchor(item, "check",
+                Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+            itemToggle.graphic = null;
+            drop.options.Clear();
+            foreach (var o in options) drop.options.Add(new TMP_Dropdown.OptionData(o));
+            var ids = new[] { "uk", "en", "de" };
+            drop.SetValueWithoutNotify(Math.Max(0, Array.IndexOf(ids, currentId)));
+            drop.RefreshShownValue();
+            drop.onValueChanged.AddListener(v => onChange(v));
+            return drop;
+        }
+    }
+}
