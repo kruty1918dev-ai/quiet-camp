@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "levelPhases": {
+    "QC001": "morning",
+    "QC002": "noon",
+    "QC003": "evening",
+    "QC004": "morning",
+    "QC005": "night",
+    "QC006": "noon",
+    "QC007": "evening",
+    "QC008": "morning",
+    "QC009": "night",
+    "QC010": "noon",
+    "QC011": "evening",
+    "QC012": "night"
+  },
+  "profiles": [
+    {
+      "id": "morning",
+      "sun": "#FFE3BE",
+      "ambient": "#AABFB5",
+      "foreground": "#B0BFA5",
+      "sunIntensity": 0.8,
+      "elevation": 28,
+      "wind": 0.18,
+      "birdMin": 18,
+      "birdMax": 35,
+      "crickets": 0,
+      "fire": false
+    },
+    {
+      "id": "noon",
+      "sun": "#FFF0DB",
+      "ambient": "#B9C9CB",
+      "foreground": "#C0C9A8",
+      "sunIntensity": 1,
+      "elevation": 50,
+      "wind": 0.25,
+      "birdMin": 30,
+      "birdMax": 60,
+      "crickets": 0,
+      "fire": false
+    },
+    {
+      "id": "evening",
+      "sun": "#FFC38D",
+      "ambient": "#78939C",
+      "foreground": "#7C9292",
+      "sunIntensity": 0.55,
+      "elevation": 18,
+      "wind": 0.12,
+      "birdMin": 60,
+      "birdMax": 100,
+      "crickets": 0.3,
+      "fire": true
+    },
+    {
+      "id": "night",
+      "sun": "#ACC6DE",
+      "ambient": "#627F94",
+      "foreground": "#526F88",
+      "sunIntensity": 0.28,
+      "elevation": 30,
+      "wind": 0.08,
+      "birdMin": 0,
+      "birdMax": 0,
+      "crickets": 1,
+      "fire": true
+    }
+  ]
+}
