@@ -51,6 +51,10 @@ namespace QuietCamp.Tests
             yield return WaitForActiveScene("Camp", 20f);
             yield return new WaitUntil(() => CampSceneHost.Current != null);
             yield return Settle(60);
+            // Commit the witness layout so the shot shows tents like the
+            // reference render (door markers, footprints, rotations).
+            CampSceneHost.Current.Session.DebugApplyWitness();
+            yield return Settle(40);
             var campMagenta = Shot(outDir, "04_camp_day");
 
             // Pause modal → shot; then in-game settings modal → shot.
@@ -62,8 +66,16 @@ namespace QuietCamp.Tests
             yield return Settle(30);
             var campSettingsMagenta = Shot(outDir, "06_camp_settings");
 
+            // Solving the level flips the scene to the evening preset —
+            // burning campfire, dusk light, completion panel.
+            ClickModalButton("SettingsPanel", "Btn_action_back");
+            yield return Settle(20);
+            CampSceneHost.Current.Session.Check();
+            yield return Settle(60);
+            var eveningMagenta = Shot(outDir, "07_camp_evening");
+
             var names = new[] { "01_main_menu", "02_menu_settings", "03_menu_levels",
-                "04_camp_day", "05_camp_pause", "06_camp_settings" };
+                "04_camp_day", "05_camp_pause", "06_camp_settings", "07_camp_evening" };
             foreach (var n in names)
                 Assert.IsTrue(File.Exists(System.IO.Path.Combine(outDir, n + ".png")),
                     "Missing screenshot " + n);
@@ -73,7 +85,8 @@ namespace QuietCamp.Tests
             {
                 ("menu", menuMagenta), ("settings", settingsMagenta),
                 ("levels", levelsMagenta), ("camp", campMagenta),
-                ("pause", pauseMagenta), ("camp settings", campSettingsMagenta)
+                ("pause", pauseMagenta), ("camp settings", campSettingsMagenta),
+                ("evening", eveningMagenta)
             };
             foreach (var m in mags)
                 Assert.Less(m.v, 0.02f, $"{m.name} screenshot is magenta — missing shader.");
