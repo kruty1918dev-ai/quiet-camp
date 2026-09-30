@@ -275,9 +275,9 @@ namespace QuietCamp.Presentation
                     if (!reduced)
                     {
                         DriveCamera(e);
-                        if (e > .45f && !_audioIn) { _audioIn = true; Rustle(1f); }
+                        if (e > .45f && !_audioIn) { _audioIn = true; Rustle(1f, -.12f); }
                     }
-                    else if (e > .5f && !_audioIn) { _audioIn = true; Rustle(.8f); }
+                    else if (e > .5f && !_audioIn) { _audioIn = true; Rustle(.8f, -.12f); }
                     break;
                 }
                 case State.CoveredLoading:
@@ -303,9 +303,9 @@ namespace QuietCamp.Presentation
                     {
                         // Camera returns exactly to the new scene's fit.
                         DriveCamera(Mathf.Lerp(0f, CamRevealStart / CamDepth, e));
-                        if (!_audioOut) { _audioOut = true; Rustle(.5f); }
+                        if (!_audioOut) { _audioOut = true; Rustle(.5f, .10f); }
                     }
-                    else if (!_audioOut) { _audioOut = true; Rustle(.4f); }
+                    else if (!_audioOut) { _audioOut = true; Rustle(.4f, .10f); }
                     break;
                 }
                 case State.Recovery:
@@ -333,13 +333,16 @@ namespace QuietCamp.Presentation
             }
         }
 
-        void Rustle(float scale)
+        /// <summary>Transition rustle is spatially subtle: a slight pan within
+        /// ±.15 and no doppler/echo — it colors the dive, never spins.</summary>
+        void Rustle(float scale, float pan)
         {
             if (_services?.Audio == null) return;
             var def = _services.Audio.GetSound("sfx.rustle");
             if (def == null) return;
             _services.Audio.Play("sfx.rustle",
-                new AudioPlayOptions(volumeScale: scale, pitchOffset: -.05f));
+                new AudioPlayOptions(volumeScale: scale, pitchOffset: -.05f,
+                    panStereo: Mathf.Clamp(pan, -.15f, .15f)));
         }
     }
 }

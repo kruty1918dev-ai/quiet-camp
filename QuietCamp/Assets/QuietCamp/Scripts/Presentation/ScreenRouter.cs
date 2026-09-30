@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Kruty1918.Notifications.API;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 namespace QuietCamp.Presentation
@@ -47,6 +48,17 @@ namespace QuietCamp.Presentation
                     await Task.Yield();
                     wait += Time.unscaledDeltaTime;
                     if (wait > 1.5f) dive.ShowSlowHint();
+                    if (wait > 15f)
+                    {
+                        // Unity can't cancel a load — recover the screen, tell
+                        // the player and let them retry instead of hanging.
+                        Debug.LogError($"[QuietCamp] Scene load '{sceneName}' exceeded 15 s.");
+                        _services.Notifications?.Show(
+                            _services.Localization.T("transition.failed"),
+                            GameplayNotificationKind.Error);
+                        dive.Recover();
+                        return;
+                    }
                 }
                 // Scene host Start + atmosphere apply + one rendered frame.
                 await Task.Yield();
