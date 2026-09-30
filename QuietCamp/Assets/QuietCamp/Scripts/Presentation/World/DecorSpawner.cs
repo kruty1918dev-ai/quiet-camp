@@ -128,6 +128,10 @@ namespace QuietCamp.Presentation.World
             go.transform.localEulerAngles = new Vector3(0f, yaw, 0f);
             if (assetId == "grass" || assetId.StartsWith("flower"))
                 FoliageSway.Shared.Apply(go);
+            else if (assetId.StartsWith("tree"))
+                // Canopy bends via the shader's height mask; the trunk under
+                // ~0.6 world units keeps ~zero weight and stays planted.
+                FoliageSway.Shared.Apply(go, amplitude: .03f, frequency: .5f);
             SetLayer(go, BoardRenderer.DecorLayer);
             return go;
         }

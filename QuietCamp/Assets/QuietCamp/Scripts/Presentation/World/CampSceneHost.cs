@@ -34,7 +34,6 @@ namespace QuietCamp.Presentation.World
         readonly List<System.IDisposable> _leases = new List<System.IDisposable>();
         IDisposable _gameplayContext;
         float _birdTimer = 30f;
-        float _ambienceTimer = 20f;
         AtmosphereCatalog _atmosphereCatalog;
         AtmosphereCatalog.Profile _atmosphereProfile;
         CampAtmosphere _atmosphere;
@@ -42,6 +41,11 @@ namespace QuietCamp.Presentation.World
         AudioHandle _fireSound, _cricketSound;
         System.Random _ambienceRandom;
         bool _completed;
+        float _owlTimer = 60f;
+        float _rustleCooldown;
+        readonly List<Vector3> _canopyAnchors = new List<Vector3>();
+        readonly List<Vector3> _edgeAnchors = new List<Vector3>();
+        Vector3 _firePos;
 
         public static CampSceneHost Current { get; private set; }
 
@@ -112,6 +116,7 @@ namespace QuietCamp.Presentation.World
                 for (var i = decorRoot.childCount - 1; i >= 0; i--)
                     Destroy(decorRoot.GetChild(i).gameObject);
                 DecorSpawner.Spawn(level, _services.Assets, decorRoot);
+                CollectAnchors(decorRoot);
             }
 
             // The scene's evening fire light must sit over this level's fire
@@ -120,8 +125,9 @@ namespace QuietCamp.Presentation.World
             var fireLightT = lightingRoot != null ? lightingRoot.transform.Find("FireLight") : null;
             if (fireLightT != null && level.noise != null && level.noise.Length > 0)
             {
-                fireLightT.position = BoardMath.CellCenterWorld(level,
-                    new Cell(level.noise[0][0], level.noise[0][1])) + new Vector3(0f, 0.5f, 0f);
+                _firePos = BoardMath.CellCenterWorld(level,
+                    new Cell(level.noise[0][0], level.noise[0][1]));
+                fireLightT.position = _firePos + new Vector3(0f, 0.5f, 0f);
             }
 
             var camera = FindCamera();
@@ -129,6 +135,15 @@ namespace QuietCamp.Presentation.World
             var viewport = viewportGo != null ? viewportGo.transform as RectTransform : null;
             CameraFitter.Configure(camera);
             CameraFitter.Fit(camera, level, viewport);
+
+            // Stable listener proxy above the board centre — positional
+            // sources read distance against the field, not the far camera.
+            var camListener = camera.GetComponent<AudioListener>();
+            if (camListener != null) camListener.enabled = false;
+            var proxy = new GameObject("ListenerProxy");
+            proxy.transform.SetPositionAndRotation(
+                new Vector3(0f, 1.6f, 0f), camera.transform.rotation);
+            proxy.AddComponent<AudioListener>();
 
             var inputGo = new GameObject("PlacementController");
             _placement = inputGo.AddComponent<PlacementController>();
@@ -145,6 +160,31 @@ namespace QuietCamp.Presentation.World
             };
             _placement.Cancelled += () => PlayAudio("ui.back");
             _placement.TentGrabbed += _ => PlayAudio("sfx.rustle");
+        }
+
+        /// <summary>Decor positions feed positional ambience: birds sing from
+        /// canopies, rustles and the owl come from the clearing's edge.</summary>
+        void CollectAnchors(Transform decorRoot)
+        {
+            _canopyAnchors.Clear();
+            _edgeAnchors.Clear();
+            foreach (Transform child in decorRoot)
+            {
+                var pos = child.position;
+                if (child.name.StartsWith("tree", StringComparison.OrdinalIgnoreCase))
+                {
+                    var bounds = new Bounds(pos, Vector3.zero);
+                    foreach (var r in child.GetComponentsInChildren<Renderer>())
+                        bounds.Encapsulate(r.bounds);
+                    _canopyAnchors.Add(new Vector3(pos.x, bounds.max.y * .9f, pos.z));
+                }
+                else
+                {
+                    _edgeAnchors.Add(pos + Vector3.up * .4f);
+                }
+            }
+            if (_edgeAnchors.Count == 0) _edgeAnchors.Add(new Vector3(4f, .4f, 0f));
+            if (_canopyAnchors.Count == 0) _canopyAnchors.Add(new Vector3(3f, 2f, -3f));
         }
 
         void BuildHud(LevelData level)
@@ -286,7 +326,11 @@ namespace QuietCamp.Presentation.World
         {
             if (_completed) return;
             _completed = true;
+            // Completion ducks the forest briefly (0.75 / 100 ms / 500 ms /
+            // 900 ms) instead of silencing it — ordinary taps never duck.
+            _services.Audio?.DuckBus(Kruty1918.Audio.AudioBus.Ambience, .75f, .1f, .5f, .9f);
             PlayAudio("level.complete");
+            _services.Audio?.Play("sfx.chime", new Kruty1918.Audio.AudioPlayOptions(volumeScale: .3f));
             var level = _session.Level;
             var first = _services.Progression.MarkCompleted(level.id);
             var album = _services.Save.Album;
@@ -338,8 +382,48 @@ namespace QuietCamp.Presentation.World
             _atmosphere = gameObject.AddComponent<CampAtmosphere>();
             var viewport = Find("CanvasRoot/SafeArea/Gameplay/BoardViewport")?.transform as RectTransform;
             var profile = _atmosphereCatalog.Resolve(level.id, level.lighting);
-            _atmosphere.Configure(FindCamera(), level, viewport, profile, () => _services.ReducedMotion);
+            _atmosphere.Configure(FindCamera(), level, viewport, profile,
+                () => _services.ReducedMotion, QualityTier());
+            _atmosphere.GustStarted += OnWindGust;
             SetAtmospherePhase(profile.Id);
+        }
+
+        /// <summary>0–2 = Low/Balanced/High. settings.quality 0 = auto from
+        /// the active QualitySettings level; 1–3 is a manual override.</summary>
+        int QualityTier()
+        {
+            int q = _services.Settings.quality;
+            if (q >= 1 && q <= 3) return q - 1;
+            return Mathf.Clamp(QualitySettings.GetQualityLevel(), 0, 2);
+        }
+
+        /// <summary>One real gust = one quiet gust one-shot plus, at most,
+        /// one rustle at the nearest decorative anchor (cooldown-gated).</summary>
+        void OnWindGust()
+        {
+            if (_services.Audio == null) return;
+            var dir = _atmosphere.Wind.DirectionXZ;
+            var dir3 = new Vector3(dir.x, 0f, dir.y);
+            float meadow = Mathf.Max(_session.Level.width, _session.Level.height) * .5f
+                + DecorSpawner.Apron;
+            _services.Audio.PlayAt("ambience.gust", -dir3 * meadow + Vector3.up * 1.2f);
+            if (_rustleCooldown <= 0f)
+            {
+                _rustleCooldown = 10f;
+                _services.Audio.PlayAt("sfx.rustle", NearestAnchor(-dir3), .7f);
+            }
+        }
+
+        Vector3 NearestAnchor(Vector3 toward)
+        {
+            var best = _edgeAnchors[0];
+            var bestDot = float.MinValue;
+            foreach (var a in _edgeAnchors)
+            {
+                var d = Vector3.Dot((a - Vector3.zero).normalized, toward.normalized);
+                if (d > bestDot) { bestDot = d; best = a; }
+            }
+            return best;
         }
 
         /// <summary>One presentation authority for light, scenery, fire and phase-dependent audio.</summary>
@@ -369,37 +453,48 @@ namespace QuietCamp.Presentation.World
             _cricketSound.Stop();
             _fireSound = default;
             _cricketSound = default;
-            if (hasFire && _services.Audio != null) _fireSound = _services.Audio.Play("ambience.fire");
+            if (hasFire && _services.Audio != null)
+                _fireSound = _services.Audio.PlayAt("ambience.fire", _firePos + Vector3.up * .4f);
             if (profile.Crickets > 0 && _services.Audio != null)
             {
                 _cricketSound = _services.Audio.Play("ambience.crickets");
                 _services.Audio.SetPlaybackScale(_cricketSound, profile.Crickets);
             }
             _birdTimer = NextBirdDelay();
-            _ambienceTimer = 35f;
+            _owlTimer = NextOwlDelay();
+            _atmosphere.SetFire(_firePos, hasFire);
         }
 
         float NextBirdDelay() => _atmosphereProfile == null || _atmosphereProfile.BirdMax == 0
             ? float.PositiveInfinity : Mathf.Lerp(_atmosphereProfile.BirdMin,
                 _atmosphereProfile.BirdMax, (float)_ambienceRandom.NextDouble());
 
+        float NextOwlDelay() => _atmosphereProfile == null || _atmosphereProfile.OwlMax == 0
+            ? float.PositiveInfinity : Mathf.Lerp(_atmosphereProfile.OwlMin,
+                _atmosphereProfile.OwlMax, (float)_ambienceRandom.NextDouble());
+
+        Vector3 RandomAnchor(List<Vector3> anchors)
+            => anchors[_ambienceRandom.Next(anchors.Count)];
+
         // ─── Frame loop ──────────────────────────────────────────────────────
 
         void Update()
         {
             _hud?.PumpHint();
+            _rustleCooldown -= Time.deltaTime;
             if (_atmosphereProfile == null) return;
             _birdTimer -= Time.deltaTime;
             if (_birdTimer <= 0f)
             {
                 _birdTimer = NextBirdDelay();
-                PlayAudio("ambience.bird");
+                // A bird is heard from a canopy — sparse, never a flock.
+                _services.Audio?.PlayAt("ambience.bird", RandomAnchor(_canopyAnchors));
             }
-            _ambienceTimer -= Time.deltaTime;
-            if (_ambienceTimer <= 0f)
+            _owlTimer -= Time.deltaTime;
+            if (_owlTimer <= 0f)
             {
-                _ambienceTimer = 40f + (float)_ambienceRandom.NextDouble() * 40f;
-                PlayAudio(_atmosphereProfile.Fire ? "ambience.owl" : "ambience.gust");
+                _owlTimer = NextOwlDelay();
+                _services.Audio?.PlayAt("ambience.owl", RandomAnchor(_edgeAnchors));
             }
         }
 
@@ -408,6 +503,7 @@ namespace QuietCamp.Presentation.World
 
         void OnDestroy()
         {
+            if (_atmosphere != null) _atmosphere.GustStarted -= OnWindGust;
             _fireSound.Stop();
             _cricketSound.Stop();
             if (_session != null) _session.Evented -= OnSessionEvent;

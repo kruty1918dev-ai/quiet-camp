@@ -24,11 +24,24 @@ namespace QuietCamp.Presentation.World
         Rect _lastViewport;
         Vector2Int _lastScreen;
         float _clock;
-        float _wind;
+        WindSim _windSim;
+        WindSim.Snapshot _wind;
+        AtmosphereParticles _particles;
+        PhasePostFx _postFx;
+        int _tier = 1;
         bool _lastReduced;
         Vector3 _lastViewportPosition;
         AtmosphereCatalog.Profile _profile;
-        readonly Dictionary<Material, Color> _foliage = new Dictionary<Material, Color>();
+        /// <summary>Scene-local foliage clones: base color + amplitude scale
+        /// (trees sway slower/smaller than grass — their materials carry the
+        /// creator's _SwayAmp ratio as a weight).</summary>
+        readonly Dictionary<Material, FoliageEntry> _foliage = new Dictionary<Material, FoliageEntry>();
+
+        struct FoliageEntry
+        {
+            public Color Color;
+            public float AmpScale;
+        }
         bool _initialized;
         AmbientMode _previousAmbientMode;
         Color _previousAmbient;
@@ -36,17 +49,36 @@ namespace QuietCamp.Presentation.World
 
         public string PhaseId { get; private set; }
         public Rect ProtectedViewport { get; private set; }
+        /// <summary>Latest shared wind snapshot — one owner for foliage,
+        /// particles and ambience scheduling. Zero-struct before Configure.</summary>
+        public WindSim.Snapshot Wind => _wind;
+        public AtmosphereParticles Particles => _particles;
+        /// <summary>Raised once when a gust's attack phase begins — audio
+        /// hooks a single gust one-shot here rather than on its own timer.</summary>
+        public event Action GustStarted
+        {
+            add { if (_windSim != null) _windSim.GustStarted += value; }
+            remove { if (_windSim != null) _windSim.GustStarted -= value; }
+        }
 
         public void Configure(Camera camera, LevelData level, RectTransform viewport,
-            AtmosphereCatalog.Profile profile, Func<bool> reducedMotion)
+            AtmosphereCatalog.Profile profile, Func<bool> reducedMotion, int qualityTier = 1)
         {
             _camera = camera;
             _level = level;
             _viewport = viewport;
             _reducedMotion = reducedMotion;
+            _tier = qualityTier;
             _previousAmbient = RenderSettings.ambientLight;
             _previousAmbientMode = RenderSettings.ambientMode;
             _previousFog = RenderSettings.fog;
+            _windSim = new WindSim(level.decorSeed, profile.Wind, profile.GustMin, profile.GustMax);
+            var particlesGo = new GameObject("AtmosphereParticles");
+            particlesGo.transform.SetParent(transform, false);
+            _particles = particlesGo.AddComponent<AtmosphereParticles>();
+            _particles.Configure(camera, level, profile, (AtmosphereParticles.Tier)_tier, reducedMotion);
+            _postFx = gameObject.AddComponent<PhasePostFx>();
+            _postFx.Configure(camera, _tier);
             var template = Resources.Load<Material>("QuietCamp/Atmosphere/Layer");
             if (template == null) throw new InvalidOperationException("Atmosphere Layer material is missing.");
             _back = CreateLayer("ForestBackdrop", template, 1000, out _backMaterial);
@@ -95,7 +127,10 @@ namespace QuietCamp.Presentation.World
             if (old != null && old != next) Resources.UnloadAsset(old);
             PhaseId = profile.Id;
             _profile = profile;
-            _wind = profile.Wind;
+            _windSim.SetBase(profile.Wind);
+            _windSim.SetGustInterval(profile.GustMin, profile.GustMax);
+            _particles?.ApplyProfile(profile);
+            _postFx?.Apply(profile, _tier);
             _nearMaterial.SetColor(Tint, profile.Foreground);
             _rearMaterial.SetColor(Tint, new Color(profile.Foreground.r * .85f,
                 profile.Foreground.g * .85f, profile.Foreground.b * .85f, .38f));
@@ -119,7 +154,11 @@ namespace QuietCamp.Presentation.World
                 {
                     copy = new Material(source) { name = source.name + " (camp atmosphere)" };
                     copies.Add(source, copy);
-                    _foliage.Add(copy, source.GetColor(BaseColor));
+                    _foliage.Add(copy, new FoliageEntry
+                    {
+                        Color = source.GetColor(BaseColor),
+                        AmpScale = Mathf.Clamp01(source.GetFloat(SwayAmp) / .05f),
+                    });
                 }
                 renderer.sharedMaterial = copy;
             }
@@ -130,10 +169,18 @@ namespace QuietCamp.Presentation.World
             _lastReduced = reduced;
             foreach (var pair in _foliage)
             {
-                pair.Key.SetFloat(SwayAmp, reduced ? 0 : .05f * _wind / .25f);
-                pair.Key.SetColor(BaseColor, pair.Value * Color.Lerp(Color.white, _profile.Ambient, .65f));
+                pair.Key.SetFloat(SwayAmp, reduced ? 0 : SwayAmplitude() * pair.Value.AmpScale);
+                pair.Key.SetColor(BaseColor, pair.Value.Color * Color.Lerp(Color.white, _profile.Ambient, .65f));
             }
         }
+
+        /// <summary>Sway amplitude follows the shared wind snapshot — calm
+        /// base breeze plus the live gust envelope, normalized like before.</summary>
+        float SwayAmplitude() => .05f * Mathf.Clamp(_wind.Strength + _wind.GustEnvelope * .1f, 0f, .6f) / .25f;
+
+        /// <summary>Particles and smoke drift need the campfire's world anchor.</summary>
+        public void SetFire(Vector3 position, bool active)
+            => _particles?.SetFire(position, active);
 
         void LateUpdate()
         {
@@ -145,8 +192,15 @@ namespace QuietCamp.Presentation.World
             // Visual time never drives puzzle state. Reduced motion really removes sway.
             bool reduced = _reducedMotion != null && _reducedMotion();
             if (reduced != _lastReduced) ApplyFoliage(reduced);
-            if (!reduced) _clock += Time.deltaTime;
-            var sway = reduced ? 0f : Mathf.Sin(_clock * .65f) * _wind;
+            _wind = _windSim.Advance(Time.deltaTime);
+            if (!reduced)
+            {
+                _clock += Time.deltaTime;
+                // Foliage sway tracks the shared gust envelope, not its own timer.
+                float amp = SwayAmplitude();
+                foreach (var pair in _foliage) pair.Key.SetFloat(SwayAmp, amp * pair.Value.AmpScale);
+            }
+            var sway = reduced ? 0f : Mathf.Sin(_clock * .65f) * _wind.Strength;
             _near.localRotation = Quaternion.Euler(0, 0, sway * .6f);
         }
 
