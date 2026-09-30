@@ -1,0 +1,780 @@
+{
+  "date": "2026-09-30",
+  "scope": "All WAV/OGG/MP3 returned by rg --files Assets, respecting ignore rules; no Library/package-cache or embedded model audio",
+  "method": "WAV PCM scan, SHA256, serialized catalog and importer audit. No perceptual listening claim. Seam metric is endpoint difference, not proof of a seamless loop.",
+  "count": 23,
+  "activeCount": 17,
+  "rows": [
+    {
+      "key": "ambience.wind",
+      "assetPath": "Assets/Moyva/Audio/Ambience/Wind Soft Loop.wav",
+      "fileBytes": 4233644,
+      "sha256": "fd8a4a9fa9e77de2d926b6087303eebe3f59f1be5575a8b13e22f4dc5acb9811",
+      "manifestHashMatches": true,
+      "activeDefinition": {
+        "key": "ambience.wind",
+        "guid": "3d8104967381b5145b75fb729949d195",
+        "volume": 0.15,
+        "spatialBlend": 0,
+        "loop": true,
+        "maxSimultaneous": 8
+      },
+      "measurement": {
+        "durationSeconds": 24,
+        "channels": 2,
+        "sampleRate": 44100,
+        "bits": 16,
+        "format": 1,
+        "decodedPcmBytes": 4233600,
+        "peakDbFS": -2.85,
+        "rmsDbFS": -9.61,
+        "dcOffset": -0.016997,
+        "samplesAtOrAbove0999": 0,
+        "seamMaxAbs": 0.000183,
+        "first20msRmsDbFS": -14.83,
+        "last20msRmsDbFS": -14.9
+      },
+      "measurementNote": "Raw PCM measurements, not LUFS or listening review",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "0",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+    },
+    {
+      "key": "sfx.chime",
+      "assetPath": "Assets/QuietCamp/Audio/Generated/chime_soft.wav",
+      "fileBytes": 158804,
+      "sha256": "892b06af0ab19f8b6eafb9cc7b7d467f8d5e430186b4c46003f2c6ec453dbbd1",
+      "manifestHashMatches": null,
+      "activeDefinition": {
+        "key": "sfx.chime",
+        "guid": "3ffc38af9ec37d448a91ed95b674b8eb",
+        "volume": 0.34,
+        "spatialBlend": 0,
+        "loop": false,
+        "maxSimultaneous": 8
+      },
+      "measurement": {
+        "durationSeconds": 1.8,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bits": 16,
+        "format": 1,
+        "decodedPcmBytes": 158760,
+        "peakDbFS": -1.92,
+        "rmsDbFS": -16.31,
+        "dcOffset": -0.0000058,
+        "samplesAtOrAbove0999": 0,
+        "seamMaxAbs": 0.018982,
+        "first20msRmsDbFS": -8.92,
+        "last20msRmsDbFS": -34.6
+      },
+      "measurementNote": "Raw PCM measurements, not LUFS or listening review",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "0",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "Procedurally generated in project; generator provenance in QuietCampAudioExtras.cs"
+    },
+    {
+      "key": "ambience.crickets",
+      "assetPath": "Assets/QuietCamp/Audio/Generated/crickets_loop.wav",
+      "fileBytes": 705644,
+      "sha256": "ae17c5858f697b3e5a51c5480f0ced1ed0108153eca43e5e0d4dcb5eeef7b383",
+      "manifestHashMatches": null,
+      "activeDefinition": {
+        "key": "ambience.crickets",
+        "guid": "a248ddb5d70a05e45ba4d8bc61c01cae",
+        "volume": 0.22,
+        "spatialBlend": 0,
+        "loop": true,
+        "maxSimultaneous": 8
+      },
+      "measurement": {
+        "durationSeconds": 8,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bits": 16,
+        "format": 1,
+        "decodedPcmBytes": 705600,
+        "peakDbFS": 0,
+        "rmsDbFS": -16.46,
+        "dcOffset": 1e-7,
+        "samplesAtOrAbove0999": 35,
+        "seamMaxAbs": 0.220184,
+        "first20msRmsDbFS": -10.13,
+        "last20msRmsDbFS": -21.31
+      },
+      "measurementNote": "Raw PCM measurements, not LUFS or listening review",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "0",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "Procedurally generated in project; generator provenance in QuietCampAudioExtras.cs"
+    },
+    {
+      "key": "sfx.rustle",
+      "assetPath": "Assets/QuietCamp/Audio/Generated/leaf_rustle.wav",
+      "fileBytes": 61784,
+      "sha256": "d198b36edf758c5c2f76978767f925eed51c64ce0c2e6149549481f3bc33e283",
+      "manifestHashMatches": null,
+      "activeDefinition": {
+        "key": "sfx.rustle",
+        "guid": "754ae8d4d21652745a80af7b0439d385",
+        "volume": 0.32,
+        "spatialBlend": 0,
+        "loop": false,
+        "maxSimultaneous": 8
+      },
+      "measurement": {
+        "durationSeconds": 0.7,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bits": 16,
+        "format": 1,
+        "decodedPcmBytes": 61740,
+        "peakDbFS": -2.51,
+        "rmsDbFS": -19.09,
+        "dcOffset": -0.0000133,
+        "samplesAtOrAbove0999": 0,
+        "seamMaxAbs": 0.014954,
+        "first20msRmsDbFS": -12.34,
+        "last20msRmsDbFS": -29.38
+      },
+      "measurementNote": "Raw PCM measurements, not LUFS or listening review",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "0",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "Procedurally generated in project; generator provenance in QuietCampAudioExtras.cs"
+    },
+    {
+      "key": "ambience.owl",
+      "assetPath": "Assets/QuietCamp/Audio/Generated/owl_hoot.wav",
+      "fileBytes": 247004,
+      "sha256": "362762e40d3673e46cfbdcbc7730c720d260033dfcea4597bf9aa408a5b3fad2",
+      "manifestHashMatches": null,
+      "activeDefinition": {
+        "key": "ambience.owl",
+        "guid": "23af9e4d5ea3cef42a24a835e3a1eeac",
+        "volume": 0.3,
+        "spatialBlend": 0,
+        "loop": false,
+        "maxSimultaneous": 8
+      },
+      "measurement": {
+        "durationSeconds": 2.8,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bits": 16,
+        "format": 1,
+        "decodedPcmBytes": 246960,
+        "peakDbFS": -13.48,
+        "rmsDbFS": -28.19,
+        "dcOffset": 0,
+        "samplesAtOrAbove0999": 0,
+        "seamMaxAbs": 0,
+        "first20msRmsDbFS": null,
+        "last20msRmsDbFS": null
+      },
+      "measurementNote": "Raw PCM measurements, not LUFS or listening review",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "0",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "Procedurally generated in project; generator provenance in QuietCampAudioExtras.cs"
+    },
+    {
+      "key": "sfx.twig",
+      "assetPath": "Assets/QuietCamp/Audio/Generated/twig_snap.wav",
+      "fileBytes": 26504,
+      "sha256": "98591815b4388f9fb4271cfbf69b33a572f4bff4788c4ee6b0090900ff3e0d17",
+      "manifestHashMatches": null,
+      "activeDefinition": {
+        "key": "sfx.twig",
+        "guid": "46f06eee537b8574a90ed5f44254150e",
+        "volume": 0.38,
+        "spatialBlend": 0,
+        "loop": false,
+        "maxSimultaneous": 8
+      },
+      "measurement": {
+        "durationSeconds": 0.3,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bits": 16,
+        "format": 1,
+        "decodedPcmBytes": 26460,
+        "peakDbFS": 0,
+        "rmsDbFS": -20.69,
+        "dcOffset": 0.0071443,
+        "samplesAtOrAbove0999": 21,
+        "seamMaxAbs": 0.999969,
+        "first20msRmsDbFS": -9.22,
+        "last20msRmsDbFS": null
+      },
+      "measurementNote": "Raw PCM measurements, not LUFS or listening review",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "0",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "Procedurally generated in project; generator provenance in QuietCampAudioExtras.cs"
+    },
+    {
+      "key": "ambience.gust",
+      "assetPath": "Assets/QuietCamp/Audio/Generated/wind_gust.wav",
+      "fileBytes": 352844,
+      "sha256": "719f11fa47d2e14d2b07abb0fd5c954d30b6a9ca160b4780a13fdf2003eaa264",
+      "manifestHashMatches": null,
+      "activeDefinition": {
+        "key": "ambience.gust",
+        "guid": "f8ee0144ae9d1dc4ab74c3764fa1b7f6",
+        "volume": 0.26,
+        "spatialBlend": 0,
+        "loop": false,
+        "maxSimultaneous": 8
+      },
+      "measurement": {
+        "durationSeconds": 4,
+        "channels": 1,
+        "sampleRate": 44100,
+        "bits": 16,
+        "format": 1,
+        "decodedPcmBytes": 352800,
+        "peakDbFS": -5.07,
+        "rmsDbFS": -21.56,
+        "dcOffset": -0.0045485,
+        "samplesAtOrAbove0999": 0,
+        "seamMaxAbs": 0,
+        "first20msRmsDbFS": -97.28,
+        "last20msRmsDbFS": -93.49
+      },
+      "measurementNote": "Raw PCM measurements, not LUFS or listening review",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "0",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "Procedurally generated in project; generator provenance in QuietCampAudioExtras.cs"
+    },
+    {
+      "key": "ambience.bird",
+      "assetPath": "Assets/ThirdParty/Audio/NaPH - RPG & Fantasy Sounds Bundle/Animals/Bird Chirp 06.wav",
+      "fileBytes": 258892,
+      "sha256": "0ee289593df4934c6a4b5caf4193d91fb8a90b8edcabdbd896df0591be33a564",
+      "manifestHashMatches": true,
+      "activeDefinition": {
+        "key": "ambience.bird",
+        "guid": "fb6efcbb5fc044607b90035dc1636209",
+        "volume": 0.1,
+        "spatialBlend": 0,
+        "loop": false,
+        "maxSimultaneous": 8
+      },
+      "measurement": {
+        "durationSeconds": 1.4674,
+        "channels": 2,
+        "sampleRate": 44100,
+        "bits": 16,
+        "format": 1,
+        "decodedPcmBytes": 258848,
+        "peakDbFS": -10.34,
+        "rmsDbFS": -40.12,
+        "dcOffset": 1e-7,
+        "samplesAtOrAbove0999": 0,
+        "seamMaxAbs": 0.000031,
+        "first20msRmsDbFS": -91.04,
+        "last20msRmsDbFS": -96.55
+      },
+      "measurementNote": "Raw PCM measurements, not LUFS or listening review",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "1",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+    },
+    {
+      "key": "ambience.fire",
+      "assetPath": "Assets/ThirdParty/Audio/NaPH - RPG & Fantasy Sounds Bundle/Environment/Fire Burning Loop 5.wav",
+      "fileBytes": 5292044,
+      "sha256": "018d0e8d77a01a371c5fdefedc00b2b4da00a06d66871d21e81eeed7eb8217e5",
+      "manifestHashMatches": true,
+      "activeDefinition": {
+        "key": "ambience.fire",
+        "guid": "24cba567cf88f4ee99a419a024806ae0",
+        "volume": 0.2,
+        "spatialBlend": 0,
+        "loop": true,
+        "maxSimultaneous": 8
+      },
+      "measurement": {
+        "durationSeconds": 30,
+        "channels": 2,
+        "sampleRate": 44100,
+        "bits": 16,
+        "format": 1,
+        "decodedPcmBytes": 5292000,
+        "peakDbFS": -13.55,
+        "rmsDbFS": -40.77,
+        "dcOffset": 8e-7,
+        "samplesAtOrAbove0999": 0,
+        "seamMaxAbs": 0.010529,
+        "first20msRmsDbFS": -43.11,
+        "last20msRmsDbFS": -44.14
+      },
+      "measurementNote": "Raw PCM measurements, not LUFS or listening review",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "1",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+    },
+    {
+      "key": "ui.click",
+      "assetPath": "Assets/ThirdParty/Audio/UI Soundpack/WAV/Minimalist1.wav",
+      "fileBytes": 134774,
+      "sha256": "64160d1edb36a343c269ccbc98c0e0c48fdfa35c38fef1df5a8c31057946da2a",
+      "manifestHashMatches": true,
+      "activeDefinition": {
+        "key": "ui.click",
+        "guid": "d8f42014edbccc0439ea92b410ad4557",
+        "volume": 0.5,
+        "spatialBlend": 0,
+        "loop": false,
+        "maxSimultaneous": 8
+      },
+      "measurement": {
+        "durationSeconds": 0.7563,
+        "channels": 2,
+        "sampleRate": 44100,
+        "bits": 16,
+        "format": 1,
+        "decodedPcmBytes": 133404,
+        "peakDbFS": -10.45,
+        "rmsDbFS": -45.67,
+        "dcOffset": -0.0000148,
+        "samplesAtOrAbove0999": 0,
+        "seamMaxAbs": 0.000031,
+        "first20msRmsDbFS": -29.92,
+        "last20msRmsDbFS": -93.4
+      },
+      "measurementNote": "Raw PCM measurements, not LUFS or listening review",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "1",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+    },
+    {
+      "key": "ui.back",
+      "assetPath": "Assets/ThirdParty/Audio/UI Soundpack/WAV/Minimalist2.wav",
+      "fileBytes": 134774,
+      "sha256": "60953576246a7ca2bf6464afc1027f3def105bf8c7284c8e02a77b782b519153",
+      "manifestHashMatches": true,
+      "activeDefinition": {
+        "key": "ui.back",
+        "guid": "deff2fb538f3b7a44aa556210c060408",
+        "volume": 0.42,
+        "spatialBlend": 0,
+        "loop": false,
+        "maxSimultaneous": 8
+      },
+      "measurement": {
+        "durationSeconds": 0.7563,
+        "channels": 2,
+        "sampleRate": 44100,
+        "bits": 16,
+        "format": 1,
+        "decodedPcmBytes": 133404,
+        "peakDbFS": -10.65,
+        "rmsDbFS": -46.5,
+        "dcOffset": -0.0000155,
+        "samplesAtOrAbove0999": 0,
+        "seamMaxAbs": 0,
+        "first20msRmsDbFS": -30.77,
+        "last20msRmsDbFS": -93.4
+      },
+      "measurementNote": "Raw PCM measurements, not LUFS or listening review",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "1",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+    },
+    {
+      "key": "ui.select",
+      "assetPath": "Assets/ThirdParty/Audio/UI Soundpack/WAV/Minimalist3.wav",
+      "fileBytes": 133772,
+      "sha256": "33b039a822edb3eae9704041803da20fc78c859ebf7bc602bed09aa74df1c1a0",
+      "manifestHashMatches": true,
+      "activeDefinition": {
+        "key": "ui.select",
+        "guid": "8b0c5f90d1daa7f4c9e4b36800f33360",
+        "volume": 0.38,
+        "spatialBlend": 0,
+        "loop": false,
+        "maxSimultaneous": 8
+      },
+      "measurement": {
+        "durationSeconds": 0.7506,
+        "channels": 2,
+        "sampleRate": 44100,
+        "bits": 16,
+        "format": 1,
+        "decodedPcmBytes": 132404,
+        "peakDbFS": -12.85,
+        "rmsDbFS": -45.25,
+        "dcOffset": -0.0000153,
+        "samplesAtOrAbove0999": 0,
+        "seamMaxAbs": 0.000031,
+        "first20msRmsDbFS": -29.51,
+        "last20msRmsDbFS": -93.34
+      },
+      "measurementNote": "Raw PCM measurements, not LUFS or listening review",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "1",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+    },
+    {
+      "key": "placement.rotate",
+      "assetPath": "Assets/ThirdParty/Audio/UI Soundpack/WAV/Minimalist4.wav",
+      "fileBytes": 133772,
+      "sha256": "3a441242497e198bf25258e869f065c856c852e1ada7753635144f73b66f222b",
+      "manifestHashMatches": true,
+      "activeDefinition": {
+        "key": "placement.rotate",
+        "guid": "4f6cb2ed239ca5341b8943726153f0c9",
+        "volume": 0.4,
+        "spatialBlend": 0,
+        "loop": false,
+        "maxSimultaneous": 8
+      },
+      "measurement": {
+        "durationSeconds": 0.7506,
+        "channels": 2,
+        "sampleRate": 44100,
+        "bits": 16,
+        "format": 1,
+        "decodedPcmBytes": 132404,
+        "peakDbFS": -9.5,
+        "rmsDbFS": -41.05,
+        "dcOffset": -0.0000153,
+        "samplesAtOrAbove0999": 0,
+        "seamMaxAbs": 0.000031,
+        "first20msRmsDbFS": -25.32,
+        "last20msRmsDbFS": -93.27
+      },
+      "measurementNote": "Raw PCM measurements, not LUFS or listening review",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "1",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+    },
+    {
+      "key": "rule.invalid",
+      "assetPath": "Assets/ThirdParty/Audio/UI Soundpack/WAV/Minimalist5.wav",
+      "fileBytes": 133772,
+      "sha256": "a2bbf72890c4109ad67d9e2a8688efd80d22df37e0a48bcd19ef9aebd5649345",
+      "manifestHashMatches": true,
+      "activeDefinition": {
+        "key": "rule.invalid",
+        "guid": "675dcc7880daea244b6031430db281ec",
+        "volume": 0.32,
+        "spatialBlend": 0,
+        "loop": false,
+        "maxSimultaneous": 8
+      },
+      "measurement": {
+        "durationSeconds": 0.7506,
+        "channels": 2,
+        "sampleRate": 44100,
+        "bits": 16,
+        "format": 1,
+        "decodedPcmBytes": 132404,
+        "peakDbFS": -10.12,
+        "rmsDbFS": -42.28,
+        "dcOffset": -0.0000153,
+        "samplesAtOrAbove0999": 0,
+        "seamMaxAbs": 0.000031,
+        "first20msRmsDbFS": -26.57,
+        "last20msRmsDbFS": -93.38
+      },
+      "measurementNote": "Raw PCM measurements, not LUFS or listening review",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "1",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+    },
+    {
+      "key": "level.complete",
+      "assetPath": "Assets/ThirdParty/Audio/UI Soundpack/WAV/Minimalist6.wav",
+      "fileBytes": 133772,
+      "sha256": "fa3aea2c04ea3932d1ef239015cf962c600c1ea5ecbad6e70aba00955ced0dfd",
+      "manifestHashMatches": true,
+      "activeDefinition": {
+        "key": "level.complete",
+        "guid": "dde559ace49168e4d8e75f0f395c8900",
+        "volume": 0.5,
+        "spatialBlend": 0,
+        "loop": false,
+        "maxSimultaneous": 8
+      },
+      "measurement": {
+        "durationSeconds": 0.7506,
+        "channels": 2,
+        "sampleRate": 44100,
+        "bits": 16,
+        "format": 1,
+        "decodedPcmBytes": 132404,
+        "peakDbFS": -11.51,
+        "rmsDbFS": -44.68,
+        "dcOffset": -0.0000152,
+        "samplesAtOrAbove0999": 0,
+        "seamMaxAbs": 0.000031,
+        "first20msRmsDbFS": -28.97,
+        "last20msRmsDbFS": -93.53
+      },
+      "measurementNote": "Raw PCM measurements, not LUFS or listening review",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "1",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+    },
+    {
+      "key": "placement.commit",
+      "assetPath": "Assets/ThirdParty/Audio/UI Soundpack/WAV/Wood Block1.wav",
+      "fileBytes": 228362,
+      "sha256": "df5be4198e50c55b0ffca2eb655f5e191b0e89de917c3faf8b2a0659a3ea6a36",
+      "manifestHashMatches": true,
+      "activeDefinition": {
+        "key": "placement.commit",
+        "guid": "acbd01cdf53506541ae5c30df72606a1",
+        "volume": 0.45,
+        "spatialBlend": 0,
+        "loop": false,
+        "maxSimultaneous": 8
+      },
+      "measurement": {
+        "durationSeconds": 1.2857,
+        "channels": 2,
+        "sampleRate": 44100,
+        "bits": 16,
+        "format": 1,
+        "decodedPcmBytes": 226800,
+        "peakDbFS": -8.36,
+        "rmsDbFS": -35.11,
+        "dcOffset": -0.0000152,
+        "samplesAtOrAbove0999": 0,
+        "seamMaxAbs": 0.000031,
+        "first20msRmsDbFS": -17.34,
+        "last20msRmsDbFS": -93.06
+      },
+      "measurementNote": "Raw PCM measurements, not LUFS or listening review",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "1",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+    },
+    {
+      "key": "placement.undo",
+      "assetPath": "Assets/ThirdParty/Audio/UI Soundpack/WAV/Wood Block2.wav",
+      "fileBytes": 228362,
+      "sha256": "cfc254e6a1a5127723fc20f31255a3633d4262b949b7f1e14a0f958a2a48f3e8",
+      "manifestHashMatches": true,
+      "activeDefinition": {
+        "key": "placement.undo",
+        "guid": "df60351d9c281ba4aaa683bb517d7bbb",
+        "volume": 0.35,
+        "spatialBlend": 0,
+        "loop": false,
+        "maxSimultaneous": 8
+      },
+      "measurement": {
+        "durationSeconds": 1.2857,
+        "channels": 2,
+        "sampleRate": 44100,
+        "bits": 16,
+        "format": 1,
+        "decodedPcmBytes": 226800,
+        "peakDbFS": -8.37,
+        "rmsDbFS": -34.63,
+        "dcOffset": -0.0000156,
+        "samplesAtOrAbove0999": 0,
+        "seamMaxAbs": 0,
+        "first20msRmsDbFS": -16.94,
+        "last20msRmsDbFS": -93.36
+      },
+      "measurementNote": "Raw PCM measurements, not LUFS or listening review",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "1",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "User supplied Moyva project asset; retain original usage rights; not declared CC0"
+    },
+    {
+      "key": null,
+      "assetPath": "Assets/ThirdParty/KenneyUI/Sounds/click-a.ogg",
+      "fileBytes": 10945,
+      "sha256": "c5faa31bbf4a921332cdc9e7d7f7d930ca73fc8cc96e35ccc70ed2de975b26e5",
+      "manifestHashMatches": null,
+      "activeDefinition": null,
+      "measurement": null,
+      "measurementNote": "OGG listed and auditionable; PCM not decoded by this script",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "0",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "KenneyUI package; consult included license before redistribution"
+    },
+    {
+      "key": null,
+      "assetPath": "Assets/ThirdParty/KenneyUI/Sounds/click-b.ogg",
+      "fileBytes": 6157,
+      "sha256": "154991a6d9ac80ae193ebad3de7eacb642821e9e48d801d054aa9d2b1004e8c6",
+      "manifestHashMatches": null,
+      "activeDefinition": null,
+      "measurement": null,
+      "measurementNote": "OGG listed and auditionable; PCM not decoded by this script",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "0",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "KenneyUI package; consult included license before redistribution"
+    },
+    {
+      "key": null,
+      "assetPath": "Assets/ThirdParty/KenneyUI/Sounds/switch-a.ogg",
+      "fileBytes": 9433,
+      "sha256": "1a4c90fed704b4f4b36d58f481117cfac5cdc25279a9af97d4765b71ff21ed48",
+      "manifestHashMatches": null,
+      "activeDefinition": null,
+      "measurement": null,
+      "measurementNote": "OGG listed and auditionable; PCM not decoded by this script",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "0",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "KenneyUI package; consult included license before redistribution"
+    },
+    {
+      "key": null,
+      "assetPath": "Assets/ThirdParty/KenneyUI/Sounds/switch-b.ogg",
+      "fileBytes": 10138,
+      "sha256": "f2ed0b3b5ad7662f0900d3ca5db81f314af6bf4583802874d308656ba31de1ad",
+      "manifestHashMatches": null,
+      "activeDefinition": null,
+      "measurement": null,
+      "measurementNote": "OGG listed and auditionable; PCM not decoded by this script",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "0",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "KenneyUI package; consult included license before redistribution"
+    },
+    {
+      "key": null,
+      "assetPath": "Assets/ThirdParty/KenneyUI/Sounds/tap-a.ogg",
+      "fileBytes": 7043,
+      "sha256": "f74c1334c0c1ab9ec69f3dd723611a8eb89a2630df6c3760dee3b09413370c83",
+      "manifestHashMatches": null,
+      "activeDefinition": null,
+      "measurement": null,
+      "measurementNote": "OGG listed and auditionable; PCM not decoded by this script",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "0",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "KenneyUI package; consult included license before redistribution"
+    },
+    {
+      "key": null,
+      "assetPath": "Assets/ThirdParty/KenneyUI/Sounds/tap-b.ogg",
+      "fileBytes": 6119,
+      "sha256": "736c70844cc7cfe87fc95d5e9711c186a593bbe8ccca04e3f4c9cfa7d4e42f3a",
+      "manifestHashMatches": null,
+      "activeDefinition": null,
+      "measurement": null,
+      "measurementNote": "OGG listed and auditionable; PCM not decoded by this script",
+      "importer": {
+        "loadType": "0",
+        "compressionFormat": "1",
+        "forceToMono": "0",
+        "preloadAudioData": "0",
+        "loadInBackground": "0"
+      },
+      "licenseStatus": "KenneyUI package; consult included license before redistribution"
+    }
+  ]
+}
