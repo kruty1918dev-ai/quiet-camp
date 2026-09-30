@@ -1,0 +1,516 @@
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 35208)
+VBCSCompiler prewarm took 5.64 ms
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.6/staging' branch; Version is '6000.6.2f1 (770e33f6875c) revision 7802419'; Using compiler version '194234433'; Build Type 'Release'
+[Licensing::IpcConnector] Channel LicenseClient-yelyzaveta.khodos doesn't exist
+OS: 'Windows 11  (10.0.26200) Education' Language: 'de' Physical Memory: 15525 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-09-30T08:30:39Z
+[Licensing::Module] Successfully launched the LicensingClient (PId: 48504)
+
+COMMAND LINE ARGUMENTS:
+C:\Users\yelyzaveta.khodos.TP-GE26-20\AppData\Local\Unity\Editors\6000.6.2f1\Editor\Unity.exe
+-batchmode
+-projectPath
+C:/Users/yelyzaveta.khodos.TP-GE26-20/Documents/GitHub/quiet-camp/QuietCamp
+-runTests
+-testPlatform
+EditMode
+-testResults
+C:/Users/yelyzaveta.khodos.TP-GE26-20/Documents/GitHub/quiet-camp/TestResults/EditMode.xml
+-logFile
+C:/Users/yelyzaveta.khodos.TP-GE26-20/Documents/GitHub/quiet-camp/BuildLogs/editmode_tests.log
+Successfully changed project path to: C:/Users/yelyzaveta.khodos.TP-GE26-20/Documents/GitHub/quiet-camp/QuietCamp
+C:/Users/yelyzaveta.khodos.TP-GE26-20/Documents/GitHub/quiet-camp/QuietCamp
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-remapper-allocator-initial-capacity=32768"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-main-allocator-mimalloc-enabled=1"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+Logging is directed to a specific file, skipping project log.
+Player connection [43472]  Target information:
+
+Player connection [43472]  * "[IP] 192.168.0.98 [Port] 55504 [Flags] 2 [Guid] 3480092994 [EditorId] 3480092994 [Version] 1048832 [Id] WindowsEditor(7,TP-GE26-20) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [43472] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [43472] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Starting IPC server.
+Waiting for clients to connect on \\.\pipe\Unity-LicenseClient-yelyzaveta.khodos, press Ctrl-C to exit.
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-yelyzaveta.khodos" at "2026-09-30T08:30:39.4360881Z"
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 48504, path: "C:/Users/yelyzaveta.khodos.TP-GE26-20/AppData/Local/Unity/Editors/6000.6.2f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe")
+[Licensing::Module] LicensingClient has failed validation; ignoring
+[Package Manager] Connected to IPC stream "Upm-3624" after 0.2 seconds.
+[Licensing::Module] Licensing is not yet initialized.
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.18.3+d7ffd15
+  Session Id:              fa223530bff44e618f1f43b1db4ca830
+  Correlation Id:          45598f1f3befec4d67a24ba26c83e39b
+  External correlation Id: 4967190577231743644
+  Machine Id:              uBoc3C+bXpE5decDhEYNnWFYsDs=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-yelyzaveta.khodos" (connect: 0.37s, validation: 0.09s, handshake: 0.04s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-yelyzaveta.khodos-notifications" at "2026-09-30T08:30:39.5679809Z"
+[Licensing::Module] Connected to LicensingClient (PId: 48504, launch time: 0.00, total connection time: 0.51s)
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 9072311421786-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.01
+[Licensing::Module] Licensing Background thread has ended after 0.55s
+[Licensing::Module] Licensing is initialized (took 0.12s).
+[Licensing::Client] Successfully resolved entitlement details
+Library Redirect Path: Library/
+Initialising UDS system complete:
+  - System type: Client
+  - Resource namespace: f13d4c83382f8b2176f6d0a52cb86332
+  - Shared memory size: 1073741824
+  - Command buffer id: 1052576
+  - Command buffer size: 8192
+  - Hashmap size: 4194304
+  - Service connected: false
+Launching Unity Data Store - C:/Users/yelyzaveta.khodos.TP-GE26-20/AppData/Local/Unity/Editors/6000.6.2f1/Editor/Data/Tools/Unity.DataStore.exe 
+Unity Data Store artifact dir = Library/DataStore, working dir = C:/Users/yelyzaveta.khodos.TP-GE26-20/Documents/GitHub/quiet-camp/QuietCamp[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Active build profile path: `Assets/Settings/Build Profiles/Android Release.asset`
+Unity Data Store running and initialised
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+[Licensing::Client] Successfully resolved entitlement details
+Got setting from build profile YAML, name `m_BuildTarget`, value `13`
+Got setting from build profile YAML, name `m_Subtarget`, value `0`
+Initialize engine version: 6000.6.2f1 (770e33f6875c)
+[EntityIdStore] init: VM path (explicit commit), pageSize=4096, blockCount=1048576, entitiesPerBlock=256, slots reserved=4294967296 bytes
+[Subsystems] Discovering subsystems at path C:/Users/yelyzaveta.khodos.TP-GE26-20/AppData/Local/Unity/Editors/6000.6.2f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/yelyzaveta.khodos.TP-GE26-20/Documents/GitHub/quiet-camp/QuietCamp/Assets
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+d3d12: failed to query info queue interface (0x80004002).
+Direct3D:
+    Version:         Direct3D 12 [level 12.2]
+    Renderer:        AMD Radeon(TM)  840M Graphics (ID=0x1114)
+    Vendor:          ATI
+    VRAM:            7762 MB
+    App VRAM Budget: 7555 MB
+    Driver:          32.0.22042.31003
+    Unified Memory Architecture
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Initialize mono
+Mono path[0] = 'C:/Users/yelyzaveta.khodos.TP-GE26-20/AppData/Local/Unity/Editors/6000.6.2f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Users/yelyzaveta.khodos.TP-GE26-20/AppData/Local/Unity/Editors/6000.6.2f1/Editor/Data/BCLExtensions/runtime/netstandard2.1'
+Mono path[2] = 'C:/Users/yelyzaveta.khodos.TP-GE26-20/AppData/Local/Unity/Editors/6000.6.2f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Users/yelyzaveta.khodos.TP-GE26-20/AppData/Local/Unity/Editors/6000.6.2f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56624
+CodeReloadManager initialized
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Users/yelyzaveta.khodos.TP-GE26-20/AppData/Local/Unity/Editors/6000.6.2f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Register platform support module: C:/Users/yelyzaveta.khodos.TP-GE26-20/AppData/Local/Unity/Editors/6000.6.2f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+Registered in 0.003109 seconds.
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Got setting from build profile YAML, name `m_BuildSubtarget`, value `0`
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+Package Manager log level set to [2]
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  0.561 seconds
+Domain Reload Profiling: 1062ms
+	BeginReloadAssembly (138ms)
+		CreateAndSetChildDomain (20ms)
+	RebuildCommonClasses (4ms)
+	RebuildNativeTypeToScriptingClass (14ms)
+	initialDomainReloadingComplete (83ms)
+	LoadAllAssembliesAndSetupDomain (260ms)
+		LoadAssemblies (114ms)
+		TypeCache.Refresh (180ms)
+			TypeCache.ScanAssembly (167ms)
+		AnalyzeDomain (1ms)
+	FinalizeReload (563ms)
+		SetupLoadedEditorAssemblies (0ms)
+			InitializePlatformSupportModulesInManaged (8ms)
+			BeforeProcessingInitializeOnLoad (83ms)
+			ProcessInitializeOnLoadAttributes (76ms)
+			ProcessInitializeOnLoadMethodAttributes (204ms)
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Client] Successfully resolved entitlement details
+Application.AssetDatabase Initial Refresh Start
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 41 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.inputsystem@1.20.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.inputsystem@7a4e1a2a8194)
+    com.unity.nuget.newtonsoft-json@3.2.2 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.nuget.newtonsoft-json@4dfd81071c64)
+    com.unity.searcher@4.9.5 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.searcher@a463122f2c00)
+    com.unity.profiling.core@1.0.3 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.profiling.core@8a49f7027d06)
+    com.unity.nuget.mono-cecil@1.11.6 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff)
+  Built-in packages:
+    com.unity.render-pipelines.universal@17.6.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.render-pipelines.universal@1e1cf3dcbd40)
+    com.unity.test-framework@1.8.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.test-framework@7a3849e09bd0)
+    com.unity.ugui@2.6.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.ugui@0f30cee369f3)
+    com.unity.modules.audio@1.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.modules.audio)
+    com.unity.modules.animation@1.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.modules.animation)
+    com.unity.modules.imgui@1.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.modules.imgui)
+    com.unity.modules.imageconversion@1.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.modules.imageconversion)
+    com.unity.modules.jsonserialize@1.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.modules.physics)
+    com.unity.modules.physics2d@1.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.modules.physics2d)
+    com.unity.modules.ui@1.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.modules.uielements)
+    com.unity.modules.unitywebrequest@1.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.modules.unitywebrequest)
+    com.unity.modules.unitywebrequestaudio@1.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.modules.unitywebrequestaudio)
+    com.unity.modules.screencapture@1.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.modules.screencapture)
+    com.unity.modules.androidjni@1.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.modules.androidjni)
+    com.unity.modules.hierarchycore@1.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.modules.hierarchycore)
+    com.unity.modules.physicscore2d@1.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.modules.physicscore2d)
+    com.unity.ext.nunit@2.1.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.ext.nunit@0198eae3b53e)
+    com.unity.render-pipelines.core@17.6.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.render-pipelines.core@a14850be21a6)
+    com.unity.shadergraph@17.6.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.shadergraph@96a7923f6bed)
+    com.unity.render-pipelines.universal-config@17.6.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.render-pipelines.universal-config@561422b74439)
+    com.unity.graph-authoring@1.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.graph-authoring@cfd2588851ee)
+    com.unity.burst@2.0.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.burst@626e66ab421b)
+    com.unity.collections@6.6.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.collections@10fff0607388)
+    com.unity.test-framework.performance@6.6.0 (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Library\PackageCache\com.unity.test-framework.performance@0a60b857a52e)
+  Embedded packages:
+    com.kruty1918.audio@file:C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.audio (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.audio)
+    com.kruty1918.input-context@file:C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.input-context (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.input-context)
+    com.kruty1918.ui-actions@file:C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.ui-actions (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.ui-actions)
+    com.kruty1918.localization@file:C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.localization (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.localization)
+    com.kruty1918.save-system@file:C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.save-system (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.save-system)
+    com.kruty1918.ui-foundation@file:C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.ui-foundation (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.ui-foundation)
+    com.kruty1918.notifications@file:C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.notifications (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.notifications)
+    com.kruty1918.runtime-diagnostics@file:C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.runtime-diagnostics (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.runtime-diagnostics)
+    com.kruty1918.adaptive-performance@file:C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.adaptive-performance (location: C:\Users\yelyzaveta.khodos.TP-GE26-20\Documents\GitHub\quiet-camp\QuietCamp\Packages\com.kruty1918.adaptive-performance)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.08 seconds
+Asset Packages/com.unity.collections/Unity.Collections.PerformanceTests/Unity.PerformanceTesting.Benchmark/PerformanceTestFrameworkOutput.png has no meta file, but it's in an immutable folder. The asset will be ignored.
+Asset Packages/com.unity.collections/Unity.Collections.Tests/Jobs/CoreCLRTestAssemblies/InternalJobNestedPrivate/InternalJobNestedPrivate.asmdef has no meta file, but it's in an immutable folder. The asset will be ignored.
+Asset Packages/com.unity.collections/Unity.Collections.Tests/Jobs/CoreCLRTestAssemblies/InternalJobNestedPrivate/InternalJobNestedPrivate.cs has no meta file, but it's in an immutable folder. The asset will be ignored.
+Asset Packages/com.unity.collections/Unity.Collections.Tests/Jobs/CoreCLRTestAssemblies/PublicJobPrivateGeneric/PublicJobPrivateGeneric.asmdef has no meta file, but it's in an immutable folder. The asset will be ignored.
+Asset Packages/com.unity.render-pipelines.core/Editor-PrivateShared/Tools/Converter/Window/RenderPipelineConverterVisualElementListFilter.uss has no meta file, but it's in an immutable folder. The asset will be ignored.
+Asset Packages/com.unity.render-pipelines.core/Editor-PrivateShared/Tools/Converter/Window/RenderPipelineConverterVisualElementListFilter.uxml has no meta file, but it's in an immutable folder. The asset will be ignored.
+Asset Packages/com.unity.render-pipelines.core/Tests/Editor/RenderPipeline/SettingsStrippingResults/KeepAStripper_RemoveAStripper_A_B_C.json has no meta file, but it's in an immutable folder. The asset will be ignored.
+Asset Packages/com.unity.render-pipelines.universal/Runtime/RendererFeatures/ScreenSpaceReflectionRendererFeature/ScreenSpaceReflectionPass.cs has no meta file, but it's in an immutable folder. The asset will be ignored.
+Asset Packages/com.unity.render-pipelines.universal/Tests/Editor/Tools/Converters/AnimationClipConverter/AnimationClipUpgradePathsCacheTests.cs has no meta file, but it's in an immutable folder. The asset will be ignored.
+Asset Packages/com.unity.render-pipelines.universal/Tests/Editor/Tools/Converters/MaterialUpgrader/AutodeskInteractiveFadeMaterialUpgradeTest.cs has no meta file, but it's in an immutable folder. The asset will be ignored.
+Asset Packages/com.unity.render-pipelines.universal/Tests/Editor/Tools/Converters/MaterialUpgrader/SpeedTreeBillboardMaterialUpgraderTest.cs has no meta file, but it's in an immutable folder. The asset will be ignored.
+Asset Packages/com.unity.render-pipelines.universal/Tests/Editor/Tools/Converters/ReadonlyMaterialConverter/ReadonlyMaterialConverterTests.cs has no meta file, but it's in an immutable folder. The asset will be ignored.
+Starting: C:\Users\yelyzaveta.khodos.TP-GE26-20\AppData\Local\Unity\Editors\6000.6.2f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1300b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: C:/Users/yelyzaveta.khodos.TP-GE26-20/Documents/GitHub/quiet-camp/QuietCamp
+DisplayProgressbar: Compiling Scripts
+ExitCode: 0 Duration: 0s320ms
+[681/880    0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+*** Tundra build success (0.29 seconds), 1 items updated, 880 evaluated
+AssetDatabase: script compilation time: 0.801580s
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  0.618 seconds
+Domain Reload Profiling: 1603ms
+	BeginReloadAssembly (382ms)
+		DisableScriptedObjects (34ms)
+		CreateAndSetChildDomain (153ms)
+	RebuildCommonClasses (9ms)
+	RebuildNativeTypeToScriptingClass (17ms)
+	initialDomainReloadingComplete (98ms)
+	LoadAllAssembliesAndSetupDomain (477ms)
+		LoadAssemblies (351ms)
+		TypeCache.Refresh (93ms)
+			TypeCache.ScanAssembly (82ms)
+		AnalyzeDomain (42ms)
+			BuildScriptInfoCaches (35ms)
+			ResolveRequiredComponents (5ms)
+	FinalizeReload (620ms)
+		SetupLoadedEditorAssemblies (0ms)
+			InitializePlatformSupportModulesInManaged (8ms)
+			BeforeProcessingInitializeOnLoad (71ms)
+			ProcessInitializeOnLoadAttributes (117ms)
+			ProcessInitializeOnLoadMethodAttributes (71ms)
+			AfterProcessingInitializeOnLoad (7ms)
+			EditorAssembliesLoaded (3ms)
+		AwakeInstancesAfterBackupRestoration (22ms)
+Starting new worker id: 0 with log in C:/Users/yelyzaveta.khodos.TP-GE26-20/Documents/GitHub/quiet-camp/QuietCamp/Logs/AssetImportWorkerHW0.log
+
+Asset Pipeline Refresh (id=3ee0c9bc5755a764992720fc2410b2ed): Total: 3.174 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=1087 ms
+		Asset DB Callback time: managed=31 ms, native=89 ms
+		Scripting: domain reloads=1, domain reload time=1103 ms, compile time=804 ms, other=58 ms
+		Project Asset Count: scripts=971, non-scripts=2843
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokePackagesCallback: 115.668ms
+	ApplyChangesToAssetFolders: 2.879ms
+	Scan: 130.320ms
+	Collect global state as custom dependencies: 25.045ms
+	CategorizeScriptCompilationAssets: 19.105ms
+	ProcessAssetsWithTransientArtifactChanges: 45.526ms
+	CategorizeAssets: 46.106ms
+	CompileScripts: 803.638ms
+	ImportOutOfDateAssets: 631.486ms (622.714ms without children)
+		ReloadNativeAssets: 0.062ms
+		UnloadImportedAssets: 0.779ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.773ms
+		ImportSchedulerStart: 7.153ms
+	PostProcessAllAssets: 31.708ms
+		MonoPostProcessAllAssets: 31.627ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 13.939ms
+			SyncVS.PostprocessSyncProject 2.008ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 1.539ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 1.441ms
+			EditModeScopePostprocessor.OnPostprocessAllAssets 0.798ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.707ms
+			ShaderReflectionAssetPostProcessor.OnPostprocessAllAssets 0.469ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.243ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.216ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.183ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.169ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.131ms
+	UnloadStreamsBegin: 2.226ms
+	PersistCurrentRevisions: 0.086ms
+	GenerateScriptTypeHashes: 1.215ms
+	GenerateScriptTypeSerializationHashes: 2.310ms
+	Untracked: 1311.382ms
+
+Application.AssetDatabase Initial Refresh End
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
+Scanning for USB devices : 0.873ms
+Initializing Unity extensions:
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-Quiet Camp
+Worker ready: AssetImportWorkerHW0 0
+GetVirtualKey: Could not map char: z (122) to any virtual key
+GetVirtualKey: Could not map char: y (121) to any virtual key
+GetVirtualKey: Could not map char: [ (91) to any virtual key
+GetVirtualKey: Could not map char: ] (93) to any virtual key
+GetVirtualKey: Could not map char: x (120) to any virtual key
+GetVirtualKey: Could not map char: c (99) to any virtual key
+GetVirtualKey: Could not map char: v (118) to any virtual key
+GetVirtualKey: Could not map char: V (86) to any virtual key
+GetVirtualKey: Could not map char: d (100) to any virtual key
+GetVirtualKey: Could not map char: f (102) to any virtual key
+GetVirtualKey: Could not map char: f (102) to any virtual key
+GetVirtualKey: Could not map char: a (97) to any virtual key
+GetVirtualKey: Could not map char: d (100) to any virtual key
+GetVirtualKey: Could not map char: c (99) to any virtual key
+GetVirtualKey: Could not map char: r (114) to any virtual key
+GetVirtualKey: Could not map char: i (105) to any virtual key
+GetVirtualKey: Could not map char: l (108) to any virtual key
+GetVirtualKey: Could not map char: f (102) to any virtual key
+GetVirtualKey: Could not map char: k (107) to any virtual key
+GetVirtualKey: Could not map char: p (112) to any virtual key
+GetVirtualKey: Could not map char: p (112) to any virtual key
+GetVirtualKey: Could not map char: p (112) to any virtual key
+GetVirtualKey: Could not map char: c (99) to any virtual key
+GetVirtualKey: Could not map char: r (114) to any virtual key
+GetVirtualKey: Could not map char: P (80) to any virtual key
+GetVirtualKey: Could not map char: n (110) to any virtual key
+GetVirtualKey: Could not map char: n (110) to any virtual key
+GetVirtualKey: Could not map char: g (103) to any virtual key
+GetVirtualKey: Could not map char: f (102) to any virtual key
+GetVirtualKey: Could not map char: f (102) to any virtual key
+GetVirtualKey: Could not map char: a (97) to any virtual key
+GetVirtualKey: Could not map char: a (97) to any virtual key
+GetVirtualKey: Could not map char: n (110) to any virtual key
+GetVirtualKey: Could not map char: o (111) to any virtual key
+GetVirtualKey: Could not map char: s (115) to any virtual key
+GetVirtualKey: Could not map char: s (115) to any virtual key
+GetVirtualKey: Could not map char: b (98) to any virtual key
+GetVirtualKey: Could not map char: b (98) to any virtual key
+GetVirtualKey: Could not map char: c (99) to any virtual key
+GetVirtualKey: Could not map char: u (117) to any virtual key
+Unloading 27 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 3724 unused Assets / (6.4 MB). Loaded Objects now: 4768.
+Memory consumption went from 343.8 MB to 337.4 MB.
+Total: 8.706700 ms (FindLiveObjects: 0.361500 ms CreateObjectMapping: 0.078300 ms MarkObjects: 5.063700 ms  DeleteObjects: 3.062500 ms)
+
+D3D11 device created for Microsoft Media Foundation video decoding.
+[Project] Loading completed in 8.315 seconds
+	Project init time: 				5.723 seconds
+		Template init time: 		0.000 seconds
+		Package Manager init time: 		0.356 seconds
+		Asset Database init time: 		0.455 seconds
+		Global illumination init time: 	0.003 seconds
+		Assemblies load time: 			1.137 seconds
+		Unity extensions init time: 	0.019 seconds
+		Asset Database refresh time: 	3.175 seconds
+	Scene opening time: 			2.364 seconds
+##utp:{"type":"ProjectInfo","version":2,"phase":"Immediate","time":1790757047363,"processId":3624,"projectLoad":8.3145421,"projectInit":5.7230352,"templateInit":0.0,"packageManagerInit":0.356114,"assetDatabaseInit":0.4549865,"globalIlluminationInit":0.0025232,"assembliesLoad":1.1365408,"unityExtensionsInit":0.0186956,"assetDatabaseRefresh":3.1745593,"sceneOpening":2.3644073}
+##utp:{"type":"EditorInfo","version":2,"phase":"Immediate","time":1790757047363,"processId":3624,"editorVersion":"6000.6.2f1 (770e33f6875c)","branch":"6000.6/staging","buildType":"Release","platform":"Windows"}
+[Licensing::Client] Successfully resolved entitlement details
+Running tests for ExecutionSettings with details:
+targetPlatform = 
+playerHeartbeatTimeout = 600
+filters[0] = 
+   Filter with settings:
+   testMode = EditMode
+   targetPlatform = 
+   testNames = null
+   groupNames = null
+   categoryNames = null
+   assemblyNames = null
+ignoreTests = {}
+featureFlags = null
+
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+UnityEditor.TestTools.TestRunner.CommandLineTest.Executer:InitializeAndExecuteRun (string[]) (at ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/CommandLineTest/Executer.cs:53)
+UnityEditor.TestTools.TestRunner.CommandLineTest.TestStarter:InitializeAndExecuteRun () (at ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/CommandLineTest/TestStarter.cs:64)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/CommandLineTest/Executer.cs Line: 53)
+
+Start Indexing on Editor startup
+[Indexing] Starting Initial Indexing for Assets
+[UnityConnectServicesConfig] config is NOT valid, switching to default
+Created GICache directory at C:/Users/yelyzaveta.khodos.TP-GE26-20/AppData/LocalLow/Unity/Caches/GiCache. Took: 0.024s, timestamps: [8.318 - 8.342]
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 0 unused Assets / (Unknown). Loaded Objects now: 4928.
+Memory consumption went from 351.5 MB to 351.5 MB.
+Total: 7.337700 ms (FindLiveObjects: 0.288400 ms CreateObjectMapping: 0.035900 ms MarkObjects: 6.887700 ms  DeleteObjects: 0.012400 ms)
+
+Executing IPrebuildSetup for: Unity.PerformanceTesting.Editor.TestRunBuilder.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+UnityEditor.TestTools.TestRunner.TestRun.Tasks.BuildActionTaskBase`1/<ExecuteMethods>d__8<UnityEngine.TestTools.IPrebuildSetup>:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/TestRun/Tasks/BuildActionTaskBase.cs:48)
+UnityEditor.TestTools.TestRunner.TestRun.Tasks.BuildActionTaskBase`1/<Execute>d__7<UnityEngine.TestTools.IPrebuildSetup>:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/TestRun/Tasks/BuildActionTaskBase.cs:34)
+UnityEditor.TestTools.TestRunner.TestRun.TestJobRunner:ExecuteStep () (at ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/TestRun/TestJobRunner.cs:194)
+UnityEditor.TestTools.TestRunner.TestRun.TestJobRunner:ExecuteCallback () (at ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/TestRun/TestJobRunner.cs:129)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/TestRun/Tasks/BuildActionTaskBase.cs Line: 48)
+
+Saving results to: C:/Users/yelyzaveta.khodos.TP-GE26-20/AppData/LocalLow/kruty1918/Quiet Camp\TestResults.xml
+Saving results to: C:/Users/yelyzaveta.khodos.TP-GE26-20/Documents/GitHub/quiet-camp/TestResults/EditMode.xml
+Executing IPostBuildCleanup for: Unity.PerformanceTesting.Editor.TestRunBuilder.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+UnityEditor.TestTools.TestRunner.TestRun.Tasks.BuildActionTaskBase`1/<ExecuteMethods>d__8<UnityEngine.TestTools.IPostBuildCleanup>:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/TestRun/Tasks/BuildActionTaskBase.cs:48)
+UnityEditor.TestTools.TestRunner.TestRun.Tasks.BuildActionTaskBase`1/<Execute>d__7<UnityEngine.TestTools.IPostBuildCleanup>:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/TestRun/Tasks/BuildActionTaskBase.cs:34)
+UnityEditor.TestTools.TestRunner.TestRun.TestJobRunner:ExecuteStep () (at ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/TestRun/TestJobRunner.cs:194)
+UnityEditor.TestTools.TestRunner.TestRun.TestJobRunner:ExecuteCallback () (at ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/TestRun/TestJobRunner.cs:129)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/TestRun/Tasks/BuildActionTaskBase.cs Line: 48)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 0 unused Assets / (Unknown). Loaded Objects now: 4928.
+Memory consumption went from 358.3 MB to 358.3 MB.
+Total: 7.223700 ms (FindLiveObjects: 0.242400 ms CreateObjectMapping: 0.038400 ms MarkObjects: 6.820300 ms  DeleteObjects: 0.006600 ms)
+
+DisplayProgressbar: Undo
+Test run completed. Exiting with code 0 (Ok). Run completed.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+UnityEditor.TestTools.TestRunner.CommandLineTest.Executer:ExitApplication (UnityEditor.TestTools.TestRunner.CommandLineTest.Executer/ReturnCodes,string) (at ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/CommandLineTest/Executer.cs:81)
+UnityEditor.TestTools.TestRunner.CommandLineTest.Executer:ExitIfRunIsCompleted () (at ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/CommandLineTest/Executer.cs:74)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/CommandLineTest/Executer.cs Line: 81)
+
+MonoPathRemapper: Attempts to remap: 18633; Successful remaps: 6658
+Serialized file version minimum: 23, current 23
+Killing ADB server in 2,0685142 seconds.
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+[Licensing::IpcConnector] LicenseClient-yelyzaveta.khodos-notifications channel disconnected successfully.
+[Licensing::IpcConnector] LicenseClient-yelyzaveta.khodos channel disconnected successfully.
+Shut down.
+Lingering sessions upon destruction of worker manager
+Unity Data Store service was successfully shut down
+UDS shutting down local client system
+Shut down UDS service system complete
+AcceleratorClientConnectionCallback - disconnected - :0
+Cleanup mono
+CodeReloadManager destroyed
+abort_threads: Failed aborting id: 000000000000B7BC, mono_thread_manage will ignore it
+
+abort_threads: Failed aborting id: 00000000000014C8, mono_thread_manage will ignore it
+
+abort_threads: Failed aborting id: 000000000000B7BC, mono_thread_manage will ignore it
+
+abort_threads: Failed aborting id: 00000000000014C8, mono_thread_manage will ignore it
+
+debugger-agent: Unable to listen on 3740
+Checking for leaked weakptr:
+  Found no leaked weakptrs.
+[Package Manager] Server process was shutdown
+##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1790757051697,"processId":3624,"allocatedMemory":15424071,"memoryLabels":[{"Default":165703},{"Permanent":15516},{"NewDelete":71383},{"Thread":4205560},{"Manager":33021},{"VertexData":8},{"Geometry":816},{"Texture":24},{"Shader":844725},{"Material":68},{"GfxDevice":58176},{"Animation":952},{"Audio":696},{"FreeType":8},{"FontEngine":736},{"Physics":1970},{"Physics2D":16},{"Serialization":16640},{"Input":42840},{"JobScheduler":256},{"TextLib":336},{"Mono":48},{"MonoCode":64},{"ScriptingNativeRuntime":1307568},{"BaseObject":49808},{"Resource":1252},{"Renderer":2376},{"Transform":4685},{"File":4416},{"WebCam":616},{"Culling":32},{"Terrain":11442},{"Wind":24},{"STL":40},{"String":458065},{"StaticString":3808},{"Utility":2674262},{"Curl":2478},{"PoolAlloc":2264},{"AI":80},{"TypeTree":18805},{"ScriptManager":12656},{"CodeReload":448},{"RuntimeInitializeOnLoadManager":64},{"Sprites":102},{"SpriteAtlas":120},{"GI":7816},{"Director":8296},{"CloudService":288},{"WebRequest":552},{"VR":49650},{"SceneManager":608},{"Video":208},{"LazyScriptCache":32},{"Camera":729},{"Secure":2377},{"SerializationCache":9256},{"APIUpdating":10320},{"Subsystems":336},{"VirtualTexturing":57888},{"StaticSafetyDebugInfo":278528},{"Analytics":464},{"Hierarchy":1188},{"UIElements":40},{"CoreStats":14456},{"Identifiers":7152},{"Gui":128},{"EditorUtility":118622},{"VersionControl":8},{"Undo":931},{"AssetDatabase":4781333},{"AssetImporter":40},{"EditorGi":328},{"UnityConnect":40465},{"Upm":1912},{"UpmDiagnostics":8},{"AssetCompliance":96},{"DrivenProperties":72},{"LocalIPC":223},{"ProfilerEditor":9746},{"CoreBusinessMetrics":3218},{"Windowing":456},{"Licensing":1264},{"AssetReference":32},{"IPCStream":32}]}

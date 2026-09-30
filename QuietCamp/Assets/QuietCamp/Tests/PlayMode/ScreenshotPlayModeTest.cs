@@ -33,16 +33,20 @@ namespace QuietCamp.Tests
             yield return WaitForActiveScene("MainMenu", 20f);
             yield return Settle(60);
             DumpUi();
-            Shot(outDir, "01_main_menu");
+            var menuMagenta = Shot(outDir, "01_main_menu");
 
             yield return SceneManager.LoadSceneAsync("Camp", LoadSceneMode.Single);
             yield return WaitForActiveScene("Camp", 20f);
             yield return new WaitUntil(() => CampSceneHost.Current != null);
             yield return Settle(60);
-            Shot(outDir, "02_camp_day");
+            var campMagenta = Shot(outDir, "02_camp_day");
 
             Assert.IsTrue(File.Exists(System.IO.Path.Combine(outDir, "01_main_menu.png")));
             Assert.IsTrue(File.Exists(System.IO.Path.Combine(outDir, "02_camp_day.png")));
+            // Missing shaders render as pure magenta — catch stripped-shader
+            // regressions (e.g. URP Lit/Unlit absent from Always Included).
+            Assert.Less(menuMagenta, 0.02f, "Menu screenshot is magenta — missing shader.");
+            Assert.Less(campMagenta, 0.02f, "Camp screenshot is magenta — missing shader.");
         }
 
         static IEnumerator WaitForActiveScene(string name, float timeout)
@@ -79,7 +83,7 @@ namespace QuietCamp.Tests
             return s;
         }
 
-        static void Shot(string dir, string name)
+        static float Shot(string dir, string name)
         {
             var cam = Camera.main
                 ?? Object.FindObjectsByType<Camera>().FirstOrDefault();
@@ -107,6 +111,8 @@ namespace QuietCamp.Tests
             cam.targetTexture = prevTarget;
             rt.Release();
 
+            var magenta = MagentaFraction(tex);
+
             for (var i = 0; i < canvases.Length; i++)
             {
                 canvases[i].renderMode = prevModes[i];
@@ -116,7 +122,20 @@ namespace QuietCamp.Tests
             var path = System.IO.Path.Combine(dir, name + ".png");
             File.WriteAllBytes(path, tex.EncodeToPNG());
             Object.DestroyImmediate(tex);
-            Debug.Log($"[QuietCamp] Screenshot → {path}");
+            Debug.Log($"[QuietCamp] Screenshot → {path} (magenta={magenta:P2})");
+            return magenta;
+        }
+
+        static float MagentaFraction(Texture2D tex)
+        {
+            var px = tex.GetPixels32();
+            var hits = 0;
+            for (var i = 0; i < px.Length; i += 7) // sample every 7th pixel
+            {
+                var c = px[i];
+                if (c.r > 180 && c.b > 180 && c.g < 90) hits++;
+            }
+            return (float)hits / (px.Length / 7f);
         }
     }
 }
