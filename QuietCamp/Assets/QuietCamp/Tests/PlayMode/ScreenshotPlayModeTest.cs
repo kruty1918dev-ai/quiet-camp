@@ -70,9 +70,45 @@ namespace QuietCamp.Tests
             // burning campfire, dusk light, completion panel.
             ClickModalButton("SettingsPanel", "Btn_action_back");
             yield return Settle(20);
+            // Resume closes the pause sheet so completion opens on a clean HUD.
+            ClickModalButton("PausePanel", "Btn_qc_resume_button");
+            yield return Settle(30);
             CampSceneHost.Current.Session.Check();
             yield return Settle(60);
             var eveningMagenta = Shot(outDir, "07_camp_evening");
+
+            // Foliage canopy: start a real navigation and capture the dive
+            // mid-cover and at full cover (scene load rides under it).
+            ClickModalButton("CompletionPanel", "Btn_action_next");
+            FoliageDiveTransition dive = null;
+            for (var i = 0; i < 240 && dive == null; i++)
+            {
+                dive = Object.FindObjectsByType<FoliageDiveTransition>(FindObjectsSortMode.None)
+                    .FirstOrDefault();
+                yield return null;
+            }
+            Assert.IsNotNull(dive, "Transition overlay never appeared");
+            var coverFrame = 0;
+            var coveredShot = false;
+            for (var i = 0; i < 1800 && dive != null && !dive.IsIdle; i++)
+            {
+                if (dive.Current == FoliageDiveTransition.State.Covering)
+                {
+                    // Overwrite every few frames — the last write lands at
+                    // the deepest cover progress before the state flips.
+                    if (coverFrame++ % 4 == 0) Shot(outDir, "08_transition_cover");
+                }
+                else if (!coveredShot
+                    && dive.Current == FoliageDiveTransition.State.CoveredLoading)
+                {
+                    Shot(outDir, "09_transition_covered");
+                    coveredShot = true;
+                }
+                yield return null;
+            }
+            // Let navigation finish so teardown starts from a clean state.
+            for (var i = 0; i < 3600 && dive != null && !dive.IsIdle; i++)
+                yield return null;
 
             var names = new[] { "01_main_menu", "02_menu_settings", "03_menu_levels",
                 "04_camp_day", "05_camp_pause", "06_camp_settings", "07_camp_evening" };

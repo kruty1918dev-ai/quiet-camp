@@ -99,7 +99,7 @@ namespace QuietCamp.Tests
 
             var changed = -1f;
             var slider = SettingsPanel.AddSliderRow(rt, "settings.music", 0.5f, v => changed = v);
-            Assert.IsNotNull(slider.GetComponentInChildren<Image>().sprite,
+            Assert.IsNotNull(slider.handleRect.GetComponent<Image>().sprite,
                 "Slider handle sprite missing");
             slider.value = 0.8f;
             Assert.AreEqual(0.8f, changed, 0.001f, "Slider onChange not fired");
@@ -112,12 +112,14 @@ namespace QuietCamp.Tests
             Assert.IsTrue(imgs.Length >= 2, "Toggle lacks box+check images");
 
             var picked = -1;
-            var drop = SettingsPanel.AddDropdownRow(rt, "settings.language",
-                new[] { "Українська", "English", "Deutsch" }, "en", v => picked = v);
-            Assert.IsNotNull(drop.template, "Dropdown template missing");
-            Assert.AreEqual(1, drop.value, "Dropdown initial value mismatch");
-            drop.value = 2;
-            Assert.AreEqual(2, picked, "Dropdown onValueChanged not fired");
+            var opts = SettingsPanel.AddChoiceRow(rt, "settings.language",
+                new[] { "Українська", "English", "Deutsch" },
+                new[] { "uk", "en", "de" }, "en", v => picked = v);
+            Assert.AreEqual(3, opts.Length, "Choice row must render every option");
+            Assert.AreEqual(QcUi.GreenDark, opts[1].GetComponent<Image>().color,
+                "Current language must be the highlighted segment");
+            opts[2].onClick.Invoke();
+            Assert.AreEqual(2, picked, "Choice row onChange not fired");
 
             Object.Destroy(canvasGo);
         }
