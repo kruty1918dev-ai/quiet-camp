@@ -20,6 +20,12 @@ namespace QuietCamp.Presentation.World
         readonly List<System.IDisposable> _leases = new List<System.IDisposable>();
         System.IDisposable _menuContext;
 
+        public static MenuSceneHost Current { get; private set; }
+
+        /// <summary>Set at the end of Start — the readiness signal the
+        /// ScreenRouter waits for before revealing the menu.</summary>
+        public bool IsReady { get; private set; }
+
         public void Configure(GameServices services, ScreenRouter router)
         {
             _services = services;
@@ -28,6 +34,7 @@ namespace QuietCamp.Presentation.World
 
         void Start()
         {
+            Current = this;
             var canvasRoot = ResolveScene("CanvasRoot");
             var safeArea = (RectTransform)ResolveScene("CanvasRoot/SafeArea");
             if (canvasRoot == null || safeArea == null)
@@ -43,6 +50,7 @@ namespace QuietCamp.Presentation.World
             _menuContext = _services.ContextStack.Push(new UiContextRegistration(
                 "Menu", UiContextLayer.Global, 0, () => true,
                 new UiActionId("qc.back")));
+            IsReady = true;
         }
 
         // ─── Actions ─────────────────────────────────────────────────────────
@@ -85,6 +93,7 @@ namespace QuietCamp.Presentation.World
             foreach (var l in _leases) l.Dispose();
             _leases.Clear();
             _menuContext?.Dispose();
+            if (Current == this) Current = null;
         }
 
         // ─── Scene helpers ───────────────────────────────────────────────────

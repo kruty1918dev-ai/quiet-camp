@@ -51,6 +51,11 @@ namespace QuietCamp.Presentation.World
 
         public static CampSceneHost Current { get; private set; }
 
+        /// <summary>Set at the end of Start — the explicit readiness signal
+        /// the ScreenRouter waits for before revealing (level loaded, world
+        /// built, HUD applied, camera fitted, phase applied).</summary>
+        public bool IsReady { get; private set; }
+
         public CampSession Session => _session;
         public CampAtmosphere Atmosphere => _atmosphere;
 
@@ -79,7 +84,12 @@ namespace QuietCamp.Presentation.World
             RegisterActions();
             ConfigureAtmosphere(level);
             _services.PendingLevelId = null;
+            IsReady = true;
         }
+
+        /// <summary>Cancels an in-flight placement drag without committing —
+        /// used when a scene transition gates input mid-gesture.</summary>
+        public void CancelActiveDrag() => _placement?.Cancel();
 
         // ─── Build ───────────────────────────────────────────────────────────
 

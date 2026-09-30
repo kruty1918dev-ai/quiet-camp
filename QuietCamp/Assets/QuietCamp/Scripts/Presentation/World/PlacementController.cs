@@ -85,6 +85,15 @@ namespace QuietCamp.Presentation.World
             if (sample.Began) OnPress(sample);
             if (_pointerId != -1 && sample.Id != _pointerId) return;
 
+            // A global input block (scene transition) cancels an in-flight
+            // drag without committing — the ghost vanishes, no placement.
+            if (_captured && _policy != null
+                && !_policy.CanProcess(GameplayInputKind.Placement, sample.Position, _pointerId))
+            {
+                Cancel();
+                return;
+            }
+
             if (sample.Active && _phase == Phase.Preview)
             {
                 // Threshold drag: keep ghost anchored under the pointer.
