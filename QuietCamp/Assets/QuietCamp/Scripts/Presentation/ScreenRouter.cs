@@ -1,61 +1,66 @@
-using System.Threading;
 using System.Threading.Tasks;
-using Kruty1918.UiFoundation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 namespace QuietCamp.Presentation
 {
     /// <summary>
-    /// Cover -> load -> reveal scene transitions through the shared transition
-    /// service lease. Input is blocked for the whole operation by the cover.
-    /// Each direction uses a distinct visual style: Doors on the way back to
-    /// the menu, Iris zoom-in when entering a camp, Curtain for next-level.
+    /// Cover -> load -> reveal scene transitions through the foliage dive:
+    /// the camera sinks into near leaves, an opaque forest cover hides the
+    /// scene swap and the new clearing is revealed. Input is blocked for the
+    /// whole operation by the transition overlay; repeated taps are ignored
+    /// and the same gentle dive serves every direction.
     /// </summary>
     public sealed class ScreenRouter
     {
         readonly GameServices _services;
+        FoliageDiveTransition _dive;
         bool _busy;
 
         public ScreenRouter(GameServices services) => _services = services;
 
         public bool IsBusy => _busy;
+        public FoliageDiveTransition Dive
+            => _dive != null ? _dive : _dive = FoliageDiveTransition.Ensure(_services);
 
-        /// <summary>Doors close on camp, open onto the menu.</summary>
         public async void GoToMenu()
-            => await Transition("MainMenu", null, SceneTransitionStyle.Doors);
+            => await Transition("MainMenu", null);
 
-        /// <summary>Iris expands over the diorama — entering the campsite.</summary>
         public async void GoToCamp(string levelId)
-            => await Transition("Camp", levelId, SceneTransitionStyle.Iris);
+            => await Transition("Camp", levelId);
 
-        /// <summary>Gentle bottom-up curtain for the next level in the chain.</summary>
         public async void GoToNextCamp(string levelId)
-            => await Transition("Camp", levelId, SceneTransitionStyle.Curtain);
+            => await Transition("Camp", levelId);
 
-        async Task Transition(string sceneName, string levelId, SceneTransitionStyle style)
+        async Task Transition(string sceneName, string levelId)
         {
             if (_busy) return;
             _busy = true;
-            ISceneTransitionLease lease = _services.Transitions.TryBeginTransition();
+            var dive = Dive;
             try
             {
-                if (lease != null) await lease.CoverAsync(style);
-                else
-                {
-                    await _services.Transitions.WaitForActiveTransitionAsync();
-                    await _services.Transitions.CoverAsync(style);
-                }
+                await dive.CoverAsync();
                 _services.PendingLevelId = levelId;
                 var op = SceneManager.LoadSceneAsync(sceneName);
-                while (!op.isDone) await Task.Yield();
-                // One frame for scene hosts to finish Awake/Start before reveal.
+                var wait = 0f;
+                while (!op.isDone)
+                {
+                    await Task.Yield();
+                    wait += Time.unscaledDeltaTime;
+                    if (wait > 1.5f) dive.ShowSlowHint();
+                }
+                // Scene host Start + atmosphere apply + one rendered frame.
                 await Task.Yield();
-                if (lease != null) await lease.RevealAsync(style);
-                else await _services.Transitions.RevealAsync(style);
+                await Task.Yield();
+                dive.BeginReveal();
+                await dive.RevealAsync();
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("[QuietCamp] Transition failed: " + e.Message);
+                dive.Recover();
             }
             finally
             {
-                lease?.Dispose();
                 _busy = false;
             }
         }
