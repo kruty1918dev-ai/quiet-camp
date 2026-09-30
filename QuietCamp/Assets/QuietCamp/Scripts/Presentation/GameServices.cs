@@ -34,6 +34,8 @@ namespace QuietCamp.Presentation
         public ISceneTransitionService Transitions { get; }
         public ProgressionService Progression { get; }
         public UiHotkeyService HotkeyService { get; }
+        /// <summary>Monetization boundary — offline stub until a real SDK adapter lands.</summary>
+        public IAdService Ads { get; }
 
         /// <summary>Level chosen in the menu, consumed by the Camp scene host.</summary>
         public string PendingLevelId { get; set; }
@@ -43,6 +45,16 @@ namespace QuietCamp.Presentation
             get => Settings.reducedMotion;
             set { Settings.reducedMotion = value; }
         }
+
+        /// <summary>Calm pace: tween durations stretch for a gentler feel.</summary>
+        public bool CalmMode
+        {
+            get => Settings.calmMode;
+            set { Settings.calmMode = value; }
+        }
+
+        /// <summary>Tween duration multiplier — 1.6 in calm mode, else 1.</summary>
+        public float MotionScale => Settings.calmMode ? 1.6f : 1f;
 
         public GameServices(
             SaveAdapter save,
@@ -60,7 +72,8 @@ namespace QuietCamp.Presentation
             IUiMotionService motion,
             IGameplayNotificationService notifications,
             ISceneTransitionService transitions,
-            ProgressionService progression)
+            ProgressionService progression,
+            IAdService ads = null)
         {
             Save = save;
             Localization = localization;
@@ -78,6 +91,7 @@ namespace QuietCamp.Presentation
             Notifications = notifications;
             Transitions = transitions;
             Progression = progression;
+            Ads = ads ?? new AdServiceStub();
         }
 
         public void Dispose() => Audio?.Dispose();
