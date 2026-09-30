@@ -46,7 +46,7 @@ namespace QuietCamp.Editor
                 && Shader.Find("TextMeshPro/Mobile/Distance Field") == null
                 && full != null && File.Exists(full))
             {
-                AssetDatabase.ImportPackage(full, false);
+                UnityEditor.AssetPackage.Package.Import(full, false);
                 AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
             }
             if (Shader.Find("TextMeshPro/Mobile/Distance Field") == null
