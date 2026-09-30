@@ -45,6 +45,18 @@ namespace QuietCamp.Presentation.World
         float _rustleCooldown;
         float _gustSoundCooldown;
         float _twigCooldown;
+        /// <summary>Opening calm: no owl or gust one-shots for the first seconds
+        /// after entering the scene — wind/fire may already be audible.</summary>
+        float _entryCalm = 12f;
+        /// <summary>Shared minimum gap between accented one-shots (bird/owl/gust).</summary>
+        float _accentCooldown;
+        int _lastBirdAnchor = -1;
+        int _lastOwlAnchor = -1;
+        // Phase-weight fades: loops keep running while only their playback
+        // scale moves — no restart when the day phase changes.
+        float _windScale = 1f, _windTarget = 1f;
+        float _fireScale, _fireTarget;
+        float _cricketScale, _cricketTarget;
         readonly List<Vector3> _canopyAnchors = new List<Vector3>();
         readonly List<Vector3> _edgeAnchors = new List<Vector3>();
         Vector3 _firePos;
@@ -167,7 +179,18 @@ namespace QuietCamp.Presentation.World
                     GameplayNotificationKind.Warning, dedupKey: key + _session.SelectedGuestId);
             _placement.PlacementCommitted += PersistSession;
             _placement.Cancelled += () => PlayAudio("ui.back");
-            _placement.TentGrabbed += _ => PlayAudio("sfx.rustle");
+            // Lifting a committed tent is a dry woody accent at its old cell;
+            // picking a fresh tent for a new preview is a soft fabric rustle.
+            _placement.TentGrabbed += id =>
+            {
+                var p = _session.State.Find(id);
+                if (p == null) return;
+                _services.Audio?.PlayAt("sfx.twig",
+                    BoardMath.CellCenterWorld(_session.Level, new Cell(p.x, p.z))
+                    + Vector3.up * .3f, .2f);
+            };
+            _placement.PreviewBegan += pos
+                => _services.Audio?.PlayAt("sfx.rustle", pos, .3f);
         }
 
         /// <summary>Decor positions feed positional ambience: birds sing from
@@ -304,8 +327,10 @@ namespace QuietCamp.Presentation.World
             }));
             _leases.Add(h.Register(new UiActionId("qc.select"), req =>
             {
+                var before = _session.SelectedGuestId;
                 _session.Select(req.Payload as string ?? req.TargetId);
-                PlayAudio("ui.select");
+                // Only an actual selection change earns feedback.
+                if (_session.SelectedGuestId != before) PlayAudio("ui.select");
                 return Performed();
             }));
         }
@@ -376,7 +401,7 @@ namespace QuietCamp.Presentation.World
         System.Collections.IEnumerator ChimeAfter(float delay)
         {
             yield return new WaitForSeconds(delay);
-            _services.Audio?.Play("sfx.chime");
+            _services.Audio?.Play("sfx.chime", new AudioPlayOptions(volumeScale: .3f));
         }
 
         void PersistSession()
@@ -404,9 +429,14 @@ namespace QuietCamp.Presentation.World
             _atmosphere = gameObject.AddComponent<CampAtmosphere>();
             var viewport = Find("CanvasRoot/SafeArea/Gameplay/BoardViewport")?.transform as RectTransform;
             var profile = _atmosphereCatalog.Resolve(level.id, level.lighting);
+            var tier = QualityTier();
             _atmosphere.Configure(FindCamera(), level, viewport, profile,
-                () => _services.ReducedMotion, QualityTier());
+                () => _services.ReducedMotion, tier);
             _atmosphere.GustStarted += OnWindGust;
+            // Voice budget by quality tier (Low/Balanced/High → 8/12/16);
+            // decorative one-shots are skipped first when the pool is full.
+            if (_services.Audio != null)
+                _services.Audio.MaxActiveVoices = tier == 0 ? 8 : tier == 1 ? 12 : 16;
             SetAtmospherePhase(profile.Id);
         }
 
@@ -423,17 +453,25 @@ namespace QuietCamp.Presentation.World
         /// one rustle at the nearest decorative anchor (cooldown-gated).</summary>
         void OnWindGust()
         {
-            if (_services.Audio == null || _gustSoundCooldown > 0f) return;
+            if (_services.Audio == null || _gustSoundCooldown > 0f
+                || _entryCalm > 0f || _accentCooldown > 0f || _completed
+                || (_router != null && _router.IsBusy)
+                || (_hud != null && _hud.HasModalOpen)) return;
             _gustSoundCooldown = 18f; // spec: at least 18 s between gust one-shots
+            _accentCooldown = 3f;
             var dir = _atmosphere.Wind.DirectionXZ;
             var dir3 = new Vector3(dir.x, 0f, dir.y);
             float meadow = Mathf.Max(_session.Level.width, _session.Level.height) * .5f
                 + DecorSpawner.Apron;
-            _services.Audio.PlayAt("ambience.gust", -dir3 * meadow + Vector3.up * 1.2f);
+            _services.Audio.Play("ambience.gust", new AudioPlayOptions(
+                position: -dir3 * meadow + Vector3.up * 1.2f,
+                pitchOffset: Jitter(.015f)));
             if (_rustleCooldown <= 0f)
             {
                 _rustleCooldown = 10f;
-                _services.Audio.PlayAt("sfx.rustle", NearestAnchor(-dir3), .7f);
+                _services.Audio.Play("sfx.rustle", new AudioPlayOptions(
+                    position: NearestAnchor(-dir3), volumeScale: .7f,
+                    pitchOffset: Jitter(.02f)));
             }
         }
 
@@ -472,17 +510,30 @@ namespace QuietCamp.Presentation.World
             bool hasFire = _fireVisuals.Length > 0 && profile.Fire;
             if (fire != null) fire.gameObject.SetActive(hasFire);
             foreach (var fv in _fireVisuals) if (fv != null) fv.SetBurning(hasFire);
-            _fireSound.Stop();
-            _cricketSound.Stop();
-            _fireSound = default;
-            _cricketSound = default;
+            // Phase weights fade on running loops — a loop that survives the
+            // phase change is never restarted, only re-weighted.
             if (hasFire && _services.Audio != null)
-                _fireSound = _services.Audio.PlayAt("ambience.fire", _firePos + Vector3.up * .4f);
-            if (profile.Crickets > 0 && _services.Audio != null)
             {
-                _cricketSound = _services.Audio.Play("ambience.crickets");
-                _services.Audio.SetPlaybackScale(_cricketSound, profile.Crickets);
+                if (!_fireSound.IsValid)
+                {
+                    _fireSound = _services.Audio.PlayAt("ambience.fire",
+                        _firePos + Vector3.up * .4f);
+                    _fireScale = 0f;
+                }
+                _fireTarget = 1f;
             }
+            else _fireTarget = 0f;
+            if (profile.Crickets > 0f && _services.Audio != null)
+            {
+                if (!_cricketSound.IsValid)
+                {
+                    _cricketSound = _services.Audio.Play("ambience.crickets");
+                    _cricketScale = 0f;
+                }
+                _cricketTarget = profile.Crickets;
+            }
+            else _cricketTarget = 0f;
+            _windTarget = profile.WindAudio;
             _birdTimer = NextBirdDelay();
             _owlTimer = NextOwlDelay();
             _atmosphere.SetFire(_firePos, hasFire);
@@ -496,9 +547,6 @@ namespace QuietCamp.Presentation.World
             ? float.PositiveInfinity : Mathf.Lerp(_atmosphereProfile.OwlMin,
                 _atmosphereProfile.OwlMax, (float)_ambienceRandom.NextDouble());
 
-        Vector3 RandomAnchor(List<Vector3> anchors)
-            => anchors[_ambienceRandom.Next(anchors.Count)];
-
         // ─── Frame loop ──────────────────────────────────────────────────────
 
         void Update()
@@ -507,21 +555,92 @@ namespace QuietCamp.Presentation.World
             _rustleCooldown -= Time.deltaTime;
             _gustSoundCooldown -= Time.deltaTime;
             _twigCooldown -= Time.deltaTime;
+            _accentCooldown -= Time.deltaTime;
+            _entryCalm -= Time.deltaTime;
+            TickAmbienceFades();
             if (_atmosphereProfile == null) return;
+            // Decorative accents rest during completion, scene transitions and
+            // open modals (pause/settings/hint) — nothing queues up behind them.
+            bool quiet = _completed || (_router != null && _router.IsBusy)
+                || (_hud != null && _hud.HasModalOpen);
             _birdTimer -= Time.deltaTime;
             if (_birdTimer <= 0f)
             {
                 _birdTimer = NextBirdDelay();
-                // A bird is heard from a canopy — sparse, never a flock.
-                _services.Audio?.PlayAt("ambience.bird", RandomAnchor(_canopyAnchors));
+                if (!quiet && _accentCooldown <= 0f && _services.Audio != null)
+                {
+                    _accentCooldown = 3f;
+                    var i = NextAnchor(_canopyAnchors, ref _lastBirdAnchor);
+                    // Evening birds sing softer than morning/noon.
+                    var scale = _atmosphereProfile.Id == "evening" ? .65f : 1f;
+                    _services.Audio.Play("ambience.bird", new AudioPlayOptions(
+                        position: _canopyAnchors[i], volumeScale: scale,
+                        pitchOffset: Jitter(.025f)));
+                }
             }
             _owlTimer -= Time.deltaTime;
             if (_owlTimer <= 0f)
             {
                 _owlTimer = NextOwlDelay();
-                _services.Audio?.PlayAt("ambience.owl", RandomAnchor(_edgeAnchors));
+                if (!quiet && _entryCalm <= 0f && _accentCooldown <= 0f
+                    && _services.Audio != null)
+                {
+                    _accentCooldown = 3f;
+                    var i = NextAnchor(_edgeAnchors, ref _lastOwlAnchor);
+                    _services.Audio.Play("ambience.owl", new AudioPlayOptions(
+                        position: _edgeAnchors[i], pitchOffset: Jitter(.01f)));
+                }
             }
         }
+
+        /// <summary>Moves loop weights toward their phase targets — wind bed
+        /// (3 s), fire (1.2 s) and crickets (4 s) crossfade without restarts.</summary>
+        void TickAmbienceFades()
+        {
+            if (_services.Audio == null) return;
+            if (_windScale != _windTarget)
+            {
+                _windScale = MoveToward(_windScale, _windTarget, 3f);
+                _services.Audio.SetPlaybackScale(_services.AmbientWindHandle, _windScale);
+            }
+            if (_fireScale != _fireTarget || (_fireTarget == 0f && _fireSound.IsValid))
+            {
+                _fireScale = MoveToward(_fireScale, _fireTarget, 1.2f);
+                if (_fireTarget == 0f && _fireScale <= 0f)
+                {
+                    _fireSound.Stop();
+                    _fireSound = default;
+                }
+                else _services.Audio.SetPlaybackScale(_fireSound, _fireScale);
+            }
+            if (_cricketScale != _cricketTarget
+                || (_cricketTarget == 0f && _cricketSound.IsValid))
+            {
+                _cricketScale = MoveToward(_cricketScale, _cricketTarget, 4f);
+                if (_cricketTarget == 0f && _cricketScale <= 0f)
+                {
+                    _cricketSound.Stop();
+                    _cricketSound = default;
+                }
+                else _services.Audio.SetPlaybackScale(_cricketSound, _cricketScale);
+            }
+        }
+
+        static float MoveToward(float current, float target, float seconds)
+            => Mathf.MoveTowards(current, target, Time.deltaTime / seconds);
+
+        /// <summary>Picks an anchor different from the last used index —
+        /// consecutive bird/owl calls never come from the same spot twice.</summary>
+        int NextAnchor(List<Vector3> anchors, ref int last)
+        {
+            if (anchors.Count <= 1) return last = 0;
+            int i;
+            do { i = _ambienceRandom.Next(anchors.Count); } while (i == last);
+            return last = i;
+        }
+
+        float Jitter(float range)
+            => (float)(_ambienceRandom.NextDouble() * 2.0 - 1.0) * range;
 
         void ShowAreaOverlay(Cell[] cells) { /* area overlay uses existing path/chip visuals */ }
         void ShowMoveOverlay(Placement move) { /* ghost flash handled by HUD text */ }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Kruty1918.Audio;
 using Kruty1918.InputRouting.API;
 using Kruty1918.UIActions.API;
 using QuietCamp.Application;
@@ -490,7 +491,9 @@ namespace QuietCamp.Presentation.UI
 
         void NextHint()
         {
-            _services.Audio?.Play("sfx.chime");
+            // A soft tick, not the completion chime — chime is reserved for
+            // the victory afterglow so the two cues never blend.
+            _services.Audio?.Play("ui.select", new AudioPlayOptions(volumeScale: .7f));
             var level = _session.Level;
             switch (_hint.NextStage)
             {

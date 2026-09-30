@@ -40,6 +40,12 @@ namespace QuietCamp.Presentation
         /// <summary>Level chosen in the menu, consumed by the Camp scene host.</summary>
         public string PendingLevelId { get; set; }
 
+        /// <summary>
+        /// The single persistent wind bed owned by QuietCampBootstrap. Scene
+        /// hosts may scale its playback per phase weight but never restart it.
+        /// </summary>
+        public AudioHandle AmbientWindHandle { get; set; }
+
         public bool ReducedMotion
         {
             get => Settings.reducedMotion;

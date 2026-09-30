@@ -28,16 +28,22 @@ namespace QuietCamp.Presentation.UI
                     services.Save.Save();
                 });
 
+            // Volume sliders earn one quiet sample after the drag ends —
+            // never a click per tick of onValueChanged.
+            void ReleaseCue() => services.Audio?.Play("ui.select",
+                new Kruty1918.Audio.AudioPlayOptions(volumeScale: .5f));
             AddSliderRow(content, "settings.music",
-                services.Settings.music, v => SetBus(services, Kruty1918.Audio.AudioBus.Music, v));
+                services.Settings.music, v => SetBus(services, Kruty1918.Audio.AudioBus.Music, v),
+                onRelease: ReleaseCue);
             AddSliderRow(content, "settings.ambience",
-                services.Settings.ambience, v => SetBus(services, Kruty1918.Audio.AudioBus.Ambience, v));
+                services.Settings.ambience, v => SetBus(services, Kruty1918.Audio.AudioBus.Ambience, v),
+                onRelease: ReleaseCue);
             AddSliderRow(content, "settings.effects",
                 services.Settings.effects, v =>
                 {
                     SetBus(services, Kruty1918.Audio.AudioBus.Ui, v);
                     SetBus(services, Kruty1918.Audio.AudioBus.Sfx, v);
-                });
+                }, onRelease: ReleaseCue);
             AddSliderRow(content, "settings.textSize",
                 services.Settings.textScale, v =>
                 {
@@ -93,7 +99,7 @@ namespace QuietCamp.Presentation.UI
         // ─── Row builders (sprite-backed controls) ──────────────────────────
 
         public static Slider AddSliderRow(RectTransform parent, string key, float value,
-            Action<float> onChange, float min = 0f, float max = 1f)
+            Action<float> onChange, float min = 0f, float max = 1f, Action onRelease = null)
         {
             var row = QcUi.Root(parent, "row_" + key);
             row.sizeDelta = new Vector2(0, 96);
@@ -103,7 +109,18 @@ namespace QuietCamp.Presentation.UI
             QcUi.Label(label, key, QcUi.TextSmall, TextAlignmentOptions.MidlineLeft, QcUi.Ink);
             var sliderGo = QcUi.Anchor(row, "s",
                 new Vector2(0.45f, 0.2f), new Vector2(1, 0.8f), Vector2.zero, Vector2.zero);
-            return BuildSlider(sliderGo, min, max, value, onChange);
+            var slider = BuildSlider(sliderGo, min, max, value, onChange);
+            if (onRelease != null)
+            {
+                var trigger = sliderGo.gameObject.AddComponent<UnityEngine.EventSystems.EventTrigger>();
+                var entry = new UnityEngine.EventSystems.EventTrigger.Entry
+                {
+                    eventID = UnityEngine.EventSystems.EventTriggerType.PointerUp,
+                };
+                entry.callback.AddListener(_ => onRelease());
+                trigger.triggers.Add(entry);
+            }
+            return slider;
         }
 
         public static Slider BuildSlider(RectTransform parent, float min, float max,

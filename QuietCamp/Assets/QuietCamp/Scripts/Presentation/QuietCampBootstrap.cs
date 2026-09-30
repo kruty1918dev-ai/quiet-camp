@@ -242,7 +242,10 @@ namespace QuietCamp.Presentation
             UnityEngine.Application.targetFrameRate = 60;
             // Forest base layer — a persistent wind loop living on the
             // DontDestroyOnLoad audio root across menu and camp scenes.
-            _audio?.Play("ambience.wind");
+            // The handle is shared so scenes can fade its weight per phase
+            // without restarting the loop.
+            var wind = _audio?.Play("ambience.wind") ?? default;
+            if (_services != null) _services.AmbientWindHandle = wind;
             if (SceneManager.GetActiveScene().name != _firstSceneName)
                 SceneManager.LoadScene(_firstSceneName);
         }

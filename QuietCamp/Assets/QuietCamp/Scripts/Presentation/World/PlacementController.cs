@@ -44,6 +44,9 @@ namespace QuietCamp.Presentation.World
         public event System.Action Cancelled;
         /// <summary>Raised when a committed tent is picked up to move it.</summary>
         public event System.Action<string> TentGrabbed;
+        /// <summary>Raised when pressing the board starts a fresh preview for
+        /// the selected guest — payload is the world point under the pointer.</summary>
+        public event System.Action<Vector3> PreviewBegan;
 
         /// <summary>True while a ghost preview is on screen (press/drag/cancel pending).</summary>
         public bool HasPreview => _preview != null;
@@ -146,9 +149,11 @@ namespace QuietCamp.Presentation.World
             }
 
             if (_session.SelectedGuestId == null) { ReleasePointer(); return; }
-            var cell = BoardMath.CellOf(_level, Hit(sample.Position));
+            var hit = Hit(sample.Position);
+            var cell = BoardMath.CellOf(_level, hit);
             BeginPreview(cell.X, cell.Z, _preview?.rotation ?? 0);
             _grabOffset = new Cell(0, 0);
+            PreviewBegan?.Invoke(hit);
         }
 
         void OnRelease(PointerSample sample)
