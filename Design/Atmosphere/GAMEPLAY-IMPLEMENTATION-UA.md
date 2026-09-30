@@ -53,9 +53,16 @@
 - Згенеровані кліпи: crickets loop (шов зведено кросфейдом, нормалізація -4.4 dBFS), owl hoot, wind gust, leaf rustle, twig snap, chime. Виміри — [AUDIO-MEASUREMENTS.md](AUDIO-MEASUREMENTS.md); це PCM-метрики, не доказ сприйнятої якості петлі.
 
 ## Перехід FoliageDive (промпт 04)
-- `FoliageDiveTransition` — єдиний перехід у `ScreenRouter` (Doors/Iris/Curtain для сцен більше не використовуються). Стани Idle→Covering→CoveredLoading→Preparing→Revealing→Idle, помилка/timeout→Recover з гарантованим звільненням.
-- Камера занурюється в ближнє листя (~1.0–1.2s), повне непрозоре покриття `#173638` до старту завантаження, підказка при повільному завантаженні. Летючі листки на cover без прямокутних вирізів і спалахів.
-- Повторні тапи ігноруються (`IsBusy`), pause/resume зберігає cover, resize перераховує fit, reduced motion — простий розчин кольору без dive/листя/blur.
+- `FoliageDiveTransition` — єдиний перехід у `ScreenRouter` (Doors/Iris/Curtain для сцен більше не використовуються). Стани Idle→Covering→CoveredLoading→Preparing→Revealing→Idle, помилка/timeout→Recover з гарантованим звільненням та генераційним токеном проти воскресіння застарілих очікувань.
+- Усі таймінги, глибина камери, палітри й бюджети листя — у `Resources/QuietCamp/transition.json`, завантажується через `TransitionConfig` (validate→resolve→freeze); у коді дублів немає.
+- Readiness-контракт замість довільних кадрів: reveal дозволено лише коли `IsReady` нового scene host (рівень прочитано, world/HUD/camera fit/фаза застосовані) і під cover пройшов хоча б один намальований кадр; обидва очікування обмежені wall-clock і ведуть до recovery.
+- Камера занурюється уздовж −baseline up на `cameraDepthFraction×H`, size→`cameraSizeMultiplier`; reveal стартує з `revealDepthFraction` і повертає точний fit. Під час CoveredLoading camera не пишеться — fit сцени може оновити baseline; при resize baseline перезнімається на тому самому normalized progress.
+- Листя: 2/4/6 спрайтів за якістю, нижньо-домінантна хореографія зі stagger-затримками, scale-зростанням і кутами ±6–10°; reveal рухає той самий normalized progress, тож листки реально відходять, а не зависають. Розміри від короткої сторони канваса — без розтягнутих прямокутників на планшеті; відсутній спрайт → дешевий dissolve-fallback.
+- Палітра за цільовою фазою: під непрозорим cover колір тонує до тіні нової сцени (ніч #132D38, ранок/полудень #203D36), листя бере фазовий tint — reveal уже показує узгоджену фазу.
+- Ввід: CanvasGroup raycast + `InputPolicy.AcquireBlock(All)` + Modal-контекст із блокуванням нижніх хоткеїв; активний drag скасовується без commit (`PlacementController` реагує на блок); Back проковтується виділеним no-op `qc.transition.back`.
+- Звук: вхідний rustle на normalized marker ~0.5 (gain .3, pan −.12), вихідний на ~0.28 (−4.5 дБ тихіше), амбієнт dip −2 дБ через scoped `DuckBus`. Повторні тапи ігноруються (`IsBusy`), timeout ~15s показує локалізовану підказку й recovery без скасування самого Unity-load (операція дочікується під `IsBusy`, тож запізніла активація не конфліктує з retry).
+- Reduced motion: камера й листя нерухомі, cover 140мс → readiness → reveal 180мс, без cues; той самий readiness/error/input lifecycle.
+- Blur: свідомо не реалізований RenderGraph-прохід — High використовує Balanced fallback (baked-soft foliage), як дозволено специфікацією; `blurHigh` у конфізі лишається false.
 
 ## Час доби та пост-ефекти (промпт 05)
 - Фаза в `atmosphere.json` — авторські дані рівня, не годинник. Єдиний snapshot живить світло, небо, звук, частинки, вогонь і пост.
@@ -66,6 +73,6 @@
 Під час роботи локальні FireFx/Sky/Foliage шейдери перенесли у Kruty1918.Atmos. Цей перенос збережено. Новий код використовує актуальний FireVisual пакета; його API не змінювався. Трава/квіти лишаються на Atmos/FoliageSway з локальними material copies й налаштованими _BaseColor/_SwayAmp.
 
 ## Перевірка
-Звіти Unity зберігаються в ігнорованій папці quiet-camp/Temp/ai/atmosphere/ поза Unity-проєктом: Unity очищає власний Temp при наступних запусках. Перевірено компіляцію, **61 EditMode** і **18 PlayMode** тестів. PlayMode охоплює фази, наявність шарів, підтримку shader, відсутність рожевих пікселів, недублювання loop, атлас 2×2 і бюджети частинок, спільний вітер, єдиний listener-proxy, dive-перехід із відновленням вводу, вихід у меню й повернення реальною кнопкою Start/Continue.
+Звіти Unity зберігаються в ігнорованій папці quiet-camp/Temp/ai/atmosphere/ поза Unity-проєктом: Unity очищає власний Temp при наступних запусках. Перевірено компіляцію, **65 EditMode** і **21 PlayMode** тестів. PlayMode охоплює фази, наявність шарів, підтримку shader, відсутність рожевих пікселів, недублювання loop, атлас 2×2 і бюджети частинок, спільний вітер, єдиний listener-proxy, dive-перехід із відновленням вводу, вихід у меню й повернення реальною кнопкою Start/Continue, а також recovery без воскресіння CoveredLoading, ретракцію листя на reveal, policy-гейт і reduced-motion гілку переходу.
 
 Кадри з камери Unity показують world без overlay HUD; це не рекламні рендери й не повні device screenshots. Тести в Editor не є перевіркою fps/нагріву/ASTC на Android чи iPhone. Окрему Android-збірку, яку паралельно виконував інший процес, не зараховано до перевірок цієї зміни.
