@@ -35,7 +35,13 @@ namespace QuietCamp.Presentation.World
             col.color = gradient;
             var renderer = ps.GetComponent<ParticleSystemRenderer>();
             renderer.renderMode = ParticleSystemRenderMode.Billboard;
-            var material = new Material(Shader.Find("Universal Render Pipeline/Particles/Unlit"));
+            var shader = Shader.Find("Universal Render Pipeline/Particles/Unlit");
+            if (shader == null)
+            {
+                Debug.LogWarning("[QuietCamp] Particles/Unlit shader missing; campfire FX disabled");
+                return ps;
+            }
+            var material = new Material(shader);
             material.SetColor("_BaseColor", new Color(1f, 0.55f, 0.15f, 0.85f));
             material.SetFloat("_Surface", 1f);
             material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
