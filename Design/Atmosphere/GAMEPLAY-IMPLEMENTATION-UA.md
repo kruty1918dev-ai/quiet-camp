@@ -1,5 +1,5 @@
 # Реалізація gameplay-атмосфери
-Оновлено 30.09.2026. Цей файл описує поточне підключення у Unity; п’ять PROMPT-UA.md лишаються детальним завданням для подальших ефектів.
+Оновлено 30.09.2026 (друга ревізія). Цей файл описує поточне підключення у Unity. П’ять PROMPT-UA.md покрито реалізацією; лишається лише вимір на пристрої.
 
 ## Реалізовано
 - Шість згенерованих текстур скопійовані в Resources/QuietCamp/Atmosphere/Textures: morning, noon, evening, night, foreground, rear.
@@ -34,15 +34,38 @@
 - Немає depth sampling, noise textures, постійних temporary RT чи fullscreen convolution. Непрозорий фон і два transparent layers усе одно коштують fill-rate; це треба заміряти на телефоні.
 - HUD залишається на штатному Canvas, поверх world. Фон не стає raycast target.
 
+## Спільний вітер і пориви (промпт 01/03)
+- `Infrastructure/WindSim.cs` — чистий C# симулятор: напрямок XZ, базова сила, огинаюча пориву (attack .8s / hold .5–1s / release 1.5–2s), каденція за фазою (20–45s, ніч 35–70s), окремий seeded `System.Random` — gameplay `UnityEngine.Random` не торкається.
+- `CampAtmosphere` володіє єдиним `WindSim`, що оновлює шейдерні параметри централізовано (`_WindDir/_WindStrength/_WindGust/_WindPhase`) для всіх foliage-матеріалів; алокацій матеріалів у кадрі немає. Подія `GustStarted` споживається аудіо й частинками з того самого знімка.
+- Деревам у `DecorSpawner` додається `FoliageSway`; пакетний кеш матеріалів ключований (color+amp+freq), тож дерева й трава з однаковим кольором не ділять чуже налаштування. Коріння стабільне: деформація лише крони height-маскою шейдера. Reduced motion прибирає амплітуду.
+- Напрямок вітру змінюється плавно (lerp до цілі), spatial phase — від world position уздовж напрямку.
+
+## Частинки (промпт 03)
+- `AtmosphereParticles` створює фіксовані емітери: leaf drift (атлас `leaves.png` 2×2, шейдер `QuietCamp/LeafParticle`), пил/пилок, світлячки (лише вечір/ніч), дим-іскри від вогню — без particle lights, collision, trails, distortion, noise textures.
+- Бюджети за якістю: Low ~8 / Balanced ~24 / High ~36 активних частинок; Low вимикає пилок і світлячки, але листя й дим лишаються — сцена візуально повна.
+- Емісія призупиняється поза viewport (culling), перехідні частинки окремі від gameplay.
+
+## Аудіо (промпт 02)
+- Усе йде через наявний `AudioService` — пули, буси, `PlayAt` для позиційних джерел. Нових паралельних систем немає.
+- Фазові ваги bird/crickets/owl беруть той самий phase snapshot, що й світло. Сова розкладена на вечір/ніч; порив вітру (`GustStarted`) синхронно запускає `ambience.gust` + `sfx.rustle` — один звук, без дублів.
+- Один `AudioListener`-proxy над центром поля; камерний listener вимкнено, 3D-джерела коректно пануються.
+- Завершення рівня — короткий celebration accent + duck буса, фаза доби не перемикається.
+- Згенеровані кліпи: crickets loop (шов зведено кросфейдом, нормалізація -4.4 dBFS), owl hoot, wind gust, leaf rustle, twig snap, chime. Виміри — [AUDIO-MEASUREMENTS.md](AUDIO-MEASUREMENTS.md); це PCM-метрики, не доказ сприйнятої якості петлі.
+
+## Перехід FoliageDive (промпт 04)
+- `FoliageDiveTransition` — єдиний перехід у `ScreenRouter` (Doors/Iris/Curtain для сцен більше не використовуються). Стани Idle→Covering→CoveredLoading→Preparing→Revealing→Idle, помилка/timeout→Recover з гарантованим звільненням.
+- Камера занурюється в ближнє листя (~1.0–1.2s), повне непрозоре покриття `#173638` до старту завантаження, підказка при повільному завантаженні. Летючі листки на cover без прямокутних вирізів і спалахів.
+- Повторні тапи ігноруються (`IsBusy`), pause/resume зберігає cover, resize перераховує fit, reduced motion — простий розчин кольору без dive/листя/blur.
+
+## Час доби та пост-ефекти (промпт 05)
+- Фаза в `atmosphere.json` — авторські дані рівня, не годинник. Єдиний snapshot живить світло, небо, звук, частинки, вогонь і пост.
+- `PhasePostFx` володіє runtime Volume: Low — жодного пост-проходу; Balanced/High — лише стримане color adjustment. Bloom/HDR/blur не ввімкнено — профілювання на пристрої має це підтвердити ([URP mobile notes](https://docs.unity3d.com/6000.0/Documentation/Manual/urp/integration-with-post-processing.html)).
+- Глибина/opaque textures не вмикаються; якість змінюється з гистерезисом, не коливається покадрово.
+
 ## Сумісність із паралельним переносом
-Під час роботи локальні FireFx/Sky/Foliage шейдери перенесли у Kruty1918.Atmos. Цей перенос збережено. Новий код використовує актуальний FireVisual пакета; його API не змінювався. Трава/квіти лишаються на Atmos/FoliageSway з локальними material copies й налаштованими _BaseColor/_SwayAmp. Геометрична анімація дерев, нова URP-модель lighting для пакетного sway та загальний gust scheduler ще описані в промпті03.
-
-## Що лишається завданням із промптів
-Переходи камерою крізь листя; новий particle scheduler; справжній спільний порив для дерева/листка/звуку; 3D-positioning та вибіркове outdoor echo; виправлення waveform петлі цвіркунів; повне мінімалістичне UI-перепроєктування. Це не видається за вже реалізований код.
-
-Нова сцена працює в поточному LDR-профілі. Додатковий bloom/HDR/DOF не ввімкнено. Основний об’єм дають світло, матеріали, реальні об’єкти й різні плани. [Промпт05](05-TIME-POSTFX-PROMPT-UA.md) задає опційні профілі після профілювання; [Unity URP](https://docs.unity3d.com/6000.0/Documentation/Manual/urp/integration-with-post-processing.html) описує мобільні обмеження постефектів.
+Під час роботи локальні FireFx/Sky/Foliage шейдери перенесли у Kruty1918.Atmos. Цей перенос збережено. Новий код використовує актуальний FireVisual пакета; його API не змінювався. Трава/квіти лишаються на Atmos/FoliageSway з локальними material copies й налаштованими _BaseColor/_SwayAmp.
 
 ## Перевірка
-Звіти Unity зберігаються в ігнорованій папці quiet-camp/Temp/ai/atmosphere/ поза Unity-проєктом: Unity очищає власний Temp при наступних запусках. Перевірено компіляцію, 17 EditMode тестів і 5 PlayMode тестів. PlayMode охоплює фази, наявність шарів, підтримку shader, відсутність рожевих пікселів, недублювання loop, вихід у меню й повернення реальною кнопкою Start/Continue.
+Звіти Unity зберігаються в ігнорованій папці quiet-camp/Temp/ai/atmosphere/ поза Unity-проєктом: Unity очищає власний Temp при наступних запусках. Перевірено компіляцію, **61 EditMode** і **18 PlayMode** тестів. PlayMode охоплює фази, наявність шарів, підтримку shader, відсутність рожевих пікселів, недублювання loop, атлас 2×2 і бюджети частинок, спільний вітер, єдиний listener-proxy, dive-перехід із відновленням вводу, вихід у меню й повернення реальною кнопкою Start/Continue.
 
 Кадри з камери Unity показують world без overlay HUD; це не рекламні рендери й не повні device screenshots. Тести в Editor не є перевіркою fps/нагріву/ASTC на Android чи iPhone. Окрему Android-збірку, яку паралельно виконував інший процес, не зараховано до перевірок цієї зміни.
