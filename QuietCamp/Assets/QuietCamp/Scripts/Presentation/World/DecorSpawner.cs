@@ -18,6 +18,15 @@ namespace QuietCamp.Presentation.World
         /// <summary>How far the decor ring extends beyond the board edge.</summary>
         public const float Apron = 2.1f;
 
+        // Slot order follows the source meshes: bark/wood first, foliage
+        // second; flowers pair a grass stem with a coloured head.
+        static readonly FoliageSway.Species[] BroadleafSlots =
+            { FoliageSway.Species.Trunk, FoliageSway.Species.Canopy };
+        static readonly FoliageSway.Species[] ConiferSlots =
+            { FoliageSway.Species.Trunk, FoliageSway.Species.Conifer };
+        static readonly FoliageSway.Species[] FlowerSlots =
+            { FoliageSway.Species.FlowerStem, FoliageSway.Species.FlowerHead };
+
         // Fixed accents from the scene contract (position + height); pushed
         // outside the board ring automatically for larger levels.
         static readonly (string id, float x, float z, float height)[] TestDecor =
@@ -126,12 +135,17 @@ namespace QuietCamp.Presentation.World
             var go = Object.Instantiate(entry.prefab, root);
             go.transform.localPosition = pos;
             go.transform.localEulerAngles = new Vector3(0f, yaw, 0f);
-            if (assetId == "grass" || assetId.StartsWith("flower"))
-                FoliageSway.Shared.Apply(go);
+            // Species per material slot — a tree's trunk and crown are
+            // separate submeshes with their own responses, never one
+            // amplitude for the whole model.
+            if (assetId == "grass")
+                FoliageSway.Shared.ApplySpecies(go, FoliageSway.Species.Grass);
+            else if (assetId.StartsWith("flower"))
+                FoliageSway.Shared.ApplySlots(go, FlowerSlots);
+            else if (assetId == "tree_default")
+                FoliageSway.Shared.ApplySlots(go, BroadleafSlots);
             else if (assetId.StartsWith("tree"))
-                // Canopy bends via the shader's height mask; the trunk under
-                // ~0.6 world units keeps ~zero weight and stays planted.
-                FoliageSway.Shared.Apply(go, amplitude: .03f, frequency: .5f);
+                FoliageSway.Shared.ApplySlots(go, ConiferSlots);
             if (assetId.StartsWith("tree") || assetId.StartsWith("stone")
                 || assetId == "log" || assetId == "stump_round" || assetId == "sign")
                 AddContactShadow(go);

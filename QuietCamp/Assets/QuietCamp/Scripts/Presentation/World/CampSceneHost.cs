@@ -27,6 +27,7 @@ namespace QuietCamp.Presentation.World
         CampSession _session;
         BoardRenderer _renderer;
         PlacementController _placement;
+        Transform _decorRoot;
         CampHud _hud;
         HintService _hint;
         TutorialDirector _tutorial;
@@ -135,13 +136,13 @@ namespace QuietCamp.Presentation.World
                 Child("Tent"), Child("Overlay"));
             _renderer.SyncPlacements(_session.State.Placements, level);
 
-            var decorRoot = Find("DecorRoot")?.transform;
-            if (decorRoot != null)
+            _decorRoot = Find("DecorRoot")?.transform;
+            if (_decorRoot != null)
             {
-                for (var i = decorRoot.childCount - 1; i >= 0; i--)
-                    Destroy(decorRoot.GetChild(i).gameObject);
-                DecorSpawner.Spawn(level, _services.Assets, decorRoot);
-                CollectAnchors(decorRoot);
+                for (var i = _decorRoot.childCount - 1; i >= 0; i--)
+                    Destroy(_decorRoot.GetChild(i).gameObject);
+                DecorSpawner.Spawn(level, _services.Assets, _decorRoot);
+                CollectAnchors(_decorRoot);
             }
 
             // The scene's evening fire light must sit over this level's fire
@@ -440,7 +441,7 @@ namespace QuietCamp.Presentation.World
             var profile = _atmosphereCatalog.Resolve(level.id, level.lighting);
             var tier = QualityTier();
             _atmosphere.Configure(FindCamera(), level, viewport, profile,
-                () => _services.ReducedMotion, tier);
+                () => _services.ReducedMotion, tier, _decorRoot);
             // No near-leaf flyby while dragging a tent, behind a modal or
             // during a scene transition (atmosphere spec §4.2/§9).
             if (_atmosphere.Particles != null)

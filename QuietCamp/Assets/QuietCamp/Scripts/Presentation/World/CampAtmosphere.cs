@@ -12,8 +12,17 @@ namespace QuietCamp.Presentation.World
     {
         static readonly int Tint = Shader.PropertyToID("_Tint");
         static readonly int ProtectedRect = Shader.PropertyToID("_ProtectedRect");
-        static readonly int SwayAmp = Shader.PropertyToID("_SwayAmp");
         static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
+        // Shared vegetation contract — this component is the single owner.
+        static readonly int WindXZ = Shader.PropertyToID("_AtmosWindXZ");
+        static readonly int WindStrength = Shader.PropertyToID("_AtmosWindStrength");
+        static readonly int WindTime = Shader.PropertyToID("_AtmosWindTime");
+        static readonly int WaveLen = Shader.PropertyToID("_AtmosWaveLen");
+        static readonly int WaveSpeed = Shader.PropertyToID("_AtmosWaveSpeed");
+        static readonly int FlutterScale = Shader.PropertyToID("_AtmosFlutterScale");
+        static readonly int SunDirW = Shader.PropertyToID("_AtmosSunDirW");
+        static readonly int SunColor = Shader.PropertyToID("_AtmosSunColor");
+        static readonly int AmbientId = Shader.PropertyToID("_AtmosAmbient");
         Camera _camera;
         LevelData _level;
         RectTransform _viewport;
@@ -29,19 +38,21 @@ namespace QuietCamp.Presentation.World
         AtmosphereParticles _particles;
         PhasePostFx _postFx;
         int _tier = 1;
-        bool _lastReduced;
         Vector3 _lastViewportPosition;
         AtmosphereCatalog.Profile _profile;
-        /// <summary>Scene-local foliage clones: base color + amplitude scale
-        /// (trees sway slower/smaller than grass — their materials carry the
-        /// creator's _SwayAmp ratio as a weight).</summary>
-        readonly Dictionary<Material, FoliageEntry> _foliage = new Dictionary<Material, FoliageEntry>();
-
-        struct FoliageEntry
-        {
-            public Color Color;
-            public float AmpScale;
-        }
+        Light _sun;
+        // Smoothed vegetation state — profiles and reduced motion ease over
+        // time instead of snapping poses (spec §8: 3–5 s profile transitions).
+        float _windLevel;
+        Color _ambientNow, _ambientTarget;
+        Color _sunColorNow, _sunColorTarget;
+        Vector3 _sunDirNow = Vector3.down, _sunDirTarget = Vector3.down;
+        /// <summary>Scene-local foliage clones mapped to their base colors —
+        /// cloned so a phase tint never leaks into the package's shared cache
+        /// or a preview scene.</summary>
+        readonly Dictionary<Material, Color> _foliage = new Dictionary<Material, Color>();
+        readonly HashSet<Material> _foliageSeen = new HashSet<Material>();
+        Transform _decorRoot;
         bool _initialized;
         AmbientMode _previousAmbientMode;
         Color _previousAmbient;
@@ -62,13 +73,15 @@ namespace QuietCamp.Presentation.World
         }
 
         public void Configure(Camera camera, LevelData level, RectTransform viewport,
-            AtmosphereCatalog.Profile profile, Func<bool> reducedMotion, int qualityTier = 1)
+            AtmosphereCatalog.Profile profile, Func<bool> reducedMotion, int qualityTier = 1,
+            Transform decorRoot = null)
         {
             _camera = camera;
             _level = level;
             _viewport = viewport;
             _reducedMotion = reducedMotion;
             _tier = qualityTier;
+            _decorRoot = decorRoot;
             _previousAmbient = RenderSettings.ambientLight;
             _previousAmbientMode = RenderSettings.ambientMode;
             _previousFog = RenderSettings.fog;
@@ -91,7 +104,17 @@ namespace QuietCamp.Presentation.World
             _rearMaterial.SetFloat("_EdgeOnly", 1);
             _nearMaterial.SetFloat("_Protection", 1);
             _nearMaterial.SetFloat("_Feather", .025f);
-            CaptureFoliage();
+            // Vegetation wave field constants (spec §5): wavelength ~10 cells,
+            // speed ~1.5 cells/s — slow enough for neighbouring plants to
+            // move as kin instead of a synchronized dance.
+            Shader.SetGlobalFloat(WaveLen, 10f);
+            Shader.SetGlobalFloat(WaveSpeed, 1.5f);
+            Shader.SetGlobalFloat(FlutterScale, _tier > 0 ? 1f : 0f);
+            _sun = RenderSettings.sun;
+            if (_sun == null || _sun.type != LightType.Directional)
+                foreach (var l in FindObjectsByType<Light>(FindObjectsSortMode.None))
+                    if (l.type == LightType.Directional) { _sun = l; break; }
+            RegisterDecor(_decorRoot);
             _initialized = true;
             Apply(profile);
             RefreshLayout();
@@ -139,48 +162,58 @@ namespace QuietCamp.Presentation.World
             RenderSettings.ambientMode = AmbientMode.Flat;
             RenderSettings.ambientLight = profile.Ambient;
             RenderSettings.fog = false;
-            ApplyFoliage(_reducedMotion != null && _reducedMotion());
+            // Light targets ease over ~4 s — a phase change never snaps.
+            _ambientTarget = profile.Ambient;
+            _sunColorTarget = _sun != null ? _sun.color * _sun.intensity
+                : profile.Sun * profile.SunIntensity;
+            if (_sun != null) _sunDirTarget = -_sun.transform.forward;
+            if (!_foliageLerping) // first apply: start already settled
+            {
+                _ambientNow = _ambientTarget;
+                _sunColorNow = _sunColorTarget;
+                _sunDirNow = _sunDirTarget;
+            }
         }
 
-        void CaptureFoliage()
+        /// <summary>
+        /// Registers sway materials under a decor root — scoped, never a
+        /// scene-wide scan, and safe to call again for plants created after
+        /// the initial capture (spec §2.8–2.9). Idempotent per material.
+        /// </summary>
+        public void RegisterDecor(Transform decorRoot)
         {
-            // Keep the package's shader; own scene-local copies rather than tinting its shared cache.
+            if (decorRoot == null) return;
             var copies = new Dictionary<Material, Material>();
-            foreach (var renderer in FindObjectsByType<MeshRenderer>(FindObjectsSortMode.None))
+            foreach (var renderer in decorRoot.GetComponentsInChildren<Renderer>())
             {
-                var source = renderer.sharedMaterial;
-                if (source == null || source.shader.name != "Atmos/FoliageSway") continue;
-                if (!copies.TryGetValue(source, out var copy))
+                var mats = renderer.sharedMaterials;
+                var changed = false;
+                for (var i = 0; i < mats.Length; i++)
                 {
-                    copy = new Material(source) { name = source.name + " (camp atmosphere)" };
-                    copies.Add(source, copy);
-                    _foliage.Add(copy, new FoliageEntry
+                    var source = mats[i];
+                    if (source == null || source.shader == null
+                        || source.shader.name != "Atmos/FoliageSway") continue;
+                    if (_foliageSeen.Contains(source)) continue; // already ours
+                    if (!copies.TryGetValue(source, out var copy))
                     {
-                        Color = source.GetColor(BaseColor),
-                        AmpScale = Mathf.Clamp01(source.GetFloat(SwayAmp) / .05f),
-                    });
+                        copy = new Material(source)
+                        { name = source.name + " (camp atmosphere)" };
+                        copies.Add(source, copy);
+                        _foliageSeen.Add(copy);
+                        _foliage.Add(copy, source.GetColor(BaseColor));
+                    }
+                    mats[i] = copy;
+                    changed = true;
                 }
-                renderer.sharedMaterial = copy;
+                if (changed) renderer.sharedMaterials = mats;
             }
         }
-
-        void ApplyFoliage(bool reduced)
-        {
-            _lastReduced = reduced;
-            foreach (var pair in _foliage)
-            {
-                pair.Key.SetFloat(SwayAmp, reduced ? 0 : SwayAmplitude() * pair.Value.AmpScale);
-                pair.Key.SetColor(BaseColor, pair.Value.Color * Color.Lerp(Color.white, _profile.Ambient, .65f));
-            }
-        }
-
-        /// <summary>Sway amplitude follows the shared wind snapshot — calm
-        /// base breeze plus the live gust envelope, normalized like before.</summary>
-        float SwayAmplitude() => .05f * Mathf.Clamp(_wind.Strength + _wind.GustEnvelope * .1f, 0f, .6f) / .25f;
 
         /// <summary>Particles and smoke drift need the campfire's world anchor.</summary>
         public void SetFire(Vector3 position, bool active)
             => _particles?.SetFire(position, active);
+
+        bool _foliageLerping;
 
         void LateUpdate()
         {
@@ -189,18 +222,42 @@ namespace QuietCamp.Presentation.World
             var size = new Vector2Int(Screen.width, Screen.height);
             var position = _viewport != null ? _viewport.position : Vector3.zero;
             if (size != _lastScreen || rect != _lastViewport || position != _lastViewportPosition) RefreshLayout();
-            // Visual time never drives puzzle state. Reduced motion really removes sway.
-            bool reduced = _reducedMotion != null && _reducedMotion();
-            if (reduced != _lastReduced) ApplyFoliage(reduced);
             _wind = _windSim.Advance(Time.deltaTime);
-            if (!reduced)
-            {
-                _clock += Time.deltaTime;
-                // Foliage sway tracks the shared gust envelope, not its own timer.
-                float amp = SwayAmplitude();
-                foreach (var pair in _foliage) pair.Key.SetFloat(SwayAmp, amp * pair.Value.AmpScale);
-            }
-            var sway = reduced ? 0f : Mathf.Sin(_clock * .65f) * _wind.Strength;
+            bool reduced = _reducedMotion != null && _reducedMotion();
+
+            // One eased level drives every plant: reduced motion approaches
+            // zero in ~0.3 s and returns smoothly, no pose snap (spec §11).
+            float targetLevel = reduced ? 0f : _wind.Strength;
+            _windLevel = Mathf.MoveTowards(_windLevel, targetLevel,
+                Time.deltaTime * 3f); // ~0.33 s settle per spec §11
+            if (!reduced) _clock += Time.deltaTime;
+
+            // Phase targets ease over ~4 s; tint follows on the same clock.
+            float k = 1f - Mathf.Exp(-Time.deltaTime / 1.3f); // ~4 s settle
+            bool settling = false;
+            if (_ambientNow != _ambientTarget)
+            { _ambientNow = Color.Lerp(_ambientNow, _ambientTarget, k); settling = true; }
+            if (_sunColorNow != _sunColorTarget)
+            { _sunColorNow = Color.Lerp(_sunColorNow, _sunColorTarget, k); settling = true; }
+            if ((_sunDirNow - _sunDirTarget).sqrMagnitude > 1e-6f)
+            { _sunDirNow = Vector3.Slerp(_sunDirNow, _sunDirTarget, k); settling = true; }
+            _foliageLerping = settling;
+
+            // Shared vegetation state — one owner, one write per frame.
+            Shader.SetGlobalVector(WindXZ,
+                new Vector4(_wind.DirectionXZ.x, _wind.DirectionXZ.y, 0f, 0f));
+            Shader.SetGlobalFloat(WindStrength, _windLevel);
+            Shader.SetGlobalFloat(WindTime, _wind.PhaseSeconds);
+            Shader.SetGlobalVector(SunDirW, _sunDirNow.normalized);
+            Shader.SetGlobalColor(SunColor, _sunColorNow);
+            Shader.SetGlobalColor(AmbientId, _ambientNow);
+
+            // Foliage tint follows the phase ambient on the same eased clock.
+            var phaseTint = Color.Lerp(Color.white, _ambientNow, .65f);
+            foreach (var pair in _foliage)
+                pair.Key.SetColor(BaseColor, pair.Value * phaseTint);
+
+            var sway = reduced ? 0f : Mathf.Sin(_clock * .65f) * _windLevel;
             _near.localRotation = Quaternion.Euler(0, 0, sway * .4f);
         }
 
