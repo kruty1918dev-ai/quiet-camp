@@ -30,11 +30,20 @@ namespace QuietCamp.Presentation.World
         bool _fireActive;
         Func<bool> _reducedMotion;
         float _nearLeafTimer = 30f;
+        int _nearLeafBudget;
+        int _leafBudget;
+        bool _lastReduced;
+        System.Random _decorRng;
+        Vector3 _mistAnchor;
+        float _mistDrift;
         bool _initialized;
 
         // Balanced-tier counts per spec; Low/High scale per the effect table.
+        // A phase profile value of 0 means OFF on every tier — scaling must
+        // never resurrect an effect the phase disables (e.g. day fireflies).
         static int Scale(int balanced, int low, int high, Tier tier)
-            => tier == Tier.Low ? Math.Min(balanced, low)
+            => balanced <= 0 ? 0
+             : tier == Tier.Low ? Math.Min(balanced, low)
              : tier == Tier.High ? Mathf.Max(balanced, high) : balanced;
 
         public void Configure(Camera camera, LevelData level, AtmosphereCatalog.Profile profile,
@@ -45,6 +54,8 @@ namespace QuietCamp.Presentation.World
             _reducedMotion = reducedMotion;
             _profile = profile;
             _meadowRadius = Mathf.Max(level.width, level.height) * .5f + DecorSpawner.Apron;
+            // Decorative sequence isolated from gameplay RNG.
+            _decorRng = new System.Random(level.decorSeed * 31 + 7);
 
             var shader = Shader.Find("QuietCamp/LeafParticle");
             if (shader == null) throw new InvalidOperationException("QuietCamp/LeafParticle shader missing.");
@@ -248,6 +259,7 @@ namespace QuietCamp.Presentation.World
             float w = _meadowRadius * 4f;
             go.transform.localScale = new Vector3(w, w * .35f, 1f);
             go.transform.position = new Vector3(0f, _meadowRadius * .45f, -_meadowRadius * 1.6f);
+            _mistAnchor = go.transform.position;
             go.transform.rotation = Quaternion.Euler(35f, 0f, 0f);
             go.SetActive(false);
             return go.transform;
@@ -280,15 +292,23 @@ namespace QuietCamp.Presentation.World
         {
             _profile = profile;
             if (!_initialized) return;
+            // Reduced motion silences every ambient emitter, not only leaves.
+            bool quiet = _reducedMotion != null && _reducedMotion();
+            _leafBudget = Scale(profile.Leaves, 2, 6, _tier);
             int dust = Scale(profile.Dust, 0, 10, _tier);
             int flies = Scale(profile.Fireflies, 0, 5, _tier);
             int smoke = Scale(profile.Smoke, 0, 3, _tier);
+            _nearLeafBudget = Scale(profile.NearLeaf, 0, 2, _tier);
+            SetMaxParticles(_leaves, _leafBudget);
+            SetMaxParticles(_nearLeaf, _nearLeafBudget);
             SetMaxParticles(_dust, dust);
             SetMaxParticles(_fireflies, flies);
             SetMaxParticles(_smoke, smoke);
-            SetEmission(_dust, dust > 0 ? dust / 4f : 0f);
-            SetEmission(_fireflies, flies > 0 ? flies / 6f : 0f);
-            SetEmission(_smoke, smoke > 0 && _fireActive ? .7f : 0f);
+            if (_nearLeafBudget <= 0) _nearLeaf.Clear();
+            // Emission off means off — maxParticles is not an on/off switch.
+            SetEmission(_dust, !quiet && dust > 0 ? dust / 4f : 0f);
+            SetEmission(_fireflies, !quiet && flies > 0 ? flies / 6f : 0f);
+            SetEmission(_smoke, !quiet && smoke > 0 && _fireActive ? .7f : 0f);
             if (_mist != null) _mist.gameObject.SetActive(profile.Mist && _tier > Tier.Low);
         }
 
@@ -328,12 +348,18 @@ namespace QuietCamp.Presentation.World
             // Drift direction = shared wind; spawn plane sits on the upwind edge.
             var dir = wind.DirectionXZ.sqrMagnitude > .001f ? wind.DirectionXZ : new Vector2(0f, 1f);
             var dir3 = new Vector3(dir.x, 0f, dir.y).normalized;
+            if (reduced != _lastReduced)
+            {
+                _lastReduced = reduced;
+                ApplyProfile(_profile); // re-gates every emitter at once
+            }
             if (_leaves != null)
             {
                 _leaves.transform.position = -dir3 * (_meadowRadius * .95f) + Vector3.up * .8f;
                 _leaves.transform.rotation = Quaternion.LookRotation(dir3, Vector3.up);
                 var emission = _leaves.emission;
-                float rate = reduced ? 0f : Mathf.Lerp(.04f, .10f, wind.Strength);
+                float rate = reduced || _leafBudget <= 0 ? 0f
+                    : Mathf.Lerp(.04f, .10f, wind.Strength);
                 emission.rateOverTime = rate;
                 if (rate > 0f && !_leaves.isPlaying) _leaves.Play();
                 else if (rate <= 0f && _leaves.isEmitting)
@@ -341,17 +367,31 @@ namespace QuietCamp.Presentation.World
             }
 
             // One rare big leaf drifting along a screen edge, never over the board.
-            if (_nearLeaf != null && _tier > Tier.Low && !reduced)
+            if (_nearLeaf != null && _tier > Tier.Low && !reduced && _nearLeafBudget > 0)
             {
                 _nearLeafTimer -= Time.deltaTime;
                 if (_nearLeafTimer <= 0f && _nearLeaf.particleCount < _nearLeaf.main.maxParticles)
                 {
-                    _nearLeafTimer = 25f + UnityEngine.Random.value * 20f;
+                    _nearLeafTimer = 25f + (float)_decorRng.NextDouble() * 20f;
                     var cam = _camera.transform;
-                    _nearLeaf.transform.position = cam.position - cam.forward * (cam.position.y - 1.4f)
-                        + cam.right * (-_camera.orthographicSize * _camera.aspect * .9f);
-                    _nearLeaf.transform.rotation = Quaternion.LookRotation(dir3, Vector3.up);
-                    _nearLeaf.Emit(1);
+                    var spawn = cam.position - cam.forward * (cam.position.y - 1.4f)
+                        + cam.right * (-_camera.orthographicSize * _camera.aspect * 1.05f);
+                    // Trajectory check, not just the start point: skip the
+                    // emission when the drift path crosses the protected
+                    // board viewport.
+                    var end = spawn + dir3 * (.45f * 5f);
+                    var prot = host != null ? host.ProtectedViewport : default;
+                    var a = (Vector2)_camera.WorldToViewportPoint(spawn);
+                    var b = (Vector2)_camera.WorldToViewportPoint(end);
+                    var mid = (a + b) * .5f;
+                    prot.xMin -= .03f; prot.yMin -= .03f;
+                    prot.xMax += .03f; prot.yMax += .03f;
+                    if (!prot.Contains(a) && !prot.Contains(mid) && !prot.Contains(b))
+                    {
+                        _nearLeaf.transform.position = spawn;
+                        _nearLeaf.transform.rotation = Quaternion.LookRotation(dir3, Vector3.up);
+                        _nearLeaf.Emit(1);
+                    }
                 }
             }
 
@@ -361,11 +401,18 @@ namespace QuietCamp.Presentation.World
                 var vel = _smoke.velocityOverLifetime;
                 vel.enabled = true;
                 vel.space = ParticleSystemSimulationSpace.World;
-                vel.x = new ParticleSystem.MinMaxCurve(dir3.x * .2f + .05f * wind.GustEnvelope);
-                vel.z = new ParticleSystem.MinMaxCurve(dir3.z * .2f + .05f * wind.GustEnvelope);
+                // The gust rides the wind direction — not a fixed diagonal.
+                vel.x = new ParticleSystem.MinMaxCurve(dir3.x * (.2f + .05f * wind.GustEnvelope));
+                vel.z = new ParticleSystem.MinMaxCurve(dir3.z * (.2f + .05f * wind.GustEnvelope));
             }
             if (_mist != null && _mist.gameObject.activeSelf)
-                _mist.position += dir3 * (.02f * Time.deltaTime * (1f + wind.GustEnvelope));
+            {
+                // Bounded sway around the anchor — never drifts out of frame.
+                if (!reduced)
+                    _mistDrift += Time.deltaTime * .02f * (1f + wind.GustEnvelope);
+                _mist.position = _mistAnchor
+                    + dir3 * (Mathf.Sin(_mistDrift) * _meadowRadius * .18f);
+            }
         }
 
         void OnDestroy()
