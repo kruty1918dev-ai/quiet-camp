@@ -1,5 +1,7 @@
 using System.Collections;
 using NUnit.Framework;
+using QuietCamp.Domain;
+using QuietCamp.Infrastructure;
 using QuietCamp.Presentation;
 using QuietCamp.Presentation.World;
 using UnityEngine;
@@ -58,6 +60,53 @@ namespace QuietCamp.Tests
                 if (l.enabled) { enabledListeners++; if (l.name == "ListenerProxy") proxy = l; }
             Assert.AreEqual(1, enabledListeners, "Exactly one AudioListener may be active.");
             Assert.IsNotNull(proxy, "Camp must own the board-centre listener proxy.");
+        }
+
+        /// <summary>Prompt-03 checklist: a phase budget of 0 means OFF on every
+        /// tier — High must not resurrect day fireflies/smoke — and Reduced
+        /// Motion silences every ambient emitter, not only the leaves.</summary>
+        [UnityTest]
+        public IEnumerator DisabledBudgetsStayOffAndReducedMotionSilencesAll()
+        {
+            var catalog = AtmosphereCatalog.Load();
+            var level = new LevelData { width = 8, height = 8, decorSeed = 7 };
+            var camGo = new GameObject("TestCam");
+            var cam = camGo.AddComponent<Camera>();
+            cam.orthographic = true;
+            var hiGo = new GameObject("ParticlesHigh");
+            var hi = hiGo.AddComponent<AtmosphereParticles>();
+            var rmGo = new GameObject("ParticlesReduced");
+            var rm = rmGo.AddComponent<AtmosphereParticles>();
+            try
+            {
+                hi.Configure(cam, level, catalog.Get("morning"),
+                    AtmosphereParticles.Tier.High, () => false);
+                yield return null;
+                Assert.AreEqual(0f, Rate(hi, "Fireflies"), "High resurrected disabled fireflies.");
+                Assert.AreEqual(0f, Rate(hi, "FireSmoke"), "High resurrected disabled smoke.");
+                Assert.Greater(Rate(hi, "DustMotes"), 0f, "Active dust must emit on High.");
+
+                rm.Configure(cam, level, catalog.Get("evening"),
+                    AtmosphereParticles.Tier.Balanced, () => true);
+                yield return null;
+                Assert.AreEqual(0f, Rate(rm, "AmbientLeaves"), "Reduced motion must silence leaves.");
+                Assert.AreEqual(0f, Rate(rm, "DustMotes"), "Reduced motion must silence dust.");
+                Assert.AreEqual(0f, Rate(rm, "Fireflies"), "Reduced motion must silence fireflies.");
+                Assert.AreEqual(0f, Rate(rm, "FireSmoke"), "Reduced motion must silence smoke.");
+            }
+            finally
+            {
+                Object.Destroy(hiGo);
+                Object.Destroy(rmGo);
+                Object.Destroy(camGo);
+            }
+        }
+
+        static float Rate(Component particles, string child)
+        {
+            var ps = particles.transform.Find(child)?.GetComponent<ParticleSystem>();
+            Assert.IsNotNull(ps, child + " particle system must exist.");
+            return ps.emission.rateOverTime.constant;
         }
 
         [UnityTest]
