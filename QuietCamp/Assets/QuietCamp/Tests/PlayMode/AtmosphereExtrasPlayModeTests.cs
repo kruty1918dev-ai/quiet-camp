@@ -90,9 +90,34 @@ namespace QuietCamp.Tests
                     AtmosphereParticles.Tier.Balanced, () => true);
                 yield return null;
                 Assert.AreEqual(0f, Rate(rm, "AmbientLeaves"), "Reduced motion must silence leaves.");
-                Assert.AreEqual(0f, Rate(rm, "DustMotes"), "Reduced motion must silence dust.");
-                Assert.AreEqual(0f, Rate(rm, "Fireflies"), "Reduced motion must silence fireflies.");
-                Assert.AreEqual(0f, Rate(rm, "FireSmoke"), "Reduced motion must silence smoke.");
+                Assert.AreEqual(0f, Rate(rm, "DustMotes"), "Reduced motion may turn dust off.");
+                Assert.AreEqual(0f, Rate(rm, "FireSmoke"), "Reduced motion may turn smoke off.");
+                // Spec §9: fireflies stay as rare static faint points — a
+                // much lower rate, no noise drift, no glow pulse.
+                float flyRate = Rate(rm, "Fireflies");
+                Assert.Greater(flyRate, 0f, "Fireflies stay alive under reduced motion.");
+                Assert.Less(flyRate, 3f / 6f, "Reduced fireflies emit sparser than normal.");
+                var flyPs = rm.transform.Find("Fireflies").GetComponent<ParticleSystem>();
+                Assert.IsFalse(flyPs.noise.enabled, "Reduced fireflies lose the noise drift.");
+                Assert.IsFalse(flyPs.colorOverLifetime.enabled,
+                    "Reduced fireflies lose the glow pulse.");
+
+                // Smoke waits for an active fire even when the budget allows it.
+                var fgGo = new GameObject("ParticlesFire");
+                var fg = fgGo.AddComponent<AtmosphereParticles>();
+                var evening = catalog.Get("evening");
+                fg.Configure(cam, level, evening, AtmosphereParticles.Tier.Balanced, () => false);
+                yield return null;
+                Assert.AreEqual(0f, Rate(fg, "FireSmoke"), "Smoke must wait for an active fire.");
+                fg.SetFire(new Vector3(2f, 0f, 1f), true);
+                Assert.Greater(Rate(fg, "FireSmoke"), 0f, "Active fire releases smoke.");
+                // Re-applying a profile never duplicates systems.
+                int children = fg.transform.childCount;
+                fg.ApplyProfile(evening);
+                fg.ApplyProfile(evening);
+                Assert.AreEqual(children, fg.transform.childCount,
+                    "ApplyProfile must be idempotent.");
+                Object.Destroy(fgGo);
             }
             finally
             {
