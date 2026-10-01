@@ -37,6 +37,16 @@ namespace QuietCamp.Presentation.World
         Vector3 _mistAnchor;
         float _mistDrift;
         bool _initialized;
+        bool _gustHooked;
+
+        /// <summary>Scene-owned veto for the rare near leaf: drag, an open
+        /// modal or a scene transition block new flybys (spec §4.2/§9).
+        /// Set by the host after Configure; null means never suppressed.</summary>
+        public Func<bool> NearLeafSuppressed;
+
+        // Reusable buffer for reduced-motion fast-fade — no per-toggle GC.
+        static readonly ParticleSystem.Particle[] FadeBuffer
+            = new ParticleSystem.Particle[32];
 
         // Balanced-tier counts per spec; Low/High scale per the effect table.
         // A phase profile value of 0 means OFF on every tier — scaling must
@@ -58,11 +68,24 @@ namespace QuietCamp.Presentation.World
             _decorRng = new System.Random(level.decorSeed * 31 + 7);
 
             var shader = Shader.Find("QuietCamp/LeafParticle");
-            if (shader == null) throw new InvalidOperationException("QuietCamp/LeafParticle shader missing.");
+            if (shader == null)
+            {
+                // Spec §11: a missing effect resource disables that decor with
+                // one diagnostic — the game stays playable, no exception loop.
+                Debug.LogError("[QuietCamp] LeafParticle shader missing — ambient particles disabled.");
+                return;
+            }
             _leafTex = Resources.Load<Texture2D>("QuietCamp/Atmosphere/Textures/leaves");
-            _leafMat = new Material(shader) { name = "Leaves (runtime)" };
-            if (_leafTex != null) _leafMat.SetTexture("_MainTex", _leafTex);
             _dotTex = SoftDot();
+            if (_leafTex == null)
+            {
+                // One diagnostic, graceful degrade: leaves render as soft
+                // dots instead of magenta quads (§11).
+                Debug.LogWarning("[QuietCamp] Leaf atlas missing — leaves fall back to dots.");
+                _leafTex = _dotTex;
+            }
+            _leafMat = new Material(shader) { name = "Leaves (runtime)" };
+            _leafMat.SetTexture("_MainTex", _leafTex);
             _softMat = new Material(shader) { name = "SoftDot (runtime)" };
             _softMat.SetTexture("_MainTex", _dotTex);
 
@@ -143,12 +166,18 @@ namespace QuietCamp.Presentation.World
 
         ParticleSystem CreateNearLeaf()
         {
-            int budget = Scale(_profile != null ? _profile.NearLeaf : 1, 0, 2, _tier);
+            // Cap table (§10): at most one near leaf even on High.
+            int budget = Scale(_profile != null ? _profile.NearLeaf : 1, 0, 1, _tier);
             var ps = BaseSystem("NearLeaf", Mathf.Max(1, budget), _leafMat);
             var main = ps.main;
-            main.startLifetime = new ParticleSystem.MinMaxCurve(4f, 6f);
+            main.startLifetime = new ParticleSystem.MinMaxCurve(3f, 5f);
             main.startSpeed = new ParticleSystem.MinMaxCurve(.3f, .5f);
-            main.startSize = new ParticleSystem.MinMaxCurve(.25f, .45f);
+            // Screen-sized: ~3–6 % of viewport width, resolved through the
+            // projection instead of a fixed camera-height distance (§4.2).
+            float vw = _camera != null
+                ? _camera.orthographicSize * 2f * _camera.aspect : 4f;
+            float s = Mathf.Clamp(vw * .045f, .12f, .5f);
+            main.startSize = new ParticleSystem.MinMaxCurve(s * .8f, s * 1.2f);
             main.startColor = new Color(1f, 1f, 1f, .85f);
             var emission = ps.emission;
             emission.rateOverTime = 0f; // manual Emit() on a slow timer
@@ -162,7 +191,8 @@ namespace QuietCamp.Presentation.World
 
         ParticleSystem CreateDust()
         {
-            int budget = Scale(_profile != null ? _profile.Dust : 0, 0, 10, _tier);
+            // Cap table (§10): dust High cap is 8, not 10.
+            int budget = Scale(_profile != null ? _profile.Dust : 0, 0, 8, _tier);
             var ps = BaseSystem("DustMotes", Mathf.Max(1, budget), _softMat);
             var main = ps.main;
             main.startLifetime = new ParticleSystem.MinMaxCurve(3f, 6f);
@@ -174,7 +204,9 @@ namespace QuietCamp.Presentation.World
             var shape = ps.shape;
             shape.enabled = true;
             shape.shapeType = ParticleSystemShapeType.Box;
-            shape.scale = new Vector3(_meadowRadius * 1.6f, 1.2f, _meadowRadius * 1.6f);
+            // Local sunlit pocket at the meadow edge, not a uniform box over
+            // the board (§3 protected zone, §4.3).
+            shape.scale = new Vector3(_meadowRadius * .9f, 1f, _meadowRadius * .4f);
             return ps;
         }
 
@@ -295,10 +327,10 @@ namespace QuietCamp.Presentation.World
             // Reduced motion silences every ambient emitter, not only leaves.
             bool quiet = _reducedMotion != null && _reducedMotion();
             _leafBudget = Scale(profile.Leaves, 2, 6, _tier);
-            int dust = Scale(profile.Dust, 0, 10, _tier);
+            int dust = Scale(profile.Dust, 0, 8, _tier);
             int flies = Scale(profile.Fireflies, 0, 5, _tier);
             int smoke = Scale(profile.Smoke, 0, 3, _tier);
-            _nearLeafBudget = Scale(profile.NearLeaf, 0, 2, _tier);
+            _nearLeafBudget = Scale(profile.NearLeaf, 0, 1, _tier);
             SetMaxParticles(_leaves, _leafBudget);
             SetMaxParticles(_nearLeaf, _nearLeafBudget);
             SetMaxParticles(_dust, dust);
@@ -306,10 +338,43 @@ namespace QuietCamp.Presentation.World
             SetMaxParticles(_smoke, smoke);
             if (_nearLeafBudget <= 0) _nearLeaf.Clear();
             // Emission off means off — maxParticles is not an on/off switch.
+            // Under reduced motion the policy is: dust and smoke off, fireflies
+            // keep living as rare static faint points (spec §9).
             SetEmission(_dust, !quiet && dust > 0 ? dust / 4f : 0f);
-            SetEmission(_fireflies, !quiet && flies > 0 ? flies / 6f : 0f);
+            SetEmission(_fireflies, flies > 0 ? flies / (quiet ? 18f : 6f) : 0f);
             SetEmission(_smoke, !quiet && smoke > 0 && _fireActive ? .7f : 0f);
+            SetFirefliesCalm(quiet);
             if (_mist != null) _mist.gameObject.SetActive(profile.Mist && _tier > Tier.Low);
+        }
+
+        /// <summary>Reduced-motion fireflies: the glow pulse and noise drift
+        /// stop; a few almost-static faint points remain (spec §9).</summary>
+        void SetFirefliesCalm(bool calm)
+        {
+            if (_fireflies == null) return;
+            var main = _fireflies.main;
+            main.startSpeed = calm ? new ParticleSystem.MinMaxCurve(0f)
+                : new ParticleSystem.MinMaxCurve(.04f, .12f);
+            main.startColor = calm
+                ? new Color(.9f, 1f, .55f, .35f) : new Color(.9f, 1f, .55f, .9f);
+            var col = _fireflies.colorOverLifetime;
+            col.enabled = !calm;
+            var noise = _fireflies.noise;
+            noise.enabled = !calm;
+        }
+
+        /// <summary>Lets already-living particles finish within ~0.3 s —
+        /// the reduced-motion fast-fade (spec §9). Toggle-time only.</summary>
+        static void FastFade(ParticleSystem ps)
+        {
+            if (ps == null) return;
+            int n = Mathf.Min(ps.particleCount, FadeBuffer.Length);
+            if (n <= 0) return;
+            ps.GetParticles(FadeBuffer, n);
+            for (int i = 0; i < n; i++)
+                FadeBuffer[i].remainingLifetime
+                    = Mathf.Min(FadeBuffer[i].remainingLifetime, .3f);
+            ps.SetParticles(FadeBuffer, n);
         }
 
         static void SetMaxParticles(ParticleSystem ps, int max)
@@ -348,38 +413,63 @@ namespace QuietCamp.Presentation.World
             // Drift direction = shared wind; spawn plane sits on the upwind edge.
             var dir = wind.DirectionXZ.sqrMagnitude > .001f ? wind.DirectionXZ : new Vector2(0f, 1f);
             var dir3 = new Vector3(dir.x, 0f, dir.y).normalized;
+            if (!_gustHooked && host != null)
+            {
+                host.GustStarted += OnGust;
+                _gustHooked = true;
+            }
             if (reduced != _lastReduced)
             {
                 _lastReduced = reduced;
                 ApplyProfile(_profile); // re-gates every emitter at once
+                if (reduced)
+                {
+                    // Living particles finish within ~0.3 s instead of
+                    // floating on for their full lifetime (spec §9).
+                    FastFade(_leaves);
+                    FastFade(_nearLeaf);
+                    FastFade(_dust);
+                    FastFade(_smoke);
+                }
             }
             if (_leaves != null)
             {
                 _leaves.transform.position = -dir3 * (_meadowRadius * .95f) + Vector3.up * .8f;
                 _leaves.transform.rotation = Quaternion.LookRotation(dir3, Vector3.up);
                 var emission = _leaves.emission;
+                // Spec §4.1: roughly one leaf per 12–25 s across the scene.
                 float rate = reduced || _leafBudget <= 0 ? 0f
-                    : Mathf.Lerp(.04f, .10f, wind.Strength);
+                    : Mathf.Lerp(.04f, .083f, wind.Strength);
                 emission.rateOverTime = rate;
                 if (rate > 0f && !_leaves.isPlaying) _leaves.Play();
                 else if (rate <= 0f && _leaves.isEmitting)
                     _leaves.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             }
 
-            // One rare big leaf drifting along a screen edge, never over the board.
-            if (_nearLeaf != null && _tier > Tier.Low && !reduced && _nearLeafBudget > 0)
+            // One rare big leaf drifting along a screen edge, never over the
+            // board — and never during a drag, a modal or a transition (§4.2).
+            bool suppressed = NearLeafSuppressed != null && NearLeafSuppressed();
+            if (suppressed && _nearLeafTimer < 5f)
+                _nearLeafTimer = 5f; // no flyby the moment a modal closes
+            if (_nearLeaf != null && _tier > Tier.Low && !reduced
+                && _nearLeafBudget > 0 && !suppressed)
             {
                 _nearLeafTimer -= Time.deltaTime;
                 if (_nearLeafTimer <= 0f && _nearLeaf.particleCount < _nearLeaf.main.maxParticles)
                 {
-                    _nearLeafTimer = 25f + (float)_decorRng.NextDouble() * 20f;
+                    _nearLeafTimer = 30f + (float)_decorRng.NextDouble() * 30f;
                     var cam = _camera.transform;
-                    var spawn = cam.position - cam.forward * (cam.position.y - 1.4f)
+                    // Project the camera forward ray onto the leaf plane
+                    // instead of using camera height as a depth guess (§2.5).
+                    float drop = (cam.position.y - 1.2f)
+                        / Mathf.Max(.05f, -cam.forward.y);
+                    var center = cam.position + cam.forward * drop;
+                    var spawn = center
                         + cam.right * (-_camera.orthographicSize * _camera.aspect * 1.05f);
                     // Trajectory check, not just the start point: skip the
                     // emission when the drift path crosses the protected
                     // board viewport.
-                    var end = spawn + dir3 * (.45f * 5f);
+                    var end = spawn + dir3 * (.45f * 4f);
                     var prot = host != null ? host.ProtectedViewport : default;
                     var a = (Vector2)_camera.WorldToViewportPoint(spawn);
                     var b = (Vector2)_camera.WorldToViewportPoint(end);
@@ -393,6 +483,16 @@ namespace QuietCamp.Presentation.World
                         _nearLeaf.Emit(1);
                     }
                 }
+            }
+
+            // Dust lives in the sunlit upwind pocket — the box hugs the rim
+            // and its thin axis points downwind so motes never veil the
+            // board cells (§3).
+            if (_dust != null)
+            {
+                _dust.transform.position = -dir3 * (_meadowRadius * .9f)
+                    + Vector3.up * .4f;
+                _dust.transform.rotation = Quaternion.LookRotation(dir3, Vector3.up);
             }
 
             // Smoke and dust follow the same wind so the world reads as one.
@@ -415,8 +515,23 @@ namespace QuietCamp.Presentation.World
             }
         }
 
+        /// <summary>One gust may tear off a single leaf when the budget has
+        /// room — the leaf sequence row in spec §6. Never a burst.</summary>
+        void OnGust()
+        {
+            if (_leaves == null || _leafBudget <= 0) return;
+            if (_reducedMotion != null && _reducedMotion()) return;
+            if (_leaves.particleCount < _leaves.main.maxParticles)
+                _leaves.Emit(1);
+        }
+
         void OnDestroy()
         {
+            if (_gustHooked)
+            {
+                var host = GetComponentInParent<CampAtmosphere>();
+                if (host != null) host.GustStarted -= OnGust;
+            }
             Destroy(_leafMat); Destroy(_softMat); Destroy(_mistMat); Destroy(_dotTex);
         }
     }

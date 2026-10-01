@@ -441,6 +441,13 @@ namespace QuietCamp.Presentation.World
             var tier = QualityTier();
             _atmosphere.Configure(FindCamera(), level, viewport, profile,
                 () => _services.ReducedMotion, tier);
+            // No near-leaf flyby while dragging a tent, behind a modal or
+            // during a scene transition (atmosphere spec §4.2/§9).
+            if (_atmosphere.Particles != null)
+                _atmosphere.Particles.NearLeafSuppressed = () =>
+                    (_placement != null && _placement.HasPreview)
+                    || (_hud != null && _hud.HasModalOpen)
+                    || (_router != null && _router.IsBusy);
             _atmosphere.GustStarted += OnWindGust;
             // Voice budget by quality tier (Low/Balanced/High → 8/12/16);
             // decorative one-shots are skipped first when the pool is full.
