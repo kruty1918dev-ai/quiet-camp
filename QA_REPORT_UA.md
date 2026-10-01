@@ -23,8 +23,8 @@
 | Чистий імпорт проєкту (batchmode) | OK |
 | `QuietCampProjectSetup.Run` (TMP, шрифт, build profiles) | OK, ідемпотентно |
 | Компіляція всіх asmdef | OK, без error CS |
-| EditMode tests | **66/66 passed** — правила, witness-карти, undo/redo |
-| PlayMode tests | **27/27 passed** — bootstrap, сцени, скриншот-кадри |
+| EditMode tests | **67/67 passed** — правила, witness-карти, undo/redo, портрет-лок |
+| PlayMode tests | **28/28 passed** — bootstrap, сцени, атмосфера, скриншот-кадри |
 | `Tools/verify_bundle.py` (кіт) | **OK** — 61 карта, witness-розв'язки, хеші моделей/аудіо/маніфесту (потребує `PYTHONUTF8=1` на Windows) |
 | Build profiles | Android Development (dev+QC_TEST) і Android Release |
 | Android Release APK | `QuietCamp-MVP-0.1.0.apk`, 38 MB, `Result: Success` |
@@ -73,6 +73,21 @@
   tutorial-підказки під ними не просвічують.
 - Стейдж: пом'якшені шви тайлів і борт основи, контактні тіні під
   декором; перехід `transition.json` — маси листя з перекриттям.
+
+## Статус дизайн-планів (`Design/`)
+
+Аудит усіх промптів проєкту проти поточного коду:
+
+| План | Статус |
+|---|---|
+| `Atmosphere/01` World shaders | Виконано: шари backdrop/rear/near, ProtectedViewport, тінти крон |
+| `Atmosphere/02` Audio | Виконано: вітрове ложе, фази, позиційний вогонь, listener-proxy |
+| `Atmosphere/03` Wind/particles | **Виконано**: один `WindSim`-власник; нульовий бюджет фази = OFF на всіх тірах (раніше High воскрешав ефект); детермінований декоративний RNG; туман — обмежене коливання навколо якоря замість нескінченного дрейфу; пориви диму ідуть по `DirectionXZ`; Reduced Motion глушить усі еміtери; ближній лист перевіряє траєкторію проти ProtectedViewport |
+| `Atmosphere/04` Transitions | Виконано: dive крізь крону, opaque-cover, скриншот-кадри |
+| `Atmosphere/05` Time/PostFX | Виконано базовий шлях: runtime `VolumeProfile`, LDR-first, bloom лише на вищих тірах. HDR/High — опція, свідомо не вмикалася |
+| `Atmosphere/06` Vegetation | Частково (відоме відхилення): height-mask sway + per-material амплітуди є; повний spatial-phase шейдер не реалізований — живе у спільному пакеті `atmos`, зміна поза MVP-скопом |
+| `MainMenu/` | Виконано |
+| `ImmersiveUI/` | Виконано |
 
 ## НЕ перевірено (блокери)
 
