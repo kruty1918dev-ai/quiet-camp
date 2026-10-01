@@ -24,7 +24,7 @@
 | `QuietCampProjectSetup.Run` (TMP, шрифт, build profiles) | OK, ідемпотентно |
 | Компіляція всіх asmdef | OK, без error CS |
 | EditMode tests | **67/67 passed** — правила, witness-карти, undo/redo, портрет-лок |
-| PlayMode tests | **28/28 passed** — bootstrap, сцени, атмосфера, скриншот-кадри |
+| PlayMode tests | **30/30 passed** — bootstrap, сцени, атмосфера, vegetation slots, скриншот-кадри |
 | `Tools/verify_bundle.py` (кіт) | **OK** — 61 карта, witness-розв'язки, хеші моделей/аудіо/маніфесту (потребує `PYTHONUTF8=1` на Windows) |
 | Build profiles | Android Development (dev+QC_TEST) і Android Release |
 | Android Release APK | `QuietCamp-MVP-0.1.0.apk`, 38 MB, `Result: Success` |
@@ -85,7 +85,7 @@
 | `Atmosphere/03` Wind/particles | **Виконано**: один `WindSim`-власник; нульовий бюджет фази = OFF на всіх тірах; детермінований декоративний RNG; туман — обмежене коливання навколо якоря; пориви диму по `DirectionXZ`; Reduced Motion за спекою — листя/пил/дим догасають за ~0.3 с, світлячки лишаються рідкими нерухомими точками без пульсу, туман нерухомий; ближній лист — cap 1, 30–60 с, 3–6 % ширини в'юпорта, гейт на drag/модалку/перехід, перевірка траєкторії проти ProtectedViewport; порив відриває ≤1 листок за вільного бюджету (`GustStarted`); пилок живе кишенею на підвітряному краю, не над полем; жаринки — чинний emitter `Campfire` з пакета atmos (не дубльовано); відсутній шейдер/атлас = один лог + вимкнений декор |
 | `Atmosphere/04` Transitions | Виконано: dive крізь крону, opaque-cover, скриншот-кадри |
 | `Atmosphere/05` Time/PostFX | Виконано базовий шлях: runtime `VolumeProfile`, LDR-first, bloom лише на вищих тірах. HDR/High — опція, свідомо не вмикалася |
-| `Atmosphere/06` Vegetation | Частково (відоме відхилення): height-mask sway + per-material амплітуди є; повний spatial-phase шейдер не реалізований — живе у спільному пакеті `atmos`, зміна поза MVP-скопом |
+| `Atmosphere/06` Vegetation | **Виконано**: `Atmos/FoliageSway` переписано на URP HLSL — спільний world-space вітер (`_AtmosWind*`, один власник `CampAtmosphere`), spatial-phase хвиля від anchor-позиції, нормалізовані object-space маски висоти через MPB, species-responses (trunk/canopy/conifer/bush/grass/flower stem/head) per material slot, реальне сонце/ambient замість фіксованого `_LightDir`, ShadowCaster-пас з тією ж деформацією, bounds розширені під максимальний sway, reduced-motion eased до 0 за ~0.3 с, захоплення матеріалів обмежене `DecorRoot` і ідемпотентне |
 | `MainMenu/` | Виконано |
 | `ImmersiveUI/` | Виконано |
 
