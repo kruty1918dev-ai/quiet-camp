@@ -1,4 +1,5 @@
 using System.Collections;
+using Kruty1918.Atmos;
 using NUnit.Framework;
 using QuietCamp.Domain;
 using QuietCamp.Infrastructure;
@@ -125,6 +126,87 @@ namespace QuietCamp.Tests
                 Object.Destroy(rmGo);
                 Object.Destroy(camGo);
             }
+        }
+
+        /// <summary>Prompt-06 contract: material slots get species responses
+        /// (trunk ≠ canopy), per-renderer mesh bounds are registered through
+        /// the property block, culling bounds cover maximum sway, and equal
+        /// species+color props share one material — no per-plant clones.</summary>
+        [UnityTest]
+        public IEnumerator VegetationGetsSpeciesSlotsAndSharedMaterials()
+        {
+            var catalog = AssetCatalog.Load();
+            Assert.IsNotNull(catalog);
+            var prefab = catalog.Prefab("tree_default");
+            Assert.IsNotNull(prefab, "tree_default prefab must be in the catalog.");
+            var slots = new[]
+                { FoliageSway.Species.Trunk, FoliageSway.Species.Canopy };
+
+            var go = Object.Instantiate(prefab);
+            go.transform.position = new Vector3(50f, 0f, 50f);
+            var r = go.GetComponentInChildren<MeshRenderer>();
+            var before = r.localBounds;
+            Assert.AreEqual(1, FoliageSway.Shared.ApplySlots(go, slots));
+
+            var mats = r.sharedMaterials;
+            Assert.AreEqual(2, mats.Length);
+            Assert.AreEqual("Atmos/FoliageSway", mats[0].shader.name);
+            Assert.AreEqual("Atmos/FoliageSway", mats[1].shader.name);
+            Assert.Less(mats[0].GetFloat("_SwayAmp"), mats[1].GetFloat("_SwayAmp"),
+                "Trunk must bend less than its canopy.");
+            Assert.AreEqual(.22f, mats[1].GetFloat("_SwayFreq"), .001f,
+                "Canopy keeps the slow mass-bend frequency.");
+
+            var mpb = new MaterialPropertyBlock();
+            r.GetPropertyBlock(mpb);
+            Assert.Greater(mpb.GetFloat("_MeshTopY"), mpb.GetFloat("_MeshMinY"),
+                "Object-space mesh bounds must be registered for the height mask.");
+            Assert.GreaterOrEqual(r.localBounds.extents.x, before.extents.x,
+                "Culling bounds must already include the sway displacement.");
+
+            var go2 = Object.Instantiate(prefab);
+            go2.transform.position = new Vector3(60f, 0f, 60f);
+            FoliageSway.Shared.ApplySlots(go2, slots);
+            Assert.AreSame(mats[1],
+                go2.GetComponentInChildren<MeshRenderer>().sharedMaterials[1],
+                "Equal species+color must share one material.");
+
+            Object.Destroy(go);
+            Object.Destroy(go2);
+            yield break;
+        }
+
+        /// <summary>Vegetation capture is scoped to the decor root (no global
+        /// scene scan), materials become scene-owned clones, and RegisterDecor
+        /// is idempotent for plants spawned later.</summary>
+        [UnityTest]
+        public IEnumerator DecorCaptureIsScopedAndIdempotent()
+        {
+            yield return SceneManager.LoadSceneAsync("Boot");
+            yield return null; yield return null;
+            yield return SceneManager.LoadSceneAsync("Camp");
+            for (int i = 0; i < 60 && CampSceneHost.Current?.Atmosphere == null; i++)
+                yield return null;
+            var host = CampSceneHost.Current;
+            Assert.IsNotNull(host?.Atmosphere);
+
+            // The shared wind contract is live on the shader globals.
+            Assert.That(Shader.GetGlobalFloat("_AtmosWindTime"), Is.GreaterThan(0f),
+                "One visual clock must drive all foliage.");
+            Assert.That(Shader.GetGlobalFloat("_AtmosWindStrength"),
+                Is.InRange(0f, 1f));
+
+            var decorRoot = GameObject.Find("DecorRoot");
+            Assert.IsNotNull(decorRoot);
+            var r = decorRoot.GetComponentInChildren<MeshRenderer>();
+            Assert.IsNotNull(r);
+            var sceneMat = r.sharedMaterial;
+            Assert.IsTrue(sceneMat.name.Contains("camp atmosphere"),
+                "Decor foliage must run scene-local material clones.");
+            host.Atmosphere.RegisterDecor(decorRoot.transform);
+            host.Atmosphere.RegisterDecor(decorRoot.transform);
+            Assert.AreSame(sceneMat, r.sharedMaterial,
+                "Re-registering must not produce new material clones.");
         }
 
         static float Rate(Component particles, string child)
