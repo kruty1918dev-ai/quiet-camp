@@ -71,6 +71,15 @@ namespace Kruty1918.InputRouting.Runtime
             return canProcess;
         }
 
+        public bool TryBeginUiPointerCapture(GameplayInputKind inputKind, int pointerId)
+        {
+            if ((_globalBlockMask & inputKind) != 0) return false;
+            foreach (var capture in _pointerCaptures)
+                if (capture.Value) return false;
+            _pointerCaptures[new PointerCaptureKey(pointerId, inputKind)] = true;
+            return true;
+        }
+
         public void EndPointerCapture(GameplayInputKind inputKind, int pointerId = -1)
         {
             _pointerCaptures.Remove(new PointerCaptureKey(pointerId, inputKind));

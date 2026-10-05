@@ -29,6 +29,8 @@ keypass.txt
 ExportedObj/
 .consulo/
 *.csproj
+!tools/optional-google-probe/Probe.csproj
+!tools/MonetizationProbe.csproj
 *.unityproj
 *.sln
 *.slnx
@@ -72,3 +74,8 @@ QuietCamp/Assets/Resources/PerformanceTestRun*.json*
 # AgentVerify staging files (agent run artifacts)
 agentverify.commands.json
 agentverify.results.json
+BuildLogs/
+.vscode/
+**/__pycache__/
+*.py[cod]
+tools/**/bin/

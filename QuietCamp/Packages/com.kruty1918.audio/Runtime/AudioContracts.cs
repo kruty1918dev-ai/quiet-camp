@@ -140,8 +140,14 @@ namespace Kruty1918.Audio
         /// <summary>Stereo pan −1..+1 for 2D playback; null leaves the pooled
         /// default. Kept optional so positional plays stay untouched.</summary>
         public readonly float? PanStereo;
+        /// <summary>Initial fade weight, independent of the authored/instance
+        /// gain. Starting at zero can subsequently fade up without losing gain.</summary>
+        public readonly float InitialPlaybackScale;
 
         public AudioPlayOptions(Vector3? position = null, Transform parent = null, float volumeScale = 1f, float pitchOffset = 0f, bool? loopOverride = null, float? panStereo = null)
+            : this(1f, position, parent, volumeScale, pitchOffset, loopOverride, panStereo) { }
+
+        public AudioPlayOptions(float initialPlaybackScale, Vector3? position = null, Transform parent = null, float volumeScale = 1f, float pitchOffset = 0f, bool? loopOverride = null, float? panStereo = null)
         {
             Position = position;
             Parent = parent;
@@ -149,6 +155,7 @@ namespace Kruty1918.Audio
             PitchOffset = pitchOffset;
             LoopOverride = loopOverride;
             PanStereo = panStereo;
+            InitialPlaybackScale = Mathf.Clamp01(initialPlaybackScale);
         }
     }
 
@@ -226,4 +233,3 @@ namespace Kruty1918.Audio
         string[] GetKeys();
     }
 }
-

@@ -32,6 +32,22 @@
         "com.unity.ugui": "2.0.0"
       }
     },
+    "com.kruty1918.gameplay-viewport": {
+      "version": "https://github.com/kruty1918dev-ai/com.kruty1918.gameplay-viewport.git#bf519290cb01b27d0c9fedce7a75b0366746f391",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "bf519290cb01b27d0c9fedce7a75b0366746f391"
+    },
+    "com.kruty1918.haptics": {
+      "version": "https://github.com/kruty1918dev-ai/haptics.git#5365b6f77726a7a84be235512c3f5bb8f0ef2c95",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.modules.androidjni": "1.0.0"
+      },
+      "hash": "5365b6f77726a7a84be235512c3f5bb8f0ef2c95"
+    },
     "com.kruty1918.input-context": {
       "version": "file:com.kruty1918.input-context",
       "depth": 0,
@@ -62,6 +78,19 @@
         "com.unity.ugui": "2.0.0",
         "com.unity.nuget.newtonsoft-json": "3.2.0"
       }
+    },
+    "com.kruty1918.moyva.unityhtml": {
+      "version": "https://github.com/kruty1918dev-ai/com.kruty1918.moyva.unityhtml.git#ed36a7ce864f595432033da6f6b75c43ec92e7d9",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.reactunity.core": "0.23.2",
+        "com.reactunity.jint": "0.23.2",
+        "com.reactunity.quickjs": "0.23.2",
+        "com.unity.ugui": "2.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0"
+      },
+      "hash": "ed36a7ce864f595432033da6f6b75c43ec92e7d9"
     },
     "com.kruty1918.notifications": {
       "version": "file:com.kruty1918.notifications",
@@ -101,6 +130,30 @@
         "com.unity.ugui": "2.0.0"
       }
     },
+    "com.reactunity.core": {
+      "version": "https://github.com/ReactUnity/core.git#8c4caa95f49b45e8fb7bb1f833eaa08adaa31496",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.editorcoroutines": "1.0.0",
+        "com.unity.nuget.newtonsoft-json": "3.0.2"
+      },
+      "hash": "8c4caa95f49b45e8fb7bb1f833eaa08adaa31496"
+    },
+    "com.reactunity.jint": {
+      "version": "https://github.com/ReactUnity/core.git#5788df06c9525ffbd24b7f2ef55b9c638386e808",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "5788df06c9525ffbd24b7f2ef55b9c638386e808"
+    },
+    "com.reactunity.quickjs": {
+      "version": "https://github.com/ReactUnity/core.git#6b28051d738504283bff89bd7584eaf1287debec",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "6b28051d738504283bff89bd7584eaf1287debec"
+    },
     "com.unity.burst": {
       "version": "2.0.0",
       "depth": 2,
@@ -117,6 +170,12 @@
         "com.unity.test-framework": "1.4.6",
         "com.unity.test-framework.performance": "3.2.0"
       }
+    },
+    "com.unity.editorcoroutines": {
+      "version": "6.6.0",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {}
     },
     "com.unity.ext.nunit": {
       "version": "2.1.0",
@@ -189,6 +248,24 @@
         "com.unity.render-pipelines.core": "17.6.0"
       }
     },
+    "com.unity.sdk.linux-arm64": {
+      "version": "1.1.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.sysroot.base": "1.1.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.sdk.linux-x86_64": {
+      "version": "1.1.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.sysroot.base": "1.1.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.searcher": {
       "version": "4.9.5",
       "depth": 2,
@@ -205,6 +282,13 @@
         "com.unity.searcher": "4.9.5",
         "com.unity.graph-authoring": "1.0.0"
       }
+    },
+    "com.unity.sysroot.base": {
+      "version": "1.1.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {
       "version": "1.8.0",
@@ -224,6 +308,15 @@
         "com.unity.test-framework": "1.1.33",
         "com.unity.modules.jsonserialize": "1.0.0"
       }
+    },
+    "com.unity.toolchain.linux-x86_64-linux": {
+      "version": "1.1.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.sysroot.base": "1.1.0"
+      },
+      "url": "https://packages.unity.com"
     },
     "com.unity.ugui": {
       "version": "2.6.0",
@@ -246,6 +339,12 @@
       }
     },
     "com.unity.modules.animation": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.assetbundle": {
       "version": "1.0.0",
       "depth": 0,
       "source": "builtin",
@@ -340,6 +439,15 @@
       "source": "builtin",
       "dependencies": {}
     },
+    "com.unity.modules.unitywebrequestassetbundle": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.assetbundle": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0"
+      }
+    },
     "com.unity.modules.unitywebrequestaudio": {
       "version": "1.0.0",
       "depth": 0,
@@ -348,6 +456,32 @@
         "com.unity.modules.unitywebrequest": "1.0.0",
         "com.unity.modules.audio": "1.0.0"
       }
+    },
+    "com.unity.modules.unitywebrequesttexture": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.imageconversion": "1.0.0"
+      }
+    },
+    "com.unity.modules.video": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.audio": "1.0.0",
+        "com.unity.modules.ui": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0"
+      }
+    },
+    "com.kruty1918.tutorials": {
+      "version": "https://github.com/kruty1918dev-ai/com.kruty1918.tutorials.git#ecbb3264ba393bd14125996c06c010c30948289e",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "ecbb3264ba393bd14125996c06c010c30948289e"
     }
   }
 }

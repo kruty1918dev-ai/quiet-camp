@@ -23,6 +23,7 @@ namespace Kruty1918.InputRouting.API
         bool CanProcess(GameplayInputKind inputKind, Vector2 screenPosition, int pointerId = -1);
         bool IsPointerOverUi(Vector2 screenPosition, int pointerId = -1, bool interactiveOnly = true);
         bool TryBeginPointerCapture(GameplayInputKind inputKind, Vector2 screenPosition, int pointerId = -1);
+        bool TryBeginUiPointerCapture(GameplayInputKind inputKind, int pointerId);
         void EndPointerCapture(GameplayInputKind inputKind, int pointerId = -1);
         IDisposable AcquireBlock(GameplayInputKind inputMask, object owner);
     }

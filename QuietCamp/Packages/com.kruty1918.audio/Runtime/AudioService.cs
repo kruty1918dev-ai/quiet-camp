@@ -44,6 +44,8 @@ namespace Kruty1918.Audio
         private readonly List<AudioSource> _awakeSources = new List<AudioSource>();
         private readonly float[] _busVolumes = { 1f, 1f, 1f, 1f, 1f };
 
+        private readonly System.Random _soundRandom = new System.Random();
+        private readonly Dictionary<string, AudioClip> _lastVariant = new Dictionary<string, AudioClip>();
         private GameObject _root;
         private UnityEngine.SceneManagement.SceneHandle _lastProcessedSceneHandle = default;
 
@@ -107,7 +109,9 @@ namespace Kruty1918.Audio
                 var source = _active[i];
                 if (source == null)
                 {
-                    _active.RemoveAt(i);
+                    // A caller may parent an emitter to a disposable scene
+                    // object. Retire its key slot even after Unity destroys it.
+                    Release(source);
                     continue;
                 }
 
@@ -318,7 +322,12 @@ namespace Kruty1918.Audio
         {
             var source = handle.Source;
             if (source != null && IsCurrent(source, handle.Generation))
-                source.Stop();
+            {
+                // Tick deliberately retains paused loops. An explicit stop
+                // must release their per-key slot now, including while paused.
+                if (source.loop) StopAndReleaseSource(source);
+                else source.Stop(); // Short one-shots retain bounded wet tails.
+            }
         }
 
         private void TickDucks(float dt)
@@ -405,7 +414,16 @@ namespace Kruty1918.Audio
             // (a fixed handful by design) always start.
             bool wantsLoop = options.LoopOverride ?? sound.Loop;
             if (!wantsLoop && _active.Count >= MaxActiveVoices)
-                return default;
+            {
+                AudioSource candidate = null;
+                // Make room for meaningful UI/placement feedback by retiring a
+                // lower-priority decorative one-shot; ambient loops survive.
+                foreach (var voice in _active)
+                    if (voice != null && !voice.loop && voice.priority > sound.Priority
+                        && (candidate == null || voice.priority > candidate.priority)) candidate = voice;
+                if (candidate == null) return default;
+                StopAndReleaseSource(candidate);
+            }
 
             var source = GetConfiguredSourceInternal(sound, options.Parent);
             source.clip = clip;
@@ -419,7 +437,9 @@ namespace Kruty1918.Audio
             if (options.Position.HasValue)
             {
                 source.transform.position = options.Position.Value;
-                source.spatialBlend = Mathf.Max(source.spatialBlend, 1f);
+                // Preserve partial spatialization authored for touch feedback.
+                // Legacy 2D definitions played with PlayAt still become 3D.
+                if (source.spatialBlend <= 0f) source.spatialBlend = 1f;
             }
             else if (options.Parent != null)
             {
@@ -446,9 +466,10 @@ namespace Kruty1918.Audio
                 }
             }
 
-            ApplyBusVolume(source, sound.Bus, baseVolume);
             RegisterActive(source, sound.Key, sound.Bus, baseVolume, sound.Channel,
                 TailSeconds(sound));
+            _activeScaleBySource[source] = options.InitialPlaybackScale;
+            ApplyBusVolume(source, sound.Bus, baseVolume);
 
             var duck = sound.Duck;
             if (duck != null && duck.Enabled)
@@ -458,6 +479,9 @@ namespace Kruty1918.Audio
                 _lastPlayTimeByKey[sound.Key] = Time.unscaledTime;
 
             source.Play();
+            // Only an accepted playback advances variant history. Rejected
+            // cooldown/budget requests must not make the next real cue repeat.
+            _lastVariant[sound.Key] = clip;
             return new AudioHandle(source, this, _activeGeneration[source]);
         }
 
@@ -749,31 +773,33 @@ namespace Kruty1918.Audio
             return !_activeCountByKey.TryGetValue(sound.Key, out int count) || count < max;
         }
 
-        private static AudioClip ResolveClip(AudioSoundDefinition sound)
+        private AudioClip ResolveClip(AudioSoundDefinition sound)
         {
-            if (sound.Variants != null && sound.Variants.Length > 0)
+            var variants = sound.Variants;
+            if (variants != null && variants.Length > 0)
             {
-                var valid = new List<AudioClip>();
-                for (int i = 0; i < sound.Variants.Length; i++)
-                    if (sound.Variants[i] != null)
-                        valid.Add(sound.Variants[i]);
-
-                if (valid.Count > 0)
-                    return valid[UnityEngine.Random.Range(0, valid.Count)];
+                _lastVariant.TryGetValue(sound.Key, out var last);
+                int eligible = 0;
+                foreach (var clip in variants) if (clip != null && clip != last) eligible++;
+                if (eligible > 0)
+                {
+                    int choice = _soundRandom.Next(eligible);
+                    foreach (var clip in variants)
+                        if (clip != null && clip != last && choice-- == 0)
+                        { return clip; }
+                }
+                foreach (var clip in variants) if (clip != null) return clip;
             }
-
             return sound.Clip;
         }
-
-        private static float ResolveVolume(AudioSoundDefinition sound)
+        private float ResolveVolume(AudioSoundDefinition sound)
         {
-            float delta = sound.VolumeRandom > 0f ? UnityEngine.Random.Range(-sound.VolumeRandom, sound.VolumeRandom) : 0f;
+            float delta = sound.VolumeRandom > 0f ? (float)(_soundRandom.NextDouble() * 2 - 1) * sound.VolumeRandom : 0;
             return Mathf.Clamp01(sound.Volume + delta);
         }
-
-        private static float ResolvePitch(AudioSoundDefinition sound)
+        private float ResolvePitch(AudioSoundDefinition sound)
         {
-            float delta = sound.PitchRandom > 0f ? UnityEngine.Random.Range(-sound.PitchRandom, sound.PitchRandom) : 0f;
+            float delta = sound.PitchRandom > 0f ? (float)(_soundRandom.NextDouble() * 2 - 1) * sound.PitchRandom : 0;
             return Mathf.Clamp(sound.Pitch + delta, -3f, 3f);
         }
 
@@ -837,7 +863,7 @@ namespace Kruty1918.Audio
 
         private void Release(AudioSource source)
         {
-            if (source == null)
+            if (ReferenceEquals(source, null))
                 return;
 
             _active.Remove(source);
@@ -856,13 +882,18 @@ namespace Kruty1918.Audio
             _activeBaseVolumeBySource.Remove(source);
             _activeChannelBySource.Remove(source);
             _activeScaleBySource.Remove(source);
+            _tailSeconds.Remove(source);
+            _tailDeadline.Remove(source);
+            if (source == null)
+            {
+                _activeGeneration.Remove(source);
+                return;
+            }
             // Generation must not reset on release: a recycled source would
             // restart at the same counter and stale handles would match it.
             // Bump immediately so any outstanding handle goes stale at once.
             _activeGeneration.TryGetValue(source, out int releasedGeneration);
             _activeGeneration[source] = releasedGeneration + 1;
-            _tailSeconds.Remove(source);
-            _tailDeadline.Remove(source);
 
             source.Stop();
             source.clip = null;
