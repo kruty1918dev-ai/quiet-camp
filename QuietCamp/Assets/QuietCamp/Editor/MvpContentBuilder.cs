@@ -37,6 +37,7 @@ namespace QuietCamp.Editor
             var entries = BuildPrefabs(materials);
             BuildAssetCatalog(entries);
             BuildAudioCatalog();
+            SoundscapeAudioContent.ImportAvailableOverrides();
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             Debug.Log($"[QuietCamp] MVP content built: {entries.Count} prefab entries.");
@@ -105,7 +106,7 @@ namespace QuietCamp.Editor
                             && float.TryParse(parts[2], NumberStyles.Float, CultureInfo.InvariantCulture, out var g)
                             && float.TryParse(parts[3], NumberStyles.Float, CultureInfo.InvariantCulture, out var b))
                         {
-                            var color = new Color(r, g, b);
+                            var color = CampColor(current, new Color(r, g, b));
                             result[current] = EnsureMaterial(current, color, shader);
                             current = null;
                         }
@@ -113,6 +114,31 @@ namespace QuietCamp.Editor
                 }
             }
             return result;
+        }
+
+        // Authored camp palette, shared by menu and gameplay. Keep it here
+        // so rebuilding the catalog cannot restore the source pack's cyan
+        // foliage and highly saturated plastic-looking accent colors.
+        static Color CampColor(string name, Color fallback)
+        {
+            string hex;
+            switch (name)
+            {
+                case "leafsGreen": hex = "#729055"; break;
+                case "leafsDark": hex = "#456D58"; break;
+                case "grass": hex = "#819B5A"; break;
+                case "stone": hex = "#A8AD9B"; break;
+                case "wood": hex = "#A17652"; break;
+                case "woodBark": hex = "#705339"; break;
+                case "woodBarkDark": hex = "#57463C"; break;
+                case "woodDark": hex = "#73543C"; break;
+                case "woodInner": hex = "#B79465"; break;
+                case "colorRed": hex = "#BC6953"; break;
+                case "colorRedDark": hex = "#8E5144"; break;
+                case "colorYellow": hex = "#D9B768"; break;
+                default: return fallback;
+            }
+            return ColorUtility.TryParseHtmlString(hex, out var color) ? color : fallback;
         }
 
         static Material EnsureMaterial(string name, Color color, Shader shader)

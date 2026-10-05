@@ -34,6 +34,7 @@ namespace QuietCamp.Tests
         {
             yield return LoadBoot();
             yield return SceneManager.LoadSceneAsync("Boot", LoadSceneMode.Single);
+            yield return PrivacyBootTestSupport.EnterGame();
             yield return null;
 
             var boots = Object.FindObjectsByType<QuietCampBootstrap>();
@@ -55,6 +56,7 @@ namespace QuietCamp.Tests
         static IEnumerator LoadBoot()
         {
             yield return SceneManager.LoadSceneAsync("Boot", LoadSceneMode.Single);
+            yield return PrivacyBootTestSupport.EnterGame();
             yield return null;
             yield return null;
         }

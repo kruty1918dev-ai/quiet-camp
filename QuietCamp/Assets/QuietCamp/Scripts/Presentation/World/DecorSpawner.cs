@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Kruty1918.Atmos;
 using QuietCamp.Domain;
 using QuietCamp.Infrastructure;
@@ -6,16 +5,12 @@ using UnityEngine;
 namespace QuietCamp.Presentation.World
 {
     /// <summary>
-    /// Floating-diorama decor around the board, like the reference render:
-    /// no ground slab — a seeded ring of pines/trees/stones/grass/flowers
-    /// floats at board level just outside the field (decorSeed keeps the
-    /// layout deterministic per level), plus the camp sign just outside the
-    /// entry edge. All decor lives on the Decor layer with colliders
-    /// stripped by the prefabs' configuration.
+    /// Seeded campsite and forest on one continuous XZ meadow. Distant trees
+    /// use the same models, camera and lighting as the playable clearing.
     /// </summary>
     public static class DecorSpawner
     {
-        /// <summary>How far the decor ring extends beyond the board edge.</summary>
+        /// <summary>Clear meadow margin before the surrounding forest.</summary>
         public const float Apron = 2.1f;
 
         // Slot order follows the source meshes: bark/wood first, foliage
@@ -38,48 +33,102 @@ namespace QuietCamp.Presentation.World
             ("tree_default", -3.6f, 0.3f, 1.8f),
         };
 
+
         public static void Spawn(LevelData level, AssetCatalog catalog, Transform decorRoot)
         {
             if (catalog == null || decorRoot == null) return;
             var rng = new System.Random(level.decorSeed);
 
             float halfW = level.width / 2f, halfH = level.height / 2f;
-            float forbiddenX = halfW + 0.45f, forbiddenZ = halfH + 0.45f;
+            // Wide no-decor margin: tree canopies must not overlap the board
+            // edge — the playable area has to read as a distinct region.
+            float forbiddenX = halfW + 0.9f, forbiddenZ = halfH + 0.9f;
             float meadowX = halfW + Apron, meadowZ = halfH + Apron;
 
-            foreach (var d in TestDecor)
+            // The v2 composer owns scenic trees and validates their swept
+            // shadows against the puzzle after its fixed sun is initialized.
+            // Retain the original accents only for archived v1 scenes.
+            bool legacyTrees = level.ruleVersion < 2;
+            if (legacyTrees) foreach (var d in TestDecor)
             {
                 var pos = new Vector3(d.x, 0f, d.z);
                 ClampOutside(ref pos, forbiddenX, forbiddenZ, meadowX, meadowZ);
-                var go = Spawn(catalog, decorRoot, d.id, pos, rng.Next(360));
-                if (go != null) ScaleToHeight(go, d.height);
+                var go = Spawn(level, catalog, decorRoot, d.id, pos, rng.Next(360));
+                if (go != null) {ScaleToHeight(go, d.height);SeasonalTreeVisual.Apply(go,level,d.id);}
             }
 
-            Scatter(catalog, decorRoot, rng, "tree_pineRoundA",
-                7 - TestDecorCount("tree_pineRoundA"), forbiddenX, forbiddenZ, meadowX, meadowZ);
-            Scatter(catalog, decorRoot, rng, "tree_default",
-                6 - TestDecorCount("tree_default"), forbiddenX, forbiddenZ, meadowX, meadowZ);
-            Scatter(catalog, decorRoot, rng, "stone_largeA", 3,
+            if (legacyTrees)
+            {
+                Scatter(level, catalog, decorRoot, rng, "tree_pineRoundA",
+                    7 - TestDecorCount("tree_pineRoundA"), forbiddenX, forbiddenZ, meadowX, meadowZ);
+                Scatter(level, catalog, decorRoot, rng, "tree_default",
+                    6 - TestDecorCount("tree_default"), forbiddenX, forbiddenZ, meadowX, meadowZ);
+            }
+            Scatter(level, catalog, decorRoot, rng, "stone_largeA", 3,
                 forbiddenX, forbiddenZ, meadowX, meadowZ);
-            Scatter(catalog, decorRoot, rng, "grass", 30,
-                forbiddenX - 0.15f, forbiddenZ - 0.15f, meadowX, meadowZ);
-            Scatter(catalog, decorRoot, rng, "flower_yellowA", 8,
-                forbiddenX - 0.15f, forbiddenZ - 0.15f, meadowX, meadowZ);
-            Scatter(catalog, decorRoot, rng, "log", 2,
+            // Groundcover belongs to VisibleForestFloor: an extra near-board
+            // scatter would stack over it and make the clearing look hedged in.
+            Scatter(level, catalog, decorRoot, rng, "log", 2,
                 forbiddenX, forbiddenZ, meadowX, meadowZ);
-            Scatter(catalog, decorRoot, rng, "stump_round", 1,
+            Scatter(level, catalog, decorRoot, rng, "stump_round", 1,
                 forbiddenX, forbiddenZ, meadowX, meadowZ);
 
-            // The sign sits just outside the entry edge, facing the door path.
-            var entry = new Cell(level.entry[0], level.entry[1]);
-            var signPos = BoardMath.CellCenterWorld(level, entry);
-            signPos.x += halfW - entry.X > 1 ? 0.95f : -0.95f;
-            signPos.y = 0f;
-            Spawn(catalog, decorRoot, "sign", signPos, rng.Next(360));
+            if (legacyTrees) SpawnForest(level, catalog, decorRoot);
+            // Ground is last so atmosphere's first decor renderer is foliage.
+            SpawnMeadow(level, decorRoot);
+            var density=decorRoot.GetComponent<DecorDensity>()??decorRoot.gameObject.AddComponent<DecorDensity>();density.Capture(decorRoot);
+            var details=new GameObject("ForestDetails");details.transform.SetParent(decorRoot,false);
+            details.AddComponent<ForestDetails>().Build(level,decorRoot);
+            var understory=new GameObject("CozyUnderstory");understory.transform.SetParent(decorRoot,false);
+            understory.AddComponent<CozyUnderstory>().Build(level);
+        }
+
+        /// <summary>The board base is buried in this shared ground; only
+        /// the subtle playable grid rises above the surrounding clearing.</summary>
+        static void SpawnMeadow(LevelData level, Transform decorRoot)
+        {
+            var meadow = new GameObject("Meadow");
+            meadow.transform.SetParent(decorRoot, false);
+            meadow.layer = BoardRenderer.DecorLayer;
+            meadow.AddComponent<MeadowSurface>().Build(level.width / 2f + Apron,
+                level.height / 2f + Apron);
+        }
+
+        /// <summary>Staggered forest belts replace camera-facing painted
+        /// scenery. The open near wedge keeps tall crowns out of the board's
+        /// sightline; foreground shrubs still frame the screen edges.</summary>
+        static void SpawnForest(LevelData level, AssetCatalog catalog, Transform decorRoot)
+        {
+            var root = new GameObject("ForestSurround").transform;
+            root.SetParent(decorRoot, false);
+            root.gameObject.layer = BoardRenderer.DecorLayer;
+            var rng = new System.Random(level.decorSeed * 3571 + 29);
+            for (var belt = 0; belt < 3; belt++)
+            for (var i = 0; i < 18; i++)
+            {
+                var angle = (i + belt * .41f + (float)rng.NextDouble() * .65f) * Mathf.PI * 2 / 18;
+                var jitter = (float)rng.NextDouble() * 1.6f - .8f;
+                var radiusX = level.width * .5f + Apron + 2.4f + belt * 3.2f + jitter;
+                var radiusZ = level.height * .5f + Apron + 2.4f + belt * 3.2f + jitter;
+                var pos = new Vector3(Mathf.Cos(angle) * radiusX, 0, Mathf.Sin(angle) * radiusZ);
+                // The camera is on the +x/+z side of the camp.
+                var near = pos.x + pos.z > 0;
+                if (near && belt == 0) continue;
+                var assetId=rng.NextDouble() < (level.environmentPreset=="pines"?.88:.45) ? "tree_pineRoundA" : "tree_default";
+                var tree = Spawn(level, catalog, root,assetId,pos, rng.Next(360));
+                if (tree == null) continue;
+                var height = near ? Mathf.Lerp(2.7f, 3.8f, (float)rng.NextDouble())
+                    : Mathf.Lerp(2.8f, 4.2f, (float)rng.NextDouble());
+                ScaleToHeight(tree, height);
+                SeasonalTreeVisual.Apply(tree,level,assetId);
+                // Decorative forest cannot intercept placement rays.
+                foreach (var collider in tree.GetComponentsInChildren<Collider>())
+                    Object.Destroy(collider);
+            }
         }
 
         /// <summary>Scales the instance so its rendered height matches the contract.</summary>
-        static void ScaleToHeight(GameObject go, float targetHeight)
+        public static void ScaleToHeight(GameObject go, float targetHeight)
         {
             var renderers = go.GetComponentsInChildren<Renderer>();
             if (renderers.Length == 0) return;
@@ -96,19 +145,26 @@ namespace QuietCamp.Presentation.World
             return n;
         }
 
-        static void Scatter(AssetCatalog catalog, Transform root, System.Random rng,
+        static void Scatter(LevelData level, AssetCatalog catalog, Transform root, System.Random rng,
             string assetId, int count,
             float forbiddenX, float forbiddenZ, float meadowX, float meadowZ)
         {
             for (var i = 0; i < Mathf.Max(0, count); i++)
             {
-                // Uniform scatter across the meadow, then clamp outside the board.
-                var pos = new Vector3(
-                    (float)(rng.NextDouble() * 2 - 1) * (meadowX - 0.15f),
-                    0f,
-                    (float)(rng.NextDouble() * 2 - 1) * (meadowZ - 0.15f));
-                ClampOutside(ref pos, forbiddenX, forbiddenZ, meadowX - 0.1f, meadowZ - 0.1f);
-                Spawn(catalog, root, assetId, pos, rng.Next(360));
+                // Reject the clearing instead of pushing many unrelated roots
+                // onto exactly the same rectangular boundary.
+                Vector3 pos = default;
+                bool found = false;
+                for (int attempt = 0; attempt < 24; attempt++)
+                {
+                    pos = new Vector3((float)(rng.NextDouble() * 2 - 1) * (meadowX - .15f), 0,
+                        (float)(rng.NextDouble() * 2 - 1) * (meadowZ - .15f));
+                    if (Mathf.Abs(pos.x) < forbiddenX && Mathf.Abs(pos.z) < forbiddenZ) continue;
+                    found = true; break;
+                }
+                if (!found) continue;
+                var go=Spawn(level, catalog, root, assetId, pos, rng.Next(360));
+                if(assetId.StartsWith("tree"))SeasonalTreeVisual.Apply(go,level,assetId);
             }
         }
 
@@ -128,10 +184,13 @@ namespace QuietCamp.Presentation.World
             pos.z = Mathf.Clamp(pos.z, -meadowZ, meadowZ);
         }
 
-        static GameObject Spawn(AssetCatalog catalog, Transform root, string assetId,
+        static GameObject Spawn(LevelData level, AssetCatalog catalog, Transform root, string assetId,
             Vector3 pos, int yaw)
         {
             if (!catalog.TryGet(assetId, out var entry) || entry.prefab == null) return null;
+            float clearance=assetId.StartsWith("tree")?1.15f:assetId.StartsWith("stone")||assetId=="log"?.4f:.12f;
+            if(CampTrail.IsCorridor(level,pos,clearance))return null;
+            if(ShorelineGeometry.Contains(EnvironmentCompositionData.For(level).shore,pos,clearance+.25f))return null;
             var go = Object.Instantiate(entry.prefab, root);
             go.transform.localPosition = pos;
             go.transform.localEulerAngles = new Vector3(0f, yaw, 0f);
@@ -146,41 +205,10 @@ namespace QuietCamp.Presentation.World
                 FoliageSway.Shared.ApplySlots(go, BroadleafSlots);
             else if (assetId.StartsWith("tree"))
                 FoliageSway.Shared.ApplySlots(go, ConiferSlots);
-            if (assetId.StartsWith("tree") || assetId.StartsWith("stone")
-                || assetId == "log" || assetId == "stump_round" || assetId == "sign")
-                AddContactShadow(go);
             SetLayer(go, BoardRenderer.DecorLayer);
+            if(assetId.StartsWith("tree")||assetId.StartsWith("stone")||assetId.StartsWith("log")||assetId.StartsWith("stump"))RainSurface.Attach(go);
+            SeasonalPropVisual.Apply(go, level, assetId);
             return go;
-        }
-
-        /// <summary>Soft contact blob under solid decor — trunks read as
-        /// planted on the meadow instead of hovering over the backdrop.</summary>
-        static void AddContactShadow(GameObject go)
-        {
-            var renderers = go.GetComponentsInChildren<Renderer>();
-            if (renderers.Length == 0) return;
-            var bounds = renderers[0].bounds;
-            foreach (var r in renderers) bounds.Encapsulate(r.bounds);
-            var radius = Mathf.Max(bounds.size.x, bounds.size.z) * 0.30f;
-            if (radius <= 0.01f) return;
-            var disc = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            disc.name = "ContactShadow";
-            var col = disc.GetComponent<Collider>();
-            if (col != null) Object.Destroy(col);
-            disc.transform.SetParent(go.transform.parent, true);
-            // World-space disc under the trunk pivot — reads as grounding.
-            disc.transform.position = new Vector3(go.transform.position.x, 0.006f,
-                go.transform.position.z);
-            disc.transform.localScale = new Vector3(radius * 2f, 0.002f, radius * 2f);
-            var shadowMat = new Material(Shader.Find("Universal Render Pipeline/Unlit"));
-            shadowMat.SetFloat("_Surface", 1f);
-            shadowMat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-            shadowMat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            shadowMat.SetInt("_ZWrite", 0);
-            shadowMat.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
-            shadowMat.SetColor("_BaseColor", new Color(0.08f, 0.14f, 0.08f, 0.22f));
-            disc.GetComponent<Renderer>().sharedMaterial = shadowMat;
-            disc.layer = BoardRenderer.DecorLayer;
         }
 
         static void SetLayer(GameObject go, int layer)

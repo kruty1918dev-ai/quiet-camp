@@ -17,7 +17,7 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: d8f42014edbccc0439ea92b410ad4557, type: 3}
     Variants: []
     Bus: 3
-    Channel: 
+    Channel:
     MixerGroup: {fileID: 0}
     Volume: 0.35
     VolumeRandom: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: deff2fb538f3b7a44aa556210c060408, type: 3}
     Variants: []
     Bus: 3
-    Channel: 
+    Channel:
     MixerGroup: {fileID: 0}
     Volume: 0.3
     VolumeRandom: 0
@@ -121,7 +121,7 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 8b0c5f90d1daa7f4c9e4b36800f33360, type: 3}
     Variants: []
     Bus: 3
-    Channel: 
+    Channel:
     MixerGroup: {fileID: 0}
     Volume: 0.28
     VolumeRandom: 0
@@ -170,24 +170,27 @@ MonoBehaviour:
       Hold: 0
       Release: 0
   - Key: placement.rotate
-    Clip: {fileID: 8300000, guid: 4f6cb2ed239ca5341b8943726153f0c9, type: 3}
-    Variants: []
+    Clip: {fileID: 8300000, guid: b55947f13488ea12387ce4a72c879163, type: 3}
+    Variants:
+    - {fileID: 8300000, guid: b55947f13488ea12387ce4a72c879163, type: 3}
+    - {fileID: 8300000, guid: 71dec7d8b6085c8dfa23fb4d29f9d992, type: 3}
+    - {fileID: 8300000, guid: 3ebd3e34c2dc1d7b3bbb6da94f6c27f5, type: 3}
     Bus: 2
-    Channel: 
+    Channel:
     MixerGroup: {fileID: 0}
-    Volume: 0.3
-    VolumeRandom: 0
+    Volume: 0.23
+    VolumeRandom: 0.01
     Pitch: 1
-    PitchRandom: 0
+    PitchRandom: 0.018
     SpatialBlend: 0
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 112
-    MinDistance: 0
-    MaxDistance: 0
+    Priority: 100
+    MinDistance: 2
+    MaxDistance: 16
     RolloffMode: 0
     Loop: 0
-    Cooldown: 0.1
+    Cooldown: 0.12
     PoolWarmup: 1
     MaxSimultaneous: 2
     Effects:
@@ -225,7 +228,7 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: acbd01cdf53506541ae5c30df72606a1, type: 3}
     Variants: []
     Bus: 2
-    Channel: 
+    Channel:
     MixerGroup: {fileID: 0}
     Volume: 0.48
     VolumeRandom: 0
@@ -277,7 +280,7 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: df60351d9c281ba4aaa683bb517d7bbb, type: 3}
     Variants: []
     Bus: 2
-    Channel: 
+    Channel:
     MixerGroup: {fileID: 0}
     Volume: 0.35
     VolumeRandom: 0
@@ -326,26 +329,26 @@ MonoBehaviour:
       Hold: 0
       Release: 0
   - Key: rule.invalid
-    Clip: {fileID: 8300000, guid: 675dcc7880daea244b6031430db281ec, type: 3}
+    Clip: {fileID: 8300000, guid: c5245b5d3bb61abffb2ce602201ef896, type: 3}
     Variants: []
     Bus: 3
-    Channel: 
+    Channel:
     MixerGroup: {fileID: 0}
-    Volume: 0.22
-    VolumeRandom: 0
+    Volume: 0.23
+    VolumeRandom: 0.01
     Pitch: 1
     PitchRandom: 0
     SpatialBlend: 0
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 112
-    MinDistance: 0
-    MaxDistance: 0
+    Priority: 100
+    MinDistance: 2
+    MaxDistance: 16
     RolloffMode: 0
     Loop: 0
-    Cooldown: 0.4
+    Cooldown: 0.12
     PoolWarmup: 1
-    MaxSimultaneous: 1
+    MaxSimultaneous: 2
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -378,26 +381,26 @@ MonoBehaviour:
       Hold: 0
       Release: 0
   - Key: level.complete
-    Clip: {fileID: 8300000, guid: dde559ace49168e4d8e75f0f395c8900, type: 3}
+    Clip: {fileID: 8300000, guid: bd231e5533a2444589f7e6c6f5ad691f, type: 3}
     Variants: []
-    Bus: 3
-    Channel: 
+    Bus: 2
+    Channel:
     MixerGroup: {fileID: 0}
-    Volume: 0.45
-    VolumeRandom: 0
+    Volume: 0.2
+    VolumeRandom: 0.006
     Pitch: 1
-    PitchRandom: 0
+    PitchRandom: 0.015
     SpatialBlend: 0
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 96
-    MinDistance: 0
-    MaxDistance: 0
+    Priority: 80
+    MinDistance: 3
+    MaxDistance: 18
     RolloffMode: 0
     Loop: 0
     Cooldown: 1
-    PoolWarmup: 1
-    MaxSimultaneous: 1
+    PoolWarmup: 0
+    MaxSimultaneous: 2
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -433,7 +436,7 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: d386fc36f97052841b42ba2437c1c543, type: 3}
     Variants: []
     Bus: 4
-    Channel: 
+    Channel:
     MixerGroup: {fileID: 0}
     Volume: 0.15
     VolumeRandom: 0
@@ -485,7 +488,7 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 24cba567cf88f4ee99a419a024806ae0, type: 3}
     Variants: []
     Bus: 4
-    Channel: 
+    Channel:
     MixerGroup: {fileID: 0}
     Volume: 0.42
     VolumeRandom: 0
@@ -534,26 +537,29 @@ MonoBehaviour:
       Hold: 0
       Release: 0
   - Key: ambience.bird
-    Clip: {fileID: 8300000, guid: fb6efcbb5fc044607b90035dc1636209, type: 3}
-    Variants: []
+    Clip: {fileID: 8300000, guid: 30bc616194170ec4190d2ffd5e8ebc31, type: 3}
+    Variants:
+    - {fileID: 8300000, guid: 30bc616194170ec4190d2ffd5e8ebc31, type: 3}
+    - {fileID: 8300000, guid: c477523b852300cf1970b35b31d5bf9f, type: 3}
+    - {fileID: 8300000, guid: 77accf162e6a39c9ead39f1f785f9c2d, type: 3}
     Bus: 4
-    Channel: 
+    Channel:
     MixerGroup: {fileID: 0}
-    Volume: 0.1
-    VolumeRandom: 0
+    Volume: 0.11
+    VolumeRandom: 0.006
     Pitch: 1
-    PitchRandom: 0
+    PitchRandom: 0.015
     SpatialBlend: 1
     DopplerLevel: 0
     ReverbZoneMix: 0
-    Priority: 160
-    MinDistance: 4
-    MaxDistance: 24
+    Priority: 196
+    MinDistance: 3
+    MaxDistance: 28
     RolloffMode: 0
     Loop: 0
-    Cooldown: 0
-    PoolWarmup: 1
-    MaxSimultaneous: 1
+    Cooldown: 3
+    PoolWarmup: 0
+    MaxSimultaneous: 2
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0
@@ -590,7 +596,7 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: a248ddb5d70a05e45ba4d8bc61c01cae, type: 3}
     Variants: []
     Bus: 4
-    Channel: 
+    Channel:
     MixerGroup: {fileID: 0}
     Volume: 0.14
     VolumeRandom: 0
@@ -642,7 +648,7 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 23af9e4d5ea3cef42a24a835e3a1eeac, type: 3}
     Variants: []
     Bus: 4
-    Channel: 
+    Channel:
     MixerGroup: {fileID: 0}
     Volume: 0.18
     VolumeRandom: 0
@@ -694,7 +700,7 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: f8ee0144ae9d1dc4ab74c3764fa1b7f6, type: 3}
     Variants: []
     Bus: 4
-    Channel: 
+    Channel:
     MixerGroup: {fileID: 0}
     Volume: 0.22
     VolumeRandom: 0
@@ -746,7 +752,7 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 754ae8d4d21652745a80af7b0439d385, type: 3}
     Variants: []
     Bus: 2
-    Channel: 
+    Channel:
     MixerGroup: {fileID: 0}
     Volume: 0.3
     VolumeRandom: 0
@@ -798,7 +804,7 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 46f06eee537b8574a90ed5f44254150e, type: 3}
     Variants: []
     Bus: 2
-    Channel: 
+    Channel:
     MixerGroup: {fileID: 0}
     Volume: 0.26
     VolumeRandom: 0
@@ -850,7 +856,7 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 3ffc38af9ec37d448a91ed95b674b8eb, type: 3}
     Variants: []
     Bus: 3
-    Channel: 
+    Channel:
     MixerGroup: {fileID: 0}
     Volume: 0.12
     VolumeRandom: 0
@@ -867,6 +873,1448 @@ MonoBehaviour:
     Cooldown: 0
     PoolWarmup: 1
     MaxSimultaneous: 1
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.transition.in
+    Clip: {fileID: 8300000, guid: 40600cd40bdc43c0691fc0e33b37f9a7, type: 3}
+    Variants: []
+    Bus: 2
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.3
+    VolumeRandom: 0
+    Pitch: 1
+    PitchRandom: 0
+    SpatialBlend: 0
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 120
+    MinDistance: 0
+    MaxDistance: 0
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 0
+    PoolWarmup: 1
+    MaxSimultaneous: 1
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.transition.out
+    Clip: {fileID: 8300000, guid: 2caa2273bd8b1dd96bc6e04cfad9d854, type: 3}
+    Variants: []
+    Bus: 2
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.3
+    VolumeRandom: 0
+    Pitch: 1
+    PitchRandom: 0
+    SpatialBlend: 0
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 120
+    MinDistance: 0
+    MaxDistance: 0
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 0
+    PoolWarmup: 1
+    MaxSimultaneous: 1
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.tent.settle
+    Clip: {fileID: 8300000, guid: a32331209f7229b3b9c02b41f9d2e3dd, type: 3}
+    Variants:
+    - {fileID: 8300000, guid: a32331209f7229b3b9c02b41f9d2e3dd, type: 3}
+    - {fileID: 8300000, guid: 0e65726423c102ce9b302786db98c044, type: 3}
+    - {fileID: 8300000, guid: a8740e8382d0dc4d381b85c24d4993c0, type: 3}
+    Bus: 2
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.23
+    VolumeRandom: 0.01
+    Pitch: 1
+    PitchRandom: 0.018
+    SpatialBlend: 0.85
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 100
+    MinDistance: 2
+    MaxDistance: 16
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 0.12
+    PoolWarmup: 1
+    MaxSimultaneous: 2
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: ambience.rain
+    Clip: {fileID: 8300000, guid: 1ed23f24f155524ca97cbaa0a29ce0fc, type: 3}
+    Variants: []
+    Bus: 4
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.19
+    VolumeRandom: 0
+    Pitch: 1
+    PitchRandom: 0
+    SpatialBlend: 0
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 168
+    MinDistance: 3
+    MaxDistance: 18
+    RolloffMode: 0
+    Loop: 1
+    Cooldown: 0
+    PoolWarmup: 0
+    MaxSimultaneous: 1
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.tent.lift
+    Clip: {fileID: 8300000, guid: 1a7515e33a2b74790a90970cfa4277ca, type: 3}
+    Variants:
+    - {fileID: 8300000, guid: 1a7515e33a2b74790a90970cfa4277ca, type: 3}
+    - {fileID: 8300000, guid: fd28f2813d9f752b0b2db6abe8bcc2fa, type: 3}
+    - {fileID: 8300000, guid: ecd917bc21c75e6ccaccbf226c3024be, type: 3}
+    Bus: 2
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.23
+    VolumeRandom: 0.01
+    Pitch: 1
+    PitchRandom: 0.018
+    SpatialBlend: 0.85
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 100
+    MinDistance: 2
+    MaxDistance: 16
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 0.12
+    PoolWarmup: 1
+    MaxSimultaneous: 2
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.tent.remove
+    Clip: {fileID: 8300000, guid: e980ee08717f11a53b12e178ccd1a3ed, type: 3}
+    Variants:
+    - {fileID: 8300000, guid: e980ee08717f11a53b12e178ccd1a3ed, type: 3}
+    - {fileID: 8300000, guid: d64506e29f7bc1bf0900b7d8ec8b1a38, type: 3}
+    - {fileID: 8300000, guid: be75e4fa48e93f1baa57bd4e776c23a6, type: 3}
+    Bus: 2
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.23
+    VolumeRandom: 0.01
+    Pitch: 1
+    PitchRandom: 0.018
+    SpatialBlend: 0.85
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 100
+    MinDistance: 2
+    MaxDistance: 16
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 0.12
+    PoolWarmup: 1
+    MaxSimultaneous: 2
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.page
+    Clip: {fileID: 8300000, guid: d8c6a9ca0e092714e8aa01db992d7b64, type: 3}
+    Variants:
+    - {fileID: 8300000, guid: d8c6a9ca0e092714e8aa01db992d7b64, type: 3}
+    - {fileID: 8300000, guid: 6c026393092461ce683c864d800e3bc2, type: 3}
+    - {fileID: 8300000, guid: 845cb04ab91175af4ad85b86a9395bbd, type: 3}
+    Bus: 3
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.23
+    VolumeRandom: 0.01
+    Pitch: 1
+    PitchRandom: 0.018
+    SpatialBlend: 0
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 100
+    MinDistance: 2
+    MaxDistance: 16
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 0.12
+    PoolWarmup: 1
+    MaxSimultaneous: 2
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.hint
+    Clip: {fileID: 8300000, guid: 4e1535f0595f3163ba898a3175fe81ba, type: 3}
+    Variants: []
+    Bus: 3
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.12
+    VolumeRandom: 0.01
+    Pitch: 1
+    PitchRandom: 0
+    SpatialBlend: 0
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 100
+    MinDistance: 2
+    MaxDistance: 16
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 1
+    PoolWarmup: 1
+    MaxSimultaneous: 2
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.pause
+    Clip: {fileID: 8300000, guid: 12c2e612e5a37f369a74fe7ad8931b0d, type: 3}
+    Variants: []
+    Bus: 3
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.23
+    VolumeRandom: 0.01
+    Pitch: 1
+    PitchRandom: 0
+    SpatialBlend: 0
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 100
+    MinDistance: 2
+    MaxDistance: 16
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 0.12
+    PoolWarmup: 1
+    MaxSimultaneous: 2
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.resume
+    Clip: {fileID: 8300000, guid: 5d53e17bc0a943a9588df75a323b2895, type: 3}
+    Variants: []
+    Bus: 3
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.23
+    VolumeRandom: 0.01
+    Pitch: 1
+    PitchRandom: 0
+    SpatialBlend: 0
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 100
+    MinDistance: 2
+    MaxDistance: 16
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 0.12
+    PoolWarmup: 1
+    MaxSimultaneous: 2
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.toggle
+    Clip: {fileID: 8300000, guid: ece5fd63071b7ca828ddaf36d9a75a3a, type: 3}
+    Variants: []
+    Bus: 3
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.23
+    VolumeRandom: 0.01
+    Pitch: 1
+    PitchRandom: 0
+    SpatialBlend: 0
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 100
+    MinDistance: 2
+    MaxDistance: 16
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 0.12
+    PoolWarmup: 1
+    MaxSimultaneous: 2
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: music.clearing
+    Clip: {fileID: 8300000, guid: dc9e7561744eb56e98db270b47dd3e6a, type: 3}
+    Variants: []
+    Bus: 1
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.075
+    VolumeRandom: 0
+    Pitch: 1
+    PitchRandom: 0
+    SpatialBlend: 0
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 176
+    MinDistance: 2
+    MaxDistance: 16
+    RolloffMode: 0
+    Loop: 1
+    Cooldown: 0
+    PoolWarmup: 0
+    MaxSimultaneous: 1
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: ambience.rain.canvas
+    Clip: {fileID: 8300000, guid: f096944143b4a2afcb6dbeea2dd15171, type: 3}
+    Variants: []
+    Bus: 4
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.12
+    VolumeRandom: 0
+    Pitch: 1
+    PitchRandom: 0
+    SpatialBlend: 1
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 168
+    MinDistance: 3
+    MaxDistance: 18
+    RolloffMode: 0
+    Loop: 1
+    Cooldown: 0
+    PoolWarmup: 0
+    MaxSimultaneous: 1
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.tent.gust
+    Clip: {fileID: 8300000, guid: 3c1b9a78621956c61a98ff7970de884a, type: 3}
+    Variants:
+    - {fileID: 8300000, guid: 3c1b9a78621956c61a98ff7970de884a, type: 3}
+    - {fileID: 8300000, guid: cf7756e67b739ce2e8100154e3c3316a, type: 3}
+    - {fileID: 8300000, guid: 7956c83eed28f9482b9f04148afcd8e7, type: 3}
+    Bus: 4
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.14
+    VolumeRandom: 0.006
+    Pitch: 1
+    PitchRandom: 0.015
+    SpatialBlend: 1
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 196
+    MinDistance: 3
+    MaxDistance: 18
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 1
+    PoolWarmup: 0
+    MaxSimultaneous: 2
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.fire.quench
+    Clip: {fileID: 8300000, guid: 33dbdaefa495c568a9ba190cfacc170d, type: 3}
+    Variants:
+    - {fileID: 8300000, guid: 33dbdaefa495c568a9ba190cfacc170d, type: 3}
+    - {fileID: 8300000, guid: 7b7b6a3408024572b8294da6acf3e943, type: 3}
+    Bus: 4
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.17
+    VolumeRandom: 0.006
+    Pitch: 1
+    PitchRandom: 0.015
+    SpatialBlend: 1
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 196
+    MinDistance: 3
+    MaxDistance: 18
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 1
+    PoolWarmup: 0
+    MaxSimultaneous: 2
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.rain.drip
+    Clip: {fileID: 8300000, guid: c595dbdaa6bedd8d69dd057c1c3a3508, type: 3}
+    Variants:
+    - {fileID: 8300000, guid: c595dbdaa6bedd8d69dd057c1c3a3508, type: 3}
+    - {fileID: 8300000, guid: e2d7367c31852d0f2b19921bd71697ca, type: 3}
+    - {fileID: 8300000, guid: 1d3ff20770f2f521fbc820feb6a67188, type: 3}
+    Bus: 4
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.075
+    VolumeRandom: 0.006
+    Pitch: 1
+    PitchRandom: 0.015
+    SpatialBlend: 1
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 196
+    MinDistance: 3
+    MaxDistance: 18
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 1
+    PoolWarmup: 0
+    MaxSimultaneous: 2
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.tent.drag
+    Clip: {fileID: 8300000, guid: 3c1b9a78621956c61a98ff7970de884a, type: 3}
+    Variants:
+    - {fileID: 8300000, guid: 3c1b9a78621956c61a98ff7970de884a, type: 3}
+    - {fileID: 8300000, guid: cf7756e67b739ce2e8100154e3c3316a, type: 3}
+    - {fileID: 8300000, guid: 7956c83eed28f9482b9f04148afcd8e7, type: 3}
+    Bus: 2
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.11
+    VolumeRandom: 0.006
+    Pitch: 1
+    PitchRandom: 0.015
+    SpatialBlend: 1
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 80
+    MinDistance: 3
+    MaxDistance: 18
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 0.75
+    PoolWarmup: 0
+    MaxSimultaneous: 2
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: ambience.biome.forest
+    Clip: {fileID: 8300000, guid: 641d2efcfc395cf4847a6aac462a68b7, type: 3}
+    Variants: []
+    Bus: 4
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.08
+    VolumeRandom: 0
+    Pitch: 1
+    PitchRandom: 0
+    SpatialBlend: 0
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 168
+    MinDistance: 3
+    MaxDistance: 18
+    RolloffMode: 0
+    Loop: 1
+    Cooldown: 0
+    PoolWarmup: 0
+    MaxSimultaneous: 1
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: ambience.biome.meadow
+    Clip: {fileID: 8300000, guid: 97ac0463aa4a553ea9d9c52a22bf747b, type: 3}
+    Variants: []
+    Bus: 4
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.08
+    VolumeRandom: 0
+    Pitch: 1
+    PitchRandom: 0
+    SpatialBlend: 0
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 168
+    MinDistance: 3
+    MaxDistance: 18
+    RolloffMode: 0
+    Loop: 1
+    Cooldown: 0
+    PoolWarmup: 0
+    MaxSimultaneous: 1
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: ambience.biome.autumn
+    Clip: {fileID: 8300000, guid: 3051a7027f1a579888df4a1e7f12d385, type: 3}
+    Variants: []
+    Bus: 4
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.08
+    VolumeRandom: 0
+    Pitch: 1
+    PitchRandom: 0
+    SpatialBlend: 0
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 168
+    MinDistance: 3
+    MaxDistance: 18
+    RolloffMode: 0
+    Loop: 1
+    Cooldown: 0
+    PoolWarmup: 0
+    MaxSimultaneous: 1
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: ambience.biome.winter
+    Clip: {fileID: 8300000, guid: d1dc443c0e8659fbb488e8dee44ebcdd, type: 3}
+    Variants: []
+    Bus: 4
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.08
+    VolumeRandom: 0
+    Pitch: 1
+    PitchRandom: 0
+    SpatialBlend: 0
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 168
+    MinDistance: 3
+    MaxDistance: 18
+    RolloffMode: 0
+    Loop: 1
+    Cooldown: 0
+    PoolWarmup: 0
+    MaxSimultaneous: 1
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: ambience.biome.water
+    Clip: {fileID: 8300000, guid: 2173bfa979605a3b80fc4cda0be165c3, type: 3}
+    Variants: []
+    Bus: 4
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.12
+    VolumeRandom: 0
+    Pitch: 1
+    PitchRandom: 0
+    SpatialBlend: 1
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 168
+    MinDistance: 3
+    MaxDistance: 28
+    RolloffMode: 0
+    Loop: 1
+    Cooldown: 0
+    PoolWarmup: 0
+    MaxSimultaneous: 1
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.surface.snow
+    Clip: {fileID: 8300000, guid: 5f23d2a8cf4054bab9f98dd79938ee1a, type: 3}
+    Variants:
+    - {fileID: 8300000, guid: 5f23d2a8cf4054bab9f98dd79938ee1a, type: 3}
+    - {fileID: 8300000, guid: 3d6d851a076252f89f8d058c224d14ea, type: 3}
+    - {fileID: 8300000, guid: 10caef1ca3195828aaed8acd2a4be7c0, type: 3}
+    Bus: 2
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.13
+    VolumeRandom: 0.006
+    Pitch: 1
+    PitchRandom: 0.015
+    SpatialBlend: 1
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 80
+    MinDistance: 3
+    MaxDistance: 18
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 0.2
+    PoolWarmup: 0
+    MaxSimultaneous: 2
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.surface.leaves
+    Clip: {fileID: 8300000, guid: 396db05fdba15db39adf6e734c3a4a2b, type: 3}
+    Variants:
+    - {fileID: 8300000, guid: 396db05fdba15db39adf6e734c3a4a2b, type: 3}
+    - {fileID: 8300000, guid: c85a59a296dd50409d397839dd473835, type: 3}
+    - {fileID: 8300000, guid: 0c3c6b42ba325b08b146b98643522210, type: 3}
+    Bus: 2
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.13
+    VolumeRandom: 0.006
+    Pitch: 1
+    PitchRandom: 0.015
+    SpatialBlend: 1
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 80
+    MinDistance: 3
+    MaxDistance: 18
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 0.2
+    PoolWarmup: 0
+    MaxSimultaneous: 2
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.surface.mud
+    Clip: {fileID: 8300000, guid: 046d7bd7bcd65d94ac646e738ced3a88, type: 3}
+    Variants:
+    - {fileID: 8300000, guid: 046d7bd7bcd65d94ac646e738ced3a88, type: 3}
+    - {fileID: 8300000, guid: 30240106e5455df3afe86787de15baa6, type: 3}
+    - {fileID: 8300000, guid: e1bbddd27eb75d80b445c91b0fcba8a1, type: 3}
+    Bus: 2
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.13
+    VolumeRandom: 0.006
+    Pitch: 1
+    PitchRandom: 0.015
+    SpatialBlend: 1
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 80
+    MinDistance: 3
+    MaxDistance: 18
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 0.2
+    PoolWarmup: 0
+    MaxSimultaneous: 2
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.surface.soil
+    Clip: {fileID: 8300000, guid: 902835558bc45a8cbd603bb552762758, type: 3}
+    Variants:
+    - {fileID: 8300000, guid: 902835558bc45a8cbd603bb552762758, type: 3}
+    - {fileID: 8300000, guid: a596e746e7955d0fad8aed4ee0d7d3d2, type: 3}
+    - {fileID: 8300000, guid: 5752b7cc626f5174bd54d4531b992948, type: 3}
+    Bus: 2
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.13
+    VolumeRandom: 0.006
+    Pitch: 1
+    PitchRandom: 0.015
+    SpatialBlend: 1
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 80
+    MinDistance: 3
+    MaxDistance: 18
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 0.2
+    PoolWarmup: 0
+    MaxSimultaneous: 2
+    Effects:
+      EnableLowPass: 0
+      LowPassCutoff: 0
+      LowPassResonance: 0
+      EnableHighPass: 0
+      HighPassCutoff: 0
+      HighPassResonance: 0
+      EnableEcho: 0
+      EchoDelay: 0
+      EchoDecayRatio: 0
+      EchoWetMix: 0
+      EchoDryMix: 0
+      EnableReverb: 0
+      ReverbPreset: 0
+      EnableDistortion: 0
+      DistortionLevel: 0
+      EnableChorus: 0
+      ChorusDryMix: 0
+      ChorusWetMix1: 0
+      ChorusWetMix2: 0
+      ChorusWetMix3: 0
+      ChorusDelay: 0
+      ChorusRate: 0
+      ChorusDepth: 0
+    Duck:
+      Enabled: 0
+      TargetBus: 0
+      Amount: 0
+      Attack: 0
+      Hold: 0
+      Release: 0
+  - Key: sfx.surface.grass
+    Clip: {fileID: 8300000, guid: 97141efbfad25d618a689e48162005eb, type: 3}
+    Variants:
+    - {fileID: 8300000, guid: 97141efbfad25d618a689e48162005eb, type: 3}
+    - {fileID: 8300000, guid: 831189f8ff47569788f2c4abc98a9889, type: 3}
+    - {fileID: 8300000, guid: d1e933836d2f5b8fbfd1482322e3cb81, type: 3}
+    Bus: 2
+    Channel:
+    MixerGroup: {fileID: 0}
+    Volume: 0.13
+    VolumeRandom: 0.006
+    Pitch: 1
+    PitchRandom: 0.015
+    SpatialBlend: 1
+    DopplerLevel: 0
+    ReverbZoneMix: 0
+    Priority: 80
+    MinDistance: 3
+    MaxDistance: 18
+    RolloffMode: 0
+    Loop: 0
+    Cooldown: 0.2
+    PoolWarmup: 0
+    MaxSimultaneous: 2
     Effects:
       EnableLowPass: 0
       LowPassCutoff: 0

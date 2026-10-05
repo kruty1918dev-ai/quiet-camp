@@ -31,6 +31,8 @@ namespace QuietCamp.Infrastructure
         float _dirDeg, _targetDeg;
         float _clock, _nextGust;
         float _gustT = -1f, _hold, _release, _amp;
+        WindShelterField _shelter;
+        Snapshot _latest;
 
         /// <summary>Fired once when a gust's attack phase begins.</summary>
         public event Action GustStarted;
@@ -43,10 +45,14 @@ namespace QuietCamp.Infrastructure
             _gustMax = Mathf.Max(_gustMin, gustMax);
             _dirDeg = _targetDeg = directionDeg;
             _nextGust = Mathf.Lerp(_gustMin, _gustMax, (float)_rng.NextDouble());
+            _latest = Capture();
         }
 
         public float BaseStrength => _base;
         public bool GustActive => _gustT >= 0f;
+        public void SetShelter(WindShelterField shelter) => _shelter = shelter;
+        public WindFieldMath.Sample Sample(Vector3 worldPosition, float height)
+            => WindFieldMath.Evaluate(_latest.DirectionXZ, _latest.Strength, _latest.PhaseSeconds, worldPosition, height, _shelter);
 
         /// <summary>Sets a new base strength with the caller's own smoothing.</summary>
         public void SetBase(float strength) => _base = Mathf.Clamp01(strength);
@@ -64,7 +70,7 @@ namespace QuietCamp.Infrastructure
 
         public Snapshot Advance(float dt)
         {
-            if (dt <= 0f) return Capture();
+            if (dt <= 0f) return _latest;
             _clock += dt;
 
             // Direction: approach a slowly-wandering target within the turn cap.
@@ -102,7 +108,8 @@ namespace QuietCamp.Infrastructure
                     _nextGust = Mathf.Lerp(_gustMin, _gustMax, (float)_rng.NextDouble());
                 }
             }
-            return Capture(env);
+            _latest = Capture(env);
+            return _latest;
         }
 
         Snapshot Capture(float env = 0f)

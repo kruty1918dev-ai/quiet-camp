@@ -1,21 +1,39 @@
-﻿{
-    "name":  "QuietCamp.Tests.Editor",
-    "references":  [
-                       "QuietCamp.Domain",
-                       "QuietCamp.Application",
-                       "QuietCamp.Infrastructure",
-                       "QuietCamp.Presentation"
-                   ],
-    "includePlatforms":  [
-                             "Editor"
-                         ],
-    "optionalUnityReferences":  [
-                                    "TestAssemblies"
-                                ],
-    "overrideReferences":  true,
-    "precompiledReferences":  [
-                                  "Newtonsoft.Json.dll",
-                                  "nunit.framework.dll"
-                              ],
-    "autoReferenced":  false
+{
+  "name": "QuietCamp.Tests.Editor",
+  "references": [
+    "QuietCamp.Domain",
+    "QuietCamp.Application",
+    "QuietCamp.Infrastructure",
+    "QuietCamp.Presentation",
+    "UnityEngine.UI",
+    "Kruty1918.LevelKit",
+    "Kruty1918.Tutorials",
+    "Kruty1918.Localization",
+    "Kruty1918.Audio",
+    "Kruty1918.InputRouting",
+    "Kruty1918.UIActions",
+    "Kruty1918.Notifications",
+    "Kruty1918.UiFoundation",
+    "Kruty1918.SaveSystem",
+    "Unity.InputSystem",
+    "Unity.RenderPipelines.Core.Runtime",
+    "Unity.RenderPipelines.Universal.Runtime",
+    "Unity.TextMeshPro",
+    "Kruty1918.Atmos",
+    "UnityHTML.Runtime",
+    "Kruty1918.Haptics",
+    "Kruty1918.GameplayViewport"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "Newtonsoft.Json.dll",
+    "nunit.framework.dll"
+  ],
+  "autoReferenced": false
 }

@@ -44,7 +44,12 @@ namespace QuietCamp.Presentation
 
         async Task Transition(string sceneName, string levelId)
         {
-            if (_busy) return;
+            if (_busy || _services.MonetizationBusy) return;
+            if (sceneName == "Camp" && !_services.CanStart(levelId))
+            {
+                _services.Notifications?.Show(_services.Localization.T("journey.access.denied"), GameplayNotificationKind.Info);
+                return;
+            }
             _busy = true;
             var dive = Dive;
             var cfg = dive.Config;

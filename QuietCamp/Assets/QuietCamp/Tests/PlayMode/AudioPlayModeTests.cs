@@ -23,6 +23,8 @@ namespace QuietCamp.Tests
             "ambience.wind", "ambience.fire", "ambience.bird",
             "ambience.crickets", "ambience.owl", "ambience.gust",
             "sfx.rustle", "sfx.twig", "sfx.chime",
+            "sfx.tent.settle",
+            "sfx.transition.in", "sfx.transition.out",
         };
 
         [Test]

@@ -71,6 +71,7 @@ MonoBehaviour:
       - rid: 6337474466152185861
       - rid: 6337474466152185862
       - rid: -2
+      - rid: 1774019168545275964
     m_RuntimeSettings:
       m_List:
       - rid: 6852985685364965378
@@ -85,6 +86,7 @@ MonoBehaviour:
       - rid: 4503325328980312075
       - rid: 4503325328980312077
       - rid: 6337474466152185861
+      - rid: 1774019168545275964
   m_AssetVersion: 11
   m_ObsoleteDefaultVolumeProfile: {fileID: 0}
   m_RenderingLayerNames:
@@ -117,6 +119,12 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1774019168545275964
+      type: {class: ScreenSpaceReflectionPersistentResources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
+      data:
+        m_Shader: {fileID: 4800000, guid: 7b3e6785f5f6b634794df3a85a2a35da, type: 3}
+        m_BlitShader: {fileID: 4800000, guid: 815c625bb9d4fe240a4ccf42ca3899cb, type: 3}
+        m_Version: 0
     - rid: 4503325328980312064
       type: {class: RayTracingRenderPipelineResources, ns: UnityEngine.Rendering.UnifiedRayTracing, asm: Unity.UnifiedRayTracing.Runtime}
       data:

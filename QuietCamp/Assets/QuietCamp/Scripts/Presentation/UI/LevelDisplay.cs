@@ -15,6 +15,10 @@ namespace QuietCamp.Presentation.UI
         {
             if (levelId == null) return loc.T("level.unknown");
             if (IsTest(levelId)) return loc.T("level.test");
+            if (levelId.StartsWith("QC_LH", System.StringComparison.Ordinal) && int.TryParse(levelId.Substring(5), out var lighthouse) && lighthouse >= 1 && lighthouse <= 8)
+                return loc.T("journey.lighthouse.level." + lighthouse);
+            var bonus = BonusCampCatalog.ForLevel(levelId);
+            if (bonus != null) return loc.T(bonus.titleKey);
             var ids = LevelLoader.MvpLevelIds();
             for (var i = 0; i < ids.Count; i++)
             {

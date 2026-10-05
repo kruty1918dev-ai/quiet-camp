@@ -1,10 +1,38 @@
 <!-- IL2CPP linker preserve rules for Quiet Camp.
-     Newtonsoft.Json deserializes level JSON via reflection; keep its metadata. -->
+     Newtonsoft.Json deserializes level JSON via reflection.
+     UnityHTML/ReactUnity expose UI members to JavaScript by reflection.
+     QuickJS discovers delegate templates and value converters with GetMethods;
+     stripping them makes the Android host fail before any HTML is rendered. -->
 <linker>
+  <!-- CreatePrimitive also needs collider types in stripped IL2CPP players,
+       even when the presentation immediately removes those colliders. -->
+  <assembly fullname="UnityEngine.CoreModule">
+    <type fullname="UnityEngine.MeshFilter" preserve="all"/>
+    <type fullname="UnityEngine.MeshRenderer" preserve="all"/>
+  </assembly>
+  <assembly fullname="UnityEngine.PhysicsModule">
+    <type fullname="UnityEngine.MeshCollider" preserve="all"/>
+    <type fullname="UnityEngine.BoxCollider" preserve="all"/>
+    <type fullname="UnityEngine.SphereCollider" preserve="all"/>
+    <type fullname="UnityEngine.CapsuleCollider" preserve="all"/>
+  </assembly>
   <assembly fullname="Newtonsoft.Json" preserve="all"/>
   <assembly fullname="Unity.Newtonsoft.Json" preserve="all"/>
   <assembly fullname="QuietCamp.Domain" preserve="all"/>
   <assembly fullname="QuietCamp.Runtime" preserve="all"/>
   <assembly fullname="DOTween" preserve="all"/>
   <assembly fullname="DOTweenPro" preserve="all"/>
+  <assembly fullname="UnityHTML.Runtime" preserve="all"/>
+  <assembly fullname="ReactUnity" preserve="all"/>
+  <assembly fullname="ReactUnity.UGUI" preserve="all"/>
+  <assembly fullname="LibYoga" preserve="all"/>
+  <assembly fullname="jsb.editor.binding">
+    <type fullname="QuickJS.Binding.ReflectBindDelegateGen" preserve="all"/>
+  </assembly>
+  <assembly fullname="jsb.core">
+    <type fullname="QuickJS.Binding.Values" preserve="all"/>
+  </assembly>
+  <assembly fullname="QuietCamp.Presentation">
+    <type fullname="QuietCamp.Presentation.UI.HtmlCallbacks" preserve="all"/>
+  </assembly>
 </linker>

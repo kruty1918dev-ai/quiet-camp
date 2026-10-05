@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Threading.Tasks;
+using Kruty1918.Audio;
 using Kruty1918.InputRouting.API;
 using NUnit.Framework;
 using QuietCamp.Presentation;
@@ -28,9 +29,79 @@ namespace QuietCamp.Tests
         }
 
         [UnityTest]
+        public IEnumerator Curtain_SubmitsVisibleMeshToCanvas()
+        {
+            var dive = FoliageDiveTransition.Ensure(null);
+            try
+            {
+                var cover = dive.CoverAsync();
+                var leaves = dive.transform.Find("Cover/Leaves");
+                // Inspect the component directly: Graphic.canvasRenderer can
+                // lazily add it, masking a missing runtime rendering dependency.
+                var renderer = leaves.GetComponent<CanvasRenderer>();
+                Assert.IsNotNull(renderer, "Leaves need a renderer when the overlay is created.");
+                yield return Wait(cover);
+                Canvas.ForceUpdateCanvases();
+
+                var rect = leaves.GetComponent<RectTransform>().rect;
+                Assert.Greater(rect.width, 0f);
+                Assert.Greater(rect.height, 0f);
+                Assert.IsFalse(renderer.cull);
+                Assert.Greater(renderer.materialCount, 0);
+                Assert.IsNotNull(renderer.GetMaterial());
+                var mesh = renderer.GetMesh();
+                Assert.IsNotNull(mesh);
+                Assert.Greater(mesh.vertexCount, 0,
+                    "The normal Canvas rebuild must submit leaves, not only generate preview geometry.");
+            }
+            finally
+            {
+                dive.Recover();
+                Object.Destroy(dive.gameObject);
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator Recover_StopsTransitionSoundWithoutStoppingWorldRustle()
+        {
+            yield return SceneManager.LoadSceneAsync("Boot");
+            yield return PrivacyBootTestSupport.EnterGame();
+            yield return null; yield return null;
+            var dive = Dive();
+            var services = Services();
+            bool reduced = services.ReducedMotion;
+            services.ReducedMotion = false;
+            try
+            {
+                var cover = dive.CoverAsync();
+                AudioSource transition = null;
+                float deadline = Time.realtimeSinceStartup + 2f;
+                var clip = services.Audio.GetSound("sfx.transition.in").Clip;
+                while (transition == null && Time.realtimeSinceStartup < deadline)
+                {
+                    foreach (var source in Object.FindObjectsByType<AudioSource>(FindObjectsSortMode.None))
+                        if (source.clip == clip && source.isPlaying) transition = source;
+                    yield return null;
+                }
+                Assert.IsNotNull(transition, "The entry cue must follow visible leaf motion.");
+                Assert.AreEqual(0f, transition.spatialBlend);
+                Assert.LessOrEqual(Mathf.Abs(transition.panStereo), .15f);
+                var world = services.Audio.Play("sfx.rustle", new AudioPlayOptions(volumeScale: .1f));
+                Assert.IsTrue(world.IsPlaying);
+                dive.Recover();
+                Assert.IsFalse(transition.isPlaying, "Recovery must release its own sound scope.");
+                Assert.IsTrue(world.IsPlaying, "Recovery must preserve independent world sounds.");
+                world.Stop();
+                yield return Wait(cover);
+            }
+            finally { services.ReducedMotion = reduced; dive.Recover(); }
+        }
+
+        [UnityTest]
         public IEnumerator RecoverDuringCover_NeverEntersCoveredLoading()
         {
             yield return SceneManager.LoadSceneAsync("Boot");
+            yield return PrivacyBootTestSupport.EnterGame();
             yield return null; yield return null;
             var dive = Dive();
             Assert.IsNotNull(dive);
@@ -56,49 +127,64 @@ namespace QuietCamp.Tests
         public IEnumerator Reveal_RetractsLeavesAndRestoresInput()
         {
             yield return SceneManager.LoadSceneAsync("Boot");
+            yield return PrivacyBootTestSupport.EnterGame();
             yield return null; yield return null;
             var dive = Dive();
             var services = Services();
             Assert.IsNotNull(dive);
             Assert.IsNotNull(services);
+            bool previousMotion = services.ReducedMotion;
+            services.ReducedMotion = false;
+            try
+            {
+
+            // Probe the global transition lease outside UI hit regions. A
+            // fixed in-screen coordinate can land on a menu button as the
+            // Game View size changes between visual tests.
+            var probe = new Vector2(-100f, -100f);
 
             yield return Wait(dive.CoverAsync());
             Assert.AreEqual(FoliageDiveTransition.State.CoveredLoading, dive.Current);
 
             // Under the opaque cover gameplay pointers are policy-blocked.
             Assert.IsFalse(services.InputPolicy.CanProcess(
-                GameplayInputKind.Placement, new Vector2(500f, 500f)),
+                GameplayInputKind.Placement, probe),
                 "Placement input must be policy-gated while covered, not only by raycast.");
 
-            // Leaves sit closed over the frame at full progress.
-            var leaf = dive.transform.Find("Cover/Leaves/Leaf_0") as RectTransform;
-            Assert.IsNotNull(leaf);
-            float coveredAlpha = leaf.GetComponent<UnityEngine.UI.Image>().color.a;
-            Assert.Greater(coveredAlpha, .9f, "leaf must be opaque when covered");
+            var canopy = dive.transform.Find("Cover/Leaves").GetComponent<LeafCurtainGraphic>();
+            Assert.IsNotNull(canopy);
+            Assert.AreEqual(1f, canopy.Travel, .001f, "Canopy must fully cover loading.");
+            var cameraPosition = Camera.main.transform.position;
 
             dive.BeginReveal();
             var reveal = dive.RevealAsync();
 
-            // Mid-reveal the same progress drives leaves back out.
+            // The curtain continues forward rather than reversing or fading.
             bool sawRetract = false;
             while (!reveal.IsCompleted)
             {
-                if (leaf.GetComponent<UnityEngine.UI.Image>().color.a < coveredAlpha - .2f)
-                    sawRetract = true;
+                if (canopy.Travel > 1.2f) sawRetract = true;
+                Assert.AreEqual(cameraPosition, Camera.main.transform.position,
+                    "A screen-space wipe must not move the scene camera.");
                 yield return null;
             }
             yield return Wait(reveal);
+            // Pointer raycasts are cached for one frame by the input policy.
+            yield return null;
             Assert.IsTrue(sawRetract, "Reveal never retracted the leaf overlay.");
             Assert.AreEqual(FoliageDiveTransition.State.Idle, dive.Current);
             Assert.IsTrue(services.InputPolicy.CanProcess(
-                GameplayInputKind.Placement, new Vector2(500f, 500f)),
+                GameplayInputKind.Placement, probe),
                 "Input policy block must be released after the transition.");
+            }
+            finally { services.ReducedMotion = previousMotion; }
         }
 
         [UnityTest]
         public IEnumerator ReducedMotion_HidesLeavesAndKeepsCamera()
         {
             yield return SceneManager.LoadSceneAsync("Boot");
+            yield return PrivacyBootTestSupport.EnterGame();
             yield return null; yield return null;
             var services = Services();
             Assert.IsNotNull(services);

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Kruty1918.LevelGen;
@@ -41,7 +42,26 @@ namespace QuietCamp.Infrastructure
             var asset = Resources.Load<TextAsset>($"{RecipesFolder}/{recipeName}");
             if (asset == null)
                 throw new InvalidOperationException($"recipe '{recipeName}' not found in Resources/{RecipesFolder}");
+            if(recipeName=="qc_camp")
+            {
+                int number=10+Math.Max(1,index);
+                var campaign=CampCampaignAuthoring.Create($"gen:qc_camp:{index}",number,CampCampaignAuthoring.SeedForNumber(number));
+                campaign.contentHash=Hash(campaign);return campaign;
+            }
             var recipe = GenRecipe.FromJson(asset.text);
+            var sizes = new[] { (4,6), (5,7), (6,5), (6,8), (8,6), (7,7) };
+            var size = sizes[(Math.Max(1,index)-1) % sizes.Length];
+            recipe.width = size.Item1; recipe.height = size.Item2;
+            recipe.Steps.Clear();
+            foreach (var step in Newtonsoft.Json.Linq.JArray.Parse(@"[
+                {'type':'rect','layer':'entry_band','from':[0,0],'size':[1,1]},
+                {'type':'rect','layer':'top_band','from':[0,0],'size':[1,1]},
+                {'type':'scatter','layer':'entry','count':1,'on':['entry_band'],'strict':true},
+                {'type':'scatter','layer':'blocked','count':2,'minDist':2,'on':['top_band'],'avoid':['entry']}
+            ]")) recipe.Steps.Add((Newtonsoft.Json.Linq.JObject)step);
+            recipe.Steps[0]["from"] = new Newtonsoft.Json.Linq.JArray(0,recipe.height-1);
+            recipe.Steps[0]["size"] = new Newtonsoft.Json.Linq.JArray(recipe.width,1);
+            recipe.Steps[1]["size"] = new Newtonsoft.Json.Linq.JArray(recipe.width,Math.Max(2,recipe.height-2));
             var rng = new System.Random(recipe.seed + index * 7919);
             var genFailed = 0; var timeouts = 0; var unsat = 0; var invalid = 0;
             var lastIssues = "";
@@ -51,7 +71,10 @@ namespace QuietCamp.Infrastructure
                 var result = LevelGenerator.Generate(recipe, seed);
                 if (!result.Ok) { genFailed++; lastIssues = string.Join("; ", result.Issues); continue; }
                 var level = BuildLevel(result.Level, index, attempt + 1, rng);
-                var solver = new CampSolver(level, Array.Empty<Placement>(), 1.5);
+                level.id = $"gen:{recipeName}:{index}";
+                ConfigureEnvironment(level, level.order);
+                ConfigureAccess(level, level.order, false);
+                var solver = new CampSolver(level, Array.Empty<Placement>(), 2.5);
                 var status = solver.Step();
                 while (status == CampSolver.Status.Searching) status = solver.Step(0.05);
                 if (status != CampSolver.Status.Solved)
@@ -60,6 +83,7 @@ namespace QuietCamp.Infrastructure
                     lastIssues = $"solver: {status}"; continue;
                 }
                 level.witness = solver.Solution;
+                level.contentHash = Hash(level);
                 var errors = LevelContentValidator.Validate(level);
                 if (errors.Count == 0)
                     return level;
@@ -90,14 +114,86 @@ namespace QuietCamp.Infrastructure
             };
             level.entry = First(g, "entry");
             level.blocked = CellsOf(g, "blocked");
-            level.shade = CellsOf(g, "shade");
-            level.noise = CellsOf(g, "noise");
+            level.shade = Array.Empty<int[]>();
+            level.noise = Array.Empty<int[]>();
 
             var guests = ComposeGuests(g, level, rng);
             level.guests = guests.ToArray();
             level.friends = MaybeFriends(guests, rng);
             level.contentHash = Hash(level);
             return level;
+        }
+
+        public static void ConfigureEnvironment(LevelData level, int index)
+        {
+            level.environmentPreset = index <= 10 ? "meadow" : index <= 20 ? "pines" : "firelight";
+            level.chapter = (level.order-1)/10+1;
+            var shadeWanted = level.guests.Any(g => g.shade) || (index > 3 && index % 3 != 0);
+            level.canopies = shadeWanted ? new[] { new ShadeCanopyData
+                { x = 1.1f, z = Math.Min(level.height-1.1f, index == 10 ? level.height-1.3f : 1.3f + index%2*(level.height-2.6f)), radiusX=1.55f, radiusZ=1.5f } }
+                : Array.Empty<ShadeCanopyData>();
+            level.shade = ShadeProjection.Cells(level);
+            var blocked = level.blocked.Select(c => new Cell(c[0],c[1])).ToList();
+            // Every fire occupies a cell. Larger clearings alternate warm and quiet layouts.
+            if (index == 3 && blocked.Count > 0)
+                level.noise = new[] { new[] { blocked[0].X, blocked[0].Z } };
+            else if (index > 7 && index % 3 == 0)
+            {
+                var fire = new Cell(level.width-1,0);
+                if (!blocked.Contains(fire)) blocked.Add(fire);
+                level.noise = new[] { new[] { fire.X, fire.Z } };
+            }
+            else if (level.noise == null) level.noise = Array.Empty<int[]>();
+            foreach (var n in level.noise)
+                if (!blocked.Contains(new Cell(n[0],n[1]))) blocked.Add(new Cell(n[0],n[1]));
+            level.blocked = blocked.Select(c=>new[]{c.X,c.Z}).ToArray();
+            var props = new[] { "stone_largeA", "stump_round", "log", "tree_default" };
+            level.objects = level.blocked.Select((c,i)=>new EnvironmentObjectData
+            {
+                x=c[0], z=c[1], rotation=(i+index)%4,
+                assetId = level.noise.Any(n=>n[0]==c[0] && n[1]==c[1]) ? "campfire_stones" : props[(i+index)%props.Length]
+            }).ToArray();
+            if (index > 10)
+            {
+                level.guests[0].shade = shadeWanted;
+                level.guests[level.guests.Length-1].quiet = level.noise.Length > 0;
+                level.friends = index%4 == 0 && level.guests.Length >= 3
+                    ? new[] { new[] { level.guests[0].id, level.guests[1].id } } : Array.Empty<string[]>();
+                level.lighting = index > 20 && index%2 == 0 ? "evening" : index%4 == 0 ? "morning" : "day";
+            }
+        }
+
+        /// <summary>Choose varied edges in the same open component. Authored
+        /// upgrades preserve the witness; generation solves afterwards.</summary>
+        public static void ConfigureAccess(LevelData level,int number,bool preserveWitness)
+        {
+            if(number<=3)return;
+            var occupied=new HashSet<Cell>(level.blocked.Select(c=>new Cell(c[0],c[1])));
+            if(preserveWitness)foreach(var placement in level.witness??Array.Empty<Placement>())occupied.UnionWith(RuleEvaluator.Footprint(placement));
+            var origin=new Cell(level.entry[0],level.entry[1]);var candidates=new List<Cell>();
+            for(int x=0;x<level.width;x++)for(int z=0;z<level.height;z++)
+            {
+                var c=new Cell(x,z);
+                if((x==0||z==0||x==level.width-1||z==level.height-1)&&!occupied.Contains(c)
+                    &&RuleEvaluator.Path(level,occupied,origin,c)!=null)candidates.Add(c);
+            }
+            if(candidates.Count==0)return;
+            Cell Target(int side)=>side==0?new Cell(level.width/2,0):side==1?new Cell(level.width-1,level.height/2)
+                :side==2?new Cell(level.width/2,level.height-1):new Cell(0,level.height/2);
+            Cell Pick(int side,IEnumerable<Cell> cells)=>cells.OrderBy(c=>Math.Abs(c.X-Target(side).X)+Math.Abs(c.Z-Target(side).Z)).ThenBy(c=>c.X).ThenBy(c=>c.Z).First();
+            int edge=(number-4)%4;var primary=Pick(edge,candidates);level.entry=new[]{primary.X,primary.Z};
+            var points=new List<AccessPointData>();
+            if(number>=5&&number%2==1)
+            {
+                var exits=candidates.Where(c=>Math.Abs(c.X-primary.X)+Math.Abs(c.Z-primary.Z)>2).ToArray();
+                if(exits.Length>0){var exit=Pick((edge+2)%4,exits);points.Add(new AccessPointData{id="trail-out",kind="exit",x=exit.X,z=exit.Z});}
+            }
+            if(number>=10&&number%7==0)
+            {
+                var entries=candidates.Where(c=>!c.Equals(primary)&&!points.Any(p=>p.x==c.X&&p.z==c.Z)).ToArray();
+                if(entries.Length>0){var entry=Pick((edge+1)%4,entries);points.Add(new AccessPointData{id="forest-entry",kind="entry",x=entry.X,z=entry.Z});}
+            }
+            level.accessPoints=points.ToArray();
         }
 
         /// <summary>
@@ -162,7 +258,9 @@ namespace QuietCamp.Infrastructure
 
         static string Hash(LevelData level)
         {
+            var previous=level.contentHash;level.contentHash="";
             var json = JsonConvert.SerializeObject(level);
+            level.contentHash=previous;
             using var sha = SHA256.Create();
             var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(json));
             var sb = new StringBuilder(bytes.Length * 2);

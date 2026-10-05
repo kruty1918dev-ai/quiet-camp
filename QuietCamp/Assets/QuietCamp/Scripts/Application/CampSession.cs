@@ -19,10 +19,12 @@ namespace QuietCamp.Application
         public BoardState State { get; private set; } = BoardState.Empty;
         public string SelectedGuestId { get; private set; }
         public bool IsCompleted => _completed;
+        public Func<bool> CompletionPersistence { get; set; }
         public bool CanUndo { get; private set; }
         public bool CanRedo { get; private set; }
 
         public event Action<CampEvent> Evented;
+        public event Action<ComfortAction> ActionRecorded;
 
         public CampSession(LevelData level)
         {
@@ -46,14 +48,18 @@ namespace QuietCamp.Application
             return RuleEvaluator.Evaluate(Level, next, requireAll: false);
         }
 
-        /// <summary>Applies a placement command. Returns false on hard-invalid layout.</summary>
+        /// <summary>Applies a placement command. Rejects hard-invalid, unchanged and completed layouts.</summary>
         public bool TryCommit(PlacementCommand command, out RuleReport report)
         {
+            if (_completed) { report = LastReport(); return false; }
+            var previous = State.Find(command.GuestId);
             var next = command.Apply(State.Placements);
             report = RuleEvaluator.Evaluate(Level, next, requireAll: false);
             if (!report.CanCommit) return false;
             if (!_history.Commit(Level, next)) return false;
             ApplyCurrent(command.GuestId);
+            ActionRecorded?.Invoke(command.After == null ? ComfortAction.Remove : previous == null ? ComfortAction.Place
+                : previous.x != command.After.x || previous.z != command.After.z ? ComfortAction.Move : ComfortAction.Rotate);
             Emit(CampEventKind.BoardCommitted, command.GuestId);
             Emit(CampEventKind.RulesChanged, report: report);
             return true;
@@ -61,8 +67,9 @@ namespace QuietCamp.Application
 
         public bool Undo()
         {
-            if (!_history.Undo()) return false;
+            if (_completed || !_history.Undo()) return false;
             ApplyCurrent(SelectedGuestId);
+            ActionRecorded?.Invoke(ComfortAction.Undo);
             Emit(CampEventKind.BoardCommitted);
             Emit(CampEventKind.RulesChanged, report: LastReport());
             return true;
@@ -70,19 +77,23 @@ namespace QuietCamp.Application
 
         public bool Redo()
         {
-            if (!_history.Redo()) return false;
+            if (_completed || !_history.Redo()) return false;
             ApplyCurrent(SelectedGuestId);
+            ActionRecorded?.Invoke(ComfortAction.Redo);
             Emit(CampEventKind.BoardCommitted);
             Emit(CampEventKind.RulesChanged, report: LastReport());
             return true;
         }
 
         /// <summary>Full validation against the current layout; completion only via this.</summary>
-        public RuleReport Check()
+        public RuleReport Check(Func<bool> persistCompletion = null)
         {
+            ActionRecorded?.Invoke(ComfortAction.Check);
             var report = RuleEvaluator.Evaluate(Level, State.Placements, requireAll: true);
             if (report.IsSolved && !_completed)
             {
+                var persist = persistCompletion ?? CompletionPersistence;
+                if (persist != null && !persist()) return report;
                 _completed = true;
                 Emit(CampEventKind.LevelCompleted, report: report);
             }
@@ -93,6 +104,7 @@ namespace QuietCamp.Application
         /// <summary>Loads a saved layout; undo history is intentionally cleared.</summary>
         public void Restore(IEnumerable<Placement> saved, string selectedGuestId)
         {
+            _completed = false;
             _history.Restore(saved ?? Array.Empty<Placement>());
             SelectedGuestId = selectedGuestId;
             ApplyCurrent(SelectedGuestId);
@@ -128,6 +140,6 @@ namespace QuietCamp.Application
             return false;
         }
 
-        public void Dispose() => Evented = null;
+        public void Dispose() { Evented = null; ActionRecorded = null; CompletionPersistence = null; }
     }
 }

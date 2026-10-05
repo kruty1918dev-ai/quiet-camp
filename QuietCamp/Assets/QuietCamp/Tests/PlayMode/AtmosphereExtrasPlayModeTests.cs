@@ -30,6 +30,7 @@ namespace QuietCamp.Tests
             Assert.AreEqual(4, sprites.Length, "Leaf atlas must expose the four 2×2 cells.");
 
             yield return SceneManager.LoadSceneAsync("Boot");
+            yield return PrivacyBootTestSupport.EnterGame();
             yield return null; yield return null;
             yield return SceneManager.LoadSceneAsync("Camp");
             for (int i = 0; i < 60 && CampSceneHost.Current?.Atmosphere == null; i++)
@@ -183,6 +184,7 @@ namespace QuietCamp.Tests
         public IEnumerator DecorCaptureIsScopedAndIdempotent()
         {
             yield return SceneManager.LoadSceneAsync("Boot");
+            yield return PrivacyBootTestSupport.EnterGame();
             yield return null; yield return null;
             yield return SceneManager.LoadSceneAsync("Camp");
             for (int i = 0; i < 60 && CampSceneHost.Current?.Atmosphere == null; i++)
@@ -220,6 +222,7 @@ namespace QuietCamp.Tests
         public IEnumerator FoliageDiveCoversMenuTransitionAndRestoresInput()
         {
             yield return SceneManager.LoadSceneAsync("Boot");
+            yield return PrivacyBootTestSupport.EnterGame();
             yield return null; yield return null;
             yield return SceneManager.LoadSceneAsync("Camp");
             for (int i = 0; i < 60 && CampSceneHost.Current?.Atmosphere == null; i++)
@@ -259,6 +262,7 @@ namespace QuietCamp.Tests
         public IEnumerator FirePhaseUsesPositionalLoopWithoutDuplicates()
         {
             yield return SceneManager.LoadSceneAsync("Boot");
+            yield return PrivacyBootTestSupport.EnterGame();
             yield return null; yield return null;
             yield return SceneManager.LoadSceneAsync("Camp");
             for (int i = 0; i < 60 && CampSceneHost.Current?.Atmosphere == null; i++)

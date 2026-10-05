@@ -1,0 +1,92 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace QuietCamp.Application
+{
+    [Serializable] public sealed class JourneyDefinition
+    {
+        public string id, titleKey, descriptionKey, entitlementId, previewLevelId;
+        public int revision = 1, currencyCost;
+        public bool published;
+        public string[] levelIds = Array.Empty<string>(), storyKeys = Array.Empty<string>();
+        public string StoryKey(string levelId)
+        {
+            int index = Array.IndexOf(levelIds, levelId);
+            return index >= 0 && index < (storyKeys?.Length ?? 0) ? storyKeys[index] : null;
+        }
+    }
+    [Serializable] public sealed class EntitlementSaveData
+    {
+        public int version = 1;
+        public string[] ownedIds = Array.Empty<string>(), compatibilityIds = Array.Empty<string>();
+        public bool Has(string id) => string.IsNullOrEmpty(id) || Array.IndexOf(ownedIds ?? Array.Empty<string>(), id) >= 0
+            || Array.IndexOf(compatibilityIds ?? Array.Empty<string>(), id) >= 0;
+    }
+    public sealed class JourneyCatalog
+    {
+        readonly JourneyDefinition[] _journeys;
+        public IReadOnlyList<JourneyDefinition> Journeys => _journeys;
+        public JourneyCatalog(IEnumerable<JourneyDefinition> journeys)
+        {
+            _journeys = journeys?.ToArray() ?? throw new ArgumentNullException(nameof(journeys));
+            var issues = Validate(_journeys);
+            if (issues.Count > 0) throw new ArgumentException(string.Join(", ", issues));
+        }
+        public JourneyDefinition ForLevel(string id) => _journeys.FirstOrDefault(j => Array.IndexOf(j.levelIds, id) >= 0);
+        public JourneyDefinition Find(string id) => _journeys.FirstOrDefault(j => j.id == id);
+        public static List<string> Validate(IEnumerable<JourneyDefinition> journeys)
+        {
+            var issues = new List<string>(); var ids = new HashSet<string>(StringComparer.Ordinal); var levels = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var journey in journeys ?? Array.Empty<JourneyDefinition>())
+            {
+                if (journey == null || string.IsNullOrWhiteSpace(journey.id) || !ids.Add(journey.id)) { issues.Add("journey.id"); continue; }
+                if (journey.revision < 1 || journey.currencyCost < 0 || journey.levelIds == null || journey.published && journey.levelIds.Length == 0) issues.Add("journey.content");
+                foreach (var id in journey.levelIds ?? Array.Empty<string>()) if (string.IsNullOrWhiteSpace(id) || !levels.Add(id)) issues.Add("journey.level");
+                if (!string.IsNullOrEmpty(journey.previewLevelId) && Array.IndexOf(journey.levelIds ?? Array.Empty<string>(), journey.previewLevelId) < 0) issues.Add("journey.preview");
+                if (journey.storyKeys?.Length > 0 && journey.storyKeys.Length != journey.levelIds.Length) issues.Add("journey.story");
+            }
+            return issues;
+        }
+    }
+    public enum JourneyAccessState { Available, MissingContent, Predecessor, PurchaseRequired }
+    public readonly struct AccessDecision
+    {
+        public readonly JourneyAccessState State;
+        public readonly JourneyDefinition Journey;
+        public bool CanStart => State == JourneyAccessState.Available;
+        public AccessDecision(JourneyAccessState state, JourneyDefinition journey) { State = state; Journey = journey; }
+    }
+    public sealed class JourneyAccessService
+    {
+        readonly JourneyCatalog _catalog;
+        readonly ProgressionService _progression;
+        readonly EntitlementSaveData _grants;
+        readonly Func<bool> _pro;
+        public JourneyAccessService(JourneyCatalog catalog, ProgressionService progression, EntitlementSaveData grants, Func<bool> pro)
+        { _catalog = catalog; _progression = progression; _grants = grants; _pro = pro; }
+        public AccessDecision Evaluate(string levelId)
+        {
+            var journey = _catalog.ForLevel(levelId);
+            if (journey == null || !journey.published) return new AccessDecision(JourneyAccessState.MissingContent, journey);
+            if (_pro()) return new AccessDecision(JourneyAccessState.Available, journey);
+            if (!_grants.Has(journey.entitlementId)) return new AccessDecision(JourneyAccessState.PurchaseRequired, journey);
+            return new AccessDecision(_progression.IsCompleted(levelId) || _progression.IsUnlocked(levelId, journey.levelIds)
+                ? JourneyAccessState.Available : JourneyAccessState.Predecessor, journey);
+        }
+        public string ContinueTarget(string journeyId)
+        {
+            var journey = _catalog.Find(journeyId);
+            if (journey == null || !journey.published) return null;
+            var next = _progression.ContinueTarget(journey.levelIds);
+            return Evaluate(next).CanStart ? next : null;
+        }
+        public string NextAfter(string levelId)
+        {
+            var journey = _catalog.ForLevel(levelId);
+            if (journey == null) return null;
+            var next = _progression.NextAfter(levelId, journey.levelIds);
+            return Evaluate(next).CanStart ? next : null;
+        }
+    }
+}

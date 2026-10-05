@@ -36,7 +36,7 @@ namespace QuietCamp.Tests.Editor
         {
             var level = LevelLoader.Load("gen:qc_camp:1");
             Assert.IsNotNull(level);
-            Assert.AreEqual(6, level.width);
+            Assert.AreEqual(4, level.width);
             Assert.AreEqual(6, level.height);
             Assert.IsNotNull(level.witness);
             Assert.AreEqual(level.guests.Length, level.witness.Length);
@@ -49,6 +49,9 @@ namespace QuietCamp.Tests.Editor
             var a = GeneratedCampSource.Generate("qc_camp", 5);
             var b = GeneratedCampSource.Generate("qc_camp", 5);
             Assert.AreEqual(a.id, b.id);
+            Assert.AreEqual(a.contentHash,b.contentHash);
+            Assert.IsEmpty(LevelContentValidator.Validate(a));
+            Assert.IsTrue(RuleEvaluator.Evaluate(a,a.witness).IsSolved);
             Assert.AreEqual(a.blocked.Length, b.blocked.Length);
             Assert.AreEqual(a.guests.Length, b.guests.Length);
         }

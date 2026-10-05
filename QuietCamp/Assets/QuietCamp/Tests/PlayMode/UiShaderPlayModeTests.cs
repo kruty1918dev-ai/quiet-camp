@@ -83,45 +83,43 @@ namespace QuietCamp.Tests
         }
 
         [UnityTest]
-        public IEnumerator SettingsWidgets_AreSpriteBacked()
+        public IEnumerator HtmlControls_DispatchValuesAndSurviveReconciliation()
         {
-            var canvasGo = new GameObject("canvas", typeof(Canvas));
-            var canvas = canvasGo.GetComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            var root = new GameObject("content", typeof(RectTransform));
-            root.transform.SetParent(canvas.transform, false);
-            var rt = (RectTransform)root.transform;
-            rt.sizeDelta = new Vector2(800, 1200);
-            var layout = root.AddComponent<UnityEngine.UI.VerticalLayoutGroup>();
-            layout.childForceExpandWidth = true;
-            layout.childForceExpandHeight = false;
-            yield return null;
-
+            var canvasGo = new GameObject("html-test", typeof(RectTransform), typeof(Canvas));
+            canvasGo.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+            HtmlSurface surface = null;
             var changed = -1f;
-            var slider = SettingsPanel.AddSliderRow(rt, "settings.music", 0.5f, v => changed = v);
-            Assert.IsNotNull(slider.handleRect.GetComponent<Image>().sprite,
-                "Slider handle sprite missing");
-            slider.value = 0.8f;
-            Assert.AreEqual(0.8f, changed, 0.001f, "Slider onChange not fired");
-
             var toggled = false;
-            var toggle = SettingsPanel.AddToggleRow(rt, "settings.calm", false, v => toggled = v);
+            var clicked = 0;
+            surface = HtmlSurface.Create(canvasGo.transform, "test-document", null, () =>
+            {
+                surface.Callbacks.BindNumber("volume", v => changed = v);
+                surface.Callbacks.BindToggle("calm", v => toggled = v);
+                return "<view class=\"app\"><slider id=\"volume\" value=\"0.5\" onChange=\"Globals.campUi.Number('volume', event)\" />" +
+                    "<toggle id=\"calm\" checked=\"false\" onChange=\"Globals.campUi.Toggle('calm', event)\" />" +
+                    HtmlUi.Button(surface, "click", "Continue", () => clicked++) + "</view>";
+            });
+            yield return null;
+            yield return null;
+            var slider = surface.GetComponentInChildren<Slider>();
+            Assert.IsNotNull(slider, "HTML slider did not mount");
+            slider.value = .8f;
+            Assert.AreEqual(.8f, changed, .001f);
+            var toggle = surface.GetComponentInChildren<Toggle>();
+            Assert.IsNotNull(toggle);
             toggle.isOn = true;
-            Assert.IsTrue(toggled, "Toggle onValueChanged not fired");
-            var imgs = toggle.GetComponentsInChildren<Image>(true);
-            Assert.IsTrue(imgs.Length >= 2, "Toggle lacks box+check images");
-
-            var picked = -1;
-            var opts = SettingsPanel.AddChoiceRow(rt, "settings.language",
-                new[] { "Українська", "English", "Deutsch" },
-                new[] { "uk", "en", "de" }, "en", v => picked = v);
-            Assert.AreEqual(3, opts.Length, "Choice row must render every option");
-            Assert.AreEqual(QcUi.GreenDark, opts[1].GetComponent<Image>().color,
-                "Current language must be the highlighted segment");
-            opts[2].onClick.Invoke();
-            Assert.AreEqual(2, picked, "Choice row onChange not fired");
-
+            Assert.IsTrue(toggled);
+            var button = surface.GetComponentInChildren<Button>();
+            button.onClick.Invoke();
+            Assert.AreEqual(1, clicked);
+            surface.Refresh();
+            yield return null;
+            yield return null;
+            Assert.AreSame(button, surface.GetComponentInChildren<Button>(), "Reconciliation replaced a stable control");
+            button.onClick.Invoke();
+            Assert.AreEqual(2, clicked, "Reconciliation stacked event listeners");
             Object.Destroy(canvasGo);
+            yield return null;
         }
     }
 }

@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
-using Kruty1918.Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 namespace QuietCamp.Presentation.UI
 {
     /// <summary>
-    /// Runtime uGUI factory: Kenney UI sprites (bundled in the kit) with the
-    /// quiet-camp palette, consistent fonts and 48dp touch targets.
+    /// Native mount roots, Kenney UI sprite resources and the small uGUI
+    /// widgets kept for compatibility tests and mount-failure recovery.
+    /// Regular player-facing screens are authored in HTML (HtmlSurface).
     /// </summary>
     public static class QcUi
     {
@@ -82,24 +82,7 @@ namespace QuietCamp.Presentation.UI
             return r;
         }
 
-        public static RectTransform Anchor(Transform parent, string name,
-            Vector2 min, Vector2 max, Vector2 offMin, Vector2 offMax)
-        {
-            var r = Root(parent, name);
-            r.anchorMin = min; r.anchorMax = max;
-            r.offsetMin = offMin; r.offsetMax = offMax;
-            return r;
-        }
-
         // ─── Images ──────────────────────────────────────────────────────────
-
-        public static Image Image(RectTransform parent, string name, Color color)
-        {
-            var r = Stretch(parent, name);
-            var img = r.gameObject.AddComponent<UnityEngine.UI.Image>();
-            img.color = color;
-            return img;
-        }
 
         /// <summary>Sliced Kenney sprite stretched under a parent.</summary>
         public static Image Sliced(RectTransform parent, string name,
@@ -131,40 +114,6 @@ namespace QuietCamp.Presentation.UI
             img.color = tint ?? Color.white;
             img.raycastTarget = false;
             return img;
-        }
-
-        // ─── Text ────────────────────────────────────────────────────────────
-
-        /// <summary>Non-interactive localized label. Registers for language refresh.</summary>
-        public static LocalizedLabel Label(RectTransform parent, string key,
-            float size = TextBody, TextAlignmentOptions align = TextAlignmentOptions.Center,
-            Color? color = null)
-        {
-            var r = Stretch(parent, key.Replace('.', '_'));
-            var tmp = r.gameObject.AddComponent<TextMeshProUGUI>();
-            tmp.fontSize = size;
-            tmp.alignment = align;
-            tmp.color = color ?? Ink;
-            tmp.textWrappingMode = TextWrappingModes.Normal;
-            tmp.raycastTarget = false;
-            var loc = r.gameObject.AddComponent<LocalizedLabel>();
-            loc.Bind(key);
-            return loc;
-        }
-
-        public static TextMeshProUGUI PlainText(RectTransform parent, string text,
-            float size = TextBody, TextAlignmentOptions align = TextAlignmentOptions.Center,
-            Color? color = null)
-        {
-            var r = Stretch(parent, "Text");
-            var tmp = r.gameObject.AddComponent<TextMeshProUGUI>();
-            tmp.fontSize = size;
-            tmp.alignment = align;
-            tmp.color = color ?? Ink;
-            tmp.textWrappingMode = TextWrappingModes.Normal;
-            tmp.raycastTarget = false;
-            tmp.text = text;
-            return tmp;
         }
 
         // ─── Buttons ─────────────────────────────────────────────────────────
@@ -209,54 +158,6 @@ namespace QuietCamp.Presentation.UI
             return btn;
         }
 
-        /// <summary>
-        /// Tinted menu button on the neutral grey depth sprite: explicit bg
-        /// tint + label color (the illustrated menu needs exact palette
-        /// buttons rather than the semantic Green/Brown variants). Optional
-        /// leading icon before the label.
-        /// </summary>
-        public static Button MenuButton(RectTransform parent, string key,
-            Action onClick, Color bg, Color labelColor,
-            float fontSize = TextButton, string iconPath = null)
-        {
-            var img = Sliced(parent, "Btn_" + key.Replace('.', '_'), BtnGrey, bg);
-            img.raycastTarget = true;
-            var btn = img.gameObject.AddComponent<Button>();
-            var rt = img.rectTransform;
-            Transform labelParent = rt;
-            if (iconPath != null)
-            {
-                // Row centers icon + label as a group for any label width.
-                var row = Stretch(rt, "Row");
-                var h = row.gameObject.AddComponent<HorizontalLayoutGroup>();
-                h.childAlignment = TextAnchor.MiddleCenter;
-                h.spacing = fontSize * 0.45f;
-                h.childForceExpandWidth = false;
-                h.childForceExpandHeight = false;
-                h.childControlWidth = true;
-                h.childControlHeight = false;
-                var icon = Icon(row, iconPath, fontSize * 1.35f, labelColor);
-                icon.gameObject.AddComponent<LayoutElement>().preferredWidth = fontSize * 1.35f;
-                labelParent = row;
-            }
-            var labelRect = Stretch(labelParent, "Label");
-            var tmp = labelRect.gameObject.AddComponent<TextMeshProUGUI>();
-            tmp.fontSize = fontSize;
-            tmp.alignment = TextAlignmentOptions.Center;
-            tmp.color = labelColor;
-            tmp.raycastTarget = false;
-            var loc = labelRect.gameObject.AddComponent<LocalizedLabel>();
-            loc.Bind(key);
-            var colors = btn.colors;
-            colors.highlightedColor = new Color(1.08f, 1.08f, 1.08f);
-            colors.pressedColor = new Color(0.82f, 0.82f, 0.82f);
-            colors.disabledColor = new Color(0.55f, 0.55f, 0.55f, 0.7f);
-            colors.fadeDuration = 0.08f;
-            btn.colors = colors;
-            if (onClick != null) btn.onClick.AddListener(() => onClick());
-            return btn;
-        }
-
         /// <summary>Icon button — square sprite + icon child.</summary>
         public static Button IconButton(RectTransform parent, string spritePath,
             Action onClick, Color? bg = null, float size = 96f, Color? iconTint = null)
@@ -281,21 +182,6 @@ namespace QuietCamp.Presentation.UI
             btn.colors = colors;
             if (onClick != null) btn.onClick.AddListener(() => onClick());
             return btn;
-        }
-
-        /// <summary>CanvasGroup panel used for modals; starts hidden.</summary>
-        public static CanvasGroup Modal(RectTransform parent, string name, Color dimmer)
-        {
-            var rt = Stretch(parent, name);
-            var group = rt.gameObject.AddComponent<CanvasGroup>();
-            var img = rt.gameObject.AddComponent<UnityEngine.UI.Image>();
-            img.color = dimmer;
-            img.raycastTarget = true;
-            group.alpha = 0f;
-            group.interactable = false;
-            group.blocksRaycasts = false;
-            rt.gameObject.SetActive(false);
-            return group;
         }
     }
 }

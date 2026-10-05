@@ -28,11 +28,17 @@ namespace QuietCamp.Infrastructure
         /// </summary>
         public static LevelData Load(string levelId)
         {
+            levelId = CampContent.CanonicalId(levelId);
             if (GeneratedCampSource.IsGeneratedId(levelId))
             {
                 if (!GeneratedCampSource.TryParseId(levelId, out var recipeName, out var index))
                     throw new InvalidOperationException($"Generated level id malformed: '{levelId}'");
-                return GeneratedCampSource.Generate(recipeName, index);
+                var frozen = Resources.Load<TextAsset>("QuietCamp/GeneratedLevels/" + levelId.Replace(':', '_'));
+                var generated = frozen != null ? JsonConvert.DeserializeObject<LevelData>(frozen.text)
+                    : GeneratedCampSource.Generate(recipeName, index);
+                var issues = LevelContentValidator.Validate(generated);
+                if (issues.Count > 0) throw new InvalidOperationException(string.Join(",", issues));
+                return generated;
             }
             var asset = Resources.Load<TextAsset>($"{LevelsFolder}/{levelId}");
             if (asset == null) throw new InvalidOperationException($"Level '{levelId}' not found in Resources.");

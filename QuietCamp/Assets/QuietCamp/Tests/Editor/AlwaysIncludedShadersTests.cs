@@ -78,20 +78,15 @@ namespace QuietCamp.Tests.Editor
         }
 
         [Test]
-        public void ProjectSettings_LocksPortraitOnly()
+        public void ProjectSettings_StartsWithExplicitOrientation()
         {
-            // A cutout drifting to the bottom means the device was flipped —
-            // the app must stay portrait so the OS keeps status bar and
-            // safe area in the app's coordinate space.
-            var text = File.ReadAllText(Path.Combine(
-                Directory.GetCurrentDirectory(), "ProjectSettings", "ProjectSettings.asset"));
-            Assert.IsTrue(Regex.IsMatch(text, @"defaultScreenOrientation: 1\b"),
-                "defaultScreenOrientation must be Portrait (1).");
-            Assert.IsTrue(Regex.IsMatch(text, @"allowedAutorotateToPortraitUpsideDown: 0"),
-                "Upside-down portrait must stay disabled.");
-            Assert.IsTrue(Regex.IsMatch(text, @"allowedAutorotateToLandscapeRight: 0")
-                && Regex.IsMatch(text, @"allowedAutorotateToLandscapeLeft: 0"),
-                "Landscape auto-rotation must stay disabled.");
+            // Players switch orientation in settings. Sensors must never rotate
+            // the camera or target midway through a placement gesture.
+            Assert.AreEqual(UIOrientation.Portrait, PlayerSettings.defaultInterfaceOrientation);
+            Assert.IsFalse(PlayerSettings.allowedAutorotateToPortrait);
+            Assert.IsFalse(PlayerSettings.allowedAutorotateToPortraitUpsideDown);
+            Assert.IsFalse(PlayerSettings.allowedAutorotateToLandscapeRight);
+            Assert.IsFalse(PlayerSettings.allowedAutorotateToLandscapeLeft);
         }
 
         [Test]

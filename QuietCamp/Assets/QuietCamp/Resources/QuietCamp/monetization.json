@@ -1,0 +1,47 @@
+{
+  "economy": {
+    "initialLives": 5,
+    "initialHints": 3,
+    "lifeCost": 10,
+    "hintCost": 15,
+    "dailyAdLives": 10
+  },
+  "products": [
+    { "id": "qa.coins.100", "titleKey": "economy.coins100", "currencyAmount": 100, "published": false },
+    { "id": "qa.pro", "titleKey": "economy.pro", "pro": true, "published": false }
+  ],
+  "journeys": [
+    {
+      "id": "lighthouse",
+      "titleKey": "journey.lighthouse.title",
+      "descriptionKey": "journey.lighthouse.description",
+      "entitlementId": "dlc.lighthouse",
+      "currencyCost": 200,
+      "published": false,
+      "previewLevelId": "QC_LH008",
+      "levelIds": ["QC_LH001", "QC_LH002", "QC_LH003", "QC_LH004", "QC_LH005", "QC_LH006", "QC_LH007", "QC_LH008"],
+      "storyKeys": ["journey.lighthouse.story.1", "journey.lighthouse.story.2", "journey.lighthouse.story.3", "journey.lighthouse.story.4", "journey.lighthouse.story.5", "journey.lighthouse.story.6", "journey.lighthouse.story.7", "journey.lighthouse.story.8"],
+      "revision": 1
+    },
+    {
+      "id": "garden",
+      "titleKey": "journey.garden.title",
+      "descriptionKey": "journey.garden.description",
+      "entitlementId": "dlc.garden",
+      "currencyCost": 200,
+      "published": false,
+      "levelIds": [],
+      "revision": 1
+    },
+    {
+      "id": "station",
+      "titleKey": "journey.station.title",
+      "descriptionKey": "journey.station.description",
+      "entitlementId": "dlc.station",
+      "currencyCost": 200,
+      "published": false,
+      "levelIds": [],
+      "revision": 1
+    }
+  ]
+}

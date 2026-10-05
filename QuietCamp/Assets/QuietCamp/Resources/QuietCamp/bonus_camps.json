@@ -1,0 +1,32 @@
+[
+  {
+    "id": "bonus:qc_camp:1",
+    "afterLevel": 10,
+    "requiredCompletions": 10,
+    "requiresPremium": false,
+    "levelId": "",
+    "theme": "dew",
+    "titleKey": "map.bonus.dew.title",
+    "descriptionKey": "map.bonus.dew.description"
+  },
+  {
+    "id": "bonus:qc_camp:2",
+    "afterLevel": 20,
+    "requiredCompletions": 10,
+    "requiresPremium": false,
+    "levelId": "",
+    "theme": "amber",
+    "titleKey": "map.bonus.amber.title",
+    "descriptionKey": "map.bonus.amber.description"
+  },
+  {
+    "id": "bonus:qc_camp:3",
+    "afterLevel": 30,
+    "requiredCompletions": 10,
+    "requiresPremium": false,
+    "levelId": "",
+    "theme": "fireflies",
+    "titleKey": "map.bonus.fireflies.title",
+    "descriptionKey": "map.bonus.fireflies.description"
+  }
+]

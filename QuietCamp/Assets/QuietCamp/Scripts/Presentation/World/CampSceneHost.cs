@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Kruty1918.Audio;
+using Kruty1918.Haptics;
 using Kruty1918.Atmos;
 using Kruty1918.InputRouting.API;
 using Kruty1918.Notifications.API;
@@ -27,40 +28,22 @@ namespace QuietCamp.Presentation.World
         CampSession _session;
         BoardRenderer _renderer;
         PlacementController _placement;
+        Camera _worldCamera;
         Transform _decorRoot;
         CampHud _hud;
-        HintService _hint;
+        HintAdvisor _advisor;
         TutorialDirector _tutorial;
-        LocalizedLabel _tutorialLabel;
-        GameObject _tutorialBar;
         readonly List<System.IDisposable> _leases = new List<System.IDisposable>();
         IDisposable _gameplayContext;
-        float _birdTimer = 30f;
         AtmosphereCatalog _atmosphereCatalog;
         AtmosphereCatalog.Profile _atmosphereProfile;
         CampAtmosphere _atmosphere;
+        CampFeedbackEffects _feedback;
         FireVisual[] _fireVisuals;
-        AudioHandle _fireSound, _cricketSound;
-        System.Random _ambienceRandom;
         bool _completed;
-        float _owlTimer = 60f;
-        float _rustleCooldown;
-        float _gustSoundCooldown;
+        bool _advancing;
         float _twigCooldown;
-        /// <summary>Opening calm: no owl or gust one-shots for the first seconds
-        /// after entering the scene — wind/fire may already be audible.</summary>
-        float _entryCalm = 12f;
-        /// <summary>Shared minimum gap between accented one-shots (bird/owl/gust).</summary>
-        float _accentCooldown;
-        int _lastBirdAnchor = -1;
-        int _lastOwlAnchor = -1;
-        // Phase-weight fades: loops keep running while only their playback
-        // scale moves — no restart when the day phase changes.
-        float _windScale = 1f, _windTarget = 1f;
-        float _fireScale, _fireTarget;
-        float _cricketScale, _cricketTarget;
-        readonly List<Vector3> _canopyAnchors = new List<Vector3>();
-        readonly List<Vector3> _edgeAnchors = new List<Vector3>();
+        float _musicScale = 1;
         Vector3 _firePos;
 
         public static CampSceneHost Current { get; private set; }
@@ -72,6 +55,8 @@ namespace QuietCamp.Presentation.World
 
         public CampSession Session => _session;
         public CampAtmosphere Atmosphere => _atmosphere;
+        public bool GameplayActive => IsReady && !_completed && !(_hud?.HasModalOpen ?? false) && !(_router?.IsBusy ?? false) && !_services.MonetizationBusy;
+        public bool UiReady => IsReady && (_hud?.UiReady ?? false);
 
         public void Configure(GameServices services, ScreenRouter router)
         {
@@ -83,20 +68,30 @@ namespace QuietCamp.Presentation.World
         {
             Current = this;
             var levelId = _services.PendingLevelId ?? "QC_TEST";
+            if (!_services.CanStart(levelId))
+            {
+                _services.Notifications.Show(_services.Localization.T("journey.access.denied"), GameplayNotificationKind.Info);
+                IsReady = true; StartCoroutine(ReturnToMenu()); return;
+            }
             LevelData level;
-            try { level = LevelLoader.Load(levelId); }
+            try { level = CampContent.SessionLevel(_services.Save.Session,levelId); }
             catch (System.Exception e)
             {
                 Debug.LogError($"[QuietCamp] {e.Message}");
                 _services.Notifications.Show("save.failed", GameplayNotificationKind.Error);
-                levelId = "QC_TEST";
-                level = LevelLoader.Load(levelId);
+                IsReady = true; StartCoroutine(ReturnToMenu()); return;
             }
             BuildSession(level);
             BuildWorld(level);
             BuildHud(level);
+            Canvas.ForceUpdateCanvases();
+            var htmlViewport = Find("CanvasRoot/SafeArea/Gameplay/BoardViewport");
+            CameraFitter.Fit(FindCamera(), level, htmlViewport != null ? htmlViewport.transform as RectTransform : null);
             RegisterActions();
             ConfigureAtmosphere(level);
+            _renderer.BuildCanopies();
+            _atmosphere.RegisterDecor(Find("World")?.transform);
+            _atmosphere.BindRainWorld(Find("World")?.transform);
             _services.PendingLevelId = null;
             IsReady = true;
         }
@@ -107,15 +102,24 @@ namespace QuietCamp.Presentation.World
 
         // ─── Build ───────────────────────────────────────────────────────────
 
+        System.Collections.IEnumerator ReturnToMenu()
+        {
+            while (_router.IsBusy) yield return null;
+            _services.PendingLevelId = null; _services.PendingMenuScreen = "Levels";
+            _router.GoToMenu();
+        }
+
         void BuildSession(LevelData level)
         {
             _session = new CampSession(level);
-            _hint = new HintService(level);
-            _tutorial = new TutorialDirector(level.tutorialKey);
-            _session.Evented += OnSessionEvent;
+            _session.CompletionPersistence = () => _services.Completion.Complete(_session, _atmosphere?.PhaseId);
+            _advisor = new HintAdvisor(level);
+            _tutorial = _services.Tutorial;
 
             // Restore a matching in-progress layout; mismatched contentHash
-            // keeps progress but drops the stale session.
+            // keeps progress but drops the stale session. Subscribe after the
+            // restore — its emits would reach OnSessionEvent before _renderer
+            // exists, and BuildWorld does its own initial sync anyway.
             var saved = _services.Save.Session;
             if (saved != null && saved.levelId == level.id
                 && saved.contentHash == level.contentHash
@@ -123,6 +127,9 @@ namespace QuietCamp.Presentation.World
             {
                 _session.Restore(saved.placements, saved.selectedGuestId);
             }
+            _session.Evented += OnSessionEvent;
+            _session.ActionRecorded += _services.Analytics.Action;
+            _session.ActionRecorded += OnTutorialAction;
         }
 
         void BuildWorld(LevelData level)
@@ -134,7 +141,7 @@ namespace QuietCamp.Presentation.World
             _renderer = new BoardRenderer(level, _services.Assets,
                 Child("Base"), Child("Grid"), Child("Obstacle"),
                 Child("Tent"), Child("Overlay"));
-            _renderer.SyncPlacements(_session.State.Placements, level);
+            _renderer.SyncPlacements(_session.State.Placements, level, _services.MotionScale, _services.ReducedMotion);
 
             _decorRoot = Find("DecorRoot")?.transform;
             if (_decorRoot != null)
@@ -142,7 +149,6 @@ namespace QuietCamp.Presentation.World
                 for (var i = _decorRoot.childCount - 1; i >= 0; i--)
                     Destroy(_decorRoot.GetChild(i).gameObject);
                 DecorSpawner.Spawn(level, _services.Assets, _decorRoot);
-                CollectAnchors(_decorRoot);
             }
 
             // The scene's evening fire light must sit over this level's fire
@@ -157,15 +163,23 @@ namespace QuietCamp.Presentation.World
             }
 
             var camera = FindCamera();
+            _worldCamera = camera;
+            _feedback = gameObject.AddComponent<CampFeedbackEffects>();
+            _feedback.Configure(QualityTier(), () => _services.ReducedMotion, level.decorSeed);
+            _feedback.SetEnvironment(level);
+            _feedback.FollowQuality(() => _services.EffectiveQuality);
+            _feedback.FollowWind(() => _atmosphere != null ? _atmosphere.Wind.DirectionXZ * _atmosphere.Wind.Strength : Vector2.zero);
             var viewportGo = Find("CanvasRoot/SafeArea/Gameplay/BoardViewport");
             var viewport = viewportGo != null ? viewportGo.transform as RectTransform : null;
+            // Menu and gameplay share the same view onto the clearing.
             CameraFitter.Configure(camera);
             CameraFitter.Fit(camera, level, viewport);
+            _renderer.BindViewport(camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>());
 
             // Stable listener proxy above the board centre — positional
             // sources read distance against the field, not the far camera.
             var camListener = camera.GetComponent<AudioListener>();
-            if (camListener != null) camListener.enabled = false;
+            if (camListener != null) { camListener.enabled = false; Destroy(camListener); }
             var proxy = new GameObject("ListenerProxy");
             proxy.transform.SetPositionAndRotation(
                 new Vector3(0f, 2f * BoardMath.CellSize, 0f), camera.transform.rotation);
@@ -176,48 +190,35 @@ namespace QuietCamp.Presentation.World
             _placement.Configure(_session, _renderer, _services.InputPolicy, camera,
                 _services.Assets, () => _services.ReducedMotion,
                 () => _services.MotionScale);
-            _placement.PlacementFailed += key
-                => _services.Notifications.Show(_services.Localization.T(key),
+            _placement.PlacementFailed += key =>
+            {
+                _services.Analytics.Action(ComfortAction.InvalidDrop);
+                _services.Notifications.Show(_services.Localization.T(key),
                     GameplayNotificationKind.Warning, dedupKey: key + _session.SelectedGuestId);
+                PlayAudio("rule.invalid");
+                _services.PlayHaptic(HapticCue.Warning);
+            };
             _placement.PlacementCommitted += PersistSession;
-            _placement.Cancelled += () => PlayAudio("ui.back");
+            _placement.DragMotion += (position,speed) => _atmosphere?.Soundscape?.TentDragged(position,speed);
+            _placement.Cancelled += () => { PlayAudio("ui.back"); _services.Analytics.Action(ComfortAction.CancelDrag); };
             // Lifting a committed tent is a dry woody accent at its old cell;
             // picking a fresh tent for a new preview is a soft fabric rustle.
             _placement.TentGrabbed += id =>
             {
                 var p = _session.State.Find(id);
                 if (p == null) return;
-                _services.Audio?.PlayAt("sfx.twig",
+                _feedback?.Lift(BoardMath.TentCenter(_session.Level, p.x, p.z));
+                _services.Audio?.PlayAt("sfx.tent.lift",
                     BoardMath.CellCenterWorld(_session.Level, new Cell(p.x, p.z))
                     + Vector3.up * .3f, .2f);
+                _services.PlayHaptic(HapticCue.Light);
             };
-            _placement.PreviewBegan += pos
-                => _services.Audio?.PlayAt("sfx.rustle", pos, .3f);
-        }
-
-        /// <summary>Decor positions feed positional ambience: birds sing from
-        /// canopies, rustles and the owl come from the clearing's edge.</summary>
-        void CollectAnchors(Transform decorRoot)
-        {
-            _canopyAnchors.Clear();
-            _edgeAnchors.Clear();
-            foreach (Transform child in decorRoot)
+            _placement.PreviewBegan += pos =>
             {
-                var pos = child.position;
-                if (child.name.StartsWith("tree", StringComparison.OrdinalIgnoreCase))
-                {
-                    var bounds = new Bounds(pos, Vector3.zero);
-                    foreach (var r in child.GetComponentsInChildren<Renderer>())
-                        bounds.Encapsulate(r.bounds);
-                    _canopyAnchors.Add(new Vector3(pos.x, bounds.max.y * .9f, pos.z));
-                }
-                else
-                {
-                    _edgeAnchors.Add(pos + Vector3.up * .4f);
-                }
-            }
-            if (_edgeAnchors.Count == 0) _edgeAnchors.Add(new Vector3(4f, .4f, 0f));
-            if (_canopyAnchors.Count == 0) _canopyAnchors.Add(new Vector3(3f, 2f, -3f));
+                _tutorial.ReportAction("select", _session);
+                _services.Audio?.PlayAt("sfx.tent.lift", pos, .5f);
+                _services.PlayHaptic(HapticCue.Light);
+            };
         }
 
         void BuildHud(LevelData level)
@@ -231,30 +232,17 @@ namespace QuietCamp.Presentation.World
             }
             if (safeArea.GetComponent<SafeAreaFitter>() == null)
                 safeArea.gameObject.AddComponent<SafeAreaFitter>();
-            _hud = new CampHud(_services, _session, safeArea, _router);
-            _hud.AreaShown += cells => ShowAreaOverlay(cells);
-            _hud.MoveShown += move => ShowMoveOverlay(move);
-            if (!_tutorial.Finished && _tutorial.ActiveKey != null)
-            {
-                var bar = QcUi.Anchor(safeArea, "TutorialBar",
-                    new Vector2(0, 1), new Vector2(1, 1),
-                    new Vector2(24, -420), new Vector2(-24, -330));
-                bar.gameObject.AddComponent<UnityEngine.UI.Image>().color =
-                    new Color(0.14f, 0.11f, 0.09f, 0.85f);
-                // Gameplay hint sits under ModalLayer — a modal (settings,
-                // pause, hint panel) always renders above gameplay chrome.
-                var modalLayer = safeArea.Find("ModalLayer");
-                if (modalLayer != null)
-                    bar.SetSiblingIndex(modalLayer.GetSiblingIndex());
-                _tutorialBar = bar.gameObject;
-                _tutorialLabel = QcUi.Label(bar, _tutorial.ActiveKey,
-                    QcUi.TextSmall, TMPro.TextAlignmentOptions.Center, QcUi.Cream);
-                _tutorial.Changed += () =>
-                {
-                    if (_tutorialLabel != null)
-                        Destroy(_tutorialLabel.transform.parent.gameObject);
-                };
-            }
+            _hud = new CampHud(_services, _session, safeArea);
+            _hud.BindPlacement(_placement);
+            _hud.AreaShown += cells => _renderer.ShowIssueCells(cells);
+            // World-anchored chips: tent top → HUD css px.
+            _hud.GuestAnchor = GuestWorldAnchor;
+            _hud.ProjectToHud = ProjectToHud;
+            _placement.PreviewChanged += _hud.SetPlacementPreview;
+            if (_session.SelectedGuestId == null && level.guests.Length > 0)
+                _session.Select(level.guests[0].id);
+            _hud.GuestSelected += _ => _tutorial.ReportAction("select", _session);
+            _hud.SetTutorial(_tutorial.Cue(level.id));
         }
 
         void RegisterActions()
@@ -266,28 +254,35 @@ namespace QuietCamp.Presentation.World
 
             _leases.Add(h.Register(new UiActionId("qc.back"), () =>
             {
-                if (_hud.HasModalOpen) { _hud.CloseTopModal(); return Performed(); }
+                if (_hud.HasModalOpen) { _hud.NavigateBack(); return Performed(); }
                 if (_placement.HasPreview) { _placement.Cancel(); return Performed(); }
                 _hud.ShowPause();
                 return Performed();
             }));
             _leases.Add(h.Register(new UiActionId("qc.pause"), () => { _hud.ShowPause(); return Performed(); }));
-            _leases.Add(h.Register(new UiActionId("qc.resume"), () => { _hud.CloseAllModals(); return Performed(); }));
+            _leases.Add(h.Register(new UiActionId("qc.resume"), () =>
+            {
+                PlayAudio("sfx.resume"); _hud.CloseAllModals(); NudgeCamera(); return Performed();
+            }));
             _leases.Add(h.Register(new UiActionId("qc.rotate"), () =>
             {
-                _placement.Rotate();
-                _tutorial.ReportAction("rotate");
-                PlayAudio("placement.rotate");
+                var placed = _session.State.Contains(_session.SelectedGuestId);
+                if (_placement.Rotate())
+                {
+                    if (_placement.HasPreview) _services.Analytics.Action(ComfortAction.Rotate);
+                    PlayAudio("placement.rotate");
+                    _services.PlayHaptic(HapticCue.Selection);
+                }
                 return Performed();
             }));
             _leases.Add(h.Register(new UiActionId("qc.undo"), () =>
             {
-                if (_session.Undo()) { PlayAudio("placement.undo"); PersistSession(); }
+                if (_session.Undo()) { PlayAudio("placement.undo"); _services.PlayHaptic(HapticCue.Light); PersistSession(); NudgeCamera(); }
                 return Performed();
             }));
             _leases.Add(h.Register(new UiActionId("qc.redo"), () =>
             {
-                if (_session.Redo()) { PlayAudio("placement.undo"); PersistSession(); }
+                if (_session.Redo()) { PlayAudio("placement.undo"); _services.PlayHaptic(HapticCue.Light); PersistSession(); NudgeCamera(); }
                 return Performed();
             }));
             _leases.Add(h.Register(new UiActionId("qc.remove"), () =>
@@ -295,24 +290,65 @@ namespace QuietCamp.Presentation.World
                 var id = _session.SelectedGuestId;
                 var wasPlaced = id != null && _session.State.Find(id) != null;
                 _placement.Remove();
-                if (wasPlaced && _twigCooldown <= 0f) { _twigCooldown = 2f; PlayAudio("sfx.twig"); }
+                if (wasPlaced && !_session.State.Contains(id)) _services.PlayHaptic(HapticCue.Light);
+                if (wasPlaced && _twigCooldown <= 0f) { _twigCooldown = .25f; PlayAudio("sfx.tent.remove"); }
                 return Performed();
             }));
             _leases.Add(h.Register(new UiActionId("qc.check"), () =>
             {
-                var report = _session.Check();
-                _tutorial.ReportAction("check");
-                if (!report.IsSolved)
+                if (_session.IsCompleted || _services.MonetizationBusy || !_tutorial.CanCompleteLevel(_session.Level.id)) return Performed();
+                if (!_services.Economy.CanCheck) { _hud.ShowEconomy(); return Performed(); }
+                _placement.Cancel();
+                var report = RuleEvaluator.Evaluate(_session.Level, _session.State.Placements, true);
+                var outcome = _services.Attempts.Check(_session, _atmosphere?.PhaseId); // done — clear in-progress
+                if (outcome == CampAttemptResult.SaveFailed)
                 {
-                    var key = _hint.Explain(report);
-                    _services.Notifications.Show(_services.Localization.T(key),
-                        GameplayNotificationKind.Warning, dedupKey: key);
-                    PlayAudio("rule.invalid");
+                    _services.Notifications.Show(_services.Localization.T("save.failed"), GameplayNotificationKind.Error);
+                    return Performed();
+                }
+                _services.Analytics.RuleReport(report);
+                if (outcome == CampAttemptResult.FailedAttempt)
+                {
+                    _services.Analytics.Action(ComfortAction.Check);
+                    _advisor = new HintAdvisor(_session.Level);
+                    _services.Notifications.Show(_services.Localization.T("economy.attempt.failed"), GameplayNotificationKind.Warning, dedupKey: "attempt.failed");
+                    PlayAudio("rule.invalid"); _services.PlayHaptic(HapticCue.Warning);
+                    if (!_services.Economy.CanCheck) _hud.ShowEconomy();
                 }
                 return Performed();
             }));
-            _leases.Add(h.Register(new UiActionId("qc.hint"), () => { _hud.ShowHint(); return Performed(); }));
+            // Concrete hint: advisor picks guest + pose → green cells + ghost
+            // tent on the board, plus a short toast line.
+            _leases.Add(h.Register(new UiActionId("qc.hint"), () =>
+            {
+                if (_session.IsCompleted || _services.MonetizationBusy) return Performed();
+                if (!_services.Economy.CanHint) { _hud.ShowEconomy(); return Performed(); }
+                var s = _advisor.Suggest(_session.State.Placements, _session.SelectedGuestId);
+                if (s == null) return Performed();
+                if (_services.Economy.UseHint() != EconomyResult.Applied)
+                { _services.Notifications.Show(_services.Localization.T("save.failed"), GameplayNotificationKind.Error); return Performed(); }
+                _services.Analytics.Action(ComfortAction.Hint);
+                PlayAudio("sfx.hint");
+                if (s.GuestId != null) _session.Select(s.GuestId);
+                if (s.Cells != null) _renderer.ShowHintCells(s.Cells);
+                if (s.Move != null)
+                {
+                    var guest = System.Array.Find(_session.Level.guests, g => g.id == s.GuestId);
+                    _renderer.ShowHintGhost(s.Move, guest?.assetId);
+                }
+                if (s.TextKey != null)
+                    _services.Notifications?.Show(_services.Localization.T(s.TextKey),
+                        GameplayNotificationKind.Info, dedupKey: "hint");
+                return Performed();
+            }));
             _leases.Add(h.Register(new UiActionId("qc.settings"), () => { _hud.ShowSettings(); return Performed(); }));
+            _leases.Add(h.Register(new UiActionId("qc.tutorial.restart"), () =>
+            {
+                PersistSession(); _tutorial.LearnAgain();
+                var target = _tutorial.CurrentLevelId;
+                if (target != null) _router.GoToNextCamp(target);
+                return Performed();
+            }));
             _leases.Add(h.Register(new UiActionId("qc.levels"), () =>
             {
                 PersistSession();
@@ -322,16 +358,24 @@ namespace QuietCamp.Presentation.World
             }));
             _leases.Add(h.Register(new UiActionId("qc.next"), () =>
             {
-                var next = _services.Progression.NextAfter(_session.Level.id, LevelLoader.MvpLevelIds());
+                if (!_session.IsCompleted || _advancing) return Performed();
+                _advancing = true;
+                var next = _services.JourneyAccess.NextAfter(_session.Level.id);
                 _services.Save.Save();
                 if (next != null) _router.GoToNextCamp(next);
-                else _router.GoToMenu();
+                else
+                {
+                    // Last glade done — the menu opens on the demo-complete card.
+                    _services.PendingMenuScreen = BonusCampCatalog.ForLevel(_session.Level.id)!=null?"Levels":"DemoComplete";
+                    _router.GoToMenu();
+                }
                 return Performed();
             }));
             _leases.Add(h.Register(new UiActionId("qc.album"), () =>
             {
                 PersistSession();
                 _services.Save.Save();
+                _services.PendingMenuScreen = "Album";
                 _router.GoToMenu();
                 return Performed();
             }));
@@ -354,16 +398,28 @@ namespace QuietCamp.Presentation.World
             switch (e.Kind)
             {
                 case CampEventKind.BoardCommitted:
-                    if (_session.State.Contains(e.GuestId))
-                        _tutorial.ReportAction("commit");
+                    _renderer.HideHint();
+                    _renderer.HideIssueCells();
                     _renderer.SyncPlacements(_session.State.Placements, _session.Level,
-                        _services.MotionScale);
+                        _services.MotionScale, _services.ReducedMotion);
                     // Commit lands where the guest sits, not flat at the listener.
                     var placed = _session.State.Find(e.GuestId);
                     if (placed != null)
+                    {
                         _services.Audio?.PlayAt("placement.commit",
                             BoardMath.CellCenterWorld(_session.Level,
                                 new Cell(placed.x, placed.z)) + Vector3.up * .4f);
+                        _feedback?.Placement(BoardMath.TentCenter(_session.Level, placed.x, placed.z));
+                        _atmosphere?.Soundscape?.GroundContact(BoardMath.TentCenter(_session.Level, placed.x, placed.z));
+                        _services.Audio?.PlayAt("sfx.tent.settle",
+                            BoardMath.TentCenter(_session.Level, placed.x, placed.z), .65f);
+                        _services.PlayHaptic(HapticCue.Confirm);
+                    }
+                    break;
+                case CampEventKind.SelectionChanged:
+                    _renderer.ShowShade(Array.Find(_session.Level.guests, g => g.id == e.GuestId)?.shade == true);
+                    if (e.GuestId != null && _renderer.Tents.TryGetValue(e.GuestId, out var selected))
+                        selected.Pulse(_services.ReducedMotion, _services.MotionScale);
                     break;
                 case CampEventKind.LevelCompleted:
                     OnLevelCompleted();
@@ -375,28 +431,22 @@ namespace QuietCamp.Presentation.World
         {
             if (_completed) return;
             _completed = true;
+            _tutorial.ReportAction("complete", _session);
+            TentStoryVisual.CloseAll(Find("World")?.transform, _services.ReducedMotion);
+            _services.Analytics.EndLevel(ComfortOutcome.Completed);
             // Completion ducks the forest briefly (0.75 / 100 ms / 500 ms /
             // 900 ms) instead of silencing it — ordinary taps never duck.
             _services.Audio?.DuckBus(Kruty1918.Audio.AudioBus.Ambience, .75f, .1f, .5f, .9f);
             PlayAudio("level.complete");
+            _services.PlayHaptic(HapticCue.Success);
+            _feedback?.Complete(Vector3.zero);
+            GetComponent<PhasePostFx>()?.Celebrate();
             StartCoroutine(ChimeAfter(.18f));
             var level = _session.Level;
-            var first = _services.Progression.MarkCompleted(level.id);
-            var album = _services.Save.Album;
-            var entries = new List<AlbumSaveData.Entry>(album.entries ?? new AlbumSaveData.Entry[0]);
-            entries.RemoveAll(x => x.levelId == level.id);
-            entries.Add(new AlbumSaveData.Entry
-            {
-                levelId = level.id,
-                placements = _session.State.Snapshot(),
-                order = entries.Count,
-                cosmeticId = _services.Progression.CosmeticFlags > 0 ? "fabric.b" : "fabric.a",
-            });
-            album.entries = entries.ToArray();
-            _services.Save.Session = new SessionSaveData(); // done — clear in-progress
-            if (!_services.Save.Save())
-                _services.Notifications.Show(_services.Localization.T("save.failed"),
-                    GameplayNotificationKind.Error);
+            _services.Rewards.EarnFromPlay();
+            var memory = gameObject.GetComponent<CampMemoryPresenter>() ?? gameObject.AddComponent<CampMemoryPresenter>();
+            _hud.BeginStory(memory.Skip);
+            memory.Play(Find("World")?.transform, () => _services.ReducedMotion, _hud.EndStory);
             // Completion must not turn a night level back into an evening level.
             _services.Motion.Cancel(this);
             var mvp = LevelLoader.MvpLevelIds();
@@ -416,11 +466,13 @@ namespace QuietCamp.Presentation.World
 
         void PersistSession()
         {
+            if (_completed) return;
             _services.Save.Session = new SessionSaveData
             {
                 levelId = _session.Level.id,
                 contentHash = _session.Level.contentHash,
                 ruleVersion = _session.Level.ruleVersion,
+                levelSnapshot = CampContent.Snapshot(_session.Level),
                 placements = _session.State.Snapshot(),
                 selectedGuestId = _session.SelectedGuestId,
             };
@@ -429,19 +481,32 @@ namespace QuietCamp.Presentation.World
 
         void PlayAudio(string key) => _services.Audio?.Play(key);
 
+        void NudgeCamera()
+        {
+            var camera = _worldCamera != null ? _worldCamera : Camera.main;
+            if (camera != null) _atmosphere?.CameraMotion?.Impulse(.008f, camera.transform.up);
+        }
+
+        void OnTutorialAction(ComfortAction action)
+        {
+            var id = action == ComfortAction.Place ? "commit" : action == ComfortAction.Move ? "move"
+                : action == ComfortAction.Rotate ? "rotate" : action == ComfortAction.Undo ? "undo" : null;
+            if (id != null && _tutorial.ReportAction(id, _session))
+                _services.Analytics.Action(ComfortAction.TutorialStep);
+        }
+
         // ─── Lighting ────────────────────────────────────────────────────────
 
         void ConfigureAtmosphere(LevelData level)
         {
             _atmosphereCatalog = AtmosphereCatalog.Load();
-            _ambienceRandom = new System.Random(level.decorSeed);
             _fireVisuals = FindObjectsByType<FireVisual>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             _atmosphere = gameObject.AddComponent<CampAtmosphere>();
             var viewport = Find("CanvasRoot/SafeArea/Gameplay/BoardViewport")?.transform as RectTransform;
             var profile = _atmosphereCatalog.Resolve(level.id, level.lighting);
             var tier = QualityTier();
             _atmosphere.Configure(FindCamera(), level, viewport, profile,
-                () => _services.ReducedMotion, tier, _decorRoot);
+                () => _services.ReducedMotion, tier, _decorRoot, ()=>_services.EffectiveQuality);
             // No near-leaf flyby while dragging a tent, behind a modal or
             // during a scene transition (atmosphere spec §4.2/§9).
             if (_atmosphere.Particles != null)
@@ -449,7 +514,7 @@ namespace QuietCamp.Presentation.World
                     (_placement != null && _placement.HasPreview)
                     || (_hud != null && _hud.HasModalOpen)
                     || (_router != null && _router.IsBusy);
-            _atmosphere.GustStarted += OnWindGust;
+            _atmosphere.Soundscape.AccentSuppressed = () => !GameplayActive;
             // Voice budget by quality tier (Low/Balanced/High → 8/12/16);
             // decorative one-shots are skipped first when the pool is full.
             if (_services.Audio != null)
@@ -459,50 +524,7 @@ namespace QuietCamp.Presentation.World
 
         /// <summary>0–2 = Low/Balanced/High. settings.quality 0 = auto from
         /// the active QualitySettings level; 1–3 is a manual override.</summary>
-        int QualityTier()
-        {
-            int q = _services.Settings.quality;
-            if (q >= 1 && q <= 3) return q - 1;
-            return Mathf.Clamp(QualitySettings.GetQualityLevel(), 0, 2);
-        }
-
-        /// <summary>One real gust = one quiet gust one-shot plus, at most,
-        /// one rustle at the nearest decorative anchor (cooldown-gated).</summary>
-        void OnWindGust()
-        {
-            if (_services.Audio == null || _gustSoundCooldown > 0f
-                || _entryCalm > 0f || _accentCooldown > 0f || _completed
-                || (_router != null && _router.IsBusy)
-                || (_hud != null && _hud.HasModalOpen)) return;
-            _gustSoundCooldown = 18f; // spec: at least 18 s between gust one-shots
-            _accentCooldown = 3f;
-            var dir = _atmosphere.Wind.DirectionXZ;
-            var dir3 = new Vector3(dir.x, 0f, dir.y);
-            float meadow = Mathf.Max(_session.Level.width, _session.Level.height) * .5f
-                + DecorSpawner.Apron;
-            _services.Audio.Play("ambience.gust", new AudioPlayOptions(
-                position: -dir3 * meadow + Vector3.up * 1.2f,
-                pitchOffset: Jitter(.015f)));
-            if (_rustleCooldown <= 0f)
-            {
-                _rustleCooldown = 10f;
-                _services.Audio.Play("sfx.rustle", new AudioPlayOptions(
-                    position: NearestAnchor(-dir3), volumeScale: .7f,
-                    pitchOffset: Jitter(.02f)));
-            }
-        }
-
-        Vector3 NearestAnchor(Vector3 toward)
-        {
-            var best = _edgeAnchors[0];
-            var bestDot = float.MinValue;
-            foreach (var a in _edgeAnchors)
-            {
-                var d = Vector3.Dot((a - Vector3.zero).normalized, toward.normalized);
-                if (d > bestDot) { bestDot = d; best = a; }
-            }
-            return best;
-        }
+        int QualityTier() => _services.EffectiveQuality;
 
         /// <summary>One presentation authority for light, scenery, fire and phase-dependent audio.</summary>
         public void SetAtmospherePhase(string phase)
@@ -510,7 +532,6 @@ namespace QuietCamp.Presentation.World
             var profile = _atmosphereCatalog.Get(phase);
             if (_atmosphereProfile == profile) return;
             _atmosphereProfile = profile;
-            _atmosphere.Apply(profile);
             var lighting = Find("LightingRoot");
             var dir = lighting != null ? lighting.transform.Find("DirectionalLight") : null;
             var fire = lighting != null ? lighting.transform.Find("FireLight") : null;
@@ -519,163 +540,78 @@ namespace QuietCamp.Presentation.World
                 var light = dir.GetComponent<Light>();
                 if (light != null)
                 {
-                    dir.localEulerAngles = new Vector3(profile.Elevation, -35f, 0f);
+                    dir.localEulerAngles = new Vector3(profile.Elevation, 65f, 0f);
+                    RenderSettings.sun=light;
                     light.intensity = profile.SunIntensity;
                     light.color = profile.Sun;
                 }
             }
-            bool hasFire = _fireVisuals.Length > 0 && profile.Fire;
-            if (fire != null) fire.gameObject.SetActive(hasFire);
+            // Capture the new sun color/direction after the light is updated.
+            _atmosphere.Apply(profile);
+            bool hasFire = _fireVisuals.Length > 0 && !(_atmosphere.RainShelter?.Extinguished??false);
+            // Each pit owns one adaptive local light. The old scene rig light
+            // would duplicate it and does not decide whether a daytime fire burns.
+            if (fire != null) fire.gameObject.SetActive(false);
             foreach (var fv in _fireVisuals) if (fv != null) fv.SetBurning(hasFire);
-            // Phase weights fade on running loops — a loop that survives the
-            // phase change is never restarted, only re-weighted.
-            if (hasFire && _services.Audio != null)
-            {
-                if (!_fireSound.IsValid)
-                {
-                    _fireSound = _services.Audio.PlayAt("ambience.fire",
-                        _firePos + Vector3.up * .4f);
-                    _fireScale = 0f;
-                }
-                _fireTarget = 1f;
-            }
-            else _fireTarget = 0f;
-            if (profile.Crickets > 0f && _services.Audio != null)
-            {
-                if (!_cricketSound.IsValid)
-                {
-                    _cricketSound = _services.Audio.Play("ambience.crickets");
-                    _cricketScale = 0f;
-                }
-                _cricketTarget = profile.Crickets;
-            }
-            else _cricketTarget = 0f;
-            _windTarget = profile.WindAudio;
-            _birdTimer = NextBirdDelay();
-            _owlTimer = NextOwlDelay();
             _atmosphere.SetFire(_firePos, hasFire);
         }
 
-        float NextBirdDelay() => _atmosphereProfile == null || _atmosphereProfile.BirdMax == 0
-            ? float.PositiveInfinity : Mathf.Lerp(_atmosphereProfile.BirdMin,
-                _atmosphereProfile.BirdMax, (float)_ambienceRandom.NextDouble());
-
-        float NextOwlDelay() => _atmosphereProfile == null || _atmosphereProfile.OwlMax == 0
-            ? float.PositiveInfinity : Mathf.Lerp(_atmosphereProfile.OwlMin,
-                _atmosphereProfile.OwlMax, (float)_ambienceRandom.NextDouble());
-
         // ─── Frame loop ──────────────────────────────────────────────────────
+
+        void LateUpdate() => _hud?.TickAnchors();
 
         void Update()
         {
-            _hud?.PumpHint();
-            // Gameplay hints never render over an open modal — restore the
-            // bar only once every modal has fully closed.
-            if (_tutorialBar != null)
+            if (_session != null && !_completed && _services.Analytics.Collecting && !_services.Analytics.HasActiveAttempt)
             {
-                var modalOpen = _hud != null && _hud.HasModalOpen;
-                if (_tutorialBar.activeSelf == modalOpen)
-                    _tutorialBar.SetActive(!modalOpen);
+                var summary = CampContent.Summary(_session.Level.id);
+                if (summary != null) _services.Analytics.BeginLevel(summary.number, _session.Level.width, _session.Level.height,
+                    _session.Level.lighting == "night" ? 3 : _session.Level.lighting == "evening" ? 2 : _session.Level.lighting == "morning" ? 0 : 1);
             }
-            _rustleCooldown -= Time.deltaTime;
-            _gustSoundCooldown -= Time.deltaTime;
+            _renderer?.ConfigureMotion(_services?.ReducedMotion ?? true, _services?.MotionScale ?? 1f);
+            _hud?.Tick();
+            if (_services?.Audio != null) _services.Audio.MaxActiveVoices = _services.EffectiveQuality == 0 ? 8 : _services.EffectiveQuality == 1 ? 12 : 16;
             _twigCooldown -= Time.deltaTime;
-            _accentCooldown -= Time.deltaTime;
-            _entryCalm -= Time.deltaTime;
-            TickAmbienceFades();
-            if (_atmosphereProfile == null) return;
-            // Decorative accents rest during completion, scene transitions and
-            // open modals (pause/settings/hint) — nothing queues up behind them.
-            bool quiet = _completed || (_router != null && _router.IsBusy)
-                || (_hud != null && _hud.HasModalOpen);
-            _birdTimer -= Time.deltaTime;
-            if (_birdTimer <= 0f)
+            if (_services?.Audio != null)
             {
-                _birdTimer = NextBirdDelay();
-                if (!quiet && _accentCooldown <= 0f && _services.Audio != null)
-                {
-                    _accentCooldown = 3f;
-                    var i = NextAnchor(_canopyAnchors, ref _lastBirdAnchor);
-                    // Evening birds sing softer than morning/noon.
-                    var scale = _atmosphereProfile.Id == "evening" ? .65f : 1f;
-                    _services.Audio.Play("ambience.bird", new AudioPlayOptions(
-                        position: _canopyAnchors[i], volumeScale: scale,
-                        pitchOffset: Jitter(.025f)));
-                }
-            }
-            _owlTimer -= Time.deltaTime;
-            if (_owlTimer <= 0f)
-            {
-                _owlTimer = NextOwlDelay();
-                if (!quiet && _entryCalm <= 0f && _accentCooldown <= 0f
-                    && _services.Audio != null)
-                {
-                    _accentCooldown = 3f;
-                    var i = NextAnchor(_edgeAnchors, ref _lastOwlAnchor);
-                    _services.Audio.Play("ambience.owl", new AudioPlayOptions(
-                        position: _edgeAnchors[i], pitchOffset: Jitter(.01f)));
-                }
+                _musicScale = Mathf.MoveTowards(_musicScale, (_hud?.HasModalOpen ?? false) ? .65f : 1f, Time.unscaledDeltaTime * 1.5f);
+                _services.Audio.SetPlaybackScale(_services.MusicBedHandle, _musicScale);
             }
         }
 
-        /// <summary>Moves loop weights toward their phase targets — wind bed
-        /// (3 s), fire (1.2 s) and crickets (4 s) crossfade without restarts.</summary>
-        void TickAmbienceFades()
+        // ─── Board overlays + HUD anchors ────────────────────────────────────
+
+        /// <summary>World anchor above the guest's tent (chip baseline).</summary>
+        Vector3? GuestWorldAnchor(string guestId)
         {
-            if (_services.Audio == null) return;
-            if (_windScale != _windTarget)
-            {
-                _windScale = MoveToward(_windScale, _windTarget, 3f);
-                _services.Audio.SetPlaybackScale(_services.AmbientWindHandle, _windScale);
-            }
-            if (_fireScale != _fireTarget || (_fireTarget == 0f && _fireSound.IsValid))
-            {
-                _fireScale = MoveToward(_fireScale, _fireTarget, 1.2f);
-                if (_fireTarget == 0f && _fireScale <= 0f)
-                {
-                    _fireSound.Stop();
-                    _fireSound = default;
-                }
-                else _services.Audio.SetPlaybackScale(_fireSound, _fireScale);
-            }
-            if (_cricketScale != _cricketTarget
-                || (_cricketTarget == 0f && _cricketSound.IsValid))
-            {
-                _cricketScale = MoveToward(_cricketScale, _cricketTarget, 4f);
-                if (_cricketTarget == 0f && _cricketScale <= 0f)
-                {
-                    _cricketSound.Stop();
-                    _cricketSound = default;
-                }
-                else _services.Audio.SetPlaybackScale(_cricketSound, _cricketScale);
-            }
+            if (guestId == null || !_renderer.Tents.TryGetValue(guestId, out var tent)
+                || tent?.Root == null) return null;
+            return tent.Root.transform.position;
         }
 
-        static float MoveToward(float current, float target, float seconds)
-            => Mathf.MoveTowards(current, target, Time.deltaTime / seconds);
-
-        /// <summary>Picks an anchor different from the last used index —
-        /// consecutive bird/owl calls never come from the same spot twice.</summary>
-        int NextAnchor(List<Vector3> anchors, ref int last)
+        /// <summary>World point → CSS px inside the HUD surface (top-left origin).</summary>
+        Vector2? ProjectToHud(Vector3 world)
         {
-            if (anchors.Count <= 1) return last = 0;
-            int i;
-            do { i = _ambienceRandom.Next(anchors.Count); } while (i == last);
-            return last = i;
+            if (_worldCamera == null) _worldCamera = FindCamera();
+            var camera = _worldCamera;
+            var rect = _hud?.SurfaceRect;
+            if (camera == null || rect == null) return null;
+            var screen = camera.WorldToScreenPoint(world);
+            if (screen.z < 0f) return null;
+            if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, screen, null, out var local))
+                return null;
+            return new Vector2(rect.rect.width * 0.5f + local.x, rect.rect.height * 0.5f - local.y);
         }
-
-        float Jitter(float range)
-            => (float)(_ambienceRandom.NextDouble() * 2.0 - 1.0) * range;
-
-        void ShowAreaOverlay(Cell[] cells) { /* area overlay uses existing path/chip visuals */ }
-        void ShowMoveOverlay(Placement move) { /* ghost flash handled by HUD text */ }
 
         void OnDestroy()
         {
-            if (_atmosphere != null) _atmosphere.GustStarted -= OnWindGust;
-            _fireSound.Stop();
-            _cricketSound.Stop();
-            if (_session != null) _session.Evented -= OnSessionEvent;
+            _services?.Audio?.SetPlaybackScale(_services.MusicBedHandle, 1);
+            if (!_completed) _services?.Analytics?.EndLevel(ComfortOutcome.Left);
+            if (_session != null)
+            {
+                _session.Evented -= OnSessionEvent;
+                _session.ActionRecorded -= OnTutorialAction;
+            }
             _session?.Dispose();
             _hud?.Dispose();
             _renderer?.ClearAll();

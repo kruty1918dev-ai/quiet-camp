@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f256730758b94794957a9b10576268ba, type: 3}
+  m_Name: CozyVegetationLibrary
+  m_EditorClassIdentifier: QuietCamp.Presentation::QuietCamp.Presentation.World.CozyVegetationLibrary
+  plants:
+  - id: plant_bushSmall
+    mesh: {fileID: 4300000, guid: bdb51c43f12dc7e2eaf99be5306151d8, type: 2}
+    kind: 0
+    colors:
+    - {r: 0.35, g: 0.55, b: 0.24, a: 1}
+  - id: plant_bushDetailed
+    mesh: {fileID: 4300000, guid: 40250c88d1f95a432a817df31d0f2eea, type: 2}
+    kind: 0
+    colors:
+    - {r: 0.35, g: 0.55, b: 0.24, a: 1}
+  - id: grass_leafs
+    mesh: {fileID: 4300000, guid: eb837ad60cc3525f2be1cfa4a40ef8f3, type: 2}
+    kind: 1
+    colors:
+    - {r: 0.35, g: 0.55, b: 0.24, a: 1}
+  - id: grass_leafsLarge
+    mesh: {fileID: 4300000, guid: 489aaa020e2fee3b7b299352c507a1e2, type: 2}
+    kind: 1
+    colors:
+    - {r: 0.35, g: 0.55, b: 0.24, a: 1}
+  - id: flower_purpleA
+    mesh: {fileID: 4300000, guid: 8d0a4bd9acc08565fae1b20ec56f04b5, type: 2}
+    kind: 2
+    colors:
+    - {r: 0.35, g: 0.55, b: 0.24, a: 1}
+    - {r: 0.72, g: 0.49, b: 0.68, a: 1}
+  - id: flower_yellowB
+    mesh: {fileID: 4300000, guid: 5d92f58e98488b652879c33367b358d0, type: 2}
+    kind: 2
+    colors:
+    - {r: 0.35, g: 0.55, b: 0.24, a: 1}
+    - {r: 0.94, g: 0.74, b: 0.38, a: 1}

@@ -78,7 +78,7 @@ QualitySettings:
     antiAliasing: 2
     softParticles: 0
     softVegetation: 0
-    realtimeReflectionProbes: 0
+    realtimeReflectionProbes: 1
     billboardsFaceCameraPosition: 0
     useLegacyDetailDistribution: 0
     adaptiveVsync: 0
@@ -89,7 +89,7 @@ QualitySettings:
     lodBias: 1
     meshLodThreshold: 1
     maximumLODLevel: 0
-    enableLODCrossFade: 0
+    enableLODCrossFade: 1
     streamingMipmapsActive: 0
     streamingMipmapsAddAllCameras: 0
     streamingMipmapsMemoryBudget: 0
@@ -131,7 +131,7 @@ QualitySettings:
     antiAliasing: 4
     softParticles: 0
     softVegetation: 0
-    realtimeReflectionProbes: 0
+    realtimeReflectionProbes: 1
     billboardsFaceCameraPosition: 0
     useLegacyDetailDistribution: 0
     adaptiveVsync: 0
@@ -168,3 +168,4 @@ QualitySettings:
   m_TextureMipmapLimitGroupNames: []
   m_PerPlatformDefaultQuality:
     Android: 1
+    Nintendo Switch 2: 2

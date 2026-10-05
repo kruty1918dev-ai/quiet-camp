@@ -11,16 +11,10 @@ using UnityEngine.UI;
 namespace QuietCamp.Presentation
 {
     /// <summary>
-    /// Foliage-dive scene transition (atmosphere spec, prompt 04): the camera
-    /// sinks into near foliage, large leaves close over the frame and an
-    /// opaque forest-dark cover hides the scene swap, then the new clearing
-    /// is revealed through green. One persistent overlay owned by the
-    /// ScreenRouter — states Idle → Covering → CoveredLoading → Preparing →
-    /// Revealing → Idle with Recovery on error; input is gated for the whole
-    /// operation by both a raycast-blocking canvas and the canonical input
-    /// policy/context gate. Reduced motion swaps the dive for a calm color
-    /// dissolve. All timings/palettes come from Resources/QuietCamp/
-    /// transition.json (TransitionConfig) — nothing is duplicated in code.
+    /// Persistent, input-gated leaf curtain. Independently animated folded leaves
+    /// gather over the screen, sway during loading, then fly offscreen.
+    /// Reduced motion uses a short dissolve. The public router contract and
+    /// recovery lifecycle are shared by both presentations.
     /// </summary>
     public sealed class FoliageDiveTransition : MonoBehaviour
     {
@@ -31,23 +25,21 @@ namespace QuietCamp.Presentation
         CanvasGroup _group;
         Image _cover;
         RectTransform _leafRoot;
-        Image[] _leaves;
+        LeafCurtainGraphic _canopy;
         TextMeshProUGUI _hint;
         IDisposable _gateContext;
         IDisposable _inputBlock;
         IDisposable _backLease;
         State _state = State.Idle;
-        Camera _cam;
-        Vector3 _camBasePos;
-        Quaternion _camBaseRot;
-        float _camBaseSize;
         float _progress;
         float _stateTime;
+        float _leafTime;
         bool _audioIn, _audioOut;
-        Color _coverTint = TransitionConfig.CoverBase;
-        Color _leafTint;
-        Vector2Int _screenSize;
-        int _recaptureFrames;
+        AudioHandle _entryRustle, _exitRustle;
+        Color _leafTint, _sourceTint, _destinationTint;
+        Color CoverTone=>new Color(_leafTint.r*.62f,_leafTint.g*.62f,_leafTint.b*.62f,1);
+        public Color LeafTint => _leafTint;
+        string _targetPhase;
         int _generation;
         int _leafActive;
         bool _destroyed;
@@ -71,21 +63,15 @@ namespace QuietCamp.Presentation
             return t;
         }
 
-        /// <summary>Target-scene phase ("morning"/"noon"/"evening"/"night" or
-        /// null for the menu): selects the post-cover tint and leaf palette so
-        /// the palette swap happens only under the opaque cover.</summary>
-        public void SetTargetPhase(string phase)
-        {
-            _targetPhase = phase;
-            _coverTint = Config.CoverTint(phase);
-        }
+        /// <summary>Select a palette once, before the curtain enters.</summary>
+        public void SetTargetPhase(string phase) => _targetPhase = phase;
 
         // ─── Overlay construction ────────────────────────────────────────────
 
         void EnsureOverlay()
         {
             if (_group != null) return;
-            var canvasGo = new GameObject("Cover", typeof(Canvas), typeof(CanvasScaler), typeof(CanvasGroup));
+            var canvasGo = new GameObject("Cover", typeof(Canvas), typeof(CanvasScaler), typeof(CanvasGroup), typeof(GraphicRaycaster));
             canvasGo.transform.SetParent(transform, false);
             var canvas = canvasGo.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
@@ -114,33 +100,8 @@ namespace QuietCamp.Presentation
             _leafRoot.anchorMin = Vector2.zero; _leafRoot.anchorMax = Vector2.one;
             _leafRoot.offsetMin = _leafRoot.offsetMax = Vector2.zero;
 
-            // Stable sprite lookup by atlas name — never LoadAll order.
-            var named = new System.Collections.Generic.Dictionary<string, Sprite>();
-            foreach (var s in Resources.LoadAll<Sprite>("QuietCamp/Atmosphere/Textures/leaves"))
-                if (s != null) named[s.name] = s;
-            var byIndex = new[]
-            {
-                named.TryGetValue("leaf_sage", out var a) ? a : null,
-                named.TryGetValue("leaf_olive", out var b) ? b : null,
-                named.TryGetValue("leaf_twig", out var c) ? c : null,
-                named.TryGetValue("leaf_amber", out var d) ? d : null,
-            };
-            _leaves = new Image[TransitionConfig.MaxLeaves];
-            for (var i = 0; i < _leaves.Length; i++)
-            {
-                var go = new GameObject("Leaf_" + i, typeof(RectTransform), typeof(Image));
-                go.transform.SetParent(_leafRoot, false);
-                var r = (RectTransform)go.transform;
-                r.anchorMin = r.anchorMax = new Vector2(.5f, .5f);
-                r.pivot = new Vector2(.5f, .5f);
-                var img = go.GetComponent<Image>();
-                img.sprite = byIndex[i % byIndex.Length];
-                // Missing leaf asset degrades to the plain opaque dissolve —
-                // an Image without a sprite would render a raw rectangle.
-                img.enabled = img.sprite != null;
-                img.raycastTarget = false;
-                _leaves[i] = img;
-            }
+            _canopy = leafRootGo.AddComponent<LeafCurtainGraphic>();
+            _canopy.raycastTarget = false;
 
             var hintGo = new GameObject("Hint", typeof(RectTransform), typeof(TextMeshProUGUI));
             hintGo.transform.SetParent(canvasGo.transform, false);
@@ -165,8 +126,7 @@ namespace QuietCamp.Presentation
 
         // ─── Public contract ─────────────────────────────────────────────────
 
-        /// <summary>Begins the dive: gates input (raycast + policy + context),
-        /// sinks the camera, closes leaves and the opaque cover. Completes when
+        /// <summary>Gates input and sweeps the canopy over the scene. Completes when
         /// the screen is fully covered and at least one covered frame ran.</summary>
         public async Task CoverAsync()
         {
@@ -177,6 +137,7 @@ namespace QuietCamp.Presentation
             _state = State.Covering;
             _stateTime = 0f;
             _progress = 0f;
+            _leafTime = 0f;
             _audioIn = _audioOut = false;
             _group.gameObject.SetActive(true);
             _group.blocksRaycasts = true;
@@ -190,15 +151,12 @@ namespace QuietCamp.Presentation
             bool reduced = _services != null && _services.ReducedMotion;
             _leafActive = reduced ? 0 : Config.LeafCount(QualityTier());
             _leafRoot.gameObject.SetActive(_leafActive > 0);
-            _leafTint = Config.LeafBase;
-            for (var i = 0; i < _leaves.Length; i++)
-            {
-                _leaves[i].gameObject.SetActive(i < _leafActive);
-                _leaves[i].color = _leafTint;
-            }
-            CaptureCamera();
-            _screenSize = new Vector2Int(Screen.width, Screen.height);
-            _recaptureFrames = 0;
+            _sourceTint = CaptureLighting();
+            _leafTint = _sourceTint;
+            _canopy.ConfigureQuality(QualityTier());
+            _canopy.SetFrame(0f, _leafTint);
+            _cover.color = Alpha(CoverTone, 0f);
+            _group.alpha = 1f;
             // Scoped ambient dip (~−2 dB) for the entry motion only.
             _services?.Audio?.DuckBus(AudioBus.Ambience,
                 Config.DuckAmount, Config.DuckAttack,
@@ -226,25 +184,26 @@ namespace QuietCamp.Presentation
             }
         }
 
-        /// <summary>Called after the new scene's host has reported ready and one
-        /// rendered frame passed: captures the freshly fitted camera so the
-        /// reveal can return to it exactly.</summary>
+        /// <summary>Called after the new scene is ready under full cover.</summary>
         public void BeginReveal()
         {
             if (_state != State.CoveredLoading && _state != State.Preparing) return;
+            _destinationTint = CaptureLighting();
             _state = State.Preparing;
             _stateTime = 0f;
-            CaptureCamera();
         }
 
-        /// <summary>Opens the cover back up and returns the camera to its
-        /// fitted pose; releases input when done.</summary>
+        /// <summary>Continues the canopy offscreen and releases input.</summary>
         public async Task RevealAsync()
         {
-            // Only a prepared scene may reveal — a bare CoveredLoading call
-            // would skip the new camera's baseline capture, and Recovery
-            // must never reopen a half-loaded scene.
+            // Recovery must never reopen a half-loaded scene.
             if (_state != State.Preparing && _state != State.CoveredLoading) return;
+            if (_hint != null) _hint.gameObject.SetActive(false);
+            if (_state == State.CoveredLoading) BeginReveal();
+            float paletteDuration = _services?.ReducedMotion == true ? .08f : .24f;
+            while (_state == State.Preparing && _stateTime < paletteDuration && !_destroyed) await Task.Yield();
+            if (_destroyed || _state != State.Preparing) return;
+            _leafTint = _destinationTint;
             _state = State.Revealing;
             _stateTime = 0f;
             bool reduced = _services != null && _services.ReducedMotion;
@@ -268,7 +227,6 @@ namespace QuietCamp.Presentation
         {
             _generation++;
             _state = State.Recovery;
-            RestoreCamera();
             Finish();
         }
 
@@ -286,7 +244,7 @@ namespace QuietCamp.Presentation
 
         void Finish()
         {
-            RestoreCamera();
+            StopRustles();
             _gateContext?.Dispose();
             _gateContext = null;
             _inputBlock?.Dispose();
@@ -303,43 +261,12 @@ namespace QuietCamp.Presentation
 
         void OnDestroy()
         {
+            StopRustles();
             _destroyed = true;
             _generation++;
             _gateContext?.Dispose();
             _inputBlock?.Dispose();
             _backLease?.Dispose();
-            RestoreCamera();
-        }
-
-        // ─── Camera ──────────────────────────────────────────────────────────
-
-        void CaptureCamera()
-        {
-            _cam = Camera.main;
-            if (_cam == null) return;
-            _camBasePos = _cam.transform.position;
-            _camBaseRot = _cam.transform.rotation;
-            _camBaseSize = _cam.orthographicSize;
-        }
-
-        void RestoreCamera()
-        {
-            if (_cam == null) return;
-            _cam.transform.SetPositionAndRotation(_camBasePos, _camBaseRot);
-            _cam.orthographicSize = _camBaseSize;
-        }
-
-        /// <summary>Applies the cosmetic dive offset on top of the captured
-        /// fitted pose — the dip slides along the baseline camera's own up
-        /// axis (screen-down), never changes logical board coordinates.</summary>
-        void DriveCamera(float depth01)
-        {
-            if (_cam == null) return;
-            float h = 2f * _camBaseSize;
-            var up = _camBaseRot * Vector3.up;
-            _cam.transform.position = _camBasePos - up * (depth01 * Config.CameraDepth * h);
-            _cam.transform.rotation = _camBaseRot;
-            _cam.orthographicSize = _camBaseSize * Mathf.Lerp(1f, Config.CameraSize, depth01);
         }
 
         // ─── Frame loop ──────────────────────────────────────────────────────
@@ -349,35 +276,23 @@ namespace QuietCamp.Presentation
             if (_destroyed || _group == null || _state == State.Idle) return;
             bool reduced = _services != null && _services.ReducedMotion;
             _stateTime += Time.unscaledDeltaTime;
-
-            var size = new Vector2Int(Screen.width, Screen.height);
-            if (size != _screenSize && (_state == State.Covering || _state == State.Revealing))
-            {
-                _screenSize = size;
-                // Let the scene's own fitter write the new baseline for one
-                // frame, then recapture — same normalized progress continues.
-                RestoreCamera();
-                _recaptureFrames = 1;
-            }
-            if (_recaptureFrames > 0 && --_recaptureFrames == 0)
-                CaptureCamera();
+            _leafTime += Time.unscaledDeltaTime;
 
             switch (_state)
             {
                 case State.Covering:
                 {
-                    float dur = reduced ? Config.ReducedIn
-                        : Config.CoverDuration + Config.CoveredHold;
+                    float dur = reduced ? Config.ReducedIn : Config.CoverDuration;
                     _progress = Mathf.Clamp01(_stateTime / dur);
                     float e = Smooth(_progress);
                     _group.alpha = 1f;
-                    _cover.color = Alpha(TransitionConfig.CoverBase,
-                        reduced ? e : Mathf.Clamp01(e * 1.15f));
+                    _cover.color = Alpha(CoverTone,
+                        reduced ? e : Smooth((_progress-.70f)/.30f));
                     if (!reduced)
                     {
-                        DriveCamera(e);
+                        _canopy.SetFrame(_progress, _leafTint, _leafTime);
                         if (e > Config.CueInMarker && !_audioIn)
-                        { _audioIn = true; Rustle(Config.CueInGain, Config.CueInPan); }
+                        { _audioIn = true; _entryRustle = Rustle("sfx.transition.in", Config.CueInGain, Config.CueInPan); }
                     }
                     break;
                 }
@@ -385,12 +300,10 @@ namespace QuietCamp.Presentation
                 case State.Preparing:
                 {
                     _progress = 1f;
-                    // Under full cover the tint may ease toward the target
-                    // phase — never under the open frame.
-                    _cover.color = Color.Lerp(TransitionConfig.CoverBase, _coverTint,
-                        Mathf.Clamp01(_stateTime * 2.5f));
-                    _leafTint = Color.Lerp(Config.LeafBase, Config.LeafTint(TargetPhase()),
-                        Mathf.Clamp01(_stateTime * 2.5f));
+                    if (_state == State.Preparing)
+                        _leafTint = Color.Lerp(_sourceTint,_destinationTint,Smooth(_stateTime/(_services?.ReducedMotion==true?.08f:.24f)));
+                    _cover.color = CoverTone;
+                    if (!reduced) _canopy.SetFrame(1f, _leafTint, _leafTime);
                     if (_state == State.CoveredLoading && _stateTime > Config.SlowHintDelay)
                         ShowSlowHint();
                     break;
@@ -401,15 +314,13 @@ namespace QuietCamp.Presentation
                     float t = Mathf.Clamp01(_stateTime / dur);
                     float e = 1f - Smooth(t);
                     _progress = e;
-                    _cover.color = Alpha(_coverTint, e);
+                    _cover.color = Alpha(CoverTone, reduced ? e : 1-Smooth(t/.30f));
                     if (!reduced)
                     {
-                        // Reveal drives the same normalized progress the
-                        // leaves read — one shared timeline, not a parallel
-                        // coroutine with a similar duration.
-                        DriveCamera(e * (Config.RevealDepth / Config.CameraDepth));
+                        // Continue in the same direction, like a passing canopy.
+                        _canopy.SetFrame(1f + t, _leafTint, _leafTime);
                         if (t > Config.CueOutMarker && !_audioOut)
-                        { _audioOut = true; Rustle(Config.CueOutGain, Config.CueOutPan); }
+                        { _audioOut = true; _exitRustle = Rustle("sfx.transition.out", Config.CueOutGain, Config.CueOutPan); }
                     }
                     break;
                 }
@@ -417,51 +328,25 @@ namespace QuietCamp.Presentation
                     break;
             }
 
-            if (_leafActive > 0 && _leafRoot != null) LayoutLeaves(_progress);
         }
 
-        string _targetPhase;
-        string TargetPhase() => _targetPhase;
-
-        // Depth variance: later leaves sit slightly darker/lighter so the
-        // canopy reads as layered masses instead of one flat silhouette.
-        static readonly float[] LeafShade = { 1.0f, 0.78f, 1.16f, 0.88f, 1.07f, 0.72f };
-
-        static float Smooth(float t) => t * t * (3f - 2f * t);
-        static Color Alpha(Color c, float a) { c.a = Mathf.Clamp01(a); return c; }
-
-        /// <summary>Leaves read the shared cover progress with per-leaf
-        /// stagger: A enters from the bottom-left first, B trails from the
-        /// bottom-right, a thin leaf rides the periphery, the last soft edge
-        /// closes the swap. Sizes derive from the screen's short side so the
-        /// same scene works on tablet aspect without stretched sprites.</summary>
-        void LayoutLeaves(float progress)
+        public static Color CaptureLighting()
         {
-            var canvas = _group.GetComponent<Canvas>();
-            var size = ((RectTransform)canvas.transform).rect.size;
-            float shortSide = Mathf.Min(size.x, size.y);
-            var cfg = Config;
-            for (var i = 0; i < _leafActive; i++)
-            {
-                float lp = progress <= cfg.LeafStagger[i] ? 0f
-                    : Mathf.Clamp01((progress - cfg.LeafStagger[i]) / (1f - cfg.LeafStagger[i]));
-                var p = Vector2.Lerp(cfg.LeafHome[i], cfg.LeafDive[i], Smooth(lp));
-                _leaves[i].rectTransform.anchoredPosition =
-                    new Vector2((p.x - .5f) * size.x, (p.y - .5f) * size.y);
-                float grow = Mathf.Lerp(1f, cfg.LeafGrow[i], lp);
-                float side = cfg.LeafFraction[i] * shortSide * grow;
-                _leaves[i].rectTransform.sizeDelta = new Vector2(side * cfg.LeafWide[i], side);
-                _leaves[i].rectTransform.localRotation = Quaternion.Euler(0f, 0f,
-                    cfg.LeafRotation[i] + cfg.LeafSpin[i] * lp);
-                var c = _leafTint;
-                // Per-leaf brightness offset keeps the masses readable as
-                // separate layers even at full cover.
-                var m = LeafShade[i % LeafShade.Length];
-                c.r *= m; c.g *= m; c.b *= m;
-                c.a = Mathf.Clamp01(lp * 1.6f);
-                _leaves[i].color = c;
-            }
+            var ambient=RenderSettings.ambientLight;
+            var sun=RenderSettings.sun;
+            if(sun==null) foreach(var light in UnityEngine.Object.FindObjectsByType<Light>(FindObjectsSortMode.None))
+                if(light.type==LightType.Directional){sun=light;break;}
+            var lit=ambient+(sun!=null?sun.color*sun.intensity*.38f:Color.black);
+            var dim=World.MenuSceneHost.Current?.VisibleDimming??0;
+            return new Color(.35f*lit.r*(1-dim),.48f*lit.g*(1-dim),.30f*lit.b*(1-dim),1);
         }
+
+        static float Smooth(float t)
+        {
+            t = Mathf.Clamp01(t);
+            return t * t * (3f - 2f * t);
+        }
+        static Color Alpha(Color c, float a) { c.a = Mathf.Clamp01(a); return c; }
 
         /// <summary>0–2 = Low/Balanced/High; settings.quality 0 = auto.</summary>
         int QualityTier()
@@ -473,14 +358,19 @@ namespace QuietCamp.Presentation
 
         /// <summary>Transition rustle is spatially subtle: a slight pan within
         /// ±.15 matching the leaf crossing side and no doppler/echo.</summary>
-        void Rustle(float scale, float pan)
+        AudioHandle Rustle(string key, float scale, float pan)
         {
-            if (_services?.Audio == null) return;
-            var def = _services.Audio.GetSound("sfx.rustle");
-            if (def == null) return;
-            _services.Audio.Play("sfx.rustle",
-                new AudioPlayOptions(volumeScale: scale, pitchOffset: -.05f,
+            if (_services?.Audio == null || _services.Audio.GetSound(key) == null) return default;
+            return _services.Audio.Play(key,
+                new AudioPlayOptions(volumeScale: scale,
                     panStereo: Mathf.Clamp(pan, -.15f, .15f)));
+        }
+
+        void StopRustles()
+        {
+            _entryRustle.Stop();
+            _exitRustle.Stop();
+            _entryRustle = _exitRustle = default;
         }
     }
 }

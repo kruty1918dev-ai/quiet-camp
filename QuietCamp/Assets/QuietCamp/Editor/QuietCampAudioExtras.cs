@@ -32,6 +32,7 @@ namespace QuietCamp.Editor
             WriteWav("leaf_rustle.wav", LeafRustle());
             WriteWav("twig_snap.wav", TwigSnap());
             WriteWav("chime_soft.wav", Chime());
+            WriteWav("gentle_rain.wav", GentleRain());
             var wind = WindLoop();
             WriteWavStereo("wind_loop.wav", wind[0], wind[1]);
             AssetDatabase.Refresh();
@@ -42,6 +43,7 @@ namespace QuietCamp.Editor
                          "leaf_rustle.wav", "twig_snap.wav", "chime_soft.wav" })
                 MvpContentBuilder.ApplyAudioImportSettings($"{Dir}/{f}", "DecompressOnLoad", "PCM");
             MvpContentBuilder.ApplyAudioImportSettings($"{Dir}/wind_loop.wav", "Streaming", "Vorbis");
+            MvpContentBuilder.ApplyAudioImportSettings($"{Dir}/gentle_rain.wav", "Streaming", "Vorbis");
             UpdateWindCatalogEntry();
 
             var catalog = AssetDatabase.LoadAssetAtPath<QuietCampAudioCatalog>(CatalogPath);
@@ -55,6 +57,8 @@ namespace QuietCamp.Editor
             // (96–128) must outrank ambience beds (160–176) under load.
             var extras = new List<AudioSoundDefinition>
             {
+                Def("ambience.rain", "gentle_rain.wav", AudioBus.Ambience, 0.18f, loop: true,
+                    maxSimultaneous: 1, priority: 168),
                 Def("ambience.crickets", "crickets_loop.wav", AudioBus.Ambience, 0.14f, loop: true,
                     maxSimultaneous: 1, priority: 168),
                 Def("ambience.owl", "owl_hoot.wav", AudioBus.Ambience, 0.18f,
@@ -112,6 +116,182 @@ namespace QuietCamp.Editor
             EditorUtility.SetDirty(catalog);
             AssetDatabase.SaveAssets();
             Debug.Log($"[QuietCamp] {extras.Count} generated sounds registered in AudioCatalog.");
+            GenerateTransitionSounds();
+            GenerateFeedbackSounds();
+            SoundscapeAudioContent.ImportAvailableOverrides();
+        }
+
+        static float[] GentleRain()
+        {
+            var samples=new float[Rate*12];var rng=new System.Random(19181003);float low=0;
+            for(int i=0;i<samples.Length;i++)
+            {
+                float noise=(float)rng.NextDouble()*2-1;low+=(noise-low)*.09f;
+                samples[i]=(low*.9f+noise*.1f)*.45f;
+            }
+            RemoveDc(samples);TailFade(samples,.015f);return samples;
+        }
+
+        [MenuItem("QuietCamp/Generate Feedback Sounds")]
+        public static void GenerateFeedbackSounds()
+        {
+            Directory.CreateDirectory(Dir);
+            // Short fabric/soil landing with a smooth attack and tail.
+            var samples = new float[(int)(Rate * .24f)];
+            var rng = new System.Random(191819);
+            float low = 0f;
+            for (int i = 0; i < samples.Length; i++)
+            {
+                float t = i / (float)Rate;
+                low += ((float)rng.NextDouble() * 2f - 1f - low) * .055f;
+                float envelope = Mathf.Min(1f, t / .006f) * Mathf.Exp(-24f * t);
+                samples[i] = (low * .65f + Mathf.Sin(2f * Mathf.PI * 145f * t) * .18f) * envelope;
+            }
+            RemoveDc(samples);
+            TailFade(samples, .006f);
+            WriteWav("tent_settle.wav", samples);
+            AssetDatabase.Refresh();
+            var path = $"{Dir}/tent_settle.wav";
+            MvpContentBuilder.ApplyAudioImportSettings(path, "DecompressOnLoad", "PCM");
+            var catalog = AssetDatabase.LoadAssetAtPath<QuietCampAudioCatalog>(CatalogPath);
+            if (catalog == null) throw new InvalidOperationException("AudioCatalog.asset missing.");
+            var so = new SerializedObject(catalog);
+            var extras = so.FindProperty("_extraSounds");
+            int index = 0;
+            while (index < extras.arraySize && extras.GetArrayElementAtIndex(index)
+                .FindPropertyRelative("Key").stringValue != "sfx.tent.settle") index++;
+            if (index == extras.arraySize) extras.arraySize++;
+            var entry = extras.GetArrayElementAtIndex(index);
+            entry.FindPropertyRelative("Key").stringValue = "sfx.tent.settle";
+            entry.FindPropertyRelative("Clip").objectReferenceValue = AssetDatabase.LoadAssetAtPath<AudioClip>(path);
+            entry.FindPropertyRelative("Variants").arraySize = 0;
+            entry.FindPropertyRelative("Bus").enumValueIndex = (int)AudioBus.Sfx;
+            entry.FindPropertyRelative("Channel").stringValue = "";
+            entry.FindPropertyRelative("MixerGroup").objectReferenceValue = null;
+            entry.FindPropertyRelative("Volume").floatValue = .32f;
+            entry.FindPropertyRelative("VolumeRandom").floatValue = 0f;
+            entry.FindPropertyRelative("Pitch").floatValue = 1f;
+            entry.FindPropertyRelative("PitchRandom").floatValue = .035f;
+            entry.FindPropertyRelative("SpatialBlend").floatValue = .7f;
+            entry.FindPropertyRelative("DopplerLevel").floatValue = 0f;
+            entry.FindPropertyRelative("ReverbZoneMix").floatValue = 0f;
+            entry.FindPropertyRelative("MinDistance").floatValue = 2f;
+            entry.FindPropertyRelative("MaxDistance").floatValue = 14f;
+            entry.FindPropertyRelative("Loop").boolValue = false;
+            entry.FindPropertyRelative("Cooldown").floatValue = .08f;
+            entry.FindPropertyRelative("Priority").intValue = 112;
+            entry.FindPropertyRelative("PoolWarmup").intValue = 1;
+            entry.FindPropertyRelative("MaxSimultaneous").intValue = 2;
+            foreach (var effect in new[] { "LowPass", "HighPass", "Echo", "Reverb", "Distortion", "Chorus" })
+                entry.FindPropertyRelative("Effects").FindPropertyRelative("Enable" + effect).boolValue = false;
+            entry.FindPropertyRelative("Duck").FindPropertyRelative("Enabled").boolValue = false;
+            so.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(catalog);
+            AssetDatabase.SaveAssets();
+        }
+
+        /// <summary>Regenerate only the owned transition cues, preserving world
+        /// sounds, catalog settings and the source-kit integrity manifest.</summary>
+        [MenuItem("QuietCamp/Generate Transition Sounds")]
+        public static void GenerateTransitionSounds()
+        {
+            Directory.CreateDirectory(Dir);
+            WriteWav("foliage_enter.wav", FoliageSweep(.82f, 1918, false));
+            WriteWav("foliage_exit.wav", FoliageSweep(.74f, 1927, true));
+            AssetDatabase.Refresh();
+            var catalog = AssetDatabase.LoadAssetAtPath<QuietCampAudioCatalog>(CatalogPath);
+            if (catalog == null) throw new InvalidOperationException("AudioCatalog.asset missing.");
+            var so = new SerializedObject(catalog);
+            var extras = so.FindProperty("_extraSounds");
+            foreach (bool exit in new[] { false, true })
+            {
+                string file = exit ? "foliage_exit.wav" : "foliage_enter.wav";
+                string key = exit ? "sfx.transition.out" : "sfx.transition.in";
+                MvpContentBuilder.ApplyAudioImportSettings($"{Dir}/{file}", "DecompressOnLoad", "PCM");
+                var importer = (AudioImporter)AssetImporter.GetAtPath($"{Dir}/{file}");
+                var settings = importer.defaultSampleSettings;
+                settings.preloadAudioData = true;
+                importer.defaultSampleSettings = settings;
+                importer.SaveAndReimport();
+                int index = 0;
+                while (index < extras.arraySize && extras.GetArrayElementAtIndex(index)
+                    .FindPropertyRelative("Key").stringValue != key) index++;
+                if (index == extras.arraySize) extras.arraySize++;
+                var e = extras.GetArrayElementAtIndex(index);
+                e.FindPropertyRelative("Key").stringValue = key;
+                e.FindPropertyRelative("Clip").objectReferenceValue = AssetDatabase.LoadAssetAtPath<AudioClip>($"{Dir}/{file}");
+                e.FindPropertyRelative("Variants").arraySize = 0;
+                e.FindPropertyRelative("Bus").enumValueIndex = (int)AudioBus.Sfx;
+                e.FindPropertyRelative("Channel").stringValue = "";
+                e.FindPropertyRelative("MixerGroup").objectReferenceValue = null;
+                e.FindPropertyRelative("Volume").floatValue = .30f;
+                e.FindPropertyRelative("VolumeRandom").floatValue = 0f;
+                e.FindPropertyRelative("Pitch").floatValue = 1f;
+                e.FindPropertyRelative("PitchRandom").floatValue = 0f;
+                e.FindPropertyRelative("SpatialBlend").floatValue = 0f;
+                e.FindPropertyRelative("DopplerLevel").floatValue = 0f;
+                e.FindPropertyRelative("ReverbZoneMix").floatValue = 0f;
+                e.FindPropertyRelative("Loop").boolValue = false;
+                e.FindPropertyRelative("Cooldown").floatValue = 0f;
+                e.FindPropertyRelative("Priority").intValue = 120;
+                e.FindPropertyRelative("PoolWarmup").intValue = 1;
+                e.FindPropertyRelative("MaxSimultaneous").intValue = 1;
+                foreach (var effect in new[] { "LowPass", "HighPass", "Echo", "Reverb", "Distortion", "Chorus" })
+                    e.FindPropertyRelative("Effects").FindPropertyRelative("Enable" + effect).boolValue = false;
+                e.FindPropertyRelative("Duck").FindPropertyRelative("Enabled").boolValue = false;
+            }
+            so.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(catalog);
+            AssetDatabase.SaveAssets();
+        }
+
+        /// <summary>Soft air passing the lens plus irregular filtered leaf
+        /// grains. Smooth envelopes avoid the square-gated hiss of LeafRustle.
+        /// Owned procedural synthesis, not a field recording.</summary>
+        static float[] FoliageSweep(float duration, int seed, bool exit)
+        {
+            var s = new float[Mathf.RoundToInt(Rate * duration)];
+            var rng = new System.Random(seed);
+            float air = 0f, low = 0f, high = 0f;
+            for (int i = 0; i < s.Length; i++)
+            {
+                float t = i / (float)(s.Length - 1);
+                float noise = (float)rng.NextDouble() * 2f - 1f;
+                air += (noise - air) * .028f;
+                low += (noise - low) * .16f;
+                high += (noise - high) * .48f;
+                float swell = Mathf.Pow(Mathf.Max(0f, Mathf.Sin(Mathf.PI * t)), 1.5f);
+                s[i] = (air * 1.7f + (high - low) * .35f) * swell;
+            }
+            // Unequal lengths and gaps prevent a mechanical repeating rhythm.
+            for (int grain = 0; grain < 18; grain++)
+            {
+                float start = .04f + (float)rng.NextDouble() * duration * .76f;
+                float length = .025f + (float)rng.NextDouble() * .105f;
+                float gain = .10f + (float)rng.NextDouble() * .24f;
+                float body = 0f, detail = 0f;
+                int count = Mathf.RoundToInt(length * Rate);
+                int offset = Mathf.RoundToInt(start * Rate);
+                for (int j = 0; j < count && offset + j < s.Length; j++)
+                {
+                    float noise = (float)rng.NextDouble() * 2f - 1f;
+                    body += (noise - body) * (exit ? .10f : .14f);
+                    detail += (noise - detail) * .52f;
+                    float envelope = Mathf.Sin(Mathf.PI * j / (count - 1f));
+                    s[offset + j] += (detail - body) * envelope * envelope * gain;
+                }
+            }
+            RemoveDc(s);
+            // Both endpoints are exactly silent; recovery can safely stop the
+            // scope, and ordinary playback fits inside its visual phase.
+            for (int i = 0; i < s.Length; i++)
+            {
+                float attack = Mathf.Clamp01(i / (Rate * .018f));
+                float release = Mathf.Clamp01((s.Length - 1 - i) / (Rate * .07f));
+                s[i] *= attack * release;
+            }
+            NormalizeTo(s, .62f);
+            return s;
         }
 
         static AudioSoundDefinition Def(string key, string file, AudioBus bus, float volume,

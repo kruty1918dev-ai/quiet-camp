@@ -2,59 +2,55 @@ using System;
 using DG.Tweening;
 using Kruty1918.Notifications.API;
 using Kruty1918.Notifications.Runtime;
-using TMPro;
 using UnityEngine;
+
 namespace QuietCamp.Presentation.UI
 {
-    /// <summary>
-    /// Toast-layer presenter for the notification service: one short message at
-    /// a time above the bottom panel, never blocking board cells.
-    /// </summary>
+    /// <summary>Non-interactive HTML notification, above the board and below the transition overlay.</summary>
     public sealed class ToastPresenter : IGameplayNotificationPresenter
     {
         readonly RectTransform _layer;
         readonly Func<string, string> _translate;
-        GameObject _current;
-        Sequence _seq;
-
-        public ToastPresenter(RectTransform layer, Func<string, string> translate)
-        {
-            _layer = layer;
-            _translate = translate;
-        }
-
+        readonly Func<GameServices> _services;
+        HtmlSurface _current;
+        Tween _timer;
+        bool _exiting;
+        Action _completed;
+        public ToastPresenter(RectTransform layer, Func<string, string> translate, Func<GameServices> services = null)
+        { _layer = layer; _translate = translate; _services = services; }
         public void Present(GameplayNotificationRequest request, float holdDuration, Action completed)
         {
             ResetPresentation();
-            var rt = QcUi.Anchor(_layer, "Toast",
-                new Vector2(0.5f, 0f), new Vector2(0.5f, 0f),
-                new Vector2(-400f, 160f), new Vector2(400f, 250f));
-            var img = rt.gameObject.AddComponent<UnityEngine.UI.Image>();
-            img.color = new Color(0.14f, 0.11f, 0.09f, 0.92f);
-            img.raycastTarget = false;
-            var tmp = QcUi.PlainText(rt, _translate?.Invoke(request.Message) ?? request.Message,
-                QcUi.TextSmall, TextAlignmentOptions.Center, QcUi.Cream);
-            _current = rt.gameObject;
-            var group = rt.gameObject.AddComponent<CanvasGroup>();
-            group.alpha = 0f;
-            float hold = Mathf.Max(0.6f, holdDuration);
-            _seq = DOTween.Sequence();
-            _seq.Append(DOTween.To(() => group.alpha, v => group.alpha = v, 1f, 0.15f));
-            _seq.AppendInterval(hold);
-            _seq.Append(DOTween.To(() => group.alpha, v => group.alpha = v, 0f, 0.2f));
-            _seq.OnComplete(() =>
+            _completed = completed;
+            var text = _translate?.Invoke(request.Message) ?? request.Message;
+            _current = HtmlSurface.Create(_layer, "ToastHtml", _services?.Invoke(),
+                () => "<view class=\"app\"><view id=\"notification\" class=\"toast\" data-motion-role=\"toast\""
+                    + (_exiting ? " data-motion=\"exit\"" : "") + ">" + HtmlUi.Text(text) + "</view></view>");
+            _current.Motion.ExitFinished += OnExitFinished;
+            var group = _current.gameObject.AddComponent<CanvasGroup>();
+            group.blocksRaycasts = false; group.interactable = false;
+            _timer = DOVirtual.DelayedCall(Mathf.Max(.6f, holdDuration), () =>
             {
-                if (_current != null) UnityEngine.Object.Destroy(_current);
-                _current = null;
-                completed?.Invoke();
-            });
+                _exiting = true;
+                _current?.Refresh();
+            }, true);
         }
-
+        void OnExitFinished(string id)
+        {
+            if (id != "notification" || !_exiting) return;
+            var completed = _completed;
+            ResetPresentation();
+            completed?.Invoke();
+        }
         public void ResetPresentation()
         {
-            _seq?.Kill();
-            _seq = null;
-            if (_current != null) UnityEngine.Object.Destroy(_current);
+            _timer?.Kill(); _timer = null;
+            _exiting = false; _completed = null;
+            if (_current != null)
+            {
+                _current.Motion.ExitFinished -= OnExitFinished;
+                UnityEngine.Object.Destroy(_current.gameObject);
+            }
             _current = null;
         }
     }

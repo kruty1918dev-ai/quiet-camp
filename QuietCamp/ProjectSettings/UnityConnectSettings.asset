@@ -14,7 +14,7 @@ UnityConnectSettings:
   InsightsSettings:
     m_EventUrl: https://engine-data.unity3d.com
     m_StackTraceUrl: https://engine-data.services.api.unity.com/v1/stack-traces
-    m_EngineDiagnosticsEnabled: 1
+    m_EngineDiagnosticsEnabled: 0
     m_Enabled: 0
   CrashReportingSettings:
     serializedVersion: 2
@@ -28,11 +28,11 @@ UnityConnectSettings:
   UnityAnalyticsSettings:
     m_Enabled: 0
     m_TestMode: 0
-    m_InitializeOnStartup: 1
+    m_InitializeOnStartup: 0
     m_PackageRequiringCoreStatsPresent: 0
   UnityAdsSettings:
     m_Enabled: 0
-    m_InitializeOnStartup: 1
+    m_InitializeOnStartup: 0
     m_TestMode: 0
     m_IosGameId: 
     m_AndroidGameId: 

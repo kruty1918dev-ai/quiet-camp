@@ -9,8 +9,8 @@ namespace QuietCamp.Presentation.World
     /// Scene-owned ambient particles driven by the shared <see cref="WindSim"/>
     /// snapshot: drifting leaves at the upwind clearing edge, dawn dust motes,
     /// evening fireflies near low bushes, campfire smoke and one far mist quad.
-    /// Fixed small pools — no per-frame allocation, no colliders, no depth or
-    /// collision modules. Budgets come from the quality tier tables in the
+    /// Fixed small pools — no per-frame allocation, colliders or collision
+    /// modules. Fire particles reuse forest depth on Balanced/High. Budgets come from the
     /// atmosphere spec (Balanced counts live in atmosphere.json).
     /// </summary>
     public sealed class AtmosphereParticles : MonoBehaviour
@@ -19,7 +19,9 @@ namespace QuietCamp.Presentation.World
 
         Material _leafMat, _softMat;
         Texture2D _leafTex, _dotTex;
-        ParticleSystem _leaves, _nearLeaf, _dust, _fireflies, _smoke;
+        ParticleSystem _leaves, _nearLeaf, _dust, _fireflies, _smoke, _embers;
+        Material _fireMaterial, _emberMaterial;
+        Texture2D _fireAtlas;
         Transform _mist;
         Material _mistMat;
         Camera _camera;
@@ -38,6 +40,7 @@ namespace QuietCamp.Presentation.World
         float _mistDrift;
         bool _initialized;
         bool _gustHooked;
+        bool _winter,_autumn;
 
         /// <summary>Scene-owned veto for the rare near leaf: drag, an open
         /// modal or a scene transition block new flybys (spec §4.2/§9).
@@ -56,6 +59,8 @@ namespace QuietCamp.Presentation.World
              : tier == Tier.Low ? Math.Min(balanced, low)
              : tier == Tier.High ? Mathf.Max(balanced, high) : balanced;
 
+        public void SetTier(Tier tier) { if(_tier==tier)return;_tier=tier;ApplyProfile(_profile); }
+
         public void Configure(Camera camera, LevelData level, AtmosphereCatalog.Profile profile,
             Tier tier, Func<bool> reducedMotion)
         {
@@ -63,6 +68,7 @@ namespace QuietCamp.Presentation.World
             _tier = tier;
             _reducedMotion = reducedMotion;
             _profile = profile;
+            var season=SeasonProfile.For(level);_winter=season.Winter;_autumn=season.Autumn;
             _meadowRadius = Mathf.Max(level.width, level.height) * .5f + DecorSpawner.Apron;
             // Decorative sequence isolated from gameplay RNG.
             _decorRng = new System.Random(level.decorSeed * 31 + 7);
@@ -94,6 +100,21 @@ namespace QuietCamp.Presentation.World
             _dust = CreateDust();
             _fireflies = CreateFireflies();
             _smoke = CreateSmoke();
+            _fireAtlas = CozyParticleAtlas.Create();
+            _fireMaterial = CozyParticleMaterial.Create(_fireAtlas, (int)_tier);
+            _emberMaterial = CozyParticleMaterial.Create(_fireAtlas, (int)_tier, .75f);
+            _smoke.GetComponent<ParticleSystemRenderer>().sharedMaterial = _fireMaterial;
+            CozyParticleAtlas.Tile(_smoke, 0);
+            _embers = BaseSystem("FireEmbers", 16, _emberMaterial);
+            CozyParticleAtlas.Tile(_embers, 1);
+            var emberMain = _embers.main; emberMain.startLifetime = new ParticleSystem.MinMaxCurve(1.4f, 2.3f);
+            emberMain.startSpeed = new ParticleSystem.MinMaxCurve(.18f, .35f); emberMain.startSize = new ParticleSystem.MinMaxCurve(.035f, .065f);
+            emberMain.startColor = new Color(1, .65f, .21f, .8f);
+            var emberShape = _embers.shape; emberShape.shapeType = ParticleSystemShapeType.Cone; emberShape.radius = .16f; emberShape.angle = 12;
+            _embers.transform.localRotation = Quaternion.Euler(-90, 0, 0);
+            var emberFade = _embers.colorOverLifetime; emberFade.enabled = true;
+            var emberGradient = new Gradient(); emberGradient.SetKeys(new[] { new GradientColorKey(Color.white, 0), new GradientColorKey(new Color(.9f, .34f, .10f), 1) },
+                new[] { new GradientAlphaKey(0, 0), new GradientAlphaKey(.85f, .12f), new GradientAlphaKey(0, 1) }); emberFade.color = emberGradient;
             _mist = CreateMist();
             _initialized = true;
             ApplyProfile(profile);
@@ -128,7 +149,7 @@ namespace QuietCamp.Presentation.World
             sheet.enabled = true;
             sheet.mode = ParticleSystemAnimationMode.Grid;
             sheet.numTilesX = 2; sheet.numTilesY = 2;
-            sheet.startFrame = new ParticleSystem.MinMaxCurve(0f, 3.99f);
+            sheet.startFrame = new ParticleSystem.MinMaxCurve(0f, .999f);
             sheet.frameOverTime = new ParticleSystem.MinMaxCurve(0f);
             sheet.cycleCount = 1;
         }
@@ -247,6 +268,7 @@ namespace QuietCamp.Presentation.World
         {
             int budget = Scale(_profile != null ? _profile.Smoke : 0, 0, 3, _tier);
             var ps = BaseSystem("FireSmoke", Mathf.Max(1, budget), _softMat);
+            ps.transform.localRotation = Quaternion.Euler(-90f, 0f, 0f);
             var main = ps.main;
             main.startLifetime = new ParticleSystem.MinMaxCurve(2f, 4f);
             main.startSpeed = new ParticleSystem.MinMaxCurve(.12f, .22f);
@@ -264,8 +286,8 @@ namespace QuietCamp.Presentation.World
             var g = new Gradient();
             g.SetKeys(
                 new[] { new GradientColorKey(Color.white, 0f), new GradientColorKey(Color.white, 1f) },
-                new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(.12f, .25f),
-                        new GradientAlphaKey(.06f, .7f), new GradientAlphaKey(0f, 1f) });
+                new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(.65f, .25f),
+                        new GradientAlphaKey(.32f, .7f), new GradientAlphaKey(0f, 1f) });
             col.color = g;
             var sizeOverLife = ps.sizeOverLifetime;
             sizeOverLife.enabled = true;
@@ -279,9 +301,9 @@ namespace QuietCamp.Presentation.World
         {
             var go = GameObject.CreatePrimitive(PrimitiveType.Quad);
             go.name = "DistantMist";
+            go.transform.SetParent(transform, false);
             var col = go.GetComponent<Collider>();
-            col.enabled = false;
-            Destroy(col);
+            if (col != null) { col.enabled = false; Destroy(col); }
             _mistMat = new Material(_softMat) { name = "Mist (runtime)" };
             _mistMat.SetColor("_Tint", new Color(.85f, .9f, .92f, .10f));
             var r = go.GetComponent<MeshRenderer>();
@@ -324,19 +346,22 @@ namespace QuietCamp.Presentation.World
         {
             _profile = profile;
             if (!_initialized) return;
+            CozyParticleMaterial.ApplyTier(_fireMaterial, (int)_tier);
+            CozyParticleMaterial.ApplyTier(_emberMaterial, (int)_tier);
             // Reduced motion silences every ambient emitter, not only leaves.
             bool quiet = _reducedMotion != null && _reducedMotion();
-            _leafBudget = Scale(profile.Leaves, 2, 6, _tier);
+            _leafBudget = _winter||_autumn?0:Scale(profile.Leaves, 2, 6, _tier);
             int dust = Scale(profile.Dust, 0, 8, _tier);
-            int flies = Scale(profile.Fireflies, 0, 5, _tier);
+            int flies = _winter?0:Scale(profile.Fireflies, 0, 5, _tier);
             int smoke = Scale(profile.Smoke, 0, 3, _tier);
-            _nearLeafBudget = Scale(profile.NearLeaf, 0, 1, _tier);
+            _nearLeafBudget = _winter||_autumn?0:Scale(profile.NearLeaf, 0, 1, _tier);
             SetMaxParticles(_leaves, _leafBudget);
             SetMaxParticles(_nearLeaf, _nearLeafBudget);
             SetMaxParticles(_dust, dust);
             SetMaxParticles(_fireflies, flies);
             SetMaxParticles(_smoke, smoke);
             if (_nearLeafBudget <= 0) _nearLeaf.Clear();
+            if(_leafBudget<=0)_leaves.Clear();if(flies<=0)_fireflies.Clear();
             // Emission off means off — maxParticles is not an on/off switch.
             // Under reduced motion the policy is: dust and smoke off, fireflies
             // keep living as rare static faint points (spec §9).
@@ -344,7 +369,10 @@ namespace QuietCamp.Presentation.World
             SetEmission(_fireflies, flies > 0 ? flies / (quiet ? 18f : 6f) : 0f);
             SetEmission(_smoke, !quiet && smoke > 0 && _fireActive ? .7f : 0f);
             SetFirefliesCalm(quiet);
-            if (_mist != null) _mist.gameObject.SetActive(profile.Mist && _tier > Tier.Low);
+            SetMaxParticles(_embers, _tier == Tier.Low ? 4 : _tier == Tier.Balanced ? 8 : 16);
+            SetEmission(_embers, !quiet && _fireActive ? (_tier == Tier.Low ? .45f : _tier == Tier.Balanced ? 1.2f : 2f) : 0f);
+            if (quiet) _embers.Clear();
+            if (_mist != null) _mist.gameObject.SetActive(profile.Mist);
         }
 
         /// <summary>Reduced-motion fireflies: the glow pulse and noise drift
@@ -399,6 +427,7 @@ namespace QuietCamp.Presentation.World
             if (_smoke != null)
             {
                 _smoke.transform.position = position + new Vector3(0f, .5f, 0f);
+                _embers.transform.position = position + Vector3.up * .36f;
                 if (_profile != null) ApplyProfile(_profile);
             }
         }
@@ -505,6 +534,14 @@ namespace QuietCamp.Presentation.World
                 vel.x = new ParticleSystem.MinMaxCurve(dir3.x * (.2f + .05f * wind.GustEnvelope));
                 vel.z = new ParticleSystem.MinMaxCurve(dir3.z * (.2f + .05f * wind.GustEnvelope));
             }
+            if (_embers != null)
+            {
+                var velocity = _embers.velocityOverLifetime;
+                velocity.enabled = true;
+                velocity.space = ParticleSystemSimulationSpace.World;
+                velocity.x = dir3.x * wind.Strength * .12f;
+                velocity.z = dir3.z * wind.Strength * .12f;
+            }
             if (_mist != null && _mist.gameObject.activeSelf)
             {
                 // Bounded sway around the anchor — never drifts out of frame.
@@ -533,6 +570,7 @@ namespace QuietCamp.Presentation.World
                 if (host != null) host.GustStarted -= OnGust;
             }
             Destroy(_leafMat); Destroy(_softMat); Destroy(_mistMat); Destroy(_dotTex);
+            Destroy(_fireMaterial); Destroy(_emberMaterial); Destroy(_fireAtlas);
         }
     }
 }

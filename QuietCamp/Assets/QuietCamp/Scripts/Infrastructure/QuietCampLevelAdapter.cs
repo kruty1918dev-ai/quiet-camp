@@ -89,6 +89,12 @@ namespace QuietCamp.Infrastructure
             level.decorSeed = doc.Prop("decorSeed", 0);
             level.contentHash = doc.Prop<string>("contentHash");
             level.friends = Friends(doc.Prop<JArray>("friends"));
+            level.environmentPreset = doc.Prop<string>("environmentPreset");
+            level.objects = doc.Prop<JArray>("objects")?.ToObject<EnvironmentObjectData[]>() ?? System.Array.Empty<EnvironmentObjectData>();
+            level.canopies = doc.Prop<JArray>("canopies")?.ToObject<ShadeCanopyData[]>() ?? System.Array.Empty<ShadeCanopyData>();
+            level.accessPoints = doc.Prop<JArray>("accessPoints")?.ToObject<AccessPointData[]>() ?? System.Array.Empty<AccessPointData>();
+            level.exteriorWalkable = doc.Prop<JArray>("exteriorWalkable")?.ToObject<int[][]>() ?? System.Array.Empty<int[]>();
+            level.environment = doc.Prop<JObject>("environment")?.ToObject<EnvironmentCompositionData>();
             return level;
 
             int[][] Cells(string name)
@@ -151,6 +157,12 @@ namespace QuietCamp.Infrastructure
             if (level.lighting != null) doc.SetProp("lighting", level.lighting);
             if (level.tutorialKey != null) doc.SetProp("tutorialKey", level.tutorialKey);
             doc.SetProp("decorSeed", level.decorSeed);
+            if (level.environmentPreset != null) doc.SetProp("environmentPreset", level.environmentPreset);
+            doc.SetProp("objects", JArray.FromObject(level.objects ?? System.Array.Empty<EnvironmentObjectData>()));
+            doc.SetProp("canopies", JArray.FromObject(level.canopies ?? System.Array.Empty<ShadeCanopyData>()));
+            doc.SetProp("accessPoints", JArray.FromObject(level.accessPoints ?? System.Array.Empty<AccessPointData>()));
+            doc.SetProp("exteriorWalkable", JArray.FromObject(level.exteriorWalkable ?? System.Array.Empty<int[]>()));
+            if(level.environment!=null)doc.SetProp("environment",JObject.FromObject(level.environment));
             if (level.contentHash != null) doc.SetProp("contentHash", level.contentHash);
             if (level.friends != null)
             {

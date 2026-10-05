@@ -18,11 +18,14 @@ namespace QuietCamp.Tests
             yield return null;
         }
 
-        [UnityTest]
-        public IEnumerator FourPhasesRenderAndSceneReloadReleasesLayers()
+        // Rendering all phases and changing scenes can exceed the default
+        // three-minute limit on a cold shader cache or a busy editor host.
+        [UnityTest, Timeout(600000)]
+        public IEnumerator FourPhasesRenderAndSceneReloadReleasesScenery()
         {
             // The project's existing composition root lives in Boot.
             yield return SceneManager.LoadSceneAsync("Boot");
+            yield return PrivacyBootTestSupport.EnterGame();
             yield return null; yield return null;
             yield return SceneManager.LoadSceneAsync("Camp");
             for (int i = 0; i < 60 && (CampSceneHost.Current == null || CampSceneHost.Current.Atmosphere == null); i++)
@@ -30,39 +33,46 @@ namespace QuietCamp.Tests
             Assert.IsNotNull(CampSceneHost.Current?.Atmosphere);
             var host = CampSceneHost.Current;
             var camera = Camera.main;
+            host.Session.DebugApplyWitness();
+            yield return new WaitForSeconds(.5f);
             Assert.AreEqual(new Rect(0, 0, 1, 1), camera.rect);
-            var folder = Path.Combine(UnityEngine.Application.dataPath, "../../Temp/ai/atmosphere/screenshots");
+            var folder = Path.Combine(UnityEngine.Application.dataPath, "../Screenshots/scenery");
             Directory.CreateDirectory(folder);
             foreach (var phase in new[] { "morning", "noon", "evening", "night" })
             {
                 host.SetAtmospherePhase(phase);
-                yield return null;
+                yield return new WaitForSeconds(4f);
                 Assert.AreEqual(phase, host.Atmosphere.PhaseId);
-                Assert.IsNotNull(camera.transform.Find("ForestBackdrop"));
-                var near = camera.transform.Find("NearFoliage");
-                Assert.IsNotNull(near);
-                Assert.IsNull(near.GetComponent<Collider>(), "Scenery must never intercept placement rays.");
+                Assert.IsNull(camera.transform.Find("ForestBackdrop"), "Scenery must use the camp perspective.");
+                Assert.IsNull(camera.transform.Find("NearFoliage"), "Foreground must not be a screen overlay.");
                 Assert.IsTrue(host.Atmosphere.ProtectedViewport.Contains(
                     (Vector2)camera.WorldToViewportPoint(Vector3.zero)));
-                Assert.IsTrue(near.GetComponent<Renderer>().sharedMaterial.shader.isSupported);
+                var meadow = Object.FindFirstObjectByType<MeadowSurface>();
+                Assert.IsNotNull(meadow);
+                Assert.IsTrue(meadow.GetComponent<Renderer>().sharedMaterial.shader.isSupported);
                 var before = CountLoop("crickets_loop");
                 host.SetAtmospherePhase(phase);
                 Assert.AreEqual(before, CountLoop("crickets_loop"), "Repeated phase must not duplicate a loop.");
                 Capture(camera, host.Atmosphere, Path.Combine(folder, phase + ".png"));
             }
-            camera.transform.Find("DistantForest").gameObject.SetActive(false);
-            Capture(camera, host.Atmosphere, Path.Combine(folder, "night-no-rear.png"));
-            camera.transform.Find("NearFoliage").gameObject.SetActive(false);
-            Capture(camera, host.Atmosphere, Path.Combine(folder, "night-back-only.png"));
-            camera.transform.Find("DistantForest").gameObject.SetActive(true);
-            camera.transform.Find("NearFoliage").gameObject.SetActive(true);
+            Capture(camera, host.Atmosphere, Path.Combine(folder, "night-narrow.png"), 720, 1600);
+            Capture(camera, host.Atmosphere, Path.Combine(folder, "night-wide.png"), 1200, 1600);
             yield return SceneManager.LoadSceneAsync("MainMenu");
             yield return null;
-            Assert.IsNull(Object.FindFirstObjectByType<CampAtmosphere>());
+            // The menu owns its own living camp diorama now — reload must
+            // release the camp's scenery so exactly one atmosphere remains.
+            Assert.AreEqual(1,
+                Object.FindObjectsByType<CampAtmosphere>(FindObjectsSortMode.None).Length,
+                "Camp atmosphere leaked into the menu scene.");
             Assert.AreEqual(0, CountLoop("crickets_loop"), "Night loop leaked into menu.");
+            var menuAtmosphere = Object.FindFirstObjectByType<CampAtmosphere>();
+            Assert.AreEqual(1, Object.FindObjectsByType<MeadowSurface>(FindObjectsSortMode.None).Length);
+            Assert.IsNull(Camera.main.transform.Find("ForestBackdrop"));
+            yield return new WaitForSeconds(4f);
+            Capture(Camera.main, menuAtmosphere, Path.Combine(folder, "menu.png"));
             UnityEngine.UI.Button start = null;
             foreach (var button in Object.FindObjectsByType<UnityEngine.UI.Button>(FindObjectsSortMode.None))
-                if (button.name == "Btn_menu_start" || button.name == "Btn_menu_continue") start = button;
+                if (button.name == "<button #continue>" || button.name == "<button #start>") start = button;
             Assert.IsNotNull(start, "Menu must expose the canonical start/continue action.");
             start.onClick.Invoke();
             var deadline = Time.realtimeSinceStartup + 15;
@@ -70,7 +80,8 @@ namespace QuietCamp.Tests
                 && Time.realtimeSinceStartup < deadline) yield return null;
             yield return null;
             Assert.AreEqual(1, Object.FindObjectsByType<CampAtmosphere>(FindObjectsSortMode.None).Length);
-            Assert.IsNotNull(Camera.main.transform.Find("ForestBackdrop"));
+            Assert.IsNull(Camera.main.transform.Find("ForestBackdrop"));
+            Assert.AreEqual(1, Object.FindObjectsByType<MeadowSurface>(FindObjectsSortMode.None).Length);
         }
 
         static int CountLoop(string clip)
@@ -81,20 +92,36 @@ namespace QuietCamp.Tests
             return count;
         }
 
-        static void Capture(Camera camera, CampAtmosphere atmosphere, string path)
+        static void AssertGroundCoversCamera(Camera camera)
+        {
+            var meadow = Object.FindFirstObjectByType<MeadowSurface>();
+            var bounds = meadow.GetComponent<MeshFilter>().sharedMesh.bounds;
+            var plane = new Plane(Vector3.up, new Vector3(0, MeadowSurface.GroundY, 0));
+            for (var i = 0; i < 4; i++)
+            {
+                var ray = camera.ViewportPointToRay(new Vector3(i & 1, (i >> 1) & 1, 0));
+                Assert.IsTrue(plane.Raycast(ray, out var distance));
+                var point = meadow.transform.InverseTransformPoint(ray.GetPoint(distance));
+                Assert.Less(Mathf.Abs(point.x), bounds.extents.x, "Ground leaves an exposed backdrop at a screen corner.");
+                Assert.Less(Mathf.Abs(point.z), bounds.extents.z, "Ground leaves an exposed backdrop at a screen corner.");
+            }
+        }
+
+        static void Capture(Camera camera, CampAtmosphere atmosphere, string path, int width = 768, int height = 1366)
         {
             if (SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.Null) return;
             var previous = camera.targetTexture;
             var active = RenderTexture.active;
-            var rt = new RenderTexture(768, 1366, 24);
-            var image = new Texture2D(768, 1366, TextureFormat.RGB24, false);
+            var rt = new RenderTexture(width, height, 24);
+            var image = new Texture2D(width, height, TextureFormat.RGB24, false);
             try
             {
                 camera.targetTexture = rt;
                 atmosphere.RefreshLayout();
+                AssertGroundCoversCamera(camera);
                 camera.Render();
                 RenderTexture.active = rt;
-                image.ReadPixels(new Rect(0, 0, 768, 1366), 0, 0);
+                image.ReadPixels(new Rect(0, 0, width, height), 0, 0);
                 image.Apply();
                 var pixels = image.GetPixels32();
                 int pink = 0;

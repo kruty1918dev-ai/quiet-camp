@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bbf42f549c84c77aecfe5d0fc4a8bc4, type: 3}
+  m_Name: ForestLightingEnvironment
+  m_EditorClassIdentifier: QuietCamp.Infrastructure::QuietCamp.Infrastructure.ForestLightingEnvironment
+  coefficients:
+  - 1.0236043
+  - -0.13378957
+  - -0.017419199
+  - -0.0065265847
+  - -0.021701053
+  - -0.024495836
+  - -0.009471977
+  - 0.052654613
+  - -0.05771919
+  - 0.9995206
+  - -0.022977738
+  - -0.030759415
+  - -0.017214062
+  - -0.024134027
+  - -0.03175553
+  - -0.008744413
+  - 0.03787413
+  - -0.054231368
+  - 0.9405587
+  - 0.07583105
+  - -0.041207682
+  - -0.022810867
+  - -0.043186616
+  - -0.03721169
+  - -0.025851037
+  - 0.05285444
+  - -0.099922284
+  source: Poly Haven / Sunset Forest / Andreas Mischok / CC0 / 189502addad02ba43449b895de66bcdf115e7150536d9150d9a7ba05e1d15b11
