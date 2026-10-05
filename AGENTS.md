@@ -19,6 +19,20 @@ This override does not authorize player builds or interference with other sessio
 - Clones under `~/.cache/quietcamp` are disposable; idle clones get `Library/Temp/Logs` pruned automatically. `device-backup*` and `package-backups` are never touched.
 - Do not modify `sys-guard.service`, `sys-clean.timer`, `unity-limit.slice`, `auto-nice.service`, or earlyoom.
 
+# Unity and active phone sessions
+
+On 2026-10-06, an isolated Editor render launch automatically terminated an
+external-SDK ADB server during Android device scanning. This can happen even
+without building or issuing ADB commands. Unity's "Kill external ADB instances"
+and "Kill ADB server on exit" defaults must be accounted for before any Editor,
+render or build run alongside phone work. The user declined changing these
+shared Editor settings, so fresh render/build launches remain blocked until a
+safe, explicitly approved arrangement is available. Never restart ADB or modify
+another agent's phone session to recover from this issue.
+
+The existing seasonal gallery is dated 2026-10-05; the attempted 2026-10-06
+showcase renders failed and must not be advertised as passed or freshly captured.
+
 # Monetization direction and lightweight verification
 
 The user's 2026-10-05 direction supersedes the initial paid-intro proposal: retain
