@@ -1,0 +1,25 @@
+{
+  "languages": ["uk", "en", "de"],
+  "urlFields": {
+    "privacyPolicyUrl": "privacy-en.html",
+    "dataRequestUrl": "data-request-en.html",
+    "accountDeletionUrl": "data-request-en.html",
+    "termsUrl": "terms-en.html",
+    "supportUrl": "support-en.html"
+  },
+  "documents": [
+    {"id": "privacy", "language": "uk", "source": "privacy.uk.md"},
+    {"id": "privacy", "language": "en", "source": "privacy.en.md"},
+    {"id": "privacy", "language": "de", "source": "privacy.de.md"},
+    {"id": "data-request", "language": "uk", "source": "data-request.uk.md"},
+    {"id": "data-request", "language": "en", "source": "data-request.en.md"},
+    {"id": "data-request", "language": "de", "source": "data-request.de.md"},
+    {"id": "terms", "language": "uk", "source": "terms.uk.md"},
+    {"id": "terms", "language": "en", "source": "terms.en.md"},
+    {"id": "terms", "language": "de", "source": "terms.de.md"},
+    {"id": "support", "language": "uk", "source": "support.uk.md"},
+    {"id": "support", "language": "en", "source": "support.en.md"},
+    {"id": "support", "language": "de", "source": "support.de.md"},
+    {"id": "impressum", "language": "de", "source": "impressum.de.md"}
+  ]
+}
