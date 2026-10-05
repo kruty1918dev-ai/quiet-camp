@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "order": 18,
+  "chapter": 2,
+  "seed": 192566205,
+  "width": 6,
+  "height": 6,
+  "id": "GEN008",
+  "contentHash": "8346897dd55b83bc484524e81f4c52488eb5168641974711ffe7b654e590efa6",
+  "generatorVersion": "levelgen-1",
+  "lighting": "day",
+  "tutorialKey": null,
+  "generationAttempt": 1,
+  "decorSeed": 192548066,
+  "entry": [
+    0,
+    5
+  ],
+  "blocked": [
+    [
+      0,
+      2
+    ],
+    [
+      5,
+      1
+    ]
+  ],
+  "shade": [
+    [
+      2,
+      1
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      3,
+      5
+    ]
+  ],
+  "noise": [
+    [
+      5,
+      2
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": true
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [
+    [
+      "g1",
+      "g2"
+    ]
+  ],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 1,
+      "z": 3,
+      "rotation": 1
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    }
+  ]
+}

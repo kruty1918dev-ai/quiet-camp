@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "order": 27,
+  "chapter": 3,
+  "seed": 1855937392,
+  "width": 8,
+  "height": 6,
+  "id": "gen:qc_camp:17",
+  "contentHash": "d706928de63281e904e9265d9b83404daef1eba3c81e07d004c6ec83760e8bbf",
+  "generatorVersion": "levelgen-1",
+  "lighting": "day",
+  "tutorialKey": null,
+  "generationAttempt": 1,
+  "decorSeed": 1855915055,
+  "entry": [
+    0,
+    3
+  ],
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 7,
+      "z": 3
+    }
+  ],
+  "blocked": [
+    [
+      6,
+      3
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      7,
+      0
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      7,
+      0
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 1,
+      "rotation": 0
+    },
+    {
+      "guestId": "g1",
+      "x": 1,
+      "z": 4,
+      "rotation": 1
+    }
+  ],
+  "environmentPreset": "firelight",
+  "objects": [
+    {
+      "assetId": "tree_default",
+      "x": 6,
+      "z": 3,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "assetId": "campfire_stones",
+      "x": 7,
+      "z": 0,
+      "rotation": 1
+    }
+  ],
+  "canopies": []
+}

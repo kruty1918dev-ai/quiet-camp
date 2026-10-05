@@ -178,12 +178,18 @@ namespace QuietCamp.Domain
                 return false;
             occupied.UnionWith(footprint);
             var door = RuleEvaluator.Door(p);
-            if (!RuleEvaluator.Inside(_level, door) || occupied.Contains(door)) return false;
             // Path() rejects an occupied start — the entry must stay blocked for
             // footprints but walkable as the path origin.
             var open = new HashSet<Cell>(occupied);
-            open.Remove(_entry);
+            foreach(var point in CampAccess.Points(_level))open.Remove(point);
+            if (!CampWalkability.Contains(_level, door) || open.Contains(door)) return false;
+            if(!CampAccess.RoutesOpen(_level,open))return false;
             if (RuleEvaluator.Path(_level, open, _entry, door) == null) return false;
+            // Adding another footprint can only remove walking space. Reject
+            // a candidate as soon as it cuts an earlier doorway, rather than
+            // discovering that same failure at every complete leaf layout.
+            foreach(var previous in _assigned)
+                if(RuleEvaluator.Path(_level,open,_entry,RuleEvaluator.Door(previous))==null)return false;
             if (_level.friends != null)
                 foreach (var pair in _level.friends)
                 {
@@ -194,13 +200,21 @@ namespace QuietCamp.Domain
                     var path = RuleEvaluator.Path(_level, open, door, RuleEvaluator.Door(partnerPlacement));
                     if (path == null || path.Count - 1 > 3) return false;
                 }
+            if(_level.friends!=null)
+                foreach(var pair in _level.friends)
+                {
+                    var a=_assigned.FirstOrDefault(t=>t.guestId==pair[0]);var b=_assigned.FirstOrDefault(t=>t.guestId==pair[1]);
+                    if(a==null||b==null)continue;
+                    var path=RuleEvaluator.Path(_level,open,RuleEvaluator.Door(a),RuleEvaluator.Door(b));
+                    if(path==null||path.Count-1>3)return false;
+                }
             return true;
         }
 
         HashSet<Cell> Occupied()
         {
             var set = Cells(_level.blocked);
-            set.Add(_entry);
+            foreach(var point in CampAccess.Points(_level))set.Add(point);
             foreach (var p in _assigned)
                 foreach (var c in RuleEvaluator.Footprint(p)) set.Add(c);
             return set;

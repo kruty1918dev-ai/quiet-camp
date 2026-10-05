@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 6,
+  "chapter": 1,
+  "seed": 610506,
+  "width": 8,
+  "height": 6,
+  "id": "QC_LH006",
+  "contentHash": "ec14f4ae2e23ee25fc8bcf5b86105362a2bff4b3366acbf74bcc383dc092a02f",
+  "generatorVersion": "lighthouse-authored-1",
+  "lighting": "evening",
+  "tutorialKey": "",
+  "generationAttempt": 0,
+  "decorSeed": 719006,
+  "entry": [
+    0,
+    3
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      2,
+      1
+    ],
+    [
+      4,
+      3
+    ],
+    [
+      7,
+      0
+    ]
+  ],
+  "shade": [
+    [
+      5,
+      3
+    ],
+    [
+      5,
+      4
+    ],
+    [
+      5,
+      5
+    ],
+    [
+      6,
+      3
+    ],
+    [
+      6,
+      4
+    ],
+    [
+      6,
+      5
+    ],
+    [
+      7,
+      3
+    ],
+    [
+      7,
+      4
+    ],
+    [
+      7,
+      5
+    ]
+  ],
+  "noise": [
+    [
+      7,
+      0
+    ]
+  ],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 5,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "guestId": "g4",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 4,
+      "rotation": 1
+    },
+    {
+      "guestId": "g3",
+      "x": 3,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 2,
+      "z": 1,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 4,
+      "z": 3,
+      "rotation": 1
+    },
+    {
+      "assetId": "campfire_stones",
+      "x": 7,
+      "z": 0,
+      "rotation": 2
+    }
+  ],
+  "canopies": [
+    {
+      "x": 6.3,
+      "z": 4.3,
+      "radiusX": 1.8,
+      "radiusZ": 1.8
+    }
+  ],
+  "environment": {
+    "biomeId": "shore",
+    "seasonId": "autumn",
+    "weatherId": "clear",
+    "moisture": 0.58,
+    "treeDensity": 0.23,
+    "clusterSeed": 88106,
+    "meadowSpecies": [
+      "grass",
+      "reed"
+    ],
+    "storyMotifs": [
+      "lighthouse",
+      "pier",
+      "bench",
+      "bag"
+    ],
+    "shore": {
+      "kind": "lake",
+      "side": "right",
+      "offset": 8.2,
+      "width": 4.0,
+      "seed": 8106
+    }
+  }
+}

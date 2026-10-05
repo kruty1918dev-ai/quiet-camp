@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "order": 1,
+  "chapter": 1,
+  "seed": 636711415,
+  "width": 5,
+  "height": 5,
+  "id": "QC001",
+  "contentHash": "6c865462f753a9487f461cfc6f4ec1a0db28faf4c1249e93986886f00433d0b4",
+  "generatorVersion": "levelkit-hand-1",
+  "lighting": "day",
+  "tutorialKey": "tutorial.1",
+  "generationAttempt": 0,
+  "decorSeed": 1049484283,
+  "entry": [
+    4,
+    4
+  ],
+  "blocked": [],
+  "shade": [],
+  "noise": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 2,
+      "z": 3,
+      "rotation": 2
+    }
+  ]
+}

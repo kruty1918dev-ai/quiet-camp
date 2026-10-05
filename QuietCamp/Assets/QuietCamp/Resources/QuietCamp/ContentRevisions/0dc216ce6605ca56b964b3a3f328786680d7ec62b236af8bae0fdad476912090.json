@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "order": 14,
+  "chapter": 2,
+  "seed": 1600773753,
+  "width": 6,
+  "height": 8,
+  "id": "gen:qc_camp:4",
+  "contentHash": "0dc216ce6605ca56b964b3a3f328786680d7ec62b236af8bae0fdad476912090",
+  "generatorVersion": "levelgen-1",
+  "lighting": "day",
+  "tutorialKey": null,
+  "generationAttempt": 1,
+  "decorSeed": 1600749862,
+  "entry": [
+    5,
+    7
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      4,
+      5
+    ],
+    [
+      5,
+      1
+    ]
+  ],
+  "shade": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "noise": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 3,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "log",
+      "x": 4,
+      "z": 5,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 5,
+      "z": 1,
+      "rotation": 3
+    }
+  ],
+  "canopies": [
+    {
+      "x": 1.1,
+      "z": 1.3,
+      "radiusX": 1.55,
+      "radiusZ": 1.5
+    }
+  ]
+}

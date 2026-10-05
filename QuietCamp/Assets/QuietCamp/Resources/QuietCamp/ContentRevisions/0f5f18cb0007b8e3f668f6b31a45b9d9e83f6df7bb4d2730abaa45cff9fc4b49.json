@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "order": 12,
+  "chapter": 2,
+  "seed": 1231135709,
+  "width": 5,
+  "height": 7,
+  "id": "gen:qc_camp:2",
+  "contentHash": "0f5f18cb0007b8e3f668f6b31a45b9d9e83f6df7bb4d2730abaa45cff9fc4b49",
+  "generatorVersion": "levelgen-1",
+  "lighting": "morning",
+  "tutorialKey": null,
+  "generationAttempt": 1,
+  "decorSeed": 1231158402,
+  "entry": [
+    4,
+    6
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      0,
+      3
+    ],
+    [
+      4,
+      2
+    ],
+    [
+      4,
+      0
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      4,
+      0
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 4,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 0,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "assetId": "stump_round",
+      "x": 4,
+      "z": 2,
+      "rotation": 1
+    },
+    {
+      "assetId": "campfire_stones",
+      "x": 4,
+      "z": 0,
+      "rotation": 2
+    }
+  ],
+  "canopies": []
+}

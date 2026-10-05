@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "order": 8,
+  "chapter": 1,
+  "seed": 1910511635,
+  "width": 6,
+  "height": 8,
+  "id": "QC008",
+  "contentHash": "5a2a735b28c9c09fb95c0f244b812fec22dd0f4830fbf19c774a4b73b86b0220",
+  "generatorVersion": "levelkit-hand-1",
+  "lighting": "day",
+  "tutorialKey": "tutorial.8",
+  "generationAttempt": 0,
+  "decorSeed": 1779177657,
+  "entry": [
+    3,
+    0
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      0,
+      0
+    ]
+  ],
+  "shade": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "noise": [
+    [
+      0,
+      0
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g4",
+      "x": 0,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 1,
+      "rotation": 1
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 6,
+      "rotation": 1
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 2,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "campfire_stones",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "canopies": [
+    {
+      "x": 1.1,
+      "z": 1.3,
+      "radiusX": 1.55,
+      "radiusZ": 1.5
+    }
+  ]
+}

@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "order": 9,
+  "chapter": 1,
+  "seed": 1571569909,
+  "width": 8,
+  "height": 7,
+  "id": "QC009",
+  "contentHash": "4622762288e9f19ccec26c2b24935d6984253f93e8330a114b9159cd38063423",
+  "generatorVersion": "levelkit-hand-1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "generationAttempt": 0,
+  "decorSeed": 1016680812,
+  "entry": [
+    7,
+    3
+  ],
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 0,
+      "z": 6
+    }
+  ],
+  "blocked": [
+    [
+      0,
+      1
+    ],
+    [
+      7,
+      0
+    ]
+  ],
+  "shade": [
+    [
+      0,
+      4
+    ],
+    [
+      0,
+      5
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      2,
+      5
+    ]
+  ],
+  "noise": [
+    [
+      7,
+      0
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g5",
+      "nameKey": "guest.5",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [
+    [
+      "g1",
+      "g2"
+    ]
+  ],
+  "witness": [
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 4,
+      "rotation": 0
+    },
+    {
+      "guestId": "g5",
+      "x": 0,
+      "z": 2,
+      "rotation": 1
+    },
+    {
+      "guestId": "g1",
+      "x": 1,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 2,
+      "z": 3,
+      "rotation": 1
+    },
+    {
+      "guestId": "g4",
+      "x": 3,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "stump_round",
+      "x": 0,
+      "z": 1,
+      "rotation": 1
+    },
+    {
+      "assetId": "campfire_stones",
+      "x": 7,
+      "z": 0,
+      "rotation": 2
+    }
+  ],
+  "canopies": [
+    {
+      "x": 1.1,
+      "z": 5.7,
+      "radiusX": 1.55,
+      "radiusZ": 1.5
+    }
+  ]
+}

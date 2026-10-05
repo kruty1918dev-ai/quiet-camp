@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "order": 28,
+  "chapter": 3,
+  "seed": 2040756414,
+  "width": 7,
+  "height": 7,
+  "id": "gen:qc_camp:18",
+  "contentHash": "c3aee96a06abe289f60c2cae5fa0c9e6e4a9e329b619fa8f1f82d6b1d9b6ef62",
+  "generatorVersion": "levelgen-1",
+  "lighting": "evening",
+  "tutorialKey": null,
+  "generationAttempt": 1,
+  "decorSeed": 2040735713,
+  "entry": [
+    4,
+    6
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      6,
+      4
+    ],
+    [
+      4,
+      1
+    ]
+  ],
+  "shade": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "noise": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [
+    [
+      "g1",
+      "g2"
+    ]
+  ],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 3,
+      "rotation": 1
+    },
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 5,
+      "rotation": 1
+    }
+  ],
+  "environmentPreset": "firelight",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 6,
+      "z": 4,
+      "rotation": 0
+    },
+    {
+      "assetId": "stump_round",
+      "x": 4,
+      "z": 1,
+      "rotation": 1
+    }
+  ],
+  "canopies": [
+    {
+      "x": 1.1,
+      "z": 1.3,
+      "radiusX": 1.55,
+      "radiusZ": 1.5
+    }
+  ]
+}

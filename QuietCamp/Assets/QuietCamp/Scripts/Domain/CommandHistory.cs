@@ -14,6 +14,9 @@ namespace QuietCamp.Domain
         {
             var copy=Copy(next);
             if(!RuleEvaluator.Evaluate(level,copy,false).CanCommit)return false;
+            // Touching a tent without changing its pose must preserve redo.
+            if (copy.Length == Current.Length && copy.All(p => Current.Any(c =>
+                c.guestId == p.guestId && c.x == p.x && c.z == p.z && c.rotation == p.rotation))) return false;
             undo.Push(Copy(Current));redo.Clear();Current=copy;return true;
         }
         public bool Undo(){if(undo.Count==0)return false;redo.Push(Copy(Current));Current=undo.Pop();return true;}

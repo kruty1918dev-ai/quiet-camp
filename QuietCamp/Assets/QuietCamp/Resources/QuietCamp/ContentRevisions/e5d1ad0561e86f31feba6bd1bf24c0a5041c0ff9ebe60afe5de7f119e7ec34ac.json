@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "order": 6,
+  "chapter": 1,
+  "seed": 661284024,
+  "width": 6,
+  "height": 7,
+  "id": "QC006",
+  "contentHash": "e5d1ad0561e86f31feba6bd1bf24c0a5041c0ff9ebe60afe5de7f119e7ec34ac",
+  "generatorVersion": "levelkit-hand-1",
+  "lighting": "day",
+  "tutorialKey": "tutorial.6",
+  "generationAttempt": 0,
+  "decorSeed": 2085615009,
+  "entry": [
+    5,
+    6
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      0,
+      0
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      0,
+      1
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 2,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 5,
+      "rotation": 1
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "log",
+      "x": 0,
+      "z": 0,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 1,
+      "z": 0,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 0,
+      "z": 1,
+      "rotation": 0
+    }
+  ],
+  "canopies": []
+}

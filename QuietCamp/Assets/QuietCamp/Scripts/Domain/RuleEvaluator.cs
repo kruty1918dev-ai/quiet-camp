@@ -7,7 +7,6 @@ namespace QuietCamp.Domain
     // Occupancy is entirely logical; no Unity Physics calls are allowed here.
     public static class RuleEvaluator
     {
-        static readonly Cell[] Delta={new Cell(0,1),new Cell(1,0),new Cell(0,-1),new Cell(-1,0)};
         public static Cell[] Footprint(Placement p) => new[] {
             new Cell(p.x,p.z),new Cell(p.x+1,p.z),new Cell(p.x,p.z+1),new Cell(p.x+1,p.z+1) };
         public static Cell Door(Placement p)
@@ -24,24 +23,7 @@ namespace QuietCamp.Domain
         public static bool Inside(LevelData l,Cell c) => c.X>=0 && c.Z>=0 && c.X<l.width && c.Z<l.height;
         static HashSet<Cell> Cells(int[][] a) => new HashSet<Cell>(a.Select(c=>new Cell(c[0],c[1])));
         public static List<Cell> Path(LevelData l,HashSet<Cell> occupied,Cell start,Cell goal)
-        {
-            if(!Inside(l,start)||!Inside(l,goal)||occupied.Contains(start)||occupied.Contains(goal)) return null;
-            var q=new Queue<Cell>();var prev=new Dictionary<Cell,Cell>();q.Enqueue(start);prev[start]=start;
-            while(q.Count>0)
-            {
-                var c=q.Dequeue();
-                if(c.Equals(goal))
-                {
-                    var r=new List<Cell>{c};while(!c.Equals(start)){c=prev[c];r.Add(c);}r.Reverse();return r;
-                }
-                foreach(var d in Delta)
-                {
-                    var n=new Cell(c.X+d.X,c.Z+d.Z);
-                    if(Inside(l,n)&&!occupied.Contains(n)&&!prev.ContainsKey(n)){prev[n]=c;q.Enqueue(n);}
-                }
-            }
-            return null;
-        }
+            => CampWalkability.Path(l,occupied,start,goal);
         public static RuleReport Evaluate(LevelData l,IReadOnlyList<Placement> placements,bool requireAll=true)
         {
             var report=new RuleReport();var occupied=Cells(l.blocked);var shaded=Cells(l.shade);
@@ -55,17 +37,24 @@ namespace QuietCamp.Domain
                 if(p.rotation<0||p.rotation>3){report.Issues.Add(new RuleIssue("rotation",p.guestId,true));continue;}
                 var f=Footprint(p);
                 if(f.Any(c=>!Inside(l,c)))report.Issues.Add(new RuleIssue("bounds",p.guestId,true,f));
-                if(f.Any(c=>occupied.Contains(c)||c.Equals(entry)))report.Issues.Add(new RuleIssue("overlap",p.guestId,true,f));
+                if(f.Any(c=>occupied.Contains(c)||CampAccess.IsReserved(l,c)))report.Issues.Add(new RuleIssue("overlap",p.guestId,true,f));
                 occupied.UnionWith(f);
             }
             // Hard-invalid previews cannot produce reliable route/personal-rule diagnostics.
             if(!report.CanCommit)return report;
+            foreach(var point in l.accessPoints??Array.Empty<AccessPointData>())
+            {
+                var route=CampWalkability.ExplainRoute(l,occupied,entry,new Cell(point.x,point.z),accessPointId:point.id);
+                report.Routes.Add(route);
+                if(!route.Reachable)report.Issues.Add(new RuleIssue("path",null,false,route.Goal));
+            }
             if(requireAll)foreach(var g in l.guests)
                 if(!byId.ContainsKey(g.id))report.Issues.Add(new RuleIssue("missing",g.id,false));
             foreach(var p in placements)
             {
                 var f=Footprint(p);var g=guests[p.guestId];var door=Door(p);
-                if(Path(l,occupied,entry,door)==null)report.Issues.Add(new RuleIssue("path",p.guestId,false,door));
+                var route=CampWalkability.ExplainRoute(l,occupied,entry,door,p.guestId);report.Routes.Add(route);
+                if(!route.Reachable)report.Issues.Add(new RuleIssue("path",p.guestId,false,door));
                 if(g.shade && f.Any(c=>!shaded.Contains(c)))report.Issues.Add(new RuleIssue("shade",p.guestId,false,f.Where(c=>!shaded.Contains(c)).ToArray()));
                 if(g.quiet && l.noise.Any(n=>f.Any(c=>Math.Abs(c.X-n[0])+Math.Abs(c.Z-n[1])<=2)))
                     report.Issues.Add(new RuleIssue("quiet",p.guestId,false,f));

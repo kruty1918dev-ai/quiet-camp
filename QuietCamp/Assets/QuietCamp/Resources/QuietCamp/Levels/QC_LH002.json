@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 2,
+  "chapter": 1,
+  "seed": 610502,
+  "width": 7,
+  "height": 5,
+  "id": "QC_LH002",
+  "contentHash": "8c3454644f3a04e19469c48ef8b988bf4d5b938aa342c8c78a27336a7409b8de",
+  "generatorVersion": "lighthouse-authored-1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "generationAttempt": 0,
+  "decorSeed": 719002,
+  "entry": [
+    0,
+    2
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      3,
+      2
+    ],
+    [
+      5,
+      0
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      5,
+      0
+    ]
+  ],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 3,
+      "rotation": 1
+    },
+    {
+      "guestId": "g2",
+      "x": 2,
+      "z": 0,
+      "rotation": 1
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 3,
+      "z": 2,
+      "rotation": 0
+    },
+    {
+      "assetId": "campfire_stones",
+      "x": 5,
+      "z": 0,
+      "rotation": 1
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "shore",
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.58,
+    "treeDensity": 0.23,
+    "clusterSeed": 88102,
+    "meadowSpecies": [
+      "grass",
+      "reed"
+    ],
+    "storyMotifs": [
+      "pier",
+      "bench",
+      "bag"
+    ],
+    "shore": {
+      "kind": "lake",
+      "side": "right",
+      "offset": 7.7,
+      "width": 4.0,
+      "seed": 8102
+    }
+  }
+}

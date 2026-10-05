@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "order": 10,
+  "chapter": 1,
+  "seed": 33051302,
+  "width": 7,
+  "height": 8,
+  "id": "QC010",
+  "contentHash": "45b754410f53afd944b9bdc1b86dbf39e1d348aa1fc6f560bc9c9f1658edd70b",
+  "generatorVersion": "levelkit-hand-1",
+  "lighting": "evening",
+  "tutorialKey": "",
+  "generationAttempt": 0,
+  "decorSeed": 2072524807,
+  "entry": [
+    6,
+    7
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      0,
+      1
+    ],
+    [
+      3,
+      3
+    ],
+    [
+      0,
+      0
+    ]
+  ],
+  "shade": [
+    [
+      0,
+      5
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      0,
+      7
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      1,
+      7
+    ],
+    [
+      2,
+      6
+    ]
+  ],
+  "noise": [
+    [
+      0,
+      0
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g5",
+      "nameKey": "guest.5",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": true
+    },
+    {
+      "id": "g6",
+      "nameKey": "guest.6",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [
+    [
+      "g1",
+      "g2"
+    ]
+  ],
+  "witness": [
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 5,
+      "rotation": 0
+    },
+    {
+      "guestId": "g5",
+      "x": 0,
+      "z": 3,
+      "rotation": 1
+    },
+    {
+      "guestId": "g1",
+      "x": 1,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 2,
+      "z": 4,
+      "rotation": 2
+    },
+    {
+      "guestId": "g4",
+      "x": 3,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g6",
+      "x": 4,
+      "z": 3,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "log",
+      "x": 0,
+      "z": 1,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 3,
+      "z": 3,
+      "rotation": 3
+    },
+    {
+      "assetId": "campfire_stones",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "canopies": [
+    {
+      "x": 1.1,
+      "z": 6.7,
+      "radiusX": 1.55,
+      "radiusZ": 1.5
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 5,
+  "chapter": 1,
+  "seed": 610505,
+  "width": 6,
+  "height": 8,
+  "id": "QC_LH005",
+  "contentHash": "9cf6d957c8860228e8be67ff3b6908a76cf0e2a55a2dcf9afa7e21aabf737145",
+  "generatorVersion": "lighthouse-authored-1",
+  "lighting": "evening",
+  "tutorialKey": "",
+  "generationAttempt": 0,
+  "decorSeed": 719005,
+  "entry": [
+    0,
+    4
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      2,
+      3
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      5,
+      0
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      5,
+      0
+    ]
+  ],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g4",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 5,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 4,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 2,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 4,
+      "z": 6,
+      "rotation": 1
+    },
+    {
+      "assetId": "campfire_stones",
+      "x": 5,
+      "z": 0,
+      "rotation": 2
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "shore",
+    "seasonId": "autumn",
+    "weatherId": "rain",
+    "moisture": 0.58,
+    "treeDensity": 0.23,
+    "clusterSeed": 88105,
+    "meadowSpecies": [
+      "grass",
+      "reed"
+    ],
+    "storyMotifs": [
+      "lighthouse",
+      "pier",
+      "bench",
+      "bag"
+    ],
+    "shore": {
+      "kind": "lake",
+      "side": "right",
+      "offset": 7.2,
+      "width": 4.0,
+      "seed": 8105
+    }
+  }
+}

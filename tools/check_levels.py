@@ -6,11 +6,18 @@ Per level prints: validator errors, witness solvability, and a comfort
 metric = number of distinct full-board solutions found (capped).
 Exit code 1 when any level is invalid/unsolved.
 """
-import json, sys, itertools
+import argparse, json, sys, itertools
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent / "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Levels"
 DELTA = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+CONTENT = ROOT.parent
+
+def walking(l, c):
+    return inside(l, c) or l.get("ruleVersion") == 2 and list(c) in l.get("exteriorWalkable", [])
+
+def access(l):
+    return {tuple(l["entry"])} | {(p["x"], p["z"]) for p in l.get("accessPoints", [])}
 
 def footprint(p):
     x, z = p["x"], p["z"]
@@ -24,7 +31,7 @@ def inside(l, c):
     return 0 <= c[0] < l["width"] and 0 <= c[1] < l["height"]
 
 def bfs(l, occupied, start, goal):
-    if not inside(l, start) or not inside(l, goal):
+    if not walking(l, start) or not walking(l, goal):
         return None
     if start in occupied or goal in occupied:
         return None
@@ -37,7 +44,7 @@ def bfs(l, occupied, start, goal):
             return path[::-1]
         for dx, dz in DELTA:
             n = (c[0] + dx, c[1] + dz)
-            if inside(l, n) and n not in occupied and n not in prev:
+            if walking(l, n) and n not in occupied and n not in prev:
                 prev[n] = c
                 q.append(n)
     return None
@@ -58,11 +65,14 @@ def evaluate(l, placements, require_all=True):
         f = footprint(p)
         if any(not inside(l, c) for c in f):
             issues.append(("bounds", True))
-        if any(c in occupied or c == entry for c in f):
+        if any(c in occupied or c in access(l) for c in f):
             issues.append(("overlap", True))
         occupied.update(f)
     if any(h for _, h in issues):
         return issues, occupied
+    for point in access(l):
+        if bfs(l, occupied, entry, point) is None:
+            issues.append(("path", False))
     if require_all:
         for g in l["guests"]:
             if g["id"] not in by_id:
@@ -91,11 +101,22 @@ def evaluate(l, placements, require_all=True):
 def validate(l):
     e = []
     if l.get("schemaVersion") != 1: e.append("schemaVersion")
-    if l.get("ruleVersion") != 1: e.append("ruleVersion")
+    if l.get("ruleVersion") not in (1, 2): e.append("ruleVersion")
     if not l.get("id"): e.append("id")
     if not (4 <= l["width"] <= 8 and 4 <= l["height"] <= 8): e.append("size")
     if l.get("entry") is None or len(l["entry"]) != 2: e.append("entry")
     elif not inside(l, tuple(l["entry"])): e.append("entry:outside")
+    elif l["ruleVersion"] == 2 and l["entry"][0] not in (0, l["width"] - 1) and l["entry"][1] not in (0, l["height"] - 1):
+        e.append("entry:edge")
+    exterior = set()
+    for c in l.get("exteriorWalkable", []):
+        if len(c) != 2: e.append("exterior:shape"); continue
+        cell = tuple(c)
+        if l["ruleVersion"] != 2: e.append("exterior:version")
+        if inside(l, cell): e.append("exterior:inside")
+        if not (-2 <= c[0] <= l["width"] + 1 and -2 <= c[1] <= l["height"] + 1): e.append("exterior:bounds")
+        if cell in exterior: e.append("exterior:duplicate")
+        exterior.add(cell)
     for name in ("blocked", "shade", "noise"):
         m = l.get(name)
         if m is None: e.append(name + ":null"); continue
@@ -107,6 +128,12 @@ def validate(l):
             seen.add(cell)
     if l.get("entry") and tuple(l["entry"]) in set(map(tuple, l.get("blocked") or [])):
         e.append("entry:blocked")
+    for p in l.get("accessPoints", []):
+        cell = p["x"], p["z"]
+        if not inside(l, cell): e.append("access:outside")
+        if cell in set(map(tuple, l.get("blocked") or [])): e.append("access:blocked")
+    if not e and any(bfs(l, set(map(tuple, l["blocked"])), tuple(l["entry"]), c) is None for c in exterior):
+        e.append("exterior:disconnected")
     ids = set()
     gs = l.get("guests")
     if not gs or not (2 <= len(gs) <= 6): e.append("guests:count")
@@ -135,7 +162,7 @@ def validate(l):
 
 def placements_for(l, g):
     """All placements passing bounds + personal (shade/quiet) rules."""
-    base = set(map(tuple, l["blocked"])) | {tuple(l["entry"])}
+    base = set(map(tuple, l["blocked"])) | access(l)
     shaded = set(map(tuple, l["shade"]))
     out = []
     for x in range(l["width"] - 1):
@@ -150,7 +177,7 @@ def placements_for(l, g):
                 if g.get("quiet") and any(abs(c[0] - n[0]) + abs(c[1] - n[1]) <= 2
                                          for n in l["noise"] for c in f):
                     continue
-                if not inside(l, door(p)):
+                if not walking(l, door(p)):
                     continue
                 out.append(p)
     return out
@@ -178,7 +205,8 @@ def count_solutions(l, cap=200):
         if count[0] >= cap:
             return
         if i == len(order):
-            count[0] += 1
+            if not evaluate(l, cur)[0]:
+                count[0] += 1
             return
         g = order[i]
         for p in opts[g["id"]]:
@@ -188,6 +216,10 @@ def count_solutions(l, cap=200):
             occ |= f
             d = doors[k]
             ok = bfs(l, occ, tuple(l["entry"]), d) is not None
+            if ok:
+                ok = all(bfs(l, occ, tuple(l["entry"]), point) is not None for point in access(l))
+            if ok:
+                ok = all(bfs(l, occ, tuple(l["entry"]), doors[key(previous)]) is not None for previous in cur)
             if ok:
                 by_id = {q["guestId"]: q for q in cur} | {g["id"]: p}
                 for a, b in friends:
@@ -206,12 +238,19 @@ def count_solutions(l, cap=200):
     return count[0], opts
 
 def main():
-    names = sys.argv[1:] or sorted(p.stem for p in ROOT.glob("QC*.json"))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("names", nargs="*")
+    parser.add_argument("--witness-only", action="store_true")
+    parser.add_argument("--cap", type=int, default=200)
+    args = parser.parse_args()
+    campaign = json.loads((CONTENT / "campaign.json").read_text())
+    names = args.names or campaign["mvpLevelIds"] + campaign["generatedLevelIds"]
     bad = 0
     for name in names:
-        l = json.load(open(ROOT / (name + ".json"), encoding="utf-8"))
+        folder = CONTENT / "GeneratedLevels" if name.startswith("gen:") else ROOT
+        l = json.loads((folder / (name.replace(":", "_") + ".json")).read_text())
         errs = validate(l)
-        sol, opts = (0, {}) if errs else count_solutions(l)
+        sol, opts = (int(not errs), {}) if args.witness_only else (0, {}) if errs else count_solutions(l, args.cap)
         status = "OK " if not errs else "FAIL"
         print(f"{status} {name}: guests={len(l['guests'])} grid={l['width']}x{l['height']} "
               f"solutions={sol}" + (f" errors={errs}" if errs else ""))
@@ -220,7 +259,7 @@ def main():
         elif sol == 0:
             print(f"FAIL {name}: witness ok but no complete solutions?")
             bad += 1
-        for g in l["guests"]:
+        for g in ([] if args.witness_only else l["guests"]):
             print(f"     {g['id']} shade={g.get('shade')} quiet={g.get('quiet')} "
                   f"opts={len(opts.get(g['id'], []))}")
     sys.exit(1 if bad else 0)

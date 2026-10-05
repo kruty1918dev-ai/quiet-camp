@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "order": 9,
+  "chapter": 1,
+  "seed": 1571569909,
+  "width": 7,
+  "height": 7,
+  "id": "QC009",
+  "contentHash": "9ec96ca1ad49f2184e3df698b1d6375f2a09bb14440ae70e0b01a2d3db774530",
+  "generatorVersion": "levelkit-hand-1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "generationAttempt": 0,
+  "decorSeed": 1016680812,
+  "entry": [
+    6,
+    6
+  ],
+  "blocked": [
+    [
+      0,
+      1
+    ]
+  ],
+  "shade": [
+    [
+      0,
+      5
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      2,
+      6
+    ]
+  ],
+  "noise": [
+    [
+      0,
+      0
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g5",
+      "nameKey": "guest.5",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [
+    [
+      "g1",
+      "g2"
+    ]
+  ],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 1,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 3,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 5,
+      "rotation": 2
+    },
+    {
+      "guestId": "g4",
+      "x": 5,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g5",
+      "x": 3,
+      "z": 3,
+      "rotation": 2
+    }
+  ]
+}

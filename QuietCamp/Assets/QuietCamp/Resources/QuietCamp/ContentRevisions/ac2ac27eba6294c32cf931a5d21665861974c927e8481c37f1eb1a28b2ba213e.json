@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "order": 30,
+  "chapter": 3,
+  "seed": 262910811,
+  "width": 5,
+  "height": 7,
+  "id": "gen:qc_camp:20",
+  "contentHash": "ac2ac27eba6294c32cf931a5d21665861974c927e8481c37f1eb1a28b2ba213e",
+  "generatorVersion": "levelgen-1",
+  "lighting": "evening",
+  "tutorialKey": null,
+  "generationAttempt": 1,
+  "decorSeed": 262925316,
+  "entry": [
+    2,
+    6
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      3,
+      3
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      4,
+      0
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      4,
+      0
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 5,
+      "rotation": 1
+    },
+    {
+      "guestId": "g2",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "firelight",
+  "objects": [
+    {
+      "assetId": "log",
+      "x": 3,
+      "z": 3,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 1,
+      "z": 4,
+      "rotation": 3
+    },
+    {
+      "assetId": "campfire_stones",
+      "x": 4,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "canopies": []
+}

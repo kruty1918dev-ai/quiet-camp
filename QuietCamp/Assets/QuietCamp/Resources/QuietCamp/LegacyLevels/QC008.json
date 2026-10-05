@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "order": 8,
+  "chapter": 1,
+  "seed": 1910511635,
+  "width": 6,
+  "height": 6,
+  "id": "QC008",
+  "contentHash": "04d9890dbd4a6fc6b1f4cc18fcff06df6ab38c36f3195b4bdffa3258d614ba0f",
+  "generatorVersion": "levelkit-hand-1",
+  "lighting": "day",
+  "tutorialKey": "tutorial.8",
+  "generationAttempt": 0,
+  "decorSeed": 1779177657,
+  "entry": [
+    5,
+    5
+  ],
+  "blocked": [],
+  "shade": [],
+  "noise": [
+    [
+      0,
+      0
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 2,
+      "rotation": 1
+    },
+    {
+      "guestId": "g2",
+      "x": 3,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 4,
+      "rotation": 1
+    },
+    {
+      "guestId": "g4",
+      "x": 3,
+      "z": 3,
+      "rotation": 0
+    }
+  ]
+}

@@ -1,133 +1,168 @@
 {
- "schemaVersion": 1,
- "ruleVersion": 1,
- "id": "QC009",
- "order": 9,
- "chapter": 1,
- "seed": 1571569909,
- "generatorVersion": "levelkit-hand-1",
- "generationAttempt": 0,
- "width": 7,
- "height": 7,
- "entry": [
-  6,
-  6
- ],
- "blocked": [
-  [
-   0,
-   1
-  ]
- ],
- "shade": [
-  [
-   0,
-   5
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 9,
+  "chapter": 2,
+  "seed": 20332275,
+  "width": 7,
+  "height": 7,
+  "id": "QC009",
+  "contentHash": "6e3ad0e4a0b4e523ec8bbadac791b48b0a7357b2638d2fa6627507146cb597c1",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "day",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": 20341164,
+  "entry": [
+    3,
+    6
   ],
-  [
-   1,
-   5
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 3,
+      "z": 0
+    }
   ],
-  [
-   2,
-   5
+  "blocked": [
+    [
+      6,
+      0
+    ],
+    [
+      6,
+      5
+    ],
+    [
+      5,
+      6
+    ]
   ],
-  [
-   0,
-   6
+  "shade": [],
+  "noise": [
+    [
+      6,
+      0
+    ]
   ],
-  [
-   1,
-   6
+  "exteriorWalkable": [
+    [
+      1,
+      7
+    ],
+    [
+      2,
+      7
+    ],
+    [
+      3,
+      7
+    ],
+    [
+      4,
+      7
+    ],
+    [
+      5,
+      7
+    ]
   ],
-  [
-   2,
-   6
-  ]
- ],
- "noise": [
-  [
-   0,
-   0
-  ]
- ],
- "guests": [
-  {
-   "id": "g1",
-   "nameKey": "guest.1",
-   "assetId": "tent_smallOpen",
-   "shade": false,
-   "quiet": false
-  },
-  {
-   "id": "g2",
-   "nameKey": "guest.2",
-   "assetId": "tent_smallOpen",
-   "shade": false,
-   "quiet": false
-  },
-  {
-   "id": "g3",
-   "nameKey": "guest.3",
-   "assetId": "tent_smallOpen",
-   "shade": true,
-   "quiet": false
-  },
-  {
-   "id": "g4",
-   "nameKey": "guest.4",
-   "assetId": "tent_smallOpen",
-   "shade": false,
-   "quiet": false
-  },
-  {
-   "id": "g5",
-   "nameKey": "guest.5",
-   "assetId": "tent_smallOpen",
-   "shade": false,
-   "quiet": true
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g4",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 5,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 2,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 3,
+      "z": 1,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "campfire_stones",
+      "x": 6,
+      "z": 0,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 6,
+      "z": 5,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 5,
+      "z": 6,
+      "rotation": 3
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "meadow",
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.26,
+    "treeDensity": 0.25,
+    "clusterSeed": -376147359,
+    "meadowSpecies": [
+      "grass",
+      "poppy",
+      "daisy"
+    ],
+    "storyMotifs": [
+      "bag",
+      "lantern"
+    ],
+    "shore": null
   }
- ],
- "friends": [
-  [
-   "g1",
-   "g2"
-  ]
- ],
- "witness": [
-  {
-   "x": 1,
-   "z": 0,
-   "rotation": 0,
-   "guestId": "g1"
-  },
-  {
-   "x": 3,
-   "z": 0,
-   "rotation": 0,
-   "guestId": "g2"
-  },
-  {
-   "x": 0,
-   "z": 5,
-   "rotation": 2,
-   "guestId": "g3"
-  },
-  {
-   "x": 5,
-   "z": 0,
-   "rotation": 0,
-   "guestId": "g4"
-  },
-  {
-   "x": 3,
-   "z": 3,
-   "rotation": 2,
-   "guestId": "g5"
-  }
- ],
- "lighting": "day",
- "tutorialKey": "",
- "decorSeed": 1016680812,
- "contentHash": "9ec96ca1ad49f2184e3df698b1d6375f2a09bb14440ae70e0b01a2d3db774530"
 }

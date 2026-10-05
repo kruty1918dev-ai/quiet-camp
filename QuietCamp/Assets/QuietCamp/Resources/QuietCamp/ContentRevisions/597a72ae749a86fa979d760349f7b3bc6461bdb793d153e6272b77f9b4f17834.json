@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "order": 24,
+  "chapter": 3,
+  "seed": 1301480326,
+  "width": 5,
+  "height": 7,
+  "id": "gen:qc_camp:14",
+  "contentHash": "597a72ae749a86fa979d760349f7b3bc6461bdb793d153e6272b77f9b4f17834",
+  "generatorVersion": "levelgen-1",
+  "lighting": "evening",
+  "tutorialKey": null,
+  "generationAttempt": 1,
+  "decorSeed": 1301503193,
+  "entry": [
+    2,
+    6
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      4,
+      1
+    ],
+    [
+      4,
+      3
+    ],
+    [
+      4,
+      0
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      4,
+      0
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 3,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "firelight",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 4,
+      "z": 1,
+      "rotation": 0
+    },
+    {
+      "assetId": "stump_round",
+      "x": 4,
+      "z": 3,
+      "rotation": 1
+    },
+    {
+      "assetId": "campfire_stones",
+      "x": 4,
+      "z": 0,
+      "rotation": 2
+    }
+  ],
+  "canopies": []
+}

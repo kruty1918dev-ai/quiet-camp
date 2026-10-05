@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "order": 2,
+  "chapter": 1,
+  "seed": 1531766786,
+  "width": 5,
+  "height": 5,
+  "id": "QC002",
+  "contentHash": "4f17965612bbb66dc958aa77f9ef3a0bf73b36f9988be3464900c4cc80c2006f",
+  "generatorVersion": "levelkit-hand-1",
+  "lighting": "day",
+  "tutorialKey": "tutorial.2",
+  "generationAttempt": 0,
+  "decorSeed": 916755657,
+  "entry": [
+    4,
+    4
+  ],
+  "accessPoints": [],
+  "blocked": [],
+  "shade": [],
+  "noise": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 3,
+      "rotation": 1
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [],
+  "canopies": []
+}

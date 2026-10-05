@@ -1,85 +1,133 @@
 {
- "schemaVersion": 1,
- "ruleVersion": 1,
- "id": "QC008",
- "order": 8,
- "chapter": 1,
- "seed": 1910511635,
- "generatorVersion": "levelkit-hand-1",
- "generationAttempt": 0,
- "width": 6,
- "height": 6,
- "entry": [
-  5,
-  5
- ],
- "blocked": [],
- "shade": [],
- "noise": [
-  [
-   0,
-   0
-  ]
- ],
- "guests": [
-  {
-   "id": "g1",
-   "nameKey": "guest.1",
-   "assetId": "tent_smallOpen",
-   "shade": false,
-   "quiet": false
-  },
-  {
-   "id": "g2",
-   "nameKey": "guest.2",
-   "assetId": "tent_smallOpen",
-   "shade": false,
-   "quiet": false
-  },
-  {
-   "id": "g3",
-   "nameKey": "guest.3",
-   "assetId": "tent_smallOpen",
-   "shade": false,
-   "quiet": false
-  },
-  {
-   "id": "g4",
-   "nameKey": "guest.4",
-   "assetId": "tent_smallOpen",
-   "shade": false,
-   "quiet": true
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 8,
+  "chapter": 2,
+  "seed": 20324356,
+  "width": 8,
+  "height": 6,
+  "id": "QC008",
+  "contentHash": "b09b6a9b206f1f1da47a9fef326c18e523608943aee3623b4d015fb97536397f",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "morning",
+  "tutorialKey": "tutorial.8",
+  "generationAttempt": 1,
+  "decorSeed": 20348763,
+  "entry": [
+    7,
+    3
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      6,
+      1
+    ],
+    [
+      4,
+      3
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [
+    [
+      8,
+      1
+    ],
+    [
+      8,
+      2
+    ],
+    [
+      8,
+      3
+    ],
+    [
+      8,
+      4
+    ],
+    [
+      8,
+      5
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 6,
+      "z": 4,
+      "rotation": 1
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 6,
+      "z": 1,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 4,
+      "z": 3,
+      "rotation": 1
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "summer",
+    "weatherId": "cloudy",
+    "moisture": 0.48,
+    "treeDensity": 0.84,
+    "clusterSeed": -349011330,
+    "meadowSpecies": [
+      "grass",
+      "poppy",
+      "daisy"
+    ],
+    "storyMotifs": [
+      "bag",
+      "lantern"
+    ],
+    "shore": null
   }
- ],
- "friends": [],
- "witness": [
-  {
-   "x": 0,
-   "z": 2,
-   "rotation": 1,
-   "guestId": "g1"
-  },
-  {
-   "x": 3,
-   "z": 0,
-   "rotation": 0,
-   "guestId": "g2"
-  },
-  {
-   "x": 0,
-   "z": 4,
-   "rotation": 1,
-   "guestId": "g3"
-  },
-  {
-   "x": 3,
-   "z": 3,
-   "rotation": 0,
-   "guestId": "g4"
-  }
- ],
- "lighting": "day",
- "tutorialKey": "tutorial.8",
- "decorSeed": 1779177657,
- "contentHash": "04d9890dbd4a6fc6b1f4cc18fcff06df6ab38c36f3195b4bdffa3258d614ba0f"
 }

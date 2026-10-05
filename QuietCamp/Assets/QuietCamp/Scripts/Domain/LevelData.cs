@@ -19,10 +19,71 @@ namespace QuietCamp.Domain
         public string id, contentHash, generatorVersion, lighting, tutorialKey;
         public int generationAttempt, decorSeed;
         public int[] entry;
+        public AccessPointData[] accessPoints = Array.Empty<AccessPointData>();
         public int[][] blocked, shade, noise;
+        // Version 2 walking topology: only these authored cells outside the
+        // placement grid are walkable. Tent footprints always remain inside.
+        public int[][] exteriorWalkable = Array.Empty<int[]>();
         public GuestData[] guests;
         public string[][] friends;
         public Placement[] witness;
+        public string environmentPreset;
+        public EnvironmentObjectData[] objects = Array.Empty<EnvironmentObjectData>();
+        public ShadeCanopyData[] canopies = Array.Empty<ShadeCanopyData>();
+        public EnvironmentCompositionData environment;
+    }
+    [Serializable] public sealed class EnvironmentCompositionData
+    {
+        public string biomeId, seasonId, weatherId;
+        public float moisture, treeDensity;
+        public int clusterSeed;
+        public string[] meadowSpecies = Array.Empty<string>(), storyMotifs = Array.Empty<string>();
+        public ShorelineData shore;
+
+        // Old album snapshots have no composition descriptor. Resolve a
+        // compatible view without changing or rehashing their saved content.
+        public static EnvironmentCompositionData For(LevelData level)
+            => level?.environment ?? new EnvironmentCompositionData
+            {
+                biomeId = level?.environmentPreset == "pines" ? "pines" : "meadow",
+                seasonId = "summer", weatherId = "clear", moisture = .25f,
+                treeDensity = level?.environmentPreset == "pines" ? .8f : .45f,
+                clusterSeed = level?.decorSeed ?? 0, meadowSpecies = new[] { "grass" }
+            };
+    }
+    [Serializable] public sealed class ShorelineData
+    {
+        public string kind, side;
+        public float offset, width;
+        public int seed;
+    }
+    [Serializable] public sealed class AccessPointData
+    {
+        public string id, kind; // "entry" or "exit"; all share one walking network.
+        public int x, z;
+    }
+    [Serializable] public sealed class EnvironmentObjectData
+    {
+        public string assetId;
+        public int x, z, rotation;
+    }
+    // Authored projection of a crown onto the field, in board coordinates.
+    // A cell is shaded when its centre is inside the union of these ellipses.
+    [Serializable] public sealed class ShadeCanopyData
+    {
+        public float x, z, radiusX, radiusZ;
+    }
+    [Serializable] public sealed class LevelSummary
+    {
+        public string id, environmentPreset, lighting;
+        public int number, width, height, decorSeed;
+        public bool shade, quiet, friends, fire;
+        public int[] entry;
+        public EnvironmentObjectData[] mapObjects = Array.Empty<EnvironmentObjectData>();
+        public AccessPointData[] accessPoints = Array.Empty<AccessPointData>();
+        public ShadeCanopyData[] canopies = Array.Empty<ShadeCanopyData>();
+        public int[][] exteriorWalkable = Array.Empty<int[]>();
+        public EnvironmentCompositionData environment;
     }
     public readonly struct Cell : IEquatable<Cell>
     {
@@ -44,6 +105,7 @@ namespace QuietCamp.Domain
     public sealed class RuleReport
     {
         public readonly List<RuleIssue> Issues=new List<RuleIssue>();
+        public readonly List<RouteEvidence> Routes=new List<RouteEvidence>();
         public bool CanCommit => !Issues.Exists(i=>i.Hard);
         public bool IsSolved => Issues.Count==0;
     }

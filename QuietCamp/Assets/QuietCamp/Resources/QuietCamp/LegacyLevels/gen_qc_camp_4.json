@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 1,
+  "order": 14,
+  "chapter": 2,
+  "seed": 1600773755,
+  "width": 6,
+  "height": 6,
+  "id": "GEN004",
+  "contentHash": "8b6d62202c2763a232edecbd43fdf0155ffb2880de4b330d0051fe9eba51b7e1",
+  "generatorVersion": "levelgen-1",
+  "lighting": "evening",
+  "tutorialKey": null,
+  "generationAttempt": 1,
+  "decorSeed": 1600749860,
+  "entry": [
+    1,
+    5
+  ],
+  "blocked": [
+    [
+      1,
+      0
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "shade": [
+    [
+      4,
+      0
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      5,
+      2
+    ]
+  ],
+  "noise": [
+    [
+      3,
+      0
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": true
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 1,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 2,
+      "z": 2,
+      "rotation": 0
+    }
+  ]
+}
