@@ -1,23 +1,25 @@
-# QuietCamp — іконка гри без написів
+# QuietCamp — затишна іконка гри
 
-Створено 30.09.2026 вбудованим image_gen. Червоний намет, тепле вогнище, зелений ліс. Без літер і заздалегідь заокруглених кутів.
+Оновлено 02.10.2026. Ілюстрацію створено вбудованим `image_gen`: теракотовий намет із теплим світлом і спальником, невелике вогнище, зелені ялини. Без логотипу Unity, написів і рамок. Повний промпт: [generation-prompt.txt](generation-prompt.txt).
 
-- `quietcamp-icon-master.png` — оригінал генерації, 1254 × 1254 PNG.
-- `quietcamp-google-play-512.png` — технічний експорт 512 × 512, 32-bit RGBA PNG, повністю непрозорий, менше 1024 KB. Лише пропорційне зменшення оригіналу через System.Drawing, без перемальовування.
+## Файли
 
-Вимоги Google Play перевірено за [офіційною специфікацією](https://developer.android.com/distribute/google-play/resources/icon-design-specifications): 512 × 512, квадрат, до 1024 KB; маску й зовнішню тінь додає магазин.
+- `quietcamp-cozy-foreground-master.png` — незмінений оригінал генерації, 1254 × 1254 RGBA PNG із прозорістю.
+- `quietcamp-icon-master.png` — непрозорий експорт 1024 × 1024 на темно-зеленому тлі; також використовується в Unity як `Assets/QuietCamp/Art/AppIcon.png` зі збереженим GUID.
+- `quietcamp-google-play-512.png` — непрозорий квадратний RGBA PNG 512 × 512 для Google Play.
+- `quietcamp-adaptive-background.png` — непрозоре зелене тло 1024 × 1024.
+- `quietcamp-adaptive-foreground.png` — прозорий передній шар 1024 × 1024. Видиму композицію пропорційно масштабовано та центровано в колі діаметром 58% полотна; оригінальні значення альфа-каналу збережено.
 
-Оригінал можна використати як джерело звичайної launcher-іконки в Unity. Це зведена ілюстрація, не набір окремих foreground/background шарів Android Adaptive Icon. Для адаптивної іконки потрібні окрема підготовка шарів і перевірка обрізання масками: [офіційна документація Android](https://developer.android.com/develop/ui/compose/system/icon_design_adaptive). Намет і вогнище розташовані в центрі, але фактична композиція ширша за запитану в промпті safe zone; автоматично вважати її адаптивною не слід.
+Шари та експорт 512 × 512 також є в `QuietCamp/Assets/QuietCamp/Art/AppIcon/`. Unity використовує тло першим шаром, ілюстрацію — другим. Обидва шари призначено для всіх шести розмірів адаптивної Android-іконки.
 
-Файли Player Settings, існуючий AppIcon.png і код Unity не змінено. Попередній варіант із написом не входить до цього комплекту.
+Unity 6000.6 підтримує лише Adaptive Android icons: [посібник міграції Unity 6.6](https://docs.unity.com/en-us/engine/6000.6/manual/upgrade-guides/upgrade-guide-unity66). Окремі шари та захисне поле відповідають принципам [Android Adaptive icons](https://developer.android.com/develop/ui/compose/system/icon_design_adaptive). Магазин сам застосовує маску до квадратного експорту: [Google Play icon specifications](https://developer.android.com/distribute/google-play/resources/icon-design-specifications).
 
-## Промпт
+## Підключення й відтворення
 
-```text
-Use case: logo-brand
-Asset type: finished SQUARE mobile game APP ICON, no lettering, for Google Play and Android launcher. Desired 1024x1024 PNG, 1:1 aspect ratio.
-Create a distinctive premium cozy low-poly camping puzzle game icon. This is an ICON, not a wordmark, not a menu screenshot.
-A single big terracotta-red A-frame tent with a warmly glowing golden entrance is the unmistakable main silhouette in the center, seen from a gentle elevated three-quarter angle. A small sculptural amber campfire in front of the tent, with only three chunky pale stones and two logs. Two simple deep-teal faceted evergreen trees behind tent, framing it. Soft sage grassy base subtly blends into the background, no floating island pedestal. Warm light and broad clean faceted surfaces. The tent is dominant, secondary props minimal. Friendly polished 3D toy-like low-poly aesthetic matching QuietCamp menu art.
-Composition: central compact emblem, recognizable at 48 pixels. Main tent, campfire, and essential tree silhouettes entirely within central 60% diameter region so circular launcher cropping preserves them. Deep muted forest-green/teal background fills the ENTIRE square edge-to-edge, subtly lighter directly behind the red tent for contrast. Broad simple forms, few details, generous clean padding around central cluster, smooth soft lighting.
-STRICT: ZERO text, ZERO letters, ZERO words, ZERO numbers, ZERO symbols resembling typography. No frame, no white outline, no badge border, no pre-rounded corners, no vignette to transparent, no transparency, no external drop shadow. Fully opaque full square image. No phone mockup. No extra tents, people, animals, furniture, banners, sky scene or landscape panorama. Produce just one final clean app icon.
-```
+Налаштування Player Settings уже збережено в проєкті. Команда **Tools → Quiet Camp → Apply App Icon** повторно призначає готові файли; вона не генерує й не перезаписує ілюстрацію. Перед кожною збіркою цю саму команду викликає `QuietCampIconBuildPreprocessor`.
+
+Технічні експорти створює `tools/app-icon/QuietCampIconExport.cs` через Unity Texture2D: пропорційне масштабування, центрування, композиція на тлі, кодування PNG. Зображення не перемальовується. Для відтворення створіть тимчасовий Unity 6000.6.2f1 проєкт з порожнім `Packages/manifest.json` (`{"dependencies":{}}`), скопіюйте оригінал у `Assets/CozyForegroundMaster.png`, а `QuietCampIconExport.cs` та `QuietCampIcon.cs` — у `Assets/Editor/`. Запустіть Unity з `-batchmode -nographics -quit -buildTarget Android -executeMethod QuietCampIconExport.Export -projectPath <тимчасовий-проєкт>`. Результат — у `Assets/QuietCamp/Art/`. При перенесенні до основного проєкту зберігайте GUID уже наявних файлів.
+
+## Перевірка
+
+У Unity 6000.6.2f1 виконано експорт і повторне застосування іконки; повторне застосування не змінює PNG. Перевірено GUID і порядок обох шарів у всіх шести Android-слотах, непрозорість тла та стандартної іконки, прозорість переднього шару. Діаметр видимої композиції — 58,08% полотна, усередині захисного кола Android 66/108. Експорт Google Play — 512 × 512 RGBA, 232 094 байти. APK із цими змінами ще не збирався.
