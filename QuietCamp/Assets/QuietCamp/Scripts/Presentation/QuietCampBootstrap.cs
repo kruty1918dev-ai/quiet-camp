@@ -234,10 +234,13 @@ namespace QuietCamp.Presentation
             { Debug.LogException(failure); foliage.Recover(); _bootView.Fail(); _startup = null; yield break; }
             // Hide native Boot only after the foliage has painted a fully covered frame.
             _bootView.Fade(0);
-            if (SceneManager.GetActiveScene().name != "Camp" && (SceneManager.GetActiveScene().name != _firstSceneName || MenuSceneHost.Current == null || !MenuSceneHost.Current.UiReady))
+            var introduction = _services.Tutorial.NeedsIntroduction;
+            var firstScene = introduction ? "Camp" : _firstSceneName;
+            if (introduction) _services.PendingLevelId = _services.Tutorial.CurrentLevelId;
+            if (SceneManager.GetActiveScene().name != "Camp" && (SceneManager.GetActiveScene().name != firstScene || MenuSceneHost.Current == null || !MenuSceneHost.Current.UiReady))
             {
                 AsyncOperation load = null;
-                try { load = SceneManager.LoadSceneAsync(_firstSceneName); }
+                try { load = SceneManager.LoadSceneAsync(firstScene); }
                 catch (Exception error) { failure = error; }
                 if (failure != null || load == null)
                 {
@@ -310,6 +313,7 @@ namespace QuietCamp.Presentation
                 "qc.redo", "qc.remove", "qc.check", "qc.hint", "qc.settings",
                 "qc.levels", "qc.next", "qc.album", "qc.select", "qc.play",
                 "qc.continue", "qc.autoplace", "qc.transition.back",
+                "qc.menu", "qc.economy", "qc.tutorial.restart",
             })
                 dispatch.Register(new UiActionId(id), _ =>
                     UiActionResult.Rejected(UiActionReason.ActionUnavailable));

@@ -94,6 +94,7 @@ namespace QuietCamp.Presentation.World
             _atmosphere.BindRainWorld(Find("World")?.transform);
             _services.PendingLevelId = null;
             IsReady = true;
+            if (_tutorial.Guiding(_session.Level.id)) _tutorial.BeginIntroduction();
         }
 
         /// <summary>Cancels an in-flight placement drag without committing —
@@ -342,6 +343,7 @@ namespace QuietCamp.Presentation.World
                 return Performed();
             }));
             _leases.Add(h.Register(new UiActionId("qc.settings"), () => { _hud.ShowSettings(); return Performed(); }));
+            _leases.Add(h.Register(new UiActionId("qc.economy"), () => { _hud.ShowEconomy(); return Performed(); }));
             _leases.Add(h.Register(new UiActionId("qc.tutorial.restart"), () =>
             {
                 PersistSession(); _tutorial.LearnAgain();
@@ -349,12 +351,18 @@ namespace QuietCamp.Presentation.World
                 if (target != null) _router.GoToNextCamp(target);
                 return Performed();
             }));
-            _leases.Add(h.Register(new UiActionId("qc.levels"), () =>
+            UiActionResult LeaveCamp()
             {
                 PersistSession();
                 _services.Save.Save();
                 _router.GoToMenu();
                 return Performed();
+            }
+            _leases.Add(h.Register(new UiActionId("qc.levels"), LeaveCamp));
+            _leases.Add(h.Register(new UiActionId("qc.menu"), () =>
+            {
+                _services.PendingMenuScreen = null;
+                return LeaveCamp();
             }));
             _leases.Add(h.Register(new UiActionId("qc.next"), () =>
             {

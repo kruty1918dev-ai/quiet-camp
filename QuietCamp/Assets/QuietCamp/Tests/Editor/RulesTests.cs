@@ -3,6 +3,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using QuietCamp.Domain;
+using QuietCamp.Infrastructure;
 namespace QuietCamp.Tests
 {
     public sealed class RulesTests
@@ -11,7 +12,10 @@ namespace QuietCamp.Tests
         LevelData Control()=>JsonConvert.DeserializeObject<LevelData>(File.ReadAllText(Root+"QC_TEST.json"));
         [Test] public void EveryShippedWitnessIsSolved()
         {
-            var paths=Directory.GetFiles(Root,"*.json");Assert.That(paths.Length,Is.EqualTo(11));
+            var paths=Directory.GetFiles(Root,"*.json");
+            var expected=MonetizationConfiguration.Load().Catalog().Journeys.SelectMany(journey=>journey.levelIds)
+                .Where(id=>!GeneratedCampSource.IsGeneratedId(id)).Distinct();
+            Assert.That(paths.Select(Path.GetFileNameWithoutExtension),Is.EquivalentTo(expected));
             foreach(var path in paths)
             {
                 var level=JsonConvert.DeserializeObject<LevelData>(File.ReadAllText(path));

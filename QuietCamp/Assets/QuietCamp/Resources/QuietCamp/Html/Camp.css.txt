@@ -12,13 +12,17 @@ button:disabled { opacity: 0.42; }
 .icon:disabled .ico { opacity: .42; }
 .primary { background-image: linear-gradient(180deg, #35584a 0%, #243e35 100%); color: #f6f0df; border-color: #243e35; }
 .primary:hover { background-image: linear-gradient(180deg, #41685a 0%, #2c4a3e 100%); }
+.primary text, .primary label { color: #f6f0df; }
 .quiet { background-color: rgba(246,240,223,0.93); border-color: rgba(176,150,105,0.32); }
 .danger { color: #9c4a2e; }
 .surface { background-image: linear-gradient(180deg, rgba(250,245,230,0.98) 0%, rgba(238,231,210,0.98) 100%); border-radius: 40px; padding: 30px; border-width: 2px; border-color: rgba(176,150,105,0.4); pointer-events: auto; }
 .row { flex-direction: row; align-items: center; gap: 16px; }
 .row > button { flex-grow: 1; flex-basis: 0; }
 .column { gap: 18px; }
-.economy-status { font-size: 22px; flex-shrink: 1; max-width: 56%; padding: 12px; background-color: rgba(246,240,223,.92); border-radius: 18px; }
+.economy-status { font-size: 32px; width: 100%; padding: 20px; background-color: #e8ead8; border-radius: 18px; white-space: normal; }
+.hint-control { min-height: 144px; max-width: 65%; padding: 20px 28px; }
+.hint-control text { font-size: 32px; }
+.check-notice { font-size: 28px; color: #344d40; background-color: rgba(246,240,223,.96); padding: 14px 20px; border-radius: 18px; white-space: normal; width: 100%; }
 .story-skip { position: absolute; bottom: 28px; right: 28px; }
 .journey-viewport { height: 380px; width: 100%; }
 .quiet-viewport { position: absolute; inset: 0; }
@@ -194,7 +198,10 @@ switch { flex-shrink: 0; width: 124px; height: 68px; margin: 0; }
 .map-menu .full-header { background-color: #f1ead4; border-radius: 0; width: 100%; padding: 24px 32px; }
 .map-menu .map-scroll { border-radius: 0; overflow: hidden; }
 .full-header { flex-direction: row; align-items: center; gap: 24px; padding: 22px 28px; }
-.full-title { font-size: 42px; font-weight: bold; flex-shrink: 1; }
+.full-title { font-size: 42px; font-weight: bold; flex-shrink: 1; min-width: 0; }
+.map-stories { margin-left: auto; max-width: 42%; min-height: 104px; padding: 14px 20px; }
+.map-stories text { font-size: 28px; white-space: normal; }
+.economy-panel .s-sub { font-size: 30px; white-space: normal; width: 100%; }
 .map-scroll { flex-grow: 1; flex-shrink: 1; min-height: 0; width: 100%; }
 .roadmap { width: 100%; position: relative; }
 .roadmap-art { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -294,7 +301,7 @@ button text, .gc-text text { white-space: normal; }
     .menu-actions { left: 5%; right: auto; width: 620px; bottom: 8%; }
     .menu-cards { flex-direction: column; gap: 12px; }
     .menu-card { min-height: 104px; padding: 14px 22px; }
-    .bottom { left: 100%; margin-left: -592px; right: 0; width: 560px; bottom: 32px; }
+    .bottom { left: 100%; margin-left: -752px; right: 0; width: 720px; bottom: 32px; }
     .tutorial .pill { max-width: 100%; }
     .message { right: 644px; }
     .sheet { max-width: 860px; max-height: 92%; }
@@ -439,12 +446,12 @@ button text, .gc-text text { white-space: normal; }
 
 /* A quiet mentor stays beside the real action, including while a tent is held. */
 .guide-card { width: 100%; flex-direction: row; align-items: center; gap: 16px; padding: 14px 18px; border-radius: 28px; background-color: rgba(246,240,223,.95); border-width: 1px; border-color: rgba(105,126,90,.32); }
-.guide-portrait { width: 120px; height: 132px; flex-shrink: 0; object-fit: contain; }
-.guide-copy { flex-grow: 1; flex-shrink: 1; min-width: 0; gap: 6px; }
-.guide-name { color: #607b55; font-size: 23px; font-weight: bold; width: 100%; }
-.guide-instruction { color: #243e35; font-size: 28px; width: 100%; text-align: left; white-space: normal; }
-.guide-skip { min-height: 88px; min-width: 88px; padding: 12px; border-width: 0; background-color: transparent; align-self: flex-start; }
-.guide-skip text { font-size: 22px; color: #5d7061; }
+.guide-portrait { width: 224px; height: 256px; max-width: 30%; flex-shrink: 0; object-fit: contain; }
+.guide-copy { flex-grow: 1; flex-shrink: 1; min-width: 0; gap: 10px; }
+.guide-name { color: #496740; font-size: 28px; font-weight: bold; width: 100%; }
+.guide-instruction { color: #243e35; font-size: 32px; width: 100%; text-align: left; white-space: normal; }
+.guide-skip { min-height: 88px; padding: 12px 16px; border-width: 0; background-color: transparent; align-self: flex-start; }
+.guide-skip text { font-size: 28px; color: #425e49; }
 .guide-focus { border-width: 3px; border-color: #ba9158; }
 .preview-feedback { margin-top: 4px; margin-bottom: 0; }
 .preview-feedback .pill { padding: 10px 18px; }
@@ -454,9 +461,9 @@ button text, .gc-text text { white-space: normal; }
 .guide-learning-explain { width: 100%; white-space: normal; }
 @media (layout: wide) {
     .guide-card { gap: 12px; padding: 14px; }
-    .guide-portrait { width: 100px; height: 112px; }
-    .guide-instruction { font-size: 25px; }
-    .guide-name { font-size: 21px; }
+    .guide-portrait { width: 216px; height: 248px; max-width: 36%; }
+    .guide-instruction { font-size: 30px; }
+    .guide-name { font-size: 26px; }
 }
 
 .guide-farewell { flex-direction: row; align-items: center; gap: 20px; }

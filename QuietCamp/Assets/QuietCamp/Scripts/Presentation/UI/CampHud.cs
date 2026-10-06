@@ -152,9 +152,9 @@ namespace QuietCamp.Presentation.UI
             // While a modal owns the screen the gameplay orbs stay hidden —
             // two competing HUD layers read as broken UI under the dim.
             var header = HasModalOpen ? "" :
-                (HintsAvailable ? CampIcons.Button(_surface, "hint", "hint", () => Action("qc.hint"), "orb quiet",
-                    tooltip: T("action.hint")) : "") +
-                EconomyPanel.Status(_services, _session.Level.id) +
+                (HintsAvailable ? HtmlUi.Button(_surface, "hint",
+                    T("action.hint") + (_services.Economy.IsPro ? "" : " · " + _services.Economy.Hints),
+                    () => Action("qc.hint"), "quiet hint-control") : "") +
                 "<view class=\"grow\"></view>" +
                 CampIcons.Button(_surface, "pause", "pause", () => Action("qc.pause"), "orb quiet",
                     tooltip: T("hud.pause"));
@@ -183,10 +183,10 @@ namespace QuietCamp.Presentation.UI
             if (_tutorialKey == null) return "";
             var portrait = _services.Tutorial.Portrait;
             return "<view id=\"tutorial\" class=\"guide-card\" data-motion-role=\"toast\">"
-                + "<img class=\"guide-portrait\" src=\"res:QuietCamp/UI/Mentor/" + portrait + "\"/>"
+                + "<img id=\"guide-portrait\" class=\"guide-portrait\" src=\"res:QuietCamp/UI/Mentor/" + portrait + "\"/>"
                 + "<view class=\"guide-copy\">" + HtmlUi.Text(T("guide.name"), "guide-name")
-                + HtmlUi.Text(T(_tutorialKey), "guide-instruction") + "</view>"
-                + HtmlUi.Button(_surface, "guide-skip", T("guide.skip"), () => OpenModal("GuideSkip"), "guide-skip") + "</view>";
+                + HtmlUi.Text(T(_tutorialKey), "guide-instruction")
+                + HtmlUi.Button(_surface, "guide-skip", T("guide.skip"), () => OpenModal("GuideSkip"), "guide-skip") + "</view></view>";
         }
 
         string GuideFocus(string target) => _tutorialKey != null && _services.Tutorial.Target == target ? " guide-focus" : "";
@@ -207,8 +207,8 @@ namespace QuietCamp.Presentation.UI
             if (_session.CanRedo)
                 dock.Append(CampIcons.Button(_surface, "redo", "redo", () => Action("qc.redo"), "icon quiet", T("action.redo")));
             if (placed == total)
-                dock.Append(CampIcons.Button(_surface, "check", "check", () => Action("qc.check"), "primary check-button" + GuideFocus("check"), T("hud.ready"),
-                    _services.Tutorial.CanCompleteLevel(_session.Level.id)));
+                dock.Append(HtmlUi.Button(_surface, "check", T("hud.ready"), () => Action("qc.check"),
+                    "primary check-button" + GuideFocus("check"), _services.Tutorial.CanCompleteLevel(_session.Level.id)));
             dock.Append("</view>");
             if (next != null)
             {
@@ -228,7 +228,9 @@ namespace QuietCamp.Presentation.UI
                     + HtmlUi.Text(T(_lastReport?.IsSolved == true ? "rule.ok" : "hud.checkme"), "gc-wish")
                     + "</view><text class=\"gc-count\">" + placed + "/" + total + "</text></view>");
             }
-            if (placed == total) dock.Append(HtmlUi.Text(T("economy.check.notice"), "small"));
+            if (placed == total) dock.Append(HtmlUi.Text(_services.Economy.IsPro
+                ? T("economy.check.notice.pro")
+                : string.Format(T("economy.check.notice"), _services.Economy.Lives), "check-notice"));
             dock.Append("</view>");
             return dock.ToString();
         }
@@ -374,10 +376,8 @@ namespace QuietCamp.Presentation.UI
                 default:
                     title = T("qc.pause.title");
                     body = OverlayButton("resume", "qc.resume.button", () => Action("qc.resume"), "primary")
-                        + "<view class=\"row\">" + (HintsAvailable ? OverlayButton("pause-hint", "action.hint", () => Action("qc.hint")) : "")
-                        + OverlayButton("settings", "menu.settings", ShowSettings) + "</view>"
-                        + OverlayButton("economy", "economy.title", ShowEconomy, "quiet")
-                        + OverlayButton("menu", "menu.main", () => Action("qc.levels"));
+                        + OverlayButton("settings", "menu.settings", ShowSettings, "quiet")
+                        + OverlayButton("menu", "menu.main", () => Action("qc.menu"), "quiet");
                     break;
             }
             if (modal == "Settings")
@@ -485,7 +485,7 @@ namespace QuietCamp.Presentation.UI
 
         public void ShowPause() { _services.Audio?.Play("sfx.pause"); OpenModal("Pause"); }
         public void ShowSettings() => OpenModal("Settings");
-        public void ShowEconomy() => OpenModal("Economy");
+        public void ShowEconomy() { _economyPanel?.ResetConfirmation(); OpenModal("Economy"); }
         public void BeginStory(Action skip) { _storyPlaying = true; _skipStory = skip; RefreshAll(); }
         public void EndStory() { _storyPlaying = false; _skipStory = null; RefreshAll(); }
         public void HidePause()
@@ -513,14 +513,17 @@ namespace QuietCamp.Presentation.UI
 
         public void SetTutorial(string key)
         {
+            var changed = _tutorialKey != key;
             _tutorialKey = key;
+            if (changed && key != null)
+                _services.Audio?.Play("ui.select", new Kruty1918.Audio.AudioPlayOptions(volumeScale: .65f));
             _surface.Refresh();
         }
 
         void OnTutorialChanged()
         {
-            _tutorialKey = _services.Tutorial.Cue(_session.Level.id);
-            RefreshAll();
+            SetTutorial(_services.Tutorial.Cue(_session.Level.id));
+            _overlay?.Refresh();
         }
 
         public void SetPlacementPreview(RuleReport report)

@@ -64,8 +64,8 @@ namespace QuietCamp.Presentation.UI
             }
         }
         string T(string key) => _services.Localization.T(key);
-        string OverlayButton(string id, string key, Action click, string cls = "")
-            => HtmlUi.Button(_overlay, id, T(key), click, cls);
+        string OverlayButton(string id, string key, Action click, string cls = "", bool enabled = true)
+            => HtmlUi.Button(_overlay, id, T(key), click, cls, enabled);
         void Action(string id, object payload = null)
         {
             _services.Audio?.Play("ui.click");
@@ -93,8 +93,7 @@ namespace QuietCamp.Presentation.UI
                 + "<view class=\"brand\" id=\"menu-brand\" data-motion-role=\"edge-top\" data-motion-delay=\"0.04\">"
                 + "<img class=\"brand-sprig\" src=\"res:QuietCamp/UI/Atlas/leaf_c\"/>"
                 + HtmlUi.Text(T("menu.title.line1"), "brand-title")
-                + HtmlUi.Text(T("menu.title.line2"), "brand-title")
-                + HtmlUi.Text(T("menu.tagline"), "tagline") + "</view>"
+                + HtmlUi.Text(T("menu.title.line2"), "brand-title") + "</view>"
                 + "<view class=\"grow\"></view>"
                 + "<view class=\"menu-actions\" id=\"menu-actions\" data-motion-role=\"edge-bottom\" data-motion-delay=\"0.08\">"
                 + Cta(ctaTitle, ctaSub)
@@ -103,9 +102,6 @@ namespace QuietCamp.Presentation.UI
                     () => Action("qc.levels"), levels.Count > 0 ? (float)done / levels.Count : 0) : "")
                 + (_services.Economy.IsPro || albumCount > 0 || _services.Tutorial.AlbumUnlocked ? MenuCard("album", "tent", T("menu.album.short"), albumCount == 0 ? T("menu.album.empty") : string.Format(T("menu.album.saved"), albumCount),
                     () => Action("qc.album")) : "")
-                + "</view><view class=\"menu-cards\">"
-                + MenuCard("journeys", "map", T("journey.title"), T("journey.discover"), () => Show("Journeys"))
-                + MenuCard("economy", "tent", T("economy.title"), T(_services.Economy.IsPro ? "economy.pro.owned" : "economy.shop"), () => Show("Economy"))
                 + "</view></view>";
             return HtmlUi.Template("Menu", "content", content);
         }
@@ -206,10 +202,11 @@ namespace QuietCamp.Presentation.UI
         {
             bool map=Current=="Levels"||Current=="BonusPreview",preview=Current=="BonusPreview";
             var title = T(map ? "menu.levels" : "menu.album");
+            var stories = map ? OverlayButton("journeys", "journey.title", () => Show("Journeys"), "quiet map-stories") : "";
             return "<view id=\""+(preview?"bonus-map-background":"sheet")+"\" class=\"app full-menu " + (map ? "map-menu" : "album-menu")
                 + "\" data-safe-area=\"all\""+(preview?"":" data-motion-role=\"dialog\"") + (_closing&&!preview ? " data-motion=\"exit\"" : "") + ">"
                 + "<view class=\"full-header\">" + CampIcons.Button(_overlay,preview?"map-back":"back","back",Back,"nav-back",T("action.back"))
-                + HtmlUi.Text(title,"full-title") + "</view>"
+                + HtmlUi.Text(title,"full-title") + stories + "</view>"
                 + (map ? Levels() : Album()) + "</view>";
         }
         string Levels()
@@ -322,15 +319,17 @@ namespace QuietCamp.Presentation.UI
         }
         string Journeys()
         {
-            var html = new StringBuilder("<view class=\"column\">");
+            var html = new StringBuilder("<view class=\"column\">" + HtmlUi.Text(T("journey.intro"), "s-sub"));
+            bool additional = false;
             foreach (var journey in _services.Journeys.Journeys)
             {
-                if (journey.id == "qa") continue;
+                if (journey.id == "qa" || !journey.published) continue;
                 html.Append(HtmlUi.Button(_overlay, "journey-" + journey.id, T(journey.titleKey), () =>
                 { SelectedJourney = journey; _journeyConfirmation = null; Show("JourneyPreview"); }, "quiet"));
                 html.Append(HtmlUi.Text(T(journey.descriptionKey), "s-sub"));
-                if (!journey.published) html.Append(HtmlUi.Text(T("journey.preparing"), "s-sub"));
+                if (journey.id != "main") additional = true;
             }
+            if (!additional) html.Append(HtmlUi.Text(T("journey.empty"), "s-sub"));
             return html.Append("</view>").ToString();
         }
         string JourneyPreview()
@@ -339,7 +338,7 @@ namespace QuietCamp.Presentation.UI
             if (journey == null) return HtmlUi.Text(T("journey.preparing"));
             var html = new StringBuilder("<view class=\"column\"><view id=\"journey-viewport\" class=\"journey-viewport\" />");
             html.Append(HtmlUi.Text(T(journey.descriptionKey), "s-sub"));
-            html.Append(HtmlUi.Text(T("journey.reminder"), "s-sub"));
+            html.Append(HtmlUi.Text(T("journey.intro"), "s-sub"));
             html.Append(HtmlUi.Text(string.Format(T("journey.contents"), journey.levelIds.Length), "s-sub"));
             if (!journey.published) return html.Append(HtmlUi.Text(T("journey.preparing"), "s-sub")).Append("</view>").ToString();
             var first = _services.JourneyAccess.ContinueTarget(journey.id);
@@ -351,13 +350,20 @@ namespace QuietCamp.Presentation.UI
                 html.Append(HtmlUi.Button(_overlay, "journey-unlock", string.Format(T("journey.unlock"), journey.currencyCost), () =>
                 {
                     if (_services.MonetizationBusy) return;
-                    if (_journeyConfirmation != journey.id) { _journeyConfirmation = journey.id; _overlay.Refresh(); return; }
-                    _journeyConfirmation = null;
-                    var result = _services.BuyJourney(journey.id);
-                    _services.Notifications?.Show(T("economy.result." + result), Kruty1918.Notifications.API.GameplayNotificationKind.Info);
-                    RefreshAll();
+                    _journeyConfirmation = journey.id; _overlay.Refresh();
                 }, "primary", _services.Economy.Currency >= journey.currencyCost && !_services.MonetizationBusy));
-                if (_journeyConfirmation != null) html.Append(HtmlUi.Text(T("economy.confirm"), "s-sub"));
+                if (_journeyConfirmation == journey.id)
+                    html.Append("<view class=\"surface column\">").Append(HtmlUi.Text(T("economy.confirm"), "s-sub"))
+                        .Append(OverlayButton("journey-confirm", "action.confirm", () =>
+                        {
+                            if (_services.MonetizationBusy) return;
+                            _journeyConfirmation = null;
+                            var result = _services.BuyJourney(journey.id);
+                            _services.Notifications?.Show(T("economy.result." + result), Kruty1918.Notifications.API.GameplayNotificationKind.Info);
+                            RefreshAll();
+                        }, "primary", !_services.MonetizationBusy))
+                        .Append(OverlayButton("journey-cancel", "action.cancel", () => { _journeyConfirmation = null; _overlay.Refresh(); }, "quiet"))
+                        .Append("</view>");
                 html.Append(OverlayButton("journey-shop", "economy.title", () => Show("Economy"), "quiet"));
             }
             return html.Append("</view>").ToString();
@@ -437,6 +443,7 @@ namespace QuietCamp.Presentation.UI
                 || name == "Album" && !_services.Tutorial.AlbumUnlocked && (_services.Save.Album.entries?.Length ?? 0) == 0)) return;
             if(Current=="Levels"&&name!=Current)_overlay?.GetComponentInChildren<MenuMapBinding>()?.Freeze();
             if (name != Current) _history.Push(Current);
+            if (Current == "Economy" || name == "Economy") _economyPanel?.ResetConfirmation();
             Current = name; _confirmReset = false; _confirmErase = false; _closing = false;
             _services.Audio?.Play("sfx.page");
             if (Enum.TryParse<Application.ComfortScreen>(name, out var screen)) _services.Analytics.Screen(screen);

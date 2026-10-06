@@ -1,6 +1,15 @@
 #!/usr/bin/env python3
 """Sync the working game into the warm QA project without touching player saves."""
-import argparse, json, pathlib, subprocess
+import argparse, json, os, pathlib, shutil, subprocess
+
+def sync(source, destination, exclude=()):
+    if shutil.which('rsync'):
+        subprocess.run(['rsync', '-a', '--delete'] + ['--exclude=' + pattern for pattern in exclude]
+                       + [str(source) + '/', str(destination) + '/'], check=True)
+    else:
+        if os.name == 'nt':
+            source, destination = ('\\\\?\\' + str(pathlib.Path(path).resolve()) for path in (source, destination))
+        shutil.copytree(source, destination, dirs_exist_ok=True, ignore=shutil.ignore_patterns(*exclude))
 root = pathlib.Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--target', type=pathlib.Path, default=pathlib.Path('/tmp/quietcamp-qa-20261002/QuietCamp'))
@@ -13,9 +22,9 @@ target = args.target.expanduser().resolve()
 target.mkdir(parents=True, exist_ok=True)
 for folder in ['Assets','ProjectSettings','Packages']:
     (target/folder).mkdir(exist_ok=True)
-    subprocess.run(['rsync','-a','--delete',str(root/'QuietCamp'/folder)+'/',str(target/folder)+'/'],check=True)
+    sync(root / 'QuietCamp' / folder, target / folder)
 if args.warm_library and not (target/'Library').exists():
-    subprocess.run(['rsync','-a','--exclude=SourceAssetDB-lock','--exclude=ArtifactDB-lock',str(args.warm_library.resolve())+'/',str(target/'Library')+'/'],check=True)
+    sync(args.warm_library.resolve(), target / 'Library', ('SourceAssetDB-lock', 'ArtifactDB-lock', 'EditorInstance.json', '*.lock'))
 p = target/'Packages/manifest.json'
 d = json.loads(p.read_text())
 for name, value in list(d['dependencies'].items()):
@@ -25,8 +34,7 @@ for name, value in list(d['dependencies'].items()):
         # sibling packages too, so a QA refresh never modifies another checkout.
         isolated = target.parent/'ExternalPackages'/name
         isolated.mkdir(parents=True, exist_ok=True)
-        subprocess.run(['rsync','-a','--delete','--exclude=.git','--exclude=Library',
-                        '--exclude=bin','--exclude=obj',str(source)+'/',str(isolated)+'/'],check=True)
+        sync(source, isolated, ('.git', 'Library', 'bin', 'obj'))
         # Ignored UPM folders do not have Unity metadata. Old orphan metadata
         # in sibling workspaces can otherwise emit errors during test cleanup.
         for meta in isolated.rglob('*~.meta'):

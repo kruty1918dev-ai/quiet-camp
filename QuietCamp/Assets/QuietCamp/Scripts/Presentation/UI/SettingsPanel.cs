@@ -101,7 +101,7 @@ namespace QuietCamp.Presentation.UI
             for (var i = 0; i < Categories.Length; i++)
             {
                 var cat = Categories[i]; var cid = "set-cat-" + cat;
-                if (cat == "extras" && !services.Tutorial.AlbumUnlocked) continue;
+                if (cat == "extras" && !services.Tutorial.RewardOwned && !services.Rewards.Owned) continue;
                 surface.Callbacks.Bind(cid, () =>
                 {
                     services.Audio?.Play("ui.select"); Navigate(surface, nav, cat);
@@ -153,7 +153,11 @@ namespace QuietCamp.Presentation.UI
                 html.Append(HtmlUi.Button(surface, "tutorial-learn-again", T("guide.learn-again"), () =>
                     services.Actions.Execute(new Kruty1918.UIActions.API.UiActionRequest(new Kruty1918.UIActions.API.UiActionId("qc.tutorial.restart"),
                         Kruty1918.UIActions.API.UiActionSource.Button, "Settings")), "quiet guide-learning"));
-                html.Append(HtmlUi.Text(T("guide.reward.explain"), "s-sub guide-learning-explain"));
+                html.Append(HtmlUi.Text(T("guide.learning.help"), "s-sub guide-learning-explain"));
+                if (!services.Economy.IsPro)
+                    html.Append(HtmlUi.Button(surface, "help-supplies", T("economy.title"), () =>
+                        services.Actions.Execute(new Kruty1918.UIActions.API.UiActionRequest(new Kruty1918.UIActions.API.UiActionId("qc.economy"),
+                            Kruty1918.UIActions.API.UiActionSource.Button, "Settings")), "quiet"));
                 return Layout(html.ToString());
             }
 
@@ -163,12 +167,16 @@ namespace QuietCamp.Presentation.UI
                     html.Append(PrivacyPanel.Render(services, surface, nav));
                     break;
                 case "extras":
+                    html.Append(HtmlUi.Text(T("settings.extras.help"), "s-sub"));
                     if (services.Tutorial.RewardOwned)
                         Toggle("settings.trailPennant", s.trailPennant, v => s.trailPennant = v, sub: true);
-                    Toggle("settings.videoBonuses", s.optionalVideoBonuses, v => s.optionalVideoBonuses = v, sub: true);
                     if (services.Rewards.Owned)
                         Toggle("settings.lantern", s.fireflyLantern, v => s.fireflyLantern = v, sub: true);
-                    html.Append(VideoBonusPanel.Render(services, surface, "album.lantern"));
+                    if (services.Ads.IsReady)
+                    {
+                        Toggle("settings.videoBonuses", s.optionalVideoBonuses, v => s.optionalVideoBonuses = v, sub: true);
+                        html.Append(VideoBonusPanel.Render(services, surface, "album.lantern"));
+                    }
                     if (services.Ads is IAdPrivacyOptions privacy && privacy.PrivacyOptionsRequired)
                         html.Append(HtmlUi.Button(surface, "ads-privacy", T("privacy.adsOptions"), async () => { await privacy.ShowPrivacyOptions(); surface.Refresh(); }, "quiet"));
                     break;

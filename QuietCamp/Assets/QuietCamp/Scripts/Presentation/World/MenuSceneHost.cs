@@ -221,6 +221,7 @@ namespace QuietCamp.Presentation.World
             _leases.Add(h.Register(new UiActionId("qc.levels"), () => Show("Levels")));
             _leases.Add(h.Register(new UiActionId("qc.album"), () => Show("Album")));
             _leases.Add(h.Register(new UiActionId("qc.settings"), () => Show("Settings")));
+            _leases.Add(h.Register(new UiActionId("qc.economy"), () => Show("Economy")));
             _leases.Add(h.Register(new UiActionId("qc.tutorial.restart"), () =>
             {
                 _services.Tutorial.LearnAgain();

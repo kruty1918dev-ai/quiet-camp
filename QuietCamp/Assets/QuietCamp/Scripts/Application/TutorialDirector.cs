@@ -8,7 +8,7 @@ namespace QuietCamp.Application
     [Serializable]
     public sealed class TutorialSaveData
     {
-        public bool initialized, existingPlayer, controlsUnlocked;
+        public bool initialized, existingPlayer, controlsUnlocked, introductionSeen;
         public TutorialProgress progress = new TutorialProgress();
     }
 
@@ -27,6 +27,16 @@ namespace QuietCamp.Application
         public bool Skipped => _runner.Skipped;
         public bool Finished => _runner.Completed;
         public bool RewardOwned => (_progression.CosmeticFlags & PennantFlag) != 0;
+        public bool NeedsIntroduction => !_save.introductionSeen && !_save.existingPlayer && !Skipped && !Finished
+            && _save.progress.completedSteps.Length == 0;
+        public bool BeginIntroduction()
+        {
+            if (!NeedsIntroduction) return true;
+            _save.introductionSeen = true;
+            if (_persist == null || _persist()) return true;
+            _save.introductionSeen = false;
+            return false;
+        }
         public bool AllControls => _save.existingPlayer || _save.controlsUnlocked || Skipped || Finished;
         public bool RoadmapUnlocked => AllControls || _progression.IsCompleted("QC001");
         public bool AlbumUnlocked => AllControls || _progression.IsCompleted("QC002");
@@ -64,12 +74,17 @@ namespace QuietCamp.Application
         public void Skip()
         {
             if (Skipped || Finished) return;
-            _save.controlsUnlocked = true; _save.existingPlayer = false; _runner.Skip();
+            _save.introductionSeen = true; _save.controlsUnlocked = true; _save.existingPlayer = false; _runner.Skip();
         }
         public void LearnAgain()
         {
-            _save.existingPlayer = false; _save.controlsUnlocked = true;
-            if (Skipped) _runner.Resume(); else OnChanged();
+            _save.existingPlayer = false; _save.controlsUnlocked = true; _save.introductionSeen = true;
+            if (Finished)
+            {
+                _save.progress = new TutorialProgress { flowId = _save.progress.flowId, claimedRewards = _save.progress.claimedRewards };
+                BindRunner(); OnChanged();
+            }
+            else if (Skipped) _runner.Resume(); else OnChanged();
         }
         public void RetryReward() { if (_runner.RewardPending) OnChanged(); }
         public bool ReportAction(string actionId, CampSession session)

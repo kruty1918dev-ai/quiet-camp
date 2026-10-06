@@ -44,6 +44,40 @@ namespace QuietCamp.Tests
             var existing=new TutorialDirector(null,true,new ProgressionService(),()=>true);
             Assert.IsTrue(existing.AllControls);Assert.IsNull(existing.Cue("QC001"));Assert.IsFalse(existing.RewardOwned);
         }
+        [Test] public void IntroductionStartsOnlyForANewPlayerAndSurvivesRestart()
+        {
+            var tutorial = new TutorialDirector(null, false, new ProgressionService(), () => true);
+            Assert.IsTrue(tutorial.NeedsIntroduction);
+            Assert.IsTrue(tutorial.BeginIntroduction());
+            Assert.IsFalse(tutorial.NeedsIntroduction);
+            Assert.AreEqual("guide.select", tutorial.Cue("QC001"));
+            var restored = JsonConvert.DeserializeObject<TutorialSaveData>(JsonConvert.SerializeObject(tutorial.Save));
+            Assert.IsFalse(new TutorialDirector(restored, true, new ProgressionService(), () => true).NeedsIntroduction);
+            Assert.IsFalse(new TutorialDirector(null, true, new ProgressionService(), () => true).NeedsIntroduction);
+        }
+        [Test] public void SkippedAndStartedGuidesNeverForceAnotherIntroduction()
+        {
+            var tutorial = new TutorialDirector(null, false, new ProgressionService(), () => true);
+            tutorial.Skip();
+            Assert.IsFalse(tutorial.NeedsIntroduction);
+            tutorial.LearnAgain();
+            Assert.IsFalse(tutorial.NeedsIntroduction);
+            var started = new TutorialDirector(null, false, new ProgressionService(), () => true);
+            using var session = new CampSession(Level("QC001"));
+            session.Select("a"); started.ReportAction("select", session);
+            Assert.IsFalse(started.NeedsIntroduction);
+        }
+        [Test] public void FailedIntroductionSaveCanBeRetriedWithoutAwardingProgress()
+        {
+            bool persist = false;
+            var tutorial = new TutorialDirector(null, false, new ProgressionService(), () => persist);
+            Assert.IsFalse(tutorial.BeginIntroduction());
+            Assert.IsTrue(tutorial.NeedsIntroduction);
+            Assert.IsFalse(tutorial.RewardOwned);
+            persist = true;
+            Assert.IsTrue(tutorial.BeginIntroduction());
+            Assert.IsEmpty(tutorial.Save.progress.completedSteps);
+        }
         [Test] public void ACommittedTentWithoutAReachableEntranceCannotAdvanceTheGuide()
         {
             var tutorial=new TutorialDirector(null,false,new ProgressionService(),()=>true);using var session=new CampSession(Level("QC001"));
@@ -73,6 +107,18 @@ namespace QuietCamp.Tests
             Assert.AreEqual("QC003",resumed.CurrentLevelId);Rest(resumed);Assert.IsTrue(resumed.Finished);Assert.IsTrue(resumed.RewardOwned);
             Assert.AreEqual(1,resumed.Save.progress.claimedRewards.Count(id=>id==TutorialDirector.RewardId));
             int before=saves;resumed.RetryReward();Assert.AreEqual(before,saves);Assert.AreEqual(TutorialDirector.PennantFlag,progression.CosmeticFlags);
+        }
+        [Test] public void FinishedGuidesCanBeReplayedWithoutDuplicatingTheGift()
+        {
+            var progression = new ProgressionService();
+            var tutorial = new TutorialDirector(null, false, progression, () => true);
+            First(tutorial); Second(tutorial); Rest(tutorial);
+            Assert.IsTrue(tutorial.Finished); tutorial.LearnAgain();
+            Assert.AreEqual("QC001", tutorial.CurrentLevelId);
+            Assert.IsFalse(tutorial.NeedsIntroduction); Assert.IsTrue(tutorial.RewardOwned);
+            First(tutorial); Second(tutorial); Rest(tutorial);
+            Assert.AreEqual(1, tutorial.Save.progress.claimedRewards.Length);
+            Assert.AreEqual(TutorialDirector.PennantFlag, progression.CosmeticFlags);
         }
         [Test] public void FailedSaveRollsBackTheGiftAndAllowsAnIdempotentRetry()
         {

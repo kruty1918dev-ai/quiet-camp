@@ -11,6 +11,19 @@ namespace QuietCamp.Tests
 {
     public class MenuBackdropTests
     {
+        [Test] public void CampSceneRotationsAreNormalizedBeforeHostsInitialize()
+        {
+            var scene = System.IO.File.ReadAllText("Assets/QuietCamp/Scenes/Camp.unity");
+            var rotations = System.Text.RegularExpressions.Regex.Matches(scene,
+                @"m_LocalRotation: \{x: ([^,]+), y: ([^,]+), z: ([^,]+), w: ([^}]+)\}");
+            Assert.Greater(rotations.Count, 0);
+            foreach (System.Text.RegularExpressions.Match rotation in rotations)
+            {
+                var values = Enumerable.Range(1, 4).Select(index => double.Parse(rotation.Groups[index].Value,
+                    System.Globalization.CultureInfo.InvariantCulture));
+                Assert.That(values.Sum(value => value * value), Is.EqualTo(1d).Within(.000001d), rotation.Value);
+            }
+        }
         [Test] public void EveryGladeCanBeChosenAndThePreviousLaunchIsExcluded()
         {
             var levels = CampContent.Summaries;

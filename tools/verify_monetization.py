@@ -6,7 +6,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
 PROJECT = ROOT / "QuietCamp"
-ARTIFACTS = PROJECT / "Library/Bee/artifacts/1300b0aEDbg.dag"
+ARTIFACTS = PROJECT / "Library/Bee/artifacts"
 
 
 def main():
@@ -21,9 +21,10 @@ def main():
         compiled = {}
         for name, folder in assemblies:
             assembly = "QuietCamp." + name
-            original = ARTIFACTS / (assembly + ".rsp")
-            if not original.exists():
-                raise RuntimeError("Missing existing Unity compiler response: " + str(original))
+            candidates = list(ARTIFACTS.glob("*E*.dag/" + assembly + ".rsp"))
+            if not candidates:
+                raise RuntimeError("Missing existing Unity compiler response: " + assembly)
+            original = max(candidates, key=lambda path: path.stat().st_mtime)
             options = []
             for line in original.read_text().splitlines():
                 if line.startswith(("-out:", "-refout:")) or line.strip('"').endswith(".cs"):
