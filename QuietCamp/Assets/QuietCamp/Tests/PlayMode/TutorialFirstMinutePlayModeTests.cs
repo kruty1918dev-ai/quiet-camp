@@ -221,14 +221,17 @@ namespace QuietCamp.Tests
 
             yield return Camp("QC002");services=QuietCampBootstrap.ServicesRef;Assert.NotNull(Button("undo"));Assert.IsNull(Button("hint"));
             Tap("guide-skip");yield return Frames();Tap("guide-skip-confirm");yield return Frames();
-            Assert.IsTrue(services.Tutorial.Skipped);Assert.IsTrue(services.Tutorial.AllControls);Assert.IsFalse(services.Tutorial.RewardOwned);
+            Assert.IsTrue(services.Tutorial.Skipped);Assert.IsTrue(services.Tutorial.AllControls);Assert.IsTrue(services.Tutorial.RewardOwned,"The pennant is a welcome gift — skipping never takes it.");
             Assert.NotNull(Button("guests"));Assert.NotNull(Button("hint"));Assert.NotNull(Button("pause"));Assert.IsNull(Hud().Element("tutorial"));
             yield return Shot("02-skipped-guide-unlocks-controls-de130");
             host=CampSceneHost.Current;
             foreach(var pose in host.Session.Level.witness)
                 Assert.IsTrue(host.Session.TryCommit(PlacementCommand.Place(pose.guestId,pose.x,pose.z,pose.rotation),out _));
             yield return Frames();Assert.IsTrue(Button("check").interactable);Tap("check");yield return Frames();
-            Assert.IsTrue(host.Session.IsCompleted);Assert.IsFalse(services.Tutorial.RewardOwned,"Finishing after skip must not grant the evaluated tutorial gift.");
+            Assert.IsTrue(host.Session.IsCompleted);Assert.IsTrue(services.Tutorial.RewardOwned);
+            var claimsJson=JsonUtility.ToJson(services.Tutorial.Save);
+            Assert.AreEqual(1,claimsJson.Split(new[]{TutorialDirector.RewardId},System.StringSplitOptions.None).Length-1,
+                "Finishing after skip must not grant the gift twice.");
         }
 
         [UnityTest,Timeout(240000)] public IEnumerator GuideExplainsMistakesAndFinishedLearningReturnsToMenu()

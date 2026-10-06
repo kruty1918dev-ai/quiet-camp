@@ -212,9 +212,23 @@ namespace QuietCamp.Presentation.World
 
             // Selection is a tap; only a deliberate drag lifts a committed tent.
             if (picked != null) _session.Select(picked);
-            else if (_session.SelectedGuestId == null) return;
-            else if (_session.State.Contains(_session.SelectedGuestId))
-            { _session.Select(null); return; }
+            else
+            {
+                var selected = _session.SelectedGuestId;
+                // Tap-to-place: a tap on an empty cell picks up the next
+                // unplaced tent — no card drag needed. Once every tent is
+                // placed, the tap just releases the selection like before.
+                if (selected == null || _session.State.Contains(selected))
+                {
+                    selected = NextUnplacedGuest();
+                    if (selected == null)
+                    {
+                        if (_session.SelectedGuestId != null) _session.Select(null);
+                        return;
+                    }
+                    _session.Select(selected);
+                }
+            }
 
             if (_policy != null && !_policy.TryBeginPointerCapture(GameplayInputKind.Placement, sample.Position, sample.Id)) return;
             _pointerId = sample.Id;
@@ -476,6 +490,14 @@ namespace QuietCamp.Presentation.World
                     if (kv.Value.Root == t.gameObject) return kv.Key;
                 t = t.parent;
             }
+            return null;
+        }
+
+        /// <summary>Next guest without a placement, in roster (card) order.</summary>
+        string NextUnplacedGuest()
+        {
+            foreach (var guest in _level.guests)
+                if (guest != null && !_session.State.Contains(guest.id)) return guest.id;
             return null;
         }
 

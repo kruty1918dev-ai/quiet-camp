@@ -187,7 +187,10 @@ namespace QuietCamp.Presentation.UI
                 + "<img id=\"guide-portrait\" class=\"guide-portrait\" src=\"res:QuietCamp/UI/Mentor/" + portrait + "\"/>"
                 + "<view class=\"guide-copy\">" + HtmlUi.Text(T("guide.name"), "guide-name")
                 + HtmlUi.Text(T(_tutorialKey), "guide-instruction")
-                + HtmlUi.Button(_surface, "guide-skip", T("guide.skip"), () => OpenModal("GuideSkip"), "guide-skip") + "</view></view>";
+                + (_services.Tutorial.Guiding(_session.Level.id)
+                    ? HtmlUi.Button(_surface, "guide-skip", T("guide.skip"), () => OpenModal("GuideSkip"), "guide-skip")
+                    : "")
+                + "</view></view>";
         }
 
         string GuideFocus(string target) => _tutorialKey != null && _services.Tutorial.Target == target ? " guide-focus" : "";
@@ -369,10 +372,10 @@ namespace QuietCamp.Presentation.UI
                     body = SettingsPanel.Render(_services, _overlay, _setNav);
                     break;
                 case "WishLegend":
-                    title=T("hud.wishes");
+                    title=T("guide.signs.title");
                     var legend=new StringBuilder("<view class=\"column\">");
-                    foreach(var rule in new[]{"path","shade","quiet","friends"})
-                        legend.Append("<view class=\"wish-explanation\">").Append(CampIcons.Mark(rule=="friends"?"guests":rule)).Append(HtmlUi.Text(T("rule."+rule))).Append("</view>");
+                    foreach(var sign in new[]{"bounds","overlap","path","shade","quiet","friends"})
+                        legend.Append("<view class=\"wish-explanation\">").Append(CampIcons.Mark(SignIcon(sign))).Append(HtmlUi.Text(T("guide.sign."+sign))).Append("</view>");
                     body=legend.Append("</view>").ToString();break;
                 case "Guests":
                     title = T("hud.guests");
@@ -381,6 +384,7 @@ namespace QuietCamp.Presentation.UI
                 default:
                     title = T("qc.pause.title");
                     body = OverlayButton("resume", "qc.resume.button", () => Action("qc.resume"), "primary")
+                        + OverlayButton("signs", "guide.signs.title", () => OpenModal("WishLegend"), "quiet")
                         + OverlayButton("settings", "menu.settings", ShowSettings, "quiet")
                         + OverlayButton("menu", "menu.main", () => Action("qc.menu"), "quiet");
                     break;
@@ -525,12 +529,12 @@ namespace QuietCamp.Presentation.UI
             _surface.Refresh();
         }
 
-        /// <summary>Transient mentor advice after a mistake — sits on the
-        /// guide card for a few seconds, then yields to the step cue again.
-        /// Step progress always wins over advice.</summary>
+        /// <summary>Transient mentor advice — a mistake while guiding, or a
+        /// first-seen sign on any glade. Sits on the guide card for a few
+        /// seconds, then yields to the step cue again.</summary>
         public void ShowGuideHint(string key, float seconds = 5f)
         {
-            if (key == null || !_services.Tutorial.Guiding(_session.Level.id)) return;
+            if (key == null) return;
             SetTutorial(key);
             _hintUntil = Time.unscaledTime + seconds;
         }
@@ -567,6 +571,12 @@ namespace QuietCamp.Presentation.UI
             }
             return "rule." + issue.Code;
         }
+
+        static string SignIcon(string sign) => sign switch
+        {
+            "bounds" => "tent", "overlap" => "remove", "friends" => "guests",
+            _ => sign,
+        };
 
         /// <summary>The finished camp stays available to enjoy until Next is tapped.</summary>
         void BeginCelebration()

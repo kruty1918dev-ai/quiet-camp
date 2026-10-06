@@ -10,9 +10,13 @@ namespace QuietCamp.Application
     {
         public bool initialized, existingPlayer, controlsUnlocked, introductionSeen, menuIntroSeen;
         public TutorialProgress progress = new TutorialProgress();
+        /// <summary>Wish signs the ongoing guide has already explained once.</summary>
+        public string[] explainedSigns = Array.Empty<string>();
     }
 
-    /// <summary>Evaluated first five glades. Skip opens ordinary UI; it never awards mastery.</summary>
+    /// <summary>Evaluated first five glades plus an ongoing sign guide.
+    /// Skip opens ordinary UI and keeps the welcome pennant — the guide
+    /// keeps explaining new signs whenever a glade first uses them.</summary>
     public sealed class TutorialDirector
     {
         public const int PennantFlag = 8;
@@ -65,6 +69,11 @@ namespace QuietCamp.Application
             _persist = persist;
             if (!_save.initialized)
             { _save.initialized = true; _save.existingPlayer = hasExistingPlay; _save.controlsUnlocked = hasExistingPlay; _save.menuIntroSeen = hasExistingPlay; }
+            // Migrated players already met every sign that exists today; a
+            // sign introduced by a future update still gets explained to them.
+            if (_save.explainedSigns == null) _save.explainedSigns = Array.Empty<string>();
+            if (_save.existingPlayer && _save.explainedSigns.Length == 0)
+                _save.explainedSigns = (string[])KnownSigns.Clone();
             BindRunner();
         }
         void BindRunner()
@@ -82,10 +91,69 @@ namespace QuietCamp.Application
             return levelId == "QC001" ? HasStep("QC001.rotate")
                 : levelId != "QC002" || HasStep("QC002.undo");
         }
+        /// <summary>First sign this glade introduces that the player was never
+        /// taught — null during guided steps (those already teach their sign)
+        /// and when nothing in the level is new. Works for skippers and for
+        /// signs added by future updates.</summary>
+        public string PendingSign(LevelData level)
+        {
+            if (level == null || Guiding(level.id)) return null;
+            var explained = _save.explainedSigns ?? Array.Empty<string>();
+            foreach (var sign in SignsIn(level))
+                if (Array.IndexOf(explained, sign) < 0) return sign;
+            return null;
+        }
+        /// <summary>Marks a sign as shown; persists with rollback.</summary>
+        public void ExplainSign(string sign)
+        {
+            var old = _save.explainedSigns;
+            if (sign == null || (old != null && Array.IndexOf(old, sign) >= 0)) return;
+            _save.explainedSigns = new List<string>(old ?? Array.Empty<string>()) { sign }.ToArray();
+            if (_persist != null && !_persist()) { _save.explainedSigns = old; return; }
+            Changed?.Invoke();
+        }
+        /// <summary>Teachable wish signs, in the order the guided glades
+        /// introduce them — a mechanic from a future update extends this list.</summary>
+        static readonly string[] KnownSigns = { "shade", "quiet", "friends" };
+        static List<string> SignsIn(LevelData level)
+        {
+            var signs = new List<string>();
+            if (level?.guests != null)
+                foreach (var g in level.guests)
+                    if (g != null && g.shade) { signs.Add("shade"); break; }
+            if (level?.guests != null)
+                foreach (var g in level.guests)
+                    if (g != null && g.quiet) { signs.Add("quiet"); break; }
+            if (level?.friends != null && level.friends.Length > 0) signs.Add("friends");
+            return signs;
+        }
+        void LearnLevelSigns(LevelData level)
+        {
+            var old = _save.explainedSigns;
+            var list = new List<string>(old ?? Array.Empty<string>());
+            foreach (var sign in SignsIn(level)) if (!list.Contains(sign)) list.Add(sign);
+            if (list.Count == (old?.Length ?? 0)) return;
+            _save.explainedSigns = list.ToArray();
+            if (_persist != null && !_persist()) _save.explainedSigns = old;
+        }
         public void Skip()
         {
             if (Skipped || Finished) return;
             _save.introductionSeen = true; _save.controlsUnlocked = true; _save.existingPlayer = false; _runner.Skip();
+            // The pennant is a welcome gift — an ongoing guide can't be failed.
+            GrantStarterReward();
+        }
+        void GrantStarterReward()
+        {
+            var claims = _save.progress.claimedRewards ?? Array.Empty<string>();
+            if (Array.IndexOf(claims, RewardId) >= 0) return;
+            var oldFlags = _progression.CosmeticFlags; var oldClaims = _save.progress.claimedRewards;
+            _progression.CosmeticFlags |= PennantFlag;
+            _save.progress.claimedRewards = new List<string>(claims) { RewardId }.ToArray();
+            BindRunner();
+            if (_persist != null && !_persist())
+            { _progression.CosmeticFlags = oldFlags; _save.progress.claimedRewards = oldClaims; BindRunner(); return; }
+            Changed?.Invoke();
         }
         public void LearnAgain()
         {
@@ -125,7 +193,10 @@ namespace QuietCamp.Application
                 ["friends-valid"] = friendsPlaced && NoIssue("friends"),
                 ["solved"] = session.IsCompleted && RuleEvaluator.Evaluate(session.Level, session.State.Placements).IsSolved
             };
-            return _runner.Observe(new TutorialObservation(actionId, facts));
+            var observed = _runner.Observe(new TutorialObservation(actionId, facts));
+            // A taught sign stays taught — later glades don't re-explain it.
+            if (observed && actionId == "complete") LearnLevelSigns(session.Level);
+            return observed;
         }
         void OnChanged()
         {

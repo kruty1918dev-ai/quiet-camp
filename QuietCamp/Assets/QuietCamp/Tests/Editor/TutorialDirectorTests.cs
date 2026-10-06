@@ -85,13 +85,15 @@ namespace QuietCamp.Tests
             Assert.IsFalse(tutorial.ReportAction("commit",session));Assert.AreEqual("guide.place",tutorial.Cue("QC001"));
             Place(session);Assert.IsTrue(tutorial.ReportAction("commit",session));
         }
-        [Test] public void SkipOpensAllControlsWithoutGivingACompletionReward()
+        [Test] public void SkipOpensAllControlsAndKeepsTheWelcomeGift()
         {
             var tutorial=new TutorialDirector(null,false,new ProgressionService(),()=>true);tutorial.Skip();
-            Assert.IsTrue(tutorial.AllControls);Assert.IsFalse(tutorial.RewardOwned);
+            Assert.IsTrue(tutorial.AllControls);Assert.IsTrue(tutorial.RewardOwned,"The pennant is a gift, not a pass reward.");
             using var session=new CampSession(Level("QC005",friends:true));Place(session);Place(session,3,1,guest:"b");session.Check();
-            Assert.IsFalse(tutorial.ReportAction("complete",session));Assert.IsFalse(tutorial.RewardOwned);
+            Assert.IsFalse(tutorial.ReportAction("complete",session));
             tutorial.LearnAgain();Assert.AreEqual("QC001",tutorial.CurrentLevelId);Assert.IsTrue(tutorial.AllControls);
+            First(tutorial);Second(tutorial);Rest(tutorial);Assert.IsTrue(tutorial.Finished);
+            Assert.AreEqual(1,tutorial.Save.progress.claimedRewards.Count(id=>id==TutorialDirector.RewardId),"Finishing after a skip must not duplicate the gift.");
         }
         [Test] public void NavigationUnlocksFromCompletedGladesWithoutDependingOnTheReward()
         {
@@ -168,6 +170,28 @@ namespace QuietCamp.Tests
             Assert.IsFalse(new TutorialDirector(restored,false,new ProgressionService(),()=>true).NeedsMenuIntro);
             var legacy=new TutorialDirector(null,true,new ProgressionService(),()=>true);legacy.Skip();
             Assert.IsFalse(legacy.NeedsMenuIntro,"Migrated saves already know the menu.");
+        }
+        [Test] public void OngoingGuideTeachesANewSignOnceAndRemembersIt()
+        {
+            var tutorial=new TutorialDirector(null,false,new ProgressionService(),()=>true);tutorial.Skip();
+            var shady=Level("QC006",shade:true);
+            Assert.AreEqual("shade",tutorial.PendingSign(shady),"A first-seen sign is taught right away.");
+            tutorial.ExplainSign("shade");
+            Assert.IsNull(tutorial.PendingSign(shady));Assert.IsNull(tutorial.PendingSign(Level("QC007",shade:true)));
+            Assert.AreEqual("quiet",tutorial.PendingSign(Level("QC008",quiet:true)),"Other unseen signs still wait for their level.");
+            var restored=JsonConvert.DeserializeObject<TutorialSaveData>(JsonConvert.SerializeObject(tutorial.Save));
+            Assert.IsNull(new TutorialDirector(restored,false,new ProgressionService(),()=>true).PendingSign(shady),"Explained signs persist across restarts.");
+            Assert.IsNull(new TutorialDirector(null,true,new ProgressionService(),()=>true).PendingSign(shady),"Migrated players get no sign popups.");
+        }
+        [Test] public void GuidedCompletionTeachesThatLevelsSigns()
+        {
+            var tutorial=new TutorialDirector(null,false,new ProgressionService(),()=>true);
+            First(tutorial);Second(tutorial);
+            Assert.IsNull(tutorial.PendingSign(Level("QC003",shade:true)),"Guided glades teach through steps, not popups.");
+            using(var session=new CampSession(Level("QC003",shade:true))) {Place(session);Complete(tutorial,session);}
+            tutorial.Skip();
+            Assert.IsNull(tutorial.PendingSign(Level("QC009",shade:true)),"Shade was already taught by the guided glade.");
+            Assert.AreEqual("quiet",tutorial.PendingSign(Level("QC009",quiet:true)));
         }
         [Test] public void MenuIntroDismissalRollsBackWhenTheSaveFails()
         {
