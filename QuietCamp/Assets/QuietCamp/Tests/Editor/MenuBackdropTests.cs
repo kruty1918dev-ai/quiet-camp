@@ -27,7 +27,7 @@ namespace QuietCamp.Tests
         [Test] public void EveryGladeCanBeChosenAndThePreviousLaunchIsExcluded()
         {
             var levels = CampContent.Summaries;
-            Assert.AreEqual(30, levels.Count);
+            Assert.AreEqual(49, levels.Count);
             foreach (var previous in levels)
             {
                 var restored = JsonConvert.DeserializeObject<SettingsSaveData>(JsonConvert.SerializeObject(new SettingsSaveData { lastMenuBackdropId = previous.id }));

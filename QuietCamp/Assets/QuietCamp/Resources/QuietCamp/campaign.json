@@ -146,6 +146,54 @@
     {
       "id": "gen:qc_camp:20",
       "contentHash": "d48e7d7a208928c38bf422b3d61947387ab047840f859548a90f2ceb2e597d40"
+    },
+    {
+      "id": "gen:qc_camp:21",
+      "contentHash": "9df2c8a162734ec1a07b7ed12fba2f3f1fce9872252649b0259f1b4721759e25"
+    },
+    {
+      "id": "gen:qc_camp:22",
+      "contentHash": "65b843f18686948a8dafbe40f6e803b16473e0209a8578349411ff25c011228e"
+    },
+    {
+      "id": "gen:qc_camp:23",
+      "contentHash": "b3e29e65ba774a20d8aacc7f3242bd4a3beb570ff710525bd1d5c0d30381720d"
+    },
+    {
+      "id": "gen:qc_camp:24",
+      "contentHash": "ae4172d0c4d3c9271cc646fa202fee53d9ae4572bdbd67b89d299fcc1d7a4e8b"
+    },
+    {
+      "id": "gen:qc_camp:25",
+      "contentHash": "191dda8fb3cb610c24c5cf7ad1bb91a61cd1b57542351ff7d2f52087e963d111"
+    },
+    {
+      "id": "gen:qc_camp:26",
+      "contentHash": "63293359b599af4935d3f9285ac458e40652cec79180075efd24a4426f2e8562"
+    },
+    {
+      "id": "gen:qc_camp:27",
+      "contentHash": "203109b9921c6deef5b0a9dafa55cf9efade616db488010c72cb6af60ad1eede"
+    },
+    {
+      "id": "gen:qc_camp:28",
+      "contentHash": "5e4aa81cb120409163ad2338f8af0ce20b91436a5f73002375f800cc4695b18d"
+    },
+    {
+      "id": "gen:qc_camp:29",
+      "contentHash": "fa1842174c806c9f31f30b694891ec44771cfd5a47967d27bf557a52827ca663"
+    },
+    {
+      "id": "gen:qc_camp:30",
+      "contentHash": "f1100e05712f70375327f6f11004af9b19e6d3f58cfe0d1ea31d253714754c3f"
+    },
+    {
+      "id": "gen:qc_camp:31",
+      "contentHash": "4adafa296c298bb45819477431bb9472250404a9a72081c639a639548d6b9d19"
+    },
+    {
+      "id": "gen:qc_camp:32",
+      "contentHash": "88a802260cbb8d8b1f7fb2d0f3d8761cfa79eb3c536873717465c556e47a1463"
     }
   ],
   "generatedLevelIds": [
@@ -168,7 +216,57 @@
     "gen:qc_camp:17",
     "gen:qc_camp:18",
     "gen:qc_camp:19",
-    "gen:qc_camp:20"
+    "gen:qc_camp:20",
+    "gen:qc_camp:21",
+    "gen:qc_camp:22",
+    "gen:qc_camp:23",
+    "gen:qc_camp:24",
+    "gen:qc_camp:25",
+    "gen:qc_camp:26",
+    "gen:qc_camp:27",
+    "gen:qc_camp:28",
+    "gen:qc_camp:29",
+    "gen:qc_camp:30",
+    "gen:qc_camp:31",
+    "gen:qc_camp:32"
   ],
-  "contentVersion": "cozy-campaign-2"
+  "districts": [
+    {
+      "id": "glades",
+      "act": 1,
+      "from": 1,
+      "to": 10
+    },
+    {
+      "id": "forest",
+      "act": 1,
+      "from": 11,
+      "to": 20
+    },
+    {
+      "id": "embers",
+      "act": 1,
+      "from": 21,
+      "to": 30
+    },
+    {
+      "id": "bridges",
+      "act": 2,
+      "from": 31,
+      "to": 34
+    },
+    {
+      "id": "stations",
+      "act": 2,
+      "from": 35,
+      "to": 38
+    },
+    {
+      "id": "shores",
+      "act": 2,
+      "from": 39,
+      "to": 42
+    }
+  ],
+  "contentVersion": "cozy-campaign-3"
 }

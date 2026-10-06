@@ -10,8 +10,11 @@ using QuietCamp.Domain;
 // Editor-independent authoring harness using the game's actual Domain code.
 // This compiles tooling, never a Unity player or Android application.
 CheckWalkingNetwork();
+// Campaign positions are level numbers 1-42 (1-10 authored QC + 11-42 gen).
+// 43-45 bake the free "memories" side journey; 61-64 bake bonus side-glades.
+var numbers = Enumerable.Range(1, 45).Concat(Enumerable.Range(61, 4)).ToArray();
 var levels = new List<LevelData>();
-for (int number = 1; number <= 30; number++)
+foreach (int number in numbers)
 {
     string id = number <= 10 ? $"QC{number:000}" : $"gen:qc_camp:{number-10}";
     var level = CampCampaignAuthoring.Create(id, number, CampCampaignAuthoring.SeedForNumber(number));
@@ -27,7 +30,7 @@ for (int number = 1; number <= 30; number++)
     Console.WriteLine($"[Campaign] {id} {level.width}x{level.height} {level.environment.seasonId}/{level.environment.biomeId}/{level.environment.weatherId} guests={level.guests.Length} objects={level.objects.Length} nodes={solver.Nodes}");
 }
 File.WriteAllText(args[0], JsonConvert.SerializeObject(levels, Formatting.Indented));
-Console.WriteLine("[Campaign] 30/30 structural validation + saved witness + independent solver passed");
+Console.WriteLine($"[Campaign] {levels.Count}/{levels.Count} structural validation + saved witness + independent solver passed");
 
 static void CheckWalkingNetwork()
 {

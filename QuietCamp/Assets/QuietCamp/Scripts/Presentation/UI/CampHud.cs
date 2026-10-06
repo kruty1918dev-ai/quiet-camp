@@ -348,7 +348,7 @@ namespace QuietCamp.Presentation.UI
         string StorySummary()
         {
             var key = _services.Journeys.ForLevel(_session.Level.id)?.StoryKey(_session.Level.id);
-            return key == null ? "" : HtmlUi.Text(T(key), "s-sub");
+            return string.IsNullOrEmpty(key) ? "" : HtmlUi.Text(T(key), "s-sub");
         }
 
         string Sheet()

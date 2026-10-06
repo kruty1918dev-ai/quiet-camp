@@ -330,7 +330,7 @@ namespace QuietCamp.Tests
             yield return Shot("05-tap-to-place");
             // A skipper entering a glade with an unseen sign gets it explained.
             services.Progression.MarkCompleted("QC001");services.Progression.MarkCompleted("QC002");
-            services.Tutorial.Skip();yield return Camp("QC003");
+            services.Tutorial.Skip();services.Tutorial.MarkDistrictSeen("glades");yield return Camp("QC003");
             var signText=string.Join(" ",Hud().Element("tutorial")
                 .GetComponentsInChildren<TMPro.TMP_Text>().Select(t=>t.text));
             Assert.IsTrue(signText.Contains(services.Localization.T("guide.sign.shade")),
@@ -339,6 +339,34 @@ namespace QuietCamp.Tests
             yield return Shot("06-sign-explained");
             Assert.IsNull(services.Tutorial.PendingSign(CampSceneHost.Current.Session.Level),
                 "The sign is remembered as taught.");
+        }
+        [UnityTest,Timeout(240000)] public IEnumerator ActTwoOpensWithDistrictIntroAndPlayableSideGlade()
+        {
+            if(UnityEngine.Application.isBatchMode)Assert.Ignore("Requires rendered Game View.");
+            typeof(ScreenshotPlayModeTest).GetMethod("SetGameViewSize",BindingFlags.Static|BindingFlags.NonPublic)
+                .Invoke(null,new object[]{720,1600});
+            yield return ColdBoot();
+            var services=QuietCampBootstrap.ServicesRef;
+            services.Tutorial.Skip();
+            foreach(var id in LevelLoader.MvpLevelIds().Take(30))services.Progression.MarkCompleted(id);
+            yield return Camp("gen:qc_camp:21");
+            var intro=string.Join(" ",Hud().Element("tutorial")
+                .GetComponentsInChildren<TMPro.TMP_Text>().Select(t=>t.text));
+            Assert.IsTrue(intro.Contains(services.Localization.T("district.bridges.intro")),
+                "The first act-2 glade opens with its district intro, got: "+intro);
+            Assert.IsTrue(services.Tutorial.DistrictSeen("bridges"),"District intros persist as seen.");
+            yield return Shot("07-act2-district-intro");
+            // Re-entering the same district does not repeat its intro.
+            services.Progression.MarkCompleted("gen:qc_camp:21");
+            yield return Camp("gen:qc_camp:22");
+            var next=Hud().Element("tutorial");
+            var repeatText=next==null?"":string.Join(" ",next.GetComponentsInChildren<TMPro.TMP_Text>().Select(t=>t.text));
+            Assert.IsFalse(repeatText.Contains(services.Localization.T("district.bridges.intro")),
+                "A seen district stays quiet on the next glade.");
+            // A cleared window makes the published bonus glade playable end-to-end.
+            Assert.IsTrue(services.CanStart("gen:qc_camp:51"),"The dew bonus glade must start after 10 completions.");
+            yield return Camp("gen:qc_camp:51");
+            yield return Shot("08-bonus-glade");
         }
     }
 }

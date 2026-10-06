@@ -63,7 +63,7 @@ namespace QuietCamp.Tests.Editor
             Assert.AreEqual("QC001", ids[0]);
             Assert.AreEqual("QC010", ids[9]);
             Assert.AreEqual("gen:qc_camp:1", ids[10]);
-            Assert.AreEqual(30, ids.Count);
+            Assert.AreEqual(42, ids.Count);
         }
     }
 }

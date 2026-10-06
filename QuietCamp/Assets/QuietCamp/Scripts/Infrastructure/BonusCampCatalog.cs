@@ -17,7 +17,7 @@ namespace QuietCamp.Infrastructure
         }
         // Publication is explicit: an empty id cannot accidentally launch an unrelated campaign level.
         public static bool IsPublished(BonusCampDefinition slot)
-            => slot!=null&&!string.IsNullOrEmpty(slot.levelId)&&Resources.Load<TextAsset>(LevelLoader.LevelsFolder+"/"+slot.levelId)!=null;
+            => slot!=null&&!string.IsNullOrEmpty(slot.levelId)&&LevelLoader.Exists(slot.levelId);
         public static BonusCampDefinition ForLevel(string id)
         {
             if(string.IsNullOrEmpty(id))return null;

@@ -4,7 +4,7 @@
     "afterLevel": 10,
     "requiredCompletions": 10,
     "requiresPremium": false,
-    "levelId": "",
+    "levelId": "gen:qc_camp:51",
     "theme": "dew",
     "titleKey": "map.bonus.dew.title",
     "descriptionKey": "map.bonus.dew.description"
@@ -14,7 +14,7 @@
     "afterLevel": 20,
     "requiredCompletions": 10,
     "requiresPremium": false,
-    "levelId": "",
+    "levelId": "gen:qc_camp:52",
     "theme": "amber",
     "titleKey": "map.bonus.amber.title",
     "descriptionKey": "map.bonus.amber.description"
@@ -24,9 +24,20 @@
     "afterLevel": 30,
     "requiredCompletions": 10,
     "requiresPremium": false,
-    "levelId": "",
+    "levelId": "gen:qc_camp:53",
     "theme": "fireflies",
     "titleKey": "map.bonus.fireflies.title",
     "descriptionKey": "map.bonus.fireflies.description"
+  },
+  {
+    "id": "bonus:qc_camp:4",
+    "afterLevel": 40,
+    "requiredCompletions": 6,
+    "requiresPremium": false,
+    "levelId": "gen:qc_camp:54",
+    "seasonId": "winter",
+    "theme": "frost",
+    "titleKey": "map.bonus.frost.title",
+    "descriptionKey": "map.bonus.frost.description"
   }
 ]

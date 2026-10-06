@@ -11,7 +11,7 @@ namespace QuietCamp.Tests
     {
         [Test] public void EveryPreviewUsesFrozenContentAndTheGameplayAtmosphereResolver()
         {
-            var catalog=AtmosphereCatalog.Load();Assert.AreEqual(30,CampContent.Summaries.Count);
+            var catalog=AtmosphereCatalog.Load();Assert.AreEqual(49,CampContent.Summaries.Count);
             foreach(var summary in CampContent.Summaries)
             {
                 var level=LevelLoader.Load(summary.id);

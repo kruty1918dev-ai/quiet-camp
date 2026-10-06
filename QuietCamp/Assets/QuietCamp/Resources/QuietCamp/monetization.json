@@ -42,6 +42,17 @@
       "published": false,
       "levelIds": [],
       "revision": 1
+    },
+    {
+      "id": "memories",
+      "titleKey": "journey.memories.title",
+      "descriptionKey": "journey.memories.description",
+      "requiredCompletions": 15,
+      "published": true,
+      "previewLevelId": "gen:qc_camp:33",
+      "levelIds": ["gen:qc_camp:33", "gen:qc_camp:34", "gen:qc_camp:35"],
+      "storyKeys": ["journey.memories.story.1", "journey.memories.story.2", "journey.memories.story.3"],
+      "revision": 1
     }
   ]
 }

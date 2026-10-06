@@ -9,11 +9,14 @@ namespace QuietCamp.Application
         public string id, titleKey, descriptionKey, entitlementId, previewLevelId;
         public int revision = 1, currencyCost;
         public bool published;
+        /// <summary>Main-path completions required before this branch opens —
+        /// the "unlocked by playing" gate; 0 keeps the journey ungated.</summary>
+        public int requiredCompletions;
         public string[] levelIds = Array.Empty<string>(), storyKeys = Array.Empty<string>();
         public string StoryKey(string levelId)
         {
             int index = Array.IndexOf(levelIds, levelId);
-            return index >= 0 && index < (storyKeys?.Length ?? 0) ? storyKeys[index] : null;
+            return index >= 0 && index < (storyKeys?.Length ?? 0) && !string.IsNullOrEmpty(storyKeys[index]) ? storyKeys[index] : null;
         }
     }
     [Serializable] public sealed class EntitlementSaveData
@@ -69,6 +72,10 @@ namespace QuietCamp.Application
         {
             var journey = _catalog.ForLevel(levelId);
             if (journey == null || !journey.published) return new AccessDecision(JourneyAccessState.MissingContent, journey);
+            // A progress-gated branch reports "keep walking the main path"
+            // before any purchase question is even asked.
+            if (journey.requiredCompletions > 0 && MainCompleted() < journey.requiredCompletions)
+                return new AccessDecision(JourneyAccessState.Predecessor, journey);
             if (_pro()) return new AccessDecision(JourneyAccessState.Available, journey);
             if (!_grants.Has(journey.entitlementId)) return new AccessDecision(JourneyAccessState.PurchaseRequired, journey);
             return new AccessDecision(_progression.IsCompleted(levelId) || _progression.IsUnlocked(levelId, journey.levelIds)
@@ -87,6 +94,16 @@ namespace QuietCamp.Application
             if (journey == null) return null;
             var next = _progression.NextAfter(levelId, journey.levelIds);
             return Evaluate(next).CanStart ? next : null;
+        }
+        /// <summary>Completions on the ordered main path — side-route finishes
+        /// never substitute for campaign progress.</summary>
+        int MainCompleted()
+        {
+            var main = _catalog.Find("main");
+            if (main?.levelIds == null || main.levelIds.Length == 0) return _progression.CompletedCount;
+            var count = 0;
+            foreach (var id in main.levelIds) if (_progression.IsCompleted(id)) count++;
+            return count;
         }
     }
 }

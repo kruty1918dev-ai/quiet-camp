@@ -20,9 +20,13 @@ namespace QuietCamp.Infrastructure
         public JourneyCatalog Catalog()
         {
             var main = new List<string>(LevelLoader.MvpLevelIds());
+            // Act-2 completions close with a story card — one per level past
+            // the first thirty; earlier positions carry no text at all.
+            var mainStories = new string[main.Count];
+            for (var i = 30; i < main.Count; i++) mainStories[i] = "journey.main.story." + (i + 1);
             var definitions = new List<JourneyDefinition>
             {
-                new JourneyDefinition { id = "main", titleKey = "journey.main.title", descriptionKey = "journey.main.description", levelIds = main.ToArray(), published = true }
+                new JourneyDefinition { id = "main", titleKey = "journey.main.title", descriptionKey = "journey.main.description", levelIds = main.ToArray(), published = true, storyKeys = mainStories }
             };
 #if UNITY_EDITOR
             var test = LevelLoader.TestLevelId();
@@ -39,7 +43,7 @@ namespace QuietCamp.Infrastructure
             {
                 if (journey == null) continue;
                 foreach (var id in journey.levelIds ?? Array.Empty<string>())
-                    if (Resources.Load<TextAsset>(LevelLoader.LevelsFolder + "/" + id) == null) journey.published = false;
+                    if (!LevelLoader.Exists(id)) journey.published = false;
                 definitions.Add(journey);
             }
             if (JourneyCatalog.Validate(definitions).Count > 0)

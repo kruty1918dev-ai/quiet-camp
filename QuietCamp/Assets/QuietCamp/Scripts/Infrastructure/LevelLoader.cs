@@ -19,6 +19,7 @@ namespace QuietCamp.Infrastructure
             public int schemaVersion, freeLevelCount;
             public string testLevelId;
             public string[] mvpLevelIds, campaignLevelIds, generatedLevelIds;
+            public DistrictDefinition[] districts;
         }
 
         /// <summary>
@@ -92,6 +93,59 @@ namespace QuietCamp.Infrastructure
         {
             return LoadCampaign()?.testLevelId;
         }
+
+        /// <summary>Content actually playable: an authored file, a frozen
+        /// generated level, or a generated id whose recipe can produce it.</summary>
+        public static bool Exists(string levelId)
+        {
+            levelId = CampContent.CanonicalId(levelId);
+            if (string.IsNullOrEmpty(levelId)) return false;
+            if (GeneratedCampSource.IsGeneratedId(levelId))
+            {
+                if (Resources.Load<TextAsset>("QuietCamp/GeneratedLevels/" + levelId.Replace(':', '_')) != null)
+                    return true;
+                return GeneratedCampSource.TryParseId(levelId, out var recipe, out _)
+                    && Resources.Load<TextAsset>($"{GeneratedCampSource.RecipesFolder}/{recipe}") != null;
+            }
+            return Resources.Load<TextAsset>($"{LevelsFolder}/{levelId}") != null;
+        }
+
+        /// <summary>World districts over the ordered campaign — ranges are
+        /// 1-based positions; invalid or out-of-range entries are skipped.</summary>
+        public static IReadOnlyList<DistrictDefinition> Districts()
+        {
+            if (_districts != null) return _districts;
+            var raw = LoadCampaign()?.districts;
+            var count = MvpLevelIds().Count;
+            var districts = new List<DistrictDefinition>();
+            var lastTo = 0;
+            foreach (var d in raw ?? Array.Empty<DistrictDefinition>())
+            {
+                if (d == null || string.IsNullOrWhiteSpace(d.id) || d.act < 1
+                    || d.from <= lastTo || d.to < d.from || d.to > count)
+                {
+                    Debug.LogWarning($"[QuietCamp] Skipping invalid district '{d?.id}' (from={d?.from}, to={d?.to}).");
+                    continue;
+                }
+                lastTo = d.to;
+                districts.Add(d);
+            }
+            return _districts = districts;
+        }
+
+        /// <summary>The district containing a campaign level id, else null.</summary>
+        public static DistrictDefinition DistrictFor(string levelId)
+        {
+            levelId = CampContent.CanonicalId(levelId);
+            var ids = MvpLevelIds();
+            for (var i = 0; i < ids.Count; i++)
+                if (ids[i] == levelId)
+                    foreach (var d in Districts())
+                        if (i + 1 >= d.from && i + 1 <= d.to) return d;
+            return null;
+        }
+
+        static IReadOnlyList<DistrictDefinition> _districts;
 
         static CampaignData LoadCampaign()
         {

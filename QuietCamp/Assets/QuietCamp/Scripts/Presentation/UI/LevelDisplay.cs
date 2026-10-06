@@ -1,4 +1,5 @@
 using Kruty1918.Localization;
+using QuietCamp.Application;
 using QuietCamp.Infrastructure;
 namespace QuietCamp.Presentation.UI
 {
@@ -11,7 +12,7 @@ namespace QuietCamp.Presentation.UI
     {
         /// <summary>"Галявина 07" for path levels; a localized test/dev label
         /// for the QA level; a neutral fallback for unknown ids.</summary>
-        public static string Title(string levelId, ILocalizationService loc)
+        public static string Title(string levelId, ILocalizationService loc, JourneyCatalog journeys = null)
         {
             if (levelId == null) return loc.T("level.unknown");
             if (IsTest(levelId)) return loc.T("level.test");
@@ -25,6 +26,9 @@ namespace QuietCamp.Presentation.UI
                 if (ids[i] == levelId)
                     return loc.TF("level.meadow", i + 1);
             }
+            var journey = journeys?.ForLevel(levelId);
+            if (journey != null)
+                return loc.T("journey." + journey.id + ".level." + (System.Array.IndexOf(journey.levelIds, levelId) + 1));
             return loc.T("level.unknown");
         }
 

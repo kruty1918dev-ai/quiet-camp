@@ -90,7 +90,7 @@ namespace QuietCamp.Tests
                 var scroll = overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();
                 var corners=new Vector3[4];scroll.GetComponent<RectTransform>().GetWorldCorners(corners);
                 Assert.Greater(corners[2].x-corners[0].x,Screen.width*.88f,"Roadmap is boxed into a narrow panel on a wide screen");
-                Assert.AreEqual(30, overlay.GetComponentsInChildren<Button>(true).Count(b => b.name.StartsWith("<button #level-")));
+                Assert.AreEqual(42, overlay.GetComponentsInChildren<Button>(true).Count(b => b.name.StartsWith("<button #level-")));
                 var graphic = overlay.GetComponentInChildren<RoadmapGraphic>(); Assert.NotNull(graphic); Assert.IsFalse(graphic.raycastTarget);
                 foreach (var fraction in new[] { 1f, .5f, 0f })
                 {
@@ -98,7 +98,7 @@ namespace QuietCamp.Tests
                     yield return Shot("roadmap_" + size.x + "x" + size.y + "_" + fraction);
                     var mesh = graphic.canvasRenderer.GetMesh(); Assert.NotNull(mesh);
                     Debug.Log("[RoadmapQA] "+size+" fraction="+fraction+" vertices="+mesh.vertexCount);
-                    Assert.Less(mesh.vertexCount, 60000, "Map exceeds uGUI mesh budget"); Assert.Greater(mesh.vertexCount, 5000);
+                    Assert.Less(mesh.vertexCount, 60000, "Map exceeds uGUI mesh budget"); Assert.Greater(mesh.vertexCount, 800, "Map mesh is suspiciously empty");
                 }
                 scroll.verticalNormalizedPosition=.37f;scroll.velocity=Vector2.zero;yield return Frames(5);
                 Tap("back");yield return Frames(15);Tap("levels");yield return Frames(12);

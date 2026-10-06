@@ -84,7 +84,7 @@ namespace QuietCamp.Presentation.UI
             var albumCount = _services.Save.Album.entries?.Length ?? 0;
             var ctaTitle = done > 0 || !string.IsNullOrEmpty(_services.Save.Session.levelId) ? T("menu.continue") : T("menu.start");
             var ctaSub = string.Format(T("menu.cta.progress"),
-                Mathf.Min(done + 1, levels.Count), LevelDisplay.Title(nextId, _services.Localization));
+                Mathf.Min(done + 1, levels.Count), LevelDisplay.Title(nextId, _services.Localization, _services.Journeys));
             var content =
                 ""
                 + "<view class=\"top menu-top\" id=\"menu-header\" data-motion-role=\"edge-top\">"
@@ -228,6 +228,9 @@ namespace QuietCamp.Presentation.UI
         {
             var ids = LevelLoader.MvpLevelIds();
             var next = _services.JourneyAccess.ContinueTarget("main");
+            var districts = LevelLoader.Districts();
+            var districtAt = new Dictionary<int, DistrictDefinition>();
+            foreach (var d in districts) districtAt[d.from] = d;
             var html = new StringBuilder("<scroll id=\"roadmap-scroll\" class=\"map-scroll\"><view class=\"roadmap\" style=\"height:" + HtmlUi.Number(RoadmapLayout.Height(ids.Count)) + "px\"><view id=\"roadmap-art\" class=\"roadmap-art\" />");
             for (var i = 0; i < ids.Count; i++)
             {
@@ -236,6 +239,11 @@ namespace QuietCamp.Presentation.UI
                 var done = _services.Progression.IsCompleted(id);
                 var x = RoadmapGraphic.NodeX(i)*100;
                 var summary = CampContent.Summary(id);
+                if (districtAt.TryGetValue(i + 1, out var district))
+                    html.Append("<view class=\"map-district act-").Append(district.act)
+                        .Append("\" style=\"top:").Append(HtmlUi.Number(RoadmapLayout.MainY(i)+34))
+                        .Append("px\">").Append(HtmlUi.Text(T(district.TitleKey), "map-district-name"))
+                        .Append("</view>");
                 _overlay.Callbacks.Bind("level-"+i, () =>
                 {
                     if (unlocked) { _services.PendingMenuScreen="Levels"; Action("qc.play",id); }
@@ -244,7 +252,7 @@ namespace QuietCamp.Presentation.UI
                 html.Append("<view class=\"map-stop\" style=\"left:").Append(HtmlUi.Number(x)).Append("%;top:").Append(HtmlUi.Number(RoadmapLayout.MainY(i)+100))
                     .Append("px\"><button id=\"level-").Append(i).Append("\" class=\"map-node ")
                     .Append(done ? "done" : id==next ? "selected" : unlocked ? "" : "locked")
-                    .Append("\" data-tooltip=\"").Append(HtmlUi.Escape(LevelDisplay.Title(id,_services.Localization)))
+                    .Append("\" data-tooltip=\"").Append(HtmlUi.Escape(LevelDisplay.Title(id,_services.Localization,_services.Journeys)))
                     .Append("\" onClick=\"Globals.campUi.Click('level-").Append(i).Append("')\">")
                     .Append(HtmlUi.Text((i+1).ToString(),"node-number"))
                     .Append(done ? CampIcons.Mark("check","node-status") : !unlocked ? CampIcons.Mark("lock","node-status") : "")
@@ -293,6 +301,9 @@ namespace QuietCamp.Presentation.UI
             if(slot.requiresPremium)
                 html.Append("<view class=\"row\">").Append(CampIcons.Mark(access.HasPremium?"check":"lock"))
                     .Append(HtmlUi.Text(T("map.bonus.premiumRequirement"),"bonus-condition")).Append("</view>");
+            if(!string.IsNullOrEmpty(slot.seasonId))
+                html.Append("<view class=\"row\">").Append(CampIcons.Mark(access.SeasonMatch?"check":"lock"))
+                    .Append(HtmlUi.Text(string.Format(T("map.bonus.seasonRequirement"),T("season."+slot.seasonId)),"bonus-condition")).Append("</view>");
             html.Append("</view>");
             if(!access.Published)html.Append(HtmlUi.Text(T("map.bonus.preparing"),"bonus-note"));
             return html.Append("</view>").ToString();
@@ -315,7 +326,7 @@ namespace QuietCamp.Presentation.UI
             _services.AlbumIndex = Mathf.Clamp(_services.AlbumIndex,0,entries.Length-1);
             var selected = entries[_services.AlbumIndex];
             var html = new StringBuilder("<view id=\"album-viewport\" class=\"album-viewport\" /><view class=\"album-info\">");
-            html.Append(HtmlUi.Text(LevelDisplay.Title(selected.levelId,_services.Localization),"album-name"));
+            html.Append(HtmlUi.Text(LevelDisplay.Title(selected.levelId,_services.Localization,_services.Journeys),"album-name"));
             html.Append(HtmlUi.Button(_overlay,"album-replay",T("action.replay"),()=>
             { _services.PendingMenuScreen="Album"; Action("qc.play",selected.levelId); },"primary"));
             html.Append(OverlayButton("album-stay", "memory.stay", () => Show("AlbumQuiet"), "quiet"));
@@ -356,6 +367,13 @@ namespace QuietCamp.Presentation.UI
             html.Append(HtmlUi.Text(T("journey.intro"), "s-sub"));
             html.Append(HtmlUi.Text(string.Format(T("journey.contents"), journey.levelIds.Length), "s-sub"));
             if (!journey.published) return html.Append(HtmlUi.Text(T("journey.preparing"), "s-sub")).Append("</view>").ToString();
+            // A progress-gated branch says "keep walking the path" instead of
+            // pretending there is something to buy.
+            if (journey.requiredCompletions > 0 && journey.levelIds.Length > 0
+                && _services.JourneyAccess.Evaluate(journey.levelIds[0]).State == JourneyAccessState.Predecessor)
+                return html.Append(HtmlUi.Text(
+                    string.Format(T("journey.progressRequirement"), journey.requiredCompletions), "s-sub"))
+                    .Append("</view>").ToString();
             var first = _services.JourneyAccess.ContinueTarget(journey.id);
             if (first != null) html.Append(HtmlUi.Button(_overlay, "journey-play", T("menu.start"), () =>
             { _services.PendingMenuScreen = "Journeys"; Action("qc.play", first); }, "primary"));

@@ -110,10 +110,10 @@ namespace QuietCamp.Tests
         public void FrozenCampaignMatchesTheSeasonalStoryAndWaterTable()
         {
             var ids=LevelLoader.MvpLevelIds();var seasons=new[]{"spring","summer","summer","autumn","winter","spring"};
-            var water=new HashSet<int>{7,10,13,19,24,29};
+            var water=new HashSet<int>{7,10,13,19,24,29,32,40,42};
             for(int i=0;i<ids.Count;i++)
             {
-                var level=LevelLoader.Load(ids[i]);Assert.AreEqual(2,level.ruleVersion);Assert.AreEqual(seasons[i/5],level.environment.seasonId);
+                var level=LevelLoader.Load(ids[i]);Assert.AreEqual(2,level.ruleVersion);Assert.AreEqual(seasons[Math.Min(5,i/5)],level.environment.seasonId);
                 Assert.AreEqual(water.Contains(i+1),level.environment.shore!=null,level.id);
                 Assert.AreEqual(CampContent.CalculateHash(level),level.contentHash,level.id+" hash");
                 Assert.AreEqual(JsonConvert.SerializeObject(level.environment),JsonConvert.SerializeObject(CampContent.Summary(level.id).environment));

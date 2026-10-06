@@ -200,26 +200,39 @@ class MonetizationProbe
         var resources = UnityEngine.Resources.Root;
         var campaign = JObject.Parse(File.ReadAllText(Path.Combine(resources, "QuietCamp/campaign.json")));
         var main = campaign["mvpLevelIds"].Values<string>().Concat(campaign["generatedLevelIds"].Values<string>()).ToArray();
-        Expect(main.Length == 30 && main.Distinct().Count() == 30, "Existing 30 campaign IDs preserved");
+        Expect(main.Length == 42 && main.Distinct().Count() == 42, "42 campaign IDs across two acts");
         var manifest = JObject.Parse(File.ReadAllText(Path.Combine(resources, "QuietCamp/monetization.json")));
         var journeys = manifest["journeys"].ToObject<JourneyDefinition[]>();
         Expect(JourneyCatalog.Validate(journeys).Count == 0, "Journey manifest valid");
         var dlc = journeys.Single(j => j.id == "lighthouse");
         Expect(dlc.levelIds.Length == 8 && dlc.storyKeys.Length == 8 && !dlc.published, "Lighthouse staging, narrative and sales gate");
-        foreach (var id in main.Concat(dlc.levelIds))
+        var memories = journeys.Single(j => j.id == "memories");
+        Expect(memories.published && memories.requiredCompletions == 15
+            && string.IsNullOrEmpty(memories.entitlementId) && memories.currencyCost == 0,
+            "Memories is a free, progress-gated side story");
+        var bonus = JArray.Parse(File.ReadAllText(Path.Combine(resources, "QuietCamp/bonus_camps.json")))
+            .ToObject<BonusCampDefinition[]>();
+        var districts = campaign["districts"].ToObject<DistrictDefinition[]>();
+        Expect(districts.Length == 6 && districts.All(d => d.from >= 1 && d.to <= main.Length && d.from <= d.to)
+            && districts.Sum(d => d.to - d.from + 1) == main.Length && districts.Count(d => d.act == 2) == 3,
+            "Six districts tile the campaign; act 2 starts after level 30");
+        var sideContent = bonus.Where(b => !string.IsNullOrEmpty(b.levelId)).Select(b => b.levelId)
+            .Concat(memories.levelIds).ToArray();
+        foreach (var id in main.Concat(dlc.levelIds).Concat(sideContent))
         {
             var level = LevelLoader.Load(id);
             Expect(LevelContentValidator.Validate(level).Count == 0 && RuleEvaluator.Evaluate(level, level.witness).IsSolved, "Frozen content and witness " + id);
             var solver = new CampSolver(level, Array.Empty<Placement>(), 20);
             var status = solver.Step(); while (status == CampSolver.Status.Searching) status = solver.Step(.05);
             Expect(status == CampSolver.Status.Solved && RuleEvaluator.Evaluate(level, solver.Solution).IsSolved, "Independent solver " + id);
-            if (dlc.levelIds.Contains(id)) Expect(level.contentHash == CampContent.CalculateHash(level), "Frozen DLC hash " + id);
+            if (dlc.levelIds.Contains(id) || id.StartsWith("gen:", StringComparison.Ordinal))
+                Expect(level.contentHash == CampContent.CalculateHash(level), "Frozen hash " + id);
         }
-        Pass("30 main and 8 authored DLC puzzles: validator, saved witness and independent solver");
+        Pass("42 main, 4 bonus, 3 memories and 8 authored DLC puzzles: validator, saved witness and independent solver");
         var localization = new Dictionary<string, JObject>();
         foreach (var language in new[] { "uk", "en", "de" })
             localization[language] = (JObject)JObject.Parse(File.ReadAllText(Path.Combine(resources, "QuietCampLocales/" + language + ".json")))["entries"];
-        var keys = localization["uk"].Properties().Select(p => p.Name).Where(k => k.StartsWith("economy.") || k.StartsWith("purchase.") || k.StartsWith("journey.") || k.StartsWith("memory.")).ToArray();
+        var keys = localization["uk"].Properties().Select(p => p.Name).Where(k => k.StartsWith("economy.") || k.StartsWith("purchase.") || k.StartsWith("journey.") || k.StartsWith("memory.") || k.StartsWith("district.")).ToArray();
         foreach (var language in localization)
         {
             foreach (var key in keys) Expect(!string.IsNullOrWhiteSpace(language.Value[key]?.Value<string>()), "Missing translation: " + language.Key + ":" + key);

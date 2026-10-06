@@ -18,9 +18,12 @@ namespace QuietCamp.Domain
             (6,6,3),(6,8,4),(8,6,4),(7,7,4),(8,8,6),
             (5,7,3),(7,5,3),(6,8,4),(8,6,4),(8,8,6)
         };
-        static readonly int[] Water = { 7,10,13,19,24,29 };
-        static readonly int[] Fire = { 4,6,9,10,12,15,18,20,21,23,25,27,30 };
-        static readonly int[] Exterior = { 6,8,9,12,14,17,19,22,24,27,29,30 };
+        // Sets index into level numbers: act-2 (31-42) adds streams and shores,
+        // threshold verges for the route feel, and campfires that keep the
+        // quiet-sign in play; 61-64 are the bonus side-glades.
+        static readonly int[] Water = { 7,10,13,19,24,29,32,40,42 };
+        static readonly int[] Fire = { 4,6,9,10,12,15,18,20,21,23,25,27,30,33,36,40,62 };
+        static readonly int[] Exterior = { 6,8,9,12,14,17,19,22,24,27,29,30,32,35,38,41 };
 
         public static LevelData Create(string id,int number,int seed)
         {
@@ -31,7 +34,7 @@ namespace QuietCamp.Domain
                 var level=new LevelData {schemaVersion=1,ruleVersion=2,id=id,order=number,chapter=(number-1)/5+1,
                     seed=seed,decorSeed=unchecked(seed^0x5f5f),generatorVersion=Version,generationAttempt=attempt+1,
                     width=spec.w,height=spec.h,blocked=Array.Empty<int[]>(),shade=Array.Empty<int[]>(),noise=Array.Empty<int[]>(),
-                    friends=Array.Empty<string[]>(),lighting=number%5==0?"evening":number%4==0?"morning":"day",
+                    friends=Array.Empty<string[]>(),lighting=number==63?"night":number%5==0?"evening":number%4==0?"morning":"day",
                     tutorialKey=number<=8?"tutorial."+number:""};
                 ConfigureAccess(level,number);
                 bool shade=number==3||number>=6&&number%3==1;
@@ -120,8 +123,9 @@ namespace QuietCamp.Domain
         {
             int chapter=Math.Min(5,(Math.Max(1,number)-1)/5);
             var season=new[]{"spring","summer","summer","autumn","winter","spring"}[chapter];
+            if(number>=61&&number<=64)season=new[]{"spring","autumn","summer","winter"}[number-61];
             bool water=Water.Contains(number);
-            string biome=water?"shore":chapter==4?"pines":number%3==0?"meadow":"forest";
+            string biome=water?"shore":number==64?"pines":chapter==4?"pines":number%3==0?"meadow":"forest";
             string weather=new[]{7,13,17,19}.Contains(number)?"rain":new[]{16,21,24,29}.Contains(number)?"mist":number%4==0?"cloudy":"clear";
             var env=new EnvironmentCompositionData {biomeId=biome,seasonId=season,weatherId=weather,
                 moisture=weather=="rain"?.9f:weather=="mist"?.82f:weather=="cloudy"?.48f:.26f,

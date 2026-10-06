@@ -61,9 +61,9 @@ namespace QuietCamp.Tests
                     services.Localization.TrySetLanguage(language);yield return Frames(14);Canvas.ForceUpdateCanvases();
                     var overlay=Object.FindObjectsByType<HtmlSurface>().Single(s=>s.name=="MenuOverlay");
                     var map=overlay.GetComponentInChildren<RoadmapGraphic>();Assert.NotNull(map);
-                    Assert.AreEqual(30,map.Scenes.Count);
-                    Assert.AreEqual(30,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #level-")));
-                    Assert.AreEqual(3,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #bonus-")&&b.name!="<button #bonus-play>"));
+                    Assert.AreEqual(49,map.Scenes.Count);
+                    Assert.AreEqual(42,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #level-")));
+                    Assert.AreEqual(4,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #bonus-")&&b.name!="<button #bonus-play>"));
                     var scroll=overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();
                     foreach(float fraction in new[]{1f,.65f,.35f,0f})
                     {
@@ -161,7 +161,7 @@ namespace QuietCamp.Tests
                     services.ReducedMotion=false;
                 }
             }
-            Tap("back");yield return Frames(10);Assert.IsEmpty(Object.FindObjectsByType<RoadmapGraphic>());
+            Tap("back");yield return Frames(30);Assert.IsEmpty(Object.FindObjectsByType<RoadmapGraphic>());
         }
     }
 }

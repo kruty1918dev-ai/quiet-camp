@@ -86,11 +86,11 @@ namespace QuietCamp.Tests
             Size(2560,1600);yield return Frames(12);Tap("levels");yield return Frames(15);
             var overlay=Object.FindObjectsByType<HtmlSurface>().First(s=>s.name=="MenuOverlay");
             var scroll=overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();Assert.NotNull(scroll);
-            Assert.AreEqual(30,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #level-")));
-            foreach(var id in new[]{"bonus-10","bonus-20","bonus-30"})
+            Assert.AreEqual(42,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #level-")));
+            foreach(var id in new[]{"bonus-10","bonus-20","bonus-30","bonus-40"})
             {
                 var bonus=Button(id);Assert.NotNull(bonus);
-                var title=bonus.GetComponentsInChildren<TMPro.TMP_Text>().First(t=>t.text.Contains(id=="bonus-10"?"Taufrisches":id=="bonus-20"?"Bernstein":"Glühwürmchen"));
+                var title=bonus.GetComponentsInChildren<TMPro.TMP_Text>().First(t=>t.text.Contains(id=="bonus-10"?"Taufrisches":id=="bonus-20"?"Bernstein":id=="bonus-30"?"Glühwürmchen":"Frostlichtung"));
                 title.ForceMeshUpdate();Assert.LessOrEqual(title.textInfo.lineCount,2,"Bonus title is fragmented: "+title.text);
                 if(id=="bonus-20"&&title.textInfo.lineCount>1)
                 {

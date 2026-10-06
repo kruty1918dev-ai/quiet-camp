@@ -19,7 +19,7 @@ namespace QuietCamp.Infrastructure
     public static class GeneratedCampSource
     {
         public const string Prefix = "gen:";
-        const string RecipesFolder = "QuietCamp/Recipes";
+        internal const string RecipesFolder = "QuietCamp/Recipes";
         const int MaxCandidates = 30;
 
         public static bool IsGeneratedId(string levelId)

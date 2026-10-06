@@ -246,13 +246,25 @@ namespace QuietCamp.Presentation.World
                 _session.Select(level.guests[0].id);
             _hud.GuestSelected += _ => _tutorial.ReportAction("select", _session);
             _hud.SetTutorial(_tutorial.Cue(level.id));
-            // The ongoing guide: a glade that introduces a sign the player was
-            // never taught gets a one-time explanation — even after updates.
-            var sign = _tutorial.PendingSign(level);
-            if (sign != null)
+            // Act framing: the first unplayed glade of a new district opens
+            // with the guide narrating what this region is — once ever.
+            var district = LevelLoader.DistrictFor(level.id);
+            if (district != null && !_services.Progression.IsCompleted(level.id)
+                && !_tutorial.Guiding(level.id) && !_tutorial.DistrictSeen(district.id))
             {
-                _tutorial.ExplainSign(sign);
-                _hud.ShowGuideHint("guide.sign." + sign, 7f);
+                _tutorial.MarkDistrictSeen(district.id);
+                _hud.ShowGuideHint(district.IntroKey, 9f);
+            }
+            else
+            {
+                // The ongoing guide: a glade that introduces a sign the player was
+                // never taught gets a one-time explanation — even after updates.
+                var sign = _tutorial.PendingSign(level);
+                if (sign != null)
+                {
+                    _tutorial.ExplainSign(sign);
+                    _hud.ShowGuideHint("guide.sign." + sign, 7f);
+                }
             }
         }
 

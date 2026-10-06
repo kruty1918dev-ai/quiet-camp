@@ -12,6 +12,8 @@ namespace QuietCamp.Application
         public TutorialProgress progress = new TutorialProgress();
         /// <summary>Wish signs the ongoing guide has already explained once.</summary>
         public string[] explainedSigns = Array.Empty<string>();
+        /// <summary>World districts whose intro the guide has already shown once.</summary>
+        public string[] seenDistricts = Array.Empty<string>();
     }
 
     /// <summary>Evaluated first five glades plus an ongoing sign guide.
@@ -74,6 +76,7 @@ namespace QuietCamp.Application
             if (_save.explainedSigns == null) _save.explainedSigns = Array.Empty<string>();
             if (_save.existingPlayer && _save.explainedSigns.Length == 0)
                 _save.explainedSigns = (string[])KnownSigns.Clone();
+            if (_save.seenDistricts == null) _save.seenDistricts = Array.Empty<string>();
             BindRunner();
         }
         void BindRunner()
@@ -110,6 +113,21 @@ namespace QuietCamp.Application
             if (sign == null || (old != null && Array.IndexOf(old, sign) >= 0)) return;
             _save.explainedSigns = new List<string>(old ?? Array.Empty<string>()) { sign }.ToArray();
             if (_persist != null && !_persist()) { _save.explainedSigns = old; return; }
+            Changed?.Invoke();
+        }
+        /// <summary>Whether this district's intro was already narrated once.</summary>
+        public bool DistrictSeen(string districtId)
+        {
+            var seen = _save.seenDistricts;
+            return districtId != null && seen != null && Array.IndexOf(seen, districtId) >= 0;
+        }
+        /// <summary>Marks a district intro as shown; persists with rollback.</summary>
+        public void MarkDistrictSeen(string districtId)
+        {
+            if (districtId == null || DistrictSeen(districtId)) return;
+            var old = _save.seenDistricts;
+            _save.seenDistricts = new List<string>(old ?? Array.Empty<string>()) { districtId }.ToArray();
+            if (_persist != null && !_persist()) { _save.seenDistricts = old; return; }
             Changed?.Invoke();
         }
         /// <summary>Teachable wish signs, in the order the guided glades

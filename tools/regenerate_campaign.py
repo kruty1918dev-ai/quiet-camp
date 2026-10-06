@@ -39,12 +39,14 @@ def main():
     env = dict(os.environ, DOTNET_CLI_TELEMETRY_OPTOUT="1", DOTNET_NOLOGO="1")
     subprocess.run(["dotnet", "run", "--project", str(project), "--", str(staged_json)], cwd=ROOT, env=env, check=True)
     levels = json.loads(staged_json.read_text())
-    if len(levels) != 30:
+    if len(levels) != 49:
         raise RuntimeError("Incomplete staged campaign")
     campaign_path = CONTENT / "campaign.json"
     campaign = json.loads(campaign_path.read_text())
     ids = campaign["mvpLevelIds"] + campaign["generatedLevelIds"]
-    if ids != [level["id"] for level in levels]:
+    # The staged set appends side-content (memories journey + bonus glades)
+    # after the campaign block; only the ordered campaign must match.
+    if ids != [level["id"] for level in levels[:len(ids)]]:
         raise RuntimeError("Campaign order/IDs changed")
     publish = {}
     summaries = []
@@ -52,23 +54,29 @@ def main():
         level_id = level["id"]
         folder = "GeneratedLevels" if level_id.startswith("gen:") else "Levels"
         path = CONTENT / folder / (level_id.replace(":", "_") + ".json")
-        current = json.loads(path.read_text())
+        # New levels have nothing to archive — their hash list entry is added below.
+        current = json.loads(path.read_text()) if path.exists() else {"contentHash": ""}
         content_hash = current["contentHash"]
-        if len(content_hash) != 64 or any(c not in "0123456789abcdef" for c in content_hash):
+        if content_hash and (len(content_hash) != 64 or any(c not in "0123456789abcdef" for c in content_hash)):
             raise RuntimeError("Unsafe archive hash")
         archive = CONTENT / "ContentRevisions" / (content_hash + ".json")
-        if current["contentHash"] != level["contentHash"] and not archive.exists():
+        if path.exists() and current["contentHash"] != level["contentHash"] and not archive.exists():
             # Preserve the exact pre-update bytes, never reinterpret old data.
             publish[archive] = path.read_bytes()
         publish[path] = (json.dumps(level, ensure_ascii=False, indent=2) + "\n").encode()
+        # Levels without a prior layout still need a baseline snapshot so old
+        # saves carrying only a contentHash can resolve through CampContent.Legacy.
+        legacy = CONTENT / "LegacyLevels" / (level_id.replace(":", "_") + ".json")
+        if not legacy.exists():
+            publish[legacy] = publish[path]
         summaries.append(dict(id=level_id, number=level["order"], width=level["width"], height=level["height"],
             decorSeed=level["decorSeed"], lighting=level["lighting"], environmentPreset=level["environmentPreset"],
             entry=level["entry"], accessPoints=level["accessPoints"], mapObjects=level["objects"], canopies=level["canopies"],
             exteriorWalkable=level["exteriorWalkable"], environment=level["environment"],
             shade=any(g["shade"] for g in level["guests"]), quiet=any(g["quiet"] for g in level["guests"]),
             friends=bool(level["friends"]), fire=bool(level["noise"])))
-    campaign["contentVersion"] = "cozy-campaign-2"
-    campaign["levels"] = [dict(id=level["id"], contentHash=level["contentHash"]) for level in levels]
+    campaign["contentVersion"] = "cozy-campaign-3"
+    campaign["levels"] = [dict(id=level["id"], contentHash=level["contentHash"]) for level in levels[:len(ids)]]
     publish[CONTENT / "level_summaries.json"] = (json.dumps(summaries, ensure_ascii=False, indent=2) + "\n").encode()
     publish[campaign_path] = (json.dumps(campaign, ensure_ascii=False, indent=2) + "\n").encode()
     if not args.write:

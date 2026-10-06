@@ -214,6 +214,9 @@ switch { flex-shrink: 0; width: 124px; height: 68px; margin: 0; }
 .node-status { position: absolute; right: -6px; bottom: -4px; width: 46px; height: 46px; min-width: 46px; min-height: 46px; }
 .map-wishes { flex-direction: row; gap: 8px; }
 .map-wishes .ico { width: 40px; height: 40px; min-width: 40px; min-height: 40px; }
+.map-district { position: absolute; left: 50%; transform: translateX(-50%); width: 420px; align-items: center; }
+.map-district-name { font-size: 30px; font-weight: bold; color: #fdf3d0; text-align: center; background-color: rgba(43,61,47,.72); padding: 6px 22px; border-radius: 20px; border-width: 2px; border-color: #877b54; }
+.map-district.act-2 .map-district-name { color: #e9d9ff; background-color: rgba(52,47,79,.78); border-color: #9a86c4; }
 .map-bonus-stop { position: absolute; width: 320px; margin-left: -160px; align-items: center; gap: 10px; }
 .map-bonus-node { width: 320px; min-height: 132px; padding: 14px 22px; gap: 5px; flex-direction: column; border-radius: 34px; border-width: 3px; border-color: #b39350; background-image: linear-gradient(145deg, #fbefc8 0%, #ddd6a8 100%); }
 .map-bonus-node.bonus-ready { border-color: #c89643; border-width: 5px; }
@@ -227,6 +230,7 @@ switch { flex-shrink: 0; width: 124px; height: 68px; margin: 0; }
 .bonus-preview-art { height: 280px; width: 100%; background-image: linear-gradient(180deg, #6e8b65 0%, #98aa79 100%); border-radius: 28px; overflow: hidden; pointer-events: none; }
 .bonus-preview-art.theme-amber { background-image: linear-gradient(180deg, #8c8c5b 0%, #bbb077 100%); }
 .bonus-preview-art.theme-fireflies { background-image: linear-gradient(180deg, #263f3b 0%, #506c56 100%); }
+.bonus-preview-art.theme-frost { background-image: linear-gradient(180deg, #5d7086 0%, #a8bccb 100%); }
 .bonus-description { font-size: 29px; width: 100%; white-space: normal; }
 .bonus-requirements { gap: 12px; padding: 16px; border-radius: 22px; background-color: #e1e7ce; }
 .bonus-requirements .ico { width: 44px; height: 44px; min-width: 44px; min-height: 44px; }

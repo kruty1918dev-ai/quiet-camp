@@ -49,8 +49,8 @@ namespace QuietCamp.Tests
                 foreach(var language in new[]{"uk","en","de"})
                 {
                     services.Localization.TrySetLanguage(language);yield return Frames(15);
-                    Assert.AreEqual(30,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #level-")));
-                    Assert.AreEqual(3,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #bonus-")&&b.name!="<button #bonus-play>"));
+                    Assert.AreEqual(42,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #level-")));
+                    Assert.AreEqual(4,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #bonus-")&&b.name!="<button #bonus-play>"));
                     var graphic=overlay.GetComponentInChildren<RoadmapGraphic>();Assert.Less(graphic.canvasRenderer.GetMesh().vertexCount,60000);
                     Debug.Log("[BonusRoadmapQA] "+size+" "+language+" vertices="+graphic.canvasRenderer.GetMesh().vertexCount);
                     foreach(var slot in BonusCampCatalog.Slots)
@@ -88,7 +88,7 @@ namespace QuietCamp.Tests
             Tap("levels");yield return Frames(15);
             var node=(RectTransform)Button("level-20").transform;var p=RectTransformUtility.WorldToScreenPoint(null,node.TransformPoint(node.rect.center));
             Assert.That(p.y,Is.InRange(1,Screen.height-1),"Current level was not visible after bonus gaps");
-            Assert.AreEqual(BonusCampState.ComingSoon,services.BonusCamps.Evaluate(BonusCampCatalog.Slots[0]).State);
+            Assert.AreEqual(BonusCampState.Available,services.BonusCamps.Evaluate(BonusCampCatalog.Slots[0]).State);
             Assert.IsTrue(services.Progression.IsUnlocked(ids[20],ids));
             yield return Shot("current_level_21");Tap("back");yield return Frames(15);
             services.Progression.Restore(saved,last,flags);services.Settings.textScale=1;services.Localization.TrySetLanguage("uk");services.ReducedMotion=false;
