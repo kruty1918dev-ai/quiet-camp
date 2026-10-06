@@ -138,8 +138,14 @@ namespace QuietCamp.Tests
             Assert.NotNull(Button("resume")); Assert.NotNull(Button("settings")); Assert.NotNull(Button("menu"));
             Assert.IsNull(Button("economy")); Assert.IsNull(Button("pause-hint"));
             yield return Shot("14-simple-pause");
+            Tap("signs"); yield return Frames();
+            Assert.NotNull(Object.FindObjectsByType<TMPro.TMP_Text>()
+                .FirstOrDefault(t => t.text == services.Localization.T("guide.sign.shade")),
+                "The sign reference must list the shade sign.");
+            yield return Shot("14b-sign-legend");
+            Tap("back"); yield return Frames();
             Tap("settings"); yield return Frames();
-            Assert.IsNull(Button("set-cat-extras")); Assert.NotNull(Button("help-supplies"));
+            Assert.NotNull(Button("set-cat-extras")); Assert.NotNull(Button("help-supplies"));
             yield return Shot("15-settings");
             Tap("help-supplies"); yield return Frames();
             Assert.IsNull(Button("purchase-restore")); Assert.IsNull(Button("life-ad"));
@@ -292,6 +298,47 @@ namespace QuietCamp.Tests
             Assert.NotNull(Button("menu-guide-ok"));yield return Shot("04-menu-orientation");
             Tap("menu-guide-ok");yield return Frames(6);
             Assert.IsFalse(services.Tutorial.NeedsMenuIntro);Assert.IsNull(Button("menu-guide-ok"));
+        }
+
+        [UnityTest,Timeout(240000)] public IEnumerator BoardTapPicksUpTheNextTent()
+        {
+            if(UnityEngine.Application.isBatchMode)Assert.Ignore("Requires rendered Game View.");
+            typeof(ScreenshotPlayModeTest).GetMethod("SetGameViewSize",BindingFlags.Static|BindingFlags.NonPublic)
+                .Invoke(null,new object[]{720,1600});
+            yield return ColdBoot();yield return Camp("QC001");
+            var services=QuietCampBootstrap.ServicesRef;
+            var host=CampSceneHost.Current;var level=host.Session.Level;
+            var camGo=GameObject.Find("MainCamera");
+            var cam=camGo!=null?camGo.GetComponent<Camera>():Camera.main;
+            Assert.NotNull(cam);
+            IEnumerator TapCell(int x,int z)
+            {
+                var pos=(Vector2)cam.WorldToScreenPoint(BoardMath.CellCenterWorld(level,new Cell(x,z)));
+                InputSystem.QueueStateEvent(_mouse,new MouseState{position=pos,buttons=1});
+                yield return null;yield return null;
+                InputSystem.QueueStateEvent(_mouse,new MouseState{position=pos,buttons=0});
+                yield return null;yield return null;yield return null;
+            }
+            // A tap on an empty cell grabs the next unplaced tent by itself.
+            yield return TapCell(level.witness[0].x,level.witness[0].z);
+            Assert.AreEqual(1,host.Session.State.Count,"The first board tap must commit a tent without a card drag.");
+            Assert.AreEqual(level.witness[0].guestId,host.Session.State.Placements[0].guestId);
+            // The next tap picks up the NEXT tent — no card selection needed.
+            yield return TapCell(level.witness[1].x,level.witness[1].z);
+            Assert.AreEqual(2,host.Session.State.Count,"The second tap must place the next tent automatically.");
+            Assert.IsTrue(host.Session.State.Contains(level.witness[1].guestId));
+            yield return Shot("05-tap-to-place");
+            // A skipper entering a glade with an unseen sign gets it explained.
+            services.Progression.MarkCompleted("QC001");services.Progression.MarkCompleted("QC002");
+            services.Tutorial.Skip();yield return Camp("QC003");
+            var signText=string.Join(" ",Hud().Element("tutorial")
+                .GetComponentsInChildren<TMPro.TMP_Text>().Select(t=>t.text));
+            Assert.IsTrue(signText.Contains(services.Localization.T("guide.sign.shade")),
+                "The ongoing guide must teach the shade sign, got: "+signText);
+            Assert.IsNull(Button("guide-skip"),"A sign hint is not a skippable guided step.");
+            yield return Shot("06-sign-explained");
+            Assert.IsNull(services.Tutorial.PendingSign(CampSceneHost.Current.Session.Level),
+                "The sign is remembered as taught.");
         }
     }
 }
