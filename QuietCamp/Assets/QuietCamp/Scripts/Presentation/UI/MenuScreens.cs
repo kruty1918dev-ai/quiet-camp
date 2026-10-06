@@ -96,6 +96,7 @@ namespace QuietCamp.Presentation.UI
                 + HtmlUi.Text(T("menu.title.line2"), "brand-title") + "</view>"
                 + "<view class=\"grow\"></view>"
                 + "<view class=\"menu-actions\" id=\"menu-actions\" data-motion-role=\"edge-bottom\" data-motion-delay=\"0.08\">"
+                + (_services.Tutorial.NeedsMenuIntro ? MenuGuideIntro() : "")
                 + Cta(ctaTitle, ctaSub)
                 + "<view class=\"menu-cards\">"
                 + ((_services.Economy.IsPro || _services.Tutorial.RoadmapUnlocked) ? MenuCard("levels", "map", T("menu.levels"), done + "/" + levels.Count,
@@ -104,6 +105,20 @@ namespace QuietCamp.Presentation.UI
                     () => Action("qc.album")) : "")
                 + "</view></view>";
             return HtmlUi.Template("Menu", "content", content);
+        }
+
+        /// <summary>One-time orientation for fresh players: where to play next
+        /// and what the personal camp is. Dismissed once, persisted.</summary>
+        string MenuGuideIntro()
+        {
+            void Dismiss() { _services.Tutorial.MarkMenuIntroSeen(); RefreshAll(); }
+            return "<view id=\"menu-guide\" class=\"guide-card menu-guide\">"
+                + "<img class=\"guide-portrait\" src=\"res:QuietCamp/UI/Mentor/welcome\"/>"
+                + "<view class=\"guide-copy\">" + HtmlUi.Text(T("guide.name"), "guide-name")
+                + HtmlUi.Text(T("guide.menu.intro"), "guide-instruction")
+                + "</view>"
+                + HtmlUi.Button(_surface, "menu-guide-ok", T("guide.menu.ok"), Dismiss, "primary guide-ok")
+                + "</view>";
         }
 
         string OrbButton(string id, string icon, string tooltip, Action click)

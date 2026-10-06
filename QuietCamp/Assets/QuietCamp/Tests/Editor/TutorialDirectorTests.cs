@@ -158,5 +158,23 @@ namespace QuietCamp.Tests
             Assert.IsTrue(skipped.CanCompleteLevel("QC001"));Assert.IsTrue(skipped.CanCompleteLevel("QC002"));
             var legacy=new TutorialDirector(null,true,new ProgressionService(),()=>true);Assert.IsTrue(legacy.CanCompleteLevel("QC001"));
         }
+        [Test] public void MenuIntroShowsOnceAfterLearningAndNeverForMigratedPlayers()
+        {
+            var fresh=new TutorialDirector(null,false,new ProgressionService(),()=>true);
+            Assert.IsFalse(fresh.NeedsMenuIntro,"The intro waits until learning ends or is skipped.");
+            fresh.Skip();Assert.IsTrue(fresh.NeedsMenuIntro);
+            fresh.MarkMenuIntroSeen();Assert.IsFalse(fresh.NeedsMenuIntro);
+            var restored=JsonConvert.DeserializeObject<TutorialSaveData>(JsonConvert.SerializeObject(fresh.Save));
+            Assert.IsFalse(new TutorialDirector(restored,false,new ProgressionService(),()=>true).NeedsMenuIntro);
+            var legacy=new TutorialDirector(null,true,new ProgressionService(),()=>true);legacy.Skip();
+            Assert.IsFalse(legacy.NeedsMenuIntro,"Migrated saves already know the menu.");
+        }
+        [Test] public void MenuIntroDismissalRollsBackWhenTheSaveFails()
+        {
+            var persist=false;var tutorial=new TutorialDirector(null,false,new ProgressionService(),()=>persist);
+            tutorial.Skip();Assert.IsTrue(tutorial.NeedsMenuIntro);
+            tutorial.MarkMenuIntroSeen();Assert.IsTrue(tutorial.NeedsMenuIntro,"A failed save must re-show the intro.");
+            persist=true;tutorial.MarkMenuIntroSeen();Assert.IsFalse(tutorial.NeedsMenuIntro);
+        }
     }
 }

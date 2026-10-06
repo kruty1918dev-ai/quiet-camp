@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -228,6 +229,66 @@ namespace QuietCamp.Tests
                 Assert.IsTrue(host.Session.TryCommit(PlacementCommand.Place(pose.guestId,pose.x,pose.z,pose.rotation),out _));
             yield return Frames();Assert.IsTrue(Button("check").interactable);Tap("check");yield return Frames();
             Assert.IsTrue(host.Session.IsCompleted);Assert.IsFalse(services.Tutorial.RewardOwned,"Finishing after skip must not grant the evaluated tutorial gift.");
+        }
+
+        [UnityTest,Timeout(240000)] public IEnumerator GuideExplainsMistakesAndFinishedLearningReturnsToMenu()
+        {
+            if(UnityEngine.Application.isBatchMode)Assert.Ignore("Requires rendered Game View.");
+            typeof(ScreenshotPlayModeTest).GetMethod("SetGameViewSize",BindingFlags.Static|BindingFlags.NonPublic)
+                .Invoke(null,new object[]{720,1600});
+            // Resume a guide that already passed the first four glades.
+            _save.Progress.tutorial=JsonUtility.FromJson<TutorialSaveData>(
+                "{\"initialized\":true,\"introductionSeen\":true,\"progress\":{\"flowId\":\"quietcamp.first-camps\","
+                +"\"completedSteps\":[\"QC001.select\",\"QC001.place\",\"QC001.rotate\",\"QC001.first-check\","
+                +"\"QC002.move\",\"QC002.undo\",\"QC002.shared-route\",\"QC003.shade\",\"QC004.quiet\"]}}");
+            _save.Progress.completedIds=new[]{"QC001","QC002","QC003","QC004"};
+            Assert.IsTrue(_save.Save());
+            yield return ColdBoot();yield return Camp("QC005");
+            var services=QuietCampBootstrap.ServicesRef;
+            Assert.IsTrue(services.Tutorial.Guiding("QC005"));
+            Assert.AreEqual("guide.friends",services.Tutorial.Cue("QC005"));
+            var host=CampSceneHost.Current;var level=host.Session.Level;
+
+            // A committable pose that still breaks a wish makes the mentor explain it.
+            string badCode=null;Placement bad=null;
+            foreach(var guest in level.guests)
+            {
+                for(var x=0;x<level.width&&bad==null;x++)for(var z=0;z<level.height&&bad==null;z++)
+                for(var r=0;r<4&&bad==null;r++)
+                {
+                    var candidate=new Placement{guestId=guest.id,x=x,z=z,rotation=r};
+                    var probe=new List<Placement>(host.Session.State.Placements){candidate};
+                    var report=RuleEvaluator.Evaluate(level,probe,false);
+                    var issue=report.Issues.Find(i=>i.Code=="path"||i.Code=="shade"||i.Code=="quiet"||i.Code=="friends");
+                    if(report.CanCommit&&issue!=null){bad=candidate;badCode=issue.Code;}
+                }
+                if(bad!=null)break;
+            }
+            Assert.NotNull(bad,"QC005 must offer a legal commit that still breaks a wish.");
+            Assert.IsTrue(host.Session.TryCommit(PlacementCommand.Place(bad.guestId,bad.x,bad.z,bad.rotation),out _));
+            yield return Frames(8);
+            var guideText=string.Join(" ",Hud().Element("tutorial")
+                .GetComponentsInChildren<TMPro.TMP_Text>().Select(t=>t.text));
+            Assert.IsTrue(guideText.Contains(services.Localization.T("guide.mistake."+badCode)),
+                "The mentor must explain the broken wish ("+badCode+"), got: "+guideText);
+            yield return Shot("03-mentor-explains-mistake");
+            Assert.IsTrue(host.Session.Undo(),"Undo must return the board to the guided step.");
+            yield return Frames(4);
+
+            foreach(var pose in level.witness)
+                Assert.IsTrue(host.Session.TryCommit(PlacementCommand.Place(pose.guestId,pose.x,pose.z,pose.rotation),out _));
+            yield return Frames();Tap("check");yield return Frames(20);
+            Assert.IsTrue(host.Session.IsCompleted);Assert.IsTrue(services.Tutorial.Finished);
+            Assert.IsTrue(services.Tutorial.RewardOwned,"The last guided glade grants the pennant.");
+            float deadline=Time.realtimeSinceStartup+25;
+            while(SceneManager.GetActiveScene().name!="MainMenu"&&Time.realtimeSinceStartup<deadline)yield return null;
+            Assert.AreEqual("MainMenu",SceneManager.GetActiveScene().name,
+                "A finished tutorial must return the player to the menu automatically.");
+            yield return Frames(20);
+            Assert.IsTrue(services.Tutorial.NeedsMenuIntro,"Fresh finishers get one menu orientation card.");
+            Assert.NotNull(Button("menu-guide-ok"));yield return Shot("04-menu-orientation");
+            Tap("menu-guide-ok");yield return Frames(6);
+            Assert.IsFalse(services.Tutorial.NeedsMenuIntro);Assert.IsNull(Button("menu-guide-ok"));
         }
     }
 }

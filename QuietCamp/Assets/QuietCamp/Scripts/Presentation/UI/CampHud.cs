@@ -49,6 +49,7 @@ namespace QuietCamp.Presentation.UI
         RuleReport _previewReport;
         string _tagGuest;
         float _tagUntil = -1f;
+        float _hintUntil = -1f;
 
         bool SideJourney => _services.Journeys.ForLevel(_session.Level.id)?.id is string id && id != "main";
         bool HintsAvailable => _services.Economy.IsPro || _services.Tutorial.HintsUnlocked || SideJourney;
@@ -230,7 +231,9 @@ namespace QuietCamp.Presentation.UI
             }
             if (placed == total) dock.Append(HtmlUi.Text(_services.Economy.IsPro
                 ? T("economy.check.notice.pro")
-                : string.Format(T("economy.check.notice"), _services.Economy.Lives), "check-notice"));
+                : _services.Tutorial.Guiding(_session.Level.id)
+                    ? T("guide.check.free")
+                    : string.Format(T("economy.check.notice"), _services.Economy.Lives), "check-notice"));
             dock.Append("</view>");
             return dock.ToString();
         }
@@ -330,7 +333,9 @@ namespace QuietCamp.Presentation.UI
                             + HtmlUi.Text(T("guide.farewell"), "guide-instruction") + "</view>"
                             + HtmlUi.Text(T("guide.reward.earned"), "guide-reward") : "")
                     + OverlayButton("memory-album", "menu.album", () => Action("qc.album"), "quiet")
-                    + OverlayButton("next", BonusCampCatalog.ForLevel(_session.Level.id)!=null?"menu.levels":"action.next", () => Action("qc.next"), "primary")
+                    + (_services.Tutorial.Finished && _session.Level.id == "QC005"
+                        ? OverlayButton("next", "menu.main", () => Action("qc.menu"), "primary")
+                        : OverlayButton("next", BonusCampCatalog.ForLevel(_session.Level.id)!=null?"menu.levels":"action.next", () => Action("qc.next"), "primary"))
                     + "</view></view>");
             }
             sb.Append("</view>");
@@ -520,6 +525,16 @@ namespace QuietCamp.Presentation.UI
             _surface.Refresh();
         }
 
+        /// <summary>Transient mentor advice after a mistake — sits on the
+        /// guide card for a few seconds, then yields to the step cue again.
+        /// Step progress always wins over advice.</summary>
+        public void ShowGuideHint(string key, float seconds = 5f)
+        {
+            if (key == null || !_services.Tutorial.Guiding(_session.Level.id)) return;
+            SetTutorial(key);
+            _hintUntil = Time.unscaledTime + seconds;
+        }
+
         void OnTutorialChanged()
         {
             SetTutorial(_services.Tutorial.Cue(_session.Level.id));
@@ -565,6 +580,11 @@ namespace QuietCamp.Presentation.UI
         {
             if (_tagGuest != null && Time.unscaledTime >= _tagUntil)
             { _tagGuest = null; _surface.Refresh(); }
+            if (_hintUntil > 0 && Time.unscaledTime >= _hintUntil)
+            {
+                _hintUntil = -1;
+                SetTutorial(_services.Tutorial.Cue(_session.Level.id));
+            }
         }
 
         World.PlacementController _placement;

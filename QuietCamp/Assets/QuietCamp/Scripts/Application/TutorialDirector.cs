@@ -8,7 +8,7 @@ namespace QuietCamp.Application
     [Serializable]
     public sealed class TutorialSaveData
     {
-        public bool initialized, existingPlayer, controlsUnlocked, introductionSeen;
+        public bool initialized, existingPlayer, controlsUnlocked, introductionSeen, menuIntroSeen;
         public TutorialProgress progress = new TutorialProgress();
     }
 
@@ -38,6 +38,17 @@ namespace QuietCamp.Application
             return false;
         }
         public bool AllControls => _save.existingPlayer || _save.controlsUnlocked || Skipped || Finished;
+        /// <summary>One-time menu coachmark for fresh players — shown after
+        /// the guided camps end or are skipped, never for migrated saves.</summary>
+        public bool NeedsMenuIntro => !_save.menuIntroSeen && !_save.existingPlayer
+            && (Skipped || Finished || _save.controlsUnlocked);
+        public void MarkMenuIntroSeen()
+        {
+            if (_save.menuIntroSeen) return;
+            _save.menuIntroSeen = true;
+            if (_persist == null || _persist()) { Changed?.Invoke(); return; }
+            _save.menuIntroSeen = false;
+        }
         public bool RoadmapUnlocked => AllControls || _progression.IsCompleted("QC001");
         public bool AlbumUnlocked => AllControls || _progression.IsCompleted("QC002");
         public bool HistoryUnlocked => AllControls || _progression.IsCompleted("QC001");
@@ -53,7 +64,7 @@ namespace QuietCamp.Application
             _save = saved ?? new TutorialSaveData(); _progression = progression ?? throw new ArgumentNullException(nameof(progression));
             _persist = persist;
             if (!_save.initialized)
-            { _save.initialized = true; _save.existingPlayer = hasExistingPlay; _save.controlsUnlocked = hasExistingPlay; }
+            { _save.initialized = true; _save.existingPlayer = hasExistingPlay; _save.controlsUnlocked = hasExistingPlay; _save.menuIntroSeen = hasExistingPlay; }
             BindRunner();
         }
         void BindRunner()

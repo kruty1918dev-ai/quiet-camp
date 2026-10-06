@@ -21,7 +21,8 @@ def main():
         compiled = {}
         for name, folder in assemblies:
             assembly = "QuietCamp." + name
-            candidates = list(ARTIFACTS.glob("*E*.dag/" + assembly + ".rsp"))
+            candidates = [path for path in ARTIFACTS.glob("*E*.dag/" + assembly + ".rsp")
+                          if path.parent.name.upper().endswith("E.DAG")]
             if not candidates:
                 raise RuntimeError("Missing existing Unity compiler response: " + assembly)
             original = max(candidates, key=lambda path: path.stat().st_mtime)

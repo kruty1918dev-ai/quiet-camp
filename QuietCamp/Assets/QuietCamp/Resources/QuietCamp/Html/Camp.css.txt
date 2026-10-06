@@ -448,8 +448,8 @@ button text, .gc-text text { white-space: normal; }
 .guide-card { width: 100%; flex-direction: row; align-items: center; gap: 16px; padding: 14px 18px; border-radius: 28px; background-color: rgba(246,240,223,.95); border-width: 1px; border-color: rgba(105,126,90,.32); }
 .guide-portrait { width: 224px; height: 256px; max-width: 30%; flex-shrink: 0; object-fit: contain; }
 .guide-copy { flex-grow: 1; flex-shrink: 1; min-width: 0; gap: 10px; }
-.guide-name { color: #496740; font-size: 28px; font-weight: bold; width: 100%; }
-.guide-instruction { color: #243e35; font-size: 32px; width: 100%; text-align: left; white-space: normal; }
+.guide-name { color: #496740; font-size: 30px; font-weight: bold; width: 100%; }
+.guide-instruction { color: #243e35; font-size: 34px; width: 100%; text-align: left; white-space: normal; }
 .guide-skip { min-height: 88px; padding: 12px 16px; border-width: 0; background-color: transparent; align-self: flex-start; }
 .guide-skip text { font-size: 28px; color: #425e49; }
 .guide-focus { border-width: 3px; border-color: #ba9158; }
@@ -462,9 +462,12 @@ button text, .gc-text text { white-space: normal; }
 @media (layout: wide) {
     .guide-card { gap: 12px; padding: 14px; }
     .guide-portrait { width: 216px; height: 248px; max-width: 36%; }
-    .guide-instruction { font-size: 30px; }
-    .guide-name { font-size: 26px; }
+    .guide-instruction { font-size: 32px; }
+    .guide-name { font-size: 28px; }
 }
+.menu-guide { margin-bottom: 18px; }
+.menu-guide .guide-portrait { width: 176px; height: 200px; }
+.guide-ok { flex-shrink: 0; align-self: center; min-height: 96px; padding: 14px 30px; }
 
 .guide-farewell { flex-direction: row; align-items: center; gap: 20px; }
 .guide-farewell .guide-instruction { flex-grow: 1; flex-shrink: 1; flex-basis: 0; }

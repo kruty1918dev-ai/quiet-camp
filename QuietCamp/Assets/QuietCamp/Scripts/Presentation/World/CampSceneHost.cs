@@ -198,6 +198,8 @@ namespace QuietCamp.Presentation.World
                     GameplayNotificationKind.Warning, dedupKey: key + _session.SelectedGuestId);
                 PlayAudio("rule.invalid");
                 _services.PlayHaptic(HapticCue.Warning);
+                if (_tutorial.Guiding(_session.Level.id))
+                    _hud.ShowGuideHint(GuideMistakeKey(key));
             };
             _placement.PlacementCommitted += PersistSession;
             _placement.DragMotion += (position,speed) => _atmosphere?.Soundscape?.TentDragged(position,speed);
@@ -298,8 +300,15 @@ namespace QuietCamp.Presentation.World
             _leases.Add(h.Register(new UiActionId("qc.check"), () =>
             {
                 if (_session.IsCompleted || _services.MonetizationBusy || !_tutorial.CanCompleteLevel(_session.Level.id)) return Performed();
-                if (!_services.Economy.CanCheck) { _hud.ShowEconomy(); return Performed(); }
                 _placement.Cancel();
+                if (_tutorial.Guiding(_session.Level.id))
+                {
+                    // Learning checks are free: no life spent, no layout wipe.
+                    _session.Check(() => _services.Completion.Complete(_session, _atmosphere?.PhaseId));
+                    if (!_session.IsCompleted) { GuideFirstIssue("guide.mistake.check"); PlayAudio("rule.invalid"); }
+                    return Performed();
+                }
+                if (!_services.Economy.CanCheck) { _hud.ShowEconomy(); return Performed(); }
                 var report = RuleEvaluator.Evaluate(_session.Level, _session.State.Placements, true);
                 var outcome = _services.Attempts.Check(_session, _atmosphere?.PhaseId); // done — clear in-progress
                 if (outcome == CampAttemptResult.SaveFailed)
@@ -423,6 +432,7 @@ namespace QuietCamp.Presentation.World
                             BoardMath.TentCenter(_session.Level, placed.x, placed.z), .65f);
                         _services.PlayHaptic(HapticCue.Confirm);
                     }
+                    if (_tutorial.Guiding(_session.Level.id)) GuideFirstIssue(null);
                     break;
                 case CampEventKind.SelectionChanged:
                     _renderer.ShowShade(Array.Find(_session.Level.guests, g => g.id == e.GuestId)?.shade == true);
@@ -439,6 +449,7 @@ namespace QuietCamp.Presentation.World
         {
             if (_completed) return;
             _completed = true;
+            var guided = _tutorial.Guiding(_session.Level.id);
             _tutorial.ReportAction("complete", _session);
             TentStoryVisual.CloseAll(Find("World")?.transform, _services.ReducedMotion);
             _services.Analytics.EndLevel(ComfortOutcome.Completed);
@@ -462,6 +473,36 @@ namespace QuietCamp.Presentation.World
             {
                 // DemoComplete follows the completion panel via qc.next.
             }
+            if (guided && _tutorial.Finished) StartCoroutine(TutorialAutoMenu());
+        }
+
+        /// <summary>After the farewell card the tutorial hands the player back
+        /// to the menu on its own — no hidden tap required. Scene teardown or
+        /// any earlier navigation simply cancels this coroutine.</summary>
+        System.Collections.IEnumerator TutorialAutoMenu()
+        {
+            yield return new WaitForSecondsRealtime(8f);
+            if (_session != null && _session.IsCompleted && !_router.IsBusy)
+                _services.Actions.Execute(new UiActionRequest(
+                    new UiActionId("qc.menu"), UiActionSource.Programmatic, "Gameplay"));
+        }
+
+        static string GuideMistakeKey(string rawKey)
+        {
+            var code = rawKey != null && rawKey.StartsWith("rule.") ? rawKey.Substring(5) : rawKey;
+            return code == "bounds" || code == "overlap" || code == "path" || code == "shade"
+                || code == "quiet" || code == "friends" ? "guide.mistake." + code : "guide.mistake.generic";
+        }
+
+        /// <summary>The mentor reacts to real violations only — unmet wishes
+        /// (path/shade/quiet/friends), never unplaced guests, which are steps
+        /// the player simply has not taken yet.</summary>
+        void GuideFirstIssue(string fallback)
+        {
+            var report = RuleEvaluator.Evaluate(_session.Level, _session.State.Placements, false);
+            var issue = report.Issues.Find(i => i.Code == "path" || i.Code == "shade"
+                || i.Code == "quiet" || i.Code == "friends");
+            _hud.ShowGuideHint(issue != null ? GuideMistakeKey("rule." + issue.Code) : fallback);
         }
 
         /// <summary>The completion chime is a soft afterglow, not a second
