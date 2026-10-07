@@ -49,6 +49,7 @@ namespace QuietCamp.Domain
         public string HeroLandmark;
         public string[] Motifs = Array.Empty<string>();
         public string TransitionFrom;     // previous region id — blend anchor
+        public int TransitionSpan;        // nodes blending on each boundary side (0 = default)
         public string[] BranchIds = Array.Empty<string>();
     }
 
