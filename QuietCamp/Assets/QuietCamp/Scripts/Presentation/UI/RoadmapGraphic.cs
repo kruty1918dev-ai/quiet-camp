@@ -15,6 +15,8 @@ namespace QuietCamp.Presentation.UI
         public const int Step=420, CentreY=210;
         public static float NodeX(float index)=>.5f+Mathf.Sin(index*.85f)*.21f;
         readonly List<RoadmapSceneGenerator.Scene> _scenes=new List<RoadmapSceneGenerator.Scene>();
+        LevelSummary[] _summaries;
+        AtmosphereCatalog _catalog;
         readonly Vector3[] _corners=new Vector3[4];
         readonly List<RoadmapGladeGraphic> _pool=new List<RoadmapGladeGraphic>();
         int _drawingModels,_drawingShadows,_bonusTruncated,_lastTier=-1;
@@ -50,8 +52,12 @@ namespace QuietCamp.Presentation.UI
         void EnsureData()
         {
             if(_painter!=null)return;
-            var catalog=AtmosphereCatalog.Load();_painter=new RoadmapPainter(RoadmapModelLibrary.Load());
-            foreach(var level in CampContent.Summaries)_scenes.Add(RoadmapSceneGenerator.Generate(level,catalog));
+            _catalog=AtmosphereCatalog.Load();_painter=new RoadmapPainter(RoadmapModelLibrary.Load());
+            // Lazy scenes: the map materializes a diorama only when its part of
+            // the world is actually painted — cold open never builds 270 scenes.
+            _summaries=new LevelSummary[CampContent.Summaries.Count];
+            for(int i=0;i<_summaries.Length;i++)_summaries[i]=CampContent.Summaries[i];
+            for(int i=0;i<_summaries.Length;i++)_scenes.Add(null);
             _scroll=GetComponentInParent<ScrollRect>();
             var shader=Resources.Load<Shader>("QuietCamp/RoadmapCanopy");
             if(shader!=null)
@@ -60,19 +66,32 @@ namespace QuietCamp.Presentation.UI
                 canvas.additionalShaderChannels|=AdditionalCanvasShaderChannels.TexCoord1|AdditionalCanvasShaderChannels.TexCoord2;
             }
         }
+        /// <summary>Materialize the scene for index on first use; callers only
+        /// reach scenes whose area is on screen, so generation stays bounded.</summary>
+        public RoadmapSceneGenerator.Scene SceneAt(int i)
+        {
+            var scene=_scenes[i];
+            if(scene==null)
+            {
+                scene=RoadmapSceneGenerator.Generate(_summaries[i],_catalog);
+                if(_manualWeather)scene.SetMoment(_weatherMoment);
+                _scenes[i]=scene;
+            }
+            return scene;
+        }
+        float _weatherMoment;
         public void SetWeatherMoment(float seconds)
         {
-            EnsureData();_manualWeather=seconds>=0;
+            EnsureData();_manualWeather=seconds>=0;_weatherMoment=seconds;
             foreach(var scene in _scenes)
-            {
-                scene.SetMoment(seconds);
-            }
+                scene?.SetMoment(seconds);
             SetVerticesDirty();_weather?.SetVerticesDirty();foreach(var glade in _pool)glade.SetVerticesDirty();
         }
         void LateUpdate()
         {
             if(_painter==null)return;
-            if(!_manualWeather&&!Reduced)foreach(var scene in _scenes)scene.Advance(Time.unscaledDeltaTime);
+            if(!_manualWeather&&!Reduced)for(int i=0;i<_scenes.Count;i++)
+                if(_scenes[i]!=null&&InView(Centre(i).y,Extent(i)))_scenes[i].Advance(Time.unscaledDeltaTime);
             var visible=FindVisibleArea();
             bool refresh=Time.unscaledTime-_lastRefresh>1||_lastTier!=QualityTier;
             if(visible!=_visible||refresh)
@@ -97,7 +116,7 @@ namespace QuietCamp.Presentation.UI
             int slot=0;
             for(int i=0;i<_scenes.Count;i++)
             {
-                if(!InView(Centre(i).y,SceneExtent(i)))continue;
+                if(!InView(Centre(i).y,Extent(i)))continue;
                 if(slot==_pool.Count)
                 {
                     var rect=QcUi.Stretch(rectTransform,"RoadmapGladeSlot"+slot);
@@ -112,7 +131,7 @@ namespace QuietCamp.Presentation.UI
         internal void PaintGlade(VertexHelper vh,int index,RoadmapGladeGraphic output)
         {
             vh.Clear();_drawingModels=_drawingShadows=0;_painter.TruncatedModels=0;
-            var scene=_scenes[index];var centre=Centre(index);
+            var scene=SceneAt(index);var centre=Centre(index);
             DrawSurroundings(vh,scene,centre,rectTransform.rect);
             RoadmapPainter.Glade(vh,scene,centre,ProjectionScale);
             foreach(var prop in scene.Props)
@@ -133,7 +152,10 @@ namespace QuietCamp.Presentation.UI
             return Rect.MinMaxRect(r.xMin,Mathf.Max(r.yMin,Mathf.Floor((a.y-16)/64)*64),r.xMax,Mathf.Min(r.yMax,Mathf.Ceil((b.y+16)/64)*64));
         }
         public Vector2 Centre(int i)=>Node(i,rectTransform.rect);
-        public float SceneExtent(int i)=>Mathf.Max(230,_scenes[i].VerticalExtent*ProjectionScale+12);
+        /// <summary>Vertical extent for culling; unmaterialized scenes use the
+        /// conservative estimate so culling never needs generation.</summary>
+        public float Extent(int i)=>Mathf.Max(230,(_scenes[i]?.VerticalExtent??3f)*ProjectionScale+12);
+        public float SceneExtent(int i)=>Mathf.Max(230,SceneAt(i).VerticalExtent*ProjectionScale+12);
         static Vector2 Node(float index,Rect r)
         {
             int lower=Mathf.FloorToInt(index);
@@ -147,7 +169,7 @@ namespace QuietCamp.Presentation.UI
             int a=0;while(a+1<_scenes.Count&&RoadmapLayout.MainY(a+1)<distance)a++;
             int b=Mathf.Min(a+1,_scenes.Count-1);
             float t=Mathf.InverseLerp(RoadmapLayout.MainY(a),RoadmapLayout.MainY(b),distance);
-            return Color.Lerp(_scenes[a].Ground*.91f,_scenes[b].Ground*.91f,Mathf.SmoothStep(0,1,t));
+            return Color.Lerp(SceneAt(a).Ground*.91f,SceneAt(b).Ground*.91f,Mathf.SmoothStep(0,1,t));
         }
         protected override void OnPopulateMesh(VertexHelper vh)
         {

@@ -29,8 +29,9 @@ namespace QuietCamp.Presentation.UI
             float time=_map.Reduced?0:Time.unscaledTime;
             for(int i=0;i<_map.Scenes.Count;i++)
             {
-                var scene=_map.Scenes[i];var centre=_map.Centre(i);
-                if(!_map.InView(centre.y,_map.SceneExtent(i)))continue;
+                var centre=_map.Centre(i);
+                if(!_map.InView(centre.y,_map.Extent(i)))continue;
+                var scene=_map.SceneAt(i);
                 if(scene.Light.Mist||scene.Weather.Cloud>.35f||scene.Level.environment?.moisture>.6f)
                 {
                     MistGlades++;

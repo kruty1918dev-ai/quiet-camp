@@ -251,6 +251,10 @@ namespace QuietCamp.Presentation.UI
             var ids = LevelLoader.MvpLevelIds();
             var next = _services.JourneyAccess.ContinueTarget("main");
             var districts = LevelLoader.Districts();
+            var worldMap = WorldMapBuilder.Build(ids, districts, BonusCampCatalog.Slots, _services.Journeys.Journeys, CampContent.Summary);
+            var reveal = new WorldMapRevealService(worldMap, _services.Progression, _services.JourneyAccess);
+            var revealedBranches = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var branch in reveal.RevealedBranches()) revealedBranches.Add(branch.Id);
             var districtAt = new Dictionary<int, DistrictDefinition>();
             foreach (var d in districts) districtAt[d.from] = d;
             var html = new StringBuilder("<scroll id=\"roadmap-scroll\" class=\"map-scroll\"><view class=\"roadmap\" style=\"height:" + HtmlUi.Number(RoadmapLayout.Height(ids.Count)) + "px\"><view id=\"roadmap-art\" class=\"roadmap-art\" />");
@@ -259,8 +263,10 @@ namespace QuietCamp.Presentation.UI
                 var id = ids[i];
                 var unlocked = _services.CanStart(id);
                 var done = _services.Progression.IsCompleted(id);
+                var nodeState = reveal.MainState(worldMap.Nodes[i]);
+                var hidden = nodeState == WorldNodeState.Hidden;
                 var x = RoadmapGraphic.NodeX(i)*100;
-                var summary = CampContent.Summary(id);
+                var summary = hidden ? null : CampContent.Summary(id);
                 if (districtAt.TryGetValue(i + 1, out var district))
                     html.Append("<view class=\"map-district act-").Append(district.act)
                         .Append("\" style=\"top:").Append(HtmlUi.Number(RoadmapLayout.MainY(i)+34))
@@ -273,11 +279,11 @@ namespace QuietCamp.Presentation.UI
                 });
                 html.Append("<view class=\"map-stop\" style=\"left:").Append(HtmlUi.Number(x)).Append("%;top:").Append(HtmlUi.Number(RoadmapLayout.MainY(i)+100))
                     .Append("px\"><button id=\"level-").Append(i).Append("\" class=\"map-node ")
-                    .Append(done ? "done" : id==next ? "selected" : unlocked ? "" : "locked")
-                    .Append("\" data-tooltip=\"").Append(HtmlUi.Escape(LevelDisplay.Title(id,_services.Localization,_services.Journeys)))
+                    .Append(hidden ? "hidden" : done ? "done" : id==next ? "selected" : unlocked ? "" : "locked")
+                    .Append("\" data-tooltip=\"").Append(HtmlUi.Escape(hidden?T("map.veiled"):LevelDisplay.Title(id,_services.Localization,_services.Journeys)))
                     .Append("\" onClick=\"Globals.campUi.Click('level-").Append(i).Append("')\">")
-                    .Append(HtmlUi.Text((i+1).ToString(),"node-number"))
-                    .Append(done ? CampIcons.Mark("check","node-status") : !unlocked ? CampIcons.Mark("lock","node-status") : "")
+                    .Append(hidden ? "" : HtmlUi.Text((i+1).ToString(),"node-number"))
+                    .Append(done ? CampIcons.Mark("check","node-status") : !unlocked&&!hidden ? CampIcons.Mark("lock","node-status") : "")
                     .Append("</button><view class=\"map-wishes\">");
                 if (summary?.shade==true) html.Append(CampIcons.Mark("shade"));
                 if (summary?.quiet==true) html.Append(CampIcons.Mark("quiet"));
@@ -288,20 +294,23 @@ namespace QuietCamp.Presentation.UI
             foreach(var slot in BonusCampCatalog.Slots)
             {
                 if(slot.afterLevel>ids.Count)continue;
+                var veiled=slot.afterLevel>reveal.Horizon;
                 var access=_services.BonusCamps.Evaluate(slot);
                 string callback="bonus-"+slot.afterLevel;
+                // The preview card itself is the teaser — veiling only strips
+                // the node's map decoration until the road reaches it.
                 _overlay.Callbacks.Bind(callback,()=>{_bonusPreview=slot;Show("BonusPreview");});
                 html.Append("<view class=\"map-bonus-stop\" style=\"left:").Append(HtmlUi.Number(RoadmapLayout.BonusX(slot)*100))
                     .Append("%;top:").Append(HtmlUi.Number(RoadmapLayout.BonusY(slot)+64)).Append("px\">")
                     .Append("<button id=\"").Append(callback).Append("\" class=\"map-bonus-node ")
-                    .Append(access.CanPlay?"bonus-ready":"").Append("\" data-tooltip=\"").Append(HtmlUi.Escape(T(slot.titleKey)))
+                    .Append(veiled?"veiled":access.CanPlay?"bonus-ready":"").Append("\" data-tooltip=\"").Append(HtmlUi.Escape(T(veiled?"map.veiled":slot.titleKey)))
                     .Append("\" onClick=\"Globals.campUi.Click('").Append(callback).Append("')\">")
                     .Append("<view class=\"bonus-heading\">").Append(CampIcons.Mark("bonus"))
-                    .Append(HtmlUi.Text(T("map.bonus.label"),"bonus-eyebrow")).Append("</view>")
-                    .Append(HtmlUi.Text(T(slot.titleKey),"bonus-name"))
-                    .Append(CampIcons.Mark(access.State==BonusCampState.Locked?"lock":access.State==BonusCampState.Completed?"check":"hint","node-status"))
+                    .Append(veiled?"":HtmlUi.Text(T("map.bonus.label"),"bonus-eyebrow")).Append("</view>")
+                    .Append(veiled?"":HtmlUi.Text(T(slot.titleKey),"bonus-name"))
+                    .Append(CampIcons.Mark(veiled?"bonus":access.State==BonusCampState.Locked?"lock":access.State==BonusCampState.Completed?"check":"hint","node-status"))
                     .Append("</button>")
-                    .Append(HtmlUi.Text(T(access.Published?"map.bonus.sideRoute":"map.bonus.soon"),"bonus-caption"))
+                    .Append(veiled?"":HtmlUi.Text(T(access.Published?"map.bonus.sideRoute":"map.bonus.soon"),"bonus-caption"))
                     .Append("</view>");
             }
             foreach(var journey in _services.Journeys.Journeys)
@@ -310,19 +319,20 @@ namespace QuietCamp.Presentation.UI
                 // The slot is visible ahead of time — a promise, not a gate.
                 if(journey.id=="main"||journey.id=="qa"||journey.id.StartsWith("bonus.")||!journey.published&&journey.requiredCompletions<=0)continue;
                 if(journey.requiredCompletions>ids.Count)continue;
+                var veiled=!revealedBranches.Contains(journey.id);
                 var state=journey.levelIds.Length>0?_services.JourneyAccess.Evaluate(journey.levelIds[0]).State:JourneyAccessState.MissingContent;
                 string callback="branch-"+journey.id;
                 _overlay.Callbacks.Bind(callback,()=>{SelectedJourney=journey;_journeyConfirmation=null;Show("JourneyPreview");});
                 html.Append("<view class=\"map-branch-stop\" style=\"left:").Append(HtmlUi.Number(RoadmapLayout.BranchX(journey)*100))
                     .Append("%;top:").Append(HtmlUi.Number(RoadmapLayout.BranchY(journey))).Append("px\">")
                     .Append("<button id=\"").Append(callback).Append("\" class=\"map-branch-node")
-                    .Append(state==JourneyAccessState.Available?" branch-ready":"").Append("\" data-tooltip=\"").Append(HtmlUi.Escape(T(journey.titleKey)))
+                    .Append(veiled?" veiled":state==JourneyAccessState.Available?" branch-ready":"").Append("\" data-tooltip=\"").Append(HtmlUi.Escape(T(veiled?"map.veiled":journey.titleKey)))
                     .Append("\" onClick=\"Globals.campUi.Click('").Append(callback).Append("')\">")
                     .Append(CampIcons.Mark("path"))
-                    .Append(HtmlUi.Text(T(journey.titleKey),"branch-name"))
-                    .Append(CampIcons.Mark(state==JourneyAccessState.Available?"hint":"lock","node-status"))
+                    .Append(veiled?"":HtmlUi.Text(T(journey.titleKey),"branch-name"))
+                    .Append(CampIcons.Mark(!veiled&&state==JourneyAccessState.Available?"hint":"lock","node-status"))
                     .Append("</button>")
-                    .Append(HtmlUi.Text(journey.published?T("map.branch.sideRoute"):T("map.bonus.soon"),"bonus-caption"))
+                    .Append(veiled?"":HtmlUi.Text(journey.published?T("map.branch.sideRoute"):T("map.bonus.soon"),"bonus-caption"))
                     .Append("</view>");
             }
             return html.Append("</view></scroll>").ToString();

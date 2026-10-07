@@ -104,7 +104,7 @@ namespace QuietCamp.Tests
                         var weather=map.GetComponentInChildren<RoadmapWeatherGraphic>();Assert.AreEqual(0,weather.RainGlades);
                         if(tier>0)Assert.Greater(weather.SunlitGlades,0);
                         if(language=="uk"&&tier==1)yield return Shot("sun_"+size.x+"x"+size.y);
-                        int rainy=Enumerable.Range(0,map.Scenes.Count).First(i=>map.Scenes[i].Level.environment?.weatherId=="rain");
+                        int rainy=Enumerable.Range(0,map.Scenes.Count).First(i=>map.SceneAt(i).Level.environment?.weatherId=="rain");
                         float viewport=scroll.viewport.rect.height;
                         scroll.verticalNormalizedPosition=1-Mathf.Clamp01((RoadmapLayout.MainY(rainy)-viewport*.5f)/(scroll.content.rect.height-viewport));
                         scroll.velocity=Vector2.zero;map.SetWeatherMoment(80);yield return Frames(6);Assert.Greater(weather.RainGlades,0);
@@ -117,6 +117,10 @@ namespace QuietCamp.Tests
                     if(language=="de")yield return Shot("cycle_"+size.x+"x"+size.y+"_de");
                     services.ReducedMotion=true;
                     map.SetWeatherMoment(80);yield return Frames(6);Assert.AreEqual(0,map.GetComponentInChildren<RoadmapWeatherGraphic>().RainDrops);
+                    // Eight completions put the first glade (after level 10)
+                    // inside the reveal horizon so its preview can open.
+                    var revealIds=LevelLoader.MvpLevelIds();
+                    services.Progression.Restore(revealIds.Take(8),revealIds[7],0);yield return Frames(2);
                     var slot=BonusCampCatalog.Slots[0];float height=scroll.viewport.rect.height;
                     scroll.verticalNormalizedPosition=1-Mathf.Clamp01((RoadmapLayout.BonusY(slot)-height*.4f)/(scroll.content.rect.height-height));
                     scroll.velocity=Vector2.zero;yield return Frames(6);float remembered=scroll.verticalNormalizedPosition;
@@ -124,7 +128,8 @@ namespace QuietCamp.Tests
                     Tap("bonus-10");yield return Frames(12);Assert.NotNull(overlay.GetComponentInChildren<BonusCampPreviewGraphic>());
                     Assert.IsFalse(Find("bonus-play").interactable);Tap("back");yield return Frames(14);
                     scroll=overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();Assert.AreEqual(remembered,scroll.verticalNormalizedPosition,.02f,$"scroll restore: remembered={remembered:R} now={scroll.verticalNormalizedPosition:R} saved={services.LevelMapScroll:R}");
-                    Assert.AreEqual(0,services.Progression.CompletedCount);
+                    Assert.AreEqual(8,services.Progression.CompletedCount,"Preview must not grant progress");
+                    services.Progression.Restore(null,null,0);
                 }
                 Tap("back");yield return Frames(12);
                 Assert.IsEmpty(Object.FindObjectsByType<RoadmapGraphic>());Assert.IsEmpty(Object.FindObjectsByType<RoadmapWeatherGraphic>());
@@ -156,8 +161,8 @@ namespace QuietCamp.Tests
                 foreach(var id in new[]{"QC007","gen:qc_camp:14","gen:qc_camp:19"})
                 foreach(int tier in new[]{0,2})
                 {
-                    int index=Enumerable.Range(0,map.Scenes.Count).First(i=>map.Scenes[i].Level.id==id);
-                    var scene=map.Scenes[index];Assert.NotNull(scene.Level.environment.shore);Assert.IsTrue(scene.Props.Any(p=>p.Geometry!=null));
+                    int index=Enumerable.Range(0,map.Scenes.Count).First(i=>map.SceneAt(i).Level.id==id);
+                    var scene=map.SceneAt(index);Assert.NotNull(scene.Level.environment.shore);Assert.IsTrue(scene.Props.Any(p=>p.Geometry!=null));
                     services.Settings.quality=tier+1;services.EffectiveQuality=tier;map.SetWeatherMoment(80);
                     float height=scroll.viewport.rect.height;
                     scroll.verticalNormalizedPosition=1-Mathf.Clamp01((RoadmapLayout.MainY(index)-height*.5f)/(scroll.content.rect.height-height));scroll.velocity=Vector2.zero;

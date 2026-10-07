@@ -244,6 +244,12 @@ switch { flex-shrink: 0; width: 124px; height: 68px; margin: 0; }
 .map-bonus-stop { position: absolute; width: 320px; margin-left: -160px; align-items: center; gap: 10px; }
 .map-bonus-node { width: 320px; min-height: 132px; padding: 14px 22px; gap: 5px; flex-direction: column; border-radius: 34px; border-width: 3px; border-color: #b39350; background-image: linear-gradient(145deg, #fbefc8 0%, #ddd6a8 100%); }
 .map-bonus-node.bonus-ready { border-color: #c89643; border-width: 5px; }
+/* World reveal: beyond the horizon nodes collapse into a quiet silhouette —
+   the world continues, but nothing inspectable leaks through the mist. */
+.map-node.hidden { width: 68px; height: 56px; min-height: 56px; border-radius: 28px; border-color: #7d8b70; opacity: .5; background-image: linear-gradient(160deg, #b3bda0 0%, #8b9a7e 100%); }
+.map-bonus-node.veiled, .map-branch-node.veiled { opacity: .42; }
+.map-branch-node.veiled { min-height: 64px; width: 180px; }
+.map-bonus-node.veiled { min-height: 80px; width: 200px; }
 .bonus-heading { flex-direction: row; align-items: center; gap: 8px; }
 .bonus-heading .ico { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
 .ico-bonus { background-image: url(res:QuietCamp/UI/Atlas/orb_leaf); }

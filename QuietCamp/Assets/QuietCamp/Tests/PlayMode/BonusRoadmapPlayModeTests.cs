@@ -41,7 +41,14 @@ namespace QuietCamp.Tests
             while(Object.FindAnyObjectByType<QuietCampBootstrap>()?.StartupReady!=true&&Time.realtimeSinceStartup<deadline)yield return null;
             Assert.IsTrue(Object.FindAnyObjectByType<QuietCampBootstrap>().StartupReady);yield return Frames(18);
             var services=QuietCampBootstrap.ServicesRef;var saved=services.Progression.CompletedIds.ToArray();var last=services.Progression.LastLevelId;var flags=services.Progression.CosmeticFlags;
-            services.Progression.Restore(null,null,0);services.ReducedMotion=true;services.Settings.textScale=1.3f;services.LevelMapScroll=-1;
+            var allIds=LevelLoader.MvpLevelIds();
+            // A completed world keeps every slot inside the reveal horizon;
+            // the veiled-tap case is exercised explicitly below.
+            services.Progression.Restore(allIds,allIds[allIds.Count-1],0);services.ReducedMotion=true;services.Settings.textScale=1.3f;services.LevelMapScroll=-1;
+            // Restoring progression does not rebuild mounted HTML — refresh the
+            // overlay so cards gated by progress (like the map entry) appear.
+            foreach(var surface in Object.FindObjectsByType<HtmlSurface>())surface.Refresh();yield return Frames(15);
+            var doneBefore=services.Progression.CompletedCount;
             foreach(var size in new[]{new Vector2Int(720,1600),new Vector2Int(1280,800),new Vector2Int(2560,1080)})
             {
                 Size(size.x,size.y);yield return Frames(15);Tap("levels");yield return Frames(15);
@@ -76,11 +83,15 @@ namespace QuietCamp.Tests
                         if(deep&&(language=="uk"||language=="de"))yield return Shot("branch_"+slot.afterLevel+"_"+size.x+"x"+size.y+"_"+language);
                         if(!deep)continue;
                         Tap("bonus-"+slot.afterLevel);yield return Frames(12);
-                        Assert.NotNull(overlay.GetComponentInChildren<BonusCampPreviewGraphic>());Assert.IsFalse(Button("bonus-play").interactable);
+                        Assert.NotNull(overlay.GetComponentInChildren<BonusCampPreviewGraphic>());
+                        // Play stays bound to the slot's real access state —
+                        // the preview card itself never decides playability.
+                        Assert.AreEqual(services.BonusCamps.Evaluate(slot).CanPlay,Button("bonus-play").interactable);
                         var playRect=(RectTransform)Button("bonus-play").transform;var playCorners=new Vector3[4];playRect.GetWorldCorners(playCorners);
                         foreach(var corner in playCorners)Assert.That(corner.y,Is.InRange(0,Screen.height),"Preview action escaped the screen");
-                        var before=services.PendingLevelId;Button("bonus-play").onClick.Invoke();Assert.AreEqual(before,services.PendingLevelId,"A draft launched a missing level");
-                        Assert.AreEqual(0,services.Progression.CompletedCount);Assert.IsNull(services.Progression.LastLevelId);
+                        if(!Button("bonus-play").interactable)
+                        { var before=services.PendingLevelId;Button("bonus-play").onClick.Invoke();Assert.AreEqual(before,services.PendingLevelId,"A draft launched a missing level"); }
+                        Assert.AreEqual(doneBefore,services.Progression.CompletedCount,"Preview must not grant progress");
                         if(language=="de"||size.x==720)yield return Shot("preview_"+slot.afterLevel+"_"+size.x+"x"+size.y+"_"+language);
                         Tap("back");yield return Frames(15);
                         scroll=overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();Assert.AreEqual(fraction,scroll.verticalNormalizedPosition,.02f,"Preview reset map scroll");
@@ -88,7 +99,29 @@ namespace QuietCamp.Tests
                 }
                 Tap("back");yield return Frames(15);
             }
-            var ids=LevelLoader.MvpLevelIds();services.Progression.Restore(ids.Take(20),ids[19],0);services.LevelMapScroll=-1;
+            var ids=allIds;
+            // Near-fresh reveal (QC001 done so the map opens): nothing past the
+            // horizon turns playable — the teaser card stays view-only.
+            services.Progression.Restore(ids.Take(1),ids[0],0);services.LevelMapScroll=-1;
+            foreach(var surface in Object.FindObjectsByType<HtmlSurface>())surface.Refresh();yield return Frames(12);
+            Tap("levels");yield return Frames(15);
+            var mapOverlay=Object.FindObjectsByType<HtmlSurface>().Single(s=>s.name=="MenuOverlay");
+            var scrollVeiled=mapOverlay.Element("roadmap-scroll").GetComponent<ScrollRect>();
+            var veiledSlot=BonusCampCatalog.Slots.First(s=>s.afterLevel==40);
+            float vh=scrollVeiled.viewport.rect.height;
+            scrollVeiled.verticalNormalizedPosition=1-Mathf.Clamp01((RoadmapLayout.BonusY(veiledSlot)-vh*.4f)/(scrollVeiled.content.rect.height-vh));
+            scrollVeiled.velocity=Vector2.zero;yield return Frames(6);
+            Tap("bonus-40");yield return Frames(10);
+            // The teaser card may open, but a veiled slot can never be played.
+            Assert.NotNull(mapOverlay.GetComponentInChildren<BonusCampPreviewGraphic>());
+            var pendingBefore=services.PendingLevelId;
+            Button("bonus-play").onClick.Invoke();
+            Assert.AreEqual(pendingBefore,services.PendingLevelId,"A veiled slot became playable");
+            Tap("back");yield return Frames(12);
+            // Preview-back lands on the map — one more back to reach Main.
+            Tap("back");yield return Frames(12);
+            services.Progression.Restore(ids.Take(20),ids[19],0);services.LevelMapScroll=-1;
+            foreach(var surface in Object.FindObjectsByType<HtmlSurface>())surface.Refresh();yield return Frames(12);
             Tap("levels");yield return Frames(15);
             var node=(RectTransform)Button("level-20").transform;var p=RectTransformUtility.WorldToScreenPoint(null,node.TransformPoint(node.rect.center));
             Assert.That(p.y,Is.InRange(1,Screen.height-1),"Current level was not visible after bonus gaps");
