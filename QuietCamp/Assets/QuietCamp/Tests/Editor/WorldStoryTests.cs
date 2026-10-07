@@ -71,6 +71,38 @@ namespace QuietCamp.Tests
                         "banned roadmap vocabulary: " + field);
         }
 
+        [Test] public void TidewrackHonoursTheBlackSeaSafetyRules()
+        {
+            var story = WorldStoryCatalog.Current.For("tidewrack");
+            Assert.NotNull(story, "tidewrack entry is required");
+            Assert.AreEqual(StoryVisibility.Silhouette, story.Roadmap);
+            Assert.AreEqual(DetailVisibility.Evident, story.LevelDetail);
+            Assert.AreEqual("black-sea-2022", story.historicalReference);
+            Assert.AreEqual(ReferenceConfidence.Verified, story.Confidence);
+            // Ordnance is never a prop: only the civil warning sign exists.
+            var banned = new[] { "bomb", "torpedo", "warhead", "weapon", "missile" };
+            foreach (var field in new[] { story.heroLandmark, story.returningProp, story.storyBeat })
+                foreach (var word in banned)
+                    Assert.IsFalse(field != null && field.ToLowerInvariant().Contains(word),
+                        "banned vocabulary: " + field);
+        }
+
+        [Test] public void StillwaterHonoursTheKakhovkaSafetyRules()
+        {
+            var story = WorldStoryCatalog.Current.For("stillwater");
+            Assert.NotNull(story, "stillwater entry is required");
+            Assert.AreEqual(StoryVisibility.Silhouette, story.Roadmap);
+            Assert.AreEqual(DetailVisibility.Evident, story.LevelDetail);
+            Assert.AreEqual("kakhovka-2023", story.historicalReference);
+            Assert.AreEqual(ReferenceConfidence.Verified, story.Confidence);
+            // Survival and rescue, never carcasses or spectacle.
+            var banned = new[] { "corpse", "carcass", "dead animal", "gore", "victim" };
+            foreach (var field in new[] { story.heroLandmark, story.returningProp, story.storyBeat, story.worldStateAfter })
+                foreach (var word in banned)
+                    Assert.IsFalse(field != null && field.ToLowerInvariant().Contains(word),
+                        "banned vocabulary: " + field);
+        }
+
         [Test] public void StoryTellsThroughTheLandmarkNotTheText()
         {
             // Cultural cues live in props and places, not slogans: no entry may
