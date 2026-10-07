@@ -75,7 +75,24 @@ namespace QuietCamp.Infrastructure
                 if (i > 0 && node.Y <= data.Nodes[i - 1].Y) issues.Add("worldmap.node.monotonic:" + node.LevelId);
                 if (node.RegionIndex < 0 || node.RegionIndex >= data.Regions.Length) issues.Add("worldmap.node.region:" + node.LevelId);
                 if (node.ChunkIndex < 0 || node.ChunkIndex >= data.Chunks.Length) issues.Add("worldmap.node.chunk:" + node.LevelId);
+                if (string.IsNullOrEmpty(node.PreviewId)) issues.Add("warn:worldmap.node.preview:" + node.LevelId);
+                // Node overlap: two scene markers too close read as one blob.
+                for (var j = i + 1; j < data.Nodes.Length; j++)
+                {
+                    var other = data.Nodes[j];
+                    float dx = (node.X - other.X) * 1000f, dy = node.Y - other.Y;
+                    if (dx * dx + dy * dy < 120f * 120f) issues.Add("worldmap.node.overlap:" + node.LevelId + "+" + other.LevelId);
+                }
             }
+            // A branch node may not sit on top of a main node either.
+            foreach (var branch in data.Branches)
+                if (branch.Nodes != null)
+                    foreach (var bn in branch.Nodes)
+                        foreach (var mn in data.Nodes)
+                        {
+                            float dx = (bn.X - mn.X) * 1000f, dy = bn.Y - mn.Y;
+                            if (dx * dx + dy * dy < 90f * 90f) issues.Add("worldmap.branch.overlap:" + branch.Id + "+" + mn.LevelId);
+                        }
 
             if (hasKey != null)
                 foreach (var branch in data.Branches)
