@@ -1,0 +1,169 @@
+{
+  "entries": [
+    {
+      "id": "glades",
+      "storyBeat": "the journey begins where the road is still gentle",
+      "heroLandmark": "old oak at the spring",
+      "returningProp": "wooden signposts with carved arrows",
+      "characterFocus": "the travellers setting out",
+      "worldStateBefore": "untouched meadow",
+      "worldStateAfter": "a first camp ring of stones",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "subtle"
+    },
+    {
+      "id": "forest",
+      "storyBeat": "the canopy closes; the path narrows to a trail",
+      "heroLandmark": "fallen giant bridging a ravine",
+      "returningProp": "mushroom baskets left on stumps",
+      "characterFocus": "a forager's route",
+      "worldStateBefore": "deep forest",
+      "worldStateAfter": "restocked log pile and a dry shelter",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "subtle"
+    },
+    {
+      "id": "embers",
+      "storyBeat": "summer burns itself out into the first cold nights",
+      "heroLandmark": "fire lookout tower",
+      "returningProp": "charred stump line marking an old fire's edge",
+      "characterFocus": "the lookout keeper",
+      "worldStateBefore": "dry late-summer ridge",
+      "worldStateAfter": "a cleaned fire ring and water barrels",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "evident"
+    },
+    {
+      "id": "bridges",
+      "storyBeat": "crossings decide where a journey can continue",
+      "heroLandmark": "timber footbridge over the narrows",
+      "returningProp": "rope handrails",
+      "characterFocus": "travellers and ferrymen",
+      "worldStateBefore": "a washed-out ford",
+      "worldStateAfter": "a safe crossing with plank seats",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "subtle"
+    },
+    {
+      "id": "stations",
+      "storyBeat": "a small railway platform still keeps its schedule of lights",
+      "heroLandmark": "wooden station shelter and semaphore",
+      "returningProp": "milk churns waiting on the platform",
+      "characterFocus": "the night station keeper",
+      "worldStateBefore": "quiet siding",
+      "worldStateAfter": "lamps lit and a bench cleared of leaves",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "subtle"
+    },
+    {
+      "id": "shores",
+      "storyBeat": "the land remembers water that no longer reaches it",
+      "heroLandmark": "stranded rowboat far above the waterline",
+      "returningProp": "netted floats and reed beds",
+      "characterFocus": "fishers who moved their moorings",
+      "worldStateBefore": "receding shore",
+      "worldStateAfter": "a new mooring and a marked channel",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "evident"
+    },
+    {
+      "id": "farms",
+      "storyBeat": "worked land: hay rows, apiary boards, fenced kitchen gardens",
+      "heroLandmark": "apiary at the field's edge",
+      "returningProp": "painted beehive boards",
+      "characterFocus": "the beekeeper's rounds",
+      "worldStateBefore": "harvest stubble",
+      "worldStateAfter": "stacked hay and a shared water point",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "subtle"
+    },
+    {
+      "id": "mills",
+      "storyBeat": "old millraces still turn smaller wheels",
+      "heroLandmark": "watermill wheel",
+      "returningProp": "millstones used as step stones",
+      "characterFocus": "the miller's family",
+      "worldStateBefore": "sluice overgrown",
+      "worldStateAfter": "cleared channel and a working wheel",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "subtle"
+    },
+    {
+      "id": "villages",
+      "storyBeat": "a lane of gardens, wells and low fences",
+      "heroLandmark": "village well with a sweep arm",
+      "returningProp": "embroidered cloth on a fence rail",
+      "characterFocus": "neighbours along one lane",
+      "worldStateBefore": "overgrown lane",
+      "worldStateAfter": "a swept well square",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "subtle"
+    },
+    {
+      "id": "passes",
+      "storyBeat": "the road climbs; weather arrives before the view does",
+      "heroLandmark": "stone cairn at the saddle",
+      "returningProp": "waymarks on granite",
+      "characterFocus": "shepherds on the high route",
+      "worldStateBefore": "exposed pass",
+      "worldStateAfter": "a windbreak camp below the cairn",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "subtle"
+    },
+    {
+      "id": "resort",
+      "storyBeat": "a quiet resort out of season — umbrellas folded, dock empty",
+      "heroLandmark": "pier over still water",
+      "returningProp": "rowboats chained upside-down",
+      "characterFocus": "the off-season caretaker",
+      "worldStateBefore": "closed resort",
+      "worldStateAfter": "one warmed cabin and a lit pier lamp",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "subtle"
+    },
+    {
+      "id": "coast",
+      "storyBeat": "open water, reed lagoons and a distant light",
+      "heroLandmark": "lighthouse silhouette on the point",
+      "returningProp": "fishing weirs in the shallows",
+      "characterFocus": "the lighthouse keeper",
+      "worldStateBefore": "empty coast",
+      "worldStateAfter": "a lit lamp and a repaired dory",
+      "roadmapVisibility": "silhouette",
+      "levelDetailVisibility": "subtle"
+    },
+    {
+      "id": "highlands",
+      "storyBeat": "hayfields on high shelves; snowline approaches",
+      "heroLandmark": "shepherd's hut on the shelf",
+      "returningProp": "hay racks drying on poles",
+      "characterFocus": "the high pasture crew",
+      "worldStateBefore": "first frost on the meadows",
+      "worldStateAfter": "a stocked winter shelter",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "subtle"
+    },
+    {
+      "id": "frontier",
+      "storyBeat": "the last power line, the last fence — then open country",
+      "heroLandmark": "end-of-line pylon",
+      "returningProp": "wire and insulators repurposed as fence posts",
+      "characterFocus": "those who live past the last service",
+      "worldStateBefore": "sparse frontier",
+      "worldStateAfter": "a relay camp under the pylon",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "subtle"
+    },
+    {
+      "id": "haven",
+      "storyBeat": "the road's end is a place worth staying",
+      "heroLandmark": "great pine over a spring",
+      "returningProp": "all the carved signposts pointing home",
+      "characterFocus": "the travellers, arrived",
+      "worldStateBefore": "a quiet clearing",
+      "worldStateAfter": "the permanent camp",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "subtle"
+    }
+  ]
+}
