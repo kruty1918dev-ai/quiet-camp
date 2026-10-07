@@ -9,6 +9,9 @@ namespace QuietCamp.Domain
     /// <c>verified</c> against authoritative sources. Anything unverified must
     /// never present itself as evidence.</summary>
     public enum ReferenceConfidence { None, Inspired, Verified }
+    /// <summary>How plainly a level may show its evidence — the in-level
+    /// counterpart to <see cref="StoryVisibility"/>.</summary>
+    public enum DetailVisibility { None, Subtle, Evident }
 
     /// <summary>Environmental storytelling record — authored per region, node
     /// or branch in world_story.json. The player is never told the story; the
@@ -36,7 +39,18 @@ namespace QuietCamp.Domain
         public string levelDetailVisibility = "subtle";
 
         public StoryVisibility Roadmap => ParseVisibility(roadmapVisibility, StoryVisibility.Context);
-        public StoryVisibility LevelDetail => ParseVisibility(levelDetailVisibility, StoryVisibility.Hidden);
+        public DetailVisibility LevelDetail
+        {
+            get
+            {
+                switch (levelDetailVisibility)
+                {
+                    case "evident": return DetailVisibility.Evident;
+                    case "subtle": return DetailVisibility.Subtle;
+                    default: return DetailVisibility.None;
+                }
+            }
+        }
 
         public ReferenceConfidence Confidence
             => referenceConfidence == "verified" ? ReferenceConfidence.Verified

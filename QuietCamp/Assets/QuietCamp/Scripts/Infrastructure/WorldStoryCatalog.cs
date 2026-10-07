@@ -50,7 +50,9 @@ namespace QuietCamp.Infrastructure
             foreach (var pair in catalog._byId)
             {
                 var e = pair.Value;
-                if (map != null && !ids.Contains(e.id)) issues.Add("worldstory.unknown:" + e.id);
+                // Forward-declared regions are pipeline content — authored
+                // before their levels exist; warn so they stay visible.
+                if (map != null && !ids.Contains(e.id)) issues.Add("warn:worldstory.unknown:" + e.id);
                 if (e.Confidence == ReferenceConfidence.Verified && string.IsNullOrEmpty(e.historicalReference))
                     issues.Add("worldstory.unverified:" + e.id);
                 // The roadmap never shows full detail — evidence stays in-level.

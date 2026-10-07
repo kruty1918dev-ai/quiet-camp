@@ -31,7 +31,8 @@ namespace QuietCamp.Tests
 
         [Test] public void CatalogHonoursTheVisibilityContract()
         {
-            var issues = WorldStoryCatalog.Validate(Map(), WorldStoryCatalog.Current);
+            var issues = WorldStoryCatalog.Validate(Map(), WorldStoryCatalog.Current)
+                .Where(i => !i.StartsWith("warn:")).ToList();
             Assert.IsEmpty(issues, string.Join(";", issues));
         }
 
@@ -46,10 +47,28 @@ namespace QuietCamp.Tests
             table["farms"] = new StoryMetadata { id = "farms", historicalReference = "x" };          // reference without confidence
             table["villages"] = new StoryMetadata { id = "villages", referenceConfidence = "verified" }; // verified without reference
             var issues = WorldStoryCatalog.Validate(Map(), broken);
-            Assert.IsTrue(issues.Any(i => i == "worldstory.unknown:ghost"));
+            Assert.IsTrue(issues.Any(i => i == "warn:worldstory.unknown:ghost"));
             Assert.IsTrue(issues.Any(i => i == "worldstory.roadmapDetail:shores"));
             Assert.IsTrue(issues.Any(i => i == "worldstory.unlabeled:farms"));
             Assert.IsTrue(issues.Any(i => i == "worldstory.unverified:villages"));
+        }
+
+        [Test] public void SunfieldHonoursTheMh17SafetyRules()
+        {
+            var story = WorldStoryCatalog.Current.For("sunfield");
+            Assert.NotNull(story, "sunfield entry is required");
+            // Map shows context only; evidence stays inside the level.
+            Assert.AreEqual(StoryVisibility.Silhouette, story.Roadmap);
+            Assert.AreEqual(DetailVisibility.Evident, story.LevelDetail);
+            // The echo is grounded in the DSB/JIT findings, not invented.
+            Assert.AreEqual("mh17", story.historicalReference);
+            Assert.AreEqual(ReferenceConfidence.Verified, story.Confidence);
+            // No weapon or military-vocabulary props may reach the roadmap.
+            var banned = new[] { "missile", "rocket", "weapon", "s300", "buk", "warhead", "military", "flag" };
+            foreach (var field in new[] { story.heroLandmark, story.returningProp, story.storyBeat })
+                foreach (var word in banned)
+                    Assert.IsFalse(field != null && field.ToLowerInvariant().Contains(word),
+                        "banned roadmap vocabulary: " + field);
         }
 
         [Test] public void StoryTellsThroughTheLandmarkNotTheText()
