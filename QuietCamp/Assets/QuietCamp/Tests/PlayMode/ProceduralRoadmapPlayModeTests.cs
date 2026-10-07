@@ -123,7 +123,7 @@ namespace QuietCamp.Tests
                     if(language=="uk")yield return Shot("bonus_"+size.x+"x"+size.y);
                     Tap("bonus-10");yield return Frames(12);Assert.NotNull(overlay.GetComponentInChildren<BonusCampPreviewGraphic>());
                     Assert.IsFalse(Find("bonus-play").interactable);Tap("back");yield return Frames(14);
-                    scroll=overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();Assert.AreEqual(remembered,scroll.verticalNormalizedPosition,.02f,$"scroll restore: remembered={remembered:R} now={scroll.verticalNormalizedPosition:R} saved={GameServices.Current.LevelMapScroll:R}");
+                    scroll=overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();Assert.AreEqual(remembered,scroll.verticalNormalizedPosition,.02f,$"scroll restore: remembered={remembered:R} now={scroll.verticalNormalizedPosition:R} saved={services.LevelMapScroll:R}");
                     Assert.AreEqual(0,services.Progression.CompletedCount);
                 }
                 Tap("back");yield return Frames(12);

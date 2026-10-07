@@ -45,6 +45,9 @@ namespace QuietCamp.Application
             {
                 if (journey == null || string.IsNullOrWhiteSpace(journey.id) || !ids.Add(journey.id)) { issues.Add("journey.id"); continue; }
                 if (journey.revision < 1 || journey.currencyCost < 0 || journey.levelIds == null || journey.published && journey.levelIds.Length == 0) issues.Add("journey.content");
+                // Main/qa are the campaign itself, not side products: a revisit
+                // journey may reuse main levels without claiming them.
+                if (journey.id == "main" || journey.id == "qa") continue;
                 foreach (var id in journey.levelIds ?? Array.Empty<string>()) if (string.IsNullOrWhiteSpace(id) || !levels.Add(id)) issues.Add("journey.level");
                 if (!string.IsNullOrEmpty(journey.previewLevelId) && Array.IndexOf(journey.levelIds ?? Array.Empty<string>(), journey.previewLevelId) < 0) issues.Add("journey.preview");
                 if (journey.storyKeys?.Length > 0 && journey.storyKeys.Length != journey.levelIds.Length) issues.Add("journey.story");
