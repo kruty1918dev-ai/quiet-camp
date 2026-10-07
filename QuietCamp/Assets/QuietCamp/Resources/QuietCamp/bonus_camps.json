@@ -11,6 +11,16 @@
   },
   {
     "id": "bonus:qc_camp:2",
+    "afterLevel": 15,
+    "requiredCompletions": 10,
+    "requiresPremium": false,
+    "levelId": "gen:qc_bn:1",
+    "theme": "lantern",
+    "titleKey": "map.bonus.lantern.title",
+    "descriptionKey": "map.bonus.lantern.description"
+  },
+  {
+    "id": "bonus:qc_camp:3",
     "afterLevel": 20,
     "requiredCompletions": 10,
     "requiresPremium": false,
@@ -20,7 +30,17 @@
     "descriptionKey": "map.bonus.amber.description"
   },
   {
-    "id": "bonus:qc_camp:3",
+    "id": "bonus:qc_camp:4",
+    "afterLevel": 25,
+    "requiredCompletions": 10,
+    "requiresPremium": false,
+    "levelId": "gen:qc_bn:2",
+    "theme": "creek",
+    "titleKey": "map.bonus.creek.title",
+    "descriptionKey": "map.bonus.creek.description"
+  },
+  {
+    "id": "bonus:qc_camp:5",
     "afterLevel": 30,
     "requiredCompletions": 10,
     "requiresPremium": false,
@@ -30,14 +50,167 @@
     "descriptionKey": "map.bonus.fireflies.description"
   },
   {
-    "id": "bonus:qc_camp:4",
+    "id": "bonus:qc_camp:6",
+    "afterLevel": 35,
+    "requiredCompletions": 10,
+    "requiresPremium": false,
+    "levelId": "gen:qc_bn:3",
+    "theme": "meadow",
+    "titleKey": "map.bonus.meadow.title",
+    "descriptionKey": "map.bonus.meadow.description"
+  },
+  {
+    "id": "bonus:qc_camp:7",
     "afterLevel": 40,
-    "requiredCompletions": 6,
+    "requiredCompletions": 10,
     "requiresPremium": false,
     "levelId": "gen:qc_camp:54",
-    "seasonId": "winter",
     "theme": "frost",
     "titleKey": "map.bonus.frost.title",
-    "descriptionKey": "map.bonus.frost.description"
+    "descriptionKey": "map.bonus.frost.description",
+    "seasonId": "winter"
+  },
+  {
+    "id": "bonus:qc_camp:8",
+    "afterLevel": 45,
+    "requiredCompletions": 10,
+    "requiresPremium": true,
+    "levelId": "gen:qc_bn:13",
+    "theme": "overlook",
+    "titleKey": "map.bonus.overlook.title",
+    "descriptionKey": "map.bonus.overlook.description"
+  },
+  {
+    "id": "bonus:qc_camp:9",
+    "afterLevel": 50,
+    "requiredCompletions": 10,
+    "requiresPremium": false,
+    "levelId": "gen:qc_bn:4",
+    "theme": "pinewood",
+    "titleKey": "map.bonus.pinewood.title",
+    "descriptionKey": "map.bonus.pinewood.description"
+  },
+  {
+    "id": "bonus:qc_camp:10",
+    "afterLevel": 55,
+    "requiredCompletions": 10,
+    "requiresPremium": false,
+    "levelId": "gen:qc_bn:10",
+    "theme": "spring",
+    "titleKey": "map.bonus.spring.title",
+    "descriptionKey": "map.bonus.spring.description",
+    "seasonId": "spring"
+  },
+  {
+    "id": "bonus:qc_camp:11",
+    "afterLevel": 60,
+    "requiredCompletions": 10,
+    "requiresPremium": false,
+    "levelId": "gen:qc_bn:5",
+    "theme": "birch",
+    "titleKey": "map.bonus.birch.title",
+    "descriptionKey": "map.bonus.birch.description"
+  },
+  {
+    "id": "bonus:qc_camp:12",
+    "afterLevel": 65,
+    "requiredCompletions": 10,
+    "requiresPremium": false,
+    "levelId": "gen:qc_bn:11",
+    "theme": "summer",
+    "titleKey": "map.bonus.summer.title",
+    "descriptionKey": "map.bonus.summer.description",
+    "seasonId": "summer"
+  },
+  {
+    "id": "bonus:qc_camp:13",
+    "afterLevel": 70,
+    "requiredCompletions": 10,
+    "requiresPremium": false,
+    "levelId": "gen:qc_bn:6",
+    "theme": "quarry",
+    "titleKey": "map.bonus.quarry.title",
+    "descriptionKey": "map.bonus.quarry.description"
+  },
+  {
+    "id": "bonus:qc_camp:14",
+    "afterLevel": 75,
+    "requiredCompletions": 10,
+    "requiresPremium": true,
+    "levelId": "gen:qc_bn:14",
+    "theme": "cliff",
+    "titleKey": "map.bonus.cliff.title",
+    "descriptionKey": "map.bonus.cliff.description"
+  },
+  {
+    "id": "bonus:qc_camp:15",
+    "afterLevel": 80,
+    "requiredCompletions": 10,
+    "requiresPremium": false,
+    "levelId": "gen:qc_bn:16",
+    "theme": "marshal",
+    "titleKey": "map.bonus.marshal.title",
+    "descriptionKey": "map.bonus.marshal.description"
+  },
+  {
+    "id": "bonus:qc_camp:16",
+    "afterLevel": 85,
+    "requiredCompletions": 10,
+    "requiresPremium": false,
+    "levelId": "gen:qc_bn:12",
+    "theme": "autumn",
+    "titleKey": "map.bonus.autumn.title",
+    "descriptionKey": "map.bonus.autumn.description",
+    "seasonId": "autumn"
+  },
+  {
+    "id": "bonus:qc_camp:17",
+    "afterLevel": 90,
+    "requiredCompletions": 10,
+    "requiresPremium": false,
+    "levelId": "gen:qc_bn:7",
+    "theme": "orchard",
+    "titleKey": "map.bonus.orchard.title",
+    "descriptionKey": "map.bonus.orchard.description"
+  },
+  {
+    "id": "bonus:qc_camp:18",
+    "afterLevel": 95,
+    "requiredCompletions": 10,
+    "requiresPremium": true,
+    "levelId": "gen:qc_bn:15",
+    "theme": "lagoon",
+    "titleKey": "map.bonus.lagoon.title",
+    "descriptionKey": "map.bonus.lagoon.description"
+  },
+  {
+    "id": "bonus:qc_camp:19",
+    "afterLevel": 100,
+    "requiredCompletions": 10,
+    "requiresPremium": false,
+    "levelId": "gen:qc_bn:8",
+    "theme": "highmoor",
+    "titleKey": "map.bonus.highmoor.title",
+    "descriptionKey": "map.bonus.highmoor.description"
+  },
+  {
+    "id": "bonus:qc_camp:20",
+    "afterLevel": 105,
+    "requiredCompletions": 10,
+    "requiresPremium": false,
+    "levelId": "gen:qc_bn:9",
+    "theme": "homestead",
+    "titleKey": "map.bonus.homestead.title",
+    "descriptionKey": "map.bonus.homestead.description"
+  },
+  {
+    "id": "bonus:qc_camp:21",
+    "afterLevel": 110,
+    "requiredCompletions": 10,
+    "requiresPremium": false,
+    "levelId": "gen:qc_bn:17",
+    "theme": "summit",
+    "titleKey": "map.bonus.summit.title",
+    "descriptionKey": "map.bonus.summit.description"
   }
 ]

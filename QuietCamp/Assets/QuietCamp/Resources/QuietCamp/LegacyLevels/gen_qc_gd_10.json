@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 56,
+  "chapter": 12,
+  "seed": 890704318,
+  "width": 5,
+  "height": 7,
+  "id": "gen:qc_gd:10",
+  "contentHash": "ba402ba2832ff4f20a4487553213b03cf355ba5d6908eedf7e27250b73aae36e",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "morning",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": 890719969,
+  "entry": [
+    4,
+    3
+  ],
+  "accessPoints": [
+    {
+      "id": "forest-entry",
+      "kind": "entry",
+      "x": 2,
+      "z": 6
+    }
+  ],
+  "blocked": [
+    [
+      0,
+      3
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      1
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 4,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 1,
+      "z": 2,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 0,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 0,
+      "z": 2,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 1,
+      "z": 1,
+      "rotation": 2
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "shore",
+    "seasonId": "autumn",
+    "weatherId": "cloudy",
+    "moisture": 0.48,
+    "treeDensity": 0.55,
+    "clusterSeed": -1809757008,
+    "meadowSpecies": [
+      "grass",
+      "daisy",
+      "poppy"
+    ],
+    "storyMotifs": [
+      "marker",
+      "bag"
+    ],
+    "shore": {
+      "kind": "lake",
+      "side": "left",
+      "offset": 9.0,
+      "width": 7.0,
+      "seed": 890719969
+    }
+  }
+}

@@ -31,11 +31,11 @@ namespace QuietCamp.Application
             _season=season??SeasonalWindow.Now; }
         public BonusCampAccess Evaluate(BonusCampDefinition definition)
         {
-            if(definition==null||definition.afterLevel<10||definition.afterLevel%10!=0
+            if(definition==null||definition.afterLevel<10||definition.afterLevel%5!=0
                 ||definition.afterLevel>_campaign.Count||definition.requiredCompletions<0||definition.requiredCompletions>10)
                 return new BonusCampAccess(0,10,false,false,BonusCampState.Locked);
             int completed=0;
-            for(int i=definition.afterLevel-10;i<definition.afterLevel;i++)
+            for(int i=Math.Max(0,definition.afterLevel-10);i<definition.afterLevel;i++)
                 if(_progression.IsCompleted(_campaign[i]))completed++;
             bool premium=!definition.requiresPremium||(_premium?.Invoke(definition.id)??false);
             bool published=!string.IsNullOrEmpty(definition.levelId)&&(_published?.Invoke(definition)??false);

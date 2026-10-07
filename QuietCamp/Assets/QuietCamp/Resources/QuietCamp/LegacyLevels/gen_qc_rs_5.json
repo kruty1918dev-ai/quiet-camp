@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 90,
+  "chapter": 18,
+  "seed": 326475008,
+  "width": 8,
+  "height": 8,
+  "id": "gen:qc_rs:5",
+  "contentHash": "36f0392a4f5aa181ded9e792e5ab5734a3c123ced2de002b92c3cd8383546453",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "evening",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": 326484575,
+  "entry": [
+    0,
+    4
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      2,
+      2
+    ],
+    [
+      4,
+      0
+    ],
+    [
+      5,
+      7
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g5",
+      "nameKey": "guest.5",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g6",
+      "nameKey": "guest.6",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 5,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g4",
+      "x": 2,
+      "z": 4,
+      "rotation": 0
+    },
+    {
+      "guestId": "g5",
+      "x": 4,
+      "z": 1,
+      "rotation": 0
+    },
+    {
+      "guestId": "g6",
+      "x": 4,
+      "z": 4,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "stump_round",
+      "x": 2,
+      "z": 2,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 4,
+      "z": 0,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 5,
+      "z": 7,
+      "rotation": 0
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "shore",
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.26,
+    "treeDensity": 0.55,
+    "clusterSeed": 1940280138,
+    "meadowSpecies": [
+      "grass",
+      "daisy",
+      "poppy"
+    ],
+    "storyMotifs": [
+      "marker",
+      "flowers"
+    ],
+    "shore": {
+      "kind": "lake",
+      "side": "right",
+      "offset": 10.5,
+      "width": 7.0,
+      "seed": 326484575
+    }
+  }
+}

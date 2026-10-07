@@ -186,16 +186,38 @@ namespace QuietCamp.Presentation.UI
             _overlay.Callbacks.Bind("dim", () => { if (Current != "Main") Back(); });
             return sb.ToString();
         }
+        int _mapArtWatch;
+        bool _mapArtWatching;
+        void MountMapArt()
+        {
+            var art = _overlay.Element("roadmap-art");
+            if (art == null || art.GetComponentInChildren<RoadmapGraphic>() != null) return;
+            var native=QcUi.Stretch(art,"RoadmapMesh");
+            var graphic=native.gameObject.AddComponent<RoadmapGraphic>();
+            graphic.raycastTarget=false;graphic.Configure(_services);
+        }
+        // Large maps can settle their DOM a frame after Mounted fires: a stale
+        // subtree still reports an art element, then gets replaced and takes the
+        // mesh with it. Keep re-checking through a short settling window.
+        System.Collections.IEnumerator MapArtWatch()
+        {
+            while (_mapArtWatch-- > 0 && (Current == "Levels" || Current == "BonusPreview"))
+            {
+                MountMapArt();
+                yield return null;
+            }
+            _mapArtWatching = false;
+        }
         void OnOverlayMounted()
         {
             if (Current == "Levels" || Current == "BonusPreview")
             {
-                var art = _overlay.Element("roadmap-art");
-                if (art != null && art.GetComponentInChildren<RoadmapGraphic>() == null)
+                MountMapArt();
+                _mapArtWatch = 90;
+                if (!_mapArtWatching)
                 {
-                    var native=QcUi.Stretch(art,"RoadmapMesh");
-                    var graphic=native.gameObject.AddComponent<RoadmapGraphic>();
-                    graphic.raycastTarget=false;graphic.Configure(_services);
+                    _mapArtWatching = true;
+                    _overlay.StartCoroutine(MapArtWatch());
                 }
                 var scroll = _overlay.Element("roadmap-scroll");
                 if (scroll != null)
@@ -280,6 +302,27 @@ namespace QuietCamp.Presentation.UI
                     .Append(CampIcons.Mark(access.State==BonusCampState.Locked?"lock":access.State==BonusCampState.Completed?"check":"hint","node-status"))
                     .Append("</button>")
                     .Append(HtmlUi.Text(T(access.Published?"map.bonus.sideRoute":"map.bonus.soon"),"bonus-caption"))
+                    .Append("</view>");
+            }
+            foreach(var journey in _services.Journeys.Journeys)
+            {
+                // Story branches fork off the main road where they unlock.
+                // The slot is visible ahead of time — a promise, not a gate.
+                if(journey.id=="main"||journey.id=="qa"||journey.id.StartsWith("bonus.")||!journey.published&&journey.requiredCompletions<=0)continue;
+                if(journey.requiredCompletions>ids.Count)continue;
+                var state=journey.levelIds.Length>0?_services.JourneyAccess.Evaluate(journey.levelIds[0]).State:JourneyAccessState.MissingContent;
+                string callback="branch-"+journey.id;
+                _overlay.Callbacks.Bind(callback,()=>{SelectedJourney=journey;_journeyConfirmation=null;Show("JourneyPreview");});
+                html.Append("<view class=\"map-branch-stop\" style=\"left:").Append(HtmlUi.Number(RoadmapLayout.BranchX(journey)*100))
+                    .Append("%;top:").Append(HtmlUi.Number(RoadmapLayout.BranchY(journey))).Append("px\">")
+                    .Append("<button id=\"").Append(callback).Append("\" class=\"map-branch-node")
+                    .Append(state==JourneyAccessState.Available?" branch-ready":"").Append("\" data-tooltip=\"").Append(HtmlUi.Escape(T(journey.titleKey)))
+                    .Append("\" onClick=\"Globals.campUi.Click('").Append(callback).Append("')\">")
+                    .Append(CampIcons.Mark("path"))
+                    .Append(HtmlUi.Text(T(journey.titleKey),"branch-name"))
+                    .Append(CampIcons.Mark(state==JourneyAccessState.Available?"hint":"lock","node-status"))
+                    .Append("</button>")
+                    .Append(HtmlUi.Text(journey.published?T("map.branch.sideRoute"):T("map.bonus.soon"),"bonus-caption"))
                     .Append("</view>");
             }
             return html.Append("</view></scroll>").ToString();

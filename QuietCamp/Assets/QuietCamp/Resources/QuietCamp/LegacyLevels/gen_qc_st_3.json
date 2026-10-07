@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 79,
+  "chapter": 16,
+  "seed": 326418649,
+  "width": 7,
+  "height": 8,
+  "id": "gen:qc_st:3",
+  "contentHash": "2f279a71d35de8bd3d56429bb95b2c6954ed0f2395e3b25c4cd967179cfc2066",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "day",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": 326410118,
+  "entry": [
+    3,
+    0
+  ],
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 3,
+      "z": 7
+    }
+  ],
+  "blocked": [
+    [
+      6,
+      4
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      5,
+      3
+    ]
+  ],
+  "shade": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [
+    [
+      "g1",
+      "g2"
+    ]
+  ],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 3,
+      "rotation": 1
+    },
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 5,
+      "rotation": 0
+    },
+    {
+      "guestId": "g4",
+      "x": 2,
+      "z": 5,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "tree_default",
+      "x": 6,
+      "z": 4,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 2,
+      "z": 4,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 5,
+      "z": 3,
+      "rotation": 1
+    }
+  ],
+  "canopies": [
+    {
+      "x": 1.25,
+      "z": 1.25,
+      "radiusX": 1.6,
+      "radiusZ": 1.6
+    }
+  ],
+  "environment": {
+    "biomeId": "meadow",
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.26,
+    "treeDensity": 0.25,
+    "clusterSeed": 1674394191,
+    "meadowSpecies": [
+      "grass",
+      "daisy",
+      "poppy"
+    ],
+    "storyMotifs": [
+      "ruin",
+      "bench",
+      "lantern"
+    ],
+    "shore": null
+  }
+}

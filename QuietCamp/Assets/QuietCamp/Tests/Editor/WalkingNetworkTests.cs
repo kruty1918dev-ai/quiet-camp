@@ -109,11 +109,19 @@ namespace QuietCamp.Tests
         [Test]
         public void FrozenCampaignMatchesTheSeasonalStoryAndWaterTable()
         {
-            var ids=LevelLoader.MvpLevelIds();var seasons=new[]{"spring","summer","summer","autumn","winter","spring"};
-            var water=new HashSet<int>{7,10,13,19,24,29,32,40,42};
+            var ids=LevelLoader.MvpLevelIds();
+            // Frozen season arc, restated as (from,to,season) runs: act 1 follows
+            // the chapter table, districts then carry their own arcs, and 61-64
+            // stay the shared "four seasons" band used by every frozen family.
+            var seasonRuns=new[]{(1,5,"spring"),(6,15,"summer"),(16,20,"autumn"),(21,25,"winter"),
+                (26,45,"spring"),(46,50,"summer"),(51,60,"autumn"),(61,61,"spring"),(62,62,"autumn"),
+                (63,63,"summer"),(64,64,"winter"),(65,66,"autumn"),(67,74,"winter"),(75,90,"summer"),
+                (91,98,"winter"),(99,102,"autumn"),(103,106,"winter"),(107,110,"spring")};
+            var water=new HashSet<int>{7,10,13,19,24,29,32,40,42,48,51,53,54,56,57,60,66,76,80,83,84,86,87,89,90,108};
             for(int i=0;i<ids.Count;i++)
             {
-                var level=LevelLoader.Load(ids[i]);Assert.AreEqual(2,level.ruleVersion);Assert.AreEqual(seasons[Math.Min(5,i/5)],level.environment.seasonId);
+                var level=LevelLoader.Load(ids[i]);Assert.AreEqual(2,level.ruleVersion);
+                Assert.AreEqual(seasonRuns.First(r=>i+1>=r.Item1&&i+1<=r.Item2).Item3,level.environment.seasonId,level.id);
                 Assert.AreEqual(water.Contains(i+1),level.environment.shore!=null,level.id);
                 Assert.AreEqual(CampContent.CalculateHash(level),level.contentHash,level.id+" hash");
                 Assert.AreEqual(JsonConvert.SerializeObject(level.environment),JsonConvert.SerializeObject(CampContent.Summary(level.id).environment));

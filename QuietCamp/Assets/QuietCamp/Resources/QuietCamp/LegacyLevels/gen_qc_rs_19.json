@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 92,
+  "chapter": 19,
+  "seed": 901595007,
+  "width": 5,
+  "height": 6,
+  "id": "gen:qc_rs:19",
+  "contentHash": "629446f13265526d4ba8b83b0206a2df67cf91bcc07e417f8454e392f16ae778",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "morning",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": 901603360,
+  "entry": [
+    4,
+    3
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      4,
+      0
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      4
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      4,
+      0
+    ]
+  ],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 1,
+      "rotation": 0
+    },
+    {
+      "guestId": "g1",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "campfire_stones",
+      "x": 4,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 2,
+      "z": 2,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 1,
+      "z": 0,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 1,
+      "z": 4,
+      "rotation": 3
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "pines",
+    "seasonId": "winter",
+    "weatherId": "cloudy",
+    "moisture": 0.48,
+    "treeDensity": 0.84,
+    "clusterSeed": -1599873411,
+    "meadowSpecies": [
+      "grass"
+    ],
+    "storyMotifs": [
+      "ruin",
+      "lantern"
+    ],
+    "shore": null
+  }
+}

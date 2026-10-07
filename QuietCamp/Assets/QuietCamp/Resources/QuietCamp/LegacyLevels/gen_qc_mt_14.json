@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 96,
+  "chapter": 20,
+  "seed": 897038864,
+  "width": 7,
+  "height": 6,
+  "id": "gen:qc_mt:14",
+  "contentHash": "66d4a1a9248e025a8958b4fc4a87a767cc23ffbdb308fa7b579ecb85008ff620",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "morning",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": 897049935,
+  "entry": [
+    6,
+    3
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      0,
+      1
+    ],
+    [
+      4,
+      3
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 2,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 2,
+      "z": 2,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 3,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 0,
+      "z": 1,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 4,
+      "z": 3,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 2,
+      "z": 1,
+      "rotation": 2
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "pines",
+    "seasonId": "winter",
+    "weatherId": "cloudy",
+    "moisture": 0.48,
+    "treeDensity": 0.84,
+    "clusterSeed": -680284902,
+    "meadowSpecies": [
+      "grass"
+    ],
+    "storyMotifs": [
+      "ruin",
+      "lantern"
+    ],
+    "shore": null
+  }
+}

@@ -227,7 +227,8 @@ namespace QuietCamp.Presentation.UI
             if(!BonusScenes.TryGetValue(slot.id,out var scene))
             {
                 var level=new LevelSummary { id=slot.id,number=slot.afterLevel,width=4,height=4,decorSeed=slot.afterLevel*7919,
-                    environmentPreset=slot.theme=="fireflies"?"pines":"meadow",lighting=slot.theme=="fireflies"?"night":slot.theme=="amber"?"evening":"morning" };
+                    entry=new[]{2,3},environmentPreset=BonusPreset(slot.theme),lighting=BonusLighting(slot.theme),
+                    environment=new EnvironmentCompositionData { seasonId=BonusSeason(slot.theme) } };
                 scene=RoadmapSceneGenerator.Generate(level,AtmosphereCatalog.Load());
                 scene.Weather=new CampWeatherTimeline.State(0,0);BonusScenes.Add(slot.id,scene);
             }
@@ -240,6 +241,34 @@ namespace QuietCamp.Presentation.UI
             { painter.Model(vh,scene,prop,at,scale);if(prop.Tent)Glow(vh,at+RoadmapPainter.Project(prop.Position,scale),19,.34f); }
             if(scene.Night)for(int i=0;i<8;i++)Glow(vh,at+new Vector2(Mathf.Sin(i*2.4f)*135,Mathf.Cos(i*1.5f)*65),5,.60f);
             return painter.TruncatedModels;
+        }
+        static string BonusPreset(string theme)
+        {
+            switch(theme)
+            {
+                case "fireflies":case "pinewood":case "quarry":case "highmoor":case "marshal":case "summit":return "pines";
+                default:return "meadow";
+            }
+        }
+        static string BonusLighting(string theme)
+        {
+            switch(theme)
+            {
+                case "fireflies":case "lantern":case "lagoon":return "night";
+                case "amber":case "creek":case "overlook":case "cliff":case "autumn":return "evening";
+                default:return "morning";
+            }
+        }
+        static string BonusSeason(string theme)
+        {
+            switch(theme)
+            {
+                case "frost":case "summit":return "winter";
+                case "spring":case "birch":case "meadow":return "spring";
+                case "summer":case "lagoon":case "creek":return "summer";
+                case "autumn":case "amber":case "orchard":return "autumn";
+                default:return "";
+            }
         }
         protected override void OnDestroy()
         { base.OnDestroy();if(_ownedMaterial!=null)Destroy(_ownedMaterial); }

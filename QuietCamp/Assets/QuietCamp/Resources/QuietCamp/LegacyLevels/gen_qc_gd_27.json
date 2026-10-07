@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 55,
+  "chapter": 11,
+  "seed": 890696437,
+  "width": 8,
+  "height": 8,
+  "id": "gen:qc_gd:27",
+  "contentHash": "21b3b0ef76d0c7ac0b14e58bc76127fa3d590f3578a7192ee47869208065b0bf",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "evening",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": 890678698,
+  "entry": [
+    4,
+    0
+  ],
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 4,
+      "z": 7
+    }
+  ],
+  "blocked": [
+    [
+      3,
+      2
+    ],
+    [
+      7,
+      2
+    ],
+    [
+      0,
+      4
+    ]
+  ],
+  "shade": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g5",
+      "nameKey": "guest.5",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g6",
+      "nameKey": "guest.6",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [
+    [
+      "g1",
+      "g2"
+    ]
+  ],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 1,
+      "z": 3,
+      "rotation": 2
+    },
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 5,
+      "rotation": 0
+    },
+    {
+      "guestId": "g4",
+      "x": 2,
+      "z": 5,
+      "rotation": 0
+    },
+    {
+      "guestId": "g5",
+      "x": 3,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "guestId": "g6",
+      "x": 4,
+      "z": 1,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "tree_default",
+      "x": 3,
+      "z": 2,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 7,
+      "z": 2,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 0,
+      "z": 4,
+      "rotation": 1
+    }
+  ],
+  "canopies": [
+    {
+      "x": 1.25,
+      "z": 1.25,
+      "radiusX": 1.6,
+      "radiusZ": 1.6
+    }
+  ],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "autumn",
+    "weatherId": "clear",
+    "moisture": 0.26,
+    "treeDensity": 0.84,
+    "clusterSeed": -1957135749,
+    "meadowSpecies": [
+      "grass",
+      "daisy",
+      "poppy"
+    ],
+    "storyMotifs": [
+      "marker",
+      "bag"
+    ],
+    "shore": null
+  }
+}

@@ -11,7 +11,7 @@ namespace QuietCamp.Tests
     {
         [Test] public void EveryPreviewUsesFrozenContentAndTheGameplayAtmosphereResolver()
         {
-            var catalog=AtmosphereCatalog.Load();Assert.AreEqual(49,CampContent.Summaries.Count);
+            var catalog=AtmosphereCatalog.Load();Assert.AreEqual(270,CampContent.Summaries.Count);
             foreach(var summary in CampContent.Summaries)
             {
                 var level=LevelLoader.Load(summary.id);
@@ -80,12 +80,13 @@ namespace QuietCamp.Tests
             {
                 var scene=RoadmapSceneGenerator.Generate(summary,catalog);
                 var initial=CampWeatherTimeline.Initial(summary.environment.weatherId);
-                Assert.AreEqual(initial.Rain,scene.Weather.Rain,.00001f,summary.id);
+                // Winter scenes precipitate as snow: rain is suppressed to zero.
+                Assert.AreEqual(scene.Winter?0f:initial.Rain,scene.Weather.Rain,.00001f,summary.id);
                 Assert.AreEqual(initial.Cloud,scene.Weather.Cloud,.00001f,summary.id);
                 float elapsed=scene.WeatherTime+.5f;
                 var target=CampWeatherTimeline.Target(elapsed,summary.decorSeed,summary.environment.weatherId);
                 scene.Advance(.5f);float ease=1-Mathf.Exp(-.5f/5);
-                Assert.AreEqual(Mathf.Lerp(initial.Rain,target.Rain,ease),scene.Weather.Rain,.00001f,summary.id);
+                Assert.AreEqual(scene.Winter?0f:Mathf.Lerp(initial.Rain,target.Rain,ease),scene.Weather.Rain,.00001f,summary.id);
                 Assert.AreEqual(Mathf.Lerp(initial.Cloud,target.Cloud,ease),scene.Weather.Cloud,.00001f,summary.id);
                 if(summary.environment.weatherId=="clear"||summary.environment.weatherId=="mist")Assert.AreEqual(0,scene.Weather.Rain,summary.id);
             }

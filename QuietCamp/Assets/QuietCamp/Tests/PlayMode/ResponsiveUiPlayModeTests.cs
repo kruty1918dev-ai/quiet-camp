@@ -86,7 +86,7 @@ namespace QuietCamp.Tests
             Size(2560,1600);yield return Frames(12);Tap("levels");yield return Frames(15);
             var overlay=Object.FindObjectsByType<HtmlSurface>().First(s=>s.name=="MenuOverlay");
             var scroll=overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();Assert.NotNull(scroll);
-            Assert.AreEqual(42,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #level-")));
+            Assert.AreEqual(110,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #level-")));
             foreach(var id in new[]{"bonus-10","bonus-20","bonus-30","bonus-40"})
             {
                 var bonus=Button(id);Assert.NotNull(bonus);

@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 77,
+  "chapter": 16,
+  "seed": 325890599,
+  "width": 5,
+  "height": 8,
+  "id": "gen:qc_bn:4",
+  "contentHash": "b30d77c5494b7ccdd28831cf0ded3ad71aeadd3534d9f384626b50f39d097b25",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "day",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": 325905784,
+  "entry": [
+    2,
+    7
+  ],
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 2,
+      "z": 0
+    },
+    {
+      "id": "forest-entry",
+      "kind": "entry",
+      "x": 0,
+      "z": 4
+    }
+  ],
+  "blocked": [
+    [
+      4,
+      0
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      2
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      4,
+      0
+    ]
+  ],
+  "exteriorWalkable": [
+    [
+      0,
+      8
+    ],
+    [
+      1,
+      8
+    ],
+    [
+      2,
+      8
+    ],
+    [
+      3,
+      8
+    ],
+    [
+      4,
+      8
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 2,
+      "rotation": 0
+    },
+    {
+      "guestId": "g1",
+      "x": 2,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 3,
+      "z": 6,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "campfire_stones",
+      "x": 4,
+      "z": 0,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 1,
+      "z": 6,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 1,
+      "z": 1,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 2,
+      "z": 2,
+      "rotation": 0
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "meadow",
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.26,
+    "treeDensity": 0.25,
+    "clusterSeed": -126582523,
+    "meadowSpecies": [
+      "grass",
+      "daisy",
+      "poppy"
+    ],
+    "storyMotifs": [
+      "ruin",
+      "bench",
+      "lantern"
+    ],
+    "shore": null
+  }
+}

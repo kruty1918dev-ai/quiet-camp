@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 78,
+  "chapter": 16,
+  "seed": 896896320,
+  "width": 8,
+  "height": 5,
+  "id": "gen:qc_mt:12",
+  "contentHash": "ea6e02261ea153092c23e387bc143e80129498bb086d721471367be3474caa81",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "day",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": 896913951,
+  "entry": [
+    0,
+    2
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      3,
+      0
+    ],
+    [
+      5,
+      2
+    ],
+    [
+      0,
+      0
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 3,
+      "rotation": 1
+    },
+    {
+      "guestId": "g2",
+      "x": 1,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 3,
+      "z": 1,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "stump_round",
+      "x": 3,
+      "z": 0,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 5,
+      "z": 2,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "meadow",
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.26,
+    "treeDensity": 0.25,
+    "clusterSeed": -1165883766,
+    "meadowSpecies": [
+      "grass",
+      "daisy",
+      "poppy"
+    ],
+    "storyMotifs": [
+      "ruin",
+      "bench",
+      "lantern"
+    ],
+    "shore": null
+  }
+}

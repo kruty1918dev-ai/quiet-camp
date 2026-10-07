@@ -217,6 +217,30 @@ switch { flex-shrink: 0; width: 124px; height: 68px; margin: 0; }
 .map-district { position: absolute; left: 50%; transform: translateX(-50%); width: 420px; align-items: center; }
 .map-district-name { font-size: 30px; font-weight: bold; color: #fdf3d0; text-align: center; background-color: rgba(43,61,47,.72); padding: 6px 22px; border-radius: 20px; border-width: 2px; border-color: #877b54; }
 .map-district.act-2 .map-district-name { color: #e9d9ff; background-color: rgba(52,47,79,.78); border-color: #9a86c4; }
+.map-district.act-3 .map-district-name { color: #ffe3b3; background-color: rgba(84,58,38,.78); border-color: #c49a62; }
+.map-district.act-4 .map-district-name { color: #d8e8f2; background-color: rgba(39,54,74,.78); border-color: #7d9ab5; }
+.map-district.act-5 .map-district-name { color: #d2f2e4; background-color: rgba(31,68,58,.78); border-color: #6fae94; }
+.map-branch-stop { position: absolute; width: 300px; margin-left: -150px; align-items: center; gap: 10px; }
+.map-branch-node { width: 300px; min-height: 108px; padding: 12px 20px; gap: 6px; flex-direction: column; border-radius: 30px; border-width: 3px; border-color: #7c9a86; background-image: linear-gradient(145deg, #dcead8 0%, #a8c4ab 100%); }
+.map-branch-node.branch-ready { border-color: #5f9a72; border-width: 5px; }
+.branch-name { font-size: 26px; font-weight: bold; width: 100%; white-space: normal; text-align: center; color: #2c4634; }
+.bonus-preview-art.theme-lantern { background-image: linear-gradient(180deg, #31404f 0%, #6b7d5e 100%); }
+.bonus-preview-art.theme-creek { background-image: linear-gradient(180deg, #4d7a8c 0%, #9bb87a 100%); }
+.bonus-preview-art.theme-meadow { background-image: linear-gradient(180deg, #7aa06b 0%, #b8cf8e 100%); }
+.bonus-preview-art.theme-pinewood { background-image: linear-gradient(180deg, #3d5c46 0%, #77936b 100%); }
+.bonus-preview-art.theme-birch { background-image: linear-gradient(180deg, #9db06e 0%, #d0d9a0 100%); }
+.bonus-preview-art.theme-quarry { background-image: linear-gradient(180deg, #6e6e62 0%, #a09a84 100%); }
+.bonus-preview-art.theme-orchard { background-image: linear-gradient(180deg, #86a05c 0%, #cdbd7a 100%); }
+.bonus-preview-art.theme-highmoor { background-image: linear-gradient(180deg, #55655c 0%, #8fa084 100%); }
+.bonus-preview-art.theme-homestead { background-image: linear-gradient(180deg, #8c7a5b 0%, #c2ad7f 100%); }
+.bonus-preview-art.theme-spring { background-image: linear-gradient(180deg, #88b46e 0%, #cfe2a2 100%); }
+.bonus-preview-art.theme-summer { background-image: linear-gradient(180deg, #6d9e5a 0%, #b7cc82 100%); }
+.bonus-preview-art.theme-autumn { background-image: linear-gradient(180deg, #a3795a 0%, #cf9e6b 100%); }
+.bonus-preview-art.theme-overlook { background-image: linear-gradient(180deg, #7d8ba0 0%, #b5bfa8 100%); }
+.bonus-preview-art.theme-cliff { background-image: linear-gradient(180deg, #6a7484 0%, #9aa48e 100%); }
+.bonus-preview-art.theme-lagoon { background-image: linear-gradient(180deg, #2e5d66 0%, #5f9384 100%); }
+.bonus-preview-art.theme-marshal { background-image: linear-gradient(180deg, #5a5f52 0%, #8c8f74 100%); }
+.bonus-preview-art.theme-summit { background-image: linear-gradient(180deg, #7e8ea0 0%, #cfdbe4 100%); }
 .map-bonus-stop { position: absolute; width: 320px; margin-left: -160px; align-items: center; gap: 10px; }
 .map-bonus-node { width: 320px; min-height: 132px; padding: 14px 22px; gap: 5px; flex-direction: column; border-radius: 34px; border-width: 3px; border-color: #b39350; background-image: linear-gradient(145deg, #fbefc8 0%, #ddd6a8 100%); }
 .map-bonus-node.bonus-ready { border-color: #c89643; border-width: 5px; }

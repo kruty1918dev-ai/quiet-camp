@@ -41,7 +41,7 @@ namespace QuietCamp.Presentation.World
         /// <summary>Deep scenery snow, with a compacted clear puzzle and open walking network.</summary>
         public float SnowDepth(LevelData level,Vector3 point)
         {
-            if(!Winter||level==null)return 0;
+            if(!Winter||level==null||level.entry==null)return 0;
             float outside=Mathf.Max(Mathf.Abs(point.x)-level.width*.5f,Mathf.Abs(point.z)-level.height*.5f);
             if(outside<.6f)return 0;
             float pathDistance=CampTrail.CorridorDistance(level,point);

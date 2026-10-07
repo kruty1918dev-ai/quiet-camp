@@ -27,6 +27,26 @@ namespace QuietCamp.Tests
         static void Size(int w,int h)=>typeof(ScreenshotPlayModeTest).GetMethod("SetGameViewSize",BindingFlags.Static|BindingFlags.NonPublic).Invoke(null,new object[]{w,h});
         static IEnumerator Shot(string name)=>(IEnumerator)typeof(ScreenshotPlayModeTest).GetMethod("Shot",BindingFlags.Static|BindingFlags.NonPublic).Invoke(null,new object[]{Path.Combine(Directory.GetCurrentDirectory(),"Screenshots/ProceduralRoadmap"),name});
         static Button Find(string id)=>Object.FindObjectsByType<Button>().FirstOrDefault(b=>b.name=="<button #"+id+">"&&b.gameObject.activeInHierarchy);
+        // Boot may resume straight into the map (PendingMenuScreen="Levels" is
+        // set when a level was visited); tap the nav button only when needed.
+        static RoadmapGraphic Map()
+            =>Object.FindObjectsByType<HtmlSurface>().FirstOrDefault(s=>s.name=="MenuOverlay")?.GetComponentInChildren<RoadmapGraphic>();
+        // Boot may resume straight into the map (PendingMenuScreen="Levels" is
+        // set when a level was visited); tap the nav button only when needed.
+        static IEnumerator OpenLevels(int frames=120)
+        {
+            bool tapped=false;
+            while(frames-->0)
+            {
+                if(Map()!=null)yield break;
+                if(!tapped&&Find("levels")!=null){Tap("levels");tapped=true;}
+                yield return null;
+            }
+            if(Map()==null)Debug.Log("[MapQA] map missing; scene="+SceneManager.GetActiveScene().name
+                +" surfaces="+string.Join(",",Object.FindObjectsByType<HtmlSurface>().Select(s=>s.name+"(active="+s.gameObject.activeInHierarchy+",scroll="+(s.Element("roadmap-scroll")!=null)+")"))
+                +" graphics="+Object.FindObjectsByType<RoadmapGraphic>(FindObjectsInactive.Include).Length);
+            Assert.NotNull(Map(),"levels map");
+        }
         static void Tap(string id)
         {
             var button=Find(id);Assert.NotNull(button,id);var rect=(RectTransform)button.transform;
@@ -55,15 +75,15 @@ namespace QuietCamp.Tests
             services.Progression.Restore(null,null,0);services.Settings.textScale=1.3f;services.ReducedMotion=true;services.LevelMapScroll=-1;
             foreach(var size in new[]{viewportSize})
             {
-                Size(size.x,size.y);yield return Frames(16);Tap("levels");yield return Frames(20);
+                Size(size.x,size.y);yield return Frames(16);yield return OpenLevels();yield return Frames(20);
                 foreach(var language in new[]{"uk","en","de"})
                 {
                     services.Localization.TrySetLanguage(language);yield return Frames(14);Canvas.ForceUpdateCanvases();
                     var overlay=Object.FindObjectsByType<HtmlSurface>().Single(s=>s.name=="MenuOverlay");
                     var map=overlay.GetComponentInChildren<RoadmapGraphic>();Assert.NotNull(map);
-                    Assert.AreEqual(49,map.Scenes.Count);
-                    Assert.AreEqual(42,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #level-")));
-                    Assert.AreEqual(4,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #bonus-")&&b.name!="<button #bonus-play>"));
+                    Assert.AreEqual(270,map.Scenes.Count);
+                    Assert.AreEqual(110,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #level-")));
+                    Assert.AreEqual(BonusCampCatalog.Slots.Count,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #bonus-")&&b.name!="<button #bonus-play>"));
                     var scroll=overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();
                     foreach(float fraction in new[]{1f,.65f,.35f,0f})
                     {
@@ -103,18 +123,21 @@ namespace QuietCamp.Tests
                     if(language=="uk")yield return Shot("bonus_"+size.x+"x"+size.y);
                     Tap("bonus-10");yield return Frames(12);Assert.NotNull(overlay.GetComponentInChildren<BonusCampPreviewGraphic>());
                     Assert.IsFalse(Find("bonus-play").interactable);Tap("back");yield return Frames(14);
-                    scroll=overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();Assert.AreEqual(remembered,scroll.verticalNormalizedPosition,.02f);
+                    scroll=overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();Assert.AreEqual(remembered,scroll.verticalNormalizedPosition,.02f,$"scroll restore: remembered={remembered:R} now={scroll.verticalNormalizedPosition:R} saved={GameServices.Current.LevelMapScroll:R}");
                     Assert.AreEqual(0,services.Progression.CompletedCount);
                 }
                 Tap("back");yield return Frames(12);
                 Assert.IsEmpty(Object.FindObjectsByType<RoadmapGraphic>());Assert.IsEmpty(Object.FindObjectsByType<RoadmapWeatherGraphic>());
             }
             // The enlarged miniature must still open its actual current level.
-            services.LevelMapScroll=-1;services.Localization.TrySetLanguage("uk");Tap("levels");yield return Frames(18);
+            services.LevelMapScroll=-1;services.Localization.TrySetLanguage("uk");yield return OpenLevels();yield return Frames(18);
             Tap("level-0");deadline=Time.realtimeSinceStartup+20;
             while(SceneManager.GetActiveScene().name!="Camp"&&Time.realtimeSinceStartup<deadline)yield return null;
             Assert.AreEqual("Camp",SceneManager.GetActiveScene().name);yield return Frames(12);
             Assert.AreEqual("QC001",QuietCamp.Presentation.World.CampSceneHost.Current.Session.Level.id);
+            // Leave no suspended run behind: a stored session would resume into
+            // the Camp scene on the next boot instead of showing the menu.
+            services.Save.Session=new SessionSaveData();services.Save.Save();
             services.Progression.Restore(completed,last,flags);
             Newtonsoft.Json.JsonConvert.PopulateObject(settings,services.Settings);
         }
@@ -123,7 +146,7 @@ namespace QuietCamp.Tests
             if(UnityEngine.Application.isBatchMode)Assert.Ignore("Requires rendered Game View");
             Size(720,1600);yield return SceneManager.LoadSceneAsync("Boot");yield return PrivacyBootTestSupport.EnterGame();yield return Frames(30);
             var services=QuietCampBootstrap.ServicesRef;Assert.NotNull(services);services.Tutorial.Skip();services.ReducedMotion=false;
-            Tap("levels");yield return Frames(15);
+            yield return OpenLevels();yield return Frames(15);
             var overlay=Object.FindObjectsByType<HtmlSurface>().Single(s=>s.name=="MenuOverlay");
             var map=overlay.GetComponentInChildren<RoadmapGraphic>();var scroll=overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();
             int cameras=Object.FindObjectsByType<Camera>().Length;

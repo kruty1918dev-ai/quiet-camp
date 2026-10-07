@@ -10,14 +10,40 @@ using QuietCamp.Domain;
 // Editor-independent authoring harness using the game's actual Domain code.
 // This compiles tooling, never a Unity player or Android application.
 CheckWalkingNetwork();
-// Campaign positions are level numbers 1-42 (1-10 authored QC + 11-42 gen).
-// 43-45 bake the free "memories" side journey; 61-64 bake bonus side-glades.
-var numbers = Enumerable.Range(1, 45).Concat(Enumerable.Range(61, 4)).ToArray();
+// World-map campaign plan (cozy-campaign-4). Deterministic (id, pacing-number)
+// pairs; the pacing number drives size/motifs inside CampCampaignAuthoring.
+// Frozen ids already shipped must keep their exact number to stay identical:
+// QC001-010 + gen:qc_camp:1-32 (main 1-42), gen:qc_camp:33-35 (memories 43-45),
+// gen:qc_camp:51-54 (bonus glades 61-64). New content uses salted seeds.
+var plan = new List<(string Id, int Number)>();
+for (int n = 1; n <= 42; n++) plan.Add((n <= 10 ? $"QC{n:000}" : $"gen:qc_camp:{n - 10}", n));
+for (int n = 43; n <= 45; n++) plan.Add(($"gen:qc_camp:{n - 10}", n));       // memories 33-35 (frozen)
+for (int n = 61; n <= 64; n++) plan.Add(($"gen:qc_camp:{n - 10}", n));       // legacy bonus 51-54
+for (int n = 43; n <= 110; n++) plan.Add(($"gen:qc_camp:{n + 12}", n));      // main 43-110 -> 55-122
+// Story branches mirror monetization.json journeys 1:1 — count and prefix
+// must match or the catalog marks the journey unpublished.
+for (int n = 1; n <= 12; n++) plan.Add(($"gen:qc_lh:{8 + n}", 35 + (n * 5) % 55));
+for (int n = 1; n <= 18; n++) plan.Add(($"gen:qc_st:{n}", 46 + (n * 11) % 60));
+for (int n = 1; n <= 28; n++) plan.Add(($"gen:qc_gd:{n}", 46 + (n * 7) % 60));
+for (int n = 1; n <= 24; n++) plan.Add(($"gen:qc_mt:{n}", 60 + (n * 9) % 45));
+for (int n = 1; n <= 30; n++) plan.Add(($"gen:qc_rs:{n}", 50 + (n * 8) % 55));
+for (int n = 1; n <= 20; n++) plan.Add(($"gen:qc_cs:{n}", 55 + (n * 6) % 50));
+// Bonus glades: number picks the pacing/season band so each slot's interior
+// agrees with its window (spring/summer/autumn/winter rows below).
+int[] bnNumbers = { 38, 52, 63, 77, 11, 36, 49, 62, 72,   // standard glades
+                    28, 12, 17,                          // spring/summer/autumn windows
+                    45, 58, 70,                          // premium overlooks
+                    71, 94,                              // challenge dens
+                    83, 66, 105, 59 };                   // spare pool
+for (int n = 1; n <= bnNumbers.Length; n++) plan.Add(($"gen:qc_bn:{n}", bnNumbers[n - 1]));
+bool Frozen(string id) => id.StartsWith("QC0") || id == "gen:qc_camp:33" || id == "gen:qc_camp:34"
+    || id == "gen:qc_camp:35" || Array.Exists(new[] { 51, 52, 53, 54 }, v => id == $"gen:qc_camp:{v}")
+    || (id.StartsWith("gen:qc_camp:") && int.TryParse(id.Substring(12), out var gi) && gi <= 32);
 var levels = new List<LevelData>();
-foreach (int number in numbers)
+foreach (var (id, number) in plan)
 {
-    string id = number <= 10 ? $"QC{number:000}" : $"gen:qc_camp:{number-10}";
-    var level = CampCampaignAuthoring.Create(id, number, CampCampaignAuthoring.SeedForNumber(number));
+    var level = CampCampaignAuthoring.Create(id, number,
+        CampCampaignAuthoring.SeedForNumber(number) + (Frozen(id) ? 0 : IdSalt(id)));
     level.contentHash = "";
     level.contentHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(level)))).ToLowerInvariant();
     var errors = LevelContentValidator.Validate(level);
@@ -31,6 +57,15 @@ foreach (int number in numbers)
 }
 File.WriteAllText(args[0], JsonConvert.SerializeObject(levels, Formatting.Indented));
 Console.WriteLine($"[Campaign] {levels.Count}/{levels.Count} structural validation + saved witness + independent solver passed");
+
+/// <summary>Deterministic per-id seed offset — new ids get distinct layouts
+/// even when they share a pacing number with the main path.</summary>
+static int IdSalt(string id)
+{
+    int h = 17;
+    foreach (char c in id) h = unchecked(h * 31 + c);
+    return h;
+}
 
 static void CheckWalkingNetwork()
 {

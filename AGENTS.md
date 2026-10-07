@@ -58,3 +58,14 @@ rewards, human interest or production security of wallet/entitlement data. The
 local ad-day clock and editable prototype caches need an authoritative backend
 before real-money activation. Do not enable sales simply because compilation or
 fake-provider tests pass.
+
+# Continuous delivery rule (user direction, 2026-10-07)
+
+The user asked agents to commit and push finished work continuously instead of
+holding large uncommitted batches. Commit and `git push` after every completed
+verification step or coherent milestone; do not wait for a final state. Keep
+project documentation and the repo description current: when visuals or systems
+change, update the relevant docs (`CAMPAIGN_ROADMAP.md`, README if applicable)
+and refresh showcase screenshots when a rendered capture is actually verified.
+Never claim renders, tests or builds as fresh when they are stale, skipped or
+failed.

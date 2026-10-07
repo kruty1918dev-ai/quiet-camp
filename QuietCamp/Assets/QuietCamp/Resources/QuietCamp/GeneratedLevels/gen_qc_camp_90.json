@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 78,
+  "chapter": 16,
+  "seed": -719835236,
+  "width": 8,
+  "height": 5,
+  "id": "gen:qc_camp:90",
+  "contentHash": "bd71c46c94e66066881bdebb0f784bda726d48378d49e6d53fcbaed89d3ba2f6",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "day",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": -719818557,
+  "entry": [
+    0,
+    2
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      6,
+      4
+    ],
+    [
+      4,
+      4
+    ],
+    [
+      1,
+      3
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 3,
+      "rotation": 1
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "stump_round",
+      "x": 6,
+      "z": 4,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 4,
+      "z": 4,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 1,
+      "z": 3,
+      "rotation": 0
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "meadow",
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.26,
+    "treeDensity": 0.25,
+    "clusterSeed": -2081624010,
+    "meadowSpecies": [
+      "grass",
+      "daisy",
+      "poppy"
+    ],
+    "storyMotifs": [
+      "ruin",
+      "bench",
+      "lantern"
+    ],
+    "shore": null
+  }
+}

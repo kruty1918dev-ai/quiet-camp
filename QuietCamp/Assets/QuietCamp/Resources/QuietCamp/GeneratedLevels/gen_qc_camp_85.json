@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 73,
+  "chapter": 15,
+  "seed": -719874857,
+  "width": 6,
+  "height": 5,
+  "id": "gen:qc_camp:85",
+  "contentHash": "6a57f381e124b0255c75e0bf8b237f564b1889c52fbd55ed8717d1e3ba49aef6",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "day",
+  "tutorialKey": "",
+  "generationAttempt": 2,
+  "decorSeed": -719860856,
+  "entry": [
+    3,
+    4
+  ],
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 3,
+      "z": 0
+    }
+  ],
+  "blocked": [
+    [
+      5,
+      0
+    ],
+    [
+      5,
+      3
+    ],
+    [
+      4,
+      3
+    ],
+    [
+      2,
+      2
+    ]
+  ],
+  "shade": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "noise": [
+    [
+      5,
+      0
+    ]
+  ],
+  "exteriorWalkable": [
+    [
+      1,
+      5
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      5,
+      5
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 1
+    },
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 4,
+      "z": 1,
+      "rotation": 2
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "campfire_stones",
+      "x": 5,
+      "z": 0,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 5,
+      "z": 3,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 4,
+      "z": 3,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 2,
+      "z": 2,
+      "rotation": 0
+    }
+  ],
+  "canopies": [
+    {
+      "x": 1.25,
+      "z": 1.25,
+      "radiusX": 1.6,
+      "radiusZ": 1.6
+    }
+  ],
+  "environment": {
+    "biomeId": "pines",
+    "seasonId": "winter",
+    "weatherId": "clear",
+    "moisture": 0.26,
+    "treeDensity": 0.84,
+    "clusterSeed": 2062293557,
+    "meadowSpecies": [
+      "grass"
+    ],
+    "storyMotifs": [
+      "marker",
+      "lantern"
+    ],
+    "shore": null
+  }
+}

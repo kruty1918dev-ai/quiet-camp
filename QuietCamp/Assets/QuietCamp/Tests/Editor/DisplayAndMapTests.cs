@@ -30,7 +30,7 @@ namespace QuietCamp.Tests
         }
         [Test] public void MapUsesMatchingExportedLevelContent()
         {
-            Assert.AreEqual(49, CampContent.Summaries.Count);
+            Assert.AreEqual(270, CampContent.Summaries.Count);
             foreach (var summary in CampContent.Summaries)
             {
                 var level = LevelLoader.Load(summary.id);

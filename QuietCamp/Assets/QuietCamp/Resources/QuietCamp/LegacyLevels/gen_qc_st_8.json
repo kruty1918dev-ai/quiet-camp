@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 74,
+  "chapter": 15,
+  "seed": 326379059,
+  "width": 6,
+  "height": 8,
+  "id": "gen:qc_st:8",
+  "contentHash": "8d095169698d948cb45c1362171d4f124283c9c9fe83d56540ca0e5f0d8b2b82",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "day",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": 326400364,
+  "entry": [
+    0,
+    4
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      1,
+      0
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      0,
+      2
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 5,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 1,
+      "z": 1,
+      "rotation": 1
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 5,
+      "rotation": 0
+    },
+    {
+      "guestId": "g4",
+      "x": 3,
+      "z": 2,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "stump_round",
+      "x": 1,
+      "z": 0,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 2,
+      "z": 3,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 0,
+      "z": 2,
+      "rotation": 0
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "pines",
+    "seasonId": "winter",
+    "weatherId": "clear",
+    "moisture": 0.26,
+    "treeDensity": 0.84,
+    "clusterSeed": 1639562657,
+    "meadowSpecies": [
+      "grass"
+    ],
+    "storyMotifs": [
+      "marker",
+      "lantern"
+    ],
+    "shore": null
+  }
+}

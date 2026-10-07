@@ -39,18 +39,21 @@ def main():
     env = dict(os.environ, DOTNET_CLI_TELEMETRY_OPTOUT="1", DOTNET_NOLOGO="1")
     subprocess.run(["dotnet", "run", "--project", str(project), "--", str(staged_json)], cwd=ROOT, env=env, check=True)
     levels = json.loads(staged_json.read_text())
-    if len(levels) != 49:
+    if len(levels) != 270:
         raise RuntimeError("Incomplete staged campaign")
     campaign_path = CONTENT / "campaign.json"
     campaign = json.loads(campaign_path.read_text())
     ids = campaign["mvpLevelIds"] + campaign["generatedLevelIds"]
-    # The staged set appends side-content (memories journey + bonus glades)
-    # after the campaign block; only the ordered campaign must match.
-    if ids != [level["id"] for level in levels[:len(ids)]]:
-        raise RuntimeError("Campaign order/IDs changed")
+    # The staged plan interleaves main-path, branch and bonus families —
+    # the ordered campaign is resolved by id, not by position.
+    by_id = {level["id"]: level for level in levels}
+    missing = [level_id for level_id in ids if level_id not in by_id]
+    if missing:
+        raise RuntimeError("Campaign order/IDs changed: " + ",".join(missing[:5]))
+    ordered = [by_id[level_id] for level_id in ids] + [level for level in levels if level["id"] not in set(ids)]
     publish = {}
     summaries = []
-    for level in levels:
+    for level in ordered:
         level_id = level["id"]
         folder = "GeneratedLevels" if level_id.startswith("gen:") else "Levels"
         path = CONTENT / folder / (level_id.replace(":", "_") + ".json")
@@ -75,8 +78,8 @@ def main():
             exteriorWalkable=level["exteriorWalkable"], environment=level["environment"],
             shade=any(g["shade"] for g in level["guests"]), quiet=any(g["quiet"] for g in level["guests"]),
             friends=bool(level["friends"]), fire=bool(level["noise"])))
-    campaign["contentVersion"] = "cozy-campaign-3"
-    campaign["levels"] = [dict(id=level["id"], contentHash=level["contentHash"]) for level in levels[:len(ids)]]
+    campaign["contentVersion"] = "cozy-campaign-4"
+    campaign["levels"] = [dict(id=level_id, contentHash=by_id[level_id]["contentHash"]) for level_id in ids]
     publish[CONTENT / "level_summaries.json"] = (json.dumps(summaries, ensure_ascii=False, indent=2) + "\n").encode()
     publish[campaign_path] = (json.dumps(campaign, ensure_ascii=False, indent=2) + "\n").encode()
     if not args.write:

@@ -28,7 +28,13 @@ namespace QuietCamp.Presentation.UI
             }
             var journey = journeys?.ForLevel(levelId);
             if (journey != null)
-                return loc.T("journey." + journey.id + ".level." + (System.Array.IndexOf(journey.levelIds, levelId) + 1));
+            {
+                var index = System.Array.IndexOf(journey.levelIds, levelId) + 1;
+                var authored = loc.T("journey." + journey.id + ".level." + index);
+                // Hand-named stops win; generated legs read "Branch — 4".
+                if (authored != "journey." + journey.id + ".level." + index) return authored;
+                return loc.TF("journey.level.named", loc.T(journey.titleKey), index);
+            }
             return loc.T("level.unknown");
         }
 

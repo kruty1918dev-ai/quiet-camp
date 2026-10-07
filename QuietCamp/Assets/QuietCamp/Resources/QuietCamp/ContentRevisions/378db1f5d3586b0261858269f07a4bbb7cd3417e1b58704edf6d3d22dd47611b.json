@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 62,
+  "chapter": 13,
+  "seed": 325771818,
+  "width": 5,
+  "height": 6,
+  "id": "gen:qc_bn:8",
+  "contentHash": "378db1f5d3586b0261858269f07a4bbb7cd3417e1b58704edf6d3d22dd47611b",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "day",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": 325762421,
+  "entry": [
+    0,
+    3
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      4,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      2,
+      4
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      4,
+      0
+    ]
+  ],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 4,
+      "rotation": 2
+    },
+    {
+      "guestId": "g1",
+      "x": 1,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "campfire_stones",
+      "x": 4,
+      "z": 0,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 0,
+      "z": 1,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 2,
+      "z": 4,
+      "rotation": 1
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "autumn",
+    "weatherId": "clear",
+    "moisture": 0.26,
+    "treeDensity": 0.84,
+    "clusterSeed": -638531796,
+    "meadowSpecies": [
+      "grass",
+      "daisy",
+      "poppy"
+    ],
+    "storyMotifs": [
+      "ruin",
+      "repaired-marker",
+      "bench"
+    ],
+    "shore": null
+  }
+}

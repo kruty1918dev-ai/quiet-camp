@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 35,
+  "chapter": 7,
+  "seed": 895274797,
+  "width": 6,
+  "height": 7,
+  "id": "gen:qc_lh:19",
+  "contentHash": "00c486e2cb02fde12bc8c375468c1866d821ebdc5ec698b030c053cdb33a838c",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "evening",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": 895258738,
+  "entry": [
+    3,
+    0
+  ],
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 3,
+      "z": 6
+    },
+    {
+      "id": "forest-entry",
+      "kind": "entry",
+      "x": 5,
+      "z": 3
+    }
+  ],
+  "blocked": [
+    [
+      5,
+      0
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      1,
+      0
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [
+    [
+      1,
+      -1
+    ],
+    [
+      2,
+      -1
+    ],
+    [
+      3,
+      -1
+    ],
+    [
+      4,
+      -1
+    ],
+    [
+      5,
+      -1
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [
+    [
+      "g1",
+      "g2"
+    ]
+  ],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 1,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 4,
+      "rotation": 1
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 1,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "tree_default",
+      "x": 5,
+      "z": 0,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 0,
+      "z": 6,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 1,
+      "z": 0,
+      "rotation": 1
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.26,
+    "treeDensity": 0.84,
+    "clusterSeed": 1513285203,
+    "meadowSpecies": [
+      "grass",
+      "daisy",
+      "poppy"
+    ],
+    "storyMotifs": [
+      "ruin",
+      "flowers",
+      "repaired-marker"
+    ],
+    "shore": null
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 102,
+  "chapter": 21,
+  "seed": 902627506,
+  "width": 5,
+  "height": 7,
+  "id": "gen:qc_st:16",
+  "contentHash": "4309346af2c2f30244a2e14d1ba41f38cc508068c720b100df75fe957170e9c5",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "day",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": 902651885,
+  "entry": [
+    0,
+    3
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      4,
+      0
+    ],
+    [
+      0,
+      5
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      2,
+      2
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      4,
+      0
+    ]
+  ],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g1",
+      "x": 1,
+      "z": 5,
+      "rotation": 1
+    },
+    {
+      "guestId": "g2",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "campfire_stones",
+      "x": 4,
+      "z": 0,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 0,
+      "z": 5,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 1,
+      "z": 4,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 2,
+      "z": 2,
+      "rotation": 1
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "meadow",
+    "seasonId": "autumn",
+    "weatherId": "rain",
+    "moisture": 0.9,
+    "treeDensity": 0.25,
+    "clusterSeed": 2144409364,
+    "meadowSpecies": [
+      "grass",
+      "daisy",
+      "poppy"
+    ],
+    "storyMotifs": [
+      "ruin",
+      "marker",
+      "bag"
+    ],
+    "shore": null
+  }
+}

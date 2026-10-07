@@ -1,5 +1,7 @@
+using QuietCamp.Application;
 using QuietCamp.Domain;
 using QuietCamp.Infrastructure;
+using UnityEngine;
 
 namespace QuietCamp.Presentation.UI
 {
@@ -14,6 +16,13 @@ namespace QuietCamp.Presentation.UI
         }
         public static float BonusY(BonusCampDefinition slot) => MainY(slot.afterLevel-1)+RoadmapGraphic.Step;
         public static float BonusX(BonusCampDefinition slot) => (slot.afterLevel/10)%2==1?.25f:.75f;
+        /// <summary>Story branches hang off the main road at the level whose
+        /// completion unlocks them — the world map reads as one route with
+        /// forks, never a flat list.</summary>
+        public static float BranchY(JourneyDefinition journey)
+            => MainY(Mathf.Clamp(journey.requiredCompletions-1,0,int.MaxValue))+RoadmapGraphic.Step*.5f;
+        public static float BranchX(JourneyDefinition journey)
+            => (journey.requiredCompletions/10)%2==0?.18f:.82f;
         public static float Height(int count)
         {
             int gaps=0;foreach(var slot in BonusCampCatalog.Slots)if(slot.afterLevel<=count)gaps++;

@@ -10,6 +10,7 @@ namespace QuietCamp.Presentation.UI
         GameServices _services;
         ScrollRect _scroll;
         int _frames;
+        int _settle;
         bool _armed;
         Func<bool> _canRemember;
         public void Configure(GameServices services,Func<bool> canRemember=null)
@@ -21,14 +22,18 @@ namespace QuietCamp.Presentation.UI
         void LateUpdate()
         {
             if (_scroll==null || _frames<=0 || --_frames>0) return;
+            // A freshly mounted list still reports zero content height; applying
+            // a normalized position now would clamp it to the top forever.
+            var contentH=_scroll.content!=null?_scroll.content.rect.height:0f;
+            var viewH=_scroll.viewport!=null?_scroll.viewport.rect.height:((RectTransform)transform).rect.height;
+            if (contentH<=viewH&&_settle++<240){_frames=1;return;}
             float target=_services.LevelMapScroll;
             if (target<0)
             {
                 var ids=LevelLoader.MvpLevelIds();
                 var id=_services.Progression.ContinueTarget(ids); int index=0;
                 for (int i=0;i<ids.Count;i++) if (ids[i]==id) { index=i; break; }
-                var height=_scroll.viewport!=null?_scroll.viewport.rect.height:((RectTransform)transform).rect.height;
-                target=1-Mathf.Clamp01((RoadmapLayout.MainY(index)-height*.45f)/Mathf.Max(1,RoadmapLayout.Height(ids.Count)-height));
+                target=1-Mathf.Clamp01((RoadmapLayout.MainY(index)-viewH*.45f)/Mathf.Max(1,RoadmapLayout.Height(ids.Count)-viewH));
             }
             _scroll.verticalNormalizedPosition=target;
             _services.LevelMapScroll=target; _armed=true;

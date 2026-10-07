@@ -85,7 +85,7 @@ namespace QuietCamp.Tests
                 yield return SceneManager.LoadSceneAsync("MainMenu");yield return Frames(45);
                 var suffix=width+"_"+language+"_130";yield return Shot("menu_"+suffix);
                 Click("levels");yield return Frames(30);
-                Assert.AreEqual(42,UnityEngine.Object.FindObjectsByType<Button>().Count(b=>b.name.StartsWith("<button #level-")));
+                Assert.AreEqual(110,UnityEngine.Object.FindObjectsByType<Button>().Count(b=>b.name.StartsWith("<button #level-")));
                 var scroll=UnityEngine.Object.FindObjectsByType<MenuMapBinding>().Single().GetComponentInChildren<ScrollRect>();
                 Assert.NotNull(scroll);scroll.verticalNormalizedPosition=.27f;yield return Frames(10);yield return Shot("map_"+suffix);
                 Click("back");yield return Frames(30);Click("levels");yield return Frames(20);

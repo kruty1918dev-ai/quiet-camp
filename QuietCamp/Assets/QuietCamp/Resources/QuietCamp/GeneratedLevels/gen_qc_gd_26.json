@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 48,
+  "chapter": 10,
+  "seed": 890641003,
+  "width": 8,
+  "height": 5,
+  "id": "gen:qc_gd:26",
+  "contentHash": "b51b05d3d8acec53040b38c8e762fd4033aaacf739df6531b8af106e6ce3b6fb",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "morning",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": 890651956,
+  "entry": [
+    7,
+    2
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      4,
+      3
+    ],
+    [
+      5,
+      1
+    ],
+    [
+      2,
+      3
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 3,
+      "rotation": 2
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 4,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 5,
+      "z": 1,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 2,
+      "z": 3,
+      "rotation": 2
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "shore",
+    "seasonId": "summer",
+    "weatherId": "cloudy",
+    "moisture": 0.48,
+    "treeDensity": 0.55,
+    "clusterSeed": -2052631431,
+    "meadowSpecies": [
+      "grass",
+      "wheat",
+      "daisy"
+    ],
+    "storyMotifs": [
+      "bag",
+      "repaired-marker"
+    ],
+    "shore": {
+      "kind": "lake",
+      "side": "left",
+      "offset": 10.5,
+      "width": 7.0,
+      "seed": 890651956
+    }
+  }
+}

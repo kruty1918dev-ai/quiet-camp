@@ -49,8 +49,8 @@ namespace QuietCamp.Tests
                 foreach(var language in new[]{"uk","en","de"})
                 {
                     services.Localization.TrySetLanguage(language);yield return Frames(15);
-                    Assert.AreEqual(42,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #level-")));
-                    Assert.AreEqual(4,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #bonus-")&&b.name!="<button #bonus-play>"));
+                    Assert.AreEqual(110,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #level-")));
+                    Assert.AreEqual(21,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #bonus-")&&b.name!="<button #bonus-play>"));
                     var graphic=overlay.GetComponentInChildren<RoadmapGraphic>();Assert.Less(graphic.canvasRenderer.GetMesh().vertexCount,60000);
                     Debug.Log("[BonusRoadmapQA] "+size+" "+language+" vertices="+graphic.canvasRenderer.GetMesh().vertexCount);
                     foreach(var slot in BonusCampCatalog.Slots)
@@ -70,7 +70,11 @@ namespace QuietCamp.Tests
                                 Assert.That(local.x,Is.InRange(card.rect.xMin-2,card.rect.xMax+2),"Text escapes bonus card in "+language);
                             }
                         }
-                        if(language=="uk"||language=="de")yield return Shot("branch_"+slot.afterLevel+"_"+size.x+"x"+size.y+"_"+language);
+                        // Preview taps + screenshots cover one slot per family:
+                        // a seasonal gate, a premium overlook and a challenge den.
+                        bool deep=new[]{40,45,80}.Contains(slot.afterLevel);
+                        if(deep&&(language=="uk"||language=="de"))yield return Shot("branch_"+slot.afterLevel+"_"+size.x+"x"+size.y+"_"+language);
+                        if(!deep)continue;
                         Tap("bonus-"+slot.afterLevel);yield return Frames(12);
                         Assert.NotNull(overlay.GetComponentInChildren<BonusCampPreviewGraphic>());Assert.IsFalse(Button("bonus-play").interactable);
                         var playRect=(RectTransform)Button("bonus-play").transform;var playCorners=new Vector3[4];playRect.GetWorldCorners(playCorners);

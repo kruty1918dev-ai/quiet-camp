@@ -175,7 +175,9 @@ namespace QuietCamp.Tests
             Tap("levels"); yield return Frames(); Assert.NotNull(Button("journeys"));
             yield return Shot("19-story-map");
             Tap("journeys"); yield return Frames(); Assert.NotNull(Button("journey-main"));
-            Assert.IsNull(Button("journey-lighthouse")); Assert.IsNull(Button("journey-garden")); Assert.IsNull(Button("journey-station"));
+            Assert.IsNull(Button("journey-lighthouse"));
+            // Published branches list even before their progress gates open.
+            Assert.NotNull(Button("journey-memories")); Assert.NotNull(Button("journey-garden")); Assert.NotNull(Button("journey-station"));
             yield return Shot("20-story-library");
         }
 

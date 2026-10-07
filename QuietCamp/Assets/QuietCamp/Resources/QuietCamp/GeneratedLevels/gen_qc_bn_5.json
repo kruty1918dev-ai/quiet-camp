@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 11,
+  "chapter": 3,
+  "seed": 325367946,
+  "width": 4,
+  "height": 6,
+  "id": "gen:qc_bn:5",
+  "contentHash": "bb2c4f75b6946911bf5e472df4232bc135442f5536d794a4f61dc70af6643a64",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "day",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": 325380053,
+  "entry": [
+    2,
+    0
+  ],
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 2,
+      "z": 5
+    }
+  ],
+  "blocked": [
+    [
+      0,
+      4
+    ],
+    [
+      2,
+      2
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [
+    [
+      "g1",
+      "g2"
+    ]
+  ],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 1,
+      "rotation": 1
+    },
+    {
+      "guestId": "g2",
+      "x": 1,
+      "z": 3,
+      "rotation": 1
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "tree_default",
+      "x": 0,
+      "z": 4,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 2,
+      "z": 2,
+      "rotation": 0
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.26,
+    "treeDensity": 0.84,
+    "clusterSeed": -2003967924,
+    "meadowSpecies": [
+      "grass",
+      "wheat",
+      "daisy"
+    ],
+    "storyMotifs": [
+      "ruin",
+      "bench"
+    ],
+    "shore": null
+  }
+}

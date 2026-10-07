@@ -200,25 +200,34 @@ class MonetizationProbe
         var resources = UnityEngine.Resources.Root;
         var campaign = JObject.Parse(File.ReadAllText(Path.Combine(resources, "QuietCamp/campaign.json")));
         var main = campaign["mvpLevelIds"].Values<string>().Concat(campaign["generatedLevelIds"].Values<string>()).ToArray();
-        Expect(main.Length == 42 && main.Distinct().Count() == 42, "42 campaign IDs across two acts");
+        Expect(main.Length == 110 && main.Distinct().Count() == 110, "110 campaign IDs across five acts");
         var manifest = JObject.Parse(File.ReadAllText(Path.Combine(resources, "QuietCamp/monetization.json")));
         var journeys = manifest["journeys"].ToObject<JourneyDefinition[]>();
         Expect(JourneyCatalog.Validate(journeys).Count == 0, "Journey manifest valid");
         var dlc = journeys.Single(j => j.id == "lighthouse");
-        Expect(dlc.levelIds.Length == 8 && dlc.storyKeys.Length == 8 && !dlc.published, "Lighthouse staging, narrative and sales gate");
+        Expect(dlc.levelIds.Length == 20 && dlc.storyKeys.Length == 20 && !dlc.published, "Lighthouse staging (8 authored + 12 generated), narrative and sales gate");
         var memories = journeys.Single(j => j.id == "memories");
         Expect(memories.published && memories.requiredCompletions == 15
             && string.IsNullOrEmpty(memories.entitlementId) && memories.currencyCost == 0,
             "Memories is a free, progress-gated side story");
+        var branches = journeys.Where(j => j.id != "lighthouse" && j.id != "memories").ToArray();
+        Expect(branches.Length == 5 && branches.All(j => j.published && j.requiredCompletions > 0
+            && j.levelIds.Length > 0 && j.storyKeys.Length == j.levelIds.Length
+            && j.levelIds.All(id => id.StartsWith("gen:", StringComparison.Ordinal))),
+            "Five published story branches with progress gates and beats");
         var bonus = JArray.Parse(File.ReadAllText(Path.Combine(resources, "QuietCamp/bonus_camps.json")))
             .ToObject<BonusCampDefinition[]>();
+        Expect(bonus.Length == 21 && bonus.Select(b => b.afterLevel).Distinct().Count() == 21
+            && bonus.All(b => b.afterLevel % 5 == 0 && b.afterLevel <= main.Length)
+            && bonus.Count(b => b.requiresPremium) == 3 && bonus.Count(b => !string.IsNullOrEmpty(b.seasonId)) == 4,
+            "21 bonus slots every 5 levels: 3 premium, 4 seasonal windows");
         var districts = campaign["districts"].ToObject<DistrictDefinition[]>();
-        Expect(districts.Length == 6 && districts.All(d => d.from >= 1 && d.to <= main.Length && d.from <= d.to)
-            && districts.Sum(d => d.to - d.from + 1) == main.Length && districts.Count(d => d.act == 2) == 3,
-            "Six districts tile the campaign; act 2 starts after level 30");
+        Expect(districts.Length == 15 && districts.All(d => d.from >= 1 && d.to <= main.Length && d.from <= d.to)
+            && districts.Sum(d => d.to - d.from + 1) == main.Length && districts.Count(d => d.act >= 2) == 12,
+            "Fifteen districts tile the campaign; act 2+ starts after level 30");
         var sideContent = bonus.Where(b => !string.IsNullOrEmpty(b.levelId)).Select(b => b.levelId)
-            .Concat(memories.levelIds).ToArray();
-        foreach (var id in main.Concat(dlc.levelIds).Concat(sideContent))
+            .Concat(journeys.SelectMany(j => j.levelIds)).ToArray();
+        foreach (var id in main.Concat(sideContent).Distinct())
         {
             var level = LevelLoader.Load(id);
             Expect(LevelContentValidator.Validate(level).Count == 0 && RuleEvaluator.Evaluate(level, level.witness).IsSolved, "Frozen content and witness " + id);
@@ -228,7 +237,7 @@ class MonetizationProbe
             if (dlc.levelIds.Contains(id) || id.StartsWith("gen:", StringComparison.Ordinal))
                 Expect(level.contentHash == CampContent.CalculateHash(level), "Frozen hash " + id);
         }
-        Pass("42 main, 4 bonus, 3 memories and 8 authored DLC puzzles: validator, saved witness and independent solver");
+        Pass("110 main + 143 journey + 21 bonus puzzles: validator, saved witness and independent solver");
         var localization = new Dictionary<string, JObject>();
         foreach (var language in new[] { "uk", "en", "de" })
             localization[language] = (JObject)JObject.Parse(File.ReadAllText(Path.Combine(resources, "QuietCampLocales/" + language + ".json")))["entries"];
@@ -236,7 +245,24 @@ class MonetizationProbe
         foreach (var language in localization)
         {
             foreach (var key in keys) Expect(!string.IsNullOrWhiteSpace(language.Value[key]?.Value<string>()), "Missing translation: " + language.Key + ":" + key);
-            foreach (var key in dlc.storyKeys) Expect(language.Value[key] != null, "Missing story text");
+            foreach (var key in journeys.SelectMany(j => j.storyKeys ?? Array.Empty<string>()).Where(k => !string.IsNullOrEmpty(k)))
+                Expect(language.Value[key] != null, "Missing story text: " + language.Key + ":" + key);
+            // Main-path beats: every fifth level and each district closing.
+            for (var n = 31; n <= main.Length; n++)
+            {
+                var beatKey = "journey.main.story." + n;
+                var expected = n <= 42 || n % 5 == 0 || districts.Any(d => d.to == n);
+                Expect((language.Value[beatKey] != null) == expected, "Main beat " + language.Key + ":" + n);
+            }
+            foreach (var journey in journeys.Where(j => j.published))
+                foreach (var key in new[] { journey.titleKey, journey.descriptionKey })
+                    Expect(language.Value[key] != null, "Missing journey text: " + language.Key + ":" + key);
+            foreach (var slot in bonus)
+                foreach (var key in new[] { slot.titleKey, slot.descriptionKey })
+                    Expect(language.Value[key] != null, "Missing bonus text: " + language.Key + ":" + key);
+            foreach (var district in districts)
+                foreach (var key in new[] { district.TitleKey, district.IntroKey })
+                    Expect(language.Value[key] != null, "Missing district text: " + language.Key + ":" + key);
         }
         Pass("all new economy, memory, journey and purchase keys localized in uk/en/de");
     }

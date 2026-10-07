@@ -90,7 +90,7 @@ namespace QuietCamp.Tests
                 var scroll = overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();
                 var corners=new Vector3[4];scroll.GetComponent<RectTransform>().GetWorldCorners(corners);
                 Assert.Greater(corners[2].x-corners[0].x,Screen.width*.88f,"Roadmap is boxed into a narrow panel on a wide screen");
-                Assert.AreEqual(42, overlay.GetComponentsInChildren<Button>(true).Count(b => b.name.StartsWith("<button #level-")));
+                Assert.AreEqual(110, overlay.GetComponentsInChildren<Button>(true).Count(b => b.name.StartsWith("<button #level-")));
                 var graphic = overlay.GetComponentInChildren<RoadmapGraphic>(); Assert.NotNull(graphic); Assert.IsFalse(graphic.raycastTarget);
                 foreach (var fraction in new[] { 1f, .5f, 0f })
                 {

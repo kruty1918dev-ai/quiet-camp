@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using QuietCamp.Application;
 using UnityEngine;
@@ -20,10 +21,16 @@ namespace QuietCamp.Infrastructure
         public JourneyCatalog Catalog()
         {
             var main = new List<string>(LevelLoader.MvpLevelIds());
-            // Act-2 completions close with a story card — one per level past
-            // the first thirty; earlier positions carry no text at all.
+            // Beats pace the world story: every fifth level plus each district
+            // closing gets a card; ordinary stops stay quiet so beats land.
+            var districtEnds = new HashSet<int>(LevelLoader.Districts().Select(d => d.to));
             var mainStories = new string[main.Count];
-            for (var i = 30; i < main.Count; i++) mainStories[i] = "journey.main.story." + (i + 1);
+            for (var i = 30; i < main.Count; i++)
+            {
+                var number = i + 1;
+                if (number <= 42 || number % 5 == 0 || districtEnds.Contains(number))
+                    mainStories[i] = "journey.main.story." + number;
+            }
             var definitions = new List<JourneyDefinition>
             {
                 new JourneyDefinition { id = "main", titleKey = "journey.main.title", descriptionKey = "journey.main.description", levelIds = main.ToArray(), published = true, storyKeys = mainStories }

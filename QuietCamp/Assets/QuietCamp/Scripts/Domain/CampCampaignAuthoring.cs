@@ -24,6 +24,40 @@ namespace QuietCamp.Domain
         static readonly int[] Water = { 7,10,13,19,24,29,32,40,42 };
         static readonly int[] Fire = { 4,6,9,10,12,15,18,20,21,23,25,27,30,33,36,40,62 };
         static readonly int[] Exterior = { 6,8,9,12,14,17,19,22,24,27,29,30,32,35,38,41 };
+        // Release-scale main path (46+): numbers 43-45 are the frozen memories
+        // branch and must keep the legacy recipe, so every extension below is
+        // gated behind them. New districts reuse the same biome vocabulary but
+        // get their own season arcs, shorelines and story motifs.
+        public static string DistrictId(int number)
+        {
+            if(number>=107)return "haven";if(number>=99)return "frontier";
+            if(number>=91)return "highlands";if(number>=83)return "coast";
+            if(number>=75)return "resort";if(number>=67)return "passes";
+            if(number>=59)return "villages";if(number>=51)return "mills";
+            if(number>=43)return "farms";
+            if(number>=39)return "shores";if(number>=35)return "stations";
+            if(number>=31)return "bridges";if(number>=21)return "embers";
+            if(number>=11)return "forest";return "glades";
+        }
+        // Numbers 61-64 are the frozen legacy bonus glades; extensions apply
+        // only outside the shipped 1-45/61-64 recipe ranges.
+        static bool Extended(int number)=>number>=46&&(number<61||number>64);
+        static bool DistrictWater(int number)
+        {
+            if(!Extended(number))return false;
+            switch(DistrictId(number))
+            {
+                case "mills":case "coast":return number%3!=1;
+                case "resort":case "shores":return number%4==0;
+                case "farms":case "villages":return number%6==0;
+                case "haven":return number==108;
+                default:return false;
+            }
+        }
+        // Route-side verges and campfires continue past the frozen era, on a
+        // sparser rhythm than act 1 so late districts still breathe.
+        static bool FireAt(int number)=>Fire.Contains(number)||Extended(number)&&(number%5==2||number%7==3);
+        static bool ExteriorAt(int number)=>Exterior.Contains(number)||Extended(number)&&(number%4==1||number%6==5);
 
         public static LevelData Create(string id,int number,int seed)
         {
@@ -38,7 +72,7 @@ namespace QuietCamp.Domain
                     tutorialKey=number<=8?"tutorial."+number:""};
                 ConfigureAccess(level,number);
                 bool shade=number==3||number>=6&&number%3==1;
-                bool quiet=Fire.Contains(number)&&number!=6;
+                bool quiet=FireAt(number)&&number!=6;
                 level.guests=Enumerable.Range(1,spec.guests).Select(i=>new GuestData {id="g"+i,nameKey="guest."+i,
                     assetId=i%3==0?"tent_detailedOpen":"tent_smallOpen",shade=shade&&i==1,quiet=quiet&&i==spec.guests}).ToArray();
                 if(number==5||number>=7&&number%4==3)level.friends=new[]{new[]{"g1","g2"}};
@@ -49,7 +83,7 @@ namespace QuietCamp.Domain
                     level.shade=ShadeProjection.Cells(level);
                 }
                 var blocked=new List<Cell>();
-                if(Fire.Contains(number))
+                if(FireAt(number))
                 {
                     var fire=new Cell(spec.w-1,0);
                     if(CampAccess.IsReserved(level,fire))fire=new Cell(spec.w-2,0);
@@ -108,7 +142,7 @@ namespace QuietCamp.Domain
             if(number>=5&&number%2==1){var p=At((side+2)%4);extra.Add(new AccessPointData{id="trail-out",kind="exit",x=p.X,z=p.Z});}
             if(number>=10&&number%7==0){var p=At((side+1)%4);extra.Add(new AccessPointData{id="forest-entry",kind="entry",x=p.X,z=p.Z});}
             level.accessPoints=extra.ToArray();
-            if(!Exterior.Contains(number))return;
+            if(!ExteriorAt(number))return;
             var cells=new List<int[]>();
             // A narrow authored verge, not a free perimeter around the puzzle.
             // Its free neighbouring board cells provide real connections even
@@ -124,17 +158,37 @@ namespace QuietCamp.Domain
             int chapter=Math.Min(5,(Math.Max(1,number)-1)/5);
             var season=new[]{"spring","summer","summer","autumn","winter","spring"}[chapter];
             if(number>=61&&number<=64)season=new[]{"spring","autumn","summer","winter"}[number-61];
-            bool water=Water.Contains(number);
+            bool water=Water.Contains(number)||DistrictWater(number);
             string biome=water?"shore":number==64?"pines":chapter==4?"pines":number%3==0?"meadow":"forest";
             string weather=new[]{7,13,17,19}.Contains(number)?"rain":new[]{16,21,24,29}.Contains(number)?"mist":number%4==0?"cloudy":"clear";
+            string[] species=chapter==0?new[]{"grass","daisy"}:chapter==1?new[]{"grass","poppy","daisy"}:
+                chapter==2?new[]{"grass","wheat","daisy"}:chapter==3?new[]{"grass","wheat"}:chapter==4?new[]{"grass"}:new[]{"grass","daisy","poppy"};
+            string[] motifs=chapter==0?new[]{"marker","bench"}:chapter==1?new[]{"bag","lantern"}:
+                chapter==2?new[]{"ruin","bench"}:chapter==3?new[]{"ruin","marker"}:chapter==4?new[]{"lantern","bench"}:new[]{"ruin","flowers","repaired-marker"};
+            if(Extended(number))
+            {
+                // Every district is a place, not a palette swap: the road
+                // visits working land, repaired settlements and abandoned
+                // ground, then circles back to the coast it started from.
+                switch(DistrictId(number))
+                {
+                    case "farms":season=number<51?"summer":"autumn";if(!water)biome="meadow";species=new[]{"grass","wheat","daisy"};motifs=new[]{"bag","repaired-marker"};break;
+                    case "mills":season="autumn";if(!water)biome="forest";motifs=new[]{"marker","bag"};break;
+                    case "villages":season="autumn";if(!water)biome=number%2==0?"forest":"meadow";motifs=new[]{"ruin","repaired-marker","bench"};break;
+                    case "passes":season="winter";biome="pines";weather=number%3==0?"mist":weather;species=new[]{"grass"};motifs=new[]{"marker","lantern"};break;
+                    case "resort":season="summer";if(!water)biome="meadow";motifs=new[]{"ruin","bench","lantern"};break;
+                    case "coast":season="summer";if(!water)biome=number%2==0?"pines":"meadow";motifs=new[]{"marker","flowers"};break;
+                    case "highlands":season="winter";biome="pines";weather=number%4==1?"mist":weather;species=new[]{"grass"};motifs=new[]{"ruin","lantern"};break;
+                    case "frontier":season=number<103?"autumn":"winter";weather=number%5==2?"rain":weather;motifs=new[]{"ruin","marker","bag"};break;
+                    case "haven":season="spring";if(!water)biome="meadow";species=new[]{"grass","daisy","poppy"};motifs=new[]{"repaired-marker","flowers","bench"};break;
+                }
+            }
             var env=new EnvironmentCompositionData {biomeId=biome,seasonId=season,weatherId=weather,
                 moisture=weather=="rain"?.9f:weather=="mist"?.82f:weather=="cloudy"?.48f:.26f,
                 treeDensity=biome=="meadow"?.25f:biome=="shore"?.55f:chapter==0?.48f:chapter==4?.8f:.84f,
                 clusterSeed=unchecked(level.decorSeed*3571+29),
-                meadowSpecies=chapter==0?new[]{"grass","daisy"}:chapter==1?new[]{"grass","poppy","daisy"}:
-                    chapter==2?new[]{"grass","wheat","daisy"}:chapter==3?new[]{"grass","wheat"}:chapter==4?new[]{"grass"}:new[]{"grass","daisy","poppy"},
-                storyMotifs=chapter==0?new[]{"marker","bench"}:chapter==1?new[]{"bag","lantern"}:
-                    chapter==2?new[]{"ruin","bench"}:chapter==3?new[]{"ruin","marker"}:chapter==4?new[]{"lantern","bench"}:new[]{"ruin","flowers","repaired-marker"}};
+                meadowSpecies=species,
+                storyMotifs=motifs};
             if(water)
             {
                 var sides=new[]{"left","right","back","front"};
