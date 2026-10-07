@@ -64,6 +64,31 @@ namespace QuietCamp.Tests
                     branch.Id + " must hang off its anchor node");
         }
 
+        [Test] public void BranchesPhysicallyLeaveTheRoad()
+        {
+            var data = Build();
+            foreach (var branch in data.Branches)
+            {
+                Assert.AreEqual(branch.NodeIds.Length, branch.Nodes.Length, branch.Id);
+                var anchor = data.Nodes[branch.AttachOrder - 1];
+                // A teaser never shows more nodes than its type allows:
+                // bonus = one stop, trail = a silhouette of the second,
+                // journey = the opening pair.
+                Assert.LessOrEqual(branch.TeaserDepth, 2, branch.Id);
+                for (var i = 0; i < branch.Nodes.Length; i++)
+                {
+                    var node = branch.Nodes[i];
+                    Assert.IsFalse(node.Main);
+                    Assert.Greater(node.Y, anchor.Y, branch.Id + " climbs past its anchor");
+                    if (i > 0)
+                    {
+                        Assert.Greater(node.Y, branch.Nodes[i - 1].Y, branch.Id + " monotonic");
+                        Assert.Greater(System.Math.Abs(node.X - anchor.X), .15f, branch.Id + " departs sideways");
+                    }
+                }
+            }
+        }
+
         [Test] public void NodePositionsFollowTheRoad()
         {
             var data = Build();

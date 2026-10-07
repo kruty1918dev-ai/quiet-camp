@@ -24,5 +24,23 @@ namespace QuietCamp.Domain
             yTop = MainY(chunk.FirstOrder - 1, gapsBefore) - CentreY;
             yBottom = MainY(chunk.LastOrder - 1, gapsBefore) + Step;
         }
+
+        /// <summary>A branch physically leaves the road: it departs sideways
+        /// from the anchor and keeps climbing gently. Side alternates so
+        /// consecutive branches do not stack on the same shoulder.</summary>
+        public static void BranchPoint(float anchorX, float anchorY, int index, float side, out float x, out float y)
+        {
+            var reach = .20f + index * .11f + (float)Math.Sin(index * 1.7f) * .04f;
+            x = Math.Max(.08f, Math.Min(.92f, anchorX + side * reach));
+            y = anchorY + Step * .5f * (index + 1);
+        }
+
+        /// <summary>Which shoulder a branch takes — deterministic by id so the
+        /// same journey always grows the same direction.</summary>
+        public static float BranchSide(string branchId, int attachOrder)
+        {
+            var h = branchId != null ? branchId.GetHashCode() : 0;
+            return ((h ^ attachOrder) & 1) == 0 ? 1f : -1f;
+        }
     }
 }

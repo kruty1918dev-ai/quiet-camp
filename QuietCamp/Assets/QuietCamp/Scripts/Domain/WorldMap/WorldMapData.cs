@@ -36,6 +36,9 @@ namespace QuietCamp.Domain
         public int RequiredCompletions;
         public string HeroLandmark;
         public string[] NodeIds = Array.Empty<string>();
+        /// <summary>Positions/identity of each stop on the branch — index i
+        /// corresponds to NodeIds[i]. Main=false; orders are branch-local.</summary>
+        public WorldMapNode[] Nodes = Array.Empty<WorldMapNode>();
     }
 
     /// <summary>A named run of the world — one visual identity, one stretch of road.</summary>

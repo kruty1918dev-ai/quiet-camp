@@ -77,9 +77,30 @@ namespace QuietCamp.Infrastructure
                 });
             }
 
+            WorldMapNode[] BranchNodes(string[] ids, int attachOrder, string branchId)
+            {
+                var anchor = nodes[Math.Min(attachOrder, mainIds.Count) - 1];
+                var side = WorldMapGeometry.BranchSide(branchId, attachOrder);
+                var result = new WorldMapNode[ids.Length];
+                for (var i = 0; i < ids.Length; i++)
+                {
+                    WorldMapGeometry.BranchPoint(anchor.X, anchor.Y, i, side, out var x, out var y);
+                    var level = summaryOf(ids[i]);
+                    result[i] = new WorldMapNode
+                    {
+                        LevelId = ids[i], Order = i + 1, Main = false, X = x, Y = y,
+                        PreviewId = level?.environment?.storyMotifs != null && level.environment.storyMotifs.Length > 0
+                            ? level.environment.storyMotifs[0] : null,
+                        Props = PreviewProps(level),
+                    };
+                }
+                return result;
+            }
+
             foreach (var slot in bonusSlots ?? Array.Empty<BonusCampDefinition>())
             {
                 if (slot == null || slot.afterLevel > mainIds.Count || string.IsNullOrEmpty(slot.levelId)) continue;
+                var ids = new[] { slot.levelId };
                 branches.Add(new WorldMapBranch
                 {
                     Id = slot.id, Type = WorldBranchType.BonusGlade,
@@ -89,7 +110,7 @@ namespace QuietCamp.Infrastructure
                     RequiredCompletions = slot.requiredCompletions,
                     HeroLandmark = slot.theme,
                     TitleKey = slot.titleKey, DescriptionKey = slot.descriptionKey,
-                    NodeIds = new[] { slot.levelId },
+                    NodeIds = ids, Nodes = BranchNodes(ids, slot.afterLevel, slot.id),
                 });
                 Attach(slot.afterLevel, slot.id);
             }
@@ -109,11 +130,14 @@ namespace QuietCamp.Infrastructure
                         : journey.currencyCost > 0 ? WorldBranchAccess.Embers
                         : !string.IsNullOrEmpty(journey.entitlementId) ? WorldBranchAccess.Purchase
                         : WorldBranchAccess.Free,
-                    AttachOrder = attach, TeaserDepth = type == WorldBranchType.StoryJourney ? 2 : 1,
+                    // MiniTrail teases its second node as a silhouette; a story
+                    // journey shows attachment + landmark + the opening pair.
+                    AttachOrder = attach,
+                    TeaserDepth = type == WorldBranchType.BonusGlade ? 1 : 2,
                     RequiredCompletions = journey.requiredCompletions,
                     HeroLandmark = journey.id,
                     TitleKey = journey.titleKey, DescriptionKey = journey.descriptionKey,
-                    NodeIds = journey.levelIds,
+                    NodeIds = journey.levelIds, Nodes = BranchNodes(journey.levelIds, attach, journey.id),
                 });
                 Attach(attach, journey.id);
             }

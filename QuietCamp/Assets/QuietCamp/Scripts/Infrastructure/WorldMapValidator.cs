@@ -32,6 +32,16 @@ namespace QuietCamp.Infrastructure
                 if (branch.RequiredCompletions > data.Nodes.Length) issues.Add("worldmap.branch.impossible:" + branch.Id);
                 if (string.IsNullOrEmpty(branch.TitleKey)) issues.Add("worldmap.branch.title:" + branch.Id);
                 if (branch.TeaserDepth > (branch.NodeIds?.Length ?? 0)) issues.Add("worldmap.branch.teaser:" + branch.Id);
+                if (branch.Nodes == null || branch.Nodes.Length != branch.NodeIds.Length)
+                    issues.Add("worldmap.branch.nodes:" + branch.Id);
+                else
+                    for (var i = 0; i < branch.Nodes.Length; i++)
+                    {
+                        var bn = branch.Nodes[i];
+                        if (bn == null || bn.LevelId != branch.NodeIds[i] || bn.Main) issues.Add("worldmap.branch.node:" + branch.Id);
+                        else if (i > 0 && bn.Y <= branch.Nodes[i - 1].Y) issues.Add("worldmap.branch.monotonic:" + branch.Id);
+                        if (bn != null && (bn.X < .05f || bn.X > .95f)) issues.Add("worldmap.branch.bounds:" + branch.Id);
+                    }
             }
 
             for (var i = 0; i < data.Regions.Length; i++)
