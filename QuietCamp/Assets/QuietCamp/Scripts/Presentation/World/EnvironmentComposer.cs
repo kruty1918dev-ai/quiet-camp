@@ -60,6 +60,7 @@ namespace QuietCamp.Presentation.World
         {get{foreach(var tile in _tiles.Values)foreach(var crown in tile.crowns)yield return transform.TransformPoint(crown);}}
         public void Configure(LevelData level,Camera camera,Transform decorRoot,AssetCatalog assets)
         {
+            using var audit = PerformanceAudit.Measure("QC.EnvironmentComposer.Configure");
             _level=level;_camera=camera;Descriptor=EnvironmentCompositionData.For(level);
             if(assets!=null)
             {
@@ -94,6 +95,7 @@ namespace QuietCamp.Presentation.World
         }
         void Refresh()
         {
+            using var audit = PerformanceAudit.Measure("QC.EnvironmentComposer.Refresh");
             if(_camera==null||_forestMaterial==null||!ForestGroundView.TryBounds(_camera,transform,_corners,out var footprint))return;
             _lastFootprint=footprint;_lastScreen=new Vector2Int(Screen.width,Screen.height);
             footprint.xMin-=5;footprint.xMax+=5;footprint.yMin-=5;footprint.yMax+=5;
@@ -124,6 +126,7 @@ namespace QuietCamp.Presentation.World
         }
         void BuildTile(Tile tile,Vector2Int key)
         {
+            using var audit = PerformanceAudit.Measure("QC.EnvironmentComposer.BuildTile");
             var origin=new Vector3(key.x*_tileSize,0,key.y*_tileSize);tile.root.transform.localPosition=origin;tile.root.name="Forest cluster "+key;
             var rng=new System.Random(unchecked(Descriptor.clusterSeed*1297+key.x*73856093^key.y*19349663));
             var vertices=new List<Vector3>();var normals=new List<Vector3>();var colors=new List<Color>();var roots=new List<Vector4>();var indices=new List<int>();tile.roots.Clear();tile.crowns.Clear();
@@ -199,6 +202,7 @@ namespace QuietCamp.Presentation.World
         }
         void BuildShelter(Transform decor)
         {
+            using var audit = PerformanceAudit.Measure("QC.EnvironmentComposer.BuildShelter");
             const int resolution=32;var values=new float[resolution*resolution];var treeRoots=new List<Vector3>();
             foreach(var tile in _tiles.Values)treeRoots.AddRange(tile.roots);
             if(decor!=null)foreach(var renderer in decor.GetComponentsInChildren<Renderer>())if(renderer.bounds.size.y>1.5f)treeRoots.Add(renderer.bounds.center);
@@ -213,6 +217,7 @@ namespace QuietCamp.Presentation.World
         }
         void BuildStory()
         {
+            using var audit = PerformanceAudit.Measure("QC.EnvironmentComposer.BuildStory");
             if(Descriptor.storyMotifs==null||Descriptor.storyMotifs.Length==0)return;
             var mesh=CampStoryComposer.Compose(_level);if(mesh==null)return;
             // Reject the full prop footprint, not just its centre: a doorway or
@@ -261,6 +266,7 @@ namespace QuietCamp.Presentation.World
         }
         void BuildEarthContacts(Transform decor)
         {
+            using var audit = PerformanceAudit.Measure("QC.EnvironmentComposer.BuildEarthContacts");
             if(decor==null)return;var vertices=new List<Vector3>();var uv=new List<Vector2>();var indices=new List<int>();
             foreach(var renderer in decor.GetComponentsInChildren<Renderer>())
             {

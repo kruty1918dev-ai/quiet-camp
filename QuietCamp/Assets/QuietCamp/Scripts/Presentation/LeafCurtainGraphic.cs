@@ -1,3 +1,4 @@
+using QuietCamp.Infrastructure;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,6 +34,7 @@ namespace QuietCamp.Presentation
 
         protected override void OnPopulateMesh(VertexHelper vh)
         {
+            using var audit = PerformanceAudit.Measure("QC.LeafCurtainGraphic.OnPopulateMesh");
             vh.Clear();
             if (Travel <= 0f || Travel >= 2f) return;
             var rect = rectTransform.rect;

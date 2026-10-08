@@ -1,3 +1,4 @@
+using QuietCamp.Infrastructure;
 using System.Collections.Generic;
 using QuietCamp.Domain;
 using UnityEngine;
@@ -83,6 +84,7 @@ namespace QuietCamp.Presentation.World
         }
         public void Advance(float seconds,int tier,bool reduced)
         {
+            using var audit = PerformanceAudit.Measure("QC.SeasonalLeafFall.Advance");
             if(_mesh==null)return;_reduced=reduced;_budget=tier<=0?6:tier==1?14:MaximumLeaves;
             float dt=Mathf.Min(.1f,Mathf.Max(0,seconds));RefreshSources();
             if(reduced)

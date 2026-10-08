@@ -1,3 +1,4 @@
+using QuietCamp.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -106,6 +107,7 @@ namespace QuietCamp.Presentation.UI
 
         void MountDocument()
         {
+            using var audit = PerformanceAudit.Measure("QC.HtmlSurface.MountDocument");
             _callbacks.Clear();
             var html = _render();
             html = CampMotion.Apply(html, MotionScale);
@@ -172,6 +174,7 @@ namespace QuietCamp.Presentation.UI
         const float ValueInset = ValueWidth + Knob * .5f + 16f;
         void ApplyNativeControlTheme()
         {
+            using var audit = PerformanceAudit.Measure("QC.HtmlSurface.ApplyNativeControlTheme");
             foreach (var slider in _sliders)
             {
                 if (slider == null) continue;
@@ -230,6 +233,7 @@ namespace QuietCamp.Presentation.UI
 
         void OnLayoutChanged()
         {
+            using var audit = PerformanceAudit.Measure("QC.HtmlSurface.OnLayoutChanged");
             ApplyNativeControlTheme();
             LayoutChanged?.Invoke();
         }

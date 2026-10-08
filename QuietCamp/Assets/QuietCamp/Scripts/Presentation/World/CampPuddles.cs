@@ -30,6 +30,7 @@ namespace QuietCamp.Presentation.World
         public IReadOnlyList<Vector3> Centres => _centres;
         public void Configure(CampAtmosphere owner,Camera camera,LevelData level,Func<bool> reduced)
         {
+            using var audit = PerformanceAudit.Measure("QC.CampPuddles.Configure");
             _owner=owner;_camera=camera;_level=level;_reduced=reduced;_catalog=AtmosphereCatalog.Load();
             var shader=Resources.Load<Shader>("QuietCamp/CampPuddle");if(shader==null||!shader.isSupported)return;
             _water=new Material(shader){name="Rain puddles (owned)"};
@@ -42,6 +43,7 @@ namespace QuietCamp.Presentation.World
         }
         void Build()
         {
+            using var audit = PerformanceAudit.Measure("QC.CampPuddles.Build");
             var rng=new System.Random(unchecked(_level.decorSeed*1277+731));
             var vertices=new List<Vector3>();var uv=new List<Vector2>();var formation=new List<Vector2>();var indices=new List<int>();
             for(int i=0;i<28;i++)
@@ -81,6 +83,7 @@ namespace QuietCamp.Presentation.World
         }
         public void Advance(float seconds)
         {
+            using var audit = PerformanceAudit.Measure("QC.CampPuddles.Advance");
             if(_water==null||_owner==null)return;
             _clock+=Mathf.Max(0,seconds);if(!(_reduced?.Invoke()??false))_time+=Mathf.Max(0,seconds);
             float rain=_owner.Weather?.RainAmount??0;

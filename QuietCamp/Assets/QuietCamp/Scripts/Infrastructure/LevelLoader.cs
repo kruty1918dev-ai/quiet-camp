@@ -29,6 +29,7 @@ namespace QuietCamp.Infrastructure
         /// </summary>
         public static LevelData Load(string levelId)
         {
+            using var audit = PerformanceAudit.Measure("QC.LevelLoader.Load");
             levelId = CampContent.CanonicalId(levelId);
             if (GeneratedCampSource.IsGeneratedId(levelId))
             {

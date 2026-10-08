@@ -1,3 +1,4 @@
+using QuietCamp.Infrastructure;
 using QuietCamp.Domain;
 using UnityEngine;
 namespace QuietCamp.Presentation.World
@@ -31,6 +32,7 @@ namespace QuietCamp.Presentation.World
         /// <summary>Fits ortho size and target so the board bounds fill the viewport.</summary>
         public static void Fit(Camera camera, LevelData level, RectTransform viewport)
         {
+            using var audit = PerformanceAudit.Measure("QC.CameraFitter.Fit");
             if (camera == null || level == null) return;
             // Scene adapter: full forest render, reserved gameplay region from UI.
             camera.rect = new Rect(0f, 0f, 1f, 1f);

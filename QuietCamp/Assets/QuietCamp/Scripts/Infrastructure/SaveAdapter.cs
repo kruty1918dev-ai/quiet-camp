@@ -80,6 +80,7 @@ namespace QuietCamp.Infrastructure
 
         public bool Save()
         {
+            using var audit = PerformanceAudit.Measure("QC.SaveAdapter.Save");
             if (_loadFailed) { SaveFailed?.Invoke("Existing save could not be loaded; writing is disabled."); return false; }
             BeforeSave?.Invoke();
             if (_writer.TrySave(Slot, _modules, null, out var error)) return true;

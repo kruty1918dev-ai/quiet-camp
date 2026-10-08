@@ -1,0 +1,42 @@
+{
+  "result": "Passed",
+  "reportedLocalDate": "2026-10-09",
+  "capturedUtc": "2026-10-08T22:04:23.5346150Z",
+  "sourceCommit": "c9c7bf55df486a0d33d008e875431c6225b78aa7",
+  "nativeTests": [
+    {
+      "id": "1132",
+      "name": "RunPerformanceMap",
+      "fullname": "QuietCamp.Tests.PerformanceAuditPlayModeTests.RunPerformanceMap",
+      "methodname": "RunPerformanceMap",
+      "classname": "QuietCamp.Tests.PerformanceAuditPlayModeTests",
+      "runstate": "Runnable",
+      "seed": "1009639698",
+      "result": "Passed",
+      "start-time": "2026-10-08 21:59:14Z",
+      "end-time": "2026-10-08 22:04:24Z",
+      "duration": "309.462502",
+      "asserts": "0"
+    }
+  ],
+  "sessionGuards": {
+    "projectSettingsRestoredByteForByte": true,
+    "originalDirtyInputsPreserved": true,
+    "originalGameSaveHashesPreserved": true,
+    "sameAdbProcessIdentity": true,
+    "adbKillPreferencesUnchanged": true
+  },
+  "editorReused": true,
+  "editorLaunched": false,
+  "adbCommandsIssued": false,
+  "playerBuild": false,
+  "frameCount": 6140,
+  "spanCount": 34576,
+  "rawJsonSha256": "6b6a4319e32995d9688517fefaf9ecb25ecc1779d86563d8f1ae53d6bb3dd316",
+  "fixtureSha256": "bd68bae38f0a781f5380a712feb48346cc0794b8ae959518a1bdc58f6e04d542",
+  "auditHelperSha256": "e0ed1c7f5d89ba4cc3edaad60ffc5e28acc29c8c51248fec0696ef6106759b2e",
+  "priorAttempt": {
+    "result": "Failed",
+    "reason": "Standard Unity Test Runner 180s timeout; partial sample not used for published conclusions."
+  }
+}

@@ -70,6 +70,7 @@ namespace QuietCamp.Presentation
 
         void EnsureOverlay()
         {
+            using var audit = PerformanceAudit.Measure("QC.FoliageDiveTransition.EnsureOverlay");
             if (_group != null) return;
             var canvasGo = new GameObject("Cover", typeof(Canvas), typeof(CanvasScaler), typeof(CanvasGroup), typeof(GraphicRaycaster));
             canvasGo.transform.SetParent(transform, false);
@@ -273,6 +274,7 @@ namespace QuietCamp.Presentation
 
         void Update()
         {
+            using var audit = PerformanceAudit.Measure("QC.FoliageDiveTransition.Update");
             if (_destroyed || _group == null || _state == State.Idle) return;
             bool reduced = _services != null && _services.ReducedMotion;
             _stateTime += Time.unscaledDeltaTime;

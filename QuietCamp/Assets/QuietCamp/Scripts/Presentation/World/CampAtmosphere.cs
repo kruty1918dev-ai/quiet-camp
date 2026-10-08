@@ -105,6 +105,7 @@ namespace QuietCamp.Presentation.World
             AtmosphereCatalog.Profile profile, Func<bool> reducedMotion, int qualityTier = 1,
             Transform decorRoot = null, Func<int> qualitySource = null)
         {
+            using var audit = PerformanceAudit.Measure("QC.CampAtmosphere.Configure");
             _camera = camera;
             _level = level;
             _viewport = viewport;
@@ -256,6 +257,7 @@ namespace QuietCamp.Presentation.World
         /// </summary>
         public void RegisterDecor(Transform decorRoot)
         {
+            using var audit = PerformanceAudit.Measure("QC.CampAtmosphere.RegisterDecor");
             if (decorRoot == null) return;
             var copies = new Dictionary<Material, Material>();
             foreach (var renderer in decorRoot.GetComponentsInChildren<Renderer>())
@@ -320,6 +322,7 @@ namespace QuietCamp.Presentation.World
 
         void LateUpdate()
         {
+            using var audit = PerformanceAudit.Measure("QC.CampAtmosphere.LateUpdate");
             if (!_initialized || _camera == null) return;
             var tier=_qualitySource?.Invoke()??_tier;
             if(tier!=_tier){_tier=tier;_postFx?.Apply(AtmosphereCatalog.Load().Get(PhaseId),tier);_life?.SetTier(tier);_particles?.SetTier((AtmosphereParticles.Tier)tier);Shader.SetGlobalFloat(FlutterScale,tier>0?1:0);}
@@ -380,6 +383,7 @@ namespace QuietCamp.Presentation.World
 
         public void RefreshLayout()
         {
+            using var audit = PerformanceAudit.Measure("QC.CampAtmosphere.RefreshLayout");
             if (!_initialized || _camera == null) return;
             Canvas.ForceUpdateCanvases();
             CameraFitter.Fit(_camera, _level, _viewport);

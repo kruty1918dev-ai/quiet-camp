@@ -82,6 +82,7 @@ namespace QuietCamp.Presentation.World
         // Public advance makes the cycle deterministic and independently checkable.
         public void Advance(float seconds,int tier,bool reduced,Vector2 wind)
         {
+            using var audit = PerformanceAudit.Measure("QC.CampWeather.Advance");
             if(_level==null)return;
             CozyParticleMaterial.ApplyTier(_material,tier);
             _clock+=Mathf.Max(0,seconds);var target=CampWeatherTimeline.Target(_clock,_seed,_weatherId);

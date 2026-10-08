@@ -53,6 +53,7 @@ namespace QuietCamp.Presentation.World
 
         void Start()
         {
+            using var audit = PerformanceAudit.Measure("QC.MenuSceneHost.Start");
             Current = this;
             var canvasRoot = ResolveScene("CanvasRoot");
             var safeArea = (RectTransform)ResolveScene("CanvasRoot/SafeArea");
@@ -96,6 +97,7 @@ namespace QuietCamp.Presentation.World
 
         void BuildWorld(Camera camera, RectTransform safeArea)
         {
+            using var audit = PerformanceAudit.Measure("QC.MenuSceneHost.BuildWorld");
             var level = _services.MenuBackdrop;
             if (level == null)
             {

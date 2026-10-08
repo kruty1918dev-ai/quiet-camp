@@ -66,6 +66,7 @@ namespace QuietCamp.Presentation.World
 
         void Start()
         {
+            using var audit = PerformanceAudit.Measure("QC.CampSceneHost.Start");
             Current = this;
             var levelId = _services.PendingLevelId ?? "QC_TEST";
             if (!_services.CanStart(levelId))
@@ -112,6 +113,7 @@ namespace QuietCamp.Presentation.World
 
         void BuildSession(LevelData level)
         {
+            using var audit = PerformanceAudit.Measure("QC.CampSceneHost.BuildSession");
             _session = new CampSession(level);
             _session.CompletionPersistence = () => _services.Completion.Complete(_session, _atmosphere?.PhaseId);
             _advisor = new HintAdvisor(level);
@@ -135,6 +137,7 @@ namespace QuietCamp.Presentation.World
 
         void BuildWorld(LevelData level)
         {
+            using var audit = PerformanceAudit.Measure("QC.CampSceneHost.BuildWorld");
             var world = Find("World");
             var boardRoot = world != null ? world.transform.Find("BoardRoot") : null;
             Transform Child(string n) => boardRoot != null ? boardRoot.Find(n) : null;
@@ -226,6 +229,7 @@ namespace QuietCamp.Presentation.World
 
         void BuildHud(LevelData level)
         {
+            using var audit = PerformanceAudit.Measure("QC.CampSceneHost.BuildHud");
             var safeAreaGo = Find("CanvasRoot/SafeArea");
             var safeArea = safeAreaGo != null ? safeAreaGo.transform as RectTransform : null;
             if (safeArea == null)
@@ -568,6 +572,7 @@ namespace QuietCamp.Presentation.World
 
         void ConfigureAtmosphere(LevelData level)
         {
+            using var audit = PerformanceAudit.Measure("QC.CampSceneHost.ConfigureAtmosphere");
             _atmosphereCatalog = AtmosphereCatalog.Load();
             _fireVisuals = FindObjectsByType<FireVisual>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             _atmosphere = gameObject.AddComponent<CampAtmosphere>();

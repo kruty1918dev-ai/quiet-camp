@@ -59,6 +59,7 @@ namespace QuietCamp.Presentation
 
         void Compose()
         {
+            using var audit = PerformanceAudit.Measure("QC.QuietCampBootstrap.Compose");
             // Persistence first — everything else reads restored settings.
             _bootView.Stage("boot.save", .08f);
             var save = _startupSave;

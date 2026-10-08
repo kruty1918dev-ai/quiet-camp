@@ -1,3 +1,4 @@
+using QuietCamp.Infrastructure;
 using System.Collections.Generic;
 using QuietCamp.Domain;
 using UnityEngine;
@@ -92,6 +93,7 @@ namespace QuietCamp.Presentation.World
 
         public void Configure(LevelData level, Camera camera)
         {
+            using var audit = PerformanceAudit.Measure("QC.VisibleForestFloor.Configure");
             if (!ReferenceEquals(_level, level)) {ReleaseTiles();_quality = -1;}
             _level = level; _camera = camera;
             var library = CozyVegetationLibrary.Load();
@@ -115,6 +117,7 @@ namespace QuietCamp.Presentation.World
         }
         void LateUpdate()
         {
+            using var audit = PerformanceAudit.Measure("QC.VisibleForestFloor.LateUpdate");
             if (_camera == null || _level == null) return;
             // Budget micro-motion checks, but a resize, zoom, diorama turn or
             // large camera move cannot leave newly visible ground bare for .2s.
@@ -207,6 +210,7 @@ namespace QuietCamp.Presentation.World
         }
         void Build(Tile tile, Vector2Int key)
         {
+            using var audit = PerformanceAudit.Measure("QC.VisibleForestFloor.Build");
             tile.root.name = $"Forest floor {key.x},{key.y}";
             var origin = new Vector3(key.x * _tileSize, 0, key.y * _tileSize); tile.root.transform.localPosition = origin;
             var rng = new System.Random(unchecked(_level.decorSeed * 491 + key.x * 73856093 ^ key.y * 19349663));
