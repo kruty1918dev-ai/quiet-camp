@@ -50,6 +50,10 @@ def main():
     kit_items=kit.models();kit.rural.validate(kit_items)
     for path,expected in kit.files_for(kit_items).items():require(path.read_text()==expected,"Stale kit: "+str(path))
     metadata={a["id"]:a for a in assets}
+    rural_ids={m["id"] for m in json.loads((BASE/"Resources/QuietCamp/roadmap_culture_models.json").read_text())}
+    for identity in rural_ids:
+        entry=metadata[identity];source=BASE/"Authoring/Roadmap/Models/UkrainianRural"/entry["source"]
+        require(entry["sourceHash"]==hashlib.sha256(source.read_bytes()).hexdigest(),"Stale rural source hash "+identity)
     for expected in kit.asset_entries(kit_items):
         require(metadata[expected["id"]]==expected,"Mismatched kit metadata "+expected["id"])
     for lod in ("staging_cargo_ship_coarse","staging_cargo_ship_silhouette"):

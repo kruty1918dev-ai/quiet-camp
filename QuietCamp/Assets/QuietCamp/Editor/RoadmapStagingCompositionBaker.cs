@@ -23,7 +23,8 @@ namespace QuietCamp.Editor
             var source=RoadmapCompositionBaker.Documents();var definition=RoadmapCompositionBaker.Definition(source);
             var region=definition.regions[0];region.branches=Array.Empty<RoadmapBranchData>();definition.regions=new[]{region};definition.revision="staging-"+name;
             docs=new[]{RoadmapCompositionBaker.Read<SceneCompositionDocument>(RoadmapCompositionBaker.Source+"/Staging/"+name+".json")};
-            region.id=docs[0].id;region.season=docs[0].season;
+            region.id=docs[0].id;region.season=docs[0].season;region.environmentPhase=null;
+            region.storyProps=Array.Empty<QuietCamp.Domain.RoadmapStoryPropData>();region.revealRules.farLandmarkAssetId=null;
             RoadmapCompositionAdapter.Bind(definition,new Dictionary<string,SceneCompositionDocument>{{docs[0].id,docs[0]}});
             // Staging geography has open field/river nodes, not populated camp vignettes.
             foreach(var node in region.nodePositions)node.world.props=node.world.props.Where(p=>p.assetId.StartsWith("grass")||p.assetId.StartsWith("stone")).ToArray();

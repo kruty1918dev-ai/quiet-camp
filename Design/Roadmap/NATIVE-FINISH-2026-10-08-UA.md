@@ -31,3 +31,9 @@ Region 2 отримав два compounds по різні боки окремої
 Portable build: zero warnings/errors. Main source schema/semantics: 5 regions, 232 instances, 28 spans, no error diagnostics. Три staging recipes проходять schema/semantics. MonetizationProbe: 14 contract groups пройшли; 30 main + 8 lighthouse validator/witness/independent solver та uk/en/de keys валідні. Monetization runtime не редагувався; probe тепер використовує NuGet та checkout-local output без Library.
 
 GitHub read працює, але create branch повернув `403 Resource not accessible by integration`. Shell push також без credentials. Дані не на remote; source bundle/ZIP потрібні для передачі. Native bake, shader/import, scene tests, Game View gallery та device metrics усе ще не виконані.
+
+## Фінальна перевірка source
+
+Перевірені deterministic owner exporters, model integrity/inventory, повний portable roadmap regression, compose dry-run, CLI atomic/negative contracts. Final current-source compilation (включно з QuietCamp.Editor) пройшла; warnings залишаються, це не native scene/shader acceptance. Додатково перевірено metadata: duplicate Unity GUID groups = 0; sourceHash усіх 14 original rural OBJ звірено/оновлено за реальними bytes. ZIP source checker працює й без `.git`.
+
+У final staging baker очищено inherited main story/far-landmark props та прив'язано stage anchors/season. Published main catalog/resources, 30 puzzle identities, unlocks та save format не змінюються. Результат не активований у Game View.

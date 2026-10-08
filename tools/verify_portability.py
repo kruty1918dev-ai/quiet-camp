@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Check a fresh checkout without Unity, Library, sibling repos or network."""
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -38,7 +39,14 @@ def verify(root):
                     errors.append(f'{name}: unlocked dependency {dependency}')
         elif 'github.com' in version and not re.search(r'#[0-9a-f]{40}$', version):
             errors.append(f'{name}: Git dependency must pin an exact commit')
-    paths = subprocess.check_output(['git', '-C', str(root), 'ls-files', '-z'], text=True).split('\0')
+    if (root / '.git').exists():
+        paths = subprocess.check_output(['git', '-C', str(root), 'ls-files', '-z'], text=True).split('\0')
+    else:
+        paths = []
+        ignored = {'.git', 'Library', 'Temp', 'Logs', 'obj', 'bin', 'UserSettings', 'Builds', 'Build', 'TestResults', '__pycache__'}
+        for folder, directories, files in os.walk(root):
+            directories[:] = [name for name in directories if name not in ignored]
+            paths.extend((Path(folder) / name).relative_to(root).as_posix() for name in files)
     folded = {}
     assemblies = {}
     for path in paths:
