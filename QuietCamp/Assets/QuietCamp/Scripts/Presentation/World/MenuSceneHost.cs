@@ -51,16 +51,16 @@ namespace QuietCamp.Presentation.World
             _router = router;
         }
 
-        void Start()
+        void Start() { Current = this; StartCoroutine(ComposeScene()); }
+        System.Collections.IEnumerator ComposeScene()
         {
-            using var audit = PerformanceAudit.Measure("QC.MenuSceneHost.Start");
             Current = this;
             var canvasRoot = ResolveScene("CanvasRoot");
             var safeArea = (RectTransform)ResolveScene("CanvasRoot/SafeArea");
             if (canvasRoot == null || safeArea == null)
             {
                 Debug.LogError("[QuietCamp] MainMenu scene lacks CanvasRoot/SafeArea.");
-                return;
+                yield break;
             }
             if (safeArea.GetComponent<SafeAreaFitter>() == null)
                 safeArea.gameObject.AddComponent<SafeAreaFitter>();
@@ -69,16 +69,19 @@ namespace QuietCamp.Presentation.World
             if (camera == null)
             {
                 Debug.LogError("[QuietCamp] MainMenu scene lacks a camera.");
-                return;
+                yield break;
             }
             _camera=camera;
             // Navigation is available even if optional scenery fails in a player.
-            _screens = new MenuScreens(_services, safeArea);
+            using (PerformanceAudit.Measure("QC.MenuSceneHost.Start"))
+                _screens = new MenuScreens(_services, safeArea);
             RegisterActions();
             _menuContext = _services.ContextStack.Push(new UiContextRegistration(
                 "Menu", UiContextLayer.Global, 0, () => true,
                 new UiActionId("qc.back")));
+            yield return null;
             TryBuildWorld(() => BuildWorld(camera, safeArea));
+            yield return null;
             var album=gameObject.AddComponent<AlbumDiorama>();
             _album=album;
             album.Configure(_services,_screens,camera,_world,_atmosphere,GetComponent<MenuCameraDrift>());

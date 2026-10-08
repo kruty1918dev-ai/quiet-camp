@@ -39,6 +39,23 @@ namespace QuietCamp.Tests
         }
 
         [UnityTest]
+        public IEnumerator CoveredRenderingLeaseRestoresCameraOnWarmupRevealAndRecovery()
+        {
+            yield return SceneManager.LoadSceneAsync("Boot"); yield return PrivacyBootTestSupport.EnterGame();
+            yield return null; yield return null;
+            var dive = Dive(); var camera = Camera.main; Assert.NotNull(camera);
+            int mask = camera.cullingMask;
+            yield return Wait(dive.CoverAsync()); yield return null; yield return null;
+            Assert.AreEqual(0, camera.cullingMask, "Opaque cover should suspend invisible scene drawing.");
+            Assert.IsTrue(camera.enabled, "Camera and listener must remain active.");
+            dive.WarmSceneUnderCover(); Assert.AreEqual(mask, camera.cullingMask);
+            dive.BeginReveal(); yield return Wait(dive.RevealAsync());
+            Assert.AreEqual(mask, camera.cullingMask);
+            yield return Wait(dive.CoverAsync()); yield return null; yield return null;
+            dive.Recover(); Assert.AreEqual(mask, camera.cullingMask);
+        }
+
+        [UnityTest]
         public IEnumerator Curtain_SubmitsVisibleMeshToCanvas()
         {
             var dive = FoliageDiveTransition.Ensure(null);

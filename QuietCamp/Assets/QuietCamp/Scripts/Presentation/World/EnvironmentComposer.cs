@@ -46,6 +46,16 @@ namespace QuietCamp.Presentation.World
         readonly Dictionary<Vector2Int,Tile> _tiles=new Dictionary<Vector2Int,Tile>();
         readonly Stack<Tile> _pool=new Stack<Tile>();readonly HashSet<Vector2Int> _wanted=new HashSet<Vector2Int>();
         readonly List<Vector2Int> _remove=new List<Vector2Int>();readonly List<Material> _seasonMaterials=new List<Material>();
+        static readonly System.Runtime.CompilerServices.ConditionalWeakTable<GameObject,Shape> SharedShapes = new System.Runtime.CompilerServices.ConditionalWeakTable<GameObject,Shape>();
+        static readonly System.Runtime.CompilerServices.ConditionalWeakTable<Shape,Shape> SharedBareShapes = new System.Runtime.CompilerServices.ConditionalWeakTable<Shape,Shape>();
+        readonly Queue<Vector2Int> _pending = new Queue<Vector2Int>();
+        readonly List<Vector3> _vertices = new List<Vector3>(20000), _normals = new List<Vector3>(20000);
+        readonly List<Color> _colors = new List<Color>(20000);
+        readonly List<Vector4> _roots = new List<Vector4>(20000);
+        readonly List<int> _indices = new List<int>(30000);
+        bool _deferred;
+        Transform _shelterDecor;
+        public bool InitialReady => _pending.Count == 0 && Shelter != null;
         readonly Vector3[] _corners=new Vector3[8];
         Camera _camera;LevelData _level;Material _forestMaterial;Shape _broadleaf,_bare,_pine;
         Rect _lastFootprint;Vector2Int _lastScreen;float _refreshAt,_tileSize=TileSize;bool _ready;
@@ -58,15 +68,15 @@ namespace QuietCamp.Presentation.World
         public int CanopyRevision {get;private set;}
         public IEnumerable<Vector3> LeafSources
         {get{foreach(var tile in _tiles.Values)foreach(var crown in tile.crowns)yield return transform.TransformPoint(crown);}}
-        public void Configure(LevelData level,Camera camera,Transform decorRoot,AssetCatalog assets)
+        public void Configure(LevelData level,Camera camera,Transform decorRoot,AssetCatalog assets,bool deferred=false)
         {
             using var audit = PerformanceAudit.Measure("QC.EnvironmentComposer.Configure");
-            _level=level;_camera=camera;Descriptor=EnvironmentCompositionData.For(level);
+            _level=level;_camera=camera;_deferred=deferred;_shelterDecor=decorRoot;Descriptor=EnvironmentCompositionData.For(level);
             if(assets!=null)
             {
-                if(assets.TryGet("tree_default",out var broad)&&broad.prefab!=null)_broadleaf=new Shape(broad.prefab);
-                if(assets.TryGet("tree_pineRoundA",out var pine)&&pine.prefab!=null)_pine=new Shape(pine.prefab);
-                if(_broadleaf!=null&&_broadleaf.vertices.Length>0)_bare=new Shape(SeasonalTreeGeometry.Bare(_broadleaf.vertices,_broadleaf.normals,_broadleaf.indices,_broadleaf.colors));
+                if(assets.TryGet("tree_default",out var broad)&&broad.prefab!=null)_broadleaf=SharedShapes.GetValue(broad.prefab, prefab => new Shape(prefab));
+                if(assets.TryGet("tree_pineRoundA",out var pine)&&pine.prefab!=null)_pine=SharedShapes.GetValue(pine.prefab, prefab => new Shape(prefab));
+                if(_broadleaf!=null&&_broadleaf.vertices.Length>0)_bare=SharedBareShapes.GetValue(_broadleaf, shape => new Shape(SeasonalTreeGeometry.Bare(shape.vertices,shape.normals,shape.indices,shape.colors)));
             }
             var shader=Resources.Load<Shader>("QuietCamp/FoliageLit");
             if(shader!=null)
@@ -80,13 +90,24 @@ namespace QuietCamp.Presentation.World
             }
             TintExisting(decorRoot);
             ShoreRoot=new GameObject("ShoreEnvironment").transform;ShoreRoot.SetParent(transform,false);
-            Refresh();BuildStory();BuildEarthContacts(decorRoot);BuildShelter(decorRoot);
+            Refresh();BuildStory();BuildEarthContacts(decorRoot);
+            if (_pending.Count == 0) BuildShelter(decorRoot);
             CampWaterVisuals.Attach(level,ShoreRoot,camera);
             _ready=true;
         }
         void LateUpdate()
         {
-            if(!_ready||_camera==null||Time.unscaledTime<_refreshAt)return;
+            if (!_ready || _camera == null) return;
+            if (_pending.Count > 0)
+            {
+                long start = System.Diagnostics.Stopwatch.GetTimestamp();
+                do { AddTile(_pending.Dequeue()); }
+                while (_pending.Count > 0 && (System.Diagnostics.Stopwatch.GetTimestamp()-start)*1000.0/System.Diagnostics.Stopwatch.Frequency < 4);
+                if (_pending.Count == 0)
+                { _deferred = false; FinishTiles(); BuildShelter(_shelterDecor); }
+                return;
+            }
+            if(Time.unscaledTime<_refreshAt)return;
             _refreshAt=Time.unscaledTime+.4f;
             if(!ForestGroundView.TryBounds(_camera,transform,_corners,out var footprint))return;
             // Subtle wind camera motion stays within the prewarmed coverage.
@@ -110,10 +131,20 @@ namespace QuietCamp.Presentation.World
                 _wanted.Add(new Vector2Int(x,z));
             _remove.Clear();foreach(var pair in _tiles)if(!_wanted.Contains(pair.Key))_remove.Add(pair.Key);
             foreach(var key in _remove){var tile=_tiles[key];tile.root.SetActive(false);_pool.Push(tile);_tiles.Remove(key);}
+            _pending.Clear();
             foreach(var key in _wanted)
             {
-                if(_tiles.ContainsKey(key))continue;var tile=_pool.Count>0?_pool.Pop():CreateTile();BuildTile(tile,key);tile.root.SetActive(true);_tiles.Add(key,tile);
+                if(_tiles.ContainsKey(key))continue;
+                if (_deferred) _pending.Enqueue(key); else AddTile(key);
             }
+            if (_pending.Count == 0) FinishTiles();
+        }
+        void AddTile(Vector2Int key)
+        {
+            var tile=_pool.Count>0?_pool.Pop():CreateTile();BuildTile(tile,key);tile.root.SetActive(true);_tiles.Add(key,tile);
+        }
+        void FinishTiles()
+        {
             TreeCount=0;foreach(var tile in _tiles.Values)TreeCount+=tile.roots.Count;
             CanopyRevision++;
         }
@@ -129,7 +160,8 @@ namespace QuietCamp.Presentation.World
             using var audit = PerformanceAudit.Measure("QC.EnvironmentComposer.BuildTile");
             var origin=new Vector3(key.x*_tileSize,0,key.y*_tileSize);tile.root.transform.localPosition=origin;tile.root.name="Forest cluster "+key;
             var rng=new System.Random(unchecked(Descriptor.clusterSeed*1297+key.x*73856093^key.y*19349663));
-            var vertices=new List<Vector3>();var normals=new List<Vector3>();var colors=new List<Color>();var roots=new List<Vector4>();var indices=new List<int>();tile.roots.Clear();tile.crowns.Clear();
+            var vertices=_vertices;var normals=_normals;var colors=_colors;var roots=_roots;var indices=_indices;
+            vertices.Clear();normals.Clear();colors.Clear();roots.Clear();indices.Clear();tile.roots.Clear();tile.crowns.Clear();
             float Next()=>(float)rng.NextDouble();var season=SeasonProfile.For(_level);var palette=season.Palette;
             int count=Mathf.RoundToInt(Mathf.Lerp(2,12,Mathf.Clamp01(Descriptor.treeDensity))*(_tileSize/TileSize));
             var cluster=new Vector3((.18f+Next()*.64f)*_tileSize,0,(.18f+Next()*.64f)*_tileSize);

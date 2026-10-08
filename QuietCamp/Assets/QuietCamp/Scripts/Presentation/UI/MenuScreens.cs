@@ -22,7 +22,8 @@ namespace QuietCamp.Presentation.UI
         readonly HtmlSurface _overlay;
         readonly HtmlSurface _bleed;
         public HtmlSurface Overlay => _overlay;
-        public bool UiReady => _surface != null && _surface.IsUsable;
+        public bool UiReady => _surface != null && _surface.IsUsable
+            && (Current == "Main" || Current == "AlbumQuiet" || (_overlay?.IsUsable ?? false));
         public event Action<string> ScreenChanged;
         public event Action<int> AlbumSelected;
         public event Action OverlayMounted;
@@ -154,7 +155,7 @@ namespace QuietCamp.Presentation.UI
         }
         string RenderOverlay()
         {
-            if (Current == "Main") return "<view class=\"app dimroot\"></view>";
+            if (Current == "Main") return "<view />";
             if (Current == "Levels" || Current == "Album") return FullMenu();
             if (Current == "AlbumQuiet") return "<view class=\"app album-quiet\" data-safe-area=\"all\" id=\"sheet\" data-motion-role=\"dialog\""
                 + (_closing ? " data-motion=\"exit\"" : "") + "><view id=\"album-viewport\" class=\"quiet-viewport\" />"
@@ -224,7 +225,7 @@ namespace QuietCamp.Presentation.UI
                 {
                     var binding = scroll.GetComponent<MenuMapBinding>();
                     if (binding == null) binding = scroll.gameObject.AddComponent<MenuMapBinding>();
-                    binding.Configure(_services,()=>Current=="Levels"&&!_closing);
+                    binding.Configure(_services,()=>Current=="Levels"&&!_closing, UpdateMapWindow);
                 }
             }
             if(Current=="BonusPreview")
@@ -246,10 +247,33 @@ namespace QuietCamp.Presentation.UI
                 + HtmlUi.Text(title,"full-title") + stories + "</view>"
                 + (map ? Levels() : Album()) + "</view>";
         }
+        float _mapWindowTop, _mapWindowBottom;
+        bool _mapWindowKnown;
+        void UpdateMapWindow(float top, float height)
+        {
+            const float overscan = 900;
+            float lower = Mathf.Floor((top - overscan) / 420) * 420;
+            float upper = Mathf.Ceil((top + height + overscan) / 420) * 420;
+            if (_mapWindowKnown && lower == _mapWindowTop && upper == _mapWindowBottom) return;
+            _mapWindowKnown = true; _mapWindowTop = lower; _mapWindowBottom = upper; _overlay.Refresh();
+        }
+        bool MapTargetVisible(float y) => y >= _mapWindowTop && y <= _mapWindowBottom;
         string Levels()
         {
             var ids = LevelLoader.MvpLevelIds();
             var next = _services.JourneyAccess.ContinueTarget("main");
+            if (!_mapWindowKnown)
+            {
+                float height = Mathf.Max(200, ((RectTransform)_overlay.transform).rect.height - 150);
+                float position = _services.LevelMapScroll;
+                if (position < 0)
+                {
+                    var target = _services.Progression.ContinueTarget(ids); int index = 0;
+                    for (int i = 0; i < ids.Count; i++) if (ids[i] == target) { index = i; break; }
+                    position = 1 - Mathf.Clamp01((RoadmapLayout.MainY(index) - height * .45f) / Mathf.Max(1, RoadmapLayout.Height(ids.Count) - height));
+                }
+                UpdateMapWindow((1-position)*Mathf.Max(0,RoadmapLayout.Height(ids.Count)-height),height);
+            }
             var districts = LevelLoader.Districts();
             var worldMap = WorldMapBuilder.Build(ids, districts, BonusCampCatalog.Slots, _services.Journeys.Journeys, CampContent.Summary);
             var reveal = new WorldMapRevealService(worldMap, _services.Progression, _services.JourneyAccess);
@@ -260,6 +284,7 @@ namespace QuietCamp.Presentation.UI
             var html = new StringBuilder("<scroll id=\"roadmap-scroll\" class=\"map-scroll\"><view class=\"roadmap\" style=\"height:" + HtmlUi.Number(RoadmapLayout.Height(ids.Count)) + "px\"><view id=\"roadmap-art\" class=\"roadmap-art\" />");
             for (var i = 0; i < ids.Count; i++)
             {
+                if (!MapTargetVisible(RoadmapLayout.MainY(i) + 100)) continue;
                 var id = ids[i];
                 var unlocked = _services.CanStart(id);
                 var done = _services.Progression.IsCompleted(id);
@@ -293,7 +318,7 @@ namespace QuietCamp.Presentation.UI
             }
             foreach(var slot in BonusCampCatalog.Slots)
             {
-                if(slot.afterLevel>ids.Count)continue;
+                if(slot.afterLevel>ids.Count || !MapTargetVisible(RoadmapLayout.BonusY(slot)+64))continue;
                 var veiled=slot.afterLevel>reveal.Horizon;
                 var access=_services.BonusCamps.Evaluate(slot);
                 string callback="bonus-"+slot.afterLevel;
@@ -317,6 +342,7 @@ namespace QuietCamp.Presentation.UI
             {
                 // Story branches fork off the main road where they unlock.
                 // The slot is visible ahead of time — a promise, not a gate.
+                if (!MapTargetVisible(RoadmapLayout.BranchY(journey)+64)) continue;
                 if(journey.id=="main"||journey.id=="qa"||journey.id.StartsWith("bonus.")||!journey.published&&journey.requiredCompletions<=0)continue;
                 if(journey.requiredCompletions>ids.Count)continue;
                 var veiled=!revealedBranches.Contains(journey.id);
@@ -527,6 +553,7 @@ namespace QuietCamp.Presentation.UI
         {
             if (!_services.Economy.IsPro && (name == "Levels" && !_services.Tutorial.RoadmapUnlocked
                 || name == "Album" && !_services.Tutorial.AlbumUnlocked && (_services.Save.Album.entries?.Length ?? 0) == 0)) return;
+            if (name != Current && name != "BonusPreview") _mapWindowKnown = false;
             if(Current=="Levels"&&name!=Current)_overlay?.GetComponentInChildren<MenuMapBinding>()?.Freeze();
             if (name != Current) _history.Push(Current);
             if (Current == "Economy" || name == "Economy") _economyPanel?.ResetConfirmation();

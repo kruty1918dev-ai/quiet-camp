@@ -29,8 +29,18 @@ namespace QuietCamp.Tests
             services.Tutorial.Skip(); services.Tutorial.MarkMenuIntroSeen();
             services.Progression.Restore(LevelLoader.MvpLevelIds().ToArray(), "QC007", services.Progression.CosmeticFlags);
             services.ReducedMotion = true;
+            if (MenuSceneHost.Current == null) yield return SceneManager.LoadSceneAsync("MainMenu");
+            float menuDeadline = Time.realtimeSinceStartup+30;
+            while (MenuSceneHost.Current?.UiReady != true && Time.realtimeSinceStartup < menuDeadline) yield return null;
+            Assert.IsTrue(MenuSceneHost.Current?.UiReady == true);
             var host = MenuSceneHost.Current;
             var screens = (MenuScreens)typeof(MenuSceneHost).GetField("_screens", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(host);
+            typeof(ScreenshotPlayModeTest).GetMethod("SetGameViewSize", BindingFlags.Static | BindingFlags.NonPublic)
+                .Invoke(null, new object[] { 720, 1600 });
+            screens.Show("Main"); for (int i=0;i<20;i++) yield return null;
+            yield return CaptureUi("main-menu");
+            screens.Show("Settings"); for (int i=0;i<20;i++) yield return null;
+            yield return CaptureUi("settings");
             screens.Show("Levels");
             for (int i=0;i<30;i++) yield return null;
             var map = Object.FindAnyObjectByType<RoadmapGraphic>(); Assert.NotNull(map);
@@ -56,6 +66,19 @@ namespace QuietCamp.Tests
                 {
                     scroll.verticalNormalizedPosition = position; scroll.velocity = Vector2.zero;
                     for (int i=0;i<6;i++) yield return null;
+                    if (size.x == 720 && position == .5f) yield return CaptureUi("roadmap");
+                    Assert.AreSame(scroll, map.GetComponentInParent<ScrollRect>(), "Virtualization replaced the active scroll viewport.");
+                    Assert.That(scroll.verticalNormalizedPosition, Is.EqualTo(position).Within(.003f), "Reconciliation lost the scroll position.");
+                    int buttons = screens.Overlay.GetComponentsInChildren<Button>().Count(button => button.name.StartsWith("<button #level-"));
+                    Assert.That(buttons, Is.InRange(1, 26), "Only the visible map targets and overscan should be mounted.");
+                    var ids = LevelLoader.MvpLevelIds();
+                    float top = (1-position)*(scroll.content.rect.height-scroll.viewport.rect.height);
+                    for (int i=0;i<ids.Count;i++)
+                    {
+                        float y = RoadmapLayout.MainY(i)+100;
+                        if (y > top && y < top+scroll.viewport.rect.height)
+                            Assert.NotNull(screens.Overlay.Element("level-"+i), "A visible level target is missing: "+i);
+                    }
                     Assert.Greater(map.VisibleVertices, 1000);
                     Assert.LessOrEqual(map.GladePool.Count, 15);
                     Assert.AreEqual(0, map.TruncatedModels);
@@ -68,6 +91,31 @@ namespace QuietCamp.Tests
                     }
                 }
             }
+            // Use the actual reconciled native button at the far end of the
+            // campaign; an old callback must not launch an earlier pooled node.
+            int last = LevelLoader.MvpLevelIds().Count-1;
+            var target = screens.Overlay.Element("level-"+last); Assert.NotNull(target);
+            target.GetComponent<Button>().onClick.Invoke();
+            float deadline = Time.realtimeSinceStartup+30;
+            while ((CampSceneHost.Current == null || !CampSceneHost.Current.UiReady) && Time.realtimeSinceStartup < deadline) yield return null;
+            Assert.NotNull(CampSceneHost.Current);
+            Assert.AreEqual(LevelLoader.MvpLevelIds()[last], CampSceneHost.Current.Session.Level.id);
+            while (!FoliageDiveTransition.Ensure(services).IsIdle && Time.realtimeSinceStartup < deadline) yield return null;
+            typeof(ScreenshotPlayModeTest).GetMethod("SetGameViewSize", BindingFlags.Static | BindingFlags.NonPublic)
+                .Invoke(null, new object[] { 720, 1600 });
+            for (int i=0;i<20;i++) yield return null;
+            yield return CaptureUi("camp");
+        }
+        static IEnumerator CaptureUi(string name)
+        {
+            yield return new WaitForEndOfFrame();
+            var texture = ScreenCapture.CaptureScreenshotAsTexture();
+            try
+            {
+                var directory = Path.Combine(Directory.GetCurrentDirectory(), "Screenshots/Optimization2026-10-09"); Directory.CreateDirectory(directory);
+                File.WriteAllBytes(Path.Combine(directory, name+".png"), texture.EncodeToPNG());
+            }
+            finally { Object.Destroy(texture); }
         }
         [UnityTest] public IEnumerator GpuLeavesCoverViewportKeepMovingAndReuseGeometry()
         {

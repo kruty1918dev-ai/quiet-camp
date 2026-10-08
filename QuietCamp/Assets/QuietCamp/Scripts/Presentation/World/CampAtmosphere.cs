@@ -102,7 +102,7 @@ namespace QuietCamp.Presentation.World
         }
 
         VisibleForestFloor _floor;
-        public bool InitialWorldReady => _floor == null || _floor.InitialReady;
+        public bool InitialWorldReady => (_floor == null || _floor.InitialReady) && (_composition == null || _composition.InitialReady);
         public void Configure(Camera camera, LevelData level, RectTransform viewport,
             AtmosphereCatalog.Profile profile, Func<bool> reducedMotion, int qualityTier = 1,
             Transform decorRoot = null, Func<int> qualitySource = null)
@@ -162,7 +162,7 @@ namespace QuietCamp.Presentation.World
                 CameraFitter.Fit(camera,level,viewport);
                 var compositionRoot=new GameObject("ComposedEnvironment");compositionRoot.transform.SetParent(decorRoot,false);
                 _composition=compositionRoot.AddComponent<EnvironmentComposer>();
-                _composition.Configure(level,camera,decorRoot,QuietCampBootstrap.ServicesRef?.Assets);
+                _composition.Configure(level,camera,decorRoot,QuietCampBootstrap.ServicesRef?.Assets,UnityEngine.Application.isPlaying);
                 _windSim.SetShelter(_composition.Shelter);
                 _windShelterTexture=_composition.Shelter?.CreateTexture();
                 PublishShelter();
@@ -327,6 +327,11 @@ namespace QuietCamp.Presentation.World
         {
             using var audit = PerformanceAudit.Measure("QC.CampAtmosphere.LateUpdate");
             if (!_initialized || _camera == null) return;
+            if (_windShelterTexture == null && _composition?.Shelter != null)
+            {
+                _windSim.SetShelter(_composition.Shelter);
+                _windShelterTexture = _composition.Shelter.CreateTexture(); PublishShelter();
+            }
             var tier=_qualitySource?.Invoke()??_tier;
             if(tier!=_tier){_tier=tier;_postFx?.Apply(AtmosphereCatalog.Load().Get(PhaseId),tier);_life?.SetTier(tier);_particles?.SetTier((AtmosphereParticles.Tier)tier);Shader.SetGlobalFloat(FlutterScale,tier>0?1:0);}
             var rect = _viewport != null ? _viewport.rect : default;

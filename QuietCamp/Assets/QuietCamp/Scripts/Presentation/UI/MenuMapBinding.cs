@@ -15,14 +15,22 @@ namespace QuietCamp.Presentation.UI
         float _lastPos;
         int _stable;
         Func<bool> _canRemember;
-        public void Configure(GameServices services,Func<bool> canRemember=null)
+        Action<float,float> _windowChanged;
+        public void Configure(GameServices services,Func<bool> canRemember=null,Action<float,float> windowChanged=null)
         {
+            _windowChanged = windowChanged;
             if (_services != null) return;
             _services=services;_canRemember=canRemember; _scroll=GetComponent<ScrollRect>(); _frames=3;
         }
         void LateUpdate()
         {
             if (_scroll==null) return;
+            if (_armed && Scrollable())
+            {
+                float height = _scroll.viewport != null ? _scroll.viewport.rect.height : ((RectTransform)transform).rect.height;
+                float top = (1-_scroll.verticalNormalizedPosition)*Mathf.Max(0,_scroll.content.rect.height-height);
+                _windowChanged?.Invoke(top, height);
+            }
             if (_frames>0)
             {
                 if (--_frames>0) return;

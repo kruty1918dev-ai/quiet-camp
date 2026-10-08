@@ -135,9 +135,11 @@ namespace QuietCamp.Presentation.World
             if (_camera == null || _level == null) return;
             if (_pending.Count > 0)
             {
-                // One initial tile per frame under the transition cover. This
-                // bounds each upload; route readiness waits for the complete floor.
-                AddTile(_pending.Dequeue());
+                // Use elapsed CPU time, not a tile count: cheap tiles should
+                // not lengthen loading by one rendered frame each.
+                long start = System.Diagnostics.Stopwatch.GetTimestamp();
+                do { AddTile(_pending.Dequeue()); }
+                while (_pending.Count > 0 && (System.Diagnostics.Stopwatch.GetTimestamp()-start)*1000.0/System.Diagnostics.Stopwatch.Frequency < 4);
                 if (_pending.Count == 0) _deferred = false;
                 return;
             }

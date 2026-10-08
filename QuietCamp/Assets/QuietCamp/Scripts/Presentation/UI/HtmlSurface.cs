@@ -22,7 +22,11 @@ namespace QuietCamp.Presentation.UI
         Func<string> _render;
         bool _dirty;
         string _css;
-        string _lastHtml;
+        string _lastHtml, _mountedCss, _scaledCss;
+        float _cssScale = -1;
+        bool _lastReduced;
+        static int _mountFrame = -1;
+        readonly Dictionary<string, object> _globals = new Dictionary<string, object>();
         Slider[] _sliders = Array.Empty<Slider>();
         int _themeFrames;
         Tween _settingsSave;
@@ -53,7 +57,9 @@ namespace QuietCamp.Presentation.UI
             surface._services = services;
             surface._host.ViewportChanged += _ => surface.OnLayoutChanged();
             surface._render = render;
-            surface._css = Resources.Load<TextAsset>("QuietCamp/Html/Camp.css")?.text ?? "";
+            var stylesheet = name == "MenuHtml" ? "CampMain.css" : name == "MenuAtmosphere" ? "CampBackdrop.css" : "Camp.css";
+            surface._css = Resources.Load<TextAsset>("QuietCamp/Html/" + stylesheet)?.text
+                ?? Resources.Load<TextAsset>("QuietCamp/Html/Camp.css")?.text ?? "";
             // Quiet Camp documents use a small C# callback allow-list, not JS programs.
             // Keep CSS/Yoga/uGUI rendering, but avoid Android native VM/AOT binding.
             surface._host.NativeEventResolver = surface._callbacks.ResolveNativeEvent;
@@ -100,6 +106,11 @@ namespace QuietCamp.Presentation.UI
             // Android can report a zero-sized Canvas on its first frame, especially
             // without the Unity splash. Wait for the actual display/safe-area layout.
             if (root.rect.width < 1f || root.rect.height < 1f) return;
+            // A cold mount can parse/style many native controls. Serialize
+            // document preparation across frames instead of mounting every
+            // scene surface in the same activation frame.
+            if (_mountFrame == Time.frameCount) return;
+            _mountFrame = Time.frameCount;
             _dirty = false;
             try { MountDocument(); }
             catch (Exception exception) { MountFailed(exception.ToString()); }
@@ -111,26 +122,39 @@ namespace QuietCamp.Presentation.UI
             _callbacks.Clear();
             var html = _render();
             html = CampMotion.Apply(html, MotionScale);
-            _lastHtml = html;
             var settings = _services?.Settings;
             _host.Motion.ReducedMotion = settings?.reducedMotion ?? true;
             _host.ScrollSettings = UnityHtmlScrollSettings.Default
                 .WithReducedMotion(settings?.reducedMotion ?? true)
                 .WithWheelSensitivity((settings?.scrollSensitivity ?? 12f) / 12f);
             var scale = settings?.textScale ?? 1f;
-            var css = Regex.Replace(_css, @"font-size:\s*([0-9.]+)px", match =>
-                "font-size: " + HtmlUi.Number(float.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture) * scale) + "px");
-            css += "\ntext, button, label { font-size: " + HtmlUi.Number(28f * scale) + "px; }";
+            if (_scaledCss == null || _cssScale != scale)
+            {
+                _cssScale = scale;
+                _scaledCss = Regex.Replace(_css, @"font-size:\s*([0-9.]+)px", match =>
+                    "font-size: " + HtmlUi.Number(float.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture) * scale) + "px");
+                _scaledCss += "\ntext, button, label { font-size: " + HtmlUi.Number(28f * scale) + "px; }";
+            }
+            var css = _scaledCss;
             if (settings?.highContrast == true)
                 css += "\n.surface, .chip, .app button { background-color: #f6f0df; color: #243e35; } .app .primary { background-color: #243e35; color: #f6f0df; }";
             if (!string.IsNullOrEmpty(ExtraCss)) css += "\n" + ExtraCss;
-            var result = _host.Mount((RectTransform)transform,
-                new UnityHtmlDocument(html, css, name), new Dictionary<string, object>
-                {
-                    ["campUi"] = _callbacks,
-                    ["campFont"] = Resources.Load<TMP_FontAsset>("Fonts/DejaVuSans SDF"),
-                    ["moyvaFont"] = Resources.Load<TMP_FontAsset>("Fonts/DejaVuSans SDF")
-                });
+            bool reduced = settings?.reducedMotion ?? true;
+            if (IsMounted && html == _lastHtml && css == _mountedCss && reduced == _lastReduced)
+            { Mounted?.Invoke(); return; }
+            _lastHtml = html; _mountedCss = css; _lastReduced = reduced;
+            // An intentionally empty menu layer needs no React/CSS context.
+            if (html == "<view />" || html == "<view/>")
+            {
+                _host.Unmount(); _sliders = Array.Empty<Slider>();
+                IsMounted = true; LastMountError = null; _themeFrames = 0; Mounted?.Invoke(); return;
+            }
+            if (_globals.Count == 0)
+            {
+                var font = Resources.Load<TMP_FontAsset>("Fonts/DejaVuSans SDF");
+                _globals["campUi"] = _callbacks; _globals["campFont"] = font; _globals["moyvaFont"] = font;
+            }
+            var result = _host.Mount((RectTransform)transform, new UnityHtmlDocument(html, css, name), _globals);
             if (!result.Succeeded) { MountFailed(result.ErrorMessage); return; }
             IsMounted = true;
             LastMountError = null;

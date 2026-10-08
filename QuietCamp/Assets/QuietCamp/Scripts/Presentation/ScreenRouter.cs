@@ -126,6 +126,7 @@ namespace QuietCamp.Presentation
                     : MenuSceneHost.Current != null && MenuSceneHost.Current.UiReady;
                 if (ready)
                 {
+                    dive.WarmSceneUnderCover();
                     int frame = Time.renderedFrameCount;
                     float guard = 0f;
                     while (Time.renderedFrameCount == frame && guard < .5f)

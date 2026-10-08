@@ -135,6 +135,7 @@ namespace QuietCamp.Presentation
             if (_state != State.Idle && _state != State.Recovery) await WaitIdle();
             if (_destroyed) return;
             int gen = ++_generation;
+            _allowCoveredRendering = false;
             _state = State.Covering;
             _stateTime = 0f;
             _progress = 0f;
@@ -189,6 +190,7 @@ namespace QuietCamp.Presentation
         public void BeginReveal()
         {
             if (_state != State.CoveredLoading && _state != State.Preparing) return;
+            WarmSceneUnderCover();
             _destinationTint = CaptureLighting();
             _state = State.Preparing;
             _stateTime = 0f;
@@ -245,6 +247,7 @@ namespace QuietCamp.Presentation
 
         void Finish()
         {
+            RestoreCoveredCamera();
             StopRustles();
             _gateContext?.Dispose();
             _gateContext = null;
@@ -262,6 +265,7 @@ namespace QuietCamp.Presentation
 
         void OnDestroy()
         {
+            RestoreCoveredCamera();
             StopRustles();
             _destroyed = true;
             _generation++;
@@ -330,6 +334,37 @@ namespace QuietCamp.Presentation
                     break;
             }
 
+        }
+
+        Camera _coveredCamera;
+        int _coveredMask;
+        bool _allowCoveredRendering;
+        // Keep cameras/listeners and scene preparation alive. Only suppress
+        // invisible geometry under the fully opaque screen-space cover.
+        void LateUpdate()
+        {
+            bool covered = !_allowCoveredRendering && (_state == State.CoveredLoading || _state == State.Preparing);
+            if (!covered) { RestoreCoveredCamera(); return; }
+            var camera = Camera.main;
+            if (camera != _coveredCamera)
+            {
+                RestoreCoveredCamera(); _coveredCamera = camera;
+                _coveredMask = camera != null ? camera.cullingMask : 0;
+            }
+            if (_coveredCamera == null) return;
+            if (_coveredCamera.cullingMask != 0) _coveredMask = _coveredCamera.cullingMask;
+            _coveredCamera.cullingMask = 0;
+        }
+        void RestoreCoveredCamera()
+        {
+            if (_coveredCamera != null && _coveredCamera.cullingMask == 0) _coveredCamera.cullingMask = _coveredMask;
+            _coveredCamera = null;
+        }
+        public void WarmSceneUnderCover()
+        {
+            // The router restores geometry before its required rendered frame,
+            // so shader/render preparation completes before any leaf retracts.
+            _allowCoveredRendering = true; RestoreCoveredCamera();
         }
 
         public static Color CaptureLighting()

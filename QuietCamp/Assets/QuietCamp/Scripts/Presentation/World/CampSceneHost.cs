@@ -64,32 +64,31 @@ namespace QuietCamp.Presentation.World
             _router = router;
         }
 
-        void Start()
+        void Start() { Current = this; StartCoroutine(ComposeScene()); }
+        System.Collections.IEnumerator ComposeScene()
         {
-            using var audit = PerformanceAudit.Measure("QC.CampSceneHost.Start");
-            Current = this;
-            var levelId = _services.PendingLevelId ?? "QC_TEST";
-            if (!_services.CanStart(levelId))
+            LevelData level = null;
+            using (PerformanceAudit.Measure("QC.CampSceneHost.Start"))
             {
-                _services.Notifications.Show(_services.Localization.T("journey.access.denied"), GameplayNotificationKind.Info);
-                IsReady = true; StartCoroutine(ReturnToMenu()); return;
+                var levelId = _services.PendingLevelId ?? "QC_TEST";
+                if (!_services.CanStart(levelId))
+                    _services.Notifications.Show(_services.Localization.T("journey.access.denied"), GameplayNotificationKind.Info);
+                else
+                {
+                    try { level = CampContent.SessionLevel(_services.Save.Session, levelId); }
+                    catch (Exception error)
+                    { Debug.LogError($"[QuietCamp] {error.Message}"); _services.Notifications.Show("save.failed", GameplayNotificationKind.Error); }
+                }
             }
-            LevelData level;
-            try { level = CampContent.SessionLevel(_services.Save.Session,levelId); }
-            catch (System.Exception e)
-            {
-                Debug.LogError($"[QuietCamp] {e.Message}");
-                _services.Notifications.Show("save.failed", GameplayNotificationKind.Error);
-                IsReady = true; StartCoroutine(ReturnToMenu()); return;
-            }
-            BuildSession(level);
-            BuildWorld(level);
-            BuildHud(level);
+            if (level == null) { IsReady = true; StartCoroutine(ReturnToMenu()); yield break; }
+            BuildSession(level); yield return null;
+            BuildWorld(level); yield return null;
+            BuildHud(level); yield return null;
             Canvas.ForceUpdateCanvases();
             var htmlViewport = Find("CanvasRoot/SafeArea/Gameplay/BoardViewport");
             CameraFitter.Fit(FindCamera(), level, htmlViewport != null ? htmlViewport.transform as RectTransform : null);
-            RegisterActions();
-            ConfigureAtmosphere(level);
+            RegisterActions(); yield return null;
+            ConfigureAtmosphere(level); yield return null;
             _renderer.BuildCanopies();
             _atmosphere.RegisterDecor(Find("World")?.transform);
             _atmosphere.BindRainWorld(Find("World")?.transform);
