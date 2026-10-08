@@ -40,6 +40,26 @@ def verify(root):
             errors.append(f'{name}: Git dependency must pin an exact commit')
     paths = subprocess.check_output(['git', '-C', str(root), 'ls-files', '-z'], text=True).split('\0')
     folded = {}
+    assemblies = {}
+    for path in paths:
+        if path.endswith('.asmdef'):
+            definition = json.loads((root / path).read_text(encoding='utf-8'))
+            name = definition['name']
+            if name in assemblies:
+                errors.append(f'Duplicate assembly: {name}')
+            assemblies[name] = path
+    for name, path in assemblies.items():
+        if not path.startswith('QuietCamp/Assets/QuietCamp/'):
+            continue
+        definition = json.loads((root / path).read_text(encoding='utf-8'))
+        for reference in definition.get('references', []):
+            if reference.startswith('Kruty1918.') and reference not in assemblies:
+                # Git packages are resolved by Unity; local packages must already exist.
+                remote = any(key.startswith('com.kruty1918.') and not value.startswith('file:')
+                             and re.sub(r'[^a-z0-9]', '', reference.split('.')[1].lower()) in re.sub(r'[^a-z0-9]', '', key)
+                             for key, value in manifest['dependencies'].items())
+                if not remote:
+                    errors.append(f'{name}: missing custom assembly {reference}')
     for path in filter(None, paths):
         key = path.casefold()
         if key in folded and folded[key] != path:
