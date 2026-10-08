@@ -2,6 +2,8 @@
 // Reuses the already open Editor. No player builds, process control, SDK/ADB or shared prefs changes.
 using System;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEditor.TestTools.TestRunner.Api;
@@ -17,7 +19,6 @@ static class DocsCaptureDriver
     static DocsCaptureDriver()
     {
         EditorApplication.update += Tick;
-        EditorApplication.playModeStateChanged += state => { if (state == PlayModeStateChange.ExitedPlayMode) Restore(); };
         EditorApplication.delayCall += Register;
     }
     static void Register()
@@ -27,7 +28,9 @@ static class DocsCaptureDriver
     }
     static void Tick()
     {
-        if (SessionState.GetBool(Key + "Finished", false) && !EditorApplication.isPlayingOrWillChangePlaymode) Restore();
+        if (SessionState.GetBool(Key + "Finished", false) && !EditorApplication.isPlayingOrWillChangePlaymode
+            && !EditorApplication.isCompiling && !EditorApplication.isUpdating
+            && EditorApplication.timeSinceStartup > SessionState.GetFloat(Key + "RestoreAfter", float.MaxValue)) Restore();
         var path = Path.Combine(Control, "request.json");
         if (!File.Exists(path) || EditorApplication.isCompiling || EditorApplication.isUpdating || api == null) return;
         if (EditorApplication.isPlayingOrWillChangePlaymode || SessionState.GetBool(Key + "Active", false)) return;
@@ -37,6 +40,9 @@ static class DocsCaptureDriver
         if (request == null || string.IsNullOrEmpty(request.productName) || !request.productName.StartsWith("QuietCampDocsQA"))
             throw new InvalidOperationException("Documentation capture needs a distinct DocsQA product.");
         SessionState.SetString(Key + "OriginalProduct", PlayerSettings.productName);
+        var settingsPath = Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, "../ProjectSettings/ProjectSettings.asset"));
+        SessionState.SetString(Key + "OriginalProductLine", File.ReadAllLines(settingsPath).First(line => line.StartsWith("  productName:")));
+        SessionState.SetString(Key + "QaProduct", request.productName);
         SessionState.SetString(Key + "Context", request.context ?? "{}");
         SessionState.SetBool(Key + "Active", true);
         SessionState.SetBool(Key + "Finished", false);
@@ -51,6 +57,18 @@ static class DocsCaptureDriver
         // Never restore while a QA scene can still save during OnDestroy/OnApplicationQuit.
         if (!SessionState.GetBool(Key + "Active", false) || EditorApplication.isPlayingOrWillChangePlaymode) return;
         PlayerSettings.productName = SessionState.GetString(Key + "OriginalProduct", PlayerSettings.productName);
+        var settingsPath = Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, "../ProjectSettings/ProjectSettings.asset"));
+        var originalLine = SessionState.GetString(Key + "OriginalProductLine", "");
+        var qaName = SessionState.GetString(Key + "QaProduct", "");
+        if (!string.IsNullOrEmpty(originalLine) && !string.IsNullOrEmpty(qaName))
+        {
+            // Unity can leave the serialized QA name on disk after restoring the in-memory property.
+            // Restore only our own product-name line; preserve every other setting and pending asset.
+            var content = File.ReadAllText(settingsPath);
+            var updated = Regex.Replace(content, "(?m)^  productName: " + Regex.Escape(qaName) + "\\r?$",
+                match => originalLine + (match.Value.EndsWith("\r") ? "\r" : ""));
+            if (updated != content) File.WriteAllText(settingsPath, updated);
+        }
         SessionState.SetBool(Key + "Active", false);
         SessionState.SetBool(Key + "Finished", false);
         File.WriteAllText(Path.Combine(Control, "restored.txt"), "Original product identity restored after leaving Play Mode.");
@@ -66,7 +84,7 @@ static class DocsCaptureDriver
             TestRunnerApi.SaveResultToFile(result, Path.Combine(Control, "results.xml"));
             File.WriteAllText(Path.Combine(Control, "finished.txt"), result.ResultState + "\n" + result.Message);
             SessionState.SetBool(Key + "Finished", true);
-            EditorApplication.delayCall += Restore;
+            SessionState.SetFloat(Key + "RestoreAfter", (float)EditorApplication.timeSinceStartup + 3f);
         }
     }
 }
