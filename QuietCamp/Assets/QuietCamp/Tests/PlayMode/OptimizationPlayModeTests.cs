@@ -48,6 +48,13 @@ namespace QuietCamp.Tests
             Assert.AreEqual(CampContent.Summaries.Count, map.Scenes.Count);
             map.SetWeatherMoment(25); yield return null; yield return null;
             var scroll = map.GetComponentInParent<ScrollRect>(); Assert.NotNull(scroll);
+            scroll.verticalNormalizedPosition = .5f; scroll.velocity=Vector2.zero;
+            for (int i=0;i<8;i++) yield return null;
+            int retained = LevelLoader.MvpLevelIds().Count/2;
+            var retainedButton = screens.Overlay.Element("level-"+retained); Assert.NotNull(retainedButton);
+            scroll.verticalNormalizedPosition = .485f; scroll.velocity=Vector2.zero;
+            for (int i=0;i<8;i++) yield return null;
+            Assert.AreSame(retainedButton,screens.Overlay.Element("level-"+retained),"Overlapping targets must retain native identity when the virtual window advances.");
             var glade = map.GladePool.First(g => g.gameObject.activeSelf);
             int index = glade.SceneIndex;
             var vertices = glade.canvasRenderer.GetMesh().vertices;

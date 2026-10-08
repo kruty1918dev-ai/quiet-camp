@@ -80,8 +80,12 @@ namespace QuietCamp.Presentation.World
                 "Menu", UiContextLayer.Global, 0, () => true,
                 new UiActionId("qc.back")));
             yield return null;
+            while (!_screens.PreparationReady) yield return null;
             TryBuildWorld(() => BuildWorld(camera, safeArea));
             yield return null;
+            if (_world != null) TryBuildWorld(() => ConfigureWorldAtmosphere(camera));
+            yield return null;
+            _router?.Dive.WarmSceneUnderCover();
             var album=gameObject.AddComponent<AlbumDiorama>();
             _album=album;
             album.Configure(_services,_screens,camera,_world,_atmosphere,GetComponent<MenuCameraDrift>());
@@ -141,7 +145,11 @@ namespace QuietCamp.Presentation.World
             _sun = MenuDiorama.CreateSun(world);
             MenuDiorama.ApplySun(_sun, _profile);
             _board.BuildCanopies();
-
+        }
+        void ConfigureWorldAtmosphere(Camera camera)
+        {
+            using var audit = PerformanceAudit.Measure("QC.MenuSceneHost.ConfigureAtmosphere");
+            var level = _services.MenuBackdrop; var world = _world; var viewport = _menuViewport;
             var tier = QualityTier();
             _atmosphere = gameObject.AddComponent<CampAtmosphere>();
             _atmosphere.Configure(camera, level, viewport, _profile,

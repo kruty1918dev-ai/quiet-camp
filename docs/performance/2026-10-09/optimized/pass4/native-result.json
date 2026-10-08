@@ -1,0 +1,38 @@
+{
+  "result": "Passed",
+  "reportedLocalDate": "2026-10-09",
+  "capturedUtc": "2026-10-08T23:42:22.3420280Z",
+  "sourceCommit": "0a2012d0721fab94054aadf70f13b5a1c9985fbe",
+  "nativeTests": [
+    {
+      "id": "1136",
+      "name": "RunPerformanceMap",
+      "fullname": "QuietCamp.Tests.PerformanceAuditPlayModeTests.RunPerformanceMap",
+      "methodname": "RunPerformanceMap",
+      "classname": "QuietCamp.Tests.PerformanceAuditPlayModeTests",
+      "runstate": "Runnable",
+      "seed": "430529778",
+      "result": "Passed",
+      "start-time": "2026-10-08 23:38:07Z",
+      "end-time": "2026-10-08 23:42:23Z",
+      "duration": "255.403803",
+      "asserts": "0"
+    }
+  ],
+  "sessionGuards": {
+    "projectSettingsRestoredByteForByte": true,
+    "originalDirtyInputsPreserved": true,
+    "originalGameSaveHashesPreserved": true,
+    "sameAdbProcessIdentity": true,
+    "sameEditorProcessIdentity": true,
+    "adbKillPreferencesUnchanged": true
+  },
+  "editorReused": true,
+  "editorLaunched": false,
+  "adbCommandsIssued": false,
+  "playerBuild": false,
+  "frameCount": 7105,
+  "spanCount": 54475,
+  "rawJsonSha256": "bc5f41b1ac06ff3b3bf59dbc987e709483cf179357f8b14b831c0c93c66179d4",
+  "fixtureSha256": "83df88667cd1a798de7c1f342acfc5a94ef5906e89235c53faea942d10951b78"
+}

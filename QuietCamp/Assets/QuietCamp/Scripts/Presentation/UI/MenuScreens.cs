@@ -24,6 +24,8 @@ namespace QuietCamp.Presentation.UI
         public HtmlSurface Overlay => _overlay;
         public bool UiReady => _surface != null && _surface.IsUsable
             && (Current == "Main" || Current == "AlbumQuiet" || (_overlay?.IsUsable ?? false));
+        public bool PreparationReady => _surface != null && _surface.IsUsable
+            && (_overlay?.IsUsable ?? true) && (_bleed?.IsUsable ?? true);
         public event Action<string> ScreenChanged;
         public event Action<int> AlbumSelected;
         public event Action OverlayMounted;
@@ -293,7 +295,7 @@ namespace QuietCamp.Presentation.UI
                 var x = RoadmapGraphic.NodeX(i)*100;
                 var summary = hidden ? null : CampContent.Summary(id);
                 if (districtAt.TryGetValue(i + 1, out var district))
-                    html.Append("<view class=\"map-district act-").Append(district.act)
+                    html.Append("<view id=\"map-district-").Append(district.from).Append("\" class=\"map-district act-").Append(district.act)
                         .Append("\" style=\"top:").Append(HtmlUi.Number(RoadmapLayout.MainY(i)+34))
                         .Append("px\">").Append(HtmlUi.Text(T(district.TitleKey), "map-district-name"))
                         .Append("</view>");
@@ -302,7 +304,7 @@ namespace QuietCamp.Presentation.UI
                     if (unlocked) { _services.PendingMenuScreen="Levels"; Action("qc.play",id); }
                     else _services.Notifications?.Show(T("level.locked.hint"),Kruty1918.Notifications.API.GameplayNotificationKind.Info,dedupKey:"locked."+id);
                 });
-                html.Append("<view class=\"map-stop\" style=\"left:").Append(HtmlUi.Number(x)).Append("%;top:").Append(HtmlUi.Number(RoadmapLayout.MainY(i)+100))
+                html.Append("<view id=\"map-stop-").Append(i).Append("\" class=\"map-stop\" style=\"left:").Append(HtmlUi.Number(x)).Append("%;top:").Append(HtmlUi.Number(RoadmapLayout.MainY(i)+100))
                     .Append("px\"><button id=\"level-").Append(i).Append("\" class=\"map-node ")
                     .Append(hidden ? "hidden" : done ? "done" : id==next ? "selected" : unlocked ? "" : "locked")
                     .Append("\" data-tooltip=\"").Append(HtmlUi.Escape(hidden?T("map.veiled"):LevelDisplay.Title(id,_services.Localization,_services.Journeys)))
@@ -325,7 +327,7 @@ namespace QuietCamp.Presentation.UI
                 // The preview card itself is the teaser — veiling only strips
                 // the node's map decoration until the road reaches it.
                 _overlay.Callbacks.Bind(callback,()=>{_bonusPreview=slot;Show("BonusPreview");});
-                html.Append("<view class=\"map-bonus-stop\" style=\"left:").Append(HtmlUi.Number(RoadmapLayout.BonusX(slot)*100))
+                html.Append("<view id=\"map-bonus-stop-").Append(slot.afterLevel).Append("\" class=\"map-bonus-stop\" style=\"left:").Append(HtmlUi.Number(RoadmapLayout.BonusX(slot)*100))
                     .Append("%;top:").Append(HtmlUi.Number(RoadmapLayout.BonusY(slot)+64)).Append("px\">")
                     .Append("<button id=\"").Append(callback).Append("\" class=\"map-bonus-node ")
                     .Append(veiled?"veiled":access.CanPlay?"bonus-ready":"").Append("\" data-tooltip=\"").Append(HtmlUi.Escape(T(veiled?"map.veiled":slot.titleKey)))
@@ -349,7 +351,7 @@ namespace QuietCamp.Presentation.UI
                 var state=journey.levelIds.Length>0?_services.JourneyAccess.Evaluate(journey.levelIds[0]).State:JourneyAccessState.MissingContent;
                 string callback="branch-"+journey.id;
                 _overlay.Callbacks.Bind(callback,()=>{SelectedJourney=journey;_journeyConfirmation=null;Show("JourneyPreview");});
-                html.Append("<view class=\"map-branch-stop\" style=\"left:").Append(HtmlUi.Number(RoadmapLayout.BranchX(journey)*100))
+                html.Append("<view id=\"map-branch-stop-").Append(HtmlUi.Escape(journey.id)).Append("\" class=\"map-branch-stop\" style=\"left:").Append(HtmlUi.Number(RoadmapLayout.BranchX(journey)*100))
                     .Append("%;top:").Append(HtmlUi.Number(RoadmapLayout.BranchY(journey))).Append("px\">")
                     .Append("<button id=\"").Append(callback).Append("\" class=\"map-branch-node")
                     .Append(veiled?" veiled":state==JourneyAccessState.Available?" branch-ready":"").Append("\" data-tooltip=\"").Append(HtmlUi.Escape(T(veiled?"map.veiled":journey.titleKey)))
