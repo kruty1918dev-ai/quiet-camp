@@ -1,0 +1,14 @@
+{
+  "name": "maze_dungeon",
+  "width": 15, "height": 15, "seed": 31, "maxAttempts": 15,
+  "props": { "genre": "maze" },
+  "steps": [
+    { "type": "maze", "layer": "walls" },
+    { "type": "invert", "layer": "floor", "avoid": ["walls"] },
+    { "type": "scatter", "layer": "loot", "count": 5, "on": ["floor"], "minDist": 3 },
+    { "type": "cells_to_entities", "layer": "loot", "kind": "chest" },
+    { "type": "prop", "key": "entry", "value": [1, 1] },
+    { "type": "prop", "key": "exit", "value": [13, 13] },
+    { "type": "require", "check": "maskCount", "layer": "floor", "min": 40 }
+  ]
+}

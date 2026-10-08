@@ -1,0 +1,14 @@
+{
+  "name": "puzzle_board",
+  "width": 8, "height": 8, "seed": 77, "maxAttempts": 30,
+  "props": { "genre": "puzzle", "colors": 4 },
+  "steps": [
+    { "type": "border", "layer": "frame" },
+    { "type": "noise", "layer": "painted", "scale": 2.5, "threshold": 0.55 },
+    { "type": "symmetry", "layer": "painted", "axis": "x" },
+    { "type": "scatter", "layer": "targets", "count": 6, "minDist": 2, "on": ["painted"], "strict": true },
+    { "type": "cells_to_entities", "layer": "targets", "kind": "target" },
+    { "type": "require", "check": "maskCount", "layer": "painted", "min": 12, "max": 40 },
+    { "type": "require", "check": "connected", "layer": "painted" }
+  ]
+}

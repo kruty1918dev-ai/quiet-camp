@@ -1,0 +1,30 @@
+{
+  "name": "com.kruty1918.levelgen",
+  "version": "1.0.0",
+  "displayName": "LevelGen — Universal Level Generator",
+  "description": "Data-driven, seeded level generation for casual, hybrid-casual and hyper-casual games: runners, puzzles, tower defense, mazes, boards. Levels are described by JSON recipes — an ordered pipeline of generation steps (fill, noise, scatter, path, maze, rooms, segments, placement, symmetry, declarative requirements) with automatic retries. Works standalone with its own GenLevel JSON format; optionally bridges to LevelKit when that package is present.",
+  "unity": "2021.3",
+  "license": "MIT",
+  "keywords": [
+    "level",
+    "generator",
+    "procedural",
+    "casual",
+    "hyper-casual",
+    "runner",
+    "puzzle",
+    "json",
+    "seeded"
+  ],
+  "author": {
+    "name": "kruty1918",
+    "url": "https://github.com/kruty1918dev-ai"
+  },
+  "samples": [
+    {
+      "displayName": "Ready-made Recipes",
+      "description": "JSON recipes for five game archetypes: endless runner track, match/puzzle board, tower-defense path, maze, and a calm campsite board. Drop them into Resources and call LevelGenerator.Generate.",
+      "path": "Samples~/Recipes"
+    }
+  ]
+}

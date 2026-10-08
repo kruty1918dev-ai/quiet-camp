@@ -7,9 +7,9 @@
       "dependencies": {}
     },
     "com.kruty1918.agentverify": {
-      "version": "file:../../../agentverify",
+      "version": "file:com.kruty1918.agentverify",
       "depth": 0,
-      "source": "local",
+      "source": "embedded",
       "dependencies": {
         "com.unity.modules.screencapture": "1.0.0",
         "com.unity.modules.imgui": "1.0.0",
@@ -19,9 +19,9 @@
       }
     },
     "com.kruty1918.atmos": {
-      "version": "file:../../../atmos",
+      "version": "file:com.kruty1918.atmos",
       "depth": 0,
-      "source": "local",
+      "source": "embedded",
       "dependencies": {}
     },
     "com.kruty1918.audio": {
@@ -57,15 +57,15 @@
       }
     },
     "com.kruty1918.levelgen": {
-      "version": "file:../../../levelgen",
+      "version": "file:com.kruty1918.levelgen",
       "depth": 0,
-      "source": "local",
+      "source": "embedded",
       "dependencies": {}
     },
     "com.kruty1918.levelkit": {
-      "version": "file:../../../level-kit",
+      "version": "file:com.kruty1918.levelkit",
       "depth": 0,
-      "source": "local",
+      "source": "embedded",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.2.2"
       }

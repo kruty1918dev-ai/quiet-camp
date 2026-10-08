@@ -1,0 +1,20 @@
+{
+    "name": "Kruty1918.LevelGen",
+    "rootNamespace": "Kruty1918.LevelGen",
+    "references": ["Newtonsoft.Json"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.kruty1918.levelkit",
+            "expression": "0.0.0",
+            "define": "KRUTY1918_LEVELKIT"
+        }
+    ],
+    "noEngineReferences": false
+}

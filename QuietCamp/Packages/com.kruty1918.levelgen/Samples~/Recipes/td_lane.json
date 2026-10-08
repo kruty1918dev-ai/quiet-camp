@@ -1,0 +1,15 @@
+{
+  "name": "td_lane",
+  "width": 14, "height": 9, "seed": 500, "maxAttempts": 25,
+  "props": { "genre": "tower-defense" },
+  "steps": [
+    { "type": "path", "layer": "lane", "from": [0, 4], "to": [13, 4], "winding": 0.65 },
+    { "type": "scatter", "layer": "tower_spots", "count": 8, "minDist": 2, "avoid": ["lane"], "strict": true },
+    { "type": "cells_to_entities", "layer": "tower_spots", "kind": "tower_spot" },
+    { "type": "prop", "key": "entry", "value": [0, 4] },
+    { "type": "prop", "key": "exit", "value": [13, 4] },
+    { "type": "require", "check": "connected", "layer": "lane" },
+    { "type": "require", "check": "cellIn", "cell": [0, 4], "layer": "lane" },
+    { "type": "require", "check": "cellIn", "cell": [13, 4], "layer": "lane" }
+  ]
+}

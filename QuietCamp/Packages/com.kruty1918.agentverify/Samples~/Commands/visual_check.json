@@ -1,0 +1,8 @@
+{
+  "commands": [
+    {"cmd": "screenshot", "output": "Temp/shots/frame.png", "width": 1280, "height": 720},
+    {"cmd": "expect", "check": "exists", "target": "MainCamera"},
+    {"cmd": "expect", "check": "no-errors"},
+    {"cmd": "summary"}
+  ]
+}
