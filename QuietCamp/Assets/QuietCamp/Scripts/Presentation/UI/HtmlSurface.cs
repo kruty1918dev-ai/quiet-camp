@@ -22,7 +22,7 @@ namespace QuietCamp.Presentation.UI
         Func<string> _render;
         bool _dirty;
         string _css;
-        string _lastHtml, _mountedCss, _scaledCss;
+        string _lastHtml, _mountedCss, _scaledCss, _scaledInputCss, _mapCss;
         float _cssScale = -1;
         bool _lastReduced;
         static int _mountFrame = -1;
@@ -60,6 +60,7 @@ namespace QuietCamp.Presentation.UI
             var stylesheet = name == "MenuHtml" ? "CampMain.css" : name == "MenuAtmosphere" ? "CampBackdrop.css" : "Camp.css";
             surface._css = Resources.Load<TextAsset>("QuietCamp/Html/" + stylesheet)?.text
                 ?? Resources.Load<TextAsset>("QuietCamp/Html/Camp.css")?.text ?? "";
+            if (name == "MenuOverlay") surface._mapCss = Resources.Load<TextAsset>("QuietCamp/Html/CampMap.css")?.text;
             // Quiet Camp documents use a small C# callback allow-list, not JS programs.
             // Keep CSS/Yoga/uGUI rendering, but avoid Android native VM/AOT binding.
             surface._host.NativeEventResolver = surface._callbacks.ResolveNativeEvent;
@@ -128,10 +129,11 @@ namespace QuietCamp.Presentation.UI
                 .WithReducedMotion(settings?.reducedMotion ?? true)
                 .WithWheelSensitivity((settings?.scrollSensitivity ?? 12f) / 12f);
             var scale = settings?.textScale ?? 1f;
-            if (_scaledCss == null || _cssScale != scale)
+            var sourceCss = _mapCss != null && html.Contains("roadmap-scroll") && !html.Contains("bonus-preview") ? _mapCss : _css;
+            if (_scaledCss == null || _cssScale != scale || _scaledInputCss != sourceCss)
             {
-                _cssScale = scale;
-                _scaledCss = Regex.Replace(_css, @"font-size:\s*([0-9.]+)px", match =>
+                _cssScale = scale; _scaledInputCss = sourceCss;
+                _scaledCss = Regex.Replace(sourceCss, @"font-size:\s*([0-9.]+)px", match =>
                     "font-size: " + HtmlUi.Number(float.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture) * scale) + "px");
                 _scaledCss += "\ntext, button, label { font-size: " + HtmlUi.Number(28f * scale) + "px; }";
             }

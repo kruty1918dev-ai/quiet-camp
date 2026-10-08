@@ -273,16 +273,47 @@ namespace QuietCamp.Presentation.UI
             RoadmapPainter.Triangle(vh,p+Vector2.left*2,p+Vector2.up*9,p+Vector2.right*3,new Color(1,.82f,.32f));
         }
         static readonly Dictionary<string,RoadmapSceneGenerator.Scene> BonusScenes=new Dictionary<string,RoadmapSceneGenerator.Scene>();
+        sealed class BonusGeometry { public UIVertex[] Vertices; public int[] Indices; public int Truncated; }
+        static readonly Dictionary<string,BonusGeometry> BonusMeshes = new Dictionary<string,BonusGeometry>();
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void ResetBonusCaches() { BonusScenes.Clear(); BonusMeshes.Clear(); }
         internal static int BonusClearing(VertexHelper vh,Vector2 at,BonusCampDefinition slot)
         {
             using var audit = PerformanceAudit.Measure("QC.RoadmapGraphic.BonusClearing");
-            if(!BonusScenes.TryGetValue(slot.id,out var scene))
+            string key = slot.id + ":" + slot.afterLevel + ":" + slot.theme;
+            if (!BonusMeshes.TryGetValue(key, out var geometry))
+            {
+                using var source = new VertexHelper();
+                int truncated = PaintBonusClearing(source, Vector2.zero, slot);
+                var vertices = new UIVertex[source.currentVertCount];
+                for (int i=0;i<vertices.Length;i++) source.PopulateUIVertex(ref vertices[i],i);
+                var mesh = new Mesh();
+                source.FillMesh(mesh);
+                var indices = mesh.triangles;
+                if (UnityEngine.Application.isPlaying) Destroy(mesh); else DestroyImmediate(mesh);
+                geometry = new BonusGeometry { Vertices=vertices, Indices=indices, Truncated=truncated }; BonusMeshes.Add(key,geometry);
+            }
+            if (vh.currentVertCount + geometry.Vertices.Length >= 65000) return geometry.Truncated + 1;
+            int start = vh.currentVertCount;
+            foreach (var source in geometry.Vertices)
+            {
+                var vertex = source; vertex.position += new Vector3(at.x,at.y,0);
+                vertex.uv1 += new Vector4(at.x,at.y,0,0); vh.AddVert(vertex);
+            }
+            for (int i=0;i<geometry.Indices.Length;i+=3)
+                vh.AddTriangle(start+geometry.Indices[i],start+geometry.Indices[i+1],start+geometry.Indices[i+2]);
+            return geometry.Truncated;
+        }
+        internal static int PaintBonusClearing(VertexHelper vh,Vector2 at,BonusCampDefinition slot)
+        {
+            string key = slot.id + ":" + slot.afterLevel + ":" + slot.theme;
+            if(!BonusScenes.TryGetValue(key,out var scene))
             {
                 var level=new LevelSummary { id=slot.id,number=slot.afterLevel,width=4,height=4,decorSeed=slot.afterLevel*7919,
                     entry=new[]{2,3},environmentPreset=BonusPreset(slot.theme),lighting=BonusLighting(slot.theme),
                     environment=new EnvironmentCompositionData { seasonId=BonusSeason(slot.theme) } };
                 scene=RoadmapSceneGenerator.Generate(level,AtmosphereCatalog.Load());
-                scene.Weather=new CampWeatherTimeline.State(0,0);BonusScenes.Add(slot.id,scene);
+                scene.Weather=new CampWeatherTimeline.State(0,0);BonusScenes.Add(key,scene);
             }
             const float scale=22;var painter=new RoadmapPainter(RoadmapModelLibrary.Load());
             var moss=scene.Ground;moss.a=.9f;RoadmapPainter.Ellipse(vh,at,new Vector2(178,94),moss,RoadmapPainter.Clear(moss),24);

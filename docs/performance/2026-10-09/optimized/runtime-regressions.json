@@ -8,11 +8,11 @@
       "methodname": "CoveredRenderingLeaseRestoresCameraOnWarmupRevealAndRecovery",
       "classname": "QuietCamp.Tests.FoliageDivePlayModeTests",
       "runstate": "Runnable",
-      "seed": "111552203",
+      "seed": "1381119666",
       "result": "Passed",
-      "start-time": "2026-10-08 23:25:06Z",
-      "end-time": "2026-10-08 23:25:18Z",
-      "duration": "11.575480",
+      "start-time": "2026-10-08 23:32:02Z",
+      "end-time": "2026-10-08 23:32:13Z",
+      "duration": "11.582580",
       "asserts": "0"
     },
     {
@@ -22,11 +22,11 @@
       "methodname": "Curtain_SubmitsVisibleMeshToCanvas",
       "classname": "QuietCamp.Tests.FoliageDivePlayModeTests",
       "runstate": "Runnable",
-      "seed": "1079170072",
+      "seed": "2142140255",
       "result": "Passed",
-      "start-time": "2026-10-08 23:25:18Z",
-      "end-time": "2026-10-08 23:25:20Z",
-      "duration": "1.777687",
+      "start-time": "2026-10-08 23:32:13Z",
+      "end-time": "2026-10-08 23:32:15Z",
+      "duration": "1.757350",
       "asserts": "0"
     },
     {
@@ -36,11 +36,11 @@
       "methodname": "Recover_StopsTransitionSoundWithoutStoppingWorldRustle",
       "classname": "QuietCamp.Tests.FoliageDivePlayModeTests",
       "runstate": "Runnable",
-      "seed": "601978831",
+      "seed": "559900473",
       "result": "Passed",
-      "start-time": "2026-10-08 23:25:20Z",
-      "end-time": "2026-10-08 23:25:25Z",
-      "duration": "4.956369",
+      "start-time": "2026-10-08 23:32:15Z",
+      "end-time": "2026-10-08 23:32:19Z",
+      "duration": "4.536303",
       "asserts": "0"
     },
     {
@@ -50,11 +50,11 @@
       "methodname": "RecoverDuringCover_NeverEntersCoveredLoading",
       "classname": "QuietCamp.Tests.FoliageDivePlayModeTests",
       "runstate": "Runnable",
-      "seed": "1445699546",
+      "seed": "358440368",
       "result": "Passed",
-      "start-time": "2026-10-08 23:25:25Z",
-      "end-time": "2026-10-08 23:25:29Z",
-      "duration": "4.643078",
+      "start-time": "2026-10-08 23:32:19Z",
+      "end-time": "2026-10-08 23:32:24Z",
+      "duration": "4.629511",
       "asserts": "0"
     },
     {
@@ -64,11 +64,11 @@
       "methodname": "ReducedMotion_HidesLeavesAndKeepsCamera",
       "classname": "QuietCamp.Tests.FoliageDivePlayModeTests",
       "runstate": "Runnable",
-      "seed": "443062511",
+      "seed": "1897104978",
       "result": "Passed",
-      "start-time": "2026-10-08 23:25:29Z",
-      "end-time": "2026-10-08 23:25:34Z",
-      "duration": "4.919833",
+      "start-time": "2026-10-08 23:32:24Z",
+      "end-time": "2026-10-08 23:32:29Z",
+      "duration": "4.716343",
       "asserts": "0"
     },
     {
@@ -78,11 +78,11 @@
       "methodname": "Reveal_RetractsLeavesAndRestoresInput",
       "classname": "QuietCamp.Tests.FoliageDivePlayModeTests",
       "runstate": "Runnable",
-      "seed": "9670780",
+      "seed": "1253243482",
       "result": "Passed",
-      "start-time": "2026-10-08 23:25:34Z",
-      "end-time": "2026-10-08 23:25:42Z",
-      "duration": "7.685354",
+      "start-time": "2026-10-08 23:32:29Z",
+      "end-time": "2026-10-08 23:32:37Z",
+      "duration": "7.982729",
       "asserts": "0"
     },
     {
@@ -92,11 +92,11 @@
       "methodname": "DetailedPlantsContinueThroughVisibleForestAndReuseTilesWhenCameraMoves",
       "classname": "QuietCamp.Tests.ForestCoveragePlayModeTests",
       "runstate": "Runnable",
-      "seed": "1212022521",
+      "seed": "997818092",
       "result": "Passed",
-      "start-time": "2026-10-08 23:25:42Z",
-      "end-time": "2026-10-08 23:26:02Z",
-      "duration": "20.220828",
+      "start-time": "2026-10-08 23:32:37Z",
+      "end-time": "2026-10-08 23:32:59Z",
+      "duration": "22.511966",
       "asserts": "0"
     },
     {
@@ -106,11 +106,11 @@
       "methodname": "CachedMapRetainsGeometryDuringScrollAndRefreshesWeather",
       "classname": "QuietCamp.Tests.OptimizationPlayModeTests",
       "runstate": "Runnable",
-      "seed": "1448296790",
+      "seed": "878533326",
       "result": "Passed",
-      "start-time": "2026-10-08 23:26:02Z",
-      "end-time": "2026-10-08 23:26:13Z",
-      "duration": "11.355313",
+      "start-time": "2026-10-08 23:32:59Z",
+      "end-time": "2026-10-08 23:33:11Z",
+      "duration": "11.742116",
       "asserts": "0"
     },
     {
@@ -120,11 +120,11 @@
       "methodname": "GpuLeavesCoverViewportKeepMovingAndReuseGeometry",
       "classname": "QuietCamp.Tests.OptimizationPlayModeTests",
       "runstate": "Runnable",
-      "seed": "610391891",
+      "seed": "1567918726",
       "result": "Passed",
-      "start-time": "2026-10-08 23:26:13Z",
-      "end-time": "2026-10-08 23:26:17Z",
-      "duration": "3.894854",
+      "start-time": "2026-10-08 23:33:11Z",
+      "end-time": "2026-10-08 23:33:15Z",
+      "duration": "3.877280",
       "asserts": "0"
     }
   ],
@@ -138,7 +138,6 @@
   },
   "editorReused": true,
   "playerBuild": false,
-  "adbCommandsIssued": false,
   "capturedSource": {
     "assetHashes": {
       "QuietCamp/Assets/QuietCamp/Settings/URP/QC_High.asset": "ba576c2dd820db5a53fd1f75340e7d93c0d47cdea866275f12fe0e71140d3faa",
@@ -149,7 +148,7 @@
       "QuietCamp/Assets/QuietCamp/Settings/URP/QC_GlobalVolumeProfile.asset": "49891691ca9e348d2cb03655b241c33e513e6b2d895f845d8f2195ad482cfd0d"
     },
     "purpose": "authorized optimization verification, existing Editor only",
-    "sourceCommit": "010d4b5367f2f9030598e22ec9307faa7bd20026",
+    "sourceCommit": "a132b2af2596bd75259856f6d1fc017d3c66b02c",
     "sourceHashes": {
       "QuietCamp/Assets/QuietCamp/Scripts/Application/AdLifeService.cs": "e36bb5a0d0671b69747cf03fafe48fbea08b64fb459e4c84b23baa13a28b31ca",
       "QuietCamp/Assets/QuietCamp/Scripts/Application/AdService.cs": "abb43b4ae88b8f90ade0a096384b21d87808c3225b0ccf7dc3c7c4e4b8e17a1c",
@@ -234,7 +233,7 @@
       "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/EconomyPanel.cs": "1f0e343f7ab7b808a6b0bc24851bf9d7a3d22b82d4838112a10eb5aa775e906b",
       "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/GuestCardInput.cs": "462c6bc06b14f5ee2d8e4427e417346dfc12d9034f49f27b170b8762a0a8e3c1",
       "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/HtmlRecoveryControls.cs": "a38f1c7ef50ab1437aa7af459d2ed2dfd2a18f6872792288a4000ff81a7e5f34",
-      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/HtmlSurface.cs": "1487cb61c1d79042744bc4395745c16b537ab28d99debd9ca74f585805af3c57",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/HtmlSurface.cs": "75aa1d98ef7fbed2c8d5ba6c09ff60469ab549c0eee239e0dd867f5c31db8fad",
       "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/LevelDisplay.cs": "f79cd632fe0550c1afc2ea81349f6f972eb6e4d9a6ed1bc57b78245d83bdd7b4",
       "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/LocalizedLabel.cs": "3bcd382a25beae9d437a16b53e1d4ad6ea4ac810b544cd66e22816c3dfacdf68",
       "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuArt.cs": "1dad5600475fd27a7d2a925548ba0d56d7662f2d8598b33a24af672cb2ae05fa",
@@ -243,7 +242,7 @@
       "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/PrivacyPanel.cs": "045c94c3dd5b1c6ca4e575056aa17604b74d0266b85cdc7eb22d592bce64ab43",
       "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/QcUi.cs": "be7cd100f540db0c11328c3b95737f93121c807f49588b5a2ecb859a5119d912",
       "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapGladeGraphic.cs": "c2c8eb897ed8a185fead57029e4a66c5f37d0a74841499209818b01a8cec5cf2",
-      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapGraphic.cs": "91d6e2f26cc1d5c6b5a82b196554df972c3fbb34e4026e217734b50b4ad98930",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapGraphic.cs": "7d61fd58a104ac1d9c47ce26449f1004f4e05961c286af89517b916edac81926",
       "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapLayout.cs": "0ad49d9d58b13f43ff1645d308bcd88583b19dcd4e92a7beaeb7c8b98cb7b8f7",
       "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapModelLibrary.cs": "76458f1ae90b471e915315ea0c2379c28efc3597c914711442ea2d76f2a3ed30",
       "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapPainter.cs": "33cb70d632179cddc1bd7232fd82653ba730826b1a6bdb661a85a39c6e0eeabf",
@@ -337,7 +336,7 @@
       "QuietCamp/Assets/QuietCamp/Tests/Editor/LocalPrivacyDataTests.cs": "c488d673cb735cfac38f3878b7ded4c5d333774d435e390df229ffe411acfc84",
       "QuietCamp/Assets/QuietCamp/Tests/Editor/MenuBackdropTests.cs": "8c7775f6845cafa32637602b64d9659c49a61108df2fb98f4bb14d111c2cc999",
       "QuietCamp/Assets/QuietCamp/Tests/Editor/MonetizationTests.cs": "9a0d003f8dc35056710a8294ef2d6ac9aea3ca75662b4af63857278eb84f2d2d",
-      "QuietCamp/Assets/QuietCamp/Tests/Editor/PerformanceCacheTests.cs": "365afdeb722c177138bc31142642a2265590177a261c7b1945cc6bf840ae9a27",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/PerformanceCacheTests.cs": "058d330e865da00d68eda196febc69456eaa897cd422701832b51c5691a7066c",
       "QuietCamp/Assets/QuietCamp/Tests/Editor/PlacementTargetTests.cs": "7ee05c082e2a3f1869b7b2830c5bbdbaf196f1fa1f68ae08282f87d060a19400",
       "QuietCamp/Assets/QuietCamp/Tests/Editor/PrimitiveStrippingTests.cs": "0ef80b610708997a73d7b81530625e9e5b632ef2619016358cd9bc7e74f202e5",
       "QuietCamp/Assets/QuietCamp/Tests/Editor/PrivacyAcknowledgementTests.cs": "7d8e5daba1934ab9f673df315d160ada3d29d59deab734f189454ab263e8ae91",
@@ -410,7 +409,8 @@
       "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/LeafFlight.shader": "7c410d8f24b14485a90ec7b4f1029cb0569743aacb9568ea7650607210bec86b",
       "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/Camp.css.txt": "f3d83c0add3c0d73eb96daef28521fa81b727a7602627ae5a4c4f85b3b50474e",
       "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/CampBackdrop.css.txt": "618ebd15adf3e8f2b76faba0f461b8c2965891cdfda26484d639f46c9c4c4d2b",
-      "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/CampMain.css.txt": "fb3d571d1d2fbf5912e9b6cdcbb826cd71b233ce22a741ef9c8c908abde2063b"
+      "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/CampMain.css.txt": "fb3d571d1d2fbf5912e9b6cdcbb826cd71b233ce22a741ef9c8c908abde2063b",
+      "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/CampMap.css.txt": "22fa85f859fc74d86ff93365e38671bacca5fdd43bbd33d3ca59c57b5a9c71c2"
     },
     "sourceState": "working optimization branch",
     "originalDirtyInputSha256": {
@@ -419,8 +419,5 @@
     },
     "playerBuild": false,
     "adbCommands": false
-  },
-  "earlierFixtureFailures": [
-    "Phase 2 v1/v2: exact camera-position assertion included independently settling atmosphere motion; all eight other tests passed. Lease contract now tests culling/render/listener lifecycle, with camera immobility separately covered by existing reveal/reduced tests."
-  ]
+  }
 }
