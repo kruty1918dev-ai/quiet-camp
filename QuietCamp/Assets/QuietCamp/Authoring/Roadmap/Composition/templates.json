@@ -156,10 +156,11 @@
     "roles": [
       {
         "id": "house",
-        "asset": "ua_whitewashed_house",
+        "asset": "ua_abandoned_house",
         "x": -0.7,
-        "z": -1.5,
-        "height": 2.6
+        "z": 0,
+        "height": 2.6,
+        "yaw": 180
       },
       {
         "id": "well",
@@ -277,22 +278,36 @@
         "height": 1.69
       },
       {
-        "id": "orchard-0",
-        "asset": "ua_orchard_tree",
+        "id": "barn",
+        "asset": "ua_barn",
         "parent": "house",
-        "x": -3.5,
-        "z": 2.5,
-        "height": 2.1,
-        "required": false
+        "x": -3.4,
+        "z": 1.8,
+        "height": 1.4
       },
       {
-        "id": "orchard-1",
-        "asset": "ua_orchard_tree",
+        "id": "coop",
+        "asset": "ua_chicken_coop",
         "parent": "house",
-        "x": 3.5,
-        "z": 2.5,
-        "height": 2.1,
-        "required": false
+        "x": 3.2,
+        "z": 2.4,
+        "height": 1.1
+      },
+      {
+        "id": "hive",
+        "asset": "ua_beehive",
+        "parent": "house",
+        "x": 3.7,
+        "z": -2.8,
+        "height": 0.65
+      },
+      {
+        "id": "rear-weeds",
+        "asset": "ua_field_weeds",
+        "parent": "house",
+        "x": 0,
+        "z": -3.8,
+        "height": 0.22
       }
     ]
   },
@@ -305,14 +320,14 @@
     "roles": [
       {
         "id": "shelter",
-        "asset": "ua_bus_shelter",
+        "asset": "ua_bus_shelter_mosaic",
         "height": 1.8,
         "x": 0,
         "z": 0
       },
       {
         "id": "entrance",
-        "asset": "stone_largeC",
+        "asset": "stone_largeA",
         "parent": "shelter",
         "height": 0.15,
         "x": 0,
@@ -401,7 +416,7 @@
     "roles": [
       {
         "id": "marker",
-        "asset": "stone_largeC",
+        "asset": "stone_largeA",
         "height": 0.35,
         "x": 0,
         "z": 0

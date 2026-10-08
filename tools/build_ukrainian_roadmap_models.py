@@ -523,22 +523,27 @@ content. Connected power wires belong to the region layout and must be bounded b
 the existing chunk system; the tower model itself has no miles-long wire bounds.
 """
     for path in list(files):files[Path(str(path)+".meta")]=meta(path)
-    for folder in [SOURCE.parent,SOURCE]:files[Path(str(folder)+".meta")]=meta(folder,True)
+    # Folder GUIDs predate this exporter; never replace an existing Unity folder
+    # identity. The per-model generated files remain fully checked above.
+    folder_meta=Path(str(SOURCE)+".meta")
+    if not folder_meta.exists():files[folder_meta]=meta(SOURCE,True)
     return files
 
 
-def preview(models):
+def preview(models, output=None, title=None, map_camera=False):
     import numpy as np
     from PIL import Image,ImageDraw,ImageFont
     # Actual triangle rasterisation with a depth buffer: painter sorting causes
     # false holes where roof/wall/window faces intersect in a 3D plotting tool.
-    width,height=1800,2600;cell_w,cell_h=600,490;top=100
+    width=1800;cell_w,cell_h=600,490;top=100
+    height=max(640 if output else 2600,top+math.ceil(len(models)/3)*cell_h+60)
     canvas=Image.new("RGB",(width,height),"#edead6");draw=ImageDraw.Draw(canvas)
     font_path="/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
     title_font=ImageFont.truetype(font_path,27);label_font=ImageFont.truetype(font_path,21)
     small_font=ImageFont.truetype(font_path,17)
-    draw.text((width/2,35),"Quiet Camp · Original Ukrainian rural roadmap kit",font=title_font,fill="#304e3c",anchor="mm")
-    camera=unit((.6,.45,-1));right=unit(cross(camera,(0,1,0)));up=unit(cross(right,camera))
+    draw.text((width/2,35),title or "Quiet Camp · Original Ukrainian rural roadmap kit",font=title_font,fill="#304e3c",anchor="mm")
+    camera=unit((0,math.sin(math.radians(55)),-math.cos(math.radians(55)))) if map_camera else unit((.6,.45,-1))
+    right=unit(cross(camera,(0,1,0)));up=unit(cross(right,camera))
     light=unit((-.45,.8,-.6))
     for i,m in enumerate(models):
         image_w,image_h=560,375
@@ -575,8 +580,9 @@ def preview(models):
         draw.text((x+cell_w/2,y+43),f"{len(m.tris)} tris · {dx:.2f} × {dy:.2f} × {dz:.2f} m",font=small_font,fill="#586858",anchor="mm")
         canvas.paste(Image.fromarray(color_buffer),(x+20,y+70))
     draw.text((width/2,height-32),"Depth-buffered software mesh inspection · not a Unity/mobile acceptance render",font=small_font,fill="#586858",anchor="mm")
-    PREVIEW.parent.mkdir(parents=True,exist_ok=True);canvas.save(PREVIEW)
-    print("Preview:",PREVIEW.relative_to(ROOT))
+    target=Path(output) if output else PREVIEW
+    target.parent.mkdir(parents=True,exist_ok=True);canvas.save(target)
+    print("Preview:",target.relative_to(ROOT))
 
 
 def main():

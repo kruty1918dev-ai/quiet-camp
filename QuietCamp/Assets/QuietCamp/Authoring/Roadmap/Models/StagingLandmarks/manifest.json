@@ -122,60 +122,100 @@
     },
     {
       "id": "staging_cargo_ship",
-      "triangles": 2384,
+      "triangles": 1100,
+      "triangleBudget": 1100,
       "bounds": {
         "min": [
           -2.9168455377621743,
-          -4.835843474034129,
-          -15.5000000181892
+          0.004665563440597588,
+          -15.5
         ],
         "max": [
           2.9168455377621743,
-          4.835843725735255,
-          15.4999999818108
+          9.671687199769384,
+          15.5
         ]
       },
       "height": 9.671687199769384,
+      "sourceHeight": 9.671687199769384,
       "width": 5.8336910755243485,
-      "depth": 31.0
+      "depth": 31.0,
+      "sharedPivot": [
+        0,
+        0,
+        0
+      ],
+      "sourceSha256": "48665716be710479635171b3169f3f056e4785ca1e979089e3d47a83bf480d9a",
+      "algorithm": "welded QEM; nearest donor-face palette; flat normals; UV/textures removed"
     },
     {
       "id": "staging_cargo_ship_coarse",
-      "triangles": 1366,
+      "triangles": 650,
+      "triangleBudget": 650,
       "bounds": {
         "min": [
-          -2.9122606403101257,
-          -4.659617024496201,
-          -15.726207457674679
+          -2.9168455377621743,
+          0.004665563440597588,
+          -15.5
         ],
         "max": [
-          2.9122606403101257,
-          3.494712768372151,
-          15.726207457674679
+          2.9168455377621743,
+          9.654480131238614,
+          15.485127573386158
         ]
       },
-      "height": 8.154329792868353,
-      "width": 5.824521280620251,
-      "depth": 31.452414915349358
+      "height": 9.671687199769384,
+      "sourceHeight": 9.671687199769384,
+      "width": 5.8336910755243485,
+      "depth": 30.98512757338616,
+      "sharedPivot": [
+        0,
+        0,
+        0
+      ],
+      "sourceSha256": "48665716be710479635171b3169f3f056e4785ca1e979089e3d47a83bf480d9a",
+      "algorithm": "welded QEM; nearest donor-face palette; flat normals; UV/textures removed"
     },
     {
       "id": "staging_cargo_ship_silhouette",
-      "triangles": 181,
+      "triangles": 300,
+      "triangleBudget": 300,
       "bounds": {
         "min": [
-          -2.162603979845336,
-          -4.325207959690672,
-          -15.13822785891735
+          -2.9168455377621743,
+          0.0,
+          -15.472516097811761
         ],
         "max": [
-          2.162603979845336,
-          4.325207959690672,
-          15.13822785891735
+          2.9168455377621743,
+          9.629957345571173,
+          15.5
         ]
       },
-      "height": 8.650415919381343,
-      "width": 4.325207959690672,
-      "depth": 30.2764557178347
+      "height": 9.671687199769384,
+      "sourceHeight": 9.671687199769384,
+      "width": 5.8336910755243485,
+      "depth": 30.972516097811763,
+      "sharedPivot": [
+        0,
+        0,
+        0
+      ],
+      "sourceSha256": "48665716be710479635171b3169f3f056e4785ca1e979089e3d47a83bf480d9a",
+      "algorithm": "welded QEM; nearest donor-face palette; flat normals; UV/textures removed"
     }
-  ]
+  ],
+  "shipOptimization": {
+    "generator": "tools/roadmap-assets/optimize_ship.py",
+    "originalTriangles": 2384,
+    "palette": [
+      "concrete",
+      "wood_dark",
+      "roof",
+      "rust",
+      "plaster_worn"
+    ],
+    "dependency": "fast-simplification==0.2.0",
+    "nativeVisualAcceptance": false
+  }
 }

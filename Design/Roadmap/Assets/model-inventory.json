@@ -1,0 +1,1366 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-08",
+  "scope": "All five roadmap mesh streams plus raw model files under QuietCamp/Assets; FBX triangle counts require Unity import",
+  "catalogCounts": {
+    "runtime-available": 38,
+    "staging-donor": 9,
+    "staging-original": 24
+  },
+  "catalogModels": 71,
+  "rawModelFiles": 81,
+  "newSketchfabDownloads": 0,
+  "nativeBakePerformed": false,
+  "models": [
+    {
+      "id": "branch_greenhouse",
+      "triangles": 228,
+      "vertices": 684,
+      "uvFloats": 0,
+      "packedStreamBytes": 17328,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_story_models.json",
+      "status": "runtime-available",
+      "license": "project procedural geometry"
+    },
+    {
+      "id": "branch_lighthouse",
+      "triangles": 60,
+      "vertices": 180,
+      "uvFloats": 0,
+      "packedStreamBytes": 4560,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_story_models.json",
+      "status": "runtime-available",
+      "license": "project procedural geometry"
+    },
+    {
+      "id": "branch_pond",
+      "triangles": 14,
+      "vertices": 42,
+      "uvFloats": 0,
+      "packedStreamBytes": 1064,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_story_models.json",
+      "status": "runtime-available",
+      "license": "project procedural geometry"
+    },
+    {
+      "id": "branch_station",
+      "triangles": 192,
+      "vertices": 576,
+      "uvFloats": 0,
+      "packedStreamBytes": 14592,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_story_models.json",
+      "status": "runtime-available",
+      "license": "project procedural geometry"
+    },
+    {
+      "id": "campfire_stones",
+      "triangles": 264,
+      "vertices": 792,
+      "uvFloats": 0,
+      "packedStreamBytes": 20064,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
+      "status": "runtime-available",
+      "license": "Kenney/project credits"
+    },
+    {
+      "id": "flower_purpleA",
+      "triangles": 76,
+      "vertices": 228,
+      "uvFloats": 0,
+      "packedStreamBytes": 5776,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
+      "status": "runtime-available",
+      "license": "Kenney/project credits"
+    },
+    {
+      "id": "flower_yellowA",
+      "triangles": 76,
+      "vertices": 228,
+      "uvFloats": 0,
+      "packedStreamBytes": 5776,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
+      "status": "runtime-available",
+      "license": "Kenney/project credits"
+    },
+    {
+      "id": "flower_yellowB",
+      "triangles": 154,
+      "vertices": 462,
+      "uvFloats": 0,
+      "packedStreamBytes": 11704,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
+      "status": "runtime-available",
+      "license": "Kenney/project credits"
+    },
+    {
+      "id": "grass",
+      "triangles": 132,
+      "vertices": 396,
+      "uvFloats": 0,
+      "packedStreamBytes": 10032,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
+      "status": "runtime-available",
+      "license": "Kenney/project credits"
+    },
+    {
+      "id": "grass_leafsLarge",
+      "triangles": 144,
+      "vertices": 432,
+      "uvFloats": 0,
+      "packedStreamBytes": 10944,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
+      "status": "runtime-available",
+      "license": "Kenney/project credits"
+    },
+    {
+      "id": "log",
+      "triangles": 200,
+      "vertices": 600,
+      "uvFloats": 0,
+      "packedStreamBytes": 15200,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
+      "status": "runtime-available",
+      "license": "Kenney/project credits"
+    },
+    {
+      "id": "log_stack",
+      "triangles": 184,
+      "vertices": 552,
+      "uvFloats": 0,
+      "packedStreamBytes": 13984,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
+      "status": "runtime-available",
+      "license": "Kenney/project credits"
+    },
+    {
+      "id": "plant_bushSmall",
+      "triangles": 16,
+      "vertices": 48,
+      "uvFloats": 0,
+      "packedStreamBytes": 1216,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
+      "status": "runtime-available",
+      "license": "Kenney/project credits"
+    },
+    {
+      "id": "sign",
+      "triangles": 44,
+      "vertices": 132,
+      "uvFloats": 0,
+      "packedStreamBytes": 3344,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
+      "status": "runtime-available",
+      "license": "Kenney/project credits"
+    },
+    {
+      "id": "staging_aircraft_fore",
+      "triangles": 5956,
+      "vertices": 17868,
+      "uvFloats": 35736,
+      "packedStreamBytes": 595600,
+      "sourceHeight": 4.6686250000000005,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/models.json",
+      "status": "staging-donor",
+      "license": "see StagingLandmarks/ATTRIBUTION.md"
+    },
+    {
+      "id": "staging_aircraft_fore_coarse",
+      "triangles": 1176,
+      "vertices": 3528,
+      "uvFloats": 7056,
+      "packedStreamBytes": 117600,
+      "sourceHeight": 4.659617024496201,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/models.json",
+      "status": "staging-donor",
+      "license": "see StagingLandmarks/ATTRIBUTION.md"
+    },
+    {
+      "id": "staging_aircraft_fore_silhouette",
+      "triangles": 160,
+      "vertices": 480,
+      "uvFloats": 960,
+      "packedStreamBytes": 16000,
+      "sourceHeight": 4.325207959690672,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/models.json",
+      "status": "staging-donor",
+      "license": "see StagingLandmarks/ATTRIBUTION.md"
+    },
+    {
+      "id": "staging_aircraft_tail",
+      "triangles": 1144,
+      "vertices": 3432,
+      "uvFloats": 6864,
+      "packedStreamBytes": 114400,
+      "sourceHeight": 8.339697589874268,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/models.json",
+      "status": "staging-donor",
+      "license": "see StagingLandmarks/ATTRIBUTION.md"
+    },
+    {
+      "id": "staging_aircraft_tail_coarse",
+      "triangles": 1144,
+      "vertices": 3432,
+      "uvFloats": 6864,
+      "packedStreamBytes": 114400,
+      "sourceHeight": 8.339697589874268,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/models.json",
+      "status": "staging-donor",
+      "license": "see StagingLandmarks/ATTRIBUTION.md"
+    },
+    {
+      "id": "staging_aircraft_tail_silhouette",
+      "triangles": 152,
+      "vertices": 456,
+      "uvFloats": 912,
+      "packedStreamBytes": 15200,
+      "sourceHeight": 8.317707614789752,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/models.json",
+      "status": "staging-donor",
+      "license": "see StagingLandmarks/ATTRIBUTION.md"
+    },
+    {
+      "id": "staging_cargo_ship",
+      "triangles": 1100,
+      "vertices": 3300,
+      "uvFloats": 0,
+      "packedStreamBytes": 83600,
+      "sourceHeight": 9.671687199769384,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/models.json",
+      "status": "staging-donor",
+      "license": "see StagingLandmarks/ATTRIBUTION.md"
+    },
+    {
+      "id": "staging_cargo_ship_coarse",
+      "triangles": 650,
+      "vertices": 1950,
+      "uvFloats": 0,
+      "packedStreamBytes": 49400,
+      "sourceHeight": 9.671687199769384,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/models.json",
+      "status": "staging-donor",
+      "license": "see StagingLandmarks/ATTRIBUTION.md"
+    },
+    {
+      "id": "staging_cargo_ship_silhouette",
+      "triangles": 300,
+      "vertices": 900,
+      "uvFloats": 0,
+      "packedStreamBytes": 22800,
+      "sourceHeight": 9.671687199769384,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/models.json",
+      "status": "staging-donor",
+      "license": "see StagingLandmarks/ATTRIBUTION.md"
+    },
+    {
+      "id": "stone_largeA",
+      "triangles": 80,
+      "vertices": 240,
+      "uvFloats": 0,
+      "packedStreamBytes": 6080,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
+      "status": "runtime-available",
+      "license": "Kenney/project credits"
+    },
+    {
+      "id": "story_foundation",
+      "triangles": 36,
+      "vertices": 108,
+      "uvFloats": 0,
+      "packedStreamBytes": 2736,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_story_models.json",
+      "status": "runtime-available",
+      "license": "project procedural geometry"
+    },
+    {
+      "id": "story_memorial_garden",
+      "triangles": 108,
+      "vertices": 324,
+      "uvFloats": 0,
+      "packedStreamBytes": 8208,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_story_models.json",
+      "status": "runtime-available",
+      "license": "project procedural geometry"
+    },
+    {
+      "id": "story_trail_shelter",
+      "triangles": 104,
+      "vertices": 312,
+      "uvFloats": 0,
+      "packedStreamBytes": 7904,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_story_models.json",
+      "status": "runtime-available",
+      "license": "project procedural geometry"
+    },
+    {
+      "id": "story_workboat",
+      "triangles": 120,
+      "vertices": 360,
+      "uvFloats": 0,
+      "packedStreamBytes": 9120,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_story_models.json",
+      "status": "runtime-available",
+      "license": "project procedural geometry"
+    },
+    {
+      "id": "stump_round",
+      "triangles": 56,
+      "vertices": 168,
+      "uvFloats": 0,
+      "packedStreamBytes": 4256,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
+      "status": "runtime-available",
+      "license": "Kenney/project credits"
+    },
+    {
+      "id": "tent_detailedOpen",
+      "triangles": 232,
+      "vertices": 696,
+      "uvFloats": 0,
+      "packedStreamBytes": 17632,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
+      "status": "runtime-available",
+      "license": "Kenney/project credits"
+    },
+    {
+      "id": "tent_smallOpen",
+      "triangles": 224,
+      "vertices": 672,
+      "uvFloats": 0,
+      "packedStreamBytes": 17024,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
+      "status": "runtime-available",
+      "license": "Kenney/project credits"
+    },
+    {
+      "id": "tree_default",
+      "triangles": 114,
+      "vertices": 342,
+      "uvFloats": 0,
+      "packedStreamBytes": 8664,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
+      "status": "runtime-available",
+      "license": "Kenney/project credits"
+    },
+    {
+      "id": "tree_pineRoundA",
+      "triangles": 204,
+      "vertices": 612,
+      "uvFloats": 0,
+      "packedStreamBytes": 15504,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
+      "status": "runtime-available",
+      "license": "Kenney/project credits"
+    },
+    {
+      "id": "ua_abandoned_house",
+      "triangles": 252,
+      "vertices": 756,
+      "uvFloats": 0,
+      "packedStreamBytes": 19152,
+      "sourceHeight": 4.05,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_barn",
+      "triangles": 216,
+      "vertices": 648,
+      "uvFloats": 0,
+      "packedStreamBytes": 16416,
+      "sourceHeight": 2.8360000000000003,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_beehive",
+      "triangles": 96,
+      "vertices": 288,
+      "uvFloats": 0,
+      "packedStreamBytes": 7296,
+      "sourceHeight": 1.065,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_bus_shelter",
+      "triangles": 192,
+      "vertices": 576,
+      "uvFloats": 0,
+      "packedStreamBytes": 14592,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
+      "status": "runtime-available",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_bus_shelter_mosaic",
+      "triangles": 197,
+      "vertices": 591,
+      "uvFloats": 0,
+      "packedStreamBytes": 14972,
+      "sourceHeight": 2.2,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_chicken",
+      "triangles": 43,
+      "vertices": 129,
+      "uvFloats": 0,
+      "packedStreamBytes": 3268,
+      "sourceHeight": 0.55,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_chicken_coop",
+      "triangles": 240,
+      "vertices": 720,
+      "uvFloats": 0,
+      "packedStreamBytes": 18240,
+      "sourceHeight": 1.8913643691001145,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_concrete_fence",
+      "triangles": 300,
+      "vertices": 900,
+      "uvFloats": 0,
+      "packedStreamBytes": 22800,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
+      "status": "runtime-available",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_dam_breached",
+      "triangles": 288,
+      "vertices": 864,
+      "uvFloats": 0,
+      "packedStreamBytes": 21888,
+      "sourceHeight": 6.84,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_dam_breached_lod",
+      "triangles": 144,
+      "vertices": 432,
+      "uvFloats": 0,
+      "packedStreamBytes": 10944,
+      "sourceHeight": 6.425,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_field_weeds",
+      "triangles": 12,
+      "vertices": 36,
+      "uvFloats": 0,
+      "packedStreamBytes": 912,
+      "sourceHeight": 0.61,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_field_weeds_lod",
+      "triangles": 6,
+      "vertices": 18,
+      "uvFloats": 0,
+      "packedStreamBytes": 456,
+      "sourceHeight": 0.61,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_forester_hut",
+      "triangles": 216,
+      "vertices": 648,
+      "uvFloats": 0,
+      "packedStreamBytes": 16416,
+      "sourceHeight": 3.028,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_gate",
+      "triangles": 312,
+      "vertices": 936,
+      "uvFloats": 0,
+      "packedStreamBytes": 23712,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
+      "status": "runtime-available",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_hydro_service_building",
+      "triangles": 72,
+      "vertices": 216,
+      "uvFloats": 0,
+      "packedStreamBytes": 5472,
+      "sourceHeight": 2.78,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_mooring_post",
+      "triangles": 24,
+      "vertices": 72,
+      "uvFloats": 0,
+      "packedStreamBytes": 1824,
+      "sourceHeight": 1.0,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_orchard_tree",
+      "triangles": 132,
+      "vertices": 396,
+      "uvFloats": 0,
+      "packedStreamBytes": 10032,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
+      "status": "runtime-available",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_picket_fence",
+      "triangles": 224,
+      "vertices": 672,
+      "uvFloats": 0,
+      "packedStreamBytes": 17024,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
+      "status": "runtime-available",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_picket_fence_damaged",
+      "triangles": 120,
+      "vertices": 360,
+      "uvFloats": 0,
+      "packedStreamBytes": 9120,
+      "sourceHeight": 1.3072714328355184,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_plank_bridge",
+      "triangles": 168,
+      "vertices": 504,
+      "uvFloats": 0,
+      "packedStreamBytes": 12768,
+      "sourceHeight": 0.46,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_poplar",
+      "triangles": 26,
+      "vertices": 78,
+      "uvFloats": 0,
+      "packedStreamBytes": 1976,
+      "sourceHeight": 4.606,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_poplar_lod",
+      "triangles": 22,
+      "vertices": 66,
+      "uvFloats": 0,
+      "packedStreamBytes": 1672,
+      "sourceHeight": 4.606,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_power_pylon",
+      "triangles": 932,
+      "vertices": 2796,
+      "uvFloats": 0,
+      "packedStreamBytes": 70832,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
+      "status": "runtime-available",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_power_pylon_fallen",
+      "triangles": 932,
+      "vertices": 2796,
+      "uvFloats": 0,
+      "packedStreamBytes": 70832,
+      "sourceHeight": 7.864359740043829,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_power_pylon_rusted",
+      "triangles": 932,
+      "vertices": 2796,
+      "uvFloats": 0,
+      "packedStreamBytes": 70832,
+      "sourceHeight": 16.045278394152348,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_reed_clump",
+      "triangles": 12,
+      "vertices": 36,
+      "uvFloats": 0,
+      "packedStreamBytes": 912,
+      "sourceHeight": 1.3599999999999999,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_reed_clump_lod",
+      "triangles": 6,
+      "vertices": 18,
+      "uvFloats": 0,
+      "packedStreamBytes": 456,
+      "sourceHeight": 1.3599999999999999,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_rural_pole",
+      "triangles": 120,
+      "vertices": 360,
+      "uvFloats": 0,
+      "packedStreamBytes": 9120,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
+      "status": "runtime-available",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_sunflower_patch",
+      "triangles": 405,
+      "vertices": 1215,
+      "uvFloats": 0,
+      "packedStreamBytes": 30780,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
+      "status": "runtime-available",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_sunflower_patch_lod",
+      "triangles": 116,
+      "vertices": 348,
+      "uvFloats": 0,
+      "packedStreamBytes": 8816,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
+      "status": "runtime-available",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_wattle_fence",
+      "triangles": 620,
+      "vertices": 1860,
+      "uvFloats": 0,
+      "packedStreamBytes": 47120,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
+      "status": "runtime-available",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_well",
+      "triangles": 140,
+      "vertices": 420,
+      "uvFloats": 0,
+      "packedStreamBytes": 10640,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
+      "status": "runtime-available",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_well_sweep",
+      "triangles": 108,
+      "vertices": 324,
+      "uvFloats": 0,
+      "packedStreamBytes": 8208,
+      "sourceHeight": 3.9569928065636355,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_wheat_patch",
+      "triangles": 480,
+      "vertices": 1440,
+      "uvFloats": 0,
+      "packedStreamBytes": 36480,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
+      "status": "runtime-available",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_wheat_patch_lod",
+      "triangles": 144,
+      "vertices": 432,
+      "uvFloats": 0,
+      "packedStreamBytes": 10944,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
+      "status": "runtime-available",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_whitewashed_house",
+      "triangles": 604,
+      "vertices": 1812,
+      "uvFloats": 0,
+      "packedStreamBytes": 45904,
+      "sourceHeight": null,
+      "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
+      "status": "runtime-available",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_young_willow",
+      "triangles": 54,
+      "vertices": 162,
+      "uvFloats": 0,
+      "packedStreamBytes": 4104,
+      "sourceHeight": 2.826,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_young_willow_lod",
+      "triangles": 22,
+      "vertices": 66,
+      "uvFloats": 0,
+      "packedStreamBytes": 1672,
+      "sourceHeight": 2.6180000000000003,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "staging-original",
+      "license": "original-project-owned"
+    }
+  ],
+  "rawModels": [
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_abandoned_house.obj",
+      "format": "obj",
+      "bytes": 44458,
+      "triangles": 252,
+      "sha256": "655801885a4048454532a8d3d3493d56343887542d3fdc1df18ab7312387f6f0"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_barn.obj",
+      "format": "obj",
+      "bytes": 37787,
+      "triangles": 216,
+      "sha256": "7a87152730e74dff4a82bbac4f8c3cd544eb2cbeb61a9678164aff2995bf46ba"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_beehive.obj",
+      "format": "obj",
+      "bytes": 16707,
+      "triangles": 96,
+      "sha256": "94d7c8c7bc153bbfea76e8e682530f8afb5ce76e6a721ef5ffd3ae40bbb055a2"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_bus_shelter_mosaic.obj",
+      "format": "obj",
+      "bytes": 34503,
+      "triangles": 197,
+      "sha256": "842db0d58642ff2e557e637cc665aa426bc47fe587b30aeb5bb6c8b1937f7fe4"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_chicken.obj",
+      "format": "obj",
+      "bytes": 7613,
+      "triangles": 43,
+      "sha256": "58d1baab7b18d8791de304c34aa6223112faa54599ea5f2e54f533921cd76305"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_chicken_coop.obj",
+      "format": "obj",
+      "bytes": 42109,
+      "triangles": 240,
+      "sha256": "a6290b48dab25cde03ff861acd46572f0551de8d00b65b92bf1274397e5888df"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_dam_breached.obj",
+      "format": "obj",
+      "bytes": 51801,
+      "triangles": 288,
+      "sha256": "714345cbfe4adf0bc70f3370066b22d556ee4bc69e783cec3f9c1c7771e73a07"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_dam_breached_lod.obj",
+      "format": "obj",
+      "bytes": 25575,
+      "triangles": 144,
+      "sha256": "6224f0fe9aa896de2a2a48f92481fc51418760945b9a3d0b50e8c56ff24d4bc8"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_field_weeds.obj",
+      "format": "obj",
+      "bytes": 2174,
+      "triangles": 12,
+      "sha256": "7e3f5bbec5a7252b37d5ff715caec0c3cbb079963cfbe127c1cc3d5864ddc2fd"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_field_weeds_lod.obj",
+      "format": "obj",
+      "bytes": 1174,
+      "triangles": 6,
+      "sha256": "33295ea037a8aa9af66850ec0235d8721ed52bba5ab73408bb5d2ce7be96d880"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_forester_hut.obj",
+      "format": "obj",
+      "bytes": 37417,
+      "triangles": 216,
+      "sha256": "501778b664e1b1f9ff34a875700efa6f79ca6195274a369490281f24602a684e"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_hydro_service_building.obj",
+      "format": "obj",
+      "bytes": 12618,
+      "triangles": 72,
+      "sha256": "b7ff896dffa118ace426250ea27d72dc3391ac46b81cd7342c593f67f8a0ee38"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_mooring_post.obj",
+      "format": "obj",
+      "bytes": 4211,
+      "triangles": 24,
+      "sha256": "cbe8d3427bd029fb94fd4270907556b5d799e26c0990e7f458ff6e4d1f02e46e"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_picket_fence_damaged.obj",
+      "format": "obj",
+      "bytes": 20787,
+      "triangles": 120,
+      "sha256": "330d12923b03f28ddd424c618fde58baf043f440c3942876aa9657f445d67c3d"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_plank_bridge.obj",
+      "format": "obj",
+      "bytes": 29315,
+      "triangles": 168,
+      "sha256": "c0874cdc4d35a6742e17e8c3e9eece8fe91c31d0e8e57b9f26c51e55c7b8f3a4"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_poplar.obj",
+      "format": "obj",
+      "bytes": 4553,
+      "triangles": 26,
+      "sha256": "f1e9d5312afca5193f43f30bdd682998e96fdf8181304f912fe20af9803ba590"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_poplar_lod.obj",
+      "format": "obj",
+      "bytes": 3881,
+      "triangles": 22,
+      "sha256": "a50f6d5407a8a95118ad206a90af83b0da3d6a0715bd47e05d800541c48ed4f2"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_power_pylon_fallen.obj",
+      "format": "obj",
+      "bytes": 166344,
+      "triangles": 932,
+      "sha256": "44c5cc99f429dff33d499f6d8a1d44904dbdf52c3cbd7331beb45eb0d1c5a2f7"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_power_pylon_rusted.obj",
+      "format": "obj",
+      "bytes": 167520,
+      "triangles": 932,
+      "sha256": "720422e59acde7997919c0d918735c44cb67a67c46778795b03e90ed49277704"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_reed_clump.obj",
+      "format": "obj",
+      "bytes": 2185,
+      "triangles": 12,
+      "sha256": "4c003fb3d5aaf1fc41a9daa0edc94e1d71369131838a110b7472d806c5b8a8a7"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_reed_clump_lod.obj",
+      "format": "obj",
+      "bytes": 1179,
+      "triangles": 6,
+      "sha256": "6e8d43ed068fbdb910ef22ae788152dbf2c92952db09ab5756672757ffe6d0a2"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_well_sweep.obj",
+      "format": "obj",
+      "bytes": 18912,
+      "triangles": 108,
+      "sha256": "846b4fd03a40dfd82167fdb78fb1a727cf54054ecc9eac48be87cc6d74ab6afa"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_young_willow.obj",
+      "format": "obj",
+      "bytes": 9589,
+      "triangles": 54,
+      "sha256": "61951d857488afeed9ccc76d0aadaf7589be5f52be326a441303e23f5cc864db"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_young_willow_lod.obj",
+      "format": "obj",
+      "bytes": 3947,
+      "triangles": 22,
+      "sha256": "97b68dc2a4d081f3392e125e50aea5d98e68004914fd200604c700f37dbd01e8"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/airplane-source.glb",
+      "format": "glb",
+      "bytes": 193456,
+      "triangles": 11287,
+      "sha256": "82cd44e697c193c3c4e2e3f465cb3293289bd72f2c6c114d60117b9096dfe8d3"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/ship-source.glb",
+      "format": "glb",
+      "bytes": 230024,
+      "triangles": 2384,
+      "sha256": "48665716be710479635171b3169f3f056e4785ca1e979089e3d47a83bf480d9a"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/staging_aircraft_fore.obj",
+      "format": "obj",
+      "bytes": 2189235,
+      "triangles": 5956,
+      "sha256": "3b5fe95a8f1d796b1037f5730c31201ade95314c6cd603a906e57952a465cda7"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/staging_aircraft_fore_coarse.obj",
+      "format": "obj",
+      "bytes": 424301,
+      "triangles": 1176,
+      "sha256": "586c7450c3a3e1e8c0dc0bb59ab17c346be46cccbbe7e327c37f155f082d5be2"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/staging_aircraft_fore_silhouette.obj",
+      "format": "obj",
+      "bytes": 56389,
+      "triangles": 160,
+      "sha256": "bde5196bc7d5fe844009283ecf8588e5b224e260b8b3a5382554379cd4408514"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/staging_aircraft_tail.obj",
+      "format": "obj",
+      "bytes": 418739,
+      "triangles": 1144,
+      "sha256": "c64a668ed0ea1acdff8aade17956462d92f637778c57263a4af9300cd224a888"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/staging_aircraft_tail_coarse.obj",
+      "format": "obj",
+      "bytes": 418739,
+      "triangles": 1144,
+      "sha256": "c64a668ed0ea1acdff8aade17956462d92f637778c57263a4af9300cd224a888"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/staging_aircraft_tail_silhouette.obj",
+      "format": "obj",
+      "bytes": 54148,
+      "triangles": 152,
+      "sha256": "cfc4d62ffe01d3b8508823ba339dfd4a3972b9eb0f384575df01da9091bfe02d"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/staging_cargo_ship.obj",
+      "format": "obj",
+      "bytes": 202263,
+      "triangles": 1100,
+      "sha256": "fd6c4d74ce7b0ac6cd4bd8da9ad304808cc0ab72f9bcab84747d51e36271938f"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/staging_cargo_ship_coarse.obj",
+      "format": "obj",
+      "bytes": 118517,
+      "triangles": 650,
+      "sha256": "4db85f6b4f50dd24a7cdebd0e24a064d62c41f3b5367cbe468196ec994e29609"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/staging_cargo_ship_silhouette.obj",
+      "format": "obj",
+      "bytes": 54056,
+      "triangles": 300,
+      "sha256": "abaf3e3ec9285c81f20c352df3992648a9db57162784bdddf32959171bbc62cb"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/UkrainianRural/ua_bus_shelter.obj",
+      "format": "obj",
+      "bytes": 33612,
+      "triangles": 192,
+      "sha256": "0268596929b4051fb97f19b95611d3e5bc2b0b1404722861c6b1eb755b31fd32"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/UkrainianRural/ua_concrete_fence.obj",
+      "format": "obj",
+      "bytes": 54358,
+      "triangles": 300,
+      "sha256": "84384a591a86ad723c4737c5f8ab9bf4a4163a19d6af2fb363e9ad4ed51fb52d"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/UkrainianRural/ua_gate.obj",
+      "format": "obj",
+      "bytes": 55048,
+      "triangles": 312,
+      "sha256": "85163db5b16138415ceb7cebc7de1e2816706ece089b6834e651c9de8fc051a8"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/UkrainianRural/ua_orchard_tree.obj",
+      "format": "obj",
+      "bytes": 22989,
+      "triangles": 132,
+      "sha256": "d70ba8aef7f805adbe523fa1162f84745187264f10eefb427868718c87e4edc8"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/UkrainianRural/ua_picket_fence.obj",
+      "format": "obj",
+      "bytes": 39188,
+      "triangles": 224,
+      "sha256": "91b196908a8fb0e1e0f9df6f3f3e89b70cabd108375733262427487d90aa171f"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/UkrainianRural/ua_power_pylon.obj",
+      "format": "obj",
+      "bytes": 168188,
+      "triangles": 932,
+      "sha256": "6778e6678fbdfea5938e9a3f1b8ecc2921a4c4a6453ce86adc75d0da2b5adbad"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/UkrainianRural/ua_rural_pole.obj",
+      "format": "obj",
+      "bytes": 21147,
+      "triangles": 120,
+      "sha256": "d991f17558ba21b39bbac06cb509cf1af934275ee433af6087e8108197845f8b"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/UkrainianRural/ua_sunflower_patch.obj",
+      "format": "obj",
+      "bytes": 71702,
+      "triangles": 405,
+      "sha256": "3b5d8f6c89b968d66d95b1884a6cc5d75e0987ae00a118557a5d956fdf657dd2"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/UkrainianRural/ua_sunflower_patch_lod.obj",
+      "format": "obj",
+      "bytes": 20445,
+      "triangles": 116,
+      "sha256": "a1b3b403425b0e07998061f93f2f848c93eacfe37ed76fa7379929a24dd275dd"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/UkrainianRural/ua_wattle_fence.obj",
+      "format": "obj",
+      "bytes": 111185,
+      "triangles": 620,
+      "sha256": "46a847f50475d48420581bee5739383c1561dcd127a3c4d00ac751485bf5123b"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/UkrainianRural/ua_well.obj",
+      "format": "obj",
+      "bytes": 24495,
+      "triangles": 140,
+      "sha256": "b4bdea5e97a72868925e4964df6eb15dbc38c61abc35ae12687b5ef2e5a96b9f"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/UkrainianRural/ua_wheat_patch.obj",
+      "format": "obj",
+      "bytes": 85732,
+      "triangles": 480,
+      "sha256": "7e3b6ebeb9eaf9ed28af446ca7c00ae88d5975587e46febaba93c2330d91b317"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/UkrainianRural/ua_wheat_patch_lod.obj",
+      "format": "obj",
+      "bytes": 25236,
+      "triangles": 144,
+      "sha256": "75c8b6370ec10e664d4c0080da59722d6078e0b55de2f2985361995b5384de3b"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/UkrainianRural/ua_whitewashed_house.obj",
+      "format": "obj",
+      "bytes": 107696,
+      "triangles": 604,
+      "sha256": "e23d143c2dab0440763463e3f360d6a05b83694802090fd1f06a486175fee967"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/campfire_stones.obj",
+      "format": "obj",
+      "bytes": 22818,
+      "triangles": 264,
+      "sha256": "a75420ecbf402bf47130d163e4f37d6b3d91eb729d1727090fa0e5998752e4d1"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/flower_purpleA.obj",
+      "format": "obj",
+      "bytes": 5745,
+      "triangles": 76,
+      "sha256": "039c21db5a505edeb9d889077436b5f18055ae28b58ad89795b016ee29981479"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/flower_yellowA.obj",
+      "format": "obj",
+      "bytes": 5518,
+      "triangles": 76,
+      "sha256": "e11fb1b123cc4a22ab0c71c2f9f290310a66e4459c4c10bf7495e9391edf8034"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/flower_yellowB.obj",
+      "format": "obj",
+      "bytes": 9288,
+      "triangles": 154,
+      "sha256": "3a9e9c5cbc05d33882bb48d1fccd650b88809d13b4884010e81a0099a304a86f"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/grass.obj",
+      "format": "obj",
+      "bytes": 11167,
+      "triangles": 132,
+      "sha256": "c29167c45dca57c630e4503114c2b0c6324aaa1d4e615f809ee261582ae16e6e"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/grass_leafs.obj",
+      "format": "obj",
+      "bytes": 4197,
+      "triangles": 36,
+      "sha256": "43d88cee97274d39d9992d1a1ce5f396150037f91cac19e0bc2eb03831366b8c"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/grass_leafsLarge.obj",
+      "format": "obj",
+      "bytes": 15462,
+      "triangles": 144,
+      "sha256": "4cb95c585bc98d47aa661de7bb9b14ab6e2912880fb9dca74efce8abbd818f49"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/log.obj",
+      "format": "obj",
+      "bytes": 11998,
+      "triangles": 200,
+      "sha256": "cc40882be1e72a71784b523fd3aca6833bf6659093d5b8d52dc3974f9b40ef7b"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/log_stack.obj",
+      "format": "obj",
+      "bytes": 13339,
+      "triangles": 184,
+      "sha256": "45dd680667ad8d7110111836b91a1d03f65929718227417c49f8c4fa11cf9204"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/plant_bushDetailed.obj",
+      "format": "obj",
+      "bytes": 9383,
+      "triangles": 104,
+      "sha256": "f657029e99a52f6933389c8d445699d352102990af574cfe190f4ec746de0b7d"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/plant_bushSmall.obj",
+      "format": "obj",
+      "bytes": 1630,
+      "triangles": 16,
+      "sha256": "f07e606f1937469330e9cf9fecccccf6c619f632b91e2f3076dd52d15366de39"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/sign.obj",
+      "format": "obj",
+      "bytes": 2691,
+      "triangles": 44,
+      "sha256": "560918ef4a49fc1099036db04d535185223fdb45d71b3b571b0568d9b2aa04f1"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/stone_largeA.obj",
+      "format": "obj",
+      "bytes": 7873,
+      "triangles": 80,
+      "sha256": "ab2d28a93c0e36a87fc2843e7f2a9bf142e20731fc277a643220dd57c42d244e"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/stump_round.obj",
+      "format": "obj",
+      "bytes": 4190,
+      "triangles": 56,
+      "sha256": "e64ed6f625a57c0fc4d872befb81ecf33fc2e8d724ac8f507198be5566e6cec6"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/tent_detailedOpen.obj",
+      "format": "obj",
+      "bytes": 13698,
+      "triangles": 232,
+      "sha256": "8922282b8161b1d862983133ceb369ba9983fdf00bec495c7421efdb40e44e33"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/tent_smallOpen.obj",
+      "format": "obj",
+      "bytes": 12048,
+      "triangles": 224,
+      "sha256": "d4cecb34004152c59cfe252f96109b2f1fd6ea77003af767043c9cdbc9764ffd"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/tree_default.obj",
+      "format": "obj",
+      "bytes": 9919,
+      "triangles": 114,
+      "sha256": "01b996d64fd072579f69c712f9ded041a5f30350d22bce5a272925d6c9360e1f"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/KenneyNature/Models/tree_pineRoundA.obj",
+      "format": "obj",
+      "bytes": 13579,
+      "triangles": 204,
+      "sha256": "c4f8fc1b69b17c5efdbe90666b27e7ee5b7749e5cdc5b919eeefd1119c691823"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/Stylized Water 3/Models/Ocean.fbx",
+      "format": "fbx",
+      "bytes": 2221728,
+      "triangles": null,
+      "sha256": "82ed394fb4af8ffb030254ae493773c93c9e4f33286f6195fbed3b336af68f19"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/Stylized Water 3/Models/Puddles.fbx",
+      "format": "fbx",
+      "bytes": 34848,
+      "triangles": null,
+      "sha256": "bda52c1882bc9a117faf42682f4aca3547a51de41a1d219fcb4d0b50bbebd08b"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/Stylized Water 3/Models/SW3_ParticleMeshes.fbx",
+      "format": "fbx",
+      "bytes": 31056,
+      "triangles": null,
+      "sha256": "81c584d484d2a32de958bff97130fce65440bdd79757a3e47c2c8f2abe10f640"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/Stylized Water 3/Models/Waterfalls.fbx",
+      "format": "fbx",
+      "bytes": 554381,
+      "triangles": null,
+      "sha256": "e25456a0a682e3864760f0a7274347523ded26e756623c3faf82f2b53aa48b14"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/Stylized Water 3/_Demo/DemoAssets/Models/Boulder.fbx",
+      "format": "fbx",
+      "bytes": 54976,
+      "triangles": null,
+      "sha256": "16cb8b945f8746250a703867a30f97774e480ac84e79fc45cb8c5f543d844cd6"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/Stylized Water 3/_Demo/DemoAssets/Models/DioramaWater.fbx",
+      "format": "fbx",
+      "bytes": 88176,
+      "triangles": null,
+      "sha256": "c41a77ef83a3fc89555f25ff42a676e49b792f8e16de16a595412895f705c22c"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/Stylized Water 3/_Demo/DemoAssets/Models/RockCluster_A.fbx",
+      "format": "fbx",
+      "bytes": 79504,
+      "triangles": null,
+      "sha256": "6cc76c09be55e97b44971cad7a27d717caf1f80fe63f76734de6e25c6d7c7f9c"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/Stylized Water 3/_Demo/DemoAssets/Models/SW3_BackgroundTerrain.fbx",
+      "format": "fbx",
+      "bytes": 1276160,
+      "triangles": null,
+      "sha256": "b2c20e92197f13e1a7079c2af6f3aada49b9fe9172990b831d757b86babe5721"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/Stylized Water 3/_Demo/DemoAssets/Models/SW3_DemoMeshes.fbx",
+      "format": "fbx",
+      "bytes": 70736,
+      "triangles": null,
+      "sha256": "c881faabbc050d9a26885ccd7c88a0218c01429e7b431b28a920f810f2c6285d"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/Stylized Water 3/_Demo/DemoAssets/Models/Vegetation/SW3_Grass.fbx",
+      "format": "fbx",
+      "bytes": 105756,
+      "triangles": null,
+      "sha256": "46587716bfeb4d2de6b8f80a7965f052a4695cf672de8ea010b899a21a4fb59c"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/Stylized Water 3/_Demo/DemoAssets/Models/Vegetation/SW3_PalmTree.fbx",
+      "format": "fbx",
+      "bytes": 2705609,
+      "triangles": null,
+      "sha256": "9c728ed898d6944ac350ce5566c63ac90927760377d733831c75f7725a32e6ba"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/Stylized Water 3/_Demo/DemoAssets/Models/Vegetation/SW3_PalmTree_Tall.fbx",
+      "format": "fbx",
+      "bytes": 1704641,
+      "triangles": null,
+      "sha256": "375e60732f6d29562ada3e675e39ebc365c53946c8518631c310c84cc1dfde5b"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/Stylized Water 3/_Demo/DemoAssets/Models/Vegetation/SW3_ShoalGrass.fbx",
+      "format": "fbx",
+      "bytes": 192924,
+      "triangles": null,
+      "sha256": "531b9f0001557b1000181182e1495a69e3656fe56b735c908159a5326eab1607"
+    },
+    {
+      "path": "QuietCamp/Assets/ThirdParty/Stylized Water 3/_Demo/DemoAssets/Models/Vegetation/SW3_Shrub.fbx",
+      "format": "fbx",
+      "bytes": 117168,
+      "triangles": null,
+      "sha256": "e0a1180aa41adf9cfe858aa84a0d681cf304afd0a2edce87bb07b2141ab4ab48"
+    }
+  ]
+}

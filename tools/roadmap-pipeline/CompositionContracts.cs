@@ -48,9 +48,9 @@ static class CompositionContracts
             BadTemplate("gate-without-boundary",t=>t.roles.First(r=>r.id=="gate").z=0);
             BadTemplate("orphan-role",t=>t.roles.First(r=>r.id=="gate").parent="missing");
             BadTemplate("dependency-cycle",t=>t.roles.First(r=>r.id=="house").parent="gate");
-            BadTemplate("role-overlap",t=>{var tree=t.roles.First(r=>r.id.StartsWith("orchard"));tree.x=-.7f;tree.z=-1.5f;});
+            BadTemplate("role-overlap",t=>{var house=t.roles.First(r=>r.id=="house");var detail=t.roles.First(r=>r.id=="well");detail.x=house.x;detail.z=house.z;});
             BadTemplate("missing-role-asset",t=>t.roles.First(r=>r.id=="house").asset="missing");
-            var seasonal=Copy(assets);seasonal["ua_whitewashed_house"].seasons=new[]{"unavailable"};Require(SceneComposer.Compose(doc,seasonal,templates).diagnostics.Any(d=>d.code=="invalid-seasonal-variant"),"Seasonal mismatch admitted");
+            var seasonal=Copy(assets);string houseAsset=templates[doc.ensembles[0].template].roles.First(r=>r.id=="house").asset;seasonal[houseAsset].seasons=new[]{"unavailable"};Require(SceneComposer.Compose(doc,seasonal,templates).diagnostics.Any(d=>d.code=="invalid-seasonal-variant"),"Seasonal mismatch admitted");
             if(doc.routes.Any(r=>r.kind=="power"))
             {
                 Bad("invalid-span",d=>{var r=d.routes.First(r=>r.kind=="power");r.points[1].x=r.points[0].x;r.points[1].z=r.points[0].z;});

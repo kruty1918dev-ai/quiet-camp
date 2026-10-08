@@ -60,19 +60,22 @@ def export(name,triangles):
   obj.append('f '+' '.join(f'{j}/{j}/{j}' for j in range(vi,vi+3)));vi+=3
  (root/(name+'.obj')).write_text('\n'.join(obj)+'\n');models.append(dict(id=name,data=data,colors=colors,uvs=uvs,sourceHeight=height))
  return dict(id=name,triangles=len(colors),bounds=dict(min=lo.tolist(),max=hi.tolist()),height=height,width=float(hi[0]-lo[0]),depth=float(hi[2]-lo[2]))
-plane,pb=read_glb(sys.argv[1]);ship,sb=read_glb(sys.argv[2]);(root/'airplane-source.glb').write_bytes(pb);(root/'ship-source.glb').write_bytes(sb)
-# Cut the middle fuselage/wing intersection and distribute two separated physical sections.
-fore=[];tail=[]
-for p,uv,c in plane:
- mean=p[:,2].mean()
- if mean<-3.5:fore.append((p*.31,uv,c))
- elif mean>3.5:tail.append((p*.31,uv,c))
-# All donor triangles retained in the side selected by cut, without random triangle removal.
-metadata=[export('staging_aircraft_tail',clustered(fore,6000)),export('staging_aircraft_fore',clustered(tail,6000))]
-for name,geometry in [('staging_aircraft_tail',fore),('staging_aircraft_fore',tail)]:
- metadata.append(export(name+'_coarse',clustered(geometry,1500)))
- metadata.append(export(name+'_silhouette',clustered(geometry,200)))
-ship_positions=np.concatenate([t[0]for t in ship]);span=np.ptp(ship_positions,axis=0);scale=31/max(span[0],span[2]);ship=[(p*scale,uv,c)for p,uv,c in ship];metadata.append(export('staging_cargo_ship',ship));metadata.append(export('staging_cargo_ship_coarse',clustered(ship,1500)));metadata.append(export('staging_cargo_ship_silhouette',clustered(ship,200)))
-(root/'models.json').write_text(json.dumps(models,separators=(',',':'))+'\n')
-(root/'manifest.json').write_text(json.dumps(dict(staging=True,published=False,sourceHashes={'airplane':hashlib.sha256(pb).hexdigest(),'ship':hashlib.sha256(sb).hexdigest()},models=metadata),indent=2)+'\n')
-print(json.dumps(metadata,indent=2))
+def main():
+ plane,pb=read_glb(sys.argv[1]);ship,sb=read_glb(sys.argv[2]);(root/'airplane-source.glb').write_bytes(pb);(root/'ship-source.glb').write_bytes(sb)
+ # Cut the middle fuselage/wing intersection and distribute two separated physical sections.
+ fore=[];tail=[]
+ for p,uv,c in plane:
+  mean=p[:,2].mean()
+  if mean<-3.5:fore.append((p*.31,uv,c))
+  elif mean>3.5:tail.append((p*.31,uv,c))
+ # All donor triangles retained in the side selected by cut, without random triangle removal.
+ metadata=[export('staging_aircraft_tail',clustered(fore,6000)),export('staging_aircraft_fore',clustered(tail,6000))]
+ for name,geometry in [('staging_aircraft_tail',fore),('staging_aircraft_fore',tail)]:
+  metadata.append(export(name+'_coarse',clustered(geometry,1500)))
+  metadata.append(export(name+'_silhouette',clustered(geometry,200)))
+ ship_positions=np.concatenate([t[0]for t in ship]);span=np.ptp(ship_positions,axis=0);scale=31/max(span[0],span[2]);ship=[(p*scale,uv,c)for p,uv,c in ship];metadata.append(export('staging_cargo_ship',ship));metadata.append(export('staging_cargo_ship_coarse',clustered(ship,1500)));metadata.append(export('staging_cargo_ship_silhouette',clustered(ship,200)))
+ (root/'models.json').write_text(json.dumps(models,separators=(',',':'))+'\n')
+ (root/'manifest.json').write_text(json.dumps(dict(staging=True,published=False,sourceHashes={'airplane':hashlib.sha256(pb).hexdigest(),'ship':hashlib.sha256(sb).hexdigest()},models=metadata),indent=2)+'\n')
+ print(json.dumps(metadata,indent=2))
+
+if __name__=="__main__":main()

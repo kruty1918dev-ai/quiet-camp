@@ -55,6 +55,9 @@ namespace QuietCamp.Presentation.UI
         /// <summary>Call once while opening a cultural map, never from a scroll callback.</summary>
         public void PrepareCulture()
         {
+            #if UNITY_EDITOR
+            PrepareEnvironment();
+            #endif
             if(_cultureLoaded)return;
             var asset=Resources.Load<TextAsset>("QuietCamp/roadmap_culture_models");
             if(asset==null)throw new InvalidOperationException("Roadmap rural models have not been exported.");
@@ -63,10 +66,21 @@ namespace QuietCamp.Presentation.UI
             BareTree("ua_orchard_tree");_cultureLoaded=true;
         }
         #if UNITY_EDITOR
+        bool _environmentLoaded;
+        /// <summary>Authoring-only model kit. Player uses verified native baked meshes.</summary>
+        public void PrepareEnvironment()
+        {
+            if(_environmentLoaded)return;
+            LoadAuthoringModels("EnvironmentKit");_environmentLoaded=true;
+        }
         public void PrepareStaging()
         {
-            string path=System.IO.Path.Combine(UnityEngine.Application.dataPath,"QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/models.json");
-            if(!System.IO.File.Exists(path))return;
+            PrepareEnvironment();LoadAuthoringModels("StagingLandmarks");
+        }
+        void LoadAuthoringModels(string folder)
+        {
+            string path=System.IO.Path.Combine(UnityEngine.Application.dataPath,"QuietCamp/Authoring/Roadmap/Models",folder,"models.json");
+            if(!System.IO.File.Exists(path))throw new InvalidOperationException("Missing roadmap authoring models: "+path);
             foreach(var model in JsonConvert.DeserializeObject<Model[]>(System.IO.File.ReadAllText(path)))if(!_models.ContainsKey(model.id)){model.Expand();_models.Add(model.id,model);}
         }
 #endif

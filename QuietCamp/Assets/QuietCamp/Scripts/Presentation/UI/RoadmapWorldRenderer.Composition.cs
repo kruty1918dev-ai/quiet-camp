@@ -207,8 +207,9 @@ namespace QuietCamp.Presentation.UI
                 {
                     string asset=field.species;if(asset=="ua_sunflower_patch"&&visual.Environment.Temperature<.4f)asset="ua_wheat_patch";
                     var model=library.Get(asset+"_lod");
+                    float coverHeight=asset=="ua_wheat_patch"?.78f:asset=="ua_sunflower_patch"?1.08f:OfflineAssets[asset].height;
                     for(int clump=0;clump<(_tier<2?1:2);clump++)
-                    {var at=new Vector3(x+(clump-1)*.9f,Ground(x,z),z);Append(model,at,asset=="ua_wheat_patch"?.78f:1.08f,cell%17,null,new RoadmapSceneGenerator.Prop{Asset=asset,Sway=true,HasVisual=true,Visual=visual,Position=at});}
+                    {var at=new Vector3(x+(clump-1)*.9f,Ground(x,z),z);Append(model,at,coverHeight,cell%17,null,new RoadmapSceneGenerator.Prop{Asset=asset,Sway=true,HasVisual=true,Visual=visual,Position=at});}
                 }
                 else if(forest!=null&&ClearPowerCorridor(x,sourceZ,1.3f)&&SceneComposer.Unit(forest?.id+":"+cell,seed,3)<forest.density)
                 {

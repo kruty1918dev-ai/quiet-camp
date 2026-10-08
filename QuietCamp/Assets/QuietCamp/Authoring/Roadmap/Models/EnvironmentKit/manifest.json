@@ -1,0 +1,706 @@
+{
+  "schemaVersion": 1,
+  "staging": true,
+  "published": false,
+  "generator": "tools/roadmap-assets/build_environment_kit.py",
+  "license": "original-project-owned",
+  "totalTriangles": 4208,
+  "models": [
+    {
+      "id": "ua_abandoned_house",
+      "source": "ua_abandoned_house.obj",
+      "triangles": 252,
+      "triangleBudget": 320,
+      "dimensionsXYZ": [
+        5.3999999999999995,
+        4.05,
+        6.725
+      ],
+      "sourceHeight": 4.05,
+      "bounds": {
+        "min": [
+          -2.6999999999999997,
+          0.0,
+          -3.5999999999999996
+        ],
+        "max": [
+          2.6999999999999997,
+          4.05,
+          3.125
+        ]
+      },
+      "sourceSha256": "655801885a4048454532a8d3d3493d56343887542d3fdc1df18ab7312387f6f0",
+      "description": "Whitewashed abandoned home; real missing roof slab, hollow interior, dark doorway and empty windows.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_forester_hut",
+      "source": "ua_forester_hut.obj",
+      "triangles": 216,
+      "triangleBudget": 320,
+      "dimensionsXYZ": [
+        3.9,
+        3.028,
+        4.725
+      ],
+      "sourceHeight": 3.028,
+      "bounds": {
+        "min": [
+          -1.95,
+          0.0,
+          -2.5999999999999996
+        ],
+        "max": [
+          1.95,
+          3.028,
+          2.125
+        ]
+      },
+      "sourceSha256": "501778b664e1b1f9ff34a875700efa6f79ca6195274a369490281f24602a684e",
+      "description": "Small abandoned forester cabin for an isolated service clearing; no roadside stop.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_barn",
+      "source": "ua_barn.obj",
+      "triangles": 216,
+      "triangleBudget": 320,
+      "dimensionsXYZ": [
+        3.5,
+        2.8360000000000003,
+        4.125
+      ],
+      "sourceHeight": 2.8360000000000003,
+      "bounds": {
+        "min": [
+          -1.75,
+          0.0,
+          -2.3
+        ],
+        "max": [
+          1.75,
+          2.8360000000000003,
+          1.8250000000000002
+        ]
+      },
+      "sourceSha256": "7a87152730e74dff4a82bbac4f8c3cd544eb2cbeb61a9678164aff2995bf46ba",
+      "description": "Project-authored fallback shed/barn, empty doorway and missing roof strip; NOT a Sketchfab import.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_chicken_coop",
+      "source": "ua_chicken_coop.obj",
+      "triangles": 240,
+      "triangleBudget": 260,
+      "dimensionsXYZ": [
+        1.8,
+        1.8913643691001145,
+        2.6643150285348276
+      ],
+      "sourceHeight": 1.8913643691001145,
+      "bounds": {
+        "min": [
+          -0.9,
+          -0.011364369100114409,
+          -1.9143150285348276
+        ],
+        "max": [
+          0.9,
+          1.8800000000000001,
+          0.75
+        ]
+      },
+      "sourceSha256": "a6290b48dab25cde03ff861acd46572f0551de8d00b65b92bf1274397e5888df",
+      "description": "Project-authored fallback raised coop and grounded access ramp; NOT the synistersyrup donor.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_beehive",
+      "source": "ua_beehive.obj",
+      "triangles": 96,
+      "triangleBudget": 96,
+      "dimensionsXYZ": [
+        0.81,
+        1.065,
+        0.8200000000000001
+      ],
+      "sourceHeight": 1.065,
+      "bounds": {
+        "min": [
+          -0.405,
+          0.0,
+          -0.455
+        ],
+        "max": [
+          0.405,
+          1.065,
+          0.365
+        ]
+      },
+      "sourceSha256": "94d7c8c7bc153bbfea76e8e682530f8afb5ce76e6a721ef5ffd3ae40bbb055a2",
+      "description": "Original abandoned rectangular wooden hive on a grounded stand; no bees or honey harvest.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_well_sweep",
+      "source": "ua_well_sweep.obj",
+      "triangles": 108,
+      "triangleBudget": 190,
+      "dimensionsXYZ": [
+        3.631254119728445,
+        3.9569928065636355,
+        1.2124355652982142
+      ],
+      "sourceHeight": 3.9569928065636355,
+      "bounds": {
+        "min": [
+          -0.7,
+          0.0,
+          -0.606217782649107
+        ],
+        "max": [
+          2.9312541197284454,
+          3.9569928065636355,
+          0.6062177826491071
+        ]
+      },
+      "sourceSha256": "846b4fd03a40dfd82167fdb78fb1a727cf54054ecc9eac48be87cc6d74ab6afa",
+      "description": "Open ring well with a grounded forked post and counterweighted sweep beam; original geometry.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_picket_fence_damaged",
+      "source": "ua_picket_fence_damaged.obj",
+      "triangles": 120,
+      "triangleBudget": 180,
+      "dimensionsXYZ": [
+        3.33,
+        1.3072714328355184,
+        0.21
+      ],
+      "sourceHeight": 1.3072714328355184,
+      "bounds": {
+        "min": [
+          -1.665,
+          -0.0072714328355183025,
+          -0.12
+        ],
+        "max": [
+          1.665,
+          1.3,
+          0.09
+        ]
+      },
+      "sourceSha256": "330d12923b03f28ddd424c618fde58baf043f440c3942876aa9657f445d67c3d",
+      "description": "Boundary segment with missing boards and one leaning plank; belongs to a fully owned lot.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_power_pylon_rusted",
+      "source": "ua_power_pylon_rusted.obj",
+      "triangles": 932,
+      "triangleBudget": 1100,
+      "dimensionsXYZ": [
+        7.85,
+        16.045278394152348,
+        4.15
+      ],
+      "sourceHeight": 16.045278394152348,
+      "bounds": {
+        "min": [
+          -3.925,
+          -0.03145764348029479,
+          -2.075
+        ],
+        "max": [
+          3.925,
+          16.013820750672053,
+          2.075
+        ]
+      },
+      "sourceSha256": "720422e59acde7997919c0d918735c44cb67a67c46778795b03e90ed49277704",
+      "description": "Rust-colored derivative of the existing original tower; conductor anchors unchanged.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_power_pylon_fallen",
+      "source": "ua_power_pylon_fallen.obj",
+      "triangles": 932,
+      "triangleBudget": 1100,
+      "dimensionsXYZ": [
+        16.25636078554984,
+        7.864359740043829,
+        4.15
+      ],
+      "sourceHeight": 7.864359740043829,
+      "bounds": {
+        "min": [
+          -0.159871697924693,
+          0.0,
+          -2.075
+        ],
+        "max": [
+          16.096489087625148,
+          7.864359740043829,
+          2.075
+        ]
+      },
+      "sourceSha256": "44c5cc99f429dff33d499f6d8a1d44904dbdf52c3cbd7331beb45eb0d1c5a2f7",
+      "description": "One toppled original transmission tower; no dangling/floating conductor geometry in this mesh.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_bus_shelter_mosaic",
+      "source": "ua_bus_shelter_mosaic.obj",
+      "triangles": 197,
+      "triangleBudget": 600,
+      "dimensionsXYZ": [
+        3.48,
+        2.2,
+        1.99
+      ],
+      "sourceHeight": 2.2,
+      "bounds": {
+        "min": [
+          -1.74,
+          0.0,
+          -0.995
+        ],
+        "max": [
+          1.74,
+          2.2,
+          0.995
+        ]
+      },
+      "sourceSha256": "842db0d58642ff2e557e637cc665aa426bc47fe587b30aeb5bb6c8b1937f7fe4",
+      "description": "Original faded geometric fantasy bird/plant mural; no specific artwork, flag, emblem or readable text copied.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_plank_bridge",
+      "source": "ua_plank_bridge.obj",
+      "triangles": 168,
+      "triangleBudget": 240,
+      "dimensionsXYZ": [
+        1.85,
+        0.46,
+        5.06
+      ],
+      "sourceHeight": 0.46,
+      "bounds": {
+        "min": [
+          -0.925,
+          0.0,
+          -2.53
+        ],
+        "max": [
+          0.925,
+          0.46,
+          2.53
+        ]
+      },
+      "sourceSha256": "c0874cdc4d35a6742e17e8c3e9eece8fe91c31d0e8e57b9f26c51e55c7b8f3a4",
+      "description": "Original straight dry pedestrian deck and bank supports; no water in mesh; span along Z, landings at both ends.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_hydro_service_building",
+      "source": "ua_hydro_service_building.obj",
+      "triangles": 72,
+      "triangleBudget": 100,
+      "dimensionsXYZ": [
+        4.05,
+        2.78,
+        3.8
+      ],
+      "sourceHeight": 2.78,
+      "bounds": {
+        "min": [
+          -2.025,
+          0.0,
+          -2.1
+        ],
+        "max": [
+          2.025,
+          2.78,
+          1.7
+        ]
+      },
+      "sourceSha256": "b7ff896dffa118ace426250ea27d72dc3391ac46b81cd7342c593f67f8a0ee38",
+      "description": "Small original abandoned flat-roof civil utility building; separate dry-ground support and road approach required.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_mooring_post",
+      "source": "ua_mooring_post.obj",
+      "triangles": 24,
+      "triangleBudget": 40,
+      "dimensionsXYZ": [
+        0.54,
+        1.0,
+        0.24
+      ],
+      "sourceHeight": 1.0,
+      "bounds": {
+        "min": [
+          -0.27,
+          0.0,
+          -0.12
+        ],
+        "max": [
+          0.27,
+          1.0,
+          0.12
+        ]
+      },
+      "sourceSha256": "cbe8d3427bd029fb94fd4270907556b5d799e26c0990e7f458ff6e4d1f02e46e",
+      "description": "Original stranded mooring marker; only placed at the former upstream shoreline.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_chicken",
+      "source": "ua_chicken.obj",
+      "triangles": 43,
+      "triangleBudget": 100,
+      "dimensionsXYZ": [
+        0.45225424859373686,
+        0.55,
+        0.6677641290737883
+      ],
+      "sourceHeight": 0.55,
+      "bounds": {
+        "min": [
+          -0.2022542485937369,
+          0.0,
+          -0.43
+        ],
+        "max": [
+          0.25,
+          0.55,
+          0.23776412907378838
+        ]
+      },
+      "sourceSha256": "58d1baab7b18d8791de304c34aa6223112faa54599ea5f2e54f533921cd76305",
+      "description": "Original coarse hen for local yard/gameplay detail; not scattered along roadmap paths.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_field_weeds",
+      "source": "ua_field_weeds.obj",
+      "triangles": 12,
+      "triangleBudget": 180,
+      "dimensionsXYZ": [
+        0.585,
+        0.61,
+        0.29
+      ],
+      "sourceHeight": 0.61,
+      "bounds": {
+        "min": [
+          -0.285,
+          0,
+          -0.115
+        ],
+        "max": [
+          0.3,
+          0.61,
+          0.175
+        ]
+      },
+      "sourceSha256": "7e3f5bbec5a7252b37d5ff715caec0c3cbb079963cfbe127c1cc3d5864ddc2fd",
+      "description": "Original coarse vegetation; no foliage cards, textures, fruit or cultivated crop rows.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": "ua_field_weeds_lod"
+    },
+    {
+      "id": "ua_field_weeds_lod",
+      "source": "ua_field_weeds_lod.obj",
+      "triangles": 6,
+      "triangleBudget": 180,
+      "dimensionsXYZ": [
+        0.585,
+        0.61,
+        0.06
+      ],
+      "sourceHeight": 0.61,
+      "bounds": {
+        "min": [
+          -0.285,
+          0,
+          -0.115
+        ],
+        "max": [
+          0.3,
+          0.61,
+          -0.05500000000000001
+        ]
+      },
+      "sourceSha256": "33295ea037a8aa9af66850ec0235d8721ed52bba5ab73408bb5d2ce7be96d880",
+      "description": "Original coarse vegetation; no foliage cards, textures, fruit or cultivated crop rows.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_reed_clump",
+      "source": "ua_reed_clump.obj",
+      "triangles": 12,
+      "triangleBudget": 180,
+      "dimensionsXYZ": [
+        0.585,
+        1.3599999999999999,
+        0.29
+      ],
+      "sourceHeight": 1.3599999999999999,
+      "bounds": {
+        "min": [
+          -0.285,
+          0,
+          -0.115
+        ],
+        "max": [
+          0.3,
+          1.3599999999999999,
+          0.175
+        ]
+      },
+      "sourceSha256": "4c003fb3d5aaf1fc41a9daa0edc94e1d71369131838a110b7472d806c5b8a8a7",
+      "description": "Original coarse vegetation; no foliage cards, textures, fruit or cultivated crop rows.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": "ua_reed_clump_lod"
+    },
+    {
+      "id": "ua_reed_clump_lod",
+      "source": "ua_reed_clump_lod.obj",
+      "triangles": 6,
+      "triangleBudget": 180,
+      "dimensionsXYZ": [
+        0.585,
+        1.3599999999999999,
+        0.06
+      ],
+      "sourceHeight": 1.3599999999999999,
+      "bounds": {
+        "min": [
+          -0.285,
+          0,
+          -0.115
+        ],
+        "max": [
+          0.3,
+          1.3599999999999999,
+          -0.05500000000000001
+        ]
+      },
+      "sourceSha256": "6e8d43ed068fbdb910ef22ae788152dbf2c92952db09ab5756672757ffe6d0a2",
+      "description": "Original coarse vegetation; no foliage cards, textures, fruit or cultivated crop rows.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_young_willow",
+      "source": "ua_young_willow.obj",
+      "triangles": 54,
+      "triangleBudget": 180,
+      "dimensionsXYZ": [
+        2.1246394528155967,
+        2.826,
+        1.7569048440800072
+      ],
+      "sourceHeight": 2.826,
+      "bounds": {
+        "min": [
+          -1.0346394528155967,
+          0.0,
+          -0.9734524220400036
+        ],
+        "max": [
+          1.09,
+          2.826,
+          0.7834524220400036
+        ]
+      },
+      "sourceSha256": "61951d857488afeed9ccc76d0aadaf7589be5f52be326a441303e23f5cc864db",
+      "description": "Original coarse vegetation; no foliage cards, textures, fruit or cultivated crop rows.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": "ua_young_willow_lod"
+    },
+    {
+      "id": "ua_young_willow_lod",
+      "source": "ua_young_willow_lod.obj",
+      "triangles": 22,
+      "triangleBudget": 180,
+      "dimensionsXYZ": [
+        1.1939512162874655,
+        2.6180000000000003,
+        1.255394601509603
+      ],
+      "sourceHeight": 2.6180000000000003,
+      "bounds": {
+        "min": [
+          -0.5339512162874654,
+          0.0,
+          -0.6276973007548015
+        ],
+        "max": [
+          0.66,
+          2.6180000000000003,
+          0.6276973007548013
+        ]
+      },
+      "sourceSha256": "97b68dc2a4d081f3392e125e50aea5d98e68004914fd200604c700f37dbd01e8",
+      "description": "Original coarse vegetation; no foliage cards, textures, fruit or cultivated crop rows.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_poplar",
+      "source": "ua_poplar.obj",
+      "triangles": 26,
+      "triangleBudget": 180,
+      "dimensionsXYZ": [
+        1.2356297641365726,
+        4.606,
+        1.2674062858363708
+      ],
+      "sourceHeight": 4.606,
+      "bounds": {
+        "min": [
+          -0.5856297641365724,
+          0.0,
+          -0.6337031429181854
+        ],
+        "max": [
+          0.65,
+          4.606,
+          0.6337031429181854
+        ]
+      },
+      "sourceSha256": "f1e9d5312afca5193f43f30bdd682998e96fdf8181304f912fe20af9803ba590",
+      "description": "Original coarse vegetation; no foliage cards, textures, fruit or cultivated crop rows.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": "ua_poplar_lod"
+    },
+    {
+      "id": "ua_poplar_lod",
+      "source": "ua_poplar_lod.obj",
+      "triangles": 22,
+      "triangleBudget": 180,
+      "dimensionsXYZ": [
+        1.1758610463437158,
+        4.606,
+        1.2363734711836996
+      ],
+      "sourceHeight": 4.606,
+      "bounds": {
+        "min": [
+          -0.5258610463437159,
+          0.0,
+          -0.6181867355918499
+        ],
+        "max": [
+          0.65,
+          4.606,
+          0.6181867355918498
+        ]
+      },
+      "sourceSha256": "a50f6d5407a8a95118ad206a90af83b0da3d6a0715bd47e05d800541c48ed4f2",
+      "description": "Original coarse vegetation; no foliage cards, textures, fruit or cultivated crop rows.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_dam_breached",
+      "source": "ua_dam_breached.obj",
+      "triangles": 288,
+      "triangleBudget": 900,
+      "dimensionsXYZ": [
+        33.1,
+        6.84,
+        7.05
+      ],
+      "sourceHeight": 6.84,
+      "bounds": {
+        "min": [
+          -16.55,
+          0.0,
+          -4.75
+        ],
+        "max": [
+          16.55,
+          6.84,
+          2.3
+        ]
+      },
+      "sourceSha256": "714345cbfe4adf0bc70f3370066b22d556ee4bc69e783cec3f9c1c7771e73a07",
+      "description": "Original fictional five-bay hydro structure with a 4.9m clear central breach between piers; no water, traversable bridge or real-site reconstruction.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": "ua_dam_breached_lod"
+    },
+    {
+      "id": "ua_dam_breached_lod",
+      "source": "ua_dam_breached_lod.obj",
+      "triangles": 144,
+      "triangleBudget": 900,
+      "dimensionsXYZ": [
+        33.1,
+        6.425,
+        4.6
+      ],
+      "sourceHeight": 6.425,
+      "bounds": {
+        "min": [
+          -16.55,
+          0.0,
+          -2.3
+        ],
+        "max": [
+          16.55,
+          6.425,
+          2.3
+        ]
+      },
+      "sourceSha256": "6224f0fe9aa896de2a2a48f92481fc51418760945b9a3d0b50e8c56ff24d4bc8",
+      "description": "Original fictional five-bay hydro structure with a 4.9m clear central breach between piers; no water, traversable bridge or real-site reconstruction.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    }
+  ]
+}
