@@ -1,0 +1,63 @@
+{
+  "suite": "native EditMode leaf geometry and cache contracts",
+  "result": "Passed",
+  "total": 13,
+  "passed": 13,
+  "failed": 0,
+  "skipped": 0,
+  "tests": [
+    {
+      "name": "QuietCamp.Tests.LeafCurtainGraphicTests.Leaves_MoveIndependently_AndKeepMovingWhileCovered",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.LeafCurtainGraphicTests.LoadingFrame_IsOpaqueAcrossEntireViewport(1080,1920)",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.LeafCurtainGraphicTests.LoadingFrame_IsOpaqueAcrossEntireViewport(1920,1080)",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.LeafCurtainGraphicTests.LoadingFrame_IsOpaqueAcrossEntireViewport(1536,2048)",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.LeafCurtainGraphicTests.LoadingFrame_IsOpaqueAcrossEntireViewport(720,1600)",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.LeafCurtainGraphicTests.LoadingFrame_IsOpaqueAcrossEntireViewport(3440,1440,3.0f,2)",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.LeafCurtainGraphicTests.LoadingFrame_IsOpaqueAcrossEntireViewport(1080,1920,0.85f)",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.LeafCurtainGraphicTests.LoadingFrame_IsOpaqueAcrossEntireViewport(1080,1920,2.7f)",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.LeafCurtainGraphicTests.LoadingFrame_IsOpaqueAcrossEntireViewport(1920,1080,15.0f)",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.LeafCurtainGraphicTests.LoadingFrame_IsOpaqueAcrossEntireViewport(720,1600,7.3f,0)",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.LeafCurtainGraphicTests.LoadingFrame_IsOpaqueAcrossEntireViewport(1080,1920,11.4f,2)",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.PerformanceCacheTests.CampaignOrderIsReadOnlyAndStillMatchesContent",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.PerformanceCacheTests.CorridorCachePreservesClearanceAndObservesInPlaceEdits",
+      "result": "Passed"
+    }
+  ],
+  "playerBuild": false
+}

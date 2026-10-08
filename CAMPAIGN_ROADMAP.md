@@ -106,3 +106,7 @@ Bundled AgentVerify, Atmos, LevelGen and LevelKit with recorded upstream revisio
 Verification: current-source compilation passed for the five restored package runtime assemblies (including the LevelKit bridge), the four game layers and Editor/PlayMode test sources, using cached Unity references. This is compilation, not execution of Unity tests. The independent .NET 10 probe was not run: this host has SDK 9.0.203.
 
 A clean Git archive of the committed repository also passed the portability check after extraction into a temporary workspace with no `Library/` or sibling repositories. Push attempts failed because this environment has no GitHub HTTPS credentials; changes are committed locally.
+
+## Оптимізація після native audit — 2026-10-09
+
+Каталог кампанії розбирається один раз, порядок рівнів повертається read-only; кеш скидається при імпорті контенту та початку Play Mode. Стежки використовують підготовлені сегменти замість повторного розрахунку на кожну травинку/точку снігу, з перевіркою змін даних рівня. Native EditMode: **13/13 Passed**, включно з покриттям листя й порівнянням clearance до/після in-place edits ([receipt](docs/performance/2026-10-09/optimized/editor-contracts.json)). GPU-листя, кеш мапи та розподілене створення підлоги ще проходять runtime перевірку; заміри до/після будуть додані до карти продуктивності.

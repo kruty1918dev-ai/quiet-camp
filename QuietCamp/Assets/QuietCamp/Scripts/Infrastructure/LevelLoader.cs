@@ -61,20 +61,21 @@ namespace QuietCamp.Infrastructure
         /// <summary>MVP level order from campaign.json; falls back to 12 fixed ids.</summary>
         public static IReadOnlyList<string> MvpLevelIds()
         {
+            if (_orderedIds != null) return _orderedIds;
             var campaign = LoadCampaign();
             if (campaign?.mvpLevelIds != null && campaign.mvpLevelIds.Length > 0)
             {
                 // Endless tail: deterministic generated levels after the authored set.
                 var gen = campaign.generatedLevelIds;
-                if (gen == null || gen.Length == 0) return campaign.mvpLevelIds;
+                if (gen == null || gen.Length == 0) return _orderedIds = Array.AsReadOnly(campaign.mvpLevelIds);
                 var all = new string[campaign.mvpLevelIds.Length + gen.Length];
                 campaign.mvpLevelIds.CopyTo(all, 0);
                 gen.CopyTo(all, campaign.mvpLevelIds.Length);
-                return all;
+                return _orderedIds = Array.AsReadOnly(all);
             }
             var fallback = new string[12];
             for (var i = 0; i < 12; i++) fallback[i] = $"QC{i + 1:000}";
-            return fallback;
+            return _orderedIds = Array.AsReadOnly(fallback);
         }
 
         public static IReadOnlyList<string> CampaignLevelIds()
@@ -148,11 +149,30 @@ namespace QuietCamp.Infrastructure
 
         static IReadOnlyList<DistrictDefinition> _districts;
 
+        static CampaignData _campaign;
+        static bool _campaignLoaded;
+        static IReadOnlyList<string> _orderedIds;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void ResetCampaignCache()
+        {
+            _campaign = null; _campaignLoaded = false; _orderedIds = null; _districts = null;
+        }
+#if UNITY_EDITOR
+        [UnityEditor.InitializeOnLoadMethod]
+        static void ObserveContentImports()
+        {
+            UnityEditor.EditorApplication.projectChanged -= ResetCampaignCache;
+            UnityEditor.EditorApplication.projectChanged += ResetCampaignCache;
+        }
+#endif
         static CampaignData LoadCampaign()
         {
+            if (_campaignLoaded) return _campaign;
+            _campaignLoaded = true;
             var asset = Resources.Load<TextAsset>(CampaignPath);
             if (asset == null) return null;
-            try { return JsonConvert.DeserializeObject<CampaignData>(asset.text); }
+            try { return _campaign = JsonConvert.DeserializeObject<CampaignData>(asset.text); }
             catch (Exception e) { Debug.LogError($"[QuietCamp] campaign.json parse failed: {e.Message}"); return null; }
         }
     }

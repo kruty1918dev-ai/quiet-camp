@@ -61,27 +61,73 @@ namespace QuietCamp.Presentation.World
 
         /// <summary>Signed clearance from the same visual walking network. Used for soft banks;
         /// this is presentation geometry, never a replacement for puzzle walkability.</summary>
-        public static float CorridorDistance(LevelData level,Vector3 position)
+        sealed class CorridorGeometry
         {
-            float nearest=float.PositiveInfinity;
-            foreach(var authored in level.ruleVersion==2?level.exteriorWalkable??System.Array.Empty<int[]>():System.Array.Empty<int[]>())
+            public CorridorGeometry() { }
+            public int Signature;
+            public Vector3[] Authored, Starts, Deltas;
+            public float[] InverseLengths;
+        }
+        static readonly System.Runtime.CompilerServices.ConditionalWeakTable<LevelData, CorridorGeometry> Corridors
+            = new System.Runtime.CompilerServices.ConditionalWeakTable<LevelData, CorridorGeometry>();
+        // Include values, rather than array identities: editor previews/tests may
+        // edit a level in place. The weak table does not retain old scene levels.
+        static int CorridorSignature(LevelData level)
+        {
+            unchecked
             {
-                if(authored?.Length!=2)continue;
-                var at=BoardMath.CellCenterWorld(level,new Cell(authored[0],authored[1]));
-                nearest=Mathf.Min(nearest,Mathf.Max(Mathf.Abs(position.x-at.x),Mathf.Abs(position.z-at.z))-.52f);
-            }
-            foreach(var cell in CampAccess.Points(level))
-            {
-                var previous=Centre(level,cell,0);
-                for(int i=1;i<=12;i++)
+                int hash = level.decorSeed;
+                void Value(int value) => hash = hash * 31 + value;
+                void Cells(int[][] cells)
                 {
-                    var next=Centre(level,cell,Length*i/12f);
-                    var delta=next-previous;delta.y=0;
-                    var offset=position-previous;offset.y=0;
-                    float t=Mathf.Clamp01(Vector3.Dot(offset,delta)/Mathf.Max(.001f,delta.sqrMagnitude));
-                    nearest=Mathf.Min(nearest,(offset-delta*t).magnitude-.48f);
-                    previous=next;
+                    Value(cells?.Length ?? -1);
+                    if (cells != null) foreach (var cell in cells)
+                    { Value(cell?.Length ?? -1); if (cell != null) foreach (int value in cell) Value(value); }
                 }
+                Value(level.width); Value(level.height); Value(level.ruleVersion);
+                if (level.entry != null) foreach (int value in level.entry) Value(value);
+                Value(level.accessPoints?.Length ?? -1);
+                if (level.accessPoints != null) foreach (var point in level.accessPoints)
+                { Value(point.x); Value(point.z); }
+                Cells(level.exteriorWalkable);
+                return hash;
+            }
+        }
+        static CorridorGeometry CorridorFor(LevelData level)
+        {
+            int signature = CorridorSignature(level);
+            var cached = Corridors.GetOrCreateValue(level);
+            if (cached.Starts != null && cached.Signature == signature) return cached;
+            var authored = new List<Vector3>(); var starts = new List<Vector3>(); var deltas = new List<Vector3>();
+            var inverse = new List<float>();
+            foreach (var cell in level.ruleVersion == 2 ? level.exteriorWalkable ?? System.Array.Empty<int[]>() : System.Array.Empty<int[]>())
+                if (cell?.Length == 2) authored.Add(BoardMath.CellCenterWorld(level, new Cell(cell[0], cell[1])));
+            foreach (var cell in CampAccess.Points(level))
+            {
+                var previous = Centre(level, cell, 0);
+                for (int i = 1; i <= 12; i++)
+                {
+                    var next = Centre(level, cell, Length * i / 12f);
+                    var delta = next - previous; delta.y = 0;
+                    starts.Add(previous); deltas.Add(delta); inverse.Add(1 / Mathf.Max(.001f, delta.sqrMagnitude));
+                    previous = next;
+                }
+            }
+            cached.Signature = signature; cached.Authored = authored.ToArray(); cached.Starts = starts.ToArray();
+            cached.Deltas = deltas.ToArray(); cached.InverseLengths = inverse.ToArray();
+            return cached;
+        }
+        public static float CorridorDistance(LevelData level, Vector3 position)
+        {
+            var geometry = CorridorFor(level);
+            float nearest = float.PositiveInfinity;
+            foreach (var at in geometry.Authored)
+                nearest = Mathf.Min(nearest, Mathf.Max(Mathf.Abs(position.x - at.x), Mathf.Abs(position.z - at.z)) - .52f);
+            for (int i = 0; i < geometry.Starts.Length; i++)
+            {
+                var offset = position - geometry.Starts[i]; offset.y = 0;
+                float t = Mathf.Clamp01(Vector3.Dot(offset, geometry.Deltas[i]) * geometry.InverseLengths[i]);
+                nearest = Mathf.Min(nearest, (offset - geometry.Deltas[i] * t).magnitude - .48f);
             }
             return nearest;
         }
