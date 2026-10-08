@@ -37,3 +37,9 @@ GitHub read працює, але create branch повернув `403 Resource no
 Перевірені deterministic owner exporters, model integrity/inventory, повний portable roadmap regression, compose dry-run, CLI atomic/negative contracts. Final current-source compilation (включно з QuietCamp.Editor) пройшла; warnings залишаються, це не native scene/shader acceptance. Додатково перевірено metadata: duplicate Unity GUID groups = 0; sourceHash усіх 14 original rural OBJ звірено/оновлено за реальними bytes. ZIP source checker працює й без `.git`.
 
 У final staging baker очищено inherited main story/far-landmark props та прив'язано stage anchors/season. Published main catalog/resources, 30 puzzle identities, unlocks та save format не змінюються. Результат не активований у Game View.
+
+## Передача результату
+
+Повний source snapshot експортовано без `.git`, Unity Library/Temp/Logs і локальних tool outputs. У цьому експорті `verify_portability.py` та новий `dotnet build tools/roadmap-pipeline/RoadmapPipeline.csproj -m:1 -p:UseSharedCompilation=false` пройшли: zero warnings/errors, реальний NuGet restore, жодної залежності від старої Unity Library чи сусідніх repository folders. Це перевірка portable CLI, не першого Unity import на іншому host.
+
+Для передачі підготовлено `QuietCamp_Roadmap_Implemented_Source_2026-10-08.zip`: повний tracked snapshot, Git bundle/patch від checkpoint `bafdaa4`, SHA-256 manifest, журнали перевірок та інструкція відновлення. Selected concepts залишаються concept references; нових native renders у пакеті немає. Після погодженого ADB arrangement залишаються native import, Bake Main/Staging, scene/streaming tests, Game View captures та visual iteration. GitHub write access усе ще заблокований.
