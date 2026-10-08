@@ -1,3 +1,5 @@
+[← Documentation](README.md) · [Ілюстровані екрани](../docs/screens.md) · [Галерея](../docs/gallery.md) · [Стан](../docs/status.md)
+
 # Quiet Camp — механіка, зручність і спокійний темп
 
 ## Рішення щодо інтерфейсу

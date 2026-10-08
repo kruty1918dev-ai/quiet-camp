@@ -1,103 +1,84 @@
 (function () {
   "use strict";
-
-  var I18N = {
-    uk: {
-      "title": "Тихий кемпінг",
-      "tagline": "Місце для спокою",
-      "lede": "Спокійна просторова головоломка: розстав намети всіх гостей, зваж на тінь і тишу — і дивись, як галявина занурюється у вечір.",
-      "gallery": "Кадри з гри",
-      "cap.menu": "Головне меню",
-      "cap.map": "Мапа мандрівки",
-      "cap.spring": "Весняна галявина",
-      "cap.summer": "Літній табір",
-      "cap.autumn": "Осінній ліс",
-      "cap.winter": "Зимова тиша",
-      "cap.album": "Альбом твого табору",
-      "about": "Про гру",
-      "fact.puzzle": "Просторові головоломки — у кожного намету є місце, двері та стежка.",
-      "fact.seasons": "Весна, літо, осінь і зима — той самий пайплайн середовища рендерить усі сезони.",
-      "fact.offline": "Гра спершу офлайн, без нав'язливої реклами: прототипні покупки вимкнені.",
-      "fact.langs": "Мови інтерфейсу: Українська, English, Deutsch.",
-      "footer.note": "Кадри знято пайплайном Unity-редактора 06.10.2026.",
-      "footer.repo": "Репозиторій"
-    },
-    en: {
-      "title": "Quiet Camp",
-      "tagline": "A place to unwind",
-      "lede": "A calm spatial puzzle: place every guest's tent, mind the shade and quiet, and watch the clearing settle into evening.",
-      "gallery": "From the game",
-      "cap.menu": "Main menu",
-      "cap.map": "Campaign map",
-      "cap.spring": "Spring clearing",
-      "cap.summer": "Summer camp",
-      "cap.autumn": "Autumn woods",
-      "cap.winter": "Winter quiet",
-      "cap.album": "Your camp album",
-      "about": "About the game",
-      "fact.puzzle": "Spatial logic puzzles — every tent has a footprint, a door and a path.",
-      "fact.seasons": "Spring, summer, autumn and winter camps rendered by the same environment pipeline.",
-      "fact.offline": "Offline-first, no ads pressure: prototype purchases stay disabled.",
-      "fact.langs": "Interface languages: Українська, English, Deutsch.",
-      "footer.note": "Renders captured from the Unity editor showcase pipeline on 2026-10-06.",
-      "footer.repo": "Repository"
-    },
-    de: {
-      "title": "Ruhiges Camp",
-      "tagline": "Ein Ort zum Durchatmen",
-      "lede": "Ein ruhiges Denkspiel: Stelle das Zelt jedes Gastes auf, achte auf Schatten und Stille — und sieh zu, wie die Lichtung in den Abend gleitet.",
-      "gallery": "Aus dem Spiel",
-      "cap.menu": "Hauptmenü",
-      "cap.map": "Kampagnenkarte",
-      "cap.spring": "Frühlingslichtung",
-      "cap.summer": "Sommercamp",
-      "cap.autumn": "Herbstwald",
-      "cap.winter": "Winterstille",
-      "cap.album": "Dein Camp-Album",
-      "about": "Über das Spiel",
-      "fact.puzzle": "Rätsel im Raum — jedes Zelt hat eine Grundfläche, einen Eingang und einen Weg.",
-      "fact.seasons": "Frühling, Sommer, Herbst und Winter — dieselbe Umgebungs-Pipeline rendert alle Jahreszeiten.",
-      "fact.offline": "Offline zuerst, ohne Werbedruck: Prototyp-Käufe bleiben deaktiviert.",
-      "fact.langs": "Sprachen der Oberfläche: Українська, English, Deutsch.",
-      "footer.note": "Renderings aus der Unity-Editor-Showcase-Pipeline vom 06.10.2026.",
-      "footer.repo": "Repository"
-    }
-  };
-
-  var SUPPORTED = ["uk", "en", "de"];
-  var STORE_KEY = "qc-lang";
-
+  var supported = ["uk", "en", "de"], language = "uk", dictionary = {}, records = [], currentFilter = "all", currentView = null;
+  var cards = Array.from(document.querySelectorAll("[data-screen]"));
+  var search = document.getElementById("screen-search"), viewer = document.getElementById("image-viewer");
+  function text(key) { return (dictionary[language] || {})[key] || key; }
   function detect() {
-    try {
-      var saved = window.localStorage.getItem(STORE_KEY);
-      if (saved && I18N[saved]) return saved;
-    } catch (e) { /* storage unavailable — fall through */ }
-    var langs = navigator.languages || [navigator.language || "en"];
-    for (var i = 0; i < langs.length; i++) {
-      var code = String(langs[i] || "").toLowerCase().split("-")[0];
-      if (SUPPORTED.indexOf(code) !== -1) return code;
-    }
-    return "en";
+    try { var saved = localStorage.getItem("qc-lang"); if (supported.indexOf(saved) >= 0) return saved; } catch (_) {}
+    var languages = navigator.languages || [navigator.language || "uk"];
+    for (var i = 0; i < languages.length; i++) { var code = String(languages[i]).toLowerCase().split("-")[0]; if (supported.indexOf(code) >= 0) return code; }
+    return "uk";
   }
-
+  function record(id) { return records.find(function (item) { return item.id === id; }); }
+  function filter() {
+    var query = search.value.trim().toLowerCase(), count = 0;
+    cards.forEach(function (card) {
+      var item = record(card.dataset.screen);
+      var searchable = item ? Object.values(item.title).concat(Object.values(item.description)).join(" ").toLowerCase() : card.textContent.toLowerCase();
+      var visible = (currentFilter === "all" || card.dataset.group === currentFilter) && (!query || searchable.indexOf(query) >= 0);
+      card.hidden = !visible; if (visible) count++;
+    });
+    document.getElementById("result-count").textContent = count + " " + (dictionary[language] ? text("screens.count") : "екранів і станів");
+    document.getElementById("empty-results").hidden = count !== 0;
+    document.querySelectorAll("[data-filter]").forEach(function (button) { button.setAttribute("aria-pressed", button.dataset.filter === currentFilter ? "true" : "false"); });
+  }
+  function updateViewer() {
+    var item = record(currentView); if (!item) return;
+    document.getElementById("viewer-title").textContent = item.title[language];
+    document.getElementById("viewer-description").textContent = item.description[language];
+    document.getElementById("viewer-image").alt = item.title[language];
+  }
   function apply(lang) {
-    var dict = I18N[lang] || I18N.en;
-    document.documentElement.lang = lang;
-    document.title = dict["title"];
-    document.querySelectorAll("[data-i18n]").forEach(function (el) {
-      var key = el.getAttribute("data-i18n");
-      if (dict[key] !== undefined) el.textContent = dict[key];
+    if (supported.indexOf(lang) < 0 || !dictionary[lang]) return;
+    language = lang; document.documentElement.lang = lang;
+    document.title = "Quiet Camp · " + text("brand.small");
+    document.querySelector('meta[name="description"]').content = text("hero.lede");
+    document.querySelectorAll("[data-i18n]").forEach(function (element) {
+      var key = element.dataset.i18n; if (dictionary[lang][key] !== undefined) element.textContent = text(key);
     });
-    document.querySelectorAll(".lang [data-lang]").forEach(function (btn) {
-      btn.setAttribute("aria-pressed", btn.getAttribute("data-lang") === lang ? "true" : "false");
+    search.placeholder = text("search.placeholder");
+    cards.forEach(function (card) {
+      var item = record(card.dataset.screen); if (!item) return;
+      card.querySelector("[data-card-title]").textContent = item.title[lang];
+      card.querySelector("[data-card-description]").textContent = item.description[lang];
+      card.querySelector("[data-group-label]").textContent = text("filter." + item.group);
+      card.querySelector("[data-view]").setAttribute("aria-label", text("card.open") + ": " + item.title[lang]);
+      card.querySelector("img").alt = item.title[lang];
     });
-    try { window.localStorage.setItem(STORE_KEY, lang); } catch (e) { /* ignore */ }
+    document.querySelectorAll("[data-lang]").forEach(function (button) { button.setAttribute("aria-pressed", button.dataset.lang === lang ? "true" : "false"); });
+    try { localStorage.setItem("qc-lang", lang); } catch (_) {}
+    updateViewer(); filter();
   }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".lang [data-lang]").forEach(function (btn) {
-      btn.addEventListener("click", function () { apply(btn.getAttribute("data-lang")); });
+  search.addEventListener("input", filter);
+  document.querySelectorAll("[data-filter]").forEach(function (button) { button.addEventListener("click", function () { currentFilter = button.dataset.filter; filter(); }); });
+  document.querySelectorAll("[data-lang]").forEach(function (button) { button.addEventListener("click", function () { apply(button.dataset.lang); }); });
+  document.querySelectorAll("[data-view]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      currentView = button.dataset.view;
+      var item = record(currentView), card = button.closest("[data-screen]");
+      document.getElementById("viewer-title").textContent = item ? item.title[language] : card.querySelector("h3").textContent;
+      document.getElementById("viewer-description").textContent = item ? item.description[language] : card.querySelector("[data-card-description]").textContent;
+      var path = "images/captures/2026-10-08/" + currentView;
+      var image = document.getElementById("viewer-image"); image.src = path + ".png"; image.alt = document.getElementById("viewer-title").textContent;
+      document.getElementById("viewer-original").href = path + ".png"; document.getElementById("viewer-metadata").href = path + ".json";
+      if (typeof viewer.showModal === "function") viewer.showModal(); else viewer.setAttribute("open", "");
     });
-    apply(detect());
   });
+  function closeViewer() { if (typeof viewer.close === "function") viewer.close(); else viewer.removeAttribute("open"); }
+  document.getElementById("viewer-close").addEventListener("click", closeViewer);
+  viewer.addEventListener("click", function (event) {
+    var bounds = viewer.getBoundingClientRect();
+    if (event.target === viewer && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) closeViewer();
+  });
+  viewer.addEventListener("close", function () { currentView = null; document.getElementById("viewer-image").removeAttribute("src"); });
+  if (typeof IntersectionObserver === "function") {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) { if (entry.isIntersecting) document.querySelectorAll('.sidebar a[href^="#"]').forEach(function (a) { if (a.hash === "#" + entry.target.id) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current"); }); });
+    }, { rootMargin: "-15% 0px -65% 0px" });
+    document.querySelectorAll("main>section[id]").forEach(function (section) { observer.observe(section); });
+  }
+  Promise.all([fetch("site-i18n.json").then(function (r) { if (!r.ok) throw new Error("Translations unavailable"); return r.json(); }), fetch("site-content.json").then(function (r) { if (!r.ok) throw new Error("Guide content unavailable"); return r.json(); })]).then(function (values) {
+    dictionary = values[0]; records = values[1]; apply(detect());
+  }).catch(function () { filter(); /* Static Ukrainian content remains available. */ });
 })();

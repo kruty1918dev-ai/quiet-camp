@@ -1,5 +1,10 @@
 # Quiet Camp — карта світу та структура кампанії (релізний масштаб)
 
+> Навігація: [ілюстрований довідник](docs/README.md) · [світ і source catalog](docs/world.md) · [галерея](docs/gallery.md) · [стан перевірок](docs/status.md).
+>
+> На 2026-10-08 committed main catalog задає 110 ordered places; цей документ описує релізний план ширшого світу. Кількість у source catalog не є заявою native/device acceptance всього контенту. Нова semantic roadmap composition лишається в окремій art branch до bake/visual acceptance.
+
+
 Ціль: ~300 рівнів, що відчуваються як жива карта світу з центральною
 сюжетною дорогою та відгалуженнями — а не лінійні 1–300.
 

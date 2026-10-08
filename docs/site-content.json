@@ -1,0 +1,542 @@
+[
+  {
+    "id": "00-boot-policy",
+    "group": "menus",
+    "title": {
+      "uk": "Вхід у гру",
+      "en": "Entering the game",
+      "de": "Spielstart"
+    },
+    "description": {
+      "uk": "Запуск → документ → Увійти. Підтвердження документа не є згодою на аналітику.",
+      "en": "Launch → document → Enter. Acknowledgement is separate from analytics consent.",
+      "de": "Start → Dokument → Eintreten. Bestätigung und Analyse-Einwilligung sind getrennt."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/BootPrivacyPanel.cs"
+  },
+  {
+    "id": "01-main-menu",
+    "group": "menus",
+    "title": {
+      "uk": "Головне меню",
+      "en": "Main menu",
+      "de": "Hauptmenü"
+    },
+    "description": {
+      "uk": "Продовжити, Мапа, Мої табори та налаштування. Остап знайомить із напрямками.",
+      "en": "Continue, Map, My camps and Settings. Ostap introduces the available routes.",
+      "de": "Fortsetzen, Karte, Meine Camps und Einstellungen. Ostap stellt die Wege vor."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuScreens.cs"
+  },
+  {
+    "id": "context-main-menu-clean",
+    "group": "menus",
+    "title": {
+      "uk": "Меню після знайомства",
+      "en": "Menu after the introduction",
+      "de": "Menü nach der Einführung"
+    },
+    "description": {
+      "uk": "Те саме меню після одноразового пояснення Остапа. Картки показують поточний прогрес.",
+      "en": "The menu after Ostap’s one-time introduction. Cards reflect current progress.",
+      "de": "Menü nach Ostaps einmaliger Einführung. Karten zeigen den Fortschritt."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuScreens.cs"
+  },
+  {
+    "id": "04-roadmap",
+    "group": "menus",
+    "title": {
+      "uk": "Мапа галявин",
+      "en": "Clearing map",
+      "de": "Lichtungskarte"
+    },
+    "description": {
+      "uk": "Меню → Мапа. Гортай головну дорогу; вузли показують виконане, доступне та приховане.",
+      "en": "Menu → Map. Scroll the main route; nodes show completed, available and veiled places.",
+      "de": "Menü → Karte. Knoten zeigen abgeschlossene, verfügbare und verborgene Orte."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuScreens.cs"
+  },
+  {
+    "id": "05-journeys",
+    "group": "menus",
+    "title": {
+      "uk": "Подорожі",
+      "en": "Story journeys",
+      "de": "Geschichtsreisen"
+    },
+    "description": {
+      "uk": "Мапа → Подорожі. Каталог містить сюжетні гілки й додаткові місця; його можна гортати.",
+      "en": "Map → Journeys. Browse story branches and additional camps in the scrollable catalog.",
+      "de": "Karte → Reisen. Der Katalog enthält Geschichten und zusätzliche Camps."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuScreens.cs"
+  },
+  {
+    "id": "06-journey-preview",
+    "group": "menus",
+    "title": {
+      "uk": "Огляд подорожі",
+      "en": "Journey preview",
+      "de": "Reisevorschau"
+    },
+    "description": {
+      "uk": "Обери напрямок. Панель пояснює мотив, кількість місць та потрібний прогрес.",
+      "en": "Select a journey to see its theme, number of places and progress requirement.",
+      "de": "Wähle eine Reise: Thema, Anzahl der Orte und Fortschrittsbedingung."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuScreens.cs"
+  },
+  {
+    "id": "07-bonus-preview",
+    "group": "menus",
+    "title": {
+      "uk": "Додаткова галявина",
+      "en": "Bonus clearing",
+      "de": "Bonuslichtung"
+    },
+    "description": {
+      "uk": "Мапа → bonus-вузол. Тут видно умови прогресу, сезону та доступу; staging не видається за готову гру.",
+      "en": "Map → bonus node. See progress, season and access conditions; staging stays clearly labeled.",
+      "de": "Karte → Bonusknoten. Fortschritt, Jahreszeit und Zugang werden erklärt."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuScreens.cs"
+  },
+  {
+    "id": "08-gameplay-guest-card",
+    "group": "camp",
+    "title": {
+      "uk": "Галявина й картка гостя",
+      "en": "Clearing and guest card",
+      "de": "Lichtung und Gastkarte"
+    },
+    "description": {
+      "uk": "Обери гостя, перетягни намет і поверни його. Картка містить ім’я, форму й побажання.",
+      "en": "Choose a guest, drag and rotate the tent. The card shows name, shape and wishes.",
+      "de": "Wähle einen Gast, ziehe und drehe sein Zelt. Die Karte zeigt seine Wünsche."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampHud.cs"
+  },
+  {
+    "id": "09-guest-list",
+    "group": "camp",
+    "title": {
+      "uk": "Список гостей",
+      "en": "Guest list",
+      "de": "Gästeliste"
+    },
+    "description": {
+      "uk": "Галявина → значок гостей. Порівняй побажання; повернення зберігає розташування.",
+      "en": "Clearing → guest icon. Compare wishes; returning preserves the arrangement.",
+      "de": "Lichtung → Gästesymbol. Wünsche vergleichen; die Anordnung bleibt erhalten."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampHud.cs"
+  },
+  {
+    "id": "10-gameplay-ready",
+    "group": "camp",
+    "title": {
+      "uk": "Готовність до перевірки",
+      "en": "Ready to check",
+      "de": "Bereit zur Prüfung"
+    },
+    "description": {
+      "uk": "Коли всі намети на місці, доступна перевірка. Готове розташування ще треба перевірити.",
+      "en": "Once all tents are placed, Check becomes available. Placement alone does not finish the puzzle.",
+      "de": "Sind alle Zelte platziert, wird Prüfen verfügbar. Platzieren allein beendet das Rätsel nicht."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampHud.cs"
+  },
+  {
+    "id": "11-pause",
+    "group": "camp",
+    "title": {
+      "uk": "Пауза",
+      "en": "Pause",
+      "de": "Pause"
+    },
+    "description": {
+      "uk": "Верхній кут → Пауза. Продовжити, налаштування, знаки й навігація без втрати сесії.",
+      "en": "Top corner → Pause. Resume, settings, wish signs and navigation preserve the session.",
+      "de": "Obere Ecke → Pause. Fortsetzen, Einstellungen, Zeichen und Navigation."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampHud.cs"
+  },
+  {
+    "id": "12-wish-legend",
+    "group": "camp",
+    "title": {
+      "uk": "Знаки побажань",
+      "en": "Wish legend",
+      "de": "Wunschzeichen"
+    },
+    "description": {
+      "uk": "Пауза → Знаки. Пояснення символів під рукою; назад повертає до попередньої панелі.",
+      "en": "Pause → Signs. Read the symbols; Back returns to the previous panel.",
+      "de": "Pause → Zeichen. Symbole nachlesen; Zurück führt zum vorherigen Fenster."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampHud.cs"
+  },
+  {
+    "id": "13-camp-settings",
+    "group": "settings",
+    "title": {
+      "uk": "Налаштування в галявині",
+      "en": "In-camp settings",
+      "de": "Einstellungen im Camp"
+    },
+    "description": {
+      "uk": "Пауза → Налаштування. Ті самі категорії доступні без виходу з поточної галявини.",
+      "en": "Pause → Settings. The same categories are available without leaving the camp.",
+      "de": "Pause → Einstellungen. Dieselben Kategorien direkt in der Lichtung."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/SettingsPanel.cs"
+  },
+  {
+    "id": "14-completion",
+    "group": "camp",
+    "title": {
+      "uk": "Табір завершено",
+      "en": "Camp completed",
+      "de": "Camp abgeschlossen"
+    },
+    "description": {
+      "uk": "Правильна перевірка зберігає табір. Далі можна йти вперед або переглянути альбом.",
+      "en": "A correct Check saves the camp. Continue along the route or visit the album.",
+      "de": "Eine richtige Prüfung speichert das Camp. Weitergehen oder das Album öffnen."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampHud.cs"
+  },
+  {
+    "id": "15-album",
+    "group": "album",
+    "title": {
+      "uk": "Мої табори",
+      "en": "My camps",
+      "de": "Meine Camps"
+    },
+    "description": {
+      "uk": "Меню → Мої табори. Обери мініатюру, обертай 3D-сцену, повтори рівень або залишись.",
+      "en": "Menu → My camps. Select a thumbnail, rotate the 3D scene, replay or stay.",
+      "de": "Menü → Meine Camps. Miniatur wählen, 3D-Szene drehen, wiederholen oder bleiben."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuScreens.cs"
+  },
+  {
+    "id": "16-album-quiet",
+    "group": "album",
+    "title": {
+      "uk": "Залишитись",
+      "en": "Stay a while",
+      "de": "Noch etwas bleiben"
+    },
+    "description": {
+      "uk": "Альбом → Залишитись. Основні панелі зникають; табір можна спокійно роздивитися.",
+      "en": "Album → Stay. Main panels disappear so you can enjoy the camp.",
+      "de": "Album → Bleiben. Die Hauptfenster verschwinden für einen ruhigen Blick."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuScreens.cs"
+  },
+  {
+    "id": "02-settings-home",
+    "group": "settings",
+    "title": {
+      "uk": "Налаштування",
+      "en": "Settings",
+      "de": "Einstellungen"
+    },
+    "description": {
+      "uk": "Меню → шестерня. Звук, комфорт, вигляд, приватність, мова й повтор навчання.",
+      "en": "Menu → gear. Sound, comfort, appearance, privacy, language and tutorial replay.",
+      "de": "Menü → Zahnrad. Klang, Komfort, Darstellung, Datenschutz, Sprache und Lernhilfe."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/SettingsPanel.cs"
+  },
+  {
+    "id": "settings-sound",
+    "group": "settings",
+    "title": {
+      "uk": "Звук",
+      "en": "Sound",
+      "de": "Klang"
+    },
+    "description": {
+      "uk": "Налаштування → Звук. Master, музика, атмосфера та effects мають окрему гучність.",
+      "en": "Settings → Sound. Master, music, ambience and effects have separate volume controls.",
+      "de": "Einstellungen → Klang. Gesamtlautstärke, Musik, Umgebung und Effekte."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/SettingsPanel.cs"
+  },
+  {
+    "id": "settings-comfort",
+    "group": "settings",
+    "title": {
+      "uk": "Комфорт",
+      "en": "Comfort",
+      "de": "Komfort"
+    },
+    "description": {
+      "uk": "Налаштування → Комфорт. Масштаб тексту, contrast, reduced motion, calm pacing і haptics.",
+      "en": "Settings → Comfort. Text size, contrast, reduced motion, calm pacing and haptics.",
+      "de": "Einstellungen → Komfort. Textgröße, Kontrast, weniger Bewegung und Haptik."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/SettingsPanel.cs"
+  },
+  {
+    "id": "settings-look",
+    "group": "settings",
+    "title": {
+      "uk": "Вигляд",
+      "en": "Appearance",
+      "de": "Darstellung"
+    },
+    "description": {
+      "uk": "Налаштування → Вигляд. Auto/Low/Balanced/High та орієнтація; це не звіт device FPS.",
+      "en": "Settings → Appearance. Auto/Low/Balanced/High and orientation; this is not a device FPS report.",
+      "de": "Einstellungen → Darstellung. Qualität und Ausrichtung; kein Geräte-FPS-Bericht."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/SettingsPanel.cs"
+  },
+  {
+    "id": "settings-extras",
+    "group": "settings",
+    "title": {
+      "uk": "Додаткове",
+      "en": "Extras",
+      "de": "Extras"
+    },
+    "description": {
+      "uk": "Налаштування → Додаткове. Зароблені декоративні нагороди; optional ads лише з provider.",
+      "en": "Settings → Extras. Earned decorations; optional ads require an available provider.",
+      "de": "Einstellungen → Extras. Verdiente Dekorationen; Werbung benötigt einen Anbieter."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/SettingsPanel.cs"
+  },
+  {
+    "id": "settings-privacy",
+    "group": "privacy",
+    "title": {
+      "uk": "Приватність",
+      "en": "Privacy",
+      "de": "Datenschutz"
+    },
+    "description": {
+      "uk": "Налаштування → Приватність. Дані, необов’язкова аналітика та документи розділені.",
+      "en": "Settings → Privacy. Local data, optional analytics and documents have separate sections.",
+      "de": "Einstellungen → Datenschutz. Daten, optionale Analyse und Dokumente sind getrennt."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/PrivacyPanel.cs"
+  },
+  {
+    "id": "privacy-data",
+    "group": "privacy",
+    "title": {
+      "uk": "Локальні дані",
+      "en": "Local data",
+      "de": "Lokale Daten"
+    },
+    "description": {
+      "uk": "Приватність → Дані. Пояснення збережень, remote requests і локальних дій.",
+      "en": "Privacy → Data. Learn about saves, remote requests and local actions.",
+      "de": "Datenschutz → Daten. Informationen zu Spielständen und lokalen Aktionen."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/PrivacyPanel.cs"
+  },
+  {
+    "id": "privacy-analytics",
+    "group": "privacy",
+    "title": {
+      "uk": "Аналітика",
+      "en": "Analytics",
+      "de": "Analyse"
+    },
+    "description": {
+      "uk": "Приватність → Аналітика. Згода необов’язкова; default provider тут недоступний.",
+      "en": "Privacy → Analytics. Consent is optional; the default provider is unavailable here.",
+      "de": "Datenschutz → Analyse. Freiwillige Einwilligung; hier ist kein Anbieter aktiv."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/PrivacyPanel.cs"
+  },
+  {
+    "id": "privacy-documents",
+    "group": "privacy",
+    "title": {
+      "uk": "Документи",
+      "en": "Documents",
+      "de": "Dokumente"
+    },
+    "description": {
+      "uk": "Приватність → Документи. Документ, support та ліцензії; доступність URL залежить від конфігурації.",
+      "en": "Privacy → Documents. Policy, support and licenses; URL availability follows configuration.",
+      "de": "Datenschutz → Dokumente. Hinweise, Support und Lizenzen je nach Konfiguration."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/PrivacyPanel.cs"
+  },
+  {
+    "id": "03-economy",
+    "group": "resources",
+    "title": {
+      "uk": "Ресурси та Pro",
+      "en": "Resources and Pro",
+      "de": "Ressourcen und Pro"
+    },
+    "description": {
+      "uk": "Життя, підказки та жаринки. Реальні purchases/rewarded ads не підключені.",
+      "en": "Lives, hints and embers. Real purchases and rewarded ads are not connected.",
+      "de": "Leben, Hinweise und Glut. Echte Käufe und belohnte Werbung sind nicht angeschlossen."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/EconomyPanel.cs"
+  },
+  {
+    "id": "context-tutorial",
+    "group": "context",
+    "title": {
+      "uk": "Остап і навчання",
+      "en": "Ostap and the tutorial",
+      "de": "Ostap und die Lernhilfe"
+    },
+    "description": {
+      "uk": "Перша галявина → наступний guided крок. Остап пояснює дію поряд із наметами.",
+      "en": "First clearing → the next guided step. Ostap explains the action beside your tents.",
+      "de": "Erste Lichtung → Lernschritt. Ostap erklärt die nächste Aktion bei den Zelten."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampHud.cs"
+  },
+  {
+    "id": "context-tutorial-skip",
+    "group": "context",
+    "title": {
+      "uk": "Пропуск навчання",
+      "en": "Skip tutorial confirmation",
+      "de": "Lernhilfe überspringen"
+    },
+    "description": {
+      "uk": "Навчання → Пропустити. Окреме підтвердження дозволяє лишитися або пропустити.",
+      "en": "Tutorial → Skip. A separate confirmation lets you continue learning or skip.",
+      "de": "Lernhilfe → Überspringen. Bestätigen oder mit der Lernhilfe fortfahren."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampHud.cs"
+  },
+  {
+    "id": "context-hint",
+    "group": "context",
+    "title": {
+      "uk": "Підказка на галявині",
+      "en": "Hint in the clearing",
+      "de": "Hinweis in der Lichtung"
+    },
+    "description": {
+      "uk": "HUD → Підказка. Можливі клітини або ghost розміщення; витрачає один hint.",
+      "en": "HUD → Hint. Suggested cells or a placement ghost consume one hint.",
+      "de": "HUD → Hinweis. Vorgeschlagene Zellen oder ein Zeltvorschlag verbrauchen einen Hinweis."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampHud.cs"
+  },
+  {
+    "id": "context-selected-tent",
+    "group": "context",
+    "title": {
+      "uk": "Вибраний намет",
+      "en": "Selected tent",
+      "de": "Ausgewähltes Zelt"
+    },
+    "description": {
+      "uk": "Торкнись поставленого намету. Chip біля нього відкриває поворот і видалення.",
+      "en": "Tap a placed tent. Its nearby chip offers rotation and removal.",
+      "de": "Platziertes Zelt antippen. Ein kleines Fenster bietet Drehen und Entfernen."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampHud.cs"
+  },
+  {
+    "id": "context-history",
+    "group": "context",
+    "title": {
+      "uk": "Історія дій",
+      "en": "Action history",
+      "de": "Aktionsverlauf"
+    },
+    "description": {
+      "uk": "Після undo можна повернути скасовану дію через redo. Історія належить поточній сесії.",
+      "en": "After Undo, Redo can reapply the action. History belongs to the current session.",
+      "de": "Nach Rückgängig kann Wiederholen die Aktion erneut anwenden."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampHud.cs"
+  },
+  {
+    "id": "context-data-details",
+    "group": "privacy",
+    "title": {
+      "uk": "Пояснення даних",
+      "en": "Data explanation",
+      "de": "Erklärung zu Daten"
+    },
+    "description": {
+      "uk": "Дані → Інформація. Розгортає опис local saves, optional services і backups.",
+      "en": "Data → Information. Expand details about local saves, optional services and backups.",
+      "de": "Daten → Informationen. Details zu lokalen Spielständen und Sicherungen."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/PrivacyPanel.cs"
+  },
+  {
+    "id": "context-reset-confirm",
+    "group": "context",
+    "title": {
+      "uk": "Скидання прогресу",
+      "en": "Reset progress confirmation",
+      "de": "Fortschritt zurücksetzen"
+    },
+    "description": {
+      "uk": "Дані → Скинути. Окрема destructive дія має підтвердження; у capture її скасовано.",
+      "en": "Data → Reset. The destructive action has a confirmation; capture canceled it.",
+      "de": "Daten → Zurücksetzen. Bestätigung erforderlich; bei der Aufnahme abgebrochen."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuScreens.cs"
+  },
+  {
+    "id": "context-erase-confirm",
+    "group": "context",
+    "title": {
+      "uk": "Очищення локальних даних",
+      "en": "Erase local data confirmation",
+      "de": "Lokale Daten löschen"
+    },
+    "description": {
+      "uk": "Дані → Очистити. Повне локальне очищення відрізняється від reset; у capture скасовано.",
+      "en": "Data → Erase. Full local erasure differs from reset; capture canceled it.",
+      "de": "Daten → Löschen. Vollständiges lokales Löschen; bei der Aufnahme abgebrochen."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuScreens.cs"
+  },
+  {
+    "id": "context-exchange-confirm",
+    "group": "resources",
+    "title": {
+      "uk": "Обмін ресурсів",
+      "en": "Resource exchange confirmation",
+      "de": "Ressourcen tauschen"
+    },
+    "description": {
+      "uk": "Ресурси → Обмін. Потрібне явне підтвердження; wallet тут синтетичний, дію скасовано.",
+      "en": "Resources → Exchange. Explicit confirmation; the QA wallet is synthetic and the action was canceled.",
+      "de": "Ressourcen → Tauschen. Synthetischer Testbestand; Aktion abgebrochen."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/EconomyPanel.cs"
+  },
+  {
+    "id": "context-journey-confirm",
+    "group": "resources",
+    "title": {
+      "uk": "Відкрити подорож",
+      "en": "Unlock journey confirmation",
+      "de": "Reise freischalten"
+    },
+    "description": {
+      "uk": "Journey preview → Відкрити. Прогрес і жаринки перевіряються перед підтвердженням.",
+      "en": "Journey preview → Unlock. Progress and embers are checked before confirmation.",
+      "de": "Reisevorschau → Freischalten. Fortschritt und Glut werden vorab geprüft."
+    },
+    "source": "https://github.com/kruty1918dev-ai/quiet-camp/blob/main/QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuScreens.cs"
+  }
+]

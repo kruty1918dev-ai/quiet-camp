@@ -1,3 +1,5 @@
+[← Documentation](README.md) · [Ілюстровані екрани](../docs/screens.md) · [Галерея](../docs/gallery.md) · [Стан](../docs/status.md)
+
 # Quiet Camp HTML UI
 
 All player-facing screens mount through [Moyva UnityHTML](https://github.com/kruty1918dev-ai/com.kruty1918.moyva.unityhtml). The project pins the published package at `ed36a7ce864f595432033da6f6b75c43ec92e7d9` in `Packages/manifest.json`; native event routing is supplied by that dependency rather than an embedded game-local package. ReactUnity dependencies retain their compatible Git pins. No npm build or browser runtime is required.

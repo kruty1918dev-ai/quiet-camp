@@ -53,6 +53,7 @@
   "knownLimitations": [
     "Gameplay tablet HUD includes an empty card and poor board top-edge framing; quiet album frames are used in the presentation gallery.",
     "Early capture attempts failed; QA cleanup identity was corrected, and the original game save was restored from its matching pre-capture backup before the passing runs.",
-    "Unity internal Editor preferences/session data are outside the game-save checksum contract."
+    "Unity internal Editor preferences/session data are outside the game-save checksum contract.",
+    "The captured Garden journey preview has a blank illustration viewport; text and confirmation controls remain visible."
   ]
 }
