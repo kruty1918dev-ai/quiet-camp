@@ -37,6 +37,7 @@ namespace QuietCamp.Presentation.UI
         public int TruncatedModels { get { int n=_bonusTruncated;foreach(var glade in _pool)if(glade.gameObject.activeSelf)n+=glade.Truncated;return n; } }
         public int VisibleVertices { get { int n=canvasRenderer.GetMesh()?.vertexCount??0;foreach(var glade in _pool)if(glade.gameObject.activeSelf)n+=glade.canvasRenderer.GetMesh()?.vertexCount??0;return n; } }
         public int QualityTier=>_services?.EffectiveQuality??1;
+        public int WeatherRevision { get; private set; }
         public bool Reduced=>_services?.ReducedMotion??false;
         public float ProjectionScale=>28*Mathf.Clamp(rectTransform.rect.width/850,1,1.28f);
         public void Configure(GameServices services)
@@ -83,6 +84,7 @@ namespace QuietCamp.Presentation.UI
         float _weatherMoment;
         public void SetWeatherMoment(float seconds)
         {
+            WeatherRevision++;
             EnsureData();_manualWeather=seconds>=0;_weatherMoment=seconds;
             foreach(var scene in _scenes)
                 scene?.SetMoment(seconds);
@@ -95,11 +97,18 @@ namespace QuietCamp.Presentation.UI
             if(!_manualWeather&&!Reduced)for(int i=0;i<_scenes.Count;i++)
                 if(_scenes[i]!=null&&InView(Centre(i).y,Extent(i)))_scenes[i].Advance(Time.unscaledDeltaTime);
             var visible=FindVisibleArea();
-            bool refresh=Time.unscaledTime-_lastRefresh>1||_lastTier!=QualityTier;
+            bool refresh=Time.unscaledTime-_lastRefresh>3||_lastTier!=QualityTier;
             if(visible!=_visible||refresh)
             { _visible=visible;SetVerticesDirty();_weather?.SetVerticesDirty(); }
-            if(refresh) { _lastRefresh=Time.unscaledTime;_lastTier=QualityTier;foreach(var glade in _pool)glade.SetVerticesDirty(); }
+            if(refresh) { _lastRefresh=Time.unscaledTime;_lastTier=QualityTier; }
             UpdatePool();
+            if (!_manualWeather && !Reduced && _pool.Count > 0)
+            {
+                int slot = Time.frameCount % _pool.Count;
+                var glade = _pool[slot];
+                if (glade.gameObject.activeSelf && Time.unscaledTime >= _nextGladeRefresh)
+                { glade.InvalidateWeather(); glade.SetVerticesDirty(); _nextGladeRefresh = Time.unscaledTime + 3f / _pool.Count; }
+            }
             if(_ownedMaterial!=null)
             {
                 _ownedMaterial.SetFloat("_RoadmapTime",Time.unscaledTime);_ownedMaterial.SetFloat("_Motion",Reduced?0:1);
@@ -113,23 +122,35 @@ namespace QuietCamp.Presentation.UI
             if(masked!=null&&masked!=_ownedMaterial)
             { masked.SetFloat("_RoadmapTime",Time.unscaledTime);masked.SetFloat("_Motion",Reduced?0:1); }
         }
+        float _nextGladeRefresh;
+        readonly List<int> _visibleIndices = new List<int>(12);
         void UpdatePool()
         {
             using var audit = PerformanceAudit.Measure("QC.RoadmapGraphic.UpdatePool");
-            int slot=0;
-            for(int i=0;i<_scenes.Count;i++)
+            _visibleIndices.Clear();
+            for (int i = 0; i < _scenes.Count; i++)
+                if (InView(Centre(i).y, Extent(i))) _visibleIndices.Add(i);
+            // Preserve slot ownership while the scene stays visible. A newly
+            // entering glade must not rebind/rebuild all the other visible ones.
+            foreach (var glade in _pool)
+                if (!_visibleIndices.Contains(glade.SceneIndex)) glade.gameObject.SetActive(false);
+            foreach (int index in _visibleIndices)
             {
-                if(!InView(Centre(i).y,Extent(i)))continue;
-                if(slot==_pool.Count)
+                RoadmapGladeGraphic selected = null;
+                foreach (var glade in _pool)
+                    if (glade.SceneIndex == index) { selected = glade; break; }
+                if (selected == null)
+                    foreach (var glade in _pool)
+                        if (!glade.gameObject.activeSelf) { selected = glade; break; }
+                if (selected == null)
                 {
-                    var rect=QcUi.Stretch(rectTransform,"RoadmapGladeSlot"+slot);
-                    var graphic=rect.gameObject.AddComponent<RoadmapGladeGraphic>();graphic.raycastTarget=false;
-                    graphic.material=material;_pool.Add(graphic);
+                    var rect = QcUi.Stretch(rectTransform, "RoadmapGladeSlot" + _pool.Count);
+                    selected = rect.gameObject.AddComponent<RoadmapGladeGraphic>();
+                    selected.raycastTarget = false; selected.material = material; _pool.Add(selected);
                 }
-                var glade=_pool[slot++];glade.gameObject.SetActive(true);glade.Configure(this,i);
+                selected.Configure(this, index); selected.gameObject.SetActive(true);
             }
-            for(int i=slot;i<_pool.Count;i++)_pool[i].gameObject.SetActive(false);
-            VisibleGlades=slot;_weather?.transform.SetAsLastSibling();
+            VisibleGlades = _visibleIndices.Count; _weather?.transform.SetAsLastSibling();
         }
         internal void PaintGlade(VertexHelper vh,int index,RoadmapGladeGraphic output)
         {
@@ -188,7 +209,10 @@ namespace QuietCamp.Presentation.UI
                 RoadmapPainter.Quad(vh,new Vector2(r.center.x,y),new Vector2(r.xMax,y),new Vector2(r.xMax,bottom),new Vector2(r.center.x,bottom),a,a*.88f,b*.88f,b);
             }
             // Trampled soil with mossy verges; muted by the local weather/light.
-            for(int i=0;i<(_scenes.Count-1)*18;i++)
+            int first = 0, last = _scenes.Count - 1;
+            while (first < last && Centre(first + 1).y > _visible.yMax + 35) first++;
+            while (last > first && Centre(last - 1).y < _visible.yMin - 35) last--;
+            for(int i=first*18;i<last*18;i++)
             {
                 var a=Node(i/18f,r);var b=Node((i+1)/18f,r);if(!InView(a.y,35)&&!InView(b.y,35))continue;
                 var moss=Terrain(a.y)*.78f;moss.a=.22f;

@@ -62,6 +62,15 @@ namespace QuietCamp.Presentation.World
         readonly Stack<Tile> _pool = new Stack<Tile>();
         readonly HashSet<Vector2Int> _wanted = new HashSet<Vector2Int>();
         readonly List<Vector2Int> _remove = new List<Vector2Int>();
+        static CozyVegetationLibrary _cachedLibrary;
+        static PlantShape[] _cachedPlants;
+        readonly Queue<Vector2Int> _pending = new Queue<Vector2Int>();
+        readonly List<Vector3> _buildVertices = new List<Vector3>(20000), _buildNormals = new List<Vector3>(20000);
+        readonly List<Color> _buildColors = new List<Color>(20000);
+        readonly List<Vector4> _buildRoots = new List<Vector4>(20000);
+        readonly List<int> _buildIndices = new List<int>(20000);
+        bool _deferred;
+        public bool InitialReady => _pending.Count == 0;
         readonly Plane[] _planes = new Plane[6];
         readonly Vector3[] _corners = new Vector3[8];
         Material _material;
@@ -91,16 +100,21 @@ namespace QuietCamp.Presentation.World
             get { foreach (var tile in _tiles.Values) foreach (var root in tile.richRoots) yield return transform.TransformPoint(root); }
         }
 
-        public void Configure(LevelData level, Camera camera)
+        public void Configure(LevelData level, Camera camera, bool deferred = false)
         {
             using var audit = PerformanceAudit.Measure("QC.VisibleForestFloor.Configure");
             if (!ReferenceEquals(_level, level)) {ReleaseTiles();_quality = -1;}
-            _level = level; _camera = camera;
+            _level = level; _camera = camera; _deferred = deferred;
             var library = CozyVegetationLibrary.Load();
             if (_plants == null && library != null && library.plants.Length >= 6)
             {
-                _plants = new PlantShape[library.plants.Length];
-                for (int i = 0; i < _plants.Length; i++) _plants[i] = new PlantShape(library.plants[i]);
+                if (_cachedLibrary != library || _cachedPlants == null)
+                {
+                    _cachedPlants = new PlantShape[library.plants.Length];
+                    for (int i = 0; i < _cachedPlants.Length; i++) _cachedPlants[i] = new PlantShape(library.plants[i]);
+                    _cachedLibrary = library;
+                }
+                _plants = _cachedPlants;
             }
             if (_material == null)
             {
@@ -119,6 +133,14 @@ namespace QuietCamp.Presentation.World
         {
             using var audit = PerformanceAudit.Measure("QC.VisibleForestFloor.LateUpdate");
             if (_camera == null || _level == null) return;
+            if (_pending.Count > 0)
+            {
+                // One initial tile per frame under the transition cover. This
+                // bounds each upload; route readiness waits for the complete floor.
+                AddTile(_pending.Dequeue());
+                if (_pending.Count == 0) _deferred = false;
+                return;
+            }
             // Budget micro-motion checks, but a resize, zoom, diorama turn or
             // large camera move cannot leave newly visible ground bare for .2s.
             bool urgent=_camera.projectionMatrix!=_checkedProjection||transform.localToWorldMatrix!=_lastGround
@@ -132,8 +154,9 @@ namespace QuietCamp.Presentation.World
             {
                 if(!ForestGroundView.TryBounds(_camera,transform,_corners,out var footprint,SeasonProfile.For(_level).Winter?2.3f:ForestGroundView.MaximumHeight))return;
                 // Motion inside the padded footprint does not rebuild/cull tile sets.
-                if(transform.localToWorldMatrix!=_lastGround||footprint.xMin<_coverage.xMin||footprint.xMax>_coverage.xMax||footprint.yMin<_coverage.yMin||footprint.yMax>_coverage.yMax)RefreshNow();
-                _lastView=view;_quality=QuietCampBootstrap.ServicesRef?.EffectiveQuality??1;
+                if(_quality != (QuietCampBootstrap.ServicesRef?.EffectiveQuality ?? 1)||footprint.xMin<_coverage.xMin||footprint.xMax>_coverage.xMax||footprint.yMin<_coverage.yMin||footprint.yMax>_coverage.yMax)RefreshNow();
+                _lastView=view;_lastGround=transform.localToWorldMatrix;
+                _quality=QuietCampBootstrap.ServicesRef?.EffectiveQuality??1;
             }
         }
         public void RefreshNow()
@@ -160,12 +183,19 @@ namespace QuietCamp.Presentation.World
             _remove.Clear();
             foreach (var pair in _tiles) if (!_wanted.Contains(pair.Key)) _remove.Add(pair.Key);
             foreach (var key in _remove) { var tile = _tiles[key]; tile.root.SetActive(false); _pool.Push(tile); _tiles.Remove(key); }
+            _pending.Clear();
             foreach (var key in _wanted)
             {
                 if (_tiles.ContainsKey(key)) continue;
-                var tile = _pool.Count > 0 ? _pool.Pop() : CreateTile();
-                Build(tile, key); tile.root.SetActive(true); _tiles.Add(key, tile);
+                if (_deferred && _tiles.Count == 0) _pending.Enqueue(key);
+                else AddTile(key);
             }
+        }
+        void AddTile(Vector2Int key)
+        {
+            if (_tiles.ContainsKey(key)) return;
+            var tile = _pool.Count > 0 ? _pool.Pop() : CreateTile();
+            Build(tile, key); tile.root.SetActive(true); _tiles.Add(key, tile);
         }
         Matrix4x4 _checkedProjection;
         Vector3 _checkedPosition;
@@ -195,6 +225,7 @@ namespace QuietCamp.Presentation.World
         }
         void ReleaseTiles()
         {
+            _pending.Clear();
             foreach (var tile in _tiles.Values) { tile.root.SetActive(false); _pool.Push(tile); }
             _tiles.Clear();
         }
@@ -214,7 +245,9 @@ namespace QuietCamp.Presentation.World
             tile.root.name = $"Forest floor {key.x},{key.y}";
             var origin = new Vector3(key.x * _tileSize, 0, key.y * _tileSize); tile.root.transform.localPosition = origin;
             var rng = new System.Random(unchecked(_level.decorSeed * 491 + key.x * 73856093 ^ key.y * 19349663));
-            var vertices = new List<Vector3>(); var normals = new List<Vector3>(); var colors = new List<Color>(); var roots = new List<Vector4>(); var indices = new List<int>();
+            var vertices = _buildVertices; var normals = _buildNormals; var colors = _buildColors;
+            var roots = _buildRoots; var indices = _buildIndices;
+            vertices.Clear(); normals.Clear(); colors.Clear(); roots.Clear(); indices.Clear();
             tile.richRoots.Clear();
             float Next() => (float)rng.NextDouble();
             void Triangle(Vector3 a, Vector3 b, Vector3 c, Color color, Vector4 plant)

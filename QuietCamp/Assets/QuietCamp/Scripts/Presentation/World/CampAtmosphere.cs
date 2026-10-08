@@ -101,6 +101,8 @@ namespace QuietCamp.Presentation.World
             remove { if (_windSim != null) _windSim.GustStarted -= value; }
         }
 
+        VisibleForestFloor _floor;
+        public bool InitialWorldReady => _floor == null || _floor.InitialReady;
         public void Configure(Camera camera, LevelData level, RectTransform viewport,
             AtmosphereCatalog.Profile profile, Func<bool> reducedMotion, int qualityTier = 1,
             Transform decorRoot = null, Func<int> qualitySource = null)
@@ -173,7 +175,8 @@ namespace QuietCamp.Presentation.World
             {
                 var floorRoot = new GameObject("VisibleForestFloor");
                 floorRoot.transform.SetParent(decorRoot, false);
-                floorRoot.AddComponent<VisibleForestFloor>().Configure(level, camera);
+                _floor = floorRoot.AddComponent<VisibleForestFloor>();
+                _floor.Configure(level, camera, UnityEngine.Application.isPlaying);
             }
             var sunlightRoot = new GameObject("CanopyLighting");
             sunlightRoot.transform.SetParent(transform, false);

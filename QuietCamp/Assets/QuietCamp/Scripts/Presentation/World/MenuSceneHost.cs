@@ -42,7 +42,7 @@ namespace QuietCamp.Presentation.World
         /// <summary>Set at the end of Start — the readiness signal the
         /// ScreenRouter waits for before revealing the menu.</summary>
         public bool IsReady { get; private set; }
-        public bool UiReady => IsReady && (_screens?.UiReady ?? false);
+        public bool UiReady => IsReady && (_atmosphere?.InitialWorldReady ?? true) && (_screens?.UiReady ?? false);
         public float VisibleDimming => _screens != null && (_screens.Current=="Main"||_screens.Current=="Settings") ? .55f : 0;
 
         public void Configure(GameServices services, ScreenRouter router)

@@ -81,6 +81,8 @@ namespace QuietCamp.Presentation.UI
             using var audit = PerformanceAudit.Measure("QC.RoadmapPainter.Model");
             var model=prop.Geometry??_library.Get(prop.Asset);if(model==null)return;
             var rotation=Quaternion.Euler(0,prop.Yaw,0);
+            bool snowCovered = scene.Winter && prop.Sway;
+            float snow = snowCovered ? scene.SnowDepth(prop.Position) : 0;
             for(int i=0;i<model.Positions.Length;i+=3)
             {
                 var n=model.Normals[i];
@@ -90,9 +92,8 @@ namespace QuietCamp.Presentation.UI
                 var a=rotation*Scaled(model.Positions[i],prop)+prop.Position;
                 var b=rotation*Scaled(model.Positions[i+1],prop)+prop.Position;
                 var c=rotation*Scaled(model.Positions[i+2],prop)+prop.Position;
-                if(scene.Winter&&prop.Sway)
+                if(snowCovered)
                 {
-                    float snow=scene.SnowDepth(prop.Position);
                     if(a.y<snow&&b.y<snow&&c.y<snow)continue;
                     // Snow-buried roots terminate at the local surface instead of hanging over it.
                     a.y=Mathf.Max(a.y,snow);b.y=Mathf.Max(b.y,snow);c.y=Mathf.Max(c.y,snow);

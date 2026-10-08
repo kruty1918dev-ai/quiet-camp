@@ -7,7 +7,7 @@ namespace QuietCamp.Presentation
     /// <summary>Curved, folded leaves carried by a shared breeze. One UI mesh,
     /// no per-leaf objects, textures or frame allocations.</summary>
     [RequireComponent(typeof(CanvasRenderer))]
-    public sealed class LeafCurtainGraphic : MaskableGraphic
+    public sealed partial class LeafCurtainGraphic : MaskableGraphic
     {
         public float Travel { get; private set; }
         float _elapsed;
@@ -16,7 +16,10 @@ namespace QuietCamp.Presentation
 
         public void ConfigureQuality(int tier)
         {
-            _segments = tier <= 0 ? 6 : tier == 1 ? 8 : 10;
+            int segments = tier <= 0 ? 6 : tier == 1 ? 8 : 10;
+            if (_segments == segments) return;
+            _segments = segments;
+            _gpuVertices = null;
             SetVerticesDirty();
         }
 
@@ -24,18 +27,29 @@ namespace QuietCamp.Presentation
         // continues across loading so neither shape nor orientation jumps.
         public void SetFrame(float travel, Color tint, float elapsed = 0f)
         {
+            using var audit = PerformanceAudit.Measure("QC.LeafCurtainGraphic.SetFrame");
             travel = Mathf.Clamp(travel, 0f, 2f);
             if (Travel == travel && _tint == tint && _elapsed == elapsed) return;
+            bool visibilityChanged = (Travel > 0f && Travel < 2f) != (travel > 0f && travel < 2f);
             Travel = travel;
             _tint = tint;
             _elapsed = elapsed;
-            SetVerticesDirty();
+            if (UpdateGpuFrame())
+            {
+                if (visibilityChanged) SetVerticesDirty();
+            }
+            else SetVerticesDirty();
         }
 
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             using var audit = PerformanceAudit.Measure("QC.LeafCurtainGraphic.OnPopulateMesh");
             vh.Clear();
+            if (UpdateGpuFrame())
+            {
+                PopulateGpuMesh(vh);
+                return;
+            }
             if (Travel <= 0f || Travel >= 2f) return;
             var rect = rectTransform.rect;
             if (rect.width <= 0f || rect.height <= 0f) return;

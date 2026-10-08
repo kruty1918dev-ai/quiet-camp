@@ -16,6 +16,13 @@ namespace QuietCamp.Tests
 {
     public class ForestCoveragePlayModeTests
     {
+        [SetUp] public void GuardPerformanceStorage()
+        {
+#if UNITY_EDITOR
+            if (UnityEditor.SessionState.GetBool("QcPerf.Active", false) && !UnityEngine.Application.productName.StartsWith("QuietCampPerfQA"))
+                Assert.Ignore("Performance driver requires isolated QA saves.");
+#endif
+        }
         static IEnumerator Frames(int count) { while (count-- > 0) yield return null; }
         static void Size(int width, int height) => typeof(ScreenshotPlayModeTest).GetMethod("SetGameViewSize", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { width, height });
         static IEnumerator Shot(string name) => (IEnumerator)typeof(ScreenshotPlayModeTest).GetMethod("Shot", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { Path.Combine(Directory.GetCurrentDirectory(), "Screenshots/ForestCoverage"), name });
@@ -32,9 +39,15 @@ namespace QuietCamp.Tests
             var deadline = Time.realtimeSinceStartup + 25;
             while (Object.FindAnyObjectByType<QuietCampBootstrap>()?.StartupReady != true && Time.realtimeSinceStartup < deadline) yield return null;
             var services = QuietCampBootstrap.ServicesRef; Assert.NotNull(services);
+            services.Tutorial.Skip(); services.Tutorial.MarkMenuIntroSeen();
+            services.Progression.MarkCompleted("QC001"); services.Progression.MarkCompleted("QC002");
+            var adaptive = Object.FindAnyObjectByType<AdaptiveCampQuality>(); if (adaptive != null) adaptive.enabled = false;
             services.PendingLevelId = "QC003"; services.ReducedMotion = true; services.Settings.textScale = 1;
             services.Save.Session = new QuietCamp.Application.SessionSaveData();
-            yield return SceneManager.LoadSceneAsync("Camp"); yield return Frames(40);
+            yield return SceneManager.LoadSceneAsync("Camp");
+            deadline = Time.realtimeSinceStartup + 20;
+            while (CampSceneHost.Current?.UiReady != true && Time.realtimeSinceStartup < deadline) yield return null;
+            Assert.IsTrue(CampSceneHost.Current?.UiReady == true, "Camp world and HUD did not finish initialization.");
             var host = CampSceneHost.Current; var level = host.Session.Level;
             var sourceBefore = JsonUtility.ToJson(level); var camera = Camera.main;
             host.Session.DebugApplyWitness(); host.Session.Select(null); yield return Frames(10);

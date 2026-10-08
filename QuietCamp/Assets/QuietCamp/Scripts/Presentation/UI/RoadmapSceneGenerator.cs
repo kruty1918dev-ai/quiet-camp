@@ -35,8 +35,19 @@ namespace QuietCamp.Presentation.UI
             public bool Night=>Light.Id=="night";
             public bool Winter=>Level.environment?.seasonId=="winter";
             public float Snowfall=>Winter?Mathf.Lerp(.16f,.72f,Weather.Cloud):0;
-            public SeasonProfile Season=>SeasonProfile.For(Level);
-            public SeasonPalette Palette=>Season.Palette;
+            SeasonProfile _season;
+            SeasonPalette _palette;
+            string _seasonId;
+            int _seasonOrder = int.MinValue;
+            void EnsurePalette()
+            {
+                string id = Level.environment?.seasonId;
+                if (_seasonOrder == Level.number && _seasonId == id) return;
+                _seasonId = id; _seasonOrder = Level.number; _lightingCloud = -1;
+                _season = SeasonProfile.For(Level); _palette = _season.Palette;
+            }
+            public SeasonProfile Season { get { EnsurePalette(); return _season; } }
+            public SeasonPalette Palette { get { EnsurePalette(); return _palette; } }
             public Color Ground=>Tint(Color.Lerp(Palette.GrassDark,Palette.GrassLight,.65f),Vector3.up);
             public Color PlantColor(Color source,Prop prop)
                 =>prop.Sway?Palette.Plant(source,SeasonProfile.Variation(prop.Position,Level.decorSeed),prop.Asset.Contains("pine")):source;
@@ -51,11 +62,20 @@ namespace QuietCamp.Presentation.UI
                     :CampWeatherTimeline.Initial(Level.environment.weatherId);
                 if(Winter)Weather=new CampWeatherTimeline.State(Weather.Cloud,0);
             }
+            float _lightingCloud = -1;
+            AtmosphereCatalog.Profile _lightingProfile;
+            Color _ambientLighting, _directLighting;
             public Color Tint(Color source,Vector3 normal,float occlusion=1)
             {
+                EnsurePalette();
+                if (_lightingCloud != Weather.Cloud || _lightingProfile != Light)
+                {
+                    _lightingCloud = Weather.Cloud; _lightingProfile = Light;
+                    _ambientLighting = _palette.Ambient(Light.Ambient) * (Night ? .36f : .58f);
+                    _directLighting = Light.Sun * _palette.SunTint;
+                }
                 float direct=Mathf.Max(0,Vector3.Dot(normal,Sun))*Light.SunIntensity*(1-.65f*Weather.Cloud);
-                float ambient=Night?.36f:.58f;
-                var light=Palette.Ambient(Light.Ambient)*ambient+Light.Sun*Palette.SunTint*(direct*.46f);
+                var light=_ambientLighting+_directLighting*(direct*.46f);
                 light.r+=.13f;light.g+=.13f;light.b+=.13f;light.a=1;
                 var result=source*light;result*=occlusion;result.a=source.a;
                 return result;

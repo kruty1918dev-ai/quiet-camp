@@ -56,7 +56,7 @@ namespace QuietCamp.Presentation.World
         public CampSession Session => _session;
         public CampAtmosphere Atmosphere => _atmosphere;
         public bool GameplayActive => IsReady && !_completed && !(_hud?.HasModalOpen ?? false) && !(_router?.IsBusy ?? false) && !_services.MonetizationBusy;
-        public bool UiReady => IsReady && (_hud?.UiReady ?? false);
+        public bool UiReady => IsReady && (_atmosphere?.InitialWorldReady ?? true) && (_hud?.UiReady ?? false);
 
         public void Configure(GameServices services, ScreenRouter router)
         {

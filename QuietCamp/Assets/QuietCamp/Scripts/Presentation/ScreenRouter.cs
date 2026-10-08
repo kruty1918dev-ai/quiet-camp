@@ -14,7 +14,7 @@ namespace QuietCamp.Presentation
     /// and the same gentle dive serves every direction.
     ///
     /// Readiness is an explicit contract, not a fixed number of yields:
-    /// the scene host must report IsReady (world built, HUD laid out, camera
+    /// the scene host must report UiReady (world built, HUD laid out, camera
     /// fitted, phase applied) and at least one frame must render under the
     /// cover before Reveal begins. A pending load is serialized — a timed-out
     /// operation is still awaited so it cannot swap the scene underneath a
@@ -122,8 +122,8 @@ namespace QuietCamp.Presentation
                 // the host-ready window for a scene nobody will reveal.
                 if (dive.Current == FoliageDiveTransition.State.Idle) return false;
                 bool ready = sceneName == "Camp"
-                    ? CampSceneHost.Current != null && CampSceneHost.Current.IsReady
-                    : MenuSceneHost.Current != null && MenuSceneHost.Current.IsReady;
+                    ? CampSceneHost.Current != null && CampSceneHost.Current.UiReady
+                    : MenuSceneHost.Current != null && MenuSceneHost.Current.UiReady;
                 if (ready)
                 {
                     int frame = Time.renderedFrameCount;

@@ -1,0 +1,70 @@
+{
+  "result": "Passed",
+  "total": 8,
+  "passed": 8,
+  "failed": 0,
+  "skipped": 0,
+  "durationSeconds": 66.1625987,
+  "tests": [
+    {
+      "name": "QuietCamp.Tests.FoliageDivePlayModeTests.Curtain_SubmitsVisibleMeshToCanvas",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.FoliageDivePlayModeTests.Recover_StopsTransitionSoundWithoutStoppingWorldRustle",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.FoliageDivePlayModeTests.RecoverDuringCover_NeverEntersCoveredLoading",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.FoliageDivePlayModeTests.ReducedMotion_HidesLeavesAndKeepsCamera",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.FoliageDivePlayModeTests.Reveal_RetractsLeavesAndRestoresInput",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.ForestCoveragePlayModeTests.DetailedPlantsContinueThroughVisibleForestAndReuseTilesWhenCameraMoves",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.OptimizationPlayModeTests.CachedMapRetainsGeometryDuringScrollAndRefreshesWeather",
+      "result": "Passed"
+    },
+    {
+      "name": "QuietCamp.Tests.OptimizationPlayModeTests.GpuLeavesCoverViewportKeepMovingAndReuseGeometry",
+      "result": "Passed"
+    }
+  ],
+  "firstAttempt": {
+    "result": "6 Passed / 1 Failed",
+    "reason": "Legacy forest QA fixture entered locked QC003 without initial campaign progress; fixture now seeds QC001/QC002 and waits for UiReady."
+  },
+  "isolation": "Distinct QuietCampPerfQA identity; existing Editor only; no player build or ADB command",
+  "images": [
+    {
+      "path": "leaves-tier2-covered.png",
+      "sha256": "e79903fd988698cc6acee3d4b177b70e9e52efffe16e1cd4bf39e738510bbee2",
+      "width": 720,
+      "height": 1600,
+      "purpose": "Native shader full-coverage QA on magenta diagnostic background; 17x17 sampling, 5 breeze times per tier."
+    },
+    {
+      "path": "leaves-tier1-covered.png",
+      "sha256": "6a844110492066cc8b50ad80f7ecb49172777c89edb6fc79a4f5e3fd144a148b",
+      "width": 720,
+      "height": 1600,
+      "purpose": "Native shader full-coverage QA on magenta diagnostic background; 17x17 sampling, 5 breeze times per tier."
+    },
+    {
+      "path": "leaves-tier0-covered.png",
+      "sha256": "d37f83bb46666f4aafb4fa0435f93cbee585ae79c12720f91d81e85d21a353e5",
+      "width": 720,
+      "height": 1600,
+      "purpose": "Native shader full-coverage QA on magenta diagnostic background; 17x17 sampling, 5 breeze times per tier."
+    }
+  ]
+}
