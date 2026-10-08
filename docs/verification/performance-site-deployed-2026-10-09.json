@@ -1,0 +1,113 @@
+{
+  "result": "Passed",
+  "url": "https://kruty1918dev-ai.github.io/quiet-camp/performance.html",
+  "scenarios": [
+    "Primary native dataset, table and default real-route timeline load",
+    "Scenario search, empty state, capped scale and frame hover",
+    "Supplemental map dataset, gentle-scroll timeline, source methods and downloads",
+    "Responsive canvas/table at 320–1440 pixels and all scientific PNGs load",
+    "No-JavaScript report links and three static plots"
+  ],
+  "pageErrors": [],
+  "checkedUtc": "2026-10-08T22:28:52.073095+00:00",
+  "sourceCommit": "20ff0166296d6cab20216b82ac5096a6b19e69fa",
+  "files": [
+    {
+      "path": "index.html",
+      "http": 200,
+      "sha256": "8f4519c52dcca48a404c54292879739b4b55f30456df465d6c30a5b7ca96f4cd",
+      "matchesLocal": true
+    },
+    {
+      "path": "site-i18n.json",
+      "http": 200,
+      "sha256": "48b0bc6d35da2d2026f0641557241f6439db87c19789dfb264f61dea5ed1836c",
+      "matchesLocal": true
+    },
+    {
+      "path": "performance.html",
+      "http": 200,
+      "sha256": "57cdf76c7a19b599ae10ab27bdfc634a518ffbb2099475e910b1000166695fb9",
+      "matchesLocal": true
+    },
+    {
+      "path": "performance.js",
+      "http": 200,
+      "sha256": "0833d7cd5abb36cad7c1073eddf7c68e7d5ac872f20e2b463e3b63e4835ea31f",
+      "matchesLocal": true
+    },
+    {
+      "path": "performance/2026-10-09/summary.json",
+      "http": 200,
+      "sha256": "6f1c7d50cdfb82096dbe23f41ff3f644dda74ade1e551dd9b78d643cc12068b2",
+      "matchesLocal": true
+    },
+    {
+      "path": "performance/2026-10-09/frames.csv",
+      "http": 200,
+      "sha256": "595df990c16a08853b63f17ecdc6b97e1ce1eb81ee6d81f54cde43c8563b58cc",
+      "matchesLocal": true
+    },
+    {
+      "path": "performance/2026-10-09/editor-audit.json.gz",
+      "http": 200,
+      "sha256": "ee3a743eeef360cfde830607d85740edad9d5567603f1ec714203f81231190b9",
+      "matchesLocal": true
+    },
+    {
+      "path": "performance/2026-10-09/leaves-and-routes.png",
+      "http": 200,
+      "sha256": "5a04573a0127cac56de8f2fb4993b33cf92e4a12b9ad61ad9a4f228e51f16c1e",
+      "matchesLocal": true
+    },
+    {
+      "path": "performance/2026-10-09/transition-timeline.png",
+      "http": 200,
+      "sha256": "1593829baf7a3455630d22f06522051071346fad1c17690f32acdb76baa95f4c",
+      "matchesLocal": true
+    },
+    {
+      "path": "performance/2026-10-09/steady-windows.png",
+      "http": 200,
+      "sha256": "8049773ebd63ac5b1a324916ff0fc5cc3e556bf7fe32447228b286d66ea4ed2e",
+      "matchesLocal": true
+    },
+    {
+      "path": "performance/2026-10-09/native-result.json",
+      "http": 200,
+      "sha256": "8a6b251dd5b509ea70bd75c92523c5aba5028d191e45a779587f63c22bd17c87",
+      "matchesLocal": true
+    },
+    {
+      "path": "performance/2026-10-09/foliage-tests.json",
+      "http": 200,
+      "sha256": "0d7b1abe737c809377414a4694b3188059d16a58cfbd0dac338ec5d3f0b9124c",
+      "matchesLocal": true
+    },
+    {
+      "path": "performance/2026-10-09/roadmap/summary.json",
+      "http": 200,
+      "sha256": "d84f1e5887d8a416d156f68dd1526c0c990260392e07ee99319ecf776c8c252b",
+      "matchesLocal": true
+    },
+    {
+      "path": "performance/2026-10-09/roadmap/frames.csv",
+      "http": 200,
+      "sha256": "8e20e32ceb1fd00395264852a402f30261f6c9ee7014980c0b6d6045cdaee78b",
+      "matchesLocal": true
+    },
+    {
+      "path": "performance/2026-10-09/roadmap/editor-audit.json.gz",
+      "http": 200,
+      "sha256": "0d5c417db4b768b40caf826b5ca9a1c0624e114040fb53c08372f829eb1c63e5",
+      "matchesLocal": true
+    },
+    {
+      "path": "performance/2026-10-09/roadmap/native-result.json",
+      "http": 200,
+      "sha256": "501aa35bcdceb35eb4076445f2001f5280cc339a2f375b2e5356ba4dabf321c0",
+      "matchesLocal": true
+    }
+  ],
+  "kind": "Published GitHub Pages performance report; all browser scenarios and exact artifact bytes verified"
+}
