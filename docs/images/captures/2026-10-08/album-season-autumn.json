@@ -1,0 +1,34 @@
+{
+  "kind": "native-unity-game-view",
+  "capturedUtc": "2026-10-08T21:17:04.1815710Z",
+  "unityVersion": "6000.6.2f1",
+  "width": 1280,
+  "height": 800,
+  "scene": "MainMenu",
+  "levelId": "gen:qc_camp:9",
+  "qualityProfile": "High",
+  "graphicsDevice": "OpenGLCore",
+  "cameraOrthographic": true,
+  "cameraEuler": [
+    52.0000076,
+    225.0,
+    0.0
+  ],
+  "qaProduct": "QuietCampDocsQA20261008e",
+  "syntheticProgress": true,
+  "fixture": "GithubDocumentationCaptureTests",
+  "source": {
+    "runtimeSourceCommit": "e2373e1fbe93038671d900bd9522014a585272ff",
+    "fixtureCommit": "3fe5b666b0a63ec4222f3dd776e13f5fefcb892a",
+    "runtimeDirtyInputSha256": {
+      "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/level_summaries.json": "ebd884c4b84a95d7f71de897a0ea2170d850bb89924ece29842badf8269971f9",
+      "QuietCamp/Assets/QuietCamp/Settings/URP/UniversalRenderPipelineGlobalSettings.asset": "08f1050e1513f8d6e4be11e61a18e9fcba63c9c81aa00338d36cbaae14625f5d"
+    },
+    "catalog": "main legacy renderer; separate art/native-finish composition is not activated",
+    "captureRevision": "context-panels-and-native-album-quiet-seasons",
+    "captureFixtureSourceSha256": "d6a490670e9490884d2f37cd6d64af3638e8591c48903027664239d578512610",
+    "capturePhase": "context"
+  },
+  "realStoreConnected": false,
+  "devicePerformanceMeasured": false
+}

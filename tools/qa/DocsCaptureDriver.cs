@@ -32,7 +32,9 @@ static class DocsCaptureDriver
             && !EditorApplication.isCompiling && !EditorApplication.isUpdating
             && EditorApplication.timeSinceStartup > SessionState.GetFloat(Key + "RestoreAfter", float.MaxValue)) Restore();
         var path = Path.Combine(Control, "request.json");
-        if (!File.Exists(path) || EditorApplication.isCompiling || EditorApplication.isUpdating || api == null) return;
+        if (!File.Exists(path) || EditorApplication.isCompiling || EditorApplication.isUpdating) return;
+        // PlayMode cleanup may destroy the transient Editor API object. Recreate it for a later request.
+        if (api == null) Register();
         if (EditorApplication.isPlayingOrWillChangePlaymode || SessionState.GetBool(Key + "Active", false)) return;
         if (EditorSceneManager.GetActiveScene().isDirty)
         { File.Move(path, Path.Combine(Control, "refused-unsaved-scene.json")); Debug.LogError("[QC-DOCS] Preserve the unsaved scene before capture."); return; }

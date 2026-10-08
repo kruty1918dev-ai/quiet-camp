@@ -1,0 +1,404 @@
+{
+  "captureDate": "2026-10-08",
+  "kind": "native-unity-game-view",
+  "syntheticQaProgress": true,
+  "count": 44,
+  "images": [
+    {
+      "png": "00-boot-policy.png",
+      "metadata": "00-boot-policy.json",
+      "sha256": "a0834cda30a4aba060d748c135bbdf7e2fddf52e98539d63d6451c0a7781e4dc",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:20:08.9018730Z",
+      "levelId": null
+    },
+    {
+      "png": "01-main-menu.png",
+      "metadata": "01-main-menu.json",
+      "sha256": "84b25d997934174ccf39f066287d6d77005420bb23004b73e4cd0a95f9f95620",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:20:18.6398110Z",
+      "levelId": null
+    },
+    {
+      "png": "02-settings-home.png",
+      "metadata": "02-settings-home.json",
+      "sha256": "f1fe10fc61e085bacce421c2c79df892e90f198fcf6e8a32829707b6416d3abe",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:20:20.5158520Z",
+      "levelId": null
+    },
+    {
+      "png": "03-economy.png",
+      "metadata": "03-economy.json",
+      "sha256": "34256121faa3d20365797a3b52d0750567115263e51ea75c4296bd52e8fceb80",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:20:52.8466440Z",
+      "levelId": null
+    },
+    {
+      "png": "04-roadmap.png",
+      "metadata": "04-roadmap.json",
+      "sha256": "f965452bdd35abdcf8c3838743c3fe06db943274de9c0a60ce367d885a9b24d9",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:20:58.5124280Z",
+      "levelId": null
+    },
+    {
+      "png": "05-journeys.png",
+      "metadata": "05-journeys.json",
+      "sha256": "2aba8d672f7cd8e72e3b8c5a6cbd186a90b007a63014b2e94b05e9f9374b9cb5",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:21:00.6636780Z",
+      "levelId": null
+    },
+    {
+      "png": "06-journey-preview.png",
+      "metadata": "06-journey-preview.json",
+      "sha256": "b8f486fc23257a583e32953c52b932037428cf1c2b606ceb89233872205ca0b0",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:21:03.4316090Z",
+      "levelId": null
+    },
+    {
+      "png": "07-bonus-preview.png",
+      "metadata": "07-bonus-preview.json",
+      "sha256": "ec61beba0ebc1d8181f69a7e221b1ba3e39d5674a37699a8dcd359bed4f6d641",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:21:10.4876340Z",
+      "levelId": null
+    },
+    {
+      "png": "08-gameplay-guest-card.png",
+      "metadata": "08-gameplay-guest-card.json",
+      "sha256": "0c2c156507389b6017e3891ce2375ccaeff102dec86e6229e0650d8b16463594",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:21:15.3683830Z",
+      "levelId": "QC007"
+    },
+    {
+      "png": "09-guest-list.png",
+      "metadata": "09-guest-list.json",
+      "sha256": "ad9258a86a0d11fa0a81018bed7845c10f52b0bcfb4b6be424105fb76b41f0b6",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:21:17.5059100Z",
+      "levelId": "QC007"
+    },
+    {
+      "png": "10-gameplay-ready.png",
+      "metadata": "10-gameplay-ready.json",
+      "sha256": "fd84c0169f9c1749b264abaabd311ecb429e8e4ae6091485be6f0b38cc9e517c",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:21:21.4040710Z",
+      "levelId": "QC007"
+    },
+    {
+      "png": "11-pause.png",
+      "metadata": "11-pause.json",
+      "sha256": "00b9f260c8b886bbebea1d7372acee194bde883180abc710b8628b08095f9ebc",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:21:23.5671010Z",
+      "levelId": "QC007"
+    },
+    {
+      "png": "12-wish-legend.png",
+      "metadata": "12-wish-legend.json",
+      "sha256": "8d3b0fbfeed55996273bd4a26b5ff3d0b7d9df71da18d992d7fe5eee38ee5a43",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:21:25.6810680Z",
+      "levelId": "QC007"
+    },
+    {
+      "png": "13-camp-settings.png",
+      "metadata": "13-camp-settings.json",
+      "sha256": "c5c0a9731c6a7a54ce69d7be2977983e63570a267b197842b6a177d663320c6b",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:21:29.9894170Z",
+      "levelId": "QC007"
+    },
+    {
+      "png": "14-completion.png",
+      "metadata": "14-completion.json",
+      "sha256": "3921fba8a05d689ed3b25d4dbbbb8bfbfc49c6e385f4136cb5010f2986e20c30",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:21:38.4137570Z",
+      "levelId": "QC007"
+    },
+    {
+      "png": "15-album.png",
+      "metadata": "15-album.json",
+      "sha256": "23891b2d8a0093fe31b431abd19f0484232f163291f56f1733b65d02df3c91d9",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:21:44.7927150Z",
+      "levelId": "QC007"
+    },
+    {
+      "png": "16-album-quiet.png",
+      "metadata": "16-album-quiet.json",
+      "sha256": "d7c0231878d4513a844cb19a031c08a7659074b4ec7913fced76d2500b0ee015",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:21:46.2249350Z",
+      "levelId": "QC007"
+    },
+    {
+      "png": "album-season-autumn.png",
+      "metadata": "album-season-autumn.json",
+      "sha256": "560c60d0b211a6d8ce98c31e566ee4e70cbc03b7d082fdfa218efd87dfd8128e",
+      "width": 1280,
+      "height": 800,
+      "capturedUtc": "2026-10-08T21:17:04.1815710Z",
+      "levelId": "gen:qc_camp:9"
+    },
+    {
+      "png": "album-season-spring.png",
+      "metadata": "album-season-spring.json",
+      "sha256": "b95387399cce6048f7ec92ec52e3b973225b4f9ebd038be1a61839fb0ab32807",
+      "width": 1280,
+      "height": 800,
+      "capturedUtc": "2026-10-08T21:16:47.2842220Z",
+      "levelId": "QC001"
+    },
+    {
+      "png": "album-season-summer.png",
+      "metadata": "album-season-summer.json",
+      "sha256": "0e4176438be825856afacb559159f6faf6c3ebaed3d38ee04580e7cb68e52b26",
+      "width": 1280,
+      "height": 800,
+      "capturedUtc": "2026-10-08T21:16:56.2366880Z",
+      "levelId": "QC007"
+    },
+    {
+      "png": "album-season-winter.png",
+      "metadata": "album-season-winter.json",
+      "sha256": "09638fb6afdf4f307f3014c901ce5ac84de48c42d36e96d2df853b3cf3861392",
+      "width": 1280,
+      "height": 800,
+      "capturedUtc": "2026-10-08T21:17:12.3864820Z",
+      "levelId": "gen:qc_camp:14"
+    },
+    {
+      "png": "context-data-details.png",
+      "metadata": "context-data-details.json",
+      "sha256": "01de4101f9c553b55df007c1939c4fb54925ec4cb2df724e5a06a622620b4010",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:16:20.9068720Z",
+      "levelId": null
+    },
+    {
+      "png": "context-erase-confirm.png",
+      "metadata": "context-erase-confirm.json",
+      "sha256": "68d9f366d7d1e917a340f9811abafc3142bb8e2afe49ef3540e70e2d692a27ad",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:16:25.4226490Z",
+      "levelId": null
+    },
+    {
+      "png": "context-exchange-confirm.png",
+      "metadata": "context-exchange-confirm.json",
+      "sha256": "8e22ccd74dbe721979301d1bfd18692e391938d4c3e4f78abe0720e934ff595e",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:16:28.5207770Z",
+      "levelId": null
+    },
+    {
+      "png": "context-hint.png",
+      "metadata": "context-hint.json",
+      "sha256": "f21a71423454caa05654030eae26264f78211af37aa61673ded90ab90c2585cc",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:16:08.5832760Z",
+      "levelId": "QC007"
+    },
+    {
+      "png": "context-history.png",
+      "metadata": "context-history.json",
+      "sha256": "749320541ec14833bb7ac58af24d01653b5f1946c83881d6b069dd0955b19ffe",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:16:11.8994670Z",
+      "levelId": "QC007"
+    },
+    {
+      "png": "context-journey-confirm.png",
+      "metadata": "context-journey-confirm.json",
+      "sha256": "68bd8cf85a77f663e0b97fe39023627e8aba267486dc66a828cfd6a0e422920f",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:16:38.5091300Z",
+      "levelId": null
+    },
+    {
+      "png": "context-main-menu-clean.png",
+      "metadata": "context-main-menu-clean.json",
+      "sha256": "512f71a3b320f3b393ad63d01988747abdd07a45d7b9211b98166a765c0d9717",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:16:14.8874120Z",
+      "levelId": null
+    },
+    {
+      "png": "context-reset-confirm.png",
+      "metadata": "context-reset-confirm.json",
+      "sha256": "76e282fedc24681aad778b23c7d80ad5d7c054cbd2783b5d4ba45c5851c867ce",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:16:22.4056590Z",
+      "levelId": null
+    },
+    {
+      "png": "context-selected-tent.png",
+      "metadata": "context-selected-tent.json",
+      "sha256": "fc4935bfb6e653b0b6f695b83bd2aef5b2969ffdb39151150b5204653fded994",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:16:10.2575580Z",
+      "levelId": "QC007"
+    },
+    {
+      "png": "context-tutorial-skip.png",
+      "metadata": "context-tutorial-skip.json",
+      "sha256": "883e7c55ef30632470d79f4a89c7fca882b3d9b4e6d526d96659de18aa00177c",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:16:02.4487660Z",
+      "levelId": "QC001"
+    },
+    {
+      "png": "context-tutorial.png",
+      "metadata": "context-tutorial.json",
+      "sha256": "2e8367d04320c1bed5ffc764fcf1509ce1beb668828eb16122c4f3a035eaab2c",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:16:00.8716410Z",
+      "levelId": "QC001"
+    },
+    {
+      "png": "privacy-analytics.png",
+      "metadata": "privacy-analytics.json",
+      "sha256": "391e9a5093cb4e3d9bfcfd3d7d7bd7bea36f7449b8e1a3443520867ae056fed4",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:20:39.8220680Z",
+      "levelId": null
+    },
+    {
+      "png": "privacy-data.png",
+      "metadata": "privacy-data.json",
+      "sha256": "f69e044717ff41a9a35c678b1ceb3db3a5f717b34b04eb4848984d52c596bf59",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:20:36.2187070Z",
+      "levelId": null
+    },
+    {
+      "png": "privacy-documents.png",
+      "metadata": "privacy-documents.json",
+      "sha256": "3bddc7a564c276184e2bb8180076a5e0d98400e4f8fddae4e66816e431afc0cd",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:20:43.6657700Z",
+      "levelId": null
+    },
+    {
+      "png": "season-autumn.png",
+      "metadata": "season-autumn.json",
+      "sha256": "aa6825ef7987b77f551cc6b34c34c0967ab3d67215e5c3e716b0c362ad55d724",
+      "width": 1280,
+      "height": 800,
+      "capturedUtc": "2026-10-08T21:22:04.0128800Z",
+      "levelId": "gen:qc_camp:9"
+    },
+    {
+      "png": "season-spring.png",
+      "metadata": "season-spring.json",
+      "sha256": "b98e90faf1ef52553e7c34814d146242f657e7ea6581cbca746efe133bced5c6",
+      "width": 1280,
+      "height": 800,
+      "capturedUtc": "2026-10-08T21:21:51.5097250Z",
+      "levelId": "QC001"
+    },
+    {
+      "png": "season-summer.png",
+      "metadata": "season-summer.json",
+      "sha256": "9de88ae3e4b46f30bd0a9d7f7f3d24a5017a4e374b7d988c6e6fe1aa4fd486f2",
+      "width": 1280,
+      "height": 800,
+      "capturedUtc": "2026-10-08T21:21:57.3306070Z",
+      "levelId": "QC007"
+    },
+    {
+      "png": "season-winter.png",
+      "metadata": "season-winter.json",
+      "sha256": "3353a6467485e2f9fe7b53dddce365e699f6d65176b85c7b6a051c8d8c450ad9",
+      "width": 1280,
+      "height": 800,
+      "capturedUtc": "2026-10-08T21:22:11.0143290Z",
+      "levelId": "gen:qc_camp:14"
+    },
+    {
+      "png": "settings-comfort.png",
+      "metadata": "settings-comfort.json",
+      "sha256": "a7221e8d299a7acc81f20a8f7cae9c1ec0fc4effcb6a3996cad1eb59442e0c1b",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:20:27.1038910Z",
+      "levelId": null
+    },
+    {
+      "png": "settings-extras.png",
+      "metadata": "settings-extras.json",
+      "sha256": "7e5936452ad7890e78dce29a865389253f0612244172a4d9aae45be92c281b72",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:20:49.1395390Z",
+      "levelId": null
+    },
+    {
+      "png": "settings-look.png",
+      "metadata": "settings-look.json",
+      "sha256": "e004b9b8665f6b15b48aeb239af9bd0042acfcfccb764b9aea83cf02ec160d87",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:20:30.6798150Z",
+      "levelId": null
+    },
+    {
+      "png": "settings-privacy.png",
+      "metadata": "settings-privacy.json",
+      "sha256": "8b828ea2b164ba131d8cc10cf57826782cb25a82a3ddf01825e8c13f21f60970",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:20:34.3442230Z",
+      "levelId": null
+    },
+    {
+      "png": "settings-sound.png",
+      "metadata": "settings-sound.json",
+      "sha256": "ceb6a044518e5ee05017eb9fef76d19c89c4cacfa72c3a8f80143f2ced917b7b",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-08T21:20:22.5570640Z",
+      "levelId": null
+    }
+  ]
+}

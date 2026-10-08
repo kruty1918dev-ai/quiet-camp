@@ -1,0 +1,58 @@
+{
+  "captureDate": "2026-10-08",
+  "runs": [
+    {
+      "phase": "camps",
+      "result": "Passed",
+      "total": "1",
+      "passed": "1",
+      "startedUtc": "2026-10-08 21:07:57Z",
+      "finishedUtc": "2026-10-08 21:09:02Z",
+      "durationSeconds": "64.7733927"
+    },
+    {
+      "phase": "context",
+      "result": "Passed",
+      "total": "1",
+      "passed": "1",
+      "startedUtc": "2026-10-08 21:15:49Z",
+      "finishedUtc": "2026-10-08 21:17:12Z",
+      "durationSeconds": "83.2902742"
+    },
+    {
+      "phase": "full",
+      "result": "Passed",
+      "total": "1",
+      "passed": "1",
+      "startedUtc": "2026-10-08 21:20:05Z",
+      "finishedUtc": "2026-10-08 21:22:11Z",
+      "durationSeconds": "125.4483418"
+    }
+  ],
+  "guardedScreenshotChecks": [
+    "expected PNG resolution",
+    "missing shader magenta under 2%",
+    "nonempty frame pixels above 10%"
+  ],
+  "restorationChecks": {
+    "originalPrimaryGameSaveSha256Unchanged": true,
+    "originalBackupGameSaveSha256Unchanged": true,
+    "projectSettingsBytesRestored": true,
+    "existingDirtyInputsSha256Unchanged": true,
+    "existingAdbProcessIdentityUnchanged": true,
+    "globalAdbPreferencesUnchanged": true
+  },
+  "scope": {
+    "nativeRenderedGameView": true,
+    "freshEditorLaunched": false,
+    "playerBuildRun": false,
+    "phonePerformanceMeasured": false,
+    "realStoreOrAdsTested": false,
+    "newArtBranchNativeBake": false
+  },
+  "knownLimitations": [
+    "Gameplay tablet HUD includes an empty card and poor board top-edge framing; quiet album frames are used in the presentation gallery.",
+    "Early capture attempts failed; QA cleanup identity was corrected, and the original game save was restored from its matching pre-capture backup before the passing runs.",
+    "Unity internal Editor preferences/session data are outside the game-save checksum contract."
+  ]
+}
