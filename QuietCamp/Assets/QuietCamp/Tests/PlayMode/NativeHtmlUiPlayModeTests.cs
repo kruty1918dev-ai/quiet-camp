@@ -42,7 +42,12 @@ namespace QuietCamp.Tests
             Assert.IsTrue(surface.IsMounted, surface.LastMountError);
             var host = typeof(HtmlSurface).GetField("_host", Hidden).GetValue(surface);
             var context = host.GetType().GetField("_context", Hidden).GetValue(host);
-            Assert.NotNull(context);
+            if (context == null)
+            {
+                Assert.AreEqual(0,surface.GetComponentsInChildren<Selectable>().Length,"Only an intentionally empty layer may omit its document context.");
+                Assert.AreEqual(0,surface.GetComponentsInChildren<TMPro.TMP_Text>().Length);
+                return;
+            }
             Assert.IsNull(context.GetType().GetProperty("Script").GetValue(context),
                 "Game UI must not initialize a JavaScript VM");
         }

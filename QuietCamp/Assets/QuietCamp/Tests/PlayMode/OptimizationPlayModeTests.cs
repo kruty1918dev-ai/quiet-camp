@@ -29,6 +29,7 @@ namespace QuietCamp.Tests
             services.Tutorial.Skip(); services.Tutorial.MarkMenuIntroSeen();
             services.Progression.Restore(LevelLoader.MvpLevelIds().ToArray(), "QC007", services.Progression.CosmeticFlags);
             services.ReducedMotion = true;
+            services.Localization.TrySetLanguage("uk"); services.Settings.textScale=1;
             if (MenuSceneHost.Current == null) yield return SceneManager.LoadSceneAsync("MainMenu");
             float menuDeadline = Time.realtimeSinceStartup+30;
             while (MenuSceneHost.Current?.UiReady != true && Time.realtimeSinceStartup < menuDeadline) yield return null;

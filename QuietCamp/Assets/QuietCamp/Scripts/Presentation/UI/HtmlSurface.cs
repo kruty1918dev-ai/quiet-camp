@@ -57,7 +57,8 @@ namespace QuietCamp.Presentation.UI
             surface._services = services;
             surface._host.ViewportChanged += _ => surface.OnLayoutChanged();
             surface._render = render;
-            var stylesheet = name == "MenuHtml" ? "CampMain.css" : name == "MenuAtmosphere" ? "CampBackdrop.css" : "Camp.css";
+            var stylesheet = name == "MenuHtml" ? "CampMain.css" : name == "MenuAtmosphere" ? "CampBackdrop.css"
+                : name == "CampHtml" ? "CampGame.css" : "Camp.css";
             surface._css = Resources.Load<TextAsset>("QuietCamp/Html/" + stylesheet)?.text
                 ?? Resources.Load<TextAsset>("QuietCamp/Html/Camp.css")?.text ?? "";
             if (name == "MenuOverlay") surface._mapCss = Resources.Load<TextAsset>("QuietCamp/Html/CampMap.css")?.text;

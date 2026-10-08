@@ -57,7 +57,7 @@ static class PerformanceAuditDriver
         Debug.Log("[QC-PERF] Starting native tests with isolated QA saves; existing Editor remains open.");
         api.Execute(new ExecutionSettings(new Filter { testMode = request.suite == "optimization-editor" ? TestMode.EditMode : TestMode.PlayMode,
             testNames = request.suite == "optimization-editor" ? new[] { "QuietCamp.Tests.PerformanceCacheTests", "QuietCamp.Tests.LeafCurtainGraphicTests" }
-                : request.suite == "optimization-regressions" ? new[] { "QuietCamp.Tests.OptimizationPlayModeTests", "QuietCamp.Tests.FoliageDivePlayModeTests", "QuietCamp.Tests.ForestCoveragePlayModeTests" }
+                : request.suite == "optimization-regressions" ? new[] { "QuietCamp.Tests.OptimizationPlayModeTests", "QuietCamp.Tests.FoliageDivePlayModeTests", "QuietCamp.Tests.ForestCoveragePlayModeTests", "QuietCamp.Tests.NativeHtmlUiPlayModeTests" }
                 : new[] { request.suite == "foliage" ? "QuietCamp.Tests.FoliageDivePlayModeTests"
                 : request.suite == "roadmap" ? "QuietCamp.Tests.PerformanceAuditPlayModeTests.RunRoadmapPerformance"
                 : "QuietCamp.Tests.PerformanceAuditPlayModeTests.RunPerformanceMap" } }));

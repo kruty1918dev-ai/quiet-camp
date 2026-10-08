@@ -309,6 +309,7 @@ namespace QuietCamp.Presentation.UI
 
         string RenderOverlay()
         {
+            if (!HasModalOpen && !_celebrating) return "<view />";
             var sb = new StringBuilder("<view class=\"app dimroot\">");
             if (HasModalOpen)
             {
