@@ -388,15 +388,32 @@
     "wind": false
   },
   {
+    "id": "stone_largeA",
+    "height": 0.7,
+    "sourceHeight": 1,
+    "width": 2.1149799999999996,
+    "depth": 2.7362999999999995,
+    "radius": 1.7291962070858238,
+    "wind": false,
+    "source": "existing-QuietCamp-catalog",
+    "license": "Kenney-CC0-see-project-credits",
+    "placementClass": "solid"
+  },
+  {
     "id": "ua_abandoned_house",
     "source": "../Models/EnvironmentKit/ua_abandoned_house.obj",
     "license": "original-project-owned",
-    "sourceHash": "655801885a4048454532a8d3d3493d56343887542d3fdc1df18ab7312387f6f0",
+    "sourceHash": "bd63aaf19d588e43a36ef5a44acc5102535d3cc1d5cb22534e72f5758f7af252",
     "sourceHeight": 4.05,
     "height": 4.05,
     "width": 5.3999999999999995,
     "depth": 6.725,
     "radius": 4.312355070028441,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -0.23749999999999982
+    },
     "wind": false,
     "placementClass": "solid",
     "lod": null
@@ -405,12 +422,17 @@
     "id": "ua_forester_hut",
     "source": "../Models/EnvironmentKit/ua_forester_hut.obj",
     "license": "original-project-owned",
-    "sourceHash": "501778b664e1b1f9ff34a875700efa6f79ca6195274a369490281f24602a684e",
+    "sourceHash": "00c808b13426257b4a4ed257a94333d3d9360b5da6041158a42c3876180e3782",
     "sourceHeight": 3.028,
     "height": 3.028,
     "width": 3.9,
     "depth": 4.725,
     "radius": 3.063316217761398,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -0.23749999999999982
+    },
     "wind": false,
     "placementClass": "solid",
     "lod": null
@@ -419,12 +441,17 @@
     "id": "ua_barn",
     "source": "../Models/EnvironmentKit/ua_barn.obj",
     "license": "original-project-owned",
-    "sourceHash": "7a87152730e74dff4a82bbac4f8c3cd544eb2cbeb61a9678164aff2995bf46ba",
+    "sourceHash": "b7a121b1be2ab16997f60253d09acaf74250cf823754506f2d7e85c954f03105",
     "sourceHeight": 2.8360000000000003,
     "height": 2.8360000000000003,
     "width": 3.5,
     "depth": 4.125,
     "radius": 2.7048856260478003,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -0.23749999999999982
+    },
     "wind": false,
     "placementClass": "solid",
     "lod": null
@@ -433,12 +460,17 @@
     "id": "ua_chicken_coop",
     "source": "../Models/EnvironmentKit/ua_chicken_coop.obj",
     "license": "original-project-owned",
-    "sourceHash": "a6290b48dab25cde03ff861acd46572f0551de8d00b65b92bf1274397e5888df",
+    "sourceHash": "46e4d27744504e86a74d909791e6f855eb6a7c4ea3bd6261a1079a1e50068176",
     "sourceHeight": 1.8913643691001145,
     "height": 1.8913643691001145,
     "width": 1.8,
     "depth": 2.6643150285348276,
     "radius": 1.6076826934501518,
+    "pivot": {
+      "x": 0.0,
+      "y": -0.011364369100114409,
+      "z": -0.5821575142674138
+    },
     "wind": false,
     "placementClass": "solid",
     "lod": null
@@ -453,6 +485,11 @@
     "width": 0.81,
     "depth": 0.8200000000000001,
     "radius": 0.5763028717610212,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -0.04500000000000001
+    },
     "wind": false,
     "placementClass": "solid",
     "lod": null
@@ -461,12 +498,17 @@
     "id": "ua_well_sweep",
     "source": "../Models/EnvironmentKit/ua_well_sweep.obj",
     "license": "original-project-owned",
-    "sourceHash": "846b4fd03a40dfd82167fdb78fb1a727cf54054ecc9eac48be87cc6d74ab6afa",
+    "sourceHash": "e98042ab2d9a7528645996ba334a888b13652f1a9ad6f47af7fe8ec1f886889a",
     "sourceHeight": 3.9569928065636355,
     "height": 3.9569928065636355,
     "width": 3.631254119728445,
     "depth": 1.2124355652982142,
     "radius": 1.914158201536958,
+    "pivot": {
+      "x": 1.1156270598642228,
+      "y": 0.0,
+      "z": 5.551115123125783e-17
+    },
     "wind": false,
     "placementClass": "solid",
     "lod": null
@@ -475,12 +517,17 @@
     "id": "ua_picket_fence_damaged",
     "source": "../Models/EnvironmentKit/ua_picket_fence_damaged.obj",
     "license": "original-project-owned",
-    "sourceHash": "330d12923b03f28ddd424c618fde58baf043f440c3942876aa9657f445d67c3d",
+    "sourceHash": "c6fd86b35d1a94d03a0edff37c9e13896cfe67e6cbaf02bdae5376c5aff2f5f5",
     "sourceHeight": 1.3072714328355184,
     "height": 1.3072714328355184,
     "width": 3.33,
     "depth": 0.21,
     "radius": 1.6683075256079138,
+    "pivot": {
+      "x": 0.0,
+      "y": -0.0072714328355183025,
+      "z": -0.015
+    },
     "wind": false,
     "placementClass": "boundary",
     "lod": null
@@ -489,12 +536,17 @@
     "id": "ua_power_pylon_rusted",
     "source": "../Models/EnvironmentKit/ua_power_pylon_rusted.obj",
     "license": "original-project-owned",
-    "sourceHash": "720422e59acde7997919c0d918735c44cb67a67c46778795b03e90ed49277704",
+    "sourceHash": "4c8e41235975ef3ee9835b6437e4cfa48777e377b01e568e3c71d1fd69719afd",
     "sourceHeight": 16.045278394152348,
     "height": 16.045278394152348,
     "width": 7.85,
     "depth": 4.15,
     "radius": 4.439735352473162,
+    "pivot": {
+      "x": 0.0,
+      "y": -0.03145764348029479,
+      "z": 0.0
+    },
     "wind": false,
     "placementClass": "solid",
     "lod": null,
@@ -536,12 +588,17 @@
     "id": "ua_power_pylon_fallen",
     "source": "../Models/EnvironmentKit/ua_power_pylon_fallen.obj",
     "license": "original-project-owned",
-    "sourceHash": "44c5cc99f429dff33d499f6d8a1d44904dbdf52c3cbd7331beb45eb0d1c5a2f7",
+    "sourceHash": "39052e85efb84d0316c9267850b3e79b5215a0ad94ef4afb5d243f8acaad2a0f",
     "sourceHeight": 7.864359740043829,
     "height": 7.864359740043829,
     "width": 16.25636078554984,
     "depth": 4.15,
     "radius": 8.388858176026739,
+    "pivot": {
+      "x": 7.9683086948502275,
+      "y": 0.0,
+      "z": 0.0
+    },
     "wind": false,
     "placementClass": "solid",
     "lod": null
@@ -550,12 +607,17 @@
     "id": "ua_bus_shelter_mosaic",
     "source": "../Models/EnvironmentKit/ua_bus_shelter_mosaic.obj",
     "license": "original-project-owned",
-    "sourceHash": "842db0d58642ff2e557e637cc665aa426bc47fe587b30aeb5bb6c8b1937f7fe4",
+    "sourceHash": "12c9c611914674e35129078e8e3767583e63d8daaf3033bd988e8a59289a66ac",
     "sourceHeight": 2.2,
     "height": 2.2,
     "width": 3.48,
     "depth": 1.99,
     "radius": 2.0044014069043157,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
     "wind": false,
     "placementClass": "solid",
     "lod": null
@@ -570,6 +632,11 @@
     "width": 1.85,
     "depth": 5.06,
     "radius": 2.6937937931475004,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
     "wind": false,
     "placementClass": "solid",
     "lod": null,
@@ -594,6 +661,11 @@
     "width": 4.05,
     "depth": 3.8,
     "radius": 2.7768012172281975,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -0.20000000000000007
+    },
     "wind": false,
     "placementClass": "solid",
     "lod": null
@@ -608,6 +680,11 @@
     "width": 0.54,
     "depth": 0.24,
     "radius": 0.29546573405388316,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
     "wind": false,
     "placementClass": "solid",
     "lod": null
@@ -616,12 +693,17 @@
     "id": "ua_chicken",
     "source": "../Models/EnvironmentKit/ua_chicken.obj",
     "license": "original-project-owned",
-    "sourceHash": "58d1baab7b18d8791de304c34aa6223112faa54599ea5f2e54f533921cd76305",
+    "sourceHash": "59cb9d8fe5b2dbb705abd257d49fc6298d5b3e2db0c7d076c3bd7fb00294b9b9",
     "sourceHeight": 0.55,
     "height": 0.55,
     "width": 0.45225424859373686,
     "depth": 0.6677641290737883,
     "radius": 0.4032501820981488,
+    "pivot": {
+      "x": 0.023872875703131555,
+      "y": 0.0,
+      "z": -0.0961179354631058
+    },
     "wind": false,
     "placementClass": "solid",
     "lod": null
@@ -636,6 +718,11 @@
     "width": 0.585,
     "depth": 0.29,
     "radius": 0.3264678391511176,
+    "pivot": {
+      "x": 0.007500000000000007,
+      "y": 0,
+      "z": 0.029999999999999992
+    },
     "wind": true,
     "placementClass": "groundcover",
     "lod": "ua_field_weeds_lod"
@@ -650,6 +737,11 @@
     "width": 0.585,
     "depth": 0.06,
     "radius": 0.29403443675868984,
+    "pivot": {
+      "x": 0.007500000000000007,
+      "y": 0,
+      "z": -0.085
+    },
     "wind": true,
     "placementClass": "groundcover",
     "lod": null
@@ -664,6 +756,11 @@
     "width": 0.585,
     "depth": 0.29,
     "radius": 0.3264678391511176,
+    "pivot": {
+      "x": 0.007500000000000007,
+      "y": 0,
+      "z": 0.029999999999999992
+    },
     "wind": true,
     "placementClass": "groundcover",
     "lod": "ua_reed_clump_lod"
@@ -678,6 +775,11 @@
     "width": 0.585,
     "depth": 0.06,
     "radius": 0.29403443675868984,
+    "pivot": {
+      "x": 0.007500000000000007,
+      "y": 0,
+      "z": -0.085
+    },
     "wind": true,
     "placementClass": "groundcover",
     "lod": null
@@ -686,12 +788,17 @@
     "id": "ua_young_willow",
     "source": "../Models/EnvironmentKit/ua_young_willow.obj",
     "license": "original-project-owned",
-    "sourceHash": "61951d857488afeed9ccc76d0aadaf7589be5f52be326a441303e23f5cc864db",
+    "sourceHash": "ded8b516585b788618d28241945ed068def2891d5ea6b582a38386405c857f85",
     "sourceHeight": 2.826,
     "height": 2.826,
     "width": 2.1246394528155967,
     "depth": 1.7569048440800072,
     "radius": 1.3784780951843552,
+    "pivot": {
+      "x": 0.02768027359220171,
+      "y": 0.0,
+      "z": -0.09499999999999997
+    },
     "wind": true,
     "placementClass": "canopy",
     "lod": "ua_young_willow_lod"
@@ -700,12 +807,17 @@
     "id": "ua_young_willow_lod",
     "source": "../Models/EnvironmentKit/ua_young_willow_lod.obj",
     "license": "original-project-owned",
-    "sourceHash": "97b68dc2a4d081f3392e125e50aea5d98e68004914fd200604c700f37dbd01e8",
+    "sourceHash": "feb0470a8ff300a5746e7c3d578ecdb50b544710fd2faf88ab5e8f87b0b5369e",
     "sourceHeight": 2.6180000000000003,
     "height": 2.6180000000000003,
     "width": 1.1939512162874655,
     "depth": 1.255394601509603,
     "radius": 0.8662469498321153,
+    "pivot": {
+      "x": 0.06302439185626729,
+      "y": 0.0,
+      "z": -5.551115123125783e-17
+    },
     "wind": true,
     "placementClass": "canopy",
     "lod": null
@@ -714,12 +826,17 @@
     "id": "ua_poplar",
     "source": "../Models/EnvironmentKit/ua_poplar.obj",
     "license": "original-project-owned",
-    "sourceHash": "f1e9d5312afca5193f43f30bdd682998e96fdf8181304f912fe20af9803ba590",
+    "sourceHash": "0dbc6220c0e01e8c44d9e64fde85995b8efff21d577b82bc820a15fbd7de7cce",
     "sourceHeight": 4.606,
     "height": 4.606,
     "width": 1.2356297641365726,
     "depth": 1.2674062858363708,
     "radius": 0.8850281926862198,
+    "pivot": {
+      "x": 0.0321851179317138,
+      "y": 0.0,
+      "z": 0.0
+    },
     "wind": true,
     "placementClass": "canopy",
     "lod": "ua_poplar_lod"
@@ -728,12 +845,17 @@
     "id": "ua_poplar_lod",
     "source": "../Models/EnvironmentKit/ua_poplar_lod.obj",
     "license": "original-project-owned",
-    "sourceHash": "a50f6d5407a8a95118ad206a90af83b0da3d6a0715bd47e05d800541c48ed4f2",
+    "sourceHash": "5fcb017f39fa62c5705d2e1e4aff9af2d1a728080f0fb0e0c8acdaf0448f6b6b",
     "sourceHeight": 4.606,
     "height": 4.606,
     "width": 1.1758610463437158,
     "depth": 1.2363734711836996,
     "radius": 0.85312199604678,
+    "pivot": {
+      "x": 0.06206947682814207,
+      "y": 0.0,
+      "z": -5.551115123125783e-17
+    },
     "wind": true,
     "placementClass": "canopy",
     "lod": null
@@ -748,6 +870,11 @@
     "width": 33.1,
     "depth": 7.05,
     "radius": 16.921232963351105,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -1.225
+    },
     "wind": false,
     "placementClass": "solid",
     "lod": "ua_dam_breached_lod"
@@ -762,20 +889,13 @@
     "width": 33.1,
     "depth": 4.6,
     "radius": 16.709054431654714,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
     "wind": false,
     "placementClass": "solid",
     "lod": null
-  },
-  {
-    "id": "stone_largeA",
-    "height": 0.7,
-    "sourceHeight": 1,
-    "width": 2.1149799999999996,
-    "depth": 2.7362999999999995,
-    "radius": 1.7291962070858238,
-    "wind": false,
-    "source": "existing-QuietCamp-catalog",
-    "license": "Kenney-CC0-see-project-credits",
-    "placementClass": "solid"
   }
 ]

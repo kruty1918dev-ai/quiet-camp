@@ -31,9 +31,15 @@ namespace QuietCamp.Application
         }
         public sealed class Terrain : ITerrainSample
         {
-            readonly RoadmapCatalog _map;readonly RoadmapEnvironmentSampler _climate;
-            public Terrain(RoadmapCatalog map){_map=map;_climate=new RoadmapEnvironmentSampler(map);}
-            public bool Supported(float x,float z,float radius)=>RoadmapRuralLayout.ClearOfWater(_climate,x,z*Units,radius);
+            readonly RoadmapCatalog _map;readonly RoadmapEnvironmentSampler _climate;readonly SceneCompositionDocument[] _docs;
+            public Terrain(RoadmapCatalog map,SceneCompositionDocument[] docs=null){_map=map;_climate=new RoadmapEnvironmentSampler(map);_docs=docs;}
+            public bool Supported(float x,float z,float radius)
+            {
+                if(_docs==null)return RoadmapRuralLayout.ClearOfWater(_climate,x,z*Units,radius);
+                foreach(var doc in _docs)foreach(var surface in doc.surfaces)
+                    if(SurfaceRecipes.Wet(surface)&&(SurfaceRecipes.Contains(surface,x,z)||SurfaceRecipes.EdgeDistance(surface,x,z)<radius))return false;
+                return true;
+            }
             public float Height(float x,float z)=>TerrainHeight(_map,_climate,x,z);
         }
         public static SceneCompositionDocument WorldDocument(SceneCompositionDocument local,float start)
@@ -44,6 +50,7 @@ namespace QuietCamp.Application
             foreach(var e in local.ensembles)if(e.placement.fixedPosition)e.placement.z+=start;
             foreach(var r in local.routes)foreach(var p in r.points)p.z+=start;
             foreach(var l in local.landmarks)l.z+=start;
+            foreach(var surface in local.surfaces)foreach(var point in surface.points)point.z+=start;
             return local;
         }
     }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using QuietCamp.Composition;
 using UnityEngine;
 namespace QuietCamp.Presentation.UI
@@ -41,7 +42,6 @@ namespace QuietCamp.Presentation.UI
         {
             Clear();var models=RoadmapModelLibrary.Load();var origin=At(index);
             for(int i=0;i<3;i++)Append(models.Get("tree_pineRoundA"),origin+new Vector3((i-1)*2.1f,0,1),2.5f,0);
-            Append(models.Get("tent_smallOpen"),origin,1.15f,0);
             for(int i=0;i<_colors.Count;i++)_colors[i]=Color.Lerp(new Color(.5f,.59f,.49f).linear,_colors[i],.1f);
             var mesh=IndexedMesh("silhouette-"+index);Clear();return mesh;
         }
@@ -149,9 +149,63 @@ namespace QuietCamp.Presentation.UI
             foreach(var doc in _offlineDocs)foreach(var route in doc.routes)if((route.kind=="power"||route.kind=="distribution")&&SceneComposer.DistanceTo(route,x,sourceZ,out _)<=route.width+radius)return false;
             return true;
         }
+        SurfaceRecipe SurfaceAt(float x,float z)
+        {
+            SurfaceRecipe found=null;
+            foreach(var doc in _offlineDocs)foreach(var surface in doc.surfaces)
+                if(SurfaceRecipes.Contains(surface,x,z))found=surface;
+            return found;
+        }
+        bool DrySurface(float x,float sourceZ,float radius)
+        {
+            foreach(var doc in _offlineDocs)foreach(var surface in doc.surfaces)
+                if(SurfaceRecipes.Wet(surface)&&(SurfaceRecipes.Contains(surface,x,sourceZ)||SurfaceRecipes.EdgeDistance(surface,x,sourceZ)<radius))return false;
+            return true;
+        }
+        bool NearBank(float x,float sourceZ)=>DrySurface(x,sourceZ,.8f)&&!DrySurface(x,sourceZ,3.5f);
+        bool WetSurface(float x,float sourceZ)=>SurfaceAt(x,sourceZ)?.kind=="channel";
+        Color SurfaceColor(SurfaceRecipe surface,float sourceZ)
+        {
+            var palette=_map.VisualAt(sourceZ*Application.RoadmapCompositionAdapter.Units).Palette;
+            switch(surface.kind)
+            {
+                case "channel":return Color.Lerp(new Color(.25f,.43f,.44f),palette.Fog,.12f);
+                case "reservoir-bed":return Color.Lerp(palette.Soil,new Color(.56f,.57f,.43f),.45f);
+                case "erosion":return Color.Lerp(palette.Soil,palette.GrassDark,.12f);
+                case "pothole":return palette.Soil*.72f;
+                case "gravel":case "bus-bay":case "service-yard":return Color.Lerp(palette.Soil,new Color(.49f,.49f,.44f),.5f);
+                default:return Color.Lerp(palette.Soil,palette.GrassDark,.28f);
+            }
+        }
+        IEnumerator SemanticSurfaces(int chunkIndex)
+        {
+            var chunk=_map.Data.Chunks[chunkIndex];float top=chunk.Top/Application.RoadmapCompositionAdapter.Units,bottom=chunk.Bottom/Application.RoadmapCompositionAdapter.Units;
+            foreach(var doc in _offlineDocs)foreach(var surface in doc.surfaces)
+            {
+                var polygon=surface.points.Select(p=>new Vector2(p.x,p.z)).ToList();
+                // Clip source-owned polygons to immutable chunk boundaries. No overlapping slabs.
+                List<Vector2> Clip(List<Vector2> input,float limit,bool lower)
+                {
+                    var output=new List<Vector2>();if(input.Count==0)return output;
+                    var previous=input[input.Count-1];bool before=lower?previous.y>=limit:previous.y<=limit;
+                    foreach(var point in input)
+                    {
+                        bool inside=lower?point.y>=limit:point.y<=limit;
+                        if(inside!=before){float t=(limit-previous.y)/(point.y-previous.y);output.Add(Vector2.Lerp(previous,point,t));}
+                        if(inside)output.Add(point);previous=point;before=inside;
+                    }return output;
+                }
+                polygon=Clip(Clip(polygon,top,true),bottom,false);if(polygon.Count<3)continue;
+                Vector3 At(Vector2 point)=>new Vector3(point.x,Ground(point.x,-point.y)+.025f,-point.y);
+                for(int i=1;i<polygon.Count-1;i++)
+                {var a=At(polygon[0]);var b=At(polygon[i]);var c=At(polygon[i+1]);if(Vector3.Cross(b-a,c-a).y<0)Triangle(a,c,b,SurfaceColor(surface,polygon[i].y));else Triangle(a,b,c,SurfaceColor(surface,polygon[i].y));}
+                yield return null;
+            }
+        }
         Color CompositionGround(Vector3 p,Color fallback)
         {
             if(_offlineDocs==null)return fallback;var visual=new RoadmapVisualProfile(_map.Environment.Sample(-p.z*Application.RoadmapCompositionAdapter.Units));
+            var surface=SurfaceAt(p.x,-p.z);if(surface!=null)return SurfaceColor(surface,-p.z);
             var field=ZoneAt(p.x,p.z,"field");var forest=ZoneAt(p.x,p.z,"forest");
             float grain=.5f+.5f*Mathf.Sin(p.x*.8f+p.z*.23f)*Mathf.Cos(p.z*.57f);
             var color=Color.Lerp(visual.Palette.GrassLight,visual.Palette.GrassDark,.08f+grain*.16f);
@@ -183,14 +237,40 @@ namespace QuietCamp.Presentation.UI
                     if(span.height==0)Trail(a,b,.38f,Color.Lerp(_map.VisualAt(span.az*Application.RoadmapCompositionAdapter.Units).Palette.Soil,_map.VisualAt(span.az*Application.RoadmapCompositionAdapter.Units).Palette.GrassLight,.30f));
                     else
                     {
-                        var pa=result.instances.Find(i=>i.id==span.a);var pb=result.instances.Find(i=>i.id==span.b);var ra=Quaternion.Euler(0,-pa.yaw,0);var rb=Quaternion.Euler(0,-pb.yaw,0);
-                        var sockets=OfflineAssets[pa.asset];
-                        foreach(var socket in sockets.conductors)
-                        {var local=new Vector3(socket.x-sockets.pivot.x,socket.y-sockets.pivot.y,socket.z-sockets.pivot.z)/sockets.sourceHeight*span.height;var sa=a+ra*local;var sb=b+rb*local;Cable(sa,sb,.75f,chunk.Top,chunk.Bottom);}
+                        var pa=result.instances.Find(i=>i.id==span.a);var pb=result.instances.Find(i=>i.id==span.b);
+                        Vector3 Socket(ComposedInstance support,AssetSocket socket)
+                        {
+                            var metadata=OfflineAssets[support.asset];var at=new Vector3(support.x,Ground(support.x,-support.z),-support.z);
+                            // Convert the source model socket and its pivot using the same model transform.
+                            return at+Quaternion.Euler(0,-support.yaw,0)*new Vector3(socket.x-metadata.pivot.x,socket.y-metadata.pivot.y,socket.z-metadata.pivot.z)/metadata.sourceHeight*support.height;
+                        }
+                        if(span.state=="intact")
+                        {
+                            var from=OfflineAssets[pa.asset].conductors;var to=OfflineAssets[pb.asset].conductors;
+                            if(from.Length!=to.Length)throw new InvalidOperationException("Conductor socket count mismatch: "+span.id);
+                            for(int wire=0;wire<from.Length;wire++)Cable(Socket(pa,from[wire]),Socket(pb,to[wire]),.75f,chunk.Top,chunk.Bottom);
+                        }
+                        else if(span.state!="removed")
+                        {
+                            void Hanging(ComposedInstance support,ComposedInstance other)
+                            {
+                                if(support.role!="support")return;
+                                foreach(var socket in OfflineAssets[support.asset].conductors)
+                                {
+                                    var start=Socket(support,socket);var direction=new Vector3(other.x-support.x,0,-other.z+support.z).normalized;
+                                    var end=start+direction*.65f-Vector3.up*span.dropLength;
+                                    end.y=Mathf.Max(Ground(end.x,end.z)+.04f,end.y);
+                                    Cable(start,end,.12f,chunk.Top,chunk.Bottom);
+                                }
+                            }
+                            if(span.state=="severed"||span.state=="hanging-from")Hanging(pa,pb);
+                            if(span.state=="severed"||span.state=="hanging-to")Hanging(pb,pa);
+                        }
                     }
                     yield return null;
                 }
             }
+            yield return SemanticSurfaces(chunkIndex);
             // Global 2D cells preserve identity across seams. Detail changes model/cover spacing,
             // not geography; fields win over forest zones and parcel footprints exclude vegetation.
             const float step=3.5f;
@@ -202,11 +282,17 @@ namespace QuietCamp.Presentation.UI
                 float z=-sourceZ,distance=sourceZ*Application.RoadmapCompositionAdapter.Units;var visual=new RoadmapVisualProfile(_map.Environment.Sample(distance));
                 var field=ZoneAt(x,z,"field");var forest=ZoneAt(x,z,"forest");
                 var doc=_offlineDocs[_map.Data.RegionAt(distance)];int seed=doc.seed;
-                if(!ClearOfAuthoredRoad(x,sourceZ,1.1f)||ZoneAt(x,z,"water")!=null||ParcelOccupied(x,z,1)||!Application.RoadmapRuralLayout.ClearOfPath(_map.Data,x,distance,1.1f)||!Application.RoadmapRuralLayout.ClearOfWater(_map.Environment,x,distance,1.1f))continue;
-                if(field!=null&&visual.Environment.Snow<.55f)
+                if(!ClearOfAuthoredRoad(x,sourceZ,1.1f)||(ZoneAt(x,z,"water")!=null||WetSurface(x,sourceZ))||ParcelOccupied(x,z,1)||!Application.RoadmapRuralLayout.ClearOfPath(_map.Data,x,distance,1.1f)||!DrySurface(x,sourceZ,1.1f))continue;
+                if(NearBank(x,sourceZ)&&visual.Environment.Snow<.6f)
+                {
+                    string bankAsset=SceneComposer.Unit("bank:"+cell,seed,4)<.25f?"ua_young_willow":"ua_reed_clump";
+                    var at=new Vector3(x,Ground(x,z),z);float height=bankAsset=="ua_young_willow"?3.4f:1.1f;
+                    Append(SemanticModel(library,bankAsset),at,height,cell*73,null,new RoadmapSceneGenerator.Prop{Asset=bankAsset,Sway=true,HasVisual=true,Visual=visual,Position=at});
+                }
+                else if(field!=null&&visual.Environment.Snow<.55f)
                 {
                     string asset=field.species;if(asset=="ua_sunflower_patch"&&visual.Environment.Temperature<.4f)asset="ua_wheat_patch";
-                    var model=library.Get(asset+"_lod");
+                    var model=SemanticModel(library,asset);
                     float coverHeight=asset=="ua_wheat_patch"?.78f:asset=="ua_sunflower_patch"?1.08f:OfflineAssets[asset].height;
                     for(int clump=0;clump<(_tier<2?1:2);clump++)
                     {var at=new Vector3(x+(clump-1)*.9f,Ground(x,z),z);Append(model,at,coverHeight,cell%17,null,new RoadmapSceneGenerator.Prop{Asset=asset,Sway=true,HasVisual=true,Visual=visual,Position=at});}
@@ -226,7 +312,7 @@ namespace QuietCamp.Presentation.UI
             {
                 int cell=zi*101+xi;float x=xi*coverStep,sourceZ=(zi+Application.RoadmapRuralLayout.Unit(333,cell,2))*coverStep;
                 if(Mathf.Abs(x)>41||sourceZ<top||sourceZ>=bottom)continue;float z=-sourceZ,distance=sourceZ*Application.RoadmapCompositionAdapter.Units;
-                var visual=new RoadmapVisualProfile(_map.Environment.Sample(distance));if(visual.Environment.Snow>.65f||ZoneAt(x,z,"water")!=null||ParcelOccupied(x,z,.1f)||!Application.RoadmapRuralLayout.ClearOfWater(_map.Environment,x,distance,.15f))continue;
+                var visual=new RoadmapVisualProfile(_map.Environment.Sample(distance));if(visual.Environment.Snow>.65f||(ZoneAt(x,z,"water")!=null||WetSurface(x,sourceZ))||ParcelOccupied(x,z,.1f)||!DrySurface(x,sourceZ,.15f))continue;
                 if(ZoneAt(x,z,"field")!=null)continue;
                 bool flower=Application.RoadmapRuralLayout.Unit(333,cell,4)<visual.Environment.Flowers*.22f;var at=new Vector3(x,Ground(x,z),z);string asset=flower?"flower_yellowA":"grass_leafsLarge";
                 float height=flower?.32f:.15f+Application.RoadmapRuralLayout.Unit(333,cell,5)*.12f;

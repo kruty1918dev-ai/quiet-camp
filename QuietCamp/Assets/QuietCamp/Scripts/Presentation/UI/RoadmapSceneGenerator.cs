@@ -203,8 +203,6 @@ namespace QuietCamp.Presentation.UI
             }
             // These are camp vignettes, deliberately outside the playable grid.
             // No witness placements or hidden puzzle solutions are exposed by the map.
-            Add("tent_smallOpen",-.9f,-h-1.35f,1.18f,false,0);
-            if(level.number>2)Add("tent_detailedOpen",1.5f,-h-1.45f,1.08f,false,90);
             int treeCount=level.environment==null?10:Mathf.RoundToInt(Mathf.Lerp(6,18,Mathf.Clamp01(level.environment.treeDensity)));
             rng=new System.Random(unchecked(level.decorSeed*971+37));
             for(int i=0;i<treeCount;i++)
@@ -259,6 +257,7 @@ namespace QuietCamp.Presentation.UI
                     if(SeasonProfile.Variation(at,level.decorSeed)>weight)continue;
                 }
                 string asset=value.assetId;
+                if(asset.StartsWith("tent"))continue;
                 if(environment!=null&&(asset=="tree_default"||asset=="tree_pineRoundA"))
                 {
                     var at=new Vector3(value.x,0,value.z);

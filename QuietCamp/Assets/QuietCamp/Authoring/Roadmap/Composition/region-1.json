@@ -69,20 +69,20 @@
     {
       "id": "r1-left-forest",
       "kind": "forest",
-      "x": -25,
+      "x": -21,
       "z": 106.81778229193117,
-      "width": 32,
+      "width": 40,
       "depth": 213.63556458386233,
-      "density": 0.91
+      "density": 0.95
     },
     {
       "id": "r1-right-forest",
       "kind": "forest",
-      "x": 25,
+      "x": 21,
       "z": 106.81778229193117,
-      "width": 32,
+      "width": 40,
       "depth": 213.63556458386233,
-      "density": 0.91
+      "density": 0.95
     },
     {
       "id": "r1-meadow",
@@ -98,9 +98,9 @@
       "kind": "field",
       "species": "ua_field_weeds",
       "x": -25,
-      "z": 123.90862745864014,
+      "z": 147.22693712522218,
       "width": 24,
-      "depth": 111.09049358360842,
+      "depth": 64.45387425044436,
       "density": 0.87
     },
     {
@@ -183,7 +183,7 @@
     {
       "id": "r1-transmission",
       "kind": "power",
-      "supportAsset": "ua_power_pylon",
+      "supportAsset": "ua_power_pylon_rusted",
       "width": 2.2,
       "minSpan": 22,
       "maxSpan": 44,
@@ -194,29 +194,38 @@
           "z": -3
         },
         {
-          "x": 13,
+          "x": 16,
           "z": 92
         },
         {
           "x": 32,
           "z": 216.63556458386233
         }
+      ],
+      "fallenAsset": "ua_power_pylon_fallen",
+      "fallenSupports": [
+        2
+      ],
+      "damage": [
+        {
+          "span": 1,
+          "state": "hanging-from",
+          "dropLength": 2.8
+        },
+        {
+          "span": 2,
+          "state": "hanging-to",
+          "dropLength": 2.8
+        },
+        {
+          "span": 5,
+          "state": "severed",
+          "dropLength": 2.3
+        }
       ]
     }
   ],
   "ensembles": [
-    {
-      "id": "r1-homestead-0",
-      "template": "ua.abandoned-homestead",
-      "placement": {
-        "zone": "r1-yards-right",
-        "nearNode": "node:QC007"
-      },
-      "entranceConnectsTo": "r1-main-road",
-      "fenceVariant": "picket",
-      "state": "partly-reclaimed",
-      "scale": 0.72
-    },
     {
       "id": "r1-homestead-1",
       "template": "ua.homestead",
@@ -230,5 +239,55 @@
       "scale": 0.72
     }
   ],
-  "landmarks": []
+  "landmarks": [],
+  "surfaces": [
+    {
+      "id": "r1-shore-QC007",
+      "kind": "channel",
+      "heightOffset": -0.2,
+      "feather": 0.5,
+      "points": [
+        {
+          "x": -11.124999999999998,
+          "z": 22.513
+        },
+        {
+          "x": -8.924999999999999,
+          "z": 22.513
+        },
+        {
+          "x": -8.924999999999999,
+          "z": 38.513000000000005
+        },
+        {
+          "x": -11.124999999999998,
+          "z": 38.513000000000005
+        }
+      ]
+    },
+    {
+      "id": "r1-shore-QC010",
+      "kind": "channel",
+      "heightOffset": -0.2,
+      "feather": 0.5,
+      "points": [
+        {
+          "x": 10.926,
+          "z": 75.095
+        },
+        {
+          "x": 13.126,
+          "z": 75.095
+        },
+        {
+          "x": 13.126,
+          "z": 91.095
+        },
+        {
+          "x": 10.926,
+          "z": 91.095
+        }
+      ]
+    }
+  ]
 }

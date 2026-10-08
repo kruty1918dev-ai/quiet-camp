@@ -152,7 +152,7 @@ class Mesh:
         origin=((lo[0]+hi[0])/2,lo[1],(lo[2]+hi[2])/2)
         data=[];colors=[]
         for a,b,c,normal,color in self.tris:
-            for p in (a,b,c):data.extend(round(v,6) for v in (*scale(sub(p,origin),1/height),*normal))
+            for p in (a,b,c):data.extend((round(v,6) or 0.0) for v in (*scale(sub(p,origin),1/height),*normal))
             colors.append(PALETTE[color])
         return {"id":self.id,"data":data,"colors":colors}
 
@@ -447,8 +447,8 @@ def meta(path, folder=False):
 def source_obj(m):
     lines=["# Original Quiet Camp Ukrainian rural presentation asset", "# Units: metres; Y up; no external geometry or textures", "mtllib palette.mtl", "o "+m.id]
     for tri in m.tris:
-        for vertex in tri[:3]:lines.append("v "+" ".join(f"{v:.7f}" for v in vertex))
-    for tri in m.tris:lines.append("vn "+" ".join(f"{v:.7f}" for v in tri[3]))
+        for vertex in tri[:3]:lines.append("v "+" ".join(f"{(round(v,7) or 0.0):.7f}" for v in vertex))
+    for tri in m.tris:lines.append("vn "+" ".join(f"{(round(v,7) or 0.0):.7f}" for v in tri[3]))
     for i,tri in enumerate(m.tris):
         lines.append("usemtl "+tri[4]);start=i*3+1
         lines.append("f "+" ".join(f"{start+j}//{i+1}" for j in range(3)))

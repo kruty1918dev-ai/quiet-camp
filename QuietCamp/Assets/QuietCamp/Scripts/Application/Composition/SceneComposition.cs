@@ -26,11 +26,15 @@ namespace QuietCamp.Composition
     {public float scale=1;public string id,template,entranceConnectsTo,state="reclaimed",fenceVariant="wattle";public PlacementIntent placement=new PlacementIntent();}
     [Serializable] public sealed class LandscapeZone
     {public string id,kind="forest",species="tree_default";public float x,z,width=20,depth=20,density=.8f;}
+    [Serializable] public sealed class SpanDamage
+    {public int span;public string state="severed";public float dropLength=2;}
     [Serializable] public sealed class InfrastructureRouteDefinition
     {
         public string id,kind="road",supportAsset,nextRoute;public string interpolation="linear";
         public Point[] points=Array.Empty<Point>();public string[] serviceTargets=Array.Empty<string>();
         public float width=1.1f,minSpan=20,maxSpan=50,supportHeight=5.8f;
+        public SpanDamage[] damage=Array.Empty<SpanDamage>();
+        public int[] fallenSupports=Array.Empty<int>();public string fallenAsset;
     }
     [Serializable] public sealed class SceneAnchor {public string id;public float x,z,radius=5.5f;}
     [Serializable] public sealed class LandmarkIntent
@@ -45,6 +49,7 @@ namespace QuietCamp.Composition
         public InfrastructureRouteDefinition[] routes=Array.Empty<InfrastructureRouteDefinition>();
         public EnsembleIntent[] ensembles=Array.Empty<EnsembleIntent>();
         public LandmarkIntent[] landmarks=Array.Empty<LandmarkIntent>();
+        public SurfaceRecipe[] surfaces=Array.Empty<SurfaceRecipe>();
         public CompositionBudgets budgets=new CompositionBudgets();
     }
     [Serializable] public sealed class CompositionDiagnostic
@@ -52,7 +57,7 @@ namespace QuietCamp.Composition
     [Serializable] public sealed class ComposedInstance
     {public string id,owner,role,asset,revealOwner,state,template;public float x,z,height,yaw;public bool wind;}
     [Serializable] public sealed class RouteSpan
-    {public string id,route,a,b;public float ax,az,bx,bz,height;}
+    {public string id,route,a,b,state="intact";public float ax,az,bx,bz,height,dropLength=2;}
     [Serializable] public sealed class BakedBounds {public AssetSocket min=new AssetSocket(),max=new AssetSocket();}
     [Serializable] public sealed class BakedChunkManifest
     {
@@ -73,7 +78,7 @@ namespace QuietCamp.Composition
     public sealed class FlatTerrain : ITerrainSample {public bool Supported(float x,float z,float radius)=>true;public float Height(float x,float z)=>0;}
     public static class SceneComposer
     {
-        public const string Revision="semantic-composer-0.2.0";
+        public const string Revision="semantic-composer-0.3.0";
         static bool Finite(float f)=>!float.IsNaN(f)&&!float.IsInfinity(f);
         public static float Unit(string id,int seed,int salt)
         {unchecked {uint h=(uint)seed^((uint)salt*0x85ebca6bu);foreach(char c in id??"")h=(h^c)*16777619;h^=h>>16;h*=0x7feb352du;h^=h>>15;h*=0x846ca68bu;h^=h>>16;return(h&0xffffff)/16777216f;}}
@@ -116,7 +121,7 @@ namespace QuietCamp.Composition
             var identities=new HashSet<string>(StringComparer.Ordinal);
             for(int i=0;i<documents.Count;i++)
             {
-                var d=documents[i];foreach(string id in new[]{d.id}.Concat(d.nodes.Select(n=>n.id)).Concat(d.zones.Select(z=>z.id)).Concat(d.routes.Select(r=>r.id)).Concat(d.ensembles.Select(e=>e.id)).Concat(d.landmarks.Select(l=>l.id)))
+                var d=documents[i];foreach(string id in new[]{d.id}.Concat(d.nodes.Select(n=>n.id)).Concat(d.zones.Select(z=>z.id)).Concat(d.routes.Select(r=>r.id)).Concat(d.ensembles.Select(e=>e.id)).Concat(d.landmarks.Select(l=>l.id)).Concat(d.surfaces.Select(s=>s.id)))
                     if(!identities.Add(id))output[i].diagnostics.Add(new CompositionDiagnostic{code="duplicate-world-id",entityId=id,sourcePointer="/",message="Identity appears in another composition document."});
             }
             var allRoutes=documents.SelectMany(d=>d.routes).ToArray();
@@ -137,7 +142,7 @@ namespace QuietCamp.Composition
         static CompositionResult Compose(SceneCompositionDocument doc,IReadOnlyDictionary<string,VisualAssetDefinition> assets,IReadOnlyDictionary<string,EnsembleTemplate> templates,ITerrainSample terrain,WorldContext context)
         {
             var result=new CompositionResult();terrain=terrain??new FlatTerrain();
-            if(doc==null||assets==null||templates==null||doc.nodes==null||doc.zones==null||doc.routes==null||doc.ensembles==null||doc.landmarks==null||doc.budgets==null)
+            if(doc==null||assets==null||templates==null||doc.nodes==null||doc.zones==null||doc.routes==null||doc.ensembles==null||doc.landmarks==null||doc.budgets==null||doc.surfaces==null)
             {result.diagnostics.Add(new CompositionDiagnostic{code="schema",entityId=doc?.id,message="Document and collections must be present, not null",sourcePointer="/"});return result;}var ids=new HashSet<string>(StringComparer.Ordinal);
             string EntityPointer(string id)
             {
@@ -152,7 +157,7 @@ namespace QuietCamp.Composition
                 result.diagnostics.Add(new CompositionDiagnostic{code=code,entityId=id,message=message,sourcePointer=pointer,sourceKind=kind});
             }
             // Native authoring uses this same core without the CLI's JSON Schema validator.
-            if(doc.nodes.Any(n=>n==null)||doc.zones.Any(z=>z==null)||doc.ensembles.Any(e=>e==null)||doc.landmarks.Any(l=>l==null)||doc.routes.Any(r=>r==null||r.points==null||r.serviceTargets==null)||assets.Values.Any(a=>a==null||a.seasons==null)||templates.Values.Any(t=>t==null||t.roles==null||t.roles.Any(r=>r==null||string.IsNullOrWhiteSpace(r.id))))
+            if(doc.nodes.Any(n=>n==null)||doc.zones.Any(z=>z==null)||doc.ensembles.Any(e=>e==null)||doc.landmarks.Any(l=>l==null)||doc.routes.Any(r=>r==null||r.points==null||r.serviceTargets==null||r.damage==null||r.fallenSupports==null)||assets.Values.Any(a=>a==null||a.seasons==null)||templates.Values.Any(t=>t==null||t.roles==null||t.roles.Any(r=>r==null||string.IsNullOrWhiteSpace(r.id))))
             {Error("schema",doc.id,"Null collection member or missing role identity.");return result;}
             void Id(string id){if(string.IsNullOrWhiteSpace(id)||!ids.Add(id))Error("duplicate-id",id,"IDs must be present and unique.");}
             Id(doc.id);
@@ -173,6 +178,7 @@ namespace QuietCamp.Composition
                     else{if(support.supportKind!=route.kind)Error("incompatible-support",route.id,"Support asset belongs to a different infrastructure network.");if(support.conductors==null||support.conductors.Length==0)Error("missing-conductor-sockets",route.id,"Power support requires declared wire attachment sockets.");}
                 }
             }
+            foreach(var route in doc.routes) PowerDamage.Validate(route,assets,result.diagnostics);
             foreach(var asset in assets.Values)
                 if(!new[]{"solid","canopy","groundcover","boundary"}.Contains(asset.placementClass)||!Finite(asset.radius)||!Finite(asset.height)||!Finite(asset.width)||!Finite(asset.depth)||asset.radius<0||asset.height<=0||asset.width<=0||asset.depth<=0||!Finite(asset.sourceHeight)||asset.sourceHeight<=0||asset.pivot==null||!Finite(asset.pivot.x)||!Finite(asset.pivot.y)||!Finite(asset.pivot.z)||asset.conductors==null||asset.conductors.Any(p=>p==null||!Finite(p.x)||!Finite(p.y)||!Finite(p.z)))Error("invalid-asset",asset.id,"Asset dimensions must be finite and positive.");
             foreach(var template in templates.Values)
@@ -198,6 +204,9 @@ namespace QuietCamp.Composition
             foreach(var l in doc.landmarks){Id(l.id);if(!assets.ContainsKey(l.asset??""))Error("missing-asset",l.id,"Landmark asset is missing.");if(!doc.nodes.Any(n=>n.id==l.revealOwner))Error("missing-reveal-owner",l.id,"Landmark must bind to progression.");}
             foreach(var r in doc.routes)foreach(var target in r.serviceTargets)if(!doc.ensembles.Any(e=>e.id==target))Error("missing-service-target",r.id,"Unknown ensemble: "+target);
             if(!result.Valid)return result;
+            SurfaceRecipes.Validate(doc,result);
+            if(!result.Valid)return result;
+            terrain=new SurfaceRecipes.Terrain(terrain,doc.surfaces);
             var reserved=context?.parcels??new List<(float x,float z,float w,float d)>();
             foreach(var landmark in doc.landmarks)
             {
@@ -299,7 +308,7 @@ namespace QuietCamp.Composition
                     for(int n=edge==1?0:1;n<=count;n++)
                     {
                         float t=n/(float)count,x=a.x+(b.x-a.x)*t,z=a.z+(b.z-a.z)*t;
-                        string rejection=Rejection(x,z,assets[route.supportAsset].radius);
+                        string rejection=Rejection(x,z,assets[route.supportAsset].radius*route.supportHeight/assets[route.supportAsset].height);
                         if(rejection!=null){Error("unsupported-pylon",route.id,"Support rejected: "+rejection);continue;}
                         var p=new ComposedInstance{id=route.id+"/support-"+support++,owner=route.id,role="support",asset=route.supportAsset,x=x,z=z,height=route.supportHeight,yaw=(float)(Math.Atan2(b.x-a.x,b.z-a.z)*180/Math.PI)};
                         result.instances.Add(p);
@@ -307,6 +316,12 @@ namespace QuietCamp.Composition
                         previous=p;
                     }
                 }
+            }
+            foreach(var route in doc.routes) PowerDamage.Apply(route,result);
+            foreach(var fallen in result.instances.Where(i=>i.role=="fallen-support"))
+            {
+                var metadata=assets[fallen.asset];string rejected=Rejection(fallen.x,fallen.z,metadata.radius*fallen.height/metadata.height);
+                if(rejected!=null)Error("unsupported-fallen-support",fallen.owner,"Fallen footprint rejected: "+rejected);
             }
             foreach(var landmark in doc.landmarks)result.instances.Add(new ComposedInstance{id=landmark.id,owner=landmark.compoundOwner??landmark.id,role="landmark",asset=landmark.asset,x=landmark.x,z=landmark.z,height=landmark.height,yaw=landmark.yaw,revealOwner=landmark.revealOwner});
             if(result.instances.Count>doc.budgets.instances)Error("instance-budget",doc.id,"Composition exceeds instance budget.");

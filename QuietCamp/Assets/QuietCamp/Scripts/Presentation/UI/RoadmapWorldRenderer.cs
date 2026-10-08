@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using QuietCamp.Application;
 using QuietCamp.Domain;
 using UnityEngine;
@@ -100,7 +101,7 @@ namespace QuietCamp.Presentation.UI
         float Ground(float x,float z)
         {
 #if UNITY_EDITOR
-            if(_offlineDocs!=null){if(ZoneAt(x,z,"water")!=null)return -.12f;return Application.RoadmapCompositionAdapter.TerrainHeight(_map.Data,_map.Environment,x,-z);}
+            if(_offlineDocs!=null){if(ZoneAt(x,z,"water")!=null)return -.12f;return Application.RoadmapCompositionAdapter.TerrainHeight(_map.Data,_map.Environment,x,-z)+QuietCamp.Composition.SurfaceRecipes.Height(_offlineDocs.SelectMany(d=>d.surfaces),x,-z);}
 #endif
             float distance=-z*_scale*SinPitch;int index=_map.Data.NodeAt(distance);
             var a=At(index);var b=At(Mathf.Min(index+1,_map.Data.Nodes.Length-1));
@@ -229,7 +230,6 @@ namespace QuietCamp.Presentation.UI
         {
             Clear();var library=RoadmapModelLibrary.Load();
             for(int i=0;i<3;i++){float angle=i*2.094f;Append(library.Get("tree_pineRoundA"),new Vector3(Mathf.Cos(angle)*2.7f,0,Mathf.Sin(angle)*2.7f),2.1f,0);}
-            Append(library.Get("tent_smallOpen"),Vector3.zero,1.15f,0);
             var neutral=new Color(.50f,.56f,.48f).linear;for(int i=0;i<_colors.Count;i++)_colors[i]=Color.Lerp(neutral,_colors[i],.12f);
             _placeholder=new Mesh{name="Roadmap shared pending silhouette"};_placeholder.SetVertices(_vertices);_placeholder.SetNormals(_normals);_placeholder.SetColors(_colors);_placeholder.SetUVs(1,_wind);_placeholder.SetTriangles(_triangles,0);_placeholder.RecalculateBounds();Clear();
         }
@@ -261,7 +261,6 @@ namespace QuietCamp.Presentation.UI
                         if(_map.Reveal(key)==RoadmapReveal.Revealed){yield return null;continue;}
                         var silhouette=At(key);var models=RoadmapModelLibrary.Load();
                         for(int i=0;i<4;i++){float a=i*1.57f;Append(models.Get("tree_pineRoundA"),silhouette+new Vector3(Mathf.Cos(a)*3,0,Mathf.Sin(a)*3),2.3f,0);yield return null;}
-                        Append(models.Get("tent_smallOpen"),silhouette,1.1f,0);
                         for(int i=0;i<_colors.Count;i++)_colors[i]=Color.Lerp(new Color(.57f,.65f,.53f).linear,_colors[i],.12f);
                     }
                     else
@@ -594,12 +593,12 @@ namespace QuietCamp.Presentation.UI
                 _localFog=reveal==RoadmapReveal.Silhouette?.82f:0;
                 Trail(previous,at,.25f,new Color(.57f,.49f,.33f));
                 if(reveal==RoadmapReveal.Revealed)
-                    foreach(var prop in node.world.props){Append(model.Get(prop.assetId),at+new Vector3(prop.x,0,prop.z),prop.height,prop.yaw);yield return null;}
+                    foreach(var prop in node.world.props){if(prop.assetId.StartsWith("tent"))continue;Append(model.Get(prop.assetId),at+new Vector3(prop.x,0,prop.z),prop.height,prop.yaw);yield return null;}
                 else
                 {
                     // Unknown node contains generic silhouettes only, never its authored props/details.
                     Append(model.Get("tree_pineRoundA"),at,2.7f,0);
-                    Append(model.Get("tent_smallOpen"),at+Vector3.right*1.7f,1,0);yield return null;
+                    yield return null;
                 }
                 previous=at;
             }

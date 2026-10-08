@@ -99,3 +99,7 @@ Bundled AgentVerify, Atmos, LevelGen and LevelKit with recorded upstream revisio
 Verification: current-source compilation passed for the five restored package runtime assemblies (including the LevelKit bridge), the four game layers and Editor/PlayMode test sources, using cached Unity references. This is compilation, not execution of Unity tests. The independent .NET 10 probe was not run: this host has SDK 9.0.203.
 
 A clean Git archive of the committed repository also passed the portability check after extraction into a temporary workspace with no `Library/` or sibling repositories. Push attempts failed because this environment has no GitHub HTTPS credentials; changes are committed locally.
+
+## Roadmap handoff continuation
+
+Source changes and precise validation status: [NATIVE-FINISH-2026-10-08-UA.md](Design/Roadmap/NATIVE-FINISH-2026-10-08-UA.md). Main runtime catalog remains legacy pending authorized native bake and visual review.

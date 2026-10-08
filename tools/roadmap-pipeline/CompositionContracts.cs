@@ -77,6 +77,36 @@ static class CompositionContracts
         Require(SceneComposer.ComposeWorld(new[]{roadA,roadB},assets,templates).All(r=>r.Valid),"Valid continuous road rejected");
         roadB.routes[0].points[0].x=1;Require(SceneComposer.ComposeWorld(new[]{roadA,roadB},assets,templates).Any(r=>r.diagnostics.Any(d=>d.code=="disconnected-route-continuation")),"Broken regional road seam admitted");
         roadB.routes[0].id="missing";Require(SceneComposer.ComposeWorld(new[]{roadA,roadB},assets,templates).Any(r=>r.diagnostics.Any(d=>d.code=="missing-route-continuation")),"Missing corridor endpoint admitted");
+        var damaged=new SceneCompositionDocument{id="damaged-network",routes=new[]{new InfrastructureRouteDefinition
+        {id="damaged-line",kind="power",supportAsset="ua_power_pylon",points=new[]{new Point(0,0),new Point(0,80)},
+         minSpan=20,maxSpan=40,fallenAsset="ua_power_pylon_fallen",fallenSupports=new[]{1},
+         damage=new[]{new SpanDamage{span=0,state="hanging-from"},new SpanDamage{span=1,state="hanging-to"}}}}};
+        var damageResult=SceneComposer.Compose(damaged,assets,templates);
+        Require(damageResult.Valid&&damageResult.instances.Count(i=>i.role=="fallen-support")==1,"Valid fallen network rejected");
+        Require(damageResult.spans.All(s=>s.state!="intact"),"Fallen tower remains a live conductor support");
+        var badDamage=Copy(damaged);badDamage.routes[0].damage=Array.Empty<SpanDamage>();
+        Require(SceneComposer.Compose(badDamage,assets,templates).diagnostics.Any(d=>d.code=="fallen-live-conductor"),"Live fallen conductor admitted");
+        badDamage=Copy(damaged);badDamage.routes[0].damage[0].span=9;
+        Require(SceneComposer.Compose(badDamage,assets,templates).diagnostics.Any(d=>d.code=="invalid-power-damage"),"Unknown damage index admitted");
+        badDamage=Copy(damaged);badDamage.routes[0].damage[0].state="hanging-to";
+        Require(SceneComposer.Compose(badDamage,assets,templates).diagnostics.Any(d=>d.code=="fallen-live-conductor"),"Hanging end attached to fallen tower");
+        badDamage=Copy(damaged);badDamage.routes[0].damage[0].dropLength=float.NaN;
+        Require(SceneComposer.Compose(badDamage,assets,templates).diagnostics.Any(d=>d.code=="invalid-power-damage"),"NaN drop length admitted");
+        Console.WriteLine("PASS conductor damage: standing attachments, fallen exclusion, stale indices and invalid drop rejection");
+        var hydrology=new SceneCompositionDocument{id="hydrology",surfaces=new[]{new SurfaceRecipe
+        {id="channel",kind="channel",heightOffset=-.2f,points=new[]{new Point(-2,0),new Point(2,0),new Point(2,40),new Point(-2,40)}}},
+        routes=new[]{new InfrastructureRouteDefinition{id="dry-detour",kind="path",points=new[]{new Point(-8,0),new Point(-8,40)}}}};
+        Require(SceneComposer.Compose(hydrology,assets,templates).Valid,"Dry hydrology bypass rejected");
+        Require(SurfaceRecipes.Height(hydrology.surfaces,0,20)<0&&SurfaceRecipes.Height(hydrology.surfaces,8,20)==0,"Surface height leaves footprint");
+        var wet=Copy(hydrology);wet.routes[0].points=new[]{new Point(-8,20),new Point(8,20)};
+        Require(SceneComposer.Compose(wet,assets,templates).diagnostics.Any(d=>d.code=="wet-route-crossing"),"Route across breach/channel admitted");
+        wet=Copy(hydrology);wet.surfaces[0].points=new[]{new Point(-2,0),new Point(2,40),new Point(2,0),new Point(-2,40)};
+        Require(SceneComposer.Compose(wet,assets,templates).diagnostics.Any(d=>d.code=="invalid-surface"),"Self-crossing surface admitted");
+        wet=Copy(hydrology);wet.surfaces[0].kind="garden";wet.surfaces[0].owner="missing-yard";
+        Require(SceneComposer.Compose(wet,assets,templates).diagnostics.Any(d=>d.code=="orphan-surface"),"Unowned rear garden admitted");
+        var supported=new SurfaceRecipes.Terrain(new FlatTerrain(),hydrology.surfaces);
+        Require(!supported.Supported(0,20,1)&&!supported.Supported(2.5f,20,1)&&supported.Supported(8,20,1),"Channel footprint clearance ignored");
+        Console.WriteLine("PASS surface recipes: dry detour, shape/ownership rejection, supported ground and bounded relief");
         Console.WriteLine("PASS semantic composition: atomic ensembles, gates/roads, supports, deterministic IDs, local edits and negative cases");
     }
 }

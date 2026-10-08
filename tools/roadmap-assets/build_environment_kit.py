@@ -285,6 +285,7 @@ def asset_entries(items):
         entry=dict(id=m.id,source="../Models/EnvironmentKit/"+m.id+".obj",license="original-project-owned",
                    sourceHash=hashlib.sha256(files_for([m])[SOURCE/(m.id+".obj")].encode()).hexdigest(),
                    sourceHeight=h,height=h,width=w,depth=d,radius=math.hypot(w,d)/2,
+                   pivot=dict(x=(lo[0]+hi[0])/2,y=lo[1],z=(lo[2]+hi[2])/2),
                    wind=kind in ("groundcover","canopy"),placementClass=kind,
                    lod=m.id+"_lod" if m.id+"_lod" in ids else None)
         if m.id=="ua_power_pylon_rusted":

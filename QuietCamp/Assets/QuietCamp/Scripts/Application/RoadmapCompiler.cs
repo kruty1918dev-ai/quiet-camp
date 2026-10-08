@@ -82,9 +82,6 @@ namespace QuietCamp.Application
             foreach(var obj in level.mapObjects??Array.Empty<EnvironmentObjectData>())
                 Add(obj.assetId,obj.x+.5f-w,obj.z+.5f-h,obj.assetId.StartsWith("tree")?2.2f:obj.assetId.Contains("campfire")?.42f:.55f,obj.assetId.StartsWith("tree"),obj.rotation*90);
             // No puzzle witnesses. These vignettes represent life around, not solutions on, the board.
-            if(!Reserved(level,-.9f,-h-1.35f,.9f))Add("tent_smallOpen",-.9f,-h-1.35f,1.18f);
-            else if(!Reserved(level,-w-1.4f,.4f,.9f))Add("tent_smallOpen",-w-1.4f,.4f,1.18f,false,90);
-            if(level.number>2&&!Reserved(level,1.5f,-h-1.45f,.9f))Add("tent_detailedOpen",1.5f,-h-1.45f,1.08f,false,90);
             var rng=new Random(unchecked(level.decorSeed*971+37));bool winter=level.environment?.seasonId=="winter",autumn=level.environment?.seasonId=="autumn";
             int trees=6+(int)(12*Math.Max(0,Math.Min(1,level.environment?.treeDensity??.5f)));
             for(int attempt=0,placed=0;attempt<200&&placed<trees;attempt++)

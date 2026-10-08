@@ -172,6 +172,46 @@
               "string",
               "null"
             ]
+          },
+          "damage": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "span": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "state": {
+                  "enum": [
+                    "severed",
+                    "hanging-from",
+                    "hanging-to",
+                    "removed"
+                  ]
+                },
+                "dropLength": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                }
+              },
+              "required": [
+                "span",
+                "state"
+              ]
+            }
+          },
+          "fallenSupports": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "fallenAsset": {
+            "type": "string"
           }
         },
         "required": [
@@ -308,6 +348,71 @@
         }
       },
       "required": []
+    },
+    "surfaces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "gravel",
+              "bus-bay",
+              "pothole",
+              "garden",
+              "reservoir-bed",
+              "channel",
+              "erosion",
+              "service-yard"
+            ]
+          },
+          "owner": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "heightOffset": {
+            "type": "number",
+            "minimum": -1,
+            "maximum": 1
+          },
+          "feather": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "points": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "x": {
+                  "type": "number"
+                },
+                "z": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "x",
+                "z"
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "points"
+        ]
+      }
     }
   },
   "required": [

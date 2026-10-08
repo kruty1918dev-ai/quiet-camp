@@ -32,7 +32,7 @@ static class CompositionCommands
             string compatibility=GameInvariant(definition);
             QuietCamp.Application.RoadmapCompositionAdapter.Bind(definition,docs);
             if(GameInvariant(definition)!=compatibility)throw new Exception("Composition adapter changed campaign identity, progression or content; only node/branch positions may change");
-            var catalog=new QuietCamp.Application.RoadmapCatalog(definition);terrain=new QuietCamp.Application.RoadmapCompositionAdapter.Terrain(catalog);
+            var catalog=new QuietCamp.Application.RoadmapCatalog(definition);terrain=new QuietCamp.Application.RoadmapCompositionAdapter.Terrain(catalog,world);
             foreach(var document in world){int region=Array.FindIndex(definition.regions,r=>r.id==document.id);if(region<0)throw new Exception("Unbound composition region: "+document.id);QuietCamp.Application.RoadmapCompositionAdapter.WorldDocument(document,catalog.RegionStarts[region]/QuietCamp.Application.RoadmapCompositionAdapter.Units);}
         }
         var result=SceneComposer.ComposeWorld(world,assets,templates,terrain);return world.Select((d,i)=>new{d.id,result=result[i]}).ToDictionary(p=>p.id,p=>p.result);

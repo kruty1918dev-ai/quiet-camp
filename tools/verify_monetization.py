@@ -7,7 +7,8 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
 PROJECT = ROOT / "QuietCamp"
-ARTIFACTS = Path(os.environ.get("QC_UNITY_ARTIFACTS", str(PROJECT / "Library/Bee/artifacts")))
+CACHE_PROJECT = Path(os.environ.get("QC_UNITY_CACHE_PROJECT", str(PROJECT)))
+ARTIFACTS = CACHE_PROJECT / "Library/Bee/artifacts"
 
 
 def main():
@@ -39,6 +40,10 @@ def main():
             for line in original.read_text().splitlines():
                 if line.startswith(("-out:", "-refout:")) or line.strip('"').endswith(".cs"):
                     continue
+                if line.startswith("/additionalfile:"):
+                    additional = Path(line.split(":",1)[1].strip('"'))
+                    if not additional.is_absolute() and CACHE_PROJECT != PROJECT:
+                        line = '/additionalfile:"' + str(CACHE_PROJECT / additional) + '"'
                 if line.startswith("-r:"):
                     reference = Path(line[3:].strip('"'))
                     stem = reference.name.removesuffix(".ref.dll").removesuffix(".dll")
@@ -47,7 +52,9 @@ def main():
                     if stem in compiled:
                         line = '-r:"' + str(compiled[stem]) + '"'
                     elif not reference.is_absolute() and not (PROJECT / reference).exists():
-                        fallback = PROJECT / "Library/ScriptAssemblies" / (stem + ".dll")
+                        fallback = CACHE_PROJECT / reference
+                        if not fallback.exists():
+                            fallback = CACHE_PROJECT / "Library/ScriptAssemblies" / (stem + ".dll")
                         if fallback.exists():
                             line = '-r:"' + str(fallback) + '"'
                 options.append(line)
@@ -56,7 +63,7 @@ def main():
             declaration = PROJECT / "Assets/QuietCamp" / folder / (assembly + ".asmdef")
             if declaration.exists():
                 for reference in json.loads(declaration.read_text()).get("references", []):
-                    cached = PROJECT / "Library/ScriptAssemblies" / (reference + ".dll")
+                    cached = CACHE_PROJECT / "Library/ScriptAssemblies" / (reference + ".dll")
                     if not reference.startswith("GUID:") and cached.exists() and not any(Path(line[3:].strip('"')).name in (reference + ".dll", reference + ".ref.dll") for line in options if line.startswith("-r:")):
                         options.append('-r:"' + str(cached) + '"')
             destination = output / (assembly + ".dll")

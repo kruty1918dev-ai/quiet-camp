@@ -39,20 +39,20 @@
     {
       "id": "r0-left-forest",
       "kind": "forest",
-      "x": -25,
+      "x": -21,
       "z": 61.03873273824638,
-      "width": 32,
+      "width": 40,
       "depth": 122.07746547649276,
-      "density": 0.91
+      "density": 0.97
     },
     {
       "id": "r0-right-forest",
       "kind": "forest",
-      "x": 25,
+      "x": 21,
       "z": 61.03873273824638,
-      "width": 32,
+      "width": 40,
       "depth": 122.07746547649276,
-      "density": 0.91
+      "density": 0.97
     },
     {
       "id": "r0-meadow",
@@ -62,16 +62,6 @@
       "width": 30,
       "depth": 122.07746547649276,
       "density": 0.9
-    },
-    {
-      "id": "r0-field",
-      "kind": "field",
-      "species": "ua_field_weeds",
-      "x": 24,
-      "z": 70.8049299763658,
-      "width": 24,
-      "depth": 63.480282047776235,
-      "density": 0.87
     },
     {
       "id": "r0-yards-left",
@@ -133,27 +123,15 @@
   ],
   "ensembles": [
     {
-      "id": "r0-homestead-0",
-      "template": "ua.homestead",
-      "placement": {
-        "zone": "r0-yards-left",
-        "nearNode": "node:QC002"
-      },
-      "entranceConnectsTo": "r0-main-road",
-      "fenceVariant": "wattle",
-      "state": "partly-reclaimed",
-      "scale": 0.72
-    },
-    {
       "id": "r0-homestead-1",
-      "template": "ua.abandoned-homestead",
+      "template": "ua.forester-yard",
       "placement": {
         "zone": "r0-yards-right",
         "nearNode": "node:QC004"
       },
       "entranceConnectsTo": "r0-main-road",
       "fenceVariant": "wattle",
-      "state": "partly-reclaimed",
+      "state": "abandoned",
       "scale": 0.72
     }
   ],
