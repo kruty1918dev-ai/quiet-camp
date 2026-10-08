@@ -18,6 +18,16 @@ namespace QuietCamp.Tests
     /// </summary>
     public class FoliageDivePlayModeTests
     {
+        [SetUp]
+        public void GuardPerformanceQaStorage()
+        {
+#if UNITY_EDITOR
+            if (UnityEditor.SessionState.GetBool("QcPerf.Active", false)
+                && !UnityEngine.Application.productName.StartsWith("QuietCampPerfQA"))
+                Assert.Ignore("Performance driver must enter Play Mode with its isolated QA identity.");
+#endif
+        }
+
         [UnityTearDown]
         public IEnumerator ReleaseBootstrap()
         {

@@ -1,0 +1,84 @@
+{
+  "result": "Passed",
+  "tests": [
+    {
+      "id": "1097",
+      "name": "Curtain_SubmitsVisibleMeshToCanvas",
+      "fullname": "QuietCamp.Tests.FoliageDivePlayModeTests.Curtain_SubmitsVisibleMeshToCanvas",
+      "methodname": "Curtain_SubmitsVisibleMeshToCanvas",
+      "classname": "QuietCamp.Tests.FoliageDivePlayModeTests",
+      "runstate": "Runnable",
+      "seed": "1173574568",
+      "result": "Passed",
+      "start-time": "2026-10-08 22:09:25Z",
+      "end-time": "2026-10-08 22:09:27Z",
+      "duration": "1.760977",
+      "asserts": "0"
+    },
+    {
+      "id": "1098",
+      "name": "Recover_StopsTransitionSoundWithoutStoppingWorldRustle",
+      "fullname": "QuietCamp.Tests.FoliageDivePlayModeTests.Recover_StopsTransitionSoundWithoutStoppingWorldRustle",
+      "methodname": "Recover_StopsTransitionSoundWithoutStoppingWorldRustle",
+      "classname": "QuietCamp.Tests.FoliageDivePlayModeTests",
+      "runstate": "Runnable",
+      "seed": "1139369531",
+      "result": "Passed",
+      "start-time": "2026-10-08 22:09:27Z",
+      "end-time": "2026-10-08 22:09:34Z",
+      "duration": "6.645709",
+      "asserts": "0"
+    },
+    {
+      "id": "1099",
+      "name": "RecoverDuringCover_NeverEntersCoveredLoading",
+      "fullname": "QuietCamp.Tests.FoliageDivePlayModeTests.RecoverDuringCover_NeverEntersCoveredLoading",
+      "methodname": "RecoverDuringCover_NeverEntersCoveredLoading",
+      "classname": "QuietCamp.Tests.FoliageDivePlayModeTests",
+      "runstate": "Runnable",
+      "seed": "560593674",
+      "result": "Passed",
+      "start-time": "2026-10-08 22:09:34Z",
+      "end-time": "2026-10-08 22:09:39Z",
+      "duration": "5.453586",
+      "asserts": "0"
+    },
+    {
+      "id": "1101",
+      "name": "ReducedMotion_HidesLeavesAndKeepsCamera",
+      "fullname": "QuietCamp.Tests.FoliageDivePlayModeTests.ReducedMotion_HidesLeavesAndKeepsCamera",
+      "methodname": "ReducedMotion_HidesLeavesAndKeepsCamera",
+      "classname": "QuietCamp.Tests.FoliageDivePlayModeTests",
+      "runstate": "Runnable",
+      "seed": "1473516619",
+      "result": "Passed",
+      "start-time": "2026-10-08 22:09:39Z",
+      "end-time": "2026-10-08 22:09:45Z",
+      "duration": "5.350378",
+      "asserts": "0"
+    },
+    {
+      "id": "1100",
+      "name": "Reveal_RetractsLeavesAndRestoresInput",
+      "fullname": "QuietCamp.Tests.FoliageDivePlayModeTests.Reveal_RetractsLeavesAndRestoresInput",
+      "methodname": "Reveal_RetractsLeavesAndRestoresInput",
+      "classname": "QuietCamp.Tests.FoliageDivePlayModeTests",
+      "runstate": "Runnable",
+      "seed": "1390783605",
+      "result": "Passed",
+      "start-time": "2026-10-08 22:09:45Z",
+      "end-time": "2026-10-08 22:09:53Z",
+      "duration": "8.346606",
+      "asserts": "0"
+    }
+  ],
+  "sessionGuards": {
+    "projectSettingsRestoredByteForByte": true,
+    "originalDirtyInputsPreserved": true,
+    "originalGameSaveHashesPreserved": true,
+    "sameAdbProcessIdentity": true,
+    "adbKillPreferencesUnchanged": true
+  },
+  "editorReused": true,
+  "playerBuild": false
+}

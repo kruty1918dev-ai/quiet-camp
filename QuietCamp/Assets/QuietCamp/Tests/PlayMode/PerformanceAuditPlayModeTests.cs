@@ -97,6 +97,7 @@ namespace QuietCamp.Tests
         readonly List<object> _operations = new List<object>();
         readonly List<object> _snapshots = new List<object>();
         int _workers, _vsync, _target;
+        string _reportName = "editor-audit.json";
         static readonly BindingFlags Private = BindingFlags.Instance | BindingFlags.NonPublic;
         static MenuScreens Menu => (MenuScreens)typeof(MenuSceneHost).GetField("_screens", Private).GetValue(MenuSceneHost.Current);
         static ScreenRouter Router => (ScreenRouter)typeof(QuietCampBootstrap).GetField("_router", Private).GetValue(Object.FindAnyObjectByType<QuietCampBootstrap>());
@@ -251,6 +252,38 @@ namespace QuietCamp.Tests
             Menu.Show("AlbumQuiet");yield return Frames(45);yield return Sample("ui.album.quiet.high",150);
             Stage("finished");Assert.Greater(_collector.Frames.Count,1000);Assert.Greater(PerformanceAudit.Spans.Count,1000);
         }
+        [UnityTest]
+        [Timeout(180000)]
+        public IEnumerator RunRoadmapPerformance()
+        {
+            if (UnityEngine.Application.isBatchMode || !UnityEngine.Application.productName.StartsWith("QuietCampPerfQA"))
+                Assert.Ignore("Requires rendered Game View and distinct performance QA storage.");
+            _reportName = "editor-roadmap-audit.json";
+            typeof(ScreenshotPlayModeTest).GetMethod("SetGameViewSize", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { 720, 1600 });
+            PerformanceAudit.Reset(); Stage("roadmap.boot");
+            var root = new GameObject("QuietCampPerformanceCollector"); Object.DontDestroyOnLoad(root);
+            _collector = root.AddComponent<PerformanceFrameCollector>(); _collector.Begin();
+            yield return SceneManager.LoadSceneAsync("Boot"); yield return PrivacyBootTestSupport.EnterGame();
+            var services = QuietCampBootstrap.ServicesRef; services.Tutorial.Skip(); services.Tutorial.MarkMenuIntroSeen();
+            services.Progression.Restore(LevelLoader.MvpLevelIds().ToArray(), "QC007", services.Progression.CosmeticFlags);
+            services.Localization.TrySetLanguage("uk"); services.Settings.language = "uk";
+            services.Settings.master = 0; services.Audio?.SetBusVolume(Kruty1918.Audio.AudioBus.Master, 0);
+            var adaptive = Object.FindAnyObjectByType<AdaptiveCampQuality>(); if (adaptive != null) adaptive.enabled = false;
+            Tier(services, 2); services.ReducedMotion = false;
+            yield return SceneManager.LoadSceneAsync("MainMenu"); yield return Frames(45); _collector.RefreshRenderCounters();
+            Stage("ui.map.open"); Menu.Show("Levels"); yield return Frames(30);
+            yield return Sample("ui.map.steady", 120);
+            var scroll = Object.FindObjectsByType<ScrollRect>(FindObjectsSortMode.None).First(s => s.gameObject.activeInHierarchy && s.content != null && s.vertical);
+            Stage("ui.map.sweep");
+            for (int i = 0; i < 90; i++) { scroll.verticalNormalizedPosition = 1 - i / 89f; yield return null; }
+            Snapshot("ui.map.sweep"); yield return Frames(1);
+            Stage("ui.map.reposition"); scroll.verticalNormalizedPosition = .9f; yield return Frames(30);
+            Stage("ui.map.drag");
+            for (int i = 0; i < 120; i++) { scroll.verticalNormalizedPosition = .9f - .05f * i / 119f; yield return null; }
+            Snapshot("ui.map.drag"); yield return Frames(1);
+            Stage("ui.map.final-steady"); yield return Frames(120);
+            Stage("finished"); Assert.Greater(_collector.Frames.Count, 300);
+        }
         void WriteReport()
         {
             var output=Path.Combine(Directory.GetCurrentDirectory(),"TestResults","Performance2026-10-08");Directory.CreateDirectory(output);
@@ -264,7 +297,7 @@ namespace QuietCamp.Tests
                 frames=_collector.Frames,spans=PerformanceAudit.Spans,operations=_operations,snapshots=_snapshots,
                 instrumentationOverhead=new{frameValueArrayBytesApprox=_collector.Counters.Count*8,frameCount=_collector.Frames.Count,spanCount=PerformanceAudit.Spans.Count},
                 terminalStage=PerformanceAudit.Stage };
-            File.WriteAllText(Path.Combine(output,"editor-audit.json"),Newtonsoft.Json.JsonConvert.SerializeObject(report,Newtonsoft.Json.Formatting.None));
+            File.WriteAllText(Path.Combine(output,_reportName),Newtonsoft.Json.JsonConvert.SerializeObject(report,Newtonsoft.Json.Formatting.None));
             Debug.Log("[QC-PERF] Report written: frames="+_collector.Frames.Count+" spans="+PerformanceAudit.Spans.Count);
         }
     }

@@ -51,6 +51,7 @@ namespace QuietCamp.Presentation.UI
         }
         void EnsureData()
         {
+            using var audit = PerformanceAudit.Measure("QC.RoadmapGraphic.EnsureData");
             if(_painter!=null)return;
             _catalog=AtmosphereCatalog.Load();_painter=new RoadmapPainter(RoadmapModelLibrary.Load());
             // Lazy scenes: the map materializes a diorama only when its part of
@@ -89,6 +90,7 @@ namespace QuietCamp.Presentation.UI
         }
         void LateUpdate()
         {
+            using var audit = PerformanceAudit.Measure("QC.RoadmapGraphic.LateUpdate");
             if(_painter==null)return;
             if(!_manualWeather&&!Reduced)for(int i=0;i<_scenes.Count;i++)
                 if(_scenes[i]!=null&&InView(Centre(i).y,Extent(i)))_scenes[i].Advance(Time.unscaledDeltaTime);
@@ -113,6 +115,7 @@ namespace QuietCamp.Presentation.UI
         }
         void UpdatePool()
         {
+            using var audit = PerformanceAudit.Measure("QC.RoadmapGraphic.UpdatePool");
             int slot=0;
             for(int i=0;i<_scenes.Count;i++)
             {
@@ -130,6 +133,7 @@ namespace QuietCamp.Presentation.UI
         }
         internal void PaintGlade(VertexHelper vh,int index,RoadmapGladeGraphic output)
         {
+            using var audit = PerformanceAudit.Measure("QC.RoadmapGraphic.PaintGlade");
             vh.Clear();_drawingModels=_drawingShadows=0;_painter.TruncatedModels=0;
             var scene=SceneAt(index);var centre=Centre(index);
             DrawSurroundings(vh,scene,centre,rectTransform.rect);
@@ -173,6 +177,7 @@ namespace QuietCamp.Presentation.UI
         }
         protected override void OnPopulateMesh(VertexHelper vh)
         {
+            using var audit = PerformanceAudit.Measure("QC.RoadmapGraphic.OnPopulateMesh");
             vh.Clear();if(rectTransform.rect.width<=0)return;EnsureData();if(_scenes.Count==0)return;
             _visible=FindVisibleArea();var r=rectTransform.rect;
             _bonusTruncated=0;
@@ -246,6 +251,7 @@ namespace QuietCamp.Presentation.UI
         static readonly Dictionary<string,RoadmapSceneGenerator.Scene> BonusScenes=new Dictionary<string,RoadmapSceneGenerator.Scene>();
         internal static int BonusClearing(VertexHelper vh,Vector2 at,BonusCampDefinition slot)
         {
+            using var audit = PerformanceAudit.Measure("QC.RoadmapGraphic.BonusClearing");
             if(!BonusScenes.TryGetValue(slot.id,out var scene))
             {
                 var level=new LevelSummary { id=slot.id,number=slot.afterLevel,width=4,height=4,decorSeed=slot.afterLevel*7919,

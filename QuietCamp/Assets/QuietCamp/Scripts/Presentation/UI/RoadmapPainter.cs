@@ -1,3 +1,4 @@
+using QuietCamp.Infrastructure;
 using System.Collections.Generic;
 using QuietCamp.Presentation.World;
 using UnityEngine;
@@ -21,6 +22,7 @@ namespace QuietCamp.Presentation.UI
         public static Color Clear(Color c) { c.a=0;return c; }
         public void Shadow(VertexHelper vh,RoadmapSceneGenerator.Scene scene,RoadmapSceneGenerator.Prop prop,Vector2 centre,float scale)
         {
+            using var audit = PerformanceAudit.Measure("QC.RoadmapPainter.Shadow");
             var model=prop.Geometry??_library.Get(prop.Asset);if(model==null||prop.Height<.45f)return;
             _points.Clear();var rotation=Quaternion.Euler(0,prop.Yaw,0);
             var sun=scene.Sun;float y=Mathf.Max(.18f,sun.y);
@@ -76,6 +78,7 @@ namespace QuietCamp.Presentation.UI
         static float Cross(Vector2 a,Vector2 b)=>a.x*b.y-a.y*b.x;
         public void Model(VertexHelper vh,RoadmapSceneGenerator.Scene scene,RoadmapSceneGenerator.Prop prop,Vector2 centre,float scale)
         {
+            using var audit = PerformanceAudit.Measure("QC.RoadmapPainter.Model");
             var model=prop.Geometry??_library.Get(prop.Asset);if(model==null)return;
             var rotation=Quaternion.Euler(0,prop.Yaw,0);
             for(int i=0;i<model.Positions.Length;i+=3)

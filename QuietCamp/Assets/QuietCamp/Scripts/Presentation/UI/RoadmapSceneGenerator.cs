@@ -89,6 +89,7 @@ namespace QuietCamp.Presentation.UI
         }
         public static Scene Generate(LevelSummary level,AtmosphereCatalog catalog)
         {
+            using var audit = PerformanceAudit.Measure("QC.RoadmapSceneGenerator.Generate");
             var light=catalog.Resolve(level.id,level.lighting);
             var sun=-(Quaternion.Euler(light.Elevation,65,0)*Vector3.forward);
             var scene=new Scene { Level=level,Light=light,Sun=sun,

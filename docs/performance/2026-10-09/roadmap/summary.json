@@ -1,0 +1,3899 @@
+{
+  "schemaVersion": 1,
+  "capturedUtc": "2026-10-08T22:15:51.0486360Z",
+  "unityVersion": "6000.6.2f1",
+  "host": {
+    "cpu": "Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz",
+    "cores": 8,
+    "ramMb": 15950,
+    "gpu": "NVIDIA GeForce GT 730/PCIe/SSE2",
+    "graphicsApi": "OpenGLCore"
+  },
+  "screen": [
+    720,
+    1600
+  ],
+  "source": {
+    "baselineCommit": "c9c7bf55df486a0d33d008e875431c6225b78aa7",
+    "auditCheckpoint": "235804a2eb13b3a1fdadd1ce7694897e05d4a3ef",
+    "dirtyInputSha256": {
+      "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/level_summaries.json": "ebd884c4b84a95d7f71de897a0ea2170d850bb89924ece29842badf8269971f9",
+      "QuietCamp/Assets/QuietCamp/Settings/URP/UniversalRenderPipelineGlobalSettings.asset": "08f1050e1513f8d6e4be11e61a18e9fcba63c9c81aa00338d36cbaae14625f5d"
+    },
+    "instrumentedSourceSha256": {
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapGladeGraphic.cs": "77281e6133739b68bd0d127e1153ba1c04f73dafee034e8810f84c97ec41bca5",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapGraphic.cs": "4b7330cd647ba94f6903da1ca664eb57a4b955ee1efc29a1f7446275138c794e",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapPainter.cs": "43d58250fe0849490f77b59b48b08b8e8c6d03a74a8a63cd13f9a6af3a73be02",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapSceneGenerator.cs": "99d8d5050325835cf80ec3abc17c04b9fe0409aceee2ba9e5b7da4d375585dc3",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapWeatherGraphic.cs": "1030d90878f831c76b650a382bee657ff68249e254a8cac2e08949c85f6003c9"
+    },
+    "fixtureSha256": "83df88667cd1a798de7c1f342acfc5a94ef5906e89235c53faea942d10951b78",
+    "hostArrangement": "Existing rendered Editor; no launch or ADB changes.",
+    "purpose": "High-tier roadmap open, stationary map, full sweep and smaller drag; extra markers after main matrix."
+  },
+  "methodology": {
+    "renderedEditor": true,
+    "playerBuild": false,
+    "deepProfiling": false,
+    "workerCount": 1,
+    "targetFps": 60,
+    "vsync": 0,
+    "adaptiveQualityDisabled": true,
+    "audioMasterMuted": true,
+    "profilerCountersArePreviousCompletedFrame": true,
+    "wallIntervalIncludesEditorAndOS": true,
+    "scopesInclusive": true,
+    "syntheticQaProgress": true
+  },
+  "terminalStage": "finished",
+  "frameCount": 640,
+  "spanCount": 98964,
+  "excludedSnapshotFrames": [
+    290,
+    380,
+    531
+  ],
+  "counterHealth": [
+    {
+      "name": "Gfx.WaitForPresentOnGfxThread",
+      "category": "Render",
+      "unit": "TimeNanoseconds",
+      "samples": 637,
+      "nonzeroSamples": 0,
+      "usable": false,
+      "warning": "All zero: unavailable/unsupported; not evidence of zero cost."
+    },
+    {
+      "name": "GC.Collect",
+      "category": "GC",
+      "unit": "TimeNanoseconds",
+      "samples": 637,
+      "nonzeroSamples": 41,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "Main Thread",
+      "category": "Internal",
+      "unit": "TimeNanoseconds",
+      "samples": 637,
+      "nonzeroSamples": 636,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "PlayerLoop",
+      "category": "PlayerLoop",
+      "unit": "TimeNanoseconds",
+      "samples": 637,
+      "nonzeroSamples": 637,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "WaitForTargetFPS",
+      "category": "VSync",
+      "unit": "TimeNanoseconds",
+      "samples": 637,
+      "nonzeroSamples": 636,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "Canvas.BuildBatch",
+      "category": "UI Render",
+      "unit": "TimeNanoseconds",
+      "samples": 637,
+      "nonzeroSamples": 361,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "EditorLoop",
+      "category": "Internal",
+      "unit": "TimeNanoseconds",
+      "samples": 637,
+      "nonzeroSamples": 0,
+      "usable": false,
+      "warning": "All zero: unavailable/unsupported; not evidence of zero cost."
+    },
+    {
+      "name": "Total Used Memory",
+      "category": "Memory",
+      "unit": "Bytes",
+      "samples": 637,
+      "nonzeroSamples": 637,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "GC Used Memory",
+      "category": "Memory",
+      "unit": "Bytes",
+      "samples": 637,
+      "nonzeroSamples": 637,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "GC Allocated In Frame",
+      "category": "Memory",
+      "unit": "Bytes",
+      "samples": 637,
+      "nonzeroSamples": 637,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "Batches Count",
+      "category": "Render",
+      "unit": "Count",
+      "samples": 637,
+      "nonzeroSamples": 0,
+      "usable": false,
+      "warning": "All zero: unavailable/unsupported; not evidence of zero cost."
+    },
+    {
+      "name": "Draw Calls Count",
+      "category": "Render",
+      "unit": "Count",
+      "samples": 637,
+      "nonzeroSamples": 0,
+      "usable": false,
+      "warning": "All zero: unavailable/unsupported; not evidence of zero cost."
+    },
+    {
+      "name": "Vertices Count",
+      "category": "Render",
+      "unit": "Count",
+      "samples": 637,
+      "nonzeroSamples": 509,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "Triangles Count",
+      "category": "Render",
+      "unit": "Count",
+      "samples": 637,
+      "nonzeroSamples": 635,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "SetPass Calls Count",
+      "category": "Render",
+      "unit": "Count",
+      "samples": 637,
+      "nonzeroSamples": 635,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "GPU Frame Time",
+      "category": "Render",
+      "unit": "TimeNanoseconds",
+      "samples": 637,
+      "nonzeroSamples": 0,
+      "usable": false,
+      "warning": "All zero: unavailable/unsupported; not evidence of zero cost."
+    },
+    {
+      "name": "Update.ScriptRunBehaviourUpdate",
+      "category": "PlayerLoop",
+      "unit": "TimeNanoseconds",
+      "samples": 637,
+      "nonzeroSamples": 636,
+      "usable": true,
+      "warning": null
+    }
+  ],
+  "threadAllocationApiUsable": false,
+  "scenarios": [
+    {
+      "stage": "roadmap.boot",
+      "frames": 128,
+      "wallMs": {
+        "samples": 128,
+        "p50": 32.99095,
+        "p95": 387.33037499999904,
+        "p99": 761.618782,
+        "max": 860.5304,
+        "mean": 70.75518203125
+      },
+      "wallOver33Ms": 56,
+      "wallOver50Ms": 18,
+      "wallOver100Ms": 9,
+      "Gfx.WaitForPresentOnGfxThread": {
+        "samples": 128,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "GC.Collect": {
+        "samples": 128,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 89.90297786000036,
+        "max": 147.625273,
+        "mean": 2.4642738046874997
+      },
+      "Main Thread": {
+        "samples": 128,
+        "p50": 32.772662499999996,
+        "p95": 99.63412114999991,
+        "p99": 1050.2795162800007,
+        "max": 1327.994529,
+        "mean": 70.6874846953125
+      },
+      "PlayerLoop": {
+        "samples": 128,
+        "p50": 28.0052695,
+        "p95": 85.22417729999992,
+        "p99": 1014.9838136400007,
+        "max": 1290.395374,
+        "mean": 60.1497117734375
+      },
+      "WaitForTargetFPS": {
+        "samples": 128,
+        "p50": 0.00032450000000000003,
+        "p95": 0.0005323999999999998,
+        "p99": 0.002122550000000003,
+        "max": 0.003499,
+        "mean": 0.00039909375
+      },
+      "Canvas.BuildBatch": {
+        "samples": 128,
+        "p50": 0.044977500000000004,
+        "p95": 0.09004554999999986,
+        "p99": 1.4444804100000068,
+        "max": 2.133103,
+        "mean": 0.0664453515625
+      },
+      "EditorLoop": {
+        "samples": 128,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Total Used Memory": {
+        "samples": 128,
+        "p50": 695216698.0,
+        "p95": 740185268.0,
+        "p99": 743085147.47,
+        "max": 768871656,
+        "mean": 699162717.0625
+      },
+      "GC Used Memory": {
+        "samples": 128,
+        "p50": 86208512.0,
+        "p95": 87494656.0,
+        "p99": 87494656.0,
+        "max": 87535616,
+        "mean": 84106816
+      },
+      "GC Allocated In Frame": {
+        "samples": 128,
+        "p50": 16985.0,
+        "p95": 1740351.7999999924,
+        "p99": 112804711.22000052,
+        "max": 197403128,
+        "mean": 2995868.296875
+      },
+      "Batches Count": {
+        "samples": 128,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Draw Calls Count": {
+        "samples": 128,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Vertices Count": {
+        "samples": 128,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Triangles Count": {
+        "samples": 128,
+        "p50": 121998.0,
+        "p95": 201810.0,
+        "p99": 201810.0,
+        "max": 201810,
+        "mean": 127237.2578125
+      },
+      "SetPass Calls Count": {
+        "samples": 128,
+        "p50": 70.0,
+        "p95": 103.0,
+        "p99": 105.0,
+        "max": 105,
+        "mean": 63.1953125
+      },
+      "GPU Frame Time": {
+        "samples": 128,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Update.ScriptRunBehaviourUpdate": {
+        "samples": 128,
+        "p50": 0.14885749999999998,
+        "p95": 1.3113037999999957,
+        "p99": 8.484721640000007,
+        "max": 15.082591,
+        "mean": 0.520527453125
+      },
+      "gcCollections0": 29
+    },
+    {
+      "stage": "ui.map.open",
+      "frames": 30,
+      "wallMs": {
+        "samples": 30,
+        "p50": 15.062850000000001,
+        "p95": 144.33445499999982,
+        "p99": 1027.932595000001,
+        "max": 1376.8097,
+        "mean": 71.96113666666666
+      },
+      "wallOver33Ms": 4,
+      "wallOver50Ms": 3,
+      "wallOver100Ms": 3,
+      "Gfx.WaitForPresentOnGfxThread": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "GC.Collect": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 25.06275292000003,
+        "max": 35.299652,
+        "mean": 1.1766550666666666
+      },
+      "Main Thread": {
+        "samples": 30,
+        "p50": 15.139028,
+        "p95": 144.4280313499998,
+        "p99": 1025.650047870001,
+        "max": 1372.639426,
+        "mean": 71.95870366666666
+      },
+      "PlayerLoop": {
+        "samples": 30,
+        "p50": 10.517562,
+        "p95": 137.0237917999998,
+        "p99": 1017.8500257300011,
+        "max": 1365.665749,
+        "mean": 65.4666603
+      },
+      "WaitForTargetFPS": {
+        "samples": 30,
+        "p50": 0.000323,
+        "p95": 0.0005420499999999998,
+        "p99": 0.0006618100000000001,
+        "max": 0.000694,
+        "mean": 0.00035673333333333335
+      },
+      "Canvas.BuildBatch": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 4.188403399999999,
+        "p99": 4.45076854,
+        "max": 4.523493,
+        "mean": 0.6722334
+      },
+      "EditorLoop": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Total Used Memory": {
+        "samples": 30,
+        "p50": 753879568.0,
+        "p95": 776066886.6,
+        "p99": 776128100.21,
+        "max": 776143804,
+        "mean": 759430137.1
+      },
+      "GC Used Memory": {
+        "samples": 30,
+        "p50": 120883200.0,
+        "p95": 121492070.4,
+        "p99": 121550929.92,
+        "max": 121565184,
+        "mean": 120646041.6
+      },
+      "GC Allocated In Frame": {
+        "samples": 30,
+        "p50": 51794.0,
+        "p95": 879502.149999998,
+        "p99": 51207698.38000006,
+        "max": 71643238,
+        "mean": 2508922.933333333
+      },
+      "Batches Count": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Draw Calls Count": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Vertices Count": {
+        "samples": 30,
+        "p50": 41746.0,
+        "p95": 50723.0,
+        "p99": 50772.7,
+        "max": 50793,
+        "mean": 41255.8
+      },
+      "Triangles Count": {
+        "samples": 30,
+        "p50": 19602.0,
+        "p95": 23081.1,
+        "p99": 23082.0,
+        "max": 23082,
+        "mean": 19296.966666666667
+      },
+      "SetPass Calls Count": {
+        "samples": 30,
+        "p50": 92.0,
+        "p95": 92.0,
+        "p99": 94.13,
+        "max": 95,
+        "mean": 89.26666666666667
+      },
+      "GPU Frame Time": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Update.ScriptRunBehaviourUpdate": {
+        "samples": 30,
+        "p50": 0.4278095,
+        "p95": 0.561723,
+        "p99": 7.531294680000007,
+        "max": 10.375356,
+        "mean": 0.7642025666666666
+      },
+      "gcCollections0": 0
+    },
+    {
+      "stage": "ui.map.steady",
+      "frames": 120,
+      "wallMs": {
+        "samples": 120,
+        "p50": 15.1263,
+        "p95": 23.450129999999998,
+        "p99": 75.15817400000012,
+        "max": 91.5204,
+        "mean": 17.985461666666666
+      },
+      "wallOver33Ms": 2,
+      "wallOver50Ms": 2,
+      "wallOver100Ms": 0,
+      "Gfx.WaitForPresentOnGfxThread": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "GC.Collect": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 2.1838478000000014,
+        "max": 8.067678,
+        "mean": 0.09968036666666667
+      },
+      "Main Thread": {
+        "samples": 120,
+        "p50": 15.147066500000001,
+        "p95": 23.512804199999998,
+        "p99": 75.06946724000012,
+        "max": 91.016138,
+        "mean": 17.98054524166667
+      },
+      "PlayerLoop": {
+        "samples": 120,
+        "p50": 10.4368375,
+        "p95": 12.394079499999998,
+        "p99": 65.65950969000012,
+        "max": 86.618411,
+        "mean": 11.902428466666667
+      },
+      "WaitForTargetFPS": {
+        "samples": 120,
+        "p50": 0.000313,
+        "p95": 0.00047745,
+        "p99": 0.0005851,
+        "max": 0.007797,
+        "mean": 0.000391075
+      },
+      "Canvas.BuildBatch": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.04762344999999999,
+        "p99": 0.0581375,
+        "max": 0.061346,
+        "mean": 0.009673675
+      },
+      "EditorLoop": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Total Used Memory": {
+        "samples": 120,
+        "p50": 756098308.0,
+        "p95": 760045308.8,
+        "p99": 760214811.52,
+        "max": 760253884,
+        "mean": 753836810.8916667
+      },
+      "GC Used Memory": {
+        "samples": 120,
+        "p50": 124420096.0,
+        "p95": 128320716.8,
+        "p99": 128486072.32,
+        "max": 128524288,
+        "mean": 121977241.6
+      },
+      "GC Allocated In Frame": {
+        "samples": 120,
+        "p50": 48224.0,
+        "p95": 57478.799999999996,
+        "p99": 766476.8300000019,
+        "max": 954297,
+        "mean": 55494.88333333333
+      },
+      "Batches Count": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Draw Calls Count": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Vertices Count": {
+        "samples": 120,
+        "p50": 41746.0,
+        "p95": 41746.0,
+        "p99": 41746.0,
+        "max": 41746,
+        "mean": 41746
+      },
+      "Triangles Count": {
+        "samples": 120,
+        "p50": 19602.0,
+        "p95": 19602.0,
+        "p99": 19602.0,
+        "max": 19602,
+        "mean": 19602
+      },
+      "SetPass Calls Count": {
+        "samples": 120,
+        "p50": 92.0,
+        "p95": 92.0,
+        "p99": 92.0,
+        "max": 92,
+        "mean": 92
+      },
+      "GPU Frame Time": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Update.ScriptRunBehaviourUpdate": {
+        "samples": 120,
+        "p50": 0.47494499999999995,
+        "p95": 0.71027305,
+        "p99": 0.82803612,
+        "max": 2.883821,
+        "mean": 0.5117887666666666
+      },
+      "gcCollections0": 1
+    },
+    {
+      "stage": "ui.map.sweep",
+      "frames": 89,
+      "wallMs": {
+        "samples": 89,
+        "p50": 135.0102,
+        "p95": 281.47848,
+        "p99": 291.581592,
+        "max": 299.5558,
+        "mean": 159.11901685393258
+      },
+      "wallOver33Ms": 89,
+      "wallOver50Ms": 89,
+      "wallOver100Ms": 89,
+      "Gfx.WaitForPresentOnGfxThread": {
+        "samples": 89,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "GC.Collect": {
+        "samples": 89,
+        "p50": 0.0,
+        "p95": 9.886726199999998,
+        "p99": 11.181750920000002,
+        "max": 11.684377,
+        "mean": 1.6002073146067415
+      },
+      "Main Thread": {
+        "samples": 89,
+        "p50": 135.321959,
+        "p95": 281.3904606,
+        "p99": 291.78849304000005,
+        "max": 299.520518,
+        "mean": 159.10967525842696
+      },
+      "PlayerLoop": {
+        "samples": 89,
+        "p50": 128.848421,
+        "p95": 276.0639436,
+        "p99": 284.38581640000007,
+        "max": 294.67783,
+        "mean": 153.91128008988764
+      },
+      "WaitForTargetFPS": {
+        "samples": 89,
+        "p50": 0.00032,
+        "p95": 0.0004831999999999999,
+        "p99": 0.0006227600000000006,
+        "max": 0.000731,
+        "mean": 0.00034191011235955055
+      },
+      "Canvas.BuildBatch": {
+        "samples": 89,
+        "p50": 4.108335,
+        "p95": 5.1675802,
+        "p99": 15.690301880000003,
+        "max": 16.425541,
+        "mean": 3.1550673820224717
+      },
+      "EditorLoop": {
+        "samples": 89,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Total Used Memory": {
+        "samples": 89,
+        "p50": 830726713.0,
+        "p95": 869668346.1999999,
+        "p99": 880095282.52,
+        "max": 886272791,
+        "mean": 829826505.988764
+      },
+      "GC Used Memory": {
+        "samples": 89,
+        "p50": 121606144.0,
+        "p95": 132740710.4,
+        "p99": 134848348.16,
+        "max": 135147520,
+        "mean": 122273930.06741573
+      },
+      "GC Allocated In Frame": {
+        "samples": 89,
+        "p50": 1040314.0,
+        "p95": 9389358.8,
+        "p99": 10507674.480000017,
+        "max": 13837708,
+        "mean": 2605889.966292135
+      },
+      "Batches Count": {
+        "samples": 89,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Draw Calls Count": {
+        "samples": 89,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Vertices Count": {
+        "samples": 89,
+        "p50": 58826.0,
+        "p95": 66728.8,
+        "p99": 67797.24,
+        "max": 68063,
+        "mean": 58003.59550561798
+      },
+      "Triangles Count": {
+        "samples": 89,
+        "p50": 26086.0,
+        "p95": 29136.8,
+        "p99": 29451.12,
+        "max": 29584,
+        "mean": 25998.842696629214
+      },
+      "SetPass Calls Count": {
+        "samples": 89,
+        "p50": 86.0,
+        "p95": 99.99999999999997,
+        "p99": 104.0,
+        "max": 104,
+        "mean": 87.62921348314607
+      },
+      "GPU Frame Time": {
+        "samples": 89,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Update.ScriptRunBehaviourUpdate": {
+        "samples": 89,
+        "p50": 0.424799,
+        "p95": 0.6957679999999999,
+        "p99": 0.8463290400000009,
+        "max": 1.012576,
+        "mean": 0.4638997415730337
+      },
+      "gcCollections0": 12
+    },
+    {
+      "stage": "ui.map.reposition",
+      "frames": 30,
+      "wallMs": {
+        "samples": 30,
+        "p50": 15.391449999999999,
+        "p95": 63.46827999999982,
+        "p99": 106.55715100000002,
+        "max": 112.4755,
+        "mean": 23.079193333333333
+      },
+      "wallOver33Ms": 2,
+      "wallOver50Ms": 2,
+      "wallOver100Ms": 1,
+      "Gfx.WaitForPresentOnGfxThread": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "GC.Collect": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 1.5047878999999922,
+        "p99": 8.224638680000007,
+        "max": 10.466486,
+        "mean": 0.4400821333333333
+      },
+      "Main Thread": {
+        "samples": 30,
+        "p50": 15.3559915,
+        "p95": 63.30834924999982,
+        "p99": 105.15668482000001,
+        "max": 110.62021,
+        "mean": 23.0701621
+      },
+      "PlayerLoop": {
+        "samples": 30,
+        "p50": 10.331225,
+        "p95": 55.498841899999796,
+        "p99": 100.91278317000001,
+        "max": 106.540357,
+        "mean": 16.718901533333334
+      },
+      "WaitForTargetFPS": {
+        "samples": 30,
+        "p50": 0.00031999999999999997,
+        "p95": 0.0003722,
+        "p99": 0.00045565000000000004,
+        "max": 0.000489,
+        "mean": 0.0003263333333333333
+      },
+      "Canvas.BuildBatch": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 4.21634935,
+        "p99": 4.22984589,
+        "max": 4.231922,
+        "mean": 0.433895
+      },
+      "EditorLoop": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Total Used Memory": {
+        "samples": 30,
+        "p50": 803411599.5,
+        "p95": 834304199.6,
+        "p99": 834351523.04,
+        "max": 834365450,
+        "mean": 802694278.1333333
+      },
+      "GC Used Memory": {
+        "samples": 30,
+        "p50": 132456448.0,
+        "p95": 133428838.4,
+        "p99": 133463941.12,
+        "max": 133472256,
+        "mean": 126498952.53333333
+      },
+      "GC Allocated In Frame": {
+        "samples": 30,
+        "p50": 31491.5,
+        "p95": 245749.699999999,
+        "p99": 505318.8200000001,
+        "max": 545525,
+        "mean": 64341.36666666667
+      },
+      "Batches Count": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Draw Calls Count": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Vertices Count": {
+        "samples": 30,
+        "p50": 54775.0,
+        "p95": 54800.0,
+        "p99": 54800.0,
+        "max": 54800,
+        "mean": 54777.333333333336
+      },
+      "Triangles Count": {
+        "samples": 30,
+        "p50": 25401.0,
+        "p95": 25421.0,
+        "p99": 25421.0,
+        "max": 25421,
+        "mean": 25402.866666666665
+      },
+      "SetPass Calls Count": {
+        "samples": 30,
+        "p50": 87.0,
+        "p95": 87.0,
+        "p99": 87.0,
+        "max": 87,
+        "mean": 87
+      },
+      "GPU Frame Time": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Update.ScriptRunBehaviourUpdate": {
+        "samples": 30,
+        "p50": 0.4544585,
+        "p95": 0.8936463499999998,
+        "p99": 0.93892328,
+        "max": 0.943757,
+        "mean": 0.5193485333333333
+      },
+      "gcCollections0": 1
+    },
+    {
+      "stage": "ui.map.drag",
+      "frames": 120,
+      "wallMs": {
+        "samples": 120,
+        "p50": 113.5752,
+        "p95": 151.62605499999998,
+        "p99": 155.42782599999998,
+        "max": 225.0518,
+        "mean": 114.09647333333334
+      },
+      "wallOver33Ms": 119,
+      "wallOver50Ms": 113,
+      "wallOver100Ms": 110,
+      "Gfx.WaitForPresentOnGfxThread": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "GC.Collect": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 2.60247585,
+        "p99": 11.58236199,
+        "max": 12.283956,
+        "mean": 0.45724169166666667
+      },
+      "Main Thread": {
+        "samples": 120,
+        "p50": 113.3544605,
+        "p95": 151.09972635,
+        "p99": 154.74670371,
+        "max": 223.250186,
+        "mean": 114.090525325
+      },
+      "PlayerLoop": {
+        "samples": 120,
+        "p50": 108.22265949999999,
+        "p95": 146.37446690000002,
+        "p99": 149.61382901,
+        "max": 218.617256,
+        "mean": 108.647639
+      },
+      "WaitForTargetFPS": {
+        "samples": 120,
+        "p50": 0.000321,
+        "p95": 0.00050225,
+        "p99": 0.00056044,
+        "max": 0.000596,
+        "mean": 0.0003466
+      },
+      "Canvas.BuildBatch": {
+        "samples": 120,
+        "p50": 4.2579195,
+        "p95": 5.04477095,
+        "p99": 5.46803535,
+        "max": 5.984258,
+        "mean": 2.8929554083333335
+      },
+      "EditorLoop": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Total Used Memory": {
+        "samples": 120,
+        "p50": 860593923.0,
+        "p95": 903878593.0,
+        "p99": 912022722.7,
+        "max": 913643883,
+        "mean": 859664126.025
+      },
+      "GC Used Memory": {
+        "samples": 120,
+        "p50": 127326208.0,
+        "p95": 140519014.4,
+        "p99": 142760222.72,
+        "max": 143712256,
+        "mean": 127980441.6
+      },
+      "GC Allocated In Frame": {
+        "samples": 120,
+        "p50": 559418.0,
+        "p95": 728307.85,
+        "p99": 2436752.240000005,
+        "max": 6841851,
+        "mean": 631168.3416666667
+      },
+      "Batches Count": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Draw Calls Count": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Vertices Count": {
+        "samples": 120,
+        "p50": 56889.0,
+        "p95": 60168.849999999984,
+        "p99": 70162.01000000001,
+        "max": 71654,
+        "mean": 57689.71666666667
+      },
+      "Triangles Count": {
+        "samples": 120,
+        "p50": 26045.0,
+        "p95": 26637.799999999992,
+        "p99": 30522.010000000002,
+        "max": 31280,
+        "mean": 26020.925
+      },
+      "SetPass Calls Count": {
+        "samples": 120,
+        "p50": 87.0,
+        "p95": 88.1,
+        "p99": 91.0,
+        "max": 91,
+        "mean": 86.19166666666666
+      },
+      "GPU Frame Time": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Update.ScriptRunBehaviourUpdate": {
+        "samples": 120,
+        "p50": 0.42715000000000003,
+        "p95": 0.6399465999999999,
+        "p99": 0.7128871600000001,
+        "max": 0.829812,
+        "mean": 0.461879275
+      },
+      "gcCollections0": 4
+    },
+    {
+      "stage": "ui.map.final-steady",
+      "frames": 120,
+      "wallMs": {
+        "samples": 120,
+        "p50": 15.32565,
+        "p95": 28.2627,
+        "p99": 143.66640100000018,
+        "max": 166.8075,
+        "mean": 20.657078333333335
+      },
+      "wallOver33Ms": 3,
+      "wallOver50Ms": 3,
+      "wallOver100Ms": 2,
+      "Gfx.WaitForPresentOnGfxThread": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "GC.Collect": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Main Thread": {
+        "samples": 120,
+        "p50": 15.1398805,
+        "p95": 28.58152915,
+        "p99": 143.06704765000018,
+        "max": 166.122789,
+        "mean": 20.65699235
+      },
+      "PlayerLoop": {
+        "samples": 120,
+        "p50": 9.962261999999999,
+        "p95": 17.765168449999997,
+        "p99": 129.8855596500003,
+        "max": 161.719176,
+        "mean": 13.876631533333333
+      },
+      "WaitForTargetFPS": {
+        "samples": 120,
+        "p50": 0.000317,
+        "p95": 0.00047814999999999994,
+        "p99": 0.0006804900000000003,
+        "max": 0.007779,
+        "mean": 0.00039639166666666665
+      },
+      "Canvas.BuildBatch": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.10424404999999998,
+        "p99": 5.51743549,
+        "max": 5.60618,
+        "mean": 0.23838594166666666
+      },
+      "EditorLoop": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Total Used Memory": {
+        "samples": 120,
+        "p50": 841793940.0,
+        "p95": 871045878.8,
+        "p99": 877848140.16,
+        "max": 877854008,
+        "mean": 844342710.3583333
+      },
+      "GC Used Memory": {
+        "samples": 120,
+        "p50": 130949120.0,
+        "p95": 134646169.6,
+        "p99": 134836633.6,
+        "max": 134893568,
+        "mean": 131459037.86666666
+      },
+      "GC Allocated In Frame": {
+        "samples": 120,
+        "p50": 31535.0,
+        "p95": 41152.0,
+        "p99": 2203187.680000006,
+        "max": 2708251,
+        "mean": 79260.20833333333
+      },
+      "Batches Count": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Draw Calls Count": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Vertices Count": {
+        "samples": 120,
+        "p50": 71634.0,
+        "p95": 71694.5,
+        "p99": 71704.0,
+        "max": 71704,
+        "mean": 71643.91666666667
+      },
+      "Triangles Count": {
+        "samples": 120,
+        "p50": 31264.0,
+        "p95": 31312.4,
+        "p99": 31320.0,
+        "max": 31320,
+        "mean": 31271.933333333334
+      },
+      "SetPass Calls Count": {
+        "samples": 120,
+        "p50": 87.0,
+        "p95": 87.0,
+        "p99": 87.0,
+        "max": 87,
+        "mean": 87
+      },
+      "GPU Frame Time": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Update.ScriptRunBehaviourUpdate": {
+        "samples": 120,
+        "p50": 0.4340095,
+        "p95": 0.6386982999999999,
+        "p99": 0.7090454200000001,
+        "max": 0.752535,
+        "mean": 0.467265425
+      },
+      "gcCollections0": 0
+    }
+  ],
+  "methods": [
+    {
+      "name": "QC.HtmlSurface.MountDocument",
+      "samples": 11,
+      "p50": 176.2263,
+      "p95": 823.26335,
+      "p99": 1191.4669100000003,
+      "max": 1283.5178,
+      "mean": 229.90435454545454,
+      "worst": {
+        "frame": 140,
+        "stage": "ui.map.open",
+        "name": "QC.HtmlSurface.MountDocument",
+        "startMs": 9137.7594,
+        "durationMs": 1283.5178,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 2528.9479
+    },
+    {
+      "name": "QC.CampSceneHost.Start",
+      "samples": 1,
+      "p50": 574.8232,
+      "p95": 574.8232,
+      "p99": 574.8232,
+      "max": 574.8232,
+      "mean": 574.8232,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.CampSceneHost.Start",
+        "startMs": 3532.2435,
+        "durationMs": 574.8232,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 574.8232
+    },
+    {
+      "name": "QC.MenuSceneHost.Start",
+      "samples": 1,
+      "p50": 343.2058,
+      "p95": 343.2058,
+      "p99": 343.2058,
+      "max": 343.2058,
+      "mean": 343.2058,
+      "worst": {
+        "frame": 95,
+        "stage": "roadmap.boot",
+        "name": "QC.MenuSceneHost.Start",
+        "startMs": 6774.9011,
+        "durationMs": 343.2058,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 343.2058
+    },
+    {
+      "name": "QC.MenuSceneHost.BuildWorld",
+      "samples": 1,
+      "p50": 336.857,
+      "p95": 336.857,
+      "p99": 336.857,
+      "max": 336.857,
+      "mean": 336.857,
+      "worst": {
+        "frame": 95,
+        "stage": "roadmap.boot",
+        "name": "QC.MenuSceneHost.BuildWorld",
+        "startMs": 6780.5656,
+        "durationMs": 336.857,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 336.857
+    },
+    {
+      "name": "QC.QuietCampBootstrap.Compose",
+      "samples": 1,
+      "p50": 319.4496,
+      "p95": 319.4496,
+      "p99": 319.4496,
+      "max": 319.4496,
+      "mean": 319.4496,
+      "worst": {
+        "frame": 16,
+        "stage": "roadmap.boot",
+        "name": "QC.QuietCampBootstrap.Compose",
+        "startMs": 1972.0507,
+        "durationMs": 319.4496,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 319.4496
+    },
+    {
+      "name": "QC.CampSceneHost.ConfigureAtmosphere",
+      "samples": 1,
+      "p50": 312.0181,
+      "p95": 312.0181,
+      "p99": 312.0181,
+      "max": 312.0181,
+      "mean": 312.0181,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.CampSceneHost.ConfigureAtmosphere",
+        "startMs": 3774.0425,
+        "durationMs": 312.0181,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 312.0181
+    },
+    {
+      "name": "QC.CampAtmosphere.Configure",
+      "samples": 2,
+      "p50": 245.57524999999998,
+      "p95": 290.311325,
+      "p99": 294.287865,
+      "max": 295.282,
+      "mean": 245.57524999999998,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.CampAtmosphere.Configure",
+        "startMs": 3789.3974,
+        "durationMs": 295.282,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 491.15049999999997
+    },
+    {
+      "name": "QC.CampSceneHost.BuildWorld",
+      "samples": 1,
+      "p50": 153.4747,
+      "p95": 153.4747,
+      "p99": 153.4747,
+      "max": 153.4747,
+      "mean": 153.4747,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.CampSceneHost.BuildWorld",
+        "startMs": 3608.6332,
+        "durationMs": 153.4747,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 153.4747
+    },
+    {
+      "name": "QC.SaveAdapter.Save",
+      "samples": 6,
+      "p50": 8.01195,
+      "p95": 116.10430000000001,
+      "p99": 143.26942000000003,
+      "max": 150.0607,
+      "mean": 32.656083333333335,
+      "worst": {
+        "frame": 16,
+        "stage": "roadmap.boot",
+        "name": "QC.SaveAdapter.Save",
+        "startMs": 1817.676,
+        "durationMs": 150.0607,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 195.9365
+    },
+    {
+      "name": "QC.VisibleForestFloor.Configure",
+      "samples": 2,
+      "p50": 121.81765,
+      "p95": 133.623265,
+      "p99": 134.672653,
+      "max": 134.935,
+      "mean": 121.81765,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.VisibleForestFloor.Configure",
+        "startMs": 3890.9087,
+        "durationMs": 134.935,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 243.6353
+    },
+    {
+      "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+      "samples": 1058,
+      "p50": 11.66745,
+      "p95": 46.29238,
+      "p99": 56.594328000000004,
+      "max": 79.9609,
+      "mean": 14.56474763705104,
+      "worst": {
+        "frame": 368,
+        "stage": "ui.map.sweep",
+        "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+        "startMs": 25393.0411,
+        "durationMs": 79.9609,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 15409.502999999995
+    },
+    {
+      "name": "QC.RoadmapGraphic.PaintGlade",
+      "samples": 1058,
+      "p50": 11.66615,
+      "p95": 46.291475,
+      "p99": 56.59348500000001,
+      "max": 79.9601,
+      "mean": 14.56305708884688,
+      "worst": {
+        "frame": 368,
+        "stage": "ui.map.sweep",
+        "name": "QC.RoadmapGraphic.PaintGlade",
+        "startMs": 25393.0416,
+        "durationMs": 79.9601,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 15407.714400000008
+    },
+    {
+      "name": "QC.LevelLoader.Load",
+      "samples": 2,
+      "p50": 41.77535,
+      "p95": 66.73842499999999,
+      "p99": 68.957365,
+      "max": 69.5121,
+      "mean": 41.77535,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.LevelLoader.Load",
+        "startMs": 3535.6686,
+        "durationMs": 69.5121,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 83.5507
+    },
+    {
+      "name": "QC.EnvironmentComposer.Configure",
+      "samples": 2,
+      "p50": 46.26495,
+      "p95": 54.674865,
+      "p99": 55.422413,
+      "max": 55.6093,
+      "mean": 46.26495,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.EnvironmentComposer.Configure",
+        "startMs": 3828.0423,
+        "durationMs": 55.6093,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 92.5299
+    },
+    {
+      "name": "QC.LeafCurtainGraphic.OnPopulateMesh",
+      "samples": 75,
+      "p50": 14.6035,
+      "p95": 19.996369999999995,
+      "p99": 54.524364,
+      "max": 54.8362,
+      "mean": 15.798314666666666,
+      "worst": {
+        "frame": 17,
+        "stage": "roadmap.boot",
+        "name": "QC.LeafCurtainGraphic.OnPopulateMesh",
+        "startMs": 2389.5742,
+        "durationMs": 54.8362,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 1184.8735999999997
+    },
+    {
+      "name": "QC.RoadmapGraphic.EnsureData",
+      "samples": 216,
+      "p50": 0.0003,
+      "p95": 0.0005,
+      "p99": 0.0006,
+      "max": 47.4099,
+      "mean": 0.21986620370370372,
+      "worst": {
+        "frame": 140,
+        "stage": "ui.map.open",
+        "name": "QC.RoadmapGraphic.EnsureData",
+        "startMs": 10371.6939,
+        "durationMs": 47.4099,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 47.49110000000024
+    },
+    {
+      "name": "QC.RoadmapGraphic.OnPopulateMesh",
+      "samples": 215,
+      "p50": 11.9795,
+      "p95": 26.20668,
+      "p99": 37.44163999999999,
+      "max": 41.0662,
+      "mean": 14.736395813953488,
+      "worst": {
+        "frame": 354,
+        "stage": "ui.map.sweep",
+        "name": "QC.RoadmapGraphic.OnPopulateMesh",
+        "startMs": 22986.7317,
+        "durationMs": 41.0662,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 3168.3250999999996
+    },
+    {
+      "name": "QC.EnvironmentComposer.Refresh",
+      "samples": 2,
+      "p50": 14.96035,
+      "p95": 19.576765,
+      "p99": 19.987113,
+      "max": 20.0897,
+      "mean": 14.96035,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.EnvironmentComposer.Refresh",
+        "startMs": 3842.7208,
+        "durationMs": 20.0897,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 29.9207
+    },
+    {
+      "name": "QC.RoadmapPainter.Model",
+      "samples": 49987,
+      "p50": 0.1432,
+      "p95": 0.7586699999999997,
+      "p99": 1.952914,
+      "max": 17.3975,
+      "mean": 0.255753165823114,
+      "worst": {
+        "frame": 529,
+        "stage": "ui.map.drag",
+        "name": "QC.RoadmapPainter.Model",
+        "startMs": 42027.6892,
+        "durationMs": 17.3975,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 12784.333499999771
+    },
+    {
+      "name": "QC.VisibleForestFloor.Build",
+      "samples": 47,
+      "p50": 3.2827,
+      "p95": 14.967669999999995,
+      "p99": 16.790824,
+      "max": 17.1729,
+      "mean": 4.7283340425531915,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.VisibleForestFloor.Build",
+        "startMs": 3960.8352,
+        "durationMs": 17.1729,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 222.2317
+    },
+    {
+      "name": "QC.RoadmapWeatherGraphic.OnPopulateMesh",
+      "samples": 281,
+      "p50": 0.3991,
+      "p95": 0.6223,
+      "p99": 0.8568799999999976,
+      "max": 14.0205,
+      "mean": 0.47556975088967973,
+      "worst": {
+        "frame": 443,
+        "stage": "ui.map.drag",
+        "name": "QC.RoadmapWeatherGraphic.OnPopulateMesh",
+        "startMs": 31800.4313,
+        "durationMs": 14.0205,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 133.63509999999994
+    },
+    {
+      "name": "QC.RoadmapGraphic.BonusClearing",
+      "samples": 208,
+      "p50": 4.347849999999999,
+      "p95": 8.115699999999993,
+      "p99": 10.918514000000004,
+      "max": 12.5754,
+      "mean": 4.907644230769231,
+      "worst": {
+        "frame": 319,
+        "stage": "ui.map.sweep",
+        "name": "QC.RoadmapGraphic.BonusClearing",
+        "startMs": 17676.4738,
+        "durationMs": 12.5754,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 1020.7900000000002
+    },
+    {
+      "name": "QC.CampAtmosphere.LateUpdate",
+      "samples": 93,
+      "p50": 0.1703,
+      "p95": 0.30283999999999994,
+      "p99": 2.1028479999999834,
+      "max": 10.9262,
+      "mean": 0.3273849462365591,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.CampAtmosphere.LateUpdate",
+        "startMs": 4679.7372,
+        "durationMs": 10.9262,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 30.446799999999985
+    },
+    {
+      "name": "QC.EnvironmentComposer.BuildStory",
+      "samples": 2,
+      "p50": 4.7509,
+      "p95": 8.167119999999999,
+      "p99": 8.470784,
+      "max": 8.5467,
+      "mean": 4.7509,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.EnvironmentComposer.BuildStory",
+        "startMs": 3863.7653,
+        "durationMs": 8.5467,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 9.5018
+    },
+    {
+      "name": "QC.EnvironmentComposer.BuildShelter",
+      "samples": 2,
+      "p50": 7.8849,
+      "p95": 8.36928,
+      "p99": 8.412336,
+      "max": 8.4231,
+      "mean": 7.8849,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.EnvironmentComposer.BuildShelter",
+        "startMs": 3875.0067,
+        "durationMs": 8.4231,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 15.7698
+    },
+    {
+      "name": "QC.CampSceneHost.BuildHud",
+      "samples": 1,
+      "p50": 8.3602,
+      "p95": 8.3602,
+      "p99": 8.3602,
+      "max": 8.3602,
+      "mean": 8.3602,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.CampSceneHost.BuildHud",
+        "startMs": 3763.0382,
+        "durationMs": 8.3602,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 8.3602
+    },
+    {
+      "name": "QC.CampPuddles.Configure",
+      "samples": 2,
+      "p50": 4.4394,
+      "p95": 7.58319,
+      "p99": 7.8626380000000005,
+      "max": 7.9325,
+      "mean": 4.4394,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.CampPuddles.Configure",
+        "startMs": 4058.9026,
+        "durationMs": 7.9325,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 8.8788
+    },
+    {
+      "name": "QC.RoadmapSceneGenerator.Generate",
+      "samples": 131,
+      "p50": 0.2008,
+      "p95": 0.387,
+      "p99": 3.2114399999999694,
+      "max": 4.7104,
+      "mean": 0.2847923664122137,
+      "worst": {
+        "frame": 140,
+        "stage": "ui.map.open",
+        "name": "QC.RoadmapSceneGenerator.Generate",
+        "startMs": 10433.9345,
+        "durationMs": 4.7104,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 37.30779999999995
+    },
+    {
+      "name": "QC.CameraFitter.Fit",
+      "samples": 8,
+      "p50": 0.02835,
+      "p95": 3.061724999999998,
+      "p99": 4.351544999999999,
+      "max": 4.674,
+      "mean": 0.6128875,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.CameraFitter.Fit",
+        "startMs": 3755.6995,
+        "durationMs": 4.674,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 4.903100000000001
+    },
+    {
+      "name": "QC.RoadmapGraphic.LateUpdate",
+      "samples": 511,
+      "p50": 0.3538,
+      "p95": 0.6093,
+      "p99": 0.8525299999999996,
+      "max": 4.6702,
+      "mean": 0.37505949119373777,
+      "worst": {
+        "frame": 200,
+        "stage": "ui.map.steady",
+        "name": "QC.RoadmapGraphic.LateUpdate",
+        "startMs": 11851.8937,
+        "durationMs": 4.6702,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 191.65540000000004
+    },
+    {
+      "name": "QC.RoadmapGraphic.UpdatePool",
+      "samples": 511,
+      "p50": 0.1384,
+      "p95": 0.30625,
+      "p99": 0.4987499999999999,
+      "max": 4.5741,
+      "mean": 0.18074011741682974,
+      "worst": {
+        "frame": 200,
+        "stage": "ui.map.steady",
+        "name": "QC.RoadmapGraphic.UpdatePool",
+        "startMs": 11851.9337,
+        "durationMs": 4.5741,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 92.35819999999997
+    },
+    {
+      "name": "QC.CampAtmosphere.RegisterDecor",
+      "samples": 4,
+      "p50": 0.46445000000000003,
+      "p95": 3.3502699999999987,
+      "p99": 3.734053999999999,
+      "max": 3.83,
+      "mean": 1.22525,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.CampAtmosphere.RegisterDecor",
+        "startMs": 4087.834,
+        "durationMs": 3.83,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 4.901000000000001
+    },
+    {
+      "name": "QC.CampPuddles.Advance",
+      "samples": 95,
+      "p50": 0.0374,
+      "p95": 0.06231999999999999,
+      "p99": 0.32023600000000807,
+      "max": 3.6719,
+      "mean": 0.07807894736842105,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.CampPuddles.Advance",
+        "startMs": 4063.1601,
+        "durationMs": 3.6719,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 7.417500000000003
+    },
+    {
+      "name": "QC.CampWeather.Advance",
+      "samples": 93,
+      "p50": 0.0213,
+      "p95": 0.03515999999999998,
+      "p99": 1.2611359999999967,
+      "max": 3.0015,
+      "mean": 0.06627849462365591,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.CampWeather.Advance",
+        "startMs": 4681.9104,
+        "durationMs": 3.0015,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 6.163899999999995
+    },
+    {
+      "name": "QC.RoadmapPainter.Shadow",
+      "samples": 43523,
+      "p50": 0.0101,
+      "p95": 0.3101,
+      "p99": 0.3590119999999995,
+      "max": 2.3675,
+      "mean": 0.04303622222732808,
+      "worst": {
+        "frame": 141,
+        "stage": "ui.map.open",
+        "name": "QC.RoadmapPainter.Shadow",
+        "startMs": 10526.5342,
+        "durationMs": 2.3675,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 1873.0654999997566
+    },
+    {
+      "name": "QC.EnvironmentComposer.BuildTile",
+      "samples": 32,
+      "p50": 0.58385,
+      "p95": 0.8171949999999999,
+      "p99": 1.8050010000000016,
+      "max": 2.2337,
+      "mean": 0.60289375,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.EnvironmentComposer.BuildTile",
+        "startMs": 3849.2748,
+        "durationMs": 2.2337,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 19.2926
+    },
+    {
+      "name": "QC.FoliageDiveTransition.EnsureOverlay",
+      "samples": 1,
+      "p50": 1.7564,
+      "p95": 1.7564,
+      "p99": 1.7564,
+      "max": 1.7564,
+      "mean": 1.7564,
+      "worst": {
+        "frame": 16,
+        "stage": "roadmap.boot",
+        "name": "QC.FoliageDiveTransition.EnsureOverlay",
+        "startMs": 2313.738,
+        "durationMs": 1.7564,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 1.7564
+    },
+    {
+      "name": "QC.HtmlSurface.OnLayoutChanged",
+      "samples": 5,
+      "p50": 0.002,
+      "p95": 1.4074399999999998,
+      "p99": 1.6630880000000001,
+      "max": 1.727,
+      "mean": 0.37232000000000004,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.HtmlSurface.OnLayoutChanged",
+        "startMs": 4460.3986,
+        "durationMs": 1.727,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 1.8616000000000001
+    },
+    {
+      "name": "QC.CampSceneHost.BuildSession",
+      "samples": 1,
+      "p50": 1.3202,
+      "p95": 1.3202,
+      "p99": 1.3202,
+      "max": 1.3202,
+      "mean": 1.3202,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.CampSceneHost.BuildSession",
+        "startMs": 3605.7788,
+        "durationMs": 1.3202,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 1.3202
+    },
+    {
+      "name": "QC.CampAtmosphere.RefreshLayout",
+      "samples": 3,
+      "p50": 0.0776,
+      "p95": 0.84242,
+      "p99": 0.910404,
+      "max": 0.9274,
+      "mean": 0.35823333333333335,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.CampAtmosphere.RefreshLayout",
+        "startMs": 3888.703,
+        "durationMs": 0.9274,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 1.0747
+    },
+    {
+      "name": "QC.VisibleForestFloor.LateUpdate",
+      "samples": 93,
+      "p50": 0.0053,
+      "p95": 0.029079999999999967,
+      "p99": 0.18153999999999867,
+      "max": 0.895,
+      "mean": 0.0196,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.VisibleForestFloor.LateUpdate",
+        "startMs": 4696.6451,
+        "durationMs": 0.895,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 1.822800000000005
+    },
+    {
+      "name": "QC.FoliageDiveTransition.Update",
+      "samples": 636,
+      "p50": 0.0007,
+      "p95": 0.0082,
+      "p99": 0.016614999999999977,
+      "max": 0.7492,
+      "mean": 0.0030886792452830187,
+      "worst": {
+        "frame": 17,
+        "stage": "roadmap.boot",
+        "name": "QC.FoliageDiveTransition.Update",
+        "startMs": 2388.4121,
+        "durationMs": 0.7492,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 1.9643999999999608
+    },
+    {
+      "name": "QC.CampPuddles.Build",
+      "samples": 2,
+      "p50": 0.37755,
+      "p95": 0.410715,
+      "p99": 0.413663,
+      "max": 0.4144,
+      "mean": 0.37755,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.CampPuddles.Build",
+        "startMs": 4060.5905,
+        "durationMs": 0.4144,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 0.7551
+    },
+    {
+      "name": "QC.EnvironmentComposer.BuildEarthContacts",
+      "samples": 2,
+      "p50": 0.3575,
+      "p95": 0.37657999999999997,
+      "p99": 0.378276,
+      "max": 0.3787,
+      "mean": 0.3575,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.EnvironmentComposer.BuildEarthContacts",
+        "startMs": 3873.8281,
+        "durationMs": 0.3787,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 0.715
+    },
+    {
+      "name": "QC.HtmlSurface.ApplyNativeControlTheme",
+      "samples": 35,
+      "p50": 0.0004,
+      "p95": 0.0007599999999999994,
+      "p99": 0.002087999999999994,
+      "max": 0.0027,
+      "mean": 0.00041142857142857143,
+      "worst": {
+        "frame": 47,
+        "stage": "roadmap.boot",
+        "name": "QC.HtmlSurface.ApplyNativeControlTheme",
+        "startMs": 4461.5293,
+        "durationMs": 0.0027,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 0.014399999999999998
+    }
+  ],
+  "operations": [],
+  "routeComparisons": [
+    {
+      "direction": "menu-camp",
+      "normal": {
+        "repetitions": 0,
+        "elapsedMs": null,
+        "maxWallMsPerRun": [],
+        "wallOver100Ms": 0
+      },
+      "reduced": {
+        "repetitions": 0,
+        "elapsedMs": null,
+        "maxWallMsPerRun": [],
+        "wallOver100Ms": 0
+      }
+    },
+    {
+      "direction": "camp-menu",
+      "normal": {
+        "repetitions": 0,
+        "elapsedMs": null,
+        "maxWallMsPerRun": [],
+        "wallOver100Ms": 0
+      },
+      "reduced": {
+        "repetitions": 0,
+        "elapsedMs": null,
+        "maxWallMsPerRun": [],
+        "wallOver100Ms": 0
+      }
+    }
+  ],
+  "leafTiers": [
+    {
+      "tier": 0,
+      "meshMs": null,
+      "coveredVertices": []
+    },
+    {
+      "tier": 1,
+      "meshMs": null,
+      "coveredVertices": []
+    },
+    {
+      "tier": 2,
+      "meshMs": null,
+      "coveredVertices": []
+    }
+  ],
+  "snapshots": [
+    {
+      "stage": "ui.map.steady",
+      "frame": 290,
+      "startMs": 13428.6842,
+      "scene": "MainMenu",
+      "levelId": null,
+      "renderers": 0,
+      "meshFilters": 0,
+      "uniqueMeshVertices": 0,
+      "uniqueMaterials": 0,
+      "transforms": 2564,
+      "canvases": 2,
+      "graphics": 1806,
+      "activeLeavesVertices": 0,
+      "managedHeapBytes": 112062464,
+      "unityAllocatedBytes": 482535107,
+      "endMs": 13435.8943
+    },
+    {
+      "stage": "ui.map.sweep",
+      "frame": 380,
+      "startMs": 27712.3382,
+      "scene": "MainMenu",
+      "levelId": null,
+      "renderers": 0,
+      "meshFilters": 0,
+      "uniqueMeshVertices": 0,
+      "uniqueMaterials": 0,
+      "transforms": 2564,
+      "canvases": 2,
+      "graphics": 1806,
+      "activeLeavesVertices": 0,
+      "managedHeapBytes": 131645440,
+      "unityAllocatedBytes": 513981424,
+      "endMs": 27716.9508
+    },
+    {
+      "stage": "ui.map.drag",
+      "frame": 531,
+      "startMs": 42122.2545,
+      "scene": "MainMenu",
+      "levelId": null,
+      "renderers": 0,
+      "meshFilters": 0,
+      "uniqueMeshVertices": 0,
+      "uniqueMaterials": 0,
+      "transforms": 2566,
+      "canvases": 2,
+      "graphics": 1808,
+      "activeLeavesVertices": 0,
+      "managedHeapBytes": 125108224,
+      "unityAllocatedBytes": 548824836,
+      "endMs": 42126.482
+    }
+  ],
+  "worstFrames": [
+    {
+      "frame": 140,
+      "timestampMs": 10486.0323,
+      "wallMs": 1376.8097,
+      "stage": "ui.map.open",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2163,
+      "mainThreadMs": 1372.639426,
+      "playerLoopMs": 1365.665749,
+      "gcBytes": 71643238,
+      "gcMs": 35.299652,
+      "topSpans": [
+        {
+          "frame": 140,
+          "stage": "ui.map.open",
+          "name": "QC.HtmlSurface.MountDocument",
+          "startMs": 9137.7594,
+          "durationMs": 1283.5178,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 140,
+          "stage": "ui.map.open",
+          "name": "QC.RoadmapGraphic.EnsureData",
+          "startMs": 10371.6939,
+          "durationMs": 47.4099,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 140,
+          "stage": "ui.map.open",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 10430.0627,
+          "durationMs": 16.9875,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 140,
+          "stage": "ui.map.open",
+          "name": "QC.HtmlSurface.MountDocument",
+          "startMs": 9128.7476,
+          "durationMs": 7.1087,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 140,
+          "stage": "ui.map.open",
+          "name": "QC.RoadmapSceneGenerator.Generate",
+          "startMs": 10433.9345,
+          "durationMs": 4.7104,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 140,
+          "stage": "ui.map.open",
+          "name": "QC.HtmlSurface.MountDocument",
+          "startMs": 9135.8624,
+          "durationMs": 1.8922,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 15,
+      "timestampMs": 1769.6936,
+      "wallMs": 860.5304,
+      "stage": "roadmap.boot",
+      "transition": "Idle",
+      "tier": -1,
+      "gc0": 2131,
+      "mainThreadMs": 900.060236,
+      "playerLoopMs": 883.760643,
+      "gcBytes": 7488035,
+      "gcMs": 0.0,
+      "topSpans": []
+    },
+    {
+      "frame": 95,
+      "timestampMs": 7883.4478,
+      "wallMs": 763.8013,
+      "stage": "roadmap.boot",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2159,
+      "mainThreadMs": 1105.840072,
+      "playerLoopMs": 1063.518411,
+      "gcBytes": 197403128,
+      "gcMs": 147.625273,
+      "topSpans": [
+        {
+          "frame": 95,
+          "stage": "roadmap.boot",
+          "name": "QC.MenuSceneHost.Start",
+          "startMs": 6774.9011,
+          "durationMs": 343.2058,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 95,
+          "stage": "roadmap.boot",
+          "name": "QC.MenuSceneHost.BuildWorld",
+          "startMs": 6780.5656,
+          "durationMs": 336.857,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 95,
+          "stage": "roadmap.boot",
+          "name": "QC.HtmlSurface.MountDocument",
+          "startMs": 7120.6937,
+          "durationMs": 258.9824,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 95,
+          "stage": "roadmap.boot",
+          "name": "QC.HtmlSurface.MountDocument",
+          "startMs": 7555.9149,
+          "durationMs": 209.3185,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 95,
+          "stage": "roadmap.boot",
+          "name": "QC.CampAtmosphere.Configure",
+          "startMs": 6920.7704,
+          "durationMs": 195.8685,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 95,
+          "stage": "roadmap.boot",
+          "name": "QC.HtmlSurface.MountDocument",
+          "startMs": 7379.6828,
+          "durationMs": 176.2263,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 47,
+      "timestampMs": 4867.3119,
+      "wallMs": 755.7179,
+      "stage": "roadmap.boot",
+      "transition": "CoveredLoading",
+      "tier": 1,
+      "gc0": 2145,
+      "mainThreadMs": 1327.994529,
+      "playerLoopMs": 1290.395374,
+      "gcBytes": 148141019,
+      "gcMs": 114.167954,
+      "topSpans": [
+        {
+          "frame": 47,
+          "stage": "roadmap.boot",
+          "name": "QC.CampSceneHost.Start",
+          "startMs": 3532.2435,
+          "durationMs": 574.8232,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 47,
+          "stage": "roadmap.boot",
+          "name": "QC.HtmlSurface.MountDocument",
+          "startMs": 4121.7906,
+          "durationMs": 363.0089,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 47,
+          "stage": "roadmap.boot",
+          "name": "QC.CampSceneHost.ConfigureAtmosphere",
+          "startMs": 3774.0425,
+          "durationMs": 312.0181,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 47,
+          "stage": "roadmap.boot",
+          "name": "QC.CampAtmosphere.Configure",
+          "startMs": 3789.3974,
+          "durationMs": 295.282,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 47,
+          "stage": "roadmap.boot",
+          "name": "QC.HtmlSurface.MountDocument",
+          "startMs": 4484.8075,
+          "durationMs": 192.6377,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 47,
+          "stage": "roadmap.boot",
+          "name": "QC.CampSceneHost.BuildWorld",
+          "startMs": 3608.6332,
+          "durationMs": 153.4747,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 46,
+      "timestampMs": 4111.5936,
+      "wallMs": 652.2844,
+      "stage": "roadmap.boot",
+      "transition": "CoveredLoading",
+      "tier": 1,
+      "gc0": 2137,
+      "mainThreadMs": 30.674987,
+      "playerLoopMs": 26.804043,
+      "gcBytes": 9839,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 46,
+          "stage": "roadmap.boot",
+          "name": "QC.LeafCurtainGraphic.OnPopulateMesh",
+          "startMs": 3459.5435,
+          "durationMs": 14.3811,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 46,
+          "stage": "roadmap.boot",
+          "name": "QC.FoliageDiveTransition.Update",
+          "startMs": 3459.3534,
+          "durationMs": 0.0072,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 16,
+      "timestampMs": 2381.8001,
+      "wallMs": 612.1066,
+      "stage": "roadmap.boot",
+      "transition": "Covering",
+      "tier": 1,
+      "gc0": 2132,
+      "mainThreadMs": 612.118749,
+      "playerLoopMs": 601.565403,
+      "gcBytes": 4135667,
+      "gcMs": 13.12121,
+      "topSpans": [
+        {
+          "frame": 16,
+          "stage": "roadmap.boot",
+          "name": "QC.QuietCampBootstrap.Compose",
+          "startMs": 1972.0507,
+          "durationMs": 319.4496,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 16,
+          "stage": "roadmap.boot",
+          "name": "QC.SaveAdapter.Save",
+          "startMs": 1817.676,
+          "durationMs": 150.0607,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 16,
+          "stage": "roadmap.boot",
+          "name": "QC.FoliageDiveTransition.EnsureOverlay",
+          "startMs": 2313.738,
+          "durationMs": 1.7564,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 16,
+          "stage": "roadmap.boot",
+          "name": "QC.LeafCurtainGraphic.OnPopulateMesh",
+          "startMs": 2368.407,
+          "durationMs": 0.0049,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 14,
+      "timestampMs": 909.1633,
+      "wallMs": 531.3186,
+      "stage": "roadmap.boot",
+      "transition": "Idle",
+      "tier": -1,
+      "gc0": 2131,
+      "mainThreadMs": 789.68871,
+      "playerLoopMs": 769.394575,
+      "gcBytes": 2059353,
+      "gcMs": 24.297672,
+      "topSpans": []
+    },
+    {
+      "frame": 94,
+      "timestampMs": 7119.6461,
+      "wallMs": 426.9166,
+      "stage": "roadmap.boot",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2148,
+      "mainThreadMs": 53.258799,
+      "playerLoopMs": 41.655945,
+      "gcBytes": 116548,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 94,
+          "stage": "roadmap.boot",
+          "name": "QC.CampAtmosphere.LateUpdate",
+          "startMs": 6693.4224,
+          "durationMs": 0.2329,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 94,
+          "stage": "roadmap.boot",
+          "name": "QC.CampPuddles.Advance",
+          "startMs": 6693.5838,
+          "durationMs": 0.0567,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 94,
+          "stage": "roadmap.boot",
+          "name": "QC.VisibleForestFloor.LateUpdate",
+          "startMs": 6693.689,
+          "durationMs": 0.0241,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 94,
+          "stage": "roadmap.boot",
+          "name": "QC.CampWeather.Advance",
+          "startMs": 6693.4412,
+          "durationMs": 0.0177,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 94,
+          "stage": "roadmap.boot",
+          "name": "QC.FoliageDiveTransition.Update",
+          "startMs": 6692.9134,
+          "durationMs": 0.0007,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 94,
+          "stage": "roadmap.boot",
+          "name": "QC.HtmlSurface.ApplyNativeControlTheme",
+          "startMs": 6693.4186,
+          "durationMs": 0.0005,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 13,
+      "timestampMs": 377.8444,
+      "wallMs": 313.8131,
+      "stage": "roadmap.boot",
+      "transition": "Idle",
+      "tier": -1,
+      "gc0": 2131,
+      "mainThreadMs": 15.64267,
+      "playerLoopMs": 1.675144,
+      "gcBytes": 146260,
+      "gcMs": 0.0,
+      "topSpans": []
+    },
+    {
+      "frame": 365,
+      "timestampMs": 24799.6819,
+      "wallMs": 299.5558,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2172,
+      "mainThreadMs": 299.520518,
+      "playerLoopMs": 294.67783,
+      "gcBytes": 10030090,
+      "gcMs": 9.798528,
+      "topSpans": [
+        {
+          "frame": 365,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 24710.9941,
+          "durationMs": 58.5673,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 365,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 24710.9952,
+          "durationMs": 58.5659,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 365,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 24628.2731,
+          "durationMs": 53.5284,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 365,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 24628.2739,
+          "durationMs": 53.5273,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 365,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 24540.3379,
+          "durationMs": 47.9292,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 365,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 24540.3385,
+          "durationMs": 47.9283,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 345,
+      "timestampMs": 21415.6428,
+      "wallMs": 290.4942,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2168,
+      "mainThreadMs": 290.554063,
+      "playerLoopMs": 282.98236,
+      "gcBytes": 9390966,
+      "gcMs": 9.459368,
+      "topSpans": [
+        {
+          "frame": 345,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 21324.1811,
+          "durationMs": 54.5698,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 345,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 21324.182,
+          "durationMs": 54.5687,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 345,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 21234.6191,
+          "durationMs": 48.9827,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 345,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 21234.6202,
+          "durationMs": 48.9814,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 345,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 21285.0093,
+          "durationMs": 37.1677,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 345,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 21285.0101,
+          "durationMs": 37.1667,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 306,
+      "timestampMs": 15851.2089,
+      "wallMs": 288.8142,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2165,
+      "mainThreadMs": 290.734126,
+      "playerLoopMs": 281.431432,
+      "gcBytes": 5357668,
+      "gcMs": 8.65257,
+      "topSpans": [
+        {
+          "frame": 306,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 15595.6449,
+          "durationMs": 49.139,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 306,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 15595.6457,
+          "durationMs": 49.1379,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 306,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 15646.0096,
+          "durationMs": 46.3444,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 306,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 15646.0108,
+          "durationMs": 46.3429,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 306,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 15768.0067,
+          "durationMs": 45.9273,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 306,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 15768.0073,
+          "durationMs": 45.9264,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 367,
+      "timestampMs": 25362.6111,
+      "wallMs": 282.1011,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2173,
+      "mainThreadMs": 281.993105,
+      "playerLoopMs": 276.981961,
+      "gcBytes": 13837708,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 367,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 25271.4534,
+          "durationMs": 56.5558,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 367,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 25271.454,
+          "durationMs": 56.555,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 367,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 25192.1282,
+          "durationMs": 53.4109,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 367,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 25192.1289,
+          "durationMs": 53.4099,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 367,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 25111.1982,
+          "durationMs": 53.1135,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 367,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 25111.199,
+          "durationMs": 53.1125,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 347,
+      "timestampMs": 21961.9926,
+      "wallMs": 281.9122,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2169,
+      "mainThreadMs": 281.909201,
+      "playerLoopMs": 276.044728,
+      "gcBytes": 9318857,
+      "gcMs": 9.653981,
+      "topSpans": [
+        {
+          "frame": 347,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 21843.4911,
+          "durationMs": 55.4928,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 347,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 21843.4919,
+          "durationMs": 55.4918,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 347,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 21765.5917,
+          "durationMs": 49.5035,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 347,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 21765.5927,
+          "durationMs": 49.5022,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 347,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 21727.034,
+          "durationMs": 37.1943,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 347,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 21727.0345,
+          "durationMs": 37.1935,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 366,
+      "timestampMs": 25080.5099,
+      "wallMs": 280.8279,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2173,
+      "mainThreadMs": 280.61235,
+      "playerLoopMs": 276.076754,
+      "gcBytes": 10053579,
+      "gcMs": 11.684377,
+      "topSpans": [
+        {
+          "frame": 366,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 24940.2817,
+          "durationMs": 65.0557,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 366,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 24940.2824,
+          "durationMs": 65.0548,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 366,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 24857.0046,
+          "durationMs": 53.7802,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 366,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 24857.0055,
+          "durationMs": 53.7791,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 366,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 25007.0788,
+          "durationMs": 29.7997,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 366,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 25007.0797,
+          "durationMs": 29.7986,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 368,
+      "timestampMs": 25637.5215,
+      "wallMs": 274.9105,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2174,
+      "mainThreadMs": 275.187252,
+      "playerLoopMs": 269.634764,
+      "gcBytes": 9688708,
+      "gcMs": 10.607593,
+      "topSpans": [
+        {
+          "frame": 368,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 25393.0411,
+          "durationMs": 79.9609,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 368,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 25393.0416,
+          "durationMs": 79.9601,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 368,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 25498.8368,
+          "durationMs": 56.6454,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 368,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 25498.8374,
+          "durationMs": 56.6445,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 368,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 25556.9711,
+          "durationMs": 39.7468,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 368,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 25556.9717,
+          "durationMs": 39.7457,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 346,
+      "timestampMs": 21680.0804,
+      "wallMs": 264.4376,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2168,
+      "mainThreadMs": 264.407858,
+      "playerLoopMs": 258.010412,
+      "gcBytes": 9386948,
+      "gcMs": 2.488967,
+      "topSpans": [
+        {
+          "frame": 346,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 21557.6993,
+          "durationMs": 54.1222,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 346,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 21557.7,
+          "durationMs": 54.1213,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 346,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 21469.0049,
+          "durationMs": 47.4882,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 346,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 21469.0054,
+          "durationMs": 47.4874,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 346,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 21518.1251,
+          "durationMs": 37.8738,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 346,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 21518.1258,
+          "durationMs": 37.8728,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 305,
+      "timestampMs": 15562.3948,
+      "wallMs": 258.1472,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2164,
+      "mainThreadMs": 258.276948,
+      "playerLoopMs": 248.409816,
+      "gcBytes": 5043109,
+      "gcMs": 2.961615,
+      "topSpans": [
+        {
+          "frame": 305,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 15357.9706,
+          "durationMs": 48.405,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 305,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 15357.9713,
+          "durationMs": 48.4041,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 305,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 15488.0522,
+          "durationMs": 46.0434,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 305,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 15488.0529,
+          "durationMs": 46.0424,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 305,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 15444.5473,
+          "durationMs": 42.1148,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 305,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 15444.5484,
+          "durationMs": 42.1134,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 349,
+      "timestampMs": 22460.9804,
+      "wallMs": 250.4756,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2170,
+      "mainThreadMs": 250.453124,
+      "playerLoopMs": 245.931531,
+      "gcBytes": 9238921,
+      "gcMs": 11.113211,
+      "topSpans": [
+        {
+          "frame": 349,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 22263.1562,
+          "durationMs": 51.7137,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 349,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 22263.1575,
+          "durationMs": 51.7121,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 349,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 22341.9286,
+          "durationMs": 50.165,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 349,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 22341.9292,
+          "durationMs": 50.1641,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 349,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 22223.0263,
+          "durationMs": 37.9619,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 349,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 22393.8204,
+          "durationMs": 25.6972,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 375,
+      "timestampMs": 27083.5002,
+      "wallMs": 250.3368,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2176,
+      "mainThreadMs": 250.107332,
+      "playerLoopMs": 245.223625,
+      "gcBytes": 6595260,
+      "gcMs": 11.06492,
+      "topSpans": [
+        {
+          "frame": 375,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 26923.7572,
+          "durationMs": 75.6398,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 375,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 26923.7578,
+          "durationMs": 75.6389,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 375,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 27001.4704,
+          "durationMs": 41.9307,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 375,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 27001.4712,
+          "durationMs": 41.9296,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 375,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 26862.2745,
+          "durationMs": 36.2553,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 375,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 26862.2757,
+          "durationMs": 36.2539,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 348,
+      "timestampMs": 22210.5047,
+      "wallMs": 248.5121,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2169,
+      "mainThreadMs": 248.560313,
+      "playerLoopMs": 243.208967,
+      "gcBytes": 9269630,
+      "gcMs": 1.983072,
+      "topSpans": [
+        {
+          "frame": 348,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 22072.3272,
+          "durationMs": 56.4717,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 348,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 22072.3281,
+          "durationMs": 56.4704,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 348,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 21992.9193,
+          "durationMs": 52.1946,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 348,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 21992.9201,
+          "durationMs": 52.1934,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 348,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 22131.1292,
+          "durationMs": 30.6235,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 348,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 22131.1309,
+          "durationMs": 30.6216,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 364,
+      "timestampMs": 24500.1261,
+      "wallMs": 246.2973,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2171,
+      "mainThreadMs": 246.236051,
+      "playerLoopMs": 241.657465,
+      "gcBytes": 5716721,
+      "gcMs": 2.932193,
+      "topSpans": [
+        {
+          "frame": 364,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 24371.5732,
+          "durationMs": 62.8507,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 364,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 24371.5737,
+          "durationMs": 62.8499,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 364,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 24296.1086,
+          "durationMs": 48.8922,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 364,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 24296.1106,
+          "durationMs": 48.8897,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 364,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 24435.8158,
+          "durationMs": 32.3843,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 364,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 24435.8164,
+          "durationMs": 32.3835,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 344,
+      "timestampMs": 21125.1486,
+      "wallMs": 239.0176,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2167,
+      "mainThreadMs": 239.027813,
+      "playerLoopMs": 233.096261,
+      "gcBytes": 5455158,
+      "gcMs": 2.777697,
+      "topSpans": [
+        {
+          "frame": 344,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 20992.2535,
+          "durationMs": 54.226,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 344,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 20992.254,
+          "durationMs": 54.2253,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 344,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 21047.888,
+          "durationMs": 43.6419,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 344,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 21047.8894,
+          "durationMs": 43.6402,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 344,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 20933.1304,
+          "durationMs": 34.6665,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 344,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 20933.131,
+          "durationMs": 34.6656,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 307,
+      "timestampMs": 16087.7507,
+      "wallMs": 236.5417,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2165,
+      "mainThreadMs": 236.519972,
+      "playerLoopMs": 231.436471,
+      "gcBytes": 5104067,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 307,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 15989.032,
+          "durationMs": 38.5462,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 307,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 15989.0326,
+          "durationMs": 38.5454,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 307,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 15878.8722,
+          "durationMs": 35.5328,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 307,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 15878.8731,
+          "durationMs": 35.5316,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 307,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 15915.7108,
+          "durationMs": 35.2757,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 307,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 15915.712,
+          "durationMs": 35.2743,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 373,
+      "timestampMs": 26624.5203,
+      "wallMs": 228.6535,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2175,
+      "mainThreadMs": 228.83207,
+      "playerLoopMs": 224.255956,
+      "gcBytes": 6460974,
+      "gcMs": 9.306503,
+      "topSpans": [
+        {
+          "frame": 373,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 26535.7288,
+          "durationMs": 59.9873,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 373,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 26535.7303,
+          "durationMs": 59.9855,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 373,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 26407.4567,
+          "durationMs": 37.4891,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 373,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 26467.485,
+          "durationMs": 36.4324,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 373,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 26467.4858,
+          "durationMs": 36.4313,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 373,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 26505.5258,
+          "durationMs": 28.5921,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 529,
+      "timestampMs": 42077.7464,
+      "wallMs": 225.0518,
+      "stage": "ui.map.drag",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2181,
+      "mainThreadMs": 223.250186,
+      "playerLoopMs": 218.617256,
+      "gcBytes": 2835696,
+      "gcMs": 11.668295,
+      "topSpans": [
+        {
+          "frame": 529,
+          "stage": "ui.map.drag",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 41988.1115,
+          "durationMs": 66.3216,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 529,
+          "stage": "ui.map.drag",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 41988.1122,
+          "durationMs": 66.3207,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 529,
+          "stage": "ui.map.drag",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 41940.5147,
+          "durationMs": 46.0099,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 529,
+          "stage": "ui.map.drag",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 41940.5153,
+          "durationMs": 46.009,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 529,
+          "stage": "ui.map.drag",
+          "name": "QC.RoadmapPainter.Model",
+          "startMs": 42027.6892,
+          "durationMs": 17.3975,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 529,
+          "stage": "ui.map.drag",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 41893.0657,
+          "durationMs": 12.3597,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 370,
+      "timestampMs": 26067.3118,
+      "wallMs": 222.4265,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2174,
+      "mainThreadMs": 222.536715,
+      "playerLoopMs": 218.029115,
+      "gcBytes": 5501419,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 370,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 25907.6847,
+          "durationMs": 52.0129,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 370,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 25907.6856,
+          "durationMs": 52.0117,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 370,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 25961.6762,
+          "durationMs": 33.7856,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 370,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 25961.6774,
+          "durationMs": 33.7842,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 370,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 25856.2744,
+          "durationMs": 25.3885,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 370,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 25882.8601,
+          "durationMs": 23.958,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 374,
+      "timestampMs": 26833.1637,
+      "wallMs": 208.6431,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2175,
+      "mainThreadMs": 208.664395,
+      "playerLoopMs": 204.103559,
+      "gcBytes": 6534684,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 374,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 26740.0204,
+          "durationMs": 59.1884,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 374,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 26740.0209,
+          "durationMs": 59.1876,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 374,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 26678.2185,
+          "durationMs": 36.2649,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 374,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 26678.2194,
+          "durationMs": 36.2635,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 374,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 26715.6619,
+          "durationMs": 22.9711,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 374,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 26715.6632,
+          "durationMs": 22.9695,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 369,
+      "timestampMs": 25844.8854,
+      "wallMs": 207.3639,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2174,
+      "mainThreadMs": 207.263936,
+      "playerLoopMs": 202.841115,
+      "gcBytes": 5474900,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 369,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 25695.2556,
+          "durationMs": 53.7704,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 369,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 25695.2564,
+          "durationMs": 53.7693,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 369,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 25750.5295,
+          "durationMs": 33.2616,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 369,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 25750.5304,
+          "durationMs": 33.2603,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 369,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 25670.5367,
+          "durationMs": 23.8384,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 369,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 25670.5373,
+          "durationMs": 23.8376,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 308,
+      "timestampMs": 16288.2547,
+      "wallMs": 200.5041,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2165,
+      "mainThreadMs": 200.562593,
+      "playerLoopMs": 195.452894,
+      "gcBytes": 2972114,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 308,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 16183.1603,
+          "durationMs": 40.0683,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 308,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 16183.1612,
+          "durationMs": 40.0671,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 308,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 16113.5101,
+          "durationMs": 33.5831,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 308,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 16113.5108,
+          "durationMs": 33.5822,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 308,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 16147.8105,
+          "durationMs": 33.2685,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 308,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 16147.8112,
+          "durationMs": 33.2676,
+          "allocatedBytes": 0
+        }
+      ]
+    }
+  ],
+  "instrumentationOverhead": {
+    "frameValueArrayBytesApprox": 136,
+    "frameCount": 640,
+    "spanCount": 98964
+  },
+  "rawJsonSha256": "f75b1e028c4f2ce2829423fba079c2a1752474d2c56ab54f25453b41668cc16a"
+}

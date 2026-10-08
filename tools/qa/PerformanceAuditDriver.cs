@@ -41,8 +41,8 @@ static class PerformanceAuditDriver
         var request = JsonUtility.FromJson<Request>(File.ReadAllText(path));
         if (request == null || string.IsNullOrEmpty(request.productName) || !request.productName.StartsWith("QuietCampPerfQA"))
             throw new InvalidOperationException("Performance checks need a distinct QuietCampPerfQA product.");
-        if (!string.IsNullOrEmpty(request.suite) && request.suite != "performance" && request.suite != "foliage")
-            throw new InvalidOperationException("Only the performance matrix and foliage regression suite are allowed.");
+        if (!string.IsNullOrEmpty(request.suite) && request.suite != "performance" && request.suite != "foliage" && request.suite != "roadmap")
+            throw new InvalidOperationException("Only the performance matrix, roadmap audit and foliage regression suite are allowed.");
         SessionState.SetString(Key + "OriginalProduct", PlayerSettings.productName);
         var settingsPath = Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, "../ProjectSettings/ProjectSettings.asset"));
         SessionState.SetString(Key + "OriginalProductLine", File.ReadAllLines(settingsPath).First(line => line.StartsWith("  productName:")));
@@ -55,6 +55,7 @@ static class PerformanceAuditDriver
         Debug.Log("[QC-PERF] Starting native tests with isolated QA saves; existing Editor remains open.");
         api.Execute(new ExecutionSettings(new Filter { testMode = TestMode.PlayMode,
             testNames = new[] { request.suite == "foliage" ? "QuietCamp.Tests.FoliageDivePlayModeTests"
+                : request.suite == "roadmap" ? "QuietCamp.Tests.PerformanceAuditPlayModeTests.RunRoadmapPerformance"
                 : "QuietCamp.Tests.PerformanceAuditPlayModeTests.RunPerformanceMap" } }));
     }
     static void Restore()

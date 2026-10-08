@@ -1,3 +1,4 @@
+using QuietCamp.Infrastructure;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +26,7 @@ namespace QuietCamp.Presentation.UI
         }
         protected override void OnPopulateMesh(VertexHelper vh)
         {
+            using var audit = PerformanceAudit.Measure("QC.RoadmapWeatherGraphic.OnPopulateMesh");
             vh.Clear();RainGlades=SunlitGlades=MistGlades=RainDrops=SnowGlades=Snowflakes=0;if(_map==null)return;
             float time=_map.Reduced?0:Time.unscaledTime;
             for(int i=0;i<_map.Scenes.Count;i++)

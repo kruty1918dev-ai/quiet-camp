@@ -1,3 +1,4 @@
+using QuietCamp.Infrastructure;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,7 @@ namespace QuietCamp.Presentation.UI
         public void Configure(RoadmapGraphic map,int index)
         { if(_map==map&&_index==index)return;_map=map;_index=index;SetVerticesDirty(); }
         protected override void OnPopulateMesh(VertexHelper vh)
-        { vh.Clear();if(_map!=null&&_index>=0)_map.PaintGlade(vh,_index,this); }
+        {
+            using var audit = PerformanceAudit.Measure("QC.RoadmapGladeGraphic.OnPopulateMesh"); vh.Clear();if(_map!=null&&_index>=0)_map.PaintGlade(vh,_index,this); }
     }
 }
