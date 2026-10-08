@@ -18,6 +18,7 @@
   <a href="docs/gallery.md">Галерея</a> ·
   <a href="docs/development.md">Відкрити проєкт</a> ·
   <a href="docs/project-map.md">Карта коду</a>
+  · <a href="PERFORMANCE_MAP.md">Продуктивність</a>
 </p>
 
 ![Літня галявина Quiet Camp — справжній Unity Game View](docs/images/captures/2026-10-08/album-season-summer.png)
@@ -70,6 +71,7 @@ Drag, поворот, undo/redo, список гостей і placement preview 
 | Шукаю файл/систему | [Карта проєкту](docs/project-map.md), [scripts](QuietCamp/Assets/QuietCamp/Scripts), [resources](QuietCamp/Assets/QuietCamp/Resources/QuietCamp). |
 | Працюю над art/story/UI | [Design index](Design/README.md), [technical documentation](Documentation/README.md), [campaign roadmap](CAMPAIGN_ROADMAP.md). |
 | Потрібні докази готовності | [Стан і перевірки](docs/status.md), [capture workflow](tools/qa/DOCS-CAPTURE-UA.md), [workspace rules](AGENTS.md). |
+| Шукаю причини зависань | [Карта продуктивності](PERFORMANCE_MAP.md), [інтерактивні кадри й methods](https://kruty1918dev-ai.github.io/quiet-camp/performance.html). |
 
 ![Як головні екрани повʼязані між собою](docs/images/diagrams/screens-flow.svg)
 
@@ -89,5 +91,7 @@ Custom local UPM packages включені в [Packages](QuietCamp/Packages/READ
 Життя, підказки, currency exchanges, Pro і purchase-state contracts — prototype integrations. Новий профіль починає з трьох hints і пʼяти lives; incorrect Check витрачає життя й очищає arrangement/history. Реальні покупки та rewarded ads не підключені. [Ресурси й Pro](docs/screens.md#ресурси-та-pro).
 
 Нова forest/village/power/aircraft/dam roadmap composition підготовлена в [окремій art branch](https://github.com/kruty1918dev-ai/quiet-camp/tree/art/roadmap-native-finish-2026-10-08). Її не злито в main і не активовано новим native bake; кадри довідника показують main renderer. Device performance, store/restore/ad acceptance та staging publication мають окремі наступні checks. [Точний стан доказів →](docs/status.md)
+
+Native Editor audit **09.10.2026** відтворив затримки переходів і мапи: leaf mesh p95 до **17.34 мс**, повторні activation frames до **960 мс**, перше відкриття мапи **1.27–1.38 с**. Дві performance fixtures та п'ять foliage tests Passed; оптимізації ще відкриті. [Виміри, пріоритети й межі →](PERFORMANCE_MAP.md)
 
 Ліцензії art/audio/vendor sources зберігають власні умови та attribution; [asset notes](docs/development.md#assets-і-ліцензії). Концепти й store mockups позначені окремо в [архіві галереї](docs/gallery.md#архів-та-концепти).

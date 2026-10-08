@@ -3,6 +3,8 @@
 > Навігація: [ілюстрований довідник](docs/README.md) · [світ і source catalog](docs/world.md) · [галерея](docs/gallery.md) · [стан перевірок](docs/status.md).
 >
 > На 2026-10-08 committed main catalog задає 110 ordered places; цей документ описує релізний план ширшого світу. Кількість у source catalog не є заявою native/device acceptance всього контенту. Нова semantic roadmap composition лишається в окремій art branch до bake/visual acceptance.
+>
+> Native Editor performance audit, 2026-10-09: підтверджено важке leaf mesh, синхронну scene/UI activation та procedural map rebuild під час scroll. Дві performance fixtures і п'ять foliage regressions Passed; budgets не пройдені й оптимізації відкриті. [Виміри та порядок виправлень](PERFORMANCE_MAP.md) · [інтерактивний report](https://kruty1918dev-ai.github.io/quiet-camp/performance.html).
 
 
 Ціль: ~300 рівнів, що відчуваються як жива карта світу з центральною

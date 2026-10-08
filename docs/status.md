@@ -4,7 +4,7 @@
 
 ![Справжній літній табір у тихому режимі альбому](images/captures/2026-10-08/album-season-summer.png)
 
-Ця сторінка фіксує перевірений зріз **2026-10-08**. У repository є development project, source content і дизайн-плани; це не оголошення готового store release.
+Довідник фіксує перевірений visual зріз **2026-10-08**; native performance audit додано **2026-10-09**. У repository є development project, source content і дизайн-плани; це не оголошення готового store release.
 
 ## Що показує новий довідник
 
@@ -32,6 +32,24 @@ Unity **6000.6.2f1**, desktop OpenGL, High quality. Portrait Game View 720 × 16
 QA-профіль має окрему product/save identity. Прогрес, wallet та сезонні album snapshots підготовлені fixture; це не player achievements, реальна покупка або rewarded ad. Альбом відтворює справжні solved placements через native runtime, PNG не ретушували.
 
 Ранні capture attempts завершувалися помилками fixture; їх не зараховано як Passed. Cleanup спочатку відновив product identity зарано, і фінальний QA write потрапив у основний save slot. Його відновлено з копії, що точно збігається з початковим SHA-256, до повторних успішних етапів. Driver тепер чекає `RunFinished`, повного виходу з Play Mode й cleanup delay. Контракт hashes охоплює game slots; Unity internal Editor preferences/session data не заявляються незмінними.
+
+## Native performance audit · 2026-10-09
+
+[Повна карта проблем і пріоритетів](../PERFORMANCE_MAP.md) · [інтерактивні сценарії/timeline](performance.html) · [workflow](../tools/qa/PERFORMANCE-AUDIT-UA.md).
+
+| Перевірка | Результат / межі |
+| --- | --- |
+| Повна performance матриця | **Passed**, 309.46 с; 6 140 кадрів / 34 576 method scopes / 35 operations. Три tiers, leaf-only, repeated normal/reduced routes, п'ять sampled camps, мапа/journeys/settings/album. [Receipt](performance/2026-10-09/native-result.json). |
+| Прицільний замір мапи | **Passed**, 45.99 с; 640 кадрів / 98 964 scopes; stationary/full sweep/5% scroll. [Receipt](performance/2026-10-09/roadmap/native-result.json). |
+| Foliage regression | **5/5 Passed**: visible mesh, sound scope recovery, cancellation, reduced motion, reveal/input recovery. [Receipt](performance/2026-10-09/foliage-tests.json). |
+| Current-source compilation | **Passed**, runtime, Editor та PlayMode sources через cached Bee references; це не player build. [Receipt](performance/2026-10-09/source-compilation.json). |
+| Storage/session guards | ProjectSettings byte-for-byte, original save hashes та початкові dirty inputs збережено. Той самий ADB identity й незмінні shared kill preferences; Editor повторно не запускався. |
+| Report/data/site checks | **Passed**: raw/source hashes, percentiles, 3 route repetitions per mode/direction, 754 guide/site links; [interactive browser checks](verification/performance-site-local-2026-10-09.json), search/datasets/timeline/no-JS і 320–1440 px. Main guide UA/EN/DE та 36 cards повторно Passed після nav update. |
+| Performance budgets | **Не пройдені**: leaf p95 до 17.34 мс; повторні route frames до 960 мс; map open 1.27–1.38 с; slower scroll p95 151.63 мс. Оптимізації відкриті. |
+
+Unity 6000.6.2f1, 720 × 1600, i7-2600/GT 730/OpenGL, Jobs worker 1. Це Editor wall/method/counter data, **не device FPS**. GPU timing, Render Thread і method-local allocations недоступні; zeros не означають zero cost. Global memory/GC включають Editor, QA та audit overhead; leak не доведено. Основний runtime checkpoint `c9c7bf5`, opt-in audit source/data `235804a`, додаткова мапа/regressions `ca3476b`; точні source/fixture hashes є у raw provenance.
+
+Перший matrix attempt мав стандартний 180-секундний timeout; published numbers походять із завершеного повторного run. Перший запит regression після заміни driver прийняла стара assembly й performance test був Skipped через QA guard; цей запит не зараховано як Passed. Після завершення import окремо виконано та перевірено правильні п'ять foliage tests. Нових screenshots ця діагностика не заявляє.
 
 ## Що потребує окремої перевірки
 

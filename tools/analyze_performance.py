@@ -189,7 +189,7 @@ def plots(data, summary, output):
         at = (s["startMs"] - op["startMs"]) / 1000
         ax.axvline(at, color=colors["main"], alpha=.3)
         ax.annotate(s["name"].replace("QC.", "") + f'\n{s["durationMs"]:.0f} ms inclusive',
-                    xy=(at, s["durationMs"]), xytext=(.15 + i * .29, .87 - (i % 2) * .2), textcoords="axes fraction",
+                    xy=(at, s["durationMs"]), xytext=(.15 + i * .29, .88 - i * .19), textcoords="axes fraction",
                     fontsize=8, bbox={"facecolor": "#faf9f3", "edgecolor": "none", "alpha": .9},
                     arrowprops={"arrowstyle": "-", "color": colors["main"]})
     ax.axhline(33.33, color="#aaa", ls=":"); ax.set_xlabel("seconds from real router request"); ax.set_ylabel("milliseconds")

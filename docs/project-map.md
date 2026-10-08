@@ -35,6 +35,7 @@
 | Сезони/атмосфера | [World](../QuietCamp/Assets/QuietCamp/Scripts/Presentation/World), [Seasonal notes](../Design/Atmosphere/SEASONAL-RENDERING-UA.md). |
 | Альбом і reconstruction | [AlbumDiorama](../QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/AlbumDiorama.cs). |
 | Доступ до journey/bonus | [Application](../QuietCamp/Assets/QuietCamp/Scripts/Application), [World/content status](world.md). |
+| Зависання переходів, мапи, UI | [Performance map](../PERFORMANCE_MAP.md), [opt-in audit helper](../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/PerformanceAudit.cs), [native workflow](../tools/qa/PERFORMANCE-AUDIT-UA.md). |
 
 У цьому project немає npm frontend, browser game runtime або окремої копії правил у HTML. Кнопка надсилає команду через action router; `CampSession` змінює puzzle state. Мапа читає summaries, а не викликає solver при scroll.
 

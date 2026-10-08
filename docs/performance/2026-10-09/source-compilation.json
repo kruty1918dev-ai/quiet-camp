@@ -1,0 +1,16 @@
+{
+  "result": "Passed",
+  "checkedAtLocalDate": "2026-10-09",
+  "command": "python3 tools/verify_monetization.py",
+  "kind": "Current-source compiler check against cached Unity Bee response files",
+  "runtimeEditorPlayModeSources": true,
+  "unityLaunch": false,
+  "playerBuild": false,
+  "warningCounts": {
+    "QuietCamp.Domain": 6,
+    "QuietCamp.Infrastructure": 5,
+    "QuietCamp.Presentation": 14,
+    "QuietCamp.Tests.PlayMode": 98
+  },
+  "limits": "Compilation only; scene behavior is evidenced separately by the native test receipts."
+}

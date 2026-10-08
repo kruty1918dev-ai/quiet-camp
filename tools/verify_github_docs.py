@@ -12,6 +12,7 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parent.parent
 GUIDES = [ROOT / 'README.md', ROOT / 'CAMPAIGN_ROADMAP.md', ROOT / 'Design/README.md',
+          ROOT / 'PERFORMANCE_MAP.md', ROOT / 'tools/qa/PERFORMANCE-AUDIT-UA.md',
           ROOT / 'Documentation/README.md', ROOT / 'QuietCamp/Packages/README.md',
           ROOT / 'tools/qa/DOCS-CAPTURE-UA.md', *sorted((ROOT / 'docs').glob('*.md'))]
 ERRORS = []
@@ -89,6 +90,12 @@ def main():
     page = Page(); page.feed(html.read_text(encoding='utf-8'))
     for link in page.links:
         check_link(html, link); links += 1
+    audit_html = ROOT / 'docs/performance.html'
+    audit_page = Page(); audit_page.feed(audit_html.read_text(encoding='utf-8'))
+    for link in audit_page.links:
+        check_link(audit_html, link); links += 1
+    if audit_page.missing_alt:
+        ERRORS.append('Performance plots need alt attributes')
     if page.missing_alt:
         ERRORS.append('Site images need alt attributes')
     records = json.loads((ROOT / 'docs/site-content.json').read_text(encoding='utf-8'))

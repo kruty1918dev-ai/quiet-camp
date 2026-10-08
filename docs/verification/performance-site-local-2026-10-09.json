@@ -1,0 +1,16 @@
+{
+  "result": "Passed",
+  "url": "http://127.0.0.1:39935/performance.html",
+  "scenarios": [
+    "Primary native dataset, table and default real-route timeline load",
+    "Scenario search, empty state, capped scale and frame hover",
+    "Supplemental map dataset, gentle-scroll timeline, source methods and downloads",
+    "Responsive canvas/table at 320–1440 pixels and all scientific PNGs load",
+    "No-JavaScript report links and three static plots"
+  ],
+  "pageErrors": [],
+  "checkedAtLocalDate": "2026-10-09",
+  "kind": "Interactive performance report; local browser verification",
+  "htmlSha256": "57cdf76c7a19b599ae10ab27bdfc634a518ffbb2099475e910b1000166695fb9",
+  "scriptSha256": "0833d7cd5abb36cad7c1073eddf7c68e7d5ac872f20e2b463e3b63e4835ea31f"
+}

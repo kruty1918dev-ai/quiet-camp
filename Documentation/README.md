@@ -15,5 +15,6 @@
 | Плани перших десяти галявин | [LevelPlans](LevelPlans). |
 | Скріншот конкретного меню | [Атлас екранів](../docs/screens.md). |
 | Поточна перевірка/обмеження | [Стан](../docs/status.md), [Gallery](../docs/gallery.md). |
+| Продуктивність і причини зависань | [Performance map](../PERFORMANCE_MAP.md), [interactive timings](../docs/performance.html), [native workflow](../tools/qa/PERFORMANCE-AUDIT-UA.md). |
 
 Історичні reports під `TestResults/` можуть бути локальними й не входити в clone. Поточний evidence summary довідника доступний у [docs/status.md](../docs/status.md).

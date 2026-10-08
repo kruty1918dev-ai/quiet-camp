@@ -17,6 +17,7 @@
 | Відкрити проєкт | [Початок розробки](development.md) | Exact Unity, packages, Boot, checks і capture workflow. |
 | Знайти реалізацію | [Карта проєкту](project-map.md) | Шари, папки, UI presenters, дані, тести й design notes. |
 | Оцінити готовність | [Стан і докази](status.md) | Що виконано, що є prototype/staging і що ще не перевірено. |
+| Знайти просідання | [Карта продуктивності](../PERFORMANCE_MAP.md), [interactive audit](performance.html) | Native Editor frame timings, листя, scene/UI activation, мапа та черга виправлень. |
 
 ![Як екрани повʼязані між собою](images/diagrams/screens-flow.svg)
 

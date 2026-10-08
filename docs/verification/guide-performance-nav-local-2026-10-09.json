@@ -1,0 +1,15 @@
+{
+  "result": "Passed",
+  "url": "http://127.0.0.1:34125/",
+  "scenarios": [
+    "All 36 cards and site images load",
+    "UA/EN/DE translation, pressed states and language persistence",
+    "Category filters, Unicode search, empty state and reset",
+    "Image viewer, provenance links, Escape and Close",
+    "No horizontal overflow at 320, 390, 768, 1280, 1440 and 1920 pixels",
+    "Static Ukrainian content and all cards available with JavaScript disabled"
+  ],
+  "pageErrors": [],
+  "checkedAtLocalDate": "2026-10-09",
+  "kind": "Guide navigation update and language/browser regression"
+}
