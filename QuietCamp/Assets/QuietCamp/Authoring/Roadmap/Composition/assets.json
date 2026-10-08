@@ -1,0 +1,390 @@
+[
+  {
+    "id": "ua_power_pylon",
+    "source": "ua_power_pylon.obj",
+    "license": "original-project-owned",
+    "sourceHash": "6778e6678fbdfea5938e9a3f1b8ecc2921a4c4a6453ce86adc75d0da2b5adbad",
+    "height": 5.8,
+    "width": 2.8375949609598536,
+    "depth": 1.500129820125273,
+    "radius": 1.604862504990212,
+    "wind": false,
+    "sourceHeight": 16.045278,
+    "conductors": [
+      {
+        "x": -3.6799999999999997,
+        "y": 9.319999999999999,
+        "z": 0
+      },
+      {
+        "x": 3.6799999999999997,
+        "y": 9.319999999999999,
+        "z": 0
+      },
+      {
+        "x": -3.23,
+        "y": 12.12,
+        "z": 0
+      },
+      {
+        "x": 3.23,
+        "y": 12.12,
+        "z": 0
+      },
+      {
+        "x": -2.5799999999999996,
+        "y": 14.92,
+        "z": 0
+      },
+      {
+        "x": 2.5799999999999996,
+        "y": 14.92,
+        "z": 0
+      }
+    ],
+    "pivot": {
+      "x": 0.0,
+      "y": -0.03145764348029479,
+      "z": 0.0
+    },
+    "placementClass": "solid",
+    "supportKind": "power"
+  },
+  {
+    "id": "ua_rural_pole",
+    "source": "ua_rural_pole.obj",
+    "license": "original-project-owned",
+    "sourceHash": "d991f17558ba21b39bbac06cb509cf1af934275ee433af6087e8108197845f8b",
+    "height": 7.31,
+    "width": 2.2,
+    "depth": 0.289127,
+    "radius": 1.1094586993359645,
+    "wind": false,
+    "sourceHeight": 7.31,
+    "conductors": [
+      {
+        "x": -0.97954,
+        "y": 6.60093,
+        "z": 0
+      },
+      {
+        "x": 0.97954,
+        "y": 6.60093,
+        "z": 0
+      }
+    ],
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -0.030436609022290798
+    },
+    "placementClass": "solid",
+    "supportKind": "distribution"
+  },
+  {
+    "id": "ua_wattle_fence",
+    "source": "ua_wattle_fence.obj",
+    "license": "original-project-owned",
+    "sourceHash": "46a847f50475d48420581bee5739383c1561dcd127a3c4d00ac751485bf5123b",
+    "height": 1.251872355574371,
+    "width": 3.3,
+    "depth": 0.1914088188813493,
+    "radius": 1.6527732252146354,
+    "wind": false,
+    "sourceHeight": 1.261684,
+    "pivot": {
+      "x": 2.220446049250313e-16,
+      "y": -0.0010326623271144102,
+      "z": -6.938893903907228e-18
+    },
+    "placementClass": "boundary"
+  },
+  {
+    "id": "ua_picket_fence",
+    "source": "ua_picket_fence.obj",
+    "license": "original-project-owned",
+    "sourceHash": "91b196908a8fb0e1e0f9df6f3f3e89b70cabd108375733262427487d90aa171f",
+    "height": 1.308108108108108,
+    "width": 3.2999999999999994,
+    "depth": 0.1635135135135135,
+    "radius": 1.6520242635250195,
+    "wind": false,
+    "sourceHeight": 1.32,
+    "pivot": {
+      "x": 0.0,
+      "y": 0,
+      "z": 0.022499999999999996
+    },
+    "placementClass": "boundary"
+  },
+  {
+    "id": "ua_concrete_fence",
+    "source": "ua_concrete_fence.obj",
+    "license": "original-project-owned",
+    "sourceHash": "84384a591a86ad723c4737c5f8ab9bf4a4163a19d6af2fb363e9ad4ed51fb52d",
+    "height": 1.55625,
+    "width": 3.3000000000000003,
+    "depth": 0.234375,
+    "radius": 1.654156253247029,
+    "wind": false,
+    "sourceHeight": 1.66,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "placementClass": "boundary"
+  },
+  {
+    "id": "ua_gate",
+    "source": "ua_gate.obj",
+    "license": "original-project-owned",
+    "sourceHash": "85163db5b16138415ceb7cebc7de1e2816706ece089b6834e651c9de8fc051a8",
+    "height": 1.88,
+    "width": 3.66,
+    "depth": 0.9744230000000002,
+    "radius": 1.8937462991996181,
+    "wind": false,
+    "sourceHeight": 1.88,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -0.37221155854402954
+    },
+    "placementClass": "boundary"
+  },
+  {
+    "id": "ua_wheat_patch",
+    "source": "ua_wheat_patch.obj",
+    "license": "original-project-owned",
+    "sourceHash": "7e3b6ebeb9eaf9ed28af446ca7c00ae88d5975587e46febaba93c2330d91b317",
+    "height": 1.145015,
+    "width": 1.406544,
+    "depth": 1.038791,
+    "radius": 0.874278669192066,
+    "wind": true,
+    "sourceHeight": 1.145015,
+    "pivot": {
+      "x": 0.05461252698532154,
+      "y": -0.0009455420123443865,
+      "z": 0.007866371688566132
+    },
+    "placementClass": "groundcover"
+  },
+  {
+    "id": "ua_sunflower_patch",
+    "source": "ua_sunflower_patch.obj",
+    "license": "original-project-owned",
+    "sourceHash": "3b5d8f6c89b968d66d95b1884a6cc5d75e0987ae00a118557a5d956fdf657dd2",
+    "height": 1.574373,
+    "width": 1.569753,
+    "depth": 1.036378,
+    "radius": 0.9405056937484483,
+    "wind": true,
+    "sourceHeight": 1.574373,
+    "pivot": {
+      "x": 0.025333242790563926,
+      "y": -0.0009606851587245603,
+      "z": -0.01601256117813815
+    },
+    "placementClass": "groundcover"
+  },
+  {
+    "id": "ua_orchard_tree",
+    "source": "ua_orchard_tree.obj",
+    "license": "original-project-owned",
+    "sourceHash": "d70ba8aef7f805adbe523fa1162f84745187264f10eefb427868718c87e4edc8",
+    "height": 2.8,
+    "width": 2.7936682515596023,
+    "depth": 2.2034078570224245,
+    "radius": 1.779015773128518,
+    "wind": true,
+    "sourceHeight": 2.9655,
+    "pivot": {
+      "x": 0.02060276416000817,
+      "y": 0.0,
+      "z": -0.01362103517000024
+    },
+    "placementClass": "canopy"
+  },
+  {
+    "id": "ua_bus_shelter",
+    "source": "ua_bus_shelter.obj",
+    "license": "original-project-owned",
+    "sourceHash": "0268596929b4051fb97f19b95611d3e5bc2b0b1404722861c6b1eb755b31fd32",
+    "height": 1.8,
+    "width": 2.847272727272727,
+    "depth": 1.628181818181818,
+    "radius": 1.6399647874671672,
+    "wind": false,
+    "sourceHeight": 2.2,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "placementClass": "solid"
+  },
+  {
+    "id": "ua_whitewashed_house",
+    "source": "ua_whitewashed_house.obj",
+    "license": "original-project-owned",
+    "sourceHash": "e23d143c2dab0440763463e3f360d6a05b83694802090fd1f06a486175fee967",
+    "height": 2.6,
+    "width": 3.325138569856986,
+    "depth": 3.9414741474147417,
+    "radius": 2.578360184472358,
+    "wind": false,
+    "sourceHeight": 4.545,
+    "pivot": {
+      "x": 0.0,
+      "y": 0,
+      "z": -0.19499999999999984
+    },
+    "placementClass": "solid"
+  },
+  {
+    "id": "ua_well",
+    "source": "ua_well.obj",
+    "license": "original-project-owned",
+    "sourceHash": "b4bdea5e97a72868925e4964df6eb15dbc38c61abc35ae12687b5ef2e5a96b9f",
+    "height": 0.95,
+    "width": 0.8280973451327434,
+    "depth": 0.6221238938053097,
+    "radius": 0.5178762767928693,
+    "wind": false,
+    "sourceHeight": 2.26,
+    "pivot": {
+      "x": 0.03500000000000003,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "placementClass": "solid"
+  },
+  {
+    "id": "ua_wheat_patch_lod",
+    "source": "ua_wheat_patch_lod.obj",
+    "license": "original-project-owned",
+    "sourceHash": "75c8b6370ec10e664d4c0080da59722d6078e0b55de2f2985361995b5384de3b",
+    "height": 1.091634,
+    "width": 1.392,
+    "depth": 0.982,
+    "radius": 0.8517611167457693,
+    "wind": true,
+    "sourceHeight": 1.091634,
+    "pivot": {
+      "x": 0.04500000000000004,
+      "y": -0.0006335618860633676,
+      "z": 0.0
+    },
+    "placementClass": "groundcover"
+  },
+  {
+    "id": "ua_sunflower_patch_lod",
+    "source": "ua_sunflower_patch_lod.obj",
+    "license": "original-project-owned",
+    "sourceHash": "a1b3b403425b0e07998061f93f2f848c93eacfe37ed76fa7379929a24dd275dd",
+    "height": 1.515124,
+    "width": 1.538213,
+    "depth": 0.9005,
+    "radius": 0.8912069741885159,
+    "wind": true,
+    "sourceHeight": 1.515124,
+    "pivot": {
+      "x": 0.06089342453073393,
+      "y": -0.0006399497329570905,
+      "z": -0.009749999999999981
+    },
+    "placementClass": "groundcover"
+  },
+  {
+    "id": "tree_default",
+    "height": 3.5,
+    "radius": 1.7,
+    "width": 3.4,
+    "depth": 3.4,
+    "wind": true,
+    "source": "existing-QuietCamp-catalog",
+    "license": "see-project-credits",
+    "placementClass": "canopy"
+  },
+  {
+    "id": "tree_pineRoundA",
+    "height": 4.0,
+    "radius": 1.6,
+    "width": 3.2,
+    "depth": 3.2,
+    "wind": true,
+    "source": "existing-QuietCamp-catalog",
+    "license": "see-project-credits",
+    "placementClass": "canopy"
+  },
+  {
+    "id": "grass_leafsLarge",
+    "height": 0.28,
+    "radius": 0.35,
+    "width": 0.7,
+    "depth": 0.7,
+    "wind": true,
+    "source": "existing-QuietCamp-catalog",
+    "license": "see-project-credits",
+    "placementClass": "groundcover"
+  },
+  {
+    "id": "flower_yellowA",
+    "height": 0.3,
+    "radius": 0.3,
+    "width": 0.6,
+    "depth": 0.6,
+    "wind": true,
+    "source": "existing-QuietCamp-catalog",
+    "license": "see-project-credits",
+    "placementClass": "groundcover"
+  },
+  {
+    "id": "stone_largeC",
+    "height": 0.7,
+    "radius": 0.6,
+    "width": 1.2,
+    "depth": 1.2,
+    "wind": false,
+    "source": "existing-QuietCamp-catalog",
+    "license": "see-project-credits",
+    "placementClass": "solid"
+  },
+  {
+    "id": "log_stack",
+    "height": 0.6,
+    "radius": 0.7,
+    "width": 1.4,
+    "depth": 1.4,
+    "wind": false,
+    "source": "existing-QuietCamp-catalog",
+    "license": "see-project-credits",
+    "placementClass": "solid"
+  },
+  {
+    "id": "tent_smallOpen",
+    "height": 1.18,
+    "radius": 1.2,
+    "width": 2.4,
+    "depth": 2.4,
+    "wind": false,
+    "source": "existing-QuietCamp-catalog",
+    "license": "see-project-credits",
+    "placementClass": "solid"
+  },
+  {
+    "id": "story_foundation",
+    "source": "existing-QuietCamp-story-catalog",
+    "sourceHash": "69be1ce95e08c4a7428e79e7ee01f0c8eee0642956ccf42b8e48408756b0dd58",
+    "license": "original-project-owned",
+    "height": 0.7,
+    "width": 2.14998,
+    "depth": 1.7857,
+    "radius": 1.3974207035105783,
+    "sourceHeight": 1,
+    "placementClass": "solid",
+    "wind": false
+  }
+]

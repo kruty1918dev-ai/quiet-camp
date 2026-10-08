@@ -58,3 +58,26 @@ rewards, human interest or production security of wallet/entitlement data. The
 local ad-day clock and editable prototype caches need an authoritative backend
 before real-money activation. Do not enable sales simply because compilation or
 fake-provider tests pass.
+
+# Roadmap scene composition authoring
+
+Before editing roadmap geography, ensembles or asset placement, read
+[the Ukrainian tool guide](tools/scene-composition/USAGE_UA.md),
+[CLI quick start](tools/scene-composition/README.md) and
+[diagnostic reference](tools/scene-composition/DIAGNOSTICS.md).
+
+- Edit compact sources in `QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition`.
+  Do not hand-edit generated transforms, meshes or the runtime catalog.
+- Use `inspect → patch --expected-hash → validate → compose --dry-run`.
+  Patch the source owner/template returned by inspect, rather than a generated child.
+- Keep yards, fences, gates and approaches as owned ensembles. Power routes use
+  typed supports/conductor sockets; preserve node IDs, order and unlock rules.
+- Portable `bake` prepares placements only. Native meshes/publication require
+  `Quiet Camp/Composition/Bake Main` in Unity under the existing host/ADB rules.
+  CLI `preview` does not launch Unity. Do not infer permission to launch it from this section.
+- Validate actual native renders before claiming visual acceptance. Cached compiler
+  checks and portable planner timings do not prove mobile FPS or native streaming.
+- At the user's pause on 2026-10-08, the new semantic/native pipeline has not had
+  its first native bake/visual approval; the published main catalog is still legacy.
+  Existing screenshots must retain their capture dates and cannot represent that new bake.
+  Resume composition implementation only when the user requests it.

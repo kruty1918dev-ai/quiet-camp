@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "id": "main:region:3",
+  "seed": 2857,
+  "season": "winter",
+  "nodes": [
+    {
+      "id": "node:gen:qc_camp:11",
+      "x": -5.789,
+      "z": 8.535,
+      "radius": 5.6
+    },
+    {
+      "id": "node:gen:qc_camp:12",
+      "x": -5.494,
+      "z": 26.803,
+      "radius": 5.6
+    },
+    {
+      "id": "node:gen:qc_camp:13",
+      "x": -0.096,
+      "z": 45.475,
+      "radius": 5.6
+    },
+    {
+      "id": "node:gen:qc_camp:14",
+      "x": 4.278,
+      "z": 64.331,
+      "radius": 5.6
+    },
+    {
+      "id": "node:gen:qc_camp:15",
+      "x": 4.591,
+      "z": 83.041,
+      "radius": 5.6
+    }
+  ],
+  "zones": [
+    {
+      "id": "r3-left-forest",
+      "kind": "forest",
+      "x": -25,
+      "z": 50.1389590349881,
+      "width": 32,
+      "depth": 100.2779180699762,
+      "density": 0.91
+    },
+    {
+      "id": "r3-right-forest",
+      "kind": "forest",
+      "x": 25,
+      "z": 50.1389590349881,
+      "width": 32,
+      "depth": 100.2779180699762,
+      "density": 0.91
+    },
+    {
+      "id": "r3-meadow",
+      "kind": "meadow",
+      "x": 0,
+      "z": 50.1389590349881,
+      "width": 30,
+      "depth": 100.2779180699762,
+      "density": 0.9
+    },
+    {
+      "id": "r3-field",
+      "kind": "field",
+      "species": "ua_wheat_patch",
+      "x": -25,
+      "z": 58.16119248058619,
+      "width": 24,
+      "depth": 52.14451739638762,
+      "density": 0.87
+    },
+    {
+      "id": "r3-yards-left",
+      "kind": "parcel",
+      "x": -15,
+      "z": 50.1389590349881,
+      "width": 24,
+      "depth": 100.2779180699762,
+      "density": 1
+    },
+    {
+      "id": "r3-yards-right",
+      "kind": "parcel",
+      "x": 15,
+      "z": 50.1389590349881,
+      "width": 24,
+      "depth": 100.2779180699762,
+      "density": 1
+    }
+  ],
+  "routes": [
+    {
+      "id": "r3-main-road",
+      "kind": "path",
+      "width": 0.55,
+      "points": [
+        {
+          "x": -5.421919,
+          "z": 0
+        },
+        {
+          "x": -5.789,
+          "z": 8.535
+        },
+        {
+          "x": -5.494,
+          "z": 26.803
+        },
+        {
+          "x": -0.096,
+          "z": 45.475
+        },
+        {
+          "x": 4.278,
+          "z": 64.331
+        },
+        {
+          "x": 4.591,
+          "z": 83.041
+        },
+        {
+          "x": 3.545958,
+          "z": 100.2779180699762
+        }
+      ],
+      "interpolation": "smooth-x",
+      "nextRoute": "r4-main-road"
+    },
+    {
+      "id": "r3-transmission",
+      "kind": "power",
+      "supportAsset": "ua_power_pylon",
+      "width": 2.2,
+      "minSpan": 22,
+      "maxSpan": 44,
+      "supportHeight": 5.8,
+      "points": [
+        {
+          "x": 34,
+          "z": -3
+        },
+        {
+          "x": 14,
+          "z": 53
+        },
+        {
+          "x": 36,
+          "z": 103.279
+        }
+      ]
+    }
+  ],
+  "ensembles": [
+    {
+      "id": "r3-homestead-0",
+      "template": "ua.homestead",
+      "placement": {
+        "zone": "r3-yards-left",
+        "nearNode": "node:gen:qc_camp:12"
+      },
+      "entranceConnectsTo": "r3-main-road",
+      "fenceVariant": "wattle",
+      "state": "partly-reclaimed",
+      "scale": 0.72
+    },
+    {
+      "id": "r3-homestead-1",
+      "template": "ua.abandoned-homestead",
+      "placement": {
+        "zone": "r3-yards-left",
+        "nearNode": "node:gen:qc_camp:14"
+      },
+      "entranceConnectsTo": "r3-main-road",
+      "fenceVariant": "wattle",
+      "state": "partly-reclaimed",
+      "scale": 0.72
+    }
+  ],
+  "landmarks": []
+}

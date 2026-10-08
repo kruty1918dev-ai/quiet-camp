@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "id": "main:region:0",
+  "seed": 1918,
+  "season": "spring",
+  "nodes": [
+    {
+      "id": "node:QC001",
+      "x": -3.065,
+      "z": 10.966,
+      "radius": 5.6
+    },
+    {
+      "id": "node:QC002",
+      "x": 3.943,
+      "z": 31.655,
+      "radius": 5.6
+    },
+    {
+      "id": "node:QC003",
+      "x": -2.612,
+      "z": 51.92,
+      "radius": 5.6
+    },
+    {
+      "id": "node:QC004",
+      "x": 5.105,
+      "z": 71.898,
+      "radius": 5.6
+    },
+    {
+      "id": "node:QC005",
+      "x": -3.193,
+      "z": 91.9,
+      "radius": 5.6
+    }
+  ],
+  "zones": [
+    {
+      "id": "r0-left-forest",
+      "kind": "forest",
+      "x": -25,
+      "z": 61.03873273824638,
+      "width": 32,
+      "depth": 122.07746547649276,
+      "density": 0.91
+    },
+    {
+      "id": "r0-right-forest",
+      "kind": "forest",
+      "x": 25,
+      "z": 61.03873273824638,
+      "width": 32,
+      "depth": 122.07746547649276,
+      "density": 0.91
+    },
+    {
+      "id": "r0-meadow",
+      "kind": "meadow",
+      "x": 0,
+      "z": 61.03873273824638,
+      "width": 30,
+      "depth": 122.07746547649276,
+      "density": 0.9
+    },
+    {
+      "id": "r0-field",
+      "kind": "field",
+      "species": "ua_wheat_patch",
+      "x": 24,
+      "z": 70.8049299763658,
+      "width": 24,
+      "depth": 63.480282047776235,
+      "density": 0.87
+    },
+    {
+      "id": "r0-yards-left",
+      "kind": "parcel",
+      "x": -23,
+      "z": 61.03873273824638,
+      "width": 32,
+      "depth": 122.07746547649276,
+      "density": 1
+    },
+    {
+      "id": "r0-yards-right",
+      "kind": "parcel",
+      "x": 23,
+      "z": 61.03873273824638,
+      "width": 32,
+      "depth": 122.07746547649276,
+      "density": 1
+    },
+    {
+      "id": "staging-inlet",
+      "kind": "water",
+      "x": 30,
+      "z": 60,
+      "width": 30,
+      "depth": 120,
+      "density": 0
+    }
+  ],
+  "routes": [
+    {
+      "id": "r0-main-road",
+      "kind": "path",
+      "width": 0.55,
+      "points": [
+        {
+          "x": -2.1454999999999997,
+          "z": -1
+        },
+        {
+          "x": -3.065,
+          "z": 10.966
+        },
+        {
+          "x": 3.943,
+          "z": 31.655
+        },
+        {
+          "x": -2.612,
+          "z": 51.92
+        },
+        {
+          "x": 5.105,
+          "z": 71.898
+        },
+        {
+          "x": -3.193,
+          "z": 91.9
+        },
+        {
+          "x": -1.9158,
+          "z": 123.07746547649276
+        }
+      ]
+    }
+  ],
+  "ensembles": [],
+  "landmarks": [
+    {
+      "id": "staging-ship/hull",
+      "asset": "staging_cargo_ship",
+      "compoundOwner": "staging-ship",
+      "revealOwner": "node:QC002",
+      "x": 27,
+      "z": 51,
+      "height": 7.9,
+      "yaw": -15
+    }
+  ]
+}

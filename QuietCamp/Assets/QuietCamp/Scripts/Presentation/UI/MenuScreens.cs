@@ -22,7 +22,8 @@ namespace QuietCamp.Presentation.UI
         readonly HtmlSurface _overlay;
         readonly HtmlSurface _bleed;
         public HtmlSurface Overlay => _overlay;
-        public bool UiReady => _surface != null && _surface.IsUsable;
+        public bool UiReady => _surface != null && _surface.IsUsable && (!IsMapScreen || (Roadmap?.IsReady??false));
+        RoadmapGraphic Roadmap=>_overlay?.Element("roadmap-art")?.GetComponentInChildren<RoadmapGraphic>();
         public event Action<string> ScreenChanged;
         public event Action<int> AlbumSelected;
         public event Action OverlayMounted;
@@ -35,6 +36,9 @@ namespace QuietCamp.Presentation.UI
         BonusCampDefinition _bonusPreview;
         EconomyPanel _economyPanel;
         string _journeyConfirmation;
+        RoadmapBranchData _selectedBranch;
+        bool _branchAccessRequested,_branchBusy;
+        bool IsMapScreen=>Current=="Levels"||Current=="BonusPreview"||Current=="BranchPreview";
         public JourneyDefinition SelectedJourney { get; private set; }
         public event Action MemoryReplay;
         public string Current { get; private set; } = "Main";
@@ -50,7 +54,7 @@ namespace QuietCamp.Presentation.UI
             if (canvasRoot != null)
             {
                 _bleed = HtmlSurface.Create(canvasRoot, "MenuAtmosphere", services, () =>
-                    Current == "Levels" || Current == "Album" || Current == "AlbumQuiet" || Current == "JourneyPreview" || Current == "BonusPreview" ? "<view />" : "<view class=\"app\"><view class=\"menu-atmosphere\" /></view>");
+                    Current == "Levels" || Current == "Album" || Current == "AlbumQuiet" || Current == "JourneyPreview" || Current == "BonusPreview" || Current == "BranchPreview" ? "<view />" : "<view class=\"app\"><view class=\"menu-atmosphere\" /></view>");
                 _bleed.transform.SetSiblingIndex(0);
                 _overlay = HtmlSurface.Create(canvasRoot, "MenuOverlay", services, RenderOverlay);
                 _economyPanel = new EconomyPanel(services, _overlay);
@@ -144,12 +148,14 @@ namespace QuietCamp.Presentation.UI
         string RenderOverlay()
         {
             if (Current == "Main") return "<view class=\"app dimroot\"></view>";
-            if (Current == "Levels" || Current == "Album") return FullMenu();
+            if (Current == "Levels") return "<view id=\"roadmap-shell\" class=\"app dimroot\">"+FullMenu()+"</view>";
+            if(Current=="BranchPreview")return "<view id=\"roadmap-shell\" class=\"app dimroot\">"+FullMenu()+BranchCard()+"</view>";
+            if (Current == "Album") return FullMenu();
             if (Current == "AlbumQuiet") return "<view class=\"app album-quiet\" data-safe-area=\"all\" id=\"sheet\" data-motion-role=\"dialog\""
                 + (_closing ? " data-motion=\"exit\"" : "") + "><view id=\"album-viewport\" class=\"quiet-viewport\" />"
                 + OverlayButton("quiet-back", "action.back", Back, "quiet quiet-back") + "</view>";
             var exit = _closing ? " data-motion=\"exit\"" : "";
-            var sb = new StringBuilder("<view class=\"app dimroot\">");
+            var sb = new StringBuilder("<view "+(Current=="BonusPreview"?"id=\"roadmap-shell\" ":"")+"class=\"app dimroot\">");
             if(Current=="BonusPreview")sb.Append(FullMenu());
             sb.Append("<button id=\"dim\" class=\"dim\" data-motion-role=\"scrim\"" + exit
                 + " onClick=\"Globals.campUi.Click('dim')\"></button>");
@@ -177,15 +183,18 @@ namespace QuietCamp.Presentation.UI
         }
         void OnOverlayMounted()
         {
-            if (Current == "Levels" || Current == "BonusPreview")
+            if (IsMapScreen)
             {
                 var art = _overlay.Element("roadmap-art");
                 if (art != null && art.GetComponentInChildren<RoadmapGraphic>() == null)
                 {
                     var native=QcUi.Stretch(art,"RoadmapMesh");
                     var graphic=native.gameObject.AddComponent<RoadmapGraphic>();
-                    graphic.raycastTarget=false;graphic.Configure(_services);
+                    graphic.raycastTarget=false;graphic.Configure(_services,RoadmapRepository.ForJourney(_services.LevelMapJourney));
+                    graphic.LevelSelected+=SelectRoadmapLevel;graphic.BranchSelected+=SelectRoadmapBranch;
                 }
+                var mapGraphic=art?.GetComponentInChildren<RoadmapGraphic>();
+                if(mapGraphic!=null){mapGraphic.InputEnabled=Current=="Levels"&&!_closing;mapGraphic.RefreshProgress();}
                 var scroll = _overlay.Element("roadmap-scroll");
                 if (scroll != null)
                 {
@@ -200,69 +209,119 @@ namespace QuietCamp.Presentation.UI
                 if(art!=null&&art.GetComponentInChildren<BonusCampPreviewGraphic>()==null)
                     QcUi.Stretch(art,"BonusCampArtwork").gameObject.AddComponent<BonusCampPreviewGraphic>().Configure(_bonusPreview);
             }
+            if(Current=="BranchPreview"&&_selectedBranch!=null)
+            {
+                var art=_overlay.Element("branch-preview-art");
+                if(art!=null){var graphic=art.GetComponentInChildren<RoadmapBranchGraphic>();if(graphic==null)graphic=QcUi.Stretch(art,"BranchArtwork").gameObject.AddComponent<RoadmapBranchGraphic>();graphic.Configure(_selectedBranch);}
+            }
             OverlayMounted?.Invoke();
         }
         string FullMenu()
         {
-            bool map=Current=="Levels"||Current=="BonusPreview",preview=Current=="BonusPreview";
+            bool map=IsMapScreen,preview=Current=="BonusPreview"||Current=="BranchPreview";
             var title = T(map ? "menu.levels" : "menu.album");
-            return "<view id=\""+(preview?"bonus-map-background":"sheet")+"\" class=\"app full-menu " + (map ? "map-menu" : "album-menu")
+            return "<view id=\""+(map?"roadmap-page":"sheet")+"\" class=\"app full-menu " + (map ? "map-menu" : "album-menu")
                 + "\" data-safe-area=\"all\""+(preview?"":" data-motion-role=\"dialog\"") + (_closing&&!preview ? " data-motion=\"exit\"" : "") + ">"
                 + "<view class=\"full-header\">" + CampIcons.Button(_overlay,preview?"map-back":"back","back",Back,"nav-back",T("action.back"))
-                + HtmlUi.Text(title,"full-title") + "</view>"
+                + HtmlUi.Text(title,"full-title")
+                + (map?(RoadmapRepository.ForJourney(_services.LevelMapJourney).Definition.presentation=="world3d"?"":CampIcons.Button(_overlay,"map-album","tent",()=>Show("Album"),"nav-back",T("menu.album")))+CampIcons.Button(_overlay,"map-journeys","path",()=>Show("Journeys"),"nav-back",T("journey.title")):"") + "</view>"
                 + (map ? Levels() : Album()) + "</view>";
         }
         string Levels()
         {
-            var ids = LevelLoader.MvpLevelIds();
-            var next = _services.JourneyAccess.ContinueTarget("main");
-            var html = new StringBuilder("<scroll id=\"roadmap-scroll\" class=\"map-scroll\"><view class=\"roadmap\" style=\"height:" + HtmlUi.Number(RoadmapLayout.Height(ids.Count)) + "px\"><view id=\"roadmap-art\" class=\"roadmap-art\" />");
-            for (var i = 0; i < ids.Count; i++)
+            // A constant-sized document. Native pooled controls consume the shared region catalog.
+            var data=RoadmapRepository.ForJourney(_services.LevelMapJourney);
+            return "<scroll id=\"roadmap-scroll\" class=\"map-scroll\"><view class=\"roadmap\" style=\"height:"+HtmlUi.Number(data.Height)+"px\"><view id=\"roadmap-art\" class=\"roadmap-art\" /></view></scroll>";
+        }
+        void SelectRoadmapLevel(string id)
+        {
+            if(Current!="Levels"||_closing)return;
+            if(_services.CanStart(id)){_services.PendingMenuScreen="Levels";Action("qc.play",id);}
+            else _services.Notifications?.Show(T("level.locked.hint"),Kruty1918.Notifications.API.GameplayNotificationKind.Info,dedupKey:"locked."+id);
+        }
+        void SelectRoadmapBranch(RoadmapBranchData branch)
+        {
+            if(Current!="Levels"||_closing)return;
+            if(!string.IsNullOrEmpty(branch.bonusId)||!string.IsNullOrEmpty(branch.journeyId))
+            {_selectedBranch=branch;_branchAccessRequested=false;_journeyConfirmation=null;Show("BranchPreview");return;}
+            if(!string.IsNullOrEmpty(branch.targetRegionId))
+            {var map=Roadmap;int r=map.Data.RegionIndex(branch.targetRegionId);var binding=_overlay.GetComponentInChildren<MenuMapBinding>();if(r>=0)binding?.ScrollTo(map.Data.Definition.regions[r].nodePositions[0].id);}
+        }
+        string BranchTarget()
+        {
+            if(_selectedBranch==null||!(Roadmap?.Data.BranchAvailable(_selectedBranch,_services.Progression)??false))return null;
+            if(!string.IsNullOrEmpty(_selectedBranch.bonusId))
+            {foreach(var bonus in BonusCampCatalog.Slots)if(bonus.id==_selectedBranch.bonusId)return _services.CanStart(bonus.levelId)?bonus.levelId:null;return null;}
+            return _services.JourneyAccess.ContinueTarget(_selectedBranch.journeyId);
+        }
+        bool BranchPublished()
+        {
+            if(_selectedBranch==null||!_selectedBranch.published)return false;
+            if(!string.IsNullOrEmpty(_selectedBranch.journeyId))return _services.Journeys.Find(_selectedBranch.journeyId)?.published??false;
+            foreach(var bonus in BonusCampCatalog.Slots)if(bonus.id==_selectedBranch.bonusId)return BonusCampCatalog.IsPublished(bonus);
+            return false;
+        }
+        string BranchDescription()
+        {
+            if(!string.IsNullOrEmpty(_selectedBranch.descriptionKey))return T(_selectedBranch.descriptionKey);
+            var journey=_services.Journeys.Find(_selectedBranch.journeyId);if(journey!=null)return T(journey.descriptionKey);
+            foreach(var bonus in BonusCampCatalog.Slots)if(bonus.id==_selectedBranch.bonusId)return T(bonus.descriptionKey);
+            return T("branch.discover");
+        }
+        string BranchCard()
+        {
+            var branch=_selectedBranch;if(branch==null)return "";
+            string exit=_closing?" data-motion=\"exit\"":"";
+            var html=new StringBuilder("<view id=\"branch-card\" class=\"branch-card surface\" data-safe-area=\"all\" data-motion-role=\"edge-bottom\""+exit+">");
+            html.Append("<view class=\"branch-heading\">").Append(HtmlUi.Text(T(branch.titleKey),"branch-title"))
+                .Append(CampIcons.Button(_overlay,"branch-close","back",Back,"nav-back",T("action.back"))).Append("</view>")
+                .Append("<view id=\"branch-preview-art\" class=\"branch-preview-art identity-").Append(HtmlUi.Escape(branch.visualIdentity)).Append("\" />")
+                .Append(HtmlUi.Text(BranchDescription(),"branch-description"));
+            int total=branch.nodes?.Length??0;
+            if(total>0)html.Append(HtmlUi.Text(string.Format(T("branch.progress"),RoadmapBranchPolicy.Completed(branch,_services.Progression),total),"branch-progress"));
+            if(!_branchAccessRequested)
+                html.Append(OverlayButton("branch-explore","branch.explore",()=>{_branchAccessRequested=true;_overlay.Refresh();},"primary"));
+            else
             {
-                var id = ids[i];
-                var unlocked = _services.CanStart(id);
-                var done = _services.Progression.IsCompleted(id);
-                var x = RoadmapGraphic.NodeX(i)*100;
-                var summary = CampContent.Summary(id);
-                _overlay.Callbacks.Bind("level-"+i, () =>
+                html.Append("<scroll id=\"branch-access-scroll\" class=\"branch-access-scroll\"><view class=\"column\">");
+                var target=BranchTarget();
+                if(target!=null)html.Append(OverlayButton("branch-enter","menu.start",()=>
+                {var level=BranchTarget();if(level==null)return;if(!string.IsNullOrEmpty(branch.journeyId))_services.LevelMapJourney=branch.journeyId;_services.PendingMenuScreen="Levels";Action("qc.play",level);},"primary"));
+                else if(!BranchPublished())html.Append(HtmlUi.Text(T("journey.preparing"),"branch-access-note"));
+                else
                 {
-                    if (unlocked) { _services.PendingMenuScreen="Levels"; Action("qc.play",id); }
-                    else _services.Notifications?.Show(T("level.locked.hint"),Kruty1918.Notifications.API.GameplayNotificationKind.Info,dedupKey:"locked."+id);
-                });
-                html.Append("<view class=\"map-stop\" style=\"left:").Append(HtmlUi.Number(x)).Append("%;top:").Append(HtmlUi.Number(RoadmapLayout.MainY(i)+100))
-                    .Append("px\"><button id=\"level-").Append(i).Append("\" class=\"map-node ")
-                    .Append(done ? "done" : id==next ? "selected" : unlocked ? "" : "locked")
-                    .Append("\" data-tooltip=\"").Append(HtmlUi.Escape(LevelDisplay.Title(id,_services.Localization)))
-                    .Append("\" onClick=\"Globals.campUi.Click('level-").Append(i).Append("')\">")
-                    .Append(HtmlUi.Text((i+1).ToString(),"node-number"))
-                    .Append(done ? CampIcons.Mark("check","node-status") : !unlocked ? CampIcons.Mark("lock","node-status") : "")
-                    .Append("</button><view class=\"map-wishes\">");
-                if (summary?.shade==true) html.Append(CampIcons.Mark("shade"));
-                if (summary?.quiet==true) html.Append(CampIcons.Mark("quiet"));
-                if (summary?.friends==true) html.Append(CampIcons.Mark("guests"));
-                if (summary?.fire==true) html.Append(CampIcons.Mark("fire"));
-                html.Append("</view></view>");
+                    html.Append(HtmlUi.Text(T("branch.access.intro"),"branch-access-note"));
+                    if(!(Roadmap?.Data.BranchAvailable(branch,_services.Progression)??false))html.Append(HtmlUi.Text(T("branch.access.progression"),"branch-access-note"));
+                    else foreach(var option in branch.accessOptions??Array.Empty<RoadmapBranchAccessOption>())
+                    {
+                        var selected=option;
+                        var journey=_services.Journeys.Find(branch.journeyId);
+                        bool embers=option.method=="embers"&&journey!=null&&journey.published&&!string.IsNullOrEmpty(journey.entitlementId);
+                        bool available=embers?_services.Economy.Currency>=journey.currencyCost:(_services.BranchUnlockProvider?.Available(branch,option)??false);
+                        var label=embers?string.Format(T("branch.access.embers"),journey.currencyCost):T("branch.access."+option.method);
+                        html.Append(HtmlUi.Button(_overlay,"branch-access-"+option.method,label,()=>RequestBranchAccess(selected),"quiet",available&&!_branchBusy&&!_services.MonetizationBusy));
+                    }
+                    if(_journeyConfirmation!=null)html.Append(HtmlUi.Text(T("economy.confirm"),"branch-access-note"));
+                }
             }
-            foreach(var slot in BonusCampCatalog.Slots)
+            if(_branchAccessRequested)html.Append("</view></scroll>");
+            return html.Append("</view>").ToString();
+        }
+        async void RequestBranchAccess(RoadmapBranchAccessOption option)
+        {
+            var branch=_selectedBranch;if(branch==null||_branchBusy||_services.MonetizationBusy||!BranchPublished()
+                ||!(Roadmap?.Data.BranchAvailable(branch,_services.Progression)??false))return;
+            if(option.method=="embers")
             {
-                if(slot.afterLevel>ids.Count)continue;
-                var access=_services.BonusCamps.Evaluate(slot);
-                string callback="bonus-"+slot.afterLevel;
-                _overlay.Callbacks.Bind(callback,()=>{_bonusPreview=slot;Show("BonusPreview");});
-                html.Append("<view class=\"map-bonus-stop\" style=\"left:").Append(HtmlUi.Number(RoadmapLayout.BonusX(slot)*100))
-                    .Append("%;top:").Append(HtmlUi.Number(RoadmapLayout.BonusY(slot)+64)).Append("px\">")
-                    .Append("<button id=\"").Append(callback).Append("\" class=\"map-bonus-node ")
-                    .Append(access.CanPlay?"bonus-ready":"").Append("\" data-tooltip=\"").Append(HtmlUi.Escape(T(slot.titleKey)))
-                    .Append("\" onClick=\"Globals.campUi.Click('").Append(callback).Append("')\">")
-                    .Append("<view class=\"bonus-heading\">").Append(CampIcons.Mark("bonus"))
-                    .Append(HtmlUi.Text(T("map.bonus.label"),"bonus-eyebrow")).Append("</view>")
-                    .Append(HtmlUi.Text(T(slot.titleKey),"bonus-name"))
-                    .Append(CampIcons.Mark(access.State==BonusCampState.Locked?"lock":access.State==BonusCampState.Completed?"check":"hint","node-status"))
-                    .Append("</button>")
-                    .Append(HtmlUi.Text(T(access.Published?"map.bonus.sideRoute":"map.bonus.soon"),"bonus-caption"))
-                    .Append("</view>");
+                if(_journeyConfirmation!=branch.id){_journeyConfirmation=branch.id;_overlay.Refresh();return;}
+                _journeyConfirmation=null;var result=_services.BuyJourney(branch.journeyId);
+                _services.Notifications?.Show(T("economy.result."+result),Kruty1918.Notifications.API.GameplayNotificationKind.Info);RefreshAll();return;
             }
-            return html.Append("</view></scroll>").ToString();
+            var provider=_services.BranchUnlockProvider;if(provider==null||!provider.Available(branch,option))return;
+            _branchBusy=true;_overlay.Refresh();
+            try{await provider.Request(branch,option);} // Provider owns verified persistence, never the card.
+            catch(Exception){_services.Notifications?.Show(T("branch.access.unavailable"),Kruty1918.Notifications.API.GameplayNotificationKind.Info);}
+            finally{_branchBusy=false;if(Current=="BranchPreview"&&_selectedBranch==branch)_overlay.Refresh();}
         }
         string BonusPreview()
         {
@@ -322,15 +381,20 @@ namespace QuietCamp.Presentation.UI
         }
         string Journeys()
         {
-            var html = new StringBuilder("<view class=\"column\">");
-            foreach (var journey in _services.Journeys.Journeys)
+            var map=RoadmapRepository.Main;var reveal=new RoadmapRevealState(map,_services.Progression);
+            var html=new StringBuilder("<view class=\"column\">");int count=0;
+            foreach(var region in map.Definition.regions)foreach(var branch in region.branches)
             {
-                if (journey.id == "qa") continue;
-                html.Append(HtmlUi.Button(_overlay, "journey-" + journey.id, T(journey.titleKey), () =>
-                { SelectedJourney = journey; _journeyConfirmation = null; Show("JourneyPreview"); }, "quiet"));
-                html.Append(HtmlUi.Text(T(journey.descriptionKey), "s-sub"));
-                if (!journey.published) html.Append(HtmlUi.Text(T("journey.preparing"), "s-sub"));
+                if(!reveal.BranchVisible(branch))continue;
+                var selected=branch;count++;
+                html.Append(HtmlUi.Button(_overlay,"trail-"+branch.id,T(branch.titleKey),()=>
+                {
+                    _services.LevelMapJourney="main";
+                    _services.LevelMapAnchors["main"]=new RoadmapAnchor{journeyId="main",nodeId=selected.anchorNodeId,offset=0,revision=map.Definition.revision};
+                    Show("Levels");SelectRoadmapBranch(selected);
+                },"quiet"));
             }
+            if(count==0)html.Append(HtmlUi.Text(T("branch.none"),"s-sub"));
             return html.Append("</view>").ToString();
         }
         string JourneyPreview()
@@ -342,9 +406,10 @@ namespace QuietCamp.Presentation.UI
             html.Append(HtmlUi.Text(T("journey.reminder"), "s-sub"));
             html.Append(HtmlUi.Text(string.Format(T("journey.contents"), journey.levelIds.Length), "s-sub"));
             if (!journey.published) return html.Append(HtmlUi.Text(T("journey.preparing"), "s-sub")).Append("</view>").ToString();
+            html.Append(OverlayButton("journey-map", "menu.levels", () => { _services.LevelMapJourney=journey.id;Show("Levels"); }, "quiet"));
             var first = _services.JourneyAccess.ContinueTarget(journey.id);
             if (first != null) html.Append(HtmlUi.Button(_overlay, "journey-play", T("menu.start"), () =>
-            { _services.PendingMenuScreen = "Journeys"; Action("qc.play", first); }, "primary"));
+            { _services.LevelMapJourney=journey.id; _services.PendingMenuScreen = "Levels"; Action("qc.play", first); }, "primary"));
             else
             {
                 html.Append(HtmlUi.Text(T("journey.oneTime"), "s-sub"));
@@ -456,7 +521,7 @@ namespace QuietCamp.Presentation.UI
         }
         void OnExitFinished(string id)
         {
-            if (!_closing || id != "sheet") return;
+            if (!_closing || id != "sheet"&&id!="roadmap-page"&&id!="branch-card") return;
             _closing = false;
             Current = _history.Count > 0 ? _history.Pop() : "Main";
             _confirmReset = false; _confirmErase = false;

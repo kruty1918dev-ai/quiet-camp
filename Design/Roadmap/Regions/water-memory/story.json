@@ -1,0 +1,740 @@
+{
+  "schemaVersion": 1,
+  "id": "fiction-inspired:water-memory",
+  "references": [
+    {
+      "id": "water-memory:fiction-context",
+      "basis": "fiction-inspired",
+      "reviewer": "Codex primary-source design review; art, geography and human reading review pending",
+      "reviewedOn": "2026-10-07",
+      "claims": [],
+      "sources": [
+        {
+          "id": "water-memory:source-unep",
+          "title": "Rapid Environmental Assessment of Kakhovka Dam Breach, October 2023",
+          "publisher": "United Nations Environment Programme",
+          "url": "https://ukraine.un.org/sites/default/files/2023-10/Kakhovka_Dam_Breach_Ukraine_Assessment.pdf",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        },
+        {
+          "id": "water-memory:source-nasa",
+          "title": "Canals in Ukraine are Drying Up, 27 July 2023",
+          "publisher": "NASA Earth Observatory",
+          "url": "https://science.nasa.gov/earth/earth-observatory/canals-in-ukraine-are-drying-up-151622/",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        },
+        {
+          "id": "water-memory:source-unhcr",
+          "title": "Responding to the Kakhovka dam emergency, 16 June 2023 (indexed source; direct fetch rate-limited)",
+          "publisher": "UNHCR Ukraine",
+          "url": "https://www.unhcr.org/ua/en/news/responding-kakhovka-dam-emergency",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        },
+        {
+          "id": "water-memory:source-mvs",
+          "title": "2023 response results: evacuation of people and animals, 31 December 2023",
+          "publisher": "Ministry of Internal Affairs of Ukraine",
+          "url": "https://mvs.gov.ua/news/2023-plani-diyi-rezultati-podolannia-naslidkiv-pidrivu-vorogom-kaxovskoyi-ges-video",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        },
+        {
+          "id": "water-memory:source-undp",
+          "title": "Energy damage assessment: downstream utilities affected, 20 June 2023",
+          "publisher": "United Nations Development Programme",
+          "url": "https://www.undp.org/ukraine/press-releases/undp-energy-damage-assessment-ukraine-reveals-continued-vulnerabilities",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        },
+        {
+          "id": "water-memory:source-succession",
+          "title": "Emergent willow and poplar communities; field survey April 2025",
+          "publisher": "Tutova et al. / Studia Biologica, Vol 19 No 3 (2025)",
+          "url": "https://publications.lnu.edu.ua/journals/index.php/biology/article/view/7356",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        },
+        {
+          "id": "water-memory:source-pdna",
+          "title": "Post Disaster Needs Assessment, 17 October 2023 (publication landing page only)",
+          "publisher": "Government of Ukraine / United Nations",
+          "url": "https://ukraine.un.org/en/248860-post-disaster-needs-assessment-report-kakhovka-dam-disaster",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        }
+      ]
+    }
+  ],
+  "beats": [
+    {
+      "id": "water-memory:beat-former-shore",
+      "storyBeat": "former-shore",
+      "heroLandmark": "water-memory:old-water-band",
+      "returningProp": null,
+      "characterFocus": "displaced neighbours, volunteers and travellers",
+      "worldStateBefore": "A fictional damaged river landscape some growing seasons after a catastrophic breach.",
+      "worldStateAfter": "Only a local usable place receives care; regional damage and water course remain.",
+      "historicalReference": "water-memory:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "An old upstream mooring is far above and away from the current river; the reservoir has drained.",
+      "alternativeInference": "The geography, objects, routes, animal carriers and care actions are invented. They are not evidence about a named victim, exact rescue, cause of breach or safety of a real site.",
+      "culturalContext": "Ukrainian Dnipro lowland: willow, poplar, reeds, household courtyards, fences, civilian utility structures and small acts of mutual care.",
+      "levelIds": [
+        "QC_WATER001",
+        "QC_WATER003"
+      ],
+      "props": [
+        {
+          "id": "water-memory:old-water-band",
+          "category": "civilian",
+          "motif": "pier",
+          "appearance": "always",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "water_memory_mudline_detail",
+            "x": -10,
+            "z": -6,
+            "elevation": 0,
+            "height": 0.6,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "water-memory:household",
+          "category": "recovery",
+          "motif": "civilian-debris",
+          "appearance": "always",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "water_memory_household_detail",
+            "x": 10,
+            "z": 5,
+            "elevation": 0,
+            "height": 0.7,
+            "yaw": 0,
+            "sway": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "water-memory:beat-stranded-boat",
+      "storyBeat": "stranded-boat",
+      "heroLandmark": "water-memory:boat",
+      "returningProp": null,
+      "characterFocus": "displaced neighbours, volunteers and travellers",
+      "worldStateBefore": "A fictional damaged river landscape some growing seasons after a catastrophic breach.",
+      "worldStateAfter": "Only a local usable place receives care; regional damage and water course remain.",
+      "historicalReference": "water-memory:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "The same empty civilian boat stands stranded on the former upstream shore far from the current river.",
+      "alternativeInference": "The geography, objects, routes, animal carriers and care actions are invented. They are not evidence about a named victim, exact rescue, cause of breach or safety of a real site.",
+      "culturalContext": "Ukrainian Dnipro lowland: willow, poplar, reeds, household courtyards, fences, civilian utility structures and small acts of mutual care.",
+      "levelIds": [
+        "QC_WATER002"
+      ],
+      "props": [
+        {
+          "id": "water-memory:boat",
+          "category": "civilian",
+          "motif": "pier",
+          "appearance": "always",
+          "roadmapVisibility": "context",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": {
+            "assetId": "water_memory_boat_map",
+            "x": -14,
+            "z": -5,
+            "elevation": 0,
+            "height": 1.6,
+            "yaw": 0,
+            "sway": false
+          },
+          "level": {
+            "assetId": "water_memory_boat_detail",
+            "x": -14,
+            "z": -5,
+            "elevation": 0,
+            "height": 1.6,
+            "yaw": 0,
+            "sway": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "water-memory:beat-recovering-trees",
+      "storyBeat": "recovering-trees",
+      "heroLandmark": "water-memory:bare-tree-cluster",
+      "returningProp": "pioneer-life",
+      "characterFocus": "displaced neighbours, volunteers and travellers",
+      "worldStateBefore": "A fictional damaged river landscape some growing seasons after a catastrophic breach.",
+      "worldStateAfter": "Only a local usable place receives care; regional damage and water course remain.",
+      "historicalReference": "water-memory:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "New pioneer vegetation grows among damaged habitats; it does not erase the ecological loss.",
+      "alternativeInference": "The geography, objects, routes, animal carriers and care actions are invented. They are not evidence about a named victim, exact rescue, cause of breach or safety of a real site.",
+      "culturalContext": "Ukrainian Dnipro lowland: willow, poplar, reeds, household courtyards, fences, civilian utility structures and small acts of mutual care.",
+      "levelIds": [
+        "QC_WATER001",
+        "QC_WATER003",
+        "QC_WATER009"
+      ],
+      "props": [
+        {
+          "id": "water-memory:bare-tree-cluster",
+          "category": "nature",
+          "motif": "river",
+          "appearance": "always",
+          "roadmapVisibility": "context",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": {
+            "assetId": "water_memory_trees_map",
+            "x": -15,
+            "z": 7,
+            "elevation": 0,
+            "height": 3,
+            "yaw": 0,
+            "sway": false
+          },
+          "level": {
+            "assetId": "water_memory_trees_detail",
+            "x": -15,
+            "z": 7,
+            "elevation": 0,
+            "height": 3,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "water-memory:young-trees",
+          "category": "nature",
+          "motif": "river",
+          "appearance": "always",
+          "roadmapVisibility": "context",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": {
+            "assetId": "water_memory_willow_map",
+            "x": 12,
+            "z": -6,
+            "elevation": 0,
+            "height": 2,
+            "yaw": 0,
+            "sway": true
+          },
+          "level": {
+            "assetId": "water_memory_willow_detail",
+            "x": 12,
+            "z": -6,
+            "elevation": 0,
+            "height": 2,
+            "yaw": 0,
+            "sway": true
+          },
+          "returningProp": "pioneer-life"
+        }
+      ]
+    },
+    {
+      "id": "water-memory:beat-road-bypass",
+      "storyBeat": "road-bypass",
+      "heroLandmark": "water-memory:damaged-road",
+      "returningProp": null,
+      "characterFocus": "displaced neighbours, volunteers and travellers",
+      "worldStateBefore": "A fictional damaged river landscape some growing seasons after a catastrophic breach.",
+      "worldStateAfter": "Only a local usable place receives care; regional damage and water course remain.",
+      "historicalReference": "water-memory:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "A broken civil road has a separate dry bypass; the route bends from former upstream shore to downstream flood trace.",
+      "alternativeInference": "The geography, objects, routes, animal carriers and care actions are invented. They are not evidence about a named victim, exact rescue, cause of breach or safety of a real site.",
+      "culturalContext": "Ukrainian Dnipro lowland: willow, poplar, reeds, household courtyards, fences, civilian utility structures and small acts of mutual care.",
+      "levelIds": [
+        "QC_WATER003",
+        "QC_WATER004"
+      ],
+      "props": [
+        {
+          "id": "water-memory:damaged-road",
+          "category": "recovery",
+          "motif": "damaged-infrastructure",
+          "appearance": "always",
+          "roadmapVisibility": "context",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": {
+            "assetId": "water_memory_road_map",
+            "x": -14,
+            "z": -5,
+            "elevation": 0,
+            "height": 0.3,
+            "yaw": 0,
+            "sway": false
+          },
+          "level": {
+            "assetId": "water_memory_road_detail",
+            "x": -14,
+            "z": -5,
+            "elevation": 0,
+            "height": 0.3,
+            "yaw": 0,
+            "sway": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "water-memory:beat-flood-courtyard",
+      "storyBeat": "flood-courtyard",
+      "heroLandmark": "water-memory:broken-fence",
+      "returningProp": null,
+      "characterFocus": "displaced neighbours, volunteers and travellers",
+      "worldStateBefore": "A fictional damaged river landscape some growing seasons after a catastrophic breach.",
+      "worldStateAfter": "Only a local usable place receives care; regional damage and water course remain.",
+      "historicalReference": "water-memory:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "Water marks and broken fences belong downstream; people lost usable homes and household spaces.",
+      "alternativeInference": "The geography, objects, routes, animal carriers and care actions are invented. They are not evidence about a named victim, exact rescue, cause of breach or safety of a real site.",
+      "culturalContext": "Ukrainian Dnipro lowland: willow, poplar, reeds, household courtyards, fences, civilian utility structures and small acts of mutual care.",
+      "levelIds": [
+        "QC_WATER004",
+        "QC_WATER005"
+      ],
+      "props": [
+        {
+          "id": "water-memory:broken-fence",
+          "category": "civilian",
+          "motif": "fence",
+          "appearance": "always",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "water_memory_fence_detail",
+            "x": -10,
+            "z": 6,
+            "elevation": 0,
+            "height": 1,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "water-memory:outbuilding",
+          "category": "civilian",
+          "motif": "outbuilding",
+          "appearance": "always",
+          "roadmapVisibility": "context",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": {
+            "assetId": "water_memory_outbuilding_map",
+            "x": -15,
+            "z": -6,
+            "elevation": 0,
+            "height": 2,
+            "yaw": 0,
+            "sway": false
+          },
+          "level": {
+            "assetId": "water_memory_outbuilding_detail",
+            "x": -15,
+            "z": -6,
+            "elevation": 0,
+            "height": 2,
+            "yaw": 0,
+            "sway": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "water-memory:beat-animal-rescue",
+      "storyBeat": "animal-rescue",
+      "heroLandmark": "water-memory:empty-carrier",
+      "returningProp": null,
+      "characterFocus": "displaced neighbours, volunteers and travellers",
+      "worldStateBefore": "A fictional damaged river landscape some growing seasons after a catastrophic breach.",
+      "worldStateAfter": "Only a local usable place receives care; regional damage and water course remain.",
+      "historicalReference": "water-memory:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "hidden",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "An open carrier, bowls and rescue tools suggest animals were carried to dry ground, without a depicted death.",
+      "alternativeInference": "The geography, objects, routes, animal carriers and care actions are invented. They are not evidence about a named victim, exact rescue, cause of breach or safety of a real site.",
+      "culturalContext": "Ukrainian Dnipro lowland: willow, poplar, reeds, household courtyards, fences, civilian utility structures and small acts of mutual care.",
+      "levelIds": [
+        "QC_WATER005",
+        "QC_WATER006"
+      ],
+      "props": [
+        {
+          "id": "water-memory:empty-carrier",
+          "category": "civilian",
+          "motif": "rural-infrastructure",
+          "appearance": "always",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "water_memory_carrier_detail",
+            "x": -10,
+            "z": -4,
+            "elevation": 0,
+            "height": 0.5,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "water-memory:feeding-bowls",
+          "category": "civilian",
+          "motif": "rural-infrastructure",
+          "appearance": "always",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "water_memory_bowls_detail",
+            "x": -9,
+            "z": -2,
+            "elevation": 0,
+            "height": 0.2,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "water-memory:rescue-tools",
+          "category": "civilian",
+          "motif": "rural-infrastructure",
+          "appearance": "always",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "water_memory_rescue_detail",
+            "x": 10,
+            "z": 5,
+            "elevation": 0,
+            "height": 0.6,
+            "yaw": 0,
+            "sway": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "water-memory:beat-crossing",
+      "storyBeat": "crossing",
+      "heroLandmark": "water-memory:temporary-crossing",
+      "returningProp": null,
+      "characterFocus": "displaced neighbours, volunteers and travellers",
+      "worldStateBefore": "A fictional damaged river landscape some growing seasons after a catastrophic breach.",
+      "worldStateAfter": "Only a local usable place receives care; regional damage and water course remain.",
+      "historicalReference": "water-memory:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "A small temporary crossing supports everyday movement between usable dry areas; broken spans remain closed.",
+      "alternativeInference": "The geography, objects, routes, animal carriers and care actions are invented. They are not evidence about a named victim, exact rescue, cause of breach or safety of a real site.",
+      "culturalContext": "Ukrainian Dnipro lowland: willow, poplar, reeds, household courtyards, fences, civilian utility structures and small acts of mutual care.",
+      "levelIds": [
+        "QC_WATER006",
+        "QC_WATER007"
+      ],
+      "props": [
+        {
+          "id": "water-memory:temporary-crossing",
+          "category": "recovery",
+          "motif": "temporary-crossing",
+          "appearance": "always",
+          "roadmapVisibility": "context",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": {
+            "assetId": "water_memory_crossing_map",
+            "x": -14,
+            "z": -5,
+            "elevation": 0,
+            "height": 1.2,
+            "yaw": 0,
+            "sway": false
+          },
+          "level": {
+            "assetId": "water_memory_crossing_detail",
+            "x": -14,
+            "z": -5,
+            "elevation": 0,
+            "height": 1.2,
+            "yaw": 0,
+            "sway": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "water-memory:beat-hydro-context",
+      "storyBeat": "hydro-context",
+      "heroLandmark": "water-memory:single-hydro",
+      "returningProp": null,
+      "characterFocus": "displaced neighbours, volunteers and travellers",
+      "worldStateBefore": "A fictional damaged river landscape some growing seasons after a catastrophic breach.",
+      "worldStateAfter": "Only a local usable place receives care; regional damage and water course remain.",
+      "historicalReference": "water-memory:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "The broad empty water basin and damaged civil hydro-structure belong to one interrupted large water system.",
+      "alternativeInference": "The geography, objects, routes, animal carriers and care actions are invented. They are not evidence about a named victim, exact rescue, cause of breach or safety of a real site.",
+      "culturalContext": "Ukrainian Dnipro lowland: willow, poplar, reeds, household courtyards, fences, civilian utility structures and small acts of mutual care.",
+      "levelIds": [
+        "QC_WATER008"
+      ],
+      "props": [
+        {
+          "id": "water-memory:single-hydro",
+          "category": "recovery",
+          "motif": "damaged-infrastructure",
+          "appearance": "always",
+          "roadmapVisibility": "context",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": {
+            "assetId": "water_memory_hydro_map",
+            "x": -18,
+            "z": -8,
+            "elevation": 0,
+            "height": 6,
+            "yaw": 0,
+            "sway": false
+          },
+          "level": {
+            "assetId": "water_memory_hydro_detail",
+            "x": -18,
+            "z": -8,
+            "elevation": 0,
+            "height": 6,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "water-memory:utility-bays",
+          "category": "civilian",
+          "motif": "dam",
+          "appearance": "always",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "water_memory_utility_detail",
+            "x": -12,
+            "z": 8,
+            "elevation": 0,
+            "height": 2,
+            "yaw": 0,
+            "sway": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "water-memory:beat-care",
+      "storyBeat": "care",
+      "heroLandmark": "water-memory:route-before",
+      "returningProp": null,
+      "characterFocus": "displaced neighbours, volunteers and travellers",
+      "worldStateBefore": "A fictional damaged river landscape some growing seasons after a catastrophic breach.",
+      "worldStateAfter": "A small dry shelter, clean transported water/food, marked route and lamp; unchanged hydro structure, river mask and puzzle routes.",
+      "historicalReference": "water-memory:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "hidden",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "Care improves a small dry route, a shelter and supplies for the next people; nobody rebuilds the dam.",
+      "alternativeInference": "The geography, objects, routes, animal carriers and care actions are invented. They are not evidence about a named victim, exact rescue, cause of breach or safety of a real site.",
+      "culturalContext": "Ukrainian Dnipro lowland: willow, poplar, reeds, household courtyards, fences, civilian utility structures and small acts of mutual care.",
+      "levelIds": [
+        "QC_WATER009"
+      ],
+      "props": [
+        {
+          "id": "water-memory:route-before",
+          "category": "recovery",
+          "motif": "temporary-crossing",
+          "appearance": "before-care",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "water_memory_route_before",
+            "x": -10,
+            "z": 6,
+            "elevation": 0,
+            "height": 0.5,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "water-memory:route-after",
+          "category": "recovery",
+          "motif": "temporary-crossing",
+          "appearance": "after-care",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "repair"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "water_memory_route_after",
+            "x": -10,
+            "z": 6,
+            "elevation": 0,
+            "height": 0.5,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "water-memory:dry-shelter",
+          "category": "recovery",
+          "motif": "volunteer-repair",
+          "appearance": "after-care",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "repair"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "water_memory_shelter_detail",
+            "x": -14,
+            "z": 8,
+            "elevation": 0,
+            "height": 1.8,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "water-memory:clean-supplies",
+          "category": "civilian",
+          "motif": "rural-infrastructure",
+          "appearance": "after-care",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "repair"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "water_memory_supplies_detail",
+            "x": -10,
+            "z": -4,
+            "elevation": 0,
+            "height": 0.5,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "water-memory:small-light",
+          "category": "civilian",
+          "motif": "rural-infrastructure",
+          "appearance": "after-care",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "repair"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "water_memory_lantern_detail",
+            "x": -9,
+            "z": 7,
+            "elevation": 0,
+            "height": 0.4,
+            "yaw": 0,
+            "sway": false
+          }
+        }
+      ]
+    }
+  ]
+}

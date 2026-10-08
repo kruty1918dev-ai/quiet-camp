@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "id": "fiction:wayside-return",
+  "references": [],
+  "beats": [
+    {
+      "id": "wayside",
+      "storyBeat": "wayside",
+      "heroLandmark": "wayside:shelter",
+      "returningProp": "patched-timber",
+      "characterFocus": "travellers",
+      "worldStateBefore": "Empty wayside shelter with worn timber.",
+      "worldStateAfter": "A quiet resting place remains available.",
+      "historicalReference": null,
+      "referenceConfidence": "fictional",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "This place once served passing neighbours; nature has grown around it.",
+      "alternativeInference": "Different ordinary journeys may have left these objects; no cause or perpetrator is asserted.",
+      "culturalContext": "Fictional Ukrainian rural landscape: shelterbelts, a wayside shelter, repaired timber and a small growing garden.",
+      "levelIds": [
+        "QC001"
+      ],
+      "props": [
+        {
+          "id": "wayside:shelter",
+          "category": "civilian",
+          "motif": "bus-stop",
+          "roadmapVisibility": "silhouette",
+          "levelDetailVisibility": "inherit",
+          "appearance": "always",
+          "contentTags": [
+            "weathering"
+          ],
+          "roadmap": {
+            "assetId": "story_trail_shelter",
+            "x": -12,
+            "z": -5,
+            "elevation": 0,
+            "height": 1.8,
+            "yaw": 0,
+            "sway": false
+          },
+          "level": {
+            "assetId": "story_trail_shelter",
+            "x": -12,
+            "z": -5,
+            "elevation": 0,
+            "height": 1.8,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "wayside:board",
+          "category": "civilian",
+          "motif": "rural-infrastructure",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "inherit",
+          "appearance": "always",
+          "contentTags": [
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "sign",
+            "x": -12,
+            "z": 2,
+            "elevation": 0,
+            "height": 0.7,
+            "yaw": 0,
+            "sway": false
+          },
+          "returningProp": "patched-timber"
+        }
+      ]
+    },
+    {
+      "id": "crossing",
+      "storyBeat": "crossing",
+      "heroLandmark": "crossing:old",
+      "returningProp": null,
+      "characterFocus": "travellers",
+      "worldStateBefore": "Weathered boards beside the route.",
+      "worldStateAfter": "A small patch of fresh timber, not reconstruction of the whole infrastructure.",
+      "historicalReference": null,
+      "referenceConfidence": "fictional",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "Someone cared enough to make a small route usable again.",
+      "alternativeInference": "Different ordinary journeys may have left these objects; no cause or perpetrator is asserted.",
+      "culturalContext": "Fictional Ukrainian rural landscape: shelterbelts, a wayside shelter, repaired timber and a small growing garden.",
+      "levelIds": [
+        "QC002"
+      ],
+      "props": [
+        {
+          "id": "crossing:old",
+          "category": "recovery",
+          "motif": "damaged-infrastructure",
+          "roadmapVisibility": "inherit",
+          "levelDetailVisibility": "inherit",
+          "appearance": "before-care",
+          "contentTags": [
+            "weathering"
+          ],
+          "roadmap": {
+            "assetId": "log_stack",
+            "x": -13,
+            "z": -3,
+            "elevation": 0,
+            "height": 0.6,
+            "yaw": 0,
+            "sway": false
+          },
+          "level": {
+            "assetId": "log_stack",
+            "x": -13,
+            "z": -3,
+            "elevation": 0,
+            "height": 0.6,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "crossing:repair",
+          "category": "recovery",
+          "motif": "volunteer-repair",
+          "roadmapVisibility": "inherit",
+          "levelDetailVisibility": "inherit",
+          "appearance": "after-care",
+          "contentTags": [
+            "repair"
+          ],
+          "roadmap": {
+            "assetId": "log_stack",
+            "x": -13,
+            "z": -3,
+            "elevation": 0,
+            "height": 0.8,
+            "yaw": 0,
+            "sway": false
+          },
+          "level": {
+            "assetId": "log_stack",
+            "x": -13,
+            "z": -3,
+            "elevation": 0,
+            "height": 0.8,
+            "yaw": 0,
+            "sway": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "garden",
+      "storyBeat": "garden",
+      "heroLandmark": "garden:frame",
+      "returningProp": "patched-timber",
+      "characterFocus": "travellers",
+      "worldStateBefore": "An old growing frame with little cultivated life.",
+      "worldStateAfter": "A small tended bed, not restoration of a settlement.",
+      "historicalReference": null,
+      "referenceConfidence": "fictional",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "The recurring patched timber belongs to ordinary lives adapting here.",
+      "alternativeInference": "Different ordinary journeys may have left these objects; no cause or perpetrator is asserted.",
+      "culturalContext": "Fictional Ukrainian rural landscape: shelterbelts, a wayside shelter, repaired timber and a small growing garden.",
+      "levelIds": [
+        "QC003"
+      ],
+      "props": [
+        {
+          "id": "garden:frame",
+          "category": "civilian",
+          "motif": "greenhouse",
+          "roadmapVisibility": "inherit",
+          "levelDetailVisibility": "inherit",
+          "appearance": "always",
+          "contentTags": [
+            "weathering"
+          ],
+          "roadmap": {
+            "assetId": "branch_greenhouse",
+            "x": -14,
+            "z": 5,
+            "elevation": 0,
+            "height": 1.4,
+            "yaw": 0,
+            "sway": false
+          },
+          "level": {
+            "assetId": "branch_greenhouse",
+            "x": -14,
+            "z": 5,
+            "elevation": 0,
+            "height": 1.4,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "garden:flowers",
+          "category": "nature",
+          "motif": "orchard",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "inherit",
+          "appearance": "after-care",
+          "contentTags": [
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "story_memorial_garden",
+            "x": -10,
+            "z": 5,
+            "elevation": 0,
+            "height": 0.5,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "garden:board",
+          "category": "civilian",
+          "motif": "rural-infrastructure",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "inherit",
+          "appearance": "always",
+          "contentTags": [
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "sign",
+            "x": -12,
+            "z": -5,
+            "elevation": 0,
+            "height": 0.7,
+            "yaw": 0,
+            "sway": false
+          },
+          "returningProp": "patched-timber"
+        }
+      ]
+    }
+  ]
+}

@@ -19,22 +19,22 @@ namespace QuietCamp.Presentation.UI
         public RoadmapPainter(RoadmapModelLibrary library) { _library=library; }
         public static Vector2 Project(Vector3 v,float scale)=>new Vector2((v.z-v.x)*.7071f,(v.x+v.z)*.37f+v.y*.86f)*scale;
         public static Color Clear(Color c) { c.a=0;return c; }
-        public void Shadow(VertexHelper vh,RoadmapSceneGenerator.Scene scene,RoadmapSceneGenerator.Prop prop,Vector2 centre,float scale)
+        public void Shadow(VertexHelper vh,RoadmapSceneGenerator.Scene scene,RoadmapSceneGenerator.Prop prop,Vector2 centre,float scale,int first=0,int last=int.MaxValue)
         {
             var model=prop.Geometry??_library.Get(prop.Asset);if(model==null||prop.Height<.45f)return;
             _points.Clear();var rotation=Quaternion.Euler(0,prop.Yaw,0);
-            var sun=scene.Sun;float y=Mathf.Max(.18f,sun.y);
+            var sun=scene.Sun;float y=scene.ShadowSunHeight;
             if(prop.Geometry!=null&&prop.Geometry.id.EndsWith(":bare"))
             {
                 // Bare trees cast branch shadows, never a solid convex crown silhouette.
                 float snow=scene.Winter?scene.SnowDepth(prop.Position):0;
                 var shade=new Color(.11f,.14f,.20f,(scene.Night?.08f:.23f)*(1-.65f*scene.Weather.Cloud));
-                for(int i=0;i<model.Positions.Length;i+=3)
+                for(int i=first;i<Mathf.Min(last,model.Positions.Length);i+=3)
                 {
                     if(Vector3.Dot(rotation*model.Normals[i],sun)<=0)continue;
-                    var a=rotation*Scaled(model.Positions[i],prop)+prop.Position;
-                    var b=rotation*Scaled(model.Positions[i+1],prop)+prop.Position;
-                    var c=rotation*Scaled(model.Positions[i+2],prop)+prop.Position;
+                    var a=rotation*Scaled(prop.LeafVertex(model.Positions[i],model.Colors[i/3]),prop)+prop.Position;
+                    var b=rotation*Scaled(prop.LeafVertex(model.Positions[i+1],model.Colors[i/3]),prop)+prop.Position;
+                    var c=rotation*Scaled(prop.LeafVertex(model.Positions[i+2],model.Colors[i/3]),prop)+prop.Position;
                     if(a.y<snow&&b.y<snow&&c.y<snow)continue;
                     Vector2 Ground(Vector3 p)
                     {float height=Mathf.Max(0,p.y-snow);p.x-=height*sun.x/y;p.z-=height*sun.z/y;p.y=snow+.003f;return centre+Project(p,scale);}
@@ -43,7 +43,7 @@ namespace QuietCamp.Presentation.UI
                 }
                 return;
             }
-            if(prop.ShadowHull==null)
+            if(prop.ShadowHullCount==0)
             {
                 foreach(var source in model.Positions)
                 {
@@ -59,9 +59,10 @@ namespace QuietCamp.Presentation.UI
                 for(int i=_points.Count-2;i>=0;i--)
                 { var p=_points[i];while(_hull.Count>lower&&Cross(_hull[_hull.Count-1]-_hull[_hull.Count-2],p-_hull[_hull.Count-1])<=0)_hull.RemoveAt(_hull.Count-1);_hull.Add(p); }
                 if(_hull.Count<4)return;_hull.RemoveAt(_hull.Count-1);
-                prop.ShadowHull=_hull.ToArray();
+                if(prop.ShadowHull==null||prop.ShadowHull.Length<_hull.Count)prop.ShadowHull=new Vector2[Mathf.NextPowerOfTwo(_hull.Count)];
+                _hull.CopyTo(prop.ShadowHull);prop.ShadowHullCount=_hull.Count;
             }
-            _hull.Clear();foreach(var p in prop.ShadowHull)_hull.Add(centre+p*scale);
+            _hull.Clear();for(int i=0;i<prop.ShadowHullCount;i++)_hull.Add(centre+prop.ShadowHull[i]*scale);
             Vector2 middle=Vector2.zero;foreach(var p in _hull)middle+=p;middle/=_hull.Count;
             var tint=new Color(.095f,.18f,.145f,(scene.Night?.13f:.30f)*(1-.65f*scene.Weather.Cloud));
             int start=vh.currentVertCount;vh.AddVert(middle,tint,Vector2.zero);
@@ -74,22 +75,22 @@ namespace QuietCamp.Presentation.UI
             }
         }
         static float Cross(Vector2 a,Vector2 b)=>a.x*b.y-a.y*b.x;
-        public void Model(VertexHelper vh,RoadmapSceneGenerator.Scene scene,RoadmapSceneGenerator.Prop prop,Vector2 centre,float scale)
+        public void Model(VertexHelper vh,RoadmapSceneGenerator.Scene scene,RoadmapSceneGenerator.Prop prop,Vector2 centre,float scale,int first=0,int last=int.MaxValue)
         {
             var model=prop.Geometry??_library.Get(prop.Asset);if(model==null)return;
             var rotation=Quaternion.Euler(0,prop.Yaw,0);
-            for(int i=0;i<model.Positions.Length;i+=3)
+            float snow=scene.Winter&&prop.Sway?scene.SnowDepth(prop.Position):0;
+            for(int i=first;i<Mathf.Min(last,model.Positions.Length);i+=3)
             {
                 var n=model.Normals[i];
                 var normal=rotation*new Vector3(n.x/prop.Stretch.x,n.y,n.z/prop.Stretch.y).normalized;
                 if(Vector3.Dot(normal,View)<-.01f)continue;
                 if(vh.currentVertCount>55000) { TruncatedModels++;return; }
-                var a=rotation*Scaled(model.Positions[i],prop)+prop.Position;
-                var b=rotation*Scaled(model.Positions[i+1],prop)+prop.Position;
-                var c=rotation*Scaled(model.Positions[i+2],prop)+prop.Position;
+                var a=rotation*Scaled(prop.LeafVertex(model.Positions[i],model.Colors[i/3]),prop)+prop.Position;
+                var b=rotation*Scaled(prop.LeafVertex(model.Positions[i+1],model.Colors[i/3]),prop)+prop.Position;
+                var c=rotation*Scaled(prop.LeafVertex(model.Positions[i+2],model.Colors[i/3]),prop)+prop.Position;
                 if(scene.Winter&&prop.Sway)
                 {
-                    float snow=scene.SnowDepth(prop.Position);
                     if(a.y<snow&&b.y<snow&&c.y<snow)continue;
                     // Snow-buried roots terminate at the local surface instead of hanging over it.
                     a.y=Mathf.Max(a.y,snow);b.y=Mathf.Max(b.y,snow);c.y=Mathf.Max(c.y,snow);
@@ -157,23 +158,25 @@ namespace QuietCamp.Presentation.UI
             {
                 // Faceted drift tops share the exact depth field used by the 3D floor.
                 const int steps=16;float span=Mathf.Max(w,h)+4.8f;
-                Vector3 Snow(int x,int z)
-                {var p=new Vector3(Mathf.Lerp(-span,span,x/(float)steps),0,Mathf.Lerp(-span,span,z/(float)steps));p.y=scene.SnowDepth(p);return p;}
+                var samples=new Vector3[(steps+1)*(steps+1)];
+                for(int z=0;z<=steps;z++)for(int x=0;x<=steps;x++)
+                {var p=new Vector3(Mathf.Lerp(-span,span,x/(float)steps),0,Mathf.Lerp(-span,span,z/(float)steps));p.y=scene.SnowDepth(p);samples[z*(steps+1)+x]=p;}
+                Vector3 Snow(int x,int z)=>samples[z*(steps+1)+x];
                 void Face(Vector3 a,Vector3 b,Vector3 c)
                 {
                     var middle=(a+b+c)/3;
                     if(Mathf.Abs(middle.x)<w+.3f&&Mathf.Abs(middle.z)<h+.3f)return;
                     if(ShorelineGeometry.Contains(scene.Level.environment?.shore,middle,.4f))return;
                     var normal=Vector3.Cross(b-a,c-a).normalized;var color=scene.Tint(scene.Palette.GrassLight,normal);
-                    float radius=Mathf.Max(Mathf.Abs(middle.x),Mathf.Abs(middle.z));color.a=Mathf.Clamp01((span-radius)/1.6f);
+                    float radius=Mathf.Max(Mathf.Abs(middle.x),Mathf.Abs(middle.z));color.a=Mathf.Clamp01((span-radius)/1.6f)*scene.SnowAmount;
                     int start=vh.currentVertCount;vh.AddVert(centre+Project(a,scale),color,Vector2.zero);vh.AddVert(centre+Project(b,scale),color,Vector2.zero);vh.AddVert(centre+Project(c,scale),color,Vector2.zero);vh.AddTriangle(start,start+1,start+2);
                 }
                 for(int z=0;z<steps;z++)for(int x=0;x<steps;x++)
                 {var a=Snow(x,z);var b=Snow(x+1,z);var c=Snow(x,z+1);var d=Snow(x+1,z+1);Face(a,c,b);Face(b,c,d);}
             }
-            if(scene.Season.Autumn)
+            if(scene.LeafLitter>.001f)
             {
-                var rng=new System.Random(unchecked(scene.Level.decorSeed*377+59));int count=Mathf.RoundToInt(scene.Season.LeafLitter*85);
+                var rng=new System.Random(unchecked(scene.Level.decorSeed*377+59));int count=Mathf.RoundToInt(scene.LeafLitter*85);
                 for(int i=0;i<count;i++)
                 {
                     var p=new Vector3((float)(rng.NextDouble()*2-1)*(w+3),(float)0,(float)(rng.NextDouble()*2-1)*(h+3));

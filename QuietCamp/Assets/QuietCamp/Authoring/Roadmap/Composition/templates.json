@@ -1,0 +1,468 @@
+[
+  {
+    "id": "ua.homestead",
+    "width": 11,
+    "depth": 11,
+    "entrance": true,
+    "roles": [
+      {
+        "id": "house",
+        "asset": "ua_whitewashed_house",
+        "x": -0.7,
+        "z": -1.5,
+        "height": 2.6
+      },
+      {
+        "id": "well",
+        "asset": "ua_well",
+        "parent": "house",
+        "x": 2.8,
+        "z": 1,
+        "height": 0.95
+      },
+      {
+        "id": "fence-front--1",
+        "asset": "$fence",
+        "parent": "house",
+        "x": -3.3,
+        "z": 4.95,
+        "height": 0,
+        "yaw": 0
+      },
+      {
+        "id": "fence-front-1",
+        "asset": "$fence",
+        "parent": "house",
+        "x": 3.3,
+        "z": 4.95,
+        "height": 0,
+        "yaw": 0
+      },
+      {
+        "id": "fence-back--1",
+        "asset": "$fence",
+        "parent": "house",
+        "x": -3.3,
+        "z": -4.95,
+        "height": 0,
+        "yaw": 0
+      },
+      {
+        "id": "fence-back-0",
+        "asset": "$fence",
+        "parent": "house",
+        "x": 0.0,
+        "z": -4.95,
+        "height": 0,
+        "yaw": 0
+      },
+      {
+        "id": "fence-back-1",
+        "asset": "$fence",
+        "parent": "house",
+        "x": 3.3,
+        "z": -4.95,
+        "height": 0,
+        "yaw": 0
+      },
+      {
+        "id": "fence-left--1",
+        "asset": "$fence",
+        "parent": "house",
+        "x": -4.95,
+        "z": -3.3,
+        "height": 0,
+        "yaw": 90
+      },
+      {
+        "id": "fence-left-0",
+        "asset": "$fence",
+        "parent": "house",
+        "x": -4.95,
+        "z": 0.0,
+        "height": 0,
+        "yaw": 90
+      },
+      {
+        "id": "fence-left-1",
+        "asset": "$fence",
+        "parent": "house",
+        "x": -4.95,
+        "z": 3.3,
+        "height": 0,
+        "yaw": 90
+      },
+      {
+        "id": "fence-right--1",
+        "asset": "$fence",
+        "parent": "house",
+        "x": 4.95,
+        "z": -3.3,
+        "height": 0,
+        "yaw": 90
+      },
+      {
+        "id": "fence-right-0",
+        "asset": "$fence",
+        "parent": "house",
+        "x": 4.95,
+        "z": 0.0,
+        "height": 0,
+        "yaw": 90
+      },
+      {
+        "id": "fence-right-1",
+        "asset": "$fence",
+        "parent": "house",
+        "x": 4.95,
+        "z": 3.3,
+        "height": 0,
+        "yaw": 90
+      },
+      {
+        "id": "gate",
+        "asset": "ua_gate",
+        "parent": "house",
+        "x": 0,
+        "z": 4.95,
+        "height": 1.69
+      },
+      {
+        "id": "orchard-0",
+        "asset": "ua_orchard_tree",
+        "parent": "house",
+        "x": -3.5,
+        "z": 2.5,
+        "height": 2.1,
+        "required": false
+      },
+      {
+        "id": "orchard-1",
+        "asset": "ua_orchard_tree",
+        "parent": "house",
+        "x": 3.5,
+        "z": 2.5,
+        "height": 2.1,
+        "required": false
+      }
+    ]
+  },
+  {
+    "id": "ua.abandoned-homestead",
+    "width": 11,
+    "depth": 11,
+    "entrance": true,
+    "ruined": true,
+    "roles": [
+      {
+        "id": "house",
+        "asset": "ua_whitewashed_house",
+        "x": -0.7,
+        "z": -1.5,
+        "height": 2.6
+      },
+      {
+        "id": "well",
+        "asset": "ua_well",
+        "parent": "house",
+        "x": 2.8,
+        "z": 1,
+        "height": 0.95
+      },
+      {
+        "id": "fence-front--1",
+        "asset": "$fence",
+        "parent": "house",
+        "x": -3.3,
+        "z": 4.95,
+        "height": 0,
+        "yaw": 0
+      },
+      {
+        "id": "fence-front-1",
+        "asset": "$fence",
+        "parent": "house",
+        "x": 3.3,
+        "z": 4.95,
+        "height": 0,
+        "yaw": 0
+      },
+      {
+        "id": "fence-back--1",
+        "asset": "$fence",
+        "parent": "house",
+        "x": -3.3,
+        "z": -4.95,
+        "height": 0,
+        "yaw": 0
+      },
+      {
+        "id": "fence-back-0",
+        "asset": "$fence",
+        "parent": "house",
+        "x": 0.0,
+        "z": -4.95,
+        "height": 0,
+        "yaw": 0
+      },
+      {
+        "id": "fence-back-1",
+        "asset": "$fence",
+        "parent": "house",
+        "x": 3.3,
+        "z": -4.95,
+        "height": 0,
+        "yaw": 0
+      },
+      {
+        "id": "fence-left--1",
+        "asset": "$fence",
+        "parent": "house",
+        "x": -4.95,
+        "z": -3.3,
+        "height": 0,
+        "yaw": 90
+      },
+      {
+        "id": "fence-left-0",
+        "asset": "$fence",
+        "parent": "house",
+        "x": -4.95,
+        "z": 0.0,
+        "height": 0,
+        "yaw": 90
+      },
+      {
+        "id": "fence-left-1",
+        "asset": "$fence",
+        "parent": "house",
+        "x": -4.95,
+        "z": 3.3,
+        "height": 0,
+        "yaw": 90
+      },
+      {
+        "id": "fence-right--1",
+        "asset": "$fence",
+        "parent": "house",
+        "x": 4.95,
+        "z": -3.3,
+        "height": 0,
+        "yaw": 90
+      },
+      {
+        "id": "fence-right-0",
+        "asset": "$fence",
+        "parent": "house",
+        "x": 4.95,
+        "z": 0.0,
+        "height": 0,
+        "yaw": 90
+      },
+      {
+        "id": "fence-right-1",
+        "asset": "$fence",
+        "parent": "house",
+        "x": 4.95,
+        "z": 3.3,
+        "height": 0,
+        "yaw": 90
+      },
+      {
+        "id": "gate",
+        "asset": "ua_gate",
+        "parent": "house",
+        "x": 0,
+        "z": 4.95,
+        "height": 1.69
+      },
+      {
+        "id": "orchard-0",
+        "asset": "ua_orchard_tree",
+        "parent": "house",
+        "x": -3.5,
+        "z": 2.5,
+        "height": 2.1,
+        "required": false
+      },
+      {
+        "id": "orchard-1",
+        "asset": "ua_orchard_tree",
+        "parent": "house",
+        "x": 3.5,
+        "z": 2.5,
+        "height": 2.1,
+        "required": false
+      }
+    ]
+  },
+  {
+    "id": "ua.roadside-stop",
+    "width": 5,
+    "depth": 5,
+    "entrance": true,
+    "ruined": false,
+    "roles": [
+      {
+        "id": "shelter",
+        "asset": "ua_bus_shelter",
+        "height": 1.8,
+        "x": 0,
+        "z": 0
+      },
+      {
+        "id": "entrance",
+        "asset": "stone_largeC",
+        "parent": "shelter",
+        "height": 0.15,
+        "x": 0,
+        "z": 2.2
+      }
+    ]
+  },
+  {
+    "id": "ua.orchard",
+    "width": 11,
+    "depth": 11,
+    "entrance": false,
+    "ruined": false,
+    "roles": [
+      {
+        "id": "tree0",
+        "asset": "ua_orchard_tree",
+        "height": 2.5,
+        "x": -3,
+        "z": -3
+      },
+      {
+        "id": "tree1",
+        "asset": "ua_orchard_tree",
+        "height": 2.5,
+        "x": 0,
+        "z": -3
+      },
+      {
+        "id": "tree2",
+        "asset": "ua_orchard_tree",
+        "height": 2.5,
+        "x": 3,
+        "z": -3
+      },
+      {
+        "id": "tree3",
+        "asset": "ua_orchard_tree",
+        "height": 2.5,
+        "x": -3,
+        "z": 0
+      },
+      {
+        "id": "tree4",
+        "asset": "ua_orchard_tree",
+        "height": 2.5,
+        "x": 0,
+        "z": 0
+      },
+      {
+        "id": "tree5",
+        "asset": "ua_orchard_tree",
+        "height": 2.5,
+        "x": 3,
+        "z": 0
+      },
+      {
+        "id": "tree6",
+        "asset": "ua_orchard_tree",
+        "height": 2.5,
+        "x": -3,
+        "z": 3
+      },
+      {
+        "id": "tree7",
+        "asset": "ua_orchard_tree",
+        "height": 2.5,
+        "x": 0,
+        "z": 3
+      },
+      {
+        "id": "tree8",
+        "asset": "ua_orchard_tree",
+        "height": 2.5,
+        "x": 3,
+        "z": 3
+      }
+    ]
+  },
+  {
+    "id": "ua.field-margin",
+    "width": 5,
+    "depth": 5,
+    "entrance": false,
+    "ruined": false,
+    "roles": [
+      {
+        "id": "marker",
+        "asset": "stone_largeC",
+        "height": 0.35,
+        "x": 0,
+        "z": 0
+      }
+    ]
+  },
+  {
+    "id": "ua.woodland-glade",
+    "width": 5,
+    "depth": 5,
+    "entrance": false,
+    "ruined": false,
+    "roles": [
+      {
+        "id": "fallen-log",
+        "asset": "log_stack",
+        "height": 0.45,
+        "x": 0,
+        "z": 0
+      }
+    ]
+  },
+  {
+    "id": "ua.civilian-foundation",
+    "width": 5,
+    "depth": 5,
+    "entrance": false,
+    "ruined": true,
+    "roles": [
+      {
+        "id": "foundation",
+        "asset": "story_foundation",
+        "height": 0.7,
+        "x": 0,
+        "z": 0
+      },
+      {
+        "id": "fence-remnant",
+        "asset": "ua_picket_fence",
+        "parent": "foundation",
+        "height": 1.1,
+        "x": 2,
+        "z": 0,
+        "yaw": 60
+      }
+    ]
+  },
+  {
+    "id": "ua.water-crossing",
+    "width": 5,
+    "depth": 5,
+    "entrance": false,
+    "ruined": false,
+    "roles": [
+      {
+        "id": "crossing-anchor",
+        "asset": "log_stack",
+        "height": 0.4,
+        "x": 0,
+        "z": 0
+      }
+    ]
+  }
+]

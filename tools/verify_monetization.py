@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import sys
 from pathlib import Path
 import subprocess
 import tempfile
@@ -16,6 +17,8 @@ def main():
     assemblies = [("Domain", "Scripts/Domain"), ("Application", "Scripts/Application"),
                   ("Infrastructure", "Scripts/Infrastructure"), ("Presentation", "Scripts/Presentation"),
                   ("Tests.Editor", "Tests/Editor"), ("Tests.PlayMode", "Tests/PlayMode")]
+    if "--include-editor" in sys.argv:
+        assemblies.append(("Editor", "Editor"))
     with tempfile.TemporaryDirectory(prefix="quietcamp-monetization-compile-") as temporary:
         output = Path(temporary)
         compiled = {}
@@ -38,6 +41,14 @@ def main():
                         if fallback.exists():
                             line = '-r:"' + str(fallback) + '"'
                 options.append(line)
+            # Read new declared assembly dependencies even before Unity regenerates Bee's rsp.
+            import json
+            declaration = PROJECT / "Assets/QuietCamp" / folder / (assembly + ".asmdef")
+            if declaration.exists():
+                for reference in json.loads(declaration.read_text()).get("references", []):
+                    cached = PROJECT / "Library/ScriptAssemblies" / (reference + ".dll")
+                    if not reference.startswith("GUID:") and cached.exists() and not any(Path(line[3:].strip('"')).name in (reference + ".dll", reference + ".ref.dll") for line in options if line.startswith("-r:")):
+                        options.append('-r:"' + str(cached) + '"')
             destination = output / (assembly + ".dll")
             options.extend(['-out:"' + str(destination) + '"', '-refout:"' + str(output / (assembly + ".ref.dll")) + '"'])
             options.extend('"' + str(path) + '"' for path in sorted((PROJECT / "Assets/QuietCamp" / folder).rglob("*.cs")))

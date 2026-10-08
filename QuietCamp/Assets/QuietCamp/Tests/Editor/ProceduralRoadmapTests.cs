@@ -65,7 +65,7 @@ namespace QuietCamp.Tests
             foreach(var entry in AssetCatalog.Load().Entries)
             {
                 var model=library.Get(entry.assetId);Assert.NotNull(model,entry.assetId);
-                Assert.AreEqual(0,model.data.Length%18);Assert.AreEqual(model.data.Length/18,model.colors.Length);
+                Assert.AreEqual(0,model.Positions.Length%3);Assert.AreEqual(model.Positions.Length/3,model.Colors.Length);
                 Assert.Greater(model.Positions.Length,3);
                 foreach(var p in model.Positions)Assert.IsFalse(float.IsNaN(p.x)||float.IsInfinity(p.y));
                 Assert.That(model.Positions.Max(p=>p.y),Is.EqualTo(1).Within(.0001f));
@@ -149,7 +149,7 @@ namespace QuietCamp.Tests
                     {
                         var p=rotation*new Vector3(source.x*prop.Stretch.x,source.y,source.z*prop.Stretch.y)*prop.Height+prop.Position;
                         Assert.LessOrEqual(Mathf.Abs((p.x+p.z)*.37f+p.y*.86f),scene.VerticalExtent+.001f,summary.id+" model");
-                        float sx=p.x-p.y*scene.Sun.x/Mathf.Max(.18f,scene.Sun.y),sz=p.z-p.y*scene.Sun.z/Mathf.Max(.18f,scene.Sun.y);
+                        float sx=p.x-p.y*scene.Sun.x/scene.ShadowSunHeight,sz=p.z-p.y*scene.Sun.z/scene.ShadowSunHeight;
                         Assert.LessOrEqual(Mathf.Abs((sx+sz)*.37f),scene.VerticalExtent+.001f,summary.id+" shadow");
                     }
                 }

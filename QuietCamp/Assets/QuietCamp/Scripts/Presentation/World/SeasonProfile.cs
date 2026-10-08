@@ -44,8 +44,14 @@ namespace QuietCamp.Presentation.World
             if(!Winter||level==null)return 0;
             float outside=Mathf.Max(Mathf.Abs(point.x)-level.width*.5f,Mathf.Abs(point.z)-level.height*.5f);
             if(outside<.6f)return 0;
-            float pathDistance=CampTrail.CorridorDistance(level,point);
-            if(pathDistance<=.85f)return 0;
+            return SnowDepth(level,point,CampTrail.CorridorDistance(level,point));
+        }
+        /// <summary>Identical snow field with a caller-cached distance to the static walking network.</summary>
+        public float SnowDepth(LevelData level,Vector3 point,float pathDistance)
+        {
+            if(!Winter||level==null)return 0;
+            float outside=Mathf.Max(Mathf.Abs(point.x)-level.width*.5f,Mathf.Abs(point.z)-level.height*.5f);
+            if(outside<.6f||pathDistance<=.85f)return 0;
             var shore=EnvironmentCompositionData.For(level).shore;
             float bankDistance=ShorelineGeometry.DistanceToBank(shore,point);
             if(bankDistance<=1.25f)return 0;

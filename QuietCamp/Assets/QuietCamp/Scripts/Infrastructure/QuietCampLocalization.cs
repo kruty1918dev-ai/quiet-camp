@@ -10,7 +10,7 @@ namespace QuietCamp.Infrastructure
     /// </summary>
     public static class QuietCampLocalization
     {
-        public static ILocalizationService Create()
+        public static ILocalizationService Create(string persistencePath=null)
             => new LocalizationService(new LocalizationOptions
             {
                 Languages = new List<LocalizationLanguage>
@@ -21,7 +21,7 @@ namespace QuietCamp.Infrastructure
                 },
                 DefaultLanguageId = "uk",
                 CatalogResourceFolder = "QuietCampLocales",
-                PersistFilePath = Path.Combine(UnityEngine.Application.persistentDataPath, "qc_language.txt"),
+                PersistFilePath = persistencePath??Path.Combine(UnityEngine.Application.persistentDataPath, "qc_language.txt"),
                 SystemLanguageMap = language =>
                     language == SystemLanguage.Ukrainian ? "uk"
                     : language == SystemLanguage.German ? "de"

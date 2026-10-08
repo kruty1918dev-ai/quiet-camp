@@ -14,6 +14,7 @@ namespace QuietCamp.Application
         readonly HashSet<string> _completed = new HashSet<string>(StringComparer.Ordinal);
         public string LastLevelId;
         public int CosmeticFlags;
+        public int Revision {get;private set;}
 
         public IReadOnlyCollection<string> CompletedIds => _completed;
         public int CompletedCount => _completed.Count;
@@ -36,6 +37,7 @@ namespace QuietCamp.Application
             var first = _completed.Add(levelId);
             if (first)
             {
+                Revision++;
                 if (_completed.Count >= Cosmetic1Count) CosmeticFlags |= 1;
                 if (_completed.Count >= Cosmetic2Count) CosmeticFlags |= 2;
             }
@@ -59,6 +61,7 @@ namespace QuietCamp.Application
 
         public void Restore(IEnumerable<string> completedIds, string lastLevelId, int cosmeticFlags)
         {
+            Revision++;
             _completed.Clear();
             if (completedIds != null)
                 foreach (var id in completedIds)

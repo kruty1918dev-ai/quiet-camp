@@ -1,0 +1,152 @@
+{
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "id",
+      "height",
+      "width",
+      "depth",
+      "radius",
+      "source",
+      "license"
+    ],
+    "properties": {
+      "source": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "license": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "sourceHash": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "lod": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "atlas": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "height": {
+        "type": "number",
+        "exclusiveMinimum": 0
+      },
+      "width": {
+        "type": "number",
+        "exclusiveMinimum": 0
+      },
+      "depth": {
+        "type": "number",
+        "exclusiveMinimum": 0
+      },
+      "sourceHeight": {
+        "type": "number",
+        "exclusiveMinimum": 0
+      },
+      "radius": {
+        "type": "number",
+        "minimum": 0
+      },
+      "pivot": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "z": {
+            "type": "number"
+          }
+        }
+      },
+      "conductors": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "z": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "wind": {
+        "type": "boolean"
+      },
+      "seasons": {
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+          "enum": [
+            "spring",
+            "summer",
+            "autumn",
+            "winter"
+          ]
+        }
+      },
+      "sockets": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "z": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "placementClass": {
+        "enum": [
+          "solid",
+          "canopy",
+          "groundcover",
+          "boundary"
+        ]
+      },
+      "supportKind": {
+        "enum": [
+          null,
+          "power",
+          "distribution"
+        ]
+      }
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

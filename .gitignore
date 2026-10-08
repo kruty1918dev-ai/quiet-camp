@@ -31,6 +31,7 @@ ExportedObj/
 *.csproj
 !tools/optional-google-probe/Probe.csproj
 !tools/MonetizationProbe.csproj
+!tools/roadmap-pipeline/RoadmapPipeline.csproj
 *.unityproj
 *.sln
 *.slnx
@@ -48,6 +49,7 @@ ExportedObj/
 *.DotSettings.user
 *.pidb.meta
 sysinfo.txt
+**/mono_crash.*
 *.apk
 *.aab
 *.unitypackage

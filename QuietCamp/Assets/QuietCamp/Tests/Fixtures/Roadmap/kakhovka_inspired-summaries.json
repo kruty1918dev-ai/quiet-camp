@@ -1,0 +1,103 @@
+[
+  {
+    "id": "qa:kakhovka_inspired",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "c707a973f2643edd693052a91a44e868d9c9ab52e7763b2217b3f5c04a71e086",
+    "ruleVersion": 2,
+    "number": 1,
+    "width": 7,
+    "height": 8,
+    "decorSeed": 20392726,
+    "shade": true,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 5,
+        "z": 5,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 4,
+        "z": 3,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 3,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 7
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        5,
+        -1
+      ]
+    ],
+    "noise": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "autumn",
+      "weatherId": "mist",
+      "moisture": 0.9,
+      "treeDensity": 0.55,
+      "clusterSeed": -192019457,
+      "meadowSpecies": [
+        "grass",
+        "wheat"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "marker"
+      ],
+      "shore": {
+        "kind": "river",
+        "side": "back",
+        "offset": 5.5,
+        "width": 3.0,
+        "seed": 308
+      }
+    }
+  }
+]

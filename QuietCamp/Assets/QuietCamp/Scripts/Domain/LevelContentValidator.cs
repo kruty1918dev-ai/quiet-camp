@@ -12,6 +12,9 @@ namespace QuietCamp.Domain
         {
             var errors = new List<string>();
             if (l == null) { errors.Add("level:null"); return errors; }
+            errors.AddRange(EnvironmentalStoryValidator.Validate(l.environmentalStory));
+            foreach(var beat in l.environmentalStory?.beats??System.Array.Empty<EnvironmentalStoryBeat>())
+                if(beat!=null&&!EnvironmentalStoryPolicy.Applies(beat,l.id))errors.Add("story:level-binding:"+beat.id);
             if (l.schemaVersion != 1) errors.Add("schemaVersion:" + l.schemaVersion);
             if (l.ruleVersion != 1 && l.ruleVersion != 2) errors.Add("ruleVersion:" + l.ruleVersion);
             if (string.IsNullOrWhiteSpace(l.id)) errors.Add("id:empty");

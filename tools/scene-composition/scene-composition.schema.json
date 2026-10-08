@@ -1,0 +1,324 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "seed": {
+      "type": "integer"
+    },
+    "season": {
+      "enum": [
+        "spring",
+        "summer",
+        "autumn",
+        "winter"
+      ]
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "x": {
+            "type": "number"
+          },
+          "z": {
+            "type": "number"
+          },
+          "radius": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "x",
+          "z"
+        ]
+      }
+    },
+    "zones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "forest",
+              "meadow",
+              "field",
+              "parcel",
+              "water",
+              "ruin"
+            ]
+          },
+          "species": {
+            "type": "string"
+          },
+          "x": {
+            "type": "number"
+          },
+          "z": {
+            "type": "number"
+          },
+          "width": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "depth": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "density": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "x",
+          "z",
+          "width",
+          "depth"
+        ]
+      }
+    },
+    "routes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "road",
+              "path",
+              "power",
+              "distribution"
+            ]
+          },
+          "points": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "x": {
+                  "type": "number"
+                },
+                "z": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "x",
+                "z"
+              ]
+            }
+          },
+          "supportAsset": {
+            "type": "string"
+          },
+          "serviceTargets": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "width": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "minSpan": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "maxSpan": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "supportHeight": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "interpolation": {
+            "enum": [
+              "linear",
+              "smooth-x"
+            ]
+          },
+          "nextRoute": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "points"
+        ]
+      }
+    },
+    "ensembles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "template": {
+            "type": "string"
+          },
+          "placement": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "zone": {
+                "type": "string"
+              },
+              "nearNode": {
+                "type": "string"
+              },
+              "x": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              },
+              "yaw": {
+                "type": "number"
+              },
+              "fixedPosition": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "zone"
+            ]
+          },
+          "entranceConnectsTo": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "fenceVariant": {
+            "enum": [
+              "wattle",
+              "picket",
+              "concrete"
+            ]
+          },
+          "scale": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "template",
+          "placement"
+        ]
+      }
+    },
+    "landmarks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "asset": {
+            "type": "string"
+          },
+          "revealOwner": {
+            "type": "string"
+          },
+          "interpretation": {
+            "const": "fictional"
+          },
+          "x": {
+            "type": "number"
+          },
+          "z": {
+            "type": "number"
+          },
+          "height": {
+            "type": "number"
+          },
+          "yaw": {
+            "type": "number"
+          },
+          "compoundOwner": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "asset",
+          "revealOwner"
+        ]
+      }
+    },
+    "budgets": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "instances": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "materials": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "renderers": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "cacheBytes": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": []
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "nodes",
+    "zones",
+    "routes",
+    "ensembles"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "quiet-camp/scene-composition/v1",
+  "title": "Portable semantic scene composition"
+}

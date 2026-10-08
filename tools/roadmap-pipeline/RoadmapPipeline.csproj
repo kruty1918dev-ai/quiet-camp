@@ -1,0 +1,13 @@
+<Project>
+  <PropertyGroup><BaseIntermediateOutputPath>/tmp/quietcamp-roadmap-pipeline/obj/</BaseIntermediateOutputPath><MSBuildProjectExtensionsPath>/tmp/quietcamp-roadmap-pipeline/obj/</MSBuildProjectExtensionsPath></PropertyGroup>
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework><EnableDefaultCompileItems>false</EnableDefaultCompileItems><OutputPath>/tmp/quietcamp-roadmap-pipeline/bin/</OutputPath></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="CompositionCommands.cs;CompositionContracts.cs;Program.cs;StoryContracts.cs;StoryAuthoring.cs;Mh17DesignContracts.cs;CoastDesignContracts.cs;WaterMemoryDesignContracts.cs;UkrainianRoadmapContracts.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Domain/*.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/Composition/*.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/Roadmap*.cs;../../QuietCamp/Assets/QuietCamp/Scripts/Application/ProgressionService.cs" />
+    <Reference Include="Newtonsoft.Json"><HintPath>../../QuietCamp/Library/PackageCache/com.unity.nuget.newtonsoft-json@4dfd81071c64/Runtime/Newtonsoft.Json.dll</HintPath></Reference>
+  </ItemGroup>
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+</Project>

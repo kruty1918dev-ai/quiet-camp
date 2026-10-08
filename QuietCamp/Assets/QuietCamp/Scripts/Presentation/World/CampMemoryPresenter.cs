@@ -34,6 +34,7 @@ namespace QuietCamp.Presentation.World
             {
                 foreach (var story in _world.GetComponentsInChildren<TentStoryVisual>()) story.ShowCare();
                 foreach (var landmark in _world.GetComponentsInChildren<CampLandmarkVisual>()) landmark.ApplyCare();
+                foreach (var detail in _world.GetComponentsInChildren<EnvironmentalStoryVisual>()) detail.ApplyCare();
             }
             var finished = _finished; _finished = null; finished?.Invoke();
         }

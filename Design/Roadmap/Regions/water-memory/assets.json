@@ -1,0 +1,382 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "design-only",
+  "published": false,
+  "assets": [
+    {
+      "id": "water_memory_boat_map",
+      "view": "map",
+      "maxTriangles": 200,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Stranded anonymous civilian boat silhouette on former upstream shore; not a reward."
+    },
+    {
+      "id": "water_memory_boat_detail",
+      "view": "level",
+      "maxTriangles": 900,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Same empty weathered boat on dry support; no names, body or recreated victim belongings."
+    },
+    {
+      "id": "water_memory_mudline_detail",
+      "view": "level",
+      "maxTriangles": 120,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Former water band on mooring support, not a downstream flood mark at the wrong elevation."
+    },
+    {
+      "id": "water_memory_household_detail",
+      "view": "level",
+      "maxTriangles": 260,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Fictional household pail and fabric on higher dry ground; no personal names or historical evidence labels."
+    },
+    {
+      "id": "water_memory_trees_map",
+      "view": "map",
+      "maxTriangles": 140,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "One bare/dead-tree cluster with recovering vegetation; coarse context."
+    },
+    {
+      "id": "water_memory_trees_detail",
+      "view": "level",
+      "maxTriangles": 700,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Bare trunks rigid; no corpses or claim that every tree is dead."
+    },
+    {
+      "id": "water_memory_willow_map",
+      "view": "map",
+      "maxTriangles": 100,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Young pioneer willow/poplar cluster, not instantaneous complete ecosystem recovery."
+    },
+    {
+      "id": "water_memory_willow_detail",
+      "view": "level",
+      "maxTriangles": 450,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Shared shader wind with pinned roots; grouped pioneer trees."
+    },
+    {
+      "id": "water_memory_road_map",
+      "view": "map",
+      "maxTriangles": 120,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Broken old road silhouette with clearly separate stable dry bypass."
+    },
+    {
+      "id": "water_memory_road_detail",
+      "view": "level",
+      "maxTriangles": 600,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Damaged pavement off the usable dry route; not walkable debris."
+    },
+    {
+      "id": "water_memory_fence_detail",
+      "view": "level",
+      "maxTriangles": 180,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Bent civilian fence outside routes."
+    },
+    {
+      "id": "water_memory_outbuilding_map",
+      "view": "map",
+      "maxTriangles": 220,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Small damaged civilian outbuilding, no readable writing."
+    },
+    {
+      "id": "water_memory_outbuilding_detail",
+      "view": "level",
+      "maxTriangles": 1000,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Fictional waterline on wall, readable as downstream inundation trace."
+    },
+    {
+      "id": "water_memory_carrier_detail",
+      "view": "level",
+      "maxTriangles": 220,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Empty open animal carrier and soft padding, no animal remains or closed trap."
+    },
+    {
+      "id": "water_memory_bowls_detail",
+      "view": "level",
+      "maxTriangles": 100,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Fresh supplies left on dry safe side, not collected from river."
+    },
+    {
+      "id": "water_memory_rescue_detail",
+      "view": "level",
+      "maxTriangles": 240,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Dry paddle/rope/vest as rescue trace; not a second duplicated boat."
+    },
+    {
+      "id": "water_memory_crossing_map",
+      "view": "map",
+      "maxTriangles": 150,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Small temporary crossing silhouette; actual walk graph is separate."
+    },
+    {
+      "id": "water_memory_crossing_detail",
+      "view": "level",
+      "maxTriangles": 700,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Fixed temporary crossing support/detail outside protected board; logical bridge is authored separately."
+    },
+    {
+      "id": "water_memory_hydro_map",
+      "view": "map",
+      "maxTriangles": 1600,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "One damaged concrete hydro-structure compound; no turbine details, name or exposition."
+    },
+    {
+      "id": "water_memory_hydro_detail",
+      "view": "level",
+      "maxTriangles": 6500,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Matching peripheral broken concrete/gate bays; no traversal on unsupported concrete or machinery."
+    },
+    {
+      "id": "water_memory_hydro_proxy",
+      "view": "proxy",
+      "maxTriangles": 160,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Same hydro identity; no duplicate structure or detailed future content."
+    },
+    {
+      "id": "water_memory_utility_detail",
+      "view": "level",
+      "maxTriangles": 600,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Generic exposed decommissioned engineering bays with no fabricated cause-of-destruction markings."
+    },
+    {
+      "id": "water_memory_route_before",
+      "view": "level",
+      "maxTriangles": 80,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Existing usable route before tidying; mask never changes."
+    },
+    {
+      "id": "water_memory_route_after",
+      "view": "level",
+      "maxTriangles": 80,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Same route with tidy markers; no puzzle graph change."
+    },
+    {
+      "id": "water_memory_shelter_detail",
+      "view": "level",
+      "maxTriangles": 600,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Rebuilt small dry shelter, not reconstructed dam or whole settlement."
+    },
+    {
+      "id": "water_memory_supplies_detail",
+      "view": "level",
+      "maxTriangles": 180,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Clean transported water in a closed container and food, not raw river water."
+    },
+    {
+      "id": "water_memory_lantern_detail",
+      "view": "level",
+      "maxTriangles": 180,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Small emissive lamp; no extra shadow camera/light required."
+    },
+    {
+      "id": "water_memory_banks_geometry",
+      "view": "board-geometry",
+      "maxTriangles": 1200,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Author-owned sparse west/east dry platforms; river gaps absent from mask."
+    },
+    {
+      "id": "water_memory_ridge_geometry",
+      "view": "board-geometry",
+      "maxTriangles": 600,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Higher dry terrace; pick/shade surface aligned to topology."
+    },
+    {
+      "id": "water_memory_bridges_geometry",
+      "view": "board-geometry",
+      "maxTriangles": 500,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Two fixed bridge meshes with reserved portal landings."
+    },
+    {
+      "id": "water_memory_stairs_geometry",
+      "view": "board-geometry",
+      "maxTriangles": 300,
+      "status": "planned",
+      "assetReviewPassed": false,
+      "notes": "Explicit incline to ridge; no implicit adjacency across elevations."
+    }
+  ],
+  "releaseGates": {
+    "models": false,
+    "landscapeComposition": false,
+    "landmarkPresentation": false,
+    "layeredDomain": false,
+    "solverGenerator": false,
+    "surfacePicking": false,
+    "snapshotsLevelKit": false,
+    "puzzles": false,
+    "previews": false,
+    "localization": false,
+    "visualReview": false,
+    "humanReading": false,
+    "devicePerformance": false
+  },
+  "budgets": {
+    "maxResidentChunks": 3,
+    "maxStoryPropsPerLevel": 12,
+    "maxNarrativeTriangles": 9000,
+    "maxBoardGeometryTriangles": 3000,
+    "maxAdditionalCameras": 0,
+    "maxStoryMaterials": 2,
+    "maxStoryVoices": 4,
+    "maxAddedParticles": 64
+  },
+  "landmarkPresentation": {
+    "id": "water-memory:hydro-structure",
+    "earliestTeaserOrder": 2,
+    "localOwnerOrder": 8,
+    "playableNearbyLevelIds": [
+      "QC_WATER008"
+    ],
+    "proxyAssetId": "water_memory_hydro_proxy",
+    "localAssetId": "water_memory_hydro_map",
+    "maxSimultaneousStructures": 1,
+    "usesProgression": true,
+    "implemented": false
+  },
+  "geographyContract": {
+    "upstreamStages": [
+      "former-shore"
+    ],
+    "downstreamStages": [
+      "flood-trace"
+    ],
+    "hydroStages": [
+      "dam-area"
+    ],
+    "roadBypassesHydroBeforeFloodTrace": true,
+    "depictsInstantForestRecovery": false,
+    "reviewed": false
+  },
+  "careContract": {
+    "repairsWholeDam": false,
+    "changesPuzzleTopology": false,
+    "riverWaterDrinkable": false,
+    "allowsUnsafeRubbleExploration": false,
+    "showsDeadAnimals": false,
+    "showsGore": false,
+    "animalObjectsCollectible": false,
+    "implemented": false
+  },
+  "puzzleBriefs": [
+    {
+      "levelId": "QC_WATER001",
+      "stage": "former-shore",
+      "topology": "flat-v2",
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_WATER002",
+      "stage": "former-shore",
+      "topology": "flat-v2",
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_WATER003",
+      "stage": "former-shore",
+      "topology": "flat-v2",
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_WATER004",
+      "stage": "flood-trace",
+      "topology": "flat-v2",
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_WATER005",
+      "stage": "flood-trace",
+      "topology": "flat-v2",
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_WATER006",
+      "stage": "flood-trace",
+      "topology": "layered-v3-proposed",
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_WATER007",
+      "stage": "dam-area",
+      "topology": "layered-v3-proposed",
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_WATER008",
+      "stage": "dam-area",
+      "topology": "layered-v3-proposed",
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_WATER009",
+      "stage": "dam-area",
+      "topology": "flat-v2",
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    }
+  ]
+}

@@ -79,7 +79,7 @@ namespace QuietCamp.Presentation.World
             }
             TintExisting(decorRoot);
             ShoreRoot=new GameObject("ShoreEnvironment").transform;ShoreRoot.SetParent(transform,false);
-            Refresh();BuildStory();BuildEarthContacts(decorRoot);BuildShelter(decorRoot);
+            Refresh();BuildStory();EnvironmentalStoryVisual.Attach(transform,level);BuildEarthContacts(decorRoot);BuildShelter(decorRoot);
             CampWaterVisuals.Attach(level,ShoreRoot,camera);
             _ready=true;
         }

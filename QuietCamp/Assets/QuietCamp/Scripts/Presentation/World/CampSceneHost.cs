@@ -353,6 +353,9 @@ namespace QuietCamp.Presentation.World
             {
                 PersistSession();
                 _services.Save.Save();
+                _services.LevelMapJourney=_services.Journeys.ForLevel(_session.Level.id)?.id??"main";
+                if(_services.LevelMapJourney.StartsWith("bonus."))_services.LevelMapJourney="main";
+                _services.PendingMenuScreen="Levels";
                 _router.GoToMenu();
                 return Performed();
             }));

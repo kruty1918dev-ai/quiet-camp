@@ -1,23 +1,27 @@
+using System;
 using QuietCamp.Domain;
 using QuietCamp.Infrastructure;
 
 namespace QuietCamp.Presentation.UI
 {
-    /// <summary>Shared geometry for art, touch targets and initial scroll. Bonus gaps never renumber the campaign.</summary>
+    /// <summary>Compatibility facade. Production layout is owned by the authored region catalog.</summary>
     public static class RoadmapLayout
     {
         public const int BonusStep=500;
-        public static float MainY(int index)
+        public static float MainY(int index)=>RoadmapRepository.Main.Y(index);
+        public static float BonusY(BonusCampDefinition slot)
         {
-            int gaps=0;foreach(var slot in BonusCampCatalog.Slots)if(slot.afterLevel<=index)gaps++;
-            return index*RoadmapGraphic.Step+RoadmapGraphic.CentreY+gaps*BonusStep;
+            var data=RoadmapRepository.Main;
+            for(int r=0;r<data.Definition.regions.Length;r++)foreach(var branch in data.Definition.regions[r].branches)
+                if(branch.bonusId==slot.id)return data.RegionStarts[r]+branch.y;
+            throw new ArgumentException("Missing bonus branch: "+slot.id);
         }
-        public static float BonusY(BonusCampDefinition slot) => MainY(slot.afterLevel-1)+RoadmapGraphic.Step;
-        public static float BonusX(BonusCampDefinition slot) => (slot.afterLevel/10)%2==1?.25f:.75f;
+        public static float BonusX(BonusCampDefinition slot)
+        {
+            foreach(var region in RoadmapRepository.Main.Definition.regions)foreach(var branch in region.branches)if(branch.bonusId==slot.id)return branch.x;
+            throw new ArgumentException("Missing bonus branch: "+slot.id);
+        }
         public static float Height(int count)
-        {
-            int gaps=0;foreach(var slot in BonusCampCatalog.Slots)if(slot.afterLevel<=count)gaps++;
-            return count*RoadmapGraphic.Step+200+gaps*BonusStep;
-        }
+        {var data=RoadmapRepository.Main;if(count!=data.Nodes.Length)throw new ArgumentException("Use a dedicated catalog for this route");return data.Height;}
     }
 }

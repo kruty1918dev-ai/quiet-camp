@@ -1,0 +1,544 @@
+[
+  {
+    "name": "mh17_inspired",
+    "summary": {
+      "id": "qa:mh17_inspired",
+      "environmentPreset": "pines",
+      "lighting": "day",
+      "contentHash": "e2c3b376421e857078591a26bda99744688e469796ff1adc9313fc797a94dec2",
+      "ruleVersion": 2,
+      "number": 1,
+      "width": 5,
+      "height": 5,
+      "decorSeed": 20256804,
+      "shade": false,
+      "quiet": false,
+      "friends": false,
+      "fire": false,
+      "entry": [
+        2,
+        4
+      ],
+      "mapObjects": [],
+      "accessPoints": [],
+      "canopies": [],
+      "exteriorWalkable": [],
+      "noise": [],
+      "environment": {
+        "biomeId": "forest",
+        "seasonId": "spring",
+        "weatherId": "clear",
+        "moisture": 0.26,
+        "treeDensity": 0.48,
+        "clusterSeed": -677396919,
+        "meadowSpecies": [
+          "grass",
+          "daisy"
+        ],
+        "storyMotifs": [
+          "marker",
+          "bench"
+        ],
+        "shore": null
+      }
+    },
+    "map": {
+      "schemaVersion": 1,
+      "revision": "historical-qa-1",
+      "journeyId": "qa-mh17_inspired",
+      "revealDistance": 2,
+      "regions": [
+        {
+          "id": "qa:mh17_inspired:region",
+          "titleKey": "map.region.memory",
+          "biome": "forest",
+          "season": "spring",
+          "landmark": "story_memorial_garden",
+          "previewId": "qa:mh17_inspired",
+          "performanceTier": "balanced",
+          "firstLevel": 1,
+          "lastLevel": 1,
+          "height": 700,
+          "transition": {
+            "fromSeason": "spring",
+            "toSeason": "spring",
+            "kind": "blend",
+            "length": 220
+          },
+          "nodePositions": [
+            {
+              "id": "node:qa:mh17_inspired",
+              "levelId": "qa:mh17_inspired",
+              "previewId": "qa:mh17_inspired",
+              "titleKey": "map.region.memory",
+              "order": 1,
+              "x": 0.5,
+              "y": 350,
+              "radius": 62,
+              "requires": []
+            }
+          ],
+          "branches": [],
+          "storyProps": [
+            {
+              "assetId": "story_memorial_garden",
+              "motif": "mh17_inspired",
+              "interpretation": "fictional",
+              "x": -5,
+              "y": 3.5,
+              "height": 1.2
+            }
+          ],
+          "historical": {
+            "contextId": "mh17-2014",
+            "interpretation": "inspired",
+            "verified": true,
+            "cultureKey": "map.history.memory",
+            "sources": [
+              "https://onderzoeksraad.nl/en/onderzoek/crash-mh17-17-july-2014/"
+            ],
+            "claims": [
+              "Flight MH17 crashed in the Donetsk region of Ukraine on 17 July 2014."
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "black_sea",
+    "summary": {
+      "id": "qa:black_sea",
+      "environmentPreset": "meadow",
+      "lighting": "day",
+      "contentHash": "7d54113d6df37600c093ababc533f3a4fa0af4fc80d2217232f903d23d718eca",
+      "ruleVersion": 2,
+      "number": 1,
+      "width": 6,
+      "height": 8,
+      "decorSeed": 20340298,
+      "shade": true,
+      "quiet": false,
+      "friends": true,
+      "fire": false,
+      "entry": [
+        3,
+        0
+      ],
+      "mapObjects": [
+        {
+          "assetId": "tree_default",
+          "x": 4,
+          "z": 5,
+          "rotation": 3
+        },
+        {
+          "assetId": "stone_largeA",
+          "x": 1,
+          "z": 3,
+          "rotation": 0
+        }
+      ],
+      "accessPoints": [
+        {
+          "id": "trail-out",
+          "kind": "exit",
+          "x": 3,
+          "z": 7
+        }
+      ],
+      "canopies": [
+        {
+          "x": 1.25,
+          "z": 1.25,
+          "radiusX": 1.6,
+          "radiusZ": 1.6
+        }
+      ],
+      "exteriorWalkable": [],
+      "noise": [],
+      "environment": {
+        "biomeId": "shore",
+        "seasonId": "summer",
+        "weatherId": "clear",
+        "moisture": 0.9,
+        "treeDensity": 0.55,
+        "clusterSeed": -379239845,
+        "meadowSpecies": [
+          "grass",
+          "poppy",
+          "daisy"
+        ],
+        "storyMotifs": [
+          "bag",
+          "lantern"
+        ],
+        "shore": {
+          "kind": "sea",
+          "side": "right",
+          "offset": 5.8,
+          "width": 4,
+          "seed": 112
+        }
+      }
+    },
+    "map": {
+      "schemaVersion": 1,
+      "revision": "historical-qa-1",
+      "journeyId": "qa-black_sea",
+      "revealDistance": 2,
+      "regions": [
+        {
+          "id": "qa:black_sea:region",
+          "titleKey": "map.region.coast",
+          "biome": "shore",
+          "season": "summer",
+          "landmark": "story_workboat",
+          "previewId": "qa:black_sea",
+          "performanceTier": "balanced",
+          "firstLevel": 1,
+          "lastLevel": 1,
+          "height": 700,
+          "transition": {
+            "fromSeason": "summer",
+            "toSeason": "summer",
+            "kind": "blend",
+            "length": 220
+          },
+          "nodePositions": [
+            {
+              "id": "node:qa:black_sea",
+              "levelId": "qa:black_sea",
+              "previewId": "qa:black_sea",
+              "titleKey": "map.region.coast",
+              "order": 1,
+              "x": 0.5,
+              "y": 350,
+              "radius": 62,
+              "requires": []
+            }
+          ],
+          "branches": [],
+          "storyProps": [
+            {
+              "assetId": "story_workboat",
+              "motif": "black_sea",
+              "interpretation": "fictional",
+              "x": 5.8,
+              "y": 0,
+              "height": 2.1
+            }
+          ],
+          "historical": {
+            "contextId": null,
+            "interpretation": "fictional",
+            "verified": false,
+            "sources": [],
+            "claims": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "ship_level",
+    "summary": {
+      "id": "qa:ship_level",
+      "environmentPreset": "meadow",
+      "lighting": "day",
+      "contentHash": "7d54113d6df37600c093ababc533f3a4fa0af4fc80d2217232f903d23d718eca",
+      "ruleVersion": 2,
+      "number": 1,
+      "width": 6,
+      "height": 8,
+      "decorSeed": 20340298,
+      "shade": true,
+      "quiet": false,
+      "friends": true,
+      "fire": false,
+      "entry": [
+        3,
+        0
+      ],
+      "mapObjects": [
+        {
+          "assetId": "tree_default",
+          "x": 4,
+          "z": 5,
+          "rotation": 3
+        },
+        {
+          "assetId": "stone_largeA",
+          "x": 1,
+          "z": 3,
+          "rotation": 0
+        }
+      ],
+      "accessPoints": [
+        {
+          "id": "trail-out",
+          "kind": "exit",
+          "x": 3,
+          "z": 7
+        }
+      ],
+      "canopies": [
+        {
+          "x": 1.25,
+          "z": 1.25,
+          "radiusX": 1.6,
+          "radiusZ": 1.6
+        }
+      ],
+      "exteriorWalkable": [],
+      "noise": [],
+      "environment": {
+        "biomeId": "shore",
+        "seasonId": "summer",
+        "weatherId": "clear",
+        "moisture": 0.9,
+        "treeDensity": 0.55,
+        "clusterSeed": -379239845,
+        "meadowSpecies": [
+          "grass",
+          "poppy",
+          "daisy"
+        ],
+        "storyMotifs": [
+          "bag",
+          "lantern"
+        ],
+        "shore": {
+          "kind": "sea",
+          "side": "right",
+          "offset": 5.8,
+          "width": 4,
+          "seed": 112
+        }
+      }
+    },
+    "map": {
+      "schemaVersion": 1,
+      "revision": "historical-qa-1",
+      "journeyId": "qa-ship_level",
+      "revealDistance": 2,
+      "regions": [
+        {
+          "id": "qa:ship_level:region",
+          "titleKey": "map.region.coast",
+          "biome": "shore",
+          "season": "summer",
+          "landmark": "story_workboat",
+          "previewId": "qa:ship_level",
+          "performanceTier": "balanced",
+          "firstLevel": 1,
+          "lastLevel": 1,
+          "height": 700,
+          "transition": {
+            "fromSeason": "summer",
+            "toSeason": "summer",
+            "kind": "blend",
+            "length": 220
+          },
+          "nodePositions": [
+            {
+              "id": "node:qa:ship_level",
+              "levelId": "qa:ship_level",
+              "previewId": "qa:ship_level",
+              "titleKey": "map.region.coast",
+              "order": 1,
+              "x": 0.5,
+              "y": 350,
+              "radius": 62,
+              "requires": []
+            }
+          ],
+          "branches": [],
+          "storyProps": [
+            {
+              "assetId": "story_workboat",
+              "motif": "ship_level",
+              "interpretation": "fictional",
+              "x": 5.8,
+              "y": 0,
+              "height": 2.1
+            }
+          ],
+          "historical": {
+            "contextId": null,
+            "interpretation": "fictional",
+            "verified": false,
+            "sources": [],
+            "claims": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "kakhovka_inspired",
+    "summary": {
+      "id": "qa:kakhovka_inspired",
+      "environmentPreset": "meadow",
+      "lighting": "day",
+      "contentHash": "c707a973f2643edd693052a91a44e868d9c9ab52e7763b2217b3f5c04a71e086",
+      "ruleVersion": 2,
+      "number": 1,
+      "width": 7,
+      "height": 8,
+      "decorSeed": 20392726,
+      "shade": true,
+      "quiet": false,
+      "friends": true,
+      "fire": false,
+      "entry": [
+        3,
+        0
+      ],
+      "mapObjects": [
+        {
+          "assetId": "tree_default",
+          "x": 5,
+          "z": 5,
+          "rotation": 3
+        },
+        {
+          "assetId": "stone_largeA",
+          "x": 4,
+          "z": 3,
+          "rotation": 0
+        },
+        {
+          "assetId": "log",
+          "x": 0,
+          "z": 3,
+          "rotation": 1
+        }
+      ],
+      "accessPoints": [
+        {
+          "id": "trail-out",
+          "kind": "exit",
+          "x": 3,
+          "z": 7
+        }
+      ],
+      "canopies": [
+        {
+          "x": 1.25,
+          "z": 1.25,
+          "radiusX": 1.6,
+          "radiusZ": 1.6
+        }
+      ],
+      "exteriorWalkable": [
+        [
+          1,
+          -1
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          3,
+          -1
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          5,
+          -1
+        ]
+      ],
+      "noise": [],
+      "environment": {
+        "biomeId": "shore",
+        "seasonId": "autumn",
+        "weatherId": "mist",
+        "moisture": 0.9,
+        "treeDensity": 0.55,
+        "clusterSeed": -192019457,
+        "meadowSpecies": [
+          "grass",
+          "wheat"
+        ],
+        "storyMotifs": [
+          "ruin",
+          "marker"
+        ],
+        "shore": {
+          "kind": "river",
+          "side": "back",
+          "offset": 5.5,
+          "width": 3,
+          "seed": 308
+        }
+      }
+    },
+    "map": {
+      "schemaVersion": 1,
+      "revision": "historical-qa-1",
+      "journeyId": "qa-kakhovka_inspired",
+      "revealDistance": 2,
+      "regions": [
+        {
+          "id": "qa:kakhovka_inspired:region",
+          "titleKey": "map.region.wetland",
+          "biome": "shore",
+          "season": "autumn",
+          "landmark": "story_foundation",
+          "previewId": "qa:kakhovka_inspired",
+          "performanceTier": "balanced",
+          "firstLevel": 1,
+          "lastLevel": 1,
+          "height": 700,
+          "transition": {
+            "fromSeason": "autumn",
+            "toSeason": "autumn",
+            "kind": "blend",
+            "length": 220
+          },
+          "nodePositions": [
+            {
+              "id": "node:qa:kakhovka_inspired",
+              "levelId": "qa:kakhovka_inspired",
+              "previewId": "qa:kakhovka_inspired",
+              "titleKey": "map.region.wetland",
+              "order": 1,
+              "x": 0.5,
+              "y": 350,
+              "radius": 62,
+              "requires": []
+            }
+          ],
+          "branches": [],
+          "storyProps": [
+            {
+              "assetId": "story_foundation",
+              "motif": "kakhovka_inspired",
+              "interpretation": "fictional",
+              "x": -5,
+              "y": 3.5,
+              "height": 1.2
+            }
+          ],
+          "historical": {
+            "contextId": "kakhovka-2023",
+            "interpretation": "inspired",
+            "verified": true,
+            "cultureKey": "map.history.wetland",
+            "sources": [
+              "https://www.unep.org/resources/report/rapid-environmental-assessment-kakhovka-dam-breach-ukraine-2023"
+            ],
+            "claims": [
+              "The Kakhovka dam breach occurred in June 2023. UNEP assessed its environmental impacts."
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

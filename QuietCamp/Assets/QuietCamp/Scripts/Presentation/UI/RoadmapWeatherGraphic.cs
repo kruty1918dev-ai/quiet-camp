@@ -19,7 +19,7 @@ namespace QuietCamp.Presentation.UI
         public void Configure(RoadmapGraphic map) { _map=map;raycastTarget=false;SetVerticesDirty(); }
         void LateUpdate()
         {
-            if(_map==null||_map.Reduced)return;
+            if(_map==null||(_map.Reduced&&!_map.RevealAnimating))return;
             if(Time.unscaledTime<_nextUpdate)return;
             _nextUpdate=Time.unscaledTime+(_map.QualityTier==0?.18f:.08f);SetVerticesDirty();
         }
@@ -27,15 +27,29 @@ namespace QuietCamp.Presentation.UI
         {
             vh.Clear();RainGlades=SunlitGlades=MistGlades=RainDrops=SnowGlades=Snowflakes=0;if(_map==null)return;
             float time=_map.Reduced?0:Time.unscaledTime;
-            for(int i=0;i<_map.Scenes.Count;i++)
+            var mapRect=_map.rectTransform.rect;int region=_map.Data.RegionAt(mapRect.yMax-_map.VisibleArea.center.y),fireflies=0;
+            for(int r=Mathf.Max(0,region-1);r<=Mathf.Min(region+1,_map.Data.Definition.regions.Length-1);r++)foreach(var branch in _map.Data.Definition.regions[r].branches)
+            {
+                var centre=new Vector2(mapRect.xMin+branch.x*mapRect.width,mapRect.yMax-_map.Data.RegionStarts[r]-branch.y);
+                if(branch.visualIdentity!="fireflies"||!_map.BranchVisible(branch)||!_map.InView(centre.y,170))continue;
+                float alpha=_map.RevealOpacity(_map.Data.NodeIndex(branch.anchorNodeId));
+                for(int light=0;light<(_map.QualityTier==0?4:8)&&fireflies<16;light++,fireflies++)
+                {
+                    var at=centre+new Vector2((Hash(light*29+31)-.5f)*190+Mathf.Sin(time*.27f+light)*8,(Hash(light*71+11)-.5f)*100+Mathf.Sin(time*.33f+light*2)*6);
+                    var tint=new Color(.94f,.83f,.45f,alpha*(.28f+.18f*Mathf.Sin(time*.7f+light)));
+                    RoadmapPainter.Ellipse(vh,at,new Vector2(7,5),tint,RoadmapPainter.Clear(tint),10);
+                }
+            }
+            foreach(int i in _map.ActiveIndices)
             {
                 var scene=_map.Scenes[i];var centre=_map.Centre(i);
-                if(!_map.InView(centre.y,_map.SceneExtent(i)))continue;
-                if(scene.Light.Mist||scene.Weather.Cloud>.35f||scene.Level.environment?.moisture>.6f)
+                if(!_map.InView(centre.y,_map.SceneExtent(i))||_map.RevealOpacity(i)<.95f)continue;
+                float fogWeight=scene.Visual.Environment.From.Phase!=null?scene.Visual.Environment.Fog:(scene.Light.Mist||scene.Weather.Cloud>.35f?1:0);
+                if(fogWeight>.001f)
                 {
                     MistGlades++;
                     var mist=Color.Lerp(Color.Lerp(scene.Light.Ambient,scene.Light.Sun,scene.Night?.04f:.22f),scene.Palette.Fog,.30f);
-                    mist.a=scene.Night?.065f:Mathf.Lerp(.07f,.14f,scene.Weather.Cloud);
+                    mist.a=(scene.Night?.065f:Mathf.Lerp(.07f,.14f,scene.Weather.Cloud))*fogWeight;
                     for(int layer=0;layer<3;layer++)
                     {
                         float move=Mathf.Sin(time*.10f+i+layer)*8;
@@ -62,10 +76,23 @@ namespace QuietCamp.Presentation.UI
                         if(++count>=(_map.QualityTier==2?3:2))break;
                     }
                 }
+                if(scene.LeafLitter>.01f&&!_map.Reduced)
+                {
+                    int leaves=Mathf.RoundToInt((_map.QualityTier==0?2:5)*scene.LeafLitter*scene.ParticleWeight);
+                    for(int leaf=0;leaf<leaves;leaf++)
+                    {
+                        float phase=Mathf.Repeat(time*.085f+Hash(leaf*73+i*59),1);
+                        var at=centre+new Vector2((Hash(leaf*37+i)-.5f)*310+Mathf.Sin(time*.6f+leaf)*18,Mathf.Lerp(165,-130,phase));
+                        var axis=new Vector2(Mathf.Cos(time*.8f+leaf),Mathf.Sin(time*.8f+leaf))*4;
+                        var side=new Vector2(-axis.y,axis.x)*.45f;
+                        var tint=Color.Lerp(scene.Palette.CanopyLight,scene.Palette.Soil,.4f);tint.a=Mathf.Sin(phase*Mathf.PI)*.7f;
+                        RoadmapPainter.Quad(vh,at-axis,at+side,at+axis,at-side,tint,tint*.9f,tint,tint*.9f);
+                    }
+                }
                 if(scene.Winter)
                 {
                     SnowGlades++;if(_map.Reduced)continue;
-                    int count=_map.QualityTier==0?4:_map.QualityTier==1?12:18;
+                    int count=Mathf.RoundToInt((_map.QualityTier==0?4:_map.QualityTier==1?12:18)*scene.ParticleWeight);
                     for(int flake=0;flake<count;flake++)
                     {
                         Snowflakes++;
@@ -77,11 +104,11 @@ namespace QuietCamp.Presentation.UI
                         RoadmapPainter.Ellipse(vh,p,new Vector2(radius,radius),snow,RoadmapPainter.Clear(snow),6);
                     }
                 }
-                else if(scene.Weather.Rain>.12f)
+                if(scene.Weather.Rain>.12f)
                 {
                     RainGlades++;
                     if(_map.Reduced)continue;
-                    int count=_map.QualityTier==0?6:_map.QualityTier==1?22:30;
+                    int count=Mathf.RoundToInt((_map.QualityTier==0?6:_map.QualityTier==1?22:30)*scene.ParticleWeight);
                     var rain=Color.Lerp(scene.Light.Ambient,Color.white,.35f);rain.a=scene.Weather.Rain*.42f;
                     for(int drop=0;drop<count;drop++)
                     {
@@ -106,6 +133,20 @@ namespace QuietCamp.Presentation.UI
                         var p=centre+new Vector2((Hash(dot*31+i*73)-.5f)*380,Hash(dot*93+i)*135+offset);
                         RoadmapGraphic.Glow(vh,p,3,.30f+.13f*Mathf.Sin(time*.7f+dot));
                     }
+                }
+            }
+            if(!_map.IsWorldDiorama)
+            {
+                var rect=_map.rectTransform.rect;var area=_map.VisibleArea;
+                var fog=_map.RevealFog;
+                float from=_map.RevealDistance+120,to=_map.RevealDistance+(_map.KnownDistance-_map.Data.Y(_map.Frontier))+500;
+                for(float y=area.yMax;y>area.yMin;y-=64)
+                {
+                    float bottom=Mathf.Max(area.yMin,y-64);
+                    var a=fog;var b=fog;
+                    a.a=Mathf.SmoothStep(0,1,Mathf.InverseLerp(from,to,rect.yMax-y));
+                    b.a=Mathf.SmoothStep(0,1,Mathf.InverseLerp(from,to,rect.yMax-bottom));
+                    RoadmapPainter.Quad(vh,new Vector2(rect.xMin,y),new Vector2(rect.xMax,y),new Vector2(rect.xMax,bottom),new Vector2(rect.xMin,bottom),a,a,b,b);
                 }
             }
         }

@@ -1,0 +1,329 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "design-only",
+  "published": false,
+  "assets": [
+    {
+      "id": "grain_coast_reeds_map",
+      "status": "planned",
+      "view": "map",
+      "maxTriangles": 80,
+      "assetReviewPassed": false,
+      "notes": "Coarse reeds cluster; shared shader wind, no per-stem Update."
+    },
+    {
+      "id": "grain_coast_reeds_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 200,
+      "assetReviewPassed": false,
+      "notes": "Grouped reeds at a wet inlet; actual mesh bounds and roots require QA."
+    },
+    {
+      "id": "grain_coast_buoys_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 160,
+      "assetReviewPassed": false,
+      "notes": "Unambiguous old float/ring shapes, not a spiked black mine; no collectible."
+    },
+    {
+      "id": "grain_coast_rope_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 120,
+      "assetReviewPassed": false,
+      "notes": "A dry-side civilian rope coil; non-interactive."
+    },
+    {
+      "id": "grain_coast_warning_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 120,
+      "assetReviewPassed": false,
+      "notes": "Ukrainian sign facing the dry-side camp. Weathering affects lower support, not legibility. No real inspection seal.",
+      "marking": {
+        "text": "Обережно! Міни",
+        "claimId": "grain-coast:restricted-zone",
+        "sourceUrl": "https://bezpeka.dsns.gov.ua/materials/vybukhonebezpechni-predmety-ta-pravyla-povodzhennya-z-nymy",
+        "atlasReviewPassed": false
+      }
+    },
+    {
+      "id": "grain_coast_barrier_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 200,
+      "assetReviewPassed": false,
+      "notes": "Permanent boundary matching nonwalkable water/hazard masks. Unchanged after care."
+    },
+    {
+      "id": "grain_coast_silo_map",
+      "status": "planned",
+      "view": "map",
+      "maxTriangles": 160,
+      "assetReviewPassed": false,
+      "notes": "Civilian grain-storage silhouette; no text or damage evidence."
+    },
+    {
+      "id": "grain_coast_silo_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 1000,
+      "assetReviewPassed": false,
+      "notes": "Fictional ordinary grain-storage context; no real port logo."
+    },
+    {
+      "id": "grain_coast_bags_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 180,
+      "assetReviewPassed": false,
+      "notes": "Fictional civilian sacks, no copied cargo owner labels or reward affordance."
+    },
+    {
+      "id": "grain_coast_grain_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 120,
+      "assetReviewPassed": false,
+      "notes": "Scattered grain and sprouts in raised freshwater runoff soil; shared plant wind."
+    },
+    {
+      "id": "grain_coast_pier_map",
+      "status": "planned",
+      "view": "map",
+      "maxTriangles": 150,
+      "assetReviewPassed": false,
+      "notes": "One modular pier segment, not an entire port duplicated per node."
+    },
+    {
+      "id": "grain_coast_pier_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 700,
+      "assetReviewPassed": false,
+      "notes": "Weathered modular pier outside field; actual walk deck is authored separately."
+    },
+    {
+      "id": "grain_coast_winch_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 300,
+      "assetReviewPassed": false,
+      "notes": "Rigid cargo winch; no unbounded looping machinery."
+    },
+    {
+      "id": "grain_coast_planks_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 180,
+      "assetReviewPassed": false,
+      "notes": "Civilian damaged planks off the usable route; not automatically walkable."
+    },
+    {
+      "id": "grain_coast_ship_map",
+      "status": "planned",
+      "view": "map",
+      "maxTriangles": 1400,
+      "assetReviewPassed": false,
+      "notes": "One anonymous merchant vessel, coherent hull/holds/superstructure; no detailed deck nodes, readable text or military objects."
+    },
+    {
+      "id": "grain_coast_ship_proxy",
+      "status": "planned",
+      "view": "proxy",
+      "maxTriangles": 180,
+      "assetReviewPassed": false,
+      "notes": "Same merchant-ship silhouette, one world identity; no simultaneous duplicate local hull."
+    },
+    {
+      "id": "grain_coast_ship_detail",
+      "status": "planned",
+      "view": "ship-geometry",
+      "maxTriangles": 10000,
+      "assetReviewPassed": false,
+      "notes": "Grounded rigid hull. No name, flag, IMO number or asserted weapon impact; loaded only for playable ship."
+    },
+    {
+      "id": "grain_coast_lower_deck",
+      "status": "planned",
+      "view": "ship-geometry",
+      "maxTriangles": 1000,
+      "assetReviewPassed": false,
+      "notes": "Authored lower placement/walk mask with holes and solids from topology; not a generic story prop."
+    },
+    {
+      "id": "grain_coast_upper_deck",
+      "status": "planned",
+      "view": "ship-geometry",
+      "maxTriangles": 900,
+      "assetReviewPassed": false,
+      "notes": "Raised sparse platform, correct underside clearance and per-surface shade; not decorative elevation."
+    },
+    {
+      "id": "grain_coast_connectors",
+      "status": "planned",
+      "view": "ship-geometry",
+      "maxTriangles": 500,
+      "assetReviewPassed": false,
+      "notes": "Two stairs/ramps; mesh endpoints agree with explicit graph connectors."
+    },
+    {
+      "id": "grain_coast_cargo_structures",
+      "status": "planned",
+      "view": "ship-geometry",
+      "maxTriangles": 1200,
+      "assetReviewPassed": false,
+      "notes": "Hatch coamings/rigid deck cargo, sparse occupancy and vertical solids."
+    },
+    {
+      "id": "grain_coast_lantern_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 180,
+      "assetReviewPassed": false,
+      "notes": "Small after-care emissive lantern; no mandatory additional shadow light."
+    },
+    {
+      "id": "grain_coast_route_before",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 80,
+      "assetReviewPassed": false,
+      "notes": "Local stable route marker before tidying; no route topology change."
+    },
+    {
+      "id": "grain_coast_route_after",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 80,
+      "assetReviewPassed": false,
+      "notes": "Same bounds/route after tidying; no removal of hazard barrier."
+    },
+    {
+      "id": "grain_coast_shelter_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 500,
+      "assetReviewPassed": false,
+      "notes": "Modest temporary shelter outside puzzle footprint; not a restored whole port."
+    },
+    {
+      "id": "grain_coast_lighthouse_map",
+      "status": "planned",
+      "view": "map",
+      "maxTriangles": 100,
+      "assetReviewPassed": false,
+      "notes": "One small civilian lighthouse silhouette, no political/weapon signage or real-location replica."
+    },
+    {
+      "id": "grain_coast_lighthouse_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 600,
+      "assetReviewPassed": false,
+      "notes": "Matching coastal lighthouse, restrained unlit daytime material; no extra rotating shadow light."
+    }
+  ],
+  "releaseGates": {
+    "models": false,
+    "warningAtlas": false,
+    "landmarkPresentation": false,
+    "layeredDomain": false,
+    "solverGenerator": false,
+    "surfacePicking": false,
+    "snapshotsLevelKit": false,
+    "puzzles": false,
+    "previews": false,
+    "localization": false,
+    "visualReview": false,
+    "humanReading": false,
+    "devicePerformance": false
+  },
+  "budgets": {
+    "maxResidentChunks": 3,
+    "maxStoryPropsPerLevel": 12,
+    "maxNarrativeTriangles": 4000,
+    "maxShipGeometryTriangles": 18000,
+    "maxAdditionalCameras": 0,
+    "maxShipMaterials": 2,
+    "maxStoryVoices": 4,
+    "maxAddedParticles": 96
+  },
+  "landmarkPresentation": {
+    "id": "grain-coast:merchant-ship",
+    "earliestTeaserOrder": 2,
+    "localOwnerOrder": 6,
+    "playableLevelIds": [
+      "QC_SEA006",
+      "QC_SEA007"
+    ],
+    "proxyAssetId": "grain_coast_ship_proxy",
+    "localAssetId": "grain_coast_ship_map",
+    "maxSimultaneousHulls": 1,
+    "usesProgression": true,
+    "implemented": false
+  },
+  "hazardContract": {
+    "activeMinePropsAllowed": false,
+    "hazardInteractionAllowed": false,
+    "rewardForCrossing": false,
+    "waterReopenedOnCompletion": false,
+    "barrierRemovedOnCompletion": false,
+    "allAccessPointsLandward": true,
+    "signText": "Обережно! Міни",
+    "signLocale": "uk",
+    "implemented": false
+  },
+  "puzzleBriefs": [
+    {
+      "levelId": "QC_SEA001",
+      "topology": "flat-v2",
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_SEA002",
+      "topology": "flat-v2",
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_SEA003",
+      "topology": "flat-v2",
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_SEA004",
+      "topology": "flat-v2",
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_SEA005",
+      "topology": "flat-v2",
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_SEA006",
+      "topology": "layered-v3-proposed",
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_SEA007",
+      "topology": "layered-v3-proposed",
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_SEA008",
+      "topology": "flat-v2",
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    }
+  ]
+}

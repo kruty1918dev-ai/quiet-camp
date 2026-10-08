@@ -1,0 +1,725 @@
+{
+  "schemaVersion": 1,
+  "id": "fiction-inspired:grain-coast",
+  "references": [
+    {
+      "id": "grain-coast:fiction-context",
+      "basis": "fiction-inspired",
+      "reviewer": "Codex dated primary-source review; final scene/artwork review pending",
+      "reviewedOn": "2026-10-07",
+      "claims": [],
+      "sources": [
+        {
+          "id": "grain-coast:marad-source",
+          "title": "2026-012 Black Sea and Sea of Azov: reports of moored/drifting naval mines; active on review date",
+          "publisher": "US DOT / Maritime Administration",
+          "url": "https://www.maritime.dot.gov/msci/2026-012-black-sea-and-sea-azov-military-combat-operations",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        },
+        {
+          "id": "grain-coast:imo-source",
+          "title": "IMO condemns attacks on civilian merchant vessels, 13 July 2026",
+          "publisher": "International Maritime Organization",
+          "url": "https://www.imo.org/en/mediacentre/pressbriefings/pages/statement-on-attacks-in-black-sea-and-sea-of-azov.aspx",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        },
+        {
+          "id": "grain-coast:ova-source",
+          "title": "Additional individually inspected beach zones, 7 July 2026",
+          "publisher": "Odesa Regional Military Administration",
+          "url": "https://oda.od.gov.ua/ua/news/na-odeshhini-vidkrili-shhe-9-plyazhiv",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        },
+        {
+          "id": "grain-coast:grain-source",
+          "title": "Ukrainian maritime corridor cargo/grain exports, 4 June 2026",
+          "publisher": "Ukrainian infrastructure ministry",
+          "url": "https://mininfra.gov.ua/news/ukrainskym-morskym-korydorom-perevezeno-200-milioniv-tonn-vantazhiv",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        },
+        {
+          "id": "grain-coast:damage-source",
+          "title": "Damage to civilian maritime logistics, 14 April 2026",
+          "publisher": "Ukrainian infrastructure ministry",
+          "url": "https://mininfra.gov.ua/news/voroh-prodovzhuie-atakuvaty-tsyvilnu-morsku-lohistyku-odeshchyny",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        }
+      ]
+    },
+    {
+      "id": "grain-coast:warning-reference",
+      "basis": "documented",
+      "reviewer": "Codex warning wording/access principle source review; sign atlas and level topology review pending",
+      "reviewedOn": "2026-10-07",
+      "sources": [
+        {
+          "id": "grain-coast:dsns-source",
+          "title": "Explosive objects and rules for dealing with them",
+          "publisher": "State Emergency Service of Ukraine",
+          "url": "https://bezpeka.dsns.gov.ua/materials/vybukhonebezpechni-predmety-ta-pravyla-povodzhennya-z-nymy",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        }
+      ],
+      "claims": [
+        {
+          "id": "grain-coast:restricted-zone",
+          "statement": "DSNS instructs people not to enter areas marked by mine-danger warnings and not to handle suspect objects. The fictional sign uses natural Ukrainian warning wording; it does not certify a real beach or ship as safe.",
+          "sourceIds": [
+            "grain-coast:dsns-source"
+          ]
+        }
+      ]
+    }
+  ],
+  "beats": [
+    {
+      "id": "grain-coast:shore",
+      "storyBeat": "shore",
+      "heroLandmark": "grain-coast:reeds",
+      "returningProp": null,
+      "characterFocus": "travellers and civilian workers",
+      "worldStateBefore": "Weathered civilian coast and logistics in a fictional place.",
+      "worldStateAfter": "The same infrastructure remains; only local care changes.",
+      "historicalReference": "grain-coast:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "The coast is beautiful but movement follows a landward route.",
+      "alternativeInference": "This coast, vessel identity, grounding, damage layout, sprouts and care actions are fictional. No object proves a specific attack or gives real-world beach permission.",
+      "culturalContext": "Ukrainian Black Sea coast: sand, reeds, coastal road, civilian grain infrastructure and a small safe shelter.",
+      "levelIds": [
+        "QC_SEA001",
+        "QC_SEA002"
+      ],
+      "props": [
+        {
+          "id": "grain-coast:reeds",
+          "category": "nature",
+          "motif": "reeds",
+          "appearance": "always",
+          "roadmapVisibility": "context",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": {
+            "assetId": "grain_coast_reeds_map",
+            "x": -10,
+            "z": 2,
+            "elevation": 0,
+            "height": 1,
+            "yaw": 0,
+            "sway": true
+          },
+          "level": {
+            "assetId": "grain_coast_reeds_detail",
+            "x": -10,
+            "z": 2,
+            "elevation": 0,
+            "height": 1,
+            "yaw": 0,
+            "sway": true
+          }
+        },
+        {
+          "id": "grain-coast:buoys",
+          "category": "civilian",
+          "motif": "pier",
+          "appearance": "always",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "grain_coast_buoys_detail",
+            "x": -9,
+            "z": -3,
+            "elevation": 0,
+            "height": 0.6,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "grain-coast:rope-shore",
+          "category": "civilian",
+          "motif": "pier",
+          "appearance": "always",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "grain_coast_rope_detail",
+            "x": -9,
+            "z": 4,
+            "elevation": 0,
+            "height": 0.3,
+            "yaw": 0,
+            "sway": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "grain-coast:lighthouse-context",
+      "storyBeat": "lighthouse-context",
+      "heroLandmark": "grain-coast:lighthouse",
+      "returningProp": null,
+      "characterFocus": "travellers and civilian workers",
+      "worldStateBefore": "Weathered civilian coast and logistics in a fictional place.",
+      "worldStateAfter": "The same infrastructure remains; only local care changes.",
+      "historicalReference": "grain-coast:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "A small coastal lighthouse belongs to the civilian landscape; it is not a weapon or a real-location replica.",
+      "alternativeInference": "This coast, vessel identity, grounding, damage layout, sprouts and care actions are fictional. No object proves a specific attack or gives real-world beach permission.",
+      "culturalContext": "Ukrainian Black Sea coast: sand, reeds, coastal road, civilian grain infrastructure and a small safe shelter.",
+      "levelIds": [
+        "QC_SEA002"
+      ],
+      "props": [
+        {
+          "id": "grain-coast:lighthouse",
+          "category": "civilian",
+          "motif": "rural-infrastructure",
+          "roadmapVisibility": "context",
+          "levelDetailVisibility": "detail",
+          "appearance": "always",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": {
+            "assetId": "grain_coast_lighthouse_map",
+            "x": -17,
+            "z": -6,
+            "elevation": 0,
+            "height": 4,
+            "yaw": 0,
+            "sway": false
+          },
+          "level": {
+            "assetId": "grain_coast_lighthouse_detail",
+            "x": -17,
+            "z": -6,
+            "elevation": 0,
+            "height": 4,
+            "yaw": 0,
+            "sway": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "grain-coast:warning-beat",
+      "storyBeat": "warning",
+      "heroLandmark": "grain-coast:warning",
+      "returningProp": null,
+      "characterFocus": "travellers and civilian workers",
+      "worldStateBefore": "Weathered civilian coast and logistics in a fictional place.",
+      "worldStateAfter": "The sign and hazard boundary remain closed after completion.",
+      "historicalReference": "grain-coast:warning-reference",
+      "referenceConfidence": "verified",
+      "roadmapVisibility": "hidden",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "The marked seaward area is inaccessible; warning is not an invitation to explore.",
+      "alternativeInference": "This coast, vessel identity, grounding, damage layout, sprouts and care actions are fictional. No object proves a specific attack or gives real-world beach permission.",
+      "culturalContext": "Ukrainian Black Sea coast: sand, reeds, coastal road, civilian grain infrastructure and a small safe shelter.",
+      "levelIds": [
+        "QC_SEA001"
+      ],
+      "props": [
+        {
+          "id": "grain-coast:warning",
+          "category": "civilian",
+          "motif": "pier",
+          "appearance": "always",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "civil-warning",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "grain_coast_warning_detail",
+            "x": 10,
+            "z": -2,
+            "elevation": 0,
+            "height": 1.2,
+            "yaw": 0,
+            "sway": false
+          },
+          "claimId": "grain-coast:restricted-zone"
+        },
+        {
+          "id": "grain-coast:hazard-barrier",
+          "category": "civilian",
+          "motif": "pier",
+          "appearance": "always",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "civil-warning",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "grain_coast_barrier_detail",
+            "x": 10,
+            "z": 2,
+            "elevation": 0,
+            "height": 1,
+            "yaw": 0,
+            "sway": false
+          },
+          "claimId": "grain-coast:restricted-zone"
+        }
+      ]
+    },
+    {
+      "id": "grain-coast:grain",
+      "storyBeat": "grain",
+      "heroLandmark": "grain-coast:silo",
+      "returningProp": "grain-returning-as-life",
+      "characterFocus": "travellers and civilian workers",
+      "worldStateBefore": "Weathered civilian coast and logistics in a fictional place.",
+      "worldStateAfter": "The same infrastructure remains; only local care changes.",
+      "historicalReference": "grain-coast:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "Civilian cargo and new growth hint at the interrupted grain route.",
+      "alternativeInference": "This coast, vessel identity, grounding, damage layout, sprouts and care actions are fictional. No object proves a specific attack or gives real-world beach permission.",
+      "culturalContext": "Ukrainian Black Sea coast: sand, reeds, coastal road, civilian grain infrastructure and a small safe shelter.",
+      "levelIds": [
+        "QC_SEA003"
+      ],
+      "props": [
+        {
+          "id": "grain-coast:silo",
+          "category": "civilian",
+          "motif": "grain-storage",
+          "appearance": "always",
+          "roadmapVisibility": "context",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": {
+            "assetId": "grain_coast_silo_map",
+            "x": -14,
+            "z": -5,
+            "elevation": 0,
+            "height": 4,
+            "yaw": 0,
+            "sway": false
+          },
+          "level": {
+            "assetId": "grain_coast_silo_detail",
+            "x": -14,
+            "z": -5,
+            "elevation": 0,
+            "height": 4,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "grain-coast:bags",
+          "category": "civilian",
+          "motif": "grain-storage",
+          "appearance": "always",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "grain_coast_bags_detail",
+            "x": -10,
+            "z": 1,
+            "elevation": 0,
+            "height": 0.7,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "grain-coast:grain-shoots",
+          "category": "nature",
+          "motif": "chernozem",
+          "appearance": "always",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "grain_coast_grain_detail",
+            "x": -9,
+            "z": -4,
+            "elevation": 0,
+            "height": 0.25,
+            "yaw": 0,
+            "sway": true
+          },
+          "returningProp": "grain-returning-as-life"
+        }
+      ]
+    },
+    {
+      "id": "grain-coast:pier",
+      "storyBeat": "pier",
+      "heroLandmark": "grain-coast:pier-section",
+      "returningProp": null,
+      "characterFocus": "travellers and civilian workers",
+      "worldStateBefore": "Weathered civilian coast and logistics in a fictional place.",
+      "worldStateAfter": "The same infrastructure remains; only local care changes.",
+      "historicalReference": "grain-coast:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "A damaged civilian pier still connects small usable places.",
+      "alternativeInference": "This coast, vessel identity, grounding, damage layout, sprouts and care actions are fictional. No object proves a specific attack or gives real-world beach permission.",
+      "culturalContext": "Ukrainian Black Sea coast: sand, reeds, coastal road, civilian grain infrastructure and a small safe shelter.",
+      "levelIds": [
+        "QC_SEA004",
+        "QC_SEA005"
+      ],
+      "props": [
+        {
+          "id": "grain-coast:pier-section",
+          "category": "civilian",
+          "motif": "pier",
+          "appearance": "always",
+          "roadmapVisibility": "context",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": {
+            "assetId": "grain_coast_pier_map",
+            "x": -12,
+            "z": -6,
+            "elevation": 0,
+            "height": 1.2,
+            "yaw": 0,
+            "sway": false
+          },
+          "level": {
+            "assetId": "grain_coast_pier_detail",
+            "x": -12,
+            "z": -6,
+            "elevation": 0,
+            "height": 1.2,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "grain-coast:winch",
+          "category": "civilian",
+          "motif": "pier",
+          "appearance": "always",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "grain_coast_winch_detail",
+            "x": -9,
+            "z": 3,
+            "elevation": 0,
+            "height": 0.8,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "grain-coast:broken-planks",
+          "category": "recovery",
+          "motif": "damaged-infrastructure",
+          "appearance": "always",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "grain_coast_planks_detail",
+            "x": 10,
+            "z": 4,
+            "elevation": 0,
+            "height": 0.4,
+            "yaw": 0,
+            "sway": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "grain-coast:ship-map",
+      "storyBeat": "ship-map",
+      "heroLandmark": "grain-coast:single-ship-landmark",
+      "returningProp": null,
+      "characterFocus": "travellers and civilian workers",
+      "worldStateBefore": "Weathered civilian coast and logistics in a fictional place.",
+      "worldStateAfter": "The same infrastructure remains; only local care changes.",
+      "historicalReference": "grain-coast:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "hidden",
+      "intendedInference": "The distant merchant ship is the same vessel reached by the journey.",
+      "alternativeInference": "This coast, vessel identity, grounding, damage layout, sprouts and care actions are fictional. No object proves a specific attack or gives real-world beach permission.",
+      "culturalContext": "Ukrainian Black Sea coast: sand, reeds, coastal road, civilian grain infrastructure and a small safe shelter.",
+      "levelIds": [
+        "QC_SEA006"
+      ],
+      "props": [
+        {
+          "id": "grain-coast:single-ship-landmark",
+          "category": "recovery",
+          "motif": "damaged-infrastructure",
+          "appearance": "always",
+          "roadmapVisibility": "context",
+          "levelDetailVisibility": "hidden",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": {
+            "assetId": "grain_coast_ship_map",
+            "x": 0,
+            "z": 0,
+            "elevation": 0,
+            "height": 4,
+            "yaw": 0,
+            "sway": false
+          },
+          "level": null
+        }
+      ]
+    },
+    {
+      "id": "grain-coast:deck-care",
+      "storyBeat": "deck-care",
+      "heroLandmark": "grain-coast:rope-deck",
+      "returningProp": null,
+      "characterFocus": "travellers and civilian workers",
+      "worldStateBefore": "Weathered civilian coast and logistics in a fictional place.",
+      "worldStateAfter": "A small lantern remains on a safe support; the hull and deck graph are unchanged.",
+      "historicalReference": "grain-coast:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "hidden",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "A modest lantern is possible without repairing the grounded ship.",
+      "alternativeInference": "This coast, vessel identity, grounding, damage layout, sprouts and care actions are fictional. No object proves a specific attack or gives real-world beach permission.",
+      "culturalContext": "Ukrainian Black Sea coast: sand, reeds, coastal road, civilian grain infrastructure and a small safe shelter.",
+      "levelIds": [
+        "QC_SEA006",
+        "QC_SEA007"
+      ],
+      "props": [
+        {
+          "id": "grain-coast:rope-deck",
+          "category": "civilian",
+          "motif": "pier",
+          "appearance": "always",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "grain_coast_rope_detail",
+            "x": -9,
+            "z": 4,
+            "elevation": 1,
+            "height": 0.3,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "grain-coast:deck-lantern",
+          "category": "civilian",
+          "motif": "pier",
+          "appearance": "after-care",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "repair"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "grain_coast_lantern_detail",
+            "x": 9,
+            "z": 4,
+            "elevation": 1,
+            "height": 0.4,
+            "yaw": 0,
+            "sway": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "grain-coast:shore-care",
+      "storyBeat": "shore-care",
+      "heroLandmark": "grain-coast:route-before",
+      "returningProp": "grain-returning-as-life",
+      "characterFocus": "travellers and civilian workers",
+      "worldStateBefore": "Weathered civilian coast and logistics in a fictional place.",
+      "worldStateAfter": "A lantern, temporary shelter and tended local route; no beach reopening or port-wide repair.",
+      "historicalReference": "grain-coast:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "hidden",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "A marked local route and temporary shelter help the next travellers.",
+      "alternativeInference": "This coast, vessel identity, grounding, damage layout, sprouts and care actions are fictional. No object proves a specific attack or gives real-world beach permission.",
+      "culturalContext": "Ukrainian Black Sea coast: sand, reeds, coastal road, civilian grain infrastructure and a small safe shelter.",
+      "levelIds": [
+        "QC_SEA008"
+      ],
+      "props": [
+        {
+          "id": "grain-coast:route-before",
+          "category": "recovery",
+          "motif": "temporary-crossing",
+          "appearance": "before-care",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "grain_coast_route_before",
+            "x": -10,
+            "z": 6,
+            "elevation": 0,
+            "height": 0.4,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "grain-coast:route-after",
+          "category": "recovery",
+          "motif": "temporary-crossing",
+          "appearance": "after-care",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "repair"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "grain_coast_route_after",
+            "x": -10,
+            "z": 6,
+            "elevation": 0,
+            "height": 0.4,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "grain-coast:shore-lantern",
+          "category": "civilian",
+          "motif": "rural-infrastructure",
+          "appearance": "after-care",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "repair"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "grain_coast_lantern_detail",
+            "x": -9,
+            "z": 7,
+            "elevation": 0,
+            "height": 0.4,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "grain-coast:shelter",
+          "category": "civilian",
+          "motif": "rural-infrastructure",
+          "appearance": "after-care",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "repair"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "grain_coast_shelter_detail",
+            "x": -12,
+            "z": 9,
+            "elevation": 0,
+            "height": 1.7,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "grain-coast:care-grain",
+          "category": "nature",
+          "motif": "chernozem",
+          "appearance": "after-care",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "grain_coast_grain_detail",
+            "x": -9,
+            "z": -2,
+            "elevation": 0,
+            "height": 0.25,
+            "yaw": 0,
+            "sway": true
+          },
+          "returningProp": "grain-returning-as-life"
+        }
+      ]
+    }
+  ]
+}

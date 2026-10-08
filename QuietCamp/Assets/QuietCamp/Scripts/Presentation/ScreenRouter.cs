@@ -123,7 +123,7 @@ namespace QuietCamp.Presentation
                 if (dive.Current == FoliageDiveTransition.State.Idle) return false;
                 bool ready = sceneName == "Camp"
                     ? CampSceneHost.Current != null && CampSceneHost.Current.IsReady
-                    : MenuSceneHost.Current != null && MenuSceneHost.Current.IsReady;
+                    : MenuSceneHost.Current != null && MenuSceneHost.Current.UiReady;
                 if (ready)
                 {
                     int frame = Time.renderedFrameCount;

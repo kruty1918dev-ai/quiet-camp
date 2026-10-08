@@ -1,0 +1,291 @@
+{
+  "schemaVersion": 1,
+  "publicationStatus": "design-only",
+  "published": false,
+  "assets": [
+    {
+      "id": "quiet_field_aircraft_map",
+      "status": "planned",
+      "view": "map",
+      "maxTriangles": 1100,
+      "maxGroundSize": [
+        12,
+        11
+      ],
+      "origin": "ground-centered, model height normalized to 1 before authored scale",
+      "notes": "One compound civilian aircraft, front/rear placed apart. No luggage, cabin interior, technical fragments, readable text or markings. One instance for the whole region; owns node 2. Bounds include both sections.",
+      "assetReviewPassed": false
+    },
+    {
+      "id": "quiet_field_front_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 6000,
+      "maxGroundSize": [
+        9,
+        4
+      ],
+      "origin": "ground-centered, model height normalized to 1 before authored scale",
+      "notes": "Weathered anonymous civilian nose/front section. No gore, real passenger identity, airline logo, military fragment or stencil. Rigid.",
+      "assetReviewPassed": false
+    },
+    {
+      "id": "quiet_field_rear_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 3000,
+      "maxGroundSize": [
+        7,
+        4
+      ],
+      "origin": "ground-centered, model height normalized to 1 before authored scale",
+      "notes": "Weathered anonymous civilian tail/rear section of the same aircraft. Rigid.",
+      "assetReviewPassed": false
+    },
+    {
+      "id": "quiet_field_luggage_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 180,
+      "maxGroundSize": [
+        1,
+        0.65
+      ],
+      "origin": "ground-centered, model height normalized to 1 before authored scale",
+      "notes": "Closed fictional luggage group; no personal labels or collectible affordance.",
+      "assetReviewPassed": false
+    },
+    {
+      "id": "quiet_field_seats_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 350,
+      "maxGroundSize": [
+        1.8,
+        0.8
+      ],
+      "origin": "ground-centered, model height normalized to 1 before authored scale",
+      "notes": "Anonymous weathered civilian seats; no occupant or biological detail.",
+      "assetReviewPassed": false
+    },
+    {
+      "id": "quiet_field_cabin_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 180,
+      "maxGroundSize": [
+        1,
+        0.8
+      ],
+      "origin": "ground-centered, model height normalized to 1 before authored scale",
+      "notes": "Civilian interior panel with attachment details; no forced impact pattern.",
+      "assetReviewPassed": false
+    },
+    {
+      "id": "quiet_field_engine_casing_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 450,
+      "maxGroundSize": [
+        0.9,
+        0.5
+      ],
+      "origin": "ground-centered, model height normalized to 1 before authored scale",
+      "notes": "Curved engine casing, muted green, based on official JIT reference. Fictional non-collectible fragment; not a replica of a uniquely identified exhibit.",
+      "assetReviewPassed": false,
+      "marking": {
+        "text": "9Д131",
+        "claimId": "quiet-field:engine-type",
+        "referenceUrl": "https://www.prosecutionservice.nl/site/binaries/content/gallery/site-content/content-afbeeldingen/omhulsel-van-de-raketmotor-casing.jpg",
+        "uniqueSerialAllowed": false,
+        "operatorAttributionAllowed": false,
+        "atlasReviewPassed": false
+      }
+    },
+    {
+      "id": "quiet_field_stabilizer_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 120,
+      "maxGroundSize": [
+        0.6,
+        0.5
+      ],
+      "origin": "ground-centered, model height normalized to 1 before authored scale",
+      "notes": "Partial stabilizer form based on DSB Figure 36; no lettering, no intact weapon.",
+      "assetReviewPassed": false,
+      "marking": {
+        "text": null,
+        "claimId": "quiet-field:stabilizer-form",
+        "referenceUrl": "https://onderzoeksraad.nl/en/found-buk-missile-parts-in-final-report-dutch-safety-board/",
+        "uniqueSerialAllowed": false,
+        "operatorAttributionAllowed": false,
+        "atlasReviewPassed": false
+      }
+    },
+    {
+      "id": "quiet_field_marker_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 120,
+      "maxGroundSize": [
+        0.7,
+        0.6
+      ],
+      "origin": "ground-centered, model height normalized to 1 before authored scale",
+      "notes": "Anonymous low memory marker, no inscription, no claim of a real memorial.",
+      "assetReviewPassed": false
+    },
+    {
+      "id": "quiet_field_old_flowers_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 140,
+      "maxGroundSize": [
+        0.5,
+        0.5
+      ],
+      "origin": "ground-centered, model height normalized to 1 before authored scale",
+      "notes": "Modest earlier flowers before care; no attached identities or names.",
+      "assetReviewPassed": false
+    },
+    {
+      "id": "quiet_field_new_flowers_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 180,
+      "maxGroundSize": [
+        0.5,
+        0.5
+      ],
+      "origin": "ground-centered, model height normalized to 1 before authored scale",
+      "notes": "Modest fresh bouquet after care; nature, not festive particles.",
+      "assetReviewPassed": false
+    },
+    {
+      "id": "quiet_field_lantern_detail",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 220,
+      "maxGroundSize": [
+        0.45,
+        0.45
+      ],
+      "origin": "ground-centered, model height normalized to 1 before authored scale",
+      "notes": "Small emissive lantern after care; one shared atlas material, no added shadow light required.",
+      "assetReviewPassed": false
+    },
+    {
+      "id": "quiet_field_soil_before",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 16,
+      "maxGroundSize": [
+        0.9,
+        0.7
+      ],
+      "origin": "ground-centered, model height normalized to 1 before authored scale",
+      "notes": "Small untended patch of earth, outside board and walking paths.",
+      "assetReviewPassed": false
+    },
+    {
+      "id": "quiet_field_soil_after",
+      "status": "planned",
+      "view": "level",
+      "maxTriangles": 16,
+      "maxGroundSize": [
+        0.9,
+        0.7
+      ],
+      "origin": "ground-centered, model height normalized to 1 before authored scale",
+      "notes": "Same bounds/origin as before-care patch; only local tidying changes.",
+      "assetReviewPassed": false
+    }
+  ],
+  "releaseGates": {
+    "models": false,
+    "markingAtlas": false,
+    "puzzles": false,
+    "previews": false,
+    "localization": false,
+    "landmarkHandoff": false,
+    "visualReview": false,
+    "humanReading": false,
+    "devicePerformance": false,
+    "inspection": false
+  },
+  "budgets": {
+    "maxResidentChunks": 3,
+    "maxStoryPropsPerLevel": 12,
+    "maxStoryTrianglesPerLevel": 13000,
+    "maxCombinedVertices": 60000,
+    "maxIndependentStoryMaterials": 1,
+    "maxAddedCameras": 0,
+    "maxStoryVoices": 4,
+    "maxAddedParticles": 64
+  },
+  "puzzleBriefs": [
+    {
+      "levelId": "QC_MEM001",
+      "width": 6,
+      "height": 5,
+      "guests": 2,
+      "concepts": [
+        "route"
+      ],
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_MEM002",
+      "width": 7,
+      "height": 6,
+      "guests": 3,
+      "concepts": [
+        "shared-route",
+        "shade"
+      ],
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_MEM003",
+      "width": 6,
+      "height": 6,
+      "guests": 3,
+      "concepts": [
+        "shared-door-cell",
+        "multiple-access",
+        "limited-space"
+      ],
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    },
+    {
+      "levelId": "QC_MEM004",
+      "width": 7,
+      "height": 5,
+      "guests": 3,
+      "concepts": [
+        "friendship",
+        "route"
+      ],
+      "solverStatus": "not-authored",
+      "witnessStatus": "not-authored"
+    }
+  ],
+  "boundsUnits": "Ground sizes are maximum final scene dimensions in cell units AFTER authored height scaling, not normalized source mesh bounds. Actual mesh bounds still require QA.",
+  "inspectionContract": {
+    "optional": true,
+    "targetLevelId": "QC_MEM003",
+    "groundTarget": [
+      9,
+      3
+    ],
+    "minimumGlyphHeightDp": 14,
+    "additionalCameras": 0,
+    "availableDuringPlacement": false,
+    "changesPuzzleState": false,
+    "implemented": false
+  }
+}

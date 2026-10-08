@@ -64,7 +64,14 @@ namespace QuietCamp.Presentation.UI
         public RectTransform Element(string id)
         {
             foreach (var rect in GetComponentsInChildren<RectTransform>(true))
-                if (rect.name.Contains("#" + id + ">")) return rect;
+                if (rect.name.Contains("#" + id + ">"))
+                {
+                    // CSS/text-scale remount destroys the old hierarchy at end of frame. Both
+                    // trees can still be under this root during Mounted: never attach native
+                    // artwork to a matching element whose React context has already disposed.
+                    var element=rect.GetComponentInParent<ReactUnity.UGUI.Behaviours.ReactElement>();
+                    if(element?.Component?.Context!=null&&!element.Component.Context.IsDisposed)return rect;
+                }
             return null;
         }
 
