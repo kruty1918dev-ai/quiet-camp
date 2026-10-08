@@ -1,0 +1,18 @@
+{
+  "result": "Passed",
+  "url": "https://kruty1918dev-ai.github.io/quiet-camp/",
+  "scenarios": [
+    "All 36 cards and site images load",
+    "UA/EN/DE translation, pressed states and language persistence",
+    "Category filters, Unicode search, empty state and reset",
+    "Image viewer, provenance links, Escape and Close",
+    "No horizontal overflow at 320, 390, 768, 1280, 1440 and 1920 pixels",
+    "Static Ukrainian content and all cards available with JavaScript disabled"
+  ],
+  "pageErrors": [],
+  "verifiedUtc": "2026-10-08T21:41:16.353057+00:00",
+  "sourceCommit": "1d5defb4c0b7d218c96993b0f334e36fdd6ce339",
+  "environment": "Public GitHub Pages in Chromium Headless Shell",
+  "publicWebsiteHttpStatus": 200,
+  "websiteHtmlMatchesVerifiedLocalBytes": true
+}

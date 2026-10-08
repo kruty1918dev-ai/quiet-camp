@@ -20,6 +20,7 @@
 | ADB/session guards | Той самий ADB process identity та незмінні global ADB preferences; новий Editor не запускався. |
 | Guide/site verification | **Passed**: local links/anchors, image hashes/sidecars, 36 content IDs і UA/EN/DE coverage; [checker](../tools/verify_github_docs.py). |
 | Browser UI | **Passed**: image loading, 3 languages/persistence, Unicode search/filters, viewer/ESC, 320–1920 px без horizontal overflow та no-JS fallback; [local receipt](verification/site-local-2026-10-08.json). |
+| Live GitHub Pages | **Published / Passed**, HTTP 200, HTML збігається з локальними bytes; усі browser scenarios повторено на [живому сайті](https://kruty1918dev-ai.github.io/quiet-camp/). [Deployed receipt](verification/site-deployed-2026-10-08.json). |
 | GitHub Markdown | README та screens atlas успішно rendered через GitHub GFM API; 9/36 inline images та 4/10 tables. |
 
 [Machine-readable capture receipt](images/captures/2026-10-08/verification.json) · [44-image manifest](images/captures/2026-10-08/manifest.json) · [Fixture/workflow](../tools/qa/DOCS-CAPTURE-UA.md).
