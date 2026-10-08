@@ -80,19 +80,10 @@ Before release, the project still needs device input and performance acceptance,
 - **Unity 6000.6.2f1** with Android Build Support, Android SDK/NDK and OpenJDK.
 - **Android target:** ARM64, IL2CPP, OpenGLES3, minimum API 26; the current target API is 35 and must be reviewed before a future store submission.
 - **.NET SDK 10** for the editor-independent verification probe; Python 3 for authoring and QA tools.
-- Access to the sibling UPM repositories used by the checked-in manifest: `agentverify`, `atmos`, `levelgen` and `level-kit`.
+- Git installed and internet access for the first Unity package resolution. Custom local packages are bundled inside `QuietCamp/Packages/`; no sibling repositories are required.
+- Windows, macOS or Linux supported by the pinned Unity Editor. Android modules are needed for Android development; opening the project does not require building a player.
 
-Expected workspace layout:
-
-```text
-workspace/
-├── quiet-camp/
-│   └── QuietCamp/
-├── agentverify/
-├── atmos/
-├── levelgen/
-└── level-kit/
-```
+Run `python3 tools/verify_portability.py` from the repository root before opening Unity (on Windows, `py -3 tools/verify_portability.py`). This checks package paths, lock consistency and filename collisions without relying on `Library/`.
 
 1. Open **`QuietCamp/`**, not the repository root, in Unity Hub.
 2. Let Unity resolve the manifest's exact package pins and import the assets.

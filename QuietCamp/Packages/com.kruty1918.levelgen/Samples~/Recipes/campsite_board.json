@@ -1,0 +1,15 @@
+{
+  "name": "campsite_board",
+  "width": 6, "height": 6, "seed": 2024, "maxAttempts": 40,
+  "props": { "genre": "puzzle-camp" },
+  "steps": [
+    { "type": "scatter", "layer": "blocked", "count": 3, "minDist": 2 },
+    { "type": "noise", "layer": "shade", "scale": 2.0, "threshold": 0.62 },
+    { "type": "invert", "layer": "sun", "avoid": ["shade", "blocked"] },
+    { "type": "scatter", "layer": "fire", "count": 1, "avoid": ["blocked"], "strict": true },
+    { "type": "cells_to_entities", "layer": "fire", "kind": "campfire" },
+    { "type": "place", "kind": "tent", "count": 3, "minDist": 2, "avoid": ["blocked"], "strict": true },
+    { "type": "require", "check": "maskCount", "layer": "shade", "min": 3, "max": 12 },
+    { "type": "require", "check": "notOverlap", "a": "blocked", "b": "shade" }
+  ]
+}

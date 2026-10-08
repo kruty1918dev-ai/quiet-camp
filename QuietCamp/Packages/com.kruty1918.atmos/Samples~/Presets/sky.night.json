@@ -1,0 +1,9 @@
+{
+  "zenith": {"r":0.03,"g":0.04,"b":0.10,"a":1},
+  "horizon": {"r":0.10,"g":0.12,"b":0.22,"a":1},
+  "ground": {"r":0.05,"g":0.06,"b":0.08,"a":1},
+  "sunColor": {"r":0.7,"g":0.75,"b":0.9,"a":1},
+  "sunDir": {"x":-0.3,"y":0.5,"z":-0.4},
+  "sunSize": 0.03, "sunHalo": 0.15, "horizonFalloff": 2.4, "stars": 1.0,
+  "fog": false, "fogColor": {"r":0.05,"g":0.06,"b":0.10,"a":1}, "fogDensity": 0.02
+}

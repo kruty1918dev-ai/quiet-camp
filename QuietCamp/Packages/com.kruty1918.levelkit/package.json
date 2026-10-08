@@ -1,0 +1,25 @@
+{
+  "name": "com.kruty1918.levelkit",
+  "version": "1.0.0",
+  "displayName": "Level Kit",
+  "description": "Universal level authoring and JSON parsing toolkit for casual, level-based games. Provides a schema-tolerant level document model, a profile-driven JSON serializer that adapts to any project's file format, a runtime level repository, and an editor level designer for hand-authored maps.",
+  "unity": "2022.3",
+  "unityRelease": "0f1",
+  "keywords": [
+    "levels",
+    "level-design",
+    "json",
+    "casual",
+    "editor",
+    "tooling",
+    "grid"
+  ],
+  "author": {
+    "name": "kruty1918dev-ai"
+  },
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.2.2"
+  },
+  "license": "MIT",
+  "type": "tool"
+}

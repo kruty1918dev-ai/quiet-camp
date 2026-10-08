@@ -1,0 +1,14 @@
+{
+    "name": "Kruty1918.Atmos.Tests",
+    "rootNamespace": "Kruty1918.Atmos.Tests",
+    "references": ["Kruty1918.Atmos", "UnityEngine.TestRunner", "UnityEditor.TestRunner"],
+    "includePlatforms": ["Editor"],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": ["nunit.framework.dll"],
+    "autoReferenced": false,
+    "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

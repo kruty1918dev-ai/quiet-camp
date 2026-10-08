@@ -1,0 +1,29 @@
+{
+  "name": "com.kruty1918.atmos",
+  "version": "1.0.0",
+  "displayName": "Atmos — Sky & Stylized Shaders",
+  "description": "Procedural skybox palettes and lightweight stylized shaders for calm casual games: gradient sky with sun and stars, foliage vertex sway, procedural campfire flames, glow and flicker light. Includes a Sky Designer editor window, data-driven SkySpec presets, smooth sky transitions and a one-call campfire builder.",
+  "unity": "2021.3",
+  "license": "MIT",
+  "keywords": [
+    "skybox",
+    "sky",
+    "shader",
+    "campfire",
+    "foliage",
+    "casual",
+    "stylized",
+    "gradient"
+  ],
+  "author": {
+    "name": "kruty1918",
+    "url": "https://github.com/kruty1918dev-ai"
+  },
+  "samples": [
+    {
+      "displayName": "Sky Presets & Demo Snippets",
+      "description": "Ready-made SkySpec JSON presets (day, evening, night) and code snippets showing Sky.Apply, SkyController transitions, FoliageSway and Campfire usage.",
+      "path": "Samples~/Presets"
+    }
+  ]
+}

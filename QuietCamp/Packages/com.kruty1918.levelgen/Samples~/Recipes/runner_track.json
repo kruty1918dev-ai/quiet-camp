@@ -1,0 +1,19 @@
+{
+  "name": "runner_track",
+  "width": 7, "height": 60, "seed": 1001, "seedStrategy": "increment", "maxAttempts": 20,
+  "props": { "genre": "runner", "speed": 6.0 },
+  "steps": [
+    { "type": "segments", "track": "track", "segments": [
+      { "name": "flat",       "len": 6, "weight": 3, "fill": "safe" },
+      { "name": "obstacles",  "len": 5, "weight": 2, "lenJitter": 2,
+        "scatter": { "layer": "obstacles", "density": 0.35 } },
+      { "name": "coin_line",  "len": 3, "weight": 2, "fill": "coins" }
+    ]},
+    { "type": "invert", "layer": "safe_lane", "avoid": ["obstacles"] },
+    { "type": "cells_to_entities", "layer": "coins", "kind": "coin" },
+    { "type": "cells_to_entities", "layer": "obstacles", "kind": "obstacle" },
+    { "type": "place", "kind": "spawn", "count": 1, "strict": true },
+    { "type": "require", "check": "maskCount", "layer": "obstacles", "min": 10, "max": 160 },
+    { "type": "require", "check": "entityCount", "kind": "coin", "min": 20 }
+  ]
+}

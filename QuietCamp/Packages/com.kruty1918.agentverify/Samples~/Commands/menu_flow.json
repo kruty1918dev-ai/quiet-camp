@@ -1,0 +1,13 @@
+{
+  "commands": [
+    {"cmd": "summary"},
+    {"cmd": "screenshot", "output": "Temp/shots/01_menu.png"},
+    {"cmd": "describe", "output": "Temp/describe.menu.json"},
+    {"cmd": "click", "target": "PlayButton"},
+    {"cmd": "wait", "seconds": 2},
+    {"cmd": "screenshot", "output": "Temp/shots/02_game.png"},
+    {"cmd": "describe", "output": "Temp/describe.game.json"},
+    {"cmd": "expect", "check": "no-errors"},
+    {"cmd": "log", "output": "Temp/agentverify.log.json"}
+  ]
+}

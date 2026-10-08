@@ -1,0 +1,29 @@
+{
+  "name": "com.kruty1918.agentverify",
+  "version": "1.0.0",
+  "displayName": "AgentVerify",
+  "description": "Verification toolkit that lets AI agents (and humans) inspect, drive and screenshot a Unity game. Structured scene dumps, deterministic camera screenshots, simulated UI input, console-log capture and a JSON command file for headless batch runs — so an agent can check that the game works and looks right, and report structured results instead of guessing.",
+  "unity": "2022.3",
+  "unityRelease": "0f1",
+  "keywords": [
+    "ai",
+    "agent",
+    "testing",
+    "verification",
+    "automation",
+    "screenshot",
+    "qa",
+    "headless"
+  ],
+  "author": {
+    "name": "kruty1918",
+    "url": "https://github.com/kruty1918dev-ai/agentverify"
+  },
+  "dependencies": {
+    "com.unity.modules.screencapture": "1.0.0",
+    "com.unity.modules.imgui": "1.0.0",
+    "com.unity.modules.ui": "1.0.0",
+    "com.unity.modules.uielements": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0"
+  }
+}

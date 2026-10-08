@@ -91,3 +91,7 @@
 - Rewarded-ads як відмикач — зарезервовано (немає інфраструктури реклами).
 - Свіжий контент за оновленнями: сезонні вікна дадуть нові слоти без
   зміни коду.
+
+## Checkout portability — 2026-10-08
+
+Bundled AgentVerify, Atmos, LevelGen and LevelKit with recorded upstream revisions and original metadata/licenses. The manifest no longer requires four sibling repositories. `tools/verify_portability.py` checks local package containment, identity, dependency locks, Git pins and case-insensitive tracked paths without Unity caches. A fresh Unity import on Windows/macOS/Linux remains unverified: Editor launches are blocked by the active phone-session arrangement. No new renders or player builds.
