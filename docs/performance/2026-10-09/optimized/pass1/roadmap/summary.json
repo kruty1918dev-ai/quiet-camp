@@ -1,0 +1,4153 @@
+{
+  "schemaVersion": 1,
+  "capturedUtc": "2026-10-08T23:04:36.4277860Z",
+  "unityVersion": "6000.6.2f1",
+  "host": {
+    "cpu": "Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz",
+    "cores": 8,
+    "ramMb": 15950,
+    "gpu": "NVIDIA GeForce GT 730/PCIe/SSE2",
+    "graphicsApi": "OpenGLCore"
+  },
+  "screen": [
+    720,
+    1600
+  ],
+  "source": {
+    "purpose": "authorized optimization verification, existing Editor only",
+    "sourceCommit": "c19d6eaac14c311d64ebede6f12e93791f80510d",
+    "sourceHashes": {
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/AdLifeService.cs": "e36bb5a0d0671b69747cf03fafe48fbea08b64fb459e4c84b23baa13a28b31ca",
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/AdService.cs": "abb43b4ae88b8f90ade0a096384b21d87808c3225b0ccf7dc3c7c4e4b8e17a1c",
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/BonusCampAccess.cs": "483dfedba61dc85f398c66f1c8a2bebed80daa74b42c6aaeb45d0852efbc7e59",
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/CampEconomy.cs": "09cae009172d9167e92d3bce9b0179ac0b1481c2053a660ddba558c0f1d0bad8",
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/CampEvent.cs": "ae1e350e556fea38d67ef3fb7b1e20c9b1651336ac47797c6a4b4e08e5e632bc",
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/CampMemoryService.cs": "02d3f9bdbeb74df2000d5dc992706fa5d16075fe88ef9a03181e46ba0287d27f",
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/CampSaveData.cs": "d5d963f5a9e681de7633e3bed6c3b9aea6db2bfd5b0f7c819c924d200fd82305",
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/CampSession.cs": "fe86db4755aa08a7bd5b7756323c2f3513eb23bb7fb2d34abb672e236dd715a7",
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/ComfortAnalytics.cs": "156289241fa5a98b96af58b840fb3754b1b1424f1541fb90bc367faba026413e",
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/CozyRewardService.cs": "0fbd7c6bc8debf4ecbf6fe06f83bbe8f720bc28516a7acf1a1acc2d66e61fd7d",
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/HintAdvisor.cs": "54eaeff9503dddf585887ce21ee90b24b6cef0e70346dd4a8af78aa37d2321d6",
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/JourneyAccessService.cs": "3140ecfe00b33e0812a1f2c2023ee45be7786d7722f5febe87fb8f6706d7759a",
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/PlacementCommand.cs": "aba758f49d76b430f65bab40be8a670341ad8a6b034d448c6536d279cf4d7e16",
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/PrivacyAcknowledgement.cs": "66c42f900115762774e65e48e60c977a08e0b2b0056451e57c30bbdc44a10858",
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/ProgressionService.cs": "8f0f3a9e1e8272039d09976e58b55d3dea85d06d4a9fd60f1f2b731f7c85cbd4",
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/PurchaseService.cs": "5b2e3c9c2a855e0b9833f3bfe351376d2bbc9c43ab3155213b4e4550ac7252c0",
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/TutorialDirector.cs": "34ee3e2e33c05b20657fd7f15a2dcadf365cf2b206c0721b926fa92f88929ddb",
+      "QuietCamp/Assets/QuietCamp/Scripts/Application/WorldMapRevealService.cs": "127c1af52eeb21cc6fa8c6e519355418fb68a267e788811ea21e506e27fb3303",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/BoardState.cs": "4b4fe335b45b2fab263640ba10e12d0f8e0756bd8816d595cd6361faff4e5c70",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/BonusCampDefinition.cs": "f2e4f9751466f5bcb45a30d40701499c89ee8e43e9358661376087e1e2073cbe",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/CampAccess.cs": "926d961729191817702a78ff0b3697b38f3e92c84fc7127c9b1cfb5d6940d2fd",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/CampCampaignAuthoring.cs": "1640496fe38bf1ac3a28833d766c5d964dd4d229a6a3d0068c62298fddc1992c",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/CampSolver.cs": "cce57cac233e43196e264398a5a8c654c5a02861a61efc46b3c4e03435d7af68",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/CampWalkability.cs": "715822ab79374327c3a4014a7f8e2664913616bf616ee0981c4d8acaa3795db4",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/CommandHistory.cs": "eacf9966015b9a6ce985517652efca89a1bb24be32161708fbe88ff1be857d5a",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/DistrictDefinition.cs": "e3e714978115f8d642b6192355031279a0b44b81f2721293adb7883e8b97faa3",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/LevelContentValidator.cs": "a0dc8127811a6d5be53ac9b819f96a1a4c2fce07bf5c1e8e347d9744613dfd0a",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/LevelData.cs": "9fa05e2fa3d01b4d96bfd1b2487a04e7bb1f27b17ee8ba7bb944055b9225a348",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/LighthouseJourneyAuthoring.cs": "64da5fad597e219dd0e7f94889603518a5956e6e4db8f65fdc96efc4968e5675",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/RuleEvaluator.cs": "6dea3ff13a5a85bcac456a2e68c4e2ef875234bff274540371a3250752130981",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/SeasonalWindow.cs": "06c586a77aa77de3018a4590ccd13f78b995cd88a6db3ff0230f0b4cf890f9b1",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/ShadeProjection.cs": "4ff3d547ac5ea2f5aab8e426f5414e404352e88f3ab92c3dc86bd73d70e80e81",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/WorldMap/SeasonLook.cs": "7f1c1a767fb88e21a3e862260663db919dd8db071476946083e0e47edf6223b6",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/WorldMap/SeasonTransitions.cs": "413a4db3e5e18f478a1825e101764fa2c4ae4d3c62c804f533a7364fcd5c1e67",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/WorldMap/StoryMetadata.cs": "9f2105480cf63a01cdad20d89d1d591e1477435d7e81b9e8f1adf5c2740294ef",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/WorldMap/WorldMapData.cs": "c6c85cfaba3719b7d90476259d76f5b1b0db50c276f5be104959fc8f4c9ef0df",
+      "QuietCamp/Assets/QuietCamp/Scripts/Domain/WorldMap/WorldMapGeometry.cs": "99c5fcdac9ed5bb5f617d2a8f1a631b4b066dd85da1f88c2190cab919e210a0d",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/AssetCatalog.cs": "8a6780a798f2ba38fc570c7b0cd34cb4d96b8aba38342b47a5579cfd61f241ef",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/AtmosphereCatalog.cs": "eabf408c9f41aa8cddcb382df5efa265f91df0e37a6f078dd5cfdff4706e5161",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/BonusCampCatalog.cs": "29b05ef2d59590fce90c03902273d3dfc60d30dce5afd4151383e04f6fe947f6",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampAttemptService.cs": "e4596dae0766c3047b928368493a9974a054e7185dd236e2a2c915901c939996",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampCompletionService.cs": "e47cce9c41759945b1c0cdc461f19a0a06d6f1317c261e24efdb7121862ca155",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampContent.cs": "8fb8353d81b58299e50a238aa46c5ea69abb9ecb97d2d686ec04838c1c546018",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampWeatherTimeline.cs": "e5f56dbc77c63d94df7f2c5bca2177ec3c3f0fcd440a541b0668f4bd0d937da4",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/ForestLightingEnvironment.cs": "8e7b187f00e17d5267abd394f388e9d497ef47669be457591f6f695413c43e55",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/GeneratedCampSource.cs": "25a8c07f6cf752d2b9c7b78be2138e94e5583bd6e7b7b782a6f4bbb52eaae7f1",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/LegalConfiguration.cs": "6d7fbf639dd2eb402c7250467a055799ccc677436b45d3de4c18e20b1ed2fe46",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/LevelLoader.cs": "4b7b25770da1e5850c96b19eafbdcd94ab25c99580e70aa7ce24afb8fbdb61f6",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/MonetizationCatalog.cs": "d80a9f6a8ebc094f5e4d1068f41befceeb85a05ee6eb510fefe489e88d78534c",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/OptionalGoogleServices.cs": "836a19d969aaccdd2c6e1063f7fd60c7bd8e73cd4ff051a3f3baef8ce65d897c",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/PerformanceAudit.cs": "e0ed1c7f5d89ba4cc3edaad60ffc5e28acc29c8c51248fec0696ef6106759b2e",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/QuietCampAudioCatalog.cs": "b200b91974a56757e07436624aed4a6d992f4d16f3f145b6026d3587da4e0c13",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/QuietCampLevelAdapter.cs": "de9919ca51e7b1cc3ef9b92d5ab9fc00f0393c609113c1cf28eae61b44b189d0",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/QuietCampLocalization.cs": "866f4a5891de5f1b6d3b972014bbed9ff1a69783e66db3be37b925ba1358d387",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/SaveAdapter.cs": "ba7559f03e4107eabb414c1b899642ec6b7dbce324be3534d3e25dc27d752a49",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/SkyPalette.cs": "22fbdc276a968f38c271dea800c71139f56c11d62a830c46b3f4056a178a022e",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/TransitionConfig.cs": "5bbffbf7ab57cc8a67bea369cd85fb2d3ef12f6fd2746df31555c28666e1e6d1",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/WindShelterField.cs": "f0da0d5a4f37bf46f0eefe8fa653ce0909468b56f93a2df91b9c469c65a2e101",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/WindSim.cs": "44f1c9f1270548444595bdf19d0ebafb23187fbafc69a0b7035f25848e88ab6a",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/WorldMapBuilder.cs": "3e02d2b5e16a248e5c655998038dd3fcc40c47708e29978f5a4a09e4b7747e86",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/WorldMapValidator.cs": "d93e0cdbaf6bd569bd2b8d04e4c97884ebbbb8c026f07a7f5ce3b9a84a55fa74",
+      "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/WorldStoryCatalog.cs": "9524c8348b2ddcaa4a0aee6e227a7e625fd416499b67708e0e7f650900ae3f23",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/AdaptiveCampQuality.cs": "e34cd7dd1fbc0034e768a5bff2105e63ad9083f66097c75fd9c5b94f5a0c7731",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/CampMotion.cs": "5b8b159e1be0567fab67fc2ab6cf66691892b3f1e97f4916bcf7d8a6cac16c08",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/FoliageDiveTransition.cs": "5e4ae109eca332058019c90ef6d36cc076af08319503c55c0601feb451d22261",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/GameServices.cs": "009140a71c63712e302ac859872d2cf711aa7a5664ca2bfddfdd7ea3b50a2410",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/LeafCurtainGraphic.Gpu.cs": "9041d3f9458dcfbadc9ba823080f285c1af0a38d00231af68d7e9f3898f706ad",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/LeafCurtainGraphic.cs": "749b4d67522d7c027a6ecc56bd286a6218c572de6a56fcbc4cad2dc2af48dc5f",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/QcActionHandler.cs": "f5acac4d25e91f31ea76dbf0f25b9c3f5bdd9a54eea7382749937e510cd47718",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/QuietCampBootstrap.cs": "db60fe1f52864d4f5da7a2c5322fd37856dc5e85a771836ccaee1937fc499b63",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/ScreenOrientationPolicy.cs": "c6998662ceac9bf8d7f7b8e6a93a17c3d74bb3f5d8ac0c5f47c15ac6e31de737",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/ScreenRouter.cs": "58f95b152d1065a3d2af87ac526ff6fba9c26733c7ffd9001342ce74017f1f3d",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/BonusCampPreviewGraphic.cs": "6adcbd9b8d5a6c17037043a799e3612077c44f2be94d00062a2f6dec360fa23b",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/BootCampView.cs": "5c21a2363139c1cf73f1a2ebd598eda28f9d00c5afcedb818e00507d6537ddd8",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/BootPrivacyPanel.cs": "d2378cc845eb2038bc8b94d98366adc122fc839ea1ab705cf4f3b0e760cfb84c",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampControlFeedback.cs": "c8ac21d5c8b0ab48f10837998d73c4c125bc202256e03f6e778e9db0329328aa",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampHud.cs": "8ca663a6e46d08dba57a7236e091314d3e207f399c81eca5898aa9d6d8586765",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampIcons.cs": "544d45973982574f3fa43c454367136f6e13be435700ef223e9b1c57b5713869",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampThumbnailGraphic.cs": "a8f1cdd3cbf50a9f002ab04a67ede9209c7afa5e4297a587cc46dca7bc58f0fa",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampUiTheme.cs": "d55c9a9cc57c3fb383efc46f4210457ffbfc1a739874e6c62b58a80b4632f359",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/EconomyPanel.cs": "1f0e343f7ab7b808a6b0bc24851bf9d7a3d22b82d4838112a10eb5aa775e906b",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/GuestCardInput.cs": "462c6bc06b14f5ee2d8e4427e417346dfc12d9034f49f27b170b8762a0a8e3c1",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/HtmlRecoveryControls.cs": "a38f1c7ef50ab1437aa7af459d2ed2dfd2a18f6872792288a4000ff81a7e5f34",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/HtmlSurface.cs": "832abc6e19d99ac397361f5ed59be760a178a4d8daba9d5a496585f3e0828816",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/LevelDisplay.cs": "f79cd632fe0550c1afc2ea81349f6f972eb6e4d9a6ed1bc57b78245d83bdd7b4",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/LocalizedLabel.cs": "3bcd382a25beae9d437a16b53e1d4ad6ea4ac810b544cd66e22816c3dfacdf68",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuArt.cs": "1dad5600475fd27a7d2a925548ba0d56d7662f2d8598b33a24af672cb2ae05fa",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuMapBinding.cs": "60992d760b30f2eb3fdb1f8161238bd9a1790b2d6746db7de93f50af1ef4c886",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuScreens.cs": "e60df05d7a817a6f814d7ba5d6744f76fdef33844c308eebdc9f14ae0a9a1af4",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/PrivacyPanel.cs": "045c94c3dd5b1c6ca4e575056aa17604b74d0266b85cdc7eb22d592bce64ab43",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/QcUi.cs": "be7cd100f540db0c11328c3b95737f93121c807f49588b5a2ecb859a5119d912",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapGladeGraphic.cs": "c2c8eb897ed8a185fead57029e4a66c5f37d0a74841499209818b01a8cec5cf2",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapGraphic.cs": "91d6e2f26cc1d5c6b5a82b196554df972c3fbb34e4026e217734b50b4ad98930",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapLayout.cs": "0ad49d9d58b13f43ff1645d308bcd88583b19dcd4e92a7beaeb7c8b98cb7b8f7",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapModelLibrary.cs": "76458f1ae90b471e915315ea0c2379c28efc3597c914711442ea2d76f2a3ed30",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapPainter.cs": "33cb70d632179cddc1bd7232fd82653ba730826b1a6bdb661a85a39c6e0eeabf",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapSceneGenerator.cs": "4f0cadd1cf8a083936a8116c07e2fbf39acfe95793ec0ee1038fca027b1a990d",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapWeatherGraphic.cs": "1030d90878f831c76b650a382bee657ff68249e254a8cac2e08949c85f6003c9",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/SafeAreaFitter.cs": "4610e9a362088798bf8ab324635e098c79588be895808faa5708eeaf8ec87b6c",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/SettingsPanel.cs": "a83f1c0e5784912d86bf36241c435bc76214e942345cc6efd02ba2b4eafa5a74",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/ToastPresenter.cs": "dcb69f5e35be5854702aa36c96c2ce89ca94fa0e2592ff637ef46cc298ae1023",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/VideoBonusPanel.cs": "82ca53394afea2c602bdaa06c07f9802c30b45192b13d98a8a2c8a6ad0fe11e9",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/AlbumDiorama.cs": "13d7a50adc7401f985fe4e6d9828014d56d12482358560a8a44044eb7342814a",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/AtmosphereParticles.cs": "1fe28b8d2dc7fc94815a1bcd4c27a299682666e694270f501af961600f0de3c6",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/BoardMath.cs": "8217ee609994ba513c76874287a59db3b39d1b41aa376c40466b697c6fe135b8",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/BoardRenderer.cs": "9d58ee3a7b81adff864bbf7c63a14ed5cbc6d0dc8ba301455be91ae4a929f50a",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/BoardRim.cs": "82e11014ef9e255a8e2cb2ee5e5d2a19d199b9d7ee68d771d80ee0e57ade9f10",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CameraAtmosphereMotion.cs": "b7e3455e872b588dab5598cc2a081b678ed9395f73397657d839828eebad63f7",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CameraFitter.cs": "e49943c27bf39ba033a2a9a6085e411f4ceb0a193fe7f4d94f2b88f3231fca51",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampAtmosphere.cs": "bf23e0de8d6ade445e966ebcf78ed401e6e1c345055a4b02fd4b01c3e7407955",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampBiomeProfile.cs": "7c4a1dd359d25d52ba247eb10275bb1efae169f32aed1f0b3869716459ccb360",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampFeedbackEffects.cs": "07b00184cc949f3b47f64c163d8422e669acc53f560eb7a976d7afd36cca3d72",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampFoliageResponse.cs": "04470d68faab115d43f2d921f0a282263b7a30be406b92b272e22e628bd29deb",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampGroundDetails.cs": "a856efc768315323f4868161aa4e912b38ceb4373d7c53deb90bb36a7383fa41",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampLandmarkVisual.cs": "f060056ed508f625bca69445b8751089aa02195f6c1853eb6b26e16ba32f85cd",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampLantern.cs": "07f1298864dd3beaae2f48e87b17651f5bd623c338d0fd411f9e677094c6e87a",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampMemoryPresenter.cs": "d61417ea267c310ee0c9952082c65ce36990eb49b81a94b7013d8db146d8112a",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampPuddles.cs": "027ee476c8794c318bd7b8fecce98559d407906e21ae6393820e0e56818612fd",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampRainShelter.cs": "ce342eefd25db98b0061e0f6d8fad7e5ead05c2fae58e116bf6117c78d7016ee",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampSceneHost.cs": "5252de6ad23df862aa116c851bb8fe3d24c08bd8cb592854a750c12e3e5aded7",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampSoundscape.cs": "d2ef08fb5a00e31b719aac39409834d990dbbeb41479907d24933d491bf5b065",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampStoryComposer.cs": "4f7b70f79b444553204d55183413d664eef91d6f1db8e9945e3632d3d8d7c355",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampTrail.cs": "f4a6b57c3cdbfe052818e897eeeb074e433f8679439506b0aea46a71e4336b33",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampWaterVisuals.cs": "f94099ceb702996522776117ef4bcb0ca94ef93bce4ac65c01145d36be4b21dc",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampWeather.cs": "f9c772ed40787f0b8d4385538f25c7aa082b2fc59000dc5a1d72a59ff4407691",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampfireSite.cs": "6723fb59f433c1ecb0b5031afa1c6a1d87e3c8e56f5b2a0462736c6b030b4230",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CanopySunlight.cs": "aad308f322f36aed7c0301163d4036317ec6c9bc68be6cc68dd1fbf95bdfed72",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CozyParticleAtlas.cs": "9ee4f3f14baedd8cfda4ee47a35807c11981e9d876776e0be642836e71585153",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CozyParticleMaterial.cs": "911ddf5ac4e5c18b1c21e64069bad7dbdbb9e1511f5c9a5db3fe1a25e493c7a9",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CozyUnderstory.cs": "9490fc07649f3263096669f616ebfecc9b52cc46ecfd3655bc617c7c652e9ca7",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CozyVegetationLibrary.cs": "efe5415a6a6feec34b1faff38cbbc1bb6753cb03e54da1b35d83f5321afad0e9",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/DecorDensity.cs": "5928025c57ceda5eff8685d4bd81fe818caacd4f35bc99feb020bd9fd7d53517",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/DecorSpawner.cs": "3368eb18426d28e8db4a50d3c55b7656623f31ace68d7301e70094d3ad7372fc",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/EnvironmentComposer.cs": "45012f3f54fcbab803a0cdfb8e5416c2ecc60f3a387e9daae9418d79bf3f7c70",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/FabricGeometry.cs": "d191420c9d7cf30a0e82bcf41a83f19d4d1e2deca6173e3f8eaa27d73cb757de",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/ForestDetails.cs": "5d990a695a15a2f705a1f611556e660005878cbf12daf433844c327218a893b2",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/ForestEdgeAtmosphere.cs": "9d40267a3084ee9dc0f59393d15762438fc956120683803ad822d23bb266bac0",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/ForestGroundView.cs": "d19c596453df295019afe5200507f82c6cd02ec1d975d1a28050bd87f39215e2",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/LivingForest.cs": "878ebb89ad895339f608ea13465e76f6617c6f01f892eb8332f9bd5627a0ff3f",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/MeadowSurface.cs": "88dc13d2fe6414e09b8337415dca5f293fbec6b3bfa98842400cb4794f74e64c",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/MenuCameraDrift.cs": "9c9e5d6635f340235dc11bd96cc11caa8a6085b843f982fee491045f20839ff2",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/MenuDiorama.cs": "85d36a5f5e1ad3cc505f66f1fe192a04cd43f8964b97618a0780795684e8f501",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/MenuSceneHost.cs": "2d29b3a252b81908352aa4edf75eb15dedfed1f844fd8a68ba6d7170dad352c4",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/OwnedCampMaterial.cs": "412bb12c2b9be109f867969eef2d8070afbb861982e8aef5d02b9dfd7589b7da",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/OwnedCampMesh.cs": "7b9b85a4377ad7c2f0425acc84355def2703c77afb6f4995bf00d027f0fb01b5",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/PhasePostFx.cs": "4ded9c5061911eb3bbbbd082773c42ec3ed95f5d8b569f3a18cf159416dcccce",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/PlacementController.cs": "7723f32119542d548c56283d44bb3972b23288aa67585d53fabf8d1fe85a8ab7",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/PlacementTargetProjector.cs": "87adca46552425aa7fa2c029b7bcaff3bf4bdcf5f0e3c90e2cd9fcfcb2c13cb0",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RainImpacts.cs": "99366355968a44839cedbef44af1ba5cafc05f11b7f16a65684920fb0420406c",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RainSurface.cs": "71dfa40acb676b6f85b18da132f52303a7f5d1eaffd21c9d46fd893e4c6e3730",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonPalette.cs": "43f5da3147199723116a5012bddfd5fe1adf8926bc06a16a2e5d49e0ed0797db",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonProfile.cs": "f0c83a2fa3b735d75b0b16ff7803ef1573e9338ce4794adaa6d4e0e03336c8ce",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonalLeafFall.cs": "0abed7f869aebd9af13be02127e216ecfc88389b7c99a02081e1c783e5e04d49",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonalPropVisual.cs": "34e5f1c6154f0f16a550fa29646d5ba1c183d41dcc6109b15f40aa2293ad7dd8",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonalTreeGeometry.cs": "596e8da51c40cae80be92a8df76b579342612e14d7ca51716789a90c227ae916",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonalTreeVisual.cs": "2695a1fffb83a723324179654c59b250fdd21afaaf862622a469f5d5c1c510b7",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/ShorelineGeometry.cs": "c4ccd1de54b2abc41c8fc1b598092af03173858c2f7694e8bb3305b1a8445897",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/TentBelongingsLayout.cs": "087dad1371ff4d019a39c107068c08d9cb1e8cb007d766689b08d98b08aab7d6",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/TentCloth.cs": "e09d1db0c655ef44abd605053d4b07cd235302ababaec402500d1a3437c97bc8",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/TentDragCard.cs": "bcba4895a2859c9569453430ca88044b3e02a9c17c60c8afb240378583ed8476",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/TentDragVisual.cs": "eca59b672cc28fd92aa966c35ab3a5fb2904719e85cad5279343aa0e0b62ba90",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/TentLivingSpace.cs": "10aabbe635081f7fc5cb2aaf303339f0e3884bf5cae7ece18cfc34fbc4613878",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/TentPresenter.cs": "773ac431a0d6d4f2a7b3969d6587a08ff4c31613c5f5cb4e93410617f36f62eb",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/TentStoryVisual.cs": "a2fadada254c76051da1d53cceb4eb1b611c9b3f8a393f9956231d6359938e7c",
+      "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/VisibleForestFloor.cs": "f699015a4f7f2e6664ab7f0ede41b42f5548a5a851d79edc36f97cf8769cfab3",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/AccessPointTests.cs": "27d9c794d6c02a0b17a155e148b9b4e2dc3e8d64a21189d73e676a125684e6ea",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/AdServiceStubTests.cs": "2cc9793154e32ddb98e3cddfef1d1e394fa514e90260e7b299b6c6411b30ec25",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/AlwaysIncludedShadersTests.cs": "bfe54a60064bf529a06ea40f1a05f80219dfc73aa896ec385bfc7ca157d7929a",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/AtmosphereCatalogTests.cs": "157c4477f75af6e3d53a13375433534d44d24dea8a19ca40fe7c8f83c1647221",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/BiomeSurfaceTests.cs": "797b16513a8564110b6aa89531cbb80905757c2a36edb94e393b2818c3fceff9",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/BonusCampTests.cs": "bc167d9b749d2b9dd8fdc90eceac279b03556c94dc74a5e2f2083750aea72389",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/CampSessionTests.cs": "630b26671795fa32a3426036db02edd8a7a3586491361d3d3517514ee57d8128",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/CampaignExpansionTests.cs": "ef3b755b515386afc11818b5895ba8c908418e0b0f781bab300aa4772a24d957",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/ClothWindTests.cs": "2347ac8aa096d3038c2c7d6d20ee25b710d9e08ff7fb82929c7bea68ce30e8e5",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/ComfortAndRewardsTests.cs": "b00908e6c3b84fcbca981d2eca2933e47ac4d9261c1db68989c741603d2f19c0",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/DisplayAndMapTests.cs": "53de7af40f574ef9d5eba5b4a1b5a9c5ce113a61ce6337ae2224ef66ec16f73a",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/EnvironmentRenderingTests.cs": "89f00d06e4ef1c0899124af8d4cd74240d7ba28ffd219761d993053681d171e8",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/FoliageBoundsTests.cs": "9c8c05b4378ddc48a8f28a1d4cc195866eb6c736c223e46024a4b2ead1e23e05",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/ForestGroundViewTests.cs": "1cae8e14a72422cc2c53a086274adc30b16cc4dc6a8692730411935798752496",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/GeneratedLevelsTests.cs": "fb5fa140d28a934278b7154ff6e8f1a9a2b576038be3279673838baa9ad32e40",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/LeafCurtainGraphicTests.cs": "363b6610739c5bd40350bbb0f4d251eeda202e2b15f1287a6aa7d4f79bd40e0f",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/LegalConfigurationTests.cs": "abf6ac94f11cc02f3cdcc8b4d18ff76ecd508555465491ba6d3be9b1a73598ef",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/LiveCampContentTests.cs": "756093d41e76ba16bbd429a57d9a12d5589550c187ab408741c9b5622ae18f6c",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/LocalPrivacyDataTests.cs": "c488d673cb735cfac38f3878b7ded4c5d333774d435e390df229ffe411acfc84",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/MenuBackdropTests.cs": "8c7775f6845cafa32637602b64d9659c49a61108df2fb98f4bb14d111c2cc999",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/MonetizationTests.cs": "9a0d003f8dc35056710a8294ef2d6ac9aea3ca75662b4af63857278eb84f2d2d",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/PerformanceCacheTests.cs": "365afdeb722c177138bc31142642a2265590177a261c7b1945cc6bf840ae9a27",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/PlacementTargetTests.cs": "7ee05c082e2a3f1869b7b2830c5bbdbaf196f1fa1f68ae08282f87d060a19400",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/PrimitiveStrippingTests.cs": "0ef80b610708997a73d7b81530625e9e5b632ef2619016358cd9bc7e74f202e5",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/PrivacyAcknowledgementTests.cs": "7d8e5daba1934ab9f673df315d160ada3d29d59deab734f189454ab263e8ae91",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/ProceduralRoadmapTests.cs": "22931fc83d1439ed2ccf5c927e91ffc0495a774d8a1734757c4e43563f0c1230",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/RulesTests.cs": "a1f90f199fa5209982f680f853c40796ae0bae6ae4d3c993a3f5f5d9651f2976",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/SeasonPresentationTests.cs": "1d19f988415f76f94b508079cdc7b27f226746bf184928fe968f80efd8d1a10a",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/SeasonTransitionTests.cs": "f004e50615d80635cc60240fc723be98c4f43c0b3aa2ec606e69584f42a0313a",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/SettingsNavigationTests.cs": "636573c12195556569833a239101bd305bcdd303d92d309e7a164478a541239f",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/TentLivingSpaceTests.cs": "8ac7260ac0c0ef91e286f10512000fe70504ee9bf8abb7c21240b9a2ae6d4453",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/TransitionConfigTests.cs": "f89449512ca047d24ad9a68804023f3adc64d31f3366a37a9f08743a4cb3578c",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/TutorialDirectorTests.cs": "f525d32ead74f4ba6416f728679e4afd8166a1265eb7eeeb54df906afe7959a6",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/VisibleFireContentTests.cs": "cf51005cad4b250e27d13b646eb6bb4f48cfa8a5e14db1aaacddc767b9f5c14c",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/WalkingNetworkTests.cs": "696d24c4cc62d086998807d44c800dad737922981118829d30c40abcc2ddf3e5",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/WindSimTests.cs": "4049c2304aea67d591e7ae8494817be07563b01bd4c2eef06ab64796287cccbf",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/WorldMapRevealTests.cs": "93dfe98ea1c772c96b0d3d2b1c145cd35ef8d4e8573c03fa9431db67fcb7038d",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/WorldMapScaleTests.cs": "c6a42f530fb4308c397cd3219c42464dbea369c9e31e951b7401cda6606fe4da",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/WorldMapTests.cs": "212afca382eee2fe5475f794fed3eabc7c9f785cdb13e60eb4a4fa1364cbd858",
+      "QuietCamp/Assets/QuietCamp/Tests/Editor/WorldStoryTests.cs": "abcbcd1936f59ebe5c6e88a809578963ecc59cfdcba7e55fc94d18a6bebe3d72",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/AtmosphereExtrasPlayModeTests.cs": "3124f1b64e82c84d030c5ae4792d9ea757f1eb60605cf87318cf59c9eae52598",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/AtmospherePlayModeTests.cs": "b1169db855c1a9d03e761dadda54337585c8942e2f8353c3f03aa4ceb96e309c",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/AudioPlayModeTests.cs": "0bf93ea4e47d8de1b5e9207581617da73aedb1f04979f70de5a028c8971cd1be",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/BiomeSurfacePlayModeTests.cs": "fad558fa64992d4f7e29a5408b069dc75eb0acdc769c6953f856969423fafdfc",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/BoardRimPlayModeTests.cs": "3313a0fe99a65d22e8b55464548635dfd51dfeca8e4d01e25bdcb6f232b1fcc1",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/BonusRoadmapPlayModeTests.cs": "e4d7afc3392a7b2396d8e6a2fcf32059920c8b4c1276a290a1edce5ed7bc52e2",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/BootPrivacyPlayModeTests.cs": "13564b7ae434f0ad71e831da73c520c850b849f32e650938b55dbdf568933dd6",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/BootstrapPlayModeTests.cs": "11905ab2849da304fbff773f5324601228c3853d077a2df6f2e3a76103bffad1",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/CampWaterVisualsPlayModeTests.cs": "b526c4ec70f85935be721400bdd585edecd0dac7787a5ef0525e85cfef0f17a8",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/ControlMotionPlayModeTests.cs": "35226196e36138dcd212145a2cd8899e66e8b9fbc54eba3a6c593e3c1c06fc35",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/CozyParticlePlayModeTests.cs": "47eb78c0e4796f087f57583e227fe89ed9a6dad4dca6e530eb637837162c88e3",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/CozyPolishPlayModeTests.cs": "125878ab3d1fe2dfac1f99d8fd0bf0dd0cb20cad0c467ca422ecaf96077510c4",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/CozySystemsPlayModeTests.cs": "8e0c326b60ed4a02deba1b1a245e4921a5892e02f461c5a7fc46c293d3d412c5",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/CozyUnderstoryPlayModeTests.cs": "f236c6d7b4e6cd6a21ba62e133080ee278e4e7a06fcdf731e5c5a1b8b131489b",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/DecorPlayModeTests.cs": "f8a0584bad29d1e1737e0080df925af0d84b5a31171e149dd407297c5f88e8d6",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/EffectsPlayModeTests.cs": "a2efdaa3f56c993c025fd0cac661172fd57553d976bb48fb9c73beefbcb55717",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/EnvironmentPresentationPlayModeTests.cs": "25e98f3bb62b8e666a4969568ff9ea14352ae279a5bb1580920541827bf0777d",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/ExteriorTrailRenderingPlayModeTests.cs": "a41e595f631ba55d0ee97905d6164d9318e2eb2308c3f2c670a987d61f7e2e7e",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/FireTrailsPlayModeTests.cs": "0d3eb6972e998f84babd2c31770c725b15ad63862cfdca27f04e1ee115a186fa",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/FoliageDivePlayModeTests.cs": "82e52b62b740714729f6a51fa5eb82f3e01d2007bef9253c936253ae5dd851a6",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/ForestCoveragePlayModeTests.cs": "2791cf85155172145e53e971e85812be8c5371e8295a52818e46f6d1613c75b4",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/ForestDepthPlayModeTests.cs": "5aa1beca3760cfb3f842ebf06f08817bcb5fe0ad8d8eb294c832a48a2f8fda89",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/ForestLightingPlayModeTests.cs": "00a99eb59ffb4269239c0654d6d5a8e75bb4cad41a07e88fa6a5ac9bcc4cb76b",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/GithubDocumentationCaptureTests.cs": "d6a490670e9490884d2f37cd6d64af3638e8591c48903027664239d578512610",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/HudPlayModeTests.cs": "59de58c1154c2933229a675bef964d62cfb80a04b926e321f3524ae132e0c3f7",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/LiveCampVisualTests.cs": "6946ffcda17ae41fb2b7aea865d04f0e9286fdc4faac3419a10ba862325a72e4",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/LocalDataPrivacyPlayModeTests.cs": "b721607d68e0b4a442968a6ba8db2984148222edbd206e935ec36b05220c1c2a",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/MenuBackdropPlayModeTests.cs": "bcce1de72bb4c2bc6cfff03b97ed23d3b5b49e4572a7a59fc70ee09c4ee80c03",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/MenuMotionPlayModeTests.cs": "93dffcb70660f000c1f0ddcb22174fb9ff5e825e7cd283a84a7983d6c04efc11",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/NativeHtmlUiPlayModeTests.cs": "132d070d981048432abe78977248c01d26a8981b2176e4da70f9ecc07333f581",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/OptimizationPlayModeTests.cs": "40265dbe79f8b92b212bd147a7c4ea5e686945f7f4d75ac99d7384af092b40ff",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/PerformanceAuditPlayModeTests.cs": "83df88667cd1a798de7c1f342acfc5a94ef5906e89235c53faea942d10951b78",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/PlacementCameraPlayModeTests.cs": "65a15bf2ca198042a7fc22802d457eb6ea8ab0bd50bb021770ed2cdf68697d70",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/PlacementPlayModeTests.cs": "d3e2e9c4df68fa5f6158f281fc3fd8af30049811edf4e40ce4c08653a4151741",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/PrivacyBootTestSupport.cs": "cbffe53612cd13432ef12fe0bd99466d470204c6fd0611ca688c0e3e20dfa2a3",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/ProceduralRoadmapPlayModeTests.cs": "37808188b44fd834031200452ad83ce5e2650185f55c6e2214b8aad6a995ec18",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/PuddlesPlayModeTests.cs": "e73ed56e9fe17266b81d843828aa122c2dd33c508f1ca10e1089ce0dd5b85b02",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/RainRunoffPlayModeTests.cs": "d11642c8b5982d3bb8c08dfbf3ec184e4572c0c6fbf965a9f70b3d5b13cc99f0",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/RainShelterPlayModeTests.cs": "11185288d38886b17be1f1bf1780dd07386318e28cee2a8979399b261a33f6e1",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/ResponsiveUiPlayModeTests.cs": "efa600d2e6d7f2ccca6559905fd46b280514b9ee76f74bffef826ced871eed12",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/SceneTransitionPlayModeTests.cs": "fad26a08d453045ff51f058acd11b685afe7c2c8156f71eb51886fc78be069b3",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/ScreenshotPlayModeTest.cs": "2e5f7b42e79d69a4a77bbb353d17f46cf818287196a2a7cc39e7c540552c922b",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/SeasonPresentationPlayModeTests.cs": "d364709ec014d2a7e970c097a1773a4045e8411641aa12754ff6dc9c1911d428",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/SettingsLegalPlayModeTests.cs": "1a743a07e5f4bd53afcc1d96fb9e07dafc55645b63a79236899eac001ec52482",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/SoundscapePlayModeTests.cs": "9ad7e06df5ce8f9c86146af01bf51102bf018241c9a8269ad61934188b74e88c",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/TentLivingSpacePlayModeTests.cs": "9e059c6fde8863c77c1aa7eed6d9e543e9bf69fa91bc6be12258083bd4aa9ca8",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/TouchRoutingPlayModeTests.cs": "6673c16abf40b5d28ae9d0734b5e86201d5d8fb5f108bf7a274fdfec4d6d9a73",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/TutorialFirstMinutePlayModeTests.cs": "ad099fde43582dbcf57b66bee57c83cbf56f01865ffb2531149e30c4a61b5cb7",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/UiShaderPlayModeTests.cs": "6d7eece54190c9962edd3572cce3368c36448582d99b1aab297fb0f3c7b0dab0",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/VegetationShadowPlayModeTests.cs": "13d168aba7e61c587fa92ba2a99cebdb3d6b47df7a3ff335ffe034c15b01e6a0",
+      "QuietCamp/Assets/QuietCamp/Tests/PlayMode/WarmWorldPlayModeTests.cs": "5bdfccfb968155f17bfce1f159b4774d90127e870d4cd5294c217b3921e9b407",
+      "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/LeafFlight.shader": "7c410d8f24b14485a90ec7b4f1029cb0569743aacb9568ea7650607210bec86b"
+    },
+    "sourceState": "working optimization branch",
+    "originalDirtyInputSha256": {
+      "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/level_summaries.json": "ebd884c4b84a95d7f71de897a0ea2170d850bb89924ece29842badf8269971f9",
+      "QuietCamp/Assets/QuietCamp/Settings/URP/UniversalRenderPipelineGlobalSettings.asset": "08f1050e1513f8d6e4be11e61a18e9fcba63c9c81aa00338d36cbaae14625f5d"
+    },
+    "playerBuild": false,
+    "adbCommands": false
+  },
+  "methodology": {
+    "renderedEditor": true,
+    "playerBuild": false,
+    "deepProfiling": false,
+    "workerCount": 1,
+    "targetFps": 60,
+    "vsync": 0,
+    "adaptiveQualityDisabled": true,
+    "audioMasterMuted": true,
+    "profilerCountersArePreviousCompletedFrame": true,
+    "wallIntervalIncludesEditorAndOS": true,
+    "scopesInclusive": true,
+    "syntheticQaProgress": true
+  },
+  "terminalStage": "finished",
+  "frameCount": 676,
+  "spanCount": 28866,
+  "excludedSnapshotFrames": [
+    326,
+    416,
+    567
+  ],
+  "counterHealth": [
+    {
+      "name": "Gfx.WaitForPresentOnGfxThread",
+      "category": "Render",
+      "unit": "TimeNanoseconds",
+      "samples": 673,
+      "nonzeroSamples": 0,
+      "usable": false,
+      "warning": "All zero: unavailable/unsupported; not evidence of zero cost."
+    },
+    {
+      "name": "GC.Collect",
+      "category": "GC",
+      "unit": "TimeNanoseconds",
+      "samples": 673,
+      "nonzeroSamples": 21,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "Main Thread",
+      "category": "Internal",
+      "unit": "TimeNanoseconds",
+      "samples": 673,
+      "nonzeroSamples": 672,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "PlayerLoop",
+      "category": "PlayerLoop",
+      "unit": "TimeNanoseconds",
+      "samples": 673,
+      "nonzeroSamples": 673,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "WaitForTargetFPS",
+      "category": "VSync",
+      "unit": "TimeNanoseconds",
+      "samples": 673,
+      "nonzeroSamples": 672,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "Canvas.BuildBatch",
+      "category": "UI Render",
+      "unit": "TimeNanoseconds",
+      "samples": 673,
+      "nonzeroSamples": 336,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "EditorLoop",
+      "category": "Internal",
+      "unit": "TimeNanoseconds",
+      "samples": 673,
+      "nonzeroSamples": 0,
+      "usable": false,
+      "warning": "All zero: unavailable/unsupported; not evidence of zero cost."
+    },
+    {
+      "name": "Total Used Memory",
+      "category": "Memory",
+      "unit": "Bytes",
+      "samples": 673,
+      "nonzeroSamples": 673,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "GC Used Memory",
+      "category": "Memory",
+      "unit": "Bytes",
+      "samples": 673,
+      "nonzeroSamples": 673,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "GC Allocated In Frame",
+      "category": "Memory",
+      "unit": "Bytes",
+      "samples": 673,
+      "nonzeroSamples": 673,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "Batches Count",
+      "category": "Render",
+      "unit": "Count",
+      "samples": 673,
+      "nonzeroSamples": 0,
+      "usable": false,
+      "warning": "All zero: unavailable/unsupported; not evidence of zero cost."
+    },
+    {
+      "name": "Draw Calls Count",
+      "category": "Render",
+      "unit": "Count",
+      "samples": 673,
+      "nonzeroSamples": 0,
+      "usable": false,
+      "warning": "All zero: unavailable/unsupported; not evidence of zero cost."
+    },
+    {
+      "name": "Vertices Count",
+      "category": "Render",
+      "unit": "Count",
+      "samples": 673,
+      "nonzeroSamples": 509,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "Triangles Count",
+      "category": "Render",
+      "unit": "Count",
+      "samples": 673,
+      "nonzeroSamples": 671,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "SetPass Calls Count",
+      "category": "Render",
+      "unit": "Count",
+      "samples": 673,
+      "nonzeroSamples": 671,
+      "usable": true,
+      "warning": null
+    },
+    {
+      "name": "GPU Frame Time",
+      "category": "Render",
+      "unit": "TimeNanoseconds",
+      "samples": 673,
+      "nonzeroSamples": 0,
+      "usable": false,
+      "warning": "All zero: unavailable/unsupported; not evidence of zero cost."
+    },
+    {
+      "name": "Update.ScriptRunBehaviourUpdate",
+      "category": "PlayerLoop",
+      "unit": "TimeNanoseconds",
+      "samples": 673,
+      "nonzeroSamples": 672,
+      "usable": true,
+      "warning": null
+    }
+  ],
+  "threadAllocationApiUsable": false,
+  "scenarios": [
+    {
+      "stage": "roadmap.boot",
+      "frames": 164,
+      "wallMs": {
+        "samples": 164,
+        "p50": 30.21495,
+        "p95": 130.97413999999998,
+        "p99": 843.421361,
+        "max": 956.4132,
+        "mean": 60.95280487804878
+      },
+      "wallOver33Ms": 67,
+      "wallOver50Ms": 23,
+      "wallOver100Ms": 10,
+      "Gfx.WaitForPresentOnGfxThread": {
+        "samples": 164,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "GC.Collect": {
+        "samples": 164,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 58.632304840000415,
+        "max": 143.688887,
+        "mean": 1.9951947134146342
+      },
+      "Main Thread": {
+        "samples": 164,
+        "p50": 31.06683,
+        "p95": 84.20654074999985,
+        "p99": 1049.6463256700008,
+        "max": 1343.688106,
+        "mean": 60.902885292682925
+      },
+      "PlayerLoop": {
+        "samples": 164,
+        "p50": 6.2662545000000005,
+        "p95": 71.6160642499999,
+        "p99": 1023.3023252100006,
+        "max": 1298.144717,
+        "mean": 40.24368782317073
+      },
+      "WaitForTargetFPS": {
+        "samples": 164,
+        "p50": 0.00036300000000000004,
+        "p95": 0.0006192999999999999,
+        "p99": 0.00075555,
+        "max": 0.000798,
+        "mean": 0.00040982926829268295
+      },
+      "Canvas.BuildBatch": {
+        "samples": 164,
+        "p50": 0.0,
+        "p95": 0.09367784999999985,
+        "p99": 4.4690457100000005,
+        "max": 5.119793,
+        "mean": 0.18719635365853657
+      },
+      "EditorLoop": {
+        "samples": 164,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Total Used Memory": {
+        "samples": 164,
+        "p50": 733402830.0,
+        "p95": 769418918.4,
+        "p99": 778109040.0500001,
+        "max": 793007788,
+        "mean": 732460448.3170732
+      },
+      "GC Used Memory": {
+        "samples": 164,
+        "p50": 92131328.0,
+        "p95": 107034214.4,
+        "p99": 107087339.52,
+        "max": 107094016,
+        "mean": 94843179.70731707
+      },
+      "GC Allocated In Frame": {
+        "samples": 164,
+        "p50": 12320.0,
+        "p95": 569430.45,
+        "p99": 53429744.120000474,
+        "max": 178578755,
+        "mean": 2025326.3963414633
+      },
+      "Batches Count": {
+        "samples": 164,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Draw Calls Count": {
+        "samples": 164,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Vertices Count": {
+        "samples": 164,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Triangles Count": {
+        "samples": 164,
+        "p50": 76259.0,
+        "p95": 201814.0,
+        "p99": 201816.0,
+        "max": 201840,
+        "mean": 106157.61585365854
+      },
+      "SetPass Calls Count": {
+        "samples": 164,
+        "p50": 67.5,
+        "p95": 83.0,
+        "p99": 83.0,
+        "max": 83,
+        "mean": 52.329268292682926
+      },
+      "GPU Frame Time": {
+        "samples": 164,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Update.ScriptRunBehaviourUpdate": {
+        "samples": 164,
+        "p50": 0.171502,
+        "p95": 0.7996640499999997,
+        "p99": 10.491504070000001,
+        "max": 15.041327,
+        "mean": 0.5250263536585366
+      },
+      "gcCollections0": 25
+    },
+    {
+      "stage": "ui.map.open",
+      "frames": 30,
+      "wallMs": {
+        "samples": 30,
+        "p50": 16.5524,
+        "p95": 152.33161999999967,
+        "p99": 1026.100159000001,
+        "max": 1361.7354,
+        "mean": 72.00298666666667
+      },
+      "wallOver33Ms": 4,
+      "wallOver50Ms": 3,
+      "wallOver100Ms": 2,
+      "Gfx.WaitForPresentOnGfxThread": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "GC.Collect": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 5.69504264999997,
+        "p99": 19.930740190000012,
+        "max": 23.842112,
+        "mean": 1.1398911666666667
+      },
+      "Main Thread": {
+        "samples": 30,
+        "p50": 16.728389999999997,
+        "p95": 151.73461609999964,
+        "p99": 1023.8710949500011,
+        "max": 1358.057973,
+        "mean": 72.0087959
+      },
+      "PlayerLoop": {
+        "samples": 30,
+        "p50": 11.8927235,
+        "p95": 144.22854034999966,
+        "p99": 1014.3168769600011,
+        "max": 1348.651896,
+        "mean": 66.3546568
+      },
+      "WaitForTargetFPS": {
+        "samples": 30,
+        "p50": 0.0003325,
+        "p95": 0.0005043499999999999,
+        "p99": 0.00056928,
+        "max": 0.000589,
+        "mean": 0.00035623333333333334
+      },
+      "Canvas.BuildBatch": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 3.904762,
+        "p99": 4.02624191,
+        "max": 4.06824,
+        "mean": 0.6291882
+      },
+      "EditorLoop": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Total Used Memory": {
+        "samples": 30,
+        "p50": 785403546.0,
+        "p95": 803873557.8,
+        "p99": 803917025.64,
+        "max": 803927925,
+        "mean": 787424186
+      },
+      "GC Used Memory": {
+        "samples": 30,
+        "p50": 128954368.0,
+        "p95": 129466163.2,
+        "p99": 130363924.48,
+        "max": 130723840,
+        "mean": 128950408.53333333
+      },
+      "GC Allocated In Frame": {
+        "samples": 30,
+        "p50": 48275.5,
+        "p95": 2860696.19999999,
+        "p99": 30341154.66000003,
+        "max": 40910769,
+        "mean": 1594897.6666666667
+      },
+      "Batches Count": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Draw Calls Count": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Vertices Count": {
+        "samples": 30,
+        "p50": 41746.0,
+        "p95": 50723.0,
+        "p99": 50772.7,
+        "max": 50793,
+        "mean": 41255.8
+      },
+      "Triangles Count": {
+        "samples": 30,
+        "p50": 19602.0,
+        "p95": 23081.1,
+        "p99": 23082.0,
+        "max": 23082,
+        "mean": 19296.966666666667
+      },
+      "SetPass Calls Count": {
+        "samples": 30,
+        "p50": 92.0,
+        "p95": 92.0,
+        "p99": 94.13,
+        "max": 95,
+        "mean": 89.26666666666667
+      },
+      "GPU Frame Time": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Update.ScriptRunBehaviourUpdate": {
+        "samples": 30,
+        "p50": 0.4442745,
+        "p95": 0.6627447,
+        "p99": 10.009158140000011,
+        "max": 13.823944,
+        "mean": 0.9121395666666666
+      },
+      "gcCollections0": 1
+    },
+    {
+      "stage": "ui.map.steady",
+      "frames": 120,
+      "wallMs": {
+        "samples": 120,
+        "p50": 16.078400000000002,
+        "p95": 26.587965,
+        "p99": 30.987801000000005,
+        "max": 31.6606,
+        "mean": 17.122195833333333
+      },
+      "wallOver33Ms": 0,
+      "wallOver50Ms": 0,
+      "wallOver100Ms": 0,
+      "Gfx.WaitForPresentOnGfxThread": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "GC.Collect": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Main Thread": {
+        "samples": 120,
+        "p50": 16.0172945,
+        "p95": 26.620193399999998,
+        "p99": 30.549080440000004,
+        "max": 31.465398,
+        "mean": 17.117843375
+      },
+      "PlayerLoop": {
+        "samples": 120,
+        "p50": 11.218027,
+        "p95": 13.812725249999998,
+        "p99": 18.210332420000004,
+        "max": 19.054227,
+        "mean": 11.619114325
+      },
+      "WaitForTargetFPS": {
+        "samples": 120,
+        "p50": 0.0003235,
+        "p95": 0.0004683,
+        "p99": 0.00052467,
+        "max": 0.00055,
+        "mean": 0.00034465
+      },
+      "Canvas.BuildBatch": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0506023,
+        "p99": 0.06387401000000002,
+        "max": 0.102025,
+        "mean": 0.0111044
+      },
+      "EditorLoop": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Total Used Memory": {
+        "samples": 120,
+        "p50": 783022474.0,
+        "p95": 785678384.75,
+        "p99": 785821204.24,
+        "max": 785870249,
+        "mean": 782955035.2416667
+      },
+      "GC Used Memory": {
+        "samples": 120,
+        "p50": 132073472.0,
+        "p95": 133502566.4,
+        "p99": 133641379.84,
+        "max": 133689344,
+        "mean": 131795592.53333333
+      },
+      "GC Allocated In Frame": {
+        "samples": 120,
+        "p50": 41287.0,
+        "p95": 55334.9,
+        "p99": 57456.0,
+        "max": 57546,
+        "mean": 38916.083333333336
+      },
+      "Batches Count": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Draw Calls Count": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Vertices Count": {
+        "samples": 120,
+        "p50": 41746.0,
+        "p95": 41746.0,
+        "p99": 41746.0,
+        "max": 41746,
+        "mean": 41746
+      },
+      "Triangles Count": {
+        "samples": 120,
+        "p50": 19602.0,
+        "p95": 19602.0,
+        "p99": 19602.0,
+        "max": 19602,
+        "mean": 19602
+      },
+      "SetPass Calls Count": {
+        "samples": 120,
+        "p50": 92.0,
+        "p95": 92.0,
+        "p99": 92.0,
+        "max": 92,
+        "mean": 92
+      },
+      "GPU Frame Time": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Update.ScriptRunBehaviourUpdate": {
+        "samples": 120,
+        "p50": 0.4469785,
+        "p95": 0.6616525,
+        "p99": 0.70330836,
+        "max": 0.716052,
+        "mean": 0.4797265
+      },
+      "gcCollections0": 0
+    },
+    {
+      "stage": "ui.map.sweep",
+      "frames": 89,
+      "wallMs": {
+        "samples": 89,
+        "p50": 77.1375,
+        "p95": 101.2505,
+        "p99": 107.45602800000003,
+        "max": 111.9985,
+        "mean": 78.63264269662922
+      },
+      "wallOver33Ms": 89,
+      "wallOver50Ms": 89,
+      "wallOver100Ms": 6,
+      "Gfx.WaitForPresentOnGfxThread": {
+        "samples": 89,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "GC.Collect": {
+        "samples": 89,
+        "p50": 0.0,
+        "p95": 2.807332399999999,
+        "p99": 10.830127400000004,
+        "max": 11.420361,
+        "mean": 0.49453619101123597
+      },
+      "Main Thread": {
+        "samples": 89,
+        "p50": 77.087133,
+        "p95": 101.078713,
+        "p99": 107.25800120000002,
+        "max": 112.467588,
+        "mean": 78.62754795505619
+      },
+      "PlayerLoop": {
+        "samples": 89,
+        "p50": 68.469724,
+        "p95": 89.42518359999998,
+        "p99": 94.96782720000002,
+        "max": 98.48315,
+        "mean": 69.24357264044944
+      },
+      "WaitForTargetFPS": {
+        "samples": 89,
+        "p50": 0.000455,
+        "p95": 0.0006665999999999998,
+        "p99": 0.0007295200000000003,
+        "max": 0.000792,
+        "mean": 0.00045524719101123595
+      },
+      "Canvas.BuildBatch": {
+        "samples": 89,
+        "p50": 4.229157,
+        "p95": 5.0865848,
+        "p99": 5.45593264,
+        "max": 5.574928,
+        "mean": 3.227953213483146
+      },
+      "EditorLoop": {
+        "samples": 89,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Total Used Memory": {
+        "samples": 89,
+        "p50": 837327364.0,
+        "p95": 862220940.0,
+        "p99": 870077478.48,
+        "max": 875742966,
+        "mean": 837071551.1460674
+      },
+      "GC Used Memory": {
+        "samples": 89,
+        "p50": 136552448.0,
+        "p95": 145539891.2,
+        "p99": 146983321.6,
+        "max": 147001344,
+        "mean": 136663730.33707866
+      },
+      "GC Allocated In Frame": {
+        "samples": 89,
+        "p50": 648652.0,
+        "p95": 977970.0,
+        "p99": 995439.0800000002,
+        "max": 1038435,
+        "mean": 647667.8202247191
+      },
+      "Batches Count": {
+        "samples": 89,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Draw Calls Count": {
+        "samples": 89,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Vertices Count": {
+        "samples": 89,
+        "p50": 58796.0,
+        "p95": 66728.8,
+        "p99": 67797.24,
+        "max": 68063,
+        "mean": 58003.25842696629
+      },
+      "Triangles Count": {
+        "samples": 89,
+        "p50": 26102.0,
+        "p95": 29136.8,
+        "p99": 29451.12,
+        "max": 29584,
+        "mean": 25998.573033707864
+      },
+      "SetPass Calls Count": {
+        "samples": 89,
+        "p50": 84.0,
+        "p95": 99.99999999999997,
+        "p99": 104.0,
+        "max": 104,
+        "mean": 86.10112359550561
+      },
+      "GPU Frame Time": {
+        "samples": 89,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Update.ScriptRunBehaviourUpdate": {
+        "samples": 89,
+        "p50": 0.439487,
+        "p95": 0.6747037999999999,
+        "p99": 0.7614466400000024,
+        "max": 1.223774,
+        "mean": 0.477424202247191
+      },
+      "gcCollections0": 3
+    },
+    {
+      "stage": "ui.map.reposition",
+      "frames": 30,
+      "wallMs": {
+        "samples": 30,
+        "p50": 16.65785,
+        "p95": 36.53636499999998,
+        "p99": 69.65872400000003,
+        "max": 81.7965,
+        "mean": 21.25922
+      },
+      "wallOver33Ms": 2,
+      "wallOver50Ms": 1,
+      "wallOver100Ms": 0,
+      "Gfx.WaitForPresentOnGfxThread": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "GC.Collect": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Main Thread": {
+        "samples": 30,
+        "p50": 16.627217,
+        "p95": 36.36585419999998,
+        "p99": 68.34158699000002,
+        "max": 80.109169,
+        "mean": 21.245303266666667
+      },
+      "PlayerLoop": {
+        "samples": 30,
+        "p50": 11.471823,
+        "p95": 23.332763299999975,
+        "p99": 61.569757670000044,
+        "max": 75.623441,
+        "mean": 14.6945944
+      },
+      "WaitForTargetFPS": {
+        "samples": 30,
+        "p50": 0.0003255,
+        "p95": 0.00045525,
+        "p99": 0.0005486200000000001,
+        "max": 0.000584,
+        "mean": 0.0003451
+      },
+      "Canvas.BuildBatch": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 4.57786565,
+        "p99": 4.67046448,
+        "max": 4.703463,
+        "mean": 0.7525092999999999
+      },
+      "EditorLoop": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Total Used Memory": {
+        "samples": 30,
+        "p50": 839306869.5,
+        "p95": 861054947.95,
+        "p99": 861094061.52,
+        "max": 861105404,
+        "mean": 841470360.9
+      },
+      "GC Used Memory": {
+        "samples": 30,
+        "p50": 142774272.0,
+        "p95": 143142707.2,
+        "p99": 143176744.96,
+        "max": 143183872,
+        "mean": 142769902.93333334
+      },
+      "GC Allocated In Frame": {
+        "samples": 30,
+        "p50": 31545.0,
+        "p95": 43132.64999999999,
+        "p99": 235459.07000000024,
+        "max": 313213,
+        "mean": 43390.433333333334
+      },
+      "Batches Count": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Draw Calls Count": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Vertices Count": {
+        "samples": 30,
+        "p50": 54770.0,
+        "p95": 54780.0,
+        "p99": 54794.2,
+        "max": 54800,
+        "mean": 54770
+      },
+      "Triangles Count": {
+        "samples": 30,
+        "p50": 25397.0,
+        "p95": 25405.0,
+        "p99": 25416.36,
+        "max": 25421,
+        "mean": 25397
+      },
+      "SetPass Calls Count": {
+        "samples": 30,
+        "p50": 85.0,
+        "p95": 85.0,
+        "p99": 85.0,
+        "max": 85,
+        "mean": 85
+      },
+      "GPU Frame Time": {
+        "samples": 30,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Update.ScriptRunBehaviourUpdate": {
+        "samples": 30,
+        "p50": 0.4558915,
+        "p95": 0.6409404999999997,
+        "p99": 0.7283243500000001,
+        "max": 0.742936,
+        "mean": 0.4762672666666667
+      },
+      "gcCollections0": 0
+    },
+    {
+      "stage": "ui.map.drag",
+      "frames": 120,
+      "wallMs": {
+        "samples": 120,
+        "p50": 49.935249999999996,
+        "p95": 65.404325,
+        "p99": 70.599154,
+        "max": 75.9417,
+        "mean": 51.242824166666665
+      },
+      "wallOver33Ms": 119,
+      "wallOver50Ms": 59,
+      "wallOver100Ms": 0,
+      "Gfx.WaitForPresentOnGfxThread": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "GC.Collect": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 9.233541190000015,
+        "max": 11.33553,
+        "mean": 0.23681589166666667
+      },
+      "Main Thread": {
+        "samples": 120,
+        "p50": 49.958633,
+        "p95": 65.2831086,
+        "p99": 70.52332676,
+        "max": 75.322397,
+        "mean": 51.238843583333335
+      },
+      "PlayerLoop": {
+        "samples": 120,
+        "p50": 44.8120205,
+        "p95": 56.86686175,
+        "p99": 61.604294960000004,
+        "max": 71.158046,
+        "mean": 45.493325675
+      },
+      "WaitForTargetFPS": {
+        "samples": 120,
+        "p50": 0.000333,
+        "p95": 0.0005273999999999998,
+        "p99": 0.00063805,
+        "max": 0.000695,
+        "mean": 0.00036848333333333334
+      },
+      "Canvas.BuildBatch": {
+        "samples": 120,
+        "p50": 4.0057659999999995,
+        "p95": 5.1502747,
+        "p99": 5.860521640000001,
+        "max": 6.065703,
+        "mean": 2.7469672916666665
+      },
+      "EditorLoop": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Total Used Memory": {
+        "samples": 120,
+        "p50": 885528575.0,
+        "p95": 922712195.0,
+        "p99": 928872556.12,
+        "max": 933025679,
+        "mean": 885869872.6416667
+      },
+      "GC Used Memory": {
+        "samples": 120,
+        "p50": 136445952.0,
+        "p95": 145559961.6,
+        "p99": 146545786.88,
+        "max": 146927616,
+        "mean": 137047381.33333334
+      },
+      "GC Allocated In Frame": {
+        "samples": 120,
+        "p50": 317576.5,
+        "p95": 337937.05,
+        "p99": 340244.39,
+        "max": 342554,
+        "mean": 309549.61666666664
+      },
+      "Batches Count": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Draw Calls Count": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Vertices Count": {
+        "samples": 120,
+        "p50": 56898.0,
+        "p95": 60116.749999999985,
+        "p99": 70181.51000000001,
+        "max": 71624,
+        "mean": 57689.96666666667
+      },
+      "Triangles Count": {
+        "samples": 120,
+        "p50": 26036.0,
+        "p95": 26611.699999999993,
+        "p99": 30537.61,
+        "max": 31256,
+        "mean": 26021.125
+      },
+      "SetPass Calls Count": {
+        "samples": 120,
+        "p50": 85.0,
+        "p95": 87.05,
+        "p99": 91.0,
+        "max": 91,
+        "mean": 84.45833333333333
+      },
+      "GPU Frame Time": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Update.ScriptRunBehaviourUpdate": {
+        "samples": 120,
+        "p50": 0.45713349999999997,
+        "p95": 0.64801165,
+        "p99": 0.77784538,
+        "max": 0.876814,
+        "mean": 0.486804175
+      },
+      "gcCollections0": 2
+    },
+    {
+      "stage": "ui.map.final-steady",
+      "frames": 120,
+      "wallMs": {
+        "samples": 120,
+        "p50": 17.49635,
+        "p95": 28.108994999999997,
+        "p99": 36.403028,
+        "max": 55.6272,
+        "mean": 19.30222
+      },
+      "wallOver33Ms": 3,
+      "wallOver50Ms": 1,
+      "wallOver100Ms": 0,
+      "Gfx.WaitForPresentOnGfxThread": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "GC.Collect": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 10.111162,
+        "mean": 0.08425968333333334
+      },
+      "Main Thread": {
+        "samples": 120,
+        "p50": 17.473108500000002,
+        "p95": 28.053842249999995,
+        "p99": 36.58584104,
+        "max": 55.10681,
+        "mean": 19.297830583333333
+      },
+      "PlayerLoop": {
+        "samples": 120,
+        "p50": 11.3227485,
+        "p95": 21.003103849999995,
+        "p99": 24.890340640000005,
+        "max": 31.522139,
+        "mean": 12.995112575
+      },
+      "WaitForTargetFPS": {
+        "samples": 120,
+        "p50": 0.00033350000000000003,
+        "p95": 0.0005405,
+        "p99": 0.00058705,
+        "max": 0.001045,
+        "mean": 0.0003708333333333333
+      },
+      "Canvas.BuildBatch": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 4.8533149,
+        "p99": 5.27029991,
+        "max": 5.411935,
+        "mean": 0.3529334
+      },
+      "EditorLoop": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Total Used Memory": {
+        "samples": 120,
+        "p50": 864323173.0,
+        "p95": 889865541.6,
+        "p99": 896819327.76,
+        "max": 903645527,
+        "mean": 866851191.3833333
+      },
+      "GC Used Memory": {
+        "samples": 120,
+        "p50": 132456448.0,
+        "p95": 145495449.6,
+        "p99": 145659822.08,
+        "max": 145694720,
+        "mean": 136652936.53333333
+      },
+      "GC Allocated In Frame": {
+        "samples": 120,
+        "p50": 31483.0,
+        "p95": 39912.2,
+        "p99": 41955.920000000006,
+        "max": 206447,
+        "mean": 34792.11666666667
+      },
+      "Batches Count": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Draw Calls Count": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0,
+        "mean": 0
+      },
+      "Vertices Count": {
+        "samples": 120,
+        "p50": 71644.0,
+        "p95": 71694.0,
+        "p99": 71704.0,
+        "max": 71704,
+        "mean": 71648.33333333333
+      },
+      "Triangles Count": {
+        "samples": 120,
+        "p50": 31272.0,
+        "p95": 31312.0,
+        "p99": 31320.0,
+        "max": 31320,
+        "mean": 31275.466666666667
+      },
+      "SetPass Calls Count": {
+        "samples": 120,
+        "p50": 85.0,
+        "p95": 85.0,
+        "p99": 85.0,
+        "max": 85,
+        "mean": 85
+      },
+      "GPU Frame Time": {
+        "samples": 120,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0,
+        "mean": 0.0
+      },
+      "Update.ScriptRunBehaviourUpdate": {
+        "samples": 120,
+        "p50": 0.477897,
+        "p95": 0.7926303999999998,
+        "p99": 0.9608659300000001,
+        "max": 1.178784,
+        "mean": 0.5274907
+      },
+      "gcCollections0": 1
+    }
+  ],
+  "methods": [
+    {
+      "name": "QC.HtmlSurface.MountDocument",
+      "samples": 11,
+      "p50": 193.2874,
+      "p95": 820.1257,
+      "p99": 1162.8406600000003,
+      "max": 1248.5194,
+      "mean": 235.35933636363634,
+      "worst": {
+        "frame": 176,
+        "stage": "ui.map.open",
+        "name": "QC.HtmlSurface.MountDocument",
+        "startMs": 10093.9808,
+        "durationMs": 1248.5194,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 2588.9527
+    },
+    {
+      "name": "QC.CampSceneHost.Start",
+      "samples": 1,
+      "p50": 524.4299,
+      "p95": 524.4299,
+      "p99": 524.4299,
+      "max": 524.4299,
+      "mean": 524.4299,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.CampSceneHost.Start",
+        "startMs": 3476.018,
+        "durationMs": 524.4299,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 524.4299
+    },
+    {
+      "name": "QC.MenuSceneHost.Start",
+      "samples": 1,
+      "p50": 291.2863,
+      "p95": 291.2863,
+      "p99": 291.2863,
+      "max": 291.2863,
+      "mean": 291.2863,
+      "worst": {
+        "frame": 131,
+        "stage": "roadmap.boot",
+        "name": "QC.MenuSceneHost.Start",
+        "startMs": 7621.0903,
+        "durationMs": 291.2863,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 291.2863
+    },
+    {
+      "name": "QC.MenuSceneHost.BuildWorld",
+      "samples": 1,
+      "p50": 284.4211,
+      "p95": 284.4211,
+      "p99": 284.4211,
+      "max": 284.4211,
+      "mean": 284.4211,
+      "worst": {
+        "frame": 131,
+        "stage": "roadmap.boot",
+        "name": "QC.MenuSceneHost.BuildWorld",
+        "startMs": 7627.2731,
+        "durationMs": 284.4211,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 284.4211
+    },
+    {
+      "name": "QC.CampSceneHost.ConfigureAtmosphere",
+      "samples": 1,
+      "p50": 223.5521,
+      "p95": 223.5521,
+      "p99": 223.5521,
+      "max": 223.5521,
+      "mean": 223.5521,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.CampSceneHost.ConfigureAtmosphere",
+        "startMs": 3749.8187,
+        "durationMs": 223.5521,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 223.5521
+    },
+    {
+      "name": "QC.CampAtmosphere.Configure",
+      "samples": 2,
+      "p50": 163.48555,
+      "p95": 198.52835499999998,
+      "p99": 201.643271,
+      "max": 202.422,
+      "mean": 163.48555,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.CampAtmosphere.Configure",
+        "startMs": 3769.1331,
+        "durationMs": 202.422,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 326.9711
+    },
+    {
+      "name": "QC.SaveAdapter.Save",
+      "samples": 6,
+      "p50": 8.572600000000001,
+      "p95": 145.387725,
+      "p99": 179.90778500000005,
+      "max": 188.5378,
+      "mean": 39.61816666666667,
+      "worst": {
+        "frame": 16,
+        "stage": "roadmap.boot",
+        "name": "QC.SaveAdapter.Save",
+        "startMs": 1805.9093,
+        "durationMs": 188.5378,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 237.70899999999997
+    },
+    {
+      "name": "QC.QuietCampBootstrap.Compose",
+      "samples": 1,
+      "p50": 171.5523,
+      "p95": 171.5523,
+      "p99": 171.5523,
+      "max": 171.5523,
+      "mean": 171.5523,
+      "worst": {
+        "frame": 16,
+        "stage": "roadmap.boot",
+        "name": "QC.QuietCampBootstrap.Compose",
+        "startMs": 2002.5742,
+        "durationMs": 171.5523,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 171.5523
+    },
+    {
+      "name": "QC.CampSceneHost.BuildWorld",
+      "samples": 1,
+      "p50": 163.6783,
+      "p95": 163.6783,
+      "p99": 163.6783,
+      "max": 163.6783,
+      "mean": 163.6783,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.CampSceneHost.BuildWorld",
+        "startMs": 3573.83,
+        "durationMs": 163.6783,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 163.6783
+    },
+    {
+      "name": "QC.LevelLoader.Load",
+      "samples": 2,
+      "p50": 52.066,
+      "p95": 85.3219,
+      "p99": 88.27798,
+      "max": 89.017,
+      "mean": 52.065999999999995,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.LevelLoader.Load",
+        "startMs": 3479.8433,
+        "durationMs": 89.017,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 104.13199999999999
+    },
+    {
+      "name": "QC.LeafCurtainGraphic.OnPopulateMesh",
+      "samples": 2,
+      "p50": 45.586349999999996,
+      "p95": 83.947095,
+      "p99": 87.356939,
+      "max": 88.2094,
+      "mean": 45.58635,
+      "worst": {
+        "frame": 17,
+        "stage": "roadmap.boot",
+        "name": "QC.LeafCurtainGraphic.OnPopulateMesh",
+        "startMs": 2358.9019,
+        "durationMs": 88.2094,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 91.1727
+    },
+    {
+      "name": "QC.EnvironmentComposer.Configure",
+      "samples": 2,
+      "p50": 66.5872,
+      "p95": 75.77179,
+      "p99": 76.588198,
+      "max": 76.7923,
+      "mean": 66.5872,
+      "worst": {
+        "frame": 131,
+        "stage": "roadmap.boot",
+        "name": "QC.EnvironmentComposer.Configure",
+        "startMs": 7803.2245,
+        "durationMs": 76.7923,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 133.1744
+    },
+    {
+      "name": "QC.RoadmapGraphic.EnsureData",
+      "samples": 211,
+      "p50": 0.0003,
+      "p95": 0.0005,
+      "p99": 0.0006,
+      "max": 57.4723,
+      "mean": 0.27272322274881516,
+      "worst": {
+        "frame": 176,
+        "stage": "ui.map.open",
+        "name": "QC.RoadmapGraphic.EnsureData",
+        "startMs": 11282.1579,
+        "durationMs": 57.4723,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 57.54460000000029
+    },
+    {
+      "name": "QC.EnvironmentComposer.Refresh",
+      "samples": 2,
+      "p50": 38.05305,
+      "p95": 54.526695000000004,
+      "p99": 55.99101900000001,
+      "max": 56.3571,
+      "mean": 38.05305,
+      "worst": {
+        "frame": 131,
+        "stage": "roadmap.boot",
+        "name": "QC.EnvironmentComposer.Refresh",
+        "startMs": 7804.7628,
+        "durationMs": 56.3571,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 76.1061
+    },
+    {
+      "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+      "samples": 994,
+      "p50": 0.001,
+      "p95": 13.794889999999999,
+      "p99": 17.436112999999995,
+      "max": 56.2698,
+      "mean": 1.8639356136820926,
+      "worst": {
+        "frame": 177,
+        "stage": "ui.map.open",
+        "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+        "startMs": 11472.8038,
+        "durationMs": 56.2698,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 1852.7520000000163
+    },
+    {
+      "name": "QC.RoadmapGraphic.PaintGlade",
+      "samples": 163,
+      "p50": 8.6726,
+      "p95": 16.03045,
+      "p99": 18.548585999999982,
+      "max": 51.3915,
+      "mean": 9.965952760736196,
+      "worst": {
+        "frame": 177,
+        "stage": "ui.map.open",
+        "name": "QC.RoadmapGraphic.PaintGlade",
+        "startMs": 11473.3951,
+        "durationMs": 51.3915,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 1624.4503000000007
+    },
+    {
+      "name": "QC.RoadmapGraphic.OnPopulateMesh",
+      "samples": 210,
+      "p50": 5.8351500000000005,
+      "p95": 15.519054999999987,
+      "p99": 26.221255999999997,
+      "max": 29.1132,
+      "mean": 8.102608571428572,
+      "worst": {
+        "frame": 382,
+        "stage": "ui.map.sweep",
+        "name": "QC.RoadmapGraphic.OnPopulateMesh",
+        "startMs": 18663.0377,
+        "durationMs": 29.1132,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 1701.5478000000003
+    },
+    {
+      "name": "QC.RoadmapPainter.Shadow",
+      "samples": 11593,
+      "p50": 0.0079,
+      "p95": 0.3477,
+      "p99": 0.4276,
+      "max": 18.5765,
+      "mean": 0.07436658328301561,
+      "worst": {
+        "frame": 177,
+        "stage": "ui.map.open",
+        "name": "QC.RoadmapPainter.Shadow",
+        "startMs": 11496.4933,
+        "durationMs": 18.5765,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 862.1318000000038
+    },
+    {
+      "name": "QC.EnvironmentComposer.BuildShelter",
+      "samples": 2,
+      "p50": 13.329449999999998,
+      "p95": 17.648864999999997,
+      "p99": 18.032812999999997,
+      "max": 18.1288,
+      "mean": 13.329449999999998,
+      "worst": {
+        "frame": 131,
+        "stage": "roadmap.boot",
+        "name": "QC.EnvironmentComposer.BuildShelter",
+        "startMs": 7861.8856,
+        "durationMs": 18.1288,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 26.658899999999996
+    },
+    {
+      "name": "QC.VisibleForestFloor.LateUpdate",
+      "samples": 113,
+      "p50": 1.121,
+      "p95": 2.5058399999999996,
+      "p99": 3.189731999999999,
+      "max": 14.8081,
+      "mean": 1.0545433628318583,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.VisibleForestFloor.LateUpdate",
+        "startMs": 4623.0054,
+        "durationMs": 14.8081,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 119.16339999999997
+    },
+    {
+      "name": "QC.CampAtmosphere.LateUpdate",
+      "samples": 113,
+      "p50": 0.2155,
+      "p95": 0.35699999999999943,
+      "p99": 0.9131239999999999,
+      "max": 13.2804,
+      "mean": 0.35673893805309737,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.CampAtmosphere.LateUpdate",
+        "startMs": 4604.0397,
+        "durationMs": 13.2804,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 40.31149999999999
+    },
+    {
+      "name": "QC.EnvironmentComposer.BuildTile",
+      "samples": 41,
+      "p50": 1.0105,
+      "p95": 4.1845,
+      "p99": 11.396740000000007,
+      "max": 13.2281,
+      "mean": 1.5480829268292682,
+      "worst": {
+        "frame": 131,
+        "stage": "roadmap.boot",
+        "name": "QC.EnvironmentComposer.BuildTile",
+        "startMs": 7835.853,
+        "durationMs": 13.2281,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 63.471399999999996
+    },
+    {
+      "name": "QC.VisibleForestFloor.Configure",
+      "samples": 2,
+      "p50": 5.59615,
+      "p95": 10.408404999999998,
+      "p99": 10.836160999999999,
+      "max": 10.9431,
+      "mean": 5.59615,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.VisibleForestFloor.Configure",
+        "startMs": 3874.1848,
+        "durationMs": 10.9431,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 11.1923
+    },
+    {
+      "name": "QC.EnvironmentComposer.BuildStory",
+      "samples": 2,
+      "p50": 4.719449999999999,
+      "p95": 8.550885,
+      "p99": 8.891456999999999,
+      "max": 8.9766,
+      "mean": 4.71945,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.EnvironmentComposer.BuildStory",
+        "startMs": 3844.1788,
+        "durationMs": 8.9766,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 9.4389
+    },
+    {
+      "name": "QC.CampPuddles.Configure",
+      "samples": 2,
+      "p50": 4.68765,
+      "p95": 8.401185,
+      "p99": 8.731277,
+      "max": 8.8138,
+      "mean": 4.6876500000000005,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.CampPuddles.Configure",
+        "startMs": 3939.4542,
+        "durationMs": 8.8138,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 9.375300000000001
+    },
+    {
+      "name": "QC.CampSceneHost.BuildHud",
+      "samples": 1,
+      "p50": 8.456,
+      "p95": 8.456,
+      "p99": 8.456,
+      "max": 8.456,
+      "mean": 8.456,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.CampSceneHost.BuildHud",
+        "startMs": 3738.5391,
+        "durationMs": 8.456,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 8.456
+    },
+    {
+      "name": "QC.RoadmapSceneGenerator.Generate",
+      "samples": 131,
+      "p50": 0.2223,
+      "p95": 0.4961,
+      "p99": 2.49616999999998,
+      "max": 8.0799,
+      "mean": 0.335206106870229,
+      "worst": {
+        "frame": 176,
+        "stage": "ui.map.open",
+        "name": "QC.RoadmapSceneGenerator.Generate",
+        "startMs": 11359.3979,
+        "durationMs": 8.0799,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 43.912
+    },
+    {
+      "name": "QC.RoadmapGraphic.BonusClearing",
+      "samples": 203,
+      "p50": 2.6618,
+      "p95": 5.3249799999999965,
+      "p99": 6.537201999999994,
+      "max": 7.2536,
+      "mean": 2.9465472906403942,
+      "worst": {
+        "frame": 389,
+        "stage": "ui.map.sweep",
+        "name": "QC.RoadmapGraphic.BonusClearing",
+        "startMs": 19211.9779,
+        "durationMs": 7.2536,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 598.1490999999999
+    },
+    {
+      "name": "QC.CampAtmosphere.RegisterDecor",
+      "samples": 4,
+      "p50": 0.22065,
+      "p95": 5.632249999999998,
+      "p99": 6.395809999999999,
+      "max": 6.5867,
+      "mean": 1.7982,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.CampAtmosphere.RegisterDecor",
+        "startMs": 3975.5287,
+        "durationMs": 6.5867,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 7.1928
+    },
+    {
+      "name": "QC.CameraFitter.Fit",
+      "samples": 8,
+      "p50": 0.03125,
+      "p95": 3.6811899999999973,
+      "p99": 5.235917999999998,
+      "max": 5.6246,
+      "mean": 0.7338875,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.CameraFitter.Fit",
+        "startMs": 3729.461,
+        "durationMs": 5.6246,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 5.8711
+    },
+    {
+      "name": "QC.CampPuddles.Advance",
+      "samples": 115,
+      "p50": 0.0431,
+      "p95": 0.06683,
+      "p99": 0.078794,
+      "max": 4.5267,
+      "mean": 0.08655913043478261,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.CampPuddles.Advance",
+        "startMs": 3943.7356,
+        "durationMs": 4.5267,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 9.9543
+    },
+    {
+      "name": "QC.VisibleForestFloor.Build",
+      "samples": 64,
+      "p50": 1.2659,
+      "p95": 2.688794999999998,
+      "p99": 3.5849929999999963,
+      "max": 4.4726,
+      "mean": 1.5130625,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.VisibleForestFloor.Build",
+        "startMs": 4632.2671,
+        "durationMs": 4.4726,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 96.83599999999996
+    },
+    {
+      "name": "QC.RoadmapWeatherGraphic.OnPopulateMesh",
+      "samples": 275,
+      "p50": 0.4138,
+      "p95": 0.67783,
+      "p99": 0.9829899999999999,
+      "max": 3.351,
+      "mean": 0.45940145454545456,
+      "worst": {
+        "frame": 176,
+        "stage": "ui.map.open",
+        "name": "QC.RoadmapWeatherGraphic.OnPopulateMesh",
+        "startMs": 11380.0524,
+        "durationMs": 3.351,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 126.33539999999995
+    },
+    {
+      "name": "QC.RoadmapGraphic.LateUpdate",
+      "samples": 511,
+      "p50": 0.3549,
+      "p95": 0.6695,
+      "p99": 1.0098999999999998,
+      "max": 3.223,
+      "mean": 0.386879843444227,
+      "worst": {
+        "frame": 177,
+        "stage": "ui.map.open",
+        "name": "QC.RoadmapGraphic.LateUpdate",
+        "startMs": 11455.7897,
+        "durationMs": 3.223,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 197.6955999999998
+    },
+    {
+      "name": "QC.CampWeather.Advance",
+      "samples": 113,
+      "p50": 0.0242,
+      "p95": 0.04651999999999999,
+      "p99": 0.6736759999999979,
+      "max": 3.0768,
+      "mean": 0.06253451327433629,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.CampWeather.Advance",
+        "startMs": 4606.4519,
+        "durationMs": 3.0768,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 7.066400000000003
+    },
+    {
+      "name": "QC.RoadmapPainter.Model",
+      "samples": 12597,
+      "p50": 0.0641,
+      "p95": 0.26735999999999965,
+      "p99": 0.39873599999999915,
+      "max": 3.0569,
+      "mean": 0.09477151702786378,
+      "worst": {
+        "frame": 177,
+        "stage": "ui.map.open",
+        "name": "QC.RoadmapPainter.Model",
+        "startMs": 11483.0588,
+        "durationMs": 3.0569,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 1193.8368000000003
+    },
+    {
+      "name": "QC.FoliageDiveTransition.EnsureOverlay",
+      "samples": 22,
+      "p50": 0.0002,
+      "p95": 0.00039499999999999995,
+      "p99": 2.2741779999999974,
+      "max": 2.8786,
+      "mean": 0.13107272727272729,
+      "worst": {
+        "frame": 16,
+        "stage": "roadmap.boot",
+        "name": "QC.FoliageDiveTransition.EnsureOverlay",
+        "startMs": 2199.0727,
+        "durationMs": 2.8786,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 2.883600000000001
+    },
+    {
+      "name": "QC.CampSceneHost.BuildSession",
+      "samples": 1,
+      "p50": 2.2918,
+      "p95": 2.2918,
+      "p99": 2.2918,
+      "max": 2.2918,
+      "mean": 2.2918,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.CampSceneHost.BuildSession",
+        "startMs": 3569.5037,
+        "durationMs": 2.2918,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 2.2918
+    },
+    {
+      "name": "QC.HtmlSurface.OnLayoutChanged",
+      "samples": 5,
+      "p50": 0.002,
+      "p95": 1.6035199999999996,
+      "p99": 1.8940639999999997,
+      "max": 1.9667,
+      "mean": 0.42463999999999996,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.HtmlSurface.OnLayoutChanged",
+        "startMs": 4382.5695,
+        "durationMs": 1.9667,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 2.1231999999999993
+    },
+    {
+      "name": "QC.RoadmapGraphic.UpdatePool",
+      "samples": 511,
+      "p50": 0.1375,
+      "p95": 0.3422,
+      "p99": 0.48410999999999993,
+      "max": 1.5997,
+      "mean": 0.18152681017612524,
+      "worst": {
+        "frame": 177,
+        "stage": "ui.map.open",
+        "name": "QC.RoadmapGraphic.UpdatePool",
+        "startMs": 11457.1347,
+        "durationMs": 1.5997,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 92.76019999999993
+    },
+    {
+      "name": "QC.LeafCurtainGraphic.SetFrame",
+      "samples": 112,
+      "p50": 0.02345,
+      "p95": 0.035445,
+      "p99": 0.10974200000000003,
+      "max": 1.4227,
+      "mean": 0.038158035714285714,
+      "worst": {
+        "frame": 16,
+        "stage": "roadmap.boot",
+        "name": "QC.LeafCurtainGraphic.SetFrame",
+        "startMs": 2302.2264,
+        "durationMs": 1.4227,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 4.2737
+    },
+    {
+      "name": "QC.CampAtmosphere.RefreshLayout",
+      "samples": 3,
+      "p50": 0.0813,
+      "p95": 0.9598800000000001,
+      "p99": 1.037976,
+      "max": 1.0575,
+      "mean": 0.3985,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.CampAtmosphere.RefreshLayout",
+        "startMs": 3870.6921,
+        "durationMs": 1.0575,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 1.1955
+    },
+    {
+      "name": "QC.FoliageDiveTransition.Update",
+      "samples": 672,
+      "p50": 0.0007,
+      "p95": 0.03703499999999998,
+      "p99": 0.05116699999999992,
+      "max": 0.8095,
+      "mean": 0.007984970238095239,
+      "worst": {
+        "frame": 17,
+        "stage": "roadmap.boot",
+        "name": "QC.FoliageDiveTransition.Update",
+        "startMs": 2357.7789,
+        "durationMs": 0.8095,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 5.365900000000074
+    },
+    {
+      "name": "QC.EnvironmentComposer.BuildEarthContacts",
+      "samples": 2,
+      "p50": 0.4164,
+      "p95": 0.52359,
+      "p99": 0.533118,
+      "max": 0.5355,
+      "mean": 0.4164,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.EnvironmentComposer.BuildEarthContacts",
+        "startMs": 3854.9055,
+        "durationMs": 0.5355,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 0.8328
+    },
+    {
+      "name": "QC.CampPuddles.Build",
+      "samples": 2,
+      "p50": 0.2681,
+      "p95": 0.3248,
+      "p99": 0.32984,
+      "max": 0.3311,
+      "mean": 0.2681,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.CampPuddles.Build",
+        "startMs": 3941.3556,
+        "durationMs": 0.3311,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 0.5362
+    },
+    {
+      "name": "QC.HtmlSurface.ApplyNativeControlTheme",
+      "samples": 35,
+      "p50": 0.0003,
+      "p95": 0.0007499999999999985,
+      "p99": 0.002749999999999991,
+      "max": 0.0036,
+      "mean": 0.00044,
+      "worst": {
+        "frame": 63,
+        "stage": "roadmap.boot",
+        "name": "QC.HtmlSurface.ApplyNativeControlTheme",
+        "startMs": 4383.9843,
+        "durationMs": 0.0036,
+        "allocatedBytes": 0
+      },
+      "inclusiveTotalMs": 0.0154
+    }
+  ],
+  "operations": [],
+  "routeComparisons": [
+    {
+      "direction": "menu-camp",
+      "normal": {
+        "repetitions": 0,
+        "elapsedMs": null,
+        "maxWallMsPerRun": [],
+        "wallOver100Ms": 0
+      },
+      "reduced": {
+        "repetitions": 0,
+        "elapsedMs": null,
+        "maxWallMsPerRun": [],
+        "wallOver100Ms": 0
+      }
+    },
+    {
+      "direction": "camp-menu",
+      "normal": {
+        "repetitions": 0,
+        "elapsedMs": null,
+        "maxWallMsPerRun": [],
+        "wallOver100Ms": 0
+      },
+      "reduced": {
+        "repetitions": 0,
+        "elapsedMs": null,
+        "maxWallMsPerRun": [],
+        "wallOver100Ms": 0
+      }
+    }
+  ],
+  "leafTiers": [
+    {
+      "tier": 0,
+      "meshMs": null,
+      "coveredVertices": []
+    },
+    {
+      "tier": 1,
+      "meshMs": null,
+      "coveredVertices": []
+    },
+    {
+      "tier": 2,
+      "meshMs": null,
+      "coveredVertices": []
+    }
+  ],
+  "snapshots": [
+    {
+      "stage": "ui.map.steady",
+      "frame": 326,
+      "startMs": 14280.3898,
+      "scene": "MainMenu",
+      "levelId": null,
+      "renderers": 0,
+      "meshFilters": 0,
+      "uniqueMeshVertices": 0,
+      "uniqueMaterials": 0,
+      "transforms": 2564,
+      "canvases": 2,
+      "graphics": 1806,
+      "activeLeavesVertices": 0,
+      "managedHeapBytes": 133779456,
+      "unityAllocatedBytes": 502217072,
+      "endMs": 14288.7398
+    },
+    {
+      "stage": "ui.map.sweep",
+      "frame": 416,
+      "startMs": 21365.1382,
+      "scene": "MainMenu",
+      "levelId": null,
+      "renderers": 0,
+      "meshFilters": 0,
+      "uniqueMeshVertices": 0,
+      "uniqueMaterials": 0,
+      "transforms": 2564,
+      "canvases": 2,
+      "graphics": 1806,
+      "activeLeavesVertices": 0,
+      "managedHeapBytes": 142049280,
+      "unityAllocatedBytes": 534800623,
+      "endMs": 21371.6037
+    },
+    {
+      "stage": "ui.map.drag",
+      "frame": 567,
+      "startMs": 28178.9471,
+      "scene": "MainMenu",
+      "levelId": null,
+      "renderers": 0,
+      "meshFilters": 0,
+      "uniqueMeshVertices": 0,
+      "uniqueMaterials": 0,
+      "transforms": 2566,
+      "canvases": 2,
+      "graphics": 1808,
+      "activeLeavesVertices": 0,
+      "managedHeapBytes": 144076800,
+      "unityAllocatedBytes": 562981472,
+      "endMs": 28184.5527
+    }
+  ],
+  "worstFrames": [
+    {
+      "frame": 176,
+      "timestampMs": 11425.3752,
+      "wallMs": 1361.7354,
+      "stage": "ui.map.open",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2889,
+      "mainThreadMs": 1358.057973,
+      "playerLoopMs": 1348.651896,
+      "gcBytes": 40910769,
+      "gcMs": 23.842112,
+      "topSpans": [
+        {
+          "frame": 176,
+          "stage": "ui.map.open",
+          "name": "QC.HtmlSurface.MountDocument",
+          "startMs": 10093.9808,
+          "durationMs": 1248.5194,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 176,
+          "stage": "ui.map.open",
+          "name": "QC.RoadmapGraphic.EnsureData",
+          "startMs": 11282.1579,
+          "durationMs": 57.4723,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 176,
+          "stage": "ui.map.open",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 11355.2894,
+          "durationMs": 20.5318,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 176,
+          "stage": "ui.map.open",
+          "name": "QC.RoadmapSceneGenerator.Generate",
+          "startMs": 11359.3979,
+          "durationMs": 8.0799,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 176,
+          "stage": "ui.map.open",
+          "name": "QC.HtmlSurface.MountDocument",
+          "startMs": 10085.2546,
+          "durationMs": 6.8783,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 176,
+          "stage": "ui.map.open",
+          "name": "QC.RoadmapWeatherGraphic.OnPopulateMesh",
+          "startMs": 11380.0524,
+          "durationMs": 3.351,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 15,
+      "timestampMs": 1758.1488,
+      "wallMs": 956.4132,
+      "stage": "roadmap.boot",
+      "transition": "Idle",
+      "tier": -1,
+      "gc0": 2863,
+      "mainThreadMs": 989.117918,
+      "playerLoopMs": 972.335886,
+      "gcBytes": 6965469,
+      "gcMs": 0.0,
+      "topSpans": []
+    },
+    {
+      "frame": 131,
+      "timestampMs": 8763.6769,
+      "wallMs": 849.6239,
+      "stage": "roadmap.boot",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2887,
+      "mainThreadMs": 1152.708209,
+      "playerLoopMs": 1110.083019,
+      "gcBytes": 178578755,
+      "gcMs": 143.688887,
+      "topSpans": [
+        {
+          "frame": 131,
+          "stage": "roadmap.boot",
+          "name": "QC.MenuSceneHost.Start",
+          "startMs": 7621.0903,
+          "durationMs": 291.2863,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 131,
+          "stage": "roadmap.boot",
+          "name": "QC.MenuSceneHost.BuildWorld",
+          "startMs": 7627.2731,
+          "durationMs": 284.4211,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 131,
+          "stage": "roadmap.boot",
+          "name": "QC.HtmlSurface.MountDocument",
+          "startMs": 7915.179,
+          "durationMs": 254.5834,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 131,
+          "stage": "roadmap.boot",
+          "name": "QC.HtmlSurface.MountDocument",
+          "startMs": 8169.7694,
+          "durationMs": 233.2299,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 131,
+          "stage": "roadmap.boot",
+          "name": "QC.HtmlSurface.MountDocument",
+          "startMs": 8403.0061,
+          "durationMs": 221.8227,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 131,
+          "stage": "roadmap.boot",
+          "name": "QC.CampAtmosphere.Configure",
+          "startMs": 7786.5055,
+          "durationMs": 124.5491,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 63,
+      "timestampMs": 4845.0762,
+      "wallMs": 839.7786,
+      "stage": "roadmap.boot",
+      "transition": "CoveredLoading",
+      "tier": 1,
+      "gc0": 2875,
+      "mainThreadMs": 1343.688106,
+      "playerLoopMs": 1298.144717,
+      "gcBytes": 118768856,
+      "gcMs": 115.484407,
+      "topSpans": [
+        {
+          "frame": 63,
+          "stage": "roadmap.boot",
+          "name": "QC.CampSceneHost.Start",
+          "startMs": 3476.018,
+          "durationMs": 524.4299,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 63,
+          "stage": "roadmap.boot",
+          "name": "QC.HtmlSurface.MountDocument",
+          "startMs": 4016.9891,
+          "durationMs": 391.732,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 63,
+          "stage": "roadmap.boot",
+          "name": "QC.CampSceneHost.ConfigureAtmosphere",
+          "startMs": 3749.8187,
+          "durationMs": 223.5521,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 63,
+          "stage": "roadmap.boot",
+          "name": "QC.CampAtmosphere.Configure",
+          "startMs": 3769.1331,
+          "durationMs": 202.422,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 63,
+          "stage": "roadmap.boot",
+          "name": "QC.HtmlSurface.MountDocument",
+          "startMs": 4408.7286,
+          "durationMs": 193.2874,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 63,
+          "stage": "roadmap.boot",
+          "name": "QC.CampSceneHost.BuildWorld",
+          "startMs": 3573.83,
+          "durationMs": 163.6783,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 62,
+      "timestampMs": 4005.2971,
+      "wallMs": 612.5897,
+      "stage": "roadmap.boot",
+      "transition": "CoveredLoading",
+      "tier": 1,
+      "gc0": 2867,
+      "mainThreadMs": 32.51407,
+      "playerLoopMs": 2.510497,
+      "gcBytes": 19002,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 62,
+          "stage": "roadmap.boot",
+          "name": "QC.FoliageDiveTransition.Update",
+          "startMs": 3392.7833,
+          "durationMs": 0.0161,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 62,
+          "stage": "roadmap.boot",
+          "name": "QC.LeafCurtainGraphic.SetFrame",
+          "startMs": 3392.7853,
+          "durationMs": 0.0131,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 16,
+      "timestampMs": 2343.5568,
+      "wallMs": 585.4079,
+      "stage": "roadmap.boot",
+      "transition": "Covering",
+      "tier": 1,
+      "gc0": 2864,
+      "mainThreadMs": 602.320182,
+      "playerLoopMs": 592.886835,
+      "gcBytes": 3476082,
+      "gcMs": 14.505758,
+      "topSpans": [
+        {
+          "frame": 16,
+          "stage": "roadmap.boot",
+          "name": "QC.SaveAdapter.Save",
+          "startMs": 1805.9093,
+          "durationMs": 188.5378,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 16,
+          "stage": "roadmap.boot",
+          "name": "QC.QuietCampBootstrap.Compose",
+          "startMs": 2002.5742,
+          "durationMs": 171.5523,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 16,
+          "stage": "roadmap.boot",
+          "name": "QC.LeafCurtainGraphic.OnPopulateMesh",
+          "startMs": 2329.4349,
+          "durationMs": 2.9633,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 16,
+          "stage": "roadmap.boot",
+          "name": "QC.FoliageDiveTransition.EnsureOverlay",
+          "startMs": 2199.0727,
+          "durationMs": 2.8786,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 16,
+          "stage": "roadmap.boot",
+          "name": "QC.LeafCurtainGraphic.SetFrame",
+          "startMs": 2302.2264,
+          "durationMs": 1.4227,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 14,
+      "timestampMs": 801.7361,
+      "wallMs": 572.5259,
+      "stage": "roadmap.boot",
+      "transition": "Idle",
+      "tier": -1,
+      "gc0": 2863,
+      "mainThreadMs": 661.172984,
+      "playerLoopMs": 640.111193,
+      "gcBytes": 1901767,
+      "gcMs": 25.242975,
+      "topSpans": []
+    },
+    {
+      "frame": 130,
+      "timestampMs": 7914.0525,
+      "wallMs": 384.6759,
+      "stage": "roadmap.boot",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2877,
+      "mainThreadMs": 40.22143,
+      "playerLoopMs": 27.127937,
+      "gcBytes": 116847,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 130,
+          "stage": "roadmap.boot",
+          "name": "QC.VisibleForestFloor.LateUpdate",
+          "startMs": 7530.4577,
+          "durationMs": 0.6051,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 130,
+          "stage": "roadmap.boot",
+          "name": "QC.CampAtmosphere.LateUpdate",
+          "startMs": 7530.229,
+          "durationMs": 0.1849,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 130,
+          "stage": "roadmap.boot",
+          "name": "QC.CampPuddles.Advance",
+          "startMs": 7530.3576,
+          "durationMs": 0.0422,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 130,
+          "stage": "roadmap.boot",
+          "name": "QC.CampWeather.Advance",
+          "startMs": 7530.2473,
+          "durationMs": 0.0181,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 130,
+          "stage": "roadmap.boot",
+          "name": "QC.FoliageDiveTransition.Update",
+          "startMs": 7529.5826,
+          "durationMs": 0.0007,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 130,
+          "stage": "roadmap.boot",
+          "name": "QC.HtmlSurface.ApplyNativeControlTheme",
+          "startMs": 7530.2245,
+          "durationMs": 0.0005,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 177,
+      "timestampMs": 11629.7476,
+      "wallMs": 204.3725,
+      "stage": "ui.map.open",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2890,
+      "mainThreadMs": 205.689428,
+      "playerLoopMs": 195.77252,
+      "gcBytes": 4463823,
+      "gcMs": 10.354623,
+      "topSpans": [
+        {
+          "frame": 177,
+          "stage": "ui.map.open",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 11472.8038,
+          "durationMs": 56.2698,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 177,
+          "stage": "ui.map.open",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 11473.3951,
+          "durationMs": 51.3915,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 177,
+          "stage": "ui.map.open",
+          "name": "QC.RoadmapPainter.Shadow",
+          "startMs": 11496.4933,
+          "durationMs": 18.5765,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 177,
+          "stage": "ui.map.open",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 11529.1248,
+          "durationMs": 16.125,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 177,
+          "stage": "ui.map.open",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 11573.6182,
+          "durationMs": 16.0049,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 177,
+          "stage": "ui.map.open",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 11545.2964,
+          "durationMs": 14.3872,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 13,
+      "timestampMs": 229.2097,
+      "wallMs": 151.5591,
+      "stage": "roadmap.boot",
+      "transition": "Idle",
+      "tier": -1,
+      "gc0": 2863,
+      "mainThreadMs": 14.65809,
+      "playerLoopMs": 1.664961,
+      "gcBytes": 145507,
+      "gcMs": 0.0,
+      "topSpans": []
+    },
+    {
+      "frame": 129,
+      "timestampMs": 7529.3771,
+      "wallMs": 131.2343,
+      "stage": "roadmap.boot",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2875,
+      "mainThreadMs": 110.925755,
+      "playerLoopMs": 105.883613,
+      "gcBytes": 2037231,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 129,
+          "stage": "roadmap.boot",
+          "name": "QC.HtmlSurface.MountDocument",
+          "startMs": 7427.0076,
+          "durationMs": 29.8327,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 129,
+          "stage": "roadmap.boot",
+          "name": "QC.SaveAdapter.Save",
+          "startMs": 7399.7374,
+          "durationMs": 8.516,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 129,
+          "stage": "roadmap.boot",
+          "name": "QC.SaveAdapter.Save",
+          "startMs": 7417.0941,
+          "durationMs": 8.1298,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 129,
+          "stage": "roadmap.boot",
+          "name": "QC.SaveAdapter.Save",
+          "startMs": 7408.9271,
+          "durationMs": 7.9587,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 129,
+          "stage": "roadmap.boot",
+          "name": "QC.CampAtmosphere.LateUpdate",
+          "startMs": 7457.6993,
+          "durationMs": 0.9137,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 129,
+          "stage": "roadmap.boot",
+          "name": "QC.HtmlSurface.MountDocument",
+          "startMs": 7456.8478,
+          "durationMs": 0.8469,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 17,
+      "timestampMs": 2473.0567,
+      "wallMs": 129.4999,
+      "stage": "roadmap.boot",
+      "transition": "Covering",
+      "tier": 1,
+      "gc0": 2865,
+      "mainThreadMs": 131.036349,
+      "playerLoopMs": 119.302311,
+      "gcBytes": 15055980,
+      "gcMs": 8.623624,
+      "topSpans": [
+        {
+          "frame": 17,
+          "stage": "roadmap.boot",
+          "name": "QC.LeafCurtainGraphic.OnPopulateMesh",
+          "startMs": 2358.9019,
+          "durationMs": 88.2094,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 17,
+          "stage": "roadmap.boot",
+          "name": "QC.FoliageDiveTransition.Update",
+          "startMs": 2357.7789,
+          "durationMs": 0.8095,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 17,
+          "stage": "roadmap.boot",
+          "name": "QC.LeafCurtainGraphic.SetFrame",
+          "startMs": 2357.8611,
+          "durationMs": 0.1161,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 350,
+      "timestampMs": 16203.7513,
+      "wallMs": 111.9985,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2890,
+      "mainThreadMs": 112.467588,
+      "playerLoopMs": 88.079134,
+      "gcBytes": 465875,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 350,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 16131.1886,
+          "durationMs": 17.4336,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 350,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 16131.1911,
+          "durationMs": 15.6232,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 350,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 16148.6793,
+          "durationMs": 15.4249,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 350,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 16148.6832,
+          "durationMs": 13.948,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 350,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 16118.1813,
+          "durationMs": 11.4032,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 350,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.BonusClearing",
+          "startMs": 16126.5277,
+          "durationMs": 3.0427,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 382,
+      "timestampMs": 18733.0805,
+      "wallMs": 106.8366,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2892,
+      "mainThreadMs": 106.547603,
+      "playerLoopMs": 98.48315,
+      "gcBytes": 694597,
+      "gcMs": 11.420361,
+      "topSpans": [
+        {
+          "frame": 382,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 18663.0377,
+          "durationMs": 29.1132,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 382,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 18693.9314,
+          "durationMs": 14.8585,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 382,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 18693.9383,
+          "durationMs": 13.4359,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 382,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.BonusClearing",
+          "startMs": 18689.3208,
+          "durationMs": 2.8251,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 382,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.LateUpdate",
+          "startMs": 18631.7478,
+          "durationMs": 1.0111,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 382,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.UpdatePool",
+          "startMs": 18632.0632,
+          "durationMs": 0.593,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 402,
+      "timestampMs": 20361.0297,
+      "wallMs": 105.7946,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2892,
+      "mainThreadMs": 106.105584,
+      "playerLoopMs": 94.138691,
+      "gcBytes": 944016,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 402,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 20284.9664,
+          "durationMs": 28.6264,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 402,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 20315.7215,
+          "durationMs": 16.4239,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 402,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 20315.7251,
+          "durationMs": 14.5417,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 402,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.BonusClearing",
+          "startMs": 20307.9701,
+          "durationMs": 5.6142,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 402,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapPainter.Model",
+          "startMs": 20318.037,
+          "durationMs": 0.6775,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 402,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapPainter.Model",
+          "startMs": 20317.0077,
+          "durationMs": 0.5687,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 353,
+      "timestampMs": 16452.8258,
+      "wallMs": 104.3627,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2890,
+      "mainThreadMs": 104.22556,
+      "playerLoopMs": 94.488465,
+      "gcBytes": 471602,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 353,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 16385.0229,
+          "durationMs": 22.9554,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 353,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 16385.0273,
+          "durationMs": 21.016,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 353,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 16408.0188,
+          "durationMs": 18.9535,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 353,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 16408.022,
+          "durationMs": 16.5165,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 353,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 16374.168,
+          "durationMs": 8.3645,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 353,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.BonusClearing",
+          "startMs": 16379.7102,
+          "durationMs": 2.8012,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 403,
+      "timestampMs": 20462.5565,
+      "wallMs": 101.5267,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2893,
+      "mainThreadMs": 101.415355,
+      "playerLoopMs": 93.22811,
+      "gcBytes": 893866,
+      "gcMs": 10.351668,
+      "topSpans": [
+        {
+          "frame": 403,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 20421.9093,
+          "durationMs": 16.7876,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 403,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 20421.9109,
+          "durationMs": 15.2391,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 403,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 20406.9523,
+          "durationMs": 13.3596,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 403,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.BonusClearing",
+          "startMs": 20417.7568,
+          "durationMs": 2.5517,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 403,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.LateUpdate",
+          "startMs": 20364.798,
+          "durationMs": 0.8907,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 403,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapWeatherGraphic.OnPopulateMesh",
+          "startMs": 20420.9928,
+          "durationMs": 0.5156,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 378,
+      "timestampMs": 18356.9335,
+      "wallMs": 100.8362,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2891,
+      "mainThreadMs": 100.57375,
+      "playerLoopMs": 88.882933,
+      "gcBytes": 687533,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 378,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 18294.7954,
+          "durationMs": 17.6778,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 378,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 18294.7976,
+          "durationMs": 16.1531,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 378,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 18312.512,
+          "durationMs": 15.1587,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 378,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 18312.5152,
+          "durationMs": 13.6436,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 378,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 18283.4641,
+          "durationMs": 9.4362,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 378,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.BonusClearing",
+          "startMs": 18290.7223,
+          "durationMs": 2.1726,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 400,
+      "timestampMs": 20160.704,
+      "wallMs": 99.4066,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2892,
+      "mainThreadMs": 99.703697,
+      "playerLoopMs": 89.786684,
+      "gcBytes": 874181,
+      "gcMs": 2.513672,
+      "topSpans": [
+        {
+          "frame": 400,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 20102.4247,
+          "durationMs": 16.9841,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 400,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 20119.4441,
+          "durationMs": 16.0748,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 400,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 20119.4472,
+          "durationMs": 14.9802,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 400,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 20102.4266,
+          "durationMs": 14.9718,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 400,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 20086.1192,
+          "durationMs": 14.6946,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 400,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.BonusClearing",
+          "startMs": 20098.1426,
+          "durationMs": 2.6638,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 395,
+      "timestampMs": 19737.1378,
+      "wallMs": 95.929,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2892,
+      "mainThreadMs": 95.215105,
+      "playerLoopMs": 86.283283,
+      "gcBytes": 827054,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 395,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 19696.4943,
+          "durationMs": 17.8539,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 395,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 19696.4978,
+          "durationMs": 15.8806,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 395,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 19671.3186,
+          "durationMs": 13.533,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 395,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 19686.6424,
+          "durationMs": 9.8139,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 395,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 19686.6444,
+          "durationMs": 8.6726,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 395,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.BonusClearing",
+          "startMs": 19680.2019,
+          "durationMs": 4.6378,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 392,
+      "timestampMs": 19518.3049,
+      "wallMs": 94.8758,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2892,
+      "mainThreadMs": 95.098965,
+      "playerLoopMs": 86.039229,
+      "gcBytes": 835089,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 392,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 19451.8567,
+          "durationMs": 13.4964,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 392,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 19475.5953,
+          "durationMs": 11.4548,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 392,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 19475.5993,
+          "durationMs": 9.9926,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 392,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 19467.2197,
+          "durationMs": 8.3448,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 392,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 19467.222,
+          "durationMs": 7.3682,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 392,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 19487.0853,
+          "durationMs": 5.7457,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 374,
+      "timestampMs": 18027.8736,
+      "wallMs": 94.7677,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2891,
+      "mainThreadMs": 95.333417,
+      "playerLoopMs": 83.915262,
+      "gcBytes": 648652,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 374,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 17967.846,
+          "durationMs": 18.4568,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 374,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 17967.8497,
+          "durationMs": 16.5143,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 374,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 17986.3709,
+          "durationMs": 12.1368,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 374,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 17986.3809,
+          "durationMs": 10.0314,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 374,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 17956.3595,
+          "durationMs": 9.5659,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 374,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.BonusClearing",
+          "startMs": 17962.8304,
+          "durationMs": 3.0787,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 401,
+      "timestampMs": 20255.2351,
+      "wallMs": 94.5311,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2892,
+      "mainThreadMs": 93.870668,
+      "playerLoopMs": 80.160749,
+      "gcBytes": 920685,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 401,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 20205.3261,
+          "durationMs": 18.5227,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 401,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 20205.328,
+          "durationMs": 17.0363,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 401,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 20188.5869,
+          "durationMs": 15.101,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 401,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.BonusClearing",
+          "startMs": 20201.3827,
+          "durationMs": 2.3018,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 401,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapWeatherGraphic.OnPopulateMesh",
+          "startMs": 20204.3205,
+          "durationMs": 0.6061,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 401,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.LateUpdate",
+          "startMs": 20164.985,
+          "durationMs": 0.5853,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 388,
+      "timestampMs": 19192.1021,
+      "wallMs": 93.5687,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2892,
+      "mainThreadMs": 94.231929,
+      "playerLoopMs": 84.332497,
+      "gcBytes": 810339,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 388,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 19135.7898,
+          "durationMs": 12.7574,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 388,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 19150.947,
+          "durationMs": 10.5004,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 388,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 19161.4882,
+          "durationMs": 10.0476,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 388,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 19161.4916,
+          "durationMs": 9.2118,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 388,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 19150.9533,
+          "durationMs": 8.7725,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 388,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.BonusClearing",
+          "startMs": 19145.2168,
+          "durationMs": 3.3067,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 379,
+      "timestampMs": 18448.9716,
+      "wallMs": 92.038,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2891,
+      "mainThreadMs": 91.819678,
+      "playerLoopMs": 83.71698,
+      "gcBytes": 677921,
+      "gcMs": 2.867692,
+      "topSpans": [
+        {
+          "frame": 379,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 18401.0699,
+          "durationMs": 16.2627,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 379,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 18401.073,
+          "durationMs": 14.7071,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 379,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 18385.7577,
+          "durationMs": 13.1013,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 379,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 18417.3764,
+          "durationMs": 10.1527,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 379,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 18417.3812,
+          "durationMs": 8.4644,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 379,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.BonusClearing",
+          "startMs": 18395.7445,
+          "durationMs": 3.0989,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 383,
+      "timestampMs": 18824.7889,
+      "wallMs": 91.7084,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2892,
+      "mainThreadMs": 92.581272,
+      "playerLoopMs": 83.810911,
+      "gcBytes": 728773,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 383,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 18769.834,
+          "durationMs": 16.211,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 383,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 18786.0795,
+          "durationMs": 15.224,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 383,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 18769.8358,
+          "durationMs": 14.3634,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 383,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 18786.0827,
+          "durationMs": 14.1784,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 383,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 18757.0693,
+          "durationMs": 11.0521,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 383,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.BonusClearing",
+          "startMs": 18764.9261,
+          "durationMs": 3.1876,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 355,
+      "timestampMs": 16620.5232,
+      "wallMs": 91.6244,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2891,
+      "mainThreadMs": 91.505611,
+      "playerLoopMs": 82.44194,
+      "gcBytes": 555908,
+      "gcMs": 10.749641,
+      "topSpans": [
+        {
+          "frame": 355,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 16554.8879,
+          "durationMs": 26.3123,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 355,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 16583.3911,
+          "durationMs": 11.6879,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 355,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 16583.3932,
+          "durationMs": 10.1063,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 355,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.BonusClearing",
+          "startMs": 16575.5281,
+          "durationMs": 5.6583,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 355,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapPainter.Shadow",
+          "startMs": 16587.4773,
+          "durationMs": 0.8463,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 355,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapPainter.Shadow",
+          "startMs": 16583.81,
+          "durationMs": 0.6156,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 409,
+      "timestampMs": 20949.7962,
+      "wallMs": 91.4448,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2893,
+      "mainThreadMs": 91.173478,
+      "playerLoopMs": 83.021369,
+      "gcBytes": 980442,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 409,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 20884.8749,
+          "durationMs": 14.9814,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 409,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 20901.3922,
+          "durationMs": 14.7962,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 409,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 20916.2487,
+          "durationMs": 13.5624,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 409,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 20901.3941,
+          "durationMs": 13.311,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 409,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 20916.253,
+          "durationMs": 11.2608,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 409,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.BonusClearing",
+          "startMs": 20896.4188,
+          "durationMs": 3.4298,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 404,
+      "timestampMs": 20553.5244,
+      "wallMs": 90.9679,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2893,
+      "mainThreadMs": 91.194756,
+      "playerLoopMs": 80.370046,
+      "gcBytes": 921211,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 404,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 20501.687,
+          "durationMs": 16.2097,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 404,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 20501.6891,
+          "durationMs": 14.2205,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 404,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 20487.3477,
+          "durationMs": 12.5766,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 404,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 20517.9352,
+          "durationMs": 8.6618,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 404,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 20517.942,
+          "durationMs": 7.8571,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 404,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.BonusClearing",
+          "startMs": 20497.2019,
+          "durationMs": 2.7146,
+          "allocatedBytes": 0
+        }
+      ]
+    },
+    {
+      "frame": 398,
+      "timestampMs": 19978.229,
+      "wallMs": 90.5057,
+      "stage": "ui.map.sweep",
+      "transition": "Idle",
+      "tier": 2,
+      "gc0": 2892,
+      "mainThreadMs": 90.274897,
+      "playerLoopMs": 66.871911,
+      "gcBytes": 833158,
+      "gcMs": 0.0,
+      "topSpans": [
+        {
+          "frame": 398,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGladeGraphic.OnPopulateMesh",
+          "startMs": 19925.4625,
+          "durationMs": 17.4695,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 398,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.PaintGlade",
+          "startMs": 19925.4641,
+          "durationMs": 16.0453,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 398,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.OnPopulateMesh",
+          "startMs": 19911.6352,
+          "durationMs": 12.468,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 398,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapGraphic.BonusClearing",
+          "startMs": 19921.6124,
+          "durationMs": 2.4871,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 398,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapPainter.Shadow",
+          "startMs": 19932.6755,
+          "durationMs": 0.4531,
+          "allocatedBytes": 0
+        },
+        {
+          "frame": 398,
+          "stage": "ui.map.sweep",
+          "name": "QC.RoadmapPainter.Shadow",
+          "startMs": 19936.7304,
+          "durationMs": 0.4302,
+          "allocatedBytes": 0
+        }
+      ]
+    }
+  ],
+  "instrumentationOverhead": {
+    "frameValueArrayBytesApprox": 136,
+    "frameCount": 676,
+    "spanCount": 28866
+  },
+  "rawJsonSha256": "e3f6f4a196c2fca5309a6c3798029166a6ffb49667d0ff5bc50426134e640c03"
+}
