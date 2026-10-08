@@ -7,14 +7,19 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent.parent
 PROJECT = ROOT / "QuietCamp"
-ARTIFACTS = PROJECT / "Library/Bee/artifacts/1300b0aEDbg.dag"
+ARTIFACTS = Path(os.environ.get("QC_UNITY_ARTIFACTS", str(PROJECT / "Library/Bee/artifacts")))
 
 
 def main():
     sdk = subprocess.check_output(["dotnet", "--list-sdks"], text=True).splitlines()[-1]
     version, directory = sdk.split(" ", 1)
     compiler = Path(directory.strip("[]")) / version / "Roslyn/bincore/csc.dll"
-    assemblies = [("Domain", "Scripts/Domain"), ("Application", "Scripts/Application"),
+    assemblies = [("Kruty1918.LevelKit", "Packages/com.kruty1918.levelkit/Runtime"),
+                  ("Kruty1918.Atmos", "Packages/com.kruty1918.atmos/Runtime"),
+                  ("Kruty1918.LevelGen", "Packages/com.kruty1918.levelgen/Runtime"),
+                  ("Kruty1918.LevelGen.LevelKitBridge", "Packages/com.kruty1918.levelgen/Runtime/LevelKitBridge"),
+                  ("Kruty1918.AgentVerify", "Packages/com.kruty1918.agentverify/Runtime"),
+                  ("Domain", "Scripts/Domain"), ("Application", "Scripts/Application"),
                   ("Infrastructure", "Scripts/Infrastructure"), ("Presentation", "Scripts/Presentation"),
                   ("Tests.Editor", "Tests/Editor"), ("Tests.PlayMode", "Tests/PlayMode")]
     if "--include-editor" in sys.argv:
@@ -23,10 +28,13 @@ def main():
         output = Path(temporary)
         compiled = {}
         for name, folder in assemblies:
-            assembly = "QuietCamp." + name
-            original = ARTIFACTS / (assembly + ".rsp")
-            if not original.exists():
-                raise RuntimeError("Missing existing Unity compiler response: " + str(original))
+            is_package = name.startswith("Kruty1918.")
+            assembly = name if is_package else "QuietCamp." + name
+            template = "QuietCamp.Presentation" if is_package else assembly
+            candidates = [path for path in ARTIFACTS.glob("*E*.dag/" + template + ".rsp")]
+            if not candidates:
+                raise RuntimeError("Missing existing Unity compiler response: " + assembly)
+            original = max(candidates, key=lambda path: path.stat().st_mtime)
             options = []
             for line in original.read_text().splitlines():
                 if line.startswith(("-out:", "-refout:")) or line.strip('"').endswith(".cs"):
@@ -34,6 +42,8 @@ def main():
                 if line.startswith("-r:"):
                     reference = Path(line[3:].strip('"'))
                     stem = reference.name.removesuffix(".ref.dll").removesuffix(".dll")
+                    if is_package and stem.startswith("QuietCamp."):
+                        continue
                     if stem in compiled:
                         line = '-r:"' + str(compiled[stem]) + '"'
                     elif not reference.is_absolute() and not (PROJECT / reference).exists():
@@ -51,7 +61,17 @@ def main():
                         options.append('-r:"' + str(cached) + '"')
             destination = output / (assembly + ".dll")
             options.extend(['-out:"' + str(destination) + '"', '-refout:"' + str(output / (assembly + ".ref.dll")) + '"'])
-            options.extend('"' + str(path) + '"' for path in sorted((PROJECT / "Assets/QuietCamp" / folder).rglob("*.cs")))
+            source_root = PROJECT / folder if is_package else PROJECT / "Assets/QuietCamp" / folder
+            sources = sorted(source_root.rglob("*.cs"))
+            if name == "Kruty1918.LevelGen":
+                sources = [path for path in sources if "LevelKitBridge" not in path.parts]
+            if name == "Kruty1918.LevelGen.LevelKitBridge":
+                options.append("-define:KRUTY1918_LEVELKIT")
+            # The saved Bee graph predates the restored packages. Include their
+            # freshly compiled references rather than relying on stale caches.
+            options.extend('-r:"' + str(path) + '"' for key, path in compiled.items()
+                           if key.startswith("Kruty1918."))
+            options.extend('"' + str(path) + '"' for path in sources)
             response = output / (assembly + ".rsp")
             response.write_text("\n".join(options) + "\n")
             result = subprocess.run(["dotnet", str(compiler), "@" + str(response)], cwd=PROJECT,
