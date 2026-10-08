@@ -59,6 +59,10 @@
 | [Hydro Power Dam](https://sketchfab.com/3d-models/hydro-power-dam-e46fcc415d6f4ff4b1b9049311a53f56) | shaun.in.3d1 / OpenEnergy3D · Free Standard | not-approved-for-repository-redistribution | Do not import until redistribution permission is verified; use original fictional dam study meanwhile. |
 | [Low Poly Cargo Ship](https://sketchfab.com/3d-models/low-poly-cargo-ship-4c22cbaf01c1427f8ab60b3a07b1b32c) | Javier_Fernandez · CC-BY-4.0 | already-present-donor-restyled-this-change | Welded QEM at 1100/650/300 triangles; shared five-color palette, flat normals, no UV/texture payload, one LOD origin/height. |
 
+## Source continuation status
+
+[Поточні source зміни і перевірки](../NATIVE-FINISH-2026-10-08-UA.md): forest 1–10, adjacent yards, broken conductors і dam surfaces; нових native captures немає.
+
 ## Оптимізація й перевірка
 
 Нові власні моделі: flat normals, shared palette, без текстур/rig/анімаційних кліпів, 6–932 трикутники на меш. Деталі, невидимі з висоти, не збільшувати штучно. Дві LOD-версії рослинності та дамби; fallen pylon не використовується як жива опора мережі.

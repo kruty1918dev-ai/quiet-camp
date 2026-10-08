@@ -73,7 +73,7 @@ def files_for():
         "| Кандидат | Автор / ліцензія | Статус | Адаптація |", "|---|---|---|---|"]
     for c in candidates["candidates"]:
         md.append(f"| [{c['title']}]({c['url']}) | {c['author']} · {c['license']} | {c['status']} | {c['adaptation']} |")
-    md += ["", "## Оптимізація й перевірка", "",
+    md += ["", "## Source continuation status\n\n[Поточні source зміни і перевірки](../NATIVE-FINISH-2026-10-08-UA.md): forest 1–10, adjacent yards, broken conductors і dam surfaces; нових native captures немає.\n\n## Оптимізація й перевірка", "",
         "Нові власні моделі: flat normals, shared palette, без текстур/rig/анімаційних кліпів, 6–932 трикутники на меш. Деталі, невидимі з висоти, не збільшувати штучно. Дві LOD-версії рослинності та дамби; fallen pylon не використовується як жива опора мережі.",
         "Корабель: 2 384 → 1 100 трикутників, coarse 1 366 → 650. Silhouette 181 → 300 навмисно зберігає корпус і щогли; загалом усі ship LOD 3 931 → 2 050. Welded QEM не ріже сітку по кольорах; palette переноситься з найближчих donor faces. Спільні pivot/height запобігають стрибкам масштабу при LOD. UV/textures прибрано, оригінальний donor та CC BY атрибуцію збережено. Це вимір геометрії й payload, не обіцянка FPS.","",
         "[environment-kit-contact-sheet.png](environment-kit-contact-sheet.png) та [ship-lod-contact-sheet.png](ship-lod-contact-sheet.png) — raster inspection справжніх трикутників, не Unity render. Жодного generated concept image не використано як доказ готового меша.","",

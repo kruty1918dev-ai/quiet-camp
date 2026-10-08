@@ -8,7 +8,7 @@ namespace QuietCamp.Composition
     {
         public string id,kind,owner;
         public Point[] points=Array.Empty<Point>();
-        public float heightOffset,feather=1;
+        public float heightOffset,feather=1;public bool relativeToOwner;
     }
     /// <summary>Convex terrain patches in source coordinates; baked only, no runtime sampling cost.</summary>
     public static class SurfaceRecipes
@@ -47,11 +47,24 @@ namespace QuietCamp.Composition
         public static float Height(IEnumerable<SurfaceRecipe> surfaces,float x,float z)
         {
             float height=0;
-            foreach(var surface in surfaces)if(Contains(surface,x,z))
+            foreach(var surface in surfaces)if(!surface.relativeToOwner&&Contains(surface,x,z))
             {
                 float t=Math.Clamp(EdgeDistance(surface,x,z)/Math.Max(.001f,surface.feather),0,1);
                 height=surface.heightOffset*t*t*(3-2*t);
             }return height;
+        }
+        public static SurfaceRecipe[] Resolve(SceneCompositionDocument doc,CompositionResult result)
+        {
+            return doc.surfaces.Select(surface=>
+            {
+                if(!surface.relativeToOwner)return surface;
+                var parcel=result.parcels.Find(p=>p.id==surface.owner);
+                if(parcel==null)throw new InvalidOperationException("Missing surface owner placement: "+surface.owner);
+                float angle=parcel.yaw*(float)Math.PI/180,c=(float)Math.Cos(angle),s=(float)Math.Sin(angle);
+                return new SurfaceRecipe{id=surface.id,kind=surface.kind,owner=surface.owner,feather=surface.feather*parcel.scale,
+                    heightOffset=surface.heightOffset*parcel.scale,points=surface.points.Select(p=>new Point(
+                        parcel.x+(p.x*c+p.z*s)*parcel.scale,parcel.z+(-p.x*s+p.z*c)*parcel.scale)).ToArray()};
+            }).ToArray();
         }
         public static void Validate(SceneCompositionDocument doc,CompositionResult result)
         {
@@ -78,6 +91,8 @@ namespace QuietCamp.Composition
                 // Check every point against every oriented edge; also rejects self-intersecting stars.
                 foreach(var a in surface.points)if(!Contains(surface,a.x,a.z))invalid=true;
                 if(invalid||Math.Abs(area)<.01f){Error(surface.id,"invalid-surface","Polygon must be simple, strictly convex and nondegenerate.");continue;}
+                if(surface.relativeToOwner&&(surface.owner==null||!doc.ensembles.Any(e=>e.id==surface.owner)
+                    ||Wet(surface)))Error(surface.id,"orphan-surface","Local terrain patches require an ensemble owner and cannot define water.");
                 if(surface.owner!=null&&!owners.Contains(surface.owner))Error(surface.id,"orphan-surface","Surface owner is missing.");
                 if((surface.kind=="garden"||surface.kind=="bus-bay"||surface.kind=="service-yard")&&surface.owner==null)
                     Error(surface.id,"orphan-surface","Owned garden, bus bay or yard requires an ensemble/landmark owner.");

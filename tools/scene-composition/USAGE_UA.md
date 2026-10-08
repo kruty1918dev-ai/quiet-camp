@@ -146,3 +146,7 @@ Runtime target: максимум три nearby chunks, одна камера/RT,
 Зараз zones прямокутні, water-crossing template містить anchor, staging вода є placeholder, а abandoned state має restrained tint замість повного damage kit. Immutable старі native revisions не видаляються автоматично: перед окремо дозволеним player build їхні непотрібні ресурси треба карантинувати за межі Resources, зберігаючи rollback.
 
 Усі наявні dirty changes та збереження гравця зберігайте. Після поточної паузи продовжуйте реалізацію лише за наступним запитом користувача.
+
+## Продовження 2026-10-08
+
+Нові source capabilities: closed boundary intervals, independent entrance roles, standing/fallen/broken conductors, distribution service sockets, convex terrain patches і owner-relative gardens/bus bays. Джерела main та три staging recipes перевірено portable; runtime досі legacy. Додано `qc_compose staging-validate` і Dam Gallery. [Точний поточний статус](../../Design/Roadmap/NATIVE-FINISH-2026-10-08-UA.md). Нових native captures немає.

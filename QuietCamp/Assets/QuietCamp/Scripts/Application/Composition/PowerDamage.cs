@@ -29,7 +29,7 @@ namespace QuietCamp.Composition
         {
             if(route.kind!="power"&&route.kind!="distribution")return;
             var supports=result.instances.Where(i=>i.owner==route.id&&i.role=="support").ToArray();
-            var spans=result.spans.Where(s=>s.route==route.id&&s.height>0).ToArray();
+            var spans=result.spans.Where(s=>s.route==route.id&&s.height>0&&s.state!="service").ToArray();
             void Error(string code,string message)=>result.diagnostics.Add(new CompositionDiagnostic
             {code=code,entityId=route.id,message=message});
             foreach(int index in route.fallenSupports)

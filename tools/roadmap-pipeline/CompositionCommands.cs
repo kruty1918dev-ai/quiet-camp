@@ -56,6 +56,19 @@ static class CompositionCommands
     {
         if(args.Length==0)throw new ArgumentException("composition inspect|validate|compose|patch|bake|preview|compare");
         string cmd=args[0],id=args.Length>1?args[1]:null;
+        if(cmd=="staging-validate")
+        {
+            var stagingAssets=Read<VisualAssetDefinition[]>(Reference("assets")).Concat(Read<VisualAssetDefinition[]>(Root+"/Staging/assets.json")).ToDictionary(a=>a.id);
+            var stagingTemplates=Read<EnsembleTemplate[]>(Reference("templates")).ToDictionary(t=>t.id);
+            foreach(string name in new[]{"aircraft","ship","dam"})
+            {
+                string path=Root+"/Staging/"+name+".json";Process("tools/scene-composition/validate_schema.py",new[]{"--stdin"},File.ReadAllText(path));
+                var source=Read<SceneCompositionDocument>(path);var composed=SceneComposer.Compose(source,stagingAssets,stagingTemplates);
+                if(!composed.Valid)throw new Exception(JsonConvert.SerializeObject(composed.diagnostics,Formatting.Indented));
+                Console.WriteLine("PASS staging "+name+": "+composed.instances.Count+" instances; "+source.surfaces.Length+" terrain recipes; unpublished");
+            }
+            return;
+        }
         if(cmd=="compare")
         {if(args.Length!=3)throw new ArgumentException("compare <before-sidecar.json> <after-sidecar.json>");Process("tools/scene-composition/compare.py",args.Skip(1));return;}
         if(cmd=="preview")

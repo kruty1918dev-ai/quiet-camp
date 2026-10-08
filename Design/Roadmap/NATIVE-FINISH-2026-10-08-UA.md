@@ -19,3 +19,15 @@ GitHub push заблокований відсутністю HTTPS credentials; c
 На цьому host різниця libm призводила до `-0.0` у старих exporter outputs. Canonical zero formatting у власному generator усуває цю різницю; відповідні owner exports, provenance hashes і matrix регенеровано. Форму моделей, GUIDs і triangle counts збережено: 24 original EnvironmentKit / 4208 triangles, ship LOD 1100/650/300.
 
 Перевірки: .NET build і semantic contracts пройшли, CLI negative/atomic tests пройшли. Current-source compilation усіх п'яти package runtime assemblies, чотирьох шарів гри, Editor/PlayMode test sources і QuietCamp.Editor пройшла проти наявних Unity references. Є compiler/analyzer warnings; native import/shader/scene tests не виконані.
+
+## Село та staging
+
+Region 2 отримав два compounds по різні боки окремої сільської дороги: по дві суміжні садиби, спільний роздільний паркан, замкнений зовнішній периметр, дві незалежні хвіртки та огороджені задні городи. Barn/coop/hive/chickens мають yard ownership. Bus stop знаходиться в public roadside zone, з bus-bay/gravel/pothole surfaces. Distribution route має чотири service spans до явних roof sockets; впалі опори виключені з live connections. В усіх field zones — бур'яни, без пшениці/соняшників.
+
+`closedBoundary` перевіряє покриття чотирьох ребер fence/gate intervals. `relativeToOwner` зберігає garden/bus-bay points у координатах власника; вони автоматично рухаються/масштабуються з parcel. Portable tests перевіряють задній паркан, вторинні воротa/approaches та прив'язку поверхні після resize.
+
+Сценарії staging: aircraft у єдиному відкритому полі з windbreak і сухим обходом; stranded ship на сухому дні; окрема dam composition із reservoir scar, erosion, вузьким руслом, проривом, dry bypass, utility yard/service road і mooring post. Dam має два declared bank anchors; його breach не стає traversable route. Native Preview/Bake Staging додають Dam Gallery. Staging не публікує journey/puzzles/unlocks.
+
+Portable build: zero warnings/errors. Main source schema/semantics: 5 regions, 232 instances, 28 spans, no error diagnostics. Три staging recipes проходять schema/semantics. MonetizationProbe: 14 contract groups пройшли; 30 main + 8 lighthouse validator/witness/independent solver та uk/en/de keys валідні. Monetization runtime не редагувався; probe тепер використовує NuGet та checkout-local output без Library.
+
+GitHub read працює, але create branch повернув `403 Resource not accessible by integration`. Shell push також без credentials. Дані не на remote; source bundle/ZIP потрібні для передачі. Native bake, shader/import, scene tests, Game View gallery та device metrics усе ще не виконані.

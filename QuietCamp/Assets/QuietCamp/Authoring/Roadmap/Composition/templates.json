@@ -609,5 +609,537 @@
         "height": 1.69
       }
     ]
+  },
+  {
+    "id": "ua.adjacent-yards",
+    "width": 22,
+    "depth": 22,
+    "entrance": true,
+    "ruined": true,
+    "roles": [
+      {
+        "id": "house",
+        "asset": "ua_abandoned_house",
+        "x": -5.5,
+        "z": 5,
+        "height": 2.7,
+        "yaw": 0
+      },
+      {
+        "id": "well",
+        "asset": "ua_well",
+        "x": -6.8,
+        "z": 8.6,
+        "height": 0.8,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "gate",
+        "asset": "ua_gate",
+        "x": -5.5,
+        "z": 11,
+        "height": 1.2327868852459014,
+        "yaw": 0,
+        "parent": "house",
+        "entrance": true
+      },
+      {
+        "id": "barn-0",
+        "asset": "ua_barn",
+        "x": -8.8,
+        "z": 4,
+        "height": 1.1,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "coop-0",
+        "asset": "ua_chicken_coop",
+        "x": -2.7,
+        "z": 3,
+        "height": 0.65,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "hive-0",
+        "asset": "ua_beehive",
+        "x": -2.7,
+        "z": 8,
+        "height": 0.45,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "chicken-0",
+        "asset": "ua_chicken",
+        "x": -2.5,
+        "z": 6,
+        "height": 0.2,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "rear-weeds-0",
+        "asset": "ua_field_weeds",
+        "x": -5.5,
+        "z": -5.5,
+        "height": 0.65,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "house-east",
+        "asset": "ua_abandoned_house",
+        "x": 5.5,
+        "z": 5,
+        "height": 2.7,
+        "yaw": 0
+      },
+      {
+        "id": "well-east",
+        "asset": "ua_well",
+        "x": 4.2,
+        "z": 8.6,
+        "height": 0.8,
+        "yaw": 0,
+        "parent": "house-east"
+      },
+      {
+        "id": "gate-east",
+        "asset": "ua_gate",
+        "x": 5.5,
+        "z": 11,
+        "height": 1.2327868852459014,
+        "yaw": 0,
+        "parent": "house-east",
+        "entrance": true
+      },
+      {
+        "id": "barn-1",
+        "asset": "ua_barn",
+        "x": 2.2,
+        "z": 4,
+        "height": 1.1,
+        "yaw": 0,
+        "parent": "house-east"
+      },
+      {
+        "id": "coop-1",
+        "asset": "ua_chicken_coop",
+        "x": 8.3,
+        "z": 3,
+        "height": 0.65,
+        "yaw": 0,
+        "parent": "house-east"
+      },
+      {
+        "id": "hive-1",
+        "asset": "ua_beehive",
+        "x": 8.3,
+        "z": 8,
+        "height": 0.45,
+        "yaw": 0,
+        "parent": "house-east"
+      },
+      {
+        "id": "chicken-1",
+        "asset": "ua_chicken",
+        "x": 8.5,
+        "z": 6,
+        "height": 0.2,
+        "yaw": 0,
+        "parent": "house-east"
+      },
+      {
+        "id": "rear-weeds-1",
+        "asset": "ua_field_weeds",
+        "x": 5.5,
+        "z": -5.5,
+        "height": 0.65,
+        "yaw": 0,
+        "parent": "house-east"
+      },
+      {
+        "id": "fence-front-west-0",
+        "asset": "ua_picket_fence_damaged",
+        "x": -9.925,
+        "z": 11.0,
+        "height": 0.8440341082871965,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-front-west-1",
+        "asset": "ua_picket_fence_damaged",
+        "x": -7.775,
+        "z": 11.0,
+        "height": 0.8440341082871965,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-front-middle-0",
+        "asset": "ua_picket_fence_damaged",
+        "x": -2.8666666666666667,
+        "z": 11.0,
+        "height": 1.1253788110495955,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-front-middle-1",
+        "asset": "ua_picket_fence_damaged",
+        "x": 0.0,
+        "z": 11.0,
+        "height": 1.1253788110495955,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-front-middle-2",
+        "asset": "ua_picket_fence_damaged",
+        "x": 2.866666666666667,
+        "z": 11.0,
+        "height": 1.1253788110495955,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-front-east-0",
+        "asset": "ua_picket_fence_damaged",
+        "x": 7.775,
+        "z": 11.0,
+        "height": 0.8440341082871965,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-front-east-1",
+        "asset": "ua_picket_fence_damaged",
+        "x": 9.925,
+        "z": 11.0,
+        "height": 0.8440341082871965,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-back-0",
+        "asset": "ua_picket_fence_damaged",
+        "x": -9.428571428571429,
+        "z": -11.0,
+        "height": 1.2338040121141742,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-back-1",
+        "asset": "ua_picket_fence_damaged",
+        "x": -6.285714285714286,
+        "z": -11.0,
+        "height": 1.2338040121141742,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-back-2",
+        "asset": "ua_picket_fence_damaged",
+        "x": -3.1428571428571423,
+        "z": -11.0,
+        "height": 1.2338040121141742,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-back-3",
+        "asset": "ua_picket_fence_damaged",
+        "x": 0.0,
+        "z": -11.0,
+        "height": 1.2338040121141742,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-back-4",
+        "asset": "ua_picket_fence_damaged",
+        "x": 3.142857142857144,
+        "z": -11.0,
+        "height": 1.2338040121141742,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-back-5",
+        "asset": "ua_picket_fence_damaged",
+        "x": 6.285714285714285,
+        "z": -11.0,
+        "height": 1.2338040121141742,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-back-6",
+        "asset": "ua_picket_fence_damaged",
+        "x": 9.42857142857143,
+        "z": -11.0,
+        "height": 1.2338040121141742,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-left-0",
+        "asset": "ua_picket_fence_damaged",
+        "x": -11.0,
+        "z": -9.428571428571429,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-left-1",
+        "asset": "ua_picket_fence_damaged",
+        "x": -11.0,
+        "z": -6.285714285714286,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-left-2",
+        "asset": "ua_picket_fence_damaged",
+        "x": -11.0,
+        "z": -3.1428571428571423,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-left-3",
+        "asset": "ua_picket_fence_damaged",
+        "x": -11.0,
+        "z": 0.0,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-left-4",
+        "asset": "ua_picket_fence_damaged",
+        "x": -11.0,
+        "z": 3.142857142857144,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-left-5",
+        "asset": "ua_picket_fence_damaged",
+        "x": -11.0,
+        "z": 6.285714285714285,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-left-6",
+        "asset": "ua_picket_fence_damaged",
+        "x": -11.0,
+        "z": 9.42857142857143,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-right-0",
+        "asset": "ua_picket_fence_damaged",
+        "x": 11.0,
+        "z": -9.428571428571429,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-right-1",
+        "asset": "ua_picket_fence_damaged",
+        "x": 11.0,
+        "z": -6.285714285714286,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-right-2",
+        "asset": "ua_picket_fence_damaged",
+        "x": 11.0,
+        "z": -3.1428571428571423,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-right-3",
+        "asset": "ua_picket_fence_damaged",
+        "x": 11.0,
+        "z": 0.0,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-right-4",
+        "asset": "ua_picket_fence_damaged",
+        "x": 11.0,
+        "z": 3.142857142857144,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-right-5",
+        "asset": "ua_picket_fence_damaged",
+        "x": 11.0,
+        "z": 6.285714285714285,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-right-6",
+        "asset": "ua_picket_fence_damaged",
+        "x": 11.0,
+        "z": 9.42857142857143,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-shared-0",
+        "asset": "ua_picket_fence_damaged",
+        "x": 0.0,
+        "z": -9.428571428571429,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-shared-1",
+        "asset": "ua_picket_fence_damaged",
+        "x": 0.0,
+        "z": -6.285714285714286,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-shared-2",
+        "asset": "ua_picket_fence_damaged",
+        "x": 0.0,
+        "z": -3.1428571428571423,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-shared-3",
+        "asset": "ua_picket_fence_damaged",
+        "x": 0.0,
+        "z": 0.0,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-shared-4",
+        "asset": "ua_picket_fence_damaged",
+        "x": 0.0,
+        "z": 3.142857142857144,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-shared-5",
+        "asset": "ua_picket_fence_damaged",
+        "x": 0.0,
+        "z": 6.285714285714285,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-shared-6",
+        "asset": "ua_picket_fence_damaged",
+        "x": 0.0,
+        "z": 9.42857142857143,
+        "height": 1.2338040121141742,
+        "yaw": 90.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-garden-divider-0",
+        "asset": "ua_picket_fence_damaged",
+        "x": -9.428571428571429,
+        "z": 0.0,
+        "height": 1.2338040121141742,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-garden-divider-1",
+        "asset": "ua_picket_fence_damaged",
+        "x": -6.285714285714286,
+        "z": 0.0,
+        "height": 1.2338040121141742,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-garden-divider-2",
+        "asset": "ua_picket_fence_damaged",
+        "x": -3.1428571428571423,
+        "z": 0.0,
+        "height": 1.2338040121141742,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-garden-divider-3",
+        "asset": "ua_picket_fence_damaged",
+        "x": 0.0,
+        "z": 0.0,
+        "height": 1.2338040121141742,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-garden-divider-4",
+        "asset": "ua_picket_fence_damaged",
+        "x": 3.142857142857144,
+        "z": 0.0,
+        "height": 1.2338040121141742,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-garden-divider-5",
+        "asset": "ua_picket_fence_damaged",
+        "x": 6.285714285714285,
+        "z": 0.0,
+        "height": 1.2338040121141742,
+        "yaw": 0.0,
+        "parent": "house"
+      },
+      {
+        "id": "fence-garden-divider-6",
+        "asset": "ua_picket_fence_damaged",
+        "x": 9.42857142857143,
+        "z": 0.0,
+        "height": 1.2338040121141742,
+        "yaw": 0.0,
+        "parent": "house"
+      }
+    ],
+    "closedBoundary": true
   }
 ]

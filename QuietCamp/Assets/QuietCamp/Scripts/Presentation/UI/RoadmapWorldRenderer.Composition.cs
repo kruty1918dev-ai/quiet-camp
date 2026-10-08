@@ -15,7 +15,12 @@ namespace QuietCamp.Presentation.UI
         public Dictionary<string,VisualAssetDefinition> OfflineAssets;
         bool _offline;
         public void SetOfflineComposition(SceneCompositionDocument[] docs,CompositionResult[] results)
-        {_offlineDocs=docs;_offlineResults=results;}
+        {
+            _offlineDocs=docs.Select((doc,i)=>new SceneCompositionDocument{id=doc.id,seed=doc.seed,season=doc.season,
+                nodes=doc.nodes,zones=doc.zones,routes=doc.routes,ensembles=doc.ensembles,landmarks=doc.landmarks,budgets=doc.budgets,
+                surfaces=SurfaceRecipes.Resolve(doc,results[i])}).ToArray();
+            _offlineResults=results;
+        }
         public Mesh BakePart(int kind,int key,int tier,bool completed=false,int branchReveal=0)
         {
             _offline=true;_offlineBranch=branchReveal;_scale=28;_tier=tier;Clear();
@@ -244,7 +249,9 @@ namespace QuietCamp.Presentation.UI
                             // Convert the source model socket and its pivot using the same model transform.
                             return at+Quaternion.Euler(0,-support.yaw,0)*new Vector3(socket.x-metadata.pivot.x,socket.y-metadata.pivot.y,socket.z-metadata.pivot.z)/metadata.sourceHeight*support.height;
                         }
-                        if(span.state=="intact")
+                        if(span.state=="service")
+                            Cable(Socket(pa,OfflineAssets[pa.asset].conductors[span.socketA]),Socket(pb,OfflineAssets[pb.asset].conductors[span.socketB]),.25f,chunk.Top,chunk.Bottom);
+                        else if(span.state=="intact")
                         {
                             var from=OfflineAssets[pa.asset].conductors;var to=OfflineAssets[pb.asset].conductors;
                             if(from.Length!=to.Length)throw new InvalidOperationException("Conductor socket count mismatch: "+span.id);
@@ -291,6 +298,7 @@ namespace QuietCamp.Presentation.UI
                 }
                 else if(field!=null&&visual.Environment.Snow<.55f)
                 {
+                    if(SceneComposer.Unit(field.id+":"+cell,seed,8)>field.density)continue;
                     string asset=field.species;if(asset=="ua_sunflower_patch"&&visual.Environment.Temperature<.4f)asset="ua_wheat_patch";
                     var model=SemanticModel(library,asset);
                     float coverHeight=asset=="ua_wheat_patch"?.78f:asset=="ua_sunflower_patch"?1.08f:OfflineAssets[asset].height;

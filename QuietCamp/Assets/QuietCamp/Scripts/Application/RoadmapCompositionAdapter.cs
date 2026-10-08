@@ -50,7 +50,7 @@ namespace QuietCamp.Application
             foreach(var e in local.ensembles)if(e.placement.fixedPosition)e.placement.z+=start;
             foreach(var r in local.routes)foreach(var p in r.points)p.z+=start;
             foreach(var l in local.landmarks)l.z+=start;
-            foreach(var surface in local.surfaces)foreach(var point in surface.points)point.z+=start;
+            foreach(var surface in local.surfaces)if(!surface.relativeToOwner)foreach(var point in surface.points)point.z+=start;
             return local;
         }
     }

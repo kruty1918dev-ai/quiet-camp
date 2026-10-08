@@ -59,7 +59,7 @@ static class CompositionContracts
                 Bad("missing-conductor-sockets",d=>d.routes.First(r=>r.kind=="power").supportAsset="tree_default");
                 Require(blocked.diagnostics.Any(d=>d.code=="unsupported-pylon"),"Unsupported span endpoint admitted");
             }
-            var ruined=Copy(doc);ruined.ensembles=new[]{new EnsembleIntent{id="test-ruin",template="ua.civilian-foundation",placement=Copy(doc.ensembles[0].placement)}};Require(SceneComposer.Compose(ruined,assets,templates).Valid,"Explicit contextual ruin rejected");
+            var ruined=Copy(doc);ruined.routes=ruined.routes.Where(r=>r.kind!="distribution").ToArray();ruined.surfaces=ruined.surfaces.Where(s=>s.owner==null).ToArray();ruined.ensembles=new[]{new EnsembleIntent{id="test-ruin",template="ua.civilian-foundation",placement=Copy(doc.ensembles[0].placement)}};Require(SceneComposer.Compose(ruined,assets,templates).Valid,"Explicit contextual ruin rejected");
             var failed=Copy(doc);failed.ensembles[0].placement.zone="missing";var partial=SceneComposer.Compose(failed,assets,templates);Require(!partial.instances.Any(i=>i.owner==failed.ensembles[0].id),"Rejected ensemble left children");
             var changed=Copy(doc);changed.ensembles[0].state="remembered";changed.ensembles[0].scale*=.96f;var c=SceneComposer.Compose(changed,assets,templates);Require(c.Valid,"Local geometry edit failed");
             Require(JsonConvert.SerializeObject(a.instances.Where(i=>i.owner!=doc.ensembles[0].id))==JsonConvert.SerializeObject(c.instances.Where(i=>i.owner!=doc.ensembles[0].id)),"Local edit shuffled neighbors");
@@ -107,6 +107,25 @@ static class CompositionContracts
         var supported=new SurfaceRecipes.Terrain(new FlatTerrain(),hydrology.surfaces);
         Require(!supported.Supported(0,20,1)&&!supported.Supported(2.5f,20,1)&&supported.Supported(8,20,1),"Channel footprint clearance ignored");
         Console.WriteLine("PASS surface recipes: dry detour, shape/ownership rejection, supported ground and bounded relief");
+        var frontage=templates["ua.adjacent-yards"];
+        Require(ParcelBoundary.Closed(frontage,frontage.roles,assets,"picket"),"Adjacent yard perimeter is open");
+        Require(!ParcelBoundary.Closed(frontage,frontage.roles.Where(r=>!r.id.StartsWith("fence-back")),assets,"picket"),"Missing rear fence accepted");
+        Require(!ParcelBoundary.Closed(frontage,frontage.roles.Where(r=>r.id!="gate-east"),assets,"picket"),"Undeclared gate gap accepted");
+        foreach(var doc in docs.Values)foreach(var ensemble in doc.ensembles.Where(e=>e.template=="ua.adjacent-yards"))
+        {
+            var composed=SceneComposer.Compose(doc,assets,templates);
+            foreach(var gate in templates[ensemble.template].roles.Where(r=>r.entrance))
+                Require(composed.spans.Any(s=>s.height==0&&s.a==ensemble.id+"/"+gate.id),"Secondary yard has no road approach");
+        }
+        Console.WriteLine("PASS adjacent parcels: all-edge coverage, gate gaps and independent road approaches");
+        foreach(var doc in docs.Values.Where(d=>d.surfaces.Any(s=>s.relativeToOwner)))
+        {
+            var before=SceneComposer.Compose(doc,assets,templates);var moved=Copy(doc);var owner=moved.ensembles.First(e=>moved.surfaces.Any(s=>s.relativeToOwner&&s.owner==e.id));owner.scale*=.96f;
+            var after=SceneComposer.Compose(moved,assets,templates);Require(after.Valid,"Owner resize invalid");
+            var a=SurfaceRecipes.Resolve(doc,before).First(s=>s.owner==owner.id);var b=SurfaceRecipes.Resolve(moved,after).First(s=>s.owner==owner.id);
+            Require(JsonConvert.SerializeObject(a.points)!=JsonConvert.SerializeObject(b.points),"Owned garden detached from resized yard");
+            Require(doc.surfaces.Any(s=>s.relativeToOwner),"Resolution mutated source authoring");
+        }
         Console.WriteLine("PASS semantic composition: atomic ensembles, gates/roads, supports, deterministic IDs, local edits and negative cases");
     }
 }

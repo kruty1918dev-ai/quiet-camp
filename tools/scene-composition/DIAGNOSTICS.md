@@ -31,3 +31,5 @@ Native bake errors (missing model/LOD, incomplete immutable resource, source/cat
 Native runtime `StreamFault` is an observable load/revision/budget error. The renderer avoids retry/log storms for the same window. It does not claim success through a generated substitute. Investigate the bake manifest and resource binding; automated readiness checks must fail when this property is non-null.
 
 Semantic tests do not decide artistic quality. After diagnostics clear, inspect actual native images and compare projected entity IDs, parcel/connection overlays, season continuity and metrics.
+
+Damage/surface extensions: `invalid-power-damage`, `invalid-fallen-support`, `fallen-live-conductor`, `unsupported-fallen-support`, `missing-service-socket`, `invalid-surface`, `orphan-surface`, `wet-route-crossing` and `open-parcel-boundary` block publication. Fix indexed damage, standing sockets, actual final footprint, convex polygons or declared fence/gate coverage in source authoring. Local owned surfaces use `relativeToOwner`; they follow the accepted parcel transform.

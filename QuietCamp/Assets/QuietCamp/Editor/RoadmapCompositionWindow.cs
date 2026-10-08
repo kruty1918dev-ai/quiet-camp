@@ -14,7 +14,7 @@ namespace QuietCamp.Editor
     public sealed class RoadmapCompositionWindow:EditorWindow
     {
         PreviewRenderUtility _preview;Material _material;RoadmapCatalog _catalog;SceneCompositionDocument[] _docs;CompositionResult[] _results;
-        enum Gallery{Main,Aircraft,Ship}
+        enum Gallery{Main,Aircraft,Ship,Dam}
         readonly List<RoadmapChunkAsset> _neighbours=new List<RoadmapChunkAsset>(3);
         Gallery _gallery;Dictionary<string,VisualAssetDefinition> _assets;RoadmapChunkAsset _chunk;int _index;string _id="";bool _top,_ids=true,_footprints,_connections=true,_zones,_ownership,_entrances;Vector3 _focus;
         [MenuItem("Quiet Camp/Composition/Preview")]

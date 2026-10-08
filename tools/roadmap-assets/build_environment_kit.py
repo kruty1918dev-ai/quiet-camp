@@ -291,6 +291,8 @@ def asset_entries(items):
         if m.id=="ua_power_pylon_rusted":
             original=next(a for a in json.loads(CATALOG.read_text()) if a["id"]=="ua_power_pylon")
             entry["conductors"]=original["conductors"];entry["supportKind"]="power"
+        if m.id=="ua_abandoned_house":entry["conductors"]=[dict(x=2.3,y=2.8,z=1.8)]
+        if m.id.startswith("ua_dam_breached"):entry["sockets"]={"bankA":{"x":-14,"z":0},"bankB":{"x":14,"z":0}}
         if m.id=="ua_plank_bridge":entry["sockets"]={"north":{"x":0,"z":-2.53},"south":{"x":0,"z":2.53}}
         result.append(entry)
     return result

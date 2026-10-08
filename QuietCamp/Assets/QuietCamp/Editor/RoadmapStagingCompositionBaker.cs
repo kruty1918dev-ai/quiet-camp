@@ -19,16 +19,21 @@ namespace QuietCamp.Editor
         public static string NativeFolder(string name)=>Folder+"/"+name+"/"+Hash(name).Substring(0,12);
         public static RoadmapCatalog Catalog(string name,out SceneCompositionDocument[] docs,out CompositionResult[] results,out Dictionary<string,VisualAssetDefinition> assets)
         {
-            if(name!="aircraft"&&name!="ship")throw new ArgumentException("Unknown staging composition");
+            if(name!="aircraft"&&name!="ship"&&name!="dam")throw new ArgumentException("Unknown staging composition");
             var source=RoadmapCompositionBaker.Documents();var definition=RoadmapCompositionBaker.Definition(source);
             var region=definition.regions[0];region.branches=Array.Empty<RoadmapBranchData>();definition.regions=new[]{region};definition.revision="staging-"+name;
-            var catalog=new RoadmapCatalog(definition);docs=new[]{RoadmapCompositionBaker.Read<SceneCompositionDocument>(RoadmapCompositionBaker.Source+"/Staging/"+name+".json")};
+            docs=new[]{RoadmapCompositionBaker.Read<SceneCompositionDocument>(RoadmapCompositionBaker.Source+"/Staging/"+name+".json")};
+            region.id=docs[0].id;region.season=docs[0].season;
+            RoadmapCompositionAdapter.Bind(definition,new Dictionary<string,SceneCompositionDocument>{{docs[0].id,docs[0]}});
+            // Staging geography has open field/river nodes, not populated camp vignettes.
+            foreach(var node in region.nodePositions)node.world.props=node.world.props.Where(p=>p.assetId.StartsWith("grass")||p.assetId.StartsWith("stone")).ToArray();
+            var catalog=new RoadmapCatalog(definition);
             assets=RoadmapCompositionBaker.Read<VisualAssetDefinition[]>(RoadmapCompositionBaker.Reference("assets")).Concat(RoadmapCompositionBaker.Read<VisualAssetDefinition[]>(RoadmapCompositionBaker.Source+"/Staging/assets.json")).ToDictionary(a=>a.id);
             var templates=RoadmapCompositionBaker.Read<EnsembleTemplate[]>(RoadmapCompositionBaker.Reference("templates")).ToDictionary(a=>a.id);
             results=new[]{SceneComposer.Compose(docs[0],assets,templates)};if(!results[0].Valid)throw new InvalidOperationException(JsonConvert.SerializeObject(results[0].diagnostics));return catalog;
         }
         [MenuItem("Quiet Camp/Composition/Bake Staging Landmarks")]
-        public static void BakeBoth(){Bake("aircraft");Bake("ship");}
+        public static void BakeBoth(){Bake("aircraft");Bake("ship");Bake("dam");}
         public static void Bake(string name)
         {
             if(EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("Staging bake outside Play Mode");

@@ -68,9 +68,15 @@
             },
             "required": {
               "type": "boolean"
+            },
+            "entrance": {
+              "type": "boolean"
             }
           }
         }
+      },
+      "closedBoundary": {
+        "type": "boolean"
       }
     }
   },

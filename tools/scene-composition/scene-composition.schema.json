@@ -254,6 +254,9 @@
               },
               "fixedPosition": {
                 "type": "boolean"
+              },
+              "faceRoute": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -317,6 +320,12 @@
           },
           "compoundOwner": {
             "type": "string"
+          },
+          "supportMode": {
+            "enum": [
+              "ground",
+              "banks"
+            ]
           }
         },
         "required": [
@@ -405,6 +414,9 @@
                 "z"
               ]
             }
+          },
+          "relativeToOwner": {
+            "type": "boolean"
           }
         },
         "required": [

@@ -18,10 +18,10 @@ namespace QuietCamp.Composition
         public Dictionary<string,Point> sockets=new Dictionary<string,Point>();
     }
     [Serializable] public sealed class EnsembleRole
-    {public string id,asset,parent;public float x,z,height=1,yaw;public bool required=true;}
+    {public string id,asset,parent;public float x,z,height=1,yaw;public bool required=true,entrance;}
     [Serializable] public sealed class EnsembleTemplate
-    {public string id;public float width=10,depth=10;public bool entrance,ruined;public EnsembleRole[] roles=Array.Empty<EnsembleRole>();}
-    [Serializable] public sealed class PlacementIntent {public string zone,nearNode;public float x,z,yaw;public bool fixedPosition;}
+    {public string id;public float width=10,depth=10;public bool entrance,ruined,closedBoundary;public EnsembleRole[] roles=Array.Empty<EnsembleRole>();}
+    [Serializable] public sealed class PlacementIntent {public string zone,nearNode;public float x,z,yaw;public bool fixedPosition;public bool faceRoute=true;}
     [Serializable] public sealed class EnsembleIntent
     {public float scale=1;public string id,template,entranceConnectsTo,state="reclaimed",fenceVariant="wattle";public PlacementIntent placement=new PlacementIntent();}
     [Serializable] public sealed class LandscapeZone
@@ -38,7 +38,7 @@ namespace QuietCamp.Composition
     }
     [Serializable] public sealed class SceneAnchor {public string id;public float x,z,radius=5.5f;}
     [Serializable] public sealed class LandmarkIntent
-    {public string id,asset,revealOwner,compoundOwner,interpretation="fictional";public float x,z,height=6,yaw;}
+    {public string id,asset,revealOwner,compoundOwner,interpretation="fictional",supportMode="ground";public float x,z,height=6,yaw;}
     [Serializable] public sealed class CompositionBudgets
     {public int instances=16000,materials=6,renderers=32;public long cacheBytes=67108864;}
     [Serializable] public sealed class SceneCompositionDocument
@@ -57,7 +57,7 @@ namespace QuietCamp.Composition
     [Serializable] public sealed class ComposedInstance
     {public string id,owner,role,asset,revealOwner,state,template;public float x,z,height,yaw;public bool wind;}
     [Serializable] public sealed class RouteSpan
-    {public string id,route,a,b,state="intact";public float ax,az,bx,bz,height,dropLength=2;}
+    {public string id,route,a,b,state="intact";public float ax,az,bx,bz,height,dropLength=2;public int socketA=-1,socketB=-1;}
     [Serializable] public sealed class BakedBounds {public AssetSocket min=new AssetSocket(),max=new AssetSocket();}
     [Serializable] public sealed class BakedChunkManifest
     {
@@ -66,9 +66,11 @@ namespace QuietCamp.Composition
     }
     [Serializable] public sealed class PlacementAttempt
     {public string entityId,reason;public int index;public float x,z;public bool accepted;}
+    [Serializable] public sealed class ComposedParcel {public string id;public float x,z,yaw,scale;}
     [Serializable] public sealed class CompositionResult
     {
         public List<ComposedInstance> instances=new List<ComposedInstance>();
+        public List<ComposedParcel> parcels=new List<ComposedParcel>();
         public List<RouteSpan> spans=new List<RouteSpan>();
         public List<PlacementAttempt> candidates=new List<PlacementAttempt>();
         public List<CompositionDiagnostic> diagnostics=new List<CompositionDiagnostic>();
@@ -183,7 +185,7 @@ namespace QuietCamp.Composition
                 if(!new[]{"solid","canopy","groundcover","boundary"}.Contains(asset.placementClass)||!Finite(asset.radius)||!Finite(asset.height)||!Finite(asset.width)||!Finite(asset.depth)||asset.radius<0||asset.height<=0||asset.width<=0||asset.depth<=0||!Finite(asset.sourceHeight)||asset.sourceHeight<=0||asset.pivot==null||!Finite(asset.pivot.x)||!Finite(asset.pivot.y)||!Finite(asset.pivot.z)||asset.conductors==null||asset.conductors.Any(p=>p==null||!Finite(p.x)||!Finite(p.y)||!Finite(p.z)))Error("invalid-asset",asset.id,"Asset dimensions must be finite and positive.");
             foreach(var template in templates.Values)
             {
-                if(template.entrance&&!template.roles.Any(r=>r.id=="gate"||r.id=="entrance"))Error("missing-gate",template.id,"Entrance template requires an entrance role.");
+                if(template.entrance&&!template.roles.Any(r=>r.id=="gate"||r.id=="entrance"||r.entrance))Error("missing-gate",template.id,"Entrance template requires an entrance role.");
                 if(!Finite(template.width)||!Finite(template.depth)||template.width<=0||template.depth<=0)Error("invalid-template",template.id,"Parcel dimensions must be finite and positive.");
                 bool Boundary(EnsembleRole role)=>role.asset=="$fence"||assets.TryGetValue(role.asset??"",out var asset)&&asset.placementClass=="boundary";
                 var roleIds=new HashSet<string>();foreach(var role in template.roles)
@@ -202,7 +204,8 @@ namespace QuietCamp.Composition
             }
             foreach(var e in doc.ensembles){Id(e.id);if(!templates.ContainsKey(e.template??""))Error("missing-template",e.id,"Unknown ensemble template.");}
             foreach(var l in doc.landmarks){Id(l.id);if(!assets.ContainsKey(l.asset??""))Error("missing-asset",l.id,"Landmark asset is missing.");if(!doc.nodes.Any(n=>n.id==l.revealOwner))Error("missing-reveal-owner",l.id,"Landmark must bind to progression.");}
-            foreach(var r in doc.routes)foreach(var target in r.serviceTargets)if(!doc.ensembles.Any(e=>e.id==target))Error("missing-service-target",r.id,"Unknown ensemble: "+target);
+            foreach(var r in doc.routes)foreach(var target in r.serviceTargets)
+                if(!doc.ensembles.Any(e=>e.id==target||target!=null&&target.StartsWith(e.id+"/")&&templates.TryGetValue(e.template??"",out var servedTemplate)&&servedTemplate.roles.Any(role=>target==e.id+"/"+role.id)))Error("missing-service-target",r.id,"Unknown served ensemble/role: "+target);
             if(!result.Valid)return result;
             SurfaceRecipes.Validate(doc,result);
             if(!result.Valid)return result;
@@ -211,7 +214,19 @@ namespace QuietCamp.Composition
             foreach(var landmark in doc.landmarks)
             {
                 float radius=assets[landmark.asset].radius*landmark.height/assets[landmark.asset].height;
-                if(!Finite(landmark.x)||!Finite(landmark.z)||!Finite(landmark.height)||!Finite(landmark.yaw)||landmark.height<=0||!terrain.Supported(landmark.x,landmark.z,radius))Error("unsupported-landmark",landmark.id,"Landmark lacks valid supported footprint.");
+                bool supported=terrain.Supported(landmark.x,landmark.z,radius);
+                if(landmark.supportMode=="banks")
+                {
+                    var asset=assets[landmark.asset];supported=asset.sockets!=null&&asset.sockets.ContainsKey("bankA")&&asset.sockets.ContainsKey("bankB");
+                    if(supported)
+                    {
+                        float yaw=landmark.yaw*(float)Math.PI/180,c=(float)Math.Cos(yaw),s=(float)Math.Sin(yaw),scale=landmark.height/asset.sourceHeight;
+                        foreach(string bank in new[]{"bankA","bankB"})
+                        {var socket=asset.sockets[bank];float x=(socket.x-asset.pivot.x)*scale,z=(socket.z-asset.pivot.z)*scale;supported&=terrain.Supported(landmark.x+x*c+z*s,landmark.z-x*s+z*c,.8f);}
+                    }
+                }
+                else if(landmark.supportMode!="ground")supported=false;
+                if(!Finite(landmark.x)||!Finite(landmark.z)||!Finite(landmark.height)||!Finite(landmark.yaw)||landmark.height<=0||!supported)Error("unsupported-landmark",landmark.id,"Landmark lacks valid supported footprint or both declared bank anchors.");
                 else reserved.Add((landmark.x,landmark.z,radius*2,radius*2));
             }
             if(!result.Valid)return result;
@@ -248,9 +263,11 @@ namespace QuietCamp.Composition
                     if(RoleOverlap(roles[i],assets[Resolve(roles[i])],roles[j],assets[Resolve(roles[j])]))
                     {Error("role-overlap",e.id,"Template footprints overlap: "+roles[i].id+" and "+roles[j].id);result.diagnostics.Last().relatedIds=new[]{e.id+"/"+roles[i].id,e.id+"/"+roles[j].id};bad=true;}
                 }
+                if(template.closedBoundary&&!ParcelBoundary.Closed(template,roles,assets,e.fenceVariant))
+                {Error("open-parcel-boundary",e.id,"Declared yard perimeter has an uncovered edge outside its gates.");bad=true;}
                 if(bad)continue;
                 float parcelWidth=template.width*e.scale,parcelDepth=template.depth*e.scale;
-                var entry=roles.FirstOrDefault(r=>r.id=="gate"||r.id=="entrance");
+                var entry=roles.FirstOrDefault(r=>r.id=="gate"||r.id=="entrance"||r.entrance);
                 if(template.entrance&&entry==null){Error("missing-gate",e.id,"Entrance role was not admitted.");continue;}
                 bool found=false,unsupportedApproach=false;float px=0,pz=0,yaw=e.placement.yaw;
                 for(int attempt=0;attempt<(e.placement.fixedPosition?1:64);attempt++)
@@ -265,15 +282,19 @@ namespace QuietCamp.Composition
                     string reason=px-radius<zone.x-zone.width*.5f||px+radius>zone.x+zone.width*.5f||pz-radius<zone.z-zone.depth*.5f||pz+radius>zone.z+zone.depth*.5f?"zone-boundary":Rejection(px,pz,radius,true);
                     if(reason==null&&template.entrance)
                     {
-                        DistanceTo(road,px,pz,out var facing);yaw=(float)((Math.Atan2(facing.x-px,facing.z-pz)-Math.Atan2(entry.x,entry.z))*180/Math.PI);
+                        DistanceTo(road,px,pz,out var facing);if(e.placement.faceRoute)yaw=(float)((Math.Atan2(facing.x-px,facing.z-pz)-Math.Atan2(entry.x,entry.z))*180/Math.PI);
                         float angle=yaw*(float)Math.PI/180,ss=(float)Math.Sin(angle),cc=(float)Math.Cos(angle);
-                        float gx=px+(entry.x*cc+entry.z*ss)*e.scale,gz=pz+(-entry.x*ss+entry.z*cc)*e.scale;
+                        foreach(var entrance in roles.Where(r=>r==entry||r.entrance))
+                        {
+                        float gx=px+(entrance.x*cc+entrance.z*ss)*e.scale,gz=pz+(-entrance.x*ss+entrance.z*cc)*e.scale;
                         DistanceTo(road,gx,gz,out var end);
                         for(int sample=0;sample<=32;sample++)
                         {
                             float t=sample/32f,sx=gx+(end.x-gx)*t,sz=gz+(end.z-gz)*t;
                             if(!terrain.Supported(sx,sz,.35f)){reason="unsupported-approach";unsupportedApproach=true;break;}
                             if(reserved.Any(box=>Math.Abs(sx-box.x)<box.w*.5f+.35f&&Math.Abs(sz-box.z)<box.d*.5f+.35f)){reason="approach-crosses-parcel";break;}
+                        }
+                        if(reason!=null)break;
                         }
                     }
                     result.candidates.Add(new PlacementAttempt{entityId=e.id,index=attempt,x=px,z=pz,reason=reason,accepted=reason==null});if(reason!=null)continue;
@@ -287,13 +308,12 @@ namespace QuietCamp.Composition
                     var definition=assets[asset];
                     result.instances.Add(new ComposedInstance{id=e.id+"/"+role.id,owner=e.id,role=role.id,asset=asset,state=e.state,template=e.template,x=px+(role.x*c+role.z*s)*e.scale,z=pz+(-role.x*s+role.z*c)*e.scale,height=(role.height>0?role.height:definition.height)*e.scale,yaw=yaw+role.yaw,wind=definition.wind,revealOwner=near?.id});
                 }
+                result.parcels.Add(new ComposedParcel{id=e.id,x=px,z=pz,yaw=yaw,scale=e.scale});
                 reserved.Add((px,pz,parcelWidth,parcelDepth));
-                if(template.entrance)
+                if(template.entrance)foreach(var gate in roles.Where(r=>r==entry||r.entrance))
                 {
-                    var gate=roles.FirstOrDefault(r=>r.id=="gate"||r.id=="entrance");
-                    if(gate==null){Error("missing-gate",e.id,"Entrance template has no gate/entrance role.");continue;}
                     float gx=px+(gate.x*c+gate.z*s)*e.scale,gz=pz+(-gate.x*s+gate.z*c)*e.scale;DistanceTo(road,gx,gz,out var end);
-                    result.spans.Add(new RouteSpan{id=e.id+"/approach",route=road.id,a=e.id+"/"+gate.id,b=road.id,ax=gx,az=gz,bx=end.x,bz=end.z,height=0});
+                    result.spans.Add(new RouteSpan{id=e.id+"/approach-"+gate.id,route=road.id,a=e.id+"/"+gate.id,b=road.id,ax=gx,az=gz,bx=end.x,bz=end.z,height=0});
                 }
             }
             foreach(var route in doc.routes.Where(r=>r.kind=="power"||r.kind=="distribution"))
@@ -316,6 +336,16 @@ namespace QuietCamp.Composition
                         previous=p;
                     }
                 }
+            }
+            foreach(var route in doc.routes.Where(r=>r.kind=="distribution"))foreach(string target in route.serviceTargets)
+            {
+                var house=result.instances.Find(i=>i.id==target)??result.instances.Find(i=>i.owner==target&&i.role=="house");
+                if(house==null||assets[house.asset].conductors.Length==0){Error("missing-service-socket",route.id,"Served building lacks an explicit socket: "+target);continue;}
+                var nearest=result.instances.Where(i=>i.owner==route.id&&i.role=="support"&&!route.fallenSupports.Contains(int.Parse(i.id.Substring(i.id.LastIndexOf('-')+1))))
+                    .OrderBy(i=>Sq(i.x-house.x,i.z-house.z)).FirstOrDefault();
+                if(nearest==null){Error("missing-service-socket",route.id,"Served building has no standing distribution support.");continue;}
+                result.spans.Add(new RouteSpan{id=route.id+"/service/"+house.id,route=route.id,a=nearest.id,b=house.id,
+                    ax=nearest.x,az=nearest.z,bx=house.x,bz=house.z,height=route.supportHeight,state="service",socketA=0,socketB=0});
             }
             foreach(var route in doc.routes) PowerDamage.Apply(route,result);
             foreach(var fallen in result.instances.Where(i=>i.role=="fallen-support"))

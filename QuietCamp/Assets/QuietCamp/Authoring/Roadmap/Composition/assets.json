@@ -416,7 +416,14 @@
     },
     "wind": false,
     "placementClass": "solid",
-    "lod": null
+    "lod": null,
+    "conductors": [
+      {
+        "x": 2.3,
+        "y": 2.8,
+        "z": 1.8
+      }
+    ]
   },
   {
     "id": "ua_forester_hut",
@@ -877,7 +884,17 @@
     },
     "wind": false,
     "placementClass": "solid",
-    "lod": "ua_dam_breached_lod"
+    "lod": "ua_dam_breached_lod",
+    "sockets": {
+      "bankA": {
+        "x": -14,
+        "z": 0
+      },
+      "bankB": {
+        "x": 14,
+        "z": 0
+      }
+    }
   },
   {
     "id": "ua_dam_breached_lod",
@@ -896,6 +913,16 @@
     },
     "wind": false,
     "placementClass": "solid",
-    "lod": null
+    "lod": null,
+    "sockets": {
+      "bankA": {
+        "x": -14,
+        "z": 0
+      },
+      "bankB": {
+        "x": 14,
+        "z": 0
+      }
+    }
   }
 ]
