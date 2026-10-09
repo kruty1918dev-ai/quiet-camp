@@ -2,604 +2,8 @@
   "passed": true,
   "unityVersion": "6000.6.2f1",
   "nativeAssetDatabaseImport": true,
-  "metadataUpgraded": 869,
-  "upgradedMaterials": [
-    {
-      "path": "Assets/PolygonCity/Materials/Billboard_Mat.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/FX_Materials/Cloud_Mat.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/FX_Materials/RainWater_Mat.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/FX_Materials/Skyline_Mat.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/FX_Materials/Water_Mat.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Glass_Mat.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Glass_Veh_Mat.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Mat_01_A.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Mat_01_B.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Mat_01_C.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Mat_02_A.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Mat_02_B.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Mat_02_C.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Mat_03_A.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Mat_03_B.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Mat_03_C.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Mat_04_A.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Mat_04_B.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Mat_04_C.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Mat_Road_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Mat_Road_02.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Mat_Road_03.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonCity/Materials/PolygonCity_Mat_Road_04.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/FX/FX_Materials/Blank.mat",
-      "oldShader": "Universal Render Pipeline/Lit",
-      "newShader": "Universal Render Pipeline/2D/Mesh2D-Lit-Default"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Grass_Background_Mat_01.mat",
-      "oldShader": "Universal Render Pipeline/Lit",
-      "newShader": "Universal Render Pipeline/2D/Mesh2D-Lit-Default"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Clover_Flat_Mat_01.mat",
-      "oldShader": "Universal Render Pipeline/Lit",
-      "newShader": "Universal Render Pipeline/2D/Mesh2D-Lit-Default"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Mat_Lillies_01.mat",
-      "oldShader": "Universal Render Pipeline/Lit",
-      "newShader": "Universal Render Pipeline/2D/Mesh2D-Lit-Default"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/PolygonNatureBiomesMeadow_Mat_01.mat",
-      "oldShader": "Universal Render Pipeline/Lit",
-      "newShader": "Universal Render Pipeline/2D/Mesh2D-Lit-Default"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Cobblestone_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Dirt_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Dirt_Cracked_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Dirt_Cracked_Debris_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Dirt_Cracked_Leaves_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Dirt_Cracked_Leaves_Heavy_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Dirt_Cracked_Pebbles_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Footpath_Tiles_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Grass_Clovers_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Grass_Debris_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Grass_Flowers_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Grass_Leaves_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Grass_Leaves_Heavy_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Grass_Pebbles_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Grass_Textures_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Grass_Textures_02.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Gravel_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Leaves_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Moss_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Moss_Rock_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Mud_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Mud_Debris_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Rock_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Rock_Moss_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Rock_Rough_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Rock_Rough_Moss_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Terrain/Mat_Ruin_Tiles_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/Background_Tree.mat",
-      "oldShader": "Universal Render Pipeline/Lit",
-      "newShader": "Universal Render Pipeline/2D/Mesh2D-Lit-Default"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/LillyPads_01.mat",
-      "oldShader": "Universal Render Pipeline/Lit",
-      "newShader": "Universal Render Pipeline/2D/Mesh2D-Lit-Default"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/LillyPads_02.mat",
-      "oldShader": "Universal Render Pipeline/Lit",
-      "newShader": "Universal Render Pipeline/2D/Mesh2D-Lit-Default"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/Swamp_Scum_01.mat",
-      "oldShader": "Universal Render Pipeline/Lit",
-      "newShader": "Universal Render Pipeline/2D/Mesh2D-Lit-Default"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/Swamp_Scum_02.mat",
-      "oldShader": "Universal Render Pipeline/Lit",
-      "newShader": "Universal Render Pipeline/2D/Mesh2D-Lit-Default"
-    },
-    {
-      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/PolygonNatureBiomesSwamp_Mat_01.mat",
-      "oldShader": "Universal Render Pipeline/Lit",
-      "newShader": "Universal Render Pipeline/2D/Mesh2D-Lit-Default"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_01_B.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_01_C.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_02_B.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_02_C.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_03_B.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_03_C.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_04_B.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_04_C.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_Veh_02.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_Veh_03.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_Veh_04.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_Veh_05.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_Veh_06.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_Veh_Destroyed_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_Veh_Glass.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_Veh_Plane_02.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_Veh_Plane_03.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_Veh_Plane_04.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_Veh_Plane_Destroyed_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_Veh_Tank_Tracks.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_Wep_Chrome.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_Wep_Gold.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/Alts/PolygonBattleRoyale_WireFence.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/FX/PolygonBattleRoyale_FX_Dirt.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/FX/PolygonBattleRoyale_FX_Emmision.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/FX/PolygonBattleRoyale_FX_Rain.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/FX/PolygonBattleRoyale_Water.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_01_A.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_02_A.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_03_A.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_04_A.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_Glass.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_Road.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_Veh_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_Veh_Plane_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_Wep_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Models/Characters/Materials/PolygonMilitary_Texture_01_B.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Models/Characters/Materials/PolygonMilitary_Texture_01_C.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Models/Characters/Materials/PolygonMilitary_Texture_01_D.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Models/Characters/Materials/PolygonWar_Texture.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Models/Materials/Texture.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonBattleRoyale/Models/Materials/Weapon_Skins_Master_07.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonParticles/Materials/Materials/pCube1Mat.mat",
-      "oldShader": "Universal Render Pipeline/Lit",
-      "newShader": "Universal Render Pipeline/2D/Mesh2D-Lit-Default"
-    },
-    {
-      "path": "Assets/PolygonParticles/Materials/PolygonParticleFX_Blood.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonParticles/Materials/PolygonParticleFX_Dark.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonParticles/Materials/PolygonParticleFX_Emission.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonParticles/Materials/PolygonParticleFX_Emissive_Fire.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonParticles/Materials/PolygonParticleFX_Flies.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonParticles/Materials/PolygonParticleFX_Ice_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonParticles/Materials/PolygonParticleFX_Ice_02.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonParticles/Materials/PolygonParticleFX_Rock_01.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonParticles/Materials/PolygonParticleFX_Rock_02.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonParticles/Materials/PolygonParticleFX_Smoke_Mat_03.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonParticles/Materials/PolygonParticleFX_Texture.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonParticles/Materials/PolygonParticles_Material_01_A.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonParticles/Materials/PolygonParticles_Material_01_B.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonParticles/Materials/PolygonParticles_Material_01_C.mat",
-      "oldShader": "Standard",
-      "newShader": "Universal Render Pipeline/Lit"
-    },
-    {
-      "path": "Assets/PolygonParticles/Models/Materials/PolygonApocalypse_Texture_01_Cleaned.mat",
-      "oldShader": "Universal Render Pipeline/Lit",
-      "newShader": "Universal Render Pipeline/2D/Mesh2D-Lit-Default"
-    }
-  ],
+  "metadataUpgraded": 0,
+  "upgradedMaterials": [],
   "packages": [
     {
       "root": "Assets/PolygonCity",
@@ -612,11 +16,12 @@
       "missingMeshFilters": 0,
       "missingScripts": 0,
       "materialCount": 24,
-      "legacyMaterials": 1,
+      "legacyMaterials": 0,
       "shaderCounts": {
         "Universal Render Pipeline/Lit": 23,
-        "Legacy Shaders/Particles/Additive": 1
-      }
+        "Universal Render Pipeline/Particles/Unlit": 1
+      },
+      "shaderWarnings": []
     },
     {
       "root": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest",
@@ -629,20 +34,18 @@
       "missingMeshFilters": 0,
       "missingScripts": 0,
       "materialCount": 93,
-      "legacyMaterials": 2,
+      "legacyMaterials": 0,
       "shaderCounts": {
-        "Universal Render Pipeline/2D/Mesh2D-Lit-Default": 5,
+        "Universal Render Pipeline/Lit": 32,
         "Universal Render Pipeline/Particles/Lit": 6,
-        "Universal Render Pipeline/Particles/Unlit": 4,
-        "Legacy Shaders/Particles/Additive (Soft)": 1,
-        "Legacy Shaders/Particles/Additive": 1,
+        "Universal Render Pipeline/Particles/Unlit": 6,
         "SyntyStudios/VegitationShader": 40,
         "SyntyStudios/TriplanarBasic": 3,
         "SyntyStudios/Basic_LOD_Shader": 2,
         "SyntyStudios/SkyboxUnlit": 1,
-        "SyntyStudios/WaterShader": 3,
-        "Universal Render Pipeline/Lit": 27
-      }
+        "SyntyStudios/WaterShader": 3
+      },
+      "shaderWarnings": []
     },
     {
       "root": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland",
@@ -655,21 +58,19 @@
       "missingMeshFilters": 0,
       "missingScripts": 0,
       "materialCount": 44,
-      "legacyMaterials": 6,
+      "legacyMaterials": 0,
       "shaderCounts": {
-        "Universal Render Pipeline/Particles/Unlit": 4,
+        "Universal Render Pipeline/Particles/Unlit": 10,
         "Universal Render Pipeline/Particles/Lit": 4,
-        "Legacy Shaders/Particles/Additive (Soft)": 3,
-        "Legacy Shaders/Particles/Multiply": 2,
-        "Legacy Shaders/Particles/Additive": 1,
         "SyntyStudios/VegitationShader": 17,
-        "Unlit/Texture": 1,
-        "Universal Render Pipeline/2D/Mesh2D-Lit-Default": 6,
+        "Universal Render Pipeline/Unlit": 1,
+        "Universal Render Pipeline/Lit": 6,
         "SyntyStudios/Basic_LOD_Shader": 2,
         "SyntyStudios/TriplanarBasic": 2,
         "SyntyStudios/SkyboxUnlit": 1,
         "SyntyStudios/WaterShader": 1
-      }
+      },
+      "shaderWarnings": []
     },
     {
       "root": "Assets/PolygonBattleRoyale",
@@ -682,14 +83,23 @@
       "missingMeshFilters": 0,
       "missingScripts": 0,
       "materialCount": 46,
-      "legacyMaterials": 2,
+      "legacyMaterials": 0,
       "shaderCounts": {
         "Universal Render Pipeline/Lit": 42,
         "SyntyStudios/DamageZone": 1,
-        "Legacy Shaders/Particles/Alpha Blended": 1,
-        "Legacy Shaders/Particles/Additive (Soft)": 1,
+        "Universal Render Pipeline/Particles/Unlit": 2,
         "Hidden/InternalErrorShader": 1
-      }
+      },
+      "shaderWarnings": [
+        {
+          "path": "Assets/PolygonBattleRoyale/Materials/FX/DamageZone.mat",
+          "shader": "SyntyStudios/DamageZone"
+        },
+        {
+          "path": "Assets/PolygonBattleRoyale/Materials/FX/PolygonBattleRoyale_FX_Smoke.mat",
+          "shader": "Hidden/InternalErrorShader"
+        }
+      ]
     },
     {
       "root": "Assets/PolygonParticles",
@@ -702,16 +112,12 @@
       "missingMeshFilters": 0,
       "missingScripts": 0,
       "materialCount": 58,
-      "legacyMaterials": 42,
+      "legacyMaterials": 0,
       "shaderCounts": {
-        "Universal Render Pipeline/2D/Mesh2D-Lit-Default": 2,
-        "Legacy Shaders/Particles/Additive (Soft)": 8,
-        "Universal Render Pipeline/Lit": 14,
-        "Legacy Shaders/Particles/Additive": 20,
-        "Legacy Shaders/Particles/Multiply": 4,
-        "Legacy Shaders/Particles/Alpha Blended": 8,
-        "Legacy Shaders/Particles/Multiply (Double)": 2
-      }
+        "Universal Render Pipeline/Lit": 16,
+        "Universal Render Pipeline/Particles/Unlit": 42
+      },
+      "shaderWarnings": []
     },
     {
       "root": "Assets/PolygonNatureBiomes/PNB_Core",
@@ -724,15 +130,15 @@
       "missingMeshFilters": 0,
       "missingScripts": 0,
       "materialCount": 6,
-      "legacyMaterials": 1,
+      "legacyMaterials": 0,
       "shaderCounts": {
-        "Universal Render Pipeline/Particles/Unlit": 1,
-        "Legacy Shaders/Particles/Additive (Soft)": 1,
+        "Universal Render Pipeline/Particles/Unlit": 2,
         "SyntyStudios/CloudShader": 1,
-        "Unlit/Transparent": 1,
+        "Universal Render Pipeline/Unlit": 1,
         "SyntyStudios/SkyboxUnlit": 1,
         "SyntyStudios/WaterShader": 1
-      }
+      },
+      "shaderWarnings": []
     }
   ],
   "errors": [],

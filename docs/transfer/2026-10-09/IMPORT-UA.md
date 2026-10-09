@@ -30,16 +30,35 @@ Battle Royale, City і Particle FX, отримали детерміновані 
 
 Перевірки: `python3 tools/test_import_unitypackage.py` та
 `python3 tools/verify_transfer_import.py`. Це відновлення дерева файлів
-для Unity. Перший **AssetDatabase import у Unity 6000.6.2f1 пройшов**
-у погодженій ізоляції 10.10.2026: 1 156 FBX, 1 784 meshes,
-2 181 345 triangles; кампанія зберегла 110 ID.
-[Native receipt](import/native-import.json). Офіційними URP upgraders
-оновлено 119 матеріалів; metadata 869 моделей/текстур пересеріалізовано
-для Unity 6 зі збереженням GUID. Усі 1 221 prefab-и, включно з Core,
-завантажились без відсутніх meshes чи скриптів. Ще 54 legacy FX
-матеріали й один відсутній shader потребують додаткової адаптації.
-Сцени, вигляд і продуктивність донорів
-ще не перевірено. Свіжі screenshots не створювалися, player builds не було.
+для Unity. **AssetDatabase import у Unity 6000.6.2f1 пройшов**
+у погодженій ізоляції 10.10.2026. Фінальна перевірка, включно з Core:
+1 162 FBX, 1 790 meshes, 2 253 121 triangles та 1 221 prefab-и.
+Prefab-и завантажились без відсутніх meshes чи скриптів; кампанія
+зберегла 110 ID. [Native receipt](import/native-import.json).
+
+Оновлено 106 Standard materials і 54 legacy particle materials до URP,
+metadata 869 моделей/текстур пересеріалізовано зі збереженням GUID.
+Виявлений небажаний перехід 3D→2D у загальному registry upgraders
+виправлено: інструмент обирає тільки 3D destinations; 11 наданих URP
+матеріалів відновлено з оригіналу, Lit bindings виправлено, додано
+перевірку проти 2D shaders. Фінальний повторний прохід не виконав жодної
+нової конвертації; legacy і 2D material counts дорівнюють нулю.
+[Звіт виправлення](import/native-3d-material-repair.json).
+
+Два Battle Royale FX мають окремі обмеження: `DamageZone` використовує
+старий surface shader й потребує портування, а shader GUID
+`63343626dde95de409e37d8c3d8b2c0b` для `PolygonBattleRoyale_FX_Smoke`
+відсутній у комплекті. Їхній вигляд не прийнято. Решта шейдерів мають
+URP declarations; це не перевірка GPU compilation чи вигляду.
+Native import виконувався без графіки. Сцени та продуктивність донорів
+ще не перевірено; screenshots/player builds цей імпорт не створював.
+
+Фінальна file verification охоплює 8 920 payload files і 7 191 активний
+GUID без дублювання. 1 083 допустимі native material/metadata зміни
+зв'язані з original SHA у [receipt адаптації](import/native-adaptations.json).
+[Перевірка збереженого контенту](import/preserved-content.json) порівнює
+чинні puzzle JSON, налаштування кампанії, optimized UI та шрифт із
+commit до інтеграції. Source originals залишаються незмінними в ZIP.
 
 Для місця видалено лише відновлювані `Library` двох неактивних копій:
 `~/.cache/quietcamp/particle-qa/QuietCamp/Library` та

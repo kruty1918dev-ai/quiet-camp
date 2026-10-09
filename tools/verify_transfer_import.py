@@ -12,6 +12,8 @@ RECEIPTS = ROOT / "docs/transfer/2026-10-09/import"
 
 def expected_payloads():
     expected = {}
+    guid_receipt = RECEIPTS / "particles-guids.json"
+    particle_guids = json.loads(guid_receipt.read_text()) if guid_receipt.exists() else {}
     for name in ["city", "meadow", "swamp", "particles", "battle-royale", "abilities", "nature-urp"]:
         receipt = json.loads((RECEIPTS / (name + ".json")).read_text())
         base = ROOT / "QuietCamp"
@@ -20,9 +22,8 @@ def expected_payloads():
         for row in receipt["entries"]:
             if name == "particles":
                 info = dict(row)
-                guid_receipt = RECEIPTS / "particles-guids.json"
-                if row["path"].endswith(".meta") and guid_receipt.exists():
-                    info["guid"] = json.loads(guid_receipt.read_text())[row["path"]]
+                if row["path"].endswith(".meta") and row["path"] in particle_guids:
+                    info["guid"] = particle_guids[row["path"]]
                 expected[base / row["path"]] = info
             elif not row["action"].startswith("excluded"):
                 for part, info in row["parts"].items():

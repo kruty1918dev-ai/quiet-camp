@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using QuietCamp.Infrastructure;
 using UnityEditor;
 using UnityEditor.Rendering;
+using UnityEditor.Rendering.Universal.ShaderGUI;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -29,12 +30,28 @@ namespace QuietCamp.Editor
             var oldMetadata=pathsToUpgrade.Where(NeedsMetadataUpgrade).ToArray();
             if(oldMetadata.Length>0)
                 AssetDatabase.ForceReserializeAssets(oldMetadata,ForceReserializeAssetsOptions.ReserializeMetadata);
-            var upgraders=MaterialUpgrader.FetchAllUpgradersForPipeline(typeof(UniversalRenderPipelineAsset));
+            // The registry also contains 3D-to-2D converters for this pipeline type.
+            // Only select built-in-to-3D paths, and never reconvert current URP materials.
+            var upgraders=MaterialUpgrader.FetchAllUpgradersForPipeline(typeof(UniversalRenderPipelineAsset))
+                .Where(u=>!u.NewShaderPath.StartsWith("Universal Render Pipeline/2D/",StringComparison.Ordinal)
+                    &&!u.OldShaderPath.StartsWith("Universal Render Pipeline/",StringComparison.Ordinal)).ToList();
             foreach(var path in pathsToUpgrade.Where(p=>p.EndsWith(".mat",StringComparison.OrdinalIgnoreCase)))
             {
                 var material=AssetDatabase.LoadAssetAtPath<Material>(path);
                 if(material==null||material.shader==null)continue;
                 string oldShader=material.shader.name;
+                if(oldShader=="Universal Render Pipeline/Lit")
+                {
+                    BaseShaderGUI.SetMaterialKeywords(material,LitGUI.SetMaterialKeywords);
+                    EditorUtility.SetDirty(material);AssetDatabase.SaveAssetIfDirty(material);
+                    continue;
+                }
+                if(UpgradeLegacyUnlit(material,oldShader))
+                {
+                    AssetDatabase.SaveAssetIfDirty(material);
+                    upgradedMaterials.Add(new{path,oldShader,newShader=material.shader.name});
+                    continue;
+                }
                 var upgrader=upgraders.FirstOrDefault(u=>u.OldShaderPath==oldShader);
                 if(upgrader==null)continue;
                 MaterialUpgrader.Upgrade(material,upgrader,MaterialUpgrader.UpgradeFlags.None);
@@ -70,6 +87,13 @@ namespace QuietCamp.Editor
                     ||m.shader.name.StartsWith("Particles/Standard",StringComparison.Ordinal));
                 var shaderCounts=materials.GroupBy(m=>m.shader==null?"<missing>":m.shader.name)
                     .ToDictionary(g=>g.Key,g=>g.Count());
+                if(shaderCounts.Keys.Any(s=>s.StartsWith("Universal Render Pipeline/2D/",StringComparison.Ordinal)))
+                    errors.Add("A 3D donor material uses a 2D renderer shader: "+root);
+                var shaderWarnings=materialPaths.Select(p=>new{path=p,material=AssetDatabase.LoadAssetAtPath<Material>(p)})
+                    .Where(x=>x.material!=null&&(x.material.shader==null
+                        ||x.material.shader.name=="Hidden/InternalErrorShader"
+                        ||!DeclaresUrp(x.material.shader)))
+                    .Select(x=>new{x.path,shader=x.material.shader==null?"<missing>":x.material.shader.name}).ToArray();
                 int missingMeshFilters=0,missingScripts=0,loadedPrefabs=0;
                 var prefabPaths=paths.Where(p=>p.EndsWith(".prefab",StringComparison.OrdinalIgnoreCase)).ToArray();
                 foreach(var path in prefabPaths)
@@ -86,7 +110,7 @@ namespace QuietCamp.Editor
                 }
                 packages.Add(new{root,assets=paths.Length,fbxFiles=modelPaths.Length,meshCount,triangles,
                     prefabFiles=prefabPaths.Length,loadedPrefabs,missingMeshFilters,missingScripts,
-                    materialCount=materials.Length,legacyMaterials,shaderCounts});
+                    materialCount=materials.Length,legacyMaterials,shaderCounts,shaderWarnings});
                 Debug.Log("[TransferImportAudit] Audited "+root);
             }
             var campaign=LevelLoader.MvpLevelIds();
@@ -111,6 +135,62 @@ namespace QuietCamp.Editor
             if(!match.Success)return false;
             int version=int.Parse(match.Groups[2].Value);
             return version<(match.Groups[1].Value=="TextureImporter"?10:25);
+        }
+
+        static bool DeclaresUrp(Shader shader)
+        {
+            if(shader==null)return false;
+            if(shader.name.StartsWith("Universal Render Pipeline/",StringComparison.Ordinal))return true;
+            string source=AssetDatabase.GetAssetPath(shader);
+            // GetTag depends on the active subshader, which a Null graphics device cannot select.
+            return source.EndsWith(".shader",StringComparison.OrdinalIgnoreCase)&&File.Exists(source)
+                &&Regex.IsMatch(File.ReadAllText(source),"\"RenderPipeline\"\\s*=\\s*\"UniversalPipeline\"");
+        }
+
+        // Older particle shaders have no built-in URP upgrader. Keep texture, tint,
+        // UV transform and blend semantics in the URP particle shader. No scene edits.
+        static bool UpgradeLegacyUnlit(Material material,string oldShader)
+        {
+            bool legacyParticle=oldShader.StartsWith("Legacy Shaders/Particles/",StringComparison.Ordinal);
+            bool sprite=oldShader=="Universal Render Pipeline/2D/Mesh2D-Lit-Default";
+            bool unlit=oldShader=="Unlit/Texture"||oldShader=="Unlit/Transparent";
+            if(!legacyParticle&&!sprite&&!unlit)return false;
+            if(legacyParticle&&!oldShader.Contains("Additive")&&!oldShader.Contains("Multiply")
+                &&!oldShader.Contains("Alpha Blended"))return false;
+            string textureKey=material.HasProperty("_BaseMap")?"_BaseMap":"_MainTex";
+            var texture=material.GetTexture(textureKey);
+            var scale=material.GetTextureScale(textureKey);var offset=material.GetTextureOffset(textureKey);
+            string colorKey=material.HasProperty("_TintColor")?"_TintColor":
+                material.HasProperty("_BaseColor")?"_BaseColor":material.HasProperty("_Color")?"_Color":null;
+            var color=colorKey==null?Color.white:material.GetColor(colorKey);
+            if(legacyParticle)color*=2f;
+            var shader=Shader.Find(unlit?"Universal Render Pipeline/Unlit":"Universal Render Pipeline/Particles/Unlit");
+            if(shader==null)throw new InvalidOperationException("Required URP unlit shader is missing");
+            material.shader=shader;
+            material.SetTexture("_BaseMap",texture);material.SetTextureScale("_BaseMap",scale);
+            material.SetTextureOffset("_BaseMap",offset);material.SetColor("_BaseColor",color);
+            bool transparent=!unlit||oldShader=="Unlit/Transparent";
+            material.SetFloat("_Surface",transparent?1f:0f);
+            material.SetFloat("_Blend",oldShader.Contains("Additive")?2f:oldShader.Contains("Multiply")?3f:0f);
+            material.SetFloat("_AlphaClip",0f);
+            material.SetFloat("_Cull",unlit?2f:0f);
+            if(!unlit)
+            {
+                material.SetFloat("_SoftParticlesEnabled",oldShader.Contains("Soft")?1f:0f);
+                material.SetFloat("_SoftParticlesNearFadeDistance",0f);
+                material.SetFloat("_SoftParticlesFarFadeDistance",1f);
+                BaseShaderGUI.SetMaterialKeywords(material,null,ParticleGUI.SetMaterialKeywords);
+            }
+            else BaseShaderGUI.SetMaterialKeywords(material);
+            if(oldShader.Contains("Multiply (Double)"))
+            {
+                material.SetFloat("_SrcBlend",(float)UnityEngine.Rendering.BlendMode.DstColor);
+                material.SetFloat("_DstBlend",(float)UnityEngine.Rendering.BlendMode.SrcColor);
+                material.DisableKeyword("_ALPHAMODULATE_ON");
+            }
+            if(material.GetTexture("_BaseMap")!=texture)throw new InvalidOperationException("Texture reference changed during unlit upgrade");
+            EditorUtility.SetDirty(material);
+            return true;
         }
     }
 }
