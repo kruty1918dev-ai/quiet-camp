@@ -36,6 +36,15 @@ namespace QuietCamp.Tests
             Assert.IsTrue(MenuSceneHost.Current?.UiReady == true);
             var host = MenuSceneHost.Current;
             var screens = (MenuScreens)typeof(MenuSceneHost).GetField("_screens", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(host);
+            var metadataField = typeof(CampContent).GetField("_summaries", BindingFlags.Static | BindingFlags.NonPublic);
+            var originalMetadata = (QuietCamp.Domain.LevelSummary[])CampContent.Summaries;
+            // Reproduce a checkout with extra metadata and a changed record order
+            // without writing the user's asset or loading every frozen level.
+            metadataField.SetValue(null,originalMetadata.Reverse().Concat(new[] {
+                new QuietCamp.Domain.LevelSummary { id="qa:unlisted",number=999,width=8,height=8 }
+            }).ToArray());
+            try
+            {
             typeof(ScreenshotPlayModeTest).GetMethod("SetGameViewSize", BindingFlags.Static | BindingFlags.NonPublic)
                 .Invoke(null, new object[] { 720, 1600 });
             screens.Show("Main"); for (int i=0;i<20;i++) yield return null;
@@ -45,7 +54,7 @@ namespace QuietCamp.Tests
             screens.Show("Levels");
             for (int i=0;i<30;i++) yield return null;
             var map = Object.FindAnyObjectByType<RoadmapGraphic>(); Assert.NotNull(map);
-            Assert.AreEqual(CampContent.Summaries.Count, map.Scenes.Count);
+            Assert.AreEqual(LevelLoader.MvpLevelIds().Count, map.Scenes.Count);
             map.SetWeatherMoment(25); yield return null; yield return null;
             var scroll = map.GetComponentInParent<ScrollRect>(); Assert.NotNull(scroll);
             scroll.verticalNormalizedPosition = .5f; scroll.velocity=Vector2.zero;
@@ -92,6 +101,8 @@ namespace QuietCamp.Tests
                     Assert.AreEqual(0, map.TruncatedModels);
                     foreach (var active in map.GladePool.Where(g => g.gameObject.activeSelf))
                     {
+                        Assert.AreEqual(ids[active.SceneIndex],map.SceneAt(active.SceneIndex).Level.id,
+                            "Dioramas and native buttons must use the same campaign order.");
                         var mesh = active.canvasRenderer.GetMesh(); Assert.NotNull(mesh);
                         Assert.That(mesh.vertexCount, Is.InRange(1, 64999));
                         Assert.IsTrue(active.canvasRenderer.GetMaterial().shader.isSupported);
@@ -113,6 +124,8 @@ namespace QuietCamp.Tests
                 .Invoke(null, new object[] { 720, 1600 });
             for (int i=0;i<20;i++) yield return null;
             yield return CaptureUi("camp");
+            }
+            finally { metadataField.SetValue(null,originalMetadata); }
         }
         static IEnumerator CaptureUi(string name)
         {

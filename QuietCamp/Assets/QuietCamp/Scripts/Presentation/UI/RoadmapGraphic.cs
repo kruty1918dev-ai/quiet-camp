@@ -55,10 +55,14 @@ namespace QuietCamp.Presentation.UI
             using var audit = PerformanceAudit.Measure("QC.RoadmapGraphic.EnsureData");
             if(_painter!=null)return;
             _catalog=AtmosphereCatalog.Load();_painter=new RoadmapPainter(RoadmapModelLibrary.Load());
-            // Lazy scenes: the map materializes a diorama only when its part of
-            // the world is actually painted — cold open never builds 270 scenes.
-            _summaries=new LevelSummary[CampContent.Summaries.Count];
-            for(int i=0;i<_summaries.Length;i++)_summaries[i]=CampContent.Summaries[i];
+            // Metadata may include extra frozen/QA levels or a different order
+            // on a fresh checkout. Match the same campaign IDs as the buttons.
+            // Dioramas are still materialized only when their area is painted.
+            var ids=LevelLoader.MvpLevelIds();
+            _summaries=new LevelSummary[ids.Count];
+            for(int i=0;i<_summaries.Length;i++)
+                _summaries[i]=CampContent.Summary(ids[i])??new LevelSummary
+                    {id=ids[i],number=i+1,width=8,height=8,decorSeed=11000+i};
             for(int i=0;i<_summaries.Length;i++)_scenes.Add(null);
             _scroll=GetComponentInParent<ScrollRect>();
             var shader=Resources.Load<Shader>("QuietCamp/RoadmapCanopy");
