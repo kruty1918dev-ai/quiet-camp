@@ -23,6 +23,8 @@
 
 ![Літня галявина Quiet Camp — справжній Unity Game View](docs/images/captures/2026-10-08/album-season-summer.png)
 
+Для продовження на іншому ноутбуці: [пакет перенесення, звіт та план роботи · 09.10.2026](docs/TRANSFER-2026-10-09-UA.md).
+
 *Кадри довідника: Unity Game View, 2026-10-08, окремий QA-профіль із synthetic progress. [Середовище, source hashes і статус перевірок](docs/status.md).*
 
 ## Місце для кожного

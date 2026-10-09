@@ -18,6 +18,7 @@
 | Знайти реалізацію | [Карта проєкту](project-map.md) | Шари, папки, UI presenters, дані, тести й design notes. |
 | Оцінити готовність | [Стан і докази](status.md) | Що виконано, що є prototype/staging і що ще не перевірено. |
 | Знайти просідання | [Карта продуктивності](../PERFORMANCE_MAP.md), [interactive audit](performance.html) | Native Editor frame timings, листя, scene/UI activation, мапа та черга виправлень. |
+| Продовжити на іншому ноутбуці | [Передача проєкту](TRANSFER-2026-10-09-UA.md), [план роботи](CONTINUE-2026-10-09-UA.md) | Приватний ZIP із поточним проєктом, prepared моделями, UAC assets-only backup, manifest і точними статусами. |
 
 ![Як екрани повʼязані між собою](images/diagrams/screens-flow.svg)
 
