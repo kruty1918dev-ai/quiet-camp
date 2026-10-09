@@ -71,6 +71,16 @@ namespace QuietCamp.Tests
             yield return Frames(10);
             foreach (var surface in Object.FindObjectsByType<HtmlSurface>()) AssertNoScript(surface);
             yield return Shot("01_menu_720x1600");
+            var screens = (MenuScreens)typeof(MenuSceneHost).GetField("_screens", Hidden).GetValue(MenuSceneHost.Current);
+            screens.Show("Journeys"); yield return Frames(20);
+            AssertNoScript(screens.Overlay);
+            Tap("journey-main"); yield return Frames(20);
+            Assert.NotNull(screens.Overlay.Element("journey-viewport"));
+            AssertNoScript(screens.Overlay);
+            Tap("back"); yield return Frames(20);
+            Assert.AreEqual("Journeys", screens.Current);
+            Tap("back"); yield return Frames(20);
+            Assert.AreEqual("Main", screens.Current);
             Tap("continue");
             for (var i = 0; i < 600 && (SceneManager.GetActiveScene().name != "Camp" ||
                 CampSceneHost.Current == null || !CampSceneHost.Current.IsReady); i++) yield return null;

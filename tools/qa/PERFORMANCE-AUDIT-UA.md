@@ -19,7 +19,7 @@ Fixture використовує справжній rendered Game View, scene ro
 }
 ```
 
-5. Запиши це в `request.json` і тримай Editor відкритим. Driver відмовляється від unsaved scene, використовує native `TestRunnerApi` та ізолює product/save identity. `suite` допускає `performance` (повна матриця, timeout 600 с), `roadmap` (детальний замір мапи, timeout 180 с), `foliage` (п'ять regression tests). Не використовуй fixture для свого звичайного save.
+5. Запиши це в `request.json` і тримай Editor відкритим. Driver відмовляється від unsaved scene, використовує native `TestRunnerApi` та ізолює product/save identity. `suite` допускає `performance` (повна матриця, timeout 600 с), `roadmap` (детальний замір мапи, timeout 180 с), `foliage` (шість regression tests), `optimization-editor` (14 EditMode contracts), `optimization-regressions` (13 native PlayMode regressions, включно з GPU coverage, forest pooling і віртуалізацією мапи). Не використовуй fixture для свого звичайного save.
 6. Дочекайся `finished.txt`, `results.xml`, **виходу з Play Mode та `restored.txt`**. Відновлення identity навмисне відкладене після cleanup: scene `OnDestroy` ще може записувати QA save. `Skipped` або timeout не є Passed. Перевір фактичні test names/count у XML.
 7. Повторно звір saves, ProjectSettings, початкові dirty inputs і ADB identity/preferences. Driver відновлює лише власний product-name рядок; hashes підтверджують решту. При невідповідності спочатку досліди запис, не перезаписуй сторонні зміни.
 8. Прибери тільки свій injected driver і його `.meta`; порожню створену тобою Editor folder/meta можна також прибрати. Source driver залишається в `tools/qa`. Приватні QA backups не коміть.
@@ -39,3 +39,17 @@ python3 tools/analyze_performance.py /path/to/editor-audit.json /tmp/qc-performa
 `summary.json` містить p50/p95/p99/max кадрів, health counters, inclusive method scopes, route operations і object snapshots. `frames.csv` дає wall timeline; `operations.csv` — окремі завершені переходи. Аналізатор також читає `.json.gz`. Scans об'єктів позначені діагностикою і виключені з whole-frame statistics; scoped game calls у цих кадрах зберігаються.
 
 GPU/allocation/Editor counters, що повернули тільки нулі, позначаються недоступними. Wall interval включає Editor/ОС. Method spans вкладені; сумувати їх не можна. Synthetic QA progress, короткі steady windows і Editor rendering не доводять phone FPS, memory leak, production purchases або повне покриття всіх рівнів.
+
+## Порівняння оптимізації
+
+Початкові дані збережено, перший прохід лежить в `optimized/pass1`, останній — в `optimized`. Кожен native прогін має власний raw SHA, source checkpoint і guards. Публікуй лише завершені результати після відновлення identity.
+
+```bash
+python3 tools/compare_performance.py --plots
+python3 tools/verify_performance.py
+python3 tools/prepare_ui_styles.py --check
+```
+
+Для GPU-листя порівнюй суму `SetFrame` + `OnPopulateMesh` **на анімований кадр**, включно з кадрами без rebuild. p95 на один mesh call після оптимізації описує рідкі cold/activation builds, тому не є щокадровою вартістю. `Camp/Menu Start` після поетапної композиції охоплює тільки першу фазу; для висновків про завантаження використовуй whole-route elapsed і завершені frame intervals. Початкове створення forest/floor має окремий бюджет 4 мс на кожну чергу: одна велика плитка може перевищити його.
+
+`CampMain.css.txt`, `CampBackdrop.css.txt`, `CampMap.css.txt`, `CampGame.css.txt` та `CampJourney.css.txt` генеруються з `Camp.css.txt` через `python3 tools/prepare_ui_styles.py`. Після зміни canonical CSS регенеруй їх; docs verification перевіряє актуальність. Порядок cascade, загальні правила, font-face та wide media зберігаються.

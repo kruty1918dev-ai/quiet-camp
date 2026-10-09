@@ -22,7 +22,7 @@ namespace QuietCamp.Presentation.UI
         Func<string> _render;
         bool _dirty;
         string _css;
-        string _lastHtml, _mountedCss, _scaledCss, _scaledInputCss, _mapCss;
+        string _lastHtml, _mountedCss, _scaledCss, _scaledInputCss, _mapCss, _journeyCss;
         float _cssScale = -1;
         bool _lastReduced;
         static int _mountFrame = -1;
@@ -61,7 +61,11 @@ namespace QuietCamp.Presentation.UI
                 : name == "CampHtml" ? "CampGame.css" : "Camp.css";
             surface._css = Resources.Load<TextAsset>("QuietCamp/Html/" + stylesheet)?.text
                 ?? Resources.Load<TextAsset>("QuietCamp/Html/Camp.css")?.text ?? "";
-            if (name == "MenuOverlay") surface._mapCss = Resources.Load<TextAsset>("QuietCamp/Html/CampMap.css")?.text;
+            if (name == "MenuOverlay")
+            {
+                surface._mapCss = Resources.Load<TextAsset>("QuietCamp/Html/CampMap.css")?.text;
+                surface._journeyCss = Resources.Load<TextAsset>("QuietCamp/Html/CampJourney.css")?.text;
+            }
             // Quiet Camp documents use a small C# callback allow-list, not JS programs.
             // Keep CSS/Yoga/uGUI rendering, but avoid Android native VM/AOT binding.
             surface._host.NativeEventResolver = surface._callbacks.ResolveNativeEvent;
@@ -131,6 +135,8 @@ namespace QuietCamp.Presentation.UI
                 .WithWheelSensitivity((settings?.scrollSensitivity ?? 12f) / 12f);
             var scale = settings?.textScale ?? 1f;
             var sourceCss = _mapCss != null && html.Contains("roadmap-scroll") && !html.Contains("bonus-preview") ? _mapCss : _css;
+            if (_journeyCss != null && (html.Contains("menu-body-Journeys-") || html.Contains("menu-body-JourneyPreview-")))
+                sourceCss = _journeyCss;
             if (_scaledCss == null || _cssScale != scale || _scaledInputCss != sourceCss)
             {
                 _cssScale = scale; _scaledInputCss = sourceCss;
