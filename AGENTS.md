@@ -103,3 +103,14 @@ The probe must pass first. Do not change shared Unity ADB preferences, expose
 host USB/network/processes to this run, or launch a player build. This approval
 is for transfer AssetDatabase import/audit; it does not activate the prepared
 30-node menu/composition or authorize a render/build outside this arrangement.
+
+# Diorama design — 2026-10-10
+
+The user requested visual review of every newly imported model, a descriptive
+asset catalogue, and 8–12 diorama studies with a Ukrainian atmosphere matching
+existing levels. Editor model/study renders use the same approved private
+PID/proc/network and masked-USB arrangement. The filesystem X11 socket may be
+used for graphics; host network, USB and processes remain isolated. Probe first,
+one Unity run at a time, workers 1/4. This request is for dioramas only: do not
+create/change puzzles, progression, saves, purchases or publish a new Main
+catalog. Preserve source archives. Full vendor model previews stay local.

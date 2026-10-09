@@ -1,0 +1,18 @@
+{
+  "unityVersion": "6000.6.2f1",
+  "graphics": "OpenGLCore",
+  "device": "NVIDIA GeForce 930MX/PCIe/SSE2",
+  "sourceModelCount": 1210,
+  "start": 0,
+  "rendered": 1210,
+  "failed": 0,
+  "visualReviewComplete": false,
+  "playerBuild": false,
+  "date": "2026-10-10",
+  "photos": 2420,
+  "isolatedEditor": true,
+  "knownSourceIssues": [
+    "M0034: DamageZone renders magenta; incompatible legacy shader",
+    "M0001: multiple character meshes overlap in original source assembly"
+  ]
+}
