@@ -4,7 +4,7 @@
 >
 > На 2026-10-08 committed main catalog задає 110 ordered places; цей документ описує релізний план ширшого світу. Кількість у source catalog не є заявою native/device acceptance всього контенту. Нова semantic roadmap composition лишається в окремій art branch до bake/visual acceptance.
 >
-> Native Editor performance audit, 2026-10-09: підтверджено важке leaf mesh, синхронну scene/UI activation та procedural map rebuild під час scroll. Дві performance fixtures і п'ять foliage regressions Passed; budgets не пройдені й оптимізації відкриті. [Виміри та порядок виправлень](PERFORMANCE_MAP.md) · [інтерактивний report](https://kruty1918dev-ai.github.io/quiet-camp/performance.html).
+> Native Editor performance, 2026-10-09: перший раунд оптимізації виконано й переміряно — leaf CPU p95 17.34 → 0.03 мс (GPU shader), найдовші route кадри 960 → 237 мс, map open max 1 377 → 303 мс. **14 EditMode / 13 PlayMode regressions Passed**; budgets пройдені частково, залишкова черга в [карті продуктивності](PERFORMANCE_MAP.md) · [інтерактивний report](https://kruty1918dev-ai.github.io/quiet-camp/performance.html).
 
 
 Ціль: ~300 рівнів, що відчуваються як жива карта світу з центральною
@@ -128,3 +128,5 @@ A clean Git archive of the committed repository also passed the portability chec
 Налаштування меню й табору використовують derived CSS **21 KB** замість **41.3 KB**, зі спільними control/icon/privacy/resource правилами. Native UI regression проходить доступні категорії та back controls, preview подорожей і gameplay pause. **13/13 PlayMode Passed**; QA capture також синхронізує language preference з українськими labels.
 
 Fresh-checkout consistency: roadmap dioramas тепер індексуються тим самим campaign ID order, що й native кнопки, замість фізичного порядку всіх metadata records. Зайві frozen/QA summaries не подовжують головну мапу; відсутня decorative summary має нейтральний fallback без level/solver load. **13/13 PlayMode regressions Passed** з навмисно перемішаними in-memory records і зайвим QA записом, включно з перевіркою кожної видимої diorama ID. Файл користувача не змінено.
+
+Фінальний замір оптимізації ([summary](docs/performance/2026-10-09/optimized/summary.json), checkpoint `e8dd7a0`): **7 386 кадрів / 55 198 scopes**, Passed. Leaf CPU p95 **17.34 → 0.03 мс**, лише 3 mesh calls на 194 анімовані кадри; найдовші route кадри **960 → 237 мс**; перше відкриття мапи max **1 377 → 303 мс**; HTML mount p95 **252 → 109 мс**; плавний drag мапи p95 **152 → 35 мс**. Бюджети ще не досягнуті для route max ≤100 мс, sweep/сталих сцен ≤33.33 мс і Levels open ≤100 мс; залишкова черга — в [карті продуктивності](PERFORMANCE_MAP.md). Чотири свіжі QA кадри мають [manifest з hashes](docs/performance/2026-10-09/optimized/images/manifest.json); інтерактивний report містить таблицю до/після й шість datasets.

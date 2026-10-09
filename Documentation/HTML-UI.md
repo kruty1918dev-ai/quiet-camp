@@ -10,6 +10,14 @@ All player-facing screens mount through [Moyva UnityHTML](https://github.com/kru
 
 Palette follows the existing menu illustration and `Design/ImmersiveUI`: forest `#243e35`, cream `#f3efe3`, muted ink `#526756`, warm selection `#fff1dc`. The menu and gameplay forest share native world-space scenery, ground and lighting. The board, tents, placement previews and foliage scene transition remain native rendering elements.
 
+## Preparation and performance, 2026-10-09
+
+`Camp.css.txt` remains the canonical stylesheet. Run `python3 tools/prepare_ui_styles.py` after editing it: the generator preserves cascade order, generic rules, fonts and wide media rules in six derived assets for main menu, backdrop, map, gameplay, journeys and settings. Other modal panels retain the complete stylesheet; bonus previews retain their map/background rules. `--check` rejects stale generated files.
+
+`HtmlSurface` prepares one dirty document per frame, reuses font/globals/scaled styles and keeps native controls when markup is unchanged. Callback bindings refresh before this fast path. Intentionally empty layers unmount their document context. Map rows have stable parent IDs and a bounded viewport buffer, preserving buttons, callbacks and scroll position when the window moves.
+
+Scene hosts stage world and UI preparation; the router waits for `UiReady` and a rendered frame before revealing the new scene. The [performance report](../PERFORMANCE_MAP.md) records repeatable before/after measurements and remaining cold-path spikes. [Native regression receipts](../docs/performance/2026-10-09/optimized/runtime-regressions.json) cover UI navigation, real journey preview/back controls, reconciliation, delayed layout and recovery; they do not establish target-device FPS.
+
 ## Screen coverage
 
 - Boot splash and main menu.
@@ -62,15 +70,17 @@ preserves UnityHTML, ReactUnity/UGUI, Yoga, QuickJS value converters and the
 reflection-discovered `ReflectBindDelegateGen` templates. Without these rules,
 IL2CPP can leave the template type with zero methods, so the JavaScript host
 cannot bind callbacks. This defect was found in the Android build even though
-the Linux Editor UI tests passed. See the
-[Android UI regression report](../TestResults/android-ui-2026-10-03/REPORT_UA.md).
+the Linux Editor UI tests passed. The local Android UI regression report lives
+in `TestResults/android-ui-2026-10-03/REPORT_UA.md` (not committed).
 
 That retention-only repair did not resolve the reported phone issue. Game
 surfaces now use the same C# event path in Editor and Android. The
 `AndroidHtmlUiBuildFilter` excludes the unused `libquickjs.so` from Android
 players through Unity's [plugin build inclusion API](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/PluginImporter.SetIncludeInBuildDelegate.html);
 the original dependency remains available for Editor and package compatibility.
-The newer evidence is in the [native UI recovery report](../TestResults/android-ui-recovery-2026-10-03/REPORT_UA.md).
+The newer evidence is the local `TestResults/android-ui-recovery-2026-10-03/REPORT_UA.md`,
+the committed [recovery captures](../QuietCamp/Screenshots/AndroidUiRecovery) and the
+[13-test regression receipt](../docs/performance/2026-10-09/optimized/runtime-regressions.json).
 
 After every Android IL2CPP build, audit the actual stripped DLLs and generated
 native callback bodies; checking the Editor DLLs cannot detect this failure:

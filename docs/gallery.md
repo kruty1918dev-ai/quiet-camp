@@ -99,6 +99,16 @@ Portrait panels: 720 × 1600. Album quiet gallery: 1280 × 800. Додатков
 
 Кольорові [схеми правил](images/diagrams/rules.svg), [екранів](images/diagrams/screens-flow.svg), [HUD](images/diagrams/hud-map.svg) та [коду](images/diagrams/project-map.svg) — пояснювальні SVG, не screenshots гри.
 
+## Після оптимізації · 09.10.2026
+
+Чотири актуальні native Game View кадри: synthetic QA progress, 720×1600. Основний 44-image атлас вище має власну дату 08.10.2026. Новий capture перевіряє меню, мапу, налаштування та табір після змін renderer/UI; це не повторна acceptance усіх екранів.
+
+| Меню | Мапа | Налаштування | Табір |
+| --- | --- | --- | --- |
+| ![Меню](performance/2026-10-09/optimized/images/main-menu.png) | ![Мапа](performance/2026-10-09/optimized/images/roadmap.png) | ![Налаштування](performance/2026-10-09/optimized/images/settings.png) | ![Табір](performance/2026-10-09/optimized/images/camp.png) |
+
+[PNG hashes / source checkpoint / session guards](performance/2026-10-09/optimized/images/manifest.json) · [13 native regression tests](performance/2026-10-09/optimized/runtime-regressions.json) · [Виміри до/після](performance.html) · [Повний звіт](../PERFORMANCE_MAP.md).
+
 ## Архів та концепти
 
 [Seasonal baseline 2026-10-05](../QuietCamp/Screenshots/Seasonal) збережено з початковими датами. Невдалий showcase capture 2026-10-06 не заявляється новою пройденою перевіркою.

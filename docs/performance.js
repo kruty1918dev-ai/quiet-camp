@@ -61,7 +61,8 @@
   });
   canvas.addEventListener("pointerleave", draw);
   async function load() {
-    var current = ++requestId, base = "performance/2026-10-09/" + (dataset.value === "roadmap" ? "roadmap/" : "");
+    var paths = {matrix:"", roadmap:"roadmap/", optimized:"optimized/", "optimized-map":"optimized/roadmap/", pass1:"optimized/pass1/", "pass1-map":"optimized/pass1/roadmap/"};
+    var current = ++requestId, base = "performance/2026-10-09/" + paths[dataset.value];
     status.textContent = "Завантажую дані…"; trace.disabled = true;
     try {
       var values = await Promise.all([fetch(base + "summary.json").then(function (r) { if (!r.ok) throw new Error("Summary HTTP " + r.status); return r.json(); }), fetch(base + "frames.csv").then(function (r) { if (!r.ok) throw new Error("Frames HTTP " + r.status); return r.text(); })]);
@@ -81,4 +82,12 @@
   search.addEventListener("input", function () { if (data) renderTable(); });
   dataset.addEventListener("change", load); trace.addEventListener("change", selectTrace); scale.addEventListener("change", draw);
   window.addEventListener("resize", function () { if (selected.length) draw(); }); load();
+  fetch("performance/2026-10-09/optimized/comparison.json").then(function(r){if(!r.ok)throw new Error("Comparison HTTP "+r.status);return r.json();}).then(function(comparison){
+    var body=document.getElementById("comparison-rows");
+    comparison.metrics.forEach(function(m){var row=document.createElement("tr");
+      [m.label,ms(m.beforeMs),ms(m.afterMs),ms(m.changePercent)+"%",m.budgetMet?"Виконано":"Ще вище бюджету",m.measure].forEach(function(v){cell(row,v);});
+      row.children[4].className=m.budgetMet?"":"bad";body.appendChild(row);
+    });
+    document.getElementById("comparison-source").textContent="Native checkpoint "+comparison.sourceCheckpoint.slice(0,7)+" · "+comparison.afterCapturedUtc+". У таблиці різні метрики; точне визначення наведено в останньому стовпці.";
+  }).catch(function(error){document.getElementById("comparison-source").textContent="Порівняння недоступне: "+error.message+". PNG і повний звіт доступні нижче.";});
 }());

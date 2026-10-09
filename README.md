@@ -37,7 +37,9 @@
 
 | Головне меню | Мапа місць | Твій кемпінг |
 | --- | --- | --- |
-| <a href="docs/screens.md#головне-меню"><img src="docs/images/captures/2026-10-08/01-main-menu.png" width="270" alt="Головне меню й Остап" /></a> | <a href="docs/screens.md#мапа-галявин"><img src="docs/images/captures/2026-10-08/04-roadmap.png" width="270" alt="Мапа з вузлами прогресу" /></a> | <a href="docs/screens.md#мої-табори"><img src="docs/images/captures/2026-10-08/15-album.png" width="270" alt="Збережений 3D-кемпінг у альбомі" /></a> |
+| <a href="docs/screens.md#головне-меню"><img src="docs/performance/2026-10-09/optimized/images/main-menu.png" width="270" alt="Головне меню й Остап" /></a> | <a href="docs/screens.md#мапа-галявин"><img src="docs/performance/2026-10-09/optimized/images/roadmap.png" width="270" alt="Мапа з вузлами прогресу" /></a> | <a href="docs/screens.md#мої-табори"><img src="docs/images/captures/2026-10-08/15-album.png" width="270" alt="Збережений 3D-кемпінг у альбомі" /></a> |
+
+Меню й мапа: свіжий Unity QA capture після оптимізації **09.10.2026**; альбом: capture **08.10.2026**. [Hashes і source checkpoint](docs/performance/2026-10-09/optimized/images/manifest.json).
 
 Кожен екран має власне пояснення в [атласі меню й панелей](docs/screens.md): як відкрити, що робить кожна область і де знайти реалізацію. [Галерея](docs/gallery.md) містить повні PNG та JSON sidecars.
 
@@ -92,6 +94,6 @@ Custom local UPM packages включені в [Packages](QuietCamp/Packages/READ
 
 Нова forest/village/power/aircraft/dam roadmap composition підготовлена в [окремій art branch](https://github.com/kruty1918dev-ai/quiet-camp/tree/art/roadmap-native-finish-2026-10-08). Її не злито в main і не активовано новим native bake; кадри довідника показують main renderer. Device performance, store/restore/ad acceptance та staging publication мають окремі наступні checks. [Точний стан доказів →](docs/status.md)
 
-Native Editor audit **09.10.2026** відтворив затримки переходів і мапи: leaf mesh p95 до **17.34 мс**, повторні activation frames до **960 мс**, перше відкриття мапи **1.27–1.38 с**. Дві performance fixtures та п'ять foliage tests Passed; оптимізації ще відкриті. [Виміри, пріоритети й межі →](PERFORMANCE_MAP.md)
+Оптимізація **09.10.2026**: листя рухається в GPU shader, світ готується між кадрами, мапа кешує геометрію й створює кнопки для видимої ділянки, HTML UI використовує коротші стилі та stable IDs. **14 EditMode / 13 PlayMode tests Passed**. Повторні native виміри, точне порівняння до/після та залишкові просідання — у [карті продуктивності](PERFORMANCE_MAP.md) і [інтерактивному звіті](https://kruty1918dev-ai.github.io/quiet-camp/performance.html).
 
 Ліцензії art/audio/vendor sources зберігають власні умови та attribution; [asset notes](docs/development.md#assets-і-ліцензії). Концепти й store mockups позначені окремо в [архіві галереї](docs/gallery.md#архів-та-концепти).

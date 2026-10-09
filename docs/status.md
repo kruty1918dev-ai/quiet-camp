@@ -33,9 +33,9 @@ QA-профіль має окрему product/save identity. Прогрес, wal
 
 Ранні capture attempts завершувалися помилками fixture; їх не зараховано як Passed. Cleanup спочатку відновив product identity зарано, і фінальний QA write потрапив у основний save slot. Його відновлено з копії, що точно збігається з початковим SHA-256, до повторних успішних етапів. Driver тепер чекає `RunFinished`, повного виходу з Play Mode й cleanup delay. Контракт hashes охоплює game slots; Unity internal Editor preferences/session data не заявляються незмінними.
 
-## Native performance audit · 2026-10-09
+## Native performance audit й оптимізація · 2026-10-09
 
-[Повна карта проблем і пріоритетів](../PERFORMANCE_MAP.md) · [інтерактивні сценарії/timeline](performance.html) · [workflow](../tools/qa/PERFORMANCE-AUDIT-UA.md).
+[Повна карта до/після і пріоритетів](../PERFORMANCE_MAP.md) · [інтерактивні сценарії/timeline](performance.html) · [workflow](../tools/qa/PERFORMANCE-AUDIT-UA.md).
 
 | Перевірка | Результат / межі |
 | --- | --- |
@@ -46,11 +46,13 @@ QA-профіль має окрему product/save identity. Прогрес, wal
 | Storage/session guards | ProjectSettings byte-for-byte, original save hashes та початкові dirty inputs збережено. Той самий ADB identity й незмінні shared kill preferences; Editor повторно не запускався. |
 | Report/data/site checks | **Passed**: raw/source hashes, percentiles, 3 route repetitions per mode/direction, 759 guide/site links; [interactive browser checks](verification/performance-site-local-2026-10-09.json), search/datasets/timeline/no-JS і 320–1440 px. Main guide UA/EN/DE та 36 cards повторно Passed після nav update. |
 | Live performance report | **Published / Passed**: [GitHub Pages](https://kruty1918dev-ai.github.io/quiet-camp/performance.html), 16 exact deployed files і всі 5 browser scenarios; [deployed receipt](verification/performance-site-deployed-2026-10-09.json), [final session guards](performance/2026-10-09/final-session-guards.json). |
-| Performance budgets | **Не пройдені**: leaf p95 до 17.34 мс; повторні route frames до 960 мс; map open 1.27–1.38 с; slower scroll p95 151.63 мс. Оптимізації відкриті. |
+| Перший раунд оптимізації | **Виконано й переміряно**: leaf CPU p95 17.34 → 0.03 мс; найдовші route кадри 960 → 237 мс; map open max 1 377 → 303 мс; HTML mount p95 252 → 109 мс. Фінальна матриця **Passed**, 7 386 кадрів / 55 198 scopes. [Порівняння](performance/2026-10-09/optimized/comparison.json) · [final receipt](performance/2026-10-09/optimized/native-result.json). |
+| Регресії після оптимізації | **14 EditMode / 13 PlayMode Passed**; source hashes звірені з checkpoints `92a40e9` / `7557112`. Чотири свіжі кадри меню/мапи/налаштувань/табору: [manifest](performance/2026-10-09/optimized/images/manifest.json). |
+| Performance budgets | **Частково пройдені**: leaf і нерухома мапа в бюджеті; route max ще 140–237 мс, map sweep p95 132.5 мс, сталі camp p95 33.6–44.5 мс і menu steady 58.6 мс — вище цілей. [Залишкова черга](../PERFORMANCE_MAP.md#черга-виправлень). |
 
-Unity 6000.6.2f1, 720 × 1600, i7-2600/GT 730/OpenGL, Jobs worker 1. Це Editor wall/method/counter data, **не device FPS**. GPU timing, Render Thread і method-local allocations недоступні; zeros не означають zero cost. Global memory/GC включають Editor, QA та audit overhead; leak не доведено. Основний runtime checkpoint `c9c7bf5`, opt-in audit source/data `235804a`, додаткова мапа/regressions `ca3476b`; точні source/fixture hashes є у raw provenance.
+Unity 6000.6.2f1, 720 × 1600, i7-2600/GT 730/OpenGL, Jobs worker 1. Це Editor wall/method/counter data, **не device FPS**. GPU timing, Render Thread і method-local allocations недоступні; zeros не означають zero cost. Global memory/GC включають Editor, QA та audit overhead; leak не доведено. Baseline runtime checkpoint `c9c7bf5`, opt-in audit source/data `235804a`, додаткова мапа/regressions `ca3476b`; оптимізація: фінальна матриця й мапа `e8dd7a0`, EditMode contracts `92a40e9`, PlayMode regressions `7557112`; точні source/fixture hashes є у raw provenance.
 
-Перший matrix attempt мав стандартний 180-секундний timeout; published numbers походять із завершеного повторного run. Перший запит regression після заміни driver прийняла стара assembly й performance test був Skipped через QA guard; цей запит не зараховано як Passed. Після завершення import окремо виконано та перевірено правильні п'ять foliage tests. Нових screenshots ця діагностика не заявляє.
+Перший matrix attempt мав стандартний 180-секундний timeout; published numbers походять із завершеного повторного run. Перший запит regression після заміни driver прийняла стара assembly й performance test був Skipped через QA guard; цей запит не зараховано як Passed. Після завершення import окремо виконано та перевірено правильні п'ять foliage tests. Baseline діагностика нових screenshots не заявляла; окремий 4-кадровий post-optimization capture 09.10 має власний manifest і guards.
 
 ## Що потребує окремої перевірки
 

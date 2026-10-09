@@ -181,3 +181,5 @@ Selected tent відкриває поворот і видалення біля �
 | UI recovery | Документ не монтується після повторних спроб. | Native uGUI recovery actions, без невидимої full-screen перешкоди. |
 
 Схема HUD вище пояснює ці області; кожен conditional стан не присутній одночасно в одному кадрі. Source owners: [CampHud](../QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampHud.cs), [HtmlRecoveryControls](../QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/HtmlRecoveryControls.cs), [ToastPresenter](../QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/ToastPresenter.cs).
+
+Після оптимізації 09.10.2026 окремо захоплено актуальні меню, мапу, налаштування й табір: [нові кадри та provenance](gallery.md#після-оптимізації--09102026). Основний атлас вище залишається зрізом 08.10.2026.
