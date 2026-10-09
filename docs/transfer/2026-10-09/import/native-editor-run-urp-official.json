@@ -1,0 +1,19 @@
+{
+  "phase": "official-urp-upgrade-and-prefab-audit",
+  "completedUtc": "2026-10-09T22:14:33.685593+00:00",
+  "sourceCommitBeforeChanges": "1f57ddf",
+  "auditSourceSha256": "52e558017e3cd673d5dc488873ca8379769869336c7b788dd78d1a4f80990cd4",
+  "exitCode": 0,
+  "isolation": {
+    "pidProc": true,
+    "network": true,
+    "usbHidden": true,
+    "sharedAdbPreferencesChanged": false
+  },
+  "logSha256": "198d4d96585cc61bb9e870620e630b73f6df94428241f28a0840c72760c34146",
+  "logBytes": 673399,
+  "compilerErrors": 0,
+  "successfulExit": true,
+  "playerBuild": false,
+  "renderedSceneAcceptance": false
+}

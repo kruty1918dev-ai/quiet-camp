@@ -133,15 +133,17 @@ Fresh-checkout consistency: roadmap dioramas тепер індексуються
 
 ## Перенесення моделей і продовження · 2026-10-09
 
-За запитом користувача підготовлено [приватний пакет передачі, звіт](docs/TRANSFER-2026-10-09-UA.md) та [план для нового ноутбука](docs/CONTINUE-2026-10-09-UA.md). Поточний optimized snapshot і prepared composition `eb7ee6d` збережено окремо; злиття, native bake та acceptance нових моделей ще не завершено. Три selected concepts з handoff включено як референси. UAC пакети перенесено як assets-only private backup, без credentials/audit tools та без автоматичного імпорту; catalogue-based candidates описані у звіті. Нових Unity renders/player builds ця передача не містить.
+За запитом користувача підготовлено [приватний пакет передачі, звіт](docs/TRANSFER-2026-10-09-UA.md) та [план для нового ноутбука](docs/CONTINUE-2026-10-09-UA.md). На момент пакування optimized snapshot і prepared composition `eb7ee6d` збережено окремо; злиття, native bake та acceptance нових моделей ще не були завершені. Три selected concepts з handoff включено як референси. UAC пакети перенесено як assets-only private backup, без credentials/audit tools та без автоматичного імпорту; catalogue-based candidates описані у звіті. Нових Unity renders/player builds ця передача не містить.
 
 На новий запит про застосування передачі локально відновлено City, Meadow,
 Swamp, Particle FX, Battle Royale 1.05 та вкладений Nature URP layer.
 Abilities збережено окремо до встановлення Game Creator 2 за вибором
 користувача. Старіший Battle Royale 1.04 має внутрішню помилку архіву.
 GUID конфлікти виправлені з оновленням посилань; donor sources виключені
-з Git. [Звіт і точні receipts](docs/transfer/2026-10-09/IMPORT-UA.md) відділяють
-відновлені payloads від ще не виконаного native Unity import/bake.
+з Git. **10.10.2026 ізольований Unity 6000.6.2f1 AssetDatabase import
+пройшов**: 1 156 FBX, 1 784 meshes, кампанія 110 ID.
+[Звіт і точні receipts](docs/transfer/2026-10-09/IMPORT-UA.md) відділяють
+цей імпорт від ще не виконаних native bake і перевірки вигляду.
 
 Source composition pipeline, власні model kits і Editor preview додані до
 цієї integration branch. Новий renderer ізольований у `UI/Prepared`; чинні
