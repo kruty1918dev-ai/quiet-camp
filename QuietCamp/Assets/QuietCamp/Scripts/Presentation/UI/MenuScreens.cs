@@ -254,6 +254,12 @@ namespace QuietCamp.Presentation.UI
         void UpdateMapWindow(float top, float height)
         {
             const float overscan = 900;
+            // Keep the mounted rows while the viewport fits inside their buffer.
+            // Quantized bounds alone still caused a DOM reconciliation every
+            // 420 px during a slow drag, although all visible targets existed.
+            const float reserve = 200;
+            if (_mapWindowKnown && top >= _mapWindowTop + reserve
+                && top + height <= _mapWindowBottom - reserve) return;
             float lower = Mathf.Floor((top - overscan) / 420) * 420;
             float upper = Mathf.Ceil((top + height + overscan) / 420) * 420;
             if (_mapWindowKnown && lower == _mapWindowTop && upper == _mapWindowBottom) return;
