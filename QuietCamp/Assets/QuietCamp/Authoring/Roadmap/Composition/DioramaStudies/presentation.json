@@ -99,7 +99,8 @@
       "x": -7,
       "z": 0,
       "radiusX": 4.8,
-      "radiusZ": 3.1
+      "radiusZ": 3.1,
+      "lilyWidth": 0.7
     }
   },
   {
@@ -118,7 +119,8 @@
       "x": 7,
       "z": 0,
       "radiusX": 4.8,
-      "radiusZ": 3.1
+      "radiusZ": 3.1,
+      "lilyWidth": 0.7
     }
   },
   {
@@ -175,6 +177,7 @@
     "radiusZ": 11,
     "cameraYaw": -25,
     "cameraPitch": 52,
-    "water": null
+    "water": null,
+    "mosaicPanel": true
   }
 ]

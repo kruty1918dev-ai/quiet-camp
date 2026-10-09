@@ -60,7 +60,7 @@ def accept(number, note):
 
 NOUNS = {
     "whitewashed_house": "Побілена українська хата", "abandoned_house": "Стара хата",
-    "barn": "Комора", "beehive": "Вулик", "bus_shelter_mosaic": "Сільська зупинка з мозаїкою",
+    "barn": "Комора", "beehive": "Вулик", "bus_shelter_mosaic": "Сільська зупинка — основа під мозаїку",
     "bus_shelter": "Сільська зупинка", "chicken_coop": "Курник", "chicken": "Курка",
     "dam_breached": "Пошкоджена гребля", "field_weeds": "Польове різнотрав’я",
     "forester_hut": "Хатина лісника", "hydro_service_building": "Службова будівля греблі",
