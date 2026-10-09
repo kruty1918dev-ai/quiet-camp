@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "unityVersion": "6000.6.2f1",
+  "nativeAssetDatabaseImport": true,
+  "packages": [
+    {
+      "root": "Assets/PolygonCity",
+      "assets": 1187,
+      "fbxFiles": 330,
+      "meshCount": 429,
+      "triangles": 307608,
+      "prefabFiles": 344,
+      "materialCount": 24,
+      "legacyMaterials": 24
+    },
+    {
+      "root": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest",
+      "assets": 735,
+      "fbxFiles": 220,
+      "meshCount": 346,
+      "triangles": 1037209,
+      "prefabFiles": 182,
+      "materialCount": 93,
+      "legacyMaterials": 29
+    },
+    {
+      "root": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland",
+      "assets": 541,
+      "fbxFiles": 188,
+      "meshCount": 280,
+      "triangles": 430773,
+      "prefabFiles": 144,
+      "materialCount": 44,
+      "legacyMaterials": 6
+    },
+    {
+      "root": "Assets/PolygonBattleRoyale",
+      "assets": 1210,
+      "fbxFiles": 360,
+      "meshCount": 671,
+      "triangles": 401350,
+      "prefabFiles": 363,
+      "materialCount": 46,
+      "legacyMaterials": 44
+    },
+    {
+      "root": "Assets/PolygonParticles",
+      "assets": 336,
+      "fbxFiles": 58,
+      "meshCount": 58,
+      "triangles": 4405,
+      "prefabFiles": 180,
+      "materialCount": 58,
+      "legacyMaterials": 56
+    }
+  ],
+  "errors": [],
+  "mainCampaignNodes": 110,
+  "renderedSceneAcceptance": false,
+  "shaderAppearanceVerified": false,
+  "playerBuild": false
+}

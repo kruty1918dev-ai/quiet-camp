@@ -30,9 +30,13 @@ Battle Royale, City і Particle FX, отримали детерміновані 
 
 Перевірки: `python3 tools/test_import_unitypackage.py` та
 `python3 tools/verify_transfer_import.py`. Це відновлення дерева файлів
-для Unity, **не виконаний AssetDatabase import**. Editor не запускався;
-native shader conversion, сцени, вигляд і продуктивність цих донорів ще
-не перевірено. Свіжі screenshots не створювалися, player builds не було.
+для Unity. Перший **AssetDatabase import у Unity 6000.6.2f1 пройшов**
+у погодженій ізоляції 10.10.2026: 1 156 FBX, 1 784 meshes,
+2 181 345 triangles; кампанія зберегла 110 ID.
+[Native receipt](import/native-import.json). Виявлено 159 матеріалів зі
+старими шейдерами; адаптація до URP і додаткова перевірка prefab-ів
+виконуються наступним кроком. Сцени, вигляд і продуктивність донорів
+ще не перевірено. Свіжі screenshots не створювалися, player builds не було.
 
 Для місця видалено лише відновлювані `Library` двох неактивних копій:
 `~/.cache/quietcamp/particle-qa/QuietCamp/Library` та
@@ -95,4 +99,4 @@ independent solver, save migrations і uk/en/de parity. Точні резуль�
 Користувач окремо дозволив ізольований Editor-імпорт: private PID/proc,
 network namespaces і маскування `/dev/bus/usb` без зміни shared Unity
 preferences. [Скрипт і probe](../../../tools/import_transfer_editor_isolated.sh)
-перевірені до запуску; native результат буде зафіксований окремо.
+перевірені до запуску; native результат зафіксований окремо.
