@@ -1,0 +1,182 @@
+{
+  "id": "D06",
+  "titleUk": "Соснова стоянка",
+  "image": "D06.png",
+  "imageHash": "37babcbeac65f256fd5b784f4c595c74e8b95d49e9cf24671113603c64ce443e",
+  "sourceHash": "b3cdef19298519de9d8ec2500f7880e22ddc3ae9447b77c2cd7bcb0ae870e18e",
+  "presentationHash": "81fa996cf64d66e4635509f203546780027b3e66d3548473f1f4965697de22f2",
+  "assetsHash": "c9d2f943fa14d0b1db905822e455335d92f208b2f879fa09a8b5a9f0dc06bdb9",
+  "templatesHash": "99d6954399ce296b4220b3b8f61f8d327e7e16333644fc143a468a8ce537a2e8",
+  "bindingsHash": "368fa1d7555e3fe4ead778cd1e7491451e5d00cbb7875b0ffc00819b51c3dc53",
+  "rendererHash": "ce00a1465a98ab6466590829872ba23bee1f99522bc3a092f28b81a436426ac8",
+  "paletteShaderHash": "958b0d19db6895d260c5548fa5bdba690fa4f07b82f10b13490aeed3f29a8c2b",
+  "compiledEditorHash": "43c4ac917bffcc157da3f4f0f52e6b4458bf5da2207909275865ce82055dfa49",
+  "compiler": "semantic-composer-0.3.0",
+  "unity": "6000.6.2f1",
+  "graphics": "OpenGLCore",
+  "device": "NVIDIA GeForce 930MX/PCIe/SSE2",
+  "capturedUtc": "2026-10-09T23:21:32.6506590Z",
+  "result": {
+    "instances": [
+      {
+        "id": "D06.focal/tree-0",
+        "owner": "D06.focal",
+        "role": "tree-0",
+        "asset": "study.pine",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.pines",
+        "x": 4.2,
+        "z": 5.2,
+        "height": 2.7,
+        "yaw": 270.0,
+        "wind": false
+      },
+      {
+        "id": "D06.focal/tree-1",
+        "owner": "D06.focal",
+        "role": "tree-1",
+        "asset": "study.pine",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.pines",
+        "x": 4.8,
+        "z": 7.0,
+        "height": 3.0,
+        "yaw": 270.0,
+        "wind": false
+      },
+      {
+        "id": "D06.focal/tree-2",
+        "owner": "D06.focal",
+        "role": "tree-2",
+        "asset": "study.pine",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.pines",
+        "x": 4.20000029,
+        "z": 8.8,
+        "height": 2.4,
+        "yaw": 270.0,
+        "wind": false
+      },
+      {
+        "id": "D06.focal/tree-3",
+        "owner": "D06.focal",
+        "role": "tree-3",
+        "asset": "study.pine",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.pines",
+        "x": 1.8,
+        "z": 5.2,
+        "height": 2.34000015,
+        "yaw": 270.0,
+        "wind": false
+      },
+      {
+        "id": "D06.focal/stack",
+        "owner": "D06.focal",
+        "role": "stack",
+        "asset": "log_stack",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.pines",
+        "x": 1.8,
+        "z": 7.6,
+        "height": 0.480000019,
+        "yaw": 270.0,
+        "wind": false
+      },
+      {
+        "id": "D06.focal/crate",
+        "owner": "D06.focal",
+        "role": "crate",
+        "asset": "study.crate",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.pines",
+        "x": 1.8,
+        "z": 8.8,
+        "height": 0.390000015,
+        "yaw": 270.0,
+        "wind": false
+      },
+      {
+        "id": "D06.tent-a",
+        "owner": "D06.tent-a",
+        "role": "landmark",
+        "asset": "tent_smallOpen",
+        "revealOwner": "D06.clearing",
+        "state": null,
+        "template": null,
+        "x": -3.0,
+        "z": -2.4,
+        "height": 1.18,
+        "yaw": 102.0,
+        "wind": false
+      },
+      {
+        "id": "D06.tent-b",
+        "owner": "D06.tent-b",
+        "role": "landmark",
+        "asset": "tent_smallOpen",
+        "revealOwner": "D06.clearing",
+        "state": null,
+        "template": null,
+        "x": -1.4,
+        "z": -4.8,
+        "height": 1.05,
+        "yaw": 65.0,
+        "wind": false
+      }
+    ],
+    "parcels": [
+      {
+        "id": "D06.focal",
+        "x": 3.0,
+        "z": 7.0,
+        "yaw": 270.0,
+        "scale": 0.6
+      }
+    ],
+    "spans": [],
+    "candidates": [
+      {
+        "entityId": "D06.focal",
+        "reason": null,
+        "index": 0,
+        "x": 3.0,
+        "z": 7.0,
+        "accepted": true
+      }
+    ],
+    "diagnostics": [],
+    "Valid": true
+  },
+  "usedAssets": [
+    "log_stack",
+    "study.crate",
+    "study.flowers",
+    "study.grass",
+    "study.pine",
+    "study.rock",
+    "tent_smallOpen"
+  ],
+  "donorCatalogueIds": [
+    "M0187",
+    "M0760",
+    "M0807",
+    "M0821",
+    "M0834"
+  ],
+  "nativePreviewRenderers": 118,
+  "nativePreviewTriangles": 11668,
+  "uniqueMaterials": 5,
+  "warmupFrames": 3,
+  "synchronousPreviewShaders": true,
+  "visualReviewComplete": false,
+  "performanceAccepted": false,
+  "runtimePublished": false,
+  "playerBuild": false
+}

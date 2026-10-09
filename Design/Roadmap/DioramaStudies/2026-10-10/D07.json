@@ -1,0 +1,171 @@
+{
+  "id": "D07",
+  "titleUk": "Вербовий ставок",
+  "image": "D07.png",
+  "imageHash": "3f19366eee930fe75085f529336d3b26ff0e9d68ea7e6f3fb67e9dc166388065",
+  "sourceHash": "422d65db8329762675dd150900bac880fcbf2910d3bb8e8370abba9b9e1f96df",
+  "presentationHash": "81fa996cf64d66e4635509f203546780027b3e66d3548473f1f4965697de22f2",
+  "assetsHash": "c9d2f943fa14d0b1db905822e455335d92f208b2f879fa09a8b5a9f0dc06bdb9",
+  "templatesHash": "99d6954399ce296b4220b3b8f61f8d327e7e16333644fc143a468a8ce537a2e8",
+  "bindingsHash": "368fa1d7555e3fe4ead778cd1e7491451e5d00cbb7875b0ffc00819b51c3dc53",
+  "rendererHash": "ce00a1465a98ab6466590829872ba23bee1f99522bc3a092f28b81a436426ac8",
+  "paletteShaderHash": "958b0d19db6895d260c5548fa5bdba690fa4f07b82f10b13490aeed3f29a8c2b",
+  "compiledEditorHash": "43c4ac917bffcc157da3f4f0f52e6b4458bf5da2207909275865ce82055dfa49",
+  "compiler": "semantic-composer-0.3.0",
+  "unity": "6000.6.2f1",
+  "graphics": "OpenGLCore",
+  "device": "NVIDIA GeForce 930MX/PCIe/SSE2",
+  "capturedUtc": "2026-10-09T23:21:33.0943700Z",
+  "result": {
+    "instances": [
+      {
+        "id": "D07.focal/willow-0",
+        "owner": "D07.focal",
+        "role": "willow-0",
+        "asset": "ua_young_willow",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.willows",
+        "x": -5.2,
+        "z": 4.2,
+        "height": 2.10000014,
+        "yaw": 180.0,
+        "wind": true
+      },
+      {
+        "id": "D07.focal/willow-1",
+        "owner": "D07.focal",
+        "role": "willow-1",
+        "asset": "ua_young_willow",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.willows",
+        "x": -7.0,
+        "z": 4.8,
+        "height": 1.86,
+        "yaw": 180.0,
+        "wind": true
+      },
+      {
+        "id": "D07.focal/willow-2",
+        "owner": "D07.focal",
+        "role": "willow-2",
+        "asset": "ua_young_willow",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.willows",
+        "x": -8.8,
+        "z": 4.20000029,
+        "height": 2.0400002,
+        "yaw": 180.0,
+        "wind": true
+      },
+      {
+        "id": "D07.focal/post",
+        "owner": "D07.focal",
+        "role": "post",
+        "asset": "ua_mooring_post",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.willows",
+        "x": -8.68,
+        "z": 3.12000012,
+        "height": 0.54,
+        "yaw": 180.0,
+        "wind": false
+      },
+      {
+        "id": "D07.focal/canoe",
+        "owner": "D07.focal",
+        "role": "canoe",
+        "asset": "study.canoe",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.willows",
+        "x": -8.5,
+        "z": 1.2,
+        "height": 0.420000017,
+        "yaw": 260.0,
+        "wind": false
+      },
+      {
+        "id": "D07.tent-a",
+        "owner": "D07.tent-a",
+        "role": "landmark",
+        "asset": "tent_smallOpen",
+        "revealOwner": "D07.clearing",
+        "state": null,
+        "template": null,
+        "x": 2.4,
+        "z": -3.0,
+        "height": 1.18,
+        "yaw": 12.0,
+        "wind": false
+      },
+      {
+        "id": "D07.tent-b",
+        "owner": "D07.tent-b",
+        "role": "landmark",
+        "asset": "tent_smallOpen",
+        "revealOwner": "D07.clearing",
+        "state": null,
+        "template": null,
+        "x": 4.8,
+        "z": -1.4,
+        "height": 1.05,
+        "yaw": -25.0,
+        "wind": false
+      }
+    ],
+    "parcels": [
+      {
+        "id": "D07.focal",
+        "x": -7.0,
+        "z": 3.0,
+        "yaw": 180.0,
+        "scale": 0.6
+      }
+    ],
+    "spans": [],
+    "candidates": [
+      {
+        "entityId": "D07.focal",
+        "reason": null,
+        "index": 0,
+        "x": -7.0,
+        "z": 3.0,
+        "accepted": true
+      }
+    ],
+    "diagnostics": [],
+    "Valid": true
+  },
+  "usedAssets": [
+    "study.canoe",
+    "study.flowers",
+    "study.fruit",
+    "study.grass",
+    "study.lilies",
+    "study.rock",
+    "tent_smallOpen",
+    "ua_mooring_post",
+    "ua_young_willow"
+  ],
+  "donorCatalogueIds": [
+    "M0760",
+    "M0807",
+    "M0816",
+    "M0821",
+    "M0982",
+    "M1029"
+  ],
+  "nativePreviewRenderers": 131,
+  "nativePreviewTriangles": 34001,
+  "uniqueMaterials": 7,
+  "warmupFrames": 3,
+  "synchronousPreviewShaders": true,
+  "visualReviewComplete": false,
+  "performanceAccepted": false,
+  "runtimePublished": false,
+  "playerBuild": false
+}

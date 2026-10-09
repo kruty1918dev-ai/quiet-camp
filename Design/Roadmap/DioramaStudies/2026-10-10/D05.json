@@ -1,0 +1,181 @@
+{
+  "id": "D05",
+  "titleUk": "Березове узлісся",
+  "image": "D05.png",
+  "imageHash": "a8ad2b66245cbd6ccec8bccf78082d8aa92f139f8581610c464c5992bd29c1bf",
+  "sourceHash": "d6be528410c0a7c9abfb506a4ffefd0b3f5d50eb224b7ec14d665979fd0a139c",
+  "presentationHash": "81fa996cf64d66e4635509f203546780027b3e66d3548473f1f4965697de22f2",
+  "assetsHash": "c9d2f943fa14d0b1db905822e455335d92f208b2f879fa09a8b5a9f0dc06bdb9",
+  "templatesHash": "99d6954399ce296b4220b3b8f61f8d327e7e16333644fc143a468a8ce537a2e8",
+  "bindingsHash": "368fa1d7555e3fe4ead778cd1e7491451e5d00cbb7875b0ffc00819b51c3dc53",
+  "rendererHash": "ce00a1465a98ab6466590829872ba23bee1f99522bc3a092f28b81a436426ac8",
+  "paletteShaderHash": "958b0d19db6895d260c5548fa5bdba690fa4f07b82f10b13490aeed3f29a8c2b",
+  "compiledEditorHash": "43c4ac917bffcc157da3f4f0f52e6b4458bf5da2207909275865ce82055dfa49",
+  "compiler": "semantic-composer-0.3.0",
+  "unity": "6000.6.2f1",
+  "graphics": "OpenGLCore",
+  "device": "NVIDIA GeForce 930MX/PCIe/SSE2",
+  "capturedUtc": "2026-10-09T23:21:32.3673740Z",
+  "result": {
+    "instances": [
+      {
+        "id": "D05.focal/tree-0",
+        "owner": "D05.focal",
+        "role": "tree-0",
+        "asset": "study.birch",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.birches",
+        "x": -5.2,
+        "z": 4.2,
+        "height": 2.4,
+        "yaw": 180.0,
+        "wind": false
+      },
+      {
+        "id": "D05.focal/tree-1",
+        "owner": "D05.focal",
+        "role": "tree-1",
+        "asset": "study.birch",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.birches",
+        "x": -7.0,
+        "z": 4.8,
+        "height": 2.7,
+        "yaw": 180.0,
+        "wind": false
+      },
+      {
+        "id": "D05.focal/tree-2",
+        "owner": "D05.focal",
+        "role": "tree-2",
+        "asset": "study.birch",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.birches",
+        "x": -8.8,
+        "z": 4.20000029,
+        "height": 2.28,
+        "yaw": 180.0,
+        "wind": false
+      },
+      {
+        "id": "D05.focal/tree-3",
+        "owner": "D05.focal",
+        "role": "tree-3",
+        "asset": "study.birch",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.birches",
+        "x": -5.2,
+        "z": 1.79999983,
+        "height": 2.16,
+        "yaw": 180.0,
+        "wind": false
+      },
+      {
+        "id": "D05.focal/bench",
+        "owner": "D05.focal",
+        "role": "bench",
+        "asset": "study.bench",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.birches",
+        "x": -7.6,
+        "z": 1.8,
+        "height": 0.6,
+        "yaw": 180.0,
+        "wind": false
+      },
+      {
+        "id": "D05.focal/mushrooms",
+        "owner": "D05.focal",
+        "role": "mushrooms",
+        "asset": "study.mushrooms",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.birches",
+        "x": -8.2,
+        "z": 0.900000036,
+        "height": 0.210000008,
+        "yaw": 180.0,
+        "wind": false
+      },
+      {
+        "id": "D05.tent-a",
+        "owner": "D05.tent-a",
+        "role": "landmark",
+        "asset": "tent_smallOpen",
+        "revealOwner": "D05.clearing",
+        "state": null,
+        "template": null,
+        "x": 2.4,
+        "z": -3.0,
+        "height": 1.18,
+        "yaw": 12.0,
+        "wind": false
+      },
+      {
+        "id": "D05.tent-b",
+        "owner": "D05.tent-b",
+        "role": "landmark",
+        "asset": "tent_smallOpen",
+        "revealOwner": "D05.clearing",
+        "state": null,
+        "template": null,
+        "x": 4.8,
+        "z": -1.4,
+        "height": 1.05,
+        "yaw": -25.0,
+        "wind": false
+      }
+    ],
+    "parcels": [
+      {
+        "id": "D05.focal",
+        "x": -7.0,
+        "z": 3.0,
+        "yaw": 180.0,
+        "scale": 0.6
+      }
+    ],
+    "spans": [],
+    "candidates": [
+      {
+        "entityId": "D05.focal",
+        "reason": null,
+        "index": 0,
+        "x": -7.0,
+        "z": 3.0,
+        "accepted": true
+      }
+    ],
+    "diagnostics": [],
+    "Valid": true
+  },
+  "usedAssets": [
+    "study.bench",
+    "study.birch",
+    "study.grass",
+    "study.mushrooms",
+    "study.rock",
+    "tent_smallOpen"
+  ],
+  "donorCatalogueIds": [
+    "M0571",
+    "M0760",
+    "M0807",
+    "M0813",
+    "M0874"
+  ],
+  "nativePreviewRenderers": 135,
+  "nativePreviewTriangles": 16126,
+  "uniqueMaterials": 6,
+  "warmupFrames": 3,
+  "synchronousPreviewShaders": true,
+  "visualReviewComplete": false,
+  "performanceAccepted": false,
+  "runtimePublished": false,
+  "playerBuild": false
+}

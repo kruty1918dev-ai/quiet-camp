@@ -53,6 +53,13 @@ URP declarations; це не перевірка GPU compilation чи вигляд
 Native import виконувався без графіки. Сцени та продуктивність донорів
 ще не перевірено; screenshots/player builds цей імпорт не створював.
 
+Доповнення 10.10.2026: окремий native OpenGL огляд отримав два фото
+для кожного з 1 210 model sources. [Каталог і журнал перегляду](../../../Design/Roadmap/ModelCatalogue/README-UA.md)
+фіксують додаткове GPU обмеження Core/Meadow WaterShader:
+дубль `_CameraDepthTexture_TexelSize` під час compilation. M0696/M0820
+не прийняті; перші діорами використовують просту проектну воду.
+Цей огляд не є перевіркою анімованих FX чи mobile performance.
+
 Фінальна file verification охоплює 8 920 payload files і 7 191 активний
 GUID без дублювання. 1 083 допустимі native material/metadata зміни
 зв'язані з original SHA у [receipt адаптації](import/native-adaptations.json).

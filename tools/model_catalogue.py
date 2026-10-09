@@ -207,6 +207,12 @@ def decision(row):
 
 def build():
     rows = entries()
+    study_uses = {}
+    study_root = ROOT / 'Design/Roadmap/DioramaStudies/2026-10-10'
+    for receipt_path in sorted(study_root.glob('D*.json')):
+        receipt = json.loads(receipt_path.read_text())
+        for key in receipt.get('donorCatalogueIds', []) + receipt.get('usedAssets', []):
+            study_uses.setdefault(key, []).append(receipt['id'])
     state = json.loads(LEDGER.read_text())
     reviewed = {asset: (int(sheet), note) for sheet, note in state["sheets"].items() for asset in note["models"]}
     if len(rows) != 1210 or set(reviewed) != {r["id"] for r in rows}:
@@ -224,12 +230,14 @@ def build():
                    descriptionUk=f"{title(row)}. Габарити джерела: {row['bounds'][0]:.2f} × {row['bounds'][1]:.2f} × {row['bounds'][2]:.2f} м (ширина × висота × глибина). {use}",
                    visualReview={"date": state["date"], "sheet": sheet, "observationUk": review["observationUk"],
                                  "photoHashes": [hashlib.sha256((PHOTOS / im).read_bytes()).hexdigest() for im in row["images"]]},
-                   status="visually-reviewed")
+                   status="visually-reviewed",
+                   dioramaStudyUses=sorted(set(study_uses.get(row['displayId'], []) + study_uses.get(row['name'], []))))
     catalogue = {"schemaVersion": 1, "date": state["date"], "models": rows, "coverage": {"sourceModels": len(rows), "nativePhotos": len(rows) * 2, "visuallyReviewed": len(reviewed)}, "scope": "Source model geometry + materials in two static native views, including LOD/collision; no particle-system animation or mobile-performance acceptance"}
     (CAT / "catalogue.json").write_text(json.dumps(catalogue, ensure_ascii=False, indent=2) + "\n")
     with (CAT / "catalogue.csv").open("w", newline="") as out:
-        keys = ["displayId", "id", "titleUk", "categoryUk", "fitUk", "descriptionUk", "path", "triangles", "sourceHash"]
-        writer = csv.DictWriter(out, keys, extrasaction="ignore"); writer.writeheader(); writer.writerows(rows)
+        keys = ["displayId", "id", "titleUk", "categoryUk", "fitUk", "descriptionUk", "path", "triangles", "sourceHash", "dioramaStudyUses"]
+        writer = csv.DictWriter(out, keys, extrasaction="ignore",lineterminator="\n"); writer.writeheader()
+        writer.writerows(dict(row,dioramaStudyUses=';'.join(row['dioramaStudyUses'])) for row in rows)
     markup = (ROOT / "tools/model_catalogue.html").read_text()
     (CAT / "index.html").write_text(markup.replace("/*CATALOGUE_DATA*/", json.dumps(catalogue, ensure_ascii=False).replace("</", "<\\/")))
     print(f"Published descriptions and explicit review evidence for {len(rows)} models")

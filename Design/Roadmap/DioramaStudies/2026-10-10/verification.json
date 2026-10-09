@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-10",
+  "nativeEditorExitCode": 0,
+  "nativeLogSha256": "d517331d304215fb1869ce99620ee727d89cb5919fb850bc547bd75ed2eedbc4",
+  "studies": 12,
+  "reviewedModels": 1210,
+  "reviewedModelPhotos": 2420,
+  "modelReviewSheets": 61,
+  "donorBindings": 17,
+  "usedDonorSources": 16,
+  "structuralInstances": 131,
+  "approachSpans": 4,
+  "semanticDiagnostics": 0,
+  "currentRuntimeMainFilesPreserved": 2084,
+  "transferBaselineFilesPreserved": 562,
+  "sourceContracts": [
+    "JSON schemas",
+    "complete ensembles",
+    "determinism",
+    "stale patch rejects without mutation",
+    "missing gate approach rejects without mutation",
+    "study runtime bake forbidden"
+  ],
+  "mainCompositionRegression": "passed: 5 regions, 232 instances, 28 spans; existing full Main contracts",
+  "previewTriangles": [
+    8686,
+    52641
+  ],
+  "previewRenderers": [
+    96,
+    169
+  ],
+  "previewMaterials": [
+    3,
+    7
+  ],
+  "playerBuild": false,
+  "runtimePublished": false,
+  "mobilePerformanceAccepted": false
+}

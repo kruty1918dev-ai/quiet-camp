@@ -1,0 +1,156 @@
+{
+  "id": "D09",
+  "titleUk": "Лісова хатина",
+  "image": "D09.png",
+  "imageHash": "f50769b0ef30d273c95e34c10cbd82009768978a476f28306577832e43724829",
+  "sourceHash": "4e5519b9d59fabca0e7497fcdb31062702da4cd6313fc99a310a12f4cfb81120",
+  "presentationHash": "81fa996cf64d66e4635509f203546780027b3e66d3548473f1f4965697de22f2",
+  "assetsHash": "c9d2f943fa14d0b1db905822e455335d92f208b2f879fa09a8b5a9f0dc06bdb9",
+  "templatesHash": "99d6954399ce296b4220b3b8f61f8d327e7e16333644fc143a468a8ce537a2e8",
+  "bindingsHash": "368fa1d7555e3fe4ead778cd1e7491451e5d00cbb7875b0ffc00819b51c3dc53",
+  "rendererHash": "ce00a1465a98ab6466590829872ba23bee1f99522bc3a092f28b81a436426ac8",
+  "paletteShaderHash": "958b0d19db6895d260c5548fa5bdba690fa4f07b82f10b13490aeed3f29a8c2b",
+  "compiledEditorHash": "43c4ac917bffcc157da3f4f0f52e6b4458bf5da2207909275865ce82055dfa49",
+  "compiler": "semantic-composer-0.3.0",
+  "unity": "6000.6.2f1",
+  "graphics": "OpenGLCore",
+  "device": "NVIDIA GeForce 930MX/PCIe/SSE2",
+  "capturedUtc": "2026-10-09T23:21:33.5623090Z",
+  "result": {
+    "instances": [
+      {
+        "id": "D09.focal/cabin",
+        "owner": "D09.focal",
+        "role": "cabin",
+        "asset": "study.cabin",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.cabin",
+        "x": 6.4,
+        "z": -3.6,
+        "height": 1.74000013,
+        "yaw": 0.0,
+        "wind": false
+      },
+      {
+        "id": "D09.focal/stack",
+        "owner": "D09.focal",
+        "role": "stack",
+        "asset": "log_stack",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.cabin",
+        "x": 8.68,
+        "z": -2.04,
+        "height": 0.420000017,
+        "yaw": 0.0,
+        "wind": false
+      },
+      {
+        "id": "D09.focal/cart",
+        "owner": "D09.focal",
+        "role": "cart",
+        "asset": "study.cart",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.cabin",
+        "x": 5.5,
+        "z": -1.19999993,
+        "height": 0.6,
+        "yaw": 0.0,
+        "wind": false
+      },
+      {
+        "id": "D09.focal/chime",
+        "owner": "D09.focal",
+        "role": "chime",
+        "asset": "study.chime",
+        "revealOwner": null,
+        "state": "maintained",
+        "template": "study.cabin",
+        "x": 8.68,
+        "z": -4.2,
+        "height": 0.420000017,
+        "yaw": 0.0,
+        "wind": false
+      },
+      {
+        "id": "D09.tent-a",
+        "owner": "D09.tent-a",
+        "role": "landmark",
+        "asset": "tent_smallOpen",
+        "revealOwner": "D09.clearing",
+        "state": null,
+        "template": null,
+        "x": -2.4,
+        "z": 3.0,
+        "height": 1.18,
+        "yaw": 192.0,
+        "wind": false
+      },
+      {
+        "id": "D09.tent-b",
+        "owner": "D09.tent-b",
+        "role": "landmark",
+        "asset": "tent_smallOpen",
+        "revealOwner": "D09.clearing",
+        "state": null,
+        "template": null,
+        "x": -4.8,
+        "z": 1.4,
+        "height": 1.05,
+        "yaw": 155.0,
+        "wind": false
+      }
+    ],
+    "parcels": [
+      {
+        "id": "D09.focal",
+        "x": 7.0,
+        "z": -3.0,
+        "yaw": 0.0,
+        "scale": 0.6
+      }
+    ],
+    "spans": [],
+    "candidates": [
+      {
+        "entityId": "D09.focal",
+        "reason": null,
+        "index": 0,
+        "x": 7.0,
+        "z": -3.0,
+        "accepted": true
+      }
+    ],
+    "diagnostics": [],
+    "Valid": true
+  },
+  "usedAssets": [
+    "log_stack",
+    "study.cabin",
+    "study.cart",
+    "study.chime",
+    "study.grass",
+    "study.pine",
+    "study.rock",
+    "tent_smallOpen"
+  ],
+  "donorCatalogueIds": [
+    "M0187",
+    "M0742",
+    "M0760",
+    "M0807",
+    "M0843",
+    "M0915"
+  ],
+  "nativePreviewRenderers": 132,
+  "nativePreviewTriangles": 17983,
+  "uniqueMaterials": 4,
+  "warmupFrames": 3,
+  "synchronousPreviewShaders": true,
+  "visualReviewComplete": false,
+  "performanceAccepted": false,
+  "runtimePublished": false,
+  "playerBuild": false
+}
