@@ -1,20 +1,12 @@
 {
   "passed": true,
-  "command": "python3 tools/verify_monetization.py --include-editor --include-prepared-tests",
-  "assemblies": [
-    "Kruty1918.LevelKit",
-    "Kruty1918.Atmos",
-    "Kruty1918.LevelGen",
-    "Kruty1918.LevelGen.LevelKitBridge",
-    "Kruty1918.AgentVerify",
-    "QuietCamp.Domain",
-    "QuietCamp.Application",
-    "QuietCamp.Infrastructure",
-    "QuietCamp.Presentation",
-    "QuietCamp.Tests.Editor",
-    "QuietCamp.Tests.PlayMode",
-    "QuietCamp.Editor"
+  "command": [
+    "python3",
+    "tools/verify_monetization.py",
+    "--include-editor",
+    "--include-prepared-tests"
   ],
+  "output": "PASS current-source compiler check: Kruty1918.LevelKit (warnings: 0)\nPASS current-source compiler check: Kruty1918.Atmos (warnings: 54)\nPASS current-source compiler check: Kruty1918.LevelGen (warnings: 3)\nPASS current-source compiler check: Kruty1918.LevelGen.LevelKitBridge (warnings: 0)\nPASS current-source compiler check: Kruty1918.AgentVerify (warnings: 8)\nPASS current-source compiler check: QuietCamp.Domain (warnings: 7)\nPASS current-source compiler check: QuietCamp.Application (warnings: 1)\nPASS current-source compiler check: QuietCamp.Infrastructure (warnings: 5)\nPASS current-source compiler check: QuietCamp.Presentation (warnings: 16)\nPASS current-source compiler check: QuietCamp.Tests.Editor (warnings: 0)\nPASS current-source compiler check: QuietCamp.Tests.PlayMode (warnings: 98)\nPASS current-source compiler check: QuietCamp.Editor (warnings: 6)\nCompiler checks only; no Unity import, player build or runtime scene check performed.\n",
   "cachedUnityReferences": true,
   "unityLaunched": false,
   "nativeTestsExecuted": false,

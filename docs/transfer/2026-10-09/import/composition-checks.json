@@ -1,0 +1,57 @@
+{
+  "sourceCommit": "8aff3a56a9dbcd7659c5fcc732b15913d4fe8288",
+  "checks": [
+    {
+      "command": [
+        "dotnet",
+        "run",
+        "--no-build",
+        "--project",
+        "tools/roadmap-pipeline/RoadmapPipeline.csproj",
+        "--",
+        "--composition",
+        "validate"
+      ],
+      "passed": true,
+      "output": "PASS composition JSON Schema: 5 region documents\n{\n  \"regions\": 5,\n  \"instances\": 232,\n  \"spans\": 28,\n  \"diagnostics\": [],\n  \"candidates\": 18,\n  \"rejected\": 9\n}\nPASS publication coverage: all 110 IDs required; truncated/reordered/duplicate candidates rejected\nPASS conductor damage: standing attachments, fallen exclusion, stale indices and invalid drop rejection\nPASS surface recipes: dry detour, shape/ownership rejection, supported ground and bounded relief\nPASS adjacent parcels: all-edge coverage, gate gaps and independent road approaches\nPASS semantic composition: atomic ensembles, gates/roads, supports, deterministic IDs, local edits and negative cases\n"
+    },
+    {
+      "command": [
+        "dotnet",
+        "run",
+        "--no-build",
+        "--project",
+        "tools/roadmap-pipeline/RoadmapPipeline.csproj",
+        "--",
+        "--composition",
+        "compose",
+        "--dry-run"
+      ],
+      "passed": true,
+      "output": "ck-1\",\n    \"r2-frontage-1/fence-back-2\",\n    \"r2-frontage-1/fence-back-3\",\n    \"r2-frontage-1/fence-back-4\",\n    \"r2-frontage-1/fence-back-5\",\n    \"r2-frontage-1/fence-back-6\",\n    \"r2-frontage-1/fence-front-east-0\",\n    \"r2-frontage-1/fence-front-east-1\",\n    \"r2-frontage-1/fence-front-middle-0\",\n    \"r2-frontage-1/fence-front-middle-1\",\n    \"r2-frontage-1/fence-front-middle-2\",\n    \"r2-frontage-1/fence-front-west-0\",\n    \"r2-frontage-1/fence-front-west-1\",\n    \"r2-frontage-1/fence-garden-divider-0\",\n    \"r2-frontage-1/fence-garden-divider-1\",\n    \"r2-frontage-1/fence-garden-divider-2\",\n    \"r2-frontage-1/fence-garden-divider-3\",\n    \"r2-frontage-1/fence-garden-divider-4\",\n    \"r2-frontage-1/fence-garden-divider-5\",\n    \"r2-frontage-1/fence-garden-divider-6\",\n    \"r2-frontage-1/fence-left-0\",\n    \"r2-frontage-1/fence-left-1\",\n    \"r2-frontage-1/fence-left-2\",\n    \"r2-frontage-1/fence-left-3\",\n    \"r2-frontage-1/fence-left-4\",\n    \"r2-frontage-1/fence-left-5\",\n    \"r2-frontage-1/fence-left-6\",\n    \"r2-frontage-1/fence-right-0\",\n    \"r2-frontage-1/fence-right-1\",\n    \"r2-frontage-1/fence-right-2\",\n    \"r2-frontage-1/fence-right-3\",\n    \"r2-frontage-1/fence-right-4\",\n    \"r2-frontage-1/fence-right-5\",\n    \"r2-frontage-1/fence-right-6\",\n    \"r2-frontage-1/fence-shared-0\",\n    \"r2-frontage-1/fence-shared-1\",\n    \"r2-frontage-1/fence-shared-2\",\n    \"r2-frontage-1/fence-shared-3\",\n    \"r2-frontage-1/fence-shared-4\",\n    \"r2-frontage-1/fence-shared-5\",\n    \"r2-frontage-1/fence-shared-6\",\n    \"r2-frontage-1/gate\",\n    \"r2-frontage-1/gate-east\",\n    \"r2-frontage-1/hive-0\",\n    \"r2-frontage-1/hive-1\",\n    \"r2-frontage-1/house\",\n    \"r2-frontage-1/house-east\",\n    \"r2-frontage-1/rear-weeds-0\",\n    \"r2-frontage-1/rear-weeds-1\",\n    \"r2-frontage-1/well\",\n    \"r2-frontage-1/well-east\",\n    \"r2-public-bus-stop/entrance\",\n    \"r2-public-bus-stop/shelter\",\n    \"r2-village-distribution/support-0\",\n    \"r2-village-distribution/support-1\",\n    \"r2-village-distribution/support-2\",\n    \"r2-village-distribution/support-3\",\n    \"r3-homestead-0/fence-back--1\",\n    \"r3-homestead-0/fence-back-0\",\n    \"r3-homestead-0/fence-back-1\",\n    \"r3-homestead-0/fence-front--1\",\n    \"r3-homestead-0/fence-front-1\",\n    \"r3-homestead-0/fence-left--1\",\n    \"r3-homestead-0/fence-left-0\",\n    \"r3-homestead-0/fence-left-1\",\n    \"r3-homestead-0/fence-right--1\",\n    \"r3-homestead-0/fence-right-0\",\n    \"r3-homestead-0/fence-right-1\",\n    \"r3-homestead-0/gate\",\n    \"r3-homestead-0/house\",\n    \"r3-homestead-0/orchard-0\",\n    \"r3-homestead-0/orchard-1\",\n    \"r3-homestead-0/well\",\n    \"r3-homestead-1/barn\",\n    \"r3-homestead-1/coop\",\n    \"r3-homestead-1/fence-back--1\",\n    \"r3-homestead-1/fence-back-0\",\n    \"r3-homestead-1/fence-back-1\",\n    \"r3-homestead-1/fence-front--1\",\n    \"r3-homestead-1/fence-front-1\",\n    \"r3-homestead-1/fence-left--1\",\n    \"r3-homestead-1/fence-left-0\",\n    \"r3-homestead-1/fence-left-1\",\n    \"r3-homestead-1/fence-right--1\",\n    \"r3-homestead-1/fence-right-0\",\n    \"r3-homestead-1/fence-right-1\",\n    \"r3-homestead-1/gate\",\n    \"r3-homestead-1/hive\",\n    \"r3-homestead-1/house\",\n    \"r3-homestead-1/rear-weeds\",\n    \"r3-homestead-1/well\",\n    \"r3-transmission/support-0\",\n    \"r3-transmission/support-1\",\n    \"r3-transmission/support-2\",\n    \"r3-transmission/support-3\",\n    \"r3-transmission/support-4\",\n    \"r4-homestead-0/barn\",\n    \"r4-homestead-0/coop\",\n    \"r4-homestead-0/fence-back--1\",\n    \"r4-homestead-0/fence-back-0\",\n    \"r4-homestead-0/fence-back-1\",\n    \"r4-homestead-0/fence-front--1\",\n    \"r4-homestead-0/fence-front-1\",\n    \"r4-homestead-0/fence-left--1\",\n    \"r4-homestead-0/fence-left-0\",\n    \"r4-homestead-0/fence-left-1\",\n    \"r4-homestead-0/fence-right--1\",\n    \"r4-homestead-0/fence-right-0\",\n    \"r4-homestead-0/fence-right-1\",\n    \"r4-homestead-0/gate\",\n    \"r4-homestead-0/hive\",\n    \"r4-homestead-0/house\",\n    \"r4-homestead-0/rear-weeds\",\n    \"r4-homestead-0/well\",\n    \"r4-homestead-1/fence-back--1\",\n    \"r4-homestead-1/fence-back-0\",\n    \"r4-homestead-1/fence-back-1\",\n    \"r4-homestead-1/fence-front--1\",\n    \"r4-homestead-1/fence-front-1\",\n    \"r4-homestead-1/fence-left--1\",\n    \"r4-homestead-1/fence-left-0\",\n    \"r4-homestead-1/fence-left-1\",\n    \"r4-homestead-1/fence-right--1\",\n    \"r4-homestead-1/fence-right-0\",\n    \"r4-homestead-1/fence-right-1\",\n    \"r4-homestead-1/gate\",\n    \"r4-homestead-1/house\",\n    \"r4-homestead-1/orchard-0\",\n    \"r4-homestead-1/orchard-1\",\n    \"r4-homestead-1/well\"\n  ],\n  \"removed\": [],\n  \"changed\": []\n}\n"
+    },
+    {
+      "command": [
+        "dotnet",
+        "run",
+        "--no-build",
+        "--project",
+        "tools/roadmap-pipeline/RoadmapPipeline.csproj",
+        "--",
+        "--composition",
+        "staging-validate"
+      ],
+      "passed": true,
+      "output": "PASS patch schema\nPASS staging aircraft: 2 instances; 0 terrain recipes; unpublished\nPASS patch schema\nPASS staging ship: 1 instances; 2 terrain recipes; unpublished\nPASS patch schema\nPASS staging dam: 4 instances; 6 terrain recipes; unpublished\n"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/scene-composition/test_cli.py"
+      ],
+      "passed": true,
+      "output": "PASS CLI contracts: stale patch, unknown fields, semantic rejection, valid patch, deterministic bake, dry-run and failed-bake retention\n"
+    }
+  ],
+  "nativeImport": false
+}

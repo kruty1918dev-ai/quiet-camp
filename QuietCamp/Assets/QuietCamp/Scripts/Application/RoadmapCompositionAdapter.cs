@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using QuietCamp.Domain;
 using QuietCamp.Composition;
 namespace QuietCamp.Application
@@ -8,6 +9,13 @@ namespace QuietCamp.Application
     public static class RoadmapCompositionAdapter
     {
         public const float Units=22.936256f,Width=26;
+        public static LevelSummary[] AuthoredSummaries(RoadmapDefinition map,IReadOnlyList<LevelSummary> available)
+        {
+            var summaries=available.ToDictionary(s=>s.id,StringComparer.Ordinal);
+            return map.regions.SelectMany(r=>r.nodePositions).Select(node=>
+                summaries.TryGetValue(node.levelId,out var summary)?summary:
+                throw new ArgumentException("Missing frozen summary: "+node.levelId)).ToArray();
+        }
         public static void RequireCampaignCoverage(RoadmapDefinition map,IReadOnlyList<string> campaignIds)
         {
             var authored=new List<string>();

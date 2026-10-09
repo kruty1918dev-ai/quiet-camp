@@ -48,7 +48,7 @@ Hero — один великий посаджений на мілину general-
 
 Потрібний `LandmarkPresentation` із одним володінням: hinted → silhouette → context. Координата належить world, а не екранній кнопці. Перехід proxy/local відбувається під атмосферою, не дублює hull і не переставляє його між кадрами. Proxy доступний із static mesh cache навіть якщо його локальний chunk ще не active; він не активує geometry інших майбутніх levels.
 
-У поточному [RoadmapWorldRenderer](../../QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapWorldRenderer.cs) far landmark прив’язаний до першого chunk наступного region. Це **не** готовий механізм «бачити судно всередині цього region із рівня 2». Тому raw draft не вмикає `farLandmarkAssetId`; окремий presentation contract описує потрібну інтеграцію. Дизайн не можна приймати як готовий рендер, поки teaser-to-ship continuity не пройшла QA.
+У підготовленому [RoadmapWorldRenderer](../../QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/Prepared/RoadmapWorldRenderer.cs) far landmark прив’язаний до першого chunk наступного region. Це **не** готовий механізм «бачити судно всередині цього region із рівня 2». Тому raw draft не вмикає `farLandmarkAssetId`; окремий presentation contract описує потрібну інтеграцію. Дизайн не можна приймати як готовий рендер, поки teaser-to-ship continuity не пройшла QA.
 
 ## Перша галявина і мінна небезпека
 

@@ -192,6 +192,14 @@ namespace QuietCamp.Editor
             {
                 _queued=false;
                 if(EditorApplication.isPlayingOrWillChangePlaymode||AssetCatalog.Load()==null)return;
+                const string authored="Assets/QuietCamp/Authoring/Roadmap/main.json";
+                if(File.Exists(authored))
+                {
+                    var candidate=JsonConvert.DeserializeObject<RoadmapDefinition>(File.ReadAllText(authored));
+                    try { QuietCamp.Application.RoadmapCompositionAdapter.RequireCampaignCoverage(candidate,LevelLoader.MvpLevelIds()); }
+                    catch(InvalidOperationException e)
+                    { Debug.Log("[RoadmapExport] Current campaign retained: "+e.Message);return; }
+                }
                 try { RoadmapContentExporter.Export(); }
                 catch(Exception e) { Debug.LogError("[RoadmapExport] "+e.Message); }
             };

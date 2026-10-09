@@ -92,3 +92,14 @@ Before editing roadmap geography, ensembles or asset placement, read
   its first native bake/visual approval; the published main catalog is still legacy.
   Existing screenshots must retain their capture dates and cannot represent that new bake.
   Resume composition implementation only when the user requests it.
+
+# Transfer import approval — 2026-10-09
+
+The user explicitly approved the prepared isolated Editor import. Use
+`bash tools/import_transfer_editor_isolated.sh --run-editor` for this import:
+private user/PID/mount/network namespaces, a fresh namespace-local `/proc`,
+masked USB device directory, worker counts 1/4 and the existing nice/ionice.
+The probe must pass first. Do not change shared Unity ADB preferences, expose
+host USB/network/processes to this run, or launch a player build. This approval
+is for transfer AssetDatabase import/audit; it does not activate the prepared
+30-node menu/composition or authorize a render/build outside this arrangement.

@@ -1,0 +1,50 @@
+{
+  "sourceCommit": "8aff3a56a9dbcd7659c5fcc732b15913d4fe8288",
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "tools/build_ukrainian_roadmap_models.py",
+        "--check"
+      ],
+      "passed": true,
+      "output": "ua_power_pylon: 932/1100 triangles, XYZ metres [7.85, 16.045, 4.15]\nua_rural_pole: 120/200 triangles, XYZ metres [2.2, 7.31, 0.289]\nua_wattle_fence: 620/650 triangles, XYZ metres [3.326, 1.262, 0.193]\nua_picket_fence: 224/400 triangles, XYZ metres [3.33, 1.32, 0.165]\nua_concrete_fence: 300/400 triangles, XYZ metres [3.52, 1.66, 0.25]\nua_gate: 312/500 triangles, XYZ metres [3.66, 1.88, 0.974]\nua_wheat_patch: 480/550 triangles, XYZ metres [1.407, 1.145, 1.039]\nua_sunflower_patch: 405/550 triangles, XYZ metres [1.57, 1.574, 1.036]\nua_orchard_tree: 132/300 triangles, XYZ metres [2.959, 2.966, 2.334]\nua_bus_shelter: 192/600 triangles, XYZ metres [3.48, 2.2, 1.99]\nua_whitewashed_house: 604/900 triangles, XYZ metres [5.813, 4.545, 6.89]\nua_well: 140/400 triangles, XYZ metres [1.97, 2.26, 1.48]\nua_wheat_patch_lod: 144/180 triangles, XYZ metres [1.392, 1.092, 0.982]\nua_sunflower_patch_lod: 116/150 triangles, XYZ metres [1.538, 1.515, 0.9]\nPASS: 14 original meshes; 4721 triangles; deterministic streams, finite positions, normals, no degenerates\n"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/roadmap-assets/build_environment_kit.py",
+        "--check"
+      ],
+      "passed": true,
+      "output": "PASS 24 original study meshes / 4208 triangles; deterministic, finite, flat-shaded, no degenerate triangles\n"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/roadmap-assets/optimize_ship.py",
+        "--check"
+      ],
+      "passed": true,
+      "output": "PASS ship donor hash, palette, shared LOD origin/height; triangles: [1100, 650, 300]\n"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/roadmap-assets/inventory.py",
+        "--check"
+      ],
+      "passed": true,
+      "output": "PASS model matrix / catalog and raw-file inventory\n"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/roadmap-assets/verify.py"
+      ],
+      "passed": true,
+      "output": "PASS 71 model streams: lengths, finite coordinates, normals, palette metadata, LOD, source hashes, source bindings and matrix; edited meshes nondegenerate\nUnchanged legacy degenerate faces: {'flower_yellowA': 1, 'sign': 4, 'flower_yellowB': 8, 'flower_purpleA': 1}\nNo Unity import, native render, player build or mobile performance check performed.\n"
+    }
+  ],
+  "nativeImport": false
+}

@@ -35,7 +35,15 @@ static class Program
         var bonuses=Read<BonusCampDefinition[]>(Content+"/bonus_camps.json");
         var definition=RoadmapCompiler.BuildWorld(summaries,bonuses);
         string authoring="QuietCamp/Assets/QuietCamp/Authoring/Roadmap/main.json";
-        if(File.Exists(authoring))definition=RoadmapCompiler.BakeAuthored(Read<RoadmapDefinition>(authoring),summaries);
+        var campaign=Read<Newtonsoft.Json.Linq.JObject>(Content+"/campaign.json");
+        var campaignIds=campaign["mvpLevelIds"].Values<string>().Concat(campaign["generatedLevelIds"].Values<string>()).ToArray();
+        if(File.Exists(authoring))
+        {
+            definition=Read<RoadmapDefinition>(authoring);
+            summaries=RoadmapCompositionAdapter.AuthoredSummaries(definition,summaries);
+            definition=RoadmapCompiler.BakeAuthored(definition,summaries);
+        }
+        if(args.Any(a=>a.StartsWith("--export")))RoadmapCompositionAdapter.RequireCampaignCoverage(definition,campaignIds);
         var models=Read<Dictionary<string,object>[]>(Content+"/roadmap_models.json").Select(m=>(string)m["id"]).ToHashSet();
         var localized=new[]{"uk","en","de"}.Select(lang=>Read<Dictionary<string,Dictionary<string,string>>>("QuietCamp/Assets/QuietCamp/Resources/QuietCampLocales/"+lang+".json")["entries"]).ToArray();
         foreach(var model in Read<Dictionary<string,object>[]>(Content+"/roadmap_story_models.json"))models.Add((string)model["id"]);
@@ -68,7 +76,7 @@ static class Program
         var invalidSlice=Copy(slice);invalidSlice.regions[0].chunks[1].firstOrder=3;
         Require(RoadmapValidator.Validate(invalidSlice).Any(e=>e.StartsWith("invalid-chunk-coverage")),"Overlapping chunks were accepted");
         Console.WriteLine("PASS 7-level foundation: references, locales, explicit chunks, five progression states, overlap rejection");
-        Console.WriteLine("PASS main: "+summaries.Length+" summaries; "+definition.regions.Length+" regions; references/locales valid");
+        Console.WriteLine("PASS prepared main: "+summaries.Length+" authored summaries / "+campaignIds.Length+" current campaign IDs; "+definition.regions.Length+" regions; references/locales valid; publication remains guarded");
         foreach(var fixtureName in new[]{"transition-summer-autumn","transition-winter-thaw","branch-presentation"})
         {
             var fixture=Read<RoadmapDefinition>(Fixtures+"/"+fixtureName+".json");

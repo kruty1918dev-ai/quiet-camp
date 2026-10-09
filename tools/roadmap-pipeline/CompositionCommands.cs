@@ -28,7 +28,10 @@ static class CompositionCommands
         ITerrainSample terrain=null;var world=docs.Values.Select(d=>JsonConvert.DeserializeObject<SceneCompositionDocument>(JsonConvert.SerializeObject(d))).ToArray();
         if((string)Read<JObject>(Root+"/manifest.json")["id"]=="quiet-camp-main")
         {
-            var definition=QuietCamp.Application.RoadmapCompiler.BakeAuthored(Read<QuietCamp.Domain.RoadmapDefinition>("QuietCamp/Assets/QuietCamp/Authoring/Roadmap/main.json"),Read<QuietCamp.Domain.LevelSummary[]>("QuietCamp/Assets/QuietCamp/Resources/QuietCamp/level_summaries.json"));
+            var authored=Read<QuietCamp.Domain.RoadmapDefinition>("QuietCamp/Assets/QuietCamp/Authoring/Roadmap/main.json");
+            var available=Read<QuietCamp.Domain.LevelSummary[]>("QuietCamp/Assets/QuietCamp/Resources/QuietCamp/level_summaries.json");
+            var definition=QuietCamp.Application.RoadmapCompiler.BakeAuthored(authored,
+                QuietCamp.Application.RoadmapCompositionAdapter.AuthoredSummaries(authored,available));
             string compatibility=GameInvariant(definition);
             QuietCamp.Application.RoadmapCompositionAdapter.Bind(definition,docs);
             if(GameInvariant(definition)!=compatibility)throw new Exception("Composition adapter changed campaign identity, progression or content; only node/branch positions may change");

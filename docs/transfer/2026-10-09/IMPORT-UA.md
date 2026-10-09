@@ -77,3 +77,22 @@ Current-source compilation пройшла для п'яти package runtime assem
 Domain, Application, Infrastructure, Presentation, Editor та обох test
 assemblies, включно зі staged тестами. Використано реальні cached Unity
 references; це не виконання EditMode/PlayMode tests та не Unity asset import.
+
+Portable перевірки пройшли: deterministic model exporters, 71 streams,
+source hashes/LOD/inventory, composer validate/compose dry-run, три staging
+recipes і CLI negative/atomic contracts. .NET пробник пройшов 14 груп
+контрактів, включно зі 110 main, 143 journey та 21 bonus puzzles,
+independent solver, save migrations і uk/en/de parity. Точні результати
+містяться в [model checks](import/model-checks.json),
+[composition checks](import/composition-checks.json) та
+[session/save contracts](import/monetization-contracts.json).
+
+Додатково очищено 2 420 403 586 байтів Go build cache старше доби,
+коли активних Go-компіляторів не було, й 766 990 984 байти власної
+використаної staging-папки. [Receipt очищення](import/cleanup.json).
+Вхідні ZIP лишилися в Downloads.
+
+Користувач окремо дозволив ізольований Editor-імпорт: private PID/proc,
+network namespaces і маскування `/dev/bus/usb` без зміни shared Unity
+preferences. [Скрипт і probe](../../../tools/import_transfer_editor_isolated.sh)
+перевірені до запуску; native результат буде зафіксований окремо.

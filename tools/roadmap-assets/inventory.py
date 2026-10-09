@@ -35,6 +35,11 @@ def files_for():
     rows.sort(key=lambda r:r["id"])
     assert len({r["id"] for r in rows})==len(rows)
     for path in sorted((ROOT/"QuietCamp/Assets").rglob("*")):
+        # Commercial local donors have separate transfer receipts and are not
+        # shipped in this repository. Keep the portable source matrix stable.
+        if path.relative_to(ROOT/"QuietCamp/Assets").parts[0] in {
+                "PolygonCity", "PolygonBattleRoyale", "PolygonNatureBiomes", "PolygonParticles"}:
+            continue
         if path.suffix.lower() not in (".obj",".fbx",".glb",".gltf",".blend",".dae",".3ds"):continue
         data=path.read_bytes();triangles=None
         if path.suffix.lower()==".obj":

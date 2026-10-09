@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "command": [
+    "dotnet",
+    "run",
+    "--no-build",
+    "--project",
+    "tools/MonetizationProbe.csproj"
+  ],
+  "output": "PASS initial allowances, hint and attempt persistence\nPASS currency, no-lives, duplicate receipt and exchange rollback\nPASS ad daily quota, UTC reset, clock rollback and duplicate rewards\nPASS restart and Pro unlimited without counters\nPASS catalog, main progression, standalone DLC and missing content\nPASS fake store, pending, restore, duplicate credits and unavailable provider\nPASS invalid verification and final-journal recovery never grant twice or re-charge\nPASS actual session, reset/undo, completion transaction, IO rollback, replay and saved memory\nPASS rewarded ad skip, save rollback, retry without second video and concurrent requests\nPASS native save module migration and unknown nested JSON preservation\nPASS future schema and corrupt primary/backup are write-protected\nPASS explicit local reset clears staged extension data and stale write protection\nPASS 110 main + 143 journey + 21 bonus puzzles: validator, saved witness and independent solver\nPASS all new economy, memory, journey and purchase keys localized in uk/en/de\n14 contract groups passed; no Unity player, real store, ads, device FPS or human pilot verified.\n",
+  "nativeTests": false,
+  "playerBuild": false
+}

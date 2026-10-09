@@ -59,7 +59,7 @@ namespace QuietCamp.Editor
         {
             var map=Read<RoadmapDefinition>("Assets/QuietCamp/Authoring/Roadmap/main.json");
             var summaries=Read<LevelSummary[]>(RoadmapContentExporter.Folder+"level_summaries.json");
-            RoadmapCompiler.BakeAuthored(map,summaries);RoadmapCompositionAdapter.Bind(map,docs);
+            RoadmapCompiler.BakeAuthored(map,RoadmapCompositionAdapter.AuthoredSummaries(map,summaries));RoadmapCompositionAdapter.Bind(map,docs);
             foreach(var region in map.regions)
             {
                 var chunks=new List<RoadmapChunkData>();for(int order=region.firstLevel;order<=region.lastLevel;order+=3)chunks.Add(new RoadmapChunkData{id=region.id+":composition-chunk:"+chunks.Count,firstOrder=order,lastOrder=Math.Min(order+2,region.lastLevel)});
@@ -84,6 +84,7 @@ namespace QuietCamp.Editor
         {
             if(EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("Bake Main outside Play Mode");
             var source=Documents();var definition=Definition(source);var summaries=Read<LevelSummary[]>(RoadmapContentExporter.Folder+"level_summaries.json");
+            RoadmapCompositionAdapter.RequireCampaignCoverage(definition,LevelLoader.MvpLevelIds());
             var host=new GameObject("Composition offline bake host");var harness=host.AddComponent<RoadmapBenchmarkHarness>();harness.autoRun=false;harness.definitionOverride=definition;harness.summariesOverride=summaries;harness.completedLevels=30;
             try {harness.Build();Bake(harness.Map,source);}
             finally {harness.Services?.Dispose();UnityEngine.Object.DestroyImmediate(host);}
