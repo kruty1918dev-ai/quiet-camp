@@ -134,3 +134,11 @@ Fresh-checkout consistency: roadmap dioramas тепер індексуються
 ## Перенесення моделей і продовження · 2026-10-09
 
 За запитом користувача підготовлено [приватний пакет передачі, звіт](docs/TRANSFER-2026-10-09-UA.md) та [план для нового ноутбука](docs/CONTINUE-2026-10-09-UA.md). Поточний optimized snapshot і prepared composition `eb7ee6d` збережено окремо; злиття, native bake та acceptance нових моделей ще не завершено. Три selected concepts з handoff включено як референси. UAC пакети перенесено як assets-only private backup, без credentials/audit tools та без автоматичного імпорту; catalogue-based candidates описані у звіті. Нових Unity renders/player builds ця передача не містить.
+
+На новий запит про застосування передачі локально відновлено City, Meadow,
+Swamp, Particle FX, Battle Royale 1.05 та вкладений Nature URP layer.
+Abilities збережено окремо до встановлення Game Creator 2 за вибором
+користувача. Старіший Battle Royale 1.04 має внутрішню помилку архіву.
+GUID конфлікти виправлені з оновленням посилань; donor sources виключені
+з Git. [Звіт і точні receipts](docs/transfer/2026-10-09/IMPORT-UA.md) відділяють
+відновлені payloads від ще не виконаного native Unity import/bake.

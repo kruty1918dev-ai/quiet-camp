@@ -1,0 +1,4779 @@
+{
+  "package": "URP_ExtractMe_Nature_Biomes.unitypackage",
+  "packageSha256": "a7af4938b816efa5ce5d096740573166887b1aeadd95f9b3c90a8846320b15c8",
+  "applied": true,
+  "unityLaunched": false,
+  "selectedRoots": [
+    "Assets/PolygonNatureBiomes"
+  ],
+  "guidRemap": {},
+  "entries": [
+    {
+      "guid": "0019bf98c6ab7d149ab64b7ca26c5c01",
+      "parts": {
+        "asset": {
+          "bytes": 4776,
+          "sha256": "d7e2a8b7b6708610dd9d9789e6ad1fa0fe0f2da3b83a8ea98db786df97fa41b5"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "b212aa4bf248d0757bc9c6fc702306ed69a13fc4d70aa81d714f32fa93299647"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/Animations/Turtle_Movement_Anim.anim",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "002750db0c0a0ea4fa64090b39207092",
+      "parts": {
+        "asset": {
+          "bytes": 3627,
+          "sha256": "a86827ca2fa48dd98b5053c371f51d676539efac8c07e409d2e5f70ea7719265"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "720ac6ab02d4e0c03680c01b4146a10c9398128e6ef5a38198b8db4c9598e91a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/LillyPads_02.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "00dbff31a96e66f428619b4d521831a4",
+      "parts": {
+        "asset": {
+          "bytes": 1030,
+          "sha256": "70fed9d2b32231eb6a75bc0b9e4f72a851ec67ed867d67490dd89ab226b23ee6"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "5c6710195e35be51e5e2da373fc6f03985968db5822508371e07f0200181e849"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Skybox_Meadows_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "048524d77fa8672478403dc4dfbe3ca4",
+      "parts": {
+        "asset": {
+          "bytes": 12060,
+          "sha256": "149d28d52f382493321e246d13d00f3027bd6b5c4732eafca3c0b15c30fbe57e"
+        },
+        "asset.meta": {
+          "bytes": 2045,
+          "sha256": "de5941bee14a67df853959476e061677ced9f3373d3a2297543014536033a254"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Leaf_Texture_Tropical.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "0511e909fa99cf84dbecf5ebec7a1d76",
+      "parts": {
+        "asset": {
+          "bytes": 8880,
+          "sha256": "dfd14eb66cdfd3e7728d43dc8a01374f1e9a0f346b64e5a42dc5475b434d2ff5"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "69a9cdd51ae4c242fd4d6c32556028e4f75344fd97618b0e7492f6db30ae794b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/LOD_Cards/Card_Bush_Palm_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "05b905679f392ea469d0a723e2711fe0",
+      "parts": {
+        "asset": {
+          "bytes": 3693,
+          "sha256": "c8b178cca73f27938f325cfde7df4a0718d8156d2d90b6609179087d8d8a98d1"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "5f98409f5ec486a30031d1bf76405478b93fd839b5bb5b237074cc1e7ee69078"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/FX/FX_Materials/FX_Soft_Swamp_02.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "0890bec944562fe419619a0b896489ee",
+      "parts": {
+        "asset": {
+          "bytes": 3678,
+          "sha256": "2baf1b35dd98baf3923882b2a980c33d320e746cae68c2144e54966622cbdd1a"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "413b57b07e422c1fea217b488b6717c76c23ea0c1090d1f0f286d60178d57490"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/FX/FX_Materials/Bats_Mat_FX_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "0b3c0c3bfef25e645a3bae8aa3879ea6",
+      "parts": {
+        "asset": {
+          "bytes": 36118,
+          "sha256": "6a1b72cb89b29a656b70418b9ba0c21755dbe946d9d234ac6d7d41e9810e3325"
+        },
+        "asset.meta": {
+          "bytes": 2045,
+          "sha256": "4a28cc9a65bc0196fb3b78c27d653c831ec3748ed0526789bca6caa546a8cf7a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Circle_Soft.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "0bbd85cb0a2e3d745b706f6708ad27b0",
+      "parts": {
+        "asset": {
+          "bytes": 495129,
+          "sha256": "b87c477e06a60b17daa3484b0d997c8c1f411bd2a9074b53d728870a92f6c4a5"
+        },
+        "asset.meta": {
+          "bytes": 2045,
+          "sha256": "e503b20a5b59fbe6668da1e598a133bb5d7d326d9a85b765d087e68cdfb07914"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Crab_Normals.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "0c4e82fa345e9844b848077fa0526be5",
+      "parts": {
+        "asset": {
+          "bytes": 9324,
+          "sha256": "236394bceb93ef1e7aef1ce179e8b1043cdd625688d5e216c50304f5052d641b"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "48f38d18a647feb1fc143a23bd662685ffabd784f369e1b272245fcc0ed4824f"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/Tree_Beard.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "0cfb1b4716c73b8499b9687d16b6a4b3",
+      "parts": {
+        "asset": {
+          "bytes": 3725,
+          "sha256": "e22fcc4cb0673461cce02e985129fa8c4a965809aa2ef04be4d16b725caa1159"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "e28a95e8863ec3c6ce57106ce20dab464963dc101b55292692c9601f4b8b67ad"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/FX/FX_Materials/Butterfly_Mat_04.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "0d2dba3f749d6b745803a44053077a4f",
+      "parts": {
+        "asset": {
+          "bytes": 63058,
+          "sha256": "336810255708fb4a9115d2a2959a74564146640fe47c73a27550a77cb0963a4b"
+        },
+        "asset.meta": {
+          "bytes": 204,
+          "sha256": "bb98233941444d1bcfb49e7d0192fd380bfc3fd14a23a6349d47f083d7428dad"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Core/Shaders/SyntyStudios_Skybox_NoFog.shader",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "10c2506051105ef4c826668cc96f5c4f",
+      "parts": {
+        "asset": {
+          "bytes": 8558,
+          "sha256": "d0d65247f498e533beeb52e4c3fbba9f995845228110f074de2efcbfda3100f0"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "c341f42a66717a3e10440125a2dd8da34a97d750d134aef0e20d947e555a96ba"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Water_River_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "10f29b9d09b4d0843a3e04d8fdc678ec",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "2881e17e91c00b79533a51e74663944753e79d2c1280eb004e77b90fa5dd9a53"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "114c25af9bd8193479afb70cb9819e31",
+      "parts": {
+        "asset": {
+          "bytes": 3606,
+          "sha256": "16a331fb86403fa9fc62afa3e2d7dba722e37b4e973b541f554b0b30188db204"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "fa94e981e093d748e42e25a7d137120f19390f72050ecc40b07005b43172e469"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/FX/FX_Materials/Dragonfly_FX_Mat.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "11bb87b4a9b098e49b0dd46a67b38578",
+      "parts": {
+        "asset": {
+          "bytes": 902,
+          "sha256": "ae077a87d052eea40c54adf376e7a2f2ff6891e9f4c5c4101f6415b7900ba72f"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "95ff663e7f24e84c5a5f27c353b8a18e06dae68441b809c55c647e7de877773c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Core/Materials/Skybox_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "11eb7f60b71c8e54783ccea21df8deed",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "0f2a203a9e0e18325d28156b47e05787c92ef6c101d33f782fa8c3a826144108"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "12e76d0980ecc2349ae53cd004693650",
+      "parts": {
+        "asset": {
+          "bytes": 3561,
+          "sha256": "049762b12787f764533dc17abb5a6ddc3d49d8bade2cb899b537a6093e78a598"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "4f23af6427407f9f6d85102f78b30d6e56cdf0ac7fd5eaaf8f873a1f0c7b9a27"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/LillyPads_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "13fd7e866634e334eb6d67bb8c4d5e21",
+      "parts": {
+        "asset": {
+          "bytes": 2047,
+          "sha256": "49defcfbced6308671d851f81f3b77008983bb6df7a01c1944dd194e60a5e915"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "22e5c3b479406bb436231be7c6a248c2b870ef137adaee9fd38adba57712a712"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/Animations/Turtle_Controlelr.controller",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "14c1ce68458309d4e8f00caf14bb0c11",
+      "parts": {
+        "asset": {
+          "bytes": 3711,
+          "sha256": "57eb101fd7c498557d30e9b803f6be4075cae0e7403ad54ffbaff3f5d1911845"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "58eaa2b1735b8876ec56d0fb5eddbe1e4d56db26f751b89f4c1d184e0ce91d36"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Clover_Flat_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "14da6b76d7d0c3944bd4574c19bc8395",
+      "parts": {
+        "asset": {
+          "bytes": 115460,
+          "sha256": "9d21dcdba1a459855020ef8ed1e63308e5ebc8f5eacad46ec537579485cf7c2b"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "6b910f8825d10ee1401d45cdf2561a0edf5016a5711ebcda3874c4913c9e7eb1"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Smoke_Large_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "1569107ed421b0c4d8cad63b371d411c",
+      "parts": {
+        "asset": {
+          "bytes": 111612,
+          "sha256": "c72541743d830ca29cf12d8ce82efc1b76598c387e3f5a771d0b33d4b71e7d33"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "0dfa29e06d5dbdada03a83fd4ba84ca5bc482c231355955d17c729190c8242ad"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Birds_Tropical_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "16c94097dd939ba489e9586e6ca15401",
+      "parts": {
+        "asset": {
+          "bytes": 9083,
+          "sha256": "f2a81b385810b261d4c0190ff2dff9ce545d182ce73688274d44f9149527424c"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "dccf2fe21e6a6b94151d3c57983de9b26b869a05443a8867d8893a58074b6881"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Grass_Short_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "1754417c221751b4aae563e715aa8dda",
+      "parts": {
+        "asset": {
+          "bytes": 8933,
+          "sha256": "a93b3a793968d17edcef55328a4fa578de05a7fe3c851a3346e6a1992cdc1ed7"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "867cea969215981c59a4058f39ee6d6a819f37ea6a886f0abeb99c41bd979117"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/LOD_Cards/Card_Tree_Swamp_02.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "1907f06e11eff1c419fb12bea4b9c986",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "f885742d07ce30ed7c614c0f918c1070650e98550f8e546f0c6f248bbd5e81c8"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "1cb165ca0863b2142a5fbc253bdbff1b",
+      "parts": {
+        "asset": {
+          "bytes": 1018,
+          "sha256": "6d4fe55930278af7f7e678be56f95e10d11f0c6b5ba73b182998fcc905a3f718"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "b9bbd61751c8465b80e0432d9f887d1ed080b83712f8ef9e0af930458f871d74"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Skybox_Tropical_Mat_02.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "1dca27fea7b7b234f8dd9af5de7ea431",
+      "parts": {
+        "asset": {
+          "bytes": 9518,
+          "sha256": "2deddc8e5145ccd6a676064b047e4a1f4e11f5034a64080a043c5836162db60b"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "6b81300458517fa3aac7c27398778503d7ac65056ac91eb2cac1684e3cb94915"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Palm_Mat_02.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "1e58e243388b85045a8cebb17b32ba81",
+      "parts": {
+        "asset": {
+          "bytes": 8936,
+          "sha256": "825e6dcfd6218506ac5bcb8bfe381838136a42d16c46cbe5720b2bbfb13e6ba3"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "0b1bb01eb2d2a9c02cf2ca59cdb969ef0a4fb6dd9fa6ad8105af1966efebadf7"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/LOD_Cards/Card_Tree_Mangrove_03.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "1f15571e9cfd4b5438dcd09263ac3a32",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "c68b3b036e8310dd4c6ce2f90158bd9b70d6f4882dff821461966e8e238a59a3"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Core/Shaders",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "1fb43e05479ffc84b9f6a8ad0bcb7265",
+      "parts": {
+        "asset": {
+          "bytes": 119432,
+          "sha256": "37f15960b092311bcba796c7f988c03053792d4a32fc38a833ae4f0e2b1bdd8e"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "91f3e52843d382037a98fa7f537c7aa5997d7d36531d8811f8de7427b5f67fa9"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Clouds_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "20984e6ef0237fe418470baf02d77664",
+      "parts": {
+        "asset": {
+          "bytes": 94958,
+          "sha256": "5b4c6e32322470797b9826c3cac9dee0107571c633001fbfa28d19b6eac433bb"
+        },
+        "asset.meta": {
+          "bytes": 2045,
+          "sha256": "26c2ab7efff224121f9a3a05c3cd039ecd9e138ad59ead75f269e8ea767cb7d9"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Cloud_04.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "215e3ea7e8eb68640b381e35483914a8",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "67cc6636e1588e73a2941ec8091fa4b0a0bce691b7e35a6d3c27ebb99a41d925"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/LOD_Cards",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "220714b8c92ca8544a4cbf3ea2c79b7a",
+      "parts": {
+        "asset": {
+          "bytes": 9375,
+          "sha256": "375abbc460350d2377908d78f66d3e1fd91aeb24405c87338b817fb575302a7f"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "2e5783bdf2ab6964626a042ad2a8aca5c0d35e8926f2b4e8588bc3ff833a835b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Grass_Tall_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "22f0e4639676c5a418e7c66e5011ec68",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "968b535f5d6dba341185288799657aa9dc9d6ffd07b3b0ae6b1c66c7a364977a"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "238c2f2c0dee18246892a73d2af4a8e4",
+      "parts": {
+        "asset": {
+          "bytes": 8586,
+          "sha256": "ce5f8793e7030d25a9df7de41e6cc6d48b8f99bbd2973b497c7d2c6f94211468"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "78a202a4927238691ad1278bf2464d312218df6cdbd337f8c3d0a04aade904b7"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/LOD_Cards/Card_Tree_Birch_03.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "241bd356f6817f34a887e62b6f998149",
+      "parts": {
+        "asset": {
+          "bytes": 183554,
+          "sha256": "b8e3cbcbd1296f22ac1d0515b564ca2dd88b2629fd6d3c787f34d93bd2a69155"
+        },
+        "asset.meta": {
+          "bytes": 2045,
+          "sha256": "5e34ab2b626340415b9cff04d60b4c9040eb16ed0c34ee7f7cd2cbb17864129e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Bird_Wings_01.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "25da2df3f81f72644bc51cff9dd931e4",
+      "parts": {
+        "asset": {
+          "bytes": 9327,
+          "sha256": "d11787b3e225dbbe5e77f8dc1825d34095d430bb858c2c151add97acbfd8d7ba"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "af6073681e3ed0704f82707ce0491c59ec71aa468eb42560e16cb012dacf34a5"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/SwampGrass.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "26d47454db03dfc41a65d33431beac0d",
+      "parts": {
+        "asset": {
+          "bytes": 2810,
+          "sha256": "fc751bca687c6f7eac77f14b978e1c8e5d8278c34eb2e6bc272fd1e345d4813b"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "c0d043b025a6eb958209ecdfd574271ba6995462b3f3e690ed5693880b359807"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Rock_Grass_Triplanar_Swamp_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "276a39a5a210b124885f0eff3e80f1f3",
+      "parts": {
+        "asset": {
+          "bytes": 146262,
+          "sha256": "4a5ec6cad2efabdddca7edd04f1da4db37a791f3258f0603d6217fbb5075e3c8"
+        },
+        "asset.meta": {
+          "bytes": 204,
+          "sha256": "610709741b35f2a941ce44d81dc8ed749249016607c57dfeefbcfcf789c31942"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Core/Shaders/SyntyStudios_WaterShader.shader",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "27d173b1715843d42819714cf2c4a447",
+      "parts": {
+        "asset": {
+          "bytes": 3074,
+          "sha256": "3966c835be92c0a4338d8b0ec58bb009def2d02037139d1798e508857f780aeb"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "eb90275ac56fb913ace4250a0e8800ce47b530b12328461c8ff77b90d81e38bb"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Materials/Blank.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "292d619e64e0e6b40b2e331b22b62b05",
+      "parts": {
+        "asset": {
+          "bytes": 2731,
+          "sha256": "446f3aa29e8e65eec0f106db50a8a36c59fdb7c98d8e3fe8aa11b0492287f4b4"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "d4b817b58703fc6f10609a00ad062851011c20b20c36afdbde9608c1b6e3ba80"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/FX/FX_Materials/Circle_Additive_FX.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "2b133fe4850bdb044923508f78136b01",
+      "parts": {
+        "asset": {
+          "bytes": 8810,
+          "sha256": "a7f4e872773dfec1aaa86f4e0321598f49ac8be76bcf1ed2c46a5860ad72ba29"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "d974e2bb79768094c21d5a3c8e67d5886279b7b9ce100b4992d4377aa74ef769"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Flowers_Plant_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "2b32c72af333fda4fb5f8f1195797826",
+      "parts": {
+        "asset": {
+          "bytes": 8469,
+          "sha256": "17cdfe0a83b2c4325903e66a2be0209e7831abf89b84672cb97dd709b8b5ae86"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "5b87d6a1b1c273c4e592db6a610b6a2d8b5a1fc44d6716d3217e8257e03c5103"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/LOD_Cards/Card_Tree_Forest_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "2c8df473bb1c4ac46a7c385c7b28d901",
+      "parts": {
+        "asset": {
+          "bytes": 8711,
+          "sha256": "e1901921aac480480d7f32cc82f1632cbcbec1be5cc1c868e147f1508f5c366c"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "885ce4cb5af6886821f8be4d5340bd1b93718bdbb1cb8dac477c2a105bc333b0"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Bioluminescent/BASEMat_01_Biolumin.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "2cd9492d6237c844dbe164da38834a2d",
+      "parts": {
+        "asset": {
+          "bytes": 3666,
+          "sha256": "428c32c0691e5a988ff7d893903f0faa176e3f9352e97fd03bb7d11cc2647fdb"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "9ce90ee01106aaddffe0158ea68c3d20c8ed71cfbca68554d86332e90db4df2e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Materials/Birds_Wings_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "2e51062debed8a3499f79935cdd1711b",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "6b2c67a5a4dfa7d14257cadb91e8cd820992a6d71baee3cda6224a0eef789b52"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "300572adb286eba4386f949f06436630",
+      "parts": {
+        "asset": {
+          "bytes": 112958,
+          "sha256": "ff828ee84a4c9dca6f5acd4ab9629d52e39683816d618d73e201e0897556fdfc"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "14d7bbb36f57e7e87a2535b628972aeb521d006da8620ee021bd13d7a7829955"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Leaves_Tropical_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "30da8e4bad24ba147a90a61b5c3b5a51",
+      "parts": {
+        "asset": {
+          "bytes": 81534,
+          "sha256": "4d76fc73c8cc89625f27c0a3a7d218d32c793d787a147523ad103814301ec170"
+        },
+        "asset.meta": {
+          "bytes": 1476,
+          "sha256": "48da9791ad3e9b69d138666453cb47cbc0d4cc4b9399c6cf62a3402f6cef052b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/SunBeam_Tropical.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "312df44ea4075bd42b9bd857fb12e250",
+      "parts": {
+        "asset": {
+          "bytes": 1034,
+          "sha256": "026674b78dc18aac165bf9e7db953c522d0139448b8e9521ae265f45bc333d43"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "c5803cf2cf125cc77f24f60ca6b453916f144b1c31d115c60cf60938603d5e0d"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Skybox_Swamp_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "31cfb17e5b38bdc44be6eb26667ce73a",
+      "parts": {
+        "asset": {
+          "bytes": 178928,
+          "sha256": "26660f81f8341aef74ef986bf0ef69e8d644f98ac44201f2426525ff51894c36"
+        },
+        "asset.meta": {
+          "bytes": 2427,
+          "sha256": "7ef46c8cf0b0dc118b609d7b3388cae458c8e6ba0c0b935d4172ff6d516830ff"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Models/FX_Sphere_Tropical_01.fbx",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "320fab4ec3c60274997ceffda897a3bf",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "a33c65c178f13a807d4a20549fa855b21f377d0b38e52108bcd75120ea7e0c62"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "338b4c86362ee964fb6ce838ac9756c3",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "6a42ae448fa392281c8396d8ca175d665f22de1570e9867afb831eb6b86ac193"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/FX/FX_Materials",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "33b88fdd40293d84ca97503a4253d337",
+      "parts": {
+        "asset": {
+          "bytes": 1854241,
+          "sha256": "e0ede21c214aa497dccca92e046025f4339c6ed4e85191c71fcdc4e0f6140bf4"
+        },
+        "asset.meta": {
+          "bytes": 2045,
+          "sha256": "947a05fd9b4d93b9c155d8186038dd0d9986aa9845c24c79ed7fb339c4c2495d"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Textures/PolygonNatureBiomes_Tropical_Texture_01.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "3402a9fd7a093db44ba3183b3e82f458",
+      "parts": {
+        "asset": {
+          "bytes": 3442,
+          "sha256": "2b1e8454521a2818fa8639a321184b098ff1ce4172ed74264bbf7740a89443c4"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "2d435250c4f7d842832f46f92940d31f268033b6259b147b4b25aea25a3e3c85"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/FX/FX_Materials/Blank.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "351322016f6781a46a73b135b0900dba",
+      "parts": {
+        "asset": {
+          "bytes": 8762,
+          "sha256": "61c2a594a944ba37f3679cd664d0eb158a871fcc70da84d12c76a545b9954340"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "88ba23ce1b5bdca8523d793215ced3598d493a228b26efd947f086118f105fab"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Pohutukawa_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "357b35a2ad7a31542a963e5838dd315b",
+      "parts": {
+        "asset": {
+          "bytes": 9662,
+          "sha256": "dfb7c7f75c1c7ef2ff11e85f9f925707fae81d1ab83ff010ddc4f182bb41f444"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "6cc612dfafe5da55b4e19945450061e288725c93c1b74b6284a4fd95cd87c3ac"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Bioluminescent/Biolumin_02.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "39e93f1556dc55d4bb845c72278ebc2b",
+      "parts": {
+        "asset": {
+          "bytes": 56600,
+          "sha256": "115b85ddbd36ccd6778e02388eb7d00f6df1874ea0675792c404dd50aff55944"
+        },
+        "asset.meta": {
+          "bytes": 2045,
+          "sha256": "914fb798f6d00cb8cea20edc8037dc83a3be274d7e95c64df7a52dff59c7625a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Stingray_normals.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "3aca46e8ee6dda1459a54a1787458375",
+      "parts": {
+        "asset": {
+          "bytes": 8857,
+          "sha256": "fa0d6b73a96b797a02c6208c90b97c85c57ac3a3569ac24721ca8abbe9314bf1"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "7a6c79f1c2ae132e46339b445e88e4c16e6a86b3d336ed69d4c93a215e236e12"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Wheat_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "3ce12560278c75e42884a88304fe7223",
+      "parts": {
+        "asset": {
+          "bytes": 8909,
+          "sha256": "2678c5eb95202a03f60c4acb5c2df8ae36b8dc699b5a3b5d07a8b1933188a47c"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "10bea6f172a23b5dd28eea857262e2c7d05ce7e27b23e9a0f887ca75f84efaa5"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Tree_Birch_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "3d55f668e284c9248b61dfb019adddaa",
+      "parts": {
+        "asset": {
+          "bytes": 115613,
+          "sha256": "a72fd06f2b2a6549305dfa9569eff84b58bdc0bb9a80fd3be45eca29a3a625f9"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "07484fe5d3e689b08f91217bc757702284e1f3706ef9530fa6e354bdb289bb6c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Bubbles_02.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "3ebfcc9f1f87b6e46a904f3a76875a8e",
+      "parts": {
+        "asset": {
+          "bytes": 9789,
+          "sha256": "eea9aa74361594a260daf33fdc4baaa5b4496934c7afd10cb7d7fcd15b3000f8"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "dc3581bff710d8aea5baefca778ac42e1dfe8bd39a4fdc093ebbe9a650405470"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Palm_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "3f8a4838e86602a409b0126a56c34b51",
+      "parts": {
+        "asset": {
+          "bytes": 152564,
+          "sha256": "40b94c4b1b795930180b206600641edb4aa4626b2b8716883a0c2ab1fef404e9"
+        },
+        "asset.meta": {
+          "bytes": 2045,
+          "sha256": "6c9dc85550c4afd7b6f61051e707e62fdca6a960296cd43cc18c7415b6bbad82"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Crab_Texture.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "406aad7591e4a114ab82c2d2c11f28c0",
+      "parts": {
+        "asset": {
+          "bytes": 9347,
+          "sha256": "e8d2c29f93255f6a8bae7abeba9320d030eeae30659aeebe5a879b60e6bfb5de"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "70579f2e768a544d61c8f2dea85fb13b9bae8417102bd6a35756c66c92a13861"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Bioluminescent/Grass_Med_Mat_01_Biolumin.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "407a744c826aaae4d89960bb583a24b6",
+      "parts": {
+        "asset": {
+          "bytes": 9653,
+          "sha256": "68380c360bf171f4e36e5898272c9a9ad03b50d3263b857593decd5e38cd69f8"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "1b7dd420cf41e93ff7bcdd083b5db6a5a2810f6d7cf97acbb5a9d2204568fea9"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Bioluminescent/Biolumin_04.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "4102253b30c330c40818c94f70029453",
+      "parts": {
+        "asset": {
+          "bytes": 171024,
+          "sha256": "2c4afa45e762e64c05bbf884c70795d2243867a52c4520de188c716dd97ce3b0"
+        },
+        "asset.meta": {
+          "bytes": 2426,
+          "sha256": "1b43e25a632f566a20196de855e279866a664b5d9e3484af54741400b9a6ef4b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Models/FX_Leaf_Tropical_01.fbx",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "42c6ee20181ce5647b818a220da1da08",
+      "parts": {
+        "asset": {
+          "bytes": 3589,
+          "sha256": "69388ad7422c05b2234944d020809305de89af0d13e0aeb5fd1be420fb04b4ea"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "ce3b53236cf1e377ad5d7d3a940436b3c1f881b6bfc333de468786af218397b4"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Sand.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "444a8f8cbbcf5524c8d57562eae746ce",
+      "parts": {
+        "asset": {
+          "bytes": 8799,
+          "sha256": "51142638ac8c8ef7516cb56ae87c20efcd7dbc0c200ae43cdde515a34f75d66d"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "274e448de3705627ca0ab08c588ed56b8166692c2f80ac4c1175d21541c8fec1"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Reeds_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "467eecb20cabbcd4eb0eb6d1c0e167a3",
+      "parts": {
+        "asset": {
+          "bytes": 117954,
+          "sha256": "91e720310ca1c54e21df2b2cb126bb485ed44925ed2f42c0dcc13e25c16b3406"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "c237277bd1b78d16c5579a48b15ccae0330c7da30eb6014d7d6ae92df817b160"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Fish_Large_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "46b65f596fc17f8418d5bd79f8252b02",
+      "parts": {
+        "asset": {
+          "bytes": 3714,
+          "sha256": "42d831be0dce2cbfc63607e30d7873fa0af1a88090c557ce61679aa5dc7d9cf3"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "f9711f33e49917aacdc59520810b49f1053bf94658ce6d9fc11c3f458692cc08"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Creeper_Flat_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "4708dba442bd9ac4fa462c448d2eb241",
+      "parts": {
+        "asset": {
+          "bytes": 8750,
+          "sha256": "ede1c28e1713df490ccaedecdef81de4a3a392b7f7a6f14d4e8205623c8400eb"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "051b14a08c8b87a186b9235b96a03edca4802cbaa5c8286edc81171ba8ac6303"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Flowers_Flat_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "47787897e825a01409e35421cdcb0b63",
+      "parts": {
+        "asset": {
+          "bytes": 8737,
+          "sha256": "f5bbd61226ca3a3977dd770c4877900a987e6b1dc4a0b9aeb88f32d2064d5ac1"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "b778abe852ce608ab0ff8be469fef5bcc1ff6dfedff2e646a76ba5c42152643f"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Kite_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "47fd309ef8b23b7459c9982af5dfc4ce",
+      "parts": {
+        "asset": {
+          "bytes": 8864,
+          "sha256": "e979c057946442d914a67cfcd04c19be2160e170bf2016c09d9f964283c1148a"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "68d035941236a86b059a6d99d02ffbe06778416982445e54cc15d551eaca2180"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Tree_Mat_04.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "481c20719c260b8449e3589b0a5dafc1",
+      "parts": {
+        "asset": {
+          "bytes": 3632,
+          "sha256": "bab54a9d5bc9164df1327e9e5aa9516486e3e96ebcb9bedd538634445bfd892f"
+        },
+        "asset.meta": {
+          "bytes": 182,
+          "sha256": "50414394994d98540687a4b944acfbe4a4820187705c065ee29e16c30e1f42cc"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/FX/FX_Materials/PolygonParticleFX_Wind.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "486e0497ab924df4690897f45433a45a",
+      "parts": {
+        "asset": {
+          "bytes": 8834,
+          "sha256": "09b7c69ad9e62e9b74db8f73877e9185d67f810d9ad060d9a4b67af933d67174"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "e2eb7606fe9a2f031903001b066ecfaa1ae0ad78fe371be3915df9353b42bb70"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Bioluminescent/BASEMat_02_Biolumin.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "48d460db6675bc74088aacb535f483a8",
+      "parts": {
+        "asset": {
+          "bytes": 8681,
+          "sha256": "965625897ddd999d14cd2166fb2d0956af2aa50f78265527a423c5aed93cb978"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "15b7cd33570501d6b4f620aa38793acd52bdbd6a7f50b80c84e84849e8581bd1"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Ground_Cover_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "4985e8b50f6598548bcc71bf6de6994a",
+      "parts": {
+        "asset": {
+          "bytes": 8901,
+          "sha256": "d78848b64179810db6a25f3996343d02cd543a931193ac679263b374674a4624"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "aea151ccd1662c5b2a757e0a12786e540c07a501d4ad0139ec18865b58507898"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Tree_Mat_02.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "49bc14694d2af7e428214764c463ac85",
+      "parts": {
+        "asset": {
+          "bytes": 9574,
+          "sha256": "940ce4b6e5bcdde51f4251e01e4cc15574f74acb38d6407a580a4d2d9086523f"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "4c70daef31bd5b835ab10f9e76285857aeed0b82d3ef2356286337be6eea06e3"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Palm_Mat_05.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "4ac9f8ce84e9cbb4d89e817568946670",
+      "parts": {
+        "asset": {
+          "bytes": 8866,
+          "sha256": "374a7a1a192152bc5399c5c0588bd5105f403f4be8d1af2fbd7c804c33309d57"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "6a3c54ff61db4c2b3b2180f1379da85689b60daf89ce63e4a0cefb22f823e289"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/Tree_Swamp_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "4b88645a3fd98024a9b63657e68ed17e",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "1c261be1dc89e3d10cb0488713c7b90c27b8ca33e2f56837a1b3e507f310fc53"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/FX",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "4b944008d2cf9ff4888730e82a1d52ba",
+      "parts": {
+        "asset": {
+          "bytes": 8709,
+          "sha256": "069312706dbdea2354bf7cefa8f5c75edbaba3264f7dab23631a96ab2119fe86"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "9a96550a408fd6b4429162edced18156538892204d2d55185578a34595f17ddc"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Flowers_Flat_Mat_04.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "4bb4e1ca7b058e4478788814a8744836",
+      "parts": {
+        "asset": {
+          "bytes": 116536,
+          "sha256": "eebe5fed05768a5332cbee9df283ac3a017466bbf5d5151a257656a33c23a13f"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "f1e1b7f4406f6be1f72a46cd49b706e160d1ac7fee0dc636b1d8078b8108f1e6"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Birds_Colourful_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "4cc3728269b8f5d4bae01202a9254540",
+      "parts": {
+        "asset": {
+          "bytes": 3637,
+          "sha256": "80afc93a143f8a9d3fd4211d80c06972c80a6cc008171dc39530194ad41f829e"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "ed6d56b80a9d260fd09381256dde5a341253a8fdf85a66f5dd095623a36630c5"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/FX/FX_Materials/Leaf_Meadows_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "4cd6b947be71ef340944f2ad3053194b",
+      "parts": {
+        "asset": {
+          "bytes": 8743,
+          "sha256": "4c091cd6c0654129e16333ccf77ae07b975401353ed985c2094b51fc6ff58a5d"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "8f24cb9daa2478e397ca78cf648c01a64c597b86966ebc30120562461f3304eb"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Sunflowers_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "4e49147da4a67cc44b1f3f161cd45ea7",
+      "parts": {
+        "asset": {
+          "bytes": 8896,
+          "sha256": "c24e8465adc2c16f361c94221cdb35d38e08630233c362ded30a369480cb6e19"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "f6c51ea2d4afed8442c4b2d4d1943c53e956f9edf6f2b7790bc253b68588cd2e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/WildFlowers_02.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "50703b6ac926e4a40aca3c586b7790d8",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "8bcc61fde0d04fe36f935e6b17c84e23789c28febe23d92fe6acfed5bfb6112e"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Bioluminescent",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "50c1d5339f6455a4daa2f22c50df0f69",
+      "parts": {
+        "asset": {
+          "bytes": 119433,
+          "sha256": "54eeab524df14df93821c1f3e7c7279af7ca20348ad42d7b0632cf3ce02d0b0c"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "1f25ce86e84e476e6743e3ffe2645ef9004cdb1cb0c25c9d85b120df2ed3acb4"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Clouds_Thin_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "512f2c3ac73bd1b4992ff84496a0316c",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "44453935ba8d6d5b4f26b01a812a3039075fc7f4dc1cf3df4e0b9d1e6f300450"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "519ca7996e0cd9e429b75b488b3b0e2c",
+      "parts": {
+        "asset": {
+          "bytes": 8748,
+          "sha256": "36d3e5712fcd90a91b75000bffed47109cfd195262332889f48c493763ff68ab"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "32e54b04b2735295720d585068431c54d42301de6725c912c2924f410808ad6e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Flowers_Field_Variation.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "51c05cf7a5c44e5468e199e5ce87cddd",
+      "parts": {
+        "asset": {
+          "bytes": 122438,
+          "sha256": "255c953ad2c62c80ca4e314d5c39b5226e05c40fed537b88f2b0bd206ebe084c"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "a63c01461af81e9c4ef87bd137a340cd087043512a8474641bf99a31c7d91b0c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Fireflies_02.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "51f32143880b5e646b290b3e3379192d",
+      "parts": {
+        "asset": {
+          "bytes": 3639,
+          "sha256": "976a25151047a43bbd09d0fb0136d73b06fd01a3e94aa7176562d8898d3abca0"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "aa44a2bdbd9e231a5e1041050ede8b08333020236e698d71228bfa152479b5c5"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/FX/FX_Materials/Petal_Material_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "532427b677cf6994eb2b75ab02ff70bf",
+      "parts": {
+        "asset": {
+          "bytes": 3632,
+          "sha256": "94f82ee4a5cf4bbfdcda1291fe2f2690ffdb3b7cbf221023c45aababcdcaf2c2"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "acba2fa8a8d1c50949bee72c14d85daedaa620428c7d2b99fc2e4119d7e450a8"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Materials/Leaf_Tropical.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "5482be4c6dd4bcf409b4237894b550a3",
+      "parts": {
+        "asset": {
+          "bytes": 8727,
+          "sha256": "a38ef66fca63157fab36783347dcd501f4e2fbcd3a9c10c70b8940ee7fc4330a"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "e320199e4cb5a4455587cde36998ff2e6398f363449a27d462e06afb68d458e4"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/CropField_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "55b79e41ab566274bace2d0c432a58a1",
+      "parts": {
+        "asset": {
+          "bytes": 3707,
+          "sha256": "187c1ede7547db56ea508f6399999f3bd425944b091b019d52df2eef4329db78"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "3bf87a2a670814ec48d4e63bd8f48666d5b8398e802e571d99ef75034bba04bc"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/FX/FX_Materials/Birds_03.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "55d3ea605d968c941b2efca99cc507be",
+      "parts": {
+        "asset": {
+          "bytes": 9653,
+          "sha256": "1f2b59ee86e898ee6c57d18a36dbc026d45ab328e835ae2bcb51d1a3217ac58d"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "0c0eef432000f0bc5bc7fa57eb3c824364297512e4aaf9a65237a65f9ca43bdb"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Bioluminescent/Biolumin_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "5696825befd558c45ad256cb50976369",
+      "parts": {
+        "asset": {
+          "bytes": 8676,
+          "sha256": "f0e4b8c153990c3f04eb8d5247db937db7de254ebd6f03ec09dec5bbeaef6cbd"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "706a70695242dd7941a610734653310154aae5984d025acc6869ed55c4923f76"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Ground_Cover_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "56e4afce81c39ad4f85cc5ca71b84ad9",
+      "parts": {
+        "asset": {
+          "bytes": 3648,
+          "sha256": "26961185acc31fda0d46f3dc11e021644c8d8232aff737d9c1d795aa15a5d03e"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "c90f08728892d980df8be0d663189cb65d4a7cc192af8533d81cf4ee30bd8cb9"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Glass_MAT.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "5728e229a32f6644d8132aa9c032385e",
+      "parts": {
+        "asset": {
+          "bytes": 8677,
+          "sha256": "6af88edb9a569fe1c106e3a43200961ef69a56967d1dc904b5a27256a251095e"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "3df463ec163403f838957ae4f2e63e9ed85f3e1f4eba851a097ca8d748045684"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Flowers_Flat_Mat_02.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "5a3c699bd40add3479355799057bd823",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "ecd597e42485326afd244c023664076214069dea773a4af099f822e9631d7d9a"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "5a49e3f0a4f794346aeb04b98eedae55",
+      "parts": {
+        "asset": {
+          "bytes": 9636,
+          "sha256": "69d3dfc4647c36894272a49011de3de4babfce88cfb0762b34fde8e217e25f37"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "84ee7d4d527df5b32874732f79f5a21bbce1a91fe0ad1f0a57c17be8bca65c14"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Palm_Mat_04.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "5b46bf0a337111849b71e6b15b5307e0",
+      "parts": {
+        "asset": {
+          "bytes": 9403,
+          "sha256": "a92afe69c7713460d8ad12994db4929e523023a80fdab679156206634abcb48f"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "94a1ce0ed5edf1e175f7dc0ec39771e6f74c1d33c0947484a7b54721a9d7ba53"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Grass_Med_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "5bb5cc40e6d985747b4a3a262de4f732",
+      "parts": {
+        "asset": {
+          "bytes": 8440,
+          "sha256": "3f5ade0680ae6d7a50756e24396fc1a85bf87a48bbc31d5ec195eb0f3f408e6a"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "6e54b850905d363fe7c139821a51dc71dad93c266c6510a78b10e1437cc24774"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/LOD_Cards/Card_Tree_Pohutukawa_02.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "5c4b4d5891d9c4043936434d943a625f",
+      "parts": {
+        "asset": {
+          "bytes": 8933,
+          "sha256": "3139d49eb10b13bfa8c8a613d84deebfd91dcab8e1039718d18600a29eb1ca6c"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "28eca826b9474a881df2fa1bca03ad01b7ec5ab35363c14831b93484d5928343"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/LOD_Cards/Card_Tree_Swamp_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "5d582eaba38255a4b84ad804a76abec4",
+      "parts": {
+        "asset": {
+          "bytes": 2208,
+          "sha256": "411c66bb6cda42b29e4f35108d74245e22f02b95aae4ed945e1af97ceb170c8e"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "ce63dc8af6816e3285f151a29e05cd2a67170f1be4057ec9253b8ea8021b3237"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/FX/FX_Materials/Fly_FX_Mat.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "5dd0a64f6723b7a48b175803bc4877a2",
+      "parts": {
+        "asset": {
+          "bytes": 116500,
+          "sha256": "e465351e49d8e10a32744a4b5bcc702c1be649ee42ad896b8008e8b26cf9baa7"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "f14bd37cf276f60290d62c353ac9ca0a9125f64d49a36c77e5f73b735d5ffcf2"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Birds_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "5e0e2246214f2a94f95e7e98ef2d9836",
+      "parts": {
+        "asset": {
+          "bytes": 8936,
+          "sha256": "fb35c3891b244717abcab80d3edd58eadd5715555c7686e73a99faf793785daa"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "b0e104326bb860a04e80597d83c6047e6057ca8ae9c6a0c4d712b86ae1987d6e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/LOD_Cards/Card_Tree_Mangrove_02.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "6054a4120b905b54c850e61881908955",
+      "parts": {
+        "asset": {
+          "bytes": 8785,
+          "sha256": "ecded6cd06748f034cbe8316c1980d04c8573c6c57bacb169ddf592b35802cbd"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "5c00f6fd7c3494fe01447ec1a50d5f6c1da286c523f491f2d4fe9bf81f3132e0"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Flowers_Plant_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "617023628e7cc4848b9204957f22100c",
+      "parts": {
+        "asset": {
+          "bytes": 2802,
+          "sha256": "0bc493fa6e49b55df1ab4cea3f2cb2a24b250a472ca7703e99b2f90cae180fb6"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "5c2301f4d6de9205b3445463542f1ef33accba247923104dbfeff6f44a1a6d2c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Rock_Triplanar_Swamp_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "61c9705e6221a4f47b599a77d3f4bb83",
+      "parts": {
+        "asset": {
+          "bytes": 8899,
+          "sha256": "deea144f0b094de3c23a8cecac5fb2d93154cbdeaa2764610ee018f721cce1ed"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "715d0822b22681d8fbb9085b37d39d8c59ff022928efafbc05b262e44167b721"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/LOD_Cards/Card_Sunflower_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "61f80613fcc812347abec5ea07d3c543",
+      "parts": {
+        "asset": {
+          "bytes": 8922,
+          "sha256": "ff698934b83858ad3aa430ea2b616e0fbc9245e607bc2d8b11d37ae1c1d9101d"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "9eacbbc35fb84a9e2415ba36e8755d526559cb1fa9dfa90c85269e244f5d6181"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Tree_Mat_03.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "62653f48380a8f24c9a9c150ed0caf13",
+      "parts": {
+        "asset": {
+          "bytes": 21120,
+          "sha256": "76d1eb171617177ac1fb38907ce40afba24091d07460275ef594b5d00b1b99f0"
+        },
+        "asset.meta": {
+          "bytes": 2427,
+          "sha256": "b43c900f2cfb4c1f4868bec15b9290874f83981b075e73ec21e276c648a30c24"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Models/FX_SunShafts_Tropical_01.fbx",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "65038dc4a5b9ed444b83e2c4cbc8a682",
+      "parts": {
+        "asset": {
+          "bytes": 117959,
+          "sha256": "412addef8fdda9b177b978571b0c5e3e7e6f131ae0e5c670c09a66e679f20eb6"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "b96fc738c9357873d8fcb8afda647321eb62b81966a600471336c7a81eb84535"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Fish_Stingray_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "65322ae7dd8b2a74894863032237d6eb",
+      "parts": {
+        "asset": {
+          "bytes": 3628,
+          "sha256": "d76f1ea2ad9f9f0fdd569c95968360ed831fef51e79cb4e60314cc177546b744"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "81fd0cf35ffceb0c27ca575ad7318235643fa6a6679c377eb461b0817bb91f58"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Mat_Lillies_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "657ae7dcef2f8b747a2ab5b6f2b583a3",
+      "parts": {
+        "asset": {
+          "bytes": 3562,
+          "sha256": "5c2a32af56aa1c7e988cebe804e58028bb6969e8b4bc074f0468ce0b4ede0a64"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "f34c9f2a77b2e4be687631c71dbc26ceb485d968fa57e067ad9a1bf1bd76b408"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/Swamp_Scum_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "65bc59d3de6d90b48b51664c53df80a6",
+      "parts": {
+        "asset": {
+          "bytes": 8585,
+          "sha256": "01c894626b3fa47a34d7370ae19ace9801f28c8a9d52c878a19f7bb724416c86"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "f1a8e4ee60d194d045a0d0f678d01271e1a8edff34a20678490ebe211543656c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Flowers_Field_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "6697e1f185bc8b840a2f02567abf15b5",
+      "parts": {
+        "asset": {
+          "bytes": 173212,
+          "sha256": "6d8885da7ae46db735b929f073638bcf70b105be7eb93c7285abf99788b47113"
+        },
+        "asset.meta": {
+          "bytes": 387,
+          "sha256": "d733112ced7761b70ef82c5334bc218b1e6728f752e275d6acff6e2e60352519"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Core/Shaders/SyntyStudios_VegitationShader.shader",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "66f8401a4c881134f8803eceae302347",
+      "parts": {
+        "asset": {
+          "bytes": 66954,
+          "sha256": "ca92ec099343340d0c2d40adb9b2df24a8e224491a580825cc8da466937708e9"
+        },
+        "asset.meta": {
+          "bytes": 204,
+          "sha256": "4d89259d77cf613ecd35e54f639afc0a0f7965ad186531ef87df8e4af1b2fb54"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Core/Shaders/SyntyStudios_Triplanar_Basic.shader",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "6744686723b90774384d9c57fb0060c1",
+      "parts": {
+        "asset": {
+          "bytes": 115593,
+          "sha256": "627143216d54faafb293adde3ce3d109fcdc6abb945e4ec095c3760d4b630de0"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "28a51643788815940dc3a9916ab1adafc8a438377818321e46b3c1d3044eb73f"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Bubbles_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "6805d9b36aaa54c4287015e9eccc1746",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "d127463a4a0d849f709f90fe7f959c5efd7f24efaa05f657c51f9b930a630d97"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Core",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "69745685718e5264c91bb1cca5e26480",
+      "parts": {
+        "asset": {
+          "bytes": 8112,
+          "sha256": "6f381e23235e2f90afca6bf08a2568c5888fb6d086ed03a1cd2a8dc1d0a8050c"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "5843daea98bb021a19e7ca0598f416ce87b30415f4ade34e5236f5667e49d2cb"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/Branches_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "6accf84162e2ace42bfcebde2eec2861",
+      "parts": {
+        "asset": {
+          "bytes": 8936,
+          "sha256": "12d2357e690a007a6e6bed021266d45faaf417458008e8fa2a3ef1d8e84fefd8"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "c6218414ccf66e3a22d1d6a1776e55aa51b2f4ab93fc6872269632c7ff8a2881"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/LOD_Cards/Card_Tree_Mangrove_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "6c8508cd3dd08984b963030722be1510",
+      "parts": {
+        "asset": {
+          "bytes": 8733,
+          "sha256": "0e4c72e371eda61a55fac3dc29637ce7be0bbc595a86ae0c3bab19de574be573"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "4643e39fe26e4d0b9ede43898b164afb8e3dba2da9fc74c9c4d01e371ae43dcc"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/BASEMat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "6db13e1839b67cc44876a2fc15f56f73",
+      "parts": {
+        "asset": {
+          "bytes": 3701,
+          "sha256": "4f730c4655587344fcbccad073559fc0509e7b987b9a609bfc9aced875aa3773"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "56493a522fe9725b31e373220fde01c518ca630224cafa1d5221fad8746fa714"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/FX/FX_Materials/Butterfly_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "6f5713fcbe911104185f4a41d969fd76",
+      "parts": {
+        "asset": {
+          "bytes": 3700,
+          "sha256": "ef9d6b9a2afff4b2186797831e7b8dd0b4a04a72114b9b9c54a99d90d3b7c9ec"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "327c134baf0e07ea796d76f81d4f103b06f6e4aff6e01dd5c32d8e0490ba4bd3"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/FX/FX_Materials/Butterfly_Mat_02.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "6fcad6979556a8b46a2441bab5a3e96c",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "70e6f45cb070ac1aa62a2d44853ca5185e74dd07944eb68a118e1fe23a3640b5"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "6fe9a122e2fc1e641b75d4f14421ea1e",
+      "parts": {
+        "asset": {
+          "bytes": 787,
+          "sha256": "238476675d91a689ba1046809b0dea33ad06cfc1ce1560ccbf6dae076f7c3bfc"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "ebda84400f2ced4aa1db1f95e10fcb9ed2ecff18cbf20f4a16c970e32cda2cac"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Mat_Skydome_Fog_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "71759bf42fdd22246bab0bd12ddc51b9",
+      "parts": {
+        "asset": {
+          "bytes": 9339,
+          "sha256": "66b93a9f10a650080ae8ead6066ba76edf6dce2ba4d55a11c3cda9fd96c8844a"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "fefd59e3d623b12dc26b09413a70e0f45f0638c4d9fe26eedf34cd7e00e320de"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Grass_Med_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "717bc4bc542b5124e8b1975a19174f9a",
+      "parts": {
+        "asset": {
+          "bytes": 8806,
+          "sha256": "93ba9c45f42044950d63e7ff0edd1dba00ef324bb4a00bd53cf8e3f446b5493b"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "4d674db059a7cb9637f566cb1e301696a7ad9ef7127e32f30d35c53d755a4437"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Tree_Mat_03.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "7197961d33abe684dbb45ab4f16d8d6d",
+      "parts": {
+        "asset": {
+          "bytes": 2180,
+          "sha256": "a4e81f6edebb0b88bf75e4a749557485df348cf5f6d29dc9078d61b2082a493e"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "098f29d9ed7a3952a4f9e0c581dbdf62126d9f5842bd50de9a590f230525d1cb"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/FX/FX_Materials/Sun_Beam_Meadow.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "72193b7bf405d0b40b192d15ed5e7dc9",
+      "parts": {
+        "asset": {
+          "bytes": 3710,
+          "sha256": "b6bfe4c38e6297a28d24dd58cf86ea8b5ba6efef96256591b5a796837d0f5b9d"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "3ed7450a47f81eae06ba0110200de2ea4d030107b18bdf64f3f99258321de866"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Clover_Flat_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "72691fa6aa6af1f4f9da99d415fb09e2",
+      "parts": {
+        "asset": {
+          "bytes": 8699,
+          "sha256": "ddb6eafe7e288893e21e6c3d88b5b3fe3f3bd151d9d1979aa96ef8f20139e2a7"
+        },
+        "asset.meta": {
+          "bytes": 182,
+          "sha256": "1ab5bde139a1e54318aa44e8cf88837111e2a2c69836abe600772956806c2695"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Water_Ocean_02.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "73b1c4f4fdf0deb4d9541eaceb6876af",
+      "parts": {
+        "asset": {
+          "bytes": 25968,
+          "sha256": "c83000e2fb984330b16cb1054530bb56bf12d22f83d0ec6d60fe92c23b8b1e21"
+        },
+        "asset.meta": {
+          "bytes": 2427,
+          "sha256": "29da26741e3c250e9103ce6355c2eeaed01c9b04bc2508b1925acffc5a6631cf"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Models/FX_Plane.fbx",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "748bb2239cf3ab4428bd0a0f53382897",
+      "parts": {
+        "asset": {
+          "bytes": 2194,
+          "sha256": "8777c4f637204b4de023f1a1bb09ca050af8051c12da9542bda5a156ff923c65"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "8c3f98d3e4a692d6e54b828bf332e472bc9c17853e5412b18364e1fe81e21a95"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/FX/FX_Materials/FX_Circle_Soft_Swamp.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "7529bc7d845015a40bf227d05af7aa63",
+      "parts": {
+        "asset": {
+          "bytes": 2802,
+          "sha256": "c02431d1b1a403d34727bc12f7dd237f1b7007786c70863c93f2aa0b9010e66e"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "e5edb2d2585ab9b5cf0fbd51833ddd656e7828929cd3191f556ab0f49d8d5e5e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Triplanar/Rock_Grass_Triplanar_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "753665b855752e54791f5526c81446b8",
+      "parts": {
+        "asset": {
+          "bytes": 3552,
+          "sha256": "3f1cf46193e84e61bc4a27c96f6ebc781ff0e0436c7e5995161ac535fb6e6b76"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "e8c6408e9b775a2f64b5f590fcff614913bc193543982f5b37e942b348176b61"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Birds_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "77d3430528ac3ad459bfe44e73c2cea9",
+      "parts": {
+        "asset": {
+          "bytes": 8713,
+          "sha256": "0ae98cd4f53c3148e517e10c303a5dcace84f1431a61c0ca170ddb31fc4c518f"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "929a6647f8ff65dba011bba39d4f6d8d03ac2c87cebab9f3b97f446003ee3cc7"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Trunk_Birch_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "77d8d486b88eafb4cb5f580f6ef5ca0e",
+      "parts": {
+        "asset": {
+          "bytes": 10529,
+          "sha256": "ba3c195cbe2dc90e00a48e064a050d4895499d69aa47313f7a1ccb94b5c6c817"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "91f4c370d77b09dc7960e1426ae954cd0805b2061db8212f7a3f5db50cd92e23"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/Animations/Boat_Anim.anim",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "78957ad58bc38b24e866676b1ac848da",
+      "parts": {
+        "asset": {
+          "bytes": 2828,
+          "sha256": "227dcc3a1dce444fa70497e9c622dec562cadff8f5fe6a33c50df80d539deb57"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "d8941912c74bc40541cd5d18700339ad4b71b3638e8fb73810aed2afd3e428c4"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Birds_02.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "78b5afa38b125aa48b2b278cb59038ec",
+      "parts": {
+        "asset": {
+          "bytes": 3630,
+          "sha256": "cae89b6f9a87810ac7e6d6d9af289916ff2ef30f9a89fa683f162b428cb4d288"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "4aaca3cd31d8077a4747022c65f5bfa31ae8ab53e181f32b5f1e7ab4e8595a20"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Circle_Additive_FX.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "78b7eb44ddfcb014f9f01e543c2a9151",
+      "parts": {
+        "asset": {
+          "bytes": 8915,
+          "sha256": "d285b0aaecca11ce98c37dec8d513c34f127619783bf00fdb7da265298aa32fd"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "45e3165cb73284a9bf072e01181340cd7d678c93e3a6720efc347458f661c988"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Tree_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "7a139402033896849b1c9ba10395db58",
+      "parts": {
+        "asset": {
+          "bytes": 113070,
+          "sha256": "716cf6d08c7a91afb39d13ff2abee77b5ea6f39fdd2baae9d5db52a969cfdc1e"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "82829e485f188fc15c50e96fc13cc870188f052b2fbf40a04432ab12e11a8396"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Dust_Spots_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "7a3c452dabf66774b832b35305ba7bb5",
+      "parts": {
+        "asset": {
+          "bytes": 3070,
+          "sha256": "5d6a857616c1d016a16a35cd71de8928aeca12ca7e7f7c29e639ec6ae0a3051c"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "1ca4aac41ecaa29c6057c5d1e6ce39ab74000911d3b57bb031d7f981a1e0cec7"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/NoWind_Mat_02_Saturated.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "7a52cfc342879624287cd7e1f69945e5",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "8afb6f6a7458ff9587392b7f685b67859700e628c64da25b6d65e55dc135d79d"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Textures",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "7d38d1472e0068b47b889a888a7fe1a8",
+      "parts": {
+        "asset": {
+          "bytes": 3634,
+          "sha256": "fc6823eba048d4145a25d5b6ef29cd912eaa59cba73fcdbcc932952c7479925a"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "b47934bafc665cbe216f46ba58ded2ab3df0d0f6399374f5cd25ae213230735c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/FX/FX_Materials/Leaf_Swamp_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "7dac1e1d77132fc41b84ae89f2aac34a",
+      "parts": {
+        "asset": {
+          "bytes": 4229,
+          "sha256": "60380134750cf3a1b046422c7a35931a7f6d954be7bc9122367fd649d726730b"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "3ba9f7458e016be2874633806265a71097501474629b143d3e4fc71ffe597532"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Materials/CrabTest.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "7fd52ef374830c84e8d26cf77caec0f3",
+      "parts": {
+        "asset": {
+          "bytes": 3028,
+          "sha256": "129c9789cfed4f1be426a14ed55fc89b38ebaa6ae6e80be5130bc1a655100802"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "570bae768415b2633548faf602afaa8321f71f73078d22b9c58de673e8784253"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/PolygonNatureBiomesSwamp_LODs_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "804bcd514610b9344a8a0bed08c72546",
+      "parts": {
+        "asset": {
+          "bytes": 3756,
+          "sha256": "7551d61ad3bb98ca4cffe411e16a125c4a36038a73ff7eb885eee613e7366809"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "95f751b638b4606fa5859b4fc21a970d167bd5c8efa7f5c23b1ae6216db3246c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Materials/Fish_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "80785cff3174c574da69fa4bb924ebac",
+      "parts": {
+        "asset": {
+          "bytes": 3564,
+          "sha256": "c05db35aac721a56e46678ce8bbf81485c2f791817e6c88d0b3dd5e3daf8568e"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "1393b45bab9abcfaf138c5517654a6605932ba8fbccb2953e2de15ac2ebf298d"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/Background_Tree.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "808f68c2afedf354290823dd05060185",
+      "parts": {
+        "asset": {
+          "bytes": 9661,
+          "sha256": "efddb65accc25127dacc31d174ed280dfcaa50ccf49cb998b0c68cb8b7c397cc"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "b9d902d7d77a40c0d884b0b452d7d0e32398553f77db2459351d89ab855731d8"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Bioluminescent/Biolumin_03.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "81550e42382867c4d9f749d715baade4",
+      "parts": {
+        "asset": {
+          "bytes": 8586,
+          "sha256": "2197fdb75047cbf314b2fbc6f493e67abf8484836ddea7506271848493839187"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "c312aabfd806b175b9d3376ac7544c7a00cfe5b4c1ec2e91088943f717525fbf"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/LOD_Cards/Card_Tree_Birch_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "815a8a4f1b2a29f439032e3dd598bc4f",
+      "parts": {
+        "asset": {
+          "bytes": 9456,
+          "sha256": "060693db1bfa2dafb60b01fd6191f6f8b88d692c6d91eb41f557d307d514bf62"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "93834d7ec3753fb4edc3b6383920407d92bd415460ae1a64a82580f1639aa889"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Grass_Tall_Mat_02.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "817931977b6de374380ff71889e967f1",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "36a35dedd53e1325a97315d49c7ea707cc4eb9618120eeeae187194de25cc6dc"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/LOD_Cards",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "818a9d8469164714d80eab4dd1b83870",
+      "parts": {
+        "asset": {
+          "bytes": 8815,
+          "sha256": "082c21bb5234214596a5981317d998a424b4a3f4309e2c50daaee037f7bb9da4"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "a435ac4afa6fcbf2a16bfa877185abc710eddd391aa9cf65ba7ff21675026ffa"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Tree_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "81a32375932a1e7479f08337657c44a6",
+      "parts": {
+        "asset": {
+          "bytes": 2675,
+          "sha256": "9b76dbc6485c28610250616ae58c786867a8445692ebfd10bdef56ab3ab853f9"
+        },
+        "asset.meta": {
+          "bytes": 182,
+          "sha256": "cb995a99d9472fa118c61f187795901d53a6b6b93af81eb1b12743a968d43ada"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Core/Materials/Fog_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "81c67e99ebde3e54c98277134ffaea9a",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "af457383e401a0a13805c7559f90084ebd08fefff391e403db6031ab8d8b291a"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/FX/FX_Materials",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "81ccc26e8bc560c44ac3ad66a1181d6e",
+      "parts": {
+        "asset": {
+          "bytes": 3754,
+          "sha256": "8ecdc9c8b1c94d52f41000bee6fbf4764483b5dda4ede65290777cb5f489bac8"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "0fed7030f73b124eab6e134459ce814331b1270ce3725847cb830d695c337732"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Materials/Fish_03.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "83560de9c6e282a4ea0d81b02cc59feb",
+      "parts": {
+        "asset": {
+          "bytes": 15663,
+          "sha256": "bbc643d2985edd0782d2f74349ece1e88063cddad7b0d4b2f85c75d8682a5fdf"
+        },
+        "asset.meta": {
+          "bytes": 2045,
+          "sha256": "9269b91b3cad6df2d169494475a3567b72e9a9ca0504583d26230b82d6ea5a29"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Fish_01.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "84d95f04118269c4c809454ba2a60d20",
+      "parts": {
+        "asset": {
+          "bytes": 8469,
+          "sha256": "feb8d09e1ca36776ad3724808c0376d3c1fc4787c916fe921a6456f3cc2957a9"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "0076171adafa452c0925e8e18401cd583c8c257724c2a2ac7f316caf90bd922a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/LOD_Cards/Card_Tree_Forest_02.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "852113d15a525b849b1d469228f450ce",
+      "parts": {
+        "asset": {
+          "bytes": 88424,
+          "sha256": "15c4fd03e8ade8516525ec8625a1f4e300080ed134bd1cb731b2c152ff76b611"
+        },
+        "asset.meta": {
+          "bytes": 204,
+          "sha256": "3dc53c24a202e369314c7494a101303917adc03809d3715531a2c3d3b2b1d22f"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Core/Shaders/SyntyStudios_CloudShader.shader",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "85fbe13ec16cd8246b5de6219299982d",
+      "parts": {
+        "asset": {
+          "bytes": 110806,
+          "sha256": "4b4a21255832f666df1740efd3599e1ef26f724de9029ae64b217566883ee149"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "ea916f4ed26f3de2972ace9a972b2c918049aabeaeefa65f946b9769b9a227cb"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Waterfall_Impact_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "8622936458b2b404fbb345a957376143",
+      "parts": {
+        "asset": {
+          "bytes": 8523,
+          "sha256": "3ef17bcc4be4c6ce7c1ca7700e82b416b085c46aca9751289077f2747cc2bfbb"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "18008e897850c2711356576e0085be32d8a346b5c47f59ba110301e6610af254"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/LOD_Cards/Card_Tree_Meadow_02.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "872b7f6f91c83f2489a16e6ee3b95cfb",
+      "parts": {
+        "asset": {
+          "bytes": 35722,
+          "sha256": "52b76ce90d28b8543205f79e3b3eee2c1699375c592fd3b38ffcdd92ad2b2479"
+        },
+        "asset.meta": {
+          "bytes": 2045,
+          "sha256": "a3a205529b859700086684370a9a489be1ee3903d2475e39a1a0d57ba793d377"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Stingray_Texture.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "877c1661bbe17ed4daaa5ca8cb5c2905",
+      "parts": {
+        "asset": {
+          "bytes": 8933,
+          "sha256": "fbf1107afdf1bd3b6277534ec73160cf7ccf5091f573342568d24e4ce188e8e5"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "a8f0b5d45422a6da8c79bdb522a0878b7c28c46a9af9f28a1519ae4935be92de"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/LOD_Cards/Card_Tree_Swamp_03.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "8882ce02bc5ccf048a982eda32f46717",
+      "parts": {
+        "asset": {
+          "bytes": 174224,
+          "sha256": "31182b886c987dc5ccfc07fa8b5a50ac5007ec604913210d7d5e126dd487d431"
+        },
+        "asset.meta": {
+          "bytes": 2426,
+          "sha256": "9e54e30e660980fda29eef3f874e9ab6fffa577a8d1a22fc176955d1501af272"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Models/FX_Bird_Mesh_01.fbx",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "88d559b45b187b04ba53cf7ca18a3337",
+      "parts": {
+        "asset": {
+          "bytes": 8566,
+          "sha256": "f8b4526ecce0eae829eeee37d1d8dd86e0c18938b614c26662d1dd5dc6945af0"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "947dc78f139363065db9ee55c7f10c008ef5b6c17aff11c0c03827b6c9c20d96"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/LOD_Cards/Card_Tree_Fruit_02.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "8aac167586952554586fc55fd8b19c23",
+      "parts": {
+        "asset": {
+          "bytes": 8437,
+          "sha256": "b9ab72dad0e0f806ce8b77094f05b8491e8912349a16349d3c87ed73db9c2fa3"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "ffa2289677b5e770f51ca048352c43304421c6fa4e0033a84d8654d801874869"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/LOD_Cards/Card_Tree_Pohutukawa_04.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "8b220c25cffc974408972f6acc308ed0",
+      "parts": {
+        "asset": {
+          "bytes": 8680,
+          "sha256": "c9be3471c1ac3694a9129673611822174c59e1bbb8730357813b6215677bdb7f"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "1fcb78956ff6fb0c85a3b9d91852817ccfb7883697d3a196ea1aa2bd6aec0582"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Water_Ocean_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "8b376fde4d5c3ae43b7238618d107cb5",
+      "parts": {
+        "asset": {
+          "bytes": 114662,
+          "sha256": "352bf046fba00b762cebc37980588604643f92f69ccbac8e726b77a5713d7b42"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "3a1949fcf163acd2db2759289caade5e42e3d5c2d07d785bd1ae665b7a7430b1"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_SunBeam_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "8b7b6280b6ec71042b321e7de3d9f353",
+      "parts": {
+        "asset": {
+          "bytes": 2182,
+          "sha256": "4f5e260a0fb6d09d305b03bb8a9a2a20512f4b30b6c322f8aa9601fa789af41c"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "6e944f4ee7ad5631f4494f4ab33cb4e051aff7d965d3a096e3441fe89dc1a3f9"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Materials/Sun_Beam_Tropical.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "8bf8b8d5bf2fd5949b9236b6cbf5c36a",
+      "parts": {
+        "asset": {
+          "bytes": 3700,
+          "sha256": "4a0dd0528465e1598b2d7136432e66054f0e0c3d59aa17ef98919b11572d8783"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "bb2fb2e64a8020a1b8df4c253d46def55d8ef7401b213bb611f385029a33ef3b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/FX/FX_Materials/Butterfly_Mat_03.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "8eb17017345c37b4898be49c4c414406",
+      "parts": {
+        "asset": {
+          "bytes": 8439,
+          "sha256": "2a7f421ac1c6829beebe1fd5b5dedb74ba0eba60d3cb1541d41e72cb1c91ffbc"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "8962f87bff0aa1f2bfee6004d6edf2f3c3cbc2941d8c78ef100fb0eaece5a854"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/LOD_Cards/Card_Tree_Pohutukawa_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "8faed35c6ba97be4ebb721f872aa2e14",
+      "parts": {
+        "asset": {
+          "bytes": 8894,
+          "sha256": "e1d4169974b042192de7a2b4b7bf0794ee6aca4dcf892e03f2d4bf133c751886"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "d38d882690483d4d58cf4671fe744c8098bcbdffae1f0537e34fb46c2426724c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/WildFlowers_03.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "90efb9c87d93c294daae5dbfb99ca51f",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "2255b79425d9df4cc6e29244062b13ba140e8af2133a4f80d61d69491d86a850"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/LOD_Cards",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "915425ba7f2257245a1f839efda10397",
+      "parts": {
+        "asset": {
+          "bytes": 49754,
+          "sha256": "dbef900040c42da0b63dcb3b4984b6ef4019651dd0b2471dc8bd3084bcff1d9f"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "3cbf7acb4d1cadc999f1606eb7587b12187962443b486912394313e8b8f3063a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/Animations/Turtle_Anim_Idle.anim",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "92061b05edb265f4daa87d0c5ebc6f91",
+      "parts": {
+        "asset": {
+          "bytes": 9640,
+          "sha256": "da3ee8ccd1273ad8ae275feff0b5e94abee07e5ec13bee7c6d7947856514f3b5"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "a29bb82676928e72482ba82264e76af9b96e68bea3cbfdda190c04ba2a3fc039"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Bioluminescent/Biolumin_Fan_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "925386dfa2892df40a367d980f8af1f6",
+      "parts": {
+        "asset": {
+          "bytes": 8709,
+          "sha256": "7143bc6f082584dcc8631cb928a69034c3a3f678129ff39811a39bfb2c10259d"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "d75980c2575bbb1b63be6d9684bbd77e37724caf94dfd8fdbc830f6781ac069e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Flowers_Flat_Mat_02.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "930c00ce9e938cf43a9e1cf06e0ebf45",
+      "parts": {
+        "asset": {
+          "bytes": 88200,
+          "sha256": "427ed7c50ce9f6996fab9e4a15320bd89f0ce884e2cc1484a6118187bcc908f1"
+        },
+        "asset.meta": {
+          "bytes": 204,
+          "sha256": "c538c0e8aafa9f2caee7a1d9c2a743b73b598b556a1fda73b9acbacc0cb0b964"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Core/Shaders/SyntyStudios_CloudShader_NoFog.shader",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "93c36b7cca2331a438f98e77612c946e",
+      "parts": {
+        "asset": {
+          "bytes": 3464,
+          "sha256": "6fd468a450a0d07a69343e47e2edfb344c1c58a79fb5aa3e2af490091152de37"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "b723eb8cf6a12506fd6169a8432c6479781e38695092df8a8aaf63bb489f5b48"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Lava.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "94826dad9db4fcc479edebb9c8549dc7",
+      "parts": {
+        "asset": {
+          "bytes": 8479,
+          "sha256": "66169d153d4f685b874627e1ea8b30675636e86b805c82e3682b80f5aee185b5"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "8f6b860f723c429451f9090b81f58c43d76c8c852a91ab8056091001600c1f0d"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/LOD_Cards/Card_Tree_Forest_03.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "95b0a52c14514c347b5ff0ce9e9bcdf0",
+      "parts": {
+        "asset": {
+          "bytes": 8828,
+          "sha256": "671cbbd8c6bf22ce0e881f7526140020045ad851a986a32cbddcea4f9a62d7bc"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "a45cd21efe936c7a134e13202ff8f1ae3b0795fdd427d84988c0249a9a83a048"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Tree_Mat_01_Small.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "95d68304de9d05943906b7ee3fecb2e9",
+      "parts": {
+        "asset": {
+          "bytes": 8566,
+          "sha256": "ca8996f476a4b66f6bad8369fdc84e71d4e1390871c06c3f0f4932ada7361d6a"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "5cc068966c41fb144f0753463847877e42e04f75a057df2482f64be9eb6ae1fc"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/LOD_Cards/Card_Tree_Fruit_03.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "960986d75609bcb4c87fbd2237662162",
+      "parts": {
+        "asset": {
+          "bytes": 8060,
+          "sha256": "3e3b862eebd86764f947dc27e43117ec9671056f02b3a73edf20776a7151d013"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "a8d35e3e012297cebdcf9fc2a370b5b77467e4d7250d51efa4feacbb1addd9fa"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Branches_02.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "96ad55426c097a34e82de1f68836ee84",
+      "parts": {
+        "asset": {
+          "bytes": 3713,
+          "sha256": "57a3cc29eac92c34a946f405da283405eecff6e1f6422c0b7397ab480e358ba5"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "35d70d31e5838a8f48596e10e0c1814392b5eb16c94155f5c2e1d5aa9b4b1049"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Creeper_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "975723c6e4b68c14baeb651ccbb9cafe",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "71dd8d516e6f5204f9755829798711f17b48af76c57167e74b3735d412cdec08"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "979d6c8a4c87a704ab51eab3a2563995",
+      "parts": {
+        "asset": {
+          "bytes": 1022,
+          "sha256": "12e7214994f1ccfb5ae469e64befa97dcf6bab7bce6975e4d4b511d3e215ab05"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "c8014d550218bbb026e849d5f8625a2e1a133ba33865a5da15e2a8b7e359b1d3"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Skybox_Tropical_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "990e7374402cf4246a7f39d88da22ef6",
+      "parts": {
+        "asset": {
+          "bytes": 9673,
+          "sha256": "23f1eee0ccb9f69f76f720f2467195eb4d32d9d56f16904e949475ecd919e768"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "47cd7562502a872322e50483482790573a09b20991685ebecef9de6fc88fc300"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Palm_Red_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "99cd1b5559f8bcf4196a8b2cad9da5d4",
+      "parts": {
+        "asset": {
+          "bytes": 3595,
+          "sha256": "d3f294c00e5eb12ca4d7e0ae2a0ae483df0740d45e38e10d6e99c23fe5992d37"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "6c0643ed8fa9fe7165ea0b03c502e7335d6cd9a185737b6e0f8c1f20d5b47c04"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Materials/Stingray.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "9a2300260627cee4481e69ce53faf4e2",
+      "parts": {
+        "asset": {
+          "bytes": 3438,
+          "sha256": "e9329b450fff45bdacaba99ea42e6c31f380e8f1adf23f3081d5dcb8369d9acc"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "2637ee7e6dadfd7956fd848933827022f7226d7894f670eef265e39653c6b0b5"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/FX/FX_Materials/Additive_FX.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "9a62863efa8640944a67b10af1ac5130",
+      "parts": {
+        "asset": {
+          "bytes": 8696,
+          "sha256": "2c04413d02902a3efe53a2f970a3691379994591be39fd516a37f7f6a2832e5b"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "1b052d24b6bb378d9452489f1721bf45162a7e30027cca770c45785bc1817b16"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/BASEMat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "9ad3d533612e9404fa35e1d900ab70a9",
+      "parts": {
+        "asset": {
+          "bytes": 2796,
+          "sha256": "369ba9efddac2c778ea8790fc4784c6974f662aca6373485aeb1ec623cd8a587"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "3b1f108be92ee231bf19543e9f5feae4b01c5ff3cff505a809d53dec65b85ce4"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Triplanar/Rock_Triplanar_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "9fc7eb2fac006834cae3d7aeb7ffc305",
+      "parts": {
+        "asset": {
+          "bytes": 99665,
+          "sha256": "83ba3023bec48786c5918e5891c4dfb248a51ca84d7d106ee35cdbac15e84d9e"
+        },
+        "asset.meta": {
+          "bytes": 2045,
+          "sha256": "d0754bb68bb12c8ceac25bf27faf91e67b1928681dcd3012b2e750fc55f8c772"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Bird_Test_01.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "a01cda932070b964d85e5835371a3cc6",
+      "parts": {
+        "asset": {
+          "bytes": 8523,
+          "sha256": "9af1c18218217131b8d6dad9cfc75ae0ed40d39036e4d89a6ab7536f602c4418"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "29476d12fadcef861753522fa2755f176656777d3e35a872be4f93643455dad5"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/LOD_Cards/Card_Tree_Meadow_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "a1ea0d9a2710ee54c9acd5cdfd83b2e7",
+      "parts": {
+        "asset": {
+          "bytes": 73952,
+          "sha256": "765ab5d8e089f255177f073653ec3e31f409d35b4608047be62e249e1965e028"
+        },
+        "asset.meta": {
+          "bytes": 204,
+          "sha256": "003a3a6b8d7c2c94a45f7274c71be3130260c7443cf3972a9781a724259b0a64"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Core/Shaders/SyntyStudios_Basic_LOD_Shader.shader",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "a378adb4efb33f343877bf5b64558e7f",
+      "parts": {
+        "asset": {
+          "bytes": 2195,
+          "sha256": "6d03bb49cbd120e7e59c54f86eabf58d9fdbaa2505d7be57b264962f6a9411a2"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "ec06e2cd1a6c604cf20a46e52dffe992680dd827e8bc17baa4a1d6930321cc1c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/FX/FX_Materials/FX_Circle_Soft_Meadow.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "a3cfaa2a78e73bb478255953108ff6cc",
+      "parts": {
+        "asset": {
+          "bytes": 9213,
+          "sha256": "5507782cc8942bdb32c6b1f4be2e2e7f7e9a95c7cf0157062e2a87bba1e60f75"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "0241ad0df7aca83d3b0a93bc7013f8333c8096156c02b20033e81f4b965f2be2"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/SwampGrass_Base.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "a3f3ed79d3fd33143b5a2a94e588d642",
+      "parts": {
+        "asset": {
+          "bytes": 8437,
+          "sha256": "15a0973bbca5272990a5570f9ff5482523f88b452198413027a666f2b777839f"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "4f670a6eeafa45fb173529b9edb29e8f8dfd2cfad0a43fb6386659a68d1bc8a2"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/LOD_Cards/Card_Tree_Pohutukawa_03.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "a4e6104902ad9e44aab3f718f7388be4",
+      "parts": {
+        "asset": {
+          "bytes": 8333,
+          "sha256": "9981db77678eed359cb58f6f66667d6fd6bab1c55cd00e1a5e894c4b0911a150"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "e62a1ca777b5f013dac11a538046cbb612eeaf53f4fa7d6e7489d4efd8cb6aad"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Water_Lake_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "a5cd64dad73cd214dbdeb19e82848e9d",
+      "parts": {
+        "asset": {
+          "bytes": 19985,
+          "sha256": "37631831273651fc4a17d6f62b37d9703324d6da38719abf0af75c45cafa9406"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "08a3080fb021e826f685f9cdfd8d9c5cc0d5045f3771d307b86021654453cb2e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/Turtle_Locator.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "a699b2ddf4208e642a587252bd5f4039",
+      "parts": {
+        "asset": {
+          "bytes": 117918,
+          "sha256": "dedcb682a07f2faf11c165aaa6b69bcf105b89d9815d3ba82ba9592112861b46"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "f27810d40892377064fdc21aee7d6aa150f5466a01b7e3b7b9e46c80d1098b94"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Fish_Medium_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "a703859210746d44d8f36cbff8d738e0",
+      "parts": {
+        "asset": {
+          "bytes": 8929,
+          "sha256": "68f08eabcc8eca4eba9cb3cb129a87b6a3f7daeb58ed88f65ff785f5b5df774c"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "522e080477fb556efc06c29681db88f889b6b71457fab6bbcf1dfcf9d17c6645"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Bioluminescent/Biolumin_Bush_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "a7d8201203adece498d41c0b97b3cf05",
+      "parts": {
+        "asset": {
+          "bytes": 8928,
+          "sha256": "b3672ce836db3a27fef803b568acff3f5ff7f27bf696697e29bcbae65c9f8b45"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "3384e8dd4b3ef4309f26745332679f0884a7cafcf6edcbabd6aab24e476cc413"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Tree_Mat_01_Small.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "a887d3f4e6ba4dd4cb0ff725b3784d9a",
+      "parts": {
+        "asset": {
+          "bytes": 8060,
+          "sha256": "ccccfd9c8adee40875d9a49b2503562989f83e01638c557aaedad5147f39b9fd"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "d5786b7997ea8045a0970cf18964bc233ca718e8290864b764735a922c7525a1"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Branches_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "a98a8ce9d0d434843b1bf23df7ffe6ba",
+      "parts": {
+        "asset": {
+          "bytes": 112971,
+          "sha256": "cd3e957e660c408c712d1661acdbfc95d01e5da9485bf48699f58e98d27a4018"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "37ebcf114834051b97550ea99305a73aa98e3a685f7e7839f8869f0e892069f2"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Leaves_Blowing_Tropical_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "aa24ca43d3b13a6418920f7f40f6820b",
+      "parts": {
+        "asset": {
+          "bytes": 2216,
+          "sha256": "08d4dd88d9e2e3009adf06a0f1ca83d3fef134db684502f4b696f2d1777233f2"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "c66493f3dc9419949780d7aef8ea4137bbb84cfbb6fbf8229844735bc97aa193"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/FX/FX_Materials/Circle_Multiply_FX.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "aa361ed5dd9018d42afcb6bf2bd70cef",
+      "parts": {
+        "asset": {
+          "bytes": 9386,
+          "sha256": "a20a85c5d01dec03535e5b99688442619629dbaeb0d32dca380bdb4d2d40b4d2"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "23fec3217f744159bc6f25e63931573b02dbc2891dcb914ee252e7a4e143c119"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Bioluminescent/Grass_Tall_Mat_01_Biolumin.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "abf0b11cce27360488df7d763acebe90",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "b333e1e86f265cf26de5b7e3635159b59bc2446d8c2b512f84c5b8ae2dd40964"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Models",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "ac48eb33479f1ee4bb124b80a3da7def",
+      "parts": {
+        "asset": {
+          "bytes": 122440,
+          "sha256": "5c542b51fa9008fea97fff09c5c3b046c0c019790ce21adbd85d71ff850aeedb"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "0a11eb2b4bcde3f40cdf09739b7a31f1100c1265eac535ff36689ca8cb96792d"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Fireflies_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "ae6fc4a901aba2740ad140dcfe598ed1",
+      "parts": {
+        "asset": {
+          "bytes": 67436,
+          "sha256": "2af588b3910891647aedca350534f742e7f3a30fe8ea18a2699def0f7156d397"
+        },
+        "asset.meta": {
+          "bytes": 2045,
+          "sha256": "dcf6e62e7b754f92a360315f22dd58c66e5d0fd42274e098c0e9f45e00930b47"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Soft_Circle_02.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "b0b59f6562e6bae48bdce49e6d886af2",
+      "parts": {
+        "asset": {
+          "bytes": 8336,
+          "sha256": "fd5dab4cd3ca626b2d01dc4491a8727b643c594440c72ef37e0da86cd7da2b40"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "17743670f58646aeb7adc0fb0319b9925c469f509ccb75daf50b0f045d2cc136"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Waterfall_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "b359ae46f211e134ba41030de4f9523a",
+      "parts": {
+        "asset": {
+          "bytes": 2179,
+          "sha256": "cae4303a8fb8fc278a37b587a0472040afb50a24aab419227d78ca3bc4c93556"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "080ffa12b589e384f855d0211ca16711c32693f9bef95fc32e92c775148d355c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/FX/FX_Materials/Sun_Beam_Swamp.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "b4d18e9f06d16884b8c833d40babc548",
+      "parts": {
+        "asset": {
+          "bytes": 3555,
+          "sha256": "1f5c6ecf80f31bfb7f7f7dc8efce82da44a1a7ca426f5d1ec0e0bab9150868c9"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "25a78cfb1dec7b7ae53a31ca3c24181536ff87c457e787609798fd0cd3479626"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/FX/FX_Materials/White_Meadows_FX.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "b54a8c94a46b24c499a2ee8c65c5581e",
+      "parts": {
+        "asset": {
+          "bytes": 1970,
+          "sha256": "3297ba7d5ff42c0fc7d20fa03664e151fa23cfb96f34325edb41a136a795802a"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "3d0b4c804991742a282e2e7733bb7282819b4284421ffac3d78dc3e2d3a7c833"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Core/Materials/Circle_Transparent_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "b635a8976224c5a4fad12d705bcf5e00",
+      "parts": {
+        "asset": {
+          "bytes": 2809,
+          "sha256": "5c8cd21a088fdb010eba708b569206a8fdc15be9e21b52e5f21d847d05e30561"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "6715f5923abe1ff428f9b457250d482e7b9982cacc1a2d52cb8b9b82a9c2e51a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Rock_Grass_Triplanar_Meadow_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "b64053c9469cf2c4ca833b9c0643d07a",
+      "parts": {
+        "asset": {
+          "bytes": 117936,
+          "sha256": "82306c6582d9dc10272752c4374b8e6d02ca44cefc6d45fae1e7a5bba48385f2"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "d225962f4fad62675327e98cc3b15e00695b3a4c6738c9ab35e2484a233f1545"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Birds_Burst_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "b79e425cce5c90642a8dd66b6852353e",
+      "parts": {
+        "asset": {
+          "bytes": 63281,
+          "sha256": "ec35f357490cd2c0b1795dbb794c8f290e638a1b144ad2420303abf0ad76a675"
+        },
+        "asset.meta": {
+          "bytes": 204,
+          "sha256": "f0db93e5db2cd4238077800e0717360ec0f136b8b99c75e7a8f289904ff400c8"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Core/Shaders/SyntyStudios_Skybox.shader",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "b8c10d372c761044191388aa67b8287a",
+      "parts": {
+        "asset": {
+          "bytes": 119458,
+          "sha256": "11923ffa572645717ecc8b76b00bffcb04617cfaa12efccbea610266b50400b0"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "b198a4ec2aa4a8690900a5ce37085afab000dd72fce62ba67117a3e648bd401b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Clouds_Large_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "b9b8f64b39827e148a6eea6b88372a5d",
+      "parts": {
+        "asset": {
+          "bytes": 8709,
+          "sha256": "0390e2cf950ab0421dbb56cbfc3729bb205579b537ac00bf6c7a3553b6f9771c"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "b4a3c0f52df573c31ef94973179734a89f91ada28381698bfce8cf37651d2e3b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Flowers_Flat_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "ba5fd46a081830b4684f4c67d9bfdf44",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "637b427b725de62dd5a839ca3f114eec6c66a4e901a30c49effe8fc5436b1f85"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "bab1f3c77494d7b4d8c7fbe1b3465e1f",
+      "parts": {
+        "asset": {
+          "bytes": 8933,
+          "sha256": "d76c4a333855fbff405e3fd288c65d43c55a1b038c5eeb57f77f9525d92bbebc"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "ec5dd0fa0de45ed0f686eb4136322f84716be5b2932ff7c42cc17aff1b6d07b0"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/LOD_Cards/Card_Tree_Swamp_04.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "bcba677e53ce00f45bc2e28fb07fbc0f",
+      "parts": {
+        "asset": {
+          "bytes": 117955,
+          "sha256": "d5cbac65284819e7c0f77c6a43bc35a9fccbf81abf6afd9aaece60eb475b2801"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "4d8594d115f9efb2560ede39c161ad7a55bf350d85b49e3a6aed565fd21d5abb"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Fish_Huge_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "bdc722dc99590f540b191acbefe43364",
+      "parts": {
+        "asset": {
+          "bytes": 9418,
+          "sha256": "522b2f2a0bc78bb2ce235ed4a3a11af19fe2c796400d58e8f401a17007d4a775"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "e8596414460f0d913819835898849f98b15c97b59a7baf54793c1cf461636d5b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/Grass_Swamp_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "bf5087decbdb66146ae167aba7b7cfd2",
+      "parts": {
+        "asset": {
+          "bytes": 3658,
+          "sha256": "ef53d948e13e747569ec6fb7814f6722d94199b192ddec3a68e54d659e43bec8"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "c0108ec7018ab22aacff5a1f78be5fe8a6ff665693f8c14daa256e1d7ca22c2a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Bioluminescent/PolygonNatureBiomesTropical_Mat_02.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "bfb4ac6ca3d44174d95632925f476c7b",
+      "parts": {
+        "asset": {
+          "bytes": 2802,
+          "sha256": "6d4e5bb43c7fdfa5a2be4bc14c877eb1085e76d7e360275cab56839209b34d0c"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "de88c88dff158fa8353b4d12883bd5ad2391b9579ef8a153e175300a5acef5e1"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Mud_Triplanar_Meadow_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "bfe71acf1c34c0f4f92f5080afd48463",
+      "parts": {
+        "asset": {
+          "bytes": 9652,
+          "sha256": "708ed78a66d59ff6f07d1473877f099bd8bb35dbce76922b74f2f118759b2fe0"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "64c1fb8432e3d6cdb37e5095af595d9a7b8acb3b172ec5f67d7f74ee23644fc0"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Palm_Mat_07.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "c0552542bb6acd441b86be350635b09b",
+      "parts": {
+        "asset": {
+          "bytes": 8737,
+          "sha256": "053ebf96794778faff02c0e2c36434a3e0f45e0f6716da6979ca69f8745ddd01"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "2585c0b78ad44bb5734689bef04c4c006a9034fdfe30a665ed0a830c77ad9466"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/BASEMat_02_Saturated.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "c0aab635ac4ba034fba7bc116ff68794",
+      "parts": {
+        "asset": {
+          "bytes": 8896,
+          "sha256": "d34f1bd5557aa175c076ca3d2037b552a0a1992d87714c029586c576115632d9"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "9cec730245306107837f4526c25e010fcba7b04fcd353f4f0a4fcd4604ed4a28"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/WildFlowers_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "c1ceb52ce991a974499416fd3eea3e93",
+      "parts": {
+        "asset": {
+          "bytes": 3578,
+          "sha256": "13d921fcde21cfc30cbae958a93e800e077c22b63df088b8d882a99e96fa4eca"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "bf3d7176279d6b2a4a89daaa0644cd779848df0a3d438cfe479dd9fb44d427e8"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Materials/Fish_02.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "c3bfe922adb93194abff597d5f627988",
+      "parts": {
+        "asset": {
+          "bytes": 9634,
+          "sha256": "7a580fb30f507c20fd40a7621b42bb75d0c17d30237698b0ed147c0260d59c63"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "16d9c5b816de0ad7d895e4630294262bf5b8db7b446551d488afba5da81d0923"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Palm_Mat_06.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "c54fa0c50b2bfa540ac72fb4761c4c09",
+      "parts": {
+        "asset": {
+          "bytes": 4861,
+          "sha256": "2ba04aacf5263a819c3611936eb1349d37a961e66be308c612a808531992a3ef"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "a5528b99702f11d656373506ea4ef971a50a01140cccb1b917646109703989bb"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Core/Materials/Cloud_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "c6030e4939d206544a563fc12dc8518f",
+      "parts": {
+        "asset": {
+          "bytes": 3503,
+          "sha256": "92a06c13ecc93736756c15c39f15340ced2003527925c124cdb04a6986a7eacc"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "d981361a74b3b9214bf456920fc30fc50eb86004d66532723a2d6af772d741c6"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/PolygonNatureBiomesMeadow_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "c604503c60e932a4fb5924b662b82aff",
+      "parts": {
+        "asset": {
+          "bytes": 9468,
+          "sha256": "14377b139325e638b242c28e77c9463bf4b64b9d4a6ea6ba11d9d49f221d55ab"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "ed1c80afa1195780f2f89df424003b8c1c135c8c62ca965197f81741fde07b21"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Grass_Tall_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "c62acc6a4c358cc49adf3e35e4acb0c9",
+      "parts": {
+        "asset": {
+          "bytes": 8687,
+          "sha256": "9c15f942b6d911c1b370bbc7d7a0a3412ccd63b634bf932db00e09b354cec141"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "ae3835c76cd42089b0ac9f649b89f30ef8a2fe78140888ca8364192b2c42b2b0"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Bioluminescent/Ground_Cover_Mat_01_Biolumin.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "c6408c67b0d295146ae53522a1aa7cfd",
+      "parts": {
+        "asset": {
+          "bytes": 8818,
+          "sha256": "855a76828474b08db4062ab51bd1cb078c3c24d0dcf7c18db2265c16b3cc1e26"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "f0163d3d3827e2d35c86b9602887c36fb4d39cf11cc3e212650c833aba273422"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Tree_Mat_02.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "c6d899a9e24683f4a93c85d1cf4136f1",
+      "parts": {
+        "asset": {
+          "bytes": 3580,
+          "sha256": "76fe2862e3b94d289178019b9a11018c88cacf5e7a9401f2231c2b719aeefe6d"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "f522e869ab46a29fff5dd1fabd99adb4fbc9858f6df366245ead437f5cc7c6b1"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Circle_FX.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "c7711d9d9f7c6bb41b23ff32ead53eb0",
+      "parts": {
+        "asset": {
+          "bytes": 3727,
+          "sha256": "192bd416c7d72196307d761e354de10eb1fb035767b73f28553654426319c096"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "4e0e804837e57d924f674d78b4efc288ecbc06817637d103f2ea6be6de9581d1"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/FX/FX_Materials/Fog_Meadows_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "c858d2a1d7dfb7d49890bec9293b9755",
+      "parts": {
+        "asset": {
+          "bytes": 9427,
+          "sha256": "6b03912f04c21a565c4afebe33a73b9836c8f1faa3c196e9684e11872a3a09f2"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "1f50016121b14d3b755353ebfa5944b496a039f89d55cd78343fb0485e85a856"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/Reeds_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "c98dc87dde6532c44a0a306d75dc899c",
+      "parts": {
+        "asset": {
+          "bytes": 9637,
+          "sha256": "cd88bdc16aff94fdeec13321563ef2c8b27471e2516062306be17f427e0dc189"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "3a0444d41550e523f6f872c1c03905246cf6b0d4e868981007c5acc5f8bec7a7"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Palm_Mat_03.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "cd35a5c3f8aa0064b898bccbf580a35c",
+      "parts": {
+        "asset": {
+          "bytes": 9335,
+          "sha256": "bbed4d56f7705ed7f04fff39cd6744b28defed007dd08ad4564e3d82626f0945"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "8ba16a584d4d3382da9ed202ff22f264a71c37444ae1bb4eb9f866920d4e57ea"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/ToeToe_Material_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "cee387b2990f29e4d8b92a8c3da7ca02",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "bcec589e9ee0dc539b97e6d6a2a3c495665a5cf2b8054ae307890920f2b59cc4"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/Animations",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "cefe114366d845d41b94d1eef01efc0c",
+      "parts": {
+        "asset": {
+          "bytes": 8407,
+          "sha256": "3f4845240d074e12e9e8090bb8f7f47df913a12ff094afead5ff56d6522a9732"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "8ab3b80218fbfad9ebf1010b4164586317ae776b23ace791e9a54cdb1a045d55"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/LOD_Cards/Card_Tree_Banana_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "cf4090e65f828bc48879557a55077646",
+      "parts": {
+        "asset": {
+          "bytes": 3574,
+          "sha256": "8362687410a62016735390ac4350ce2e7634b5dd0be19880df89b2e46e92155d"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "80385e193af879f5df1b43ff112d27b6024aa51eeee86e8f62dd813702b347a9"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Materials/Clouds 1.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "cf5d83e5457e78f4991c93e26f06da1f",
+      "parts": {
+        "asset": {
+          "bytes": 3060,
+          "sha256": "74f6d50954262c293b6375032da5d4b8a8806761f8e9117d0131ddec845cdc2a"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "1698fb385d60028559533261c911224dd78eaa759e77bd2e790cf07f921ecb15"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/NoWind_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "cfa62292d336ccc4f876b90c76b968f4",
+      "parts": {
+        "asset": {
+          "bytes": 9124,
+          "sha256": "f26f548f3e44651c8d938cfb337489132146082e1df0a6138f6b8e89e9180011"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "98b496ed0715116a6941d5c49792351a21c43baac15e9853f705167227f7a3fa"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Grass_Short_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "d13e61e238fa1ed46b662dbcddbaafcd",
+      "parts": {
+        "asset": {
+          "bytes": 8405,
+          "sha256": "48e5d81590873ddff15b095d05451067a0ae0c7ccc2edfacd71dc8f62fefc537"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "588c27b1972785f6bcf305ee6663277c2f9b057bdcbddf403ae4f91311abbf73"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/LOD_Cards/Card_Tree_Palm_02.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "d248f9e5e80452a4bbe140d2ad5cf0f4",
+      "parts": {
+        "asset": {
+          "bytes": 8709,
+          "sha256": "89293a2531c1d52d03b69c375e9508111487764082f8572ca5e342cbcc48e475"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "a538426c4b2fdd7ed6f8aa16f7b725401f606a2097dd3559023c279bd93c3d41"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Flowers_Flat_Mat_03.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "d29f5a9bb22ca6c448204b51c1b58012",
+      "parts": {
+        "asset": {
+          "bytes": 19275,
+          "sha256": "9513c82645228c5448e60373fe57c8cad75a3990e132b381570e1dc07b33ca5c"
+        },
+        "asset.meta": {
+          "bytes": 2045,
+          "sha256": "f877429625ad5cb90e24212f1390dd04a61e0481fc424505ea2f0bbab9450a7f"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Fish_02.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "d2e4594212197c64aa2f107125bebf63",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "c34e114f46ad2a1a7a56731bc5b87b7e79ab4a3f53837affdb6be4dfb429a1e5"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Triplanar",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "d45c1b3e52c0d13499a18b8c53400754",
+      "parts": {
+        "asset": {
+          "bytes": 3489,
+          "sha256": "b8c6bc3c5f779e11c3428b14167f523ced9c2b1ba8ffbfe982681888227c6bce"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "6120c2613ef6429af3e7d121d638e44e5d38b1168bc1ef9f19d1bdd561889e89"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Grass_Background_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "d4b1f2133be4e1444a40f0170e369294",
+      "parts": {
+        "asset": {
+          "bytes": 8566,
+          "sha256": "1aed5f61eaa6f3f26b88d52ff2bc4fa5aaff1ac1ea8335ed1e5aa0ab1c042c98"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "31a8952713387fe8d196dee057966f3b2a8f582968bbf21dc21e5dfbd03ac240"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/LOD_Cards/Card_Tree_Fruit_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "d4bd73d7301c98745b88cf3dce0d3f1c",
+      "parts": {
+        "asset": {
+          "bytes": 9653,
+          "sha256": "7b21eae52d458e8b631685c6ed03b259f721b3f89744e0e073407ee01278448f"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "cce04dab22b1ec11eaede6585e51a352cce2885ef6381ae24ac81bca09625c65"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Bioluminescent/Biolumin_05.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "d4cd183feaafe264395a2161671ce861",
+      "parts": {
+        "asset": {
+          "bytes": 3584,
+          "sha256": "73db662e7be90a513c90cb10e5f72e94b48d36514c9214620a22acf336ac9f08"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "3d602c9bae8c163ad88d3c88baa12e86b20c8f2b03f16481a3f22109ca223858"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/PolygonNatureBiomesTropical_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "d6a45a827b0ca434ba3558ab9129a006",
+      "parts": {
+        "asset": {
+          "bytes": 3598,
+          "sha256": "76455a9b3b7dfeb6a86f2ae62fae319c33b2edea2fb84269b9909e2c6b12d893"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "f6c48ba1b0d5979253e6285900f70428eaadc4d0957bcdfab091e79d648a7b8e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/FX/FX_Materials/Additive_Soft_FX.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "d7246b52133445e45ad0aa305d5dd264",
+      "parts": {
+        "asset": {
+          "bytes": 8786,
+          "sha256": "1e52bd66f929930d9f07439f625b497d6ad62d17b144cd42028013ead79b793c"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "f1a47285fc5331b4e878ab77b2a1b605a17614491255e80100b2344eef7e5a3d"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/Tree_Mangrove_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "d84b29463e1100a42bef43119799c5fc",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "4dbdf301aaca4d7ba6cf1f24af5e45b12307bd00132a2dad9defab0c22092866"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Materials",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "d8c60ddbfcecd76429e1547e6a405aae",
+      "parts": {
+        "asset": {
+          "bytes": 2985,
+          "sha256": "0d3ca3d591eed58fe309c56c6a858896c0a523911da2dde7dc50a96583a270ba"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "8aed30cee7f701e5ecb6ad4d484ad7943b3064e9602a1b34e95f13582cb22710"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Core/Materials/Water_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "dba83a89b0686184586a18991c5782c0",
+      "parts": {
+        "asset": {
+          "bytes": 3563,
+          "sha256": "b7ee303dbb6143b154ac083844f6d5a4794c2a4b64a865f31b2e99c17ee89c36"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "e30ab47def845594a1d93367029d743db8443e729a0d025534f220f8c34e3cdc"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/Swamp_Scum_02.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "dbafc64c17347d24782c73c2ca313b66",
+      "parts": {
+        "asset": {
+          "bytes": 3667,
+          "sha256": "078bcfa127f55df8f2096d94a8a32f48923ac6c5fb6460ab18b91f14c3471e72"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "49fc7dcaffb4987f4ac3009d1ae9dbea1094b87695855f2e6a63a76eb6a5260e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Materials/FX_Soft_Tropical_02.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "dbc2ce1096ea9f54c97416d1b303a830",
+      "parts": {
+        "asset": {
+          "bytes": 8609,
+          "sha256": "33c23e903ee15fab0d75e2c3dff3c04de459633212c0b7fee18a7b300a94cbe8"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "e35556184ac3a863f2fad718bf5b3189db3e8c34ada91b41e08415dcd9fd7ddc"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/LOD_Cards/Card_Palm_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "dbff77dab1591a141855a563c183075c",
+      "parts": {
+        "asset": {
+          "bytes": 8405,
+          "sha256": "3bf2c90db02adbbd8a3b804a358f06f2fe17c154e179e5aa6733bac276fdcb78"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "810081af510492897018d4792912e0800fb1722be590d092731220b2576be39e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/LOD_Cards/Card_Tree_Palm_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "dc592d6dd42534b48814a705fc63c31d",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "06c1c3263f932abb06e886c4b83e494d8dbdb9320427778c5272219eb19a0559"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "e332da9f5a4747c4497a915eb20a3daf",
+      "parts": {
+        "asset": {
+          "bytes": 2757,
+          "sha256": "5af48125853dce5667435e73d3199e144181641555968eeecda1bd299073e9c3"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "dfc805b077a0257c46c82f15688e0c4bded1b5840128e03de7a30222c8990474"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Core/Materials/Circle_Cutout_Mat.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "e6d3bbc6f399b0f4a9d38899f4748eaa",
+      "parts": {
+        "asset": {
+          "bytes": 3561,
+          "sha256": "fa5e3f1c29d5e8deb0f47bae6a9b4a64e0ee326f2d01a62fd8044a303f84edd2"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "eeba5f17fb98063167381441020623e81f67c65a7113d094e27b13830bd9e7e2"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/FX/FX_Materials/White_FX_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "e7afa0d1625e2bc41a288f9c6bdcfd90",
+      "parts": {
+        "asset": {
+          "bytes": 9378,
+          "sha256": "13fabd743b8dc571447e36f72e085ba37a2cb80ae2957ae64b6744eb75947c41"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "295e9160d8e68e94ef0eab0fa110ba59530edfca2719f348b899d25e1b9bf29e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Seaweed_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "e7c78979ddc59cd4fb9ac6e0a0695d77",
+      "parts": {
+        "asset": {
+          "bytes": 8578,
+          "sha256": "6894a51dd54f8142f6ed4b2ad26e996f991d2b2fd118ef893b4823cb1921efba"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "9487cee8b205085e8be973c8c9d87072f8435a9ad47c11be3a3912adedddcc69"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Water_Swamp_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "e7cce07a1d4981447813d540152edf91",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "b4d98296366748102ab6d8572ec2d568e898dbb03bca7d2a157612683797f5b1"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Core/Materials",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "e838eb5831185a4428760bad914139f3",
+      "parts": {
+        "asset": {
+          "bytes": 164885,
+          "sha256": "b3b00e4200cbbe0b4955abbe469e5fb49aee35333fa86a8ca859f35570eac427"
+        },
+        "asset.meta": {
+          "bytes": 2045,
+          "sha256": "b2ed3d07ef97e7b65a2a406222d43dbf8fd00b932c287fb4ed45622961a82b39"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Bird_Test_02.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "eb27b1062ee5dbb408c586c15523f10a",
+      "parts": {
+        "asset": {
+          "bytes": 3502,
+          "sha256": "3dee5f70a7290c23cd5572c992bdd9f7d5bd1e403913c4008d5906bcb36ee3d6"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "f33d5b9932933567da89982f8eb4b693ae165bb784f008459b4b3eec944022a6"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/PolygonNatureBiomesSwamp_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "ec0a4f0953908a441bfa225eea26fbe4",
+      "parts": {
+        "asset": {
+          "bytes": 2803,
+          "sha256": "48c23e513292b37d950e7f1ce34cfd2f0f874550e9e9af027d5892c24d713823"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "8100862e5a6e3aff94a508153d8fdb588c84d62c3218ed8d334100d0983f5591"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Rock_Triplanar_Meadow_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "edf11753db7ee14409e0546edef8ce78",
+      "parts": {
+        "asset": {
+          "bytes": 172338,
+          "sha256": "e21aeefd6de19fdca32d7b25f486d842ad410effe1dd24ece55b585c5f1700bd"
+        },
+        "asset.meta": {
+          "bytes": 2045,
+          "sha256": "a5d79c593a5d0ebd96fe1491584f55b59b6b36c18ad778df9df1c9d5ff4374cf"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Bird_Test_03.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "ef14773c9006be746bab1991ad919612",
+      "parts": {
+        "asset": {
+          "bytes": 4477,
+          "sha256": "860962eec87a6e65ab97ee68948239cd87dde33554d2055c05989b14942cc1fb"
+        },
+        "asset.meta": {
+          "bytes": 2045,
+          "sha256": "c86fd6be7adff382be8766118327ab6898dac5ba4d455fe02fd367c6c67d1485"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/FX_Circle_01.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "f1371938233a2cd43add7375c41c1d4b",
+      "parts": {
+        "asset": {
+          "bytes": 8788,
+          "sha256": "31a1386f9b689474d0a0481014fddf6361580d4e5842669fd0f802cff68884f6"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "f1da15a532e941c2c0a00ee45fc4bfc4b979ce6082e28d9ccade036f7d734240"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Tree_Mat_02_Small.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "f16210368f40ee5419eeea7ac9977ac3",
+      "parts": {
+        "asset": {
+          "bytes": 2218,
+          "sha256": "48ec28d875b618d01f85ea6939f03c17ed1f85d1b81e4fb701ab19e43b2861b8"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "bb8ff418ee98dd28002027242ec8a66ccfc58668724e042e1180fc75ea975f01"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/FX/FX_Materials/Circle_Additive_FX 1.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "f36e2bd4fc304884082c0937e734d5be",
+      "parts": {
+        "asset": {
+          "bytes": 8056,
+          "sha256": "df645b9281b5584dc40b02805195e78173c8e6cc3e6f4f8e5bbcd05e4ce00f74"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "f54a8b46af92e405cd93b45c5b453ba6c9aa5a809bf624069b9a3a98329aa8f5"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants/Branches_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "f404c42c73b2d1044b58fae5175787ac",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "c3eb89f4bf483d490b4fdf33eb7378f99559fc26b6575e8c6fb05271faef61e5"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/FX",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "f42e36477d7d6084791883297174ac5f",
+      "parts": {
+        "asset": {
+          "bytes": 8586,
+          "sha256": "438112fe3396a6ba29d592e74904aaebe32cdb1eee67ec541b01664f12b44447"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "78be67db175c4027630c137be825e4483ff1f349b6dff23fb8e55ab1236ca4a8"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/LOD_Cards/Card_Tree_Birch_02.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "f4b80e440cd60724fab843ad76949370",
+      "parts": {
+        "asset": {
+          "bytes": 3058,
+          "sha256": "5901cb336277a65b546da444754dbaa0f3c3da8dbe958a83d731d602accdc8fd"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "e8849bc39245edd722ac8761a8d942bd888966ec5631500465877daa062e1d3f"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/Moss_Mat_01.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    },
+    {
+      "guid": "f6f1e36624a85f54498ca6355c33fe2f",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "6a509ba82b5909e0c3b8d189ab26bedbd8f44d7b19527a58e9cda2eaac42fd94"
+        }
+      },
+      "folder": true,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/Materials/Plants",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "f79d0e7c65b595d4388dd974a1eb6648",
+      "parts": {
+        "asset": {
+          "bytes": 2034,
+          "sha256": "c56a1c681970239f486c6f554f5ad3d1b3262cb97556830cf45c2ae09322c9df"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "f7bf0e27b81db629211c183b94922b0482b67becc5a52b1d5599f9f6ed745cec"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/Animations/Boat_Controller.controller",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "f7ebb8cfb1de7244fa13cdf55b73abb9",
+      "parts": {
+        "asset": {
+          "bytes": 116611,
+          "sha256": "590677cbb17c63f8d40b9e1deb6b8a4b2a54efc61efcc9d1b81cc05350e15dbe"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "96f26d9e49afb74baca498de3831d546a73cfd40335fb19fc2ccc02f6890dcf9"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Crabs_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "f82e51f4d080b8442b6959a80323b564",
+      "parts": {
+        "asset": {
+          "bytes": 146128,
+          "sha256": "83622b4d5ae3a17d557da70bc43a39072bf64358196be536812ffeec7558ccd2"
+        },
+        "asset.meta": {
+          "bytes": 2427,
+          "sha256": "4ba82e9a245f3296043ab459cb017810b3b7b9a6fcf873a18d44dc01557d7179"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Models/Turtle_Rig_01.fbx",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "f9b7b5ac5f540044484fbe573a7a8de8",
+      "parts": {
+        "asset": {
+          "bytes": 117948,
+          "sha256": "d8c7eddc6cbb76490aa18663d539d549c43d445cdb4526dcb3e27dc09d9bbdf2"
+        },
+        "asset.meta": {
+          "bytes": 154,
+          "sha256": "50ccfd0049989259c670abd221c176681e3f5c863e780d3218f695ba354e5996"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Prefabs/FX_Fish_Small_01.prefab",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "fbaf5bb6262710e469cc9f94a1e0e517",
+      "parts": {
+        "asset": {
+          "bytes": 8360,
+          "sha256": "cd138cf9df535c72faf04d77985ed57184c08250236ff4f4a1584c025a8e5bb6"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "4d36bdac1b6ca4824bc5b2c68286658857fa7e9a5d8f333c915cf2069ea46f65"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Water_River_01.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "fcdcc5cdafff0b248aa3480afd1fe300",
+      "parts": {
+        "asset": {
+          "bytes": 39386,
+          "sha256": "303299539d9d1c2e8307cbbd37200c0226d86e846b17b15c76875d3e1f932b67"
+        },
+        "asset.meta": {
+          "bytes": 2045,
+          "sha256": "ad1853857f56635182ea84ce2402a1701f769b290f1d3f0ae3775f74ed013dcb"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Textures/Soft_Circle.png",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "fcf891928fbff654887fff976531f45b",
+      "parts": {
+        "asset": {
+          "bytes": 2034,
+          "sha256": "6150f4a6a58e42fa082ea109ced3c7e9b85179174198f4e9f4d379bca51b2821"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "27b0954129f911483a9d7bec4db84a68b8268129d361d30c15adfeb54c4def9a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/Animations/Turtle_Anim.controller",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "fe87b7de9e7dbb44b89d207ddb1f6986",
+      "parts": {
+        "asset": {
+          "bytes": 2197,
+          "sha256": "c52ce0d59fd0b19464b8783e72edcf4bd6b3ea2711fb3ced6a045b9d14c7be61"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "4443831c63a20773bdebfed557096be686ebdad2bbdf3ec445fda4c73eb31a6c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Materials/FX_Circle_Soft_Tropical.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "fea4cc6968bd0504abc2aacde39206ed",
+      "parts": {
+        "asset": {
+          "bytes": 3622,
+          "sha256": "c20adf96e3c51330e145ddcac06078b00698b8884ede4ea9761e7e630f0ed580"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "06f988d4ed4804b90a36449b33bdff3c49bce30876b6a0c9ff0b0d9e570dbcc1"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle/FX/FX_Materials/Fish_04.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "ff607503e15f2804f8dac8efc2b26b54",
+      "parts": {
+        "asset": {
+          "bytes": 2058,
+          "sha256": "6b5a4a07a4d80b407c2fd61833984b6e3ed506ac3a93bd00f80cbf886f2f42cd"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "ab280315e39baad0b52c440aafb9c7ae656a498746ff741b72af3d999419eb7d"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/FX/FX_Materials/White_FX_02.mat",
+      "normalizedPathname": false,
+      "action": "restore"
+    },
+    {
+      "guid": "ff9022741db346c40abf2de461d65c24",
+      "parts": {
+        "asset": {
+          "bytes": 9423,
+          "sha256": "1572e1105bfe4c3ef5f8fafd7411f4046beb2c7101cea09891fbda8975a9fea6"
+        },
+        "asset.meta": {
+          "bytes": 188,
+          "sha256": "807b4f0fdf816af536a5e12904e3ab0a5a79f60c0a9ac11bf27fafc41d22d01b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/Grass_Swamp_Mat_01_Test.mat",
+      "normalizedPathname": false,
+      "action": "replace-same-guid"
+    }
+  ],
+  "normalizedPathnames": 0,
+  "restoredFiles": 281,
+  "replacedFiles": 106,
+  "identicalFiles": 158
+}

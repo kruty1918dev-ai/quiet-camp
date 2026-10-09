@@ -81,3 +81,16 @@ BuildLogs/
 tools/**/bin/
 /osint_plan.md
 /privacy_plan.md
+
+# Locally restored commercial donor packages; retained in the supplied private ZIP.
+# Preserve original vendor paths and GUIDs without publishing their source files.
+/QuietCamp/Assets/PolygonCity/
+/QuietCamp/Assets/PolygonCity.meta
+/QuietCamp/Assets/PolygonBattleRoyale/
+/QuietCamp/Assets/PolygonBattleRoyale.meta
+/QuietCamp/Assets/PolygonNatureBiomes/
+/QuietCamp/Assets/PolygonNatureBiomes.meta
+/QuietCamp/Assets/PolygonParticles/
+/QuietCamp/Assets/PolygonParticles.meta
+/QuietCamp/OptionalAssets~/
+/QuietCamp/mono_crash.*

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "createdDate": "2026-10-09",
+  "projects": {
+    "current-project": {
+      "branch": "perf/optimize-transitions-2026-10-09",
+      "commit": "28f3ff66b6674d2b5601d3e65d67831040e0ae10",
+      "tree": "21f915b3cf087d9278913743d459f725a394a0dd"
+    },
+    "prepared-roadmap": {
+      "branch": "art/roadmap-native-finish-2026-10-08",
+      "commit": "eb7ee6d1348bbac61dc6bc764265c0c6e610b1ee",
+      "tree": "b3782cd1cd4b7e130245b6892e110dbd2ecf0273"
+    }
+  },
+  "sourceArchives": {
+    "handoff": {
+      "filename": "QuietCamp_Roadmap_Handoff_2026-10-08.zip",
+      "sha256": "aae92b28b32d2c5924eb8acd0a87c90d6819ce5b707df72726f20194a08a2ff0"
+    },
+    "uac": {
+      "filename": "uac-audit-2026-10-09.zip",
+      "sha256": "d744be4e984fcc804b3984796b486ec4e9585547b3729d230896aecf3ef250e2",
+      "publication": "seven asset payloads only; raw audit not uploaded"
+    }
+  },
+  "integrationStatus": "separate snapshots; no unfinished merge; new native bake and acceptance pending",
+  "nativeLaunchThisTransfer": false,
+  "playerBuildThisTransfer": false
+}

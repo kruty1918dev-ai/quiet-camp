@@ -1,0 +1,5792 @@
+{
+  "package": "Abilities Game Creator 2 v1.9.0 (26 Dec 2024).unitypackage",
+  "packageSha256": "0977d1b11f2fb1934bd8fe243c2ae5deafb4db586e3ed17aefe740465fac4f19",
+  "applied": true,
+  "unityLaunched": false,
+  "selectedRoots": [
+    "Assets/Plugins/DaimahouGames"
+  ],
+  "guidRemap": {},
+  "entries": [
+    {
+      "guid": "000a51d093beaf645980940e5fd4964c",
+      "parts": {
+        "asset": {
+          "bytes": 1154,
+          "sha256": "ae96a78caf8b8c5835cf27c4cf5cbda16eae3b880f855807e230c3dc4e6e98ab"
+        },
+        "asset.meta": {
+          "bytes": 445,
+          "sha256": "f7ce8a8af05c27b51a8e4deb7fb1e0421dcc3f189d306f88b837bae87d1eca15"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Examples/Abilities.Examples/Abilities.Examples.asset",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "010297585a3b420eb0bb93f9010b3b85",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "733ca6d463aed20465b405f9bce08cc8749b71b6c76b7d032d75643f78c3b18a"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Pawns/Drawers",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "022f8349e66b438eb277e79051c05c1c",
+      "parts": {
+        "asset": {
+          "bytes": 1773,
+          "sha256": "0009d35f055d141c8ea388f76c6e0ff124379c685df0bdd85ff1e35ce26c80ab"
+        },
+        "asset.meta": {
+          "bytes": 326,
+          "sha256": "5e8c7e58f017aa69b05add88a71c3507a78d927a77cc49075e7ebb2752af96e2"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Interactions/InteractionEditor.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "02d4afc7b6254bb98cb8a08c03c8b728",
+      "parts": {
+        "asset": {
+          "bytes": 364,
+          "sha256": "79074078d20d473850dadc90f86037d36c97c7dd515a62d1faa4e4337b32c9ea"
+        },
+        "asset.meta": {
+          "bytes": 331,
+          "sha256": "4a23e1026e49d9cf8e37f990cf4dcce326211b888492d983fbf7bee40c882e7b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Pawns/Messages/MessageAbilityHit.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "02ddb2ce82e2465cba9acc7d60ba646b",
+      "parts": {
+        "asset": {
+          "bytes": 99872,
+          "sha256": "ce586f524468c39773681be248fd78c1dc4a87766376e6dc28dab63a7ff5a10f"
+        },
+        "asset.meta": {
+          "bytes": 315,
+          "sha256": "abfe5802e9465b7dd76d2613d33d323f6aff7818807ccbdf3917e2c675213c08"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Icons/IconPawn.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "02e30dcdacf44fb44861b23be9f9419e",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "cd405f3b432bcfdbf7e525e97c55fab4942894c9fa5111ce79f17b71ca35f1b7"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "0365499f6b28468dbb8aa3d599f63f67",
+      "parts": {
+        "asset": {
+          "bytes": 356,
+          "sha256": "c9f72f63ecc2193044b7f012d1e0fbeb197b3dea0fdf5a43879b04c96f46ae79"
+        },
+        "asset.meta": {
+          "bytes": 325,
+          "sha256": "8f0efc8d1114846fed76cb0bf78c03b19c9bf86037a31de51b2a3fadd61cfb93"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Cursors/CursorSetting.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "039302ceb2bb4b9a808583a657055d93",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "8e53a914982735361c5a3348eec9bb92b7c3cc93a0726fb6e3f16250179dbb30"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Infos",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "03962025246c47e9b4fb070a8377731f",
+      "parts": {
+        "asset": {
+          "bytes": 2233,
+          "sha256": "3f7fe53216dfe3d33ae9040a3c0ad71d487e0ab73621f8b9fd8ac96ad45f6fb2"
+        },
+        "asset.meta": {
+          "bytes": 339,
+          "sha256": "d191c746429848a0171d556217d0f78e68c26ede1234eae49400498bc9e7bb9e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Notifications/NotifyAbilityActivation.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "0458ee98504d4ea88149d6b6237e3795",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "e60a30050aea725d6ed5bf2aeab4cb159876420a49d057722f254aec9a004eee"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Common/Inputs",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "0522f3216d884a9c8dcd21cf5f49a6e4",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "28824a30776be884c3d37f6d7f49470b20cf51f2aa55cada0039f15a5365fca4"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/VisualScripting/Events",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "06238610ff9fbde40a83e5705bf7f0a7",
+      "parts": {
+        "asset": {
+          "bytes": 2990,
+          "sha256": "58849ad1f98078e3883b56da3766349c2a8fd451a81a08606f04555046fa8d89"
+        },
+        "asset.meta": {
+          "bytes": 3060,
+          "sha256": "48cd7f814da0e2c004dc50dce7cfc595d7c47f04b5061e9a08c507755462c45e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Gizmos/GizmoProjectile.png",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "069ee73b82064c848fabec4f6f5fa449",
+      "parts": {
+        "asset": {
+          "bytes": 556,
+          "sha256": "d6feb7553ec735473b40e2094991d127869c3e56fdef6d0a90cdec55ead99bf7"
+        },
+        "asset.meta": {
+          "bytes": 321,
+          "sha256": "a06f6617468e4773761fb24b5d189891449fc85df37cccb968f7e117f6919c13"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Utils/ReflectionUtils.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "079512412c5519f41ba4986111ebc063",
+      "parts": {
+        "asset": {
+          "bytes": 3533,
+          "sha256": "1115a977c7084146f6ae25485f4d0df3d24e5a9e7b65fe8f6efdb5a9fac42f27"
+        },
+        "asset.meta": {
+          "bytes": 3389,
+          "sha256": "6c6e531a5e4537d12d8073820d6a77f5a956d59c60c2bf655f7b8418a7729b16"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Gizmos/StateMachineIcon.png",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "0832264131994005b42a389d7fac05b5",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "c9421d9270432a30c2c078ff5ea2e8897df5a7ddc6b2c9760bd47f1ef3c7fee1"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/GameModes",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "086dea8773aa4ff2887766d38e424e38",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "7f4c3f54b76d1cc6723aecb945990923ee724a29f9e642f280dcbcccb6df67e5"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/DataStructures/PriorityQueue",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "0891cd78804c4fc5a323747379dde474",
+      "parts": {
+        "asset": {
+          "bytes": 2666,
+          "sha256": "b1a830a75b562a73e673fdc1822b14667f7383dd2cf7afe0492342305bbb3faa"
+        },
+        "asset.meta": {
+          "bytes": 325,
+          "sha256": "5149fc144277aa6abc3ef9d123f9909c90f271bde922c0903a8b6714f0f63a84"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/AbilityStrategy.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "0a97765c05f84fe2873a8e8d645e4564",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "57e8290296eab1b422653b92cf863b15c19891ca99236eff7c365d51d8dd4006"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/ReactiveGestures",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "0aa5d1ae119445de80d76440bff09bfb",
+      "parts": {
+        "asset": {
+          "bytes": 1218,
+          "sha256": "ed12e5f2c0d38f0a48825b79c9a31184585efe5078f9e48a4ae6adc4c52d2578"
+        },
+        "asset.meta": {
+          "bytes": 333,
+          "sha256": "a7c46659b7e553b9b9a8862c6b70bcd7e0bd6f4bd907427886a66e8c4528668e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Lists/Manipulators/ElementDrag.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "0b0770cc281542efbd317679b8310054",
+      "parts": {
+        "asset": {
+          "bytes": 2339,
+          "sha256": "70fc87890b27e9324a8a7135f7aea2663770be0d355211882d96e4ae70bc3247"
+        },
+        "asset.meta": {
+          "bytes": 363,
+          "sha256": "d0caac1a5493ebee7486b1c4612586bd41da9f80ac5cd486c9753af685607738"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/ReactiveGestures/Notifications/Types/NotifyInstructions.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "0c0be7d05c5a46909344de7f92b8987a",
+      "parts": {
+        "asset": {
+          "bytes": 3093,
+          "sha256": "0b70ae759d4b7810da2993091c4c10817806b276e135b61560782954d69204b5"
+        },
+        "asset.meta": {
+          "bytes": 351,
+          "sha256": "f432509cd72ed8287e9658ae863ec845a3d19cecf062aba82daf4e42a573b53e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/ReactiveGestures/Notifications/TNofityState.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "0ca4e05856bf4c82872f260116492621",
+      "parts": {
+        "asset": {
+          "bytes": 6932,
+          "sha256": "27090b7ce910ab2aff2e5cdf1813cdf06d1b87959a2492c00e92260dd760588b"
+        },
+        "asset.meta": {
+          "bytes": 317,
+          "sha256": "0bcb6526f5fabe2493be4e66f800435795c164eda6ee49e1cf6b042bba5e02b6"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Pawns/Editors/PawnEditor.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "0d9f0bbe97044ef39b791a3525608fc3",
+      "parts": {
+        "asset": {
+          "bytes": 2789,
+          "sha256": "a48ac1c91bca7a7c17be64c5787a411aaaa5f93fcfa041eac84c2451793dde6c"
+        },
+        "asset.meta": {
+          "bytes": 342,
+          "sha256": "af01622b6b4c387c5b37b997966c5987fc028ffa8e5e790309b0f1f92ed51f0f"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Requirements/AbilityRequirementCost.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "1040a5c0fed745cf908fa81b194a7d6c",
+      "parts": {
+        "asset": {
+          "bytes": 4179,
+          "sha256": "46fccd56d462c93e29c57cac7b522c320f56a47d25fa8c97a395359860ef0493"
+        },
+        "asset.meta": {
+          "bytes": 326,
+          "sha256": "efe506e5f35f372023efde5d911aa126e9c547cb323919baf8562afeac249bd0"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/FSM/FiniteStateMachine.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "10d1cc74d5304842a46c4c786e119f77",
+      "parts": {
+        "asset": {
+          "bytes": 2836,
+          "sha256": "b463a5636aee17433a441efa28abe338cb7a7535cdbb2d75fb6630c1d4071237"
+        },
+        "asset.meta": {
+          "bytes": 328,
+          "sha256": "714ac40188923a39caabfc0f9242e7bf9554509fbaa1db5c13e86a6a0901c471"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/AbilityRequirement.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "12197a3cb794486298bec11a8c3a215a",
+      "parts": {
+        "asset": {
+          "bytes": 348,
+          "sha256": "f143851e952be650667e6702f4bc21070c1f784ac306cacc5a143226d74c77dc"
+        },
+        "asset.meta": {
+          "bytes": 324,
+          "sha256": "77d2e2e798689ef51c23554e94611e699782291ad0fec2149a3c53954ce712d4"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Common/Paths/AbilityPaths.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "122b2db1e22ee6547a554411a0feed84",
+      "parts": {
+        "asset": {
+          "bytes": 957,
+          "sha256": "48219059de74eb441c0c8c0e9e4c34316aff06ca3b4c76430fbdd3b4d4d61290"
+        },
+        "asset.meta": {
+          "bytes": 480,
+          "sha256": "8ec9a8478c9424857085db88b5f3659b2113af1dfc68beaa8a424fd004922b2b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Async/TaskExtensions.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "12ca49eb437a48ea8adcf6d1724a9103",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "e6004a9ef7f8c83591e227fe9a14416c8dbca64a5931d706287fb1fe25d77d0c"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Pawns/Messages",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "131af7e1984e4e8dbd52c7e55902084e",
+      "parts": {
+        "asset": {
+          "bytes": 2352,
+          "sha256": "9e21d38233c4e359ad5c2b734bde2ffac0d76683d147635ad4ebffae823dac3a"
+        },
+        "asset.meta": {
+          "bytes": 323,
+          "sha256": "4efbac9e6145d302a7d9a6a9529aa57a16eed4d31e150e5d91e01c4594cea6c1"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/AbilityEffect.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "14d812aad2344eb08e3166e8be9c602c",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "dd6f0ee4362a8a8d858ba4f4f4bf40e38784b8953e3317db798f5c90e89d3a2e"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Effects",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "1560f3599e8aa7e43b2ad2b199542892",
+      "parts": {
+        "asset": {
+          "bytes": 3705,
+          "sha256": "d60071e87311215d5dd0289eed2b3b59f14cb6deb42d132d96d1adafe01585da"
+        },
+        "asset.meta": {
+          "bytes": 484,
+          "sha256": "f8424f29b252305776dcf5bd2bf8b6da60bc05a09f91646c1074f0ad1fae5164"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns/Systems/States/TPawnState.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "16b09a8b04c04235ad62bf89dfe8a98b",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "3a40466a43f91a6786ad5414837f3ee27c5a60fed3e2e9571faf41ea21b6c4cd"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "16fea91bf04a4c5b9b52a0fbae46a1db",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "d9da2b2931c2b110baaaa4417eee710a19e40fb154adb54efd6f1ac019fdd37d"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns/Systems/Messages",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "1768305344d8452d918860176c995c1d",
+      "parts": {
+        "asset": {
+          "bytes": 5402,
+          "sha256": "050761154fe71336347de43b4ec61a6ba757da76f25de9727463fa79c1c12680"
+        },
+        "asset.meta": {
+          "bytes": 526,
+          "sha256": "ce0798bb0f7542ca5803eadb6e1b2d9f08b07a6a03d64d7f81758204d6cb9521"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Assets/Projectile.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "17b2d64b533b4aa18770703da29d680c",
+      "parts": {
+        "asset": {
+          "bytes": 498,
+          "sha256": "82388627f0137ed0825337ab599f06930f18c4f7833b9ed5320c6903b85e4189"
+        },
+        "asset.meta": {
+          "bytes": 337,
+          "sha256": "ac197b5a3317fc87d4db8e7e3293395decb0ab3604e910cdcc7e47a49a21204d"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Common/Inputs/IInputProviderAbility.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "17c7328f85de4a64d8413b01e729758d",
+      "parts": {
+        "asset": {
+          "bytes": 192,
+          "sha256": "debdd9813103d66ec636fca0ca26267f8392378b8ab6bf4b82c7203e82209881"
+        },
+        "asset.meta": {
+          "bytes": 471,
+          "sha256": "912ababb7969ed3508aeb55215c2aeb5ac10ae2f6064f947870902cc99b72a4a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Async/Async.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "17cfab6b12ad4c5ead5cded25feb3da5",
+      "parts": {
+        "asset": {
+          "bytes": 10912,
+          "sha256": "d106594254eeea68aca606fd9c1553048a08e723d25fe7d43cd4dd4d7f455367"
+        },
+        "asset.meta": {
+          "bytes": 317,
+          "sha256": "0fbdafc565b4dcd7ce574c3b0ac89b54a74c745302bcce4ec94a81293749a8fd"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Async/Async-License",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "17fffa09b1cb7c3448a2623076abab46",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "70c25f27bf8ade14304973a0e819bcb85c47488fc6765163b645f325d51c0ebe"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Characters/ReactiveGestures/Inspectors",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "187e5ca5ff454956b44eb52c0d62bd6a",
+      "parts": {
+        "asset": {
+          "bytes": 2832,
+          "sha256": "4d2ea35eadc59abe27f4868010b7b55b918c9f3ce33df10d6bbe60061cfcfe6f"
+        },
+        "asset.meta": {
+          "bytes": 522,
+          "sha256": "e297a7b59c3915d5ea0ff308e1a5f362b06b8df1c639cbc3a73abd2fa411cb83"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Assets/Impact.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "19ad303991124ca69134f12520856a5b",
+      "parts": {
+        "asset": {
+          "bytes": 5528,
+          "sha256": "3baf38e24ce80c87fa89b21a11f17a419379dc109b49abda32a8d713d0788c4b"
+        },
+        "asset.meta": {
+          "bytes": 357,
+          "sha256": "0daacb84c1ae8c2b4916a14181d2e09d3d557f97756b439c87754d3651e8b267"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/ReactiveGestures/Components/ReactiveGestureOutput.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "1a814b5500b548f691af6fcb6d4f660c",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "977378e04de699ca6d78766f7d685a52e021bff518ba36b60df7053dd6ef45e6"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Activators",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "1b7a6fbe3a214c56950910202eb7e4f7",
+      "parts": {
+        "asset": {
+          "bytes": 3348,
+          "sha256": "729a214b50fa04f66444308b8a75e92115c50be2ce644c8ea5d833756bf31fc0"
+        },
+        "asset.meta": {
+          "bytes": 337,
+          "sha256": "b1c31743a722818222963cee42a156c6344f1d4f573974a6e2396a34fea33aba"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/VisualScripting/Events/EventAbilityHit.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "1bccbdf696ef4d25bd3017f635bf9bcd",
+      "parts": {
+        "asset": {
+          "bytes": 330,
+          "sha256": "309d3286feaa25f3310817de4193a5d1f549f346c4bfb3a5c9dc6e5085ff6b85"
+        },
+        "asset.meta": {
+          "bytes": 320,
+          "sha256": "f2ef19088902db4e26e638a0ecf0a94cfcf52c7b96112266eeb9c4f32d7487a4"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Utils/CommonExcludes.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "1ce814926e2848c48435b0667d234507",
+      "parts": {
+        "asset": {
+          "bytes": 3942,
+          "sha256": "aa11b193b9fbde4505ff75ff165e095c88d725577a9ae4db52e2b0f5c88e800a"
+        },
+        "asset.meta": {
+          "bytes": 372,
+          "sha256": "c385c1fb9804957abd6e03d310ebaaefc520c3af984f9048a3ecbc789febe185"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/ReactiveGestures/Notifications/Types/NotifyGameObjectInstantiate.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "1fd1f5eecb884c2a98b16d531492139e",
+      "parts": {
+        "asset": {
+          "bytes": 132,
+          "sha256": "e607449594dda08f3881ce7d0bc04bf079ae16ef514e1da00559dd8341b65300"
+        },
+        "asset.meta": {
+          "bytes": 321,
+          "sha256": "e34cd3cb34a351b8e8f14630b6c8563a0a039ff0c2946e6e59d60c9b8b259a3b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Generics/IBreakpoint.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "2017653eabe44e478e72ab5a6c21dbf4",
+      "parts": {
+        "asset": {
+          "bytes": 2500,
+          "sha256": "d8afa5edde0df0160f21651bd0d96265da77751b04f0474748534aa6674cc98c"
+        },
+        "asset.meta": {
+          "bytes": 326,
+          "sha256": "de2f54106333f1ed8e745855fa5d748b4907e28a6d3e518bb49dad27ea7ebfad"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/AbilityActivator.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "20470a29d8354c5fa86271c671f5bce6",
+      "parts": {
+        "asset": {
+          "bytes": 529,
+          "sha256": "7a6790478ce5a6d223a80dc0f527c81d837057a9673f6c9a58a2327558078e5e"
+        },
+        "asset.meta": {
+          "bytes": 349,
+          "sha256": "b5be6dd6131b83dfb3b0ed3ab9a08b8caac7b804ffb3acb0661b82d726e35416"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Characters/ReactiveGestures/Drawers/NotifyStateDrawer.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "20538c2d4d5a4287a8da1e465b53d8a9",
+      "parts": {
+        "asset": {
+          "bytes": 210,
+          "sha256": "c54e0030cb193f9f0d18a97502b9953c128ccec6d05eba08b14896a6e905a3cb"
+        },
+        "asset.meta": {
+          "bytes": 328,
+          "sha256": "5a7d8a548ba545e2bf0cd659c14ca5b5beaca2dd006cee6198deed614f60232f"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns/Systems/Features/IFeature.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "20665797e2b340f580fcfa7647ce9089",
+      "parts": {
+        "asset": {
+          "bytes": 975,
+          "sha256": "5ed0c71b281cb9a60c8a6d9cc4a6ee4571ef4e902079b23eb1611da6ba0762f3"
+        },
+        "asset.meta": {
+          "bytes": 318,
+          "sha256": "08e9e0d60296fa645be369cee0045eea0e280aa0f23a9c91bbf43f30421d3435"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Async/Awaiters.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "20ed3e75fa139234e87c06e98ef598d1",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "a32eb125ed0315d76027dc70bc3f420a8bd6b4beb1ad74d87e9427b1c2194abe"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Characters/ReactiveGestures/Drawers",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "21c4ac49a684c834f8bb6fd6ea1f1f2b",
+      "parts": {
+        "asset": {
+          "bytes": 3752,
+          "sha256": "bcf9fa81572efb590edea1481da2460d5215940cd2be23b2112ee63ad2d06847"
+        },
+        "asset.meta": {
+          "bytes": 3060,
+          "sha256": "e96769d4722e5fc1a597bc3032229a51ec39930f5cf30c4405593447cfab3087"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Gizmos/GizmoTargetArea.png",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "21c70dca6fe14d2bb0e4b164f4f8410a",
+      "parts": {
+        "asset": {
+          "bytes": 480,
+          "sha256": "b31924f2514b6dacd7fadd92ba31d6ab06146044d5b78fb4de83a9a6bb87026d"
+        },
+        "asset.meta": {
+          "bytes": 341,
+          "sha256": "78da8410596ea045fffbda8def68116857eab53f39e6e50eeb318aef2acbaafa"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Controllers/Inspectors/InputMappingListInspector.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "21f959247d264113a7e92174b1666046",
+      "parts": {
+        "asset": {
+          "bytes": 3891,
+          "sha256": "5c6c1bd3e8554a59201f35ac5e723d01dc1d4613374f8c8819aa2da5daed2058"
+        },
+        "asset.meta": {
+          "bytes": 340,
+          "sha256": "e31ea0149eafe9778d332c3a37b0cb66b242df0412bea6491e1decb322f5f005"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Targeting/AbilityTargetingSelf.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "22add86e36a647cba1b4ffc3e4074f73",
+      "parts": {
+        "asset": {
+          "bytes": 696,
+          "sha256": "1f765c8bc9a92bf6dd06299535eff1889be2b56520d7e365b8784bdb4d34f7d8"
+        },
+        "asset.meta": {
+          "bytes": 351,
+          "sha256": "ae4cf2255b96689f80e9d9b1b53b406dc31f5e90768fe9dc803844d5320c7739"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/DataStructures/PriorityQueue/FastPriorityQueueNode.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "233c1386f87e4ca8ad7b213cdc9654be",
+      "parts": {
+        "asset": {
+          "bytes": 2183,
+          "sha256": "ae5631c1dcd6ead5b022f1aa891894d099133ef4b3ca46b16ffab1213a7b29da"
+        },
+        "asset.meta": {
+          "bytes": 323,
+          "sha256": "4a8367382ce5d3c668057aac47860cf2b4360fac0543c11722350cd5c17eb4b1"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/AbilityFilter.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "25a2e789d83a45f6a2d30a388eea342f",
+      "parts": {
+        "asset": {
+          "bytes": 2599,
+          "sha256": "de3a34897efe00001c0681eb376fed7df3e9f48be9723eb601e3652e2478bba2"
+        },
+        "asset.meta": {
+          "bytes": 341,
+          "sha256": "f91268675cd3343869ba4faa2302d7558a63834f53943805dc99a6d1accd65fa"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/Systems/Facing/UnitFacingLocation.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "270b3211d4144eb0ae8718513f93748b",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "5a5450e152aabe3c63e4a2b455b7a1dbcb7f189011ccc6e08c8a0a92fbdf3325"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Get/GameObjects",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "2778a2f0dc9f44c18a8fe186382bce71",
+      "parts": {
+        "asset": {
+          "bytes": 585,
+          "sha256": "3b4240c807babef33873e8052a2f69eee966a5b7b5255f2741373db0378fa30b"
+        },
+        "asset.meta": {
+          "bytes": 316,
+          "sha256": "cb9033e350dc895c1dc343b65049ee481990a86eddf154371119d266b4c840aa"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Utils/TypeUtils.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "27fda163d15f42aea712f3113e608c15",
+      "parts": {
+        "asset": {
+          "bytes": 399,
+          "sha256": "68e40e122287110fb975dad541f1534a2d08c48d40f2f6430106f1145df81916"
+        },
+        "asset.meta": {
+          "bytes": 347,
+          "sha256": "87d374b9ae589a286fb271ba94f4170a63a6bc9b2e4ee2a5fa329a614b52b524"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/VisualScripting/Properties/PropertyGetAbility.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "28978426929f4462a50dca92e284449a",
+      "parts": {
+        "asset": {
+          "bytes": 2171,
+          "sha256": "529ee3c26679bc5617132fa996cf51c22e973201b7d3f1c4259b577185a65c03"
+        },
+        "asset.meta": {
+          "bytes": 344,
+          "sha256": "3a1e5870e2b741dc342c248181b9d12f63d9ed9d449566baf9553fe809abc0ca"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Activators/AbilityActivatorCharged.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "28a542cdca4844c5ba05f8d17cddc4ff",
+      "parts": {
+        "asset": {
+          "bytes": 500,
+          "sha256": "68ad34f1c13a1e6a5ea1b7e861b5967b6d09eb83eacd06d8ee1da303856fb9fd"
+        },
+        "asset.meta": {
+          "bytes": 320,
+          "sha256": "f959f43aa2fd41fb869ae068855dd198fecbf1358e9b95acf761098eb654ad4a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Paths/DaimahouPaths.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "2a942c98e46c4259888e5eb3adaba5c5",
+      "parts": {
+        "asset": {
+          "bytes": 1001,
+          "sha256": "4e3c5fedc3f643d3a6a1eeba281740fda9e0e81bb43717a734f84d42fd05b97f"
+        },
+        "asset.meta": {
+          "bytes": 344,
+          "sha256": "7ccb771c0e9cbe80b0704d143f5d38b67e940d6af8c7c511390482b3645d06fb"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/VisualScripting/Properties/GetAbilityAsset.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "2b19f870a4e840d6ad5d5ebce181ce56",
+      "parts": {
+        "asset": {
+          "bytes": 2866,
+          "sha256": "83d94327f83964b4dd26f4527188e807d8a919bddba02c30520ab8256c5eca79"
+        },
+        "asset.meta": {
+          "bytes": 348,
+          "sha256": "6f260714975ba7b18f9a06ef889bd561e442ce026cae37ad3afd070c887ac098"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Drawers/AbilityEffectCompositeConditionalDrawer.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "2b4647a94ef444d1b299d445a12e1bef",
+      "parts": {
+        "asset": {
+          "bytes": 2172,
+          "sha256": "c12576dafd4e9cd5be7270e39c74abeb702ff7e6ac3fe04e92a1fe6f382c977f"
+        },
+        "asset.meta": {
+          "bytes": 339,
+          "sha256": "2c78f39a0284d83029a4ebac7b273d9447aa81e59cec89704d9e413db081def3"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Filters/AbilityFilterPawnOnly.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "2b542d0bdbf2498492e152a898b76c1e",
+      "parts": {
+        "asset": {
+          "bytes": 8047,
+          "sha256": "37abcd94c3bc1b85f1a59ece065ce1a157595f77043bf321b4d39e98ca2eb09f"
+        },
+        "asset.meta": {
+          "bytes": 325,
+          "sha256": "abd44526d60a19c3aef3bd2508b7ae0b598bad63060d6f73e7e178488bbb542b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Utils/FoldoutInspector.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "2b7483052f024203a80f7f3d54fa11b8",
+      "parts": {
+        "asset": {
+          "bytes": 4168,
+          "sha256": "aabf894697f93eb8f6d216f772040d8b105527a84c1b7373ecd5874ac93a64e2"
+        },
+        "asset.meta": {
+          "bytes": 325,
+          "sha256": "231fa7065728bc2356782d33e798496f098f7809dddf04e8a81a8e17bae14c88"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Generics/ExtendedArgs.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "2bb110b347caea2429b264bb9bebf56b",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "9a80cc04f66fcd2e8a8b9b021b41c9ab323e5f75ff226716ba724851c138d711"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Filters",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "2bb1bf25c98c40dc8596a24ef0c30aef",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "3363559da5c07d17b54d3bddb7d4aaf2f5aa0b8a6182f60f8fb1396c7d34381d"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Icons",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "2dac9541e8a94657a2ea32e7dbd91986",
+      "parts": {
+        "asset": {
+          "bytes": 7178,
+          "sha256": "71ddc74a5dd47030826885c918349581268953a8f6a18e6b7a421a74702bfd11"
+        },
+        "asset.meta": {
+          "bytes": 319,
+          "sha256": "d33b73bd3a0eed01bb8f2df2e837f24523b4df11c49ad0b8630de8e57a9f6029"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Editors/AbilityEditor.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "2e1df69920204b14bd8e50a6d49239e1",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "60757604fbfa3c8522af18bf6588ec97760568e7ea4abaec7076432e743d5db5"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Conditions",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "30dc845827b84db9af0ab0b1cccce233",
+      "parts": {
+        "asset": {
+          "bytes": 3448,
+          "sha256": "12c1c2bbca9ed1474a9e58ca20413d0922c2135d50625bb90335d80c8fbc3bea"
+        },
+        "asset.meta": {
+          "bytes": 341,
+          "sha256": "f895cbfd0be701916b2388fbe837167a57ee4a24fc1af270381903ebc9f2ee9d"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/VisualScripting/Events/EventAbilityUnLearn.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "31e53d60bc5a3d34ca7acf3406e415f3",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "cb785bccc32032260fdc999118ee9b71dd1e2af3b4c6c208dd6e810f6ccee5e9"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "32c406b51ec0402282a38670d1a8a5e6",
+      "parts": {
+        "asset": {
+          "bytes": 1568,
+          "sha256": "d27880ee732e2047df49d5e7a333318330a7b2d17b32a37cb3cbc76e6bb3dd6d"
+        },
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "eb1fe652de58f4ec968f1f3d52e1dbf5bd2d904ba4a44e5ba3aa435917305de7"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Filters/AbilityFilterLayer.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "32cb7fbf54d147fa9b3a5a463729876d",
+      "parts": {
+        "asset": {
+          "bytes": 5594,
+          "sha256": "93e1dd4cad09705d886eafdd35e3feb5432a048891e06828665a47fdd936d5bc"
+        },
+        "asset.meta": {
+          "bytes": 321,
+          "sha256": "0037d32de6157cd7a80db946ec4c982e774600cfc524004e00b0a4ba93a08f48"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Editors/ImpactInspector.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "337a500b86d04258a436fa775ff2a19f",
+      "parts": {
+        "asset": {
+          "bytes": 1945,
+          "sha256": "092beae185bf85fc5196ad801ec53020d92b42e2e064f0112da12bf7722027f2"
+        },
+        "asset.meta": {
+          "bytes": 344,
+          "sha256": "e73327cb432d43301ddd6812d9be61b47767225d07bcc365e26b228abf7dc8ca"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/DataStructures/PriorityQueue/IPriorityQueue.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "340872e0a7ac84b498a0a151c6b1340a",
+      "parts": {
+        "asset": {
+          "bytes": 3902,
+          "sha256": "48f9f8de29b337cee9496399ab814c798507e4a8296dd7923899b5abf7381dcb"
+        },
+        "asset.meta": {
+          "bytes": 3051,
+          "sha256": "1663ee34e44c598fee45cabc70612edcbb0f954f29a42131692790d3f2c33016"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Gizmos/GizmoAbility.png",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "34754f8e78b84fc0bffb56a8b319ba2b",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "a44a72772920e0f61b46ea3197c4ecfe57fe4611384ef899071c80249cc3d995"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Editors",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "35b4320831a98044ba1da8cf8702f5d7",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "e53d14ca165379db0e413b0918fe0f73dd4a26001cfb2db5797b663d8752deaf"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Examples/Abilities.Assets",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "36cd5a8263804b73a122ad79cdc56e01",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "f79700417ed94414d5ddfb2c9abd0c69efa976affb9f29db06a74d60607bdfa9"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns/Components",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "37e9dfd024ca4092af82a7ffeaf519ee",
+      "parts": {
+        "asset": {
+          "bytes": 1167,
+          "sha256": "0a49955fc7e9b1fe60fcd309949b43db2c5756840417b5f0b6c460985723fdaa"
+        },
+        "asset.meta": {
+          "bytes": 319,
+          "sha256": "a3969dfd712f458fdc3f3683c45b93ba3064fab77e201c626ca52e6248d355bd"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Pawns/CasterDrawer.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "3872248f4ae149e09277282e0edde274",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "2a55d5ef1d753f916035e8fae131612fa419b1281e5343dc3e8b951bdb34bde5"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Generics",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "39842e8c9ab640d9918c4ab117753299",
+      "parts": {
+        "asset": {
+          "bytes": 6978,
+          "sha256": "c9616fb05b67e99204af7db8fabc53b85306273c890889d2a8bc1fbaec06d1b5"
+        },
+        "asset.meta": {
+          "bytes": 318,
+          "sha256": "e8178bce684b8689e0e48604663abd71958da3259a0a98ee2d5fb92f8a42f621"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Controllers/InputMapping.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "3a4b70fc157242e5b918c26babc19d39",
+      "parts": {
+        "asset": {
+          "bytes": 153,
+          "sha256": "7cf7112e0c6c96585abfdd4a146b08da560d971bb2da184ba028319c8d98ab3b"
+        },
+        "asset.meta": {
+          "bytes": 322,
+          "sha256": "ca02e05ab02a71e5457e84f300b8229a837cb5282c82e1552ad70591c73d7e84"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Cursors/CursorType.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "3ac7b145c2dc4ac39a081eeacf79f39d",
+      "parts": {
+        "asset": {
+          "bytes": 816,
+          "sha256": "1d1e0a981dc56e8c75479c850a801c2cfd49807767f1b4672a9bef2d19148354"
+        },
+        "asset.meta": {
+          "bytes": 324,
+          "sha256": "65713813f5a7eed57af6a68a6d586c3a245420269e8f13966247717fdb371a32"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Cursors/CursorHelper.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "3af9077f4cae4e37a9f17aaf74a21418",
+      "parts": {
+        "asset": {
+          "bytes": 23059,
+          "sha256": "f32eff88a5696cc02598caa22628b387c69c08b0576c2bdeddcf6417df365572"
+        },
+        "asset.meta": {
+          "bytes": 325,
+          "sha256": "6c9894d6f01552987ddb36eb9b891e122200c114c8fd6940f29cfd583001afe3"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Generics/GenericInspector.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "3affd24be84444e0a51496324ebd3f9f",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "9896af96e956dec4a57a21f766041f09d6e201ddbea80288a411a9add1d22b45"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Requirements",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "3b27b38ca5a74ecbbf2e4008447dc383",
+      "parts": {
+        "asset": {
+          "bytes": 3099,
+          "sha256": "a13b8547ec8cf183ead1460534ad224c4669cc4ef6d1b6f119451f311c8d62f0"
+        },
+        "asset.meta": {
+          "bytes": 314,
+          "sha256": "2de5f5c01e5cfe5ee865f43e49674e14aad0f091b50bab2e806e556e649e3c2f"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns/Features/Brain.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "3b917dc40cd341419d5bfd3e67e0e080",
+      "parts": {
+        "asset": {
+          "bytes": 3395,
+          "sha256": "60143be91b1e48b959835ba60d620853f003f276ee45c45ecc7bf0d31948a697"
+        },
+        "asset.meta": {
+          "bytes": 347,
+          "sha256": "3424338d8afa264cce98c2f03173122aa8f1ba15a4b9f1831d089a50ba97ff00"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Targeting/AbilityTargetingDirectional.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "3c13740631074d689499cd9e27db5628",
+      "parts": {
+        "asset": {
+          "bytes": 2891,
+          "sha256": "a9ed99584ed83aa97d9d026a0cb8065fab75e09569e5578bb016bcf342c4cba3"
+        },
+        "asset.meta": {
+          "bytes": 341,
+          "sha256": "33b12c8ea4f9fb0859d332fe16d43a429060fe1bfe7eff5c92802c920316c42c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Filters/AbilityFilterOutOfRange.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "3c8d9c8cc48f433b84df5c0ad8ea1474",
+      "parts": {
+        "asset": {
+          "bytes": 99161,
+          "sha256": "4def18317885c76e4c4e5b84e77004da4257d042922b561c731f1e7346657630"
+        },
+        "asset.meta": {
+          "bytes": 322,
+          "sha256": "19a20adf20aef757c8d7954c320cb7bd196495c8e988934732d96564c121e8eb"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Icons/IconTargetArea.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "3cd6c644cd6b49f8931759627d0acde3",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "9039ea2d4427419ba45c8d18ccf8a70f0363c567e6cae45fc56f17e12bf33ab8"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Pawns",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "3cffd07e2ae94dc9a933160ab9183511",
+      "parts": {
+        "asset": {
+          "bytes": 3086,
+          "sha256": "a1628f041ce8d119e31a197cfd5dbf3e8c4136abb26f2eafc3603fe25d0deb5e"
+        },
+        "asset.meta": {
+          "bytes": 523,
+          "sha256": "d59488da0a287c473d0fe8fdfb8538c1b587f7d22ec152e841e5c5b3a95ea086"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Assets/Ability.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "3dd5c1f1d88f4616ad457f4fdee452fe",
+      "parts": {
+        "asset": {
+          "bytes": 3136,
+          "sha256": "d4882af37043bc99e90da5a38d0ab1f85bd48a519684cf9e2ce1d2bd33414e1f"
+        },
+        "asset.meta": {
+          "bytes": 326,
+          "sha256": "0bfeaf9d38b0c2961a3fcd41ac55144252e12dcb17da557bc1c204fb18eb80dc"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/AbilityTargeting.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "3e01141380e844eca56c3702aa5a6c82",
+      "parts": {
+        "asset": {
+          "bytes": 3406,
+          "sha256": "74763cbd74f7685cd18a0b8baade1d3d98912bb66dbccd322cd11b0533fbc39c"
+        },
+        "asset.meta": {
+          "bytes": 334,
+          "sha256": "2ba28761399572bf85bdf34186ffd17a90adb18ad1f1d29c4434e7155ad94b0f"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Effects/AbilityEffectSFX.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "3e0dfc328ae8c7943b00c184664b8868",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "fd0892d0dd09476019b7a3199a84b943ca3883e969b5956a2b379e426773ce86"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Examples",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "3efa96ae3d014af6a1bf58ef5db3603b",
+      "parts": {
+        "asset": {
+          "bytes": 3396,
+          "sha256": "62fddc4a48c4f3da5200cb02841c7a5ee90cdc6f85be26729e0f78af60428cc3"
+        },
+        "asset.meta": {
+          "bytes": 325,
+          "sha256": "393d79253a924571fb5d47b12945c33ad240c3634f1a559c8bf4a694f6e1dfff"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/StyleSheets/List-Head.uss",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "3ff74369562a4e04acca114de8ee082a",
+      "parts": {
+        "asset": {
+          "bytes": 521,
+          "sha256": "b810dd4bbbb9a1064297565056f452fd38c8ef92a3e193676c12f058c36a0ed8"
+        },
+        "asset.meta": {
+          "bytes": 344,
+          "sha256": "a857a949b42c1db2afab30477406b6ef7bf1b443381c1715cc2450378d40f9e6"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Characters/ReactiveGestures/Drawers/NotifyDrawer.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "41aa9d8543c748658fff13c56ce2acbd",
+      "parts": {
+        "asset.meta": {
+          "bytes": 86,
+          "sha256": "20dfaff0999e9cd6201ca541ee4b0b42625983cb386d6c78c96bef7eba03c794"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Projectiles/AbilitySource",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "420a18b586154722853af8327205e0b7",
+      "parts": {
+        "asset": {
+          "bytes": 2898,
+          "sha256": "5d472fb9b9e3054a121fdad950599e4b1735f2026c8cebbd172c749b7c6f1ad4"
+        },
+        "asset.meta": {
+          "bytes": 346,
+          "sha256": "bf11f0a59c4ca510039ea233f345184c82b816b9ad27f2f188b4fd21adcb4897"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Projectiles/SpawnMethod/GetSpawnMethodCircle.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "42d4c6b30a826834fad3a9ffb8213de0",
+      "parts": {
+        "asset": {
+          "bytes": 455,
+          "sha256": "b712ae2195dc8c65beb6cc6e96a385cfe0a0c1ae4f66c1c3a417c8db5c929878"
+        },
+        "asset.meta": {
+          "bytes": 367,
+          "sha256": "276f5276748d12ec389e75a02888c7d04bd47e2fc7ba657e9bc8744bfd35e9a4"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Online Documentation.txt",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "431511abf21e85942af7a776f2f55df6",
+      "parts": {
+        "asset": {
+          "bytes": 1278665,
+          "sha256": "6b218d64ed3434f4f5c420f769f583779aa5630ac122bc35577447557409f2d3"
+        },
+        "asset.meta": {
+          "bytes": 357,
+          "sha256": "89701bd3302e5ce96f8281ca4dadd808bf2dc3411b27264a615aeb5878662edb"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Documentation.pdf",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "43495b6a10ec45259794055f010baf0d",
+      "parts": {
+        "asset": {
+          "bytes": 5985,
+          "sha256": "5ea861667437088d4b24a2e08600352c679b5266bf2bdbd1a0fb5b4c276caa31"
+        },
+        "asset.meta": {
+          "bytes": 324,
+          "sha256": "91fceda30a2e46b9f63fe3ba3cd71b0e1215b004b629d3233431979f0d57b977"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/RuntimeAbility.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "43ecb5d933f24b5781630ce3c0787e8f",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "6c71412eb49c172828c1791d671721381a08048a6588dfbc2a5be5129a6b992c"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/ReactiveGestures/Assets",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "462c045ed5f74a74a483a4bf285a9cb1",
+      "parts": {
+        "asset": {
+          "bytes": 661,
+          "sha256": "37c45cd835a2ce32397fb885019a35a27b3ceef73f3d2de9a0f592aeb74dad54"
+        },
+        "asset.meta": {
+          "bytes": 325,
+          "sha256": "72b547b5f8db17274330fdea7f4a2d7cc7164ae8b8ec8483a3354b28376c8b9e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/StyleSheets/List-Body.uss",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "46a687f2c63847d0a9e0308bfdbcd9af",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "a5f0ae35e61977130561bf3ff8514898f9171693bd133bb143b020e2833a9698"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Generics/Properties",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "4802abad8c674b97821bddb354b7fba7",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "0b587f3a5bd8f29df00812081a5a97a8465c4d3944a2aadce3395527fb55c71d"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Generics/Properties/Args",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "48ab926b1df743628dda60c419608e7c",
+      "parts": {
+        "asset": {
+          "bytes": 289,
+          "sha256": "8d9980d612646299a0a1da047f496fcf36b1bed9eeb0f9fc9ea3e94d534fe734"
+        },
+        "asset.meta": {
+          "bytes": 353,
+          "sha256": "f4fe55f3b2b412495f269f6d8d6f464b0eb095e5859a27618bbc3a433f080908"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/DataStructures/PriorityQueue/StablePriorityQueueNode.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "49368e266b934ad2b1188264b0493173",
+      "parts": {
+        "asset": {
+          "bytes": 99163,
+          "sha256": "337df4c93743e151487eff9a32f096aedfa7a74391819b94323875dd0cd8edd4"
+        },
+        "asset.meta": {
+          "bytes": 322,
+          "sha256": "3d48694b6ce6ad27f5e480af5e3af3c2f7ec69940676139f241691f626ffb1ad"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Icons/IconProjectile.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "49d3fa435a4947819668dbb7bdf7e5fc",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "471f8b7036c25ccb4ef229b153a0acdcdf32d71956a7fa7ac820785ca0328e9d"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Gizmos",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "4a364dc2b3df46729cdc10e82a3a7ce9",
+      "parts": {
+        "asset": {
+          "bytes": 99753,
+          "sha256": "cbb33f3190ab4aaac540689175c96f0045df8e9535779bb61578cb730b5d3fa1"
+        },
+        "asset.meta": {
+          "bytes": 318,
+          "sha256": "7e444f6e3fe39e6ef4ecde6f5148b33aa03eb28d32669c493cc0ed5e600d7d46"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Icons/IconFaction.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "4a92cd2026b84ba59d1c8de580ea1a4f",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "c2939d336497d1cf41a00cfeedd0d87616d671c13c1989f3f53483e3c48ca7ab"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Common",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "4bbe450d809f4225ae9c2073e9268a3e",
+      "parts": {
+        "asset": {
+          "bytes": 608,
+          "sha256": "622aeff38181e85f03bd29341fb04586aae662cb87cea23ba66826dc0fffb4fb"
+        },
+        "asset.meta": {
+          "bytes": 552,
+          "sha256": "8b1c3f791b861b2db44603b98db3b06410631c9aa12ec4fedeef9b09354511c7"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/ReactiveGestures/Assets/ReactiveState.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "4bc491c7918a49b6b83ddb4c94a458d7",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "9cc3d4ed36555cafc72171d6b3827e92e894de9e123b3627b8cb1a3c859620a2"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Instructions",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "4c00bdbf0f3d42cea601b08d7b4574a2",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "3568bb65efa06f663074667cd2f989a3326d2af5cb662a049ae9e62c9479a52d"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Lists/Selectors",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "4c1055e421a184e0487010fd6adcb099",
+      "parts": {
+        "asset.meta": {
+          "bytes": 180,
+          "sha256": "7582fb359453f53aa20e38d164c98296de7d7dbfa7fcb2060780822a209078b5"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Settings",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "4ddac38e854e4beb81e91edcc65d9a27",
+      "parts": {
+        "asset": {
+          "bytes": 2485,
+          "sha256": "dd43b97a68554963a68b744eda00cd64f014e03c64ebdfec22231a07e3055c11"
+        },
+        "asset.meta": {
+          "bytes": 341,
+          "sha256": "35f0489b0f2d63a3db283f651f68118d79c44f9e53b415b7394064b80eb3a1b6"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Effects/AbilityEffectProjectile.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "4e9af22ffb18461ebf5267640a8dd3c9",
+      "parts": {
+        "asset": {
+          "bytes": 2534,
+          "sha256": "0121ba419f90bbe090f9c115c9c9fcaada6972849f7320314909b6e6c33ae835"
+        },
+        "asset.meta": {
+          "bytes": 348,
+          "sha256": "45515530a6d04278864f5ae529881b0e74695017d4fa91ca978e44d0a014ea3d"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Requirements/AbilityRequirementInRange.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "4ea54eef69d742e88f315ecd5cae9804",
+      "parts": {
+        "asset": {
+          "bytes": 12578,
+          "sha256": "51eb7ee594998692e1f79a19e2dfbb4c43cfbaeba474ded8029c9d45d907ab98"
+        },
+        "asset.meta": {
+          "bytes": 319,
+          "sha256": "c70e5b60386cbc40830c82819e7e98fdf7bc060cecc46a5e40bbc3e911df2b79"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Utils/DebugDraw.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "514f38d5307f4fb9a9592bf6276f66a4",
+      "parts": {
+        "asset": {
+          "bytes": 3549,
+          "sha256": "694e75dacd967f01640628ea225eea3052eb71c7ea105dbbe900ce422c55092d"
+        },
+        "asset.meta": {
+          "bytes": 533,
+          "sha256": "5598aa83a1d336d8a8b2fcaab139b88a963be9b6ac3a47d04651863b4526d7ce"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Components/RuntimeImpact.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "51824ed1df72436390488f7a8838e793",
+      "parts": {
+        "asset": {
+          "bytes": 150,
+          "sha256": "529f57c5e5c632e292a3e3a125a75d33b0e7616b4b43e977d7ccf33c73bfacdd"
+        },
+        "asset.meta": {
+          "bytes": 341,
+          "sha256": "d77cc964d5e6625048f50193ac6747da2c1d4c0d1f038e1a1886626d8185fe50"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Pawns/Messages/MessageAbilityCompletion.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "52a40b5aaf854e82960b6d00d9df11b3",
+      "parts": {
+        "asset": {
+          "bytes": 3846,
+          "sha256": "95ef38c92753a79398ea6c9d4c84e59560e23dce1fa038af7ac9865b3ea6e123"
+        },
+        "asset.meta": {
+          "bytes": 526,
+          "sha256": "f2b2de2b403d456c815d245681d1a081f01d0948b727820e3bd48eacf3f179db"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Controllers/Controller.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "52d54328111e4e0d83dc03c8c48f06c2",
+      "parts": {
+        "asset": {
+          "bytes": 1013,
+          "sha256": "bbca912550c4b5b9da9a47e1f689ead565077a6942a3b35a2bf0059a7d1b42e9"
+        },
+        "asset.meta": {
+          "bytes": 525,
+          "sha256": "e3b7a0792b93b278a9878826d6c047296b08fc5499634eedb9513c36fc6aa16d"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Assets/Indicator.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "55604e9642394055a70d1807b0125a83",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "1cda2043dda8ea60c20e5f3c47de56bbaf2d6b810fb99a191cc8bdc3142ac632"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Lists/Inspectors",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "5579a7404bba424bb038356bd255484f",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "febc1896f8ee0736586be5fcf4bc2b402ab15b53ba93984c4c75ce52392b99f9"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Pawns/States",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "55e615055d644285896ea13f2fcb074b",
+      "parts": {
+        "asset": {
+          "bytes": 125,
+          "sha256": "27cf6048bf5b0af91ced233abf6a6f69ba1628c1ce3912cf3f76620f86aeb58a"
+        },
+        "asset.meta": {
+          "bytes": 317,
+          "sha256": "7864ec8fca503ec7b0d56f9c33701e8c7bfd8472bc29a6423b2ffeac796439f3"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Generics/IEnable.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "561d7dfc62b041aaa3b4fc9bb2569dba",
+      "parts": {
+        "asset": {
+          "bytes": 2713,
+          "sha256": "5703087520bd85d2646885e81d9647a6fc64f58965018ff0e89b0d45ec700d7f"
+        },
+        "asset.meta": {
+          "bytes": 348,
+          "sha256": "6f8e09516a04747eaabed27366ee74fe236258f1751e16624a7e01d8db5febca"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Args/ArgTargetGameObject.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "57ebecfce6d14764a1eea11b4fdd2ddb",
+      "parts": {
+        "asset": {
+          "bytes": 2988,
+          "sha256": "86c4b1ff04f92a32258bb204ceba7428eb9900e862c710205f90f5ac426df027"
+        },
+        "asset.meta": {
+          "bytes": 315,
+          "sha256": "dfd7431f0f2317b2c03a06d2f829308ef1a266c6266bb76aef822e391337cd1e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/GameModes/GameMode.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "57f49f6c32ac4b4987d2077668cc99b9",
+      "parts": {
+        "asset": {
+          "bytes": 1420,
+          "sha256": "e4806d03e3f8ebb328d99bc4997a2a9673f2d714e55c1586451427e2dfc91ddd"
+        },
+        "asset.meta": {
+          "bytes": 356,
+          "sha256": "20bc4046a00b119c5eecbd0f2c3272fc4092caf89d384c7ad17ae07bf3aeae7e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/Properties/Types/Location/GetLocationCharactersBone.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "58b7187d0f34425890bfb54078e5f727",
+      "parts": {
+        "asset": {
+          "bytes": 5280,
+          "sha256": "1be58d325f7cf3c712e92699bd11b7256fd2d03b0864b6b91a1c359e8f54dec7"
+        },
+        "asset.meta": {
+          "bytes": 616,
+          "sha256": "6ae6077f8083fd4996c779c8379f261d63cbf93c6e65b933a63c7d82056b95c2"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Characters/ReactiveGestures/Editors/ReactiveStateEditor.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "58bcc67fcc9a4faeba187a7ec407b76b",
+      "parts": {
+        "asset": {
+          "bytes": 138,
+          "sha256": "6b7ad5d3f974dc17e249794e2b870cfe52d4c53f259aaa18510e03d69b03f555"
+        },
+        "asset.meta": {
+          "bytes": 310,
+          "sha256": "b8023a937510eeb4cfcc7433161f4928b5ded3c009102debd47ba7c0a03f7f75"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Utils/Mono.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "59893b5981c64c9aa12073550404c3b8",
+      "parts": {
+        "asset": {
+          "bytes": 258,
+          "sha256": "49effb0e576762301faf93c3c0c941a942ee6c54a0db7d891fcbdbd838db049e"
+        },
+        "asset.meta": {
+          "bytes": 346,
+          "sha256": "fb2d316bdde79f7f39d17e5ff85dec442aa36e5c83a612bc4149462ccc8e122a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/ReactiveGestures/Notifications/INotify.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "599c5047cf1f432fa915c70d35b233c7",
+      "parts": {
+        "asset": {
+          "bytes": 1165,
+          "sha256": "f2f489af2d02bd9005371d503ce4ff7b092ceef9e917999c6acf9d045a3d5d6e"
+        },
+        "asset.meta": {
+          "bytes": 355,
+          "sha256": "eadcf956d9931bd41f41a4feacacfa72793388da6fb01452eae7bbfd3b1d6896"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/VisualScripting/Instructions/InstructionAbilityCancel.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "59ecb4a2a23110748b78e2e991ed6200",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "07e32a3dc21a7158627e21efb8cf571759dfe9e0152faebd6ba5d90d72f9342c"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Characters/ReactiveGestures/Editors",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "5b4360840b5c4eae8849f8a179bb821c",
+      "parts": {
+        "asset": {
+          "bytes": 2571,
+          "sha256": "5764ce9b8504e637550f768e5ee0fcc38790c5605a5f5f1d09cfc2d8258f8d2f"
+        },
+        "asset.meta": {
+          "bytes": 339,
+          "sha256": "33531411098fc7cdbd714f488f3245d3203985be71a04dd3aef1fd285030b887"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Effects/AbilityEffectDebugLog.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "5b4cdcdc674a416793be6af16a864d95",
+      "parts": {
+        "asset": {
+          "bytes": 4151,
+          "sha256": "9c6c04a33dfacda2831f007823ae5000681e612fc8e67d34519f317816fe9fe2"
+        },
+        "asset.meta": {
+          "bytes": 349,
+          "sha256": "6ba4ca767a4602bcc17acc8e0032cc284e7b201baee4de48f394ab1204bca7a0"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Targeting/AbilityTargetingClosestTarget.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "5dc814de4803433dbfc624f3d60afbbf",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "7f3fed13ee32536e6aa176cc003b1d19e929921f55b954a4fe079b2e5778edb1"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "5e688ee1a04f4abc9d8ea60665962a5e",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "2152847223239fbeaa3fd048b8a75c4ad9b062043eb463e3aeb668fd83963c64"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns/States",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "5ef97de70ec5452c83e9d0142406db03",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "f0695d91ca5140cb4345a7da9ba7561408e8a81612b386e5fee3f24618a07d05"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Get",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "5efcc86dca6b4409a597b2fd52e1fc7e",
+      "parts": {
+        "asset": {
+          "bytes": 3110,
+          "sha256": "ebdc937610817510f66d350a4bef3123b90210020d11b7640730320d2d157176"
+        },
+        "asset.meta": {
+          "bytes": 351,
+          "sha256": "e6baad7f573daf20f715d8fbf73a9d0d35d2d472106c31eb070e1af889fe250f"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Targeting/AbilityTargetingFacingDirection.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "5ff454edcdeb4d88be205e99a8ddb8d3",
+      "parts": {
+        "asset": {
+          "bytes": 3035,
+          "sha256": "b55efa4cd748a7607db990c2d8b99def77ef9b024aa2d797d686e3a6f217544d"
+        },
+        "asset.meta": {
+          "bytes": 334,
+          "sha256": "6349b4e174d9a00c70f84ddc337aaa65abe766c73086ec1e90150663d9357e32"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Generics/Drawers/GenericItemDrawer.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "6044c5d00c5b4447ab87942313f6dcdb",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "69a78e86be48654461496a6568976670b1007f855e5a72447ff3f38ba39e8b46"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Controllers/Drawers",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "606581ff906c47239ec3d42898247404",
+      "parts": {
+        "asset": {
+          "bytes": 197,
+          "sha256": "ef8bf410edb8893ef240d94bda9f477b03c4c078ccd534827dbbb4d77fcdfec1"
+        },
+        "asset.meta": {
+          "bytes": 324,
+          "sha256": "9bf42dcc7c726adc1d47e2a2f857d2ff91979162c3a86cfcaa6c1b06d89959af"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Async/WaitForUpdates.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "609f370857604a0382b610a022335cd4",
+      "parts": {
+        "asset": {
+          "bytes": 5053,
+          "sha256": "4fd7e5e72a74402f086f610ec4539fa05b74eec7bfb8101d3e3b934ce720cfcc"
+        },
+        "asset.meta": {
+          "bytes": 332,
+          "sha256": "c59d48ee213ed9f91389dbaccf0a9498e7828cec5103d2b6919159cf7fe2f1b9"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Interactions/Components/Interaction.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "60d29a3247a54d589f3f39f0baf6bf9b",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "14fd4f9aca9858cb845fd4428b6c31c9b29e3cb9e4ec5c99d1df9345fcb5ded9"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Targeting",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "6110beb3b2bb4dd698fda1203c76faca",
+      "parts": {
+        "asset": {
+          "bytes": 84,
+          "sha256": "0a4e01615a9461b081106d84b3a032f153830ec5ad7143c7f877a9bc2792f3e4"
+        },
+        "asset.meta": {
+          "bytes": 332,
+          "sha256": "a7687e784464a8b78d8448ee875fe58e9f322fd52cc6d0a2ea56c8a40b531d9d"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns/Systems/Messages/IPawnMessage.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "66b85b004944494abfc0b3917dc091ec",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "b78960b69243e52f7ec46860a7948f00dc1d796d7a45bb3580373860c802791e"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Generics/Drawers",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "676e9f26a1654e769d531218ed1a1d23",
+      "parts": {
+        "asset": {
+          "bytes": 3788,
+          "sha256": "2d1ebbe8cae69439402f333eb12b337df66b35fc430de4ec56fbdd40bb05c475"
+        },
+        "asset.meta": {
+          "bytes": 316,
+          "sha256": "dc3e90bdebbe2633ebf3a11a935177e07ba8fb59d270219d1d37cc7a373d6d45"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Utils/Target.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "67943e6e4683644558a7cb6e7f292d7c",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "3de322f2b462d55f32fcbd1feb901aacbdb472c6f650f8a123834db7db1d77a1"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Settings/Classes",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "68a1aabd5e1c46ff9e131715da889512",
+      "parts": {
+        "asset": {
+          "bytes": 2483,
+          "sha256": "0142cf60ce68ccfc49115ab6c60633e3358bdedf3a198d734a0349d4508f9014"
+        },
+        "asset.meta": {
+          "bytes": 352,
+          "sha256": "ff386c3fb68b2cb3f9eb8a5d4a67e2f0afce73c9edfc10a3c39eb999bf08a112"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Characters/ReactiveGestures/Inspectors/NotifiesInspector.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "697760565c2744268e0fd6fb92121fdd",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "8db41173c5768a7936c3b6db1f5d5de2a2590f57b264adfb2b7eb5f49e8ca754"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/UI",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "69af984453e347af87005d4416d644ef",
+      "parts": {
+        "asset": {
+          "bytes": 2103,
+          "sha256": "63e53e3fd803c46c14acf4e1659876e42ec521819acb828e6a17591c66b6042b"
+        },
+        "asset.meta": {
+          "bytes": 355,
+          "sha256": "ef8928df36f114cfcb03069c99dfaab3afeca67cdaf6a0defb4e6607a3d181b4"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/VisualScripting/Instructions/InstructionAbilitiesCast.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "6a1bbf689d32c974cb11af1480c0e358",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "09ff98e17bdef47c2cfbc1d87b1848980c584955f16076b10b2be748b3640aae"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Cursors",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "6a7d5efc2195beb43963890de585455f",
+      "parts": {
+        "asset": {
+          "bytes": 12588,
+          "sha256": "8bca6d3acb4f2dd7ef2aded2dddfa94e2f7a8776dbf767f80aa0b214c4387905"
+        },
+        "asset.meta": {
+          "bytes": 492,
+          "sha256": "9940aae2b16ab1ab4913e60ffb8e0f77e5ebc508974905562fea4877e760325f"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Async/IEnumeratorAwaitExtensions.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "6b9d2a4685c3470e8e0aeec44e9f15cf",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "f0c5a5c3d637863545e012c8a3988ce6d49f00b3528aaa76bc7043243cc5f626"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "6e9002f469bc42ab96dc943a9ff943be",
+      "parts": {
+        "asset": {
+          "bytes": 2503,
+          "sha256": "2000e68343b287a7c38c713cdbbef864a18e1b7e5121754e09504a3c835869c2"
+        },
+        "asset.meta": {
+          "bytes": 337,
+          "sha256": "c9c8e0d57bfb9a4d6a3e1b1a452c310d48fb3e950246a4dd1ea4968cf4ccec7a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Drawers/AbilityEffectCompositeDrawer.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "6f41a4f3d6b643e19bdad86e55b3f7cc",
+      "parts": {
+        "asset": {
+          "bytes": 345,
+          "sha256": "c77e3dfd78a0d35ff2c0ddc6a9d767f164d7cdbeffc2bc57b9d978025f54ac5d"
+        },
+        "asset.meta": {
+          "bytes": 328,
+          "sha256": "263e470dc02009ce66f3d6f0249db27cad046d6a96d6b67340e9b42792da20a7"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns/Systems/States/IPawnState.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "7047c90f9b3f41349d3524fef5870a37",
+      "parts": {
+        "asset": {
+          "bytes": 5050,
+          "sha256": "232f4aa08fd9b9db977d3f12a2c07951851bbdb8fcfca74d3b577419639c696a"
+        },
+        "asset.meta": {
+          "bytes": 324,
+          "sha256": "31ec27b99917013764b239441919d6a0ac598b6be4b1420a2a3f1d7544a42877"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Pawns/States/CastState.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "70892be407804c62bb7e885ea9fc6f73",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "75a23038d3ec02b6c261ad08c7cc04a2abbf803efb6ace5d827c9a65b1cc4ad7"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Utils",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "714cede764144cf2adcdec6645e0a200",
+      "parts": {
+        "asset": {
+          "bytes": 2401,
+          "sha256": "e4ba5edc6ff12fa8e858f43a6944e4dbc73a30eb5983467104f9f2f63517047a"
+        },
+        "asset.meta": {
+          "bytes": 340,
+          "sha256": "8d25a043e7a50c356f036642080f4eb8f3356472554c8dc24f0cc64722958cdd"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Effects/AbilityEffectComposite.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "71c74c12adfe4cf580320704ad022604",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "20c43eab45693e148c3539e1a87ca2f081abbb3212f8f1a9607d85705fa884d9"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Args",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "73ddc16b751845dab690825482c705e1",
+      "parts": {
+        "asset": {
+          "bytes": 1242,
+          "sha256": "8878ece031eaf3aa3609f06e309df523a05a95d14ea69596280b4e9e8bb83b22"
+        },
+        "asset.meta": {
+          "bytes": 353,
+          "sha256": "dd1a29ce395791f13ae188b7c0debf8d6d4f06da2ee90a187254395d30420ae7"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/DataStructures/PriorityQueue/IFixedSizePriorityQueue.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "74f1a6a807774229a85e4838d82e61f8",
+      "parts": {
+        "asset": {
+          "bytes": 1926,
+          "sha256": "896d0abc1a4d0494386f7b6369cbddefcabbeb4509d07db8d697e1d2d83d8e1b"
+        },
+        "asset.meta": {
+          "bytes": 346,
+          "sha256": "76d9565eec855d35d83845464bfcb4e656310d536610e9cb532b6d5b876d5487"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Projectiles/SpawnMethod/GetSpawnMethodSingle.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "75239f0042d243118615205e7da8aa09",
+      "parts": {
+        "asset": {
+          "bytes": 99747,
+          "sha256": "9dff5197f09efe8301fd287f3680c0b9e295d78d8575a6b29f8410d1039e4fff"
+        },
+        "asset.meta": {
+          "bytes": 319,
+          "sha256": "edae6b05f8bae955c0402d61e53dc75e77bdb81aad91db8295438b3a978b7572"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Icons/IconBrain.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "770b4baa72d2ab948908fe8d704a871d",
+      "parts": {
+        "asset": {
+          "bytes": 554,
+          "sha256": "b3db6c2f8d03dd0294bb0472104b1b2cd7f11dd885f09aa5f21bb3b98545aa10"
+        },
+        "asset.meta": {
+          "bytes": 401,
+          "sha256": "4b21f5a1827778ddc8f63e02dee3fa5535b1d22c534cb7f7c41612fd07c06040"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Daimahou.Runtime.Core.asmdef",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "7b178af431c741b5a247718b6c9069f4",
+      "parts": {
+        "asset": {
+          "bytes": 6771,
+          "sha256": "5e6440728f0bedd13b84035becd35a2b45c0d21e251d37831e12871aab54e837"
+        },
+        "asset.meta": {
+          "bytes": 343,
+          "sha256": "ac39d58fbb554068ae2bed9dd3c5b70eb2c5cd6f5e20f08c01ecef32471feda3"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Lists/Inspectors/NonSerializedListInspector.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "7b7a02c6663f44b0b0e5a0fa45f4ccae",
+      "parts": {
+        "asset": {
+          "bytes": 4335,
+          "sha256": "4dad87fedabc0cb1e63be8ea512cea4ff0b4cb9b1952d47dd8151ee3c0b8aad0"
+        },
+        "asset.meta": {
+          "bytes": 333,
+          "sha256": "4949cbe5835accb322fedf0bb8701aba6ef2488837b4c2532caa5bdaae9d5e26"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Lists/Manipulators/ElementDrop.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "7bff7e7ec8244be48a2b0f83d3639a58",
+      "parts": {
+        "asset": {
+          "bytes": 1300,
+          "sha256": "341dff5ff2dd4f5d125f9391db1d64c453e29b13df5ce4948a7da29f8dfe899d"
+        },
+        "asset.meta": {
+          "bytes": 328,
+          "sha256": "b7247047bade607dcb9e11f11a402a312834277c493b3289bc7361e1e64b8157"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Pawns/Drawers/PawnGenericItemDrawer.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "7c097c0f38d149ae9dc212338313821c",
+      "parts": {
+        "asset": {
+          "bytes": 4227,
+          "sha256": "e1f6075300f7d2d8fdc7900006d274749f6dd21ac2ce22631432aa4aac749de9"
+        },
+        "asset.meta": {
+          "bytes": 343,
+          "sha256": "40b88eaadf4df5737d5751e09573b2f59da910093ef1123d0ec116809b0e1308"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Projectiles/SpawnMethod/GetSpawnMethodArc.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "7c6ec734d017493d9988899caece2c3d",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "0f3e921c87806d45190a795733658829892fd441585ac359a6f739bf4e144868"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/Systems/Facing",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "7e8e372b74f3475ca0f27a2b8ea6d0e1",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "94f7d1c18a1dc4d34df710be5c9f9c155aa445c17adbe9a79644d83db22d55e5"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/StyleSheets",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "7eae5692ef1647d58f60776934b6aac3",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "bbbb50d90c4800f86fa7f5f846b367140888cdb56fe3830ea37635ce3fbb989e"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Async",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "7eb77c1a4974478ca22ac41cacdbcaf4",
+      "parts": {
+        "asset.meta": {
+          "bytes": 86,
+          "sha256": "a96d9d2ee82baa175c0c11dabf44d7aba26262d0bdce11993eaa829983895793"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Do",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "7f03296067a70ce46b6f75d5fb0c7f25",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "9a94974e920d1c34db5a2ac6240f80b319643db1a222ddbd2d70d649a6f10f51"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "7fa42f77ca0f42e9ac760402cb61d5f9",
+      "parts": {
+        "asset": {
+          "bytes": 2320,
+          "sha256": "7e3cf23d20983b510198a058cf00f978b34026b2f21f8f04596f8370e1cd8763"
+        },
+        "asset.meta": {
+          "bytes": 341,
+          "sha256": "3604364cf3a2695e165c6bab20c850d44490b8b4620e461043ab6081fe3be7ba"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Generics/Properties/Args/PropertyTypeArg.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "802544f7a10f4d58a08edb984888f9c0",
+      "parts": {
+        "asset": {
+          "bytes": 4824,
+          "sha256": "c0507b79d73f4752ecd5b089bc57641fb1302b4cfeb30aedb5dc0625282cc7e7"
+        },
+        "asset.meta": {
+          "bytes": 353,
+          "sha256": "0d57416c8b761b06040c1e6626aadb8dd02b1ced613a7df26ece9eaf50cd75c0"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Characters/ReactiveGestures/Editors/ReactiveGesturePlayer.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "805ee285f93b4a54a36fa45104b3d342",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "f9fb4bd233a9f660117534d3af11f8c3f954ed85cdd47bedc25261fe0d5c465e"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "806bb1f6e2a64b0fb1e44e8d17703b74",
+      "parts": {
+        "asset": {
+          "bytes": 3015,
+          "sha256": "9e27506f6a82fb297cba46f47f21cf926bb1cf9999b6b2963c25b6b905061c98"
+        },
+        "asset.meta": {
+          "bytes": 332,
+          "sha256": "2fa7d78200023d08166a5039a13301baaf1cbfa68ddaafb69a613cabe841fa80"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Controllers/Editors/ControllerInspector.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "80c9cc5c41a84bf183bf8bb59b7a9269",
+      "parts": {
+        "asset": {
+          "bytes": 2231,
+          "sha256": "3911bda7e0fe51e02d695356b02fda1ae22bdef5e48d606213080f28e113c7ce"
+        },
+        "asset.meta": {
+          "bytes": 346,
+          "sha256": "6b47b51c1cd4d84af75be5f90e1794776ebeb16dde05fc7d747a5352ee59465a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/ReactiveGestures/Notifications/TNotify.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "82fb5f6b77004d199f96aba34461e9b2",
+      "parts": {
+        "asset": {
+          "bytes": 606,
+          "sha256": "6d0283ca8edc85fd683612c5c02e66bb479231e7a293e1168395913713589147"
+        },
+        "asset.meta": {
+          "bytes": 340,
+          "sha256": "0a33fffcf9202b0abccdecf14652bf22a1f2673729fa16f80135e3b8948b1a78"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Projectiles/AbilitySource/AbiltySource.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "839410b1953bd234cbb28b7940103d52",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "1720f4cd2c145504b09587bdd0f59a7f2b2983a6e0ff237fbc14e2b0e1f19f82"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Examples/Abilities.Examples",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "83deccf809bef07468d57a15ead1c13a",
+      "parts": {
+        "asset": {
+          "bytes": 564,
+          "sha256": "7c9c41bdeb831518ed6f8b93cd93acd2f9c976edb5546ef12589d5b8258d74c1"
+        },
+        "asset.meta": {
+          "bytes": 411,
+          "sha256": "6fc7e0a270b5775e797397e4aa47e0fe90fe2b17b29fd9486a0d47d3288d5ce0"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Daimahou.Runtime.Abilities.asmdef",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "85d7f036c61873a4bbeae2d74d83551c",
+      "parts": {
+        "asset": {
+          "bytes": 24469,
+          "sha256": "4dea25dce8c434ea2726df8947706d4600692b3bd7a0a80c02b4d0b7761d4869"
+        },
+        "asset.meta": {
+          "bytes": 421,
+          "sha256": "cb801f12cd09dcb66a0979d0230baa124ce826d808c97743c8c7a4209425553f"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Characters/ReactiveGestures/Assets/Anim_Editor_Preview.prefab",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "8659230909e94d0b849868784ac6da73",
+      "parts": {
+        "asset": {
+          "bytes": 1507,
+          "sha256": "c17f2b3b6f1cd2ebc5a3371d3f2fb48dc43a3d2b28e2938a164e977d9d45e563"
+        },
+        "asset.meta": {
+          "bytes": 362,
+          "sha256": "2276ac38316a2ad99037685bb749c0c287e303528431581eed34816a15042d72"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/VisualScripting/Instructions/InstructionAbilitiesUnLearnSlot.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "86c4e226811945058c3b4727873459af",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "61cf24eb50ab9c46a5e7103dc69e450e8b110b349f7b703010b5bf2f439d6728"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "86d628f140dbd42c9a0fa872ffab83ba",
+      "parts": {
+        "asset": {
+          "bytes": 1217,
+          "sha256": "1ae94326b01dd627c9bce3428132cbb976d41519428941a1fe7458f12494f905"
+        },
+        "asset.meta": {
+          "bytes": 327,
+          "sha256": "62d65033bec496aa2fea9254cb192830f3c94ebf49b023eb4e6ee75b3712e57b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Settings/AbilitiesRepository.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "87976c7380554b088af85d681fbb92b1",
+      "parts": {
+        "asset": {
+          "bytes": 1641,
+          "sha256": "053260439a252a632fcc281602cd7b6f4ef2e79f0c627f4584ef21f74def6603"
+        },
+        "asset.meta": {
+          "bytes": 356,
+          "sha256": "87b29ed65dc41bdc36cbadf2e38973a2943c0955dec686a20dfa88ac57c43dbb"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/VisualScripting/Instructions/InstructionAbilitiesLearn.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "87e1bfb9ff414aebb5eff0bc12334ca7",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "b57b238d2fa922bedc2ae8e15ead7da646e00a16518095c4ca6b59bf3583e5a5"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns/Systems/Features",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "87ed60a94c9d43ebb58f78c3c9032a0b",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "269303322f0fa8dc6eef53b8c9cf937e3c08dde7fe5aa391da7a6e16f52070e3"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Pawns",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "88751453cb8e404c93571c5dbff86d8f",
+      "parts": {
+        "asset": {
+          "bytes": 4599,
+          "sha256": "3a84c48014b3c0258a1b537b411d6d95b776ba26c0f9afbccab3ae9219b98e0d"
+        },
+        "asset.meta": {
+          "bytes": 318,
+          "sha256": "ed52f92ffca4f75e8641f273ebd15b51925111e1f397d7aa010c92d80939f3f5"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns/Components/Pawn.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "889754f8beec4bd5bf9584e012764c99",
+      "parts": {
+        "asset": {
+          "bytes": 99800,
+          "sha256": "fb6f5e955936ef1c6c8b8c090cde337eb0a202c1d930b8a6acfedd0d2fda3157"
+        },
+        "asset.meta": {
+          "bytes": 323,
+          "sha256": "f58bceb0174c92844c6d116cd7b7d0090527f3d2580d7f0041a5cd569d37ea83"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Icons/IconStateMachine.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "89555aafbfed4629978ce976d1f133ba",
+      "parts": {
+        "asset": {
+          "bytes": 2424,
+          "sha256": "029f5a615edeb217a6fbc09bb231db5966ff3e90ee052c0f10b4303ce1426b01"
+        },
+        "asset.meta": {
+          "bytes": 345,
+          "sha256": "864f563661f85f9100320dcd54004a8b457ed65dc57ac7e09bc6187a607519ba"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Effects/AbilityEffectCompositeDelay.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "89937cf0f7534db2ad83080fe4fed334",
+      "parts": {
+        "asset": {
+          "bytes": 659,
+          "sha256": "51d513649e0566b589e53b95870262c1f8cfc5678b81c5c0ce01b3f66bdd62ea"
+        },
+        "asset.meta": {
+          "bytes": 317,
+          "sha256": "9552d51fdf5c6fad8bce489a29a81dba92705a447dc0c9539d5f2776f45e2e25"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Utils/UIUtils.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "8c5bd1cd876f473fb06cf1b57e7e8540",
+      "parts": {
+        "asset": {
+          "bytes": 672,
+          "sha256": "06f87b7b59770001bb7bcb2038fa3c5a014b86bd0309b06f37386750648fccbc"
+        },
+        "asset.meta": {
+          "bytes": 348,
+          "sha256": "aa69d61a89d2a82800cb047d7e6a189bd6211b24f8937dc9c740af9a61c84c62"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Projectiles/SpawnMethod/PropertyGetSpawnMethod.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "8dc0b02207e6426b989d156a0fc3769e",
+      "parts": {
+        "asset": {
+          "bytes": 677,
+          "sha256": "ce8068435468acac1549faafbf9e9bb3f26b32b8d116f68522ec4ad2bcd62a6e"
+        },
+        "asset.meta": {
+          "bytes": 322,
+          "sha256": "2dcbf025d1297d9e4acc373d8b4c6a9fbfa70921ad7afce9554fa5a8707d2965"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Utils/VectorHelper.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "8dedb9f77f8e420fa2f2b0538b72fc36",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "638de11104dee78886cfce28b8bacb7b08b0747861047a76ac801aa4f916221f"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/Properties/Types/Location",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "8f5e390e30524df3abdfdf71a3ff20bb",
+      "parts": {
+        "asset": {
+          "bytes": 21563,
+          "sha256": "ee1ae015bd53a2492c486d3137def44425ff05a988a32caf7add140a6b30f17b"
+        },
+        "asset.meta": {
+          "bytes": 349,
+          "sha256": "d4a8567107e733b87992d9be5746f1c85c1be0e6c0e6ff15c9c47f43ccefa40b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/DataStructures/PriorityQueue/StablePriorityQueue.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "8f7fddae606147eca851b8e7028d8aef",
+      "parts": {
+        "asset": {
+          "bytes": 2419,
+          "sha256": "dac18ae7952366649a8261d48dae3d89fd845169ab31d6987f1077c3748a51f0"
+        },
+        "asset.meta": {
+          "bytes": 337,
+          "sha256": "0b6c9dd27f6da3161207d5d21332743a3f3b23c027421f3bda5bb22d9a8e3a5a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Generics/Properties/Args/PropertyArg.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "910c914418d740d0a27b17545c768c62",
+      "parts": {
+        "asset": {
+          "bytes": 3904,
+          "sha256": "67412a8fe5eea9fb24004c41a14141d976902edc519bf0005a96bd4c00e39dd7"
+        },
+        "asset.meta": {
+          "bytes": 327,
+          "sha256": "c0823bd03290d8add8112e104e56dbadce6cefee9462bf59d89d7b6cc7dfdf0f"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns/Systems/Features/Feature.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "91b7a0da48054d5eadcdc943130ab6e1",
+      "parts": {
+        "asset": {
+          "bytes": 2438,
+          "sha256": "51417e5e2ac8a1714f5b3b1f87223ab7cb67c28911e77b34b7840b45877e152e"
+        },
+        "asset.meta": {
+          "bytes": 354,
+          "sha256": "d8fedd126532cc7b37b16e8b07231ba8be9fb6b0dd8ecd685d5de6794c7ee445"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/ReactiveGestures/Notifications/Types/NotifySFX.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "93227f895a634e8c87496c181657eecc",
+      "parts": {
+        "asset": {
+          "bytes": 2984,
+          "sha256": "f021466768bbf448f054b6629c1b3954a653857614f95839c7224a182e880d2a"
+        },
+        "asset.meta": {
+          "bytes": 365,
+          "sha256": "bf56f009e70c38ee4c614ca9369d8cd77c738e9da228de8543e634bdc8fab0df"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Instructions/InstructionCharacterPlayReactiveGesture.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "93ba44f6c8b64578844d9fd543346831",
+      "parts": {
+        "asset": {
+          "bytes": 7041,
+          "sha256": "21a77b7a4890be6450ea8c6f17e7a1e39db611898a66357e4b7b39179e6a21fc"
+        },
+        "asset.meta": {
+          "bytes": 318,
+          "sha256": "6c5ffff490bfa40007175178f6c89b7b00232ba5de804da82768e218cf532afe"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/UI/AbilitySlotUI.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "947d769874e8453888966cce7d8273f2",
+      "parts": {
+        "asset": {
+          "bytes": 4743,
+          "sha256": "018859e3b4856dd4501eedbc274f70e10fa72978ed0c42a3a3492d38d890903b"
+        },
+        "asset.meta": {
+          "bytes": 319,
+          "sha256": "58d78a8f19db0dcdef6a043d8072e27c8970785be7350fe502ab4ffdd264c14b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns/States/MoveState.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "948e76323c3b487dafe2683c678c52b9",
+      "parts": {
+        "asset": {
+          "bytes": 2794,
+          "sha256": "803e38ef73c8485f409beeb4e2c8eb80766fb610b511a2d180835e3451208666"
+        },
+        "asset.meta": {
+          "bytes": 351,
+          "sha256": "81fc03cbb00802598be5db4a01fafa506d83e7b8cad5d83d0f1a71d5098781f7"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Effects/AbilityEffectCompositeConditional.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "94cdf16d03fa4e6794b78783c8f11177",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "9ca944f0d5a013ad20bfb532d7c0ee2cc4879d5c5dc5bc3653781512750b2b53"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Pawns",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "94d6715bc18c4f5296b04b11f776450b",
+      "parts": {
+        "asset": {
+          "bytes": 1925,
+          "sha256": "48fce1aeb47db32e54a00ec624f6875f7b7d8bad5c71357fd73d6e59535e69f9"
+        },
+        "asset.meta": {
+          "bytes": 361,
+          "sha256": "9b415cdc49741aacdcbc4faa5a4eafdfbe18690874d40f329a06930287c417eb"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Get/GameObjects/GetGameObjectInParent.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "95ba69a3d6434d26a71a373d56068633",
+      "parts": {
+        "asset": {
+          "bytes": 3166,
+          "sha256": "7eaba5d8ddfc261d7736ee62da7db60a908d8011854530455150be39a7e9513f"
+        },
+        "asset.meta": {
+          "bytes": 351,
+          "sha256": "4833db83b17c8239e74cd6245582ee6de877e95c30dda6615f07d11362b3f211"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Requirements/AbilityRequirementConditions.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "96484ad6728f45188c4c6c2283627b00",
+      "parts": {
+        "asset": {
+          "bytes": 1279,
+          "sha256": "3ab9e4e4dc6056eb63c3aaebdee4e3d6c64111870072cf812fb998389d3df829"
+        },
+        "asset.meta": {
+          "bytes": 347,
+          "sha256": "36aa7d9e901eba93e0429f36558321ed8d1aaec4601b36829e8f30eb967655c5"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/VisualScripting/Properties/GetAbilityFromSlot.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "97164b24b68744dd9f405827c3efafdf",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "3fb259fefdfb09e8f2146af254463c88380aeca2b7467144d8c41713665b02a0"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/DataStructures",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "972066a4d199491ab0b78436d94834d6",
+      "parts": {
+        "asset": {
+          "bytes": 904,
+          "sha256": "a41f9277f43e807f4fa153ba4af556872d03908406ac5126fc9d9867ebd455bc"
+        },
+        "asset.meta": {
+          "bytes": 331,
+          "sha256": "16dedbef8e31374952a6743474d342ca8adbda37e9ae8416ac3b2ad4a60bbac3"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Filters/AbilityFilterTag.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "97281cfb4bcf4b1a88fada19fdcc80c7",
+      "parts": {
+        "asset": {
+          "bytes": 2137,
+          "sha256": "2b9f270c26fbf45029c9d158941212fdec45cde8a1aad99ce46516065d9f9349"
+        },
+        "asset.meta": {
+          "bytes": 335,
+          "sha256": "3750f2da7e522c32b209de0669b6f03c3658968ca4800b17bae59de727775684"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Filters/AbilityFilterSelf.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "9885fcb02f07f4947a17e210405a1062",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "93705baf3b1091f7d8f6180ee4974ca1c18e34e1b8f43805ac49473183903974"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "98e046d33cb444259ff6187cb42c4f34",
+      "parts": {
+        "asset": {
+          "bytes": 1790,
+          "sha256": "194a59a2e5e93f9bd81bb085b214ef3563ac8352a6bc4e35054ee4004b9d2414"
+        },
+        "asset.meta": {
+          "bytes": 323,
+          "sha256": "0aedac5256b717aa11402fce1356cbb032af3ba5d56e8e1d8b43ab2fa307abfe"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/UI/AbilitySlotUIEditor.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "99ae54b72ed3413cb565657d46534145",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "2a747d8beb4d339cf1630334349b2066970ecdc5afb35ecd374a0962a4206dcb"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Pawns/Editors",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "9aa9cc8e63f948159a51ee3e35697684",
+      "parts": {
+        "asset": {
+          "bytes": 9656,
+          "sha256": "2bea0c0daba0e9369f31c79e9478117e470a779437e00e8896476a0a502b55db"
+        },
+        "asset.meta": {
+          "bytes": 731,
+          "sha256": "9b0030d936a951bad74dfe0bb7ba7cc65c59a8ae00b3cecaa72f75c3ca455689"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Characters/ReactiveGestures/Editors/ReactiveGestureEditor.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "9c6b3ab44f934ec392f8817918a2fd7a",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "fee6703bb6e516fd3e56a2bfe267e89d0eb83cc19fd8b1f6f48b9cc4356cd2bd"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Notifications",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "9c8387505ac2d1c4ebac108cd3d93dba",
+      "parts": {
+        "asset": {
+          "bytes": 3416,
+          "sha256": "d07625d4bc4057f9732b1a53ead5d4eebec172565160599b7544f5626f61f884"
+        },
+        "asset.meta": {
+          "bytes": 322,
+          "sha256": "071502c0346b9696d7c1fc51e8d4dafbdb04d7c578bf124d586d4e695c48be26"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Utils/InputDropdown.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "9da903b624b14da8aada7d96208cdad8",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "a35b614b02bf14fcef4f3e4a5b7c22d2ec7f635f066867ad67e687f4da474a40"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Lists",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "9eae939d54247cd429fc7df8efe263db",
+      "parts": {
+        "asset": {
+          "bytes": 70128,
+          "sha256": "3bee3381a194f819fec6f42359546e6017f197005d8e377ca16ba907f8ca9498"
+        },
+        "asset.meta": {
+          "bytes": 407,
+          "sha256": "ddd9de9346c7cc6b7926312e2341775cab5e767b16bdf606538943feb1d75807"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Examples/Abilities.Examples/package.unitypackage",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "9fcfea93750f4ec98c120d133321e4a4",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "10b8f75600d313f4063b92abbb8c01d74dd1a2141f252c318cbad558dd15dca6"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Interactions/Components",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "a02f4a1b62a2e4548b27dc700592bfca",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "c761c6215b3f304feab84969cf00ba923117854b527a6088bce187d8dcb172cd"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "a0728f2ae18514880a89baca12d473ad",
+      "parts": {
+        "asset.meta": {
+          "bytes": 180,
+          "sha256": "6af482dae99f06a9de81e93fdb53b691464a7e86b88bbd2d91a9108a555ca05f"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Drawers/Settings",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "a0ad52b62b634d7e9cc83b906ccaa404",
+      "parts": {
+        "asset": {
+          "bytes": 1697,
+          "sha256": "adf005165f0785861dee4f4b03c69ac5720c810bbb2619ad11d8779af50cc9b4"
+        },
+        "asset.meta": {
+          "bytes": 325,
+          "sha256": "60b53f6dd3c606d8fab139ab4d6362f651653f1f082d39598c3dca3f06859eab"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/StyleSheets/List-Foot.uss",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "a0d8be9289cb4fbca74fa10cae571250",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "cc891946de6eb29bca4fa3c8ad6bfcd90b19c711f01ffd761539c74383a72f6b"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Characters",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "a21a636e9e53400b9105d9266be5a05b",
+      "parts": {
+        "asset": {
+          "bytes": 907,
+          "sha256": "04fed7dbb3f65f2ae81bbd022a60ad7c402618bca034b9569bb0f965ca5005bc"
+        },
+        "asset.meta": {
+          "bytes": 360,
+          "sha256": "1b22a874e723ac33a6cb541cbbb4a02efe79e9b03583cb4c283e1894a69de738"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Get/Direction/GetDirectionWithOffset.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "a3e5a307e71c40c49bd9b3a848a719c9",
+      "parts": {
+        "asset": {
+          "bytes": 887,
+          "sha256": "df54ed8627736ca739ea04f6240e87e6863d590a81d3c0cf232880393eff21ac"
+        },
+        "asset.meta": {
+          "bytes": 365,
+          "sha256": "7d928e82674cebfac75df9dd87edb220a1b0f54ab8918f0c9703cbfc276d54aa"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Get/Direction/GetDirectionTowardsPosition.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "a472d51f80424755bfcd548bb1a989a8",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "9153e1d8d56a89884b04934fc10c99d2d8762a0ec25bfec9da38dac019e7c611"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Icons",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "a4db14aba654447eb2c29109b25e3dd6",
+      "parts": {
+        "asset": {
+          "bytes": 3424,
+          "sha256": "fd1992e2a09b21fb1087034d1103129a495d0a948cd60d3b02842db77828f832"
+        },
+        "asset.meta": {
+          "bytes": 341,
+          "sha256": "1e258dd189c82890f654d04211af27b92825b45abe0af2e67c69fc4a09802f70"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/VisualScripting/Events/EventAbilityCast.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "a4f94a4c0e4f4bdeaaa372c921c2665b",
+      "parts": {
+        "asset": {
+          "bytes": 2474,
+          "sha256": "5abf32a8fc2518198c878f7d41c9727e35d27e1c564c71a6140b3a3a2f164560"
+        },
+        "asset.meta": {
+          "bytes": 317,
+          "sha256": "5cbba4d21a299e5d2178f0eabc4ab7924b2bed37c719165ba223bca0c5addb73"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Infos/InfoMessage.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "a521180c3ecb446593d6e98f39a2d3d1",
+      "parts": {
+        "asset": {
+          "bytes": 2248,
+          "sha256": "f5b9903de17c162bb0eb175e8aadfd8b75d6cd7443de3a5beafc63470237620d"
+        },
+        "asset.meta": {
+          "bytes": 338,
+          "sha256": "83650a5d5e20fd3beecc4901e82895b760d8110cb3edc94f0d5e6baf0aca1e1b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Filters/AbilityFilterFaction.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "a6232323252c49598f772a34bba74c38",
+      "parts": {
+        "asset": {
+          "bytes": 3752,
+          "sha256": "bcf9fa81572efb590edea1481da2460d5215940cd2be23b2112ee63ad2d06847"
+        },
+        "asset.meta": {
+          "bytes": 3422,
+          "sha256": "3c665d0a9a46dc7fe0b15585e1b8800146eab271787183c57a794cce7148d398"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Gizmos/GizmoTargetArea.png",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "a63deb11979e461990dd97fb7c22ed36",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "291480480be460b3463af38ddb8717f54276465013a3f37b082a4657f250fac3"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Args/Types",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "a6be63bb2b7340c09525b9da91c99703",
+      "parts": {
+        "asset": {
+          "bytes": 4551,
+          "sha256": "5711fb5c617bb21aacb9f8b43f93c06e0185efdb19591ba85fe598ed5193c9ac"
+        },
+        "asset.meta": {
+          "bytes": 319,
+          "sha256": "5c3042e1983420625cc9658eaf9721702474fb4eb4d0065a541d563bb83befc0"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Utils/FeatureCache.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "a6bf622b531d492d8ef15cdf8f999987",
+      "parts": {
+        "asset": {
+          "bytes": 3902,
+          "sha256": "48f9f8de29b337cee9496399ab814c798507e4a8296dd7923899b5abf7381dcb"
+        },
+        "asset.meta": {
+          "bytes": 3419,
+          "sha256": "825c86d9e8cef1d3cb4fdc5b1f90667332f75e7ab7e523eb7ed75db36b22e16f"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Gizmos/GizmoAbility.png",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "a6e937308989c4e469bd65315dc02f70",
+      "parts": {
+        "asset": {
+          "bytes": 1596,
+          "sha256": "acfc8d88c31f42652801550f709fb1e6d25e6c7a37aff19fd9465704afe3e2f8"
+        },
+        "asset.meta": {
+          "bytes": 337,
+          "sha256": "b221081188b8fad3b14d5858ad1678f68d2d6cd75b5f22c089204a4b54752a4a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Settings/Classes/AbilitiesCatalogue.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "a8502678da1c4085bc6725751463cecb",
+      "parts": {
+        "asset": {
+          "bytes": 321,
+          "sha256": "63a21a17a771aa18e536e2b6f3408d4c93bac55c0727f11712f1501d02ff787d"
+        },
+        "asset.meta": {
+          "bytes": 351,
+          "sha256": "02e3535b3c4b25b4b1dbcd6af0a7fbd5c6cdccd8d739c5e12064a8d333a68684"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/VisualScripting/Properties/PropertyTypeGetAbility.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "a8ebde679b5f461fb5fb4ea2a5cee10d",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "04df7f6a8247e764f01bf461b1729f5f7aef70e62c5b9270357fb6f43dbf45d5"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Interactions",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ab46a3101a1a4670a38e9f9eea2a62d1",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "39d5d2e46611b3c898c14392015fd4aa3f03c687ba3f25c8c7a46d9471152a74"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Characters/ReactiveGestures",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "aba320b9c3bc4b5abb3ba7ec8475ceea",
+      "parts": {
+        "asset": {
+          "bytes": 1169,
+          "sha256": "99ccf7f61c993405cf5559b2ad6f0fbfb6ec793f5bf3d8b4d401a636cf862e1d"
+        },
+        "asset.meta": {
+          "bytes": 363,
+          "sha256": "119d378a01c02ed3061a58698b94acb76fa1ae5a68786844e86f20eaa0938c45"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Get/Direction/GetDirectionTowardsTarget.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "abcc87fe6eea4b5cbb7626a2ffac9233",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "9f132ca95a289fda4a4ff8222e96701157d2ed6dde12fefbe2d3664e9509522b"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/VisualScripting",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ac676cdfc74149229b18d62c74e70df0",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "be4cc1114c078e4e63f82d541a8c29619098265f30cf9ff8801123be5028e530"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Controllers/Inspectors",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ad455d201e114bdbb8d711ef73210c8c",
+      "parts": {
+        "asset": {
+          "bytes": 99158,
+          "sha256": "82465066899c462beae62ce7a62489adfe05b45259d6b37e99c9fa17755ea366"
+        },
+        "asset.meta": {
+          "bytes": 321,
+          "sha256": "b4bdac1e9fcf1888cbe24e1abde6e2a67746e9cdf71b839d44becb018f249f9a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Icons/IconExplosion.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ae4180b9e3dc46818efee01c2a5ab8fa",
+      "parts": {
+        "asset": {
+          "bytes": 5392,
+          "sha256": "cde200d39d83ad91b175f1394baf4ad06c0884eab32070db07c7b6dcb8439b84"
+        },
+        "asset.meta": {
+          "bytes": 347,
+          "sha256": "961bfe393a033acfef5c4de19284c2843beb6b8f83f81cbde72690d26b784069"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Activators/AbilityActivatorChannelled.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "af61f878156f4451ba684301d1af5b64",
+      "parts": {
+        "asset": {
+          "bytes": 6456,
+          "sha256": "77eb39537dad2d1385bd8b632ce3cc9b5b628826115f97ff2a55f9efa26ab775"
+        },
+        "asset.meta": {
+          "bytes": 338,
+          "sha256": "97666f139f5d3dff991af1e0a7b99535e6bf5416c82f5d5c9a6f72b76fd09d05"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Generics/NonSerializedGenericInspector.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "af636cdb4ecf47909bde70d1269f471b",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "7c5c74283c19042390fb6e2e2942f8bdd63d0a9ac9097428cc57071e01317c96"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Controllers",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "b075e41d9cd194e2bb17a7511f777788",
+      "parts": {
+        "asset": {
+          "bytes": 1393,
+          "sha256": "513b67f9f73dc95b2d83e891ce83e7ba7ab56b3ef1440fedf06d1a65c9b9ee35"
+        },
+        "asset.meta": {
+          "bytes": 325,
+          "sha256": "04bc1c3e312f16b4260de206729b8b22dec197e79d89ffcbc650aecf0d4cfe28"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Settings/AbilitiesSettings.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "b19922d21c7e4ea58b9d733d8208daad",
+      "parts": {
+        "asset": {
+          "bytes": 877,
+          "sha256": "34e537ef5dae8dc73062ff13860c7c3ac581dfc010389d515f63070a42a08cde"
+        },
+        "asset.meta": {
+          "bytes": 354,
+          "sha256": "89c3b16b77d38695084ac9bd870b3f2efe2b5ee84bbe844061c172d124adc85b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/DataStructures/PriorityQueue/GenericPriorityQueueNode.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "b1a20a6abd4d4fd0ab365ea3fe92b3da",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "6e634e5f161a933b9b561dc586ea7cb68f762e524ba46cc8913071e8c2077cfd"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns/Features",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "b2437c91386e48afa35b7ab05e9a4626",
+      "parts": {
+        "asset": {
+          "bytes": 3416,
+          "sha256": "23b7606fe4501064bee020691d70e5d056711320270e62bae09d7122b27f457f"
+        },
+        "asset.meta": {
+          "bytes": 554,
+          "sha256": "cf3c71678984598468b5e4978c1cbece287cea972f07a5e55ce217e578c1d9d9"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/ReactiveGestures/Assets/ReactiveGesture.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "b3ccfaf8a86a45488e3a0a326b75bbfe",
+      "parts": {
+        "asset": {
+          "bytes": 2190,
+          "sha256": "5781ebf933039a7be827ef1c4efa72d7d0dd0737ba5307bbe40a5606fe8734c2"
+        },
+        "asset.meta": {
+          "bytes": 339,
+          "sha256": "339792177458aaee91bbf99883f6e987af33689f89bbd57a647e150c431ad3f2"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Notifications/NotifyAbilityCompletion.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "b4fdb0fefeec4ccabd7b975418bd6f9a",
+      "parts": {
+        "asset": {
+          "bytes": 21431,
+          "sha256": "9f23a0f5acc0e39d610860b347eb7d3b6627de217179bf3b26f68d643fc41ea7"
+        },
+        "asset.meta": {
+          "bytes": 347,
+          "sha256": "2d66fb456af273f0bda1483cdc6660fdc9b61f4a0888e130abe59fe28d0574a5"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/DataStructures/PriorityQueue/FastPriorityQueue.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "b583ac793bd94e5aa3f26b01db889f44",
+      "parts": {
+        "asset": {
+          "bytes": 153,
+          "sha256": "44766aea77ae56193ce7d7c4d262bafe6e4ec98aac4fa50ca1ec75dfba91a3ca"
+        },
+        "asset.meta": {
+          "bytes": 320,
+          "sha256": "a73839bd348587a90a078d53b9d2d38762a432a578bc652fdb3cf3360b46f723"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Generics/GenericItem.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "b6fbe40e04ea48d1aedb572847e47665",
+      "parts": {
+        "asset": {
+          "bytes": 3659,
+          "sha256": "77f3e9f0fdbf4ea75ed20d53b3306677993b24ad0cdf17fd3905a11740cf26b7"
+        },
+        "asset.meta": {
+          "bytes": 331,
+          "sha256": "abdde7cfe24f22c62fef31c66e0f61ff65101ed4a82b55f0d2744dd0c48e9032"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Controllers/Drawers/InputMappingDrawer.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "b7b790faefa16924c9643c1a29aa64fa",
+      "parts": {
+        "asset": {
+          "bytes": 651,
+          "sha256": "96facd5e9c5574c27d852c6920a47c60f934c4f291d18481bf4168793020ca18"
+        },
+        "asset.meta": {
+          "bytes": 481,
+          "sha256": "151f6a8b53e4dcc9e14a2ef5a43dae60a4fe3ae44549e347cf01f35db3c0e726"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Async/AwaitExtensions.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "b8ff915fb97d47c29b83193a15e96f0f",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "9c5f61456ff4fbdc8ca1cd115ba7c85aae5a307c36edfc2c0a36e7f0a96a1a57"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Pawns/Features",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ba758ad5ed8c4a238d577e2214e8ee46",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "3ba632026f4fd48c8af5d8c104ade8d08bcd9ec0984b1d88146076ddb556cfb4"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/ReactiveGestures/Notifications",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ba7e0c72f12b4b72b1ea02607f948ddf",
+      "parts": {
+        "asset": {
+          "bytes": 2801,
+          "sha256": "7864626e9c9b2d4ab8c51111d0e302e38a53538708eea9559c93a01e93acc485"
+        },
+        "asset.meta": {
+          "bytes": 330,
+          "sha256": "5ca0f037fbbfa7dd2ab1dc6a436e43de930b2e1229596c7c0cd3e523bdfabb47"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/Utils/CharacterExtensions.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "bacbb55898c94b8ba8ccd1a4f73244ca",
+      "parts": {
+        "asset": {
+          "bytes": 2710,
+          "sha256": "0677d444a3d86a64522429e68862ab82bd3d0c85ac5db57c05a578ce7529267b"
+        },
+        "asset.meta": {
+          "bytes": 343,
+          "sha256": "2b27973c171858329f881a643051f957dcab5867726033d03c6031838ddefd42"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Args/ArgTargetLocation.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "bb48607cbcbb32a4ca6138c321c03481",
+      "parts": {
+        "asset": {
+          "bytes": 2067,
+          "sha256": "ad89848259d36d9b4a53a0f065f51ae1286caf030447496c62bfd34d4b7f81e9"
+        },
+        "asset.meta": {
+          "bytes": 3421,
+          "sha256": "8be6531c1431d4572dbb54ac9cac6fecfabf592afa531df27164180cce1d0a1c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Gizmos/GizmoInteraction.png",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "bc9dda9ac3914541834e3cb605e9f2f2",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "9d8416e0c1769eddef4624e04b57f65859058c83b8c8d163e0526c70b62bf82e"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/Utils",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "bca5209ca04841e48d513e518af70503",
+      "parts": {
+        "asset": {
+          "bytes": 99166,
+          "sha256": "4fe9b21d10450c24329f648a6fe8741bc9df2f79960ff5edc859de6682b692f5"
+        },
+        "asset.meta": {
+          "bytes": 319,
+          "sha256": "fa69a08977c0072eb28cb9193cd3b1ea480ee6ca9be22596571f1646e59f5eec"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Icons/IconAbility.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "bd5d3a1e6f7544a0b7bf40c16600cc84",
+      "parts": {
+        "asset": {
+          "bytes": 99172,
+          "sha256": "9601ad57c1c51e4ff60a4c965e19044fd0cbe0b9172ccb7888e66cecde13958d"
+        },
+        "asset.meta": {
+          "bytes": 321,
+          "sha256": "ad9bae97f3a1bb7b9c3a9ddf4ea7eca978270935af67a0c7846d8199713013bd"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Icons/IconAimTarget.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "bea70deec3df4affb02fd9f67e7ab9d3",
+      "parts": {
+        "asset": {
+          "bytes": 317,
+          "sha256": "bb4c1e7aacc7a70db1a47c4b8fdd91f5fddf046ce613ff45fd0c87b972827e33"
+        },
+        "asset.meta": {
+          "bytes": 342,
+          "sha256": "ce3016ef56b58fe52851262f3a5460058adc02bc8f090b69b5ab403782e3e6f4"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Do/TPropertyTypeDo.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "beaf13cc3ce020340893f58b9acc552d",
+      "parts": {
+        "asset": {
+          "bytes": 6683,
+          "sha256": "250e58cce7db9128ae2fe1baa7932e2d485736ffe1d35afaf5e2d0fe4fd16185"
+        },
+        "asset.meta": {
+          "bytes": 3059,
+          "sha256": "523aff538d3d5ef0daeee5639872376d3697f68626744815f2f19da5192cf801"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Gizmos/GizmoReactiveGesture.png",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "bfc4645e7eee00741b889738ea87e397",
+      "parts": {
+        "asset": {
+          "bytes": 3546,
+          "sha256": "f3b081fa175c4f31f698868c95aad8b8d773a0d519efd0dc28dd4e856553a1f6"
+        },
+        "asset.meta": {
+          "bytes": 3059,
+          "sha256": "aed4c6c09e12b260bfeed918f7366721b2897cef30be516de0f143182cf55531"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Gizmos/GizmoExplosion.png",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "bfcfc8ee03e8487dbc31da4a973fcdf1",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "6da3e86207f7071f7e990b97064156d063b3e20a6edb03122a80ad226479f026"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Drawers",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "c19cad74a8584bb4993affda8ceeb483",
+      "parts": {
+        "asset": {
+          "bytes": 7922,
+          "sha256": "d9f89f7f09fe211ad72af0a2b2d84ffee673a09f0e9ddc0cc1d90aba806fd0ba"
+        },
+        "asset.meta": {
+          "bytes": 330,
+          "sha256": "b6617c44922ca93457f52169096dbed48549a5154bae9888a289c69608e15c23"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Components/RuntimeProjectile.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "c1ecc4c8115a4ac190fec1bf9da9a225",
+      "parts": {
+        "asset": {
+          "bytes": 2106,
+          "sha256": "3098620f35df0a5cf230f99cf6470d444ed2602ffdf39c7f39dd537563288d53"
+        },
+        "asset.meta": {
+          "bytes": 341,
+          "sha256": "a1376c244fe68e52a9ed7559d1ff3bac9991bc38f53d88f47232008777584d7a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Filters/AbilityFilterProjectile.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "c24e5c8cb4e8480d83e955de5cd417e7",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "f8f7e70104ea8cfa1c44d44ddce564dcc2c78cd9f313a3798ecbad5ad099a4c0"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/Properties/Types",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "c2b8479f4d2042da9673c60b3e447193",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "acd42264753d82791da695c0c92c2493d0204cb4ae102b58dad3ec8105dd611e"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Interactions",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "c2c402d6941550d4fbe94928d5126742",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "2350f81dcf6e7fa47a440eb8f6275d924dd3d0351d8f93b62bc803837996e3a6"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Utils",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "c2c7f9d5cf1796645915f176fd435b6b",
+      "parts": {
+        "asset": {
+          "bytes": 575,
+          "sha256": "bb8d7827ddfa12eaae644e7b2bc4eb159287335242b331c95a5105e88cb2f0b2"
+        },
+        "asset.meta": {
+          "bytes": 399,
+          "sha256": "273d50bcb61143bcbb64cf59bf7b95c9872a8964d63342da5ef27d31ed509302"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Daimahou.Editor.Core.asmdef",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "c3a17aad6e0445cea13b9e36b715aad1",
+      "parts": {
+        "asset": {
+          "bytes": 3546,
+          "sha256": "f3b081fa175c4f31f698868c95aad8b8d773a0d519efd0dc28dd4e856553a1f6"
+        },
+        "asset.meta": {
+          "bytes": 3421,
+          "sha256": "165cbc42ac9aba5f27b6d7fab7b46c9e2306e88e6426b070df151e6caeec55b0"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Gizmos/GizmoExplosion.png",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "c3f28a3557be4d3fba4168a6a3a8794d",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "c304db67142c210cb822bbb072d6eb30b3eeb17738363744b29fc0e810e6d687"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Projectiles",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "c435fa4d29f9e774fa083a7010b5d3df",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "419a25b53feae01b2f3fdea1f0c8ca703aa7e8cef7f0ec50f3fc277d27000905"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Components",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "c489821070eb48f19aa0b128f0110a5a",
+      "parts": {
+        "asset": {
+          "bytes": 22161,
+          "sha256": "fe6e50a32f78a47877faba6b30fa0e8526f8e2adcfbd108294c41b331c492b86"
+        },
+        "asset.meta": {
+          "bytes": 349,
+          "sha256": "af0e737605272f0bb91abcb1de4fd710e653c696c98c969db13fbc3f3a987a88"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/DataStructures/PriorityQueue/SimplePriorityQueue.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "c4d07170166642d58e3fe61da77ef5dd",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "2284b58ce209606b1a7175a7a9e1f8d8d345d1e1e7de3d7f09dfdf0613fc93d9"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/FSM",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "c524570fa2c94c21a44942d01b6e3075",
+      "parts": {
+        "asset": {
+          "bytes": 3283,
+          "sha256": "da914e7ff50ffc606887b4f4cd95c68d518f5a9008b209b02d3768dbb0b73c0e"
+        },
+        "asset.meta": {
+          "bytes": 340,
+          "sha256": "ea13c353d7906c46ec1bd9fb286d6d14e92a8ec36cf7b67ac70dde8452fc125c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Lists/Manipulators/ElementManipulator.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "c569128438db47ea97dc0c98c691f4d2",
+      "parts": {
+        "asset": {
+          "bytes": 2444,
+          "sha256": "29d4715eabd74f80c508dcce21042bbbc43990a45582281bddec720abf75c125"
+        },
+        "asset.meta": {
+          "bytes": 343,
+          "sha256": "a675da770c5adffbe78aab9c450662564fed5dbd43e17409af99859a217b401e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Effects/AbilityEffectInstructions.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "c708b410f6f24d6b807c5c21af8836e5",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "a187bdadeb63b4fab7f7af0cd1f044d57f0b50ef7a637c2efc4a3f291d9955e0"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Paths",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "c73c23be2b834cee9874f5f40250d5c3",
+      "parts": {
+        "asset": {
+          "bytes": 543,
+          "sha256": "c7aa34da3f83df3adf26102e24768ffa243e23ca2492ce42beea858ba3b487e6"
+        },
+        "asset.meta": {
+          "bytes": 322,
+          "sha256": "dfc8fe04864dc021134120ffccd027f535c0c5a4ba11b2867411d7924a4d33ab"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns/States/DefaultState.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "c9e9d5037ac131049976f7fe37da64de",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "4dfb866388c7a1e2bdadb96c8f9bd1ae00bbe77d8d5a728b44eb9ac2cb402c20"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ca22d52d65bd46fd8a8325e503d83e2d",
+      "parts": {
+        "asset": {
+          "bytes": 3474,
+          "sha256": "e64595b9c5f58a2aab34714e13fba14cb4ec046d1845c7647699ca7ce1a0b55c"
+        },
+        "asset.meta": {
+          "bytes": 337,
+          "sha256": "0f8fe0cd942fb839f131ddba88f1293ab4c1303c524656290f90321ddab4c002"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Lists/Inspectors/GenericListInspector.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ca4c468beb52415ebb544decafc033c7",
+      "parts": {
+        "asset.meta": {
+          "bytes": 86,
+          "sha256": "4a3971266016f577939d9d14f2ae13634ed170e8305889d531dbd705c2abdb76"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/VisualScripting/Properties",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "cc542ff686054203b0eab0e79e190519",
+      "parts": {
+        "asset": {
+          "bytes": 565,
+          "sha256": "f2dfb19d23bf442fbef3ee3c736b638fa98cda4f4e4bdad6738eff9d4f5518ef"
+        },
+        "asset.meta": {
+          "bytes": 324,
+          "sha256": "1a88fe0ceee97cd235129ca175113c33da71a51b41ed8cd3c19905d44e0314f1"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Editors/IndicatorInspector.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "cc94436e20fa4bf7ad2a8f49a6c90fb8",
+      "parts": {
+        "asset": {
+          "bytes": 3113,
+          "sha256": "de5d6bff99d9d54dae917382a86bcc770bd10f9098d14e9a1ef8dc5edfd3ada4"
+        },
+        "asset.meta": {
+          "bytes": 326,
+          "sha256": "59089e17721179641dc8aae04dcdae4c9775d1eb7163ebe7216761603c35ab2f"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Pawns/Features/Cooldowns.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ccda781b014b88d49b1bc9d6486068c0",
+      "parts": {
+        "asset": {
+          "bytes": 352,
+          "sha256": "5867a4b1b38dd39f5452ee92259d25e4ededfe952d242e0fd002469464d9b539"
+        },
+        "asset.meta": {
+          "bytes": 489,
+          "sha256": "d62ce33077a947f2d772d94a38a91f912edd704a83fe913c98b3468ad028a3f7"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Async/WaitForBackgroundThread.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "cd21b18a886847e0b6a8c6b35d24192a",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "e6fefa0569ba2d351fc95a1a7b3f080f80305ce256bccc117a57ea2eabe40d5d"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Gizmos",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ce20c8ae5eb34a12b5d0f83b4953fe52",
+      "parts": {
+        "asset": {
+          "bytes": 288,
+          "sha256": "ff012a71c95df95a8bea17b9688c5c958d03f5375d0d6c2ac9f40b241b5ec9ef"
+        },
+        "asset.meta": {
+          "bytes": 338,
+          "sha256": "7de3f55d6f7ba7bc34701d6cefa03ac18b7d72e0d528af6dfad785e708dd398a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Do/TPropertyDo.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "cf1257cc4e724b009594996e52299eac",
+      "parts": {
+        "asset": {
+          "bytes": 2554,
+          "sha256": "c832f90e6d440d37a87426d76c857226cb4b94e3f7916c5d02f9404d34539c50"
+        },
+        "asset.meta": {
+          "bytes": 351,
+          "sha256": "bee057a67598496bea50949ee622310af27391df0b4bc1c096662aae695242ea"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Instructions/InstructionPawnChangeFaction.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "d0355b3e584b4940a70920f23e52eeae",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "b742bdd88f14e0a26f61b74fd18173c6d489cdb834b6bca37db1ac959c5fdc9d"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns/Systems/States",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "d0454b8f6d666234cb7591c0f3034022",
+      "parts": {
+        "asset": {
+          "bytes": 728,
+          "sha256": "5c9fe7275311a47db5bf3a485b1fd1318672c0dba6725cc519006421c806936f"
+        },
+        "asset.meta": {
+          "bytes": 495,
+          "sha256": "1bacacb359c51aed18cf997853fb3ab9056e566b08fad173f6611f6cb74560ad"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Async/Internal/AsyncCoroutineRunner.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "d09bf5f94a64484c8d09123c788d8032",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "1fc3b003a731e65609b034d95b937b384c4c4ee2491b779d8bb287659bfaa6ee"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Get/Texture",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "d15eaa429b3d48a2b3675107f1359037",
+      "parts": {
+        "asset": {
+          "bytes": 13400,
+          "sha256": "5c1a4f8b167aa6eca78208947e963671264d349c385fcf0645cb35b0b1f35168"
+        },
+        "asset.meta": {
+          "bytes": 330,
+          "sha256": "757c2e91e6c63b85502281e61cdea2983400f343dba759b9adb9208b08dcd07c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Lists/Inspectors/ListInspector.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "d238d751755e44369b7ca58bc0cc1341",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "564bebee72f331fbab471c0d7762268b684d2b5d40769c3a1a8eed475b6e9d52"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Controllers/Editors",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "d30a57dc35de4f84a51ddb1a76dfb235",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "318841794502049b602e9189bba286824e6f134dfc5e4ddafebf6de9ba2f16c7"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Messages",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "d698d5f42a6948058e19ae4553e15ce7",
+      "parts": {
+        "asset": {
+          "bytes": 347,
+          "sha256": "ffefd6ad79a56627e01df41f8d6594d1d9c2fdc14d5244bfedfcd1e9a4af9688"
+        },
+        "asset.meta": {
+          "bytes": 335,
+          "sha256": "ed371b2180edb8305edfa545f53fdd14be366485ba6c9a74f1fdde67976c574d"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Lists/Selectors/ItemTypeSelector.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "d7549a3a0c9c4e4d89b7a53864ed4311",
+      "parts": {
+        "asset": {
+          "bytes": 2440,
+          "sha256": "dd3f2fc1eda0120bd973797daadb4e49f2adc3a50ff47b493006983ee207361d"
+        },
+        "asset.meta": {
+          "bytes": 336,
+          "sha256": "cdd49dde0ed701f7e106d7cee11b528c4c31770e2af0f46bb648217e73f9d07c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Effects/AbilityEffectMelee.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "d7574e9a9e824b10b43d30342d394a8a",
+      "parts": {
+        "asset": {
+          "bytes": 523,
+          "sha256": "b945fb204622356497d611de04d7b42bdc72011652e3979017327889780a97c5"
+        },
+        "asset.meta": {
+          "bytes": 339,
+          "sha256": "45117efaed99697baa2bdbdda32a008d43a75bc7214ba7bfdf0685de4afc697d"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Args/ArgTargetNone.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "d85554aa69ead414687dd3cd3647d3a4",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "845bbdd7da3044198ddfc31d25c2a60e1e8b4fd20719c3a035fee3f8bc31a26f"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "d86b81b81be575d468bd99272143efb6",
+      "parts": {
+        "asset": {
+          "bytes": 1753,
+          "sha256": "e7f09703705209f3cd1fb6b9dedea428d322109eda97ef7bc27a166eae9db681"
+        },
+        "asset.meta": {
+          "bytes": 3386,
+          "sha256": "20bb78c7a78a9def32ac6bfcced4ad9b58bd69dac2cadf9597410220bc440a3c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Gizmos/GizmoController.png",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "d8aa0ac67f424fce8428e57752ef0efc",
+      "parts": {
+        "asset": {
+          "bytes": 828,
+          "sha256": "06eefafb8acba698948d09bc80616b25554b804c9257ebd8408ad54ed20433b5"
+        },
+        "asset.meta": {
+          "bytes": 352,
+          "sha256": "5cbe912cfb314d23ff502d20b17b0ffc4c05f1a7fa811f07667eb58d461dd94e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Get/Texture/GetTextureCursor.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "d8c9347c0d1cb49f7949fe33f09466dc",
+      "parts": {
+        "asset": {
+          "bytes": 1008,
+          "sha256": "0ae4f402ef9c460daf986f6e66f395479bafa36dbc25a74c6e4dccea6b4d760b"
+        },
+        "asset.meta": {
+          "bytes": 489,
+          "sha256": "50e3bbe6cfae95d63896b113f6e2126f3af272f4cf0da7acb37f6b0a03ead588"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Drawers/Settings/CatalogueDrawer.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "dab5dfd947d14c838ac719ea73b00607",
+      "parts": {
+        "asset": {
+          "bytes": 274,
+          "sha256": "8369ab99900b43a7f4e0ff0639e50fffded238ad42fcbd7aebbdd4fcd47efbdb"
+        },
+        "asset.meta": {
+          "bytes": 322,
+          "sha256": "bf48a23cac8797f57e9a2a310c7266559e2754fe697c1b9a6935581cf1b753fd"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Generics/IGenericItem.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "daf51753f5964192a22ab9b1ee36450f",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "52ebe82ddc84e8fc5472237ca6e94873f38eab49145e46e5d9e9e94b8c3ef555"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "dcd7885b805040d291ba30d1936b3ad5",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "e03f4eede6b4124c99e552b16d6d6aaff675f800fdb709eed872e41c2e826eac"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/ReactiveGestures/Components",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "dd23367e7d984424a87190ad89902895",
+      "parts": {
+        "asset": {
+          "bytes": 1417,
+          "sha256": "cc703a22bdb9c06c0a0d0d13d4a5376f6229b8fb6b54bfffcd4d8226a248ea9c"
+        },
+        "asset.meta": {
+          "bytes": 341,
+          "sha256": "813ddbaa187709dc33d3b1a86f0023e3c049aaad0bf83cb07339b7b53ef8df04"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Conditions/ConditionPawnFaction.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ded65db5728b49f4a80be167090181a5",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "402aaa2615c76de7bcc8db7517b0dc66a6c4619ca22141eacc767edad96e2ba4"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Generics",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "dee2c3acb805e784b8441772e71a51cb",
+      "parts": {
+        "asset": {
+          "bytes": 667,
+          "sha256": "dc692be8e020ad3744fe093cea6656a3bf1e2d3d251428324831a80b9db31c87"
+        },
+        "asset.meta": {
+          "bytes": 490,
+          "sha256": "dc73dc10b35e1945f6656d6f3fbb67200c18fea5156afc7c6b98926ceb1dde9b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Async/Internal/SyncContextUtil.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "df4befc9a43f49219ac43c2d9de02f74",
+      "parts": {
+        "asset": {
+          "bytes": 2954,
+          "sha256": "9dd40498ccda835dd5cc866bd56266f7040269fadef1182f8654337c3debe99d"
+        },
+        "asset.meta": {
+          "bytes": 337,
+          "sha256": "19234cf57229b4066baaf16f6ee946bd748fb5826f4221e562b1035458d8425b"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Controllers/Inspectors/InputMappingInspector.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "df86cf42592e4240802b8581201b0128",
+      "parts": {
+        "asset": {
+          "bytes": 1062,
+          "sha256": "72e6f20eb24b977f25ffd5f3b6cddf99c554af4c7498eb44c0be9c359e7adecf"
+        },
+        "asset.meta": {
+          "bytes": 354,
+          "sha256": "bf3007f33e6ba23a4eea0088586c3af57fa3965d94fbee66d10a5fc306bd9883"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Projectiles/AbilitySource/GetGameObjectAbilitySource.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "e0bec1fdbd1344acadfb51adfabcc94b",
+      "parts": {
+        "asset": {
+          "bytes": 5591,
+          "sha256": "5baae0b18c3a09cde2d13d0694d339a4d9f82dca3a21854f633b14c1169dc215"
+        },
+        "asset.meta": {
+          "bytes": 331,
+          "sha256": "1360ba3a0533e34770d01471468c30b3f777e4c350249f852b72bf05156e03a9"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Utils/SerializationUtilities.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "e141e0d3de0d4ecbac8ae0ed05b4eb7c",
+      "parts": {
+        "asset": {
+          "bytes": 4725,
+          "sha256": "4c2ca7bbbec7a330a8bbf5ccba2db66b4321ccf4537bba29a386185899995f83"
+        },
+        "asset.meta": {
+          "bytes": 317,
+          "sha256": "98d41905afdd137c2de9b2be7eb44d0f8eb8675ce6883933d3ee4ae2e52d3553"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Controllers/InputModule.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "e16909eb2695469dbc6bab669e42c51f",
+      "parts": {
+        "asset": {
+          "bytes": 3097,
+          "sha256": "998fb3a4b08ad1388f2b9a5b1d8ac9a9e14344f9d8cb4dfaa37bd5956160722d"
+        },
+        "asset.meta": {
+          "bytes": 346,
+          "sha256": "f7ef2c8289c0e3fd4e382957d90dec26c641cb727b53c900b18ca500565dde9f"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/Systems/Facing/UnitFacingPivotLocation.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "e29dc3c51c224f93bc6907f848898c96",
+      "parts": {
+        "asset": {
+          "bytes": 2861,
+          "sha256": "7983131cc0de43c78a4d62b7ddb6852b956599b5fe3e258ce9fe9b435c48eb45"
+        },
+        "asset.meta": {
+          "bytes": 314,
+          "sha256": "fb65b5c963b4b963f3b1241cfc287896242277b6adb70affbb5bffaecf8fdbd0"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/FSM/TState.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "e34ab95487d24f1b85925cf5ab1fce76",
+      "parts": {
+        "asset": {
+          "bytes": 6520,
+          "sha256": "8dd146b81ecd3b6e1b94cb5d617369b0631d4e1db232daa4726670be081b1e54"
+        },
+        "asset.meta": {
+          "bytes": 343,
+          "sha256": "0ce25757c3a24a1d8c762d143e6d0ec254c4670adf76efdb9db15f5255a4a888"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Activators/AbilityActivatorSingle.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "e372815d460d42a49e223ef6221c5d59",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "fc1f8314cc6aeebf035a097df0d2262c79f07e6d19dd81e178e9e5671f4ca7ae"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Get/Direction",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "e3e106a29bb8485db0df10945396ee12",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "2bc0213cd64210f5a9adc065a5e6615b54aeb6a533b55269f8fdc1806587d96d"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Lists/Manipulators",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "e427afcd08bc483c8071e6ff968f486f",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "bb668cd2ff9c231fa19f6e79cd205724dcd8cb1ac35d4921075cf80b199a16d2"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Common/Paths",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "e6910ad7e89a4aa8ada93d42aee45738",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "b6116759973acc48fe8faf7326c830764f3751bb5d11a3367a290cee72fa1459"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/Systems",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "e7ae8df398134b2ebc61c2f80db22432",
+      "parts": {
+        "asset": {
+          "bytes": 5075,
+          "sha256": "e4ba18a917bd77429ef59d9d2f33577e1afb6dbf287bf26cbecdbc5f8bea747c"
+        },
+        "asset.meta": {
+          "bytes": 352,
+          "sha256": "d539e0e599b5125c74f1df8c7add84cfd4926d40ed32e5161ebfd59a681851c0"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/ReactiveGestures/Components/ReactiveStateOutput.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "e7f539cc14aa4d18b5ebf8a269d9c2ce",
+      "parts": {
+        "asset": {
+          "bytes": 3432,
+          "sha256": "d03490690e1d9f29deace00029e5ff5816e1aa89ad0b22882f1b8b140b59601a"
+        },
+        "asset.meta": {
+          "bytes": 339,
+          "sha256": "672b0583dc0ecd4880c89b10b6167b001f344dcc91aad4a5828888db45a86996"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/VisualScripting/Events/EventAbilityLearn.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "e8524948d2184804af4736c435ac3b89",
+      "parts": {
+        "asset": {
+          "bytes": 2743,
+          "sha256": "efe34c817f27d6778aa75dbec2c7e0d0d6778f803f45c78120543d877bada014"
+        },
+        "asset.meta": {
+          "bytes": 349,
+          "sha256": "ca2cb69bc70d6e331ea9b0fc4a6b660469376aff3174aed46d4f18b65c6036bb"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Requirements/AbilityRequirementCooldown.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "e865912c68234eaf9fc63db9d89a25d0",
+      "parts": {
+        "asset": {
+          "bytes": 5138,
+          "sha256": "8a4255d6185aa209727cf1798a82d7a9825c3e51326e387e09cc54a936e709fc"
+        },
+        "asset.meta": {
+          "bytes": 350,
+          "sha256": "8dd4c6bf11b4f96bc7823d7be89c6a9456e819444bca891a9fc850c2e48f6402"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Characters/ReactiveGestures/Inspectors/NotifyInspector.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "e973fb351ea64f2190b699d018de2e40",
+      "parts": {
+        "asset": {
+          "bytes": 2990,
+          "sha256": "58849ad1f98078e3883b56da3766349c2a8fd451a81a08606f04555046fa8d89"
+        },
+        "asset.meta": {
+          "bytes": 3422,
+          "sha256": "9c0f78a3286562aec56c6c802a5e979240340c16d3acb8219207882196008091"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Gizmos/GizmoProjectile.png",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "eb2849ae7a0e23e4982772dcb1730b4f",
+      "parts": {
+        "asset": {
+          "bytes": 634,
+          "sha256": "31a21571f14d3c8257627e5e231e007cb222ffe3bf3890542a18038120750934"
+        },
+        "asset.meta": {
+          "bytes": 409,
+          "sha256": "90474bd2ddfd9ce022490601f1fb45040bc02feacedcdc5c1795178d84135b6a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Daimahou.Editor.Abilities.asmdef",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ec2b505c63714f1d9d29381322e57b7d",
+      "parts": {
+        "asset": {
+          "bytes": 231,
+          "sha256": "b6c0d1a244e1127dac34bb813e6081fa700abb67eb3437d3689b5cc5d3d8dd28"
+        },
+        "asset.meta": {
+          "bytes": 320,
+          "sha256": "250845f4ec58d7d0fd77ce67c2b0e1ef9010ac724e0a3a24f65f56fce6fc434e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Pawns/Drawers/FeatureDrawer.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ec619bfda05a47b793be8d2bdd3d0ef8",
+      "parts": {
+        "asset": {
+          "bytes": 1368,
+          "sha256": "97d28f513c934d6d2b2ea6e0694a82398dfdd389ab3b43eac7336366a75c9560"
+        },
+        "asset.meta": {
+          "bytes": 355,
+          "sha256": "e1999baeb2f5dfe68eabb80f50f868759cf4078f1ae13c8154214c9bfb94d2d5"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/VisualScripting/Instructions/InstructionAbilitiesUnLearn.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ec95eeaa8f40c1c4faa021c70e2e5be2",
+      "parts": {
+        "asset": {
+          "bytes": 5605,
+          "sha256": "8409771a920c105b7001fe01c2a0c05e659a76b49fff59b39dbf371eb03314ce"
+        },
+        "asset.meta": {
+          "bytes": 3054,
+          "sha256": "7dfc764120b8412b67825409d19b05924428c532f38fc805e75733e92560add9"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Gizmos/GizmoPawn.png",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ecadf3905ee24117bda36fbf67f8e007",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "4e7385b6319533ecb9a9825be874c08b4911de49d52067b3b017af4a420ef017"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Controllers",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ed1568e466354e48bd58b8148265b1a9",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "84ecc609f13aec8a992c9417c1686604fc349bf89ee1ae5307827d84a62ba683"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/UI",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ed60162a8500440392525cd24fc9f77c",
+      "parts": {
+        "asset": {
+          "bytes": 373,
+          "sha256": "a0da12fdf5479c0e6bfbe2ac0e3671d6165efb216fe176ea83c2f27d49151ecb"
+        },
+        "asset.meta": {
+          "bytes": 352,
+          "sha256": "1c34e1639e4d74a980a8f93577504ccc8314a33fc89d9174f17a9beb7aa1f650"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Projectiles/SpawnMethod/PropertyTypeGetSpawnMethod.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ed76c97a4d754b4a97ca613a0ed218f5",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "4cebaa7690061aa01541309c4d7ea3e99c6d44a1329d7dbb330116a7122a6693"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/VisualScripting/Instructions",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ede9758bd8934666bf80d464e82c79da",
+      "parts": {
+        "asset": {
+          "bytes": 307,
+          "sha256": "3e8446f7c3415217c84f2a02fea10f203fbea1e2b9122bf58b00de0ac71fcfab"
+        },
+        "asset.meta": {
+          "bytes": 349,
+          "sha256": "01e1b18d31fd1a4f2d61406e8aa7aa3842ee0056951182619bcf97f95246190a"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Properties/Args/Types/PropertyArgTarget.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ee185b19976a4280a96f1c08f594c58a",
+      "parts": {
+        "asset": {
+          "bytes": 2081,
+          "sha256": "48562f9d218a559d99d83d13a34ad53ef351a2b40117a18fed1240dc3c57b269"
+        },
+        "asset.meta": {
+          "bytes": 335,
+          "sha256": "5b44187411ea781d43ef9441430c164ee6e9c5e3e2d96b4f31b91664e07d3722"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Common/Lists/Selectors/ListTypeSelector.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ee855887dd0748bb91d60ebc7605ec3c",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "83b7fa09a695f100baa02fdc9b827f49d7ed598e1528aea2044b9838f65e17a8"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ef37c4fa99c44c1da4d16b7cbdbbc534",
+      "parts": {
+        "asset": {
+          "bytes": 85,
+          "sha256": "ee1df5fb1944a30103f9ef49bff6f81bdef4c46413b017a673f93cc976301ca5"
+        },
+        "asset.meta": {
+          "bytes": 320,
+          "sha256": "d641dcebf7aed2745b53897c93309048959dabea255e291f08db565578f12320"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Controllers/IInputProvider.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "effd07535fc34b42bd8070a1f3813e44",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "7b0e8a2134842e7b4ecaf8939a4d52040c019d21762a577178a7a5f00efa4bd4"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Async/Internal",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "f00bd1c8e78744cb8eb0c392442072c7",
+      "parts": {
+        "asset": {
+          "bytes": 354,
+          "sha256": "0f85b205a0f0d87e595cbe74440b732418a84b37f98319f26aee037833d1a93d"
+        },
+        "asset.meta": {
+          "bytes": 314,
+          "sha256": "0f4216cef72fb4838d3ff4cef199331bd2481d9c45dba1982d3e661185bf23d3"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/FSM/IState.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "f069b00c96cf7d3499b72d36438f2434",
+      "parts": {
+        "asset": {
+          "bytes": 1255,
+          "sha256": "95169b2d9f78d03f30514d4355bb5e01a267a9685777ab925a57542708861f2e"
+        },
+        "asset.meta": {
+          "bytes": 443,
+          "sha256": "8a8260ef649084ae6cd08b3e49a9385ff86973559d91c0d61e01c0000954de50"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Examples/Abilities.Assets/Abilities.Examples.asset",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "f0a7fff6af3736549a5b3a3679a2cd3a",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "b3ae4d487d46a28519eb91cfe3e277970193e5303188e7bc089585c4d1501bca"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "f1b6b7f12f694ea7aabeb6db84b6dc8c",
+      "parts": {
+        "asset": {
+          "bytes": 1996,
+          "sha256": "9243c09b9a2f8962a2b7ff00ff6af5339df41298053f720c3f12d5c7f4c979e9"
+        },
+        "asset.meta": {
+          "bytes": 316,
+          "sha256": "6b460b4cb24f386822d2a1d1a8e9d37b058b992b5ce98a530cf39cc9ebbcc53e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns/Features/Faction.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "f2202c54fb8140d7a749d58325881a27",
+      "parts": {
+        "asset": {
+          "bytes": 2830,
+          "sha256": "96558f50554451a64b4e1d3d2b23bb5e9e421d6a2fc756c989ae50bd6fde5cc5"
+        },
+        "asset.meta": {
+          "bytes": 350,
+          "sha256": "bf4e824bfe4814ad0dd208d95efa1330b06868f6a757dd9509480b545382d26c"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/ReactiveGestures/Notifications/TNotifyBase.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "f57c44b93c9e5894e8c040d9196234fb",
+      "parts": {
+        "asset": {
+          "bytes": 7916,
+          "sha256": "6d2390a3002e585957019de8bdbdaed7876ea21d7c9161394d50e3c003524767"
+        },
+        "asset.meta": {
+          "bytes": 3059,
+          "sha256": "2342e7f812e2ea4070d57450d8b70daa7635f513224620fca1629b09245478d6"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Gizmos/GizmoEquipment.png",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "f62f44feee054ac59b1e545d9766db47",
+      "parts": {
+        "asset": {
+          "bytes": 22266,
+          "sha256": "6a3d904b0d400c4a7aa781ae11b3e554f9518b38554179adcd067dd51f421751"
+        },
+        "asset.meta": {
+          "bytes": 350,
+          "sha256": "1e66bed3a0eedcb6791a10174e71e65ff68a4486a5bde5eb6a4875f1e0a87d42"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/DataStructures/PriorityQueue/GenericPriorityQueue.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "f64b80db47ac415fab7e91ffe91d817f",
+      "parts": {
+        "asset": {
+          "bytes": 150,
+          "sha256": "17e34f3543294bb16dd3a4be9f6c44216c949676dac194b03e037cc2db9b0d36"
+        },
+        "asset.meta": {
+          "bytes": 341,
+          "sha256": "d47e0f66621140a85fa684da1a990ee06ff334479b87145e422d1d72143b20db"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Pawns/Messages/MessageAbilityActivation.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "f8390a49ffcb4dcca1a15ff01de83ce9",
+      "parts": {
+        "asset": {
+          "bytes": 2247,
+          "sha256": "10ab886063690042670d6ad1bd0270dd573c7e01e769ae9d924cdde5fdda5443"
+        },
+        "asset.meta": {
+          "bytes": 324,
+          "sha256": "878f0bf7dc4d61251311804946b1ee2f3ef751ea6d56e4d94ad1957ea6fd3f48"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Messages/MessageReceipt.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "f89fb03869232b043911a49e338cdcf9",
+      "parts": {
+        "asset": {
+          "bytes": 2571,
+          "sha256": "01b1de318eb159de1e85cb0ab9b68f644e0ddd4a843fbb11aee9f77dc431750d"
+        },
+        "asset.meta": {
+          "bytes": 512,
+          "sha256": "79a08654911f23ae19932ff5898f10113d1f5163e0b64693c2dce12c2b8c7f89"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/VisualScripting/Instructions/InstructionCharacterDeactivate.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "f93b9b232e684da1bee5b805ebe17620",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "83982c1b1278a09cc6ef67a0bfacc31de6d23ef623219ce589ed59941574a1d8"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/ReactiveGestures/Notifications/Types",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "f9b7e42c11b14879807239309fedd591",
+      "parts": {
+        "asset": {
+          "bytes": 7924,
+          "sha256": "1cba6fd13e135a11e3f71741eda9f4d68f41ad95af00a587d2fe56a69e24e7cf"
+        },
+        "asset.meta": {
+          "bytes": 323,
+          "sha256": "1a35da9c35372d404bc4eb693876615aedb5497939926cec55732ef45af12ea8"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Pawns/Features/Caster.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "f9df41b93686490db632d1ce58437bd9",
+      "parts": {
+        "asset.meta": {
+          "bytes": 83,
+          "sha256": "6463dbea18592e3df445558e25927f8a100cb81ffb55e468d8f5b851af86ae28"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Characters/Properties",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "f9e22274d0264031a24851f24d5f0c84",
+      "parts": {
+        "asset": {
+          "bytes": 5757,
+          "sha256": "ac162a9677091af071283b11af3750e247588750f8ce27be3fcac9538300106f"
+        },
+        "asset.meta": {
+          "bytes": 325,
+          "sha256": "9b98470aadb27c0481d160c353e870f555865afa7f91cce4f2aa503190a952be"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Editors/ProjectileInspector.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "faa243510aab45409926eaf81cc332b1",
+      "parts": {
+        "asset": {
+          "bytes": 907,
+          "sha256": "75f7ce35d0553102377ffd963c8d57809511dc2f3962d4dba737734f23bb65c1"
+        },
+        "asset.meta": {
+          "bytes": 330,
+          "sha256": "c5d63abcf6df0e073d34eec76d5e0ce2db40c86b7d64104ce85bd9a0f524f19e"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Utils/ValidationExtensions.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "fc82546bdfdf759468a598a1a4f1feb5",
+      "parts": {
+        "asset": {
+          "bytes": 4106,
+          "sha256": "6b3ae9c12949a79b2d8c703b9d58b1c4c8f4ce6071be637bdee29b7b49fa8a58"
+        },
+        "asset.meta": {
+          "bytes": 500,
+          "sha256": "d325d872256846e1e05e1eb78125b09fd295c2be7afa73bf6f026c9cfc02cd71"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Targeting/AbilityTargetingLocation.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "fcf2c3a0d728fb241bdfdc8e5897ce99",
+      "parts": {
+        "asset": {
+          "bytes": 14022931,
+          "sha256": "651a591ba9ebd49b575cffecca5ada1c0e447eaea5b8ece80a11788304ac9d85"
+        },
+        "asset.meta": {
+          "bytes": 405,
+          "sha256": "8663596fad7d57e51c711b032107ff60627e61519a2f4bdbbb9cc657768e6be4"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Examples/Abilities.Assets/package.unitypackage",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "fd78968e3b6b4168929382bf7dec660b",
+      "parts": {
+        "asset": {
+          "bytes": 2647,
+          "sha256": "83cf195f263edd19986c42d29d974832a3c31b5a4b2f1f242aa2ccc4c8b94ad0"
+        },
+        "asset.meta": {
+          "bytes": 340,
+          "sha256": "adf36e677d6a3359fba82a34e54a94678adab29c30879caac155bc9c1fc9a7d0"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Editor/Drawers/AbilityEffectInstructionsDrawer.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "fd8e744d945b4b38be5c613107c39f1d",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "9f388163fcd78b808cc305baa5479cc712396bb3eab2b4c2a2e41b59fdc55552"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Pawns/Systems",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "fde26f06f30ef734796164830e87d731",
+      "parts": {
+        "asset.meta": {
+          "bytes": 172,
+          "sha256": "b902231d1186f9a6a81a7e87db4c3a28f13794d00ec62b54df9b1665c06b75f4"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Editor/Characters/ReactiveGestures/Assets",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "fe4dfdb4c5d94e11ae6cc34cf4bd05fd",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "a4ed5d9f5b7183233321bd26eb3f5e0f80254089eda0f31e52d9836a0fb0f811"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Assets",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "fe7ed886a7d144a8b6cbdce585e2ceae",
+      "parts": {
+        "asset": {
+          "bytes": 7687,
+          "sha256": "5309c20592cc2ae1cf6118a5c3e422f5b1e8950117c8f9245939ec43c156b663"
+        },
+        "asset.meta": {
+          "bytes": 334,
+          "sha256": "7ea64c72394e64a8515c16a21b5bfe98b33477e1b216bca8ddd6cdbf4b802cd7"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Common/Inputs/InputModuleAbility.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "febbd49492a943199fa0f60a8705a969",
+      "parts": {
+        "asset.meta": {
+          "bytes": 88,
+          "sha256": "b01c1da6ccc4bd429b7493b6f8ff0a69ff58946626d1516fa2f950b9b3511d25"
+        }
+      },
+      "folder": true,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Projectiles/SpawnMethod",
+      "normalizedPathname": true,
+      "inferredFolder": true,
+      "action": "restore"
+    },
+    {
+      "guid": "fef73b6990c34fb59eb743ad4bb12c47",
+      "parts": {
+        "asset": {
+          "bytes": 1256,
+          "sha256": "b7017a893977269d7e746f386b4ea958c1619e6d0cf22c8998675ae8b7c47b88"
+        },
+        "asset.meta": {
+          "bytes": 320,
+          "sha256": "5f47e854b43de76230f6a7c823453f4545c4885a6393a17eda4ea443a5ab9586"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Core/Runtime/Common/Messages/Message.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    },
+    {
+      "guid": "ff7b633cd0ed6064c93bfb479e80ef49",
+      "parts": {
+        "asset": {
+          "bytes": 2534,
+          "sha256": "1ccfbb12657f6c45461c84cb862e5450e7a387a4535a29c93210b121773dfabd"
+        },
+        "asset.meta": {
+          "bytes": 493,
+          "sha256": "812cb5d788ab836b3279c24dcf4bceb8720cb34723ae00d2c60b2456893e9df7"
+        }
+      },
+      "folder": false,
+      "path": "Assets/Plugins/DaimahouGames/Packages/Abilities/Runtime/Classes/Effects/AbilityEffectImpact.cs",
+      "normalizedPathname": true,
+      "action": "restore"
+    }
+  ],
+  "normalizedPathnames": 362,
+  "restoredFiles": 606,
+  "replacedFiles": 0,
+  "identicalFiles": 0
+}
