@@ -75,12 +75,9 @@ namespace QuietCamp.Editor
             preview.lights[0].intensity=1.25f;preview.lights[0].color=new Color(1,.92f,.80f);
             preview.lights[0].transform.rotation=Quaternion.Euler(48,-35,0);
             preview.lights[1].intensity=.45f;preview.lights[1].transform.rotation=Quaternion.Euler(25,145,0);
-            var neutral=new Material(AssetDatabase.LoadAssetAtPath<Shader>("Assets/QuietCamp/Editor/TentThumbnail.shader"));
+            var neutral=new Material(AssetDatabase.LoadAssetAtPath<Shader>("Assets/QuietCamp/Editor/TentThumbnail.shader")){hideFlags=HideFlags.HideAndDontSave};
             neutral.SetColor("_BaseColor",new Color(.60f,.65f,.59f));
-            var colored=new Material(Resources.Load<Shader>("QuietCamp/RoadmapWorld"));
-            colored.SetVector("_WorldSun",new Vector4(.45f,.85f,.25f,0));
-            colored.SetColor("_WorldSunColor",new Color(1,.91f,.76f));colored.SetColor("_WorldAmbient",new Color(.56f,.61f,.52f));
-            colored.SetVector("_RevealFront",new Vector4(1000000,1001000,1,0));colored.SetFloat("_WorldMotion",0);
+            var colored=new Material(AssetDatabase.LoadAssetAtPath<Shader>("Assets/QuietCamp/Editor/DioramaPalette.shader")){hideFlags=HideFlags.HideAndDontSave};
             try
             {
                 for(int index=start;index<paths.Length&&index-start<count;index++)
@@ -95,8 +92,12 @@ namespace QuietCamp.Editor
                         if(model!=null)
                         {
                             ownedMesh=NativeMesh(model);instance=new GameObject(entry.name);
+                            var original=AssetDatabase.LoadAssetAtPath<GameObject>(path);
+                            var sourceBounds=original.GetComponentsInChildren<MeshFilter>(true).Select(f=>f.sharedMesh.bounds).ToArray();
+                            var importedBounds=sourceBounds[0];foreach(var b in sourceBounds.Skip(1))importedBounds.Encapsulate(b);
+                            instance.transform.localScale=Vector3.one*(importedBounds.size.y/Mathf.Max(.0001f,ownedMesh.bounds.size.y));
                             instance.AddComponent<MeshFilter>().sharedMesh=ownedMesh;
-                            instance.AddComponent<MeshRenderer>().sharedMaterial=colored;entry.materialBinding="project-triangle-stream";
+                            instance.AddComponent<MeshRenderer>().sharedMaterial=colored;entry.materialBinding="project-palette-photography";
                         }
                         else
                         {
@@ -127,6 +128,7 @@ namespace QuietCamp.Editor
                             if(mesh.GetTopology(s)==MeshTopology.Triangles)entry.triangles+=(long)mesh.GetIndexCount(s)/3;
                         entry.shaders=renderers.SelectMany(r=>r.sharedMaterials).Where(m=>m!=null)
                             .Select(m=>m.shader==null?"<missing>":m.shader.name).Distinct().ToArray();
+                        if(entry.shaders.Length==0)throw new InvalidOperationException("Photography material was lost; do not accept an uncoloured source");
                         preview.camera.orthographicSize=Mathf.Max(.025f,bounds.extents.magnitude*1.06f);
                         entry.images=new string[2];
                         for(int view=0;view<2;view++)
@@ -153,7 +155,7 @@ namespace QuietCamp.Editor
             }
             finally{preview.Cleanup();Object.DestroyImmediate(neutral);Object.DestroyImmediate(colored);}
         }
-        static Mesh NativeMesh(RoadmapModelLibrary.Model model)
+        internal static Mesh NativeMesh(RoadmapModelLibrary.Model model)
         {
             int count=model.Positions.Length;var mesh=new Mesh{indexFormat=count>65535?IndexFormat.UInt32:IndexFormat.UInt16};
             mesh.vertices=model.Positions.Select(p=>p*model.SourceHeight).ToArray();mesh.normals=model.Normals;

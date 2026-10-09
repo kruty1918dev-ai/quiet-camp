@@ -6,13 +6,18 @@
   "start": 0,
   "rendered": 1210,
   "failed": 0,
-  "visualReviewComplete": false,
+  "visualReviewComplete": true,
   "playerBuild": false,
   "date": "2026-10-10",
   "photos": 2420,
   "isolatedEditor": true,
   "knownSourceIssues": [
     "M0034: DamageZone renders magenta; incompatible legacy shader",
-    "M0001: multiple character meshes overlap in original source assembly"
-  ]
+    "M0001: multiple character meshes overlap in original source assembly",
+    "M0696 and M0820: Core WaterShader GL compilation fails with duplicate _CameraDepthTexture_TexelSize",
+    "FX meshes were inspected as geometry; complete particle effects not accepted"
+  ],
+  "reviewSheets": 61,
+  "ownModelsRephotographed": 47,
+  "ownPhotographyMaterial": "Editor-only authored triangle RGB with facet lighting; preserved through asset unloading"
 }
