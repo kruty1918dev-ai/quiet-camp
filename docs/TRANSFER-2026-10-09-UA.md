@@ -4,6 +4,8 @@
 
 Пакет для завантаження: **[приватний GitHub release](https://github.com/kruty1918dev-ai/quiet-camp-transfer-2026-10-09/releases/tag/transfer-2026-10-09)**. Потрібно увійти в GitHub як власник `kruty1918dev-ai`. Основний файл — `QuietCamp_Transfer_2026-10-09.zip`; поруч контрольна сума, цей звіт і план. Це передача вихідних матеріалів для продовження роботи, а не реліз гри.
 
+**Завантаження завершено й перевірено:** ZIP **1 061 470 268 bytes**, **11 861 payload hashes**, сім release assets у стані `uploaded`; серверні sizes/SHA-256 збігаються з локальними. [Receipt із source commits і session guards](transfer/2026-10-09/receipt.json). Original handoff ZIP також завантажений і має окрему контрольну суму.
+
 ## Що збережено
 
 | Папка в основному ZIP | Вміст і стан |

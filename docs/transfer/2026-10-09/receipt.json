@@ -1,0 +1,82 @@
+{
+  "date": "2026-10-09",
+  "published": true,
+  "repositoryPrivate": true,
+  "release": "https://github.com/kruty1918dev-ai/quiet-camp-transfer-2026-10-09/releases/tag/transfer-2026-10-09",
+  "assets": [
+    {
+      "name": "QuietCamp_Transfer_2026-10-09.zip",
+      "size": 1061470268,
+      "digest": "sha256:cb706cb075a517955ed0c875e8a56cb1eb0af12a6d096fd9bc91fa6b5c7f36f8",
+      "url": "https://github.com/kruty1918dev-ai/quiet-camp-transfer-2026-10-09/releases/download/transfer-2026-10-09/QuietCamp_Transfer_2026-10-09.zip"
+    },
+    {
+      "name": "QuietCamp_Transfer_2026-10-09.zip.sha256",
+      "size": 100,
+      "digest": "sha256:61ecb12f7eaf0f81b3ba8bc8c55a23fed549f8f72e3346fac3371061e3c01083",
+      "url": "https://github.com/kruty1918dev-ai/quiet-camp-transfer-2026-10-09/releases/download/transfer-2026-10-09/QuietCamp_Transfer_2026-10-09.zip.sha256"
+    },
+    {
+      "name": "TRANSFER-2026-10-09-UA.md",
+      "size": 10519,
+      "digest": "sha256:44bd74eb69e4275aa7ca30c1146ccb433659fdf84c322c643841e76db17a3e5e",
+      "url": "https://github.com/kruty1918dev-ai/quiet-camp-transfer-2026-10-09/releases/download/transfer-2026-10-09/TRANSFER-2026-10-09-UA.md"
+    },
+    {
+      "name": "CONTINUE-2026-10-09-UA.md",
+      "size": 8145,
+      "digest": "sha256:657f84d85352db3ccbbcdbb5fae684f122dc0e643c2253704674112244e8fa94",
+      "url": "https://github.com/kruty1918dev-ai/quiet-camp-transfer-2026-10-09/releases/download/transfer-2026-10-09/CONTINUE-2026-10-09-UA.md"
+    },
+    {
+      "name": "package-verification.json",
+      "size": 322,
+      "digest": "sha256:f90b807697516ea4af5504ff96f887062cb286901fc94c8383a3f2c5a2b4a7e8",
+      "url": "https://github.com/kruty1918dev-ai/quiet-camp-transfer-2026-10-09/releases/download/transfer-2026-10-09/package-verification.json"
+    },
+    {
+      "name": "QuietCamp_Roadmap_Handoff_2026-10-08.zip",
+      "size": 309080966,
+      "digest": "sha256:aae92b28b32d2c5924eb8acd0a87c90d6819ce5b707df72726f20194a08a2ff0",
+      "url": "https://github.com/kruty1918dev-ai/quiet-camp-transfer-2026-10-09/releases/download/transfer-2026-10-09/QuietCamp_Roadmap_Handoff_2026-10-08.zip"
+    },
+    {
+      "name": "QuietCamp_Roadmap_Handoff_2026-10-08.zip.sha256",
+      "size": 107,
+      "digest": "sha256:bf8382a0f7edfe07bb7f91e2d9c80cf90f5e5ac31ff83bdc224b4067996e04d4",
+      "url": "https://github.com/kruty1918dev-ai/quiet-camp-transfer-2026-10-09/releases/download/transfer-2026-10-09/QuietCamp_Roadmap_Handoff_2026-10-08.zip.sha256"
+    }
+  ],
+  "archiveVerification": {
+    "passed": true,
+    "payloadsVerified": 11861,
+    "zipBytes": 1061470268,
+    "zipSha256": "cb706cb075a517955ed0c875e8a56cb1eb0af12a6d096fd9bc91fa6b5c7f36f8",
+    "assetPayloads": 7,
+    "projectPackageChecks": "Passed both snapshots using embedded verifier",
+    "nativeTestsThisTransfer": false,
+    "maxArchivePathLength": 174
+  },
+  "projectSourceStates": {
+    "current-project": {
+      "branch": "perf/optimize-transitions-2026-10-09",
+      "commit": "28f3ff66b6674d2b5601d3e65d67831040e0ae10",
+      "tree": "21f915b3cf087d9278913743d459f725a394a0dd"
+    },
+    "prepared-roadmap": {
+      "branch": "art/roadmap-native-finish-2026-10-08",
+      "commit": "eb7ee6d1348bbac61dc6bc764265c0c6e610b1ee",
+      "tree": "b3782cd1cd4b7e130245b6892e110dbd2ecf0273"
+    }
+  },
+  "sessionPreservation": {
+    "projectSettingsUnchanged": true,
+    "originalInputsUnchanged": true,
+    "originalSavesUnchanged": true,
+    "sameAdbProcess": true,
+    "sameEditorProcess": true,
+    "adbKillPreferencesUnchanged": true
+  },
+  "nativeLaunchThisTransfer": false,
+  "playerBuildThisTransfer": false
+}
