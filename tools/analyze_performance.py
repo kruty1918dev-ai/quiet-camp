@@ -101,7 +101,12 @@ def analyze(data):
                  if s["stage"].startswith(f"leaves.tier{tier}.normal.")]
         verts = [s["activeLeavesVertices"] for s in data["snapshots"]
                  if s["stage"].startswith(f"leaves.tier{tier}.normal.")]
+        animated = [f for f in data['frames'] if f['stage'].startswith(f'leaves.tier{tier}.normal.')
+                    and f['transition'] != 'Idle' and f['frame'] not in snapshots]
+        costs = [sum(s['durationMs'] for s in by_frame[f['frame']]
+                     if s['name'] in ['QC.LeafCurtainGraphic.OnPopulateMesh', 'QC.LeafCurtainGraphic.SetFrame']) for f in animated]
         leaf_tiers.append({"tier": tier, "meshMs": distribution(s["durationMs"] for s in spans),
+                           "cpuPerAnimatedFrameMs": distribution(costs), "meshCalls": len(spans),
                            "coveredVertices": sorted(set(verts))})
 
     comparisons = []
@@ -162,12 +167,14 @@ def plots(data, summary, output):
 
     fig, axes = plt.subplots(1, 2, figsize=(11, 4.4))
     names = ["Low", "Balanced", "High"]
-    axes[0].bar(names, [s["meshMs"]["p95"] for s in summary["leafTiers"]], color=colors["leaf"])
-    axes[0].axhline(16.67, color="#999", ls="--", lw=1); axes[0].set_ylabel("OnPopulateMesh p95, ms per call")
+    axes[0].bar(names, [s["cpuPerAnimatedFrameMs"]["p95"] for s in summary["leafTiers"]], color=colors["leaf"])
+    axes[0].axhline(4, color="#999", ls="--", lw=1); axes[0].set_ylabel("Leaf CPU work p95, ms per animated frame")
     axes[0].set_title("Leaves alone · two repetitions per tier")
     for i, tier in enumerate(summary["leafTiers"]):
-        axes[0].text(i, tier["meshMs"]["p95"] + .35, f'{tier["coveredVertices"][0]:,} vertices', ha="center", fontsize=9)
-    axes[0].set_ylim(0, max(s["meshMs"]["p95"] for s in summary["leafTiers"]) * 1.3)
+        axes[0].text(i, tier["cpuPerAnimatedFrameMs"]["p95"]*1.4, f'{tier["cpuPerAnimatedFrameMs"]["p95"]:.3f} ms\n{tier["coveredVertices"][0]:,} vertices', ha="center", fontsize=9)
+    axes[0].set_yscale('log')
+    axes[0].set_ylim(min(s["cpuPerAnimatedFrameMs"]["p95"] for s in summary["leafTiers"])*.5,
+                     max(4,max(s["cpuPerAnimatedFrameMs"]["p95"] for s in summary["leafTiers"])) * 2)
     for i, mode in enumerate(["normal", "reduced"]):
         axes[1].bar([j + (i - .5) * .32 for j in range(2)],
                     [s[mode]["elapsedMs"]["p50"] / 1000 for s in summary["routeComparisons"]], .3,

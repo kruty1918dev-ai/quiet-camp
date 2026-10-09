@@ -57,7 +57,7 @@ def main():
     metric('Листя High: щокадрова CPU-робота', leaves['before']['cpuPerFrameMs']['p95'],
            leaves['after']['cpuPerFrameMs']['p95'], 4, 'p95 сумарного leaf CPU work на анімований кадр, включно з нульовими rebuilds',
            'Після оптимізації включено також новий SetFrame scope; до оптимізації виміряно mesh scope. Холодні побудови враховані, але їхній max наведено окремо.')
-    for label, name, budget in [('Camp Start', 'CampSceneHost.Start', 100), ('Menu Start', 'MenuSceneHost.Start', 100),
+    for label, name, budget in [('HTML mount', 'HtmlSurface.MountDocument', 100),
                                 ('Atmosphere configure', 'CampAtmosphere.Configure', 100),
                                 ('Album/floor updates', 'VisibleForestFloor.LateUpdate', 2)]:
         metric(label, method(before, name, 'p95'), method(after, name, 'p95'), budget, 'p95 inclusive synchronous method, ms')
@@ -73,13 +73,13 @@ def main():
             metric('Route '+old['direction']+' / '+mode, max(old[mode]['maxWallMsPerRun']), max(new[mode]['maxWallMsPerRun']), 100,
                    'maximum completed-frame wall interval across three routes, ms', 'До/після на тому самому Editor-стенді; фон меню випадковий, ОС зайнята. Це спостереження, не рандомізований device A/B.')
             routes.append({'direction':old['direction'],'mode':mode,'before':old[mode],'after':new[mode]})
-    for scenario in ['camp.summer.tier2.solved','season.spring.high.solved','season.autumn.high.solved','season.winter.high.solved','season.late-haven.high.solved']:
+    for scenario in ['camp.summer.tier2.solved','camp.spring.high.solved','camp.autumn.high.solved','camp.winter.high.solved','camp.late-haven.high.solved']:
         # Keep exact names from the fixture; optional seasonal labels vary in historical datasets.
         if any(s['stage']==scenario for s in before['scenarios']) and any(s['stage']==scenario for s in after['scenarios']):
             metric(scenario,stage(before,scenario),stage(after,scenario),33.33,'p95 completed-frame wall interval, steady window, ms')
     output = {'schemaVersion':1,'beforeCapturedUtc':before['capturedUtc'],'afterCapturedUtc':after['capturedUtc'],
               'sourceCheckpoint':after['source']['sourceCommit'],'metrics':metrics,'leaves':leaves,'routes':routes,
-              'limits':'Same host, viewport and synthetic flow; sequential runs and busy desktop. No player build, target-device FPS or GPU attribution. Changed floor initialization is measured over separate per-tile scopes and total route frames.'}
+              'limits':'Same host, viewport and synthetic flow; sequential runs and busy desktop. No player build, target-device FPS or GPU attribution. Host Start scopes no longer cover the complete composition after staged initialization and are excluded from method comparisons. Compare total route intervals and completed frames instead. Forest initialization is measured over separate per-tile scopes.'}
     args.optimized.joinpath('comparison.json').write_text(json.dumps(output,ensure_ascii=False,indent=2)+'\n')
     if args.plots:
         import matplotlib

@@ -71,7 +71,7 @@ class MonetizationProbe
         Expect(access.Evaluate("c").CanStart && !access.Evaluate("d").CanStart && !access.Evaluate("e").CanStart, "Independent DLC start, unpublished blocked");
         var proAccess = new JourneyAccessService(catalog, new ProgressionService(), grants, () => true);
         Expect(proAccess.Evaluate("c").CanStart && proAccess.Evaluate("d").CanStart && !proAccess.Evaluate("e").CanStart, "Pro opens all published levels but cannot create missing content");
-        Expect(JourneyCatalog.Validate(new[] { main, new JourneyDefinition { id = "other", levelIds = new[] { "a" }, published = true } }).Count > 0, "Duplicate level rejected");
+        Expect(JourneyCatalog.Validate(new[] { new JourneyDefinition { id = "first", levelIds = new[] { "a" }, published = true }, new JourneyDefinition { id = "other", levelIds = new[] { "a" }, published = true } }).Count > 0, "Duplicate level rejected");
         Pass("catalog, main progression, standalone DLC and missing content");
         var fake = new FakePurchaseProvider();
         var product = new PurchaseProduct { id = "coins.100", currencyAmount = 100, published = true };

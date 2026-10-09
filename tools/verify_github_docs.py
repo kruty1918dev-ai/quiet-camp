@@ -6,14 +6,15 @@ import hashlib
 import json
 import re
 import struct
+import subprocess
 import sys
 from urllib.parse import unquote, urlsplit
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parent.parent
 GUIDES = [ROOT / 'README.md', ROOT / 'CAMPAIGN_ROADMAP.md', ROOT / 'Design/README.md',
-          ROOT / 'PERFORMANCE_MAP.md', ROOT / 'tools/qa/PERFORMANCE-AUDIT-UA.md',
-          ROOT / 'Documentation/README.md', ROOT / 'QuietCamp/Packages/README.md',
+          ROOT / 'PERFORMANCE_MAP.md', ROOT / 'docs/performance/2026-10-09/BASELINE-UA.md', ROOT / 'tools/qa/PERFORMANCE-AUDIT-UA.md',
+          ROOT / 'Documentation/README.md', ROOT / 'Documentation/HTML-UI.md', ROOT / 'QuietCamp/Packages/README.md',
           ROOT / 'tools/qa/DOCS-CAPTURE-UA.md', *sorted((ROOT / 'docs').glob('*.md'))]
 ERRORS = []
 
@@ -79,6 +80,7 @@ def check_link(origin, href):
 
 
 def main():
+    subprocess.run([sys.executable, str(ROOT/'tools/prepare_ui_styles.py'), '--check'], check=True)
     links = 0
     for path in GUIDES:
         content = path.read_text(encoding='utf-8')
@@ -127,6 +129,21 @@ def main():
     receipt = json.loads((captures / 'verification.json').read_text(encoding='utf-8'))
     if not all(r['result'] == 'Passed' for r in receipt['runs']) or not all(receipt['restorationChecks'].values()):
         ERRORS.append('Native capture/restoration receipt has a failed check')
+    fresh = ROOT / 'docs/performance/2026-10-09/optimized/images'
+    updated = json.loads((fresh/'manifest.json').read_text())
+    native = json.loads((fresh/updated['nativeResult']).read_text())
+    assert updated['kind'] == 'native-unity-game-view' and updated['syntheticProgress']
+    assert updated['sourceCheckpoint'] == native['sourceCheckpoint']
+    assert updated['sessionGuards'] == native['sessionGuards'] and all(updated['sessionGuards'].values())
+    assert updated['count'] == 4 and {i['png'] for i in updated['images']} == {p.name for p in fresh.glob('*.png')}
+    fixture = 'QuietCamp/Assets/QuietCamp/Tests/PlayMode/OptimizationPlayModeTests.cs'
+    source = subprocess.check_output(['git','show',updated['sourceCheckpoint']+':'+fixture],cwd=ROOT)
+    assert hashlib.sha256(source).hexdigest() == updated['fixtureSha256']
+    for entry in updated['images']:
+        data = (fresh/entry['png']).read_bytes()
+        assert data[:8] == b'\x89PNG\r\n\x1a\n' and hashlib.sha256(data).hexdigest() == entry['sha256']
+        assert struct.unpack('>II',data[16:24]) == (entry['width'],entry['height']) == (720,1600)
+        assert entry['capturedUtc']
     for svg in (ROOT / 'docs/images/diagrams').glob('*.svg'):
         root = ET.parse(svg).getroot()
         if root.find('{http://www.w3.org/2000/svg}title') is None:
@@ -134,7 +151,7 @@ def main():
     if ERRORS:
         print('\n'.join(ERRORS), file=sys.stderr)
         return 1
-    print(f'PASS: {links} guide/site links; {len(records)} cards in 3 languages; {manifest["count"]} native PNG hashes/sidecars; capture and restoration receipts.')
+    print(f'PASS: {links} guide/site links; {len(records)} cards in 3 languages; {manifest["count"]} original + {updated["count"]} fresh native PNG hashes; capture, source and restoration receipts.')
     return 0
 
 

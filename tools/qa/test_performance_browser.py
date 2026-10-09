@@ -37,9 +37,12 @@ def main():
             page.on("pageerror", lambda e: errors.append(str(e)))
             page.on("response", lambda r: errors.append(f"HTTP {r.status}: {r.url}") if r.status >= 400 else None)
             page.goto(base, wait_until="networkidle")
-            page.wait_for_function('document.querySelector("#load-status").textContent.includes("6140")')
+            page.wait_for_function('document.querySelector("#load-status").textContent.includes("terminal stage: finished")')
             assert page.locator("#scenario-rows tr").count() > 20
-            assert "680.69" in page.locator("#trace-info").inner_text()
+            assert "max" in page.locator("#trace-info").inner_text()
+            page.wait_for_function('document.querySelectorAll("#comparison-rows tr").length >= 12')
+            assert page.locator("#dataset").input_value() == "optimized"
+            assert "checkpoint" in page.locator("#comparison-source").inner_text()
             scenarios.append("Primary native dataset, table and default real-route timeline load")
             page.locator("#scenario-search").fill("winter")
             assert all("winter" in t.lower() for t in page.locator("#scenario-rows tr").all_inner_texts())
@@ -50,14 +53,18 @@ def main():
             page.locator("#timeline").hover(position={"x": 300, "y": 100})
             assert "Frame" in page.locator("#trace-info").inner_text()
             scenarios.append("Scenario search, empty state, capped scale and frame hover")
-            page.locator("#dataset").select_option("roadmap")
-            page.wait_for_function('document.querySelector("#load-status").textContent.startsWith("640 кадрів")')
-            assert "QC.RoadmapGraphic.PaintGlade" in page.locator("#method-rows").inner_text()
-            page.locator("#trace-select").select_option("stage:ui.map.drag")
-            assert "120 кадрів" in page.locator("#trace-info").inner_text()
-            assert "roadmap/summary.json" in page.locator("#summary-download").get_attribute("href")
-            assert "roadmap/editor-audit.json.gz" in page.locator("#raw-download").get_attribute("href")
-            scenarios.append("Supplemental map dataset, gentle-scroll timeline, source methods and downloads")
+            paths = {"optimized":"optimized/", "optimized-map":"optimized/roadmap/", "matrix":"", "roadmap":"roadmap/", "pass1":"optimized/pass1/", "pass1-map":"optimized/pass1/roadmap/"}
+            for key, path in paths.items():
+                summary_url = base.rsplit("/",1)[0]+"/performance/2026-10-09/"+path+"summary.json"
+                summary = page.request.get(summary_url).json()
+                page.locator("#dataset").select_option(key)
+                page.wait_for_function('(n) => document.querySelector("#load-status").textContent.startsWith(n+" кадрів")', arg=summary["frameCount"])
+                assert len(summary["scenarios"]) == page.locator("#scenario-rows tr").count()
+                assert "2026-10-09/"+path+"summary.json" in page.locator("#summary-download").get_attribute("href")
+                if key in ["roadmap","optimized-map","pass1-map"]:
+                    page.locator("#trace-select").select_option("stage:ui.map.drag")
+                    assert "120 кадрів" in page.locator("#trace-info").inner_text()
+            scenarios.append("Six original/first-pass/final native datasets, timelines and matching downloads")
             for width in [320, 390, 768, 1440]:
                 page.set_viewport_size({"width": width, "height": 1000})
                 assert page.evaluate("document.documentElement.scrollWidth <= innerWidth"), f"Overflow at {width}"
@@ -71,8 +78,8 @@ def main():
             plain = browser.new_context(java_script_enabled=False)
             plain_page = plain.new_page(); plain_page.goto(base, wait_until="networkidle")
             assert "Інтерактивні таблиці потребують JavaScript" in plain_page.locator("noscript").inner_text()
-            assert plain_page.locator("figure img").count() == 3
-            scenarios.append("No-JavaScript report links and three static plots")
+            assert plain_page.locator("figure img").count() == 8
+            scenarios.append("No-JavaScript report links and four static plots and four verified native UI captures")
             assert not errors, errors
             browser.close()
         receipt = {"result": "Passed", "url": base, "scenarios": scenarios, "pageErrors": errors}

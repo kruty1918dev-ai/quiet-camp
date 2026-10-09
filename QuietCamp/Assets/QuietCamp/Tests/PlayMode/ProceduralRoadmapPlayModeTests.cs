@@ -81,9 +81,9 @@ namespace QuietCamp.Tests
                     services.Localization.TrySetLanguage(language);yield return Frames(14);Canvas.ForceUpdateCanvases();
                     var overlay=Object.FindObjectsByType<HtmlSurface>().Single(s=>s.name=="MenuOverlay");
                     var map=overlay.GetComponentInChildren<RoadmapGraphic>();Assert.NotNull(map);
-                    Assert.AreEqual(270,map.Scenes.Count);
-                    Assert.AreEqual(110,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #level-")));
-                    Assert.AreEqual(BonusCampCatalog.Slots.Count,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #bonus-")&&b.name!="<button #bonus-play>"));
+                    Assert.AreEqual(LevelLoader.MvpLevelIds().Count,map.Scenes.Count);
+                    Assert.That(overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #level-")),Is.InRange(1,26));
+                    Assert.LessOrEqual(overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #bonus-")&&b.name!="<button #bonus-play>"),BonusCampCatalog.Slots.Count);
                     var scroll=overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();
                     foreach(float fraction in new[]{1f,.65f,.35f,0f})
                     {

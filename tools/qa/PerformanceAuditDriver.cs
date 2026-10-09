@@ -43,7 +43,7 @@ static class PerformanceAuditDriver
         var request = JsonUtility.FromJson<Request>(File.ReadAllText(path));
         if (request == null || string.IsNullOrEmpty(request.productName) || !request.productName.StartsWith("QuietCampPerfQA"))
             throw new InvalidOperationException("Performance checks need a distinct QuietCampPerfQA product.");
-        if (!string.IsNullOrEmpty(request.suite) && request.suite != "performance" && request.suite != "foliage" && request.suite != "roadmap" && request.suite != "optimization-editor" && request.suite != "optimization-regressions")
+        if (!string.IsNullOrEmpty(request.suite) && request.suite != "performance" && request.suite != "foliage" && request.suite != "roadmap" && request.suite != "optimization-editor" && request.suite != "optimization-regressions" && request.suite != "roadmap-regressions")
             throw new InvalidOperationException("Only the performance matrix, roadmap audit and foliage regression suite are allowed.");
         SessionState.SetString(Key + "OriginalProduct", PlayerSettings.productName);
         var settingsPath = Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, "../ProjectSettings/ProjectSettings.asset"));
@@ -58,6 +58,7 @@ static class PerformanceAuditDriver
         api.Execute(new ExecutionSettings(new Filter { testMode = request.suite == "optimization-editor" ? TestMode.EditMode : TestMode.PlayMode,
             testNames = request.suite == "optimization-editor" ? new[] { "QuietCamp.Tests.PerformanceCacheTests", "QuietCamp.Tests.LeafCurtainGraphicTests" }
                 : request.suite == "optimization-regressions" ? new[] { "QuietCamp.Tests.OptimizationPlayModeTests", "QuietCamp.Tests.FoliageDivePlayModeTests", "QuietCamp.Tests.ForestCoveragePlayModeTests", "QuietCamp.Tests.NativeHtmlUiPlayModeTests" }
+                : request.suite == "roadmap-regressions" ? new[] { "QuietCamp.Tests.ProceduralRoadmapPlayModeTests" }
                 : new[] { request.suite == "foliage" ? "QuietCamp.Tests.FoliageDivePlayModeTests"
                 : request.suite == "roadmap" ? "QuietCamp.Tests.PerformanceAuditPlayModeTests.RunRoadmapPerformance"
                 : "QuietCamp.Tests.PerformanceAuditPlayModeTests.RunPerformanceMap" } }));

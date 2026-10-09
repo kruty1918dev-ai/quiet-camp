@@ -6,7 +6,7 @@
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <DefineConstants>QC_MONETIZATION_PROBE</DefineConstants>
     <BaseIntermediateOutputPath>/tmp/quietcamp-monetization-probe/obj/</BaseIntermediateOutputPath>
@@ -20,7 +20,7 @@
     <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Application/PurchaseService.cs" />
     <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Application/ProgressionService.cs" />
     <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Application/AdService.cs;../QuietCamp/Assets/QuietCamp/Scripts/Application/AdLifeService.cs;../QuietCamp/Assets/QuietCamp/Scripts/Application/CampSession.cs;../QuietCamp/Assets/QuietCamp/Scripts/Application/CampEvent.cs;../QuietCamp/Assets/QuietCamp/Scripts/Application/CampSaveData.cs;../QuietCamp/Assets/QuietCamp/Scripts/Application/CampMemoryService.cs" />
-    <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/SaveAdapter.cs;../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampContent.cs;../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampCompletionService.cs;../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampAttemptService.cs" />
+    <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/SaveAdapter.cs;../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampContent.cs;../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampCompletionService.cs;../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampAttemptService.cs;../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/PerformanceAudit.cs" />
     <Compile Include="../QuietCamp/Packages/com.kruty1918.save-system/Runtime/**/*.cs" />
     <Compile Include="MonetizationProbePlatform.cs" />
     <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Application/PlacementCommand.cs" />
