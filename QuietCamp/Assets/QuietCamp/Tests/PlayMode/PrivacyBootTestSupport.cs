@@ -24,10 +24,24 @@ namespace QuietCamp.Tests
             }
             Assert.IsTrue(Object.FindAnyObjectByType<QuietCampBootstrap>()?.StartupReady == true, "Boot did not reach the menu after explicit QA acknowledgement.");
         }
-        internal static Button Find(string id) => Object.FindObjectsByType<Button>().FirstOrDefault(b => b.gameObject.activeInHierarchy && b.name == "<button #" + id + ">");
+        internal static Button Find(string id)
+        {
+            var named=Object.FindObjectsByType<Button>().FirstOrDefault(b => b.gameObject.activeInHierarchy && b.name == "<button #" + id + ">");
+            if(named!=null)return named;
+            // Native wrappers may change their debug names during React reconciliation.
+            // Query the actual HTML id; Tap still validates physical raycast coverage.
+            foreach(var surface in Object.FindObjectsByType<HtmlSurface>())
+            {
+                var element=surface.Element(id);
+                if(element==null||!element.gameObject.activeInHierarchy)continue;
+                var button=element.GetComponent<Button>()??element.GetComponentInChildren<Button>();
+                if(button!=null)return button;
+            }
+            return null;
+        }
         internal static void Tap(Button button)
         {
-            Assert.NotNull(button); Assert.IsTrue(button.interactable);
+            Assert.NotNull(button,"Missing native button; active controls: "+string.Join(", ",Object.FindObjectsByType<Button>().Where(b=>b.gameObject.activeInHierarchy).Select(b=>b.name))); Assert.IsTrue(button.interactable);
             var rect = (RectTransform)button.transform;
             var pointer = new PointerEventData(EventSystem.current) { position = RectTransformUtility.WorldToScreenPoint(null, rect.TransformPoint(rect.rect.center)) };
             var hits = new System.Collections.Generic.List<RaycastResult>(); EventSystem.current.RaycastAll(pointer, hits);

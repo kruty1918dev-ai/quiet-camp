@@ -1,0 +1,43 @@
+[
+  {
+    "id": "qa:mh17_inspired",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "e2c3b376421e857078591a26bda99744688e469796ff1adc9313fc797a94dec2",
+    "ruleVersion": 2,
+    "number": 1,
+    "width": 5,
+    "height": 5,
+    "decorSeed": 20256804,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      2,
+      4
+    ],
+    "mapObjects": [],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.48,
+      "clusterSeed": -677396919,
+      "meadowSpecies": [
+        "grass",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bench"
+      ],
+      "shore": null
+    }
+  }
+]

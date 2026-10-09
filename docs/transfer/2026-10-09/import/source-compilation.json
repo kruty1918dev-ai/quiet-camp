@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "command": "python3 tools/verify_monetization.py --include-editor --include-prepared-tests",
+  "assemblies": [
+    "Kruty1918.LevelKit",
+    "Kruty1918.Atmos",
+    "Kruty1918.LevelGen",
+    "Kruty1918.LevelGen.LevelKitBridge",
+    "Kruty1918.AgentVerify",
+    "QuietCamp.Domain",
+    "QuietCamp.Application",
+    "QuietCamp.Infrastructure",
+    "QuietCamp.Presentation",
+    "QuietCamp.Tests.Editor",
+    "QuietCamp.Tests.PlayMode",
+    "QuietCamp.Editor"
+  ],
+  "cachedUnityReferences": true,
+  "unityLaunched": false,
+  "nativeTestsExecuted": false,
+  "assetDatabaseImport": false,
+  "playerBuild": false
+}

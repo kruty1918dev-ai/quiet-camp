@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 1,
+  "revision": "grain-coast-design-1",
+  "journeyId": "draft:grain-coast",
+  "presentation": "world3d",
+  "revealDistance": 2,
+  "published": false,
+  "designStatus": "design-only; no playable levels, models or v3 runtime supplied",
+  "environmentalStoryFile": "story.json",
+  "regions": [
+    {
+      "id": "grain-coast",
+      "titleKey": "grain-coast.title",
+      "previewId": "QC_SEA001",
+      "firstLevel": 1,
+      "lastLevel": 8,
+      "height": 3360,
+      "biome": "coast",
+      "season": "summer",
+      "environmentPhase": "dry-summer",
+      "lighting": "day",
+      "weatherBias": 0.25,
+      "vegetationProfile": "dune-grasses-reeds",
+      "terrainProfile": "low-coast-civilian-port-edge",
+      "landmark": "grain_coast_ship_map",
+      "environmentalMotifs": [
+        "sand",
+        "reeds",
+        "coastal-road",
+        "old-pier",
+        "lighthouse",
+        "grain-storage",
+        "grounded-merchant-ship"
+      ],
+      "performanceTier": "balanced",
+      "transition": {
+        "fromSeason": "summer",
+        "toSeason": "summer",
+        "kind": "blend",
+        "length": 300
+      },
+      "revealRules": {
+        "nearFuture": 2,
+        "branchTeaser": 1,
+        "atmosphere": "sea-haze",
+        "farLandmarkAssetId": null,
+        "farLandmarkHeight": 4,
+        "farLandmarkX": 0.55
+      },
+      "chunks": [
+        {
+          "id": "grain-coast:chunk-1",
+          "firstOrder": 1,
+          "lastOrder": 2
+        },
+        {
+          "id": "grain-coast:chunk-2",
+          "firstOrder": 3,
+          "lastOrder": 4
+        },
+        {
+          "id": "grain-coast:chunk-3",
+          "firstOrder": 5,
+          "lastOrder": 6
+        },
+        {
+          "id": "grain-coast:chunk-4",
+          "firstOrder": 7,
+          "lastOrder": 8
+        }
+      ],
+      "nodePositions": [
+        {
+          "id": "node:QC_SEA001",
+          "levelId": "QC_SEA001",
+          "previewId": "QC_SEA001",
+          "titleKey": "grain-coast.level.1",
+          "order": 1,
+          "x": 0.34,
+          "y": 210,
+          "radius": 62,
+          "requires": [],
+          "associatedProps": [],
+          "branchLinks": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_SEA002",
+          "levelId": "QC_SEA002",
+          "previewId": "QC_SEA002",
+          "titleKey": "grain-coast.level.2",
+          "order": 2,
+          "x": 0.58,
+          "y": 630,
+          "radius": 62,
+          "requires": [
+            "QC_SEA001"
+          ],
+          "associatedProps": [],
+          "branchLinks": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_SEA003",
+          "levelId": "QC_SEA003",
+          "previewId": "QC_SEA003",
+          "titleKey": "grain-coast.level.3",
+          "order": 3,
+          "x": 0.42,
+          "y": 1050,
+          "radius": 62,
+          "requires": [
+            "QC_SEA002"
+          ],
+          "associatedProps": [],
+          "branchLinks": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_SEA004",
+          "levelId": "QC_SEA004",
+          "previewId": "QC_SEA004",
+          "titleKey": "grain-coast.level.4",
+          "order": 4,
+          "x": 0.62,
+          "y": 1470,
+          "radius": 62,
+          "requires": [
+            "QC_SEA003"
+          ],
+          "associatedProps": [],
+          "branchLinks": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_SEA005",
+          "levelId": "QC_SEA005",
+          "previewId": "QC_SEA005",
+          "titleKey": "grain-coast.level.5",
+          "order": 5,
+          "x": 0.38,
+          "y": 1890,
+          "radius": 62,
+          "requires": [
+            "QC_SEA004"
+          ],
+          "associatedProps": [],
+          "branchLinks": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_SEA006",
+          "levelId": "QC_SEA006",
+          "previewId": "QC_SEA006",
+          "titleKey": "grain-coast.level.6",
+          "order": 6,
+          "x": 0.56,
+          "y": 2310,
+          "radius": 62,
+          "requires": [
+            "QC_SEA005"
+          ],
+          "associatedProps": [],
+          "branchLinks": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_SEA007",
+          "levelId": "QC_SEA007",
+          "previewId": "QC_SEA007",
+          "titleKey": "grain-coast.level.7",
+          "order": 7,
+          "x": 0.4,
+          "y": 2730,
+          "radius": 62,
+          "requires": [
+            "QC_SEA006"
+          ],
+          "associatedProps": [],
+          "branchLinks": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_SEA008",
+          "levelId": "QC_SEA008",
+          "previewId": "QC_SEA008",
+          "titleKey": "grain-coast.level.8",
+          "order": 8,
+          "x": 0.58,
+          "y": 3150,
+          "radius": 62,
+          "requires": [
+            "QC_SEA007"
+          ],
+          "associatedProps": [],
+          "branchLinks": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        }
+      ],
+      "branches": [],
+      "storyProps": []
+    }
+  ]
+}

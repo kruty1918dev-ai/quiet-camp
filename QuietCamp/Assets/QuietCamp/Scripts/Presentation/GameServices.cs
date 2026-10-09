@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Kruty1918.Audio;
 using Kruty1918.Haptics;
 using Kruty1918.InputRouting.API;
@@ -52,10 +53,13 @@ namespace QuietCamp.Presentation
         public CampCompletionService Completion { get; private set; }
         public CampAttemptService Attempts { get; private set; }
         public bool MonetizationBusy => Purchases.Busy || AdLives.Busy || Rewards.Busy;
+        public readonly Dictionary<string,int> RoadmapSeenFrontiers=new Dictionary<string,int>(StringComparer.Ordinal);
         public event Action MonetizationChanged;
         void OnMonetizationChanged() => MonetizationChanged?.Invoke();
         /// <summary>Optional verified entitlement adapter; no provider means no premium entitlement.</summary>
         public Func<string,bool> BonusEntitlement { get; set; }
+        public IRoadmapBranchUnlockProvider BranchUnlockProvider { get; set; }
+        public Func<string,bool> SubscriptionEntitlement { get; set; }
         public GoogleServicesConfiguration GoogleConfiguration { get; }
         public LegalConfiguration Legal { get; }
         public bool PrivacyNoticePresented;
@@ -63,6 +67,9 @@ namespace QuietCamp.Presentation
         /// <summary>Level chosen in the menu, consumed by the Camp scene host.</summary>
         public string PendingLevelId { get; set; }
         public float LevelMapScroll = -1f;
+        public Domain.RoadmapAnchor LevelMapAnchor;
+        public string LevelMapJourney="main";
+        public readonly Dictionary<string,Domain.RoadmapAnchor> LevelMapAnchors=new Dictionary<string,Domain.RoadmapAnchor>();
         public int AlbumIndex;
         /// <summary>Chosen once per application launch; returning from gameplay keeps the same backdrop.</summary>
         public LevelData MenuBackdrop { get; internal set; }
@@ -175,7 +182,7 @@ namespace QuietCamp.Presentation
             var config = MonetizationConfiguration.Load();
             Economy = new CampEconomy(Save.Economy, config.economy, Save.Save);
             Journeys = config.Catalog();
-            JourneyAccess = new JourneyAccessService(Journeys, Progression, Save.Entitlements, () => Economy.IsPro);
+            JourneyAccess = new JourneyAccessService(Journeys, Progression, Save.Entitlements, () => Economy.IsPro,id=>SubscriptionEntitlement?.Invoke(id)??false);
             Memories = new CampMemoryService(Save.Memories);
             Completion = new CampCompletionService(Save, Progression, Memories, Journeys);
             Attempts = new CampAttemptService(Save, Economy, Completion);
@@ -248,7 +255,7 @@ namespace QuietCamp.Presentation
             if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "MainMenu" || MonetizationBusy)
                 return false;
             await Analytics.ClearLocalDataAndWithdraw();
-            if (!SaveAdapter.TryEraseLocalFiles(UnityEngine.Application.persistentDataPath, out _)) return false;
+            if (!Save.MemoryOnly && !SaveAdapter.TryEraseLocalFiles(UnityEngine.Application.persistentDataPath, out _)) return false;
             Save.ResetAfterErase();
             Progression.Restore(null, null, 0);
             Save.Progress = new ProgressSaveData();
@@ -259,7 +266,7 @@ namespace QuietCamp.Presentation
             ConfigureMonetization();
             Tutorial = CreateTutorial();
             UnityEngine.JsonUtility.FromJsonOverwrite(UnityEngine.JsonUtility.ToJson(new SettingsSaveData()), Settings);
-            PendingLevelId = null; PendingMenuScreen = null; LevelMapScroll = -1; AlbumIndex = 0;
+            PendingLevelId = null; PendingMenuScreen = null; LevelMapScroll = -1; LevelMapAnchor=null; LevelMapJourney="main"; LevelMapAnchors.Clear(); AlbumIndex = 0;
             PrivacyNoticePresented = false;
             Localization.TrySetLanguage(Settings.language);
             UI.LocalizedLabel.TextScale = Settings.textScale;

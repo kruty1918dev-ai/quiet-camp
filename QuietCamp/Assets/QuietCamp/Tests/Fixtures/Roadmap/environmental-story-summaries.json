@@ -1,0 +1,415 @@
+[
+  {
+    "id": "QC001",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "e2c3b376421e857078591a26bda99744688e469796ff1adc9313fc797a94dec2",
+    "ruleVersion": 2,
+    "number": 1,
+    "width": 5,
+    "height": 5,
+    "decorSeed": 20256804,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      2,
+      4
+    ],
+    "mapObjects": [],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.48,
+      "clusterSeed": -677396919,
+      "meadowSpecies": [
+        "grass",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "QC002",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "fb3f225b11e151c2ed124a6dc8fdda5585200b23a2c8a446ebbe65b6736dd575",
+    "ruleVersion": 2,
+    "number": 2,
+    "width": 5,
+    "height": 6,
+    "decorSeed": 20265269,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      2,
+      5
+    ],
+    "mapObjects": [],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.48,
+      "clusterSeed": -647168404,
+      "meadowSpecies": [
+        "grass",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "QC003",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "e4b2f452e593c237ef8d2c00add728635fd478ab31b0edc0619972ecdd64f8e2",
+    "ruleVersion": 2,
+    "number": 3,
+    "width": 6,
+    "height": 5,
+    "decorSeed": 20306438,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 3,
+        "z": 3,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": -500153905,
+      "meadowSpecies": [
+        "grass",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "QC004",
+    "environmentPreset": "pines",
+    "lighting": "morning",
+    "contentHash": "8915cda32c07faa31f6dfab600f87d98a2e118d7a36d6fdd8ee088db87732d20",
+    "ruleVersion": 2,
+    "number": 4,
+    "width": 6,
+    "height": 6,
+    "decorSeed": 20314903,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      5,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 5,
+        "z": 0,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 2,
+        "z": 5,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [
+      [
+        5,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.48,
+      "clusterSeed": -469925390,
+      "meadowSpecies": [
+        "grass",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "QC005",
+    "environmentPreset": "pines",
+    "lighting": "evening",
+    "contentHash": "892768b9423b35e9fd5eb425a33ec9b0fce92f4d2511998c761a8d1a383bf66d",
+    "ruleVersion": 2,
+    "number": 5,
+    "width": 6,
+    "height": 7,
+    "decorSeed": 20290664,
+    "shade": false,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      3,
+      6
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 3,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.48,
+      "clusterSeed": -556482859,
+      "meadowSpecies": [
+        "grass",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "QC006",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "277fa05d1084c89d13c1cd3974b1d200aaebbaf8c35cde6c5934def32d34ef8d",
+    "ruleVersion": 2,
+    "number": 6,
+    "width": 7,
+    "height": 6,
+    "decorSeed": 20299129,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 6,
+        "z": 0,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 4,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 3,
+        "z": 5,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        -1,
+        1
+      ],
+      [
+        -1,
+        2
+      ],
+      [
+        -1,
+        3
+      ],
+      [
+        -1,
+        4
+      ],
+      [
+        -1,
+        5
+      ]
+    ],
+    "noise": [
+      [
+        6,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": -526254344,
+      "meadowSpecies": [
+        "grass",
+        "poppy",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "bag",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "QC007",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "7d54113d6df37600c093ababc533f3a4fa0af4fc80d2217232f903d23d718eca",
+    "ruleVersion": 2,
+    "number": 7,
+    "width": 6,
+    "height": 8,
+    "decorSeed": 20340298,
+    "shade": true,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 4,
+        "z": 5,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 1,
+        "z": 3,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 7
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "summer",
+      "weatherId": "rain",
+      "moisture": 0.9,
+      "treeDensity": 0.55,
+      "clusterSeed": -379239845,
+      "meadowSpecies": [
+        "grass",
+        "poppy",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "bag",
+        "lantern"
+      ],
+      "shore": {
+        "kind": "stream",
+        "side": "left",
+        "offset": 7.1,
+        "width": 2.2,
+        "seed": 20340298
+      }
+    }
+  }
+]

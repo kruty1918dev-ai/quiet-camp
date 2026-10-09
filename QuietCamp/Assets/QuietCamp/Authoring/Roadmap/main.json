@@ -1,0 +1,1693 @@
+{
+  "schemaVersion": 1,
+  "revealDistance": 2,
+  "revision": "world-ukrainian-rural-3",
+  "journeyId": "main",
+  "regions": [
+    {
+      "id": "main:region:0",
+      "titleKey": "map.region.spring",
+      "biome": "forest",
+      "season": "spring",
+      "landmark": "story_trail_shelter",
+      "previewId": "QC001",
+      "performanceTier": "balanced",
+      "firstLevel": 1,
+      "lastLevel": 5,
+      "height": 2800.0,
+      "transition": {
+        "fromSeason": "spring",
+        "toSeason": "spring",
+        "kind": "blend",
+        "length": 1680
+      },
+      "nodePositions": [
+        {
+          "id": "node:QC001",
+          "levelId": "QC001",
+          "previewId": "QC001",
+          "titleKey": "menu.levels",
+          "order": 1,
+          "x": 0.34,
+          "y": 240,
+          "radius": 62.0,
+          "requires": [],
+          "world": null
+        },
+        {
+          "id": "node:QC002",
+          "levelId": "QC002",
+          "previewId": "QC002",
+          "titleKey": "menu.levels",
+          "order": 2,
+          "x": 0.66,
+          "y": 710,
+          "radius": 62.0,
+          "requires": [
+            "QC001"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:QC003",
+          "levelId": "QC003",
+          "previewId": "QC003",
+          "titleKey": "menu.levels",
+          "order": 3,
+          "x": 0.44,
+          "y": 1180,
+          "radius": 62.0,
+          "requires": [
+            "QC002"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:QC004",
+          "levelId": "QC004",
+          "previewId": "QC004",
+          "titleKey": "menu.levels",
+          "order": 4,
+          "x": 0.68,
+          "y": 1650,
+          "radius": 62.0,
+          "requires": [
+            "QC003"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:QC005",
+          "levelId": "QC005",
+          "previewId": "QC005",
+          "titleKey": "menu.levels",
+          "order": 5,
+          "x": 0.34,
+          "y": 2120,
+          "radius": 62.0,
+          "requires": [
+            "QC004"
+          ],
+          "world": null
+        }
+      ],
+      "branches": [
+        {
+          "id": "branch:story:lighthouse",
+          "anchorNodeId": "node:QC005",
+          "targetRegionId": null,
+          "journeyId": "lighthouse",
+          "bonusId": null,
+          "titleKey": "journey.lighthouse.title",
+          "previewId": "QC_LH008",
+          "teaserState": "silhouette",
+          "x": 0.78,
+          "y": 2350,
+          "radius": 92,
+          "published": false,
+          "requires": [
+            "QC005"
+          ],
+          "visualIdentity": "lighthouse",
+          "type": "story-journey",
+          "descriptionKey": "branch.lighthouse.description",
+          "heroLandmark": "branch_lighthouse",
+          "biome": "coast",
+          "season": "summer",
+          "lighting": "day",
+          "world": {
+            "extent": 460,
+            "props": [
+              {
+                "assetId": "tree_default",
+                "x": -3,
+                "z": 1.8,
+                "height": 1.5,
+                "yaw": 0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": 3.8,
+                "z": 2.8,
+                "height": 1.5,
+                "yaw": 43,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": -3.5,
+                "z": -2.8,
+                "height": 1.5,
+                "yaw": 86,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": 3.6,
+                "z": -3,
+                "height": 1.5,
+                "yaw": 129,
+                "sway": true
+              },
+              {
+                "assetId": "stone_largeA",
+                "x": -3.0,
+                "z": -2,
+                "height": 0.4,
+                "yaw": 0,
+                "sway": false
+              },
+              {
+                "assetId": "stone_largeA",
+                "x": -1.9,
+                "z": 2,
+                "height": 0.4,
+                "yaw": 29,
+                "sway": false
+              },
+              {
+                "assetId": "stone_largeA",
+                "x": -0.7999999999999998,
+                "z": -2,
+                "height": 0.4,
+                "yaw": 58,
+                "sway": false
+              },
+              {
+                "assetId": "stone_largeA",
+                "x": 0.30000000000000027,
+                "z": 2,
+                "height": 0.4,
+                "yaw": 87,
+                "sway": false
+              },
+              {
+                "assetId": "stone_largeA",
+                "x": 1.4000000000000004,
+                "z": -2,
+                "height": 0.4,
+                "yaw": 116,
+                "sway": false
+              },
+              {
+                "assetId": "stone_largeA",
+                "x": 2.5,
+                "z": 2,
+                "height": 0.4,
+                "yaw": 145,
+                "sway": false
+              }
+            ]
+          },
+          "teaserDepth": 1,
+          "accessOptions": [
+            {
+              "method": "progression"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "branch:story:lighthouse:node:0",
+              "levelId": "QC_LH001",
+              "previewId": "QC_LH008",
+              "x": -3.8,
+              "y": -2.8,
+              "world": {
+                "extent": 460,
+                "props": [
+                  {
+                    "assetId": "tent_smallOpen",
+                    "x": 0,
+                    "z": 0,
+                    "height": 1,
+                    "yaw": 0,
+                    "sway": false
+                  }
+                ]
+              }
+            },
+            {
+              "id": "branch:story:lighthouse:node:1",
+              "levelId": "QC_LH002",
+              "previewId": "QC_LH008",
+              "x": -5.0,
+              "y": -4.6,
+              "world": {
+                "extent": 460,
+                "props": [
+                  {
+                    "assetId": "tent_smallOpen",
+                    "x": 0,
+                    "z": 0,
+                    "height": 1,
+                    "yaw": 0,
+                    "sway": false
+                  }
+                ]
+              }
+            },
+            {
+              "id": "branch:story:lighthouse:node:2",
+              "levelId": "QC_LH003",
+              "previewId": "QC_LH008",
+              "x": -6.199999999999999,
+              "y": -6.4,
+              "world": {
+                "extent": 460,
+                "props": [
+                  {
+                    "assetId": "tent_smallOpen",
+                    "x": 0,
+                    "z": 0,
+                    "height": 1,
+                    "yaw": 0,
+                    "sway": false
+                  }
+                ]
+              }
+            },
+            {
+              "id": "branch:story:lighthouse:node:3",
+              "levelId": "QC_LH004",
+              "previewId": "QC_LH008",
+              "x": -7.3999999999999995,
+              "y": -8.2,
+              "world": {
+                "extent": 460,
+                "props": [
+                  {
+                    "assetId": "tent_smallOpen",
+                    "x": 0,
+                    "z": 0,
+                    "height": 1,
+                    "yaw": 0,
+                    "sway": false
+                  }
+                ]
+              }
+            },
+            {
+              "id": "branch:story:lighthouse:node:4",
+              "levelId": "QC_LH005",
+              "previewId": "QC_LH008",
+              "x": -8.6,
+              "y": -10.0,
+              "world": {
+                "extent": 460,
+                "props": [
+                  {
+                    "assetId": "tent_smallOpen",
+                    "x": 0,
+                    "z": 0,
+                    "height": 1,
+                    "yaw": 0,
+                    "sway": false
+                  }
+                ]
+              }
+            },
+            {
+              "id": "branch:story:lighthouse:node:5",
+              "levelId": "QC_LH006",
+              "previewId": "QC_LH008",
+              "x": -9.8,
+              "y": -11.8,
+              "world": {
+                "extent": 460,
+                "props": [
+                  {
+                    "assetId": "tent_smallOpen",
+                    "x": 0,
+                    "z": 0,
+                    "height": 1,
+                    "yaw": 0,
+                    "sway": false
+                  }
+                ]
+              }
+            },
+            {
+              "id": "branch:story:lighthouse:node:6",
+              "levelId": "QC_LH007",
+              "previewId": "QC_LH008",
+              "x": -11.0,
+              "y": -13.600000000000001,
+              "world": {
+                "extent": 460,
+                "props": [
+                  {
+                    "assetId": "tent_smallOpen",
+                    "x": 0,
+                    "z": 0,
+                    "height": 1,
+                    "yaw": 0,
+                    "sway": false
+                  }
+                ]
+              }
+            },
+            {
+              "id": "branch:story:lighthouse:node:7",
+              "levelId": "QC_LH008",
+              "previewId": "QC_LH008",
+              "x": -12.2,
+              "y": -15.399999999999999,
+              "world": {
+                "extent": 460,
+                "props": [
+                  {
+                    "assetId": "tent_smallOpen",
+                    "x": 0,
+                    "z": 0,
+                    "height": 1,
+                    "yaw": 0,
+                    "sway": false
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "branch:foundation:bonus",
+          "anchorNodeId": "node:QC002",
+          "bonusId": "bonus:qc_camp:3",
+          "titleKey": "branch.garden.title",
+          "previewId": "bonus:bonus:qc_camp:3",
+          "x": 0.23,
+          "y": 990,
+          "radius": 92,
+          "published": false,
+          "requires": [
+            "QC002"
+          ],
+          "type": "bonus",
+          "visualIdentity": "garden",
+          "teaserDepth": 1,
+          "nodes": [
+            {
+              "id": "branch:foundation:bonus:node:0",
+              "levelId": "bonus:qc_camp:3",
+              "previewId": "bonus:bonus:qc_camp:3",
+              "x": -3.8,
+              "y": -2.8,
+              "world": {
+                "extent": 460,
+                "props": [
+                  {
+                    "assetId": "tent_smallOpen",
+                    "x": 0,
+                    "z": 0,
+                    "height": 1,
+                    "yaw": 0,
+                    "sway": false
+                  }
+                ]
+              }
+            }
+          ],
+          "descriptionKey": "branch.garden.description",
+          "heroLandmark": "branch_greenhouse",
+          "biome": "meadow",
+          "season": "summer",
+          "lighting": "day",
+          "world": {
+            "extent": 460,
+            "props": [
+              {
+                "assetId": "tree_default",
+                "x": -3,
+                "z": 1.8,
+                "height": 2.6,
+                "yaw": 0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": 3.8,
+                "z": 2.8,
+                "height": 2.6,
+                "yaw": 43,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": -3.5,
+                "z": -2.8,
+                "height": 2.6,
+                "yaw": 86,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": 3.6,
+                "z": -3,
+                "height": 2.6,
+                "yaw": 129,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": -3.0,
+                "z": -2,
+                "height": 0.22,
+                "yaw": 0,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": -1.9,
+                "z": 2,
+                "height": 0.22,
+                "yaw": 29,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": -0.7999999999999998,
+                "z": -2,
+                "height": 0.22,
+                "yaw": 58,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": 0.30000000000000027,
+                "z": 2,
+                "height": 0.22,
+                "yaw": 87,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": 1.4000000000000004,
+                "z": -2,
+                "height": 0.22,
+                "yaw": 116,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": 2.5,
+                "z": 2,
+                "height": 0.22,
+                "yaw": 145,
+                "sway": true
+              }
+            ]
+          },
+          "accessOptions": [
+            {
+              "method": "progression"
+            }
+          ]
+        }
+      ],
+      "storyProps": [
+        {
+          "assetId": "story_trail_shelter",
+          "motif": "resting-shelter",
+          "x": -5,
+          "y": 0,
+          "height": 3.8,
+          "interpretation": "fictional",
+          "yaw": 35
+        }
+      ],
+      "historical": {
+        "contextId": null,
+        "interpretation": "fictional",
+        "cultureKey": null,
+        "verified": false,
+        "sources": [],
+        "claims": []
+      },
+      "lighting": "day",
+      "weatherBias": 0.1,
+      "vegetationProfile": "young-forest-and-daisies",
+      "terrainProfile": "gentle-hills",
+      "environmentalMotifs": [
+        "resting-shelter",
+        "old-trail",
+        "ukrainian-field-margins",
+        "rural-fences",
+        "utility-corridor",
+        "returning-orchards"
+      ],
+      "revealRules": {
+        "nearFuture": 2,
+        "branchTeaser": 1,
+        "atmosphere": "soft-haze"
+      },
+      "chunks": [
+        {
+          "id": "main:region:0:chunk:0",
+          "firstOrder": 1,
+          "lastOrder": 3
+        },
+        {
+          "id": "main:region:0:chunk:1",
+          "firstOrder": 4,
+          "lastOrder": 5
+        }
+      ],
+      "culturalLandscape": {
+        "profile": "ukrainian-rural",
+        "seed": 1918,
+        "width": 84,
+        "fields": 0.7,
+        "orchards": 0.6,
+        "settlements": 0.5,
+        "powerLine": true
+      }
+    },
+    {
+      "id": "main:region:1",
+      "titleKey": "map.region.summer",
+      "biome": "meadow",
+      "season": "summer",
+      "landmark": "sign",
+      "previewId": "QC006",
+      "performanceTier": "balanced",
+      "firstLevel": 6,
+      "lastLevel": 15,
+      "height": 4900.0,
+      "transition": {
+        "fromSeason": "spring",
+        "toSeason": "summer",
+        "kind": "blend",
+        "length": 1680
+      },
+      "nodePositions": [
+        {
+          "id": "node:QC006",
+          "levelId": "QC006",
+          "previewId": "QC006",
+          "titleKey": "menu.levels",
+          "order": 6,
+          "x": 0.57,
+          "y": 240,
+          "radius": 62.0,
+          "requires": [
+            "QC005"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:QC007",
+          "levelId": "QC007",
+          "previewId": "QC007",
+          "titleKey": "menu.levels",
+          "order": 7,
+          "x": 0.42,
+          "y": 710,
+          "radius": 62.0,
+          "requires": [
+            "QC006"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:QC008",
+          "levelId": "QC008",
+          "previewId": "QC008",
+          "titleKey": "menu.levels",
+          "order": 8,
+          "x": 0.4313185,
+          "y": 1050.0,
+          "radius": 62.0,
+          "requires": [
+            "QC007"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:QC009",
+          "levelId": "QC009",
+          "previewId": "QC009",
+          "titleKey": "menu.levels",
+          "order": 9,
+          "x": 0.6037638,
+          "y": 1470.0,
+          "radius": 62.0,
+          "requires": [
+            "QC008"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:QC010",
+          "levelId": "QC010",
+          "previewId": "QC010",
+          "titleKey": "menu.levels",
+          "order": 10,
+          "x": 0.7056462,
+          "y": 1890.0,
+          "radius": 62.0,
+          "requires": [
+            "QC009"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:gen:qc_camp:1",
+          "levelId": "gen:qc_camp:1",
+          "previewId": "gen:qc_camp:1",
+          "titleKey": "menu.levels",
+          "order": 11,
+          "x": 0.6676823,
+          "y": 2810.0,
+          "radius": 62.0,
+          "requires": [
+            "QC010"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:gen:qc_camp:2",
+          "levelId": "gen:qc_camp:2",
+          "previewId": "gen:qc_camp:2",
+          "titleKey": "menu.levels",
+          "order": 12,
+          "x": 0.5156887,
+          "y": 3230.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:1"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:gen:qc_camp:3",
+          "levelId": "gen:qc_camp:3",
+          "previewId": "gen:qc_camp:3",
+          "titleKey": "menu.levels",
+          "order": 13,
+          "x": 0.35302633,
+          "y": 3650.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:2"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:gen:qc_camp:4",
+          "levelId": "gen:qc_camp:4",
+          "previewId": "gen:qc_camp:4",
+          "titleKey": "menu.levels",
+          "order": 14,
+          "x": 0.29031095,
+          "y": 4070.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:3"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:gen:qc_camp:5",
+          "levelId": "gen:qc_camp:5",
+          "previewId": "gen:qc_camp:5",
+          "titleKey": "menu.levels",
+          "order": 15,
+          "x": 0.37019122,
+          "y": 4490.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:4"
+          ],
+          "world": null
+        }
+      ],
+      "branches": [
+        {
+          "id": "branch:bonus:qc_camp:1",
+          "anchorNodeId": "node:QC010",
+          "targetRegionId": null,
+          "journeyId": null,
+          "bonusId": "bonus:qc_camp:1",
+          "titleKey": "map.bonus.dew.title",
+          "previewId": "bonus:bonus:qc_camp:1",
+          "teaserState": "silhouette",
+          "x": 0.25,
+          "y": 2310.0,
+          "radius": 135.0,
+          "published": false,
+          "requires": [
+            "QC010"
+          ],
+          "visualIdentity": "garden",
+          "type": "bonus",
+          "descriptionKey": "branch.garden.description",
+          "heroLandmark": "branch_greenhouse",
+          "biome": "meadow",
+          "season": "summer",
+          "lighting": "day",
+          "world": {
+            "extent": 460,
+            "props": [
+              {
+                "assetId": "tree_default",
+                "x": -3,
+                "z": 1.8,
+                "height": 2.6,
+                "yaw": 0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": 3.8,
+                "z": 2.8,
+                "height": 2.6,
+                "yaw": 43,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": -3.5,
+                "z": -2.8,
+                "height": 2.6,
+                "yaw": 86,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": 3.6,
+                "z": -3,
+                "height": 2.6,
+                "yaw": 129,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": -3.0,
+                "z": -2,
+                "height": 0.22,
+                "yaw": 0,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": -1.9,
+                "z": 2,
+                "height": 0.22,
+                "yaw": 29,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": -0.7999999999999998,
+                "z": -2,
+                "height": 0.22,
+                "yaw": 58,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": 0.30000000000000027,
+                "z": 2,
+                "height": 0.22,
+                "yaw": 87,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": 1.4000000000000004,
+                "z": -2,
+                "height": 0.22,
+                "yaw": 116,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": 2.5,
+                "z": 2,
+                "height": 0.22,
+                "yaw": 145,
+                "sway": true
+              }
+            ]
+          },
+          "teaserDepth": 1,
+          "accessOptions": [
+            {
+              "method": "progression"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "branch:bonus:qc_camp:1:node:0",
+              "levelId": "bonus:qc_camp:1",
+              "previewId": "bonus:bonus:qc_camp:1",
+              "x": -3.8,
+              "y": -2.8,
+              "world": {
+                "extent": 460,
+                "props": [
+                  {
+                    "assetId": "tent_smallOpen",
+                    "x": 0,
+                    "z": 0,
+                    "height": 1,
+                    "yaw": 0,
+                    "sway": false
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "storyProps": [
+        {
+          "assetId": "sign",
+          "motif": "shelter-marker",
+          "interpretation": "fictional",
+          "x": -6.0,
+          "y": 4.0,
+          "height": 0.7
+        }
+      ],
+      "historical": {
+        "contextId": null,
+        "interpretation": "fictional",
+        "cultureKey": null,
+        "verified": false,
+        "sources": [],
+        "claims": []
+      },
+      "lighting": "day",
+      "weatherBias": 0.1,
+      "vegetationProfile": "meadow-flowers",
+      "terrainProfile": "gentle-hills",
+      "environmentalMotifs": [
+        "old-trail",
+        "ukrainian-field-margins",
+        "rural-fences",
+        "utility-corridor",
+        "returning-orchards"
+      ],
+      "revealRules": {
+        "nearFuture": 2,
+        "branchTeaser": 1,
+        "atmosphere": "soft-haze"
+      },
+      "chunks": [
+        {
+          "id": "main:region:1:chunk:0",
+          "firstOrder": 6,
+          "lastOrder": 7
+        },
+        {
+          "id": "main:region:1:chunk:1",
+          "firstOrder": 8,
+          "lastOrder": 13
+        },
+        {
+          "id": "main:region:1:chunk:2",
+          "firstOrder": 14,
+          "lastOrder": 15
+        }
+      ],
+      "culturalLandscape": {
+        "profile": "ukrainian-rural",
+        "seed": 1918,
+        "width": 84,
+        "fields": 0.95,
+        "orchards": 0.32,
+        "settlements": 0.38,
+        "powerLine": true
+      }
+    },
+    {
+      "id": "main:region:2",
+      "titleKey": "map.region.autumn",
+      "biome": "forest",
+      "season": "autumn",
+      "landmark": "sign",
+      "previewId": "gen:qc_camp:6",
+      "performanceTier": "balanced",
+      "firstLevel": 16,
+      "lastLevel": 20,
+      "height": 2800.0,
+      "transition": {
+        "fromSeason": "summer",
+        "toSeason": "autumn",
+        "kind": "blend",
+        "length": 1680
+      },
+      "nodePositions": [
+        {
+          "id": "node:gen:qc_camp:6",
+          "levelId": "gen:qc_camp:6",
+          "previewId": "gen:qc_camp:6",
+          "titleKey": "menu.levels",
+          "order": 16,
+          "x": 0.5383458,
+          "y": 210.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:5"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:gen:qc_camp:7",
+          "levelId": "gen:qc_camp:7",
+          "previewId": "gen:qc_camp:7",
+          "titleKey": "menu.levels",
+          "order": 17,
+          "x": 0.680424,
+          "y": 630.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:6"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:gen:qc_camp:8",
+          "levelId": "gen:qc_camp:8",
+          "previewId": "gen:qc_camp:8",
+          "titleKey": "menu.levels",
+          "order": 18,
+          "x": 0.69980776,
+          "y": 1050.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:7"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:gen:qc_camp:9",
+          "levelId": "gen:qc_camp:9",
+          "previewId": "gen:qc_camp:9",
+          "titleKey": "menu.levels",
+          "order": 19,
+          "x": 0.5833155,
+          "y": 1470.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:8"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:gen:qc_camp:10",
+          "levelId": "gen:qc_camp:10",
+          "previewId": "gen:qc_camp:10",
+          "titleKey": "menu.levels",
+          "order": 20,
+          "x": 0.41016594,
+          "y": 1890.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:9"
+          ],
+          "world": null
+        }
+      ],
+      "branches": [
+        {
+          "id": "branch:bonus:qc_camp:2",
+          "anchorNodeId": "node:gen:qc_camp:10",
+          "targetRegionId": null,
+          "journeyId": null,
+          "bonusId": "bonus:qc_camp:2",
+          "titleKey": "map.bonus.amber.title",
+          "previewId": "bonus:bonus:qc_camp:2",
+          "teaserState": "silhouette",
+          "x": 0.75,
+          "y": 2310.0,
+          "radius": 135.0,
+          "published": false,
+          "requires": [
+            "gen:qc_camp:10"
+          ],
+          "visualIdentity": "fireflies",
+          "type": "bonus",
+          "descriptionKey": "branch.fireflies.description",
+          "heroLandmark": "branch_pond",
+          "biome": "forest",
+          "season": "summer",
+          "lighting": "night",
+          "world": {
+            "extent": 460,
+            "props": [
+              {
+                "assetId": "stone_largeA",
+                "x": 3.15,
+                "z": 0.0,
+                "height": 0.32,
+                "yaw": 0,
+                "sway": false
+              },
+              {
+                "assetId": "stone_largeA",
+                "x": 2.2273863607376247,
+                "z": 1.590990257669732,
+                "height": 0.32,
+                "yaw": 41,
+                "sway": false
+              },
+              {
+                "assetId": "stone_largeA",
+                "x": 1.9288187086570813e-16,
+                "z": 2.25,
+                "height": 0.32,
+                "yaw": 82,
+                "sway": false
+              },
+              {
+                "assetId": "stone_largeA",
+                "x": -2.2273863607376243,
+                "z": 1.5909902576697321,
+                "height": 0.32,
+                "yaw": 123,
+                "sway": false
+              },
+              {
+                "assetId": "stone_largeA",
+                "x": -3.15,
+                "z": 2.755455298081545e-16,
+                "height": 0.32,
+                "yaw": 164,
+                "sway": false
+              },
+              {
+                "assetId": "stone_largeA",
+                "x": -2.227386360737625,
+                "z": -1.590990257669732,
+                "height": 0.32,
+                "yaw": 205,
+                "sway": false
+              },
+              {
+                "assetId": "stone_largeA",
+                "x": -5.786456125971243e-16,
+                "z": -2.25,
+                "height": 0.32,
+                "yaw": 246,
+                "sway": false
+              },
+              {
+                "assetId": "stone_largeA",
+                "x": 2.2273863607376243,
+                "z": -1.5909902576697323,
+                "height": 0.32,
+                "yaw": 287,
+                "sway": false
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": -3,
+                "z": 1.8,
+                "height": 2.6,
+                "yaw": 0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": 3.8,
+                "z": 2.8,
+                "height": 2.6,
+                "yaw": 43,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": -3.5,
+                "z": -2.8,
+                "height": 2.6,
+                "yaw": 86,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": 3.6,
+                "z": -3,
+                "height": 2.6,
+                "yaw": 129,
+                "sway": true
+              },
+              {
+                "assetId": "grass",
+                "x": -3.0,
+                "z": -2,
+                "height": 0.4,
+                "yaw": 0,
+                "sway": true
+              },
+              {
+                "assetId": "grass",
+                "x": -1.9,
+                "z": 2,
+                "height": 0.4,
+                "yaw": 29,
+                "sway": true
+              },
+              {
+                "assetId": "grass",
+                "x": -0.7999999999999998,
+                "z": -2,
+                "height": 0.4,
+                "yaw": 58,
+                "sway": true
+              },
+              {
+                "assetId": "grass",
+                "x": 0.30000000000000027,
+                "z": 2,
+                "height": 0.4,
+                "yaw": 87,
+                "sway": true
+              },
+              {
+                "assetId": "grass",
+                "x": 1.4000000000000004,
+                "z": -2,
+                "height": 0.4,
+                "yaw": 116,
+                "sway": true
+              },
+              {
+                "assetId": "grass",
+                "x": 2.5,
+                "z": 2,
+                "height": 0.4,
+                "yaw": 145,
+                "sway": true
+              }
+            ]
+          },
+          "teaserDepth": 1,
+          "accessOptions": [
+            {
+              "method": "progression"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "branch:bonus:qc_camp:2:node:0",
+              "levelId": "bonus:qc_camp:2",
+              "previewId": "bonus:bonus:qc_camp:2",
+              "x": 3.8,
+              "y": -2.8,
+              "world": {
+                "extent": 460,
+                "props": [
+                  {
+                    "assetId": "tent_smallOpen",
+                    "x": 0,
+                    "z": 0,
+                    "height": 1,
+                    "yaw": 0,
+                    "sway": false
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "storyProps": [
+        {
+          "assetId": "sign",
+          "motif": "shelter-marker",
+          "interpretation": "fictional",
+          "x": -6.0,
+          "y": 4.0,
+          "height": 0.7
+        }
+      ],
+      "historical": {
+        "contextId": null,
+        "interpretation": "fictional",
+        "cultureKey": null,
+        "verified": false,
+        "sources": [],
+        "claims": []
+      },
+      "lighting": "morning",
+      "weatherBias": 0.1,
+      "vegetationProfile": "forest-clusters",
+      "terrainProfile": "gentle-hills",
+      "environmentalMotifs": [
+        "ruin",
+        "marker",
+        "ukrainian-field-margins",
+        "rural-fences",
+        "utility-corridor",
+        "returning-orchards"
+      ],
+      "revealRules": {
+        "nearFuture": 2,
+        "branchTeaser": 1,
+        "atmosphere": "soft-haze"
+      },
+      "chunks": [
+        {
+          "id": "main:region:2:chunk:0",
+          "firstOrder": 16,
+          "lastOrder": 20
+        }
+      ],
+      "culturalLandscape": {
+        "profile": "ukrainian-rural",
+        "seed": 1918,
+        "width": 84,
+        "fields": 0.65,
+        "orchards": 0.45,
+        "settlements": 0.55,
+        "powerLine": true
+      }
+    },
+    {
+      "id": "main:region:3",
+      "titleKey": "map.region.winter",
+      "biome": "pines",
+      "season": "winter",
+      "landmark": "sign",
+      "previewId": "gen:qc_camp:11",
+      "performanceTier": "balanced",
+      "firstLevel": 21,
+      "lastLevel": 25,
+      "height": 2300.0,
+      "transition": {
+        "fromSeason": "autumn",
+        "toSeason": "winter",
+        "kind": "blend",
+        "length": 1680
+      },
+      "nodePositions": [
+        {
+          "id": "node:gen:qc_camp:11",
+          "levelId": "gen:qc_camp:11",
+          "previewId": "gen:qc_camp:11",
+          "titleKey": "menu.levels",
+          "order": 21,
+          "x": 0.29810655,
+          "y": 210.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:10"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:gen:qc_camp:12",
+          "levelId": "gen:qc_camp:12",
+          "previewId": "gen:qc_camp:12",
+          "titleKey": "menu.levels",
+          "order": 22,
+          "x": 0.3233415,
+          "y": 630.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:11"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:gen:qc_camp:13",
+          "levelId": "gen:qc_camp:13",
+          "previewId": "gen:qc_camp:13",
+          "titleKey": "menu.levels",
+          "order": 23,
+          "x": 0.4687102,
+          "y": 1050.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:12"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:gen:qc_camp:14",
+          "levelId": "gen:qc_camp:14",
+          "previewId": "gen:qc_camp:14",
+          "titleKey": "menu.levels",
+          "order": 24,
+          "x": 0.635357,
+          "y": 1470.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:13"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:gen:qc_camp:15",
+          "levelId": "gen:qc_camp:15",
+          "previewId": "gen:qc_camp:15",
+          "titleKey": "menu.levels",
+          "order": 25,
+          "x": 0.7099565,
+          "y": 1890.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:14"
+          ],
+          "world": null
+        }
+      ],
+      "branches": [],
+      "storyProps": [
+        {
+          "assetId": "sign",
+          "motif": "shelter-marker",
+          "interpretation": "fictional",
+          "x": -6.0,
+          "y": 4.0,
+          "height": 0.7
+        }
+      ],
+      "historical": {
+        "contextId": null,
+        "interpretation": "fictional",
+        "cultureKey": null,
+        "verified": false,
+        "sources": [],
+        "claims": []
+      },
+      "lighting": "day",
+      "weatherBias": 0.1,
+      "vegetationProfile": "forest-clusters",
+      "terrainProfile": "gentle-hills",
+      "environmentalMotifs": [
+        "lantern",
+        "bench",
+        "ukrainian-field-margins",
+        "rural-fences",
+        "utility-corridor",
+        "returning-orchards"
+      ],
+      "revealRules": {
+        "nearFuture": 2,
+        "branchTeaser": 1,
+        "atmosphere": "soft-haze"
+      },
+      "chunks": [
+        {
+          "id": "main:region:3:chunk:0",
+          "firstOrder": 21,
+          "lastOrder": 25
+        }
+      ],
+      "culturalLandscape": {
+        "profile": "ukrainian-rural",
+        "seed": 1918,
+        "width": 84,
+        "fields": 0.3,
+        "orchards": 0.6,
+        "settlements": 0.6,
+        "powerLine": true
+      }
+    },
+    {
+      "id": "main:region:4",
+      "titleKey": "map.region.spring",
+      "biome": "forest",
+      "season": "spring",
+      "landmark": "sign",
+      "previewId": "gen:qc_camp:16",
+      "performanceTier": "balanced",
+      "firstLevel": 26,
+      "lastLevel": 30,
+      "height": 2800.0,
+      "transition": {
+        "fromSeason": "winter",
+        "toSeason": "spring",
+        "kind": "blend",
+        "length": 1680
+      },
+      "nodePositions": [
+        {
+          "id": "node:gen:qc_camp:16",
+          "levelId": "gen:qc_camp:16",
+          "previewId": "gen:qc_camp:16",
+          "titleKey": "menu.levels",
+          "order": 26,
+          "x": 0.64177847,
+          "y": 210.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:15"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:gen:qc_camp:17",
+          "levelId": "gen:qc_camp:17",
+          "previewId": "gen:qc_camp:17",
+          "titleKey": "menu.levels",
+          "order": 27,
+          "x": 0.47718632,
+          "y": 630.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:16"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:gen:qc_camp:18",
+          "levelId": "gen:qc_camp:18",
+          "previewId": "gen:qc_camp:18",
+          "titleKey": "menu.levels",
+          "order": 28,
+          "x": 0.32810822,
+          "y": 1050.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:17"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:gen:qc_camp:19",
+          "levelId": "gen:qc_camp:19",
+          "previewId": "gen:qc_camp:19",
+          "titleKey": "menu.levels",
+          "order": 29,
+          "x": 0.29592234,
+          "y": 1470.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:18"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:gen:qc_camp:20",
+          "levelId": "gen:qc_camp:20",
+          "previewId": "gen:qc_camp:20",
+          "titleKey": "menu.levels",
+          "order": 30,
+          "x": 0.40251613,
+          "y": 1890.0,
+          "radius": 62.0,
+          "requires": [
+            "gen:qc_camp:19"
+          ],
+          "world": null
+        }
+      ],
+      "branches": [
+        {
+          "id": "branch:bonus:qc_camp:3",
+          "anchorNodeId": "node:gen:qc_camp:20",
+          "targetRegionId": null,
+          "journeyId": null,
+          "bonusId": "bonus:qc_camp:3",
+          "titleKey": "map.bonus.fireflies.title",
+          "previewId": "bonus:bonus:qc_camp:3",
+          "teaserState": "silhouette",
+          "x": 0.25,
+          "y": 2310.0,
+          "radius": 135.0,
+          "published": false,
+          "requires": [
+            "gen:qc_camp:20"
+          ],
+          "visualIdentity": "garden",
+          "type": "bonus",
+          "descriptionKey": "branch.garden.description",
+          "heroLandmark": "branch_greenhouse",
+          "biome": "meadow",
+          "season": "summer",
+          "lighting": "day",
+          "world": {
+            "extent": 460,
+            "props": [
+              {
+                "assetId": "tree_default",
+                "x": -3,
+                "z": 1.8,
+                "height": 2.6,
+                "yaw": 0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": 3.8,
+                "z": 2.8,
+                "height": 2.6,
+                "yaw": 43,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": -3.5,
+                "z": -2.8,
+                "height": 2.6,
+                "yaw": 86,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": 3.6,
+                "z": -3,
+                "height": 2.6,
+                "yaw": 129,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": -3.0,
+                "z": -2,
+                "height": 0.22,
+                "yaw": 0,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": -1.9,
+                "z": 2,
+                "height": 0.22,
+                "yaw": 29,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": -0.7999999999999998,
+                "z": -2,
+                "height": 0.22,
+                "yaw": 58,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": 0.30000000000000027,
+                "z": 2,
+                "height": 0.22,
+                "yaw": 87,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": 1.4000000000000004,
+                "z": -2,
+                "height": 0.22,
+                "yaw": 116,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": 2.5,
+                "z": 2,
+                "height": 0.22,
+                "yaw": 145,
+                "sway": true
+              }
+            ]
+          },
+          "teaserDepth": 1,
+          "accessOptions": [
+            {
+              "method": "progression"
+            }
+          ],
+          "nodes": [
+            {
+              "id": "branch:bonus:qc_camp:3:node:0",
+              "levelId": "bonus:qc_camp:3",
+              "previewId": "bonus:bonus:qc_camp:3",
+              "x": -3.8,
+              "y": -2.8,
+              "world": {
+                "extent": 460,
+                "props": [
+                  {
+                    "assetId": "tent_smallOpen",
+                    "x": 0,
+                    "z": 0,
+                    "height": 1,
+                    "yaw": 0,
+                    "sway": false
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "storyProps": [
+        {
+          "assetId": "sign",
+          "motif": "shelter-marker",
+          "interpretation": "fictional",
+          "x": -6.0,
+          "y": 4.0,
+          "height": 0.7
+        }
+      ],
+      "historical": {
+        "contextId": null,
+        "interpretation": "fictional",
+        "cultureKey": null,
+        "verified": false,
+        "sources": [],
+        "claims": []
+      },
+      "lighting": "day",
+      "weatherBias": 0.1,
+      "vegetationProfile": "forest-clusters",
+      "terrainProfile": "gentle-hills",
+      "environmentalMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker",
+        "ukrainian-field-margins",
+        "rural-fences",
+        "utility-corridor",
+        "returning-orchards"
+      ],
+      "revealRules": {
+        "nearFuture": 2,
+        "branchTeaser": 1,
+        "atmosphere": "soft-haze"
+      },
+      "chunks": [
+        {
+          "id": "main:region:4:chunk:0",
+          "firstOrder": 26,
+          "lastOrder": 30
+        }
+      ],
+      "culturalLandscape": {
+        "profile": "ukrainian-rural",
+        "seed": 1918,
+        "width": 84,
+        "fields": 0.8,
+        "orchards": 0.55,
+        "settlements": 0.48,
+        "powerLine": true
+      }
+    }
+  ],
+  "presentation": "world3d"
+}

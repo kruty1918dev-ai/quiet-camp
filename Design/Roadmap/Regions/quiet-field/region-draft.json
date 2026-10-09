@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "revision": "quiet-field-design-1",
+  "journeyId": "draft:quiet-field",
+  "presentation": "world3d",
+  "revealDistance": 2,
+  "designStatus": "design-only; unpublished; no puzzle/preview/model assets supplied",
+  "environmentalStoryFile": "story.json",
+  "published": false,
+  "regions": [
+    {
+      "id": "quiet-field",
+      "firstLevel": 1,
+      "lastLevel": 4,
+      "titleKey": "quiet-field.title",
+      "previewId": "QC_MEM001",
+      "biome": "meadow",
+      "season": "autumn",
+      "environmentPhase": "early-autumn",
+      "lighting": "day",
+      "weatherBias": 0.22,
+      "vegetationProfile": "shelterbelt-tall-grass",
+      "terrainProfile": "gentle-chernozem-field",
+      "landmark": "quiet_field_aircraft_map",
+      "height": 1680,
+      "environmentalMotifs": [
+        "field",
+        "shelterbelt",
+        "old-road",
+        "civilian-debris",
+        "quiet-memory"
+      ],
+      "performanceTier": "balanced",
+      "transition": {
+        "fromSeason": "summer",
+        "toSeason": "autumn",
+        "kind": "blend",
+        "length": 300
+      },
+      "revealRules": {
+        "nearFuture": 2,
+        "branchTeaser": 1,
+        "atmosphere": "soft-haze",
+        "farLandmarkAssetId": null,
+        "farLandmarkHeight": 3.2,
+        "farLandmarkX": 0.5
+      },
+      "chunks": [
+        {
+          "id": "quiet-field:chunk-a",
+          "firstOrder": 1,
+          "lastOrder": 2
+        },
+        {
+          "id": "quiet-field:chunk-b",
+          "firstOrder": 3,
+          "lastOrder": 4
+        }
+      ],
+      "nodePositions": [
+        {
+          "id": "node:QC_MEM001",
+          "levelId": "QC_MEM001",
+          "order": 1,
+          "positionNote": "normalized x / roadmap scroll y, not gameplay ground coordinates",
+          "x": 0.4,
+          "y": 210,
+          "radius": 62,
+          "previewId": "QC_MEM001",
+          "titleKey": "quiet-field.level.1",
+          "storyHint": "old-road-approach",
+          "associatedProps": [],
+          "branchLinks": [],
+          "requires": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_MEM002",
+          "levelId": "QC_MEM002",
+          "order": 2,
+          "positionNote": "normalized x / roadmap scroll y, not gameplay ground coordinates",
+          "x": 0.62,
+          "y": 630,
+          "radius": 62,
+          "previewId": "QC_MEM002",
+          "titleKey": "quiet-field.level.2",
+          "storyHint": "civilian-scale",
+          "associatedProps": [],
+          "branchLinks": [],
+          "requires": [
+            "QC_MEM001"
+          ],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_MEM003",
+          "levelId": "QC_MEM003",
+          "order": 3,
+          "positionNote": "normalized x / roadmap scroll y, not gameplay ground coordinates",
+          "x": 0.43,
+          "y": 1050,
+          "radius": 62,
+          "previewId": "QC_MEM003",
+          "titleKey": "quiet-field.level.3",
+          "storyHint": "ordinary-lives",
+          "associatedProps": [],
+          "branchLinks": [],
+          "requires": [
+            "QC_MEM002"
+          ],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_MEM004",
+          "levelId": "QC_MEM004",
+          "order": 4,
+          "positionNote": "normalized x / roadmap scroll y, not gameplay ground coordinates",
+          "x": 0.58,
+          "y": 1470,
+          "radius": 62,
+          "previewId": "QC_MEM004",
+          "titleKey": "quiet-field.level.4",
+          "storyHint": "small-act-of-care",
+          "associatedProps": [],
+          "branchLinks": [],
+          "requires": [
+            "QC_MEM003"
+          ],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        }
+      ],
+      "branches": [],
+      "storyProps": []
+    }
+  ]
+}

@@ -505,3 +505,18 @@ button text, .gc-text text { white-space: normal; }
 
 .guide-farewell { flex-direction: row; align-items: center; gap: 20px; }
 .guide-farewell .guide-instruction { flex-grow: 1; flex-shrink: 1; flex-basis: 0; }
+
+/* An invitation to a place, held over the world rather than a generic fullscreen sheet. */
+.branch-card { position: absolute; bottom: 28px; left: 4%; width: 92%; max-width: 700px; max-height: 82%; gap: 12px; padding: 22px; border-radius: 30px; }
+.branch-heading { flex-direction: row; align-items: center; gap: 12px; width: 100%; }
+.branch-title { font-size: 32px; font-weight: bold; flex-grow: 1; flex-shrink: 1; }
+.branch-heading .nav-back { width: 76px; height: 76px; min-width: 76px; min-height: 76px; padding: 8px; }
+.branch-preview-art { height: 190px; width: 100%; border-radius: 20px; overflow: hidden; background-image: linear-gradient(180deg, #b4c5a2 0%, #748d62 100%); pointer-events: none; }
+.branch-preview-art.identity-fireflies { background-image: linear-gradient(180deg, #223e3c 0%, #455f50 100%); }
+.branch-preview-art.identity-lighthouse { background-image: linear-gradient(180deg, #b5d2cc 0%, #a7ae8c 100%); }
+.branch-preview-art.identity-station { background-image: linear-gradient(180deg, #b8bdab 0%, #818a6b 100%); }
+.branch-description { font-size: 25px; white-space: normal; width: 100%; }
+.branch-progress, .branch-access-note { font-size: 23px; white-space: normal; color: #5d7061; }
+@media (min-width: 1100px) { .branch-card { left: auto; right: 32px; bottom: 28px; width: 600px; max-height: 90%; } }
+
+.branch-access-scroll { width: 100%; max-height: 450px; flex-shrink: 1; min-height: 0; }

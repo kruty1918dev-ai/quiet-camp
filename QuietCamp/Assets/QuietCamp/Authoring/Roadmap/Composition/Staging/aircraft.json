@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "id": "staging:aircraft",
+  "seed": 1918,
+  "season": "summer",
+  "nodes": [
+    {
+      "id": "node:QC001",
+      "x": 12,
+      "z": 10.966,
+      "radius": 5.6
+    },
+    {
+      "id": "node:QC002",
+      "x": 12,
+      "z": 31.655,
+      "radius": 5.6
+    },
+    {
+      "id": "node:QC003",
+      "x": 12,
+      "z": 51.92,
+      "radius": 5.6
+    },
+    {
+      "id": "node:QC004",
+      "x": 12,
+      "z": 71.898,
+      "radius": 5.6
+    },
+    {
+      "id": "node:QC005",
+      "x": 12,
+      "z": 91.9,
+      "radius": 5.6
+    }
+  ],
+  "zones": [
+    {
+      "id": "staging-aircraft-field",
+      "kind": "field",
+      "species": "ua_field_weeds",
+      "x": -5,
+      "z": 61,
+      "width": 64,
+      "depth": 122,
+      "density": 0.72
+    },
+    {
+      "id": "staging-aircraft-windbreak",
+      "kind": "forest",
+      "x": -36,
+      "z": 61,
+      "width": 10,
+      "depth": 122,
+      "density": 0.92
+    }
+  ],
+  "routes": [
+    {
+      "id": "staging-aircraft-bypass",
+      "kind": "path",
+      "width": 0.55,
+      "points": [
+        {
+          "x": 12,
+          "z": -1
+        },
+        {
+          "x": 12,
+          "z": 123.07746547649276
+        }
+      ]
+    }
+  ],
+  "ensembles": [],
+  "landmarks": [
+    {
+      "id": "staging-aircraft/fore",
+      "asset": "staging_aircraft_fore",
+      "compoundOwner": "staging-aircraft",
+      "revealOwner": "node:QC002",
+      "x": -19,
+      "z": 44,
+      "height": 4.6686,
+      "yaw": -8
+    },
+    {
+      "id": "staging-aircraft/tail",
+      "asset": "staging_aircraft_tail",
+      "compoundOwner": "staging-aircraft",
+      "revealOwner": "node:QC002",
+      "x": -18,
+      "z": 66,
+      "height": 5.8,
+      "yaw": -8
+    }
+  ],
+  "surfaces": []
+}

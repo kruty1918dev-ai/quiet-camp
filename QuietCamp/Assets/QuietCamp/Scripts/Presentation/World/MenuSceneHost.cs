@@ -192,6 +192,7 @@ namespace QuietCamp.Presentation.World
 
         int QualityTier() => _services.EffectiveQuality;
 
+        float _roadmapSoundWeight=1;
         void Update()
         {
             if (_safeArea != null && _menuViewport != null && _lastMenuSize != _safeArea.rect.size)
@@ -201,6 +202,9 @@ namespace QuietCamp.Presentation.World
                 _menuViewport.anchorMin = wide ? new Vector2(.46f, .1f) : new Vector2(0, .12f);
                 _menuViewport.anchorMax = wide ? new Vector2(.98f, .90f) : new Vector2(1, .72f);
             }
+            bool roadmap=_screens?.Current=="Levels"||_screens?.Current=="BranchPreview";
+            if(roadmap||_roadmapSoundWeight<1)
+            {_roadmapSoundWeight=Mathf.MoveTowards(_roadmapSoundWeight,roadmap?0:1,Time.unscaledDeltaTime/.6f);_atmosphere?.Soundscape?.SetVisibility(_roadmapSoundWeight);}
             if (_services?.Audio != null)
             {
                 _services.Audio.MaxActiveVoices = _services.EffectiveQuality == 0 ? 8 : _services.EffectiveQuality == 1 ? 12 : 16;
@@ -231,7 +235,7 @@ namespace QuietCamp.Presentation.World
                 if (!string.IsNullOrEmpty(id)) _router.GoToCamp(id);
                 return UiActionResult.Performed();
             }));
-            _leases.Add(h.Register(new UiActionId("qc.levels"), () => Show("Levels")));
+            _leases.Add(h.Register(new UiActionId("qc.levels"), () => { _services.LevelMapJourney="main";return Show("Levels"); }));
             _leases.Add(h.Register(new UiActionId("qc.album"), () => Show("Album")));
             _leases.Add(h.Register(new UiActionId("qc.settings"), () => Show("Settings")));
             _leases.Add(h.Register(new UiActionId("qc.economy"), () => Show("Economy")));

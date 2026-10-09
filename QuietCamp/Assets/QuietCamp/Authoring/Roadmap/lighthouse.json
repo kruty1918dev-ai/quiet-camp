@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 1,
+  "revealDistance": 2,
+  "revision": "regions-1",
+  "journeyId": "lighthouse",
+  "regions": [
+    {
+      "id": "lighthouse:region:0",
+      "titleKey": "map.region.summer",
+      "biome": "shore",
+      "season": "summer",
+      "landmark": "sign",
+      "previewId": "QC_LH001",
+      "performanceTier": "balanced",
+      "firstLevel": 1,
+      "lastLevel": 3,
+      "height": 1460.0,
+      "transition": {
+        "fromSeason": "summer",
+        "toSeason": "summer",
+        "kind": "blend",
+        "length": 220.0
+      },
+      "nodePositions": [
+        {
+          "id": "node:QC_LH001",
+          "levelId": "QC_LH001",
+          "previewId": "QC_LH001",
+          "titleKey": "menu.levels",
+          "order": 1,
+          "x": 0.5,
+          "y": 210.0,
+          "radius": 62.0,
+          "requires": [],
+          "world": null
+        },
+        {
+          "id": "node:QC_LH002",
+          "levelId": "QC_LH002",
+          "previewId": "QC_LH002",
+          "titleKey": "menu.levels",
+          "order": 2,
+          "x": 0.6577689,
+          "y": 630.0,
+          "radius": 62.0,
+          "requires": [
+            "QC_LH001"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:QC_LH003",
+          "levelId": "QC_LH003",
+          "previewId": "QC_LH003",
+          "titleKey": "menu.levels",
+          "order": 3,
+          "x": 0.7082496,
+          "y": 1050.0,
+          "radius": 62.0,
+          "requires": [
+            "QC_LH002"
+          ],
+          "world": null
+        }
+      ],
+      "branches": [],
+      "storyProps": [
+        {
+          "assetId": "sign",
+          "motif": "shelter-marker",
+          "interpretation": "fictional",
+          "x": -6.0,
+          "y": 4.0,
+          "height": 0.7
+        }
+      ],
+      "historical": {
+        "contextId": null,
+        "interpretation": "fictional",
+        "cultureKey": null,
+        "verified": false,
+        "sources": [],
+        "claims": []
+      }
+    },
+    {
+      "id": "lighthouse:region:1",
+      "titleKey": "map.region.autumn",
+      "biome": "shore",
+      "season": "autumn",
+      "landmark": "sign",
+      "previewId": "QC_LH004",
+      "performanceTier": "balanced",
+      "firstLevel": 4,
+      "lastLevel": 6,
+      "height": 1460.0,
+      "transition": {
+        "fromSeason": "summer",
+        "toSeason": "autumn",
+        "kind": "blend",
+        "length": 220.0
+      },
+      "nodePositions": [
+        {
+          "id": "node:QC_LH004",
+          "levelId": "QC_LH004",
+          "previewId": "QC_LH004",
+          "titleKey": "menu.levels",
+          "order": 4,
+          "x": 0.6171136,
+          "y": 210.0,
+          "radius": 62.0,
+          "requires": [
+            "QC_LH003"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:QC_LH005",
+          "levelId": "QC_LH005",
+          "previewId": "QC_LH005",
+          "titleKey": "menu.levels",
+          "order": 5,
+          "x": 0.44633636,
+          "y": 630.0,
+          "radius": 62.0,
+          "requires": [
+            "QC_LH004"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:QC_LH006",
+          "levelId": "QC_LH006",
+          "previewId": "QC_LH006",
+          "titleKey": "menu.levels",
+          "order": 6,
+          "x": 0.31205225,
+          "y": 1050.0,
+          "radius": 62.0,
+          "requires": [
+            "QC_LH005"
+          ],
+          "world": null
+        }
+      ],
+      "branches": [],
+      "storyProps": [
+        {
+          "assetId": "sign",
+          "motif": "shelter-marker",
+          "interpretation": "fictional",
+          "x": -6.0,
+          "y": 4.0,
+          "height": 0.7
+        }
+      ],
+      "historical": {
+        "contextId": null,
+        "interpretation": "fictional",
+        "cultureKey": null,
+        "verified": false,
+        "sources": [],
+        "claims": []
+      }
+    },
+    {
+      "id": "lighthouse:region:2",
+      "titleKey": "map.region.winter",
+      "biome": "shore",
+      "season": "winter",
+      "landmark": "sign",
+      "previewId": "QC_LH007",
+      "performanceTier": "balanced",
+      "firstLevel": 7,
+      "lastLevel": 8,
+      "height": 1040.0,
+      "transition": {
+        "fromSeason": "autumn",
+        "toSeason": "winter",
+        "kind": "blend",
+        "length": 220.0
+      },
+      "nodePositions": [
+        {
+          "id": "node:QC_LH007",
+          "levelId": "QC_LH007",
+          "previewId": "QC_LH007",
+          "titleKey": "menu.levels",
+          "order": 7,
+          "x": 0.30557892,
+          "y": 210.0,
+          "radius": 62.0,
+          "requires": [
+            "QC_LH006"
+          ],
+          "world": null
+        },
+        {
+          "id": "node:QC_LH008",
+          "levelId": "QC_LH008",
+          "previewId": "QC_LH008",
+          "titleKey": "menu.levels",
+          "order": 8,
+          "x": 0.4313185,
+          "y": 630.0,
+          "radius": 62.0,
+          "requires": [
+            "QC_LH007"
+          ],
+          "world": null
+        }
+      ],
+      "branches": [],
+      "storyProps": [
+        {
+          "assetId": "sign",
+          "motif": "shelter-marker",
+          "interpretation": "fictional",
+          "x": -6.0,
+          "y": 4.0,
+          "height": 0.7
+        }
+      ],
+      "historical": {
+        "contextId": null,
+        "interpretation": "fictional",
+        "cultureKey": null,
+        "verified": false,
+        "sources": [],
+        "claims": []
+      }
+    }
+  ]
+}

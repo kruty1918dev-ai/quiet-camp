@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "id": "main:region:0",
+  "seed": 1918,
+  "season": "spring",
+  "nodes": [
+    {
+      "id": "node:QC001",
+      "x": -3.065,
+      "z": 10.966,
+      "radius": 5.6
+    },
+    {
+      "id": "node:QC002",
+      "x": 3.943,
+      "z": 31.655,
+      "radius": 5.6
+    },
+    {
+      "id": "node:QC003",
+      "x": -2.612,
+      "z": 51.92,
+      "radius": 5.6
+    },
+    {
+      "id": "node:QC004",
+      "x": 5.105,
+      "z": 71.898,
+      "radius": 5.6
+    },
+    {
+      "id": "node:QC005",
+      "x": -3.193,
+      "z": 91.9,
+      "radius": 5.6
+    }
+  ],
+  "zones": [
+    {
+      "id": "r0-left-forest",
+      "kind": "forest",
+      "x": -21,
+      "z": 61.03873273824638,
+      "width": 40,
+      "depth": 122.07746547649276,
+      "density": 0.97
+    },
+    {
+      "id": "r0-right-forest",
+      "kind": "forest",
+      "x": 21,
+      "z": 61.03873273824638,
+      "width": 40,
+      "depth": 122.07746547649276,
+      "density": 0.97
+    },
+    {
+      "id": "r0-meadow",
+      "kind": "meadow",
+      "x": 0,
+      "z": 61.03873273824638,
+      "width": 30,
+      "depth": 122.07746547649276,
+      "density": 0.9
+    },
+    {
+      "id": "r0-yards-left",
+      "kind": "parcel",
+      "x": -15,
+      "z": 61.03873273824638,
+      "width": 24,
+      "depth": 122.07746547649276,
+      "density": 1
+    },
+    {
+      "id": "r0-yards-right",
+      "kind": "parcel",
+      "x": 15,
+      "z": 61.03873273824638,
+      "width": 24,
+      "depth": 122.07746547649276,
+      "density": 1
+    }
+  ],
+  "routes": [
+    {
+      "id": "r0-main-road",
+      "kind": "path",
+      "width": 0.55,
+      "points": [
+        {
+          "x": -2.1454999999999997,
+          "z": -1
+        },
+        {
+          "x": -3.065,
+          "z": 10.966
+        },
+        {
+          "x": 3.943,
+          "z": 31.655
+        },
+        {
+          "x": -2.612,
+          "z": 51.92
+        },
+        {
+          "x": 5.105,
+          "z": 71.898
+        },
+        {
+          "x": -3.193,
+          "z": 91.9
+        },
+        {
+          "x": 0.543146,
+          "z": 122.07746547649276
+        }
+      ],
+      "interpolation": "smooth-x",
+      "nextRoute": "r1-main-road"
+    }
+  ],
+  "ensembles": [
+    {
+      "id": "r0-homestead-1",
+      "template": "ua.forester-yard",
+      "placement": {
+        "zone": "r0-yards-right",
+        "nearNode": "node:QC004"
+      },
+      "entranceConnectsTo": "r0-main-road",
+      "fenceVariant": "wattle",
+      "state": "abandoned",
+      "scale": 0.72
+    }
+  ],
+  "landmarks": []
+}

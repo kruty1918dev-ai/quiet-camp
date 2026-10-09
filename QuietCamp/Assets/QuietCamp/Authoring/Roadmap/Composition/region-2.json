@@ -1,0 +1,362 @@
+{
+  "schemaVersion": 1,
+  "id": "main:region:2",
+  "seed": 2544,
+  "season": "autumn",
+  "nodes": [
+    {
+      "id": "node:gen:qc_camp:6",
+      "x": 2.097,
+      "z": 9.318,
+      "radius": 5.6
+    },
+    {
+      "id": "node:gen:qc_camp:7",
+      "x": 4.564,
+      "z": 28.069,
+      "radius": 5.6
+    },
+    {
+      "id": "node:gen:qc_camp:8",
+      "x": 4.12,
+      "z": 46.455,
+      "radius": 5.6
+    },
+    {
+      "id": "node:gen:qc_camp:9",
+      "x": 2.506,
+      "z": 64.431,
+      "radius": 5.6
+    },
+    {
+      "id": "node:gen:qc_camp:10",
+      "x": -1.328,
+      "z": 82.201,
+      "radius": 5.6
+    }
+  ],
+  "zones": [
+    {
+      "id": "r2-left-forest",
+      "kind": "forest",
+      "x": -25,
+      "z": 61.03873273824638,
+      "width": 32,
+      "depth": 122.07746547649276,
+      "density": 0.91
+    },
+    {
+      "id": "r2-right-forest",
+      "kind": "forest",
+      "x": 25,
+      "z": 61.03873273824638,
+      "width": 32,
+      "depth": 122.07746547649276,
+      "density": 0.91
+    },
+    {
+      "id": "r2-meadow",
+      "kind": "meadow",
+      "x": 0,
+      "z": 61.03873273824638,
+      "width": 30,
+      "depth": 122.07746547649276,
+      "density": 0.9
+    },
+    {
+      "id": "r2-field",
+      "kind": "field",
+      "species": "ua_field_weeds",
+      "x": 24,
+      "z": 70.8049299763658,
+      "width": 24,
+      "depth": 63.480282047776235,
+      "density": 0.87
+    },
+    {
+      "id": "r2-yards-left",
+      "kind": "parcel",
+      "x": -15,
+      "z": 61.03873273824638,
+      "width": 24,
+      "depth": 122.07746547649276,
+      "density": 1
+    },
+    {
+      "id": "r2-yards-right",
+      "kind": "parcel",
+      "x": 25,
+      "z": 61.03873273824638,
+      "width": 32,
+      "depth": 122.07746547649276,
+      "density": 1
+    },
+    {
+      "id": "r2-public-stop",
+      "kind": "parcel",
+      "x": 34,
+      "z": 55.5,
+      "width": 12,
+      "depth": 12,
+      "density": 1
+    }
+  ],
+  "routes": [
+    {
+      "id": "r2-main-road",
+      "kind": "path",
+      "width": 0.55,
+      "points": [
+        {
+          "x": 0.620145,
+          "z": 0
+        },
+        {
+          "x": 2.097,
+          "z": 9.318
+        },
+        {
+          "x": 4.564,
+          "z": 28.069
+        },
+        {
+          "x": 4.12,
+          "z": 46.455
+        },
+        {
+          "x": 2.506,
+          "z": 64.431
+        },
+        {
+          "x": -1.328,
+          "z": 82.201
+        },
+        {
+          "x": -5.421919,
+          "z": 122.07746547649276
+        }
+      ],
+      "interpolation": "smooth-x",
+      "nextRoute": "r3-main-road"
+    },
+    {
+      "id": "r2-village-road",
+      "kind": "road",
+      "width": 1.1,
+      "points": [
+        {
+          "x": 4,
+          "z": 50
+        },
+        {
+          "x": 41,
+          "z": 50
+        }
+      ]
+    },
+    {
+      "id": "r2-village-distribution",
+      "kind": "distribution",
+      "width": 0.7,
+      "supportAsset": "ua_rural_pole",
+      "supportHeight": 3.2,
+      "minSpan": 16,
+      "maxSpan": 24,
+      "points": [
+        {
+          "x": 39,
+          "z": 24
+        },
+        {
+          "x": 39,
+          "z": 76
+        }
+      ],
+      "serviceTargets": [
+        "r2-frontage-0/house",
+        "r2-frontage-0/house-east",
+        "r2-frontage-1/house",
+        "r2-frontage-1/house-east"
+      ]
+    }
+  ],
+  "ensembles": [
+    {
+      "id": "r2-frontage-0",
+      "template": "ua.adjacent-yards",
+      "placement": {
+        "zone": "r2-yards-right",
+        "nearNode": "node:gen:qc_camp:7",
+        "fixedPosition": true,
+        "faceRoute": false,
+        "x": 25,
+        "z": 32,
+        "yaw": 0
+      },
+      "entranceConnectsTo": "r2-village-road",
+      "state": "abandoned",
+      "scale": 0.65
+    },
+    {
+      "id": "r2-frontage-1",
+      "template": "ua.adjacent-yards",
+      "placement": {
+        "zone": "r2-yards-right",
+        "nearNode": "node:gen:qc_camp:9",
+        "fixedPosition": true,
+        "faceRoute": false,
+        "x": 25,
+        "z": 68,
+        "yaw": 180
+      },
+      "entranceConnectsTo": "r2-village-road",
+      "state": "abandoned",
+      "scale": 0.65
+    },
+    {
+      "id": "r2-public-bus-stop",
+      "template": "ua.roadside-stop",
+      "placement": {
+        "zone": "r2-public-stop",
+        "nearNode": "node:gen:qc_camp:8",
+        "fixedPosition": true,
+        "faceRoute": false,
+        "x": 33,
+        "z": 55.5,
+        "yaw": 180
+      },
+      "entranceConnectsTo": "r2-village-road",
+      "state": "abandoned",
+      "scale": 0.75
+    }
+  ],
+  "landmarks": [],
+  "surfaces": [
+    {
+      "id": "r2-frontage-0-rear-gardens",
+      "kind": "garden",
+      "heightOffset": -0.02,
+      "feather": 0.5,
+      "points": [
+        {
+          "x": -10.846154,
+          "z": -10.884615
+        },
+        {
+          "x": 10.846154,
+          "z": -10.884615
+        },
+        {
+          "x": 10.846154,
+          "z": -0.115385
+        },
+        {
+          "x": -10.846154,
+          "z": -0.115385
+        }
+      ],
+      "owner": "r2-frontage-0",
+      "relativeToOwner": true
+    },
+    {
+      "id": "r2-frontage-1-rear-gardens",
+      "kind": "garden",
+      "heightOffset": -0.02,
+      "feather": 0.5,
+      "points": [
+        {
+          "x": 10.846154,
+          "z": -0.115385
+        },
+        {
+          "x": -10.846154,
+          "z": -0.115385
+        },
+        {
+          "x": -10.846154,
+          "z": -10.884615
+        },
+        {
+          "x": 10.846154,
+          "z": -10.884615
+        }
+      ],
+      "owner": "r2-frontage-1",
+      "relativeToOwner": true
+    },
+    {
+      "id": "r2-bus-bay",
+      "kind": "bus-bay",
+      "heightOffset": 0,
+      "feather": 0.5,
+      "points": [
+        {
+          "x": 3.0,
+          "z": 6.466667
+        },
+        {
+          "x": -3.0,
+          "z": 6.466667
+        },
+        {
+          "x": -3.0,
+          "z": 3.4
+        },
+        {
+          "x": 3.0,
+          "z": 3.4
+        }
+      ],
+      "owner": "r2-public-bus-stop",
+      "relativeToOwner": true
+    },
+    {
+      "id": "r2-road-gravel",
+      "kind": "gravel",
+      "heightOffset": 0,
+      "feather": 0.5,
+      "points": [
+        {
+          "x": 4.0,
+          "z": 48.9
+        },
+        {
+          "x": 41.0,
+          "z": 48.9
+        },
+        {
+          "x": 41.0,
+          "z": 51.1
+        },
+        {
+          "x": 4.0,
+          "z": 51.1
+        }
+      ]
+    },
+    {
+      "id": "r2-road-pothole",
+      "kind": "pothole",
+      "heightOffset": -0.05,
+      "feather": 0.5,
+      "points": [
+        {
+          "x": 30.4,
+          "z": 49.55
+        },
+        {
+          "x": 31.6,
+          "z": 49.55
+        },
+        {
+          "x": 31.6,
+          "z": 50.45
+        },
+        {
+          "x": 30.4,
+          "z": 50.45
+        }
+      ]
+    }
+  ]
+}

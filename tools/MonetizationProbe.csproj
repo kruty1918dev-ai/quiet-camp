@@ -1,16 +1,16 @@
 <Project>
   <PropertyGroup>
-    <BaseIntermediateOutputPath>/tmp/quietcamp-monetization-probe/obj/</BaseIntermediateOutputPath>
-    <MSBuildProjectExtensionsPath>/tmp/quietcamp-monetization-probe/obj/</MSBuildProjectExtensionsPath>
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)obj/monetization/</BaseIntermediateOutputPath>
+    <MSBuildProjectExtensionsPath>$(MSBuildThisFileDirectory)obj/monetization/</MSBuildProjectExtensionsPath>
   </PropertyGroup>
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <DefineConstants>QC_MONETIZATION_PROBE</DefineConstants>
-    <BaseIntermediateOutputPath>/tmp/quietcamp-monetization-probe/obj/</BaseIntermediateOutputPath>
-    <OutputPath>/tmp/quietcamp-monetization-probe/bin/</OutputPath>
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)obj/monetization/</BaseIntermediateOutputPath>
+    <OutputPath>$(MSBuildThisFileDirectory)bin/monetization/</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="MonetizationProbe.cs" />
@@ -24,7 +24,7 @@
     <Compile Include="../QuietCamp/Packages/com.kruty1918.save-system/Runtime/**/*.cs" />
     <Compile Include="MonetizationProbePlatform.cs" />
     <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Application/PlacementCommand.cs" />
-    <Reference Include="Newtonsoft.Json"><HintPath>../QuietCamp/Library/PackageCache/com.unity.nuget.newtonsoft-json@4dfd81071c64/Runtime/Newtonsoft.Json.dll</HintPath></Reference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
 </Project>

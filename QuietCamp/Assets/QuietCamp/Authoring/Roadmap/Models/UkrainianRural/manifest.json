@@ -1,0 +1,545 @@
+{
+  "schemaVersion": 1,
+  "generator": "tools/build_ukrainian_roadmap_models.py",
+  "palette": {
+    "steel": "#687776",
+    "steel_dark": "#465951",
+    "rust": "#8e7058",
+    "insulator": "#c5cfb8",
+    "concrete": "#b0b1a1",
+    "concrete_dark": "#898e80",
+    "wood": "#94775a",
+    "wood_dark": "#6d604a",
+    "wood_light": "#b2a083",
+    "wicker": "#9b8360",
+    "wicker_dark": "#74674c",
+    "plaster": "#e7e2ca",
+    "plaster_worn": "#c6c3af",
+    "blue": "#7293a4",
+    "blue_dark": "#4b727f",
+    "window": "#405f60",
+    "roof": "#727b72",
+    "roof_light": "#90968b",
+    "stone": "#aca88d",
+    "leaf": "#6e8650",
+    "leaf_light": "#8a9c60",
+    "leaf_dark": "#4c6b44",
+    "stalk": "#afa45f",
+    "wheat": "#d4b568",
+    "wheat_light": "#e1cc87",
+    "sunflower": "#e0bb4e",
+    "seed": "#6b6142",
+    "apple": "#b78657"
+  },
+  "license": "Original Quiet Camp project-authored geometry; no third-party source models, images or textures. Subject to project distribution terms.",
+  "totalTriangles": 4721,
+  "runtimeFormat": "Model[]; xyz + normal xyz per vertex, packed RGB per triangle; height normalized to 1; XZ bounds centred; Y base 0",
+  "copyrightNotice": "Original models prepared for the Quiet Camp project (2026).",
+  "models": [
+    {
+      "id": "ua_power_pylon",
+      "source": "ua_power_pylon.obj",
+      "units": "metres",
+      "sourceHeight": 16.045278,
+      "dimensionsXYZ": [
+        7.85,
+        16.045278,
+        4.15
+      ],
+      "sourceBounds": {
+        "min": [
+          -3.925,
+          -0.03145764348029479,
+          -2.075
+        ],
+        "max": [
+          3.925,
+          16.013820750672053,
+          2.075
+        ]
+      },
+      "triangles": 932,
+      "triangleBudget": 1100,
+      "sourceSha256": "a544f189e1d4c0e583697b59d10285786081405c2b7888c9b31bd11cc2c5fc95",
+      "description": "Tapered open steel lattice utility tower, three crossarms and six hanging insulators; generic rural infrastructure, not a site replica.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "roadmapOnly": true,
+      "materials": "shared vertex palette; runtime does not instantiate OBJ materials",
+      "attachmentPoints": {
+        "conductorsMetric": [
+          [
+            -3.6799999999999997,
+            9.319999999999999,
+            0
+          ],
+          [
+            3.6799999999999997,
+            9.319999999999999,
+            0
+          ],
+          [
+            -3.23,
+            12.12,
+            0
+          ],
+          [
+            3.23,
+            12.12,
+            0
+          ],
+          [
+            -2.5799999999999996,
+            14.92,
+            0
+          ],
+          [
+            2.5799999999999996,
+            14.92,
+            0
+          ]
+        ],
+        "conductorsNormalized": [
+          [
+            -0.22935095980267717,
+            0.5828167896973606,
+            0.0
+          ],
+          [
+            0.22935095980267717,
+            0.5828167896973606,
+            0.0
+          ],
+          [
+            -0.20130532613115418,
+            0.7573229547646151,
+            0.0
+          ],
+          [
+            0.20130532613115418,
+            0.7573229547646151,
+            0.0
+          ],
+          [
+            -0.16079496638339866,
+            0.9318291198318694,
+            0.0
+          ],
+          [
+            0.16079496638339866,
+            0.9318291198318694,
+            0.0
+          ]
+        ],
+        "crossarmAxis": "X",
+        "spanAxis": "Z",
+        "yaw": 0
+      }
+    },
+    {
+      "id": "ua_rural_pole",
+      "source": "ua_rural_pole.obj",
+      "units": "metres",
+      "sourceHeight": 7.31,
+      "dimensionsXYZ": [
+        2.2,
+        7.31,
+        0.289127
+      ],
+      "sourceBounds": {
+        "min": [
+          -1.1,
+          0.0,
+          -0.17500000000000002
+        ],
+        "max": [
+          1.1,
+          7.31,
+          0.11412678195541842
+        ]
+      },
+      "triangles": 120,
+      "triangleBudget": 200,
+      "sourceSha256": "34d1e8854b99d5ada60e59afa13fd8effbcdbef2bca46d2decd4a6bc5c4dc5c8",
+      "description": "Concrete village utility pole with two narrow crossarms and porcelain insulators.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "roadmapOnly": true,
+      "materials": "shared vertex palette; runtime does not instantiate OBJ materials"
+    },
+    {
+      "id": "ua_wattle_fence",
+      "source": "ua_wattle_fence.obj",
+      "units": "metres",
+      "sourceHeight": 1.261684,
+      "dimensionsXYZ": [
+        3.325864,
+        1.261684,
+        0.192909
+      ],
+      "sourceBounds": {
+        "min": [
+          -1.662932106228428,
+          -0.0010326623271144102,
+          -0.0964546729117762
+        ],
+        "max": [
+          1.6629321062284284,
+          1.260651242653739,
+          0.09645467291177619
+        ]
+      },
+      "triangles": 620,
+      "triangleBudget": 650,
+      "sourceSha256": "78f29d31cb34d73b9a5c7ac4828e405626826b8e9620ec261115ca03197437c8",
+      "description": "Modular woven willow fence: fifteen dense rows of thin round twigs weave front/back around four rough tapered stakes, with real gaps and irregular tops.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "roadmapOnly": true,
+      "materials": "shared vertex palette; runtime does not instantiate OBJ materials"
+    },
+    {
+      "id": "ua_picket_fence",
+      "source": "ua_picket_fence.obj",
+      "units": "metres",
+      "sourceHeight": 1.32,
+      "dimensionsXYZ": [
+        3.33,
+        1.32,
+        0.165
+      ],
+      "sourceBounds": {
+        "min": [
+          -1.665,
+          0,
+          -0.060000000000000005
+        ],
+        "max": [
+          1.665,
+          1.32,
+          0.105
+        ]
+      },
+      "triangles": 224,
+      "triangleBudget": 400,
+      "sourceSha256": "dda3f4b9c00edc467c891dc630c0336cb03cbf9d8429e4e8b7e153dc979f58e6",
+      "description": "Modular weathered vertical wooden picket fence, imperfect tops, two rails and open spacing.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "roadmapOnly": true,
+      "materials": "shared vertex palette; runtime does not instantiate OBJ materials"
+    },
+    {
+      "id": "ua_concrete_fence",
+      "source": "ua_concrete_fence.obj",
+      "units": "metres",
+      "sourceHeight": 1.66,
+      "dimensionsXYZ": [
+        3.52,
+        1.66,
+        0.25
+      ],
+      "sourceBounds": {
+        "min": [
+          -1.76,
+          0.0,
+          -0.125
+        ],
+        "max": [
+          1.76,
+          1.6600000000000001,
+          0.125
+        ]
+      },
+      "triangles": 300,
+      "triangleBudget": 400,
+      "sourceSha256": "cb39f1c6042ca9aca79b02cc2a7397e6591b5c8f92240fe4640dab6af535a695",
+      "description": "Modular precast concrete village fence: three inset panels, raised diamond relief, slotted upper course and darker seams.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "roadmapOnly": true,
+      "materials": "shared vertex palette; runtime does not instantiate OBJ materials"
+    },
+    {
+      "id": "ua_gate",
+      "source": "ua_gate.obj",
+      "units": "metres",
+      "sourceHeight": 1.88,
+      "dimensionsXYZ": [
+        3.66,
+        1.88,
+        0.974423
+      ],
+      "sourceBounds": {
+        "min": [
+          -1.83,
+          0.0,
+          -0.8594231170880591
+        ],
+        "max": [
+          1.83,
+          1.88,
+          0.115
+        ]
+      },
+      "triangles": 312,
+      "triangleBudget": 500,
+      "sourceSha256": "b2eb6f773b58b8897c2a077994da3ada4ffcb76cc3fdf2b043d58b51a311769f",
+      "description": "Village double wooden gate with blue paint worn back to wood, partly open leaves, diagonal braces and stone posts.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "roadmapOnly": true,
+      "materials": "shared vertex palette; runtime does not instantiate OBJ materials"
+    },
+    {
+      "id": "ua_wheat_patch",
+      "source": "ua_wheat_patch.obj",
+      "units": "metres",
+      "sourceHeight": 1.145015,
+      "dimensionsXYZ": [
+        1.406544,
+        1.145015,
+        1.038791
+      ],
+      "sourceBounds": {
+        "min": [
+          -0.6486596014907812,
+          -0.0009455420123443865,
+          -0.5115292553464912
+        ],
+        "max": [
+          0.7578846554614243,
+          1.1440696423518435,
+          0.5272619987236234
+        ]
+      },
+      "triangles": 480,
+      "triangleBudget": 550,
+      "sourceSha256": "7577a37eda20b2b30841fe6380024e4800f003ccf7b8db0131b9dd338e1fc13d",
+      "description": "Cluster of twenty grain heads in gently irregular rows; stalks, tapering heads, folded leaves, no terrain slab.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "roadmapOnly": true,
+      "materials": "shared vertex palette; runtime does not instantiate OBJ materials"
+    },
+    {
+      "id": "ua_sunflower_patch",
+      "source": "ua_sunflower_patch.obj",
+      "units": "metres",
+      "sourceHeight": 1.574373,
+      "dimensionsXYZ": [
+        1.569753,
+        1.574373,
+        1.036378
+      ],
+      "sourceBounds": {
+        "min": [
+          -0.7595434920979476,
+          -0.0009606851587245603,
+          -0.5342017726115005
+        ],
+        "max": [
+          0.8102099776790754,
+          1.5734126244348956,
+          0.5021766502552242
+        ]
+      },
+      "triangles": 405,
+      "triangleBudget": 550,
+      "sourceSha256": "957098843775ffe50822647303eff42fd21cbcab29e48125f6b29a7885028e3e",
+      "description": "Nine full sunflowers with dark seed disks, seven broad petals each and living folded leaves.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "roadmapOnly": true,
+      "materials": "shared vertex palette; runtime does not instantiate OBJ materials"
+    },
+    {
+      "id": "ua_orchard_tree",
+      "source": "ua_orchard_tree.obj",
+      "units": "metres",
+      "sourceHeight": 2.9655,
+      "dimensionsXYZ": [
+        2.958794,
+        2.9655,
+        2.333645
+      ],
+      "sourceBounds": {
+        "min": [
+          -1.4587944716799837,
+          0.0,
+          -1.1804437715018223
+        ],
+        "max": [
+          1.5,
+          2.9655,
+          1.1532017011618219
+        ]
+      },
+      "triangles": 132,
+      "triangleBudget": 300,
+      "sourceSha256": "2d6ee1eb20d43df6f9719f5af88c490ee1cc18b09ee2228a3f25dfed43e02c7b",
+      "description": "Low fruit-tree silhouette with visible branching, clustered crowns and sparse warm apples; not a conifer cone.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "roadmapOnly": true,
+      "materials": "shared vertex palette; runtime does not instantiate OBJ materials"
+    },
+    {
+      "id": "ua_bus_shelter",
+      "source": "ua_bus_shelter.obj",
+      "units": "metres",
+      "sourceHeight": 2.2,
+      "dimensionsXYZ": [
+        3.48,
+        2.2,
+        1.99
+      ],
+      "sourceBounds": {
+        "min": [
+          -1.74,
+          0.0,
+          -0.995
+        ],
+        "max": [
+          1.74,
+          2.2,
+          0.995
+        ]
+      },
+      "triangles": 192,
+      "triangleBudget": 600,
+      "sourceSha256": "cdabc5bc00d5d548c9a96efb90d137081bd9fbc89f062531942075219c30baa4",
+      "description": "Small rural stop with pale plaster sides, faded blue fascia, lightweight flat roof and wooden bench; no invented historical markings.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "roadmapOnly": true,
+      "materials": "shared vertex palette; runtime does not instantiate OBJ materials"
+    },
+    {
+      "id": "ua_whitewashed_house",
+      "source": "ua_whitewashed_house.obj",
+      "units": "metres",
+      "sourceHeight": 4.545,
+      "dimensionsXYZ": [
+        5.812598,
+        4.545,
+        6.89
+      ],
+      "sourceBounds": {
+        "min": [
+          -2.9062989015945178,
+          0,
+          -3.6399999999999997
+        ],
+        "max": [
+          2.9062989015945178,
+          4.545000000000001,
+          3.25
+        ]
+      },
+      "triangles": 604,
+      "triangleBudget": 900,
+      "sourceSha256": "9bcd15e94dc2d4539de3cd5af557f966c5a797802dcb31dbb51d0daef6d70fe6",
+      "description": "Anonymous single-storey village home: white lime plaster, blue lower band and wood window trim, modest gable roof, chimney and doorstep. No national costume caricature.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "roadmapOnly": true,
+      "materials": "shared vertex palette; runtime does not instantiate OBJ materials"
+    },
+    {
+      "id": "ua_well",
+      "source": "ua_well.obj",
+      "units": "metres",
+      "sourceHeight": 2.26,
+      "dimensionsXYZ": [
+        1.97,
+        2.26,
+        1.48
+      ],
+      "sourceBounds": {
+        "min": [
+          -0.95,
+          0.0,
+          -0.74
+        ],
+        "max": [
+          1.02,
+          2.26,
+          0.74
+        ]
+      },
+      "triangles": 140,
+      "triangleBudget": 400,
+      "sourceSha256": "b87af3cfa1adc795224b59f3aa32a963c6c85c7dee86fa4cb6906fdb274e004f",
+      "description": "Open stone well with wooden roof, winding axle and handle, visible inner dark shaft; nothing floating over a solid block.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "roadmapOnly": true,
+      "materials": "shared vertex palette; runtime does not instantiate OBJ materials"
+    },
+    {
+      "id": "ua_wheat_patch_lod",
+      "source": "ua_wheat_patch_lod.obj",
+      "units": "metres",
+      "sourceHeight": 1.091634,
+      "dimensionsXYZ": [
+        1.392,
+        1.091634,
+        0.982
+      ],
+      "sourceBounds": {
+        "min": [
+          -0.651,
+          -0.0006335618860633676,
+          -0.491
+        ],
+        "max": [
+          0.7410000000000001,
+          1.0910000000000002,
+          0.491
+        ]
+      },
+      "triangles": 144,
+      "triangleBudget": 180,
+      "sourceSha256": "835dcc93438c48bc13573a2e2c78f7b7c2d27aa875f7934ee31d4404e09f3c67",
+      "description": "Far-field grain silhouette: nine stalks and heads, no individual awns; original low-detail counterpart of ua_wheat_patch.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "roadmapOnly": true,
+      "materials": "shared vertex palette; runtime does not instantiate OBJ materials",
+      "lodOf": "ua_wheat_patch"
+    },
+    {
+      "id": "ua_sunflower_patch_lod",
+      "source": "ua_sunflower_patch_lod.obj",
+      "units": "metres",
+      "sourceHeight": 1.515124,
+      "dimensionsXYZ": [
+        1.538213,
+        1.515124,
+        0.9005
+      ],
+      "sourceBounds": {
+        "min": [
+          -0.7082131509385322,
+          -0.0006399497329570905,
+          -0.45999999999999996
+        ],
+        "max": [
+          0.8300000000000001,
+          1.5144841406800014,
+          0.4405
+        ]
+      },
+      "triangles": 116,
+      "triangleBudget": 150,
+      "sourceSha256": "87f7f1d764e29c5085b6a1643c04d52aa213ce4cc7726b414e2087bc9c6a7f61",
+      "description": "Far-field sunflower silhouette: four stalks and flat petal/seed faces, no small leaves; original low-detail counterpart of ua_sunflower_patch.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "roadmapOnly": true,
+      "materials": "shared vertex palette; runtime does not instantiate OBJ materials",
+      "lodOf": "ua_sunflower_patch"
+    }
+  ]
+}

@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 1,
+  "revealDistance": 2,
+  "revision": "historical-qa-1",
+  "journeyId": "qa-kakhovka_inspired",
+  "presentation": "projected",
+  "regions": [
+    {
+      "id": "qa:kakhovka_inspired:region",
+      "titleKey": "map.region.wetland",
+      "biome": "shore",
+      "season": "autumn",
+      "landmark": "story_foundation",
+      "previewId": "qa:kakhovka_inspired",
+      "performanceTier": "balanced",
+      "firstLevel": 1,
+      "lastLevel": 1,
+      "height": 700.0,
+      "lighting": "warm",
+      "vegetationProfile": "meadow",
+      "terrainProfile": "gentle-hills",
+      "weatherBias": 0.15,
+      "environmentalMotifs": [],
+      "revealRules": {
+        "nearFuture": 2,
+        "branchTeaser": 1,
+        "atmosphere": "soft-haze"
+      },
+      "chunks": [],
+      "transition": {
+        "fromSeason": "autumn",
+        "toSeason": "autumn",
+        "kind": "blend",
+        "length": 220.0
+      },
+      "nodePositions": [
+        {
+          "id": "node:qa:kakhovka_inspired",
+          "levelId": "qa:kakhovka_inspired",
+          "previewId": "qa:kakhovka_inspired",
+          "titleKey": "map.region.wetland",
+          "storyHint": null,
+          "associatedProps": [],
+          "branchLinks": [],
+          "order": 1,
+          "x": 0.5,
+          "y": 350.0,
+          "radius": 62.0,
+          "requires": [],
+          "world": {
+            "extent": 580.0,
+            "props": [
+              {
+                "assetId": "tree_default",
+                "x": 7.142018,
+                "z": 6.3359027,
+                "height": 2.624872,
+                "yaw": 35.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": 7.880206,
+                "z": 4.3471394,
+                "height": 2.2433276,
+                "yaw": 96.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": 8.4802065,
+                "z": 3.6971393,
+                "height": 0.5,
+                "yaw": 223.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": 4.53676,
+                "z": 5.979874,
+                "height": 2.4405303,
+                "yaw": 326.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": 5.1367598,
+                "z": 5.329874,
+                "height": 0.5,
+                "yaw": 120.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": 3.6222544,
+                "z": 6.3477154,
+                "height": 2.2620564,
+                "yaw": 74.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": 6.1775646,
+                "z": 3.2958686,
+                "height": 2.8865561,
+                "yaw": 300.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": 5.9556346,
+                "z": 0.14222735,
+                "height": 0.40343618,
+                "yaw": 109.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": 1.2228311,
+                "z": 4.827239,
+                "height": 0.2161203,
+                "yaw": 237.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": -3.0668097,
+                "z": 7.7442594,
+                "height": 2.1538293,
+                "yaw": 251.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": -4.235739,
+                "z": 7.9214063,
+                "height": 2.2249317,
+                "yaw": 85.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -3.6357393,
+                "z": 7.271406,
+                "height": 0.5,
+                "yaw": 269.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": 2.0,
+                "z": 1.5,
+                "height": 2.2,
+                "yaw": 270.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": 5.385819,
+                "z": -1.9823292,
+                "height": 2.079728,
+                "yaw": 177.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": 5.329022,
+                "z": -2.2506216,
+                "height": 2.1523523,
+                "yaw": 101.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": -5.0026603,
+                "z": 7.2221694,
+                "height": 2.211922,
+                "yaw": 22.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -4.4026604,
+                "z": 6.5721693,
+                "height": 0.5,
+                "yaw": 257.0,
+                "sway": true
+              },
+              {
+                "assetId": "stone_largeA",
+                "x": 1.0,
+                "z": -0.5,
+                "height": 0.55,
+                "yaw": 0.0,
+                "sway": false
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -6.6016994,
+                "z": 6.115655,
+                "height": 0.4266589,
+                "yaw": 21.0,
+                "sway": true
+              },
+              {
+                "assetId": "story_foundation",
+                "x": -7.0,
+                "z": 6.5,
+                "height": 0.6,
+                "yaw": 90.0,
+                "sway": false
+              },
+              {
+                "assetId": "sign",
+                "x": -7.7000003,
+                "z": 6.5,
+                "height": 0.6,
+                "yaw": 90.0,
+                "sway": false
+              },
+              {
+                "assetId": "tree_default",
+                "x": -6.022968,
+                "z": 4.5190644,
+                "height": 2.942277,
+                "yaw": 198.0,
+                "sway": true
+              },
+              {
+                "assetId": "log",
+                "x": -3.0,
+                "z": -0.5,
+                "height": 0.55,
+                "yaw": 90.0,
+                "sway": false
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -6.4708924,
+                "z": 2.7806656,
+                "height": 0.24183366,
+                "yaw": 140.0,
+                "sway": true
+              },
+              {
+                "assetId": "tent_smallOpen",
+                "x": -4.9,
+                "z": 0.4,
+                "height": 1.18,
+                "yaw": 90.0,
+                "sway": false
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": -6.9383054,
+                "z": -7.5602636,
+                "height": 2.172039,
+                "yaw": 201.0,
+                "sway": true
+              }
+            ]
+          }
+        }
+      ],
+      "branches": [],
+      "storyProps": [
+        {
+          "assetId": "story_foundation",
+          "motif": "kakhovka_inspired",
+          "interpretation": "fictional",
+          "x": -5.0,
+          "y": 3.5,
+          "height": 1.2
+        }
+      ],
+      "historical": {
+        "contextId": "kakhovka-2023",
+        "interpretation": "inspired",
+        "cultureKey": "map.history.wetland",
+        "verified": true,
+        "sources": [
+          "https://www.unep.org/resources/report/rapid-environmental-assessment-kakhovka-dam-breach-ukraine-2023"
+        ],
+        "claims": [
+          "The Kakhovka dam breach occurred in June 2023. UNEP assessed its environmental impacts."
+        ]
+      }
+    }
+  ]
+}

@@ -8,6 +8,8 @@ namespace QuietCamp.Application
     {
         public string id, titleKey, descriptionKey, entitlementId, previewLevelId;
         public int revision = 1, currencyCost;
+        public string subscriptionEntitlementId;
+        public string[] requiredLevelIds = Array.Empty<string>();
         public bool published;
         /// <summary>Main-path completions required before this branch opens —
         /// the "unlocked by playing" gate; 0 keeps the journey ungated.</summary>
@@ -50,6 +52,7 @@ namespace QuietCamp.Application
                 if (journey.id == "main" || journey.id == "qa") continue;
                 foreach (var id in journey.levelIds ?? Array.Empty<string>()) if (string.IsNullOrWhiteSpace(id) || !levels.Add(id)) issues.Add("journey.level");
                 if (!string.IsNullOrEmpty(journey.previewLevelId) && Array.IndexOf(journey.levelIds ?? Array.Empty<string>(), journey.previewLevelId) < 0) issues.Add("journey.preview");
+                foreach(var required in journey.requiredLevelIds??Array.Empty<string>())if(string.IsNullOrWhiteSpace(required)||Array.IndexOf(journey.levelIds??Array.Empty<string>(),required)>=0)issues.Add("journey.prerequisite");
                 if (journey.storyKeys?.Length > 0 && journey.storyKeys.Length != journey.levelIds.Length) issues.Add("journey.story");
             }
             return issues;
@@ -69,8 +72,9 @@ namespace QuietCamp.Application
         readonly ProgressionService _progression;
         readonly EntitlementSaveData _grants;
         readonly Func<bool> _pro;
-        public JourneyAccessService(JourneyCatalog catalog, ProgressionService progression, EntitlementSaveData grants, Func<bool> pro)
-        { _catalog = catalog; _progression = progression; _grants = grants; _pro = pro; }
+        readonly Func<string,bool> _subscription;
+        public JourneyAccessService(JourneyCatalog catalog, ProgressionService progression, EntitlementSaveData grants, Func<bool> pro,Func<string,bool> subscription=null)
+        { _catalog = catalog; _progression = progression; _grants = grants; _pro = pro; _subscription=subscription; }
         public AccessDecision Evaluate(string levelId)
         {
             var journey = _catalog.ForLevel(levelId);
@@ -79,8 +83,9 @@ namespace QuietCamp.Application
             // before any purchase question is even asked.
             if (journey.requiredCompletions > 0 && MainCompleted() < journey.requiredCompletions)
                 return new AccessDecision(JourneyAccessState.Predecessor, journey);
+            foreach(var id in journey.requiredLevelIds??Array.Empty<string>())if(!_progression.IsCompleted(id))return new AccessDecision(JourneyAccessState.Predecessor,journey);
             if (_pro()) return new AccessDecision(JourneyAccessState.Available, journey);
-            if (!_grants.Has(journey.entitlementId)) return new AccessDecision(JourneyAccessState.PurchaseRequired, journey);
+            if (!_grants.Has(journey.entitlementId)&&!(journey.subscriptionEntitlementId!=null&&(_subscription?.Invoke(journey.subscriptionEntitlementId)??false))) return new AccessDecision(JourneyAccessState.PurchaseRequired, journey);
             return new AccessDecision(_progression.IsCompleted(levelId) || _progression.IsUnlocked(levelId, journey.levelIds)
                 ? JourneyAccessState.Available : JourneyAccessState.Predecessor, journey);
         }

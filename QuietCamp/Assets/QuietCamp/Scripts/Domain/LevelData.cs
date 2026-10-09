@@ -31,6 +31,8 @@ namespace QuietCamp.Domain
         public EnvironmentObjectData[] objects = Array.Empty<EnvironmentObjectData>();
         public ShadeCanopyData[] canopies = Array.Empty<ShadeCanopyData>();
         public EnvironmentCompositionData environment;
+        public EnvironmentalStoryData environmentalStory;
+        public bool ShouldSerializeenvironmentalStory() => environmentalStory != null;
     }
     [Serializable] public sealed class EnvironmentCompositionData
     {
@@ -75,7 +77,8 @@ namespace QuietCamp.Domain
     }
     [Serializable] public sealed class LevelSummary
     {
-        public string id, environmentPreset, lighting;
+        public string id, environmentPreset, lighting, contentHash;
+        public int ruleVersion;
         public int number, width, height, decorSeed;
         public bool shade, quiet, friends, fire;
         public int[] entry;
@@ -83,7 +86,11 @@ namespace QuietCamp.Domain
         public AccessPointData[] accessPoints = Array.Empty<AccessPointData>();
         public ShadeCanopyData[] canopies = Array.Empty<ShadeCanopyData>();
         public int[][] exteriorWalkable = Array.Empty<int[]>();
+        public int[][] noise = Array.Empty<int[]>();
         public EnvironmentCompositionData environment;
+        public EnvironmentalStoryData environmentalStory;
+        // Offline-only input: detailed narrative does not inflate the runtime summary catalog.
+        public bool ShouldSerializeenvironmentalStory() => false;
     }
     public readonly struct Cell : IEquatable<Cell>
     {

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "quiet-camp-main",
+  "regions": [
+    "region-0.json",
+    "region-1.json",
+    "region-2.json",
+    "region-3.json",
+    "region-4.json"
+  ],
+  "assets": "assets.json",
+  "templates": "templates.json",
+  "coordinateSpace": "metres-y-up",
+  "compilerRevision": "semantic-composer-0.3.0"
+}

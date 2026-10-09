@@ -1,0 +1,382 @@
+{
+  "schemaVersion": 1,
+  "revealDistance": 2,
+  "revision": "historical-qa-1",
+  "journeyId": "qa-black_sea",
+  "presentation": "projected",
+  "regions": [
+    {
+      "id": "qa:black_sea:region",
+      "titleKey": "map.region.coast",
+      "biome": "shore",
+      "season": "summer",
+      "landmark": "story_workboat",
+      "previewId": "qa:black_sea",
+      "performanceTier": "balanced",
+      "firstLevel": 1,
+      "lastLevel": 1,
+      "height": 700.0,
+      "lighting": "warm",
+      "vegetationProfile": "meadow",
+      "terrainProfile": "gentle-hills",
+      "weatherBias": 0.15,
+      "environmentalMotifs": [],
+      "revealRules": {
+        "nearFuture": 2,
+        "branchTeaser": 1,
+        "atmosphere": "soft-haze"
+      },
+      "chunks": [],
+      "transition": {
+        "fromSeason": "summer",
+        "toSeason": "summer",
+        "kind": "blend",
+        "length": 220.0
+      },
+      "nodePositions": [
+        {
+          "id": "node:qa:black_sea",
+          "levelId": "qa:black_sea",
+          "previewId": "qa:black_sea",
+          "titleKey": "map.region.coast",
+          "storyHint": null,
+          "associatedProps": [],
+          "branchLinks": [],
+          "order": 1,
+          "x": 0.5,
+          "y": 350.0,
+          "radius": 62.0,
+          "requires": [],
+          "world": {
+            "extent": 580.0,
+            "props": [
+              {
+                "assetId": "tree_default",
+                "x": 1.9837947,
+                "z": 7.8671,
+                "height": 1.9263061,
+                "yaw": 253.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": 2.5837946,
+                "z": 7.2170997,
+                "height": 0.5,
+                "yaw": 233.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": 1.282456,
+                "z": 6.713417,
+                "height": 3.1248825,
+                "yaw": 218.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": 1.8824561,
+                "z": 6.063417,
+                "height": 0.5,
+                "yaw": 301.0,
+                "sway": true
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": 0.11564406,
+                "z": 6.469157,
+                "height": 0.22920965,
+                "yaw": 298.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": -3.1825552,
+                "z": 6.649456,
+                "height": 1.9347956,
+                "yaw": 60.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -2.5825553,
+                "z": 5.999456,
+                "height": 0.5,
+                "yaw": 94.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": 1.5,
+                "z": 1.5,
+                "height": 2.2,
+                "yaw": 270.0,
+                "sway": true
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": -2.7828887,
+                "z": 5.1643534,
+                "height": 0.41902757,
+                "yaw": 296.0,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": -6.0250154,
+                "z": 4.8304195,
+                "height": 0.40271384,
+                "yaw": 260.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": -6.256277,
+                "z": 4.843053,
+                "height": 2.7582905,
+                "yaw": 159.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -5.656277,
+                "z": 4.193053,
+                "height": 0.5,
+                "yaw": 171.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": -5.871859,
+                "z": 3.9360907,
+                "height": 2.6966763,
+                "yaw": 216.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -5.271859,
+                "z": 3.2860909,
+                "height": 0.5,
+                "yaw": 201.0,
+                "sway": true
+              },
+              {
+                "assetId": "stone_largeA",
+                "x": -1.5,
+                "z": -0.5,
+                "height": 0.55,
+                "yaw": 0.0,
+                "sway": false
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": -3.6161015,
+                "z": 0.6764062,
+                "height": 0.41037533,
+                "yaw": 128.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": 1.589023,
+                "z": -6.1481924,
+                "height": 2.7401097,
+                "yaw": 43.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": 2.189023,
+                "z": -6.7981925,
+                "height": 0.5,
+                "yaw": 301.0,
+                "sway": true
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": 1.9194912,
+                "z": -6.7354403,
+                "height": 0.19985773,
+                "yaw": 122.0,
+                "sway": true
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": -6.803417,
+                "z": 1.9832367,
+                "height": 0.2556175,
+                "yaw": 259.0,
+                "sway": true
+              },
+              {
+                "assetId": "tent_smallOpen",
+                "x": -0.9,
+                "z": -5.35,
+                "height": 1.18,
+                "yaw": 0.0,
+                "sway": false
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": 1.168034,
+                "z": -7.590945,
+                "height": 0.26037863,
+                "yaw": 135.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": -6.8336177,
+                "z": -0.38840234,
+                "height": 1.8316255,
+                "yaw": 201.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -6.233618,
+                "z": -1.0384023,
+                "height": 0.5,
+                "yaw": 199.0,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": -6.816498,
+                "z": -0.55183697,
+                "height": 0.1984812,
+                "yaw": 318.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": -1.332282,
+                "z": -6.770967,
+                "height": 2.9044442,
+                "yaw": 192.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -0.7322819,
+                "z": -7.420967,
+                "height": 0.5,
+                "yaw": 118.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": -6.7771854,
+                "z": -1.713775,
+                "height": 2.407226,
+                "yaw": 57.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -6.1771855,
+                "z": -2.363775,
+                "height": 0.5,
+                "yaw": 239.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": -1.5925809,
+                "z": -7.027811,
+                "height": 3.15376,
+                "yaw": 270.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -0.9925809,
+                "z": -7.677811,
+                "height": 0.5,
+                "yaw": 209.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": -7.108623,
+                "z": -2.9983525,
+                "height": 2.991245,
+                "yaw": 319.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -6.508623,
+                "z": -3.6483526,
+                "height": 0.5,
+                "yaw": 66.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_default",
+                "x": -5.2898974,
+                "z": -4.9620504,
+                "height": 2.5344381,
+                "yaw": 185.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -4.6898975,
+                "z": -5.6120505,
+                "height": 0.5,
+                "yaw": 39.0,
+                "sway": true
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": -5.70339,
+                "z": -6.835112,
+                "height": 0.22039466,
+                "yaw": 235.0,
+                "sway": true
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": -5.9640326,
+                "z": -6.9814954,
+                "height": 0.3172833,
+                "yaw": 163.0,
+                "sway": true
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": -6.171526,
+                "z": -7.1941237,
+                "height": 0.24447408,
+                "yaw": 48.0,
+                "sway": true
+              }
+            ]
+          }
+        }
+      ],
+      "branches": [],
+      "storyProps": [
+        {
+          "assetId": "story_workboat",
+          "motif": "black_sea",
+          "interpretation": "fictional",
+          "x": 5.8,
+          "y": 0.0,
+          "height": 2.1
+        }
+      ],
+      "historical": {
+        "contextId": null,
+        "interpretation": "fictional",
+        "cultureKey": null,
+        "verified": false,
+        "sources": [],
+        "claims": []
+      }
+    }
+  ]
+}

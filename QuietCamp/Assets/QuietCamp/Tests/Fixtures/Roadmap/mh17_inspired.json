@@ -1,0 +1,418 @@
+{
+  "schemaVersion": 1,
+  "revealDistance": 2,
+  "revision": "historical-qa-1",
+  "journeyId": "qa-mh17_inspired",
+  "presentation": "projected",
+  "regions": [
+    {
+      "id": "qa:mh17_inspired:region",
+      "titleKey": "map.region.memory",
+      "biome": "forest",
+      "season": "spring",
+      "landmark": "story_memorial_garden",
+      "previewId": "qa:mh17_inspired",
+      "performanceTier": "balanced",
+      "firstLevel": 1,
+      "lastLevel": 1,
+      "height": 700.0,
+      "lighting": "warm",
+      "vegetationProfile": "meadow",
+      "terrainProfile": "gentle-hills",
+      "weatherBias": 0.15,
+      "environmentalMotifs": [],
+      "revealRules": {
+        "nearFuture": 2,
+        "branchTeaser": 1,
+        "atmosphere": "soft-haze"
+      },
+      "chunks": [],
+      "transition": {
+        "fromSeason": "spring",
+        "toSeason": "spring",
+        "kind": "blend",
+        "length": 220.0
+      },
+      "nodePositions": [
+        {
+          "id": "node:qa:mh17_inspired",
+          "levelId": "qa:mh17_inspired",
+          "previewId": "qa:mh17_inspired",
+          "titleKey": "map.region.memory",
+          "storyHint": null,
+          "associatedProps": [],
+          "branchLinks": [],
+          "order": 1,
+          "x": 0.5,
+          "y": 350.0,
+          "radius": 62.0,
+          "requires": [],
+          "world": {
+            "extent": 580.0,
+            "props": [
+              {
+                "assetId": "tree_pineRoundA",
+                "x": 6.879411,
+                "z": 4.428312,
+                "height": 2.0583076,
+                "yaw": 59.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": 7.479411,
+                "z": 3.7783117,
+                "height": 0.5,
+                "yaw": 113.0,
+                "sway": true
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": 5.142974,
+                "z": 5.861175,
+                "height": 0.20965533,
+                "yaw": 339.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": 5.969283,
+                "z": 4.652144,
+                "height": 2.8708482,
+                "yaw": 24.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": 6.569283,
+                "z": 4.002144,
+                "height": 0.5,
+                "yaw": 265.0,
+                "sway": true
+              },
+              {
+                "assetId": "flower_purpleA",
+                "x": 4.8605976,
+                "z": 3.8674986,
+                "height": 0.25814202,
+                "yaw": 44.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": 6.5452714,
+                "z": 2.109389,
+                "height": 2.443215,
+                "yaw": 113.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": 7.1452713,
+                "z": 1.4593891,
+                "height": 0.5,
+                "yaw": 27.0,
+                "sway": true
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": 3.5619063,
+                "z": 3.7606063,
+                "height": 0.37326786,
+                "yaw": 349.0,
+                "sway": true
+              },
+              {
+                "assetId": "flower_purpleA",
+                "x": 3.658,
+                "z": 2.1102943,
+                "height": 0.41889405,
+                "yaw": 280.0,
+                "sway": true
+              },
+              {
+                "assetId": "flower_purpleA",
+                "x": -1.7810366,
+                "z": 6.5487385,
+                "height": 0.2242739,
+                "yaw": 110.0,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": 4.2043905,
+                "z": 0.20457342,
+                "height": 0.2749254,
+                "yaw": 61.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": -1.2875093,
+                "z": 4.8408566,
+                "height": 1.984813,
+                "yaw": 217.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -0.6875093,
+                "z": 4.1908565,
+                "height": 0.5,
+                "yaw": 356.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": 6.331044,
+                "z": -2.9485047,
+                "height": 1.9827242,
+                "yaw": 153.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": 6.931044,
+                "z": -3.5985045,
+                "height": 0.5,
+                "yaw": 63.0,
+                "sway": true
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": -5.287466,
+                "z": 6.235954,
+                "height": 0.39492074,
+                "yaw": 118.0,
+                "sway": true
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": 6.4923644,
+                "z": -5.94793,
+                "height": 0.19081718,
+                "yaw": 245.0,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": 2.1893606,
+                "z": -3.1720133,
+                "height": 0.40329367,
+                "yaw": 284.0,
+                "sway": true
+              },
+              {
+                "assetId": "sign",
+                "x": -6.0,
+                "z": 5.0,
+                "height": 0.6,
+                "yaw": 90.0,
+                "sway": false
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": 3.6340222,
+                "z": -4.8860316,
+                "height": 0.27585337,
+                "yaw": 260.0,
+                "sway": true
+              },
+              {
+                "assetId": "log_stack",
+                "x": -6.7000003,
+                "z": 5.0,
+                "height": 0.6,
+                "yaw": 90.0,
+                "sway": false
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": -5.7416525,
+                "z": 4.001168,
+                "height": 2.3031354,
+                "yaw": 155.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -5.1416526,
+                "z": 3.3511677,
+                "height": 0.5,
+                "yaw": 298.0,
+                "sway": true
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": 2.1121957,
+                "z": -5.55542,
+                "height": 0.37440354,
+                "yaw": 247.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": 2.4841745,
+                "z": -6.325335,
+                "height": 2.7455347,
+                "yaw": 240.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": 3.0841746,
+                "z": -6.975335,
+                "height": 0.5,
+                "yaw": 68.0,
+                "sway": true
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": 1.2220855,
+                "z": -5.4135222,
+                "height": 0.2971828,
+                "yaw": 63.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": -6.261584,
+                "z": 2.0051222,
+                "height": 2.1527984,
+                "yaw": 198.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -5.661584,
+                "z": 1.3551222,
+                "height": 0.5,
+                "yaw": 156.0,
+                "sway": true
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": 1.0266907,
+                "z": -5.521992,
+                "height": 0.4088185,
+                "yaw": 73.0,
+                "sway": true
+              },
+              {
+                "assetId": "tent_smallOpen",
+                "x": -0.9,
+                "z": -3.85,
+                "height": 1.18,
+                "yaw": 0.0,
+                "sway": false
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": -4.646135,
+                "z": -0.2494119,
+                "height": 2.3885264,
+                "yaw": 307.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -4.046135,
+                "z": -0.89941186,
+                "height": 0.5,
+                "yaw": 300.0,
+                "sway": true
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": -6.3502836,
+                "z": -0.76965505,
+                "height": 0.27844188,
+                "yaw": 201.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": -2.8075943,
+                "z": -5.795671,
+                "height": 2.0020266,
+                "yaw": 149.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -2.2075944,
+                "z": -6.445671,
+                "height": 0.5,
+                "yaw": 129.0,
+                "sway": true
+              },
+              {
+                "assetId": "tree_pineRoundA",
+                "x": -5.888602,
+                "z": -4.060254,
+                "height": 2.485388,
+                "yaw": 340.0,
+                "sway": true
+              },
+              {
+                "assetId": "plant_bushSmall",
+                "x": -5.288602,
+                "z": -4.710254,
+                "height": 0.5,
+                "yaw": 240.0,
+                "sway": true
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": -5.3367767,
+                "z": -4.799082,
+                "height": 0.2802685,
+                "yaw": 67.0,
+                "sway": true
+              },
+              {
+                "assetId": "flower_yellowA",
+                "x": -5.777826,
+                "z": -6.082777,
+                "height": 0.3007298,
+                "yaw": 340.0,
+                "sway": true
+              },
+              {
+                "assetId": "grass_leafsLarge",
+                "x": -5.773254,
+                "z": -6.115166,
+                "height": 0.31313515,
+                "yaw": 66.0,
+                "sway": true
+              }
+            ]
+          }
+        }
+      ],
+      "branches": [],
+      "storyProps": [
+        {
+          "assetId": "story_memorial_garden",
+          "motif": "mh17_inspired",
+          "interpretation": "fictional",
+          "x": -5.0,
+          "y": 3.5,
+          "height": 1.2
+        }
+      ],
+      "historical": {
+        "contextId": "mh17-2014",
+        "interpretation": "inspired",
+        "cultureKey": "map.history.memory",
+        "verified": true,
+        "sources": [
+          "https://onderzoeksraad.nl/en/onderzoek/crash-mh17-17-july-2014/"
+        ],
+        "claims": [
+          "Flight MH17 crashed in the Donetsk region of Ukraine on 17 July 2014."
+        ]
+      }
+    }
+  ]
+}

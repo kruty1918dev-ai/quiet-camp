@@ -1,0 +1,509 @@
+{
+  "schemaVersion": 1,
+  "id": "fiction-inspired:quiet-field",
+  "references": [
+    {
+      "id": "quiet-field:fiction-context",
+      "basis": "fiction-inspired",
+      "reviewer": "Codex source/design review; final artwork review pending",
+      "reviewedOn": "2026-10-07",
+      "sources": [
+        {
+          "id": "quiet-field:context-source",
+          "title": "Crash MH17, 17 July 2014; Reconstruction",
+          "publisher": "Dutch Safety Board",
+          "url": "https://onderzoeksraad.nl/en/onderzoek/crash-mh17-17-july-2014/",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        }
+      ],
+      "claims": []
+    },
+    {
+      "id": "quiet-field:technical-reference",
+      "basis": "documented",
+      "reviewer": "Codex source cross-check and official casing photo inspection; model/atlas review pending",
+      "reviewedOn": "2026-10-07",
+      "sources": [
+        {
+          "id": "quiet-field:parts-source",
+          "title": "Found Buk missile parts in final report Dutch Safety Board",
+          "publisher": "Dutch Safety Board",
+          "url": "https://onderzoeksraad.nl/en/found-buk-missile-parts-in-final-report-dutch-safety-board/",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        },
+        {
+          "id": "quiet-field:jit-source",
+          "title": "Update in criminal investigation MH17 disaster, 24 May 2018",
+          "publisher": "Public Prosecution Service / JIT",
+          "url": "https://www.prosecutionservice.nl/latest/news/2018/05/24/update-in-criminal-investigation-mh17-disaster",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        },
+        {
+          "id": "quiet-field:casing-photo",
+          "title": "Official engine casing photograph linked by the JIT update",
+          "publisher": "Public Prosecution Service / JIT",
+          "url": "https://www.prosecutionservice.nl/site/binaries/content/gallery/site-content/content-afbeeldingen/omhulsel-van-de-raketmotor-casing.jpg",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        },
+        {
+          "id": "quiet-field:court-source",
+          "title": "Summary of the day in court: 17 November 2022 – Judgment",
+          "publisher": "District Court of The Hague",
+          "url": "https://www.courtmh17.com/en/summaries-and-news/news/summary-of-the-day-in-court-17-november-2022-judgment.htm",
+          "accessedOn": "2026-10-07",
+          "authority": "primary"
+        }
+      ],
+      "claims": [
+        {
+          "id": "quiet-field:engine-type",
+          "statement": "The JIT associates engine type 9д 131 with 9M38/9M38M1. Only its photographed type prefix may inform a fictional casing; no unique serial or operator attribution. The 2018 update expressly leaves the shown parts’ connection to the launched missile uncertain.",
+          "sourceIds": [
+            "quiet-field:jit-source",
+            "quiet-field:casing-photo"
+          ]
+        },
+        {
+          "id": "quiet-field:stabilizer-form",
+          "statement": "DSB Figure 36 shows an engine nozzle, partial stabilizer fin and data cable consistent with a 9M38-series surface-to-air missile. A fictional partial fin may use that geometry reference; silhouette alone is not forensic proof.",
+          "sourceIds": [
+            "quiet-field:parts-source"
+          ]
+        },
+        {
+          "id": "quiet-field:buk-court",
+          "statement": "The Court’s 2022 summary states MH17 was hit by a Buk missile launched from a farm field near Pervomaiskyi. This documented conclusion does not authenticate invented game fragments.",
+          "sourceIds": [
+            "quiet-field:court-source"
+          ]
+        }
+      ]
+    }
+  ],
+  "beats": [
+    {
+      "id": "quiet-field:civilian-aircraft",
+      "storyBeat": "quiet-field:civilian-aircraft",
+      "heroLandmark": "quiet-field:front",
+      "returningProp": null,
+      "characterFocus": "travellers offering shelter and quiet care",
+      "worldStateBefore": "Separated civilian aircraft sections have weathered in a fictional field.",
+      "worldStateAfter": "Aircraft sections remain unchanged; a camp can safely remain nearby.",
+      "historicalReference": "quiet-field:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "hidden",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "A civilian flight ended in tragedy; nature has continued around its remains.",
+      "alternativeInference": "The spatial layout, elapsed time, civilian possessions and care actions are fictional. These objects do not reconstruct identities or establish the provenance of a real exhibit.",
+      "culturalContext": "Ukrainian rural field, chernozem, shelterbelt and an ordinary old road; no flags or slogans.",
+      "levelIds": [
+        "QC_MEM001",
+        "QC_MEM002",
+        "QC_MEM003",
+        "QC_MEM004"
+      ],
+      "props": [
+        {
+          "id": "quiet-field:front",
+          "category": "recovery",
+          "motif": "civilian-debris",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "appearance": "always",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "quiet_field_front_detail",
+            "x": -14,
+            "z": -7,
+            "elevation": 0,
+            "height": 2.8,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "quiet-field:rear",
+          "category": "recovery",
+          "motif": "civilian-debris",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "appearance": "always",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "quiet_field_rear_detail",
+            "x": 14,
+            "z": -6,
+            "elevation": 0,
+            "height": 3.2,
+            "yaw": 0,
+            "sway": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "quiet-field:roadmap-context",
+      "storyBeat": "quiet-field:roadmap-context",
+      "heroLandmark": "quiet-field:single-map-landmark",
+      "returningProp": null,
+      "characterFocus": "travellers offering shelter and quiet care",
+      "worldStateBefore": "One distant aircraft composition, not a plane repeated at every level node.",
+      "worldStateAfter": "The same landmark remains; no repair or removal.",
+      "historicalReference": "quiet-field:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "context",
+      "levelDetailVisibility": "hidden",
+      "intendedInference": "The nearby glades belong to one place and one civilian aircraft.",
+      "alternativeInference": "The spatial layout, elapsed time, civilian possessions and care actions are fictional. These objects do not reconstruct identities or establish the provenance of a real exhibit.",
+      "culturalContext": "Ukrainian rural field, chernozem, shelterbelt and an ordinary old road; no flags or slogans.",
+      "levelIds": [
+        "QC_MEM002"
+      ],
+      "props": [
+        {
+          "id": "quiet-field:single-map-landmark",
+          "category": "recovery",
+          "motif": "civilian-debris",
+          "roadmapVisibility": "context",
+          "levelDetailVisibility": "hidden",
+          "appearance": "always",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": {
+            "assetId": "quiet_field_aircraft_map",
+            "x": 0,
+            "z": 0,
+            "elevation": 0,
+            "height": 3.2,
+            "yaw": 0,
+            "sway": false
+          },
+          "level": null
+        }
+      ]
+    },
+    {
+      "id": "quiet-field:ordinary-lives",
+      "storyBeat": "quiet-field:ordinary-lives",
+      "heroLandmark": "quiet-field:seats",
+      "returningProp": null,
+      "characterFocus": "travellers offering shelter and quiet care",
+      "worldStateBefore": "Anonymous fictional civilian luggage, seats and cabin fragments beside the safe route.",
+      "worldStateAfter": "Possessions remain undisturbed.",
+      "historicalReference": "quiet-field:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "hidden",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "Ordinary people travelled here; these are civilian remains rather than a military installation.",
+      "alternativeInference": "The spatial layout, elapsed time, civilian possessions and care actions are fictional. These objects do not reconstruct identities or establish the provenance of a real exhibit.",
+      "culturalContext": "Ukrainian rural field, chernozem, shelterbelt and an ordinary old road; no flags or slogans.",
+      "levelIds": [
+        "QC_MEM002",
+        "QC_MEM003"
+      ],
+      "props": [
+        {
+          "id": "quiet-field:luggage",
+          "category": "recovery",
+          "motif": "civilian-debris",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "appearance": "always",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "quiet_field_luggage_detail",
+            "x": -9,
+            "z": 1,
+            "elevation": 0,
+            "height": 0.55,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "quiet-field:seats",
+          "category": "recovery",
+          "motif": "civilian-debris",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "appearance": "always",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "quiet_field_seats_detail",
+            "x": -10,
+            "z": 4,
+            "elevation": 0,
+            "height": 1,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "quiet-field:cabin-panel",
+          "category": "recovery",
+          "motif": "civilian-debris",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "appearance": "always",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "quiet_field_cabin_detail",
+            "x": -9,
+            "z": -3,
+            "elevation": 0,
+            "height": 0.7,
+            "yaw": 0,
+            "sway": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "quiet-field:technical-clue",
+      "storyBeat": "quiet-field:technical-clue",
+      "heroLandmark": "quiet-field:casing",
+      "returningProp": null,
+      "characterFocus": "travellers offering shelter and quiet care",
+      "worldStateBefore": "Two fictional foreign fragments use documented type/form references.",
+      "worldStateAfter": "Technical fragments remain untouched; the safe camp is completed.",
+      "historicalReference": "quiet-field:technical-reference",
+      "referenceConfidence": "verified",
+      "roadmapVisibility": "hidden",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "An attentive player may research the documented Buk/9M38-series reference; no operator is inferred from a type prefix.",
+      "alternativeInference": "The spatial layout, elapsed time, civilian possessions and care actions are fictional. These objects do not reconstruct identities or establish the provenance of a real exhibit.",
+      "culturalContext": "Ukrainian rural field, chernozem, shelterbelt and an ordinary old road; no flags or slogans.",
+      "levelIds": [
+        "QC_MEM003"
+      ],
+      "props": [
+        {
+          "id": "quiet-field:casing",
+          "category": "recovery",
+          "motif": "civilian-debris",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "appearance": "always",
+          "contentTags": [
+            "technical-marking",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "quiet_field_engine_casing_detail",
+            "x": 9,
+            "z": 3,
+            "elevation": 0,
+            "height": 0.48,
+            "yaw": 0,
+            "sway": false
+          },
+          "claimId": "quiet-field:engine-type"
+        },
+        {
+          "id": "quiet-field:fin",
+          "category": "recovery",
+          "motif": "civilian-debris",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "appearance": "always",
+          "contentTags": [
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "quiet_field_stabilizer_detail",
+            "x": 10,
+            "z": -1,
+            "elevation": 0,
+            "height": 0.32,
+            "yaw": 0,
+            "sway": false
+          },
+          "claimId": "quiet-field:stabilizer-form"
+        }
+      ]
+    },
+    {
+      "id": "quiet-field:quiet-care",
+      "storyBeat": "quiet-field:quiet-care",
+      "heroLandmark": "quiet-field:memory-marker",
+      "returningProp": "small-care-plot",
+      "characterFocus": "travellers offering shelter and quiet care",
+      "worldStateBefore": "A modest anonymous memory place with an untended small plot and older flowers.",
+      "worldStateAfter": "Fresh flowers, a low lantern and a tended patch of earth; no aircraft repair.",
+      "historicalReference": "quiet-field:fiction-context",
+      "referenceConfidence": "fiction-inspired",
+      "roadmapVisibility": "hidden",
+      "levelDetailVisibility": "detail",
+      "intendedInference": "People can offer care without undoing a tragedy.",
+      "alternativeInference": "The spatial layout, elapsed time, civilian possessions and care actions are fictional. These objects do not reconstruct identities or establish the provenance of a real exhibit.",
+      "culturalContext": "Ukrainian rural field, chernozem, shelterbelt and an ordinary old road; no flags or slogans.",
+      "levelIds": [
+        "QC_MEM004"
+      ],
+      "props": [
+        {
+          "id": "quiet-field:memory-marker",
+          "category": "recovery",
+          "motif": "memorial-trace",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "appearance": "always",
+          "contentTags": [
+            "memorial",
+            "fiction-inspired"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "quiet_field_marker_detail",
+            "x": -9,
+            "z": 7,
+            "elevation": 0,
+            "height": 0.55,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "quiet-field:old-flowers",
+          "category": "recovery",
+          "motif": "memorial-trace",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "appearance": "before-care",
+          "contentTags": [
+            "memorial",
+            "fiction-inspired"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "quiet_field_old_flowers_detail",
+            "x": -9,
+            "z": 8,
+            "elevation": 0,
+            "height": 0.25,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "quiet-field:new-flowers",
+          "category": "recovery",
+          "motif": "memorial-trace",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "appearance": "after-care",
+          "contentTags": [
+            "memorial",
+            "fiction-inspired"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "quiet_field_new_flowers_detail",
+            "x": -9,
+            "z": 8,
+            "elevation": 0,
+            "height": 0.3,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "quiet-field:lantern",
+          "category": "recovery",
+          "motif": "memorial-trace",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "appearance": "after-care",
+          "contentTags": [
+            "memorial",
+            "fiction-inspired"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "quiet_field_lantern_detail",
+            "x": -10,
+            "z": 7,
+            "elevation": 0,
+            "height": 0.35,
+            "yaw": 0,
+            "sway": false
+          }
+        },
+        {
+          "id": "quiet-field:untended-soil",
+          "category": "nature",
+          "motif": "chernozem",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "appearance": "before-care",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "quiet_field_soil_before",
+            "x": -9,
+            "z": 10,
+            "elevation": 0,
+            "height": 0.08,
+            "yaw": 0,
+            "sway": false
+          },
+          "returningProp": "small-care-plot"
+        },
+        {
+          "id": "quiet-field:tended-soil",
+          "category": "nature",
+          "motif": "chernozem",
+          "roadmapVisibility": "hidden",
+          "levelDetailVisibility": "detail",
+          "appearance": "after-care",
+          "contentTags": [
+            "fiction-inspired",
+            "weathering"
+          ],
+          "roadmap": null,
+          "level": {
+            "assetId": "quiet_field_soil_after",
+            "x": -9,
+            "z": 10,
+            "elevation": 0,
+            "height": 0.08,
+            "yaw": 0,
+            "sway": false
+          },
+          "returningProp": "small-care-plot"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "id": "staging:ship",
+  "seed": 1918,
+  "season": "summer",
+  "nodes": [
+    {
+      "id": "node:QC001",
+      "x": -27,
+      "z": 10.966,
+      "radius": 5.6
+    },
+    {
+      "id": "node:QC002",
+      "x": -27,
+      "z": 31.655,
+      "radius": 5.6
+    },
+    {
+      "id": "node:QC003",
+      "x": -27,
+      "z": 51.92,
+      "radius": 5.6
+    },
+    {
+      "id": "node:QC004",
+      "x": -27,
+      "z": 71.898,
+      "radius": 5.6
+    },
+    {
+      "id": "node:QC005",
+      "x": -27,
+      "z": 91.9,
+      "radius": 5.6
+    }
+  ],
+  "zones": [
+    {
+      "id": "staging-ship-field",
+      "kind": "field",
+      "species": "ua_field_weeds",
+      "x": 0,
+      "z": 61,
+      "width": 64,
+      "depth": 122,
+      "density": 0.72
+    },
+    {
+      "id": "staging-ship-windbreak",
+      "kind": "forest",
+      "x": -36,
+      "z": 61,
+      "width": 10,
+      "depth": 122,
+      "density": 0.92
+    }
+  ],
+  "routes": [
+    {
+      "id": "staging-ship-bypass",
+      "kind": "path",
+      "width": 0.55,
+      "points": [
+        {
+          "x": -27,
+          "z": -1
+        },
+        {
+          "x": -27,
+          "z": 123.07746547649276
+        }
+      ]
+    }
+  ],
+  "ensembles": [],
+  "landmarks": [
+    {
+      "id": "staging-ship/hull",
+      "asset": "staging_cargo_ship",
+      "compoundOwner": "staging-ship",
+      "revealOwner": "node:QC002",
+      "x": 21,
+      "z": 49,
+      "height": 5.8,
+      "yaw": -8
+    }
+  ],
+  "surfaces": [
+    {
+      "id": "ship-dry-bed",
+      "kind": "reservoir-bed",
+      "heightOffset": -0.08,
+      "feather": 1,
+      "points": [
+        {
+          "x": -12.0,
+          "z": 1.0
+        },
+        {
+          "x": 30.0,
+          "z": 1.0
+        },
+        {
+          "x": 30.0,
+          "z": 121.0
+        },
+        {
+          "x": -12.0,
+          "z": 121.0
+        }
+      ]
+    },
+    {
+      "id": "ship-live-channel",
+      "kind": "channel",
+      "heightOffset": -0.25,
+      "feather": 1,
+      "points": [
+        {
+          "x": -8.0,
+          "z": 1.0
+        },
+        {
+          "x": -4.0,
+          "z": 1.0
+        },
+        {
+          "x": -4.0,
+          "z": 121.0
+        },
+        {
+          "x": -8.0,
+          "z": 121.0
+        }
+      ]
+    }
+  ]
+}

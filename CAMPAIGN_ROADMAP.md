@@ -142,3 +142,11 @@ Abilities збережено окремо до встановлення Game Cre
 GUID конфлікти виправлені з оновленням посилань; donor sources виключені
 з Git. [Звіт і точні receipts](docs/transfer/2026-10-09/IMPORT-UA.md) відділяють
 відновлені payloads від ще не виконаного native Unity import/bake.
+
+Source composition pipeline, власні model kits і Editor preview додані до
+цієї integration branch. Новий renderer ізольований у `UI/Prepared`; чинні
+optimized map classes збережені. Prepared authoring охоплює 30 рівнів,
+тому перед публікацією Main перевіряється точна відповідність усім 110
+campaign IDs. Неповний або перемішаний каталог відхиляється. Код runtime,
+Editor та наявних/staged tests компілюється; native acceptance і
+перемикання меню ще не виконані. 25 концептів перенесені як референси.

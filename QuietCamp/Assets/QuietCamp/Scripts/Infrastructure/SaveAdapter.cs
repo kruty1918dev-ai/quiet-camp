@@ -22,6 +22,8 @@ namespace QuietCamp.Infrastructure
         readonly ISaveWriteService _writer;
         readonly SaveLoadService _loader = new SaveLoadService();
         bool _loadFailed, _unsupportedVersion;
+        readonly bool _memoryOnly;
+        public bool MemoryOnly=>_memoryOnly;
 
         public SessionSaveData Session { get; set; } = new SessionSaveData();
         public ProgressSaveData Progress { get; set; } = new ProgressSaveData();
@@ -35,8 +37,9 @@ namespace QuietCamp.Infrastructure
         public event Action<string> SaveFailed;
         public event Action BeforeSave;
 
-        public SaveAdapter(ISaveWriteService writer = null)
+        public SaveAdapter(ISaveWriteService writer = null,bool memoryOnly=false)
         {
+            _memoryOnly=memoryOnly;
             _writer = writer ?? new SaveWriteService();
             _modules = new List<ISaveModule>
             {
@@ -55,6 +58,7 @@ namespace QuietCamp.Infrastructure
         {
             get
             {
+                if(_memoryOnly)return false;
                 var path = Path.Combine(UnityEngine.Application.persistentDataPath, "saves", "slot00.mvs");
                 return File.Exists(path) || File.Exists(path + ".bak");
             }
@@ -83,6 +87,7 @@ namespace QuietCamp.Infrastructure
             using var audit = PerformanceAudit.Measure("QC.SaveAdapter.Save");
             if (_loadFailed) { SaveFailed?.Invoke("Existing save could not be loaded; writing is disabled."); return false; }
             BeforeSave?.Invoke();
+            if(_memoryOnly)return true;
             if (_writer.TrySave(Slot, _modules, null, out var error)) return true;
             Debug.LogError($"[QuietCamp] Save failed: {error}");
             SaveFailed?.Invoke(error);

@@ -1,0 +1,244 @@
+{
+  "schemaVersion": 1,
+  "revision": "water-memory-design-1",
+  "journeyId": "draft:water-memory",
+  "presentation": "world3d",
+  "revealDistance": 2,
+  "published": false,
+  "designStatus": "design-only; no playable levels, models or production layered rules supplied",
+  "environmentalStoryFile": "story.json",
+  "regions": [
+    {
+      "id": "water-memory",
+      "titleKey": "water-memory.title",
+      "previewId": "QC_WATER001",
+      "firstLevel": 1,
+      "lastLevel": 9,
+      "height": 3780,
+      "biome": "river-wetland",
+      "season": "spring",
+      "environmentPhase": "spring",
+      "lighting": "day",
+      "weatherBias": 0.55,
+      "vegetationProfile": "pioneer-willow-poplar-reeds",
+      "terrainProfile": "former-reservoir-dry-ridge-downstream-flood-trace",
+      "landmark": "water_memory_hydro_map",
+      "environmentalMotifs": [
+        "former-shore",
+        "exposed-bed",
+        "stranded-boat",
+        "mud-line",
+        "damaged-road",
+        "empty-carrier",
+        "flood-trace",
+        "hydro-structure",
+        "young-willow"
+      ],
+      "performanceTier": "balanced",
+      "transition": {
+        "fromSeason": "spring",
+        "toSeason": "spring",
+        "kind": "blend",
+        "length": 300
+      },
+      "revealRules": {
+        "nearFuture": 2,
+        "branchTeaser": 1,
+        "atmosphere": "river-mist",
+        "farLandmarkAssetId": null,
+        "farLandmarkHeight": 5,
+        "farLandmarkX": 0.55
+      },
+      "chunks": [
+        {
+          "id": "water-memory:chunk-1",
+          "firstOrder": 1,
+          "lastOrder": 3
+        },
+        {
+          "id": "water-memory:chunk-2",
+          "firstOrder": 4,
+          "lastOrder": 6
+        },
+        {
+          "id": "water-memory:chunk-3",
+          "firstOrder": 7,
+          "lastOrder": 9
+        }
+      ],
+      "nodePositions": [
+        {
+          "id": "node:QC_WATER001",
+          "levelId": "QC_WATER001",
+          "previewId": "QC_WATER001",
+          "titleKey": "water-memory.level.1",
+          "order": 1,
+          "x": 0.32,
+          "y": 210,
+          "radius": 62,
+          "requires": [],
+          "associatedProps": [],
+          "branchLinks": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_WATER002",
+          "levelId": "QC_WATER002",
+          "previewId": "QC_WATER002",
+          "titleKey": "water-memory.level.2",
+          "order": 2,
+          "x": 0.56,
+          "y": 630,
+          "radius": 62,
+          "requires": [
+            "QC_WATER001"
+          ],
+          "associatedProps": [],
+          "branchLinks": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_WATER003",
+          "levelId": "QC_WATER003",
+          "previewId": "QC_WATER003",
+          "titleKey": "water-memory.level.3",
+          "order": 3,
+          "x": 0.4,
+          "y": 1050,
+          "radius": 62,
+          "requires": [
+            "QC_WATER002"
+          ],
+          "associatedProps": [],
+          "branchLinks": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_WATER004",
+          "levelId": "QC_WATER004",
+          "previewId": "QC_WATER004",
+          "titleKey": "water-memory.level.4",
+          "order": 4,
+          "x": 0.62,
+          "y": 1470,
+          "radius": 62,
+          "requires": [
+            "QC_WATER003"
+          ],
+          "associatedProps": [],
+          "branchLinks": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_WATER005",
+          "levelId": "QC_WATER005",
+          "previewId": "QC_WATER005",
+          "titleKey": "water-memory.level.5",
+          "order": 5,
+          "x": 0.46,
+          "y": 1890,
+          "radius": 62,
+          "requires": [
+            "QC_WATER004"
+          ],
+          "associatedProps": [],
+          "branchLinks": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_WATER006",
+          "levelId": "QC_WATER006",
+          "previewId": "QC_WATER006",
+          "titleKey": "water-memory.level.6",
+          "order": 6,
+          "x": 0.3,
+          "y": 2310,
+          "radius": 62,
+          "requires": [
+            "QC_WATER005"
+          ],
+          "associatedProps": [],
+          "branchLinks": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_WATER007",
+          "levelId": "QC_WATER007",
+          "previewId": "QC_WATER007",
+          "titleKey": "water-memory.level.7",
+          "order": 7,
+          "x": 0.52,
+          "y": 2730,
+          "radius": 62,
+          "requires": [
+            "QC_WATER006"
+          ],
+          "associatedProps": [],
+          "branchLinks": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_WATER008",
+          "levelId": "QC_WATER008",
+          "previewId": "QC_WATER008",
+          "titleKey": "water-memory.level.8",
+          "order": 8,
+          "x": 0.66,
+          "y": 3150,
+          "radius": 62,
+          "requires": [
+            "QC_WATER007"
+          ],
+          "associatedProps": [],
+          "branchLinks": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        },
+        {
+          "id": "node:QC_WATER009",
+          "levelId": "QC_WATER009",
+          "previewId": "QC_WATER009",
+          "titleKey": "water-memory.level.9",
+          "order": 9,
+          "x": 0.4,
+          "y": 3570,
+          "radius": 62,
+          "requires": [
+            "QC_WATER008"
+          ],
+          "associatedProps": [],
+          "branchLinks": [],
+          "world": {
+            "extent": 580,
+            "props": []
+          }
+        }
+      ],
+      "branches": [],
+      "storyProps": []
+    }
+  ]
+}

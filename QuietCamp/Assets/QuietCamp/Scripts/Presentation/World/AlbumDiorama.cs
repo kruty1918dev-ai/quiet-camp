@@ -29,10 +29,11 @@ namespace QuietCamp.Presentation.World
         {
             var album=(screen=="Album" || screen=="AlbumQuiet") && (_services.Save.Album.entries?.Length??0)>0;
             var preview=screen=="JourneyPreview" && (_screens.SelectedJourney?.levelIds.Length??0)>0;
-            var map=screen=="Levels"||screen=="BonusPreview";
+            var map=screen=="Levels"||screen=="BonusPreview"||screen=="BranchPreview";
             if (_menuWorld != null) _menuWorld.gameObject.SetActive(!album&&!map&&!preview);
             if (_drift!=null)_drift.enabled=!album&&!map&&!preview;
             _menuAtmosphere?.SetSuspended(album||map||preview);
+            if(map){StopSwap();Release();return;}
             try
             {
                 if(album) Select(_services.AlbumIndex);
@@ -128,7 +129,11 @@ namespace QuietCamp.Presentation.World
             _board.BindViewport(_camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>());
             _atmosphere.RegisterDecor(_world.transform);
             _atmosphere.BindRainWorld(_world.transform);
-            if (entry.cared) foreach (var landmark in _world.GetComponentsInChildren<CampLandmarkVisual>()) landmark.ApplyCare();
+            if (entry.cared)
+            {
+                foreach (var landmark in _world.GetComponentsInChildren<CampLandmarkVisual>()) landmark.ApplyCare();
+                foreach (var detail in _world.GetComponentsInChildren<EnvironmentalStoryVisual>()) detail.ApplyCare();
+            }
             _atmosphere.Soundscape.AccentSuppressed=()=>IsSwitching;
             if (_level.noise.Length>0) _atmosphere.SetFire(BoardMath.CellCenterWorld(_level,new Cell(_level.noise[0][0],_level.noise[0][1])),true);
         }

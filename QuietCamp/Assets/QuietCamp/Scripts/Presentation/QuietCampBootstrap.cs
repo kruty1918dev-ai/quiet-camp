@@ -29,6 +29,18 @@ namespace QuietCamp.Presentation
     {
         static QuietCampBootstrap _instance;
         public static GameServices ServicesRef => _instance?._services;
+#if UNITY_EDITOR
+        // Tests opt into isolated RAM-only saves before Boot. Player startup always uses the normal adapter.
+        public static Func<SaveAdapter> EditorSaveFactory;
+        public static bool EditorDisableAudio;
+#endif
+        static SaveAdapter CreateStartupSave()
+        {
+#if UNITY_EDITOR
+            if(EditorSaveFactory!=null)return EditorSaveFactory();
+#endif
+            return new SaveAdapter();
+        }
 
         [SerializeField] string _firstSceneName = "MainMenu";
 
@@ -72,8 +84,16 @@ namespace QuietCamp.Presentation
             _bootView.Localize(localization.T);
             _bootView.Stage("boot.sound", .25f);
 
+#if UNITY_EDITOR
+            var audioCatalog = EditorDisableAudio ? null : QuietCampAudioCatalog.Load();
+#else
             var audioCatalog = QuietCampAudioCatalog.Load();
-            if (audioCatalog == null)
+#endif
+            if (audioCatalog == null
+#if UNITY_EDITOR
+                && !EditorDisableAudio
+#endif
+                )
                 Debug.LogWarning("[QuietCamp] AudioCatalog missing — run Tools/Quiet Camp/Setup Project.");
             _audio = audioCatalog != null
                 ? new AudioService(audioCatalog, audioCatalog) : null;
@@ -167,9 +187,9 @@ namespace QuietCamp.Presentation
             {
                 try
                 {
-                    _startupSave = _services?.Save ?? new SaveAdapter();
+                    _startupSave = _services?.Save ?? CreateStartupSave();
                     if (_services == null) _startupSave.Load(out _);
-                    _startupLocale = _services?.Localization ?? QuietCampLocalization.Create();
+                    _startupLocale = _services?.Localization ?? QuietCampLocalization.Create(_startupSave.MemoryOnly?System.IO.Path.Combine(System.IO.Path.GetTempPath(),"quietcamp-roadmap-qa-locale.txt"):null);
                     if (_startupSave.HasSave && !string.IsNullOrEmpty(_startupSave.Settings.language))
                         _startupLocale.TrySetLanguage(_startupSave.Settings.language);
                     ScreenOrientationPolicy.Apply(_startupSave.Settings.orientation);

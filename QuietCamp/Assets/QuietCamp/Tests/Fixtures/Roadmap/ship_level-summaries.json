@@ -1,0 +1,77 @@
+[
+  {
+    "id": "qa:ship_level",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "7d54113d6df37600c093ababc533f3a4fa0af4fc80d2217232f903d23d718eca",
+    "ruleVersion": 2,
+    "number": 1,
+    "width": 6,
+    "height": 8,
+    "decorSeed": 20340298,
+    "shade": true,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 4,
+        "z": 5,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 1,
+        "z": 3,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 7
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.9,
+      "treeDensity": 0.55,
+      "clusterSeed": -379239845,
+      "meadowSpecies": [
+        "grass",
+        "poppy",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "bag",
+        "lantern"
+      ],
+      "shore": {
+        "kind": "sea",
+        "side": "right",
+        "offset": 5.8,
+        "width": 4.0,
+        "seed": 112
+      }
+    }
+  }
+]

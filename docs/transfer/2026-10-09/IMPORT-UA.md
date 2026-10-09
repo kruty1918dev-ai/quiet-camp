@@ -43,3 +43,37 @@ native shader conversion, сцени, вигляд і продуктивніст
 Інтеграція prepared roadmap з поточними оптимізаціями виконується в
 `art/transfer-integration-2026-10-09`. Native bake та активація нового
 catalog потребують окремої перевірки відповідно до чинного `AGENTS.md`.
+
+## Застосований source pipeline
+
+Prepared branch `eb7ee6d` об'єднана зі збереженням поточного UI,
+GPU foliage transition, geometry caches, bounded map DOM і stable IDs.
+Власні EnvironmentKit, UkrainianRural та StagingLandmarks моделі з їхніми
+editable джерелами, LOD, metadata й attribution встановлені в
+`Assets/QuietCamp/Authoring/Roadmap/Models`.
+
+Portable composer, CLI, schemas та Editor tools встановлені у звичайних
+папках проєкту. Новий native renderer знаходиться в
+`Scripts/Presentation/UI/Prepared`, namespace
+`QuietCamp.Presentation.UI.Prepared`; Editor preview/benchmark використовують
+саме ці типи. Чинний `MenuScreens` використовує перевірений оптимізований UI.
+Його поточні класи мапи й наявні тести збережені байт-в-байт. Нові native
+тести, що припускають майбутню активацію іншого меню, збережено в
+`QuietCamp/PreparedRoadmap~/Tests` і перевіряються компілятором із прапорцем
+`--include-prepared-tests`. Вони ще не входять до активної Unity test suite.
+
+Authoring із передачі охоплює 30 рівнів; чинний campaign order має 110.
+Нові `Bake Main` і legacy roadmap exporter перевіряють точний список ID
+перед публікацією та відмовляються заміняти Main неповним авторингом.
+Зіставлення всіх 110 композицій і перемикання меню ще потрібні перед
+активацією prepared renderer. Наявність імпортованого коду не є
+завершенням цього художнього етапу.
+
+Додано 25 концептів з handoff у
+`Design/Roadmap/References/Transfer-2026-10-09`, зі збереженими hashes.
+Це концепти; нові native captures не створювались.
+
+Current-source compilation пройшла для п'яти package runtime assemblies,
+Domain, Application, Infrastructure, Presentation, Editor та обох test
+assemblies, включно зі staged тестами. Використано реальні cached Unity
+references; це не виконання EditMode/PlayMode tests та не Unity asset import.

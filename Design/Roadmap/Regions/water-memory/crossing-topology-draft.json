@@ -1,0 +1,482 @@
+{
+  "schema": "design-surface-graph-reference",
+  "levelId": "QC_WATER006",
+  "runtimeImplemented": false,
+  "productionWitnessCertified": false,
+  "proposedRuleVersion": 3,
+  "surfaces": [
+    {
+      "id": "west",
+      "elevation": 0.8,
+      "worldOriginXZ": [
+        0,
+        0
+      ],
+      "width": 4,
+      "height": 6,
+      "cells": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "blocked": [
+        [
+          2,
+          4
+        ]
+      ],
+      "shade": []
+    },
+    {
+      "id": "east",
+      "elevation": 0.8,
+      "worldOriginXZ": [
+        5,
+        0
+      ],
+      "width": 4,
+      "height": 6,
+      "cells": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "blocked": [
+        [
+          2,
+          4
+        ]
+      ],
+      "shade": []
+    },
+    {
+      "id": "ridge",
+      "elevation": 2.3,
+      "worldOriginXZ": [
+        9,
+        0
+      ],
+      "width": 4,
+      "height": 6,
+      "cells": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "blocked": [
+        [
+          0,
+          4
+        ]
+      ],
+      "shade": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    }
+  ],
+  "connectors": [
+    {
+      "id": "north-bridge",
+      "kind": "temporary-bridge",
+      "fromCell": {
+        "surfaceId": "west",
+        "x": 3,
+        "z": 2
+      },
+      "toCell": {
+        "surfaceId": "east",
+        "x": 0,
+        "z": 2
+      },
+      "twoWay": true,
+      "cost": 2
+    },
+    {
+      "id": "south-bridge",
+      "kind": "temporary-bridge",
+      "fromCell": {
+        "surfaceId": "west",
+        "x": 3,
+        "z": 3
+      },
+      "toCell": {
+        "surfaceId": "east",
+        "x": 0,
+        "z": 3
+      },
+      "twoWay": true,
+      "cost": 2
+    },
+    {
+      "id": "ridge-ramp",
+      "kind": "ramp",
+      "fromCell": {
+        "surfaceId": "east",
+        "x": 3,
+        "z": 0
+      },
+      "toCell": {
+        "surfaceId": "ridge",
+        "x": 0,
+        "z": 0
+      },
+      "twoWay": true,
+      "cost": 3
+    }
+  ],
+  "origin": {
+    "surfaceId": "west",
+    "x": 0,
+    "z": 5
+  },
+  "accessPoints": [
+    {
+      "id": "west-route",
+      "cell": {
+        "surfaceId": "west",
+        "x": 0,
+        "z": 5
+      }
+    },
+    {
+      "id": "east-route",
+      "cell": {
+        "surfaceId": "east",
+        "x": 3,
+        "z": 5
+      }
+    },
+    {
+      "id": "ridge-route",
+      "cell": {
+        "surfaceId": "ridge",
+        "x": 3,
+        "z": 5
+      }
+    }
+  ],
+  "waterGapWorldX": 4,
+  "worldRiverCrossableWithoutConnector": false,
+  "completionChangesTopology": false,
+  "designWitness": [
+    {
+      "guestId": "west-guest",
+      "surfaceId": "west",
+      "x": 0,
+      "z": 0,
+      "rotation": 0,
+      "shade": false
+    },
+    {
+      "guestId": "east-guest",
+      "surfaceId": "east",
+      "x": 1,
+      "z": 0,
+      "rotation": 0,
+      "shade": false
+    },
+    {
+      "guestId": "ridge-guest",
+      "surfaceId": "ridge",
+      "x": 1,
+      "z": 2,
+      "rotation": 2,
+      "shade": true
+    }
+  ],
+  "geometryNotes": "Stable dry platforms and inspected fictional temporary bridges; no physical safety certification. Geometry, picking, v3 solver and independent production witness remain unimplemented."
+}

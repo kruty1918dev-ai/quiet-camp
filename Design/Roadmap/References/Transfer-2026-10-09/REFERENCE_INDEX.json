@@ -1,0 +1,781 @@
+{
+  "selectedConceptCount": 3,
+  "totalCurrentGeneratedConceptCount": 25,
+  "earlierArchiveConceptCount": 3,
+  "nativeBaselineImageCount": 39,
+  "newModelKitUnityRenderCount": 0,
+  "precedence": "INSTALL_PROMPT_UA.md > selected concepts > historical iterations; baseline is previous implementation only.",
+  "files": [
+    {
+      "path": "references/concept-iterations/exec-0f1a0f1f-dce4-4375-bb38-4e3484b7bfe7.png",
+      "originalFilename": "exec-0f1a0f1f-dce4-4375-bb38-4e3484b7bfe7.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 2258913,
+      "sha256": "d03e5d517cc52e384b876b9e603d1873ba3bbc623817072fe3105c74b31cd0f3"
+    },
+    {
+      "path": "references/concept-iterations/exec-23397492-1610-49ae-aac9-232035f8dacb.png",
+      "originalFilename": "exec-23397492-1610-49ae-aac9-232035f8dacb.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 2129339,
+      "sha256": "948e4d1c622c4b9d38464df756bd58a0257d3237cf531b91ea3817c0892c7d4d"
+    },
+    {
+      "path": "references/concept-iterations/exec-24690c8d-0663-4145-b1e9-3402e4c55800.png",
+      "originalFilename": "exec-24690c8d-0663-4145-b1e9-3402e4c55800.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 3506180,
+      "sha256": "9a70e75282797ff60f6f55ec42bc873fa54ea2bfc69361673c7891207af815ac"
+    },
+    {
+      "path": "references/concept-iterations/exec-24fecdad-ca5e-4275-80e6-571e6f626d73.png",
+      "originalFilename": "exec-24fecdad-ca5e-4275-80e6-571e6f626d73.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 2126531,
+      "sha256": "80f4fce92a03956b560a67735cf8955c8fbbac75da32879daba57c07633949d7"
+    },
+    {
+      "path": "references/concept-iterations/exec-2836d192-1028-4a3b-9398-65e1a27d5e66.png",
+      "originalFilename": "exec-2836d192-1028-4a3b-9398-65e1a27d5e66.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 2204488,
+      "sha256": "d9d892e6fbaf83c169f19e64c8914a373b80a152c5697d2025d185e25cf574c9"
+    },
+    {
+      "path": "references/concept-iterations/exec-3c7e3f48-429e-4d26-8b35-077e8e98193d.png",
+      "originalFilename": "exec-3c7e3f48-429e-4d26-8b35-077e8e98193d.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 1998517,
+      "sha256": "0e8047ebabd5a94512284c2159dc4c7e6d191498130b9c6c4b9dbf2684cea9c0"
+    },
+    {
+      "path": "references/concept-iterations/exec-40c3a56e-81d9-4657-a8e6-03257174c9c0.png",
+      "originalFilename": "exec-40c3a56e-81d9-4657-a8e6-03257174c9c0.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 2282997,
+      "sha256": "918c750014f6070c6ae705c6eb4c8c69117f6eb082dca3ae74a696be4220b1ca"
+    },
+    {
+      "path": "references/selected/02_aircraft_field.png",
+      "originalFilename": "exec-555568be-b170-4cd0-ba5a-3132cac7155d.png",
+      "kind": "AI-generated-concept",
+      "role": "aircraft-field-staging-concept",
+      "status": "selected-reference",
+      "nativeUnityRender": false,
+      "bytes": 1836935,
+      "sha256": "7b74e06ff1ff5f236fe693c9ac5f0c1146f377974266cdb9484377f1836460c7"
+    },
+    {
+      "path": "references/concept-iterations/exec-5f92878b-8ec6-42c4-89be-ea7218f3acb1.png",
+      "originalFilename": "exec-5f92878b-8ec6-42c4-89be-ea7218f3acb1.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 3510775,
+      "sha256": "3764c4b49991e78908d86e18d0cfd2e3a4f1cbd9ace0bc64eb4f5b97bd1d485e"
+    },
+    {
+      "path": "references/concept-iterations/exec-6cbdebd0-d179-494c-9d93-219ae4c808fa.png",
+      "originalFilename": "exec-6cbdebd0-d179-494c-9d93-219ae4c808fa.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 2431150,
+      "sha256": "9781038f70c23bf68648ddb26306dada35a1ab7aa2209e26343ff753c74a1dde"
+    },
+    {
+      "path": "references/concept-iterations/exec-6ee25513-943e-4dfd-9e74-371441cc22a1.png",
+      "originalFilename": "exec-6ee25513-943e-4dfd-9e74-371441cc22a1.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 2669637,
+      "sha256": "dc16b4bfbfb8022ef9c33dbe25c1a43528ddb4b4fabaaf9aeda0e7f84bcc5db1"
+    },
+    {
+      "path": "references/concept-iterations/exec-7874f1d1-34e1-4004-a3b7-9d5802076d80.png",
+      "originalFilename": "exec-7874f1d1-34e1-4004-a3b7-9d5802076d80.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 2348162,
+      "sha256": "869f86c1942d99412834943cc52cccdc03ff0141b13924c196dfefa626942b17"
+    },
+    {
+      "path": "references/concept-iterations/exec-7d35f54e-0236-4102-933f-d8aa27c39adc.png",
+      "originalFilename": "exec-7d35f54e-0236-4102-933f-d8aa27c39adc.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 3350838,
+      "sha256": "7fb02a86091a59148886984924dfbc39eb97e3efdee0dc8bf9d7dc99944494b1"
+    },
+    {
+      "path": "references/concept-iterations/exec-82d7f95d-b126-4fb5-b316-436acee19d57.png",
+      "originalFilename": "exec-82d7f95d-b126-4fb5-b316-436acee19d57.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 2380918,
+      "sha256": "fbe7cdf9eeafaaf124e8e35b5173e1f6779043922d113770da6adc0beb961c51"
+    },
+    {
+      "path": "references/concept-iterations/exec-892e001b-4b79-455f-8b69-d9280e82065d.png",
+      "originalFilename": "exec-892e001b-4b79-455f-8b69-d9280e82065d.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 2617462,
+      "sha256": "b255e257ccaa29b5ecf312e6bbefc14f54a6f16b0deb6e7a23c519d30f4946ad"
+    },
+    {
+      "path": "references/concept-iterations/exec-a5b5e4aa-f990-4a42-b9c3-0babb72b9df8.png",
+      "originalFilename": "exec-a5b5e4aa-f990-4a42-b9c3-0babb72b9df8.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 2397208,
+      "sha256": "beed2fbdf0f963a2c00a79280ff654466fcf3e1278519b38887b6428520db5f5"
+    },
+    {
+      "path": "references/concept-iterations/exec-a801b9c9-67f1-40d5-ace0-bdbe268ce391.png",
+      "originalFilename": "exec-a801b9c9-67f1-40d5-ace0-bdbe268ce391.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 2178469,
+      "sha256": "6bde613fc39f39f184192c2e0f10c6f4b87e5258aad219e8c7801037e0d54c95"
+    },
+    {
+      "path": "references/concept-iterations/exec-b401bb23-4679-45ed-b750-3a7a98770c5a.png",
+      "originalFilename": "exec-b401bb23-4679-45ed-b750-3a7a98770c5a.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 3237990,
+      "sha256": "e6255c9971ae7e58d03a1538a5d7b153857ca562d295a27e602f082f796267dc"
+    },
+    {
+      "path": "references/concept-iterations/exec-c1f1411b-df2f-41c2-90b4-142285802a34.png",
+      "originalFilename": "exec-c1f1411b-df2f-41c2-90b4-142285802a34.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 3123732,
+      "sha256": "9eae3f050c3df2bc6b1b9b692cf139f8066e8d766ae8e8c9ca41199378133e4b"
+    },
+    {
+      "path": "references/selected/01_main_roadmap.png",
+      "originalFilename": "exec-c46f833f-6fbe-449d-9e4e-f0cb317945d8.png",
+      "kind": "AI-generated-concept",
+      "role": "main-roadmap-concept",
+      "status": "selected-reference",
+      "nativeUnityRender": false,
+      "bytes": 2342964,
+      "sha256": "5371a6de1c1ac3972d8714e1e6e73169540498e5e4aca95662dd005f0db3b094"
+    },
+    {
+      "path": "references/selected/03_breached_dam.png",
+      "originalFilename": "exec-c6c42538-ff70-422d-a983-ff9a38d2899d.png",
+      "kind": "AI-generated-concept",
+      "role": "dam-staging-concept",
+      "status": "selected-reference",
+      "nativeUnityRender": false,
+      "bytes": 2194550,
+      "sha256": "5b72c4a7feca7104b5594158ca0322a5d7395578fe7b45ad437acae3e2619a66"
+    },
+    {
+      "path": "references/concept-iterations/exec-cb51011b-fa90-48ce-85a0-370d035ef9a0.png",
+      "originalFilename": "exec-cb51011b-fa90-48ce-85a0-370d035ef9a0.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 2402198,
+      "sha256": "139230f4652babe46f38702f3ab96a1b0ef09584f4edc422db6dce89dba2378f"
+    },
+    {
+      "path": "references/concept-iterations/exec-d0886ec6-95a2-4e85-9ce0-a9e70484ad7f.png",
+      "originalFilename": "exec-d0886ec6-95a2-4e85-9ce0-a9e70484ad7f.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 2259562,
+      "sha256": "8da5ed6826ce56f2ff6de90c168b2e58fcaf9f45808f4f999af5b91779452ec8"
+    },
+    {
+      "path": "references/concept-iterations/exec-e4de9f57-80e8-454f-b769-50079ad9f9de.png",
+      "originalFilename": "exec-e4de9f57-80e8-454f-b769-50079ad9f9de.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 2747201,
+      "sha256": "4df5855f900817774af83ca1b4c969e779e83af3fd5d853eba41becbd0dffc96"
+    },
+    {
+      "path": "references/concept-iterations/exec-e50d3ea1-af75-45ce-84e2-e0971f1e3502.png",
+      "originalFilename": "exec-e50d3ea1-af75-45ce-84e2-e0971f1e3502.png",
+      "kind": "AI-generated-concept",
+      "role": "earlier-concept-iteration",
+      "status": "iteration-archive-not-an-additional-target",
+      "nativeUnityRender": false,
+      "bytes": 2175209,
+      "sha256": "be7b5c8b1703d7a460073fa8614959f9e35541ca9102b7a7023cb92e15788a46"
+    },
+    {
+      "path": "references/earlier-style-concepts.zip",
+      "kind": "earlier-AI-concept-archive",
+      "originalFilename": "QuietCamp_Ukraine_GameStyle_Concepts.zip",
+      "nativeUnityRender": false,
+      "status": "historical-reference-latest-written-direction-takes-precedence",
+      "containedImages": [
+        "01_roadmap_ukrainian_village_and_mosaic_stop.png",
+        "02_roadmap_autumn_uz_train_and_stop.png",
+        "03_gameplay_ukrainian_mosaic_bus_stop.png"
+      ],
+      "bytes": 1545493,
+      "sha256": "be48abe5a7930fcca170c36f00c8409bbaf7ec2f05d7a5c0afd0144ebedc78fe"
+    },
+    {
+      "path": "references/native-baseline/roadmap/2026-10-08/cultural_node_11_portrait.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-08T07:10:41+02:00",
+      "originalSource": "TestResults/ukrainian-roadmap-2026-10-08/cultural_node_11_portrait.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 434775,
+      "sha256": "eb82bb58909f8be03f4d88addc56bf9c55482ef80ce47c5bee33baec419b3987"
+    },
+    {
+      "path": "references/native-baseline/roadmap/2026-10-08/cultural_node_11_tablet.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-08T07:11:02+02:00",
+      "originalSource": "TestResults/ukrainian-roadmap-2026-10-08/cultural_node_11_tablet.png",
+      "size": [
+        1280,
+        800
+      ],
+      "bytes": 363890,
+      "sha256": "4944866ff20f9c80ee0208d9c836d35df3511cf0395164db00f01dda400742bb"
+    },
+    {
+      "path": "references/native-baseline/roadmap/2026-10-08/cultural_node_18_portrait.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-08T07:10:47+02:00",
+      "originalSource": "TestResults/ukrainian-roadmap-2026-10-08/cultural_node_18_portrait.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 436582,
+      "sha256": "7236745b4ecac54299b645f4dc6aa62ea6687fd3fd5b19ab2f240fa97dc1bac1"
+    },
+    {
+      "path": "references/native-baseline/roadmap/2026-10-08/cultural_node_18_tablet.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-08T07:11:10+02:00",
+      "originalSource": "TestResults/ukrainian-roadmap-2026-10-08/cultural_node_18_tablet.png",
+      "size": [
+        1280,
+        800
+      ],
+      "bytes": 329363,
+      "sha256": "4c7aca42bfbc706f314b3e7f3e45b9626bd39716c7959f489479111a9cfb89bf"
+    },
+    {
+      "path": "references/native-baseline/roadmap/2026-10-08/cultural_node_23_portrait.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-08T07:10:53+02:00",
+      "originalSource": "TestResults/ukrainian-roadmap-2026-10-08/cultural_node_23_portrait.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 536114,
+      "sha256": "a1ad0e1a30d36d7005a51bed2a08a0fa174486f71704b1a79649ef6d553faf4a"
+    },
+    {
+      "path": "references/native-baseline/roadmap/2026-10-08/cultural_node_23_tablet.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-08T07:11:16+02:00",
+      "originalSource": "TestResults/ukrainian-roadmap-2026-10-08/cultural_node_23_tablet.png",
+      "size": [
+        1280,
+        800
+      ],
+      "bytes": 421328,
+      "sha256": "bc5ebf0325f00694ecfd570a65e2f28916ba93d093d599672a70d670e991dcd0"
+    },
+    {
+      "path": "references/native-baseline/roadmap/2026-10-08/cultural_node_28_portrait.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-08T07:10:55+02:00",
+      "originalSource": "TestResults/ukrainian-roadmap-2026-10-08/cultural_node_28_portrait.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 480939,
+      "sha256": "ddfddd5682642abef3b68e5f9398067dc81ae485768d218bbc50c1256ecbe090"
+    },
+    {
+      "path": "references/native-baseline/roadmap/2026-10-08/cultural_node_3_portrait.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-08T07:10:34+02:00",
+      "originalSource": "TestResults/ukrainian-roadmap-2026-10-08/cultural_node_3_portrait.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 448102,
+      "sha256": "92038d9ace79781df1f948d16ee5eb138af12e25d97f8459580e80410eff7f5f"
+    },
+    {
+      "path": "references/native-baseline/roadmap/navigation-2026-10-08/roadmap_uk.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-08T00:31:48+02:00",
+      "originalSource": "TestResults/roadmap-foundation-2026-10-08/roadmap_uk.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 544108,
+      "sha256": "45e79e7e806ace625c35c972d7d1be7f9855ce440716fb8a64dabb3910e3a205"
+    },
+    {
+      "path": "references/native-baseline/roadmap/navigation-2026-10-08/roadmap_tablet.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-08T00:32:10+02:00",
+      "originalSource": "TestResults/roadmap-foundation-2026-10-08/roadmap_tablet.png",
+      "size": [
+        1280,
+        800
+      ],
+      "bytes": 432607,
+      "sha256": "6444902817fdc515523a4e84c5555813ec432261baf5d44f4125b9cb73694b53"
+    },
+    {
+      "path": "references/native-baseline/roadmap/branches-2026-10-08/fireflies.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-08T00:05:43+02:00",
+      "originalSource": "TestResults/roadmap-foundation-2026-10-08/branches/fireflies.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 471648,
+      "sha256": "4c4656bc44f5d8ad3b874e87f45b1a6747bca60c1fc65875f74d83be425b5a2b"
+    },
+    {
+      "path": "references/native-baseline/roadmap/branches-2026-10-08/lighthouse.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-08T00:05:56+02:00",
+      "originalSource": "TestResults/roadmap-foundation-2026-10-08/branches/lighthouse.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 413007,
+      "sha256": "c24cc95cec7d36715c352bf6a5cec1b01b30c9b4f3076286aed3cbe10354abb6"
+    },
+    {
+      "path": "references/native-baseline/roadmap/branches-2026-10-08/station.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-08T00:06:06+02:00",
+      "originalSource": "TestResults/roadmap-foundation-2026-10-08/branches/station.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 438007,
+      "sha256": "1a2bd5a24c36d111b28d23e0d0d8333410bc0c66d30fb065052019763c14f57d"
+    },
+    {
+      "path": "references/native-baseline/roadmap/branches-2026-10-08/garden.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-08T00:06:14+02:00",
+      "originalSource": "TestResults/roadmap-foundation-2026-10-08/branches/garden.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 403203,
+      "sha256": "dc4f25193f2bacc2abc451153917b4210d78e02254b75a8684e56452d2899b7e"
+    },
+    {
+      "path": "references/native-baseline/menu-and-album/2026-10-08/main_menu.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-08T00:31:00+02:00",
+      "originalSource": "TestResults/roadmap-foundation-2026-10-08/main_menu.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 991400,
+      "sha256": "c2e6ef06906a3bfad9871270a4c425f4adf7325d480781b36e891882fcf8e0a0"
+    },
+    {
+      "path": "references/native-baseline/menu-and-album/2026-10-08/my_camps_return.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-08T00:32:50+02:00",
+      "originalSource": "TestResults/roadmap-foundation-2026-10-08/my_camps_return.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 1023234,
+      "sha256": "0910e7a62bab97bfe063f8fae6f1d077680aa2cfeb86df586b1c2e955c2fcd08"
+    },
+    {
+      "path": "references/native-baseline/gameplay/seasons-2026-10-05/autumn-high-1280x800.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:49:40+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/seasons/autumn-high-1280x800.png",
+      "size": [
+        1280,
+        800
+      ],
+      "bytes": 931131,
+      "sha256": "b72db655da42b8f89e9707991533c1f1729d5e87e266513c864e33314671ba83"
+    },
+    {
+      "path": "references/native-baseline/gameplay/seasons-2026-10-05/autumn-high-720x1600.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:49:39+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/seasons/autumn-high-720x1600.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 988026,
+      "sha256": "ffdbe6f62c6de13acee35d9f0da8fac7da250c39d4a6c6742723a4b64d69276c"
+    },
+    {
+      "path": "references/native-baseline/gameplay/seasons-2026-10-05/autumn-low-1280x800.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:49:38+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/seasons/autumn-low-1280x800.png",
+      "size": [
+        1280,
+        800
+      ],
+      "bytes": 906428,
+      "sha256": "6db7a4d49880dcda77b2845921e0c2049e9303d55d458c654aee71295665d914"
+    },
+    {
+      "path": "references/native-baseline/gameplay/seasons-2026-10-05/autumn-low-720x1600.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:49:37+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/seasons/autumn-low-720x1600.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 970231,
+      "sha256": "b5c2dc8fcea177232b7270a0cffaaf3edb490b64e28ef3b9e6e759b5a60fe8fb"
+    },
+    {
+      "path": "references/native-baseline/gameplay/seasons-2026-10-05/spring-high-1280x800.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:49:24+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/seasons/spring-high-1280x800.png",
+      "size": [
+        1280,
+        800
+      ],
+      "bytes": 974443,
+      "sha256": "780d83abc52ca46bcf8202d0b7326591101af4765265ab676554611adac78873"
+    },
+    {
+      "path": "references/native-baseline/gameplay/seasons-2026-10-05/spring-high-720x1600.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:49:23+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/seasons/spring-high-720x1600.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 1072555,
+      "sha256": "09fb1de4b9a9577cdaed8da0e6dad81d6ccf83e8ff2b1080338cf5f1ac12e452"
+    },
+    {
+      "path": "references/native-baseline/gameplay/seasons-2026-10-05/spring-low-1280x800.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:49:22+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/seasons/spring-low-1280x800.png",
+      "size": [
+        1280,
+        800
+      ],
+      "bytes": 950897,
+      "sha256": "3ebbfb4b0e2406796482d51e16a98aa54370f22dd136832c07f09ec3407e47cd"
+    },
+    {
+      "path": "references/native-baseline/gameplay/seasons-2026-10-05/spring-low-720x1600.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:49:21+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/seasons/spring-low-720x1600.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 1053143,
+      "sha256": "064ec5914817a1098a3579c588691a742b33171aafd8d7daafb4a034a1c1c41c"
+    },
+    {
+      "path": "references/native-baseline/gameplay/seasons-2026-10-05/summer-high-1280x800.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:49:33+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/seasons/summer-high-1280x800.png",
+      "size": [
+        1280,
+        800
+      ],
+      "bytes": 1076813,
+      "sha256": "a01cfcd84ded9080ae1a7b82c698107044b814b5d562b6fea452280e833e7de3"
+    },
+    {
+      "path": "references/native-baseline/gameplay/seasons-2026-10-05/summer-high-720x1600.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:49:32+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/seasons/summer-high-720x1600.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 1213533,
+      "sha256": "33d23a1e1cda05866c3da4c149ef0fe4601823d6d2912b5fae7f6de4d6d43efa"
+    },
+    {
+      "path": "references/native-baseline/gameplay/seasons-2026-10-05/summer-low-1280x800.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:49:30+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/seasons/summer-low-1280x800.png",
+      "size": [
+        1280,
+        800
+      ],
+      "bytes": 1035030,
+      "sha256": "5f3328a5752c00d66874d2aea02f29190ca409808f47d86ffa659b6dacd702c2"
+    },
+    {
+      "path": "references/native-baseline/gameplay/seasons-2026-10-05/summer-low-720x1600.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:49:29+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/seasons/summer-low-720x1600.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 1174445,
+      "sha256": "c92179d2037c87f07d0a6475fd5bb3fe63c32149f2def0421ca7436ae35264f5"
+    },
+    {
+      "path": "references/native-baseline/gameplay/seasons-2026-10-05/winter-high-1280x800.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:49:50+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/seasons/winter-high-1280x800.png",
+      "size": [
+        1280,
+        800
+      ],
+      "bytes": 580849,
+      "sha256": "649793f5fa898cd5ab4deb95a09d5655b3aa7490670855d8a9e3092c1e8fec10"
+    },
+    {
+      "path": "references/native-baseline/gameplay/seasons-2026-10-05/winter-high-720x1600.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:49:49+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/seasons/winter-high-720x1600.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 583420,
+      "sha256": "1403cc35ff221da4ed1828cf5e6fa0b14446f7ad840b5e2187ba0fff4f04300e"
+    },
+    {
+      "path": "references/native-baseline/gameplay/seasons-2026-10-05/winter-low-1280x800.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:49:47+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/seasons/winter-low-1280x800.png",
+      "size": [
+        1280,
+        800
+      ],
+      "bytes": 574382,
+      "sha256": "714a25225ad97ea4ce5b700f657b75360ea125e521527cf3853e5a2066f5b0e2"
+    },
+    {
+      "path": "references/native-baseline/gameplay/seasons-2026-10-05/winter-low-720x1600.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:49:45+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/seasons/winter-low-720x1600.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 597235,
+      "sha256": "98c19162290874b799557a68a44a9310719dec356effc14adc525494427d537c"
+    },
+    {
+      "path": "references/native-baseline/gameplay/weather-2026-10-05/QC007_tier2_1280x800.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:55:27+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/weather/QC007_tier2_1280x800.png",
+      "size": [
+        1280,
+        800
+      ],
+      "bytes": 809434,
+      "sha256": "3dc38fdca2681f9dae7d6c29424622721ca416e98dce984b94d057990c013482"
+    },
+    {
+      "path": "references/native-baseline/gameplay/weather-2026-10-05/gen_qc_camp_9_tier2_720x1600.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:55:12+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/weather/gen_qc_camp_9_tier2_720x1600.png",
+      "size": [
+        720,
+        1600
+      ],
+      "bytes": 890568,
+      "sha256": "0e3ae4658612182023623fbf5de9bf22e65a12ce09471d68a104d6e76ea1e14b"
+    },
+    {
+      "path": "references/native-baseline/gameplay/weather-2026-10-05/gen_qc_camp_9_tier2_1280x800.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:55:34+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/weather/gen_qc_camp_9_tier2_1280x800.png",
+      "size": [
+        1280,
+        800
+      ],
+      "bytes": 875288,
+      "sha256": "c48b63db0639ed34e808754a58cbb0485895de740ad751d48f25d114cd86ff62"
+    },
+    {
+      "path": "references/native-baseline/gameplay/weather-2026-10-05/gen_qc_camp_14_tier2_1280x800.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T17:55:44+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/renders/weather/gen_qc_camp_14_tier2_1280x800.png",
+      "size": [
+        1280,
+        800
+      ],
+      "bytes": 627138,
+      "sha256": "f214a4b85a32e28e6c20c4ee355438f3f498a4442afd3c54a90c20b6a813b2dc"
+    },
+    {
+      "path": "references/native-baseline/overviews/seasons-phone.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T20:27:49+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/seasons-phone.png",
+      "size": [
+        1152,
+        676
+      ],
+      "bytes": 808328,
+      "sha256": "59a95367bbf9a17ff452f0e65c3ecdba10ff84159f093da5a1c713d17b2b1d50"
+    },
+    {
+      "path": "references/native-baseline/overviews/seasons-wide.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T20:27:49+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/seasons-wide.png",
+      "size": [
+        1280,
+        872
+      ],
+      "bytes": 1064588,
+      "sha256": "e9a075e5cda2b0d859e9e40c1502f7e1552f74d4a8147f44f705cfb5df432315"
+    },
+    {
+      "path": "references/native-baseline/overviews/weather-review.png",
+      "kind": "existing-native-game-baseline",
+      "newModelKitRendered": false,
+      "captureSourceModifiedAt": "2026-10-05T20:27:50+02:00",
+      "originalSource": "TestResults/visual-polish-2026-10-05/weather-review.png",
+      "size": [
+        1280,
+        872
+      ],
+      "bytes": 811801,
+      "sha256": "61ef52cf914c23f653c8cf34392b6716e8349f2cf8b98055313f764df2621e50"
+    }
+  ]
+}

@@ -10,11 +10,11 @@ namespace QuietCamp.Presentation.World
         public readonly Color SunTint,AmbientTint;
         public readonly float FlowerWeight, SnowCoverage;
         readonly string _season;readonly float _progress;
-        SeasonPalette(string season,float progress,Color dark, Color light, Color crownDark, Color crownLight, Color soil, Color fog, float flowers, float snow=0)
+        SeasonPalette(string season,float progress,Color dark, Color light, Color crownDark, Color crownLight, Color soil, Color fog, float flowers, float snow=0,Color? sunTint=null,Color? ambientTint=null)
         {
             _season=season;_progress=progress;GrassDark=dark;GrassLight=light;CanopyDark=crownDark;CanopyLight=crownLight;Soil=soil;Fog=fog;FlowerWeight=flowers;SnowCoverage=snow;
-            SunTint=season=="autumn"?new Color(1.06f,.98f,.87f):season=="winter"?new Color(1.02f,1,1.04f):season=="spring"?new Color(1,1.02f,.99f):new Color(1.03f,1,.94f);
-            AmbientTint=season=="winter"?new Color(1,.98f,1.15f):season=="autumn"?new Color(1.05f,.99f,.95f):Color.white;
+            SunTint=sunTint??(season=="autumn"?new Color(1.06f,.98f,.87f):season=="winter"?new Color(1.02f,1,1.04f):season=="spring"?new Color(1,1.02f,.99f):new Color(1.03f,1,.94f));
+            AmbientTint=ambientTint??(season=="winter"?new Color(1,.98f,1.15f):season=="autumn"?new Color(1.05f,.99f,.95f):Color.white);
         }
         public static SeasonPalette For(LevelData level) => SeasonProfile.For(level).Palette;
         public static SeasonPalette For(string season)=>For(season,.5f);
@@ -26,6 +26,9 @@ namespace QuietCamp.Presentation.World
             if(season=="spring")return new SeasonPalette(season,progress,new Color(.25f,.45f,.26f),new Color(.53f,.69f,.37f),new Color(.27f,.47f,.29f),new Color(.57f,.71f,.38f),new Color(.42f,.35f,.27f),new Color(.80f,.87f,.78f),1);
             return new SeasonPalette("summer",progress,new Color(.29f,.43f,.23f),new Color(.57f,.66f,.32f),new Color(.23f,.40f,.27f),new Color(.49f,.62f,.32f),new Color(.48f,.38f,.26f),new Color(.82f,.85f,.72f),.86f);
         }
+        public SeasonPalette WithGround(Color dark,Color light,Color soil)=>new SeasonPalette(_season,_progress,dark,light,CanopyDark,CanopyLight,soil,Fog,FlowerWeight,SnowCoverage,SunTint,AmbientTint);
+        public static SeasonPalette Blend(SeasonPalette a,SeasonPalette b,float t,float snow)
+            =>new SeasonPalette("roadmap",t,Color.Lerp(a.GrassDark,b.GrassDark,t),Color.Lerp(a.GrassLight,b.GrassLight,t),Color.Lerp(a.CanopyDark,b.CanopyDark,t),Color.Lerp(a.CanopyLight,b.CanopyLight,t),Color.Lerp(a.Soil,b.Soil,t),Color.Lerp(a.Fog,b.Fog,t),Mathf.Lerp(a.FlowerWeight,b.FlowerWeight,t),snow,Color.Lerp(a.SunTint,b.SunTint,t),Color.Lerp(a.AmbientTint,b.AmbientTint,t));
         public Color Ambient(Color authored)
         {
             var tint=authored*AmbientTint;
