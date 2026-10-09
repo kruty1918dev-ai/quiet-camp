@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "id": "D07",
+  "seed": 2524,
+  "season": "summer",
+  "nodes": [
+    {
+      "id": "D07.clearing",
+      "x": 3.6,
+      "z": -3,
+      "radius": 3.35
+    }
+  ],
+  "zones": [
+    {
+      "id": "D07.focal-zone",
+      "kind": "parcel",
+      "x": -7,
+      "z": 3,
+      "width": 10,
+      "depth": 10,
+      "density": 0
+    },
+    {
+      "id": "D07.tree-edge",
+      "kind": "forest",
+      "species": "study.fruit",
+      "x": 3,
+      "z": 6,
+      "width": 15,
+      "depth": 5,
+      "density": 0.27
+    },
+    {
+      "id": "D07.flower-edge",
+      "kind": "meadow",
+      "species": "study.grass",
+      "x": 0,
+      "z": 0,
+      "width": 24,
+      "depth": 17,
+      "density": 0.55
+    }
+  ],
+  "routes": [
+    {
+      "id": "D07.path",
+      "kind": "path",
+      "width": 0.6,
+      "points": [
+        {
+          "x": -0.6,
+          "z": -9
+        },
+        {
+          "x": -0.6,
+          "z": 1
+        },
+        {
+          "x": 1.8,
+          "z": 9
+        }
+      ]
+    }
+  ],
+  "ensembles": [
+    {
+      "id": "D07.focal",
+      "template": "study.willows",
+      "scale": 0.6,
+      "entranceConnectsTo": "D07.path",
+      "fenceVariant": "wattle",
+      "state": "maintained",
+      "placement": {
+        "zone": "D07.focal-zone",
+        "x": -7,
+        "z": 3,
+        "yaw": 180,
+        "fixedPosition": true,
+        "faceRoute": false
+      }
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "D07.tent-a",
+      "asset": "tent_smallOpen",
+      "x": 2.4,
+      "z": -3,
+      "height": 1.18,
+      "yaw": 12,
+      "revealOwner": "D07.clearing"
+    },
+    {
+      "id": "D07.tent-b",
+      "asset": "tent_smallOpen",
+      "x": 4.8,
+      "z": -1.4,
+      "height": 1.05,
+      "yaw": -25,
+      "revealOwner": "D07.clearing"
+    }
+  ],
+  "surfaces": [],
+  "budgets": {
+    "instances": 1000,
+    "materials": 6,
+    "renderers": 32,
+    "cacheBytes": 67108864
+  }
+}

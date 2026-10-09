@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "id": "D12",
+  "seed": 3029,
+  "season": "spring",
+  "nodes": [
+    {
+      "id": "D12.clearing",
+      "x": 3,
+      "z": 3.6,
+      "radius": 3.35
+    }
+  ],
+  "zones": [
+    {
+      "id": "D12.focal-zone",
+      "kind": "parcel",
+      "x": -3,
+      "z": -7,
+      "width": 10,
+      "depth": 10,
+      "density": 0
+    },
+    {
+      "id": "D12.tree-edge",
+      "kind": "forest",
+      "species": "study.fruit",
+      "x": -6,
+      "z": 3,
+      "width": 5,
+      "depth": 15,
+      "density": 0.27
+    },
+    {
+      "id": "D12.flower-edge",
+      "kind": "meadow",
+      "species": "study.grass",
+      "x": 0,
+      "z": 0,
+      "width": 17,
+      "depth": 24,
+      "density": 0.55
+    }
+  ],
+  "routes": [
+    {
+      "id": "D12.path",
+      "kind": "road",
+      "width": 1.15,
+      "points": [
+        {
+          "x": 9,
+          "z": -0.6
+        },
+        {
+          "x": -1,
+          "z": -0.6
+        },
+        {
+          "x": -9,
+          "z": 1.8
+        }
+      ]
+    }
+  ],
+  "ensembles": [
+    {
+      "id": "D12.focal",
+      "template": "ua.roadside-stop",
+      "scale": 0.6,
+      "entranceConnectsTo": "D12.path",
+      "fenceVariant": "wattle",
+      "state": "maintained",
+      "placement": {
+        "zone": "D12.focal-zone",
+        "x": -3,
+        "z": -7,
+        "yaw": 90,
+        "fixedPosition": true,
+        "faceRoute": false
+      }
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "D12.tent-a",
+      "asset": "tent_smallOpen",
+      "x": 3,
+      "z": 2.4,
+      "height": 1.18,
+      "yaw": 282,
+      "revealOwner": "D12.clearing"
+    },
+    {
+      "id": "D12.tent-b",
+      "asset": "tent_smallOpen",
+      "x": 1.4,
+      "z": 4.8,
+      "height": 1.05,
+      "yaw": 245,
+      "revealOwner": "D12.clearing"
+    },
+    {
+      "id": "D12.bench",
+      "asset": "study.bench",
+      "x": 1,
+      "z": -5,
+      "height": 0.8,
+      "yaw": 90,
+      "revealOwner": "D12.clearing"
+    }
+  ],
+  "surfaces": [],
+  "budgets": {
+    "instances": 1000,
+    "materials": 6,
+    "renderers": 32,
+    "cacheBytes": 67108864
+  }
+}

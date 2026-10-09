@@ -25,6 +25,9 @@ static class CompositionCommands
     }
     static Dictionary<string,CompositionResult> Compose(Dictionary<string,SceneCompositionDocument> docs,Dictionary<string,VisualAssetDefinition> assets,Dictionary<string,EnsembleTemplate> templates)
     {
+        // Style studies occupy independent miniature scenes, not adjacent world regions.
+        if((string)Read<JObject>(Root+"/manifest.json")["id"]=="quiet-camp-diorama-studies")
+            return docs.ToDictionary(p=>p.Key,p=>SceneComposer.Compose(p.Value,assets,templates));
         ITerrainSample terrain=null;var world=docs.Values.Select(d=>JsonConvert.DeserializeObject<SceneCompositionDocument>(JsonConvert.SerializeObject(d))).ToArray();
         if((string)Read<JObject>(Root+"/manifest.json")["id"]=="quiet-camp-main")
         {
@@ -110,7 +113,19 @@ static class CompositionCommands
         }
         if(cmd!="validate"&&cmd!="compose"&&cmd!="bake")throw new Exception("Unknown command: "+cmd);
         var all=results.Values.SelectMany(r=>r.diagnostics).ToArray();Console.WriteLine(JsonConvert.SerializeObject(new{regions=docs.Count,instances=results.Values.Sum(r=>r.instances.Count),spans=results.Values.Sum(r=>r.spans.Count),diagnostics=all,candidates=results.Values.Sum(r=>r.candidates.Count),rejected=results.Values.Sum(r=>r.candidates.Count(c=>!c.accepted))},Formatting.Indented));
-        if(results.Values.Any(r=>!r.Valid))throw new Exception("Composition rejected; previous bake retained");CompositionContracts.Run(docs,assets,templates);
+        if(results.Values.Any(r=>!r.Valid))throw new Exception("Composition rejected; previous bake retained");
+        if((string)Read<JObject>(Root+"/manifest.json")["id"]=="quiet-camp-diorama-studies")
+        {
+            if(cmd=="bake")throw new Exception("Style studies are preview-only; no runtime publication");
+            foreach(var doc in docs.Values)
+            {
+                var repeat=SceneComposer.Compose(doc,assets,templates);
+                if(JsonConvert.SerializeObject(repeat)!=JsonConvert.SerializeObject(results[doc.id]))throw new Exception("Non-deterministic study: "+doc.id);
+                if(repeat.parcels.Count!=doc.ensembles.Length)throw new Exception("Incomplete study ensemble: "+doc.id);
+            }
+            Console.WriteLine("PASS independent study determinism and complete ensembles; Main regression contracts are a separate check.");
+        }
+        else CompositionContracts.Run(docs,assets,templates);
         if(cmd=="bake")
         {Atomic(Root+"/bake-preview.json",JsonConvert.SerializeObject(new{revision=SceneComposer.Revision,sourceHash=SourceHash(),results},Formatting.Indented)+"\n");Console.WriteLine("Portable placement bake ready; publish native resources through Quiet Camp/Composition/Bake Main. Runtime catalog unchanged.");}
         else if(cmd=="compose")
