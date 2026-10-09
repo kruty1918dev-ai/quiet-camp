@@ -1,0 +1,359 @@
+{
+  "schemaVersion": 1,
+  "beforeCapturedUtc": "2026-10-08T22:04:23.5346150Z",
+  "afterCapturedUtc": "2026-10-09T00:17:14.3903170Z",
+  "sourceCheckpoint": "e8dd7a00d146d10bc2283dffe6b5c0b4524a10e9",
+  "metrics": [
+    {
+      "label": "Листя High: щокадрова CPU-робота",
+      "beforeMs": 17.34454,
+      "afterMs": 0.030209999999999983,
+      "budgetMs": 4,
+      "budgetMet": true,
+      "changePercent": -99.82582414984773,
+      "measure": "p95 сумарного leaf CPU work на анімований кадр, включно з нульовими rebuilds",
+      "note": "Після оптимізації включено також новий SetFrame scope; до оптимізації виміряно mesh scope. Холодні побудови враховані, але їхній max наведено окремо."
+    },
+    {
+      "label": "HTML mount",
+      "beforeMs": 252.10961999999998,
+      "afterMs": 108.53797999999998,
+      "budgetMs": 100,
+      "budgetMet": false,
+      "changePercent": -56.94810059211546,
+      "measure": "p95 inclusive synchronous method, ms",
+      "note": ""
+    },
+    {
+      "label": "Atmosphere configure",
+      "beforeMs": 332.388125,
+      "afterMs": 103.520925,
+      "budgetMs": 100,
+      "budgetMet": false,
+      "changePercent": -68.85540811664075,
+      "measure": "p95 inclusive synchronous method, ms",
+      "note": ""
+    },
+    {
+      "label": "Album/floor updates",
+      "beforeMs": 0.0235,
+      "afterMs": 4.095854999999989,
+      "budgetMs": 2,
+      "budgetMet": false,
+      "changePercent": 17329.170212765912,
+      "measure": "p95 inclusive synchronous method, ms",
+      "note": ""
+    },
+    {
+      "label": "Відкриття Levels",
+      "beforeMs": 1269.6808,
+      "afterMs": 272.5944,
+      "budgetMs": 100,
+      "budgetMet": false,
+      "changePercent": -78.53047789649177,
+      "measure": "max completed-frame wall interval, ms",
+      "note": ""
+    },
+    {
+      "label": "Мапа: нерухома",
+      "beforeMs": 23.450129999999998,
+      "afterMs": 25.214274999999997,
+      "budgetMs": 33.33,
+      "budgetMet": true,
+      "changePercent": 7.522964691453726,
+      "measure": "p95 completed-frame wall interval, detailed map run, ms",
+      "note": ""
+    },
+    {
+      "label": "Мапа: повний sweep",
+      "beforeMs": 281.47848,
+      "afterMs": 132.51191999999998,
+      "budgetMs": 33.33,
+      "budgetMet": false,
+      "changePercent": -52.92289485149985,
+      "measure": "p95 completed-frame wall interval, detailed map run, ms",
+      "note": ""
+    },
+    {
+      "label": "Мапа: плавний drag",
+      "beforeMs": 151.62605499999998,
+      "afterMs": 35.09794999999999,
+      "budgetMs": 33.33,
+      "budgetMet": false,
+      "changePercent": -76.85229626267069,
+      "measure": "p95 completed-frame wall interval, detailed map run, ms",
+      "note": ""
+    },
+    {
+      "label": "Route menu-camp / normal",
+      "beforeMs": 734.5541,
+      "afterMs": 146.9948,
+      "budgetMs": 100,
+      "budgetMet": false,
+      "changePercent": -79.98856721376954,
+      "measure": "maximum completed-frame wall interval across three routes, ms",
+      "note": "До/після на тому самому Editor-стенді; фон меню випадковий, ОС зайнята. Це спостереження, не рандомізований device A/B."
+    },
+    {
+      "label": "Route menu-camp / reduced",
+      "beforeMs": 781.1005,
+      "afterMs": 140.1851,
+      "budgetMs": 100,
+      "budgetMet": false,
+      "changePercent": -82.05287283774622,
+      "measure": "maximum completed-frame wall interval across three routes, ms",
+      "note": "До/після на тому самому Editor-стенді; фон меню випадковий, ОС зайнята. Це спостереження, не рандомізований device A/B."
+    },
+    {
+      "label": "Route camp-menu / normal",
+      "beforeMs": 959.0262,
+      "afterMs": 237.0482,
+      "budgetMs": 100,
+      "budgetMet": false,
+      "changePercent": -75.28240625751414,
+      "measure": "maximum completed-frame wall interval across three routes, ms",
+      "note": "До/після на тому самому Editor-стенді; фон меню випадковий, ОС зайнята. Це спостереження, не рандомізований device A/B."
+    },
+    {
+      "label": "Route camp-menu / reduced",
+      "beforeMs": 960.4364,
+      "afterMs": 212.6785,
+      "budgetMs": 100,
+      "budgetMet": false,
+      "changePercent": -77.8560558512776,
+      "measure": "maximum completed-frame wall interval across three routes, ms",
+      "note": "До/після на тому самому Editor-стенді; фон меню випадковий, ОС зайнята. Це спостереження, не рандомізований device A/B."
+    },
+    {
+      "label": "camp.summer.tier2.solved",
+      "beforeMs": 58.40833,
+      "afterMs": 38.113375,
+      "budgetMs": 33.33,
+      "budgetMet": false,
+      "changePercent": -34.74667911238003,
+      "measure": "p95 completed-frame wall interval, steady window, ms",
+      "note": ""
+    },
+    {
+      "label": "camp.spring.high.solved",
+      "beforeMs": 82.34190499999998,
+      "afterMs": 38.24296,
+      "budgetMs": 33.33,
+      "budgetMet": false,
+      "changePercent": -53.55589599244759,
+      "measure": "p95 completed-frame wall interval, steady window, ms",
+      "note": ""
+    },
+    {
+      "label": "camp.autumn.high.solved",
+      "beforeMs": 56.47064,
+      "afterMs": 33.553725,
+      "budgetMs": 33.33,
+      "budgetMet": false,
+      "changePercent": -40.58199977900021,
+      "measure": "p95 completed-frame wall interval, steady window, ms",
+      "note": ""
+    },
+    {
+      "label": "camp.winter.high.solved",
+      "beforeMs": 50.143089999999994,
+      "afterMs": 37.58079499999999,
+      "budgetMs": 33.33,
+      "budgetMet": false,
+      "changePercent": -25.05289362901251,
+      "measure": "p95 completed-frame wall interval, steady window, ms",
+      "note": ""
+    },
+    {
+      "label": "camp.late-haven.high.solved",
+      "beforeMs": 62.47941999999999,
+      "afterMs": 44.504515,
+      "budgetMs": 33.33,
+      "budgetMet": false,
+      "changePercent": -28.769321162072238,
+      "measure": "p95 completed-frame wall interval, steady window, ms",
+      "note": ""
+    }
+  ],
+  "leaves": {
+    "before": {
+      "frames": 169,
+      "cpuPerFrameMs": {
+        "samples": 169,
+        "p50": 15.912,
+        "p95": 17.34454,
+        "p99": 19.183039999999995,
+        "max": 23.9083,
+        "mean": 16.042352662721893
+      },
+      "meshCalls": 169
+    },
+    "after": {
+      "frames": 227,
+      "cpuPerFrameMs": {
+        "samples": 227,
+        "p50": 0.0207,
+        "p95": 0.030209999999999983,
+        "p99": 0.04159000000000004,
+        "max": 64.0168,
+        "mean": 0.3118819383259912
+      },
+      "meshCalls": 3
+    }
+  },
+  "routes": [
+    {
+      "direction": "menu-camp",
+      "mode": "normal",
+      "before": {
+        "repetitions": 3,
+        "elapsedMs": {
+          "samples": 3,
+          "p50": 4296.252800000017,
+          "p95": 4318.468849999993,
+          "p99": 4320.443609999991,
+          "max": 4320.9372999999905,
+          "mean": 4302.175999999997
+        },
+        "maxWallMsPerRun": [
+          635.9668,
+          680.69,
+          734.5541
+        ],
+        "wallOver100Ms": 10
+      },
+      "after": {
+        "repetitions": 3,
+        "elapsedMs": {
+          "samples": 3,
+          "p50": 4317.32680000001,
+          "p95": 4335.751059999992,
+          "p99": 4337.38877199999,
+          "max": 4337.79819999999,
+          "mean": 4301.289466666664
+        },
+        "maxWallMsPerRun": [
+          109.4979,
+          141.1545,
+          146.9948
+        ],
+        "wallOver100Ms": 3
+      }
+    },
+    {
+      "direction": "menu-camp",
+      "mode": "reduced",
+      "before": {
+        "repetitions": 3,
+        "elapsedMs": {
+          "samples": 3,
+          "p50": 1531.892599999992,
+          "p95": 1715.079230000003,
+          "p99": 1731.362486000004,
+          "max": 1735.4333000000042,
+          "mean": 1592.0131666666712
+        },
+        "maxWallMsPerRun": [
+          597.5766,
+          661.8718,
+          781.1005
+        ],
+        "wallOver100Ms": 6
+      },
+      "after": {
+        "repetitions": 3,
+        "elapsedMs": {
+          "samples": 3,
+          "p50": 1383.451000000001,
+          "p95": 1402.1654199999873,
+          "p99": 1403.828923999986,
+          "max": 1404.2447999999858,
+          "mean": 1386.0912999999953
+        },
+        "maxWallMsPerRun": [
+          122.0281,
+          129.4067,
+          140.1851
+        ],
+        "wallOver100Ms": 3
+      }
+    },
+    {
+      "direction": "camp-menu",
+      "mode": "normal",
+      "before": {
+        "repetitions": 3,
+        "elapsedMs": {
+          "samples": 3,
+          "p50": 4533.546100000007,
+          "p95": 4727.800209999992,
+          "p99": 4745.067241999991,
+          "max": 4749.383999999991,
+          "mean": 4587.169833333338
+        },
+        "maxWallMsPerRun": [
+          813.283,
+          856.8377,
+          959.0262
+        ],
+        "wallOver100Ms": 6
+      },
+      "after": {
+        "repetitions": 3,
+        "elapsedMs": {
+          "samples": 3,
+          "p50": 4601.344799999992,
+          "p95": 4736.170559999993,
+          "p99": 4748.155071999993,
+          "max": 4751.151199999993,
+          "mean": 4597.66789999999
+        },
+        "maxWallMsPerRun": [
+          194.9221,
+          192.525,
+          237.0482
+        ],
+        "wallOver100Ms": 6
+      }
+    },
+    {
+      "direction": "camp-menu",
+      "mode": "reduced",
+      "before": {
+        "repetitions": 3,
+        "elapsedMs": {
+          "samples": 3,
+          "p50": 1906.1334999999963,
+          "p95": 1940.3512300000002,
+          "p99": 1943.3928060000005,
+          "max": 1944.1532000000007,
+          "mean": 1896.0667666666657
+        },
+        "maxWallMsPerRun": [
+          873.6102,
+          943.639,
+          960.4364
+        ],
+        "wallOver100Ms": 6
+      },
+      "after": {
+        "repetitions": 3,
+        "elapsedMs": {
+          "samples": 3,
+          "p50": 1501.7274000000034,
+          "p95": 1518.7982399999805,
+          "p99": 1520.3156479999784,
+          "max": 1520.6949999999779,
+          "mean": 1487.7336999999923
+        },
+        "maxWallMsPerRun": [
+          174.8065,
+          188.7277,
+          212.6785
+        ],
+        "wallOver100Ms": 4
+      }
+    }
+  ],
+  "limits": "Same host, viewport and synthetic flow; sequential runs and busy desktop. No player build, target-device FPS or GPU attribution. Host Start scopes no longer cover the complete composition after staged initialization and are excluded from method comparisons. Compare total route intervals and completed frames instead. Forest initialization is measured over separate per-tile scopes."
+}

@@ -1,0 +1,50 @@
+{
+  "kind": "native-unity-game-view",
+  "unity": "6000.6.2f1",
+  "syntheticProgress": true,
+  "qaProduct": "QuietCampPerfQAOptimizeruntimeregressionsjourneycss",
+  "sourceCheckpoint": "e8dd7a00d146d10bc2283dffe6b5c0b4524a10e9",
+  "fixture": "QuietCamp.Tests.OptimizationPlayModeTests.CachedMapRetainsGeometryDuringScrollAndRefreshesWeather",
+  "fixtureSha256": "355156864658eac6502d401b64a7009dcead5671e28076177a4555c7920b6250",
+  "nativeResult": "../native-result.json",
+  "sessionGuards": {
+    "projectSettingsRestoredByteForByte": true,
+    "originalDirtyInputsPreserved": true,
+    "originalGameSaveHashesPreserved": true,
+    "sameAdbProcessIdentity": true,
+    "sameEditorProcessIdentity": true,
+    "adbKillPreferencesUnchanged": true
+  },
+  "count": 4,
+  "images": [
+    {
+      "png": "main-menu.png",
+      "sha256": "2e699030e64bf1eea40a7560d64e9828b9e260bc0a3cf63e1ab5962eee115f26",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-09T00:11:03.136992+00:00"
+    },
+    {
+      "png": "roadmap.png",
+      "sha256": "7671e82156f92e873834a5ded65f43c28da26153716f934ae25b5ad7a82dfbca",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-09T00:11:06.884096+00:00"
+    },
+    {
+      "png": "settings.png",
+      "sha256": "21bddb57e442a64c8765048abc939a458c72e25fce1c3135e35f68a9b54321ad",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-09T00:11:04.100019+00:00"
+    },
+    {
+      "png": "camp.png",
+      "sha256": "3c367c83950e32d4243b9266de3604a1b0822e6015aa3d21869e8869cacac4d1",
+      "width": 720,
+      "height": 1600,
+      "capturedUtc": "2026-10-09T00:11:13.025266+00:00"
+    }
+  ],
+  "note": "Actual Game View after optimization, synthetic completed campaign; main background chosen by existing game logic. No AI/render mockup. Earlier 44-capture gallery remains dated 2026-10-08."
+}
