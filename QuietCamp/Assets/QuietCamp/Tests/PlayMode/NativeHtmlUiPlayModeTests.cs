@@ -72,6 +72,18 @@ namespace QuietCamp.Tests
             foreach (var surface in Object.FindObjectsByType<HtmlSurface>()) AssertNoScript(surface);
             yield return Shot("01_menu_720x1600");
             var screens = (MenuScreens)typeof(MenuSceneHost).GetField("_screens", Hidden).GetValue(MenuSceneHost.Current);
+            screens.Show("Settings"); yield return Frames(20);
+            foreach (var category in new[] { "sound", "comfort", "look", "extras", "privacy" })
+            {
+                if (Button("set-cat-"+category) == null) continue; // Optional gifts require ownership.
+                Tap("set-cat-"+category); yield return Frames(15);
+                AssertNoScript(screens.Overlay);
+                var detail = screens.Overlay.Element("sheet-scroll"); Assert.NotNull(detail);
+                Assert.Greater(detail.rect.width,100); Assert.Greater(detail.rect.height,100);
+                Tap("back"); yield return Frames(15);
+                Assert.NotNull(Button("language-uk"),"Category back must restore the settings overview.");
+            }
+            Tap("back"); yield return Frames(20); Assert.AreEqual("Main",screens.Current);
             screens.Show("Journeys"); yield return Frames(20);
             AssertNoScript(screens.Overlay);
             Tap("journey-main"); yield return Frames(20);
