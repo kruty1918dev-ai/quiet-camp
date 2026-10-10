@@ -1,0 +1,297 @@
+{
+  "capturedUtc": "2026-10-10T11:39:10.9284850Z",
+  "sourceHash": "a0554eb681dcf83994987ce18fd95ea0444044d59a0a3a6b4b6a7579acadf0d2",
+  "unity": "6000.6.2f1",
+  "graphics": "OpenGLCore",
+  "device": "NVIDIA GeForce 930MX/PCIe/SSE2",
+  "capture": "Production URP SingleCameraRequest in isolated Editor with synchronous shader compilation; Game View integration checks are separate",
+  "mobileFpsMeasured": false,
+  "shaderErrors": [],
+  "frames": [
+    {
+      "file": "composition-00.png",
+      "route": 0.0,
+      "frontier": 4,
+      "quality": "Balanced",
+      "width": 720,
+      "height": 1600,
+      "loadedChunks": 2,
+      "visibleRenderers": 11,
+      "submittedMeshTriangles": 87486,
+      "sharedMaterials": 4,
+      "editorDrawCalls": 0,
+      "editorTriangles": 0,
+      "cameraPosition": [
+        2.203057,
+        26.9210339,
+        -22.6140118
+      ]
+    },
+    {
+      "file": "composition-01.png",
+      "route": 0.5,
+      "frontier": 4,
+      "quality": "Balanced",
+      "width": 720,
+      "height": 1600,
+      "loadedChunks": 3,
+      "visibleRenderers": 15,
+      "submittedMeshTriangles": 130952,
+      "sharedMaterials": 4,
+      "editorDrawCalls": 0,
+      "editorTriangles": 0,
+      "cameraPosition": [
+        -1.51754653,
+        27.6051216,
+        -15.6701612
+      ]
+    },
+    {
+      "file": "composition-02.png",
+      "route": 1.0,
+      "frontier": 4,
+      "quality": "Balanced",
+      "width": 720,
+      "height": 1600,
+      "loadedChunks": 3,
+      "visibleRenderers": 15,
+      "submittedMeshTriangles": 129213,
+      "sharedMaterials": 5,
+      "editorDrawCalls": 0,
+      "editorTriangles": 0,
+      "cameraPosition": [
+        -5.42198038,
+        28.2892151,
+        -8.45553
+      ]
+    },
+    {
+      "file": "composition-03.png",
+      "route": 1.5,
+      "frontier": 4,
+      "quality": "Balanced",
+      "width": 720,
+      "height": 1600,
+      "loadedChunks": 3,
+      "visibleRenderers": 17,
+      "submittedMeshTriangles": 124095,
+      "sharedMaterials": 5,
+      "editorDrawCalls": 0,
+      "editorTriangles": 0,
+      "cameraPosition": [
+        -5.351097,
+        29.1846619,
+        -1.09044492
+      ]
+    },
+    {
+      "file": "composition-04.png",
+      "route": 2.0,
+      "frontier": 4,
+      "quality": "Balanced",
+      "width": 720,
+      "height": 1600,
+      "loadedChunks": 3,
+      "visibleRenderers": 16,
+      "submittedMeshTriangles": 123290,
+      "sharedMaterials": 5,
+      "editorDrawCalls": 0,
+      "editorTriangles": 0,
+      "cameraPosition": [
+        -5.377104,
+        30.0801125,
+        6.420865
+      ]
+    },
+    {
+      "file": "composition-05.png",
+      "route": 2.5,
+      "frontier": 4,
+      "quality": "Balanced",
+      "width": 720,
+      "height": 1600,
+      "loadedChunks": 3,
+      "visibleRenderers": 18,
+      "submittedMeshTriangles": 135572,
+      "sharedMaterials": 5,
+      "editorDrawCalls": 0,
+      "editorTriangles": 0,
+      "cameraPosition": [
+        -2.82463455,
+        29.1953983,
+        13.6639557
+      ]
+    },
+    {
+      "file": "composition-06.png",
+      "route": 3.0,
+      "frontier": 4,
+      "quality": "Balanced",
+      "width": 720,
+      "height": 1600,
+      "loadedChunks": 3,
+      "visibleRenderers": 16,
+      "submittedMeshTriangles": 135200,
+      "sharedMaterials": 5,
+      "editorDrawCalls": 0,
+      "editorTriangles": 0,
+      "cameraPosition": [
+        -0.207659349,
+        28.3020687,
+        20.9840336
+      ]
+    },
+    {
+      "file": "composition-07.png",
+      "route": 3.5,
+      "frontier": 4,
+      "quality": "Balanced",
+      "width": 720,
+      "height": 1600,
+      "loadedChunks": 2,
+      "visibleRenderers": 12,
+      "submittedMeshTriangles": 91734,
+      "sharedMaterials": 5,
+      "editorDrawCalls": 0,
+      "editorTriangles": 0,
+      "cameraPosition": [
+        1.28778827,
+        28.6499329,
+        28.2554073
+      ]
+    },
+    {
+      "file": "composition-08.png",
+      "route": 4.0,
+      "frontier": 4,
+      "quality": "Balanced",
+      "width": 720,
+      "height": 1600,
+      "loadedChunks": 2,
+      "visibleRenderers": 10,
+      "submittedMeshTriangles": 89726,
+      "sharedMaterials": 5,
+      "editorDrawCalls": 0,
+      "editorTriangles": 0,
+      "cameraPosition": [
+        2.88743,
+        28.9977913,
+        35.74836
+      ]
+    },
+    {
+      "file": "progress-0.png",
+      "route": 0.0,
+      "frontier": 0,
+      "quality": "Balanced",
+      "width": 720,
+      "height": 1600,
+      "loadedChunks": 2,
+      "visibleRenderers": 10,
+      "submittedMeshTriangles": 87406,
+      "sharedMaterials": 4,
+      "editorDrawCalls": 0,
+      "editorTriangles": 0,
+      "cameraPosition": [
+        2.203057,
+        26.9210339,
+        -22.6140118
+      ]
+    },
+    {
+      "file": "progress-1.png",
+      "route": 1.0,
+      "frontier": 1,
+      "quality": "Balanced",
+      "width": 720,
+      "height": 1600,
+      "loadedChunks": 3,
+      "visibleRenderers": 14,
+      "submittedMeshTriangles": 129133,
+      "sharedMaterials": 5,
+      "editorDrawCalls": 0,
+      "editorTriangles": 0,
+      "cameraPosition": [
+        -5.42198038,
+        28.2892151,
+        -8.45553
+      ]
+    },
+    {
+      "file": "progress-3.png",
+      "route": 3.0,
+      "frontier": 3,
+      "quality": "Balanced",
+      "width": 720,
+      "height": 1600,
+      "loadedChunks": 3,
+      "visibleRenderers": 15,
+      "submittedMeshTriangles": 135120,
+      "sharedMaterials": 5,
+      "editorDrawCalls": 0,
+      "editorTriangles": 0,
+      "cameraPosition": [
+        -0.207659349,
+        28.3020687,
+        20.9840336
+      ]
+    },
+    {
+      "file": "progress-4.png",
+      "route": 4.0,
+      "frontier": 4,
+      "quality": "Balanced",
+      "width": 720,
+      "height": 1600,
+      "loadedChunks": 2,
+      "visibleRenderers": 10,
+      "submittedMeshTriangles": 89726,
+      "sharedMaterials": 5,
+      "editorDrawCalls": 0,
+      "editorTriangles": 0,
+      "cameraPosition": [
+        2.88743,
+        28.9977913,
+        35.74836
+      ]
+    },
+    {
+      "file": "low-landscape.png",
+      "route": 3.0,
+      "frontier": 4,
+      "quality": "Low",
+      "width": 1600,
+      "height": 720,
+      "loadedChunks": 3,
+      "visibleRenderers": 16,
+      "submittedMeshTriangles": 76140,
+      "sharedMaterials": 5,
+      "editorDrawCalls": 0,
+      "editorTriangles": 0,
+      "cameraPosition": [
+        -0.207659349,
+        28.3020687,
+        20.9840336
+      ]
+    },
+    {
+      "file": "balanced-landscape.png",
+      "route": 3.0,
+      "frontier": 4,
+      "quality": "Balanced",
+      "width": 1600,
+      "height": 720,
+      "loadedChunks": 3,
+      "visibleRenderers": 16,
+      "submittedMeshTriangles": 135200,
+      "sharedMaterials": 5,
+      "editorDrawCalls": 0,
+      "editorTriangles": 0,
+      "cameraPosition": [
+        -0.207659349,
+        28.3020687,
+        20.9840336
+      ]
+    }
+  ]
+}

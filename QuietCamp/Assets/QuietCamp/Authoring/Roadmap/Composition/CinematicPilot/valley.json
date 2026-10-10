@@ -57,8 +57,8 @@
     {
       "id": "ruin-parcel",
       "kind": "parcel",
-      "x": 12,
-      "z": 77,
+      "x": 7.5,
+      "z": 85,
       "width": 15,
       "depth": 15,
       "density": 0
@@ -131,8 +131,8 @@
       "placement": {
         "zone": "ruin-parcel",
         "nearNode": "QC003",
-        "x": 12,
-        "z": 77,
+        "x": 7.5,
+        "z": 85,
         "yaw": -15,
         "fixedPosition": true,
         "faceRoute": false
@@ -143,8 +143,8 @@
     {
       "id": "fallen-line",
       "asset": "ua_power_pylon_fallen",
-      "x": -12,
-      "z": 78,
+      "x": -8,
+      "z": 76,
       "height": 1.6,
       "revealOwner": "QC003",
       "yaw": -25
@@ -152,8 +152,8 @@
     {
       "id": "standing-line",
       "asset": "ua_power_pylon_rusted",
-      "x": -15,
-      "z": 92,
+      "x": -7,
+      "z": 88,
       "height": 9,
       "revealOwner": "QC003",
       "yaw": 0

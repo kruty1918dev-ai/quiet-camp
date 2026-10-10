@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace QuietCamp.Presentation.World
 {
+    [PreferBinarySerialization]
     public sealed class RoadmapWorldChunk : ScriptableObject
     {
         public string sourceHash;

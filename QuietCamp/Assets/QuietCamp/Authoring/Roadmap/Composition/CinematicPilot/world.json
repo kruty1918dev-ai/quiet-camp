@@ -29,8 +29,8 @@
       "focusX": -3,
       "focusZ": 4,
       "yaw": -8,
-      "pitch": 48,
-      "distance": 66
+      "pitch": 46,
+      "distance": 88
     },
     {
       "levelId": "QC002",
@@ -40,19 +40,19 @@
       "focusX": -9,
       "focusZ": 44,
       "yaw": 4,
-      "pitch": 48,
-      "distance": 66
+      "pitch": 46,
+      "distance": 94
     },
     {
       "levelId": "QC003",
       "titleUk": "Ліс уздовж дротів",
       "x": 1,
       "z": 80,
-      "focusX": -3,
+      "focusX": 1,
       "focusZ": 84,
-      "yaw": -6,
-      "pitch": 48,
-      "distance": 66
+      "yaw": 12,
+      "pitch": 46,
+      "distance": 100
     },
     {
       "levelId": "QC004",
@@ -62,19 +62,39 @@
       "focusX": 7,
       "focusZ": 124,
       "yaw": 6,
-      "pitch": 48,
-      "distance": 66
+      "pitch": 44,
+      "distance": 100
     },
     {
       "levelId": "QC005",
       "titleUk": "Тиха вода",
       "x": -5,
       "z": 160,
-      "focusX": 5,
+      "focusX": 2,
       "focusZ": 164,
       "yaw": -4,
-      "pitch": 48,
-      "distance": 66
+      "pitch": 44,
+      "distance": 104
+    }
+  ],
+  "looseConductors": [
+    {
+      "ax": -7.5,
+      "az": 88,
+      "ay": 7.5,
+      "bx": -7.5,
+      "bz": 76,
+      "by": 0.15,
+      "slack": 2.5
+    },
+    {
+      "ax": -6.5,
+      "az": 88,
+      "ay": 7.5,
+      "bx": -6.5,
+      "bz": 76,
+      "by": 0.15,
+      "slack": 2.3
     }
   ]
 }

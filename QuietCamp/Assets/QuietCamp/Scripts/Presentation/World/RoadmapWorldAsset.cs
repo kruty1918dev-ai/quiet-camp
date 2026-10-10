@@ -16,6 +16,8 @@ namespace QuietCamp.Presentation.World
         public RoadmapWaypoint[] waypoints;
         public string[] chunks;
         public Mesh horizon, markerMesh;
+        public Mesh[] distantForest;
+        public Mesh river;
         public float worldScale = .4f;
         public Material ground, structure, foliage, water, marker;
         public Color sky = new Color(.73f,.81f,.83f);

@@ -7,6 +7,7 @@ using QuietCamp.Presentation.World;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using Object=UnityEngine.Object;
 
 namespace QuietCamp.Editor
@@ -17,6 +18,8 @@ namespace QuietCamp.Editor
         public static void Render()
         {
             if(SystemInfo.graphicsDeviceType==GraphicsDeviceType.Null)throw new InvalidOperationException("Native graphics required");
+            // Immediate batch captures must wait for real shader variants, never the asynchronous placeholder shaders.
+            ShaderUtil.allowAsyncCompilation=false;
             CinematicRoadmapBaker.Bake();
             var asset=Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World");
             string repo=Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath,"../.."));
@@ -34,7 +37,7 @@ namespace QuietCamp.Editor
             File.WriteAllText(Path.Combine(output,"native-capture-receipt.json"),JsonConvert.SerializeObject(new{
                 capturedUtc=DateTime.UtcNow.ToString("o"),sourceHash=asset.sourceHash,unity=UnityEngine.Application.unityVersion,
                 graphics=SystemInfo.graphicsDeviceType.ToString(),device=SystemInfo.graphicsDeviceName,
-                capture="Production perspective Camera.Render in isolated Editor; Game View integration checks are separate",
+                capture="Production URP SingleCameraRequest in isolated Editor with synchronous shader compilation; Game View integration checks are separate",
                 mobileFpsMeasured=false,shaderErrors=errors,frames=results},Formatting.Indented)+"\n");
             if(errors.Count>0)throw new InvalidOperationException(string.Join("\n",errors));
             Debug.Log("[CinematicRoadmap] Captured nine compositions, progress and quality fixtures");
@@ -49,7 +52,9 @@ namespace QuietCamp.Editor
                 if(!world.Ready)throw new InvalidOperationException(world.Fault??"Chunks not ready");
                 target=new RenderTexture(width,height,24,RenderTextureFormat.ARGB32){antiAliasing=1};target.Create();
                 world.WorldCamera.targetTexture=target;world.WorldCamera.aspect=(float)width/height;
-                world.WorldCamera.Render();RenderTexture.active=target;
+                var request=new UniversalRenderPipeline.SingleCameraRequest{destination=target};
+                RenderPipeline.SubmitRenderRequest(world.WorldCamera,request);
+                RenderPipeline.SubmitRenderRequest(world.WorldCamera,request);RenderTexture.active=target;
                 pixels=new Texture2D(width,height,TextureFormat.RGB24,false);pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
                 File.WriteAllBytes(path,pixels.EncodeToPNG());
                 var planes=GeometryUtility.CalculateFrustumPlanes(world.WorldCamera);
@@ -58,7 +63,7 @@ namespace QuietCamp.Editor
                 return new{file=Path.GetFileName(path),route,frontier,quality=low?"Low":"Balanced",width,height,
                     loadedChunks=world.LoadedChunks,visibleRenderers=visible.Length,submittedMeshTriangles=submittedTriangles,
                     sharedMaterials=visible.Select(r=>r.sharedMaterial).Distinct().Count(),editorDrawCalls=UnityStats.drawCalls,
-                    editorTriangles=UnityStats.triangles,cameraPosition=world.WorldCamera.transform.position};
+                    editorTriangles=UnityStats.triangles,cameraPosition=new[]{world.WorldCamera.transform.position.x,world.WorldCamera.transform.position.y,world.WorldCamera.transform.position.z}};
             }
             finally
             {

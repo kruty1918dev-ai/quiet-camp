@@ -351,9 +351,9 @@
   },
   {
     "id": "tree_default",
-    "source": "tree_default",
+    "source": "Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
     "license": "source-binding",
-    "sourceHash": "",
+    "sourceHash": "03a425492c6a03cb1d6715436338538c3f80010c33a83a0d704a5aad5ff2911b",
     "sourceHeight": 8,
     "height": 8,
     "width": 5,
@@ -364,9 +364,9 @@
   },
   {
     "id": "tree_pineRoundA",
-    "source": "tree_pineRoundA",
+    "source": "Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
     "license": "source-binding",
-    "sourceHash": "",
+    "sourceHash": "03a425492c6a03cb1d6715436338538c3f80010c33a83a0d704a5aad5ff2911b",
     "sourceHeight": 9,
     "height": 9,
     "width": 4,
@@ -377,41 +377,58 @@
   },
   {
     "id": "pilot.ruin-wall",
-    "source": "pilot.ruin-wall",
+    "source": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Models/SM_Bld_Shack_Ruins_01.fbx",
     "license": "source-binding",
-    "sourceHash": "",
+    "sourceHash": "869c0da2283f52bd0fa3cfc4b065248b112f51f82cbe428ab8084efb7285200c",
     "sourceHeight": 3.8,
     "height": 3.8,
     "width": 3.6,
     "depth": 1.6,
     "radius": 1.969771560359221,
     "placementClass": "solid",
-    "wind": false
+    "wind": false,
+    "lod": "0"
   },
   {
     "id": "pilot.broken-bridge",
-    "source": "pilot.broken-bridge",
+    "source": "Assets/PolygonBattleRoyale/Models/SM_Env_Bridge_Broken_01.fbx",
     "license": "source-binding",
-    "sourceHash": "",
+    "sourceHash": "c85e664282166f7858a5fb2476b675e4c1dec679a4c4d03ceec6284ada83aef0",
     "sourceHeight": 2.2,
     "height": 2.2,
     "width": 8.4,
     "depth": 3,
     "radius": 4.459820624195552,
     "placementClass": "solid",
-    "wind": false
+    "wind": false,
+    "lod": "0"
   },
   {
     "id": "pilot.asphalt",
-    "source": "pilot.asphalt",
+    "source": "Assets/PolygonBattleRoyale/Models/SM_Env_Road_Straight_Damaged_01.fbx",
     "license": "source-binding",
-    "sourceHash": "",
+    "sourceHash": "a211a27c74827e41e4afcb2af5e99fea5bcd99243a2ff6be3e1f9c3df4252220",
     "sourceHeight": 0.2,
     "height": 0.2,
     "width": 6,
     "depth": 1.6,
     "radius": 3.104834939252005,
     "placementClass": "groundcover",
-    "wind": false
+    "wind": false,
+    "lod": "0"
+  },
+  {
+    "id": "pilot.reeds",
+    "source": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Models/SM_Env_Reeds_01.fbx",
+    "sourceHash": "bcf63591e22609d58122466a6baec81f16fe7492e49f0a8abeeacaa583182322",
+    "license": "project-imported-Synty",
+    "sourceHeight": 3.5577,
+    "height": 3.5577,
+    "width": 0.9541,
+    "depth": 1.0187,
+    "radius": 0.7,
+    "placementClass": "groundcover",
+    "wind": true,
+    "lod": "1"
   }
 ]

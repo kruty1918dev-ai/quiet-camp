@@ -20,7 +20,8 @@ namespace QuietCamp.Editor
         public const string Source = "Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot";
         const string Output = "Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap";
         sealed class SourcePoint { public string levelId,titleUk; public float x,z,focusX,focusZ,yaw,pitch,distance; }
-        sealed class SourceWorld { public string id; public int seed; public float fieldOfView,minX,maxX,minZ,maxZ; public float[] chunkStarts,chunkEnds; public SourcePoint[] waypoints; }
+        sealed class LooseConductor { public float ax,az,ay,bx,bz,by,slack; }
+        sealed class SourceWorld { public string id; public int seed; public float fieldOfView,minX,maxX,minZ,maxZ; public float[] chunkStarts,chunkEnds; public SourcePoint[] waypoints; public LooseConductor[] looseConductors=Array.Empty<LooseConductor>(); }
         sealed class Binding { public string asset,catalogueId,source,sourceHash,guid; public int lod; }
         static SourceWorld World;
         static SceneCompositionDocument Document;
@@ -36,6 +37,7 @@ namespace QuietCamp.Editor
             var files=Directory.GetFiles(Source,"*.json").OrderBy(f=>f).Concat(new[]{
                 "Assets/QuietCamp/Editor/CinematicRoadmapBaker.cs",
                 "Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldAsset.cs",
+                "Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldChunk.cs",
                 "Assets/QuietCamp/Scripts/Application/Composition/SceneComposition.cs",
                 "Assets/QuietCamp/Scripts/Presentation/UI/RoadmapModelLibrary.cs",
                 "Assets/QuietCamp/Resources/QuietCamp/RoadmapLit.shader",
@@ -82,6 +84,8 @@ namespace QuietCamp.Editor
             Revision=SourceHash();var current=Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World");
             if(current!=null&&current.sourceHash==Revision&&current.chunks.All(id=>Resources.Load<RoadmapWorldChunk>(id)!=null))return;
             string folder=Output+"/"+Revision.Substring(0,16);
+            // A failed bake may have left an unpublished partial revision. Rebuild only that revision.
+            if(AssetDatabase.IsValidFolder(folder))AssetDatabase.DeleteAsset(folder);
             Directory.CreateDirectory(folder);AssetDatabase.Refresh();
             var index=ScriptableObject.CreateInstance<RoadmapWorldAsset>();index.sourceHash=Revision;index.revision=Revision.Substring(0,16);
             index.fieldOfView=World.fieldOfView;index.chunkStarts=World.chunkStarts;index.chunkEnds=World.chunkEnds;
@@ -111,6 +115,13 @@ namespace QuietCamp.Editor
                 stats.Add(new {index=c,chunk.estimatedBytes,balancedTriangles=chunk.balanced.Where(m=>m!=null).Sum(m=>(long)m.GetIndexCount(0)/3),lowTriangles=chunk.low.Where(m=>m!=null).Sum(m=>(long)m.GetIndexCount(0)/3),chunk.sourceAssets});
             }
             index.horizon=Horizon();AssetDatabase.CreateAsset(index.horizon,folder+"/Horizon.asset");
+            index.distantForest=new Mesh[index.chunks.Length];
+            for(int c=0;c<index.chunks.Length;c++)
+            {
+                index.distantForest[c]=FarForest(c);AssetDatabase.CreateAsset(index.distantForest[c],folder+"/Distant-"+c+".asset");
+            }
+            var river=new Geometry();Water(river,96,World.maxZ);index.river=river.Mesh("Continuous valley river");
+            AssetDatabase.CreateAsset(index.river,folder+"/River.asset");
             var stone=new Geometry();Append(stone,"stone_largeA",0,0,.55f,0,false);
             for(int v=0;v<stone.vertices.Count;v++)stone.vertices[v]-=Vector3.up*Ground(0,0);
             index.markerMesh=stone.Mesh("Small roadside waystone");
@@ -136,10 +147,10 @@ namespace QuietCamp.Editor
         {
             public readonly List<Vector3> vertices=new List<Vector3>(),normals=new List<Vector3>();
             readonly List<Color> colors=new List<Color>();readonly List<Vector4> roots=new List<Vector4>();readonly List<Vector2> uvs=new List<Vector2>();readonly List<int> indices=new List<int>();
-            public void Triangle(Vector3 a,Vector3 b,Vector3 c,Color color,Vector4 root=default,Vector3? normal=null)
+            public void Triangle(Vector3 a,Vector3 b,Vector3 c,Color color,Vector4 root=default,Vector3? normal=null,Color? second=null,Color? third=null)
             {
                 var n=normal??Vector3.Cross(b-a,c-a).normalized;int first=vertices.Count;
-                vertices.AddRange(new[]{a,b,c});normals.AddRange(new[]{n,n,n});colors.AddRange(new[]{color,color,color});
+                vertices.AddRange(new[]{a,b,c});normals.AddRange(new[]{n,n,n});colors.AddRange(new[]{color,second??color,third??color});
                 if(root==default)root=new Vector4(0,0,0,-1);roots.AddRange(new[]{root,root,root});
                 uvs.AddRange(new[]{new Vector2(a.x,a.z),new Vector2(b.x,b.z),new Vector2(c.x,c.z)});indices.AddRange(new[]{first,first+1,first+2});
             }
@@ -160,7 +171,7 @@ namespace QuietCamp.Editor
             for(float z=Mathf.Max(-22,start)+2;z<Mathf.Min(195,end);z+=4.5f)for(float x=-43;x<44;x+=4.5f)
             {
                 float px=x+(float)random.NextDouble()*3,pz=z+(float)random.NextDouble()*3;
-                if(random.NextDouble()>(low?.37:.69)||Reserved(px,pz,2.5f)||RoadmapLandscape.WaterDistance(px,pz)<1)continue;
+                if(random.NextDouble()>(low?.33:.60)||Reserved(px,pz,2.5f)||CanopyObscuresStory(px,pz)||RoadmapLandscape.WaterDistance(px,pz)<1)continue;
                 string asset=random.NextDouble()<.36?"tree_pineRoundA":"tree_default";
                 Append(parts[2],asset,px,pz,5.8f+(float)random.NextDouble()*5,(float)random.NextDouble()*360,true,.84f+(float)random.NextDouble()*.21f);
             }
@@ -168,11 +179,67 @@ namespace QuietCamp.Editor
             for(float z=Mathf.Max(-22,start)+.8f;z<Mathf.Min(195,end);z+=1.8f)for(float x=-28;x<29;x+=1.8f)
             {
                 float px=x+(float)random.NextDouble()*1.5f,pz=z+(float)random.NextDouble()*1.5f;
-                if(random.NextDouble()>(low?.13:.31)||Reserved(px,pz,.38f)||RoadmapLandscape.WaterDistance(px,pz)<.05f)continue;
+                if(random.NextDouble()>(low?.09:.16)||Reserved(px,pz,.38f)||RoadmapLandscape.WaterDistance(px,pz)<.05f)continue;
                 Append(parts[3],"grass",px,pz,.24f+(float)random.NextDouble()*.42f,(float)random.NextDouble()*360,true,.8f+(float)random.NextDouble()*.23f);
             }
-            if(start<end&&end>96)Water(parts[4],Mathf.Max(96,start),end);
+            // Dense low silhouette layers use the game's sixteen-triangle shrubs.
+            // They join the tree groups and reclaim the road verges without multiplying draw calls.
+            random=new System.Random(World.seed+c*991);
+            for(float z=Mathf.Max(-22,start)+1;z<Mathf.Min(195,end);z+=low?3:1.8f)for(float x=-34;x<35;x+=low?3:1.8f)
+            {
+                float px=x+(float)random.NextDouble(),pz=z+(float)random.NextDouble();
+                float density=.2f+.65f*Mathf.PerlinNoise(px*.15f,pz*.12f);
+                if(random.NextDouble()>density||Reserved(px,pz,.25f)||RoadmapLandscape.WaterDistance(px,pz)<.1f)continue;
+                Append(parts[3],"plant_bushSmall",px,pz,.25f+(float)random.NextDouble()*.65f,(float)random.NextDouble()*360,true);
+            }
+            for(float z=Mathf.Max(101,start)+1;z<Mathf.Min(197,end);z+=low?5:3)
+                for(int side=-1;side<=1;side+=2)
+                {
+                    float x=RoadmapLandscape.RiverX(z)+side*(RoadmapLandscape.RiverWidth(z)+.6f);
+                    if(!Reserved(x,z,.3f))Append(parts[3],"pilot.reeds",x,z,1.1f+.4f*Mathf.Sin(z),z*17,true);
+                }
+            foreach(var wire in World.looseConductors)if(OwnerChunk((wire.az+wire.bz)*.5f)==c)Conductor(parts[1],wire);
             return parts.Select((p,i)=>p.Mesh("Valley "+c+" / "+(low?"low":"balanced")+" / "+i)).ToArray();
+        }
+        static Mesh FarForest(int chunk)
+        {
+            var g=new Geometry();var random=new System.Random(World.seed+chunk*811);
+            for(float z=Mathf.Max(-22,World.chunkStarts[chunk])+2;z<Mathf.Min(195,World.chunkEnds[chunk]);z+=4.5f)
+                for(float x=-43;x<44;x+=4.5f)
+                {
+                    float px=x+(float)random.NextDouble()*3,pz=z+(float)random.NextDouble()*3;
+                    if(random.NextDouble()>.60||Reserved(px,pz,2.5f)||CanopyObscuresStory(px,pz)||RoadmapLandscape.WaterDistance(px,pz)<1)continue;
+                    bool pine=random.NextDouble()<.36;float h=5.8f+(float)random.NextDouble()*5;
+                    random.NextDouble();random.NextDouble();
+                    float y=Ground(px,pz);var tip=new Vector3(px,y+h,pz);var color=pine?new Color(.27f,.39f,.29f):new Color(.39f,.49f,.27f);
+                    for(int side=0;side<4;side++)
+                    {
+                        float a=side*Mathf.PI*.5f,b=(side+1)*Mathf.PI*.5f;
+                        var first=new Vector3(px+Mathf.Cos(a)*2,y+h*.43f,pz+Mathf.Sin(a)*2);
+                        var second=new Vector3(px+Mathf.Cos(b)*2,y+h*.43f,pz+Mathf.Sin(b)*2);
+                        g.Triangle(first,tip,second,color);
+                    }
+                }
+            return g.Mesh("Simplified distant forest "+chunk);
+        }
+        static bool CanopyObscuresStory(float x,float z)
+        {
+            // Preserve authored trees growing through ruins; only scatter respects these view corridors.
+            // A tall foreground crown can hide a landmark despite a clear ground footprint.
+            bool Covers(float tx,float tz,float width)
+            {
+                var anchor=World.waypoints.OrderBy(p=>Mathf.Abs(p.z-tz)).First();
+                float yaw=anchor.yaw*Mathf.Deg2Rad;var towardsCamera=new Vector2(-Mathf.Sin(yaw),-Mathf.Cos(yaw));
+                var delta=new Vector2(x-tx,z-tz);float front=Vector2.Dot(delta,towardsCamera);
+                return front>-2&&front<13&&Mathf.Abs(Vector2.Dot(delta,new Vector2(towardsCamera.y,-towardsCamera.x)))<width+2.5f;
+            }
+            foreach(var node in Document.nodes)if(Covers(node.x,node.z,1))return true;
+            foreach(var item in Composition.instances)
+                if(item.asset=="ua_bus_shelter_mosaic"||item.asset=="pilot.ruined-house"||item.asset=="pilot.ruin-wall"||item.asset=="ua_well")
+                    if(Covers(item.x,item.z,2.4f))return true;
+            foreach(var item in Document.landmarks)
+                if(!Assets[item.asset].wind&&item.height>1&&Covers(item.x,item.z,2.8f))return true;
+            return false;
         }
         static bool Reserved(float x,float z,float margin)
         {
@@ -199,8 +266,20 @@ namespace QuietCamp.Editor
             {
                 float xx=Mathf.Min(x+step,World.maxX),zz=Mathf.Min(z+step,end);
                 Vector3 At(float a,float b)=>new Vector3(a,Ground(a,b),b);
-                var color=RoadmapLandscape.GroundColor(x+step*.5f,z+step*.5f);
-                g.Triangle(At(x,z),At(x,zz),At(xx,z),color);g.Triangle(At(xx,z),At(x,zz),At(xx,zz),color*.99f);
+                Color ColorAt(float a,float b)
+                {
+                    var color=RoadmapLandscape.GroundColor(a,b);
+                    foreach(var span in Composition.spans.Where(s=>s.height==0))
+                    {
+                        var p=new Vector2(a,b);var from=new Vector2(span.ax,span.az);var to=new Vector2(span.bx,span.bz);
+                        float t=Mathf.Clamp01(Vector2.Dot(p-from,to-from)/Mathf.Max(.001f,(to-from).sqrMagnitude));
+                        float d=Vector2.Distance(p,Vector2.Lerp(from,to,t));
+                        color=Color.Lerp(color,new Color(.59f,.53f,.39f),Mathf.Clamp01(1-d)*.8f);
+                    }
+                    return color;
+                }
+                g.Triangle(At(x,z),At(x,zz),At(xx,z),ColorAt(x,z),second:ColorAt(x,zz),third:ColorAt(xx,z));
+                g.Triangle(At(xx,z),At(x,zz),At(xx,zz),ColorAt(xx,z),second:ColorAt(x,zz),third:ColorAt(xx,zz));
             }
         }
         static Mesh Horizon()
@@ -221,6 +300,21 @@ namespace QuietCamp.Editor
                     Vector3 At(float p,float t)=>new Vector3(RoadmapLandscape.RiverX(t)+RoadmapLandscape.RiverWidth(t)*(p*.5f-1),RoadmapLandscape.WaterHeight,t);
                     g.Triangle(At(side,z),At(side,zz),At(side+1,z),new Color(0,1,0,0));g.Triangle(At(side+1,z),At(side,zz),At(side+1,zz),new Color(0,1,0,0));
                 }
+            }
+        }
+        static void Conductor(Geometry g,LooseConductor wire)
+        {
+            var a=new Vector3(wire.ax,Ground(wire.ax,wire.az)+wire.ay,wire.az);
+            var b=new Vector3(wire.bx,Ground(wire.bx,wire.bz)+wire.by,wire.bz);
+            Vector3 Point(float t)
+            {
+                var p=Vector3.Lerp(a,b,t);p.y=Mathf.Max(Ground(p.x,p.z)+.04f,p.y-wire.slack*4*t*(1-t));return p;
+            }
+            for(int i=0;i<18;i++)
+            {
+                var from=Point(i/18f);var to=Point((i+1)/18f);var side=Vector3.Cross(to-from,Vector3.up).normalized*.022f;
+                g.Triangle(from-side,to-side,to+side,new Color(.24f,.26f,.24f));g.Triangle(from-side,to+side,from+side,new Color(.24f,.26f,.24f));
+                g.Triangle(to+side,to-side,from-side,new Color(.24f,.26f,.24f));g.Triangle(from+side,to+side,from-side,new Color(.24f,.26f,.24f));
             }
         }
         static void Append(Geometry g,string asset,float x,float z,float height,float yaw,bool wind,float tint=1)
@@ -276,7 +370,7 @@ namespace QuietCamp.Editor
                 var matrix=source.transform.worldToLocalMatrix*filter.transform.localToWorldMatrix;var ns=mesh.normals;var vs=mesh.vertices;
                 for(int sub=0;sub<mesh.subMeshCount;sub++)
                 {
-                    var color=binding.asset=="pilot.ruin-wall"?new Color(.44f,.38f,.29f):new Color(.46f,.48f,.43f);
+                    var color=binding.asset=="pilot.reeds"?new Color(.53f,.57f,.29f):binding.asset=="pilot.ruin-wall"?new Color(.44f,.38f,.29f):new Color(.46f,.48f,.43f);
                     foreach(int i in mesh.GetTriangles(sub)){vertices.Add(matrix.MultiplyPoint3x4(vs[i]));normals.Add(matrix.inverse.transpose.MultiplyVector(ns[i]).normalized);if(vertices.Count%3==1)colors.Add(color);}
                 }
             }
