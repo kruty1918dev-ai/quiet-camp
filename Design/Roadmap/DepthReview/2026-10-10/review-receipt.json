@@ -1,7 +1,7 @@
 {
   "kind": "roadmap-relief-lighting-native-review",
-  "sourceHash": "75af48ddd6533350a2111fe799c98b7cabce8826c22e37def93765d8fe9abe43",
-  "nativeCaptureUtc": "2026-10-10T19:32:29.9802200Z",
+  "sourceHash": "959428fa002381bd51b036f922b40abec1414eee5b11291cc90f9608559c1122",
+  "nativeCaptureUtc": "2026-10-10T20:24:48.1486010Z",
   "before": {
     "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
     "capturedUtc": "2026-10-10T18:43:32.0253810Z"
@@ -10,7 +10,7 @@
   "cameraComparison": "Same authored XZ anchors, yaw, pitch, FOV and booms; focus Y follows the rebaked terrain. Water uses a live clock.",
   "reviewedCompositions": 9,
   "reviewedTransitionFrames": 4,
-  "refinement": "Baked skirts close distant/detailed LOD edges. The first pass had an oversteep bank; a low floodplain softens it. Distant shoreline tiles are refined offline instead of omitted; identical bed heights avoid a depth-colour seam at chunk boundaries.",
+  "refinement": "Smooth terrain illumination, authored complete yard and coherent low-poly landmarks; existing camera and sun parameters.",
   "findings": [
     "Broad folds sit inside the portrait view beside the road",
     "Directional blue sky irradiance and warm side sun describe crown and roof facets",
@@ -19,45 +19,45 @@
     "Road, mosaic, damaged roof, fallen support, crossing and dam remain visible",
     "Low/Balanced, maximum zoom-out and landscape inspected"
   ],
-  "gameViewResult": "Passed",
+  "gameViewResult": "Pending",
   "playerBuild": false,
   "mobileFpsMeasured": false,
   "images": [
     {
       "file": "after-00.png",
-      "sha256": "6c8dab91e7854591a9a7ce8f53a3734f20e27c933e971f236c83c25f9347e0b7"
+      "sha256": "212e1b7de8e2dee8d3ace5bdafca461c16ee7289f22d94f1cc3d02881acd419f"
     },
     {
       "file": "after-01.png",
-      "sha256": "be9512b5652bcfeec921dcf171ed9281ec1f56ce522d2b1bb4d54bcd7b54e101"
+      "sha256": "7a2142f0a0bd8c3ad64665b89fb4ac0f3fdc2886b92225a7905add327cd64b2e"
     },
     {
       "file": "after-02.png",
-      "sha256": "fbeded1db51d580e7aa00c60fe018b5da101b2b71bbee77eac68c58cb9ee17cf"
+      "sha256": "21f5c4e71a2bffa0f4627ebd62c9540488843db556108e7737daddf4476f1098"
     },
     {
       "file": "after-03.png",
-      "sha256": "03f7580b70103d28f00ccb13cd48f5500128094a24d3fbc3ffa21cafa67b87f7"
+      "sha256": "23bfb9adfafad2f5e261822684a0b413415035cd16f1fb68723cf1a10e4b1195"
     },
     {
       "file": "after-04.png",
-      "sha256": "9b0ffa8a0fff659ee711364e7207be3330a00a53ae5d448cb647c653e88d6b1f"
+      "sha256": "2f6610bbe4cbd6ab1ef142e959472095df1704d23cc24ae8c7c7bf31502a8f4e"
     },
     {
       "file": "after-05.png",
-      "sha256": "79db27d8f61a26c23a05250fcf45299f983b9cbeb6f5c88eb689633efadfafc6"
+      "sha256": "a2818b4e0ea80a01e89a84f4be0be57d235788d438a16c484014edc9b4a545cb"
     },
     {
       "file": "after-06.png",
-      "sha256": "002d96cae551a94936977310fb86072142e7511a7daee4962c1c496575c3eb11"
+      "sha256": "ca387a6b4abb16a2cb0c5031ec2c502009d42e06c5c36674b118857b54e9b135"
     },
     {
       "file": "after-07.png",
-      "sha256": "181b9182c4e1fdb31b8d591d4d285622ad5fa7bab104da15b6fb11afbd451368"
+      "sha256": "68c026c8f735121a7417257d52bd24cf1b5796e124c9a5ed7de3454d91d721ab"
     },
     {
       "file": "after-08.png",
-      "sha256": "1ea5aa9b701c79bbc8175cc267eb7e1266535b631a405087a34a86c7bfa52926"
+      "sha256": "a305f8a404675bdc40ff7905648cac08be6350a8ab7a89e5897f0ed9e4fa946c"
     },
     {
       "file": "before-00.png",
@@ -96,16 +96,7 @@
       "sha256": "0f1588fc8e18033932eaab36c825540957bde92bfe8f79e592114b3173f60ce6"
     }
   ],
-  "verifiedUtc": "2026-10-10T20:07:04.394498+00:00",
-  "gameViewCaptureUtc": "2026-10-10T20:06:36.9923760Z",
-  "cameraAnchorsSha256": "028e3767be287fd906133a3316f255721ad4b43b36f49c596838ce537c098430",
-  "browserReview": {
-    "result": "Passed",
-    "verifiedUtc": "2026-10-10T20:07:42.126517+00:00",
-    "widths": [
-      320,
-      720,
-      1440
-    ]
-  }
+  "verifiedUtc": "2026-10-10T20:26:09.342106+00:00",
+  "gameViewCaptureUtc": null,
+  "cameraAnchorsSha256": "028e3767be287fd906133a3316f255721ad4b43b36f49c596838ce537c098430"
 }

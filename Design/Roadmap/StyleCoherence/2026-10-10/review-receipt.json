@@ -1,0 +1,357 @@
+{
+  "kind": "native-model-style-coherence-review",
+  "before": {
+    "sourceHash": "75af48ddd6533350a2111fe799c98b7cabce8826c22e37def93765d8fe9abe43",
+    "nativeCaptureUtc": "2026-10-10T19:32:29.9802200Z"
+  },
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "images": [
+    {
+      "file": "before-QC001.png",
+      "sha256": "6c8dab91e7854591a9a7ce8f53a3734f20e27c933e971f236c83c25f9347e0b7"
+    },
+    {
+      "file": "before-QC002.png",
+      "sha256": "fbeded1db51d580e7aa00c60fe018b5da101b2b71bbee77eac68c58cb9ee17cf"
+    },
+    {
+      "file": "before-QC003.png",
+      "sha256": "9b0ffa8a0fff659ee711364e7207be3330a00a53ae5d448cb647c653e88d6b1f"
+    },
+    {
+      "file": "before-QC004.png",
+      "sha256": "002d96cae551a94936977310fb86072142e7511a7daee4962c1c496575c3eb11"
+    },
+    {
+      "file": "before-QC005.png",
+      "sha256": "1ea5aa9b701c79bbc8175cc267eb7e1266535b631a405087a34a86c7bfa52926"
+    },
+    {
+      "file": "../../CinematicPilot/2026-10-10/composition-00.png",
+      "sha256": "212e1b7de8e2dee8d3ace5bdafca461c16ee7289f22d94f1cc3d02881acd419f"
+    },
+    {
+      "file": "../../CinematicPilot/2026-10-10/composition-02.png",
+      "sha256": "21f5c4e71a2bffa0f4627ebd62c9540488843db556108e7737daddf4476f1098"
+    },
+    {
+      "file": "../../CinematicPilot/2026-10-10/composition-04.png",
+      "sha256": "2f6610bbe4cbd6ab1ef142e959472095df1704d23cc24ae8c7c7bf31502a8f4e"
+    },
+    {
+      "file": "../../CinematicPilot/2026-10-10/composition-06.png",
+      "sha256": "ca387a6b4abb16a2cb0c5031ec2c502009d42e06c5c36674b118857b54e9b135"
+    },
+    {
+      "file": "../../CinematicPilot/2026-10-10/composition-08.png",
+      "sha256": "a305f8a404675bdc40ff7905648cac08be6350a8ab7a89e5897f0ed9e4fa946c"
+    }
+  ],
+  "sourceHash": "959428fa002381bd51b036f922b40abec1414eee5b11291cc90f9608559c1122",
+  "nativeCaptureUtc": "2026-10-10T20:24:48.1486010Z",
+  "verifiedUtc": "2026-10-10T20:26:09.503560+00:00",
+  "gameViewResult": "Pending",
+  "gameViewCaptureUtc": null,
+  "research": "RESEARCH-UA.md",
+  "checks": [
+    "Dam is an embankment/spillway with an open breach, not a bridge",
+    "Roof damage has surviving framing and a hollow interior",
+    "Owned perimeter and gate are connected",
+    "Road direction readable with worn irregular surface",
+    "Faceted trees share a palette and comparable detail",
+    "Terrain uses continuous vertex normals; skirts retain shoreline bed"
+  ],
+  "models": [
+    {
+      "id": "ua_valley_house",
+      "source": "ua_valley_house.obj",
+      "triangles": 400,
+      "triangleBudget": 600,
+      "dimensionsXYZ": [
+        6.18,
+        4.21,
+        6.76
+      ],
+      "sourceHeight": 4.21,
+      "bounds": {
+        "min": [
+          -3.3,
+          0.0,
+          -3.62
+        ],
+        "max": [
+          2.88,
+          4.21,
+          3.14
+        ]
+      },
+      "sourceSha256": "b3a79bf1c5d3a96fc1db41948f4e82e39f81627dec6e23a7a50fe6a2c8d6e3c3",
+      "description": "Muted hollow Ukrainian village house with sagged missing corner roof sheets, exposed rafters, intact gable silhouette, weathered plaster and matching slate palette. Age-related collapse, no asserted shell impact.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_valley_well",
+      "source": "ua_valley_well.obj",
+      "triangles": 76,
+      "triangleBudget": 180,
+      "dimensionsXYZ": [
+        1.8,
+        1.6,
+        1.3
+      ],
+      "sourceHeight": 1.6,
+      "bounds": {
+        "min": [
+          -0.9,
+          0,
+          -0.65
+        ],
+        "max": [
+          0.9,
+          1.6,
+          0.65
+        ]
+      },
+      "sourceSha256": "42342a1eab30637844771259ded38074de93f085ea1f8c9edcbac97b8c66d040",
+      "description": "Simple six-sided open village well: one stone ring, two timber posts, windlass and modest slate cover; matched to house, no ornate masonry.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_valley_fence",
+      "source": "ua_valley_fence.obj",
+      "triangles": 120,
+      "triangleBudget": 180,
+      "dimensionsXYZ": [
+        2.6666666666666665,
+        1.3,
+        0.24000000000000002
+      ],
+      "sourceHeight": 1.3,
+      "bounds": {
+        "min": [
+          -1.3333333333333333,
+          0.0,
+          -0.14500000000000002
+        ],
+        "max": [
+          1.3333333333333333,
+          1.3,
+          0.095
+        ]
+      },
+      "sourceSha256": "c64fb3c1f0ec058057db402188fdd18005aab8b26701a0ee38cf3e49934b47dc",
+      "description": "Weathered grey timber boundary module. Exact 8/3m span, joined rails; single end post per module prevents doubled posts. Same section/proportions on gate.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_valley_gate",
+      "source": "ua_valley_gate.obj",
+      "triangles": 132,
+      "triangleBudget": 180,
+      "dimensionsXYZ": [
+        2.6666666666666665,
+        1.3,
+        0.24000000000000002
+      ],
+      "sourceHeight": 1.3,
+      "bounds": {
+        "min": [
+          -1.3333333333333333,
+          0.0,
+          -0.14500000000000002
+        ],
+        "max": [
+          1.3333333333333333,
+          1.3,
+          0.095
+        ]
+      },
+      "sourceSha256": "276d51aebd4332d7367603485fd1bbbe945a741912d35367a91935c30646b699",
+      "description": "Weathered grey timber boundary module. Exact 8/3m span, joined rails; single end post per module prevents doubled posts. Same section/proportions on gate.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_hydro_service_building",
+      "source": "ua_hydro_service_building.obj",
+      "triangles": 120,
+      "triangleBudget": 200,
+      "dimensionsXYZ": [
+        4.05,
+        2.96,
+        3.8
+      ],
+      "sourceHeight": 2.96,
+      "bounds": {
+        "min": [
+          -2.025,
+          0.0,
+          -2.1
+        ],
+        "max": [
+          2.025,
+          2.96,
+          1.7
+        ]
+      },
+      "sourceSha256": "079ee2f6cf53cd9f4ed6bf5e17f09db78bd30b41d05f4782516bd197232c51e4",
+      "description": "Small original abandoned flat-roof civil utility building; separate dry-ground support and road approach required.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_dam_breached",
+      "source": "ua_dam_breached.obj",
+      "triangles": 360,
+      "triangleBudget": 900,
+      "dimensionsXYZ": [
+        40.0,
+        4.075,
+        12.880893645959807
+      ],
+      "sourceHeight": 4.075,
+      "bounds": {
+        "min": [
+          -20.0,
+          0,
+          -7.544834045632179
+        ],
+        "max": [
+          20.0,
+          4.075,
+          5.336059600327628
+        ]
+      },
+      "sourceSha256": "a4a663a2422713581d8baca49fe86b1b597bd382648e8d1a3c2e7af56222c50a",
+      "description": "Fictional breached rural pond embankment: surviving earth shoulders, concrete spillway crest, downstream apron, jagged exposed core, gate frame and displaced slabs. Open central channel; no bridge deck. See StyleCoherence research brief.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": "ua_dam_breached_lod"
+    },
+    {
+      "id": "ua_dam_breached_lod",
+      "source": "ua_dam_breached_lod.obj",
+      "triangles": 256,
+      "triangleBudget": 900,
+      "dimensionsXYZ": [
+        40.0,
+        4.075,
+        12.880893645959807
+      ],
+      "sourceHeight": 4.075,
+      "bounds": {
+        "min": [
+          -20.0,
+          0,
+          -7.544834045632179
+        ],
+        "max": [
+          20.0,
+          4.075,
+          5.336059600327628
+        ]
+      },
+      "sourceSha256": "18c4dc9817f9da99e90ed86f434863318df53185960a18353d40531fc7f6c157",
+      "description": "Fictional breached rural pond embankment: surviving earth shoulders, concrete spillway crest, downstream apron, jagged exposed core, gate frame and displaced slabs. Open central channel; no bridge deck. See StyleCoherence research brief.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_valley_poplar",
+      "source": "ua_valley_poplar.obj",
+      "triangles": 36,
+      "triangleBudget": 180,
+      "dimensionsXYZ": [
+        1.5272,
+        5.652973367839936,
+        1.3225939966595948
+      ],
+      "sourceHeight": 5.652973367839936,
+      "bounds": {
+        "min": [
+          -0.6936,
+          -0.0036933678399367013,
+          -0.6612969983297973
+        ],
+        "max": [
+          0.8335999999999999,
+          5.649279999999999,
+          0.6612969983297974
+        ]
+      },
+      "sourceSha256": "37311f21e775193e26f475f4895656227c7b622745973c6435e08658195c6c81",
+      "description": "Gameplay-scale faceted canopy, restrained common foliage palette and visible coarse timber trunk. No foliage cards or high-frequency twig noise.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_valley_willow",
+      "source": "ua_valley_willow.obj",
+      "triangles": 52,
+      "triangleBudget": 180,
+      "dimensionsXYZ": [
+        2.3552,
+        4.804040002213124,
+        2.03966303099311
+      ],
+      "sourceHeight": 4.804040002213124,
+      "bounds": {
+        "min": [
+          -1.1776,
+          -0.004400002213124369,
+          -1.019831515496555
+        ],
+        "max": [
+          1.1776,
+          4.79964,
+          1.019831515496555
+        ]
+      },
+      "sourceSha256": "d546d6320842423b08689ac57a4d8f5b05e88a7d2171013cb15aadd948c77ca8",
+      "description": "Gameplay-scale faceted canopy, restrained common foliage palette and visible coarse timber trunk. No foliage cards or high-frequency twig noise.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_valley_orchard",
+      "source": "ua_valley_orchard.obj",
+      "triangles": 52,
+      "triangleBudget": 180,
+      "dimensionsXYZ": [
+        2.0791999999999997,
+        3.886000764893553,
+        1.8006400195486045
+      ],
+      "sourceHeight": 3.886000764893553,
+      "bounds": {
+        "min": [
+          -1.0395999999999999,
+          -0.005440764893552982,
+          -0.9003200097743023
+        ],
+        "max": [
+          1.0395999999999999,
+          3.88056,
+          0.9003200097743024
+        ]
+      },
+      "sourceSha256": "2d2261932ff65574f1612c2ab850774108831d63cad57e80bb0c794eec9decba",
+      "description": "Gameplay-scale faceted canopy, restrained common foliage palette and visible coarse timber trunk. No foliage cards or high-frequency twig noise.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    }
+  ]
+}

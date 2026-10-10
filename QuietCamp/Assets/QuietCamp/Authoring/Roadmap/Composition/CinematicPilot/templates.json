@@ -27,17 +27,17 @@
   },
   {
     "id": "pilot.yard",
-    "width": 14,
-    "depth": 14,
+    "width": 16,
+    "depth": 16,
     "entrance": true,
     "ruined": true,
     "roles": [
       {
         "id": "house",
-        "asset": "pilot.ruined-house",
+        "asset": "ua_valley_house",
         "x": -2,
         "z": -2,
-        "height": 4.5,
+        "height": 4.2,
         "yaw": 0
       },
       {
@@ -52,42 +52,232 @@
       },
       {
         "id": "well",
-        "asset": "pilot.stone-well",
+        "asset": "ua_valley_well",
         "x": 3.8,
         "z": 2.5,
-        "height": 2.3,
+        "height": 1.6,
         "yaw": 0,
         "parent": "house"
       },
       {
         "id": "gate",
-        "asset": "ua_gate",
-        "x": 7,
-        "z": 3.5,
-        "height": 1.4,
-        "yaw": 0,
+        "asset": "ua_valley_gate",
+        "x": 8,
+        "z": 4,
+        "height": 1.3,
+        "yaw": 90,
         "parent": "house",
         "entrance": true
       },
       {
-        "id": "east-fence",
-        "asset": "pilot.broken-fence",
-        "x": 7,
-        "z": -1,
+        "id": "north-fence-0",
+        "asset": "ua_valley_fence",
+        "x": -6.666666666666667,
+        "z": 8,
+        "height": 1.3,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "north-fence-1",
+        "asset": "ua_valley_fence",
+        "x": -4.0,
+        "z": 8,
+        "height": 1.3,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "north-fence-2",
+        "asset": "ua_valley_fence",
+        "x": -1.333333333333333,
+        "z": 8,
+        "height": 1.3,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "north-fence-3",
+        "asset": "ua_valley_fence",
+        "x": 1.333333333333334,
+        "z": 8,
+        "height": 1.3,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "north-fence-4",
+        "asset": "ua_valley_fence",
+        "x": 4.0,
+        "z": 8,
+        "height": 1.3,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "north-fence-5",
+        "asset": "ua_valley_fence",
+        "x": 6.666666666666666,
+        "z": 8,
+        "height": 1.3,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "south-fence-0",
+        "asset": "ua_valley_fence",
+        "x": -6.666666666666667,
+        "z": -8,
+        "height": 1.3,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "south-fence-1",
+        "asset": "ua_valley_fence",
+        "x": -4.0,
+        "z": -8,
+        "height": 1.3,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "south-fence-2",
+        "asset": "ua_valley_fence",
+        "x": -1.333333333333333,
+        "z": -8,
+        "height": 1.3,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "south-fence-3",
+        "asset": "ua_valley_fence",
+        "x": 1.333333333333334,
+        "z": -8,
+        "height": 1.3,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "south-fence-4",
+        "asset": "ua_valley_fence",
+        "x": 4.0,
+        "z": -8,
+        "height": 1.3,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "south-fence-5",
+        "asset": "ua_valley_fence",
+        "x": 6.666666666666666,
+        "z": -8,
+        "height": 1.3,
+        "yaw": 0,
+        "parent": "house"
+      },
+      {
+        "id": "west-fence-0",
+        "asset": "ua_valley_fence",
+        "x": -8,
+        "z": -6.666666666666667,
         "height": 1.3,
         "yaw": 90,
         "parent": "house"
       },
       {
-        "id": "back-fence",
-        "asset": "pilot.broken-fence",
-        "x": -2,
-        "z": 7,
+        "id": "west-fence-1",
+        "asset": "ua_valley_fence",
+        "x": -8,
+        "z": -4.0,
         "height": 1.3,
-        "yaw": 0,
+        "yaw": 90,
+        "parent": "house"
+      },
+      {
+        "id": "west-fence-2",
+        "asset": "ua_valley_fence",
+        "x": -8,
+        "z": -1.333333333333333,
+        "height": 1.3,
+        "yaw": 90,
+        "parent": "house"
+      },
+      {
+        "id": "west-fence-3",
+        "asset": "ua_valley_fence",
+        "x": -8,
+        "z": 1.333333333333334,
+        "height": 1.3,
+        "yaw": 90,
+        "parent": "house"
+      },
+      {
+        "id": "west-fence-4",
+        "asset": "ua_valley_fence",
+        "x": -8,
+        "z": 4.0,
+        "height": 1.3,
+        "yaw": 90,
+        "parent": "house"
+      },
+      {
+        "id": "west-fence-5",
+        "asset": "ua_valley_fence",
+        "x": -8,
+        "z": 6.666666666666666,
+        "height": 1.3,
+        "yaw": 90,
+        "parent": "house"
+      },
+      {
+        "id": "east-fence-0",
+        "asset": "ua_valley_fence",
+        "x": 8,
+        "z": -6.666666666666667,
+        "height": 1.3,
+        "yaw": 90,
+        "parent": "house"
+      },
+      {
+        "id": "east-fence-1",
+        "asset": "ua_valley_fence",
+        "x": 8,
+        "z": -4.0,
+        "height": 1.3,
+        "yaw": 90,
+        "parent": "house"
+      },
+      {
+        "id": "east-fence-2",
+        "asset": "ua_valley_fence",
+        "x": 8,
+        "z": -1.333333333333333,
+        "height": 1.3,
+        "yaw": 90,
+        "parent": "house"
+      },
+      {
+        "id": "east-fence-3",
+        "asset": "ua_valley_fence",
+        "x": 8,
+        "z": 1.333333333333334,
+        "height": 1.3,
+        "yaw": 90,
+        "parent": "house"
+      },
+      {
+        "id": "east-fence-5",
+        "asset": "ua_valley_fence",
+        "x": 8,
+        "z": 6.666666666666666,
+        "height": 1.3,
+        "yaw": 90,
         "parent": "house"
       }
-    ]
+    ],
+    "closedBoundary": true
   },
   {
     "id": "pilot.ruin",

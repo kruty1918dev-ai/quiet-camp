@@ -48,10 +48,10 @@
     {
       "id": "yard-parcel",
       "kind": "parcel",
-      "x": -13,
+      "x": -15,
       "z": 44,
-      "width": 22,
-      "depth": 22,
+      "width": 24,
+      "depth": 24,
       "density": 0
     },
     {
@@ -184,7 +184,7 @@
       "placement": {
         "zone": "yard-parcel",
         "nearNode": "QC002",
-        "x": -13,
+        "x": -15,
         "z": 44,
         "yaw": 0,
         "fixedPosition": true,
@@ -255,8 +255,8 @@
     {
       "id": "service-house",
       "asset": "ua_hydro_service_building",
-      "x": -7,
-      "z": 167,
+      "x": -9,
+      "z": 161,
       "height": 3,
       "revealOwner": "QC005",
       "yaw": -10
@@ -264,92 +264,92 @@
     {
       "id": "old-orchard-0",
       "asset": "pilot.orchard-tree",
-      "x": -15,
-      "z": 17,
-      "height": 4.8,
+      "x": -15.5,
+      "z": 17.4,
+      "height": 4.5,
       "revealOwner": "QC002",
       "yaw": 0
     },
     {
       "id": "old-orchard-1",
       "asset": "pilot.orchard-tree",
-      "x": -10,
-      "z": 17,
-      "height": 4.8,
+      "x": -9.6,
+      "z": 16.5,
+      "height": 5.0,
       "revealOwner": "QC002",
-      "yaw": 42
+      "yaw": 79
     },
     {
       "id": "old-orchard-2",
       "asset": "pilot.orchard-tree",
-      "x": -15,
-      "z": 22,
-      "height": 4.8,
+      "x": -14.8,
+      "z": 21.8,
+      "height": 4.7,
       "revealOwner": "QC002",
-      "yaw": 84
+      "yaw": 158
     },
     {
       "id": "old-orchard-3",
       "asset": "pilot.orchard-tree",
-      "x": -10,
-      "z": 22,
-      "height": 4.8,
+      "x": -10.3,
+      "z": 22.5,
+      "height": 4.2,
       "revealOwner": "QC002",
-      "yaw": 126
+      "yaw": 237
     },
     {
       "id": "avenue-0",
       "asset": "pilot.poplar",
-      "x": 9,
-      "z": -12,
-      "height": 8.2,
+      "x": 9.7,
+      "z": -12.8,
+      "height": 7.6,
       "revealOwner": "QC001",
-      "yaw": 0
+      "yaw": 13
     },
     {
       "id": "avenue-1",
       "asset": "pilot.poplar",
-      "x": 9,
-      "z": -5,
-      "height": 8.2,
+      "x": 8.4,
+      "z": -4.6,
+      "height": 8.6,
       "revealOwner": "QC001",
-      "yaw": 31
+      "yaw": 80
     },
     {
       "id": "avenue-2",
       "asset": "pilot.poplar",
-      "x": 9,
-      "z": 2,
-      "height": 8.2,
+      "x": 9.1,
+      "z": 1.4,
+      "height": 7.5,
       "revealOwner": "QC001",
-      "yaw": 62
+      "yaw": 147
     },
     {
       "id": "avenue-3",
       "asset": "pilot.poplar",
-      "x": 9,
-      "z": 9,
-      "height": 8.2,
+      "x": 9.9,
+      "z": 9.7,
+      "height": 9,
       "revealOwner": "QC001",
-      "yaw": 93
+      "yaw": 214
     },
     {
       "id": "avenue-4",
       "asset": "pilot.poplar",
-      "x": 9,
-      "z": 16,
-      "height": 8.2,
+      "x": 8.7,
+      "z": 15.7,
+      "height": 8.1,
       "revealOwner": "QC001",
-      "yaw": 124
+      "yaw": 281
     },
     {
       "id": "avenue-5",
       "asset": "pilot.poplar",
-      "x": 9,
-      "z": 23,
-      "height": 8.2,
+      "x": 9.5,
+      "z": 23.5,
+      "height": 7.3,
       "revealOwner": "QC001",
-      "yaw": 155
+      "yaw": 348
     },
     {
       "id": "willow-0",

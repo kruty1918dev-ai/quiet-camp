@@ -20,6 +20,9 @@ static class CinematicPilotContracts
         Require(!result.instances.Select(i=>i.asset).Concat(doc.landmarks.Select(l=>l.asset)).Any(id=>id.IndexOf("tent",StringComparison.OrdinalIgnoreCase)>=0),"Tent in roadmap dependency");
         Require(result.spans.Any(s=>s.id=="reclaimed-yard/approach-gate"&&s.height==0),"Yard has no owned approach");
         Require(!templates.Values.SelectMany(t=>t.roles).Any(r=>r.growsThrough!=null),"Current art direction excludes vegetation inside buildings");
+        var openYard=JsonConvert.DeserializeObject<Dictionary<string,EnsembleTemplate>>(JsonConvert.SerializeObject(templates));
+        openYard["pilot.yard"].roles=openYard["pilot.yard"].roles.Where(r=>r.id!="north-fence-2").ToArray();
+        Require(SceneComposer.Compose(doc,assets,openYard).diagnostics.Any(d=>d.code=="open-parcel-boundary"),"Incomplete yard perimeter admitted");
         // The composer still rejects accidental collisions, even though this pilot
         // now keeps every canopy outside architecture.
         var altered=JsonConvert.DeserializeObject<Dictionary<string,EnsembleTemplate>>(JsonConvert.SerializeObject(templates));

@@ -1,14 +1,14 @@
 {
   "kind": "roadmap-model-and-clearance-native-review",
-  "verifiedUtc": "2026-10-10T20:07:04.394498+00:00",
-  "sourceHash": "75af48ddd6533350a2111fe799c98b7cabce8826c22e37def93765d8fe9abe43",
-  "nativeCaptureUtc": "2026-10-10T19:32:29.9802200Z",
+  "verifiedUtc": "2026-10-10T20:26:09.256870+00:00",
+  "sourceHash": "959428fa002381bd51b036f922b40abec1414eee5b11291cc90f9608559c1122",
+  "nativeCaptureUtc": "2026-10-10T20:24:48.1486010Z",
   "before": {
     "sourceHash": "6fd474482fbae4d90f7bdbcc20778cedb9d48e43daee20467ca7cede5bb4dc31",
     "capturedUtc": "2026-10-10T16:57:20.1316990Z",
     "description": "Historical aerial world before donor refinement. Original capture date preserved."
   },
-  "scope": "Current native composition and executed five-place Game View; historical before frames retain original dates",
+  "scope": "Current coherent models and placement; historical before images retain their original dates.",
   "models": [
     {
       "asset": "pilot.asphalt",
@@ -94,126 +94,6 @@
       ]
     },
     {
-      "asset": "pilot.orchard-tree",
-      "catalogueId": "M0497",
-      "source": "Assets/PolygonCity/Models/SM_Env_Tree_01.fbx",
-      "prefab": "Assets/PolygonCity/Prefabs/Environments/SM_Env_Tree_01.prefab",
-      "lod": 0,
-      "meshes": [
-        "SM_Env_Tree_01"
-      ],
-      "triangles": 604,
-      "paletteMaterials": [
-        "Assets/PolygonCity/Materials/PolygonCity_Mat_01_A.mat"
-      ],
-      "paletteColors": 2,
-      "bounds": [
-        1.86585617,
-        4.208103,
-        2.51118469
-      ]
-    },
-    {
-      "asset": "pilot.bank-tree",
-      "catalogueId": "M0498",
-      "source": "Assets/PolygonCity/Models/SM_Env_Tree_02.fbx",
-      "prefab": "Assets/PolygonCity/Prefabs/Environments/SM_Env_Tree_02.prefab",
-      "lod": 0,
-      "meshes": [
-        "SM_Env_Tree_02"
-      ],
-      "triangles": 680,
-      "paletteMaterials": [
-        "Assets/PolygonCity/Materials/PolygonCity_Mat_01_A.mat"
-      ],
-      "paletteColors": 2,
-      "bounds": [
-        2.23603821,
-        4.67631054,
-        1.54027557
-      ]
-    },
-    {
-      "asset": "pilot.poplar",
-      "catalogueId": "M0188",
-      "source": "Assets/PolygonBattleRoyale/Models/SM_Generic_Tree_03.fbx",
-      "prefab": "Assets/PolygonBattleRoyale/Prefabs/Generic/SM_Generic_Tree_03.prefab",
-      "lod": 0,
-      "meshes": [
-        "SM_Generic_Tree_03"
-      ],
-      "triangles": 266,
-      "paletteMaterials": [
-        "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_01_A.mat"
-      ],
-      "paletteColors": 2,
-      "bounds": [
-        1.73237872,
-        3.49327421,
-        1.541505
-      ]
-    },
-    {
-      "asset": "pilot.stone-well",
-      "catalogueId": "M0913",
-      "source": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/SM_Prop_Well_01.fbx",
-      "prefab": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Prefabs/Props/SM_Prop_Well_01.prefab",
-      "lod": 0,
-      "meshes": [
-        "SM_Prop_Well_01"
-      ],
-      "triangles": 1809,
-      "paletteMaterials": [
-        "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/PolygonNatureBiomesMeadow_Mat_01.mat"
-      ],
-      "paletteColors": 28,
-      "bounds": [
-        1.912393,
-        2.96808338,
-        1.95048118
-      ]
-    },
-    {
-      "asset": "pilot.broken-fence",
-      "catalogueId": "M0855",
-      "source": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/SM_Prop_Meadow_Fence_05.fbx",
-      "prefab": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Prefabs/Props/SM_Prop_Meadow_Fence_05.prefab",
-      "lod": 0,
-      "meshes": [
-        "SM_Prop_Meadow_Fence_05"
-      ],
-      "triangles": 244,
-      "paletteMaterials": [
-        "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/PolygonNatureBiomesMeadow_Mat_01.mat"
-      ],
-      "paletteColors": 15,
-      "bounds": [
-        2.52471685,
-        1.5061121,
-        0.403672874
-      ]
-    },
-    {
-      "asset": "pilot.branching-tree",
-      "catalogueId": "M0186",
-      "source": "Assets/PolygonBattleRoyale/Models/SM_Generic_Tree_01.fbx",
-      "prefab": "Assets/PolygonBattleRoyale/Prefabs/Generic/SM_Generic_Tree_01.prefab",
-      "lod": 0,
-      "meshes": [
-        "SM_Generic_Tree_01"
-      ],
-      "triangles": 598,
-      "paletteMaterials": [
-        "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_01_A.mat"
-      ],
-      "paletteColors": 2,
-      "bounds": [
-        1.81182122,
-        3.29569387,
-        1.70456207
-      ]
-    },
-    {
       "asset": "pilot.bank-rock",
       "catalogueId": "M0503",
       "source": "Assets/PolygonCity/Models/SM_Env_WaterEdge_Rock_01.fbx",
@@ -255,30 +135,30 @@
     }
   ],
   "vegetation": {
-    "sourceHash": "75af48ddd6533350a2111fe799c98b7cabce8826c22e37def93765d8fe9abe43",
+    "sourceHash": "959428fa002381bd51b036f922b40abec1414eee5b11291cc90f9608559c1122",
     "method": "Independent pair distances, 32-point crown/river checks, oriented architecture and owned road surfaces",
     "samples": [
       {
         "quality": "low",
-        "plants": 4643,
-        "trees": 284,
+        "plants": 4557,
+        "trees": 279,
         "groundProps": 0,
-        "grassTufts": 3624,
-        "shrubs": 691,
+        "grassTufts": 3568,
+        "shrubs": 666,
         "flowers": 24,
         "groundDetails": 20,
         "minimumAnimatedPlantGap": 0.15004788766304017
       },
       {
         "quality": "balanced",
-        "plants": 4636,
-        "trees": 410,
+        "plants": 4585,
+        "trees": 400,
         "groundProps": 0,
-        "grassTufts": 3268,
-        "shrubs": 856,
+        "grassTufts": 3221,
+        "shrubs": 862,
         "flowers": 60,
         "groundDetails": 42,
-        "minimumAnimatedPlantGap": 0.15001149500456223
+        "minimumAnimatedPlantGap": 0.1500490780706114
       }
     ],
     "result": "Passed",
@@ -288,23 +168,23 @@
   "images": [
     {
       "file": "after-QC001.png",
-      "sha256": "6c8dab91e7854591a9a7ce8f53a3734f20e27c933e971f236c83c25f9347e0b7"
+      "sha256": "212e1b7de8e2dee8d3ace5bdafca461c16ee7289f22d94f1cc3d02881acd419f"
     },
     {
       "file": "after-QC002.png",
-      "sha256": "fbeded1db51d580e7aa00c60fe018b5da101b2b71bbee77eac68c58cb9ee17cf"
+      "sha256": "21f5c4e71a2bffa0f4627ebd62c9540488843db556108e7737daddf4476f1098"
     },
     {
       "file": "after-QC003.png",
-      "sha256": "9b0ffa8a0fff659ee711364e7207be3330a00a53ae5d448cb647c653e88d6b1f"
+      "sha256": "2f6610bbe4cbd6ab1ef142e959472095df1704d23cc24ae8c7c7bf31502a8f4e"
     },
     {
       "file": "after-QC004.png",
-      "sha256": "002d96cae551a94936977310fb86072142e7511a7daee4962c1c496575c3eb11"
+      "sha256": "ca387a6b4abb16a2cb0c5031ec2c502009d42e06c5c36674b118857b54e9b135"
     },
     {
       "file": "after-QC005.png",
-      "sha256": "1ea5aa9b701c79bbc8175cc267eb7e1266535b631a405087a34a86c7bfa52926"
+      "sha256": "a305f8a404675bdc40ff7905648cac08be6350a8ab7a89e5897f0ed9e4fa946c"
     },
     {
       "file": "before-QC001.png",
@@ -341,15 +221,6 @@
   },
   "playerBuild": false,
   "mobileFpsMeasured": false,
-  "gameViewResult": "Passed",
-  "gameViewCaptureUtc": "2026-10-10T20:06:36.9923760Z",
-  "browserReview": {
-    "result": "Passed",
-    "verifiedUtc": "2026-10-10T20:07:42.126517+00:00",
-    "widths": [
-      320,
-      720,
-      1440
-    ]
-  }
+  "gameViewResult": "Pending",
+  "gameViewCaptureUtc": null
 }

@@ -1,8 +1,8 @@
 {
   "kind": "stop-road-native-legibility-review",
-  "sourceHash": "75af48ddd6533350a2111fe799c98b7cabce8826c22e37def93765d8fe9abe43",
-  "nativeCaptureUtc": "2026-10-10T19:32:29.9802200Z",
-  "verifiedUtc": "2026-10-10T20:07:04.394498+00:00",
+  "sourceHash": "959428fa002381bd51b036f922b40abec1414eee5b11291cc90f9608559c1122",
+  "nativeCaptureUtc": "2026-10-10T20:24:48.1486010Z",
+  "verifiedUtc": "2026-10-10T20:26:09.314809+00:00",
   "before": {
     "sourceHash": "56f533f8ee3bc33aff187e6577b8a5b8eec1c780509e2f1723f21c66593442ad",
     "capturedUtc": "2026-10-10T17:56:07.1778010Z",
@@ -77,15 +77,15 @@
   "images": [
     {
       "file": "after-landscape.png",
-      "sha256": "c969523184f9cd1525dad68491a23a9ca4e0691a06c896cbd74ec7d512869fe9"
+      "sha256": "4021214ad3319335129b94a21c2c267c204c8aca95561ad9cd4bfa9b2ba02606"
     },
     {
       "file": "after-low-zoom-out.png",
-      "sha256": "fa8a41cbe9b43703229195087a0ca66db20533719bb067287a036de461ead66f"
+      "sha256": "889938094c263c88baf85f0f924ed441104eaea8f7a40dc5393c4ce5a0d9cb2e"
     },
     {
       "file": "after.png",
-      "sha256": "6c8dab91e7854591a9a7ce8f53a3734f20e27c933e971f236c83c25f9347e0b7"
+      "sha256": "212e1b7de8e2dee8d3ace5bdafca461c16ee7289f22d94f1cc3d02881acd419f"
     },
     {
       "file": "before-low-zoom-out.png",
@@ -97,18 +97,9 @@
     }
   ],
   "nativeFrames": 43,
-  "gameViewFollowup": "Passed",
+  "gameViewFollowup": "Pending",
   "mobileFpsMeasured": false,
   "playerBuild": false,
-  "gameViewResult": "Passed",
-  "gameViewCaptureUtc": "2026-10-10T20:06:36.9923760Z",
-  "browserReview": {
-    "result": "Passed",
-    "verifiedUtc": "2026-10-10T20:07:42.126517+00:00",
-    "widths": [
-      320,
-      720,
-      1440
-    ]
-  }
+  "gameViewResult": "Pending",
+  "gameViewCaptureUtc": null
 }

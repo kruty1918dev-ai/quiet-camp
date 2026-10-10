@@ -1,46 +1,46 @@
 {
   "kind": "indexed-world-shadow-budget",
-  "sourceHash": "75af48ddd6533350a2111fe799c98b7cabce8826c22e37def93765d8fe9abe43",
-  "nativeCaptureUtc": "2026-10-10T19:32:29.9802200Z",
+  "sourceHash": "959428fa002381bd51b036f922b40abec1414eee5b11291cc90f9608559c1122",
+  "nativeCaptureUtc": "2026-10-10T20:24:48.1486010Z",
   "tiers": [
     {
       "quality": "Low",
-      "triangles": 102498,
-      "triangleStreamVerticesBefore": 307494,
-      "indexedVertices": 238344,
-      "vertexReductionPercent": 22.488243673047283,
-      "maxVisibleMeshVertices": 167547,
-      "maxVisibleShadowCasterVertices": 165528,
+      "triangles": 92552,
+      "triangleStreamVerticesBefore": 277656,
+      "indexedVertices": 195923,
+      "vertexReductionPercent": 29.436785086581963,
+      "maxVisibleMeshVertices": 145773,
+      "maxVisibleShadowCasterVertices": 143754,
       "shadowAtlasResolution": 512,
       "shadowCascades": 1
     },
     {
       "quality": "Balanced",
-      "triangles": 142636,
-      "triangleStreamVerticesBefore": 427908,
-      "indexedVertices": 326342,
-      "vertexReductionPercent": 23.73547584994905,
-      "maxVisibleMeshVertices": 223484,
-      "maxVisibleShadowCasterVertices": 221241,
+      "triangles": 131841,
+      "triangleStreamVerticesBefore": 395523,
+      "indexedVertices": 261192,
+      "vertexReductionPercent": 33.962879529129786,
+      "maxVisibleMeshVertices": 187923,
+      "maxVisibleShadowCasterVertices": 185680,
       "shadowAtlasResolution": 1024,
       "shadowCascades": 1
     }
   ],
-  "chunkVertexAndIndexPayloadBytesBothVariants": 37610708,
+  "chunkVertexAndIndexPayloadBytesBothVariants": 30601718,
   "sameTriangleAttributesVerifiedDuringBake": true,
   "oneMainLightShadowPass": true,
   "allOpaqueWorldObjectsCastShadows": true,
-  "gameViewResult": "Passed",
+  "gameViewResult": "Pending",
   "mobileFpsMeasured": false,
   "playerBuild": false,
   "limits": [
     "Indexed vertex/payload and Editor counters are not GPU timing or phone FPS.",
     "Water and airborne pollen are transparent and do not cast opaque ground shadows."
   ],
-  "gameViewCaptureUtc": "2026-10-10T20:06:36.9923760Z",
+  "gameViewCaptureUtc": null,
   "measurements": {
     "Low": {
-      "maxSubmittedMeshTriangles": 77727,
+      "maxSubmittedMeshTriangles": 72282,
       "maxSharedWorldMaterials": 6,
       "maxDetailedChunks": 3,
       "gameViewSamples": 10,
@@ -48,7 +48,7 @@
       "maxPassInclusiveEditorTriangles": 153833
     },
     "Balanced": {
-      "maxSubmittedMeshTriangles": 104466,
+      "maxSubmittedMeshTriangles": 97640,
       "maxSharedWorldMaterials": 6,
       "maxDetailedChunks": 3,
       "gameViewSamples": 10,

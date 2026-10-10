@@ -17,7 +17,12 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
 import build_ukrainian_roadmap_models as rural
 
-Mesh, PALETTE = rural.Mesh, rural.PALETTE
+PALETTE = dict(rural.PALETTE)
+PALETTE.update(earth=0x897B58, earth_cut=0x74664C, meadow=0x71804F,
+               plaster_valley=0xADA995, roof_valley=0x666C61, moss=0x697C51)
+class Mesh(rural.Mesh):
+    palette = PALETTE
+
 SOURCE = ROOT / "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit"
 CATALOG = ROOT / "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/assets.json"
 
@@ -187,6 +192,26 @@ def vegetation(identity, kind, lod=False):
     return m
 
 
+def valley_tree(kind):
+    m=Mesh("ua_valley_"+kind,180,"Gameplay-scale faceted canopy, restrained common foliage palette and visible coarse timber trunk. No foliage cards or high-frequency twig noise.")
+    h=5.6 if kind=="poplar" else 4.7 if kind=="willow" else 3.8
+    m.beam((0,0,0),(.08,h*.58,.04),.20,"wood_dark",True)
+    def canopy(x,y,z,r,height,sides=6):
+        bottom=(x,y-height*.48,z);top=(x+.05,y+height*.52,z)
+        low=[(x+math.cos(i*math.tau/sides)*r*.77,y-height*.2,z+math.sin(i*math.tau/sides)*r*.77) for i in range(sides)]
+        high=[(x+math.cos(i*math.tau/sides)*r*.92,y+height*.22,z+math.sin(i*math.tau/sides)*r*.92) for i in range(sides)]
+        for i in range(sides):
+            j=(i+1)%sides
+            m.tri(bottom,low[i],low[j],"leaf_dark")
+            m.quad(low[i],high[i],high[j],low[j],"leaf",(math.cos((i+.5)*math.tau/sides),0,math.sin((i+.5)*math.tau/sides)))
+            m.tri(top,high[j],high[i],"leaf_light")
+    if kind=="poplar":canopy(.07,h*.65,0,.83,h*.69)
+    else:
+        for a,b in [((0,h*.39,0),(-.64,h*.64,.1)),((0,h*.45,0),(.57,h*.65,-.2))]:m.beam(a,b,.12,"wood_dark")
+        canopy(0,h*.73,0,1.28 if kind=="willow" else 1.13,h*.56)
+    return m
+
+
 def bridge():
     m=Mesh("ua_plank_bridge",240,"Original straight dry pedestrian deck and bank supports; no water in mesh; span along Z, landings at both ends.")
     for x in (-.62,.62):
@@ -199,31 +224,138 @@ def bridge():
 
 
 def dam(lod=False):
-    m=Mesh("ua_dam_breached_lod" if lod else "ua_dam_breached",900,"Original fictional five-bay hydro structure with a 4.9m clear central breach between piers; no water, traversable bridge or real-site reconstruction.")
-    # Roadway is absent at X=2..8; the 1.1m-wide end piers leave 4.9m clear.
-    for lo,hi in [(-16,2),(8,16)]:
-        m.box(((lo+hi)/2,6.2,0),(hi-lo,.45,3.2),"concrete")
-    for x in (-16,-10,-4,2,8,16):
-        m.box((x,3,0),(1.1,6,4.6),"concrete")
+    m=Mesh("ua_dam_breached_lod" if lod else "ua_dam_breached",900,
+           "Fictional breached rural pond embankment: surviving earth shoulders, concrete spillway crest, downstream apron, jagged exposed core, gate frame and displaced slabs. Open central channel; no bridge deck. See StyleCoherence research brief.")
+    # Upstream is +Z. The old crest runs across X; downstream faces slope to -Z.
+    # Each bank shoulder is a trapezoidal earth section, rather than a row of piers.
+    def shoulder(lo,hi,broken):
+        rings=[]
+        for station in range(5):
+            x=lo+(hi-lo)*station/4;variation=math.sin(x*1.3)*.17
+            rings.append([(x,0,-7+math.sin(x*.7)*.55),(x,0,5+math.cos(x)*.35),
+                          (x,2.65+variation,1.35+math.sin(x)*.15),
+                          (x,2.8+variation,-1.1+math.cos(x)*.2)])
+        for r0,r1 in zip(rings,rings[1:]):
+            for i in range(4):
+                j=(i+1)%4
+                m.quad(r0[i],r1[i],r1[j],r0[j],"meadow" if i in (1,2) else "earth",(0,1 if i in (1,2) else 0,-1 if i==3 else 1))
+        for ring,normal in [(rings[0],(-1,0,0)),(rings[-1],(1,0,0))]:
+            m.quad(*ring,"earth_cut",normal)
         if not lod:
-            m.box((x,6.62,-1.45),(.45,.44,.35),"concrete_dark")
-    for lo,hi in [(-16,-10),(-10,-4),(-4,2),(8,16)]:
-        m.box(((lo+hi)/2,2.65,0),(hi-lo-1.1,4.7,.30),"steel_dark")
-        if not lod:
-            m.box(((lo+hi)/2,4.8,-.19),(hi-lo-1.1,.20,.15),"rust")
+            # A few large erosion cuts/debris accents carry age without texture noise.
+            for x in (lo+(hi-lo)*.25,lo+(hi-lo)*.64):
+                m.crown((x,.6,-5.9),.45,"earth_cut",5,.6)
+    shoulder(-20,-6,1);shoulder(6,20,-1)
+    # Broad surviving concrete weir faces and crest cap: mass replaces bridge bays.
+    for profile in [[(-6,0),(-6,2.8),(-2.9,2.7),(-3.6,1.8),(-2.8,1.1),(-3.8,0)],
+                    [(3.5,0),(2.9,.85),(4,1.7),(3.3,2.8),(6,2.8),(6,0)]]:
+        if sum(profile[i][0]*profile[(i+1)%len(profile)][1]-profile[(i+1)%len(profile)][0]*profile[i][1] for i in range(len(profile)))<0:profile.reverse()
+        # Concave damage is built as a fan of convex triangular prisms, with
+        # no clipping of a finished mesh and no triangles spanning the breach.
+        anchor=profile[0]
+        for i in range(1,len(profile)-1):
+            q=[anchor,profile[i],profile[i+1]]
+            if abs((q[1][0]-q[0][0])*(q[2][1]-q[0][1])-(q[1][1]-q[0][1])*(q[2][0]-q[0][0]))>.001:
+                m.extrude(q,1.55,"concrete_dark",0)
+    # Intact spillway wing walls, a small operating frame and rust gate remnant.
+    for x in (-6.15,6.15):
+        m.box((x,1.8,-2.45),(.4,1.4,5.8),"concrete_dark")
+        m.box((x,2.72,.15),(.5,.2,1.7),"concrete")
+    for x in (-5.35,-3.65):m.beam((x,2.7,.1),(x,4,.1),.13,"rust",True)
+    m.beam((-5.5,4,.1),(-3.5,4,.1),.15,"wood_dark",True)
+    m.box((-4.5,2.03,.83),(1.6,1.1,.11),"steel_dark")
+    # Broken downstream apron and displaced slab: the breach remains open.
+    for x,z,w,d in [(-4.8,-3.6,2.7,3.3),(4.8,-3.4,2.2,2.5)]:
+        m.box((x,.95,z),(w,.35,d),"concrete_dark")
     if not lod:
-        for x,y,z in [(1.1,.5,-3.1),(8.8,.35,-3.5),(10,.30,-4.1)]:
-            m.crown((x,y,z),.65,"concrete_dark",4,.6)
+        for i,(x,z) in enumerate([(-3.4,-4.5),(-2.1,-5.8),(3.8,-5.2),(5.6,-6.2)]):
+            m.crown((x,.9+i*.08,z),.65,"stone",5,.7)
+        for x in (-2.95,3.45):
+            m.beam((x,1.8,-.7),(x+(.4 if x>0 else -.3),2.4,-.9),.035,"rust",True)
+    return m
+
+
+def valley_house():
+    m=Mesh("ua_valley_house",600,"Muted hollow Ukrainian village house with sagged missing corner roof sheets, exposed rafters, intact gable silhouette, weathered plaster and matching slate palette. Age-related collapse, no asserted shell impact.")
+    w,d,h=5.4,5.8,2.55
+    m.box((0,.14,0),(w+.12,.28,d+.12),"concrete_dark")
+    for x in (-w/2,w/2):m.box((x,h/2,0),(.16,h,d),"plaster_valley")
+    m.box((0,h/2,d/2),(w,h,.16),"plaster_valley")
+    for x,ww in [(-2.07,1.26),(-.66,1.16),(1.93,1.54)]:
+        m.box((x,h/2,-d/2),(ww,h,.16),"plaster_valley")
+    m.box((.62,2.32,-d/2),(.96,.46,.16),"plaster_valley")
+    m.box((.62,.05,-d/2-.25),(1.05,.1,.65),"stone")
+    m.box((0,.32,-d/2-.085),(w,.16,.025),"concrete_dark")
+    for x in (-1.7,-.32):
+        m.box((x,1.52,-d/2-.1),(.79,.9,.04),"wood_dark")
+        m.box((x,1.52,-d/2-.13),(.65,.76,.02),"window")
+        m.box((x,1.5,-d/2-.16),(.035,.78,.03),"wood_light")
+    m.box((0,.3,0),(w-.25,.07,d-.25),"wood_dark")
+    for z in (-d/2,d/2):
+        # Gable is wall geometry, kept behind the roof rather than a solid roof plug.
+        q=[(-w/2,h),(w/2,h),(0,3.72)]
+        m.extrude(q,.16,"plaster_valley",z)
+    # Left-front sheets have broken, sloped edges; rafters survive below them.
+    for side in (-1,1):
+        for section in range(6):
+            za=-3.1+section*1.04;zb=za+1.04
+            outer_a=1 if side<0 and section==1 else 2.88
+            outer_b=1.4 if side<0 and section==1 else 2.88
+            if side<0 and section==0:outer_b=1
+            if side<0 and section==2:outer_a=1.4
+            def at(r,z,offset=0):return(side*r,3.82-r*.425+offset,z)
+            a,b,c,e=at(0,za),at(0,zb),at(outer_b,zb),at(outer_a,za)
+            m.quad(a,b,c,e,"roof_valley",(side,1,0))
+            m.quad(at(outer_a,za,-.1),at(outer_b,zb,-.1),c,e,"roof",(side,0,0))
+        for z in (-2.55,-1.8,-.95):
+            m.beam((0,3.68,z),(side*2.68,2.54,z),.10,"wood_dark",True)
+    m.box((1.3,3.51,1.2),(.42,1.25,.46),"plaster_valley")
+    m.box((1.3,4.15,1.2),(.55,.12,.57),"concrete_dark")
+    for x,z in [(-2.7,-3.1),(-2.3,-3.4),(-3,-2.6)]:
+        m.box((x,.21,z),(.6,.14,.44),"roof_valley")
+    return m
+
+
+def valley_well():
+    m=Mesh("ua_valley_well",180,"Simple six-sided open village well: one stone ring, two timber posts, windlass and modest slate cover; matched to house, no ornate masonry.")
+    for i in range(6):
+        a,b=i*math.tau/6,(i+1)*math.tau/6
+        outer=[(.55*math.cos(t),y,.55*math.sin(t)) for y,t in [(0,a),(0,b),(.65,b),(.65,a)]]
+        inner=[(.38*math.cos(t),y,.38*math.sin(t)) for y,t in [(0,a),(0,b),(.65,b),(.65,a)]]
+        m.quad(*outer,"concrete_dark",(math.cos((a+b)/2),0,math.sin((a+b)/2)))
+        m.quad(outer[3],outer[2],inner[2],inner[3],"stone",(0,1,0))
+        m.quad(*inner,"wood_dark",(-math.cos((a+b)/2),0,-math.sin((a+b)/2)))
+    for x in (-.72,.72):m.box((x,.7,0),(.12,1.4,.12),"wood_dark")
+    m.beam((-.73,.92,0),(.73,.92,0),.16,"wood",True)
+    for side in (-1,1):
+        m.quad((-.9,1.6,0),(.9,1.6,0),(.9,1.29,side*.65),(-.9,1.29,side*.65),"roof_valley",(0,1,side))
+    return m
+
+
+def valley_boundary(gate=False):
+    m=Mesh("ua_valley_gate" if gate else "ua_valley_fence",180,"Weathered grey timber boundary module. Exact 8/3m span, joined rails; single end post per module prevents doubled posts. Same section/proportions on gate.")
+    span=8/3
+    # Rails cover exactly the authored perimeter interval. Post belongs to left end.
+    for y in (.35,.87):m.box((0,y,.055),(span,.095,.08),"wood_dark")
+    m.box((-span/2+.07,.65,0),(.14,1.3,.14),"wood_dark")
+    for i in range(7):
+        x=-span/2+.23+i*.35;top=1.04+[.05,-.02,.08,0,-.05,.03,0][i]
+        m.beam((x,.05,-.035),(x+(.035 if i%3==0 else -.015),top,-.035),.22,"wood",True,.055)
+    if gate:m.beam((-1.16,.28,-.09),(1.16,.94,-.09),.08,"wood_dark",True)
     return m
 
 
 def service_building():
-    m=Mesh("ua_hydro_service_building",100,"Small original abandoned flat-roof civil utility building; separate dry-ground support and road approach required.")
-    m.box((0,1.3,0),(3.8,2.6,3.2),"plaster_worn")
+    m=Mesh("ua_hydro_service_building",200,"Small original abandoned flat-roof civil utility building; separate dry-ground support and road approach required.")
+    m.box((0,1.3,0),(3.8,2.6,3.2),"plaster_valley")
     m.box((0,2.69,0),(4.05,.18,3.4),"concrete")
     m.box((0,1.05,-1.61),(.85,2.1,.04),"window")
     for x in (-1.3,1.3):m.box((x,1.57,-1.63),(.55,.6,.025),"window")
     m.box((0,.1,-1.85),(1.4,.2,.5),"stone")
+    m.box((0,.27,-1.62),(3.75,.35,.04),"concrete_dark")
+    m.box((1.27,.75,-1.64),(.55,.5,.02),"concrete_dark")
+    m.box((-.5,2.84,.7),(.7,.24,.6),"concrete_dark")
+    m.beam((-1.27,1.24,-1.66),(-1.43,1.83,-1.66),.09,"wood_dark",True)
     return m
 
 
@@ -245,10 +377,10 @@ def chicken():
 
 def models():
     result=[f() for f in [abandoned_house,forester_hut,barn,coop,beehive,well_sweep,
-            damaged_fence,rusty_pylon,fallen_pylon,mosaic_stop,bridge,service_building,mooring,chicken]]
+            damaged_fence,valley_house,valley_well,valley_boundary,lambda:valley_boundary(True),rusty_pylon,fallen_pylon,mosaic_stop,bridge,service_building,mooring,chicken]]
     for kind,identity in [("weeds","ua_field_weeds"),("reeds","ua_reed_clump"),("willow","ua_young_willow"),("poplar","ua_poplar")]:
         result.extend([vegetation(identity,kind),vegetation(identity+"_lod",kind,True)])
-    result.extend([dam(),dam(True)])
+    result.extend([dam(),dam(True),valley_tree("poplar"),valley_tree("willow"),valley_tree("orchard")])
     return result
 
 
@@ -267,6 +399,10 @@ def files_for(items):
                             lod=m.id+"_lod" if m.id+"_lod" in {x.id for x in items} else None))
     files[SOURCE/"models.json"]=json.dumps(streams,separators=(",",":"))+"\n"
     palette=rural.build_files([])[rural.SOURCE/"palette.mtl"]
+    for name,rgb in PALETTE.items():
+        if name not in rural.PALETTE:
+            channels=[((rgb>>shift)&255)/255 for shift in (16,8,0)]
+            palette+=f"\nnewmtl {name}\nKd {channels[0]:.6f} {channels[1]:.6f} {channels[2]:.6f}\nKa 0 0 0\nKs 0 0 0\nd 1\nillum 1\n"
     files[SOURCE/"palette.mtl"]=palette
     files[SOURCE/"manifest.json"]=rural.text_json(dict(schemaVersion=1,staging=True,published=False,
         generator="tools/roadmap-assets/build_environment_kit.py",license="original-project-owned",
@@ -281,7 +417,7 @@ def asset_entries(items):
     ids={m.id for m in items}
     for m in items:
         lo,hi=m.bounds();h=hi[1]-lo[1];w=hi[0]-lo[0];d=hi[2]-lo[2]
-        kind="groundcover" if any(x in m.id for x in ("weeds","reed")) else "canopy" if any(x in m.id for x in ("willow","poplar")) else "boundary" if "fence" in m.id else "solid"
+        kind="groundcover" if any(x in m.id for x in ("weeds","reed")) else "canopy" if any(x in m.id for x in ("willow","poplar","orchard")) else "boundary" if "fence" in m.id or "gate" in m.id else "solid"
         entry=dict(id=m.id,source="../Models/EnvironmentKit/"+m.id+".obj",license="original-project-owned",
                    sourceHash=hashlib.sha256(files_for([m])[SOURCE/(m.id+".obj")].encode()).hexdigest(),
                    sourceHeight=h,height=h,width=w,depth=d,radius=math.hypot(w,d)/2,

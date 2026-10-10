@@ -153,7 +153,7 @@ class Mesh:
         data=[];colors=[]
         for a,b,c,normal,color in self.tris:
             for p in (a,b,c):data.extend((round(v,6) or 0.0) for v in (*scale(sub(p,origin),1/height),*normal))
-            colors.append(PALETTE[color])
+            colors.append(getattr(self,"palette",PALETTE)[color])
         return {"id":self.id,"data":data,"colors":colors}
 
 
@@ -423,7 +423,7 @@ def validate(models):
             if not all(math.isfinite(v) for p in (a,b,c,n) for v in p):raise AssertionError(m.id+": nonfinite")
             if length(cross(sub(b,a),sub(c,a)))<1e-9:raise AssertionError(m.id+": degenerate")
             if abs(length(n)-1)>1e-5:raise AssertionError(m.id+": invalid normal")
-            if color not in PALETTE:raise AssertionError(m.id+": missing palette")
+            if color not in getattr(m,"palette",PALETTE):raise AssertionError(m.id+": missing palette")
         bake=m.baked();ys=bake["data"][1::6]
         if min(ys)!=0 or max(ys)!=1:raise AssertionError(m.id+": normalized height")
         if len(bake["data"])!=len(bake["colors"])*18:raise AssertionError(m.id+": stream contract")
@@ -570,7 +570,7 @@ def preview(models, output=None, title=None, map_camera=False):
             z=u*az+v*bz+w*cz
             current_depth=depth[miny:maxy+1,minx:maxx+1]
             mask=(u>=-1e-6)&(v>=-1e-6)&(w>=-1e-6)&(z>current_depth)
-            rgb=PALETTE[name];base=np.array([((rgb>>shift)&255)/255 for shift in (16,8,0)])
+            rgb=getattr(m,"palette",PALETTE)[name];base=np.array([((rgb>>shift)&255)/255 for shift in (16,8,0)])
             brightness=.70+.30*max(0,dot(n,light))
             color_buffer[miny:maxy+1,minx:maxx+1][mask]=np.clip(base*brightness*255,0,255).astype(np.uint8)
             current_depth[mask]=z[mask]
