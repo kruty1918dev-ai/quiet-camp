@@ -24,8 +24,12 @@ namespace QuietCamp.Editor
             foreach(string name in new[]{"RoadmapWorldAsset","RoadmapWorldChunk"})
             {
                 string scriptPath="Assets/QuietCamp/Scripts/Presentation/World/"+name+".cs";
-                AssetDatabase.ImportAsset(scriptPath,ImportAssetOptions.ForceUpdate|ImportAssetOptions.ForceSynchronousImport);
                 var script=AssetDatabase.LoadAssetAtPath<MonoScript>(scriptPath);
+                if(script==null||script.GetClass()==null)
+                {
+                    AssetDatabase.ImportAsset(scriptPath,ImportAssetOptions.ForceUpdate|ImportAssetOptions.ForceSynchronousImport);
+                    script=AssetDatabase.LoadAssetAtPath<MonoScript>(scriptPath);
+                }
                 if(script==null||script.GetClass()==null)throw new InvalidOperationException("Native world script mapping missing: "+scriptPath);
             }
             CinematicRoadmapBaker.Bake();
@@ -77,7 +81,7 @@ namespace QuietCamp.Editor
                 if(world.LoadedChunks>3||submittedTriangles>(low?80000:150000)||visible.Select(r=>r.sharedMaterial).Distinct().Count()>(low?8:12))
                     throw new InvalidOperationException("Native composition exceeds the pilot geometry/residency/material budget: "+path+" / "+submittedTriangles);
                 return new{file=Path.GetFileName(path),route,frontier,quality=low?"Low":"Balanced",width,height,
-                    zoom,fieldOfView=world.WorldCamera.fieldOfView,loadedChunks=world.LoadedChunks,visibleRenderers=visible.Length,submittedMeshTriangles=submittedTriangles,
+                    zoom,fieldOfView=world.WorldCamera.fieldOfView,shadowDistance=((UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline).shadowDistance,loadedChunks=world.LoadedChunks,visibleRenderers=visible.Length,submittedMeshTriangles=submittedTriangles,
                     sharedMaterials=visible.Select(r=>r.sharedMaterial).Distinct().Count(),editorDrawCalls=UnityStats.drawCalls,
                     editorTriangles=UnityStats.triangles,cameraPosition=new[]{world.WorldCamera.transform.position.x,world.WorldCamera.transform.position.y,world.WorldCamera.transform.position.z}};
             }

@@ -23,6 +23,7 @@ namespace QuietCamp.Presentation.World
         readonly Dictionary<int,string> _leased=new Dictionary<int,string>();
         readonly List<Camera> _disabledCameras=new List<Camera>();
         readonly Dictionary<string,float> _oldFloats=new Dictionary<string,float>();
+        readonly Dictionary<UniversalRenderPipelineAsset,float> _shadowRanges=new Dictionary<UniversalRenderPipelineAsset,float>();
         readonly Dictionary<string,Vector4> _oldVectors=new Dictionary<string,Vector4>();
         readonly MeshRenderer[] _markers=new MeshRenderer[5];
         readonly MeshRenderer[] _distant=new MeshRenderer[5];
@@ -222,6 +223,13 @@ namespace QuietCamp.Presentation.World
             var position=focus+rotation*Vector3.back*boomDistance;
             // Raising the camera must not turn the whole valley into fog. Keep haze in the far field.
             Shader.SetGlobalFloat("_RoadmapFogStart",boomDistance*_asset.worldScale*.9f);
+            if(GraphicsSettings.currentRenderPipeline is UniversalRenderPipelineAsset pipeline)
+            {
+                if(!_shadowRanges.ContainsKey(pipeline))_shadowRanges.Add(pipeline,pipeline.shadowDistance);
+                // The game's close camp cameras use 32 m shadows. An aerial map needs the
+                // same sunlight to reach its ground; retain and restore every touched tier.
+                pipeline.shadowDistance=Mathf.Max(_shadowRanges[pipeline],boomDistance*_asset.worldScale+24);
+            }
             _camera.transform.position=_root.transform.TransformPoint(position);_camera.transform.rotation=rotation;
             for(int i=0;i<5;i++)
             {
@@ -276,6 +284,7 @@ namespace QuietCamp.Presentation.World
             if(_profile!=null)foreach(var component in _profile.components)DestroyOwned(component);
             DestroyOwned(_profile);
             foreach(var cam in _disabledCameras)if(cam!=null)cam.enabled=true;_disabledCameras.Clear();
+            foreach(var range in _shadowRanges)if(range.Key!=null)range.Key.shadowDistance=range.Value;_shadowRanges.Clear();
             RenderSettings.sun=_oldSun;RenderSettings.skybox=_oldSky;RenderSettings.fog=_oldFog;RenderSettings.ambientMode=_oldAmbientMode;
             RenderSettings.ambientLight=_oldAmbient;RenderSettings.ambientSkyColor=_oldSkyColor;RenderSettings.ambientEquatorColor=_oldEquator;RenderSettings.ambientGroundColor=_oldGround;RenderSettings.ambientProbe=_oldProbe;
             foreach(var p in _oldFloats)Shader.SetGlobalFloat(p.Key,p.Value);foreach(var p in _oldVectors)Shader.SetGlobalVector(p.Key,p.Value);_oldFloats.Clear();_oldVectors.Clear();
