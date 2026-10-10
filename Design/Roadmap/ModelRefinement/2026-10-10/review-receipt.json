@@ -1,8 +1,8 @@
 {
   "kind": "roadmap-model-and-clearance-native-review",
   "verifiedUtc": "2026-10-10T18:37:27.840698+00:00",
-  "sourceHash": "4c4e9ae2fe3f562e313bb1f69ee222792cf7565230653e5efe909c51d64e3043",
-  "nativeCaptureUtc": "2026-10-10T18:28:07.1516840Z",
+  "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
+  "nativeCaptureUtc": "2026-10-10T18:43:32.0253810Z",
   "before": {
     "sourceHash": "6fd474482fbae4d90f7bdbcc20778cedb9d48e43daee20467ca7cede5bb4dc31",
     "capturedUtc": "2026-10-10T16:57:20.1316990Z",
@@ -279,19 +279,19 @@
     },
     {
       "file": "after-QC002.png",
-      "sha256": "3dba786ba8571cc49451d574b9ce9eb8064db55ff46c702e74fc4f9f049f3337"
+      "sha256": "bca2ead1a7b96d229c293c908785677416f38ac4df72af62d1668af88da178d4"
     },
     {
       "file": "after-QC003.png",
-      "sha256": "dff1fb3d581ffebe4b30717f05124ed8df876d315f4100907b32577a75b9ad15"
+      "sha256": "f1bd4475f32ef8aa703cf231a9aa397cb2259f29a5fc888ece833fc5f5cdedff"
     },
     {
       "file": "after-QC004.png",
-      "sha256": "7054b3dd36297df62d54c41f253aecf85383749ca5c5334b4448e0d87d7ac426"
+      "sha256": "c5c28482db93b80fb5e67751d01dab5ea877ac832e53523dfde0a6bfe2b1dcc2"
     },
     {
       "file": "after-QC005.png",
-      "sha256": "7f2dfd69a3583f9d1bba53a132301463ada1388aa4549d3707cb543399eecc2d"
+      "sha256": "0f1588fc8e18033932eaab36c825540957bde92bfe8f79e592114b3173f60ce6"
     },
     {
       "file": "before-QC001.png",
@@ -328,15 +328,5 @@
   },
   "playerBuild": false,
   "mobileFpsMeasured": false,
-  "gameViewResult": "Passed",
-  "gameViewCaptureUtc": "2026-10-10T18:36:20.1030060Z",
-  "browserReview": {
-    "result": "Passed",
-    "verifiedUtc": "2026-10-10T18:37:37.179022+00:00",
-    "widths": [
-      320,
-      720,
-      1440
-    ]
-  }
+  "gameViewResult": "Pending"
 }

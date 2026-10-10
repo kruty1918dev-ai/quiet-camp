@@ -256,6 +256,11 @@ namespace QuietCamp.Tests
                 Assert.AreEqual(quality==0?"Low":"Balanced",QualitySettings.names[QualitySettings.GetQualityLevel()],"Incorrect native render profile");
                 var opaque=World().WorldRoot.GetComponentsInChildren<MeshRenderer>().Where(r=>r.sharedMaterial.shader.name!="QuietCamp/RoadmapMotes"&&!r.sharedMaterial.shader.name.Contains("Stylized Water"));
                 Assert.IsTrue(opaque.All(r=>r.shadowCastingMode==UnityEngine.Rendering.ShadowCastingMode.On),"An opaque world object lost its shadow caster");
+                var shadowPipeline=(UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset)UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline;
+                Assert.IsTrue(shadowPipeline.supportsMainLightShadows);Assert.IsFalse(shadowPipeline.supportsAdditionalLightShadows);
+                Assert.AreEqual(1,shadowPipeline.shadowCascadeCount);Assert.AreEqual(quality==0?512:1024,shadowPipeline.mainLightShadowmapResolution);
+                foreach(var mesh in opaque.Select(r=>r.GetComponent<MeshFilter>().sharedMesh))
+                    Assert.LessOrEqual(mesh.vertexCount,(long)mesh.GetIndexCount(0),"Indexed shadow geometry exceeds its triangle stream");
                 for(int i=0;i<9;i++)
                 {
                     World().Seek(i*.5f);yield return Frames(12);Assert.IsTrue(World().Ready,World().Fault);Assert.LessOrEqual(World().LoadedChunks,3);

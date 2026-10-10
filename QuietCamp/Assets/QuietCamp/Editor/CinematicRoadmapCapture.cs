@@ -93,12 +93,18 @@ namespace QuietCamp.Editor
                 if(visible.Any(r=>r.sharedMaterial!=asset.water&&r.sharedMaterial!=asset.motes&&r.shadowCastingMode!=ShadowCastingMode.On))
                     throw new InvalidOperationException("An opaque roadmap object does not cast a shadow");
                 long submittedTriangles=visible.Sum(r=>(long)r.GetComponent<MeshFilter>().sharedMesh.GetIndexCount(0)/3);
+                var pipeline=(UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline;
+                if(!pipeline.supportsMainLightShadows||pipeline.supportsAdditionalLightShadows||pipeline.shadowCascadeCount!=1)
+                    throw new InvalidOperationException("Roadmap needs one bounded main-light shadow pass");
                 if(world.LoadedChunks>3||submittedTriangles>(low?80000:150000)||visible.Select(r=>r.sharedMaterial).Distinct().Count()>(low?8:12))
                     throw new InvalidOperationException("Native composition exceeds the pilot geometry/residency/material budget: "+path+" / "+submittedTriangles);
                 return new{file=Path.GetFileName(path),route,frontier,quality=low?"Low":"Balanced",width,height,
                     renderProfile=QualitySettings.names[QualitySettings.GetQualityLevel()],
                     zoom,fieldOfView=world.WorldCamera.fieldOfView,shadowDistance=((UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline).shadowDistance,loadedChunks=world.LoadedChunks,visibleRenderers=visible.Length,submittedMeshTriangles=submittedTriangles,
                     sharedMaterials=visible.Select(r=>r.sharedMaterial).Distinct().Count(),opaqueShadowCasters=visible.Count(r=>r.sharedMaterial!=asset.water&&r.sharedMaterial!=asset.motes),editorDrawCalls=UnityStats.drawCalls,
+                    submittedMeshVertices=visible.Sum(r=>(long)r.GetComponent<MeshFilter>().sharedMesh.vertexCount),
+                    visibleShadowCasterVertices=visible.Where(r=>r.sharedMaterial!=asset.water&&r.sharedMaterial!=asset.motes).Sum(r=>(long)r.GetComponent<MeshFilter>().sharedMesh.vertexCount),
+                    shadowAtlasResolution=pipeline.mainLightShadowmapResolution,shadowCascades=pipeline.shadowCascadeCount,
                     editorTriangles=UnityStats.triangles,cameraPosition=new[]{world.WorldCamera.transform.position.x,world.WorldCamera.transform.position.y,world.WorldCamera.transform.position.z}};
             }
             finally

@@ -1,0 +1,72 @@
+{
+  "kind": "lossless-indexed-world-shadow-budget",
+  "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
+  "nativeCaptureUtc": "2026-10-10T18:43:32.0253810Z",
+  "beforeSourceHash": "4c4e9ae2fe3f562e313bb1f69ee222792cf7565230653e5efe909c51d64e3043",
+  "beforeNativeCaptureUtc": "2026-10-10T18:28:07.1516840Z",
+  "tiers": [
+    {
+      "quality": "Low",
+      "triangles": 94993,
+      "triangleStreamVerticesBefore": 284979,
+      "indexedVertices": 219841,
+      "vertexReductionPercent": 22.857122805540055,
+      "maxVisibleMeshVertices": 154811,
+      "maxVisibleShadowCasterVertices": 152878,
+      "shadowAtlasResolution": 512,
+      "shadowCascades": 1
+    },
+    {
+      "quality": "Balanced",
+      "triangles": 134294,
+      "triangleStreamVerticesBefore": 402882,
+      "indexedVertices": 311485,
+      "vertexReductionPercent": 22.685798819505465,
+      "maxVisibleMeshVertices": 212912,
+      "maxVisibleShadowCasterVertices": 210850,
+      "shadowAtlasResolution": 1024,
+      "shadowCascades": 1
+    }
+  ],
+  "chunkVertexAndIndexPayloadBytesBothVariants": 35380586,
+  "sameTriangleAttributesVerifiedDuringBake": true,
+  "oneMainLightShadowPass": true,
+  "allOpaqueWorldObjectsCastShadows": true,
+  "staticStopPixelComparison": [
+    {
+      "file": "composition-00.png",
+      "beforeSha256": "990457fff61b7af2a4d736231929f47e907953e595d01d2d283d8cea1edc8ad7",
+      "afterSha256": "990457fff61b7af2a4d736231929f47e907953e595d01d2d283d8cea1edc8ad7",
+      "meanRgbByteDifference": 0.0,
+      "notes": "Water uses a live clock; river scenes can differ between captures."
+    },
+    {
+      "file": "low-composition-00.png",
+      "beforeSha256": "3637fb8ec9f8070f05873d1cf04d6f11e1b44633302898dc16a4c1842d02e04f",
+      "afterSha256": "3637fb8ec9f8070f05873d1cf04d6f11e1b44633302898dc16a4c1842d02e04f",
+      "meanRgbByteDifference": 0.0,
+      "notes": "Water uses a live clock; river scenes can differ between captures."
+    },
+    {
+      "file": "composition-04.png",
+      "beforeSha256": "dff1fb3d581ffebe4b30717f05124ed8df876d315f4100907b32577a75b9ad15",
+      "afterSha256": "f1bd4475f32ef8aa703cf231a9aa397cb2259f29a5fc888ece833fc5f5cdedff",
+      "meanRgbByteDifference": 0.5268315972222223,
+      "notes": "Water uses a live clock; river scenes can differ between captures."
+    },
+    {
+      "file": "composition-08.png",
+      "beforeSha256": "7f2dfd69a3583f9d1bba53a132301463ada1388aa4549d3707cb543399eecc2d",
+      "afterSha256": "0f1588fc8e18033932eaab36c825540957bde92bfe8f79e592114b3173f60ce6",
+      "meanRgbByteDifference": 3.086700520833334,
+      "notes": "Water uses a live clock; river scenes can differ between captures."
+    }
+  ],
+  "gameViewResult": "Pending",
+  "mobileFpsMeasured": false,
+  "playerBuild": false,
+  "limits": [
+    "Indexed vertex/payload and Editor counters are not GPU timing or phone FPS.",
+    "Water and airborne pollen are transparent and do not cast opaque ground shadows."
+  ]
+}

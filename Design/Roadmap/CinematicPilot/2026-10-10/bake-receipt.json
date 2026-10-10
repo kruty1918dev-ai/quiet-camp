@@ -1,5 +1,5 @@
 {
-  "sourceHash": "4c4e9ae2fe3f562e313bb1f69ee222792cf7565230653e5efe909c51d64e3043",
+  "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
   "compiler": "semantic-composer-0.3.0",
   "unity": "6000.6.2f1",
   "composition": {
@@ -806,9 +806,11 @@
   "stats": [
     {
       "index": 0,
-      "estimatedBytes": 7621320,
+      "estimatedBytes": 7158910,
       "balancedTriangles": 26680,
       "lowTriangles": 18685,
+      "balancedVertices": 64024,
+      "lowVertices": 43581,
       "sourceAssets": [
         "pilot.airborne-pollen",
         "pilot.bench",
@@ -826,9 +828,11 @@
     },
     {
       "index": 1,
-      "estimatedBytes": 6980904,
+      "estimatedBytes": 6439782,
       "balancedTriangles": 23283,
       "lowTriangles": 18270,
+      "balancedVertices": 54913,
+      "lowVertices": 41813,
       "sourceAssets": [
         "pilot.airborne-pollen",
         "pilot.branching-tree",
@@ -848,9 +852,11 @@
     },
     {
       "index": 2,
-      "estimatedBytes": 6710760,
+      "estimatedBytes": 6071286,
       "balancedTriangles": 23143,
       "lowTriangles": 16802,
+      "balancedVertices": 52363,
+      "lowVertices": 38756,
       "sourceAssets": [
         "pilot.airborne-pollen",
         "pilot.grass-tuft",
@@ -866,9 +872,11 @@
     },
     {
       "index": 3,
-      "estimatedBytes": 5321232,
+      "estimatedBytes": 4991196,
       "balancedTriangles": 18773,
       "lowTriangles": 12901,
+      "balancedVertices": 44485,
+      "lowVertices": 30533,
       "sourceAssets": [
         "pilot.airborne-pollen",
         "pilot.bank-rock",
@@ -886,9 +894,11 @@
     },
     {
       "index": 4,
-      "estimatedBytes": 11886000,
+      "estimatedBytes": 10719412,
       "balancedTriangles": 42415,
       "lowTriangles": 28335,
+      "balancedVertices": 95700,
+      "lowVertices": 65158,
       "sourceAssets": [
         "pilot.airborne-pollen",
         "pilot.bank-rock",

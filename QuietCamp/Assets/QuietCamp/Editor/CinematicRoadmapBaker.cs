@@ -127,11 +127,12 @@ namespace QuietCamp.Editor
                     .Concat(Document.landmarks.Where(l=>OwnerChunk(l.z)==c).Select(l=>l.asset))
                     .Concat(BalancedPlants.Where(p=>OwnerChunk(p.z)==c).Select(p=>p.asset))
                     .Concat(new[]{"tree_default","tree_pineRoundA","stone_largeA","pilot.road-ribbon","pilot.airborne-pollen"}).Distinct().OrderBy(s=>s).ToArray();
-                chunk.estimatedBytes=chunk.balanced.Concat(chunk.low).Where(m=>m!=null).Sum(m=>(long)m.vertexCount*52+m.GetIndexCount(0)*4);
+                chunk.estimatedBytes=chunk.balanced.Concat(chunk.low).Where(m=>m!=null).Sum(MeshBytes);
                 string file=folder+"/chunk-"+c+".asset";AssetDatabase.CreateAsset(chunk,file);
                 foreach(var m in chunk.balanced.Concat(chunk.low).Where(m=>m!=null))AssetDatabase.AddObjectToAsset(m,chunk);
                 index.chunks[c]="QuietCamp/CinematicRoadmap/"+Revision.Substring(0,16)+"/chunk-"+c;
-                stats.Add(new {index=c,chunk.estimatedBytes,balancedTriangles=chunk.balanced.Where(m=>m!=null).Sum(m=>(long)m.GetIndexCount(0)/3),lowTriangles=chunk.low.Where(m=>m!=null).Sum(m=>(long)m.GetIndexCount(0)/3),chunk.sourceAssets});
+                stats.Add(new {index=c,chunk.estimatedBytes,balancedTriangles=chunk.balanced.Where(m=>m!=null).Sum(m=>(long)m.GetIndexCount(0)/3),lowTriangles=chunk.low.Where(m=>m!=null).Sum(m=>(long)m.GetIndexCount(0)/3),
+                    balancedVertices=chunk.balanced.Where(m=>m!=null).Sum(m=>(long)m.vertexCount),lowVertices=chunk.low.Where(m=>m!=null).Sum(m=>(long)m.vertexCount),chunk.sourceAssets});
             }
             index.horizon=Horizon();AssetDatabase.CreateAsset(index.horizon,folder+"/Horizon.asset");
             index.distantForest=new Mesh[index.chunks.Length];
@@ -186,6 +187,8 @@ namespace QuietCamp.Editor
             AssetDatabase.CreateAsset(m,folder+"/"+name+".mat");return m;
         }
         static int OwnerChunk(float z) {for(int i=0;i<World.chunkEnds.Length;i++)if(z<World.chunkEnds[i])return i;return World.chunkEnds.Length-1;}
+        static long MeshBytes(Mesh m)=>Enumerable.Range(0,m.vertexBufferCount).Sum(stream=>(long)m.GetVertexBufferStride(stream)*m.vertexCount)
+            +(long)m.GetIndexCount(0)*(m.indexFormat==IndexFormat.UInt16?2:4);
         sealed class Geometry
         {
             public readonly List<Vector3> vertices=new List<Vector3>(),normals=new List<Vector3>();
@@ -200,8 +203,35 @@ namespace QuietCamp.Editor
             }
             public Mesh Mesh(string name)
             {
-                if(vertices.Count==0)return null;var m=new Mesh{name=name,indexFormat=IndexFormat.UInt32};
-                m.SetVertices(vertices);m.SetNormals(normals);m.SetColors(colors);m.SetUVs(0,uvs);m.SetUVs(1,roots);m.SetTriangles(indices,0);m.RecalculateBounds();
+                if(vertices.Count==0)return null;
+                // Share only exactly identical vertex attributes. Position-only welding
+                // would erase flat normals, palette seams or a plant's wind root.
+                // Indexed vertices are reused in the colour, depth and shadow passes.
+                var lookup=new Dictionary<(Vector3,Vector3,Color,Vector2,Vector4),int>();
+                var positions=new List<Vector3>();var directions=new List<Vector3>();var palette=new List<Color>();
+                var texcoords=new List<Vector2>();var plants=new List<Vector4>();var remap=new int[vertices.Count];
+                for(int i=0;i<vertices.Count;i++)
+                {
+                    var key=(vertices[i],normals[i],colors[i],uvs[i],roots[i]);
+                    if(!lookup.TryGetValue(key,out int index))
+                    {
+                        index=positions.Count;lookup.Add(key,index);positions.Add(vertices[i]);directions.Add(normals[i]);
+                        palette.Add(colors[i]);texcoords.Add(uvs[i]);plants.Add(roots[i]);
+                    }
+                    remap[i]=index;
+                }
+                var triangles=indices.Select(i=>remap[i]).ToArray();
+                // Verify the expanded triangle stream, including attributes, before
+                // publishing. This is a lossless change, not a model simplification.
+                for(int i=0;i<indices.Count;i++)
+                {
+                    int source=indices[i],target=triangles[i];
+                    if(!positions[target].Equals(vertices[source])||!directions[target].Equals(normals[source])
+                        ||!palette[target].Equals(colors[source])||!texcoords[target].Equals(uvs[source])||!plants[target].Equals(roots[source]))
+                        throw new InvalidOperationException("Indexed mesh changed triangle attributes: "+name);
+                }
+                var m=new Mesh{name=name,indexFormat=positions.Count<65536?IndexFormat.UInt16:IndexFormat.UInt32};
+                m.SetVertices(positions);m.SetNormals(directions);m.SetColors(palette);m.SetUVs(0,texcoords);m.SetUVs(1,plants);m.SetTriangles(triangles,0);m.RecalculateBounds();
                 var b=m.bounds;b.Expand(1.2f);m.bounds=b;return m;
             }
         }
