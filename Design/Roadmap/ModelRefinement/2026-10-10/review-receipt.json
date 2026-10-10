@@ -1,14 +1,14 @@
 {
   "kind": "roadmap-model-and-clearance-native-review",
   "verifiedUtc": "2026-10-10T18:09:55.110258+00:00",
-  "sourceHash": "56f533f8ee3bc33aff187e6577b8a5b8eec1c780509e2f1723f21c66593442ad",
-  "nativeCaptureUtc": "2026-10-10T17:56:07.1778010Z",
+  "sourceHash": "4c4e9ae2fe3f562e313bb1f69ee222792cf7565230653e5efe909c51d64e3043",
+  "nativeCaptureUtc": "2026-10-10T18:28:07.1516840Z",
   "before": {
     "sourceHash": "6fd474482fbae4d90f7bdbcc20778cedb9d48e43daee20467ca7cede5bb4dc31",
     "capturedUtc": "2026-10-10T16:57:20.1316990Z",
     "description": "Historical aerial world before donor refinement. Original capture date preserved."
   },
-  "scope": "Native art/clearance review and Passed current Game View follow-up",
+  "scope": "Updated native stop/road; current Game View follow-up pending",
   "models": [
     {
       "asset": "pilot.asphalt",
@@ -257,41 +257,41 @@
   "vegetation": [
     {
       "quality": "low",
-      "plants": 2237,
-      "trees": 283,
+      "plants": 2215,
+      "trees": 281,
       "groundProps": 1,
-      "grassTufts": 1058,
+      "grassTufts": 1049,
       "minimumAnimatedPlantGap": 0.15024566848226695
     },
     {
       "quality": "balanced",
-      "plants": 3145,
-      "trees": 410,
+      "plants": 3100,
+      "trees": 406,
       "groundProps": 0,
-      "grassTufts": 1409,
+      "grassTufts": 1392,
       "minimumAnimatedPlantGap": 0.15095403864305534
     }
   ],
   "images": [
     {
       "file": "after-QC001.png",
-      "sha256": "0ddc25a65e945378652cdfe1dc1335f6e66668014a09a8b0e99ae5a019c3ede5"
+      "sha256": "990457fff61b7af2a4d736231929f47e907953e595d01d2d283d8cea1edc8ad7"
     },
     {
       "file": "after-QC002.png",
-      "sha256": "e670e86378c15b93bbe71531406d65cc8aef1b047b81009571a01789aa6ecc3b"
+      "sha256": "3dba786ba8571cc49451d574b9ce9eb8064db55ff46c702e74fc4f9f049f3337"
     },
     {
       "file": "after-QC003.png",
-      "sha256": "c336bf101235f9bb9eb3fcc3755303eaa1ad01ce8edba012b6f84b4de1d9abad"
+      "sha256": "dff1fb3d581ffebe4b30717f05124ed8df876d315f4100907b32577a75b9ad15"
     },
     {
       "file": "after-QC004.png",
-      "sha256": "5e7a87f9314722b450f164538d3b454dc618a493fb00d2a753da6bc28b825ed3"
+      "sha256": "7054b3dd36297df62d54c41f253aecf85383749ca5c5334b4448e0d87d7ac426"
     },
     {
       "file": "after-QC005.png",
-      "sha256": "aad97b737c1bb61c61c8215945ab48f8186d3406e9ab4b40a21046594211b1d5"
+      "sha256": "7f2dfd69a3583f9d1bba53a132301463ada1388aa4549d3707cb543399eecc2d"
     },
     {
       "file": "before-QC001.png",
@@ -327,7 +327,5 @@
     ]
   },
   "playerBuild": false,
-  "mobileFpsMeasured": false,
-  "gameViewCaptureUtc": "2026-10-10T18:08:49.3374580Z",
-  "gameViewResult": "Passed"
+  "mobileFpsMeasured": false
 }

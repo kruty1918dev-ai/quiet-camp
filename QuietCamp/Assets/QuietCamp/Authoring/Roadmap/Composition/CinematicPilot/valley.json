@@ -6,7 +6,7 @@
   "nodes": [
     {
       "id": "QC001",
-      "x": 0,
+      "x": 4.35,
       "z": 0,
       "radius": 1.2
     },
@@ -39,10 +39,10 @@
     {
       "id": "stop-parcel",
       "kind": "parcel",
-      "x": -8.5,
+      "x": -10,
       "z": 5,
-      "width": 14,
-      "depth": 14,
+      "width": 18,
+      "depth": 18,
       "density": 0
     },
     {
@@ -68,11 +68,27 @@
     {
       "id": "old-road",
       "kind": "road",
-      "width": 2,
+      "width": 3.2,
+      "nextRoute": "old-road-trail",
       "points": [
         {
           "x": 0,
           "z": -40
+        },
+        {
+          "x": 0,
+          "z": 20
+        }
+      ]
+    },
+    {
+      "id": "old-road-trail",
+      "kind": "road",
+      "width": 2,
+      "points": [
+        {
+          "x": 0,
+          "z": 20
         },
         {
           "x": 0,
@@ -104,9 +120,9 @@
       "placement": {
         "zone": "stop-parcel",
         "nearNode": "QC001",
-        "x": -8.5,
+        "x": -10,
         "z": 5,
-        "yaw": 18,
+        "yaw": -90,
         "fixedPosition": true,
         "faceRoute": false
       },
@@ -124,7 +140,7 @@
         "fixedPosition": true,
         "faceRoute": false
       },
-      "entranceConnectsTo": "old-road"
+      "entranceConnectsTo": "old-road-trail"
     },
     {
       "id": "forest-ruin",
@@ -516,5 +532,59 @@
     "materials": 5,
     "renderers": 24,
     "cacheBytes": 67108864
-  }
+  },
+  "surfaces": [
+    {
+      "id": "last-stop-bus-bay",
+      "kind": "bus-bay",
+      "owner": "last-stop",
+      "relativeToOwner": true,
+      "heightOffset": 0,
+      "feather": 0.5,
+      "points": [
+        {
+          "x": -11,
+          "z": -6.8
+        },
+        {
+          "x": -6,
+          "z": -3.8
+        },
+        {
+          "x": 6,
+          "z": -3.8
+        },
+        {
+          "x": 11,
+          "z": -6.8
+        }
+      ]
+    },
+    {
+      "id": "last-stop-waiting-platform",
+      "kind": "gravel",
+      "owner": "last-stop",
+      "relativeToOwner": true,
+      "heightOffset": 0,
+      "feather": 0.25,
+      "points": [
+        {
+          "x": -4.8,
+          "z": 1.55
+        },
+        {
+          "x": 4.2,
+          "z": 1.55
+        },
+        {
+          "x": 4.2,
+          "z": -3.8
+        },
+        {
+          "x": -4.8,
+          "z": -3.8
+        }
+      ]
+    }
+  ]
 }

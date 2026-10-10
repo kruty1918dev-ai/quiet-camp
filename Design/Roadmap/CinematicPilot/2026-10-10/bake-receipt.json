@@ -1,5 +1,5 @@
 {
-  "sourceHash": "56f533f8ee3bc33aff187e6577b8a5b8eec1c780509e2f1723f21c66593442ad",
+  "sourceHash": "4c4e9ae2fe3f562e313bb1f69ee222792cf7565230653e5efe909c51d64e3043",
   "compiler": "semantic-composer-0.3.0",
   "unity": "6000.6.2f1",
   "composition": {
@@ -40,10 +40,10 @@
         "revealOwner": "QC001",
         "state": "reclaimed",
         "template": "pilot.stop",
-        "x": -8.5,
+        "x": -10.0,
         "z": 5.0,
         "height": 3.2,
-        "yaw": 18.0,
+        "yaw": -90.0,
         "wind": false
       },
       {
@@ -54,10 +54,10 @@
         "revealOwner": "QC001",
         "state": "reclaimed",
         "template": "pilot.stop",
-        "x": -9.365248,
-        "z": 2.33704162,
+        "x": -9.099999,
+        "z": 1.4000001,
         "height": 0.85,
-        "yaw": 18.0,
+        "yaw": -90.0,
         "wind": false
       },
       {
@@ -729,9 +729,9 @@
       },
       {
         "id": "last-stop",
-        "x": -8.5,
+        "x": -10.0,
         "z": 5.0,
-        "yaw": 18.0,
+        "yaw": -90.0,
         "scale": 1.0
       },
       {
@@ -749,10 +749,10 @@
         "a": "last-stop/bench",
         "b": "old-road",
         "state": "intact",
-        "ax": -9.365248,
-        "az": 2.33704162,
+        "ax": -9.099999,
+        "az": 1.4000001,
         "bx": 0.0,
-        "bz": 2.337041,
+        "bz": 1.39999986,
         "height": 0.0,
         "dropLength": 2.0,
         "socketA": -1,
@@ -760,9 +760,9 @@
       },
       {
         "id": "reclaimed-yard/approach-gate",
-        "route": "old-road",
+        "route": "old-road-trail",
         "a": "reclaimed-yard/gate",
-        "b": "old-road",
+        "b": "old-road-trail",
         "state": "intact",
         "ax": -6.0,
         "az": 47.5,
@@ -787,7 +787,7 @@
         "entityId": "last-stop",
         "reason": null,
         "index": 0,
-        "x": -8.5,
+        "x": -10.0,
         "z": 5.0,
         "accepted": true
       },
@@ -806,9 +806,9 @@
   "stats": [
     {
       "index": 0,
-      "estimatedBytes": 7679280,
-      "balancedTriangles": 26612,
-      "lowTriangles": 19098,
+      "estimatedBytes": 7621320,
+      "balancedTriangles": 26680,
+      "lowTriangles": 18685,
       "sourceAssets": [
         "pilot.airborne-pollen",
         "pilot.bench",
@@ -826,9 +826,9 @@
     },
     {
       "index": 1,
-      "estimatedBytes": 7028280,
-      "balancedTriangles": 23346,
-      "lowTriangles": 18489,
+      "estimatedBytes": 6980904,
+      "balancedTriangles": 23283,
+      "lowTriangles": 18270,
       "sourceAssets": [
         "pilot.airborne-pollen",
         "pilot.branching-tree",
@@ -848,9 +848,9 @@
     },
     {
       "index": 2,
-      "estimatedBytes": 6746880,
-      "balancedTriangles": 23155,
-      "lowTriangles": 17005,
+      "estimatedBytes": 6710760,
+      "balancedTriangles": 23143,
+      "lowTriangles": 16802,
       "sourceAssets": [
         "pilot.airborne-pollen",
         "pilot.grass-tuft",
@@ -866,9 +866,9 @@
     },
     {
       "index": 3,
-      "estimatedBytes": 5356008,
-      "balancedTriangles": 18785,
-      "lowTriangles": 13096,
+      "estimatedBytes": 5321232,
+      "balancedTriangles": 18773,
+      "lowTriangles": 12901,
       "sourceAssets": [
         "pilot.airborne-pollen",
         "pilot.bank-rock",
@@ -886,9 +886,9 @@
     },
     {
       "index": 4,
-      "estimatedBytes": 11982936,
-      "balancedTriangles": 42479,
-      "lowTriangles": 28848,
+      "estimatedBytes": 11886000,
+      "balancedTriangles": 42415,
+      "lowTriangles": 28335,
       "sourceAssets": [
         "pilot.airborne-pollen",
         "pilot.bank-rock",
@@ -1151,6 +1151,64 @@
       ]
     }
   ],
+  "road": {
+    "followsNativeTerrainTriangles": true,
+    "horizonOnlyWhenUnloaded": true,
+    "surfaces": [
+      {
+        "id": "last-stop-bus-bay",
+        "kind": "bus-bay",
+        "owner": "last-stop",
+        "points": [
+          {
+            "x": -3.19999933,
+            "z": -5.99999952
+          },
+          {
+            "x": -6.2,
+            "z": -0.9999998
+          },
+          {
+            "x": -6.20000029,
+            "z": 11.0
+          },
+          {
+            "x": -3.20000029,
+            "z": 16.0
+          }
+        ],
+        "heightOffset": 0.0,
+        "feather": 0.5,
+        "relativeToOwner": false
+      },
+      {
+        "id": "last-stop-waiting-platform",
+        "kind": "gravel",
+        "owner": "last-stop",
+        "points": [
+          {
+            "x": -11.55,
+            "z": 0.199999735
+          },
+          {
+            "x": -11.55,
+            "z": 9.2
+          },
+          {
+            "x": -6.20000029,
+            "z": 9.2
+          },
+          {
+            "x": -6.2,
+            "z": 0.199999973
+          }
+        ],
+        "heightOffset": 0.0,
+        "feather": 0.25,
+        "relativeToOwner": false
+      }
+    ]
+  },
   "vegetation": {
     "balanced": [
       {
@@ -1550,17 +1608,6 @@
         "tree": true
       },
       {
-        "id": "forest--7--24",
-        "asset": "tree_default",
-        "x": -5.590237,
-        "z": -22.3025646,
-        "height": 9.268108,
-        "yaw": 267.981445,
-        "tint": 0.906543851,
-        "radius": 2.63806534,
-        "tree": true
-      },
-      {
         "id": "forest-6.5--24",
         "asset": "tree_pineRoundA",
         "x": 8.547389,
@@ -1814,17 +1861,6 @@
         "tree": true
       },
       {
-        "id": "forest--16--6",
-        "asset": "tree_default",
-        "x": -13.3340807,
-        "z": -3.61539841,
-        "height": 7.68800735,
-        "yaw": 152.563644,
-        "tint": 0.961229265,
-        "radius": 2.201946,
-        "tree": true
-      },
-      {
         "id": "forest-20--6",
         "asset": "tree_pineRoundA",
         "x": 20.13933,
@@ -1866,6 +1902,17 @@
         "yaw": 141.609451,
         "tint": 0.992683947,
         "radius": 2.10666323,
+        "tree": true
+      },
+      {
+        "id": "forest--16--1.5",
+        "asset": "tree_pineRoundA",
+        "x": -15.0176325,
+        "z": -0.2565584,
+        "height": 9.048956,
+        "yaw": 351.198364,
+        "tint": 0.893229,
+        "radius": 2.93719459,
         "tree": true
       },
       {
@@ -1976,17 +2023,6 @@
         "yaw": 81.56254,
         "tint": 1.0013653,
         "radius": 1.93083727,
-        "tree": true
-      },
-      {
-        "id": "forest--16-7.5",
-        "asset": "tree_default",
-        "x": -13.610136,
-        "z": 9.289958,
-        "height": 7.663514,
-        "yaw": 191.128983,
-        "tint": 0.9262899,
-        "radius": 2.19518566,
         "tree": true
       },
       {
@@ -5147,17 +5183,6 @@
         "tree": true
       },
       {
-        "id": "young--4.5--13",
-        "asset": "tree_pineRoundA",
-        "x": -3.98778319,
-        "z": -11.4986534,
-        "height": 2.70160556,
-        "yaw": 202.809677,
-        "tint": 0.92,
-        "radius": 0.933028,
-        "tree": true
-      },
-      {
         "id": "young-23--13",
         "asset": "tree_default",
         "x": 25.2268448,
@@ -5232,17 +5257,6 @@
         "yaw": 152.250687,
         "tint": 0.92,
         "radius": 1.091748,
-        "tree": true
-      },
-      {
-        "id": "young--4.5-53",
-        "asset": "tree_default",
-        "x": -1.87244487,
-        "z": 53.36867,
-        "height": 2.97088718,
-        "yaw": 82.77033,
-        "tint": 0.92,
-        "radius": 0.899986446,
         "tree": true
       },
       {
@@ -5708,6 +5722,17 @@
         "tree": false
       },
       {
+        "id": "shrub--5.800009--24",
+        "asset": "plant_bushSmall",
+        "x": -5.63617134,
+        "z": -23.7996445,
+        "height": 0.3418891,
+        "yaw": 115.032578,
+        "tint": 1.0,
+        "radius": 0.414641082,
+        "tree": false
+      },
+      {
         "id": "shrub-13.99999--24",
         "asset": "plant_bushSmall",
         "x": 14.6417789,
@@ -5796,14 +5821,25 @@
         "tree": false
       },
       {
-        "id": "shrub-3.199991--22.2",
+        "id": "shrub--7.600009--22.2",
         "asset": "plant_bushSmall",
-        "x": 3.552331,
-        "z": -21.7950554,
-        "height": 0.5273608,
-        "yaw": 287.591736,
+        "x": -6.98332262,
+        "z": -21.9930058,
+        "height": 0.678493,
+        "yaw": 55.419136,
         "tint": 1.0,
-        "radius": 0.596180737,
+        "radius": 0.744109,
+        "tree": false
+      },
+      {
+        "id": "shrub--5.800009--22.2",
+        "asset": "plant_bushSmall",
+        "x": -5.31268835,
+        "z": -21.45571,
+        "height": 0.500130832,
+        "yaw": 303.064331,
+        "tint": 1.0,
+        "radius": 0.569528043,
         "tree": false
       },
       {
@@ -5914,17 +5950,6 @@
         "yaw": 108.875786,
         "tint": 1.0,
         "radius": 0.5903358,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991--20.4",
-        "asset": "plant_bushSmall",
-        "x": 3.71256638,
-        "z": -20.2786331,
-        "height": 0.5614172,
-        "yaw": 174.091675,
-        "tint": 1.0,
-        "radius": 0.6295152,
         "tree": false
       },
       {
@@ -6148,28 +6173,6 @@
         "tree": false
       },
       {
-        "id": "shrub--4.000009--16.8",
-        "asset": "plant_bushSmall",
-        "x": -3.81000018,
-        "z": -15.9135284,
-        "height": 0.49889642,
-        "yaw": 278.248016,
-        "tint": 1.0,
-        "radius": 0.5683198,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991--16.8",
-        "asset": "plant_bushSmall",
-        "x": 4.19780064,
-        "z": -15.8518066,
-        "height": 0.6325743,
-        "yaw": 217.6626,
-        "tint": 1.0,
-        "radius": 0.699163735,
-        "tree": false
-      },
-      {
         "id": "shrub-6.799992--16.8",
         "asset": "plant_bushSmall",
         "x": 7.090641,
@@ -6302,28 +6305,6 @@
         "tree": false
       },
       {
-        "id": "shrub--4.000009--15",
-        "asset": "plant_bushSmall",
-        "x": -3.24434614,
-        "z": -14.0516472,
-        "height": 0.3460277,
-        "yaw": 262.1573,
-        "tint": 1.0,
-        "radius": 0.4186919,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991--15",
-        "asset": "plant_bushSmall",
-        "x": 3.65848041,
-        "z": -14.0558472,
-        "height": 0.76122725,
-        "yaw": 320.629333,
-        "tint": 1.0,
-        "radius": 0.8250892,
-        "tree": false
-      },
-      {
         "id": "shrub-6.799992--15",
         "asset": "plant_bushSmall",
         "x": 6.9933567,
@@ -6409,17 +6390,6 @@
         "yaw": 95.4326,
         "tint": 1.0,
         "radius": 0.5957238,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991--13.2",
-        "asset": "plant_bushSmall",
-        "x": 3.376463,
-        "z": -12.2625351,
-        "height": 0.367538333,
-        "yaw": 38.37735,
-        "tint": 1.0,
-        "radius": 0.4397465,
         "tree": false
       },
       {
@@ -6544,14 +6514,14 @@
         "tree": false
       },
       {
-        "id": "shrub-3.199991--11.4",
+        "id": "shrub--5.800009--11.4",
         "asset": "plant_bushSmall",
-        "x": 3.99631643,
-        "z": -10.6633148,
-        "height": 0.405718237,
-        "yaw": 204.304657,
+        "x": -5.093801,
+        "z": -11.2247458,
+        "height": 0.378229558,
+        "yaw": 197.203125,
         "tint": 1.0,
-        "radius": 0.477117,
+        "radius": 0.4502111,
         "tree": false
       },
       {
@@ -6618,28 +6588,6 @@
         "yaw": 358.202179,
         "tint": 1.0,
         "radius": 0.46920082,
-        "tree": false
-      },
-      {
-        "id": "shrub--4.000009--9.600002",
-        "asset": "plant_bushSmall",
-        "x": -3.38024735,
-        "z": -8.65845,
-        "height": 0.446428269,
-        "yaw": 190.696579,
-        "tint": 1.0,
-        "radius": 0.516964,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991--9.600002",
-        "asset": "plant_bushSmall",
-        "x": 3.86683035,
-        "z": -9.273173,
-        "height": 0.5487534,
-        "yaw": 53.38683,
-        "tint": 1.0,
-        "radius": 0.617119849,
         "tree": false
       },
       {
@@ -6830,25 +6778,14 @@
         "tree": false
       },
       {
-        "id": "shrub--4.000009--6.000002",
+        "id": "shrub--13.00001--6.000002",
         "asset": "plant_bushSmall",
-        "x": -3.263092,
-        "z": -5.53500271,
-        "height": 0.340373039,
-        "yaw": 249.956085,
+        "x": -12.4259338,
+        "z": -5.49355936,
+        "height": 0.409472942,
+        "yaw": 341.4314,
         "tint": 1.0,
-        "radius": 0.413157135,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991--6.000002",
-        "asset": "plant_bushSmall",
-        "x": 4.14468145,
-        "z": -5.280842,
-        "height": 0.7200576,
-        "yaw": 328.9899,
-        "tint": 1.0,
-        "radius": 0.784792364,
+        "radius": 0.4807921,
         "tree": false
       },
       {
@@ -6940,6 +6877,28 @@
         "tree": false
       },
       {
+        "id": "shrub--13.00001--4.200002",
+        "asset": "plant_bushSmall",
+        "x": -12.60294,
+        "z": -3.233328,
+        "height": 0.3600609,
+        "yaw": 261.229767,
+        "tint": 1.0,
+        "radius": 0.432427615,
+        "tree": false
+      },
+      {
+        "id": "shrub--11.20001--4.200002",
+        "asset": "plant_bushSmall",
+        "x": -10.4844656,
+        "z": -3.825918,
+        "height": 0.5376783,
+        "yaw": 50.56822,
+        "tint": 1.0,
+        "radius": 0.6062795,
+        "tree": false
+      },
+      {
         "id": "shrub--7.600009--4.200002",
         "asset": "plant_bushSmall",
         "x": -7.273794,
@@ -6948,17 +6907,6 @@
         "yaw": 108.456207,
         "tint": 1.0,
         "radius": 0.476650357,
-        "tree": false
-      },
-      {
-        "id": "shrub--5.800009--4.200002",
-        "asset": "plant_bushSmall",
-        "x": -5.13150835,
-        "z": -3.72292066,
-        "height": 0.5110765,
-        "yaw": 93.8618851,
-        "tint": 1.0,
-        "radius": 0.5802417,
         "tree": false
       },
       {
@@ -7058,28 +7006,6 @@
         "yaw": 316.953156,
         "tint": 1.0,
         "radius": 0.515750766,
-        "tree": false
-      },
-      {
-        "id": "shrub--4.000009--2.400002",
-        "asset": "plant_bushSmall",
-        "x": -3.61269522,
-        "z": -1.80044734,
-        "height": 0.680521846,
-        "yaw": 300.299957,
-        "tint": 1.0,
-        "radius": 0.7460948,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991--2.400002",
-        "asset": "plant_bushSmall",
-        "x": 3.54749131,
-        "z": -1.60784185,
-        "height": 0.7242994,
-        "yaw": 16.7728062,
-        "tint": 1.0,
-        "radius": 0.7889442,
         "tree": false
       },
       {
@@ -7215,28 +7141,6 @@
         "tree": false
       },
       {
-        "id": "shrub--13.00001--0.6000018",
-        "asset": "plant_bushSmall",
-        "x": -12.2151537,
-        "z": -0.5159284,
-        "height": 0.7283194,
-        "yaw": 94.9724045,
-        "tint": 1.0,
-        "radius": 0.792879045,
-        "tree": false
-      },
-      {
-        "id": "shrub--4.000009--0.6000018",
-        "asset": "plant_bushSmall",
-        "x": -3.627604,
-        "z": 0.3874969,
-        "height": 0.730811,
-        "yaw": 21.5695972,
-        "tint": 1.0,
-        "radius": 0.7953178,
-        "tree": false
-      },
-      {
         "id": "shrub-28.39999--0.6000018",
         "asset": "plant_bushSmall",
         "x": 29.2933578,
@@ -7336,28 +7240,6 @@
         "tree": false
       },
       {
-        "id": "shrub--14.80001-1.199998",
-        "asset": "plant_bushSmall",
-        "x": -13.9795313,
-        "z": 1.9844898,
-        "height": 0.7593272,
-        "yaw": 140.04715,
-        "tint": 1.0,
-        "radius": 0.823229432,
-        "tree": false
-      },
-      {
-        "id": "shrub--13.00001-1.199998",
-        "asset": "plant_bushSmall",
-        "x": -12.1814318,
-        "z": 1.799095,
-        "height": 0.4426155,
-        "yaw": 47.59567,
-        "tint": 1.0,
-        "radius": 0.513232052,
-        "tree": false
-      },
-      {
         "id": "shrub-13.99999-1.199998",
         "asset": "plant_bushSmall",
         "x": 14.8713961,
@@ -7446,17 +7328,6 @@
         "tree": false
       },
       {
-        "id": "shrub--13.00001-2.999998",
-        "asset": "plant_bushSmall",
-        "x": -12.5765619,
-        "z": 3.34704113,
-        "height": 0.7387758,
-        "yaw": 133.10614,
-        "tint": 1.0,
-        "radius": 0.8031137,
-        "tree": false
-      },
-      {
         "id": "shrub-4.999991-2.999998",
         "asset": "plant_bushSmall",
         "x": 5.686407,
@@ -7520,28 +7391,6 @@
         "yaw": 286.285675,
         "tint": 1.0,
         "radius": 0.799391866,
-        "tree": false
-      },
-      {
-        "id": "shrub--13.00001-4.799998",
-        "asset": "plant_bushSmall",
-        "x": -12.2882233,
-        "z": 5.4328866,
-        "height": 0.6655073,
-        "yaw": 128.265274,
-        "tint": 1.0,
-        "radius": 0.7313985,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991-4.799998",
-        "asset": "plant_bushSmall",
-        "x": 3.80159283,
-        "z": 5.57973337,
-        "height": 0.6737563,
-        "yaw": 171.595154,
-        "tint": 1.0,
-        "radius": 0.7394727,
         "tree": false
       },
       {
@@ -7644,14 +7493,14 @@
         "tree": false
       },
       {
-        "id": "shrub--5.800009-6.599998",
+        "id": "shrub--16.60001-6.599998",
         "asset": "plant_bushSmall",
-        "x": -5.68845558,
-        "z": 7.462527,
-        "height": 0.6751999,
-        "yaw": 138.047562,
+        "x": -15.7846,
+        "z": 7.57185936,
+        "height": 0.4056201,
+        "yaw": 324.633453,
         "tint": 1.0,
-        "radius": 0.7408857,
+        "radius": 0.477020949,
         "tree": false
       },
       {
@@ -7721,25 +7570,36 @@
         "tree": false
       },
       {
-        "id": "shrub--7.600009-8.399999",
+        "id": "shrub--16.60001-8.399999",
         "asset": "plant_bushSmall",
-        "x": -6.684353,
-        "z": 8.99029,
-        "height": 0.5181611,
-        "yaw": 210.0767,
+        "x": -16.4685783,
+        "z": 9.09853,
+        "height": 0.731552839,
+        "yaw": 165.081421,
         "tint": 1.0,
-        "radius": 0.5871761,
+        "radius": 0.7960439,
         "tree": false
       },
       {
-        "id": "shrub-3.199991-8.399999",
+        "id": "shrub--14.80001-8.399999",
         "asset": "plant_bushSmall",
-        "x": 4.07956648,
-        "z": 9.289134,
-        "height": 0.6963889,
-        "yaw": 195.4452,
+        "x": -14.466732,
+        "z": 8.962211,
+        "height": 0.656651258,
+        "yaw": 127.485992,
         "tint": 1.0,
-        "radius": 0.761625469,
+        "radius": 0.7227302,
+        "tree": false
+      },
+      {
+        "id": "shrub--13.00001-8.399999",
+        "asset": "plant_bushSmall",
+        "x": -12.9022312,
+        "z": 8.555682,
+        "height": 0.469949275,
+        "yaw": 90.434166,
+        "tint": 1.0,
+        "radius": 0.5399863,
         "tree": false
       },
       {
@@ -7853,6 +7713,39 @@
         "tree": false
       },
       {
+        "id": "shrub--16.60001-10.2",
+        "asset": "plant_bushSmall",
+        "x": -15.8674335,
+        "z": 10.7104006,
+        "height": 0.531293,
+        "yaw": 91.17316,
+        "tint": 1.0,
+        "radius": 0.6000296,
+        "tree": false
+      },
+      {
+        "id": "shrub--14.80001-10.2",
+        "asset": "plant_bushSmall",
+        "x": -13.9457626,
+        "z": 10.7597895,
+        "height": 0.7727512,
+        "yaw": 161.167938,
+        "tint": 1.0,
+        "radius": 0.836368859,
+        "tree": false
+      },
+      {
+        "id": "shrub--13.00001-10.2",
+        "asset": "plant_bushSmall",
+        "x": -12.4379034,
+        "z": 11.0952644,
+        "height": 0.415831,
+        "yaw": 316.821747,
+        "tint": 1.0,
+        "radius": 0.487015367,
+        "tree": false
+      },
+      {
         "id": "shrub--11.20001-10.2",
         "asset": "plant_bushSmall",
         "x": -10.7453737,
@@ -7872,39 +7765,6 @@
         "yaw": 218.250153,
         "tint": 1.0,
         "radius": 0.749610364,
-        "tree": false
-      },
-      {
-        "id": "shrub--7.600009-10.2",
-        "asset": "plant_bushSmall",
-        "x": -6.735182,
-        "z": 10.3546572,
-        "height": 0.514588654,
-        "yaw": 50.58273,
-        "tint": 1.0,
-        "radius": 0.5836794,
-        "tree": false
-      },
-      {
-        "id": "shrub--5.800009-10.2",
-        "asset": "plant_bushSmall",
-        "x": -5.355864,
-        "z": 11.1953917,
-        "height": 0.497586966,
-        "yaw": 328.200623,
-        "tint": 1.0,
-        "radius": 0.5670381,
-        "tree": false
-      },
-      {
-        "id": "shrub--4.000009-10.2",
-        "asset": "plant_bushSmall",
-        "x": -3.36596751,
-        "z": 10.2720423,
-        "height": 0.4966424,
-        "yaw": 21.10942,
-        "tint": 1.0,
-        "radius": 0.5661136,
         "tree": false
       },
       {
@@ -8007,14 +7867,14 @@
         "tree": false
       },
       {
-        "id": "shrub-3.199991-12",
+        "id": "shrub-4.999991-12",
         "asset": "plant_bushSmall",
-        "x": 4.00844955,
-        "z": 12.7075424,
-        "height": 0.753805339,
-        "yaw": 13.0457363,
+        "x": 5.106984,
+        "z": 12.1531878,
+        "height": 0.326418072,
+        "yaw": 75.87967,
         "tint": 1.0,
-        "radius": 0.817824662,
+        "radius": 0.399498016,
         "tree": false
       },
       {
@@ -8106,28 +7966,6 @@
         "tree": false
       },
       {
-        "id": "shrub--5.800009-13.8",
-        "asset": "plant_bushSmall",
-        "x": -4.86255741,
-        "z": 13.8320227,
-        "height": 0.5916513,
-        "yaw": 17.1960773,
-        "tint": 1.0,
-        "radius": 0.659108341,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991-13.8",
-        "asset": "plant_bushSmall",
-        "x": 4.12050629,
-        "z": 14.5447445,
-        "height": 0.7364141,
-        "yaw": 358.181824,
-        "tint": 1.0,
-        "radius": 0.8008021,
-        "tree": false
-      },
-      {
         "id": "shrub-12.19999-13.8",
         "asset": "plant_bushSmall",
         "x": 12.42608,
@@ -8213,17 +8051,6 @@
         "yaw": 97.32577,
         "tint": 1.0,
         "radius": 0.724378347,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991-15.6",
-        "asset": "plant_bushSmall",
-        "x": 3.21703553,
-        "z": 16.49873,
-        "height": 0.369483829,
-        "yaw": 299.530182,
-        "tint": 1.0,
-        "radius": 0.441650778,
         "tree": false
       },
       {
@@ -8469,17 +8296,6 @@
         "tree": false
       },
       {
-        "id": "shrub-3.199991-19.2",
-        "asset": "plant_bushSmall",
-        "x": 3.90971851,
-        "z": 19.494566,
-        "height": 0.552382469,
-        "yaw": 286.773926,
-        "tint": 1.0,
-        "radius": 0.6206719,
-        "tree": false
-      },
-      {
         "id": "shrub-4.999991-19.2",
         "asset": "plant_bushSmall",
         "x": 5.890581,
@@ -8543,17 +8359,6 @@
         "yaw": 40.844326,
         "tint": 1.0,
         "radius": 0.581482768,
-        "tree": false
-      },
-      {
-        "id": "shrub--4.000009-21",
-        "asset": "plant_bushSmall",
-        "x": -3.58241343,
-        "z": 21.7849274,
-        "height": 0.697750151,
-        "yaw": 84.3139343,
-        "tint": 1.0,
-        "radius": 0.7629578,
         "tree": false
       },
       {
@@ -8656,14 +8461,14 @@
         "tree": false
       },
       {
-        "id": "shrub-3.199991-22.8",
+        "id": "shrub-4.999991-22.8",
         "asset": "plant_bushSmall",
-        "x": 3.856815,
-        "z": 23.66994,
-        "height": 0.7693666,
-        "yaw": 291.12796,
+        "x": 5.323067,
+        "z": 23.4756069,
+        "height": 0.488763332,
+        "yaw": 163.076645,
         "tint": 1.0,
-        "radius": 0.833056033,
+        "radius": 0.5584015,
         "tree": false
       },
       {
@@ -8752,17 +8557,6 @@
         "yaw": 145.224609,
         "tint": 1.0,
         "radius": 0.6454983,
-        "tree": false
-      },
-      {
-        "id": "shrub--4.000009-24.6",
-        "asset": "plant_bushSmall",
-        "x": -3.48668933,
-        "z": 25.0520763,
-        "height": 0.456177473,
-        "yaw": 127.526031,
-        "tint": 1.0,
-        "radius": 0.526506543,
         "tree": false
       },
       {
@@ -8895,17 +8689,6 @@
         "yaw": 19.1814213,
         "tint": 1.0,
         "radius": 0.725460768,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991-26.4",
-        "asset": "plant_bushSmall",
-        "x": 3.42463064,
-        "z": 27.24874,
-        "height": 0.500352859,
-        "yaw": 98.82579,
-        "tint": 1.0,
-        "radius": 0.569745362,
         "tree": false
       },
       {
@@ -9049,17 +8832,6 @@
         "yaw": 135.174545,
         "tint": 1.0,
         "radius": 0.55055654,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991-28.2",
-        "asset": "plant_bushSmall",
-        "x": 3.46440244,
-        "z": 28.9774437,
-        "height": 0.532539546,
-        "yaw": 225.334991,
-        "tint": 1.0,
-        "radius": 0.6012497,
         "tree": false
       },
       {
@@ -9393,17 +9165,6 @@
         "tree": false
       },
       {
-        "id": "shrub--4.000009-31.79999",
-        "asset": "plant_bushSmall",
-        "x": -3.7214942,
-        "z": 32.69746,
-        "height": 0.599997163,
-        "yaw": 10.05215,
-        "tint": 1.0,
-        "radius": 0.6672772,
-        "tree": false
-      },
-      {
         "id": "shrub-4.999991-31.79999",
         "asset": "plant_bushSmall",
         "x": 5.645663,
@@ -9577,17 +9338,6 @@
         "yaw": 340.353577,
         "tint": 1.0,
         "radius": 0.570673048,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991-35.39999",
-        "asset": "plant_bushSmall",
-        "x": 3.25250959,
-        "z": 35.7144356,
-        "height": 0.651057661,
-        "yaw": 140.329971,
-        "tint": 1.0,
-        "radius": 0.717255235,
         "tree": false
       },
       {
@@ -20228,6 +19978,17 @@
         "tree": false
       },
       {
+        "id": "tuft--7.500012--24",
+        "asset": "pilot.grass-tuft",
+        "x": -7.42992353,
+        "z": -23.826973,
+        "height": 0.4349628,
+        "yaw": 276.8132,
+        "tint": 0.958206654,
+        "radius": 0.247887358,
+        "tree": false
+      },
+      {
         "id": "tuft-4.199987--24",
         "asset": "pilot.grass-tuft",
         "x": 5.0078907,
@@ -20302,6 +20063,17 @@
         "yaw": 127.180695,
         "tint": 0.883439839,
         "radius": 0.23908329,
+        "tree": false
+      },
+      {
+        "id": "tuft--4.900012--22.7",
+        "asset": "pilot.grass-tuft",
+        "x": -4.38032341,
+        "z": -22.001606,
+        "height": 0.4535367,
+        "yaw": 296.265961,
+        "tint": 0.9157254,
+        "radius": 0.254202485,
         "tree": false
       },
       {
@@ -20712,6 +20484,17 @@
         "tree": false
       },
       {
+        "id": "tuft-4.199987--17.5",
+        "asset": "pilot.grass-tuft",
+        "x": 4.77499,
+        "z": -16.7901459,
+        "height": 0.679051042,
+        "yaw": 153.743973,
+        "tint": 0.993887842,
+        "radius": 0.330877364,
+        "tree": false
+      },
+      {
         "id": "tuft-13.29999--17.5",
         "asset": "pilot.grass-tuft",
         "x": 13.5074482,
@@ -20764,17 +20547,6 @@
         "yaw": 223.528824,
         "tint": 0.957150042,
         "radius": 0.3027609,
-        "tree": false
-      },
-      {
-        "id": "tuft-2.899988--16.2",
-        "asset": "pilot.grass-tuft",
-        "x": 3.154089,
-        "z": -15.2997684,
-        "height": 0.5325274,
-        "yaw": 338.176178,
-        "tint": 1.028158,
-        "radius": 0.281059325,
         "tree": false
       },
       {
@@ -21471,17 +21243,6 @@
         "tree": false
       },
       {
-        "id": "tuft-2.899988--7.100003",
-        "asset": "pilot.grass-tuft",
-        "x": 3.11514449,
-        "z": -6.819346,
-        "height": 0.5821232,
-        "yaw": 349.1223,
-        "tint": 1.0210731,
-        "radius": 0.2979219,
-        "tree": false
-      },
-      {
         "id": "tuft-27.59998--7.100003",
         "asset": "pilot.grass-tuft",
         "x": 27.85975,
@@ -21567,6 +21328,17 @@
         "yaw": 340.9171,
         "tint": 1.00289261,
         "radius": 0.275281936,
+        "tree": false
+      },
+      {
+        "id": "tuft--15.30001--5.800003",
+        "asset": "pilot.grass-tuft",
+        "x": -14.3106022,
+        "z": -4.84314442,
+        "height": 0.4247584,
+        "yaw": 13.8480091,
+        "tint": 0.864237845,
+        "radius": 0.244417861,
         "tree": false
       },
       {
@@ -21669,14 +21441,14 @@
         "tree": false
       },
       {
-        "id": "tuft--11.40001--4.500003",
+        "id": "tuft--6.200012--4.500003",
         "asset": "pilot.grass-tuft",
-        "x": -10.6740618,
-        "z": -3.95325541,
-        "height": 0.5215272,
-        "yaw": 131.4128,
-        "tint": 0.874340057,
-        "radius": 0.277319252,
+        "x": -5.843249,
+        "z": -3.842052,
+        "height": 0.606312752,
+        "yaw": 214.169769,
+        "tint": 0.868735,
+        "radius": 0.306146353,
         "tree": false
       },
       {
@@ -21845,28 +21617,6 @@
         "tree": false
       },
       {
-        "id": "tuft--17.90001--1.900003",
-        "asset": "pilot.grass-tuft",
-        "x": -17.336935,
-        "z": -1.50763476,
-        "height": 0.52610594,
-        "yaw": 137.646271,
-        "tint": 0.9283173,
-        "radius": 0.278876036,
-        "tree": false
-      },
-      {
-        "id": "tuft--16.60001--1.900003",
-        "asset": "pilot.grass-tuft",
-        "x": -16.1929,
-        "z": -1.22275686,
-        "height": 0.429521918,
-        "yaw": 203.883438,
-        "tint": 0.904488146,
-        "radius": 0.246037453,
-        "tree": false
-      },
-      {
         "id": "tuft--11.40001--1.900003",
         "asset": "pilot.grass-tuft",
         "x": -10.5611563,
@@ -21875,17 +21625,6 @@
         "yaw": 195.8022,
         "tint": 0.897219,
         "radius": 0.314981,
-        "tree": false
-      },
-      {
-        "id": "tuft--6.200012--1.900003",
-        "asset": "pilot.grass-tuft",
-        "x": -5.567747,
-        "z": -1.26576507,
-        "height": 0.624923468,
-        "yaw": 175.5151,
-        "tint": 1.02791953,
-        "radius": 0.312473983,
         "tree": false
       },
       {
@@ -21944,28 +21683,6 @@
         "tree": false
       },
       {
-        "id": "tuft--16.60001--0.600003",
-        "asset": "pilot.grass-tuft",
-        "x": -16.3933716,
-        "z": -0.2840073,
-        "height": 0.6682535,
-        "yaw": 180.090256,
-        "tint": 0.965592146,
-        "radius": 0.3272062,
-        "tree": false
-      },
-      {
-        "id": "tuft--14.00001--0.600003",
-        "asset": "pilot.grass-tuft",
-        "x": -13.9640074,
-        "z": 0.193428338,
-        "height": 0.6499254,
-        "yaw": 283.1018,
-        "tint": 0.8625465,
-        "radius": 0.320974648,
-        "tree": false
-      },
-      {
         "id": "tuft--8.800013--0.600003",
         "asset": "pilot.grass-tuft",
         "x": -8.58136749,
@@ -21974,28 +21691,6 @@
         "yaw": 299.509979,
         "tint": 0.8856104,
         "radius": 0.238030091,
-        "tree": false
-      },
-      {
-        "id": "tuft--7.500012--0.600003",
-        "asset": "pilot.grass-tuft",
-        "x": -6.874062,
-        "z": -0.546585858,
-        "height": 0.674766958,
-        "yaw": 137.107529,
-        "tint": 1.01336491,
-        "radius": 0.329420775,
-        "tree": false
-      },
-      {
-        "id": "tuft--6.200012--0.600003",
-        "asset": "pilot.grass-tuft",
-        "x": -5.32166767,
-        "z": -0.132001489,
-        "height": 0.529571652,
-        "yaw": 201.857147,
-        "tint": 0.8903428,
-        "radius": 0.280054361,
         "tree": false
       },
       {
@@ -22021,61 +21716,6 @@
         "tree": false
       },
       {
-        "id": "tuft--17.90001-0.6999969",
-        "asset": "pilot.grass-tuft",
-        "x": -16.90803,
-        "z": 0.790227354,
-        "height": 0.383393675,
-        "yaw": 327.332184,
-        "tint": 1.01954317,
-        "radius": 0.230353847,
-        "tree": false
-      },
-      {
-        "id": "tuft--10.10001-0.6999969",
-        "asset": "pilot.grass-tuft",
-        "x": -9.920112,
-        "z": 0.86925143,
-        "height": 0.430002868,
-        "yaw": 271.2885,
-        "tint": 0.978131354,
-        "radius": 0.246200979,
-        "tree": false
-      },
-      {
-        "id": "tuft--8.800013-0.6999969",
-        "asset": "pilot.grass-tuft",
-        "x": -7.86001348,
-        "z": 1.1170094,
-        "height": 0.56083554,
-        "yaw": 148.620483,
-        "tint": 0.9117072,
-        "radius": 0.290684074,
-        "tree": false
-      },
-      {
-        "id": "tuft--7.500012-0.6999969",
-        "asset": "pilot.grass-tuft",
-        "x": -6.801187,
-        "z": 0.742918253,
-        "height": 0.2952282,
-        "yaw": 195.8173,
-        "tint": 1.0080632,
-        "radius": 0.2003776,
-        "tree": false
-      },
-      {
-        "id": "tuft-2.899988-0.6999969",
-        "asset": "pilot.grass-tuft",
-        "x": 3.236484,
-        "z": 0.737850368,
-        "height": 0.4738643,
-        "yaw": 23.5016823,
-        "tint": 1.00664473,
-        "radius": 0.261113852,
-        "tree": false
-      },
-      {
         "id": "tuft-13.29999-0.6999969",
         "asset": "pilot.grass-tuft",
         "x": 13.93499,
@@ -22098,25 +21738,14 @@
         "tree": false
       },
       {
-        "id": "tuft--16.60001-1.999997",
+        "id": "tuft--12.70001-1.999997",
         "asset": "pilot.grass-tuft",
-        "x": -15.8014,
-        "z": 2.609377,
-        "height": 0.342725158,
-        "yaw": 42.86143,
-        "tint": 0.881628,
-        "radius": 0.216526553,
-        "tree": false
-      },
-      {
-        "id": "tuft--11.40001-1.999997",
-        "asset": "pilot.grass-tuft",
-        "x": -10.8294935,
-        "z": 2.10002422,
-        "height": 0.629362,
-        "yaw": 95.7387,
-        "tint": 0.85712415,
-        "radius": 0.313983083,
+        "x": -12.4065847,
+        "z": 2.67793727,
+        "height": 0.347302765,
+        "yaw": 195.159821,
+        "tint": 0.885700047,
+        "radius": 0.21808295,
         "tree": false
       },
       {
@@ -22150,17 +21779,6 @@
         "yaw": 177.072937,
         "tint": 0.9738202,
         "radius": 0.215444848,
-        "tree": false
-      },
-      {
-        "id": "tuft--4.900012-3.299997",
-        "asset": "pilot.grass-tuft",
-        "x": -3.95789027,
-        "z": 3.69236755,
-        "height": 0.363597751,
-        "yaw": 196.104965,
-        "tint": 0.941948235,
-        "radius": 0.223623231,
         "tree": false
       },
       {
@@ -22296,28 +21914,6 @@
         "tree": false
       },
       {
-        "id": "tuft--4.900012-5.899997",
-        "asset": "pilot.grass-tuft",
-        "x": -4.55439949,
-        "z": 6.604269,
-        "height": 0.640771,
-        "yaw": 333.50827,
-        "tint": 0.983363867,
-        "radius": 0.317862123,
-        "tree": false
-      },
-      {
-        "id": "tuft--3.600012-5.899997",
-        "asset": "pilot.grass-tuft",
-        "x": -3.06228042,
-        "z": 6.320268,
-        "height": 0.475169778,
-        "yaw": 3.60564566,
-        "tint": 0.924341559,
-        "radius": 0.261557728,
-        "tree": false
-      },
-      {
         "id": "tuft-6.799988-5.899997",
         "asset": "pilot.grass-tuft",
         "x": 7.3281064,
@@ -22403,17 +21999,6 @@
         "yaw": 66.98068,
         "tint": 0.9373764,
         "radius": 0.3178698,
-        "tree": false
-      },
-      {
-        "id": "tuft--11.40001-7.199997",
-        "asset": "pilot.grass-tuft",
-        "x": -11.1959534,
-        "z": 7.40056038,
-        "height": 0.38201046,
-        "yaw": 31.1661186,
-        "tint": 0.9825106,
-        "radius": 0.229883566,
         "tree": false
       },
       {
@@ -22549,25 +22134,14 @@
         "tree": false
       },
       {
-        "id": "tuft--10.10001-8.499997",
+        "id": "tuft-4.199987-8.499997",
         "asset": "pilot.grass-tuft",
-        "x": -9.659325,
-        "z": 8.519429,
-        "height": 0.405946583,
-        "yaw": 35.9533653,
-        "tint": 0.976285,
-        "radius": 0.238021836,
-        "tree": false
-      },
-      {
-        "id": "tuft--4.900012-8.499997",
-        "asset": "pilot.grass-tuft",
-        "x": -4.5611105,
-        "z": 9.108905,
-        "height": 0.5127291,
-        "yaw": 206.301544,
-        "tint": 0.9844408,
-        "radius": 0.2743279,
+        "x": 4.753084,
+        "z": 8.713614,
+        "height": 0.492689729,
+        "yaw": 202.3596,
+        "tint": 0.882763565,
+        "radius": 0.2675145,
         "tree": false
       },
       {
@@ -22681,14 +22255,14 @@
         "tree": false
       },
       {
-        "id": "tuft-2.899988-9.799997",
+        "id": "tuft-4.199987-9.799997",
         "asset": "pilot.grass-tuft",
-        "x": 3.50356245,
-        "z": 10.4858913,
-        "height": 0.4942947,
-        "yaw": 69.840126,
-        "tint": 0.8749871,
-        "radius": 0.2680602,
+        "x": 4.601799,
+        "z": 9.893822,
+        "height": 0.319987267,
+        "yaw": 44.3255959,
+        "tint": 1.01949227,
+        "radius": 0.208795667,
         "tree": false
       },
       {
@@ -22799,17 +22373,6 @@
         "yaw": 35.7383766,
         "tint": 0.959877431,
         "radius": 0.229428664,
-        "tree": false
-      },
-      {
-        "id": "tuft-5.499988-11.1",
-        "asset": "pilot.grass-tuft",
-        "x": 5.587271,
-        "z": 12.03738,
-        "height": 0.537751,
-        "yaw": 13.9954805,
-        "tint": 1.00033689,
-        "radius": 0.282835364,
         "tree": false
       },
       {
@@ -23297,17 +22860,6 @@
         "tree": false
       },
       {
-        "id": "tuft--3.600012-20.2",
-        "asset": "pilot.grass-tuft",
-        "x": -3.10984,
-        "z": 20.5552254,
-        "height": 0.2982736,
-        "yaw": 358.115356,
-        "tint": 0.9626527,
-        "radius": 0.20141302,
-        "tree": false
-      },
-      {
         "id": "tuft-2.899988-20.2",
         "asset": "pilot.grass-tuft",
         "x": 3.895345,
@@ -23437,6 +22989,17 @@
         "yaw": 112.100327,
         "tint": 0.9229221,
         "radius": 0.204818428,
+        "tree": false
+      },
+      {
+        "id": "tuft-4.199987-22.79999",
+        "asset": "pilot.grass-tuft",
+        "x": 4.27259541,
+        "z": 23.37649,
+        "height": 0.280577421,
+        "yaw": 294.0701,
+        "tint": 0.9954653,
+        "radius": 0.195396319,
         "tree": false
       },
       {
@@ -23759,17 +23322,6 @@
         "tree": false
       },
       {
-        "id": "tuft--3.600012-27.99999",
-        "asset": "pilot.grass-tuft",
-        "x": -3.317188,
-        "z": 28.2765484,
-        "height": 0.373911172,
-        "yaw": 34.38193,
-        "tint": 1.02821338,
-        "radius": 0.2271298,
-        "tree": false
-      },
-      {
         "id": "tuft-4.199987-27.99999",
         "asset": "pilot.grass-tuft",
         "x": 5.105385,
@@ -23844,6 +23396,17 @@
         "yaw": 28.2187214,
         "tint": 0.9747104,
         "radius": 0.2863014,
+        "tree": false
+      },
+      {
+        "id": "tuft-2.899988-29.29999",
+        "asset": "pilot.grass-tuft",
+        "x": 3.83548737,
+        "z": 29.53825,
+        "height": 0.466355115,
+        "yaw": 48.64634,
+        "tint": 0.8880376,
+        "radius": 0.258560747,
         "tree": false
       },
       {
@@ -24067,17 +23630,6 @@
         "tree": false
       },
       {
-        "id": "tuft-2.899988-31.89999",
-        "asset": "pilot.grass-tuft",
-        "x": 3.34133983,
-        "z": 32.8995323,
-        "height": 0.5803389,
-        "yaw": 76.80313,
-        "tint": 0.9469507,
-        "radius": 0.29731524,
-        "tree": false
-      },
-      {
         "id": "tuft-28.89998-31.89999",
         "asset": "pilot.grass-tuft",
         "x": 28.93124,
@@ -24240,6 +23792,17 @@
         "yaw": 48.12022,
         "tint": 0.973578036,
         "radius": 0.283766955,
+        "tree": false
+      },
+      {
+        "id": "tuft-2.899988-34.49999",
+        "asset": "pilot.grass-tuft",
+        "x": 3.61673164,
+        "z": 34.6426544,
+        "height": 0.5011328,
+        "yaw": 202.831177,
+        "tint": 0.854055464,
+        "radius": 0.270385146,
         "tree": false
       },
       {
@@ -24471,17 +24034,6 @@
         "yaw": 330.9514,
         "tint": 0.855779469,
         "radius": 0.248972148,
-        "tree": false
-      },
-      {
-        "id": "tuft-1.599988-39.69999",
-        "asset": "pilot.grass-tuft",
-        "x": 2.53981352,
-        "z": 40.3878,
-        "height": 0.5681074,
-        "yaw": 198.789047,
-        "tint": 0.9986866,
-        "radius": 0.293156534,
         "tree": false
       },
       {
@@ -25241,6 +24793,17 @@
         "yaw": 241.249985,
         "tint": 0.9446674,
         "radius": 0.217349172,
+        "tree": false
+      },
+      {
+        "id": "tuft--2.300012-51.39998",
+        "asset": "pilot.grass-tuft",
+        "x": -1.5946157,
+        "z": 52.32313,
+        "height": 0.449162036,
+        "yaw": 28.9684372,
+        "tint": 0.958153069,
+        "radius": 0.252715081,
         "tree": false
       },
       {
@@ -36136,17 +35699,6 @@
         "tree": true
       },
       {
-        "id": "forest--7--24",
-        "asset": "tree_default",
-        "x": -5.590237,
-        "z": -22.3025646,
-        "height": 9.268108,
-        "yaw": 267.981445,
-        "tint": 0.906543851,
-        "radius": 2.63806534,
-        "tree": true
-      },
-      {
         "id": "forest-6.5--24",
         "asset": "tree_pineRoundA",
         "x": 8.547389,
@@ -36331,17 +35883,6 @@
         "yaw": 263.022858,
         "tint": 0.913616836,
         "radius": 2.584282,
-        "tree": true
-      },
-      {
-        "id": "forest--16--6",
-        "asset": "tree_default",
-        "x": -13.3340807,
-        "z": -3.61539841,
-        "height": 7.68800735,
-        "yaw": 152.563644,
-        "tint": 0.961229265,
-        "radius": 2.201946,
         "tree": true
       },
       {
@@ -38941,6 +38482,28 @@
         "tree": false
       },
       {
+        "id": "shrub--7.600009--22.2",
+        "asset": "plant_bushSmall",
+        "x": -6.98332262,
+        "z": -21.9930058,
+        "height": 0.678493,
+        "yaw": 55.419136,
+        "tint": 1.0,
+        "radius": 0.744109,
+        "tree": false
+      },
+      {
+        "id": "shrub--5.800009--22.2",
+        "asset": "plant_bushSmall",
+        "x": -5.31268835,
+        "z": -21.45571,
+        "height": 0.500130832,
+        "yaw": 303.064331,
+        "tint": 1.0,
+        "radius": 0.569528043,
+        "tree": false
+      },
+      {
         "id": "shrub-4.999991--22.2",
         "asset": "plant_bushSmall",
         "x": 5.40278673,
@@ -39026,17 +38589,6 @@
         "yaw": 108.875786,
         "tint": 1.0,
         "radius": 0.5903358,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991--20.4",
-        "asset": "plant_bushSmall",
-        "x": 3.71256638,
-        "z": -20.2786331,
-        "height": 0.5614172,
-        "yaw": 174.091675,
-        "tint": 1.0,
-        "radius": 0.6295152,
         "tree": false
       },
       {
@@ -39191,28 +38743,6 @@
         "yaw": 122.9353,
         "tint": 1.0,
         "radius": 0.504807055,
-        "tree": false
-      },
-      {
-        "id": "shrub--4.000009--16.8",
-        "asset": "plant_bushSmall",
-        "x": -3.81000018,
-        "z": -15.9135284,
-        "height": 0.49889642,
-        "yaw": 278.248016,
-        "tint": 1.0,
-        "radius": 0.5683198,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991--16.8",
-        "asset": "plant_bushSmall",
-        "x": 4.19780064,
-        "z": -15.8518066,
-        "height": 0.6325743,
-        "yaw": 217.6626,
-        "tint": 1.0,
-        "radius": 0.699163735,
         "tree": false
       },
       {
@@ -39458,17 +38988,6 @@
         "tree": false
       },
       {
-        "id": "shrub-3.199991--11.4",
-        "asset": "plant_bushSmall",
-        "x": 3.99631643,
-        "z": -10.6633148,
-        "height": 0.405718237,
-        "yaw": 204.304657,
-        "tint": 1.0,
-        "radius": 0.477117,
-        "tree": false
-      },
-      {
         "id": "shrub-12.19999--11.4",
         "asset": "plant_bushSmall",
         "x": 12.6868172,
@@ -39645,28 +39164,6 @@
         "tree": false
       },
       {
-        "id": "shrub--4.000009--6.000002",
-        "asset": "plant_bushSmall",
-        "x": -3.263092,
-        "z": -5.53500271,
-        "height": 0.340373039,
-        "yaw": 249.956085,
-        "tint": 1.0,
-        "radius": 0.413157135,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991--6.000002",
-        "asset": "plant_bushSmall",
-        "x": 4.14468145,
-        "z": -5.280842,
-        "height": 0.7200576,
-        "yaw": 328.9899,
-        "tint": 1.0,
-        "radius": 0.784792364,
-        "tree": false
-      },
-      {
         "id": "shrub-13.99999--6.000002",
         "asset": "plant_bushSmall",
         "x": 14.809866,
@@ -39708,6 +39205,17 @@
         "yaw": 204.869919,
         "tint": 1.0,
         "radius": 0.424183518,
+        "tree": false
+      },
+      {
+        "id": "shrub--11.20001--4.200002",
+        "asset": "plant_bushSmall",
+        "x": -10.4844656,
+        "z": -3.825918,
+        "height": 0.5376783,
+        "yaw": 50.56822,
+        "tint": 1.0,
+        "radius": 0.6062795,
         "tree": false
       },
       {
@@ -39810,6 +39318,28 @@
         "tree": false
       },
       {
+        "id": "shrub--14.80001--2.400002",
+        "asset": "plant_bushSmall",
+        "x": -14.5887623,
+        "z": -1.48358929,
+        "height": 0.614735365,
+        "yaw": 106.413864,
+        "tint": 1.0,
+        "radius": 0.681703,
+        "tree": false
+      },
+      {
+        "id": "shrub--13.00001--2.400002",
+        "asset": "plant_bushSmall",
+        "x": -12.3898,
+        "z": -1.786561,
+        "height": 0.332188874,
+        "yaw": 71.40471,
+        "tint": 1.0,
+        "radius": 0.40514648,
+        "tree": false
+      },
+      {
         "id": "shrub--7.600009--2.400002",
         "asset": "plant_bushSmall",
         "x": -6.840975,
@@ -39887,17 +39417,6 @@
         "tree": false
       },
       {
-        "id": "shrub--4.000009--0.6000018",
-        "asset": "plant_bushSmall",
-        "x": -3.627604,
-        "z": 0.3874969,
-        "height": 0.730811,
-        "yaw": 21.5695972,
-        "tint": 1.0,
-        "radius": 0.7953178,
-        "tree": false
-      },
-      {
         "id": "shrub-15.79999--0.6000018",
         "asset": "plant_bushSmall",
         "x": 15.8624067,
@@ -39928,17 +39447,6 @@
         "yaw": 140.04715,
         "tint": 1.0,
         "radius": 0.823229432,
-        "tree": false
-      },
-      {
-        "id": "shrub--13.00001-1.199998",
-        "asset": "plant_bushSmall",
-        "x": -12.1814318,
-        "z": 1.799095,
-        "height": 0.4426155,
-        "yaw": 47.59567,
-        "tint": 1.0,
-        "radius": 0.513232052,
         "tree": false
       },
       {
@@ -40085,17 +39593,6 @@
         "tree": false
       },
       {
-        "id": "shrub--5.800009-6.599998",
-        "asset": "plant_bushSmall",
-        "x": -5.68845558,
-        "z": 7.462527,
-        "height": 0.6751999,
-        "yaw": 138.047562,
-        "tint": 1.0,
-        "radius": 0.7408857,
-        "tree": false
-      },
-      {
         "id": "shrub-4.999991-6.599998",
         "asset": "plant_bushSmall",
         "x": 5.524848,
@@ -40137,17 +39634,6 @@
         "yaw": 165.081421,
         "tint": 1.0,
         "radius": 0.7960439,
-        "tree": false
-      },
-      {
-        "id": "shrub--7.600009-8.399999",
-        "asset": "plant_bushSmall",
-        "x": -6.684353,
-        "z": 8.99029,
-        "height": 0.5181611,
-        "yaw": 210.0767,
-        "tint": 1.0,
-        "radius": 0.5871761,
         "tree": false
       },
       {
@@ -40261,17 +39747,6 @@
         "tree": false
       },
       {
-        "id": "shrub--5.800009-10.2",
-        "asset": "plant_bushSmall",
-        "x": -5.355864,
-        "z": 11.1953917,
-        "height": 0.497586966,
-        "yaw": 328.200623,
-        "tint": 1.0,
-        "radius": 0.5670381,
-        "tree": false
-      },
-      {
         "id": "shrub-4.999991-10.2",
         "asset": "plant_bushSmall",
         "x": 5.69957972,
@@ -40302,17 +39777,6 @@
         "yaw": 139.202972,
         "tint": 1.0,
         "radius": 0.475075573,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991-12",
-        "asset": "plant_bushSmall",
-        "x": 4.00844955,
-        "z": 12.7075424,
-        "height": 0.753805339,
-        "yaw": 13.0457363,
-        "tint": 1.0,
-        "radius": 0.817824662,
         "tree": false
       },
       {
@@ -40602,17 +40066,6 @@
         "tree": false
       },
       {
-        "id": "shrub--4.000009-21",
-        "asset": "plant_bushSmall",
-        "x": -3.58241343,
-        "z": 21.7849274,
-        "height": 0.697750151,
-        "yaw": 84.3139343,
-        "tint": 1.0,
-        "radius": 0.7629578,
-        "tree": false
-      },
-      {
         "id": "shrub--38.2-22.8",
         "asset": "plant_bushSmall",
         "x": -37.2656,
@@ -40665,17 +40118,6 @@
         "yaw": 20.2644863,
         "tint": 1.0,
         "radius": 0.7060457,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991-22.8",
-        "asset": "plant_bushSmall",
-        "x": 3.856815,
-        "z": 23.66994,
-        "height": 0.7693666,
-        "yaw": 291.12796,
-        "tint": 1.0,
-        "radius": 0.833056033,
         "tree": false
       },
       {
@@ -40833,17 +40275,6 @@
         "tree": false
       },
       {
-        "id": "shrub-3.199991-26.4",
-        "asset": "plant_bushSmall",
-        "x": 3.42463064,
-        "z": 27.24874,
-        "height": 0.500352859,
-        "yaw": 98.82579,
-        "tint": 1.0,
-        "radius": 0.569745362,
-        "tree": false
-      },
-      {
         "id": "shrub-19.39999-26.4",
         "asset": "plant_bushSmall",
         "x": 19.6695385,
@@ -40907,17 +40338,6 @@
         "yaw": 135.174545,
         "tint": 1.0,
         "radius": 0.55055654,
-        "tree": false
-      },
-      {
-        "id": "shrub-3.199991-28.2",
-        "asset": "plant_bushSmall",
-        "x": 3.46440244,
-        "z": 28.9774437,
-        "height": 0.532539546,
-        "yaw": 225.334991,
-        "tint": 1.0,
-        "radius": 0.6012497,
         "tree": false
       },
       {
@@ -48830,6 +48250,17 @@
         "tree": false
       },
       {
+        "id": "tuft-2.899988--21.4",
+        "asset": "pilot.grass-tuft",
+        "x": 3.88669825,
+        "z": -20.9630356,
+        "height": 0.4264141,
+        "yaw": 131.33107,
+        "tint": 0.883751333,
+        "radius": 0.2449808,
+        "tree": false
+      },
+      {
         "id": "tuft-4.199987--21.4",
         "asset": "pilot.grass-tuft",
         "x": 4.86278534,
@@ -49149,6 +48580,17 @@
         "tree": false
       },
       {
+        "id": "tuft--4.900012--16.2",
+        "asset": "pilot.grass-tuft",
+        "x": -3.936956,
+        "z": -15.8807964,
+        "height": 0.3077176,
+        "yaw": 248.234116,
+        "tint": 0.8999431,
+        "radius": 0.204623982,
+        "tree": false
+      },
+      {
         "id": "tuft-15.89999--16.2",
         "asset": "pilot.grass-tuft",
         "x": 16.4968147,
@@ -49380,17 +48822,6 @@
         "tree": false
       },
       {
-        "id": "tuft-2.899988--12.3",
-        "asset": "pilot.grass-tuft",
-        "x": 3.22094035,
-        "z": -12.1002388,
-        "height": 0.465414882,
-        "yaw": 90.21809,
-        "tint": 0.944320858,
-        "radius": 0.258241057,
-        "tree": false
-      },
-      {
         "id": "tuft-4.199987--12.3",
         "asset": "pilot.grass-tuft",
         "x": 4.76458931,
@@ -49589,17 +49020,6 @@
         "tree": false
       },
       {
-        "id": "tuft--3.600012--8.400003",
-        "asset": "pilot.grass-tuft",
-        "x": -3.22528887,
-        "z": -7.988074,
-        "height": 0.643237531,
-        "yaw": 192.2271,
-        "tint": 0.9640475,
-        "radius": 0.318700761,
-        "tree": false
-      },
-      {
         "id": "tuft-10.69999--8.400003",
         "asset": "pilot.grass-tuft",
         "x": 11.1956,
@@ -49677,17 +49097,6 @@
         "tree": false
       },
       {
-        "id": "tuft-2.899988--7.100003",
-        "asset": "pilot.grass-tuft",
-        "x": 3.34644842,
-        "z": -6.532736,
-        "height": 0.2881977,
-        "yaw": 245.6997,
-        "tint": 0.9781237,
-        "radius": 0.197987214,
-        "tree": false
-      },
-      {
         "id": "tuft-24.99998--7.100003",
         "asset": "pilot.grass-tuft",
         "x": 25.357954,
@@ -49718,6 +49127,17 @@
         "yaw": 70.12767,
         "tint": 1.01662672,
         "radius": 0.294502765,
+        "tree": false
+      },
+      {
+        "id": "tuft--14.00001--5.800003",
+        "asset": "pilot.grass-tuft",
+        "x": -13.2806635,
+        "z": -5.540236,
+        "height": 0.3560285,
+        "yaw": 96.82296,
+        "tint": 0.944376767,
+        "radius": 0.2210497,
         "tree": false
       },
       {
@@ -49886,28 +49306,6 @@
         "tree": false
       },
       {
-        "id": "tuft--6.200012--1.900003",
-        "asset": "pilot.grass-tuft",
-        "x": -5.247442,
-        "z": -0.922544658,
-        "height": 0.6018361,
-        "yaw": 354.29834,
-        "tint": 0.908811,
-        "radius": 0.304624259,
-        "tree": false
-      },
-      {
-        "id": "tuft-2.899988--1.900003",
-        "asset": "pilot.grass-tuft",
-        "x": 3.65404129,
-        "z": -1.16260719,
-        "height": 0.561036,
-        "yaw": 197.362457,
-        "tint": 1.00861442,
-        "radius": 0.290752232,
-        "tree": false
-      },
-      {
         "id": "tuft-9.399988--1.900003",
         "asset": "pilot.grass-tuft",
         "x": 9.975702,
@@ -49963,17 +49361,6 @@
         "tree": false
       },
       {
-        "id": "tuft-4.199987--0.600003",
-        "asset": "pilot.grass-tuft",
-        "x": 5.08488,
-        "z": -0.335150033,
-        "height": 0.58367914,
-        "yaw": 314.332123,
-        "tint": 0.9896589,
-        "radius": 0.298450917,
-        "tree": false
-      },
-      {
         "id": "tuft--38.7-0.6999969",
         "asset": "pilot.grass-tuft",
         "x": -37.7916451,
@@ -50004,17 +49391,6 @@
         "yaw": 332.3353,
         "tint": 0.9923109,
         "radius": 0.322309524,
-        "tree": false
-      },
-      {
-        "id": "tuft-2.899988-0.6999969",
-        "asset": "pilot.grass-tuft",
-        "x": 3.50810075,
-        "z": 1.08456659,
-        "height": 0.583740354,
-        "yaw": 205.656937,
-        "tint": 0.9990677,
-        "radius": 0.298471719,
         "tree": false
       },
       {
@@ -50081,28 +49457,6 @@
         "yaw": 308.400726,
         "tint": 0.9835986,
         "radius": 0.321448237,
-        "tree": false
-      },
-      {
-        "id": "tuft--12.70001-3.299997",
-        "asset": "pilot.grass-tuft",
-        "x": -12.0621386,
-        "z": 3.64853764,
-        "height": 0.302782416,
-        "yaw": 324.357758,
-        "tint": 0.923236966,
-        "radius": 0.202946022,
-        "tree": false
-      },
-      {
-        "id": "tuft-2.899988-3.299997",
-        "asset": "pilot.grass-tuft",
-        "x": 3.49531412,
-        "z": 3.310109,
-        "height": 0.3470667,
-        "yaw": 52.0758667,
-        "tint": 0.9219882,
-        "radius": 0.218002677,
         "tree": false
       },
       {
@@ -50180,17 +49534,6 @@
         "yaw": 233.463364,
         "tint": 0.922859132,
         "radius": 0.288901865,
-        "tree": false
-      },
-      {
-        "id": "tuft--12.70001-5.899997",
-        "asset": "pilot.grass-tuft",
-        "x": -11.87211,
-        "z": 6.20249462,
-        "height": 0.5999727,
-        "yaw": 138.125488,
-        "tint": 0.920344651,
-        "radius": 0.303990722,
         "tree": false
       },
       {
@@ -50414,17 +49757,6 @@
         "tree": false
       },
       {
-        "id": "tuft--4.900012-13.7",
-        "asset": "pilot.grass-tuft",
-        "x": -4.430641,
-        "z": 14.6974754,
-        "height": 0.6056136,
-        "yaw": 228.62883,
-        "tint": 0.9462788,
-        "radius": 0.30590862,
-        "tree": false
-      },
-      {
         "id": "tuft-4.199987-13.7",
         "asset": "pilot.grass-tuft",
         "x": 4.21502829,
@@ -50543,17 +49875,6 @@
         "yaw": 330.656128,
         "tint": 0.9084422,
         "radius": 0.268866777,
-        "tree": false
-      },
-      {
-        "id": "tuft-2.899988-16.3",
-        "asset": "pilot.grass-tuft",
-        "x": 3.726566,
-        "z": 16.4256134,
-        "height": 0.296006978,
-        "yaw": 69.2245,
-        "tint": 1.02708459,
-        "radius": 0.200642377,
         "tree": false
       },
       {
@@ -50832,17 +50153,6 @@
         "tree": false
       },
       {
-        "id": "tuft-2.899988-21.49999",
-        "asset": "pilot.grass-tuft",
-        "x": 3.19043875,
-        "z": 22.20856,
-        "height": 0.386225373,
-        "yaw": 159.732956,
-        "tint": 0.869712055,
-        "radius": 0.231316626,
-        "tree": false
-      },
-      {
         "id": "tuft-4.199987-21.49999",
         "asset": "pilot.grass-tuft",
         "x": 5.031091,
@@ -50961,6 +50271,17 @@
         "yaw": 338.658875,
         "tint": 0.9402575,
         "radius": 0.317270875,
+        "tree": false
+      },
+      {
+        "id": "tuft-4.199987-26.69999",
+        "asset": "pilot.grass-tuft",
+        "x": 4.298453,
+        "z": 27.4627533,
+        "height": 0.288122922,
+        "yaw": 261.24408,
+        "tint": 0.8701783,
+        "radius": 0.197961792,
         "tree": false
       },
       {
@@ -60359,9 +59680,9 @@
       }
     ],
     "rejected": {
-      "vegetation": 6246,
-      "road-or-approach": 719,
-      "architecture": 212,
+      "vegetation": 6172,
+      "road-or-approach": 862,
+      "architecture": 210,
       "water": 1912
     },
     "groundProps": [

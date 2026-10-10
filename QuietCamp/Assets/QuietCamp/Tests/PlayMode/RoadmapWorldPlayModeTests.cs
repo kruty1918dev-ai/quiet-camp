@@ -259,6 +259,8 @@ namespace QuietCamp.Tests
                 for(int i=0;i<9;i++)
                 {
                     World().Seek(i*.5f);yield return Frames(12);Assert.IsTrue(World().Ready,World().Fault);Assert.LessOrEqual(World().LoadedChunks,3);
+                    for(int chunk=0;chunk<5;chunk++)if(World().WorldRoot.Find("Valley chunk "+chunk)!=null)
+                        Assert.IsFalse(World().WorldRoot.Find("Far terrain "+chunk).GetComponent<MeshRenderer>().enabled,"Coarse terrain covers the detailed road");
                     yield return Shot((quality==0?"gameview-low-composition-":"gameview-composition-")+i.ToString("00"));
                     measurements.Add(new{quality=quality==0?"Low":"Balanced",renderProfile=QualitySettings.names[QualitySettings.GetQualityLevel()],route=i*.5f,orientation="portrait",editorDrawCalls=UnityEditor.UnityStats.drawCalls,editorTriangles=UnityEditor.UnityStats.triangles,worldChunks=World().LoadedChunks});
                     Assert.LessOrEqual(UnityEditor.UnityStats.drawCalls,quality==0?80:120,"Editor draw-call budget");

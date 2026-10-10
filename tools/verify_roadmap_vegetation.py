@@ -18,6 +18,7 @@ def main():
     assert planned['globalBeforeChunkSplit'] and planned['fullAnimatedFootprints'] and planned['buildingsExcludeAllPlants']
     assets = {a['id']: a for a in json.loads((SOURCE / 'assets.json').read_text())}
     structure = [p for p in bake['composition']['instances'] if not assets[p['asset']].get('wind',False)]
+    surfaces = bake.get('road',{}).get('surfaces',[])
     samples = []
     for quality in ['low', 'balanced']:
         plants = planned[quality]
@@ -55,6 +56,15 @@ def main():
                 local_x=dx*math.cos(yaw)-dz*math.sin(yaw);local_z=dx*math.sin(yaw)+dz*math.cos(yaw)
                 gap_x=max(0,abs(local_x)-w/h*q['height']/2);gap_z=max(0,abs(local_z)-d/h*q['height']/2)
                 assert math.hypot(gap_x,gap_z) >= radius+.285, f'{quality}: plant reaches building {p["id"]} / {q["id"]}'
+            for surface in surfaces:
+                vertices=surface['points'];crosses=[];edge_distance=float('inf')
+                for a,b in zip(vertices,vertices[1:]+vertices[:1]):
+                    dx,dz=b['x']-a['x'],b['z']-a['z'];px,pz=p['x']-a['x'],p['z']-a['z']
+                    crosses.append(dx*pz-dz*px)
+                    t=max(0,min(1,(px*dx+pz*dz)/(dx*dx+dz*dz)))
+                    edge_distance=min(edge_distance,math.hypot(px-t*dx,pz-t*dz))
+                inside=all(v>=0 for v in crosses) or all(v<=0 for v in crosses)
+                assert not inside and edge_distance>=radius+.34, f'{quality}: plant reaches road surface {p["id"]} / {surface["id"]}'
         props = [p for p in planned['groundProps'] if p['quality'] == quality]
         for prop in props:
             for plant in plants:

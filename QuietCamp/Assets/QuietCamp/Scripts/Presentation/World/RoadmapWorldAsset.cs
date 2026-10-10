@@ -16,7 +16,7 @@ namespace QuietCamp.Presentation.World
         public RoadmapWaypoint[] waypoints;
         public string[] chunks;
         public Mesh horizon, markerMesh;
-        public Mesh[] distantForest;
+        public Mesh[] distantForest, horizonTerrain;
         public Mesh river;
         public Mesh[] riverByFrontier;
         public float worldScale = .4f;
@@ -30,7 +30,7 @@ namespace QuietCamp.Presentation.World
     {
         // Matches the authored old-road corridor and its owned stop/yard approaches.
         public static float RoadX(float z) => z<=40?0:z<=80?Mathf.Lerp(0,2,(z-40)/40):z<=120?Mathf.Lerp(2,-3,(z-80)/40):z<=170?Mathf.Lerp(-3,1,(z-120)/50):Mathf.Lerp(1,-2,Mathf.Clamp01((z-170)/35));
-        public static float RoadHalfWidth(float z) => Mathf.Lerp(2.4f,1.15f,Mathf.SmoothStep(0,1,Mathf.InverseLerp(22,60,z)));
+        public static float RoadHalfWidth(float z) => Mathf.Lerp(3.2f,1.15f,Mathf.SmoothStep(0,1,Mathf.InverseLerp(22,60,z)));
         public static float RiverX(float z) => 14 + 6 * Mathf.Sin(z * .029f);
         public static float RiverWidth(float z) => Mathf.Lerp(2.5f, 10, Mathf.SmoothStep(0,1,Mathf.InverseLerp(138,180,z)));
         public const float WaterHeight = -.7f;

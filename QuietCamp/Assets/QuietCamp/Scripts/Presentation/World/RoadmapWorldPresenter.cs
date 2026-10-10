@@ -27,6 +27,7 @@ namespace QuietCamp.Presentation.World
         readonly Dictionary<string,Vector4> _oldVectors=new Dictionary<string,Vector4>();
         readonly MeshRenderer[] _markers=new MeshRenderer[5];
         readonly MeshRenderer[] _distant=new MeshRenderer[5];
+        readonly MeshRenderer[] _horizonTerrain=new MeshRenderer[5];
         MaterialPropertyBlock _markerBlock;
         GameServices _services;MenuScreens _screens;RoadmapWorldAsset _asset;
         GameObject _root,_cameraRoot,_inputRoot;Camera _camera;Light _sun;
@@ -122,6 +123,8 @@ namespace QuietCamp.Presentation.World
             var focus=_profile.Add<DepthOfField>();focus.mode.Override(DepthOfFieldMode.Off);
             var blur=_profile.Add<MotionBlur>();blur.intensity.Override(0);
             AddRenderer(_root.transform,"Far landscape",_asset.horizon,_asset.ground,true);
+            if(_asset.horizonTerrain!=null)for(int i=0;i<_asset.horizonTerrain.Length;i++)
+                _horizonTerrain[i]=AddRenderer(_root.transform,"Far terrain "+i,_asset.horizonTerrain[i],_asset.ground,true);
             var river=_asset.riverByFrontier!=null&&_asset.riverByFrontier.Length==5?_asset.riverByFrontier[_frontier]:_asset.river;
             if(river!=null)AddRenderer(_root.transform,"Continuous river",river,_asset.water,false);
             if(_asset.distantForest!=null)for(int i=0;i<_asset.distantForest.Length;i++)
@@ -166,10 +169,15 @@ namespace QuietCamp.Presentation.World
                     }
                     _chunks[id]=go;
                     if(_distant[id]!=null)_distant[id].enabled=false;
+                    if(_horizonTerrain[id]!=null)_horizonTerrain[id].enabled=false;
                 }
                 Acquire(path,Loaded,synchronous);
             }
-            for(int i=0;i<5;i++)if(_distant[i]!=null)_distant[i].enabled=!_chunks.ContainsKey(i);
+            for(int i=0;i<5;i++)
+            {
+                if(_distant[i]!=null)_distant[i].enabled=!_chunks.ContainsKey(i);
+                if(_horizonTerrain[i]!=null)_horizonTerrain[i].enabled=!_chunks.ContainsKey(i);
+            }
         }
         static void Acquire(string path,Action<RoadmapWorldChunk> loaded,bool synchronous)
         {

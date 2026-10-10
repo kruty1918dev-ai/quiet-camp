@@ -87,6 +87,9 @@ namespace QuietCamp.Editor
                 File.WriteAllBytes(path,pixels.EncodeToPNG());
                 var planes=GeometryUtility.CalculateFrustumPlanes(world.WorldCamera);
                 var visible=world.WorldRoot.GetComponentsInChildren<MeshRenderer>().Where(r=>r.enabled&&GeometryUtility.TestPlanesAABB(planes,r.bounds)).ToArray();
+                for(int i=0;i<asset.chunks.Length;i++)
+                    if(world.WorldRoot.Find("Valley chunk "+i)!=null&&world.WorldRoot.Find("Far terrain "+i).GetComponent<MeshRenderer>().enabled)
+                        throw new InvalidOperationException("Coarse terrain overlaps a detailed road/ground chunk: "+i);
                 if(visible.Any(r=>r.sharedMaterial!=asset.water&&r.sharedMaterial!=asset.motes&&r.shadowCastingMode!=ShadowCastingMode.On))
                     throw new InvalidOperationException("An opaque roadmap object does not cast a shadow");
                 long submittedTriangles=visible.Sum(r=>(long)r.GetComponent<MeshFilter>().sharedMesh.GetIndexCount(0)/3);

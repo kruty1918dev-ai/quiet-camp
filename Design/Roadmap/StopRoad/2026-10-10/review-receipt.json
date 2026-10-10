@@ -1,0 +1,103 @@
+{
+  "kind": "stop-road-native-legibility-review",
+  "sourceHash": "4c4e9ae2fe3f562e313bb1f69ee222792cf7565230653e5efe909c51d64e3043",
+  "nativeCaptureUtc": "2026-10-10T18:28:07.1516840Z",
+  "verifiedUtc": "2026-10-10T18:29:19.174997+00:00",
+  "before": {
+    "sourceHash": "56f533f8ee3bc33aff187e6577b8a5b8eec1c780509e2f1723f21c66593442ad",
+    "capturedUtc": "2026-10-10T17:56:07.1778010Z",
+    "description": "Historical accepted composition before stop/road legibility rework. Date retained."
+  },
+  "road": {
+    "followsNativeTerrainTriangles": true,
+    "horizonOnlyWhenUnloaded": true,
+    "surfaces": [
+      {
+        "id": "last-stop-bus-bay",
+        "kind": "bus-bay",
+        "owner": "last-stop",
+        "points": [
+          {
+            "x": -3.19999933,
+            "z": -5.99999952
+          },
+          {
+            "x": -6.2,
+            "z": -0.9999998
+          },
+          {
+            "x": -6.20000029,
+            "z": 11.0
+          },
+          {
+            "x": -3.20000029,
+            "z": 16.0
+          }
+        ],
+        "heightOffset": 0.0,
+        "feather": 0.5,
+        "relativeToOwner": false
+      },
+      {
+        "id": "last-stop-waiting-platform",
+        "kind": "gravel",
+        "owner": "last-stop",
+        "points": [
+          {
+            "x": -11.55,
+            "z": 0.199999735
+          },
+          {
+            "x": -11.55,
+            "z": 9.2
+          },
+          {
+            "x": -6.20000029,
+            "z": 9.2
+          },
+          {
+            "x": -6.2,
+            "z": 0.199999973
+          }
+        ],
+        "heightOffset": 0.0,
+        "feather": 0.25,
+        "relativeToOwner": false
+      }
+    ]
+  },
+  "checks": [
+    "Same aerial camera, widened two-lane asphalt and visible markings",
+    "Owned tapered bus bay joins the roadway, platform and traffic-facing shelter",
+    "First waystone stands clear of the carriageway",
+    "Bench and D12 mosaic remain visible from the guided camera",
+    "Paving follows actual Low/Balanced terrain triangles; no overlapping coarse ground",
+    "Clearance check includes the bay and waiting platform"
+  ],
+  "images": [
+    {
+      "file": "after-landscape.png",
+      "sha256": "2148acd3372b33e401d134f655cf6680a8b73110751e53ed4f7a79f03efd9f6b"
+    },
+    {
+      "file": "after-low-zoom-out.png",
+      "sha256": "04d2b9eb9f8eb2c4d99b35d03f6c0f5e862efa77519cc9e5ab8ead5051441f48"
+    },
+    {
+      "file": "after.png",
+      "sha256": "990457fff61b7af2a4d736231929f47e907953e595d01d2d283d8cea1edc8ad7"
+    },
+    {
+      "file": "before-low-zoom-out.png",
+      "sha256": "539c8164c1175e9fc4564522fc53e805d82cc42f03c36cf395803a4f4fb40f71"
+    },
+    {
+      "file": "before.png",
+      "sha256": "0ddc25a65e945378652cdfe1dc1335f6e66668014a09a8b0e99ae5a019c3ede5"
+    }
+  ],
+  "nativeFrames": 43,
+  "gameViewFollowup": "Pending",
+  "mobileFpsMeasured": false,
+  "playerBuild": false
+}
