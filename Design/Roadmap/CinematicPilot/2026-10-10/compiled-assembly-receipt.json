@@ -1,11 +1,11 @@
 {
   "kind": "current-private-qa-compiled-artifacts",
-  "sourceHash": "6fd474482fbae4d90f7bdbcc20778cedb9d48e43daee20467ca7cede5bb4dc31",
-  "captureUtc": "2026-10-10T17:09:10.9558590Z",
-  "verifiedUtc": "2026-10-10T17:11:41.661933+00:00",
+  "sourceHash": "56f533f8ee3bc33aff187e6577b8a5b8eec1c780509e2f1723f21c66593442ad",
+  "captureUtc": "2026-10-10T18:08:49.3374580Z",
+  "verifiedUtc": "2026-10-10T18:09:55.110258+00:00",
   "compilerCache": "Private QA Bee, ScriptAssemblies, ScriptMapper, ArtifactDB and SourceAssetDB",
-  "testsSourceSha256": "df399c48f91dde10d73ebd112383adc52abfbebaa12f0705c1086d1136c1c1de",
-  "presentationSourceSha256": "285d309a3deb783f093fd839e642141ae5cc0a2504e2114c82dccd03b40a7bce",
+  "testsSourceSha256": "f683749aa8325ca9d1aa65ce7a290dbed1ab780355a4da04123222e1fe808b24",
+  "presentationSourceSha256": "c434b86fc92ad4a57ae02e61b9217d78873aa00a9b54888b108ba9abeb13a73e",
   "currentCodeFeatures": {
     "waterMotion": true,
     "riverByFrontier": true
@@ -14,7 +14,8 @@
   "checks": [
     "Six executed QA assemblies fingerprinted independently from native artifacts",
     "Executed tests contain waterMotion and receipt records both stationary water probes",
-    "Presentation assembly contains baked riverByFrontier integration"
+    "Presentation assembly contains baked riverByFrontier integration",
+    "Current PlayMode test asserts shadow casters on all opaque world renderers in both tiers"
   ],
   "assemblies": [
     {
@@ -37,21 +38,22 @@
     },
     {
       "file": "QuietCamp.Presentation.dll",
-      "nativeCompiledSha256": "9a705d7ac1d340a5fef0d6c8709df6a2c0b8f52ebfac24684a5cc556159d71e1",
-      "qaExecutedSha256": "574bf36a6053b1b6f5dbe1bd1518ba4e1b11e77c34aa839383b00b05396e7764",
+      "nativeCompiledSha256": "5f9c5c051d2499866a30bdfb883ca388c75b364fa609d8eee7c547e9640c9525",
+      "qaExecutedSha256": "77e471429b471afa3fc9fed51398ba914996bac5595aad66aaab7c626d9974b7",
       "byteIdentical": false
     },
     {
       "file": "QuietCamp.Editor.dll",
-      "nativeCompiledSha256": "5b351b55e22e77f7485caee8bc9e62b8f3ff2ada0b123ff09e0a26c2181f448f",
-      "qaExecutedSha256": "380b083553ad1153235e1dbc60d09d34eb579660f014e8e6162c156088b75a5c",
+      "nativeCompiledSha256": "5ffb14ad2f476d08eeacebe597e8b71e499dcb64aa609b80e9b75c3e28bf55fc",
+      "qaExecutedSha256": "522084cad4e65b499f9d631fc4805664c671e53beb5a73567a6bb7fd77e76a32",
       "byteIdentical": false
     },
     {
       "file": "QuietCamp.Tests.PlayMode.dll",
-      "nativeCompiledSha256": "1c542b427bf8eedb85658d894fa1d4ade2784e99c56db5e0da00f085a43a662e",
-      "qaExecutedSha256": "91a3d4f19f16876d88e71f62061c166a8b773bbeba1926089b52ff9576cc4922",
+      "nativeCompiledSha256": "22cd439a1401d32fb5959976d91afea0e2cc9d087da6ecb3a8fca4a8853d1d2d",
+      "qaExecutedSha256": "05513a2612a6a816d7b701d069e0c187a8eaa9e354e8b2ba57cc79fe4f6ac7a2",
       "byteIdentical": false
     }
-  ]
+  ],
+  "opaqueShadowAssertionExecuted": true
 }

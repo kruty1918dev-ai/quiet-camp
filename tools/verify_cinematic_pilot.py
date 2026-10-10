@@ -92,7 +92,8 @@ def main():
     assert run.get('result') == 'Passed' and run.get('failed') == '0'
     end = datetime.datetime.fromisoformat(run.get('end-time').replace(' ', 'T'))
     captured = datetime.datetime.fromisoformat(gameview['capturedUtc'])
-    assert 0 <= (end - captured).total_seconds() < 3
+    # NUnit writes whole seconds; the capture retains fractions of that same second.
+    assert -1 < (end - captured).total_seconds() < 3
     visits = gameview['reentryCounts']
     assert len(visits) == 4 and all(visit == visits[0] for visit in visits)
     assert all(not added for added in read('lifecycle-diagnostics.json')['addedMaterials'])
@@ -108,6 +109,7 @@ def main():
     assert len(compiled['assemblies']) == 6 and compiled['currentCodeFeatures'] == {'waterMotion': True, 'riverByFrontier': True}
     assert compiled['testsSourceSha256'] == digest(ROOT / 'QuietCamp/Assets/QuietCamp/Tests/PlayMode/RoadmapWorldPlayModeTests.cs')
     assert compiled['presentationSourceSha256'] == digest(ROOT / 'QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldPresenter.cs')
+    assert compiled['opaqueShadowAssertionExecuted'], 'Current opaque shadow check was not executed'
     water = gameview['waterMotion']
     assert len(water) == 2 and {sample['quality'] for sample in water} == {'Low', 'Balanced'}
     assert all(sample['cameraStationary'] and sample['seconds'] >= 2 and sample['meanRgbByteDifference'] > .15 for sample in water)
@@ -136,6 +138,16 @@ def main():
     assert browser['gallerySha256'] == digest(EVIDENCE / 'index.html')
     assert {result['viewport'] for result in browser['results']} == {320, 720, 1440}
     assert all(result['result'] == 'Passed' and not result['errors'] for result in browser['results'])
+    comparison = ROOT / 'Design/Roadmap/ModelRefinement/2026-10-10'
+    assert browser['sourceHash'] == bake['sourceHash']
+    assert browser['comparisonGallerySha256'] == digest(comparison / 'index.html')
+    review = json.loads((comparison / 'review-receipt.json').read_text())
+    assert review['sourceHash'] == bake['sourceHash'] and review['gameViewResult'] == 'Passed'
+    assert review['gameViewCaptureUtc'] == gameview['capturedUtc']
+    for entry in review['images']:
+        assert digest(comparison / entry['file']) == entry['sha256']
+    for path, sha in acceptance['artifacts'].items():
+        assert digest(EVIDENCE / path) == sha, f'Artifact changed after acceptance: {path}'
 
     page = Links(); page.feed((EVIDENCE / 'index.html').read_text())
     page.links.extend(re.findall(r'!?\[[^\]]*\]\(([^\s)]+)(?:\s+"[^"]*")?\)', (EVIDENCE / 'README.md').read_text()))

@@ -1,8 +1,8 @@
 {
   "kind": "cinematic-pilot-editor-evidence",
-  "sourceHash": "6fd474482fbae4d90f7bdbcc20778cedb9d48e43daee20467ca7cede5bb4dc31",
-  "runtimeCheckpoint": "b89826673cfe62e92a5611dfff530187dbd665af",
-  "verifiedUtc": "2026-10-10T17:14:29.721060+00:00",
+  "sourceHash": "56f533f8ee3bc33aff187e6577b8a5b8eec1c780509e2f1723f21c66593442ad",
+  "runtimeCheckpoint": "e8cf9067a62a172c6a9749d90edf61c6a58786fa",
+  "verifiedUtc": "2026-10-10T18:10:47.885399+00:00",
   "levelIds": [
     "QC001",
     "QC002",
@@ -26,15 +26,15 @@
     ],
     "portraitFieldOfView": 30
   },
-  "nativeCaptureUtc": "2026-10-10T16:57:20.1316990Z",
+  "nativeCaptureUtc": "2026-10-10T17:56:07.1778010Z",
   "nativeFrames": 43,
-  "gameViewCaptureUtc": "2026-10-10T17:09:10.9558590Z",
+  "gameViewCaptureUtc": "2026-10-10T18:08:49.3374580Z",
   "waterMotion": [
     {
       "quality": "Low",
       "renderProfile": "Low",
-      "seconds": 2.15727234,
-      "meanRgbByteDifference": 3.9243443,
+      "seconds": 2.160759,
+      "meanRgbByteDifference": 5.914107,
       "patchX": 452,
       "patchY": 525,
       "patchSize": 40,
@@ -44,8 +44,8 @@
     {
       "quality": "Balanced",
       "renderProfile": "Balanced",
-      "seconds": 2.1753006,
-      "meanRgbByteDifference": 2.767687,
+      "seconds": 2.16423035,
+      "meanRgbByteDifference": 6.82409668,
       "patchX": 452,
       "patchY": 525,
       "patchSize": 40,
@@ -55,54 +55,54 @@
   ],
   "navigationTrackingSamples": 36,
   "navigationTrackingRange": [
-    0.8854947767857143,
-    0.999953253968254
+    0.8861291071428571,
+    1.0059599206349208
   ],
   "gameViewIntegration": {
     "result": "Passed",
-    "startUtc": "2026-10-10 17:07:21Z",
-    "endUtc": "2026-10-10 17:09:11Z",
-    "durationSeconds": 109.4375106,
+    "startUtc": "2026-10-10 18:06:56Z",
+    "endUtc": "2026-10-10 18:08:49Z",
+    "durationSeconds": 112.824011,
     "checks": "Fresh campaign progress after onboarding, completion 1–5, old progress including gaps, replay, jitter-tolerant tap, drag rejection, 36 screen-space tracking samples, normalized wheel and fractional trackpad, multitouch ownership, real Input System pinch/release/cancel, fresh-profile inspection margins without reveal, quality change, synthetic notch, portrait/landscape, reduced motion, interrupted reveal, repeated entry/exit"
   },
   "measurements": {
     "Low": {
-      "maxSubmittedMeshTriangles": 78628,
-      "maxSharedWorldMaterials": 5,
+      "maxSubmittedMeshTriangles": 74043,
+      "maxSharedWorldMaterials": 6,
       "maxDetailedChunks": 3,
       "gameViewSamples": 10,
-      "maxEditorDrawCalls": 42,
-      "maxPassInclusiveEditorTriangles": 141231
+      "maxEditorDrawCalls": 51,
+      "maxPassInclusiveEditorTriangles": 146529
     },
     "Balanced": {
-      "maxSubmittedMeshTriangles": 147092,
-      "maxSharedWorldMaterials": 5,
+      "maxSubmittedMeshTriangles": 99513,
+      "maxSharedWorldMaterials": 6,
       "maxDetailedChunks": 3,
       "gameViewSamples": 10,
-      "maxEditorDrawCalls": 42,
-      "maxPassInclusiveEditorTriangles": 268859
+      "maxEditorDrawCalls": 51,
+      "maxPassInclusiveEditorTriangles": 197426
     }
   },
   "reentryCounts": [
     [
       2,
-      406,
-      230
+      382,
+      204
     ],
     [
       2,
-      406,
-      230
+      382,
+      204
     ],
     [
       2,
-      406,
-      230
+      382,
+      204
     ],
     [
       2,
-      406,
-      230
+      382,
+      204
     ]
   ],
   "playerBuild": false,
@@ -124,7 +124,11 @@
       "Continuous landscape and story silhouettes",
       "Broader surrounding geography at each stop",
       "Road, river and neighbouring remnants visible together",
-      "Native portrait and landscape at maximum zoom-out"
+      "Native portrait and landscape at maximum zoom-out",
+      "Distinct reviewed prefab LOD and palette at each landmark",
+      "Outdoor vegetation with full crown/wind footprints and clear water/architecture",
+      "Continuous readable stop road and owned pedestrian approaches",
+      "Terrain relief, one sun with opaque casters, sparse wind-driven pollen"
     ],
     "limits": [
       "Art quality is a design judgement; source LOD silhouettes remain stylized",
@@ -133,16 +137,16 @@
     ]
   },
   "runtimeSources": {
-    "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/assets.json": "19c4be1baec24a181667e132d8786178d84225cedcb85a6b5f1e6e9627abd142",
-    "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/bindings.json": "78647a8d72da1a2b2e03905ba64eb8922fc14be5c27e5e9415dab837b9e013bc",
+    "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/assets.json": "e263dd36bead9ce5cd6b1d3a23eb36a013a962420e827af6eeb7364bc0ff01c7",
+    "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/bindings.json": "ceb963209a8a21a5c190e4eeb6219fe02bd376ab92f46bfe1ca4880cdaaf54ca",
     "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/manifest.json": "d10080f48c9c50fe3945937ef877339b7a0c929f4271ca281cd3562359a459ae",
-    "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/templates.json": "cabaae2dcedda7ce937807b1e2d0c279daa3d24cd155317df88ff50e29a9a5b3",
-    "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/valley.json": "5a82c9976b5515d5c0d2eee51a16680b0c7eb7c9b8fd684eb2afb81268aad346",
+    "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/templates.json": "28d2188d9ec26b48c340547805102585f3c60541246ea399e2a1f3d745c28e96",
+    "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/valley.json": "a55007d4f791191622cb3c5e9d225eba4410d5ebbd219ef2a8b4c758f3397301",
     "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/water.json": "203bd4b50ba112288870259240ce2d6e0258cad3e31e34eaa1d47d072b9d41b0",
     "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/world.json": "949a7eafe236ce8eb7d098a20477e333ece37cac845042e78647a56ff003e0d0",
-    "QuietCamp/Assets/QuietCamp/Editor/CinematicRoadmapBaker.cs": "4cfdc0870835984ca87479a8d1dd6ae58435b93edf7dbc0af40dc4405f7b8b9b",
-    "QuietCamp/Assets/QuietCamp/Editor/CinematicRoadmapCapture.cs": "9c96b1093329be11c496872b0cd679b41f36598cdbf034b088771606ee90b85d",
-    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/World.asset": "de0a30b9e63a311fbea0d1bf9ecf2375712d2fd348e90593b1e11fbe5edcc68a",
+    "QuietCamp/Assets/QuietCamp/Editor/CinematicRoadmapBaker.cs": "3b3e480f69228a399e82d877d3c72da05b0f1ce35090a713acde28cc7745ef30",
+    "QuietCamp/Assets/QuietCamp/Editor/CinematicRoadmapCapture.cs": "56c0b28dd7afcca69a23db01781686de2b16811bfd2c5533d4009f2972383a23",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/World.asset": "8c3e2142a74d40fa193b5e991ad1c0135f74cf824d3d2c8e2e6621786f7cfe3f",
     "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/Camp.css.txt": "fd3220bce418a27e257ea7fdf18221af91c3b823d904eaf3e60c00b5b3038e3c",
     "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/CampBackdrop.css.txt": "618ebd15adf3e8f2b76faba0f461b8c2965891cdfda26484d639f46c9c4c4d2b",
     "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/CampGame.css.txt": "389ecb43b02eb59f2216618943c5386f70c6b30becd3afe6102bd36d64d3709b",
@@ -153,6 +157,7 @@
     "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/Menu.html": "5f9636136f253ef1f714c70cc9ecea258a6965cb2c3872f1cb15b9e84f9c3af3",
     "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/Sheet.html": "19d94ed00b4f8367b2291cf0d92d57f6bf682868fea47e56541aed8dbffb0b41",
     "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/RoadmapLit.shader": "568f40e0e71a06240696d14842931cc1bcfb3b5bf958326f6b0ee132d3039c41",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/RoadmapMotes.shader": "7442c09bcebf295dcea6f9d3229fc7f02d0950562f5a7adc663351a03d90ecd5",
     "QuietCamp/Assets/QuietCamp/Scenes/Boot.unity": "ed70bb55d1654a25ccf197610f9da0c0ee1c66adafbdc957ebe4f15c78ef7de7",
     "QuietCamp/Assets/QuietCamp/Scripts/Application/AdLifeService.cs": "e36bb5a0d0671b69747cf03fafe48fbea08b64fb459e4c84b23baa13a28b31ca",
     "QuietCamp/Assets/QuietCamp/Scripts/Application/AdService.cs": "abb43b4ae88b8f90ade0a096384b21d87808c3225b0ccf7dc3c7c4e4b8e17a1c",
@@ -316,10 +321,10 @@
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/PlacementTargetProjector.cs": "87adca46552425aa7fa2c029b7bcaff3bf4bdcf5f0e3c90e2cd9fcfcb2c13cb0",
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RainImpacts.cs": "99366355968a44839cedbef44af1ba5cafc05f11b7f16a65684920fb0420406c",
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RainSurface.cs": "71dfa40acb676b6f85b18da132f52303a7f5d1eaffd21c9d46fd893e4c6e3730",
-    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldAsset.cs": "8472418acb287ad67cf41bbca0091c929c3b682ea1e49fb59e34d20026434cd0",
-    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldChunk.cs": "dcc1e451305568a128293a353a9add5af0a4a362a31fbfe93d9bce1c0937a89d",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldAsset.cs": "b70b3962e7d255b88c5c7992fba65cb2314618996e00b34b7360cd08ce6b49d3",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldChunk.cs": "53dd88f689516c6f10d8c1ff0a8be8dce7c75e9599cfe5b079676eaef93afcb9",
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldInput.cs": "52c7b0190b492e90577a5d5ca04dbdfa1127fa731418d6a4e59ab3f61a16eacc",
-    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldPresenter.cs": "285d309a3deb783f093fd839e642141ae5cc0a2504e2114c82dccd03b40a7bce",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldPresenter.cs": "c434b86fc92ad4a57ae02e61b9217d78873aa00a9b54888b108ba9abeb13a73e",
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonPalette.cs": "58d340e333e557a7af3625edfae3eb7b97f5b82e609de30c2ceaf3bd77f613b1",
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonProfile.cs": "2ee313cd6a340b074fd646df4698f54963b988a3db50447335e3163c589db7b8",
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonalLeafFall.cs": "0abed7f869aebd9af13be02127e216ecfc88389b7c99a02081e1c783e5e04d49",
@@ -335,608 +340,458 @@
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/TentPresenter.cs": "773ac431a0d6d4f2a7b3969d6587a08ff4c31613c5f5cb4e93410617f36f62eb",
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/TentStoryVisual.cs": "a2fadada254c76051da1d53cceb4eb1b611c9b3f8a393f9956231d6359938e7c",
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/VisibleForestFloor.cs": "4271cf77c5bb4ab2b4fa6a2bc35326c36dc7482842aa50543c1ed5aac39a6a02",
-    "QuietCamp/Assets/QuietCamp/Tests/PlayMode/RoadmapWorldPlayModeTests.cs": "df399c48f91dde10d73ebd112383adc52abfbebaa12f0705c1086d1136c1c1de"
+    "QuietCamp/Assets/QuietCamp/Tests/PlayMode/RoadmapWorldPlayModeTests.cs": "f683749aa8325ca9d1aa65ce7a290dbed1ab780355a4da04123222e1fe808b24"
   },
   "images": [
     {
       "file": "balanced-landscape.png",
-      "sha256": "b57697212de2a1ed5a6a12b11515c1ab0e1ff0fedffbe3bf69f1efea47d55592",
+      "sha256": "01ff6210b84ce42bae43c58bea71740e3a631b9879d0a1b714579be45d657b6b",
       "width": 1600,
-      "height": 720,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 720
     },
     {
       "file": "composition-00.png",
-      "sha256": "969cf11a649b87e1770f1aaa77e5c4fde46618c1424c875155394907a6360a56",
+      "sha256": "0ddc25a65e945378652cdfe1dc1335f6e66668014a09a8b0e99ae5a019c3ede5",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "composition-01.png",
-      "sha256": "4c48d3ea4126ea747040126875955b236465ca1106d42924cdeb8bd7d62164b0",
+      "sha256": "86dba1ce5b5687e97665182ea3c675cd3371316d02befe1501705052cee95660",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "composition-02.png",
-      "sha256": "c438e1a4d399bb76596182f001e0be0265370b5154b2406cb4fb6447031a6746",
+      "sha256": "e670e86378c15b93bbe71531406d65cc8aef1b047b81009571a01789aa6ecc3b",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "composition-03.png",
-      "sha256": "60f1b393a4093eff42398dcff04579c796e9ae41745ed3054d0ce167d848dba8",
+      "sha256": "4eed5f93bf58ddfcc5f93027433bd06f5c17b4f12fef648175b6e873baeea6f4",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "composition-04.png",
-      "sha256": "41e33da495c20eab7176286ea29f52b144a3c8dfd282f225ed6f4ab4adefe74e",
+      "sha256": "c336bf101235f9bb9eb3fcc3755303eaa1ad01ce8edba012b6f84b4de1d9abad",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "composition-05.png",
-      "sha256": "01b864422212fab12152174bb08ec593c0f831070c380675de0d084e3258ad72",
+      "sha256": "edb9cad7e646ec50e20cc59f575099066a1da4bc876a51fb7a6d66342eebc5f6",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "composition-06.png",
-      "sha256": "d9b7ab4cdbb8a0c79f3e6e0573c3024856ae5227315909b57e1a59072b2aed0a",
+      "sha256": "5e7a87f9314722b450f164538d3b454dc618a493fb00d2a753da6bc28b825ed3",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "composition-07.png",
-      "sha256": "a485d3bd7bbad56152f02dd1a57934a6127edb9fb93d22cf514e70abca0cb433",
+      "sha256": "9e87065a39fe128da883ee39862412b8fdffdd50637f80a8ac8ad1f19f295bfd",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "composition-08.png",
-      "sha256": "83ba1cd3c8533023b0c85a5df369260e0155d240bc6613690391026191d9ec7f",
+      "sha256": "aad97b737c1bb61c61c8215945ab48f8186d3406e9ab4b40a21046594211b1d5",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "edge-end-landscape.png",
-      "sha256": "e2a61d23970787173f6499fcf28046939017531284a77daba0e8602d9c373606",
+      "sha256": "b149987780d083c262d427c5bc7c2b9dec7e285b759daefcdfe27909ab9fb261",
       "width": 1600,
-      "height": 720,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 720
     },
     {
       "file": "edge-end-portrait.png",
-      "sha256": "fa6f65f10844a65745a33c9507db09eb1c768532eee8f1f694bc87fedf06796d",
+      "sha256": "6f77f6edb113ecf86909e4272e90c74f16bf2f1d3a41cdd7779d3f34f82d4cf2",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "edge-start-landscape.png",
-      "sha256": "e7ca363c7db83a76586b149f230a7d357c4b2b097fca5fc5789bcea6b9f17a64",
+      "sha256": "da26c5618a004b27ac47a2fe3afba90b546212e7d5a45ff995035805a5d7c1cc",
       "width": 1600,
-      "height": 720,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 720
     },
     {
       "file": "edge-start-portrait.png",
-      "sha256": "97f1b3dee20044bc7edc6b250b6ebe32aa7880e40e614a1f52de6a883ee9e9f7",
+      "sha256": "0b6fe86a681f00a44866892679042df7de54a31754c8fc12eac4d6f93d23881e",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "gameview-after-1.png",
-      "sha256": "2b10fe0a7e7130618dff83d96fd1373ea3ea9222d1e655c9dc5273259314d987",
+      "sha256": "758bce3cdb02253cdd31eb81865e88867ca43cfee2016dc1c952e125220aaed3",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-after-2.png",
-      "sha256": "17da6a801830c0c13ff476108871aab8b893e1c6e2945689aadd3cfebadcdbc3",
+      "sha256": "3104bfc25fb3b9162722509d77a1fa955d5e2c20341c723595e51ea2e5a39de2",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-after-3.png",
-      "sha256": "559aba9842646b03a91d098e868782e3f3ec866c9be341ba4d5e7f1ff66bc6d4",
+      "sha256": "c2cf7b7ff9eec8d7de9f775769cb19f3c738ede3f0b5f6913312ee4e146ae7d8",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-after-4.png",
-      "sha256": "7bfdee048d367397c8a214047850a1a7069829584cdf92b0d31d192b6d283f4f",
+      "sha256": "46bed0db3112e72646c198f8d2f49babfd47492f14a5271d50e2b7b93e9d2d3c",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-after-5.png",
-      "sha256": "0dba1929af8350f6e4591ac49a21387fadf097b5eb286107d2ebe51bc7bc0e2b",
+      "sha256": "c0f3377cdf010271988f9ea2fa7936ebab4931ab8dabbcb085cc1849f0d0ed41",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-balanced-landscape.png",
-      "sha256": "d19891050cdda93e0cc55bbfb456c9581ffe7e9b5cfc57eca47ed49cd08e1298",
+      "sha256": "34d9c91d2fcc75017e004ad7cc2fe0ccaa59fc1dcbbbdea2a0a97600c6d569bc",
       "width": 1600,
-      "height": 720,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 720
     },
     {
       "file": "gameview-composition-00.png",
-      "sha256": "45c9b86e3354e8466b14556eab3b50633abb1cd4eb53eb7909d1406581bb9ba4",
+      "sha256": "074851a68e607966243aa48454fb413c7e0ad86060c1c350e39918b2d73c2b66",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-composition-01.png",
-      "sha256": "ec1a6ebce96224d71ab285af4c1c8a5bc1f65526ed54da2aa993bbebd43991e1",
+      "sha256": "503d7953fd9c4fe564279ba51a61708021ee338f66f8ab0d657333b67f0b457d",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-composition-02.png",
-      "sha256": "6759e24f5ce48d9d33a497dde74012c294877310f366843be97d7f859b6192e5",
+      "sha256": "8bca1deade7e47104d742f838e6c0ae40dbf6e8af6ee13d52da93fe2b5ef0dc1",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-composition-03.png",
-      "sha256": "727fffa981e0bc8b77e0623ed13fe9e90c716bd2447eec7687857894e19134da",
+      "sha256": "2a1141cd302b28c416fc7eb10f12079d11e6b1f01db3103729d496c360c98761",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-composition-04.png",
-      "sha256": "4296e019e180ca5351279654a6de1c3f2fdc0e3c5f8a3a7466b4cd03f20d1b80",
+      "sha256": "5bae90f9419c392d29e68d31452b2c5416d78f8f5c3f376988dfc0c5ed786015",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-composition-05.png",
-      "sha256": "1bdc48a87b032cae8d6cb27a8c75c90d8ebe321e7b09dea896e6b65a847efd3a",
+      "sha256": "dcad14185167b8ef04a7a90406c0974d8c3214e8fad9f1419d40611a8e4f04c9",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-composition-06.png",
-      "sha256": "8d59498dc40ab566babab32b58df3d0f698e3595afeec7920f0768a4af2928ec",
+      "sha256": "0e1f76d203e46bd163914cee940f4e24eef750d927cdd12407fe8a380749d8eb",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-composition-07.png",
-      "sha256": "b47f82e5733cd688d9857603c99d3574ab2626dfcb703a101d6f53d49a9d29fd",
+      "sha256": "8e20af874150109a230ace17a0fe08fa40bb2a035313c4c402362afaf2b8b5fa",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-composition-08.png",
-      "sha256": "514759bf4461a5ceae4fe6536ad0c5edfc7de26e4ae0bd49b4f88ac10886ef25",
+      "sha256": "cf81ce83cd47b1827277c7ecae21a7e8ffede0f7a1af83313aa19933f323b803",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-fresh-profile.png",
-      "sha256": "6626b8436e829dc20acece9f476cf2907bc059be2079c14f96497138319473c1",
+      "sha256": "1842fe93bcdebd9c9b79b2f4c12e9f7523f7c6e33a61d63fde5c3b93f0509001",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-low-composition-00.png",
-      "sha256": "fcb1daaf89e65f48003bf1443765d5477bcee09b1744ec2a048b5dada1cac694",
+      "sha256": "968afc185813c253f705f39c16cea88bc0d2fc70b7e4459e4eab30ed0c5928de",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-low-composition-01.png",
-      "sha256": "b6363285b2cd5ba915c09e3c84814bbe4953cba2cf4bd9118bd9f4c614b612ae",
+      "sha256": "ac2798b7b77992477a5e50a45440df5b282b9f0d9b1c5f5cdcf120a33f88c3c2",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-low-composition-02.png",
-      "sha256": "f801903894e2b78b6d4f6a09d84bd598925bcb09cf7ad89a2d4c21314ddf23b4",
+      "sha256": "d87fcb1f12a508cf65e356c5eb1c8528fd3eb7d74b6d32ff9285d5eae073eb80",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-low-composition-03.png",
-      "sha256": "2a15375b5f79ad1eb7b79c5c2925abd890b6b02602500d905f7ab09c5e80ea2b",
+      "sha256": "7a105e2acdb12c91a3710a624a04a6f722995211845cd6d217c4713ac1c97c26",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-low-composition-04.png",
-      "sha256": "7c5bea260955dc2dce5d3b09539bddb5dcd6202fddac38bb60c851938d993878",
+      "sha256": "38c4833138063172ef619ed1be336a6e164c6cb718706b794d22ccb95fe1c317",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-low-composition-05.png",
-      "sha256": "2450abafde7c3e99dcfb32abc4b3a039ed999e1918f388b43abc0fba672d5db1",
+      "sha256": "bd1d3e9b3cb717fe5349df17bee6fca00a33fa0460b1d5342f9adf00df1d18d8",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-low-composition-06.png",
-      "sha256": "fa3254bfe3a72dbd65d5b023b4d17c27e18eaee624e33f82a55ad4cfb60d0ea4",
+      "sha256": "056faacc0b9f439c8903ef7df9e152395ae9ca01186c8cbfb157746522083473",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-low-composition-07.png",
-      "sha256": "be44829d1dcbaca08ab3207ef3cde53aeca60fed6963b78d9356e8b54491eccb",
+      "sha256": "8c86fb4c9b3353664b45b4d545ead175fd0f2782fd5b3498482a3a3a1a6598d9",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-low-composition-08.png",
-      "sha256": "523e4fd9aeb0a819113ea1ce312cf874acf9d884abb781fab03c0e34498a12ad",
+      "sha256": "22ffd51017c0b8f86a169e112a572fdeeed889458554691492da25b8795a4b00",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-low-landscape.png",
-      "sha256": "94e9fba34df881ad64fa18f13c1583645a7e91f46144095b324da213ac6c26a7",
+      "sha256": "e4735a3bc15cd41a9d6e7af1564bf2379423302c5bf8652e93109b23c2ec1b7f",
       "width": 1600,
-      "height": 720,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 720
     },
     {
       "file": "gameview-notched-portrait.png",
-      "sha256": "25983dac9cab77138c671a9cc835e59d690fe01647e5dd2af13c3cd398526e39",
+      "sha256": "c84432d384dc3f989637015a61eb75263f9a1ded01e5117a01bd89a8c185befe",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "gameview-old-progress.png",
-      "sha256": "75efa8aa179e2f97f7a78e8f1b5fcb4d2e7b9fff0068593d64b7cbe69aa33f5e",
+      "sha256": "e0fde5a928c081a6a8db7d4b4ff75b17b882a72e82a0d3a72decdce0bb186d51",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "landscape-zoom-out-0.png",
-      "sha256": "057cad0cdc79ef829e41c555100a361090ade0d6174905ad4ebbb900d38b190f",
+      "sha256": "793775fe6f348ea81240aaf04c590cd7a9ab1ce6b061642e7cd3e91f4b2f9543",
       "width": 1600,
-      "height": 720,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 720
     },
     {
       "file": "landscape-zoom-out-1.png",
-      "sha256": "d8446a020e0a2e04c28e43b97bf890f782ea7f2355ef3f1eb526cac25bfe3fde",
+      "sha256": "d7bbae57a2b8e19beb4ed16daa36cf0717f537efd72363f261d5ae0d01d5d50e",
       "width": 1600,
-      "height": 720,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 720
     },
     {
       "file": "landscape-zoom-out-2.png",
-      "sha256": "9bc58d8cbf0d3b52a65eb2a2c4878909da6d6d2b9f22182e73cfe683de3a1e79",
+      "sha256": "9381f38310816e7e107228e461c925c536e1e0e8c05a6ad6ac3743368724cb5d",
       "width": 1600,
-      "height": 720,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 720
     },
     {
       "file": "landscape-zoom-out-3.png",
-      "sha256": "6b68061a404b7a89bb154204c136eda45b45da7fedfef9a2f525c59f2694a7bd",
+      "sha256": "2ba02ba890b934ad0d1419799ce743cb0050eaf4c40ca69eb882b527693afd17",
       "width": 1600,
-      "height": 720,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 720
     },
     {
       "file": "landscape-zoom-out-4.png",
-      "sha256": "02589d74d32e81876c5b6d04df7bc13d57986dad23c075eabb1bfe8fa04f28bb",
+      "sha256": "4fc7f1a52e6d679c3fe514b7f4fb4af04554b5e2e4b13c0aeb2c1d1bb3141bc2",
       "width": 1600,
-      "height": 720,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 720
     },
     {
       "file": "low-composition-00.png",
-      "sha256": "e4decfa0cc4b4d5a74f3ea74f161841f1bb59ca916f9624313d1746b07265cd9",
+      "sha256": "2208ce57ae818510727a43b33edec85769ea932aca3ea1263953af32edc956b7",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "low-composition-01.png",
-      "sha256": "e9412978caa1544df00579d244131b7bf0067cedc2fcb4ed262a0956a402b8cf",
+      "sha256": "de62cf6e354e70e1ae615b053644b7431237faf224691734777290b1a679cf17",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "low-composition-02.png",
-      "sha256": "458f901d7e8092a4b796e59fb5722ff975a398a431c46d14410455cdcd874823",
+      "sha256": "42d6ce7ca737126cc6eeb8144c4a20b24f97e8599d1f3fc86d2abe8729e60a93",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "low-composition-03.png",
-      "sha256": "31262289a3b43fa3ec0ebaea1d79e67d21f4aaf81633c378e5085586b6ab1e97",
+      "sha256": "378669dc407f6bb8c7d5cfef773290f9cc394e5e9e327d85f9c2356f672cfdd0",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "low-composition-04.png",
-      "sha256": "e1ac5d5a307eae69ab2ba5e98b1e64e13547ca405cfe21982a4cd4ae63d933bf",
+      "sha256": "3f9d98e94a8e84dfe54f9d6ead824e7acd3f28a0b5f73c2cf44579f42db87644",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "low-composition-05.png",
-      "sha256": "1bd961b80da907f56d56e1d0114eb530800c417b3347a39710e69ff7b7f0b056",
+      "sha256": "01cd62448c979c3d9d3701a1117b64d72a66e51a3926163a41147feccde12d1e",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "low-composition-06.png",
-      "sha256": "903c72a48c0ba55fae55ef11fb92284d1df3e4a03a16f2cb9bd9d9a37e5ceca5",
+      "sha256": "4b83d794176b75b54ee902299fa098c217742fcf029341b8a0429d4ef08d5611",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "low-composition-07.png",
-      "sha256": "77371c372e89f754822ce8cf5cd188cec818d59dc702a422d6a985b96c588411",
+      "sha256": "d23170a8d761b4eb4e1b0d2a5d911be3261071f5b1970360877ff956dd40b51c",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "low-composition-08.png",
-      "sha256": "fbabdc3cb5bfd4c361416684e8910e6f65b2561412c8338f7e1f8e067c9863ba",
+      "sha256": "15450a3cec4ba1853d80ec690a2f1c7b414285522fe3d1d3f06ec92b7bb25b86",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "low-landscape.png",
-      "sha256": "193ef32ea17d31d8d375eb231e4baada0413916dbbe08fdf42137cbc6c5f54c4",
+      "sha256": "7b8ec4d95f367b4c65d1dd5a3b5071adba26b9f5f7a99981d09c6005107899f9",
       "width": 1600,
-      "height": 720,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 720
     },
     {
       "file": "low-portrait-zoom-out-0.png",
-      "sha256": "555a0c19579190729db310ccaa53f13e4a46b3ed893ea7913732f31a5f25a3cb",
+      "sha256": "539c8164c1175e9fc4564522fc53e805d82cc42f03c36cf395803a4f4fb40f71",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "low-portrait-zoom-out-1.png",
-      "sha256": "f9ae926b2264e3cb3a0e72c2c1be649165d60873ed1cfbfa85a83b8f574162ae",
+      "sha256": "a0c024a46facd15be48c2eb59d6553f7420977d28717ad1bf64c7eb8eef8da15",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "low-portrait-zoom-out-2.png",
-      "sha256": "64d97670954c0a27792ca1a56bc723a1c526f66fd7cbf35d3be5ff10f76f1bbb",
+      "sha256": "257a7218e92e741b18eab4fc9fe97169e0ee4cd7093c630f05559ba0eec550c5",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "low-portrait-zoom-out-3.png",
-      "sha256": "7710a615ae8171cc8b670cc009d914aac559fdbf72643a52f22e40163df3f67b",
+      "sha256": "d6fdd1674de591234ba71b1b5649da322712c009de4af340e6222125834a3968",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "low-portrait-zoom-out-4.png",
-      "sha256": "2692d9ff0dcddae27ab1e67e2489064b758eb170be65fa109d7c809f5a2d9188",
+      "sha256": "bfbd06ef59277247a13167a4776ac08b54f13ed4950f7fe80b47c9ab2fbfac65",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "portrait-zoom-out-0.png",
-      "sha256": "50bc772bc63fca08a6b51dd248ef76ae385cbdb22559652b933e85c3bfa06518",
+      "sha256": "55eb4f30ed2b3326f21c1ff82f0adf2a8ed66e665784b18457d837c76a372b34",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "portrait-zoom-out-1.png",
-      "sha256": "5b87d4501da9e445144092d55ff3c39d945c32f63a117bcd45fcad68aaceff68",
+      "sha256": "134353e02c0cc7feb9683c2d2662d22eebf6c8bf6be4f1630853e9469f6451c3",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "portrait-zoom-out-2.png",
-      "sha256": "4e1c59bb7efcce1664f560eca0bf81ff911dcd92c33e7339716883cfefb657d3",
+      "sha256": "c1a72171e716898b4e19d3ed8e4c118fea7193e7bf2d3b4ad7899608c2841877",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "portrait-zoom-out-3.png",
-      "sha256": "1d387ee59f68143002ab674832ec504e365b47bdb4e1a252282a3b3319f3cf36",
+      "sha256": "897a1809647cc040835270bdd21afdcd18a387c728a81621fa457e4baef88bf3",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "portrait-zoom-out-4.png",
-      "sha256": "eaf616b53edfe38bf07a499efd802c63b50a309a776b3abc62de62304e2fc4ff",
+      "sha256": "6a19a6f9242bc6d6dcb92014393c6e5906ab26d9eed37d193d9331e1bc59e229",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "progress-0.png",
-      "sha256": "1c40864ac45b52616871337f0ff9c2ae32deef9033dd69ad8f2d2febd50a0304",
+      "sha256": "5384f90d1173c8ea683d9bc08050cf498946476646f0ce7d00d314cee2980004",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "progress-1.png",
-      "sha256": "29f98733e64599b9c8961e408e3ae09e01087db01786b127e78222de0008babe",
+      "sha256": "5408f22465faf48f429c53ee0745c3d9bb3e2c1d0629d2468ebb9e548bdb9cf1",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "progress-3.png",
-      "sha256": "a933395dc70036af1b4759dbe074f81ff047d7017bfdb015bf53a63bd340517c",
+      "sha256": "4e56ba04904d3b263f7d1908ad45535818b5b19f4c1e1959b4aada0539ac6639",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "progress-4.png",
-      "sha256": "933e0059f1ac32afbe9dccf715b59f97cc604220675de0fcc80e1a60fbae2d3f",
+      "sha256": "39bcec13274856b393ffd70cbe7300a1ddae9e2b40617e52e5936d1c842a9271",
       "width": 720,
-      "height": 1600,
-      "kind": "production URP",
-      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+      "height": 1600
     },
     {
       "file": "water-balanced-0.png",
-      "sha256": "421e425d69fe1d84436f79802847f1b3d4904ddb58091e45fec3a1ca0bd5b2f4",
+      "sha256": "95116310f9f3b871ae23598ab391e4ac1e58cc2cced7387b8daf54689f03fcc3",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "water-balanced-1.png",
-      "sha256": "2e887aecfcd8d38bf89d91bb55d85e46d1dc721e169d008b41b175df4d40e4d3",
+      "sha256": "6c36cd6d80f7023016ffe21ff9a792cdacd06c7ec0a19f00574512728557cfdf",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "water-low-0.png",
-      "sha256": "2315be45ee79ee4907de56d782f20be08aba2564c3a132c21431bf0f5817887d",
+      "sha256": "6b3c520b41783eba02d8b77f5f45975a3941777b473388eac677a1f1e7244b78",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     },
     {
       "file": "water-low-1.png",
-      "sha256": "a3e7a8fab17b98fd367eebd3eeb73a8174227d4166f07c38337215fad0a21065",
+      "sha256": "a1a415ee8866a1f1b798c478f4c6a1678d660b2baf492d04d2bf196e8390c203",
       "width": 720,
-      "height": 1600,
-      "kind": "Game View",
-      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+      "height": 1600
     }
   ],
   "renderConfiguration": {
@@ -949,14 +804,40 @@
   },
   "preservedDirtyInput": "QC_Renderer.asset was rendered with the user’s original uncommitted configuration; its SHA-256 is recorded, its bytes were preserved and it is excluded from commits.",
   "artifacts": {
-    "bake-receipt.json": "1501f41458a0b8318a724b296f5c02eb093b91c06ed97012bfaedb582b03e61d",
-    "native-capture-receipt.json": "c81547821eb079fab08ad75b5602e6df30edc4c390c6e91706af58554f94b9d9",
-    "gameview-integration-receipt.json": "3c2eb1115baa959b6a1e2ce09848e9aa63332dea51e562b0ff862c2d78662542",
-    "integration-results.xml": "a67c558eb783698b0684dbb8210e0783855ebbe12906e4c7202f34c9a480a7d8",
-    "lifecycle-diagnostics.json": "1323881ec35b3814e23c2c201130b9484a65226f63cb3d7126b9ad511d365653",
-    "compiled-assembly-receipt.json": "d3094807214bc0e0e9b880b0671cf3597bcfb54dbbab221a732c083cae1eb817",
-    "video-receipt.json": "90ac2130a32590db465994218fd3a0837d79449cca9c8dfcf6b8de7121ca095f",
-    "browser-receipt.json": "c81c4c37c2705c5da12b97fe0e1dc3b52324ac4e66f12dd5d19327ac6efba3d6",
-    "index.html": "0884a771eaded0d81b982c532fcba8a3e420b6213e5c29caccb590f4855e53c8"
+    "bake-receipt.json": "131d012a2876f48e824f8d4a7f38e74c54c53868a8c57f3f0956ccc6f7174e0a",
+    "native-capture-receipt.json": "5ae301e25be5fe6c23dc71c0c5923d86a6d11b602ca2f55fc1a44950e8293529",
+    "gameview-integration-receipt.json": "ca8e3b0ab010206bc553ff0d6d433e17846814fa2ece649696238a7c9c21dbbe",
+    "integration-results.xml": "be03077a181de60ed6a977feda84a78886c66ad96395c46f7a0c950617a87f10",
+    "lifecycle-diagnostics.json": "93a1ea36dcbfc9191e57fe68609ca899572b822b12964f7aa01935ad16e4f5b4",
+    "compiled-assembly-receipt.json": "93983bfbbd2b234d5b439c14025b7b056fcf05beb912babee294961dcdf4a05a",
+    "video-receipt.json": "001eabb86ded041c6624661238f5eeaf13988511ba8e3db5258a0eb7f95bfe0b",
+    "browser-receipt.json": "ca6c3dc10f6c9cfb6be963152e238a45410a0dd22c5a8e29748914388e403ea5",
+    "index.html": "27bab9aa0a1f9fd3476dd75181f05c3d27d0806cc61e5c634a60dac6f339f2d3",
+    "vegetation-clearance-receipt.json": "773d6e461fceeeb565392d255c11c8e2ffcb839786a05f33772933d4bf894d78"
+  },
+  "vegetationClearance": {
+    "sourceHash": "56f533f8ee3bc33aff187e6577b8a5b8eec1c780509e2f1723f21c66593442ad",
+    "method": "Independent pair distances, 32-point crown/river checks and oriented architecture footprints",
+    "samples": [
+      {
+        "quality": "low",
+        "plants": 2237,
+        "trees": 283,
+        "groundProps": 1,
+        "grassTufts": 1058,
+        "minimumAnimatedPlantGap": 0.15024566848226695
+      },
+      {
+        "quality": "balanced",
+        "plants": 3145,
+        "trees": 410,
+        "groundProps": 0,
+        "grassTufts": 1409,
+        "minimumAnimatedPlantGap": 0.15095403864305534
+      }
+    ],
+    "result": "Passed",
+    "playerBuild": false,
+    "mobileFpsMeasured": false
   }
 }
