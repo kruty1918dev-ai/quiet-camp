@@ -119,6 +119,9 @@ namespace QuietCamp.Tests
             }
             Directory.CreateDirectory(Output);Size(720,1600);
             float menuShadowDistance=((UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset)UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline).shadowDistance;
+            var savedShadowRanges=new[]{"Low","Balanced","High"}.Select(name=>UnityEditor.AssetDatabase
+                .LoadAssetAtPath<UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset>("Assets/QuietCamp/Settings/URP/QC_"+name+".asset"))
+                .ToDictionary(asset=>asset,asset=>asset.shadowDistance);
             var save=new SaveAdapter();save.Load(out _);save.Progress=new ProgressSaveData();save.Session=new SessionSaveData();save.Album=new AlbumSaveData();
             // Fresh campaign progress after onboarding; the existing introductory tutorial has separate QA.
             var guide=new TutorialDirector(new TutorialSaveData(),false,new ProgressionService(),()=>true);guide.Skip();save.Progress.tutorial=guide.Save;
@@ -248,16 +251,18 @@ namespace QuietCamp.Tests
             var measurements=new List<object>();
             foreach(int quality in new[]{0,1})
             {
-                services.Settings.quality=quality+1;services.EffectiveQuality=quality;World().Seek(3);yield return Frames(40);Assert.IsTrue(World().Ready);
+                services.Settings.quality=quality+1;services.EffectiveQuality=quality;
+                QualitySettings.SetQualityLevel(quality,true);World().Seek(3);yield return Frames(40);Assert.IsTrue(World().Ready);
+                Assert.AreEqual(quality==0?"Low":"Balanced",QualitySettings.names[QualitySettings.GetQualityLevel()],"Incorrect native render profile");
                 for(int i=0;i<9;i++)
                 {
                     World().Seek(i*.5f);yield return Frames(12);Assert.IsTrue(World().Ready,World().Fault);Assert.LessOrEqual(World().LoadedChunks,3);
                     yield return Shot((quality==0?"gameview-low-composition-":"gameview-composition-")+i.ToString("00"));
-                    measurements.Add(new{quality=quality==0?"Low":"Balanced",route=i*.5f,orientation="portrait",editorDrawCalls=UnityEditor.UnityStats.drawCalls,editorTriangles=UnityEditor.UnityStats.triangles,worldChunks=World().LoadedChunks});
+                    measurements.Add(new{quality=quality==0?"Low":"Balanced",renderProfile=QualitySettings.names[QualitySettings.GetQualityLevel()],route=i*.5f,orientation="portrait",editorDrawCalls=UnityEditor.UnityStats.drawCalls,editorTriangles=UnityEditor.UnityStats.triangles,worldChunks=World().LoadedChunks});
                     Assert.LessOrEqual(UnityEditor.UnityStats.drawCalls,quality==0?80:120,"Editor draw-call budget");
                 }
                 Size(1600,720);yield return Frames(20);yield return Shot("gameview-"+(quality==0?"low":"balanced")+"-landscape");
-                measurements.Add(new{quality=quality==0?"Low":"Balanced",route=4f,orientation="landscape",editorDrawCalls=UnityEditor.UnityStats.drawCalls,editorTriangles=UnityEditor.UnityStats.triangles,worldChunks=World().LoadedChunks});
+                measurements.Add(new{quality=quality==0?"Low":"Balanced",renderProfile=QualitySettings.names[QualitySettings.GetQualityLevel()],route=4f,orientation="landscape",editorDrawCalls=UnityEditor.UnityStats.drawCalls,editorTriangles=UnityEditor.UnityStats.triangles,worldChunks=World().LoadedChunks});
                 Size(720,1600);yield return Frames();
             }
             services.Settings.quality=2;services.EffectiveQuality=1;services.ReducedMotion=false;World().Seek(0);yield return Frames(60);
@@ -281,6 +286,7 @@ namespace QuietCamp.Tests
             {
                 Tap("back");yield return Frames(20);
                 Assert.IsFalse(World().IsOpen);Assert.AreEqual(menuShadowDistance,pipeline.shadowDistance,"Roadmap shadow range leaked into the menu");Assert.IsNull(Object.FindObjectsByType<Camera>().FirstOrDefault(c=>c.name=="Roadmap perspective camera"));
+                foreach(var saved in savedShadowRanges)Assert.AreEqual(saved.Value,saved.Key.shadowDistance,"Shadow range leaked into "+saved.Key.name);
                 Tap("continue");yield return Ready("MainMenu");World().Seek(2);yield return Frames(25);
                 counts.Add(new[]{Object.FindObjectsByType<Camera>().Length,Resources.FindObjectsOfTypeAll<Material>().Length,Resources.FindObjectsOfTypeAll<Mesh>().Length});
                 materialVisits.Add(Resources.FindObjectsOfTypeAll<Material>().ToDictionary(m=>m.GetEntityId().ToString(),m=>m.name+" / "+m.shader.name+" / "+m.hideFlags));
