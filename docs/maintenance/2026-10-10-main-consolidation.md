@@ -60,3 +60,12 @@ branch-preview панелі, які генератор помилково вкл
 не запускався; нові рендери, виконання Editor/PlayMode tests, player
 builds і device acceptance цим кроком не заявляються. Receipts
 попередніх рендерів зберігають свої початкові дати й source hashes.
+
+## Завершення очищення гілок
+
+Після успішного push `main` віддалені назви шести гілок видалено одним
+atomic push з окремим `--force-with-lease` для кожної перевіреної вершини.
+Три локальні гілки видалено через `git branch -d` після перевірки ancestry.
+Повторний fetch і live `git ls-remote --heads origin` підтвердили, що
+локально та на GitHub лишилася тільки `main`; `origin/HEAD` указує на
+`origin/main`. Усі 11 початкових refs збережені в ancestry `main`.
