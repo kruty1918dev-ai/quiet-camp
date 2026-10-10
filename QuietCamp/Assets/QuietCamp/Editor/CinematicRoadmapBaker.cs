@@ -175,8 +175,9 @@ namespace QuietCamp.Editor
         {
             var parts=Enumerable.Range(0,5).Select(i=>new Geometry()).ToArray();float start=World.chunkStarts[c],end=World.chunkEnds[c];
             TerrainGrid(parts[0],start,end,low?4:2);
+            // The composer emits both ensemble roles and accepted landmarks.
+            // Appending Document.landmarks again duplicates their geometry and shadows.
             foreach(var item in Composition.instances.Where(i=>OwnerChunk(i.z)==c))Append(parts[Assets[item.asset].wind?2:1],item.asset,item.x,item.z,item.height,item.yaw,Assets[item.asset].wind);
-            foreach(var l in Document.landmarks.Where(l=>OwnerChunk(l.z)==c))Append(parts[Assets[l.asset].wind?2:1],l.asset,l.x,l.z,l.height,l.yaw,Assets[l.asset].wind);
             var random=new System.Random(World.seed+c*811);
             for(float z=Mathf.Max(-22,start)+2;z<Mathf.Min(195,end);z+=4.5f)for(float x=-43;x<44;x+=4.5f)
             {
