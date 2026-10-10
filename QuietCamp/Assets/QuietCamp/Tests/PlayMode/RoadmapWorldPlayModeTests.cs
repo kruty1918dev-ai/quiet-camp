@@ -21,6 +21,28 @@ using Object=UnityEngine.Object;
 
 namespace QuietCamp.Tests
 {
+    // Native script imports must be repaired before entering Play Mode. Shared immutable
+    // import caches can retain an old class binding when the QA project recompiles scripts.
+    public sealed class RoadmapWorldScriptPreflight : IPrebuildSetup
+    {
+        public void Setup()
+        {
+            if(UnityEngine.Application.productName!="QuietCampRoadmapQA")
+                throw new InvalidOperationException("Roadmap script preflight requires the private QA project");
+            foreach(string path in new[]{
+                "Assets/QuietCamp/Scripts/Presentation/QuietCampBootstrap.cs",
+                "Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldAsset.cs",
+                "Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldChunk.cs"})
+            {
+                var script=UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEditor.MonoScript>(path);
+                if(script==null||script.GetClass()==null)
+                    UnityEditor.AssetDatabase.ImportAsset(path,UnityEditor.ImportAssetOptions.ForceUpdate|UnityEditor.ImportAssetOptions.ForceSynchronousImport);
+                // Import may request compilation. The strict GetClass guard runs after the
+                // Test Framework enters Play Mode and completes that assembly reload.
+            }
+        }
+    }
+    [PrebuildSetup(typeof(RoadmapWorldScriptPreflight))]
     public sealed class RoadmapWorldPlayModeTests
     {
         static string Output=>Environment.GetEnvironmentVariable("QC_CINEMATIC_EVIDENCE_ROOT")

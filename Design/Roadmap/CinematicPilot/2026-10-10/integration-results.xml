@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-10 15:03:28Z" end-time="2026-10-10 15:04:59Z" duration="91.0281349">
-  <test-suite type="TestSuite" id="1236" name="QuietCampRoadmapQA" fullname="QuietCampRoadmapQA" runstate="Runnable" testcasecount="175" result="Passed" start-time="2026-10-10 15:03:28Z" end-time="2026-10-10 15:04:59Z" duration="91.028135" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-10 15:39:40Z" end-time="2026-10-10 15:41:14Z" duration="94.3566584">
+  <test-suite type="TestSuite" id="1236" name="QuietCampRoadmapQA" fullname="QuietCampRoadmapQA" runstate="Runnable" testcasecount="175" result="Passed" start-time="2026-10-10 15:39:40Z" end-time="2026-10-10 15:41:14Z" duration="94.356658" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
     <properties>
       <property name="platform" value="PlayMode" />
     </properties>
-    <test-suite type="Assembly" id="1230" name="QuietCamp.Tests.PlayMode.dll" fullname="/home/oleks/.cache/quietcamp/cinematic-roadmap-qa/Library/ScriptAssemblies/QuietCamp.Tests.PlayMode.dll" runstate="Runnable" testcasecount="170" result="Passed" start-time="2026-10-10 15:03:28Z" end-time="2026-10-10 15:04:59Z" duration="90.801867" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <test-suite type="Assembly" id="1230" name="QuietCamp.Tests.PlayMode.dll" fullname="/home/oleks/.cache/quietcamp/cinematic-roadmap-qa/Library/ScriptAssemblies/QuietCamp.Tests.PlayMode.dll" runstate="Runnable" testcasecount="170" result="Passed" start-time="2026-10-10 15:39:40Z" end-time="2026-10-10 15:41:14Z" duration="94.057252" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
       <properties>
         <property name="_PID" value="1" />
         <property name="_APPDOMAIN" value="Unity Child Domain" />
         <property name="platform" value="PlayMode" />
         <property name="EditorOnly" value="False" />
       </properties>
-      <test-suite type="TestSuite" id="1231" name="QuietCamp" fullname="QuietCamp" runstate="Runnable" testcasecount="170" result="Passed" start-time="2026-10-10 15:03:28Z" end-time="2026-10-10 15:04:59Z" duration="90.763493" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestSuite" id="1231" name="QuietCamp" fullname="QuietCamp" runstate="Runnable" testcasecount="170" result="Passed" start-time="2026-10-10 15:39:40Z" end-time="2026-10-10 15:41:14Z" duration="94.018257" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-suite type="TestSuite" id="1232" name="Tests" fullname="QuietCamp.Tests" runstate="Runnable" testcasecount="170" result="Passed" start-time="2026-10-10 15:03:29Z" end-time="2026-10-10 15:04:59Z" duration="90.739123" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <test-suite type="TestSuite" id="1232" name="Tests" fullname="QuietCamp.Tests" runstate="Runnable" testcasecount="170" result="Passed" start-time="2026-10-10 15:39:40Z" end-time="2026-10-10 15:41:14Z" duration="93.989100" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
           <properties />
-          <test-suite type="TestFixture" id="1163" name="RoadmapWorldPlayModeTests" fullname="QuietCamp.Tests.RoadmapWorldPlayModeTests" classname="QuietCamp.Tests.RoadmapWorldPlayModeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-10 15:03:29Z" end-time="2026-10-10 15:04:59Z" duration="90.690177" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1163" name="RoadmapWorldPlayModeTests" fullname="QuietCamp.Tests.RoadmapWorldPlayModeTests" classname="QuietCamp.Tests.RoadmapWorldPlayModeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-10 15:39:40Z" end-time="2026-10-10 15:41:14Z" duration="93.952814" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1164" name="FivePlacesProgressInputReturnLifecycleAndNativeEvidence" fullname="QuietCamp.Tests.RoadmapWorldPlayModeTests.FivePlacesProgressInputReturnLifecycleAndNativeEvidence" methodname="FivePlacesProgressInputReturnLifecycleAndNativeEvidence" classname="QuietCamp.Tests.RoadmapWorldPlayModeTests" runstate="Runnable" seed="287164396" result="Passed" start-time="2026-10-10 15:03:29Z" end-time="2026-10-10 15:04:59Z" duration="90.601517" asserts="0">
+            <test-case id="1164" name="FivePlacesProgressInputReturnLifecycleAndNativeEvidence" fullname="QuietCamp.Tests.RoadmapWorldPlayModeTests.FivePlacesProgressInputReturnLifecycleAndNativeEvidence" methodname="FivePlacesProgressInputReturnLifecycleAndNativeEvidence" classname="QuietCamp.Tests.RoadmapWorldPlayModeTests" runstate="Runnable" seed="789849900" result="Passed" start-time="2026-10-10 15:39:40Z" end-time="2026-10-10 15:41:14Z" duration="93.891589" asserts="0">
               <properties>
                 <property name="_JOINTYPE" value="UnityCombinatorial" />
                 <property name="Timeout" value="900000" />
