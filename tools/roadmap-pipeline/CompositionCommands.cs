@@ -29,6 +29,11 @@ static class CompositionCommands
         if((string)Read<JObject>(Root+"/manifest.json")["id"]=="quiet-camp-diorama-studies")
             return docs.ToDictionary(p=>p.Key,p=>SceneComposer.Compose(p.Value,assets,templates));
         ITerrainSample terrain=null;var world=docs.Values.Select(d=>JsonConvert.DeserializeObject<SceneCompositionDocument>(JsonConvert.SerializeObject(d))).ToArray();
+        if(world.Length==1&&world[0].landscape!=null)
+        {
+            var bounds=Read<JObject>(Root+"/world.json");
+            terrain=new ValleyTerrain(world[0],assets,templates,(float)bounds["minX"],(float)bounds["maxX"],(float)bounds["minZ"],(float)bounds["maxZ"]);
+        }
         if((string)Read<JObject>(Root+"/manifest.json")["id"]=="quiet-camp-main")
         {
             var authored=Read<QuietCamp.Domain.RoadmapDefinition>("QuietCamp/Assets/QuietCamp/Authoring/Roadmap/main.json");
@@ -81,6 +86,39 @@ static class CompositionCommands
         {Console.WriteLine("Native pilot review: tools/render_diorama_editor_isolated.sh --cinematic, then the CinematicPilot gallery. Inspect source entity: "+id+". This command never silently launches Editor or scans ADB.");return;}
         if(cmd=="validate"||cmd=="compose"||cmd=="bake")Process("tools/scene-composition/validate_schema.py",new[]{Root});
         var docs=Documents();var assets=Read<VisualAssetDefinition[]>(Reference("assets")).ToDictionary(a=>a.id);var templates=Read<EnsembleTemplate[]>(Reference("templates")).ToDictionary(a=>a.id);
+        if(cmd=="patch-many")
+        {
+            if(args.Length!=3||args[1]!="--patch-file")throw new ArgumentException("patch-many --patch-file <transactions.json>");
+            var edits=Read<JArray>(args[2]);
+            var files=new Dictionary<string,(string hash,JToken root)>();
+            foreach(var edit in edits.Children<JObject>())
+            {
+                var found=Find((string)edit["id"]);
+                if(found.entity==null||found.hash!=(string)edit["expectedHash"])throw new Exception("stale/unknown transaction target: "+edit["id"]);
+                if(!files.ContainsKey(found.file))files.Add(found.file,(found.hash,found.root));
+                var root=files[found.file].root;
+                var entity=(root is JObject o?o.DescendantsAndSelf():((JArray)root).Descendants()).OfType<JObject>().Single(j=>(string)j["id"]==(string)edit["id"]);
+                var patch=(JObject)edit["patch"];
+                if(patch==null||patch["id"]!=null||patch["schemaVersion"]!=null)throw new Exception("Transaction cannot change identity/schema");
+                entity.Merge(patch,new JsonMergeSettings{MergeArrayHandling=MergeArrayHandling.Replace,MergeNullValueHandling=MergeNullValueHandling.Merge});
+            }
+            foreach(var file in files)
+            {
+                if(file.Value.root is JArray)
+                {
+                    bool template=Path.GetFullPath(file.Key)==Path.GetFullPath(Reference("templates"));
+                    Process("tools/scene-composition/validate_schema.py",new[]{"--catalog",template?"ensemble-templates.schema.json":"visual-assets.schema.json"},file.Value.root.ToString());
+                    if(template)templates=file.Value.root.ToObject<EnsembleTemplate[]>(Serializer).ToDictionary(t=>t.id);else assets=file.Value.root.ToObject<VisualAssetDefinition[]>(Serializer).ToDictionary(t=>t.id);
+                }
+                else
+                {Process("tools/scene-composition/validate_schema.py",new[]{"--stdin"},file.Value.root.ToString());var doc=file.Value.root.ToObject<SceneCompositionDocument>(Serializer);docs[doc.id]=doc;}
+            }
+            var errors=Compose(docs,assets,templates).Values.SelectMany(r=>r.diagnostics).Where(d=>d.severity=="error").ToArray();
+            if(errors.Length>0)throw new Exception(JsonConvert.SerializeObject(errors,Formatting.Indented));
+            foreach(var file in files)if(HashFile(file.Key)!=file.Value.hash)throw new Exception("stale transaction: "+file.Key);
+            foreach(var file in files)Atomic(file.Key,file.Value.root.ToString(Formatting.Indented)+"\n");
+            Console.WriteLine("Patched transaction: "+files.Count+" validated source files");return;
+        }
         if(cmd=="patch")
         {
             if(args.Length!=6||args[2]!="--expected-hash"||args[4]!="--patch-file")throw new ArgumentException("patch <id> --expected-hash <hash> --patch-file <json>");

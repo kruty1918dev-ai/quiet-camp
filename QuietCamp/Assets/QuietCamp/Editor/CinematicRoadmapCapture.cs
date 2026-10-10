@@ -42,6 +42,9 @@ namespace QuietCamp.Editor
             var results=new List<object>();
             foreach(bool low in new[]{true,false})for(int i=0;i<9;i++)
                 results.Add(Capture(asset,i*.5f,4,low,720,1600,Path.Combine(output,(low?"low-composition-":"composition-")+i.ToString("00")+".png")));
+            foreach(bool low in new[]{true,false})foreach(bool landscape in new[]{false,true})foreach(float zoom in new[]{.85f,1.15f})for(int i=0;i<9;i++)
+                results.Add(Capture(asset,i*.5f,4,low,landscape?1600:720,landscape?720:1600,
+                    Path.Combine(output,(low?"low":"balanced")+"-"+(landscape?"landscape":"portrait")+"-zoom-"+(zoom<1?"out":"in")+"-"+i.ToString("00")+".png"),zoom));
             foreach(int frontier in new[]{0,1,3,4})
                 results.Add(Capture(asset,frontier,frontier,false,720,1600,Path.Combine(output,"progress-"+frontier+".png")));
             foreach(bool low in new[]{true,false})
@@ -63,6 +66,7 @@ namespace QuietCamp.Editor
                 capturedUtc=DateTime.UtcNow.ToString("o"),sourceHash=asset.sourceHash,unity=UnityEngine.Application.unityVersion,
                 graphics=SystemInfo.graphicsDeviceType.ToString(),device=SystemInfo.graphicsDeviceName,
                 capture="Production URP SingleCameraRequest in isolated Editor with synchronous shader compilation; Game View integration checks are separate",
+                animationSeconds=0,waterSeconds=12,artisticReference=asset.artisticReference,
                 mobileFpsMeasured=false,shaderErrors=errors,frames=results},Formatting.Indented)+"\n");
             if(errors.Count>0)throw new InvalidOperationException(string.Join("\n",errors));
             Debug.Log("[CinematicRoadmap] Captured nine compositions, progress and quality fixtures");

@@ -24,6 +24,7 @@ namespace QuietCamp.Presentation.World
         readonly List<Camera> _disabledCameras=new List<Camera>();
         readonly Dictionary<string,float> _oldFloats=new Dictionary<string,float>();
         readonly Dictionary<UniversalRenderPipelineAsset,float> _shadowRanges=new Dictionary<UniversalRenderPipelineAsset,float>();
+        readonly Dictionary<UniversalRenderPipelineAsset,int> _shadowResolutions=new Dictionary<UniversalRenderPipelineAsset,int>();
         readonly Dictionary<string,Vector4> _oldVectors=new Dictionary<string,Vector4>();
         readonly MeshRenderer[] _markers=new MeshRenderer[5];
         readonly MeshRenderer[] _distant=new MeshRenderer[5];
@@ -93,6 +94,12 @@ namespace QuietCamp.Presentation.World
             _preview=true;_asset=asset;_frontier=Mathf.Clamp(frontier,0,4);_route=_target=route;Build();
             SetCamera(route);UpdateWindow(true,low);
         }
+        /// <summary>Deterministic production camera/animation pose for reference comparisons.</summary>
+        public void SetCaptureFrame(float route,float seconds)
+        {
+            if(!_preview)throw new InvalidOperationException("Reference frame requires a capture presenter");
+            _clock=seconds;SetCamera(route);UpdateWindow(true,QualitySettings.GetQualityLevel()==0);ApplyAtmosphere();
+        }
         void Build()
         {
             _markerBlock=new MaterialPropertyBlock();
@@ -100,7 +107,7 @@ namespace QuietCamp.Presentation.World
             _oldSun=RenderSettings.sun;_oldSky=RenderSettings.skybox;_oldFog=RenderSettings.fog;
             _oldAmbient=RenderSettings.ambientLight;_oldSkyColor=RenderSettings.ambientSkyColor;_oldEquator=RenderSettings.ambientEquatorColor;
             _oldGround=RenderSettings.ambientGroundColor;_oldAmbientMode=RenderSettings.ambientMode;_oldProbe=RenderSettings.ambientProbe;
-            foreach(var name in new[]{"_AtmosWindStrength","_AtmosWindTime","_AtmosWaveLen","_AtmosWaveSpeed","_AtmosFlutterScale","_RoadmapRevealZ","_RoadmapFogStart"})_oldFloats[name]=Shader.GetGlobalFloat(name);
+            foreach(var name in new[]{"_AtmosWindStrength","_AtmosWindTime","_AtmosWaveLen","_AtmosWaveSpeed","_AtmosFlutterScale","_RoadmapRevealZ","_RoadmapFogStart","_CustomTime"})_oldFloats[name]=Shader.GetGlobalFloat(name);
             foreach(var name in new[]{"_AtmosWindXZ","_AtmosSunDirW","_AtmosSunColor","_AtmosAmbient","_RoadmapFogColor"})_oldVectors[name]=Shader.GetGlobalVector(name);
             foreach(var cam in FindObjectsByType<Camera>(FindObjectsSortMode.None))
                 if(cam.enabled&&cam.gameObject.scene==gameObject.scene){_disabledCameras.Add(cam);cam.enabled=false;}
@@ -281,6 +288,8 @@ namespace QuietCamp.Presentation.World
             if(GraphicsSettings.currentRenderPipeline is UniversalRenderPipelineAsset pipeline)
             {
                 if(!_shadowRanges.ContainsKey(pipeline))_shadowRanges.Add(pipeline,pipeline.shadowDistance);
+                if(!_shadowResolutions.ContainsKey(pipeline))_shadowResolutions.Add(pipeline,pipeline.mainLightShadowmapResolution);
+                pipeline.mainLightShadowmapResolution=2048;
                 // The game's close camp cameras use 32 m shadows. An aerial map needs the
                 // same sunlight to reach its ground; retain and restore every touched tier.
                 pipeline.shadowDistance=Mathf.Max(_shadowRanges[pipeline],boomDistance*_asset.worldScale+24);
@@ -309,6 +318,8 @@ namespace QuietCamp.Presentation.World
         {
             Shader.SetGlobalVector("_AtmosWindXZ",new Vector4(.88f,.47f,0,0));Shader.SetGlobalFloat("_AtmosWindStrength",ReducedMotion?0:.18f);
             Shader.SetGlobalFloat("_AtmosWindTime",_clock);Shader.SetGlobalFloat("_AtmosWaveLen",7);Shader.SetGlobalFloat("_AtmosWaveSpeed",.65f);Shader.SetGlobalFloat("_AtmosFlutterScale",1);
+            // SW3's documented override shares the world clock; positive offset also freezes Editor reference frames.
+            Shader.SetGlobalFloat("_CustomTime",12+_clock);
             Shader.SetGlobalVector("_AtmosSunDirW",-_sun.transform.forward);Shader.SetGlobalVector("_AtmosSunColor",_sun.color);
             Shader.SetGlobalVector("_AtmosAmbient",new Color(.67f,.73f,.72f));
             Shader.SetGlobalVector("_RoadmapFogColor",_asset.sky.linear);
@@ -351,6 +362,7 @@ namespace QuietCamp.Presentation.World
             DestroyOwned(_profile);
             foreach(var cam in _disabledCameras)if(cam!=null)cam.enabled=true;_disabledCameras.Clear();
             foreach(var range in _shadowRanges)if(range.Key!=null)range.Key.shadowDistance=range.Value;_shadowRanges.Clear();
+            foreach(var resolution in _shadowResolutions)if(resolution.Key!=null)resolution.Key.mainLightShadowmapResolution=resolution.Value;_shadowResolutions.Clear();
             RenderSettings.sun=_oldSun;RenderSettings.skybox=_oldSky;RenderSettings.fog=_oldFog;RenderSettings.ambientMode=_oldAmbientMode;
             RenderSettings.ambientLight=_oldAmbient;RenderSettings.ambientSkyColor=_oldSkyColor;RenderSettings.ambientEquatorColor=_oldEquator;RenderSettings.ambientGroundColor=_oldGround;RenderSettings.ambientProbe=_oldProbe;
             foreach(var p in _oldFloats)Shader.SetGlobalFloat(p.Key,p.Value);foreach(var p in _oldVectors)Shader.SetGlobalVector(p.Key,p.Value);_oldFloats.Clear();_oldVectors.Clear();

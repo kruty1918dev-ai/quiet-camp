@@ -214,7 +214,7 @@ Shader "QuietCamp/RoadmapLit"
                 // lit side picks up the real sun color.
                 float inner = lerp(1.0f, 1.0f - _InnerShade, 1.0f - mask);
                 float translucency=rigid?0:pow(saturate(dot(normalize(_WorldSpaceCameraPos-wp),-sunDirection)),3)*.14f*mask;
-                half3 vertexTint=v.color.rgb;
+                half3 vertexTint=lerp(v.color.rgb,half3(1,1,1),_GroundContactStrength);
                 #ifndef UNITY_COLORSPACE_GAMMA
                 // Unity's bounded polynomial avoids three per-vertex pow calls.
                 // The plant palette stays in the same linear lighting space on mobile.
@@ -234,8 +234,14 @@ Shader "QuietCamp/RoadmapLit"
             half4 frag(Varyings i) : SV_Target
             {
                 half shadow = MainLightRealtimeShadow(TransformWorldToShadowCoord(i.world));
-                half contact=lerp(1,SAMPLE_TEXTURE2D(_GroundContactMap,sampler_GroundContactMap,i.world.xz*_GroundContactUV.xy+_GroundContactUV.zw).r,_GroundContactStrength);
-                half3 lit=(i.col+i.sunlight*shadow)*contact;
+                half4 paint=SAMPLE_TEXTURE2D(_GroundContactMap,sampler_GroundContactMap,i.world.xz*_GroundContactUV.xy+_GroundContactUV.zw);
+                half contact=lerp(1,paint.a,_GroundContactStrength);
+                half3 soil=paint.rgb;
+                #ifndef UNITY_COLORSPACE_GAMMA
+                soil=FastSRGBToLinear(soil);
+                #endif
+                half3 groundTint=lerp(half3(1,1,1),soil,_GroundContactStrength);
+                half3 lit=(i.col+i.sunlight*shadow)*contact*groundTint;
                 // Distance separates the far plane; a little low-lying river
                 // haze sits below tree crowns instead of flattening every face.
                 float distanceFade=max(0,distance(i.world,_WorldSpaceCameraPos)-_RoadmapFogStart);
