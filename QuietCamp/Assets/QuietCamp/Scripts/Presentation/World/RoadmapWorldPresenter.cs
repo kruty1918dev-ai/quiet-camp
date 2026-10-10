@@ -101,8 +101,8 @@ namespace QuietCamp.Presentation.World
             _camera.cullingMask=1<<Layer;_camera.orthographic=false;_camera.fieldOfView=_asset.fieldOfView;
             _camera.nearClipPlane=.05f;_camera.farClipPlane=130;_camera.clearFlags=CameraClearFlags.SolidColor;_camera.backgroundColor=_asset.sky;
             _camera.allowHDR=true;_camera.allowMSAA=true;
-            var data=_camera.GetUniversalAdditionalCameraData();data.renderPostProcessing=true;data.requiresDepthTexture=true;data.volumeLayerMask=1<<Layer;
-            var sunObject=new GameObject("Valley afternoon sun");sunObject.transform.SetParent(_root.transform,false);_sun=sunObject.AddComponent<Light>();
+            var data=_camera.GetUniversalAdditionalCameraData();data.renderShadows=true;data.renderPostProcessing=true;data.requiresDepthTexture=true;data.volumeLayerMask=1<<Layer;
+            var sunObject=new GameObject("Valley afternoon sun");sunObject.layer=Layer;sunObject.transform.SetParent(_root.transform,false);_sun=sunObject.AddComponent<Light>();
             _sun.type=LightType.Directional;_sun.transform.rotation=Quaternion.Euler(38,-48,0);_sun.color=new Color(1,.93f,.79f);_sun.intensity=1.12f;
             _sun.shadows=LightShadows.Soft;_sun.shadowBias=.025f;_sun.shadowNormalBias=.25f;_sun.cullingMask=1<<Layer;RenderSettings.sun=_sun;
             RenderSettings.ambientMode=AmbientMode.Custom;

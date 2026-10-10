@@ -99,7 +99,7 @@ namespace QuietCamp.Tests
             Assert.IsTrue(UnityEngine.Application.productName.StartsWith("QuietCampRoadmapQA"),"Run only with isolated synthetic QA saves");
             Assert.IsFalse(UnityEngine.Application.isBatchMode,"Native Game View and end-of-frame captures required");
             UnityEditor.ShaderUtil.allowAsyncCompilation=false;
-            // The QA copy shares imported artifacts; its private script mapper must resolve after domain reload.
+            // The QA copy keeps mutable import databases private; its private script mapper must resolve after domain reload.
             foreach(var path in new[]{"Assets/QuietCamp/Scripts/Presentation/QuietCampBootstrap.cs",
                 "Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldAsset.cs",
                 "Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldChunk.cs"})
@@ -108,6 +108,7 @@ namespace QuietCamp.Tests
                 Assert.NotNull(script);Assert.NotNull(script.GetClass(),"Native script mapping: "+path);
             }
             Directory.CreateDirectory(Output);Size(720,1600);
+            float menuShadowDistance=((UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset)UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline).shadowDistance;
             var save=new SaveAdapter();save.Load(out _);save.Progress=new ProgressSaveData();save.Session=new SessionSaveData();save.Album=new AlbumSaveData();
             // Fresh campaign progress after onboarding; the existing introductory tutorial has separate QA.
             var guide=new TutorialDirector(new TutorialSaveData(),false,new ProgressionService(),()=>true);guide.Skip();save.Progress.tutorial=guide.Save;
@@ -183,12 +184,16 @@ namespace QuietCamp.Tests
             float capturedSeconds=Time.realtimeSinceStartup-began;
             services.ReducedMotion=true;World().Seek(2);yield return Frames(10);
             // Warm all chunks once before leak comparison. No new map cameras, meshes or materials per visit.
+            Assert.AreEqual(World().WorldRoot.Find("Valley afternoon sun").GetComponent<Light>(),RenderSettings.sun,"World sunlight authority changed");
+            var pipeline=UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline as UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset;
+            float mapShadowDistance=pipeline.shadowDistance;
+            Assert.Greater(mapShadowDistance,32,"Aerial camera lost ground shadows");
             var counts=new List<int[]>();
             var materialVisits=new List<Dictionary<string,string>>();
             for(int visit=0;visit<4;visit++)
             {
                 Tap("back");yield return Frames(20);
-                Assert.IsFalse(World().IsOpen);Assert.IsNull(Object.FindObjectsByType<Camera>().FirstOrDefault(c=>c.name=="Roadmap perspective camera"));
+                Assert.IsFalse(World().IsOpen);Assert.AreEqual(menuShadowDistance,pipeline.shadowDistance,"Roadmap shadow range leaked into the menu");Assert.IsNull(Object.FindObjectsByType<Camera>().FirstOrDefault(c=>c.name=="Roadmap perspective camera"));
                 Tap("continue");yield return Ready("MainMenu");World().Seek(2);yield return Frames(25);
                 counts.Add(new[]{Object.FindObjectsByType<Camera>().Length,Resources.FindObjectsOfTypeAll<Material>().Length,Resources.FindObjectsOfTypeAll<Mesh>().Length});
                 materialVisits.Add(Resources.FindObjectsOfTypeAll<Material>().ToDictionary(m=>m.GetEntityId().ToString(),m=>m.name+" / "+m.shader.name+" / "+m.hideFlags));
