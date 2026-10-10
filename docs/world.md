@@ -38,9 +38,9 @@ Committed [campaign.json](../QuietCamp/Assets/QuietCamp/Resources/QuietCamp/camp
 
 ## Нова semantic roadmap composition
 
-Окрема [art/roadmap-native-finish-2026-10-08](https://github.com/kruty1918dev-ai/quiet-camp/tree/art/roadmap-native-finish-2026-10-08) містить нові forest/water sources, owned village parcels, damaged power routes і aircraft/ship/dam staging ensembles. Її основа — composition checkpoint і попередній 30-main handoff; її не злито в main і не активовано новим native catalog. Кадри цього довідника показують поточний main renderer, не цю незапечену композицію.
+Новий [авторинг у main](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition) містить forest/water sources, owned village parcels, damaged power routes і aircraft/ship/dam staging ensembles. Його основа — composition checkpoint і попередній 30-main handoff; 10.10.2026 усі гілки об’єднано в main. Новий runtime catalog ще не активовано. Кадри цього довідника показують чинний main renderer; окремі [12 діорам стилю](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/Design/Roadmap/DioramaStudies/2026-10-10) мають власні native Editor receipts.
 
-[Звіт source-реалізації](https://github.com/kruty1918dev-ai/quiet-camp/blob/art/roadmap-native-finish-2026-10-08/Design/Roadmap/NATIVE-FINISH-2026-10-08-UA.md) · [Матриця моделей](https://github.com/kruty1918dev-ai/quiet-camp/blob/art/roadmap-native-finish-2026-10-08/Design/Roadmap/Assets/MODEL-MATRIX-UA.md) · [Composition tools](https://github.com/kruty1918dev-ai/quiet-camp/tree/art/roadmap-native-finish-2026-10-08/tools/scene-composition).
+[Звіт source-реалізації](https://github.com/kruty1918dev-ai/quiet-camp/blob/main/Design/Roadmap/NATIVE-FINISH-2026-10-08-UA.md) · [Матриця моделей](https://github.com/kruty1918dev-ai/quiet-camp/blob/main/Design/Roadmap/Assets/MODEL-MATRIX-UA.md) · [Composition tools](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/tools/scene-composition).
 
 Airplane-field і dam залишаються незалежними staging visual journeys; це не puzzles/unlocks перших main levels. Старі concept references або software mesh previews не є їхніми новими Game View renders.
 

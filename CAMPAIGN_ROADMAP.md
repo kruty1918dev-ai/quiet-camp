@@ -2,7 +2,7 @@
 
 > Навігація: [ілюстрований довідник](docs/README.md) · [світ і source catalog](docs/world.md) · [галерея](docs/gallery.md) · [стан перевірок](docs/status.md).
 >
-> На 2026-10-08 committed main catalog задає 110 ordered places; цей документ описує релізний план ширшого світу. Кількість у source catalog не є заявою native/device acceptance всього контенту. Нова semantic roadmap composition лишається в окремій art branch до bake/visual acceptance.
+> На 2026-10-10 committed main catalog задає 110 ordered places; цей документ описує релізний план ширшого світу. Усі гілки об’єднано в main зі збереженням їхніх commits. Кількість у source catalog не є заявою native/device acceptance всього контенту. Нова semantic roadmap composition вже є в main як авторинг; її runtime catalog очікує bake/visual acceptance.
 >
 > Native Editor performance, 2026-10-09: перший раунд оптимізації виконано й переміряно — leaf CPU p95 17.34 → 0.03 мс (GPU shader), найдовші route кадри 960 → 237 мс, map open max 1 377 → 303 мс. **14 EditMode / 13 PlayMode regressions Passed**; budgets пройдені частково, залишкова черга в [карті продуктивності](PERFORMANCE_MAP.md) · [інтерактивний report](https://kruty1918dev-ai.github.io/quiet-camp/performance.html).
 

@@ -51,7 +51,7 @@ Static site живе у `docs/index.html`, `site.css`, `site.js`, `site-content.
 
 - Екран: [Атлас](screens.md) → source owner → [HTML UI](../Documentation/HTML-UI.md). Зберігай stable ids, callback routing, safe-area й scroll state.
 - Puzzle: редагуй source/content pipeline, перевір правила/solver; не змінюй логічний рівень через decorative props.
-- Нова roadmap: працюй із semantic composer в [окремій branch](https://github.com/kruty1918dev-ai/quiet-camp/tree/art/roadmap-native-finish-2026-10-08/tools/scene-composition), inspect owner → guarded patch → validate → dry-run → дозволений native bake/capture.
+- Нова roadmap: працюй із [semantic composer у main](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/tools/scene-composition), inspect owner → guarded patch → validate → dry-run → дозволений native bake/capture.
 - Готовий milestone: онови відповідну docs-сторінку, виконай доречну перевірку, commit і push; концепт не замінює Game View evidence.
 
 ## Assets і ліцензії

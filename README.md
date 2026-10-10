@@ -107,7 +107,9 @@ Custom local UPM packages включені в [Packages](QuietCamp/Packages/READ
 
 Життя, підказки, currency exchanges, Pro і purchase-state contracts — prototype integrations. Новий профіль починає з трьох hints і пʼяти lives; incorrect Check витрачає життя й очищає arrangement/history. Реальні покупки та rewarded ads не підключені. [Ресурси й Pro](docs/screens.md#ресурси-та-pro).
 
-Нова forest/village/power/aircraft/dam roadmap composition підготовлена в [окремій art branch](https://github.com/kruty1918dev-ai/quiet-camp/tree/art/roadmap-native-finish-2026-10-08). Її не злито в main і не активовано новим native bake; кадри довідника показують main renderer. Device performance, store/restore/ad acceptance та staging publication мають окремі наступні checks. [Точний стан доказів →](docs/status.md)
+Усі гілки об’єднано в **main 10.10.2026**: оптимізація, довідник, імпорт моделей, composition tools і 12 діорам тепер мають спільну історію. [Збережені commits гілок і перевірки об’єднання](docs/maintenance/2026-10-10-main-consolidation.md).
+
+Нова forest/village/power/aircraft/dam roadmap composition зберігається в [авторингу main](QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition). Її runtime catalog ще не активовано новим native bake; кадри довідника показують чинний renderer. Device performance, store/restore/ad acceptance та staging publication мають окремі наступні checks. [Точний стан доказів →](docs/status.md)
 
 Оптимізація **09.10.2026**: листя рухається в GPU shader, світ готується між кадрами, мапа кешує геометрію й створює кнопки для видимої ділянки, HTML UI використовує коротші стилі та stable IDs. **14 EditMode / 13 PlayMode tests Passed**. Повторні native виміри, точне порівняння до/після та залишкові просідання — у [карті продуктивності](PERFORMANCE_MAP.md) і [інтерактивному звіті](https://kruty1918dev-ai.github.io/quiet-camp/performance.html).
 

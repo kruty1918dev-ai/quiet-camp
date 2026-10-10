@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DIRECTORY = ROOT / 'QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html'
 MAIN = set('app top grow primary quiet orb brand brand-sprig brand-title tagline menu-top menu-actions menu-cards menu-card mc-main mc-hex hex_map hex_tent mc-text mc-title mc-sub mc-symbol mc-progress mc-progress-fill cta cta-symbol cta-text cta-title cta-sub ico ico-play ico-settings ico-map ico-tent guide-card menu-guide guide-portrait guide-copy guide-name guide-instruction guide-ok'.split())
 JOURNEY = set('app dimroot dim sheet-zone surface sheet nav nav-back title scroll-content column s-sub journey-viewport primary quiet'.split())
+BRANCH_PANEL = set('branch-card branch-heading branch-title branch-preview-art branch-description branch-progress branch-access-note branch-access-scroll'.split())
 
 
 def subset(css, classes):
@@ -62,6 +63,9 @@ def main():
     all_classes = set(re.findall(r'\.([\w-]+)', css))
     map_classes = {c for c in all_classes if c.startswith(('map-', 'roadmap', 'node-', 'branch-', 'bonus-', 'act-', 'ico'))}
     map_classes -= {c for c in map_classes if c.startswith(('bonus-preview', 'bonus-description', 'bonus-requirement', 'bonus-condition', 'bonus-count', 'bonus-progress'))}
+    # Canonical CSS also carries the prepared branch-preview panel. It is not
+    # part of the active scrolling map; keep its rules out of the cached subset.
+    map_classes -= BRANCH_PANEL
     map_classes.update('app dimroot full-menu full-header full-title nav-back quiet hidden selected locked done veiled bonus-ready branch-ready person left right head body'.split())
     game_classes = {c for c in all_classes if c.startswith(('gc-', 'dock', 'guest-card', 'guide-', 'ico', 'tent-chip'))}
     game_classes.update('app top bottom grow quiet primary orb icon hint-control check-button guest-list-button message tutorial preview-feedback pill arr idle selected check-notice tent-art wish-icons tag verbs verb chip-wish person left right head body pause-bar'.split())

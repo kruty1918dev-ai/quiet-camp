@@ -41,4 +41,4 @@
 
 ## Відмінні джерела правди
 
-Frozen JSON задає puzzle. Presentation відповідає за вигляд. SaveAdapter зберігає локальні modules. Concept art задає напрямок, але не доводить, що сцена вже імпортована чи опублікована. Scene-composition sources і model matrix нової roadmap доступні в окремій [art branch](https://github.com/kruty1918dev-ai/quiet-camp/tree/art/roadmap-native-finish-2026-10-08), не в main.
+Frozen JSON задає puzzle. Presentation відповідає за вигляд. SaveAdapter зберігає локальні modules. Concept art задає напрямок, але не доводить, що сцена вже імпортована чи опублікована. Scene-composition sources і model matrix нової roadmap доступні в [main](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/Design/Roadmap) після об’єднання всіх гілок 10.10.2026; новий runtime catalog ще не активовано.

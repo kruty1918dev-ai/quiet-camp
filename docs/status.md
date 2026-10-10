@@ -6,6 +6,8 @@
 
 Довідник фіксує перевірений visual зріз **2026-10-08**; native performance audit додано **2026-10-09**. У repository є development project, source content і дизайн-плани; це не оголошення готового store release.
 
+**10.10.2026 усі гілки об’єднано в main** зі збереженням повної історії. Перенесення на commit `77fd7c7` не змінило файлів перевіреної art-гілки. Повторно звірено receipts 12 діорам, 8 920 імпортованих файлів і збереження чинної кампанії. [Commits гілок та межі перевірки](maintenance/2026-10-10-main-consolidation.md).
+
 ## Що показує новий довідник
 
 **44 нові native PNG**: Boot, меню/мапа/journeys/bonus, gameplay, pause/знаки/налаштування, completion, album, усі основні settings/privacy categories та contextual confirmations. 36 portrait screens/states мають окремі картки на [GitHub Pages](https://kruty1918dev-ai.github.io/quiet-camp/); чотири сезонні альбомні кадри та чотири широкі gameplay кадри — у [галереї](gallery.md).
@@ -59,7 +61,7 @@ Unity 6000.6.2f1, 720 × 1600, i7-2600/GT 730/OpenGL, Jobs worker 1. Це Editor
 - Garden journey preview має порожню illustration area у захопленій конфігурації; текстові умови й підтвердження видимі.
 - Wide gameplay HUD має порожню картку та невдалий верхній край кадру; для presentation gallery використано штатний тихий режим альбому. Наявність PNG guards не означає відсутність UI/layout issues.
 - 110 ordered main places, 15 districts та journey counts — committed source catalog. Під час цього оновлення не виконувалася повна solver/visual/device acceptance усіх 260 frozen files.
-- Нова semantic roadmap composition залишається в [art branch](https://github.com/kruty1918dev-ai/quiet-camp/tree/art/roadmap-native-finish-2026-10-08), не merged/activated новим native bake. Нові кадри main не є доказом цієї композиції.
+- Нова semantic roadmap composition вже зберігається в [main](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition) як авторинг; її runtime catalog не активовано новим native bake. Кадри чинної мапи не є доказом цієї композиції.
 - Реальні purchases, restore, ads, backend entitlement/wallet security і phone FPS не перевірялися. Default store/ad integrations не підключені.
 - Player builds/APK/AAB, installation та публікація гри в store не виконувалися. [Workspace rules](../AGENTS.md).
 

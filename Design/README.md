@@ -16,4 +16,4 @@
 | UI та art | [Main menu plan](MainMenu/MAIN-MENU-PLAN-UA.md), [Immersive UI](ImmersiveUI/EXECUTOR-PROMPT-UA.md), [Transitions](Transitions/README-UA.md), [App icon](AppIcon/README-UA.md). |
 | Publication/приватність | [Legal index](Legal/README-UA.md), [Boot policy](Legal/BOOT-POLICY-UA.md), [Data safety](Legal/DATA-SAFETY-UA.md). |
 | Store-концепти | [Store gallery](StoreGallery-UA/README-UA.md) — marketing/design images, не Game View screenshots. |
-| Нова roadmap/model kit | [Окрема art branch](https://github.com/kruty1918dev-ai/quiet-camp/tree/art/roadmap-native-finish-2026-10-08/Design/Roadmap) — source implementation, native bake ще не активований у main. |
+| Нова roadmap/model kit | [Roadmap у main](Roadmap) — source implementation та 12 діорам стилю; новий runtime catalog ще не активований. |
