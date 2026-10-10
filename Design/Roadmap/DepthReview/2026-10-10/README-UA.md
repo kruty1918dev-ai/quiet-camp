@@ -2,7 +2,7 @@
 
 [Дев’ять порівнянь до / після](index.html) · [Native review](review-receipt.json) · [Увесь маршрут](../../CinematicPilot/2026-10-10/index.html).
 
-Початкові кадри датовані 18:43:32 UTC, нові — 19:32:29 UTC. Віддалення,
+Початкові кадри датовані 18:43:32 UTC, нові — 20:24:48 UTC. Віддалення,
 нахил, FOV та координати авторських camera anchors збережені; висота фокуса
 відповідає новій землі. Анімована вода не є статичним pixel comparison.
 
@@ -27,9 +27,9 @@
 Геометрія готується офлайн; збережені indexed vertices, одне сонце,
 один каскад і shadow atlas 512/1024.
 
-Game View поточної ревізії Passed о 20:06:36 UTC: повний п’ятиточковий flow,
+Game View поточної ревізії Passed о 20:30:18 UTC: повний п’ятиточковий flow,
 36 gesture samples, обидва tiers та чотири повторні входи. Поточні native
-максимуми: 77,727 Low / 104,466 Balanced,
+максимуми: 72,282 Low / 97,640 Balanced,
 шість матеріалів і три детальні chunks. Mobile FPS і фактичний звук не вимірювались.
 Історичний [доказ lossless indexing](before-shadow-budget-receipt.json)
 зберігає свою дату й не означає pixel equality нових художніх кадрів.
@@ -37,3 +37,6 @@ Game View поточної ревізії Passed о 20:06:36 UTC: повний �
 [Unity API направленої sky irradiance](https://docs.unity3d.com/ScriptReference/Rendering.SphericalHarmonicsL2.AddDirectionalLight.html).
 
 Поточні кадри також містять [новий прохід рослинності й частинок](../../GreeneryReview/2026-10-10/index.html).
+
+Поточні кадри включають [подальше узгодження моделей](../../StyleCoherence/2026-10-10/index.html),
+зношені дороги, повний двір і плавні нормалі землі. Історичні кадри збережено.

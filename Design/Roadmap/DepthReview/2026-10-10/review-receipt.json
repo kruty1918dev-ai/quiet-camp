@@ -19,7 +19,7 @@
     "Road, mosaic, damaged roof, fallen support, crossing and dam remain visible",
     "Low/Balanced, maximum zoom-out and landscape inspected"
   ],
-  "gameViewResult": "Pending",
+  "gameViewResult": "Passed",
   "playerBuild": false,
   "mobileFpsMeasured": false,
   "images": [
@@ -96,7 +96,17 @@
       "sha256": "0f1588fc8e18033932eaab36c825540957bde92bfe8f79e592114b3173f60ce6"
     }
   ],
-  "verifiedUtc": "2026-10-10T20:26:09.342106+00:00",
-  "gameViewCaptureUtc": null,
-  "cameraAnchorsSha256": "028e3767be287fd906133a3316f255721ad4b43b36f49c596838ce537c098430"
+  "verifiedUtc": "2026-10-10T20:36:43.582237+00:00",
+  "gameViewCaptureUtc": "2026-10-10T20:30:18.2652050Z",
+  "cameraAnchorsSha256": "028e3767be287fd906133a3316f255721ad4b43b36f49c596838ce537c098430",
+  "browserReview": {
+    "verifiedUtc": "2026-10-10T20:35:57.921661+00:00",
+    "viewports": [
+      320,
+      720,
+      1440
+    ],
+    "result": "Passed",
+    "protocol": "Chrome DevTools Protocol over private pipes"
+  }
 }

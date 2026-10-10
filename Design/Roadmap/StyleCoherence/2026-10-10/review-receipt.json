@@ -50,9 +50,9 @@
   ],
   "sourceHash": "959428fa002381bd51b036f922b40abec1414eee5b11291cc90f9608559c1122",
   "nativeCaptureUtc": "2026-10-10T20:24:48.1486010Z",
-  "verifiedUtc": "2026-10-10T20:26:09.503560+00:00",
-  "gameViewResult": "Pending",
-  "gameViewCaptureUtc": null,
+  "verifiedUtc": "2026-10-10T20:36:43.733056+00:00",
+  "gameViewResult": "Passed",
+  "gameViewCaptureUtc": "2026-10-10T20:30:18.2652050Z",
   "research": "RESEARCH-UA.md",
   "checks": [
     "Dam is an embankment/spillway with an open breach, not a bridge",
@@ -353,5 +353,15 @@
       "externalGeometry": false,
       "lod": null
     }
-  ]
+  ],
+  "browserReview": {
+    "verifiedUtc": "2026-10-10T20:35:57.921661+00:00",
+    "viewports": [
+      320,
+      720,
+      1440
+    ],
+    "result": "Passed",
+    "protocol": "Chrome DevTools Protocol over private pipes"
+  }
 }

@@ -1,15 +1,15 @@
 # Матриця моделей Quiet Camp — 2026-10-08
 
-У каталогах доступні **38** моделі; до цієї зміни вже було **9** неопублікованих donor-варіантів літака/корабля. Додано **24 власні** low poly моделі, включно з LOD: **4 208 трикутників**. Повний список: [model-inventory.csv](model-inventory.csv), [model-inventory.json](model-inventory.json).
-Інвентаризовано **81** сирих файлів геометрії: [raw-model-files.csv](raw-model-files.csv). OBJ має точну кількість трикутників після fan-triangulation; GLB — суму triangle primitives; FBX зазначено без неперевіреної кількості. Процедурні story-моделі враховано через їхні mesh streams.
+У каталогах доступні **33** моделі; до цієї зміни вже було **9** неопублікованих donor-варіантів літака/корабля. Додано **24 власні** low poly моделі, включно з LOD: **4 208 трикутників**. Повний список: [model-inventory.csv](model-inventory.csv), [model-inventory.json](model-inventory.json).
+Інвентаризовано **88** сирих файлів геометрії: [raw-model-files.csv](raw-model-files.csv). OBJ має точну кількість трикутників після fan-triangulation; GLB — суму triangle primitives; FBX зазначено без неперевіреної кількості. Процедурні story-моделі враховано через їхні mesh streams.
 
 **Нових завантажень зі Sketchfab немає:** вхід зупинився на 2FA, Google-сеанс завершився. Знайдені кандидати наведені нижче. Власний EnvironmentKit не походить від цих моделей і не видається за імпорт. Наявний Sketchfab-корабель перероблено з уже збереженого атрибутованого GLB.
 
-Набір доступний редактору та native baker; main/runtime catalog досі legacy. Native bake, новий рендер, Unity import і мобільна продуктивність не перевірені: AGENTS.md блокує новий запуск Editor поряд з активною ADB-сесією.
+Відібрані моделі входять у перевірений native пілот QC001–QC005: [узгодження стилю](../StyleCoherence/2026-10-10/index.html). Статус cinematic-pilot-baked означає наявність у його bake receipt, а не вимір mobile FPS. Історичний Main catalog і решта staging journeys збережені. Editor працює в окремо погодженій ізоляції; player builds не виконуються.
 
 ## Ціль та межі
 
-Камера залишається далекою, orthographic, pitch 55° / yaw 0° / roll 0°. Прості плоскі меші, наявна палітра, спокійні природні зелені й теплі нейтральні тони; насиченість створюється ансамблями. Занедбаність читається через порожні вікна, отвори в дахах, бур'яни й іржу, без урожаю та суцільної сірості.
+Чинний пілот має далеку перспективну камеру, FOV 30°, pitch 54–55° та авторські yaw anchors. Прості плоскі меші, наявна палітра, спокійні природні зелені й теплі нейтральні тони; насиченість створюється ансамблями. Занедбаність читається через порожні вікна, отвори в дахах, бур'яни й іржу, без урожаю та суцільної сірості.
 Українське прочитання має виникати з поєднання хати, двору, заднього городу, лісосмуг, інфраструктури й стриманого власного орнаменту. Окремий вулик або синя облямівка не гарантує впізнавання країни іноземцем. Прапорів, тризубів, текстових підказок і запозиченої російської атрибутики не додається.
 
 ## Наявне → потрібне
@@ -72,7 +72,7 @@
 
 У старих незмінених runtime streams виявлено 14 вироджених faces: flower_yellowA (1), sign (4), flower_yellowB (8), flower_purpleA (1). Вони зафіксовані як попередній стан, а не приховано виправлені через hand-edit generated Resources. Нові/перероблені меші перевіряються строго без вироджених faces.
 
-Відтворення й перевірки описані в [tools/roadmap-assets/README.md](../../../tools/roadmap-assets/README.md). Native Bake Main і Bake Staging, сезонні ракурси та mobile metrics проводити лише після безпечного дозволеного запуску Unity. Літак/дамба/судно — окремі staging journeys; вони не додають сюжети в перші 10 main-рівнів.
+Відтворення й перевірки описані в [tools/roadmap-assets/README.md](../../../tools/roadmap-assets/README.md). Native Bake Main і Bake Staging, сезонні ракурси та mobile metrics проводити лише після безпечного дозволеного запуску Unity. Літак і судно залишаються staging journeys. Вигадану греблю малого ставка перероблено для пілота QC001–QC005; вона не є реконструкцією реальної ГЕС.
 
 ## Усі roadmap-моделі
 
@@ -83,14 +83,14 @@
 | `branch_pond` | 14 | roadmap_story_models.json · runtime-available |
 | `branch_station` | 192 | roadmap_story_models.json · runtime-available |
 | `campfire_stones` | 264 | roadmap_models.json · runtime-available |
-| `flower_purpleA` | 76 | roadmap_models.json · runtime-available |
-| `flower_yellowA` | 76 | roadmap_models.json · runtime-available |
+| `flower_purpleA` | 76 | roadmap_models.json · cinematic-pilot-baked |
+| `flower_yellowA` | 76 | roadmap_models.json · cinematic-pilot-baked |
 | `flower_yellowB` | 154 | roadmap_models.json · runtime-available |
 | `grass` | 132 | roadmap_models.json · runtime-available |
 | `grass_leafsLarge` | 144 | roadmap_models.json · runtime-available |
-| `log` | 200 | roadmap_models.json · runtime-available |
+| `log` | 200 | roadmap_models.json · cinematic-pilot-baked |
 | `log_stack` | 184 | roadmap_models.json · runtime-available |
-| `plant_bushSmall` | 16 | roadmap_models.json · runtime-available |
+| `plant_bushSmall` | 16 | roadmap_models.json · cinematic-pilot-baked |
 | `sign` | 44 | roadmap_models.json · runtime-available |
 | `staging_aircraft_fore` | 5956 | models.json · staging-donor |
 | `staging_aircraft_fore_coarse` | 1176 | models.json · staging-donor |
@@ -101,7 +101,7 @@
 | `staging_cargo_ship` | 1100 | models.json · staging-donor |
 | `staging_cargo_ship_coarse` | 650 | models.json · staging-donor |
 | `staging_cargo_ship_silhouette` | 300 | models.json · staging-donor |
-| `stone_largeA` | 80 | roadmap_models.json · runtime-available |
+| `stone_largeA` | 80 | roadmap_models.json · cinematic-pilot-baked |
 | `story_foundation` | 36 | roadmap_story_models.json · runtime-available |
 | `story_memorial_garden` | 108 | roadmap_story_models.json · runtime-available |
 | `story_trail_shelter` | 104 | roadmap_story_models.json · runtime-available |
@@ -115,32 +115,39 @@
 | `ua_barn` | 216 | models.json · staging-original |
 | `ua_beehive` | 96 | models.json · staging-original |
 | `ua_bus_shelter` | 192 | roadmap_culture_models.json · runtime-available |
-| `ua_bus_shelter_mosaic` | 197 | models.json · staging-original |
+| `ua_bus_shelter_mosaic` | 197 | models.json · cinematic-pilot-baked |
 | `ua_chicken` | 43 | models.json · staging-original |
 | `ua_chicken_coop` | 240 | models.json · staging-original |
 | `ua_concrete_fence` | 300 | roadmap_culture_models.json · runtime-available |
-| `ua_dam_breached` | 288 | models.json · staging-original |
-| `ua_dam_breached_lod` | 144 | models.json · staging-original |
+| `ua_dam_breached` | 360 | models.json · cinematic-pilot-baked |
+| `ua_dam_breached_lod` | 256 | models.json · staging-original |
 | `ua_field_weeds` | 12 | models.json · staging-original |
 | `ua_field_weeds_lod` | 6 | models.json · staging-original |
 | `ua_forester_hut` | 216 | models.json · staging-original |
 | `ua_gate` | 312 | roadmap_culture_models.json · runtime-available |
-| `ua_hydro_service_building` | 72 | models.json · staging-original |
+| `ua_hydro_service_building` | 120 | models.json · cinematic-pilot-baked |
 | `ua_mooring_post` | 24 | models.json · staging-original |
 | `ua_orchard_tree` | 132 | roadmap_culture_models.json · runtime-available |
 | `ua_picket_fence` | 224 | roadmap_culture_models.json · runtime-available |
 | `ua_picket_fence_damaged` | 120 | models.json · staging-original |
-| `ua_plank_bridge` | 168 | models.json · staging-original |
+| `ua_plank_bridge` | 168 | models.json · cinematic-pilot-baked |
 | `ua_poplar` | 26 | models.json · staging-original |
 | `ua_poplar_lod` | 22 | models.json · staging-original |
 | `ua_power_pylon` | 932 | roadmap_culture_models.json · runtime-available |
-| `ua_power_pylon_fallen` | 932 | models.json · staging-original |
-| `ua_power_pylon_rusted` | 932 | models.json · staging-original |
+| `ua_power_pylon_fallen` | 932 | models.json · cinematic-pilot-baked |
+| `ua_power_pylon_rusted` | 932 | models.json · cinematic-pilot-baked |
 | `ua_reed_clump` | 12 | models.json · staging-original |
 | `ua_reed_clump_lod` | 6 | models.json · staging-original |
 | `ua_rural_pole` | 120 | roadmap_culture_models.json · runtime-available |
 | `ua_sunflower_patch` | 405 | roadmap_culture_models.json · runtime-available |
 | `ua_sunflower_patch_lod` | 116 | roadmap_culture_models.json · runtime-available |
+| `ua_valley_fence` | 120 | models.json · cinematic-pilot-baked |
+| `ua_valley_gate` | 132 | models.json · cinematic-pilot-baked |
+| `ua_valley_house` | 400 | models.json · cinematic-pilot-baked |
+| `ua_valley_orchard` | 52 | models.json · cinematic-pilot-baked |
+| `ua_valley_poplar` | 36 | models.json · cinematic-pilot-baked |
+| `ua_valley_well` | 76 | models.json · cinematic-pilot-baked |
+| `ua_valley_willow` | 52 | models.json · cinematic-pilot-baked |
 | `ua_wattle_fence` | 620 | roadmap_culture_models.json · runtime-available |
 | `ua_well` | 140 | roadmap_culture_models.json · runtime-available |
 | `ua_well_sweep` | 108 | models.json · staging-original |

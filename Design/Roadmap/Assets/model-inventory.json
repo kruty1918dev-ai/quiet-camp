@@ -3,12 +3,13 @@
   "date": "2026-10-08",
   "scope": "All five roadmap mesh streams plus raw model files under QuietCamp/Assets; FBX triangle counts require Unity import",
   "catalogCounts": {
-    "runtime-available": 38,
+    "runtime-available": 33,
+    "cinematic-pilot-baked": 18,
     "staging-donor": 9,
-    "staging-original": 24
+    "staging-original": 18
   },
-  "catalogModels": 71,
-  "rawModelFiles": 81,
+  "catalogModels": 78,
+  "rawModelFiles": 88,
   "newSketchfabDownloads": 0,
   "nativeBakePerformed": false,
   "models": [
@@ -75,7 +76,7 @@
       "packedStreamBytes": 5776,
       "sourceHeight": null,
       "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
-      "status": "runtime-available",
+      "status": "cinematic-pilot-baked",
       "license": "Kenney/project credits"
     },
     {
@@ -86,7 +87,7 @@
       "packedStreamBytes": 5776,
       "sourceHeight": null,
       "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
-      "status": "runtime-available",
+      "status": "cinematic-pilot-baked",
       "license": "Kenney/project credits"
     },
     {
@@ -130,7 +131,7 @@
       "packedStreamBytes": 15200,
       "sourceHeight": null,
       "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
-      "status": "runtime-available",
+      "status": "cinematic-pilot-baked",
       "license": "Kenney/project credits"
     },
     {
@@ -152,7 +153,7 @@
       "packedStreamBytes": 1216,
       "sourceHeight": null,
       "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
-      "status": "runtime-available",
+      "status": "cinematic-pilot-baked",
       "license": "Kenney/project credits"
     },
     {
@@ -273,7 +274,7 @@
       "packedStreamBytes": 6080,
       "sourceHeight": null,
       "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
-      "status": "runtime-available",
+      "status": "cinematic-pilot-baked",
       "license": "Kenney/project credits"
     },
     {
@@ -427,7 +428,7 @@
       "packedStreamBytes": 14972,
       "sourceHeight": 2.2,
       "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
-      "status": "staging-original",
+      "status": "cinematic-pilot-baked",
       "license": "original-project-owned"
     },
     {
@@ -465,22 +466,22 @@
     },
     {
       "id": "ua_dam_breached",
-      "triangles": 288,
-      "vertices": 864,
+      "triangles": 360,
+      "vertices": 1080,
       "uvFloats": 0,
-      "packedStreamBytes": 21888,
-      "sourceHeight": 6.84,
+      "packedStreamBytes": 27360,
+      "sourceHeight": 4.075,
       "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
-      "status": "staging-original",
+      "status": "cinematic-pilot-baked",
       "license": "original-project-owned"
     },
     {
       "id": "ua_dam_breached_lod",
-      "triangles": 144,
-      "vertices": 432,
+      "triangles": 256,
+      "vertices": 768,
       "uvFloats": 0,
-      "packedStreamBytes": 10944,
-      "sourceHeight": 6.425,
+      "packedStreamBytes": 19456,
+      "sourceHeight": 4.075,
       "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
       "status": "staging-original",
       "license": "original-project-owned"
@@ -531,13 +532,13 @@
     },
     {
       "id": "ua_hydro_service_building",
-      "triangles": 72,
-      "vertices": 216,
+      "triangles": 120,
+      "vertices": 360,
       "uvFloats": 0,
-      "packedStreamBytes": 5472,
-      "sourceHeight": 2.78,
+      "packedStreamBytes": 9120,
+      "sourceHeight": 2.96,
       "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
-      "status": "staging-original",
+      "status": "cinematic-pilot-baked",
       "license": "original-project-owned"
     },
     {
@@ -592,7 +593,7 @@
       "packedStreamBytes": 12768,
       "sourceHeight": 0.46,
       "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
-      "status": "staging-original",
+      "status": "cinematic-pilot-baked",
       "license": "original-project-owned"
     },
     {
@@ -636,7 +637,7 @@
       "packedStreamBytes": 70832,
       "sourceHeight": 7.864359740043829,
       "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
-      "status": "staging-original",
+      "status": "cinematic-pilot-baked",
       "license": "original-project-owned"
     },
     {
@@ -647,7 +648,7 @@
       "packedStreamBytes": 70832,
       "sourceHeight": 16.045278394152348,
       "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
-      "status": "staging-original",
+      "status": "cinematic-pilot-baked",
       "license": "original-project-owned"
     },
     {
@@ -703,6 +704,83 @@
       "sourceHeight": null,
       "catalog": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
       "status": "runtime-available",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_valley_fence",
+      "triangles": 120,
+      "vertices": 360,
+      "uvFloats": 0,
+      "packedStreamBytes": 9120,
+      "sourceHeight": 1.3,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "cinematic-pilot-baked",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_valley_gate",
+      "triangles": 132,
+      "vertices": 396,
+      "uvFloats": 0,
+      "packedStreamBytes": 10032,
+      "sourceHeight": 1.3,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "cinematic-pilot-baked",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_valley_house",
+      "triangles": 400,
+      "vertices": 1200,
+      "uvFloats": 0,
+      "packedStreamBytes": 30400,
+      "sourceHeight": 4.21,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "cinematic-pilot-baked",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_valley_orchard",
+      "triangles": 52,
+      "vertices": 156,
+      "uvFloats": 0,
+      "packedStreamBytes": 3952,
+      "sourceHeight": 3.886000764893553,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "cinematic-pilot-baked",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_valley_poplar",
+      "triangles": 36,
+      "vertices": 108,
+      "uvFloats": 0,
+      "packedStreamBytes": 2736,
+      "sourceHeight": 5.652973367839936,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "cinematic-pilot-baked",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_valley_well",
+      "triangles": 76,
+      "vertices": 228,
+      "uvFloats": 0,
+      "packedStreamBytes": 5776,
+      "sourceHeight": 1.6,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "cinematic-pilot-baked",
+      "license": "original-project-owned"
+    },
+    {
+      "id": "ua_valley_willow",
+      "triangles": 52,
+      "vertices": 156,
+      "uvFloats": 0,
+      "packedStreamBytes": 3952,
+      "sourceHeight": 4.804040002213124,
+      "catalog": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json",
+      "status": "cinematic-pilot-baked",
       "license": "original-project-owned"
     },
     {
@@ -840,16 +918,16 @@
     {
       "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_dam_breached.obj",
       "format": "obj",
-      "bytes": 51801,
-      "triangles": 288,
-      "sha256": "714345cbfe4adf0bc70f3370066b22d556ee4bc69e783cec3f9c1c7771e73a07"
+      "bytes": 64446,
+      "triangles": 360,
+      "sha256": "a4a663a2422713581d8baca49fe86b1b597bd382648e8d1a3c2e7af56222c50a"
     },
     {
       "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_dam_breached_lod.obj",
       "format": "obj",
-      "bytes": 25575,
-      "triangles": 144,
-      "sha256": "6224f0fe9aa896de2a2a48f92481fc51418760945b9a3d0b50e8c56ff24d4bc8"
+      "bytes": 45739,
+      "triangles": 256,
+      "sha256": "18c4dc9817f9da99e90ed86f434863318df53185960a18353d40531fc7f6c157"
     },
     {
       "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_field_weeds.obj",
@@ -875,9 +953,9 @@
     {
       "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_hydro_service_building.obj",
       "format": "obj",
-      "bytes": 12618,
-      "triangles": 72,
-      "sha256": "b7ff896dffa118ace426250ea27d72dc3391ac46b81cd7342c593f67f8a0ee38"
+      "bytes": 21331,
+      "triangles": 120,
+      "sha256": "079ee2f6cf53cd9f4ed6bf5e17f09db78bd30b41d05f4782516bd197232c51e4"
     },
     {
       "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_mooring_post.obj",
@@ -941,6 +1019,55 @@
       "bytes": 1179,
       "triangles": 6,
       "sha256": "6e8d43ed068fbdb910ef22ae788152dbf2c92952db09ab5756672757ffe6d0a2"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_valley_fence.obj",
+      "format": "obj",
+      "bytes": 20754,
+      "triangles": 120,
+      "sha256": "c64fb3c1f0ec058057db402188fdd18005aab8b26701a0ee38cf3e49934b47dc"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_valley_gate.obj",
+      "format": "obj",
+      "bytes": 22917,
+      "triangles": 132,
+      "sha256": "276d51aebd4332d7367603485fd1bbbe945a741912d35367a91935c30646b699"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_valley_house.obj",
+      "format": "obj",
+      "bytes": 72332,
+      "triangles": 400,
+      "sha256": "b3a79bf1c5d3a96fc1db41948f4e82e39f81627dec6e23a7a50fe6a2c8d6e3c3"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_valley_orchard.obj",
+      "format": "obj",
+      "bytes": 9141,
+      "triangles": 52,
+      "sha256": "2d2261932ff65574f1612c2ab850774108831d63cad57e80bb0c794eec9decba"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_valley_poplar.obj",
+      "format": "obj",
+      "bytes": 6320,
+      "triangles": 36,
+      "sha256": "37311f21e775193e26f475f4895656227c7b622745973c6435e08658195c6c81"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_valley_well.obj",
+      "format": "obj",
+      "bytes": 13298,
+      "triangles": 76,
+      "sha256": "42342a1eab30637844771259ded38074de93f085ea1f8c9edcbac97b8c66d040"
+    },
+    {
+      "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_valley_willow.obj",
+      "format": "obj",
+      "bytes": 9140,
+      "triangles": 52,
+      "sha256": "d546d6320842423b08689ac57a4d8f5b05e88a7d2171013cb15aadd948c77ca8"
     },
     {
       "path": "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/ua_well_sweep.obj",

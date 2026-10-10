@@ -199,11 +199,25 @@ def main():
     assert cover['sourceHash'] == bake['sourceHash'] and cover['nativeCaptureUtc'] == native['capturedUtc']
     assert cover['gameViewResult'] == 'Passed' and cover['gameViewCaptureUtc'] == gameview['capturedUtc']
     assert cover['airborneMotion'] == airborne and cover['vegetation'] == vegetation
-    assert cover['cameraAndLightingUnchanged'] and cover['before']['sourceHash'] != bake['sourceHash']
+    assert cover['cameraAnchorsAndLightParametersUnchanged'] and cover['before']['sourceHash'] != bake['sourceHash']
     assert browser['greeneryGallerySha256'] == digest(greenery / 'index.html')
     assert len(cover['images']) == 10
     for entry in cover['images']:
         assert digest(greenery / entry['file']) == entry['sha256']
+    style = ROOT / 'Design/Roadmap/StyleCoherence/2026-10-10'
+    coherent = json.loads((style / 'review-receipt.json').read_text())
+    assert coherent['sourceHash'] == bake['sourceHash']
+    assert coherent['nativeCaptureUtc'] == native['capturedUtc'] and coherent['gameViewCaptureUtc'] == gameview['capturedUtc']
+    assert coherent['gameViewResult'] == 'Passed'
+    assert browser['styleGallerySha256'] == digest(style / 'index.html')
+    assert coherent['before']['sourceHash'] == json.loads((style / 'before-native-capture-receipt.json').read_text())['sourceHash']
+    assert len(coherent['images']) == 10
+    for entry in coherent['images']:
+        assert digest(style / entry['file']) == entry['sha256']
+    yard = next(template for template in json.loads((source / 'templates.json').read_text()) if template['id'] == 'pilot.yard')
+    assert yard['closedBoundary']
+    assert next(role for role in yard['roles'] if role['id'] == 'house')['asset'] == 'ua_valley_house'
+    assert next(role for role in yard['roles'] if role['id'] == 'well')['asset'] == 'ua_valley_well'
     for path, sha in acceptance['artifacts'].items():
         assert digest(EVIDENCE / path) == sha, f'Artifact changed after acceptance: {path}'
 

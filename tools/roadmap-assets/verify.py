@@ -63,10 +63,11 @@ def main():
     for path,expected in inventory.files_for().items():require(path.read_text()==expected,"Stale matrix "+str(path))
     donor=BASE/"Authoring/Roadmap/Models/StagingLandmarks/ship-source.glb"
     require(hashlib.sha256(donor.read_bytes()).hexdigest()==optimize_ship.EXPECTED,"Donor changed")
-    # The dam's breach is empty even in LOD; no hidden bridging triangle.
+    # A central 2.8m channel is clear in both variants. Displaced apron rubble
+    # may occupy the breach edges, but no triangle bridges the flow channel.
     for mesh in kit_items:
         if mesh.id.startswith("ua_dam_breached"):
-            require(all(max(p[0] for p in t[:3])<=-2.049999 or min(p[0] for p in t[:3])>=2.049999 for t in mesh.tris),"Dam breach blocked")
+            require(all(max(p[0] for p in t[:3])<=-1.399999 or min(p[0] for p in t[:3])>=1.399999 for t in mesh.tris),"Dam breach blocked")
     # Source GUIDs are preserved; all new Unity files have a metadata sibling.
     for path in kit.SOURCE.iterdir():
         if not path.name.endswith(".meta"):require(Path(str(path)+".meta").exists(),"Missing Unity meta "+str(path))

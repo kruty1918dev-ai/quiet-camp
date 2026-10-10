@@ -4,14 +4,14 @@ branch_lighthouse,60,180,0,4560,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/
 branch_pond,14,42,0,1064,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_story_models.json,runtime-available,project procedural geometry
 branch_station,192,576,0,14592,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_story_models.json,runtime-available,project procedural geometry
 campfire_stones,264,792,0,20064,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json,runtime-available,Kenney/project credits
-flower_purpleA,76,228,0,5776,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json,runtime-available,Kenney/project credits
-flower_yellowA,76,228,0,5776,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json,runtime-available,Kenney/project credits
+flower_purpleA,76,228,0,5776,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json,cinematic-pilot-baked,Kenney/project credits
+flower_yellowA,76,228,0,5776,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json,cinematic-pilot-baked,Kenney/project credits
 flower_yellowB,154,462,0,11704,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json,runtime-available,Kenney/project credits
 grass,132,396,0,10032,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json,runtime-available,Kenney/project credits
 grass_leafsLarge,144,432,0,10944,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json,runtime-available,Kenney/project credits
-log,200,600,0,15200,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json,runtime-available,Kenney/project credits
+log,200,600,0,15200,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json,cinematic-pilot-baked,Kenney/project credits
 log_stack,184,552,0,13984,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json,runtime-available,Kenney/project credits
-plant_bushSmall,16,48,0,1216,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json,runtime-available,Kenney/project credits
+plant_bushSmall,16,48,0,1216,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json,cinematic-pilot-baked,Kenney/project credits
 sign,44,132,0,3344,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json,runtime-available,Kenney/project credits
 staging_aircraft_fore,5956,17868,35736,595600,4.6686250000000005,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/models.json,staging-donor,see StagingLandmarks/ATTRIBUTION.md
 staging_aircraft_fore_coarse,1176,3528,7056,117600,4.659617024496201,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/models.json,staging-donor,see StagingLandmarks/ATTRIBUTION.md
@@ -22,7 +22,7 @@ staging_aircraft_tail_silhouette,152,456,912,15200,8.317707614789752,QuietCamp/A
 staging_cargo_ship,1100,3300,0,83600,9.671687199769384,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/models.json,staging-donor,see StagingLandmarks/ATTRIBUTION.md
 staging_cargo_ship_coarse,650,1950,0,49400,9.671687199769384,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/models.json,staging-donor,see StagingLandmarks/ATTRIBUTION.md
 staging_cargo_ship_silhouette,300,900,0,22800,9.671687199769384,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/models.json,staging-donor,see StagingLandmarks/ATTRIBUTION.md
-stone_largeA,80,240,0,6080,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json,runtime-available,Kenney/project credits
+stone_largeA,80,240,0,6080,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json,cinematic-pilot-baked,Kenney/project credits
 story_foundation,36,108,0,2736,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_story_models.json,runtime-available,project procedural geometry
 story_memorial_garden,108,324,0,8208,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_story_models.json,runtime-available,project procedural geometry
 story_trail_shelter,104,312,0,7904,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_story_models.json,runtime-available,project procedural geometry
@@ -36,32 +36,39 @@ ua_abandoned_house,252,756,0,19152,4.05,QuietCamp/Assets/QuietCamp/Authoring/Roa
 ua_barn,216,648,0,16416,2.8360000000000003,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
 ua_beehive,96,288,0,7296,1.065,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
 ua_bus_shelter,192,576,0,14592,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json,runtime-available,original-project-owned
-ua_bus_shelter_mosaic,197,591,0,14972,2.2,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
+ua_bus_shelter_mosaic,197,591,0,14972,2.2,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,cinematic-pilot-baked,original-project-owned
 ua_chicken,43,129,0,3268,0.55,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
 ua_chicken_coop,240,720,0,18240,1.8913643691001145,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
 ua_concrete_fence,300,900,0,22800,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json,runtime-available,original-project-owned
-ua_dam_breached,288,864,0,21888,6.84,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
-ua_dam_breached_lod,144,432,0,10944,6.425,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
+ua_dam_breached,360,1080,0,27360,4.075,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,cinematic-pilot-baked,original-project-owned
+ua_dam_breached_lod,256,768,0,19456,4.075,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
 ua_field_weeds,12,36,0,912,0.61,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
 ua_field_weeds_lod,6,18,0,456,0.61,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
 ua_forester_hut,216,648,0,16416,3.028,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
 ua_gate,312,936,0,23712,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json,runtime-available,original-project-owned
-ua_hydro_service_building,72,216,0,5472,2.78,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
+ua_hydro_service_building,120,360,0,9120,2.96,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,cinematic-pilot-baked,original-project-owned
 ua_mooring_post,24,72,0,1824,1.0,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
 ua_orchard_tree,132,396,0,10032,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json,runtime-available,original-project-owned
 ua_picket_fence,224,672,0,17024,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json,runtime-available,original-project-owned
 ua_picket_fence_damaged,120,360,0,9120,1.3072714328355184,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
-ua_plank_bridge,168,504,0,12768,0.46,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
+ua_plank_bridge,168,504,0,12768,0.46,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,cinematic-pilot-baked,original-project-owned
 ua_poplar,26,78,0,1976,4.606,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
 ua_poplar_lod,22,66,0,1672,4.606,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
 ua_power_pylon,932,2796,0,70832,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json,runtime-available,original-project-owned
-ua_power_pylon_fallen,932,2796,0,70832,7.864359740043829,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
-ua_power_pylon_rusted,932,2796,0,70832,16.045278394152348,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
+ua_power_pylon_fallen,932,2796,0,70832,7.864359740043829,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,cinematic-pilot-baked,original-project-owned
+ua_power_pylon_rusted,932,2796,0,70832,16.045278394152348,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,cinematic-pilot-baked,original-project-owned
 ua_reed_clump,12,36,0,912,1.3599999999999999,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
 ua_reed_clump_lod,6,18,0,456,1.3599999999999999,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned
 ua_rural_pole,120,360,0,9120,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json,runtime-available,original-project-owned
 ua_sunflower_patch,405,1215,0,30780,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json,runtime-available,original-project-owned
 ua_sunflower_patch_lod,116,348,0,8816,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json,runtime-available,original-project-owned
+ua_valley_fence,120,360,0,9120,1.3,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,cinematic-pilot-baked,original-project-owned
+ua_valley_gate,132,396,0,10032,1.3,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,cinematic-pilot-baked,original-project-owned
+ua_valley_house,400,1200,0,30400,4.21,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,cinematic-pilot-baked,original-project-owned
+ua_valley_orchard,52,156,0,3952,3.886000764893553,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,cinematic-pilot-baked,original-project-owned
+ua_valley_poplar,36,108,0,2736,5.652973367839936,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,cinematic-pilot-baked,original-project-owned
+ua_valley_well,76,228,0,5776,1.6,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,cinematic-pilot-baked,original-project-owned
+ua_valley_willow,52,156,0,3952,4.804040002213124,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,cinematic-pilot-baked,original-project-owned
 ua_wattle_fence,620,1860,0,47120,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json,runtime-available,original-project-owned
 ua_well,140,420,0,10640,,QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json,runtime-available,original-project-owned
 ua_well_sweep,108,324,0,8208,3.9569928065636355,QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json,staging-original,original-project-owned

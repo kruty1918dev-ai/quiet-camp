@@ -2,7 +2,7 @@
   "kind": "stop-road-native-legibility-review",
   "sourceHash": "959428fa002381bd51b036f922b40abec1414eee5b11291cc90f9608559c1122",
   "nativeCaptureUtc": "2026-10-10T20:24:48.1486010Z",
-  "verifiedUtc": "2026-10-10T20:26:09.314809+00:00",
+  "verifiedUtc": "2026-10-10T20:36:43.560603+00:00",
   "before": {
     "sourceHash": "56f533f8ee3bc33aff187e6577b8a5b8eec1c780509e2f1723f21c66593442ad",
     "capturedUtc": "2026-10-10T17:56:07.1778010Z",
@@ -97,9 +97,19 @@
     }
   ],
   "nativeFrames": 43,
-  "gameViewFollowup": "Pending",
+  "gameViewFollowup": "Passed",
   "mobileFpsMeasured": false,
   "playerBuild": false,
-  "gameViewResult": "Pending",
-  "gameViewCaptureUtc": null
+  "gameViewResult": "Passed",
+  "gameViewCaptureUtc": "2026-10-10T20:30:18.2652050Z",
+  "browserReview": {
+    "verifiedUtc": "2026-10-10T20:35:57.921661+00:00",
+    "viewports": [
+      320,
+      720,
+      1440
+    ],
+    "result": "Passed",
+    "protocol": "Chrome DevTools Protocol over private pipes"
+  }
 }

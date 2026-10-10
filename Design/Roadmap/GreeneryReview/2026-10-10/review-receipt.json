@@ -2,14 +2,13 @@
   "kind": "roadmap-ground-cover-and-airborne-native-review",
   "sourceHash": "959428fa002381bd51b036f922b40abec1414eee5b11291cc90f9608559c1122",
   "nativeCaptureUtc": "2026-10-10T20:24:48.1486010Z",
-  "gameViewCaptureUtc": null,
-  "gameViewResult": "Pending",
-  "verifiedUtc": "2026-10-10T20:26:09.456483+00:00",
+  "gameViewCaptureUtc": "2026-10-10T20:30:18.2652050Z",
+  "gameViewResult": "Passed",
+  "verifiedUtc": "2026-10-10T20:36:43.699753+00:00",
   "before": {
     "sourceHash": "64d67704cf5a3b32772e0d490bc44e3eb5bdf622bc9f502ee68549d361bf6507",
     "capturedUtc": "2026-10-10T19:10:30.3977590Z"
   },
-  "cameraAndLightingUnchanged": true,
   "vegetation": {
     "sourceHash": "959428fa002381bd51b036f922b40abec1414eee5b11291cc90f9608559c1122",
     "method": "Independent pair distances, 32-point crown/river checks, oriented architecture and owned road surfaces",
@@ -41,7 +40,24 @@
     "playerBuild": false,
     "mobileFpsMeasured": false
   },
-  "airborneMotion": [],
+  "airborneMotion": [
+    {
+      "quality": "Low",
+      "cameraStationary": true,
+      "litPixels": 1488,
+      "changedPixels": 2649,
+      "reducedMotionLitPixels": 0,
+      "isolatedRendererProbe": true
+    },
+    {
+      "quality": "Balanced",
+      "cameraStationary": true,
+      "litPixels": 2943,
+      "changedPixels": 5430,
+      "reducedMotionLitPixels": 0,
+      "isolatedRendererProbe": true
+    }
+  ],
   "measurements": {
     "Low": {
       "maxSubmittedMeshTriangles": 77727,
@@ -105,5 +121,17 @@
       "sha256": "a305f8a404675bdc40ff7905648cac08be6350a8ab7a89e5897f0ed9e4fa946c"
     }
   ],
-  "beforeNativeReceiptSha256": "a579cedd41af3a8fbb09bf4eb061cf18f7866443b27fed83a2828850724c6355"
+  "beforeNativeReceiptSha256": "a579cedd41af3a8fbb09bf4eb061cf18f7866443b27fed83a2828850724c6355",
+  "cameraAnchorsAndLightParametersUnchanged": true,
+  "cameraComparison": "Same authored XZ/yaw/pitch/boom/FOV and light parameters; camera focus Y follows terrain. Current after images include model/road/normal refinements.",
+  "browserReview": {
+    "verifiedUtc": "2026-10-10T20:35:57.921661+00:00",
+    "viewports": [
+      320,
+      720,
+      1440
+    ],
+    "result": "Passed",
+    "protocol": "Chrome DevTools Protocol over private pipes"
+  }
 }

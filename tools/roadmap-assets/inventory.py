@@ -26,12 +26,18 @@ def csv_text(rows):
 
 def files_for():
     rows=[];raw=[]
+    pilot=BASE/"Authoring/Roadmap/Composition/CinematicPilot"
+    bake=ROOT/"Design/Roadmap/CinematicPilot/2026-10-10/bake-receipt.json"
+    used={identity for chunk in json.loads(bake.read_text())["stats"] for identity in chunk["sourceAssets"]}
+    authored={entry["id"]:entry for entry in json.loads((pilot/"assets.json").read_text())}
+    pilot_models={Path(authored[identity]["source"]).stem if identity in authored and authored[identity].get("source") else identity for identity in used}
+
     for relative,status,license in CATALOGS:
         path=BASE/relative
         for model in json.loads(path.read_text()):
             rows.append(dict(id=model["id"],triangles=len(model["data"])//18,vertices=len(model["data"])//6,
                 uvFloats=len(model.get("uvs",[])),packedStreamBytes=4*(len(model["data"])+len(model["colors"])+len(model.get("uvs",[]))),
-                sourceHeight=model.get("sourceHeight"),catalog=str(path.relative_to(ROOT)),status=status,license=license))
+                sourceHeight=model.get("sourceHeight"),catalog=str(path.relative_to(ROOT)),status="cinematic-pilot-baked" if model["id"] in pilot_models else status,license=license))
     rows.sort(key=lambda r:r["id"])
     assert len({r["id"] for r in rows})==len(rows)
     for path in sorted((ROOT/"QuietCamp/Assets").rglob("*")):
@@ -61,9 +67,9 @@ def files_for():
         f"У каталогах доступні **{counts['runtime-available']}** моделі; до цієї зміни вже було **9** неопублікованих donor-варіантів літака/корабля. Додано **24 власні** low poly моделі, включно з LOD: **4 208 трикутників**. Повний список: [model-inventory.csv](model-inventory.csv), [model-inventory.json](model-inventory.json).",
         f"Інвентаризовано **{len(raw)}** сирих файлів геометрії: [raw-model-files.csv](raw-model-files.csv). OBJ має точну кількість трикутників після fan-triangulation; GLB — суму triangle primitives; FBX зазначено без неперевіреної кількості. Процедурні story-моделі враховано через їхні mesh streams.","",
         "**Нових завантажень зі Sketchfab немає:** вхід зупинився на 2FA, Google-сеанс завершився. Знайдені кандидати наведені нижче. Власний EnvironmentKit не походить від цих моделей і не видається за імпорт. Наявний Sketchfab-корабель перероблено з уже збереженого атрибутованого GLB.","",
-        "Набір доступний редактору та native baker; main/runtime catalog досі legacy. Native bake, новий рендер, Unity import і мобільна продуктивність не перевірені: AGENTS.md блокує новий запуск Editor поряд з активною ADB-сесією.","",
+        "Відібрані моделі входять у перевірений native пілот QC001–QC005: [узгодження стилю](../StyleCoherence/2026-10-10/index.html). Статус cinematic-pilot-baked означає наявність у його bake receipt, а не вимір mobile FPS. Історичний Main catalog і решта staging journeys збережені. Editor працює в окремо погодженій ізоляції; player builds не виконуються.","",
         "## Ціль та межі", "",
-        "Камера залишається далекою, orthographic, pitch 55° / yaw 0° / roll 0°. Прості плоскі меші, наявна палітра, спокійні природні зелені й теплі нейтральні тони; насиченість створюється ансамблями. Занедбаність читається через порожні вікна, отвори в дахах, бур'яни й іржу, без урожаю та суцільної сірості.",
+        "Чинний пілот має далеку перспективну камеру, FOV 30°, pitch 54–55° та авторські yaw anchors. Прості плоскі меші, наявна палітра, спокійні природні зелені й теплі нейтральні тони; насиченість створюється ансамблями. Занедбаність читається через порожні вікна, отвори в дахах, бур'яни й іржу, без урожаю та суцільної сірості.",
         "Українське прочитання має виникати з поєднання хати, двору, заднього городу, лісосмуг, інфраструктури й стриманого власного орнаменту. Окремий вулик або синя облямівка не гарантує впізнавання країни іноземцем. Прапорів, тризубів, текстових підказок і запозиченої російської атрибутики не додається.","",
         "## Наявне → потрібне", "",
         "| Роль / де | Було | Додано / підготовлено | Дія та логіка розміщення |",
@@ -83,7 +89,7 @@ def files_for():
         "Корабель: 2 384 → 1 100 трикутників, coarse 1 366 → 650. Silhouette 181 → 300 навмисно зберігає корпус і щогли; загалом усі ship LOD 3 931 → 2 050. Welded QEM не ріже сітку по кольорах; palette переноситься з найближчих donor faces. Спільні pivot/height запобігають стрибкам масштабу при LOD. UV/textures прибрано, оригінальний donor та CC BY атрибуцію збережено. Це вимір геометрії й payload, не обіцянка FPS.","",
         "[environment-kit-contact-sheet.png](environment-kit-contact-sheet.png) та [ship-lod-contact-sheet.png](ship-lod-contact-sheet.png) — raster inspection справжніх трикутників, не Unity render. Жодного generated concept image не використано як доказ готового меша.","",
         "У старих незмінених runtime streams виявлено 14 вироджених faces: flower_yellowA (1), sign (4), flower_yellowB (8), flower_purpleA (1). Вони зафіксовані як попередній стан, а не приховано виправлені через hand-edit generated Resources. Нові/перероблені меші перевіряються строго без вироджених faces.","",
-        "Відтворення й перевірки описані в [tools/roadmap-assets/README.md](../../../tools/roadmap-assets/README.md). Native Bake Main і Bake Staging, сезонні ракурси та mobile metrics проводити лише після безпечного дозволеного запуску Unity. Літак/дамба/судно — окремі staging journeys; вони не додають сюжети в перші 10 main-рівнів.","",
+        "Відтворення й перевірки описані в [tools/roadmap-assets/README.md](../../../tools/roadmap-assets/README.md). Native Bake Main і Bake Staging, сезонні ракурси та mobile metrics проводити лише після безпечного дозволеного запуску Unity. Літак і судно залишаються staging journeys. Вигадану греблю малого ставка перероблено для пілота QC001–QC005; вона не є реконструкцією реальної ГЕС.","",
         "## Усі roadmap-моделі", "", "| ID | Трикутники | Каталог / статус |", "|---|---:|---|"]
     for r in rows:md.append(f"| `{r['id']}` | {r['triangles']} | {Path(r['catalog']).name} · {r['status']} |")
     return {OUT/"model-inventory.json":json.dumps(summary,ensure_ascii=False,indent=2)+"\n",OUT/"model-inventory.csv":csv_text(rows),OUT/"raw-model-files.csv":csv_text(raw),OUT/"MODEL-MATRIX-UA.md":"\n".join(md)+"\n"}

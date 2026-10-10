@@ -30,14 +30,14 @@
   "sameTriangleAttributesVerifiedDuringBake": true,
   "oneMainLightShadowPass": true,
   "allOpaqueWorldObjectsCastShadows": true,
-  "gameViewResult": "Pending",
+  "gameViewResult": "Passed",
   "mobileFpsMeasured": false,
   "playerBuild": false,
   "limits": [
     "Indexed vertex/payload and Editor counters are not GPU timing or phone FPS.",
     "Water and airborne pollen are transparent and do not cast opaque ground shadows."
   ],
-  "gameViewCaptureUtc": null,
+  "gameViewCaptureUtc": "2026-10-10T20:30:18.2652050Z",
   "measurements": {
     "Low": {
       "maxSubmittedMeshTriangles": 72282,
@@ -45,7 +45,7 @@
       "maxDetailedChunks": 3,
       "gameViewSamples": 10,
       "maxEditorDrawCalls": 55,
-      "maxPassInclusiveEditorTriangles": 153833
+      "maxPassInclusiveEditorTriangles": 142943
     },
     "Balanced": {
       "maxSubmittedMeshTriangles": 97640,
@@ -53,7 +53,7 @@
       "maxDetailedChunks": 3,
       "gameViewSamples": 10,
       "maxEditorDrawCalls": 55,
-      "maxPassInclusiveEditorTriangles": 207199
+      "maxPassInclusiveEditorTriangles": 193547
     }
   },
   "tierTotalsScope": "Sum across all five chunks of each quality; only up to three chunks are resident. Visibility budgets are recorded separately in measurements.",
