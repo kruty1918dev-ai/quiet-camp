@@ -1,5 +1,5 @@
 {
-  "sourceHash": "6fd474482fbae4d90f7bdbcc20778cedb9d48e43daee20467ca7cede5bb4dc31",
+  "sourceHash": "976a05b5c914feb02e834c4dc210d1158a71168ef5a421035dff46f248986522",
   "compiler": "semantic-composer-0.3.0",
   "unity": "6000.6.2f1",
   "composition": {
@@ -47,6 +47,20 @@
         "wind": false
       },
       {
+        "id": "last-stop/bench",
+        "owner": "last-stop",
+        "role": "bench",
+        "asset": "pilot.bench",
+        "revealOwner": "QC001",
+        "state": "reclaimed",
+        "template": "pilot.stop",
+        "x": -9.365248,
+        "z": 2.33704162,
+        "height": 0.85,
+        "yaw": 18.0,
+        "wind": false
+      },
+      {
         "id": "reclaimed-yard/house",
         "owner": "reclaimed-yard",
         "role": "house",
@@ -56,7 +70,7 @@
         "template": "pilot.yard",
         "x": -15.0,
         "z": 42.0,
-        "height": 4.0,
+        "height": 4.5,
         "yaw": 0.0,
         "wind": false
       },
@@ -64,13 +78,13 @@
         "id": "reclaimed-yard/roof-tree",
         "owner": "reclaimed-yard",
         "role": "roof-tree",
-        "asset": "tree_default",
+        "asset": "pilot.branching-tree",
         "revealOwner": "QC002",
         "state": "reclaimed",
         "template": "pilot.yard",
         "x": -14.5,
         "z": 42.0,
-        "height": 8.0,
+        "height": 6.5,
         "yaw": 0.0,
         "wind": true
       },
@@ -78,7 +92,7 @@
         "id": "reclaimed-yard/well",
         "owner": "reclaimed-yard",
         "role": "well",
-        "asset": "ua_well_sweep",
+        "asset": "pilot.stone-well",
         "revealOwner": "QC002",
         "state": "reclaimed",
         "template": "pilot.yard",
@@ -106,7 +120,7 @@
         "id": "reclaimed-yard/east-fence",
         "owner": "reclaimed-yard",
         "role": "east-fence",
-        "asset": "ua_picket_fence_damaged",
+        "asset": "pilot.broken-fence",
         "revealOwner": "QC002",
         "state": "reclaimed",
         "template": "pilot.yard",
@@ -120,7 +134,7 @@
         "id": "reclaimed-yard/back-fence",
         "owner": "reclaimed-yard",
         "role": "back-fence",
-        "asset": "ua_picket_fence_damaged",
+        "asset": "pilot.broken-fence",
         "revealOwner": "QC002",
         "state": "reclaimed",
         "template": "pilot.yard",
@@ -218,13 +232,13 @@
         "id": "old-orchard-0",
         "owner": "old-orchard-0",
         "role": "landmark",
-        "asset": "ua_orchard_tree",
+        "asset": "pilot.orchard-tree",
         "revealOwner": "QC002",
         "state": null,
         "template": null,
         "x": -15.0,
         "z": 17.0,
-        "height": 5.5,
+        "height": 4.8,
         "yaw": 0.0,
         "wind": false
       },
@@ -232,13 +246,13 @@
         "id": "old-orchard-1",
         "owner": "old-orchard-1",
         "role": "landmark",
-        "asset": "ua_orchard_tree",
+        "asset": "pilot.orchard-tree",
         "revealOwner": "QC002",
         "state": null,
         "template": null,
         "x": -10.0,
         "z": 17.0,
-        "height": 5.5,
+        "height": 4.8,
         "yaw": 42.0,
         "wind": false
       },
@@ -246,13 +260,13 @@
         "id": "old-orchard-2",
         "owner": "old-orchard-2",
         "role": "landmark",
-        "asset": "ua_orchard_tree",
+        "asset": "pilot.orchard-tree",
         "revealOwner": "QC002",
         "state": null,
         "template": null,
         "x": -15.0,
         "z": 22.0,
-        "height": 5.5,
+        "height": 4.8,
         "yaw": 84.0,
         "wind": false
       },
@@ -260,13 +274,13 @@
         "id": "old-orchard-3",
         "owner": "old-orchard-3",
         "role": "landmark",
-        "asset": "ua_orchard_tree",
+        "asset": "pilot.orchard-tree",
         "revealOwner": "QC002",
         "state": null,
         "template": null,
         "x": -10.0,
         "z": 22.0,
-        "height": 5.5,
+        "height": 4.8,
         "yaw": 126.0,
         "wind": false
       },
@@ -274,7 +288,7 @@
         "id": "avenue-0",
         "owner": "avenue-0",
         "role": "landmark",
-        "asset": "ua_poplar",
+        "asset": "pilot.poplar",
         "revealOwner": "QC001",
         "state": null,
         "template": null,
@@ -288,7 +302,7 @@
         "id": "avenue-1",
         "owner": "avenue-1",
         "role": "landmark",
-        "asset": "ua_poplar",
+        "asset": "pilot.poplar",
         "revealOwner": "QC001",
         "state": null,
         "template": null,
@@ -302,7 +316,7 @@
         "id": "avenue-2",
         "owner": "avenue-2",
         "role": "landmark",
-        "asset": "ua_poplar",
+        "asset": "pilot.poplar",
         "revealOwner": "QC001",
         "state": null,
         "template": null,
@@ -316,7 +330,7 @@
         "id": "avenue-3",
         "owner": "avenue-3",
         "role": "landmark",
-        "asset": "ua_poplar",
+        "asset": "pilot.poplar",
         "revealOwner": "QC001",
         "state": null,
         "template": null,
@@ -330,7 +344,7 @@
         "id": "avenue-4",
         "owner": "avenue-4",
         "role": "landmark",
-        "asset": "ua_poplar",
+        "asset": "pilot.poplar",
         "revealOwner": "QC001",
         "state": null,
         "template": null,
@@ -344,7 +358,7 @@
         "id": "avenue-5",
         "owner": "avenue-5",
         "role": "landmark",
-        "asset": "ua_poplar",
+        "asset": "pilot.poplar",
         "revealOwner": "QC001",
         "state": null,
         "template": null,
@@ -358,7 +372,7 @@
         "id": "willow-0",
         "owner": "willow-0",
         "role": "landmark",
-        "asset": "ua_young_willow",
+        "asset": "pilot.bank-tree",
         "revealOwner": "QC004",
         "state": null,
         "template": null,
@@ -372,7 +386,7 @@
         "id": "willow-1",
         "owner": "willow-1",
         "role": "landmark",
-        "asset": "ua_young_willow",
+        "asset": "pilot.bank-tree",
         "revealOwner": "QC004",
         "state": null,
         "template": null,
@@ -386,7 +400,7 @@
         "id": "willow-2",
         "owner": "willow-2",
         "role": "landmark",
-        "asset": "ua_young_willow",
+        "asset": "pilot.bank-tree",
         "revealOwner": "QC005",
         "state": null,
         "template": null,
@@ -400,7 +414,7 @@
         "id": "willow-3",
         "owner": "willow-3",
         "role": "landmark",
-        "asset": "ua_young_willow",
+        "asset": "pilot.bank-tree",
         "revealOwner": "QC005",
         "state": null,
         "template": null,
@@ -414,7 +428,7 @@
         "id": "willow-4",
         "owner": "willow-4",
         "role": "landmark",
-        "asset": "ua_young_willow",
+        "asset": "pilot.bank-tree",
         "revealOwner": "QC005",
         "state": null,
         "template": null,
@@ -484,13 +498,13 @@
         "id": "approach-grove-1",
         "owner": "approach-grove-1",
         "role": "landmark",
-        "asset": "tree_default",
+        "asset": "pilot.branching-tree",
         "revealOwner": "QC001",
         "state": null,
         "template": null,
         "x": 7.0,
         "z": -31.0,
-        "height": 8.2,
+        "height": 7.2,
         "yaw": 47.0,
         "wind": false
       },
@@ -596,13 +610,13 @@
         "id": "beyond-weir-grove-2",
         "owner": "beyond-weir-grove-2",
         "role": "landmark",
-        "asset": "tree_default",
+        "asset": "pilot.branching-tree",
         "revealOwner": "QC005",
         "state": null,
         "template": null,
         "x": -4.0,
         "z": 214.0,
-        "height": 9.0,
+        "height": 7.2,
         "yaw": 94.0,
         "wind": false
       },
@@ -660,6 +674,90 @@
         "z": 238.0,
         "height": 7.2,
         "yaw": 282.0,
+        "wind": false
+      },
+      {
+        "id": "bank-rock-0",
+        "owner": "bank-rock-0",
+        "role": "landmark",
+        "asset": "pilot.bank-rock",
+        "revealOwner": "QC004",
+        "state": null,
+        "template": null,
+        "x": 8.0,
+        "z": 103.0,
+        "height": 0.75,
+        "yaw": 0.0,
+        "wind": false
+      },
+      {
+        "id": "bank-rock-1",
+        "owner": "bank-rock-1",
+        "role": "landmark",
+        "asset": "pilot.bank-rock",
+        "revealOwner": "QC004",
+        "state": null,
+        "template": null,
+        "x": 22.0,
+        "z": 116.0,
+        "height": 0.85,
+        "yaw": 57.0,
+        "wind": false
+      },
+      {
+        "id": "bank-rock-2",
+        "owner": "bank-rock-2",
+        "role": "landmark",
+        "asset": "pilot.bank-rock",
+        "revealOwner": "QC004",
+        "state": null,
+        "template": null,
+        "x": 22.0,
+        "z": 135.0,
+        "height": 1.15,
+        "yaw": 114.0,
+        "wind": false
+      },
+      {
+        "id": "bank-rock-3",
+        "owner": "bank-rock-3",
+        "role": "landmark",
+        "asset": "pilot.bank-rock",
+        "revealOwner": "QC005",
+        "state": null,
+        "template": null,
+        "x": 3.0,
+        "z": 148.0,
+        "height": 0.75,
+        "yaw": 171.0,
+        "wind": false
+      },
+      {
+        "id": "bank-rock-4",
+        "owner": "bank-rock-4",
+        "role": "landmark",
+        "asset": "pilot.bank-rock",
+        "revealOwner": "QC005",
+        "state": null,
+        "template": null,
+        "x": 14.0,
+        "z": 178.0,
+        "height": 1.2,
+        "yaw": 228.0,
+        "wind": false
+      },
+      {
+        "id": "bank-rock-5",
+        "owner": "bank-rock-5",
+        "role": "landmark",
+        "asset": "pilot.bank-rock",
+        "revealOwner": "QC005",
+        "state": null,
+        "template": null,
+        "x": 9.0,
+        "z": 190.0,
+        "height": 0.8,
+        "yaw": 285.0,
         "wind": false
       }
     ],
@@ -735,49 +833,52 @@
   "stats": [
     {
       "index": 0,
-      "estimatedBytes": 11767056,
-      "balancedTriangles": 46892,
-      "lowTriangles": 23150,
+      "estimatedBytes": 12120864,
+      "balancedTriangles": 47810,
+      "lowTriangles": 24338,
       "sourceAssets": [
         "grass",
         "log",
         "pilot.asphalt",
+        "pilot.bench",
+        "pilot.branching-tree",
+        "pilot.orchard-tree",
+        "pilot.poplar",
         "plant_bushSmall",
         "stone_largeA",
         "stump_round",
         "tree_default",
         "tree_pineRoundA",
-        "ua_bus_shelter_mosaic",
-        "ua_orchard_tree",
-        "ua_poplar"
+        "ua_bus_shelter_mosaic"
       ]
     },
     {
       "index": 1,
-      "estimatedBytes": 8659728,
-      "balancedTriangles": 35029,
-      "lowTriangles": 16517,
+      "estimatedBytes": 9396240,
+      "balancedTriangles": 36227,
+      "lowTriangles": 19703,
       "sourceAssets": [
         "grass",
         "log",
+        "pilot.branching-tree",
+        "pilot.broken-fence",
+        "pilot.orchard-tree",
+        "pilot.poplar",
         "pilot.ruined-house",
+        "pilot.stone-well",
         "plant_bushSmall",
         "stone_largeA",
         "stump_round",
         "tree_default",
         "tree_pineRoundA",
-        "ua_gate",
-        "ua_orchard_tree",
-        "ua_picket_fence_damaged",
-        "ua_poplar",
-        "ua_well_sweep"
+        "ua_gate"
       ]
     },
     {
       "index": 2,
-      "estimatedBytes": 11121264,
-      "balancedTriangles": 44954,
-      "lowTriangles": 21244,
+      "estimatedBytes": 10379376,
+      "balancedTriangles": 42292,
+      "lowTriangles": 19490,
       "sourceAssets": [
         "grass",
         "log",
@@ -793,38 +894,286 @@
     },
     {
       "index": 3,
-      "estimatedBytes": 9368688,
-      "balancedTriangles": 37062,
-      "lowTriangles": 18704,
+      "estimatedBytes": 8606640,
+      "balancedTriangles": 35989,
+      "lowTriangles": 15241,
       "sourceAssets": [
         "grass",
         "log",
+        "pilot.bank-rock",
+        "pilot.bank-tree",
         "pilot.broken-bridge",
         "plant_bushSmall",
         "stone_largeA",
         "stump_round",
         "tree_default",
         "tree_pineRoundA",
-        "ua_plank_bridge",
-        "ua_young_willow"
+        "ua_plank_bridge"
       ]
     },
     {
       "index": 4,
-      "estimatedBytes": 12403776,
-      "balancedTriangles": 50114,
-      "lowTriangles": 23718,
+      "estimatedBytes": 12595968,
+      "balancedTriangles": 50495,
+      "lowTriangles": 24481,
       "sourceAssets": [
         "grass",
         "log",
+        "pilot.bank-rock",
+        "pilot.bank-tree",
+        "pilot.branching-tree",
         "plant_bushSmall",
         "stone_largeA",
         "stump_round",
         "tree_default",
         "tree_pineRoundA",
         "ua_dam_breached",
-        "ua_hydro_service_building",
-        "ua_young_willow"
+        "ua_hydro_service_building"
+      ]
+    }
+  ],
+  "donors": [
+    {
+      "asset": "pilot.asphalt",
+      "catalogueId": "M0157",
+      "source": "Assets/PolygonBattleRoyale/Models/SM_Env_Road_Straight_Damaged_01.fbx",
+      "prefab": "Assets/PolygonBattleRoyale/Prefabs/Environments/SM_Env_Road_Straight_Damaged_01.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Env_Road_Straight_Damaged_01",
+        "SM_Env_Road_Straight_Damaged_01_Dirt",
+        "SM_Env_Road_Straight_Damaged_01_Edge"
+      ],
+      "triangles": 303,
+      "paletteMaterials": [
+        "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_02_A.mat",
+        "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_Road.mat"
+      ],
+      "paletteColors": 5,
+      "bounds": [
+        20.0,
+        0.6706734,
+        5.00152349
+      ]
+    },
+    {
+      "asset": "pilot.broken-bridge",
+      "catalogueId": "M0132",
+      "source": "Assets/PolygonBattleRoyale/Models/SM_Env_Bridge_Broken_01.fbx",
+      "prefab": "Assets/PolygonBattleRoyale/Prefabs/Environments/SM_Env_Bridge_Broken_01.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Env_Bridge_Broken_01"
+      ],
+      "triangles": 796,
+      "paletteMaterials": [
+        "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_Road.mat"
+      ],
+      "paletteColors": 5,
+      "bounds": [
+        11.00454,
+        2.87881827,
+        3.97426987
+      ]
+    },
+    {
+      "asset": "pilot.ruin-wall",
+      "catalogueId": "M0965",
+      "source": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Models/SM_Bld_Shack_Ruins_01.fbx",
+      "prefab": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Prefabs/SM_Bld_Shack_Ruins_01.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Bld_Shack_Ruins_01"
+      ],
+      "triangles": 2714,
+      "paletteMaterials": [
+        "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/PolygonNatureBiomesSwamp_LODs_Mat_01.mat"
+      ],
+      "paletteColors": 121,
+      "bounds": [
+        5.434205,
+        5.836829,
+        2.26174879
+      ]
+    },
+    {
+      "asset": "pilot.reeds",
+      "catalogueId": "M0987",
+      "source": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Models/SM_Env_Reeds_01.fbx",
+      "prefab": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Prefabs/SM_Env_Reeds_01.prefab",
+      "lod": 1,
+      "meshes": [
+        "SM_Env_Reeds_01_LOD1"
+      ],
+      "triangles": 32,
+      "paletteMaterials": [
+        "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/Reeds_01.mat"
+      ],
+      "paletteColors": 6,
+      "bounds": [
+        0.954111338,
+        3.55766845,
+        1.01867175
+      ]
+    },
+    {
+      "asset": "pilot.orchard-tree",
+      "catalogueId": "M0497",
+      "source": "Assets/PolygonCity/Models/SM_Env_Tree_01.fbx",
+      "prefab": "Assets/PolygonCity/Prefabs/Environments/SM_Env_Tree_01.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Env_Tree_01"
+      ],
+      "triangles": 604,
+      "paletteMaterials": [
+        "Assets/PolygonCity/Materials/PolygonCity_Mat_01_A.mat"
+      ],
+      "paletteColors": 2,
+      "bounds": [
+        1.86585617,
+        4.208103,
+        2.51118469
+      ]
+    },
+    {
+      "asset": "pilot.bank-tree",
+      "catalogueId": "M0498",
+      "source": "Assets/PolygonCity/Models/SM_Env_Tree_02.fbx",
+      "prefab": "Assets/PolygonCity/Prefabs/Environments/SM_Env_Tree_02.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Env_Tree_02"
+      ],
+      "triangles": 680,
+      "paletteMaterials": [
+        "Assets/PolygonCity/Materials/PolygonCity_Mat_01_A.mat"
+      ],
+      "paletteColors": 2,
+      "bounds": [
+        2.23603821,
+        4.67631054,
+        1.54027557
+      ]
+    },
+    {
+      "asset": "pilot.poplar",
+      "catalogueId": "M0188",
+      "source": "Assets/PolygonBattleRoyale/Models/SM_Generic_Tree_03.fbx",
+      "prefab": "Assets/PolygonBattleRoyale/Prefabs/Generic/SM_Generic_Tree_03.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Generic_Tree_03"
+      ],
+      "triangles": 266,
+      "paletteMaterials": [
+        "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_01_A.mat"
+      ],
+      "paletteColors": 2,
+      "bounds": [
+        1.73237872,
+        3.49327421,
+        1.541505
+      ]
+    },
+    {
+      "asset": "pilot.stone-well",
+      "catalogueId": "M0913",
+      "source": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/SM_Prop_Well_01.fbx",
+      "prefab": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Prefabs/Props/SM_Prop_Well_01.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Prop_Well_01"
+      ],
+      "triangles": 1809,
+      "paletteMaterials": [
+        "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/PolygonNatureBiomesMeadow_Mat_01.mat"
+      ],
+      "paletteColors": 28,
+      "bounds": [
+        1.912393,
+        2.96808338,
+        1.95048118
+      ]
+    },
+    {
+      "asset": "pilot.broken-fence",
+      "catalogueId": "M0855",
+      "source": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/SM_Prop_Meadow_Fence_05.fbx",
+      "prefab": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Prefabs/Props/SM_Prop_Meadow_Fence_05.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Prop_Meadow_Fence_05"
+      ],
+      "triangles": 244,
+      "paletteMaterials": [
+        "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/PolygonNatureBiomesMeadow_Mat_01.mat"
+      ],
+      "paletteColors": 15,
+      "bounds": [
+        2.52471685,
+        1.5061121,
+        0.403672874
+      ]
+    },
+    {
+      "asset": "pilot.branching-tree",
+      "catalogueId": "M0186",
+      "source": "Assets/PolygonBattleRoyale/Models/SM_Generic_Tree_01.fbx",
+      "prefab": "Assets/PolygonBattleRoyale/Prefabs/Generic/SM_Generic_Tree_01.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Generic_Tree_01"
+      ],
+      "triangles": 598,
+      "paletteMaterials": [
+        "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_01_A.mat"
+      ],
+      "paletteColors": 2,
+      "bounds": [
+        1.81182122,
+        3.29569387,
+        1.70456207
+      ]
+    },
+    {
+      "asset": "pilot.bank-rock",
+      "catalogueId": "M0503",
+      "source": "Assets/PolygonCity/Models/SM_Env_WaterEdge_Rock_01.fbx",
+      "prefab": "Assets/PolygonCity/Prefabs/Environments/SM_Env_WaterEdge_Rock_01.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Env_WaterEdge_Rock_01"
+      ],
+      "triangles": 107,
+      "paletteMaterials": [
+        "Assets/PolygonCity/Materials/PolygonCity_Mat_01_A.mat"
+      ],
+      "paletteColors": 1,
+      "bounds": [
+        4.542803,
+        1.91801262,
+        6.0085144
+      ]
+    },
+    {
+      "asset": "pilot.bench",
+      "catalogueId": "M0571",
+      "source": "Assets/PolygonCity/Models/SM_Prop_ParkBench_01.fbx",
+      "prefab": "Assets/PolygonCity/Prefabs/Props/SM_Prop_ParkBench_01.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Prop_ParkBench_01"
+      ],
+      "triangles": 552,
+      "paletteMaterials": [
+        "Assets/PolygonCity/Materials/PolygonCity_Mat_01_A.mat"
+      ],
+      "paletteColors": 2,
+      "bounds": [
+        2.079465,
+        1.04825807,
+        0.62364006
       ]
     }
   ],

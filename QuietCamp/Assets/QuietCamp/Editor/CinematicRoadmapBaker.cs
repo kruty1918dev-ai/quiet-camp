@@ -22,7 +22,8 @@ namespace QuietCamp.Editor
         sealed class SourcePoint { public string levelId,titleUk; public float x,z,focusX,focusZ,yaw,pitch,distance; }
         sealed class LooseConductor { public float ax,az,ay,bx,bz,by,slack; }
         sealed class SourceWorld { public string id; public int seed; public float fieldOfView,minX,maxX,minZ,maxZ; public float[] chunkStarts,chunkEnds; public SourcePoint[] waypoints; public LooseConductor[] looseConductors=Array.Empty<LooseConductor>(); }
-        sealed class Binding { public string asset,catalogueId,source,sourceHash,guid; public int lod; }
+        sealed class Binding { public string asset,catalogueId,source,sourceHash,guid,prefab; public int lod; public Dictionary<string,string> dependencies; }
+        static readonly List<object> DonorReviews=new List<object>();
         static SourceWorld World;
         static SceneCompositionDocument Document;
         static CompositionResult Composition;
@@ -49,7 +50,8 @@ namespace QuietCamp.Editor
                 "Assets/ThirdParty/Stylized Water 3/Materials/Textures/Normals/LowpolyWaves.png",
                 "Assets/ThirdParty/Stylized Water 3/Materials/Textures/IntersectionNoise.png",
                 "Assets/ThirdParty/Stylized Water 3/Materials/Textures/Foam/Foam1.png",
-                "Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json"});
+                "Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json"})
+                .Concat(Read<Binding[]>("bindings.json").SelectMany(b=>b.dependencies.Keys).Distinct().OrderBy(f=>f,StringComparer.Ordinal));
             return Hash(System.Text.Encoding.UTF8.GetBytes(string.Join("\n",files.Select(f=>f+":"+Hash(File.ReadAllBytes(f))))));
         }
         sealed class Terrain : ITerrainSample
@@ -80,11 +82,14 @@ namespace QuietCamp.Editor
             Composition=SceneComposer.Compose(Document,Assets,templates,new Terrain());
             if(!Composition.Valid)throw new InvalidOperationException(JsonConvert.SerializeObject(Composition.diagnostics));
             Library=RoadmapModelLibrary.Load();Library.PrepareCulture();Library.PrepareStaging();
-            Donors=new Dictionary<string,RoadmapModelLibrary.Model>();
+            Donors=new Dictionary<string,RoadmapModelLibrary.Model>();DonorReviews.Clear();
             foreach(var b in Read<Binding[]>("bindings.json"))
             {
                 if(Hash(File.ReadAllBytes(b.source))!=b.sourceHash||AssetDatabase.AssetPathToGUID(b.source)!=b.guid)
                     throw new InvalidOperationException("Stale reviewed model binding: "+b.catalogueId);
+                foreach(var dependency in b.dependencies)
+                    if(Hash(File.ReadAllBytes(dependency.Key))!=dependency.Value)
+                        throw new InvalidOperationException("Stale reviewed prefab/palette input: "+dependency.Key);
                 Donors.Add(b.asset,ReadDonor(b));
             }
             Revision=SourceHash();var current=Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World");
@@ -156,7 +161,7 @@ namespace QuietCamp.Editor
             else {EditorUtility.CopySerialized(index,old);Object.DestroyImmediate(index);index=old;EditorUtility.SetDirty(old);}
             AssetDatabase.SaveAssets();AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
             string repo=Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath,"../.."));string evidence=Path.Combine(repo,"Design/Roadmap/CinematicPilot/2026-10-10");Directory.CreateDirectory(evidence);
-            File.WriteAllText(Path.Combine(evidence,"bake-receipt.json"),JsonConvert.SerializeObject(new {sourceHash=Revision,compiler=SceneComposer.Revision,unity=UnityEngine.Application.unityVersion,composition=Composition,stats,levelIds=index.waypoints.Select(p=>p.levelId),playerBuild=false},Formatting.Indented)+"\n");
+            File.WriteAllText(Path.Combine(evidence,"bake-receipt.json"),JsonConvert.SerializeObject(new {sourceHash=Revision,compiler=SceneComposer.Revision,unity=UnityEngine.Application.unityVersion,composition=Composition,stats,donors=DonorReviews,levelIds=index.waypoints.Select(p=>p.levelId),playerBuild=false},Formatting.Indented)+"\n");
             Debug.Log("[CinematicRoadmap] Published five native world chunks "+Revision);
         }
         static Material Material(string folder,string name,float sway,float flutter)
@@ -189,7 +194,7 @@ namespace QuietCamp.Editor
         static Mesh[] BuildChunk(int c,bool low)
         {
             var parts=Enumerable.Range(0,5).Select(i=>new Geometry()).ToArray();float start=World.chunkStarts[c],end=World.chunkEnds[c];
-            TerrainGrid(parts[0],start,end,low?4:2);
+            TerrainGrid(parts[0],start,end,low?4.5f:2.5f);
             // The composer emits both ensemble roles and accepted landmarks.
             // Appending Document.landmarks again duplicates their geometry and shadows.
             foreach(var item in Composition.instances.Where(i=>OwnerChunk(i.z)==c))Append(parts[Assets[item.asset].wind?2:1],item.asset,item.x,item.z,item.height,item.yaw,Assets[item.asset].wind);
@@ -197,7 +202,7 @@ namespace QuietCamp.Editor
             for(float z=Mathf.Max(-22,start)+2;z<Mathf.Min(195,end);z+=4.5f)for(float x=-43;x<44;x+=4.5f)
             {
                 float px=x+(float)random.NextDouble()*3,pz=z+(float)random.NextDouble()*3;
-                if(random.NextDouble()>(low?.33:.60)||Reserved(px,pz,2.5f)||CanopyObscuresStory(px,pz)||RoadmapLandscape.WaterDistance(px,pz)<1)continue;
+                if(random.NextDouble()>(low?.25:.55)||Reserved(px,pz,2.5f)||CanopyObscuresStory(px,pz)||RoadmapLandscape.WaterDistance(px,pz)<1)continue;
                 string asset=random.NextDouble()<.36?"tree_pineRoundA":"tree_default";
                 Append(parts[2],asset,px,pz,5.8f+(float)random.NextDouble()*5,(float)random.NextDouble()*360,true,.84f+(float)random.NextDouble()*.21f);
             }
@@ -398,7 +403,7 @@ namespace QuietCamp.Editor
         }
         static void Append(Geometry g,string asset,float x,float z,float height,float yaw,bool wind,float tint=1)
         {
-            var model=Donors.TryGetValue(asset,out var donor)?donor:Library.Get(asset=="pilot.ruined-house"?"ua_abandoned_house":asset);
+            var model=Donors.TryGetValue(asset,out var donor)?donor:Library.Get(asset=="pilot.ruined-house"?"ua_whitewashed_house":asset);
             if(model==null)throw new InvalidOperationException("Missing actual model "+asset);
             var rotation=Quaternion.Euler(0,yaw,0);float y=Ground(x,z);
             if(asset=="ua_plank_bridge"||asset=="pilot.broken-bridge"||asset=="ua_dam_breached")y=Mathf.Max(y,RoadmapLandscape.WaterHeight+.12f);
@@ -441,22 +446,96 @@ namespace QuietCamp.Editor
         }
         static RoadmapModelLibrary.Model ReadDonor(Binding binding)
         {
-            var source=AssetDatabase.LoadAssetAtPath<GameObject>(binding.source);if(source==null)throw new InvalidOperationException(binding.source);
+            // Prefabs own the reviewed mesh and palette. FBX roots may contain overlapping
+            // LODs, collision meshes and unbound materials; none belongs in a baked landmark.
+            var source=AssetDatabase.LoadAssetAtPath<GameObject>(binding.prefab);if(source==null)throw new InvalidOperationException(binding.prefab);
             var vertices=new List<Vector3>();var normals=new List<Vector3>();var colors=new List<Color>();
-            foreach(var filter in source.GetComponentsInChildren<MeshFilter>(true))
+            var selected=new HashSet<Renderer>();
+            foreach(var group in source.GetComponentsInChildren<LODGroup>(true))
             {
-                var mesh=filter.sharedMesh;if(mesh==null||filter.name.Contains("LOD")&&!filter.name.Contains("LOD"+binding.lod))continue;
-                var matrix=source.transform.worldToLocalMatrix*filter.transform.localToWorldMatrix;var ns=mesh.normals;var vs=mesh.vertices;
-                for(int sub=0;sub<mesh.subMeshCount;sub++)
+                var lods=group.GetLODs();if(binding.lod>=lods.Length)throw new InvalidOperationException("Unavailable reviewed LOD: "+binding.asset);
+                foreach(var renderer in lods[binding.lod].renderers)selected.Add(renderer);
+            }
+            if(selected.Count==0)foreach(var renderer in source.GetComponentsInChildren<MeshRenderer>(true))selected.Add(renderer);
+            var textures=new Dictionary<Texture,Texture2D>();var meshes=new List<string>();var materials=new HashSet<string>();
+            try
+            {
+                foreach(var renderer in selected.OrderBy(r=>r.name,StringComparer.Ordinal))
                 {
-                    var color=binding.asset=="pilot.reeds"?new Color(.53f,.57f,.29f):binding.asset=="pilot.ruin-wall"?new Color(.44f,.38f,.29f):new Color(.46f,.48f,.43f);
-                    foreach(int i in mesh.GetTriangles(sub)){vertices.Add(matrix.MultiplyPoint3x4(vs[i]));normals.Add(matrix.inverse.transpose.MultiplyVector(ns[i]).normalized);if(vertices.Count%3==1)colors.Add(color);}
+                    var filter=renderer.GetComponent<MeshFilter>();var mesh=filter?.sharedMesh;if(mesh==null)continue;
+                    if(binding.lod>0&&source.GetComponentsInChildren<LODGroup>(true).Length==0)
+                    {
+                        string lodName=System.Text.RegularExpressions.Regex.Replace(mesh.name,"LOD[0-9]+","LOD"+binding.lod);
+                        mesh=AssetDatabase.LoadAllAssetsAtPath(binding.source).OfType<Mesh>().FirstOrDefault(m=>m.name==lodName);
+                        if(mesh==null||!mesh.name.Contains("LOD"+binding.lod))throw new InvalidOperationException("Unavailable prefab donor LOD: "+binding.asset);
+                    }
+                    if(AssetDatabase.GetAssetPath(mesh)!=binding.source)throw new InvalidOperationException("Prefab mesh is not the reviewed source: "+binding.asset);
+                    meshes.Add(mesh.name);var matrix=source.transform.worldToLocalMatrix*filter.transform.localToWorldMatrix;
+                    var ns=mesh.normals;var vs=mesh.vertices;var uv=mesh.uv;
+                    for(int sub=0;sub<mesh.subMeshCount;sub++)
+                    {
+                        var material=renderer.sharedMaterials[sub];if(material==null)throw new InvalidOperationException("Unbound donor palette: "+binding.asset);
+                        materials.Add(AssetDatabase.GetAssetPath(material));
+                        // Texture-cutout foliage needs a different rendering path. Do not turn
+                        // transparent leaf cards into solid triangles in the faceted forest.
+                        if(material.IsKeywordEnabled("_ALPHATEST_ON"))throw new InvalidOperationException("Cutout donor requires its own reviewed material: "+binding.asset);
+                        var tint=material.HasProperty("_BaseColor")?material.GetColor("_BaseColor"):material.HasProperty("_Color")?material.GetColor("_Color"):Color.white;
+                        // Read the authored slot, including older vendor shaders whose fallback
+                        // exposes a default white main texture rather than their saved atlas.
+                        var saved=new SerializedObject(material).FindProperty("m_SavedProperties.m_TexEnvs");
+                        Texture texture=null;Vector2 textureScale=Vector2.one,textureOffset=Vector2.zero;
+                        foreach(string property in new[]{"_Albedo","_BaseMap","_MainTex"})
+                        {
+                            for(int slot=0;slot<saved.arraySize;slot++)
+                            {
+                                var entry=saved.GetArrayElementAtIndex(slot);if(entry.FindPropertyRelative("first").stringValue!=property)continue;
+                                var value=entry.FindPropertyRelative("second");var candidate=value.FindPropertyRelative("m_Texture").objectReferenceValue as Texture;
+                                if(candidate==null)continue;
+                                texture=candidate;textureScale=value.FindPropertyRelative("m_Scale").vector2Value;textureOffset=value.FindPropertyRelative("m_Offset").vector2Value;break;
+                            }
+                            if(texture!=null)break;
+                        }
+                        Texture2D palette=null;
+                        if(texture!=null&&!textures.TryGetValue(texture,out palette))
+                        {palette=ReadPalette(texture);textures.Add(texture,palette);}
+                        var indices=mesh.GetTriangles(sub);
+                        for(int t=0;t<indices.Length;t+=3)
+                        {
+                            var color=tint;
+                            if(palette!=null&&uv.Length==vs.Length)
+                            {
+                                var coordinate=(uv[indices[t]]+uv[indices[t+1]]+uv[indices[t+2]])/3;
+                                coordinate=Vector2.Scale(coordinate,textureScale)+textureOffset;
+                                // Project-owned vertex palettes are authored display colors too.
+                                // Readback is linear; bring the atlas into that common authoring palette.
+                                color*=palette.GetPixelBilinear(coordinate.x,coordinate.y).gamma;
+                            }
+                            colors.Add(new Color(color.r,color.g,color.b,1));
+                            for(int k=0;k<3;k++)
+                            {int i=indices[t+k];vertices.Add(matrix.MultiplyPoint3x4(vs[i]));normals.Add(matrix.inverse.transpose.MultiplyVector(ns[i]).normalized);}
+                        }
+                    }
                 }
             }
+            finally{foreach(var texture in textures.Values)Object.DestroyImmediate(texture);}
             if(vertices.Count==0)throw new InvalidOperationException("Empty donor "+binding.asset);
             var bounds=new Bounds(vertices[0],Vector3.zero);foreach(var v in vertices)bounds.Encapsulate(v);
             float h=Mathf.Max(.01f,bounds.size.y);var pivot=new Vector3(bounds.center.x,bounds.min.y,bounds.center.z);
+            DonorReviews.Add(new{binding.asset,binding.catalogueId,binding.source,binding.prefab,binding.lod,meshes,triangles=vertices.Count/3,
+                paletteMaterials=materials.OrderBy(p=>p).ToArray(),paletteColors=colors.Select(c=>ColorUtility.ToHtmlStringRGB(c)).Distinct().Count(),
+                bounds=new[]{bounds.size.x,bounds.size.y,bounds.size.z}});
             return new RoadmapModelLibrary.Model{id=binding.asset,Positions=vertices.Select(v=>(v-pivot)/h).ToArray(),Normals=normals.ToArray(),Colors=colors.ToArray(),Bounds=new Bounds((bounds.center-pivot)/h,bounds.size/h),SourceHeight=h};
+        }
+        static Texture2D ReadPalette(Texture texture)
+        {
+            var previous=RenderTexture.active;var target=RenderTexture.GetTemporary(texture.width,texture.height,0,RenderTextureFormat.ARGB32,RenderTextureReadWrite.Linear);
+            try
+            {
+                Graphics.Blit(texture,target);RenderTexture.active=target;
+                var pixels=new Texture2D(texture.width,texture.height,TextureFormat.RGBA32,false,true){wrapMode=texture.wrapMode};
+                pixels.ReadPixels(new Rect(0,0,texture.width,texture.height),0,0);pixels.Apply();return pixels;
+            }
+            finally{RenderTexture.active=previous;RenderTexture.ReleaseTemporary(target);}
         }
     }
 }

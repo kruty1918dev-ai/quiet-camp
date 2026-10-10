@@ -2,6 +2,8 @@
 
 > Навігація: [ілюстрований довідник](docs/README.md) · [світ і source catalog](docs/world.md) · [галерея](docs/gallery.md) · [стан перевірок](docs/status.md).
 >
+> Художній прохід 10.10: відібрано дев’ять виразніших наявних моделей, native кадри та бюджети перевірено. Виправлення рослинності/дороги триває; новий Game View прогін ще готується. [Добір моделей](Design/Roadmap/ModelRefinement/2026-10-10/README-UA.md).
+
 > Поточна заміна роадмапи: [QC001–QC005 в українській долині](Design/Roadmap/CinematicPilot/2026-10-10/README.md). П’ять місць і чотири переходи пройшли native render review; повний Game View integration Passed. Камера віддалена на 45% для огляду околиць; керування прив’язане до точки торкання, без нових елементів UI. Дані full main catalog зберігають 110 ordered places; цей документ описує релізний план ширшого світу. Усі гілки об’єднано в main зі збереженням їхніх commits. Кількість у source catalog не є заявою native/device acceptance всього контенту. Нова semantic roadmap composition вже є в main як авторинг; чинний runtime використовує окремий п’ятиточковий native world index.
 >
 > Native Editor performance, 2026-10-09: перший раунд оптимізації виконано й переміряно — leaf CPU p95 17.34 → 0.03 мс (GPU shader), найдовші route кадри 960 → 237 мс, map open max 1 377 → 303 мс. **14 EditMode / 13 PlayMode regressions Passed**; budgets пройдені частково, залишкова черга в [карті продуктивності](PERFORMANCE_MAP.md) · [інтерактивний report](https://kruty1918dev-ai.github.io/quiet-camp/performance.html).

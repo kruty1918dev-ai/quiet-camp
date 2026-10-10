@@ -5,7 +5,18 @@
     "source": "Assets/PolygonBattleRoyale/Models/SM_Env_Road_Straight_Damaged_01.fbx",
     "sourceHash": "a211a27c74827e41e4afcb2af5e99fea5bcd99243a2ff6be3e1f9c3df4252220",
     "guid": "cb153355387d36e41983df1b150792e0",
-    "lod": 0
+    "lod": 0,
+    "prefab": "Assets/PolygonBattleRoyale/Prefabs/Environments/SM_Env_Road_Straight_Damaged_01.prefab",
+    "dependencies": {
+      "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_02_A.mat": "cb0dafb0c4844657f3dfc6ec855ba4bcd65bd0415e6443d5927545e244bf00e0",
+      "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_Road.mat": "8158f3c759ed7aa1fbf71ae508c1b650b048f690481da05c535ce6b59bc0f593",
+      "Assets/PolygonBattleRoyale/Models/SM_Env_Road_Straight_Damaged_01.fbx": "a211a27c74827e41e4afcb2af5e99fea5bcd99243a2ff6be3e1f9c3df4252220",
+      "Assets/PolygonBattleRoyale/Models/SM_Env_Road_Straight_Damaged_01_Convex.asset": "7fa08249d974de35c398f9b44366dc4cb92d4575cb91d58d9df80b90ddc1fddc",
+      "Assets/PolygonBattleRoyale/Prefabs/Environments/SM_Env_Road_Straight_Damaged_01.prefab": "fc73150e11c83e274600a239d39b0a9f91cd10ea8e3963073e6b7baf42ba69db",
+      "Assets/PolygonBattleRoyale/Textures/PolygonBattleRoyale_Road_01.png": "79e4bdf5cbb02a0c52b3f328a7e3bc71bdaa5ab149a859b3a593b3c5ccabac97",
+      "Assets/PolygonBattleRoyale/Textures/PolygonBattleRoyale_Road_Normal.png": "08e50872400049d2eba076b9c1c652f9a1f599526eeaf83060dc89737a280a91",
+      "Assets/PolygonBattleRoyale/Textures/PolygonBattleRoyale_Texture_02_A.png": "0850aae49e16c4fc09309e5ff69c230ce04c8406eef0ca6b59156c95c2315cf1"
+    }
   },
   {
     "asset": "pilot.broken-bridge",
@@ -13,7 +24,16 @@
     "source": "Assets/PolygonBattleRoyale/Models/SM_Env_Bridge_Broken_01.fbx",
     "sourceHash": "c85e664282166f7858a5fb2476b675e4c1dec679a4c4d03ceec6284ada83aef0",
     "guid": "d745b13401dd943438b4a3964e339171",
-    "lod": 0
+    "lod": 0,
+    "prefab": "Assets/PolygonBattleRoyale/Prefabs/Environments/SM_Env_Bridge_Broken_01.prefab",
+    "dependencies": {
+      "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_Road.mat": "8158f3c759ed7aa1fbf71ae508c1b650b048f690481da05c535ce6b59bc0f593",
+      "Assets/PolygonBattleRoyale/Models/SM_Env_Bridge_Broken_01.fbx": "c85e664282166f7858a5fb2476b675e4c1dec679a4c4d03ceec6284ada83aef0",
+      "Assets/PolygonBattleRoyale/Models/SM_Env_Bridge_Broken_01_Convex 2.asset": "574c8e8ac6fa3d481b5ed328b33cb54cf9d243445e9d3e3185e561e2e8708d86",
+      "Assets/PolygonBattleRoyale/Prefabs/Environments/SM_Env_Bridge_Broken_01.prefab": "e543be5875af0244726a66b0eec5a4fdc4675822ac430bd4f0994f0012f9121f",
+      "Assets/PolygonBattleRoyale/Textures/PolygonBattleRoyale_Road_01.png": "79e4bdf5cbb02a0c52b3f328a7e3bc71bdaa5ab149a859b3a593b3c5ccabac97",
+      "Assets/PolygonBattleRoyale/Textures/PolygonBattleRoyale_Road_Normal.png": "08e50872400049d2eba076b9c1c652f9a1f599526eeaf83060dc89737a280a91"
+    }
   },
   {
     "asset": "pilot.ruin-wall",
@@ -21,7 +41,16 @@
     "source": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Models/SM_Bld_Shack_Ruins_01.fbx",
     "sourceHash": "869c0da2283f52bd0fa3cfc4b065248b112f51f82cbe428ab8084efb7285200c",
     "guid": "61d00c29460596c489810ae22aec8868",
-    "lod": 0
+    "lod": 0,
+    "prefab": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Prefabs/SM_Bld_Shack_Ruins_01.prefab",
+    "dependencies": {
+      "Assets/PolygonNatureBiomes/PNB_Core/Shaders/SyntyStudios_Basic_LOD_Shader.shader": "765ab5d8e089f255177f073653ec3e31f409d35b4608047be62e249e1965e028",
+      "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/PolygonNatureBiomesSwamp_LODs_Mat_01.mat": "129c9789cfed4f1be426a14ed55fc89b38ebaa6ae6e80be5130bc1a655100802",
+      "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Models/Collision/SM_Bld_Shack_Ruins_01_Collision.fbx": "70b4ce1800e37721ca5bd85d04e9797e6ceeab109df9647fcd1be35f528344e3",
+      "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Models/SM_Bld_Shack_Ruins_01.fbx": "869c0da2283f52bd0fa3cfc4b065248b112f51f82cbe428ab8084efb7285200c",
+      "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Prefabs/SM_Bld_Shack_Ruins_01.prefab": "237257fb929fc1d558ad347700dd2da3e54d93a60147541d922f760868afbbd2",
+      "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Textures/PolygonNatureBiomes_Swamp_Texture_02.png": "c9cf206bf4fed054abf3d65f44bc7cd5a3f102d7c1b2c3d08f400e7a11205e1d"
+    }
   },
   {
     "asset": "pilot.reeds",
@@ -29,6 +58,164 @@
     "source": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Models/SM_Env_Reeds_01.fbx",
     "sourceHash": "bcf63591e22609d58122466a6baec81f16fe7492e49f0a8abeeacaa583182322",
     "guid": "18b997c676e20544fb1bd0e51fe3a1fb",
-    "lod": 1
+    "lod": 1,
+    "prefab": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Prefabs/SM_Env_Reeds_01.prefab",
+    "dependencies": {
+      "Assets/PolygonNatureBiomes/PNB_Core/Shaders/SyntyStudios_VegitationShader.shader": "6d8885da7ae46db735b929f073638bcf70b105be7eb93c7285abf99788b47113",
+      "Assets/PolygonNatureBiomes/PNB_Core/Textures/Gradient 5.png": "d6bb7aac7cfe6da22e3b41b0659633a81e6802ad99c8ecfdf886656250fdd6a1",
+      "Assets/PolygonNatureBiomes/PNB_Core/Textures/LODNoise.png": "140c55bd97c21b9b22008d7054b492333fec67fbfc1a1b266e5b0209b647eed4",
+      "Assets/PolygonNatureBiomes/PNB_Core/Textures/Noise_Big.tga": "d40846a791d8c62f82fb9c5e38ceef8c24eb92c5e73b12649f27017d1b8e3332",
+      "Assets/PolygonNatureBiomes/PNB_Core/Textures/Noise_Mid.tga": "6d406e19abe895413a02b3b13c290d7c08e15eaae7ff624fecb7bd34d960aca0",
+      "Assets/PolygonNatureBiomes/PNB_Core/Textures/Noise_Small.png": "0ec003f391f56dbe7c1402809cbc2cc403320a7a040142f6c452c485fa269675",
+      "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/Reeds_01.mat": "6b03912f04c21a565c4afebe33a73b9836c8f1faa3c196e9684e11872a3a09f2",
+      "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/SwampGrass_Base.mat": "5507782cc8942bdb32c6b1f4be2e2e7f7e9a95c7cf0157062e2a87bba1e60f75",
+      "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Models/SM_Env_Reeds_01.fbx": "bcf63591e22609d58122466a6baec81f16fe7492e49f0a8abeeacaa583182322",
+      "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Prefabs/SM_Env_Reeds_01.prefab": "c1d062dd3646817ce753993077f3fb4b4d5e808a6fa3c4f54c1d30803e3006af",
+      "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Textures/Normals/Reeds_Normals_01.png": "752c84aec0267de08b57d61dc4f4576fd274ad700b2d254a2e94835d6ca45382",
+      "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Textures/Plants/Reeds_01.tga": "08a1dd6a14f968c92bfadc9933ea75cf4704983c9e39fba15de18ea615bc948d",
+      "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Textures/PolygonNatureBiomes_Swamp_Texture_01.png": "37ca783c455b4a59eac8a17459f3de1aff9c09bbe7b15905ccd93404a81c8192"
+    }
+  },
+  {
+    "asset": "pilot.orchard-tree",
+    "catalogueId": "M0497",
+    "source": "Assets/PolygonCity/Models/SM_Env_Tree_01.fbx",
+    "sourceHash": "8048562d8c7f7b8f8b78d2e5ac91cae193f9150d82d27e0658846e83a336724c",
+    "guid": "7099dfc2c2c03224387983f7ba0a1ec2",
+    "lod": 0,
+    "prefab": "Assets/PolygonCity/Prefabs/Environments/SM_Env_Tree_01.prefab",
+    "dependencies": {
+      "Assets/PolygonCity/Materials/PolygonCity_Mat_01_A.mat": "3a415f05af5f24455090ca91a30a27cb83ac7d3fd373dca40b861c2c220ad1cc",
+      "Assets/PolygonCity/Models/Collisions/SM_Env_Tree_01_Convex 1.asset": "c57cf4a71df97aee5e0f0c1b3e52877d647c79f8aed0063e11bab6a296cc95bf",
+      "Assets/PolygonCity/Models/SM_Env_Tree_01.fbx": "8048562d8c7f7b8f8b78d2e5ac91cae193f9150d82d27e0658846e83a336724c",
+      "Assets/PolygonCity/Prefabs/Environments/SM_Env_Tree_01.prefab": "589f6831d9ccce79c23016b6bc20267d698c9f0db16d376e9de6fd8f8095cf62",
+      "Assets/PolygonCity/Textures/Emissive_01.png": "6f7659ee1b45815a85819ad855c554fed711f50e7360bfed7aca814bf25a27ff",
+      "Assets/PolygonCity/Textures/PolygonCity_Texture_01_A.png": "0d4ad31a5ee2f25c0055eacf75ccce832d89f5cfb12ced12b2ea4993b6290900",
+      "Assets/PolygonCity/Textures/PolygonCity_Texture_Metallic.tga": "5a21a6835f16e24686c41244118a12cd05abf6b00fcb708ce3c9e177cfba7515",
+      "Assets/PolygonCity/Textures/PolygonCity_Texture_Normal.png": "db9d3c4e5efc03d5b96e5c54e391260e29cc43c89b87b1aaf287fd438ad3f88c"
+    }
+  },
+  {
+    "asset": "pilot.bank-tree",
+    "catalogueId": "M0498",
+    "source": "Assets/PolygonCity/Models/SM_Env_Tree_02.fbx",
+    "sourceHash": "abe1772080e7f88f7d82be2cebd7bc2bcbaf1cbdb65571f630a860641095c964",
+    "guid": "488874bf1c20e624f8e81079f86b26ba",
+    "lod": 0,
+    "prefab": "Assets/PolygonCity/Prefabs/Environments/SM_Env_Tree_02.prefab",
+    "dependencies": {
+      "Assets/PolygonCity/Materials/PolygonCity_Mat_01_A.mat": "3a415f05af5f24455090ca91a30a27cb83ac7d3fd373dca40b861c2c220ad1cc",
+      "Assets/PolygonCity/Models/Collisions/SM_Env_Tree_02_Convex 1.asset": "9fa6ca4044f93fbbb196f80df6273588c7415a6bfc48e02d5def39c0f3b15c09",
+      "Assets/PolygonCity/Models/SM_Env_Tree_02.fbx": "abe1772080e7f88f7d82be2cebd7bc2bcbaf1cbdb65571f630a860641095c964",
+      "Assets/PolygonCity/Prefabs/Environments/SM_Env_Tree_02.prefab": "25508d1a499de2959610daa85b885c0c1151be1a807b33056de560c8c5d302bb",
+      "Assets/PolygonCity/Textures/Emissive_01.png": "6f7659ee1b45815a85819ad855c554fed711f50e7360bfed7aca814bf25a27ff",
+      "Assets/PolygonCity/Textures/PolygonCity_Texture_01_A.png": "0d4ad31a5ee2f25c0055eacf75ccce832d89f5cfb12ced12b2ea4993b6290900",
+      "Assets/PolygonCity/Textures/PolygonCity_Texture_Metallic.tga": "5a21a6835f16e24686c41244118a12cd05abf6b00fcb708ce3c9e177cfba7515",
+      "Assets/PolygonCity/Textures/PolygonCity_Texture_Normal.png": "db9d3c4e5efc03d5b96e5c54e391260e29cc43c89b87b1aaf287fd438ad3f88c"
+    }
+  },
+  {
+    "asset": "pilot.poplar",
+    "catalogueId": "M0188",
+    "source": "Assets/PolygonBattleRoyale/Models/SM_Generic_Tree_03.fbx",
+    "sourceHash": "9824ab1b6353264e44ad4316d6a4b308599b7961ac9d5954e46b2ce8aed53cb8",
+    "guid": "2f7e0aa439a901b4a9757ecb86240adc",
+    "lod": 0,
+    "prefab": "Assets/PolygonBattleRoyale/Prefabs/Generic/SM_Generic_Tree_03.prefab",
+    "dependencies": {
+      "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_01_A.mat": "f5f590d09bdc5ff635750bf940562393f6c1daf29c66550464fafacec0eca47c",
+      "Assets/PolygonBattleRoyale/Models/SM_Generic_Tree_03.fbx": "9824ab1b6353264e44ad4316d6a4b308599b7961ac9d5954e46b2ce8aed53cb8",
+      "Assets/PolygonBattleRoyale/Models/SM_Generic_Tree_03_Convex 1.asset": "325b8ff3494e94de0c033b09f9022c508f5681084a71303c2960ca8a7e6aed69",
+      "Assets/PolygonBattleRoyale/Prefabs/Generic/SM_Generic_Tree_03.prefab": "308ab620308e016af98fc153692e60aeebe34ec4349ae2b42460b2c726e77d18",
+      "Assets/PolygonBattleRoyale/Textures/PolygonBattleRoyale_Texture_01_A.png": "8b9987ce68c4717e6c8914f994582ce0af3460de7369229bba6662a804f15c9c",
+      "Assets/PolygonBattleRoyale/Textures/PolygonBattleRoyale_Vehicles_01_Emmision.png": "17d12c0a7b36443fb81371763522df94aeab458088560e6538cef002110bdbbc"
+    }
+  },
+  {
+    "asset": "pilot.stone-well",
+    "catalogueId": "M0913",
+    "source": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/SM_Prop_Well_01.fbx",
+    "sourceHash": "2bfdf737228748be1b7dea3b84bac5be7703de20696fba3fe16160d89d59a2f6",
+    "guid": "90217f29c4d809b469c43bfe5501e35f",
+    "lod": 0,
+    "prefab": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Prefabs/Props/SM_Prop_Well_01.prefab",
+    "dependencies": {
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/PolygonNatureBiomesMeadow_Mat_01.mat": "7eda363905dc2e0bc4c08a32f1a3354428a47ce2a5f51cc9f911bd9a6c7d9bba",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/Collision/SM_Prop_Well_01_Collision.fbx": "2337a30f6bc844672ee1f191416b0fc2af99ff8431191f727a0eb28164b2fa54",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/SM_Prop_Well_01.fbx": "2bfdf737228748be1b7dea3b84bac5be7703de20696fba3fe16160d89d59a2f6",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Prefabs/Props/SM_Prop_Well_01.prefab": "2e724e56a878b3b32f3ad57a04c52f917e289f9f2d352b193c8b971da325617f",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Textures/PolygonNatureBiomes_Meadow_Texture_01.png": "0d39f3950838eaec5833f2143ff8284daccc293bf3abc659721affb5d46a0d1a"
+    }
+  },
+  {
+    "asset": "pilot.broken-fence",
+    "catalogueId": "M0855",
+    "source": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/SM_Prop_Meadow_Fence_05.fbx",
+    "sourceHash": "9a9b3e65dc7681333efd49d1bcd0be3076230112e597f6b9b29b95c914eaac17",
+    "guid": "02b07b77942f31b498b2bc42eea96b20",
+    "lod": 0,
+    "prefab": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Prefabs/Props/SM_Prop_Meadow_Fence_05.prefab",
+    "dependencies": {
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/PolygonNatureBiomesMeadow_Mat_01.mat": "7eda363905dc2e0bc4c08a32f1a3354428a47ce2a5f51cc9f911bd9a6c7d9bba",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/Collision/SM_Prop_Meadow_Fence_05_Collision.fbx": "a3ddf90e9edf1ab3e9e1d4ab909bbadd018d3deb9dce0eb1ec30b6cdd7ac7688",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/SM_Prop_Meadow_Fence_05.fbx": "9a9b3e65dc7681333efd49d1bcd0be3076230112e597f6b9b29b95c914eaac17",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Prefabs/Props/SM_Prop_Meadow_Fence_05.prefab": "85c6a64f49f02d0025134c4164037a2df1665dbf563bd167f60f6e57f577a50f",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Textures/PolygonNatureBiomes_Meadow_Texture_01.png": "0d39f3950838eaec5833f2143ff8284daccc293bf3abc659721affb5d46a0d1a"
+    }
+  },
+  {
+    "asset": "pilot.branching-tree",
+    "catalogueId": "M0186",
+    "source": "Assets/PolygonBattleRoyale/Models/SM_Generic_Tree_01.fbx",
+    "sourceHash": "d046ed888378abd8fe951894fda8018b0326d362c1eaf33614d7219257119e57",
+    "guid": "ffc63fecea48ed3418c6689c532819c0",
+    "lod": 0,
+    "prefab": "Assets/PolygonBattleRoyale/Prefabs/Generic/SM_Generic_Tree_01.prefab",
+    "dependencies": {
+      "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_01_A.mat": "f5f590d09bdc5ff635750bf940562393f6c1daf29c66550464fafacec0eca47c",
+      "Assets/PolygonBattleRoyale/Models/SM_Generic_Tree_01.fbx": "d046ed888378abd8fe951894fda8018b0326d362c1eaf33614d7219257119e57",
+      "Assets/PolygonBattleRoyale/Models/SM_Generic_Tree_01_Convex 1.asset": "f273ddc8fe65a950646384b37e0c71c4039b986392592e55982426099a1a50fe",
+      "Assets/PolygonBattleRoyale/Prefabs/Generic/SM_Generic_Tree_01.prefab": "3cd43f8c399698a65778e67761dd3acd63f0ec670704459a34c519f46301ea13",
+      "Assets/PolygonBattleRoyale/Textures/PolygonBattleRoyale_Texture_01_A.png": "8b9987ce68c4717e6c8914f994582ce0af3460de7369229bba6662a804f15c9c",
+      "Assets/PolygonBattleRoyale/Textures/PolygonBattleRoyale_Vehicles_01_Emmision.png": "17d12c0a7b36443fb81371763522df94aeab458088560e6538cef002110bdbbc"
+    }
+  },
+  {
+    "asset": "pilot.bank-rock",
+    "catalogueId": "M0503",
+    "source": "Assets/PolygonCity/Models/SM_Env_WaterEdge_Rock_01.fbx",
+    "sourceHash": "176609c61c25ead1077ab5328ce6788374c7505c8846459075ec2603f8c13a99",
+    "guid": "27bf65190db556643904ee371814b40c",
+    "lod": 0,
+    "prefab": "Assets/PolygonCity/Prefabs/Environments/SM_Env_WaterEdge_Rock_01.prefab",
+    "dependencies": {
+      "Assets/PolygonCity/Materials/PolygonCity_Mat_01_A.mat": "3a415f05af5f24455090ca91a30a27cb83ac7d3fd373dca40b861c2c220ad1cc",
+      "Assets/PolygonCity/Models/Collisions/SM_Env_WaterEdge_Rock_01_Convex 1.asset": "4d2249afccd0e1c880ef2002e035b27e98c2da2eacd414da350014ca88ac76b9",
+      "Assets/PolygonCity/Models/SM_Env_WaterEdge_Rock_01.fbx": "176609c61c25ead1077ab5328ce6788374c7505c8846459075ec2603f8c13a99",
+      "Assets/PolygonCity/Prefabs/Environments/SM_Env_WaterEdge_Rock_01.prefab": "97d9a1e4af9116c0c9edfa75058d134af7cfa4021ab1d7ad9c6f14fda3266846",
+      "Assets/PolygonCity/Textures/Emissive_01.png": "6f7659ee1b45815a85819ad855c554fed711f50e7360bfed7aca814bf25a27ff",
+      "Assets/PolygonCity/Textures/PolygonCity_Texture_01_A.png": "0d4ad31a5ee2f25c0055eacf75ccce832d89f5cfb12ced12b2ea4993b6290900",
+      "Assets/PolygonCity/Textures/PolygonCity_Texture_Metallic.tga": "5a21a6835f16e24686c41244118a12cd05abf6b00fcb708ce3c9e177cfba7515",
+      "Assets/PolygonCity/Textures/PolygonCity_Texture_Normal.png": "db9d3c4e5efc03d5b96e5c54e391260e29cc43c89b87b1aaf287fd438ad3f88c"
+    }
+  },
+  {
+    "asset": "pilot.bench",
+    "catalogueId": "M0571",
+    "source": "Assets/PolygonCity/Models/SM_Prop_ParkBench_01.fbx",
+    "sourceHash": "5e0e1fd24c1574f284d5fed656b2c1a0627088262b67798794e8fbba407d45dd",
+    "guid": "6080e80bbc45a324b832aec3f4cef3ad",
+    "lod": 0,
+    "prefab": "Assets/PolygonCity/Prefabs/Props/SM_Prop_ParkBench_01.prefab",
+    "dependencies": {
+      "Assets/PolygonCity/Materials/PolygonCity_Mat_01_A.mat": "3a415f05af5f24455090ca91a30a27cb83ac7d3fd373dca40b861c2c220ad1cc",
+      "Assets/PolygonCity/Models/Collisions/SM_Prop_ParkBench_01_Convex 1.asset": "9aaa15949e8a3f16150105d66fafdfa48313241e844d00f8347994884d0fc034",
+      "Assets/PolygonCity/Models/SM_Prop_ParkBench_01.fbx": "5e0e1fd24c1574f284d5fed656b2c1a0627088262b67798794e8fbba407d45dd",
+      "Assets/PolygonCity/Prefabs/Props/SM_Prop_ParkBench_01.prefab": "a132b2542c46942f043379e89f630942ef11f41aa9612f7d841adf7a3d8c0534",
+      "Assets/PolygonCity/Textures/Emissive_01.png": "6f7659ee1b45815a85819ad855c554fed711f50e7360bfed7aca814bf25a27ff",
+      "Assets/PolygonCity/Textures/PolygonCity_Texture_01_A.png": "0d4ad31a5ee2f25c0055eacf75ccce832d89f5cfb12ced12b2ea4993b6290900",
+      "Assets/PolygonCity/Textures/PolygonCity_Texture_Metallic.tga": "5a21a6835f16e24686c41244118a12cd05abf6b00fcb708ce3c9e177cfba7515",
+      "Assets/PolygonCity/Textures/PolygonCity_Texture_Normal.png": "db9d3c4e5efc03d5b96e5c54e391260e29cc43c89b87b1aaf287fd438ad3f88c"
+    }
   }
 ]

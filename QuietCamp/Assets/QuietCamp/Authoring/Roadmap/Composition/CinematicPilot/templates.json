@@ -12,6 +12,15 @@
         "z": 0,
         "height": 3.2,
         "yaw": 0
+      },
+      {
+        "id": "bench",
+        "asset": "pilot.bench",
+        "x": 0,
+        "z": -2.8,
+        "height": 0.85,
+        "yaw": 0,
+        "parent": "shelter"
       }
     ]
   },
@@ -27,22 +36,22 @@
         "asset": "pilot.ruined-house",
         "x": -2,
         "z": -2,
-        "height": 4,
+        "height": 4.5,
         "yaw": 0
       },
       {
         "id": "roof-tree",
-        "asset": "tree_default",
+        "asset": "pilot.branching-tree",
         "x": -1.5,
         "z": -2,
-        "height": 8,
+        "height": 6.5,
         "yaw": 0,
         "parent": "house",
         "growsThrough": "house"
       },
       {
         "id": "well",
-        "asset": "ua_well_sweep",
+        "asset": "pilot.stone-well",
         "x": 3.8,
         "z": 2.5,
         "height": 2.3,
@@ -61,7 +70,7 @@
       },
       {
         "id": "east-fence",
-        "asset": "ua_picket_fence_damaged",
+        "asset": "pilot.broken-fence",
         "x": 7,
         "z": -1,
         "height": 1.3,
@@ -70,7 +79,7 @@
       },
       {
         "id": "back-fence",
-        "asset": "ua_picket_fence_damaged",
+        "asset": "pilot.broken-fence",
         "x": -2,
         "z": 7,
         "height": 1.3,

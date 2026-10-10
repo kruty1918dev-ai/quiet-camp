@@ -52,6 +52,14 @@ def main():
     baker = project / 'Assets/QuietCamp/Editor/CinematicRoadmapBaker.cs'
     hashing = baker.read_text().split('public static string SourceHash()', 1)[1].split('sealed class Terrain', 1)[0]
     files = sorted(source.glob('*.json')) + [project / name for name in re.findall(r'"(Assets/[^"\n]+)"', hashing)]
+    bindings = json.loads((source / 'bindings.json').read_text())
+    files += [project / path for path in sorted({path for binding in bindings for path in binding['dependencies']})]
+    for binding in bindings:
+        for path, sha in binding['dependencies'].items():
+            assert digest(project / path) == sha, f'Reviewed donor input changed: {path}'
+    assert len(bake['donors']) == len(bindings)
+    assert all(donor['triangles'] > 0 and donor['paletteColors'] > 0 for donor in bake['donors'])
+    assert all(donor['paletteColors'] >= 2 for donor in bake['donors'] if donor['asset'].endswith(('-tree', 'poplar', 'well', 'bench')))
     protocol = '\n'.join(f'{p.relative_to(project).as_posix()}:{digest(p)}' for p in files)
     assert hashlib.sha256(protocol.encode()).hexdigest() == bake['sourceHash'], 'Evidence does not match authoring/baker inputs'
     index = (project / 'Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/World.asset').read_text()
