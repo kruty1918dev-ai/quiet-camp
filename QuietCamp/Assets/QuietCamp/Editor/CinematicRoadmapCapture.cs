@@ -25,7 +25,8 @@ namespace QuietCamp.Editor
             string repo=Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath,"../.."));
             string output=Path.Combine(repo,"Design/Roadmap/CinematicPilot/2026-10-10");Directory.CreateDirectory(output);
             var results=new List<object>();
-            for(int i=0;i<9;i++)results.Add(Capture(asset,i*.5f,4,false,720,1600,Path.Combine(output,"composition-"+i.ToString("00")+".png")));
+            foreach(bool low in new[]{true,false})for(int i=0;i<9;i++)
+                results.Add(Capture(asset,i*.5f,4,low,720,1600,Path.Combine(output,(low?"low-composition-":"composition-")+i.ToString("00")+".png")));
             foreach(int frontier in new[]{0,1,3,4})
                 results.Add(Capture(asset,frontier,frontier,false,720,1600,Path.Combine(output,"progress-"+frontier+".png")));
             foreach(bool low in new[]{true,false})
