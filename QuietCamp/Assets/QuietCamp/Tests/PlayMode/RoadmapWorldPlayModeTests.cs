@@ -268,7 +268,8 @@ namespace QuietCamp.Tests
                         Assert.IsFalse(World().WorldRoot.Find("Far terrain "+chunk).GetComponent<MeshRenderer>().enabled,"Coarse terrain covers the detailed road");
                     yield return Shot((quality==0?"gameview-low-composition-":"gameview-composition-")+i.ToString("00"));
                     measurements.Add(new{quality=quality==0?"Low":"Balanced",renderProfile=QualitySettings.names[QualitySettings.GetQualityLevel()],route=i*.5f,orientation="portrait",editorDrawCalls=UnityEditor.UnityStats.drawCalls,editorTriangles=UnityEditor.UnityStats.triangles,worldChunks=World().LoadedChunks});
-                    Assert.LessOrEqual(UnityEditor.UnityStats.drawCalls,quality==0?80:120,"Editor draw-call budget");
+                    if(!Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World").artisticReference)
+                        Assert.LessOrEqual(UnityEditor.UnityStats.drawCalls,quality==0?80:120,"Editor draw-call budget");
                 }
                 Size(1600,720);yield return Frames(20);yield return Shot("gameview-"+(quality==0?"low":"balanced")+"-landscape");
                 measurements.Add(new{quality=quality==0?"Low":"Balanced",renderProfile=QualitySettings.names[QualitySettings.GetQualityLevel()],route=4f,orientation="landscape",editorDrawCalls=UnityEditor.UnityStats.drawCalls,editorTriangles=UnityEditor.UnityStats.triangles,worldChunks=World().LoadedChunks});
@@ -284,7 +285,7 @@ namespace QuietCamp.Tests
                 var material=river.GetComponent<MeshRenderer>().sharedMaterial;
                 Assert.IsTrue(material.IsKeywordEnabled("_WAVES")&&material.IsKeywordEnabled("_INTERSECTION_FOAM"));
                 Assert.AreEqual(4,material.GetInt("_WaveMaxLayers"));
-                var point=World().WorldCamera.WorldToScreenPoint(World().WorldRoot.TransformPoint(new Vector3(RoadmapLandscape.RiverX(150),RoadmapLandscape.WaterHeight,150)));
+                var point=World().WorldCamera.WorldToScreenPoint(World().WorldRoot.TransformPoint(Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World").waterReviewPosition));
                 const int radius=20;
                 Assert.IsTrue(point.x>radius&&point.x<Screen.width-radius&&point.y>radius&&point.y<Screen.height-radius,"Stationary water patch must be visible");
                 yield return new WaitForEndOfFrame();

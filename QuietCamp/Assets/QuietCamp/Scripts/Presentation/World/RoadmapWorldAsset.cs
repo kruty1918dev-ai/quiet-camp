@@ -19,6 +19,7 @@ namespace QuietCamp.Presentation.World
         public Mesh horizon, markerMesh;
         public Mesh[] distantForest, horizonTerrain;
         public Mesh river;
+        public Vector3 waterReviewPosition;
         public Mesh[] riverByFrontier;
         public float worldScale = .4f;
         public Material ground, structure, foliage, water, marker, motes;

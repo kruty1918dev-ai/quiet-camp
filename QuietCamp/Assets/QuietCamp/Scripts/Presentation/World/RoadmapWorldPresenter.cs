@@ -25,6 +25,7 @@ namespace QuietCamp.Presentation.World
         readonly Dictionary<string,float> _oldFloats=new Dictionary<string,float>();
         readonly Dictionary<UniversalRenderPipelineAsset,float> _shadowRanges=new Dictionary<UniversalRenderPipelineAsset,float>();
         readonly Dictionary<UniversalRenderPipelineAsset,int> _shadowResolutions=new Dictionary<UniversalRenderPipelineAsset,int>();
+        readonly Dictionary<UniversalRenderPipelineAsset,float> _renderScales=new Dictionary<UniversalRenderPipelineAsset,float>();
         readonly Dictionary<string,Vector4> _oldVectors=new Dictionary<string,Vector4>();
         readonly MeshRenderer[] _markers=new MeshRenderer[5];
         readonly MeshRenderer[] _distant=new MeshRenderer[5];
@@ -290,6 +291,8 @@ namespace QuietCamp.Presentation.World
                 if(!_shadowRanges.ContainsKey(pipeline))_shadowRanges.Add(pipeline,pipeline.shadowDistance);
                 if(!_shadowResolutions.ContainsKey(pipeline))_shadowResolutions.Add(pipeline,pipeline.mainLightShadowmapResolution);
                 pipeline.mainLightShadowmapResolution=2048;
+                if(!_renderScales.ContainsKey(pipeline))_renderScales.Add(pipeline,pipeline.renderScale);
+                pipeline.renderScale=1;
                 // The game's close camp cameras use 32 m shadows. An aerial map needs the
                 // same sunlight to reach its ground; retain and restore every touched tier.
                 pipeline.shadowDistance=Mathf.Max(_shadowRanges[pipeline],boomDistance*_asset.worldScale+24);
@@ -363,6 +366,7 @@ namespace QuietCamp.Presentation.World
             foreach(var cam in _disabledCameras)if(cam!=null)cam.enabled=true;_disabledCameras.Clear();
             foreach(var range in _shadowRanges)if(range.Key!=null)range.Key.shadowDistance=range.Value;_shadowRanges.Clear();
             foreach(var resolution in _shadowResolutions)if(resolution.Key!=null)resolution.Key.mainLightShadowmapResolution=resolution.Value;_shadowResolutions.Clear();
+            foreach(var scale in _renderScales)if(scale.Key!=null)scale.Key.renderScale=scale.Value;_renderScales.Clear();
             RenderSettings.sun=_oldSun;RenderSettings.skybox=_oldSky;RenderSettings.fog=_oldFog;RenderSettings.ambientMode=_oldAmbientMode;
             RenderSettings.ambientLight=_oldAmbient;RenderSettings.ambientSkyColor=_oldSkyColor;RenderSettings.ambientEquatorColor=_oldEquator;RenderSettings.ambientGroundColor=_oldGround;RenderSettings.ambientProbe=_oldProbe;
             foreach(var p in _oldFloats)Shader.SetGlobalFloat(p.Key,p.Value);foreach(var p in _oldVectors)Shader.SetGlobalVector(p.Key,p.Value);_oldFloats.Clear();_oldVectors.Clear();

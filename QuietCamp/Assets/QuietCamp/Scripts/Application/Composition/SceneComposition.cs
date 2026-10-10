@@ -28,11 +28,13 @@ namespace QuietCamp.Composition
     {public string id,kind="forest",species="tree_default";public float x,z,width=20,depth=20,density=.8f;}
     [Serializable] public sealed class SpanDamage
     {public int span;public string state="severed";public float dropLength=2;}
+    [Serializable] public sealed class SupportVariant { public int index; public string asset; public float height; }
     [Serializable] public sealed class InfrastructureRouteDefinition
     {
         public string id,kind="road",supportAsset,nextRoute;public string interpolation="linear";
         public Point[] points=Array.Empty<Point>();public string[] serviceTargets=Array.Empty<string>();
         public float width=1.1f,minSpan=20,maxSpan=50,supportHeight=5.8f;
+        public SupportVariant[] supportVariants=Array.Empty<SupportVariant>();
         public SpanDamage[] damage=Array.Empty<SpanDamage>();
         public int[] fallenSupports=Array.Empty<int>();public string fallenAsset;
     }
@@ -339,15 +341,18 @@ namespace QuietCamp.Composition
                     for(int n=edge==1?0:1;n<=count;n++)
                     {
                         float t=n/(float)count,x=a.x+(b.x-a.x)*t,z=a.z+(b.z-a.z)*t;
-                        string rejection=Rejection(x,z,assets[route.supportAsset].radius*route.supportHeight/assets[route.supportAsset].height);
+                        var variant=route.supportVariants.FirstOrDefault(v=>v.index==support);string supportAsset=variant?.asset??route.supportAsset;float supportHeight=variant?.height??route.supportHeight;
+                        string rejection=Rejection(x,z,assets[supportAsset].radius*supportHeight/assets[supportAsset].height);
                         if(rejection!=null){Error("unsupported-pylon",route.id,"Support rejected: "+rejection);continue;}
-                        var p=new ComposedInstance{id=route.id+"/support-"+support++,owner=route.id,role="support",asset=route.supportAsset,x=x,z=z,height=route.supportHeight,yaw=(float)(Math.Atan2(b.x-a.x,b.z-a.z)*180/Math.PI)};
+                        var p=new ComposedInstance{id=route.id+"/support-"+support++,owner=route.id,role="support",asset=supportAsset,x=x,z=z,height=supportHeight,yaw=(float)(Math.Atan2(b.x-a.x,b.z-a.z)*180/Math.PI)};
                         result.instances.Add(p);
                         if(previous!=null)result.spans.Add(new RouteSpan{id=route.id+"/span-"+(support-1),route=route.id,a=previous.id,b=p.id,ax=previous.x,az=previous.z,bx=p.x,bz=p.z,height=route.supportHeight});
                         previous=p;
                     }
                 }
             }
+            foreach(var route in doc.routes)foreach(var variant in route.supportVariants)
+                if(!result.instances.Any(i=>i.id==route.id+"/support-"+variant.index))Error("invalid-support-variant",route.id,"Variant is outside the emitted support sequence");
             foreach(var route in doc.routes.Where(r=>r.kind=="distribution"))foreach(string target in route.serviceTargets)
             {
                 var house=result.instances.Find(i=>i.id==target)??result.instances.Find(i=>i.owner==target&&i.role=="house");

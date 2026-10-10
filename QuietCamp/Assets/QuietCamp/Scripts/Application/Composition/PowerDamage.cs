@@ -13,6 +13,11 @@ namespace QuietCamp.Composition
             void Error(string code,string message)=>diagnostics.Add(new CompositionDiagnostic
             {code=code,entityId=route.id,message=message});
             bool network=route.kind=="power"||route.kind=="distribution";
+            foreach(var variant in route.supportVariants)
+                if(variant==null||variant.index<0||!network||!assets.TryGetValue(variant.asset??"",out var definition)
+                    ||definition.supportKind!=route.kind||definition.conductors.Length==0||float.IsNaN(variant.height)||float.IsInfinity(variant.height)||variant.height<=0)
+                    Error("invalid-support-variant","Support variants require typed standing sockets and a positive finite height");
+            if(route.supportVariants.Where(v=>v!=null).GroupBy(v=>v.index).Any(g=>g.Count()>1))Error("invalid-support-variant","Duplicate support variant index");
             if(!network&&(route.damage.Length>0||route.fallenSupports.Length>0))
                 Error("invalid-power-damage","Only power networks accept conductor damage.");
             if(route.damage.Any(d=>d==null||d.span<0||!new[]{"severed","hanging-from","hanging-to","removed"}.Contains(d.state)

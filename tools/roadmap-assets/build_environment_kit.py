@@ -406,30 +406,44 @@ def footbridge():
 
 
 def bridge_remnants():
-    m=Mesh("ua_valley_bridge_remnants",200,"Two bank abutments of a 5.4m-wide rural road bridge; collapsed central span is genuinely absent. Span along X.")
+    m=Mesh("ua_valley_bridge_remnants",420,"Bank-rooted rural road bridge abutments with splayed retaining wings, worn asphalt over a jagged broken deck, exposed reinforcement and an absent central span. Span along X.")
     for side in (-1,1):
-        m.box((side*4.7,.64,0),(1.0,1.28,5.2),"concrete_dark")
-        points=[(side*3.45,1.22,-2.7),(side*5.6,1.22,-2.7),(side*5.6,1.22,2.7),(side*3.82,1.22,2.7),(side*3.18,1.22,.4)]
+        m.box((side*4.7,.69,0),(1.0,1.38,5.2),"concrete_dark")
+        points=[(side*3.45,1.42,-2.7),(side*5.6,1.42,-2.7),(side*5.6,1.42,2.7),(side*3.82,1.42,2.7),(side*3.18,1.42,.4)]
         if side<0:points.reverse()
-        for i in range(1,len(points)-1):m.tri(points[0],points[i+1],points[i],"concrete")
+        for i in range(1,len(points)-1):m.tri(points[0],points[i+1],points[i],"roof_valley")
         for a,b in zip(points,points[1:]+points[:1]):
-            m.quad(a,b,(b[0],b[1]-.18,b[2]),(a[0],a[1]-.18,a[2]),"concrete_dark")
-        for z in (-2.6,2.6):m.box((side*4.8,1.39,z),(1.5,.16,.13),"concrete")
+            m.quad(a,b,(b[0],b[1]-.24,b[2]),(a[0],a[1]-.24,a[2]),"concrete")
+        for z in (-2.6,2.6):
+            m.box((side*4.8,1.56,z),(1.5,.20,.15),"concrete_dark")
+            # Wing walls retain the earth approach; they are separate from the
+            # broken deck, and slope down towards the surviving bank.
+            m.beam((side*4.6,.71,z),(side*5.45,.39,z*1.15),.18,"concrete_dark",True,1.28)
+        for z in (-1.9,-.65,.6,1.65):
+            m.beam((side*3.52,1.30,z),(side*2.94,1.22,z+.12),.035,"rust",True)
     return m
 
 
 def spillway_ruin():
-    m=Mesh("ua_pond_spillway_ruin",300,"Broken small pond outlet: eroded earth is authored terrain; two surviving concrete sides, jagged crest, gate frame and downstream scour apron, no bridge deck.")
+    m=Mesh("ua_pond_spillway_ruin",520,"Breached pond weir integrated into an earth embankment: massive fractured crest, a real former sluice opening and raised gate, downstream wing walls and broken scour apron. No bridge deck or working waterfall.")
+    # The left sluice opening is genuine empty geometry beneath the crest.
+    m.extrude([(-5.35,0),(-4.45,0),(-4.45,3.6),(-5.35,3.6)],1.25,"concrete_dark",.15)
+    m.extrude([(-4.45,2.5),(-3.1,2.5),(-3.1,3.6),(-4.45,3.6)],1.25,"concrete",.15)
+    m.extrude([(-3.1,0),(-1.72,0),(-1.72,2.05),(-2.10,2.42),(-1.97,2.78),(-2.52,3.14),(-2.65,3.6),(-3.1,3.6)],1.25,"concrete",.15)
+    m.extrude([(1.72,0),(5.35,0),(5.35,3.6),(2.70,3.6),(2.42,3.16),(2.10,3.28),(2.22,2.58),(1.72,2.21)],1.25,"concrete",.15)
     for side in (-1,1):
-        lo,hi=(3.1,5.3) if side>0 else (-5.4,-3.15)
-        profile=[(lo,0),(hi,0),(hi,2.7),(hi-.38,2.65),(hi-.57,2.3),(lo+.33,2.4),(lo,1.9)]
-        m.extrude(profile,1.10,"concrete",.1)
-        m.box((side*4.92,.8,-1.45),(.25,1.6,2.5),"concrete_dark")
-        m.box((side*3.9,.12,-2.5),(1.45,.22,1.7),"concrete_dark")
-    for x in (-5.0,-3.45):m.beam((x,2.45,.18),(x,3.65,.18),.11,"rust",True)
-    m.beam((-5.0,3.65,.18),(-3.45,3.65,.18),.12,"rust",True)
-    m.box((-4.22,1.31,.58),(1.3,1.1,.08),"rust")
-    for x,z in [(-3.1,-3.3),(3.2,-3.6),(4.8,-4.2)]:m.box((x,.09,z),(.62,.18,.55),"concrete_dark")
+        m.box((side*4.95,.90,-1.7),(.32,1.8,2.4),"concrete_dark")
+        m.box((side*3.5,.12,-2.6),(1.6,.24,1.9),"concrete_dark")
+        # Dark fractures and short bent bars read as broken reinforced concrete.
+        for z in (-.34,.32):m.beam((side*2.22,2.6,z),(side*1.49,2.13,z+.13),.045,"rust",True)
+    for x in (-4.48,-3.07):m.beam((x,2.50,.65),(x,4.43,.65),.12,"rust",True)
+    m.beam((-4.48,4.43,.65),(-3.07,4.43,.65),.12,"rust",True)
+    m.box((-3.77,2.31,.80),(1.24,1.27,.10),"rust")
+    m.beam((-3.77,2.89,.84),(-3.77,4.29,.84),.065,"steel_dark",True)
+    for x,z in [(-2.5,-3.4),(2.7,-3.6),(4.6,-4.2)]:m.box((x,.11,z),(.72,.22,.66),"concrete_dark")
+    # Anchor the actual weir crest to the authored dam axis; the downstream
+    # apron must not shift the crest by the centre of its bounding box.
+    m.origin_override=(0,m.bounds()[0][1],0)
     return m
 
 
@@ -491,7 +505,7 @@ def asset_entries(items):
         entry=dict(id=m.id,source="../Models/EnvironmentKit/"+m.id+".obj",license="original-project-owned",
                    sourceHash=hashlib.sha256(files_for([m])[SOURCE/(m.id+".obj")].encode()).hexdigest(),
                    sourceHeight=h,height=h,width=w,depth=d,radius=math.hypot(w,d)/2,
-                   pivot=dict(x=(lo[0]+hi[0])/2,y=lo[1],z=(lo[2]+hi[2])/2),
+                   pivot=dict(zip(("x","y","z"),getattr(m,"origin_override",((lo[0]+hi[0])/2,lo[1],(lo[2]+hi[2])/2)))),
                    wind=kind in ("groundcover","canopy"),placementClass=kind,
                    lod=m.id+"_lod" if m.id+"_lod" in ids else None)
         if m.id=="ua_power_pylon_rusted":

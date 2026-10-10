@@ -30,8 +30,8 @@
     },
     {
       "id": "QC005",
-      "x": -5,
-      "z": 160,
+      "x": 2.3,
+      "z": 178,
       "radius": 1.2
     }
   ],
@@ -201,6 +201,13 @@
           "state": "hanging-from",
           "dropLength": 2.8
         }
+      ],
+      "supportVariants": [
+        {
+          "index": 1,
+          "asset": "ua_village_concrete_pole",
+          "height": 6.7
+        }
       ]
     },
     {
@@ -337,7 +344,7 @@
       "asset": "ua_valley_bridge_remnants",
       "x": 12,
       "z": 118,
-      "height": 1.47,
+      "height": 1.8755324598047367,
       "revealOwner": "QC004",
       "yaw": 0
     },
@@ -355,15 +362,15 @@
       "asset": "ua_pond_spillway_ruin",
       "x": 13,
       "z": 171,
-      "height": 3.71,
+      "height": 4.489999999999999,
       "revealOwner": "QC005",
       "yaw": 0
     },
     {
       "id": "service-house",
       "asset": "ua_hydro_service_building",
-      "x": -9,
-      "z": 161,
+      "x": -7,
+      "z": 179,
       "height": 3,
       "revealOwner": "QC005",
       "yaw": -10
@@ -497,8 +504,8 @@
     {
       "id": "willow-4",
       "asset": "pilot.bank-tree",
-      "x": -8,
-      "z": 182,
+      "x": -16,
+      "z": 192,
       "height": 6.4,
       "revealOwner": "QC005",
       "yaw": 188
@@ -867,7 +874,9 @@
       "radiusX": 25,
       "radiusZ": 48,
       "oldWaterHeight": 3.8,
-      "bedHeight": 0.12
+      "bedHeight": 0.12,
+      "shoreRoughness": 0.065,
+      "bedRoughness": 0.24
     },
     "pools": [
       {
@@ -939,6 +948,27 @@
         "radiusX": 10,
         "radiusZ": 12,
         "height": 4
+      },
+      {
+        "x": -5,
+        "z": 274,
+        "radiusX": 25,
+        "radiusZ": 22,
+        "height": 11
+      },
+      {
+        "x": 33,
+        "z": 149,
+        "radiusX": 12,
+        "radiusZ": 20,
+        "height": 6
+      },
+      {
+        "x": -14,
+        "z": 134,
+        "radiusX": 9,
+        "radiusZ": 14,
+        "height": 3.6
       }
     ]
   }

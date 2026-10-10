@@ -4,7 +4,7 @@
   "published": false,
   "generator": "tools/roadmap-assets/build_environment_kit.py",
   "license": "original-project-owned",
-  "totalTriangles": 6390,
+  "totalTriangles": 6626,
   "models": [
     {
       "id": "ua_abandoned_house",
@@ -879,28 +879,28 @@
     {
       "id": "ua_valley_bridge_remnants",
       "source": "ua_valley_bridge_remnants.obj",
-      "triangles": 98,
-      "triangleBudget": 200,
+      "triangles": 242,
+      "triangleBudget": 420,
       "dimensionsXYZ": [
-        11.2,
-        1.47,
-        5.4
+        11.351704475376815,
+        1.8755324598047367,
+        6.316412737818314
       ],
-      "sourceHeight": 1.47,
+      "sourceHeight": 1.8755324598047367,
       "bounds": {
         "min": [
-          -5.6,
-          0.0,
-          -2.7
+          -5.6758522376884075,
+          -0.21553245980473668,
+          -3.158206368909157
         ],
         "max": [
-          5.6,
-          1.47,
-          2.7
+          5.6758522376884075,
+          1.6600000000000001,
+          3.158206368909157
         ]
       },
-      "sourceSha256": "d9b3e8b254393474a13cd6f722448484bee322c9b45e679c8a0d189bcf32b6dd",
-      "description": "Two bank abutments of a 5.4m-wide rural road bridge; collapsed central span is genuinely absent. Span along X.",
+      "sourceSha256": "f6b3442f5c0be8ee6e4d2136d367f414ab2aa24eaabbbbc5e1c6648abcaee883",
+      "description": "Bank-rooted rural road bridge abutments with splayed retaining wings, worn asphalt over a jagged broken deck, exposed reinforcement and an absent central span. Span along X.",
       "geometry": "original-project-owned",
       "externalGeometry": false,
       "lod": null
@@ -908,28 +908,28 @@
     {
       "id": "ua_pond_spillway_ruin",
       "source": "ua_pond_spillway_ruin.obj",
-      "triangles": 180,
-      "triangleBudget": 300,
+      "triangles": 272,
+      "triangleBudget": 520,
       "dimensionsXYZ": [
         10.7,
-        3.71,
-        5.125000000000001
+        4.489999999999999,
+        5.4025
       ],
-      "sourceHeight": 3.71,
+      "sourceHeight": 4.489999999999999,
       "bounds": {
         "min": [
-          -5.4,
+          -5.35,
           0,
-          -4.4750000000000005
+          -4.53
         ],
         "max": [
-          5.3,
-          3.71,
-          0.65
+          5.35,
+          4.489999999999999,
+          0.8724999999999999
         ]
       },
-      "sourceSha256": "29c6c83dd9bbb213a4534192fbb318f4db6005ec5d71cb264fd417359585b0b8",
-      "description": "Broken small pond outlet: eroded earth is authored terrain; two surviving concrete sides, jagged crest, gate frame and downstream scour apron, no bridge deck.",
+      "sourceSha256": "8f25078d8f30481e2a4565aa21323f35e3c1a3929352678f4624c9746369ec63",
+      "description": "Breached pond weir integrated into an earth embankment: massive fractured crest, a real former sluice opening and raised gate, downstream wing walls and broken scour apron. No bridge deck or working waterfall.",
       "geometry": "original-project-owned",
       "externalGeometry": false,
       "lod": null

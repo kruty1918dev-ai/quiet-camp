@@ -18,6 +18,7 @@ namespace QuietCamp.Editor
         public static void Render()
         {
             if(SystemInfo.graphicsDeviceType==GraphicsDeviceType.Null)throw new InvalidOperationException("Native graphics required");
+            if(Environment.GetEnvironmentVariable("QC_SKIP_REFERENCE_VIDEO")!="1")CinematicReferenceMovie.EncoderPath();
             // Immediate batch captures must wait for real shader variants, never the asynchronous placeholder shaders.
             ShaderUtil.allowAsyncCompilation=false;
             // Refresh script import mappings before querying cached native Resources after compilation.
@@ -58,6 +59,8 @@ namespace QuietCamp.Editor
             foreach(bool landscape in new[]{false,true})foreach(float route in new[]{-.25f,4.2f})
                 results.Add(Capture(asset,route,4,false,landscape?1600:720,landscape?720:1600,
                     Path.Combine(output,"edge-"+(route<0?"start":"end")+"-"+(landscape?"landscape":"portrait")+".png"),.85f));
+            var movies=new List<object>();
+            if(Environment.GetEnvironmentVariable("QC_SKIP_REFERENCE_VIDEO")!="1")foreach(bool landscape in new[]{false,true})movies.Add(CinematicReferenceMovie.Record(asset,output,landscape));
             var errors=new List<string>();
             foreach(var shader in new[]{asset.ground.shader,asset.foliage.shader,asset.water.shader,asset.marker.shader,asset.motes.shader}.Distinct())
                 foreach(var message in ShaderUtil.GetShaderMessages(shader))
@@ -67,7 +70,7 @@ namespace QuietCamp.Editor
                 graphics=SystemInfo.graphicsDeviceType.ToString(),device=SystemInfo.graphicsDeviceName,
                 capture="Production URP SingleCameraRequest in isolated Editor with synchronous shader compilation; Game View integration checks are separate",
                 animationSeconds=0,waterSeconds=12,artisticReference=asset.artisticReference,
-                mobileFpsMeasured=false,shaderErrors=errors,frames=results},Formatting.Indented)+"\n");
+                mobileFpsMeasured=false,shaderErrors=errors,frames=results,movies=movies},Formatting.Indented)+"\n");
             if(errors.Count>0)throw new InvalidOperationException(string.Join("\n",errors));
             Debug.Log("[CinematicRoadmap] Captured nine compositions, progress and quality fixtures");
             }

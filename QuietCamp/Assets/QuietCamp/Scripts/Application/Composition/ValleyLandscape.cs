@@ -4,7 +4,7 @@ namespace QuietCamp.Composition
 {
     [Serializable] public sealed class ValleyChannelPoint { public float x,z,halfWidth=2.5f; }
     [Serializable] public sealed class ValleyHill { public float x,z,radiusX=15,radiusZ=25,height=6; }
-    [Serializable] public sealed class ValleyBasin { public float x,z,radiusX=25,radiusZ=48,oldWaterHeight=3.8f,bedHeight=.05f; }
+    [Serializable] public sealed class ValleyBasin { public float x,z,radiusX=25,radiusZ=48,oldWaterHeight=3.8f,bedHeight=.05f,shoreRoughness,bedRoughness=.12f; }
     [Serializable] public sealed class ValleyPool { public float x,z,radiusX=4,radiusZ=6; }
     [Serializable] public sealed class ValleyDefinition
     {
@@ -32,6 +32,7 @@ namespace QuietCamp.Composition
             {if(!Finite(x)||!Finite(z)||!Finite(rx)||!Finite(rz)||rx<=0||rz<=0)throw new ArgumentException("Invalid valley ellipse");}
             Ellipse(source.basin.x,source.basin.z,source.basin.radiusX,source.basin.radiusZ);
             if(!Finite(source.basin.bedHeight)||!Finite(source.basin.oldWaterHeight))throw new ArgumentException("Invalid basin heights");
+            if(!Finite(source.basin.shoreRoughness)||source.basin.shoreRoughness<0||source.basin.shoreRoughness>.2f||!Finite(source.basin.bedRoughness)||source.basin.bedRoughness<0||source.basin.bedRoughness>.4f)throw new ArgumentException("Invalid basin roughness");
             foreach(var p in source.pools)Ellipse(p.x,p.z,p.radiusX,p.radiusZ);
             foreach(var p in source.hills){Ellipse(p.x,p.z,p.radiusX,p.radiusZ);if(!Finite(p.height))throw new ArgumentException("Invalid hill height");}
         }
@@ -51,18 +52,18 @@ namespace QuietCamp.Composition
         {
             float d=Source.channel.Length==0||z<Source.channel[0].z?100:Math.Abs(x-ChannelX(z))-ChannelWidth(z);
             foreach(var p in Source.pools)
-            {float dx=(x-p.x)/p.radiusX,dz=(z-p.z)/p.radiusZ;d=Math.Min(d,((float)Math.Sqrt(dx*dx+dz*dz)-1)*Math.Min(p.radiusX,p.radiusZ));}
+            {float dx=(x-p.x)/p.radiusX,dz=(z-p.z)/p.radiusZ;float angle=(float)Math.Atan2(dz,dx),edge=1+.09f*(float)Math.Sin(angle*3+p.x*.1)+.05f*(float)Math.Sin(angle*5-.8);d=Math.Min(d,((float)Math.Sqrt(dx*dx+dz*dz)-edge)*Math.Min(p.radiusX,p.radiusZ));}
             return d;
         }
         public float BasinRadius(float x,float z)
-        {var b=Source.basin;float dx=(x-b.x)/b.radiusX,dz=(z-b.z)/b.radiusZ;return (float)Math.Sqrt(dx*dx+dz*dz);}
+        {var b=Source.basin;float dx=(x-b.x)/b.radiusX,dz=(z-b.z)/b.radiusZ,angle=(float)Math.Atan2(dz,dx);return (float)Math.Sqrt(dx*dx+dz*dz)/(1+b.shoreRoughness*((float)Math.Sin(angle*3+.2)+.55f*(float)Math.Sin(angle*7+.8)));}
         public float Height(float x,float z)
         {
             float h=1.7f+.48f*(float)Math.Sin(x*.083+z*.031)+.42f*(float)Math.Cos(z*.047)
                 +5.5f*Smooth(12,48,Math.Abs(x));
             foreach(var p in Source.hills)
             {float dx=(x-p.x)/p.radiusX,dz=(z-p.z)/p.radiusZ;h+=p.height*(float)Math.Exp(-1.5*(dx*dx+dz*dz));}
-            float basin=BasinRadius(x,z),bed=Source.basin.bedHeight+.12f*(float)Math.Sin(x*.23+z*.07);
+            float basin=BasinRadius(x,z),bed=Source.basin.bedHeight+Source.basin.bedRoughness*(.65f*(float)Math.Sin(x*.23+z*.07)+.35f*(float)Math.Sin(z*.31-x*.16));
             float bowl=Lerp(bed,Source.basin.oldWaterHeight,Smooth(.67f,1.03f,basin));
             h=Lerp(h,bowl,1-Smooth(1.03f,1.22f,basin));
             // The former embankment is land, with an eroded open channel through it.

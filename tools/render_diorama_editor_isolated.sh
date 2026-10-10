@@ -21,6 +21,9 @@ if [[ "$task_mode" != probe ]]; then
   read -r task_disk_available task_disk_size < <(df -B1 --output=avail,size / | tail -1)
   [[ $((task_disk_available*100)) -gt $((task_disk_size*10)) ]] || { echo 'Keep >10% disk free'; exit 1; }
   [[ -x "$task_editor" && -n "${DISPLAY:-}" ]] || { echo 'Editor and X11 display required'; exit 1; }
+  if [[ "$task_mode" == cinematic && "${QC_SKIP_REFERENCE_VIDEO:-}" != 1 ]]; then
+    export QC_FFMPEG="$(python3 "$task_root/tools/prepare_roadmap_encoder.py")"
+  fi
   mkdir -p "$task_root/TestResults"
 fi
 task_user_mapping=(--map-root-user)

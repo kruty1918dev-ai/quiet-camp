@@ -149,7 +149,7 @@ class Mesh:
 
     def baked(self):
         lo,hi=self.bounds();height=hi[1]-lo[1]
-        origin=((lo[0]+hi[0])/2,lo[1],(lo[2]+hi[2])/2)
+        origin=getattr(self,"origin_override",((lo[0]+hi[0])/2,lo[1],(lo[2]+hi[2])/2))
         data=[];colors=[]
         for a,b,c,normal,color in self.tris:
             for p in (a,b,c):data.extend((round(v,6) or 0.0) for v in (*scale(sub(p,origin),1/height),*normal))

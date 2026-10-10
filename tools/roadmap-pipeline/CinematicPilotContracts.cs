@@ -13,23 +13,24 @@ static class CinematicPilotContracts
         Require(docs.Count==1,"Pilot must be one continuous world");
         var doc=docs.Values.Single();
         Require(doc.nodes.Select(n=>n.id).SequenceEqual(RoadmapPilotPolicy.LevelIds),"Pilot IDs/order changed");
-        var result=SceneComposer.Compose(doc,assets,templates);
+        ITerrainSample terrain=doc.landscape==null?null:new ValleyTerrain(doc,assets,templates);
+        var result=SceneComposer.Compose(doc,assets,templates,terrain);
         Require(result.Valid,"Pilot semantic composition rejected");
         Require(result.parcels.Count==doc.ensembles.Length,"Partial ensemble publication");
-        Require(JsonConvert.SerializeObject(result)==JsonConvert.SerializeObject(SceneComposer.Compose(doc,assets,templates)),"Non-deterministic pilot");
+        Require(JsonConvert.SerializeObject(result)==JsonConvert.SerializeObject(SceneComposer.Compose(doc,assets,templates,terrain)),"Non-deterministic pilot");
         Require(!result.instances.Select(i=>i.asset).Concat(doc.landmarks.Select(l=>l.asset)).Any(id=>id.IndexOf("tent",StringComparison.OrdinalIgnoreCase)>=0),"Tent in roadmap dependency");
         Require(result.spans.Any(s=>s.id=="reclaimed-yard/approach-gate"&&s.height==0),"Yard has no owned approach");
         Require(!templates.Values.SelectMany(t=>t.roles).Any(r=>r.growsThrough!=null),"Current art direction excludes vegetation inside buildings");
         var openYard=JsonConvert.DeserializeObject<Dictionary<string,EnsembleTemplate>>(JsonConvert.SerializeObject(templates));
         openYard["pilot.yard"].roles=openYard["pilot.yard"].roles.Where(r=>r.id!="north-fence-2").ToArray();
-        Require(SceneComposer.Compose(doc,assets,openYard).diagnostics.Any(d=>d.code=="open-parcel-boundary"),"Incomplete yard perimeter admitted");
+        Require(SceneComposer.Compose(doc,assets,openYard,terrain).diagnostics.Any(d=>d.code=="open-parcel-boundary"),"Incomplete yard perimeter admitted");
         // The composer still rejects accidental collisions, even though this pilot
         // now keeps every canopy outside architecture.
         var altered=JsonConvert.DeserializeObject<Dictionary<string,EnsembleTemplate>>(JsonConvert.SerializeObject(templates));
         var growth=altered["pilot.yard"].roles.Single(r=>r.id=="roof-tree");growth.x=-2;growth.z=-2;growth.growsThrough=null;
-        Require(SceneComposer.Compose(doc,assets,altered).diagnostics.Any(d=>d.code=="role-overlap"),"Ordinary collisions were suppressed");
+        Require(SceneComposer.Compose(doc,assets,altered,terrain).diagnostics.Any(d=>d.code=="role-overlap"),"Ordinary collisions were suppressed");
         growth.growsThrough="well";
-        Require(SceneComposer.Compose(doc,assets,altered).diagnostics.Any(d=>d.code=="invalid-growth-owner"),"Invalid growth owner admitted");
+        Require(SceneComposer.Compose(doc,assets,altered,terrain).diagnostics.Any(d=>d.code=="invalid-growth-owner"),"Invalid growth owner admitted");
         for(int completedCount=0;completedCount<=12;completedCount++)
         {
             var completed=new HashSet<string>(Enumerable.Range(1,completedCount).Select(i=>"QC"+i.ToString("000")));

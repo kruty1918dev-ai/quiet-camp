@@ -45,6 +45,19 @@ Arrays замінюються цілком. Застарілий hash, неві�
 непід’єднаний вхід або геометрична колізія блокують запис. Якщо джерело змінилося,
 зробіть inspect повторно. [Діагностики](DIAGNOSTICS.md).
 
+Якщо модель і ансамбль залежать від нових розмірів один одного, застосуйте
+`patch-many --patch-file /tmp/transaction.json`. Файл — масив
+`{ "id": "SOURCE_ID", "expectedHash": "HASH_FROM_INSPECT", "patch": {...} }`.
+Команда перевіряє схему та композицію для всього набору перед записом.
+У кожного файла власний hash; IDs і schemaVersion змінювати не можна.
+Після запису також виконайте `validate` і `compose --dry-run`.
+
+Авторинг чаші ставка містить старий рівень води, висоту осушеного дна,
+нерегулярність старого берега й дрібний рельєф дна. Поля `shoreRoughness`
+і `bedRoughness` керують спільним portable/native sampler, а не generated meshes.
+`supportVariants` у distribution route задає конкретні дерев’яні або бетонні
+опори за індексом; кріплення проводів беруться з sockets вибраної моделі.
+
 Camera anchors у `world.json` уточнюються за native кадрами; перевіряйте hash
 цього файла перед записом. Не переносіть координати з generated resources назад
 у джерела. Portable `bake` готує placements, не Unity meshes чи player.
@@ -62,6 +75,11 @@ bash tools/render_diorama_editor_isolated.sh --cinematic
 Цей етап запускає `CinematicRoadmapBaker` і production URP capture: п’ять місць,
 чотири переходи, стани прогресу й Low/Balanced landscape. У вже погодженому
 Editor доступне **Quiet Camp → Cinematic Roadmap → Bake Five Places**.
+Для запису відео wrapper готує окремий локальний FFmpeg із перевіреними
+SHA-256 wheel/executable. Він не встановлює системні пакети. `QC_FFMPEG`
+містить абсолютний шлях; без кодера capture завершується до зміни кадрів.
+Відео має керований час анімації та окремі hashes сирих кадрів; 24 кадри/с
+означає частоту відтворення, а не продуктивність гри.
 Індекс публікується після перевірки імпорту всіх п’яти частин. Старі ревізії,
 на які вже немає посилань, прибираються з Resources; rollback зберігає Git.
 

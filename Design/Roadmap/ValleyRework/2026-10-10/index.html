@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="uk">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quiet Camp — художній прохід долини</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#14201c;color:#e3e9d9;font:16px/1.55 system-ui,sans-serif}main{max-width:1180px;margin:auto;padding:24px}h1{font-size:28px;margin:0 0 12px}a{color:#c4d9ad}p{max-width:850px}label{display:grid;gap:5px;color:#d6dfcc}select,button{font:inherit;background:#293b31;color:#edf1e4;border:1px solid #61705b;border-radius:6px;padding:8px}button{cursor:pointer}button[aria-pressed=true]{background:#536348}nav,.controls{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0}figure{margin:0;background:#0b130f;padding:12px;border-radius:8px;text-align:center}figure img{display:block;width:auto;height:auto;max-width:100%;max-height:82vh;margin:auto}figcaption{margin-top:12px;color:#bac6b2}.films{display:grid;grid-template-columns:1fr 1fr;gap:18px}.films video{width:100%;max-height:640px;background:#0b130f}.note{border-left:3px solid #a7ba89;padding-left:14px;color:#c4d0bc}small{color:#b7c6ad}@media(max-width:700px){main{padding:16px}.films{grid-template-columns:1fr}h1{font-size:23px}}
+</style>
+<main>
+<h1>П’ять місць однієї української долини</h1>
+<p>Поточний художній прохід: заросле село, берегові руїни переправи й осушений ставок. Це галерея для перевірки дизайну; її елементи керування не входять до інтерфейсу гри.</p>
+<p class="note">Етап 1 ще проходить художнє приймання. Цей набір не оголошено незмінним еталоном. Бюджети оптимізації та продуктивність на телефонах ще не підтверджено.</p>
+<nav><a href="ArtReference/native-capture-receipt.json">Native receipt</a><a href="ArtReference/bake-receipt.json">Авторинг і геометрія</a><a href="ArtReference/vegetation-clearance-receipt.json">Перевірка рослинності</a><a href="README.md">Статус</a><a href="../../StyleCoherence/2026-10-10/index.html">Історичний прохід 10 жовтня</a></nav>
+<div class="controls">
+<label>Місце / перехід<select id="place">
+<option value="00">QC001 · Остання зупинка</option><option value="01">Зупинка → садиба</option>
+<option value="02">QC002 · Сад, що пережив дім</option><option value="03">Садиба → ліс</option>
+<option value="04">QC003 · Ліс уздовж дротів</option><option value="05">Ліс → переправа</option>
+<option value="06">QC004 · Очеретяна переправа</option><option value="07">Переправа → гребля</option>
+<option value="08">QC005 · Тиха вода</option></select></label>
+<label>Орієнтація<select id="orientation"><option value="portrait">Portrait</option><option value="landscape">Landscape</option></select></label>
+<label>Наближення<select id="zoom"><option value="out">Найдалі · 0,85</option><option value="in">Найближче · 1,15</option></select></label>
+<label>Профіль<select id="quality"><option value="balanced">Balanced</option><option value="low">Low · весь художній склад</option></select></label>
+</div>
+<figure><a id="full" href="ArtReference/balanced-portrait-zoom-out-00.png"><img id="frame" src="ArtReference/balanced-portrait-zoom-out-00.png" alt="Остання зупинка, вид згори"></a><figcaption id="caption">QC001 · Остання зупинка</figcaption></figure>
+<p><small>Кадри: production URP, SingleCameraRequest в ізольованому Editor, час анімації 0 с; час води 12 с. Час і source hash наведено в receipt. Game View інтеграція перевіряється окремо.</small></p>
+<div class="films">
+<div><p>Увесь маршрут · Portrait</p><video controls preload="none" playsinline poster="ArtReference/composition-00.png" src="ArtReference/world-portrait.mp4"></video></div>
+<div><p>Увесь маршрут · Landscape</p><video controls preload="none" playsinline poster="ArtReference/balanced-landscape-zoom-out-00.png" src="ArtReference/world-landscape.mp4"></video></div>
+</div>
+<p><small>Відео Balanced: керований час, 289 кадрів, закодовані у 24 кадри/с, без аудіо. Це частота відтворення запису, а не виміряний FPS гри.</small></p>
+</main>
+<script>
+const fields=['place','orientation','zoom','quality'].map(id=>document.getElementById(id));
+function show(){const [place,orientation,zoom,quality]=fields;const path=`ArtReference/${quality.value}-${orientation.value}-zoom-${zoom.value}-${place.value}.png`;document.getElementById('frame').src=path;document.getElementById('full').href=path;const title=place.selectedOptions[0].textContent;document.getElementById('frame').alt=title;document.getElementById('caption').textContent=`${title} · ${orientation.value} · ${quality.value}`;}
+fields.forEach(field=>field.addEventListener('change',show));show();
+</script>
+</html>
