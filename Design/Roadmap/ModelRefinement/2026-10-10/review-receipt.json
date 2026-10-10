@@ -1,6 +1,6 @@
 {
   "kind": "roadmap-model-and-clearance-native-review",
-  "verifiedUtc": "2026-10-10T18:09:55.110258+00:00",
+  "verifiedUtc": "2026-10-10T18:37:27.840698+00:00",
   "sourceHash": "4c4e9ae2fe3f562e313bb1f69ee222792cf7565230653e5efe909c51d64e3043",
   "nativeCaptureUtc": "2026-10-10T18:28:07.1516840Z",
   "before": {
@@ -8,7 +8,7 @@
     "capturedUtc": "2026-10-10T16:57:20.1316990Z",
     "description": "Historical aerial world before donor refinement. Original capture date preserved."
   },
-  "scope": "Updated native stop/road; current Game View follow-up pending",
+  "scope": "Current native composition and executed five-place Game View; historical before frames retain original dates",
   "models": [
     {
       "asset": "pilot.asphalt",
@@ -327,5 +327,16 @@
     ]
   },
   "playerBuild": false,
-  "mobileFpsMeasured": false
+  "mobileFpsMeasured": false,
+  "gameViewResult": "Passed",
+  "gameViewCaptureUtc": "2026-10-10T18:36:20.1030060Z",
+  "browserReview": {
+    "result": "Passed",
+    "verifiedUtc": "2026-10-10T18:37:37.179022+00:00",
+    "widths": [
+      320,
+      720,
+      1440
+    ]
+  }
 }

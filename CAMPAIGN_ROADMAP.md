@@ -2,7 +2,7 @@
 
 > Навігація: [ілюстрований довідник](docs/README.md) · [світ і source catalog](docs/world.md) · [галерея](docs/gallery.md) · [стан перевірок](docs/status.md).
 >
-> Читабельність дороги 10.10: зупинка повернута до двосмугового асфальту; owned bay/platform і roadside waystone готові. Порівняння Low/Balanced, portrait/landscape та 43 native кадри Passed; поточний Game View повтор готується. [Дорога](Design/Roadmap/StopRoad/2026-10-10/index.html).
+> Читабельність дороги 10.10: зупинка повернута до двосмугового асфальту; owned bay/platform і roadside waystone готові. Порівняння Low/Balanced, portrait/landscape, 43 native кадри та свіжий Game View flow Passed; відео оновлено. Покриття повторює фактичні трикутники землі, дальній рельєф не перекриває дорогу. [Дорога](Design/Roadmap/StopRoad/2026-10-10/index.html).
 
 > Художній прохід 10.10: відібрано дев’ять виразніших наявних моделей, native кадри та бюджети перевірено. Рослинність має повні контури з запасом для вітру, берег і споруди виключені з посадок; безперервну дорогу й рельєф оновлено. 43 native кадри та незалежна перевірка відступів Passed; поточний Game View flow, тіні та рух води Passed, відео оновлено. [Добір моделей](Design/Roadmap/ModelRefinement/2026-10-10/README-UA.md).
 

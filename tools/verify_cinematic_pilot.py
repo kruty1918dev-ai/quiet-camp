@@ -110,6 +110,7 @@ def main():
     assert compiled['testsSourceSha256'] == digest(ROOT / 'QuietCamp/Assets/QuietCamp/Tests/PlayMode/RoadmapWorldPlayModeTests.cs')
     assert compiled['presentationSourceSha256'] == digest(ROOT / 'QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldPresenter.cs')
     assert compiled['opaqueShadowAssertionExecuted'], 'Current opaque shadow check was not executed'
+    assert compiled['coarseTerrainExclusionExecuted'], 'Detailed road/coarse ground exclusion was not checked'
     water = gameview['waterMotion']
     assert len(water) == 2 and {sample['quality'] for sample in water} == {'Low', 'Balanced'}
     assert all(sample['cameraStationary'] and sample['seconds'] >= 2 and sample['meanRgbByteDifference'] > .15 for sample in water)
@@ -146,6 +147,16 @@ def main():
     assert review['gameViewCaptureUtc'] == gameview['capturedUtc']
     for entry in review['images']:
         assert digest(comparison / entry['file']) == entry['sha256']
+    stop = ROOT / 'Design/Roadmap/StopRoad/2026-10-10'
+    road = json.loads((stop / 'review-receipt.json').read_text())
+    assert road['sourceHash'] == bake['sourceHash'] and road['gameViewFollowup'] == 'Passed'
+    assert road['nativeCaptureUtc'] == native['capturedUtc'] and road['gameViewCaptureUtc'] == gameview['capturedUtc']
+    assert road['road'] == bake['road']
+    assert bake['road']['followsNativeTerrainTriangles'] and bake['road']['horizonOnlyWhenUnloaded']
+    assert {s['id'] for s in bake['road']['surfaces']} == {'last-stop-bus-bay', 'last-stop-waiting-platform'}
+    assert browser['stopRoadGallerySha256'] == digest(stop / 'index.html')
+    for entry in road['images']:
+        assert digest(stop / entry['file']) == entry['sha256']
     for path, sha in acceptance['artifacts'].items():
         assert digest(EVIDENCE / path) == sha, f'Artifact changed after acceptance: {path}'
 
