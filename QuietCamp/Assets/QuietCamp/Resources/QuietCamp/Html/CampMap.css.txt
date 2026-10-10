@@ -9,112 +9,18 @@ button { min-height: 104px; padding: 16px 25px; border-radius: 32px; background-
 button:hover { background-color: #fdf8ea; }
 button:active { background-color: #eadfc4; }
 button:disabled { opacity: 0.42; }
-.icon:disabled { opacity: 1; background-color: #dedacb; background-image: none; }
-.icon:disabled .ico { opacity: .42; }
-.quiet { background-color: rgba(246,240,223,0.93); border-color: rgba(176,150,105,0.32); }
-.selected { border-color: #b0763a; border-width: 4px; background-color: #f9ecd4; }
-.done { background-color: #e4ecd7; }
-.nav-back { width: 88px; min-width: 88px; height: 88px; padding: 0; border-radius: 44px; font-size: 46px; font-weight: bold; background-color: rgba(36,62,53,0.1); color: #243e35; }
 toggle { flex-shrink: 0; width: 124px; height: 68px; border-radius: 34px; background-color: rgba(36,62,53,0.14); border-width: 2px; border-color: rgba(36,62,53,0.3); }
 toggle:checked { background-color: #35584a; border-color: #243e35; }
 _scrollbar { background-color: rgba(36,62,53,0.05); width: 5px; }
 _scrollbar-thumb { background-color: rgba(36,62,53,0.22); border-radius: 3px; }
-.dimroot { }
 switch { flex-shrink: 0; width: 124px; height: 68px; margin: 0; }
 .ico { width: 62px; height: 62px; min-width: 62px; min-height: 62px; flex-shrink: 0; background-size: contain; background-repeat: no-repeat; background-position: center; pointer-events: none; }
-.ico-tent { background-image: url(res:QuietCamp/UI/Atlas/hex_tent); }
-.ico-map { background-image: url(res:QuietCamp/UI/Atlas/hex_map); }
-.ico-shade { background-image: url(res:QuietCamp/UI/Atlas/hex_tree); }
-.ico-fire { background-image: url(res:QuietCamp/UI/Atlas/hex_campfire); }
-.ico-settings { background-image: url(res:QuietCamp/UI/Atlas/orb_settings); }
-.ico-undo, .ico-rotate { background-image: url(res:QuietCamp/UI/Extra/Default/icon_repeat_dark); }
-.ico-redo { background-image: url(res:QuietCamp/UI/Extra/Default/icon_repeat_dark); transform: scaleX(-1); }
-.ico-check { background-image: url(res:QuietCamp/UI/Green/Default/icon_checkmark); }
-.ico-remove { background-image: url(res:QuietCamp/UI/Red/Default/icon_cross); }
 .ico-back { background-image: url(res:QuietCamp/UI/Extra/Default/icon_arrow_up_dark); transform: rotate(90deg); }
-.ico-play { background-image: url(res:QuietCamp/UI/Extra/Default/icon_play_light); }
-.ico-quiet { background-image: url(res:QuietCamp/UI/Atlas/leaf_c); }
-.ico-path { background-image: url(res:QuietCamp/UI/Atlas/hex_map); }
-.ico-hint { background-image: url(res:QuietCamp/UI/Atlas/hex_lantern); }
-.ico-lock { background-image: url(res:QuietCamp/UI/Atlas/orb_lock); opacity: .7; }
-.ico-pause { flex-direction: row; justify-content: center; align-items: center; gap: 12px; }
-.ico-guests { position: relative; }
-.person { position: absolute; top: 8px; width: 28px; height: 48px; align-items: center; }
-.person.left { left: 2px; top: 13px; opacity: .7; }
-.person.right { right: 2px; }
-.person .head { width: 18px; height: 18px; border-radius: 9px; background-color: #243e35; }
-.person .body { width: 27px; height: 26px; margin-top: 3px; border-radius: 13px 13px 5px 5px; background-color: #243e35; }
-.full-menu { gap: 22px; padding: 32px; }
-.map-menu { background-color: #3f573c; gap: 0; padding: 0; }
-.map-menu .full-header { background-color: #f1ead4; border-radius: 0; width: 100%; padding: 24px 32px; }
-.map-menu .map-scroll { border-radius: 0; overflow: hidden; }
-.full-header { flex-direction: row; align-items: center; gap: 24px; padding: 22px 28px; }
-.full-title { font-size: 42px; font-weight: bold; flex-shrink: 1; min-width: 0; }
-.map-stories { margin-left: auto; max-width: 42%; min-height: 104px; padding: 14px 20px; }
-.map-stories text { font-size: 28px; white-space: normal; }
-.map-scroll { flex-grow: 1; flex-shrink: 1; min-height: 0; width: 100%; }
-.roadmap { width: 100%; position: relative; }
-.roadmap-art { position: absolute; inset: 0; width: 100%; height: 100%; }
-.map-stop { position: absolute; width: 200px; margin-left: -100px; align-items: center; gap: 10px; }
-.map-node { width: 100px; height: 82px; min-height: 82px; padding: 8px; border-radius: 22px; border-width: 3px; border-color: #877b54; background-color: #dcd5b4; background-image: linear-gradient(155deg, #eee4c6 0%, #b8ba91 100%); }
-.map-node .node-number { font-size: 40px; font-weight: bold; }
-.map-node.selected { border-color: #d29c4c; border-width: 5px; background-color: #fff0c9; }
-.map-node.done { background-color: #a0b787; background-image: linear-gradient(155deg, #d0ddb2 0%, #829f73 100%); }
-.map-node.locked { background-color: #788d69; background-image: linear-gradient(155deg, #b6bca0 0%, #718766 100%); opacity: .94; }
-.node-status { position: absolute; right: -6px; bottom: -4px; width: 46px; height: 46px; min-width: 46px; min-height: 46px; }
-.map-wishes { flex-direction: row; gap: 8px; }
-.map-wishes .ico { width: 40px; height: 40px; min-width: 40px; min-height: 40px; }
-.map-district { position: absolute; left: 50%; transform: translateX(-50%); width: 420px; align-items: center; }
-.map-district-name { font-size: 30px; font-weight: bold; color: #fdf3d0; text-align: center; background-color: rgba(43,61,47,.72); padding: 6px 22px; border-radius: 20px; border-width: 2px; border-color: #877b54; }
-.map-district.act-2 .map-district-name { color: #e9d9ff; background-color: rgba(52,47,79,.78); border-color: #9a86c4; }
-.map-district.act-3 .map-district-name { color: #ffe3b3; background-color: rgba(84,58,38,.78); border-color: #c49a62; }
-.map-district.act-4 .map-district-name { color: #d8e8f2; background-color: rgba(39,54,74,.78); border-color: #7d9ab5; }
-.map-district.act-5 .map-district-name { color: #d2f2e4; background-color: rgba(31,68,58,.78); border-color: #6fae94; }
-.map-branch-stop { position: absolute; width: 300px; margin-left: -150px; align-items: center; gap: 10px; }
-.map-branch-node { width: 300px; min-height: 108px; padding: 12px 20px; gap: 6px; flex-direction: column; border-radius: 30px; border-width: 3px; border-color: #7c9a86; background-image: linear-gradient(145deg, #dcead8 0%, #a8c4ab 100%); }
-.map-branch-node.branch-ready { border-color: #5f9a72; border-width: 5px; }
-.branch-name { font-size: 26px; font-weight: bold; width: 100%; white-space: normal; text-align: center; color: #2c4634; }
-.map-bonus-stop { position: absolute; width: 320px; margin-left: -160px; align-items: center; gap: 10px; }
-.map-bonus-node { width: 320px; min-height: 132px; padding: 14px 22px; gap: 5px; flex-direction: column; border-radius: 34px; border-width: 3px; border-color: #b39350; background-image: linear-gradient(145deg, #fbefc8 0%, #ddd6a8 100%); }
-.map-bonus-node.bonus-ready { border-color: #c89643; border-width: 5px; }
-.map-node.hidden { width: 68px; height: 56px; min-height: 56px; border-radius: 28px; border-color: #7d8b70; opacity: .5; background-image: linear-gradient(160deg, #b3bda0 0%, #8b9a7e 100%); }
-.map-bonus-node.veiled, .map-branch-node.veiled { opacity: .42; }
-.map-branch-node.veiled { min-height: 64px; width: 180px; }
-.map-bonus-node.veiled { min-height: 80px; width: 200px; }
-.bonus-heading { flex-direction: row; align-items: center; gap: 8px; }
-.bonus-heading .ico { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
-.ico-bonus { background-image: url(res:QuietCamp/UI/Atlas/orb_leaf); }
-.bonus-eyebrow { font-size: 21px; color: #806335; }
-.bonus-name { font-size: 27px; font-weight: bold; width: 100%; white-space: normal; text-align: center; }
-.bonus-caption { font-size: 22px; color: #f3ecd3; text-align: center; background-color: rgba(27,49,39,.55); padding: 3px 12px; border-radius: 12px; }
-.bonus-note { font-size: 25px; color: #5d7061; white-space: normal; width: 100%; }
-.bonus-play { width: 100%; }
-.map-wishes .person { transform: scale(.64); transform-origin: center; top: -1px; }
-.map-wishes .person.left { left: -4px; top: 4px; }
-.map-wishes .person.right { right: -4px; }
-.ico-tent { background-image: url(res:QuietCamp/UI/Icons/tent); }
-.ico-map { background-image: url(res:QuietCamp/UI/Icons/map); }
-.ico-shade { background-image: url(res:QuietCamp/UI/Icons/shade); }
-.ico-fire { background-image: url(res:QuietCamp/UI/Icons/fire); }
-.ico-settings { background-image: url(res:QuietCamp/UI/Icons/settings); }
-.ico-undo { background-image: url(res:QuietCamp/UI/Icons/undo); }
-.ico-redo { background-image: url(res:QuietCamp/UI/Icons/redo); }
-.ico-rotate { background-image: url(res:QuietCamp/UI/Icons/rotate); }
-.ico-check { background-image: url(res:QuietCamp/UI/Icons/check); }
-.ico-remove { background-image: url(res:QuietCamp/UI/Icons/remove); }
 .ico-back { background-image: url(res:QuietCamp/UI/Icons/back); }
-.ico-play { background-image: url(res:QuietCamp/UI/Icons/play); }
-.ico-quiet { background-image: url(res:QuietCamp/UI/Icons/quiet); }
-.ico-path { background-image: url(res:QuietCamp/UI/Icons/path); }
-.ico-hint { background-image: url(res:QuietCamp/UI/Icons/hint); }
-.ico-lock { background-image: url(res:QuietCamp/UI/Icons/lock); }
-.ico-guests { background-image: url(res:QuietCamp/UI/Icons/guests); }
-.ico-redo, .ico-back { transform: none; }
-.bonus-card { margin: 14px 0; padding: 12px; border-radius: 20px; background-color: rgba(231,225,196,0.65); gap: 10px; flex-shrink: 0; }
-.bonus-card { width: 100%; }
-.bonus-card > button text { width: 100%; white-space: normal; }
+.ico-back { transform: none; }
 button text { white-space: normal; }
-@media (layout: wide) {
-.map-menu .full-header, .map-menu .map-scroll { width: 100%; }
-}
-.ico-sound { position: relative; }
+.cinematic-roadmap { position: absolute; inset: 0; background-color: transparent; }
+.roadmap-exit { position: relative; align-self: flex-start; margin-left: 24px; margin-top: 24px; width: 96px; height: 96px; min-width: 96px; min-height: 96px; padding: 0; border-width: 0; border-radius: 48px; background-color: rgba(246,243,223,0.005); pointer-events: all; color: #30463c; align-items: center; justify-content: center; }
+.roadmap-exit:hover, .roadmap-exit:active { background-color: rgba(246,243,223,0.005); }
+.roadmap-exit-disc { align-items: center; justify-content: center; background-color: rgba(246,243,223,0.86); pointer-events: none; }
+.roadmap-exit .ico { width: 32px; height: 32px; min-width: 32px; min-height: 32px; }

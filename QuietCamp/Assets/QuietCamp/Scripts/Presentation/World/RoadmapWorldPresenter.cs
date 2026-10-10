@@ -25,13 +25,14 @@ namespace QuietCamp.Presentation.World
         readonly Dictionary<string,float> _oldFloats=new Dictionary<string,float>();
         readonly Dictionary<string,Vector4> _oldVectors=new Dictionary<string,Vector4>();
         readonly MeshRenderer[] _markers=new MeshRenderer[5];
-        readonly MaterialPropertyBlock _markerBlock=new MaterialPropertyBlock();
+        readonly MeshRenderer[] _distant=new MeshRenderer[5];
+        MaterialPropertyBlock _markerBlock;
         GameServices _services;MenuScreens _screens;RoadmapWorldAsset _asset;
         GameObject _root,_cameraRoot,_inputRoot;Camera _camera;Light _sun;
         Light _oldSun;Material _oldSky;bool _oldFog;Color _oldAmbient,_oldSkyColor,_oldEquator,_oldGround;
         AmbientMode _oldAmbientMode;SphericalHarmonicsL2 _oldProbe;
         float _route,_target,_zoom=1,_animationTime,_animationStart,_animationEnd,_clock;
-        int _frontier,_generation;bool _entered,_animate,_preview;
+        int _frontier,_generation;bool _entered,_animate,_preview,_finished;
         VolumeProfile _profile;
         AudioHandle _forestAudio,_waterAudio,_birdAudio;
         float _birdTime=8;
@@ -56,7 +57,7 @@ namespace QuietCamp.Presentation.World
             if(_entered)return;
             _asset=Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World");
             if(_asset==null){Fault="Native cinematic world has not been baked";Debug.LogError("[Roadmap] "+Fault);return;}
-            _frontier=RoadmapPilotPolicy.Frontier(_services.Progression.IsCompleted);
+            _frontier=RoadmapPilotPolicy.Frontier(_services.PilotCompleted);_finished=RoadmapPilotPolicy.Finished(_services.PilotCompleted);
             _route=_frontier;
             if(_services.LevelMapAnchor!=null&&_services.LevelMapAnchor.revision==_asset.revision)
             {
@@ -85,6 +86,7 @@ namespace QuietCamp.Presentation.World
         }
         void Build()
         {
+            _markerBlock=new MaterialPropertyBlock();
             _entered=true;_generation++;Fault=null;
             _oldSun=RenderSettings.sun;_oldSky=RenderSettings.skybox;_oldFog=RenderSettings.fog;
             _oldAmbient=RenderSettings.ambientLight;_oldSkyColor=RenderSettings.ambientSkyColor;_oldEquator=RenderSettings.ambientEquatorColor;
@@ -112,6 +114,9 @@ namespace QuietCamp.Presentation.World
             var focus=_profile.Add<DepthOfField>();focus.mode.Override(DepthOfFieldMode.Off);
             var blur=_profile.Add<MotionBlur>();blur.intensity.Override(0);
             AddRenderer(_root.transform,"Far landscape",_asset.horizon,_asset.ground,false);
+            if(_asset.river!=null)AddRenderer(_root.transform,"Continuous river",_asset.river,_asset.water,false);
+            if(_asset.distantForest!=null)for(int i=0;i<_asset.distantForest.Length;i++)
+                _distant[i]=AddRenderer(_root.transform,"Distant forest "+i,_asset.distantForest[i],_asset.foliage,false);
             for(int i=0;i<5;i++)
             {
                 var m=AddRenderer(_root.transform,"Waystone "+_asset.waypoints[i].levelId,_asset.markerMesh,_asset.marker,true);
@@ -132,7 +137,7 @@ namespace QuietCamp.Presentation.World
         }
         void UpdateWindow(bool synchronous,bool low=false)
         {
-            int centre=Mathf.Clamp(Mathf.RoundToInt(_route),0,4);var wanted=new HashSet<int>();
+            int centre=Mathf.Clamp(Mathf.FloorToInt((_route*40-6)/40)+1,0,4);var wanted=new HashSet<int>();
             for(int i=Mathf.Max(0,centre-1);i<=Mathf.Min(4,centre+1);i++)wanted.Add(i);
             foreach(var pair in new List<KeyValuePair<int,string>>(_leased))if(!wanted.Contains(pair.Key))
             {if(_chunks.TryGetValue(pair.Key,out var go)){DestroyOwned(go);_chunks.Remove(pair.Key);}Release(pair.Value);_leased.Remove(pair.Key);}
@@ -142,7 +147,7 @@ namespace QuietCamp.Presentation.World
                 void Loaded(RoadmapWorldChunk chunk)
                 {
                     if(!_entered||generation!=_generation||!_leased.ContainsKey(id))return;
-                    if(chunk==null||chunk.sourceHash!=_asset.sourceHash){Fault="Missing/stale native chunk "+id;Debug.LogError("[Roadmap] "+Fault);return;}
+                    if(chunk==null||chunk.sourceHash!=_asset.sourceHash){Fault="Missing/stale native chunk "+id+" at "+path+"; expected "+_asset.sourceHash+", actual "+(chunk==null?"missing":chunk.sourceHash);Debug.LogError("[Roadmap] "+Fault);return;}
                     var go=new GameObject("Valley chunk "+id);go.transform.SetParent(_root.transform,false);
                     var meshes=(low||(_services?.EffectiveQuality??1)==0)?chunk.low:chunk.balanced;
                     for(int part=0;part<meshes.Length;part++)if(meshes[part]!=null)
@@ -151,9 +156,11 @@ namespace QuietCamp.Presentation.World
                         AddRenderer(go.transform,"Baked part "+part,meshes[part],material,part!=0&&part!=4);
                     }
                     _chunks[id]=go;
+                    if(_distant[id]!=null)_distant[id].enabled=false;
                 }
                 Acquire(path,Loaded,synchronous);
             }
+            for(int i=0;i<5;i++)if(_distant[i]!=null)_distant[i].enabled=!_chunks.ContainsKey(i);
         }
         static void Acquire(string path,Action<RoadmapWorldChunk> loaded,bool synchronous)
         {
@@ -176,9 +183,10 @@ namespace QuietCamp.Presentation.World
             if(lease.asset!=null)Resources.UnloadAsset(lease.asset);Leases.Remove(path);
         }
         public void Drag(float screenDelta)
-        {if(!_entered)return;_animate=false;_target=Mathf.Clamp(_target+screenDelta/Mathf.Max(200,Screen.height)*1.6f,0,_frontier);}
-        public void Zoom(float factor){_animate=false;_zoom=Mathf.Clamp(_zoom*factor,.85f,1.15f);}
+        {if(!_entered)return;if(_animate)_target=_route;_animate=false;_target=Mathf.Clamp(_target+screenDelta/Mathf.Max(200,Screen.height)*1.6f,0,_frontier);}
+        public void Zoom(float factor){if(_animate)_target=_route;_animate=false;_zoom=Mathf.Clamp(_zoom*factor,.85f,1.15f);}
         public void Step(int direction){_animate=false;_target=Mathf.Clamp(Mathf.Round(_target)+direction,0,_frontier);}
+        public void Seek(float route){_animate=false;_target=Mathf.Clamp(route,0,_frontier);}
         public void ActivateFocused()
         {
             if(_camera==null)return;
@@ -196,7 +204,7 @@ namespace QuietCamp.Presentation.World
                 if(p.z<=0)continue;float d=Vector2.Distance(screen,p);if(d<distance){distance=d;best=i;}
             }
             if(best<0)return;string id=_asset.waypoints[best].levelId;
-            if(!RoadmapPilotPolicy.CanPlay(id,_services.Progression.IsCompleted,_services.CanStart))return;
+            if(!RoadmapPilotPolicy.CanPlay(id,_services.PilotCompleted,_services.CanStart))return;
             Remember();_services.PendingMenuScreen="Levels";
             _services.Actions.Execute(new Kruty1918.UIActions.API.UiActionRequest(new Kruty1918.UIActions.API.UiActionId("qc.play"),Kruty1918.UIActions.API.UiActionSource.Button,"Menu",null,id));
         }
@@ -210,8 +218,9 @@ namespace QuietCamp.Presentation.World
             for(int i=0;i<5;i++)
             {
                 var m=_markers[i];if(m==null)continue;m.enabled=i<=_frontier;
-                float pulse=i==_frontier&&!ReducedMotion?1+.06f*Mathf.Sin(_clock*1.6f):1;m.transform.localScale=Vector3.one*pulse;
-                _markerBlock.SetColor("_BaseColor",i==_frontier?new Color(.95f,.83f,.49f):new Color(.69f,.71f,.57f));m.SetPropertyBlock(_markerBlock);
+                bool current=i==_frontier&&!_finished;
+                float pulse=current&&!ReducedMotion?1+.06f*Mathf.Sin(_clock*1.6f):1;m.transform.localScale=Vector3.one*pulse;
+                _markerBlock.SetColor("_BaseColor",current?new Color(.95f,.83f,.49f):new Color(.69f,.71f,.57f));m.SetPropertyBlock(_markerBlock);
             }
         }
         void ApplyAtmosphere()

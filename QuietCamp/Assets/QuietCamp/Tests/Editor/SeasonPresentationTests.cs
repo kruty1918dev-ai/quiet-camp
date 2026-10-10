@@ -92,8 +92,6 @@ namespace QuietCamp.Tests
                 var profile=SeasonProfile.For(level);var mapProfile=SeasonProfile.For(summary);
                 Assert.AreEqual(profile.Id,mapProfile.Id,summary.id);Assert.AreEqual(profile.Progress,mapProfile.Progress,summary.id);
                 Assert.AreEqual(profile.Palette.GrassLight,mapProfile.Palette.GrassLight,summary.id);
-                var scene=RoadmapSceneGenerator.Generate(summary,catalog);
-                Assert.AreEqual(profile.Palette.CanopyLight,scene.Palette.CanopyLight,summary.id);
                 Assert.IsTrue(RuleEvaluator.Evaluate(level,level.witness).IsSolved,summary.id);
                 Assert.AreEqual(saved,JsonConvert.SerializeObject(level),"Rendering must not rehash or edit "+summary.id);
             }
@@ -110,22 +108,6 @@ namespace QuietCamp.Tests
             Assert.Less(tree.Indices.Length/3,350);Assert.AreEqual(tree.Vertices.Length,tree.Normals.Length);
             CollectionAssert.AreEqual(tree.Vertices,SeasonalTreeGeometry.Bare(source,normals,indices,colors).Vertices);
             foreach(var n in tree.Normals)Assert.That(n.magnitude,Is.InRange(.99f,1.01f));
-        }
-        [Test] public void RoadmapKeepsTreeSpeciesAndRootsAcrossSeasonsWithoutNativeMeshCopies()
-        {
-            var summary=new LevelSummary{id="season-test",number=18,width=6,height=5,decorSeed=13,entry=new[]{0,0},lighting="noon",
-                environment=new EnvironmentCompositionData{seasonId="summer",biomeId="meadow",treeDensity=.7f}};
-            var catalog=AtmosphereCatalog.Load();var library=RoadmapModelLibrary.Load();
-            var summer=RoadmapSceneGenerator.Generate(summary,catalog);summary.environment.seasonId="winter";
-            var winter=RoadmapSceneGenerator.Generate(summary,catalog);
-            var a=summer.Props.Where(p=>p.Asset.StartsWith("tree")).ToArray();var b=winter.Props.Where(p=>p.Asset.StartsWith("tree")).ToArray();
-            Assert.AreEqual(a.Length,b.Length);Assert.Greater(a.Length,3);
-            for(int i=0;i<a.Length;i++)
-            {
-                Assert.AreEqual(a[i].Asset,b[i].Asset);Assert.AreEqual(a[i].Position,b[i].Position);Assert.AreEqual(a[i].Height,b[i].Height);
-                if(!b[i].Asset.Contains("pine"))Assert.AreSame(library.BareTree(b[i].Asset),b[i].Geometry);
-            }
-            Assert.IsFalse(winter.Props.Any(p=>p.Asset.StartsWith("flower")||p.Asset.StartsWith("plant")));
         }
     }
 }

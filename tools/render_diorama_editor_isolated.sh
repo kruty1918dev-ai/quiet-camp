@@ -8,7 +8,8 @@ case "${1:---probe}" in
   --models) task_mode=models ;;
   --studies) task_mode=studies ;;
   --cinematic) task_mode=cinematic ;;
-  *) echo 'Use --probe, --models, --studies or --cinematic'; exit 2 ;;
+  --pilot-tests) task_mode=pilot-tests ;;
+  *) echo 'Use --probe, --models, --studies, --cinematic or --pilot-tests'; exit 2 ;;
 esac
 if [[ "$task_mode" != probe ]]; then
   task_status=$(cat /home/oleks/.local/state/sys-guard/status)
@@ -19,7 +20,9 @@ if [[ "$task_mode" != probe ]]; then
   [[ -x "$task_editor" && -n "${DISPLAY:-}" ]] || { echo 'Editor and X11 display required'; exit 1; }
   mkdir -p "$task_root/TestResults"
 fi
-unshare --user --map-root-user --pid --fork --mount-proc --net \
+task_user_mapping=(--map-root-user)
+if [[ "$task_mode" == pilot-tests ]]; then task_user_mapping=(--map-current-user --keep-caps); fi
+unshare --user "${task_user_mapping[@]}" --pid --fork --mount-proc --net \
   bash -euo pipefail -c '
     if [[ -d /dev/bus/usb ]]; then
       mount -t tmpfs -o mode=755,size=1m tmpfs /dev/bus/usb
@@ -33,6 +36,21 @@ unshare --user --map-root-user --pid --fork --mount-proc --net \
     if [[ "$1" == probe ]]; then
       echo "PASS private PID/proc/network + masked USB; graphics uses filesystem X11; no Unity launch"
       exit 0
+    fi
+    if [[ "$1" == pilot-tests ]]; then
+      task_qa=/home/oleks/.cache/quietcamp/cinematic-roadmap-qa
+      [[ -d "$task_qa/ProjectSettings" ]]
+      # GTK accessibility cannot authenticate to a host bus from the private PID/user namespace.
+      # Keep the QA Editor off the desktop accessibility bus as well as the host process/network view.
+      unset DBUS_SESSION_BUS_ADDRESS
+      export NO_AT_BRIDGE=1
+      export QC_CINEMATIC_EVIDENCE_ROOT="$3/Design/Roadmap/CinematicPilot/2026-10-10"
+      exec setpriv --inh-caps=-all --ambient-caps=-all nice -n10 ionice -c2 -n7 "$2" \
+        -force-glcore -noaudio -buildTarget Linux64 -projectPath "$task_qa" \
+        -job-worker-count 1 -background-job-worker-count 4 \
+        -runTests -testPlatform PlayMode -testFilter QuietCamp.Tests.RoadmapWorldPlayModeTests \
+        -testResults "$3/TestResults/cinematic-roadmap-playmode.xml" \
+        -logFile "$3/TestResults/diorama-pilot-tests-editor.log"
     fi
     if [[ "$1" == models ]]; then
       task_method=QuietCamp.Editor.ModelCatalogueRenderer.Render

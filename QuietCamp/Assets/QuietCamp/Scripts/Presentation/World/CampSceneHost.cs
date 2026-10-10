@@ -404,15 +404,11 @@ namespace QuietCamp.Presentation.World
             {
                 if (!_session.IsCompleted || _advancing) return Performed();
                 _advancing = true;
-                var next = _services.JourneyAccess.NextAfter(_session.Level.id);
                 _services.Save.Save();
-                if (next != null) _router.GoToNextCamp(next);
-                else
-                {
-                    // Last glade done — the menu opens on the demo-complete card.
-                    _services.PendingMenuScreen = BonusCampCatalog.ForLevel(_session.Level.id)!=null?"Levels":"DemoComplete";
-                    _router.GoToMenu();
-                }
+                _services.RoadmapAdvanceFrom=RoadmapPilotPolicy.Index(_session.Level.id);
+                _services.LevelMapAnchor=null;
+                _services.PendingMenuScreen="Levels";
+                _router.GoToMenu();
                 return Performed();
             }));
             _leases.Add(h.Register(new UiActionId("qc.album"), () =>
@@ -511,7 +507,7 @@ namespace QuietCamp.Presentation.World
             yield return new WaitForSecondsRealtime(8f);
             if (_session != null && _session.IsCompleted && !_router.IsBusy)
                 _services.Actions.Execute(new UiActionRequest(
-                    new UiActionId("qc.menu"), UiActionSource.Programmatic, "Gameplay"));
+                    new UiActionId("qc.next"), UiActionSource.Programmatic, "Gameplay"));
         }
 
         static string GuideMistakeKey(string rawKey)

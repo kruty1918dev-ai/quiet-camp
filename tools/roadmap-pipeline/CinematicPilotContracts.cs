@@ -32,6 +32,13 @@ static class CinematicPilotContracts
             Require(!RoadmapPilotPolicy.CanPlay("QC006",completed.Contains,id=>true),"Launch outside pilot");
             Require(completed.Count==completedCount,"Older progress was trimmed");
         }
+        var legacy=new ProgressionService();legacy.Restore(new[]{"QC012"},"QC012",3);
+        Require(RoadmapPilotPolicy.LevelIds.All(id=>RoadmapPilotPolicy.Completed(legacy,id)),"Older progress with gaps not presented as finished");
+        Require(legacy.CompletedCount==1&&legacy.CosmeticFlags==3,"Legacy data rewritten");
+        legacy.Restore(new[]{"gen:qc_camp:12"},"gen:qc_camp:12",0);
+        Require(RoadmapPilotPolicy.LevelIds.All(id=>RoadmapPilotPolicy.Completed(legacy,id)),"Older generated main progress not recognized");
+        legacy.Restore(new[]{"QC_LH008"},"QC_LH008",0);
+        Require(!RoadmapPilotPolicy.LegacyBeyondPilot(legacy),"Side journey mistaken for older main progress");
         Console.WriteLine("PASS cinematic pilot: five IDs, complete ensembles, deterministic composition, owned approaches, explicit growth, no tents, progress/access boundaries");
     }
 }

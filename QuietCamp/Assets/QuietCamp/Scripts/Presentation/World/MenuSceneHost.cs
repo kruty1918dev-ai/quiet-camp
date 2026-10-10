@@ -34,6 +34,7 @@ namespace QuietCamp.Presentation.World
         readonly List<System.IDisposable> _leases = new List<System.IDisposable>();
         System.IDisposable _menuContext;
         AlbumDiorama _album;
+        RoadmapWorldPresenter _roadmap;
         BoardRenderer _board;
         public LevelData BackgroundLevel => _services?.MenuBackdrop;
 
@@ -42,7 +43,8 @@ namespace QuietCamp.Presentation.World
         /// <summary>Set at the end of Start — the readiness signal the
         /// ScreenRouter waits for before revealing the menu.</summary>
         public bool IsReady { get; private set; }
-        public bool UiReady => IsReady && (_atmosphere?.InitialWorldReady ?? true) && (_screens?.UiReady ?? false);
+        public bool UiReady => IsReady && (_screens?.UiReady ?? false)
+            && (_screens.Current=="Levels" ? (_roadmap?.Ready??false) : (_atmosphere?.InitialWorldReady ?? true));
         public float VisibleDimming => _screens != null && (_screens.Current=="Main"||_screens.Current=="Settings") ? .55f : 0;
 
         public void Configure(GameServices services, ScreenRouter router)
@@ -89,6 +91,7 @@ namespace QuietCamp.Presentation.World
             var album=gameObject.AddComponent<AlbumDiorama>();
             _album=album;
             album.Configure(_services,_screens,camera,_world,_atmosphere,GetComponent<MenuCameraDrift>());
+            _roadmap=gameObject.AddComponent<RoadmapWorldPresenter>();_roadmap.Configure(_services,_screens);
             _screens.SetDarkSky(_profile != null &&
                 (_profile.Id == "evening" || _profile.Id == "night"));
             // A completed final level lands here through the leaf transition.
@@ -225,14 +228,14 @@ namespace QuietCamp.Presentation.World
             var levels = LevelLoader.MvpLevelIds();
             _leases.Add(h.Register(new UiActionId("qc.continue"), () =>
             {
-                var id = _services.ContinueLevel();
-                if (id != null) _router.GoToCamp(id);
+                _services.LevelMapAnchor=null;
+                _screens.Show("Levels");
                 return UiActionResult.Performed();
             }));
             _leases.Add(h.Register(new UiActionId("qc.play"), req =>
             {
                 var id = req.Payload as string ?? req.TargetId;
-                if (!string.IsNullOrEmpty(id)) _router.GoToCamp(id);
+                if (!string.IsNullOrEmpty(id) && _services.CanStart(id)) _router.GoToCamp(id);
                 return UiActionResult.Performed();
             }));
             _leases.Add(h.Register(new UiActionId("qc.levels"), () => { _services.LevelMapJourney="main";return Show("Levels"); }));

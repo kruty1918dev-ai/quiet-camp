@@ -1,0 +1,48 @@
+{
+  "capturedUtc": "2026-10-10T12:49:47.4425060Z",
+  "unity": "6000.6.2f1",
+  "product": "QuietCampRoadmapQA",
+  "sourceHash": "be4591441b42e7c996fbc7b2de799e4e6a920c9d71fcce110dd7ab8c6278f1cf",
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioDeviceEnabled": false,
+  "measurements": [
+    {
+      "quality": "Low",
+      "editorDrawCalls": 25,
+      "editorTriangles": 79147,
+      "worldChunks": 2
+    },
+    {
+      "quality": "Balanced",
+      "editorDrawCalls": 27,
+      "editorTriangles": 152781,
+      "worldChunks": 2
+    }
+  ],
+  "reentryCounts": [
+    [
+      2,
+      406,
+      228
+    ],
+    [
+      2,
+      406,
+      228
+    ],
+    [
+      2,
+      406,
+      228
+    ],
+    [
+      2,
+      406,
+      228
+    ]
+  ],
+  "movieFrameCount": 193,
+  "capturedSeconds": 32.07187,
+  "checks": "Fresh campaign progress after onboarding, completion 1–5, old progress including gaps, replay, drag rejection, quality change, synthetic notch, portrait/landscape, reduced motion, interrupted reveal, repeated entry/exit"
+}

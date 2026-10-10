@@ -72,9 +72,6 @@ def main():
             options.extend(['-out:"' + str(destination) + '"', '-refout:"' + str(output / (assembly + ".ref.dll")) + '"'])
             source_root = PROJECT / folder if is_package else PROJECT / "Assets/QuietCamp" / folder
             sources = sorted(source_root.rglob("*.cs"))
-            if "--include-prepared-tests" in sys.argv and name in ("Tests.Editor", "Tests.PlayMode"):
-                suite = "Editor" if name == "Tests.Editor" else "PlayMode"
-                sources.extend(sorted((PROJECT / "PreparedRoadmap~/Tests" / suite).rglob("*.cs")))
             if name == "Kruty1918.LevelGen":
                 sources = [path for path in sources if "LevelKitBridge" not in path.parts]
             if name == "Kruty1918.LevelGen.LevelKitBridge":

@@ -11,6 +11,21 @@ namespace QuietCamp.Application
         public static int Index(string id)
         { for (int i = 0; i < Count; i++) if (LevelIds[i] == id) return i; return -1; }
         public static bool Contains(string id) => Index(id) >= 0;
+        public static bool LegacyBeyondPilot(ProgressionService progress)
+        {
+            bool Beyond(string id)
+            {
+                if(id==null)return false;
+                if(id.StartsWith("QC",StringComparison.Ordinal)&&int.TryParse(id.Substring(2),out int number))return number>Count;
+                const string generatedMain="gen:qc_camp:";
+                return id.StartsWith(generatedMain,StringComparison.Ordinal)&&int.TryParse(id.Substring(generatedMain.Length),out int generated)&&generated>0;
+            }
+            if(Beyond(progress.LastLevelId))return true;
+            foreach(var id in progress.CompletedIds)if(Beyond(id))return true;
+            return false;
+        }
+        public static bool Completed(ProgressionService progress,string id)
+            =>Contains(id)&&(progress.IsCompleted(id)||LegacyBeyondPilot(progress));
         public static int Frontier(Func<string, bool> completed)
         { for (int i = 0; i < Count; i++) if (!completed(LevelIds[i])) return i; return Count - 1; }
         public static bool Finished(Func<string, bool> completed)

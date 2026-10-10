@@ -40,7 +40,13 @@ namespace QuietCamp.Presentation.World
         public int OwnedVoiceCount => (_fire.IsValid ? 1 : 0) + (_crickets.IsValid ? 1 : 0)
             + (_rain.IsValid ? 1 : 0) + (_canvas.IsValid ? 1 : 0)
             + (_biomeBed.IsValid ? 1 : 0) + (_water.IsValid ? 1 : 0) + _accents.Count;
-        public void SetVisibility(float weight) => _visibility = Mathf.Clamp01(weight);
+        public void SetVisibility(float weight)
+        {
+            _visibility = Mathf.Clamp01(weight);
+            // A hidden atmosphere no longer advances; its already playing voices still need the fade.
+            foreach(var handle in new[]{_fire,_crickets,_rain,_canvas,_biomeBed,_water})_audio?.SetPlaybackScale(handle,_visibility);
+            foreach(var accent in _accents)_audio?.SetPlaybackScale(accent.handle,_visibility);
+        }
 
         public void Configure(CampAtmosphere atmosphere, LevelData level,
             AtmosphereCatalog.Profile profile, Transform decor, AudioService audio)

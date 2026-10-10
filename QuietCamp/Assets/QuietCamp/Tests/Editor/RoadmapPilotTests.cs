@@ -24,5 +24,16 @@ namespace QuietCamp.Tests
             Assert.AreEqual(-1,RoadmapPilotPolicy.Index("gen:qc_camp:18"));
             CollectionAssert.AreEqual(new[]{"QC001","QC002","QC003","QC004","QC005"},RoadmapPilotPolicy.LevelIds);
         }
+        [Test] public void OlderMainProgressIsPresentedAsCompletedWithoutRewritingIt()
+        {
+            var progress=new ProgressionService();progress.Restore(new[]{"QC012"},"QC012",3);
+            foreach(var id in RoadmapPilotPolicy.LevelIds)Assert.IsTrue(RoadmapPilotPolicy.Completed(progress,id));
+            Assert.AreEqual(1,progress.CompletedCount);Assert.AreEqual(3,progress.CosmeticFlags);
+            progress.Restore(new[]{"gen:qc_camp:12"},"gen:qc_camp:12",0);
+            Assert.IsTrue(RoadmapPilotPolicy.LegacyBeyondPilot(progress));
+            progress.Restore(new[]{"QC_LH008","bonus:lighthouse"},"QC_LH008",0);
+            Assert.IsFalse(RoadmapPilotPolicy.LegacyBeyondPilot(progress));
+            Assert.IsFalse(RoadmapPilotPolicy.Completed(progress,"QC001"));
+        }
     }
 }

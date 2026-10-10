@@ -331,25 +331,16 @@ namespace QuietCamp.Presentation.UI
                     + HtmlUi.Text("✓", "big win")
                     + HtmlUi.Text(T("rule.ok"), "big")
                     + HtmlUi.Text(T("celebrate.next"), "sub")
-                    + StorySummary()
                     + (_services.Tutorial.RewardOwned && _session.Level.id == "QC005"
                         ? "<view class=\"guide-farewell\"><img class=\"guide-portrait\" src=\"res:QuietCamp/UI/Mentor/farewell\"/>"
                             + HtmlUi.Text(T("guide.farewell"), "guide-instruction") + "</view>"
                             + HtmlUi.Text(T("guide.reward.earned"), "guide-reward") : "")
                     + OverlayButton("memory-album", "menu.album", () => Action("qc.album"), "quiet")
-                    + (_services.Tutorial.Finished && _session.Level.id == "QC005"
-                        ? OverlayButton("next", "menu.main", () => Action("qc.menu"), "primary")
-                        : OverlayButton("next", BonusCampCatalog.ForLevel(_session.Level.id)!=null?"menu.levels":"action.next", () => Action("qc.next"), "primary"))
+                    + OverlayButton("next", "menu.levels", () => Action("qc.next"), "primary")
                     + "</view></view>");
             }
             sb.Append("</view>");
             return sb.ToString();
-        }
-
-        string StorySummary()
-        {
-            var key = _services.Journeys.ForLevel(_session.Level.id)?.StoryKey(_session.Level.id);
-            return string.IsNullOrEmpty(key) ? "" : HtmlUi.Text(T(key), "s-sub");
         }
 
         string Sheet()

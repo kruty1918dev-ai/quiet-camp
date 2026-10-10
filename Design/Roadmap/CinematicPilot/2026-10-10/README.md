@@ -8,7 +8,10 @@
 
 Native bake та дев’ять production URP-композицій виконані 10.10.2026. Shader errors відсутні. Frustum-submitted geometry: максимум 144 228 трикутники Balanced і 76 818 Low; п’ять спільних матеріалів, максимум три детальні частини. Це оцінка поданої геометрії, не mobile FPS чи GPU timing. Native assets мають двійкові meshes і займають близько 65 МБ.
 
-Game View уже перевірив цикл QC001–QC005 та повернення на мапу, drag без запуску, старий прогрес, portrait/landscape й зміни якості. Повний integration test поки **Failed** на перевірці кількості матеріалів при повторних входах; діагностика й усунення тривають. Записані 193 кадри маршруту ще потребують фінального video artifact. Фінальне приймання не оголошується. Player builds не запускаються. `QC_Renderer.asset` з користувацькою зміною не входить до commits.
+Повний native Game View integration test **Passed** 10.10.2026: цикл QC001–QC005 і повернення на мапу, drag без запуску, старий прогрес з пропущеними записами, replay, synthetic notch, portrait/landscape, Low/Balanced, reduced motion та переривання прольоту. Чотири повторні входи мають однакові counts: 2 камери, 406 матеріалів і 228 meshes у всьому QA Editor; нових матеріалів між входами немає. Це глобальні counts після прогріву, не бюджет самого світу.
+
+Пробник прогресу/сесій/збережень: 14 contract groups Passed; усі 110 main, 143 journey і 21 bonus puzzles пройшли validator, saved witness та independent solver. Аудіопристрій Editor вимкнено після FMOD crash; цей візуальний прогін не перевіряє фактичне звучання. Player builds не запускались. `QC_Renderer.asset` з користувацькою зміною збережено й не входить до commits. Записані 193 кадри маршруту готуються у video artifact.
+
 
 Джерела: `QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot`. Native publication: `Quiet Camp/Cinematic Roadmap/Bake Five Places`. Перевірений приватний PID/proc/network + masked-USB запуск: `bash tools/render_diorama_editor_isolated.sh --cinematic` після `--probe`.
 

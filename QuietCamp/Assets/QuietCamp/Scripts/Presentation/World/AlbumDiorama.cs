@@ -28,20 +28,14 @@ namespace QuietCamp.Presentation.World
         void OnScreen(string screen)
         {
             var album=(screen=="Album" || screen=="AlbumQuiet") && (_services.Save.Album.entries?.Length??0)>0;
-            var preview=screen=="JourneyPreview" && (_screens.SelectedJourney?.levelIds.Length??0)>0;
-            var map=screen=="Levels"||screen=="BonusPreview"||screen=="BranchPreview";
-            if (_menuWorld != null) _menuWorld.gameObject.SetActive(!album&&!map&&!preview);
-            if (_drift!=null)_drift.enabled=!album&&!map&&!preview;
-            _menuAtmosphere?.SetSuspended(album||map||preview);
+            var map=screen=="Levels";
+            if (_menuWorld != null) _menuWorld.gameObject.SetActive(!album&&!map);
+            if (_drift!=null)_drift.enabled=!album&&!map;
+            _menuAtmosphere?.SetSuspended(album||map);
             if(map){StopSwap();Release();return;}
             try
             {
                 if(album) Select(_services.AlbumIndex);
-                else if(preview)
-                {
-                    StopSwap(); var journey = _screens.SelectedJourney;
-                    BuildCamp(new QuietCamp.Application.AlbumSaveData.Entry { levelId = journey.previewLevelId ?? journey.levelIds[0] });
-                }
                 else { StopSwap();Release();RenderSettings.sun=_menuWorld?.Find("DirectionalLight")?.GetComponent<Light>(); _menuAtmosphere?.Apply(AtmosphereCatalog.Load().Get(_menuAtmosphere.PhaseId)); }
             }
             catch { StopSwap(); Release(); }
@@ -139,8 +133,8 @@ namespace QuietCamp.Presentation.World
         }
         void Bind()
         {
-            if(_screens.Current!="Album" && _screens.Current!="AlbumQuiet" && _screens.Current!="JourneyPreview")return;
-            _viewport=_screens.Overlay.Element(_screens.Current=="JourneyPreview" ? "journey-viewport" : "album-viewport");
+            if(_screens.Current!="Album" && _screens.Current!="AlbumQuiet")return;
+            _viewport=_screens.Overlay.Element("album-viewport");
             if(_viewport!=null){var drag=_viewport.GetComponent<AlbumRotateInput>()??_viewport.gameObject.AddComponent<AlbumRotateInput>();drag.Owner=this;}
             var entries=_services.Save.Album.entries??Array.Empty<QuietCamp.Application.AlbumSaveData.Entry>();
             for(int i=0;i<entries.Length;i++)

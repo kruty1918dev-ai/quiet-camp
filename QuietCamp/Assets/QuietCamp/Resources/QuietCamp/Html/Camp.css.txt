@@ -24,17 +24,12 @@ button:disabled { opacity: 0.42; }
 .hint-control text { font-size: 32px; }
 .check-notice { font-size: 28px; color: #344d40; background-color: rgba(246,240,223,.96); padding: 14px 20px; border-radius: 18px; white-space: normal; width: 100%; }
 .story-skip { position: absolute; bottom: 28px; right: 28px; }
-.journey-viewport { height: 380px; width: 100%; }
 .quiet-viewport { position: absolute; inset: 0; }
 .quiet-back { position: absolute; top: 24px; left: 28px; min-width: 144px; }
 .title { font-size: 42px; font-weight: bold; margin-bottom: 16px; }
 .small { font-size: 24px; color: #5d7061; }
-/* Top edge: hint and pause orbs — the level identity lives in the pause
-   sheet instead of a permanent literal chip over the board. */
 .top { position: absolute; top: 24px; left: 28px; right: 28px; gap: 16px; flex-direction: row; align-items: flex-start; justify-content: flex-end; }
 .top > button { min-width: 96px; }
-/* The wordmark floats over the camp. A full-frame veil replaces the
-   oversized logo panel; it never participates in input or world geometry. */
 .menu-atmosphere { position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(180deg, rgba(18,35,29,0.64) 0%, rgba(18,35,29,0.35) 24%, rgba(18,35,29,0.08) 44%, rgba(18,35,29,0) 64%, rgba(18,35,29,0.34) 100%); }
 .menu-top { top: 28px; left: 36px; right: 36px; }
 .menu-top .orb { background-color: rgba(246,240,223,0.82); }
@@ -49,8 +44,6 @@ button:disabled { opacity: 0.42; }
 .cta .cta-title { width: 100%; font-size: 36px; font-weight: bold; color: #f6f0df; text-align: center; }
 .cta .cta-sub { width: 100%; font-size: 22px; color: #d4dbc5; text-align: center; }
 .menu-cards { width: 100%; flex-direction: row; gap: 18px; }
-/* Quiet parchment destinations use the guest-card palette and share its
-   proportions. Illustrations stay small; the forest remains the subject. */
 .menu-card { flex-grow: 1; flex-basis: 0; flex-direction: column; min-height: 136px; padding: 18px 20px; border-radius: 32px; border-width: 2px; border-color: rgba(176,150,105,0.3); background-color: rgba(246,240,223,0.86); pointer-events: all; }
 .menu-card .mc-main { flex-direction: row; align-items: center; gap: 14px; width: 100%; }
 .menu-card .mc-hex { width: 62px; height: 72px; background-size: contain; background-repeat: no-repeat; background-position: center; }
@@ -59,14 +52,8 @@ button:disabled { opacity: 0.42; }
 .menu-card .mc-text { flex-grow: 1; flex-shrink: 1; min-width: 0; align-items: flex-start; gap: 3px; }
 .menu-card .mc-title { width: 100%; font-size: 26px; font-weight: bold; color: #243e35; text-align: left; }
 .menu-card .mc-sub { width: 100%; font-size: 21px; color: #5d7061; text-align: left; }
-/* DOTween owns press, entry and exit transforms through CampControlFeedback
-   and the shared motion bridge. CSS only owns resting appearance. */
-/* Dimmer: full-bleed backdrop button. Zero-radius, no borders — it is a
-   lighting layer, not a panel. pointer-events:all keeps the transparent
-   variant raycastable so an outside tap always reaches it. */
 .dim { position: absolute; inset: 0; border-radius: 0; border-width: 0; min-height: 0; padding: 0; pointer-events: all; background-color: rgba(0,0,0,0); background-image: linear-gradient(180deg, rgba(20,32,26,0.28) 0%, rgba(20,32,26,0.5) 55%, rgba(14,24,20,0.64) 100%); }
 .dim.clear { background-image: none; }
-/* sheet-zone has no background → it never eats taps meant for the dim. */
 .sheet-zone { position: absolute; inset: 0; justify-content: flex-end; padding: 28px; }
 .sheet { max-height: 86%; width: 100%; max-width: 960px; align-self: center; gap: 20px; pointer-events: auto; }
 .sheet > scroll { flex-shrink: 1; min-height: 80px; }
@@ -81,7 +68,6 @@ button:disabled { opacity: 0.42; }
 .dock-tools > .icon { width: 144px; min-width: 144px; padding: 10px; font-size: 34px; }
 .dock-tools .guest-list-button { margin-right: auto; }
 .dock-tools .check-button { min-width: 160px; }
-/* Guest card: the one casual control — tent icon + name + wishes. */
 .guest-card { min-height: 160px; flex-direction: row; align-items: center; gap: 18px; flex-grow: 1; flex-shrink: 1; min-width: 0; padding: 14px 22px; border-radius: 32px; background-image: linear-gradient(180deg, rgba(250,245,230,0.97) 0%, rgba(238,231,210,0.97) 100%); border-width: 2px; border-color: rgba(176,150,105,0.4); }
 .guest-card text { text-align: left; }
 .guest-card .gc-icon { font-size: 52px; color: #b0763a; }
@@ -101,16 +87,13 @@ button:disabled { opacity: 0.42; }
 .context .row > button { flex-grow: 0; flex-basis: auto; }
 .context .close { min-height: 88px; min-width: 88px; padding: 8px; }
 .context .verbs > button { flex-grow: 1; }
-/* Issue pill: calm amber, only after the player asked for a check. */
 .message { position: absolute; top: 150px; left: 28px; right: 28px; align-items: center; }
 .message button { min-height: 88px; max-width: 95%; color: #7c4a1e; background-image: linear-gradient(180deg, #fbefd8 0%, #f2e0bb 100%); border-color: rgba(176,120,50,0.5); }
-/* Tutorial: a small breath-sized pill that fades instead of a banner. */
 .tutorial { align-items: center; margin-bottom: 12px; pointer-events: none; }
 .tutorial .pill { padding: 16px 26px; background-color: rgba(36,62,53,0.88); border-radius: 44px; max-width: 80%; }
 .tutorial .arr { color: rgba(36,62,53,0.9); font-size: 30px; margin-top: -2px; }
 .tutorial text { pointer-events: none; color: #f6f0df; text-align: center; font-size: 36px; }
 .gc-chev { font-size: 44px; font-weight: bold; color: rgba(166,109,53,0.75); margin-left: 4px; }
-/* Chip anchored over a placed tent: name tag + rotate/remove orbs. */
 .tent-chip { position: absolute; align-items: center; gap: 10px; }
 .tent-chip .tag { background-color: rgba(36,62,53,0.88); border-radius: 28px; padding: 8px 20px; }
 .tent-chip .tag { align-items: center; max-width: 480px; }
@@ -118,12 +101,10 @@ button:disabled { opacity: 0.42; }
 .tent-chip .tag .chip-wish { font-size: 30px; color: #e4e5cd; }
 .tent-chip .verbs { flex-direction: row; gap: 10px; pointer-events: auto; }
 .tent-chip .verbs button { min-height: 144px; min-width: 144px; width: 144px; padding: 8px; border-radius: 72px; font-size: 36px; }
-/* Completion stays near the bottom so the finished campsite remains visible. */
 .celebrate { position: absolute; inset: 0; justify-content: flex-end; align-items: center; padding: 28px; }
 .celebrate .card { pointer-events: auto; align-items: center; gap: 14px; padding: 34px 44px; border-radius: 44px; background-image: linear-gradient(180deg, rgba(250,245,230,0.98) 0%, rgba(238,231,210,0.98) 100%); border-width: 2px; border-color: rgba(176,150,105,0.5); max-width: 960px; width: 100%; }
 .celebrate .card .big { font-size: 44px; font-weight: bold; color: #243e35; }
 .celebrate .card .sub { font-size: 26px; color: #5d7061; }
-/* Settings: category cards first, then focused full-width rows. */
 .nav { flex-direction: row; align-items: center; gap: 18px; }
 .nav .title { flex-grow: 1; }
 .nav-back { width: 88px; min-width: 88px; height: 88px; padding: 0; border-radius: 44px; font-size: 46px; font-weight: bold; background-color: rgba(36,62,53,0.1); color: #243e35; }
@@ -147,21 +128,14 @@ toggle:checked { background-color: #35584a; border-color: #243e35; }
 .group { margin-top: 22px; color: #5d7061; font-size: 25px; }
 .toast { position: absolute; top: 255px; left: 9%; right: 9%; padding: 24px; border-radius: 24px; background-color: rgba(36,62,53,0.96); }
 .toast text { pointer-events: none; color: #f6f0df; text-align: center; }
-/* Slim quiet scrollbars — phones don't need a desktop-width track. */
 _scrollbar { background-color: rgba(36,62,53,0.05); width: 5px; }
 _scrollbar-thumb { background-color: rgba(36,62,53,0.22); border-radius: 3px; }
-/* Full-screen overlay doc. pointer-events:none maps to a blocking CanvasGroup
-   in the UGUI backend (it would silence children) — transparent views never
-   produce a raycast target on their own, so "none" is neither needed nor safe. */
 .dimroot { }
 .grow { flex-grow: 1; }
 .orb { width: 144px; min-width: 144px; min-height: 144px; padding: 10px; border-radius: 72px; font-size: 34px; }
 .gc-text { flex-grow: 1; flex-shrink: 1; min-width: 0; }
 .guest-card.idle { justify-content: center; }
-/* Chip centers itself over the projected tent-top anchor. */
 .tent-chip { translate: -50% -100%; }
-
-/* Fixed-size pictograms are independent of the accessibility text scale. */
 switch { flex-shrink: 0; width: 124px; height: 68px; margin: 0; }
 .ico { width: 62px; height: 62px; min-width: 62px; min-height: 62px; flex-shrink: 0; background-size: contain; background-repeat: no-repeat; background-position: center; pointer-events: none; }
 .ico-tent { background-image: url(res:QuietCamp/UI/Atlas/hex_tent); }
@@ -191,85 +165,12 @@ switch { flex-shrink: 0; width: 124px; height: 68px; margin: 0; }
 .wish-icons .ico { width: 48px; height: 48px; min-width: 48px; min-height: 48px; }
 .guest-card .gc-name { font-size: 42px; }
 .guest-card .tent-art { width: 104px; height: 104px; }
-
 .menu-atmosphere, .dim { top: 0; bottom: 0; left: 0; right: 0; width: 100%; height: 100%; }
 .full-menu { gap: 22px; padding: 32px; }
-.map-menu { background-color: #3f573c; gap: 0; padding: 0; }
-.map-menu .full-header { background-color: #f1ead4; border-radius: 0; width: 100%; padding: 24px 32px; }
-.map-menu .map-scroll { border-radius: 0; overflow: hidden; }
 .full-header { flex-direction: row; align-items: center; gap: 24px; padding: 22px 28px; }
 .full-title { font-size: 42px; font-weight: bold; flex-shrink: 1; min-width: 0; }
-.map-stories { margin-left: auto; max-width: 42%; min-height: 104px; padding: 14px 20px; }
-.map-stories text { font-size: 28px; white-space: normal; }
 .economy-panel .s-sub { font-size: 30px; white-space: normal; width: 100%; }
-.map-scroll { flex-grow: 1; flex-shrink: 1; min-height: 0; width: 100%; }
-.roadmap { width: 100%; position: relative; }
-.roadmap-art { position: absolute; inset: 0; width: 100%; height: 100%; }
-.map-stop { position: absolute; width: 200px; margin-left: -100px; align-items: center; gap: 10px; }
-.map-node { width: 100px; height: 82px; min-height: 82px; padding: 8px; border-radius: 22px; border-width: 3px; border-color: #877b54; background-color: #dcd5b4; background-image: linear-gradient(155deg, #eee4c6 0%, #b8ba91 100%); }
-.map-node .node-number { font-size: 40px; font-weight: bold; }
-.map-node.selected { border-color: #d29c4c; border-width: 5px; background-color: #fff0c9; }
-.map-node.done { background-color: #a0b787; background-image: linear-gradient(155deg, #d0ddb2 0%, #829f73 100%); }
-.map-node.locked { background-color: #788d69; background-image: linear-gradient(155deg, #b6bca0 0%, #718766 100%); opacity: .94; }
-.node-status { position: absolute; right: -6px; bottom: -4px; width: 46px; height: 46px; min-width: 46px; min-height: 46px; }
-.map-wishes { flex-direction: row; gap: 8px; }
-.map-wishes .ico { width: 40px; height: 40px; min-width: 40px; min-height: 40px; }
-.map-district { position: absolute; left: 50%; transform: translateX(-50%); width: 420px; align-items: center; }
-.map-district-name { font-size: 30px; font-weight: bold; color: #fdf3d0; text-align: center; background-color: rgba(43,61,47,.72); padding: 6px 22px; border-radius: 20px; border-width: 2px; border-color: #877b54; }
-.map-district.act-2 .map-district-name { color: #e9d9ff; background-color: rgba(52,47,79,.78); border-color: #9a86c4; }
-.map-district.act-3 .map-district-name { color: #ffe3b3; background-color: rgba(84,58,38,.78); border-color: #c49a62; }
-.map-district.act-4 .map-district-name { color: #d8e8f2; background-color: rgba(39,54,74,.78); border-color: #7d9ab5; }
-.map-district.act-5 .map-district-name { color: #d2f2e4; background-color: rgba(31,68,58,.78); border-color: #6fae94; }
-.map-branch-stop { position: absolute; width: 300px; margin-left: -150px; align-items: center; gap: 10px; }
-.map-branch-node { width: 300px; min-height: 108px; padding: 12px 20px; gap: 6px; flex-direction: column; border-radius: 30px; border-width: 3px; border-color: #7c9a86; background-image: linear-gradient(145deg, #dcead8 0%, #a8c4ab 100%); }
-.map-branch-node.branch-ready { border-color: #5f9a72; border-width: 5px; }
-.branch-name { font-size: 26px; font-weight: bold; width: 100%; white-space: normal; text-align: center; color: #2c4634; }
-.bonus-preview-art.theme-lantern { background-image: linear-gradient(180deg, #31404f 0%, #6b7d5e 100%); }
-.bonus-preview-art.theme-creek { background-image: linear-gradient(180deg, #4d7a8c 0%, #9bb87a 100%); }
-.bonus-preview-art.theme-meadow { background-image: linear-gradient(180deg, #7aa06b 0%, #b8cf8e 100%); }
-.bonus-preview-art.theme-pinewood { background-image: linear-gradient(180deg, #3d5c46 0%, #77936b 100%); }
-.bonus-preview-art.theme-birch { background-image: linear-gradient(180deg, #9db06e 0%, #d0d9a0 100%); }
-.bonus-preview-art.theme-quarry { background-image: linear-gradient(180deg, #6e6e62 0%, #a09a84 100%); }
-.bonus-preview-art.theme-orchard { background-image: linear-gradient(180deg, #86a05c 0%, #cdbd7a 100%); }
-.bonus-preview-art.theme-highmoor { background-image: linear-gradient(180deg, #55655c 0%, #8fa084 100%); }
-.bonus-preview-art.theme-homestead { background-image: linear-gradient(180deg, #8c7a5b 0%, #c2ad7f 100%); }
-.bonus-preview-art.theme-spring { background-image: linear-gradient(180deg, #88b46e 0%, #cfe2a2 100%); }
-.bonus-preview-art.theme-summer { background-image: linear-gradient(180deg, #6d9e5a 0%, #b7cc82 100%); }
-.bonus-preview-art.theme-autumn { background-image: linear-gradient(180deg, #a3795a 0%, #cf9e6b 100%); }
-.bonus-preview-art.theme-overlook { background-image: linear-gradient(180deg, #7d8ba0 0%, #b5bfa8 100%); }
-.bonus-preview-art.theme-cliff { background-image: linear-gradient(180deg, #6a7484 0%, #9aa48e 100%); }
-.bonus-preview-art.theme-lagoon { background-image: linear-gradient(180deg, #2e5d66 0%, #5f9384 100%); }
-.bonus-preview-art.theme-marshal { background-image: linear-gradient(180deg, #5a5f52 0%, #8c8f74 100%); }
-.bonus-preview-art.theme-summit { background-image: linear-gradient(180deg, #7e8ea0 0%, #cfdbe4 100%); }
-.map-bonus-stop { position: absolute; width: 320px; margin-left: -160px; align-items: center; gap: 10px; }
-.map-bonus-node { width: 320px; min-height: 132px; padding: 14px 22px; gap: 5px; flex-direction: column; border-radius: 34px; border-width: 3px; border-color: #b39350; background-image: linear-gradient(145deg, #fbefc8 0%, #ddd6a8 100%); }
-.map-bonus-node.bonus-ready { border-color: #c89643; border-width: 5px; }
-/* World reveal: beyond the horizon nodes collapse into a quiet silhouette —
-   the world continues, but nothing inspectable leaks through the mist. */
-.map-node.hidden { width: 68px; height: 56px; min-height: 56px; border-radius: 28px; border-color: #7d8b70; opacity: .5; background-image: linear-gradient(160deg, #b3bda0 0%, #8b9a7e 100%); }
-.map-bonus-node.veiled, .map-branch-node.veiled { opacity: .42; }
-.map-branch-node.veiled { min-height: 64px; width: 180px; }
-.map-bonus-node.veiled { min-height: 80px; width: 200px; }
-.bonus-heading { flex-direction: row; align-items: center; gap: 8px; }
-.bonus-heading .ico { width: 28px; height: 28px; min-width: 28px; min-height: 28px; }
 .ico-bonus { background-image: url(res:QuietCamp/UI/Atlas/orb_leaf); }
-.bonus-eyebrow { font-size: 21px; color: #806335; }
-.bonus-name { font-size: 27px; font-weight: bold; width: 100%; white-space: normal; text-align: center; }
-.bonus-caption { font-size: 22px; color: #f3ecd3; text-align: center; background-color: rgba(27,49,39,.55); padding: 3px 12px; border-radius: 12px; }
-.bonus-preview { gap: 18px; width: 100%; }
-.bonus-preview-art { height: 280px; width: 100%; background-image: linear-gradient(180deg, #6e8b65 0%, #98aa79 100%); border-radius: 28px; overflow: hidden; pointer-events: none; }
-.bonus-preview-art.theme-amber { background-image: linear-gradient(180deg, #8c8c5b 0%, #bbb077 100%); }
-.bonus-preview-art.theme-fireflies { background-image: linear-gradient(180deg, #263f3b 0%, #506c56 100%); }
-.bonus-preview-art.theme-frost { background-image: linear-gradient(180deg, #5d7086 0%, #a8bccb 100%); }
-.bonus-description { font-size: 29px; width: 100%; white-space: normal; }
-.bonus-requirements { gap: 12px; padding: 16px; border-radius: 22px; background-color: #e1e7ce; }
-.bonus-requirements .ico { width: 44px; height: 44px; min-width: 44px; min-height: 44px; }
-.bonus-condition { font-size: 27px; flex-grow: 1; flex-shrink: 1; flex-basis: 0; white-space: normal; }
-.bonus-count { font-size: 28px; color: #557352; }
-.bonus-progress { height: 10px; background-color: #b9c8a9; border-radius: 5px; overflow: hidden; }
-.bonus-progress-fill { height: 100%; background-color: #ac8548; border-radius: 5px; }
-.bonus-note { font-size: 25px; color: #5d7061; white-space: normal; width: 100%; }
-.bonus-play { width: 100%; }
 .album-menu { background-image: linear-gradient(180deg, rgba(240,237,213,.65) 0%, rgba(240,237,213,0) 16%, rgba(240,237,213,0) 74%, rgba(240,237,213,.72) 100%); }
 .album-viewport { flex-grow: 1; min-height: 160px; background-color: rgba(0,0,0,0); pointer-events: all; }
 .album-info { align-items: center; gap: 16px; padding: 16px 32px; }
@@ -279,18 +180,11 @@ switch { flex-shrink: 0; width: 124px; height: 68px; margin: 0; }
 .album-thumbnails { flex-direction: row; gap: 18px; padding: 12px 24px; }
 .album-thumb { width: 144px; height: 144px; min-height: 144px; padding: 12px; border-radius: 28px; gap: 6px; }
 .album-empty { flex-grow: 1; justify-content: center; align-items: center; gap: 28px; }
-
 .album-thumb-art { width: 124px; height: 124px; flex-shrink: 0; }
 .guest-row { flex-direction: row; align-items: center; gap: 18px; min-height: 104px; }
 .guest-row text { flex-grow: 1; }
-
-.map-wishes .person { transform: scale(.64); transform-origin: center; top: -1px; }
-.map-wishes .person.left { left: -4px; top: 4px; }
-.map-wishes .person.right { right: -4px; }
-
 .wish-explanation { flex-direction: row; gap: 24px; align-items: center; padding: 12px 0; }
 .wish-explanation text { flex-shrink: 1; }
-
 .ico-tent { background-image: url(res:QuietCamp/UI/Icons/tent); }
 .ico-map { background-image: url(res:QuietCamp/UI/Icons/map); }
 .ico-shade { background-image: url(res:QuietCamp/UI/Icons/shade); }
@@ -312,48 +206,37 @@ switch { flex-shrink: 0; width: 124px; height: 68px; margin: 0; }
 .ico-redo, .ico-back { transform: none; }
 .menu-card .hex_map { background-image: url(res:QuietCamp/UI/Icons/map); }
 .menu-card .hex_tent { background-image: url(res:QuietCamp/UI/Icons/tent); }
-
-.bonus-card { margin: 14px 0; padding: 12px; border-radius: 20px; background-color: rgba(231,225,196,0.65); gap: 10px; flex-shrink: 0; }
-
 .toggle-row .tr-text { flex-basis: 0; margin-right: 18px; }
 .toggle-row .tr-text > label { width: 100%; white-space: normal; }
-.bonus-card { width: 100%; }
-.bonus-card > button text { width: 100%; white-space: normal; }
-
 .privacy-notice { width: 100%; gap: 18px; }
 .privacy-notice > button text { width: 100%; white-space: normal; }
-
-/* Container media is refreshed by UnityHTML without rebuilding controls. */
 button text, .gc-text text { white-space: normal; }
 .dock-tools { flex-wrap: wrap; }
 .orientation-choice { min-height: 144px; padding: 12px 16px; }
 .orientation-choice text { width: 100%; flex-shrink: 1; white-space: normal; text-align: center; }
 @media (layout: wide) {
-    .brand { left: 5%; right: auto; width: 620px; top: 16%; align-items: flex-start; }
-    .brand text { text-align: left; }
-    .brand .brand-title { font-size: 70px; }
-    .menu-actions { left: 5%; right: auto; width: 620px; bottom: 8%; }
-    .menu-cards { flex-direction: column; gap: 12px; }
-    .menu-card { min-height: 104px; padding: 14px 22px; }
-    .bottom { left: 100%; margin-left: -752px; right: 0; width: 720px; bottom: 32px; }
-    .tutorial .pill { max-width: 100%; }
-    .message { right: 644px; }
-    .sheet { max-width: 860px; max-height: 92%; }
-    .album-menu .full-header { max-width: 1120px; align-self: center; width: 100%; }
-    .map-menu .full-header, .map-menu .map-scroll { width: 100%; }
-    .album-info { flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px; }
-    .album-menu { background-image: none; }
-    .album-menu .full-header { background-color: rgba(246,240,223,.88); border-radius: 32px; }
-    .album-info { max-width: 1120px; align-self: center; width: 100%; background-color: rgba(246,240,223,.88); border-radius: 32px; }
-    .album-info .album-name { flex-grow: 1; flex-shrink: 1; flex-basis: 0; min-width: 200px; }
-    .album-info > button { width: 440px; max-width: 60%; flex-shrink: 1; }
-    .album-info > .s-sub { width: 100%; white-space: normal; text-align: center; }
-    .album-strip { height: 156px; min-height: 156px; max-width: 1120px; align-self: center; }
-    .album-thumb { width: 128px; height: 128px; min-height: 128px; }
-    .album-thumb-art { width: 104px; height: 104px; }
+.brand { left: 5%; right: auto; width: 620px; top: 16%; align-items: flex-start; }
+.brand text { text-align: left; }
+.brand .brand-title { font-size: 70px; }
+.menu-actions { left: 5%; right: auto; width: 620px; bottom: 8%; }
+.menu-cards { flex-direction: column; gap: 12px; }
+.menu-card { min-height: 104px; padding: 14px 22px; }
+.bottom { left: 100%; margin-left: -752px; right: 0; width: 720px; bottom: 32px; }
+.tutorial .pill { max-width: 100%; }
+.message { right: 644px; }
+.sheet { max-width: 860px; max-height: 92%; }
+.album-menu .full-header { max-width: 1120px; align-self: center; width: 100%; }
+.album-info { flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px; }
+.album-menu { background-image: none; }
+.album-menu .full-header { background-color: rgba(246,240,223,.88); border-radius: 32px; }
+.album-info { max-width: 1120px; align-self: center; width: 100%; background-color: rgba(246,240,223,.88); border-radius: 32px; }
+.album-info .album-name { flex-grow: 1; flex-shrink: 1; flex-basis: 0; min-width: 200px; }
+.album-info > button { width: 440px; max-width: 60%; flex-shrink: 1; }
+.album-info > .s-sub { width: 100%; white-space: normal; text-align: center; }
+.album-strip { height: 156px; min-height: 156px; max-width: 1120px; align-self: center; }
+.album-thumb { width: 128px; height: 128px; min-height: 128px; }
+.album-thumb-art { width: 104px; height: 104px; }
 }
-
-/* Main menu: one action, two destinations, room for the living campsite. */
 .brand { top: 13%; gap: 2px; }
 .brand .brand-title { font-size: 60px; }
 .brand .tagline { margin-top: 12px; font-size: 25px; }
@@ -377,8 +260,6 @@ button text, .gc-text text { white-space: normal; }
 .menu-card:hover, .menu-card:focus { background-color: #f7f1df; border-color: #759068; }
 .cta:hover, .cta:focus { background-color: #355e4d; border-color: #c5d1ae; }
 .settings-panel button:focus { border-color: #8a734f; }
-
-/* Focused settings; the compact overview and detail sheets share one shell. */
 .settings-zone { position: absolute; inset: 0; padding: 28px; align-items: center; justify-content: center; }
 .settings-panel { width: 100%; max-width: 1480px; height: 88%; max-height: 1280px; padding: 30px; gap: 22px; border-width: 1px; background-image: none; background-color: #f5f0df; }
 .settings-panel.settings-root { max-width: 1040px; height: 980px; max-height: 88%; }
@@ -439,7 +320,6 @@ button text, .gc-text text { white-space: normal; }
 .legal-link text { font-size: 26px; width: 100%; white-space: normal; }
 .legal-license-text { width: 100%; white-space: normal; font-size: 20px; color: #52684f; }
 .settings-reset { margin-top: 28px; padding-top: 20px; border-top-width: 1px; border-color: rgba(91,112,77,.18); gap: 16px; }
-/* Relative geometry keeps the speaker proportionate at every icon size. */
 .ico-sound { position: relative; }
 .speaker-box { position: absolute; left: 8%; top: 37%; width: 23%; height: 32%; background-color: #365b43; border-radius: 3px; }
 .speaker-cone { position: absolute; left: 27%; top: 24%; width: 29%; height: 58%; background-color: #365b43; border-radius: 10px 3px 3px 10px; }
@@ -447,38 +327,36 @@ button text, .gc-text text { white-space: normal; }
 .speaker-wave.near { left: 45%; top: 29%; width: 27%; height: 48%; }
 .speaker-wave.far { left: 55%; top: 15%; width: 35%; height: 77%; }
 @media (layout: wide) {
-    .menu-atmosphere { background-image: linear-gradient(90deg, rgba(18,35,29,.58) 0%, rgba(18,35,29,.42) 28%, rgba(18,35,29,.12) 52%, rgba(18,35,29,0) 76%); }
-    .brand { left: 6%; right: auto; width: 43%; max-width: 720px; top: 16%; align-items: flex-start; }
-    .brand text { text-align: left; }
-    .brand .brand-title { font-size: 58px; }
-    .menu-actions { left: 6%; right: auto; width: 43%; max-width: 720px; bottom: 8%; }
-    .menu-cards { flex-direction: row; }
-    .menu-card { min-height: 140px; padding: 18px 16px; }
-    .settings-panel { height: 92%; padding: 32px; }
-    .settings-panel.settings-root { max-width: 1240px; height: 740px; max-height: 92%; }
-    .settings-home { flex-direction: row; align-items: stretch; gap: 32px; }
-    .settings-home-navigation, .settings-overview { width: auto; flex-grow: 1; flex-shrink: 1; flex-basis: 0; min-width: 0; }
-    .settings-overview { gap: 18px; padding-top: 0; }
-    .settings-overview .settings-secondary { flex-direction: column; }
-    .settings-overview .settings-secondary .set-cat { flex-grow: 0; flex-basis: auto; min-height: 96px; }
-    .settings-overview .language-options { flex-direction: column; gap: 10px; }
-    .settings-overview .language-options > button { width: 100%; min-height: 72px; flex-grow: 0; flex-basis: auto; }
-    .settings-panel.settings-topic-overview { height: 840px; max-height: 92%; }
-    .settings-layout { flex-direction: row; align-items: stretch; }
-    .settings-navigation { width: 320px; min-width: 320px; flex-shrink: 0; }
-    .settings-category .settings-navigation { display: flex; }
-    .settings-detail-scroll { width: auto; flex-grow: 1; flex-shrink: 1; flex-basis: 0; }
-    .settings-navigation .set-cat { min-height: 96px; padding: 16px 12px; gap: 12px; border-radius: 18px; }
-    .settings-navigation .sc-symbol { width: 40px; min-width: 40px; height: 48px; background-color: transparent; }
-    .settings-navigation .sc-symbol .ico { width: 36px; height: 36px; min-width: 36px; min-height: 36px; }
-    .settings-navigation .sc-name { font-size: 25px; }
-    .settings-navigation .sc-summary, .settings-navigation .sc-chevron { display: none; }
-    .settings-navigation .settings-secondary { flex-direction: column; margin-top: 20px; }
-    .settings-navigation .settings-secondary .set-cat { flex-grow: 0; flex-basis: auto; background-color: transparent; border-width: 0; }
-    .settings-navigation .settings-secondary .set-cat.selected { background-color: #d5e2c6; }
+.menu-atmosphere { background-image: linear-gradient(90deg, rgba(18,35,29,.58) 0%, rgba(18,35,29,.42) 28%, rgba(18,35,29,.12) 52%, rgba(18,35,29,0) 76%); }
+.brand { left: 6%; right: auto; width: 43%; max-width: 720px; top: 16%; align-items: flex-start; }
+.brand text { text-align: left; }
+.brand .brand-title { font-size: 58px; }
+.menu-actions { left: 6%; right: auto; width: 43%; max-width: 720px; bottom: 8%; }
+.menu-cards { flex-direction: row; }
+.menu-card { min-height: 140px; padding: 18px 16px; }
+.settings-panel { height: 92%; padding: 32px; }
+.settings-panel.settings-root { max-width: 1240px; height: 740px; max-height: 92%; }
+.settings-home { flex-direction: row; align-items: stretch; gap: 32px; }
+.settings-home-navigation, .settings-overview { width: auto; flex-grow: 1; flex-shrink: 1; flex-basis: 0; min-width: 0; }
+.settings-overview { gap: 18px; padding-top: 0; }
+.settings-overview .settings-secondary { flex-direction: column; }
+.settings-overview .settings-secondary .set-cat { flex-grow: 0; flex-basis: auto; min-height: 96px; }
+.settings-overview .language-options { flex-direction: column; gap: 10px; }
+.settings-overview .language-options > button { width: 100%; min-height: 72px; flex-grow: 0; flex-basis: auto; }
+.settings-panel.settings-topic-overview { height: 840px; max-height: 92%; }
+.settings-layout { flex-direction: row; align-items: stretch; }
+.settings-navigation { width: 320px; min-width: 320px; flex-shrink: 0; }
+.settings-category .settings-navigation { display: flex; }
+.settings-detail-scroll { width: auto; flex-grow: 1; flex-shrink: 1; flex-basis: 0; }
+.settings-navigation .set-cat { min-height: 96px; padding: 16px 12px; gap: 12px; border-radius: 18px; }
+.settings-navigation .sc-symbol { width: 40px; min-width: 40px; height: 48px; background-color: transparent; }
+.settings-navigation .sc-symbol .ico { width: 36px; height: 36px; min-width: 36px; min-height: 36px; }
+.settings-navigation .sc-name { font-size: 25px; }
+.settings-navigation .sc-summary, .settings-navigation .sc-chevron { display: none; }
+.settings-navigation .settings-secondary { flex-direction: column; margin-top: 20px; }
+.settings-navigation .settings-secondary .set-cat { flex-grow: 0; flex-basis: auto; background-color: transparent; border-width: 0; }
+.settings-navigation .settings-secondary .set-cat.selected { background-color: #d5e2c6; }
 }
-
-/* A quiet mentor stays beside the real action, including while a tent is held. */
 .guide-card { width: 100%; flex-direction: row; align-items: center; gap: 16px; padding: 14px 18px; border-radius: 28px; background-color: rgba(246,240,223,.95); border-width: 1px; border-color: rgba(105,126,90,.32); }
 .guide-portrait { width: 224px; height: 256px; max-width: 30%; flex-shrink: 0; object-fit: contain; }
 .guide-copy { flex-grow: 1; flex-shrink: 1; min-width: 0; gap: 10px; }
@@ -494,29 +372,19 @@ button text, .gc-text text { white-space: normal; }
 .guide-learning { min-height: 100px; width: 100%; margin-top: 8px; }
 .guide-learning-explain { width: 100%; white-space: normal; }
 @media (layout: wide) {
-    .guide-card { gap: 12px; padding: 14px; }
-    .guide-portrait { width: 216px; height: 248px; max-width: 36%; }
-    .guide-instruction { font-size: 32px; }
-    .guide-name { font-size: 28px; }
+.guide-card { gap: 12px; padding: 14px; }
+.guide-portrait { width: 216px; height: 248px; max-width: 36%; }
+.guide-instruction { font-size: 32px; }
+.guide-name { font-size: 28px; }
 }
 .menu-guide { margin-bottom: 18px; }
 .menu-guide .guide-portrait { width: 176px; height: 200px; }
 .guide-ok { flex-shrink: 0; align-self: center; min-height: 96px; padding: 14px 30px; }
-
 .guide-farewell { flex-direction: row; align-items: center; gap: 20px; }
 .guide-farewell .guide-instruction { flex-grow: 1; flex-shrink: 1; flex-basis: 0; }
 
-/* An invitation to a place, held over the world rather than a generic fullscreen sheet. */
-.branch-card { position: absolute; bottom: 28px; left: 4%; width: 92%; max-width: 700px; max-height: 82%; gap: 12px; padding: 22px; border-radius: 30px; }
-.branch-heading { flex-direction: row; align-items: center; gap: 12px; width: 100%; }
-.branch-title { font-size: 32px; font-weight: bold; flex-grow: 1; flex-shrink: 1; }
-.branch-heading .nav-back { width: 76px; height: 76px; min-width: 76px; min-height: 76px; padding: 8px; }
-.branch-preview-art { height: 190px; width: 100%; border-radius: 20px; overflow: hidden; background-image: linear-gradient(180deg, #b4c5a2 0%, #748d62 100%); pointer-events: none; }
-.branch-preview-art.identity-fireflies { background-image: linear-gradient(180deg, #223e3c 0%, #455f50 100%); }
-.branch-preview-art.identity-lighthouse { background-image: linear-gradient(180deg, #b5d2cc 0%, #a7ae8c 100%); }
-.branch-preview-art.identity-station { background-image: linear-gradient(180deg, #b8bdab 0%, #818a6b 100%); }
-.branch-description { font-size: 25px; white-space: normal; width: 100%; }
-.branch-progress, .branch-access-note { font-size: 23px; white-space: normal; color: #5d7061; }
-@media (min-width: 1100px) { .branch-card { left: auto; right: 32px; bottom: 28px; width: 600px; max-height: 90%; } }
-
-.branch-access-scroll { width: 100%; max-height: 450px; flex-shrink: 1; min-height: 0; }
+.cinematic-roadmap { position: absolute; inset: 0; background-color: transparent; }
+.roadmap-exit { position: relative; align-self: flex-start; margin-left: 24px; margin-top: 24px; width: 96px; height: 96px; min-width: 96px; min-height: 96px; padding: 0; border-width: 0; border-radius: 48px; background-color: rgba(246,243,223,0.005); pointer-events: all; color: #30463c; align-items: center; justify-content: center; }
+.roadmap-exit:hover, .roadmap-exit:active { background-color: rgba(246,243,223,0.005); }
+.roadmap-exit-disc { align-items: center; justify-content: center; background-color: rgba(246,243,223,0.86); pointer-events: none; }
+.roadmap-exit .ico { width: 32px; height: 32px; min-width: 32px; min-height: 32px; }

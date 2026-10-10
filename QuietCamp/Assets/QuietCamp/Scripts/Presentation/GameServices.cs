@@ -66,8 +66,8 @@ namespace QuietCamp.Presentation
 
         /// <summary>Level chosen in the menu, consumed by the Camp scene host.</summary>
         public string PendingLevelId { get; set; }
-        public int RoadmapAdvanceFrom = -1;
         public float LevelMapScroll = -1f;
+        public int RoadmapAdvanceFrom = -1;
         public Domain.RoadmapAnchor LevelMapAnchor;
         public string LevelMapJourney="main";
         public readonly Dictionary<string,Domain.RoadmapAnchor> LevelMapAnchors=new Dictionary<string,Domain.RoadmapAnchor>();
@@ -202,19 +202,27 @@ namespace QuietCamp.Presentation
             if (Save.Save()) return EconomyResult.Applied;
             Save.Entitlements.ownedIds = before; return EconomyResult.SaveFailed;
         }
+        public bool PilotCompleted(string id)=>RoadmapPilotPolicy.Completed(Progression,id);
         public bool CanStart(string id)
         {
             id = CampContent.CanonicalId(id);
 #if UNITY_EDITOR
             if (id == LevelLoader.TestLevelId()) return true;
 #endif
+            if (!RoadmapPilotPolicy.Contains(id)) return false;
+            if (RoadmapPilotPolicy.Index(id)>RoadmapPilotPolicy.Frontier(PilotCompleted)) return false;
             var bonus = BonusCampCatalog.ForLevel(id);
-            return bonus != null ? BonusCampCatalog.IsPublished(bonus) && (Economy.IsPro || BonusCamps.Evaluate(bonus).CanPlay) : JourneyAccess.Evaluate(id).CanStart;
+            if(bonus!=null)return BonusCampCatalog.IsPublished(bonus)&&(Economy.IsPro||BonusCamps.Evaluate(bonus).CanPlay);
+            var access=JourneyAccess.Evaluate(id);
+            return access.CanStart || (access.State==JourneyAccessState.Predecessor&&access.Journey.id=="main"
+                &&access.Journey.requiredCompletions==0&&(access.Journey.requiredLevelIds?.Length??0)==0
+                &&(Economy.IsPro||Save.Entitlements.Has(access.Journey.entitlementId))&&RoadmapPilotPolicy.LegacyBeyondPilot(Progression));
         }
         public string ContinueLevel()
         {
             var saved = CampContent.CanonicalId(Save.Session?.levelId);
-            return !string.IsNullOrEmpty(saved) && CanStart(saved) ? saved : JourneyAccess.ContinueTarget("main");
+            return !string.IsNullOrEmpty(saved) && CanStart(saved) ? saved
+                : RoadmapPilotPolicy.LevelIds[RoadmapPilotPolicy.Frontier(PilotCompleted)];
         }
         public EconomyResult BuyJourney(string id)
         {

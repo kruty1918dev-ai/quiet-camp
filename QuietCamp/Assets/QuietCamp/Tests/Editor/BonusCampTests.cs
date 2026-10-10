@@ -105,17 +105,5 @@ namespace QuietCamp.Tests
             var access=new BonusCampAccessService(new ProgressionService(),Ids,_=>true,_=>true).Evaluate(Definition(after));
             Assert.IsFalse(access.CanPlay);Assert.AreEqual(BonusCampState.Locked,access.State);
         }
-        [Test] public void ArtButtonsAndInitialScrollShareTheSameNonOverlappingRows()
-        {
-            float previous=-1;
-            for(int i=0;i<110;i++){float y=RoadmapLayout.MainY(i);Assert.Greater(y,previous);previous=y;}
-            foreach(var slot in BonusCampCatalog.Slots)
-            {
-                float y=RoadmapLayout.BonusY(slot);Assert.Greater(y-RoadmapLayout.MainY(slot.afterLevel-1),300);
-                if(slot.afterLevel<110)Assert.Greater(RoadmapLayout.MainY(slot.afterLevel)-y,400);
-                Assert.Less(y+300,RoadmapLayout.Height(110));
-                Assert.That(RoadmapLayout.BonusX(slot),Is.InRange(.2f,.8f));
-            }
-        }
     }
 }

@@ -1,4 +1,3 @@
-using RoadmapSceneGenerator = QuietCamp.Presentation.UI.Prepared.RoadmapSceneGenerator;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
@@ -37,19 +36,6 @@ namespace QuietCamp.Tests
             var previous = CampContent.CalculateHash(plain);
             plain.environmentalStory = null;
             Assert.AreEqual(previous, CampContent.CalculateHash(plain));
-        }
-
-        [Test] public void MapCannotRenderLevelOnlyDetailAndReusedPropsResetSilhouette()
-        {
-            var level = Level("QC001"); var summary = CampContent.Summary(level.id);
-            var world = RoadmapCompiler.BakeWorld(summary, level.environmentalStory);
-            Assert.IsTrue(world.props.Any(p => p.storyId == "wayside:shelter"));
-            Assert.IsFalse(world.props.Any(p => p.storyId == "wayside:board"));
-            var scene = RoadmapSceneGenerator.FromBaked(summary, world, AtmosphereCatalog.Load());
-            var silhouette = scene.Props.Single(p => p.StorySilhouette);
-            Assert.AreEqual("story_trail_shelter", silhouette.Asset);
-            var same = RoadmapSceneGenerator.FromBaked(summary, RoadmapCompiler.BakeWorld(summary), AtmosphereCatalog.Load(), reusable: scene);
-            Assert.IsFalse(same.Props.Any(p => p.StorySilhouette));
         }
 
         [Test] public void GameplayDetailsStayScenicAndCareReplacesRatherThanDuplicates()
@@ -93,15 +79,5 @@ namespace QuietCamp.Tests
             finally { if (moving != null) Object.DestroyImmediate(moving); if (rigid != null) Object.DestroyImmediate(rigid); }
         }
 
-        [Test] public void ProgressOnlyChangesAppearanceWithoutRevealingNewEvidence()
-        {
-            var level = Level("QC002"); var summary = CampContent.Summary(level.id);
-            var world = RoadmapCompiler.BakeWorld(summary, level.environmentalStory);
-            var scene = RoadmapSceneGenerator.FromBaked(summary, world, AtmosphereCatalog.Load(), completed: false);
-            Assert.AreEqual(.6f, scene.Props.Single(p => p.Asset == "log_stack" && p.Position.x == -13).Height);
-            var after = RoadmapSceneGenerator.FromBaked(summary, world, AtmosphereCatalog.Load(), reusable: scene, completed: true);
-            Assert.AreEqual(.8f, after.Props.Single(p => p.Asset == "log_stack" && p.Position.x == -13).Height);
-            Assert.IsTrue(after.StoryCompleted);
-        }
     }
 }

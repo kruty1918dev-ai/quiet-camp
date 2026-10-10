@@ -78,61 +78,6 @@ namespace QuietCamp.Tests
             yield return Shot("album_after_switch");Tap("back");yield return Frames(30);
             services.Settings.textScale=1;services.Localization.TrySetLanguage("uk");services.ReducedMotion=false;
         }
-        [UnityTest] public IEnumerator RoadmapAndOrientationControlsAcrossPhoneAndTablet()
-        {
-            if (UnityEngine.Application.isBatchMode) Assert.Ignore("Requires rendered Game View");
-            Size(720, 1600); yield return Boot(); var services = QuietCampBootstrap.ServicesRef;
-            services.ReducedMotion = true; services.LevelMapScroll = -1; services.Settings.textScale = 1.3f;
-            foreach (var size in new[] { new Vector2Int(720, 1600), new Vector2Int(1280, 800), new Vector2Int(2560, 1080) })
-            {
-                Size(size.x, size.y); yield return Frames(20); Tap("levels"); yield return Frames(12);
-                var overlay = Object.FindObjectsByType<HtmlSurface>().Single(s => s.name == "MenuOverlay");
-                var scroll = overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();
-                var corners=new Vector3[4];scroll.GetComponent<RectTransform>().GetWorldCorners(corners);
-                Assert.Greater(corners[2].x-corners[0].x,Screen.width*.88f,"Roadmap is boxed into a narrow panel on a wide screen");
-                Assert.AreEqual(110, overlay.GetComponentsInChildren<Button>(true).Count(b => b.name.StartsWith("<button #level-")));
-                var graphic = overlay.GetComponentInChildren<RoadmapGraphic>(); Assert.NotNull(graphic); Assert.IsFalse(graphic.raycastTarget);
-                foreach (var fraction in new[] { 1f, .5f, 0f })
-                {
-                    scroll.verticalNormalizedPosition = fraction; scroll.velocity = Vector2.zero; yield return Frames(8);
-                    yield return Shot("roadmap_" + size.x + "x" + size.y + "_" + fraction);
-                    var mesh = graphic.canvasRenderer.GetMesh(); Assert.NotNull(mesh);
-                    Debug.Log("[RoadmapQA] "+size+" fraction="+fraction+" vertices="+mesh.vertexCount);
-                    Assert.Less(mesh.vertexCount, 60000, "Map exceeds uGUI mesh budget"); Assert.Greater(mesh.vertexCount, 800, "Map mesh is suspiciously empty");
-                }
-                scroll.verticalNormalizedPosition=.37f;scroll.velocity=Vector2.zero;yield return Frames(5);
-                Tap("back");yield return Frames(15);Tap("levels");yield return Frames(12);
-                scroll=overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();Assert.AreEqual(.37f,scroll.verticalNormalizedPosition,.02f);
-                Tap("back"); yield return Frames(15); Tap("settings"); yield return Frames(10); Tap("set-cat-look"); yield return Frames(10);
-                foreach (var language in new[] { "uk", "en", "de" })
-                {
-                    services.Localization.TrySetLanguage(language); yield return Frames(10);
-                    for (var choice = 0; choice < 4; choice++)
-                    {
-                        Tap("orientation-" + choice); yield return Frames(3);
-                        Assert.AreEqual(choice, services.Settings.orientation);
-                        var restored = new SaveAdapter();
-                        Assert.IsTrue(restored.Load(out var error), error);
-                        Assert.AreEqual(choice, restored.Settings.orientation, "Display choice did not reach the save file");
-                        var bootstrap = Object.FindAnyObjectByType<QuietCampBootstrap>();
-                        bootstrap.SendMessage("OnApplicationPause", true);
-                        bootstrap.SendMessage("OnApplicationFocus", false);
-                        bootstrap.SendMessage("OnApplicationPause", false);
-                        bootstrap.SendMessage("OnApplicationFocus", true);
-                        Assert.AreEqual(choice, services.Settings.orientation, "Returning to the game reset the display choice");
-                    }
-                    for (var choice = 0; choice < 4; choice++)
-                    {
-                        var label = Button("orientation-" + choice).GetComponentInChildren<TMPro.TMP_Text>();
-                        Assert.LessOrEqual(label.GetRenderedValues().x, label.rectTransform.rect.width + 2, "Orientation label overflows: " + language);
-                        Assert.LessOrEqual(label.GetRenderedValues().y, label.rectTransform.rect.height + 2, "Orientation label is vertically clipped: " + language);
-                    }
-                    yield return Shot("display_" + language + "_" + size.x + "x" + size.y);
-                }
-                Tap("back"); yield return Frames(8); Tap("back"); yield return Frames(12);
-            }
-            services.Settings.orientation = 0; services.Settings.textScale = 1; services.Localization.TrySetLanguage("uk"); services.Save.Save();
-        }
         [UnityTest] public IEnumerator VisibleGroundcoverIsPooledBoundedAndDoesNotEnterThePuzzleOrPaths()
         {
             Size(720, 1600); yield return Boot(); var services = QuietCampBootstrap.ServicesRef;

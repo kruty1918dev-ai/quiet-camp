@@ -25,7 +25,6 @@ button:disabled { opacity: 0.42; }
 .hint-control text { font-size: 32px; }
 .check-notice { font-size: 28px; color: #344d40; background-color: rgba(246,240,223,.96); padding: 14px 20px; border-radius: 18px; white-space: normal; width: 100%; }
 .story-skip { position: absolute; bottom: 28px; right: 28px; }
-.journey-viewport { height: 380px; width: 100%; }
 .quiet-viewport { position: absolute; inset: 0; }
 .quiet-back { position: absolute; top: 24px; left: 28px; min-width: 144px; }
 .title { font-size: 42px; font-weight: bold; margin-bottom: 16px; }
@@ -257,3 +256,4 @@ button text { white-space: normal; }
 }
 .guide-learning { min-height: 100px; width: 100%; margin-top: 8px; }
 .guide-learning-explain { width: 100%; white-space: normal; }
+.cinematic-roadmap { position: absolute; inset: 0; background-color: transparent; }

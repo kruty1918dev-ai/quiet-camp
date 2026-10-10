@@ -7,30 +7,6 @@ namespace QuietCamp.Tests
 {
     public class PerformanceCacheTests
     {
-        [Test] public void CachedBonusGeometryMatchesOriginalProjectionAndShaderRoots()
-        {
-            var type = typeof(QuietCamp.Presentation.UI.RoadmapGraphic);
-            var flags = System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic;
-            var cached = type.GetMethod("BonusClearing", flags);
-            var original = type.GetMethod("PaintBonusClearing", flags);
-            foreach (var slot in BonusCampCatalog.Slots)
-            foreach (var at in new[] { Vector2.zero, new Vector2(100,-440), new Vector2(-30,12000) })
-            {
-                using var actual = new UnityEngine.UI.VertexHelper();
-                using var expected = new UnityEngine.UI.VertexHelper();
-                Assert.AreEqual(original.Invoke(null,new object[]{expected,at,slot}), cached.Invoke(null,new object[]{actual,at,slot}));
-                Assert.AreEqual(expected.currentVertCount,actual.currentVertCount,slot.id);
-                Assert.AreEqual(expected.currentIndexCount,actual.currentIndexCount,slot.id);
-                for (int i=0;i<expected.currentVertCount;i++)
-                {
-                    var a = default(UnityEngine.UIVertex); var b = default(UnityEngine.UIVertex);
-                    expected.PopulateUIVertex(ref a,i); actual.PopulateUIVertex(ref b,i);
-                    Assert.Less(Vector3.Distance(a.position,b.position),.002f,slot.id);
-                    Assert.AreEqual(a.color,b.color,slot.id); Assert.AreEqual(a.uv2,b.uv2,slot.id);
-                    if (a.uv2.x > 0) Assert.Less(Vector4.Distance(a.uv1,b.uv1),.002f,"Wind root changed: "+slot.id);
-                }
-            }
-        }
         [Test] public void CampaignOrderIsReadOnlyAndStillMatchesContent()
         {
             var ids = LevelLoader.MvpLevelIds();

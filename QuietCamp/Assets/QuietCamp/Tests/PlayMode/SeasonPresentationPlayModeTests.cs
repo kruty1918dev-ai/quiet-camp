@@ -116,24 +116,6 @@ namespace QuietCamp.Tests
             }
             finally{Object.Destroy(root);Object.Destroy(cameraRoot);}yield return null;
         }
-        [UnityTest] public IEnumerator SeasonalRoadmapFitsMobileVertexLimits()
-        {
-            var painterType=typeof(RoadmapSceneGenerator).Assembly.GetType("QuietCamp.Presentation.UI.RoadmapPainter");
-            var painter=Activator.CreateInstance(painterType,new object[]{RoadmapModelLibrary.Load()});
-            foreach(var season in new[]{"spring","summer","autumn","winter"})
-            {
-                var scene=RoadmapSceneGenerator.Generate(new LevelSummary{id="season-map",number=18,width=8,height=8,entry=new[]{0,0},decorSeed=41,lighting="noon",
-                    environment=new EnvironmentCompositionData{seasonId=season,biomeId="meadow",treeDensity=1}},AtmosphereCatalog.Load());
-                using(var vertices=new VertexHelper())
-                {
-                    painterType.GetMethod("Glade",BindingFlags.Public|BindingFlags.Static).Invoke(null,new object[]{vertices,scene,Vector2.zero,20f});
-                    foreach(var prop in scene.Props)painterType.GetMethod("Shadow").Invoke(painter,new object[]{vertices,scene,prop,Vector2.zero,20f});
-                    foreach(var prop in scene.Props)painterType.GetMethod("Model").Invoke(painter,new object[]{vertices,scene,prop,Vector2.zero,20f});
-                    Assert.Less(vertices.currentVertCount,55000,season);Assert.AreEqual(0,painterType.GetProperty("TruncatedModels").GetValue(painter),season);
-                }
-            }
-            yield return null;
-        }
         [UnityTest,Timeout(240000)] public IEnumerator FourSeasonsHaveRenderedPhoneAndWideCapturesOnLowAndHigh()
         {
             if(UnityEngine.Application.isBatchMode)Assert.Ignore("Requires rendered Game View in an isolated QA project");
