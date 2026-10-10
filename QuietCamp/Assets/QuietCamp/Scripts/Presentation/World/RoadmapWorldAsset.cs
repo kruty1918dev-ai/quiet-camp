@@ -18,6 +18,7 @@ namespace QuietCamp.Presentation.World
         public Mesh horizon, markerMesh;
         public Mesh[] distantForest;
         public Mesh river;
+        public Mesh[] riverByFrontier;
         public float worldScale = .4f;
         public Material ground, structure, foliage, water, marker;
         public Color sky = new Color(.73f,.81f,.83f);
@@ -53,6 +54,7 @@ namespace QuietCamp.Presentation.World
             var soil=z<26?new Color(.37f,.39f,.35f):new Color(.61f,.56f,.42f);
             grass=Color.Lerp(grass,soil,path*.8f);
             if(z>88)grass=Color.Lerp(grass,new Color(.60f,.58f,.44f),Mathf.Clamp01(1-Mathf.Abs(WaterDistance(x,z))*.45f)*.6f);
+            if(z>96)grass=Color.Lerp(grass,new Color(.24f,.30f,.24f),Mathf.Clamp01(-WaterDistance(x,z)*1.2f)*.65f);
             return grass;
         }
     }

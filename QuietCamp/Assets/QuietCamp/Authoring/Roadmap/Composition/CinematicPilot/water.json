@@ -1,0 +1,53 @@
+{
+  "shaderAsset": "Assets/ThirdParty/Stylized Water 3/Shaders/StylizedWater3_Standard.watershader3",
+  "waveProfile": "Assets/ThirdParty/Stylized Water 3/Profiles/River Wave Profile.asset",
+  "longitudinalStep": 1.25,
+  "crossSegments": 12,
+  "bankOverlap": 4,
+  "textures": {
+    "_BumpMap": "Assets/ThirdParty/Stylized Water 3/Materials/Textures/Normals/LowpolyWaves.png",
+    "_BumpMapSlope": "Assets/ThirdParty/Stylized Water 3/Materials/Textures/Normals/LowpolyWaves.png",
+    "_IntersectionNoise": "Assets/ThirdParty/Stylized Water 3/Materials/Textures/IntersectionNoise.png",
+    "_FoamTex": "Assets/ThirdParty/Stylized Water 3/Materials/Textures/Foam/Foam1.png"
+  },
+  "keywords": ["_RIVER", "_WAVES", "_FLAT_SHADING", "_NORMALMAP", "_INTERSECTION_FOAM", "_SURFACE_FOAM_SINGLE", "_ENVIRONMENTREFLECTIONS_OFF"],
+  "floats": {
+    "_ShadingMode": 0, "_RiverModeOn": 1, "_WorldSpaceUV": 0,
+    "_LightingOn": 1, "_ReceiveShadows": 1, "_ShadowStrength": 0.55,
+    "_Speed": 0.65, "_WavesOn": 1, "_WaveHeight": 0.22,
+    "_WaveFrequency": 1, "_WaveSteepness": 0.08, "_WaveSpeed": 0.7,
+    "_WaveNormalStr": 0.65, "_WaveMaxLayers": 4, "_FlatShadingOn": 1,
+    "_NormalMapOn": 1, "_NormalStrength": 0.14, "_NormalSpeed": 0.35,
+    "_NormalSubSpeed": 0.18, "_NormalSubTiling": 0.65,
+    "_IntersectionFoamOn": 1, "_IntersectionSource": 0,
+    "_IntersectionLength": 0.11, "_IntersectionFalloff": 0.55,
+    "_IntersectionSharp": 0, "_IntersectionClipping": 0.55,
+    "_IntersectionTiling": 0.8, "_IntersectionSpeed": 0.35,
+    "_IntersectionRippleDist": 12, "_IntersectionRippleStrength": 0.24,
+    "_IntersectionRippleSpeed": 0.8, "_IntersectionDistortion": 0.16,
+    "_FoamOn": 1, "_FoamBaseAmount": 0.035, "_FoamStrength": 0.28,
+    "_FoamClipping": 0.6, "_FoamSpeed": 0.12, "_FoamSubSpeed": 0.08,
+    "_FoamSubTiling": 0.7, "_FoamDistortion": 0.2, "_FoamBubblesStrength": 0,
+    "_DepthVertical": 4, "_DepthHorizontal": 6.5, "_EdgeFade": 0.04,
+    "_EnvironmentReflectionsOn": 0, "_SpecularReflectionsOn": 1,
+    "_SunReflectionStrength": 0.45, "_SunReflectionSize": 0.3,
+    "_SunReflectionDistortion": 0.4, "_RefractionOn": 0,
+    "_CausticsOn": 0, "_TranslucencyOn": 0,
+    "_VertexColorTransparency": 1, "_VertexColorWaveFlattening": 0,
+    "_VertexColorFoam": 0, "_DisableDepthTexture": 0, "_ZWrite": 0
+  },
+  "colors": {
+    "_BaseColor": [0.08, 0.24, 0.24, 0.96],
+    "_ShallowColor": [0.28, 0.47, 0.4, 0.7],
+    "_HorizonColor": [0.68, 0.77, 0.72, 0],
+    "_IntersectionColor": [0.8, 0.85, 0.7, 0.62],
+    "_FoamColor": [0.8, 0.85, 0.73, 0.35]
+  },
+  "vectors": {
+    "_Direction": [0, -1, 0, 0],
+    "_NormalTiling": [0.3, 0.3, 0, 0],
+    "_FoamTiling": [0.35, 0.35, 0, 0],
+    "_FoamCrestMinMaxHeight": [0.6, 0.9, 0, 0],
+    "_WaveFadeDistance": [100, 160, 0, 0]
+  }
+}

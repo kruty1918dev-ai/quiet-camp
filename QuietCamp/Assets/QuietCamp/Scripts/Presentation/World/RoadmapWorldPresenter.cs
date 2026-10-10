@@ -122,7 +122,8 @@ namespace QuietCamp.Presentation.World
             var focus=_profile.Add<DepthOfField>();focus.mode.Override(DepthOfFieldMode.Off);
             var blur=_profile.Add<MotionBlur>();blur.intensity.Override(0);
             AddRenderer(_root.transform,"Far landscape",_asset.horizon,_asset.ground,false);
-            if(_asset.river!=null)AddRenderer(_root.transform,"Continuous river",_asset.river,_asset.water,false);
+            var river=_asset.riverByFrontier!=null&&_asset.riverByFrontier.Length==5?_asset.riverByFrontier[_frontier]:_asset.river;
+            if(river!=null)AddRenderer(_root.transform,"Continuous river",river,_asset.water,false);
             if(_asset.distantForest!=null)for(int i=0;i<_asset.distantForest.Length;i++)
                 _distant[i]=AddRenderer(_root.transform,"Distant forest "+i,_asset.distantForest[i],_asset.foliage,false);
             for(int i=0;i<5;i++)

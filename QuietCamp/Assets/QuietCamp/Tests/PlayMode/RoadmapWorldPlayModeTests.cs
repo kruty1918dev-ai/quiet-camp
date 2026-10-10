@@ -265,6 +265,35 @@ namespace QuietCamp.Tests
                 measurements.Add(new{quality=quality==0?"Low":"Balanced",renderProfile=QualitySettings.names[QualitySettings.GetQualityLevel()],route=4f,orientation="landscape",editorDrawCalls=UnityEditor.UnityStats.drawCalls,editorTriangles=UnityEditor.UnityStats.triangles,worldChunks=World().LoadedChunks});
                 Size(720,1600);yield return Frames();
             }
+            var waterMotion=new List<object>();
+            for(int quality=0;quality<=1;quality++)
+            {
+                services.Settings.quality=quality;services.EffectiveQuality=quality;
+                QualitySettings.SetQualityLevel(quality,true);services.ReducedMotion=false;
+                World().Seek(4);yield return Frames(30);
+                var river=World().WorldRoot.Find("Continuous river");Assert.NotNull(river);
+                var material=river.GetComponent<MeshRenderer>().sharedMaterial;
+                Assert.IsTrue(material.IsKeywordEnabled("_WAVES")&&material.IsKeywordEnabled("_INTERSECTION_FOAM"));
+                Assert.AreEqual(4,material.GetInt("_WaveMaxLayers"));
+                var point=World().WorldCamera.WorldToScreenPoint(World().WorldRoot.TransformPoint(new Vector3(RoadmapLandscape.RiverX(150),RoadmapLandscape.WaterHeight,150)));
+                const int radius=20;
+                Assert.IsTrue(point.x>radius&&point.x<Screen.width-radius&&point.y>radius&&point.y<Screen.height-radius,"Stationary water patch must be visible");
+                yield return new WaitForEndOfFrame();
+                var waterBefore=ScreenCapture.CaptureScreenshotAsTexture();
+                Color[] patch=waterBefore.GetPixels((int)point.x-radius,(int)point.y-radius,radius*2,radius*2);
+                File.WriteAllBytes(Path.Combine(Output,"water-"+(quality==0?"low":"balanced")+"-0.png"),waterBefore.EncodeToPNG());Object.Destroy(waterBefore);
+                var cameraPosition=World().WorldCamera.transform.position;var cameraRotation=World().WorldCamera.transform.rotation;
+                float beganWater=Time.realtimeSinceStartup;
+                yield return new WaitForSecondsRealtime(2);yield return new WaitForEndOfFrame();
+                var waterAfter=ScreenCapture.CaptureScreenshotAsTexture();
+                var changed=waterAfter.GetPixels((int)point.x-radius,(int)point.y-radius,radius*2,radius*2);
+                File.WriteAllBytes(Path.Combine(Output,"water-"+(quality==0?"low":"balanced")+"-1.png"),waterAfter.EncodeToPNG());Object.Destroy(waterAfter);
+                float difference=0;for(int p=0;p<patch.Length;p++)difference+=Mathf.Abs(patch[p].r-changed[p].r)+Mathf.Abs(patch[p].g-changed[p].g)+Mathf.Abs(patch[p].b-changed[p].b);
+                difference=difference/patch.Length/3*255;
+                Assert.Greater(difference,.15f,"Water must visibly animate with a stationary camera");
+                Assert.AreEqual(cameraPosition,World().WorldCamera.transform.position);Assert.AreEqual(cameraRotation,World().WorldCamera.transform.rotation);
+                waterMotion.Add(new{quality=quality==0?"Low":"Balanced",renderProfile=QualitySettings.names[QualitySettings.GetQualityLevel()],seconds=Time.realtimeSinceStartup-beganWater,meanRgbByteDifference=difference,patchX=(int)point.x-radius,patchY=(int)point.y-radius,patchSize=radius*2,cameraStationary=true,shader=material.shader.name});
+            }
             services.Settings.quality=2;services.EffectiveQuality=1;services.ReducedMotion=false;World().Seek(0);yield return Frames(60);
             var movie=Path.Combine(Output,"MovieFrames~");Directory.CreateDirectory(movie);
             float began=Time.realtimeSinceStartup;
@@ -300,7 +329,7 @@ namespace QuietCamp.Tests
             yield return Ready("MainMenu");yield return Frames();
             World().Seek(0);yield return Frames();Pointer(World(),0,false);yield return Ready("Camp");Assert.AreEqual("QC001",CampSceneHost.Current.Session.Level.id);
             File.WriteAllText(Path.Combine(Output,"gameview-integration-receipt.json"),JsonConvert.SerializeObject(new{capturedUtc=DateTime.UtcNow.ToString("o"),unity=UnityEngine.Application.unityVersion,
-                product=UnityEngine.Application.productName,sourceHash=Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World").sourceHash,playerBuild=false,mobileFpsMeasured=false,audioSuppressionRequested=true,audioOutputVerified=false,measurements,navigation,reentryCounts=counts,movieFrameCount=193,capturedSeconds,
+                product=UnityEngine.Application.productName,sourceHash=Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World").sourceHash,playerBuild=false,mobileFpsMeasured=false,audioSuppressionRequested=true,audioOutputVerified=false,measurements,navigation,waterMotion,reentryCounts=counts,movieFrameCount=193,capturedSeconds,
                 checks="Fresh campaign progress after onboarding, completion 1–5, old progress including gaps, replay, jitter-tolerant tap, drag rejection, 36 screen-space tracking samples, normalized wheel and fractional trackpad, multitouch ownership, real Input System pinch/release/cancel, fresh-profile inspection margins without reveal, quality change, synthetic notch, portrait/landscape, reduced motion, interrupted reveal, repeated entry/exit"},Formatting.Indented)+"\n");
         }
         static void PointerReplay(GameServices services){services.PendingMenuScreen="Levels";PrivacyBootTestSupport.Tap(PrivacyBootTestSupport.Find("continue"));}

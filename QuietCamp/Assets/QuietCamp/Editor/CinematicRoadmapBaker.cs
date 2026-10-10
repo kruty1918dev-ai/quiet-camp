@@ -43,7 +43,12 @@ namespace QuietCamp.Editor
                 "Assets/QuietCamp/Resources/QuietCamp/RoadmapLit.shader",
                 "Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
                 "Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
-                "Assets/QuietCamp/Resources/QuietCamp/Water/CampLakeMobile.mat",
+                "Assets/ThirdParty/Stylized Water 3/Shaders/StylizedWater3_Standard.watershader3",
+                "Assets/ThirdParty/Stylized Water 3/Shaders/StylizedWater3_Standard.watershader3.meta",
+                "Assets/ThirdParty/Stylized Water 3/Profiles/River Wave Profile.asset",
+                "Assets/ThirdParty/Stylized Water 3/Materials/Textures/Normals/LowpolyWaves.png",
+                "Assets/ThirdParty/Stylized Water 3/Materials/Textures/IntersectionNoise.png",
+                "Assets/ThirdParty/Stylized Water 3/Materials/Textures/Foam/Foam1.png",
                 "Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json"});
             return Hash(System.Text.Encoding.UTF8.GetBytes(string.Join("\n",files.Select(f=>f+":"+Hash(File.ReadAllBytes(f))))));
         }
@@ -59,6 +64,7 @@ namespace QuietCamp.Editor
             {
                 float distance=Vector2.Distance(new Vector2(x,z),new Vector2(e.placement.x,e.placement.z));
                 float weight=1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(9,16,distance));
+                if(z>88)weight*=Mathf.SmoothStep(0,1,Mathf.InverseLerp(0,5,RoadmapLandscape.WaterDistance(x,z)));
                 h=Mathf.Lerp(h,RoadmapLandscape.Height(e.placement.x,e.placement.z),weight);
             }
             return h;
@@ -95,11 +101,9 @@ namespace QuietCamp.Editor
             index.chunks=new string[World.chunkStarts.Length];
             index.ground=Material(folder,"Ground",0,0);index.structure=Material(folder,"Architecture",0,0);
             index.foliage=Material(folder,"Living vegetation",.045f,.003f);
-            index.water=Object.Instantiate(Resources.Load<Material>("QuietCamp/Water/CampLakeMobile"));
-            if(index.water==null||!index.water.shader.isSupported)throw new InvalidOperationException("Gameplay water unavailable");
-            index.water.name="Valley quiet water";index.water.SetFloat("_WaveHeight",.015f);index.water.SetFloat("_Speed",.13f);
+            index.water=RiverMaterial();
             AssetDatabase.CreateAsset(index.water,folder+"/Water.mat");
-            index.marker=new Material(Shader.Find("Universal Render Pipeline/Simple Lit"));
+            index.marker=new Material(Shader.Find("Universal Render Pipeline/Simple Lit")){name="Roadside waystone"};
             index.marker.SetColor("_BaseColor",new Color(.83f,.76f,.49f));AssetDatabase.CreateAsset(index.marker,folder+"/Marker.mat");
             var stats=new List<object>();
             for(int c=0;c<index.chunks.Length;c++)
@@ -121,8 +125,18 @@ namespace QuietCamp.Editor
             {
                 index.distantForest[c]=FarForest(c);AssetDatabase.CreateAsset(index.distantForest[c],folder+"/Distant-"+c+".asset");
             }
-            var river=new Geometry();Water(river,96,World.maxZ);index.river=river.Mesh("Continuous valley river");
+            var river=new Geometry();Water(river,96,World.maxZ);index.river=river.Mesh("Continuous valley river");index.river.RecalculateTangents();
             AssetDatabase.CreateAsset(index.river,folder+"/River.asset");
+            index.riverByFrontier=new Mesh[5];index.riverByFrontier[4]=index.river;
+            for(int frontier=2;frontier<4;frontier++)
+            {
+                var mesh=Object.Instantiate(index.river);mesh.name="River reveal "+frontier;
+                var colors=mesh.colors;var vertices=mesh.vertices;
+                float reveal=(frontier*40+26)*index.worldScale;
+                for(int v=0;v<colors.Length;v++)colors[v].g=Mathf.SmoothStep(0,1,Mathf.InverseLerp(reveal-3,reveal+7,vertices[v].z*index.worldScale));
+                mesh.colors=colors;index.riverByFrontier[frontier]=mesh;
+                AssetDatabase.CreateAsset(mesh,folder+"/River-"+frontier+".asset");
+            }
             var stone=new Geometry();Append(stone,"stone_largeA",0,0,.35f,0,false);
             for(int v=0;v<stone.vertices.Count;v++)stone.vertices[v]-=Vector3.up*Ground(0,0);
             index.markerMesh=stone.Mesh("Small roadside waystone");
@@ -157,12 +171,13 @@ namespace QuietCamp.Editor
         {
             public readonly List<Vector3> vertices=new List<Vector3>(),normals=new List<Vector3>();
             readonly List<Color> colors=new List<Color>();readonly List<Vector4> roots=new List<Vector4>();readonly List<Vector2> uvs=new List<Vector2>();readonly List<int> indices=new List<int>();
-            public void Triangle(Vector3 a,Vector3 b,Vector3 c,Color color,Vector4 root=default,Vector3? normal=null,Color? second=null,Color? third=null)
+            public void Triangle(Vector3 a,Vector3 b,Vector3 c,Color color,Vector4 root=default,Vector3? normal=null,Color? second=null,Color? third=null,Func<Vector3,Vector2> uv=null)
             {
                 var n=normal??Vector3.Cross(b-a,c-a).normalized;int first=vertices.Count;
                 vertices.AddRange(new[]{a,b,c});normals.AddRange(new[]{n,n,n});colors.AddRange(new[]{color,second??color,third??color});
                 if(root==default)root=new Vector4(0,0,0,-1);roots.AddRange(new[]{root,root,root});
-                uvs.AddRange(new[]{new Vector2(a.x,a.z),new Vector2(b.x,b.z),new Vector2(c.x,c.z)});indices.AddRange(new[]{first,first+1,first+2});
+                Vector2 UV(Vector3 p)=>uv!=null?uv(p):new Vector2(p.x,p.z);
+                uvs.AddRange(new[]{UV(a),UV(b),UV(c)});indices.AddRange(new[]{first,first+1,first+2});
             }
             public Mesh Mesh(string name)
             {
@@ -318,15 +333,51 @@ namespace QuietCamp.Editor
                 Append(g,z%20==0?"tree_pineRoundA":"tree_default",x+4*Mathf.Sin(z),z,7+2*Mathf.Sin(z*.3f),z,false,.83f);
             return g.Mesh("Distant valley silhouette");
         }
+        sealed class WaterDefinition
+        {
+            public string shaderAsset,waveProfile;
+            public Dictionary<string,string> textures;
+            public Dictionary<string,float> floats;
+            public Dictionary<string,float[]> colors,vectors;
+            public string[] keywords;
+            public float longitudinalStep,bankOverlap;
+            public int crossSegments;
+        }
+        static Material RiverMaterial()
+        {
+            var source=Read<WaterDefinition>("water.json");
+            var shader=AssetDatabase.LoadAssetAtPath<Shader>(source.shaderAsset);
+            if(shader==null||!shader.isSupported)throw new InvalidOperationException("Stylized Water 3 shader unavailable");
+            var material=new Material(shader){name="Living valley river"};
+            foreach(var pair in source.floats)material.SetFloat(pair.Key,pair.Value);
+            foreach(var pair in source.colors)material.SetColor(pair.Key,new Color(pair.Value[0],pair.Value[1],pair.Value[2],pair.Value[3]));
+            foreach(var pair in source.vectors)material.SetVector(pair.Key,new Vector4(pair.Value[0],pair.Value[1],pair.Value[2],pair.Value[3]));
+            foreach(var pair in source.textures)
+            {
+                var texture=AssetDatabase.LoadAssetAtPath<Texture2D>(pair.Value);
+                if(texture==null)throw new InvalidOperationException("River texture unavailable: "+pair.Value);
+                material.SetTexture(pair.Key,texture);
+            }
+            var profile=AssetDatabase.LoadAllAssetsAtPath(source.waveProfile).OfType<Texture2D>().FirstOrDefault();
+            if(profile==null)throw new InvalidOperationException("River wave profile lookup table unavailable");
+            material.SetTexture("_WaveProfile",profile);
+            foreach(var keyword in source.keywords)material.EnableKeyword(keyword);
+            return material;
+        }
         static void Water(Geometry g,float start,float end)
         {
-            for(float z=start;z<end;z+=2)
+            var source=Read<WaterDefinition>("water.json");
+            // Overlap rising banks: scene depth, rather than the mesh border, defines the shoreline.
+            // Continuous metric UVs follow the curved channel for downstream normals and foam.
+            Vector2 UV(Vector3 p)=>new Vector2((p.x-RoadmapLandscape.RiverX(p.z))*.4f,p.z*.4f);
+            for(float z=start;z<end;z+=source.longitudinalStep)
             {
-                float zz=Mathf.Min(z+2,end);
-                for(int side=0;side<4;side++)
+                float zz=Mathf.Min(z+source.longitudinalStep,end);
+                for(int side=0;side<source.crossSegments;side++)
                 {
-                    Vector3 At(float p,float t)=>new Vector3(RoadmapLandscape.RiverX(t)+RoadmapLandscape.RiverWidth(t)*(p*.5f-1),RoadmapLandscape.WaterHeight,t);
-                    g.Triangle(At(side,z),At(side,zz),At(side+1,z),new Color(0,1,0,0));g.Triangle(At(side+1,z),At(side,zz),At(side+1,zz),new Color(0,1,0,0));
+                    Vector3 At(float p,float t)=>new Vector3(RoadmapLandscape.RiverX(t)+(RoadmapLandscape.RiverWidth(t)+source.bankOverlap)*(p*2/source.crossSegments-1),RoadmapLandscape.WaterHeight,t);
+                    g.Triangle(At(side,z),At(side,zz),At(side+1,z),Color.clear,uv:UV);
+                    g.Triangle(At(side+1,z),At(side,zz),At(side+1,zz),Color.clear,uv:UV);
                 }
             }
         }

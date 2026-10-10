@@ -18,7 +18,8 @@ if [[ "$task_mode" != probe ]]; then
   [[ "$task_status" != *STATE=hard* && "$task_status" != *STATE=crit* ]] || exit 1
   task_available=$(sed -n 's/.*MEM_AVAIL_MB=\([0-9]*\).*/\1/p' <<< "$task_status")
   [[ "$task_available" -ge 1500 ]] || { echo 'Insufficient available RAM'; exit 1; }
-  [[ $(df --output=pcent / | tail -1 | tr -dc '0-9') -lt 90 ]] || { echo 'Keep >10% disk free'; exit 1; }
+  read -r task_disk_available task_disk_size < <(df -B1 --output=avail,size / | tail -1)
+  [[ $((task_disk_available*100)) -gt $((task_disk_size*10)) ]] || { echo 'Keep >10% disk free'; exit 1; }
   [[ -x "$task_editor" && -n "${DISPLAY:-}" ]] || { echo 'Editor and X11 display required'; exit 1; }
   mkdir -p "$task_root/TestResults"
 fi
