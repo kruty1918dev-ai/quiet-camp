@@ -43,7 +43,7 @@ unshare --user "${task_user_mapping[@]}" --pid --fork --mount-proc --net \
     if [[ "$1" == pilot-tests ]]; then
       task_qa=/home/oleks/.cache/quietcamp/cinematic-roadmap-qa
       [[ -d "$task_qa/ProjectSettings" ]]
-      for task_cache in ScriptMapper ScriptAssemblies ArtifactDB SourceAssetDB; do
+      for task_cache in ScriptMapper ScriptAssemblies ArtifactDB SourceAssetDB Bee; do
         [[ ! -L "$task_qa/Library/$task_cache" ]] || { echo "QA mutable cache must be private: $task_cache"; exit 1; }
       done
       rg -q "productName: QuietCampRoadmapQA" "$task_qa/ProjectSettings/ProjectSettings.asset"

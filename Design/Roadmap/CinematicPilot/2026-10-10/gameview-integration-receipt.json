@@ -1,8 +1,8 @@
 {
-  "capturedUtc": "2026-10-10T16:44:22.6674230Z",
+  "capturedUtc": "2026-10-10T17:09:10.9558590Z",
   "unity": "6000.6.2f1",
   "product": "QuietCampRoadmapQA",
-  "sourceHash": "d76cc90dda3e722c304b321dfa4147429300c2c4b4885554e926c16fe06c02df",
+  "sourceHash": "6fd474482fbae4d90f7bdbcc20778cedb9d48e43daee20467ca7cede5bb4dc31",
   "playerBuild": false,
   "mobileFpsMeasured": false,
   "audioSuppressionRequested": true,
@@ -10,6 +10,7 @@
   "measurements": [
     {
       "quality": "Low",
+      "renderProfile": "Low",
       "route": 0.0,
       "orientation": "portrait",
       "editorDrawCalls": 32,
@@ -18,6 +19,7 @@
     },
     {
       "quality": "Low",
+      "renderProfile": "Low",
       "route": 0.5,
       "orientation": "portrait",
       "editorDrawCalls": 40,
@@ -26,70 +28,79 @@
     },
     {
       "quality": "Low",
+      "renderProfile": "Low",
       "route": 1.0,
       "orientation": "portrait",
       "editorDrawCalls": 41,
-      "editorTriangles": 133591,
+      "editorTriangles": 136103,
       "worldChunks": 3
     },
     {
       "quality": "Low",
+      "renderProfile": "Low",
       "route": 1.5,
       "orientation": "portrait",
       "editorDrawCalls": 42,
-      "editorTriangles": 125637,
+      "editorTriangles": 128149,
       "worldChunks": 3
     },
     {
       "quality": "Low",
+      "renderProfile": "Low",
       "route": 2.0,
       "orientation": "portrait",
       "editorDrawCalls": 41,
-      "editorTriangles": 125605,
+      "editorTriangles": 128117,
       "worldChunks": 3
     },
     {
       "quality": "Low",
+      "renderProfile": "Low",
       "route": 2.5,
       "orientation": "portrait",
       "editorDrawCalls": 42,
-      "editorTriangles": 138719,
+      "editorTriangles": 141231,
       "worldChunks": 3
     },
     {
       "quality": "Low",
+      "renderProfile": "Low",
       "route": 3.0,
       "orientation": "portrait",
       "editorDrawCalls": 40,
-      "editorTriangles": 138347,
+      "editorTriangles": 140859,
       "worldChunks": 3
     },
     {
       "quality": "Low",
+      "renderProfile": "Low",
       "route": 3.5,
       "orientation": "portrait",
       "editorDrawCalls": 33,
-      "editorTriangles": 96759,
+      "editorTriangles": 99271,
       "worldChunks": 2
     },
     {
       "quality": "Low",
+      "renderProfile": "Low",
       "route": 4.0,
       "orientation": "portrait",
       "editorDrawCalls": 32,
-      "editorTriangles": 96399,
+      "editorTriangles": 98911,
       "worldChunks": 2
     },
     {
       "quality": "Low",
+      "renderProfile": "Low",
       "route": 4.0,
       "orientation": "landscape",
       "editorDrawCalls": 29,
-      "editorTriangles": 95219,
+      "editorTriangles": 97731,
       "worldChunks": 2
     },
     {
       "quality": "Balanced",
+      "renderProfile": "Balanced",
       "route": 0.0,
       "orientation": "portrait",
       "editorDrawCalls": 32,
@@ -98,6 +109,7 @@
     },
     {
       "quality": "Balanced",
+      "renderProfile": "Balanced",
       "route": 0.5,
       "orientation": "portrait",
       "editorDrawCalls": 40,
@@ -106,66 +118,74 @@
     },
     {
       "quality": "Balanced",
+      "renderProfile": "Balanced",
       "route": 1.0,
       "orientation": "portrait",
       "editorDrawCalls": 41,
-      "editorTriangles": 257645,
+      "editorTriangles": 260157,
       "worldChunks": 3
     },
     {
       "quality": "Balanced",
+      "renderProfile": "Balanced",
       "route": 1.5,
       "orientation": "portrait",
       "editorDrawCalls": 42,
-      "editorTriangles": 241217,
+      "editorTriangles": 243729,
       "worldChunks": 3
     },
     {
       "quality": "Balanced",
+      "renderProfile": "Balanced",
       "route": 2.0,
       "orientation": "portrait",
       "editorDrawCalls": 41,
-      "editorTriangles": 241185,
+      "editorTriangles": 243697,
       "worldChunks": 3
     },
     {
       "quality": "Balanced",
+      "renderProfile": "Balanced",
       "route": 2.5,
       "orientation": "portrait",
       "editorDrawCalls": 42,
-      "editorTriangles": 266347,
+      "editorTriangles": 268859,
       "worldChunks": 3
     },
     {
       "quality": "Balanced",
+      "renderProfile": "Balanced",
       "route": 3.0,
       "orientation": "portrait",
       "editorDrawCalls": 40,
-      "editorTriangles": 265975,
+      "editorTriangles": 268487,
       "worldChunks": 3
     },
     {
       "quality": "Balanced",
+      "renderProfile": "Balanced",
       "route": 3.5,
       "orientation": "portrait",
       "editorDrawCalls": 33,
-      "editorTriangles": 178827,
+      "editorTriangles": 181339,
       "worldChunks": 2
     },
     {
       "quality": "Balanced",
+      "renderProfile": "Balanced",
       "route": 4.0,
       "orientation": "portrait",
       "editorDrawCalls": 32,
-      "editorTriangles": 178467,
+      "editorTriangles": 180979,
       "worldChunks": 2
     },
     {
       "quality": "Balanced",
+      "renderProfile": "Balanced",
       "route": 4.0,
       "orientation": "landscape",
       "editorDrawCalls": 29,
-      "editorTriangles": 176991,
+      "editorTriangles": 179503,
       "worldChunks": 2
     }
   ],
@@ -423,29 +443,53 @@
       "worldMotionPixels": 25.198822
     }
   ],
+  "waterMotion": [
+    {
+      "quality": "Low",
+      "renderProfile": "Low",
+      "seconds": 2.15727234,
+      "meanRgbByteDifference": 3.9243443,
+      "patchX": 452,
+      "patchY": 525,
+      "patchSize": 40,
+      "cameraStationary": true,
+      "shader": "Stylized Water 3/Standard"
+    },
+    {
+      "quality": "Balanced",
+      "renderProfile": "Balanced",
+      "seconds": 2.1753006,
+      "meanRgbByteDifference": 2.767687,
+      "patchX": 452,
+      "patchY": 525,
+      "patchSize": 40,
+      "cameraStationary": true,
+      "shader": "Stylized Water 3/Standard"
+    }
+  ],
   "reentryCounts": [
     [
       2,
-      360,
-      189
+      406,
+      230
     ],
     [
       2,
-      360,
-      189
+      406,
+      230
     ],
     [
       2,
-      360,
-      189
+      406,
+      230
     ],
     [
       2,
-      360,
-      189
+      406,
+      230
     ]
   ],
   "movieFrameCount": 193,
-  "capturedSeconds": 32.679718,
+  "capturedSeconds": 33.93721,
   "checks": "Fresh campaign progress after onboarding, completion 1–5, old progress including gaps, replay, jitter-tolerant tap, drag rejection, 36 screen-space tracking samples, normalized wheel and fractional trackpad, multitouch ownership, real Input System pinch/release/cancel, fresh-profile inspection margins without reveal, quality change, synthetic notch, portrait/landscape, reduced motion, interrupted reveal, repeated entry/exit"
 }

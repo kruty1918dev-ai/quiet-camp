@@ -1,0 +1,57 @@
+{
+  "kind": "current-private-qa-compiled-artifacts",
+  "sourceHash": "6fd474482fbae4d90f7bdbcc20778cedb9d48e43daee20467ca7cede5bb4dc31",
+  "captureUtc": "2026-10-10T17:09:10.9558590Z",
+  "verifiedUtc": "2026-10-10T17:11:41.661933+00:00",
+  "compilerCache": "Private QA Bee, ScriptAssemblies, ScriptMapper, ArtifactDB and SourceAssetDB",
+  "testsSourceSha256": "df399c48f91dde10d73ebd112383adc52abfbebaa12f0705c1086d1136c1c1de",
+  "presentationSourceSha256": "285d309a3deb783f093fd839e642141ae5cc0a2504e2114c82dccd03b40a7bce",
+  "currentCodeFeatures": {
+    "waterMotion": true,
+    "riverByFrontier": true
+  },
+  "notes": "Separate project compilations can differ bytewise; native and executed QA artifacts are fingerprinted independently. Fresh private compilation and current code features are verified.",
+  "checks": [
+    "Six executed QA assemblies fingerprinted independently from native artifacts",
+    "Executed tests contain waterMotion and receipt records both stationary water probes",
+    "Presentation assembly contains baked riverByFrontier integration"
+  ],
+  "assemblies": [
+    {
+      "file": "QuietCamp.Domain.dll",
+      "nativeCompiledSha256": "a8ee5f56a1d87e928de68b1d764e26327b2a06e976b23807eca0e2ff41b9340a",
+      "qaExecutedSha256": "cc380a4078642982fdbb1e9bc6e0c580233f6d1516820923498720fb57445dfa",
+      "byteIdentical": false
+    },
+    {
+      "file": "QuietCamp.Application.dll",
+      "nativeCompiledSha256": "eb2ac0543f4625f0ec84f2fb11efc5f5e555aa8ff3dfe5d1ba82f8b1f72b0419",
+      "qaExecutedSha256": "eb2ac0543f4625f0ec84f2fb11efc5f5e555aa8ff3dfe5d1ba82f8b1f72b0419",
+      "byteIdentical": true
+    },
+    {
+      "file": "QuietCamp.Infrastructure.dll",
+      "nativeCompiledSha256": "cbf6803d76a62a51fae7a144218fb17738647c87f4ad21fb5bd1edb3f4fa5dcf",
+      "qaExecutedSha256": "cbf6803d76a62a51fae7a144218fb17738647c87f4ad21fb5bd1edb3f4fa5dcf",
+      "byteIdentical": true
+    },
+    {
+      "file": "QuietCamp.Presentation.dll",
+      "nativeCompiledSha256": "9a705d7ac1d340a5fef0d6c8709df6a2c0b8f52ebfac24684a5cc556159d71e1",
+      "qaExecutedSha256": "574bf36a6053b1b6f5dbe1bd1518ba4e1b11e77c34aa839383b00b05396e7764",
+      "byteIdentical": false
+    },
+    {
+      "file": "QuietCamp.Editor.dll",
+      "nativeCompiledSha256": "5b351b55e22e77f7485caee8bc9e62b8f3ff2ada0b123ff09e0a26c2181f448f",
+      "qaExecutedSha256": "380b083553ad1153235e1dbc60d09d34eb579660f014e8e6162c156088b75a5c",
+      "byteIdentical": false
+    },
+    {
+      "file": "QuietCamp.Tests.PlayMode.dll",
+      "nativeCompiledSha256": "1c542b427bf8eedb85658d894fa1d4ade2784e99c56db5e0da00f085a43a662e",
+      "qaExecutedSha256": "91a3d4f19f16876d88e71f62061c166a8b773bbeba1926089b52ff9576cc4922",
+      "byteIdentical": false
+    }
+  ]
+}
