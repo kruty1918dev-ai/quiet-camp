@@ -21,7 +21,7 @@ namespace QuietCamp.Editor
             // Immediate batch captures must wait for real shader variants, never the asynchronous placeholder shaders.
             ShaderUtil.allowAsyncCompilation=false;
             CinematicRoadmapBaker.Bake();
-            var asset=Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World");
+            var asset=AssetDatabase.LoadAssetAtPath<RoadmapWorldAsset>("Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/World.asset");
             string repo=Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath,"../.."));
             string output=Path.Combine(repo,"Design/Roadmap/CinematicPilot/2026-10-10");Directory.CreateDirectory(output);
             var results=new List<object>();
@@ -60,6 +60,8 @@ namespace QuietCamp.Editor
                 var planes=GeometryUtility.CalculateFrustumPlanes(world.WorldCamera);
                 var visible=world.WorldRoot.GetComponentsInChildren<MeshRenderer>().Where(r=>r.enabled&&GeometryUtility.TestPlanesAABB(planes,r.bounds)).ToArray();
                 long submittedTriangles=visible.Sum(r=>(long)r.GetComponent<MeshFilter>().sharedMesh.GetIndexCount(0)/3);
+                if(world.LoadedChunks>3||submittedTriangles>(low?80000:150000)||visible.Select(r=>r.sharedMaterial).Distinct().Count()>(low?8:12))
+                    throw new InvalidOperationException("Native composition exceeds the pilot geometry/residency/material budget: "+path+" / "+submittedTriangles);
                 return new{file=Path.GetFileName(path),route,frontier,quality=low?"Low":"Balanced",width,height,
                     loadedChunks=world.LoadedChunks,visibleRenderers=visible.Length,submittedMeshTriangles=submittedTriangles,
                     sharedMaterials=visible.Select(r=>r.sharedMaterial).Distinct().Count(),editorDrawCalls=UnityStats.drawCalls,

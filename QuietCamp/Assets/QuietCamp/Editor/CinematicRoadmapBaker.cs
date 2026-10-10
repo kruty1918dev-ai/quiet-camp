@@ -107,7 +107,8 @@ namespace QuietCamp.Editor
                 var chunk=ScriptableObject.CreateInstance<RoadmapWorldChunk>();chunk.index=c;chunk.sourceHash=Revision;
                 chunk.balanced=BuildChunk(c,false);chunk.low=BuildChunk(c,true);
                 chunk.sourceAssets=Composition.instances.Where(i=>OwnerChunk(i.z)==c).Select(i=>i.asset)
-                    .Concat(Document.landmarks.Where(l=>OwnerChunk(l.z)==c).Select(l=>l.asset)).Distinct().OrderBy(s=>s).ToArray();
+                    .Concat(Document.landmarks.Where(l=>OwnerChunk(l.z)==c).Select(l=>l.asset))
+                    .Concat(new[]{"tree_default","tree_pineRoundA","grass","plant_bushSmall","stone_largeA","log","stump_round"}).Distinct().OrderBy(s=>s).ToArray();
                 chunk.estimatedBytes=chunk.balanced.Concat(chunk.low).Where(m=>m!=null).Sum(m=>(long)m.vertexCount*52+m.GetIndexCount(0)*4);
                 string file=folder+"/chunk-"+c+".asset";AssetDatabase.CreateAsset(chunk,file);
                 foreach(var m in chunk.balanced.Concat(chunk.low).Where(m=>m!=null))AssetDatabase.AddObjectToAsset(m,chunk);
@@ -122,15 +123,24 @@ namespace QuietCamp.Editor
             }
             var river=new Geometry();Water(river,96,World.maxZ);index.river=river.Mesh("Continuous valley river");
             AssetDatabase.CreateAsset(index.river,folder+"/River.asset");
-            var stone=new Geometry();Append(stone,"stone_largeA",0,0,.55f,0,false);
+            var stone=new Geometry();Append(stone,"stone_largeA",0,0,.35f,0,false);
             for(int v=0;v<stone.vertices.Count;v++)stone.vertices[v]-=Vector3.up*Ground(0,0);
             index.markerMesh=stone.Mesh("Small roadside waystone");
             AssetDatabase.CreateAsset(index.markerMesh,folder+"/Waystone.asset");
+            // Make fresh Resources paths visible before publishing their index.
+            // Existing Editor sessions otherwise retain the previous resource registry.
+            AssetDatabase.SaveAssets();AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+            foreach(string path in index.chunks)
+            {
+                var prepared=Resources.Load<RoadmapWorldChunk>(path);
+                if(prepared==null||prepared.sourceHash!=Revision)
+                    throw new InvalidOperationException("Native chunk not imported before publication: "+path);
+            }
             // Index publication is the final operation; never touch the old main catalog.
             const string pointer=Output+"/World.asset";var old=AssetDatabase.LoadAssetAtPath<RoadmapWorldAsset>(pointer);
             if(old==null)AssetDatabase.CreateAsset(index,pointer);
             else {EditorUtility.CopySerialized(index,old);Object.DestroyImmediate(index);index=old;EditorUtility.SetDirty(old);}
-            AssetDatabase.SaveAssets();
+            AssetDatabase.SaveAssets();AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
             string repo=Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath,"../.."));string evidence=Path.Combine(repo,"Design/Roadmap/CinematicPilot/2026-10-10");Directory.CreateDirectory(evidence);
             File.WriteAllText(Path.Combine(evidence,"bake-receipt.json"),JsonConvert.SerializeObject(new {sourceHash=Revision,compiler=SceneComposer.Revision,unity=UnityEngine.Application.unityVersion,composition=Composition,stats,levelIds=index.waypoints.Select(p=>p.levelId),playerBuild=false},Formatting.Indented)+"\n");
             Debug.Log("[CinematicRoadmap] Published five native world chunks "+Revision);
@@ -175,6 +185,23 @@ namespace QuietCamp.Editor
                 string asset=random.NextDouble()<.36?"tree_pineRoundA":"tree_default";
                 Append(parts[2],asset,px,pz,5.8f+(float)random.NextDouble()*5,(float)random.NextDouble()*360,true,.84f+(float)random.NextDouble()*.21f);
             }
+            // A second generation of trees closes the transition strips without
+            // hiding the story silhouettes. These are the same faceted gameplay meshes.
+            random=new System.Random(World.seed+c*421);
+            for(float z=Mathf.Max(-22,start)+2;z<Mathf.Min(195,end);z+=5.5f)for(float x=-29;x<30;x+=5.5f)
+            {
+                float px=x+(float)random.NextDouble()*3,pz=z+(float)random.NextDouble()*3;
+                if(random.NextDouble()>(low?.035:.23)||Reserved(px,pz,.8f)||CanopyObscuresStory(px,pz,true)||RoadmapLandscape.WaterDistance(px,pz)<.5f)continue;
+                Append(parts[2],random.NextDouble()<.3?"tree_pineRoundA":"tree_default",px,pz,2.7f+(float)random.NextDouble()*1.6f,(float)random.NextDouble()*360,true,.86f);
+            }
+            random=new System.Random(World.seed+c*733);
+            for(float z=Mathf.Max(-22,start)+3;z<Mathf.Min(195,end);z+=7)for(float x=-27;x<28;x+=7)
+            {
+                float px=x+(float)random.NextDouble()*4,pz=z+(float)random.NextDouble()*4;
+                if(random.NextDouble()>(low?.04:.17)||Reserved(px,pz,.5f)||RoadmapLandscape.WaterDistance(px,pz)<.3f)continue;
+                double kind=random.NextDouble();string asset=kind<.72?"stone_largeA":kind<.9?"stump_round":"log";
+                Append(parts[1],asset,px,pz,asset=="log"?.4f:.25f+(float)random.NextDouble()*.5f,(float)random.NextDouble()*360,false,.87f);
+            }
             random=new System.Random(World.seed+c*191);
             for(float z=Mathf.Max(-22,start)+.8f;z<Mathf.Min(195,end);z+=1.8f)for(float x=-28;x<29;x+=1.8f)
             {
@@ -190,7 +217,7 @@ namespace QuietCamp.Editor
                 float px=x+(float)random.NextDouble(),pz=z+(float)random.NextDouble();
                 float density=.2f+.65f*Mathf.PerlinNoise(px*.15f,pz*.12f);
                 if(random.NextDouble()>density||Reserved(px,pz,.25f)||RoadmapLandscape.WaterDistance(px,pz)<.1f)continue;
-                Append(parts[3],"plant_bushSmall",px,pz,.25f+(float)random.NextDouble()*.65f,(float)random.NextDouble()*360,true);
+                Append(parts[3],"plant_bushSmall",px,pz,.2f+(float)random.NextDouble()*.45f,(float)random.NextDouble()*360,true);
             }
             for(float z=Mathf.Max(101,start)+1;z<Mathf.Min(197,end);z+=low?5:3)
                 for(int side=-1;side<=1;side+=2)
@@ -222,7 +249,7 @@ namespace QuietCamp.Editor
                 }
             return g.Mesh("Simplified distant forest "+chunk);
         }
-        static bool CanopyObscuresStory(float x,float z)
+        static bool CanopyObscuresStory(float x,float z,bool young=false)
         {
             // Preserve authored trees growing through ruins; only scatter respects these view corridors.
             // A tall foreground crown can hide a landmark despite a clear ground footprint.
@@ -231,7 +258,7 @@ namespace QuietCamp.Editor
                 var anchor=World.waypoints.OrderBy(p=>Mathf.Abs(p.z-tz)).First();
                 float yaw=anchor.yaw*Mathf.Deg2Rad;var towardsCamera=new Vector2(-Mathf.Sin(yaw),-Mathf.Cos(yaw));
                 var delta=new Vector2(x-tx,z-tz);float front=Vector2.Dot(delta,towardsCamera);
-                return front>-2&&front<13&&Mathf.Abs(Vector2.Dot(delta,new Vector2(towardsCamera.y,-towardsCamera.x)))<width+2.5f;
+                return front>-2&&front<(young?4:13)&&Mathf.Abs(Vector2.Dot(delta,new Vector2(towardsCamera.y,-towardsCamera.x)))<width+(young?1.2f:2.5f);
             }
             foreach(var node in Document.nodes)if(Covers(node.x,node.z,1))return true;
             foreach(var item in Composition.instances)

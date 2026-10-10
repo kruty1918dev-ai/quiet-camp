@@ -1,5 +1,5 @@
 {
-  "sourceHash": "a0554eb681dcf83994987ce18fd95ea0444044d59a0a3a6b4b6a7579acadf0d2",
+  "sourceHash": "be4591441b42e7c996fbc7b2de799e4e6a920c9d71fcce110dd7ab8c6278f1cf",
   "compiler": "semantic-composer-0.3.0",
   "unity": "6000.6.2f1",
   "composition": {
@@ -14,8 +14,8 @@
         "template": "pilot.ruin",
         "x": 7.5,
         "z": 85.0,
-        "height": 3.8,
-        "yaw": -15.0,
+        "height": 4.6,
+        "yaw": 3.0,
         "wind": false
       },
       {
@@ -26,9 +26,9 @@
         "revealOwner": "QC003",
         "state": "reclaimed",
         "template": "pilot.ruin",
-        "x": 7.5,
-        "z": 85.0,
-        "height": 7.0,
+        "x": 7.92079639,
+        "z": 85.94097,
+        "height": 5.4,
         "yaw": -15.0,
         "wind": true
       },
@@ -433,8 +433,8 @@
         "state": null,
         "template": null,
         "x": 0.0,
-        "z": -11.0,
-        "height": 0.13,
+        "z": -15.0,
+        "height": 0.2,
         "yaw": 90.0,
         "wind": false
       },
@@ -447,8 +447,8 @@
         "state": null,
         "template": null,
         "x": 0.0,
-        "z": -1.0,
-        "height": 0.13,
+        "z": -7.0,
+        "height": 0.2,
         "yaw": 90.0,
         "wind": false
       },
@@ -461,8 +461,8 @@
         "state": null,
         "template": null,
         "x": 0.0,
-        "z": 9.0,
-        "height": 0.13,
+        "z": 16.0,
+        "height": 0.2,
         "yaw": 90.0,
         "wind": false
       }
@@ -539,11 +539,18 @@
   "stats": [
     {
       "index": 0,
-      "estimatedBytes": 11283552,
-      "balancedTriangles": 43909,
-      "lowTriangles": 23255,
+      "estimatedBytes": 11906496,
+      "balancedTriangles": 47307,
+      "lowTriangles": 23565,
       "sourceAssets": [
+        "grass",
+        "log",
         "pilot.asphalt",
+        "plant_bushSmall",
+        "stone_largeA",
+        "stump_round",
+        "tree_default",
+        "tree_pineRoundA",
         "ua_bus_shelter_mosaic",
         "ua_orchard_tree",
         "ua_poplar"
@@ -551,12 +558,18 @@
     },
     {
       "index": 1,
-      "estimatedBytes": 8332128,
-      "balancedTriangles": 33097,
-      "lowTriangles": 16499,
+      "estimatedBytes": 8757168,
+      "balancedTriangles": 35319,
+      "lowTriangles": 16807,
       "sourceAssets": [
+        "grass",
+        "log",
         "pilot.ruined-house",
+        "plant_bushSmall",
+        "stone_largeA",
+        "stump_round",
         "tree_default",
+        "tree_pineRoundA",
         "ua_gate",
         "ua_orchard_tree",
         "ua_picket_fence_damaged",
@@ -566,33 +579,53 @@
     },
     {
       "index": 2,
-      "estimatedBytes": 11118240,
-      "balancedTriangles": 43466,
-      "lowTriangles": 22714,
+      "estimatedBytes": 11747568,
+      "balancedTriangles": 46818,
+      "lowTriangles": 23108,
       "sourceAssets": [
+        "grass",
+        "log",
         "pilot.ruin-wall",
+        "plant_bushSmall",
+        "stone_largeA",
+        "stump_round",
         "tree_default",
+        "tree_pineRoundA",
         "ua_power_pylon_fallen",
         "ua_power_pylon_rusted"
       ]
     },
     {
       "index": 3,
-      "estimatedBytes": 9346848,
-      "balancedTriangles": 36144,
-      "lowTriangles": 19492,
+      "estimatedBytes": 9728880,
+      "balancedTriangles": 38134,
+      "lowTriangles": 19776,
       "sourceAssets": [
+        "grass",
+        "log",
         "pilot.broken-bridge",
+        "plant_bushSmall",
+        "stone_largeA",
+        "stump_round",
+        "tree_default",
+        "tree_pineRoundA",
         "ua_plank_bridge",
         "ua_young_willow"
       ]
     },
     {
       "index": 4,
-      "estimatedBytes": 11338656,
-      "balancedTriangles": 44574,
+      "estimatedBytes": 11895408,
+      "balancedTriangles": 47888,
       "lowTriangles": 22918,
       "sourceAssets": [
+        "grass",
+        "log",
+        "plant_bushSmall",
+        "stone_largeA",
+        "stump_round",
+        "tree_default",
+        "tree_pineRoundA",
         "ua_dam_breached",
         "ua_hydro_service_building",
         "ua_young_willow"

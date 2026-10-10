@@ -90,15 +90,15 @@
         "asset": "pilot.ruin-wall",
         "x": 0,
         "z": 0,
-        "height": 3.8,
-        "yaw": 0
+        "height": 4.6,
+        "yaw": 18
       },
       {
         "id": "growth",
         "asset": "tree_default",
-        "x": 0,
-        "z": 0,
-        "height": 7,
+        "x": 0.65,
+        "z": 0.8,
+        "height": 5.4,
         "yaw": 0,
         "parent": "wall",
         "growsThrough": "wall"
