@@ -1,8 +1,8 @@
 {
   "kind": "cinematic-pilot-editor-evidence",
-  "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
-  "runtimeCheckpoint": "00152fab00c22faa32a9271ad7f267b0e15f4856",
-  "verifiedUtc": "2026-10-10T18:51:50.405977+00:00",
+  "sourceHash": "64d67704cf5a3b32772e0d490bc44e3eb5bdf622bc9f502ee68549d361bf6507",
+  "runtimeCheckpoint": "42d41524b1c171a7b69a33addc875a233f4c4e63",
+  "verifiedUtc": "2026-10-10T19:18:07.623950+00:00",
   "levelIds": [
     "QC001",
     "QC002",
@@ -26,15 +26,15 @@
     ],
     "portraitFieldOfView": 30
   },
-  "nativeCaptureUtc": "2026-10-10T18:43:32.0253810Z",
+  "nativeCaptureUtc": "2026-10-10T19:10:30.3977590Z",
   "nativeFrames": 43,
-  "gameViewCaptureUtc": "2026-10-10T18:48:35.7756970Z",
+  "gameViewCaptureUtc": "2026-10-10T19:14:47.6370170Z",
   "waterMotion": [
     {
       "quality": "Low",
       "renderProfile": "Low",
-      "seconds": 2.14717865,
-      "meanRgbByteDifference": 3.628292,
+      "seconds": 2.14421844,
+      "meanRgbByteDifference": 4.6749506,
       "patchX": 452,
       "patchY": 525,
       "patchSize": 40,
@@ -44,8 +44,8 @@
     {
       "quality": "Balanced",
       "renderProfile": "Balanced",
-      "seconds": 2.15007019,
-      "meanRgbByteDifference": 4.024745,
+      "seconds": 2.15885162,
+      "meanRgbByteDifference": 6.55950451,
       "patchX": 452,
       "patchY": 525,
       "patchSize": 40,
@@ -55,54 +55,54 @@
   ],
   "navigationTrackingSamples": 36,
   "navigationTrackingRange": [
-    0.8866686142857143,
-    1.0059599206349208
+    0.8693823214285714,
+    0.9974343452380953
   ],
   "gameViewIntegration": {
     "result": "Passed",
-    "startUtc": "2026-10-10 18:46:57Z",
-    "endUtc": "2026-10-10 18:48:35Z",
-    "durationSeconds": 98.5097239,
+    "startUtc": "2026-10-10 19:13:08Z",
+    "endUtc": "2026-10-10 19:14:47Z",
+    "durationSeconds": 98.862688,
     "checks": "Fresh campaign progress after onboarding, completion 1–5, old progress including gaps, replay, jitter-tolerant tap, drag rejection, 36 screen-space tracking samples, normalized wheel and fractional trackpad, multitouch ownership, real Input System pinch/release/cancel, fresh-profile inspection margins without reveal, quality change, synthetic notch, portrait/landscape, reduced motion, interrupted reveal, repeated entry/exit; one main shadow pass, atlas caps and indexed meshes"
   },
   "measurements": {
     "Low": {
-      "maxSubmittedMeshTriangles": 72482,
+      "maxSubmittedMeshTriangles": 73026,
       "maxSharedWorldMaterials": 6,
       "maxDetailedChunks": 3,
       "gameViewSamples": 10,
-      "maxEditorDrawCalls": 54,
-      "maxPassInclusiveEditorTriangles": 143407
+      "maxEditorDrawCalls": 55,
+      "maxPassInclusiveEditorTriangles": 144496
     },
     "Balanced": {
-      "maxSubmittedMeshTriangles": 98775,
+      "maxSubmittedMeshTriangles": 99642,
       "maxSharedWorldMaterials": 6,
       "maxDetailedChunks": 3,
       "gameViewSamples": 10,
-      "maxEditorDrawCalls": 54,
-      "maxPassInclusiveEditorTriangles": 195950
+      "maxEditorDrawCalls": 55,
+      "maxPassInclusiveEditorTriangles": 197685
     }
   },
   "reentryCounts": [
     [
       2,
-      373,
-      219
+      360,
+      192
     ],
     [
       2,
-      373,
-      219
+      360,
+      192
     ],
     [
       2,
-      373,
-      219
+      360,
+      192
     ],
     [
       2,
-      373,
-      219
+      360,
+      192
     ]
   ],
   "playerBuild": false,
@@ -129,7 +129,9 @@
       "Outdoor vegetation with full crown/wind footprints and clear water/architecture",
       "Continuous readable stop road and owned pedestrian approaches",
       "Terrain relief, one sun with opaque casters, sparse wind-driven pollen",
-      "Two-lane stop road, owned tapered bay/platform, roadside waystone and visible bench/mosaic"
+      "Two-lane stop road, owned tapered bay/platform, roadside waystone and visible bench/mosaic",
+      "Visible valley folds, directional sky irradiance and low riverbank haze",
+      "Distant riverbank terrain contains no omitted shoreline tiles; bed height matches detailed terrain"
     ],
     "limits": [
       "Art quality is a design judgement; source LOD silhouettes remain stylized",
@@ -145,9 +147,9 @@
     "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/valley.json": "37ce943b9d9960cdd2c196f2d9a5164c21db08b28ce82506f93132c397b27c45",
     "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/water.json": "203bd4b50ba112288870259240ce2d6e0258cad3e31e34eaa1d47d072b9d41b0",
     "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/world.json": "028e3767be287fd906133a3316f255721ad4b43b36f49c596838ce537c098430",
-    "QuietCamp/Assets/QuietCamp/Editor/CinematicRoadmapBaker.cs": "bcda2200adbb7d34a4465cdd1bb8d055fff56c671040e4433ba3dbc30caca469",
+    "QuietCamp/Assets/QuietCamp/Editor/CinematicRoadmapBaker.cs": "9a9b7fb03050629dd470020805a40d169182a73fe4185b1cee86fa87cb1c0eea",
     "QuietCamp/Assets/QuietCamp/Editor/CinematicRoadmapCapture.cs": "fc46715b346bf91715de070e9ef64e5292e9bb1c5c53c61eb1d42a94d7fadce1",
-    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/World.asset": "184ad092e1681e5bf3b3ecc716873268b66feb069d86779b85964bcded400afc",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/World.asset": "bd7d7df44222ee21c4cdb2572bc1512e091ac081a582c324bc6695e7bdd62dfc",
     "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/Camp.css.txt": "fd3220bce418a27e257ea7fdf18221af91c3b823d904eaf3e60c00b5b3038e3c",
     "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/CampBackdrop.css.txt": "618ebd15adf3e8f2b76faba0f461b8c2965891cdfda26484d639f46c9c4c4d2b",
     "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/CampGame.css.txt": "389ecb43b02eb59f2216618943c5386f70c6b30becd3afe6102bd36d64d3709b",
@@ -157,7 +159,7 @@
     "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/Gameplay.html": "84d57ce02edbb2c78716a8545d05c32a8e42684a1a582dc9e888901568cfab81",
     "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/Menu.html": "5f9636136f253ef1f714c70cc9ecea258a6965cb2c3872f1cb15b9e84f9c3af3",
     "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/Sheet.html": "19d94ed00b4f8367b2291cf0d92d57f6bf682868fea47e56541aed8dbffb0b41",
-    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/RoadmapLit.shader": "568f40e0e71a06240696d14842931cc1bcfb3b5bf958326f6b0ee132d3039c41",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/RoadmapLit.shader": "510e302eca44420778a71497ce536eece7e0321c81683c98e20f1776a0f241a4",
     "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/RoadmapMotes.shader": "7442c09bcebf295dcea6f9d3229fc7f02d0950562f5a7adc663351a03d90ecd5",
     "QuietCamp/Assets/QuietCamp/Scenes/Boot.unity": "ed70bb55d1654a25ccf197610f9da0c0ee1c66adafbdc957ebe4f15c78ef7de7",
     "QuietCamp/Assets/QuietCamp/Scripts/Application/AdLifeService.cs": "e36bb5a0d0671b69747cf03fafe48fbea08b64fb459e4c84b23baa13a28b31ca",
@@ -322,10 +324,10 @@
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/PlacementTargetProjector.cs": "87adca46552425aa7fa2c029b7bcaff3bf4bdcf5f0e3c90e2cd9fcfcb2c13cb0",
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RainImpacts.cs": "99366355968a44839cedbef44af1ba5cafc05f11b7f16a65684920fb0420406c",
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RainSurface.cs": "71dfa40acb676b6f85b18da132f52303a7f5d1eaffd21c9d46fd893e4c6e3730",
-    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldAsset.cs": "ee9db2eabb78e78089e44412581be747e704219e0f7f5d58d010c434fd98ce2a",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldAsset.cs": "0b0306a8e9bec365f52cd3eb71ecb1b938c18897dd27ccf42534d333f1d911a3",
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldChunk.cs": "53dd88f689516c6f10d8c1ff0a8be8dce7c75e9599cfe5b079676eaef93afcb9",
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldInput.cs": "52c7b0190b492e90577a5d5ca04dbdfa1127fa731418d6a4e59ab3f61a16eacc",
-    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldPresenter.cs": "5421769994f8a9c271f5948a76b8e4022d5fada89947079baacd353acb5ff9c3",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldPresenter.cs": "aac974059615495e3c9448b3a48d237042394672599b981fde9968e4ae98bf98",
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonPalette.cs": "58d340e333e557a7af3625edfae3eb7b97f5b82e609de30c2ceaf3bd77f613b1",
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonProfile.cs": "2ee313cd6a340b074fd646df4698f54963b988a3db50447335e3163c589db7b8",
     "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonalLeafFall.cs": "0abed7f869aebd9af13be02127e216ecfc88389b7c99a02081e1c783e5e04d49",
@@ -346,451 +348,451 @@
   "images": [
     {
       "file": "balanced-landscape.png",
-      "sha256": "d69eac1f50808c8fb7540cf33ba27a26fc04e0f7b0958ce82b2990974fc8c113",
+      "sha256": "016a2a44ad2b4ae85845121bc976d22c8c1a0c09bf2906b48c6b45e5c822e2a9",
       "width": 1600,
       "height": 720
     },
     {
       "file": "composition-00.png",
-      "sha256": "990457fff61b7af2a4d736231929f47e907953e595d01d2d283d8cea1edc8ad7",
+      "sha256": "b549086a28933108fbb0c3348b8e59ad05d6102df3b7221fe8606073e57a1385",
       "width": 720,
       "height": 1600
     },
     {
       "file": "composition-01.png",
-      "sha256": "cb257b2634b434d5b848e6dfcb52c5a2786a762f378ff4ae5530cc1c7b9f6d8a",
+      "sha256": "025e1915d1654ec75206d14282a774d47a92a17901a7951cd832ffb943cce338",
       "width": 720,
       "height": 1600
     },
     {
       "file": "composition-02.png",
-      "sha256": "bca2ead1a7b96d229c293c908785677416f38ac4df72af62d1668af88da178d4",
+      "sha256": "06d6ccc7f90e31b3e3dd341133f0197abf79afba43044b33fd47c8797051f9cd",
       "width": 720,
       "height": 1600
     },
     {
       "file": "composition-03.png",
-      "sha256": "1e58e6f99cd7f1404190d30fbc8ab0f3788a4688d599b6548e459b8ebc31057d",
+      "sha256": "e362e26be7846ac8eee42ad72ccfa77f375830afd227d94113ccde916a2edb69",
       "width": 720,
       "height": 1600
     },
     {
       "file": "composition-04.png",
-      "sha256": "f1bd4475f32ef8aa703cf231a9aa397cb2259f29a5fc888ece833fc5f5cdedff",
+      "sha256": "73a314c5cc8bf3280e9dcdee109c0ac992e313ef4417045a0d97cbfa64d034c0",
       "width": 720,
       "height": 1600
     },
     {
       "file": "composition-05.png",
-      "sha256": "f5e06eb102625c178b2715b79c0ff8b11cb34822c46e4a3877b7afface295634",
+      "sha256": "8913dd4f955fd21aac866b960b422036a8695ccecf1489e1a7c699716e160808",
       "width": 720,
       "height": 1600
     },
     {
       "file": "composition-06.png",
-      "sha256": "c5c28482db93b80fb5e67751d01dab5ea877ac832e53523dfde0a6bfe2b1dcc2",
+      "sha256": "0794713ff8e9241d75ba76615a21863abd82d7fc473de50f44409defe7f2f192",
       "width": 720,
       "height": 1600
     },
     {
       "file": "composition-07.png",
-      "sha256": "9cac0a6f176d27104c7a3f8b2a0024b1a49ac92dca5c9063322dd63fb466033c",
+      "sha256": "ef6bc4664945f05754bc49fe20625ab9f78ab271bc6e24f0e197e771a9ad9817",
       "width": 720,
       "height": 1600
     },
     {
       "file": "composition-08.png",
-      "sha256": "0f1588fc8e18033932eaab36c825540957bde92bfe8f79e592114b3173f60ce6",
+      "sha256": "824334d57b14c52fbb7fb65fed0cf2e7d466fc49f5136bab53e7cc31314d5f83",
       "width": 720,
       "height": 1600
     },
     {
       "file": "edge-end-landscape.png",
-      "sha256": "d1066cb503a62b70955a5d60b8531313c5bbf9e8777fafc9803413062c5e49d0",
+      "sha256": "9afff4b021c148dfcc68436bcfb6ba026bf80326f60d46015ec9ea8a8adaae0f",
       "width": 1600,
       "height": 720
     },
     {
       "file": "edge-end-portrait.png",
-      "sha256": "8c2c1dc522289b0f8f35202b45de5efbd42b9040beb9cc7bb3cf0992632cc1bd",
+      "sha256": "e2d3651765d37b8e92aab6c6870425ee1939f30eb5edff409770a0a45ca18c8f",
       "width": 720,
       "height": 1600
     },
     {
       "file": "edge-start-landscape.png",
-      "sha256": "11db1f754f0efe7c7c59e72e9bbdab5dcebbb49958c4cdf4aa6594c78336020a",
+      "sha256": "2a7af52df1539f7e41148b44fadaaccd2a5547b929fda9550dcc5aaec3b732ca",
       "width": 1600,
       "height": 720
     },
     {
       "file": "edge-start-portrait.png",
-      "sha256": "f7a968f327ddd144f75f30adec6d22026d69303f8f23497a99cd153ba5c3655e",
+      "sha256": "57be1dc400d9841478100e7195de4c27704cca51e12d4c6ddb75ffa7f88012d5",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-after-1.png",
-      "sha256": "e922e0ee938e26ddebc337e2d7ded61bccd26f88cf060785c0a0fc2dcb1d5989",
+      "sha256": "137d17df989718ec157254cdd9fa56909aa42fb30b625a7e529960f42ec97828",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-after-2.png",
-      "sha256": "6fae5488e1e50dd0a1a94e2db9f24da4a2db15d6a35316ed5f6da928757c3948",
+      "sha256": "3beab79fd7de882fa482ecefc92062d6b6cf8b7a9994c14f36ff8a7740566c08",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-after-3.png",
-      "sha256": "e0bb06ef95df61bf7f4b9307c06d3d8b09ba02a5f0cc9b6c76a00be911401149",
+      "sha256": "7cf4a2d5e9db9c67e96f11659c21fa156795f52e3e7e23adba47b3e2090054db",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-after-4.png",
-      "sha256": "e6240c0a51c645952dcb5ca778614ca78b9b082a48ac65d7e888a11a809540cc",
+      "sha256": "4e57498cbac5ef65b7f770f83bc93e9b436d0c2ae61219f851b266ca193fe140",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-after-5.png",
-      "sha256": "6243ad75c35836901f922afe20f618dc5c3d45cd5339087e3c2306dd45cc6a13",
+      "sha256": "78c3113b39f518d9514b6de2c59a24d991efbbdca8568560c833de86f9d9dcfd",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-balanced-landscape.png",
-      "sha256": "3fd7ade2b66a74ea89db44b3c5dba6899dccb9d66d0c0236277d1239c97d04a1",
+      "sha256": "11a3062bbf2a97356a980a87c669e53befb4deb7bea237b88b53185969984f83",
       "width": 1600,
       "height": 720
     },
     {
       "file": "gameview-composition-00.png",
-      "sha256": "56ffdf1e0f4a334482a9a227678239689108f95c0f90248b2493a97f288d0e85",
+      "sha256": "69c33b1b8b126de0faad41d608acfb713cbf856e4ad9856cbf3c7a9aedf8cd28",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-composition-01.png",
-      "sha256": "26c68d24f5523d43f2bc84a58f3e057638d9a1d044ed4e3e3b2b9dac9aaec6d8",
+      "sha256": "00ce5c96bc23e0bbf41e1cf89ee05702dac4ff0e0f486a142204fcd60fb2bfa7",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-composition-02.png",
-      "sha256": "e86bd9a85bbfe062c0de56cf96266e272315465c8f8077994c25af9a42d6f35f",
+      "sha256": "17481a173d1e00296f614bc0507cb717bcb4ab3928cef5a1b326b3e84685df5e",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-composition-03.png",
-      "sha256": "be9eb9e76fc024e47b5fab624cb1e31ced4324a0943f695dbf0e01e6f32aa558",
+      "sha256": "8416ddef0b8beefaf20b4f5a7e23ab87ab2d5e637249ed19b8363b1831f1af67",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-composition-04.png",
-      "sha256": "a4a81b98d635e908c1a19a37029b71387b00b1409b24481743598582cdfebed1",
+      "sha256": "6d5870dd60dc7d5373d42e4a3a915febcce14f25d6745758885abfa23cc7ac25",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-composition-05.png",
-      "sha256": "6b9b347def1a18fe69bc93245cd0e7327e68b89f5228b40f08af81d057791b85",
+      "sha256": "a80876231bc73e60c88557b88c7f648315e033c2add3fd201e96ab252e89ffb6",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-composition-06.png",
-      "sha256": "cf819511d7a33de3034063e8c97a996a4d79b6dcb4de3648df3e4977ef10002d",
+      "sha256": "3ea8861de68e4f8f7f0935125de7067cee7e90ac47424c532807041c256347c0",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-composition-07.png",
-      "sha256": "f03b2be6be3e35f08de2dadeba22bdd8323ab3adfd57b7ee400aaacabe679b6f",
+      "sha256": "652067c89b451889498a597fea395b231e11f4bbb24285303fb5065729344050",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-composition-08.png",
-      "sha256": "5693c8bf31388dd3491d1cfa730ba5207c53540beffa2ba468b865b0d997af08",
+      "sha256": "b4d30a051b32a64209d6feb2e9dd297d35dc2a7cb28736cf35b1f66d1a96002d",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-fresh-profile.png",
-      "sha256": "751695a614454b75e0277ac1a280899b242e5423d598065dbfbb449aad6588f5",
+      "sha256": "849dc9dfe6064305f1c54ae79af2c7cd1c494d2456b5c3d20357178e950e92f6",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-low-composition-00.png",
-      "sha256": "c988f048451e8e9efb237dd01c5bbc4979f8e9691ef84c5a84bead39a0d11995",
+      "sha256": "9098b89e94eed6107966588ff5ebfbdf944c2f7939b4ece463bba8455d2fb5d4",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-low-composition-01.png",
-      "sha256": "806e9a15ad6a67785e0e36453d6092ec5e5b877df1270f6ddf5f04c0bfc1aab1",
+      "sha256": "94e884046ab72950041d1f87684977927d428cf9f3528c6724eebc5164072dbe",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-low-composition-02.png",
-      "sha256": "36ffcfc4e46dbbf5c621a03ca7a670f4900750f383087a7298fd426d2bcdb784",
+      "sha256": "332cad0e63025bd86409bf20162255bf74e6d7006557639a0b2714cd266f6b4a",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-low-composition-03.png",
-      "sha256": "e53a00abdbc8b06ed43fd6635740b33e73315cae163effcdfa2d49b8ef6657b3",
+      "sha256": "a56123156a3469bba319c66f168ba26842d62b8d8f223f453606b239372c74d6",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-low-composition-04.png",
-      "sha256": "ef01be90de71c6f83d8d6bc397c9eeadee8fb1f063f9275dab08be9080a67b01",
+      "sha256": "29cf057ef58c0353fd3b176deff5cfefbf09354c2d20340726bc1b39bbda1bff",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-low-composition-05.png",
-      "sha256": "beb3a027d9428510873877efe16f86b919376a98fbad91c81d429904d9242905",
+      "sha256": "24aaff09a2819e04fe9760972dee712cddf59769306fdb38a26558205bc7aa7e",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-low-composition-06.png",
-      "sha256": "8684b54164ea74653ad6a742ea4e3dbe1734b3d9eb3019aa288e35754d8bb7a3",
+      "sha256": "1523c61f7d82f61bc3f233ac3ab0c53029303c24a23f6a73a22855854e41e43f",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-low-composition-07.png",
-      "sha256": "97282cc9989a3d5f0232177ac32e641eaf438365a5376b4f468633a07d95a319",
+      "sha256": "b202181145c0034e0df10885110ade3034afdaca0d315a11f1fe859825025784",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-low-composition-08.png",
-      "sha256": "ef44723d69c55fd5b50ef892eab3af1fd60767551a94bf443434709226a2f513",
+      "sha256": "359e9efea61a2799cf1233ca7ae38d20e787711be7c697d873f933f3891c27e4",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-low-landscape.png",
-      "sha256": "0f8bf8380bd560e438a22073e47f78ab943acebc03a977ce0a5a025b293248e1",
+      "sha256": "769a25386d6dc06923faf477a3890a8f970951ce790f05e373da3171deb45d45",
       "width": 1600,
       "height": 720
     },
     {
       "file": "gameview-notched-portrait.png",
-      "sha256": "ab0799cf60b4d0c2c6b312fe736aac51e37f39135458bacfa4135e25efd7267b",
+      "sha256": "d309e2483092516ea1869d36eeded0d5ada0ba354f22c62a5c163980c31cdedf",
       "width": 720,
       "height": 1600
     },
     {
       "file": "gameview-old-progress.png",
-      "sha256": "ccff85b9c799e84bb41657ee287ae320939ccbe6defd16a4c95ece44bcde140b",
+      "sha256": "341e296def69d983317f20854d90485adee13041455d761e56b33dd297d346d9",
       "width": 720,
       "height": 1600
     },
     {
       "file": "landscape-zoom-out-0.png",
-      "sha256": "2148acd3372b33e401d134f655cf6680a8b73110751e53ed4f7a79f03efd9f6b",
+      "sha256": "ff9206b19757aa278a5e82e5c3cbc4b8baaece66d1d712ae46b76e48b0aa4c49",
       "width": 1600,
       "height": 720
     },
     {
       "file": "landscape-zoom-out-1.png",
-      "sha256": "14970e686149227c89bc4364ee0f1684672581acaaf17cebd1c456da21dce8cc",
+      "sha256": "e06ee4a590fcb32f854a15964232817561e4c448a8b7c1fa880d4ad3ead37ae7",
       "width": 1600,
       "height": 720
     },
     {
       "file": "landscape-zoom-out-2.png",
-      "sha256": "877a7b51fef774b15dc051a0dfc1c0941045758888d7274d2638d7c71d9e796b",
+      "sha256": "ee781c20f5c8fe94d4f5c20804789777a926f0ea64303167301d5702be08b9fa",
       "width": 1600,
       "height": 720
     },
     {
       "file": "landscape-zoom-out-3.png",
-      "sha256": "c5f2b5ef06294bf5a0c6398817d257f693355c0b26e3f506e2804e929902f5cf",
+      "sha256": "da4bc5a5062922b029723eeb122bc244fff0e4c04db722367e2900ecc632edd5",
       "width": 1600,
       "height": 720
     },
     {
       "file": "landscape-zoom-out-4.png",
-      "sha256": "e2603e68e430ab124a065a0135a1f4de99e0778293a19238c3fddb46c17d8f13",
+      "sha256": "0a7ab4ea54783056d878cae42c3c156634ee1c994f4a096a4638d683c86835d6",
       "width": 1600,
       "height": 720
     },
     {
       "file": "low-composition-00.png",
-      "sha256": "3637fb8ec9f8070f05873d1cf04d6f11e1b44633302898dc16a4c1842d02e04f",
+      "sha256": "145bdd035ff41a7cbcf9b7817626d43659427d45fe97415dfff7f6d0197fe184",
       "width": 720,
       "height": 1600
     },
     {
       "file": "low-composition-01.png",
-      "sha256": "fae89dc5da0f98556d61eac291f3053f9d7f1f464e33ef2c6d0b6be22e3f7941",
+      "sha256": "615cdea36d5bbc198e3af278e69988a4bb9c629368d0780ed802b0e8eead2f0c",
       "width": 720,
       "height": 1600
     },
     {
       "file": "low-composition-02.png",
-      "sha256": "bba1ed6d9b57fb13cd96494dbb3546bd95587f84a297bef8f7d72bc581ddb438",
+      "sha256": "8990e16334ab7e5cf39616303f183b5742e8288d2b17c75fbda8b7496b9bea5b",
       "width": 720,
       "height": 1600
     },
     {
       "file": "low-composition-03.png",
-      "sha256": "bbf0f05315db03e67b022d55c1159e7c2ac57474f350b7c0109620da60fdd597",
+      "sha256": "746cd259f8f05c26573f0e714a896dc57d06fb929c426804a183deb4fadc38f2",
       "width": 720,
       "height": 1600
     },
     {
       "file": "low-composition-04.png",
-      "sha256": "10417a9643f4ae48db45419d1f307da57f25ef604000a77854bbcba99d86737a",
+      "sha256": "d066b656f850143392add938d21e07805ec38fd87d8fe04ddcbd8eb6d72d044e",
       "width": 720,
       "height": 1600
     },
     {
       "file": "low-composition-05.png",
-      "sha256": "340b92cd96ca0967895c3f1431c5cbbe666f6262645a1b95e54b9bf758cd4c75",
+      "sha256": "5a9b4960cb0be755556f75660b5fedef1b918c36955b1492fcaf4c6608652ec8",
       "width": 720,
       "height": 1600
     },
     {
       "file": "low-composition-06.png",
-      "sha256": "87d416b9b48f78f9cc99b0ca87381ff456a65d92ac6e24228bbe63391f4f6a6a",
+      "sha256": "0179d752b656be110a2aaa0f360d88d9f2da57c5879e8c34f43499299208e615",
       "width": 720,
       "height": 1600
     },
     {
       "file": "low-composition-07.png",
-      "sha256": "e5da98204fd5a8dacfca3c0c25e8df810cebfa8f93d2251fdc28a959f654b3b9",
+      "sha256": "6cddcbdbdc0930df7554044cd81b5b207ce18a4fc441b5473759539821fa842d",
       "width": 720,
       "height": 1600
     },
     {
       "file": "low-composition-08.png",
-      "sha256": "cbf6474deddd5a0166fc39845ae45005c753384c2992d4e68c7a020d189078c3",
+      "sha256": "36495206191f96ea7d1d23102f54afae97048be3d0da868f963fb2a6ad730690",
       "width": 720,
       "height": 1600
     },
     {
       "file": "low-landscape.png",
-      "sha256": "1dba2eed92ea29fb80721fe2da5022c71175307686d53c32f69cdf40b79b1d78",
+      "sha256": "479d9d4f60fdaea601a9729c06af760fc5ba4f6f4087971fac9f0626dbd9b1df",
       "width": 1600,
       "height": 720
     },
     {
       "file": "low-portrait-zoom-out-0.png",
-      "sha256": "04d2b9eb9f8eb2c4d99b35d03f6c0f5e862efa77519cc9e5ab8ead5051441f48",
+      "sha256": "345c14ef60426825a5be1f2ca73bd3213e998997edd1d16b94891bacf09ce866",
       "width": 720,
       "height": 1600
     },
     {
       "file": "low-portrait-zoom-out-1.png",
-      "sha256": "e09fe66312ab0736c2240e534cf637147183261b52c7aa5c4c9b08c61d77d3af",
+      "sha256": "2f5984e3e9aa337b9cd2bf4cead17141a0c37c7f63fa1d7d26831f927b85a46f",
       "width": 720,
       "height": 1600
     },
     {
       "file": "low-portrait-zoom-out-2.png",
-      "sha256": "b354d4de000effbe3389aa1d39a915885b6d759867d6311b33dac9cf41a99fd8",
+      "sha256": "0966acfd971b91dc3ac370b6ebab99affc832e7c47e8f4558549f129353a9df8",
       "width": 720,
       "height": 1600
     },
     {
       "file": "low-portrait-zoom-out-3.png",
-      "sha256": "90c4f6788c729a8ef46e704bb6b0230caab69b24dfd7567ae352b09b507e33bf",
+      "sha256": "695a7b447fb9c834f40fe0ebdf8af68263eccf2c3b8b109225d365a6b849566e",
       "width": 720,
       "height": 1600
     },
     {
       "file": "low-portrait-zoom-out-4.png",
-      "sha256": "d2dab16fdc7defc036ad926fa46123ea42733e05786b5d4ebf744c07744532f9",
+      "sha256": "c146a1cd592e9e039bfda33fd3a246f27723de153a5e350596b1417d9ab40dee",
       "width": 720,
       "height": 1600
     },
     {
       "file": "portrait-zoom-out-0.png",
-      "sha256": "0c0de1d391ab7f7d262b70789e26e188e7acd0c4ba676741da940fecdcec13bc",
+      "sha256": "7d28e8462840c8b730e20db89c4bd18075520e273cabcf22cf35307d32304375",
       "width": 720,
       "height": 1600
     },
     {
       "file": "portrait-zoom-out-1.png",
-      "sha256": "b3e824da7b8bad4dd6449bed2ce50dfe797cc45fc5195df3209ab7d8e58ebc46",
+      "sha256": "0d75282b338b6b15928547f66732a5fc44aee312a36ca030b16d377536d73b84",
       "width": 720,
       "height": 1600
     },
     {
       "file": "portrait-zoom-out-2.png",
-      "sha256": "50e60e945973f672521347fafeeaf39ff15732b228bd3cada8e35f1336076de2",
+      "sha256": "34e6d087e3a0ede2d1b53533d3bd1117c892d5bfd9ea06f2721edeab662fb410",
       "width": 720,
       "height": 1600
     },
     {
       "file": "portrait-zoom-out-3.png",
-      "sha256": "0defa3a8c4c510baaef4bc3a1258cbdb78d46b13c593fc623eaa7311e23ce9c6",
+      "sha256": "bab501c94baf0f4f600d6e02bbff000d9aa4663c20d89a64ef31aeb7411ac6fe",
       "width": 720,
       "height": 1600
     },
     {
       "file": "portrait-zoom-out-4.png",
-      "sha256": "f5ddf0a738e23eebe390e80bca372e9020c4f61f59d438c1b6d51948471d45f4",
+      "sha256": "4dae656458394aabf5f1915dc6c5c16a46fd5a9ba3adf1f5c6cec1e7fe272e9e",
       "width": 720,
       "height": 1600
     },
     {
       "file": "progress-0.png",
-      "sha256": "d23df41fe3b78ced533b3e7414ee497b3a9cc0c5f67a42af3a623450d89d262c",
+      "sha256": "d5324605a612cb2b64ddeb01d2e4b5e61e5726372ebc184770f5e379fc5be9a6",
       "width": 720,
       "height": 1600
     },
     {
       "file": "progress-1.png",
-      "sha256": "4c61310074acc4df359002f896885a7c116458a969bae04e03dea8dadbf4fcea",
+      "sha256": "14cdc33e66eeb98a5f1e3ca1400bf3454ebc590e7281957f56780ff25ee81a0c",
       "width": 720,
       "height": 1600
     },
     {
       "file": "progress-3.png",
-      "sha256": "5284d9b8f795a7546be428b0de842e5541aedb8fe4209e8b6637ac6f4bac69f6",
+      "sha256": "d5c2156bf44ca8fde961eae07dd7f12ff87260f7ae5caefa18de44ea4b5944bf",
       "width": 720,
       "height": 1600
     },
     {
       "file": "progress-4.png",
-      "sha256": "eb5a6418ec9f630d6ea87254a80518f1b4012514f4f3145bc62840cd2bc489f3",
+      "sha256": "a6aaf9e65a8b84e7aa80c5372ee88d4fd8b2c6378e24b8393e1f971a8f772a05",
       "width": 720,
       "height": 1600
     },
     {
       "file": "water-balanced-0.png",
-      "sha256": "e31aeffa2c31db4ecdd64905c9f68e8d2fa5accd5c5c1bf0965ab5734bd26821",
+      "sha256": "f904761c526af5eeb091d0ea66aa9ddbc4df0ed6f0926792a176b48135339104",
       "width": 720,
       "height": 1600
     },
     {
       "file": "water-balanced-1.png",
-      "sha256": "d9f5e6775c35bbe41c7aca69ec60decf76373789718747f3aec0e8dbab069f79",
+      "sha256": "90e2cce2134d78ce09a430413a2106b9d6f4789f490610e09b602b1251f2521d",
       "width": 720,
       "height": 1600
     },
     {
       "file": "water-low-0.png",
-      "sha256": "2a00f9aebe57a0348019a76d58c3e1a75805ff0659a861eb6939ba9b90ade2e1",
+      "sha256": "54d82cc71abc94e983073ce4e16ad6b80a5716a368e144d5915c25816aad6599",
       "width": 720,
       "height": 1600
     },
     {
       "file": "water-low-1.png",
-      "sha256": "3fc84a89da3060f1c610f7135145d920a870e768df2c6747eae247bd86c5b0a1",
+      "sha256": "60d90ea698965df9a7fd845a7cbd9f96ff67f3833622fc8f52c1b39eea1fbc0f",
       "width": 720,
       "height": 1600
     }
@@ -805,39 +807,42 @@
   },
   "preservedDirtyInput": "QC_Renderer.asset was rendered with the user’s original uncommitted configuration; its SHA-256 is recorded, its bytes were preserved and it is excluded from commits.",
   "artifacts": {
-    "bake-receipt.json": "0bff324d73513158585fc76f56a012afa7ee34ce2a3634cba83fea2543079f1e",
-    "native-capture-receipt.json": "68bfeded3f58c13f5fcbc75b59cb0d0fb2ca8b4d36212059ad4ba5f8031bb480",
-    "gameview-integration-receipt.json": "2c750d3b2645132f7c08d7964804a2948428e1e75c8297abab24e574db475077",
-    "integration-results.xml": "51876566017c134841bb2507ea94768b4f1d7370d212bdb635f83d334a4af315",
-    "lifecycle-diagnostics.json": "c00d676f4d6a4b74e698ba792d53f87f6cc4644b115d06ac2d008a680aae17de",
-    "compiled-assembly-receipt.json": "005ec5a99001fa0aac9c2e722599a517f4a262bacba79fecb64943929379b776",
-    "video-receipt.json": "e43fdb5059ea2e0e38c2c8c6a6bef7f1e87e80b5b666a77c92a68228e993bd19",
-    "browser-receipt.json": "5cfb19e9f265922eeb3f7e2ccf198f613eb591a2cb853dcbba4312e0b9d01d16",
-    "index.html": "22d0c107e0b757278cd1eca61cb4b08d26282205da652cc46c9c80b475811eaa",
-    "vegetation-clearance-receipt.json": "ea82b09fe8f0790c9a3bd372f2e70ce6b63b2b38236a1ca9497666ac46824ab2",
-    "../../StopRoad/2026-10-10/review-receipt.json": "5d70d1f1e016a1095708d01326a5104b948f7a3ff677e642d0ff5c18fede8ac5",
-    "../../ModelRefinement/2026-10-10/review-receipt.json": "25492657277e79dbb39cd966a9134fe76f1a1ae6819e795fd49c409d0065b19d",
-    "README.md": "29ea91eb32a1edc062a0277e60d0e93d65331b3da1f6109a0857bead7d0bec6d",
-    "shadow-budget-receipt.json": "a04134b467dffbfaf14e1897428c5dbe351189d3ab8a5265cd82d6cd0fe646e0"
+    "bake-receipt.json": "7b070c87cd9946e222289fa3a0d7d498640aa6ff92fff8956130e675976ff75b",
+    "native-capture-receipt.json": "a579cedd41af3a8fbb09bf4eb061cf18f7866443b27fed83a2828850724c6355",
+    "gameview-integration-receipt.json": "ba482029f302029425b121e9fae2024202ce068b709394ce27913c29f18826b2",
+    "integration-results.xml": "b891738fc489f3f8cf876837d1c1191470166d638626017f086d68ce3484e150",
+    "lifecycle-diagnostics.json": "6610feac359aff29e605fb4e80c81216417b721534285f9659807ef2e2641365",
+    "compiled-assembly-receipt.json": "66096214775a5d6f9a8c2a10908ec902ab722433d3d01c083bb80c313d16a331",
+    "video-receipt.json": "eee937bcb7318dd932fbd63c24468f8ebfce728435c5b2a79724f63429b7b39f",
+    "browser-receipt.json": "39f40905059c7a2856b01c3b2c9b162a2e005874f7695f6c4b9f0d9169079bc1",
+    "index.html": "b6cc4bb998e4b526ce79fee1e973b0b2007cc93ad1735ebfd02556de6400b7a4",
+    "vegetation-clearance-receipt.json": "d58380804ee5240807ee991fc2b821a071f12575c6a9ea01f99003c5c01165f4",
+    "../../StopRoad/2026-10-10/review-receipt.json": "3992876e51cc80fb18ada8ef997b2ca144cd27d4f37aa9e78a7ee1266552ca2d",
+    "../../ModelRefinement/2026-10-10/review-receipt.json": "5232d9e7d8d316612d99f8a8434ad3f6f486f3da19715ad3730de2655f92e8dc",
+    "README.md": "9143976e186e7a440bed454926fee8d505786ca691fa005787c476ba43837be5",
+    "shadow-budget-receipt.json": "71e452b420e985aa7143316f2afe4e2f3391e3e1b3ee1493f266e34ee5071fe1",
+    "../../DepthReview/2026-10-10/review-receipt.json": "f2ed58f735aa2c762ecfd5f3f027a983f9476b3034d48d2e044df271c831ec53",
+    "../../DepthReview/2026-10-10/index.html": "00f0bbf23ef6551e244fd408f0b2bba9fe046cb4e50416a8eadb4fa96e69e631",
+    "../../DepthReview/2026-10-10/README-UA.md": "d313b5813809596eb87003cf03252760bbad41501c28441d52ebb453e590de0d"
   },
   "vegetationClearance": {
-    "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
+    "sourceHash": "64d67704cf5a3b32772e0d490bc44e3eb5bdf622bc9f502ee68549d361bf6507",
     "method": "Independent pair distances, 32-point crown/river checks, oriented architecture and owned road surfaces",
     "samples": [
       {
         "quality": "low",
-        "plants": 2215,
-        "trees": 281,
+        "plants": 2223,
+        "trees": 284,
         "groundProps": 1,
-        "grassTufts": 1049,
+        "grassTufts": 1052,
         "minimumAnimatedPlantGap": 0.15024566848226695
       },
       {
         "quality": "balanced",
-        "plants": 3100,
-        "trees": 406,
+        "plants": 3118,
+        "trees": 410,
         "groundProps": 0,
-        "grassTufts": 1392,
+        "grassTufts": 1404,
         "minimumAnimatedPlantGap": 0.15095403864305534
       }
     ],
@@ -904,69 +909,37 @@
     ]
   },
   "shadows": {
-    "kind": "lossless-indexed-world-shadow-budget",
-    "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
-    "nativeCaptureUtc": "2026-10-10T18:43:32.0253810Z",
-    "beforeSourceHash": "4c4e9ae2fe3f562e313bb1f69ee222792cf7565230653e5efe909c51d64e3043",
-    "beforeNativeCaptureUtc": "2026-10-10T18:28:07.1516840Z",
+    "kind": "indexed-world-shadow-budget",
+    "sourceHash": "64d67704cf5a3b32772e0d490bc44e3eb5bdf622bc9f502ee68549d361bf6507",
+    "nativeCaptureUtc": "2026-10-10T19:10:30.3977590Z",
     "tiers": [
       {
         "quality": "Low",
-        "triangles": 94993,
-        "triangleStreamVerticesBefore": 284979,
-        "indexedVertices": 219841,
-        "vertexReductionPercent": 22.857122805540055,
-        "maxVisibleMeshVertices": 154811,
-        "maxVisibleShadowCasterVertices": 152878,
+        "triangles": 95485,
+        "triangleStreamVerticesBefore": 286455,
+        "indexedVertices": 220886,
+        "vertexReductionPercent": 22.889808172313273,
+        "maxVisibleMeshVertices": 155909,
+        "maxVisibleShadowCasterVertices": 153979,
         "shadowAtlasResolution": 512,
         "shadowCascades": 1
       },
       {
         "quality": "Balanced",
-        "triangles": 134294,
-        "triangleStreamVerticesBefore": 402882,
-        "indexedVertices": 311485,
-        "vertexReductionPercent": 22.685798819505465,
-        "maxVisibleMeshVertices": 212912,
-        "maxVisibleShadowCasterVertices": 210850,
+        "triangles": 135109,
+        "triangleStreamVerticesBefore": 405327,
+        "indexedVertices": 313565,
+        "vertexReductionPercent": 22.639005050243387,
+        "maxVisibleMeshVertices": 215082,
+        "maxVisibleShadowCasterVertices": 213023,
         "shadowAtlasResolution": 1024,
         "shadowCascades": 1
       }
     ],
-    "chunkVertexAndIndexPayloadBytesBothVariants": 35380586,
+    "chunkVertexAndIndexPayloadBytesBothVariants": 35588428,
     "sameTriangleAttributesVerifiedDuringBake": true,
     "oneMainLightShadowPass": true,
     "allOpaqueWorldObjectsCastShadows": true,
-    "staticStopPixelComparison": [
-      {
-        "file": "composition-00.png",
-        "beforeSha256": "990457fff61b7af2a4d736231929f47e907953e595d01d2d283d8cea1edc8ad7",
-        "afterSha256": "990457fff61b7af2a4d736231929f47e907953e595d01d2d283d8cea1edc8ad7",
-        "meanRgbByteDifference": 0.0,
-        "notes": "Water uses a live clock; river scenes can differ between captures."
-      },
-      {
-        "file": "low-composition-00.png",
-        "beforeSha256": "3637fb8ec9f8070f05873d1cf04d6f11e1b44633302898dc16a4c1842d02e04f",
-        "afterSha256": "3637fb8ec9f8070f05873d1cf04d6f11e1b44633302898dc16a4c1842d02e04f",
-        "meanRgbByteDifference": 0.0,
-        "notes": "Water uses a live clock; river scenes can differ between captures."
-      },
-      {
-        "file": "composition-04.png",
-        "beforeSha256": "dff1fb3d581ffebe4b30717f05124ed8df876d315f4100907b32577a75b9ad15",
-        "afterSha256": "f1bd4475f32ef8aa703cf231a9aa397cb2259f29a5fc888ece833fc5f5cdedff",
-        "meanRgbByteDifference": 0.5268315972222223,
-        "notes": "Water uses a live clock; river scenes can differ between captures."
-      },
-      {
-        "file": "composition-08.png",
-        "beforeSha256": "7f2dfd69a3583f9d1bba53a132301463ada1388aa4549d3707cb543399eecc2d",
-        "afterSha256": "0f1588fc8e18033932eaab36c825540957bde92bfe8f79e592114b3173f60ce6",
-        "meanRgbByteDifference": 3.086700520833334,
-        "notes": "Water uses a live clock; river scenes can differ between captures."
-      }
-    ],
     "gameViewResult": "Passed",
     "mobileFpsMeasured": false,
     "playerBuild": false,
@@ -974,23 +947,23 @@
       "Indexed vertex/payload and Editor counters are not GPU timing or phone FPS.",
       "Water and airborne pollen are transparent and do not cast opaque ground shadows."
     ],
-    "gameViewCaptureUtc": "2026-10-10T18:48:35.7756970Z",
+    "gameViewCaptureUtc": "2026-10-10T19:14:47.6370170Z",
     "measurements": {
       "Low": {
-        "maxSubmittedMeshTriangles": 72482,
+        "maxSubmittedMeshTriangles": 73026,
         "maxSharedWorldMaterials": 6,
         "maxDetailedChunks": 3,
         "gameViewSamples": 10,
-        "maxEditorDrawCalls": 54,
-        "maxPassInclusiveEditorTriangles": 143407
+        "maxEditorDrawCalls": 55,
+        "maxPassInclusiveEditorTriangles": 144496
       },
       "Balanced": {
-        "maxSubmittedMeshTriangles": 98775,
+        "maxSubmittedMeshTriangles": 99642,
         "maxSharedWorldMaterials": 6,
         "maxDetailedChunks": 3,
         "gameViewSamples": 10,
-        "maxEditorDrawCalls": 54,
-        "maxPassInclusiveEditorTriangles": 195950
+        "maxEditorDrawCalls": 55,
+        "maxPassInclusiveEditorTriangles": 197685
       }
     },
     "tierTotalsScope": "Sum across all five chunks of each quality; only up to three chunks are resident. Visibility budgets are recorded separately in measurements.",
@@ -1001,6 +974,125 @@
       "uv0",
       "windRootHeight"
     ],
-    "comparisonMethod": "Prior writer stored three vertices per triangle. Bake checks all expanded triangle attributes against the exact indexed stream."
+    "comparisonMethod": "Prior writer stored three vertices per triangle. Bake checks all expanded triangle attributes against the exact indexed stream.",
+    "historicalIndexingVisualProof": {
+      "file": "../../DepthReview/2026-10-10/before-shadow-budget-receipt.json",
+      "sha256": "a04134b467dffbfaf14e1897428c5dbe351189d3ab8a5265cd82d6cd0fe646e0",
+      "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
+      "nativeCaptureUtc": "2026-10-10T18:43:32.0253810Z",
+      "scope": "Pixel equality applies only to the earlier indexing-only revision, not new terrain and lighting."
+    },
+    "indexingBaseline": "Expanded triangle stream of the current geometry; not a comparison to the former art revision."
+  },
+  "depthReview": {
+    "kind": "roadmap-relief-lighting-native-review",
+    "sourceHash": "64d67704cf5a3b32772e0d490bc44e3eb5bdf622bc9f502ee68549d361bf6507",
+    "nativeCaptureUtc": "2026-10-10T19:10:30.3977590Z",
+    "before": {
+      "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
+      "capturedUtc": "2026-10-10T18:43:32.0253810Z"
+    },
+    "cameraAnchorsUnchanged": true,
+    "cameraComparison": "Same authored XZ anchors, yaw, pitch, FOV and booms; focus Y follows the rebaked terrain. Water uses a live clock.",
+    "reviewedCompositions": 9,
+    "reviewedTransitionFrames": 4,
+    "refinement": "Baked skirts close distant/detailed LOD edges. The first pass had an oversteep bank; a low floodplain softens it. Distant shoreline tiles are refined offline instead of omitted; identical bed heights avoid a depth-colour seam at chunk boundaries.",
+    "findings": [
+      "Broad folds sit inside the portrait view beside the road",
+      "Directional blue sky irradiance and warm side sun describe crown and roof facets",
+      "Foreground hills, road floor and softened distant vegetation read as different planes",
+      "Crossing uses a low floodplain with upland slopes beyond it",
+      "Road, mosaic, damaged roof, fallen support, crossing and dam remain visible",
+      "Low/Balanced, maximum zoom-out and landscape inspected"
+    ],
+    "gameViewResult": "Passed",
+    "playerBuild": false,
+    "mobileFpsMeasured": false,
+    "images": [
+      {
+        "file": "after-00.png",
+        "sha256": "b549086a28933108fbb0c3348b8e59ad05d6102df3b7221fe8606073e57a1385"
+      },
+      {
+        "file": "after-01.png",
+        "sha256": "025e1915d1654ec75206d14282a774d47a92a17901a7951cd832ffb943cce338"
+      },
+      {
+        "file": "after-02.png",
+        "sha256": "06d6ccc7f90e31b3e3dd341133f0197abf79afba43044b33fd47c8797051f9cd"
+      },
+      {
+        "file": "after-03.png",
+        "sha256": "e362e26be7846ac8eee42ad72ccfa77f375830afd227d94113ccde916a2edb69"
+      },
+      {
+        "file": "after-04.png",
+        "sha256": "73a314c5cc8bf3280e9dcdee109c0ac992e313ef4417045a0d97cbfa64d034c0"
+      },
+      {
+        "file": "after-05.png",
+        "sha256": "8913dd4f955fd21aac866b960b422036a8695ccecf1489e1a7c699716e160808"
+      },
+      {
+        "file": "after-06.png",
+        "sha256": "0794713ff8e9241d75ba76615a21863abd82d7fc473de50f44409defe7f2f192"
+      },
+      {
+        "file": "after-07.png",
+        "sha256": "ef6bc4664945f05754bc49fe20625ab9f78ab271bc6e24f0e197e771a9ad9817"
+      },
+      {
+        "file": "after-08.png",
+        "sha256": "824334d57b14c52fbb7fb65fed0cf2e7d466fc49f5136bab53e7cc31314d5f83"
+      },
+      {
+        "file": "before-00.png",
+        "sha256": "990457fff61b7af2a4d736231929f47e907953e595d01d2d283d8cea1edc8ad7"
+      },
+      {
+        "file": "before-01.png",
+        "sha256": "cb257b2634b434d5b848e6dfcb52c5a2786a762f378ff4ae5530cc1c7b9f6d8a"
+      },
+      {
+        "file": "before-02.png",
+        "sha256": "bca2ead1a7b96d229c293c908785677416f38ac4df72af62d1668af88da178d4"
+      },
+      {
+        "file": "before-03.png",
+        "sha256": "1e58e6f99cd7f1404190d30fbc8ab0f3788a4688d599b6548e459b8ebc31057d"
+      },
+      {
+        "file": "before-04.png",
+        "sha256": "f1bd4475f32ef8aa703cf231a9aa397cb2259f29a5fc888ece833fc5f5cdedff"
+      },
+      {
+        "file": "before-05.png",
+        "sha256": "f5e06eb102625c178b2715b79c0ff8b11cb34822c46e4a3877b7afface295634"
+      },
+      {
+        "file": "before-06.png",
+        "sha256": "c5c28482db93b80fb5e67751d01dab5ea877ac832e53523dfde0a6bfe2b1dcc2"
+      },
+      {
+        "file": "before-07.png",
+        "sha256": "9cac0a6f176d27104c7a3f8b2a0024b1a49ac92dca5c9063322dd63fb466033c"
+      },
+      {
+        "file": "before-08.png",
+        "sha256": "0f1588fc8e18033932eaab36c825540957bde92bfe8f79e592114b3173f60ce6"
+      }
+    ],
+    "verifiedUtc": "2026-10-10T19:15:22.734413+00:00",
+    "gameViewCaptureUtc": "2026-10-10T19:14:47.6370170Z",
+    "cameraAnchorsSha256": "028e3767be287fd906133a3316f255721ad4b43b36f49c596838ce537c098430",
+    "browserReview": {
+      "result": "Passed",
+      "verifiedUtc": "2026-10-10T19:17:23.704496+00:00",
+      "widths": [
+        320,
+        720,
+        1440
+      ]
+    }
   }
 }

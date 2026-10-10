@@ -1,8 +1,8 @@
 {
   "kind": "stop-road-native-legibility-review",
-  "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
-  "nativeCaptureUtc": "2026-10-10T18:43:32.0253810Z",
-  "verifiedUtc": "2026-10-10T18:50:18.683036+00:00",
+  "sourceHash": "64d67704cf5a3b32772e0d490bc44e3eb5bdf622bc9f502ee68549d361bf6507",
+  "nativeCaptureUtc": "2026-10-10T19:10:30.3977590Z",
+  "verifiedUtc": "2026-10-10T19:15:22.734413+00:00",
   "before": {
     "sourceHash": "56f533f8ee3bc33aff187e6577b8a5b8eec1c780509e2f1723f21c66593442ad",
     "capturedUtc": "2026-10-10T17:56:07.1778010Z",
@@ -77,15 +77,15 @@
   "images": [
     {
       "file": "after-landscape.png",
-      "sha256": "2148acd3372b33e401d134f655cf6680a8b73110751e53ed4f7a79f03efd9f6b"
+      "sha256": "ff9206b19757aa278a5e82e5c3cbc4b8baaece66d1d712ae46b76e48b0aa4c49"
     },
     {
       "file": "after-low-zoom-out.png",
-      "sha256": "04d2b9eb9f8eb2c4d99b35d03f6c0f5e862efa77519cc9e5ab8ead5051441f48"
+      "sha256": "345c14ef60426825a5be1f2ca73bd3213e998997edd1d16b94891bacf09ce866"
     },
     {
       "file": "after.png",
-      "sha256": "990457fff61b7af2a4d736231929f47e907953e595d01d2d283d8cea1edc8ad7"
+      "sha256": "b549086a28933108fbb0c3348b8e59ad05d6102df3b7221fe8606073e57a1385"
     },
     {
       "file": "before-low-zoom-out.png",
@@ -101,10 +101,10 @@
   "mobileFpsMeasured": false,
   "playerBuild": false,
   "gameViewResult": "Passed",
-  "gameViewCaptureUtc": "2026-10-10T18:48:35.7756970Z",
+  "gameViewCaptureUtc": "2026-10-10T19:14:47.6370170Z",
   "browserReview": {
     "result": "Passed",
-    "verifiedUtc": "2026-10-10T18:50:27.626692+00:00",
+    "verifiedUtc": "2026-10-10T19:17:23.704496+00:00",
     "widths": [
       320,
       720,

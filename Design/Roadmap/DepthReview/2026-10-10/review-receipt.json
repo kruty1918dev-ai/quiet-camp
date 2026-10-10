@@ -10,7 +10,7 @@
   "cameraComparison": "Same authored XZ anchors, yaw, pitch, FOV and booms; focus Y follows the rebaked terrain. Water uses a live clock.",
   "reviewedCompositions": 9,
   "reviewedTransitionFrames": 4,
-  "refinement": "A low floodplain replaces the first oversteep bank. Distant shore tiles are refined instead of omitted; matching riverbed heights and baked edge skirts prevent depth-colour steps and open LOD seams.",
+  "refinement": "Baked skirts close distant/detailed LOD edges. The first pass had an oversteep bank; a low floodplain softens it. Distant shoreline tiles are refined offline instead of omitted; identical bed heights avoid a depth-colour seam at chunk boundaries.",
   "findings": [
     "Broad folds sit inside the portrait view beside the road",
     "Directional blue sky irradiance and warm side sun describe crown and roof facets",
@@ -19,7 +19,7 @@
     "Road, mosaic, damaged roof, fallen support, crossing and dam remain visible",
     "Low/Balanced, maximum zoom-out and landscape inspected"
   ],
-  "gameViewResult": "Pending",
+  "gameViewResult": "Passed",
   "playerBuild": false,
   "mobileFpsMeasured": false,
   "images": [
@@ -95,5 +95,17 @@
       "file": "before-08.png",
       "sha256": "0f1588fc8e18033932eaab36c825540957bde92bfe8f79e592114b3173f60ce6"
     }
-  ]
+  ],
+  "verifiedUtc": "2026-10-10T19:15:22.734413+00:00",
+  "gameViewCaptureUtc": "2026-10-10T19:14:47.6370170Z",
+  "cameraAnchorsSha256": "028e3767be287fd906133a3316f255721ad4b43b36f49c596838ce537c098430",
+  "browserReview": {
+    "result": "Passed",
+    "verifiedUtc": "2026-10-10T19:17:23.704496+00:00",
+    "widths": [
+      320,
+      720,
+      1440
+    ]
+  }
 }

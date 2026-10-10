@@ -59,7 +59,15 @@ def main():
         assert tier['indexedVertices'] == sum(chunk[quality+'Vertices'] for chunk in bake['stats'])
         assert tier['triangleStreamVerticesBefore'] == 3*sum(chunk[quality+'Triangles'] for chunk in bake['stats'])
         assert tier['indexedVertices'] < tier['triangleStreamVerticesBefore']*.8
-    assert all(sample['meanRgbByteDifference'] == 0 for sample in shadows['staticStopPixelComparison'][:2])
+    # Image equality belongs to the earlier indexing-only change. New terrain
+    # and lighting must not reuse that proof as if current pixels were equal.
+    historic = shadows['historicalIndexingVisualProof']
+    proof_path = EVIDENCE / historic['file']
+    assert digest(proof_path) == historic['sha256']
+    proof = json.loads(proof_path.read_text())
+    assert proof['sourceHash'] == historic['sourceHash'] != bake['sourceHash']
+    assert proof['nativeCaptureUtc'] == historic['nativeCaptureUtc']
+    assert all(sample['meanRgbByteDifference'] == 0 for sample in proof['staticStopPixelComparison'][:2])
     assert not any('tent' in asset.lower() for chunk in bake['stats'] for asset in chunk['sourceAssets'])
 
     project = ROOT / 'QuietCamp'
@@ -123,6 +131,7 @@ def main():
     assert compiled['opaqueShadowAssertionExecuted'], 'Current opaque shadow check was not executed'
     assert compiled['coarseTerrainExclusionExecuted'], 'Detailed road/coarse ground exclusion was not checked'
     assert compiled['indexedShadowGeometryAssertionExecuted'], 'Current shadow/indexing checks were not executed'
+    assert compiled['directionalSkyIrradianceExecuted'], 'Executed presentation has no directional sky irradiance'
     water = gameview['waterMotion']
     assert len(water) == 2 and {sample['quality'] for sample in water} == {'Low', 'Balanced'}
     assert all(sample['cameraStationary'] and sample['seconds'] >= 2 and sample['meanRgbByteDifference'] > .15 for sample in water)
@@ -169,6 +178,17 @@ def main():
     assert browser['stopRoadGallerySha256'] == digest(stop / 'index.html')
     for entry in road['images']:
         assert digest(stop / entry['file']) == entry['sha256']
+    depth = ROOT / 'Design/Roadmap/DepthReview/2026-10-10'
+    relief = json.loads((depth / 'review-receipt.json').read_text())
+    assert relief['sourceHash'] == bake['sourceHash'] and relief['nativeCaptureUtc'] == native['capturedUtc']
+    assert relief['gameViewResult'] == 'Passed' and relief['gameViewCaptureUtc'] == gameview['capturedUtc']
+    assert relief['before']['sourceHash'] != bake['sourceHash']
+    assert relief['cameraAnchorsUnchanged']
+    assert relief['cameraAnchorsSha256'] == digest(source / 'world.json')
+    assert browser['depthGallerySha256'] == digest(depth / 'index.html')
+    assert len(relief['images']) == 18
+    for entry in relief['images']:
+        assert digest(depth / entry['file']) == entry['sha256']
     for path, sha in acceptance['artifacts'].items():
         assert digest(EVIDENCE / path) == sha, f'Artifact changed after acceptance: {path}'
 

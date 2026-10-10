@@ -27,7 +27,11 @@
 Геометрія готується офлайн; збережені indexed vertices, одне сонце,
 один каскад і shadow atlas 512/1024.
 
-Game View поточної ревізії ще перевіряється; попередні Passed receipts мають
-власні source hashes та дати. Mobile FPS і фактичний звук не вимірювались.
+Game View поточної ревізії Passed о 19:14:47 UTC: повний п’ятиточковий flow,
+36 gesture samples, обидва tiers та чотири повторні входи. Поточні native
+максимуми: 73,026 Low / 99,642 Balanced,
+шість матеріалів і три детальні chunks. Mobile FPS і фактичний звук не вимірювались.
 Історичний [доказ lossless indexing](before-shadow-budget-receipt.json)
 зберігає свою дату й не означає pixel equality нових художніх кадрів.
+
+[Unity API направленої sky irradiance](https://docs.unity3d.com/ScriptReference/Rendering.SphericalHarmonicsL2.AddDirectionalLight.html).

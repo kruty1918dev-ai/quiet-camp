@@ -1,67 +1,35 @@
 {
-  "kind": "lossless-indexed-world-shadow-budget",
-  "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
-  "nativeCaptureUtc": "2026-10-10T18:43:32.0253810Z",
-  "beforeSourceHash": "4c4e9ae2fe3f562e313bb1f69ee222792cf7565230653e5efe909c51d64e3043",
-  "beforeNativeCaptureUtc": "2026-10-10T18:28:07.1516840Z",
+  "kind": "indexed-world-shadow-budget",
+  "sourceHash": "64d67704cf5a3b32772e0d490bc44e3eb5bdf622bc9f502ee68549d361bf6507",
+  "nativeCaptureUtc": "2026-10-10T19:10:30.3977590Z",
   "tiers": [
     {
       "quality": "Low",
-      "triangles": 94993,
-      "triangleStreamVerticesBefore": 284979,
-      "indexedVertices": 219841,
-      "vertexReductionPercent": 22.857122805540055,
-      "maxVisibleMeshVertices": 154811,
-      "maxVisibleShadowCasterVertices": 152878,
+      "triangles": 95485,
+      "triangleStreamVerticesBefore": 286455,
+      "indexedVertices": 220886,
+      "vertexReductionPercent": 22.889808172313273,
+      "maxVisibleMeshVertices": 155909,
+      "maxVisibleShadowCasterVertices": 153979,
       "shadowAtlasResolution": 512,
       "shadowCascades": 1
     },
     {
       "quality": "Balanced",
-      "triangles": 134294,
-      "triangleStreamVerticesBefore": 402882,
-      "indexedVertices": 311485,
-      "vertexReductionPercent": 22.685798819505465,
-      "maxVisibleMeshVertices": 212912,
-      "maxVisibleShadowCasterVertices": 210850,
+      "triangles": 135109,
+      "triangleStreamVerticesBefore": 405327,
+      "indexedVertices": 313565,
+      "vertexReductionPercent": 22.639005050243387,
+      "maxVisibleMeshVertices": 215082,
+      "maxVisibleShadowCasterVertices": 213023,
       "shadowAtlasResolution": 1024,
       "shadowCascades": 1
     }
   ],
-  "chunkVertexAndIndexPayloadBytesBothVariants": 35380586,
+  "chunkVertexAndIndexPayloadBytesBothVariants": 35588428,
   "sameTriangleAttributesVerifiedDuringBake": true,
   "oneMainLightShadowPass": true,
   "allOpaqueWorldObjectsCastShadows": true,
-  "staticStopPixelComparison": [
-    {
-      "file": "composition-00.png",
-      "beforeSha256": "990457fff61b7af2a4d736231929f47e907953e595d01d2d283d8cea1edc8ad7",
-      "afterSha256": "990457fff61b7af2a4d736231929f47e907953e595d01d2d283d8cea1edc8ad7",
-      "meanRgbByteDifference": 0.0,
-      "notes": "Water uses a live clock; river scenes can differ between captures."
-    },
-    {
-      "file": "low-composition-00.png",
-      "beforeSha256": "3637fb8ec9f8070f05873d1cf04d6f11e1b44633302898dc16a4c1842d02e04f",
-      "afterSha256": "3637fb8ec9f8070f05873d1cf04d6f11e1b44633302898dc16a4c1842d02e04f",
-      "meanRgbByteDifference": 0.0,
-      "notes": "Water uses a live clock; river scenes can differ between captures."
-    },
-    {
-      "file": "composition-04.png",
-      "beforeSha256": "dff1fb3d581ffebe4b30717f05124ed8df876d315f4100907b32577a75b9ad15",
-      "afterSha256": "f1bd4475f32ef8aa703cf231a9aa397cb2259f29a5fc888ece833fc5f5cdedff",
-      "meanRgbByteDifference": 0.5268315972222223,
-      "notes": "Water uses a live clock; river scenes can differ between captures."
-    },
-    {
-      "file": "composition-08.png",
-      "beforeSha256": "7f2dfd69a3583f9d1bba53a132301463ada1388aa4549d3707cb543399eecc2d",
-      "afterSha256": "0f1588fc8e18033932eaab36c825540957bde92bfe8f79e592114b3173f60ce6",
-      "meanRgbByteDifference": 3.086700520833334,
-      "notes": "Water uses a live clock; river scenes can differ between captures."
-    }
-  ],
   "gameViewResult": "Passed",
   "mobileFpsMeasured": false,
   "playerBuild": false,
@@ -69,23 +37,23 @@
     "Indexed vertex/payload and Editor counters are not GPU timing or phone FPS.",
     "Water and airborne pollen are transparent and do not cast opaque ground shadows."
   ],
-  "gameViewCaptureUtc": "2026-10-10T18:48:35.7756970Z",
+  "gameViewCaptureUtc": "2026-10-10T19:14:47.6370170Z",
   "measurements": {
     "Low": {
-      "maxSubmittedMeshTriangles": 72482,
+      "maxSubmittedMeshTriangles": 73026,
       "maxSharedWorldMaterials": 6,
       "maxDetailedChunks": 3,
       "gameViewSamples": 10,
-      "maxEditorDrawCalls": 54,
-      "maxPassInclusiveEditorTriangles": 143407
+      "maxEditorDrawCalls": 55,
+      "maxPassInclusiveEditorTriangles": 144496
     },
     "Balanced": {
-      "maxSubmittedMeshTriangles": 98775,
+      "maxSubmittedMeshTriangles": 99642,
       "maxSharedWorldMaterials": 6,
       "maxDetailedChunks": 3,
       "gameViewSamples": 10,
-      "maxEditorDrawCalls": 54,
-      "maxPassInclusiveEditorTriangles": 195950
+      "maxEditorDrawCalls": 55,
+      "maxPassInclusiveEditorTriangles": 197685
     }
   },
   "tierTotalsScope": "Sum across all five chunks of each quality; only up to three chunks are resident. Visibility budgets are recorded separately in measurements.",
@@ -96,5 +64,13 @@
     "uv0",
     "windRootHeight"
   ],
-  "comparisonMethod": "Prior writer stored three vertices per triangle. Bake checks all expanded triangle attributes against the exact indexed stream."
+  "comparisonMethod": "Prior writer stored three vertices per triangle. Bake checks all expanded triangle attributes against the exact indexed stream.",
+  "historicalIndexingVisualProof": {
+    "file": "../../DepthReview/2026-10-10/before-shadow-budget-receipt.json",
+    "sha256": "a04134b467dffbfaf14e1897428c5dbe351189d3ab8a5265cd82d6cd0fe646e0",
+    "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
+    "nativeCaptureUtc": "2026-10-10T18:43:32.0253810Z",
+    "scope": "Pixel equality applies only to the earlier indexing-only revision, not new terrain and lighting."
+  },
+  "indexingBaseline": "Expanded triangle stream of the current geometry; not a comparison to the former art revision."
 }

@@ -1,8 +1,8 @@
 {
   "kind": "roadmap-model-and-clearance-native-review",
-  "verifiedUtc": "2026-10-10T18:50:18.683036+00:00",
-  "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
-  "nativeCaptureUtc": "2026-10-10T18:43:32.0253810Z",
+  "verifiedUtc": "2026-10-10T19:15:22.734413+00:00",
+  "sourceHash": "64d67704cf5a3b32772e0d490bc44e3eb5bdf622bc9f502ee68549d361bf6507",
+  "nativeCaptureUtc": "2026-10-10T19:10:30.3977590Z",
   "before": {
     "sourceHash": "6fd474482fbae4d90f7bdbcc20778cedb9d48e43daee20467ca7cede5bb4dc31",
     "capturedUtc": "2026-10-10T16:57:20.1316990Z",
@@ -257,41 +257,41 @@
   "vegetation": [
     {
       "quality": "low",
-      "plants": 2215,
-      "trees": 281,
+      "plants": 2223,
+      "trees": 284,
       "groundProps": 1,
-      "grassTufts": 1049,
+      "grassTufts": 1052,
       "minimumAnimatedPlantGap": 0.15024566848226695
     },
     {
       "quality": "balanced",
-      "plants": 3100,
-      "trees": 406,
+      "plants": 3118,
+      "trees": 410,
       "groundProps": 0,
-      "grassTufts": 1392,
+      "grassTufts": 1404,
       "minimumAnimatedPlantGap": 0.15095403864305534
     }
   ],
   "images": [
     {
       "file": "after-QC001.png",
-      "sha256": "990457fff61b7af2a4d736231929f47e907953e595d01d2d283d8cea1edc8ad7"
+      "sha256": "b549086a28933108fbb0c3348b8e59ad05d6102df3b7221fe8606073e57a1385"
     },
     {
       "file": "after-QC002.png",
-      "sha256": "bca2ead1a7b96d229c293c908785677416f38ac4df72af62d1668af88da178d4"
+      "sha256": "06d6ccc7f90e31b3e3dd341133f0197abf79afba43044b33fd47c8797051f9cd"
     },
     {
       "file": "after-QC003.png",
-      "sha256": "f1bd4475f32ef8aa703cf231a9aa397cb2259f29a5fc888ece833fc5f5cdedff"
+      "sha256": "73a314c5cc8bf3280e9dcdee109c0ac992e313ef4417045a0d97cbfa64d034c0"
     },
     {
       "file": "after-QC004.png",
-      "sha256": "c5c28482db93b80fb5e67751d01dab5ea877ac832e53523dfde0a6bfe2b1dcc2"
+      "sha256": "0794713ff8e9241d75ba76615a21863abd82d7fc473de50f44409defe7f2f192"
     },
     {
       "file": "after-QC005.png",
-      "sha256": "0f1588fc8e18033932eaab36c825540957bde92bfe8f79e592114b3173f60ce6"
+      "sha256": "824334d57b14c52fbb7fb65fed0cf2e7d466fc49f5136bab53e7cc31314d5f83"
     },
     {
       "file": "before-QC001.png",
@@ -329,10 +329,10 @@
   "playerBuild": false,
   "mobileFpsMeasured": false,
   "gameViewResult": "Passed",
-  "gameViewCaptureUtc": "2026-10-10T18:48:35.7756970Z",
+  "gameViewCaptureUtc": "2026-10-10T19:14:47.6370170Z",
   "browserReview": {
     "result": "Passed",
-    "verifiedUtc": "2026-10-10T18:50:27.626692+00:00",
+    "verifiedUtc": "2026-10-10T19:17:23.704496+00:00",
     "widths": [
       320,
       720,
