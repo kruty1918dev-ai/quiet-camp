@@ -24,6 +24,7 @@ namespace QuietCamp.Editor
         sealed class SourceWorld { public string id; public int seed; public float fieldOfView,minX,maxX,minZ,maxZ; public float[] chunkStarts,chunkEnds; public SourcePoint[] waypoints; public LooseConductor[] looseConductors=Array.Empty<LooseConductor>(); }
         sealed class Binding { public string asset,catalogueId,source,sourceHash,guid,prefab; public int lod; public Dictionary<string,string> dependencies; }
         static readonly List<object> DonorReviews=new List<object>();
+        static readonly List<object> GroundProps=new List<object>();
         static SourceWorld World;
         static SceneCompositionDocument Document;
         static CompositionResult Composition;
@@ -42,6 +43,7 @@ namespace QuietCamp.Editor
                 "Assets/QuietCamp/Scripts/Application/Composition/SceneComposition.cs",
                 "Assets/QuietCamp/Scripts/Presentation/UI/RoadmapModelLibrary.cs",
                 "Assets/QuietCamp/Resources/QuietCamp/RoadmapLit.shader",
+                "Assets/QuietCamp/Resources/QuietCamp/RoadmapMotes.shader",
                 "Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
                 "Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
                 "Assets/ThirdParty/Stylized Water 3/Shaders/StylizedWater3_Standard.watershader3",
@@ -82,7 +84,7 @@ namespace QuietCamp.Editor
             Composition=SceneComposer.Compose(Document,Assets,templates,new Terrain());
             if(!Composition.Valid)throw new InvalidOperationException(JsonConvert.SerializeObject(Composition.diagnostics));
             Library=RoadmapModelLibrary.Load();Library.PrepareCulture();Library.PrepareStaging();
-            Donors=new Dictionary<string,RoadmapModelLibrary.Model>();DonorReviews.Clear();
+            Donors=new Dictionary<string,RoadmapModelLibrary.Model>();DonorReviews.Clear();GroundProps.Clear();PlacementRejects.Clear();
             foreach(var b in Read<Binding[]>("bindings.json"))
             {
                 if(Hash(File.ReadAllBytes(b.source))!=b.sourceHash||AssetDatabase.AssetPathToGUID(b.source)!=b.guid)
@@ -92,6 +94,7 @@ namespace QuietCamp.Editor
                         throw new InvalidOperationException("Stale reviewed prefab/palette input: "+dependency.Key);
                 Donors.Add(b.asset,ReadDonor(b));
             }
+            BalancedPlants=PlanVegetation(false);LowPlants=PlanVegetation(true);ContactPlants=new PlantIndex();foreach(var plant in BalancedPlants)ContactPlants.Add(plant);
             Revision=SourceHash();var current=Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World");
             if(current!=null&&current.sourceHash==Revision&&current.chunks.All(id=>Resources.Load<RoadmapWorldChunk>(id)!=null))return;
             string folder=Output+"/"+Revision.Substring(0,16);
@@ -106,6 +109,8 @@ namespace QuietCamp.Editor
             index.chunks=new string[World.chunkStarts.Length];
             index.ground=Material(folder,"Ground",0,0);index.structure=Material(folder,"Architecture",0,0);
             index.foliage=Material(folder,"Living vegetation",.045f,.003f);
+            index.motes=new Material(Resources.Load<Shader>("QuietCamp/RoadmapMotes")){name="Quiet airborne pollen"};
+            AssetDatabase.CreateAsset(index.motes,folder+"/Motes.mat");
             index.water=RiverMaterial();
             AssetDatabase.CreateAsset(index.water,folder+"/Water.mat");
             index.marker=new Material(Shader.Find("Universal Render Pipeline/Simple Lit")){name="Roadside waystone"};
@@ -117,7 +122,8 @@ namespace QuietCamp.Editor
                 chunk.balanced=BuildChunk(c,false);chunk.low=BuildChunk(c,true);
                 chunk.sourceAssets=Composition.instances.Where(i=>OwnerChunk(i.z)==c).Select(i=>i.asset)
                     .Concat(Document.landmarks.Where(l=>OwnerChunk(l.z)==c).Select(l=>l.asset))
-                    .Concat(new[]{"tree_default","tree_pineRoundA","grass","plant_bushSmall","stone_largeA","log","stump_round"}).Distinct().OrderBy(s=>s).ToArray();
+                    .Concat(BalancedPlants.Where(p=>OwnerChunk(p.z)==c).Select(p=>p.asset))
+                    .Concat(new[]{"tree_default","tree_pineRoundA","stone_largeA","pilot.road-ribbon","pilot.airborne-pollen"}).Distinct().OrderBy(s=>s).ToArray();
                 chunk.estimatedBytes=chunk.balanced.Concat(chunk.low).Where(m=>m!=null).Sum(m=>(long)m.vertexCount*52+m.GetIndexCount(0)*4);
                 string file=folder+"/chunk-"+c+".asset";AssetDatabase.CreateAsset(chunk,file);
                 foreach(var m in chunk.balanced.Concat(chunk.low).Where(m=>m!=null))AssetDatabase.AddObjectToAsset(m,chunk);
@@ -130,7 +136,7 @@ namespace QuietCamp.Editor
             {
                 index.distantForest[c]=FarForest(c);AssetDatabase.CreateAsset(index.distantForest[c],folder+"/Distant-"+c+".asset");
             }
-            var river=new Geometry();Water(river,96,World.maxZ);index.river=river.Mesh("Continuous valley river");index.river.RecalculateTangents();
+            var river=new Geometry();Water(river,88,World.maxZ);index.river=river.Mesh("Continuous valley river");index.river.RecalculateTangents();
             AssetDatabase.CreateAsset(index.river,folder+"/River.asset");
             index.riverByFrontier=new Mesh[5];index.riverByFrontier[4]=index.river;
             for(int frontier=2;frontier<4;frontier++)
@@ -161,7 +167,7 @@ namespace QuietCamp.Editor
             else {EditorUtility.CopySerialized(index,old);Object.DestroyImmediate(index);index=old;EditorUtility.SetDirty(old);}
             AssetDatabase.SaveAssets();AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
             string repo=Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath,"../.."));string evidence=Path.Combine(repo,"Design/Roadmap/CinematicPilot/2026-10-10");Directory.CreateDirectory(evidence);
-            File.WriteAllText(Path.Combine(evidence,"bake-receipt.json"),JsonConvert.SerializeObject(new {sourceHash=Revision,compiler=SceneComposer.Revision,unity=UnityEngine.Application.unityVersion,composition=Composition,stats,donors=DonorReviews,levelIds=index.waypoints.Select(p=>p.levelId),playerBuild=false},Formatting.Indented)+"\n");
+            File.WriteAllText(Path.Combine(evidence,"bake-receipt.json"),JsonConvert.SerializeObject(new {sourceHash=Revision,compiler=SceneComposer.Revision,unity=UnityEngine.Application.unityVersion,composition=Composition,stats,donors=DonorReviews,vegetation=new{balanced=BalancedPlants,low=LowPlants,rejected=PlacementRejects,groundProps=GroundProps,fullAnimatedFootprints=true,globalBeforeChunkSplit=true,buildingsExcludeAllPlants=true},levelIds=index.waypoints.Select(p=>p.levelId),playerBuild=false},Formatting.Indented)+"\n");
             Debug.Log("[CinematicRoadmap] Published five native world chunks "+Revision);
         }
         static Material Material(string folder,string name,float sway,float flutter)
@@ -193,82 +199,198 @@ namespace QuietCamp.Editor
         }
         static Mesh[] BuildChunk(int c,bool low)
         {
-            var parts=Enumerable.Range(0,5).Select(i=>new Geometry()).ToArray();float start=World.chunkStarts[c],end=World.chunkEnds[c];
-            TerrainGrid(parts[0],start,end,low?4.5f:2.5f);
+            ContactPlants=new PlantIndex();foreach(var plant in low?LowPlants:BalancedPlants)ContactPlants.Add(plant);
+            var parts=Enumerable.Range(0,6).Select(i=>new Geometry()).ToArray();float start=World.chunkStarts[c],end=World.chunkEnds[c];
+            TerrainGrid(parts[0],start,end,low?4:2.5f);Road(parts[1],start,end);
             // The composer emits both ensemble roles and accepted landmarks.
             // Appending Document.landmarks again duplicates their geometry and shadows.
             foreach(var item in Composition.instances.Where(i=>OwnerChunk(i.z)==c))Append(parts[Assets[item.asset].wind?2:1],item.asset,item.x,item.z,item.height,item.yaw,Assets[item.asset].wind);
-            var random=new System.Random(World.seed+c*811);
-            for(float z=Mathf.Max(-22,start)+2;z<Mathf.Min(195,end);z+=4.5f)for(float x=-43;x<44;x+=4.5f)
+            foreach(var p in (low?LowPlants:BalancedPlants).Where(p=>OwnerChunk(p.z)==c&&!Composition.instances.Any(i=>i.id==p.id)&&!Assets.ContainsKey(p.asset)))
+            {
+                if(p.asset=="pilot.grass-tuft")GrassTuft(parts[3],p);
+                else Append(parts[p.tree?2:3],p.asset,p.x,p.z,p.height,p.yaw,true,p.tint);
+            }
+            // Authored vegetation was appended above; only planner-owned scatter is added here.
+            foreach(var p in (low?LowPlants:BalancedPlants).Where(p=>OwnerChunk(p.z)==c&&Assets.ContainsKey(p.asset)&&!Composition.instances.Any(i=>i.id==p.id)))
+                Append(parts[p.tree?2:3],p.asset,p.x,p.z,p.height,p.yaw,true,p.tint);
+            var random=new System.Random(World.seed+c*733);
+            for(float z=Mathf.Max(-24,start)+3;z<Mathf.Min(235,end);z+=7)for(float x=-35;x<36;x+=7)
             {
                 float px=x+(float)random.NextDouble()*3,pz=z+(float)random.NextDouble()*3;
-                if(random.NextDouble()>(low?.25:.55)||Reserved(px,pz,2.5f)||CanopyObscuresStory(px,pz)||RoadmapLandscape.WaterDistance(px,pz)<1)continue;
-                string asset=random.NextDouble()<.36?"tree_pineRoundA":"tree_default";
-                Append(parts[2],asset,px,pz,5.8f+(float)random.NextDouble()*5,(float)random.NextDouble()*360,true,.84f+(float)random.NextDouble()*.21f);
+                double chance=random.NextDouble();float height=.35f+(float)random.NextDouble()*.45f,radius=PlantRadius("stone_largeA",height);
+                if(chance>(low?.06:.2)||Reserved(px,pz,radius)||!DryFootprint(px,pz,radius)||HitsArchitecture(px,pz,radius)
+                    ||ContactPlants.Near(px,pz,radius).Any(p=>Vector2.Distance(new Vector2(px,pz),new Vector2(p.x,p.z))<radius+p.radius+.15f))continue;
+                Append(parts[1],"stone_largeA",px,pz,height,z*17,false,.87f);
+                GroundProps.Add(new{quality=low?"low":"balanced",x=px,z=pz,height,radius,asset="stone_largeA"});
             }
-            // A second generation of trees closes the transition strips without
-            // hiding the story silhouettes. These are the same faceted gameplay meshes.
-            random=new System.Random(World.seed+c*421);
-            for(float z=Mathf.Max(-22,start)+2;z<Mathf.Min(195,end);z+=5.5f)for(float x=-29;x<30;x+=5.5f)
-            {
-                float px=x+(float)random.NextDouble()*3,pz=z+(float)random.NextDouble()*3;
-                if(random.NextDouble()>(low?.035:.23)||Reserved(px,pz,.8f)||CanopyObscuresStory(px,pz,true)||RoadmapLandscape.WaterDistance(px,pz)<.5f)continue;
-                Append(parts[2],random.NextDouble()<.3?"tree_pineRoundA":"tree_default",px,pz,2.7f+(float)random.NextDouble()*1.6f,(float)random.NextDouble()*360,true,.86f);
-            }
-            random=new System.Random(World.seed+c*733);
-            for(float z=Mathf.Max(-22,start)+3;z<Mathf.Min(195,end);z+=7)for(float x=-27;x<28;x+=7)
-            {
-                float px=x+(float)random.NextDouble()*4,pz=z+(float)random.NextDouble()*4;
-                if(random.NextDouble()>(low?.04:.17)||Reserved(px,pz,.5f)||RoadmapLandscape.WaterDistance(px,pz)<.3f)continue;
-                double kind=random.NextDouble();string asset=kind<.72?"stone_largeA":kind<.9?"stump_round":"log";
-                Append(parts[1],asset,px,pz,asset=="log"?.4f:.25f+(float)random.NextDouble()*.5f,(float)random.NextDouble()*360,false,.87f);
-            }
-            random=new System.Random(World.seed+c*191);
-            for(float z=Mathf.Max(-22,start)+.8f;z<Mathf.Min(195,end);z+=1.8f)for(float x=-28;x<29;x+=1.8f)
-            {
-                float px=x+(float)random.NextDouble()*1.5f,pz=z+(float)random.NextDouble()*1.5f;
-                if(random.NextDouble()>(low?.09:.16)||Reserved(px,pz,.38f)||RoadmapLandscape.WaterDistance(px,pz)<.05f)continue;
-                Append(parts[3],"grass",px,pz,.24f+(float)random.NextDouble()*.42f,(float)random.NextDouble()*360,true,.8f+(float)random.NextDouble()*.23f);
-            }
-            // Dense low silhouette layers use the game's sixteen-triangle shrubs.
-            // They join the tree groups and reclaim the road verges without multiplying draw calls.
-            random=new System.Random(World.seed+c*991);
-            for(float z=Mathf.Max(-22,start)+1;z<Mathf.Min(195,end);z+=low?3:1.8f)for(float x=-34;x<35;x+=low?3:1.8f)
-            {
-                float px=x+(float)random.NextDouble(),pz=z+(float)random.NextDouble();
-                float density=.2f+.65f*Mathf.PerlinNoise(px*.15f,pz*.12f);
-                if(random.NextDouble()>density||Reserved(px,pz,.25f)||RoadmapLandscape.WaterDistance(px,pz)<.1f)continue;
-                Append(parts[3],"plant_bushSmall",px,pz,.2f+(float)random.NextDouble()*.45f,(float)random.NextDouble()*360,true);
-            }
-            for(float z=Mathf.Max(101,start)+1;z<Mathf.Min(197,end);z+=low?5:3)
-                for(int side=-1;side<=1;side+=2)
-                {
-                    float x=RoadmapLandscape.RiverX(z)+side*(RoadmapLandscape.RiverWidth(z)+.6f);
-                    if(!Reserved(x,z,.3f))Append(parts[3],"pilot.reeds",x,z,1.1f+.4f*Mathf.Sin(z),z*17,true);
-                }
             foreach(var wire in World.looseConductors)if(OwnerChunk((wire.az+wire.bz)*.5f)==c)Conductor(parts[1],wire);
+            random=new System.Random(World.seed+c*1229);
+            for(int i=0;i<(low?18:36);i++)
+            {
+                float x=-25+(float)random.NextDouble()*50,z=Mathf.Lerp(Mathf.Max(-24,start),Mathf.Min(240,end),(float)random.NextDouble());
+                if(!DryFootprint(x,z,.5f)||HitsArchitecture(x,z,.5f))continue;
+                var p=new Vector3(x,Ground(x,z)+1.5f+(float)random.NextDouble()*3,z);
+                var root=new Vector4(x,z,p.y,(float)random.NextDouble()*6.28f);float size=.085f;
+                parts[5].Triangle(p-Vector3.right*size,p+Vector3.up*size,p+Vector3.right*size,new Color(.84f,.81f,.59f),root);
+            }
             return parts.Select((p,i)=>p.Mesh("Valley "+c+" / "+(low?"low":"balanced")+" / "+i)).ToArray();
         }
         static Mesh FarForest(int chunk)
         {
-            var g=new Geometry();var random=new System.Random(World.seed+chunk*811);
-            for(float z=Mathf.Max(-22,World.chunkStarts[chunk])+2;z<Mathf.Min(195,World.chunkEnds[chunk]);z+=4.5f)
-                for(float x=-43;x<44;x+=4.5f)
+            var g=new Geometry();
+            foreach(var p in BalancedPlants.Where(p=>p.tree&&OwnerChunk(p.z)==chunk))
+            {
+                float y=Ground(p.x,p.z);var tip=new Vector3(p.x,y+p.height,p.z);var color=new Color(.36f,.47f,.29f);
+                float radius=p.radius-.08f-p.height*.055f;
+                for(int side=0;side<6;side++)
                 {
-                    float px=x+(float)random.NextDouble()*3,pz=z+(float)random.NextDouble()*3;
-                    if(random.NextDouble()>.60||Reserved(px,pz,2.5f)||CanopyObscuresStory(px,pz)||RoadmapLandscape.WaterDistance(px,pz)<1)continue;
-                    bool pine=random.NextDouble()<.36;float h=5.8f+(float)random.NextDouble()*5;
-                    random.NextDouble();random.NextDouble();
-                    float y=Ground(px,pz);var tip=new Vector3(px,y+h,pz);var color=pine?new Color(.27f,.39f,.29f):new Color(.39f,.49f,.27f);
-                    for(int side=0;side<4;side++)
-                    {
-                        float a=side*Mathf.PI*.5f,b=(side+1)*Mathf.PI*.5f;
-                        var first=new Vector3(px+Mathf.Cos(a)*2,y+h*.43f,pz+Mathf.Sin(a)*2);
-                        var second=new Vector3(px+Mathf.Cos(b)*2,y+h*.43f,pz+Mathf.Sin(b)*2);
-                        g.Triangle(first,tip,second,color);
-                    }
+                    float a=side*Mathf.PI/3,b=(side+1)*Mathf.PI/3;
+                    var first=new Vector3(p.x+Mathf.Cos(a)*radius,y+p.height*.43f,p.z+Mathf.Sin(a)*radius);
+                    var second=new Vector3(p.x+Mathf.Cos(b)*radius,y+p.height*.43f,p.z+Mathf.Sin(b)*radius);
+                    g.Triangle(first,tip,second,color);
                 }
+            }
             return g.Mesh("Simplified distant forest "+chunk);
+        }
+        sealed class Plant
+        {
+            public string id,asset;public float x,z,height,yaw,tint=1,radius;public bool tree;
+        }
+        static List<Plant> BalancedPlants,LowPlants;
+        static readonly Dictionary<string,int> PlacementRejects=new Dictionary<string,int>();
+        static RoadmapModelLibrary.Model Model(string asset)=>Donors.TryGetValue(asset,out var donor)?donor:Library.Get(asset=="pilot.ruined-house"?"ua_whitewashed_house":asset);
+        static float PlantRadius(string asset,float height)
+        {
+            var model=Model(asset);float radius=model.Positions.Max(p=>new Vector2(p.x,p.z).magnitude)*height;
+            return radius+height*.055f+.08f; // full animated crown, not only the trunk pivot
+        }
+        sealed class PlantIndex
+        {
+            readonly Dictionary<Vector2Int,List<Plant>> cells=new Dictionary<Vector2Int,List<Plant>>();
+            public void Add(Plant p)
+            {
+                for(int x=Mathf.FloorToInt((p.x-p.radius)/6);x<=Mathf.FloorToInt((p.x+p.radius)/6);x++)
+                    for(int z=Mathf.FloorToInt((p.z-p.radius)/6);z<=Mathf.FloorToInt((p.z+p.radius)/6);z++)
+                    {var key=new Vector2Int(x,z);if(!cells.TryGetValue(key,out var list)){list=new List<Plant>();cells.Add(key,list);}list.Add(p);}
+            }
+            public IEnumerable<Plant> Near(float x,float z,float radius)
+            {
+                var unique=new HashSet<Plant>();
+                for(int a=Mathf.FloorToInt((x-radius)/6);a<=Mathf.FloorToInt((x+radius)/6);a++)
+                    for(int b=Mathf.FloorToInt((z-radius)/6);b<=Mathf.FloorToInt((z+radius)/6);b++)
+                        if(cells.TryGetValue(new Vector2Int(a,b),out var list))foreach(var p in list)if(unique.Add(p))yield return p;
+            }
+        }
+        static PlantIndex ContactPlants;
+        static bool DryFootprint(float x,float z,float radius)
+        {
+            bool Dry(float a,float b)=>b<88||RoadmapLandscape.WaterDistance(a,b)>.35f&&Ground(a,b)>RoadmapLandscape.WaterHeight+.22f;
+            if(!Dry(x,z))return false;
+            for(int i=0;i<16;i++)
+            {float angle=i*Mathf.PI/8;if(!Dry(x+Mathf.Cos(angle)*radius,z+Mathf.Sin(angle)*radius))return false;}
+            return true;
+        }
+        static bool HitsArchitecture(float x,float z,float radius)
+        {
+            foreach(var item in Composition.instances.Where(i=>!Assets[i.asset].wind))
+            {
+                var model=Model(item.asset);var bounds=model.Bounds;var yaw=Quaternion.Euler(0,-item.yaw,0);
+                var point=yaw*new Vector3(x-item.x,0,z-item.z);point-=bounds.center*item.height;
+                float dx=Mathf.Max(0,Mathf.Abs(point.x)-bounds.extents.x*item.height),dz=Mathf.Max(0,Mathf.Abs(point.z)-bounds.extents.z*item.height);
+                if(dx*dx+dz*dz<(radius+.3f)*(radius+.3f))return true;
+            }
+            return false;
+        }
+        static List<Plant> PlanVegetation(bool low)
+        {
+            var result=new List<Plant>();var index=new PlantIndex();
+            bool Admit(Plant p,bool authored=false)
+            {
+                string reason=!DryFootprint(p.x,p.z,p.radius)?"water":HitsArchitecture(p.x,p.z,p.radius)?"architecture":null;
+                if(reason==null&&index.Near(p.x,p.z,p.radius).Any(o=>Vector2.Distance(new Vector2(p.x,p.z),new Vector2(o.x,o.z))<p.radius+o.radius+.15f))reason="vegetation";
+                if(reason==null&&!authored&&(Mathf.Abs(p.x-RoadmapLandscape.RoadX(p.z))<RoadmapLandscape.RoadHalfWidth(p.z)+p.radius+.35f||Reserved(p.x,p.z,p.radius)))reason="road-or-approach";
+                if(reason!=null)
+                {
+                    if(authored)throw new InvalidOperationException("Authored vegetation footprint overlaps "+reason+": "+p.id);
+                    PlacementRejects[reason]=PlacementRejects.TryGetValue(reason,out int count)?count+1:1;return false;
+                }
+                index.Add(p);result.Add(p);return true;
+            }
+            foreach(var item in Composition.instances.Where(i=>Assets[i.asset].wind).OrderBy(i=>i.id,StringComparer.Ordinal))
+                Admit(new Plant{id=item.id,asset=item.asset,x=item.x,z=item.z,height=item.height,yaw=item.yaw,tree=Assets[item.asset].placementClass=="canopy",radius=PlantRadius(item.asset,item.height)},true);
+            // World-wide admission precedes chunk splitting, including all authored canopies.
+            // No neighbouring chunk can independently fill an already occupied crown footprint.
+            var random=new System.Random(World.seed);
+            for(float z=-24;z<240;z+=4.5f)for(float x=-43;x<44;x+=4.5f)
+            {
+                float px=x+(float)random.NextDouble()*3,pz=z+(float)random.NextDouble()*3;
+                double chance=random.NextDouble();string asset=random.NextDouble()<.32?"tree_pineRoundA":"tree_default";
+                float h=5.8f+(float)random.NextDouble()*4.2f,yaw=(float)random.NextDouble()*360,tint=.88f+(float)random.NextDouble()*.13f;
+                if(chance>(low?.45:.78)||CanopyObscuresStory(px,pz))continue;
+                Admit(new Plant{id="forest-"+x+"-"+z,asset=asset,x=px,z=pz,height=h,yaw=yaw,tint=tint,tree=true,radius=PlantRadius(asset,h)});
+            }
+            random=new System.Random(World.seed+421);
+            for(float z=-24;z<235;z+=5.5f)for(float x=-32;x<33;x+=5.5f)
+            {
+                float px=x+(float)random.NextDouble()*3,pz=z+(float)random.NextDouble()*3;
+                double chance=random.NextDouble();string asset=random.NextDouble()<.3?"tree_pineRoundA":"tree_default";
+                float h=2.7f+(float)random.NextDouble()*1.4f,yaw=(float)random.NextDouble()*360;
+                if(chance>(low?.08:.35)||CanopyObscuresStory(px,pz,true))continue;
+                Admit(new Plant{id="young-"+x+"-"+z,asset=asset,x=px,z=pz,height=h,yaw=yaw,tint=.92f,tree=true,radius=PlantRadius(asset,h)});
+            }
+            random=new System.Random(World.seed+991);
+            for(float z=-24;z<240;z+=1.8f)for(float x=-40;x<41;x+=1.8f)
+            {
+                float px=x+(float)random.NextDouble(),pz=z+(float)random.NextDouble();
+                double chance=random.NextDouble();float height=.32f+(float)random.NextDouble()*.46f,yaw=(float)random.NextDouble()*360;
+                float density=.22f+.7f*Mathf.PerlinNoise(px*.12f,pz*.15f);
+                if(chance>density*(low?.5:1))continue;
+                Admit(new Plant{id="shrub-"+x+"-"+z,asset="plant_bushSmall",x=px,z=pz,height=height,yaw=yaw,radius=PlantRadius("plant_bushSmall",height)});
+            }
+            random=new System.Random(World.seed+191);
+            for(float z=-24;z<240;z+=1.3f)for(float x=-40;x<41;x+=1.3f)
+            {
+                float px=x+(float)random.NextDouble(),pz=z+(float)random.NextDouble();double chance=random.NextDouble();
+                float h=.28f+(float)random.NextDouble()*.4f,yaw=(float)random.NextDouble()*360;
+                if(chance>(low?.18:.37))continue;
+                Admit(new Plant{id="tuft-"+x+"-"+z,asset="pilot.grass-tuft",x=px,z=pz,height=h,yaw=yaw,radius=h*.34f+.1f,tint=.85f+(float)random.NextDouble()*.18f});
+            }
+            for(float z=101;z<220;z+=low?5:3)for(int side=-1;side<=1;side+=2)
+            {
+                float x=RoadmapLandscape.RiverX(z)+side*(RoadmapLandscape.RiverWidth(z)+1.5f),h=1.05f+.3f*Mathf.Sin(z);
+                Admit(new Plant{id="reeds-"+side+"-"+z,asset="pilot.reeds",x=x,z=z,height=h,yaw=z*17,radius=PlantRadius("pilot.reeds",h)});
+            }
+            return result;
+        }
+        static float ContactShade(float x,float z)
+        {
+            float shade=1;
+            foreach(var p in ContactPlants.Near(x,z,3))
+            {
+                float d=Vector2.Distance(new Vector2(x,z),new Vector2(p.x,p.z));float reach=p.tree?p.radius*1.25f:p.radius*.9f;
+                shade*=1-(p.tree?.23f:.09f)*Mathf.Pow(Mathf.Clamp01(1-d/reach),1.3f);
+            }
+            foreach(var item in Composition.instances.Where(i=>!Assets[i.asset].wind&&i.height>.8f))
+            {
+                var bounds=Model(item.asset).Bounds;var q=Quaternion.Euler(0,-item.yaw,0)*new Vector3(x-item.x,0,z-item.z)-bounds.center*item.height;
+                float dx=Mathf.Max(0,Mathf.Abs(q.x)-bounds.extents.x*item.height),dz=Mathf.Max(0,Mathf.Abs(q.z)-bounds.extents.z*item.height);
+                shade*=1-.2f*Mathf.Clamp01(1-Mathf.Sqrt(dx*dx+dz*dz)/1.3f);
+            }
+            return Mathf.Max(.68f,shade);
+        }
+        static void GrassTuft(Geometry g,Plant p)
+        {
+            var origin=new Vector3(p.x,Ground(p.x,p.z),p.z);var rotation=Quaternion.Euler(0,p.yaw,0);var root=new Vector4(p.x,p.z,origin.y,p.height);
+            var color=new Color(.43f,.58f,.26f)*p.tint;
+            for(int blade=0;blade<5;blade++)
+            {
+                float angle=blade*2.39996f;var outward=new Vector3(Mathf.Cos(angle),0,Mathf.Sin(angle));var tangent=Vector3.Cross(outward,Vector3.up);
+                Vector3 At(Vector3 v)=>origin+rotation*v*p.height;
+                var basePoint=outward*.1f;var bend=outward*.25f+Vector3.up*(.5f+blade*.07f);var tip=outward*.32f+Vector3.up*(.65f+blade*.08f);
+                g.Triangle(At(basePoint-tangent*.07f),At(bend+tangent*.035f),At(bend-tangent*.035f),color,root);
+                g.Triangle(At(basePoint-tangent*.07f),At(basePoint+tangent*.07f),At(bend+tangent*.035f),color,root);
+                g.Triangle(At(bend-tangent*.035f),At(bend+tangent*.035f),At(tip),color*1.08f,root);
+            }
         }
         static bool CanopyObscuresStory(float x,float z,bool young=false)
         {
@@ -291,7 +413,7 @@ namespace QuietCamp.Editor
         }
         static bool Reserved(float x,float z,float margin)
         {
-            if(Mathf.Abs(x-RoadmapLandscape.RoadX(z))<1.1f+margin)return true;
+            if(Mathf.Abs(x-RoadmapLandscape.RoadX(z))<RoadmapLandscape.RoadHalfWidth(z)+margin)return true;
             foreach(var n in Document.nodes)if(Vector2.Distance(new Vector2(x,z),new Vector2(n.x,n.z))<n.radius+margin)return true;
             foreach(var instance in Composition.instances)
             {
@@ -308,11 +430,14 @@ namespace QuietCamp.Editor
             foreach(var l in Document.landmarks)if(!Assets[l.asset].wind&&Vector2.Distance(new Vector2(x,z),new Vector2(l.x,l.z))<2+margin)return true;
             return false;
         }
-        static void TerrainGrid(Geometry g,float start,float end,float step)
+        static void TerrainGrid(Geometry g,float start,float end,float step,bool distant=false)
         {
             for(float z=start;z<end;z+=step)for(float x=World.minX;x<World.maxX;x+=step)
             {
                 float xx=Mathf.Min(x+step,World.maxX),zz=Mathf.Min(z+step,end);
+                // The simplified distant terrain must never seal the live river with a
+                // coarse triangle spanning both banks. Detailed chunks own its channel bed.
+                if(distant&&zz>88&&new[]{z,(z+zz)*.5f,zz}.Any(az=>x<RoadmapLandscape.RiverX(az)+RoadmapLandscape.RiverWidth(az)+3&&xx>RoadmapLandscape.RiverX(az)-RoadmapLandscape.RiverWidth(az)-3))continue;
                 Vector3 At(float a,float b)=>new Vector3(a,Ground(a,b),b);
                 Color ColorAt(float a,float b)
                 {
@@ -324,18 +449,59 @@ namespace QuietCamp.Editor
                         float d=Vector2.Distance(p,Vector2.Lerp(from,to,t));
                         color=Color.Lerp(color,new Color(.59f,.53f,.39f),Mathf.Clamp01(1-d)*.8f);
                     }
-                    return color;
+                    return color*ContactShade(a,b);
                 }
                 g.Triangle(At(x,z),At(x,zz),At(xx,z),ColorAt(x,z),second:ColorAt(x,zz),third:ColorAt(xx,z));
                 g.Triangle(At(xx,z),At(x,zz),At(xx,zz),ColorAt(xx,z),second:ColorAt(x,zz),third:ColorAt(xx,zz));
             }
         }
+        static void Road(Geometry g,float start,float end)
+        {
+            for(float z=Mathf.Max(-50,start);z<Mathf.Min(232,end);z+=1)
+            {
+                float next=Mathf.Min(z+1,end);bool asphalt=z<38;float w=RoadmapLandscape.RoadHalfWidth(z);
+                float reclaimed=Mathf.SmoothStep(0,1,Mathf.InverseLerp(20,38,z));
+                Color color=asphalt?Color.Lerp(new Color(.32f,.35f,.32f),new Color(.55f,.50f,.36f),reclaimed):new Color(.55f,.50f,.36f);
+                for(int strip=0;strip<6;strip++)
+                {
+                    float a=-w+2*w*strip/6,b=-w+2*w*(strip+1)/6;
+                    Vector3 At(float lateral,float along)
+                    {
+                        float roughness=(Mathf.PerlinNoise(along*.73f,lateral>0?3:7)-.5f)*.22f*Mathf.Pow(Mathf.Abs(lateral/w),3);
+                        float x=RoadmapLandscape.RoadX(along)+lateral+roughness;
+                        return new Vector3(x,Ground(x,along)+.055f,along);
+                    }
+                    var shade=strip==0||strip==5?Color.Lerp(color,new Color(.47f,.51f,.32f),.42f):color;
+                    if(strip==2||strip==3)shade=Color.Lerp(shade,new Color(.42f,.49f,.27f),asphalt?reclaimed*.45f:.45f);
+                    float wear=.93f+.07f*Mathf.PerlinNoise(z*.39f,strip*3.3f);shade*=wear;
+                    g.Triangle(At(a,z),At(a,next),At(b,z),shade);g.Triangle(At(b,z),At(a,next),At(b,next),shade);
+                }
+                if(asphalt&&z%5==0)
+                {
+                    // Faded broken centre line and seams stay flush with the road surface.
+                    Vector3 At(float x,float dz)=>new Vector3(RoadmapLandscape.RoadX(z+dz)+x,Ground(RoadmapLandscape.RoadX(z+dz)+x,z+dz)+.081f,z+dz);
+                    g.Triangle(At(-.035f,0),At(-.035f,.65f),At(.035f,0),new Color(.62f,.60f,.43f));
+                    g.Triangle(At(.035f,0),At(-.035f,.65f),At(.035f,.65f),new Color(.62f,.60f,.43f));
+                    g.Triangle(At(-w*.9f,.72f),At(w*.7f,.79f),At(w*.7f,.82f),new Color(.23f,.28f,.23f));
+                }
+            }
+            foreach(var span in Composition.spans.Where(s=>s.height==0&&OwnerChunk((s.az+s.bz)*.5f)==OwnerChunk((start+end)*.5f)))
+            {
+                var from=new Vector2(span.ax,span.az);var to=new Vector2(span.bx,span.bz);var side=new Vector2(-(to-from).y,(to-from).x).normalized*.6f;
+                for(int i=0;i<12;i++)
+                {
+                    var a=Vector2.Lerp(from,to,i/12f);var b=Vector2.Lerp(from,to,(i+1)/12f);
+                    Vector3 At(Vector2 v)=>new Vector3(v.x,Ground(v.x,v.y)+.065f,v.y);
+                    var color=new Color(.53f,.51f,.40f);g.Triangle(At(a-side),At(b-side),At(a+side),color);g.Triangle(At(a+side),At(b-side),At(b+side),color);
+                }
+            }
+        }
         static Mesh Horizon()
         {
-            var g=new Geometry();TerrainGrid(g,World.minZ,World.maxZ,10);
+            var g=new Geometry();TerrainGrid(g,World.minZ,World.maxZ,10,true);
             for(int i=0;i<g.vertices.Count;i++)g.vertices[i]+=Vector3.down*.35f;
-            for(float z=World.minZ;z<World.maxZ;z+=10)foreach(float x in new[]{-49f,49f})
-                Append(g,z%20==0?"tree_pineRoundA":"tree_default",x+4*Mathf.Sin(z),z,7+2*Mathf.Sin(z*.3f),z,false,.83f);
+            for(float z=World.minZ;z<World.maxZ;z+=10)foreach(float x in new[]{-56f,56f})
+                Append(g,z%20==0?"tree_pineRoundA":"tree_default",x+1.5f*Mathf.Sin(z),z,7+2*Mathf.Sin(z*.3f),z,false,.83f);
             return g.Mesh("Distant valley silhouette");
         }
         sealed class WaterDefinition

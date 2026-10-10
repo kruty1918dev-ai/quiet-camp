@@ -109,7 +109,8 @@
         "yaw": 18,
         "fixedPosition": true,
         "faceRoute": false
-      }
+      },
+      "entranceConnectsTo": "old-road"
     },
     {
       "id": "reclaimed-yard",
@@ -131,7 +132,7 @@
       "placement": {
         "zone": "ruin-parcel",
         "nearNode": "QC003",
-        "x": 7.5,
+        "x": 9.5,
         "z": 85,
         "yaw": -15,
         "fixedPosition": true,
@@ -287,7 +288,7 @@
     {
       "id": "willow-0",
       "asset": "pilot.bank-tree",
-      "x": 8,
+      "x": 5,
       "z": 109,
       "height": 7.2,
       "revealOwner": "QC004",
@@ -296,7 +297,7 @@
     {
       "id": "willow-1",
       "asset": "pilot.bank-tree",
-      "x": 23,
+      "x": 27,
       "z": 113,
       "height": 7.2,
       "revealOwner": "QC004",
@@ -305,7 +306,7 @@
     {
       "id": "willow-2",
       "asset": "pilot.bank-tree",
-      "x": 7,
+      "x": 0,
       "z": 143,
       "height": 7.2,
       "revealOwner": "QC005",
@@ -314,7 +315,7 @@
     {
       "id": "willow-3",
       "asset": "pilot.bank-tree",
-      "x": 29,
+      "x": 31,
       "z": 151,
       "height": 7.2,
       "revealOwner": "QC005",
@@ -323,38 +324,11 @@
     {
       "id": "willow-4",
       "asset": "pilot.bank-tree",
-      "x": 3,
+      "x": -8,
       "z": 182,
       "height": 7.2,
       "revealOwner": "QC005",
       "yaw": 188
-    },
-    {
-      "id": "asphalt-0",
-      "asset": "pilot.asphalt",
-      "x": 0,
-      "z": -15,
-      "height": 0.2,
-      "revealOwner": "QC001",
-      "yaw": 90
-    },
-    {
-      "id": "asphalt-1",
-      "asset": "pilot.asphalt",
-      "x": 0,
-      "z": -7,
-      "height": 0.2,
-      "revealOwner": "QC001",
-      "yaw": 90
-    },
-    {
-      "id": "asphalt-2",
-      "asset": "pilot.asphalt",
-      "x": 0,
-      "z": 16,
-      "height": 0.2,
-      "revealOwner": "QC001",
-      "yaw": 90
     },
     {
       "id": "approach-grove-0",

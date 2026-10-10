@@ -56,7 +56,7 @@ namespace QuietCamp.Editor
                 results.Add(Capture(asset,route,4,false,landscape?1600:720,landscape?720:1600,
                     Path.Combine(output,"edge-"+(route<0?"start":"end")+"-"+(landscape?"landscape":"portrait")+".png"),.85f));
             var errors=new List<string>();
-            foreach(var shader in new[]{asset.ground.shader,asset.foliage.shader,asset.water.shader,asset.marker.shader}.Distinct())
+            foreach(var shader in new[]{asset.ground.shader,asset.foliage.shader,asset.water.shader,asset.marker.shader,asset.motes.shader}.Distinct())
                 foreach(var message in ShaderUtil.GetShaderMessages(shader))
                     if(message.severity.ToString()=="Error")errors.Add(shader.name+": "+message.message);
             File.WriteAllText(Path.Combine(output,"native-capture-receipt.json"),JsonConvert.SerializeObject(new{
@@ -87,13 +87,15 @@ namespace QuietCamp.Editor
                 File.WriteAllBytes(path,pixels.EncodeToPNG());
                 var planes=GeometryUtility.CalculateFrustumPlanes(world.WorldCamera);
                 var visible=world.WorldRoot.GetComponentsInChildren<MeshRenderer>().Where(r=>r.enabled&&GeometryUtility.TestPlanesAABB(planes,r.bounds)).ToArray();
+                if(visible.Any(r=>r.sharedMaterial!=asset.water&&r.sharedMaterial!=asset.motes&&r.shadowCastingMode!=ShadowCastingMode.On))
+                    throw new InvalidOperationException("An opaque roadmap object does not cast a shadow");
                 long submittedTriangles=visible.Sum(r=>(long)r.GetComponent<MeshFilter>().sharedMesh.GetIndexCount(0)/3);
                 if(world.LoadedChunks>3||submittedTriangles>(low?80000:150000)||visible.Select(r=>r.sharedMaterial).Distinct().Count()>(low?8:12))
                     throw new InvalidOperationException("Native composition exceeds the pilot geometry/residency/material budget: "+path+" / "+submittedTriangles);
                 return new{file=Path.GetFileName(path),route,frontier,quality=low?"Low":"Balanced",width,height,
                     renderProfile=QualitySettings.names[QualitySettings.GetQualityLevel()],
                     zoom,fieldOfView=world.WorldCamera.fieldOfView,shadowDistance=((UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline).shadowDistance,loadedChunks=world.LoadedChunks,visibleRenderers=visible.Length,submittedMeshTriangles=submittedTriangles,
-                    sharedMaterials=visible.Select(r=>r.sharedMaterial).Distinct().Count(),editorDrawCalls=UnityStats.drawCalls,
+                    sharedMaterials=visible.Select(r=>r.sharedMaterial).Distinct().Count(),opaqueShadowCasters=visible.Count(r=>r.sharedMaterial!=asset.water&&r.sharedMaterial!=asset.motes),editorDrawCalls=UnityStats.drawCalls,
                     editorTriangles=UnityStats.triangles,cameraPosition=new[]{world.WorldCamera.transform.position.x,world.WorldCamera.transform.position.y,world.WorldCamera.transform.position.z}};
             }
             finally

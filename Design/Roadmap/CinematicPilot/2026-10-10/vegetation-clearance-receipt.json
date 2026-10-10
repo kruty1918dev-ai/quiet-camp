@@ -1,0 +1,25 @@
+{
+  "sourceHash": "56f533f8ee3bc33aff187e6577b8a5b8eec1c780509e2f1723f21c66593442ad",
+  "method": "Independent pair distances, 32-point crown/river checks and oriented architecture footprints",
+  "samples": [
+    {
+      "quality": "low",
+      "plants": 2237,
+      "trees": 283,
+      "groundProps": 1,
+      "grassTufts": 1058,
+      "minimumAnimatedPlantGap": 0.15024566848226695
+    },
+    {
+      "quality": "balanced",
+      "plants": 3145,
+      "trees": 410,
+      "groundProps": 0,
+      "grassTufts": 1409,
+      "minimumAnimatedPlantGap": 0.15095403864305534
+    }
+  ],
+  "result": "Passed",
+  "playerBuild": false,
+  "mobileFpsMeasured": false
+}

@@ -110,10 +110,10 @@ namespace QuietCamp.Presentation.World
             _camera.allowHDR=true;_camera.allowMSAA=true;
             var data=_camera.GetUniversalAdditionalCameraData();data.renderShadows=true;data.renderPostProcessing=true;data.requiresDepthTexture=true;data.volumeLayerMask=1<<Layer;
             var sunObject=new GameObject("Valley afternoon sun");sunObject.layer=Layer;sunObject.transform.SetParent(_root.transform,false);_sun=sunObject.AddComponent<Light>();
-            _sun.type=LightType.Directional;_sun.transform.rotation=Quaternion.Euler(38,-48,0);_sun.color=new Color(1,.93f,.79f);_sun.intensity=1.12f;
+            _sun.type=LightType.Directional;_sun.transform.rotation=Quaternion.Euler(42,-48,0);_sun.color=new Color(1,.93f,.79f);_sun.intensity=1.22f;
             _sun.shadows=LightShadows.Soft;_sun.shadowBias=.025f;_sun.shadowNormalBias=.25f;_sun.cullingMask=1<<Layer;RenderSettings.sun=_sun;
             RenderSettings.ambientMode=AmbientMode.Custom;
-            var probe=new SphericalHarmonicsL2();probe.AddAmbientLight(new Color(.67f,.73f,.72f).linear*.8f);RenderSettings.ambientProbe=probe;
+            var probe=new SphericalHarmonicsL2();probe.AddAmbientLight(new Color(.62f,.70f,.74f).linear*.72f);RenderSettings.ambientProbe=probe;
             RenderSettings.ambientLight=new Color(.67f,.73f,.72f);RenderSettings.fog=false;
             var volume=new GameObject("Valley gentle color grade");volume.transform.SetParent(_root.transform,false);volume.layer=Layer;
             var v=volume.AddComponent<Volume>();v.isGlobal=true;v.priority=30;_profile=ScriptableObject.CreateInstance<VolumeProfile>();v.sharedProfile=_profile;
@@ -121,11 +121,11 @@ namespace QuietCamp.Presentation.World
             var tone=_profile.Add<Tonemapping>();tone.mode.Override(TonemappingMode.Neutral);
             var focus=_profile.Add<DepthOfField>();focus.mode.Override(DepthOfFieldMode.Off);
             var blur=_profile.Add<MotionBlur>();blur.intensity.Override(0);
-            AddRenderer(_root.transform,"Far landscape",_asset.horizon,_asset.ground,false);
+            AddRenderer(_root.transform,"Far landscape",_asset.horizon,_asset.ground,true);
             var river=_asset.riverByFrontier!=null&&_asset.riverByFrontier.Length==5?_asset.riverByFrontier[_frontier]:_asset.river;
             if(river!=null)AddRenderer(_root.transform,"Continuous river",river,_asset.water,false);
             if(_asset.distantForest!=null)for(int i=0;i<_asset.distantForest.Length;i++)
-                _distant[i]=AddRenderer(_root.transform,"Distant forest "+i,_asset.distantForest[i],_asset.foliage,false);
+                _distant[i]=AddRenderer(_root.transform,"Distant forest "+i,_asset.distantForest[i],_asset.foliage,true);
             for(int i=0;i<5;i++)
             {
                 var m=AddRenderer(_root.transform,"Waystone "+_asset.waypoints[i].levelId,_asset.markerMesh,_asset.marker,true);
@@ -161,8 +161,8 @@ namespace QuietCamp.Presentation.World
                     var meshes=(low||(_services?.EffectiveQuality??1)==0)?chunk.low:chunk.balanced;
                     for(int part=0;part<meshes.Length;part++)if(meshes[part]!=null)
                     {
-                        var material=part==0?_asset.ground:part==1?_asset.structure:part==4?_asset.water:_asset.foliage;
-                        AddRenderer(go.transform,"Baked part "+part,meshes[part],material,part!=0&&part!=4);
+                        var material=part==0?_asset.ground:part==1?_asset.structure:part==4?_asset.water:part==5?_asset.motes:_asset.foliage;
+                        AddRenderer(go.transform,"Baked part "+part,meshes[part],material,part!=4&&part!=5);
                     }
                     _chunks[id]=go;
                     if(_distant[id]!=null)_distant[id].enabled=false;

@@ -1,0 +1,331 @@
+{
+  "kind": "roadmap-model-and-clearance-native-review",
+  "verifiedUtc": "2026-10-10T18:04:30.561306+00:00",
+  "sourceHash": "56f533f8ee3bc33aff187e6577b8a5b8eec1c780509e2f1723f21c66593442ad",
+  "nativeCaptureUtc": "2026-10-10T17:56:07.1778010Z",
+  "before": {
+    "sourceHash": "6fd474482fbae4d90f7bdbcc20778cedb9d48e43daee20467ca7cede5bb4dc31",
+    "capturedUtc": "2026-10-10T16:57:20.1316990Z",
+    "description": "Historical aerial world before donor refinement. Original capture date preserved."
+  },
+  "scope": "Native composition and full-extent placement review; current Game View follow-up pending",
+  "models": [
+    {
+      "asset": "pilot.asphalt",
+      "catalogueId": "M0157",
+      "source": "Assets/PolygonBattleRoyale/Models/SM_Env_Road_Straight_Damaged_01.fbx",
+      "prefab": "Assets/PolygonBattleRoyale/Prefabs/Environments/SM_Env_Road_Straight_Damaged_01.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Env_Road_Straight_Damaged_01",
+        "SM_Env_Road_Straight_Damaged_01_Dirt",
+        "SM_Env_Road_Straight_Damaged_01_Edge"
+      ],
+      "triangles": 303,
+      "paletteMaterials": [
+        "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_02_A.mat",
+        "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_Road.mat"
+      ],
+      "paletteColors": 5,
+      "bounds": [
+        20.0,
+        0.6706734,
+        5.00152349
+      ]
+    },
+    {
+      "asset": "pilot.broken-bridge",
+      "catalogueId": "M0132",
+      "source": "Assets/PolygonBattleRoyale/Models/SM_Env_Bridge_Broken_01.fbx",
+      "prefab": "Assets/PolygonBattleRoyale/Prefabs/Environments/SM_Env_Bridge_Broken_01.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Env_Bridge_Broken_01"
+      ],
+      "triangles": 796,
+      "paletteMaterials": [
+        "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_Road.mat"
+      ],
+      "paletteColors": 5,
+      "bounds": [
+        11.00454,
+        2.87881827,
+        3.97426987
+      ]
+    },
+    {
+      "asset": "pilot.ruin-wall",
+      "catalogueId": "M0965",
+      "source": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Models/SM_Bld_Shack_Ruins_01.fbx",
+      "prefab": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Prefabs/SM_Bld_Shack_Ruins_01.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Bld_Shack_Ruins_01"
+      ],
+      "triangles": 2714,
+      "paletteMaterials": [
+        "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/PolygonNatureBiomesSwamp_LODs_Mat_01.mat"
+      ],
+      "paletteColors": 121,
+      "bounds": [
+        5.434205,
+        5.836829,
+        2.26174879
+      ]
+    },
+    {
+      "asset": "pilot.reeds",
+      "catalogueId": "M0987",
+      "source": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Models/SM_Env_Reeds_01.fbx",
+      "prefab": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Prefabs/SM_Env_Reeds_01.prefab",
+      "lod": 1,
+      "meshes": [
+        "SM_Env_Reeds_01_LOD1"
+      ],
+      "triangles": 32,
+      "paletteMaterials": [
+        "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Materials/Plants/Reeds_01.mat"
+      ],
+      "paletteColors": 6,
+      "bounds": [
+        0.954111338,
+        3.55766845,
+        1.01867175
+      ]
+    },
+    {
+      "asset": "pilot.orchard-tree",
+      "catalogueId": "M0497",
+      "source": "Assets/PolygonCity/Models/SM_Env_Tree_01.fbx",
+      "prefab": "Assets/PolygonCity/Prefabs/Environments/SM_Env_Tree_01.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Env_Tree_01"
+      ],
+      "triangles": 604,
+      "paletteMaterials": [
+        "Assets/PolygonCity/Materials/PolygonCity_Mat_01_A.mat"
+      ],
+      "paletteColors": 2,
+      "bounds": [
+        1.86585617,
+        4.208103,
+        2.51118469
+      ]
+    },
+    {
+      "asset": "pilot.bank-tree",
+      "catalogueId": "M0498",
+      "source": "Assets/PolygonCity/Models/SM_Env_Tree_02.fbx",
+      "prefab": "Assets/PolygonCity/Prefabs/Environments/SM_Env_Tree_02.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Env_Tree_02"
+      ],
+      "triangles": 680,
+      "paletteMaterials": [
+        "Assets/PolygonCity/Materials/PolygonCity_Mat_01_A.mat"
+      ],
+      "paletteColors": 2,
+      "bounds": [
+        2.23603821,
+        4.67631054,
+        1.54027557
+      ]
+    },
+    {
+      "asset": "pilot.poplar",
+      "catalogueId": "M0188",
+      "source": "Assets/PolygonBattleRoyale/Models/SM_Generic_Tree_03.fbx",
+      "prefab": "Assets/PolygonBattleRoyale/Prefabs/Generic/SM_Generic_Tree_03.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Generic_Tree_03"
+      ],
+      "triangles": 266,
+      "paletteMaterials": [
+        "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_01_A.mat"
+      ],
+      "paletteColors": 2,
+      "bounds": [
+        1.73237872,
+        3.49327421,
+        1.541505
+      ]
+    },
+    {
+      "asset": "pilot.stone-well",
+      "catalogueId": "M0913",
+      "source": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/SM_Prop_Well_01.fbx",
+      "prefab": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Prefabs/Props/SM_Prop_Well_01.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Prop_Well_01"
+      ],
+      "triangles": 1809,
+      "paletteMaterials": [
+        "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/PolygonNatureBiomesMeadow_Mat_01.mat"
+      ],
+      "paletteColors": 28,
+      "bounds": [
+        1.912393,
+        2.96808338,
+        1.95048118
+      ]
+    },
+    {
+      "asset": "pilot.broken-fence",
+      "catalogueId": "M0855",
+      "source": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/SM_Prop_Meadow_Fence_05.fbx",
+      "prefab": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Prefabs/Props/SM_Prop_Meadow_Fence_05.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Prop_Meadow_Fence_05"
+      ],
+      "triangles": 244,
+      "paletteMaterials": [
+        "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/PolygonNatureBiomesMeadow_Mat_01.mat"
+      ],
+      "paletteColors": 15,
+      "bounds": [
+        2.52471685,
+        1.5061121,
+        0.403672874
+      ]
+    },
+    {
+      "asset": "pilot.branching-tree",
+      "catalogueId": "M0186",
+      "source": "Assets/PolygonBattleRoyale/Models/SM_Generic_Tree_01.fbx",
+      "prefab": "Assets/PolygonBattleRoyale/Prefabs/Generic/SM_Generic_Tree_01.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Generic_Tree_01"
+      ],
+      "triangles": 598,
+      "paletteMaterials": [
+        "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_01_A.mat"
+      ],
+      "paletteColors": 2,
+      "bounds": [
+        1.81182122,
+        3.29569387,
+        1.70456207
+      ]
+    },
+    {
+      "asset": "pilot.bank-rock",
+      "catalogueId": "M0503",
+      "source": "Assets/PolygonCity/Models/SM_Env_WaterEdge_Rock_01.fbx",
+      "prefab": "Assets/PolygonCity/Prefabs/Environments/SM_Env_WaterEdge_Rock_01.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Env_WaterEdge_Rock_01"
+      ],
+      "triangles": 107,
+      "paletteMaterials": [
+        "Assets/PolygonCity/Materials/PolygonCity_Mat_01_A.mat"
+      ],
+      "paletteColors": 1,
+      "bounds": [
+        4.542803,
+        1.91801262,
+        6.0085144
+      ]
+    },
+    {
+      "asset": "pilot.bench",
+      "catalogueId": "M0571",
+      "source": "Assets/PolygonCity/Models/SM_Prop_ParkBench_01.fbx",
+      "prefab": "Assets/PolygonCity/Prefabs/Props/SM_Prop_ParkBench_01.prefab",
+      "lod": 0,
+      "meshes": [
+        "SM_Prop_ParkBench_01"
+      ],
+      "triangles": 552,
+      "paletteMaterials": [
+        "Assets/PolygonCity/Materials/PolygonCity_Mat_01_A.mat"
+      ],
+      "paletteColors": 2,
+      "bounds": [
+        2.079465,
+        1.04825807,
+        0.62364006
+      ]
+    }
+  ],
+  "vegetation": [
+    {
+      "quality": "low",
+      "plants": 2237,
+      "trees": 283,
+      "groundProps": 1,
+      "grassTufts": 1058,
+      "minimumAnimatedPlantGap": 0.15024566848226695
+    },
+    {
+      "quality": "balanced",
+      "plants": 3145,
+      "trees": 410,
+      "groundProps": 0,
+      "grassTufts": 1409,
+      "minimumAnimatedPlantGap": 0.15095403864305534
+    }
+  ],
+  "images": [
+    {
+      "file": "after-QC001.png",
+      "sha256": "0ddc25a65e945378652cdfe1dc1335f6e66668014a09a8b0e99ae5a019c3ede5"
+    },
+    {
+      "file": "after-QC002.png",
+      "sha256": "e670e86378c15b93bbe71531406d65cc8aef1b047b81009571a01789aa6ecc3b"
+    },
+    {
+      "file": "after-QC003.png",
+      "sha256": "c336bf101235f9bb9eb3fcc3755303eaa1ad01ce8edba012b6f84b4de1d9abad"
+    },
+    {
+      "file": "after-QC004.png",
+      "sha256": "5e7a87f9314722b450f164538d3b454dc618a493fb00d2a753da6bc28b825ed3"
+    },
+    {
+      "file": "after-QC005.png",
+      "sha256": "aad97b737c1bb61c61c8215945ab48f8186d3406e9ab4b40a21046594211b1d5"
+    },
+    {
+      "file": "before-QC001.png",
+      "sha256": "969cf11a649b87e1770f1aaa77e5c4fde46618c1424c875155394907a6360a56"
+    },
+    {
+      "file": "before-QC002.png",
+      "sha256": "c438e1a4d399bb76596182f001e0be0265370b5154b2406cb4fb6447031a6746"
+    },
+    {
+      "file": "before-QC003.png",
+      "sha256": "41e33da495c20eab7176286ea29f52b144a3c8dfd282f225ed6f4ab4adefe74e"
+    },
+    {
+      "file": "before-QC004.png",
+      "sha256": "d9b7ab4cdbb8a0c79f3e6e0573c3024856ae5227315909b57e1a59072b2aed0a"
+    },
+    {
+      "file": "before-QC005.png",
+      "sha256": "83ba1cd3c8533023b0c85a5df369260e0155d240bc6613690391026191d9ec7f"
+    }
+  ],
+  "visualReview": {
+    "compositions": 9,
+    "transitionFrames": 4,
+    "findings": [
+      "Continuous asphalt and owned stop approach read from aerial view",
+      "Ruined roof is visible; its former interior tree now grows outside",
+      "Distinct orchard and riverbank canopies retain gameplay faceted style",
+      "All admitted canopies remain outside the channel and structural footprints",
+      "Natural upstream carve replaces abrupt water head; coarse horizon cannot cover river",
+      "Single sun plus terrain relief and offline contact shading add depth"
+    ]
+  },
+  "playerBuild": false,
+  "mobileFpsMeasured": false
+}

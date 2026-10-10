@@ -19,9 +19,11 @@ static class CinematicPilotContracts
         Require(JsonConvert.SerializeObject(result)==JsonConvert.SerializeObject(SceneComposer.Compose(doc,assets,templates)),"Non-deterministic pilot");
         Require(!result.instances.Select(i=>i.asset).Concat(doc.landmarks.Select(l=>l.asset)).Any(id=>id.IndexOf("tent",StringComparison.OrdinalIgnoreCase)>=0),"Tent in roadmap dependency");
         Require(result.spans.Any(s=>s.id=="reclaimed-yard/approach-gate"&&s.height==0),"Yard has no owned approach");
-        // Intentional growth is allowed only for a canopy attached to its structural owner.
+        Require(!templates.Values.SelectMany(t=>t.roles).Any(r=>r.growsThrough!=null),"Current art direction excludes vegetation inside buildings");
+        // The composer still rejects accidental collisions, even though this pilot
+        // now keeps every canopy outside architecture.
         var altered=JsonConvert.DeserializeObject<Dictionary<string,EnsembleTemplate>>(JsonConvert.SerializeObject(templates));
-        var growth=altered["pilot.yard"].roles.Single(r=>r.id=="roof-tree");growth.growsThrough=null;
+        var growth=altered["pilot.yard"].roles.Single(r=>r.id=="roof-tree");growth.x=-2;growth.z=-2;growth.growsThrough=null;
         Require(SceneComposer.Compose(doc,assets,altered).diagnostics.Any(d=>d.code=="role-overlap"),"Ordinary collisions were suppressed");
         growth.growsThrough="well";
         Require(SceneComposer.Compose(doc,assets,altered).diagnostics.Any(d=>d.code=="invalid-growth-owner"),"Invalid growth owner admitted");
@@ -39,6 +41,6 @@ static class CinematicPilotContracts
         Require(RoadmapPilotPolicy.LevelIds.All(id=>RoadmapPilotPolicy.Completed(legacy,id)),"Older generated main progress not recognized");
         legacy.Restore(new[]{"QC_LH008"},"QC_LH008",0);
         Require(!RoadmapPilotPolicy.LegacyBeyondPilot(legacy),"Side journey mistaken for older main progress");
-        Console.WriteLine("PASS cinematic pilot: five IDs, complete ensembles, deterministic composition, owned approaches, explicit growth, no tents, progress/access boundaries");
+        Console.WriteLine("PASS cinematic pilot: five IDs, complete ensembles, deterministic composition, owned approaches, outdoor canopies, no tents, progress/access boundaries");
     }
 }

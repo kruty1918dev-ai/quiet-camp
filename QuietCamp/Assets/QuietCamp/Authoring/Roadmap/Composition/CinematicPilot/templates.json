@@ -3,7 +3,7 @@
     "id": "pilot.stop",
     "width": 9,
     "depth": 8,
-    "entrance": false,
+    "entrance": true,
     "roles": [
       {
         "id": "shelter",
@@ -20,7 +20,8 @@
         "z": -2.8,
         "height": 0.85,
         "yaw": 0,
-        "parent": "shelter"
+        "parent": "shelter",
+        "entrance": true
       }
     ]
   },
@@ -42,12 +43,12 @@
       {
         "id": "roof-tree",
         "asset": "pilot.branching-tree",
-        "x": -1.5,
-        "z": -2,
-        "height": 6.5,
+        "x": -5.3,
+        "z": 4.4,
+        "height": 5.5,
         "yaw": 0,
         "parent": "house",
-        "growsThrough": "house"
+        "growsThrough": null
       },
       {
         "id": "well",
@@ -105,12 +106,12 @@
       {
         "id": "growth",
         "asset": "tree_default",
-        "x": 0.65,
-        "z": 0.8,
-        "height": 5.4,
+        "x": 3.2,
+        "z": 2,
+        "height": 3.8,
         "yaw": 0,
         "parent": "wall",
-        "growsThrough": "wall"
+        "growsThrough": null
       }
     ]
   }

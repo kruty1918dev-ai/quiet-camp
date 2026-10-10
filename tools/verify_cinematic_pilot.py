@@ -43,6 +43,10 @@ def main():
     assert len({d['sourceHash'] for d in (native, bake, gameview, video, acceptance)}) == 1
     assert bake['levelIds'] == ['QC001', 'QC002', 'QC003', 'QC004', 'QC005']
     assert not native['shaderErrors']
+    vegetation=read('vegetation-clearance-receipt.json')
+    assert vegetation['sourceHash']==bake['sourceHash'] and vegetation['result']=='Passed'
+    assert all(s['minimumAnimatedPlantGap']>=.149 for s in vegetation['samples'])
+    assert all(frame['opaqueShadowCasters']>0 for frame in native['frames'])
     assert all(frame['renderProfile'] == frame['quality'] for frame in native['frames'])
     assert all(frame['shadowDistance'] > 60 for frame in native['frames']), 'Aerial ground shadows are clipped'
     assert not any('tent' in asset.lower() for chunk in bake['stats'] for asset in chunk['sourceAssets'])

@@ -254,6 +254,8 @@ namespace QuietCamp.Tests
                 services.Settings.quality=quality+1;services.EffectiveQuality=quality;
                 QualitySettings.SetQualityLevel(quality,true);World().Seek(3);yield return Frames(40);Assert.IsTrue(World().Ready);
                 Assert.AreEqual(quality==0?"Low":"Balanced",QualitySettings.names[QualitySettings.GetQualityLevel()],"Incorrect native render profile");
+                var opaque=World().WorldRoot.GetComponentsInChildren<MeshRenderer>().Where(r=>r.sharedMaterial.shader.name!="QuietCamp/RoadmapMotes"&&!r.sharedMaterial.shader.name.Contains("Stylized Water"));
+                Assert.IsTrue(opaque.All(r=>r.shadowCastingMode==UnityEngine.Rendering.ShadowCastingMode.On),"An opaque world object lost its shadow caster");
                 for(int i=0;i<9;i++)
                 {
                     World().Seek(i*.5f);yield return Frames(12);Assert.IsTrue(World().Ready,World().Fault);Assert.LessOrEqual(World().LoadedChunks,3);
