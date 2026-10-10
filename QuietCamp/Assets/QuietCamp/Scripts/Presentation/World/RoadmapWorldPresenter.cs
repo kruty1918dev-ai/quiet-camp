@@ -210,7 +210,12 @@ namespace QuietCamp.Presentation.World
         }
         public void SetCamera(float route)
         {
-            if(_camera==null)return;_route=Mathf.Clamp(route,0,4);int a=Mathf.FloorToInt(_route),b=Mathf.Min(4,a+1);
+            if(_camera==null)return;
+            // Keep a landscape viewport inside the authored valley even at the widest pinch zoom.
+            // Portrait retains the authored vertical FOV; wide screens cap the horizontal field.
+            float aspect=Mathf.Max(1,_camera.aspect/1.2f);
+            _camera.fieldOfView=2*Mathf.Atan(Mathf.Tan(_asset.fieldOfView*Mathf.Deg2Rad*.5f)/aspect)*Mathf.Rad2Deg;
+            _route=Mathf.Clamp(route,0,4);int a=Mathf.FloorToInt(_route),b=Mathf.Min(4,a+1);
             float t=Mathf.SmoothStep(0,1,_route-a);var from=_asset.waypoints[a];var to=_asset.waypoints[b];
             var focus=Vector3.Lerp(from.focus,to.focus,t);var rotation=Quaternion.Euler(Mathf.Lerp(from.pitch,to.pitch,t),Mathf.LerpAngle(from.yaw,to.yaw,t),0);
             var position=focus+rotation*Vector3.back*Mathf.Lerp(from.distance,to.distance,t)/_zoom;

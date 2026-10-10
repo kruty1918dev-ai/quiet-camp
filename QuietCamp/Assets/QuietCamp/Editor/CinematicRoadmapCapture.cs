@@ -20,6 +20,14 @@ namespace QuietCamp.Editor
             if(SystemInfo.graphicsDeviceType==GraphicsDeviceType.Null)throw new InvalidOperationException("Native graphics required");
             // Immediate batch captures must wait for real shader variants, never the asynchronous placeholder shaders.
             ShaderUtil.allowAsyncCompilation=false;
+            // Refresh script import mappings before querying cached native Resources after compilation.
+            foreach(string name in new[]{"RoadmapWorldAsset","RoadmapWorldChunk"})
+            {
+                string scriptPath="Assets/QuietCamp/Scripts/Presentation/World/"+name+".cs";
+                AssetDatabase.ImportAsset(scriptPath,ImportAssetOptions.ForceUpdate|ImportAssetOptions.ForceSynchronousImport);
+                var script=AssetDatabase.LoadAssetAtPath<MonoScript>(scriptPath);
+                if(script==null||script.GetClass()==null)throw new InvalidOperationException("Native world script mapping missing: "+scriptPath);
+            }
             CinematicRoadmapBaker.Bake();
             var asset=AssetDatabase.LoadAssetAtPath<RoadmapWorldAsset>("Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/World.asset");
             string repo=Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath,"../.."));
@@ -31,6 +39,8 @@ namespace QuietCamp.Editor
                 results.Add(Capture(asset,frontier,frontier,false,720,1600,Path.Combine(output,"progress-"+frontier+".png")));
             foreach(bool low in new[]{true,false})
                 results.Add(Capture(asset,3,4,low,1600,720,Path.Combine(output,(low?"low":"balanced")+"-landscape.png")));
+            for(int i=0;i<5;i++)
+                results.Add(Capture(asset,i,4,false,1600,720,Path.Combine(output,"landscape-zoom-out-"+i+".png"),.85f));
             var errors=new List<string>();
             foreach(var shader in new[]{asset.ground.shader,asset.foliage.shader,asset.water.shader,asset.marker.shader}.Distinct())
                 foreach(var message in ShaderUtil.GetShaderMessages(shader))
@@ -43,7 +53,7 @@ namespace QuietCamp.Editor
             if(errors.Count>0)throw new InvalidOperationException(string.Join("\n",errors));
             Debug.Log("[CinematicRoadmap] Captured nine compositions, progress and quality fixtures");
         }
-        static object Capture(RoadmapWorldAsset asset,float route,int frontier,bool low,int width,int height,string path)
+        static object Capture(RoadmapWorldAsset asset,float route,int frontier,bool low,int width,int height,string path,float zoom=1)
         {
             var root=new GameObject("Cinematic native capture");var world=root.AddComponent<RoadmapWorldPresenter>();
             RenderTexture target=null;Texture2D pixels=null;var previous=RenderTexture.active;
@@ -52,7 +62,7 @@ namespace QuietCamp.Editor
                 world.ConfigureCapture(asset,route,frontier,low);
                 if(!world.Ready)throw new InvalidOperationException(world.Fault??"Chunks not ready");
                 target=new RenderTexture(width,height,24,RenderTextureFormat.ARGB32){antiAliasing=1};target.Create();
-                world.WorldCamera.targetTexture=target;world.WorldCamera.aspect=(float)width/height;
+                world.WorldCamera.targetTexture=target;world.WorldCamera.aspect=(float)width/height;world.Zoom(zoom);world.SetCamera(route);
                 var request=new UniversalRenderPipeline.SingleCameraRequest{destination=target};
                 RenderPipeline.SubmitRenderRequest(world.WorldCamera,request);
                 RenderPipeline.SubmitRenderRequest(world.WorldCamera,request);RenderTexture.active=target;
@@ -64,7 +74,7 @@ namespace QuietCamp.Editor
                 if(world.LoadedChunks>3||submittedTriangles>(low?80000:150000)||visible.Select(r=>r.sharedMaterial).Distinct().Count()>(low?8:12))
                     throw new InvalidOperationException("Native composition exceeds the pilot geometry/residency/material budget: "+path+" / "+submittedTriangles);
                 return new{file=Path.GetFileName(path),route,frontier,quality=low?"Low":"Balanced",width,height,
-                    loadedChunks=world.LoadedChunks,visibleRenderers=visible.Length,submittedMeshTriangles=submittedTriangles,
+                    zoom,fieldOfView=world.WorldCamera.fieldOfView,loadedChunks=world.LoadedChunks,visibleRenderers=visible.Length,submittedMeshTriangles=submittedTriangles,
                     sharedMaterials=visible.Select(r=>r.sharedMaterial).Distinct().Count(),editorDrawCalls=UnityStats.drawCalls,
                     editorTriangles=UnityStats.triangles,cameraPosition=new[]{world.WorldCamera.transform.position.x,world.WorldCamera.transform.position.y,world.WorldCamera.transform.position.z}};
             }
