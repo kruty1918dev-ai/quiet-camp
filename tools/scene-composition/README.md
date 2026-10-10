@@ -3,8 +3,7 @@
 Cinematic pilot, 2026-10-10: new continuous-world sources live in
 `Composition/CinematicPilot`; `CinematicRoadmapBaker` publishes five native chunks
 for QC001–QC005. The projected map and `UI/Prepared` renderer have been retired.
-Native capture and gameplay acceptance are pending; historical galleries retain
- their original dates. See [the pilot status](../../Design/Roadmap/CinematicPilot/2026-10-10/README.md).
+Native composition captures and full five-place Game View checks are verified in separate receipts; historical galleries retain their original dates. See [the pilot status](../../Design/Roadmap/CinematicPilot/2026-10-10/README.md).
 
 An AI-friendly, deterministic authoring workflow for connected places, prepared native meshes and bounded streaming. The first integration is Quiet Camp's roadmap. The portable `QuietCamp.Composition` engine has no Unity/game/progression dependencies; release it as a separate UPM only after the integration is validated.
 
@@ -29,7 +28,7 @@ dotnet run --no-build --project tools/roadmap-pipeline/RoadmapPipeline.csproj --
 
 The command rejects identity/schema changes, stale files, unknown fields and invalid placements before replacing the source. Arrays replace arrays; objects merge recursively. Never patch `Resources` or the generated transforms. Example patch: `{"fenceVariant":"picket"}`.
 
-`bake` prepares portable placements and diagnostics; it **does not publish native runtime meshes**. Open Unity using the repository's host/ADB rules and choose **Quiet Camp → Composition → Bake Main** for final native resources. The runtime catalog changes only after all chunks validate. Failed baking retains the previous published catalog. **Preview** opens actual native mesh/shader inspection; Load/Frame accepts an entity ID, and overlays identify footprints and connections. Capture exports PNG and an ID sidecar. A fresh Editor is never silently launched by the CLI. No command builds a player.
+`bake` prepares placements only. The active five-place pilot uses **Quiet Camp → Cinematic Roadmap → Bake Five Places** and `tools/render_diorama_editor_isolated.sh --cinematic`, followed by `--pilot-tests` in the approved isolation. See [the current workflow](USAGE_UA.md). The former Composition Preview window and duplicate renderer are retired. No command builds a player.
 
 `compare <before-sidecar.json> <after-sidecar.json>` compares scene identities and metrics. Keep matching PNG files beside sidecars for visual review; numeric comparison cannot decide beauty.
 
@@ -63,7 +62,9 @@ Important error codes: `duplicate-id`, `invalid-zone`, `missing-zone`, `missing-
 
 Errors carry entity IDs, `sourceKind`, JSON pointers and related IDs where relevant. See [the diagnostic reference](DIAGNOSTICS.md). Fix the intention/template, validate, dry-run, bake, then inspect native images. Semantic validity does not certify the artwork. Record both rejected candidates and passed render checks honestly.
 
-## Native output and compatibility
+## Historical region output and compatibility
+
+The following describes the former prepared region catalogue. It is retained for authoring history; the active CinematicPilot uses `RoadmapWorldAsset` and five world chunks, its own native receipts and the budgets in the current [pilot report](../../Design/Roadmap/CinematicPilot/2026-10-10/README.md). The old projected runtime and its native tests have been removed.
 
 The published catalog holds a separate immutable resource string and source revision for each chunk in `bakedBindings`. Portable placement hashes include the executing compiler assembly and relevant game inputs; they are distinct from native output hashes. Local edits can reuse unaffected native chunk assets; baker, geometry, shader, asset and climate dependencies invalidate affected outputs. The catalog has no direct references that eagerly load the whole campaign. Chunks contain native indexed meshes with UVs, vertex colors, baked local occlusion and identical main/shadow wind masks. Each chunk owns nodes and branches; meshes are prepared offline. Current chunk granularity is at most three main nodes to keep cache/uploads small. This does not alter progress order.
 
@@ -90,4 +91,4 @@ See [the Ukrainian usage guide and activation status](USAGE_UA.md). Until the fi
 
 The native `CompositionRoadmapPlayModeTests` gallery must run before its 360-node benchmark. The benchmark aliases real 30-level meshes across 360 logical nodes/60 regions; it stresses bounded residency and navigation, rather than producing 360 distinct artworks. Separate existing navigation/reveal/branch tests remain required. The static preview draws the same native meshes but is not a replacement for Game View, progression or touch QA.
 
-Immutable old hash directories are retained to protect rollback. Before any separately authorized player build, identify unreferenced revisions and quarantine them outside `Resources`; leaving all historical native resources there would increase package size. No automatic destructive pruning or player build is part of this tool.
+Git retains historical immutable revisions for rollback. Unreferenced pilot revisions are removed from Resources after a newer capture passes. Historical region recipes below are reference data for the retired renderer. Before any separately authorized player build, identify unreferenced revisions and quarantine them outside `Resources`; leaving all historical native resources there would increase package size. No automatic destructive pruning or player build is part of this tool.

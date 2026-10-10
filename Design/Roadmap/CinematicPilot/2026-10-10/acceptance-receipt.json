@@ -1,0 +1,962 @@
+{
+  "kind": "cinematic-pilot-editor-evidence",
+  "sourceHash": "6fd474482fbae4d90f7bdbcc20778cedb9d48e43daee20467ca7cede5bb4dc31",
+  "runtimeCheckpoint": "b89826673cfe62e92a5611dfff530187dbd665af",
+  "verifiedUtc": "2026-10-10T17:14:29.721060+00:00",
+  "levelIds": [
+    "QC001",
+    "QC002",
+    "QC003",
+    "QC004",
+    "QC005"
+  ],
+  "camera": {
+    "distanceRange": [
+      128,
+      151
+    ],
+    "pitchRange": [
+      54,
+      55
+    ],
+    "distanceIncreasePercent": 45,
+    "zoomRange": [
+      0.85,
+      1.15
+    ],
+    "portraitFieldOfView": 30
+  },
+  "nativeCaptureUtc": "2026-10-10T16:57:20.1316990Z",
+  "nativeFrames": 43,
+  "gameViewCaptureUtc": "2026-10-10T17:09:10.9558590Z",
+  "waterMotion": [
+    {
+      "quality": "Low",
+      "renderProfile": "Low",
+      "seconds": 2.15727234,
+      "meanRgbByteDifference": 3.9243443,
+      "patchX": 452,
+      "patchY": 525,
+      "patchSize": 40,
+      "cameraStationary": true,
+      "shader": "Stylized Water 3/Standard"
+    },
+    {
+      "quality": "Balanced",
+      "renderProfile": "Balanced",
+      "seconds": 2.1753006,
+      "meanRgbByteDifference": 2.767687,
+      "patchX": 452,
+      "patchY": 525,
+      "patchSize": 40,
+      "cameraStationary": true,
+      "shader": "Stylized Water 3/Standard"
+    }
+  ],
+  "navigationTrackingSamples": 36,
+  "navigationTrackingRange": [
+    0.8854947767857143,
+    0.999953253968254
+  ],
+  "gameViewIntegration": {
+    "result": "Passed",
+    "startUtc": "2026-10-10 17:07:21Z",
+    "endUtc": "2026-10-10 17:09:11Z",
+    "durationSeconds": 109.4375106,
+    "checks": "Fresh campaign progress after onboarding, completion 1–5, old progress including gaps, replay, jitter-tolerant tap, drag rejection, 36 screen-space tracking samples, normalized wheel and fractional trackpad, multitouch ownership, real Input System pinch/release/cancel, fresh-profile inspection margins without reveal, quality change, synthetic notch, portrait/landscape, reduced motion, interrupted reveal, repeated entry/exit"
+  },
+  "measurements": {
+    "Low": {
+      "maxSubmittedMeshTriangles": 78628,
+      "maxSharedWorldMaterials": 5,
+      "maxDetailedChunks": 3,
+      "gameViewSamples": 10,
+      "maxEditorDrawCalls": 42,
+      "maxPassInclusiveEditorTriangles": 141231
+    },
+    "Balanced": {
+      "maxSubmittedMeshTriangles": 147092,
+      "maxSharedWorldMaterials": 5,
+      "maxDetailedChunks": 3,
+      "gameViewSamples": 10,
+      "maxEditorDrawCalls": 42,
+      "maxPassInclusiveEditorTriangles": 268859
+    }
+  },
+  "reentryCounts": [
+    [
+      2,
+      406,
+      230
+    ],
+    [
+      2,
+      406,
+      230
+    ],
+    [
+      2,
+      406,
+      230
+    ],
+    [
+      2,
+      406,
+      230
+    ]
+  ],
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioOutputVerified": false,
+  "visualReview": {
+    "compositions": [
+      "composition-00.png",
+      "composition-01.png",
+      "composition-02.png",
+      "composition-03.png",
+      "composition-04.png",
+      "composition-05.png",
+      "composition-06.png",
+      "composition-07.png",
+      "composition-08.png"
+    ],
+    "checks": [
+      "Continuous landscape and story silhouettes",
+      "Broader surrounding geography at each stop",
+      "Road, river and neighbouring remnants visible together",
+      "Native portrait and landscape at maximum zoom-out"
+    ],
+    "limits": [
+      "Art quality is a design judgement; source LOD silhouettes remain stylized",
+      "Tiny fence, wire and mosaic details are secondary in the overview",
+      "No physical-device visual/performance or audible-output verification"
+    ]
+  },
+  "runtimeSources": {
+    "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/assets.json": "19c4be1baec24a181667e132d8786178d84225cedcb85a6b5f1e6e9627abd142",
+    "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/bindings.json": "78647a8d72da1a2b2e03905ba64eb8922fc14be5c27e5e9415dab837b9e013bc",
+    "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/manifest.json": "d10080f48c9c50fe3945937ef877339b7a0c929f4271ca281cd3562359a459ae",
+    "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/templates.json": "cabaae2dcedda7ce937807b1e2d0c279daa3d24cd155317df88ff50e29a9a5b3",
+    "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/valley.json": "5a82c9976b5515d5c0d2eee51a16680b0c7eb7c9b8fd684eb2afb81268aad346",
+    "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/water.json": "203bd4b50ba112288870259240ce2d6e0258cad3e31e34eaa1d47d072b9d41b0",
+    "QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot/world.json": "949a7eafe236ce8eb7d098a20477e333ece37cac845042e78647a56ff003e0d0",
+    "QuietCamp/Assets/QuietCamp/Editor/CinematicRoadmapBaker.cs": "4cfdc0870835984ca87479a8d1dd6ae58435b93edf7dbc0af40dc4405f7b8b9b",
+    "QuietCamp/Assets/QuietCamp/Editor/CinematicRoadmapCapture.cs": "9c96b1093329be11c496872b0cd679b41f36598cdbf034b088771606ee90b85d",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/World.asset": "de0a30b9e63a311fbea0d1bf9ecf2375712d2fd348e90593b1e11fbe5edcc68a",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/Camp.css.txt": "fd3220bce418a27e257ea7fdf18221af91c3b823d904eaf3e60c00b5b3038e3c",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/CampBackdrop.css.txt": "618ebd15adf3e8f2b76faba0f461b8c2965891cdfda26484d639f46c9c4c4d2b",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/CampGame.css.txt": "389ecb43b02eb59f2216618943c5386f70c6b30becd3afe6102bd36d64d3709b",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/CampMain.css.txt": "fb3d571d1d2fbf5912e9b6cdcbb826cd71b233ce22a741ef9c8c908abde2063b",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/CampMap.css.txt": "dca8083ddb1730e983f32cb442cd3c938438bda0e5f002031a8b59b83e63af3f",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/CampSettings.css.txt": "c9dc281cb1da490c30eea65f27e9024cdc996deb030a7bdedcecebadb3a32302",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/Gameplay.html": "84d57ce02edbb2c78716a8545d05c32a8e42684a1a582dc9e888901568cfab81",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/Menu.html": "5f9636136f253ef1f714c70cc9ecea258a6965cb2c3872f1cb15b9e84f9c3af3",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/Sheet.html": "19d94ed00b4f8367b2291cf0d92d57f6bf682868fea47e56541aed8dbffb0b41",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/RoadmapLit.shader": "568f40e0e71a06240696d14842931cc1bcfb3b5bf958326f6b0ee132d3039c41",
+    "QuietCamp/Assets/QuietCamp/Scenes/Boot.unity": "ed70bb55d1654a25ccf197610f9da0c0ee1c66adafbdc957ebe4f15c78ef7de7",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/AdLifeService.cs": "e36bb5a0d0671b69747cf03fafe48fbea08b64fb459e4c84b23baa13a28b31ca",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/AdService.cs": "abb43b4ae88b8f90ade0a096384b21d87808c3225b0ccf7dc3c7c4e4b8e17a1c",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/BonusCampAccess.cs": "483dfedba61dc85f398c66f1c8a2bebed80daa74b42c6aaeb45d0852efbc7e59",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/CampEconomy.cs": "09cae009172d9167e92d3bce9b0179ac0b1481c2053a660ddba558c0f1d0bad8",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/CampEvent.cs": "ae1e350e556fea38d67ef3fb7b1e20c9b1651336ac47797c6a4b4e08e5e632bc",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/CampMemoryService.cs": "02d3f9bdbeb74df2000d5dc992706fa5d16075fe88ef9a03181e46ba0287d27f",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/CampSaveData.cs": "d5d963f5a9e681de7633e3bed6c3b9aea6db2bfd5b0f7c819c924d200fd82305",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/CampSession.cs": "fe86db4755aa08a7bd5b7756323c2f3513eb23bb7fb2d34abb672e236dd715a7",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/ComfortAnalytics.cs": "156289241fa5a98b96af58b840fb3754b1b1424f1541fb90bc367faba026413e",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/Composition/ParcelBoundary.cs": "7285c1320cfd1000a764961144fa383abd011f94b834f8dc1437264fac2c7cef",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/Composition/PowerDamage.cs": "97342140f2493e8f72fe88db200c3df400a6d33a52f2264304edf9bbb29f2977",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/Composition/SceneComposition.cs": "3894bdb7ea318cad09f9e1209e52edd5474f81c8c9c212ef5ff8a8dc09ddb9b5",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/Composition/SurfaceRecipes.cs": "23351039e49f645c7bf1e4eac5e21655e00aea1c498f6ed82801a8c9a559c16a",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/CozyRewardService.cs": "0fbd7c6bc8debf4ecbf6fe06f83bbe8f720bc28516a7acf1a1acc2d66e61fd7d",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/HintAdvisor.cs": "54eaeff9503dddf585887ce21ee90b24b6cef0e70346dd4a8af78aa37d2321d6",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/JourneyAccessService.cs": "485e87c0fbf46dbc2354883060a560611df225df9bac0d1d7b2381dab675ca0f",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/PlacementCommand.cs": "aba758f49d76b430f65bab40be8a670341ad8a6b034d448c6536d279cf4d7e16",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/PrivacyAcknowledgement.cs": "66c42f900115762774e65e48e60c977a08e0b2b0056451e57c30bbdc44a10858",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/ProgressionService.cs": "fe441ebca86af1339a3ea96d946c16a41768755d781aadb2a44f3e8f2abc0ca7",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/PurchaseService.cs": "5b2e3c9c2a855e0b9833f3bfe351376d2bbc9c43ab3155213b4e4550ac7252c0",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/RoadmapBranchPolicy.cs": "a30ea3f78a583c53fa56ee97f3ff8cc8e6625656efbb968dce17835d55945f7b",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/RoadmapCatalog.cs": "570e31d5b8ff951ae0b847b1c68af048b344c90216918d1f152ddeef78204cb8",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/RoadmapCompiler.cs": "6f1bffe6d57473558cc0adf4202fd61c98a06fc61269d67e4a6bb0d24f06ae77",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/RoadmapCompositionAdapter.cs": "8aa4efbb1e74f6e75bd405ed332e623fa5a689dea767cf132fce0b3efa646cf7",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/RoadmapEnvironmentSampler.cs": "1bbec39ff3caf30f61e8165d6c07ebac0efb4ae0309abee99f260d0c77f869ed",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/RoadmapPilotPolicy.cs": "c528751af60f054a233877a112e35b91bcf8338c03c4bb480527b551e1657194",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/RoadmapRevealState.cs": "5a2686c5648b0d6b129c624b8e7171f9be0048839685e6ea2f43d40bf64fb06d",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/RoadmapRuralLayout.cs": "1b8ef289da084e0bcc744d2f59aea20cc71bdeb48ad8484e00e496797e827867",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/RoadmapSlotPlan.cs": "62d72bc66ad928526ef2a976352a4c7a8217481c86f89173d1b446eea39db7ae",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/RoadmapStoryCompiler.cs": "ba2a9db564a3dbd75510cb575d040442751fe69ea0cd4427a756d5aa7da1d205",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/RoadmapValidator.cs": "146f988deafe1ee4c4eb03e17601724228b4968107d55959036995e6d8625f49",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/TutorialDirector.cs": "34ee3e2e33c05b20657fd7f15a2dcadf365cf2b206c0721b926fa92f88929ddb",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/WorldMapRevealService.cs": "127c1af52eeb21cc6fa8c6e519355418fb68a267e788811ea21e506e27fb3303",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/BoardState.cs": "4b4fe335b45b2fab263640ba10e12d0f8e0756bd8816d595cd6361faff4e5c70",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/BonusCampDefinition.cs": "f2e4f9751466f5bcb45a30d40701499c89ee8e43e9358661376087e1e2073cbe",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/CampAccess.cs": "926d961729191817702a78ff0b3697b38f3e92c84fc7127c9b1cfb5d6940d2fd",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/CampCampaignAuthoring.cs": "1640496fe38bf1ac3a28833d766c5d964dd4d229a6a3d0068c62298fddc1992c",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/CampSolver.cs": "cce57cac233e43196e264398a5a8c654c5a02861a61efc46b3c4e03435d7af68",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/CampWalkability.cs": "715822ab79374327c3a4014a7f8e2664913616bf616ee0981c4d8acaa3795db4",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/CommandHistory.cs": "eacf9966015b9a6ce985517652efca89a1bb24be32161708fbe88ff1be857d5a",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/DistrictDefinition.cs": "e3e714978115f8d642b6192355031279a0b44b81f2721293adb7883e8b97faa3",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/EnvironmentalStoryData.cs": "fa85aa9c250cef34c6061aed4cd08a0ba98f8cbe21da5c9c996737aeb3bacfcd",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/EnvironmentalStoryValidator.cs": "12577ecb74baa63de11cf744f8ece35eb76feb81a4ad92c535095c1887172dd2",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/LevelContentValidator.cs": "f26588464ef00c563eefb2c77d5661bb98cf9115773195ad4ce8ff5a319585b4",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/LevelData.cs": "809e383e60205289ffaab4c4df5288f8b17fc048f32ae927b31d92e6a92de366",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/LighthouseJourneyAuthoring.cs": "64da5fad597e219dd0e7f94889603518a5956e6e4db8f65fdc96efc4968e5675",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/RoadmapData.cs": "6fa3d5c9afaa3c99458d930b07be0c854fac1103668c365953c0b23daf600318",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/RuleEvaluator.cs": "6dea3ff13a5a85bcac456a2e68c4e2ef875234bff274540371a3250752130981",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/SeasonalWindow.cs": "06c586a77aa77de3018a4590ccd13f78b995cd88a6db3ff0230f0b4cf890f9b1",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/ShadeProjection.cs": "4ff3d547ac5ea2f5aab8e426f5414e404352e88f3ab92c3dc86bd73d70e80e81",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/WorldMap/SeasonLook.cs": "7f1c1a767fb88e21a3e862260663db919dd8db071476946083e0e47edf6223b6",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/WorldMap/SeasonTransitions.cs": "413a4db3e5e18f478a1825e101764fa2c4ae4d3c62c804f533a7364fcd5c1e67",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/WorldMap/StoryMetadata.cs": "9f2105480cf63a01cdad20d89d1d591e1477435d7e81b9e8f1adf5c2740294ef",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/WorldMap/WorldMapData.cs": "c6c85cfaba3719b7d90476259d76f5b1b0db50c276f5be104959fc8f4c9ef0df",
+    "QuietCamp/Assets/QuietCamp/Scripts/Domain/WorldMap/WorldMapGeometry.cs": "99c5fcdac9ed5bb5f617d2a8f1a631b4b066dd85da1f88c2190cab919e210a0d",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/AssetCatalog.cs": "8a6780a798f2ba38fc570c7b0cd34cb4d96b8aba38342b47a5579cfd61f241ef",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/AtmosphereCatalog.cs": "eabf408c9f41aa8cddcb382df5efa265f91df0e37a6f078dd5cfdff4706e5161",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/BonusCampCatalog.cs": "29b05ef2d59590fce90c03902273d3dfc60d30dce5afd4151383e04f6fe947f6",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampAttemptService.cs": "e4596dae0766c3047b928368493a9974a054e7185dd236e2a2c915901c939996",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampCompletionService.cs": "e47cce9c41759945b1c0cdc461f19a0a06d6f1317c261e24efdb7121862ca155",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampContent.cs": "8fb8353d81b58299e50a238aa46c5ea69abb9ecb97d2d686ec04838c1c546018",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampWeatherTimeline.cs": "e5f56dbc77c63d94df7f2c5bca2177ec3c3f0fcd440a541b0668f4bd0d937da4",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/ForestLightingEnvironment.cs": "8e7b187f00e17d5267abd394f388e9d497ef47669be457591f6f695413c43e55",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/GeneratedCampSource.cs": "25a8c07f6cf752d2b9c7b78be2138e94e5583bd6e7b7b782a6f4bbb52eaae7f1",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/LegalConfiguration.cs": "6d7fbf639dd2eb402c7250467a055799ccc677436b45d3de4c18e20b1ed2fe46",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/LevelLoader.cs": "4b7b25770da1e5850c96b19eafbdcd94ab25c99580e70aa7ce24afb8fbdb61f6",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/MonetizationCatalog.cs": "d80a9f6a8ebc094f5e4d1068f41befceeb85a05ee6eb510fefe489e88d78534c",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/OptionalGoogleServices.cs": "836a19d969aaccdd2c6e1063f7fd60c7bd8e73cd4ff051a3f3baef8ce65d897c",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/PerformanceAudit.cs": "e0ed1c7f5d89ba4cc3edaad60ffc5e28acc29c8c51248fec0696ef6106759b2e",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/QuietCampAudioCatalog.cs": "b200b91974a56757e07436624aed4a6d992f4d16f3f145b6026d3587da4e0c13",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/QuietCampLevelAdapter.cs": "b89b4100f17faa7cc88db69a7a89f30abe3ea43e9743216f75d98a2522174ddd",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/QuietCampLocalization.cs": "27329d4e831eb2dff44ada5e179ec33238e1497993f2bad28a479ae316ac2312",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/RoadmapRepository.cs": "0417d0729c9102c4cb7d2434fb017335ac4178cd4ff90e12b911e79391d5c39c",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/SaveAdapter.cs": "3791754460e8839e479fad1c583d0edbde40e6de3f5557f94277687f1074dd20",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/SkyPalette.cs": "22fbdc276a968f38c271dea800c71139f56c11d62a830c46b3f4056a178a022e",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/TransitionConfig.cs": "5bbffbf7ab57cc8a67bea369cd85fb2d3ef12f6fd2746df31555c28666e1e6d1",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/WindShelterField.cs": "f0da0d5a4f37bf46f0eefe8fa653ce0909468b56f93a2df91b9c469c65a2e101",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/WindSim.cs": "44f1c9f1270548444595bdf19d0ebafb23187fbafc69a0b7035f25848e88ab6a",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/WorldMapBuilder.cs": "3e02d2b5e16a248e5c655998038dd3fcc40c47708e29978f5a4a09e4b7747e86",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/WorldMapValidator.cs": "d93e0cdbaf6bd569bd2b8d04e4c97884ebbbb8c026f07a7f5ce3b9a84a55fa74",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/WorldStoryCatalog.cs": "9524c8348b2ddcaa4a0aee6e227a7e625fd416499b67708e0e7f650900ae3f23",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/AdaptiveCampQuality.cs": "e34cd7dd1fbc0034e768a5bff2105e63ad9083f66097c75fd9c5b94f5a0c7731",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/CampMotion.cs": "5b8b159e1be0567fab67fc2ab6cf66691892b3f1e97f4916bcf7d8a6cac16c08",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/FoliageDiveTransition.cs": "949eb06bbd05faeeda4dc18070090cebbd0f9d9407b5898b52a411b2f5c3c593",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/GameServices.cs": "dd25a21175324820d56e322af48a893acdc11a445379151342d8b59a9b5e50d0",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/LeafCurtainGraphic.Gpu.cs": "9041d3f9458dcfbadc9ba823080f285c1af0a38d00231af68d7e9f3898f706ad",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/LeafCurtainGraphic.cs": "749b4d67522d7c027a6ecc56bd286a6218c572de6a56fcbc4cad2dc2af48dc5f",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/QcActionHandler.cs": "f5acac4d25e91f31ea76dbf0f25b9c3f5bdd9a54eea7382749937e510cd47718",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/QuietCampBootstrap.cs": "d82b8b21ac12c9e9c95b3b77d8e9cef59a29df0229008d738461c0b1a85029e9",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/ScreenOrientationPolicy.cs": "c6998662ceac9bf8d7f7b8e6a93a17c3d74bb3f5d8ac0c5f47c15ac6e31de737",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/ScreenRouter.cs": "c0ff4c5fd4ead58cc50259c1853709c237313080f735bba45bace6618c76df7b",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/BootCampView.cs": "5c21a2363139c1cf73f1a2ebd598eda28f9d00c5afcedb818e00507d6537ddd8",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/BootPrivacyPanel.cs": "d2378cc845eb2038bc8b94d98366adc122fc839ea1ab705cf4f3b0e760cfb84c",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampControlFeedback.cs": "c8ac21d5c8b0ab48f10837998d73c4c125bc202256e03f6e778e9db0329328aa",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampHud.cs": "00b89407588c667e155e53f2133f813470d6c38123b8b7bf0f7bbfe278459318",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampIcons.cs": "544d45973982574f3fa43c454367136f6e13be435700ef223e9b1c57b5713869",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampThumbnailGraphic.cs": "a8f1cdd3cbf50a9f002ab04a67ede9209c7afa5e4297a587cc46dca7bc58f0fa",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampUiTheme.cs": "d55c9a9cc57c3fb383efc46f4210457ffbfc1a739874e6c62b58a80b4632f359",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/EconomyPanel.cs": "1f0e343f7ab7b808a6b0bc24851bf9d7a3d22b82d4838112a10eb5aa775e906b",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/GuestCardInput.cs": "462c6bc06b14f5ee2d8e4427e417346dfc12d9034f49f27b170b8762a0a8e3c1",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/HtmlRecoveryControls.cs": "a38f1c7ef50ab1437aa7af459d2ed2dfd2a18f6872792288a4000ff81a7e5f34",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/HtmlSurface.cs": "dbe81b961db2d5f7374e7e4f9af299e588d3343eeec61a6e357a1cfbf97864c9",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/LevelDisplay.cs": "f79cd632fe0550c1afc2ea81349f6f972eb6e4d9a6ed1bc57b78245d83bdd7b4",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/LocalizedLabel.cs": "3bcd382a25beae9d437a16b53e1d4ad6ea4ac810b544cd66e22816c3dfacdf68",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuArt.cs": "1dad5600475fd27a7d2a925548ba0d56d7662f2d8598b33a24af672cb2ae05fa",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuScreens.cs": "e57d5ce5003ffb52e862d3039d6d34293e3892127c64244c90788a09bb66be8d",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/PrivacyPanel.cs": "59a270b8ee1e77f2cbeceeeb9042ee5a13d153e27d48a040ba8a62aa8657325e",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/QcUi.cs": "be7cd100f540db0c11328c3b95737f93121c807f49588b5a2ecb859a5119d912",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapModelLibrary.cs": "2d7918f8030662136c3f1cf128bcb4bc6949c8a2136a626bba46e4502d60f551",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/SafeAreaFitter.cs": "4610e9a362088798bf8ab324635e098c79588be895808faa5708eeaf8ec87b6c",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/SettingsPanel.cs": "a83f1c0e5784912d86bf36241c435bc76214e942345cc6efd02ba2b4eafa5a74",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/ToastPresenter.cs": "dcb69f5e35be5854702aa36c96c2ce89ca94fa0e2592ff637ef46cc298ae1023",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/VideoBonusPanel.cs": "82ca53394afea2c602bdaa06c07f9802c30b45192b13d98a8a2c8a6ad0fe11e9",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/AlbumDiorama.cs": "571e35c9acbff9048f3ed10349e98a3fe204ad1df85eb4135a9c52d0ba686c55",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/AtmosphereParticles.cs": "1fe28b8d2dc7fc94815a1bcd4c27a299682666e694270f501af961600f0de3c6",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/BoardMath.cs": "8217ee609994ba513c76874287a59db3b39d1b41aa376c40466b697c6fe135b8",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/BoardRenderer.cs": "9d58ee3a7b81adff864bbf7c63a14ed5cbc6d0dc8ba301455be91ae4a929f50a",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/BoardRim.cs": "82e11014ef9e255a8e2cb2ee5e5d2a19d199b9d7ee68d771d80ee0e57ade9f10",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CameraAtmosphereMotion.cs": "b7e3455e872b588dab5598cc2a081b678ed9395f73397657d839828eebad63f7",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CameraFitter.cs": "e49943c27bf39ba033a2a9a6085e411f4ceb0a193fe7f4d94f2b88f3231fca51",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampAtmosphere.cs": "d87f95ee9d5effa866b9f1358494e74bde3f46c4672de7e4c40fb151d6430f96",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampBiomeProfile.cs": "7c4a1dd359d25d52ba247eb10275bb1efae169f32aed1f0b3869716459ccb360",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampFeedbackEffects.cs": "07b00184cc949f3b47f64c163d8422e669acc53f560eb7a976d7afd36cca3d72",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampFoliageResponse.cs": "04470d68faab115d43f2d921f0a282263b7a30be406b92b272e22e628bd29deb",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampGroundDetails.cs": "a856efc768315323f4868161aa4e912b38ceb4373d7c53deb90bb36a7383fa41",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampLandmarkVisual.cs": "f060056ed508f625bca69445b8751089aa02195f6c1853eb6b26e16ba32f85cd",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampLantern.cs": "07f1298864dd3beaae2f48e87b17651f5bd623c338d0fd411f9e677094c6e87a",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampMemoryPresenter.cs": "d0c24653a6eb2da909f970c17856a31b3911cc085f155288a5679cf9670eb8ac",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampPuddles.cs": "027ee476c8794c318bd7b8fecce98559d407906e21ae6393820e0e56818612fd",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampRainShelter.cs": "ce342eefd25db98b0061e0f6d8fad7e5ead05c2fae58e116bf6117c78d7016ee",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampSceneHost.cs": "0d1eb49ab67a4feb68b241739f40a010cf3608ba5078602b8c1ac203405e36e4",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampSoundscape.cs": "fd4e9dd2ae8a603dd5ffdbdcaace99572d9f339bef4793ea0155af4b4afd4d23",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampStoryComposer.cs": "4f7b70f79b444553204d55183413d664eef91d6f1db8e9945e3632d3d8d7c355",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampTrail.cs": "f4a6b57c3cdbfe052818e897eeeb074e433f8679439506b0aea46a71e4336b33",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampWaterVisuals.cs": "f94099ceb702996522776117ef4bcb0ca94ef93bce4ac65c01145d36be4b21dc",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampWeather.cs": "f9c772ed40787f0b8d4385538f25c7aa082b2fc59000dc5a1d72a59ff4407691",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampfireSite.cs": "6723fb59f433c1ecb0b5031afa1c6a1d87e3c8e56f5b2a0462736c6b030b4230",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CanopySunlight.cs": "aad308f322f36aed7c0301163d4036317ec6c9bc68be6cc68dd1fbf95bdfed72",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CozyParticleAtlas.cs": "9ee4f3f14baedd8cfda4ee47a35807c11981e9d876776e0be642836e71585153",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CozyParticleMaterial.cs": "911ddf5ac4e5c18b1c21e64069bad7dbdbb9e1511f5c9a5db3fe1a25e493c7a9",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CozyUnderstory.cs": "9490fc07649f3263096669f616ebfecc9b52cc46ecfd3655bc617c7c652e9ca7",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CozyVegetationLibrary.cs": "efe5415a6a6feec34b1faff38cbbc1bb6753cb03e54da1b35d83f5321afad0e9",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/DecorDensity.cs": "5928025c57ceda5eff8685d4bd81fe818caacd4f35bc99feb020bd9fd7d53517",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/DecorSpawner.cs": "3368eb18426d28e8db4a50d3c55b7656623f31ace68d7301e70094d3ad7372fc",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/EnvironmentComposer.cs": "2b6c2a96ac5e6a3f7e67f84e21d7401a69e597638fd5fdd04d39dad5c8414bd6",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/EnvironmentalStoryVisual.cs": "1630a830d1f38845e3cc48d38180748f485506c708a4b3344e7ca1fa782c23d3",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/FabricGeometry.cs": "d191420c9d7cf30a0e82bcf41a83f19d4d1e2deca6173e3f8eaa27d73cb757de",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/ForestDetails.cs": "5d990a695a15a2f705a1f611556e660005878cbf12daf433844c327218a893b2",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/ForestEdgeAtmosphere.cs": "9d40267a3084ee9dc0f59393d15762438fc956120683803ad822d23bb266bac0",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/ForestGroundView.cs": "d19c596453df295019afe5200507f82c6cd02ec1d975d1a28050bd87f39215e2",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/LivingForest.cs": "878ebb89ad895339f608ea13465e76f6617c6f01f892eb8332f9bd5627a0ff3f",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/MeadowSurface.cs": "88dc13d2fe6414e09b8337415dca5f293fbec6b3bfa98842400cb4794f74e64c",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/MenuCameraDrift.cs": "9c9e5d6635f340235dc11bd96cc11caa8a6085b843f982fee491045f20839ff2",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/MenuDiorama.cs": "85d36a5f5e1ad3cc505f66f1fe192a04cd43f8964b97618a0780795684e8f501",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/MenuSceneHost.cs": "4eb990dcb4b10a205e83420f83dbc6fba67482d58a343654e8fb474778d034af",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/OwnedCampMaterial.cs": "412bb12c2b9be109f867969eef2d8070afbb861982e8aef5d02b9dfd7589b7da",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/OwnedCampMesh.cs": "7b9b85a4377ad7c2f0425acc84355def2703c77afb6f4995bf00d027f0fb01b5",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/PhasePostFx.cs": "4ded9c5061911eb3bbbbd082773c42ec3ed95f5d8b569f3a18cf159416dcccce",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/PlacementController.cs": "7723f32119542d548c56283d44bb3972b23288aa67585d53fabf8d1fe85a8ab7",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/PlacementTargetProjector.cs": "87adca46552425aa7fa2c029b7bcaff3bf4bdcf5f0e3c90e2cd9fcfcb2c13cb0",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RainImpacts.cs": "99366355968a44839cedbef44af1ba5cafc05f11b7f16a65684920fb0420406c",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RainSurface.cs": "71dfa40acb676b6f85b18da132f52303a7f5d1eaffd21c9d46fd893e4c6e3730",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldAsset.cs": "8472418acb287ad67cf41bbca0091c929c3b682ea1e49fb59e34d20026434cd0",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldChunk.cs": "dcc1e451305568a128293a353a9add5af0a4a362a31fbfe93d9bce1c0937a89d",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldInput.cs": "52c7b0190b492e90577a5d5ca04dbdfa1127fa731418d6a4e59ab3f61a16eacc",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldPresenter.cs": "285d309a3deb783f093fd839e642141ae5cc0a2504e2114c82dccd03b40a7bce",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonPalette.cs": "58d340e333e557a7af3625edfae3eb7b97f5b82e609de30c2ceaf3bd77f613b1",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonProfile.cs": "2ee313cd6a340b074fd646df4698f54963b988a3db50447335e3163c589db7b8",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonalLeafFall.cs": "0abed7f869aebd9af13be02127e216ecfc88389b7c99a02081e1c783e5e04d49",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonalPropVisual.cs": "34e5f1c6154f0f16a550fa29646d5ba1c183d41dcc6109b15f40aa2293ad7dd8",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonalTreeGeometry.cs": "596e8da51c40cae80be92a8df76b579342612e14d7ca51716789a90c227ae916",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/SeasonalTreeVisual.cs": "2695a1fffb83a723324179654c59b250fdd21afaaf862622a469f5d5c1c510b7",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/ShorelineGeometry.cs": "c4ccd1de54b2abc41c8fc1b598092af03173858c2f7694e8bb3305b1a8445897",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/TentBelongingsLayout.cs": "087dad1371ff4d019a39c107068c08d9cb1e8cb007d766689b08d98b08aab7d6",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/TentCloth.cs": "e09d1db0c655ef44abd605053d4b07cd235302ababaec402500d1a3437c97bc8",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/TentDragCard.cs": "bcba4895a2859c9569453430ca88044b3e02a9c17c60c8afb240378583ed8476",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/TentDragVisual.cs": "eca59b672cc28fd92aa966c35ab3a5fb2904719e85cad5279343aa0e0b62ba90",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/TentLivingSpace.cs": "10aabbe635081f7fc5cb2aaf303339f0e3884bf5cae7ece18cfc34fbc4613878",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/TentPresenter.cs": "773ac431a0d6d4f2a7b3969d6587a08ff4c31613c5f5cb4e93410617f36f62eb",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/TentStoryVisual.cs": "a2fadada254c76051da1d53cceb4eb1b611c9b3f8a393f9956231d6359938e7c",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/VisibleForestFloor.cs": "4271cf77c5bb4ab2b4fa6a2bc35326c36dc7482842aa50543c1ed5aac39a6a02",
+    "QuietCamp/Assets/QuietCamp/Tests/PlayMode/RoadmapWorldPlayModeTests.cs": "df399c48f91dde10d73ebd112383adc52abfbebaa12f0705c1086d1136c1c1de"
+  },
+  "images": [
+    {
+      "file": "balanced-landscape.png",
+      "sha256": "b57697212de2a1ed5a6a12b11515c1ab0e1ff0fedffbe3bf69f1efea47d55592",
+      "width": 1600,
+      "height": 720,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "composition-00.png",
+      "sha256": "969cf11a649b87e1770f1aaa77e5c4fde46618c1424c875155394907a6360a56",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "composition-01.png",
+      "sha256": "4c48d3ea4126ea747040126875955b236465ca1106d42924cdeb8bd7d62164b0",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "composition-02.png",
+      "sha256": "c438e1a4d399bb76596182f001e0be0265370b5154b2406cb4fb6447031a6746",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "composition-03.png",
+      "sha256": "60f1b393a4093eff42398dcff04579c796e9ae41745ed3054d0ce167d848dba8",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "composition-04.png",
+      "sha256": "41e33da495c20eab7176286ea29f52b144a3c8dfd282f225ed6f4ab4adefe74e",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "composition-05.png",
+      "sha256": "01b864422212fab12152174bb08ec593c0f831070c380675de0d084e3258ad72",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "composition-06.png",
+      "sha256": "d9b7ab4cdbb8a0c79f3e6e0573c3024856ae5227315909b57e1a59072b2aed0a",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "composition-07.png",
+      "sha256": "a485d3bd7bbad56152f02dd1a57934a6127edb9fb93d22cf514e70abca0cb433",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "composition-08.png",
+      "sha256": "83ba1cd3c8533023b0c85a5df369260e0155d240bc6613690391026191d9ec7f",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "edge-end-landscape.png",
+      "sha256": "e2a61d23970787173f6499fcf28046939017531284a77daba0e8602d9c373606",
+      "width": 1600,
+      "height": 720,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "edge-end-portrait.png",
+      "sha256": "fa6f65f10844a65745a33c9507db09eb1c768532eee8f1f694bc87fedf06796d",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "edge-start-landscape.png",
+      "sha256": "e7ca363c7db83a76586b149f230a7d357c4b2b097fca5fc5789bcea6b9f17a64",
+      "width": 1600,
+      "height": 720,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "edge-start-portrait.png",
+      "sha256": "97f1b3dee20044bc7edc6b250b6ebe32aa7880e40e614a1f52de6a883ee9e9f7",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "gameview-after-1.png",
+      "sha256": "2b10fe0a7e7130618dff83d96fd1373ea3ea9222d1e655c9dc5273259314d987",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-after-2.png",
+      "sha256": "17da6a801830c0c13ff476108871aab8b893e1c6e2945689aadd3cfebadcdbc3",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-after-3.png",
+      "sha256": "559aba9842646b03a91d098e868782e3f3ec866c9be341ba4d5e7f1ff66bc6d4",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-after-4.png",
+      "sha256": "7bfdee048d367397c8a214047850a1a7069829584cdf92b0d31d192b6d283f4f",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-after-5.png",
+      "sha256": "0dba1929af8350f6e4591ac49a21387fadf097b5eb286107d2ebe51bc7bc0e2b",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-balanced-landscape.png",
+      "sha256": "d19891050cdda93e0cc55bbfb456c9581ffe7e9b5cfc57eca47ed49cd08e1298",
+      "width": 1600,
+      "height": 720,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-composition-00.png",
+      "sha256": "45c9b86e3354e8466b14556eab3b50633abb1cd4eb53eb7909d1406581bb9ba4",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-composition-01.png",
+      "sha256": "ec1a6ebce96224d71ab285af4c1c8a5bc1f65526ed54da2aa993bbebd43991e1",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-composition-02.png",
+      "sha256": "6759e24f5ce48d9d33a497dde74012c294877310f366843be97d7f859b6192e5",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-composition-03.png",
+      "sha256": "727fffa981e0bc8b77e0623ed13fe9e90c716bd2447eec7687857894e19134da",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-composition-04.png",
+      "sha256": "4296e019e180ca5351279654a6de1c3f2fdc0e3c5f8a3a7466b4cd03f20d1b80",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-composition-05.png",
+      "sha256": "1bdc48a87b032cae8d6cb27a8c75c90d8ebe321e7b09dea896e6b65a847efd3a",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-composition-06.png",
+      "sha256": "8d59498dc40ab566babab32b58df3d0f698e3595afeec7920f0768a4af2928ec",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-composition-07.png",
+      "sha256": "b47f82e5733cd688d9857603c99d3574ab2626dfcb703a101d6f53d49a9d29fd",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-composition-08.png",
+      "sha256": "514759bf4461a5ceae4fe6536ad0c5edfc7de26e4ae0bd49b4f88ac10886ef25",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-fresh-profile.png",
+      "sha256": "6626b8436e829dc20acece9f476cf2907bc059be2079c14f96497138319473c1",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-low-composition-00.png",
+      "sha256": "fcb1daaf89e65f48003bf1443765d5477bcee09b1744ec2a048b5dada1cac694",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-low-composition-01.png",
+      "sha256": "b6363285b2cd5ba915c09e3c84814bbe4953cba2cf4bd9118bd9f4c614b612ae",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-low-composition-02.png",
+      "sha256": "f801903894e2b78b6d4f6a09d84bd598925bcb09cf7ad89a2d4c21314ddf23b4",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-low-composition-03.png",
+      "sha256": "2a15375b5f79ad1eb7b79c5c2925abd890b6b02602500d905f7ab09c5e80ea2b",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-low-composition-04.png",
+      "sha256": "7c5bea260955dc2dce5d3b09539bddb5dcd6202fddac38bb60c851938d993878",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-low-composition-05.png",
+      "sha256": "2450abafde7c3e99dcfb32abc4b3a039ed999e1918f388b43abc0fba672d5db1",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-low-composition-06.png",
+      "sha256": "fa3254bfe3a72dbd65d5b023b4d17c27e18eaee624e33f82a55ad4cfb60d0ea4",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-low-composition-07.png",
+      "sha256": "be44829d1dcbaca08ab3207ef3cde53aeca60fed6963b78d9356e8b54491eccb",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-low-composition-08.png",
+      "sha256": "523e4fd9aeb0a819113ea1ce312cf874acf9d884abb781fab03c0e34498a12ad",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-low-landscape.png",
+      "sha256": "94e9fba34df881ad64fa18f13c1583645a7e91f46144095b324da213ac6c26a7",
+      "width": 1600,
+      "height": 720,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-notched-portrait.png",
+      "sha256": "25983dac9cab77138c671a9cc835e59d690fe01647e5dd2af13c3cd398526e39",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "gameview-old-progress.png",
+      "sha256": "75efa8aa179e2f97f7a78e8f1b5fcb4d2e7b9fff0068593d64b7cbe69aa33f5e",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "landscape-zoom-out-0.png",
+      "sha256": "057cad0cdc79ef829e41c555100a361090ade0d6174905ad4ebbb900d38b190f",
+      "width": 1600,
+      "height": 720,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "landscape-zoom-out-1.png",
+      "sha256": "d8446a020e0a2e04c28e43b97bf890f782ea7f2355ef3f1eb526cac25bfe3fde",
+      "width": 1600,
+      "height": 720,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "landscape-zoom-out-2.png",
+      "sha256": "9bc58d8cbf0d3b52a65eb2a2c4878909da6d6d2b9f22182e73cfe683de3a1e79",
+      "width": 1600,
+      "height": 720,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "landscape-zoom-out-3.png",
+      "sha256": "6b68061a404b7a89bb154204c136eda45b45da7fedfef9a2f525c59f2694a7bd",
+      "width": 1600,
+      "height": 720,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "landscape-zoom-out-4.png",
+      "sha256": "02589d74d32e81876c5b6d04df7bc13d57986dad23c075eabb1bfe8fa04f28bb",
+      "width": 1600,
+      "height": 720,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "low-composition-00.png",
+      "sha256": "e4decfa0cc4b4d5a74f3ea74f161841f1bb59ca916f9624313d1746b07265cd9",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "low-composition-01.png",
+      "sha256": "e9412978caa1544df00579d244131b7bf0067cedc2fcb4ed262a0956a402b8cf",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "low-composition-02.png",
+      "sha256": "458f901d7e8092a4b796e59fb5722ff975a398a431c46d14410455cdcd874823",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "low-composition-03.png",
+      "sha256": "31262289a3b43fa3ec0ebaea1d79e67d21f4aaf81633c378e5085586b6ab1e97",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "low-composition-04.png",
+      "sha256": "e1ac5d5a307eae69ab2ba5e98b1e64e13547ca405cfe21982a4cd4ae63d933bf",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "low-composition-05.png",
+      "sha256": "1bd961b80da907f56d56e1d0114eb530800c417b3347a39710e69ff7b7f0b056",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "low-composition-06.png",
+      "sha256": "903c72a48c0ba55fae55ef11fb92284d1df3e4a03a16f2cb9bd9d9a37e5ceca5",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "low-composition-07.png",
+      "sha256": "77371c372e89f754822ce8cf5cd188cec818d59dc702a422d6a985b96c588411",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "low-composition-08.png",
+      "sha256": "fbabdc3cb5bfd4c361416684e8910e6f65b2561412c8338f7e1f8e067c9863ba",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "low-landscape.png",
+      "sha256": "193ef32ea17d31d8d375eb231e4baada0413916dbbe08fdf42137cbc6c5f54c4",
+      "width": 1600,
+      "height": 720,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "low-portrait-zoom-out-0.png",
+      "sha256": "555a0c19579190729db310ccaa53f13e4a46b3ed893ea7913732f31a5f25a3cb",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "low-portrait-zoom-out-1.png",
+      "sha256": "f9ae926b2264e3cb3a0e72c2c1be649165d60873ed1cfbfa85a83b8f574162ae",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "low-portrait-zoom-out-2.png",
+      "sha256": "64d97670954c0a27792ca1a56bc723a1c526f66fd7cbf35d3be5ff10f76f1bbb",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "low-portrait-zoom-out-3.png",
+      "sha256": "7710a615ae8171cc8b670cc009d914aac559fdbf72643a52f22e40163df3f67b",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "low-portrait-zoom-out-4.png",
+      "sha256": "2692d9ff0dcddae27ab1e67e2489064b758eb170be65fa109d7c809f5a2d9188",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "portrait-zoom-out-0.png",
+      "sha256": "50bc772bc63fca08a6b51dd248ef76ae385cbdb22559652b933e85c3bfa06518",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "portrait-zoom-out-1.png",
+      "sha256": "5b87d4501da9e445144092d55ff3c39d945c32f63a117bcd45fcad68aaceff68",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "portrait-zoom-out-2.png",
+      "sha256": "4e1c59bb7efcce1664f560eca0bf81ff911dcd92c33e7339716883cfefb657d3",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "portrait-zoom-out-3.png",
+      "sha256": "1d387ee59f68143002ab674832ec504e365b47bdb4e1a252282a3b3319f3cf36",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "portrait-zoom-out-4.png",
+      "sha256": "eaf616b53edfe38bf07a499efd802c63b50a309a776b3abc62de62304e2fc4ff",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "progress-0.png",
+      "sha256": "1c40864ac45b52616871337f0ff9c2ae32deef9033dd69ad8f2d2febd50a0304",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "progress-1.png",
+      "sha256": "29f98733e64599b9c8961e408e3ae09e01087db01786b127e78222de0008babe",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "progress-3.png",
+      "sha256": "a933395dc70036af1b4759dbe074f81ff047d7017bfdb015bf53a63bd340517c",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "progress-4.png",
+      "sha256": "933e0059f1ac32afbe9dccf715b59f97cc604220675de0fcc80e1a60fbae2d3f",
+      "width": 720,
+      "height": 1600,
+      "kind": "production URP",
+      "captureUtc": "2026-10-10T16:57:20.1316990Z"
+    },
+    {
+      "file": "water-balanced-0.png",
+      "sha256": "421e425d69fe1d84436f79802847f1b3d4904ddb58091e45fec3a1ca0bd5b2f4",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "water-balanced-1.png",
+      "sha256": "2e887aecfcd8d38bf89d91bb55d85e46d1dc721e169d008b41b175df4d40e4d3",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "water-low-0.png",
+      "sha256": "2315be45ee79ee4907de56d782f20be08aba2564c3a132c21431bf0f5817887d",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    },
+    {
+      "file": "water-low-1.png",
+      "sha256": "a3e7a8fab17b98fd367eebd3eeb73a8174227d4166f07c38337215fad0a21065",
+      "width": 720,
+      "height": 1600,
+      "kind": "Game View",
+      "captureUtc": "2026-10-10T17:09:10.9558590Z"
+    }
+  ],
+  "renderConfiguration": {
+    "QuietCamp/Assets/QuietCamp/Settings/URP/QC_Renderer.asset": "a1a30b94df5b0fa694c556a101a692e96055150bd99525b25d0db9321f0611bd",
+    "QuietCamp/Assets/QuietCamp/Settings/URP/QC_Low.asset": "62cf93e679de165ffbf1b7840e698d1d840e0100b00cab54c909c1f3e29970f0",
+    "QuietCamp/Assets/QuietCamp/Settings/URP/QC_Balanced.asset": "d902e8eb0706539fb3d518d5dc8a47d90e5364e7b4c2cf8bd8c4ab7ada50f3e8",
+    "QuietCamp/Assets/QuietCamp/Settings/URP/QC_High.asset": "ba576c2dd820db5a53fd1f75340e7d93c0d47cdea866275f12fe0e71140d3faa",
+    "QuietCamp/ProjectSettings/QualitySettings.asset": "865a3a10ab16b165d85a3170d05e093fed27d7282390564a1d503999909fe671",
+    "QuietCamp/ProjectSettings/GraphicsSettings.asset": "84ddc6e8360304434f464b9d7745e88a5bb3930486c7d2c03e79edad5e4fd0ae"
+  },
+  "preservedDirtyInput": "QC_Renderer.asset was rendered with the user’s original uncommitted configuration; its SHA-256 is recorded, its bytes were preserved and it is excluded from commits.",
+  "artifacts": {
+    "bake-receipt.json": "1501f41458a0b8318a724b296f5c02eb093b91c06ed97012bfaedb582b03e61d",
+    "native-capture-receipt.json": "c81547821eb079fab08ad75b5602e6df30edc4c390c6e91706af58554f94b9d9",
+    "gameview-integration-receipt.json": "3c2eb1115baa959b6a1e2ce09848e9aa63332dea51e562b0ff862c2d78662542",
+    "integration-results.xml": "a67c558eb783698b0684dbb8210e0783855ebbe12906e4c7202f34c9a480a7d8",
+    "lifecycle-diagnostics.json": "1323881ec35b3814e23c2c201130b9484a65226f63cb3d7126b9ad511d365653",
+    "compiled-assembly-receipt.json": "d3094807214bc0e0e9b880b0671cf3597bcfb54dbbab221a732c083cae1eb817",
+    "video-receipt.json": "90ac2130a32590db465994218fd3a0837d79449cca9c8dfcf6b8de7121ca095f",
+    "browser-receipt.json": "c81c4c37c2705c5da12b97fe0e1dc3b52324ac4e66f12dd5d19327ac6efba3d6",
+    "index.html": "0884a771eaded0d81b982c532fcba8a3e420b6213e5c29caccb590f4855e53c8"
+  }
+}

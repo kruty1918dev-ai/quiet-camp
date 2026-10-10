@@ -41,4 +41,19 @@
 
 ## Відмінні джерела правди
 
-Frozen JSON задає puzzle. Presentation відповідає за вигляд. SaveAdapter зберігає локальні modules. Concept art задає напрямок, але не доводить, що сцена вже імпортована чи опублікована. Scene-composition sources і model matrix нової roadmap доступні в [main](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/Design/Roadmap) після об’єднання всіх гілок 10.10.2026; новий runtime catalog ще не активовано.
+Frozen JSON задає puzzle. Presentation відповідає за вигляд. SaveAdapter зберігає локальні modules. Concept art задає напрямок, але не доводить, що сцена вже імпортована чи опублікована. Scene-composition sources і model matrix нової roadmap доступні в [main](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/Design/Roadmap) після об’єднання всіх гілок 10.10.2026; чинна мапа використовує п’ятиточковий native world index та RoadmapWorldPresenter.
+
+
+## Безперервна мапа QC001–QC005
+
+[RoadmapWorldPresenter](../QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldPresenter.cs)
+керує перспективною камерою, атмосферою та максимум трьома leases запечених частин.
+[RoadmapWorldInput](../QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldInput.cs)
+обробляє drag, колесо, pinch і відхиляє запуск після перетягування.
+[RoadmapPilotPolicy](../QuietCamp/Assets/QuietCamp/Scripts/Application/RoadmapPilotPolicy.cs)
+обмежує запуск п’ятьма IDs, зберігаючи повні дані старого прогресу.
+Авторські ансамблі й camera anchors живуть у
+[CinematicPilot](../QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot).
+[Baker](../QuietCamp/Assets/QuietCamp/Editor/CinematicRoadmapBaker.cs) готує native meshes;
+[галерея та receipts](../Design/Roadmap/CinematicPilot/2026-10-10/index.html) показують прийняті етапи.
+Projected UI renderer і дубль `UI/Prepared` вилучено.

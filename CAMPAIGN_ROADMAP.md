@@ -2,7 +2,7 @@
 
 > Навігація: [ілюстрований довідник](docs/README.md) · [світ і source catalog](docs/world.md) · [галерея](docs/gallery.md) · [стан перевірок](docs/status.md).
 >
-> Поточна заміна роадмапи: [QC001–QC005 в українській долині](Design/Roadmap/CinematicPilot/2026-10-10/README.md). Native-художнє приймання ще попереду. Дані full main catalog зберігають 110 ordered places; цей документ описує релізний план ширшого світу. Усі гілки об’єднано в main зі збереженням їхніх commits. Кількість у source catalog не є заявою native/device acceptance всього контенту. Нова semantic roadmap composition вже є в main як авторинг; її runtime catalog очікує bake/visual acceptance.
+> Поточна заміна роадмапи: [QC001–QC005 в українській долині](Design/Roadmap/CinematicPilot/2026-10-10/README.md). П’ять місць і чотири переходи пройшли native render review; повний Game View integration Passed. Камера віддалена на 45% для огляду околиць; керування прив’язане до точки торкання, без нових елементів UI. Дані full main catalog зберігають 110 ordered places; цей документ описує релізний план ширшого світу. Усі гілки об’єднано в main зі збереженням їхніх commits. Кількість у source catalog не є заявою native/device acceptance всього контенту. Нова semantic roadmap composition вже є в main як авторинг; чинний runtime використовує окремий п’ятиточковий native world index.
 >
 > Native Editor performance, 2026-10-09: перший раунд оптимізації виконано й переміряно — leaf CPU p95 17.34 → 0.03 мс (GPU shader), найдовші route кадри 960 → 237 мс, map open max 1 377 → 303 мс. **14 EditMode / 13 PlayMode regressions Passed**; budgets пройдені частково, залишкова черга в [карті продуктивності](PERFORMANCE_MAP.md) · [інтерактивний report](https://kruty1918dev-ai.github.io/quiet-camp/performance.html).
 
@@ -14,9 +14,9 @@
 для першого вибору стилю; [план композицій та відповідність районам](Design/Roadmap/DIORAMA-DESIGN-UA.md).
 Каталог охоплює 1 210 model sources і 2 420 native фото, переглянутих на
 61 аркуші. До діорам увійшли 16 нових donor sources та власний український
-набір; source bindings містять ще один резервний знак. Ритм чинної
-дороги, 110 IDs, unlocks та пазли збережені. Зараз робимо діорами;
-нові рівні й заміна runtime Main не входять до цього етапу.
+набір; source bindings містять ще один резервний знак. Це попередній дизайн-етап; його пазли й 110 IDs збережені в даних.
+Подальша затверджена заміна runtime — безперервна долина QC001–QC005
+з дальньою камерою та прямим керуванням, описана на початку документа.
 
 ## Загальна структура
 

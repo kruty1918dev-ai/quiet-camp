@@ -2,7 +2,7 @@
 
 # Світ, сезони й подорожі
 
-Чотири сезони змінюють колір, рослинність, опади й освітлення. Оточення розповідає про місце, а puzzle rules залишаються частиною level data. У campsite gameplay стоять намети гостей; мапа веде між галявинами й сюжетними гілками.
+Чотири сезони змінюють колір, рослинність, опади й освітлення. Оточення розповідає про місце, а puzzle rules залишаються частиною level data. У campsite gameplay стоять намети гостей; нова мапа веде через зарослу українську долину між п’ятьма місцями.
 
 | Весна | Літо |
 | --- | --- |
@@ -16,9 +16,9 @@
 
 Committed [campaign.json](../QuietCamp/Assets/QuietCamp/Resources/QuietCamp/campaign.json) задає **110 ordered main places**, 15 districts і пʼять актів. `MvpLevelIds()` складає десять початкових authored IDs та сто generated IDs. Це стан content catalog, не твердження, що всі місця пройшли native visual/device acceptance. Старий README й baseline gallery описували перші 30; новий довідник відділяє цей попередній зріз від поточного каталогу.
 
-<img src="images/captures/2026-10-08/04-roadmap.png" width="350" alt="Головна дорога в актуальному Game View" />
+<a href="../Design/Roadmap/CinematicPilot/2026-10-10/index.html"><img src="../Design/Roadmap/CinematicPilot/2026-10-10/gameview-composition-04.png" width="350" alt="Безперервна українська долина: Game View 10.10.2026" /></a>
 
-Головна дорога зберігає свій порядок. Reveal приховує далекі місця, bonus і journey branches мають власні умови. [Повний план кампанії](../CAMPAIGN_ROADMAP.md) містить більше запланованого контенту, ніж initial verified puzzle slice.
+Кадр показує новий пілот, перевірений 10.10.2026. [Історичний кадр старої мапи від 08.10.2026](images/captures/2026-10-08/04-roadmap.png) збережено; її реалізацію вилучено. Чинний пілот дозволяє QC001–QC005; решта кампанії та права доступу зберігаються в даних. Новий світ розповідає історію через мозаїчну зупинку, садибу, залишки ЛЕП, переправу й пошкоджену греблю. На мапі немає наметів чи сюжетних панелей. [Повний план кампанії](../CAMPAIGN_ROADMAP.md) містить більше запланованого контенту, ніж initial verified puzzle slice.
 
 ## Додаткові подорожі
 
@@ -38,7 +38,7 @@ Committed [campaign.json](../QuietCamp/Assets/QuietCamp/Resources/QuietCamp/camp
 
 ## Нова semantic roadmap composition
 
-Новий [авторинг у main](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition) містить forest/water sources, owned village parcels, damaged power routes і aircraft/ship/dam staging ensembles. Його основа — composition checkpoint і попередній 30-main handoff; 10.10.2026 усі гілки об’єднано в main. Новий runtime catalog ще не активовано. Кадри цього довідника показують чинний main renderer; окремі [12 діорам стилю](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/Design/Roadmap/DioramaStudies/2026-10-10) мають власні native Editor receipts.
+Новий [авторинг у main](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition) містить forest/water sources, owned village parcels, damaged power routes і aircraft/ship/dam staging ensembles. Його основа — composition checkpoint і попередній 30-main handoff; 10.10.2026 усі гілки об’єднано в main. Новий п’ятиточковий світ використовує окремий native index і перспективну URP-камеру. [Свіжа галерея та статус приймання](../Design/Roadmap/CinematicPilot/2026-10-10/README.md). Історичні кадри довідника показують старий renderer; окремі [12 діорам стилю](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/Design/Roadmap/DioramaStudies/2026-10-10) мають власні native Editor receipts.
 
 [Звіт source-реалізації](https://github.com/kruty1918dev-ai/quiet-camp/blob/main/Design/Roadmap/NATIVE-FINISH-2026-10-08-UA.md) · [Матриця моделей](https://github.com/kruty1918dev-ai/quiet-camp/blob/main/Design/Roadmap/Assets/MODEL-MATRIX-UA.md) · [Composition tools](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/tools/scene-composition).
 

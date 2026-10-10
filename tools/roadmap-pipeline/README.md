@@ -1,5 +1,7 @@
 # Region compiler and regression fixtures
 
+Active roadmap, 2026-10-10: [five-place cinematic pilot](../../Design/Roadmap/CinematicPilot/2026-10-10/README.md). Use the [current authoring workflow](../scene-composition/USAGE_UA.md). The renderer/window/benchmark references below describe historical region exports; their projected and duplicate native implementations have been removed. These recipes remain reference data and do not activate the current menu.
+
 Run from repository root. Uses the actual portable domain/compiler/validator/catalog and the cached Newtonsoft assembly; no Unity launch, player build, solver or save access.
 
 ```sh

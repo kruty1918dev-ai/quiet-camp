@@ -78,7 +78,7 @@ static class CompositionCommands
         if(cmd=="compare")
         {if(args.Length!=3)throw new ArgumentException("compare <before-sidecar.json> <after-sidecar.json>");Process("tools/scene-composition/compare.py",args.Skip(1));return;}
         if(cmd=="preview")
-        {Console.WriteLine("Unity Editor: Quiet Camp/Composition/Preview. Frame entity: "+id+". This command never silently launches Editor or scans ADB.");return;}
+        {Console.WriteLine("Native pilot review: tools/render_diorama_editor_isolated.sh --cinematic, then the CinematicPilot gallery. Inspect source entity: "+id+". This command never silently launches Editor or scans ADB.");return;}
         if(cmd=="validate"||cmd=="compose"||cmd=="bake")Process("tools/scene-composition/validate_schema.py",new[]{Root});
         var docs=Documents();var assets=Read<VisualAssetDefinition[]>(Reference("assets")).ToDictionary(a=>a.id);var templates=Read<EnsembleTemplate[]>(Reference("templates")).ToDictionary(a=>a.id);
         if(cmd=="patch")

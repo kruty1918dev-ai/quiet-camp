@@ -8,6 +8,18 @@
 
 **10.10.2026 усі гілки об’єднано в main** зі збереженням повної історії. Перенесення на commit `77fd7c7` не змінило файлів перевіреної art-гілки. Повторно звірено receipts 12 діорам, 8 920 імпортованих файлів і збереження чинної кампанії. [Commits гілок та межі перевірки](maintenance/2026-10-10-main-consolidation.md).
 
+## Нова роадмапа · 10.10.2026
+
+Чинну мапу повністю замінено перспективним 3D-світом QC001–QC005.
+[Дев’ять композицій, прогрес і рух камери](../Design/Roadmap/CinematicPilot/2026-10-10/index.html).
+Native shader errors відсутні; повний Game View integration Passed, включно з
+п’ятьма перемогами, старим прогресом, replay, drag, notch, reduced motion та
+стабільними counts у чотирьох повторних входах. Пазли, повна кампанія,
+альбом і права доступу збережені; запуск обмежений пілотом.
+[Receipt та межі доказів](../Design/Roadmap/CinematicPilot/2026-10-10/README.md).
+Передано `-noaudio`, проте вимкнення Editor audio device не підтверджене; фактичний звук і mobile FPS не вимірювались. Точний час останнього Passed Game View run збережений у [XML](../Design/Roadmap/CinematicPilot/2026-10-10/integration-results.xml); QA mutable import databases та ScriptMapper приватні, serialized Boot binding перевірений. Ранні зупинки через нестачу RAM і невдалі cache/preflight checks не зараховані як Passed.
+Старі roadmap/journey/bonus UI captures нижче історичні, їхніх екранів у пілоті немає.
+
 ## Що показує новий довідник
 
 **44 нові native PNG**: Boot, меню/мапа/journeys/bonus, gameplay, pause/знаки/налаштування, completion, album, усі основні settings/privacy categories та contextual confirmations. 36 portrait screens/states мають окремі картки на [GitHub Pages](https://kruty1918dev-ai.github.io/quiet-camp/); чотири сезонні альбомні кадри та чотири широкі gameplay кадри — у [галереї](gallery.md).
@@ -61,7 +73,7 @@ Unity 6000.6.2f1, 720 × 1600, i7-2600/GT 730/OpenGL, Jobs worker 1. Це Editor
 - Garden journey preview має порожню illustration area у захопленій конфігурації; текстові умови й підтвердження видимі.
 - Wide gameplay HUD має порожню картку та невдалий верхній край кадру; для presentation gallery використано штатний тихий режим альбому. Наявність PNG guards не означає відсутність UI/layout issues.
 - 110 ordered main places, 15 districts та journey counts — committed source catalog. Під час цього оновлення не виконувалася повна solver/visual/device acceptance усіх 260 frozen files.
-- Нова semantic roadmap composition вже зберігається в [main](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition) як авторинг; її runtime catalog не активовано новим native bake. Кадри чинної мапи не є доказом цієї композиції.
+- Ширший legacy semantic authoring зберігається в [main](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition). Активовано окремий native bake **CinematicPilot QC001–QC005**; нові кадри доводять лише цей відрізок.
 - Реальні purchases, restore, ads, backend entitlement/wallet security і phone FPS не перевірялися. Default store/ad integrations не підключені.
 - Player builds/APK/AAB, installation та публікація гри в store не виконувалися. [Workspace rules](../AGENTS.md).
 

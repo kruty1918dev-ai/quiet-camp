@@ -18,13 +18,15 @@
 
 <img src="images/captures/2026-10-08/01-main-menu.png" width="350" alt="Головне меню з кнопкою продовження та напрямками" />
 
-**Почати/продовжити** веде до наступної галявини або незавершеної сесії. Картки **Мапа** та **Мої табори** показують прогрес і спогади; їхня доступність залежить від навчання. Кутова кнопка відкриває налаштування. Одноразова підказка Остапа орієнтує нового гравця. [MenuScreens](../QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuScreens.cs) · [MenuSceneHost](../QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/MenuSceneHost.cs).
+**Почати/продовжити** відкриває нову мапу біля поточної точки QC001–QC005. Картки **Мапа** та **Мої табори** показують прогрес і спогади; їхня доступність залежить від навчання. Кутова кнопка відкриває налаштування. Одноразова підказка Остапа орієнтує нового гравця. [MenuScreens](../QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/MenuScreens.cs) · [MenuSceneHost](../QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/MenuSceneHost.cs).
 
 ## Мапа галявин
 
 <img src="images/captures/2026-10-08/04-roadmap.png" width="350" alt="Мапа з вузлами, прогресом і сюжетними напрямками" />
 
-Меню → Мапа. Вертикальний scroll зберігає позицію після повернення. Вузол показує місце, порядок і доступність: виконаний, наступний, locked або veiled. Значки під ним описують складність. Гілки відходять від головної дороги; прихований вузол не видає майбутню сцену. [WorldMapBuilder](../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/WorldMapBuilder.cs) · [RoadmapGraphic](../QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/RoadmapGraphic.cs) · [Світ і статус композицій](world.md).
+«Почати/Продовжити» → безперервна 3D-долина QC001–QC005. Свайп, drag або колесо рухають камеру вздовж авторського маршруту; pinch змінює наближення на ±15%. П’ять невеликих дорожніх каменів запускають відкриті рівні. Після перемоги повертаємось на мапу; наступний відрізок відкриває прогрес. Єдина кнопка — вихід. [RoadmapWorldPresenter](../QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldPresenter.cs) · [Рендери та статус нового світу](../Design/Roadmap/CinematicPilot/2026-10-10/README.md).
+
+Кадри вище — історична мапа **08.10.2026**, її реалізацію видалено. Наведені далі екрани подорожей і bonus preview також історичні; у новому пілоті цих меню немає.
 
 ## Подорожі
 

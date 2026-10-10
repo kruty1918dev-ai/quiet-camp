@@ -28,15 +28,15 @@
 [Застосування передачі · 09.10.2026](docs/transfer/2026-10-09/IMPORT-UA.md):
 donor packages розкладені локально й імпортовані Unity Editor у погодженій
 ізоляції; власні моделі та композиційний pipeline додані до проєкту.
-Чинна мапа на 110 місць збережена; підготовлений авторинг на 30 місць ще
-потребує розширення до 110, native bake та перевірки вигляду.
+Під час передачі було збережено мапу на 110 місць і підготовлений авторинг на 30.
+10.10.2026 чинну реалізацію замінено пілотом QC001–QC005; повні дані кампанії збережено.
 
 [Перші 12 українських діорам · 10.10.2026](Design/Roadmap/DioramaStudies/2026-10-10/index.html)
 підготовлені як окремі Editor досліди стилю з новими моделями.
 [План дизайну мапи](Design/Roadmap/DIORAMA-DESIGN-UA.md) та
 [каталог усіх 1 210 візуально переглянутих моделей](Design/Roadmap/ModelCatalogue/README-UA.md)
 містять описи, provenance і карту застосування. Діорами не створюють
-нових пазлів і не замінюють активну мапу.
+нових пазлів; активна мапа використовує окремий безперервний світ QC001–QC005.
 
 *Кадри довідника: Unity Game View, 2026-10-08, окремий QA-профіль із synthetic progress. [Середовище, source hashes і статус перевірок](docs/status.md).*
 
@@ -52,11 +52,11 @@ donor packages розкладені локально й імпортовані U
 
 | Головне меню | Мапа місць | Твій кемпінг |
 | --- | --- | --- |
-| <a href="docs/screens.md#головне-меню"><img src="docs/performance/2026-10-09/optimized/images/main-menu.png" width="270" alt="Головне меню й Остап" /></a> | <a href="docs/screens.md#мапа-галявин"><img src="docs/performance/2026-10-09/optimized/images/roadmap.png" width="270" alt="Мапа з вузлами прогресу" /></a> | <a href="docs/screens.md#мої-табори"><img src="docs/images/captures/2026-10-08/15-album.png" width="270" alt="Збережений 3D-кемпінг у альбомі" /></a> |
+| <a href="docs/screens.md#головне-меню"><img src="docs/performance/2026-10-09/optimized/images/main-menu.png" width="270" alt="Головне меню й Остап" /></a> | <a href="Design/Roadmap/CinematicPilot/2026-10-10/index.html"><img src="Design/Roadmap/CinematicPilot/2026-10-10/gameview-composition-04.png" width="270" alt="Безперервна українська долина: Game View 10.10.2026" /></a> | <a href="docs/screens.md#мої-табори"><img src="docs/images/captures/2026-10-08/15-album.png" width="270" alt="Збережений 3D-кемпінг у альбомі" /></a> |
 
-Меню й стара мапа: історичний Unity QA capture **09.10.2026**; альбом: capture **08.10.2026**. [Hashes і source checkpoint](docs/performance/2026-10-09/optimized/images/manifest.json).
+Меню: Unity QA capture **09.10.2026**; нова мапа: **10.10.2026**, ізольований QA-профіль; альбом: **08.10.2026**. [Походження меню](docs/performance/2026-10-09/optimized/images/manifest.json) · [докази нової мапи](Design/Roadmap/CinematicPilot/2026-10-10/acceptance-receipt.json).
 
-Роадмапа замінюється на [безперервну 3D-долину для QC001–QC005](Design/Roadmap/CinematicPilot/2026-10-10/README.md); native-приймання нового світу ще не завершено.
+Роадмапа — [безперервна 3D-долина для QC001–QC005](Design/Roadmap/CinematicPilot/2026-10-10/index.html): заросла Україна, п’ять дорожніх каменів і одна кнопка виходу. Камера на 45% далі показує околиці; світ рухається за пальцем, колесо й trackpad працюють послідовно. Stylized Water 3 додає хвилі, рух відблисків і контакт із берегом. Native-композиції та повний Game View integration пройшли перевірку; [receipts і межі вимірів](Design/Roadmap/CinematicPilot/2026-10-10/README.md).
 
 Кожен екран має власне пояснення в [атласі меню й панелей](docs/screens.md): як відкрити, що робить кожна область і де знайти реалізацію. [Галерея](docs/gallery.md) містить повні PNG та JSON sidecars.
 

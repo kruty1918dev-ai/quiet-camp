@@ -114,3 +114,37 @@ used for graphics; host network, USB and processes remain isolated. Probe first,
 one Unity run at a time, workers 1/4. This request is for dioramas only: do not
 create/change puzzles, progression, saves, purchases or publish a new Main
 catalog. Preserve source archives. Full vendor model previews stay local.
+
+
+# Cinematic roadmap implementation — 2026-10-10
+
+The user subsequently approved replacing both old map renderers with the native
+continuous Ukrainian valley for QC001–QC005, including pilot launch policy and
+menu/gameplay returns. The earlier diorama-only limit is superseded for this work.
+Keep full campaign/save/album/entitlement data, existing puzzles and gameplay models.
+No tents or story UI on the map; only five waystones and one exit control.
+Preserve the user's existing `QC_Renderer.asset` change. Commit/push milestones to main.
+
+The user approved renders and the existing private PID/proc/network/masked-USB
+arrangement; player builds remain prohibited. `render_diorama_editor_isolated.sh`
+provides `--cinematic` native captures and `--pilot-tests` Game View checks with
+separate QA product/save identity and private Bee/ScriptAssemblies/ScriptMapper/
+ArtifactDB/SourceAssetDB caches. Never share the compilation Bee cache. Probe first, one Editor at a time, RAM check and
+workers 1/4. Native Game View evidence is distinct from Editor geometry estimates
+and must never be presented as measured mobile FPS.
+
+The user requested a restrained bird’s-eye overview later the same day. Current
+authored camera booms are 128–151 (45% farther), pitch 54–55°, with the same
+guided path and pinch bounds. Check native portrait/landscape at maximum zoom-out
+after camera changes; surrounding geography carries story without extra UI.
+
+The user also requested self-evident reliable camera navigation. Keep direct drag
+tracking the visible world, normalized wheel/trackpad movement and gesture ownership.
+Small endpoint inspection margins do not grant reveal or level access. Verify pinch,
+OS touch cancellation, tap jitter and both orientations without adding map UI hints.
+
+The user also requested living shoreline water. The roadmap now uses the existing
+Stylized Water 3 shader, depth-based bank intersection, four wave layers and baked
+progress transparency. Author river settings in CinematicPilot/water.json and rebake;
+verify stationary-camera water animation in both URP profiles alongside Game View
+flow. Preserve the original QC_Renderer.asset bytes throughout Editor checks.
