@@ -14,6 +14,9 @@ using QuietCamp.Presentation.UI;
 using QuietCamp.Presentation.World;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
@@ -79,16 +82,23 @@ namespace QuietCamp.Tests
             var marker=world.WorldRoot.Find("Waystone "+RoadmapPilotPolicy.LevelIds[index]);Assert.NotNull(marker);
             return world.WorldCamera.WorldToScreenPoint(marker.position);
         }
-        static void Pointer(RoadmapWorldPresenter world,int index,bool drag)
+        static void Pointer(RoadmapWorldPresenter world,int index,bool drag,bool jitter=false)
         {
             var input=Object.FindAnyObjectByType<RoadmapWorldInput>();Assert.NotNull(input);
             var pointer=new PointerEventData(EventSystem.current){position=Marker(world,index)};
             var hits=new List<RaycastResult>();EventSystem.current.RaycastAll(pointer,hits);
             Assert.IsTrue(hits.Count>0&&hits[0].gameObject==input.gameObject,"World input is covered by the HTML overlay");
             ExecuteEvents.Execute(input.gameObject,pointer,ExecuteEvents.pointerDownHandler);
+            ExecuteEvents.Execute(input.gameObject,pointer,ExecuteEvents.initializePotentialDrag);
             if(drag)
             {
                 pointer.delta=new Vector2(0,90);pointer.position+=pointer.delta;
+                ExecuteEvents.Execute(input.gameObject,pointer,ExecuteEvents.beginDragHandler);
+                ExecuteEvents.Execute(input.gameObject,pointer,ExecuteEvents.dragHandler);
+            }
+            else if(jitter)
+            {
+                pointer.delta=new Vector2(2,2);pointer.position+=pointer.delta;
                 ExecuteEvents.Execute(input.gameObject,pointer,ExecuteEvents.beginDragHandler);
                 ExecuteEvents.Execute(input.gameObject,pointer,ExecuteEvents.dragHandler);
             }
@@ -120,10 +130,16 @@ namespace QuietCamp.Tests
             Assert.IsTrue(World().IsOpen);Assert.AreEqual(0,World().Frontier);Assert.IsFalse(services.CanStart("QC006"));
             Assert.AreEqual(1,Overlay().GetComponentsInChildren<Button>().Count(b=>b.gameObject.activeInHierarchy));
             Pointer(World(),0,true);yield return Frames();Assert.AreEqual("MainMenu",SceneManager.GetActiveScene().name,"Dragging started a level");
+            World().Seek(0);yield return Frames(2);float reveal=Shader.GetGlobalFloat("_RoadmapRevealZ");
+            World().Drag(-Screen.height*.03f);yield return Frames(2);
+            Assert.Greater(World().RouteCoordinate,0,"Fresh profile cannot inspect its surroundings");
+            World().Drag(-Screen.height*99);yield return Frames(2);Assert.AreEqual(World().MaxRoute,World().RouteCoordinate);
+            Assert.IsFalse(services.CanStart("QC002"));Assert.AreEqual(reveal,Shader.GetGlobalFloat("_RoadmapRevealZ"),"Camera movement grants reveal");
+            World().Drag(Screen.height*99);yield return Frames(2);Assert.AreEqual(World().MinRoute,World().RouteCoordinate);
             World().Seek(0);yield return Frames();yield return Shot("gameview-fresh-profile");
             for(int i=0;i<5;i++)
             {
-                World().Seek(i);yield return Frames(10);Pointer(World(),i,false);yield return Ready("Camp");yield return Frames(15);
+                World().Seek(i);yield return Frames(10);Pointer(World(),i,false,i==0);yield return Ready("Camp");yield return Frames(15);
                 Assert.AreEqual(RoadmapPilotPolicy.LevelIds[i],CampSceneHost.Current.Session.Level.id);
                 CampSceneHost.Current.Session.DebugApplyWitness();yield return Frames(5);Tap("check");
                 float until=Time.realtimeSinceStartup+20;
@@ -131,6 +147,7 @@ namespace QuietCamp.Tests
                 Assert.IsTrue(CampSceneHost.Current.Session.IsCompleted);Tap("next");
                 yield return Ready("MainMenu");yield return Frames(25);
                 Assert.IsTrue(World().IsOpen);Assert.AreEqual(Mathf.Min(4,i+1),World().Frontier);
+                Assert.AreEqual(World().Frontier,World().RouteCoordinate,"Reduced motion return did not focus the newly available place");
                 Assert.LessOrEqual(World().LoadedChunks,3);Assert.IsTrue(services.Progression.IsCompleted(RoadmapPilotPolicy.LevelIds[i]));
                 yield return Shot("gameview-after-"+(i+1));
             }
@@ -145,6 +162,76 @@ namespace QuietCamp.Tests
             Tap("back");yield return Frames();Tap("continue");yield return Frames(25);
             Assert.AreEqual(4,World().Frontier);Assert.AreEqual(1,services.Progression.CompletedCount);
             foreach(var id in RoadmapPilotPolicy.LevelIds){Assert.IsTrue(services.PilotCompleted(id));Assert.IsTrue(services.CanStart(id));}
+            var navigation=new List<object>();
+            // Check screen-space tracking at both sides of stops, at all pinch scales and aspects.
+            foreach(bool landscape in new[]{false,true})
+            {
+                Size(landscape?1600:720,landscape?720:1600);yield return Frames(3);
+                foreach(float zoom in new[]{.85f,1f,1.15f})
+                {
+                    World().Zoom(zoom/World().ZoomFactor);yield return Frames(2);
+                    foreach(float route in new[]{.05f,.5f,.97f,1.03f,2.5f,3.95f})
+                    {
+                        World().Seek(route);yield return Frames(6);
+                        int marker=Mathf.Clamp(Mathf.RoundToInt(route),0,4);Vector2 beforeMarker=Marker(World(),marker);
+                        float requested=Screen.height*.035f;World().Drag(new Vector2(0,requested),beforeMarker+Vector2.up*requested);yield return Frames(2);
+                        Vector2 moved=Marker(World(),marker)-beforeMarker;
+                        Assert.Less(World().RouteCoordinate,route,"Map moved against the finger");
+                        Assert.That(moved.y,Is.InRange(requested*.85f,requested*1.15f),"Visible world does not follow the drag at "+route+" / "+zoom);
+                        navigation.Add(new{orientation=landscape?"landscape":"portrait",zoom,route,requestedPixels=requested,worldMotionPixels=moved.y});
+                    }
+                }
+            }
+            Size(720,1600);World().Zoom(1/World().ZoomFactor);World().Seek(2);yield return Frames(8);
+            var worldInput=Object.FindAnyObjectByType<RoadmapWorldInput>();
+            var module=EventSystem.current.currentInputModule as InputSystemUIInputModule;
+            float tick=module!=null?module.scrollDeltaPerTick:1;
+            var wheel=new PointerEventData(EventSystem.current){scrollDelta=new Vector2(0,-tick)};
+            worldInput.OnScroll(wheel);yield return Frames(3);float fullNotch=World().RouteCoordinate-2;
+            Assert.Less(fullNotch,0,"Wheel down should move content upward toward the start");
+            World().Seek(2);yield return Frames(3);wheel.scrollDelta=new Vector2(0,-tick*.25f);
+            worldInput.OnScroll(wheel);yield return Frames(3);
+            Assert.That(World().RouteCoordinate-2,Is.EqualTo(fullNotch*.25f).Within(.002f),"Fractional trackpad scroll lost precision");
+            World().Seek(2);yield return Frames(3);wheel.scrollDelta=new Vector2(0,tick);
+            Vector2 wheelMarker=Marker(World(),2);
+            worldInput.OnScroll(wheel);yield return Frames(3);Assert.Greater(World().RouteCoordinate,2,"Wheel up should travel onward");
+            Assert.Less(Marker(World(),2).y,wheelMarker.y,"Wheel direction differs from standard ScrollRect content movement");
+            World().Seek(2);yield return Frames(3);
+            var primary=new PointerEventData(EventSystem.current){pointerId=71,position=Marker(World(),2)};
+            var secondary=new PointerEventData(EventSystem.current){pointerId=72,position=primary.position+Vector2.right*100};
+            worldInput.OnPointerDown(primary);worldInput.OnPointerDown(secondary);
+            primary.position+=Vector2.up*90;primary.delta=Vector2.up*90;worldInput.OnDrag(primary);
+            worldInput.OnPointerUp(secondary);worldInput.OnPointerUp(primary);yield return Frames(3);
+            Assert.AreEqual(2,World().RouteCoordinate,"Second pointer stole or moved the primary gesture");
+            Assert.AreEqual("MainMenu",SceneManager.GetActiveScene().name,"Multitouch gesture launched a level");
+            // Real Input System events exercise pinch, release and OS cancellation.
+            var touch=InputSystem.AddDevice<Touchscreen>();
+            try
+            {
+                Vector2 a=Marker(World(),2),b=a+Vector2.right*120;
+                InputSystem.QueueStateEvent(touch,new TouchState{touchId=17,position=a,phase=UnityEngine.InputSystem.TouchPhase.Began});
+                InputSystem.QueueStateEvent(touch,new TouchState{touchId=18,position=b,phase=UnityEngine.InputSystem.TouchPhase.Began});yield return Frames(3);
+                b+=Vector2.right*80;
+                InputSystem.QueueStateEvent(touch,new TouchState{touchId=18,position=b,phase=UnityEngine.InputSystem.TouchPhase.Moved});yield return Frames(3);
+                Assert.AreEqual(1.15f,World().ZoomFactor,"Pinch did not obey its upper bound");
+                Assert.AreEqual(2,World().RouteCoordinate,"Pinch also scrolled the map");
+                InputSystem.QueueStateEvent(touch,new TouchState{touchId=18,position=b,phase=UnityEngine.InputSystem.TouchPhase.Ended});yield return Frames(2);
+                InputSystem.QueueStateEvent(touch,new TouchState{touchId=17,position=a,phase=UnityEngine.InputSystem.TouchPhase.Ended});yield return Frames(3);
+                Assert.AreEqual("MainMenu",SceneManager.GetActiveScene().name,"Pinch release launched a level");
+                a=Marker(World(),2);
+                InputSystem.QueueStateEvent(touch,new TouchState{touchId=19,position=a,phase=UnityEngine.InputSystem.TouchPhase.Began});yield return Frames(2);
+                InputSystem.QueueStateEvent(touch,new TouchState{touchId=19,position=a,phase=UnityEngine.InputSystem.TouchPhase.Canceled});yield return Frames(3);
+                Assert.AreEqual("MainMenu",SceneManager.GetActiveScene().name,"Canceled touch launched a level");
+                a=Marker(World(),2);
+                InputSystem.QueueStateEvent(touch,new TouchState{touchId=20,position=a,phase=UnityEngine.InputSystem.TouchPhase.Began});yield return Frames(2);
+                a+=Vector2.down*70;
+                InputSystem.QueueStateEvent(touch,new TouchState{touchId=20,position=a,phase=UnityEngine.InputSystem.TouchPhase.Moved});yield return Frames(2);
+                Assert.Greater(World().RouteCoordinate,2,"One-finger drag did not recover after pinch/cancel");
+                InputSystem.QueueStateEvent(touch,new TouchState{touchId=20,position=a,phase=UnityEngine.InputSystem.TouchPhase.Ended});yield return Frames(3);
+                Assert.AreEqual("MainMenu",SceneManager.GetActiveScene().name,"Touch drag release launched a level");
+            }
+            finally{InputSystem.RemoveDevice(touch);}
+            World().Zoom(1/World().ZoomFactor);World().Seek(2);yield return Frames(2);
             // Package test provider exercises a portrait notch without touching shared Simulator settings.
             var environment=typeof(UnityHTML.Runtime.UnityHtmlHost).Assembly.GetType("UnityHTML.Runtime.UnityHtmlEnvironment");
             var safeField=environment.GetField("SafeAreaProvider",BindingFlags.Static|BindingFlags.NonPublic);
@@ -207,8 +294,8 @@ namespace QuietCamp.Tests
             yield return Ready("MainMenu");yield return Frames();
             World().Seek(0);yield return Frames();Pointer(World(),0,false);yield return Ready("Camp");Assert.AreEqual("QC001",CampSceneHost.Current.Session.Level.id);
             File.WriteAllText(Path.Combine(Output,"gameview-integration-receipt.json"),JsonConvert.SerializeObject(new{capturedUtc=DateTime.UtcNow.ToString("o"),unity=UnityEngine.Application.unityVersion,
-                product=UnityEngine.Application.productName,sourceHash=Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World").sourceHash,playerBuild=false,mobileFpsMeasured=false,audioSuppressionRequested=true,audioOutputVerified=false,measurements,reentryCounts=counts,movieFrameCount=193,capturedSeconds,
-                checks="Fresh campaign progress after onboarding, completion 1–5, old progress including gaps, replay, drag rejection, quality change, synthetic notch, portrait/landscape, reduced motion, interrupted reveal, repeated entry/exit"},Formatting.Indented)+"\n");
+                product=UnityEngine.Application.productName,sourceHash=Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World").sourceHash,playerBuild=false,mobileFpsMeasured=false,audioSuppressionRequested=true,audioOutputVerified=false,measurements,navigation,reentryCounts=counts,movieFrameCount=193,capturedSeconds,
+                checks="Fresh campaign progress after onboarding, completion 1–5, old progress including gaps, replay, jitter-tolerant tap, drag rejection, 36 screen-space tracking samples, normalized wheel and fractional trackpad, multitouch ownership, real Input System pinch/release/cancel, fresh-profile inspection margins without reveal, quality change, synthetic notch, portrait/landscape, reduced motion, interrupted reveal, repeated entry/exit"},Formatting.Indented)+"\n");
         }
         static void PointerReplay(GameServices services){services.PendingMenuScreen="Levels";PrivacyBootTestSupport.Tap(PrivacyBootTestSupport.Find("continue"));}
     }

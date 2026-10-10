@@ -44,6 +44,9 @@ namespace QuietCamp.Presentation.World
         public Transform WorldRoot=>_root?.transform;
         public int LoadedChunks=>_chunks.Count;
         public float RouteCoordinate=>_route;
+        public float MinRoute=>-.25f;
+        public float MaxRoute=>_frontier+.2f;
+        public float ZoomFactor=>_zoom;
         public int Frontier=>_frontier;
         public bool IsOpen=>_entered;
         public bool ReducedMotion=>_services?.ReducedMotion??true;
@@ -63,13 +66,17 @@ namespace QuietCamp.Presentation.World
             if(_services.LevelMapAnchor!=null&&_services.LevelMapAnchor.revision==_asset.revision)
             {
                 int previous=RoadmapPilotPolicy.Index(_services.LevelMapAnchor.nodeId);
-                if(previous>=0)_route=Mathf.Min(_frontier,previous+Mathf.Clamp(_services.LevelMapAnchor.offset,-.45f,.45f));
+                if(previous>=0)_route=Mathf.Clamp(previous+Mathf.Clamp(_services.LevelMapAnchor.offset,-.45f,.45f),MinRoute,MaxRoute);
             }
             _target=_route;Build();
-            if(_services.RoadmapAdvanceFrom>=0&&!ReducedMotion)
+            if(_services.RoadmapAdvanceFrom>=0)
             {
-                _route=Mathf.Clamp(_services.RoadmapAdvanceFrom,0,_frontier);_target=_frontier;
-                _animationStart=_route;_animationEnd=_frontier;_animationTime=0;_animate=true;
+                if(ReducedMotion)_route=_target=_frontier;
+                else
+                {
+                    _route=Mathf.Clamp(_services.RoadmapAdvanceFrom,0,_frontier);_target=_frontier;
+                    _animationStart=_route;_animationEnd=_frontier;_animationTime=0;_animate=true;
+                }
             }
             _services.RoadmapAdvanceFrom=-1;
             var canvas=_screens.Overlay.transform.parent as RectTransform;
@@ -183,11 +190,46 @@ namespace QuietCamp.Presentation.World
             if(lease.request!=null&&!lease.request.isDone)return;
             if(lease.asset!=null)Resources.UnloadAsset(lease.asset);Leases.Remove(path);
         }
-        public void Drag(float screenDelta)
-        {if(!_entered)return;if(_animate)_target=_route;_animate=false;_target=Mathf.Clamp(_target+screenDelta/Mathf.Max(200,Screen.height)*1.6f,0,_frontier);}
-        public void Zoom(float factor){if(_animate)_target=_route;_animate=false;_zoom=Mathf.Clamp(_zoom*factor,.85f,1.15f);}
+        public void BeginInteraction(){if(!_entered)return;_animate=false;_target=_route;}
+        public void Drag(float screenDelta)=>Drag(new Vector2(0,screenDelta));
+        public void Drag(Vector2 screenDelta)=>Drag(screenDelta,_camera!=null?_camera.pixelRect.center+screenDelta:screenDelta);
+        public void Drag(Vector2 screenDelta,Vector2 screenPosition)
+        {
+            if(!_entered||!Finite(screenDelta.x)||!Finite(screenDelta.y)||!Finite(screenPosition.x)||!Finite(screenPosition.y))return;
+            BeginInteraction();
+            _route=_target=Mathf.Clamp(_route+RouteDelta(screenDelta,screenPosition-screenDelta),MinRoute,MaxRoute);
+        }
+        public void Scroll(float notches)
+        {
+            if(!_entered||!Finite(notches))return;
+            if(_animate)BeginInteraction();
+            // Match ScrollRect: positive wheel scroll moves content downward.
+            // One notch moves about 12% of the visible viewport at any zoom/aspect.
+            _target=Mathf.Clamp(_target+RouteDelta(new Vector2(0,-Mathf.Clamp(notches,-3,3)*_camera.pixelHeight*.12f),_camera.pixelRect.center),MinRoute,MaxRoute);
+        }
+        float RouteDelta(Vector2 delta,Vector2 contact)
+        {
+            // Measure the actual camera path on screen, including perspective, zoom,
+            // authored yaw and camera boom, instead of using a fixed speed.
+            CameraPose(_route,out _,out _,out var focus);
+            float probe=_route<4.19f?_route+.01f:_route-.01f;
+            CameraPose(probe,out var nextPosition,out var nextRotation,out _);
+            Vector3 anchor=_root.transform.TransformPoint(focus);
+            var ray=_camera.ScreenPointToRay(contact);
+            // Grab the ground under the contact, so foreground and distant areas
+            // track the finger equally. The authored focus plane approximates terrain.
+            if(new Plane(Vector3.up,anchor).Raycast(ray,out float distance))anchor=ray.GetPoint(distance);
+            Vector2 now=_camera.WorldToScreenPoint(anchor);
+            Vector3 local=Quaternion.Inverse(nextRotation)*(anchor-nextPosition);
+            float pixels=_camera.pixelHeight*.5f/Mathf.Tan(_camera.fieldOfView*Mathf.Deg2Rad*.5f);
+            Vector2 next=_camera.pixelRect.center+new Vector2(local.x,local.y)*(pixels/Mathf.Max(.01f,local.z));
+            Vector2 motion=(next-now)/(probe-_route);
+            return motion.sqrMagnitude>1?Vector2.Dot(delta,motion)/motion.sqrMagnitude:0;
+        }
+        static bool Finite(float value)=>!float.IsNaN(value)&&!float.IsInfinity(value);
+        public void Zoom(float factor){if(!_entered||!Finite(factor)||factor<=0)return;if(_animate)BeginInteraction();_zoom=Mathf.Clamp(_zoom*factor,.85f,1.15f);}
         public void Step(int direction){_animate=false;_target=Mathf.Clamp(Mathf.Round(_target)+direction,0,_frontier);}
-        public void Seek(float route){_animate=false;_target=Mathf.Clamp(route,0,_frontier);}
+        public void Seek(float route){if(!Finite(route))return;_animate=false;_target=Mathf.Clamp(route,MinRoute,MaxRoute);}
         public void ActivateFocused()
         {
             if(_camera==null)return;
@@ -216,11 +258,9 @@ namespace QuietCamp.Presentation.World
             // Portrait retains the authored vertical FOV; wide screens cap the horizontal field.
             float aspect=Mathf.Max(1,_camera.aspect);
             _camera.fieldOfView=2*Mathf.Atan(Mathf.Tan(_asset.fieldOfView*Mathf.Deg2Rad*.5f)/aspect)*Mathf.Rad2Deg;
-            _route=Mathf.Clamp(route,0,4);int a=Mathf.FloorToInt(_route),b=Mathf.Min(4,a+1);
-            float t=Mathf.SmoothStep(0,1,_route-a);var from=_asset.waypoints[a];var to=_asset.waypoints[b];
-            var focus=Vector3.Lerp(from.focus,to.focus,t);var rotation=Quaternion.Euler(Mathf.Lerp(from.pitch,to.pitch,t),Mathf.LerpAngle(from.yaw,to.yaw,t),0);
-            float boomDistance=Mathf.Lerp(from.distance,to.distance,t)/_zoom;
-            var position=focus+rotation*Vector3.back*boomDistance;
+            _route=Mathf.Clamp(route,-.25f,4.2f);
+            CameraPose(_route,out var position,out var rotation,out var focus);
+            float boomDistance=Vector3.Distance(position,_root.transform.TransformPoint(focus))/_asset.worldScale;
             // Raising the camera must not turn the whole valley into fog. Keep haze in the far field.
             Shader.SetGlobalFloat("_RoadmapFogStart",boomDistance*_asset.worldScale*.9f);
             if(GraphicsSettings.currentRenderPipeline is UniversalRenderPipelineAsset pipeline)
@@ -230,7 +270,7 @@ namespace QuietCamp.Presentation.World
                 // same sunlight to reach its ground; retain and restore every touched tier.
                 pipeline.shadowDistance=Mathf.Max(_shadowRanges[pipeline],boomDistance*_asset.worldScale+24);
             }
-            _camera.transform.position=_root.transform.TransformPoint(position);_camera.transform.rotation=rotation;
+            _camera.transform.position=position;_camera.transform.rotation=rotation;
             for(int i=0;i<5;i++)
             {
                 var m=_markers[i];if(m==null)continue;m.enabled=i<=_frontier;
@@ -238,6 +278,17 @@ namespace QuietCamp.Presentation.World
                 float pulse=current&&!ReducedMotion?1+.06f*Mathf.Sin(_clock*1.6f):1;m.transform.localScale=Vector3.one*pulse;
                 _markerBlock.SetColor("_BaseColor",current?new Color(.95f,.83f,.49f):new Color(.69f,.71f,.57f));m.SetPropertyBlock(_markerBlock);
             }
+        }
+        void CameraPose(float route,out Vector3 position,out Quaternion rotation,out Vector3 focus)
+        {
+            int a=Mathf.Clamp(Mathf.FloorToInt(route),0,3),b=a+1;
+            float t=route-a;var from=_asset.waypoints[a];var to=_asset.waypoints[b];
+            // Linear coordinates prevent sticky stops and surges between places.
+            // Endpoint margins let even a fresh profile inspect its surroundings.
+            focus=Vector3.LerpUnclamped(from.focus,to.focus,t);
+            rotation=Quaternion.Euler(Mathf.Lerp(from.pitch,to.pitch,t),Mathf.LerpAngle(from.yaw,to.yaw,t),0);
+            float distance=Mathf.Lerp(from.distance,to.distance,t)/_zoom;
+            position=_root.transform.TransformPoint(focus+rotation*Vector3.back*distance);
         }
         void ApplyAtmosphere()
         {

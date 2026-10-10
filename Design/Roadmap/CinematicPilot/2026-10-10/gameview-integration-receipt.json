@@ -1,5 +1,5 @@
 {
-  "capturedUtc": "2026-10-10T16:03:32.1850740Z",
+  "capturedUtc": "2026-10-10T16:23:32.3896540Z",
   "unity": "6000.6.2f1",
   "product": "QuietCampRoadmapQA",
   "sourceHash": "c63da509c6487cfdcf4dac27a0e66c13d9a756d0e19ebdb76505d12c68c08030",
@@ -169,29 +169,283 @@
       "worldChunks": 2
     }
   ],
+  "navigation": [
+    {
+      "orientation": "portrait",
+      "zoom": 0.85,
+      "route": 0.05,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 55.00049
+    },
+    {
+      "orientation": "portrait",
+      "zoom": 0.85,
+      "route": 0.5,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 50.4996033
+    },
+    {
+      "orientation": "portrait",
+      "zoom": 0.85,
+      "route": 0.97,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 50.178894
+    },
+    {
+      "orientation": "portrait",
+      "zoom": 0.85,
+      "route": 1.03,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 51.475647
+    },
+    {
+      "orientation": "portrait",
+      "zoom": 0.85,
+      "route": 2.5,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 54.87375
+    },
+    {
+      "orientation": "portrait",
+      "zoom": 0.85,
+      "route": 3.95,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 55.50818
+    },
+    {
+      "orientation": "portrait",
+      "zoom": 1.0,
+      "route": 0.05,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 54.72162
+    },
+    {
+      "orientation": "portrait",
+      "zoom": 1.0,
+      "route": 0.5,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 50.3995972
+    },
+    {
+      "orientation": "portrait",
+      "zoom": 1.0,
+      "route": 0.97,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 49.87848
+    },
+    {
+      "orientation": "portrait",
+      "zoom": 1.0,
+      "route": 1.03,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 51.6193848
+    },
+    {
+      "orientation": "portrait",
+      "zoom": 1.0,
+      "route": 2.5,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 54.8406677
+    },
+    {
+      "orientation": "portrait",
+      "zoom": 1.0,
+      "route": 3.95,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 55.56476
+    },
+    {
+      "orientation": "portrait",
+      "zoom": 1.15,
+      "route": 0.05,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 54.44232
+    },
+    {
+      "orientation": "portrait",
+      "zoom": 1.15,
+      "route": 0.5,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 50.31642
+    },
+    {
+      "orientation": "portrait",
+      "zoom": 1.15,
+      "route": 0.97,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 49.5877075
+    },
+    {
+      "orientation": "portrait",
+      "zoom": 1.15,
+      "route": 1.03,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 51.7804565
+    },
+    {
+      "orientation": "portrait",
+      "zoom": 1.15,
+      "route": 2.5,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 54.81427
+    },
+    {
+      "orientation": "portrait",
+      "zoom": 1.15,
+      "route": 3.95,
+      "requestedPixels": 56.0,
+      "worldMotionPixels": 55.6258545
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 0.85,
+      "route": 0.05,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 24.6650238
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 0.85,
+      "route": 0.5,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 22.77929
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 0.85,
+      "route": 0.97,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 22.620575
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 0.85,
+      "route": 1.03,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 23.812561
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 0.85,
+      "route": 2.5,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 24.8633041
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 0.85,
+      "route": 3.95,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 25.137085
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 1.0,
+      "route": 0.05,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 24.5961151
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 1.0,
+      "route": 0.5,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 22.7468872
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 1.0,
+      "route": 0.97,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 22.5014954
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 1.0,
+      "route": 1.03,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 24.0037231
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 1.0,
+      "route": 2.5,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 24.8484573
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 1.0,
+      "route": 3.95,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 25.1700439
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 1.15,
+      "route": 0.05,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 24.5304565
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 1.15,
+      "route": 0.5,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 22.7177429
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 1.15,
+      "route": 0.97,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 22.3833
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 1.15,
+      "route": 1.03,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 24.1318512
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 1.15,
+      "route": 2.5,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 24.8335571
+    },
+    {
+      "orientation": "landscape",
+      "zoom": 1.15,
+      "route": 3.95,
+      "requestedPixels": 25.2,
+      "worldMotionPixels": 25.198822
+    }
+  ],
   "reentryCounts": [
     [
       2,
       400,
-      208
+      213
     ],
     [
       2,
       400,
-      208
+      213
     ],
     [
       2,
       400,
-      208
+      213
     ],
     [
       2,
       400,
-      208
+      213
     ]
   ],
   "movieFrameCount": 193,
-  "capturedSeconds": 41.64985,
-  "checks": "Fresh campaign progress after onboarding, completion 1–5, old progress including gaps, replay, drag rejection, quality change, synthetic notch, portrait/landscape, reduced motion, interrupted reveal, repeated entry/exit"
+  "capturedSeconds": 34.613472,
+  "checks": "Fresh campaign progress after onboarding, completion 1–5, old progress including gaps, replay, jitter-tolerant tap, drag rejection, 36 screen-space tracking samples, normalized wheel and fractional trackpad, multitouch ownership, real Input System pinch/release/cancel, fresh-profile inspection margins without reveal, quality change, synthetic notch, portrait/landscape, reduced motion, interrupted reveal, repeated entry/exit"
 }
