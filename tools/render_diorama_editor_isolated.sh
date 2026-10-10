@@ -7,7 +7,8 @@ case "${1:---probe}" in
   --probe) task_mode=probe ;;
   --models) task_mode=models ;;
   --studies) task_mode=studies ;;
-  *) echo 'Use --probe, --models or --studies'; exit 2 ;;
+  --cinematic) task_mode=cinematic ;;
+  *) echo 'Use --probe, --models, --studies or --cinematic'; exit 2 ;;
 esac
 if [[ "$task_mode" != probe ]]; then
   task_status=$(cat /home/oleks/.local/state/sys-guard/status)
@@ -35,6 +36,8 @@ unshare --user --map-root-user --pid --fork --mount-proc --net \
     fi
     if [[ "$1" == models ]]; then
       task_method=QuietCamp.Editor.ModelCatalogueRenderer.Render
+    elif [[ "$1" == cinematic ]]; then
+      task_method=QuietCamp.Editor.CinematicRoadmapCapture.Render
     else
       task_method=QuietCamp.Editor.DioramaStudyRenderer.Render
     fi

@@ -33,3 +33,5 @@ Native runtime `StreamFault` is an observable load/revision/budget error. The re
 Semantic tests do not decide artistic quality. After diagnostics clear, inspect actual native images and compare projected entity IDs, parcel/connection overlays, season continuity and metrics.
 
 Damage/surface extensions: `invalid-power-damage`, `invalid-fallen-support`, `fallen-live-conductor`, `unsupported-fallen-support`, `missing-service-socket`, `invalid-surface`, `orphan-surface`, `wet-route-crossing` and `open-parcel-boundary` block publication. Fix indexed damage, standing sockets, actual final footprint, convex polygons or declared fence/gate coverage in source authoring. Local owned surfaces use `relativeToOwner`; they follow the accepted parcel transform.
+
+`invalid-growth-owner`: `growsThrough` дозволено лише рослинності класу `canopy`, чий `parent` прямо називає ту саму конструкцію. Без цього явного зв’язку перекриття будівлі й дерева залишається помилкою `role-overlap`.

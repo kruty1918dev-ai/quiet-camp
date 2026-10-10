@@ -125,6 +125,8 @@ static class CompositionCommands
             }
             Console.WriteLine("PASS independent study determinism and complete ensembles; Main regression contracts are a separate check.");
         }
+        else if((string)Read<JObject>(Root+"/manifest.json")["id"]=="quiet-camp-cinematic-pilot")
+            CinematicPilotContracts.Run(docs,assets,templates);
         else CompositionContracts.Run(docs,assets,templates);
         if(cmd=="bake")
         {Atomic(Root+"/bake-preview.json",JsonConvert.SerializeObject(new{revision=SceneComposer.Revision,sourceHash=SourceHash(),results},Formatting.Indented)+"\n");Console.WriteLine("Portable placement bake ready; publish native resources through Quiet Camp/Composition/Bake Main. Runtime catalog unchanged.");}

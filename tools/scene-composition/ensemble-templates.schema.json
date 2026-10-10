@@ -71,6 +71,12 @@
             },
             "entrance": {
               "type": "boolean"
+            },
+            "growsThrough": {
+              "type": [
+                "string",
+                "null"
+              ]
             }
           }
         }

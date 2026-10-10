@@ -18,7 +18,7 @@ namespace QuietCamp.Composition
         public Dictionary<string,Point> sockets=new Dictionary<string,Point>();
     }
     [Serializable] public sealed class EnsembleRole
-    {public string id,asset,parent;public float x,z,height=1,yaw;public bool required=true,entrance;}
+    {public string id,asset,parent,growsThrough;public float x,z,height=1,yaw;public bool required=true,entrance;}
     [Serializable] public sealed class EnsembleTemplate
     {public string id;public float width=10,depth=10;public bool entrance,ruined,closedBoundary;public EnsembleRole[] roles=Array.Empty<EnsembleRole>();}
     [Serializable] public sealed class PlacementIntent {public string zone,nearNode;public float x,z,yaw;public bool fixedPosition;public bool faceRoute=true;}
@@ -104,6 +104,7 @@ namespace QuietCamp.Composition
         }
         static bool RoleOverlap(EnsembleRole a,VisualAssetDefinition da,EnsembleRole b,VisualAssetDefinition db)
         {
+            if(a.growsThrough==b.id&&da.placementClass=="canopy"||b.growsThrough==a.id&&db.placementClass=="canopy")return false;
             if(da.placementClass=="groundcover"||db.placementClass=="groundcover"||da.placementClass=="canopy"&&db.placementClass=="canopy"||da.placementClass=="boundary"&&db.placementClass=="boundary")return false;
             float Scale(EnsembleRole r,VisualAssetDefinition d)=>(r.height>0?r.height:d.height)/d.height;
             float aa=a.yaw*(float)Math.PI/180,bb=b.yaw*(float)Math.PI/180,ac=(float)Math.Cos(aa),asine=(float)Math.Sin(aa),bc=(float)Math.Cos(bb),bs=(float)Math.Sin(bb);
@@ -194,6 +195,9 @@ namespace QuietCamp.Composition
                     if(!Finite(role.x)||!Finite(role.z)||!Finite(role.yaw)||!Finite(role.height)||role.height<0)Error("invalid-role",template.id,"Non-finite role transform.");
                     if(Boundary(role)&&role.parent==null&&(!template.ruined||!template.roles.Any(r=>r.id=="foundation")))Error("fence-without-owner",template.id,"Fence requires an owner role or an explicit ruined foundation context.");
                     var parent=role.parent==null?null:Array.Find(template.roles,p=>p.id==role.parent);
+                    if(role.growsThrough!=null&&(role.parent!=role.growsThrough||parent==null
+                        ||!assets.TryGetValue(role.asset??"",out var plant)||plant.placementClass!="canopy"))
+                        Error("invalid-growth-owner",template.id,"A growth role must be a canopy explicitly attached to its structural owner.");
                     if(role.parent!=null&&parent==null)Error("orphan-role",template.id,"Parent is missing: "+role.parent);
                     if(role.required&&parent!=null&&!parent.required)Error("optional-parent",template.id,"Required role depends on optional role.");
                     var visited=new HashSet<string>();var cursor=role;

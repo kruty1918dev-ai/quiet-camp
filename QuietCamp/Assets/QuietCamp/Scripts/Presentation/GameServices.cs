@@ -66,6 +66,7 @@ namespace QuietCamp.Presentation
 
         /// <summary>Level chosen in the menu, consumed by the Camp scene host.</summary>
         public string PendingLevelId { get; set; }
+        public int RoadmapAdvanceFrom = -1;
         public float LevelMapScroll = -1f;
         public Domain.RoadmapAnchor LevelMapAnchor;
         public string LevelMapJourney="main";

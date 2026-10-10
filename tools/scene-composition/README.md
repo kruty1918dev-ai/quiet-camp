@@ -1,12 +1,10 @@
 # Semantic scene composition
 
-Transfer integration, 2026-10-09: source/models and Editor tools are installed.
-The new renderer lives in `UI/Prepared`; the existing optimized menu still uses
-the current map. These authored recipes cover 30 nodes, while the current
-campaign has 110. Main publication requires every campaign ID in its exact order.
-Prepared menu/native test sources live in `QuietCamp/PreparedRoadmap~/Tests`;
-include them in cached-reference compiler checks with `--include-prepared-tests`.
-See [the integration receipt](../../docs/transfer/2026-10-09/IMPORT-UA.md).
+Cinematic pilot, 2026-10-10: new continuous-world sources live in
+`Composition/CinematicPilot`; `CinematicRoadmapBaker` publishes five native chunks
+for QC001–QC005. The projected map and `UI/Prepared` renderer have been retired.
+Native capture and gameplay acceptance are pending; historical galleries retain
+ their original dates. See [the pilot status](../../Design/Roadmap/CinematicPilot/2026-10-10/README.md).
 
 An AI-friendly, deterministic authoring workflow for connected places, prepared native meshes and bounded streaming. The first integration is Quiet Camp's roadmap. The portable `QuietCamp.Composition` engine has no Unity/game/progression dependencies; release it as a separate UPM only after the integration is validated.
 
@@ -45,7 +43,7 @@ The command rejects identity/schema changes, stale files, unknown fields and inv
 - Generated output: placement identities, accepted relationships, diagnostics and native chunk assets.
 - Runtime: three nearby chunk leases, shader motion, progression-derived reveal and native controls.
 
-`node.world` remains a generated miniature vignette from level summaries. It is not a puzzle solution or source authoring. Gameplay JSON, save IDs and content hashes never change during composition.
+Legacy `node.world` data remains historical presentation data. The cinematic pilot uses authored world coordinates. It is not a puzzle solution or source authoring. Gameplay JSON, save IDs and content hashes never change during composition.
 
 ## Composition rules
 

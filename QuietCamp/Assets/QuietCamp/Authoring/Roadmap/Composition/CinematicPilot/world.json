@@ -1,0 +1,80 @@
+{
+  "id": "cinematic-valley",
+  "seed": 19181010,
+  "fieldOfView": 30,
+  "minX": -62,
+  "maxX": 62,
+  "minZ": -70,
+  "maxZ": 230,
+  "chunkStarts": [
+    -70,
+    20,
+    60,
+    100,
+    140
+  ],
+  "chunkEnds": [
+    20,
+    60,
+    100,
+    140,
+    230
+  ],
+  "waypoints": [
+    {
+      "levelId": "QC001",
+      "titleUk": "Остання зупинка",
+      "x": 0,
+      "z": 0,
+      "focusX": -3,
+      "focusZ": 4,
+      "yaw": -8,
+      "pitch": 48,
+      "distance": 66
+    },
+    {
+      "levelId": "QC002",
+      "titleUk": "Сад, що пережив дім",
+      "x": -2,
+      "z": 40,
+      "focusX": -9,
+      "focusZ": 44,
+      "yaw": 4,
+      "pitch": 48,
+      "distance": 66
+    },
+    {
+      "levelId": "QC003",
+      "titleUk": "Ліс уздовж дротів",
+      "x": 1,
+      "z": 80,
+      "focusX": -3,
+      "focusZ": 84,
+      "yaw": -6,
+      "pitch": 48,
+      "distance": 66
+    },
+    {
+      "levelId": "QC004",
+      "titleUk": "Очеретяна переправа",
+      "x": -3,
+      "z": 120,
+      "focusX": 7,
+      "focusZ": 124,
+      "yaw": 6,
+      "pitch": 48,
+      "distance": 66
+    },
+    {
+      "levelId": "QC005",
+      "titleUk": "Тиха вода",
+      "x": -5,
+      "z": 160,
+      "focusX": 5,
+      "focusZ": 164,
+      "yaw": -4,
+      "pitch": 48,
+      "distance": 66
+    }
+  ]
+}

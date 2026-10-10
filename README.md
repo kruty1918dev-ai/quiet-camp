@@ -54,7 +54,9 @@ donor packages розкладені локально й імпортовані U
 | --- | --- | --- |
 | <a href="docs/screens.md#головне-меню"><img src="docs/performance/2026-10-09/optimized/images/main-menu.png" width="270" alt="Головне меню й Остап" /></a> | <a href="docs/screens.md#мапа-галявин"><img src="docs/performance/2026-10-09/optimized/images/roadmap.png" width="270" alt="Мапа з вузлами прогресу" /></a> | <a href="docs/screens.md#мої-табори"><img src="docs/images/captures/2026-10-08/15-album.png" width="270" alt="Збережений 3D-кемпінг у альбомі" /></a> |
 
-Меню й мапа: свіжий Unity QA capture після оптимізації **09.10.2026**; альбом: capture **08.10.2026**. [Hashes і source checkpoint](docs/performance/2026-10-09/optimized/images/manifest.json).
+Меню й стара мапа: історичний Unity QA capture **09.10.2026**; альбом: capture **08.10.2026**. [Hashes і source checkpoint](docs/performance/2026-10-09/optimized/images/manifest.json).
+
+Роадмапа замінюється на [безперервну 3D-долину для QC001–QC005](Design/Roadmap/CinematicPilot/2026-10-10/README.md); native-приймання нового світу ще не завершено.
 
 Кожен екран має власне пояснення в [атласі меню й панелей](docs/screens.md): як відкрити, що робить кожна область і де знайти реалізацію. [Галерея](docs/gallery.md) містить повні PNG та JSON sidecars.
 

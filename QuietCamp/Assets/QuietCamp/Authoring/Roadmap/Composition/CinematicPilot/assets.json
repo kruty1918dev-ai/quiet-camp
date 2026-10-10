@@ -1,0 +1,417 @@
+[
+  {
+    "id": "ua_bus_shelter_mosaic",
+    "source": "../Models/EnvironmentKit/ua_bus_shelter_mosaic.obj",
+    "license": "original-project-owned",
+    "sourceHash": "12c9c611914674e35129078e8e3767583e63d8daaf3033bd988e8a59289a66ac",
+    "sourceHeight": 2.2,
+    "height": 2.2,
+    "width": 3.48,
+    "depth": 1.99,
+    "radius": 2.0044014069043157,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "wind": false,
+    "placementClass": "solid",
+    "lod": null
+  },
+  {
+    "id": "ua_abandoned_house",
+    "source": "../Models/EnvironmentKit/ua_abandoned_house.obj",
+    "license": "original-project-owned",
+    "sourceHash": "bd63aaf19d588e43a36ef5a44acc5102535d3cc1d5cb22534e72f5758f7af252",
+    "sourceHeight": 4.05,
+    "height": 4.05,
+    "width": 5.3999999999999995,
+    "depth": 6.725,
+    "radius": 4.312355070028441,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -0.23749999999999982
+    },
+    "wind": false,
+    "placementClass": "solid",
+    "lod": null,
+    "conductors": [
+      {
+        "x": 2.3,
+        "y": 2.8,
+        "z": 1.8
+      }
+    ]
+  },
+  {
+    "id": "ua_picket_fence_damaged",
+    "source": "../Models/EnvironmentKit/ua_picket_fence_damaged.obj",
+    "license": "original-project-owned",
+    "sourceHash": "c6fd86b35d1a94d03a0edff37c9e13896cfe67e6cbaf02bdae5376c5aff2f5f5",
+    "sourceHeight": 1.3072714328355184,
+    "height": 1.3072714328355184,
+    "width": 3.33,
+    "depth": 0.21,
+    "radius": 1.6683075256079138,
+    "pivot": {
+      "x": 0.0,
+      "y": -0.0072714328355183025,
+      "z": -0.015
+    },
+    "wind": false,
+    "placementClass": "boundary",
+    "lod": null
+  },
+  {
+    "id": "ua_gate",
+    "source": "ua_gate.obj",
+    "license": "original-project-owned",
+    "sourceHash": "b2eb6f773b58b8897c2a077994da3ada4ffcb76cc3fdf2b043d58b51a311769f",
+    "height": 1.88,
+    "width": 3.66,
+    "depth": 0.9744230000000002,
+    "radius": 1.8937462991996181,
+    "wind": false,
+    "sourceHeight": 1.88,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -0.37221155854402954
+    },
+    "placementClass": "boundary"
+  },
+  {
+    "id": "ua_well_sweep",
+    "source": "../Models/EnvironmentKit/ua_well_sweep.obj",
+    "license": "original-project-owned",
+    "sourceHash": "e98042ab2d9a7528645996ba334a888b13652f1a9ad6f47af7fe8ec1f886889a",
+    "sourceHeight": 3.9569928065636355,
+    "height": 3.9569928065636355,
+    "width": 3.631254119728445,
+    "depth": 1.2124355652982142,
+    "radius": 1.914158201536958,
+    "pivot": {
+      "x": 1.1156270598642228,
+      "y": 0.0,
+      "z": 5.551115123125783e-17
+    },
+    "wind": false,
+    "placementClass": "solid",
+    "lod": null
+  },
+  {
+    "id": "ua_orchard_tree",
+    "source": "ua_orchard_tree.obj",
+    "license": "original-project-owned",
+    "sourceHash": "2d6ee1eb20d43df6f9719f5af88c490ee1cc18b09ee2228a3f25dfed43e02c7b",
+    "height": 2.8,
+    "width": 2.7936682515596023,
+    "depth": 2.2034078570224245,
+    "radius": 1.779015773128518,
+    "wind": true,
+    "sourceHeight": 2.9655,
+    "pivot": {
+      "x": 0.02060276416000817,
+      "y": 0.0,
+      "z": -0.01362103517000024
+    },
+    "placementClass": "canopy"
+  },
+  {
+    "id": "ua_poplar",
+    "source": "../Models/EnvironmentKit/ua_poplar.obj",
+    "license": "original-project-owned",
+    "sourceHash": "0dbc6220c0e01e8c44d9e64fde85995b8efff21d577b82bc820a15fbd7de7cce",
+    "sourceHeight": 4.606,
+    "height": 4.606,
+    "width": 1.2356297641365726,
+    "depth": 1.2674062858363708,
+    "radius": 0.8850281926862198,
+    "pivot": {
+      "x": 0.0321851179317138,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "wind": true,
+    "placementClass": "canopy",
+    "lod": "ua_poplar_lod"
+  },
+  {
+    "id": "ua_young_willow",
+    "source": "../Models/EnvironmentKit/ua_young_willow.obj",
+    "license": "original-project-owned",
+    "sourceHash": "ded8b516585b788618d28241945ed068def2891d5ea6b582a38386405c857f85",
+    "sourceHeight": 2.826,
+    "height": 2.826,
+    "width": 2.1246394528155967,
+    "depth": 1.7569048440800072,
+    "radius": 1.3784780951843552,
+    "pivot": {
+      "x": 0.02768027359220171,
+      "y": 0.0,
+      "z": -0.09499999999999997
+    },
+    "wind": true,
+    "placementClass": "canopy",
+    "lod": "ua_young_willow_lod"
+  },
+  {
+    "id": "ua_power_pylon_fallen",
+    "source": "../Models/EnvironmentKit/ua_power_pylon_fallen.obj",
+    "license": "original-project-owned",
+    "sourceHash": "39052e85efb84d0316c9267850b3e79b5215a0ad94ef4afb5d243f8acaad2a0f",
+    "sourceHeight": 7.864359740043829,
+    "height": 7.864359740043829,
+    "width": 16.25636078554984,
+    "depth": 4.15,
+    "radius": 8.388858176026739,
+    "pivot": {
+      "x": 7.9683086948502275,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "wind": false,
+    "placementClass": "solid",
+    "lod": null
+  },
+  {
+    "id": "ua_power_pylon_rusted",
+    "source": "../Models/EnvironmentKit/ua_power_pylon_rusted.obj",
+    "license": "original-project-owned",
+    "sourceHash": "4c8e41235975ef3ee9835b6437e4cfa48777e377b01e568e3c71d1fd69719afd",
+    "sourceHeight": 16.045278394152348,
+    "height": 16.045278394152348,
+    "width": 7.85,
+    "depth": 4.15,
+    "radius": 4.439735352473162,
+    "pivot": {
+      "x": 0.0,
+      "y": -0.03145764348029479,
+      "z": 0.0
+    },
+    "wind": false,
+    "placementClass": "solid",
+    "lod": null,
+    "conductors": [
+      {
+        "x": -3.6799999999999997,
+        "y": 9.319999999999999,
+        "z": 0
+      },
+      {
+        "x": 3.6799999999999997,
+        "y": 9.319999999999999,
+        "z": 0
+      },
+      {
+        "x": -3.23,
+        "y": 12.12,
+        "z": 0
+      },
+      {
+        "x": 3.23,
+        "y": 12.12,
+        "z": 0
+      },
+      {
+        "x": -2.5799999999999996,
+        "y": 14.92,
+        "z": 0
+      },
+      {
+        "x": 2.5799999999999996,
+        "y": 14.92,
+        "z": 0
+      }
+    ],
+    "supportKind": "power"
+  },
+  {
+    "id": "ua_plank_bridge",
+    "source": "../Models/EnvironmentKit/ua_plank_bridge.obj",
+    "license": "original-project-owned",
+    "sourceHash": "c0874cdc4d35a6742e17e8c3e9eece8fe91c31d0e8e57b9f26c51e55c7b8f3a4",
+    "sourceHeight": 0.46,
+    "height": 0.46,
+    "width": 1.85,
+    "depth": 5.06,
+    "radius": 2.6937937931475004,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "wind": false,
+    "placementClass": "solid",
+    "lod": null,
+    "sockets": {
+      "north": {
+        "x": 0,
+        "z": -2.53
+      },
+      "south": {
+        "x": 0,
+        "z": 2.53
+      }
+    }
+  },
+  {
+    "id": "ua_dam_breached",
+    "source": "../Models/EnvironmentKit/ua_dam_breached.obj",
+    "license": "original-project-owned",
+    "sourceHash": "714345cbfe4adf0bc70f3370066b22d556ee4bc69e783cec3f9c1c7771e73a07",
+    "sourceHeight": 6.84,
+    "height": 6.84,
+    "width": 33.1,
+    "depth": 7.05,
+    "radius": 16.921232963351105,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -1.225
+    },
+    "wind": false,
+    "placementClass": "solid",
+    "lod": "ua_dam_breached_lod",
+    "sockets": {
+      "bankA": {
+        "x": -14,
+        "z": 0
+      },
+      "bankB": {
+        "x": 14,
+        "z": 0
+      }
+    }
+  },
+  {
+    "id": "ua_hydro_service_building",
+    "source": "../Models/EnvironmentKit/ua_hydro_service_building.obj",
+    "license": "original-project-owned",
+    "sourceHash": "b7ff896dffa118ace426250ea27d72dc3391ac46b81cd7342c593f67f8a0ee38",
+    "sourceHeight": 2.78,
+    "height": 2.78,
+    "width": 4.05,
+    "depth": 3.8,
+    "radius": 2.7768012172281975,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -0.20000000000000007
+    },
+    "wind": false,
+    "placementClass": "solid",
+    "lod": null
+  },
+  {
+    "id": "ua_mooring_post",
+    "source": "../Models/EnvironmentKit/ua_mooring_post.obj",
+    "license": "original-project-owned",
+    "sourceHash": "cbe8d3427bd029fb94fd4270907556b5d799e26c0990e7f458ff6e4d1f02e46e",
+    "sourceHeight": 1.0,
+    "height": 1.0,
+    "width": 0.54,
+    "depth": 0.24,
+    "radius": 0.29546573405388316,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "wind": false,
+    "placementClass": "solid",
+    "lod": null
+  },
+  {
+    "id": "pilot.ruined-house",
+    "source": "../Models/EnvironmentKit/ua_abandoned_house.obj",
+    "license": "original-project-owned",
+    "sourceHash": "bd63aaf19d588e43a36ef5a44acc5102535d3cc1d5cb22534e72f5758f7af252",
+    "sourceHeight": 4.05,
+    "height": 4.05,
+    "width": 5.3999999999999995,
+    "depth": 6.725,
+    "radius": 4.312355070028441,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": -0.23749999999999982
+    },
+    "wind": false,
+    "placementClass": "solid",
+    "lod": null,
+    "conductors": [
+      {
+        "x": 2.3,
+        "y": 2.8,
+        "z": 1.8
+      }
+    ]
+  },
+  {
+    "id": "tree_default",
+    "source": "tree_default",
+    "license": "source-binding",
+    "sourceHash": "",
+    "sourceHeight": 8,
+    "height": 8,
+    "width": 5,
+    "depth": 5,
+    "radius": 3.5355339059327378,
+    "placementClass": "canopy",
+    "wind": true
+  },
+  {
+    "id": "tree_pineRoundA",
+    "source": "tree_pineRoundA",
+    "license": "source-binding",
+    "sourceHash": "",
+    "sourceHeight": 9,
+    "height": 9,
+    "width": 4,
+    "depth": 4,
+    "radius": 2.8284271247461903,
+    "placementClass": "canopy",
+    "wind": true
+  },
+  {
+    "id": "pilot.ruin-wall",
+    "source": "pilot.ruin-wall",
+    "license": "source-binding",
+    "sourceHash": "",
+    "sourceHeight": 3.8,
+    "height": 3.8,
+    "width": 3.6,
+    "depth": 1.6,
+    "radius": 1.969771560359221,
+    "placementClass": "solid",
+    "wind": false
+  },
+  {
+    "id": "pilot.broken-bridge",
+    "source": "pilot.broken-bridge",
+    "license": "source-binding",
+    "sourceHash": "",
+    "sourceHeight": 2.2,
+    "height": 2.2,
+    "width": 8.4,
+    "depth": 3,
+    "radius": 4.459820624195552,
+    "placementClass": "solid",
+    "wind": false
+  },
+  {
+    "id": "pilot.asphalt",
+    "source": "pilot.asphalt",
+    "license": "source-binding",
+    "sourceHash": "",
+    "sourceHeight": 0.2,
+    "height": 0.2,
+    "width": 6,
+    "depth": 1.6,
+    "radius": 3.104834939252005,
+    "placementClass": "groundcover",
+    "wind": false
+  }
+]
