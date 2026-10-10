@@ -2,7 +2,7 @@
 
 > Навігація: [ілюстрований довідник](docs/README.md) · [світ і source catalog](docs/world.md) · [галерея](docs/gallery.md) · [стан перевірок](docs/status.md).
 >
-> Тіні 10.10: усі непрозорі об’єкти та рослинність відкидають тіні від одного сонця; exact indexing скоротив кількість вершин на 22,7–22,9%. 43 native кадри Passed, новий Game View повтор готується. Atlas 512/1024, один каскад; Editor evidence не означає mobile FPS.
+> Тіні 10.10: усі непрозорі об’єкти та рослинність відкидають тіні від одного сонця; об’єднання однакових вершин скоротило їхню кількість на 22,7–22,9% без зміни силуетів. 43 native кадри й новий Game View flow Passed, відео оновлено. [Бюджет тіней](Design/Roadmap/CinematicPilot/2026-10-10/shadow-budget-receipt.json): atlas 512/1024, один каскад; Editor evidence не означає mobile FPS.
 
 > Читабельність дороги 10.10: зупинка повернута до двосмугового асфальту; owned bay/platform і roadside waystone готові. Порівняння Low/Balanced, portrait/landscape, 43 native кадри та свіжий Game View flow Passed; відео оновлено. Покриття повторює фактичні трикутники землі, дальній рельєф не перекриває дорогу. [Дорога](Design/Roadmap/StopRoad/2026-10-10/index.html).
 

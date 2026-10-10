@@ -49,6 +49,17 @@ def main():
     assert all(frame['opaqueShadowCasters']>0 for frame in native['frames'])
     assert all(frame['renderProfile'] == frame['quality'] for frame in native['frames'])
     assert all(frame['shadowDistance'] > 60 for frame in native['frames']), 'Aerial ground shadows are clipped'
+    shadows = read('shadow-budget-receipt.json')
+    assert shadows['sourceHash'] == bake['sourceHash'] and shadows['nativeCaptureUtc'] == native['capturedUtc']
+    assert shadows['gameViewResult'] == 'Passed' and shadows['gameViewCaptureUtc'] == gameview['capturedUtc']
+    assert shadows['sameTriangleAttributesVerifiedDuringBake'] and shadows['allOpaqueWorldObjectsCastShadows']
+    assert all(frame['shadowCascades'] == 1 and frame['shadowAtlasResolution'] == (512 if frame['quality'] == 'Low' else 1024) for frame in native['frames'])
+    for tier in shadows['tiers']:
+        quality = tier['quality'].lower()
+        assert tier['indexedVertices'] == sum(chunk[quality+'Vertices'] for chunk in bake['stats'])
+        assert tier['triangleStreamVerticesBefore'] == 3*sum(chunk[quality+'Triangles'] for chunk in bake['stats'])
+        assert tier['indexedVertices'] < tier['triangleStreamVerticesBefore']*.8
+    assert all(sample['meanRgbByteDifference'] == 0 for sample in shadows['staticStopPixelComparison'][:2])
     assert not any('tent' in asset.lower() for chunk in bake['stats'] for asset in chunk['sourceAssets'])
 
     project = ROOT / 'QuietCamp'
@@ -111,6 +122,7 @@ def main():
     assert compiled['presentationSourceSha256'] == digest(ROOT / 'QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldPresenter.cs')
     assert compiled['opaqueShadowAssertionExecuted'], 'Current opaque shadow check was not executed'
     assert compiled['coarseTerrainExclusionExecuted'], 'Detailed road/coarse ground exclusion was not checked'
+    assert compiled['indexedShadowGeometryAssertionExecuted'], 'Current shadow/indexing checks were not executed'
     water = gameview['waterMotion']
     assert len(water) == 2 and {sample['quality'] for sample in water} == {'Low', 'Balanced'}
     assert all(sample['cameraStationary'] and sample['seconds'] >= 2 and sample['meanRgbByteDifference'] > .15 for sample in water)

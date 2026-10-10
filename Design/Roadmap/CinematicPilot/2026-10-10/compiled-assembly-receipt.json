@@ -1,10 +1,10 @@
 {
   "kind": "current-private-qa-compiled-artifacts",
-  "sourceHash": "4c4e9ae2fe3f562e313bb1f69ee222792cf7565230653e5efe909c51d64e3043",
-  "captureUtc": "2026-10-10T18:36:20.1030060Z",
-  "verifiedUtc": "2026-10-10T18:37:27.840698+00:00",
+  "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
+  "captureUtc": "2026-10-10T18:48:35.7756970Z",
+  "verifiedUtc": "2026-10-10T18:50:18.683036+00:00",
   "compilerCache": "Private QA Bee, ScriptAssemblies, ScriptMapper, ArtifactDB and SourceAssetDB",
-  "testsSourceSha256": "08c0e47b1e254ffbf6d8cb517ace1be8e29077a2b5ef5ba88e11c55b45105415",
+  "testsSourceSha256": "b9933a446bc9a7a528b8e1544dbfb52316ce5f5822ead04f9a74bd6ea1bd2d68",
   "presentationSourceSha256": "5421769994f8a9c271f5948a76b8e4022d5fada89947079baacd353acb5ff9c3",
   "currentCodeFeatures": {
     "waterMotion": true,
@@ -16,7 +16,8 @@
     "Executed tests contain waterMotion and receipt records both stationary water probes",
     "Presentation assembly contains baked riverByFrontier integration",
     "Current PlayMode test asserts shadow casters on all opaque world renderers in both tiers",
-    "Current PlayMode test excludes coarse ground wherever detailed terrain and paving are loaded"
+    "Current PlayMode test excludes coarse ground wherever detailed terrain and paving are loaded",
+    "Executed tests assert all opaque shadow casters, indexed mesh bounds, one cascade and 512/1024 shadow atlases"
   ],
   "assemblies": [
     {
@@ -45,17 +46,18 @@
     },
     {
       "file": "QuietCamp.Editor.dll",
-      "nativeCompiledSha256": "46d0bcbd1fa9313c864331563fd1596a4141679dfb447ff5c03d87de35e1d334",
-      "qaExecutedSha256": "aa1c3b1c26d3d23594e1d551e836f978dfcba1019ba37c9664abb76edc431d15",
+      "nativeCompiledSha256": "8b61a52d69a1ac40db645eadb6d1b24149cc2ee06151cac18cae450af9c86ce8",
+      "qaExecutedSha256": "cbf93ca7360f7d8a0fd36aff9c8f63b27c1b7da78d9d33fdfa8572a7a7c979b0",
       "byteIdentical": false
     },
     {
       "file": "QuietCamp.Tests.PlayMode.dll",
-      "nativeCompiledSha256": "c9f80c54979aa2829736b3629d30a6980b61c1ca990eeb826512e577401a295f",
-      "qaExecutedSha256": "c60c864a645d1f7cf48dbf4238950bb7221235e13c518afcdbd1fd5bbcd26c5c",
+      "nativeCompiledSha256": "7690ffe0795e1acc2d0df305932a33066aedbab36dac254c752c0df6cf0e9e5e",
+      "qaExecutedSha256": "a4aa3171715a3aaa36e66ecb5f9f694a92b0babb7e9d2c782953a28aebd4049c",
       "byteIdentical": false
     }
   ],
   "opaqueShadowAssertionExecuted": true,
-  "coarseTerrainExclusionExecuted": true
+  "coarseTerrainExclusionExecuted": true,
+  "indexedShadowGeometryAssertionExecuted": true
 }

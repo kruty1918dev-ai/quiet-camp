@@ -2,7 +2,7 @@
   "kind": "stop-road-native-legibility-review",
   "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
   "nativeCaptureUtc": "2026-10-10T18:43:32.0253810Z",
-  "verifiedUtc": "2026-10-10T18:37:27.840698+00:00",
+  "verifiedUtc": "2026-10-10T18:50:18.683036+00:00",
   "before": {
     "sourceHash": "56f533f8ee3bc33aff187e6577b8a5b8eec1c780509e2f1723f21c66593442ad",
     "capturedUtc": "2026-10-10T17:56:07.1778010Z",
@@ -97,8 +97,18 @@
     }
   ],
   "nativeFrames": 43,
-  "gameViewFollowup": "Pending",
+  "gameViewFollowup": "Passed",
   "mobileFpsMeasured": false,
   "playerBuild": false,
-  "gameViewResult": "Pending"
+  "gameViewResult": "Passed",
+  "gameViewCaptureUtc": "2026-10-10T18:48:35.7756970Z",
+  "browserReview": {
+    "result": "Passed",
+    "verifiedUtc": "2026-10-10T18:50:27.626692+00:00",
+    "widths": [
+      320,
+      720,
+      1440
+    ]
+  }
 }

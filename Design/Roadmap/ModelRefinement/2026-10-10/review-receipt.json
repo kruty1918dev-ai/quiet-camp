@@ -1,6 +1,6 @@
 {
   "kind": "roadmap-model-and-clearance-native-review",
-  "verifiedUtc": "2026-10-10T18:37:27.840698+00:00",
+  "verifiedUtc": "2026-10-10T18:50:18.683036+00:00",
   "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
   "nativeCaptureUtc": "2026-10-10T18:43:32.0253810Z",
   "before": {
@@ -328,5 +328,15 @@
   },
   "playerBuild": false,
   "mobileFpsMeasured": false,
-  "gameViewResult": "Pending"
+  "gameViewResult": "Passed",
+  "gameViewCaptureUtc": "2026-10-10T18:48:35.7756970Z",
+  "browserReview": {
+    "result": "Passed",
+    "verifiedUtc": "2026-10-10T18:50:27.626692+00:00",
+    "widths": [
+      320,
+      720,
+      1440
+    ]
+  }
 }

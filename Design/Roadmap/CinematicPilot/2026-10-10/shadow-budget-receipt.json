@@ -62,11 +62,39 @@
       "notes": "Water uses a live clock; river scenes can differ between captures."
     }
   ],
-  "gameViewResult": "Pending",
+  "gameViewResult": "Passed",
   "mobileFpsMeasured": false,
   "playerBuild": false,
   "limits": [
     "Indexed vertex/payload and Editor counters are not GPU timing or phone FPS.",
     "Water and airborne pollen are transparent and do not cast opaque ground shadows."
-  ]
+  ],
+  "gameViewCaptureUtc": "2026-10-10T18:48:35.7756970Z",
+  "measurements": {
+    "Low": {
+      "maxSubmittedMeshTriangles": 72482,
+      "maxSharedWorldMaterials": 6,
+      "maxDetailedChunks": 3,
+      "gameViewSamples": 10,
+      "maxEditorDrawCalls": 54,
+      "maxPassInclusiveEditorTriangles": 143407
+    },
+    "Balanced": {
+      "maxSubmittedMeshTriangles": 98775,
+      "maxSharedWorldMaterials": 6,
+      "maxDetailedChunks": 3,
+      "gameViewSamples": 10,
+      "maxEditorDrawCalls": 54,
+      "maxPassInclusiveEditorTriangles": 195950
+    }
+  },
+  "tierTotalsScope": "Sum across all five chunks of each quality; only up to three chunks are resident. Visibility budgets are recorded separately in measurements.",
+  "verifiedAttributes": [
+    "position",
+    "normal",
+    "color",
+    "uv0",
+    "windRootHeight"
+  ],
+  "comparisonMethod": "Prior writer stored three vertices per triangle. Bake checks all expanded triangle attributes against the exact indexed stream."
 }

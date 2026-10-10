@@ -1,8 +1,8 @@
 {
-  "capturedUtc": "2026-10-10T18:36:20.1030060Z",
+  "capturedUtc": "2026-10-10T18:48:35.7756970Z",
   "unity": "6000.6.2f1",
   "product": "QuietCampRoadmapQA",
-  "sourceHash": "4c4e9ae2fe3f562e313bb1f69ee222792cf7565230653e5efe909c51d64e3043",
+  "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
   "playerBuild": false,
   "mobileFpsMeasured": false,
   "audioSuppressionRequested": true,
@@ -447,8 +447,8 @@
     {
       "quality": "Low",
       "renderProfile": "Low",
-      "seconds": 2.16844177,
-      "meanRgbByteDifference": 2.63434625,
+      "seconds": 2.14717865,
+      "meanRgbByteDifference": 3.628292,
       "patchX": 452,
       "patchY": 525,
       "patchSize": 40,
@@ -458,8 +458,8 @@
     {
       "quality": "Balanced",
       "renderProfile": "Balanced",
-      "seconds": 2.14393616,
-      "meanRgbByteDifference": 3.94037437,
+      "seconds": 2.15007019,
+      "meanRgbByteDifference": 4.024745,
       "patchX": 452,
       "patchY": 525,
       "patchSize": 40,
@@ -470,26 +470,26 @@
   "reentryCounts": [
     [
       2,
-      398,
-      203
+      373,
+      219
     ],
     [
       2,
-      398,
-      203
+      373,
+      219
     ],
     [
       2,
-      398,
-      203
+      373,
+      219
     ],
     [
       2,
-      398,
-      203
+      373,
+      219
     ]
   ],
   "movieFrameCount": 193,
-  "capturedSeconds": 35.31983,
+  "capturedSeconds": 33.93197,
   "checks": "Fresh campaign progress after onboarding, completion 1–5, old progress including gaps, replay, jitter-tolerant tap, drag rejection, 36 screen-space tracking samples, normalized wheel and fractional trackpad, multitouch ownership, real Input System pinch/release/cancel, fresh-profile inspection margins without reveal, quality change, synthetic notch, portrait/landscape, reduced motion, interrupted reveal, repeated entry/exit"
 }
