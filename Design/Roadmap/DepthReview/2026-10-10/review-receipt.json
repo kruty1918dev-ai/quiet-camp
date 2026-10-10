@@ -1,0 +1,99 @@
+{
+  "kind": "roadmap-relief-lighting-native-review",
+  "sourceHash": "314244d43c251208d8fbcd071344f582944000e2dfbffaa485724abebb91b7a6",
+  "nativeCaptureUtc": "2026-10-10T19:02:08.7585630Z",
+  "before": {
+    "sourceHash": "2ebd302b804439ac1777352ac53cb0b41faf8c4577c57d76b1927c0be8c2fb58",
+    "capturedUtc": "2026-10-10T18:43:32.0253810Z"
+  },
+  "cameraAnchorsUnchanged": true,
+  "cameraComparison": "Same authored XZ anchors, yaw, pitch, FOV and booms; focus Y follows the rebaked terrain. Water uses a live clock.",
+  "reviewedCompositions": 9,
+  "reviewedTransitionFrames": 4,
+  "refinement": "First render had an oversteep bank. Revised height sampler adds a low floodplain between water and upland hills.",
+  "findings": [
+    "Broad folds sit inside the portrait view beside the road",
+    "Directional blue sky irradiance and warm side sun describe crown and roof facets",
+    "Foreground hills, road floor and softened distant vegetation read as different planes",
+    "Crossing uses a low floodplain with upland slopes beyond it",
+    "Road, mosaic, damaged roof, fallen support, crossing and dam remain visible",
+    "Low/Balanced, maximum zoom-out and landscape inspected"
+  ],
+  "gameViewResult": "Pending",
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "images": [
+    {
+      "file": "after-00.png",
+      "sha256": "99a1bf4d2b039610810ca8f85f3cd0e66333811cdebc79e42d6ac9c306058868"
+    },
+    {
+      "file": "after-01.png",
+      "sha256": "025e1915d1654ec75206d14282a774d47a92a17901a7951cd832ffb943cce338"
+    },
+    {
+      "file": "after-02.png",
+      "sha256": "418abd107b44cd2707aaa17938a49211c8876ed490a09315ab74198ba196f6a4"
+    },
+    {
+      "file": "after-03.png",
+      "sha256": "9c51ea714e3791c0dadbc482a5da8590a087cc701c86c4c24cce142f391c7c5c"
+    },
+    {
+      "file": "after-04.png",
+      "sha256": "6f12f2b0a044a98410b3b1cd530a22525d5762aeaf02d020c855062fa0a7270c"
+    },
+    {
+      "file": "after-05.png",
+      "sha256": "0ee1e28d8afe5502f178f3e2895fa3411ca5c744745b412dfb3fb7f3cc3d4ae3"
+    },
+    {
+      "file": "after-06.png",
+      "sha256": "11a3e23dc4dda80e48f05ec38d73372b02e54f652ccd09769a3e94e232aca266"
+    },
+    {
+      "file": "after-07.png",
+      "sha256": "1c54f3c67143dba7af77bbf8951e7b8b17641d0771efb373e0ff948a3943dfae"
+    },
+    {
+      "file": "after-08.png",
+      "sha256": "651aa25ba4ef27ac5cf38e77e02200d2abfdb316e1b915876275d4d38d465cb3"
+    },
+    {
+      "file": "before-00.png",
+      "sha256": "990457fff61b7af2a4d736231929f47e907953e595d01d2d283d8cea1edc8ad7"
+    },
+    {
+      "file": "before-01.png",
+      "sha256": "cb257b2634b434d5b848e6dfcb52c5a2786a762f378ff4ae5530cc1c7b9f6d8a"
+    },
+    {
+      "file": "before-02.png",
+      "sha256": "bca2ead1a7b96d229c293c908785677416f38ac4df72af62d1668af88da178d4"
+    },
+    {
+      "file": "before-03.png",
+      "sha256": "1e58e6f99cd7f1404190d30fbc8ab0f3788a4688d599b6548e459b8ebc31057d"
+    },
+    {
+      "file": "before-04.png",
+      "sha256": "f1bd4475f32ef8aa703cf231a9aa397cb2259f29a5fc888ece833fc5f5cdedff"
+    },
+    {
+      "file": "before-05.png",
+      "sha256": "f5e06eb102625c178b2715b79c0ff8b11cb34822c46e4a3877b7afface295634"
+    },
+    {
+      "file": "before-06.png",
+      "sha256": "c5c28482db93b80fb5e67751d01dab5ea877ac832e53523dfde0a6bfe2b1dcc2"
+    },
+    {
+      "file": "before-07.png",
+      "sha256": "9cac0a6f176d27104c7a3f8b2a0024b1a49ac92dca5c9063322dd63fb466033c"
+    },
+    {
+      "file": "before-08.png",
+      "sha256": "0f1588fc8e18033932eaab36c825540957bde92bfe8f79e592114b3173f60ce6"
+    }
+  ]
+}

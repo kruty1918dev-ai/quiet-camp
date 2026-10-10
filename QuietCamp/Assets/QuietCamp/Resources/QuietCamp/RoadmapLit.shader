@@ -209,7 +209,6 @@ Shader "QuietCamp/RoadmapLit"
                 // Volume cue: inner/low canopy stays cooler and darker, the
                 // lit side picks up the real sun color.
                 float inner = lerp(1.0f, 1.0f - _InnerShade, 1.0f - mask);
-                float hemisphere=.58f+.42f*saturate(n.y*.5f+.5f);
                 float translucency=rigid?0:pow(saturate(dot(normalize(_WorldSpaceCameraPos-wp),-sunDirection)),3)*.14f*mask;
                 half3 vertexTint=v.color.rgb;
                 #ifndef UNITY_COLORSPACE_GAMMA
@@ -232,9 +231,14 @@ Shader "QuietCamp/RoadmapLit"
             {
                 half shadow = MainLightRealtimeShadow(TransformWorldToShadowCoord(i.world));
                 half3 lit=i.col+i.sunlight*shadow;
-                float air=1-exp(-pow(max(0,distance(i.world,_WorldSpaceCameraPos)-_RoadmapFogStart)*.022,2));
+                // Distance separates the far plane; a little low-lying river
+                // haze sits below tree crowns instead of flattening every face.
+                float distanceFade=max(0,distance(i.world,_WorldSpaceCameraPos)-_RoadmapFogStart);
+                float air=1-exp(-pow(distanceFade*.03,2));
+                float riverHaze=smoothstep(35,44,i.world.z)*(1-smoothstep(-.4,2.6,i.world.y))
+                    *smoothstep(5,18,distanceFade)*.12;
                 float future=smoothstep(_RoadmapRevealZ-3,_RoadmapRevealZ+7,i.world.z);
-                return half4(lerp(lit,_RoadmapFogColor.rgb,max(air,future*.94)), _BaseColor.a);
+                return half4(lerp(lit,_RoadmapFogColor.rgb,max(max(air,riverHaze),future*.94)), _BaseColor.a);
             }
             ENDHLSL
         }

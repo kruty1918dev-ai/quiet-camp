@@ -111,14 +111,20 @@ namespace QuietCamp.Presentation.World
             _camera.allowHDR=true;_camera.allowMSAA=true;
             var data=_camera.GetUniversalAdditionalCameraData();data.renderShadows=true;data.renderPostProcessing=true;data.requiresDepthTexture=true;data.volumeLayerMask=1<<Layer;
             var sunObject=new GameObject("Valley afternoon sun");sunObject.layer=Layer;sunObject.transform.SetParent(_root.transform,false);_sun=sunObject.AddComponent<Light>();
-            _sun.type=LightType.Directional;_sun.transform.rotation=Quaternion.Euler(42,-48,0);_sun.color=new Color(1,.93f,.79f);_sun.intensity=1.22f;
+            _sun.type=LightType.Directional;_sun.transform.rotation=Quaternion.Euler(34,-55,0);_sun.color=new Color(1,.92f,.77f);_sun.intensity=1.3f;
             _sun.shadows=LightShadows.Soft;_sun.shadowBias=.025f;_sun.shadowNormalBias=.25f;_sun.cullingMask=1<<Layer;RenderSettings.sun=_sun;
             RenderSettings.ambientMode=AmbientMode.Custom;
-            var probe=new SphericalHarmonicsL2();probe.AddAmbientLight(new Color(.62f,.70f,.74f).linear*.72f);RenderSettings.ambientProbe=probe;
+            // Directional sky irradiance describes crown/roof facets without an
+            // extra realtime light, shadow map or screen-space occlusion pass.
+            var probe=new SphericalHarmonicsL2();
+            probe.AddAmbientLight(new Color(.60f,.69f,.76f).linear*.38f);
+            probe.AddDirectionalLight(Vector3.up,new Color(.67f,.79f,.93f).linear,.6f);
+            probe.AddDirectionalLight(Vector3.down,new Color(.43f,.46f,.28f).linear,.16f);
+            RenderSettings.ambientProbe=probe;
             RenderSettings.ambientLight=new Color(.67f,.73f,.72f);RenderSettings.fog=false;
             var volume=new GameObject("Valley gentle color grade");volume.transform.SetParent(_root.transform,false);volume.layer=Layer;
             var v=volume.AddComponent<Volume>();v.isGlobal=true;v.priority=30;_profile=ScriptableObject.CreateInstance<VolumeProfile>();v.sharedProfile=_profile;
-            var grade=_profile.Add<ColorAdjustments>();grade.postExposure.Override(.15f);grade.saturation.Override(-3);
+            var grade=_profile.Add<ColorAdjustments>();grade.postExposure.Override(.1f);grade.saturation.Override(-1);
             var tone=_profile.Add<Tonemapping>();tone.mode.Override(TonemappingMode.Neutral);
             var focus=_profile.Add<DepthOfField>();focus.mode.Override(DepthOfFieldMode.Off);
             var blur=_profile.Add<MotionBlur>();blur.intensity.Override(0);

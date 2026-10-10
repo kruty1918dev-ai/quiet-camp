@@ -37,23 +37,40 @@ namespace QuietCamp.Presentation.World
         public static float WaterDistance(float x,float z) => z < 88 ? 100 : Mathf.Abs(x - RiverX(z)) - RiverWidth(z);
         public static float Height(float x,float z)
         {
-            float h = 2.2f + 1.15f*Mathf.Sin(x*.10f+z*.017f) + 1.05f*Mathf.Cos(z*.046f)
-                + 4.6f*Mathf.SmoothStep(0,1,Mathf.InverseLerp(20,52,Mathf.Abs(x)))
+            // The road follows a shallow valley floor. Its flanking folds must be
+            // inside the portrait view, rather than beyond the camera's edges.
+            float h = 1.7f + .65f*Mathf.Sin(x*.10f+z*.017f) + .55f*Mathf.Cos(z*.046f)
+                + (5.5f+2.6f*Mathf.Sin(z*.042f+.4f))*Mathf.SmoothStep(0,1,Mathf.InverseLerp(7,30,Mathf.Abs(x-RoadX(z))))
+                + Hill(x,z,-22,23,16,26,8.5f) + Hill(x,z,19,61,13,25,9.5f)
+                + Hill(x,z,-20,112,18,32,10) + Hill(x,z,34,168,18,36,8)
                 - 1.9f*Mathf.SmoothStep(0,1,Mathf.InverseLerp(65,135,z));
             if(z>88)
             {
                 // Dry valley land cannot dip below the river plane outside its authored channel.
                 h=Mathf.Max(h,WaterHeight+.85f);
-                float bank = Mathf.SmoothStep(0,1,Mathf.InverseLerp(-.7f,5,WaterDistance(x,z)));
+                float waterDistance=WaterDistance(x,z);
+                // A low floodplain receives the crossing. Hills begin beyond it;
+                // extending the full hill height to the shoreline makes a trench.
+                h=Mathf.Lerp(WaterHeight+1.5f,h,Mathf.SmoothStep(0,1,Mathf.InverseLerp(3,16,waterDistance)));
+                float bank = Mathf.SmoothStep(0,1,Mathf.InverseLerp(-.7f,5,waterDistance));
                 h = Mathf.Lerp(WaterHeight-.55f,h,bank * Mathf.SmoothStep(0,1,Mathf.InverseLerp(88,101,z))
                     + 1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(88,101,z)));
             }
             return h;
         }
+        static float Hill(float x,float z,float cx,float cz,float rx,float rz,float height)
+        {
+            float dx=(x-cx)/rx,dz=(z-cz)/rz;
+            return height*Mathf.Exp(-(dx*dx+dz*dz)*1.5f);
+        }
         public static Color GroundColor(float x,float z)
         {
             float patch = .5f + .25f*Mathf.Sin(x*.23f+z*.11f) + .25f*Mathf.Sin(x*.071f-z*.19f);
-            var grass=Color.Lerp(new Color(.32f,.43f,.23f),new Color(.54f,.59f,.34f),patch);
+            var grass=Color.Lerp(new Color(.29f,.42f,.25f),new Color(.49f,.57f,.32f),patch);
+            // Broad meadow variation follows the landform; tiny random colour
+            // noise cannot describe a slope at the bird's-eye viewing distance.
+            float crest=Mathf.SmoothStep(0,1,Mathf.InverseLerp(5,13,Height(x,z)));
+            grass=Color.Lerp(grass,new Color(.55f,.58f,.36f),crest*.35f);
             float path=Mathf.SmoothStep(0,1,Mathf.InverseLerp(2.4f,.65f,Mathf.Abs(x-RoadX(z))));
             var soil=z<26?new Color(.37f,.39f,.35f):new Color(.61f,.56f,.42f);
             grass=Color.Lerp(grass,soil,path*.8f);
