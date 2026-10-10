@@ -36,6 +36,9 @@ namespace QuietCamp.Editor
             var asset=AssetDatabase.LoadAssetAtPath<RoadmapWorldAsset>("Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/World.asset");
             string repo=Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath,"../.."));
             string output=Path.Combine(repo,"Design/Roadmap/CinematicPilot/2026-10-10");Directory.CreateDirectory(output);
+            int previousQuality=QualitySettings.GetQualityLevel();
+            try
+            {
             var results=new List<object>();
             foreach(bool low in new[]{true,false})for(int i=0;i<9;i++)
                 results.Add(Capture(asset,i*.5f,4,low,720,1600,Path.Combine(output,(low?"low-composition-":"composition-")+i.ToString("00")+".png")));
@@ -48,6 +51,10 @@ namespace QuietCamp.Editor
             // Bird's-eye framing must stay inside the terrain at the widest portrait pinch as well.
             foreach(bool low in new[]{true,false})for(int i=0;i<5;i++)
                 results.Add(Capture(asset,i,4,low,720,1600,Path.Combine(output,(low?"low-":"")+"portrait-zoom-out-"+i+".png"),.85f));
+            // Endpoint inspection margins must remain continuous at maximum zoom-out.
+            foreach(bool landscape in new[]{false,true})foreach(float route in new[]{-.25f,4.2f})
+                results.Add(Capture(asset,route,4,false,landscape?1600:720,landscape?720:1600,
+                    Path.Combine(output,"edge-"+(route<0?"start":"end")+"-"+(landscape?"landscape":"portrait")+".png"),.85f));
             var errors=new List<string>();
             foreach(var shader in new[]{asset.ground.shader,asset.foliage.shader,asset.water.shader,asset.marker.shader}.Distinct())
                 foreach(var message in ShaderUtil.GetShaderMessages(shader))
@@ -59,6 +66,8 @@ namespace QuietCamp.Editor
                 mobileFpsMeasured=false,shaderErrors=errors,frames=results},Formatting.Indented)+"\n");
             if(errors.Count>0)throw new InvalidOperationException(string.Join("\n",errors));
             Debug.Log("[CinematicRoadmap] Captured nine compositions, progress and quality fixtures");
+            }
+            finally{QualitySettings.SetQualityLevel(previousQuality,true);}
         }
         static object Capture(RoadmapWorldAsset asset,float route,int frontier,bool low,int width,int height,string path,float zoom=1)
         {
@@ -66,6 +75,7 @@ namespace QuietCamp.Editor
             RenderTexture target=null;Texture2D pixels=null;var previous=RenderTexture.active;
             try
             {
+                if(QualitySettings.GetQualityLevel()!=(low?0:1))QualitySettings.SetQualityLevel(low?0:1,true);
                 world.ConfigureCapture(asset,route,frontier,low);
                 if(!world.Ready)throw new InvalidOperationException(world.Fault??"Chunks not ready");
                 target=new RenderTexture(width,height,24,RenderTextureFormat.ARGB32){antiAliasing=1};target.Create();
@@ -81,6 +91,7 @@ namespace QuietCamp.Editor
                 if(world.LoadedChunks>3||submittedTriangles>(low?80000:150000)||visible.Select(r=>r.sharedMaterial).Distinct().Count()>(low?8:12))
                     throw new InvalidOperationException("Native composition exceeds the pilot geometry/residency/material budget: "+path+" / "+submittedTriangles);
                 return new{file=Path.GetFileName(path),route,frontier,quality=low?"Low":"Balanced",width,height,
+                    renderProfile=QualitySettings.names[QualitySettings.GetQualityLevel()],
                     zoom,fieldOfView=world.WorldCamera.fieldOfView,shadowDistance=((UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline).shadowDistance,loadedChunks=world.LoadedChunks,visibleRenderers=visible.Length,submittedMeshTriangles=submittedTriangles,
                     sharedMaterials=visible.Select(r=>r.sharedMaterial).Distinct().Count(),editorDrawCalls=UnityStats.drawCalls,
                     editorTriangles=UnityStats.triangles,cameraPosition=new[]{world.WorldCamera.transform.position.x,world.WorldCamera.transform.position.y,world.WorldCamera.transform.position.z}};
