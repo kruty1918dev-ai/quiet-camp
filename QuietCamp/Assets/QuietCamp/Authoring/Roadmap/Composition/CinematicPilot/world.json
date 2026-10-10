@@ -5,7 +5,7 @@
   "minX": -62,
   "maxX": 62,
   "minZ": -70,
-  "maxZ": 230,
+  "maxZ": 260,
   "chunkStarts": [
     -70,
     20,
@@ -18,7 +18,7 @@
     60,
     100,
     140,
-    230
+    260
   ],
   "waypoints": [
     {
@@ -29,8 +29,8 @@
       "focusX": -3,
       "focusZ": 4,
       "yaw": -8,
-      "pitch": 46,
-      "distance": 88
+      "pitch": 55,
+      "distance": 128
     },
     {
       "levelId": "QC002",
@@ -40,8 +40,8 @@
       "focusX": -9,
       "focusZ": 44,
       "yaw": 4,
-      "pitch": 46,
-      "distance": 94
+      "pitch": 55,
+      "distance": 136
     },
     {
       "levelId": "QC003",
@@ -51,8 +51,8 @@
       "focusX": 1,
       "focusZ": 84,
       "yaw": 12,
-      "pitch": 46,
-      "distance": 100
+      "pitch": 55,
+      "distance": 145
     },
     {
       "levelId": "QC004",
@@ -62,8 +62,8 @@
       "focusX": 7,
       "focusZ": 124,
       "yaw": 6,
-      "pitch": 44,
-      "distance": 100
+      "pitch": 54,
+      "distance": 145
     },
     {
       "levelId": "QC005",
@@ -73,8 +73,8 @@
       "focusX": 2,
       "focusZ": 164,
       "yaw": -4,
-      "pitch": 44,
-      "distance": 104
+      "pitch": 54,
+      "distance": 151
     }
   ],
   "looseConductors": [

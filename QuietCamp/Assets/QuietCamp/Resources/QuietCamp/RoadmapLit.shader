@@ -59,6 +59,7 @@ Shader "QuietCamp/RoadmapLit"
         // Shared wind/light state — one scene owner writes these.
         float4 _RoadmapFogColor;
         float _RoadmapRevealZ;
+        float _RoadmapFogStart;
         float4 _AtmosWindXZ;      // xy = direction, zw unused
         float _AtmosWindStrength;
         float _AtmosWindTime;
@@ -231,7 +232,7 @@ Shader "QuietCamp/RoadmapLit"
             {
                 half shadow = MainLightRealtimeShadow(TransformWorldToShadowCoord(i.world));
                 half3 lit=i.col+i.sunlight*shadow;
-                float air=1-exp(-pow(max(0,distance(i.world,_WorldSpaceCameraPos)-32)*.022,2));
+                float air=1-exp(-pow(max(0,distance(i.world,_WorldSpaceCameraPos)-_RoadmapFogStart)*.022,2));
                 float future=smoothstep(_RoadmapRevealZ-3,_RoadmapRevealZ+7,i.world.z);
                 return half4(lerp(lit,_RoadmapFogColor.rgb,max(air,future*.94)), _BaseColor.a);
             }

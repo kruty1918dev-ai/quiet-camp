@@ -41,6 +41,9 @@ namespace QuietCamp.Editor
                 results.Add(Capture(asset,3,4,low,1600,720,Path.Combine(output,(low?"low":"balanced")+"-landscape.png")));
             for(int i=0;i<5;i++)
                 results.Add(Capture(asset,i,4,false,1600,720,Path.Combine(output,"landscape-zoom-out-"+i+".png"),.85f));
+            // Bird's-eye framing must stay inside the terrain at the widest portrait pinch as well.
+            foreach(bool low in new[]{true,false})for(int i=0;i<5;i++)
+                results.Add(Capture(asset,i,4,low,720,1600,Path.Combine(output,(low?"low-":"")+"portrait-zoom-out-"+i+".png"),.85f));
             var errors=new List<string>();
             foreach(var shader in new[]{asset.ground.shader,asset.foliage.shader,asset.water.shader,asset.marker.shader}.Distinct())
                 foreach(var message in ShaderUtil.GetShaderMessages(shader))

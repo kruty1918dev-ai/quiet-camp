@@ -91,7 +91,7 @@ namespace QuietCamp.Presentation.World
             _oldSun=RenderSettings.sun;_oldSky=RenderSettings.skybox;_oldFog=RenderSettings.fog;
             _oldAmbient=RenderSettings.ambientLight;_oldSkyColor=RenderSettings.ambientSkyColor;_oldEquator=RenderSettings.ambientEquatorColor;
             _oldGround=RenderSettings.ambientGroundColor;_oldAmbientMode=RenderSettings.ambientMode;_oldProbe=RenderSettings.ambientProbe;
-            foreach(var name in new[]{"_AtmosWindStrength","_AtmosWindTime","_AtmosWaveLen","_AtmosWaveSpeed","_AtmosFlutterScale","_RoadmapRevealZ"})_oldFloats[name]=Shader.GetGlobalFloat(name);
+            foreach(var name in new[]{"_AtmosWindStrength","_AtmosWindTime","_AtmosWaveLen","_AtmosWaveSpeed","_AtmosFlutterScale","_RoadmapRevealZ","_RoadmapFogStart"})_oldFloats[name]=Shader.GetGlobalFloat(name);
             foreach(var name in new[]{"_AtmosWindXZ","_AtmosSunDirW","_AtmosSunColor","_AtmosAmbient","_RoadmapFogColor"})_oldVectors[name]=Shader.GetGlobalVector(name);
             foreach(var cam in FindObjectsByType<Camera>(FindObjectsSortMode.None))
                 if(cam.enabled&&cam.gameObject.scene==gameObject.scene){_disabledCameras.Add(cam);cam.enabled=false;}
@@ -213,12 +213,15 @@ namespace QuietCamp.Presentation.World
             if(_camera==null)return;
             // Keep a landscape viewport inside the authored valley even at the widest pinch zoom.
             // Portrait retains the authored vertical FOV; wide screens cap the horizontal field.
-            float aspect=Mathf.Max(1,_camera.aspect/1.2f);
+            float aspect=Mathf.Max(1,_camera.aspect);
             _camera.fieldOfView=2*Mathf.Atan(Mathf.Tan(_asset.fieldOfView*Mathf.Deg2Rad*.5f)/aspect)*Mathf.Rad2Deg;
             _route=Mathf.Clamp(route,0,4);int a=Mathf.FloorToInt(_route),b=Mathf.Min(4,a+1);
             float t=Mathf.SmoothStep(0,1,_route-a);var from=_asset.waypoints[a];var to=_asset.waypoints[b];
             var focus=Vector3.Lerp(from.focus,to.focus,t);var rotation=Quaternion.Euler(Mathf.Lerp(from.pitch,to.pitch,t),Mathf.LerpAngle(from.yaw,to.yaw,t),0);
-            var position=focus+rotation*Vector3.back*Mathf.Lerp(from.distance,to.distance,t)/_zoom;
+            float boomDistance=Mathf.Lerp(from.distance,to.distance,t)/_zoom;
+            var position=focus+rotation*Vector3.back*boomDistance;
+            // Raising the camera must not turn the whole valley into fog. Keep haze in the far field.
+            Shader.SetGlobalFloat("_RoadmapFogStart",boomDistance*_asset.worldScale*.9f);
             _camera.transform.position=_root.transform.TransformPoint(position);_camera.transform.rotation=rotation;
             for(int i=0;i<5;i++)
             {
