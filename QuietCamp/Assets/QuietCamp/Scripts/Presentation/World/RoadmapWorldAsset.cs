@@ -13,6 +13,7 @@ namespace QuietCamp.Presentation.World
     public sealed class RoadmapWorldAsset : ScriptableObject
     {
         public string revision, sourceHash;
+        public bool artisticReference;
         public RoadmapWaypoint[] waypoints;
         public string[] chunks;
         public Mesh horizon, markerMesh;
@@ -31,12 +32,15 @@ namespace QuietCamp.Presentation.World
         // Matches the authored old-road corridor and its owned stop/yard approaches.
         public static float RoadX(float z) => z<=40?0:z<=80?Mathf.Lerp(0,2,(z-40)/40):z<=120?Mathf.Lerp(2,-3,(z-80)/40):z<=170?Mathf.Lerp(-3,1,(z-120)/50):Mathf.Lerp(1,-2,Mathf.Clamp01((z-170)/35));
         public static float RoadHalfWidth(float z) => Mathf.Lerp(3.2f,1.15f,Mathf.SmoothStep(0,1,Mathf.InverseLerp(22,60,z)));
-        public static float RiverX(float z) => 14 + 6 * Mathf.Sin(z * .029f);
-        public static float RiverWidth(float z) => Mathf.Lerp(2.5f, 10, Mathf.SmoothStep(0,1,Mathf.InverseLerp(138,180,z)));
-        public const float WaterHeight = -.7f;
-        public static float WaterDistance(float x,float z) => z < 88 ? 100 : Mathf.Abs(x - RiverX(z)) - RiverWidth(z);
+        public static float RiverX(float z) => authored?.ChannelX(z)??(14 + 6 * Mathf.Sin(z * .029f));
+        public static float RiverWidth(float z) => authored?.ChannelWidth(z)??Mathf.Lerp(2.5f, 10, Mathf.SmoothStep(0,1,Mathf.InverseLerp(138,180,z)));
+        static QuietCamp.Composition.ValleyLandscape authored;
+        public static void Configure(QuietCamp.Composition.ValleyDefinition source) { authored=source==null?null:new QuietCamp.Composition.ValleyLandscape(source); }
+        public static float WaterHeight => authored?.Source.waterHeight??-.7f;
+        public static float WaterDistance(float x,float z) => authored?.WaterDistance(x,z)??(z < 88 ? 100 : Mathf.Abs(x - RiverX(z)) - RiverWidth(z));
         public static float Height(float x,float z)
         {
+            if(authored!=null)return authored.Height(x,z);
             // The road follows a shallow valley floor. Its flanking folds must be
             // inside the portrait view, rather than beyond the camera's edges.
             float h = 1.7f + .65f*Mathf.Sin(x*.10f+z*.017f) + .55f*Mathf.Cos(z*.046f)

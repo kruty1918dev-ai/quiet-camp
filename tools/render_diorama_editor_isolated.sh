@@ -51,7 +51,7 @@ unshare --user "${task_user_mapping[@]}" --pid --fork --mount-proc --net \
       # Keep the QA Editor off the desktop accessibility bus as well as the host process/network view.
       unset DBUS_SESSION_BUS_ADDRESS
       export NO_AT_BRIDGE=1
-      export QC_CINEMATIC_EVIDENCE_ROOT="$3/Design/Roadmap/CinematicPilot/2026-10-10"
+      export QC_CINEMATIC_EVIDENCE_ROOT="${QC_CINEMATIC_EVIDENCE_ROOT:-$3/Design/Roadmap/CinematicPilot/2026-10-10}"
       exec setpriv --inh-caps=-all --ambient-caps=-all nice -n10 ionice -c2 -n7 "$2" \
         -force-glcore -noaudio -buildTarget Linux64 -projectPath "$task_qa" \
         -job-worker-count 1 -background-job-worker-count 4 \

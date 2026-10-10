@@ -57,8 +57,8 @@
     {
       "id": "ruin-parcel",
       "kind": "parcel",
-      "x": 7.5,
-      "z": 85,
+      "x": 17,
+      "z": 82,
       "width": 15,
       "depth": 15,
       "density": 0
@@ -161,6 +161,47 @@
           "z": 205
         }
       ]
+    },
+    {
+      "id": "village-distribution",
+      "kind": "distribution",
+      "supportAsset": "ua_village_wood_pole",
+      "supportHeight": 6.1,
+      "width": 0.6,
+      "minSpan": 20,
+      "maxSpan": 35,
+      "points": [
+        {
+          "x": 5,
+          "z": 29
+        },
+        {
+          "x": 5.2,
+          "z": 56
+        },
+        {
+          "x": 5,
+          "z": 83
+        },
+        {
+          "x": 4.8,
+          "z": 107
+        }
+      ],
+      "serviceTargets": [
+        "reclaimed-yard/house"
+      ],
+      "fallenSupports": [
+        3
+      ],
+      "fallenAsset": "ua_village_broken_pole",
+      "damage": [
+        {
+          "span": 2,
+          "state": "hanging-from",
+          "dropLength": 2.8
+        }
+      ]
     }
   ],
   "ensembles": [
@@ -198,8 +239,8 @@
       "placement": {
         "zone": "ruin-parcel",
         "nearNode": "QC003",
-        "x": 9.5,
-        "z": 85,
+        "x": 17,
+        "z": 82,
         "yaw": -15,
         "fixedPosition": true,
         "faceRoute": false
@@ -208,47 +249,29 @@
   ],
   "landmarks": [
     {
-      "id": "fallen-line",
-      "asset": "ua_power_pylon_fallen",
-      "x": -8,
-      "z": 76,
-      "height": 1.6,
-      "revealOwner": "QC003",
-      "yaw": -25
-    },
-    {
-      "id": "standing-line",
-      "asset": "ua_power_pylon_rusted",
-      "x": -7,
-      "z": 88,
-      "height": 9,
-      "revealOwner": "QC003",
-      "yaw": 0
-    },
-    {
       "id": "old-bridge",
-      "asset": "pilot.broken-bridge",
+      "asset": "ua_valley_bridge_remnants",
       "x": 12,
-      "z": 119,
-      "height": 2.2,
+      "z": 118,
+      "height": 1.47,
       "revealOwner": "QC004",
       "yaw": 0
     },
     {
       "id": "wooden-crossing",
-      "asset": "ua_plank_bridge",
-      "x": 11,
-      "z": 128,
-      "height": 0.95,
+      "asset": "ua_valley_footbridge",
+      "x": 12.2,
+      "z": 129,
+      "height": 1.23,
       "revealOwner": "QC004",
       "yaw": 90
     },
     {
       "id": "breached-weir",
-      "asset": "ua_dam_breached",
-      "x": 8,
+      "asset": "ua_pond_spillway_ruin",
+      "x": 13,
       "z": 171,
-      "height": 3.8,
+      "height": 3.71,
       "revealOwner": "QC005",
       "yaw": 0
     },
@@ -354,36 +377,36 @@
     {
       "id": "willow-0",
       "asset": "pilot.bank-tree",
-      "x": 5,
-      "z": 109,
-      "height": 7.2,
+      "x": -3,
+      "z": 104,
+      "height": 6.4,
       "revealOwner": "QC004",
       "yaw": 0
     },
     {
       "id": "willow-1",
       "asset": "pilot.bank-tree",
-      "x": 27,
-      "z": 113,
-      "height": 7.2,
+      "x": 29,
+      "z": 107,
+      "height": 6.8,
       "revealOwner": "QC004",
       "yaw": 47
     },
     {
       "id": "willow-2",
       "asset": "pilot.bank-tree",
-      "x": 0,
-      "z": 143,
-      "height": 7.2,
+      "x": -1,
+      "z": 141,
+      "height": 6.5,
       "revealOwner": "QC005",
       "yaw": 94
     },
     {
       "id": "willow-3",
       "asset": "pilot.bank-tree",
-      "x": 31,
+      "x": 32,
       "z": 151,
-      "height": 7.2,
+      "height": 6.9,
       "revealOwner": "QC005",
       "yaw": 141
     },
@@ -392,7 +415,7 @@
       "asset": "pilot.bank-tree",
       "x": -8,
       "z": 182,
-      "height": 7.2,
+      "height": 6.4,
       "revealOwner": "QC005",
       "yaw": 188
     },
@@ -525,8 +548,8 @@
     {
       "id": "bank-rock-0",
       "asset": "pilot.bank-rock",
-      "x": 8,
-      "z": 103,
+      "x": -2,
+      "z": 97,
       "height": 0.75,
       "yaw": 0,
       "revealOwner": "QC004"
@@ -534,7 +557,7 @@
     {
       "id": "bank-rock-1",
       "asset": "pilot.bank-rock",
-      "x": 22,
+      "x": 23,
       "z": 116,
       "height": 0.85,
       "yaw": 57,
@@ -543,8 +566,8 @@
     {
       "id": "bank-rock-2",
       "asset": "pilot.bank-rock",
-      "x": 22,
-      "z": 135,
+      "x": 20,
+      "z": 140,
       "height": 1.15,
       "yaw": 114,
       "revealOwner": "QC004"
@@ -553,7 +576,7 @@
       "id": "bank-rock-3",
       "asset": "pilot.bank-rock",
       "x": 3,
-      "z": 148,
+      "z": 151,
       "height": 0.75,
       "yaw": 171,
       "revealOwner": "QC005"
@@ -561,8 +584,8 @@
     {
       "id": "bank-rock-4",
       "asset": "pilot.bank-rock",
-      "x": 14,
-      "z": 178,
+      "x": 5,
+      "z": 179,
       "height": 1.2,
       "yaw": 228,
       "revealOwner": "QC005"
@@ -570,8 +593,8 @@
     {
       "id": "bank-rock-5",
       "asset": "pilot.bank-rock",
-      "x": 9,
-      "z": 190,
+      "x": 29,
+      "z": 195,
       "height": 0.8,
       "yaw": 285,
       "revealOwner": "QC005"
@@ -635,6 +658,189 @@
           "z": -3.8
         }
       ]
+    },
+    {
+      "id": "yard-footpath-2",
+      "kind": "gravel",
+      "owner": "reclaimed-yard",
+      "relativeToOwner": true,
+      "heightOffset": 0,
+      "feather": 0.8,
+      "points": [
+        {
+          "x": 7.553886153278144,
+          "z": 3.9050177269255713
+        },
+        {
+          "x": 2.8038861532781443,
+          "z": 1.6050177269255712
+        },
+        {
+          "x": 3.1961138467218557,
+          "z": 0.7949822730744287
+        },
+        {
+          "x": 7.946113846721856,
+          "z": 3.0949822730744287
+        }
+      ]
+    },
+    {
+      "id": "yard-footpath-3",
+      "kind": "gravel",
+      "owner": "reclaimed-yard",
+      "relativeToOwner": true,
+      "heightOffset": 0,
+      "feather": 0.8,
+      "points": [
+        {
+          "x": 2.6393141447509256,
+          "z": 1.4690830983604206
+        },
+        {
+          "x": -2.0606858552490745,
+          "z": -4.830916901639579
+        },
+        {
+          "x": -1.3393141447509256,
+          "z": -5.36908309836042
+        },
+        {
+          "x": 3.3606858552490744,
+          "z": 0.9309169016395793
+        }
+      ]
     }
-  ]
+  ],
+  "landscape": {
+    "id": "valley-landscape",
+    "waterHeight": -0.7,
+    "damZ": 171,
+    "damHeight": 3.9,
+    "channel": [
+      {
+        "x": 70,
+        "z": 64,
+        "halfWidth": 2.4
+      },
+      {
+        "x": 37,
+        "z": 86,
+        "halfWidth": 2.2
+      },
+      {
+        "x": 18,
+        "z": 103,
+        "halfWidth": 2.5
+      },
+      {
+        "x": 12,
+        "z": 120,
+        "halfWidth": 2.6
+      },
+      {
+        "x": 12.5,
+        "z": 135,
+        "halfWidth": 2.5
+      },
+      {
+        "x": 15.2,
+        "z": 152,
+        "halfWidth": 2.6
+      },
+      {
+        "x": 13,
+        "z": 171,
+        "halfWidth": 2.8
+      },
+      {
+        "x": 15,
+        "z": 190,
+        "halfWidth": 2.2
+      },
+      {
+        "x": 19,
+        "z": 217,
+        "halfWidth": 2.4
+      },
+      {
+        "x": 25,
+        "z": 260,
+        "halfWidth": 2.7
+      }
+    ],
+    "basin": {
+      "x": 17,
+      "z": 216,
+      "radiusX": 25,
+      "radiusZ": 48,
+      "oldWaterHeight": 3.8,
+      "bedHeight": 0.12
+    },
+    "pools": [
+      {
+        "x": 2.5,
+        "z": 215,
+        "radiusX": 3.3,
+        "radiusZ": 5.5
+      },
+      {
+        "x": 32,
+        "z": 229,
+        "radiusX": 4.0,
+        "radiusZ": 6.0
+      }
+    ],
+    "hills": [
+      {
+        "x": -28,
+        "z": 4,
+        "radiusX": 18,
+        "radiusZ": 29,
+        "height": 10
+      },
+      {
+        "x": 28,
+        "z": 40,
+        "radiusX": 18,
+        "radiusZ": 26,
+        "height": 12
+      },
+      {
+        "x": -29,
+        "z": 85,
+        "radiusX": 19,
+        "radiusZ": 30,
+        "height": 13
+      },
+      {
+        "x": 34,
+        "z": 123,
+        "radiusX": 18,
+        "radiusZ": 31,
+        "height": 12
+      },
+      {
+        "x": -28,
+        "z": 159,
+        "radiusX": 19,
+        "radiusZ": 26,
+        "height": 12
+      },
+      {
+        "x": 48,
+        "z": 205,
+        "radiusX": 15,
+        "radiusZ": 33,
+        "height": 10
+      },
+      {
+        "x": -23,
+        "z": 249,
+        "radiusX": 22,
+        "radiusZ": 31,
+        "height": 10
+      }
+    ]
+  }
 }

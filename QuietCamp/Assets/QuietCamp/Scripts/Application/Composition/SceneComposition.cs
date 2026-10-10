@@ -18,9 +18,9 @@ namespace QuietCamp.Composition
         public Dictionary<string,Point> sockets=new Dictionary<string,Point>();
     }
     [Serializable] public sealed class EnsembleRole
-    {public string id,asset,parent,growsThrough;public float x,z,height=1,yaw;public bool required=true,entrance;}
+    {public string id,asset,parent,growsThrough;public float x,z,height=1,yaw,width;public bool required=true,entrance;}
     [Serializable] public sealed class EnsembleTemplate
-    {public string id;public float width=10,depth=10;public bool entrance,ruined,closedBoundary;public EnsembleRole[] roles=Array.Empty<EnsembleRole>();}
+    {public string id;public float width=10,depth=10,maxTerrainRise=.75f;public bool entrance,ruined,closedBoundary;public Point[] boundary=Array.Empty<Point>(),approach=Array.Empty<Point>();public EnsembleRole[] roles=Array.Empty<EnsembleRole>();}
     [Serializable] public sealed class PlacementIntent {public string zone,nearNode;public float x,z,yaw;public bool fixedPosition;public bool faceRoute=true;}
     [Serializable] public sealed class EnsembleIntent
     {public float scale=1;public string id,template,entranceConnectsTo,state="reclaimed",fenceVariant="wattle";public PlacementIntent placement=new PlacementIntent();}
@@ -44,6 +44,7 @@ namespace QuietCamp.Composition
     [Serializable] public sealed class SceneCompositionDocument
     {
         public int schemaVersion=1,seed=1918;public string id,season="summer";
+        public ValleyDefinition landscape;
         public SceneAnchor[] nodes=Array.Empty<SceneAnchor>();
         public LandscapeZone[] zones=Array.Empty<LandscapeZone>();
         public InfrastructureRouteDefinition[] routes=Array.Empty<InfrastructureRouteDefinition>();
@@ -55,9 +56,9 @@ namespace QuietCamp.Composition
     [Serializable] public sealed class CompositionDiagnostic
     {public string code,severity="error",entityId,sourcePointer,message,sourceKind="document";public string[] relatedIds=Array.Empty<string>();public float x,z;}
     [Serializable] public sealed class ComposedInstance
-    {public string id,owner,role,asset,revealOwner,state,template;public float x,z,height,yaw;public bool wind;}
+    {public string id,owner,role,asset,revealOwner,state,template;public float x,z,height,yaw,width;public bool wind;}
     [Serializable] public sealed class RouteSpan
-    {public string id,route,a,b,state="intact";public float ax,az,bx,bz,height,dropLength=2;public int socketA=-1,socketB=-1;}
+    {public string id,route,a,b,state="intact";public float ax,az,bx,bz,height,dropLength=2;public Point[] points=Array.Empty<Point>();public int socketA=-1,socketB=-1;}
     [Serializable] public sealed class BakedBounds {public AssetSocket min=new AssetSocket(),max=new AssetSocket();}
     [Serializable] public sealed class BakedChunkManifest
     {
@@ -204,7 +205,7 @@ namespace QuietCamp.Composition
                     while(cursor!=null){if(!visited.Add(cursor.id)){Error("dependency-cycle",template.id,"Role dependency cycle.");break;}cursor=cursor.parent==null?null:Array.Find(template.roles,p=>p.id==cursor.parent);}
                 }
                 var gate=Array.Find(template.roles,r=>r.id=="gate");
-                if(gate!=null&&(!template.roles.Any(r=>r!=gate&&Boundary(r))||Math.Min(Math.Abs(Math.Abs(gate.z)-template.depth*.5f),Math.Abs(Math.Abs(gate.x)-template.width*.5f))>1))Error("gate-without-boundary",template.id,"Gate requires a fence boundary and a boundary position.");
+                if(gate!=null&&(!template.roles.Any(r=>r!=gate&&Boundary(r))||ParcelBoundary.Distance(template,gate.x,gate.z)>1))Error("gate-without-boundary",template.id,"Gate requires a fence boundary and a boundary position.");
             }
             foreach(var e in doc.ensembles){Id(e.id);if(!templates.ContainsKey(e.template??""))Error("missing-template",e.id,"Unknown ensemble template.");}
             foreach(var l in doc.landmarks){Id(l.id);if(!assets.ContainsKey(l.asset??""))Error("missing-asset",l.id,"Landmark asset is missing.");if(!doc.nodes.Any(n=>n.id==l.revealOwner))Error("missing-reveal-owner",l.id,"Landmark must bind to progression.");}
@@ -234,9 +235,9 @@ namespace QuietCamp.Composition
                 else reserved.Add((landmark.x,landmark.z,radius*2,radius*2));
             }
             if(!result.Valid)return result;
-            string Rejection(float x,float z,float radius,bool protectPower=false)
+            string Rejection(float x,float z,float radius,bool protectPower=false,float maxTerrainRise=.75f)
             {
-                if(!terrain.Supported(x,z,radius))return "unsupported-surface";float h=terrain.Height(x,z);if(!Finite(h))return "invalid-surface-height";for(int i=0;i<4;i++){float a=i*(float)Math.PI*.5f;if(Math.Abs(terrain.Height(x+(float)Math.Cos(a)*radius,z+(float)Math.Sin(a)*radius)-h)>.75f)return "parcel-slope";}
+                if(!terrain.Supported(x,z,radius))return "unsupported-surface";float h=terrain.Height(x,z);if(!Finite(h))return "invalid-surface-height";for(int i=0;i<4;i++){float a=i*(float)Math.PI*.5f;if(Math.Abs(terrain.Height(x+(float)Math.Cos(a)*radius,z+(float)Math.Sin(a)*radius)-h)>maxTerrainRise)return "parcel-slope";}
                 foreach(var n in context?.nodes??doc.nodes)if(Sq(x-n.x,z-n.z)<Sq(n.radius+radius,0))return "clearing:"+n.id;
                 foreach(var r in context?.routes??doc.routes)if((r.kind=="road"||r.kind=="path"||protectPower&&(r.kind=="power"||r.kind=="distribution"))&&DistanceTo(r,x,z,out _)<=radius+r.width)return "route:"+r.id;
                 foreach(var box in reserved)if(Math.Abs(x-box.x)<box.w*.5f+radius&&Math.Abs(z-box.z)<box.d*.5f+radius)return "occupied-parcel";
@@ -283,7 +284,7 @@ namespace QuietCamp.Composition
                     float radius=(float)Math.Sqrt(Sq(parcelWidth*.5f,parcelDepth*.5f));
                     foreach(var role in roles)
                     {var asset=assets[role.asset=="$fence"?"ua_"+e.fenceVariant+"_fence":role.asset];radius=Math.Max(radius,((float)Math.Sqrt(Sq(role.x,role.z))+asset.radius*(role.height>0?role.height:asset.height)/asset.height)*e.scale);}
-                    string reason=px-radius<zone.x-zone.width*.5f||px+radius>zone.x+zone.width*.5f||pz-radius<zone.z-zone.depth*.5f||pz+radius>zone.z+zone.depth*.5f?"zone-boundary":Rejection(px,pz,radius,true);
+                    string reason=px-radius<zone.x-zone.width*.5f||px+radius>zone.x+zone.width*.5f||pz-radius<zone.z-zone.depth*.5f||pz+radius>zone.z+zone.depth*.5f?"zone-boundary":Rejection(px,pz,radius,true,template.maxTerrainRise);
                     if(reason==null&&template.entrance)
                     {
                         DistanceTo(road,px,pz,out var facing);if(e.placement.faceRoute)yaw=(float)((Math.Atan2(facing.x-px,facing.z-pz)-Math.Atan2(entry.x,entry.z))*180/Math.PI);
@@ -292,9 +293,12 @@ namespace QuietCamp.Composition
                         {
                         float gx=px+(entrance.x*cc+entrance.z*ss)*e.scale,gz=pz+(-entrance.x*ss+entrance.z*cc)*e.scale;
                         DistanceTo(road,gx,gz,out var end);
-                        for(int sample=0;sample<=32;sample++)
+                        var approach=new List<Point>{new Point(gx,gz)};
+                        foreach(var p in template.approach)approach.Add(new Point(px+(p.x*cc+p.z*ss)*e.scale,pz+(-p.x*ss+p.z*cc)*e.scale));
+                        approach.Add(end);
+                        for(int segment=1;segment<approach.Count&&reason==null;segment++)for(int sample=0;sample<=32;sample++)
                         {
-                            float t=sample/32f,sx=gx+(end.x-gx)*t,sz=gz+(end.z-gz)*t;
+                            var from=approach[segment-1];var to=approach[segment];float t=sample/32f,sx=from.x+(to.x-from.x)*t,sz=from.z+(to.z-from.z)*t;
                             if(!terrain.Supported(sx,sz,.35f)){reason="unsupported-approach";unsupportedApproach=true;break;}
                             if(reserved.Any(box=>Math.Abs(sx-box.x)<box.w*.5f+.35f&&Math.Abs(sz-box.z)<box.d*.5f+.35f)){reason="approach-crosses-parcel";break;}
                         }
@@ -310,14 +314,17 @@ namespace QuietCamp.Composition
                 {
                     string asset=role.asset=="$fence"?"ua_"+e.fenceVariant+"_fence":role.asset;
                     var definition=assets[asset];
-                    result.instances.Add(new ComposedInstance{id=e.id+"/"+role.id,owner=e.id,role=role.id,asset=asset,state=e.state,template=e.template,x=px+(role.x*c+role.z*s)*e.scale,z=pz+(-role.x*s+role.z*c)*e.scale,height=(role.height>0?role.height:definition.height)*e.scale,yaw=yaw+role.yaw,wind=definition.wind,revealOwner=near?.id});
+                    result.instances.Add(new ComposedInstance{id=e.id+"/"+role.id,owner=e.id,role=role.id,asset=asset,state=e.state,template=e.template,x=px+(role.x*c+role.z*s)*e.scale,z=pz+(-role.x*s+role.z*c)*e.scale,height=(role.height>0?role.height:definition.height)*e.scale,width=role.width*e.scale,yaw=yaw+role.yaw,wind=definition.wind,revealOwner=near?.id});
                 }
                 result.parcels.Add(new ComposedParcel{id=e.id,x=px,z=pz,yaw=yaw,scale=e.scale});
                 reserved.Add((px,pz,parcelWidth,parcelDepth));
                 if(template.entrance)foreach(var gate in roles.Where(r=>r==entry||r.entrance))
                 {
                     float gx=px+(gate.x*c+gate.z*s)*e.scale,gz=pz+(-gate.x*s+gate.z*c)*e.scale;DistanceTo(road,gx,gz,out var end);
-                    result.spans.Add(new RouteSpan{id=e.id+"/approach-"+gate.id,route=road.id,a=e.id+"/"+gate.id,b=road.id,ax=gx,az=gz,bx=end.x,bz=end.z,height=0});
+                    var path=new List<Point>{new Point(gx,gz)};
+                    foreach(var p in template.approach)path.Add(new Point(px+(p.x*c+p.z*s)*e.scale,pz+(-p.x*s+p.z*c)*e.scale));
+                    path.Add(end);
+                    result.spans.Add(new RouteSpan{id=e.id+"/approach-"+gate.id,route=road.id,a=e.id+"/"+gate.id,b=road.id,ax=gx,az=gz,bx=end.x,bz=end.z,height=0,points=path.ToArray()});
                 }
             }
             foreach(var route in doc.routes.Where(r=>r.kind=="power"||r.kind=="distribution"))
@@ -351,7 +358,7 @@ namespace QuietCamp.Composition
                 result.spans.Add(new RouteSpan{id=route.id+"/service/"+house.id,route=route.id,a=nearest.id,b=house.id,
                     ax=nearest.x,az=nearest.z,bx=house.x,bz=house.z,height=route.supportHeight,state="service",socketA=0,socketB=0});
             }
-            foreach(var route in doc.routes) PowerDamage.Apply(route,result);
+            foreach(var route in doc.routes) PowerDamage.Apply(route,result,assets);
             foreach(var fallen in result.instances.Where(i=>i.role=="fallen-support"))
             {
                 var metadata=assets[fallen.asset];string rejected=Rejection(fallen.x,fallen.z,metadata.radius*fallen.height/metadata.height);

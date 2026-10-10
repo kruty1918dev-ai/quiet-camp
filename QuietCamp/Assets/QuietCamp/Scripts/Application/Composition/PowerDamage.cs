@@ -25,7 +25,7 @@ namespace QuietCamp.Composition
                 ||fallen.supportKind!=null||fallen.conductors.Length!=0||fallen.placementClass!="solid"))
                 Error("invalid-fallen-support","Fallen geometry must have no live support type or conductor sockets.");
         }
-        public static void Apply(InfrastructureRouteDefinition route,CompositionResult result)
+        public static void Apply(InfrastructureRouteDefinition route,CompositionResult result,IReadOnlyDictionary<string,VisualAssetDefinition> assets)
         {
             if(route.kind!="power"&&route.kind!="distribution")return;
             var supports=result.instances.Where(i=>i.owner==route.id&&i.role=="support").ToArray();
@@ -35,7 +35,7 @@ namespace QuietCamp.Composition
             foreach(int index in route.fallenSupports)
             {
                 if(index>=supports.Length){Error("invalid-fallen-support","Fallen support index is outside generated route.");continue;}
-                var support=supports[index];support.asset=route.fallenAsset;support.role="fallen-support";support.state="fallen";
+                var support=supports[index];support.asset=route.fallenAsset;support.role="fallen-support";support.state="fallen";support.height=assets[route.fallenAsset].height;
             }
             foreach(var damage in route.damage)
             {

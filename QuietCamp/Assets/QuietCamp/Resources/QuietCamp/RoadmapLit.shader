@@ -24,6 +24,9 @@ Shader "QuietCamp/RoadmapLit"
     Properties
     {
         _BaseColor ("Color", Color) = (0.4, 0.6, 0.35, 1)
+        _GroundContactMap ("Baked ground contacts", 2D) = "white" {}
+        _GroundContactStrength ("Ground contact shading", Range(0,1)) = 0
+        _GroundContactUV ("World contact UV", Vector) = (1,1,0,0)
         _SnowCover ("Seasonal snow on upward faces", Range(0,1)) = 0
         _Dew ("Subtle morning dew glint", Range(0,.1)) = 0
         _SwayAmp ("Tip Sway (fraction of height)", Range(0, 0.4)) = 0.05
@@ -53,9 +56,10 @@ Shader "QuietCamp/RoadmapLit"
             float4 _BaseColor;
             float _SwayAmp, _SwayFreq, _FlutterAmp, _FlutterFreq;
             float _RootLock, _PhaseLag, _InnerShade, _Cull, _ClusterWind, _VertexTint;
-            float _TreeWind, _CrownStart, _SnowCover, _Dew;
+            float _TreeWind, _CrownStart, _SnowCover, _Dew, _GroundContactStrength;float4 _GroundContactUV;
         CBUFFER_END
 
+        TEXTURE2D(_GroundContactMap); SAMPLER(sampler_GroundContactMap);
         // Shared wind/light state — one scene owner writes these.
         float4 _RoadmapFogColor;
         float _RoadmapRevealZ;
@@ -230,7 +234,8 @@ Shader "QuietCamp/RoadmapLit"
             half4 frag(Varyings i) : SV_Target
             {
                 half shadow = MainLightRealtimeShadow(TransformWorldToShadowCoord(i.world));
-                half3 lit=i.col+i.sunlight*shadow;
+                half contact=lerp(1,SAMPLE_TEXTURE2D(_GroundContactMap,sampler_GroundContactMap,i.world.xz*_GroundContactUV.xy+_GroundContactUV.zw).r,_GroundContactStrength);
+                half3 lit=(i.col+i.sunlight*shadow)*contact;
                 // Distance separates the far plane; a little low-lying river
                 // haze sits below tree crowns instead of flattening every face.
                 float distanceFade=max(0,distance(i.world,_WorldSpaceCameraPos)-_RoadmapFogStart);

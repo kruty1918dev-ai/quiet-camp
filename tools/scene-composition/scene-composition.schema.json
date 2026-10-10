@@ -425,6 +425,152 @@
           "points"
         ]
       }
+    },
+    "landscape": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "channel",
+        "hills",
+        "basin",
+        "pools"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "waterHeight": {
+          "type": "number"
+        },
+        "damZ": {
+          "type": "number"
+        },
+        "damHeight": {
+          "type": "number"
+        },
+        "channel": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "x",
+              "z",
+              "halfWidth"
+            ],
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              },
+              "halfWidth": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            }
+          }
+        },
+        "hills": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "x",
+              "z",
+              "radiusX",
+              "radiusZ",
+              "height"
+            ],
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              },
+              "radiusX": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "radiusZ": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "height": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "basin": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "x",
+            "z",
+            "radiusX",
+            "radiusZ",
+            "oldWaterHeight",
+            "bedHeight"
+          ],
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "z": {
+              "type": "number"
+            },
+            "radiusX": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "radiusZ": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "oldWaterHeight": {
+              "type": "number"
+            },
+            "bedHeight": {
+              "type": "number"
+            }
+          }
+        },
+        "pools": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "x",
+              "z",
+              "radiusX",
+              "radiusZ"
+            ],
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "z": {
+                "type": "number"
+              },
+              "radiusX": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "radiusZ": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            }
+          }
+        }
+      }
     }
   },
   "required": [

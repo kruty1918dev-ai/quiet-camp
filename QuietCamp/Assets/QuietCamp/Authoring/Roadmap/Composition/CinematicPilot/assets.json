@@ -94,7 +94,7 @@
     "pivot": {
       "x": 1.1156270598642228,
       "y": 0.0,
-      "z": 5.551115123125783E-17
+      "z": 5.551115123125783e-17
     },
     "wind": false,
     "placementClass": "solid",
@@ -447,7 +447,7 @@
     "pivot": {
       "x": 0.0,
       "y": -0.005440764893552982,
-      "z": 5.551115123125783E-17
+      "z": 5.551115123125783e-17
     }
   },
   {
@@ -485,7 +485,7 @@
     "pivot": {
       "x": 0.06999999999999995,
       "y": -0.0036933678399367013,
-      "z": 5.551115123125783E-17
+      "z": 5.551115123125783e-17
     }
   },
   {
@@ -580,7 +580,14 @@
     },
     "wind": false,
     "placementClass": "solid",
-    "lod": null
+    "lod": null,
+    "conductors": [
+      {
+        "x": 2.3,
+        "y": 2.8,
+        "z": 1.8
+      }
+    ]
   },
   {
     "id": "ua_valley_well",
@@ -634,6 +641,243 @@
       "x": 0.0,
       "y": 0.0,
       "z": -0.02500000000000001
+    },
+    "wind": false,
+    "placementClass": "boundary",
+    "lod": null
+  },
+  {
+    "id": "ua_village_wood_pole",
+    "source": "../Models/EnvironmentKit/ua_village_wood_pole.obj",
+    "license": "original-project-owned",
+    "sourceHash": "0764a30e69fdefa270da903ad06fd1e3765d4b6276f1cfa41ec16307064634dd",
+    "sourceHeight": 6.102458686035895,
+    "height": 6.102458686035895,
+    "width": 1.5899999999999999,
+    "depth": 0.21,
+    "radius": 0.8019039842774195,
+    "pivot": {
+      "x": 0.034999999999999976,
+      "y": -0.0012293430179475802,
+      "z": 0.0
+    },
+    "wind": false,
+    "placementClass": "solid",
+    "lod": null,
+    "supportKind": "distribution",
+    "conductors": [
+      {
+        "x": -0.64,
+        "y": 6.072458686035895,
+        "z": 0
+      },
+      {
+        "x": 0.07,
+        "y": 6.072458686035895,
+        "z": 0
+      },
+      {
+        "x": 0.7,
+        "y": 6.072458686035895,
+        "z": 0
+      }
+    ]
+  },
+  {
+    "id": "ua_village_concrete_pole",
+    "source": "../Models/EnvironmentKit/ua_village_concrete_pole.obj",
+    "license": "original-project-owned",
+    "sourceHash": "ae744265c127b4e2f5e06e0ac6154342f3dc2d6b48fd86aa2986138c67d2ab25",
+    "sourceHeight": 6.702238556646026,
+    "height": 6.702238556646026,
+    "width": 1.5899999999999999,
+    "depth": 0.25,
+    "radius": 0.8047670470390794,
+    "pivot": {
+      "x": 0.034999999999999976,
+      "y": -0.001119278323012313,
+      "z": 0.0
+    },
+    "wind": false,
+    "placementClass": "solid",
+    "lod": null,
+    "supportKind": "distribution",
+    "conductors": [
+      {
+        "x": -0.64,
+        "y": 6.672238556646025,
+        "z": 0
+      },
+      {
+        "x": 0.07,
+        "y": 6.672238556646025,
+        "z": 0
+      },
+      {
+        "x": 0.7,
+        "y": 6.672238556646025,
+        "z": 0
+      }
+    ]
+  },
+  {
+    "id": "ua_village_broken_pole",
+    "source": "../Models/EnvironmentKit/ua_village_broken_pole.obj",
+    "license": "original-project-owned",
+    "sourceHash": "3e02c01a1040462b6a792c43f23769eefe48497abf23e6c8d028a817ddf2776d",
+    "sourceHeight": 0.7345137846517455,
+    "height": 0.7345137846517455,
+    "width": 5.450876702706902,
+    "depth": 1.5159966541931942,
+    "radius": 2.8288824066951697,
+    "pivot": {
+      "x": -0.11456164864654883,
+      "y": 0.0,
+      "z": 0.27
+    },
+    "wind": false,
+    "placementClass": "solid",
+    "lod": null
+  },
+  {
+    "id": "ua_valley_footbridge",
+    "source": "../Models/EnvironmentKit/ua_valley_footbridge.obj",
+    "license": "original-project-owned",
+    "sourceHash": "f36e0141f4f6e5de29ab6807d8b1ea0c37c7a74df06f27ef20f9d20204ab7f31",
+    "sourceHeight": 1.1459107654615246,
+    "height": 1.1459107654615246,
+    "width": 1.27236720596385,
+    "depth": 7.800000000000001,
+    "radius": 3.951547744454452,
+    "pivot": {
+      "x": -0.021324492646501936,
+      "y": 0.06,
+      "z": -2.220446049250313e-16
+    },
+    "wind": false,
+    "placementClass": "solid",
+    "lod": null,
+    "sockets": {
+      "bankA": {
+        "x": 0,
+        "z": -3.8
+      },
+      "bankB": {
+        "x": 0,
+        "z": 3.8
+      }
+    }
+  },
+  {
+    "id": "ua_valley_bridge_remnants",
+    "source": "../Models/EnvironmentKit/ua_valley_bridge_remnants.obj",
+    "license": "original-project-owned",
+    "sourceHash": "d9b3e8b254393474a13cd6f722448484bee322c9b45e679c8a0d189bcf32b6dd",
+    "sourceHeight": 1.47,
+    "height": 1.47,
+    "width": 11.2,
+    "depth": 5.4,
+    "radius": 6.216912416947821,
+    "pivot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "wind": false,
+    "placementClass": "solid",
+    "lod": null,
+    "sockets": {
+      "bankA": {
+        "x": -4.7,
+        "z": 0
+      },
+      "bankB": {
+        "x": 4.7,
+        "z": 0
+      }
+    }
+  },
+  {
+    "id": "ua_pond_spillway_ruin",
+    "source": "../Models/EnvironmentKit/ua_pond_spillway_ruin.obj",
+    "license": "original-project-owned",
+    "sourceHash": "29c6c83dd9bbb213a4534192fbb318f4db6005ec5d71cb264fd417359585b0b8",
+    "sourceHeight": 3.71,
+    "height": 3.71,
+    "width": 10.7,
+    "depth": 5.125000000000001,
+    "radius": 5.932023790410824,
+    "pivot": {
+      "x": -0.050000000000000266,
+      "y": 0,
+      "z": -1.9125000000000003
+    },
+    "wind": false,
+    "placementClass": "solid",
+    "lod": null,
+    "sockets": {
+      "bankA": {
+        "x": -5.3,
+        "z": 0
+      },
+      "bankB": {
+        "x": 5.3,
+        "z": 0
+      }
+    }
+  },
+  {
+    "id": "ua_valley_fence_broken_0",
+    "source": "../Models/EnvironmentKit/ua_valley_fence_broken_0.obj",
+    "license": "original-project-owned",
+    "sourceHash": "8078651e063fde84757d7a39e4797a7f67afce75d12de4d7846e24c28fdc7448",
+    "sourceHeight": 1.3128956288413451,
+    "height": 1.3128956288413451,
+    "width": 2.669215385004903,
+    "depth": 0.2751174891168575,
+    "radius": 1.3416780914553272,
+    "pivot": {
+      "x": 0.0,
+      "y": -0.006447814420672458,
+      "z": -0.0074845442955707026
+    },
+    "wind": false,
+    "placementClass": "boundary",
+    "lod": null
+  },
+  {
+    "id": "ua_valley_fence_broken_1",
+    "source": "../Models/EnvironmentKit/ua_valley_fence_broken_1.obj",
+    "license": "original-project-owned",
+    "sourceHash": "ca3486ed589e6117af30654a601fa1ea4ce4144a84f5ffa2f8bedb2c60674280",
+    "sourceHeight": 1.3128956288413451,
+    "height": 1.3128956288413451,
+    "width": 2.6697018482710964,
+    "depth": 0.2751174891168575,
+    "radius": 1.3419200415337786,
+    "pivot": {
+      "x": 0.0,
+      "y": -0.006447814420672458,
+      "z": -0.0074845442955707026
+    },
+    "wind": false,
+    "placementClass": "boundary",
+    "lod": null
+  },
+  {
+    "id": "ua_valley_fence_broken_2",
+    "source": "../Models/EnvironmentKit/ua_valley_fence_broken_2.obj",
+    "license": "original-project-owned",
+    "sourceHash": "a4f31be2d5a5863764d10c82c23c4ae179d2f6ac4492ed57e139ffef2e45fcbd",
+    "sourceHeight": 1.3128956288413451,
+    "height": 1.3128956288413451,
+    "width": 2.6701878610395022,
+    "depth": 0.2751174891168575,
+    "radius": 1.3421617680127718,
+    "pivot": {
+      "x": 0.0,
+      "y": -0.006447814420672458,
+      "z": -0.0074845442955707026
     },
     "wind": false,
     "placementClass": "boundary",

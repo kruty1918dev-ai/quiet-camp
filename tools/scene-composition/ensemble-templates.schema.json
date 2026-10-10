@@ -77,12 +77,59 @@
                 "string",
                 "null"
               ]
+            },
+            "width": {
+              "type": "number",
+              "minimum": 0
             }
           }
         }
       },
       "closedBoundary": {
         "type": "boolean"
+      },
+      "boundary": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "x",
+            "z"
+          ],
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "z": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "approach": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "x",
+            "z"
+          ],
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "z": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "maxTerrainRise": {
+        "type": "number",
+        "exclusiveMinimum": 0,
+        "maximum": 4
       }
     }
   },

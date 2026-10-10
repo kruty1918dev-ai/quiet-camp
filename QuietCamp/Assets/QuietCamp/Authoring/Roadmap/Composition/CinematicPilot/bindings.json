@@ -19,23 +19,6 @@
     }
   },
   {
-    "asset": "pilot.broken-bridge",
-    "catalogueId": "M0132",
-    "source": "Assets/PolygonBattleRoyale/Models/SM_Env_Bridge_Broken_01.fbx",
-    "sourceHash": "c85e664282166f7858a5fb2476b675e4c1dec679a4c4d03ceec6284ada83aef0",
-    "guid": "d745b13401dd943438b4a3964e339171",
-    "lod": 0,
-    "prefab": "Assets/PolygonBattleRoyale/Prefabs/Environments/SM_Env_Bridge_Broken_01.prefab",
-    "dependencies": {
-      "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_Road.mat": "8158f3c759ed7aa1fbf71ae508c1b650b048f690481da05c535ce6b59bc0f593",
-      "Assets/PolygonBattleRoyale/Models/SM_Env_Bridge_Broken_01.fbx": "c85e664282166f7858a5fb2476b675e4c1dec679a4c4d03ceec6284ada83aef0",
-      "Assets/PolygonBattleRoyale/Models/SM_Env_Bridge_Broken_01_Convex 2.asset": "574c8e8ac6fa3d481b5ed328b33cb54cf9d243445e9d3e3185e561e2e8708d86",
-      "Assets/PolygonBattleRoyale/Prefabs/Environments/SM_Env_Bridge_Broken_01.prefab": "e543be5875af0244726a66b0eec5a4fdc4675822ac430bd4f0994f0012f9121f",
-      "Assets/PolygonBattleRoyale/Textures/PolygonBattleRoyale_Road_01.png": "79e4bdf5cbb02a0c52b3f328a7e3bc71bdaa5ab149a859b3a593b3c5ccabac97",
-      "Assets/PolygonBattleRoyale/Textures/PolygonBattleRoyale_Road_Normal.png": "08e50872400049d2eba076b9c1c652f9a1f599526eeaf83060dc89737a280a91"
-    }
-  },
-  {
     "asset": "pilot.ruin-wall",
     "catalogueId": "M0965",
     "source": "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland/Models/SM_Bld_Shack_Ruins_01.fbx",

@@ -375,11 +375,81 @@ def chicken():
     return m
 
 
+def village_pole(concrete=False):
+    m=Mesh("ua_village_concrete_pole" if concrete else "ua_village_wood_pole",240,"Simple rural distribution support, one crossarm and three coarse insulators; physical metre dimensions.")
+    h=6.7 if concrete else 6.1
+    m.beam((0,0,0),(.10,h,0),.25 if concrete else .21,"concrete_dark" if concrete else "wood_dark",True,.15)
+    m.beam((-.76,h-.35,0),(.83,h-.35,0),.11,"wood" if not concrete else "steel_dark",True)
+    for x in (-.64,.07,.70):m.cylinder((x,h-.22,0),.08,.19,"insulator",4)
+    return m
+
+
+def broken_pole():
+    m=Mesh("ua_village_broken_pole",160,"Broken wooden distribution pole lying on soil, snapped base and one displaced crossarm. No live conductor sockets.")
+    m.beam((-2.5,.15,-.16),(2.6,.27,.27),.22,"wood_dark",True,.14)
+    m.beam((1.85,.24,-.48),(2.03,.28,1.02),.11,"wood",True)
+    m.box((-2.73,.32,-.12),(.22,.64,.23),"wood_dark")
+    for x in (-2.8,-2.68):m.beam((x,.30,-.12),(x+.04,.73,-.10),.065,"wood_light",True)
+    return m
+
+
+def footbridge():
+    m=Mesh("ua_valley_footbridge",360,"Narrow 1.2m pedestrian footbridge, 7.8m span, shallow deck, supported bank landings and incomplete single handrail.")
+    for x in (-.42,.42):m.box((x,.16,0),(.15,.20,7.8),"wood_dark")
+    for i in range(17):
+        z=-3.7+i*.45;m.box((.015*math.sin(i),.29,z),(1.2,.10,.40),"wood" if i%3 else "wood_dark")
+    for z in (-3.7,-1.25,1.25,3.7):
+        m.beam((-.53,.27,z),(-.59,1.20,z+.07),.085,"wood_dark",True)
+    m.beam((-.57,1.12,-3.7),(-.62,1.10,-1.25),.075,"wood",True)
+    m.beam((-.62,1.10,-1.25),(-.59,1.16,1.25),.075,"wood",True)
+    return m
+
+
+def bridge_remnants():
+    m=Mesh("ua_valley_bridge_remnants",200,"Two bank abutments of a 5.4m-wide rural road bridge; collapsed central span is genuinely absent. Span along X.")
+    for side in (-1,1):
+        m.box((side*4.7,.64,0),(1.0,1.28,5.2),"concrete_dark")
+        points=[(side*3.45,1.22,-2.7),(side*5.6,1.22,-2.7),(side*5.6,1.22,2.7),(side*3.82,1.22,2.7),(side*3.18,1.22,.4)]
+        if side<0:points.reverse()
+        for i in range(1,len(points)-1):m.tri(points[0],points[i+1],points[i],"concrete")
+        for a,b in zip(points,points[1:]+points[:1]):
+            m.quad(a,b,(b[0],b[1]-.18,b[2]),(a[0],a[1]-.18,a[2]),"concrete_dark")
+        for z in (-2.6,2.6):m.box((side*4.8,1.39,z),(1.5,.16,.13),"concrete")
+    return m
+
+
+def spillway_ruin():
+    m=Mesh("ua_pond_spillway_ruin",300,"Broken small pond outlet: eroded earth is authored terrain; two surviving concrete sides, jagged crest, gate frame and downstream scour apron, no bridge deck.")
+    for side in (-1,1):
+        lo,hi=(3.1,5.3) if side>0 else (-5.4,-3.15)
+        profile=[(lo,0),(hi,0),(hi,2.7),(hi-.38,2.65),(hi-.57,2.3),(lo+.33,2.4),(lo,1.9)]
+        m.extrude(profile,1.10,"concrete",.1)
+        m.box((side*4.92,.8,-1.45),(.25,1.6,2.5),"concrete_dark")
+        m.box((side*3.9,.12,-2.5),(1.45,.22,1.7),"concrete_dark")
+    for x in (-5.0,-3.45):m.beam((x,2.45,.18),(x,3.65,.18),.11,"rust",True)
+    m.beam((-5.0,3.65,.18),(-3.45,3.65,.18),.12,"rust",True)
+    m.box((-4.22,1.31,.58),(1.3,1.1,.08),"rust")
+    for x,z in [(-3.1,-3.3),(3.2,-3.6),(4.8,-4.2)]:m.box((x,.09,z),(.62,.18,.55),"concrete_dark")
+    return m
+
+
+def broken_boundary(variant=0):
+    m=Mesh("ua_valley_fence_broken_"+str(variant),200,"Owned weathered boundary: leaning post, sagging rails and missing boards; complete perimeter belongs to the yard.")
+    span=8/3;m.beam((-span/2+.07,0,0),(-span/2+.13,1.3,.06),.14,"wood_dark",True)
+    for y in (.35,.87):m.beam((-span/2,y,.05),(span/2,y-.09-.02*variant,.06),.095,"wood_dark",True,.065)
+    for i in range(7):
+        if (i+variant)%4==1:continue
+        x=-span/2+.23+i*.35;top=1.04+[.05,-.15,.08,0,-.12,.03,0][i]
+        m.beam((x,.05,-.035),(x+(.13 if i%3==0 else -.07),top,-.015),.22,"wood",True,.05)
+    return m
+
+
 def models():
     result=[f() for f in [abandoned_house,forester_hut,barn,coop,beehive,well_sweep,
             damaged_fence,valley_house,valley_well,valley_boundary,lambda:valley_boundary(True),rusty_pylon,fallen_pylon,mosaic_stop,bridge,service_building,mooring,chicken]]
     for kind,identity in [("weeds","ua_field_weeds"),("reeds","ua_reed_clump"),("willow","ua_young_willow"),("poplar","ua_poplar")]:
         result.extend([vegetation(identity,kind),vegetation(identity+"_lod",kind,True)])
+    result.extend([village_pole(),village_pole(True),broken_pole(),footbridge(),bridge_remnants(),spillway_ruin(),broken_boundary(),broken_boundary(1),broken_boundary(2)])
     result.extend([dam(),dam(True),valley_tree("poplar"),valley_tree("willow"),valley_tree("orchard")])
     return result
 
@@ -427,8 +497,13 @@ def asset_entries(items):
         if m.id=="ua_power_pylon_rusted":
             original=next(a for a in json.loads(CATALOG.read_text()) if a["id"]=="ua_power_pylon")
             entry["conductors"]=original["conductors"];entry["supportKind"]="power"
-        if m.id=="ua_abandoned_house":entry["conductors"]=[dict(x=2.3,y=2.8,z=1.8)]
+        if m.id in ("ua_village_wood_pole","ua_village_concrete_pole"):
+            entry["supportKind"]="distribution";entry["conductors"]=[dict(x=x,y=h-.03,z=0) for x in (-.64,.07,.70)]
+        if m.id in ("ua_valley_house","ua_abandoned_house"):entry["conductors"]=[dict(x=2.3,y=2.8,z=1.8)]
         if m.id.startswith("ua_dam_breached"):entry["sockets"]={"bankA":{"x":-14,"z":0},"bankB":{"x":14,"z":0}}
+        if m.id=="ua_valley_footbridge":entry["sockets"]={"bankA":{"x":0,"z":-3.8},"bankB":{"x":0,"z":3.8}}
+        if m.id=="ua_valley_bridge_remnants":entry["sockets"]={"bankA":{"x":-4.7,"z":0},"bankB":{"x":4.7,"z":0}}
+        if m.id=="ua_pond_spillway_ruin":entry["sockets"]={"bankA":{"x":-5.3,"z":0},"bankB":{"x":5.3,"z":0}}
         if m.id=="ua_plank_bridge":entry["sockets"]={"north":{"x":0,"z":-2.53},"south":{"x":0,"z":2.53}}
         result.append(entry)
     return result

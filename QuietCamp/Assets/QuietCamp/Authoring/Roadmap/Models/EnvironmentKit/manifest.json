@@ -4,7 +4,7 @@
   "published": false,
   "generator": "tools/roadmap-assets/build_environment_kit.py",
   "license": "original-project-owned",
-  "totalTriangles": 5308,
+  "totalTriangles": 6390,
   "models": [
     {
       "id": "ua_abandoned_house",
@@ -756,6 +756,267 @@
       },
       "sourceSha256": "5fcb017f39fa62c5705d2e1e4aff9af2d1a728080f0fb0e0c8acdaf0448f6b6b",
       "description": "Original coarse vegetation; no foliage cards, textures, fruit or cultivated crop rows.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_village_wood_pole",
+      "source": "ua_village_wood_pole.obj",
+      "triangles": 72,
+      "triangleBudget": 240,
+      "dimensionsXYZ": [
+        1.5899999999999999,
+        6.102458686035895,
+        0.21
+      ],
+      "sourceHeight": 6.102458686035895,
+      "bounds": {
+        "min": [
+          -0.76,
+          -0.0012293430179475802,
+          -0.105
+        ],
+        "max": [
+          0.83,
+          6.101229343017947,
+          0.105
+        ]
+      },
+      "sourceSha256": "0764a30e69fdefa270da903ad06fd1e3765d4b6276f1cfa41ec16307064634dd",
+      "description": "Simple rural distribution support, one crossarm and three coarse insulators; physical metre dimensions.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_village_concrete_pole",
+      "source": "ua_village_concrete_pole.obj",
+      "triangles": 72,
+      "triangleBudget": 240,
+      "dimensionsXYZ": [
+        1.5899999999999999,
+        6.702238556646026,
+        0.25
+      ],
+      "sourceHeight": 6.702238556646026,
+      "bounds": {
+        "min": [
+          -0.76,
+          -0.001119278323012313,
+          -0.125
+        ],
+        "max": [
+          0.83,
+          6.701119278323013,
+          0.125
+        ]
+      },
+      "sourceSha256": "ae744265c127b4e2f5e06e0ac6154342f3dc2d6b48fd86aa2986138c67d2ab25",
+      "description": "Simple rural distribution support, one crossarm and three coarse insulators; physical metre dimensions.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_village_broken_pole",
+      "source": "ua_village_broken_pole.obj",
+      "triangles": 60,
+      "triangleBudget": 160,
+      "dimensionsXYZ": [
+        5.450876702706902,
+        0.7345137846517455,
+        1.5159966541931942
+      ],
+      "sourceHeight": 0.7345137846517455,
+      "bounds": {
+        "min": [
+          -2.84,
+          0.0,
+          -0.4879983270965971
+        ],
+        "max": [
+          2.610876702706902,
+          0.7345137846517455,
+          1.027998327096597
+        ]
+      },
+      "sourceSha256": "3e02c01a1040462b6a792c43f23769eefe48497abf23e6c8d028a817ddf2776d",
+      "description": "Broken wooden distribution pole lying on soil, snapped base and one displaced crossarm. No live conductor sockets.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_valley_footbridge",
+      "source": "ua_valley_footbridge.obj",
+      "triangles": 300,
+      "triangleBudget": 360,
+      "dimensionsXYZ": [
+        1.27236720596385,
+        1.1459107654615246,
+        7.800000000000001
+      ],
+      "sourceHeight": 1.1459107654615246,
+      "bounds": {
+        "min": [
+          -0.6575080956284269,
+          0.06,
+          -3.9000000000000004
+        ],
+        "max": [
+          0.6148591103354231,
+          1.2059107654615246,
+          3.9
+        ]
+      },
+      "sourceSha256": "f36e0141f4f6e5de29ab6807d8b1ea0c37c7a74df06f27ef20f9d20204ab7f31",
+      "description": "Narrow 1.2m pedestrian footbridge, 7.8m span, shallow deck, supported bank landings and incomplete single handrail.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_valley_bridge_remnants",
+      "source": "ua_valley_bridge_remnants.obj",
+      "triangles": 98,
+      "triangleBudget": 200,
+      "dimensionsXYZ": [
+        11.2,
+        1.47,
+        5.4
+      ],
+      "sourceHeight": 1.47,
+      "bounds": {
+        "min": [
+          -5.6,
+          0.0,
+          -2.7
+        ],
+        "max": [
+          5.6,
+          1.47,
+          2.7
+        ]
+      },
+      "sourceSha256": "d9b3e8b254393474a13cd6f722448484bee322c9b45e679c8a0d189bcf32b6dd",
+      "description": "Two bank abutments of a 5.4m-wide rural road bridge; collapsed central span is genuinely absent. Span along X.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_pond_spillway_ruin",
+      "source": "ua_pond_spillway_ruin.obj",
+      "triangles": 180,
+      "triangleBudget": 300,
+      "dimensionsXYZ": [
+        10.7,
+        3.71,
+        5.125000000000001
+      ],
+      "sourceHeight": 3.71,
+      "bounds": {
+        "min": [
+          -5.4,
+          0,
+          -4.4750000000000005
+        ],
+        "max": [
+          5.3,
+          3.71,
+          0.65
+        ]
+      },
+      "sourceSha256": "29c6c83dd9bbb213a4534192fbb318f4db6005ec5d71cb264fd417359585b0b8",
+      "description": "Broken small pond outlet: eroded earth is authored terrain; two surviving concrete sides, jagged crest, gate frame and downstream scour apron, no bridge deck.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_valley_fence_broken_0",
+      "source": "ua_valley_fence_broken_0.obj",
+      "triangles": 96,
+      "triangleBudget": 200,
+      "dimensionsXYZ": [
+        2.669215385004903,
+        1.3128956288413451,
+        0.2751174891168575
+      ],
+      "sourceHeight": 1.3128956288413451,
+      "bounds": {
+        "min": [
+          -1.3346076925024515,
+          -0.006447814420672458,
+          -0.14504328885399945
+        ],
+        "max": [
+          1.3346076925024515,
+          1.3064478144206726,
+          0.13007420026285804
+        ]
+      },
+      "sourceSha256": "8078651e063fde84757d7a39e4797a7f67afce75d12de4d7846e24c28fdc7448",
+      "description": "Owned weathered boundary: leaning post, sagging rails and missing boards; complete perimeter belongs to the yard.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_valley_fence_broken_1",
+      "source": "ua_valley_fence_broken_1.obj",
+      "triangles": 96,
+      "triangleBudget": 200,
+      "dimensionsXYZ": [
+        2.6697018482710964,
+        1.3128956288413451,
+        0.2751174891168575
+      ],
+      "sourceHeight": 1.3128956288413451,
+      "bounds": {
+        "min": [
+          -1.3348509241355482,
+          -0.006447814420672458,
+          -0.14504328885399945
+        ],
+        "max": [
+          1.3348509241355482,
+          1.3064478144206726,
+          0.13007420026285804
+        ]
+      },
+      "sourceSha256": "ca3486ed589e6117af30654a601fa1ea4ce4144a84f5ffa2f8bedb2c60674280",
+      "description": "Owned weathered boundary: leaning post, sagging rails and missing boards; complete perimeter belongs to the yard.",
+      "geometry": "original-project-owned",
+      "externalGeometry": false,
+      "lod": null
+    },
+    {
+      "id": "ua_valley_fence_broken_2",
+      "source": "ua_valley_fence_broken_2.obj",
+      "triangles": 108,
+      "triangleBudget": 200,
+      "dimensionsXYZ": [
+        2.6701878610395022,
+        1.3128956288413451,
+        0.2751174891168575
+      ],
+      "sourceHeight": 1.3128956288413451,
+      "bounds": {
+        "min": [
+          -1.3350939305197511,
+          -0.006447814420672458,
+          -0.14504328885399945
+        ],
+        "max": [
+          1.3350939305197511,
+          1.3064478144206726,
+          0.13007420026285804
+        ]
+      },
+      "sourceSha256": "a4f31be2d5a5863764d10c82c23c4ae179d2f6ac4492ed57e139ffef2e45fcbd",
+      "description": "Owned weathered boundary: leaning post, sagging rails and missing boards; complete perimeter belongs to the yard.",
       "geometry": "original-project-owned",
       "externalGeometry": false,
       "lod": null

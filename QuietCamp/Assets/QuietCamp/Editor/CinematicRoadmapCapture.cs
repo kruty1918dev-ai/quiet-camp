@@ -35,7 +35,7 @@ namespace QuietCamp.Editor
             CinematicRoadmapBaker.Bake();
             var asset=AssetDatabase.LoadAssetAtPath<RoadmapWorldAsset>("Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/World.asset");
             string repo=Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath,"../.."));
-            string output=Path.Combine(repo,"Design/Roadmap/CinematicPilot/2026-10-10");Directory.CreateDirectory(output);
+            string output=Environment.GetEnvironmentVariable("QC_CINEMATIC_EVIDENCE_ROOT")??Path.Combine(repo,"Design/Roadmap/CinematicPilot/2026-10-10");Directory.CreateDirectory(output);
             int previousQuality=QualitySettings.GetQualityLevel();
             try
             {
@@ -96,7 +96,7 @@ namespace QuietCamp.Editor
                 var pipeline=(UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline;
                 if(!pipeline.supportsMainLightShadows||pipeline.supportsAdditionalLightShadows||pipeline.shadowCascadeCount!=1)
                     throw new InvalidOperationException("Roadmap needs one bounded main-light shadow pass");
-                if(world.LoadedChunks>3||submittedTriangles>(low?80000:150000)||visible.Select(r=>r.sharedMaterial).Distinct().Count()>(low?8:12))
+                if(!asset.artisticReference&&(world.LoadedChunks>3||submittedTriangles>(low?80000:150000)||visible.Select(r=>r.sharedMaterial).Distinct().Count()>(low?8:12)))
                     throw new InvalidOperationException("Native composition exceeds the pilot geometry/residency/material budget: "+path+" / "+submittedTriangles);
                 return new{file=Path.GetFileName(path),route,frontier,quality=low?"Low":"Balanced",width,height,
                     renderProfile=QualitySettings.names[QualitySettings.GetQualityLevel()],
