@@ -62,6 +62,56 @@
       "width": 15,
       "depth": 15,
       "density": 0
+    },
+    {
+      "id": "stop-meadow",
+      "kind": "field",
+      "species": "pilot.grass-tuft",
+      "x": -23,
+      "z": 1,
+      "width": 24,
+      "depth": 64,
+      "density": 0.9
+    },
+    {
+      "id": "orchard-meadow",
+      "kind": "field",
+      "species": "pilot.grass-tuft",
+      "x": -20,
+      "z": 42,
+      "width": 35,
+      "depth": 32,
+      "density": 1
+    },
+    {
+      "id": "forest-verge",
+      "kind": "field",
+      "species": "pilot.grass-tuft",
+      "x": -13,
+      "z": 82,
+      "width": 29,
+      "depth": 36,
+      "density": 0.85
+    },
+    {
+      "id": "crossing-meadow",
+      "kind": "field",
+      "species": "pilot.grass-tuft",
+      "x": -8,
+      "z": 122,
+      "width": 32,
+      "depth": 34,
+      "density": 1
+    },
+    {
+      "id": "weir-meadow",
+      "kind": "field",
+      "species": "pilot.grass-tuft",
+      "x": -18,
+      "z": 169,
+      "width": 30,
+      "depth": 54,
+      "density": 0.9
     }
   ],
   "routes": [

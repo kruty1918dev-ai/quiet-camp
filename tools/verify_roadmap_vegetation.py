@@ -71,7 +71,11 @@ def main():
                 gap=math.dist((prop['x'],prop['z']),(plant['x'],plant['z']))-prop['radius']-plant['radius']
                 assert gap >= .149, f'{quality}: vegetation intersects a scattered rock {plant["id"]}'
         samples.append({'quality':quality,'plants':len(plants),'trees':sum(p['tree'] for p in plants),
-                        'groundProps':len(props),'grassTufts':sum(p['asset']=='pilot.grass-tuft' for p in plants),'minimumAnimatedPlantGap':minimum})
+                        'groundProps':len(props),'grassTufts':sum(p['asset']=='pilot.grass-tuft' for p in plants),
+                        'shrubs':sum(p['asset']=='plant_bushSmall' for p in plants),
+                        'flowers':sum(p['asset'].startswith('flower_') for p in plants),
+                        'groundDetails':sum(p['asset'] in ('stone_largeA','log') for p in plants),
+                        'minimumAnimatedPlantGap':minimum})
     receipt = {'sourceHash':bake['sourceHash'],'method':'Independent pair distances, 32-point crown/river checks, oriented architecture and owned road surfaces',
                'samples':samples,'result':'Passed','playerBuild':False,'mobileFpsMeasured':False}
     (EVIDENCE / 'vegetation-clearance-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')

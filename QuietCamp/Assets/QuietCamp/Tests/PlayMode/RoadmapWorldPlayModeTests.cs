@@ -303,6 +303,49 @@ namespace QuietCamp.Tests
                 Assert.AreEqual(cameraPosition,World().WorldCamera.transform.position);Assert.AreEqual(cameraRotation,World().WorldCamera.transform.rotation);
                 waterMotion.Add(new{quality=quality==0?"Low":"Balanced",renderProfile=QualitySettings.names[QualitySettings.GetQualityLevel()],seconds=Time.realtimeSinceStartup-beganWater,meanRgbByteDifference=difference,patchX=(int)point.x-radius,patchY=(int)point.y-radius,patchSize=radius*2,cameraStationary=true,shader=material.shader.name});
             }
+            var airborneMotion=new List<object>();
+            for(int quality=0;quality<=1;quality++)
+            {
+                services.Settings.quality=quality+1;services.EffectiveQuality=quality;QualitySettings.SetQualityLevel(quality,true);
+                services.ReducedMotion=false;World().Seek(0);yield return Frames(35);
+                var camera=World().WorldCamera;var position=camera.transform.position;var rotation=camera.transform.rotation;
+                var renderers=World().WorldRoot.GetComponentsInChildren<MeshRenderer>();
+                var states=renderers.ToDictionary(r=>r,r=>r.enabled);var flags=camera.clearFlags;var background=camera.backgroundColor;
+                try
+                {
+                    foreach(var r in renderers)if(r.sharedMaterial.shader.name!="QuietCamp/RoadmapMotes")r.enabled=false;
+                    camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Color.black;
+                    Color32[] previous=null;int lit=0,changed=0,hidden=0;
+                    for(int phase=0;phase<3;phase++)
+                    {
+                        if(phase==1)yield return new WaitForSecondsRealtime(2);
+                        if(phase==2)services.ReducedMotion=true;
+                        yield return Frames(3);yield return new WaitForEndOfFrame();
+                        var texture=ScreenCapture.CaptureScreenshotAsTexture();var pixels=texture.GetPixels32();
+                        File.WriteAllBytes(Path.Combine(Output,"airborne-"+(quality==0?"low":"balanced")+"-"+phase+".png"),texture.EncodeToPNG());Object.Destroy(texture);
+                        // Exclude the exit control and safe-area edges. The empty
+                        // black world isolates actual shader pixels from moving foliage.
+                        for(int y=80;y<Screen.height-180;y++)for(int x=60;x<Screen.width-60;x++)
+                        {
+                            int p=y*Screen.width+x;var c=pixels[p];int brightness=c.r+c.g+c.b;
+                            if(phase==0&&brightness>6)lit++;
+                            if(phase==1&&Math.Abs(c.r-previous[p].r)+Math.Abs(c.g-previous[p].g)+Math.Abs(c.b-previous[p].b)>6)changed++;
+                            if(phase==2&&brightness>6)hidden++;
+                        }
+                        if(phase==0)previous=pixels;
+                    }
+                    Assert.Greater(lit,5,"Airborne detail is invisible from the authored overview");
+                    Assert.Greater(changed,5,"Airborne detail does not move with a stationary camera");
+                    Assert.AreEqual(0,hidden,"Reduced motion leaves airborne particles visible");
+                    Assert.AreEqual(position,camera.transform.position);Assert.AreEqual(rotation,camera.transform.rotation);
+                    airborneMotion.Add(new{quality=quality==0?"Low":"Balanced",cameraStationary=true,litPixels=lit,changedPixels=changed,reducedMotionLitPixels=hidden,isolatedRendererProbe=true});
+                }
+                finally
+                {
+                    foreach(var state in states)state.Key.enabled=state.Value;
+                    camera.clearFlags=flags;camera.backgroundColor=background;services.ReducedMotion=false;
+                }
+            }
             services.Settings.quality=2;services.EffectiveQuality=1;services.ReducedMotion=false;World().Seek(0);yield return Frames(60);
             var movie=Path.Combine(Output,"MovieFrames~");Directory.CreateDirectory(movie);
             float began=Time.realtimeSinceStartup;
@@ -338,7 +381,7 @@ namespace QuietCamp.Tests
             yield return Ready("MainMenu");yield return Frames();
             World().Seek(0);yield return Frames();Pointer(World(),0,false);yield return Ready("Camp");Assert.AreEqual("QC001",CampSceneHost.Current.Session.Level.id);
             File.WriteAllText(Path.Combine(Output,"gameview-integration-receipt.json"),JsonConvert.SerializeObject(new{capturedUtc=DateTime.UtcNow.ToString("o"),unity=UnityEngine.Application.unityVersion,
-                product=UnityEngine.Application.productName,sourceHash=Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World").sourceHash,playerBuild=false,mobileFpsMeasured=false,audioSuppressionRequested=true,audioOutputVerified=false,measurements,navigation,waterMotion,reentryCounts=counts,movieFrameCount=193,capturedSeconds,
+                product=UnityEngine.Application.productName,sourceHash=Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World").sourceHash,playerBuild=false,mobileFpsMeasured=false,audioSuppressionRequested=true,audioOutputVerified=false,measurements,navigation,waterMotion,airborneMotion,reentryCounts=counts,movieFrameCount=193,capturedSeconds,
                 checks="Fresh campaign progress after onboarding, completion 1–5, old progress including gaps, replay, jitter-tolerant tap, drag rejection, 36 screen-space tracking samples, normalized wheel and fractional trackpad, multitouch ownership, real Input System pinch/release/cancel, fresh-profile inspection margins without reveal, quality change, synthetic notch, portrait/landscape, reduced motion, interrupted reveal, repeated entry/exit"},Formatting.Indented)+"\n");
         }
         static void PointerReplay(GameServices services){services.PendingMenuScreen="Levels";PrivacyBootTestSupport.Tap(PrivacyBootTestSupport.Find("continue"));}

@@ -1,0 +1,24 @@
+{
+  "minGrassHeight": 0.65,
+  "maxGrassHeight": 1.2,
+  "minShrubHeight": 0.5,
+  "maxShrubHeight": 1.0,
+  "low": {
+    "grassStep": 0.78,
+    "density": 0.8,
+    "blades": 3,
+    "rocks": 14,
+    "logs": 6,
+    "flowers": 24,
+    "motesPerChunk": 24
+  },
+  "balanced": {
+    "grassStep": 0.65,
+    "density": 1.0,
+    "blades": 4,
+    "rocks": 30,
+    "logs": 12,
+    "flowers": 60,
+    "motesPerChunk": 48
+  }
+}

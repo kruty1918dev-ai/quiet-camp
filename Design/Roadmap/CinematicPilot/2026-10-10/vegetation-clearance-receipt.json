@@ -1,22 +1,28 @@
 {
-  "sourceHash": "64d67704cf5a3b32772e0d490bc44e3eb5bdf622bc9f502ee68549d361bf6507",
+  "sourceHash": "75af48ddd6533350a2111fe799c98b7cabce8826c22e37def93765d8fe9abe43",
   "method": "Independent pair distances, 32-point crown/river checks, oriented architecture and owned road surfaces",
   "samples": [
     {
       "quality": "low",
-      "plants": 2223,
+      "plants": 4643,
       "trees": 284,
-      "groundProps": 1,
-      "grassTufts": 1052,
-      "minimumAnimatedPlantGap": 0.15024566848226695
+      "groundProps": 0,
+      "grassTufts": 3624,
+      "shrubs": 691,
+      "flowers": 24,
+      "groundDetails": 20,
+      "minimumAnimatedPlantGap": 0.15004788766304017
     },
     {
       "quality": "balanced",
-      "plants": 3118,
+      "plants": 4636,
       "trees": 410,
       "groundProps": 0,
-      "grassTufts": 1404,
-      "minimumAnimatedPlantGap": 0.15095403864305534
+      "grassTufts": 3268,
+      "shrubs": 856,
+      "flowers": 60,
+      "groundDetails": 42,
+      "minimumAnimatedPlantGap": 0.15001149500456223
     }
   ],
   "result": "Passed",
