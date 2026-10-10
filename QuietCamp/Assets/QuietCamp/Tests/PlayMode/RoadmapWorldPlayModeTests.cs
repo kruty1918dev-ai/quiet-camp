@@ -77,6 +77,14 @@ namespace QuietCamp.Tests
             Assert.IsTrue(UnityEngine.Application.productName.StartsWith("QuietCampRoadmapQA"),"Run only with isolated synthetic QA saves");
             Assert.IsFalse(UnityEngine.Application.isBatchMode,"Native Game View and end-of-frame captures required");
             UnityEditor.ShaderUtil.allowAsyncCompilation=false;
+            // The QA copy shares imported artifacts; its private script mapper must resolve after domain reload.
+            foreach(var path in new[]{"Assets/QuietCamp/Scripts/Presentation/QuietCampBootstrap.cs",
+                "Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldAsset.cs",
+                "Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldChunk.cs"})
+            {
+                var script=UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEditor.MonoScript>(path);
+                Assert.NotNull(script);Assert.NotNull(script.GetClass(),"Native script mapping: "+path);
+            }
             Directory.CreateDirectory(Output);Size(720,1600);
             var save=new SaveAdapter();save.Load(out _);save.Progress=new ProgressSaveData();save.Session=new SessionSaveData();save.Album=new AlbumSaveData();
             // Fresh campaign progress after onboarding; the existing introductory tutorial has separate QA.
@@ -131,9 +139,15 @@ namespace QuietCamp.Tests
             foreach(int quality in new[]{0,1})
             {
                 services.Settings.quality=quality+1;services.EffectiveQuality=quality;World().Seek(3);yield return Frames(40);Assert.IsTrue(World().Ready);
-                for(int i=0;i<9;i++){World().Seek(i*.5f);yield return Frames(8);Assert.LessOrEqual(World().LoadedChunks,3);if(quality==1)yield return Shot("gameview-composition-"+i.ToString("00"));}
+                for(int i=0;i<9;i++)
+                {
+                    World().Seek(i*.5f);yield return Frames(12);Assert.IsTrue(World().Ready,World().Fault);Assert.LessOrEqual(World().LoadedChunks,3);
+                    yield return Shot((quality==0?"gameview-low-composition-":"gameview-composition-")+i.ToString("00"));
+                    measurements.Add(new{quality=quality==0?"Low":"Balanced",route=i*.5f,orientation="portrait",editorDrawCalls=UnityEditor.UnityStats.drawCalls,editorTriangles=UnityEditor.UnityStats.triangles,worldChunks=World().LoadedChunks});
+                    Assert.LessOrEqual(UnityEditor.UnityStats.drawCalls,quality==0?80:120,"Editor draw-call budget");
+                }
                 Size(1600,720);yield return Frames(20);yield return Shot("gameview-"+(quality==0?"low":"balanced")+"-landscape");
-                measurements.Add(new{quality=quality==0?"Low":"Balanced",editorDrawCalls=UnityEditor.UnityStats.drawCalls,editorTriangles=UnityEditor.UnityStats.triangles,worldChunks=World().LoadedChunks});
+                measurements.Add(new{quality=quality==0?"Low":"Balanced",route=4f,orientation="landscape",editorDrawCalls=UnityEditor.UnityStats.drawCalls,editorTriangles=UnityEditor.UnityStats.triangles,worldChunks=World().LoadedChunks});
                 Size(720,1600);yield return Frames();
             }
             services.Settings.quality=2;services.EffectiveQuality=1;services.ReducedMotion=false;World().Seek(0);yield return Frames(60);
@@ -166,7 +180,7 @@ namespace QuietCamp.Tests
             yield return Ready("MainMenu");yield return Frames();
             World().Seek(0);yield return Frames();Pointer(World(),0,false);yield return Ready("Camp");Assert.AreEqual("QC001",CampSceneHost.Current.Session.Level.id);
             File.WriteAllText(Path.Combine(Output,"gameview-integration-receipt.json"),JsonConvert.SerializeObject(new{capturedUtc=DateTime.UtcNow.ToString("o"),unity=UnityEngine.Application.unityVersion,
-                product=UnityEngine.Application.productName,sourceHash=Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World").sourceHash,playerBuild=false,mobileFpsMeasured=false,audioDeviceEnabled=false,measurements,reentryCounts=counts,movieFrameCount=193,capturedSeconds,
+                product=UnityEngine.Application.productName,sourceHash=Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World").sourceHash,playerBuild=false,mobileFpsMeasured=false,audioSuppressionRequested=true,audioOutputVerified=false,measurements,reentryCounts=counts,movieFrameCount=193,capturedSeconds,
                 checks="Fresh campaign progress after onboarding, completion 1–5, old progress including gaps, replay, drag rejection, quality change, synthetic notch, portrait/landscape, reduced motion, interrupted reveal, repeated entry/exit"},Formatting.Indented)+"\n");
         }
         static void PointerReplay(GameServices services){services.PendingMenuScreen="Levels";PrivacyBootTestSupport.Tap(PrivacyBootTestSupport.Find("continue"));}

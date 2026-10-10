@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # User-authorized model review and diorama studies; never a player build.
 set -euo pipefail
+# Parse the launch body before running the Editor; edits cannot change later shell reads.
+main() {
 task_root=$(cd "$(dirname "$0")/.." && pwd)
 task_editor=/home/oleks/Unity/Hub/Editor/6000.6.2f1/Editor/Unity
 case "${1:---probe}" in
@@ -40,6 +42,8 @@ unshare --user "${task_user_mapping[@]}" --pid --fork --mount-proc --net \
     if [[ "$1" == pilot-tests ]]; then
       task_qa=/home/oleks/.cache/quietcamp/cinematic-roadmap-qa
       [[ -d "$task_qa/ProjectSettings" ]]
+      [[ ! -L "$task_qa/Library/ScriptMapper" ]] || { echo "QA script mapper must be private"; exit 1; }
+      rg -q "productName: QuietCampRoadmapQA" "$task_qa/ProjectSettings/ProjectSettings.asset"
       # GTK accessibility cannot authenticate to a host bus from the private PID/user namespace.
       # Keep the QA Editor off the desktop accessibility bus as well as the host process/network view.
       unset DBUS_SESSION_BUS_ADDRESS
@@ -64,3 +68,6 @@ unshare --user "${task_user_mapping[@]}" --pid --fork --mount-proc --net \
       -job-worker-count 1 -background-job-worker-count 4 \
       -executeMethod "$task_method" -quit -logFile "$3/TestResults/diorama-$1-editor.log"
   ' diorama-isolation "$task_mode" "$task_editor" "$task_root"
+
+}
+main "$@"
