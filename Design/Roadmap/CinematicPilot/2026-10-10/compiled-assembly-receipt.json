@@ -1,14 +1,15 @@
 {
   "kind": "current-private-qa-compiled-artifacts",
-  "sourceHash": "64d67704cf5a3b32772e0d490bc44e3eb5bdf622bc9f502ee68549d361bf6507",
-  "captureUtc": "2026-10-10T19:14:47.6370170Z",
-  "verifiedUtc": "2026-10-10T19:15:22.734413+00:00",
+  "sourceHash": "75af48ddd6533350a2111fe799c98b7cabce8826c22e37def93765d8fe9abe43",
+  "captureUtc": "2026-10-10T20:06:36.9923760Z",
+  "verifiedUtc": "2026-10-10T20:07:04.394498+00:00",
   "compilerCache": "Private QA Bee, ScriptAssemblies, ScriptMapper, ArtifactDB and SourceAssetDB",
-  "testsSourceSha256": "b9933a446bc9a7a528b8e1544dbfb52316ce5f5822ead04f9a74bd6ea1bd2d68",
+  "testsSourceSha256": "63eda84c109259e29aac947ef886a72a7047654d9b68ffe03aa157baee9759e4",
   "presentationSourceSha256": "aac974059615495e3c9448b3a48d237042394672599b981fde9968e4ae98bf98",
   "currentCodeFeatures": {
     "waterMotion": true,
-    "riverByFrontier": true
+    "riverByFrontier": true,
+    "airborneMotion": true
   },
   "notes": "Separate project compilations can differ bytewise; native and executed QA artifacts are fingerprinted independently. Fresh private compilation and current code features are verified.",
   "checks": [
@@ -46,19 +47,20 @@
     },
     {
       "file": "QuietCamp.Editor.dll",
-      "nativeCompiledSha256": "fafb47c85cdccf04e16263ffe3bd9844996ba505fa3563134656daa01c9b5209",
-      "qaExecutedSha256": "ff9c40f1bba1b2935c1879d0d6c5132fdaf0bee2eeb413e601d21bc5f53643e6",
+      "nativeCompiledSha256": "171d0e8fc9ab7371eec2797a5df60e37d3aaa9987f7435160533675d42f0001f",
+      "qaExecutedSha256": "61bd2c7ccb166b556018da6c86173c5b060cb397beafcbe1b7b920ce4974625e",
       "byteIdentical": false
     },
     {
       "file": "QuietCamp.Tests.PlayMode.dll",
-      "nativeCompiledSha256": "7690ffe0795e1acc2d0df305932a33066aedbab36dac254c752c0df6cf0e9e5e",
-      "qaExecutedSha256": "a4aa3171715a3aaa36e66ecb5f9f694a92b0babb7e9d2c782953a28aebd4049c",
+      "nativeCompiledSha256": "bf95f4390b1ead02852432c4b478aec646947685d314783aab73a42804a3f9fd",
+      "qaExecutedSha256": "aac01168fdc30e85f6c68d43d094e24242ffb124b30d0f956676113e1fb229b2",
       "byteIdentical": false
     }
   ],
   "opaqueShadowAssertionExecuted": true,
   "coarseTerrainExclusionExecuted": true,
   "indexedShadowGeometryAssertionExecuted": true,
-  "directionalSkyIrradianceExecuted": true
+  "directionalSkyIrradianceExecuted": true,
+  "airbornePixelAssertionExecuted": true
 }

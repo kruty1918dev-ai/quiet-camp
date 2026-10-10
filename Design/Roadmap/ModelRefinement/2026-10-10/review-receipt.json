@@ -1,8 +1,8 @@
 {
   "kind": "roadmap-model-and-clearance-native-review",
-  "verifiedUtc": "2026-10-10T19:15:22.734413+00:00",
-  "sourceHash": "64d67704cf5a3b32772e0d490bc44e3eb5bdf622bc9f502ee68549d361bf6507",
-  "nativeCaptureUtc": "2026-10-10T19:10:30.3977590Z",
+  "verifiedUtc": "2026-10-10T20:07:04.394498+00:00",
+  "sourceHash": "75af48ddd6533350a2111fe799c98b7cabce8826c22e37def93765d8fe9abe43",
+  "nativeCaptureUtc": "2026-10-10T19:32:29.9802200Z",
   "before": {
     "sourceHash": "6fd474482fbae4d90f7bdbcc20778cedb9d48e43daee20467ca7cede5bb4dc31",
     "capturedUtc": "2026-10-10T16:57:20.1316990Z",
@@ -254,44 +254,57 @@
       ]
     }
   ],
-  "vegetation": [
-    {
-      "quality": "low",
-      "plants": 2223,
-      "trees": 284,
-      "groundProps": 1,
-      "grassTufts": 1052,
-      "minimumAnimatedPlantGap": 0.15024566848226695
-    },
-    {
-      "quality": "balanced",
-      "plants": 3118,
-      "trees": 410,
-      "groundProps": 0,
-      "grassTufts": 1404,
-      "minimumAnimatedPlantGap": 0.15095403864305534
-    }
-  ],
+  "vegetation": {
+    "sourceHash": "75af48ddd6533350a2111fe799c98b7cabce8826c22e37def93765d8fe9abe43",
+    "method": "Independent pair distances, 32-point crown/river checks, oriented architecture and owned road surfaces",
+    "samples": [
+      {
+        "quality": "low",
+        "plants": 4643,
+        "trees": 284,
+        "groundProps": 0,
+        "grassTufts": 3624,
+        "shrubs": 691,
+        "flowers": 24,
+        "groundDetails": 20,
+        "minimumAnimatedPlantGap": 0.15004788766304017
+      },
+      {
+        "quality": "balanced",
+        "plants": 4636,
+        "trees": 410,
+        "groundProps": 0,
+        "grassTufts": 3268,
+        "shrubs": 856,
+        "flowers": 60,
+        "groundDetails": 42,
+        "minimumAnimatedPlantGap": 0.15001149500456223
+      }
+    ],
+    "result": "Passed",
+    "playerBuild": false,
+    "mobileFpsMeasured": false
+  },
   "images": [
     {
       "file": "after-QC001.png",
-      "sha256": "b549086a28933108fbb0c3348b8e59ad05d6102df3b7221fe8606073e57a1385"
+      "sha256": "6c8dab91e7854591a9a7ce8f53a3734f20e27c933e971f236c83c25f9347e0b7"
     },
     {
       "file": "after-QC002.png",
-      "sha256": "06d6ccc7f90e31b3e3dd341133f0197abf79afba43044b33fd47c8797051f9cd"
+      "sha256": "fbeded1db51d580e7aa00c60fe018b5da101b2b71bbee77eac68c58cb9ee17cf"
     },
     {
       "file": "after-QC003.png",
-      "sha256": "73a314c5cc8bf3280e9dcdee109c0ac992e313ef4417045a0d97cbfa64d034c0"
+      "sha256": "9b0ffa8a0fff659ee711364e7207be3330a00a53ae5d448cb647c653e88d6b1f"
     },
     {
       "file": "after-QC004.png",
-      "sha256": "0794713ff8e9241d75ba76615a21863abd82d7fc473de50f44409defe7f2f192"
+      "sha256": "002d96cae551a94936977310fb86072142e7511a7daee4962c1c496575c3eb11"
     },
     {
       "file": "after-QC005.png",
-      "sha256": "824334d57b14c52fbb7fb65fed0cf2e7d466fc49f5136bab53e7cc31314d5f83"
+      "sha256": "1ea5aa9b701c79bbc8175cc267eb7e1266535b631a405087a34a86c7bfa52926"
     },
     {
       "file": "before-QC001.png",
@@ -329,10 +342,10 @@
   "playerBuild": false,
   "mobileFpsMeasured": false,
   "gameViewResult": "Passed",
-  "gameViewCaptureUtc": "2026-10-10T19:14:47.6370170Z",
+  "gameViewCaptureUtc": "2026-10-10T20:06:36.9923760Z",
   "browserReview": {
     "result": "Passed",
-    "verifiedUtc": "2026-10-10T19:17:23.704496+00:00",
+    "verifiedUtc": "2026-10-10T20:07:42.126517+00:00",
     "widths": [
       320,
       720,

@@ -1,32 +1,32 @@
 {
   "kind": "indexed-world-shadow-budget",
-  "sourceHash": "64d67704cf5a3b32772e0d490bc44e3eb5bdf622bc9f502ee68549d361bf6507",
-  "nativeCaptureUtc": "2026-10-10T19:10:30.3977590Z",
+  "sourceHash": "75af48ddd6533350a2111fe799c98b7cabce8826c22e37def93765d8fe9abe43",
+  "nativeCaptureUtc": "2026-10-10T19:32:29.9802200Z",
   "tiers": [
     {
       "quality": "Low",
-      "triangles": 95485,
-      "triangleStreamVerticesBefore": 286455,
-      "indexedVertices": 220886,
-      "vertexReductionPercent": 22.889808172313273,
-      "maxVisibleMeshVertices": 155909,
-      "maxVisibleShadowCasterVertices": 153979,
+      "triangles": 102498,
+      "triangleStreamVerticesBefore": 307494,
+      "indexedVertices": 238344,
+      "vertexReductionPercent": 22.488243673047283,
+      "maxVisibleMeshVertices": 167547,
+      "maxVisibleShadowCasterVertices": 165528,
       "shadowAtlasResolution": 512,
       "shadowCascades": 1
     },
     {
       "quality": "Balanced",
-      "triangles": 135109,
-      "triangleStreamVerticesBefore": 405327,
-      "indexedVertices": 313565,
-      "vertexReductionPercent": 22.639005050243387,
-      "maxVisibleMeshVertices": 215082,
-      "maxVisibleShadowCasterVertices": 213023,
+      "triangles": 142636,
+      "triangleStreamVerticesBefore": 427908,
+      "indexedVertices": 326342,
+      "vertexReductionPercent": 23.73547584994905,
+      "maxVisibleMeshVertices": 223484,
+      "maxVisibleShadowCasterVertices": 221241,
       "shadowAtlasResolution": 1024,
       "shadowCascades": 1
     }
   ],
-  "chunkVertexAndIndexPayloadBytesBothVariants": 35588428,
+  "chunkVertexAndIndexPayloadBytesBothVariants": 37610708,
   "sameTriangleAttributesVerifiedDuringBake": true,
   "oneMainLightShadowPass": true,
   "allOpaqueWorldObjectsCastShadows": true,
@@ -37,23 +37,23 @@
     "Indexed vertex/payload and Editor counters are not GPU timing or phone FPS.",
     "Water and airborne pollen are transparent and do not cast opaque ground shadows."
   ],
-  "gameViewCaptureUtc": "2026-10-10T19:14:47.6370170Z",
+  "gameViewCaptureUtc": "2026-10-10T20:06:36.9923760Z",
   "measurements": {
     "Low": {
-      "maxSubmittedMeshTriangles": 73026,
+      "maxSubmittedMeshTriangles": 77727,
       "maxSharedWorldMaterials": 6,
       "maxDetailedChunks": 3,
       "gameViewSamples": 10,
       "maxEditorDrawCalls": 55,
-      "maxPassInclusiveEditorTriangles": 144496
+      "maxPassInclusiveEditorTriangles": 153833
     },
     "Balanced": {
-      "maxSubmittedMeshTriangles": 99642,
+      "maxSubmittedMeshTriangles": 104466,
       "maxSharedWorldMaterials": 6,
       "maxDetailedChunks": 3,
       "gameViewSamples": 10,
       "maxEditorDrawCalls": 55,
-      "maxPassInclusiveEditorTriangles": 197685
+      "maxPassInclusiveEditorTriangles": 207199
     }
   },
   "tierTotalsScope": "Sum across all five chunks of each quality; only up to three chunks are resident. Visibility budgets are recorded separately in measurements.",

@@ -125,13 +125,18 @@ def main():
     assert all(.85 <= sample['worldMotionPixels'] / sample['requestedPixels'] <= 1.15 for sample in tracking)
     compiled = read('compiled-assembly-receipt.json')
     assert compiled['sourceHash'] == gameview['sourceHash'] and compiled['captureUtc'] == gameview['capturedUtc']
-    assert len(compiled['assemblies']) == 6 and compiled['currentCodeFeatures'] == {'waterMotion': True, 'riverByFrontier': True}
+    assert len(compiled['assemblies']) == 6 and compiled['currentCodeFeatures'] == {'waterMotion': True, 'riverByFrontier': True, 'airborneMotion': True}
     assert compiled['testsSourceSha256'] == digest(ROOT / 'QuietCamp/Assets/QuietCamp/Tests/PlayMode/RoadmapWorldPlayModeTests.cs')
     assert compiled['presentationSourceSha256'] == digest(ROOT / 'QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldPresenter.cs')
     assert compiled['opaqueShadowAssertionExecuted'], 'Current opaque shadow check was not executed'
     assert compiled['coarseTerrainExclusionExecuted'], 'Detailed road/coarse ground exclusion was not checked'
     assert compiled['indexedShadowGeometryAssertionExecuted'], 'Current shadow/indexing checks were not executed'
     assert compiled['directionalSkyIrradianceExecuted'], 'Executed presentation has no directional sky irradiance'
+    assert compiled['airbornePixelAssertionExecuted'], 'Airborne visibility and reduced motion were not checked'
+    airborne = gameview['airborneMotion']
+    assert len(airborne) == 2 and {sample['quality'] for sample in airborne} == {'Low', 'Balanced'}
+    assert all(sample['cameraStationary'] and sample['isolatedRendererProbe'] for sample in airborne)
+    assert all(sample['litPixels'] > 5 and sample['changedPixels'] > 5 and sample['reducedMotionLitPixels'] == 0 for sample in airborne)
     water = gameview['waterMotion']
     assert len(water) == 2 and {sample['quality'] for sample in water} == {'Low', 'Balanced'}
     assert all(sample['cameraStationary'] and sample['seconds'] >= 2 and sample['meanRgbByteDifference'] > .15 for sample in water)
@@ -189,6 +194,16 @@ def main():
     assert len(relief['images']) == 18
     for entry in relief['images']:
         assert digest(depth / entry['file']) == entry['sha256']
+    greenery = ROOT / 'Design/Roadmap/GreeneryReview/2026-10-10'
+    cover = json.loads((greenery / 'review-receipt.json').read_text())
+    assert cover['sourceHash'] == bake['sourceHash'] and cover['nativeCaptureUtc'] == native['capturedUtc']
+    assert cover['gameViewResult'] == 'Passed' and cover['gameViewCaptureUtc'] == gameview['capturedUtc']
+    assert cover['airborneMotion'] == airborne and cover['vegetation'] == vegetation
+    assert cover['cameraAndLightingUnchanged'] and cover['before']['sourceHash'] != bake['sourceHash']
+    assert browser['greeneryGallerySha256'] == digest(greenery / 'index.html')
+    assert len(cover['images']) == 10
+    for entry in cover['images']:
+        assert digest(greenery / entry['file']) == entry['sha256']
     for path, sha in acceptance['artifacts'].items():
         assert digest(EVIDENCE / path) == sha, f'Artifact changed after acceptance: {path}'
 

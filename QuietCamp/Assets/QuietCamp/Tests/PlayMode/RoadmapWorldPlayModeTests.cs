@@ -307,13 +307,23 @@ namespace QuietCamp.Tests
             for(int quality=0;quality<=1;quality++)
             {
                 services.Settings.quality=quality+1;services.EffectiveQuality=quality;QualitySettings.SetQualityLevel(quality,true);
-                services.ReducedMotion=false;World().Seek(0);yield return Frames(35);
+                // Snap to the anchor before the stationary probe: normal Seek
+                // eases toward it and can still move by subpixels after 35 frames.
+                services.ReducedMotion=true;World().Seek(0);yield return Frames(5);
+                services.ReducedMotion=false;yield return Frames(30);
                 var camera=World().WorldCamera;var position=camera.transform.position;var rotation=camera.transform.rotation;
                 var renderers=World().WorldRoot.GetComponentsInChildren<MeshRenderer>();
-                var states=renderers.ToDictionary(r=>r,r=>r.enabled);var flags=camera.clearFlags;var background=camera.backgroundColor;
+                var particles=renderers.Where(r=>r.sharedMaterial.shader.name=="QuietCamp/RoadmapMotes").ToArray();
+                Assert.IsNotEmpty(particles);
+                Assert.IsFalse(renderers.Except(particles).Any(r=>r.gameObject.layer==31),"Particle probe layer already used");
+                var layers=particles.ToDictionary(r=>r,r=>r.gameObject.layer);
+                var mask=camera.cullingMask;var flags=camera.clearFlags;var background=camera.backgroundColor;
                 try
                 {
-                    foreach(var r in renderers)if(r.sharedMaterial.shader.name!="QuietCamp/RoadmapMotes")r.enabled=false;
+                    // Presenter updates marker visibility every frame. Isolate by
+                    // camera layer instead of fighting those renderer updates.
+                    foreach(var r in particles)r.gameObject.layer=31;
+                    camera.cullingMask=1<<31;
                     camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Color.black;
                     Color32[] previous=null;int lit=0,changed=0,hidden=0;
                     for(int phase=0;phase<3;phase++)
@@ -342,8 +352,8 @@ namespace QuietCamp.Tests
                 }
                 finally
                 {
-                    foreach(var state in states)state.Key.enabled=state.Value;
-                    camera.clearFlags=flags;camera.backgroundColor=background;services.ReducedMotion=false;
+                    foreach(var layer in layers)layer.Key.gameObject.layer=layer.Value;
+                    camera.cullingMask=mask;camera.clearFlags=flags;camera.backgroundColor=background;services.ReducedMotion=false;
                 }
             }
             services.Settings.quality=2;services.EffectiveQuality=1;services.ReducedMotion=false;World().Seek(0);yield return Frames(60);
