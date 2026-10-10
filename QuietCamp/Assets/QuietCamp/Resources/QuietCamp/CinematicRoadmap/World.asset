@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c315fa4bf2cb56deb74258d497b1d61a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: QuietCamp.Presentation::QuietCamp.Presentation.World.RoadmapWorldAsset
-  revision: 314244d43c251208
-  sourceHash: 314244d43c251208d8fbcd071344f582944000e2dfbffaa485724abebb91b7a6
+  revision: 64d67704cf5a3b32
+  sourceHash: 64d67704cf5a3b32772e0d490bc44e3eb5bdf622bc9f502ee68549d361bf6507
   waypoints:
   - levelId: QC001
     titleUk: "\u041E\u0441\u0442\u0430\u043D\u043D\u044F \u0437\u0443\u043F\u0438\u043D\u043A\u0430"
@@ -51,39 +51,39 @@ MonoBehaviour:
     distance: 151
     pitch: 54
   chunks:
-  - QuietCamp/CinematicRoadmap/314244d43c251208/chunk-0
-  - QuietCamp/CinematicRoadmap/314244d43c251208/chunk-1
-  - QuietCamp/CinematicRoadmap/314244d43c251208/chunk-2
-  - QuietCamp/CinematicRoadmap/314244d43c251208/chunk-3
-  - QuietCamp/CinematicRoadmap/314244d43c251208/chunk-4
-  horizon: {fileID: 4300000, guid: 01d4acdedc14f5e49a291d9aa968ba2a, type: 2}
-  markerMesh: {fileID: 4300000, guid: 0ef8479ac97678f218135e7f88f10278, type: 2}
+  - QuietCamp/CinematicRoadmap/64d67704cf5a3b32/chunk-0
+  - QuietCamp/CinematicRoadmap/64d67704cf5a3b32/chunk-1
+  - QuietCamp/CinematicRoadmap/64d67704cf5a3b32/chunk-2
+  - QuietCamp/CinematicRoadmap/64d67704cf5a3b32/chunk-3
+  - QuietCamp/CinematicRoadmap/64d67704cf5a3b32/chunk-4
+  horizon: {fileID: 4300000, guid: 97b1ebb9c4b006944b1e6dd16490bc95, type: 2}
+  markerMesh: {fileID: 4300000, guid: db4f3159be352076b96dddef0acbc425, type: 2}
   distantForest:
-  - {fileID: 4300000, guid: a5b91220e4f6f5dc1b6cd8e7d7013b49, type: 2}
-  - {fileID: 4300000, guid: daaa331c5f9922c91a2b3912e306d2c1, type: 2}
-  - {fileID: 4300000, guid: 25e3f80548ec5b68fad8efd02a95e586, type: 2}
-  - {fileID: 4300000, guid: de80aa48f2dcf30689b7d16736d6e614, type: 2}
-  - {fileID: 4300000, guid: cc9850eb63f99bcc6887699ee247c2cd, type: 2}
+  - {fileID: 4300000, guid: bbd0f1aba10e44d85bdd648a73cdbfce, type: 2}
+  - {fileID: 4300000, guid: 174da8662653bcc8d8d4f18855f36eef, type: 2}
+  - {fileID: 4300000, guid: 549c713ea4446fe208d44762a0f03fb1, type: 2}
+  - {fileID: 4300000, guid: bf23cf9047b03a464b363388f2bdaf14, type: 2}
+  - {fileID: 4300000, guid: 36d14a9dbd1241dcf9a790f347bfec96, type: 2}
   horizonTerrain:
-  - {fileID: 4300000, guid: 32172544b8142d371ba6dfb270634ffb, type: 2}
-  - {fileID: 4300000, guid: 4b5d547e7b66e62c8a20529a6b7f6e17, type: 2}
-  - {fileID: 4300000, guid: bf62a2a92f3f2472cb547cd972032e61, type: 2}
-  - {fileID: 4300000, guid: b70a406a2365b91618e54e167b68ccc5, type: 2}
-  - {fileID: 4300000, guid: 3ee09069955cef983b47fe66b928486b, type: 2}
-  river: {fileID: 4300000, guid: d596d7f801fe7e9c19924a269840e439, type: 2}
+  - {fileID: 4300000, guid: bbcf5c1e236fbfc5a8668506d034a3d3, type: 2}
+  - {fileID: 4300000, guid: a1ca4a503aff9398a917b36c5d43256c, type: 2}
+  - {fileID: 4300000, guid: 9c3a71e6a9a95f6cdb59a999f78b822f, type: 2}
+  - {fileID: 4300000, guid: 17c15f2296f70ec08bf806e35e5e12ee, type: 2}
+  - {fileID: 4300000, guid: a3d62878de5030b35800871a213e0724, type: 2}
+  river: {fileID: 4300000, guid: 3ecdc77eb17089ad0b241a94a18f780c, type: 2}
   riverByFrontier:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 4300000, guid: 747c441a2a5eef730bd73332ca7b04c0, type: 2}
-  - {fileID: 4300000, guid: b4e85564be40f2f3cb84233f481eb6a9, type: 2}
-  - {fileID: 4300000, guid: d596d7f801fe7e9c19924a269840e439, type: 2}
+  - {fileID: 4300000, guid: 091b98f60d47dd53382997feb2042bba, type: 2}
+  - {fileID: 4300000, guid: a2c190785f7356a1eb11b0cb89c1ffbc, type: 2}
+  - {fileID: 4300000, guid: 3ecdc77eb17089ad0b241a94a18f780c, type: 2}
   worldScale: 0.4
-  ground: {fileID: 2100000, guid: b65e8832841b0b62297f86deb7a1bc74, type: 2}
-  structure: {fileID: 2100000, guid: e8c7de9b7432ec902a4579defa9add8b, type: 2}
-  foliage: {fileID: 2100000, guid: 3101011da3fc37f1ab4d4369618e524e, type: 2}
-  water: {fileID: 2100000, guid: be333a5f1f4b4b30cbf3582370eb0571, type: 2}
-  marker: {fileID: 2100000, guid: 8a69d52697642fdb49fa00de39e9cc84, type: 2}
-  motes: {fileID: 2100000, guid: 6ab0b32d40cb102b2b418a13d3c73c4b, type: 2}
+  ground: {fileID: 2100000, guid: 4c358d4361c39a00baa9ce105a751ed2, type: 2}
+  structure: {fileID: 2100000, guid: 1d4ef0e40b9b45a6eb9b0b13558bbfb5, type: 2}
+  foliage: {fileID: 2100000, guid: 934ca1a9433b7cd37906dc1afb20f37f, type: 2}
+  water: {fileID: 2100000, guid: f5332bf7eff1178bc975e66476d305d2, type: 2}
+  marker: {fileID: 2100000, guid: 2f69d3a8ae5bf2ce79ea41eed44c1034, type: 2}
+  motes: {fileID: 2100000, guid: 4c9de2e33c6425c49852135287fe7aac, type: 2}
   sky: {r: 0.73, g: 0.81, b: 0.83, a: 1}
   fieldOfView: 30
   chunkStarts:

@@ -141,7 +141,9 @@ namespace QuietCamp.Editor
             {
                 index.distantForest[c]=FarForest(c);AssetDatabase.CreateAsset(index.distantForest[c],folder+"/Distant-"+c+".asset");
                 var terrain=new Geometry();TerrainGrid(terrain,World.chunkStarts[c],World.chunkEnds[c],10,true);
-                for(int v=0;v<terrain.vertices.Count;v++)terrain.vertices[v]+=Vector3.down*.35f;
+                // Detailed and distant terrain are mutually exclusive. Keep the
+                // same bed height: lowering a whole distant chunk changes water
+                // depth/colour abruptly at the streaming boundary.
                 index.horizonTerrain[c]=terrain.Mesh("Unloaded terrain "+c);
                 AssetDatabase.CreateAsset(index.horizonTerrain[c],folder+"/HorizonTerrain-"+c+".asset");
             }
@@ -471,12 +473,17 @@ namespace QuietCamp.Editor
         }
         static void TerrainGrid(Geometry g,float start,float end,float step,bool distant=false)
         {
-            for(float z=start;z<end;z+=step)for(float x=World.minX;x<World.maxX;x+=step)
+            void Cell(float x,float z,float xx,float zz)
             {
-                float xx=Mathf.Min(x+step,World.maxX),zz=Mathf.Min(z+step,end);
-                // The simplified distant terrain must never seal the live river with a
-                // coarse triangle spanning both banks. Detailed chunks own its channel bed.
-                if(distant&&zz>88&&new[]{z,(z+zz)*.5f,zz}.Any(az=>x<RoadmapLandscape.RiverX(az)+RoadmapLandscape.RiverWidth(az)+3&&xx>RoadmapLandscape.RiverX(az)-RoadmapLandscape.RiverWidth(az)-3))continue;
+                // Coarse tiles cannot straddle a narrow channel: both banks can
+                // become one dry triangle. Omitting the whole tile instead leaves
+                // sky-coloured holes beside the water in the aerial overview.
+                // Refine only shoreline tiles offline and retain their submerged bed.
+                if(distant&&xx-x>2.51f&&zz>88&&new[]{z,(z+zz)*.5f,zz}.Any(az=>x<RoadmapLandscape.RiverX(az)+RoadmapLandscape.RiverWidth(az)+5&&xx>RoadmapLandscape.RiverX(az)-RoadmapLandscape.RiverWidth(az)-5))
+                {
+                    float mx=(x+xx)*.5f,mz=(z+zz)*.5f;
+                    Cell(x,z,mx,mz);Cell(mx,z,xx,mz);Cell(x,mz,mx,zz);Cell(mx,mz,xx,zz);return;
+                }
                 Vector3 At(float a,float b)=>new Vector3(a,Ground(a,b),b);
                 Color ColorAt(float a,float b)
                 {
@@ -492,7 +499,20 @@ namespace QuietCamp.Editor
                 }
                 g.Triangle(At(x,z),At(x,zz),At(xx,z),ColorAt(x,z),second:ColorAt(x,zz),third:ColorAt(xx,z));
                 g.Triangle(At(xx,z),At(x,zz),At(xx,zz),ColorAt(xx,z),second:ColorAt(x,zz),third:ColorAt(xx,zz));
+                // Low (4), Balanced (2.5) and distant (10) interpolate different
+                // edge vertices. A short baked skirt closes their LOD boundary
+                // without moving the riverbed or adding a renderer/material.
+                void Skirt(Vector3 a,Vector3 b)
+                {
+                    var down=Vector3.down*1.5f;var ca=ColorAt(a.x,a.z);var cb=ColorAt(b.x,b.z);
+                    g.Triangle(a,b,b+down,ca,second:cb,third:cb);
+                    g.Triangle(a,b+down,a+down,ca,second:cb,third:ca);
+                }
+                if(distant&&z==start)Skirt(At(x,z),At(xx,z));
+                if(distant&&zz==end)Skirt(At(xx,zz),At(x,zz));
             }
+            for(float z=start;z<end;z+=step)for(float x=World.minX;x<World.maxX;x+=step)
+                Cell(x,z,Mathf.Min(x+step,World.maxX),Mathf.Min(z+step,end));
         }
         // Clip every paved decal to the exact Low/Balanced terrain triangles.
         // Analytic height samples alone can sit below a coarse rendered triangle.
