@@ -1,8 +1,10 @@
 # Джерела, запікання та наступне native-приймання
 
 Стан 12.10.2026: усі десять композицій запечені поза Unity в `Baked/`.
-Нові рівні ще не опубліковані в gameplay. Поточна вказівка користувача —
-продовжувати без Unity; наведені нижче Editor-команди зараз не виконуються.
+Кандидат оточення опубліковано для QC001–QC010 зі збереженням пазлів та
+історичних revisions. Користувач 12.10 дозволив нові рендери й заборонив
+закривати Chrome. Знято 20 native world-camera кадрів без HUD; п’ять
+послідовних пакетів по два рівні пройшли PlayMode capture test.
 
 ## Джерело істини
 
@@ -84,8 +86,8 @@ dotnet run --project tools/MonetizationProbe.csproj -- --author-first-ten /home/
 Це запуск .NET-інструмента, не player build. Команда перевіряє повну кампанію,
 актуальність джерел/буферів, архівує точні чинні revisions, додає посилання
 на запечені ресурси тільки першій десятці та зберігає їхні поля/witnesses.
-Результат не позначається художньо прийнятим автоматично. Зараз ця команда
-не виконувалася: чинний gameplay і captures залишаються вихідними.
+Результат не позначається художньо прийнятим автоматично. Публікацію виконано 12.10; [runtime-publication.json](runtime-publication.json)
+містить нові hashes. Ця публікація не означає завершеного художнього приймання.
 
 Після публікації підготувати `python3 tools/campaign100_capture_sources.py`.
 Для окремого «після» каталогу передати `QC_FIRST_TEN_EVIDENCE=1`,
@@ -102,3 +104,24 @@ world-camera кадри без HUD; Game View/HUD перевіряється о�
 навчання/replay/старі saves, reduced motion і resource-cycle checks.
 One Editor, перевірка RAM/диска, погоджена ізоляція й workers 1/4 обов'язкові.
 Player builds заборонені. QC_Renderer.asset не змінювати. Editor-виміри не FPS телефона.
+
+## Успішні native пакети — 12.10.2026
+
+[20 кадрів і source/hash перевірка](After/capture-verification.json),
+[архів XML](After/Tests), [огляд і відкриті художні зауваження](After/visual-review.json).
+Результат — native камера світу з witness-розміщенням та reduced motion,
+без HUD. Chrome не закривали. Player builds не виконувалися.
+
+Перший прогін знайшов втрату bakedEnvironment у реальному LevelKit adapter.
+Виправлено читання/запис поля; capture test тепер перевіряє actual loaded
+contentHash і наявність baked reference до побудови світу. Кадри старого
+рендерера з невдалої спроби вилучено з «після». Прогін усієї десятки та одна
+коротка спроба завершилися через sys-guard memory pressure; вони не оголошуються
+успішними. П’ять окремих успішних XML збережені з датами.
+
+Для такого короткого прогону можна передати GC_FREE_SPACE_DIVISOR=16 та
+DOTNET_GCHeapHardLimit=0x0c000000, DOTNET_GCConserveMemory=9, DOTNET_gcServer=0
+і діапазон QC_CAMPAIGN_FIRST/LAST. Це налаштування дочірніх процесів цієї
+команди, не зміна sys-guard або спільних Editor prefs. Один Editor і workers
+1/4 лишаються обов’язковими. `python3 tools/verify_first_ten_captures.py`
+перевіряє архівні XML, PNG, hashes, revision і reference фактичного оточення.

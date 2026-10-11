@@ -96,6 +96,7 @@ namespace QuietCamp.Infrastructure
             level.exteriorWalkable = doc.Prop<JArray>("exteriorWalkable")?.ToObject<int[][]>() ?? System.Array.Empty<int[]>();
             level.environment = doc.Prop<JObject>("environment")?.ToObject<EnvironmentCompositionData>();
             level.environmentalStory = doc.Prop<JObject>("environmentalStory")?.ToObject<EnvironmentalStoryData>();
+            level.bakedEnvironment = doc.Prop<string>("bakedEnvironment");
             return level;
 
             int[][] Cells(string name)
@@ -165,6 +166,7 @@ namespace QuietCamp.Infrastructure
             doc.SetProp("exteriorWalkable", JArray.FromObject(level.exteriorWalkable ?? System.Array.Empty<int[]>()));
             if(level.environment!=null)doc.SetProp("environment",JObject.FromObject(level.environment));
             if(level.environmentalStory!=null)doc.SetProp("environmentalStory",JObject.FromObject(level.environmentalStory));
+            if(!string.IsNullOrEmpty(level.bakedEnvironment))doc.SetProp("bakedEnvironment",level.bakedEnvironment);
             if (level.contentHash != null) doc.SetProp("contentHash", level.contentHash);
             if (level.friends != null)
             {

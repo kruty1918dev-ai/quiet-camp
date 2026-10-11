@@ -7,7 +7,7 @@
   "width": 6,
   "height": 8,
   "id": "QC007",
-  "contentHash": "24f155ac8a3082e20fc343c92711f147141710a9e0519544c7714bcad3b03970",
+  "contentHash": "514b8c31b7f8c4724668052089d6035463c0502667308c8e126335b75ecf05e9",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "tutorial.7",
@@ -157,7 +157,8 @@
     "storyMotifs": [],
     "shore": null,
     "seasonTimeline": 0.060606,
-    "weatherIntensity": 0.17205
+    "weatherIntensity": 0.17205,
+    "sunElevation": 50.0
   },
   "environmentalStory": {
     "schemaVersion": 1,
@@ -166,8 +167,8 @@
       {
         "id": "place-007",
         "storyBeat": "Межа двору ще читається, хоча рослини давно вільно переходять її.",
-        "heroLandmark": "place-007-prop-1",
-        "returningProp": "",
+        "heroLandmark": "QC007/home",
+        "returningProp": null,
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Пошкоджена хвіртка, неглибокий фундамент і квіти по інший бік паркана.",
         "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
@@ -175,7 +176,7 @@
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Межа двору ще читається, хоча рослини давно вільно переходять її.",
+        "intendedInference": "Низькі стіни та поріг пояснюють колишній двір. Хвіртка з’єднує шлях з входом; квіти заповнюють старі грядки, але лишають вільний прохід.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -183,70 +184,22 @@
         ],
         "props": [
           {
-            "id": "place-007-prop-1",
+            "id": "QC007/home",
             "category": "civilian",
             "motif": "rural-infrastructure",
-            "returningProp": "",
+            "returningProp": null,
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "inherit",
             "appearance": "always",
-            "contentTags": [
-              "fiction-inspired"
-            ],
+            "contentTags": [],
             "roadmap": null,
             "level": {
               "assetId": "story_foundation",
-              "x": -4.99744,
-              "z": 0.55,
-              "elevation": 0.025,
-              "height": 0.55,
-              "yaw": 0.0,
-              "sway": false
-            }
-          },
-          {
-            "id": "place-007-prop-2",
-            "category": "civilian",
-            "motif": "rural-infrastructure",
-            "returningProp": "",
-            "claimId": null,
-            "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
-            "appearance": "always",
-            "contentTags": [
-              "fiction-inspired"
-            ],
-            "roadmap": null,
-            "level": {
-              "assetId": "log",
-              "x": -1.5,
-              "z": -5.60091,
-              "elevation": 0.025,
-              "height": 0.22,
-              "yaw": 0.0,
-              "sway": false
-            }
-          },
-          {
-            "id": "place-007-prop-3",
-            "category": "civilian",
-            "motif": "rural-infrastructure",
-            "returningProp": "",
-            "claimId": null,
-            "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
-            "appearance": "always",
-            "contentTags": [
-              "fiction-inspired"
-            ],
-            "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_gate",
-              "x": 5.53462,
-              "z": -5.27462,
-              "elevation": 0.025,
-              "height": 1.35,
+              "x": -5.8,
+              "z": 2.6,
+              "elevation": 0.0,
+              "height": 0.42,
               "yaw": 0.0,
               "sway": false
             }
@@ -255,5 +208,6 @@
       }
     ],
     "references": []
-  }
+  },
+  "bakedEnvironment": "QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC007"
 }

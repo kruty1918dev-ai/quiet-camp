@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-11 23:16:39Z" end-time="2026-10-11 23:17:08Z" duration="29.3130943">
+  <test-suite type="TestSuite" id="1240" name="QuietCampRoadmapQA" fullname="QuietCampRoadmapQA" runstate="Runnable" testcasecount="177" result="Passed" start-time="2026-10-11 23:16:39Z" end-time="2026-10-11 23:17:08Z" duration="29.313094" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1234" name="QuietCamp.Tests.PlayMode.dll" fullname="/home/oleks/.cache/quietcamp/cinematic-roadmap-qa/Library/ScriptAssemblies/QuietCamp.Tests.PlayMode.dll" runstate="Runnable" testcasecount="172" result="Passed" start-time="2026-10-11 23:16:39Z" end-time="2026-10-11 23:17:08Z" duration="29.258133" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="1" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1235" name="QuietCamp" fullname="QuietCamp" runstate="Runnable" testcasecount="172" result="Passed" start-time="2026-10-11 23:16:39Z" end-time="2026-10-11 23:17:08Z" duration="29.252570" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1236" name="Tests" fullname="QuietCamp.Tests" runstate="Runnable" testcasecount="172" result="Passed" start-time="2026-10-11 23:16:39Z" end-time="2026-10-11 23:17:08Z" duration="29.248454" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1048" name="Campaign100CaptureTests" fullname="QuietCamp.Tests.Campaign100CaptureTests" classname="QuietCamp.Tests.Campaign100CaptureTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-11 23:16:39Z" end-time="2026-10-11 23:17:08Z" duration="29.166976" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1049" name="CaptureActualHundredLevelScenes" fullname="QuietCamp.Tests.Campaign100CaptureTests.CaptureActualHundredLevelScenes" methodname="CaptureActualHundredLevelScenes" classname="QuietCamp.Tests.Campaign100CaptureTests" runstate="Runnable" seed="537202990" result="Passed" start-time="2026-10-11 23:16:39Z" end-time="2026-10-11 23:17:08Z" duration="29.121227" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="1800000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Campaign100] captured 7 QC007
+[Campaign100] captured 8 QC008
+[QC-PERF] Test result: Passed 
+Saving results to: /home/oleks/.config/unity3d/kruty1918/QuietCampRoadmapQA/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

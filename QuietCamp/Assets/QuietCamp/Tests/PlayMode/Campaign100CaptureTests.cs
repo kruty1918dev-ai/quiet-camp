@@ -119,7 +119,13 @@ namespace QuietCamp.Tests
             // No Bootstrap/menu/HUD allocation; this evidence covers rendered world only.
             foreach(var id in ids.Skip(first-1).Take(last-first+1))
             {
-                var level=LevelLoader.Load(id);var root=new GameObject("Actual Camp world capture");
+                var level=LevelLoader.Load(id);
+                if(Environment.GetEnvironmentVariable("QC_FIRST_TEN_EVIDENCE")=="1")
+                {
+                    Assert.IsTrue(BakedCampEnvironment.Uses(level),"Actual LevelKit loader must preserve the baked world reference "+id);
+                    Assert.AreEqual(level.contentHash,CampContent.CalculateHash(level),"Actual loader must preserve canonical content "+id);
+                }
+                var root=new GameObject("Actual Camp world capture");
                 Transform Child(string name){var go=new GameObject(name);go.transform.SetParent(root.transform);return go.transform;}
                 var camera=Child("World Camera").gameObject.AddComponent<Camera>();CameraFitter.Configure(camera);
                 var sun=Child("Shared Sun").gameObject.AddComponent<Light>();sun.type=LightType.Directional;sun.shadows=LightShadows.Soft;RenderSettings.sun=sun;

@@ -3,7 +3,7 @@
     "id": "QC001",
     "environmentPreset": "pines",
     "lighting": "day",
-    "contentHash": "0c45f8b21c477ed5cc96a534189465a3991e7098c87eba5535ab7ddf75d64edf",
+    "contentHash": "95f3e96a12d0af6d98d302dbf30f71b457c658298a79dd980d27e81c92a329f4",
     "ruleVersion": 2,
     "number": 1,
     "width": 5,
@@ -36,14 +36,15 @@
       "storyMotifs": [],
       "shore": null,
       "seasonTimeline": 0.0,
-      "weatherIntensity": 0.1
+      "weatherIntensity": 0.1,
+      "sunElevation": 50.0
     }
   },
   {
     "id": "QC002",
     "environmentPreset": "pines",
     "lighting": "day",
-    "contentHash": "7b9fd5afc68877dedd735026934291495c111900fa9b9694a0203f19ec6ebd3b",
+    "contentHash": "00250c94b976cd8d541b3fdc0a10eef5306b1f6bd12ba631e98cb6faa385b296",
     "ruleVersion": 2,
     "number": 2,
     "width": 5,
@@ -76,14 +77,15 @@
       "storyMotifs": [],
       "shore": null,
       "seasonTimeline": 0.010101,
-      "weatherIntensity": 0.102261
+      "weatherIntensity": 0.102261,
+      "sunElevation": 50.0
     }
   },
   {
     "id": "QC003",
     "environmentPreset": "meadow",
     "lighting": "day",
-    "contentHash": "26da126361e53dfa45dd4d662e5fb9f6474dd0f5daa2e5a8ec8b5a1d6e284f41",
+    "contentHash": "7c1b833da254b83696a364b1c0c77a5aa0f05b82fa27842b2108d79111f11b08",
     "ruleVersion": 2,
     "number": 3,
     "width": 6,
@@ -130,14 +132,15 @@
       "storyMotifs": [],
       "shore": null,
       "seasonTimeline": 0.020202,
-      "weatherIntensity": 0.10895
+      "weatherIntensity": 0.10895,
+      "sunElevation": 50.0
     }
   },
   {
     "id": "QC004",
     "environmentPreset": "pines",
     "lighting": "day",
-    "contentHash": "2602b5a1607cf800848e99e07c8a09ebcbafcff305ba1f7ee1ce3570a45384eb",
+    "contentHash": "3624870a08589c7c654366a25a9cf4a08f2e052d81f32621f24de6efe9cf6f7e",
     "ruleVersion": 2,
     "number": 4,
     "width": 6,
@@ -188,14 +191,15 @@
       "storyMotifs": [],
       "shore": null,
       "seasonTimeline": 0.030303,
-      "weatherIntensity": 0.119793
+      "weatherIntensity": 0.119793,
+      "sunElevation": 50.0
     }
   },
   {
     "id": "QC005",
     "environmentPreset": "pines",
     "lighting": "day",
-    "contentHash": "ef63798d3c8e28eaef147a2902320f631266fa95110797fafe74f734e0f3da92",
+    "contentHash": "b4199da6f2877a92d27a036993d9d3519d2b5edda4bff5deb51eae0565d71521",
     "ruleVersion": 2,
     "number": 5,
     "width": 6,
@@ -242,14 +246,15 @@
       "storyMotifs": [],
       "shore": null,
       "seasonTimeline": 0.040404,
-      "weatherIntensity": 0.134344
+      "weatherIntensity": 0.134344,
+      "sunElevation": 50.0
     }
   },
   {
     "id": "QC006",
     "environmentPreset": "meadow",
     "lighting": "day",
-    "contentHash": "6e928b8136f8d6c8f82fdac6a3e2c2daf5dc634a102225ff7ceba2f67135d347",
+    "contentHash": "8d121b1eb56180c88d1ed869a9377e92ecaa752b75dcab66b9b31b3737b2570d",
     "ruleVersion": 2,
     "number": 6,
     "width": 7,
@@ -327,14 +332,15 @@
       "storyMotifs": [],
       "shore": null,
       "seasonTimeline": 0.050505,
-      "weatherIntensity": 0.152005
+      "weatherIntensity": 0.152005,
+      "sunElevation": 50.0
     }
   },
   {
     "id": "QC007",
     "environmentPreset": "pines",
     "lighting": "day",
-    "contentHash": "24f155ac8a3082e20fc343c92711f147141710a9e0519544c7714bcad3b03970",
+    "contentHash": "514b8c31b7f8c4724668052089d6035463c0502667308c8e126335b75ecf05e9",
     "ruleVersion": 2,
     "number": 7,
     "width": 6,
@@ -394,14 +400,15 @@
       "storyMotifs": [],
       "shore": null,
       "seasonTimeline": 0.060606,
-      "weatherIntensity": 0.17205
+      "weatherIntensity": 0.17205,
+      "sunElevation": 50.0
     }
   },
   {
     "id": "QC008",
     "environmentPreset": "pines",
     "lighting": "day",
-    "contentHash": "440a0f02618c2eef547d40e6fc5c295907c241aaafd2fcec13d5e3b56be4ff09",
+    "contentHash": "2b5ba6aee2b390802eeadd504bc710f4efa177b16f453592c92280bf18cb836b",
     "ruleVersion": 2,
     "number": 8,
     "width": 8,
@@ -468,14 +475,15 @@
       "storyMotifs": [],
       "shore": null,
       "seasonTimeline": 0.070707,
-      "weatherIntensity": 0.193655
+      "weatherIntensity": 0.193655,
+      "sunElevation": 50.0
     }
   },
   {
     "id": "QC009",
     "environmentPreset": "meadow",
     "lighting": "day",
-    "contentHash": "060f1b5297d0c13aa30c2504ffd20ecbf9845294e8f18890e749b4761d897e91",
+    "contentHash": "1a5886c85a5ddc86806e6581f463540ffac5bf8fb7d53e0f2193d9d076d95da4",
     "ruleVersion": 2,
     "number": 9,
     "width": 7,
@@ -560,14 +568,15 @@
       "storyMotifs": [],
       "shore": null,
       "seasonTimeline": 0.080808,
-      "weatherIntensity": 0.215931
+      "weatherIntensity": 0.215931,
+      "sunElevation": 50.0
     }
   },
   {
     "id": "QC010",
     "environmentPreset": "pines",
     "lighting": "day",
-    "contentHash": "26bac7199b3b56347509d04855a0495dd61037fe8be445209f732f317e9f7ff9",
+    "contentHash": "44bea1bd6249e9d90bbe18a31dfe71c705fde08a84624b81e7b216a5f6f6d35d",
     "ruleVersion": 2,
     "number": 10,
     "width": 7,
@@ -631,7 +640,8 @@
       "storyMotifs": [],
       "shore": null,
       "seasonTimeline": 0.090909,
-      "weatherIntensity": 0.237964
+      "weatherIntensity": 0.237964,
+      "sunElevation": 50.0
     }
   },
   {

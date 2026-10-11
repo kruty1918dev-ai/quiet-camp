@@ -1,0 +1,80 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T23:14:31.5564430Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "QC006",
+  "number": 6,
+  "contentHash": "8d121b1eb56180c88d1ed869a9377e92ecaa752b75dcab66b9b31b3737b2570d",
+  "sourceRevision": "1589fe7f18ec62d072df57d7a5e34d534a38190af852bce32c2bca2e1d34c184",
+  "orientation": "landscape",
+  "imageSha256": "7cf80243158daea77355e5103cca9938477aa7b8b4de379f99ebe2fdf64b4533",
+  "width": 1280,
+  "height": 800,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    5.44845057,
+    17.6359615,
+    8.336238
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 7.259647,
+  "storyTriangles": 62861,
+  "bakedEnvironment": "QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC006",
+  "bakedSourceRevision": "56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732",
+  "bakedParts": [
+    {
+      "kind": "terrain",
+      "triangles": 24200,
+      "vertices": 12321,
+      "objectCount": 1
+    },
+    {
+      "kind": "structures",
+      "triangles": 1687,
+      "vertices": 5061,
+      "objectCount": 14
+    },
+    {
+      "kind": "roads",
+      "triangles": 1827,
+      "vertices": 5481,
+      "objectCount": 2
+    },
+    {
+      "kind": "trees",
+      "triangles": 3316,
+      "vertices": 9948,
+      "objectCount": 34
+    },
+    {
+      "kind": "groundcover",
+      "triangles": 31831,
+      "vertices": 95493,
+      "objectCount": 1312
+    }
+  ],
+  "seasonTimeline": 0.050505,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "QC006/prop-1",
+      "asset": "ua_bus_shelter_mosaic",
+      "viewport": [
+        0.743877769,
+        0.602139235,
+        20.6908379
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

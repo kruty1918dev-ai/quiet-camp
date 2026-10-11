@@ -7,7 +7,7 @@
   "width": 8,
   "height": 6,
   "id": "QC008",
-  "contentHash": "440a0f02618c2eef547d40e6fc5c295907c241aaafd2fcec13d5e3b56be4ff09",
+  "contentHash": "2b5ba6aee2b390802eeadd504bc710f4efa177b16f453592c92280bf18cb836b",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "tutorial.8",
@@ -126,7 +126,8 @@
     "storyMotifs": [],
     "shore": null,
     "seasonTimeline": 0.070707,
-    "weatherIntensity": 0.193655
+    "weatherIntensity": 0.193655,
+    "sunElevation": 50.0
   },
   "environmentalStory": {
     "schemaVersion": 1,
@@ -135,8 +136,8 @@
       {
         "id": "place-008",
         "storyBeat": "Заросла дорога пам'ятає щоденний рух; табір повертає їй людський масштаб.",
-        "heroLandmark": "place-008-prop-1",
-        "returningProp": "",
+        "heroLandmark": "QC008/prop-1",
+        "returningProp": null,
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Нахилений вказівник і порожня лавка між молодими тополями.",
         "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
@@ -144,7 +145,7 @@
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Заросла дорога пам'ятає щоденний рух; табір повертає їй людський масштаб.",
+        "intendedInference": "Вузька заглиблена стежка проходить між нерегулярними групами тополь. Рельєф і вертикальні крони дають інший силует, без повторної лавки та знака.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -152,77 +153,51 @@
         ],
         "props": [
           {
-            "id": "place-008-prop-1",
+            "id": "QC008/prop-1",
             "category": "civilian",
             "motif": "rural-infrastructure",
-            "returningProp": "",
+            "returningProp": null,
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "inherit",
             "appearance": "always",
-            "contentTags": [
-              "fiction-inspired"
-            ],
+            "contentTags": [],
             "roadmap": null,
             "level": {
-              "assetId": "sign",
-              "x": -5.53535,
-              "z": -0.8,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
+              "assetId": "ua_valley_poplar",
+              "x": 5.2,
+              "z": -3.8,
+              "elevation": 0.0,
+              "height": 3.6,
+              "yaw": 9.0,
               "sway": false
             }
           },
           {
-            "id": "place-008-prop-2",
+            "id": "QC008/prop-2",
             "category": "civilian",
             "motif": "rural-infrastructure",
-            "returningProp": "",
+            "returningProp": null,
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "inherit",
             "appearance": "always",
-            "contentTags": [
-              "fiction-inspired"
-            ],
+            "contentTags": [],
             "roadmap": null,
             "level": {
-              "assetId": "camp_bench",
-              "x": 1.15,
-              "z": -4.36417,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 180.0,
+              "assetId": "ua_valley_poplar",
+              "x": 5.7,
+              "z": 4.5,
+              "elevation": 0.0,
+              "height": 3.2,
+              "yaw": -7.0,
               "sway": false
-            }
-          },
-          {
-            "id": "place-008-prop-3",
-            "category": "nature",
-            "motif": "orchard",
-            "returningProp": "",
-            "claimId": null,
-            "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
-            "appearance": "always",
-            "contentTags": [
-              "fiction-inspired"
-            ],
-            "roadmap": null,
-            "level": {
-              "assetId": "flower_yellowA",
-              "x": 5.29049,
-              "z": -4.3099,
-              "elevation": 0.025,
-              "height": 0.34,
-              "yaw": 0.0,
-              "sway": true
             }
           }
         ]
       }
     ],
     "references": []
-  }
+  },
+  "bakedEnvironment": "QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC008"
 }

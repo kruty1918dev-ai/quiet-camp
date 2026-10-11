@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parents[1]
 REPORT=ROOT/'Design/Campaign100/2026-10-11/FirstTenRefinement'
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--publication-contract',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();mode=parser.add_mutually_exclusive_group();mode.add_argument('--publication-contract',action='store_true');mode.add_argument('--publish-first-ten',action='store_true');args=parser.parse_args()
     status=(Path.home()/'.local/state/sys-guard/status').read_text()
     if any(x in status for x in ('STATE=hard','STATE=crit')):raise SystemExit('Postponed: host hard/crit')
     if args.publication_contract:
@@ -27,6 +27,9 @@ def main():
         subprocess.run(['dotnet','/usr/lib/dotnet/sdk/10.0.112/Roslyn/bincore/csc.dll','@'+str(rsp)],env=env,check=True)
         shutil.copy(newtonsoft,p/'Newtonsoft.Json.dll')
         (p/'probe.runtimeconfig.json').write_text(json.dumps({'runtimeOptions':{'tfm':'net10.0','framework':{'name':'Microsoft.NETCore.App','version':'10.0.2'}}}))
+        if args.publish_first_ten:
+            subprocess.run(['dotnet',str(dll),'--author-first-ten',str(ROOT)],cwd=ROOT,env=env,check=True,timeout=300)
+            return
         result=subprocess.run(['dotnet',str(dll)],cwd=ROOT,env=env,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=300)
         print(result.stdout,flush=True);result.check_returncode()
         resources=ROOT/'QuietCamp/Assets/QuietCamp/Resources/QuietCamp'

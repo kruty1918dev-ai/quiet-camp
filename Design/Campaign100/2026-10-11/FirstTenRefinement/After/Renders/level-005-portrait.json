@@ -1,0 +1,107 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T23:14:28.6036090Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "QC005",
+  "number": 5,
+  "contentHash": "b4199da6f2877a92d27a036993d9d3519d2b5edda4bff5deb51eae0565d71521",
+  "sourceRevision": "1589fe7f18ec62d072df57d7a5e34d534a38190af852bce32c2bca2e1d34c184",
+  "orientation": "portrait",
+  "imageSha256": "2281ee1d6b045a915c1bd04c911782ae89e92229476bf6f412e35bf7c3702169",
+  "width": 720,
+  "height": 1600,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    7.2252636,
+    18.1109619,
+    8.831995
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 19.1155872,
+  "storyTriangles": 61065,
+  "bakedEnvironment": "QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC005",
+  "bakedSourceRevision": "56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732",
+  "bakedParts": [
+    {
+      "kind": "terrain",
+      "triangles": 24200,
+      "vertices": 12321,
+      "objectCount": 1
+    },
+    {
+      "kind": "structures",
+      "triangles": 80,
+      "vertices": 240,
+      "objectCount": 1
+    },
+    {
+      "kind": "roads",
+      "triangles": 82,
+      "vertices": 246,
+      "objectCount": 1
+    },
+    {
+      "kind": "trees",
+      "triangles": 3154,
+      "vertices": 9462,
+      "objectCount": 38
+    },
+    {
+      "kind": "groundcover",
+      "triangles": 33549,
+      "vertices": 100647,
+      "objectCount": 1356
+    }
+  ],
+  "seasonTimeline": 0.040404,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "QC005/prop-1",
+      "asset": "ua_valley_orchard",
+      "viewport": [
+        0.762771368,
+        0.5362807,
+        20.807766
+      ]
+    },
+    {
+      "id": "QC005/prop-2",
+      "asset": "ua_valley_orchard",
+      "viewport": [
+        0.0846009254,
+        0.501262844,
+        20.1480865
+      ]
+    },
+    {
+      "id": "QC005/orchard-old-3",
+      "asset": "ua_valley_orchard",
+      "viewport": [
+        0.4997235,
+        0.654429734,
+        23.45341
+      ]
+    },
+    {
+      "id": "QC005/orchard-old-4",
+      "asset": "ua_valley_orchard",
+      "viewport": [
+        0.5983664,
+        0.380122542,
+        17.0182686
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

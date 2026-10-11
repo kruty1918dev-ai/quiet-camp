@@ -193,3 +193,17 @@ run concurrently with another Unity job. A partial capture or stale NUnit XML
 must not be advertised as a newly passed full run. Full vendor-model
 photographs remain local. Historical captures keep their dates. One Editor,
 RAM/disk checks, workers 1/4 and the renderer-preservation rule remain required.
+
+# First-ten after captures — 2026-10-12
+
+The user requested native after renders for QC001–QC010 and explicitly said
+not to close Chrome. This resumes the previously deferred Unity capture work.
+Keep Chrome open; do not interfere with other desktop or phone sessions.
+Use the existing isolated campaign capture wrapper, one Editor at a time,
+RAM/disk checks and workers 1/4. QA compilation caches remain private.
+First-ten evidence uses QC_FIRST_TEN_EVIDENCE=1 and is stored separately in
+Design/Campaign100/2026-10-11/FirstTenRefinement/After. Short serial batches
+avoid accumulating Editor memory; preserve individual XML results. These
+are native world-camera frames without HUD, not mobile FPS or full-plan
+acceptance. Preserve historical baseline and the user's QC_Renderer.asset.
+Player builds and roadmap activation remain prohibited.

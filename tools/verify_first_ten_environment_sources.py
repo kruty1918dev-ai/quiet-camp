@@ -8,12 +8,22 @@ REPORT=ROOT/'Design/Campaign100/2026-10-11/FirstTenRefinement'
 def main():
     source=REPORT/'Authoring/places.json';data=json.loads(source.read_text());places=data['places']
     base=json.loads((REPORT/'Baseline/published-first-ten.json').read_text());assert len(places)==10 and data['schemaVersion']==2
+    publication=REPORT/'runtime-publication.json'
+    published=json.loads(publication.read_text()) if publication.exists() else None
     models=set()
     for name in ('roadmap_models','roadmap_story_models','campaign100_models'):
         models.update(m['id'] for m in json.loads((ROOT/'QuietCamp/Assets/QuietCamp/Resources/QuietCamp'/f'{name}.json').read_text()))
     for index,(place,old) in enumerate(zip(places,base),1):
         assert place['id']==old['id']==f'QC{index:03d}' and place['sourceLevelHash']==old['contentHash']
-        current=json.loads((ROOT/'QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Levels'/f'QC{index:03d}.json').read_text());assert current==old,'Published content changed after baseline'
+        current=json.loads((ROOT/'QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Levels'/f'QC{index:03d}.json').read_text())
+        if published:
+            proof=next(p for p in published['firstTen'] if p['id']==current['id'])
+            assert current['contentHash']==proof['contentHash'] and current['bakedEnvironment']==proof['bakedEnvironment']
+            for key in ('width','height','entry','objects','guests','shade','canopies','noise','friends','witness','accessPoints','exteriorWalkable'):
+                assert current.get(key)==old.get(key),(current['id'],key)
+            archived=ROOT/'QuietCamp/Assets/QuietCamp/Resources/QuietCamp/ContentRevisions'/f'{old["contentHash"]}.json'
+            assert json.loads(archived.read_text())==old
+        else:assert current==old,'Published content changed after baseline without publication receipt'
         for orientation in ('portrait','landscape'):
             capture=REPORT/'Baseline'/f'level-{index:03d}-{orientation}.json';receipt=json.loads(capture.read_text())
             assert receipt['contentHash']==old['contentHash'] and receipt['imageSha256']==hashlib.sha256(capture.with_suffix('.png').read_bytes()).hexdigest()
@@ -46,6 +56,6 @@ def main():
     spring=places[2];yard=places[6]
     assert any(e['kind']=='spring' for e in spring['extras']) and not spring['props']
     assert any(e['kind']=='fence' and e['closed'] and e['gateTo']>e['gateFrom'] for e in yard['extras'])
-    print('PASS 10 schema-2 recipes: canonical baseline, model IDs, distinct relief/routes, exact entry anchors, source spring/yard; runtime publication/native acceptance pending.')
+    print('PASS 10 schema-2 recipes: canonical baseline, model IDs, distinct relief/routes, exact entry anchors, source spring/yard; publication='+str(bool(published))+'; full artistic acceptance pending.')
 
 if __name__=='__main__':main()

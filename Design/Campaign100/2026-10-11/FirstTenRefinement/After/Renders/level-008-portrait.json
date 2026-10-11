@@ -1,0 +1,89 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T23:17:08.6989790Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "QC008",
+  "number": 8,
+  "contentHash": "2b5ba6aee2b390802eeadd504bc710f4efa177b16f453592c92280bf18cb836b",
+  "sourceRevision": "1589fe7f18ec62d072df57d7a5e34d534a38190af852bce32c2bca2e1d34c184",
+  "orientation": "portrait",
+  "imageSha256": "8488a00a3fbf6701697e017044483f94e765a5361acf396cd836f13c0d24e7a8",
+  "width": 720,
+  "height": 1600,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    9.54620552,
+    18.56096,
+    6.400935
+  ],
+  "cameraEuler": [
+    58.0,
+    235.0,
+    0.0
+  ],
+  "orthographicSize": 16.347805,
+  "storyTriangles": 60327,
+  "bakedEnvironment": "QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC008",
+  "bakedSourceRevision": "56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732",
+  "bakedParts": [
+    {
+      "kind": "terrain",
+      "triangles": 24200,
+      "vertices": 12321,
+      "objectCount": 1
+    },
+    {
+      "kind": "structures",
+      "triangles": 80,
+      "vertices": 240,
+      "objectCount": 1
+    },
+    {
+      "kind": "roads",
+      "triangles": 168,
+      "vertices": 504,
+      "objectCount": 2
+    },
+    {
+      "kind": "trees",
+      "triangles": 2602,
+      "vertices": 7806,
+      "objectCount": 38
+    },
+    {
+      "kind": "groundcover",
+      "triangles": 33277,
+      "vertices": 99831,
+      "objectCount": 1260
+    }
+  ],
+  "seasonTimeline": 0.070707,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "QC008/prop-1",
+      "asset": "ua_valley_poplar",
+      "viewport": [
+        0.101493455,
+        0.4724492,
+        19.2012844
+      ]
+    },
+    {
+      "id": "QC008/prop-2",
+      "asset": "ua_valley_poplar",
+      "viewport": [
+        0.544106364,
+        0.335103154,
+        16.631073
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

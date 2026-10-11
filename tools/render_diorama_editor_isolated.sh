@@ -19,6 +19,7 @@ case "${1:---probe}" in
   *) echo 'Use --probe, --models, --campaign-models, --studies, --cinematic or --pilot-tests/--deferred-tests/--campaign-tests/--campaign-flow-tests/--campaign-edit-tests'; exit 2 ;;
 esac
 if [[ "$task_mode" != probe ]]; then
+  if pgrep -f '^/home/oleks/Unity/Hub/Editor/[^ ]+/Editor/Unity( |$)' >/dev/null; then echo 'Another Unity Editor is running; only one allowed'; exit 1; fi
   task_status=$(cat /home/oleks/.local/state/sys-guard/status)
   [[ "$task_status" != *STATE=hard* && "$task_status" != *STATE=crit* ]] || exit 1
   task_available=$(sed -n 's/.*MEM_AVAIL_MB=\([0-9]*\).*/\1/p' <<< "$task_status")
@@ -72,6 +73,7 @@ unshare --user "${task_user_mapping[@]}" --pid --fork --mount-proc --net \
         task_filter=QuietCamp.Tests.Campaign100CaptureTests
         task_label=campaign100
         export QC_CAMPAIGN100_ROOT="$3/Design/Campaign100/2026-10-11"
+        if [[ "${QC_FIRST_TEN_EVIDENCE:-}" == 1 ]]; then task_label="first-ten-${QC_CAMPAIGN_FIRST:-1}-${QC_CAMPAIGN_LAST:-10}"; fi
       fi
       if [[ "$1" == campaign-flow-tests ]]; then
         task_filter=QuietCamp.Tests.DeferredRoadmapPlayModeTests
@@ -87,7 +89,7 @@ unshare --user "${task_user_mapping[@]}" --pid --fork --mount-proc --net \
       if [[ "${QC_CAMPAIGN_OFFSCREEN:-}" == 1 ]]; then task_graphics_flags=(-batchmode); fi
       if [[ "$1" == campaign-edit-tests ]]; then task_graphics_flags=(-batchmode -nographics); fi
       exec setpriv --inh-caps=-all --ambient-caps=-all nice -n10 ionice -c2 -n7 "$2" \
-        -force-glcore -noaudio "${task_graphics_flags[@]}" -buildTarget Linux64 -projectPath "$task_qa" \
+        -force-glcore -noaudio --burst-disable-compilation "${task_graphics_flags[@]}" -buildTarget Linux64 -projectPath "$task_qa" \
         -job-worker-count 1 -background-job-worker-count 4 \
         -runTests -testPlatform "$task_platform" -testFilter "$task_filter" \
         -testResults "$3/TestResults/${task_label}-playmode.xml" \

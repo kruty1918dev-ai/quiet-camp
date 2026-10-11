@@ -1,0 +1,196 @@
+{
+  "verifiedUtc": "2026-10-11T23:25:53.671597+00:00",
+  "result": "Passed",
+  "sourceRevision": "1589fe7f18ec62d072df57d7a5e34d534a38190af852bce32c2bca2e1d34c184",
+  "count": 20,
+  "serialNativeBatches": [
+    {
+      "first": 1,
+      "last": 2,
+      "result": "Passed",
+      "xmlSha256": "b6decc22df19980a883a53b8a7f8f294f81a23e916eddcba531ee60a90d94c59",
+      "startUtc": "2026-10-11 23:06:08Z",
+      "endUtc": "2026-10-11 23:06:39Z"
+    },
+    {
+      "first": 3,
+      "last": 4,
+      "result": "Passed",
+      "xmlSha256": "0ce77db69158dbb4e5cfe072fedc88a8ad964146fee816d5738c43c8ea488539",
+      "startUtc": "2026-10-11 23:12:01Z",
+      "endUtc": "2026-10-11 23:12:30Z"
+    },
+    {
+      "first": 5,
+      "last": 6,
+      "result": "Passed",
+      "xmlSha256": "02f3e5913cbe2b49ad88946ba2c289a6793c1cf4a3914117b207cf5db7979289",
+      "startUtc": "2026-10-11 23:14:04Z",
+      "endUtc": "2026-10-11 23:14:32Z"
+    },
+    {
+      "first": 7,
+      "last": 8,
+      "result": "Passed",
+      "xmlSha256": "c15e6a638225e8d28eeb35cb7483363a7e0f33ebead4f04fae799f8f9dc5541e",
+      "startUtc": "2026-10-11 23:16:39Z",
+      "endUtc": "2026-10-11 23:17:08Z"
+    },
+    {
+      "first": 9,
+      "last": 10,
+      "result": "Passed",
+      "xmlSha256": "fae6573cf57bc0efbe327acf1225647623c370fd47c786c6d47aac0d9bf3db91",
+      "startUtc": "2026-10-11 23:18:57Z",
+      "endUtc": "2026-10-11 23:19:26Z"
+    }
+  ],
+  "frames": [
+    {
+      "levelId": "QC001",
+      "orientation": "landscape",
+      "capturedUtc": "2026-10-11T23:06:35.6718450Z",
+      "contentHash": "95f3e96a12d0af6d98d302dbf30f71b457c658298a79dd980d27e81c92a329f4",
+      "imageSha256": "403794fae2abbeb458497f125fd13e6bb5a496d8739577f03cf2db5d7bc68316"
+    },
+    {
+      "levelId": "QC001",
+      "orientation": "portrait",
+      "capturedUtc": "2026-10-11T23:06:36.0926690Z",
+      "contentHash": "95f3e96a12d0af6d98d302dbf30f71b457c658298a79dd980d27e81c92a329f4",
+      "imageSha256": "c4215f6bea03a759d5ced9d1420670f3a8322ac549f4e1d1ccc877151c91be97"
+    },
+    {
+      "levelId": "QC002",
+      "orientation": "landscape",
+      "capturedUtc": "2026-10-11T23:06:38.6349180Z",
+      "contentHash": "00250c94b976cd8d541b3fdc0a10eef5306b1f6bd12ba631e98cb6faa385b296",
+      "imageSha256": "152012d1aa47226160a1b19ef9d02f10bb6ab0785d9712983517d9b70099fd94"
+    },
+    {
+      "levelId": "QC002",
+      "orientation": "portrait",
+      "capturedUtc": "2026-10-11T23:06:39.0431210Z",
+      "contentHash": "00250c94b976cd8d541b3fdc0a10eef5306b1f6bd12ba631e98cb6faa385b296",
+      "imageSha256": "12eec9cdb34eada8fe6cb4d75fa99c58057650fa4d61c1d4b5d71949757c0153"
+    },
+    {
+      "levelId": "QC003",
+      "orientation": "landscape",
+      "capturedUtc": "2026-10-11T23:12:26.0029240Z",
+      "contentHash": "7c1b833da254b83696a364b1c0c77a5aa0f05b82fa27842b2108d79111f11b08",
+      "imageSha256": "d1883d57cc867a13ac77f04b4b8606195b2a4da70921521dc5279550075f7385"
+    },
+    {
+      "levelId": "QC003",
+      "orientation": "portrait",
+      "capturedUtc": "2026-10-11T23:12:26.4083880Z",
+      "contentHash": "7c1b833da254b83696a364b1c0c77a5aa0f05b82fa27842b2108d79111f11b08",
+      "imageSha256": "06d386488535eadde7751aaf92ea85371ec165bba6a939e7451bfda1891f0cd9"
+    },
+    {
+      "levelId": "QC004",
+      "orientation": "landscape",
+      "capturedUtc": "2026-10-11T23:12:29.7831930Z",
+      "contentHash": "3624870a08589c7c654366a25a9cf4a08f2e052d81f32621f24de6efe9cf6f7e",
+      "imageSha256": "ca30d186173f0ec49b74556af503ffb69a9bbbfdd67ba9c889c171277bca0514"
+    },
+    {
+      "levelId": "QC004",
+      "orientation": "portrait",
+      "capturedUtc": "2026-10-11T23:12:30.1326520Z",
+      "contentHash": "3624870a08589c7c654366a25a9cf4a08f2e052d81f32621f24de6efe9cf6f7e",
+      "imageSha256": "488862e655fe1058f8ae28641542c6ced611d019d6486178bd7eb1e183883daa"
+    },
+    {
+      "levelId": "QC005",
+      "orientation": "landscape",
+      "capturedUtc": "2026-10-11T23:14:28.2063030Z",
+      "contentHash": "b4199da6f2877a92d27a036993d9d3519d2b5edda4bff5deb51eae0565d71521",
+      "imageSha256": "dfad694b431d49c3c3fa5d6ea4ff893fd7a1a2556fccf0cd52e6c5e8f4030c1e"
+    },
+    {
+      "levelId": "QC005",
+      "orientation": "portrait",
+      "capturedUtc": "2026-10-11T23:14:28.6036090Z",
+      "contentHash": "b4199da6f2877a92d27a036993d9d3519d2b5edda4bff5deb51eae0565d71521",
+      "imageSha256": "2281ee1d6b045a915c1bd04c911782ae89e92229476bf6f412e35bf7c3702169"
+    },
+    {
+      "levelId": "QC006",
+      "orientation": "landscape",
+      "capturedUtc": "2026-10-11T23:14:31.5564430Z",
+      "contentHash": "8d121b1eb56180c88d1ed869a9377e92ecaa752b75dcab66b9b31b3737b2570d",
+      "imageSha256": "7cf80243158daea77355e5103cca9938477aa7b8b4de379f99ebe2fdf64b4533"
+    },
+    {
+      "levelId": "QC006",
+      "orientation": "portrait",
+      "capturedUtc": "2026-10-11T23:14:31.9193460Z",
+      "contentHash": "8d121b1eb56180c88d1ed869a9377e92ecaa752b75dcab66b9b31b3737b2570d",
+      "imageSha256": "6af879ab65a3bfa66b44bfb0fa67df29901d9dc9499e7985b26e1f1997d41a17"
+    },
+    {
+      "levelId": "QC007",
+      "orientation": "landscape",
+      "capturedUtc": "2026-10-11T23:17:05.1668350Z",
+      "contentHash": "514b8c31b7f8c4724668052089d6035463c0502667308c8e126335b75ecf05e9",
+      "imageSha256": "87d5c5e993e0bbff774e16555af8feec373964fc49c9d1562eac1b5b130320e9"
+    },
+    {
+      "levelId": "QC007",
+      "orientation": "portrait",
+      "capturedUtc": "2026-10-11T23:17:05.6161630Z",
+      "contentHash": "514b8c31b7f8c4724668052089d6035463c0502667308c8e126335b75ecf05e9",
+      "imageSha256": "e421617b05d74c8cf34db0cac3830261fd59000e5a3980787e13bb4f96406242"
+    },
+    {
+      "levelId": "QC008",
+      "orientation": "landscape",
+      "capturedUtc": "2026-10-11T23:17:08.3924630Z",
+      "contentHash": "2b5ba6aee2b390802eeadd504bc710f4efa177b16f453592c92280bf18cb836b",
+      "imageSha256": "8bdb906adb4ff2913752e773035601ee6af8b5872eafd3a02b1caa6b7218d45a"
+    },
+    {
+      "levelId": "QC008",
+      "orientation": "portrait",
+      "capturedUtc": "2026-10-11T23:17:08.6989790Z",
+      "contentHash": "2b5ba6aee2b390802eeadd504bc710f4efa177b16f453592c92280bf18cb836b",
+      "imageSha256": "8488a00a3fbf6701697e017044483f94e765a5361acf396cd836f13c0d24e7a8"
+    },
+    {
+      "levelId": "QC009",
+      "orientation": "landscape",
+      "capturedUtc": "2026-10-11T23:19:22.8489770Z",
+      "contentHash": "1a5886c85a5ddc86806e6581f463540ffac5bf8fb7d53e0f2193d9d076d95da4",
+      "imageSha256": "14e9264145c975b1c848af95f9399e0cf1a96cf408e289cdaa35096c6ec9a76d"
+    },
+    {
+      "levelId": "QC009",
+      "orientation": "portrait",
+      "capturedUtc": "2026-10-11T23:19:23.3012770Z",
+      "contentHash": "1a5886c85a5ddc86806e6581f463540ffac5bf8fb7d53e0f2193d9d076d95da4",
+      "imageSha256": "baa2a757b63449ae5cf00ccd101334adb3a02e681343faac9d718852f56ac9c0"
+    },
+    {
+      "levelId": "QC010",
+      "orientation": "landscape",
+      "capturedUtc": "2026-10-11T23:19:26.2525740Z",
+      "contentHash": "44bea1bd6249e9d90bbe18a31dfe71c705fde08a84624b81e7b216a5f6f6d35d",
+      "imageSha256": "51faa81a7f7ec62d3d68d3536c550f05fe1f21fb0e1f16f8d06ea7d01c5af605"
+    },
+    {
+      "levelId": "QC010",
+      "orientation": "portrait",
+      "capturedUtc": "2026-10-11T23:19:26.5818650Z",
+      "contentHash": "44bea1bd6249e9d90bbe18a31dfe71c705fde08a84624b81e7b216a5f6f6d35d",
+      "imageSha256": "b8dae0e8fd062b1880360f0d06ff15466c5befe17af3807c4145ef39688c4438"
+    }
+  ],
+  "nativeWorldCamera": true,
+  "nativeGameView": false,
+  "chromeClosed": false,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "fullPlanAccepted": false
+}

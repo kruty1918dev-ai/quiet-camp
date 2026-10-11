@@ -1,0 +1,89 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T23:19:22.8489770Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "QC009",
+  "number": 9,
+  "contentHash": "1a5886c85a5ddc86806e6581f463540ffac5bf8fb7d53e0f2193d9d076d95da4",
+  "sourceRevision": "1589fe7f18ec62d072df57d7a5e34d534a38190af852bce32c2bca2e1d34c184",
+  "orientation": "landscape",
+  "imageSha256": "14e9264145c975b1c848af95f9399e0cf1a96cf408e289cdaa35096c6ec9a76d",
+  "width": 1280,
+  "height": 800,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    6.5163126,
+    17.2359619,
+    7.80007124
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 6.30963469,
+  "storyTriangles": 63966,
+  "bakedEnvironment": "QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC009",
+  "bakedSourceRevision": "56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732",
+  "bakedParts": [
+    {
+      "kind": "terrain",
+      "triangles": 24200,
+      "vertices": 12321,
+      "objectCount": 1
+    },
+    {
+      "kind": "structures",
+      "triangles": 344,
+      "vertices": 1032,
+      "objectCount": 3
+    },
+    {
+      "kind": "roads",
+      "triangles": 114,
+      "vertices": 342,
+      "objectCount": 2
+    },
+    {
+      "kind": "trees",
+      "triangles": 3260,
+      "vertices": 9780,
+      "objectCount": 32
+    },
+    {
+      "kind": "groundcover",
+      "triangles": 36048,
+      "vertices": 108144,
+      "objectCount": 1501
+    }
+  ],
+  "seasonTimeline": 0.080808,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "QC009/prop-1",
+      "asset": "ua_valley_well",
+      "viewport": [
+        0.7387129,
+        0.5857604,
+        20.4404163
+      ]
+    },
+    {
+      "id": "QC009/prop-2",
+      "asset": "log",
+      "viewport": [
+        0.7912447,
+        0.497474134,
+        20.2218113
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}
