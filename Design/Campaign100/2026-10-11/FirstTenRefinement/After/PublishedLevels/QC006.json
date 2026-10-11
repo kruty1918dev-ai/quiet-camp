@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 6,
+  "chapter": 1,
+  "seed": 20308518,
+  "width": 7,
+  "height": 6,
+  "id": "QC006",
+  "contentHash": "8d121b1eb56180c88d1ed869a9377e92ecaa752b75dcab66b9b31b3737b2570d",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "tutorial.6",
+  "generationAttempt": 1,
+  "decorSeed": 20299129,
+  "entry": [
+    0,
+    3
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      6,
+      0
+    ],
+    [
+      4,
+      0
+    ],
+    [
+      3,
+      5
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      6,
+      0
+    ]
+  ],
+  "exteriorWalkable": [
+    [
+      -1,
+      1
+    ],
+    [
+      -1,
+      2
+    ],
+    [
+      -1,
+      3
+    ],
+    [
+      -1,
+      4
+    ],
+    [
+      -1,
+      5
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 3
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 4,
+      "rotation": 1
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "campfire_stones",
+      "x": 6,
+      "z": 0,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 4,
+      "z": 0,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 3,
+      "z": 5,
+      "rotation": 0
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "meadow",
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.371203,
+    "treeDensity": 0.404494,
+    "clusterSeed": 32038,
+    "meadowSpecies": [
+      "grass",
+      "daisy"
+    ],
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.050505,
+    "weatherIntensity": 0.152005,
+    "sunElevation": 50.0
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-006",
+    "beats": [
+      {
+        "id": "place-006",
+        "storyBeat": "Колишній сільський маршрут тепер служить пішим мандрівникам; очікування стає відпочинком.",
+        "heroLandmark": "QC006/prop-1",
+        "returningProp": null,
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Мозаїчна зупинка, вицвілий стовп і трав'яні тріщини біля старого під'їзду.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Табір стоїть на траві біля старого сільського маршруту. Зупинка має невеликий заїзд, а кілька простих опор пояснюють напрям електромережі.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "QC006"
+        ],
+        "props": [
+          {
+            "id": "QC006/prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": null,
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "inherit",
+            "appearance": "always",
+            "contentTags": [],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_bus_shelter_mosaic",
+              "x": -7.2,
+              "z": 3.7,
+              "elevation": 0.0,
+              "height": 1.75,
+              "yaw": 90.0,
+              "sway": false
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  },
+  "bakedEnvironment": "QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC006"
+}

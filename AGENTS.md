@@ -207,3 +207,14 @@ avoid accumulating Editor memory; preserve individual XML results. These
 are native world-camera frames without HUD, not mobile FPS or full-plan
 acceptance. Preserve historical baseline and the user's QC_Renderer.asset.
 Player builds and roadmap activation remain prohibited.
+
+# First-ten rollback — 2026-10-12
+
+After reviewing the experimental first-ten captures, the user requested restoring
+the previous implementation. QC001–QC010, campaign and summaries use the exact
+pre-publication baseline from cc308798. FirstTenRefinement/rollback-receipt.json
+records the restoration. Experimental sources, packages, bakes and captures remain
+under Design; experimental BakedEnvironments were removed from Resources.
+Do not republish this experiment or resume the refinement plan without a new user
+request. The roadmap remains deferred; the campaign remains exactly 100 levels.
+Chrome must remain open during any future authorized capture work.

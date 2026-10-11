@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 10,
+  "chapter": 1,
+  "seed": 20340194,
+  "width": 7,
+  "height": 8,
+  "id": "QC010",
+  "contentHash": "44bea1bd6249e9d90bbe18a31dfe71c705fde08a84624b81e7b216a5f6f6d35d",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": 20316861,
+  "entry": [
+    0,
+    4
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      6,
+      0
+    ],
+    [
+      6,
+      3
+    ],
+    [
+      0,
+      1
+    ]
+  ],
+  "shade": [
+    [
+      0,
+      5
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      0,
+      7
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      1,
+      7
+    ],
+    [
+      2,
+      6
+    ],
+    [
+      2,
+      7
+    ]
+  ],
+  "noise": [
+    [
+      6,
+      0
+    ]
+  ],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 5,
+      "rotation": 0
+    },
+    {
+      "guestId": "g4",
+      "x": 0,
+      "z": 2,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 1,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 5,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "campfire_stones",
+      "x": 6,
+      "z": 0,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 6,
+      "z": 3,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 0,
+      "z": 1,
+      "rotation": 0
+    }
+  ],
+  "canopies": [
+    {
+      "x": 1.25,
+      "z": 6.75,
+      "radiusX": 1.6,
+      "radiusZ": 1.6
+    }
+  ],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.422778,
+    "treeDensity": 0.414287,
+    "clusterSeed": 32730,
+    "meadowSpecies": [
+      "grass",
+      "daisy"
+    ],
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.090909,
+    "weatherIntensity": 0.237964,
+    "sunElevation": 50.0
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-010",
+    "beats": [
+      {
+        "id": "place-010",
+        "storyBeat": "Перший відрізок завершений: хтось після нас зможе знайти цей шлях.",
+        "heroLandmark": "QC010/prop-1",
+        "returningProp": null,
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Ліхтар біля зупинки й маленький ремонтований вказівник на тлі попереднього маршруту.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Роздоріжжя підсумовує відновлений шлях. Невеликий ремонтований покажчик і теплий ліхтар говорять про турботу людей; великої зупинки тут немає.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "QC010"
+        ],
+        "props": [
+          {
+            "id": "QC010/prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": null,
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "inherit",
+            "appearance": "always",
+            "contentTags": [],
+            "roadmap": null,
+            "level": {
+              "assetId": "sign",
+              "x": -5.5,
+              "z": 1.5,
+              "elevation": 0.0,
+              "height": 0.72,
+              "yaw": 35.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "QC010/prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": null,
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "inherit",
+            "appearance": "always",
+            "contentTags": [],
+            "roadmap": null,
+            "level": {
+              "assetId": "camp_lantern",
+              "x": -5.0,
+              "z": 0.4,
+              "elevation": 0.0,
+              "height": 0.28,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  },
+  "bakedEnvironment": "QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC010"
+}

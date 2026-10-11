@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 8,
+  "chapter": 1,
+  "seed": 20324356,
+  "width": 8,
+  "height": 6,
+  "id": "QC008",
+  "contentHash": "2b5ba6aee2b390802eeadd504bc710f4efa177b16f453592c92280bf18cb836b",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "tutorial.8",
+  "generationAttempt": 1,
+  "decorSeed": 20348763,
+  "entry": [
+    7,
+    3
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      6,
+      1
+    ],
+    [
+      4,
+      3
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [
+    [
+      8,
+      1
+    ],
+    [
+      8,
+      2
+    ],
+    [
+      8,
+      3
+    ],
+    [
+      8,
+      4
+    ],
+    [
+      8,
+      5
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 6,
+      "z": 4,
+      "rotation": 1
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 6,
+      "z": 1,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 4,
+      "z": 3,
+      "rotation": 1
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.396193,
+    "treeDensity": 0.408737,
+    "clusterSeed": 32384,
+    "meadowSpecies": [
+      "grass",
+      "daisy"
+    ],
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.070707,
+    "weatherIntensity": 0.193655,
+    "sunElevation": 50.0
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-008",
+    "beats": [
+      {
+        "id": "place-008",
+        "storyBeat": "Заросла дорога пам'ятає щоденний рух; табір повертає їй людський масштаб.",
+        "heroLandmark": "QC008/prop-1",
+        "returningProp": null,
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Нахилений вказівник і порожня лавка між молодими тополями.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Вузька заглиблена стежка проходить між нерегулярними групами тополь. Рельєф і вертикальні крони дають інший силует, без повторної лавки та знака.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "QC008"
+        ],
+        "props": [
+          {
+            "id": "QC008/prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": null,
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "inherit",
+            "appearance": "always",
+            "contentTags": [],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_poplar",
+              "x": 5.2,
+              "z": -3.8,
+              "elevation": 0.0,
+              "height": 3.6,
+              "yaw": 9.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "QC008/prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": null,
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "inherit",
+            "appearance": "always",
+            "contentTags": [],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_poplar",
+              "x": 5.7,
+              "z": 4.5,
+              "elevation": 0.0,
+              "height": 3.2,
+              "yaw": -7.0,
+              "sway": false
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  },
+  "bakedEnvironment": "QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC008"
+}

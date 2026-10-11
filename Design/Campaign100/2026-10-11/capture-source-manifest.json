@@ -1,5 +1,5 @@
 {
-  "revision": "1589fe7f18ec62d072df57d7a5e34d534a38190af852bce32c2bca2e1d34c184",
+  "revision": "ef0e5973139fa5d583adb176e1471d9013efdaf6e6d505c448d7878ea54053dd",
   "files": [
     {
       "path": "Assets/QuietCamp/Resources/QuietCamp/AssetCatalog.asset",
@@ -12,246 +12,6 @@
     {
       "path": "Assets/QuietCamp/Resources/QuietCamp/AudioCatalog.asset",
       "sha256": "d7bb025ebf9ec1e1ab712bdf77082f22881bbf0c166334a1a25d95c2fcdf616c"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC001/groundcover.bytes",
-      "sha256": "d6c5d00e86a93f6865da9feed16aaebd09c836314a99eb49670abc944baf0d65"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC001/manifest.json",
-      "sha256": "e478c7ca1e7db6ca9b0ab1225f827df3599d70953d0d4210d908746d454fcaa0"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC001/roads.bytes",
-      "sha256": "412784d2024a4acda124392d16b4b0b3f13d13fc3c62c3be56c4d044696940ea"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC001/structures.bytes",
-      "sha256": "daa90579fab47c4f49f2f49fffa0031ed51dc64448b0c48b923ede82dfd7719d"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC001/terrain.bytes",
-      "sha256": "0062a3725fcd9a28f26410c47b1617de44a1674a34fd081b23c3e263f538b92f"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC001/trees.bytes",
-      "sha256": "12b054f6a6bfba0569b561c80d6e5295a76510678e96037fc765bc4fcd613d6d"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC002/groundcover.bytes",
-      "sha256": "a155176ae7813a9b2db68a1796469b4630887b63b485db11f784e84fca357066"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC002/manifest.json",
-      "sha256": "7227261fa895e4b32eb87c57699f101c7e82450743a3bd7cb3e746dc77fade93"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC002/roads.bytes",
-      "sha256": "96145222d9645b72696054dd2467706101d267fa411a890981574dd99750b84b"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC002/structures.bytes",
-      "sha256": "ee8811a9317f8a3dd503fb8d5d954d2a7c273c77fb2cdda7319101f997ffef5f"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC002/terrain.bytes",
-      "sha256": "1bc1a5bddab32887cb90afa5772704d89ccff16c2ac3b3667ad587b31044dc8b"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC002/trees.bytes",
-      "sha256": "9e2cf96a1c06143a6d43fd61960f7516f60a1b1f85cf8213e4263a024950f487"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC003/groundcover.bytes",
-      "sha256": "609c24a39150d251b2fb95e4f137898e92dca3f4450a31efd094df63ced4b233"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC003/manifest.json",
-      "sha256": "ee30161c5538579110ef8847c093d3d0cd5139226736dda5c430d047f975367a"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC003/roads.bytes",
-      "sha256": "be6b48f7ca52bf3a8cd4425c9bce7bb051f9d0db5f088494c6d0c67c015f12ed"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC003/structures.bytes",
-      "sha256": "c5d0a76b0629cbd41ed0d3cf66050d67ab8fab85778f503bca4527e8356f4ba4"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC003/terrain.bytes",
-      "sha256": "8f0a575c4e639e51d2566fa943b2c564f154ac4ac77c64827dc34a5733d5345c"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC003/trees.bytes",
-      "sha256": "4649862a937a47e00c2d7bf759b43c9c216febdb2dd300c15ddeebb9a9dd9af6"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC004/groundcover.bytes",
-      "sha256": "45b5354372443d9787688d377c337f35435d36009f177d175aafa59d3a4cd36d"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC004/manifest.json",
-      "sha256": "097bc37c76453ab1823d7da15c7ee48f3d40041112052ee5a028be13b8e3f150"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC004/roads.bytes",
-      "sha256": "3f02b08944395fb2adbf3c3dd004b4a5760858723a0c452999c35e40da318303"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC004/structures.bytes",
-      "sha256": "fe557d2da216551a6a7804f09c38b5a559818fcb264ad17d987fdb1945b1f9fb"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC004/terrain.bytes",
-      "sha256": "c4dcf490c6e6b701d25bfa4522fff3a78e8a1cb90d030c045d2081e4d1d7e1c2"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC004/trees.bytes",
-      "sha256": "075a7c467dd2a18e1b22cbcdebd3ab8eeb7890d3a0cd3bf7954ce54e04ac1d51"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC005/groundcover.bytes",
-      "sha256": "b35b864efeb0aef85a4a2f1a12eb8be62bff23c516939baf04268d28979d8894"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC005/manifest.json",
-      "sha256": "8f93e2514335d769766e6f85af490e92dd2ec306297eb067be7499262ff0c284"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC005/roads.bytes",
-      "sha256": "193181c415fa761230299f895f75da947ba6374aae57dec4dab5d65e6e33d5e5"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC005/structures.bytes",
-      "sha256": "3e5176d356e27eae4a7d44ab29ed8bc9d602d5367bcae7cc61944934099d4953"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC005/terrain.bytes",
-      "sha256": "c8713745a8eecde5fdc51e9e270c5adb58397d2a7085b07bfd78916abc18cbe2"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC005/trees.bytes",
-      "sha256": "27d42b6a14dede0ce66bf17691d8f0c167977d75aa397d550baa640ca6db6c24"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC006/groundcover.bytes",
-      "sha256": "599e2128b5e13a870030c0de1bf40777c95259846c6e8a73e2659106ce5bd9e4"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC006/manifest.json",
-      "sha256": "55cf0043c60d53c2753f3d06bbe99a036a7655806d2663f87d22cfcb79c50201"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC006/roads.bytes",
-      "sha256": "60377e463639eac922ae04aed2d06abb755e0eceb2fde8d9bdaffb89fd9b33f3"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC006/structures.bytes",
-      "sha256": "774cd6ba1d072906dd2adc00bd0b6ea9ab8b96c7cf1ada77c90fc0b34d59af20"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC006/terrain.bytes",
-      "sha256": "3b9329b2417a629f3ae8484b7c650a1fc51bde3c55ea5bdc8536664b7635af81"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC006/trees.bytes",
-      "sha256": "3db815021455ecca720e0c549cf2f57fd6c87491d54449b51b99cc2c883b4297"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC007/groundcover.bytes",
-      "sha256": "f86492c0d1d94991d84a87ce078a9ffe8c9ea1b409c459aafb298f478635076d"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC007/manifest.json",
-      "sha256": "6207a3aa3276c10437e18f8abf18da1abadfc50bd169b41a5bc0fd96e7e42761"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC007/roads.bytes",
-      "sha256": "aadd4233b85595c6318e5f60cdc079fe8c0d579cd96f1a4e0fb6ece18af79836"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC007/structures.bytes",
-      "sha256": "d4f6170837888bbf302da82f1cc2517a8ec796161adf59d170460a87ec38694d"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC007/terrain.bytes",
-      "sha256": "069e8a318404d6efea801a1c28c86e506519a2a217a12fe959674203b8ccf468"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC007/trees.bytes",
-      "sha256": "ac14204e2660f932c915864cb3cebb69bf11ea2f2952d5033e3e4c12cb0a599b"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC008/groundcover.bytes",
-      "sha256": "4fc66dbada14ae336feaf6c2090bbbc4b90e66d6bfe1272fc619e387abd796dd"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC008/manifest.json",
-      "sha256": "36dec5f4855cf6e8248812108badc25fb4d7e660de11ca08ff783525ba2fa69a"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC008/roads.bytes",
-      "sha256": "46a5add5151e90536dfaa0c37b6158326b7f1619a496cd21d2f4345bbb8416fa"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC008/structures.bytes",
-      "sha256": "1c178f7fb5c6f14ac27835b1583bf206b5073e7ded686a21f7ec258cae2a0edd"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC008/terrain.bytes",
-      "sha256": "338c74e9115642337aa80644d9d42160f28318bcd64d7598c8aa2d8bdd8ee923"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC008/trees.bytes",
-      "sha256": "fd7c59f07abe831fe579d2eaa0678ac82e7df36bb3bfd2aac2d4eee57053ce39"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC009/groundcover.bytes",
-      "sha256": "9a2b3040dd0d598bc01badd22c6e3c07a7273518281f14d95c5b869a0cde8289"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC009/manifest.json",
-      "sha256": "e969407f65b131d39b0fc8bc2d2bae192d67e1d22723575f823a93d1efbe526e"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC009/roads.bytes",
-      "sha256": "05b11b2cf22c5a3da5d48ce4adad700a5d20b222276598a8a6dee292204f9aa9"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC009/structures.bytes",
-      "sha256": "cd13e4d7ce12c321ee4c09b7653b8e82f4724ba70c73ce6efd92d8cc3125fff3"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC009/terrain.bytes",
-      "sha256": "b525f53923019e3ba15db8da06a28c9f40541c8839a7b94a38d0018cfe700d7f"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC009/trees.bytes",
-      "sha256": "007f60f100f88991b4ed14153f029996a4011bd1defbbab6c9b0b4b5f029224e"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC010/groundcover.bytes",
-      "sha256": "153ded85d6a4b5bd67f43fface3f164379bdff2f79facd793125d6cc002743f5"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC010/manifest.json",
-      "sha256": "5d2f2eca4ad62fb7796de28ef64e10c544ad7ccaaa394769f59b4ffc58fcad6a"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC010/roads.bytes",
-      "sha256": "8330aa9dc95b9a4f97f1a062a51acb07c122a71c69256fc2b3fa96692052a839"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC010/structures.bytes",
-      "sha256": "45911b37a48651d262f67ad9d8a00086a9dad84c69300a5cf7a765541651f778"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC010/terrain.bytes",
-      "sha256": "9749ad068ce2500d03337cf5bcce44a13d11a830b1d9b3e65cf3af2b8105899b"
-    },
-    {
-      "path": "Assets/QuietCamp/Resources/QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC010/trees.bytes",
-      "sha256": "8fb947284d0e03657dcb7584b721c8eec8b56740f93e2928e5df8ddb8050a181"
     },
     {
       "path": "Assets/QuietCamp/Resources/QuietCamp/CampPuddle.shader",
@@ -1427,7 +1187,7 @@
     },
     {
       "path": "Assets/QuietCamp/Resources/QuietCamp/campaign.json",
-      "sha256": "f98f7c5c3edd70cd311190e7c8a6a222772a29b23adfad36a82bacd758316f7c"
+      "sha256": "798e7effddd423bd9268f500a4620e47cb6c79e98fdf346c145dc28935a82d36"
     },
     {
       "path": "Assets/QuietCamp/Resources/QuietCamp/campaign100_models.json",
@@ -1447,7 +1207,7 @@
     },
     {
       "path": "Assets/QuietCamp/Resources/QuietCamp/level_summaries.json",
-      "sha256": "99934398ae84aaa1bf5de909e6e21768287e1c5a3a4e866742d2a115a397a66f"
+      "sha256": "7cbff9687db070a9ae13b1cd51fb153e03eb9a1b603ff9e1b3764ab8ce8beec8"
     },
     {
       "path": "Assets/QuietCamp/Resources/QuietCamp/levelkit_profile.json",
@@ -1818,5 +1578,5 @@
       "sha256": "e653b66acd56ec26d5a0d9546d706c73a92b54ce943d65d3e51cf274bb645524"
     }
   ],
-  "preparedUtc": "2026-10-11T22:58:40.326217+00:00"
+  "preparedUtc": "2026-10-11T23:47:41.174421+00:00"
 }

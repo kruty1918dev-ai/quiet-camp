@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 2,
+  "chapter": 1,
+  "seed": 20276842,
+  "width": 5,
+  "height": 6,
+  "id": "QC002",
+  "contentHash": "00250c94b976cd8d541b3fdc0a10eef5306b1f6bd12ba631e98cb6faa385b296",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "tutorial.2",
+  "generationAttempt": 1,
+  "decorSeed": 20265269,
+  "entry": [
+    2,
+    5
+  ],
+  "accessPoints": [],
+  "blocked": [],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 3,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [],
+  "canopies": [],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.341356,
+    "treeDensity": 0.400181,
+    "clusterSeed": 31346,
+    "meadowSpecies": [
+      "grass",
+      "daisy"
+    ],
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.010101,
+    "weatherIntensity": 0.102261,
+    "sunElevation": 50.0
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-002",
+    "beats": [
+      {
+        "id": "place-002",
+        "storyBeat": "Гості можуть жити поруч, коли ніхто не перекриває іншому дорогу.",
+        "heroLandmark": "QC002/prop-1",
+        "returningProp": null,
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Два протоптані підходи сходяться під деревом; колода лежить обабіч проходу.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Два різні підходи сходяться біля входу. Старий навіс стоїть на сухому плечі схилу; стежки пояснюють правило проходів.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "QC002"
+        ],
+        "props": [
+          {
+            "id": "QC002/prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": null,
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "inherit",
+            "appearance": "always",
+            "contentTags": [],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_trail_shelter",
+              "x": -4.8,
+              "z": 5.8,
+              "elevation": 0.0,
+              "height": 1.65,
+              "yaw": 20.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "QC002/prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": null,
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "inherit",
+            "appearance": "always",
+            "contentTags": [],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": -4.4,
+              "z": -1.8,
+              "elevation": 0.0,
+              "height": 0.18,
+              "yaw": 35.0,
+              "sway": false
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  },
+  "bakedEnvironment": "QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC002"
+}

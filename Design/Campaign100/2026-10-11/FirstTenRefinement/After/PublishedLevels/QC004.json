@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 4,
+  "chapter": 1,
+  "seed": 20292680,
+  "width": 6,
+  "height": 6,
+  "id": "QC004",
+  "contentHash": "3624870a08589c7c654366a25a9cf4a08f2e052d81f32621f24de6efe9cf6f7e",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "tutorial.4",
+  "generationAttempt": 1,
+  "decorSeed": 20314903,
+  "entry": [
+    5,
+    3
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      5,
+      0
+    ],
+    [
+      2,
+      5
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      5,
+      0
+    ]
+  ],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 3,
+      "rotation": 1
+    },
+    {
+      "guestId": "g2",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "campfire_stones",
+      "x": 5,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 2,
+      "z": 5,
+      "rotation": 1
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.351876,
+    "treeDensity": 0.401626,
+    "clusterSeed": 31692,
+    "meadowSpecies": [
+      "grass",
+      "daisy"
+    ],
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.030303,
+    "weatherIntensity": 0.119793,
+    "sunElevation": 50.0
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-004",
+    "beats": [
+      {
+        "id": "place-004",
+        "storyBeat": "Спільне тепло не зобов'язує кожного сидіти біля багаття; є місце і для тиші.",
+        "heroLandmark": "QC004/prop-1",
+        "returningProp": null,
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Складені сухі поліна, кам'яне багаття на полі й лавка далі від шуму.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Вогнище займає неглибоку улоговину з одного боку. Інший край відгороджений рельєфом та підліском; тиша має просторове пояснення.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "QC004"
+        ],
+        "props": [
+          {
+            "id": "QC004/prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": null,
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "inherit",
+            "appearance": "always",
+            "contentTags": [],
+            "roadmap": null,
+            "level": {
+              "assetId": "campfire_stones",
+              "x": 4.7,
+              "z": -1.0,
+              "elevation": 0.0,
+              "height": 0.28,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "QC004/prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": null,
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "inherit",
+            "appearance": "always",
+            "contentTags": [],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": 4.5,
+              "z": -3.7,
+              "elevation": 0.0,
+              "height": 0.2,
+              "yaw": 70.0,
+              "sway": false
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  },
+  "bakedEnvironment": "QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC004"
+}

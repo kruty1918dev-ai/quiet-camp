@@ -46,14 +46,35 @@ def after_image(number,orientation,current_hash):
     if not reference or receipt.get('bakedEnvironment')!=reference or receipt.get('bakedSourceRevision')!=reference.split('/')[-2]:return None
     return receipt
 
+def archived_after_image(number,orientation):
+    """Validate frozen experiment evidence independently of the active campaign."""
+    folder=DEST/'After'
+    if not (DEST/'rollback-receipt.json').exists():return None
+    paths=[folder/'Renders'/f'level-{number:03d}-{orientation}.json',folder/'PublishedLevels'/f'QC{number:03d}.json',folder/'capture-source-manifest.json',folder/'runtime-publication.json']
+    if not all(p.exists() for p in paths):return None
+    receipt,level,manifest,publication=[json.loads(p.read_text()) for p in paths]
+    if hashlib.sha256(json.dumps(manifest['files'],separators=(',',':')).encode()).hexdigest()!=manifest['revision']:return None
+    png=paths[0].with_suffix('.png')
+    if not png.exists() or receipt.get('imageSha256')!=hashlib.sha256(png.read_bytes()).hexdigest():return None
+    if receipt.get('kind') not in ('native-unity-world-camera','native-unity-game-view'):return None
+    if receipt.get('levelId')!=level['id'] or level['id']!=f'QC{number:03d}' or receipt.get('orientation')!=orientation:return None
+    proof=next((p for p in publication['firstTen'] if p['id']==level['id']),None)
+    if not proof or receipt.get('contentHash')!=level['contentHash'] or level['contentHash']!=proof['contentHash']:return None
+    reference=level.get('bakedEnvironment')
+    if not reference or reference!=proof['bakedEnvironment'] or receipt.get('bakedEnvironment')!=reference:return None
+    if receipt.get('bakedSourceRevision')!=reference.split('/')[-2] or receipt.get('sourceRevision')!=manifest['revision']:return None
+    return receipt
+
 def main():
     places=json.loads((DEST/'Authoring/places.json').read_text())['places']
     upstreams=json.loads((DEST/'package-upstreams.json').read_text())['packages']
     tool_rows=''.join(f'<tr><td><a href="{esc(p["repository"])}">{esc(p["package"].split("com.kruty1918.")[1])}</a></td><td>Core ✓ / cached compiler ✓</td><td class="pending">QC import ✓ · standalone Pending</td><td><a href="../../../../QuietCamp/Packages/{esc(p["package"])}/VENDORED.json"><code>{esc(p["upstreamCommit"][:12])}</code></a></td></tr>' for p in upstreams)
     cards=[]
     fresh_count=0
+    archived_count=0
     publication=DEST/'runtime-publication.json'
     active=publication.exists()
+    restored=(DEST/'rollback-receipt.json').exists() and not active
     layout_path=DEST/'layout-contracts.json'
     layout=json.loads(layout_path.read_text()) if layout_path.exists() else None
     layout_current=layout is not None and all(hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==sha for path,sha in layout['sources'].items())
@@ -76,9 +97,15 @@ def main():
         after=[]
         for orientation,label in [('landscape','Landscape'),('portrait','Portrait')]:
             receipt=after_image(i,orientation,current['contentHash'])
+            archived=False
+            if receipt is None and restored:
+                receipt=archived_after_image(i,orientation);archived=receipt is not None
             if receipt:
-                fresh_count+=1;src=f'After/Renders/level-{i:03d}-{orientation}.png'
-                after.append(f'<figure class="photo {orientation}"><a href="{src}"><img loading="lazy" src="{src}" alt="{place["id"]}: нова композиція, {label}"/></a><figcaption>{label} · {esc(receipt["capturedUtc"])} · <a href="After/Renders/level-{i:03d}-{orientation}.json">receipt</a></figcaption></figure>')
+                if archived:archived_count+=1
+                else:fresh_count+=1
+                src=f'After/Renders/level-{i:03d}-{orientation}.png'
+                status='Архівний експеримент · відкладено · ' if archived else ''
+                after.append(f'<figure class="photo {orientation}"><a href="{src}"><img loading="lazy" src="{src}" alt="{place["id"]}: {status}нова композиція, {label}"/></a><figcaption>{status}{label} · {esc(receipt["capturedUtc"])} · <a href="After/Renders/level-{i:03d}-{orientation}.json">receipt</a></figcaption></figure>')
         if not after:after=['<div class="waiting"><strong>Native кадри ще не отримано.</strong><p>Кадр ще очікує завершення ізольованого Unity-прогону. Джерело нижче показує перебудовані маршрути й ансамблі; це схема, не готовий 3D-кадр.</p></div>']
         geometry='Перевірено опори, маршрути, потрібні ансамблі та конструктивні зв’язки у Core.' if layout_current else 'Повторна перевірка джерел потрібна; native-приймання відкрите.'
         changes=[]
@@ -104,7 +131,14 @@ def main():
     intro=f'Оновлено 12.10.2026. Перші десять місць отримали запечене оточення через вісім універсальних інструментів. Пазли та IDs збережені. Для «після» перевірено {fresh_count}/20 native кадрів: landscape і portrait, без HUD.'
     if fresh_count==20:intro+=' Клік на зображенні відкриває оригінал; кнопка зверху перемикає орієнтацію. Це результат камерного знімання, а не приймання всіх пунктів плану.'
     page=page.replace('__INTRO__',intro)
+    if restored:
+        page=page.replace(intro,'Оновлено 12.10.2026: за вказівкою користувача відновлено стару реалізацію QC001–QC010 з точними baseline hashes. Ліва колонка показує відновлений варіант на історичних кадрах; права — відкладений експеримент, який більше не завантажується у грі. Нових рендерів після відновлення не робили. <a href="rollback-receipt.json">Квитанція відновлення</a>.')
+        page=page.replace('До · native baseline','Відновлено · старий варіант').replace('Після · нова реалізація','Архів · відкладений експеримент')
+        page=page.replace('Перша десятка має нові редакції оточення; поля та пазли збережені.','Чинна перша десятка використовує попередній шлях створення оточення, камери й освітлення. Експериментальні buffers вилучені з Resources; інструменти та запечені джерела збережені у Design. Поля та пазли збережені.')
+        page=page.replace('Колонка «до» містить двадцять історичних кадрів 11.10.2026, близько 10:59 UTC. Колонка «після» показує нові native кадри за збігом published contentHash, sourceRevision та PNG SHA-256.','Відновлений варіант показано на двадцяти історичних кадрах 11.10.2026, близько 10:59 UTC. Архівні двадцять кадрів експерименту перевірено за збереженими contentHash, sourceRevision та PNG SHA-256; вони не представляють чинний gameplay.')
+        page=page.replace('<strong>Зміни:</strong>','<strong>Відкладені зміни:</strong>').replace('<strong>Огляд native кадру:</strong>','<strong>Огляд архівного експерименту:</strong>')
+        page=page.replace('Відкриті пункти:','Переробку відкладено за вказівкою користувача. Її відкриті пункти:')
     (DEST/'index.html').write_text(page)
-    print(f'Built report: 20 historical captures, {fresh_count}/20 valid after captures, 10 source diagrams, 8 private repos; runtime active={active}, current bake={bool(baked)}.')
+    print(f'Built report: 20 historical captures, {fresh_count}/20 current after captures, {archived_count} archived experiment captures, 10 source diagrams, 8 private repos; runtime active={active}, legacy restored={restored}, current bake={bool(baked)}.')
 
 if __name__=='__main__':main()

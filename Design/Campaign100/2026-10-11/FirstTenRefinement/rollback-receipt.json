@@ -1,0 +1,84 @@
+{
+  "restoredUtc": "2026-10-11T23:46:35.387970+00:00",
+  "status": "legacy-restored-experiment-deferred",
+  "baselineCommit": "cc308798",
+  "rejectedImplementationCommit": "076dfb99",
+  "baseCampaignCount": 100,
+  "restoredLevels": [
+    {
+      "id": "QC001",
+      "contentHash": "0c45f8b21c477ed5cc96a534189465a3991e7098c87eba5535ab7ddf75d64edf",
+      "fileSha256": "001fb33ebae44204728bcc2bdcda6273f2cc06599a5a7bc44f786b2cf3f608ef"
+    },
+    {
+      "id": "QC002",
+      "contentHash": "7b9fd5afc68877dedd735026934291495c111900fa9b9694a0203f19ec6ebd3b",
+      "fileSha256": "943bcd422e5bc7a2b7375247a7f0e34feee6047696997ad99faca0ca0942591f"
+    },
+    {
+      "id": "QC003",
+      "contentHash": "26da126361e53dfa45dd4d662e5fb9f6474dd0f5daa2e5a8ec8b5a1d6e284f41",
+      "fileSha256": "1ebe5dd26aedbf6cafe5561f76dd804fe25c9605066a4b09ca918c783d5f2591"
+    },
+    {
+      "id": "QC004",
+      "contentHash": "2602b5a1607cf800848e99e07c8a09ebcbafcff305ba1f7ee1ce3570a45384eb",
+      "fileSha256": "6e245b9560e81e880c3bc78762c487ac58fa1267906f78341956e08eed79491a"
+    },
+    {
+      "id": "QC005",
+      "contentHash": "ef63798d3c8e28eaef147a2902320f631266fa95110797fafe74f734e0f3da92",
+      "fileSha256": "c7a970b4631d0d91fae22c76f0e46b8ccbc97568b747ed1dcc4e8a493f25e6b3"
+    },
+    {
+      "id": "QC006",
+      "contentHash": "6e928b8136f8d6c8f82fdac6a3e2c2daf5dc634a102225ff7ceba2f67135d347",
+      "fileSha256": "b400f9b1f266a4f5472e948c19ea27de410b65e250bb5bb84d8ab1dd9dbc3516"
+    },
+    {
+      "id": "QC007",
+      "contentHash": "24f155ac8a3082e20fc343c92711f147141710a9e0519544c7714bcad3b03970",
+      "fileSha256": "4a373a4808ea218c42f60a6d8a68e87139563167ff8847291a6f966c7f449128"
+    },
+    {
+      "id": "QC008",
+      "contentHash": "440a0f02618c2eef547d40e6fc5c295907c241aaafd2fcec13d5e3b56be4ff09",
+      "fileSha256": "fe8abe3ccb63012e79dce518e99145d7e32cc9225e77f3f1aa3a7943fa216979"
+    },
+    {
+      "id": "QC009",
+      "contentHash": "060f1b5297d0c13aa30c2504ffd20ecbf9845294e8f18890e749b4761d897e91",
+      "fileSha256": "802f8d530d446e6ea77e7173d7f3fee83b2c3ee8b182b05c0f5f96a730273946"
+    },
+    {
+      "id": "QC010",
+      "contentHash": "26bac7199b3b56347509d04855a0495dd61037fe8be445209f732f317e9f7ff9",
+      "fileSha256": "5a17d690e07f5cd9324d15b4a132a2e48a77847e5063afd298d87f318ddbbfc0"
+    }
+  ],
+  "restoredFiles": {
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Levels/QC001.json": "001fb33ebae44204728bcc2bdcda6273f2cc06599a5a7bc44f786b2cf3f608ef",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Levels/QC002.json": "943bcd422e5bc7a2b7375247a7f0e34feee6047696997ad99faca0ca0942591f",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Levels/QC003.json": "1ebe5dd26aedbf6cafe5561f76dd804fe25c9605066a4b09ca918c783d5f2591",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Levels/QC004.json": "6e245b9560e81e880c3bc78762c487ac58fa1267906f78341956e08eed79491a",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Levels/QC005.json": "c7a970b4631d0d91fae22c76f0e46b8ccbc97568b747ed1dcc4e8a493f25e6b3",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Levels/QC006.json": "b400f9b1f266a4f5472e948c19ea27de410b65e250bb5bb84d8ab1dd9dbc3516",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Levels/QC007.json": "4a373a4808ea218c42f60a6d8a68e87139563167ff8847291a6f966c7f449128",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Levels/QC008.json": "fe8abe3ccb63012e79dce518e99145d7e32cc9225e77f3f1aa3a7943fa216979",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Levels/QC009.json": "802f8d530d446e6ea77e7173d7f3fee83b2c3ee8b182b05c0f5f96a730273946",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Levels/QC010.json": "5a17d690e07f5cd9324d15b4a132a2e48a77847e5063afd298d87f318ddbbfc0",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/campaign.json": "798e7effddd423bd9268f500a4620e47cb6c79e98fdf346c145dc28935a82d36",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/level_summaries.json": "7cbff9687db070a9ae13b1cd51fb153e03eb9a1b603ff9e1b3764ab8ce8beec8",
+    "Design/Campaign100/2026-10-11/publication-receipt.json": "64c282480d5fae8b343aadb1018c1f8e2025a8e7f2eb1f690d47b4ad9b02ee00"
+  },
+  "archivedExperiment": "After/runtime-publication.json",
+  "archivedRuntimePayloads": 60,
+  "removedRuntimeBytes": 70425384,
+  "experimentPreservedInDesign": true,
+  "rendererSha256": "a1a30b94df5b0fa694c556a101a692e96055150bd99525b25d0db9321f0611bd",
+  "unityLaunched": false,
+  "playerBuild": false,
+  "otherNinetyLevelsUnchanged": true,
+  "domainVerification": "domain-contracts.json",
+  "domainContractResult": "Passed"
+}

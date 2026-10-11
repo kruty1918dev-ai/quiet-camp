@@ -7,7 +7,7 @@
   "width": 7,
   "height": 8,
   "id": "QC010",
-  "contentHash": "44bea1bd6249e9d90bbe18a31dfe71c705fde08a84624b81e7b216a5f6f6d35d",
+  "contentHash": "26bac7199b3b56347509d04855a0495dd61037fe8be445209f732f317e9f7ff9",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
@@ -173,8 +173,7 @@
     "storyMotifs": [],
     "shore": null,
     "seasonTimeline": 0.090909,
-    "weatherIntensity": 0.237964,
-    "sunElevation": 50.0
+    "weatherIntensity": 0.237964
   },
   "environmentalStory": {
     "schemaVersion": 1,
@@ -183,8 +182,8 @@
       {
         "id": "place-010",
         "storyBeat": "Перший відрізок завершений: хтось після нас зможе знайти цей шлях.",
-        "heroLandmark": "QC010/prop-1",
-        "returningProp": null,
+        "heroLandmark": "place-010-prop-1",
+        "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Ліхтар біля зупинки й маленький ремонтований вказівник на тлі попереднього маршруту.",
         "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
@@ -192,7 +191,7 @@
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Роздоріжжя підсумовує відновлений шлях. Невеликий ремонтований покажчик і теплий ліхтар говорять про турботу людей; великої зупинки тут немає.",
+        "intendedInference": "Перший відрізок завершений: хтось після нас зможе знайти цей шлях.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -200,51 +199,77 @@
         ],
         "props": [
           {
-            "id": "QC010/prop-1",
+            "id": "place-010-prop-1",
             "category": "civilian",
             "motif": "rural-infrastructure",
-            "returningProp": null,
+            "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "inherit",
+            "levelDetailVisibility": "detail",
             "appearance": "always",
-            "contentTags": [],
+            "contentTags": [
+              "fiction-inspired"
+            ],
             "roadmap": null,
             "level": {
-              "assetId": "sign",
-              "x": -5.5,
-              "z": 1.5,
-              "elevation": 0.0,
-              "height": 0.72,
-              "yaw": 35.0,
+              "assetId": "ua_bus_shelter_mosaic",
+              "x": -6.81318,
+              "z": 3.0,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 180.0,
               "sway": false
             }
           },
           {
-            "id": "QC010/prop-2",
+            "id": "place-010-prop-2",
             "category": "civilian",
             "motif": "rural-infrastructure",
-            "returningProp": null,
+            "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "inherit",
+            "levelDetailVisibility": "detail",
             "appearance": "always",
-            "contentTags": [],
+            "contentTags": [
+              "fiction-inspired"
+            ],
             "roadmap": null,
             "level": {
-              "assetId": "camp_lantern",
-              "x": -5.0,
-              "z": 0.4,
-              "elevation": 0.0,
-              "height": 0.28,
+              "assetId": "ua_village_wood_pole",
+              "x": 0.7,
+              "z": -5.20334,
+              "elevation": 0.025,
+              "height": 3.1,
               "yaw": 0.0,
               "sway": false
+            }
+          },
+          {
+            "id": "place-010-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_poplar",
+              "x": 4.97419,
+              "z": -5.43076,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
             }
           }
         ]
       }
     ],
     "references": []
-  },
-  "bakedEnvironment": "QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC010"
+  }
 }

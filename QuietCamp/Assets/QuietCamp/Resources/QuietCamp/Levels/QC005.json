@@ -7,7 +7,7 @@
   "width": 6,
   "height": 7,
   "id": "QC005",
-  "contentHash": "b4199da6f2877a92d27a036993d9d3519d2b5edda4bff5deb51eae0565d71521",
+  "contentHash": "ef63798d3c8e28eaef147a2902320f631266fa95110797fafe74f734e0f3da92",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "tutorial.5",
@@ -107,8 +107,7 @@
     "storyMotifs": [],
     "shore": null,
     "seasonTimeline": 0.040404,
-    "weatherIntensity": 0.134344,
-    "sunElevation": 50.0
+    "weatherIntensity": 0.134344
   },
   "environmentalStory": {
     "schemaVersion": 1,
@@ -117,8 +116,8 @@
       {
         "id": "place-005",
         "storyBeat": "Завершення уроків Остапа: близькість створює доступна дорога між людьми.",
-        "heroLandmark": "QC005/prop-1",
-        "returningProp": null,
+        "heroLandmark": "place-005-prop-1",
+        "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Два садові дерева й спільна лавка; стежка між наметами залишається відкритою.",
         "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
@@ -126,7 +125,7 @@
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Нерегулярні залишки саду оточують широке світле місце. Старі ряди ще можна впізнати, але молодий підлісок порушив їхню геометрію.",
+        "intendedInference": "Завершення уроків Остапа: близькість створює доступна дорога між людьми.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -134,86 +133,71 @@
         ],
         "props": [
           {
-            "id": "QC005/prop-1",
-            "category": "civilian",
-            "motif": "rural-infrastructure",
-            "returningProp": null,
+            "id": "place-005-prop-1",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "inherit",
+            "levelDetailVisibility": "detail",
             "appearance": "always",
-            "contentTags": [],
+            "contentTags": [
+              "fiction-inspired"
+            ],
             "roadmap": null,
             "level": {
               "assetId": "ua_valley_orchard",
-              "x": -4.6,
-              "z": 3.4,
-              "elevation": 0.0,
+              "x": -4.79206,
+              "z": -0.35,
+              "elevation": 0.025,
               "height": 2.4,
-              "yaw": 20.0,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-005-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "camp_bench",
+              "x": 4.5,
+              "z": -4.86417,
+              "elevation": 0.025,
+              "height": 0.72,
+              "yaw": 180.0,
               "sway": false
             }
           },
           {
-            "id": "QC005/prop-2",
+            "id": "place-005-prop-3",
             "category": "civilian",
             "motif": "rural-infrastructure",
-            "returningProp": null,
+            "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "inherit",
+            "levelDetailVisibility": "detail",
             "appearance": "always",
-            "contentTags": [],
+            "contentTags": [
+              "fiction-inspired"
+            ],
             "roadmap": null,
             "level": {
-              "assetId": "ua_valley_orchard",
-              "x": 4.7,
-              "z": -3.8,
-              "elevation": 0.0,
-              "height": 2.1,
-              "yaw": -14.0,
-              "sway": false
-            }
-          },
-          {
-            "id": "QC005/orchard-old-3",
-            "category": "civilian",
-            "motif": "rural-infrastructure",
-            "returningProp": null,
-            "claimId": null,
-            "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "inherit",
-            "appearance": "always",
-            "contentTags": [],
-            "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_orchard",
-              "x": -5.1,
-              "z": -3.5,
-              "elevation": 0.0,
-              "height": 2.7,
-              "yaw": 41.0,
-              "sway": false
-            }
-          },
-          {
-            "id": "QC005/orchard-old-4",
-            "category": "civilian",
-            "motif": "rural-infrastructure",
-            "returningProp": null,
-            "claimId": null,
-            "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "inherit",
-            "appearance": "always",
-            "contentTags": [],
-            "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_orchard",
-              "x": 2.4,
-              "z": 6.4,
-              "elevation": 0.0,
-              "height": 2.5,
-              "yaw": 127.0,
+              "assetId": "ua_valley_fence_broken_1",
+              "x": 6.0,
+              "z": -5.49145,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
               "sway": false
             }
           }
@@ -221,6 +205,5 @@
       }
     ],
     "references": []
-  },
-  "bakedEnvironment": "QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC005"
+  }
 }

@@ -198,3 +198,10 @@ Editor та наявних/staged tests компілюється; native accepta
 Виправлено втрату baked reference у LevelKit adapter. Це world-camera
 кадри без HUD; відкриті художні зауваження та решта приймання наведені
 в звіті. Chrome не закривали; player builds не виконувалися.
+
+12.10.2026, наступна вказівка користувача: **стару реалізацію QC001–QC010
+відновлено** точно з canonical baseline (`cc308798`). Каталог і summaries
+відновлені; нові buffers вилучені з Resources. Експериментальні джерела,
+інструменти та двадцять кадрів збережені в Design й позначені відкладеними.
+[Квитанція](Design/Campaign100/2026-10-11/FirstTenRefinement/rollback-receipt.json).
+Кампанія залишається на 100 рівнів; роадмапа відкладена.

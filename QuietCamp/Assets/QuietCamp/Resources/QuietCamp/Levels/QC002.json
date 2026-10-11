@@ -7,7 +7,7 @@
   "width": 5,
   "height": 6,
   "id": "QC002",
-  "contentHash": "00250c94b976cd8d541b3fdc0a10eef5306b1f6bd12ba631e98cb6faa385b296",
+  "contentHash": "7b9fd5afc68877dedd735026934291495c111900fa9b9694a0203f19ec6ebd3b",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "tutorial.2",
@@ -70,8 +70,7 @@
     "storyMotifs": [],
     "shore": null,
     "seasonTimeline": 0.010101,
-    "weatherIntensity": 0.102261,
-    "sunElevation": 50.0
+    "weatherIntensity": 0.102261
   },
   "environmentalStory": {
     "schemaVersion": 1,
@@ -80,8 +79,8 @@
       {
         "id": "place-002",
         "storyBeat": "Гості можуть жити поруч, коли ніхто не перекриває іншому дорогу.",
-        "heroLandmark": "QC002/prop-1",
-        "returningProp": null,
+        "heroLandmark": "place-002-prop-1",
+        "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Два протоптані підходи сходяться під деревом; колода лежить обабіч проходу.",
         "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
@@ -89,7 +88,7 @@
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Два різні підходи сходяться біля входу. Старий навіс стоїть на сухому плечі схилу; стежки пояснюють правило проходів.",
+        "intendedInference": "Гості можуть жити поруч, коли ніхто не перекриває іншому дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -97,44 +96,71 @@
         ],
         "props": [
           {
-            "id": "QC002/prop-1",
+            "id": "place-002-prop-1",
             "category": "civilian",
             "motif": "rural-infrastructure",
-            "returningProp": null,
+            "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "inherit",
+            "levelDetailVisibility": "detail",
             "appearance": "always",
-            "contentTags": [],
+            "contentTags": [
+              "fiction-inspired"
+            ],
             "roadmap": null,
             "level": {
               "assetId": "story_trail_shelter",
-              "x": -4.8,
-              "z": 5.8,
-              "elevation": 0.0,
-              "height": 1.65,
-              "yaw": 20.0,
+              "x": -4.92188,
+              "z": 0.1,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
               "sway": false
             }
           },
           {
-            "id": "QC002/prop-2",
+            "id": "place-002-prop-2",
             "category": "civilian",
             "motif": "rural-infrastructure",
-            "returningProp": null,
+            "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "inherit",
+            "levelDetailVisibility": "detail",
             "appearance": "always",
-            "contentTags": [],
+            "contentTags": [
+              "fiction-inspired"
+            ],
             "roadmap": null,
             "level": {
-              "assetId": "log",
-              "x": -4.4,
-              "z": -1.8,
-              "elevation": 0.0,
-              "height": 0.18,
-              "yaw": 35.0,
+              "assetId": "log_stack",
+              "x": 1.15,
+              "z": -4.86736,
+              "elevation": 0.025,
+              "height": 0.7,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-002-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "sign",
+              "x": 4.03535,
+              "z": -4.23988,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
               "sway": false
             }
           }
@@ -142,6 +168,5 @@
       }
     ],
     "references": []
-  },
-  "bakedEnvironment": "QuietCamp/BakedEnvironments/56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732/QC002"
+  }
 }
