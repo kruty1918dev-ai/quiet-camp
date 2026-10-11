@@ -1,0 +1,18 @@
+{
+  "result": "Passed",
+  "verifiedUtc": "2026-10-11T11:30:38.845116+00:00",
+  "checks": [
+    "All 100 scenes load in both orientations through chapter filters",
+    "Search, no-match results, large native frames, provenance links and Escape",
+    "Model pagination and stable IDs; licensed photographs stay local",
+    "274-row audit and no horizontal overflow at 320–1440 pixels"
+  ],
+  "pageErrors": [],
+  "previousRevisionAllowed": true,
+  "interfaceOnly": true,
+  "nativeArtAccepted": false,
+  "url": "https://kruty1918dev-ai.github.io/quiet-camp/campaign100/",
+  "deploymentCommit": "c3f6aa3a1f56d256e1ca2f5735c5dade11e9fc85",
+  "htmlSha256": "d723a04d195375475187876ece0f13a3b6a0ccdc6c5e8b7ba4a03819a3c0a8fc",
+  "deployedHtmlMatchedLocal": true
+}
