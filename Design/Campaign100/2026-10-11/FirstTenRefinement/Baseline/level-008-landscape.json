@@ -1,0 +1,64 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T10:59:17.3058840Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "QC008",
+  "number": 8,
+  "contentHash": "440a0f02618c2eef547d40e6fc5c295907c241aaafd2fcec13d5e3b56be4ff09",
+  "sourceRevision": "f2f7d652918952f77e6535264e22c63697bade5b1bffe9d2600a0c84b855cc3a",
+  "orientation": "landscape",
+  "imageSha256": "119e59601b56a48f6682aca6bea29de8519e8c78a59d457d099e4783b66bc4e7",
+  "width": 1280,
+  "height": 800,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    7.24932861,
+    17.2984619,
+    6.90502
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 6.724502,
+  "storyTriangles": 672,
+  "seasonTimeline": 0.070707,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "place-008-prop-1",
+      "asset": "sign",
+      "viewport": [
+        0.6669205,
+        0.7526792,
+        21.9023857
+      ]
+    },
+    {
+      "id": "place-008-prop-2",
+      "asset": "camp_bench",
+      "viewport": [
+        0.3301156,
+        0.607011557,
+        20.8727779
+      ]
+    },
+    {
+      "id": "place-008-prop-3",
+      "asset": "flower_yellowA",
+      "viewport": [
+        0.195840091,
+        0.412490368,
+        19.4620934
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}
