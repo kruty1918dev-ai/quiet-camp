@@ -72,3 +72,22 @@ Editor, RAM ≥1500 MB, workers 1/4. Історичні кадри з власн
 Остання вказівка користувача: продовжувати підготовку без Unity. Runtime gameplay
 першої десятки поки не замінено; художнє приймання, пазли, HUD-flow, нові captures
 та ресурсні regression checks залишаються відкритими пунктами, наведеними вище.
+
+## Джерела першої десятки
+
+[Authoring/places.json](Authoring/places.json) містить десять окремих композицій:
+світові маршрути, точні точки входу з поточних полів, схили/улоговини,
+модельні IDs чинної gameplay-бібліотеки, габаритний масштаб, seed, пояснення
+історії й критерій художнього приймання. Це source briefs, ще не запечене оточення.
+У QC003 потрібно авторити чашу джерела; QC007 потребує читаних залишків стін;
+support profiles, ромашкові маски та профілі ансамблів уточнюються перед native bake.
+
+Baseline зберігає і авторські чернетки, і фактично опубліковані поля окремо:
+[canonical snapshots](Baseline/published-first-ten.json),
+[квитанція](Baseline/published-content-receipt.json). Двадцять PNG перевірені за
+SHA-256 і canonical content hashes; старі draft hashes не використовуються
+як фінальні capture hashes. Historical PNG/receipts не переписані.
+
+Перевірка джерел: `python3 tools/verify_first_ten_environment_sources.py`.
+Огляд: [HTML](index.html) з 20 вихідними кадрами, 10 схемами джерел, private repo
+links і чесним статусом Pending для «після». Схеми не є 3D/native рендерами.

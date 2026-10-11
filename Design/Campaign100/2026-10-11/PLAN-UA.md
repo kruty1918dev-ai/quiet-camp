@@ -56,6 +56,8 @@
 
 ## Стан
 
+- Полірування першої десятки: [окремий план](FirstTenRefinement/PLAN-UA.md), [HTML приймання](FirstTenRefinement/index.html), [універсальні інструменти](FirstTenRefinement/TOOLS-UA.md). Вісім приватних пакетів: Core/tests/API/Unity adapters/Editor batch; 287 Core assertions, 3 synthetic integrations і 32 cached compiler assemblies Passed. Десять компактних source briefs мають власні routes/relief та точні entry anchors. Native import, новий bake, HUD-flow й художнє приймання Pending; runtime рівні не замінено.
+
 - Аудит: усі 274 попередні рівні, точних дублікатів пазлів немає; кожному записано рішення.
 - Активний каталог: рівно 100, validator/witness/independent solver Passed. Старі 274 ревізії й save IDs збережені.
 - Content packs: локальний/завантажений manifest, атомарна установка, повторний запуск, immutable IDs і пошкоджені пакети перевірені pure contracts. Є menu-boundary API для delivery adapter; live transport не налаштований.

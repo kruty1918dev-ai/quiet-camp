@@ -1,0 +1,1484 @@
+{
+  "schemaVersion": 1,
+  "baseCampaignCount": 100,
+  "roadmapDeferred": true,
+  "runtimePublication": false,
+  "places": [
+    {
+      "id": "QC001",
+      "sourceLevelHash": "0c45f8b21c477ed5cc96a534189465a3991e7098c87eba5535ab7ddf75d64edf",
+      "width": 5,
+      "height": 5,
+      "seed": 20256804,
+      "titleUk": "Старий маршрут відпочинку",
+      "storyUk": "Лавка стоїть біля розширення колишнього пішохідного маршруту; знак веде до поля. Ромашки повертаються вздовж краю проходу.",
+      "status": "authoring-draft-not-baked",
+      "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
+      "terrain": {
+        "extent": [
+          -12,
+          12,
+          -12,
+          12
+        ],
+        "groundY": -0.012,
+        "sampleStep": 0.4,
+        "flatPlayableBounds": [
+          -2.5,
+          2.5,
+          -2.5,
+          2.5
+        ],
+        "transitionWidth": 1.6,
+        "features": [
+          {
+            "kind": "ridge",
+            "centerXZ": [
+              4.5,
+              4
+            ],
+            "height": 0.5,
+            "radius": 3
+          },
+          {
+            "kind": "hollow",
+            "centerXZ": [
+              -4,
+              1.5
+            ],
+            "height": -0.13,
+            "radius": 2
+          }
+        ]
+      },
+      "props": [
+        {
+          "id": "QC001/prop-1",
+          "owner": "QC001/place",
+          "sourceModel": "camp_bench",
+          "target": [
+            -5.2,
+            0,
+            2.4
+          ],
+          "height": 0.68,
+          "yaw": 95,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0.5
+        },
+        {
+          "id": "QC001/prop-2",
+          "owner": "QC001/place",
+          "sourceModel": "sign",
+          "target": [
+            -3.5,
+            0,
+            4.2
+          ],
+          "height": 0.72,
+          "yaw": 18,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0.5
+        }
+      ],
+      "entryConnection": {
+        "point": [
+          0.0,
+          0,
+          2.5
+        ],
+        "routeId": "QC001/route-1",
+        "end": "last"
+      },
+      "routes": [
+        {
+          "id": "QC001/route-1",
+          "points": [
+            [
+              -7,
+              0,
+              -4
+            ],
+            [
+              -4.1,
+              0,
+              -1
+            ],
+            [
+              -4.1,
+              0,
+              3.8
+            ],
+            [
+              -1,
+              0,
+              3.5
+            ],
+            [
+              0.0,
+              0,
+              2.5
+            ]
+          ],
+          "width": 0.65,
+          "surface": "dirt",
+          "reserveVegetation": true
+        }
+      ],
+      "planting": {
+        "profiles": [
+          "daisies",
+          "broadleaf-understory"
+        ],
+        "sourceModels": [
+          "tree_default",
+          "tree_pineRoundA",
+          "plant_bushSmall",
+          "grass",
+          "grass_leafsLarge",
+          "flower_yellowA"
+        ],
+        "distribution": "separate patches and tiers; authored sightlines and route reservations",
+        "daisyVariant": {
+          "source": "flower_yellowA",
+          "petalColor": [
+            0.91,
+            0.9,
+            0.79
+          ],
+          "centerColor": [
+            0.81,
+            0.63,
+            0.25
+          ],
+          "maskStatus": "requires geometry review"
+        }
+      },
+      "acceptanceUk": "Лавка має чотири опорні контакти; знак низький, без яскравого нового матеріалу.",
+      "nativeAccepted": false,
+      "puzzleRevisionPublished": false
+    },
+    {
+      "id": "QC002",
+      "sourceLevelHash": "7b9fd5afc68877dedd735026934291495c111900fa9b9694a0203f19ec6ebd3b",
+      "width": 5,
+      "height": 6,
+      "seed": 20265269,
+      "titleUk": "Дві стежки, один прихисток",
+      "storyUk": "Два різні підходи сходяться біля входу. Старий навіс стоїть на сухому плечі схилу; стежки пояснюють правило проходів.",
+      "status": "authoring-draft-not-baked",
+      "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
+      "terrain": {
+        "extent": [
+          -12,
+          12,
+          -12,
+          12
+        ],
+        "groundY": -0.012,
+        "sampleStep": 0.4,
+        "flatPlayableBounds": [
+          -2.5,
+          2.5,
+          -3.0,
+          3.0
+        ],
+        "transitionWidth": 1.6,
+        "features": [
+          {
+            "kind": "ridge",
+            "centerXZ": [
+              -5,
+              4
+            ],
+            "height": 0.65,
+            "radius": 3
+          },
+          {
+            "kind": "hollow",
+            "centerXZ": [
+              4,
+              -1
+            ],
+            "height": -0.28,
+            "radius": 2.8
+          }
+        ]
+      },
+      "props": [
+        {
+          "id": "QC002/prop-1",
+          "owner": "QC002/place",
+          "sourceModel": "story_trail_shelter",
+          "target": [
+            -4.8,
+            0,
+            3
+          ],
+          "height": 1.65,
+          "yaw": 20,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0.5
+        },
+        {
+          "id": "QC002/prop-2",
+          "owner": "QC002/place",
+          "sourceModel": "log",
+          "target": [
+            -4.4,
+            0,
+            -1.8
+          ],
+          "height": 0.18,
+          "yaw": 35,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0.5
+        }
+      ],
+      "entryConnection": {
+        "point": [
+          0.0,
+          0,
+          3.0
+        ],
+        "routeId": "QC002/route-2",
+        "end": "last"
+      },
+      "routes": [
+        {
+          "id": "QC002/route-1",
+          "points": [
+            [
+              -7,
+              0,
+              4
+            ],
+            [
+              -4,
+              0,
+              4
+            ],
+            [
+              0,
+              0,
+              3
+            ]
+          ],
+          "width": 0.65,
+          "surface": "dirt",
+          "reserveVegetation": true
+        },
+        {
+          "id": "QC002/route-2",
+          "points": [
+            [
+              5.5,
+              0,
+              -5
+            ],
+            [
+              4,
+              0,
+              -1.5
+            ],
+            [
+              3.5,
+              0,
+              3.4
+            ],
+            [
+              0.0,
+              0,
+              3.0
+            ]
+          ],
+          "width": 0.65,
+          "surface": "dirt",
+          "reserveVegetation": true
+        }
+      ],
+      "planting": {
+        "profiles": [
+          "grass-patches",
+          "young-broadleaf"
+        ],
+        "sourceModels": [
+          "tree_default",
+          "tree_pineRoundA",
+          "plant_bushSmall",
+          "grass",
+          "grass_leafsLarge",
+          "flower_yellowA"
+        ],
+        "distribution": "separate patches and tiers; authored sightlines and route reservations",
+        "daisyVariant": null
+      },
+      "acceptanceUk": "Навіс не отримує випадкового прогину опор; дві стежки читаються одночасно.",
+      "nativeAccepted": false,
+      "puzzleRevisionPublished": false
+    },
+    {
+      "id": "QC003",
+      "sourceLevelHash": "26da126361e53dfa45dd4d662e5fb9f6474dd0f5daa2e5a8ec8b5a1d6e284f41",
+      "width": 6,
+      "height": 5,
+      "seed": 20306438,
+      "titleUk": "Джерело під кроною",
+      "storyUk": "Вода збирається в кам’яному заглибленні під великим деревом. Низька огорожа завершує край джерела; це природне джерело, не друга криниця.",
+      "status": "authoring-draft-not-baked",
+      "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
+      "terrain": {
+        "extent": [
+          -12,
+          12,
+          -12,
+          12
+        ],
+        "groundY": -0.012,
+        "sampleStep": 0.4,
+        "flatPlayableBounds": [
+          -3.0,
+          3.0,
+          -2.5,
+          2.5
+        ],
+        "transitionWidth": 1.6,
+        "features": [
+          {
+            "kind": "hollow",
+            "centerXZ": [
+              -4.5,
+              -0.5
+            ],
+            "height": -0.4,
+            "radius": 2.4
+          },
+          {
+            "kind": "ridge",
+            "centerXZ": [
+              4.8,
+              3.8
+            ],
+            "height": 0.55,
+            "radius": 3.5
+          }
+        ]
+      },
+      "props": [
+        {
+          "id": "QC003/prop-1",
+          "owner": "QC003/place",
+          "sourceModel": "tree_default",
+          "target": [
+            -4.1,
+            0,
+            -1.8
+          ],
+          "height": 3.5,
+          "yaw": 12,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0
+        },
+        {
+          "id": "QC003/prop-2",
+          "owner": "QC003/place",
+          "sourceModel": "stone_largeA",
+          "target": [
+            -4.6,
+            0,
+            1
+          ],
+          "height": 0.48,
+          "yaw": 25,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0.5
+        }
+      ],
+      "entryConnection": {
+        "point": [
+          0.5,
+          0,
+          -2.5
+        ],
+        "routeId": "QC003/route-1",
+        "end": "first"
+      },
+      "routes": [
+        {
+          "id": "QC003/route-1",
+          "points": [
+            [
+              0.5,
+              0,
+              -2.5
+            ],
+            [
+              -1,
+              0,
+              -3.8
+            ],
+            [
+              -3.7,
+              0,
+              -3.7
+            ],
+            [
+              -4.4,
+              0,
+              -0.3
+            ]
+          ],
+          "width": 0.65,
+          "surface": "dirt",
+          "reserveVegetation": true
+        }
+      ],
+      "planting": {
+        "profiles": [
+          "moist-understory",
+          "ferns"
+        ],
+        "sourceModels": [
+          "tree_default",
+          "tree_pineRoundA",
+          "plant_bushSmall",
+          "grass",
+          "grass_leafsLarge",
+          "flower_yellowA"
+        ],
+        "distribution": "separate patches and tiers; authored sightlines and route reservations",
+        "daisyVariant": null
+      },
+      "acceptanceUk": "Окремий authored basin і rock group; crown shadow має відповідати оновленій масці пазла, до publication.",
+      "nativeAccepted": false,
+      "puzzleRevisionPublished": false
+    },
+    {
+      "id": "QC004",
+      "sourceLevelHash": "2602b5a1607cf800848e99e07c8a09ebcbafcff305ba1f7ee1ce3570a45384eb",
+      "width": 6,
+      "height": 6,
+      "seed": 20314903,
+      "titleUk": "Тиха сторона вогнища",
+      "storyUk": "Вогнище займає неглибоку улоговину з одного боку. Інший край відгороджений рельєфом та підліском; тиша має просторове пояснення.",
+      "status": "authoring-draft-not-baked",
+      "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
+      "terrain": {
+        "extent": [
+          -12,
+          12,
+          -12,
+          12
+        ],
+        "groundY": -0.012,
+        "sampleStep": 0.4,
+        "flatPlayableBounds": [
+          -3.0,
+          3.0,
+          -3.0,
+          3.0
+        ],
+        "transitionWidth": 1.6,
+        "features": [
+          {
+            "kind": "hollow",
+            "centerXZ": [
+              4.8,
+              -1.2
+            ],
+            "height": -0.38,
+            "radius": 2.3
+          },
+          {
+            "kind": "ridge",
+            "centerXZ": [
+              -4,
+              3
+            ],
+            "height": 0.85,
+            "radius": 3
+          }
+        ]
+      },
+      "props": [
+        {
+          "id": "QC004/prop-1",
+          "owner": "QC004/place",
+          "sourceModel": "campfire_stones",
+          "target": [
+            4.7,
+            0,
+            -1
+          ],
+          "height": 0.28,
+          "yaw": 0,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0.5
+        },
+        {
+          "id": "QC004/prop-2",
+          "owner": "QC004/place",
+          "sourceModel": "log",
+          "target": [
+            4.5,
+            0,
+            -3.7
+          ],
+          "height": 0.2,
+          "yaw": 70,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0.5
+        }
+      ],
+      "entryConnection": {
+        "point": [
+          3.0,
+          0,
+          0.5
+        ],
+        "routeId": "QC004/route-1",
+        "end": "last"
+      },
+      "routes": [
+        {
+          "id": "QC004/route-1",
+          "points": [
+            [
+              6,
+              0,
+              2
+            ],
+            [
+              4.2,
+              0,
+              1.3
+            ],
+            [
+              3.0,
+              0,
+              0.5
+            ]
+          ],
+          "width": 0.65,
+          "surface": "dirt",
+          "reserveVegetation": true
+        }
+      ],
+      "planting": {
+        "profiles": [
+          "quiet-grove",
+          "coarse-grass"
+        ],
+        "sourceModels": [
+          "tree_default",
+          "tree_pineRoundA",
+          "plant_bushSmall",
+          "grass",
+          "grass_leafsLarge",
+          "flower_yellowA"
+        ],
+        "distribution": "separate patches and tiers; authored sightlines and route reservations",
+        "daisyVariant": null
+      },
+      "acceptanceUk": "Без повторного навісу; багаття і noise cells прив’язуються до одного джерела.",
+      "nativeAccepted": false,
+      "puzzleRevisionPublished": false
+    },
+    {
+      "id": "QC005",
+      "sourceLevelHash": "ef63798d3c8e28eaef147a2902320f631266fa95110797fafe74f734e0f3da92",
+      "width": 6,
+      "height": 7,
+      "seed": 20290664,
+      "titleUk": "Простір між друзями",
+      "storyUk": "Нерегулярні залишки саду оточують широке світле місце. Старі ряди ще можна впізнати, але молодий підлісок порушив їхню геометрію.",
+      "status": "authoring-draft-not-baked",
+      "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
+      "terrain": {
+        "extent": [
+          -12,
+          12,
+          -12,
+          12
+        ],
+        "groundY": -0.012,
+        "sampleStep": 0.4,
+        "flatPlayableBounds": [
+          -3.0,
+          3.0,
+          -3.5,
+          3.5
+        ],
+        "transitionWidth": 1.6,
+        "features": [
+          {
+            "kind": "ridge",
+            "centerXZ": [
+              -5,
+              4.4
+            ],
+            "height": 0.35,
+            "radius": 4.5
+          },
+          {
+            "kind": "ridge",
+            "centerXZ": [
+              5,
+              -4
+            ],
+            "height": 0.5,
+            "radius": 3.8
+          }
+        ]
+      },
+      "props": [
+        {
+          "id": "QC005/prop-1",
+          "owner": "QC005/place",
+          "sourceModel": "ua_valley_orchard",
+          "target": [
+            -4.6,
+            0,
+            3.4
+          ],
+          "height": 2.4,
+          "yaw": 20,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0
+        },
+        {
+          "id": "QC005/prop-2",
+          "owner": "QC005/place",
+          "sourceModel": "ua_valley_orchard",
+          "target": [
+            4.7,
+            0,
+            -3.8
+          ],
+          "height": 2.1,
+          "yaw": -14,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0
+        }
+      ],
+      "entryConnection": {
+        "point": [
+          0.5,
+          0,
+          3.5
+        ],
+        "routeId": "QC005/route-1",
+        "end": "last"
+      },
+      "routes": [
+        {
+          "id": "QC005/route-1",
+          "points": [
+            [
+              -6.5,
+              0,
+              5.2
+            ],
+            [
+              -3.8,
+              0,
+              4.8
+            ],
+            [
+              0.5,
+              0,
+              3.5
+            ]
+          ],
+          "width": 0.65,
+          "surface": "dirt",
+          "reserveVegetation": true
+        }
+      ],
+      "planting": {
+        "profiles": [
+          "old-orchard",
+          "wildflowers"
+        ],
+        "sourceModels": [
+          "tree_default",
+          "tree_pineRoundA",
+          "plant_bushSmall",
+          "grass",
+          "grass_leafsLarge",
+          "flower_yellowA"
+        ],
+        "distribution": "separate patches and tiers; authored sightlines and route reservations",
+        "daisyVariant": null
+      },
+      "acceptanceUk": "Три нерегулярні групи саду; зберегти достатню відстань між гостьовими зонами.",
+      "nativeAccepted": false,
+      "puzzleRevisionPublished": false
+    },
+    {
+      "id": "QC006",
+      "sourceLevelHash": "6e928b8136f8d6c8f82fdac6a3e2c2daf5dc634a102225ff7ceba2f67135d347",
+      "width": 7,
+      "height": 6,
+      "seed": 20299129,
+      "titleUk": "Зупинка без розкладу",
+      "storyUk": "Табір стоїть на траві біля старого сільського маршруту. Зупинка має невеликий заїзд, а кілька простих опор пояснюють напрям електромережі.",
+      "status": "authoring-draft-not-baked",
+      "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
+      "terrain": {
+        "extent": [
+          -12,
+          12,
+          -12,
+          12
+        ],
+        "groundY": -0.012,
+        "sampleStep": 0.4,
+        "flatPlayableBounds": [
+          -3.5,
+          3.5,
+          -3.0,
+          3.0
+        ],
+        "transitionWidth": 1.6,
+        "features": [
+          {
+            "kind": "ridge",
+            "centerXZ": [
+              5,
+              -2
+            ],
+            "height": 0.8,
+            "radius": 3.8
+          },
+          {
+            "kind": "hollow",
+            "centerXZ": [
+              -5.2,
+              -3
+            ],
+            "height": -0.18,
+            "radius": 2
+          }
+        ]
+      },
+      "props": [
+        {
+          "id": "QC006/prop-1",
+          "owner": "QC006/place",
+          "sourceModel": "ua_bus_shelter_mosaic",
+          "target": [
+            -6,
+            0,
+            2.5
+          ],
+          "height": 2.1,
+          "yaw": 90,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0.5
+        }
+      ],
+      "entryConnection": {
+        "point": [
+          -3.5,
+          0,
+          0.5
+        ],
+        "routeId": "QC006/route-2",
+        "end": "last"
+      },
+      "routes": [
+        {
+          "id": "QC006/route-1",
+          "points": [
+            [
+              -5.1,
+              0,
+              -8
+            ],
+            [
+              -5.4,
+              0,
+              -3
+            ],
+            [
+              -5.1,
+              0,
+              2.4
+            ],
+            [
+              -4.5,
+              0,
+              7.5
+            ]
+          ],
+          "width": 1.5,
+          "surface": "worn-asphalt",
+          "reserveVegetation": true
+        },
+        {
+          "id": "QC006/route-2",
+          "points": [
+            [
+              -5.2,
+              0,
+              2
+            ],
+            [
+              -4.2,
+              0,
+              1.2
+            ],
+            [
+              -3.5,
+              0,
+              0.5
+            ]
+          ],
+          "width": 0.65,
+          "surface": "dirt",
+          "reserveVegetation": true
+        }
+      ],
+      "planting": {
+        "profiles": [
+          "roadside-grass",
+          "scrub"
+        ],
+        "sourceModels": [
+          "tree_default",
+          "tree_pineRoundA",
+          "plant_bushSmall",
+          "grass",
+          "grass_leafsLarge",
+          "flower_yellowA"
+        ],
+        "distribution": "separate patches and tiers; authored sightlines and route reservations",
+        "daisyVariant": null
+      },
+      "acceptanceUk": "Наметні клітини не перетинають дорогу; power route копіює road route з боковим offset.",
+      "nativeAccepted": false,
+      "puzzleRevisionPublished": false
+    },
+    {
+      "id": "QC007",
+      "sourceLevelHash": "24f155ac8a3082e20fc343c92711f147141710a9e0519544c7714bcad3b03970",
+      "width": 6,
+      "height": 8,
+      "seed": 20340298,
+      "titleUk": "Ромашки за парканом",
+      "storyUk": "Низькі стіни та поріг пояснюють колишній двір. Хвіртка з’єднує шлях з входом; квіти заповнюють старі грядки, але лишають вільний прохід.",
+      "status": "authoring-draft-not-baked",
+      "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
+      "terrain": {
+        "extent": [
+          -12,
+          12,
+          -12,
+          12
+        ],
+        "groundY": -0.012,
+        "sampleStep": 0.4,
+        "flatPlayableBounds": [
+          -3.0,
+          3.0,
+          -4.0,
+          4.0
+        ],
+        "transitionWidth": 1.6,
+        "features": [
+          {
+            "kind": "ridge",
+            "centerXZ": [
+              -5.5,
+              3.4
+            ],
+            "height": 0.5,
+            "radius": 3
+          },
+          {
+            "kind": "hollow",
+            "centerXZ": [
+              4,
+              -2
+            ],
+            "height": -0.25,
+            "radius": 2.8
+          }
+        ]
+      },
+      "props": [
+        {
+          "id": "QC007/prop-1",
+          "owner": "QC007/place",
+          "sourceModel": "story_foundation",
+          "target": [
+            -5,
+            0,
+            1.8
+          ],
+          "height": 0.35,
+          "yaw": 22,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0.5
+        }
+      ],
+      "entryConnection": {
+        "point": [
+          0.5,
+          0,
+          -4.0
+        ],
+        "routeId": "QC007/route-1",
+        "end": "first"
+      },
+      "routes": [
+        {
+          "id": "QC007/route-1",
+          "points": [
+            [
+              0.5,
+              0,
+              -4.0
+            ],
+            [
+              0,
+              0,
+              -5
+            ],
+            [
+              -3.5,
+              0,
+              -4.8
+            ],
+            [
+              -5,
+              0,
+              -0.3
+            ]
+          ],
+          "width": 0.65,
+          "surface": "dirt",
+          "reserveVegetation": true
+        }
+      ],
+      "planting": {
+        "profiles": [
+          "daisies",
+          "abandoned-yard"
+        ],
+        "sourceModels": [
+          "tree_default",
+          "tree_pineRoundA",
+          "plant_bushSmall",
+          "grass",
+          "grass_leafsLarge",
+          "flower_yellowA"
+        ],
+        "distribution": "separate patches and tiers; authored sightlines and route reservations",
+        "daisyVariant": {
+          "source": "flower_yellowA",
+          "petalColor": [
+            0.91,
+            0.9,
+            0.79
+          ],
+          "centerColor": [
+            0.81,
+            0.63,
+            0.25
+          ],
+          "maskStatus": "requires geometry review"
+        }
+      },
+      "acceptanceUk": "Фундамент потребує геометрії залишків стін/дверного отвору; fence ensemble замкнений з явними пошкодженими openings.",
+      "nativeAccepted": false,
+      "puzzleRevisionPublished": false
+    },
+    {
+      "id": "QC008",
+      "sourceLevelHash": "440a0f02618c2eef547d40e6fc5c295907c241aaafd2fcec13d5e3b56be4ff09",
+      "width": 8,
+      "height": 6,
+      "seed": 20348763,
+      "titleUk": "Шлях листоноші",
+      "storyUk": "Вузька заглиблена стежка проходить між нерегулярними групами тополь. Рельєф і вертикальні крони дають інший силует, без повторної лавки та знака.",
+      "status": "authoring-draft-not-baked",
+      "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
+      "terrain": {
+        "extent": [
+          -12,
+          12,
+          -12,
+          12
+        ],
+        "groundY": -0.012,
+        "sampleStep": 0.4,
+        "flatPlayableBounds": [
+          -4.0,
+          4.0,
+          -3.0,
+          3.0
+        ],
+        "transitionWidth": 1.6,
+        "features": [
+          {
+            "kind": "hollow",
+            "centerXZ": [
+              5.5,
+              0.5
+            ],
+            "height": -0.55,
+            "radius": 2.1
+          },
+          {
+            "kind": "ridge",
+            "centerXZ": [
+              -5,
+              4
+            ],
+            "height": 0.7,
+            "radius": 3.8
+          }
+        ]
+      },
+      "props": [
+        {
+          "id": "QC008/prop-1",
+          "owner": "QC008/place",
+          "sourceModel": "ua_valley_poplar",
+          "target": [
+            5.2,
+            0,
+            -3.8
+          ],
+          "height": 3.6,
+          "yaw": 9,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0
+        },
+        {
+          "id": "QC008/prop-2",
+          "owner": "QC008/place",
+          "sourceModel": "ua_valley_poplar",
+          "target": [
+            5.7,
+            0,
+            4.5
+          ],
+          "height": 3.2,
+          "yaw": -7,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0
+        }
+      ],
+      "entryConnection": {
+        "point": [
+          4.0,
+          0,
+          0.5
+        ],
+        "routeId": "QC008/route-1",
+        "end": "last"
+      },
+      "routes": [
+        {
+          "id": "QC008/route-1",
+          "points": [
+            [
+              7,
+              0,
+              -6
+            ],
+            [
+              5.6,
+              0,
+              -2
+            ],
+            [
+              5,
+              0,
+              0.5
+            ],
+            [
+              4.0,
+              0,
+              0.5
+            ]
+          ],
+          "width": 0.65,
+          "surface": "dirt",
+          "reserveVegetation": true
+        },
+        {
+          "id": "QC008/route-2",
+          "points": [
+            [
+              5.5,
+              0,
+              1
+            ],
+            [
+              5.6,
+              0,
+              4.5
+            ],
+            [
+              7,
+              0,
+              7
+            ]
+          ],
+          "width": 0.65,
+          "surface": "dirt",
+          "reserveVegetation": true
+        }
+      ],
+      "planting": {
+        "profiles": [
+          "poplar-groups",
+          "edge-understory"
+        ],
+        "sourceModels": [
+          "tree_default",
+          "tree_pineRoundA",
+          "plant_bushSmall",
+          "grass",
+          "grass_leafsLarge",
+          "flower_yellowA"
+        ],
+        "distribution": "separate patches and tiers; authored sightlines and route reservations",
+        "daisyVariant": null
+      },
+      "acceptanceUk": "Порівняти поплар із gameplay reference: below-reference-detail не вважати готовою гармонізацією.",
+      "nativeAccepted": false,
+      "puzzleRevisionPublished": false
+    },
+    {
+      "id": "QC009",
+      "sourceLevelHash": "060f1b5297d0c13aa30c2504ffd20ecbf9845294e8f18890e749b4761d897e91",
+      "width": 7,
+      "height": 7,
+      "seed": 20341164,
+      "titleUk": "Спільна криниця",
+      "storyUk": "Проста криниця стоїть на невеликому сухому підвищенні. Два протоптані підходи та зношена дошка показують спільне користування водою.",
+      "status": "authoring-draft-not-baked",
+      "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
+      "terrain": {
+        "extent": [
+          -12,
+          12,
+          -12,
+          12
+        ],
+        "groundY": -0.012,
+        "sampleStep": 0.4,
+        "flatPlayableBounds": [
+          -3.5,
+          3.5,
+          -3.5,
+          3.5
+        ],
+        "transitionWidth": 1.6,
+        "features": [
+          {
+            "kind": "ridge",
+            "centerXZ": [
+              -5.3,
+              2.8
+            ],
+            "height": 0.28,
+            "radius": 2.5
+          },
+          {
+            "kind": "hollow",
+            "centerXZ": [
+              4,
+              -3
+            ],
+            "height": -0.3,
+            "radius": 3
+          }
+        ]
+      },
+      "props": [
+        {
+          "id": "QC009/prop-1",
+          "owner": "QC009/place",
+          "sourceModel": "ua_valley_well",
+          "target": [
+            -5.2,
+            0,
+            2.9
+          ],
+          "height": 1.15,
+          "yaw": 30,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0.5
+        },
+        {
+          "id": "QC009/prop-2",
+          "owner": "QC009/place",
+          "sourceModel": "log",
+          "target": [
+            -5.2,
+            0,
+            4.4
+          ],
+          "height": 0.14,
+          "yaw": 85,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0.5
+        }
+      ],
+      "entryConnection": {
+        "point": [
+          0.0,
+          0,
+          3.5
+        ],
+        "routeId": "QC009/route-1",
+        "end": "first"
+      },
+      "routes": [
+        {
+          "id": "QC009/route-1",
+          "points": [
+            [
+              0.0,
+              0,
+              3.5
+            ],
+            [
+              -1,
+              0,
+              4.5
+            ],
+            [
+              -4.6,
+              0,
+              3.5
+            ]
+          ],
+          "width": 0.65,
+          "surface": "dirt",
+          "reserveVegetation": true
+        },
+        {
+          "id": "QC009/route-2",
+          "points": [
+            [
+              -7,
+              0,
+              -2
+            ],
+            [
+              -6.4,
+              0,
+              0.5
+            ],
+            [
+              -5.7,
+              0,
+              2.6
+            ]
+          ],
+          "width": 0.65,
+          "surface": "dirt",
+          "reserveVegetation": true
+        }
+      ],
+      "planting": {
+        "profiles": [
+          "trampled-grass",
+          "small-bushes"
+        ],
+        "sourceModels": [
+          "tree_default",
+          "tree_pineRoundA",
+          "plant_bushSmall",
+          "grass",
+          "grass_leafsLarge",
+          "flower_yellowA"
+        ],
+        "distribution": "separate patches and tiers; authored sightlines and route reservations",
+        "daisyVariant": null
+      },
+      "acceptanceUk": "Криниця простіша за великі дерева; без повторної огорожі джерела QC003.",
+      "nativeAccepted": false,
+      "puzzleRevisionPublished": false
+    },
+    {
+      "id": "QC010",
+      "sourceLevelHash": "26bac7199b3b56347509d04855a0495dd61037fe8be445209f732f317e9f7ff9",
+      "width": 7,
+      "height": 8,
+      "seed": 20316861,
+      "titleUk": "Світло на роздоріжжі",
+      "storyUk": "Роздоріжжя підсумовує відновлений шлях. Невеликий ремонтований покажчик і теплий ліхтар говорять про турботу людей; великої зупинки тут немає.",
+      "status": "authoring-draft-not-baked",
+      "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
+      "terrain": {
+        "extent": [
+          -12,
+          12,
+          -12,
+          12
+        ],
+        "groundY": -0.012,
+        "sampleStep": 0.4,
+        "flatPlayableBounds": [
+          -3.5,
+          3.5,
+          -4.0,
+          4.0
+        ],
+        "transitionWidth": 1.6,
+        "features": [
+          {
+            "kind": "ridge",
+            "centerXZ": [
+              4,
+              4
+            ],
+            "height": 0.65,
+            "radius": 3.8
+          },
+          {
+            "kind": "hollow",
+            "centerXZ": [
+              -5,
+              -3
+            ],
+            "height": -0.25,
+            "radius": 2.8
+          }
+        ]
+      },
+      "props": [
+        {
+          "id": "QC010/prop-1",
+          "owner": "QC010/place",
+          "sourceModel": "sign",
+          "target": [
+            -5.5,
+            0,
+            1.5
+          ],
+          "height": 0.85,
+          "yaw": 35,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0.5
+        },
+        {
+          "id": "QC010/prop-2",
+          "owner": "QC010/place",
+          "sourceModel": "camp_lantern",
+          "target": [
+            -5,
+            0,
+            0.4
+          ],
+          "height": 0.3,
+          "yaw": 0,
+          "supportProfile": "explicit model contacts required before bake",
+          "weatheringIntensity": 0.5
+        }
+      ],
+      "entryConnection": {
+        "point": [
+          -3.5,
+          0,
+          0.5
+        ],
+        "routeId": "QC010/route-1",
+        "end": "last"
+      },
+      "routes": [
+        {
+          "id": "QC010/route-1",
+          "points": [
+            [
+              -7,
+              0,
+              -6
+            ],
+            [
+              -4.6,
+              0,
+              0.5
+            ],
+            [
+              -3.5,
+              0,
+              0.5
+            ]
+          ],
+          "width": 0.65,
+          "surface": "dirt",
+          "reserveVegetation": true
+        },
+        {
+          "id": "QC010/route-2",
+          "points": [
+            [
+              -4.6,
+              0,
+              0.5
+            ],
+            [
+              -7,
+              0,
+              6.5
+            ]
+          ],
+          "width": 0.65,
+          "surface": "dirt",
+          "reserveVegetation": true
+        },
+        {
+          "id": "QC010/route-3",
+          "points": [
+            [
+              -4.6,
+              0,
+              0.5
+            ],
+            [
+              0.2,
+              0,
+              5.2
+            ],
+            [
+              5,
+              0,
+              6
+            ]
+          ],
+          "width": 0.65,
+          "surface": "dirt",
+          "reserveVegetation": true
+        }
+      ],
+      "planting": {
+        "profiles": [
+          "warm-edge",
+          "flower-patches"
+        ],
+        "sourceModels": [
+          "tree_default",
+          "tree_pineRoundA",
+          "plant_bushSmall",
+          "grass",
+          "grass_leafsLarge",
+          "flower_yellowA"
+        ],
+        "distribution": "separate patches and tiers; authored sightlines and route reservations",
+        "daisyVariant": null
+      },
+      "acceptanceUk": "Ліхтар гармонується за фактичним screen size; geometry protection зберігає ручку, але не дозволяє надмірну деталізацію.",
+      "nativeAccepted": false,
+      "puzzleRevisionPublished": false
+    }
+  ]
+}
