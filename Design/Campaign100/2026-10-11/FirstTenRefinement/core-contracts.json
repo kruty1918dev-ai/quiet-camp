@@ -1,0 +1,142 @@
+{
+  "captured_utc": "2026-10-11T14:41:16Z",
+  "checks": [
+    {
+      "package": "scene-placement",
+      "core_only": true,
+      "native_verified": false,
+      "compiler_peak_rss_kib": 114108,
+      "seconds": 2.482,
+      "assertions": "scene-placement: 15 assertions passed (Core only; no native acceptance).",
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Geometry.cs": "45919f475ce6294e41f863a0fef2646bc41ecf894d6ef928aed062cfc89eafff",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Placement.cs": "bc7f6f25568a15420b14287829f5005d87d963ab1cbacbb370ba3ad3eeca5a33",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/RoutesAndMeshes.cs": "a97e3e4e4a2d728d332092c29564e2a7e8f9af8de91d0b7ef5bba8d7a2ba7450",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/TriangleSurface.cs": "e40d59cfd06fee7a347092e96b8834a2c5afd4300a1667b537ce69e86f57c590",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Samples~/Example.cs": "fda1722df8852864556566ac12ae929b1b8d32b637402a5427c680ff6445d8fc",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Tests~/Contracts.cs": "3cf98b5dfd5670a67e926b5060b9976eee98bea592e518c631acd51aa3a1db7e"
+      }
+    },
+    {
+      "package": "mesh-style",
+      "core_only": true,
+      "native_verified": false,
+      "compiler_peak_rss_kib": 118600,
+      "seconds": 2.571,
+      "assertions": "mesh-style: 8 assertions passed (Core only; no native acceptance).",
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.mesh-style/Runtime/Core/MeshStyle.cs": "184ccb0af809852f93bfd900d456965667b84707d8fb0256df9eb81a93d4c49a",
+        "QuietCamp/Packages/com.kruty1918.mesh-style/Samples~/Example.cs": "615d567d49a1c2c55aec2fbab4fc123eb258591f4511238ba1f5b68bb3728801",
+        "QuietCamp/Packages/com.kruty1918.mesh-style/Tests~/Contracts.cs": "e5dcd2ca3892834dbea67c4395ad56cdca8b995d27ec8843d3ac236870920dfc",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Geometry.cs": "45919f475ce6294e41f863a0fef2646bc41ecf894d6ef928aed062cfc89eafff",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Placement.cs": "bc7f6f25568a15420b14287829f5005d87d963ab1cbacbb370ba3ad3eeca5a33",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/RoutesAndMeshes.cs": "a97e3e4e4a2d728d332092c29564e2a7e8f9af8de91d0b7ef5bba8d7a2ba7450",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/TriangleSurface.cs": "e40d59cfd06fee7a347092e96b8834a2c5afd4300a1667b537ce69e86f57c590"
+      }
+    },
+    {
+      "package": "model-weathering",
+      "core_only": true,
+      "native_verified": false,
+      "compiler_peak_rss_kib": 118868,
+      "seconds": 1.95,
+      "assertions": "model-weathering: 26 assertions passed (Core only; no native acceptance).",
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.model-weathering/Runtime/Core/Weathering.cs": "0815f718df44904bd115ea43f594e60195dabecf09972f8d490e6e2bd63d0454",
+        "QuietCamp/Packages/com.kruty1918.model-weathering/Samples~/Example.cs": "1a22552bbc5a5b4cb6ee08ad1a06dda0a64dc1e30fbfa24adb9cc1afa331bf5b",
+        "QuietCamp/Packages/com.kruty1918.model-weathering/Tests~/Contracts.cs": "8d86601cac2eb0be17a7971aa6fbd3790e0193b38187b94f5739b8f41c3106fe",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Geometry.cs": "45919f475ce6294e41f863a0fef2646bc41ecf894d6ef928aed062cfc89eafff",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Placement.cs": "bc7f6f25568a15420b14287829f5005d87d963ab1cbacbb370ba3ad3eeca5a33",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/RoutesAndMeshes.cs": "a97e3e4e4a2d728d332092c29564e2a7e8f9af8de91d0b7ef5bba8d7a2ba7450",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/TriangleSurface.cs": "e40d59cfd06fee7a347092e96b8834a2c5afd4300a1667b537ce69e86f57c590"
+      }
+    },
+    {
+      "package": "fence-authoring",
+      "core_only": true,
+      "native_verified": false,
+      "compiler_peak_rss_kib": 117408,
+      "seconds": 1.919,
+      "assertions": "fence-authoring: 11 assertions passed (Core only; no native acceptance).",
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.fence-authoring/Runtime/Core/FenceAuthoring.cs": "4e8e1f521a9780cb6215966116366651f0cd101ceebe136428e223423280cef0",
+        "QuietCamp/Packages/com.kruty1918.fence-authoring/Samples~/Example.cs": "3243ca81adb55180a083c38b0658991c0de96cdd84c4311d24c32690ecd4e794",
+        "QuietCamp/Packages/com.kruty1918.fence-authoring/Tests~/Contracts.cs": "9e78ad5ec92cddd3dbc194d96c42b4d7703fb14172f074d4bfd1ef8df28a6db5",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Geometry.cs": "45919f475ce6294e41f863a0fef2646bc41ecf894d6ef928aed062cfc89eafff",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Placement.cs": "bc7f6f25568a15420b14287829f5005d87d963ab1cbacbb370ba3ad3eeca5a33",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/RoutesAndMeshes.cs": "a97e3e4e4a2d728d332092c29564e2a7e8f9af8de91d0b7ef5bba8d7a2ba7450",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/TriangleSurface.cs": "e40d59cfd06fee7a347092e96b8834a2c5afd4300a1667b537ce69e86f57c590"
+      }
+    },
+    {
+      "package": "road-authoring",
+      "core_only": true,
+      "native_verified": false,
+      "compiler_peak_rss_kib": 119204,
+      "seconds": 1.924,
+      "assertions": "road-authoring: 184 assertions passed (Core only; no native acceptance).",
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.road-authoring/Runtime/Core/RoadAuthoring.cs": "193b4e713be0b8af4555b452083bf190c71677f4863d22b66a08a63e8bb680d3",
+        "QuietCamp/Packages/com.kruty1918.road-authoring/Samples~/Example.cs": "a02031376d1c3cb18a1aae92c7231b48048758b55ccf728464e291a6d87a6624",
+        "QuietCamp/Packages/com.kruty1918.road-authoring/Tests~/Contracts.cs": "9dd62fe1cec32d3b6efd95f2f0839f59a4d2389e7775bfac6e9d512591ae4aa7",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Geometry.cs": "45919f475ce6294e41f863a0fef2646bc41ecf894d6ef928aed062cfc89eafff",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Placement.cs": "bc7f6f25568a15420b14287829f5005d87d963ab1cbacbb370ba3ad3eeca5a33",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/RoutesAndMeshes.cs": "a97e3e4e4a2d728d332092c29564e2a7e8f9af8de91d0b7ef5bba8d7a2ba7450",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/TriangleSurface.cs": "e40d59cfd06fee7a347092e96b8834a2c5afd4300a1667b537ce69e86f57c590"
+      }
+    },
+    {
+      "package": "power-lines",
+      "core_only": true,
+      "native_verified": false,
+      "compiler_peak_rss_kib": 117940,
+      "seconds": 2.17,
+      "assertions": "power-lines: 15 assertions passed (Core only; no native acceptance).",
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.power-lines/Runtime/Core/PowerLines.cs": "27e87bae624c217049a5e40b54dcdc1e242ac79c5c2901547e72e18e2c6a6de5",
+        "QuietCamp/Packages/com.kruty1918.power-lines/Samples~/Example.cs": "fd147845d2ed48eefa62f51500a0c1dbf1045d90a0dbe840634ca6d2760ecbfc",
+        "QuietCamp/Packages/com.kruty1918.power-lines/Tests~/Contracts.cs": "e9bb93e21d5f66c9aa472bca325c0ccbfaac72c0261e1406f04c115ad9925e0f",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Geometry.cs": "45919f475ce6294e41f863a0fef2646bc41ecf894d6ef928aed062cfc89eafff",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Placement.cs": "bc7f6f25568a15420b14287829f5005d87d963ab1cbacbb370ba3ad3eeca5a33",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/RoutesAndMeshes.cs": "a97e3e4e4a2d728d332092c29564e2a7e8f9af8de91d0b7ef5bba8d7a2ba7450",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/TriangleSurface.cs": "e40d59cfd06fee7a347092e96b8834a2c5afd4300a1667b537ce69e86f57c590"
+      }
+    },
+    {
+      "package": "rock-placement",
+      "core_only": true,
+      "native_verified": false,
+      "compiler_peak_rss_kib": 117592,
+      "seconds": 2.096,
+      "assertions": "rock-placement: 21 assertions passed (Core only; no native acceptance).",
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.rock-placement/Runtime/Core/RockPlacement.cs": "b92bc342783cbf738b4b357765931331c3f9730f7b4d7e75b0dcdcfe55622fb5",
+        "QuietCamp/Packages/com.kruty1918.rock-placement/Samples~/Example.cs": "e09a248a2a02e9cb7a5fd6b5a51fe283a6c70cbbda17cbd53f575176b786573e",
+        "QuietCamp/Packages/com.kruty1918.rock-placement/Tests~/Contracts.cs": "9df6d4ae40430f9a960dc382e1d5f2ecd4a997be5683286538b6bdb86c962ed9",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Geometry.cs": "45919f475ce6294e41f863a0fef2646bc41ecf894d6ef928aed062cfc89eafff",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Placement.cs": "bc7f6f25568a15420b14287829f5005d87d963ab1cbacbb370ba3ad3eeca5a33",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/RoutesAndMeshes.cs": "a97e3e4e4a2d728d332092c29564e2a7e8f9af8de91d0b7ef5bba8d7a2ba7450",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/TriangleSurface.cs": "e40d59cfd06fee7a347092e96b8834a2c5afd4300a1667b537ce69e86f57c590"
+      }
+    },
+    {
+      "package": "vegetation-placement",
+      "core_only": true,
+      "native_verified": false,
+      "compiler_peak_rss_kib": 118984,
+      "seconds": 2.014,
+      "assertions": "vegetation-placement: 7 assertions passed (Core only; no native acceptance).",
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.vegetation-placement/Runtime/Core/VegetationPlacement.cs": "6bb7ee0e266c21c7a6bbe2432212588eec195fe2b46ced177c87aa3f6a3804a2",
+        "QuietCamp/Packages/com.kruty1918.vegetation-placement/Samples~/Example.cs": "61ad96a235967c0c65e71a6d21ef5e4f8f010d050facbcaaa857e85d4f19afc4",
+        "QuietCamp/Packages/com.kruty1918.vegetation-placement/Tests~/Contracts.cs": "8318356c130e345550f9bc37ca91ddbfdf5a4f20cc75a631898661cb3e923446",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Geometry.cs": "45919f475ce6294e41f863a0fef2646bc41ecf894d6ef928aed062cfc89eafff",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Placement.cs": "bc7f6f25568a15420b14287829f5005d87d963ab1cbacbb370ba3ad3eeca5a33",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/RoutesAndMeshes.cs": "a97e3e4e4a2d728d332092c29564e2a7e8f9af8de91d0b7ef5bba8d7a2ba7450",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/TriangleSurface.cs": "e40d59cfd06fee7a347092e96b8834a2c5afd4300a1667b537ce69e86f57c590"
+      }
+    }
+  ],
+  "unity_launched": false,
+  "player_build": false
+}

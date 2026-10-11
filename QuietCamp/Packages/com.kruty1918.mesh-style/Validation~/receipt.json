@@ -1,0 +1,25 @@
+{
+  "captured_utc": "2026-10-11T14:41:16Z",
+  "core_contract": "mesh-style: 8 assertions passed (Core only; no native acceptance).",
+  "compiler_peak_rss_kib": 118600,
+  "core_sources": {
+    "Runtime/Core/MeshStyle.cs": "184ccb0af809852f93bfd900d456965667b84707d8fb0256df9eb81a93d4c49a",
+    "Samples~/Example.cs": "615d567d49a1c2c55aec2fbab4fc123eb258591f4511238ba1f5b68bb3728801",
+    "Tests~/Contracts.cs": "e5dcd2ca3892834dbea67c4395ad56cdca8b995d27ec8843d3ac236870920dfc",
+    "dependency/scene-placement/Runtime/Core/Geometry.cs": "45919f475ce6294e41f863a0fef2646bc41ecf894d6ef928aed062cfc89eafff",
+    "dependency/scene-placement/Runtime/Core/Placement.cs": "bc7f6f25568a15420b14287829f5005d87d963ab1cbacbb370ba3ad3eeca5a33",
+    "dependency/scene-placement/Runtime/Core/RoutesAndMeshes.cs": "a97e3e4e4a2d728d332092c29564e2a7e8f9af8de91d0b7ef5bba8d7a2ba7450",
+    "dependency/scene-placement/Runtime/Core/TriangleSurface.cs": "e40d59cfd06fee7a347092e96b8834a2c5afd4300a1667b537ce69e86f57c590"
+  },
+  "cached_unity_source_assemblies": [
+    "Kruty1918.MeshStyle.Core",
+    "Kruty1918.MeshStyle.Unity",
+    "Kruty1918.MeshStyle.Editor",
+    "Kruty1918.MeshStyle.Tests"
+  ],
+  "cached_compiler_check": true,
+  "unity_launched": false,
+  "native_import_tests": "pending",
+  "quiet_camp_visual_acceptance": "pending",
+  "player_build": false
+}

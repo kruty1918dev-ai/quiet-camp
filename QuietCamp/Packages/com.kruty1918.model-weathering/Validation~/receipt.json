@@ -1,0 +1,25 @@
+{
+  "captured_utc": "2026-10-11T14:41:16Z",
+  "core_contract": "model-weathering: 26 assertions passed (Core only; no native acceptance).",
+  "compiler_peak_rss_kib": 118868,
+  "core_sources": {
+    "Runtime/Core/Weathering.cs": "0815f718df44904bd115ea43f594e60195dabecf09972f8d490e6e2bd63d0454",
+    "Samples~/Example.cs": "1a22552bbc5a5b4cb6ee08ad1a06dda0a64dc1e30fbfa24adb9cc1afa331bf5b",
+    "Tests~/Contracts.cs": "8d86601cac2eb0be17a7971aa6fbd3790e0193b38187b94f5739b8f41c3106fe",
+    "dependency/scene-placement/Runtime/Core/Geometry.cs": "45919f475ce6294e41f863a0fef2646bc41ecf894d6ef928aed062cfc89eafff",
+    "dependency/scene-placement/Runtime/Core/Placement.cs": "bc7f6f25568a15420b14287829f5005d87d963ab1cbacbb370ba3ad3eeca5a33",
+    "dependency/scene-placement/Runtime/Core/RoutesAndMeshes.cs": "a97e3e4e4a2d728d332092c29564e2a7e8f9af8de91d0b7ef5bba8d7a2ba7450",
+    "dependency/scene-placement/Runtime/Core/TriangleSurface.cs": "e40d59cfd06fee7a347092e96b8834a2c5afd4300a1667b537ce69e86f57c590"
+  },
+  "cached_unity_source_assemblies": [
+    "Kruty1918.ModelWeathering.Core",
+    "Kruty1918.ModelWeathering.Unity",
+    "Kruty1918.ModelWeathering.Editor",
+    "Kruty1918.ModelWeathering.Tests"
+  ],
+  "cached_compiler_check": true,
+  "unity_launched": false,
+  "native_import_tests": "pending",
+  "quiet_camp_visual_acceptance": "pending",
+  "player_build": false
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Kruty1918.PowerLines.Tests",
+  "references": [
+    "Kruty1918.PowerLines.Core",
+    "Kruty1918.PowerLines.Unity",
+    "Kruty1918.PowerLines.Editor",
+    "Kruty1918.ScenePlacement.Core",
+    "Kruty1918.ScenePlacement.Unity"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "autoReferenced": false
+}

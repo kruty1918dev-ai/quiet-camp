@@ -1,0 +1,25 @@
+{
+  "captured_utc": "2026-10-11T14:41:16Z",
+  "core_contract": "vegetation-placement: 7 assertions passed (Core only; no native acceptance).",
+  "compiler_peak_rss_kib": 118984,
+  "core_sources": {
+    "Runtime/Core/VegetationPlacement.cs": "6bb7ee0e266c21c7a6bbe2432212588eec195fe2b46ced177c87aa3f6a3804a2",
+    "Samples~/Example.cs": "61ad96a235967c0c65e71a6d21ef5e4f8f010d050facbcaaa857e85d4f19afc4",
+    "Tests~/Contracts.cs": "8318356c130e345550f9bc37ca91ddbfdf5a4f20cc75a631898661cb3e923446",
+    "dependency/scene-placement/Runtime/Core/Geometry.cs": "45919f475ce6294e41f863a0fef2646bc41ecf894d6ef928aed062cfc89eafff",
+    "dependency/scene-placement/Runtime/Core/Placement.cs": "bc7f6f25568a15420b14287829f5005d87d963ab1cbacbb370ba3ad3eeca5a33",
+    "dependency/scene-placement/Runtime/Core/RoutesAndMeshes.cs": "a97e3e4e4a2d728d332092c29564e2a7e8f9af8de91d0b7ef5bba8d7a2ba7450",
+    "dependency/scene-placement/Runtime/Core/TriangleSurface.cs": "e40d59cfd06fee7a347092e96b8834a2c5afd4300a1667b537ce69e86f57c590"
+  },
+  "cached_unity_source_assemblies": [
+    "Kruty1918.VegetationPlacement.Core",
+    "Kruty1918.VegetationPlacement.Unity",
+    "Kruty1918.VegetationPlacement.Editor",
+    "Kruty1918.VegetationPlacement.Tests"
+  ],
+  "cached_compiler_check": true,
+  "unity_launched": false,
+  "native_import_tests": "pending",
+  "quiet_camp_visual_acceptance": "pending",
+  "player_build": false
+}

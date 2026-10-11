@@ -1,0 +1,17 @@
+{
+  "name": "Kruty1918.VegetationPlacement.Tests",
+  "references": [
+    "Kruty1918.VegetationPlacement.Core",
+    "Kruty1918.VegetationPlacement.Unity",
+    "Kruty1918.VegetationPlacement.Editor",
+    "Kruty1918.ScenePlacement.Core",
+    "Kruty1918.ScenePlacement.Unity"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "autoReferenced": false
+}

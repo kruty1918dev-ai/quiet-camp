@@ -1,0 +1,17 @@
+{
+  "name": "Kruty1918.MeshStyle.Tests",
+  "references": [
+    "Kruty1918.MeshStyle.Core",
+    "Kruty1918.MeshStyle.Unity",
+    "Kruty1918.MeshStyle.Editor",
+    "Kruty1918.ScenePlacement.Core",
+    "Kruty1918.ScenePlacement.Unity"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "autoReferenced": false
+}

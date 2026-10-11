@@ -1,0 +1,18 @@
+{
+  "name": "Kruty1918.PowerLines.Editor",
+  "rootNamespace": "Kruty1918.PowerLines.Editor",
+  "references": [
+    "Kruty1918.PowerLines.Core",
+    "Kruty1918.PowerLines.Unity",
+    "Kruty1918.ScenePlacement.Core",
+    "Kruty1918.ScenePlacement.Unity",
+    "Kruty1918.ScenePlacement.Editor"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": false,
+  "noEngineReferences": false
+}

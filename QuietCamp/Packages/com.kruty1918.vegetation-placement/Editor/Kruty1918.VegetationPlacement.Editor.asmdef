@@ -1,0 +1,18 @@
+{
+  "name": "Kruty1918.VegetationPlacement.Editor",
+  "rootNamespace": "Kruty1918.VegetationPlacement.Editor",
+  "references": [
+    "Kruty1918.VegetationPlacement.Core",
+    "Kruty1918.VegetationPlacement.Unity",
+    "Kruty1918.ScenePlacement.Core",
+    "Kruty1918.ScenePlacement.Unity",
+    "Kruty1918.ScenePlacement.Editor"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": false,
+  "noEngineReferences": false
+}

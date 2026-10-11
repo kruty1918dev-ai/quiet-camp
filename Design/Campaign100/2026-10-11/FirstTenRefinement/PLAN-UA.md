@@ -53,3 +53,22 @@ kruty1918dev-ai, автоматичні команди без окремих в�
 зміна, не редагувати/не комітити. Player builds заборонені. Один ізольований
 Editor, RAM ≥1500 MB, workers 1/4. Історичні кадри з власними датами.
 Стан Pending не означає виконану перевірку.
+
+## Зафіксований етап інструментів — 11.10.2026
+
+- Baseline: десять полів/старих hashes і двадцять оригінальних native PNG з receipts.
+- Вісім приватних upstream repos створено; embedded-копії зафіксовані commits
+  у [package-upstreams.json](package-upstreams.json).
+- Core: 287 assertions; [квитанція](core-contracts.json) містить hashes кожного джерела.
+- Спільні приклади: ліс, господарство та промислова ділянка, три різні surface
+  providers; [квитанція](integration-contracts.json). Це Core, не native visuals.
+- Core/Unity/Editor/Test assemblies: 32 cached-reference compilations, zero warnings;
+  [квитанція](unity-source-checks.json). Unity не запускався.
+- Чистий тестовий проєкт підготовлено локально без Quiet Camp assets. Його native
+  import і виконання tests ще Pending; окремі samples/API/contracts входять у repos.
+- [Детальні контракти](TOOLS-UA.md): задачі, параметри, алгоритми, обмеження,
+  правила скасування, API та використання кожного інструмента в інших іграх.
+
+Остання вказівка користувача: продовжувати підготовку без Unity. Runtime gameplay
+першої десятки поки не замінено; художнє приймання, пазли, HUD-flow, нові captures
+та ресурсні regression checks залишаються відкритими пунктами, наведеними вище.

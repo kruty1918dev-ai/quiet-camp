@@ -33,6 +33,8 @@ ExportedObj/
 *.csproj
 !tools/optional-google-probe/Probe.csproj
 !tools/MonetizationProbe.csproj
+!tools/EnvironmentIntegrationProbe.csproj
+!QuietCamp/Packages/com.kruty1918.*/Tests~/Contracts.csproj
 !tools/roadmap-pipeline/RoadmapPipeline.csproj
 *.unityproj
 *.sln

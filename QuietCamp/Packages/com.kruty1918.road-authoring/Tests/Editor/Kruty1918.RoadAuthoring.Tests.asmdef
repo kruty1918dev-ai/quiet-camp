@@ -1,0 +1,17 @@
+{
+  "name": "Kruty1918.RoadAuthoring.Tests",
+  "references": [
+    "Kruty1918.RoadAuthoring.Core",
+    "Kruty1918.RoadAuthoring.Unity",
+    "Kruty1918.RoadAuthoring.Editor",
+    "Kruty1918.ScenePlacement.Core",
+    "Kruty1918.ScenePlacement.Unity"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "autoReferenced": false
+}

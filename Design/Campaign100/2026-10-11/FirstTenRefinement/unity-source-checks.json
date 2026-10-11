@@ -1,0 +1,268 @@
+{
+  "captured_utc": "2026-10-11T14:46:20Z",
+  "checks": [
+    {
+      "assembly": "Kruty1918.ScenePlacement.Core",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Geometry.cs": "45919f475ce6294e41f863a0fef2646bc41ecf894d6ef928aed062cfc89eafff",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Placement.cs": "bc7f6f25568a15420b14287829f5005d87d963ab1cbacbb370ba3ad3eeca5a33",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/RoutesAndMeshes.cs": "a97e3e4e4a2d728d332092c29564e2a7e8f9af8de91d0b7ef5bba8d7a2ba7450",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/TriangleSurface.cs": "e40d59cfd06fee7a347092e96b8834a2c5afd4300a1667b537ce69e86f57c590"
+      }
+    },
+    {
+      "assembly": "Kruty1918.ScenePlacement.Unity",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Unity/UnityBridge.cs": "1e19cff161422907dcf6226d20957bc672a236503b80836f7366f210a5c7ced8"
+      }
+    },
+    {
+      "assembly": "Kruty1918.ScenePlacement.Editor",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Editor/BatchFiles.cs": "5beba419a79e9fa0e0cc18ab669476c74292feaa6c8364f267cfa77db5c9cf01",
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Editor/StaticMeshSnapshot.cs": "ee8f1acd9f9285096a993fe4e11cf081843606e9f5b9ab987c54ce81a328a941"
+      }
+    },
+    {
+      "assembly": "Kruty1918.ScenePlacement.Tests",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.scene-placement/Tests/Editor/NativeContracts.cs": "7b5f7306395c9a3b57fcb60bb26c9b5e297cae7562a5b2c980a73b24f3a1b24d"
+      }
+    },
+    {
+      "assembly": "Kruty1918.MeshStyle.Core",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.mesh-style/Runtime/Core/MeshStyle.cs": "184ccb0af809852f93bfd900d456965667b84707d8fb0256df9eb81a93d4c49a"
+      }
+    },
+    {
+      "assembly": "Kruty1918.MeshStyle.Unity",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.mesh-style/Runtime/Unity/Adapter.cs": "748807bc9ab16263ad1f6381ecb5d5a1d606021c51c858633f3a2f4bae00e1ee"
+      }
+    },
+    {
+      "assembly": "Kruty1918.MeshStyle.Editor",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.mesh-style/Editor/Batch.cs": "1fc15ec853f82eceea26f0a69e611a8c65f2274b9b746a0674738cd4737f1568"
+      }
+    },
+    {
+      "assembly": "Kruty1918.MeshStyle.Tests",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.mesh-style/Tests/Editor/NativeContracts.cs": "78ee724a9f0e5f5c6069b112c18366d167b3c29e595c3dd4ddf2a99cf5c6c2fd"
+      }
+    },
+    {
+      "assembly": "Kruty1918.ModelWeathering.Core",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.model-weathering/Runtime/Core/Weathering.cs": "0815f718df44904bd115ea43f594e60195dabecf09972f8d490e6e2bd63d0454"
+      }
+    },
+    {
+      "assembly": "Kruty1918.ModelWeathering.Unity",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.model-weathering/Runtime/Unity/Adapter.cs": "11dc910e17e9e5acbb669b8e5f2397673683be3376a71eca097d356bf61abd16"
+      }
+    },
+    {
+      "assembly": "Kruty1918.ModelWeathering.Editor",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.model-weathering/Editor/Batch.cs": "1ea178484c252ebe6088f1616b6b9a0b895db6dfd8bf2017ed62b0a4ffa4d48c"
+      }
+    },
+    {
+      "assembly": "Kruty1918.ModelWeathering.Tests",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.model-weathering/Tests/Editor/NativeContracts.cs": "5a8ca11f34f4819c5f8dd4cfb5dab6204742f15c0500929af9cc25565b1bb3f0"
+      }
+    },
+    {
+      "assembly": "Kruty1918.FenceAuthoring.Core",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.fence-authoring/Runtime/Core/FenceAuthoring.cs": "4e8e1f521a9780cb6215966116366651f0cd101ceebe136428e223423280cef0"
+      }
+    },
+    {
+      "assembly": "Kruty1918.FenceAuthoring.Unity",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.fence-authoring/Runtime/Unity/Adapter.cs": "677aaa01bcb41c58a25f1ef5dcf5eee0cae6ab6792f50945711d2a38bd2fca5f"
+      }
+    },
+    {
+      "assembly": "Kruty1918.FenceAuthoring.Editor",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.fence-authoring/Editor/Batch.cs": "4b763e703d2c8d3244a0865e281e1bbcc8b1d419e16d9f12c1fc9702ede52049"
+      }
+    },
+    {
+      "assembly": "Kruty1918.FenceAuthoring.Tests",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.fence-authoring/Tests/Editor/NativeContracts.cs": "4c54100bc1959ce21a7ece217110ff785b498913e1b5a9080af83f544a354dc8"
+      }
+    },
+    {
+      "assembly": "Kruty1918.RoadAuthoring.Core",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.road-authoring/Runtime/Core/RoadAuthoring.cs": "193b4e713be0b8af4555b452083bf190c71677f4863d22b66a08a63e8bb680d3"
+      }
+    },
+    {
+      "assembly": "Kruty1918.RoadAuthoring.Unity",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.road-authoring/Runtime/Unity/Adapter.cs": "fbefee8b9542e5d3872cb380e56637d3e5ef4f702807250ee5abcbe0ecfb76d6"
+      }
+    },
+    {
+      "assembly": "Kruty1918.RoadAuthoring.Editor",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.road-authoring/Editor/Batch.cs": "a01622cbc159fda231e8cfcc135d87bfd8a82d36ae9c9cdbd181bee96f1e194f"
+      }
+    },
+    {
+      "assembly": "Kruty1918.RoadAuthoring.Tests",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.road-authoring/Tests/Editor/NativeContracts.cs": "81545181fb6b04fc7dc54c793c7c651809cf688be536aba3487051a3ee288b36"
+      }
+    },
+    {
+      "assembly": "Kruty1918.PowerLines.Core",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.power-lines/Runtime/Core/PowerLines.cs": "27e87bae624c217049a5e40b54dcdc1e242ac79c5c2901547e72e18e2c6a6de5"
+      }
+    },
+    {
+      "assembly": "Kruty1918.PowerLines.Unity",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.power-lines/Runtime/Unity/Adapter.cs": "203a0fbb765de370a08398dd7ad6af5fa35f5dd4b288630ac661982dc4047d65"
+      }
+    },
+    {
+      "assembly": "Kruty1918.PowerLines.Editor",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.power-lines/Editor/Batch.cs": "d7fe7556099c78403d8c8d03c4fefedbd6a51e92f90fb8aacf7b69ef8fd761b1"
+      }
+    },
+    {
+      "assembly": "Kruty1918.PowerLines.Tests",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.power-lines/Tests/Editor/NativeContracts.cs": "d77b5d549df2f59d5de2ac400ffa68bc0773c156516a911929afe2e589a0cb11"
+      }
+    },
+    {
+      "assembly": "Kruty1918.RockPlacement.Core",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.rock-placement/Runtime/Core/RockPlacement.cs": "b92bc342783cbf738b4b357765931331c3f9730f7b4d7e75b0dcdcfe55622fb5"
+      }
+    },
+    {
+      "assembly": "Kruty1918.RockPlacement.Unity",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.rock-placement/Runtime/Unity/Adapter.cs": "8894676f397848ccb67aebd475122917a4fc61774bef62ce1eeb65eb9b1be733"
+      }
+    },
+    {
+      "assembly": "Kruty1918.RockPlacement.Editor",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.rock-placement/Editor/Batch.cs": "7bca3d5847fdef79bc7b728825b0222b4b1221fa8f7fe534b1573eba620c530b"
+      }
+    },
+    {
+      "assembly": "Kruty1918.RockPlacement.Tests",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.rock-placement/Tests/Editor/NativeContracts.cs": "cae6ce7889f0e5f659e3d3b671aeaf56dca3358d046ed7fcedf181b91b4bd8ad"
+      }
+    },
+    {
+      "assembly": "Kruty1918.VegetationPlacement.Core",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.vegetation-placement/Runtime/Core/VegetationPlacement.cs": "6bb7ee0e266c21c7a6bbe2432212588eec195fe2b46ced177c87aa3f6a3804a2"
+      }
+    },
+    {
+      "assembly": "Kruty1918.VegetationPlacement.Unity",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.vegetation-placement/Runtime/Unity/Adapter.cs": "5a5b51160942b5660b7c3f6db80b176340de9f96871bbbcaadf32aee3fd534af"
+      }
+    },
+    {
+      "assembly": "Kruty1918.VegetationPlacement.Editor",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.vegetation-placement/Editor/Batch.cs": "7d44ffbcd785f0819e4250d2785d25f31e9d8c716d4e80152e663948d90256d0"
+      }
+    },
+    {
+      "assembly": "Kruty1918.VegetationPlacement.Tests",
+      "warnings": 0,
+      "native_verified": false,
+      "sources": {
+        "QuietCamp/Packages/com.kruty1918.vegetation-placement/Tests/Editor/NativeContracts.cs": "a4c60705cbd2248e241154fed2ba99316e41d24e4daab3fd1fe71b187b4eaad3"
+      }
+    }
+  ],
+  "unity_launched": false,
+  "native_verified": false,
+  "player_build": false
+}

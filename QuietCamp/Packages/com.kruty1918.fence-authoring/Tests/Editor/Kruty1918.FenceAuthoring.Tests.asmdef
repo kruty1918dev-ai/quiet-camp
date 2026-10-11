@@ -1,0 +1,17 @@
+{
+  "name": "Kruty1918.FenceAuthoring.Tests",
+  "references": [
+    "Kruty1918.FenceAuthoring.Core",
+    "Kruty1918.FenceAuthoring.Unity",
+    "Kruty1918.FenceAuthoring.Editor",
+    "Kruty1918.ScenePlacement.Core",
+    "Kruty1918.ScenePlacement.Unity"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "autoReferenced": false
+}

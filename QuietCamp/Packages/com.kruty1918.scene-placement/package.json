@@ -1,0 +1,17 @@
+{
+  "name": "com.kruty1918.scene-placement",
+  "version": "0.1.0",
+  "displayName": "Scene Placement",
+  "description": "Контакт, орієнтовані об’єми, просторовий індекс і атомарне розміщення ансамблів.",
+  "unity": "6000.6",
+  "author": {
+    "name": "kruty1918dev-ai"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "com.unity.collections": "6.6.0",
+    "com.unity.modules.physics": "1.0.0",
+    "com.unity.modules.terrain": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0"
+  }
+}

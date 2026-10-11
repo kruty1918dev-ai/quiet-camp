@@ -1,0 +1,16 @@
+{
+  "name": "Kruty1918.ScenePlacement.Editor",
+  "rootNamespace": "Kruty1918.ScenePlacement.Editor",
+  "references": [
+    "Kruty1918.ScenePlacement.Core",
+    "Kruty1918.ScenePlacement.Unity",
+    "Unity.Collections"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "autoReferenced": false,
+  "noEngineReferences": false
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Kruty1918.ModelWeathering.Tests",
+  "references": [
+    "Kruty1918.ModelWeathering.Core",
+    "Kruty1918.ModelWeathering.Unity",
+    "Kruty1918.ModelWeathering.Editor",
+    "Kruty1918.ScenePlacement.Core",
+    "Kruty1918.ScenePlacement.Unity"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "autoReferenced": false
+}

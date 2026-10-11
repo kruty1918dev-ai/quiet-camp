@@ -1,0 +1,17 @@
+{
+  "name": "Kruty1918.RockPlacement.Tests",
+  "references": [
+    "Kruty1918.RockPlacement.Core",
+    "Kruty1918.RockPlacement.Unity",
+    "Kruty1918.RockPlacement.Editor",
+    "Kruty1918.ScenePlacement.Core",
+    "Kruty1918.ScenePlacement.Unity"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "autoReferenced": false
+}

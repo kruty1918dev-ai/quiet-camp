@@ -16,3 +16,24 @@ The four restored upstream packages retain their real source, Unity GUIDs, licen
 | `com.kruty1918.levelkit` | [Upstream revision and license](com.kruty1918.levelkit/VENDORED.md). |
 
 Run `python3 tools/verify_portability.py` from the repository root to check manifest/lock agreement, contained local dependencies and path case collisions. This static check does not replace Unity's first package resolution/import.
+
+The eight environment authoring packages have separate private upstream repositories.
+Each embedded copy pins its commit in `VENDORED.json` and contains Core, Unity,
+Editor automation, standalone contracts, native test sources and a synthetic API sample.
+
+| Package | Purpose | Pinned source |
+| --- | --- | --- |
+| `scene-placement` | Contact, occupied volumes, placement rules and atomic ensembles | [Commit](com.kruty1918.scene-placement/VENDORED.json) |
+| `mesh-style` | Geometry detail, protected features, normals and attributes | [Commit](com.kruty1918.mesh-style/VENDORED.json) |
+| `model-weathering` | Material wear, structural parts, masks and growth requests | [Commit](com.kruty1918.model-weathering/VENDORED.json) |
+| `fence-authoring` | Connected posts, sections, gates and terrain | [Commit](com.kruty1918.fence-authoring/VENDORED.json) |
+| `road-authoring` | Surface routes, width/material transitions and corridors | [Commit](com.kruty1918.road-authoring/VENDORED.json) |
+| `power-lines` | Support sockets, static sag and explicit damaged states | [Commit](com.kruty1918.power-lines/VENDORED.json) |
+| `rock-placement` | Grounded geological groups and burial | [Commit](com.kruty1918.rock-placement/VENDORED.json) |
+| `vegetation-placement` | Ecological patches, tiers, spacing and exclusions | [Commit](com.kruty1918.vegetation-placement/VENDORED.json) |
+
+Verification: 287 standalone Core assertions, three synthetic integrations and
+32 cached-reference assembly compilations passed. Clean-project native import,
+EditMode execution and the QC001–QC010 visual integration remain pending.
+No Quiet Camp models or vendor photographs are included in these upstream repos.
+See [contracts and acceptance](../../Design/Campaign100/2026-10-11/FirstTenRefinement/TOOLS-UA.md).

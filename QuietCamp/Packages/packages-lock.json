@@ -32,6 +32,14 @@
         "com.unity.ugui": "2.0.0"
       }
     },
+    "com.kruty1918.fence-authoring": {
+      "version": "file:com.kruty1918.fence-authoring",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.kruty1918.scene-placement": "0.1.0"
+      }
+    },
     "com.kruty1918.gameplay-viewport": {
       "version": "https://github.com/kruty1918dev-ai/com.kruty1918.gameplay-viewport.git#bf519290cb01b27d0c9fedce7a75b0366746f391",
       "depth": 0,
@@ -79,6 +87,22 @@
         "com.unity.nuget.newtonsoft-json": "3.2.0"
       }
     },
+    "com.kruty1918.mesh-style": {
+      "version": "file:com.kruty1918.mesh-style",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.kruty1918.scene-placement": "0.1.0"
+      }
+    },
+    "com.kruty1918.model-weathering": {
+      "version": "file:com.kruty1918.model-weathering",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.kruty1918.scene-placement": "0.1.0"
+      }
+    },
     "com.kruty1918.moyva.unityhtml": {
       "version": "https://github.com/kruty1918dev-ai/com.kruty1918.moyva.unityhtml.git#ed36a7ce864f595432033da6f6b75c43ec92e7d9",
       "depth": 0,
@@ -100,6 +124,30 @@
         "com.unity.ugui": "2.0.0"
       }
     },
+    "com.kruty1918.power-lines": {
+      "version": "file:com.kruty1918.power-lines",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.kruty1918.scene-placement": "0.1.0"
+      }
+    },
+    "com.kruty1918.road-authoring": {
+      "version": "file:com.kruty1918.road-authoring",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.kruty1918.scene-placement": "0.1.0"
+      }
+    },
+    "com.kruty1918.rock-placement": {
+      "version": "file:com.kruty1918.rock-placement",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.kruty1918.scene-placement": "0.1.0"
+      }
+    },
     "com.kruty1918.runtime-diagnostics": {
       "version": "file:com.kruty1918.runtime-diagnostics",
       "depth": 0,
@@ -111,6 +159,24 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
+    },
+    "com.kruty1918.scene-placement": {
+      "version": "file:com.kruty1918.scene-placement",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.collections": "6.6.0",
+        "com.unity.modules.physics": "1.0.0",
+        "com.unity.modules.terrain": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0"
+      }
+    },
+    "com.kruty1918.tutorials": {
+      "version": "https://github.com/kruty1918dev-ai/com.kruty1918.tutorials.git#ecbb3264ba393bd14125996c06c010c30948289e",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "ecbb3264ba393bd14125996c06c010c30948289e"
     },
     "com.kruty1918.ui-actions": {
       "version": "file:com.kruty1918.ui-actions",
@@ -128,6 +194,14 @@
       "source": "embedded",
       "dependencies": {
         "com.unity.ugui": "2.0.0"
+      }
+    },
+    "com.kruty1918.vegetation-placement": {
+      "version": "file:com.kruty1918.vegetation-placement",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.kruty1918.scene-placement": "0.1.0"
       }
     },
     "com.reactunity.core": {
@@ -162,7 +236,7 @@
     },
     "com.unity.collections": {
       "version": "6.6.0",
-      "depth": 2,
+      "depth": 1,
       "source": "builtin",
       "dependencies": {
         "com.unity.burst": "1.8.25",
@@ -197,6 +271,158 @@
         "com.unity.modules.uielements": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "com.unity.modules.androidjni": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.jsonserialize": "1.0.0"
+      }
+    },
+    "com.unity.modules.animation": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.assetbundle": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.audio": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.hierarchycore": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.imageconversion": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.imgui": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.jsonserialize": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.particlesystem": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.physics": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.physics2d": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.physicscore2d": "1.0.0"
+      }
+    },
+    "com.unity.modules.physicscore2d": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.screencapture": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.imageconversion": "1.0.0"
+      }
+    },
+    "com.unity.modules.terrain": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.ui": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.uielements": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.ui": "1.0.0",
+        "com.unity.modules.imgui": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.modules.hierarchycore": "1.0.0",
+        "com.unity.modules.physics": "1.0.0",
+        "com.unity.modules.animation": "1.0.0"
+      }
+    },
+    "com.unity.modules.unitywebrequest": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.unitywebrequestassetbundle": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.assetbundle": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0"
+      }
+    },
+    "com.unity.modules.unitywebrequestaudio": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.audio": "1.0.0"
+      }
+    },
+    "com.unity.modules.unitywebrequesttexture": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.imageconversion": "1.0.0"
+      }
+    },
+    "com.unity.modules.video": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.audio": "1.0.0",
+        "com.unity.modules.ui": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0"
+      }
     },
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.6",
@@ -329,159 +555,6 @@
         "com.unity.modules.physics2d": "1.0.0",
         "com.unity.modules.physics": "1.0.0"
       }
-    },
-    "com.unity.modules.androidjni": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.jsonserialize": "1.0.0"
-      }
-    },
-    "com.unity.modules.animation": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
-    },
-    "com.unity.modules.assetbundle": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
-    },
-    "com.unity.modules.audio": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
-    },
-    "com.unity.modules.hierarchycore": {
-      "version": "1.0.0",
-      "depth": 1,
-      "source": "builtin",
-      "dependencies": {}
-    },
-    "com.unity.modules.imageconversion": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
-    },
-    "com.unity.modules.imgui": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
-    },
-    "com.unity.modules.jsonserialize": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
-    },
-    "com.unity.modules.particlesystem": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
-    },
-    "com.unity.modules.physics": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
-    },
-    "com.unity.modules.physics2d": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.physicscore2d": "1.0.0"
-      }
-    },
-    "com.unity.modules.physicscore2d": {
-      "version": "1.0.0",
-      "depth": 1,
-      "source": "builtin",
-      "dependencies": {}
-    },
-    "com.unity.modules.screencapture": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.imageconversion": "1.0.0"
-      }
-    },
-    "com.unity.modules.ui": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
-    },
-    "com.unity.modules.uielements": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.ui": "1.0.0",
-        "com.unity.modules.imgui": "1.0.0",
-        "com.unity.modules.jsonserialize": "1.0.0",
-        "com.unity.modules.hierarchycore": "1.0.0",
-        "com.unity.modules.physics": "1.0.0",
-        "com.unity.modules.animation": "1.0.0"
-      }
-    },
-    "com.unity.modules.unitywebrequest": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
-    },
-    "com.unity.modules.unitywebrequestassetbundle": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.assetbundle": "1.0.0",
-        "com.unity.modules.unitywebrequest": "1.0.0"
-      }
-    },
-    "com.unity.modules.unitywebrequestaudio": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.unitywebrequest": "1.0.0",
-        "com.unity.modules.audio": "1.0.0"
-      }
-    },
-    "com.unity.modules.unitywebrequesttexture": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.unitywebrequest": "1.0.0",
-        "com.unity.modules.imageconversion": "1.0.0"
-      }
-    },
-    "com.unity.modules.video": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.audio": "1.0.0",
-        "com.unity.modules.ui": "1.0.0",
-        "com.unity.modules.unitywebrequest": "1.0.0"
-      }
-    },
-    "com.kruty1918.tutorials": {
-      "version": "https://github.com/kruty1918dev-ai/com.kruty1918.tutorials.git#ecbb3264ba393bd14125996c06c010c30948289e",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "ecbb3264ba393bd14125996c06c010c30948289e"
     }
   }
 }
