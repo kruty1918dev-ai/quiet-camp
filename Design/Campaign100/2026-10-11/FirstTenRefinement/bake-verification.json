@@ -1,0 +1,122 @@
+{
+  "checkedUtc": "2026-10-11T22:26:55.140293+00:00",
+  "result": "Passed",
+  "sourceRevision": "56d0210a03e4b4525e21157fba6c3e2656fc13f68f4b578aa7d21a29f8af5732",
+  "sources": {
+    "Design/Campaign100/2026-10-11/FirstTenRefinement/Authoring/places.json": "e0dd1e50f809b73af320d1b22c160d1a4db9d9cdb5c9dd1c25cf7454fc43c836",
+    "Design/Campaign100/2026-10-11/FirstTenRefinement/Baseline/published-first-ten.json": "03156bf8e3d9716dfbdfb87ac3a91477102d780cd641cb0b25345b7ff60a881d",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/atmosphere.json": "5bc9924d3a353f0f874134fe6cc969e6edfa763e4d4f1b0b26bc7a3f124b4814",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/campaign100_models.json": "7378b914ba6be0af3e41ddffaef839301800e7c2bec5414faca05c0c7da73cc6",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json": "03a425492c6a03cb1d6715436338538c3f80010c33a83a0d704a5aad5ff2911b",
+    "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_story_models.json": "69be1ce95e08c4a7428e79e7ee01f0c8eee0642956ccf42b8e48408756b0dd58",
+    "QuietCamp/Packages/com.kruty1918.fence-authoring/Runtime/Core/FenceAuthoring.cs": "4e8e1f521a9780cb6215966116366651f0cd101ceebe136428e223423280cef0",
+    "QuietCamp/Packages/com.kruty1918.mesh-style/Runtime/Core/MeshStyle.cs": "184ccb0af809852f93bfd900d456965667b84707d8fb0256df9eb81a93d4c49a",
+    "QuietCamp/Packages/com.kruty1918.model-weathering/Runtime/Core/Weathering.cs": "0815f718df44904bd115ea43f594e60195dabecf09972f8d490e6e2bd63d0454",
+    "QuietCamp/Packages/com.kruty1918.power-lines/Runtime/Core/PowerLines.cs": "27e87bae624c217049a5e40b54dcdc1e242ac79c5c2901547e72e18e2c6a6de5",
+    "QuietCamp/Packages/com.kruty1918.road-authoring/Runtime/Core/RoadAuthoring.cs": "193b4e713be0b8af4555b452083bf190c71677f4863d22b66a08a63e8bb680d3",
+    "QuietCamp/Packages/com.kruty1918.rock-placement/Runtime/Core/RockPlacement.cs": "b92bc342783cbf738b4b357765931331c3f9730f7b4d7e75b0dcdcfe55622fb5",
+    "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Geometry.cs": "45919f475ce6294e41f863a0fef2646bc41ecf894d6ef928aed062cfc89eafff",
+    "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/Placement.cs": "bc7f6f25568a15420b14287829f5005d87d963ab1cbacbb370ba3ad3eeca5a33",
+    "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/RoutesAndMeshes.cs": "a97e3e4e4a2d728d332092c29564e2a7e8f9af8de91d0b7ef5bba8d7a2ba7450",
+    "QuietCamp/Packages/com.kruty1918.scene-placement/Runtime/Core/TriangleSurface.cs": "e40d59cfd06fee7a347092e96b8834a2c5afd4300a1667b537ce69e86f57c590",
+    "QuietCamp/Packages/com.kruty1918.vegetation-placement/Runtime/Core/VegetationPlacement.cs": "6bb7ee0e266c21c7a6bbe2432212588eec195fe2b46ced177c87aa3f6a3804a2",
+    "tools/FirstTenEnvironmentBake.cs": "43a8f2b66b88be948ec1df465c5ab06ac9b9c175daa1cbd22483690f82fa6b6d"
+  },
+  "levels": [
+    {
+      "id": "QC001",
+      "triangles": 62243,
+      "objects": 1395,
+      "parts": 5,
+      "trees": 36,
+      "groundPlants": 1354,
+      "manifestSha256": "e478c7ca1e7db6ca9b0ab1225f827df3599d70953d0d4210d908746d454fcaa0"
+    },
+    {
+      "id": "QC002",
+      "triangles": 61317,
+      "objects": 1472,
+      "parts": 5,
+      "trees": 39,
+      "groundPlants": 1427,
+      "manifestSha256": "7227261fa895e4b32eb87c57699f101c7e82450743a3bd7cb3e746dc77fade93"
+    },
+    {
+      "id": "QC003",
+      "triangles": 68791,
+      "objects": 1650,
+      "parts": 5,
+      "trees": 38,
+      "groundPlants": 1597,
+      "manifestSha256": "ee30161c5538579110ef8847c093d3d0cd5139226736dda5c430d047f975367a"
+    },
+    {
+      "id": "QC004",
+      "triangles": 64645,
+      "objects": 1580,
+      "parts": 5,
+      "trees": 37,
+      "groundPlants": 1538,
+      "manifestSha256": "097bc37c76453ab1823d7da15c7ee48f3d40041112052ee5a028be13b8e3f150"
+    },
+    {
+      "id": "QC005",
+      "triangles": 61065,
+      "objects": 1397,
+      "parts": 5,
+      "trees": 38,
+      "groundPlants": 1356,
+      "manifestSha256": "8f93e2514335d769766e6f85af490e92dd2ec306297eb067be7499262ff0c284"
+    },
+    {
+      "id": "QC006",
+      "triangles": 62861,
+      "objects": 1363,
+      "parts": 5,
+      "trees": 34,
+      "groundPlants": 1312,
+      "manifestSha256": "55cf0043c60d53c2753f3d06bbe99a036a7655806d2663f87d22cfcb79c50201"
+    },
+    {
+      "id": "QC007",
+      "triangles": 63016,
+      "objects": 1380,
+      "parts": 5,
+      "trees": 37,
+      "groundPlants": 1299,
+      "manifestSha256": "6207a3aa3276c10437e18f8abf18da1abadfc50bd169b41a5bc0fd96e7e42761"
+    },
+    {
+      "id": "QC008",
+      "triangles": 60327,
+      "objects": 1302,
+      "parts": 5,
+      "trees": 38,
+      "groundPlants": 1260,
+      "manifestSha256": "36dec5f4855cf6e8248812108badc25fb4d7e660de11ca08ff783525ba2fa69a"
+    },
+    {
+      "id": "QC009",
+      "triangles": 63966,
+      "objects": 1539,
+      "parts": 5,
+      "trees": 32,
+      "groundPlants": 1501,
+      "manifestSha256": "e969407f65b131d39b0fc8bc2d2bae192d67e1d22723575f823a93d1efbe526e"
+    },
+    {
+      "id": "QC010",
+      "triangles": 62987,
+      "objects": 1307,
+      "parts": 5,
+      "trees": 35,
+      "groundPlants": 1265,
+      "manifestSha256": "5d2f2eca4ad62fb7796de28ef64e10c544ad7ccaaa394769f59b4ffc58fcad6a"
+    }
+  ],
+  "bufferCount": 50,
+  "nativeAccepted": false,
+  "unityLaunched": false,
+  "playerBuild": false,
+  "mobileFpsMeasured": false
+}

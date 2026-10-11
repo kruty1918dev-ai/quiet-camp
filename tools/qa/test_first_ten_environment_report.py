@@ -3,7 +3,7 @@
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit,unquote
-import json,subprocess,tempfile
+import json,hashlib,subprocess,tempfile
 ROOT=Path(__file__).resolve().parents[2]
 REPORT=ROOT/'Design/Campaign100/2026-10-11/FirstTenRefinement/index.html'
 class Page(HTMLParser):
@@ -19,7 +19,19 @@ class Page(HTMLParser):
     def handle_data(self,data):
         if self.in_script:self.scripts[-1]+=data
 def main():
-    parsed=Page();parsed.feed(REPORT.read_text());assert len(parsed.images)==20
+    text=REPORT.read_text();parsed=Page();parsed.feed(text)
+    historical=[s for s in parsed.images if s.startswith('Baseline/')]
+    assert len(historical)==20
+    assert text.count('До · native baseline')==10 and text.count('Після · нова реалізація')==10
+    for src in parsed.images:
+        path=REPORT.parent/src;receipt=json.loads(path.with_suffix('.json').read_text())
+        assert hashlib.sha256(path.read_bytes()).hexdigest()==receipt['imageSha256']
+        if src.startswith('After/'):
+            import sys
+            sys.path.insert(0,str(ROOT/'tools'))
+            from build_first_ten_environment_report import after_image
+            level=json.loads((ROOT/'QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Levels'/f'{receipt["levelId"]}.json').read_text())
+            assert after_image(receipt['number'],receipt['orientation'],level['contentHash']) is not None
     assert len(parsed.ids)==len(set(parsed.ids));assert all(f'QC{i:03d}' in parsed.ids for i in range(1,11))
     for link in parsed.images+parsed.links:
         u=urlsplit(link)
@@ -30,5 +42,5 @@ def main():
     test='''const vm=require('vm');let callback;let portrait=false;const button={textContent:'Показати portrait',attributes:{},addEventListener:(event,handler)=>{if(event!=='click')throw Error('event');callback=handler;},setAttribute:function(k,v){this.attributes[k]=v;}};const document={getElementById:id=>{if(id!=='orientation')throw Error('id');return button;},body:{classList:{toggle:name=>{if(name!=='show-portrait')throw Error('class');portrait=!portrait;return portrait;}}}};vm.runInNewContext(SCRIPT,{document});callback.call(button);if(!portrait||button.attributes['aria-pressed']!=='true'||button.textContent!=='Показати landscape')throw Error('portrait toggle');callback.call(button);if(portrait||button.attributes['aria-pressed']!=='false'||button.textContent!=='Показати portrait')throw Error('landscape toggle');console.log('PASS orientation JS contract');'''.replace('SCRIPT',json.dumps(script))
     with tempfile.TemporaryDirectory(prefix='qc-first-ten-report-') as directory:
         file=Path(directory)/'report.js';file.write_text(test);subprocess.run(['node','--max-old-space-size=64',str(file)],check=True)
-    print('PASS report integrity: 20 historical images, 10 place sections, local links and orientation control. Browser layout/native acceptance not tested.')
+    print(f'PASS report integrity: 20 verified historical images, {len(parsed.images)-20} fresh after images, 10 before/after sections, local links and orientation control. Browser layout/native acceptance not tested.')
 if __name__=='__main__':main()

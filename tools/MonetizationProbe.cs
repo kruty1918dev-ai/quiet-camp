@@ -20,6 +20,7 @@ class MonetizationProbe
     {
         if (args.Length == 2 && args[0] == "--author-lighthouse") { AuthorLighthouse(args[1]); return; }
         if(args.Length==2&&args[0]=="--author-campaign100"){Campaign100Authoring.Publish(args[1]);return;}
+        if(args.Length==2&&args[0]=="--author-first-ten"){Campaign100Authoring.PublishFirstTen(args[1]);return;}
         VerifyDirectNavigation();
         var now = new DateTime(2026, 10, 5, 23, 59, 0, DateTimeKind.Utc);
         var state = new EconomySaveData();
@@ -326,6 +327,19 @@ class MonetizationProbe
         Expect(JArray.Parse(File.ReadAllText(Path.Combine(resources,"QuietCamp/bonus_camps.json"))).Count==0,"No additional base bonus levels");
         Campaign100PackContracts.Run(ids);
         Pass("100 campaign levels: validator, witness, independent solver, hashes, environmental story; 274 historical revisions retained");
+        var sample=Newtonsoft.Json.JsonConvert.DeserializeObject<LevelData>(Newtonsoft.Json.JsonConvert.SerializeObject(LevelLoader.Load(ids[0])));
+        string original=CampContent.CalculateHash(sample);
+        Expect(!JObject.FromObject(sample).ContainsKey("bakedEnvironment")&&!JObject.FromObject(sample.environment).ContainsKey("sunElevation"),"Optional world metadata preserves legacy serialization");
+        sample.bakedEnvironment="QuietCamp/BakedEnvironments/"+new string('a',64)+"/"+sample.id;
+        sample.environment.sunElevation=50;
+        Expect(LevelContentValidator.Validate(sample).Count==0&&CampContent.CalculateHash(sample)!=original,"New world metadata has its own revision");
+        var roundtrip=Newtonsoft.Json.JsonConvert.DeserializeObject<LevelData>(Newtonsoft.Json.JsonConvert.SerializeObject(sample));
+        Expect(roundtrip.bakedEnvironment==sample.bakedEnvironment&&roundtrip.environment.sunElevation==50,"World metadata roundtrip");
+        sample.bakedEnvironment="QuietCamp/BakedEnvironments/../private";
+        Expect(LevelContentValidator.Validate(sample).Contains("environment:baked-path"),"Reject world path traversal");
+        sample.environment.sunElevation=float.NaN;
+        Expect(LevelContentValidator.Validate(sample).Contains("environment:sun-elevation"),"Reject nonfinite authored sunlight");
+        Pass("optional baked-world metadata: legacy hashes, new revisions, roundtrip and invalid source rejection");
     }
 
     static void AuthorLighthouse(string folder)

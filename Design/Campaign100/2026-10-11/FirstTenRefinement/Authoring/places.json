@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "baseCampaignCount": 100,
   "roadmapDeferred": true,
   "runtimePublication": false,
@@ -16,10 +16,10 @@
       "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
       "terrain": {
         "extent": [
-          -12,
-          12,
-          -12,
-          12
+          -22,
+          22,
+          -22,
+          22
         ],
         "groundY": -0.012,
         "sampleStep": 0.4,
@@ -49,7 +49,9 @@
             "height": -0.13,
             "radius": 2
           }
-        ]
+        ],
+        "baseUndulation": 0.18,
+        "soilSeed": 20256804
       },
       "props": [
         {
@@ -63,7 +65,7 @@
           ],
           "height": 0.68,
           "yaw": 95,
-          "supportProfile": "explicit model contacts required before bake",
+          "supportProfile": "bottom-contact-hull; max gap 0.035; settlement 0.018",
           "weatheringIntensity": 0.5
         },
         {
@@ -77,7 +79,7 @@
           ],
           "height": 0.72,
           "yaw": 18,
-          "supportProfile": "explicit model contacts required before bake",
+          "supportProfile": "bottom-contact-hull; max gap 0.035; settlement 0.018",
           "weatheringIntensity": 0.5
         }
       ],
@@ -122,7 +124,10 @@
           ],
           "width": 0.65,
           "surface": "dirt",
-          "reserveVegetation": true
+          "reserveVegetation": true,
+          "edgeRoughness": 0.13,
+          "sampleStep": 0.18,
+          "junctionOverlap": 0.22
         }
       ],
       "planting": {
@@ -142,21 +147,84 @@
         "daisyVariant": {
           "source": "flower_yellowA",
           "petalColor": [
-            0.91,
-            0.9,
-            0.79
+            0.92,
+            0.92,
+            0.82,
+            1
           ],
-          "centerColor": [
-            0.81,
-            0.63,
-            0.25
+          "centreColor": [
+            0.89,
+            0.68,
+            0.19,
+            1
           ],
-          "maskStatus": "requires geometry review"
-        }
+          "minimumHeight": 0.22,
+          "maximumHeight": 0.32
+        },
+        "treeZone": [
+          -18,
+          18,
+          -18,
+          18
+        ],
+        "groundZone": [
+          -16,
+          16,
+          -16,
+          16
+        ],
+        "treeCellSize": 2.0,
+        "groundCellSize": 0.36,
+        "treeDensity": 0.75,
+        "groundDensity": 0.82,
+        "patchContrast": 0.9,
+        "patchScale": 0.72
       },
       "acceptanceUk": "Лавка має чотири опорні контакти; знак низький, без яскравого нового матеріалу.",
       "nativeAccepted": false,
-      "puzzleRevisionPublished": false
+      "puzzleRevisionPublished": false,
+      "sightline": {
+        "directionXZ": [
+          -0.707,
+          -0.707
+        ],
+        "treeClearanceFromBoard": 2.4,
+        "foregroundTreeClearance": 5.5
+      },
+      "camera": {
+        "pitch": 58,
+        "yaw": 225,
+        "includeProps": true
+      },
+      "extras": [
+        {
+          "kind": "rest-pocket",
+          "center": [
+            -5.2,
+            0,
+            2.4
+          ],
+          "radius": 1.15
+        }
+      ],
+      "sunElevation": 50,
+      "rockGroups": [
+        {
+          "id": "QC001/slope-bank",
+          "center": [
+            6.7,
+            0,
+            4.3
+          ],
+          "axis": [
+            1,
+            0,
+            0.45
+          ],
+          "radius": 0.9,
+          "count": 4
+        }
+      ]
     },
     {
       "id": "QC002",
@@ -170,10 +238,10 @@
       "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
       "terrain": {
         "extent": [
-          -12,
-          12,
-          -12,
-          12
+          -22,
+          22,
+          -22,
+          22
         ],
         "groundY": -0.012,
         "sampleStep": 0.4,
@@ -183,7 +251,7 @@
           -3.0,
           3.0
         ],
-        "transitionWidth": 1.6,
+        "transitionWidth": 3.2,
         "features": [
           {
             "kind": "ridge",
@@ -191,7 +259,7 @@
               -5,
               4
             ],
-            "height": 0.65,
+            "height": 0.48,
             "radius": 3
           },
           {
@@ -202,6 +270,30 @@
             ],
             "height": -0.28,
             "radius": 2.8
+          },
+          {
+            "kind": "ridge",
+            "centerXZ": [
+              -5,
+              5
+            ],
+            "height": 0.48,
+            "radius": 4
+          }
+        ],
+        "baseUndulation": 0.18,
+        "soilSeed": 20265269,
+        "supportPads": [
+          {
+            "centerXZ": [
+              -4.8,
+              5.8
+            ],
+            "halfSizeXZ": [
+              1.25,
+              0.95
+            ],
+            "blendWidth": 0.65
           }
         ]
       },
@@ -213,11 +305,11 @@
           "target": [
             -4.8,
             0,
-            3
+            5.8
           ],
           "height": 1.65,
           "yaw": 20,
-          "supportProfile": "explicit model contacts required before bake",
+          "supportProfile": "bottom-contact-hull; max gap 0.035; settlement 0.018",
           "weatheringIntensity": 0.5
         },
         {
@@ -231,7 +323,7 @@
           ],
           "height": 0.18,
           "yaw": 35,
-          "supportProfile": "explicit model contacts required before bake",
+          "supportProfile": "bottom-contact-hull; max gap 0.035; settlement 0.018",
           "weatheringIntensity": 0.5
         }
       ],
@@ -266,7 +358,10 @@
           ],
           "width": 0.65,
           "surface": "dirt",
-          "reserveVegetation": true
+          "reserveVegetation": true,
+          "edgeRoughness": 0.13,
+          "sampleStep": 0.18,
+          "junctionOverlap": 0.22
         },
         {
           "id": "QC002/route-2",
@@ -294,7 +389,10 @@
           ],
           "width": 0.65,
           "surface": "dirt",
-          "reserveVegetation": true
+          "reserveVegetation": true,
+          "edgeRoughness": 0.13,
+          "sampleStep": 0.18,
+          "junctionOverlap": 0.22
         }
       ],
       "planting": {
@@ -311,11 +409,77 @@
           "flower_yellowA"
         ],
         "distribution": "separate patches and tiers; authored sightlines and route reservations",
-        "daisyVariant": null
+        "daisyVariant": {
+          "source": "flower_yellowA",
+          "petalColor": [
+            0.92,
+            0.92,
+            0.82,
+            1
+          ],
+          "centreColor": [
+            0.89,
+            0.68,
+            0.19,
+            1
+          ],
+          "minimumHeight": 0.22,
+          "maximumHeight": 0.32
+        },
+        "treeZone": [
+          -18,
+          18,
+          -18,
+          18
+        ],
+        "groundZone": [
+          -16,
+          16,
+          -16,
+          16
+        ],
+        "treeCellSize": 2.0,
+        "groundCellSize": 0.36,
+        "treeDensity": 0.75,
+        "groundDensity": 0.82,
+        "patchContrast": 0.9,
+        "patchScale": 0.72
       },
       "acceptanceUk": "Навіс не отримує випадкового прогину опор; дві стежки читаються одночасно.",
       "nativeAccepted": false,
-      "puzzleRevisionPublished": false
+      "puzzleRevisionPublished": false,
+      "sightline": {
+        "directionXZ": [
+          -0.707,
+          -0.707
+        ],
+        "treeClearanceFromBoard": 2.4,
+        "foregroundTreeClearance": 5.5
+      },
+      "camera": {
+        "pitch": 58,
+        "yaw": 225,
+        "includeProps": true
+      },
+      "extras": [],
+      "sunElevation": 50,
+      "rockGroups": [
+        {
+          "id": "QC002/slope-bank",
+          "center": [
+            -8.2,
+            0,
+            6.5
+          ],
+          "axis": [
+            1,
+            0,
+            0.45
+          ],
+          "radius": 0.9,
+          "count": 4
+        }
+      ]
     },
     {
       "id": "QC003",
@@ -329,10 +493,10 @@
       "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
       "terrain": {
         "extent": [
-          -12,
-          12,
-          -12,
-          12
+          -22,
+          22,
+          -22,
+          22
         ],
         "groundY": -0.012,
         "sampleStep": 0.4,
@@ -362,38 +526,11 @@
             "height": 0.55,
             "radius": 3.5
           }
-        ]
+        ],
+        "baseUndulation": 0.18,
+        "soilSeed": 20306438
       },
-      "props": [
-        {
-          "id": "QC003/prop-1",
-          "owner": "QC003/place",
-          "sourceModel": "tree_default",
-          "target": [
-            -4.1,
-            0,
-            -1.8
-          ],
-          "height": 3.5,
-          "yaw": 12,
-          "supportProfile": "explicit model contacts required before bake",
-          "weatheringIntensity": 0
-        },
-        {
-          "id": "QC003/prop-2",
-          "owner": "QC003/place",
-          "sourceModel": "stone_largeA",
-          "target": [
-            -4.6,
-            0,
-            1
-          ],
-          "height": 0.48,
-          "yaw": 25,
-          "supportProfile": "explicit model contacts required before bake",
-          "weatheringIntensity": 0.5
-        }
-      ],
+      "props": [],
       "entryConnection": {
         "point": [
           0.5,
@@ -423,14 +560,17 @@
               -3.7
             ],
             [
-              -4.4,
+              -5.2,
               0,
-              -0.3
+              -3
             ]
           ],
           "width": 0.65,
           "surface": "dirt",
-          "reserveVegetation": true
+          "reserveVegetation": true,
+          "edgeRoughness": 0.13,
+          "sampleStep": 0.18,
+          "junctionOverlap": 0.22
         }
       ],
       "planting": {
@@ -447,11 +587,112 @@
           "flower_yellowA"
         ],
         "distribution": "separate patches and tiers; authored sightlines and route reservations",
-        "daisyVariant": null
+        "daisyVariant": {
+          "source": "flower_yellowA",
+          "petalColor": [
+            0.92,
+            0.92,
+            0.82,
+            1
+          ],
+          "centreColor": [
+            0.89,
+            0.68,
+            0.19,
+            1
+          ],
+          "minimumHeight": 0.22,
+          "maximumHeight": 0.32
+        },
+        "treeZone": [
+          -18,
+          18,
+          -18,
+          18
+        ],
+        "groundZone": [
+          -16,
+          16,
+          -16,
+          16
+        ],
+        "treeCellSize": 2.0,
+        "groundCellSize": 0.36,
+        "treeDensity": 0.75,
+        "groundDensity": 0.82,
+        "patchContrast": 0.9,
+        "patchScale": 0.72
       },
       "acceptanceUk": "Окремий authored basin і rock group; crown shadow має відповідати оновленій масці пазла, до publication.",
       "nativeAccepted": false,
-      "puzzleRevisionPublished": false
+      "puzzleRevisionPublished": false,
+      "sightline": {
+        "directionXZ": [
+          -0.707,
+          -0.707
+        ],
+        "treeClearanceFromBoard": 2.4,
+        "foregroundTreeClearance": 5.5
+      },
+      "camera": {
+        "pitch": 58,
+        "yaw": 225,
+        "includeProps": true
+      },
+      "extras": [
+        {
+          "kind": "spring",
+          "id": "QC003/spring",
+          "center": [
+            -5.2,
+            0,
+            -2.1
+          ],
+          "radius": 0.64,
+          "waterDepth": 0.12
+        },
+        {
+          "kind": "fence",
+          "id": "QC003/spring-rail",
+          "contour": [
+            [
+              -6.3,
+              0,
+              -2.8
+            ],
+            [
+              -6.4,
+              0,
+              -0.9
+            ],
+            [
+              -5,
+              0,
+              -0.7
+            ]
+          ],
+          "closed": false,
+          "height": 0.55
+        }
+      ],
+      "sunElevation": 50,
+      "rockGroups": [
+        {
+          "id": "QC003/slope-bank",
+          "center": [
+            6.6,
+            0,
+            5
+          ],
+          "axis": [
+            1,
+            0,
+            0.45
+          ],
+          "radius": 0.9,
+          "count": 4
+        }
+      ]
     },
     {
       "id": "QC004",
@@ -465,10 +706,10 @@
       "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
       "terrain": {
         "extent": [
-          -12,
-          12,
-          -12,
-          12
+          -22,
+          22,
+          -22,
+          22
         ],
         "groundY": -0.012,
         "sampleStep": 0.4,
@@ -497,8 +738,19 @@
             ],
             "height": 0.85,
             "radius": 3
+          },
+          {
+            "kind": "hollow",
+            "centerXZ": [
+              4.7,
+              -1
+            ],
+            "height": -0.18,
+            "radius": 1.25
           }
-        ]
+        ],
+        "baseUndulation": 0.18,
+        "soilSeed": 20314903
       },
       "props": [
         {
@@ -512,8 +764,10 @@
           ],
           "height": 0.28,
           "yaw": 0,
-          "supportProfile": "explicit model contacts required before bake",
-          "weatheringIntensity": 0.5
+          "supportProfile": "bottom-contact-hull; max gap 0.035; settlement 0.018",
+          "weatheringIntensity": 0.5,
+          "supportGap": 0.07,
+          "settlement": 0.045
         },
         {
           "id": "QC004/prop-2",
@@ -526,7 +780,7 @@
           ],
           "height": 0.2,
           "yaw": 70,
-          "supportProfile": "explicit model contacts required before bake",
+          "supportProfile": "bottom-contact-hull; max gap 0.035; settlement 0.018",
           "weatheringIntensity": 0.5
         }
       ],
@@ -561,7 +815,10 @@
           ],
           "width": 0.65,
           "surface": "dirt",
-          "reserveVegetation": true
+          "reserveVegetation": true,
+          "edgeRoughness": 0.13,
+          "sampleStep": 0.18,
+          "junctionOverlap": 0.22
         }
       ],
       "planting": {
@@ -578,11 +835,77 @@
           "flower_yellowA"
         ],
         "distribution": "separate patches and tiers; authored sightlines and route reservations",
-        "daisyVariant": null
+        "daisyVariant": {
+          "source": "flower_yellowA",
+          "petalColor": [
+            0.92,
+            0.92,
+            0.82,
+            1
+          ],
+          "centreColor": [
+            0.89,
+            0.68,
+            0.19,
+            1
+          ],
+          "minimumHeight": 0.22,
+          "maximumHeight": 0.32
+        },
+        "treeZone": [
+          -18,
+          18,
+          -18,
+          18
+        ],
+        "groundZone": [
+          -16,
+          16,
+          -16,
+          16
+        ],
+        "treeCellSize": 2.0,
+        "groundCellSize": 0.36,
+        "treeDensity": 0.75,
+        "groundDensity": 0.82,
+        "patchContrast": 0.9,
+        "patchScale": 0.72
       },
       "acceptanceUk": "Без повторного навісу; багаття і noise cells прив’язуються до одного джерела.",
       "nativeAccepted": false,
-      "puzzleRevisionPublished": false
+      "puzzleRevisionPublished": false,
+      "sightline": {
+        "directionXZ": [
+          -0.707,
+          -0.707
+        ],
+        "treeClearanceFromBoard": 2.4,
+        "foregroundTreeClearance": 5.5
+      },
+      "camera": {
+        "pitch": 58,
+        "yaw": 225,
+        "includeProps": true
+      },
+      "extras": [],
+      "sunElevation": 50,
+      "rockGroups": [
+        {
+          "id": "QC004/slope-bank",
+          "center": [
+            -6.2,
+            0,
+            4.5
+          ],
+          "axis": [
+            1,
+            0,
+            0.45
+          ],
+          "radius": 0.9,
+          "count": 4
+        }
+      ]
     },
     {
       "id": "QC005",
@@ -596,10 +919,10 @@
       "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
       "terrain": {
         "extent": [
-          -12,
-          12,
-          -12,
-          12
+          -22,
+          22,
+          -22,
+          22
         ],
         "groundY": -0.012,
         "sampleStep": 0.4,
@@ -629,7 +952,9 @@
             "height": 0.5,
             "radius": 3.8
           }
-        ]
+        ],
+        "baseUndulation": 0.18,
+        "soilSeed": 20290664
       },
       "props": [
         {
@@ -643,7 +968,7 @@
           ],
           "height": 2.4,
           "yaw": 20,
-          "supportProfile": "explicit model contacts required before bake",
+          "supportProfile": "bottom-contact-hull; max gap 0.035; settlement 0.018",
           "weatheringIntensity": 0
         },
         {
@@ -657,8 +982,34 @@
           ],
           "height": 2.1,
           "yaw": -14,
-          "supportProfile": "explicit model contacts required before bake",
+          "supportProfile": "bottom-contact-hull; max gap 0.035; settlement 0.018",
           "weatheringIntensity": 0
+        },
+        {
+          "id": "QC005/orchard-old-3",
+          "owner": "QC005/orchard",
+          "sourceModel": "ua_valley_orchard",
+          "target": [
+            -5.1,
+            0,
+            -3.5
+          ],
+          "height": 2.7,
+          "yaw": 41,
+          "weatheringIntensity": 0.25
+        },
+        {
+          "id": "QC005/orchard-old-4",
+          "owner": "QC005/orchard",
+          "sourceModel": "ua_valley_orchard",
+          "target": [
+            2.4,
+            0,
+            6.4
+          ],
+          "height": 2.5,
+          "yaw": 127,
+          "weatheringIntensity": 0.25
         }
       ],
       "entryConnection": {
@@ -692,7 +1043,10 @@
           ],
           "width": 0.65,
           "surface": "dirt",
-          "reserveVegetation": true
+          "reserveVegetation": true,
+          "edgeRoughness": 0.13,
+          "sampleStep": 0.18,
+          "junctionOverlap": 0.22
         }
       ],
       "planting": {
@@ -709,11 +1063,78 @@
           "flower_yellowA"
         ],
         "distribution": "separate patches and tiers; authored sightlines and route reservations",
-        "daisyVariant": null
+        "daisyVariant": {
+          "source": "flower_yellowA",
+          "petalColor": [
+            0.92,
+            0.92,
+            0.82,
+            1
+          ],
+          "centreColor": [
+            0.89,
+            0.68,
+            0.19,
+            1
+          ],
+          "minimumHeight": 0.22,
+          "maximumHeight": 0.32
+        },
+        "treeZone": [
+          -18,
+          18,
+          -18,
+          18
+        ],
+        "groundZone": [
+          -16,
+          16,
+          -16,
+          16
+        ],
+        "treeCellSize": 2.0,
+        "groundCellSize": 0.36,
+        "treeDensity": 0.75,
+        "groundDensity": 0.82,
+        "patchContrast": 0.9,
+        "patchScale": 0.72,
+        "orchard": true
       },
       "acceptanceUk": "Три нерегулярні групи саду; зберегти достатню відстань між гостьовими зонами.",
       "nativeAccepted": false,
-      "puzzleRevisionPublished": false
+      "puzzleRevisionPublished": false,
+      "sightline": {
+        "directionXZ": [
+          -0.707,
+          -0.707
+        ],
+        "treeClearanceFromBoard": 2.4,
+        "foregroundTreeClearance": 5.5
+      },
+      "camera": {
+        "pitch": 58,
+        "yaw": 225,
+        "includeProps": true
+      },
+      "extras": [],
+      "sunElevation": 50,
+      "rockGroups": [
+        {
+          "id": "QC005/slope-bank",
+          "center": [
+            6.8,
+            0,
+            -6
+          ],
+          "axis": [
+            1,
+            0,
+            0.45
+          ],
+          "radius": 0.9,
+          "count": 4
+        }
+      ]
     },
     {
       "id": "QC006",
@@ -727,10 +1148,10 @@
       "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
       "terrain": {
         "extent": [
-          -12,
-          12,
-          -12,
-          12
+          -22,
+          22,
+          -22,
+          22
         ],
         "groundY": -0.012,
         "sampleStep": 0.4,
@@ -760,6 +1181,21 @@
             "height": -0.18,
             "radius": 2
           }
+        ],
+        "baseUndulation": 0.18,
+        "soilSeed": 20299129,
+        "supportPads": [
+          {
+            "centerXZ": [
+              -7.2,
+              3.7
+            ],
+            "halfSizeXZ": [
+              1.05,
+              0.7
+            ],
+            "blendWidth": 0.6
+          }
         ]
       },
       "props": [
@@ -768,13 +1204,13 @@
           "owner": "QC006/place",
           "sourceModel": "ua_bus_shelter_mosaic",
           "target": [
-            -6,
+            -7.2,
             0,
-            2.5
+            3.7
           ],
-          "height": 2.1,
+          "height": 1.75,
           "yaw": 90,
-          "supportProfile": "explicit model contacts required before bake",
+          "supportProfile": "bottom-contact-hull; max gap 0.035; settlement 0.018",
           "weatheringIntensity": 0.5
         }
       ],
@@ -814,7 +1250,10 @@
           ],
           "width": 1.5,
           "surface": "worn-asphalt",
-          "reserveVegetation": true
+          "reserveVegetation": true,
+          "edgeRoughness": 0.18,
+          "sampleStep": 0.18,
+          "junctionOverlap": 0.22
         },
         {
           "id": "QC006/route-2",
@@ -837,7 +1276,10 @@
           ],
           "width": 0.65,
           "surface": "dirt",
-          "reserveVegetation": true
+          "reserveVegetation": true,
+          "edgeRoughness": 0.13,
+          "sampleStep": 0.18,
+          "junctionOverlap": 0.22
         }
       ],
       "planting": {
@@ -854,11 +1296,89 @@
           "flower_yellowA"
         ],
         "distribution": "separate patches and tiers; authored sightlines and route reservations",
-        "daisyVariant": null
+        "daisyVariant": {
+          "source": "flower_yellowA",
+          "petalColor": [
+            0.92,
+            0.92,
+            0.82,
+            1
+          ],
+          "centreColor": [
+            0.89,
+            0.68,
+            0.19,
+            1
+          ],
+          "minimumHeight": 0.22,
+          "maximumHeight": 0.32
+        },
+        "treeZone": [
+          -18,
+          18,
+          -18,
+          18
+        ],
+        "groundZone": [
+          -16,
+          16,
+          -16,
+          16
+        ],
+        "treeCellSize": 2.0,
+        "groundCellSize": 0.36,
+        "treeDensity": 0.75,
+        "groundDensity": 0.82,
+        "patchContrast": 0.9,
+        "patchScale": 0.72
       },
       "acceptanceUk": "Наметні клітини не перетинають дорогу; power route копіює road route з боковим offset.",
       "nativeAccepted": false,
-      "puzzleRevisionPublished": false
+      "puzzleRevisionPublished": false,
+      "sightline": {
+        "directionXZ": [
+          -0.707,
+          -0.707
+        ],
+        "treeClearanceFromBoard": 2.4,
+        "foregroundTreeClearance": 5.5
+      },
+      "camera": {
+        "pitch": 58,
+        "yaw": 225,
+        "includeProps": true
+      },
+      "extras": [
+        {
+          "kind": "power",
+          "id": "QC006/distribution",
+          "routeId": "QC006/route-1",
+          "offset": 1.25,
+          "supportHeight": 3.25,
+          "minimumSpan": 3.5,
+          "maximumSpan": 6.8,
+          "sag": 0.32,
+          "severedSpan": 1
+        }
+      ],
+      "sunElevation": 50,
+      "rockGroups": [
+        {
+          "id": "QC006/slope-bank",
+          "center": [
+            5.8,
+            0,
+            5
+          ],
+          "axis": [
+            1,
+            0,
+            0.45
+          ],
+          "radius": 0.9,
+          "count": 4
+        }
+      ]
     },
     {
       "id": "QC007",
@@ -872,10 +1392,10 @@
       "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
       "terrain": {
         "extent": [
-          -12,
-          12,
-          -12,
-          12
+          -22,
+          22,
+          -22,
+          22
         ],
         "groundY": -0.012,
         "sampleStep": 0.4,
@@ -905,24 +1425,24 @@
             "height": -0.25,
             "radius": 2.8
           }
+        ],
+        "baseUndulation": 0.18,
+        "soilSeed": 20340298,
+        "supportPads": [
+          {
+            "centerXZ": [
+              -5.8,
+              2.6
+            ],
+            "halfSizeXZ": [
+              1.18,
+              1.04
+            ],
+            "blendWidth": 0.6
+          }
         ]
       },
-      "props": [
-        {
-          "id": "QC007/prop-1",
-          "owner": "QC007/place",
-          "sourceModel": "story_foundation",
-          "target": [
-            -5,
-            0,
-            1.8
-          ],
-          "height": 0.35,
-          "yaw": 22,
-          "supportProfile": "explicit model contacts required before bake",
-          "weatheringIntensity": 0.5
-        }
-      ],
+      "props": [],
       "entryConnection": {
         "point": [
           0.5,
@@ -952,14 +1472,22 @@
               -4.8
             ],
             [
-              -5,
+              -6.45,
               0,
-              -0.3
+              -0.25
+            ],
+            [
+              -5.8,
+              0,
+              1.65
             ]
           ],
           "width": 0.65,
           "surface": "dirt",
-          "reserveVegetation": true
+          "reserveVegetation": true,
+          "edgeRoughness": 0.13,
+          "sampleStep": 0.18,
+          "junctionOverlap": 0.22
         }
       ],
       "planting": {
@@ -979,21 +1507,118 @@
         "daisyVariant": {
           "source": "flower_yellowA",
           "petalColor": [
-            0.91,
-            0.9,
-            0.79
+            0.92,
+            0.92,
+            0.82,
+            1
           ],
-          "centerColor": [
-            0.81,
-            0.63,
-            0.25
+          "centreColor": [
+            0.89,
+            0.68,
+            0.19,
+            1
           ],
-          "maskStatus": "requires geometry review"
-        }
+          "minimumHeight": 0.22,
+          "maximumHeight": 0.32
+        },
+        "treeZone": [
+          -18,
+          18,
+          -18,
+          18
+        ],
+        "groundZone": [
+          -16,
+          16,
+          -16,
+          16
+        ],
+        "treeCellSize": 2.0,
+        "groundCellSize": 0.36,
+        "treeDensity": 0.75,
+        "groundDensity": 0.82,
+        "patchContrast": 0.9,
+        "patchScale": 0.72
       },
       "acceptanceUk": "Фундамент потребує геометрії залишків стін/дверного отвору; fence ensemble замкнений з явними пошкодженими openings.",
       "nativeAccepted": false,
-      "puzzleRevisionPublished": false
+      "puzzleRevisionPublished": false,
+      "sightline": {
+        "directionXZ": [
+          -0.707,
+          -0.707
+        ],
+        "treeClearanceFromBoard": 2.4,
+        "foregroundTreeClearance": 5.5
+      },
+      "camera": {
+        "pitch": 58,
+        "yaw": 225,
+        "includeProps": true
+      },
+      "extras": [
+        {
+          "kind": "ruin",
+          "id": "QC007/home",
+          "center": [
+            -5.8,
+            0,
+            2.6
+          ],
+          "width": 2.1,
+          "depth": 1.9,
+          "wallHeight": 0.42,
+          "doorWidth": 0.68
+        },
+        {
+          "kind": "fence",
+          "id": "QC007/yard",
+          "contour": [
+            [
+              -7.9,
+              0,
+              -0.2
+            ],
+            [
+              -4.5,
+              0,
+              -0.3
+            ],
+            [
+              -4.6,
+              0,
+              5.4
+            ],
+            [
+              -8.2,
+              0,
+              5.2
+            ]
+          ],
+          "closed": true,
+          "height": 0.62,
+          "gateFrom": 0.95,
+          "gateTo": 2.0
+        }
+      ],
+      "sunElevation": 50,
+      "rockGroups": [
+        {
+          "id": "QC007/slope-bank",
+          "center": [
+            5.4,
+            0,
+            6.3
+          ],
+          "axis": [
+            1,
+            0,
+            0.45
+          ],
+          "radius": 0.9,
+          "count": 4
+        }
+      ]
     },
     {
       "id": "QC008",
@@ -1007,10 +1632,10 @@
       "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
       "terrain": {
         "extent": [
-          -12,
-          12,
-          -12,
-          12
+          -22,
+          22,
+          -22,
+          22
         ],
         "groundY": -0.012,
         "sampleStep": 0.4,
@@ -1020,7 +1645,7 @@
           -3.0,
           3.0
         ],
-        "transitionWidth": 1.6,
+        "transitionWidth": 2.8,
         "features": [
           {
             "kind": "hollow",
@@ -1039,8 +1664,19 @@
             ],
             "height": 0.7,
             "radius": 3.8
+          },
+          {
+            "kind": "hollow",
+            "centerXZ": [
+              6,
+              1
+            ],
+            "height": -0.45,
+            "radius": 3.2
           }
-        ]
+        ],
+        "baseUndulation": 0.18,
+        "soilSeed": 20348763
       },
       "props": [
         {
@@ -1054,7 +1690,7 @@
           ],
           "height": 3.6,
           "yaw": 9,
-          "supportProfile": "explicit model contacts required before bake",
+          "supportProfile": "bottom-contact-hull; max gap 0.035; settlement 0.018",
           "weatheringIntensity": 0
         },
         {
@@ -1068,7 +1704,7 @@
           ],
           "height": 3.2,
           "yaw": -7,
-          "supportProfile": "explicit model contacts required before bake",
+          "supportProfile": "bottom-contact-hull; max gap 0.035; settlement 0.018",
           "weatheringIntensity": 0
         }
       ],
@@ -1108,15 +1744,18 @@
           ],
           "width": 0.65,
           "surface": "dirt",
-          "reserveVegetation": true
+          "reserveVegetation": true,
+          "edgeRoughness": 0.13,
+          "sampleStep": 0.18,
+          "junctionOverlap": 0.22
         },
         {
           "id": "QC008/route-2",
           "points": [
             [
-              5.5,
+              5,
               0,
-              1
+              0.5
             ],
             [
               5.6,
@@ -1131,7 +1770,10 @@
           ],
           "width": 0.65,
           "surface": "dirt",
-          "reserveVegetation": true
+          "reserveVegetation": true,
+          "edgeRoughness": 0.13,
+          "sampleStep": 0.18,
+          "junctionOverlap": 0.22
         }
       ],
       "planting": {
@@ -1148,11 +1790,78 @@
           "flower_yellowA"
         ],
         "distribution": "separate patches and tiers; authored sightlines and route reservations",
-        "daisyVariant": null
+        "daisyVariant": {
+          "source": "flower_yellowA",
+          "petalColor": [
+            0.92,
+            0.92,
+            0.82,
+            1
+          ],
+          "centreColor": [
+            0.89,
+            0.68,
+            0.19,
+            1
+          ],
+          "minimumHeight": 0.22,
+          "maximumHeight": 0.32
+        },
+        "treeZone": [
+          -18,
+          18,
+          -18,
+          18
+        ],
+        "groundZone": [
+          -16,
+          16,
+          -16,
+          16
+        ],
+        "treeCellSize": 2.0,
+        "groundCellSize": 0.36,
+        "treeDensity": 0.75,
+        "groundDensity": 0.82,
+        "patchContrast": 0.9,
+        "patchScale": 0.72,
+        "poplars": true
       },
       "acceptanceUk": "Порівняти поплар із gameplay reference: below-reference-detail не вважати готовою гармонізацією.",
       "nativeAccepted": false,
-      "puzzleRevisionPublished": false
+      "puzzleRevisionPublished": false,
+      "sightline": {
+        "directionXZ": [
+          -0.707,
+          -0.707
+        ],
+        "treeClearanceFromBoard": 2.4,
+        "foregroundTreeClearance": 5.5
+      },
+      "camera": {
+        "pitch": 58,
+        "yaw": 235,
+        "includeProps": true
+      },
+      "extras": [],
+      "sunElevation": 50,
+      "rockGroups": [
+        {
+          "id": "QC008/slope-bank",
+          "center": [
+            -6.5,
+            0,
+            4.6
+          ],
+          "axis": [
+            1,
+            0,
+            0.45
+          ],
+          "radius": 0.9,
+          "count": 4
+        }
+      ]
     },
     {
       "id": "QC009",
@@ -1166,10 +1875,10 @@
       "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
       "terrain": {
         "extent": [
-          -12,
-          12,
-          -12,
-          12
+          -22,
+          22,
+          -22,
+          22
         ],
         "groundY": -0.012,
         "sampleStep": 0.4,
@@ -1187,7 +1896,7 @@
               -5.3,
               2.8
             ],
-            "height": 0.28,
+            "height": 0.19,
             "radius": 2.5
           },
           {
@@ -1198,6 +1907,30 @@
             ],
             "height": -0.3,
             "radius": 3
+          },
+          {
+            "kind": "ridge",
+            "centerXZ": [
+              -5.2,
+              2.9
+            ],
+            "height": 0.06,
+            "radius": 2.1
+          }
+        ],
+        "baseUndulation": 0.18,
+        "soilSeed": 20341164,
+        "supportPads": [
+          {
+            "centerXZ": [
+              -5.2,
+              2.9
+            ],
+            "halfSizeXZ": [
+              0.6,
+              0.5
+            ],
+            "blendWidth": 0.8
           }
         ]
       },
@@ -1211,9 +1944,9 @@
             0,
             2.9
           ],
-          "height": 1.15,
+          "height": 0.95,
           "yaw": 30,
-          "supportProfile": "explicit model contacts required before bake",
+          "supportProfile": "bottom-contact-hull; max gap 0.035; settlement 0.018",
           "weatheringIntensity": 0.5
         },
         {
@@ -1227,7 +1960,7 @@
           ],
           "height": 0.14,
           "yaw": 85,
-          "supportProfile": "explicit model contacts required before bake",
+          "supportProfile": "bottom-contact-hull; max gap 0.035; settlement 0.018",
           "weatheringIntensity": 0.5
         }
       ],
@@ -1262,7 +1995,10 @@
           ],
           "width": 0.65,
           "surface": "dirt",
-          "reserveVegetation": true
+          "reserveVegetation": true,
+          "edgeRoughness": 0.13,
+          "sampleStep": 0.18,
+          "junctionOverlap": 0.22
         },
         {
           "id": "QC009/route-2",
@@ -1285,7 +2021,10 @@
           ],
           "width": 0.65,
           "surface": "dirt",
-          "reserveVegetation": true
+          "reserveVegetation": true,
+          "edgeRoughness": 0.13,
+          "sampleStep": 0.18,
+          "junctionOverlap": 0.22
         }
       ],
       "planting": {
@@ -1302,11 +2041,77 @@
           "flower_yellowA"
         ],
         "distribution": "separate patches and tiers; authored sightlines and route reservations",
-        "daisyVariant": null
+        "daisyVariant": {
+          "source": "flower_yellowA",
+          "petalColor": [
+            0.92,
+            0.92,
+            0.82,
+            1
+          ],
+          "centreColor": [
+            0.89,
+            0.68,
+            0.19,
+            1
+          ],
+          "minimumHeight": 0.22,
+          "maximumHeight": 0.32
+        },
+        "treeZone": [
+          -18,
+          18,
+          -18,
+          18
+        ],
+        "groundZone": [
+          -16,
+          16,
+          -16,
+          16
+        ],
+        "treeCellSize": 2.0,
+        "groundCellSize": 0.36,
+        "treeDensity": 0.75,
+        "groundDensity": 0.82,
+        "patchContrast": 0.9,
+        "patchScale": 0.72
       },
       "acceptanceUk": "Криниця простіша за великі дерева; без повторної огорожі джерела QC003.",
       "nativeAccepted": false,
-      "puzzleRevisionPublished": false
+      "puzzleRevisionPublished": false,
+      "sightline": {
+        "directionXZ": [
+          -0.707,
+          -0.707
+        ],
+        "treeClearanceFromBoard": 2.4,
+        "foregroundTreeClearance": 5.5
+      },
+      "camera": {
+        "pitch": 58,
+        "yaw": 225,
+        "includeProps": true
+      },
+      "extras": [],
+      "sunElevation": 50,
+      "rockGroups": [
+        {
+          "id": "QC009/slope-bank",
+          "center": [
+            5.7,
+            0,
+            -6
+          ],
+          "axis": [
+            1,
+            0,
+            0.45
+          ],
+          "radius": 0.9,
+          "count": 4
+        }
+      ]
     },
     {
       "id": "QC010",
@@ -1320,10 +2125,10 @@
       "coordinates": "local Y-up; XZ ground; 1 unit = one board cell",
       "terrain": {
         "extent": [
-          -12,
-          12,
-          -12,
-          12
+          -22,
+          22,
+          -22,
+          22
         ],
         "groundY": -0.012,
         "sampleStep": 0.4,
@@ -1353,7 +2158,9 @@
             "height": -0.25,
             "radius": 2.8
           }
-        ]
+        ],
+        "baseUndulation": 0.18,
+        "soilSeed": 20316861
       },
       "props": [
         {
@@ -1365,9 +2172,9 @@
             0,
             1.5
           ],
-          "height": 0.85,
+          "height": 0.72,
           "yaw": 35,
-          "supportProfile": "explicit model contacts required before bake",
+          "supportProfile": "bottom-contact-hull; max gap 0.035; settlement 0.018",
           "weatheringIntensity": 0.5
         },
         {
@@ -1379,9 +2186,9 @@
             0,
             0.4
           ],
-          "height": 0.3,
+          "height": 0.28,
           "yaw": 0,
-          "supportProfile": "explicit model contacts required before bake",
+          "supportProfile": "bottom-contact-hull; max gap 0.035; settlement 0.018",
           "weatheringIntensity": 0.5
         }
       ],
@@ -1416,7 +2223,10 @@
           ],
           "width": 0.65,
           "surface": "dirt",
-          "reserveVegetation": true
+          "reserveVegetation": true,
+          "edgeRoughness": 0.13,
+          "sampleStep": 0.18,
+          "junctionOverlap": 0.22
         },
         {
           "id": "QC010/route-2",
@@ -1434,7 +2244,10 @@
           ],
           "width": 0.65,
           "surface": "dirt",
-          "reserveVegetation": true
+          "reserveVegetation": true,
+          "edgeRoughness": 0.13,
+          "sampleStep": 0.18,
+          "junctionOverlap": 0.22
         },
         {
           "id": "QC010/route-3",
@@ -1457,7 +2270,10 @@
           ],
           "width": 0.65,
           "surface": "dirt",
-          "reserveVegetation": true
+          "reserveVegetation": true,
+          "edgeRoughness": 0.13,
+          "sampleStep": 0.18,
+          "junctionOverlap": 0.22
         }
       ],
       "planting": {
@@ -1474,11 +2290,97 @@
           "flower_yellowA"
         ],
         "distribution": "separate patches and tiers; authored sightlines and route reservations",
-        "daisyVariant": null
+        "daisyVariant": {
+          "source": "flower_yellowA",
+          "petalColor": [
+            0.92,
+            0.92,
+            0.82,
+            1
+          ],
+          "centreColor": [
+            0.89,
+            0.68,
+            0.19,
+            1
+          ],
+          "minimumHeight": 0.22,
+          "maximumHeight": 0.32
+        },
+        "treeZone": [
+          -18,
+          18,
+          -18,
+          18
+        ],
+        "groundZone": [
+          -16,
+          16,
+          -16,
+          16
+        ],
+        "treeCellSize": 2.0,
+        "groundCellSize": 0.36,
+        "treeDensity": 0.75,
+        "groundDensity": 0.82,
+        "patchContrast": 0.9,
+        "patchScale": 0.72
       },
       "acceptanceUk": "Ліхтар гармонується за фактичним screen size; geometry protection зберігає ручку, але не дозволяє надмірну деталізацію.",
       "nativeAccepted": false,
-      "puzzleRevisionPublished": false
+      "puzzleRevisionPublished": false,
+      "sightline": {
+        "directionXZ": [
+          -0.707,
+          -0.707
+        ],
+        "treeClearanceFromBoard": 2.4,
+        "foregroundTreeClearance": 5.5
+      },
+      "camera": {
+        "pitch": 58,
+        "yaw": 225,
+        "includeProps": true
+      },
+      "extras": [],
+      "sunElevation": 50,
+      "rockGroups": [
+        {
+          "id": "QC010/slope-bank",
+          "center": [
+            6,
+            0,
+            -5
+          ],
+          "axis": [
+            1,
+            0,
+            0.45
+          ],
+          "radius": 0.9,
+          "count": 4
+        }
+      ]
     }
-  ]
+  ],
+  "construction": {
+    "postWidth": 0.065,
+    "fenceBayLength": 1.05,
+    "railWidth": 0.035,
+    "slatWidth": 0.055,
+    "slatCount": 5,
+    "palette": [
+      0.37,
+      0.34,
+      0.26,
+      1
+    ]
+  },
+  "style": {
+    "referenceTriangles": 114,
+    "referenceHeight": 3.6,
+    "referenceProjectedArea": 10000,
+    "maximumWorldError": 0.014,
+    "preserveFeatureMinimumHeight": 0.12
+  }
 }

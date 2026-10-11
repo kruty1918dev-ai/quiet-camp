@@ -123,7 +123,7 @@ namespace QuietCamp.Presentation.World
                 }
                 Sole(-.015f,.125f,.054f); Sole(-.105f,-.035f,.044f);
             }
-            foreach(var access in CampAccess.Points(_level))
+            foreach(var access in BakedCampEnvironment.Uses(_level)?Array.Empty<Cell>():CampAccess.Points(_level))
                 for(int step=1;step<19;step++)
                 {
                     var at=CampTrail.Centre(_level,access,step*.43f);

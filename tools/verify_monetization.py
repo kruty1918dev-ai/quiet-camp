@@ -29,6 +29,7 @@ def main():
         assemblies = [(name, folder) for name, folder in assemblies if not name.startswith("Tests.")]
     if "--include-editor" in sys.argv and not player_sources:
         assemblies.append(("Editor", "Editor"))
+    checks=[]
     with tempfile.TemporaryDirectory(prefix="quietcamp-monetization-compile-") as temporary:
         output = Path(temporary)
         compiled = {}
@@ -83,6 +84,7 @@ def main():
                         options.append('-r:"' + str(cached) + '"')
             destination = output / (assembly + ".dll")
             options.extend(['-out:"' + str(destination) + '"', '-refout:"' + str(output / (assembly + ".ref.dll")) + '"'])
+            options.append('-parallel-')
             source_root = PROJECT / folder if is_package else PROJECT / "Assets/QuietCamp" / folder
             sources = sorted(source_root.rglob("*.cs"))
             if name == "Kruty1918.LevelGen":
@@ -108,9 +110,15 @@ def main():
                                     b"RoadmapWorldAsset", b"RoadmapWorldChunk"):
                     assert editor_type not in metadata, "Editor-only map type in player-conditioned assembly: " + str(editor_type)
             warnings = (result.stdout + result.stderr).count(": warning ")
+            import hashlib
+            checks.append(dict(assembly=assembly,warnings=warnings,sources={str(path.relative_to(ROOT)):hashlib.sha256(path.read_bytes()).hexdigest() for path in sources}))
             label = "player-conditioned source compiler check" if player_sources else "current-source compiler check"
             print("PASS " + label + ": " + assembly + " (warnings: " + str(warnings) + ")", flush=True)
     print("Compiler checks only; no Unity import, player build or runtime scene check performed.")
+    if '--receipt' in sys.argv:
+        import datetime,json
+        destination=Path(sys.argv[sys.argv.index('--receipt')+1]);destination.parent.mkdir(parents=True,exist_ok=True)
+        destination.write_text(json.dumps(dict(checkedUtc=datetime.datetime.now(datetime.timezone.utc).isoformat(),checks=checks,cachedReferences=True,nativeVerified=False,unityLaunched=False,playerBuild=False),indent=2)+'\n')
 
 
 if __name__ == "__main__":

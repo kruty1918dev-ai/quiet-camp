@@ -37,6 +37,11 @@ namespace QuietCamp.Presentation.World
         public static void Spawn(LevelData level, AssetCatalog catalog, Transform decorRoot)
         {
             if (catalog == null || decorRoot == null) return;
+            if(BakedCampEnvironment.Uses(level))
+            {
+                BakedCampEnvironment.Attach(decorRoot,level);
+                return;
+            }
             var rng = new System.Random(level.decorSeed);
 
             float halfW = level.width / 2f, halfH = level.height / 2f;

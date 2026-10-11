@@ -13,7 +13,7 @@ def current_manifest():
  for folder in ['QuietCamp/Resources','Resources']:
   directory=ASSETS/folder
   for path in directory.rglob('*'):
-   if path.suffix not in ['.shader','.mat','.json','.asset']:continue
+   if path.suffix not in ['.shader','.mat','.json','.asset','.bytes']:continue
    if any(part in ['Levels','GeneratedLevels','ContentRevisions','Fonts'] for part in path.parts):continue
    files.add(path)
  rows=[dict(path='Assets/'+str(p.relative_to(ASSETS)),sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in sorted(files)]

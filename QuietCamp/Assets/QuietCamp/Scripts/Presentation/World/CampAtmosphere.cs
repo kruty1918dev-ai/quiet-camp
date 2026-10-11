@@ -152,12 +152,12 @@ namespace QuietCamp.Presentation.World
             // that used the serialized light pose when rejecting scenic shadows.
             if (_sun != null)
             {
-                _sun.transform.localEulerAngles = new Vector3(profile.Elevation, 65f, 0f);
+                _sun.transform.localEulerAngles = new Vector3(level.environment?.sunElevation>=0?level.environment.sunElevation:profile.Elevation, 65f, 0f);
                 _sun.intensity = profile.SunIntensity;
                 _sun.color = profile.Sun*SeasonPalette.For(_level).SunTint;
                 RenderSettings.sun = _sun;
             }
-            if(decorRoot!=null)
+            if(decorRoot!=null&&!BakedCampEnvironment.Uses(level))
             {
                 CameraFitter.Fit(camera,level,viewport);
                 var compositionRoot=new GameObject("ComposedEnvironment");compositionRoot.transform.SetParent(decorRoot,false);
@@ -171,7 +171,7 @@ namespace QuietCamp.Presentation.World
             _initialized = true;
             Apply(profile);
             RefreshLayout();
-            if (decorRoot != null)
+            if (decorRoot != null&&!BakedCampEnvironment.Uses(level))
             {
                 var floorRoot = new GameObject("VisibleForestFloor");
                 floorRoot.transform.SetParent(decorRoot, false);

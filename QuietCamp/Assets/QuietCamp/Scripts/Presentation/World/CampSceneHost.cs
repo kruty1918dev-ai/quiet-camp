@@ -626,7 +626,8 @@ namespace QuietCamp.Presentation.World
                 var light = dir.GetComponent<Light>();
                 if (light != null)
                 {
-                    dir.localEulerAngles = new Vector3(profile.Elevation, 65f, 0f);
+                    var authoredElevation=_session?.Level?.environment?.sunElevation??-1;
+                    dir.localEulerAngles = new Vector3(authoredElevation>=0?authoredElevation:profile.Elevation, 65f, 0f);
                     RenderSettings.sun=light;
                     light.intensity = profile.SunIntensity;
                     light.color = profile.Sun;

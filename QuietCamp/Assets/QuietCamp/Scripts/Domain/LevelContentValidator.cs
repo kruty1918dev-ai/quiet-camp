@@ -18,6 +18,7 @@ namespace QuietCamp.Domain
             if (l.schemaVersion != 1) errors.Add("schemaVersion:" + l.schemaVersion);
             if (l.ruleVersion != 1 && l.ruleVersion != 2) errors.Add("ruleVersion:" + l.ruleVersion);
             if (string.IsNullOrWhiteSpace(l.id)) errors.Add("id:empty");
+            if(l.bakedEnvironment!=null&&(!l.bakedEnvironment.StartsWith("QuietCamp/BakedEnvironments/",System.StringComparison.Ordinal)||l.bakedEnvironment.Contains("..")))errors.Add("environment:baked-path");
             if (l.width < 4 || l.width > 8 || l.height < 4 || l.height > 8)
                 errors.Add($"size:{l.width}x{l.height}");
             if (l.entry == null || l.entry.Length != 2) errors.Add("entry:shape");
@@ -77,6 +78,7 @@ namespace QuietCamp.Domain
             if(l.environment!=null)
             {
                 var env=l.environment;
+                if(float.IsNaN(env.sunElevation)||float.IsInfinity(env.sunElevation)||env.sunElevation < -1||env.sunElevation > 90)errors.Add("environment:sun-elevation");
                 if(float.IsNaN(env.seasonTimeline)||float.IsInfinity(env.seasonTimeline)||env.seasonTimeline < -1||env.seasonTimeline > 1)errors.Add("environment:timeline");
                 if(float.IsNaN(env.weatherIntensity)||float.IsInfinity(env.weatherIntensity)||env.weatherIntensity < -1||env.weatherIntensity > 1)errors.Add("environment:weather-intensity");
                 if(!new[]{"meadow","pines","forest","shore"}.Contains(env.biomeId))errors.Add("environment:biome");

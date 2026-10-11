@@ -33,6 +33,10 @@ namespace QuietCamp.Domain
         public EnvironmentCompositionData environment;
         public EnvironmentalStoryData environmentalStory;
         public bool ShouldSerializeenvironmentalStory() => environmentalStory != null;
+        // Immutable pre-baked environment. Missing on historical snapshots;
+        // omission preserves their exact content hashes and legacy renderer.
+        public string bakedEnvironment;
+        public bool ShouldSerializebakedEnvironment() => !string.IsNullOrEmpty(bakedEnvironment);
     }
     [Serializable] public sealed class EnvironmentCompositionData
     {
@@ -43,6 +47,10 @@ namespace QuietCamp.Domain
         public ShorelineData shore;
         // Optional continuous authoring, absent from historical snapshots/hashes.
         public float seasonTimeline = -1, weatherIntensity = -1;
+        // Authored fixed sun for pre-baked logical shade. Historical content
+        // continues to use the atmosphere profile's elevation.
+        public float sunElevation = -1;
+        public bool ShouldSerializesunElevation() => sunElevation >= 0;
         public bool ShouldSerializeseasonTimeline() => seasonTimeline >= 0;
         public bool ShouldSerializeweatherIntensity() => weatherIntensity >= 0;
 

@@ -52,6 +52,7 @@ namespace QuietCamp.Presentation.World
         {
             using var audit = PerformanceAudit.Measure("QC.CameraFitter.Fit");
             if (camera == null || level == null) return;
+            if(BakedCampEnvironment.Uses(level))camera.transform.rotation=Quaternion.Euler(BakedCampEnvironment.CameraEuler(level));
             // Scene adapter: full forest render, reserved gameplay region from UI.
             camera.rect = new Rect(0f, 0f, 1f, 1f);
             var adaptation = camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>();

@@ -77,7 +77,7 @@ namespace QuietCamp.Presentation.World
             BuildTufts();
 
             // A worn route through the forest explains access without glyphs.
-            CampTrail.BuildAll(_level,_gridRoot);
+            if(!BakedCampEnvironment.Uses(_level))CampTrail.BuildAll(_level,_gridRoot);
             _groundDetails = _gridRoot.gameObject.AddComponent<CampGroundDetails>();
             _groundDetails.Configure(_level,_groundMaterial);
         }
@@ -185,6 +185,7 @@ namespace QuietCamp.Presentation.World
         // Sun direction stays fixed throughout solving, including wind gusts.
         public void BuildCanopies()
         {
+            if(BakedCampEnvironment.Uses(_level))return; // Already rooted and baked with the real sun.
             var sun = RenderSettings.sun;
             var dir = sun != null ? sun.transform.forward : new Vector3(.4f,-.8f,.4f).normalized;
             foreach (var crown in _level.canopies ?? System.Array.Empty<ShadeCanopyData>())

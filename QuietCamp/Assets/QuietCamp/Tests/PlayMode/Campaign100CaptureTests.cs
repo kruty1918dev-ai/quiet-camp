@@ -27,6 +27,7 @@ namespace QuietCamp.Tests
     {
         static string Output=>Environment.GetEnvironmentVariable("QC_CAMPAIGN100_ROOT")??Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath,"../../Design/Campaign100/2026-10-11"));
         static bool Offscreen=>Environment.GetEnvironmentVariable("QC_CAMPAIGN_OFFSCREEN")=="1";
+        static string CaptureRoot=>Environment.GetEnvironmentVariable("QC_FIRST_TEN_EVIDENCE")=="1"?Path.Combine(Output,"FirstTenRefinement/After"):Output;
         static string SourceRevision;
         static string Hash(byte[] bytes)=>BitConverter.ToString(SHA256.Create().ComputeHash(bytes)).Replace("-","").ToLowerInvariant();
         static void VerifyCaptureSources()
@@ -79,28 +80,30 @@ namespace QuietCamp.Tests
                     var request=new UniversalRenderPipeline.SingleCameraRequest{destination=target};
                     RenderPipeline.SubmitRenderRequest(camera,request);RenderPipeline.SubmitRenderRequest(camera,request);
                     RenderTexture.active=target;texture.ReadPixels(new Rect(0,0,Width,Height),0,0);texture.Apply();
-                    File.WriteAllBytes(Path.Combine(Output,"Renders",file+".png"),texture.EncodeToPNG());
+                    File.WriteAllBytes(Path.Combine(CaptureRoot,"Renders",file+".png"),texture.EncodeToPNG());
                 }
                 finally{camera.targetTexture=null;RenderTexture.active=previous;target.Release();Object.Destroy(target);Object.Destroy(texture);}
             }
             else
             {
                 var texture=ScreenCapture.CaptureScreenshotAsTexture();
-                try{File.WriteAllBytes(Path.Combine(Output,"Renders",file+".png"),texture.EncodeToPNG());}
+                try{File.WriteAllBytes(Path.Combine(CaptureRoot,"Renders",file+".png"),texture.EncodeToPNG());}
                 finally{Object.Destroy(texture);}
             }
             var story=Object.FindAnyObjectByType<EnvironmentalStoryVisual>();
             var mesh=story?.GetComponent<MeshFilter>()?.sharedMesh;
-            Assert.NotNull(mesh,"Story geometry absent: "+level.id);
-            File.WriteAllText(Path.Combine(Output,"Renders",file+".json"),JsonConvert.SerializeObject(new{
+            var baked=Object.FindAnyObjectByType<BakedCampEnvironment>();
+            Assert.IsTrue(mesh!=null||baked!=null,"Story geometry absent: "+level.id);
+            File.WriteAllText(Path.Combine(CaptureRoot,"Renders",file+".json"),JsonConvert.SerializeObject(new{
                 kind=Offscreen?"native-unity-world-camera":"native-unity-game-view",capturedUtc=DateTime.UtcNow.ToString("o"),unityVersion=UnityEngine.Application.unityVersion,
                 levelId=level.id,number=level.order,contentHash=level.contentHash,sourceRevision=SourceRevision,orientation,
-                imageSha256=BitConverter.ToString(SHA256.Create().ComputeHash(File.ReadAllBytes(Path.Combine(Output,"Renders",file+".png")))).Replace("-","").ToLowerInvariant(),
+                imageSha256=BitConverter.ToString(SHA256.Create().ComputeHash(File.ReadAllBytes(Path.Combine(CaptureRoot,"Renders",file+".png")))).Replace("-","").ToLowerInvariant(),
                 width=Width,height=Height,quality=QualitySettings.names[QualitySettings.GetQualityLevel()],
                 graphics=SystemInfo.graphicsDeviceType.ToString(),qaProduct=UnityEngine.Application.productName,
                 cameraPosition=new[]{camera.transform.position.x,camera.transform.position.y,camera.transform.position.z},
                 cameraEuler=new[]{camera.transform.eulerAngles.x,camera.transform.eulerAngles.y,camera.transform.eulerAngles.z},orthographicSize=camera.orthographicSize,
-                storyTriangles=mesh.triangles.Length/3,seasonTimeline=level.environment.seasonTimeline,snow=SeasonProfile.For(level).SnowCoverage,
+                storyTriangles=mesh!=null?mesh.triangles.Length/3:baked.TriangleCount,bakedEnvironment=level.bakedEnvironment,bakedSourceRevision=baked?.Source.sourceRevision,
+                bakedParts=baked?.Source.parts.Select(p=>new{p.kind,p.triangles,p.vertices,objectCount=p.objects.Length}),seasonTimeline=level.environment.seasonTimeline,snow=SeasonProfile.For(level).SnowCoverage,
                 props=level.environmentalStory.beats.SelectMany(b=>b.props).Select(p=>new{id=p.id,asset=p.level.assetId,
                     viewport=Viewport(camera,p.level)}),
                 syntheticWitnessLayout=true,reducedMotion=true,playerBuild=false,mobileFpsMeasured=false,audioMeasured=false
@@ -128,17 +131,39 @@ namespace QuietCamp.Tests
                 atmosphere.Configure(camera,level,null,AtmosphereCatalog.Load().Get(level.lighting),()=>true,1,decor);
                 board.BuildCanopies();
                 yield return Settle(35);
-                var visual=root.GetComponentInChildren<EnvironmentalStoryVisual>();Assert.NotNull(visual,id);
-                int expected=level.environmentalStory.beats.SelectMany(beat=>beat.props).Sum(p=>RoadmapModelLibrary.Load().Get(p.level.assetId).Positions.Length/3);
-                Assert.AreEqual(expected,visual.GetComponent<MeshFilter>().sharedMesh.triangles.Length/3,"Every authored prop must be present "+id);
+                VerifyGeometry(root,level);
                 Size(1280,800);yield return Shot(level,"landscape");
                 Size(720,1600);yield return Shot(level,"portrait");
                 Debug.Log("[Campaign100] captured "+level.order+" "+id);
                 board.ClearAll();Object.Destroy(root);yield return Settle(3);yield return Resources.UnloadUnusedAssets();GC.Collect();
             }
-            File.WriteAllText(Path.Combine(Output,"native-batch-"+first+"-"+last+".json"),JsonConvert.SerializeObject(new{
+            File.WriteAllText(Path.Combine(CaptureRoot,"native-batch-"+first+"-"+last+".json"),JsonConvert.SerializeObject(new{
                 result="Passed",capturedUtc=DateTime.UtcNow.ToString("o"),first,last,captureCount=(last-first+1)*2,
                 nativeGameView=false,nativeWorldCamera=true,allAuthoredPropsPresent=true,playerBuild=false,mobileFpsMeasured=false},Formatting.Indented)+"\n");
+        }
+        static void VerifyGeometry(GameObject root,LevelData level)
+        {
+            if(BakedCampEnvironment.Uses(level))
+            {
+                var baked=root.GetComponentInChildren<BakedCampEnvironment>();
+                if(baked==null)baked=root.scene.GetRootGameObjects().SelectMany(go=>go.GetComponentsInChildren<BakedCampEnvironment>()).SingleOrDefault(b=>b.Source.id==level.id);
+                Assert.NotNull(baked,level.id);
+                Assert.AreEqual(level.id,baked.Source.id);Assert.AreEqual(5,baked.Source.parts.Length);
+                foreach(var part in baked.Source.parts)
+                {
+                    var filter=baked.transform.Find("Baked "+part.kind).GetComponent<MeshFilter>();
+                    Assert.AreEqual(part.triangles,filter.sharedMesh.triangles.Length/3,part.kind);
+                    Assert.AreEqual(part.vertices,filter.sharedMesh.vertexCount,part.kind);
+                    Assert.AreEqual(UnityEngine.Rendering.ShadowCastingMode.On,filter.GetComponent<MeshRenderer>().shadowCastingMode,part.kind);
+                }
+                var identifiers=baked.Source.parts.SelectMany(p=>p.objects).Select(p=>p.id).ToArray();
+                Assert.AreEqual(identifiers.Length,identifiers.Distinct().Count(),"Stable unique baked IDs");
+                foreach(var prop in level.environmentalStory.beats.SelectMany(b=>b.props))Assert.Contains(prop.id,identifiers,"Every narrative anchor present");
+                return;
+            }
+            var visual=root.GetComponentInChildren<EnvironmentalStoryVisual>();Assert.NotNull(visual,level.id);
+            int expected=level.environmentalStory.beats.SelectMany(beat=>beat.props).Sum(p=>RoadmapModelLibrary.Load().Get(p.level.assetId).Positions.Length/3);
+            Assert.AreEqual(expected,visual.GetComponent<MeshFilter>().sharedMesh.triangles.Length/3,"Every authored prop must be present "+level.id);
         }
         [UnityTest,Timeout(1800000)]
         public IEnumerator CaptureActualHundredLevelScenes()
@@ -148,7 +173,7 @@ namespace QuietCamp.Tests
             Assert.IsTrue(UnityEngine.Application.productName.Contains("RoadmapQA"),"Private synthetic QA identity required");
             Assert.IsTrue(LevelLoader.Campaign100Enabled());
             VerifyCaptureSources();
-            Directory.CreateDirectory(Path.Combine(Output,"Renders"));
+            Directory.CreateDirectory(Path.Combine(CaptureRoot,"Renders"));
             if(Offscreen){yield return CaptureWorldComponents();yield break;}
             Size(1280,800);
             yield return SceneManager.LoadSceneAsync("Boot");yield return PrivacyBootTestSupport.EnterGame();
@@ -165,9 +190,7 @@ namespace QuietCamp.Tests
                 services.Save.Session=new SessionSaveData();services.PendingLevelId=id;
                 yield return SceneManager.LoadSceneAsync("Camp");yield return Ready(id);
                 var host=CampSceneHost.Current;host.Session.DebugApplyWitness();yield return Settle(30);
-                var visual=Object.FindAnyObjectByType<EnvironmentalStoryVisual>();Assert.NotNull(visual,id);
-                int expected=host.Session.Level.environmentalStory.beats.SelectMany(beat=>beat.props).Sum(p=>RoadmapModelLibrary.Load().Get(p.level.assetId).Positions.Length/3);
-                Assert.AreEqual(expected,visual.GetComponent<MeshFilter>().sharedMesh.triangles.Length/3,"Every authored prop must be rendered, without silent collision skipping: "+id);
+                VerifyGeometry(host.gameObject,host.Session.Level);
                 Size(1280,800);yield return Settle(25);yield return Shot(host.Session.Level,"landscape");
                 Size(720,1600);yield return Settle(25);yield return Shot(host.Session.Level,"portrait");
                 Debug.Log("[Campaign100] captured "+host.Session.Level.order+" "+id);
@@ -176,7 +199,7 @@ namespace QuietCamp.Tests
                 yield return SceneManager.LoadSceneAsync("MainMenu");yield return Settle(3);
                 if(number%10==0){yield return Resources.UnloadUnusedAssets();GC.Collect();}
             }
-            File.WriteAllText(Path.Combine(Output,"native-batch-"+first+"-"+last+".json"),JsonConvert.SerializeObject(new{
+            File.WriteAllText(Path.Combine(CaptureRoot,"native-batch-"+first+"-"+last+".json"),JsonConvert.SerializeObject(new{
                 result="Passed",capturedUtc=DateTime.UtcNow.ToString("o"),first,last,captureCount=(last-first+1)*2,
                 nativeGameView=!Offscreen,nativeWorldCamera=Offscreen,allAuthoredPropsPresent=true,playerBuild=false,mobileFpsMeasured=false},Formatting.Indented)+"\n");
         }
