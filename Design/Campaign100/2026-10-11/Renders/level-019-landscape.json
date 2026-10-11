@@ -1,0 +1,63 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T09:40:24.2493400Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "gen:qc_camp:10",
+  "number": 19,
+  "contentHash": "779e3e1cb58e2e935978fddd3c46cf40dcb0af59de897db8f90944478ff05ba5",
+  "orientation": "landscape",
+  "imageSha256": "f7f780ba3a98c90ebf547ae32a6123b8a3b83a3e01f70102be2ce65678c52f8a",
+  "width": 1280,
+  "height": 800,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    7.25592947,
+    17.9734631,
+    6.42107439
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 8.404191,
+  "storyTriangles": 335,
+  "seasonTimeline": 0.181818,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "place-019-prop-1",
+      "asset": "ua_chicken_coop",
+      "viewport": [
+        0.694966853,
+        0.645973742,
+        21.6363487
+      ]
+    },
+    {
+      "id": "place-019-prop-2",
+      "asset": "ua_chicken",
+      "viewport": [
+        0.362928033,
+        0.6052495,
+        21.6213341
+      ]
+    },
+    {
+      "id": "place-019-prop-3",
+      "asset": "ua_valley_orchard",
+      "viewport": [
+        0.2327785,
+        0.438219279,
+        19.130022
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

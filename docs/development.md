@@ -47,7 +47,24 @@ dotnet run --no-build --project tools/MonetizationProbe.csproj -- --author-campa
 python3 tools/build_campaign100_report.py
 ```
 
-Після зміни рівнів старі кадри не зараховуються як актуальні: звіт звіряє content hash. Native захоплення виконується одним ізольованим Editor після RAM/disk checks і probe, без player build. World-camera captures перевіряють сцену; Game View окремо перевіряє HUD, навігацію й проходження. Повні фотографії сторонніх моделей залишаються локальними.
+Після зміни рівнів старі кадри не зараховуються як актуальні: звіт звіряє content hash, SHA-256 PNG та ревізію коду, шейдерів, матеріалів і конфігурації рендера. Native захоплення виконується одним ізольованим Editor після RAM/disk checks і probe, без player build. World-camera captures перевіряють сцену; Game View окремо перевіряє HUD, навігацію й проходження. Повні фотографії сторонніх моделей залишаються локальними.
+
+У погодженому локальному середовищі, по одному запуску:
+
+```sh
+bash tools/render_diorama_editor_isolated.sh --probe
+python3 tools/campaign100_capture_sources.py
+QC_CAMPAIGN_OFFSCREEN=1 QC_CAMPAIGN_FIRST=1 QC_CAMPAIGN_LAST=100 bash tools/render_diorama_editor_isolated.sh --campaign-tests
+bash tools/render_diorama_editor_isolated.sh --campaign-edit-tests
+bash tools/render_diorama_editor_isolated.sh --campaign-flow-tests
+python3 tools/campaign100_contact_sheets.py
+python3 tools/build_campaign100_report.py
+python3 tools/verify_campaign100_artifacts.py
+```
+
+Після перерваного захоплення можна продовжити з потрібного номера через `QC_CAMPAIGN_FIRST`, якщо джерела не змінилися. `--allow-incomplete` в artifact checker залишає результат **Pending** і перелік відсутніх/застарілих кадрів; це не повне приймання. На цьому ноутбуці 1,5 ГБ є мінімумом для дозволу запуску, але не гарантує, що RAM вистачить до його завершення.
+
+Онлайн-галерея генерується в `docs/campaign100/` з WebP-прев’ю тих самих PNG. Контрольні оригінали й receipts лишаються в `Design/Campaign100/2026-10-11/Renders`. Усі сторонні model photographs вилучені з публічного HTML; локальний каталог зберігає їхні два ракурси. Для browser-перевірки можна передати `--browser-executable` з установленим Chrome замість завантаження окремого Chromium.
 
 ## GitHub Pages
 

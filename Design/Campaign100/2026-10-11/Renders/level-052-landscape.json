@@ -1,0 +1,63 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T09:41:27.8129270Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "gen:qc_camp:69",
+  "number": 52,
+  "contentHash": "c3ce3f3422d083dc00fa8d99862c5e8f769bd6b8c026fb4495b5608808c94210",
+  "orientation": "landscape",
+  "imageSha256": "6863bf8fc5a815c5bd219dc67efb5b448870a30391aa66f429ccce8abe6301e0",
+  "width": 1280,
+  "height": 800,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    8.457491,
+    17.9734631,
+    5.318193
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 7.29208565,
+  "storyTriangles": 88,
+  "seasonTimeline": 0.515152,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "place-052-prop-1",
+      "asset": "ua_valley_willow",
+      "viewport": [
+        0.412152052,
+        0.274459541,
+        17.7235088
+      ]
+    },
+    {
+      "id": "place-052-prop-2",
+      "asset": "ua_reed_clump",
+      "viewport": [
+        0.389900416,
+        0.466008157,
+        20.2061157
+      ]
+    },
+    {
+      "id": "place-052-prop-3",
+      "asset": "ua_mooring_post",
+      "viewport": [
+        0.229692668,
+        0.522573352,
+        20.7805672
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

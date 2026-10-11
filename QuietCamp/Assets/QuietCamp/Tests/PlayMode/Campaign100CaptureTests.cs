@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using QuietCamp.Domain;
 using QuietCamp.Infrastructure;
@@ -26,6 +27,20 @@ namespace QuietCamp.Tests
     {
         static string Output=>Environment.GetEnvironmentVariable("QC_CAMPAIGN100_ROOT")??Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath,"../../Design/Campaign100/2026-10-11"));
         static bool Offscreen=>Environment.GetEnvironmentVariable("QC_CAMPAIGN_OFFSCREEN")=="1";
+        static string SourceRevision;
+        static string Hash(byte[] bytes)=>BitConverter.ToString(SHA256.Create().ComputeHash(bytes)).Replace("-","").ToLowerInvariant();
+        static void VerifyCaptureSources()
+        {
+            var manifest=JObject.Parse(File.ReadAllText(Path.Combine(Output,"capture-source-manifest.json")));
+            SourceRevision=(string)manifest["revision"];
+            foreach(var entry in manifest["files"].OfType<JObject>())
+            {
+                string relative=(string)entry["path"];
+                Assert.IsTrue(relative.StartsWith("Assets/",StringComparison.Ordinal));
+                var path=Path.Combine(UnityEngine.Application.dataPath,relative.Substring(7));
+                Assert.AreEqual((string)entry["sha256"],Hash(File.ReadAllBytes(path)),"Capture source changed: "+relative);
+            }
+        }
         static int Width=1280,Height=800;
         static void Size(int width,int height)
         {Width=width;Height=height;if(!Offscreen)typeof(ScreenshotPlayModeTest).GetMethod("SetGameViewSize",BindingFlags.Static|BindingFlags.NonPublic).Invoke(null,new object[]{width,height});}
@@ -79,7 +94,7 @@ namespace QuietCamp.Tests
             Assert.NotNull(mesh,"Story geometry absent: "+level.id);
             File.WriteAllText(Path.Combine(Output,"Renders",file+".json"),JsonConvert.SerializeObject(new{
                 kind=Offscreen?"native-unity-world-camera":"native-unity-game-view",capturedUtc=DateTime.UtcNow.ToString("o"),unityVersion=UnityEngine.Application.unityVersion,
-                levelId=level.id,number=level.order,contentHash=level.contentHash,orientation,
+                levelId=level.id,number=level.order,contentHash=level.contentHash,sourceRevision=SourceRevision,orientation,
                 imageSha256=BitConverter.ToString(SHA256.Create().ComputeHash(File.ReadAllBytes(Path.Combine(Output,"Renders",file+".png")))).Replace("-","").ToLowerInvariant(),
                 width=Width,height=Height,quality=QualitySettings.names[QualitySettings.GetQualityLevel()],
                 graphics=SystemInfo.graphicsDeviceType.ToString(),qaProduct=UnityEngine.Application.productName,
@@ -132,6 +147,7 @@ namespace QuietCamp.Tests
             Assert.AreNotEqual(GraphicsDeviceType.Null,SystemInfo.graphicsDeviceType);
             Assert.IsTrue(UnityEngine.Application.productName.Contains("RoadmapQA"),"Private synthetic QA identity required");
             Assert.IsTrue(LevelLoader.Campaign100Enabled());
+            VerifyCaptureSources();
             Directory.CreateDirectory(Path.Combine(Output,"Renders"));
             if(Offscreen){yield return CaptureWorldComponents();yield break;}
             Size(1280,800);

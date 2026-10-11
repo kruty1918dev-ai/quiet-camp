@@ -1,0 +1,63 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T09:42:39.7627770Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "gen:qc_camp:115",
+  "number": 93,
+  "contentHash": "066dd257eb32c99df05fd8b238851fa2846f33160604328f0391524a9c8cc095",
+  "orientation": "portrait",
+  "imageSha256": "5f183d9417268274937768ebd634f6399207d375e394ec3d85a2a6fc03e8a182",
+  "width": 720,
+  "height": 1600,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    7.49418926,
+    17.9734631,
+    6.56315327
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 14.5668154,
+  "storyTriangles": 244,
+  "seasonTimeline": 0.929293,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "place-093-prop-1",
+      "asset": "ua_beehive",
+      "viewport": [
+        0.7699405,
+        0.5672275,
+        21.9932671
+      ]
+    },
+    {
+      "id": "place-093-prop-2",
+      "asset": "ua_valley_orchard",
+      "viewport": [
+        0.4851676,
+        0.6325695,
+        22.1922913
+      ]
+    },
+    {
+      "id": "place-093-prop-3",
+      "asset": "ua_beehive",
+      "viewport": [
+        0.09979877,
+        0.458745867,
+        20.0183926
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

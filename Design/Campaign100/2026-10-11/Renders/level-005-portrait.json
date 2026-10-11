@@ -1,0 +1,64 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T10:59:11.9745390Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "QC005",
+  "number": 5,
+  "contentHash": "ef63798d3c8e28eaef147a2902320f631266fa95110797fafe74f734e0f3da92",
+  "sourceRevision": "f2f7d652918952f77e6535264e22c63697bade5b1bffe9d2600a0c84b855cc3a",
+  "orientation": "portrait",
+  "imageSha256": "0e8523c4bae07744c7ac6dffa25fafbc04a68052a91f932fba834fc7696dded8",
+  "width": 720,
+  "height": 1600,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    8.463419,
+    17.9734631,
+    6.62774467
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 19.0778713,
+  "storyTriangles": 700,
+  "seasonTimeline": 0.040404,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "place-005-prop-1",
+      "asset": "ua_valley_orchard",
+      "viewport": [
+        0.7585329,
+        0.5850327,
+        21.806282
+      ]
+    },
+    {
+      "id": "place-005-prop-2",
+      "asset": "camp_bench",
+      "viewport": [
+        0.189957887,
+        0.498276561,
+        20.728323
+      ]
+    },
+    {
+      "id": "place-005-prop-3",
+      "asset": "ua_valley_fence_broken_1",
+      "viewport": [
+        0.102351211,
+        0.4889356,
+        20.1341743
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

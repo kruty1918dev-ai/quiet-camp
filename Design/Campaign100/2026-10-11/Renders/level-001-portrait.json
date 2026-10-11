@@ -1,11 +1,13 @@
 {
   "kind": "native-unity-world-camera",
-  "capturedUtc": "2026-10-11T09:36:50.9197700Z",
+  "capturedUtc": "2026-10-11T10:59:03.3672220Z",
   "unityVersion": "6000.6.2f1",
   "levelId": "QC001",
   "number": 1,
-  "contentHash": "204acce459c908db9b491ca5e274e726586d603886ea3a9d924eda65382cc850",
+  "contentHash": "0c45f8b21c477ed5cc96a534189465a3991e7098c87eba5535ab7ddf75d64edf",
+  "sourceRevision": "f2f7d652918952f77e6535264e22c63697bade5b1bffe9d2600a0c84b855cc3a",
   "orientation": "portrait",
+  "imageSha256": "1d455ec849956afd7faac0c70fc4cfd7919a742d2d27d6d6cf9ae5ad6899c09f",
   "width": 720,
   "height": 1600,
   "quality": "Balanced",
@@ -14,15 +16,15 @@
   "cameraPosition": [
     7.249328,
     17.2984619,
-    6.66828156
+    6.90502
   ],
   "cameraEuler": [
     58.0,
     224.999985,
     0.0
   ],
-  "orthographicSize": 13.49609,
-  "storyTriangles": 320,
+  "orthographicSize": 13.0917444,
+  "storyTriangles": 672,
   "seasonTimeline": 0.0,
   "snow": 0.0,
   "props": [
@@ -30,27 +32,27 @@
       "id": "place-001-prop-1",
       "asset": "sign",
       "viewport": [
-        0.748368263,
-        0.5773181,
-        21.0829964
+        0.7418319,
+        0.5851279,
+        21.1717033
       ]
     },
     {
       "id": "place-001-prop-2",
-      "asset": "log",
+      "asset": "camp_bench",
       "viewport": [
-        0.254341,
-        0.5473002,
-        21.0660553
+        0.246753812,
+        0.5538208,
+        20.854044
       ]
     },
     {
       "id": "place-001-prop-3",
       "asset": "flower_yellowA",
       "viewport": [
-        0.09136939,
-        0.473354518,
-        19.7480946
+        0.06454125,
+        0.477953374,
+        19.8368015
       ]
     }
   ],

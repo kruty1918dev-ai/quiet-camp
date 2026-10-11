@@ -1,0 +1,63 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T09:42:52.2774310Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "gen:qc_camp:122",
+  "number": 100,
+  "contentHash": "b4ba81df7397c3ac182e2c978e1c8262a18608a6fa68d3da0ec2027eb9dc7d86",
+  "orientation": "landscape",
+  "imageSha256": "f7758b64309caaafc4a57979b5e6fbeaf71734fea8753ce31fee9a76eaae8bca",
+  "width": 1280,
+  "height": 800,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    6.362801,
+    17.6984615,
+    6.65200424
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 8.023564,
+  "storyTriangles": 256,
+  "seasonTimeline": 1.0,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "place-100-prop-1",
+      "asset": "story_trail_shelter",
+      "viewport": [
+        0.5862748,
+        0.784525454,
+        22.631937
+      ]
+    },
+    {
+      "id": "place-100-prop-2",
+      "asset": "ua_valley_well",
+      "viewport": [
+        0.331828535,
+        0.585948646,
+        21.0534515
+      ]
+    },
+    {
+      "id": "place-100-prop-3",
+      "asset": "flower_yellowA",
+      "viewport": [
+        0.213868141,
+        0.3895507,
+        19.5616665
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

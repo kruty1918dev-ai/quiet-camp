@@ -25,7 +25,7 @@ namespace QuietCamp.Presentation.World
         public void Configure(LevelData level, Material ground)
         {
             _level = level; _ground = ground;
-            _ground.SetFloat("_SnowSeason", SeasonProfile.For(level).Winter ? 1 : 0);
+            _ground.SetFloat("_SnowSeason", SeasonProfile.For(level).SnowCoverage);
             var go = new GameObject("Camp bootprints", typeof(MeshFilter), typeof(MeshRenderer));
             _printRoot = go;
             go.transform.SetParent(transform, false); go.layer = BoardRenderer.DecorLayer;
@@ -105,8 +105,8 @@ namespace QuietCamp.Presentation.World
                 if(occupied.Contains(cell))return;
                 var side=Vector3.Cross(Vector3.up,forward).normalized;
                 at+=side*(parity%2==0?-.11f:.11f);
-                at.y=Mathf.Max(at.y,season.Winter?.018f+season.SnowDepth(_level,at):0)+.012f;
-                var traceColor=season.Winter?Color.Lerp(color,palette.Soil*.62f,HeatAt(_level,at)*_melt):color;
+                at.y=Mathf.Max(at.y,.018f*season.SnowCoverage+season.SnowDepth(_level,at))+.012f;
+                var traceColor=Color.Lerp(color,palette.Soil*.62f,HeatAt(_level,at)*_melt*season.SnowCoverage);
                 _centres.Add(at);
                 // An irregular sole and separate heel read as a boot rather than a painted dot.
                 void Sole(float start,float end,float width)

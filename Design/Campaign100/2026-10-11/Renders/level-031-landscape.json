@@ -1,0 +1,63 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T09:40:46.4109550Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "gen:qc_camp:24",
+  "number": 31,
+  "contentHash": "8f7ee63ae54df352b8552d7ccfbc6ae105acf044cb55e8e88bffad22e8df1759",
+  "orientation": "landscape",
+  "imageSha256": "9eea8c15c132127116349b41bdd66ca971105e0096dc0d44fb10de3073b06d92",
+  "width": 1280,
+  "height": 800,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    5.29565048,
+    17.9734631,
+    5.38169241
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 8.967299,
+  "storyTriangles": 428,
+  "seasonTimeline": 0.30303,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "place-031-prop-1",
+      "asset": "branch_station",
+      "viewport": [
+        0.5883827,
+        0.6766879,
+        22.08328
+      ]
+    },
+    {
+      "id": "place-031-prop-2",
+      "asset": "log",
+      "viewport": [
+        0.367255569,
+        0.459620535,
+        20.6116848
+      ]
+    },
+    {
+      "id": "place-031-prop-3",
+      "asset": "ua_valley_poplar",
+      "viewport": [
+        0.2784453,
+        0.359944284,
+        18.2093315
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

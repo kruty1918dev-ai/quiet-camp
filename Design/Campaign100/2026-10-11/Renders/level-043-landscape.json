@@ -1,0 +1,63 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T09:41:11.9776430Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "gen:qc_camp:58",
+  "number": 43,
+  "contentHash": "b455ae4231e29f494f58f7231ea1612bd74f1b241655bbb79409b24793cf37d7",
+  "orientation": "landscape",
+  "imageSha256": "1bc36bca4552a8828a9fb1b0f436ac1d9675c29002faeeb5b5c5f099d52e2cc5",
+  "width": 1280,
+  "height": 800,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    4.75002766,
+    17.7234631,
+    8.207681
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 9.604612,
+  "storyTriangles": 1200,
+  "seasonTimeline": 0.424242,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "place-043-prop-1",
+      "asset": "staging_aircraft_tail",
+      "viewport": [
+        0.7029623,
+        0.5441578,
+        20.30894
+      ]
+    },
+    {
+      "id": "place-043-prop-2",
+      "asset": "ua_field_weeds",
+      "viewport": [
+        0.295505226,
+        0.5460941,
+        21.2519455
+      ]
+    },
+    {
+      "id": "place-043-prop-3",
+      "asset": "sign",
+      "viewport": [
+        0.195554465,
+        0.420832247,
+        19.3297863
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

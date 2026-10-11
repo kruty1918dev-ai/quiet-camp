@@ -1,0 +1,63 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T09:42:19.1838520Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "gen:qc_camp:102",
+  "number": 81,
+  "contentHash": "ef1bf446aa112f698791fc91414e9bd748f39bd663baff189d01794158e7e3fc",
+  "orientation": "portrait",
+  "imageSha256": "2a40d04955f0a49ef4ca87706cd6cb70a8846cc1819e09998f7bb328c963c003",
+  "width": 720,
+  "height": 1600,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    6.451399,
+    17.6984615,
+    6.401832
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 20.46567,
+  "storyTriangles": 600,
+  "seasonTimeline": 0.808081,
+  "snow": 1.0,
+  "props": [
+    {
+      "id": "place-081-prop-1",
+      "asset": "ua_forester_hut",
+      "viewport": [
+        0.5725934,
+        0.6299773,
+        23.1032963
+      ]
+    },
+    {
+      "id": "place-081-prop-2",
+      "asset": "log_stack",
+      "viewport": [
+        0.267058372,
+        0.545999,
+        21.6334343
+      ]
+    },
+    {
+      "id": "place-081-prop-3",
+      "asset": "log",
+      "viewport": [
+        0.08347261,
+        0.465024382,
+        19.8453712
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

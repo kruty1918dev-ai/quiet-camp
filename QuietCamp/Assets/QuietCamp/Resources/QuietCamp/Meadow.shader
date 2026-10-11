@@ -71,7 +71,7 @@ Shader "QuietCamp/Meadow"
                 float earth=smoothstep(.72,.88,Noise(ground*.75+41))*Noise(ground*2.1);
                 grass=lerp(grass,_SoilTone.rgb,earth*.45);
                 // An irregular damp thaw around the real fire pit, with a soft dirty-snow bank.
-                if(_SnowSeason>.5)
+                if(_SnowSeason>0)
                 {
                     float thaw=0;
                     float irregular=(Noise(ground*2.3+7)-.5)*.12;
@@ -83,7 +83,7 @@ Shader "QuietCamp/Meadow"
                         radius+=irregular;
                         thaw=max(thaw,(1-smoothstep(.25,1,radius))*sites[site].w);
                     }
-                    grass=lerp(grass,_SoilTone.rgb*half3(.75,.53,.38),thaw*_HeatMelt);
+                    grass=lerp(grass,_SoilTone.rgb*half3(.75,.53,.38),thaw*_HeatMelt*saturate(_SnowSeason));
                 }
                 // Quiet granular soil/grass detail, filtered as the camera recedes.
                 float grain=Noise(ground*12.0+3);

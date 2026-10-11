@@ -183,6 +183,13 @@ Native campaign captures use `render_diorama_editor_isolated.sh --campaign-tests
 in the same approved isolation. `QC_CAMPAIGN_OFFSCREEN=1` captures the actual
 world components through a native URP camera without allocating the menu/HUD;
 it is world-camera evidence, not Game View UI-flow evidence. All capture
-receipts must match the published level content hash. Full vendor-model
+receipts must match the published level content hash, PNG SHA-256 and current
+`capture-source-manifest.json` revision. Prepare that manifest with
+`python3 tools/campaign100_capture_sources.py` before capturing; do not change
+captured sources during a run. The report labels valid older frames separately.
+`--campaign-edit-tests` checks campaign/archived-map EditMode contracts;
+`--campaign-flow-tests` checks the direct campaign Game View flow. Neither may
+run concurrently with another Unity job. A partial capture or stale NUnit XML
+must not be advertised as a newly passed full run. Full vendor-model
 photographs remain local. Historical captures keep their dates. One Editor,
 RAM/disk checks, workers 1/4 and the renderer-preservation rule remain required.

@@ -1,0 +1,63 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T09:41:08.2534510Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "gen:qc_camp:56",
+  "number": 41,
+  "contentHash": "ab4c3e9ee72131e9404254036cfc1e7f2814d5a59711b45a167e819b4f3c296a",
+  "orientation": "landscape",
+  "imageSha256": "fcc04a735c2a23fb91ec673b192817e36fcbf8af6d7c0df991f0216c83f2ebdd",
+  "width": 1280,
+  "height": 800,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    7.71003866,
+    17.2984619,
+    7.029312
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 6.66239738,
+  "storyTriangles": 461,
+  "seasonTimeline": 0.40404,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "place-041-prop-1",
+      "asset": "ua_sunflower_patch",
+      "viewport": [
+        0.6542336,
+        0.6922747,
+        21.798439
+      ]
+    },
+    {
+      "id": "place-041-prop-2",
+      "asset": "ua_field_weeds",
+      "viewport": [
+        0.3109458,
+        0.665782154,
+        21.577858
+      ]
+    },
+    {
+      "id": "place-041-prop-3",
+      "asset": "sign",
+      "viewport": [
+        0.198363841,
+        0.5279559,
+        20.011673
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

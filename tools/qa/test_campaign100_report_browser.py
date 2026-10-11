@@ -9,6 +9,8 @@ REPORT=ROOT/'Design/Campaign100/2026-10-11/index.html'
 def main():
  parser=argparse.ArgumentParser()
  parser.add_argument('--browser-executable')
+ parser.add_argument('--url',help='Check the published campaign gallery instead of the local report')
+ parser.add_argument('--allow-previous-revision',action='store_true',help='Validate the explicitly labelled historical gallery while current captures are pending')
  parser.add_argument('--output',type=Path,default=Path('/tmp/qc-campaign100-report-browser'))
  args=parser.parse_args();args.output.mkdir(parents=True,exist_ok=True)
  errors=[];checks=[]
@@ -16,9 +18,12 @@ def main():
   browser=p.chromium.launch(headless=True,executable_path=args.browser_executable,args=['--disable-dev-shm-usage'])
   page=browser.new_page(viewport={'width':1440,'height':1000},locale='uk-UA')
   page.on('pageerror',lambda e:errors.append(str(e)))
-  page.goto(REPORT.as_uri(),wait_until='load')
+  page.goto(args.url or REPORT.as_uri(),wait_until='load')
+  public=page.evaluate('DATA.publicGuide===true')
   assert page.locator('#level-grid .card').count()==100
-  assert page.evaluate('DATA.counts.bothOrientations')==100
+  if args.allow_previous_revision:
+   assert page.evaluate('DATA.levels.every(l=>["portrait","landscape"].every(o=>l.renders[o]||l.previousRenders[o]))')
+  else:assert page.evaluate('DATA.counts.bothOrientations')==100
   assert page.evaluate('DATA.counts.modelCaptures===DATA.counts.models && DATA.counts.models===1342')
   # Load each section in small batches to avoid decoding 200 PNGs simultaneously.
   for orientation in ['landscape','portrait']:
@@ -48,10 +53,16 @@ def main():
   for number in ['M0001','M1215','M1267','M1325','M1342']:
    page.locator('#model-search').fill(number)
    assert page.locator('#model-grid .card').count()==1
-   page.wait_for_function('Array.from(document.querySelectorAll("#model-grid img")).every(i=>i.complete&&i.naturalWidth>0)')
+   if public:
+    assert page.locator('#model-grid img').count()==0
+    assert 'Повні фото' in page.locator('#model-grid .placeholder').inner_text()
+    continue
+   page.locator('#model-grid .card').scroll_into_view_if_needed()
+   page.wait_for_function('(()=>{const i=document.querySelector("#model-grid img");return i.complete&&i.naturalWidth>0})()')
    page.locator('#model-grid summary').click()
+   page.evaluate('document.querySelectorAll("#model-grid img").forEach(i=>i.loading="eager")')
    page.wait_for_function('Array.from(document.querySelectorAll("#model-grid img")).every(i=>i.complete&&i.naturalWidth>0)')
-  checks.append('Model pagination, stable IDs, local photographs and second angles')
+  checks.append('Model pagination and stable IDs; '+('licensed photographs stay local' if public else 'local photographs and second angles'))
   page.locator('[data-tab="audit"]').click();assert page.locator('#audit-body tr').count()==274
   page.locator('#audit-search').fill('QC001');assert page.locator('#audit-body tr').count()==1
   for width,height in [(320,900),(390,844),(768,1024),(1440,1000)]:
@@ -65,7 +76,8 @@ def main():
   checks.append('274-row audit and no horizontal overflow at 320–1440 pixels')
   assert not errors,errors
   browser.close()
- receipt=dict(result='Passed',verifiedUtc=datetime.datetime.now(datetime.timezone.utc).isoformat(),checks=checks,pageErrors=errors)
+ receipt=dict(result='Passed',verifiedUtc=datetime.datetime.now(datetime.timezone.utc).isoformat(),checks=checks,pageErrors=errors,
+              previousRevisionAllowed=args.allow_previous_revision,interfaceOnly=True,nativeArtAccepted=False,url=args.url or REPORT.as_uri())
  (args.output/'browser-results.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
  print(json.dumps(receipt,ensure_ascii=False))
 if __name__=='__main__':main()

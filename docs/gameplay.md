@@ -33,6 +33,6 @@
 
 ## Навчання й комфорт
 
-Остап проводить через перші галявини й пояснює нові знаки. Навчання можна повторити в налаштуваннях; пропуск має окреме підтвердження. Мапа, альбом та інструменти поступово стають доступними. [Комфорт](screens.md#комфорт) дає масштаб тексту, contrast, reduced motion, спокійніший темп і haptics; мова — українська, English або Deutsch.
+Остап проводить через перші галявини й пояснює нові знаки. Навчання можна повторити в налаштуваннях; пропуск має окреме підтвердження. Меню відкриває поточний рівень напряму; після перемоги можна перейти до наступного, а після рівня №100 — повернутися в меню й переглядати завершені табори. Роадмапу відкладено. Альбом та інструменти поступово стають доступними. [Комфорт](screens.md#комфорт) дає масштаб тексту, contrast, reduced motion, спокійніший темп і haptics; мова — українська, English або Deutsch.
 
 Реалізація: [CampSession](../QuietCamp/Assets/QuietCamp/Scripts/Application/CampSession.cs), [Domain](../QuietCamp/Assets/QuietCamp/Scripts/Domain), [CampHud](../QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/CampHud.cs), [TutorialDirector](../QuietCamp/Assets/QuietCamp/Scripts/Application/TutorialDirector.cs).

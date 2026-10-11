@@ -1,0 +1,63 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T09:41:35.2382990Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "gen:qc_camp:74",
+  "number": 56,
+  "contentHash": "1335b1935a31e2100837c9f04df2bf813c61bdecc52bae8aa0f1fc5bd35ae852",
+  "orientation": "landscape",
+  "imageSha256": "5b66b7efa199fc822989a2a9b267b5049dbe1d2b9b9123a32a0fa34221c63cbb",
+  "width": 1280,
+  "height": 800,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    5.87815,
+    17.9734631,
+    7.87413
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 8.432589,
+  "storyTriangles": 444,
+  "seasonTimeline": 0.555556,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "place-056-prop-1",
+      "asset": "ua_pond_spillway_ruin",
+      "viewport": [
+        0.522492945,
+        0.768125832,
+        22.9288311
+      ]
+    },
+    {
+      "id": "place-056-prop-2",
+      "asset": "ua_hydro_service_building",
+      "viewport": [
+        0.545653343,
+        0.227608,
+        17.6452789
+      ]
+    },
+    {
+      "id": "place-056-prop-3",
+      "asset": "ua_valley_willow",
+      "viewport": [
+        0.458733618,
+        0.145569384,
+        16.043726
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

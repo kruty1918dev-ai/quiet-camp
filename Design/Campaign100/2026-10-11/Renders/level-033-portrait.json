@@ -1,0 +1,63 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T09:40:50.9753550Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "gen:qc_camp:26",
+  "number": 33,
+  "contentHash": "aca9cff5e6ef4a1c75fe0435ea396ea482052243919c20d95d1dc58bc58c034f",
+  "orientation": "portrait",
+  "imageSha256": "2c9ef8f750bcd0091c1d4a294d21dd0aefb88610b622d6c92186ff57f9323809",
+  "width": 720,
+  "height": 1600,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    6.60766172,
+    17.6984615,
+    6.401832
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 18.44556,
+  "storyTriangles": 332,
+  "seasonTimeline": 0.323232,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "place-033-prop-1",
+      "asset": "story_trail_shelter",
+      "viewport": [
+        0.7460972,
+        0.572475433,
+        21.4496136
+      ]
+    },
+    {
+      "id": "place-033-prop-2",
+      "asset": "log_stack",
+      "viewport": [
+        0.290797353,
+        0.537321866,
+        21.3172779
+      ]
+    },
+    {
+      "id": "place-033-prop-3",
+      "asset": "sign",
+      "viewport": [
+        0.113696076,
+        0.451850772,
+        19.14063
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

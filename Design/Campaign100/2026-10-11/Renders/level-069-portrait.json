@@ -1,0 +1,63 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T09:42:00.2440900Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "gen:qc_camp:89",
+  "number": 69,
+  "contentHash": "f8b09c9bdeb501da4b58f56d51b366082c72a0a5cdeda17435cd10d561876004",
+  "orientation": "portrait",
+  "imageSha256": "27b5a3de9e2a682f26433cbb13bd42d88fec68407bbb8c29282fd813fbf728e4",
+  "width": 720,
+  "height": 1600,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    10.9448032,
+    17.9734631,
+    6.60970449
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 19.87261,
+  "storyTriangles": 594,
+  "seasonTimeline": 0.686869,
+  "snow": 0.14984642,
+  "props": [
+    {
+      "id": "place-069-prop-1",
+      "asset": "ua_valley_bridge_remnants",
+      "viewport": [
+        0.370038,
+        0.4150144,
+        18.6587486
+      ]
+    },
+    {
+      "id": "place-069-prop-2",
+      "asset": "ua_valley_footbridge",
+      "viewport": [
+        0.180807948,
+        0.474104464,
+        20.2559967
+      ]
+    },
+    {
+      "id": "place-069-prop-3",
+      "asset": "ua_valley_willow",
+      "viewport": [
+        0.280076146,
+        0.562659,
+        21.33508
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

@@ -1,0 +1,63 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T09:41:46.3544350Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "gen:qc_camp:81",
+  "number": 62,
+  "contentHash": "09bfbe1b4c97b9bc8449f7902b9bc9ba058a6eaccf926d1ef74159bf57c2b0dc",
+  "orientation": "landscape",
+  "imageSha256": "40e8291c7148e76d088eb34273d24beec838a60a30c41af5d66a01c96c48d9c6",
+  "width": 1280,
+  "height": 800,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    7.73723555,
+    17.6984615,
+    6.401832
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 8.58671951,
+  "storyTriangles": 532,
+  "seasonTimeline": 0.616162,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "place-062-prop-1",
+      "asset": "ua_barn",
+      "viewport": [
+        0.685979247,
+        0.6748672,
+        21.6554279
+      ]
+    },
+    {
+      "id": "place-062-prop-2",
+      "asset": "log_stack",
+      "viewport": [
+        0.319039524,
+        0.5410501,
+        20.8974438
+      ]
+    },
+    {
+      "id": "place-062-prop-3",
+      "asset": "ua_valley_gate",
+      "viewport": [
+        0.2562001,
+        0.424418718,
+        19.2626228
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

@@ -1,0 +1,64 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T10:59:25.0975110Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "gen:qc_camp:2",
+  "number": 12,
+  "contentHash": "147855cd75a801fb1cabb36baca756b633eef6dc742a68a1c2d4eb0130272d1a",
+  "sourceRevision": "f2f7d652918952f77e6535264e22c63697bade5b1bffe9d2600a0c84b855cc3a",
+  "orientation": "portrait",
+  "imageSha256": "58798998da5916f2f7895d33e987873cc0265bb7c9c14f389da0395333c38c69",
+  "width": 720,
+  "height": 1600,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    7.50917768,
+    17.6984615,
+    6.97774458
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 18.44134,
+  "storyTriangles": 640,
+  "seasonTimeline": 0.111111,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "place-012-prop-1",
+      "asset": "ua_valley_house",
+      "viewport": [
+        0.701912045,
+        0.5889683,
+        21.8293438
+      ]
+    },
+    {
+      "id": "place-012-prop-2",
+      "asset": "ua_valley_gate",
+      "viewport": [
+        0.309359431,
+        0.56277597,
+        21.6384029
+      ]
+    },
+    {
+      "id": "place-012-prop-3",
+      "asset": "ua_valley_fence_broken_2",
+      "viewport": [
+        0.104513943,
+        0.487187117,
+        19.7784023
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

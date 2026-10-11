@@ -1,0 +1,63 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T09:41:16.3414850Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "gen:qc_camp:61",
+  "number": 45,
+  "contentHash": "211cee6cabb2fbbe8cfc41e3bb166bed98357a05f75c27222536cd3df21f1129",
+  "orientation": "portrait",
+  "imageSha256": "8fc4ebbd47bc489b2d99a84c2cb5f56c0ba95b06ea2a2323b4523c40d4f402e4",
+  "width": 720,
+  "height": 1600,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    2.34904575,
+    17.6984615,
+    6.12273741
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 27.0674629,
+  "storyTriangles": 384,
+  "seasonTimeline": 0.444444,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "place-045-prop-1",
+      "asset": "story_memorial_garden",
+      "viewport": [
+        0.548240364,
+        0.58955574,
+        22.8083248
+      ]
+    },
+    {
+      "id": "place-045-prop-2",
+      "asset": "log",
+      "viewport": [
+        0.140808433,
+        0.450482875,
+        19.0649033
+      ]
+    },
+    {
+      "id": "place-045-prop-3",
+      "asset": "flower_yellowA",
+      "viewport": [
+        0.09728372,
+        0.428013116,
+        18.2340622
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

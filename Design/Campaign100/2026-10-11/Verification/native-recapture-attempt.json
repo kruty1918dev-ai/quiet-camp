@@ -1,0 +1,20 @@
+{
+  "result": "Interrupted",
+  "recordedUtc": "2026-10-11T11:05:07.834269+00:00",
+  "sourceRevision": "f2f7d652918952f77e6535264e22c63697bade5b1bffe9d2600a0c84b855cc3a",
+  "exitCode": 255,
+  "completedLevels": 16,
+  "currentFrames": 33,
+  "lastPartialLevel": 17,
+  "launchAvailableRamMb": 1725,
+  "reason": "sys-guard SIGTERM records during memory pressure; Editor subsequently reported SIGSEGV and Resource temporarily unavailable",
+  "guardPids": [
+    3034986,
+    3034585
+  ],
+  "editorLogSha256": "f29d959a036f0ab424dd144e865d5b408c1567780adc5e41952cdb401faab281",
+  "status": "TS=2026-10-11T13:05:07+02:00 STATE=soft MEM_PCT=14 MEM_AVAIL_MB=1111 SWAP_FREE_MB=32855 DISK_PCT=89",
+  "nunitCompleted": false,
+  "playerBuild": false,
+  "mobileFpsMeasured": false
+}

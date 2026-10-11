@@ -129,7 +129,7 @@ namespace QuietCamp.Tests
             Size(1600,720);yield return Frames();yield return Capture("camp-100-landscape.png");
             yield return Complete();Assert.IsNull(services.NextLevel(ids[99]));
             Tap("next");yield return Ready("MainMenu");NoMap();
-            // Retired legacy content remains replayable as an album snapshot,
+            // Retired legacy content remains viewable as an album snapshot,
             // but cannot silently grow the active 100-level campaign.
             var retired=CampContent.Summaries.FirstOrDefault(s=>s.id=="gen:qc_camp:9");
             Assert.IsNull(retired);Assert.IsFalse(services.CanStart("gen:qc_camp:9"));
