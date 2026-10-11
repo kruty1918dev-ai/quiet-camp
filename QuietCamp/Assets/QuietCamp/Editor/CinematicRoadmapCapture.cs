@@ -34,7 +34,7 @@ namespace QuietCamp.Editor
                 if(script==null||script.GetClass()==null)throw new InvalidOperationException("Native world script mapping missing: "+scriptPath);
             }
             CinematicRoadmapBaker.Bake();
-            var asset=AssetDatabase.LoadAssetAtPath<RoadmapWorldAsset>("Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/World.asset");
+            var asset=AssetDatabase.LoadAssetAtPath<RoadmapWorldAsset>("Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/World.asset");
             string repo=Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath,"../.."));
             string output=Environment.GetEnvironmentVariable("QC_CINEMATIC_EVIDENCE_ROOT")??Path.Combine(repo,"Design/Roadmap/CinematicPilot/2026-10-10");Directory.CreateDirectory(output);
             int previousQuality=QualitySettings.GetQualityLevel();
@@ -62,7 +62,7 @@ namespace QuietCamp.Editor
             var movies=new List<object>();
             if(Environment.GetEnvironmentVariable("QC_SKIP_REFERENCE_VIDEO")!="1")foreach(bool landscape in new[]{false,true})movies.Add(CinematicReferenceMovie.Record(asset,output,landscape));
             var errors=new List<string>();
-            foreach(var shader in new[]{asset.ground.shader,asset.foliage.shader,asset.water.shader,asset.marker.shader,asset.motes.shader}.Distinct())
+            foreach(var shader in new[]{asset.ground.shader,asset.foliage.shader,asset.foliageCards.shader,asset.water.shader,asset.marker.shader,asset.motes.shader}.Distinct())
                 foreach(var message in ShaderUtil.GetShaderMessages(shader))
                     if(message.severity.ToString()=="Error")errors.Add(shader.name+": "+message.message);
             File.WriteAllText(Path.Combine(output,"native-capture-receipt.json"),JsonConvert.SerializeObject(new{

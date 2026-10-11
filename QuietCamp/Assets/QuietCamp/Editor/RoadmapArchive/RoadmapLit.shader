@@ -24,6 +24,9 @@ Shader "QuietCamp/RoadmapLit"
     Properties
     {
         _BaseColor ("Color", Color) = (0.4, 0.6, 0.35, 1)
+        [Toggle(ROADMAP_CUTOUT)] _FoliageCutout ("Leaf card cutout", Float) = 0
+        _FoliageAtlas ("Reviewed foliage atlas", 2D) = "white" {}
+        _Cutoff ("Leaf alpha cutoff", Range(0,1)) = .4
         _GroundContactMap ("Baked ground contacts", 2D) = "white" {}
         _GroundContactStrength ("Ground contact shading", Range(0,1)) = 0
         _GroundContactUV ("World contact UV", Vector) = (1,1,0,0)
@@ -57,9 +60,11 @@ Shader "QuietCamp/RoadmapLit"
             float _SwayAmp, _SwayFreq, _FlutterAmp, _FlutterFreq;
             float _RootLock, _PhaseLag, _InnerShade, _Cull, _ClusterWind, _VertexTint;
             float _TreeWind, _CrownStart, _SnowCover, _Dew, _GroundContactStrength;float4 _GroundContactUV;
+            float _Cutoff;
         CBUFFER_END
 
         TEXTURE2D(_GroundContactMap); SAMPLER(sampler_GroundContactMap);
+        TEXTURE2D(_FoliageAtlas); SAMPLER(sampler_FoliageAtlas);
         // Shared wind/light state — one scene owner writes these.
         float4 _RoadmapFogColor;
         float _RoadmapRevealZ;
@@ -73,7 +78,7 @@ Shader "QuietCamp/RoadmapLit"
         float4 _AtmosSunDirW;     // xyz = toward-sun direction
         float4 _AtmosSunColor;
         float4 _AtmosAmbient;
-        #include "WindField.hlsl"
+        #include "Assets/QuietCamp/Resources/QuietCamp/WindField.hlsl"
 
         // Per-renderer registration data (MaterialPropertyBlock).
         float _MeshMinY, _MeshTopY;
@@ -81,6 +86,7 @@ Shader "QuietCamp/RoadmapLit"
         struct SwayAttributes
         {
             float4 vertex : POSITION;
+            float2 uv : TEXCOORD0;
             float3 normal : NORMAL;
             // Combined understory meshes store (root.x, root.z, base.y, height).
             // Prefabs use their registered bounds and do not need this stream.
@@ -178,6 +184,7 @@ Shader "QuietCamp/RoadmapLit"
             #pragma vertex vert
             #pragma fragment frag
             #pragma target 3.5
+            #pragma shader_feature_local _ ROADMAP_CUTOUT
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE
             #pragma multi_compile_fragment _ _SHADOWS_SOFT _SHADOWS_SOFT_LOW _SHADOWS_SOFT_MEDIUM _SHADOWS_SOFT_HIGH
 
@@ -187,6 +194,7 @@ Shader "QuietCamp/RoadmapLit"
                 float3 col : TEXCOORD0;
                 float3 world : TEXCOORD1;
                 float3 sunlight : TEXCOORD2;
+                float2 uv : TEXCOORD3;
             };
 
             Varyings vert(SwayAttributes v)
@@ -196,6 +204,7 @@ Shader "QuietCamp/RoadmapLit"
                 float3 wp = TransformObjectToWorld(bentOS);
                 o.pos = TransformWorldToHClip(wp);
                 o.world = wp;
+                o.uv = v.uv;
                 // Correct normal path for non-uniform scale; the bend angles
                 // are small so normals keep their authored direction.
                 float3 n = TransformObjectToWorldNormal(v.normal);
@@ -242,6 +251,11 @@ Shader "QuietCamp/RoadmapLit"
                 #endif
                 half3 groundTint=lerp(half3(1,1,1),soil,_GroundContactStrength);
                 half3 lit=(i.col+i.sunlight*shadow)*contact*groundTint;
+                #if defined(ROADMAP_CUTOUT)
+                half4 leaf=SAMPLE_TEXTURE2D(_FoliageAtlas,sampler_FoliageAtlas,i.uv);
+                clip(leaf.a-_Cutoff);
+                lit*=leaf.rgb;
+                #endif
                 // Distance separates the far plane; a little low-lying river
                 // haze sits below tree crowns instead of flattening every face.
                 float distanceFade=max(0,distance(i.world,_WorldSpaceCameraPos)-_RoadmapFogStart);
@@ -265,10 +279,17 @@ Shader "QuietCamp/RoadmapLit"
             #pragma vertex DepthVert
             #pragma fragment DepthFrag
             #pragma target 3.5
-            struct DepthVaryings { float4 pos:SV_POSITION; };
+            #pragma shader_feature_local _ ROADMAP_CUTOUT
+            struct DepthVaryings { float4 pos:SV_POSITION; float2 uv:TEXCOORD0; };
             DepthVaryings DepthVert(SwayAttributes v)
-            { DepthVaryings o;o.pos=TransformObjectToHClip(DeformOS(v.vertex.xyz,v.plant));return o; }
-            half4 DepthFrag(DepthVaryings i):SV_TARGET{return 0;}
+            { DepthVaryings o;o.pos=TransformObjectToHClip(DeformOS(v.vertex.xyz,v.plant));o.uv=v.uv;return o; }
+            half4 DepthFrag(DepthVaryings i):SV_TARGET
+            {
+                #if defined(ROADMAP_CUTOUT)
+                clip(SAMPLE_TEXTURE2D(_FoliageAtlas,sampler_FoliageAtlas,i.uv).a-_Cutoff);
+                #endif
+                return 0;
+            }
             ENDHLSL
         }
 
@@ -287,12 +308,13 @@ Shader "QuietCamp/RoadmapLit"
             #pragma vertex ShadowVert
             #pragma fragment ShadowFrag
             #pragma target 3.5
+            #pragma shader_feature_local _ ROADMAP_CUTOUT
             #pragma multi_compile _ _CASTING_PUNCTUAL_LIGHT_SHADOW
 
             float3 _LightDirection;
             float3 _LightPosition;
 
-            struct ShadowVaryings { float4 pos : SV_POSITION; };
+            struct ShadowVaryings { float4 pos : SV_POSITION; float2 uv:TEXCOORD0; };
 
             ShadowVaryings ShadowVert(SwayAttributes v)
             {
@@ -307,10 +329,17 @@ Shader "QuietCamp/RoadmapLit"
                 float4 pos = TransformWorldToHClip(
                     ApplyShadowBias(wp, normalWS, lightDirectionWS));
                 o.pos = ApplyShadowClamping(pos);
+                o.uv = v.uv;
                 return o;
             }
 
-            half4 ShadowFrag(ShadowVaryings i) : SV_TARGET { return 0; }
+            half4 ShadowFrag(ShadowVaryings i) : SV_TARGET
+            {
+                #if defined(ROADMAP_CUTOUT)
+                clip(SAMPLE_TEXTURE2D(_FoliageAtlas,sampler_FoliageAtlas,i.uv).a-_Cutoff);
+                #endif
+                return 0;
+            }
             ENDHLSL
         }
     }

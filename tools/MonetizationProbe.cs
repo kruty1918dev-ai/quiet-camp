@@ -19,6 +19,7 @@ class MonetizationProbe
     static async Task Main(string[] args)
     {
         if (args.Length == 2 && args[0] == "--author-lighthouse") { AuthorLighthouse(args[1]); return; }
+        VerifyDirectNavigation();
         var now = new DateTime(2026, 10, 5, 23, 59, 0, DateTimeKind.Utc);
         var state = new EconomySaveData();
         var persist = true;
@@ -126,6 +127,37 @@ class MonetizationProbe
         public void HideBanner() { }
         public Task<AdResult> ShowRewarded(string id) { Requests++; return Pending?.Task ?? Task.FromResult(Result); }
     }
+    static void VerifyDirectNavigation()
+    {
+        var data = JObject.Parse(File.ReadAllText("QuietCamp/Assets/QuietCamp/Resources/QuietCamp/campaign.json"));
+        var ids = data["mvpLevelIds"].Values<string>().Concat(data["generatedLevelIds"].Values<string>()).ToArray();
+        var branch = new JourneyDefinition { id="side", published=true, entitlementId="side.access", levelIds=new[]{"side.1","side.2"} };
+        var catalog = new JourneyCatalog(new[] { new JourneyDefinition { id="main", published=true, levelIds=ids }, branch,
+            new JourneyDefinition { id="staging", published=false, levelIds=new[]{"unpublished"} } });
+        var progress = new ProgressionService();
+        var grants = new EntitlementSaveData();
+        var access = new JourneyAccessService(catalog, progress, grants, ()=>false);
+        bool Permitted(string id) => access.Evaluate(id).CanStart;
+        string Continue(string saved=null) => DirectCampNavigation.ContinueTarget(catalog,progress,Permitted,saved);
+        string Next(string id) => DirectCampNavigation.NextTarget(catalog,progress,Permitted,id);
+        Expect(Continue()==ids[0] && Next(ids[0])==null, "Fresh profile starts directly; incomplete level cannot advance");
+        foreach (var id in ids.Take(5)) progress.MarkCompleted(id);
+        Expect(Continue(ids[4])==ids[5] && Next(ids[4])==ids[5], "QC005 advances to QC006 without a map or five-place limit");
+        foreach (var id in ids.Skip(5).Take(40)) progress.MarkCompleted(id);
+        Expect(Continue()==ids[45] && Continue(ids[45])==ids[45], "Legacy progress and unfinished session resume at their actual campaign position");
+        Expect(Continue("unpublished")==ids[45] && Continue("side.1")==ids[45] && Continue(ids[90])==ids[45], "Staging, entitlement and predecessor gates remain enforced");
+        grants.ownedIds=new[]{"side.access"};
+        Expect(Continue("side.1")=="side.1", "An unfinished entitled journey resumes directly");
+        progress.MarkCompleted("side.1");
+        Expect(Next("side.1")=="side.2" && Continue("side.1")==ids[45], "Completed sessions do not trap Continue in a replay loop");
+        progress.MarkCompleted("side.2");
+        Expect(Next("side.2")==null, "Journey end returns to menu instead of loading another route");
+        foreach (var id in ids.Skip(45)) progress.MarkCompleted(id);
+        Expect(Next(ids.Last())==null && Continue()==ids.Last() && progress.CompletedCount==ids.Length+2,
+            "Full campaign ends safely; replay and stored completions are preserved");
+        Pass("direct navigation: fresh/5/45/110 completions, resume, replay, journey and access gates");
+    }
+
     static async Task NativeContracts()
     {
         var root = Path.Combine(Path.GetTempPath(), "quietcamp-monetization-fixture-" + Guid.NewGuid().ToString("N"));

@@ -13,6 +13,7 @@ ARTIFACTS = CACHE_PROJECT / "Library/Bee/artifacts"
 
 
 def main():
+    player_sources = "--player-source-check" in sys.argv
     sdk = subprocess.check_output(["dotnet", "--list-sdks"], text=True).splitlines()[-1]
     version, directory = sdk.split(" ", 1)
     compiler = Path(directory.strip("[]")) / version / "Roslyn/bincore/csc.dll"
@@ -24,7 +25,9 @@ def main():
                   ("Domain", "Scripts/Domain"), ("Application", "Scripts/Application"),
                   ("Infrastructure", "Scripts/Infrastructure"), ("Presentation", "Scripts/Presentation"),
                   ("Tests.Editor", "Tests/Editor"), ("Tests.PlayMode", "Tests/PlayMode")]
-    if "--include-editor" in sys.argv:
+    if player_sources:
+        assemblies = [(name, folder) for name, folder in assemblies if not name.startswith("Tests.")]
+    if "--include-editor" in sys.argv and not player_sources:
         assemblies.append(("Editor", "Editor"))
     with tempfile.TemporaryDirectory(prefix="quietcamp-monetization-compile-") as temporary:
         output = Path(temporary)
@@ -42,6 +45,13 @@ def main():
             for line in original.read_text().splitlines():
                 if line.startswith(("-out:", "-refout:")) or line.strip('"').endswith(".cs"):
                     continue
+                if player_sources and line.startswith("-define:"):
+                    symbols = re.split(r"[;,]", line[len("-define:"):])
+                    symbols = [symbol for symbol in symbols if not symbol.startswith("UNITY_EDITOR")
+                               and symbol != "UNITY_INCLUDE_TESTS"]
+                    if not symbols:
+                        continue
+                    line = "-define:" + ";".join(symbols)
                 if line.startswith("/additionalfile:"):
                     additional = Path(line.split(":",1)[1].strip('"'))
                     if not additional.is_absolute() and CACHE_PROJECT != PROJECT:
@@ -49,6 +59,9 @@ def main():
                 if line.startswith("-r:"):
                     reference = Path(line[3:].strip('"'))
                     stem = reference.name.removesuffix(".ref.dll").removesuffix(".dll")
+                    if player_sources and (stem.startswith("UnityEditor") or ".Editor" in stem
+                                           or stem.startswith("QuietCamp.Tests")):
+                        continue
                     if is_package and stem.startswith("QuietCamp."):
                         continue
                     if stem in compiled:
@@ -89,8 +102,14 @@ def main():
                 print(result.stdout + result.stderr, flush=True)
                 result.check_returncode()
             compiled[assembly] = destination
+            if player_sources and name in ("Infrastructure", "Presentation"):
+                metadata = destination.read_bytes()
+                for editor_type in (b"RoadmapEditorArchive", b"RoadmapWorldPresenter", b"RoadmapWorldInput",
+                                    b"RoadmapWorldAsset", b"RoadmapWorldChunk"):
+                    assert editor_type not in metadata, "Editor-only map type in player-conditioned assembly: " + str(editor_type)
             warnings = (result.stdout + result.stderr).count(": warning ")
-            print("PASS current-source compiler check: " + assembly + " (warnings: " + str(warnings) + ")", flush=True)
+            label = "player-conditioned source compiler check" if player_sources else "current-source compiler check"
+            print("PASS " + label + ": " + assembly + " (warnings: " + str(warnings) + ")", flush=True)
     print("Compiler checks only; no Unity import, player build or runtime scene check performed.")
 
 

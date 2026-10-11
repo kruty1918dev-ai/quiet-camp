@@ -96,5 +96,134 @@
       "Assets/PolygonCity/Textures/PolygonCity_Texture_Metallic.tga": "5a21a6835f16e24686c41244118a12cd05abf6b00fcb708ce3c9e177cfba7515",
       "Assets/PolygonCity/Textures/PolygonCity_Texture_Normal.png": "db9d3c4e5efc03d5b96e5c54e391260e29cc43c89b87b1aaf287fd438ad3f88c"
     }
+  },
+  {
+    "asset": "pilot.meadow-grass",
+    "catalogueId": "M0755",
+    "source": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/SM_Env_Grass_Bush_01.fbx",
+    "sourceHash": "2dfc6071d33fea1ed871fe00ede5257c9c08f52483961a11882f64d271b225da",
+    "guid": "24d1e925132283841b67fa75a98e34e4",
+    "lod": 0,
+    "prefab": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Prefabs/SM_Env_Grass_Bush_01.prefab",
+    "cutout": true,
+    "palette": [
+      0.52,
+      0.67,
+      0.32
+    ],
+    "dependencies": {
+      "Assets/PolygonNatureBiomes/PNB_Core/Shaders/SyntyStudios_VegitationShader.shader": "6d8885da7ae46db735b929f073638bcf70b105be7eb93c7285abf99788b47113",
+      "Assets/PolygonNatureBiomes/PNB_Core/Textures/LODNoise.png": "140c55bd97c21b9b22008d7054b492333fec67fbfc1a1b266e5b0209b647eed4",
+      "Assets/PolygonNatureBiomes/PNB_Core/Textures/Noise_Big.tga": "d40846a791d8c62f82fb9c5e38ceef8c24eb92c5e73b12649f27017d1b8e3332",
+      "Assets/PolygonNatureBiomes/PNB_Core/Textures/Noise_Mid.tga": "6d406e19abe895413a02b3b13c290d7c08e15eaae7ff624fecb7bd34d960aca0",
+      "Assets/PolygonNatureBiomes/PNB_Core/Textures/Noise_Small.png": "0ec003f391f56dbe7c1402809cbc2cc403320a7a040142f6c452c485fa269675",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Grass_Tall_Mat_01.mat": "14377b139325e638b242c28e77c9463bf4b64b9d4a6ea6ba11d9d49f221d55ab",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/SM_Env_Grass_Bush_01.fbx": "2dfc6071d33fea1ed871fe00ede5257c9c08f52483961a11882f64d271b225da",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Prefabs/SM_Env_Grass_Bush_01.prefab": "122b036a7f6bfd274c25f0b1c163a920ad2993eeec9b3e1ebbafb14ef6fa95b6",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Textures/Bioluminescence/Grass_01_Glow_01.png": "e6984556738e59bd31263e3c034d3d3c771cda467fa9df9a480f691b64562d0b",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Textures/Normals/Grass_01_Normals.tga": "4a5be91aac0130f19207569f59cdfff2d6291971e49edf37b56690b4da0b368b",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Textures/Plants/Grass_01.tga": "9933cf1be8cb8023922b0bb486137d4cd619731fcd6f85d6caff5ef6b767c316"
+    }
+  },
+  {
+    "asset": "pilot.low-leaves",
+    "catalogueId": "M0777",
+    "source": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/SM_Env_Ground_Cover_02.fbx",
+    "sourceHash": "7a6334410a63b34de45b39511e5c38966ea09825636b2ca9733dd39be9466419",
+    "guid": "37f2d81e542c39f4baad3c94303c8fa0",
+    "lod": 0,
+    "prefab": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Prefabs/SM_Env_Ground_Cover_02.prefab",
+    "cutout": true,
+    "palette": [
+      0.43,
+      0.6,
+      0.27
+    ],
+    "dependencies": {
+      "Assets/PolygonNatureBiomes/PNB_Core/Shaders/SyntyStudios_VegitationShader.shader": "6d8885da7ae46db735b929f073638bcf70b105be7eb93c7285abf99788b47113",
+      "Assets/PolygonNatureBiomes/PNB_Core/Textures/LODNoise.png": "140c55bd97c21b9b22008d7054b492333fec67fbfc1a1b266e5b0209b647eed4",
+      "Assets/PolygonNatureBiomes/PNB_Core/Textures/Noise_Big.tga": "d40846a791d8c62f82fb9c5e38ceef8c24eb92c5e73b12649f27017d1b8e3332",
+      "Assets/PolygonNatureBiomes/PNB_Core/Textures/Noise_Mid.tga": "6d406e19abe895413a02b3b13c290d7c08e15eaae7ff624fecb7bd34d960aca0",
+      "Assets/PolygonNatureBiomes/PNB_Core/Textures/Noise_Small.png": "0ec003f391f56dbe7c1402809cbc2cc403320a7a040142f6c452c485fa269675",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Ground_Cover_Mat_01.mat": "965625897ddd999d14cd2166fb2d0956af2aa50f78265527a423c5aed93cb978",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/SM_Env_Ground_Cover_02.fbx": "7a6334410a63b34de45b39511e5c38966ea09825636b2ca9733dd39be9466419",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Prefabs/SM_Env_Ground_Cover_02.prefab": "13a6d6669e6adb22a43ef139dedbd007fa392a4e8d99c8fe1d5717e293cc02b6",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Textures/Normals/GroundCover_01_Normals.tga": "ce9286ac7ebf45638c2d808663ed6012cb68a543438d8f2b19e27cbe3fb6e78b",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Textures/Plants/GroundCover_01.tga": "f249b043c2d4e1499e29c149eb91a6e139960d67612015de65a8408af7b312ca"
+    }
+  },
+  {
+    "asset": "pilot.short-grass",
+    "catalogueId": "M0768",
+    "source": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/SM_Env_Grass_Tall_Clump_01.fbx",
+    "sourceHash": "dffbae2f8f8754bf0d7e7b276ce39093379c5e82ff691137dc015d8abf579dee",
+    "guid": "cdfaaff26daa8e442ae0bcbc6cd3b339",
+    "lod": 0,
+    "prefab": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Prefabs/SM_Env_Grass_Tall_Clump_01.prefab",
+    "cutout": true,
+    "palette": [
+      0.49,
+      0.65,
+      0.3
+    ],
+    "dependencies": {
+      "Assets/PolygonNatureBiomes/PNB_Core/Shaders/SyntyStudios_VegitationShader.shader": "6d8885da7ae46db735b929f073638bcf70b105be7eb93c7285abf99788b47113",
+      "Assets/PolygonNatureBiomes/PNB_Core/Textures/LODNoise.png": "140c55bd97c21b9b22008d7054b492333fec67fbfc1a1b266e5b0209b647eed4",
+      "Assets/PolygonNatureBiomes/PNB_Core/Textures/Noise_Big.tga": "d40846a791d8c62f82fb9c5e38ceef8c24eb92c5e73b12649f27017d1b8e3332",
+      "Assets/PolygonNatureBiomes/PNB_Core/Textures/Noise_Mid.tga": "6d406e19abe895413a02b3b13c290d7c08e15eaae7ff624fecb7bd34d960aca0",
+      "Assets/PolygonNatureBiomes/PNB_Core/Textures/Noise_Small.png": "0ec003f391f56dbe7c1402809cbc2cc403320a7a040142f6c452c485fa269675",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Materials/Plants/Grass_Tall_Mat_01.mat": "14377b139325e638b242c28e77c9463bf4b64b9d4a6ea6ba11d9d49f221d55ab",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Models/SM_Env_Grass_Tall_Clump_01.fbx": "dffbae2f8f8754bf0d7e7b276ce39093379c5e82ff691137dc015d8abf579dee",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Prefabs/SM_Env_Grass_Tall_Clump_01.prefab": "05f544d371e9b3eec8eee05a8b7ffa4ed862be716b19e62accde9c9e82b8d96b",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Textures/Bioluminescence/Grass_01_Glow_01.png": "e6984556738e59bd31263e3c034d3d3c771cda467fa9df9a480f691b64562d0b",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Textures/Normals/Grass_01_Normals.tga": "4a5be91aac0130f19207569f59cdfff2d6291971e49edf37b56690b4da0b368b",
+      "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Textures/Plants/Grass_01.tga": "9933cf1be8cb8023922b0bb486137d4cd619731fcd6f85d6caff5ef6b767c316"
+    }
+  },
+  {
+    "asset": "pilot.hedge-bush",
+    "catalogueId": "M0136",
+    "source": "Assets/PolygonBattleRoyale/Models/SM_Env_Bush_03.fbx",
+    "sourceHash": "0600b2dd615ba2e6318813bfc65d43a6bcc1091146f057bbfb0f78e39eccf718",
+    "guid": "04bbdaa8bfe69504ea83e5ea21471860",
+    "lod": 0,
+    "prefab": "Assets/PolygonBattleRoyale/Prefabs/Generic/SM_Env_Bush_03.prefab",
+    "cutout": false,
+    "palette": [
+      0.38,
+      0.54,
+      0.25
+    ],
+    "dependencies": {
+      "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_01_A.mat": "f5f590d09bdc5ff635750bf940562393f6c1daf29c66550464fafacec0eca47c",
+      "Assets/PolygonBattleRoyale/Models/SM_Env_Bush_03.fbx": "0600b2dd615ba2e6318813bfc65d43a6bcc1091146f057bbfb0f78e39eccf718",
+      "Assets/PolygonBattleRoyale/Models/SM_Env_Bush_03_Convex.asset": "67c0cd8218a67764895d90f38f647f98c79ee4f3315db6eb7a2f1b018fcd3abf",
+      "Assets/PolygonBattleRoyale/Prefabs/Generic/SM_Env_Bush_03.prefab": "73cbc3a5f598049e7826ed25d12d58cb671c28eb4bf33f507cf343036314b2a9",
+      "Assets/PolygonBattleRoyale/Textures/PolygonBattleRoyale_Texture_01_A.png": "8b9987ce68c4717e6c8914f994582ce0af3460de7369229bba6662a804f15c9c",
+      "Assets/PolygonBattleRoyale/Textures/PolygonBattleRoyale_Vehicles_01_Emmision.png": "17d12c0a7b36443fb81371763522df94aeab458088560e6538cef002110bdbbc"
+    }
+  },
+  {
+    "asset": "pilot.round-bush",
+    "catalogueId": "M0134",
+    "source": "Assets/PolygonBattleRoyale/Models/SM_Env_Bush_01.fbx",
+    "sourceHash": "b64167e3ee949320245462d546748e96068446b544b663d3752230a8e0de0c09",
+    "guid": "1fae48495be93f44a956df845a775656",
+    "lod": 0,
+    "prefab": "Assets/PolygonBattleRoyale/Prefabs/Generic/SM_Env_Bush_01.prefab",
+    "cutout": false,
+    "palette": [
+      0.43,
+      0.58,
+      0.27
+    ],
+    "dependencies": {
+      "Assets/PolygonBattleRoyale/Materials/PolygonBattleRoyale_01_A.mat": "f5f590d09bdc5ff635750bf940562393f6c1daf29c66550464fafacec0eca47c",
+      "Assets/PolygonBattleRoyale/Models/SM_Env_Bush_01.fbx": "b64167e3ee949320245462d546748e96068446b544b663d3752230a8e0de0c09",
+      "Assets/PolygonBattleRoyale/Models/SM_Env_Bush_01_Convex.asset": "93667683279d338a8fb864e8f68de2ad9ec536188cfb69ee396dad8469cafa8d",
+      "Assets/PolygonBattleRoyale/Prefabs/Generic/SM_Env_Bush_01.prefab": "fddd80f996f3ae92c25f8d57ac1b529f95a195c60319a7202c8a2da0ae33521f",
+      "Assets/PolygonBattleRoyale/Textures/PolygonBattleRoyale_Texture_01_A.png": "8b9987ce68c4717e6c8914f994582ce0af3460de7369229bba6662a804f15c9c",
+      "Assets/PolygonBattleRoyale/Textures/PolygonBattleRoyale_Vehicles_01_Emmision.png": "17d12c0a7b36443fb81371763522df94aeab458088560e6538cef002110bdbbc"
+    }
   }
 ]

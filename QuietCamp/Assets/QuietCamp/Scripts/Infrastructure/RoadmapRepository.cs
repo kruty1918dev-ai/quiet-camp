@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
@@ -24,7 +25,7 @@ namespace QuietCamp.Infrastructure
             if(Maps.TryGetValue(journeyId,out var ready))return ready;
             // Author IDs must be simple filenames; no path traversal or arbitrary remote content.
             foreach(char c in journeyId)if(!char.IsLetterOrDigit(c)&&c!='-'&&c!='_'&&c!='.')throw new ArgumentException("Invalid journey ID");
-            var asset=Resources.Load<TextAsset>(journeyId=="main"?"QuietCamp/roadmap_regions":"QuietCamp/Roadmaps/"+journeyId);
+            var asset=RoadmapEditorArchive.Load<TextAsset>(journeyId=="main"?"QuietCamp/roadmap_regions":"QuietCamp/Roadmaps/"+journeyId);
             if(asset==null)throw new InvalidOperationException("Roadmap export is missing: "+journeyId);
             var catalog=new RoadmapCatalog(JsonConvert.DeserializeObject<RoadmapDefinition>(asset.text));
             EnsureSummaries();
@@ -44,3 +45,4 @@ namespace QuietCamp.Infrastructure
         public static void Reset(){Maps.Clear();_summaries=null;}
     }
 }
+#endif

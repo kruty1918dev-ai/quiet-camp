@@ -4,21 +4,64 @@
   "minShrubHeight": 0.5,
   "maxShrubHeight": 1.0,
   "low": {
-    "grassStep": 0.78,
-    "density": 0.8,
-    "blades": 3,
-    "rocks": 14,
-    "logs": 6,
-    "flowers": 24,
-    "motesPerChunk": 24
-  },
-  "balanced": {
-    "grassStep": 0.65,
+    "grassStep": 0.45,
     "density": 1.0,
     "blades": 4,
     "rocks": 30,
     "logs": 12,
     "flowers": 60,
     "motesPerChunk": 48
-  }
+  },
+  "balanced": {
+    "grassStep": 0.45,
+    "density": 1.0,
+    "blades": 4,
+    "rocks": 30,
+    "logs": 12,
+    "flowers": 60,
+    "motesPerChunk": 48
+  },
+  "matureStep": 3.4,
+  "youngStep": 3.3,
+  "shrubStep": 1.5,
+  "herbs": [
+    {
+      "asset": "pilot.meadow-grass",
+      "minHeight": 0.46,
+      "maxHeight": 0.86,
+      "weight": 0.35
+    },
+    {
+      "asset": "pilot.low-leaves",
+      "minHeight": 0.18,
+      "maxHeight": 0.32,
+      "weight": 0.4
+    },
+    {
+      "asset": "pilot.short-grass",
+      "minHeight": 0.26,
+      "maxHeight": 0.44,
+      "weight": 0.25
+    }
+  ],
+  "shrubs": [
+    {
+      "asset": "pilot.hedge-bush",
+      "minHeight": 0.7,
+      "maxHeight": 1.4,
+      "weight": 0.45
+    },
+    {
+      "asset": "pilot.round-bush",
+      "minHeight": 0.85,
+      "maxHeight": 1.6,
+      "weight": 0.3
+    },
+    {
+      "asset": "plant_bushSmall",
+      "minHeight": 0.4,
+      "maxHeight": 0.7,
+      "weight": 0.25
+    }
+  ]
 }

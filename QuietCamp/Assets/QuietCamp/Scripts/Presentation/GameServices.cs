@@ -53,12 +53,16 @@ namespace QuietCamp.Presentation
         public CampCompletionService Completion { get; private set; }
         public CampAttemptService Attempts { get; private set; }
         public bool MonetizationBusy => Purchases.Busy || AdLives.Busy || Rewards.Busy;
+        #if UNITY_EDITOR
         public readonly Dictionary<string,int> RoadmapSeenFrontiers=new Dictionary<string,int>(StringComparer.Ordinal);
+        #endif
         public event Action MonetizationChanged;
         void OnMonetizationChanged() => MonetizationChanged?.Invoke();
         /// <summary>Optional verified entitlement adapter; no provider means no premium entitlement.</summary>
         public Func<string,bool> BonusEntitlement { get; set; }
+        #if UNITY_EDITOR
         public IRoadmapBranchUnlockProvider BranchUnlockProvider { get; set; }
+        #endif
         public Func<string,bool> SubscriptionEntitlement { get; set; }
         public GoogleServicesConfiguration GoogleConfiguration { get; }
         public LegalConfiguration Legal { get; }
@@ -66,11 +70,13 @@ namespace QuietCamp.Presentation
 
         /// <summary>Level chosen in the menu, consumed by the Camp scene host.</summary>
         public string PendingLevelId { get; set; }
+        #if UNITY_EDITOR
         public float LevelMapScroll = -1f;
         public int RoadmapAdvanceFrom = -1;
         public Domain.RoadmapAnchor LevelMapAnchor;
         public string LevelMapJourney="main";
         public readonly Dictionary<string,Domain.RoadmapAnchor> LevelMapAnchors=new Dictionary<string,Domain.RoadmapAnchor>();
+        #endif
         public int AlbumIndex;
         /// <summary>Chosen once per application launch; returning from gameplay keeps the same backdrop.</summary>
         public LevelData MenuBackdrop { get; internal set; }
@@ -202,28 +208,42 @@ namespace QuietCamp.Presentation
             if (Save.Save()) return EconomyResult.Applied;
             Save.Entitlements.ownedIds = before; return EconomyResult.SaveFailed;
         }
+        #if UNITY_EDITOR
+        public bool EditorRoadmapPreview;
         public bool PilotCompleted(string id)=>RoadmapPilotPolicy.Completed(Progression,id);
+        #endif
         public bool CanStart(string id)
         {
             id = CampContent.CanonicalId(id);
 #if UNITY_EDITOR
             if (id == LevelLoader.TestLevelId()) return true;
 #endif
-            if (!RoadmapPilotPolicy.Contains(id)) return false;
-            if (RoadmapPilotPolicy.Index(id)>RoadmapPilotPolicy.Frontier(PilotCompleted)) return false;
+#if UNITY_EDITOR
+            if (EditorRoadmapPreview && (!RoadmapPilotPolicy.Contains(id)
+                || RoadmapPilotPolicy.Index(id)>RoadmapPilotPolicy.Frontier(PilotCompleted))) return false;
+#endif
             var bonus = BonusCampCatalog.ForLevel(id);
             if(bonus!=null)return BonusCampCatalog.IsPublished(bonus)&&(Economy.IsPro||BonusCamps.Evaluate(bonus).CanPlay);
             var access=JourneyAccess.Evaluate(id);
-            return access.CanStart || (access.State==JourneyAccessState.Predecessor&&access.Journey.id=="main"
-                &&access.Journey.requiredCompletions==0&&(access.Journey.requiredLevelIds?.Length??0)==0
-                &&(Economy.IsPro||Save.Entitlements.Has(access.Journey.entitlementId))&&RoadmapPilotPolicy.LegacyBeyondPilot(Progression));
+#if UNITY_EDITOR
+            if (EditorRoadmapPreview && access.State==JourneyAccessState.Predecessor && access.Journey?.id=="main"
+                && access.Journey.requiredCompletions==0 && (access.Journey.requiredLevelIds?.Length??0)==0
+                && (Economy.IsPro||Save.Entitlements.Has(access.Journey.entitlementId))
+                && RoadmapPilotPolicy.LegacyBeyondPilot(Progression)) return true;
+#endif
+            return access.CanStart;
         }
         public string ContinueLevel()
         {
             var saved = CampContent.CanonicalId(Save.Session?.levelId);
-            return !string.IsNullOrEmpty(saved) && CanStart(saved) ? saved
+#if UNITY_EDITOR
+            if (EditorRoadmapPreview) return !string.IsNullOrEmpty(saved) && CanStart(saved) ? saved
                 : RoadmapPilotPolicy.LevelIds[RoadmapPilotPolicy.Frontier(PilotCompleted)];
+#endif
+            return DirectCampNavigation.ContinueTarget(Journeys, Progression, CanStart, saved);
         }
+        public string NextLevel(string completedId)
+            => DirectCampNavigation.NextTarget(Journeys, Progression, CanStart, CampContent.CanonicalId(completedId));
         public EconomyResult BuyJourney(string id)
         {
             var journey = Journeys.Find(id);
@@ -275,7 +295,10 @@ namespace QuietCamp.Presentation
             ConfigureMonetization();
             Tutorial = CreateTutorial();
             UnityEngine.JsonUtility.FromJsonOverwrite(UnityEngine.JsonUtility.ToJson(new SettingsSaveData()), Settings);
-            PendingLevelId = null; PendingMenuScreen = null; LevelMapScroll = -1; LevelMapAnchor=null; LevelMapJourney="main"; LevelMapAnchors.Clear(); AlbumIndex = 0;
+            PendingLevelId = null; PendingMenuScreen = null; AlbumIndex = 0;
+#if UNITY_EDITOR
+            LevelMapScroll = -1; LevelMapAnchor=null; LevelMapJourney="main"; LevelMapAnchors.Clear();
+#endif
             PrivacyNoticePresented = false;
             Localization.TrySetLanguage(Settings.language);
             UI.LocalizedLabel.TextScale = Settings.textScale;

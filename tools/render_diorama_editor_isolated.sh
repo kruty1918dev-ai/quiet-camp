@@ -11,7 +11,8 @@ case "${1:---probe}" in
   --studies) task_mode=studies ;;
   --cinematic) task_mode=cinematic ;;
   --pilot-tests) task_mode=pilot-tests ;;
-  *) echo 'Use --probe, --models, --studies, --cinematic or --pilot-tests'; exit 2 ;;
+  --deferred-tests) task_mode=deferred-tests ;;
+  *) echo 'Use --probe, --models, --studies, --cinematic or --pilot-tests/--deferred-tests'; exit 2 ;;
 esac
 if [[ "$task_mode" != probe ]]; then
   task_status=$(cat /home/oleks/.local/state/sys-guard/status)
@@ -27,7 +28,7 @@ if [[ "$task_mode" != probe ]]; then
   mkdir -p "$task_root/TestResults"
 fi
 task_user_mapping=(--map-root-user)
-if [[ "$task_mode" == pilot-tests ]]; then task_user_mapping=(--map-current-user --keep-caps); fi
+if [[ "$task_mode" == pilot-tests || "$task_mode" == deferred-tests ]]; then task_user_mapping=(--map-current-user --keep-caps); fi
 unshare --user "${task_user_mapping[@]}" --pid --fork --mount-proc --net \
   bash -euo pipefail -c '
     if [[ -d /dev/bus/usb ]]; then
@@ -43,7 +44,7 @@ unshare --user "${task_user_mapping[@]}" --pid --fork --mount-proc --net \
       echo "PASS private PID/proc/network + masked USB; graphics uses filesystem X11; no Unity launch"
       exit 0
     fi
-    if [[ "$1" == pilot-tests ]]; then
+    if [[ "$1" == pilot-tests || "$1" == deferred-tests ]]; then
       task_qa=/home/oleks/.cache/quietcamp/cinematic-roadmap-qa
       [[ -d "$task_qa/ProjectSettings" ]]
       for task_cache in ScriptMapper ScriptAssemblies ArtifactDB SourceAssetDB Bee; do
@@ -55,12 +56,19 @@ unshare --user "${task_user_mapping[@]}" --pid --fork --mount-proc --net \
       unset DBUS_SESSION_BUS_ADDRESS
       export NO_AT_BRIDGE=1
       export QC_CINEMATIC_EVIDENCE_ROOT="${QC_CINEMATIC_EVIDENCE_ROOT:-$3/Design/Roadmap/CinematicPilot/2026-10-10}"
+      task_filter=QuietCamp.Tests.RoadmapWorldPlayModeTests
+      task_label=cinematic-roadmap
+      if [[ "$1" == deferred-tests ]]; then
+        task_filter=QuietCamp.Tests.DeferredRoadmapPlayModeTests
+        task_label=deferred-roadmap
+        export QC_DEFERRED_EVIDENCE_ROOT="$3/Design/Roadmap/Paused/2026-10-11"
+      fi
       exec setpriv --inh-caps=-all --ambient-caps=-all nice -n10 ionice -c2 -n7 "$2" \
         -force-glcore -noaudio -buildTarget Linux64 -projectPath "$task_qa" \
         -job-worker-count 1 -background-job-worker-count 4 \
-        -runTests -testPlatform PlayMode -testFilter QuietCamp.Tests.RoadmapWorldPlayModeTests \
-        -testResults "$3/TestResults/cinematic-roadmap-playmode.xml" \
-        -logFile "$3/TestResults/diorama-pilot-tests-editor.log"
+        -runTests -testPlatform PlayMode -testFilter "$task_filter" \
+        -testResults "$3/TestResults/${task_label}-playmode.xml" \
+        -logFile "$3/TestResults/${task_label}-editor.log"
     fi
     if [[ "$1" == models ]]; then
       task_method=QuietCamp.Editor.ModelCatalogueRenderer.Render
@@ -69,9 +77,14 @@ unshare --user "${task_user_mapping[@]}" --pid --fork --mount-proc --net \
     else
       task_method=QuietCamp.Editor.DioramaStudyRenderer.Render
     fi
+    task_burst_flags=()
+    # Art publication does not execute Burst gameplay jobs. Avoid regenerating
+    # their large cache during every isolated composition review.
+    if [[ "$1" == cinematic ]]; then task_burst_flags=(--burst-disable-compilation); fi
     exec nice -n10 ionice -c2 -n7 "$2" \
       -batchmode -force-glcore -buildTarget Linux64 -projectPath "$3/QuietCamp" \
       -job-worker-count 1 -background-job-worker-count 4 \
+      "${task_burst_flags[@]}" \
       -executeMethod "$task_method" -quit -logFile "$3/TestResults/diorama-$1-editor.log"
   ' diorama-isolation "$task_mode" "$task_editor" "$task_root"
 

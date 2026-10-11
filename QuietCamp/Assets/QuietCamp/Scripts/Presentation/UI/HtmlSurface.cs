@@ -22,7 +22,10 @@ namespace QuietCamp.Presentation.UI
         Func<string> _render;
         bool _dirty;
         string _css;
-        string _lastHtml, _mountedCss, _scaledCss, _scaledInputCss, _mapCss, _settingsCss;
+        string _lastHtml, _mountedCss, _scaledCss, _scaledInputCss, _settingsCss;
+#if UNITY_EDITOR
+        string _mapCss;
+#endif
         float _cssScale = -1;
         bool _lastReduced;
         static int _mountFrame = -1;
@@ -61,10 +64,10 @@ namespace QuietCamp.Presentation.UI
                 : name == "CampHtml" ? "CampGame.css" : "Camp.css";
             surface._css = Resources.Load<TextAsset>("QuietCamp/Html/" + stylesheet)?.text
                 ?? Resources.Load<TextAsset>("QuietCamp/Html/Camp.css")?.text ?? "";
+#if UNITY_EDITOR
             if (name == "MenuOverlay")
-            {
-                surface._mapCss = Resources.Load<TextAsset>("QuietCamp/Html/CampMap.css")?.text;
-            }
+                surface._mapCss = RoadmapEditorArchive.Load<TextAsset>("QuietCamp/Html/CampMap.css")?.text;
+#endif
             if (name == "MenuOverlay" || name == "CampOverlay")
                 surface._settingsCss = Resources.Load<TextAsset>("QuietCamp/Html/CampSettings.css")?.text;
             // Quiet Camp documents use a small C# callback allow-list, not JS programs.
@@ -142,7 +145,10 @@ namespace QuietCamp.Presentation.UI
                 .WithReducedMotion(settings?.reducedMotion ?? true)
                 .WithWheelSensitivity((settings?.scrollSensitivity ?? 12f) / 12f);
             var scale = settings?.textScale ?? 1f;
-            var sourceCss = _mapCss != null && html.Contains("cinematic-roadmap") ? _mapCss : _css;
+            var sourceCss = _css;
+#if UNITY_EDITOR
+            if (_mapCss != null && html.Contains("cinematic-roadmap")) sourceCss = _mapCss;
+#endif
             if (_settingsCss != null && html.Contains("class=\"surface settings-panel ")) sourceCss = _settingsCss;
             if (_scaledCss == null || _cssScale != scale || _scaledInputCss != sourceCss)
             {

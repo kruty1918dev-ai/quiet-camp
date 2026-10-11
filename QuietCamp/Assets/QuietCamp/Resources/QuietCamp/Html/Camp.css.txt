@@ -383,8 +383,3 @@ button text, .gc-text text { white-space: normal; }
 .guide-farewell { flex-direction: row; align-items: center; gap: 20px; }
 .guide-farewell .guide-instruction { flex-grow: 1; flex-shrink: 1; flex-basis: 0; }
 
-.cinematic-roadmap { position: absolute; inset: 0; background-color: transparent; }
-.roadmap-exit { position: relative; align-self: flex-start; margin-left: 24px; margin-top: 24px; width: 96px; height: 96px; min-width: 96px; min-height: 96px; padding: 0; border-width: 0; border-radius: 48px; background-color: rgba(246,243,223,0.005); pointer-events: all; color: #30463c; align-items: center; justify-content: center; }
-.roadmap-exit:hover, .roadmap-exit:active { background-color: rgba(246,243,223,0.005); }
-.roadmap-exit-disc { align-items: center; justify-content: center; background-color: rgba(246,243,223,0.86); pointer-events: none; }
-.roadmap-exit .ico { width: 32px; height: 32px; min-width: 32px; min-height: 32px; }

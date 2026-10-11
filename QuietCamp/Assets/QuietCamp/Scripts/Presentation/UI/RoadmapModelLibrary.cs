@@ -39,7 +39,9 @@ namespace QuietCamp.Presentation.UI
         readonly Dictionary<string,Model> _models=new Dictionary<string,Model>(StringComparer.Ordinal);
         readonly Dictionary<string,Model> _stories=new Dictionary<string,Model>(StringComparer.Ordinal);
         readonly Dictionary<string,Model> _bareTrees=new Dictionary<string,Model>(StringComparer.Ordinal);
+        #if UNITY_EDITOR
         bool _cultureLoaded;
+        #endif
         public int Count=>_models.Count;
         RoadmapModelLibrary()
         {
@@ -53,19 +55,19 @@ namespace QuietCamp.Presentation.UI
         public static void Reset()=>_shared=null;
         public static RoadmapModelLibrary Load()=>_shared??(_shared=new RoadmapModelLibrary());
         /// <summary>Call once while opening a cultural map, never from a scroll callback.</summary>
+        #if UNITY_EDITOR
         public void PrepareCulture()
         {
             #if UNITY_EDITOR
             PrepareEnvironment();
             #endif
             if(_cultureLoaded)return;
-            var asset=Resources.Load<TextAsset>("QuietCamp/roadmap_culture_models");
+            var asset=Infrastructure.RoadmapEditorArchive.Load<TextAsset>("QuietCamp/roadmap_culture_models");
             if(asset==null)throw new InvalidOperationException("Roadmap rural models have not been exported.");
             foreach(var model in JsonConvert.DeserializeObject<Model[]>(asset.text))
             {model.Expand();_models.Add(model.id,model);}
             BareTree("ua_orchard_tree");_cultureLoaded=true;
         }
-        #if UNITY_EDITOR
         bool _environmentLoaded;
         /// <summary>Authoring-only model kit. Player uses verified native baked meshes.</summary>
         public void PrepareEnvironment()

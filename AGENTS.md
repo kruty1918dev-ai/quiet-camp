@@ -148,3 +148,17 @@ Stylized Water 3 shader, depth-based bank intersection, four wave layers and bak
 progress transparency. Author river settings in CinematicPilot/water.json and rebake;
 verify stationary-camera water animation in both URP profiles alongside Game View
 flow. Preserve the original QC_Renderer.asset bytes throughout Editor checks.
+
+# Roadmap deferred — 2026-10-11
+
+The user requested preserving the roadmap while excluding it completely from
+players and postponing its development. Map-only native assets, shaders, cultural
+models, catalogs and CSS live under `Assets/QuietCamp/Editor/RoadmapArchive`,
+outside every Resources folder. Native world/input types are UNITY_EDITOR-only.
+Keep default Editor play and all players on direct campaign navigation; no map
+card or map-return destination. The five-place launch restriction applies only
+to an explicitly opened archived Editor preview. Campaign, saves, gameplay
+models, album and entitlement rules remain intact. Never republish archived map
+assets to Resources during routine content preparation. The build dependency
+guard rejects map assets reintroduced into player roots. This does not authorize
+a player build. Existing Unity isolation, RAM and renderer-preservation rules apply.

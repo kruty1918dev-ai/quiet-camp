@@ -39,18 +39,31 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--evidence', type=Path, default=ROOT / 'Design/Roadmap/ValleyRework/2026-10-10/ArtReference')
     parser.add_argument('--encoder', type=Path, default=Path.home() / '.cache/quietcamp/roadmap-tools/ffmpeg-7.0.2')
+    parser.add_argument('--stills-only', action='store_true', help='Review iteration; deliberately leaves animation acceptance pending')
     args = parser.parse_args()
     folder = args.evidence
     read = lambda name: json.loads((folder / name).read_text())
     native, bake, plants = (read(n) for n in ('native-capture-receipt.json', 'bake-receipt.json', 'vegetation-clearance-receipt.json'))
     current = source_hash()
     assert all(r['sourceHash'] == current for r in (native, bake, plants)), 'Stale evidence/source'
-    publication = (UNITY / 'Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/World.asset').read_text()
+    publication = (UNITY / 'Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/World.asset').read_text()
     assert f'sourceHash: {current}' in publication
     assert native['artisticReference'] and not native['shaderErrors']
     assert bake['levelIds'] == [f'QC{i:03d}' for i in range(1, 6)]
     assert bake['vegetation']['low'] == bake['vegetation']['balanced'], 'Art pass lost content in Low'
-    assert all(s['balancedTriangles'] == s['lowTriangles'] and s['balancedVertices'] == s['lowVertices'] and len(s['geometryHashes']) == 6 for s in bake['stats'])
+    assert all(s['balancedTriangles'] == s['lowTriangles'] and s['balancedVertices'] == s['lowVertices'] and len(s['geometryHashes']) == 7 for s in bake['stats'])
+    resource=UNITY/'Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap'/current[:16]
+    atlas_proof=json.loads((resource/'FoliageAtlas.provenance.json').read_text())
+    assert atlas_proof['sourceResolutionRetained'] and atlas_proof['sourceAlphaRetained']
+    with Image.open(resource/'FoliageAtlas.png') as atlas:
+        assert atlas.size==(atlas_proof['width'],atlas_proof['height'])
+        for leaf in atlas_proof['sources']:
+            x=round(leaf['rect']['x']*atlas.width-.5);y=round(leaf['rect']['y']*atlas.height-.5)
+            pixels=atlas.crop((x,atlas.height-y-leaf['height'],x+leaf['width'],atlas.height-y)).transpose(Image.Transpose.FLIP_TOP_BOTTOM)
+            assert hashlib.sha256(pixels.getchannel('A').tobytes()).hexdigest()==leaf['alphaHash'], f'Leaf mask changed in atlas: {leaf["source"]}'
+    expected={'pilot.meadow-grass','pilot.low-leaves','pilot.short-grass','pilot.hedge-bush','pilot.round-bush'}
+    assert expected.issubset({d['asset'] for d in bake['donors']})
+    assert all(d['lod']==0 for d in bake['donors'] if d['asset'] in expected)
     assert len(native['frames']) == 115
     assert len({f['file'] for f in native['frames']}) == 115
     datetime.fromisoformat(native['capturedUtc'].replace('Z', '+00:00'))
@@ -68,7 +81,7 @@ def main():
             for zoom in ('in', 'out'):
                 for index in range(9):
                     assert (folder / f'{quality}-{orientation}-zoom-{zoom}-{index:02d}.png').is_file()
-    assert len(native['movies']) == 2
+    assert len(native['movies']) == (0 if args.stills_only else 2)
     encoder_sha = digest(args.encoder)
     for movie in native['movies']:
         file = folder / movie['file']
@@ -85,10 +98,13 @@ def main():
     assert digest(UNITY / 'Assets/QuietCamp/Settings/URP/QC_Renderer.asset') == RENDERER_SHA, 'User renderer changed'
     receipt = {'sourceHash': current, 'captureUtc': native['capturedUtc'], 'result': 'Passed',
                'artifacts': artifacts, 'artisticApproval': 'Pending', 'optimizationBudgetsAccepted': False,
+               'animationRecorded': not args.stills_only,
+               'foliageSourceMasksVerified':len(atlas_proof['sources']),
                'capture': 'Production URP SingleCameraRequest, separate from Game View integration',
                'playerBuild': False, 'mobileFpsMeasured': False}
     (folder / 'artifact-integrity-receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
-    print(f'PASS current authoring/native provenance; 115 PNGs; 2 fully decoded films; identical Low/Balanced art; preserved renderer. Art acceptance and strict optimization remain pending. {current}')
+    film_status='animation recording pending' if args.stills_only else '2 fully decoded films'
+    print(f'PASS current authoring/native provenance; 115 PNGs; {film_status}; identical Low/Balanced art; preserved renderer. Art acceptance and strict optimization remain pending. {current}')
 
 
 if __name__ == '__main__':

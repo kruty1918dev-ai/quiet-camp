@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ namespace QuietCamp.Presentation.World
         public Vector3 waterReviewPosition;
         public Mesh[] riverByFrontier;
         public float worldScale = .4f;
-        public Material ground, structure, foliage, water, marker, motes;
+        public Material ground, structure, foliage, water, marker, motes, foliageCards;
         public Color sky = new Color(.73f,.81f,.83f);
         public float fieldOfView = 30;
         public float[] chunkStarts, chunkEnds;
@@ -85,3 +86,4 @@ namespace QuietCamp.Presentation.World
         }
     }
 }
+#endif

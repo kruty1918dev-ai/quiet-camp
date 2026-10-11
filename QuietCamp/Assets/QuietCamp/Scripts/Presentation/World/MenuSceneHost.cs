@@ -34,7 +34,9 @@ namespace QuietCamp.Presentation.World
         readonly List<System.IDisposable> _leases = new List<System.IDisposable>();
         System.IDisposable _menuContext;
         AlbumDiorama _album;
+        #if UNITY_EDITOR
         RoadmapWorldPresenter _roadmap;
+        #endif
         BoardRenderer _board;
         public LevelData BackgroundLevel => _services?.MenuBackdrop;
 
@@ -44,7 +46,11 @@ namespace QuietCamp.Presentation.World
         /// ScreenRouter waits for before revealing the menu.</summary>
         public bool IsReady { get; private set; }
         public bool UiReady => IsReady && (_screens?.UiReady ?? false)
+#if UNITY_EDITOR
             && (_screens.Current=="Levels" ? (_roadmap?.Ready??false) : (_atmosphere?.InitialWorldReady ?? true));
+#else
+            && (_atmosphere?.InitialWorldReady ?? true);
+#endif
         public float VisibleDimming => _screens != null && (_screens.Current=="Main"||_screens.Current=="Settings") ? .55f : 0;
 
         public void Configure(GameServices services, ScreenRouter router)
@@ -91,7 +97,9 @@ namespace QuietCamp.Presentation.World
             var album=gameObject.AddComponent<AlbumDiorama>();
             _album=album;
             album.Configure(_services,_screens,camera,_world,_atmosphere,GetComponent<MenuCameraDrift>());
-            _roadmap=gameObject.AddComponent<RoadmapWorldPresenter>();_roadmap.Configure(_services,_screens);
+#if UNITY_EDITOR
+            if (_services.EditorRoadmapPreview) OpenRoadmapEditorPreview();
+#endif
             _screens.SetDarkSky(_profile != null &&
                 (_profile.Id == "evening" || _profile.Id == "night"));
             // A completed final level lands here through the leaf transition.
@@ -195,7 +203,19 @@ namespace QuietCamp.Presentation.World
 
         int QualityTier() => _services.EffectiveQuality;
 
+#if UNITY_EDITOR
+        public void OpenRoadmapEditorPreview()
+        {
+            _services.EditorRoadmapPreview = true;
+            if (_roadmap == null)
+            {
+                _roadmap=gameObject.AddComponent<RoadmapWorldPresenter>();
+                _roadmap.Configure(_services,_screens);
+            }
+            _screens.Show("Levels");
+        }
         float _roadmapSoundWeight=1;
+#endif
         void Update()
         {
             if (_safeArea != null && _menuViewport != null && _lastMenuSize != _safeArea.rect.size)
@@ -205,9 +225,11 @@ namespace QuietCamp.Presentation.World
                 _menuViewport.anchorMin = wide ? new Vector2(.46f, .1f) : new Vector2(0, .12f);
                 _menuViewport.anchorMax = wide ? new Vector2(.98f, .90f) : new Vector2(1, .72f);
             }
+#if UNITY_EDITOR
             bool roadmap=_screens?.Current=="Levels"||_screens?.Current=="BranchPreview";
             if(roadmap||_roadmapSoundWeight<1)
             {_roadmapSoundWeight=Mathf.MoveTowards(_roadmapSoundWeight,roadmap?0:1,Time.unscaledDeltaTime/.6f);_atmosphere?.Soundscape?.SetVisibility(_roadmapSoundWeight);}
+#endif
             if (_services?.Audio != null)
             {
                 _services.Audio.MaxActiveVoices = _services.EffectiveQuality == 0 ? 8 : _services.EffectiveQuality == 1 ? 12 : 16;
@@ -228,8 +250,12 @@ namespace QuietCamp.Presentation.World
             var levels = LevelLoader.MvpLevelIds();
             _leases.Add(h.Register(new UiActionId("qc.continue"), () =>
             {
-                _services.LevelMapAnchor=null;
-                _screens.Show("Levels");
+#if UNITY_EDITOR
+                if (_services.EditorRoadmapPreview)
+                { _services.LevelMapAnchor=null; _screens.Show("Levels"); return UiActionResult.Performed(); }
+#endif
+                var target = _services.ContinueLevel();
+                if (target != null) _router.GoToCamp(target);
                 return UiActionResult.Performed();
             }));
             _leases.Add(h.Register(new UiActionId("qc.play"), req =>
@@ -238,7 +264,10 @@ namespace QuietCamp.Presentation.World
                 if (!string.IsNullOrEmpty(id) && _services.CanStart(id)) _router.GoToCamp(id);
                 return UiActionResult.Performed();
             }));
-            _leases.Add(h.Register(new UiActionId("qc.levels"), () => { _services.LevelMapJourney="main";return Show("Levels"); }));
+#if UNITY_EDITOR
+            _leases.Add(h.Register(new UiActionId("qc.levels"), () =>
+            { if (_services.EditorRoadmapPreview) return Show("Levels"); return UiActionResult.Performed(); }));
+#endif
             _leases.Add(h.Register(new UiActionId("qc.album"), () => Show("Album")));
             _leases.Add(h.Register(new UiActionId("qc.settings"), () => Show("Settings")));
             _leases.Add(h.Register(new UiActionId("qc.economy"), () => Show("Economy")));

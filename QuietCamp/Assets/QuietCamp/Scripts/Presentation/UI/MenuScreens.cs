@@ -97,13 +97,13 @@ namespace QuietCamp.Presentation.UI
             // Keep the camp visible: a small wordmark above the clearing,
             // one primary action and two compact destinations below it.
             // All sheets live on the separate full-screen overlay.
-            var levels = RoadmapPilotPolicy.LevelIds;
+            var levels = LevelLoader.MvpLevelIds();
             var nextId = _services.ContinueLevel() ?? levels[0];
-            int done=0;foreach(var id in levels)if(_services.PilotCompleted(id))done++;
+            int done=0;foreach(var id in levels)if(_services.Progression.IsCompleted(id))done++;
             var albumCount = _services.Save.Album.entries?.Length ?? 0;
             var ctaTitle = done > 0 || !string.IsNullOrEmpty(_services.Save.Session.levelId) ? T("menu.continue") : T("menu.start");
             var ctaSub = string.Format(T("menu.cta.progress"),
-                Mathf.Min(done + 1, levels.Count), LevelDisplay.Title(nextId, _services.Localization, _services.Journeys));
+                Mathf.Max(1, LevelDisplay.Ordinal(nextId)), LevelDisplay.Title(nextId, _services.Localization, _services.Journeys));
             var content =
                 ""
                 + "<view class=\"top menu-top\" id=\"menu-header\" data-motion-role=\"edge-top\">"
@@ -118,8 +118,7 @@ namespace QuietCamp.Presentation.UI
                 + (_services.Tutorial.NeedsMenuIntro ? MenuGuideIntro() : "")
                 + Cta(ctaTitle, ctaSub)
                 + "<view class=\"menu-cards\">"
-                + (true ? MenuCard("levels", "map", T("menu.levels"), done + "/" + levels.Count,
-                    () => Action("qc.levels"), levels.Count > 0 ? (float)done / levels.Count : 0) : "")
+
                 + (_services.Economy.IsPro || albumCount > 0 || _services.Tutorial.AlbumUnlocked ? MenuCard("album", "tent", T("menu.album.short"), albumCount == 0 ? T("menu.album.empty") : string.Format(T("menu.album.saved"), albumCount),
                     () => Action("qc.album")) : "")
                 + "</view></view>";
@@ -174,7 +173,9 @@ namespace QuietCamp.Presentation.UI
         string RenderOverlay()
         {
             if (Current == "Main") return "<view />";
-            if (Current == "Levels") return Roadmap();
+#if UNITY_EDITOR
+            if (Current == "Levels" && _services.EditorRoadmapPreview) return Roadmap();
+#endif
             if (Current == "Album") return FullMenu();
             if (Current == "AlbumQuiet") return "<view class=\"app album-quiet\" data-safe-area=\"all\" id=\"sheet\" data-motion-role=\"dialog\""
                 + (_closing ? " data-motion=\"exit\"" : "") + "><view id=\"album-viewport\" class=\"quiet-viewport\" />"
@@ -206,6 +207,7 @@ namespace QuietCamp.Presentation.UI
             return sb.ToString();
         }
         void OnOverlayMounted() => OverlayMounted?.Invoke();
+        #if UNITY_EDITOR
         string Roadmap()
         {
             var scale=_overlay.Viewport.PixelScale;
@@ -217,6 +219,7 @@ namespace QuietCamp.Presentation.UI
                     .Replace(CampIcons.Mark("back"),"<view class=\"roadmap-exit-disc\" style=\"width:"+HtmlUi.Number(size*.72f)+"px;height:"+HtmlUi.Number(size*.72f)+"px;border-radius:"+HtmlUi.Number(size*.36f)+"px\">"+CampIcons.Mark("back")+"</view>")
                 + "</view>";
         }
+        #endif
         string FullMenu()
         {
             return "<view id=\"sheet\" class=\"app full-menu album-menu\" data-safe-area=\"all\" data-motion-role=\"dialog\""
@@ -320,6 +323,14 @@ namespace QuietCamp.Presentation.UI
 
         public void Show(string name)
         {
+            if (name == "Levels" || name == "BranchPreview")
+            {
+#if UNITY_EDITOR
+                if (!_services.EditorRoadmapPreview) name = "Main";
+#else
+                name = "Main";
+#endif
+            }
             if (!_services.Economy.IsPro && (name == "Album" && !_services.Tutorial.AlbumUnlocked && (_services.Save.Album.entries?.Length ?? 0) == 0)) return;
             if (name != Current) _history.Push(Current);
             if (Current == "Economy" || name == "Economy") _economyPanel?.ResetConfirmation();

@@ -1,0 +1,52 @@
+{
+  "checkedUtc": "2026-10-11T00:21:32.887635+00:00",
+  "checks": {
+    "editorCompiler": [
+      "PASS current-source compiler check: Kruty1918.LevelKit (warnings: 0)",
+      "PASS current-source compiler check: Kruty1918.Atmos (warnings: 54)",
+      "PASS current-source compiler check: Kruty1918.LevelGen (warnings: 3)",
+      "PASS current-source compiler check: Kruty1918.LevelGen.LevelKitBridge (warnings: 0)",
+      "PASS current-source compiler check: Kruty1918.AgentVerify (warnings: 8)",
+      "PASS current-source compiler check: QuietCamp.Domain (warnings: 7)",
+      "PASS current-source compiler check: QuietCamp.Application (warnings: 1)",
+      "PASS current-source compiler check: QuietCamp.Infrastructure (warnings: 5)",
+      "PASS current-source compiler check: QuietCamp.Presentation (warnings: 16)",
+      "PASS current-source compiler check: QuietCamp.Tests.Editor (warnings: 0)",
+      "PASS current-source compiler check: QuietCamp.Tests.PlayMode (warnings: 98)",
+      "PASS current-source compiler check: QuietCamp.Editor (warnings: 7)",
+      "Compiler checks only; no Unity import, player build or runtime scene check performed."
+    ],
+    "playerConditionedCompiler": [
+      "PASS player-conditioned source compiler check: Kruty1918.LevelKit (warnings: 0)",
+      "PASS player-conditioned source compiler check: Kruty1918.Atmos (warnings: 54)",
+      "PASS player-conditioned source compiler check: Kruty1918.LevelGen (warnings: 3)",
+      "PASS player-conditioned source compiler check: Kruty1918.LevelGen.LevelKitBridge (warnings: 0)",
+      "PASS player-conditioned source compiler check: Kruty1918.AgentVerify (warnings: 8)",
+      "PASS player-conditioned source compiler check: QuietCamp.Domain (warnings: 7)",
+      "PASS player-conditioned source compiler check: QuietCamp.Application (warnings: 1)",
+      "PASS player-conditioned source compiler check: QuietCamp.Infrastructure (warnings: 5)",
+      "PASS player-conditioned source compiler check: QuietCamp.Presentation (warnings: 14)",
+      "Compiler checks only; no Unity import, player build or runtime scene check performed."
+    ],
+    "domainContracts": [
+      "PASS direct navigation: fresh/5/45/110 completions, resume, replay, journey and access gates",
+      "PASS initial allowances, hint and attempt persistence",
+      "PASS currency, no-lives, duplicate receipt and exchange rollback",
+      "PASS ad daily quota, UTC reset, clock rollback and duplicate rewards",
+      "PASS restart and Pro unlimited without counters",
+      "PASS catalog, main progression, standalone DLC and missing content",
+      "PASS fake store, pending, restore, duplicate credits and unavailable provider",
+      "PASS invalid verification and final-journal recovery never grant twice or re-charge",
+      "PASS actual session, reset/undo, completion transaction, IO rollback, replay and saved memory",
+      "PASS rewarded ad skip, save rollback, retry without second video and concurrent requests",
+      "PASS native save module migration and unknown nested JSON preservation",
+      "PASS future schema and corrupt primary/backup are write-protected",
+      "PASS explicit local reset clears staged extension data and stale write protection",
+      "PASS 110 main + 143 journey + 21 bonus puzzles: validator, saved witness and independent solver",
+      "PASS all new economy, memory, journey and purchase keys localized in uk/en/de",
+      "15 contract groups passed; no Unity player, real store, ads, device FPS or human pilot verified."
+    ]
+  },
+  "scope": "Cached-reference compiler checks and standalone Domain contracts; no player build or fresh native evidence",
+  "playerBuild": false
+}

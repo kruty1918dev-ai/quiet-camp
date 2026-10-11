@@ -45,6 +45,7 @@ namespace QuietCamp.Tests
             }
         }
     }
+    [Explicit("Deferred roadmap: use only the isolated archived preview, outside normal app checks.")]
     [PrebuildSetup(typeof(RoadmapWorldScriptPreflight))]
     public sealed class RoadmapWorldPlayModeTests
     {
@@ -128,6 +129,7 @@ namespace QuietCamp.Tests
             save.Settings.reducedMotion=true;save.Settings.language="uk";Assert.IsTrue(save.Save());
             yield return SceneManager.LoadSceneAsync("Boot");yield return PrivacyBootTestSupport.EnterGame();yield return Ready("MainMenu");yield return Frames(30);
             var services=QuietCampBootstrap.ServicesRef;services.Tutorial.Skip();services.ReducedMotion=true;
+            MenuSceneHost.Current.OpenRoadmapEditorPreview();
             var adaptive=Object.FindAnyObjectByType<AdaptiveCampQuality>();if(adaptive!=null)adaptive.enabled=false;
             Tap("continue");yield return Ready("MainMenu");yield return Frames(25);
             Assert.IsTrue(World().IsOpen);Assert.AreEqual(0,World().Frontier);Assert.IsFalse(services.CanStart("QC006"));

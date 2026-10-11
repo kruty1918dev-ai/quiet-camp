@@ -1,0 +1,33 @@
+{
+  "width": 4096,
+  "height": 2048,
+  "sourceResolutionRetained": true,
+  "sourceAlphaRetained": true,
+  "palette": "Authored per-species green with source luminance",
+  "sources": [
+    {
+      "source": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Textures/Plants/Grass_01.tga",
+      "width": 2048,
+      "height": 2048,
+      "alphaHash": "272bb6e3577b1835e31fb1bbd1b727f8a96b93fd68da95b655b85f7658426a7b",
+      "rect": {
+        "x": 0.000122070313,
+        "y": 0.000244140625,
+        "width": 0.499755859,
+        "height": 0.9995117
+      }
+    },
+    {
+      "source": "Assets/PolygonNatureBiomes/PNB_Meadow_Forest/Textures/Plants/GroundCover_01.tga",
+      "width": 1024,
+      "height": 1024,
+      "alphaHash": "3cd99ceb646594b8fd68559301548c0c91d780304ae001b4732dfc97207e9f04",
+      "rect": {
+        "x": 0.5020752,
+        "y": 0.000244140625,
+        "width": 0.249755859,
+        "height": 0.499511719
+      }
+    }
+  ]
+}

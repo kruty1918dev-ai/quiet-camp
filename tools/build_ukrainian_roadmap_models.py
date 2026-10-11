@@ -19,7 +19,7 @@ import uuid
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "QuietCamp/Assets/QuietCamp"
 SOURCE = ASSETS / "Authoring/Roadmap/Models/UkrainianRural"
-RESOURCE = ASSETS / "Resources/QuietCamp/roadmap_culture_models.json"
+RESOURCE = ASSETS / "Editor/RoadmapArchive/roadmap_culture_models.json"
 PREVIEW = ROOT / "TestResults/ukrainian-roadmap-2026-10-08/original-model-contact-sheet.png"
 GUID_NAMESPACE = uuid.UUID("f00e5768-1262-403a-a44b-0dba3441e126")
 
@@ -501,7 +501,7 @@ this file does not grant a separate third-party asset license.
 OBJ sources use metres, Y up, and a bottom-ground pivot. `palette.mtl` is an
 editable source palette, not a request for independent runtime materials.
 `manifest.json` gives exact dimensions, source heights, SHA-256 and triangle caps.
-Runtime JSON is `Resources/QuietCamp/roadmap_culture_models.json`: the existing
+Runtime JSON is `Editor/RoadmapArchive/roadmap_culture_models.json`: the existing
 triangle stream contract, with height 1 and shared per-face RGB colors.
 
 Regenerate from the repository root:

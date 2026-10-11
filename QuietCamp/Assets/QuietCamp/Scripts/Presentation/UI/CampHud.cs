@@ -336,7 +336,7 @@ namespace QuietCamp.Presentation.UI
                             + HtmlUi.Text(T("guide.farewell"), "guide-instruction") + "</view>"
                             + HtmlUi.Text(T("guide.reward.earned"), "guide-reward") : "")
                     + OverlayButton("memory-album", "menu.album", () => Action("qc.album"), "quiet")
-                    + OverlayButton("next", "menu.levels", () => Action("qc.next"), "primary")
+                    + OverlayButton("next", _services.NextLevel(_session.Level.id) != null ? "action.next" : "menu.main", () => Action("qc.next"), "primary")
                     + "</view></view>");
             }
             sb.Append("</view>");

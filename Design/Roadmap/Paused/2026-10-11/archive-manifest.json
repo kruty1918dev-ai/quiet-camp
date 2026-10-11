@@ -1,0 +1,811 @@
+{
+  "reason": "User deferred roadmap; preserve Editor assets and exclude from players",
+  "assets": [
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Architecture.mat",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Architecture.mat",
+      "bytes": 1272,
+      "sha256": "def54055c4e9a90b150711c65cd9372382ca647a185879256433e882f6c3ebdd"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Architecture.mat.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Architecture.mat.meta",
+      "bytes": 188,
+      "sha256": "0e869e980e99f3e319e6f179e368cd975dea45d4f84107cedcbe21486c80d866"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Distant-0.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Distant-0.asset",
+      "bytes": 215021,
+      "sha256": "a600d2b5f7587f348e0df41e95f1177618cf3cc9bd6cd1149b9e88ca363bd31a"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Distant-0.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Distant-0.asset.meta",
+      "bytes": 188,
+      "sha256": "cdab61417099459139b4ad7e59181d5fef0fd2f497d324c730f6a96455a70cee"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Distant-1.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Distant-1.asset",
+      "bytes": 157993,
+      "sha256": "f2659d33710769272330d2a4ade2faea0a1404beedc09582412f5042efc1a38b"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Distant-1.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Distant-1.asset.meta",
+      "bytes": 188,
+      "sha256": "e040cde25a99e49c288c4bc04a157b61919e8473aaaad20d08139756a165f30f"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Distant-2.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Distant-2.asset",
+      "bytes": 188873,
+      "sha256": "6a84b3f856588f565ac65861e64de4a2c2b008d0d809e49b7ea4aa8a14982a53"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Distant-2.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Distant-2.asset.meta",
+      "bytes": 188,
+      "sha256": "8f451ba9599bf348081108a3c454c3485fb737a83e0a56995b50d3182e32e4b1"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Distant-3.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Distant-3.asset",
+      "bytes": 165123,
+      "sha256": "0ccbba0450d877edef062b344a49f0d9f9bdc5595789895dcbf742715afd8737"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Distant-3.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Distant-3.asset.meta",
+      "bytes": 188,
+      "sha256": "2b6c837e7bf380844eb9400fe4ddf27d10fd14d28cfff2408ef352a7062402e6"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Distant-4.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Distant-4.asset",
+      "bytes": 763872,
+      "sha256": "204efd37d17d2f690690cb36df6d9717156d250ffeb1130d85eca18cec6d2ada"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Distant-4.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Distant-4.asset.meta",
+      "bytes": 188,
+      "sha256": "37f7ebdf4adeeb9299b65df08481e01ae1b3511fac7507ccd912d60a418b8777"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Ground.mat",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Ground.mat",
+      "bytes": 1352,
+      "sha256": "226e7bb9361e37db46600078d0d862376a75c1d9715aa1c8b8809e0de295836f"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Ground.mat.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Ground.mat.meta",
+      "bytes": 188,
+      "sha256": "cb66a96bebdafe89097831aed20236a8a9ee2d996b2dda6155a7932f1acd3bdd"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/GroundContacts.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/GroundContacts.asset",
+      "bytes": 35179346,
+      "sha256": "22b631640d6762d52527deb0be49918c83d1cdca7e23f808b46b63dff12fc877"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/GroundContacts.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/GroundContacts.asset.meta",
+      "bytes": 188,
+      "sha256": "47a7c894c7921ff211301ee0d69e266a1b3c7a736a9164d52d582cd94e4c5c93"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Horizon.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Horizon.asset",
+      "bytes": 2671365,
+      "sha256": "701241d29b7ea66d21e73bd8e0d03e0cee0bbce237fa891f1e0d0088bcef87d4"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Horizon.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Horizon.asset.meta",
+      "bytes": 188,
+      "sha256": "80b33301e9a72aa14f6057584d3d4f3a6a0b052a7baa60c2375ff9190f8e8ae2"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-0.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-0.asset",
+      "bytes": 32018,
+      "sha256": "3270fb53bec56c8c0085cd005fca347569aeb1ae4df153c1beab3d5394293d3b"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-0.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-0.asset.meta",
+      "bytes": 188,
+      "sha256": "774caf39a8ccf8c5b63110e6580327c28955764df776bc5b470c23e97a7d563e"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-1.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-1.asset",
+      "bytes": 21498,
+      "sha256": "d60413b519994c54b55d90362c299fd60dbd0ab6f1c1032d2f7eccd333f8ce5e"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-1.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-1.asset.meta",
+      "bytes": 188,
+      "sha256": "ac5355085d3b111ca1a50913f1c55035c97157040f317ef1a7e68677267074dc"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-2.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-2.asset",
+      "bytes": 48380,
+      "sha256": "c8acf9624103fa958cf8dc830e3d92231b2ec9c3ce761e1834827bea7aba3ca4"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-2.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-2.asset.meta",
+      "bytes": 188,
+      "sha256": "941594087220e3f8094d53c737c3d794d55b54c6eaea3f90709580a3f04262f0"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-3.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-3.asset",
+      "bytes": 47767,
+      "sha256": "6c9da299bb0415347a0cbbf00320408f5b1ccc37ecc926ae4faf076fc382d27a"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-3.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-3.asset.meta",
+      "bytes": 188,
+      "sha256": "c69401957897274358cc2342d89f1919ed3fad6839512dd9a31f1ba0328e75d7"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-4.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-4.asset",
+      "bytes": 139577,
+      "sha256": "b4e7c59bda757485917cea24b020919c9310532147fed7dc1e26e0dd4292f1b4"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-4.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/HorizonTerrain-4.asset.meta",
+      "bytes": 188,
+      "sha256": "b8c63f102b7da139d705f73afe842b452d37a8fb933ffcddd0fb48c3ea1e9f5c"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Living vegetation.mat",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Living vegetation.mat",
+      "bytes": 1285,
+      "sha256": "82dbb30944af899de1470a279da840a2e8771b8fcbb8d390370aff4ad45e727b"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Living vegetation.mat.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Living vegetation.mat.meta",
+      "bytes": 188,
+      "sha256": "20bfde9146ff811420257249a5b46e42ba6a2ef03f47986ad4edc6b4fecf3f1a"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Marker.mat",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Marker.mat",
+      "bytes": 2912,
+      "sha256": "f38502f126bf8c211d7f257e28036ece130046859b1d9b16deeda62889bc10d4"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Marker.mat.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Marker.mat.meta",
+      "bytes": 188,
+      "sha256": "fb598d1a210b53664ac3cc2f2e6d7b95ff322c2e72f6d6afda9009d945225568"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Motes.mat",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Motes.mat",
+      "bytes": 750,
+      "sha256": "83693b5e527a4d70c5c3b965ff1ba97301b5cc8e21f70939a0865969e630891b"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Motes.mat.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Motes.mat.meta",
+      "bytes": 188,
+      "sha256": "ec15ecb0bde016f883406234459e030be1858f5a019969b3642705298e6925a0"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/River-2.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/River-2.asset",
+      "bytes": 507844,
+      "sha256": "d234217372c67a1a8345e72d947ff7b6dcc55b93ee86fccaf9561a0d2d1ecba1"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/River-2.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/River-2.asset.meta",
+      "bytes": 188,
+      "sha256": "a28a7028c887a287db3a0abf8ecd99816127250b504f957280ede1dcd205cb3c"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/River-3.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/River-3.asset",
+      "bytes": 507844,
+      "sha256": "8fc7116442cdd795fce955bd44edca67605840cba50c66afd2d5a322148c3380"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/River-3.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/River-3.asset.meta",
+      "bytes": 188,
+      "sha256": "94b1ff160df860925d4d3b2ecbd6caa94f9482ff3d83f17ebe3460f3e462851b"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/River.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/River.asset",
+      "bytes": 507842,
+      "sha256": "5fb1a45df9a52efe6fbf1f92b43cb358255b1ef376b3df43ff6f3f2936bb1843"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/River.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/River.asset.meta",
+      "bytes": 188,
+      "sha256": "7e22fd2867860e63fc8af62e734e17aa234c1e0e27762967d3dd75bff7bf4d5a"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Water.mat",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Water.mat",
+      "bytes": 6715,
+      "sha256": "9457390fea2e4def1b92233d3df91d9f8193d87b2a16c36012246fa94349c17c"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Water.mat.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Water.mat.meta",
+      "bytes": 188,
+      "sha256": "20993e7ad61963a93e1817866ef8fa2a2ae84c71ba4811f80a9be564f18410bd"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Waystone.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Waystone.asset",
+      "bytes": 23799,
+      "sha256": "5b95f21d711ded5e6ddfb277b378aadbe63364618178a8cb06ebdf9c0df1ec76"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/Waystone.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/Waystone.asset.meta",
+      "bytes": 188,
+      "sha256": "951889867e591f4b8d788bdc620f735064d285e22d11932de62c7f5dbeafe1b1"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/chunk-0.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/chunk-0.asset",
+      "bytes": 3983104,
+      "sha256": "9ea3bc4e083d934ff57eb0c93cb6ee44f502fb6eb5f541eed973eb339b2e00e2"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/chunk-0.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/chunk-0.asset.meta",
+      "bytes": 189,
+      "sha256": "60de4ab985d0c7a016863500075619637b58ae5898d94639e42fffcc0c5977a2"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/chunk-1.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/chunk-1.asset",
+      "bytes": 3619296,
+      "sha256": "b43f1860859676ade8e1a32be557e8ac74aa120179e2b39bab7ac56a88e24c77"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/chunk-1.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/chunk-1.asset.meta",
+      "bytes": 189,
+      "sha256": "caf2934a9a38d10a4e6597cfcdfea83d1e3038e2fb2c24341cd33b281dba10fc"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/chunk-2.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/chunk-2.asset",
+      "bytes": 3892368,
+      "sha256": "1de7f397f7fe511ccf14f3a75f805db8bcfd5cc812157358714d7a8c23b4d360"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/chunk-2.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/chunk-2.asset.meta",
+      "bytes": 189,
+      "sha256": "1d941860b311feb243f4f68d835d36a67a963761f8ac35b613166b1836d2464d"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/chunk-3.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/chunk-3.asset",
+      "bytes": 3281280,
+      "sha256": "c53bf09c01c80a157c1e1d10fca5ff116a8af79313161bb881ae5ef2494139e8"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/chunk-3.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/chunk-3.asset.meta",
+      "bytes": 189,
+      "sha256": "edd88627591dd97b0d1e1301eac4bd2f60624d6f18815dd65434bba704c817b7"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/chunk-4.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/chunk-4.asset",
+      "bytes": 13199872,
+      "sha256": "fc3d1700dc13832072fa502ffff7e29e4bb44cea8223b5565b2129290d8a23b7"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df/chunk-4.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df/chunk-4.asset.meta",
+      "bytes": 189,
+      "sha256": "49b40d61424e2175c26055373e6f14cf657a75dab46645ad6795ac0d78dd7ed3"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/4d9fdc75628967df.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/4d9fdc75628967df.meta",
+      "bytes": 172,
+      "sha256": "d7293d7dac098f5a12735885146d75eb4a00306cf24773b90e133d6df6c9d66e"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/World.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/World.asset",
+      "bytes": 4157,
+      "sha256": "d3f2f5fbc5024b13b098077deeb144b045c5ce1bc2ae08a7ca7dbca1f866d0d5"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/World.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/World.asset.meta",
+      "bytes": 189,
+      "sha256": "afc88d69de1dc9cb1db761a18dffaef50b1cf7994686d32cb5b34a48668368b2"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Architecture.mat",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Architecture.mat",
+      "bytes": 1428,
+      "sha256": "e65e9ca267a59db1d958a32883669bf4479a165658458dec1b75a4a7266e89e2"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Architecture.mat.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Architecture.mat.meta",
+      "bytes": 188,
+      "sha256": "bc90265ca19b794b749eb47cd611989def46faf8ca572b488688e8e59cf37bf3"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Distant-0.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Distant-0.asset",
+      "bytes": 497762,
+      "sha256": "bcf915091ad32728c7ae5189bd3f147bb228bccc9630c852e0c30975209f0704"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Distant-0.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Distant-0.asset.meta",
+      "bytes": 188,
+      "sha256": "105b9c6a247cc98d2dc4d9f45c6b912bfbb91753a406ff08c3a17ef3628a1d76"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Distant-1.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Distant-1.asset",
+      "bytes": 340945,
+      "sha256": "75246ed5d7aad950c7fa7b33efe6af30b128512eeb3072c748cab3830d0afbfc"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Distant-1.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Distant-1.asset.meta",
+      "bytes": 188,
+      "sha256": "4b1fe4ec9cd17547e1831533d1b92a161c3c2482b4fda61673446015a9916c17"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Distant-2.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Distant-2.asset",
+      "bytes": 345698,
+      "sha256": "45a3a84ccec4b82fd00078e3616e34aa0229e73cf6cb491443d342f706000cd1"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Distant-2.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Distant-2.asset.meta",
+      "bytes": 188,
+      "sha256": "7531b9ee0bf7cf9507a7c17b103a5c630ed710a7d2c9544e179c412af5c0b313"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Distant-3.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Distant-3.asset",
+      "bytes": 324313,
+      "sha256": "b9fd7cc211e7d7a2f0a4400cd86524597e738709b6edc7a1dfbc6cfcb1f78eae"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Distant-3.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Distant-3.asset.meta",
+      "bytes": 188,
+      "sha256": "0ad05a861a96ce12aa3f5a29aa39f258a2d2561850f0928e4f73d389f2bd5e75"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Distant-4.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Distant-4.asset",
+      "bytes": 1467169,
+      "sha256": "af264e0c1ab8f8260adad466b17d7a8ca6739bef5d3c6f6bf9adcea883046494"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Distant-4.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Distant-4.asset.meta",
+      "bytes": 188,
+      "sha256": "8b8e52e10ac0cc1b0f898cfc89fb29fd11b3db83b759ce9d59d1edb4a6714938"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/FoliageAtlas.png",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/FoliageAtlas.png",
+      "bytes": 538927,
+      "sha256": "f75c530818397169a6b42bf12802cb7fc3447b7a2e6de60ecf2200b507aebd66"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/FoliageAtlas.png.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/FoliageAtlas.png.meta",
+      "bytes": 4137,
+      "sha256": "67041740c2899eaf9f8b05dbab5e7e8ca3b6e6b0d66a6244c62dbbf4cf035b30"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/FoliageAtlas.provenance.json",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/FoliageAtlas.provenance.json",
+      "bytes": 944,
+      "sha256": "03237971702d5eb3bdfea792d6bdf4878f60298a841323773958a10790c3d375"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/FoliageAtlas.provenance.json.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/FoliageAtlas.provenance.json.meta",
+      "bytes": 158,
+      "sha256": "3a06e847d09d51655e46bdb42054dfb71fdf23a6ad0d02a7c860e716271b529e"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Ground.mat",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Ground.mat",
+      "bytes": 1508,
+      "sha256": "0c997780931a2de41123e85380415cf5c7f779a994509a3b48905e81a74c9be7"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Ground.mat.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Ground.mat.meta",
+      "bytes": 188,
+      "sha256": "9a267697f05fd5db5aebe6e659371b5cef33783efa1bb50559d74d61b46ccf86"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/GroundContacts.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/GroundContacts.asset",
+      "bytes": 35179346,
+      "sha256": "34452ac1407740ac083185429c89f2cc41fdf8732d5fe2e8d17c985471fa8215"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/GroundContacts.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/GroundContacts.asset.meta",
+      "bytes": 188,
+      "sha256": "36e244f4cdd9391e2b06a74d4aab9af779e6fb16943eb838b2ed9cf4c14b8de8"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Horizon.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Horizon.asset",
+      "bytes": 2671365,
+      "sha256": "701241d29b7ea66d21e73bd8e0d03e0cee0bbce237fa891f1e0d0088bcef87d4"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Horizon.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Horizon.asset.meta",
+      "bytes": 188,
+      "sha256": "7044203c2c5e7310d635aa1a18092ea0c7ce8efc3583591fcc4ecc740a61b3d4"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-0.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-0.asset",
+      "bytes": 32018,
+      "sha256": "3270fb53bec56c8c0085cd005fca347569aeb1ae4df153c1beab3d5394293d3b"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-0.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-0.asset.meta",
+      "bytes": 188,
+      "sha256": "58c6f49c00baa431325bb06c0bda7cf37099a866d1e2f99ee4c6e1afd2f986d5"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-1.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-1.asset",
+      "bytes": 21498,
+      "sha256": "d60413b519994c54b55d90362c299fd60dbd0ab6f1c1032d2f7eccd333f8ce5e"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-1.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-1.asset.meta",
+      "bytes": 188,
+      "sha256": "573282ee90a3b4f0aef9691a3c29bd5280f70d6371cafeb68813d321a200e85e"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-2.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-2.asset",
+      "bytes": 48380,
+      "sha256": "c8acf9624103fa958cf8dc830e3d92231b2ec9c3ce761e1834827bea7aba3ca4"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-2.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-2.asset.meta",
+      "bytes": 188,
+      "sha256": "ad7caa1ab82b348cf51c23a736477cfaefb61a4252c10b89e285eabb51acf40d"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-3.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-3.asset",
+      "bytes": 47767,
+      "sha256": "6c9da299bb0415347a0cbbf00320408f5b1ccc37ecc926ae4faf076fc382d27a"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-3.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-3.asset.meta",
+      "bytes": 188,
+      "sha256": "298095dea1d103cb9beb8c19cdd9473da0be2f37b93ae8b4d357a34f12c65ea6"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-4.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-4.asset",
+      "bytes": 139577,
+      "sha256": "b4e7c59bda757485917cea24b020919c9310532147fed7dc1e26e0dd4292f1b4"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-4.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/HorizonTerrain-4.asset.meta",
+      "bytes": 188,
+      "sha256": "4ce0b3fb420e912c5d4cbf0a2b05853f6e9d17bb6873d64934c4de110731425f"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Living vegetation.mat",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Living vegetation.mat",
+      "bytes": 1441,
+      "sha256": "0edcf58575890021215094c0ad48c0e935aee6a2e93846e2a33eee8872464dfa"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Living vegetation.mat.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Living vegetation.mat.meta",
+      "bytes": 188,
+      "sha256": "c891ca2f6149b78e524c5aeea052665297fb8c45bf3193d153b714c9cc46c026"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Marker.mat",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Marker.mat",
+      "bytes": 2912,
+      "sha256": "aef201e527f7784ed3e6ddb6933dcc602157b3e51216cdf7d25b8f23013b7877"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Marker.mat.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Marker.mat.meta",
+      "bytes": 188,
+      "sha256": "4b12d8c1ef450c5483d9bdab5a1afef04d0361ba57425aeb4e53302a79dd2102"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Meadow leaves.mat",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Meadow leaves.mat",
+      "bytes": 1510,
+      "sha256": "347ae4a56b5fb62a746a8544bdb138270b6522424c62a1280985f102a21462c1"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Meadow leaves.mat.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Meadow leaves.mat.meta",
+      "bytes": 188,
+      "sha256": "2c1d12535442be442c17a5aa215cfb063a60f5f303f4c3ccd771b60e5f82a8f8"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Motes.mat",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Motes.mat",
+      "bytes": 750,
+      "sha256": "83693b5e527a4d70c5c3b965ff1ba97301b5cc8e21f70939a0865969e630891b"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Motes.mat.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Motes.mat.meta",
+      "bytes": 188,
+      "sha256": "8af9bae8064c0a1377e4978b6bafaada0e21466b4f83cd76db8788cf09ddb79c"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/River-2.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/River-2.asset",
+      "bytes": 507844,
+      "sha256": "d234217372c67a1a8345e72d947ff7b6dcc55b93ee86fccaf9561a0d2d1ecba1"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/River-2.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/River-2.asset.meta",
+      "bytes": 188,
+      "sha256": "8ff2412ea0ecc462f4376ee202b88e3708af6505c326139e0681cf8cc35611e0"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/River-3.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/River-3.asset",
+      "bytes": 507844,
+      "sha256": "8fc7116442cdd795fce955bd44edca67605840cba50c66afd2d5a322148c3380"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/River-3.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/River-3.asset.meta",
+      "bytes": 188,
+      "sha256": "ce280adf6698b0bcaab5326490e9a651b567d0e78558eaa5d6f2dce427d40270"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/River.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/River.asset",
+      "bytes": 507842,
+      "sha256": "5fb1a45df9a52efe6fbf1f92b43cb358255b1ef376b3df43ff6f3f2936bb1843"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/River.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/River.asset.meta",
+      "bytes": 188,
+      "sha256": "fdc9110b24c099646a6f363478b816b96ffdcf7363262a5602cfde35dff3baa8"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Water.mat",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Water.mat",
+      "bytes": 6715,
+      "sha256": "9457390fea2e4def1b92233d3df91d9f8193d87b2a16c36012246fa94349c17c"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Water.mat.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Water.mat.meta",
+      "bytes": 188,
+      "sha256": "6e1448de71c45d3f39c44d39a3c66d19fc1a6e6c6194af8fc06e94e2a0f92d80"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Waystone.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Waystone.asset",
+      "bytes": 23799,
+      "sha256": "5b95f21d711ded5e6ddfb277b378aadbe63364618178a8cb06ebdf9c0df1ec76"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/Waystone.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/Waystone.asset.meta",
+      "bytes": 188,
+      "sha256": "2b9b84edbd25f755c4d7cbc7c4c20a0a5f54ee203301d8902e37f0eea0488b1e"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/chunk-0.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/chunk-0.asset",
+      "bytes": 20644200,
+      "sha256": "823f95c9eb0de3c26a0fd27efaf0ed88a823c6fa6c07c5682a5fc0c60048ea44"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/chunk-0.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/chunk-0.asset.meta",
+      "bytes": 189,
+      "sha256": "06f9054b328005894474cbe6d4459feb7781e65868acc5935cf6ede03dba1330"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/chunk-1.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/chunk-1.asset",
+      "bytes": 15346000,
+      "sha256": "614438f4732869dc9977da0f8bda090a0b172716c6c82dd6fe0fd38a94dd91e7"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/chunk-1.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/chunk-1.asset.meta",
+      "bytes": 189,
+      "sha256": "b30be722c9451be352f2f7aa4cd9f55016514e956ea0aa844cccecef06c02feb"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/chunk-2.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/chunk-2.asset",
+      "bytes": 16612132,
+      "sha256": "388532c380a0e2a776c3f352bfe68f100577aef4d50327c768013acc666008be"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/chunk-2.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/chunk-2.asset.meta",
+      "bytes": 189,
+      "sha256": "c0e7ff6034bc1a71b18834a8caf486ab1d830aa6cb2cf87811becc8f66cfc513"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/chunk-3.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/chunk-3.asset",
+      "bytes": 14182152,
+      "sha256": "cc6c13d69249a52ce5ef95b6324886dc235c2d7349c760246916a92c02054996"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/chunk-3.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/chunk-3.asset.meta",
+      "bytes": 189,
+      "sha256": "38cf5748d5fbcf9fe0d955dcc55ca959a6d9529acb58531ebf3616f9ee03d01c"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/chunk-4.asset",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/chunk-4.asset",
+      "bytes": 62749772,
+      "sha256": "3ad55f4ea16c8bf8bb6cd1725751dc4a45a9a165cb40ff359625d1e8547a99e2"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0/chunk-4.asset.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0/chunk-4.asset.meta",
+      "bytes": 189,
+      "sha256": "741bad9c7662db72544e54ecabe262827f73012837de53af543a9051c1dc9826"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/dcaee3fcc0f775f0.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/dcaee3fcc0f775f0.meta",
+      "bytes": 172,
+      "sha256": "549c818b807a5dd0e3169982056898c9fa7ea6f58bf642d13e9574200c0c47e6"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap.meta",
+      "bytes": 172,
+      "sha256": "9f6957b4b4855c01f58fecd4800179c3b914b4ee9c456305cb7ebdd5dc6a9f09"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Roadmaps/foundation_slice.json",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/Roadmaps/foundation_slice.json",
+      "bytes": 87765,
+      "sha256": "590ed8057731e7264a1012e142d2a446e1771c4becbaa53ea9fe118b860253f4"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Roadmaps/foundation_slice.json.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/Roadmaps/foundation_slice.json.meta",
+      "bytes": 60,
+      "sha256": "e4cc0bc973e6fbd250466c853736fd485d1a906012db16ae444358d18b5b20b8"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Roadmaps/lighthouse.json",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/Roadmaps/lighthouse.json",
+      "bytes": 53189,
+      "sha256": "60c447bf348a4ee4d0a9365f30ec8cdf71b3b316aad6e8700be8277ed2a7f87d"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Roadmaps/lighthouse.json.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/Roadmaps/lighthouse.json.meta",
+      "bytes": 60,
+      "sha256": "e0f74d4cb201a416e4c115f04ed2dde562c506a3afd5b88adb6e8f1b2852062a"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Roadmaps.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/Roadmaps.meta",
+      "bytes": 169,
+      "sha256": "ca2dc078dcc2deec145b08e4d2b739b7b46127834e617a3ac6f5fddd1f45f6bd"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_regions.json",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/roadmap_regions.json",
+      "bytes": 322725,
+      "sha256": "c599529aae5a5ea6c51a915096c0938009241d71b312770fff89d24858b92327"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_regions.json.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/roadmap_regions.json.meta",
+      "bytes": 155,
+      "sha256": "e746a454b968f47063bec382a3d653816c6d120d52f734682f73d20099434601"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/roadmap_culture_models.json",
+      "bytes": 1343636,
+      "sha256": "344a60c8c2ece673e51e29f80f99550f4ae90e7613a385ef31500f05e180967f"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/roadmap_culture_models.json.meta",
+      "bytes": 60,
+      "sha256": "cddfe5740d980dc1754afc8f761f34d59318d9eaedf44fad5f7d0abda28ac108"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/RoadmapLit.shader",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/RoadmapLit.shader",
+      "bytes": 16826,
+      "sha256": "4b7ec7bb27fff11ae331cc1d029c28e03abea131a8441ed3c98e86c193e4ffe3"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/RoadmapLit.shader.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/RoadmapLit.shader.meta",
+      "bytes": 204,
+      "sha256": "e819918f48087e63f84b0661a9ddf19861cc380b6f3945acce21b774e262dc5f"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/RoadmapMotes.shader",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/RoadmapMotes.shader",
+      "bytes": 1986,
+      "sha256": "05964f50857753f73cbe4093dab664e250eab93038b6a6a54d170327be488766"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/RoadmapMotes.shader.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/RoadmapMotes.shader.meta",
+      "bytes": 204,
+      "sha256": "323d078bc28b900f5f58c1a70035e582e155ae762016e308d3dd9bd49e36c012"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/CampMap.css.txt",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/Html/CampMap.css.txt",
+      "bytes": 2369,
+      "sha256": "dca8083ddb1730e983f32cb442cd3c938438bda0e5f002031a8b59b83e63af3f"
+    },
+    {
+      "source": "QuietCamp/Assets/QuietCamp/Resources/QuietCamp/Html/CampMap.css.txt.meta",
+      "archived": "QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/Html/CampMap.css.txt.meta",
+      "bytes": 158,
+      "sha256": "c4058df098ffc2a7ac88189586a0b9f61d85cc9393aac9767c868b4a962b157e"
+    }
+  ],
+  "sourceBytes": 243770999,
+  "playerBuildPerformed": false
+}

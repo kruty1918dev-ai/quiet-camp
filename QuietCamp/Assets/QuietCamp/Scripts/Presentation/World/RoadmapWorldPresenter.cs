@@ -1,6 +1,8 @@
+#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using QuietCamp.Application;
+using QuietCamp.Infrastructure;
 using QuietCamp.Presentation.UI;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -62,7 +64,7 @@ namespace QuietCamp.Presentation.World
         void Enter()
         {
             if(_entered)return;
-            _asset=Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World");
+            _asset=RoadmapEditorArchive.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World");
             if(_asset==null){Fault="Native cinematic world has not been baked";Debug.LogError("[Roadmap] "+Fault);return;}
             _frontier=RoadmapPilotPolicy.Frontier(_services.PilotCompleted);_finished=RoadmapPilotPolicy.Finished(_services.PilotCompleted);
             _route=_frontier;
@@ -178,7 +180,7 @@ namespace QuietCamp.Presentation.World
                     var meshes=(low||(_services?.EffectiveQuality??1)==0)?chunk.low:chunk.balanced;
                     for(int part=0;part<meshes.Length;part++)if(meshes[part]!=null)
                     {
-                        var material=part==0?_asset.ground:part==1?_asset.structure:part==4?_asset.water:part==5?_asset.motes:_asset.foliage;
+                        var material=part==0?_asset.ground:part==1?_asset.structure:part==4?_asset.water:part==5?_asset.motes:part==6?_asset.foliageCards:_asset.foliage;
                         AddRenderer(go.transform,"Baked part "+part,meshes[part],material,part!=4&&part!=5);
                     }
                     _chunks[id]=go;
@@ -198,15 +200,9 @@ namespace QuietCamp.Presentation.World
             if(Leases.TryGetValue(path,out var existing))
             {existing.owners++;if(existing.request==null||existing.request.isDone)loaded(existing.asset);else existing.listeners.Add(loaded);return;}
             var lease=new Lease{owners=1};Leases.Add(path,lease);
-            if(synchronous){lease.asset=Resources.Load<RoadmapWorldChunk>(path);loaded(lease.asset);return;}
-            lease.listeners.Add(loaded);lease.request=Resources.LoadAsync<RoadmapWorldChunk>(path);
-            lease.request.completed+=op=>
-            {
-                lease.asset=lease.request.asset as RoadmapWorldChunk;
-                if(lease.owners>0){foreach(var listener in lease.listeners.ToArray())listener(lease.asset);}else{if(lease.asset!=null)Resources.UnloadAsset(lease.asset);Leases.Remove(path);}
-                lease.listeners.Clear();
-            };
+            lease.asset=RoadmapEditorArchive.Load<RoadmapWorldChunk>(path);loaded(lease.asset);
         }
+
         static void Release(string path)
         {
             if(!Leases.TryGetValue(path,out var lease)||--lease.owners>0)return;
@@ -376,3 +372,4 @@ namespace QuietCamp.Presentation.World
         void OnDestroy(){if(_screens!=null)_screens.ScreenChanged-=OnScreen;Leave();}
     }
 }
+#endif

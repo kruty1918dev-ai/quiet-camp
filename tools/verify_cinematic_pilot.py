@@ -85,7 +85,7 @@ def main():
     assert all(donor['paletteColors'] >= 2 for donor in bake['donors'] if donor['asset'].endswith(('-tree', 'poplar', 'well', 'bench')))
     protocol = '\n'.join(f'{p.relative_to(project).as_posix()}:{digest(p)}' for p in files)
     assert hashlib.sha256(protocol.encode()).hexdigest() == bake['sourceHash'], 'Evidence does not match authoring/baker inputs'
-    index = (project / 'Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap/World.asset').read_text()
+    index = (project / 'Assets/QuietCamp/Editor/RoadmapArchive/CinematicRoadmap/World.asset').read_text()
     assert f'sourceHash: {bake["sourceHash"]}' in index
     assert 'm_Script: {fileID: 11500000,' in index, 'Published index has no script mapping'
 

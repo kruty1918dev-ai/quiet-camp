@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using Newtonsoft.Json;
 using QuietCamp.Composition;
+using QuietCamp.Infrastructure;
 using QuietCamp.Presentation.UI;
 using QuietCamp.Presentation.World;
 using UnityEditor;
@@ -18,14 +19,17 @@ namespace QuietCamp.Editor
     public static class CinematicRoadmapBaker
     {
         public const string Source = "Assets/QuietCamp/Authoring/Roadmap/Composition/CinematicPilot";
-        const string Output = "Assets/QuietCamp/Resources/QuietCamp/CinematicRoadmap";
+        const string Output = RoadmapEditorArchive.Root + "/CinematicRoadmap";
         sealed class SourcePoint { public string levelId,titleUk; public float x,z,focusX,focusZ,yaw,pitch,distance; }
         sealed class LooseConductor { public float ax,az,ay,bx,bz,by,slack; }
         sealed class SourceWorld { public string id; public bool artisticReference; public int seed; public float fieldOfView,minX,maxX,minZ,maxZ; public float[] chunkStarts,chunkEnds; public SourcePoint[] waypoints; public LooseConductor[] looseConductors=Array.Empty<LooseConductor>(); }
         sealed class CoverTier { public float grassStep,density; public int blades,rocks,logs,flowers,motesPerChunk; }
-        sealed class CoverDefinition { public float minGrassHeight,maxGrassHeight,minShrubHeight,maxShrubHeight; public CoverTier low,balanced; }
+        sealed class CoverSpecies { public string asset; public float minHeight,maxHeight,weight; }
+        sealed class CoverDefinition { public float minGrassHeight,maxGrassHeight,minShrubHeight,maxShrubHeight; public float matureStep=4.5f,youngStep=5.5f,shrubStep=1.8f; public CoverSpecies[] herbs,shrubs; public CoverTier low,balanced; }
         static CoverDefinition Cover;
-        sealed class Binding { public string asset,catalogueId,source,sourceHash,guid,prefab; public int lod; public Dictionary<string,string> dependencies; }
+        sealed class Binding { public string asset,catalogueId,source,sourceHash,guid,prefab; public int lod; public bool cutout; public float[] palette; public Dictionary<string,string> dependencies; }
+        static CinematicFoliageAtlas FoliageAtlas;
+        static readonly HashSet<string> LeafCards=new HashSet<string>();
         static readonly List<object> DonorReviews=new List<object>();
         static readonly List<object> GroundProps=new List<object>();
         static SourceWorld World;
@@ -44,6 +48,7 @@ namespace QuietCamp.Editor
         {
             var files=Directory.GetFiles(Source,"*.json").OrderBy(f=>f).Concat(new[]{
                 "Assets/QuietCamp/Editor/CinematicRoadmapBaker.cs",
+                "Assets/QuietCamp/Editor/CinematicFoliageAtlas.cs",
                 "Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldAsset.cs",
                 "Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldPresenter.cs",
                 "Assets/QuietCamp/Scripts/Presentation/World/RoadmapWorldChunk.cs",
@@ -53,10 +58,10 @@ namespace QuietCamp.Editor
                 "Assets/QuietCamp/Scripts/Application/Composition/PowerDamage.cs",
                 "Assets/QuietCamp/Scripts/Application/Composition/SurfaceRecipes.cs",
                 "Assets/QuietCamp/Scripts/Presentation/UI/RoadmapModelLibrary.cs",
-                "Assets/QuietCamp/Resources/QuietCamp/RoadmapLit.shader",
-                "Assets/QuietCamp/Resources/QuietCamp/RoadmapMotes.shader",
+                "Assets/QuietCamp/Editor/RoadmapArchive/RoadmapLit.shader",
+                "Assets/QuietCamp/Editor/RoadmapArchive/RoadmapMotes.shader",
                 "Assets/QuietCamp/Resources/QuietCamp/roadmap_models.json",
-                "Assets/QuietCamp/Resources/QuietCamp/roadmap_culture_models.json",
+                "Assets/QuietCamp/Editor/RoadmapArchive/roadmap_culture_models.json",
                 "Assets/ThirdParty/Stylized Water 3/Shaders/StylizedWater3_Standard.watershader3",
                 "Assets/ThirdParty/Stylized Water 3/Shaders/StylizedWater3_Standard.watershader3.meta",
                 "Assets/ThirdParty/Stylized Water 3/Profiles/River Wave Profile.asset",
@@ -68,7 +73,13 @@ namespace QuietCamp.Editor
             return Hash(System.Text.Encoding.UTF8.GetBytes(string.Join("\n",files.Select(f=>f+":"+Hash(File.ReadAllBytes(f))))));
         }
         static ValleyTerrain NativeTerrain;
-        static float Ground(float x,float z)=>NativeTerrain.Height(x,z);
+        static readonly Dictionary<(float,float),float> TerrainSamples=new Dictionary<(float,float),float>();
+        static float Ground(float x,float z)
+        {
+            // Plant admission repeatedly samples the same rendered grid corners.
+            // Reuse their exact float heights; no surface or placement changes.
+            if(!TerrainSamples.TryGetValue((x,z),out float y)){y=NativeTerrain.Height(x,z);TerrainSamples.Add((x,z),y);}return y;
+        }
         [MenuItem("Quiet Camp/Cinematic Roadmap/Bake Five Places")]
         public static void Bake()
         {
@@ -77,16 +88,20 @@ namespace QuietCamp.Editor
                 throw new InvalidOperationException("Pilot must reference exactly QC001–QC005");
             Cover=Read<CoverDefinition>("vegetation.json");
             foreach(var tier in new[]{Cover.low,Cover.balanced})
-                if(tier.grassStep<.65f||tier.density<=0||tier.density>1||tier.blades<3||tier.blades>4||tier.motesPerChunk>64)
-                    throw new InvalidOperationException("Invalid ground-cover budget");
+                if(tier.grassStep<.35f||tier.density<=0||tier.density>1||tier.blades<3||tier.blades>4||tier.motesPerChunk>64)
+                    throw new InvalidOperationException("Invalid ground-cover authoring");
             Assets=Read<VisualAssetDefinition[]>("assets.json").ToDictionary(a=>a.id);
             var templates=Read<EnsembleTemplate[]>("templates.json").ToDictionary(t=>t.id);Templates=templates;
             NativeTerrain=new ValleyTerrain(Document,Assets,templates,World.minX,World.maxX,World.minZ,World.maxZ);
+            TerrainSamples.Clear();
             Composition=SceneComposer.Compose(Document,Assets,templates,NativeTerrain);
             if(!Composition.Valid)throw new InvalidOperationException(JsonConvert.SerializeObject(new {Composition.diagnostics,Composition.candidates}));
             Surfaces=SurfaceRecipes.Resolve(Document,Composition);
             Library=RoadmapModelLibrary.Load();Library.PrepareCulture();Library.PrepareStaging();
             Donors=new Dictionary<string,RoadmapModelLibrary.Model>();DonorReviews.Clear();GroundProps.Clear();PlacementRejects.Clear();
+            LeafCards.Clear();using(var atlas=new CinematicFoliageAtlas())
+            {
+            FoliageAtlas=atlas;
             foreach(var b in Read<Binding[]>("bindings.json"))
             {
                 if(Hash(File.ReadAllBytes(b.source))!=b.sourceHash||AssetDatabase.AssetPathToGUID(b.source)!=b.guid)
@@ -95,10 +110,16 @@ namespace QuietCamp.Editor
                     if(Hash(File.ReadAllBytes(dependency.Key))!=dependency.Value)
                         throw new InvalidOperationException("Stale reviewed prefab/palette input: "+dependency.Key);
                 Donors.Add(b.asset,ReadDonor(b));
+                if(b.cutout)LeafCards.Add(b.asset);
             }
+            foreach(var species in (Cover.herbs??Array.Empty<CoverSpecies>()).Concat(Cover.shrubs??Array.Empty<CoverSpecies>()))
+                if(Model(species.asset)==null||species.minHeight<=0||species.maxHeight<species.minHeight||species.weight<=0)
+                    throw new InvalidOperationException("Invalid authored foliage species: "+species.asset);
+            if(Cover.matureStep<2||Cover.youngStep<2||Cover.shrubStep<1)throw new InvalidOperationException("Invalid foliage spacing");
             BalancedPlants=PlanVegetation(false);LowPlants=BalancedPlants;ContactPlants=new PlantIndex();foreach(var plant in BalancedPlants)ContactPlants.Add(plant);
-            Revision=SourceHash();var current=Resources.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World");
-            if(current!=null&&current.sourceHash==Revision&&current.chunks.All(id=>Resources.Load<RoadmapWorldChunk>(id)!=null))return;
+            Debug.Log("[CinematicRoadmap] Admitted "+BalancedPlants.Count+" plants, including "+BalancedPlants.Count(p=>p.tree)+" trees and "+BalancedPlants.Count(p=>LeafCards.Contains(p.asset))+" textured herb clumps");
+            Revision=SourceHash();var current=RoadmapEditorArchive.Load<RoadmapWorldAsset>("QuietCamp/CinematicRoadmap/World");
+            if(current!=null&&current.sourceHash==Revision&&current.chunks.All(id=>RoadmapEditorArchive.Load<RoadmapWorldChunk>(id)!=null))return;
             string folder=Output+"/"+Revision.Substring(0,16);
             // A failed bake may have left an unpublished partial revision. Rebuild only that revision.
             if(AssetDatabase.IsValidFolder(folder))AssetDatabase.DeleteAsset(folder);
@@ -115,7 +136,10 @@ namespace QuietCamp.Editor
             index.ground.SetVector("_GroundContactUV",new Vector4(1/((World.maxX-World.minX)*index.worldScale),1/((World.maxZ-World.minZ)*index.worldScale),-World.minX/(World.maxX-World.minX),-World.minZ/(World.maxZ-World.minZ)));
             index.structure=Material(folder,"Architecture",0,0);
             index.foliage=Material(folder,"Living vegetation",.045f,.003f);
-            index.motes=new Material(Resources.Load<Shader>("QuietCamp/RoadmapMotes")){name="Quiet airborne pollen"};
+            index.foliageCards=Material(folder,"Meadow leaves",.045f,.003f);index.foliageCards.EnableKeyword("ROADMAP_CUTOUT");
+            index.foliageCards.SetFloat("_FoliageCutout",1);index.foliageCards.SetFloat("_Cutoff",.4f);
+            index.foliageCards.SetTexture("_FoliageAtlas",atlas.Publish(folder));index.foliageCards.renderQueue=2450;
+            index.motes=new Material(RoadmapEditorArchive.Load<Shader>("QuietCamp/RoadmapMotes")){name="Quiet airborne pollen"};
             AssetDatabase.CreateAsset(index.motes,folder+"/Motes.mat");
             index.water=RiverMaterial();
             AssetDatabase.CreateAsset(index.water,folder+"/Water.mat");
@@ -171,7 +195,7 @@ namespace QuietCamp.Editor
             AssetDatabase.SaveAssets();AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
             foreach(string path in index.chunks)
             {
-                var prepared=Resources.Load<RoadmapWorldChunk>(path);
+                var prepared=RoadmapEditorArchive.Load<RoadmapWorldChunk>(path);
                 if(prepared==null||prepared.sourceHash!=Revision)
                     throw new InvalidOperationException("Native chunk not imported before publication: "+path);
             }
@@ -183,10 +207,11 @@ namespace QuietCamp.Editor
             string repo=Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath,"../.."));string evidence=Environment.GetEnvironmentVariable("QC_CINEMATIC_EVIDENCE_ROOT")??Path.Combine(repo,"Design/Roadmap/CinematicPilot/2026-10-10");Directory.CreateDirectory(evidence);
             File.WriteAllText(Path.Combine(evidence,"bake-receipt.json"),JsonConvert.SerializeObject(new {sourceHash=Revision,groundPaintHash=GroundPaintHash,structureFootprints=StructureFootprints(),compiler=SceneComposer.Revision,unity=UnityEngine.Application.unityVersion,composition=Composition,stats,donors=DonorReviews,road=new{followsNativeTerrainTriangles=true,horizonOnlyWhenUnloaded=true,surfaces=Surfaces},vegetation=new{balanced=BalancedPlants,low=LowPlants,rejected=PlacementRejects,groundProps=GroundProps,fullAnimatedFootprints=true,globalBeforeChunkSplit=true,buildingsExcludeAllPlants=true},levelIds=index.waypoints.Select(p=>p.levelId),playerBuild=false},Formatting.Indented)+"\n");
             Debug.Log("[CinematicRoadmap] Published five native world chunks "+Revision);
+            }
         }
         static Material Material(string folder,string name,float sway,float flutter)
         {
-            var shader=Resources.Load<Shader>("QuietCamp/RoadmapLit");if(shader==null||!shader.isSupported)throw new InvalidOperationException("Roadmap production shader unavailable");
+            var shader=RoadmapEditorArchive.Load<Shader>("QuietCamp/RoadmapLit");if(shader==null||!shader.isSupported)throw new InvalidOperationException("Roadmap production shader unavailable");
             var m=new Material(shader){name=name};m.SetColor("_BaseColor",Color.white);m.SetFloat("_VertexTint",1);m.SetFloat("_ClusterWind",1);
             m.SetFloat("_SwayAmp",sway);m.SetFloat("_FlutterAmp",flutter);m.SetFloat("_Cull",sway>0?0:2);
             AssetDatabase.CreateAsset(m,folder+"/"+name+".mat");return m;
@@ -198,13 +223,13 @@ namespace QuietCamp.Editor
         {
             public readonly List<Vector3> vertices=new List<Vector3>(),normals=new List<Vector3>();
             readonly List<Color> colors=new List<Color>();readonly List<Vector4> roots=new List<Vector4>();readonly List<Vector2> uvs=new List<Vector2>();readonly List<int> indices=new List<int>();
-            public void Triangle(Vector3 a,Vector3 b,Vector3 c,Color color,Vector4 root=default,Vector3? normal=null,Color? second=null,Color? third=null,Func<Vector3,Vector2> uv=null,Func<Vector3,Vector3> vertexNormal=null)
+            public void Triangle(Vector3 a,Vector3 b,Vector3 c,Color color,Vector4 root=default,Vector3? normal=null,Color? second=null,Color? third=null,Func<Vector3,Vector2> uv=null,Func<Vector3,Vector3> vertexNormal=null,Vector2[] leafUV=null,Func<Vector3,Vector4> vertexRoot=null)
             {
                 var n=normal??Vector3.Cross(b-a,c-a).normalized;int first=vertices.Count;
                 vertices.AddRange(new[]{a,b,c});normals.AddRange(vertexNormal==null?new[]{n,n,n}:new[]{vertexNormal(a),vertexNormal(b),vertexNormal(c)});colors.AddRange(new[]{color,second??color,third??color});
-                if(root==default)root=new Vector4(0,0,0,-1);roots.AddRange(new[]{root,root,root});
+                if(root==default)root=new Vector4(0,0,0,-1);roots.AddRange(vertexRoot==null?new[]{root,root,root}:new[]{vertexRoot(a),vertexRoot(b),vertexRoot(c)});
                 Vector2 UV(Vector3 p)=>uv!=null?uv(p):new Vector2(p.x,p.z);
-                uvs.AddRange(new[]{UV(a),UV(b),UV(c)});indices.AddRange(new[]{first,first+1,first+2});
+                uvs.AddRange(leafUV??new[]{UV(a),UV(b),UV(c)});indices.AddRange(new[]{first,first+1,first+2});
             }
             public string Fingerprint()
             {
@@ -255,7 +280,7 @@ namespace QuietCamp.Editor
         static Mesh[] BuildChunk(int c,bool low)
         {
             ContactPlants=new PlantIndex();foreach(var plant in low?LowPlants:BalancedPlants)ContactPlants.Add(plant);
-            var parts=Enumerable.Range(0,6).Select(i=>new Geometry()).ToArray();float start=World.chunkStarts[c],end=World.chunkEnds[c];
+            var parts=Enumerable.Range(0,7).Select(i=>new Geometry()).ToArray();float start=World.chunkStarts[c],end=World.chunkEnds[c];
             TerrainGrid(parts[0],start,end,2.5f);Road(parts[1],start,end,2.5f);
             // The composer emits both ensemble roles and accepted landmarks.
             // Appending Document.landmarks again duplicates their geometry and shadows.
@@ -263,11 +288,11 @@ namespace QuietCamp.Editor
             foreach(var p in (low?LowPlants:BalancedPlants).Where(p=>OwnerChunk(p.z)==c&&!Composition.instances.Any(i=>i.id==p.id)&&!Assets.ContainsKey(p.asset)))
             {
                 if(p.asset=="pilot.grass-tuft")GrassTuft(parts[3],p,low);
-                else Append(parts[p.tree?2:IsGroundDetail(p)?1:3],p.asset,p.x,p.z,p.height,p.yaw,!IsGroundDetail(p),p.tint,SurfaceHeight(p.x,p.z,low));
+                else Append(parts[LeafCards.Contains(p.asset)?6:p.tree?2:IsGroundDetail(p)?1:3],p.asset,p.x,p.z,p.height,p.yaw,!IsGroundDetail(p),p.tint,SurfaceHeight(p.x,p.z,low));
             }
             // Authored vegetation was appended above; only planner-owned scatter is added here.
             foreach(var p in (low?LowPlants:BalancedPlants).Where(p=>OwnerChunk(p.z)==c&&Assets.ContainsKey(p.asset)&&!Composition.instances.Any(i=>i.id==p.id)))
-                Append(parts[p.tree?2:3],p.asset,p.x,p.z,p.height,p.yaw,true,p.tint,SurfaceHeight(p.x,p.z,false));
+                Append(parts[LeafCards.Contains(p.asset)?6:p.tree?2:3],p.asset,p.x,p.z,p.height,p.yaw,true,p.tint,SurfaceHeight(p.x,p.z,false));
             foreach(var span in Composition.spans.Where(v=>v.height>0&&OwnerChunk((v.az+v.bz)*.5f)==c))
             {
                 var a=Composition.instances.First(i=>i.id==span.a);var b=Composition.instances.First(i=>i.id==span.b);
@@ -329,7 +354,7 @@ namespace QuietCamp.Editor
         }
         sealed class Plant
         {
-            public string id,asset;public float x,z,height,yaw,tint=1,radius,baseY,crownMinY,trunkRadius;public bool tree;
+            public string id,asset;public float x,z,height,yaw,tint=1,radius,baseY,topY,crownMinY,trunkRadius;public bool tree;
         }
         static List<Plant> BalancedPlants,LowPlants;
         static bool IsGroundDetail(Plant p)=>p.asset=="stone_largeA"||p.asset=="log";
@@ -362,10 +387,10 @@ namespace QuietCamp.Editor
         static PlantIndex ContactPlants;
         static bool DryFootprint(float x,float z,float radius)
         {
-            bool Dry(float a,float b)=>RoadmapLandscape.WaterDistance(a,b)>.35f&&Ground(a,b)>RoadmapLandscape.WaterHeight+.12f;
+            bool Dry(float a,float b)=>RoadmapLandscape.WaterDistance(a,b)>.35f&&SurfaceHeight(a,b,false)>RoadmapLandscape.WaterHeight+.26f;
             if(!Dry(x,z))return false;
-            for(int i=0;i<16;i++)
-            {float angle=i*Mathf.PI/8;if(!Dry(x+Mathf.Cos(angle)*radius,z+Mathf.Sin(angle)*radius))return false;}
+            for(int i=0;i<32;i++)
+            {float angle=i*Mathf.PI/16;if(!Dry(x+Mathf.Cos(angle)*radius,z+Mathf.Sin(angle)*radius))return false;}
             return true;
         }
         static bool HitsArchitecture(float x,float z,float radius,float? crownMinY=null,float trunkRadius=0)
@@ -387,6 +412,9 @@ namespace QuietCamp.Editor
             bool Admit(Plant p,bool authored=false)
             {
                 p.baseY=SurfaceHeight(p.x,p.z,false);p.trunkRadius=p.tree?p.height*.035f:0;
+                p.topY=p.baseY+p.height*1.04f;
+                if(LeafCards.Contains(p.asset))for(int side=0;side<8;side++)
+                {float a=side*Mathf.PI/4;p.topY=Mathf.Max(p.topY,SurfaceHeight(p.x+Mathf.Cos(a)*p.radius,p.z+Mathf.Sin(a)*p.radius,false)+p.height*1.04f);}
                 p.crownMinY=p.baseY+p.height*.36f;
                 if(p.tree)
                 {
@@ -403,7 +431,7 @@ namespace QuietCamp.Editor
                 {
                     var t=p.tree?p:o;var cover=p.tree?o:p;
                     float required=p.radius+o.radius+.15f;
-                    if(p.tree!=o.tree&&cover.baseY+cover.height*1.04f<t.crownMinY-.08f)required=t.trunkRadius+cover.radius+.15f;
+                    if(p.tree!=o.tree&&cover.topY<t.crownMinY-.08f)required=t.trunkRadius+cover.radius+.15f;
                     return Vector2.Distance(new Vector2(p.x,p.z),new Vector2(o.x,o.z))<required;
                 }
                 string reason=!DryFootprint(p.x,p.z,p.radius)?"water":HitsArchitecture(p.x,p.z,p.radius,p.tree?(float?)p.crownMinY:null,p.trunkRadius)?"architecture":null;
@@ -421,23 +449,24 @@ namespace QuietCamp.Editor
             // World-wide admission precedes chunk splitting, including all authored canopies.
             // No neighbouring chunk can independently fill an already occupied crown footprint.
             var random=new System.Random(World.seed);
-            for(float z=-24;z<World.maxZ-20;z+=4.5f)for(float x=-43;x<44;x+=4.5f)
+            for(float z=-32;z<World.maxZ-14;z+=Cover.matureStep)for(float x=-51;x<52;x+=Cover.matureStep)
             {
-                float px=x+((float)random.NextDouble()-.5f)*4.5f,pz=z+((float)random.NextDouble()-.5f)*4.5f;
+                float px=x+((float)random.NextDouble()-.5f)*Cover.matureStep,pz=z+((float)random.NextDouble()-.5f)*Cover.matureStep;
                 double chance=random.NextDouble();string asset=random.NextDouble()<.32?"tree_pineRoundA":"tree_default";
                 float h=5.8f+(float)random.NextDouble()*4.2f,yaw=(float)random.NextDouble()*360,tint=.88f+(float)random.NextDouble()*.13f;
                 if(Document.landscape!=null&&new ValleyLandscape(Document.landscape).BasinRadius(px,pz)<.91f){asset="pilot.bank-tree";h=2.7f+(float)random.NextDouble()*1.5f;}
-                if(chance>.82||CanopyObscuresStory(px,pz))continue;
+                float colony=Mathf.PerlinNoise(px*.065f+13,pz*.055f+4);
+                if(chance>Mathf.Lerp(.62f,.99f,colony)||CanopyObscuresStory(px,pz))continue;
                 Admit(new Plant{id="forest-"+x+"-"+z,asset=asset,x=px,z=pz,height=h,yaw=yaw,tint=tint,tree=true,radius=PlantRadius(asset,h)});
             }
             random=new System.Random(World.seed+421);
-            for(float z=-24;z<World.maxZ-20;z+=5.5f)for(float x=-32;x<33;x+=5.5f)
+            for(float z=-32;z<World.maxZ-14;z+=Cover.youngStep)for(float x=-45;x<46;x+=Cover.youngStep)
             {
-                float px=x+((float)random.NextDouble()-.5f)*4.5f,pz=z+((float)random.NextDouble()-.5f)*4.5f;
+                float px=x+((float)random.NextDouble()-.5f)*Cover.youngStep,pz=z+((float)random.NextDouble()-.5f)*Cover.youngStep;
                 double chance=random.NextDouble();string asset=random.NextDouble()<.3?"tree_pineRoundA":"tree_default";
                 float h=2.7f+(float)random.NextDouble()*1.4f,yaw=(float)random.NextDouble()*360;
                 if(Document.landscape!=null&&new ValleyLandscape(Document.landscape).BasinRadius(px,pz)<.91f)asset="pilot.bank-tree";
-                if(chance>.45||CanopyObscuresStory(px,pz,true))continue;
+                if(chance>.83||CanopyObscuresStory(px,pz,true))continue;
                 Admit(new Plant{id="young-"+x+"-"+z,asset=asset,x=px,z=pz,height=h,yaw=yaw,tint=.92f,tree=true,radius=PlantRadius(asset,h)});
             }
             random=new System.Random(World.seed+991);
@@ -455,22 +484,28 @@ namespace QuietCamp.Editor
                 }
             }
             random=new System.Random(World.seed+991);
-            for(float z=-24;z<World.maxZ-20;z+=1.8f)for(float x=-40;x<41;x+=1.8f)
+            CoverSpecies Choose(CoverSpecies[] species)
             {
-                float px=x+(float)random.NextDouble(),pz=z+(float)random.NextDouble();
-                double chance=random.NextDouble();float height=Mathf.Lerp(Cover.minShrubHeight,Cover.maxShrubHeight,(float)random.NextDouble()),yaw=(float)random.NextDouble()*360;
-                float density=.22f+.7f*Mathf.PerlinNoise(px*.12f,pz*.15f);
+                float pick=(float)random.NextDouble()*species.Sum(s=>s.weight);
+                foreach(var s in species){pick-=s.weight;if(pick<=0)return s;}return species[species.Length-1];
+            }
+            for(float z=-32;z<World.maxZ-14;z+=Cover.shrubStep)for(float x=-49;x<50;x+=Cover.shrubStep)
+            {
+                float px=x+(float)random.NextDouble()*Cover.shrubStep,pz=z+(float)random.NextDouble()*Cover.shrubStep;
+                double chance=random.NextDouble();var species=Choose(Cover.shrubs);
+                float height=Mathf.Lerp(species.minHeight,species.maxHeight,(float)random.NextDouble()),yaw=(float)random.NextDouble()*360;
+                float density=.32f+.65f*Mathf.PerlinNoise(px*.095f+4,pz*.08f+7);
                 if(chance>density)continue;
-                Admit(new Plant{id="shrub-"+x+"-"+z,asset="plant_bushSmall",x=px,z=pz,height=height,yaw=yaw,radius=PlantRadius("plant_bushSmall",height)});
+                Admit(new Plant{id="shrub-"+x+"-"+z,asset=species.asset,x=px,z=pz,height=height,yaw=yaw,radius=PlantRadius(species.asset,height),tint=.94f+(float)random.NextDouble()*.1f});
             }
             random=new System.Random(World.seed+191);
-            for(float z=-24;z<World.maxZ-20;z+=tier.grassStep)for(float x=-40;x<41;x+=tier.grassStep)
+            for(float z=-32;z<World.maxZ-14;z+=tier.grassStep)for(float x=-49;x<50;x+=tier.grassStep)
             {
                 float px=x+(float)random.NextDouble()*tier.grassStep,pz=z+(float)random.NextDouble()*tier.grassStep;double chance=random.NextDouble();
-                float habitat=Meadow(px,pz),h=Mathf.Lerp(Cover.minGrassHeight,Cover.maxGrassHeight,(float)random.NextDouble()),yaw=(float)random.NextDouble()*360;
-                float patch=Mathf.PerlinNoise(px*.18f+9,pz*.16f+2);
-                if(chance>tier.density*Mathf.Lerp(.5f,1,patch)*Mathf.Lerp(.85f,1,habitat))continue;
-                Admit(new Plant{id="tuft-"+x+"-"+z,asset="pilot.grass-tuft",x=px,z=pz,height=h,yaw=yaw,radius=h*.36f+.1f,tint=.9f+(float)random.NextDouble()*.16f});
+                var species=Choose(Cover.herbs);float habitat=Meadow(px,pz),h=Mathf.Lerp(species.minHeight,species.maxHeight,(float)random.NextDouble()),yaw=(float)random.NextDouble()*360;
+                float patch=Mathf.PerlinNoise(px*.11f+9,pz*.095f+2);
+                if(chance>tier.density*Mathf.Lerp(.64f,1,patch)*Mathf.Lerp(.85f,1,habitat))continue;
+                Admit(new Plant{id="herbs-"+x+"-"+z,asset=species.asset,x=px,z=pz,height=h,yaw=yaw,radius=PlantRadius(species.asset,h),tint=.93f+(float)random.NextDouble()*.14f});
             }
             for(float z=101;z<220;z+=low?5:3)for(int side=-1;side<=1;side+=2)
             {
@@ -878,10 +913,17 @@ namespace QuietCamp.Editor
             for(int i=0;i<model.Positions.Length;i+=3)
             {
                 var center=(model.Positions[i]+model.Positions[i+1]+model.Positions[i+2])/3;
-                Vector3 At(int k){var p=model.Positions[k]*height;if(width>0)p.x*=width/(model.Bounds.size.x*height);return origin+rotation*p;}
+                Vector3 At(int k)
+                {
+                    var p=model.Positions[k]*height;if(width>0)p.x*=width/(model.Bounds.size.x*height);var world=origin+rotation*p;
+                    if(LeafCards.Contains(asset))world.y+=SurfaceHeight(world.x,world.z,false)-y;
+                    return world;
+                }
                 var color=model.Colors[i/3];if(wind&&color.g>color.r)color=Color.Lerp(color,new Color(.42f,.54f,.27f),.36f);
                 var normal=model.Normals[i];if(width>0)normal.x/=width/(model.Bounds.size.x*height);
-                g.Triangle(At(i),At(i+1),At(i+2),color*tint,root,rotation*normal.normalized);
+                g.Triangle(At(i),At(i+1),At(i+2),color*tint,root,rotation*normal.normalized,
+                    leafUV:LeafCards.Contains(asset)?new[]{model.UVs[i],model.UVs[i+1],model.UVs[i+2]}:null,
+                    vertexRoot:LeafCards.Contains(asset)?(Func<Vector3,Vector4>)(v=>new Vector4(x,z,SurfaceHeight(v.x,v.z,false),height)):null);
             }
             if(asset=="ua_bus_shelter_mosaic")Mosaic(g,model,origin,height,rotation);
         }
@@ -919,7 +961,7 @@ namespace QuietCamp.Editor
             // Prefabs own the reviewed mesh and palette. FBX roots may contain overlapping
             // LODs, collision meshes and unbound materials; none belongs in a baked landmark.
             var source=AssetDatabase.LoadAssetAtPath<GameObject>(binding.prefab);if(source==null)throw new InvalidOperationException(binding.prefab);
-            var vertices=new List<Vector3>();var normals=new List<Vector3>();var colors=new List<Color>();
+            var vertices=new List<Vector3>();var normals=new List<Vector3>();var colors=new List<Color>();var coordinates=new List<Vector2>();
             var selected=new HashSet<Renderer>();
             foreach(var group in source.GetComponentsInChildren<LODGroup>(true))
             {
@@ -948,7 +990,7 @@ namespace QuietCamp.Editor
                         materials.Add(AssetDatabase.GetAssetPath(material));
                         // Texture-cutout foliage needs a different rendering path. Do not turn
                         // transparent leaf cards into solid triangles in the faceted forest.
-                        if(material.IsKeywordEnabled("_ALPHATEST_ON"))throw new InvalidOperationException("Cutout donor requires its own reviewed material: "+binding.asset);
+                        if(material.IsKeywordEnabled("_ALPHATEST_ON")&&!binding.cutout)throw new InvalidOperationException("Cutout donor requires its own reviewed material: "+binding.asset);
                         var tint=material.HasProperty("_BaseColor")?material.GetColor("_BaseColor"):material.HasProperty("_Color")?material.GetColor("_Color"):Color.white;
                         // Read the authored slot, including older vendor shaders whose fallback
                         // exposes a default white main texture rather than their saved atlas.
@@ -968,11 +1010,19 @@ namespace QuietCamp.Editor
                         Texture2D palette=null;
                         if(texture!=null&&!textures.TryGetValue(texture,out palette))
                         {palette=ReadPalette(texture);textures.Add(texture,palette);}
+                        Rect atlasRect=default;
+                        if(binding.cutout)
+                        {
+                            if(palette==null||uv.Length!=vs.Length||binding.palette==null||binding.palette.Length!=3)
+                                throw new InvalidOperationException("Leaf donor needs UVs, source alpha and authored palette: "+binding.asset);
+                            atlasRect=FoliageAtlas.Add(AssetDatabase.GetAssetPath(texture),palette);
+                        }
                         var indices=mesh.GetTriangles(sub);
                         for(int t=0;t<indices.Length;t+=3)
                         {
                             var color=tint;
-                            if(palette!=null&&uv.Length==vs.Length)
+                            if(binding.cutout)color=new Color(binding.palette[0],binding.palette[1],binding.palette[2]);
+                            else if(palette!=null&&uv.Length==vs.Length)
                             {
                                 var coordinate=(uv[indices[t]]+uv[indices[t+1]]+uv[indices[t+2]])/3;
                                 coordinate=Vector2.Scale(coordinate,textureScale)+textureOffset;
@@ -980,9 +1030,17 @@ namespace QuietCamp.Editor
                                 // Readback is linear; bring the atlas into that common authoring palette.
                                 color*=palette.GetPixelBilinear(coordinate.x,coordinate.y).gamma;
                             }
+                            if(!binding.cutout&&binding.palette!=null)
+                            {
+                                float light=.68f+.45f*(.2126f*color.r+.7152f*color.g+.0722f*color.b);
+                                color=new Color(binding.palette[0],binding.palette[1],binding.palette[2])*light;
+                            }
                             colors.Add(new Color(color.r,color.g,color.b,1));
                             for(int k=0;k<3;k++)
-                            {int i=indices[t+k];vertices.Add(matrix.MultiplyPoint3x4(vs[i]));normals.Add(matrix.inverse.transpose.MultiplyVector(ns[i]).normalized);}
+                            {
+                                int i=indices[t+k];vertices.Add(matrix.MultiplyPoint3x4(vs[i]));normals.Add(matrix.inverse.transpose.MultiplyVector(ns[i]).normalized);
+                                if(binding.cutout){var v=Vector2.Scale(uv[i],textureScale)+textureOffset;coordinates.Add(new Vector2(atlasRect.x+Mathf.Clamp01(v.x)*atlasRect.width,atlasRect.y+Mathf.Clamp01(v.y)*atlasRect.height));}
+                            }
                         }
                     }
                 }
@@ -993,8 +1051,8 @@ namespace QuietCamp.Editor
             float h=Mathf.Max(.01f,bounds.size.y);var pivot=new Vector3(bounds.center.x,bounds.min.y,bounds.center.z);
             DonorReviews.Add(new{binding.asset,binding.catalogueId,binding.source,binding.prefab,binding.lod,meshes,triangles=vertices.Count/3,
                 paletteMaterials=materials.OrderBy(p=>p).ToArray(),paletteColors=colors.Select(c=>ColorUtility.ToHtmlStringRGB(c)).Distinct().Count(),
-                bounds=new[]{bounds.size.x,bounds.size.y,bounds.size.z}});
-            return new RoadmapModelLibrary.Model{id=binding.asset,Positions=vertices.Select(v=>(v-pivot)/h).ToArray(),Normals=normals.ToArray(),Colors=colors.ToArray(),Bounds=new Bounds((bounds.center-pivot)/h,bounds.size/h),SourceHeight=h};
+                binding.cutout,binding.palette,bounds=new[]{bounds.size.x,bounds.size.y,bounds.size.z}});
+            return new RoadmapModelLibrary.Model{id=binding.asset,Positions=vertices.Select(v=>(v-pivot)/h).ToArray(),Normals=normals.ToArray(),Colors=colors.ToArray(),UVs=binding.cutout?coordinates.ToArray():null,Bounds=new Bounds((bounds.center-pivot)/h,bounds.size/h),SourceHeight=h};
         }
         static Texture2D ReadPalette(Texture texture)
         {

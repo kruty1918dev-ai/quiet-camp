@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -94,3 +95,4 @@ namespace QuietCamp.Presentation.World
         void OnDisable()=>ResetGesture();
     }
 }
+#endif
