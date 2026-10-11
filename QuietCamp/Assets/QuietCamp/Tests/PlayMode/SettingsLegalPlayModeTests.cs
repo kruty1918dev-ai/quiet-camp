@@ -156,8 +156,7 @@ namespace QuietCamp.Tests
                     if (language == "de") yield return Shot("menu_de130_" + size.x + "x" + size.y);
                     if (language == "uk")
                     {
-                        Tap("levels"); yield return Frames(30); Assert.NotNull(Overlay().Element("roadmap-scroll"));
-                        Tap("back"); yield return Frames(); Assert.NotNull(Find("continue"));
+                        Assert.IsNull(Find("levels"));Assert.IsNull(Find("journeys"));
                         Tap("album"); yield return Frames(30); Assert.IsNull(Find("continue")); Assert.NotNull(Find("back"));
                         Tap("back"); yield return Frames(); MainMenuReadable();
                     }

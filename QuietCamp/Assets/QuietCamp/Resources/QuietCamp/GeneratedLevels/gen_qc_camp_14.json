@@ -7,7 +7,7 @@
   "width": 7,
   "height": 7,
   "id": "gen:qc_camp:14",
-  "contentHash": "dc17e113dad3d3fce239fe8a669acad17fe03b6246b2a03f774dfc77a6940a9a",
+  "contentHash": "5f71ebc01586da5df4fa1712208e1942131608729d8c918d4f1fa258e24451c2",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
@@ -193,7 +193,7 @@
               "z": 0.55,
               "elevation": 0.025,
               "height": 1.85,
-              "yaw": 0.0,
+              "yaw": 180.0,
               "sway": false
             }
           },
@@ -211,12 +211,12 @@
             ],
             "roadmap": null,
             "level": {
-              "assetId": "log",
+              "assetId": "camp_bench",
               "x": 1.15,
-              "z": -5.10091,
+              "z": -4.86417,
               "elevation": 0.025,
-              "height": 0.22,
-              "yaw": 0.0,
+              "height": 0.72,
+              "yaw": 180.0,
               "sway": false
             }
           },

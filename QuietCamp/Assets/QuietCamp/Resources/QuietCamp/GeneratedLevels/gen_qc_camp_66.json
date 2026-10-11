@@ -7,7 +7,7 @@
   "width": 7,
   "height": 7,
   "id": "gen:qc_camp:66",
-  "contentHash": "0582ab6aa0da3e86cfa2475a728c0a3803477de3181db8d58f1790f92876c3df",
+  "contentHash": "fcd63c800f5cf64011beed7aa9ad081c25f17137b13be052b1921cc3b9fd9050",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
@@ -218,6 +218,52 @@
               "z": -4.73988,
               "elevation": 0.025,
               "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-050-prop-4",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "camp_bench",
+              "x": 0.0,
+              "z": 4.86417,
+              "elevation": 0.025,
+              "height": 0.72,
+              "yaw": 180.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-050-prop-5",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "camp_lantern",
+              "x": -4.76976,
+              "z": 2.275,
+              "elevation": 0.025,
+              "height": 0.52,
               "yaw": 0.0,
               "sway": false
             }

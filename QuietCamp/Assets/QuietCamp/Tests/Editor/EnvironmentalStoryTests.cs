@@ -31,7 +31,7 @@ namespace QuietCamp.Tests
             Assert.AreEqual(JsonConvert.SerializeObject(level.environmentalStory), JsonConvert.SerializeObject(copy.environmentalStory));
             Assert.AreEqual(JsonConvert.SerializeObject(level.environmentalStory), JsonConvert.SerializeObject(CampContent.Snapshot(level).environmentalStory));
             Assert.IsEmpty(LevelContentValidator.Validate(copy));
-            var plain = CampContent.Snapshot(LevelLoader.Load("QC001"));
+            var plain = CampContent.Snapshot(CampContent.Legacy("QC001"));
             Assert.IsNull(JObject.FromObject(plain)["environmentalStory"]);
             var previous = CampContent.CalculateHash(plain);
             plain.environmentalStory = null;

@@ -19,6 +19,7 @@ class QuietHandler(SimpleHTTPRequestHandler):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--url', help='Verify the deployed site instead of localhost')
+    parser.add_argument('--browser-executable', help='Use an existing Chromium/Chrome installation')
     parser.add_argument('--output', type=Path, default=Path('/tmp/quietcamp-guide-browser'))
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
@@ -32,7 +33,7 @@ def main():
     errors, scenarios = [], []
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True, args=['--disable-dev-shm-usage'])
+            browser = p.chromium.launch(headless=True, executable_path=args.browser_executable, args=['--disable-dev-shm-usage'])
             context = browser.new_context(locale='uk-UA', viewport={'width':1440,'height':1000})
             page = context.new_page()
             page.on('pageerror', lambda error: errors.append(str(error)))

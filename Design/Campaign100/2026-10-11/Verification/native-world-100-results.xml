@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-11 09:39:45Z" end-time="2026-10-11 09:42:53Z" duration="187.6631695">
+  <test-suite type="TestSuite" id="1240" name="QuietCampRoadmapQA" fullname="QuietCampRoadmapQA" runstate="Runnable" testcasecount="177" result="Passed" start-time="2026-10-11 09:39:45Z" end-time="2026-10-11 09:42:53Z" duration="187.663170" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1234" name="QuietCamp.Tests.PlayMode.dll" fullname="/home/oleks/.cache/quietcamp/cinematic-roadmap-qa/Library/ScriptAssemblies/QuietCamp.Tests.PlayMode.dll" runstate="Runnable" testcasecount="172" result="Passed" start-time="2026-10-11 09:39:45Z" end-time="2026-10-11 09:42:53Z" duration="187.610975" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="1" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1235" name="QuietCamp" fullname="QuietCamp" runstate="Runnable" testcasecount="172" result="Passed" start-time="2026-10-11 09:39:45Z" end-time="2026-10-11 09:42:53Z" duration="187.591603" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1236" name="Tests" fullname="QuietCamp.Tests" runstate="Runnable" testcasecount="172" result="Passed" start-time="2026-10-11 09:39:45Z" end-time="2026-10-11 09:42:53Z" duration="187.572178" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1048" name="Campaign100CaptureTests" fullname="QuietCamp.Tests.Campaign100CaptureTests" classname="QuietCamp.Tests.Campaign100CaptureTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-11 09:39:45Z" end-time="2026-10-11 09:42:53Z" duration="187.533904" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1049" name="CaptureActualHundredLevelScenes" fullname="QuietCamp.Tests.Campaign100CaptureTests.CaptureActualHundredLevelScenes" methodname="CaptureActualHundredLevelScenes" classname="QuietCamp.Tests.Campaign100CaptureTests" runstate="Runnable" seed="1030268169" result="Passed" start-time="2026-10-11 09:39:45Z" end-time="2026-10-11 09:42:53Z" duration="187.488527" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="1800000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[Campaign100] captured 1 QC001
+[Campaign100] captured 2 QC002
+[Campaign100] captured 3 QC003
+[Campaign100] captured 4 QC004
+[Campaign100] captured 5 QC005
+[Campaign100] captured 6 QC006
+[Campaign100] captured 7 QC007
+[Campaign100] captured 8 QC008
+[Campaign100] captured 9 QC009
+[Campaign100] captured 10 QC010
+[Campaign100] captured 11 gen:qc_camp:1
+[Campaign100] captured 12 gen:qc_camp:2
+[Campaign100] captured 13 gen:qc_camp:3
+[Campaign100] captured 14 gen:qc_camp:4
+[Campaign100] captured 15 gen:qc_camp:5
+[Campaign100] captured 16 gen:qc_camp:6
+[Campaign100] captured 17 gen:qc_camp:7
+[Campaign100] captured 18 gen:qc_camp:8
+[Campaign100] captured 19 gen:qc_camp:10
+[Campaign100] captured 20 gen:qc_camp:11
+[Campaign100] captured 21 gen:qc_camp:12
+[Campaign100] captured 22 gen:qc_camp:13
+[Campaign100] captured 23 gen:qc_camp:14
+[Campaign100] captured 24 gen:qc_camp:16
+[Campaign100] captured 25 gen:qc_camp:18
+[Campaign100] captured 26 gen:qc_camp:19
+[Campaign100] captured 27 gen:qc_camp:20
+[Campaign100] captured 28 gen:qc_camp:21
+[Campaign100] captured 29 gen:qc_camp:22
+[Campaign100] captured 30 gen:qc_camp:23
+[Campaign100] captured 31 gen:qc_camp:24
+[Campaign100] captured 32 gen:qc_camp:25
+[Campaign100] captured 33 gen:qc_camp:26
+[Campaign100] captured 34 gen:qc_camp:27
+[Campaign100] captured 35 gen:qc_camp:28
+[Campaign100] captured 36 gen:qc_camp:29
+[Campaign100] captured 37 gen:qc_camp:30
+[Campaign100] captured 38 gen:qc_camp:31
+[Campaign100] captured 39 gen:qc_camp:32
+[Campaign100] captured 40 gen:qc_camp:55
+[Campaign100] captured 41 gen:qc_camp:56
+[Campaign100] captured 42 gen:qc_camp:57
+[Campaign100] captured 43 gen:qc_camp:58
+[Campaign100] captured 44 gen:qc_camp:60
+[Campaign100] captured 45 gen:qc_camp:61
+[Campaign100] captured 46 gen:qc_camp:62
+[Campaign100] captured 47 gen:qc_camp:63
+[Campaign100] captured 48 gen:qc_camp:64
+[Campaign100] captured 49 gen:qc_camp:65
+[Campaign100] captured 50 gen:qc_camp:66
+[Campaign100] captured 51 gen:qc_camp:68
+[Campaign100] captured 52 gen:qc_camp:69
+[Campaign100] captured 53 gen:qc_camp:70
+[Campaign100] captured 54 gen:qc_camp:72
+[Campaign100] captured 55 gen:qc_camp:73
+[Campaign100] captured 56 gen:qc_camp:74
+[Campaign100] captured 57 gen:qc_camp:75
+[Campaign100] captured 58 gen:qc_camp:76
+[Campaign100] captured 59 gen:qc_camp:78
+[Campaign100] captured 60 gen:qc_camp:79
+[Campaign100] captured 61 gen:qc_camp:80
+[Campaign100] captured 62 gen:qc_camp:81
+[Campaign100] captured 63 gen:qc_camp:82
+[Campaign100] captured 64 gen:qc_camp:83
+[Campaign100] captured 65 gen:qc_camp:84
+[Campaign100] captured 66 gen:qc_camp:85
+[Campaign100] captured 67 gen:qc_camp:86
+[Campaign100] captured 68 gen:qc_camp:88
+[Campaign100] captured 69 gen:qc_camp:89
+[Campaign100] captured 70 gen:qc_camp:90
+[Campaign100] captured 71 gen:qc_camp:91
+[Campaign100] captured 72 gen:qc_camp:92
+[Campaign100] captured 73 gen:qc_camp:93
+[Campaign100] captured 74 gen:qc_camp:94
+[Campaign100] captured 75 gen:qc_camp:96
+[Campaign100] captured 76 gen:qc_camp:97
+[Campaign100] captured 77 gen:qc_camp:98
+[Campaign100] captured 78 gen:qc_camp:99
+[Campaign100] captured 79 gen:qc_camp:100
+[Campaign100] captured 80 gen:qc_camp:101
+[Campaign100] captured 81 gen:qc_camp:102
+[Campaign100] captured 82 gen:qc_camp:103
+[Campaign100] captured 83 gen:qc_camp:104
+[Campaign100] captured 84 gen:qc_camp:105
+[Campaign100] captured 85 gen:qc_camp:106
+[Campaign100] captured 86 gen:qc_camp:108
+[Campaign100] captured 87 gen:qc_camp:109
+[Campaign100] captured 88 gen:qc_camp:110
+[Campaign100] captured 89 gen:qc_camp:111
+[Campaign100] captured 90 gen:qc_camp:112
+[Campaign100] captured 91 gen:qc_camp:113
+[Campaign100] captured 92 gen:qc_camp:114
+[Campaign100] captured 93 gen:qc_camp:115
+[Campaign100] captured 94 gen:qc_camp:116
+[Campaign100] captured 95 gen:qc_camp:117
+[Campaign100] captured 96 gen:qc_camp:118
+[Campaign100] captured 97 gen:qc_camp:119
+[Campaign100] captured 98 gen:qc_camp:120
+[Campaign100] captured 99 gen:qc_camp:121
+[Campaign100] captured 100 gen:qc_camp:122
+[QC-PERF] Test result: Passed 
+Saving results to: /home/oleks/.config/unity3d/kruty1918/QuietCampRoadmapQA/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -7,7 +7,7 @@
   "width": 8,
   "height": 8,
   "id": "gen:qc_camp:72",
-  "contentHash": "29efadaf54e3a18ac4a84890118e483c85e8688fe7168008e4bd449bf170f7d1",
+  "contentHash": "af6218a9b2f38200c35a45a7f5c7a18152c9261ee52a4249861b7d9c879a5781",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
@@ -246,10 +246,56 @@
             "roadmap": null,
             "level": {
               "assetId": "story_workboat",
-              "x": 5.74063,
-              "z": -10.32817,
+              "x": 5.52188,
+              "z": -9.65107,
               "elevation": 0.025,
-              "height": 1.35,
+              "height": 0.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-054-prop-4",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "branch_pond",
+              "x": 0.0,
+              "z": 6.29742,
+              "elevation": 0.025,
+              "height": 0.18,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-054-prop-5",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "branch_pond",
+              "x": -4.5,
+              "z": 6.29742,
+              "elevation": 0.025,
+              "height": 0.18,
               "yaw": 0.0,
               "sway": false
             }

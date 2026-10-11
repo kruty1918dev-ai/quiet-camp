@@ -7,7 +7,7 @@
   "width": 5,
   "height": 7,
   "id": "gen:qc_camp:98",
-  "contentHash": "0146f38a1bc291d317197272eab838dfd472467f78b520e722d106c003e812c0",
+  "contentHash": "af8059941aa10595bcd9f44ee31a7bf33cdb4e6d04f96bf961a232679d5cae68",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
@@ -155,10 +155,10 @@
             "roadmap": null,
             "level": {
               "assetId": "story_memorial_garden",
-              "x": -8.93563,
-              "z": -6.0,
+              "x": -5.50711,
+              "z": -3.0,
               "elevation": 0.025,
-              "height": 1.85,
+              "height": 0.65,
               "yaw": 0.0,
               "sway": false
             }
@@ -207,6 +207,29 @@
               "height": 0.34,
               "yaw": 0.0,
               "sway": true
+            }
+          },
+          {
+            "id": "place-077-prop-4",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "camp_lantern",
+              "x": 0.0,
+              "z": 4.74799,
+              "elevation": 0.025,
+              "height": 0.52,
+              "yaw": 0.0,
+              "sway": false
             }
           }
         ]

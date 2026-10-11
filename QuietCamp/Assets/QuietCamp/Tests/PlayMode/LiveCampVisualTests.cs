@@ -84,12 +84,9 @@ namespace QuietCamp.Tests
                 Size(width,width==720?1600:1920);s.Localization.TrySetLanguage(language);s.Settings.textScale=1.3f;
                 yield return SceneManager.LoadSceneAsync("MainMenu");yield return Frames(45);
                 var suffix=width+"_"+language+"_130";yield return Shot("menu_"+suffix);
-                Click("levels");yield return Frames(30);
-                var world=UnityEngine.Object.FindAnyObjectByType<RoadmapWorldPresenter>();
-                Assert.NotNull(world);Assert.IsTrue(world.IsOpen);Assert.LessOrEqual(world.LoadedChunks,3);
-                Assert.AreEqual(1,UnityEngine.Object.FindObjectsByType<Button>().Count(b=>b.name.StartsWith("<button #back")));
-                yield return Shot("map_"+suffix);
-                Click("back");yield return Frames(30);Click("album");yield return Frames(40);yield return Shot("album_"+suffix);
+                Assert.IsNull(PrivacyBootTestSupport.Find("levels"));
+                Assert.IsNull(UnityEngine.Object.FindAnyObjectByType<RoadmapWorldPresenter>());
+                Click("album");yield return Frames(40);yield return Shot("album_"+suffix);
                 Assert.AreEqual(1,UnityEngine.Object.FindObjectsByType<AlbumDiorama>().Length);
                 Click("album-1");yield return Frames(20);Assert.AreEqual(1,SceneManager.GetActiveScene().GetRootGameObjects().Count(g=>g.name=="AlbumDioramaWorld"));
                 Click("back");yield return Frames(30);Click("settings");yield return Frames(20);Click("set-cat-comfort");yield return Frames(20);

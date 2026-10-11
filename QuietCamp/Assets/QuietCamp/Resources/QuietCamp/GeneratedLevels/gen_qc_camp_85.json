@@ -7,7 +7,7 @@
   "width": 6,
   "height": 5,
   "id": "gen:qc_camp:85",
-  "contentHash": "9f5743f4f0091c6318d0d9762c9b190c8de09ffb53cb42addd55cf8adc33e269",
+  "contentHash": "35841f0150c1b61996a09ad8d4b773da4718a4a31c2aae6a44492ad69ed1c176",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
@@ -238,10 +238,10 @@
             "roadmap": null,
             "level": {
               "assetId": "story_foundation",
-              "x": -7.00048,
+              "x": -4.99744,
               "z": 0.1,
               "elevation": 0.025,
-              "height": 1.85,
+              "height": 0.55,
               "yaw": 0.0,
               "sway": false
             }
@@ -260,12 +260,12 @@
             ],
             "roadmap": null,
             "level": {
-              "assetId": "log",
+              "assetId": "camp_bench",
               "x": -1.5,
-              "z": -4.10091,
+              "z": -5.56417,
               "elevation": 0.025,
-              "height": 0.22,
-              "yaw": 0.0,
+              "height": 0.72,
+              "yaw": 180.0,
               "sway": false
             }
           },

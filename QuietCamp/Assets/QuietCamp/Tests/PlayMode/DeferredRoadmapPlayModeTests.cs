@@ -6,6 +6,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using QuietCamp.Application;
+using QuietCamp.Domain;
 using QuietCamp.Infrastructure;
 using QuietCamp.Presentation;
 using QuietCamp.Presentation.UI;
@@ -35,6 +36,23 @@ namespace QuietCamp.Tests
             Assert.Fail("Scene readiness timed out: "+scene);
         }
         static void Tap(string id) => PrivacyBootTestSupport.Tap(PrivacyBootTestSupport.Find(id));
+        static IEnumerator Frames(int count=20) { for(int i=0;i<count;i++)yield return null; }
+        static void Size(int width,int height) => typeof(ScreenshotPlayModeTest)
+            .GetMethod("SetGameViewSize",System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.NonPublic)
+            .Invoke(null,new object[]{width,height});
+        static IEnumerator Complete()
+        {
+            CampSceneHost.Current.Session.DebugApplyWitness();yield return Frames();Tap("check");
+            var until=Time.realtimeSinceStartup+30;
+            while(PrivacyBootTestSupport.Find("next")==null&&Time.realtimeSinceStartup<until)yield return null;
+            Assert.IsTrue(CampSceneHost.Current.Session.IsCompleted);yield return Frames();
+        }
+        static IEnumerator CampReady(string id)
+        {
+            var until=Time.realtimeSinceStartup+90;
+            while(CampSceneHost.Current?.Session?.Level?.id!=id&&Time.realtimeSinceStartup<until)yield return null;
+            yield return Ready("Camp");Assert.AreEqual(id,CampSceneHost.Current.Session.Level.id);NoMap();
+        }
         static void Act(string id) => QuietCampBootstrap.ServicesRef.Actions.Execute(
             new Kruty1918.UIActions.API.UiActionRequest(new Kruty1918.UIActions.API.UiActionId(id),
                 Kruty1918.UIActions.API.UiActionSource.Programmatic,"Gameplay"));
@@ -58,6 +76,7 @@ namespace QuietCamp.Tests
         {
             Assert.IsTrue(UnityEngine.Application.productName.StartsWith("QuietCampRoadmapQA"),"Private synthetic QA saves required");
             Assert.IsFalse(UnityEngine.Application.isBatchMode,"Native Game View capture required");
+            Size(720,1600);
             Directory.CreateDirectory(Output);
             // Inspect the actual imported asset graph without a BuildPipeline call.
             var roots=UnityEditor.AssetDatabase.GetAllAssetPaths().Where(p=>!p.Contains("/Editor/")
@@ -80,16 +99,14 @@ namespace QuietCamp.Tests
             for(int i=0;i<20;i++)yield return null;
             yield return Capture("main-menu-no-roadmap.png");
             Tap("continue");yield return Ready("Camp");Assert.AreEqual("QC001",CampSceneHost.Current.Session.Level.id);NoMap();
-            CampSceneHost.Current.Session.DebugApplyWitness();yield return null;Act("qc.check");
-            var until=Time.realtimeSinceStartup+30;
-            while(PrivacyBootTestSupport.Find("next")==null && Time.realtimeSinceStartup<until)yield return null;
-            Assert.IsTrue(CampSceneHost.Current.Session.IsCompleted);
+            yield return Capture("camp-001-portrait.png");
+            yield return Complete();
             // React can publish the Button before Yoga has laid out its rectangle.
             // Wait for the rendered panel; Tap still requires a real unobstructed raycast.
             for(int i=0;i<20;i++)yield return null;
             Tap("next");yield return Ready("Camp");
             // Camp is reloaded: wait for the new level rather than an old host's readiness.
-            until=Time.realtimeSinceStartup+90;
+            var until=Time.realtimeSinceStartup+90;
             while(CampSceneHost.Current?.Session.Level.id!="QC002"&&Time.realtimeSinceStartup<until)yield return null;
             yield return Ready("Camp");Assert.AreEqual("QC002",CampSceneHost.Current.Session.Level.id);NoMap();
             Act("qc.menu");yield return Ready("MainMenu");NoMap();
@@ -100,11 +117,38 @@ namespace QuietCamp.Tests
             var backdrop=MenuSceneHost.Current.BackgroundLevel.id;
             services.Progression.Restore(ids.Take(45),ids[44],0);services.Save.Session=new SessionSaveData();
             Assert.AreEqual(ids[45],services.ContinueLevel());
+            Assert.AreEqual(100,ids.Count);
+            services.Progression.Restore(ids.Take(4),ids[3],0);services.Save.Session=new SessionSaveData();
+            Tap("continue");yield return CampReady("QC005");yield return Complete();
+            Tap("next");yield return CampReady("QC006");
+            Act("qc.menu");yield return Ready("MainMenu");
+            // Last camp must complete the base story and return through the real UI.
+            services.Progression.Restore(ids.Take(99),ids[98],0);services.Save.Session=new SessionSaveData();
+            Assert.AreEqual(ids[99],services.ContinueLevel());
+            Tap("continue");yield return CampReady(ids[99]);yield return Capture("camp-100-portrait.png");
+            Size(1600,720);yield return Frames();yield return Capture("camp-100-landscape.png");
+            yield return Complete();Assert.IsNull(services.NextLevel(ids[99]));
+            Tap("next");yield return Ready("MainMenu");NoMap();
+            // Retired legacy content remains replayable as an album snapshot,
+            // but cannot silently grow the active 100-level campaign.
+            var retired=CampContent.Summaries.FirstOrDefault(s=>s.id=="gen:qc_camp:9");
+            Assert.IsNull(retired);Assert.IsFalse(services.CanStart("gen:qc_camp:9"));
+            services.AlbumIndex=Array.FindIndex(services.Save.Album.entries,e=>e.levelId==ids[99]);
+            Assert.GreaterOrEqual(services.AlbumIndex,0);
+            Tap("album");yield return Frames();Tap("album-replay");yield return CampReady(ids[99]);
+            Act("qc.menu");yield return Ready("MainMenu");
+            // Save/load retains all completed IDs and the exact old puzzle snapshot.
+            Assert.IsTrue(services.Save.Save());var reopened=new SaveAdapter();Assert.IsTrue(reopened.Load(out _));
+            Assert.AreEqual(100,reopened.Progress.completedIds.Intersect(ids).Count());
+            var legacy=CampContent.Legacy("QC001");Assert.NotNull(legacy);
+            Assert.AreNotEqual(LevelLoader.Load("QC001").contentHash,legacy.contentHash);
             File.WriteAllText(Path.Combine(Output,"native-flow-receipt.json"),JsonConvert.SerializeObject(new {
                 capturedUtc=DateTime.UtcNow.ToString("o"),result="Passed",playerBuild=false,mobileFpsMeasured=false,
                 playerDependencyCount=dependencies.Length,archiveReachable=false,worldAvailableInEditor=true,
                 freshStart="QC001",next="QC002",afterPilot="QC006",legacyContinue=ids[45],backdrop,
-                noMapComponents=true,noMapMenuControl=true,reducedMotion=true,rendererUntouchedByTest=true
+                noMapComponents=true,noMapMenuControl=true,reducedMotion=true,rendererUntouchedByTest=true,
+                baseCount=ids.Count,fifthToSixth=true,lastLevel=ids[99],afterLast="MainMenu",albumReplay=true,
+                savedCompletions=100,retiredLaunchBlocked=true,legacySnapshotRetained=true
             },Formatting.Indented)+"\n");
         }
     }

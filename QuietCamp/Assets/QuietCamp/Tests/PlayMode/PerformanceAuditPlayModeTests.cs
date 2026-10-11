@@ -222,26 +222,19 @@ namespace QuietCamp.Tests
                     yield return Route(services,$"route.high.{mode}.r{rep}.camp-menu"); yield return Frames(20);
                 }
             services.ReducedMotion=false;
-            foreach (var item in new[] { new[]{"spring","QC001"}, new[]{"autumn","gen:qc_camp:9"}, new[]{"winter","gen:qc_camp:14"},new[]{"late-haven","gen:qc_camp:122"} })
+            foreach (var item in new[] { new[]{"spring","QC001"}, new[]{"autumn","gen:qc_camp:74"}, new[]{"winter","gen:qc_camp:102"},new[]{"late-haven","gen:qc_camp:122"} })
             {
                 yield return Route(services,"route.high.to-"+item[0],item[1]);
                 CampSceneHost.Current.Session.DebugApplyWitness(); CampSceneHost.Current.Session.Select(null); yield return Frames(45);
                 yield return Sample("camp."+item[0]+".high.solved",180);
             }
             yield return Route(services,"route.high.final-camp-menu"); yield return Frames(45);
-            foreach(string screen in new[]{"Levels","Journeys","Settings"})
+            foreach(string screen in new[]{"Settings"})
             {
                 Stage("ui."+screen+".open"); Menu.Show(screen); yield return Frames(30);
                 yield return Sample("ui."+screen+".steady",120);
-                if(screen=="Levels")
-                {
-                    Stage("ui.map.scroll");
-                    var scroll=Object.FindObjectsByType<ScrollRect>(FindObjectsSortMode.None).First(s=>s.gameObject.activeInHierarchy&&s.content!=null&&s.vertical);
-                    for(int i=0;i<90;i++){scroll.verticalNormalizedPosition=1-i/89f;yield return null;}
-                    Snapshot("ui.map.scroll");
-                }
             }
-            services.Save.Album.entries = new[]{"QC001","QC007","gen:qc_camp:9","gen:qc_camp:14"}.Select((id,index)=>{
+            services.Save.Album.entries = new[]{"QC001","QC007","gen:qc_camp:74","gen:qc_camp:102"}.Select((id,index)=>{
                 var level=LevelLoader.Load(id);var session=new CampSession(level);session.DebugApplyWitness();
                 return new AlbumSaveData.Entry { levelId=id,order=index,levelSnapshot=level,placements=session.State.Placements.Select(p=>p.Copy()).ToArray(),lighting=level.lighting,cared=true };
             }).ToArray();

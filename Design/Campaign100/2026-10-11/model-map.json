@@ -17725,838 +17725,1066 @@
   },
   {
     "number": "M1267",
-    "name": "DebugProbe",
+    "name": "Гранована сфера",
     "path": "Packages/com.unity.render-pipelines.core/Editor/Resources/DebugProbe.fbx",
-    "descriptionUk": "DebugProbe.",
-    "images": [],
+    "descriptionUk": "Замкнена округла форма з великими багатокутними гранями. Габарити: 200.00 × 200.00 × 200.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 320.",
+    "images": [
+      "ModelPreviews~/M1267-front.png",
+      "ModelPreviews~/M1267-back.png"
+    ],
     "sourceSha256": "bb080c5dbeaf395aa237b85e66580d32cd774be33972c81a152ddd7b4320c1c2",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1268",
-    "name": "ProbeSamplingDebugMesh",
+    "name": "Тривісна фігура",
     "path": "Packages/com.unity.render-pipelines.core/Runtime/Debug/ProbeSamplingDebugMesh.fbx",
-    "descriptionUk": "ProbeSamplingDebugMesh.",
-    "images": [],
+    "descriptionUk": "Тонкі промені сходяться в центрі; кінці мають стрілоподібні наконечники. Габарити: 33.00 × 33.02 × 32.97 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 414.",
+    "images": [
+      "ModelPreviews~/M1268-front.png",
+      "ModelPreviews~/M1268-back.png"
+    ],
     "sourceSha256": "37f208b31602e0351a0050120e916a2b8a7590de698ae97de8f9cf36ed4b565a",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1269",
-    "name": "BackgroundMesh",
+    "name": "Півсферична оболонка",
     "path": "Packages/com.unity.render-pipelines.core/Runtime/RenderPipelineResources/Mesh/BackgroundMesh.fbx",
-    "descriptionUk": "BackgroundMesh.",
-    "images": [],
+    "descriptionUk": "Великий округлий купол із пласким нижнім краєм. Габарити: 179.48 × 115.35 × 179.48 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 1792.",
+    "images": [
+      "ModelPreviews~/M1269-front.png",
+      "ModelPreviews~/M1269-back.png"
+    ],
     "sourceSha256": "d9215b5380ebc8bd33c6c16359bc72bca4b094990145bcc778a62fc26ecf3799",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1270",
-    "name": "SamplesFixture",
+    "name": "Прямокутна плита",
     "path": "Packages/com.unity.render-pipelines.core/Runtime/RenderPipelineResources/Mesh/SamplesFixture.fbx",
-    "descriptionUk": "SamplesFixture.",
-    "images": [],
+    "descriptionUk": "Низька прямокутна поверхня з тонким виступом по краю. Габарити: 2.00 × 0.09 × 2.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 140.",
+    "images": [
+      "ModelPreviews~/M1270-front.png",
+      "ModelPreviews~/M1270-back.png"
+    ],
     "sourceSha256": "e0c19b9800d49a877e5539c1d5945f56081a49d181e2f06ad8cab2ccfeb7eb59",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1271",
-    "name": "SamplesFloorSpotlight",
+    "name": "Прожектор на підставці",
     "path": "Packages/com.unity.render-pipelines.core/Runtime/RenderPipelineResources/Mesh/SamplesFloorSpotlight.fbx",
-    "descriptionUk": "SamplesFloorSpotlight.",
-    "images": [],
+    "descriptionUk": "Нахилений корпус із заокругленим верхом, дуговим кріпленням і круглою основою. Габарити: 0.19 × 0.22 × 0.22 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 2; трикутників джерела у кадрі: 724.",
+    "images": [
+      "ModelPreviews~/M1271-front.png",
+      "ModelPreviews~/M1271-back.png"
+    ],
     "sourceSha256": "4c03312ff37041f39776d7cf9acf5ea692f338d446f55f308a3be46c7cb19bf2",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1272",
-    "name": "SamplesSpotlightModel",
+    "name": "Прожектор на тринозі",
     "path": "Packages/com.unity.render-pipelines.core/Runtime/RenderPipelineResources/Mesh/SamplesSpotlightModel.fbx",
-    "descriptionUk": "SamplesSpotlightModel.",
-    "images": [],
+    "descriptionUk": "Два компактні корпуси на високій стійці з трьома розведеними ногами. Габарити: 0.75 × 1.67 × 0.65 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 8; трикутників джерела у кадрі: 6990.",
+    "images": [
+      "ModelPreviews~/M1272-front.png",
+      "ModelPreviews~/M1272-back.png"
+    ],
     "sourceSha256": "f646297caf1f968dd0a493839b54ef602903a02923f2c320328e169b5d8da0d2",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1273",
-    "name": "UnityMaterialBall",
+    "name": "Куля на гранованій основі",
     "path": "Packages/com.unity.render-pipelines.core/Runtime/RenderPipelineResources/Mesh/UnityMaterialBall.fbx",
-    "descriptionUk": "UnityMaterialBall.",
-    "images": [],
+    "descriptionUk": "Округла куля над невисокою багатокутною підставкою. Габарити: 1.00 × 1.29 × 1.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 11; трикутників джерела у кадрі: 39270.",
+    "images": [
+      "ModelPreviews~/M1273-front.png",
+      "ModelPreviews~/M1273-back.png"
+    ],
     "sourceSha256": "6d1944a4845263c3d05ba78a4af94196c03f1e1165a2b14fb06df3d4cbdfd7f8",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1274",
-    "name": "Backdrop",
+    "name": "Кутова панель",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/Common/Models/Backdrop.fbx",
-    "descriptionUk": "Backdrop.",
-    "images": [],
+    "descriptionUk": "Вертикальний прямокутник сполучений із горизонтальним прямокутним дном. Габарити: 2.00 × 2.00 × 1.78 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 736.",
+    "images": [
+      "ModelPreviews~/M1274-front.png",
+      "ModelPreviews~/M1274-back.png"
+    ],
     "sourceSha256": "9c7e48be747204a5be5b5515b8a5a18f0b1b9aa0ba048209beafa32872a9112c",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1275",
-    "name": "BackgroundMesh",
+    "name": "Півсферична оболонка",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/Common/Models/BackgroundMesh.fbx",
-    "descriptionUk": "BackgroundMesh.",
-    "images": [],
+    "descriptionUk": "Великий округлий купол із пласким нижнім краєм. Габарити: 179.48 × 115.35 × 179.48 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 1792.",
+    "images": [
+      "ModelPreviews~/M1275-front.png",
+      "ModelPreviews~/M1275-back.png"
+    ],
     "sourceSha256": "d9215b5380ebc8bd33c6c16359bc72bca4b094990145bcc778a62fc26ecf3799",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1276",
-    "name": "CubePanel",
+    "name": "Куб",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/Common/Models/CubePanel.fbx",
-    "descriptionUk": "CubePanel.",
-    "images": [],
+    "descriptionUk": "Шість пласких квадратних сторін; гострі прямі ребра. Габарити: 1.01 × 1.01 × 1.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 2; трикутників джерела у кадрі: 122.",
+    "images": [
+      "ModelPreviews~/M1276-front.png",
+      "ModelPreviews~/M1276-back.png"
+    ],
     "sourceSha256": "c8e0f343403dd4228a6bec97b4ea0d99947db070dd81daaf9d640fc6e322edb4",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1277",
-    "name": "Curtain",
+    "name": "Портьєра",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/Common/Models/Curtain.fbx",
-    "descriptionUk": "Curtain.",
-    "images": [],
+    "descriptionUk": "Вертикальна тканинна форма з вузькими складками та загнутим нижнім краєм. Габарити: 2.06 × 3.01 × 1.28 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 7392.",
+    "images": [
+      "ModelPreviews~/M1277-front.png",
+      "ModelPreviews~/M1277-back.png"
+    ],
     "sourceSha256": "2675ba08ed388764625345beb61bca1b93fdcb044b8a7787360c5c0aba972027",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1278",
-    "name": "FrameCorner",
+    "name": "Кутова планка",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/Common/Models/FrameCorner.fbx",
-    "descriptionUk": "FrameCorner.",
-    "images": [],
+    "descriptionUk": "Дві прямокутні смуги сполучені під прямим кутом. Габарити: 2.15 × 0.45 × 2.15 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 68.",
+    "images": [
+      "ModelPreviews~/M1278-front.png",
+      "ModelPreviews~/M1278-back.png"
+    ],
     "sourceSha256": "574101b8096aae2969a7abcbc6fd5f530798b9e93d6ecd4be83cec7225f82786",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1279",
-    "name": "FrameSide",
+    "name": "Пряма планка",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/Common/Models/FrameSide.fbx",
-    "descriptionUk": "FrameSide.",
-    "images": [],
+    "descriptionUk": "Довга вузька прямокутна пластина однакової товщини. Габарити: 0.12 × 0.45 × 2.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 44.",
+    "images": [
+      "ModelPreviews~/M1279-front.png",
+      "ModelPreviews~/M1279-back.png"
+    ],
     "sourceSha256": "a5fef3bcf3d3a759378d0dc8b05ccdd5918ae657343dd33e4629b002022dffac",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1280",
-    "name": "InfosStand",
+    "name": "Клиноподібний стенд",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/Common/Models/InfosStand.fbx",
-    "descriptionUk": "InfosStand.",
-    "images": [],
+    "descriptionUk": "Вертикальна прямокутна грань із широкою похилою задньою опорою. Габарити: 1.01 × 1.00 × 1.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 2; трикутників джерела у кадрі: 126.",
+    "images": [
+      "ModelPreviews~/M1280-front.png",
+      "ModelPreviews~/M1280-back.png"
+    ],
     "sourceSha256": "63aea9f6abfb795e48df58be17adee73bfe7427519a94bd4ed0396b0f447dbe7",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1281",
-    "name": "Lion",
+    "name": "Скульптура лева",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/Common/Models/Lion.fbx",
-    "descriptionUk": "Lion.",
-    "images": [],
+    "descriptionUk": "Сидяча фігура з гривою й хвостом на прямокутному постаменті. Габарити: 1.22 × 2.58 × 2.12 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 14546.",
+    "images": [
+      "ModelPreviews~/M1281-front.png",
+      "ModelPreviews~/M1281-back.png"
+    ],
     "sourceSha256": "38c71040dd45df52fe3527a2eeb557e1c9ed5409d547f05777833240956a2661",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1282",
-    "name": "NameHolder",
+    "name": "Жолобоподібна планка",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/Common/Models/NameHolder.fbx",
-    "descriptionUk": "NameHolder.",
-    "images": [],
+    "descriptionUk": "Довга горизонтальна смуга з піднятим похилим ребром. Габарити: 0.70 × 0.10 × 0.11 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 140.",
+    "images": [
+      "ModelPreviews~/M1282-front.png",
+      "ModelPreviews~/M1282-back.png"
+    ],
     "sourceSha256": "9efe73e989ceef74adf9f3f5946d3be9bc7fdab3b3f355382d5a0307096e35cd",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1283",
-    "name": "Panel",
+    "name": "Прямокутна панель",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/Common/Models/Panel.fbx",
-    "descriptionUk": "Panel.",
-    "images": [],
+    "descriptionUk": "Тонка рівна вертикальна пластина. Габарити: 2.02 × 3.00 × 0.20 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 188.",
+    "images": [
+      "ModelPreviews~/M1283-front.png",
+      "ModelPreviews~/M1283-back.png"
+    ],
     "sourceSha256": "da61c2d85a1fdbaef3f2e523146198cffc0205b91db4b9bdbb6f13245cd413fd",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1284",
-    "name": "SamplesFixture",
+    "name": "Прямокутна плита",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/Common/Models/SamplesFixture.fbx",
-    "descriptionUk": "SamplesFixture.",
-    "images": [],
+    "descriptionUk": "Низька прямокутна поверхня з тонким виступом по краю. Габарити: 2.00 × 0.09 × 2.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 140.",
+    "images": [
+      "ModelPreviews~/M1284-front.png",
+      "ModelPreviews~/M1284-back.png"
+    ],
     "sourceSha256": "e0c19b9800d49a877e5539c1d5945f56081a49d181e2f06ad8cab2ccfeb7eb59",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1285",
-    "name": "SamplesFloorSpotlight",
+    "name": "Прожектор на підставці",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/Common/Models/SamplesFloorSpotlight.fbx",
-    "descriptionUk": "SamplesFloorSpotlight.",
-    "images": [],
+    "descriptionUk": "Нахилений корпус із заокругленим верхом, дуговим кріпленням і круглою основою. Габарити: 0.19 × 0.22 × 0.22 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 2; трикутників джерела у кадрі: 724.",
+    "images": [
+      "ModelPreviews~/M1285-front.png",
+      "ModelPreviews~/M1285-back.png"
+    ],
     "sourceSha256": "4c03312ff37041f39776d7cf9acf5ea692f338d446f55f308a3be46c7cb19bf2",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1286",
-    "name": "SamplesSpotlightModel",
+    "name": "Прожектор на тринозі",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/Common/Models/SamplesSpotlightModel.fbx",
-    "descriptionUk": "SamplesSpotlightModel.",
-    "images": [],
+    "descriptionUk": "Два компактні корпуси на високій стійці з трьома розведеними ногами. Габарити: 0.75 × 1.67 × 0.65 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 8; трикутників джерела у кадрі: 6990.",
+    "images": [
+      "ModelPreviews~/M1286-front.png",
+      "ModelPreviews~/M1286-back.png"
+    ],
     "sourceSha256": "f646297caf1f968dd0a493839b54ef602903a02923f2c320328e169b5d8da0d2",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1287",
-    "name": "TurntableBackdrop",
+    "name": "Напівциліндрична стіна",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/Common/Models/TurntableBackdrop.fbx",
-    "descriptionUk": "TurntableBackdrop.",
-    "images": [],
+    "descriptionUk": "Вигнута вертикальна оболонка з відкритими торцями. Габарити: 2.12 × 3.00 × 2.07 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 1068.",
+    "images": [
+      "ModelPreviews~/M1287-front.png",
+      "ModelPreviews~/M1287-back.png"
+    ],
     "sourceSha256": "b61357c9f35567175f5a6f3bff39f0e36f5fc0140718e3fa80b00897d22fe5ba",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1288",
-    "name": "UnityLogo",
+    "name": "Кутова емблема",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/Common/Models/UnityLogo.fbx",
-    "descriptionUk": "UnityLogo.",
-    "images": [],
+    "descriptionUk": "Три стрілоподібні фігури утворюють замкнений трикутний знак. Габарити: 1.14 × 0.01 × 1.28 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 240.",
+    "images": [
+      "ModelPreviews~/M1288-front.png",
+      "ModelPreviews~/M1288-back.png"
+    ],
     "sourceSha256": "ded7902ffdbc25deb8f68dfec2ae82d6cf691c086b64d25bbd76b41be2ea2794",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1289",
-    "name": "UnityMaterialBall",
+    "name": "Куля на гранованій основі",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/Common/Models/UnityMaterialBall.fbx",
-    "descriptionUk": "UnityMaterialBall.",
-    "images": [],
+    "descriptionUk": "Округла куля над невисокою багатокутною підставкою. Габарити: 1.00 × 1.29 × 1.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 11; трикутників джерела у кадрі: 39270.",
+    "images": [
+      "ModelPreviews~/M1289-front.png",
+      "ModelPreviews~/M1289-back.png"
+    ],
     "sourceSha256": "6d1944a4845263c3d05ba78a4af94196c03f1e1165a2b14fb06df3d4cbdfd7f8",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1290",
-    "name": "platform Turntable",
+    "name": "Кругла платформа",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/Common/Models/platform_Turntable.fbx",
-    "descriptionUk": "platform Turntable.",
-    "images": [],
+    "descriptionUk": "Низький диск із невеликим заглибленням у центрі. Габарити: 2.00 × 0.11 × 2.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 2616.",
+    "images": [
+      "ModelPreviews~/M1290-front.png",
+      "ModelPreviews~/M1290-back.png"
+    ],
     "sourceSha256": "41e04465d0a16d90e36b7c910f554ea85c2acf478593ff1d583a2463fe8944e2",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1291",
-    "name": "SM Bld Preset House 02 A Optimized",
+    "name": "Фахверковий будинок 02",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Bld_Preset_House_02_A_Optimized.fbx",
-    "descriptionUk": "SM Bld Preset House 02 A Optimized.",
-    "images": [],
+    "descriptionUk": "Високий двоповерховий будинок, крутий дах, велика мансарда й дерев'яні балки фасаду. Габарити: 6.45 × 9.24 × 8.07 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 2; трикутників джерела у кадрі: 9837.",
+    "images": [
+      "ModelPreviews~/M1291-front.png",
+      "ModelPreviews~/M1291-back.png"
+    ],
     "sourceSha256": "33aa7b75b7f258cce1f4eb2c47476b75c762e383e0f3e7fd7843b422efa70d27",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1292",
-    "name": "SM Bld Preset House 03 Optimized",
+    "name": "Фахверковий будинок 03",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Bld_Preset_House_03_Optimized.fbx",
-    "descriptionUk": "SM Bld Preset House 03 Optimized.",
-    "images": [],
+    "descriptionUk": "Крутий багатоярусний дах із димарем, вікна й балки на двох поверхах. Габарити: 6.78 × 10.51 × 7.67 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 2; трикутників джерела у кадрі: 11172.",
+    "images": [
+      "ModelPreviews~/M1292-front.png",
+      "ModelPreviews~/M1292-back.png"
+    ],
     "sourceSha256": "c8347820c1c1bc9a0419ad61d36c2163482e6bb2b5d9dccbad1f9ef826062895",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1293",
-    "name": "SM Bld Preset House 05 Optimized",
+    "name": "Будинок із башточкою 05",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Bld_Preset_House_05_Optimized.fbx",
-    "descriptionUk": "SM Bld Preset House 05 Optimized.",
-    "images": [],
+    "descriptionUk": "Розгалужений корпус із кількома гостроверхими дахами та круглою башточкою. Габарити: 11.26 × 14.38 × 11.08 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 2; трикутників джерела у кадрі: 23546.",
+    "images": [
+      "ModelPreviews~/M1293-front.png",
+      "ModelPreviews~/M1293-back.png"
+    ],
     "sourceSha256": "a17498d4066398c1e61d3dcf44663dd340ca2abb48c14deaf8009da30a47dd66",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1294",
-    "name": "SM Bld Preset House 06 Optimized",
+    "name": "Вузький будинок із вежею 06",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Bld_Preset_House_06_Optimized.fbx",
-    "descriptionUk": "SM Bld Preset House 06 Optimized.",
-    "images": [],
+    "descriptionUk": "Високий прямокутний корпус, мала кругла кутова вежа й виступи фасаду. Габарити: 11.16 × 16.47 × 10.42 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 2; трикутників джерела у кадрі: 21559.",
+    "images": [
+      "ModelPreviews~/M1294-front.png",
+      "ModelPreviews~/M1294-back.png"
+    ],
     "sourceSha256": "f5d810bd92b35db33d7fc12b9e3d3134e997ac8526b70d0a1b7b464aa16fd186",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1295",
-    "name": "SM Bld Preset House 07 Optimized",
+    "name": "Фахверковий будинок 07",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Bld_Preset_House_07_Optimized.fbx",
-    "descriptionUk": "SM Bld Preset House 07 Optimized.",
-    "images": [],
+    "descriptionUk": "Широка двоповерхова споруда з похилими дахами, димарем і виступом входу. Габарити: 11.25 × 10.91 × 10.46 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 2; трикутників джерела у кадрі: 18977.",
+    "images": [
+      "ModelPreviews~/M1295-front.png",
+      "ModelPreviews~/M1295-back.png"
+    ],
     "sourceSha256": "3c34059c6f34afb585ba13002c2cdf12d7f779f8622e9a1336dd172c7f099a5f",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1296",
-    "name": "SM Bld Preset House 08 Optimized",
+    "name": "Вузький будинок 08",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Bld_Preset_House_08_Optimized.fbx",
-    "descriptionUk": "SM Bld Preset House 08 Optimized.",
-    "images": [],
+    "descriptionUk": "Висока багатоповерхова споруда з гострим дахом і бічними дерев'яними балконами. Габарити: 5.96 × 12.99 × 6.29 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 2; трикутників джерела у кадрі: 12563.",
+    "images": [
+      "ModelPreviews~/M1296-front.png",
+      "ModelPreviews~/M1296-back.png"
+    ],
     "sourceSha256": "5e5f7d2316e991a1637dd2ccdb4c17238b7fb795a9d4beea942756f1430db318",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1297",
-    "name": "SM Bld Walkway Wood 01",
+    "name": "Дерев'яний настил",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Bld_Walkway_Wood_01.fbx",
-    "descriptionUk": "SM Bld Walkway Wood 01.",
-    "images": [],
+    "descriptionUk": "Довга невисока прямокутна конструкція з нерівними краями дощок. Габарити: 5.02 × 0.17 × 1.51 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 150.",
+    "images": [
+      "ModelPreviews~/M1297-front.png",
+      "ModelPreviews~/M1297-back.png"
+    ],
     "sourceSha256": "b793fa5d647bfa33531f43988de37c86310477752a495a458abc7812351b1a85",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1298",
-    "name": "SM Generic Grass Patch 01",
+    "name": "Пучок трави 01",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Generic_Grass_Patch_01.fbx",
-    "descriptionUk": "SM Generic Grass Patch 01.",
-    "images": [],
+    "descriptionUk": "Кілька широких довгих листків під різними кутами навколо центра. Габарити: 2.81 × 0.92 × 2.16 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 602.",
+    "images": [
+      "ModelPreviews~/M1298-front.png",
+      "ModelPreviews~/M1298-back.png"
+    ],
     "sourceSha256": "38acaeae08993300fcc8f3cd6c2e54eb892f115f153a4c1b1634f3c25bc4ba92",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1299",
-    "name": "SM Generic Grass Patch 02",
+    "name": "Пучок трави 02",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Generic_Grass_Patch_02.fbx",
-    "descriptionUk": "SM Generic Grass Patch 02.",
-    "images": [],
+    "descriptionUk": "Компактний пучок широких загострених листків різної висоти. Габарити: 1.11 × 1.16 × 1.29 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 238.",
+    "images": [
+      "ModelPreviews~/M1299-front.png",
+      "ModelPreviews~/M1299-back.png"
+    ],
     "sourceSha256": "5cbeda69a545917900ce0fdcbe0b5e911a929bf9efa7c06b75e84c79abcfbdae",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1300",
-    "name": "SM Generic Grass Patch 03",
+    "name": "Пучки трави 03",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Generic_Grass_Patch_03.fbx",
-    "descriptionUk": "SM Generic Grass Patch 03.",
-    "images": [],
+    "descriptionUk": "Кілька розділених груп тонких вигнутих стебел. Габарити: 3.27 × 0.93 × 2.72 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 602.",
+    "images": [
+      "ModelPreviews~/M1300-front.png",
+      "ModelPreviews~/M1300-back.png"
+    ],
     "sourceSha256": "75154412e1acdb2c2661efabb7f156430b1ac91815db737257c137e6b289e544",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1301",
-    "name": "SM Prop Awning 01",
+    "name": "Навіс",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Prop_Awning_01.fbx",
-    "descriptionUk": "SM Prop Awning 01.",
-    "images": [],
+    "descriptionUk": "Пласка провисла покрівля на тонких нахилених стовпах із бічними поперечками. Габарити: 3.51 × 2.33 × 2.02 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 722.",
+    "images": [
+      "ModelPreviews~/M1301-front.png",
+      "ModelPreviews~/M1301-back.png"
+    ],
     "sourceSha256": "63d47f71223204d3edc5937519e8c7a115856b6fb83e05dd45b056fdb9a6af5e",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1302",
-    "name": "SM Prop Bunting 03",
+    "name": "Гірлянда трикутників",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Prop_Bunting_03.fbx",
-    "descriptionUk": "SM Prop Bunting 03.",
-    "images": [],
+    "descriptionUk": "Довга вигнута нитка з рядами маленьких підвішених трикутних прапорців. Габарити: 16.27 × 1.01 × 0.03 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 2230.",
+    "images": [
+      "ModelPreviews~/M1302-front.png",
+      "ModelPreviews~/M1302-back.png"
+    ],
     "sourceSha256": "d8008e77977d1fa8f6fd64576abb87a10c8aa73c72c3320ea427d96ddd676581",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1303",
-    "name": "SM Prop Cooking Block 03",
+    "name": "Круглий кам'яний блок",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Prop_Cooking_Block_03.fbx",
-    "descriptionUk": "SM Prop Cooking Block 03.",
-    "images": [],
+    "descriptionUk": "Низька багатокутна округла основа з нерівним внутрішнім заглибленням. Габарити: 2.12 × 0.66 × 2.12 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 602.",
+    "images": [
+      "ModelPreviews~/M1303-front.png",
+      "ModelPreviews~/M1303-back.png"
+    ],
     "sourceSha256": "93eef13ecd76dfb5cbebae66c0dc930ef084ffeb27f0c4ff99b4244d00194722",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1304",
-    "name": "SM Prop Crate Stack 01",
+    "name": "Складені ящики",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Prop_Crate_Stack_01.fbx",
-    "descriptionUk": "SM Prop Crate Stack 01.",
-    "images": [],
+    "descriptionUk": "Чотири дерев'яні ящики різної висоти; дошки й діагональні розкоси читаються геометрією. Габарити: 3.25 × 2.14 × 1.22 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 2824.",
+    "images": [
+      "ModelPreviews~/M1304-front.png",
+      "ModelPreviews~/M1304-back.png"
+    ],
     "sourceSha256": "c302b536c0e0cc9ef7313912befd67edade2b674c3426825104c345cf5ac6ab0",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1305",
-    "name": "SM Prop Gallows Platform 01",
+    "name": "Дерев'яний поміст",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Prop_Gallows_Platform_01.fbx",
-    "descriptionUk": "SM Prop Gallows Platform 01.",
-    "images": [],
+    "descriptionUk": "Прямокутний настил на чотирьох ногах із похилими розкосами. Габарити: 3.25 × 1.52 × 3.29 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 2488.",
+    "images": [
+      "ModelPreviews~/M1305-front.png",
+      "ModelPreviews~/M1305-back.png"
+    ],
     "sourceSha256": "323c6f72f2f2501d312703678ba2c7fff42dc2b9eebf7c27ea1295ffc77b2087",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1306",
-    "name": "SM Prop Ground Planks 01",
+    "name": "Ряд дощок",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Prop_Ground_Planks_01.fbx",
-    "descriptionUk": "SM Prop Ground Planks 01.",
-    "images": [],
+    "descriptionUk": "Розділені вузькі дошки з нерівними торцями й різними нахилами. Габарити: 1.86 × 0.12 × 4.23 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 256.",
+    "images": [
+      "ModelPreviews~/M1306-front.png",
+      "ModelPreviews~/M1306-back.png"
+    ],
     "sourceSha256": "9850db7c90a221065c38ee17bc4d3c952a8dc6a667f030b7b3b2cf67ad2b70b8",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1307",
-    "name": "SM Prop Path Brick Group 01",
+    "name": "Кам'яні плити 01",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Prop_Path_Brick_Group_01.fbx",
-    "descriptionUk": "SM Prop Path Brick Group 01.",
-    "images": [],
+    "descriptionUk": "Витягнута група великих нерегулярних плит із дрібними фрагментами по краях. Габарити: 1.20 × 0.23 × 2.36 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 127.",
+    "images": [
+      "ModelPreviews~/M1307-front.png",
+      "ModelPreviews~/M1307-back.png"
+    ],
     "sourceSha256": "5eccf9ca91331df5b2f3a7f58de58ff9c9feb0732566ccb4a6797fd6bbe4cd8b",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1308",
-    "name": "SM Prop Path Brick Group 02",
+    "name": "Кам'яні плити 02",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Prop_Path_Brick_Group_02.fbx",
-    "descriptionUk": "SM Prop Path Brick Group 02.",
-    "images": [],
+    "descriptionUk": "Кілька округлених плит різного розміру, розділених широкими проміжками. Габарити: 2.29 × 0.29 × 1.73 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 174.",
+    "images": [
+      "ModelPreviews~/M1308-front.png",
+      "ModelPreviews~/M1308-back.png"
+    ],
     "sourceSha256": "f5b53109427b65f9777b5487122de8730d0dad56a19719fd9c9de31564ed3d67",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1309",
-    "name": "SM Prop Path Brick Group 03",
+    "name": "Кам'яні плити 03",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Prop_Path_Brick_Group_03.fbx",
-    "descriptionUk": "SM Prop Path Brick Group 03.",
-    "images": [],
+    "descriptionUk": "Широка нерегулярна група великих плит і дрібного каміння. Габарити: 2.15 × 0.23 × 2.81 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 252.",
+    "images": [
+      "ModelPreviews~/M1309-front.png",
+      "ModelPreviews~/M1309-back.png"
+    ],
     "sourceSha256": "fcc272ee7b3973eba66487c8122376a2cecfa6d86914444eb871c227571a747b",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1310",
-    "name": "SM Prop Path Brick Group 04",
+    "name": "Кам'яні плити 04",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Prop_Path_Brick_Group_04.fbx",
-    "descriptionUk": "SM Prop Path Brick Group 04.",
-    "images": [],
+    "descriptionUk": "Компактна група прямокутних та нерегулярних плит із дрібними уламками. Габарити: 2.63 × 0.30 × 2.73 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 384.",
+    "images": [
+      "ModelPreviews~/M1310-front.png",
+      "ModelPreviews~/M1310-back.png"
+    ],
     "sourceSha256": "abda980d26a688cdc3135ad1d0f101fc948d5bbe47d9851bf3f3ea633ec4c2c4",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1311",
-    "name": "SM Prop Path Brick Group 05",
+    "name": "Кам'яні плити 05",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Prop_Path_Brick_Group_05.fbx",
-    "descriptionUk": "SM Prop Path Brick Group 05.",
-    "images": [],
+    "descriptionUk": "Розріджена група плит різного розміру із великими проміжками. Габарити: 3.16 × 0.23 × 2.91 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 350.",
+    "images": [
+      "ModelPreviews~/M1311-front.png",
+      "ModelPreviews~/M1311-back.png"
+    ],
     "sourceSha256": "f16aff3dcd49803285a290662aedc60a118a1873083b6efc4958703942fd7eb4",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1312",
-    "name": "SM Prop Path Brick Group 06",
+    "name": "Кам'яні плити 06",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Prop_Path_Brick_Group_06.fbx",
-    "descriptionUk": "SM Prop Path Brick Group 06.",
-    "images": [],
+    "descriptionUk": "Кілька рядів нерегулярних плит і дрібних каменів. Габарити: 3.37 × 0.26 × 3.05 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 427.",
+    "images": [
+      "ModelPreviews~/M1312-front.png",
+      "ModelPreviews~/M1312-back.png"
+    ],
     "sourceSha256": "1910c39eca3e0664c8d6b4a6ae52a8c70755114e3cc0ccec75fac28d1d9748a4",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1313",
-    "name": "SM Prop Path Brick Group 07",
+    "name": "Кам'яні плити 07",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Prop_Path_Brick_Group_07.fbx",
-    "descriptionUk": "SM Prop Path Brick Group 07.",
-    "images": [],
+    "descriptionUk": "Широка щільна група великих плит із нерівними зовнішніми краями. Габарити: 3.06 × 0.23 × 2.62 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 275.",
+    "images": [
+      "ModelPreviews~/M1313-front.png",
+      "ModelPreviews~/M1313-back.png"
+    ],
     "sourceSha256": "fce7bde48f5eaccca872aed563b339b8e2836990c6881dde8a8192831be81efa",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1314",
-    "name": "SM Prop Spike Wall 03",
+    "name": "Загострений частокіл",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Agora/SM_Prop_Spike_Wall_03.fbx",
-    "descriptionUk": "SM Prop Spike Wall 03.",
-    "images": [],
+    "descriptionUk": "Довгий ряд тонких вертикальних кілків; верхівки різної висоти. Габарити: 10.00 × 2.94 × 0.52 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 2188.",
+    "images": [
+      "ModelPreviews~/M1314-front.png",
+      "ModelPreviews~/M1314-back.png"
+    ],
     "sourceSha256": "21fa9840a723a137b1da6b8b01072e8710e96c06ea8238b77833b38ea3ac08da",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1315",
-    "name": "Soldier",
+    "name": "Фігура солдата",
     "path": "Packages/com.unity.render-pipelines.core/Samples~/RendererShaderUserValue_Common/Models/Soldier.fbx",
-    "descriptionUk": "Soldier.",
-    "images": [],
+    "descriptionUk": "Людська фігура в спорядженні, руки розведені горизонтально; на голові шолом. Габарити: 2.05 × 2.14 × 0.99 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 5095.",
+    "images": [
+      "ModelPreviews~/M1315-front.png",
+      "ModelPreviews~/M1315-back.png"
+    ],
     "sourceSha256": "169a7c6ef1aa33a91c9f9449006fe2bad38accef0a54ff040a20e7ff28bc262d",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1316",
-    "name": "plane",
+    "name": "Низькополігональний літак",
     "path": "Packages/com.unity.render-pipelines.universal/Samples~/URPPackageSamples/RendererFeatures/DistortTunnel/Plane/plane.fbx",
-    "descriptionUk": "plane.",
-    "images": [],
+    "descriptionUk": "Короткий фюзеляж, широкі крила й прямокутне хвостове оперення. Габарити: 5.96 × 5.91 × 3.28 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 152.",
+    "images": [
+      "ModelPreviews~/M1316-front.png",
+      "ModelPreviews~/M1316-back.png"
+    ],
     "sourceSha256": "37cc5da89b876c8ed4960c067379f702c1da1997ab19cdd255cf59da04d19044",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1317",
-    "name": "SandBoxModel",
+    "name": "Восьмикутна чаша",
     "path": "Packages/com.unity.render-pipelines.universal/Samples~/URPPackageSamples/RendererFeatures/TrailEffect/SandBoxModel.fbx",
-    "descriptionUk": "SandBoxModel.",
-    "images": [],
+    "descriptionUk": "Низька пласка поверхня з піднятим багатокутним обідком. Габарити: 1.90 × 0.15 × 2.17 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 2; трикутників джерела у кадрі: 6216.",
+    "images": [
+      "ModelPreviews~/M1317-front.png",
+      "ModelPreviews~/M1317-back.png"
+    ],
     "sourceSha256": "f4099ad549970278111845cadd13279cded6934bb7c19845becc30fe2ef7731e",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1318",
-    "name": "UVSphere",
+    "name": "UV-сфера",
     "path": "Packages/com.unity.render-pipelines.universal/Samples~/URPPackageSamples/Shaders/Lit/Models/UVSphere.fbx",
-    "descriptionUk": "UVSphere.",
-    "images": [],
+    "descriptionUk": "Замкнена округла форма з регулярними рядами граней. Габарити: 1.00 × 1.00 × 1.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 960.",
+    "images": [
+      "ModelPreviews~/M1318-front.png",
+      "ModelPreviews~/M1318-back.png"
+    ],
     "sourceSha256": "42ee416f3a28f520588bb1254d60c991a63e9dfbf03046e9565c7d5fe39a3306",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1319",
-    "name": "NegativeX",
+    "name": "Площина −X",
     "path": "Packages/com.unity.shadergraph/Samples~/Common/Meshes/Billboard/NegativeX.fbx",
-    "descriptionUk": "NegativeX.",
-    "images": [],
+    "descriptionUk": "Одна квадратна пласка поверхня, орієнтована вздовж осі X. Габарити: 0.00 × 1.00 × 1.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 2.",
+    "images": [
+      "ModelPreviews~/M1319-front.png",
+      "ModelPreviews~/M1319-back.png"
+    ],
     "sourceSha256": "e25b113480baf8c99bb44b9629b7d2dfef8d92e7d0833000af26c13245ed736f",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1320",
-    "name": "NegativeY",
+    "name": "Площина −Y",
     "path": "Packages/com.unity.shadergraph/Samples~/Common/Meshes/Billboard/NegativeY.fbx",
-    "descriptionUk": "NegativeY.",
-    "images": [],
+    "descriptionUk": "Одна квадратна пласка поверхня, орієнтована вздовж осі Y. Габарити: 1.00 × 1.00 × 0.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 2.",
+    "images": [
+      "ModelPreviews~/M1320-front.png",
+      "ModelPreviews~/M1320-back.png"
+    ],
     "sourceSha256": "c9cb64f11dabd1e56d85a8cab86aab72ffc0e658c3966edd2e7e2522a90e0363",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1321",
-    "name": "NegativeZ",
+    "name": "Площина −Z",
     "path": "Packages/com.unity.shadergraph/Samples~/Common/Meshes/Billboard/NegativeZ.fbx",
-    "descriptionUk": "NegativeZ.",
-    "images": [],
+    "descriptionUk": "Одна квадратна пласка поверхня, орієнтована вздовж осі Z. Габарити: 1.00 × 0.00 × 1.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 2.",
+    "images": [
+      "ModelPreviews~/M1321-front.png",
+      "ModelPreviews~/M1321-back.png"
+    ],
     "sourceSha256": "e700b9700d6e6fc2a1e1be1d93cbce568ff3511788cec67a993e42a47a4a0ff0",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1322",
-    "name": "PositiveX",
+    "name": "Площина +X",
     "path": "Packages/com.unity.shadergraph/Samples~/Common/Meshes/Billboard/PositiveX.fbx",
-    "descriptionUk": "PositiveX.",
-    "images": [],
+    "descriptionUk": "Одна квадратна пласка поверхня, орієнтована вздовж осі X. Габарити: 0.00 × 1.00 × 1.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 2.",
+    "images": [
+      "ModelPreviews~/M1322-front.png",
+      "ModelPreviews~/M1322-back.png"
+    ],
     "sourceSha256": "93edbdf4b7944a7f33a60f8ae7e6018768ddeecd2e6d23d4a6a7ee992985cefd",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1323",
-    "name": "PositiveY",
+    "name": "Площина +Y",
     "path": "Packages/com.unity.shadergraph/Samples~/Common/Meshes/Billboard/PositiveY.fbx",
-    "descriptionUk": "PositiveY.",
-    "images": [],
+    "descriptionUk": "Одна квадратна пласка поверхня, орієнтована вздовж осі Y. Габарити: 1.00 × 1.00 × 0.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 2.",
+    "images": [
+      "ModelPreviews~/M1323-front.png",
+      "ModelPreviews~/M1323-back.png"
+    ],
     "sourceSha256": "a4aa51d4020a4a7ed01d8b9419bd87fd1a32e9a2dac307d5c419fae81b07823d",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1324",
-    "name": "PositiveZ",
+    "name": "Площина +Z",
     "path": "Packages/com.unity.shadergraph/Samples~/Common/Meshes/Billboard/PositiveZ.fbx",
-    "descriptionUk": "PositiveZ.",
-    "images": [],
+    "descriptionUk": "Одна квадратна пласка поверхня, орієнтована вздовж осі Z. Габарити: 1.00 × 0.00 × 1.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 2.",
+    "images": [
+      "ModelPreviews~/M1324-front.png",
+      "ModelPreviews~/M1324-back.png"
+    ],
     "sourceSha256": "f58f9d7c8c9461404c2e829c31cf0cce3c7b873e699883a545870981b4f10efa",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1325",
-    "name": "ParticleStack100",
+    "name": "Складена геометрія частинок 100",
     "path": "Packages/com.unity.shadergraph/Samples~/Common/Meshes/Particles/ParticleStack100.fbx",
-    "descriptionUk": "ParticleStack100.",
-    "images": [],
+    "descriptionUk": "Компактна вихідна геометрія серед великого службового bounding box; розгорнутого shader-ефекту фото не показує. Габарити: 20.01 × 20.00 × 20.01 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 202.",
+    "images": [
+      "ModelPreviews~/M1325-front.png",
+      "ModelPreviews~/M1325-back.png"
+    ],
     "sourceSha256": "36faf08b86bd2b1cc69f86ad44164b996fe6d6c6564657f61e45f10f7f83f060",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1326",
-    "name": "ParticleStack25",
+    "name": "Складена геометрія частинок 25",
     "path": "Packages/com.unity.shadergraph/Samples~/Common/Meshes/Particles/ParticleStack25.fbx",
-    "descriptionUk": "ParticleStack25.",
-    "images": [],
+    "descriptionUk": "Компактна вихідна геометрія серед великого службового bounding box; розгорнутого shader-ефекту фото не показує. Габарити: 20.01 × 20.00 × 20.01 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 52.",
+    "images": [
+      "ModelPreviews~/M1326-front.png",
+      "ModelPreviews~/M1326-back.png"
+    ],
     "sourceSha256": "55db80c139a65c9f88a0cfa6ebf19fad7e6767e13694ebc515b65a715ba89662",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1327",
-    "name": "ParticleStack50",
+    "name": "Складена геометрія частинок 50",
     "path": "Packages/com.unity.shadergraph/Samples~/Common/Meshes/Particles/ParticleStack50.fbx",
-    "descriptionUk": "ParticleStack50.",
-    "images": [],
+    "descriptionUk": "Компактна вихідна геометрія серед великого службового bounding box; розгорнутого shader-ефекту фото не показує. Габарити: 20.01 × 20.00 × 20.01 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 102.",
+    "images": [
+      "ModelPreviews~/M1327-front.png",
+      "ModelPreviews~/M1327-back.png"
+    ],
     "sourceSha256": "1c8e20b17e84c71c7b8be6cd1aa6c5f98a7093c6124fe9cdc2ef202a1164e4be",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1328",
-    "name": "Rock A 01",
+    "name": "Висока гранована скеля",
     "path": "Packages/com.unity.shadergraph/Samples~/Common/Meshes/Rock_A_01.fbx",
-    "descriptionUk": "Rock A 01.",
-    "images": [],
+    "descriptionUk": "Асиметричний вертикальний камінь із широкою основою й гострішою верхівкою. Габарити: 0.80 × 1.10 × 0.57 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 5; трикутників джерела у кадрі: 15096.",
+    "images": [
+      "ModelPreviews~/M1328-front.png",
+      "ModelPreviews~/M1328-back.png"
+    ],
     "sourceSha256": "a89a0f2fbaf515dca9dd15618f80a643e2043f4f6710d39694466e5d9fbbbd80",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1329",
-    "name": "Rock A 02",
+    "name": "Низький гранований камінь",
     "path": "Packages/com.unity.shadergraph/Samples~/Common/Meshes/Rock_A_02.fbx",
-    "descriptionUk": "Rock A 02.",
-    "images": [],
+    "descriptionUk": "Витягнутий нерегулярний камінь із пласкими сколами. Габарити: 0.80 × 0.34 × 0.55 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 4; трикутників джерела у кадрі: 8189.",
+    "images": [
+      "ModelPreviews~/M1329-front.png",
+      "ModelPreviews~/M1329-back.png"
+    ],
     "sourceSha256": "720bffe56fe18225bd7c55c438b7c3569533eb11f1181c6dd8db98d7563ef562",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1330",
-    "name": "flag",
+    "name": "Пласке полотно",
     "path": "Packages/com.unity.shadergraph/Samples~/Common/Meshes/flag.fbx",
-    "descriptionUk": "flag.",
-    "images": [],
+    "descriptionUk": "Прямокутна поверхня з малою товщиною. Габарити: 1.74 × 0.00 × 1.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 1152.",
+    "images": [
+      "ModelPreviews~/M1330-front.png",
+      "ModelPreviews~/M1330-back.png"
+    ],
     "sourceSha256": "868695c7a4ab4037eecac2abeee8be98c25bf7e2957398f15290974faf0a3a5d",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1331",
-    "name": "grass bladeNoLOD10",
+    "name": "Травинка 10",
     "path": "Packages/com.unity.shadergraph/Samples~/Common/Meshes/grass_bladeNoLOD10.fbx",
-    "descriptionUk": "grass bladeNoLOD10.",
-    "images": [],
+    "descriptionUk": "Одна довга загострена травинка з невеликими перегинами. Габарити: 0.02 × 0.40 × 0.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 10.",
+    "images": [
+      "ModelPreviews~/M1331-front.png",
+      "ModelPreviews~/M1331-back.png"
+    ],
     "sourceSha256": "f2f8ca8fb8f9031e2a821f0ad77c5db123ee1e18628a5c996e3fec072f268fa5",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1332",
-    "name": "teapot",
+    "name": "Чайник",
     "path": "Packages/com.unity.shadergraph/Samples~/Common/Meshes/teapot.fbx",
-    "descriptionUk": "teapot.",
-    "images": [],
+    "descriptionUk": "Округлий корпус із кришкою, вигнутим носиком і кільцевою ручкою. Габарити: 3.22 × 1.58 × 2.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 9120.",
+    "images": [
+      "ModelPreviews~/M1332-front.png",
+      "ModelPreviews~/M1332-back.png"
+    ],
     "sourceSha256": "34fc376c088082c79ccfce19a86d66fd2e0c106a3f0c6c730f744adc6d794940",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1333",
-    "name": "waterPlane2x2",
+    "name": "Площина 2×2",
     "path": "Packages/com.unity.shadergraph/Samples~/Common/Meshes/waterPlane2x2.fbx",
-    "descriptionUk": "waterPlane2x2.",
-    "images": [],
+    "descriptionUk": "Одна квадратна пласка поверхня. Габарити: 2.00 × 2.00 × 0.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 2048.",
+    "images": [
+      "ModelPreviews~/M1333-front.png",
+      "ModelPreviews~/M1333-back.png"
+    ],
     "sourceSha256": "e69879c748abb72e80779c130c106c7439a308435e0a16a6f0ed62b301c7e284",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1334",
-    "name": "grass bladeNoLOD10",
+    "name": "Травинка 10",
     "path": "Packages/com.unity.shadergraph/Samples~/ProductionReady/Environment/Details/Grass/grass_bladeNoLOD10.fbx",
-    "descriptionUk": "grass bladeNoLOD10.",
-    "images": [],
+    "descriptionUk": "Одна довга загострена травинка з невеликими перегинами. Габарити: 0.02 × 0.40 × 0.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 10.",
+    "images": [
+      "ModelPreviews~/M1334-front.png",
+      "ModelPreviews~/M1334-back.png"
+    ],
     "sourceSha256": "f2f8ca8fb8f9031e2a821f0ad77c5db123ee1e18628a5c996e3fec072f268fa5",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1335",
-    "name": "grass bladeNoLOD15",
+    "name": "Травинка 15",
     "path": "Packages/com.unity.shadergraph/Samples~/ProductionReady/Environment/Details/Grass/grass_bladeNoLOD15.fbx",
-    "descriptionUk": "grass bladeNoLOD15.",
-    "images": [],
+    "descriptionUk": "Одна довга загострена травинка з додатковими сегментами по висоті. Габарити: 0.02 × 0.40 × 0.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 10.",
+    "images": [
+      "ModelPreviews~/M1335-front.png",
+      "ModelPreviews~/M1335-back.png"
+    ],
     "sourceSha256": "13d78d8a4f1146175fce979c3b21fec1d60a0533ed56dc595eb58dd393e8bb61",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1336",
-    "name": "grass bladeNoLOD30",
+    "name": "Травинка 30",
     "path": "Packages/com.unity.shadergraph/Samples~/ProductionReady/Environment/Details/Grass/grass_bladeNoLOD30.fbx",
-    "descriptionUk": "grass bladeNoLOD30.",
-    "images": [],
+    "descriptionUk": "Одна довга загострена травинка з густішими сегментами по висоті. Габарити: 0.02 × 0.40 × 0.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 10.",
+    "images": [
+      "ModelPreviews~/M1336-front.png",
+      "ModelPreviews~/M1336-back.png"
+    ],
     "sourceSha256": "e584776d9c76b465689259f105525009e1df521c7e41d959c1ce006156fd4ae2",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1337",
-    "name": "nettle1",
+    "name": "Стебло з листям",
     "path": "Packages/com.unity.shadergraph/Samples~/ProductionReady/Environment/Details/Nettle/nettle1.fbx",
-    "descriptionUk": "nettle1.",
-    "images": [],
+    "descriptionUk": "Тонке розгалужене стебло з кількома широкими загостреними листками. Габарити: 0.42 × 0.32 × 0.46 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 163.",
+    "images": [
+      "ModelPreviews~/M1337-front.png",
+      "ModelPreviews~/M1337-back.png"
+    ],
     "sourceSha256": "ce723d8c80c372bae6d4be8c0f95cda363ffe8baffddd1cf76b7f07ebf82995c",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1338",
-    "name": "pebbles",
+    "name": "Розсип камінців",
     "path": "Packages/com.unity.shadergraph/Samples~/ProductionReady/Environment/Details/Pebbles/pebbles.fbx",
-    "descriptionUk": "pebbles.",
-    "images": [],
+    "descriptionUk": "П'ять відокремлених гранованих каменів різного розміру. Габарити: 0.43 × 0.45 × 0.07 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 125.",
+    "images": [
+      "ModelPreviews~/M1338-front.png",
+      "ModelPreviews~/M1338-back.png"
+    ],
     "sourceSha256": "5b3f171bad83584cf1241ef8acd447e401bcd7e8760bafb967b4b179d5dee257",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1339",
-    "name": "clover",
+    "name": "Група конюшини",
     "path": "Packages/com.unity.shadergraph/Samples~/ProductionReady/Environment/Details/clover/clover.fbx",
-    "descriptionUk": "clover.",
-    "images": [],
+    "descriptionUk": "Кілька відокремлених трилистих рослин із короткими стеблами. Габарити: 0.21 × 0.23 × 0.04 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 88.",
+    "images": [
+      "ModelPreviews~/M1339-front.png",
+      "ModelPreviews~/M1339-back.png"
+    ],
     "sourceSha256": "db1592f814f9bcc1ea6460c852df098a63241c4b3d7cc4cb084d5c89729e8aeb",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1340",
-    "name": "WaterFall",
+    "name": "Смуга з уступами",
     "path": "Packages/com.unity.shadergraph/Samples~/ProductionReady/Environment/Water/WaterFall.fbx",
-    "descriptionUk": "WaterFall.",
-    "images": [],
+    "descriptionUk": "Довга тонка поверхня з прямокутними уступами на кінцях. Габарити: 10.39 × 2.50 × 0.60 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 320.",
+    "images": [
+      "ModelPreviews~/M1340-front.png",
+      "ModelPreviews~/M1340-back.png"
+    ],
     "sourceSha256": "03417b46e5e6d6c67a9488922b0cad0f31528414c57ece480a41528cc0e77aa8",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1341",
-    "name": "WaterPlane",
+    "name": "Прямокутна площина",
     "path": "Packages/com.unity.shadergraph/Samples~/ProductionReady/Environment/Water/WaterPlane.fbx",
-    "descriptionUk": "WaterPlane.",
-    "images": [],
+    "descriptionUk": "Одна рівна пласка прямокутна поверхня. Габарити: 20.00 × 20.00 × 0.00 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 8192.",
+    "images": [
+      "ModelPreviews~/M1341-front.png",
+      "ModelPreviews~/M1341-back.png"
+    ],
     "sourceSha256": "821c4d7c144e0798a3435d110066d91b08a4b6fdf894b39696b820f5e3cfc21d",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   },
   {
     "number": "M1342",
-    "name": "waterFall2",
+    "name": "Гнута смуга",
     "path": "Packages/com.unity.shadergraph/Samples~/ProductionReady/Environment/Water/waterFall2.fbx",
-    "descriptionUk": "waterFall2.",
-    "images": [],
+    "descriptionUk": "Витягнута тонка поверхня з невеликим поздовжнім перегином. Габарити: 10.39 × 1.47 × 1.39 м (ширина × висота × глибина). Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено. Сіток: 1; трикутників джерела у кадрі: 320.",
+    "images": [
+      "ModelPreviews~/M1342-front.png",
+      "ModelPreviews~/M1342-back.png"
+    ],
     "sourceSha256": "99f39885c7465499ea0d4e6adebeae72760ea0b23afa528c7db152023221e6fb",
-    "captureDate": null,
-    "native": false,
-    "status": "capture-pending"
+    "captureDate": "2026-10-11",
+    "native": true,
+    "status": "rendered-unreviewed"
   }
 ]

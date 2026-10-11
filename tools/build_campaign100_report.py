@@ -2,6 +2,7 @@
 """Local, offline-readable evidence report. Missing native evidence stays explicitly pending."""
 from pathlib import Path
 import json,html,re,datetime,hashlib
+from PIL import Image
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'Design/Campaign100/2026-10-11'
 def main():
@@ -9,15 +10,17 @@ def main():
  audit=json.loads((OUT/'existing-content-audit.json').read_text())
  previous=json.loads((ROOT/'Design/Roadmap/ModelCatalogue/catalogue.json').read_text())['models']
  by_path={m['path']:m for m in previous}
+ descriptions=json.loads((OUT/'model-descriptions-ua.json').read_text()) if (OUT/'model-descriptions-ua.json').exists() else {}
  models=[]
  for source in audit['modelSources']:
   number=source['number'];old=by_path.get(source['path']);new_file=OUT/'ModelPreviews~'/(number+'.json')
   captured=json.loads(new_file.read_text()) if new_file.exists() else None
   native=captured if captured and not captured.get('error') and captured.get('sourceHash')==source['sourceSha256'] else old if source['existingNativeProof'] else None
   folder='ModelPreviews~/' if native is captured and captured else '../../Roadmap/ModelCatalogue/LocalPreviews~/'
-  title=old.get('titleUk') if old else Path(source['path']).stem.replace('_',' ')
+  override=descriptions.get(number,{})
+  title=override.get('nameUk') or (old.get('titleUk') if old else Path(source['path']).stem.replace('_',' '))
   bounds=native.get('bounds',[]) if native else []
-  desc=(title or Path(source['path']).stem)+'.'
+  desc=override.get('descriptionUk') or (title or Path(source['path']).stem)+'.'
   if bounds:desc+=' Габарити: '+' × '.join(f'{v:.2f}' for v in bounds)+' м (ширина × висота × глибина).'
   if captured and captured.get('materialBinding')=='two-sided-neutral-source-geometry-photography':desc+=' Фото показує двосторонню форму з нейтральним матеріалом; початковий матеріал у цьому прев’ю не відтворено.'
   if native:desc+=' Сіток: '+str(native.get('meshes',0))+'; трикутників джерела у кадрі: '+str(native.get('triangles',0))+'.'
@@ -29,7 +32,7 @@ def main():
      native=bool(len(images)==2),status=native.get('status','previous-reviewed') if native else 'capture-pending'))
  levels=[]
  for level in campaign['levels']:
-  row=dict(level);row['renders']={};row['captureEvidence']={}
+  row=dict(level);row['renders']={};row['captureEvidence']={};row['thumbnails']={}
   for orientation in ['landscape','portrait']:
    base='Renders/level-'+str(row['number']).zfill(3)+'-'+orientation
    if (OUT/(base+'.png')).is_file() and (OUT/(base+'.json')).is_file():
@@ -37,7 +40,13 @@ def main():
     level_file=ROOT/'QuietCamp/Assets/QuietCamp/Resources/QuietCamp'/('GeneratedLevels' if row['id'].startswith('gen:') else 'Levels')/(row['id'].replace(':','_')+'.json')
     current=json.loads(level_file.read_text())
     if receipt.get('levelId')!=row['id'] or receipt.get('contentHash')!=current['contentHash']:continue
+    if receipt.get('imageSha256')!=hashlib.sha256((OUT/(base+'.png')).read_bytes()).hexdigest():continue
     row['renders'][orientation]=base+'.png';row['captureEvidence'][orientation]=receipt
+    thumb='Thumbnails/'+Path(base).name+'.webp'
+    (OUT/'Thumbnails').mkdir(exist_ok=True)
+    with Image.open(OUT/(base+'.png')) as image:
+     image.thumbnail((640,640));image.save(OUT/thumb,quality=85,method=4)
+    row['thumbnails'][orientation]=thumb
   levels.append(row)
  data=dict(levels=levels,models=models,audit=audit['levels'],
   counts=dict(levels=100,levelCaptures=sum(bool(l['renders']) for l in levels),bothOrientations=sum(len(l['renders'])==2 for l in levels),

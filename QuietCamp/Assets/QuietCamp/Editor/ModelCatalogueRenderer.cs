@@ -23,6 +23,7 @@ namespace QuietCamp.Editor
         public sealed class Entry
         {
             public string id,displayId,path,name,sourceHash,package,materialBinding;
+            public string framing;
             public float[] bounds;
             public int meshes;public long triangles;
             public string[] shaders,images;
@@ -161,13 +162,34 @@ namespace QuietCamp.Editor
                         entry.shaders=renderers.SelectMany(r=>r.sharedMaterials).Where(m=>m!=null)
                             .Select(m=>m.shader==null?"<missing>":m.shader.name).Distinct().ToArray();
                         if(entry.shaders.Length==0)throw new InvalidOperationException("Photography material was lost; do not accept an uncoloured source");
-                        preview.camera.orthographicSize=Mathf.Max(.025f,bounds.extents.magnitude*1.06f);
+                        var frame=bounds;
+                        if(entry.displayId=="M1325"||entry.displayId=="M1326"||entry.displayId=="M1327")
+                        {
+                            bool found=false;
+                            foreach(var filter in instance.GetComponentsInChildren<MeshFilter>(true))
+                            {
+                                var mesh=filter.sharedMesh;var vertices=mesh.vertices;
+                                for(int sub=0;sub<mesh.subMeshCount;sub++)
+                                {
+                                    if(mesh.GetTopology(sub)!=MeshTopology.Triangles)continue;
+                                    var indices=mesh.GetTriangles(sub);
+                                    for(int i=0;i<indices.Length;i+=3)
+                                    {
+                                        var a=filter.transform.TransformPoint(vertices[indices[i]]);var b=filter.transform.TransformPoint(vertices[indices[i+1]]);var c=filter.transform.TransformPoint(vertices[indices[i+2]]);
+                                        if(Vector3.Cross(b-a,c-a).sqrMagnitude<1e-16f)continue;
+                                        foreach(var point in new[]{a,b,c}){if(!found){frame=new Bounds(point,Vector3.zero);found=true;}else frame.Encapsulate(point);}
+                                    }
+                                }
+                            }
+                            entry.framing="Non-degenerate source triangle bounds; oversized particle/shader bounding triangles excluded from camera fit only. Source geometry unchanged.";
+                        }
+                        preview.camera.orthographicSize=Mathf.Max(.0001f,frame.extents.magnitude*1.06f);
                         entry.images=new string[2];
                         for(int view=0;view<2;view++)
                         {
                             var direction=Quaternion.Euler(28,view==0?-35:145,0)*Vector3.back;
-                            preview.camera.transform.position=bounds.center+direction*Mathf.Max(5,bounds.extents.magnitude*4);
-                            preview.camera.transform.LookAt(bounds.center);
+                            preview.camera.transform.position=frame.center+direction*Mathf.Max(5,frame.extents.magnitude*4);
+                            preview.camera.transform.LookAt(frame.center);
                             preview.BeginStaticPreview(new Rect(0,0,320,320));preview.Render(true);
                             var image=preview.EndStaticPreview();entry.images[view]=entry.displayId+(view==0?"-front.png":"-back.png");
                             File.WriteAllBytes(Path.Combine(output,entry.images[view]),image.EncodeToPNG());Object.DestroyImmediate(image);

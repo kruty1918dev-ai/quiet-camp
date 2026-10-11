@@ -7,7 +7,7 @@
   "width": 7,
   "height": 8,
   "id": "gen:qc_camp:30",
-  "contentHash": "03437023719520b5508c40447376e4c082502038c2753dacdbdedb30d2fc8488",
+  "contentHash": "2f874ccd6b6048befce89b43892442f8b12f8f6a4300e53379f014cfa11fd336",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
@@ -253,9 +253,9 @@
             "level": {
               "assetId": "story_workboat",
               "x": 0.7,
-              "z": -6.70733,
+              "z": -6.30107,
               "elevation": 0.025,
-              "height": 1.15,
+              "height": 0.85,
               "yaw": 0.0,
               "sway": false
             }
@@ -281,6 +281,29 @@
               "height": 2.4,
               "yaw": 0.0,
               "sway": true
+            }
+          },
+          {
+            "id": "place-037-prop-4",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "camp_lantern",
+              "x": 0.0,
+              "z": 5.24799,
+              "elevation": 0.025,
+              "height": 0.52,
+              "yaw": 0.0,
+              "sway": false
             }
           }
         ]

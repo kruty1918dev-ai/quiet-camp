@@ -7,7 +7,7 @@
   "width": 6,
   "height": 8,
   "id": "gen:qc_camp:94",
-  "contentHash": "80c4b40bee53089217e9e455d1e4f6f6bb5a76b1310efd04a5b270e3501e21dc",
+  "contentHash": "99bc9a4e2c9ca3a904195340f2f8940cade2abeeacb3021aece605ed6c75f134",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
@@ -273,6 +273,29 @@
               "z": -5.60091,
               "elevation": 0.025,
               "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-074-prop-4",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "camp_lantern",
+              "x": 0.0,
+              "z": 5.24799,
+              "elevation": 0.025,
+              "height": 0.52,
               "yaw": 0.0,
               "sway": false
             }

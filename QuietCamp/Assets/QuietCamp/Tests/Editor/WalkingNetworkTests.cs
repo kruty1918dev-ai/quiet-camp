@@ -83,7 +83,7 @@ namespace QuietCamp.Tests
         [Test]
         public void AdapterRoundTripKeepsEnvironmentAndExteriorTrailExactly()
         {
-            var level=LevelLoader.Load("gen:qc_camp:9");
+            var level=LevelLoader.Load("gen:qc_camp:8");
             var copy=QuietCampLevelAdapter.ToLevelData(QuietCampLevelAdapter.ToDocument(level));
             Assert.AreEqual(JsonConvert.SerializeObject(level.environment),JsonConvert.SerializeObject(copy.environment));
             Assert.AreEqual(JsonConvert.SerializeObject(level.exteriorWalkable),JsonConvert.SerializeObject(copy.exteriorWalkable));

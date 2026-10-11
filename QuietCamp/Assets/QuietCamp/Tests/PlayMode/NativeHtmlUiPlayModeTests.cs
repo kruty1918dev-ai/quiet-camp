@@ -85,14 +85,9 @@ namespace QuietCamp.Tests
             }
             Tap("back"); yield return Frames(20); Assert.AreEqual("Main",screens.Current);
             screens.Show("Journeys"); yield return Frames(20);
+            Assert.AreEqual("Main",screens.Current,"Deferred destinations must normalize to the live menu.");
             AssertNoScript(screens.Overlay);
-            Tap("journey-main"); yield return Frames(20);
-            Assert.NotNull(screens.Overlay.Element("journey-viewport"));
-            AssertNoScript(screens.Overlay);
-            Tap("back"); yield return Frames(20);
-            Assert.AreEqual("Journeys", screens.Current);
-            Tap("back"); yield return Frames(20);
-            Assert.AreEqual("Main", screens.Current);
+            Assert.IsNull(Button("levels"));Assert.IsNull(Button("journeys"));
             Tap("continue");
             for (var i = 0; i < 600 && (SceneManager.GetActiveScene().name != "Camp" ||
                 CampSceneHost.Current == null || !CampSceneHost.Current.IsReady); i++) yield return null;

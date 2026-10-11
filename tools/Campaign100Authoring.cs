@@ -34,6 +34,7 @@ static class Campaign100Authoring
             string revision=Path.Combine(content,"ContentRevisions",old.contentHash+".json");
             if(!File.Exists(revision))File.Copy(path,revision);
         }
+        File.Copy(Path.Combine(design,"Authoring/curated-gameplay-models.json"),Path.Combine(content,"campaign100_models.json"),true);
         var ids=new HashSet<string>(levels.Select(l=>l.id));
         string archive=Path.Combine(assets,"Editor/ContentArchive/DeferredLevels");Directory.CreateDirectory(archive);
         foreach(var folder in new[]{"Levels","GeneratedLevels"})

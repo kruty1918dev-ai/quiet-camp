@@ -105,7 +105,7 @@ namespace QuietCamp.Tests
             var dir=Path.Combine(Directory.GetCurrentDirectory(),"Screenshots","SeasonalCamps");
             try
             {
-                foreach(var id in new[]{"QC001","QC007","gen:qc_camp:3","gen:qc_camp:9","gen:qc_camp:14","gen:qc_camp:19"})
+                foreach(var id in new[]{"QC001","QC007","gen:qc_camp:3","gen:qc_camp:74","gen:qc_camp:102","gen:qc_camp:19"})
                 for(int tier=0;tier<3;tier++)
                 {
                     services.Settings.quality=tier+1;
@@ -162,7 +162,7 @@ namespace QuietCamp.Tests
 #if UNITY_EDITOR
             SetGameViewSize(1920,1080);
 #endif
-            var ids = new[] { "QC007", "QC001", "gen:qc_camp:9", "gen:qc_camp:14" };
+            var ids = new[] { "QC007", "QC001", "gen:qc_camp:74", "gen:qc_camp:102" };
             var names = new[] { "03-summer-camp", "04-spring-camp", "05-autumn-camp", "06-winter-camp" };
             for (int i=0;i<ids.Length;i++)
             {

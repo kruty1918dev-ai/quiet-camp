@@ -84,7 +84,7 @@ def safe_bounds(level,bounds,occupied,corridors,spans_water=False):
     if (x-a-dx*t)**2+(z-b-dz*t)**2<1.88**2:return False
  return True
 
-def place_prop(level,points,height,preferred,occupied,corridors,bridge=False,variant=0):
+def place_prop(level,points,height,preferred,occupied,corridors,bridge=False,variant=0,face_yaw=0):
  shore=level['environment'].get('shore');w,h=level['width']/2,level['height']/2
  def box(x,z,yaw):
   angle=math.radians(yaw);c,s=math.cos(angle),math.sin(angle)
@@ -108,8 +108,8 @@ def place_prop(level,points,height,preferred,occupied,corridors,bridge=False,var
    candidates += [(-w- .85-gap-ex,along),(w+.85+gap+ex,along),(along,-h- .85-gap-ez),(along,h+.85+gap+ez)]
  candidates.sort(key=lambda p:(p[0]-preferred[0])**2+(p[1]-preferred[1])**2)
  for x,z in candidates:
-  b=box(x,z,0)
-  if safe_bounds(level,b,occupied,corridors):return x,z,0,b,False
+  b=box(x,z,face_yaw)
+  if safe_bounds(level,b,occupied,corridors):return x,z,face_yaw,b,False
  raise ValueError('No safe scenic placement '+level['id'])
 
 def main():
@@ -121,12 +121,21 @@ def main():
  source_models=[]
  for p in [DATA/'roadmap_models.json',DATA/'roadmap_story_models.json',ROOT/'QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json',ROOT/'QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Models/StagingLandmarks/models.json',ROOT/'QuietCamp/Assets/QuietCamp/Editor/RoadmapArchive/roadmap_culture_models.json']:
   source_models+=json.loads(p.read_text())
+ source_models+=json.loads((OUT/'Authoring/detail-models.json').read_text())
  by_id={x['id']:x for x in source_models}
  missing={id for ids in ENSEMBLES.values() for id in ids}-by_id.keys();assert not missing,missing
  places=[]
  prepared=[]
  for n,(old,line) in enumerate(zip(selected,lines),1):
   title,ensemble,details,inference=line
+  chosen=list(ENSEMBLES[ensemble])
+  if 'лавк' in details:
+   if 'log' in chosen:chosen[chosen.index('log')]='camp_bench'
+   else:chosen.append('camp_bench')
+  if 'ліхтар' in title+details:chosen.append('camp_lantern')
+  if any(word in details for word in ['речі','пакун','запас']):chosen.append('camp_bag')
+  if any(word in title+details for word in ['волонтер','майстерн']):chosen.append('camp_crate')
+  if n==54:chosen+=['branch_pond','branch_pond']
   t=(n-1)/99
   # A continuous timeline; weather is an intensity curve rather than a cyclic binary switch.
   rain=.10+.22*(math.sin(t*math.pi*3.2)**2)+.32*math.exp(-((t-.65)/.105)**2)
@@ -137,7 +146,7 @@ def main():
     storyUk=inference,whyUk=details+' '+inference,
     priorPosition=old['originalPosition'],priorHash=old['contentHash'],puzzleSignature=old['puzzleSignature'],
     dimensions=old['dimensions'],mechanicCounts=old['counts'],authoringPressureScore=old['authoringPressureScore'],
-    environmentalSource=env,modelIds=ENSEMBLES[ensemble],
+    environmentalSource=env,modelIds=chosen,
     chapter=(n-1)//10+1,compositionVariant=(n-1)%10,
     careUk='Після завершення табір зберігає облаштовані гостями намети та особисті речі; сюжетний декор не змінює правил.',
     historyScope='Авторське місце після війни; не точна реконструкція історичного об’єкта.',nativeCapture=None)
@@ -176,18 +185,29 @@ def main():
    if 'poplar' in model_id or 'willow' in model_id or 'orchard' in model_id:height=2.4
    if 'bridge' in model_id:height=.72 if 'remnants' in model_id else .5
    if model_id=='ua_beehive':height=.72
+   if model_id=='story_memorial_garden':height=.65
+   if model_id=='story_foundation':height=.55
+   if model_id=='story_workboat':height=.85
+   if model_id=='camp_bench':height=.72
+   if model_id=='camp_lantern':height=.52
+   if model_id in ['camp_crate','camp_bag']:height=.6
+   if model_id=='branch_pond':height=.18
    ex=extent_x*height;ez=extent_z*height
    w,h=level['width']/2,level['height']/2
    # Each part owns a separate apron; no automatic runtime relocation.
    if i==0:x,z=-w-1.15-ex,(-.8+(n%4)*.45)
    elif i==1:x,z=(.25+(n%3)*.45),-h-1.15-ez
-   else:x,z=w+1.15+ex,-h-1.15-ez
+   elif i==2:x,z=w+1.15+ex,-h-1.15-ez
+   elif i==3:x,z=0,h+1.15+ez
+   elif i==4:x,z=-w-1.15-ex,h*.65
+   else:x,z=w+1.15+ex,h*.65
    if side=='left' and water:x=-x if i==0 else x
    if side=='back' and water:z=-z
    # Hero and tertiary part can share one side after water reflection; separate along it.
    if water and side=='left' and i==2:z=-h-4.5-ez
+   facade=model_id in ['ua_bus_shelter_mosaic','ua_valley_house','ua_valley_well','ua_hydro_service_building','ua_barn','ua_chicken_coop','camp_bench']
    x,z,yaw,bounds,spans=place_prop(level,points,height,(x,z),occupied,corridors,
-     model_id in ['ua_valley_bridge_remnants','ua_valley_footbridge'],i)
+     model_id in ['ua_valley_bridge_remnants','ua_valley_footbridge','ua_pond_spillway_ruin'],0 if model_id=='ua_pond_spillway_ruin' else i,180 if facade else 0)
    occupied.append(bounds)
    pid=f'place-{n:03d}-prop-{i+1}'
    nature=any(k in model_id for k in ['orchard','willow','poplar','reed','flower','weeds','sunflower'])
@@ -203,6 +223,7 @@ def main():
    intendedInference=inference,alternativeInference='Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.',
    culturalContext='Україна після війни; авторська сцена, не документальна реконструкція.',historicalReference=None,referenceConfidence='fictional',
    roadmapVisibility='hidden',levelDetailVisibility='detail',levelIds=[level['id']],props=props)])
+  assert sum(len(by_id[id]['colors']) for id in row['modelIds'])<=20000,(n,'Story vertex buffer exceeded')
   row['authoredFootprints']=positions
   prepared.append(level)
  used={id for row in places for id in row['modelIds']}

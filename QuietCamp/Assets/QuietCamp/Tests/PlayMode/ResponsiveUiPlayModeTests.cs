@@ -58,7 +58,7 @@ namespace QuietCamp.Tests
                     services.Localization.TrySetLanguage(language);
                     foreach(var item in Object.FindObjectsByType<HtmlSurface>())item.Refresh();
                     yield return Frames(12);
-                    Assert.NotNull(Button("continue"));Assert.NotNull(Button("levels"));Assert.NotNull(Button("album"));
+                    Assert.NotNull(Button("continue"));Assert.IsNull(Button("levels"));Assert.NotNull(Button("album"));
                     // Game View applies requested sizes asynchronously. Verify a composed
                     // frame before testing hits after resize, rather than assuming that
                     // twelve simulation frames also produced the new editor viewport.
@@ -83,29 +83,8 @@ namespace QuietCamp.Tests
                     Tap("back");yield return Frames(8);Tap("back");yield return Frames(8);
                 }
             }
-            Size(2560,1600);yield return Frames(12);Tap("levels");yield return Frames(15);
-            var overlay=Object.FindObjectsByType<HtmlSurface>().First(s=>s.name=="MenuOverlay");
-            var scroll=overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();Assert.NotNull(scroll);
-            Assert.AreEqual(110,overlay.GetComponentsInChildren<Button>(true).Count(b=>b.name.StartsWith("<button #level-")));
-            foreach(var id in new[]{"bonus-10","bonus-20","bonus-30","bonus-40"})
-            {
-                var bonus=Button(id);Assert.NotNull(bonus);
-                var title=bonus.GetComponentsInChildren<TMPro.TMP_Text>().First(t=>t.text.Contains(id=="bonus-10"?"Taufrisches":id=="bonus-20"?"Bernstein":id=="bonus-30"?"Glühwürmchen":"Frostlichtung"));
-                title.ForceMeshUpdate();Assert.LessOrEqual(title.textInfo.lineCount,2,"Bonus title is fragmented: "+title.text);
-                if(id=="bonus-20"&&title.textInfo.lineCount>1)
-                {
-                    var line=title.textInfo.lineInfo[0];
-                    var word=new string(title.textInfo.characterInfo.Skip(line.firstCharacterIndex)
-                        .Take(line.lastCharacterIndex-line.firstCharacterIndex+1).Select(c=>c.character).ToArray());
-                    Assert.AreEqual("Bernstein",word.Trim().TrimEnd('-', '\u00ad'),"Compound words must wrap at the authored boundary.");
-                }
-            }
-            scroll.verticalNormalizedPosition=.35f;scroll.velocity=Vector2.zero;yield return Frames(3);
-            Size(1600,2560);yield return Frames(12);Assert.AreEqual(.35f,scroll.verticalNormalizedPosition,.02f);
-            yield return Shot("map_tablet_portrait_de130");
-            Tap("back");yield return Frames(12);Tap("levels");yield return Frames(12);
-            scroll=overlay.Element("roadmap-scroll").GetComponent<ScrollRect>();Assert.AreEqual(.35f,scroll.verticalNormalizedPosition,.02f);
-            Tap("back");yield return Frames(12);Size(2560,1600);yield return Frames(12);Tap("album");yield return Frames(50);
+            Assert.IsNull(Button("levels"));Assert.IsNull(Button("journeys"));
+            Size(2560,1600);yield return Frames(12);Tap("album");yield return Frames(50);
             yield return Shot("album_tablet_landscape_de130");Tap("album-1");yield return Frames(40);
             Assert.AreEqual(1,SceneManager.GetActiveScene().GetRootGameObjects().Count(g=>g.name=="AlbumDioramaWorld"));
             Tap("back");yield return Frames(12);

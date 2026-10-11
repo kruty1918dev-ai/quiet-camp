@@ -36,7 +36,7 @@ namespace QuietCamp.Tests
             {
                 services.ReducedMotion=true;
                 foreach(var size in new[]{new Vector2Int(720,1600),new Vector2Int(1280,800)})
-                foreach(var id in new[]{"QC007","gen:qc_camp:9","gen:qc_camp:14"})
+                foreach(var id in new[]{"QC007","gen:qc_camp:74","gen:qc_camp:102"})
                 foreach(int tier in new[]{0,2})
                 {
                     Size(size.x,size.y);services.Settings.quality=tier+1;services.EffectiveQuality=tier;QualitySettings.SetQualityLevel(tier,true);
@@ -46,13 +46,13 @@ namespace QuietCamp.Tests
                     for(int f=0;f<15;f++)yield return null;
                     var atmosphere=host.Atmosphere;Assert.NotNull(atmosphere);
                     var stories=Object.FindObjectsByType<TentStoryVisual>();Assert.Greater(stories.Length,0);
-                    float rain=id=="QC007"?.7f:0,snow=id=="gen:qc_camp:14"?.8f:0;
+                    float rain=id=="QC007"?.7f:0,snow=id=="gen:qc_camp:102"?.8f:0;
                     atmosphere.RainShelter.Advance(60,rain);
                     foreach(var story in stories)
                     {
                         Assert.IsTrue(story.Settled);var cloth=story.GetComponent<TentCloth>();cloth.AdvanceSurface(60,rain,snow,.4f);
                         if(rain>0)Assert.Greater(cloth.Wetness,.4f);if(snow>0)Assert.Greater(cloth.SnowCover,.4f);
-                        if(id=="gen:qc_camp:9")Assert.Greater(cloth.LeafCover,0);
+                        if(id=="gen:qc_camp:74")Assert.Greater(cloth.LeafCover,0);
                         foreach(var renderer in story.GetComponentsInChildren<MeshRenderer>())
                         foreach(var material in renderer.sharedMaterials)
                         {

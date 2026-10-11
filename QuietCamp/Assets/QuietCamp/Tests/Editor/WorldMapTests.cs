@@ -13,20 +13,17 @@ namespace QuietCamp.Tests
     public class WorldMapTests
     {
         static WorldMapData Build()
-            => WorldMapBuilder.Build(
-                LevelLoader.MvpLevelIds(), LevelLoader.Districts(),
-                BonusCampCatalog.Slots, MonetizationConfiguration.Load().Catalog().Journeys,
-                CampContent.Summary);
+            => ArchivedRoadmapFixture.Build();
 
         [Test] public void WorldMapCoversEveryMainLevelExactlyOnce()
         {
             var data = Build();
-            Assert.AreEqual(LevelLoader.MvpLevelIds().Count, data.Nodes.Length);
+            Assert.AreEqual(ArchivedRoadmapFixture.Ids.Length, data.Nodes.Length);
             for (var i = 0; i < data.Nodes.Length; i++)
             {
                 Assert.IsTrue(data.Nodes[i].Main);
                 Assert.AreEqual(i + 1, data.Nodes[i].Order);
-                Assert.AreEqual(LevelLoader.MvpLevelIds()[i], data.Nodes[i].LevelId);
+                Assert.AreEqual(ArchivedRoadmapFixture.Ids[i], data.Nodes[i].LevelId);
             }
         }
 

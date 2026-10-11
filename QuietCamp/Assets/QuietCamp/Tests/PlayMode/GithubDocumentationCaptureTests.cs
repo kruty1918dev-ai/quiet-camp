@@ -128,12 +128,9 @@ namespace QuietCamp.Tests
             }
             Menu.Show("Economy"); yield return Settle(); yield return Shot("03-economy");
             yield return SceneManager.LoadSceneAsync("MainMenu"); yield return Settle();
-            Click("levels"); yield return Settle(90); yield return Shot("04-roadmap");
-            Click("journeys"); yield return Settle(); yield return Shot("05-journeys");
-            Click("journey-garden"); yield return Settle(60); yield return Shot("06-journey-preview");
+            Assert.IsFalse(Exists("levels"));Assert.IsFalse(Exists("journeys"));
             }
             yield return SceneManager.LoadSceneAsync("MainMenu"); yield return Settle();
-            if (!campsOnly) { Click("levels"); yield return Settle(60); Click("bonus-" + BonusCampCatalog.Slots.First().afterLevel); yield return Settle(); yield return Shot("07-bonus-preview"); }
             services.Progression.Restore(LevelLoader.MvpLevelIds().ToArray(), "QC007", services.Progression.CosmeticFlags);
             Assert.IsTrue(services.CanStart("QC007"), "Synthetic documentation progress must unlock the captured camp.");
             services.PendingLevelId = "QC007";
@@ -154,7 +151,7 @@ namespace QuietCamp.Tests
             Click("album"); yield return Settle(90); yield return Shot("15-album");
             Click("album-stay"); yield return Settle(); yield return Shot("16-album-quiet");
             Size(1280, 800);
-            var ids = new[] { "QC001", "QC007", "gen:qc_camp:9", "gen:qc_camp:14" };
+            var ids = new[] { "QC001", "QC007", "gen:qc_camp:74", "gen:qc_camp:102" };
             var seasons = new[] { "spring", "summer", "autumn", "winter" };
             for (int i = 0; i < ids.Length; i++)
             {
@@ -201,12 +198,8 @@ namespace QuietCamp.Tests
             Menu.Show("Economy"); yield return Settle(); Click("exchange-hint"); yield return Settle();
             yield return Shot("context-exchange-confirm"); Click("exchange-cancel");
             yield return SceneManager.LoadSceneAsync("MainMenu"); yield return Settle();
-            Click("levels"); yield return Settle(); Click("journeys"); yield return Settle();
-            Click("journey-garden"); yield return Settle(60); Click("journey-unlock"); yield return Settle();
-            yield return Shot("context-journey-confirm"); Click("journey-cancel");
-
-            // Reconstruct solved QA album entries through the real diorama and quiet-mode UI.
-            var ids = new[] { "QC001", "QC007", "gen:qc_camp:9", "gen:qc_camp:14" };
+            Assert.IsFalse(Exists("levels"));Assert.IsFalse(Exists("journeys"));
+            var ids = new[] { "QC001", "QC007", "gen:qc_camp:74", "gen:qc_camp:102" };
             var seasons = new[] { "spring", "summer", "autumn", "winter" };
             services.Save.Album.entries = ids.Select((id, index) => {
                 var level = LevelLoader.Load(id);

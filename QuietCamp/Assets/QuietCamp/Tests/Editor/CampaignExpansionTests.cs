@@ -12,12 +12,12 @@ namespace QuietCamp.Tests
     /// progress-gated side journeys, and seasonal side glades.</summary>
     public class CampaignExpansionTests
     {
-        [Test] public void DistrictsTileTheWholeCampaignAndStartActTwoAfterThirty()
+        [Test] public void ChaptersTileTheHundredLevelCampaign()
         {
             var ids = LevelLoader.MvpLevelIds();
-            Assert.AreEqual(110, ids.Count);
+            Assert.AreEqual(100, ids.Count);
             var districts = LevelLoader.Districts();
-            Assert.AreEqual(15, districts.Count);
+            Assert.AreEqual(10, districts.Count);
             int expected = 1;
             foreach (var d in districts)
             {
@@ -26,22 +26,19 @@ namespace QuietCamp.Tests
                 expected = d.to + 1;
             }
             Assert.AreEqual(ids.Count + 1, expected);
-            Assert.AreEqual(5, districts.Count(d => d.act == 2));
-            Assert.IsTrue(districts.All(d => d.act == 1) == false && districts.First(d => d.act == 2).from == 31);
+            Assert.AreEqual(8, districts.Count(d => d.act == 2));
+            Assert.IsTrue(districts.All(d => d.act == 1) == false && districts.First(d => d.act == 2).from == 21);
             Assert.AreEqual("haven", districts.Last().id);
         }
         [Test] public void DistrictForMapsCampaignLevelsAndNothingElse()
         {
-            Assert.AreEqual("glades", LevelLoader.DistrictFor("QC001").id);
-            Assert.AreEqual("forest", LevelLoader.DistrictFor("gen:qc_camp:10").id);
-            Assert.AreEqual("embers", LevelLoader.DistrictFor("gen:qc_camp:20").id);
-            Assert.AreEqual("bridges", LevelLoader.DistrictFor("gen:qc_camp:21").id);
-            Assert.AreEqual("stations", LevelLoader.DistrictFor("gen:qc_camp:28").id);
-            Assert.AreEqual("shores", LevelLoader.DistrictFor("gen:qc_camp:32").id);
-            Assert.AreEqual("farms", LevelLoader.DistrictFor("gen:qc_camp:55").id);
-            Assert.AreEqual("villages", LevelLoader.DistrictFor("gen:qc_camp:71").id);
-            Assert.AreEqual("haven", LevelLoader.DistrictFor("gen:qc_camp:122").id);
-            Assert.IsNull(LevelLoader.DistrictFor("gen:qc_camp:51"));
+            var ids=LevelLoader.MvpLevelIds();
+            var districts=LevelLoader.Districts();
+            foreach(var district in districts)
+                foreach(var id in ids.Skip(district.from-1).Take(district.to-district.from+1))
+                    Assert.AreEqual(district.id,LevelLoader.DistrictFor(id).id,id);
+            Assert.AreEqual("haven",LevelLoader.DistrictFor(ids[99]).id);
+            Assert.IsNull(LevelLoader.DistrictFor("gen:qc_camp:9"));
             Assert.IsNull(LevelLoader.DistrictFor("gen:qc_gd:1"));
             Assert.IsNull(LevelLoader.DistrictFor("QC_LH001"));
         }

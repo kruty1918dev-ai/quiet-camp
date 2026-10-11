@@ -135,12 +135,12 @@
               ],
               "roadmap": null,
               "level": {
-                "assetId": "log",
+                "assetId": "camp_bench",
                 "x": 0.7,
-                "z": -4.10091,
+                "z": -3.86417,
                 "elevation": 0.025,
-                "height": 0.22,
-                "yaw": 0,
+                "height": 0.72,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -531,7 +531,7 @@
                 "z": 0.55,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -798,6 +798,30 @@
                 "sway": false,
                 "spansWater": false
               }
+            },
+            {
+              "id": "place-004-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bench",
+                "x": 0,
+                "z": 4.36417,
+                "elevation": 0.025,
+                "height": 0.72,
+                "yaw": 180,
+                "sway": false,
+                "spansWater": false
+              }
             }
           ]
         }
@@ -977,12 +1001,12 @@
               ],
               "roadmap": null,
               "level": {
-                "assetId": "log",
-                "x": 3,
-                "z": -5.10091,
+                "assetId": "camp_bench",
+                "x": 4.5,
+                "z": -4.86417,
                 "elevation": 0.025,
-                "height": 0.22,
-                "yaw": 0,
+                "height": 0.72,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -1002,8 +1026,8 @@
               "roadmap": null,
               "level": {
                 "assetId": "ua_valley_fence_broken_1",
-                "x": 5.52258,
-                "z": -4.79145,
+                "x": 6,
+                "z": -5.49145,
                 "elevation": 0.025,
                 "height": 1.35,
                 "yaw": 0,
@@ -1204,7 +1228,7 @@
                 "z": -3,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -1462,10 +1486,10 @@
               "roadmap": null,
               "level": {
                 "assetId": "story_foundation",
-                "x": -7.00048,
+                "x": -4.99744,
                 "z": 0.55,
                 "elevation": 0.025,
-                "height": 1.85,
+                "height": 0.55,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -1716,12 +1740,12 @@
               ],
               "roadmap": null,
               "level": {
-                "assetId": "log",
+                "assetId": "camp_bench",
                 "x": 1.15,
-                "z": -4.60091,
+                "z": -4.36417,
                 "elevation": 0.025,
-                "height": 0.22,
-                "yaw": 0,
+                "height": 0.72,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -1963,7 +1987,7 @@
                 "z": -0.35,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -2241,7 +2265,7 @@
                 "z": 3,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -2696,7 +2720,7 @@
                 "z": -0.8,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -2949,10 +2973,10 @@
               "roadmap": null,
               "level": {
                 "assetId": "story_foundation",
-                "x": -7.00048,
+                "x": -4.99744,
                 "z": -0.35,
                 "elevation": 0.025,
-                "height": 1.85,
+                "height": 0.55,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -2972,12 +2996,12 @@
               ],
               "roadmap": null,
               "level": {
-                "assetId": "log",
-                "x": -1.5,
-                "z": -4.10091,
+                "assetId": "camp_bench",
+                "x": -3,
+                "z": -3.86417,
                 "elevation": 0.025,
-                "height": 0.22,
-                "yaw": 0,
+                "height": 0.72,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -3727,7 +3751,7 @@
                 "z": -0.8,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -3777,6 +3801,30 @@
                 "height": 2.4,
                 "yaw": 0,
                 "sway": true,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-016-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bench",
+                "x": 0,
+                "z": 4.86417,
+                "elevation": 0.025,
+                "height": 0.72,
+                "yaw": 180,
+                "sway": false,
                 "spansWater": false
               }
             }
@@ -3975,7 +4023,7 @@
                 "z": -0.35,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -4206,10 +4254,10 @@
               "roadmap": null,
               "level": {
                 "assetId": "story_foundation",
-                "x": -8.00048,
-                "z": 4.5,
+                "x": -5.99744,
+                "z": 3,
                 "elevation": 0.025,
-                "height": 1.85,
+                "height": 0.55,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -4471,7 +4519,7 @@
                 "z": 0.55,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -4767,6 +4815,30 @@
                 "z": -4.29145,
                 "elevation": 0.025,
                 "height": 1.35,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-020-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_lantern",
+                "x": -1.5,
+                "z": 4.24799,
+                "elevation": 0.025,
+                "height": 0.52,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -5527,7 +5599,7 @@
                 "z": 0.55,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -5546,12 +5618,12 @@
               ],
               "roadmap": null,
               "level": {
-                "assetId": "log",
+                "assetId": "camp_bench",
                 "x": 1.15,
-                "z": -5.10091,
+                "z": -4.86417,
                 "elevation": 0.025,
-                "height": 0.22,
-                "yaw": 0,
+                "height": 0.72,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -5747,7 +5819,7 @@
                 "z": -3,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -6079,6 +6151,30 @@
                 "sway": false,
                 "spansWater": false
               }
+            },
+            {
+              "id": "place-025-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_crate",
+                "x": -3,
+                "z": 5.59443,
+                "elevation": 0.025,
+                "height": 0.6,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
             }
           ]
         }
@@ -6288,7 +6384,7 @@
                 "z": 0.1,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -6336,6 +6432,30 @@
                 "z": -4.27462,
                 "elevation": 0.025,
                 "height": 1.35,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-026-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_crate",
+                "x": -3,
+                "z": 6.29443,
+                "elevation": 0.025,
+                "height": 0.6,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -7128,6 +7248,30 @@
                 "sway": false,
                 "spansWater": false
               }
+            },
+            {
+              "id": "place-029-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bench",
+                "x": 0,
+                "z": 4.36417,
+                "elevation": 0.025,
+                "height": 0.72,
+                "yaw": 180,
+                "sway": false,
+                "spansWater": false
+              }
             }
           ]
         }
@@ -7366,6 +7510,78 @@
                 "z": -3.73988,
                 "elevation": 0.025,
                 "height": 1.05,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-030-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bench",
+                "x": -3,
+                "z": 3.86417,
+                "elevation": 0.025,
+                "height": 0.72,
+                "yaw": 180,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-030-prop-5",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_lantern",
+                "x": -4.26976,
+                "z": 1.625,
+                "elevation": 0.025,
+                "height": 0.52,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-030-prop-6",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bag",
+                "x": 4.73504,
+                "z": 1.625,
+                "elevation": 0.025,
+                "height": 0.6,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -7630,6 +7846,30 @@
                 "sway": true,
                 "spansWater": false
               }
+            },
+            {
+              "id": "place-031-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_lantern",
+                "x": 0,
+                "z": 4.24799,
+                "elevation": 0.025,
+                "height": 0.52,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
             }
           ]
         }
@@ -7856,12 +8096,12 @@
               ],
               "roadmap": null,
               "level": {
-                "assetId": "log",
-                "x": -1.5,
-                "z": -6.80091,
+                "assetId": "camp_bench",
+                "x": 4.5,
+                "z": -6.56417,
                 "elevation": 0.025,
-                "height": 0.22,
-                "yaw": 0,
+                "height": 0.72,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -8120,6 +8360,54 @@
                 "z": -4.23988,
                 "elevation": 0.025,
                 "height": 1.05,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-033-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bench",
+                "x": 0,
+                "z": 4.36417,
+                "elevation": 0.025,
+                "height": 0.72,
+                "yaw": 180,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-033-prop-5",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bag",
+                "x": -5.23504,
+                "z": 1.95,
+                "elevation": 0.025,
+                "height": 0.6,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -9146,9 +9434,9 @@
               "level": {
                 "assetId": "story_workboat",
                 "x": 0.7,
-                "z": -6.70733,
+                "z": -6.30107,
                 "elevation": 0.025,
-                "height": 1.15,
+                "height": 0.85,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -9175,6 +9463,30 @@
                 "height": 2.4,
                 "yaw": 0,
                 "sway": true,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-037-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_lantern",
+                "x": 0,
+                "z": 5.24799,
+                "elevation": 0.025,
+                "height": 0.52,
+                "yaw": 0,
+                "sway": false,
                 "spansWater": false
               }
             }
@@ -9608,12 +9920,12 @@
               ],
               "roadmap": null,
               "level": {
-                "assetId": "log",
-                "x": 3,
-                "z": -5.10091,
+                "assetId": "camp_bench",
+                "x": 4.36414,
+                "z": -4.5,
                 "elevation": 0.025,
-                "height": 0.22,
-                "yaw": 0,
+                "height": 0.72,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -9633,8 +9945,8 @@
               "roadmap": null,
               "level": {
                 "assetId": "ua_valley_poplar",
-                "x": 3.97419,
-                "z": -4.93076,
+                "x": 4.5,
+                "z": -5.63076,
                 "elevation": 0.025,
                 "height": 2.4,
                 "yaw": 0,
@@ -11130,10 +11442,10 @@
               "roadmap": null,
               "level": {
                 "assetId": "story_memorial_garden",
-                "x": -9.93563,
-                "z": -4.5,
+                "x": -6.50711,
+                "z": -3,
                 "elevation": 0.025,
-                "height": 1.85,
+                "height": 0.65,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -11376,10 +11688,10 @@
               "roadmap": null,
               "level": {
                 "assetId": "story_memorial_garden",
-                "x": -10.43563,
-                "z": 6,
+                "x": -7.00711,
+                "z": 3,
                 "elevation": 0.025,
-                "height": 1.85,
+                "height": 0.65,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -11399,12 +11711,12 @@
               ],
               "roadmap": null,
               "level": {
-                "assetId": "log",
+                "assetId": "camp_bench",
                 "x": 0.7,
-                "z": -5.10091,
+                "z": -4.86417,
                 "elevation": 0.025,
-                "height": 0.22,
-                "yaw": 0,
+                "height": 0.72,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -12446,6 +12758,54 @@
                 "sway": false,
                 "spansWater": false
               }
+            },
+            {
+              "id": "place-050-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bench",
+                "x": 0,
+                "z": 4.86417,
+                "elevation": 0.025,
+                "height": 0.72,
+                "yaw": 180,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-050-prop-5",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_lantern",
+                "x": -4.76976,
+                "z": 2.275,
+                "elevation": 0.025,
+                "height": 0.52,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
             }
           ]
         }
@@ -12623,10 +12983,10 @@
               "roadmap": null,
               "level": {
                 "assetId": "story_workboat",
-                "x": 4.45937,
-                "z": -4.5,
+                "x": 4.02187,
+                "z": -3,
                 "elevation": 0.025,
-                "height": 1.85,
+                "height": 0.85,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -13196,9 +13556,9 @@
               "level": {
                 "assetId": "story_workboat",
                 "x": 1.15,
-                "z": 6.70733,
+                "z": 6.30107,
                 "elevation": 0.025,
-                "height": 1.15,
+                "height": 0.85,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -13484,10 +13844,58 @@
               "roadmap": null,
               "level": {
                 "assetId": "story_workboat",
-                "x": 5.74063,
-                "z": -10.32817,
+                "x": 5.52188,
+                "z": -9.65107,
                 "elevation": 0.025,
-                "height": 1.35,
+                "height": 0.85,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-054-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "branch_pond",
+                "x": 0,
+                "z": 6.29742,
+                "elevation": 0.025,
+                "height": 0.18,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-054-prop-5",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "branch_pond",
+                "x": -4.5,
+                "z": 6.29742,
+                "elevation": 0.025,
+                "height": 0.18,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -13700,7 +14108,7 @@
                 "z": 0.55,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -13924,13 +14332,13 @@
               "roadmap": null,
               "level": {
                 "assetId": "ua_pond_spillway_ruin",
-                "x": -5.85434,
-                "z": -3,
+                "x": 0.0,
+                "z": -8.61001,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 90,
                 "sway": false,
-                "spansWater": false
+                "spansWater": true
               }
             },
             {
@@ -13952,7 +14360,7 @@
                 "z": 4.88818,
                 "elevation": 0.025,
                 "height": 1.15,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -14434,10 +14842,10 @@
               "roadmap": null,
               "level": {
                 "assetId": "story_workboat",
-                "x": 4.95938,
-                "z": -4.5,
+                "x": 4.52188,
+                "z": -3,
                 "elevation": 0.025,
-                "height": 1.85,
+                "height": 0.85,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -14488,6 +14896,30 @@
                 "height": 1.35,
                 "yaw": 0,
                 "sway": true,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-058-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bench",
+                "x": 0,
+                "z": 4.36417,
+                "elevation": 0.025,
+                "height": 0.72,
+                "yaw": 180,
+                "sway": false,
                 "spansWater": false
               }
             }
@@ -15010,10 +15442,34 @@
               "roadmap": null,
               "level": {
                 "assetId": "story_workboat",
-                "x": 4.74063,
-                "z": -10.32817,
+                "x": 4.52188,
+                "z": -9.65107,
                 "elevation": 0.025,
-                "height": 1.35,
+                "height": 0.85,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-060-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_lantern",
+                "x": -3,
+                "z": 5.24799,
+                "elevation": 0.025,
+                "height": 0.52,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -15186,7 +15642,7 @@
                 "z": -0.35,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -15236,6 +15692,30 @@
                 "height": 2.4,
                 "yaw": 0,
                 "sway": true,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-061-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bench",
+                "x": 0,
+                "z": 4.36417,
+                "elevation": 0.025,
+                "height": 0.72,
+                "yaw": 180,
+                "sway": false,
                 "spansWater": false
               }
             }
@@ -15447,7 +15927,7 @@
                 "z": 0.1,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -15727,7 +16207,7 @@
                 "z": -3,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -15963,7 +16443,7 @@
                 "z": 0,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -16250,6 +16730,54 @@
                 "sway": true,
                 "spansWater": false
               }
+            },
+            {
+              "id": "place-065-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bench",
+                "x": 0,
+                "z": 4.86417,
+                "elevation": 0.025,
+                "height": 0.72,
+                "yaw": 180,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-065-prop-5",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_lantern",
+                "x": -3.76976,
+                "z": 2.275,
+                "elevation": 0.025,
+                "height": 0.52,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
             }
           ]
         }
@@ -16497,10 +17025,10 @@
               "roadmap": null,
               "level": {
                 "assetId": "story_foundation",
-                "x": -7.00048,
+                "x": -4.99744,
                 "z": 0.1,
                 "elevation": 0.025,
-                "height": 1.85,
+                "height": 0.55,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -16520,12 +17048,12 @@
               ],
               "roadmap": null,
               "level": {
-                "assetId": "log",
+                "assetId": "camp_bench",
                 "x": -1.5,
-                "z": -4.10091,
+                "z": -5.56417,
                 "elevation": 0.025,
-                "height": 0.22,
-                "yaw": 0,
+                "height": 0.72,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -16786,6 +17314,30 @@
                 "sway": false,
                 "spansWater": false
               }
+            },
+            {
+              "id": "place-067-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_lantern",
+                "x": 0,
+                "z": 5.24799,
+                "elevation": 0.025,
+                "height": 0.52,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
             }
           ]
         }
@@ -17007,7 +17559,7 @@
                 "z": -0.8,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -17055,6 +17607,30 @@
                 "z": -4.77462,
                 "elevation": 0.025,
                 "height": 1.35,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-068-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_crate",
+                "x": 0,
+                "z": 5.09443,
+                "elevation": 0.025,
+                "height": 0.6,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -17550,6 +18126,54 @@
                 "z": -4.10091,
                 "elevation": 0.025,
                 "height": 0.22,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-070-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_lantern",
+                "x": 0,
+                "z": 3.74799,
+                "elevation": 0.025,
+                "height": 0.52,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-070-prop-5",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bag",
+                "x": -4.5,
+                "z": 4.51045,
+                "elevation": 0.025,
+                "height": 0.6,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -18067,12 +18691,12 @@
               ],
               "roadmap": null,
               "level": {
-                "assetId": "log",
+                "assetId": "camp_bench",
                 "x": 0.25,
-                "z": -5.10091,
+                "z": -4.86417,
                 "elevation": 0.025,
-                "height": 0.22,
-                "yaw": 0,
+                "height": 0.72,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -18636,6 +19260,30 @@
                 "sway": false,
                 "spansWater": false
               }
+            },
+            {
+              "id": "place-074-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_lantern",
+                "x": 0,
+                "z": 5.24799,
+                "elevation": 0.025,
+                "height": 0.52,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
             }
           ]
         }
@@ -18824,7 +19472,7 @@
                 "z": 0.55,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -18874,6 +19522,30 @@
                 "height": 2.4,
                 "yaw": 0,
                 "sway": true,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-075-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bench",
+                "x": -3,
+                "z": 4.86417,
+                "elevation": 0.025,
+                "height": 0.72,
+                "yaw": 180,
+                "sway": false,
                 "spansWater": false
               }
             }
@@ -19151,7 +19823,7 @@
                 "z": -0.8,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -19367,10 +20039,10 @@
               "roadmap": null,
               "level": {
                 "assetId": "story_memorial_garden",
-                "x": -8.93563,
-                "z": -6,
+                "x": -5.50711,
+                "z": -3,
                 "elevation": 0.025,
-                "height": 1.85,
+                "height": 0.65,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -19421,6 +20093,30 @@
                 "height": 0.34,
                 "yaw": 0,
                 "sway": true,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-077-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_lantern",
+                "x": 0,
+                "z": 4.74799,
+                "elevation": 0.025,
+                "height": 0.52,
+                "yaw": 0,
+                "sway": false,
                 "spansWater": false
               }
             }
@@ -19618,7 +20314,7 @@
                 "z": 0.1,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -19943,6 +20639,30 @@
                 "sway": true,
                 "spansWater": false
               }
+            },
+            {
+              "id": "place-079-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_lantern",
+                "x": 0,
+                "z": 5.24799,
+                "elevation": 0.025,
+                "height": 0.52,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
             }
           ]
         }
@@ -20200,6 +20920,54 @@
                 "z": -4.23988,
                 "elevation": 0.025,
                 "height": 1.05,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-080-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bench",
+                "x": -3,
+                "z": 6.06417,
+                "elevation": 0.025,
+                "height": 0.72,
+                "yaw": 180,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-080-prop-5",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bag",
+                "x": -5.73504,
+                "z": 1.95,
+                "elevation": 0.025,
+                "height": 0.6,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -20703,9 +21471,9 @@
               "level": {
                 "assetId": "story_workboat",
                 "x": 3,
-                "z": -5.20733,
+                "z": -4.80107,
                 "elevation": 0.025,
-                "height": 1.15,
+                "height": 0.85,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -20726,8 +21494,8 @@
               "roadmap": null,
               "level": {
                 "assetId": "ua_valley_willow",
-                "x": 4.5,
-                "z": -7.85949,
+                "x": 4.2383,
+                "z": -7.50949,
                 "elevation": 0.025,
                 "height": 2.4,
                 "yaw": 0,
@@ -20904,7 +21672,7 @@
                 "z": 0.55,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -21433,7 +22201,7 @@
                 "z": -3,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -21975,12 +22743,12 @@
               ],
               "roadmap": null,
               "level": {
-                "assetId": "log",
+                "assetId": "camp_bench",
                 "x": 3,
-                "z": -5.60091,
+                "z": -5.36417,
                 "elevation": 0.025,
-                "height": 0.22,
-                "yaw": 0,
+                "height": 0.72,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -22434,7 +23202,7 @@
                 "z": -0.35,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -22483,6 +23251,30 @@
                 "elevation": 0.025,
                 "height": 1.35,
                 "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-089-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bench",
+                "x": -3,
+                "z": 4.86417,
+                "elevation": 0.025,
+                "height": 0.72,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -22757,10 +23549,34 @@
               "roadmap": null,
               "level": {
                 "assetId": "story_workboat",
-                "x": 5.24063,
-                "z": -10.32817,
+                "x": 5.02188,
+                "z": -9.65107,
                 "elevation": 0.025,
-                "height": 1.35,
+                "height": 0.85,
+                "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-090-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_lantern",
+                "x": 0,
+                "z": 5.24799,
+                "elevation": 0.025,
+                "height": 0.52,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -23194,7 +24010,7 @@
                 "z": -4.5,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -23243,6 +24059,30 @@
                 "elevation": 0.025,
                 "height": 1.35,
                 "yaw": 0,
+                "sway": false,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-092-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bench",
+                "x": 0,
+                "z": 4.86417,
+                "elevation": 0.025,
+                "height": 0.72,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -23718,12 +24558,12 @@
               ],
               "roadmap": null,
               "level": {
-                "assetId": "log",
+                "assetId": "camp_bench",
                 "x": 0.7,
-                "z": -5.60091,
+                "z": -5.36417,
                 "elevation": 0.025,
-                "height": 0.22,
-                "yaw": 0,
+                "height": 0.72,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -23966,7 +24806,7 @@
                 "z": 3,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -24016,6 +24856,30 @@
                 "height": 2.4,
                 "yaw": 0,
                 "sway": true,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-095-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_bench",
+                "x": -3,
+                "z": 6.06417,
+                "elevation": 0.025,
+                "height": 0.72,
+                "yaw": 180,
+                "sway": false,
                 "spansWater": false
               }
             }
@@ -24235,10 +25099,10 @@
               "roadmap": null,
               "level": {
                 "assetId": "story_memorial_garden",
-                "x": -9.93563,
-                "z": -6,
+                "x": -6.50711,
+                "z": -4.5,
                 "elevation": 0.025,
-                "height": 1.85,
+                "height": 0.65,
                 "yaw": 0,
                 "sway": false,
                 "spansWater": false
@@ -24289,6 +25153,30 @@
                 "height": 0.34,
                 "yaw": 0,
                 "sway": true,
+                "spansWater": false
+              }
+            },
+            {
+              "id": "place-096-prop-4",
+              "category": "civilian",
+              "motif": "rural-infrastructure",
+              "returningProp": "",
+              "claimId": null,
+              "roadmapVisibility": "hidden",
+              "levelDetailVisibility": "detail",
+              "appearance": "always",
+              "contentTags": [
+                "fiction-inspired"
+              ],
+              "roadmap": null,
+              "level": {
+                "assetId": "camp_lantern",
+                "x": 0,
+                "z": 4.74799,
+                "elevation": 0.025,
+                "height": 0.52,
+                "yaw": 0,
+                "sway": false,
                 "spansWater": false
               }
             }
@@ -24526,12 +25414,12 @@
               ],
               "roadmap": null,
               "level": {
-                "assetId": "log",
+                "assetId": "camp_bench",
                 "x": 3,
-                "z": -7.30091,
+                "z": -7.06417,
                 "elevation": 0.025,
-                "height": 0.22,
-                "yaw": 0,
+                "height": 0.72,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -24742,7 +25630,7 @@
                 "z": 0.1,
                 "elevation": 0.025,
                 "height": 1.85,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -25062,12 +25950,12 @@
               ],
               "roadmap": null,
               "level": {
-                "assetId": "log",
+                "assetId": "camp_bench",
                 "x": 3,
-                "z": -5.60091,
+                "z": -5.36417,
                 "elevation": 0.025,
-                "height": 0.22,
-                "yaw": 0,
+                "height": 0.72,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }
@@ -25313,7 +26201,7 @@
                 "z": -5.11719,
                 "elevation": 0.025,
                 "height": 1.15,
-                "yaw": 0,
+                "yaw": 180,
                 "sway": false,
                 "spansWater": false
               }

@@ -12,10 +12,7 @@ namespace QuietCamp.Tests
     public class WorldMapRevealTests
     {
         static WorldMapData Map()
-            => WorldMapBuilder.Build(
-                LevelLoader.MvpLevelIds(), LevelLoader.Districts(),
-                BonusCampCatalog.Slots, MonetizationConfiguration.Load().Catalog().Journeys,
-                CampContent.Summary);
+            => ArchivedRoadmapFixture.Build();
 
         static WorldMapRevealService Reveal(WorldMapData map, ProgressionService progress, JourneyAccessService journeys = null)
             => new WorldMapRevealService(map, progress, journeys);
@@ -88,7 +85,7 @@ namespace QuietCamp.Tests
         [Test] public void MigratedSaveRestoresTheSameWorld()
         {
             var map = Map(); var progress = new ProgressionService();
-            var ids = LevelLoader.MvpLevelIds();
+            var ids = ArchivedRoadmapFixture.Ids;
             progress.Restore(ids.Take(10).ToArray(), ids[9], 0); // migrated save
             var reveal = Reveal(map, progress);
             Assert.AreEqual(11, reveal.CurrentOrder);

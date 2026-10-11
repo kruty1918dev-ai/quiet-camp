@@ -169,16 +169,15 @@ namespace QuietCamp.Tests
             float deadline = Time.realtimeSinceStartup + 45;
             while ((SceneManager.GetActiveScene().name != "MainMenu" || MenuSceneHost.Current?.UiReady != true) && Time.realtimeSinceStartup < deadline) yield return null;
             Assert.AreEqual("MainMenu", SceneManager.GetActiveScene().name); yield return Frames(30);
-            Assert.NotNull(Button("continue")); Assert.NotNull(Button("levels")); Assert.NotNull(Button("album"));
+            Assert.NotNull(Button("continue")); Assert.IsNull(Button("levels")); Assert.NotNull(Button("album"));
             Assert.IsNull(Button("journeys")); Assert.IsNull(Button("economy"));
             yield return Shot("18-uncluttered-menu");
-            Tap("levels"); yield return Frames(); Assert.NotNull(Button("journeys"));
-            yield return Shot("19-story-map");
-            Tap("journeys"); yield return Frames(); Assert.NotNull(Button("journey-main"));
-            Assert.IsNull(Button("journey-lighthouse"));
-            // Published branches list even before their progress gates open.
-            Assert.NotNull(Button("journey-memories")); Assert.NotNull(Button("journey-garden")); Assert.NotNull(Button("journey-station"));
-            yield return Shot("20-story-library");
+            // Direct campaign entry replaces the postponed map and branch menu.
+            // Completed camps remain available through the real album controls.
+            Assert.IsNull(Button("journeys"));
+            Tap("album"); yield return Frames(); Assert.NotNull(Button("back"));
+            Assert.IsNull(Button("journeys")); Assert.IsNull(Button("levels"));
+            yield return Shot("19-direct-campaign-album");
         }
 
         [UnityTest,Timeout(240000)] public IEnumerator RealHostActionsPersistTheGuideAndSkipKeepsEssentialSettings()

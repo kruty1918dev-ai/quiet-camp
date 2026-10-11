@@ -8,12 +8,13 @@ task_editor=/home/oleks/Unity/Hub/Editor/6000.6.2f1/Editor/Unity
 case "${1:---probe}" in
   --probe) task_mode=probe ;;
   --models) task_mode=models ;;
+  --campaign-models) task_mode=campaign-models ;;
   --studies) task_mode=studies ;;
   --cinematic) task_mode=cinematic ;;
   --pilot-tests) task_mode=pilot-tests ;;
   --deferred-tests) task_mode=deferred-tests ;;
   --campaign-tests) task_mode=campaign-tests ;;
-  *) echo 'Use --probe, --models, --studies, --cinematic or --pilot-tests/--deferred-tests/--campaign-tests'; exit 2 ;;
+  *) echo 'Use --probe, --models, --campaign-models, --studies, --cinematic or --pilot-tests/--deferred-tests/--campaign-tests'; exit 2 ;;
 esac
 if [[ "$task_mode" != probe ]]; then
   task_status=$(cat /home/oleks/.local/state/sys-guard/status)
@@ -80,6 +81,8 @@ unshare --user "${task_user_mapping[@]}" --pid --fork --mount-proc --net \
     fi
     if [[ "$1" == models ]]; then
       task_method=QuietCamp.Editor.ModelCatalogueRenderer.Render
+    elif [[ "$1" == campaign-models ]]; then
+      task_method=QuietCamp.Editor.Campaign100DetailExporter.Export
     elif [[ "$1" == cinematic ]]; then
       task_method=QuietCamp.Editor.CinematicRoadmapCapture.Render
     else

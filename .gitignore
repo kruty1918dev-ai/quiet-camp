@@ -3,6 +3,8 @@
 
 # Unity generated folders (matched at any depth since project is in QuietCamp/)
 **/[Ll]ibrary/
+# A regenerable cache can be relocated to the data disk using a symlink.
+**/[Ll]ibrary
 **/[Tt]emp/
 **/[Oo]bj/
 **/[Bb]uild/

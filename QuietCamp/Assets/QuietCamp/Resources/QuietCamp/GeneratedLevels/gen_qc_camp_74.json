@@ -7,7 +7,7 @@
   "width": 5,
   "height": 6,
   "id": "gen:qc_camp:74",
-  "contentHash": "1335b1935a31e2100837c9f04df2bf813c61bdecc52bae8aa0f1fc5bd35ae852",
+  "contentHash": "7fb95a30e754d8cfedd075f4f285dff004209fc0372306fa302f44de6b4fbff7",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
@@ -163,12 +163,13 @@
             "roadmap": null,
             "level": {
               "assetId": "ua_pond_spillway_ruin",
-              "x": -5.85434,
-              "z": -3.0,
+              "x": 0.0,
+              "z": -8.61001,
               "elevation": 0.025,
               "height": 1.85,
-              "yaw": 0.0,
-              "sway": false
+              "yaw": 90.0,
+              "sway": false,
+              "spansWater": true
             }
           },
           {
@@ -190,7 +191,7 @@
               "z": 4.88818,
               "elevation": 0.025,
               "height": 1.15,
-              "yaw": 0.0,
+              "yaw": 180.0,
               "sway": false
             }
           },

@@ -119,7 +119,7 @@ namespace QuietCamp.Tests
                 Size(1280,800);yield return Shot(level,"landscape");
                 Size(720,1600);yield return Shot(level,"portrait");
                 Debug.Log("[Campaign100] captured "+level.order+" "+id);
-                Object.Destroy(root);yield return Settle(3);yield return Resources.UnloadUnusedAssets();GC.Collect();
+                board.ClearAll();Object.Destroy(root);yield return Settle(3);yield return Resources.UnloadUnusedAssets();GC.Collect();
             }
             File.WriteAllText(Path.Combine(Output,"native-batch-"+first+"-"+last+".json"),JsonConvert.SerializeObject(new{
                 result="Passed",capturedUtc=DateTime.UtcNow.ToString("o"),first,last,captureCount=(last-first+1)*2,
