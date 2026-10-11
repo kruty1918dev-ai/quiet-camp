@@ -328,6 +328,7 @@ class MonetizationProbe
         Campaign100PackContracts.Run(ids);
         Pass("100 campaign levels: validator, witness, independent solver, hashes, environmental story; 274 historical revisions retained");
         var sample=Newtonsoft.Json.JsonConvert.DeserializeObject<LevelData>(Newtonsoft.Json.JsonConvert.SerializeObject(LevelLoader.Load(ids[0])));
+        sample.bakedEnvironment=null;sample.environment.sunElevation=-1;
         string original=CampContent.CalculateHash(sample);
         Expect(!JObject.FromObject(sample).ContainsKey("bakedEnvironment")&&!JObject.FromObject(sample.environment).ContainsKey("sunElevation"),"Optional world metadata preserves legacy serialization");
         sample.bakedEnvironment="QuietCamp/BakedEnvironments/"+new string('a',64)+"/"+sample.id;

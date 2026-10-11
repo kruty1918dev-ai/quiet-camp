@@ -35,11 +35,11 @@ static class Campaign100Authoring
             var beat=level.environmentalStory.beats[0];beat.intendedInference=(string)place["storyUk"];
             // Narrative anchors describe the actual authored ensemble. The
             // baked world owns its final derived geometry and connections.
-            beat.props=place["props"].Select(p=>new EnvironmentalStoryProp{id=(string)p["id"],category="civilian",motif="rural-infrastructure",level=new EnvironmentalStoryView{assetId=(string)p["sourceModel"],x=(float)p["target"][0],z=(float)p["target"][2],height=(float)p["height"],yaw=(float)p["yaw"]},roadmap=new EnvironmentalStoryView{assetId=(string)p["sourceModel"],height=.2f}}).ToArray();
+            beat.props=place["props"].Select(p=>new EnvironmentalStoryProp{id=(string)p["id"],category="civilian",motif="rural-infrastructure",level=new EnvironmentalStoryView{assetId=(string)p["sourceModel"],x=(float)p["target"][0],z=(float)p["target"][2],height=(float)p["height"],yaw=(float)p["yaw"]},roadmapVisibility="hidden",roadmap=null}).ToArray();
             if(beat.props.Length==0)
             {
                 var extra=place["extras"].First(e=>e["center"]!=null);
-                beat.props=new[]{new EnvironmentalStoryProp{id=(string)extra["id"],category="civilian",motif="rural-infrastructure",level=new EnvironmentalStoryView{assetId=level.id=="QC003"?"stone_largeA":"story_foundation",x=(float)extra["center"][0],z=(float)extra["center"][2],height=level.id=="QC003"?.22f:.42f},roadmap=new EnvironmentalStoryView{assetId="stone_largeA",height=.2f}}};
+                beat.props=new[]{new EnvironmentalStoryProp{id=(string)extra["id"],category="civilian",motif="rural-infrastructure",level=new EnvironmentalStoryView{assetId=level.id=="QC003"?"stone_largeA":"story_foundation",x=(float)extra["center"][0],z=(float)extra["center"][2],height=level.id=="QC003"?.22f:.42f},roadmapVisibility="hidden",roadmap=null}};
             }
             beat.heroLandmark=beat.props[0].id;beat.returningProp=null;
         }

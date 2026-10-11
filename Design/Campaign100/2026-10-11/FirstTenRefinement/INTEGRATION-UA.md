@@ -30,7 +30,7 @@ python3 tools/verify_first_ten_environment_sources.py
 python3 tools/bake_first_ten_environments.py --validate-layouts
 python3 tools/bake_first_ten_environments.py
 python3 tools/verify_first_ten_bake.py
-python3 tools/verify_first_ten_domain.py
+python3 tools/verify_first_ten_domain.py --publication-contract
 DOTNET_GCHeapHardLimit=0x0c000000 DOTNET_GCConserveMemory=9 DOTNET_gcServer=0 python3 tools/verify_monetization.py --include-editor --receipt Design/Campaign100/2026-10-11/FirstTenRefinement/integration-source-checks.json
 python3 tools/build_first_ten_environment_report.py
 python3 tools/qa/test_first_ten_environment_report.py
@@ -47,7 +47,12 @@ native-кадрів не є історичними еталонами.
 нормалі, кінцеві атрибути, індекси, IDs, сюжетні anchors і зв'язки конструкцій.
 У receipt записуються hashes джерел; це не доказ освітлення чи художньої якості.
 Domain probe перевіряє чинні 100 пазлів, witnesses, незалежний solver,
-історичні revisions, збереження й content packs. Compiler check користується
+історичні revisions, збереження й content packs. `--publication-contract`
+додатково копіює дані в тимчасовий каталог, перевіряє відмову через
+пошкоджений buffer до запису, публікує кандидат і повторює всі domain/save
+контракти. Перевіряється незмінність решти 90 місць і точних старих revisions.
+Чинний репозиторій не публікується; квитанція —
+[publication-contracts.json](publication-contracts.json). Compiler check користується
 наявними Unity references; він не виконує імпорт або PlayMode-тести.
 
 ## Runtime-адаптер
