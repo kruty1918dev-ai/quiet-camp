@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 26,
-  "chapter": 6,
+  "order": 24,
+  "chapter": 3,
   "seed": 20466898,
   "width": 5,
   "height": 7,
   "id": "gen:qc_camp:16",
-  "contentHash": "d79ca27056a87df47bdfd7db2c602857dcafa63cb544bf544ea371c75aeddee2",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "17d646a1f9d3d1e273408c7e453f8accddad2130702778b961890d8cbcd0a021",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -79,7 +79,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "pines",
+  "environmentPreset": "meadow",
   "objects": [
     {
       "assetId": "stump_round",
@@ -102,22 +102,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "forest",
-    "seasonId": "spring",
+    "biomeId": "meadow",
+    "seasonId": "summer",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.84,
-    "clusterSeed": 20494324,
+    "moisture": 0.408722,
+    "treeDensity": 0.480025,
+    "clusterSeed": 35152,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "daisy"
     ],
-    "storyMotifs": [
-      "ruin",
-      "flowers",
-      "repaired-marker"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.232323,
+    "weatherIntensity": 0.214537
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-024",
+    "beats": [
+      {
+        "id": "place-024",
+        "storyBeat": "Ремонт показаний через різницю старого й нового матеріалу.",
+        "heroLandmark": "place-024-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Покинута господарська будівля, склад полін і одна свіжа дошка на вході.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Ремонт показаний через різницю старого й нового матеріалу.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:16"
+        ],
+        "props": [
+          {
+            "id": "place-024-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_barn",
+              "x": -5.49157,
+              "z": -3.0,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-024-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log_stack",
+              "x": 0.25,
+              "z": -5.36736,
+              "elevation": 0.025,
+              "height": 0.7,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-024-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_gate",
+              "x": 5.03462,
+              "z": -4.77462,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

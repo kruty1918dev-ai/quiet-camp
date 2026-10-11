@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 109,
-  "chapter": 22,
+  "order": 99,
+  "chapter": 10,
   "seed": -1466178504,
   "width": 7,
   "height": 8,
   "id": "gen:qc_camp:121",
-  "contentHash": "0cad9f08957604f31a3255328ca6d5c4a74129812d7973c425d8c32e6c9ca979",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "44a87639adfd1401d7f2355c63e5a58503343c2cbf7aed5d9b2e2f905bc44a11",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -186,19 +186,113 @@
     "biomeId": "meadow",
     "seasonId": "spring",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.25,
-    "clusterSeed": -195617310,
+    "moisture": 0.373369,
+    "treeDensity": 0.400181,
+    "clusterSeed": 48127,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "daisy"
     ],
-    "storyMotifs": [
-      "repaired-marker",
-      "flowers",
-      "bench"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.989899,
+    "weatherIntensity": 0.155615
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-099",
+    "beats": [
+      {
+        "id": "place-099",
+        "storyBeat": "Знайомі мотиви з різних розділів нарешті живуть разом.",
+        "heroLandmark": "place-099-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Плодові дерева, вулики й світла лавка обрамляють просторий табір.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Знайомі мотиви з різних розділів нарешті живуть разом.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:121"
+        ],
+        "props": [
+          {
+            "id": "place-099-prop-1",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_orchard",
+              "x": -5.29206,
+              "z": 0.55,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-099-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": 3.0,
+              "z": -5.60091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-099-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_fence_broken_1",
+              "x": 6.02258,
+              "z": -5.29145,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

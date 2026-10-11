@@ -7,8 +7,8 @@
   "width": 6,
   "height": 5,
   "id": "QC003",
-  "contentHash": "e4b2f452e593c237ef8d2c00add728635fd478ab31b0edc0619972ecdd64f8e2",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "33cef20093da30ba3b47c6412a367e771ee822fc6495ce1b5fa6a1bf753493c7",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "tutorial.3",
   "generationAttempt": 1,
@@ -125,17 +125,113 @@
     "biomeId": "meadow",
     "seasonId": "spring",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.25,
-    "clusterSeed": -500153905,
+    "moisture": 0.34537,
+    "treeDensity": 0.400724,
+    "clusterSeed": 31519,
     "meadowSpecies": [
       "grass",
       "daisy"
     ],
-    "storyMotifs": [
-      "marker",
-      "bench"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.020202,
+    "weatherIntensity": 0.10895
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-003",
+    "beats": [
+      {
+        "id": "place-003",
+        "storyBeat": "Побажання гостя про тінь продовжує звичну людську турботу про прохолодне місце.",
+        "heroLandmark": "place-003-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Криниця з низьким цямринням, свіжа трава і тінь великого дерева.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Побажання гостя про тінь продовжує звичну людську турботу про прохолодне місце.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "QC003"
+        ],
+        "props": [
+          {
+            "id": "place-003-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_well",
+              "x": -5.19063,
+              "z": 0.55,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-003-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": -1.5,
+              "z": -4.10091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-003-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_fence_broken_0",
+              "x": 5.52233,
+              "z": -3.79145,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

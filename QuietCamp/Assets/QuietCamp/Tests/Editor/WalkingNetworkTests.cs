@@ -107,25 +107,30 @@ namespace QuietCamp.Tests
             roundTrip.placements=Array.Empty<Placement>();Assert.IsNull(CampContent.UnfinishedLevelId(roundTrip,LevelLoader.MvpLevelIds()));
         }
         [Test]
-        public void FrozenCampaignMatchesTheSeasonalStoryAndWaterTable()
+        public void HundredLevelCampaignHasContinuousSeasonsAndMatchingHashes()
         {
-            var ids=LevelLoader.MvpLevelIds();
-            // Frozen season arc, restated as (from,to,season) runs: act 1 follows
-            // the chapter table, districts then carry their own arcs, and 61-64
-            // stay the shared "four seasons" band used by every frozen family.
-            var seasonRuns=new[]{(1,5,"spring"),(6,15,"summer"),(16,20,"autumn"),(21,25,"winter"),
-                (26,45,"spring"),(46,50,"summer"),(51,60,"autumn"),(61,61,"spring"),(62,62,"autumn"),
-                (63,63,"summer"),(64,64,"winter"),(65,66,"autumn"),(67,74,"winter"),(75,90,"summer"),
-                (91,98,"winter"),(99,102,"autumn"),(103,106,"winter"),(107,110,"spring")};
-            var water=new HashSet<int>{7,10,13,19,24,29,32,40,42,48,51,53,54,56,57,60,66,76,80,83,84,86,87,89,90,108};
+            var ids=LevelLoader.MvpLevelIds();Assert.AreEqual(100,ids.Count);
+            float lastSeason=-1,lastWeather=0;
+            var signatures=new HashSet<string>();
             for(int i=0;i<ids.Count;i++)
             {
                 var level=LevelLoader.Load(ids[i]);Assert.AreEqual(2,level.ruleVersion);
-                Assert.AreEqual(seasonRuns.First(r=>i+1>=r.Item1&&i+1<=r.Item2).Item3,level.environment.seasonId,level.id);
-                Assert.AreEqual(water.Contains(i+1),level.environment.shore!=null,level.id);
+                Assert.AreEqual(i+1,level.order);
+                Assert.That(level.environment.seasonTimeline,Is.InRange(0f,1f),level.id);
+                Assert.That(level.environment.weatherIntensity,Is.InRange(0f,1f),level.id);
+                if(i>0)
+                {
+                    Assert.Greater(level.environment.seasonTimeline,lastSeason,level.id);
+                    Assert.Less(level.environment.seasonTimeline-lastSeason,.015f,level.id);
+                    Assert.Less(Math.Abs(level.environment.weatherIntensity-lastWeather),.05f,level.id);
+                }
+                lastSeason=level.environment.seasonTimeline;lastWeather=level.environment.weatherIntensity;
+                Assert.IsTrue(signatures.Add(JsonConvert.SerializeObject(level.environmentalStory)),"Repeated story scene "+level.id);
                 Assert.AreEqual(CampContent.CalculateHash(level),level.contentHash,level.id+" hash");
                 Assert.AreEqual(JsonConvert.SerializeObject(level.environment),JsonConvert.SerializeObject(CampContent.Summary(level.id).environment));
             }
+            Assert.AreEqual(0,LevelLoader.Load(ids[0]).environment.seasonTimeline);
+            Assert.AreEqual(1,LevelLoader.Load(ids.Last()).environment.seasonTimeline);
             var first=LevelLoader.Load(ids[0]);Assert.AreEqual(2,first.guests.Length);Assert.IsTrue(first.guests.All(g=>!g.shade&&!g.quiet));
         }
         [Test]

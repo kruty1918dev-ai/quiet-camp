@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 84,
-  "chapter": 17,
+  "order": 75,
+  "chapter": 8,
   "seed": -719787716,
   "width": 7,
   "height": 7,
   "id": "gen:qc_camp:96",
-  "contentHash": "f3da4dcb0c5b0e53e01c1046e58d2537a575ae7ab304997c0f7e678434b55703",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "morning",
+  "contentHash": "5ea841bb6ff43fa889fa01b78f0ba54d30d9674043be3e1744de35c1a87ba28b",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
   "decorSeed": -719800733,
@@ -99,7 +99,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "stone_largeA",
@@ -122,27 +122,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "shore",
-    "seasonId": "summer",
+    "biomeId": "pines",
+    "seasonId": "winter",
     "weatherId": "cloudy",
-    "moisture": 0.48,
-    "treeDensity": 0.55,
-    "clusterSeed": -2017974506,
+    "moisture": 0.538459,
+    "treeDensity": 0.491428,
+    "clusterSeed": 43975,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "wheat"
     ],
-    "storyMotifs": [
-      "marker",
-      "flowers"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.747475,
+    "weatherIntensity": 0.430764
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-075",
+    "beats": [
+      {
+        "id": "place-075",
+        "storyBeat": "Інфраструктура, яка колись служила автобусу, тепер допомагає піший подорожі.",
+        "heroLandmark": "place-075-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Мозаїчна зупинка має засніжений верх і суху лавку під дахом.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Інфраструктура, яка колись служила автобусу, тепер допомагає піший подорожі.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:96"
+        ],
+        "props": [
+          {
+            "id": "place-075-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_bus_shelter_mosaic",
+              "x": -6.11318,
+              "z": 0.55,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-075-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_village_wood_pole",
+              "x": 0.25,
+              "z": -4.70334,
+              "elevation": 0.025,
+              "height": 3.1,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-075-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_poplar",
+              "x": 4.97419,
+              "z": -4.93076,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
     ],
-    "shore": {
-      "kind": "lake",
-      "side": "left",
-      "offset": 10.0,
-      "width": 7.0,
-      "seed": -719800733
-    }
+    "references": []
   }
 }

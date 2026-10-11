@@ -8,12 +8,16 @@ namespace QuietCamp.Presentation.World
     {
         public readonly string Id;
         public readonly float Progress,GrassWeight,ShrubWeight,LeafLitter,PollenWeight;
-        public bool Winter=>Id=="winter";
-        public bool Autumn=>Id=="autumn";
-        public SeasonPalette Palette=>SeasonPalette.For(Id,Progress);
+        readonly float _timeline;
+        public float SnowCoverage=>_timeline>=0?TimelineSnow(_timeline):Winter?1:0;
+        public float BareFraction=>_timeline>=0?TimelineBare(_timeline):Winter?1:Autumn?Mathf.Lerp(.025f,.42f,Progress):0;
+        public bool IsContinuous=>_timeline>=0;
+        public bool Winter=>_timeline>=0?SnowCoverage>.92f:Id=="winter";
+        public bool Autumn=>_timeline>=0?_timeline>.48f&&_timeline<.72f:Id=="autumn";
+        public SeasonPalette Palette=>_timeline>=0?TimelinePalette(_timeline):SeasonPalette.For(Id,Progress);
         SeasonProfile(string id,float progress)
         {
-            Id=string.IsNullOrEmpty(id)?"summer":id;Progress=Mathf.Clamp01(progress);
+            _timeline=-1;Id=string.IsNullOrEmpty(id)?"summer":id;Progress=Mathf.Clamp01(progress);
             bool winter=Id=="winter",autumn=Id=="autumn";
             GrassWeight=winter?0:autumn?Mathf.Lerp(.42f,.10f,Progress):Id=="spring"?.90f:1;
             ShrubWeight=winter?0:autumn?Mathf.Lerp(.40f,.12f,Progress):1;
@@ -21,15 +25,38 @@ namespace QuietCamp.Presentation.World
             PollenWeight=winter?0:autumn?.06f:Id=="spring"?1:.65f;
         }
         public static SeasonProfile For(LevelData level)
-            =>For(EnvironmentCompositionData.For(level).seasonId,level?.order??0);
+            =>For(EnvironmentCompositionData.For(level),level?.order??0);
         public static SeasonProfile For(LevelSummary level)
-            =>For(level?.environment?.seasonId,level?.number??0);
+            =>For(level?.environment,level?.number??0);
+        public static SeasonProfile For(EnvironmentCompositionData environment,int order=0)
+            =>environment?.seasonTimeline>=0?new SeasonProfile(environment.seasonTimeline):For(environment?.seasonId,order);
+        SeasonProfile(float timeline)
+        {
+            _timeline=Mathf.Clamp01(timeline);Progress=_timeline;
+            Id=timeline<.20f?"spring":timeline<.48f?"summer":timeline<.70f?"autumn":timeline<.88f?"winter":"spring";
+            float snow=TimelineSnow(_timeline),bare=TimelineBare(_timeline);
+            GrassWeight=Mathf.Lerp(.95f,.12f,snow);ShrubWeight=Mathf.Lerp(1,.15f,bare);
+            LeafLitter=Smooth(.48f,.66f,_timeline)*(1-Smooth(.85f,.97f,_timeline));
+            PollenWeight=(1-snow)*Mathf.Lerp(.8f,.12f,LeafLitter);
+        }
+        static float Smooth(float from,float to,float value)=>Mathf.SmoothStep(0,1,Mathf.InverseLerp(from,to,value));
+        public static float TimelineSnow(float t)=>Smooth(.66f,.77f,t)*(1-Smooth(.81f,.92f,t));
+        public static float TimelineBare(float t)=>Smooth(.51f,.72f,t)*(1-Smooth(.84f,.97f,t));
+        public static SeasonPalette TimelinePalette(float t)
+        {
+            SeasonPalette spring=SeasonPalette.For("spring"),summer=SeasonPalette.For("summer"),autumn=SeasonPalette.For("autumn",.8f),winter=SeasonPalette.For("winter");
+            float snow=TimelineSnow(t);
+            if(t<.30f)return SeasonPalette.Blend(spring,summer,Smooth(.12f,.30f,t),snow);
+            if(t<.59f)return SeasonPalette.Blend(summer,autumn,Smooth(.43f,.59f,t),snow);
+            if(t<.78f)return SeasonPalette.Blend(autumn,winter,Smooth(.61f,.78f,t),snow);
+            return SeasonPalette.Blend(winter,spring,Smooth(.81f,.98f,t),snow);
+        }
         public static SeasonProfile For(string id,int order=0)
             =>new SeasonProfile(id,order>0?((order-1)%5)/4f:.5f);
         public bool BareTree(Vector3 root,int seed,bool conifer=false)
         {
             if(conifer)return false;
-            return Winter||(Autumn&&Variation(root,seed)<Mathf.Lerp(.025f,.42f,Progress));
+            return Variation(root,seed)<BareFraction;
         }
         public static float Variation(Vector3 root,int seed)
         {
@@ -41,7 +68,7 @@ namespace QuietCamp.Presentation.World
         /// <summary>Deep scenery snow, with a compacted clear puzzle and open walking network.</summary>
         public float SnowDepth(LevelData level,Vector3 point)
         {
-            if(!Winter||level==null||level.entry==null)return 0;
+            if(SnowCoverage<=0||level==null||level.entry==null)return 0;
             float outside=Mathf.Max(Mathf.Abs(point.x)-level.width*.5f,Mathf.Abs(point.z)-level.height*.5f);
             if(outside<.6f)return 0;
             return SnowDepth(level,point,CampTrail.CorridorDistance(level,point));
@@ -49,7 +76,7 @@ namespace QuietCamp.Presentation.World
         /// <summary>Identical snow field with a caller-cached distance to the static walking network.</summary>
         public float SnowDepth(LevelData level,Vector3 point,float pathDistance)
         {
-            if(!Winter||level==null)return 0;
+            if(SnowCoverage<=0||level==null)return 0;
             float outside=Mathf.Max(Mathf.Abs(point.x)-level.width*.5f,Mathf.Abs(point.z)-level.height*.5f);
             if(outside<.6f||pathDistance<=.85f)return 0;
             var shore=EnvironmentCompositionData.For(level).shore;
@@ -63,7 +90,7 @@ namespace QuietCamp.Presentation.World
             float clearing=Mathf.SmoothStep(0,1,Mathf.Clamp01((outside-.6f)/4.5f));
             float path=Mathf.SmoothStep(0,1,Mathf.Clamp01((pathDistance-.85f)/2.8f));
             float bank=Mathf.SmoothStep(0,1,Mathf.Clamp01((bankDistance-1.25f)/2.4f));
-            return clearing*path*bank*(1-CampGroundDetails.HeatAt(level,point))*(.8f+roll*1.35f);
+            return SnowCoverage*clearing*path*bank*(1-CampGroundDetails.HeatAt(level,point))*(.8f+roll*1.35f);
         }
     }
 }

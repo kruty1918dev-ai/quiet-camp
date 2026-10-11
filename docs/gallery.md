@@ -123,4 +123,4 @@ Portrait panels: 720 × 1600. Album quiet gallery: 1280 × 800. Додатков
 | --- | --- |
 | <img src="../QuietCamp/Screenshots/Seasonal/summer-2026-10-05.png" width="460" alt="Архівний native літній кадр від 2026-10-05" /> | <img src="../Design/AppIcon/quietcamp-google-play-512.png" width="200" alt="App icon artwork; не gameplay capture" /> |
 
-[Store artwork](../Design/StoreGallery-UA/README-UA.md) та [UI art direction](../Design/MainMenu/MAIN-MENU-PLAN-UA.md) пояснюють задум і походження зображень. Concept art, software previews і promotional layouts не є доказом нового імпорту чи render acceptance. [Окрема нова roadmap composition](world.md#нова-semantic-roadmap-composition).
+[Store artwork](../Design/StoreGallery-UA/README-UA.md) та [UI art direction](../Design/MainMenu/MAIN-MENU-PLAN-UA.md) пояснюють задум і походження зображень. Concept art, software previews і promotional layouts не є доказом нового імпорту чи render acceptance. [Окрема нова roadmap composition](world.md#відкладена-роадмапа).

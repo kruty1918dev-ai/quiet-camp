@@ -8,9 +8,9 @@ namespace QuietCamp.Tests
 {
     public class LiveCampContentTests
     {
-        [Test] public void AllThirtyLevelsValidateAndSolverConfirmsTheirWitness()
+        [Test] public void AllHundredLevelsValidateAndSolverConfirmsTheirWitness()
         {
-            var ids=LevelLoader.MvpLevelIds();Assert.AreEqual(110,ids.Count);
+            var ids=LevelLoader.MvpLevelIds();Assert.AreEqual(100,ids.Count);
             foreach(var id in ids)
             {
                 var l=LevelLoader.Load(id);Assert.AreEqual(id,l.id);Assert.IsEmpty(LevelContentValidator.Validate(l),id);
@@ -20,7 +20,7 @@ namespace QuietCamp.Tests
                 Assert.NotNull(CampContent.Legacy(id),"Archive missing "+id);
             }
             Assert.Greater(ids.Select(id=>{var l=LevelLoader.Load(id);return l.width+"x"+l.height;}).Distinct().Count(),6);
-            Assert.AreEqual(270,CampContent.Summaries.Count);
+            Assert.AreEqual(100,CampContent.Summaries.Count);
         }
         [Test] public void EnvironmentRoundTripPreservesObjectsAndProjectedShade()
         {

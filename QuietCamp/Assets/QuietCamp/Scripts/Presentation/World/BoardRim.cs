@@ -48,7 +48,7 @@ namespace QuietCamp.Presentation.World
             GetComponent<MeshFilter>().sharedMesh = _mesh;
             _material = new Material(Shader.Find("Universal Render Pipeline/Simple Lit"));
             var palette=SeasonPalette.For(level);
-            _material.SetColor("_BaseColor",Color.Lerp(palette.GrassLight,palette.Soil,palette.SnowCoverage>.5f?.10f:.42f));
+            _material.SetColor("_BaseColor",Color.Lerp(palette.GrassLight,palette.Soil,Mathf.Lerp(.42f,.10f,palette.SnowCoverage)));
             var renderer = GetComponent<MeshRenderer>(); renderer.sharedMaterial = _material;
             renderer.shadowCastingMode = ShadowCastingMode.Off; renderer.receiveShadows = true;
 

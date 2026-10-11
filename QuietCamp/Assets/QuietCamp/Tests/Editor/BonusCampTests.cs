@@ -14,27 +14,12 @@ namespace QuietCamp.Tests
         static readonly string[] Ids=Enumerable.Range(1,42).Select(i=>"main-"+i).ToArray();
         static BonusCampDefinition Definition(int after=10,bool premium=false,string season=null)
             =>new BonusCampDefinition{id="bonus:test",afterLevel=after,requiredCompletions=10,requiresPremium=premium,levelId="bonus-level",seasonId=season};
-        [Test] public void CatalogPublishesSideRoutesEveryFiveLevelsOutsideTheCampaign()
+        [Test] public void BaseCampaignHasHundredLevelsAndNoBundledSideRoutes()
         {
-            var ids=LevelLoader.MvpLevelIds();Assert.AreEqual(110,ids.Count);
-            CollectionAssert.AreEqual(new[]{10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110},
-                BonusCampCatalog.Slots.Select(s=>s.afterLevel));
-            Assert.AreEqual(21,BonusCampCatalog.Slots.Select(s=>s.id).Distinct().Count());
-            Assert.AreEqual(21,BonusCampCatalog.Slots.Select(s=>s.theme).Distinct().Count());
-            foreach(var slot in BonusCampCatalog.Slots)
-            {
-                Assert.IsNotEmpty(slot.levelId);Assert.IsTrue(BonusCampCatalog.IsPublished(slot));
-                Assert.IsTrue(ids.Contains(slot.id)==false);Assert.IsFalse(ids.Contains(slot.levelId));
-                foreach(var language in new[]{"uk","en","de"})
-                {
-                    var entries=JObject.Parse(Resources.Load<TextAsset>("QuietCampLocales/"+language).text)["entries"];
-                    Assert.IsNotEmpty((string)entries[slot.titleKey]);Assert.IsNotEmpty((string)entries[slot.descriptionKey]);
-                }
-            }
-            // Four glades are seasonal windows; three are premium overlooks.
-            Assert.AreEqual("winter",BonusCampCatalog.Slots.Single(s=>s.afterLevel==40).seasonId);
-            Assert.AreEqual(4,BonusCampCatalog.Slots.Count(s=>!string.IsNullOrEmpty(s.seasonId)));
-            Assert.AreEqual(3,BonusCampCatalog.Slots.Count(s=>s.requiresPremium));
+            var ids=LevelLoader.MvpLevelIds();Assert.AreEqual(100,ids.Count);
+            Assert.IsEmpty(BonusCampCatalog.Slots);
+            Assert.IsTrue(MonetizationConfiguration.Load().journeys.All(j=>!j.published),
+                "Archived journeys must not expand the base game");
         }
         [Test] public void OnlyTheCorrespondingTenUniqueCampaignCompletionsCount()
         {

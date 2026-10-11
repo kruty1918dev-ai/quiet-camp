@@ -77,6 +77,8 @@ namespace QuietCamp.Domain
             if(l.environment!=null)
             {
                 var env=l.environment;
+                if(float.IsNaN(env.seasonTimeline)||float.IsInfinity(env.seasonTimeline)||env.seasonTimeline < -1||env.seasonTimeline > 1)errors.Add("environment:timeline");
+                if(float.IsNaN(env.weatherIntensity)||float.IsInfinity(env.weatherIntensity)||env.weatherIntensity < -1||env.weatherIntensity > 1)errors.Add("environment:weather-intensity");
                 if(!new[]{"meadow","pines","forest","shore"}.Contains(env.biomeId))errors.Add("environment:biome");
                 if(!new[]{"spring","summer","autumn","winter"}.Contains(env.seasonId))errors.Add("environment:season");
                 if(!new[]{"clear","cloudy","rain","mist"}.Contains(env.weatherId))errors.Add("environment:weather");

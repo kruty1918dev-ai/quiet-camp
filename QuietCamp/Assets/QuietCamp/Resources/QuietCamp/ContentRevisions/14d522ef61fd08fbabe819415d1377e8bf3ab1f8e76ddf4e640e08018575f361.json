@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 48,
+  "chapter": 10,
+  "seed": -720072899,
+  "width": 8,
+  "height": 5,
+  "id": "gen:qc_camp:60",
+  "contentHash": "14d522ef61fd08fbabe819415d1377e8bf3ab1f8e76ddf4e640e08018575f361",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "morning",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": -720056222,
+  "entry": [
+    7,
+    2
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      1,
+      2
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      5,
+      3
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 1
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 3,
+      "rotation": 1
+    },
+    {
+      "guestId": "g3",
+      "x": 3,
+      "z": 2,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 1,
+      "z": 2,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 3,
+      "z": 1,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 5,
+      "z": 3,
+      "rotation": 2
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "shore",
+    "seasonId": "summer",
+    "weatherId": "cloudy",
+    "moisture": 0.48,
+    "treeDensity": 0.55,
+    "clusterSeed": 1364641571,
+    "meadowSpecies": [
+      "grass",
+      "wheat",
+      "daisy"
+    ],
+    "storyMotifs": [
+      "bag",
+      "repaired-marker"
+    ],
+    "shore": {
+      "kind": "lake",
+      "side": "left",
+      "offset": 10.5,
+      "width": 7.0,
+      "seed": -720056222
+    }
+  }
+}

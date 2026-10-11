@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 20,
-  "chapter": 4,
+  "order": 19,
+  "chapter": 2,
   "seed": 20419384,
   "width": 8,
   "height": 7,
   "id": "gen:qc_camp:10",
-  "contentHash": "50d17b120d5ea4f67ad27a5f6be3eca1a45836fc74cb995c54433637ada6ea38",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "evening",
+  "contentHash": "779e3e1cb58e2e935978fddd3c46cf40dcb0af59de897db8f90944478ff05ba5",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
   "decorSeed": 20434023,
@@ -144,19 +144,115 @@
   "canopies": [],
   "environment": {
     "biomeId": "forest",
-    "seasonId": "autumn",
-    "weatherId": "cloudy",
-    "moisture": 0.48,
-    "treeDensity": 0.84,
-    "clusterSeed": -44547870,
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.463469,
+    "treeDensity": 0.452613,
+    "clusterSeed": 34287,
     "meadowSpecies": [
       "grass",
-      "wheat"
+      "daisy"
     ],
-    "storyMotifs": [
-      "ruin",
-      "marker"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.181818,
+    "weatherIntensity": 0.305782
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-019",
+    "beats": [
+      {
+        "id": "place-019",
+        "storyBeat": "Життя повертається через буденні речі, а не через урочистий знак перемоги.",
+        "heroLandmark": "place-019-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Курник, кілька низьких огорож і яблуня; вільний підхід не закритий травою.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Життя повертається через буденні речі, а не через урочистий знак перемоги.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:10"
+        ],
+        "props": [
+          {
+            "id": "place-019-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_chicken_coop",
+              "x": -6.03032,
+              "z": 0.55,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-019-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_chicken",
+              "x": 0.7,
+              "z": -5.34812,
+              "elevation": 0.025,
+              "height": 1.15,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-019-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_orchard",
+              "x": 5.79206,
+              "z": -5.20604,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

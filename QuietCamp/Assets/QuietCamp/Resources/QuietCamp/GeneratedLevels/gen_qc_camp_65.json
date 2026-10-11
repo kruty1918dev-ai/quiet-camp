@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 53,
-  "chapter": 11,
+  "order": 49,
+  "chapter": 5,
   "seed": -720033299,
   "width": 8,
   "height": 6,
   "id": "gen:qc_camp:65",
-  "contentHash": "3bb3fb8cae8854787dce2b12f737c4bb4c59797c1ed50cddfccedebb4ff1995e",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "69bc1f7deefe43ba11ae8a96f79eae70a88f04b70be4df737160cdf81140d3da",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -120,7 +120,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "log",
@@ -143,27 +143,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "shore",
+    "biomeId": "forest",
     "seasonId": "autumn",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.55,
-    "clusterSeed": 1516680467,
+    "moisture": 0.484749,
+    "treeDensity": 0.579592,
+    "clusterSeed": 39477,
     "meadowSpecies": [
       "grass",
-      "daisy",
       "poppy"
     ],
-    "storyMotifs": [
-      "marker",
-      "bag"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.484848,
+    "weatherIntensity": 0.341249
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-049",
+    "beats": [
+      {
+        "id": "place-049",
+        "storyBeat": "Після втрати подорож повертається до знайомої дії — дбати про тих, хто поруч.",
+        "heroLandmark": "place-049-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Сухе укриття, впорядковані поліна й відкрита світла галявина.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Після втрати подорож повертається до знайомої дії — дбати про тих, хто поруч.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:65"
+        ],
+        "props": [
+          {
+            "id": "place-049-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_trail_shelter",
+              "x": -6.42188,
+              "z": -0.35,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-049-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log_stack",
+              "x": 3.0,
+              "z": -4.86736,
+              "elevation": 0.025,
+              "height": 0.7,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-049-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "sign",
+              "x": 5.53535,
+              "z": -4.23988,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": {
-      "kind": "lake",
-      "side": "left",
-      "offset": 10.5,
-      "width": 7.0,
-      "seed": -720013646
-    }
+    "references": []
   }
 }

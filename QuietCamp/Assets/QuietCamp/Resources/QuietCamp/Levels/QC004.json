@@ -7,9 +7,9 @@
   "width": 6,
   "height": 6,
   "id": "QC004",
-  "contentHash": "8915cda32c07faa31f6dfab600f87d98a2e118d7a36d6fdd8ee088db87732d20",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "morning",
+  "contentHash": "e8b8b400ef9a745c02e5d40fa603efb8985fa12186ec8e0274c90fc06e49dfda",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "tutorial.4",
   "generationAttempt": 1,
   "decorSeed": 20314903,
@@ -99,18 +99,114 @@
   "environment": {
     "biomeId": "forest",
     "seasonId": "spring",
-    "weatherId": "cloudy",
-    "moisture": 0.48,
-    "treeDensity": 0.48,
-    "clusterSeed": -469925390,
+    "weatherId": "clear",
+    "moisture": 0.351876,
+    "treeDensity": 0.401626,
+    "clusterSeed": 31692,
     "meadowSpecies": [
       "grass",
       "daisy"
     ],
-    "storyMotifs": [
-      "marker",
-      "bench"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.030303,
+    "weatherIntensity": 0.119793
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-004",
+    "beats": [
+      {
+        "id": "place-004",
+        "storyBeat": "Спільне тепло не зобов'язує кожного сидіти біля багаття; є місце і для тиші.",
+        "heroLandmark": "place-004-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Складені сухі поліна, кам'яне багаття на полі й лавка далі від шуму.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Спільне тепло не зобов'язує кожного сидіти біля багаття; є місце і для тиші.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "QC004"
+        ],
+        "props": [
+          {
+            "id": "place-004-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_trail_shelter",
+              "x": -5.42188,
+              "z": -0.8,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-004-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log_stack",
+              "x": 0.7,
+              "z": -4.86736,
+              "elevation": 0.025,
+              "height": 0.7,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-004-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "sign",
+              "x": 4.53535,
+              "z": -4.23988,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

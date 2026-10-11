@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.IO;
 using Newtonsoft.Json;
@@ -32,6 +33,8 @@ namespace QuietCamp.Infrastructure
 {
     public static class LevelLoader
     {
+        public static System.Collections.Generic.IReadOnlyList<string> MvpLevelIds()
+        { var c=Newtonsoft.Json.Linq.JObject.Parse(File.ReadAllText(Path.Combine(UnityEngine.Resources.Root,"QuietCamp/campaign.json")));return c["mvpLevelIds"].ToObject<string[]>().Concat(c["generatedLevelIds"].ToObject<string[]>()).ToArray(); }
         public static LevelData Load(string id)
         {
             var path = id.StartsWith("gen:", StringComparison.Ordinal) ? "QuietCamp/GeneratedLevels/" + id.Replace(':', '_') : "QuietCamp/Levels/" + id;

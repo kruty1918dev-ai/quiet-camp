@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 89,
-  "chapter": 18,
+  "order": 80,
+  "chapter": 8,
   "seed": -1466336946,
   "width": 8,
   "height": 6,
   "id": "gen:qc_camp:101",
-  "contentHash": "bbe9031b60b2d829763d104c48d78eefb0982ffb56c2d7130c41bb2bcbe5e522",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "1dd4220a9d3632552db2cb928284f90193e60c9e725cdcd29c3a70e9efe0286b",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -120,7 +120,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "log",
@@ -143,27 +143,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "shore",
-    "seasonId": "summer",
+    "biomeId": "pines",
+    "seasonId": "winter",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.55,
-    "clusterSeed": -800194752,
+    "moisture": 0.494646,
+    "treeDensity": 0.463277,
+    "clusterSeed": 44840,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "wheat"
     ],
-    "storyMotifs": [
-      "marker",
-      "flowers"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.79798,
+    "weatherIntensity": 0.357744
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-080",
+    "beats": [
+      {
+        "id": "place-080",
+        "storyBeat": "Кульмінація холодного сезону — тихе відчуття, що ніхто не лишився сам.",
+        "heroLandmark": "place-080-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Зимове укриття, лавка й великий запас сухих полін, центр табору читабельний.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Кульмінація холодного сезону — тихе відчуття, що ніхто не лишився сам.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:101"
+        ],
+        "props": [
+          {
+            "id": "place-080-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_trail_shelter",
+              "x": -6.42188,
+              "z": -0.8,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-080-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log_stack",
+              "x": -1.5,
+              "z": -6.56736,
+              "elevation": 0.025,
+              "height": 0.7,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-080-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "sign",
+              "x": 5.53535,
+              "z": -4.23988,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": {
-      "kind": "lake",
-      "side": "left",
-      "offset": 10.5,
-      "width": 7.0,
-      "seed": -1466358255
-    }
+    "references": []
   }
 }

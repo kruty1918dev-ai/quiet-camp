@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 45,
-  "chapter": 9,
+  "order": 42,
+  "chapter": 5,
   "seed": -720096680,
   "width": 8,
   "height": 6,
   "id": "gen:qc_camp:57",
-  "contentHash": "1b62dfa2eea7ca0ac77448d31ce608982bb812612fcc62d851d83eb051ee10a1",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "evening",
+  "contentHash": "79e6b7a8859921b3d4407fc86cb0694332e1ea375f9a2c8bdb2cbb3ac08e0e1e",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
   "decorSeed": -720081657,
@@ -123,21 +123,115 @@
   "canopies": [],
   "environment": {
     "biomeId": "meadow",
-    "seasonId": "spring",
+    "seasonId": "summer",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.25,
-    "clusterSeed": 1273813186,
+    "moisture": 0.437292,
+    "treeDensity": 0.567219,
+    "clusterSeed": 38266,
     "meadowSpecies": [
       "grass",
-      "daisy",
       "poppy"
     ],
-    "storyMotifs": [
-      "ruin",
-      "flowers",
-      "repaired-marker"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.414141,
+    "weatherIntensity": 0.262154
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-042",
+    "beats": [
+      {
+        "id": "place-042",
+        "storyBeat": "Герої бачать втрату через впізнавану людську машину в незвичному місці.",
+        "heroLandmark": "place-042-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Носова частина розбитого літака лежить поза табором; трава обступає метал.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Герої бачать втрату через впізнавану людську машину в незвичному місці.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:57"
+        ],
+        "props": [
+          {
+            "id": "place-042-prop-1",
+            "category": "recovery",
+            "motif": "civilian-debris",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "staging_aircraft_fore",
+              "x": -7.10177,
+              "z": 0.1,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-042-prop-2",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_field_weeds",
+              "x": -1.5,
+              "z": -4.23082,
+              "elevation": 0.025,
+              "height": 0.34,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-042-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "flower_yellowA",
+              "x": 5.29049,
+              "z": -4.3099,
+              "elevation": 0.025,
+              "height": 0.34,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

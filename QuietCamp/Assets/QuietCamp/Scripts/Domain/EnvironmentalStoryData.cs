@@ -38,6 +38,8 @@ namespace QuietCamp.Domain
         public string assetId;
         public float x, z, elevation, height = 1, yaw;
         public bool sway;
+        public bool spansWater;
+        public bool ShouldSerializespansWater() => spansWater;
     }
 
     [Serializable] public sealed class EnvironmentalStoryReference

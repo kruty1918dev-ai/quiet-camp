@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 102,
-  "chapter": 21,
+  "order": 92,
+  "chapter": 10,
   "seed": -1466233965,
   "width": 5,
   "height": 7,
   "id": "gen:qc_camp:114",
-  "contentHash": "a1b2ed28b93b47cda9feccac915a7c10ff15f09a45fd6b846dd44247e1b08f3b",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "4e9ab8638898af5000c36c98647aa3f875db1b7eed3aa1b7125df76ea0454e62",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -88,7 +88,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "campfire_stones",
@@ -117,22 +117,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "meadow",
-    "seasonId": "autumn",
-    "weatherId": "rain",
-    "moisture": 0.9,
-    "treeDensity": 0.25,
-    "clusterSeed": -289416767,
+    "biomeId": "forest",
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.34469,
+    "treeDensity": 0.411354,
+    "clusterSeed": 46916,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "daisy"
     ],
-    "storyMotifs": [
-      "ruin",
-      "marker",
-      "bag"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.919192,
+    "weatherIntensity": 0.107816
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-092",
+    "beats": [
+      {
+        "id": "place-092",
+        "storyBeat": "Відновлення видно у використанні двору, навіть коли будівля ще не ціла.",
+        "heroLandmark": "place-092-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Пошкоджений дім, доступна хвіртка й чиста лавка серед свіжої зелені.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Відновлення видно у використанні двору, навіть коли будівля ще не ціла.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:114"
+        ],
+        "props": [
+          {
+            "id": "place-092-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_house",
+              "x": -5.00784,
+              "z": -4.5,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-092-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_gate",
+              "x": 1.15,
+              "z": -4.75615,
+              "elevation": 0.025,
+              "height": 1.15,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-092-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_fence_broken_2",
+              "x": 5.02283,
+              "z": -4.79145,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

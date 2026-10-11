@@ -33,7 +33,21 @@ python3 tools/verify_monetization.py
 python3 tools/test_legal_site.py
 ```
 
-`verify_portability` не потребує Library. У main поточний probe також читає cached Newtonsoft reference із Library після Unity import. Cached compiler helper потребує реальних Unity Bee responses/reference assemblies після import; він компілює source, але не виконує scene tests. Probe використовує synthetic temporary saves і fake platform providers; список перевірених puzzles дивись у результаті конкретного запуску, не в розмірі всього content catalog.
+`verify_portability` не потребує Library. Probe відновлює Newtonsoft.Json через NuGet і не потребує Unity Library. Cached compiler helper потребує реальних Unity Bee responses/reference assemblies після import; він компілює source, але не виконує scene tests. Probe використовує synthetic temporary saves і fake platform providers; список перевірених puzzles дивись у результаті конкретного запуску, не в розмірі всього content catalog.
+
+## Кампанія зі 100 рівнів
+
+[План і статус](../Design/Campaign100/2026-10-11/PLAN-UA.md) · [HTML-звіт](../Design/Campaign100/2026-10-11/index.html) · [Механіки](../Design/Campaign100/2026-10-11/MECHANICS-UA.md) · [Пакети розширення](../Design/Campaign100/2026-10-11/CONTENT-PACKS-UA.md).
+
+Джерела: `Design/Campaign100/2026-10-11/Authoring/places.tsv` і `tools/build_campaign100_design.py`. Генератор готує дизайн та level drafts, а publisher перевіряє всі пазли перед записом у Resources. Не редагуй generated JSON як єдине джерело істини.
+
+```sh
+python3 tools/build_campaign100_design.py
+dotnet run --no-build --project tools/MonetizationProbe.csproj -- --author-campaign100 "$PWD"
+python3 tools/build_campaign100_report.py
+```
+
+Після зміни рівнів старі кадри не зараховуються як актуальні: звіт звіряє content hash. Native захоплення виконується одним ізольованим Editor після RAM/disk checks і probe, без player build. World-camera captures перевіряють сцену; Game View окремо перевіряє HUD, навігацію й проходження. Повні фотографії сторонніх моделей залишаються локальними.
 
 ## GitHub Pages
 
@@ -51,7 +65,7 @@ Static site живе у `docs/index.html`, `site.css`, `site.js`, `site-content.
 
 - Екран: [Атлас](screens.md) → source owner → [HTML UI](../Documentation/HTML-UI.md). Зберігай stable ids, callback routing, safe-area й scroll state.
 - Puzzle: редагуй source/content pipeline, перевір правила/solver; не змінюй логічний рівень через decorative props.
-- Нова roadmap: працюй із [semantic composer у main](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/tools/scene-composition), inspect owner → guarded patch → validate → dry-run → дозволений native bake/capture.
+- Роадмапу відкладено: її джерела та ресурси зберігаються в Editor-архіві. Не повертай їх у Resources або player dependencies під час підготовки контенту.
 - Готовий milestone: онови відповідну docs-сторінку, виконай доречну перевірку, commit і push; концепт не замінює Game View evidence.
 
 ## Assets і ліцензії

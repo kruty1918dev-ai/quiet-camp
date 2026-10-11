@@ -3,7 +3,7 @@
     "id": "QC001",
     "environmentPreset": "pines",
     "lighting": "day",
-    "contentHash": "e2c3b376421e857078591a26bda99744688e469796ff1adc9313fc797a94dec2",
+    "contentHash": "204acce459c908db9b491ca5e274e726586d603886ea3a9d924eda65382cc850",
     "ruleVersion": 2,
     "number": 1,
     "width": 5,
@@ -26,25 +26,24 @@
       "biomeId": "forest",
       "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.48,
-      "clusterSeed": -677396919,
+      "moisture": 0.34,
+      "treeDensity": 0.4,
+      "clusterSeed": 31173,
       "meadowSpecies": [
         "grass",
         "daisy"
       ],
-      "storyMotifs": [
-        "marker",
-        "bench"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.0,
+      "weatherIntensity": 0.1
     }
   },
   {
     "id": "QC002",
     "environmentPreset": "pines",
     "lighting": "day",
-    "contentHash": "fb3f225b11e151c2ed124a6dc8fdda5585200b23a2c8a446ebbe65b6736dd575",
+    "contentHash": "7b9fd5afc68877dedd735026934291495c111900fa9b9694a0203f19ec6ebd3b",
     "ruleVersion": 2,
     "number": 2,
     "width": 5,
@@ -67,25 +66,24 @@
       "biomeId": "forest",
       "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.48,
-      "clusterSeed": -647168404,
+      "moisture": 0.341356,
+      "treeDensity": 0.400181,
+      "clusterSeed": 31346,
       "meadowSpecies": [
         "grass",
         "daisy"
       ],
-      "storyMotifs": [
-        "marker",
-        "bench"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.010101,
+      "weatherIntensity": 0.102261
     }
   },
   {
     "id": "QC003",
     "environmentPreset": "meadow",
     "lighting": "day",
-    "contentHash": "e4b2f452e593c237ef8d2c00add728635fd478ab31b0edc0619972ecdd64f8e2",
+    "contentHash": "33cef20093da30ba3b47c6412a367e771ee822fc6495ce1b5fa6a1bf753493c7",
     "ruleVersion": 2,
     "number": 3,
     "width": 6,
@@ -122,25 +120,24 @@
       "biomeId": "meadow",
       "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": -500153905,
+      "moisture": 0.34537,
+      "treeDensity": 0.400724,
+      "clusterSeed": 31519,
       "meadowSpecies": [
         "grass",
         "daisy"
       ],
-      "storyMotifs": [
-        "marker",
-        "bench"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.020202,
+      "weatherIntensity": 0.10895
     }
   },
   {
     "id": "QC004",
     "environmentPreset": "pines",
-    "lighting": "morning",
-    "contentHash": "8915cda32c07faa31f6dfab600f87d98a2e118d7a36d6fdd8ee088db87732d20",
+    "lighting": "day",
+    "contentHash": "e8b8b400ef9a745c02e5d40fa603efb8985fa12186ec8e0274c90fc06e49dfda",
     "ruleVersion": 2,
     "number": 4,
     "width": 6,
@@ -180,26 +177,25 @@
     "environment": {
       "biomeId": "forest",
       "seasonId": "spring",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.48,
-      "clusterSeed": -469925390,
+      "weatherId": "clear",
+      "moisture": 0.351876,
+      "treeDensity": 0.401626,
+      "clusterSeed": 31692,
       "meadowSpecies": [
         "grass",
         "daisy"
       ],
-      "storyMotifs": [
-        "marker",
-        "bench"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.030303,
+      "weatherIntensity": 0.119793
     }
   },
   {
     "id": "QC005",
     "environmentPreset": "pines",
-    "lighting": "evening",
-    "contentHash": "892768b9423b35e9fd5eb425a33ec9b0fce92f4d2511998c761a8d1a383bf66d",
+    "lighting": "day",
+    "contentHash": "b3243f18cc221e083a7e8f4d0e1c38578825269831229ae3f65aa1fb994f504f",
     "ruleVersion": 2,
     "number": 5,
     "width": 6,
@@ -236,25 +232,24 @@
       "biomeId": "forest",
       "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.48,
-      "clusterSeed": -556482859,
+      "moisture": 0.360607,
+      "treeDensity": 0.402885,
+      "clusterSeed": 31865,
       "meadowSpecies": [
         "grass",
         "daisy"
       ],
-      "storyMotifs": [
-        "marker",
-        "bench"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.040404,
+      "weatherIntensity": 0.134344
     }
   },
   {
     "id": "QC006",
     "environmentPreset": "meadow",
     "lighting": "day",
-    "contentHash": "277fa05d1084c89d13c1cd3974b1d200aaebbaf8c35cde6c5934def32d34ef8d",
+    "contentHash": "1e77babd0f73e80754a8c27e9bb2f14e81dea2703d946df7eed7ff75f802546a",
     "ruleVersion": 2,
     "number": 6,
     "width": 7,
@@ -320,28 +315,26 @@
     ],
     "environment": {
       "biomeId": "meadow",
-      "seasonId": "summer",
+      "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": -526254344,
+      "moisture": 0.371203,
+      "treeDensity": 0.404494,
+      "clusterSeed": 32038,
       "meadowSpecies": [
         "grass",
-        "poppy",
         "daisy"
       ],
-      "storyMotifs": [
-        "bag",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.050505,
+      "weatherIntensity": 0.152005
     }
   },
   {
     "id": "QC007",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "contentHash": "7d54113d6df37600c093ababc533f3a4fa0af4fc80d2217232f903d23d718eca",
+    "contentHash": "edb5a4b0791926c441d58e619d15f835b91a242546189ac2fc8a4310d18f2373",
     "ruleVersion": 2,
     "number": 7,
     "width": 6,
@@ -388,35 +381,27 @@
     "exteriorWalkable": [],
     "noise": [],
     "environment": {
-      "biomeId": "shore",
-      "seasonId": "summer",
-      "weatherId": "rain",
-      "moisture": 0.9,
-      "treeDensity": 0.55,
-      "clusterSeed": -379239845,
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.38323,
+      "treeDensity": 0.406447,
+      "clusterSeed": 32211,
       "meadowSpecies": [
         "grass",
-        "poppy",
         "daisy"
       ],
-      "storyMotifs": [
-        "bag",
-        "lantern"
-      ],
-      "shore": {
-        "kind": "stream",
-        "side": "left",
-        "offset": 7.1,
-        "width": 2.2,
-        "seed": 20340298
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.060606,
+      "weatherIntensity": 0.17205
     }
   },
   {
     "id": "QC008",
     "environmentPreset": "pines",
-    "lighting": "morning",
-    "contentHash": "b09b6a9b206f1f1da47a9fef326c18e523608943aee3623b4d015fb97536397f",
+    "lighting": "day",
+    "contentHash": "de3c469f92f3e44a0dbb394b4080a13c6860c94856635650f622042cd92e397b",
     "ruleVersion": 2,
     "number": 8,
     "width": 8,
@@ -471,28 +456,26 @@
     "noise": [],
     "environment": {
       "biomeId": "forest",
-      "seasonId": "summer",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.84,
-      "clusterSeed": -349011330,
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.396193,
+      "treeDensity": 0.408737,
+      "clusterSeed": 32384,
       "meadowSpecies": [
         "grass",
-        "poppy",
         "daisy"
       ],
-      "storyMotifs": [
-        "bag",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.070707,
+      "weatherIntensity": 0.193655
     }
   },
   {
     "id": "QC009",
     "environmentPreset": "meadow",
     "lighting": "day",
-    "contentHash": "6e3ad0e4a0b4e523ec8bbadac791b48b0a7357b2638d2fa6627507146cb597c1",
+    "contentHash": "1c3803aa4ba65a9b75c1c88f8086e61861c7bd7d7db09562e69dd559bc3c4375",
     "ruleVersion": 2,
     "number": 9,
     "width": 7,
@@ -565,28 +548,26 @@
     ],
     "environment": {
       "biomeId": "meadow",
-      "seasonId": "summer",
+      "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": -376147359,
+      "moisture": 0.409559,
+      "treeDensity": 0.411354,
+      "clusterSeed": 32557,
       "meadowSpecies": [
         "grass",
-        "poppy",
         "daisy"
       ],
-      "storyMotifs": [
-        "bag",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.080808,
+      "weatherIntensity": 0.215931
     }
   },
   {
     "id": "QC010",
-    "environmentPreset": "meadow",
-    "lighting": "evening",
-    "contentHash": "e5882608f42307895df476742801a858e9d15972e82f61d23bc5fe9a9493ccc5",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "76aeda96362229350da32043294337878144ad451607b6ce09464dba64d5da85",
     "ruleVersion": 2,
     "number": 10,
     "width": 7,
@@ -637,35 +618,27 @@
       ]
     ],
     "environment": {
-      "biomeId": "shore",
-      "seasonId": "summer",
+      "biomeId": "forest",
+      "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.55,
-      "clusterSeed": -462933372,
+      "moisture": 0.422778,
+      "treeDensity": 0.414287,
+      "clusterSeed": 32730,
       "meadowSpecies": [
         "grass",
-        "poppy",
         "daisy"
       ],
-      "storyMotifs": [
-        "bag",
-        "lantern"
-      ],
-      "shore": {
-        "kind": "stream",
-        "side": "right",
-        "offset": 7.6,
-        "width": 2.2,
-        "seed": 20316861
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.090909,
+      "weatherIntensity": 0.237964
     }
   },
   {
     "id": "gen:qc_camp:1",
     "environmentPreset": "pines",
     "lighting": "day",
-    "contentHash": "7a7943db83594883797a09ab4f50c93381dd2fc1c755c298b64a42e987af0085",
+    "contentHash": "22d758af5e6724b454ea844d0747a3d451f2d15a39addd4363df24f7e8f62633",
     "ruleVersion": 2,
     "number": 11,
     "width": 4,
@@ -706,28 +679,26 @@
     "noise": [],
     "environment": {
       "biomeId": "forest",
-      "seasonId": "summer",
+      "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": -432933401,
+      "moisture": 0.435308,
+      "treeDensity": 0.417526,
+      "clusterSeed": 32903,
       "meadowSpecies": [
         "grass",
-        "wheat",
         "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "bench"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.10101,
+      "weatherIntensity": 0.258847
     }
   },
   {
     "id": "gen:qc_camp:2",
     "environmentPreset": "meadow",
-    "lighting": "morning",
-    "contentHash": "2ab68a4dd9abee10eb9319b0ecc0a954ef42147ae8883e3ccb321d8bf4150026",
+    "lighting": "day",
+    "contentHash": "8c3cfa73628e978455a1494eabc729f9e0fc7e71a009a76d484d07c9dbe0a28f",
     "ruleVersion": 2,
     "number": 12,
     "width": 5,
@@ -793,28 +764,26 @@
     ],
     "environment": {
       "biomeId": "meadow",
-      "seasonId": "summer",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.25,
-      "clusterSeed": -285690358,
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.446634,
+      "treeDensity": 0.421056,
+      "clusterSeed": 33076,
       "meadowSpecies": [
         "grass",
-        "wheat",
         "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "bench"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.111111,
+      "weatherIntensity": 0.277723
     }
   },
   {
     "id": "gen:qc_camp:3",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "contentHash": "dac189423b430277d6578cf1acfe3ea37097e78cac83edf4940657f4650b4936",
+    "contentHash": "e00a9f20bde992f3ab248df486454d08c86b3194f574bd5d2bbe6e46200fc128",
     "ruleVersion": 2,
     "number": 13,
     "width": 6,
@@ -861,35 +830,27 @@
     "exteriorWalkable": [],
     "noise": [],
     "environment": {
-      "biomeId": "shore",
-      "seasonId": "summer",
-      "weatherId": "rain",
-      "moisture": 0.9,
-      "treeDensity": 0.55,
-      "clusterSeed": -255233299,
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.456289,
+      "treeDensity": 0.424864,
+      "clusterSeed": 33249,
       "meadowSpecies": [
         "grass",
-        "wheat",
         "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "bench"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "left",
-        "offset": 9.5,
-        "width": 7.0,
-        "seed": 20375024
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.121212,
+      "weatherIntensity": 0.293814
     }
   },
   {
     "id": "gen:qc_camp:4",
     "environmentPreset": "pines",
     "lighting": "day",
-    "contentHash": "866abf93e107d215bed848cdaf96c9fbe35dc8859e0725dcfdfdccda29607443",
+    "contentHash": "6bedb91950c7c648d7cdd55fa29c777547f38c503b4c6a229963ac2af94548cf",
     "ruleVersion": 2,
     "number": 14,
     "width": 6,
@@ -951,28 +912,26 @@
     "noise": [],
     "environment": {
       "biomeId": "forest",
-      "seasonId": "summer",
+      "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": -342247856,
+      "moisture": 0.463877,
+      "treeDensity": 0.428934,
+      "clusterSeed": 33422,
       "meadowSpecies": [
         "grass",
-        "wheat",
         "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "bench"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.131313,
+      "weatherIntensity": 0.306461
     }
   },
   {
     "id": "gen:qc_camp:5",
     "environmentPreset": "meadow",
-    "lighting": "evening",
-    "contentHash": "a44a1c3138c06318fed9dacd6bc0f03b38f0c016b01c3e917da03aecd0a69648",
+    "lighting": "day",
+    "contentHash": "4d683a37c7337bf6b64d8286fdb4f79070ff5c40fbddf273a571ef6d08bfaaf5",
     "ruleVersion": 2,
     "number": 15,
     "width": 8,
@@ -1024,28 +983,26 @@
     ],
     "environment": {
       "biomeId": "meadow",
-      "seasonId": "summer",
+      "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": -312019341,
+      "moisture": 0.469085,
+      "treeDensity": 0.43325,
+      "clusterSeed": 33595,
       "meadowSpecies": [
         "grass",
-        "wheat",
         "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "bench"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.141414,
+      "weatherIntensity": 0.315142
     }
   },
   {
     "id": "gen:qc_camp:6",
     "environmentPreset": "pines",
-    "lighting": "morning",
-    "contentHash": "f3184159fd69c05c9aaf3c8a84e89ef49a849d78d5d38c9990ac2a426ec849c2",
+    "lighting": "day",
+    "contentHash": "292b596f5f3d0639035e249a4e1c442df46546f3460ce86d3fcc51ab771379a1",
     "ruleVersion": 2,
     "number": 16,
     "width": 7,
@@ -1092,27 +1049,26 @@
     "noise": [],
     "environment": {
       "biomeId": "forest",
-      "seasonId": "autumn",
-      "weatherId": "mist",
-      "moisture": 0.82,
-      "treeDensity": 0.84,
-      "clusterSeed": -165461930,
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.471701,
+      "treeDensity": 0.437795,
+      "clusterSeed": 33768,
       "meadowSpecies": [
         "grass",
-        "wheat"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.151515,
+      "weatherIntensity": 0.319502
     }
   },
   {
     "id": "gen:qc_camp:7",
     "environmentPreset": "pines",
     "lighting": "day",
-    "contentHash": "e5355665da2c7526be7a027a9128c10dd2cb6e3c0b41f4240100b3709a0c9fcc",
+    "contentHash": "bdec1ef6f6643338e437f2ebbce7dffc13f548799ce56c17ae7050f66b91ac46",
     "ruleVersion": 2,
     "number": 17,
     "width": 5,
@@ -1180,27 +1136,26 @@
     "noise": [],
     "environment": {
       "biomeId": "forest",
-      "seasonId": "autumn",
-      "weatherId": "rain",
-      "moisture": 0.9,
-      "treeDensity": 0.84,
-      "clusterSeed": -135233415,
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.471616,
+      "treeDensity": 0.44255,
+      "clusterSeed": 33941,
       "meadowSpecies": [
         "grass",
-        "wheat"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.161616,
+      "weatherIntensity": 0.31936
     }
   },
   {
     "id": "gen:qc_camp:8",
     "environmentPreset": "meadow",
     "lighting": "day",
-    "contentHash": "4dc93c95d865f3f9395fa1bc17548879bc8b0736a4e5f96715862028b7041459",
+    "contentHash": "11e0ec902627734a46a66902cad84c736d96fba1a0e2442131133def9f1919b7",
     "ruleVersion": 2,
     "number": 18,
     "width": 8,
@@ -1251,130 +1206,28 @@
     ],
     "environment": {
       "biomeId": "meadow",
-      "seasonId": "autumn",
+      "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": -222247972,
+      "moisture": 0.468834,
+      "treeDensity": 0.447496,
+      "clusterSeed": 34114,
       "meadowSpecies": [
         "grass",
-        "wheat"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "marker"
-      ],
-      "shore": null
-    }
-  },
-  {
-    "id": "gen:qc_camp:9",
-    "environmentPreset": "meadow",
-    "lighting": "day",
-    "contentHash": "c707a973f2643edd693052a91a44e868d9c9ab52e7763b2217b3f5c04a71e086",
-    "ruleVersion": 2,
-    "number": 19,
-    "width": 7,
-    "height": 8,
-    "decorSeed": 20392726,
-    "shade": true,
-    "quiet": false,
-    "friends": true,
-    "fire": false,
-    "entry": [
-      3,
-      0
-    ],
-    "mapObjects": [
-      {
-        "assetId": "tree_default",
-        "x": 5,
-        "z": 5,
-        "rotation": 3
-      },
-      {
-        "assetId": "stone_largeA",
-        "x": 4,
-        "z": 3,
-        "rotation": 0
-      },
-      {
-        "assetId": "log",
-        "x": 0,
-        "z": 3,
-        "rotation": 1
-      }
-    ],
-    "accessPoints": [
-      {
-        "id": "trail-out",
-        "kind": "exit",
-        "x": 3,
-        "z": 7
-      }
-    ],
-    "canopies": [
-      {
-        "x": 1.25,
-        "z": 1.25,
-        "radiusX": 1.6,
-        "radiusZ": 1.6
-      }
-    ],
-    "exteriorWalkable": [
-      [
-        1,
-        -1
-      ],
-      [
-        2,
-        -1
-      ],
-      [
-        3,
-        -1
-      ],
-      [
-        4,
-        -1
-      ],
-      [
-        5,
-        -1
-      ]
-    ],
-    "noise": [],
-    "environment": {
-      "biomeId": "shore",
-      "seasonId": "autumn",
-      "weatherId": "rain",
-      "moisture": 0.9,
-      "treeDensity": 0.55,
-      "clusterSeed": -192019457,
-      "meadowSpecies": [
-        "grass",
-        "wheat"
-      ],
-      "storyMotifs": [
-        "ruin",
-        "marker"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "left",
-        "offset": 10.0,
-        "width": 7.0,
-        "seed": 20392726
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.171717,
+      "weatherIntensity": 0.314724
     }
   },
   {
     "id": "gen:qc_camp:10",
     "environmentPreset": "pines",
-    "lighting": "evening",
-    "contentHash": "50d17b120d5ea4f67ad27a5f6be3eca1a45836fc74cb995c54433637ada6ea38",
+    "lighting": "day",
+    "contentHash": "779e3e1cb58e2e935978fddd3c46cf40dcb0af59de897db8f90944478ff05ba5",
     "ruleVersion": 2,
-    "number": 20,
+    "number": 19,
     "width": 8,
     "height": 7,
     "decorSeed": 20434023,
@@ -1423,29 +1276,28 @@
     ],
     "environment": {
       "biomeId": "forest",
-      "seasonId": "autumn",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.84,
-      "clusterSeed": -44547870,
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.463469,
+      "treeDensity": 0.452613,
+      "clusterSeed": 34287,
       "meadowSpecies": [
         "grass",
-        "wheat"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.181818,
+      "weatherIntensity": 0.305782
     }
   },
   {
     "id": "gen:qc_camp:11",
     "environmentPreset": "pines",
     "lighting": "day",
-    "contentHash": "78424b2c4a6c27a5305faab163048067b2753382596a6a93f739282e01e11218",
+    "contentHash": "2f782b146c3cacb62b52611ecd8db7e27868b9d2c6407cf81e5b3c07537e1fc3",
     "ruleVersion": 2,
-    "number": 21,
+    "number": 20,
     "width": 6,
     "height": 6,
     "decorSeed": 20442488,
@@ -1506,29 +1358,29 @@
       ]
     ],
     "environment": {
-      "biomeId": "pines",
-      "seasonId": "winter",
-      "weatherId": "mist",
-      "moisture": 0.82,
-      "treeDensity": 0.8,
-      "clusterSeed": -14319355,
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.455742,
+      "treeDensity": 0.45788,
+      "clusterSeed": 34460,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "daisy"
       ],
-      "storyMotifs": [
-        "lantern",
-        "bench"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.191919,
+      "weatherIntensity": 0.292903
     }
   },
   {
     "id": "gen:qc_camp:12",
-    "environmentPreset": "pines",
+    "environmentPreset": "meadow",
     "lighting": "day",
-    "contentHash": "8cb4e8a373ad1576e4c0ca637fa2fe81d0293716a86ca7748e0d858d2bda99f2",
+    "contentHash": "08be17e8f0da7b1ab5716f46523a0d3deabf09691ce49b1650f656aec34b77b8",
     "ruleVersion": 2,
-    "number": 22,
+    "number": 21,
     "width": 6,
     "height": 8,
     "decorSeed": 20418121,
@@ -1593,29 +1445,29 @@
     ],
     "noise": [],
     "environment": {
-      "biomeId": "pines",
-      "seasonId": "winter",
+      "biomeId": "meadow",
+      "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.8,
-      "clusterSeed": -101333912,
+      "moisture": 0.44597,
+      "treeDensity": 0.463277,
+      "clusterSeed": 34633,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "daisy"
       ],
-      "storyMotifs": [
-        "lantern",
-        "bench"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.20202,
+      "weatherIntensity": 0.276617
     }
   },
   {
     "id": "gen:qc_camp:13",
     "environmentPreset": "pines",
     "lighting": "day",
-    "contentHash": "6e05700731c190dffa94b7423e50904ba0c7ac94776cd84ba69f80bc920a8c22",
+    "contentHash": "9f20b1d908e86207afaa5b8e362d11004b348f666ef8a965a214738d6d204f2e",
     "ruleVersion": 2,
-    "number": 23,
+    "number": 22,
     "width": 8,
     "height": 6,
     "decorSeed": 20426586,
@@ -1670,29 +1522,29 @@
       ]
     ],
     "environment": {
-      "biomeId": "pines",
-      "seasonId": "winter",
+      "biomeId": "forest",
+      "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.8,
-      "clusterSeed": -71105397,
+      "moisture": 0.434555,
+      "treeDensity": 0.468782,
+      "clusterSeed": 34806,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "daisy"
       ],
-      "storyMotifs": [
-        "lantern",
-        "bench"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.212121,
+      "weatherIntensity": 0.257592
     }
   },
   {
     "id": "gen:qc_camp:14",
-    "environmentPreset": "meadow",
-    "lighting": "morning",
-    "contentHash": "733e5ce205890a9e1463112546216b424ccced24041ed189bcdd7c23e06d4d31",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "dc17e113dad3d3fce239fe8a669acad17fe03b6246b2a03f774dfc77a6940a9a",
     "ruleVersion": 2,
-    "number": 24,
+    "number": 23,
     "width": 7,
     "height": 7,
     "decorSeed": 20468139,
@@ -1750,119 +1602,29 @@
     ],
     "noise": [],
     "environment": {
-      "biomeId": "shore",
-      "seasonId": "winter",
-      "weatherId": "mist",
-      "moisture": 0.82,
-      "treeDensity": 0.55,
-      "clusterSeed": 77280366,
-      "meadowSpecies": [
-        "grass"
-      ],
-      "storyMotifs": [
-        "lantern",
-        "bench"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "left",
-        "offset": 10.0,
-        "width": 7.0,
-        "seed": 20468139
-      }
-    }
-  },
-  {
-    "id": "gen:qc_camp:15",
-    "environmentPreset": "pines",
-    "lighting": "evening",
-    "contentHash": "1ad6a94b21ac15308a218e95c86e2b4a99f238f926f4e9767c7cc0733bd4ab86",
-    "ruleVersion": 2,
-    "number": 25,
-    "width": 8,
-    "height": 8,
-    "decorSeed": 20476604,
-    "shade": true,
-    "quiet": true,
-    "friends": false,
-    "fire": true,
-    "entry": [
-      4,
-      7
-    ],
-    "mapObjects": [
-      {
-        "assetId": "campfire_stones",
-        "x": 7,
-        "z": 0,
-        "rotation": 1
-      },
-      {
-        "assetId": "stump_round",
-        "x": 3,
-        "z": 3,
-        "rotation": 2
-      },
-      {
-        "assetId": "tree_default",
-        "x": 1,
-        "z": 6,
-        "rotation": 3
-      },
-      {
-        "assetId": "stone_largeA",
-        "x": 2,
-        "z": 7,
-        "rotation": 0
-      }
-    ],
-    "accessPoints": [
-      {
-        "id": "trail-out",
-        "kind": "exit",
-        "x": 4,
-        "z": 0
-      }
-    ],
-    "canopies": [
-      {
-        "x": 1.25,
-        "z": 1.25,
-        "radiusX": 1.6,
-        "radiusZ": 1.6
-      }
-    ],
-    "exteriorWalkable": [],
-    "noise": [
-      [
-        7,
-        0
-      ]
-    ],
-    "environment": {
-      "biomeId": "pines",
-      "seasonId": "winter",
+      "biomeId": "forest",
+      "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.8,
-      "clusterSeed": 107508881,
+      "moisture": 0.421967,
+      "treeDensity": 0.474372,
+      "clusterSeed": 34979,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "daisy"
       ],
-      "storyMotifs": [
-        "lantern",
-        "bench"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.222222,
+      "weatherIntensity": 0.236611
     }
   },
   {
     "id": "gen:qc_camp:16",
-    "environmentPreset": "pines",
+    "environmentPreset": "meadow",
     "lighting": "day",
-    "contentHash": "d79ca27056a87df47bdfd7db2c602857dcafa63cb544bf544ea371c75aeddee2",
+    "contentHash": "17d646a1f9d3d1e273408c7e453f8accddad2130702778b961890d8cbcd0a021",
     "ruleVersion": 2,
-    "number": 26,
+    "number": 24,
     "width": 5,
     "height": 7,
     "decorSeed": 20452237,
@@ -1899,133 +1661,29 @@
     "exteriorWalkable": [],
     "noise": [],
     "environment": {
-      "biomeId": "forest",
-      "seasonId": "spring",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": 20494324,
-      "meadowSpecies": [
-        "grass",
-        "daisy",
-        "poppy"
-      ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
-    }
-  },
-  {
-    "id": "gen:qc_camp:17",
-    "environmentPreset": "meadow",
-    "lighting": "day",
-    "contentHash": "cc092a1ab7bd85ecc3ff7e08e67fd387d5da264db6e4d365f01596e19acf0bc2",
-    "ruleVersion": 2,
-    "number": 27,
-    "width": 7,
-    "height": 5,
-    "decorSeed": 20460702,
-    "shade": false,
-    "quiet": true,
-    "friends": true,
-    "fire": true,
-    "entry": [
-      3,
-      0
-    ],
-    "mapObjects": [
-      {
-        "assetId": "campfire_stones",
-        "x": 6,
-        "z": 0,
-        "rotation": 3
-      },
-      {
-        "assetId": "stone_largeA",
-        "x": 6,
-        "z": 2,
-        "rotation": 0
-      },
-      {
-        "assetId": "log",
-        "x": 0,
-        "z": 1,
-        "rotation": 1
-      },
-      {
-        "assetId": "stump_round",
-        "x": 5,
-        "z": 3,
-        "rotation": 2
-      }
-    ],
-    "accessPoints": [
-      {
-        "id": "trail-out",
-        "kind": "exit",
-        "x": 3,
-        "z": 4
-      }
-    ],
-    "canopies": [],
-    "exteriorWalkable": [
-      [
-        1,
-        -1
-      ],
-      [
-        2,
-        -1
-      ],
-      [
-        3,
-        -1
-      ],
-      [
-        4,
-        -1
-      ],
-      [
-        5,
-        -1
-      ]
-    ],
-    "noise": [
-      [
-        6,
-        0
-      ]
-    ],
-    "environment": {
       "biomeId": "meadow",
-      "seasonId": "spring",
+      "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": 50722839,
+      "moisture": 0.408722,
+      "treeDensity": 0.480025,
+      "clusterSeed": 35152,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.232323,
+      "weatherIntensity": 0.214537
     }
   },
   {
     "id": "gen:qc_camp:18",
     "environmentPreset": "pines",
-    "lighting": "morning",
-    "contentHash": "19fa739c45413cceb22e5a3b463170ea27eb950e5a6c482107bf89e226a9883d",
+    "lighting": "day",
+    "contentHash": "51d05b0e42b8282c94e6fe2e93ff9f60121e76341f5f462b27fec2c1f6b0f132",
     "ruleVersion": 2,
-    "number": 28,
+    "number": 25,
     "width": 6,
     "height": 8,
     "decorSeed": 20501999,
@@ -2077,31 +1735,28 @@
     "noise": [],
     "environment": {
       "biomeId": "forest",
-      "seasonId": "spring",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.84,
-      "clusterSeed": 198194426,
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.395365,
+      "treeDensity": 0.485718,
+      "clusterSeed": 35325,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.242424,
+      "weatherIntensity": 0.192275
     }
   },
   {
     "id": "gen:qc_camp:19",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "contentHash": "cd935b0c89542bebc2582a8838ded4ed8ce08d1ac250f587a4495f6f93c73eb7",
+    "contentHash": "e869348f9e0bb9f43e22d25856d3b6df7032cac52c0fc2a0f29b60b0289fa2e0",
     "ruleVersion": 2,
-    "number": 29,
+    "number": 26,
     "width": 8,
     "height": 6,
     "decorSeed": 20510400,
@@ -2166,38 +1821,29 @@
     ],
     "noise": [],
     "environment": {
-      "biomeId": "shore",
-      "seasonId": "spring",
-      "weatherId": "mist",
-      "moisture": 0.82,
-      "treeDensity": 0.55,
-      "clusterSeed": 228194397,
+      "biomeId": "forest",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.382446,
+      "treeDensity": 0.491428,
+      "clusterSeed": 35498,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "left",
-        "offset": 10.5,
-        "width": 7.0,
-        "seed": 20510400
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.252525,
+      "weatherIntensity": 0.170743
     }
   },
   {
     "id": "gen:qc_camp:20",
     "environmentPreset": "meadow",
-    "lighting": "evening",
-    "contentHash": "d48e7d7a208928c38bf422b3d61947387ab047840f859548a90f2ceb2e597d40",
+    "lighting": "day",
+    "contentHash": "8ff618571c4b36ae01c51f673e3a0efccbf7d9c5cad4afcc9a907a4b2803436d",
     "ruleVersion": 2,
-    "number": 30,
+    "number": 27,
     "width": 8,
     "height": 8,
     "decorSeed": 20486097,
@@ -2266,30 +1912,35 @@
       ]
     ],
     "environment": {
-      "biomeId": "meadow",
-      "seasonId": "spring",
+      "biomeId": "shore",
+      "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": 141408384,
+      "moisture": 0.370494,
+      "treeDensity": 0.497132,
+      "clusterSeed": 35671,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": {
+        "kind": "stream",
+        "side": "back",
+        "offset": 9.6,
+        "width": 2.4,
+        "seed": 31351
+      },
+      "seasonTimeline": 0.262626,
+      "weatherIntensity": 0.150824
     }
   },
   {
     "id": "gen:qc_camp:21",
     "environmentPreset": "pines",
     "lighting": "day",
-    "number": 31,
+    "contentHash": "15970b2da75cf96001ebd08539d62bf9ccf3efcb1cc0e7fac34cb597a813bb52",
+    "ruleVersion": 2,
+    "number": 28,
     "width": 5,
     "height": 5,
     "decorSeed": 20494370,
@@ -2338,31 +1989,31 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
       "biomeId": "forest",
-      "seasonId": "spring",
+      "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": 170951267,
+      "moisture": 0.360003,
+      "treeDensity": 0.502808,
+      "clusterSeed": 35844,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.272727,
+      "weatherIntensity": 0.133338
     }
   },
   {
     "id": "gen:qc_camp:22",
-    "environmentPreset": "meadow",
-    "lighting": "morning",
-    "number": 32,
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "2ca56618b35a17c49f359fb7b8155b66aae53615afd57962f71bc2ce4ed9c901",
+    "ruleVersion": 2,
+    "number": 29,
     "width": 5,
     "height": 6,
     "decorSeed": 20535603,
@@ -2418,37 +2069,31 @@
         5
       ]
     ],
+    "noise": [],
     "environment": {
-      "biomeId": "shore",
-      "seasonId": "spring",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.55,
-      "clusterSeed": 318194310,
+      "biomeId": "forest",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.351402,
+      "treeDensity": 0.508433,
+      "clusterSeed": 36017,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "left",
-        "offset": 9.0,
-        "width": 7.0,
-        "seed": 20535603
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.282828,
+      "weatherIntensity": 0.119003
     }
   },
   {
     "id": "gen:qc_camp:23",
     "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 33,
+    "contentHash": "8f333b2e7154b7b41e97e0ba4e02668c8fab7a0fd0563268f1ebc3c0215446b7",
+    "ruleVersion": 2,
+    "number": 30,
     "width": 6,
     "height": 5,
     "decorSeed": 20544004,
@@ -2496,31 +2141,36 @@
     ],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [
+      [
+        5,
+        0
+      ]
+    ],
     "environment": {
       "biomeId": "meadow",
-      "seasonId": "spring",
+      "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": 348194281,
+      "moisture": 0.345046,
+      "treeDensity": 0.513983,
+      "clusterSeed": 36190,
       "meadowSpecies": [
         "grass",
-        "daisy",
         "poppy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.292929,
+      "weatherIntensity": 0.10841
     }
   },
   {
     "id": "gen:qc_camp:24",
     "environmentPreset": "pines",
     "lighting": "day",
-    "number": 34,
+    "contentHash": "8f7ee63ae54df352b8552d7ccfbc6ae105acf044cb55e8e88bffad22e8df1759",
+    "ruleVersion": 2,
+    "number": 31,
     "width": 6,
     "height": 6,
     "decorSeed": 20519701,
@@ -2562,31 +2212,31 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
       "biomeId": "forest",
-      "seasonId": "spring",
+      "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": 261408268,
+      "moisture": 0.341196,
+      "treeDensity": 0.519436,
+      "clusterSeed": 36363,
       "meadowSpecies": [
         "grass",
-        "daisy",
         "poppy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.30303,
+      "weatherIntensity": 0.101994
     }
   },
   {
     "id": "gen:qc_camp:25",
     "environmentPreset": "pines",
-    "lighting": "evening",
-    "number": 35,
+    "lighting": "day",
+    "contentHash": "f7e866087b9f527f200425c466847362192c5733ae425458af4e99533056e188",
+    "ruleVersion": 2,
+    "number": 32,
     "width": 6,
     "height": 7,
     "decorSeed": 20528230,
@@ -2655,31 +2305,31 @@
         -1
       ]
     ],
+    "noise": [],
     "environment": {
       "biomeId": "forest",
-      "seasonId": "spring",
+      "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": 291865327,
+      "moisture": 0.340012,
+      "treeDensity": 0.524771,
+      "clusterSeed": 36536,
       "meadowSpecies": [
         "grass",
-        "daisy",
         "poppy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.313131,
+      "weatherIntensity": 0.10002
     }
   },
   {
     "id": "gen:qc_camp:26",
     "environmentPreset": "meadow",
-    "lighting": "morning",
-    "number": 36,
+    "lighting": "day",
+    "contentHash": "aca9cff5e6ef4a1c75fe0435ea396ea482052243919c20d95d1dc58bc58c034f",
+    "ruleVersion": 2,
+    "number": 33,
     "width": 7,
     "height": 6,
     "decorSeed": 20569463,
@@ -2720,31 +2370,36 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [
+      [
+        6,
+        0
+      ]
+    ],
     "environment": {
       "biomeId": "meadow",
-      "seasonId": "spring",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.25,
-      "clusterSeed": 439108370,
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.341543,
+      "treeDensity": 0.529966,
+      "clusterSeed": 36709,
       "meadowSpecies": [
         "grass",
-        "daisy",
         "poppy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.323232,
+      "weatherIntensity": 0.102571
     }
   },
   {
     "id": "gen:qc_camp:27",
     "environmentPreset": "pines",
     "lighting": "day",
-    "number": 37,
+    "contentHash": "2805174ddaef2d6e550d46d03f7fb8f4ec90f7d9870ecfa8849fe2f6a7a3933f",
+    "ruleVersion": 2,
+    "number": 34,
     "width": 6,
     "height": 8,
     "decorSeed": 20577864,
@@ -2793,31 +2448,31 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
       "biomeId": "forest",
-      "seasonId": "spring",
+      "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": 469108341,
+      "moisture": 0.345728,
+      "treeDensity": 0.535,
+      "clusterSeed": 36882,
       "meadowSpecies": [
         "grass",
-        "daisy",
         "poppy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.333333,
+      "weatherIntensity": 0.109546
     }
   },
   {
     "id": "gen:qc_camp:28",
     "environmentPreset": "pines",
     "lighting": "day",
-    "number": 38,
+    "contentHash": "2c2dc57c63a867d607aa8d4c7a6655931bc606b6fa2d79b50ba6e2bd6329d4ba",
+    "ruleVersion": 2,
+    "number": 35,
     "width": 8,
     "height": 6,
     "decorSeed": 20553561,
@@ -2873,31 +2528,31 @@
         5
       ]
     ],
+    "noise": [],
     "environment": {
       "biomeId": "forest",
-      "seasonId": "spring",
+      "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": 382322328,
+      "moisture": 0.352398,
+      "treeDensity": 0.539853,
+      "clusterSeed": 37055,
       "meadowSpecies": [
         "grass",
-        "daisy",
         "poppy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.343434,
+      "weatherIntensity": 0.120663
     }
   },
   {
     "id": "gen:qc_camp:29",
     "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 39,
+    "contentHash": "9be5b4b0236b2a82499e04602dbfe0a47549637da6ed97858364c13b6d3eb03b",
+    "ruleVersion": 2,
+    "number": 36,
     "width": 7,
     "height": 7,
     "decorSeed": 20545962,
@@ -2939,31 +2594,37 @@
     ],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "meadow",
-      "seasonId": "spring",
+      "biomeId": "shore",
+      "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": 355186299,
+      "moisture": 0.361285,
+      "treeDensity": 0.544505,
+      "clusterSeed": 37228,
       "meadowSpecies": [
         "grass",
-        "daisy",
         "poppy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": {
+        "kind": "stream",
+        "side": "left",
+        "offset": 9.1,
+        "width": 2.4,
+        "seed": 31468
+      },
+      "seasonTimeline": 0.353535,
+      "weatherIntensity": 0.135474
     }
   },
   {
     "id": "gen:qc_camp:30",
     "environmentPreset": "meadow",
-    "lighting": "evening",
-    "number": 40,
+    "lighting": "day",
+    "contentHash": "03437023719520b5508c40447376e4c082502038c2753dacdbdedb30d2fc8488",
+    "ruleVersion": 2,
+    "number": 37,
     "width": 7,
     "height": 8,
     "decorSeed": 20554427,
@@ -3011,37 +2672,42 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [
+      [
+        6,
+        0
+      ]
+    ],
     "environment": {
       "biomeId": "shore",
-      "seasonId": "spring",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.55,
-      "clusterSeed": 385414814,
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.372031,
+      "treeDensity": 0.548937,
+      "clusterSeed": 37401,
       "meadowSpecies": [
         "grass",
-        "daisy",
         "poppy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
+      "storyMotifs": [],
       "shore": {
-        "kind": "lake",
+        "kind": "stream",
         "side": "left",
-        "offset": 10.0,
-        "width": 7.0,
-        "seed": 20554427
-      }
+        "offset": 9.1,
+        "width": 2.4,
+        "seed": 31481
+      },
+      "seasonTimeline": 0.363636,
+      "weatherIntensity": 0.153385
     }
   },
   {
     "id": "gen:qc_camp:31",
-    "environmentPreset": "pines",
+    "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 41,
+    "contentHash": "17094630b330632d3de9b8f16f17ce7959c8a44e14fff20dbe526cd8585e6f69",
+    "ruleVersion": 2,
+    "number": 38,
     "width": 4,
     "height": 6,
     "decorSeed": 20595596,
@@ -3100,31 +2766,37 @@
         6
       ]
     ],
+    "noise": [],
     "environment": {
-      "biomeId": "forest",
-      "seasonId": "spring",
+      "biomeId": "shore",
+      "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": 532429313,
+      "moisture": 0.384207,
+      "treeDensity": 0.553133,
+      "clusterSeed": 37574,
       "meadowSpecies": [
         "grass",
-        "daisy",
         "poppy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": {
+        "kind": "stream",
+        "side": "left",
+        "offset": 7.6,
+        "width": 2.4,
+        "seed": 31494
+      },
+      "seasonTimeline": 0.373737,
+      "weatherIntensity": 0.173679
     }
   },
   {
     "id": "gen:qc_camp:32",
     "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 42,
+    "contentHash": "1d2df57a0f8b29f71d89d4b21ca969cba3039659adf8c0bbf981beed2db77edd",
+    "ruleVersion": 2,
+    "number": 39,
     "width": 5,
     "height": 7,
     "decorSeed": 20604061,
@@ -3166,37 +2838,31 @@
     ],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "shore",
-      "seasonId": "spring",
+      "biomeId": "meadow",
+      "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.55,
-      "clusterSeed": 562657828,
+      "moisture": 0.397333,
+      "treeDensity": 0.557074,
+      "clusterSeed": 37747,
       "meadowSpecies": [
         "grass",
-        "daisy",
         "poppy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "right",
-        "offset": 9.0,
-        "width": 7.0,
-        "seed": 20604061
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.383838,
+      "weatherIntensity": 0.195555
     }
   },
   {
     "id": "gen:qc_camp:55",
     "environmentPreset": "pines",
     "lighting": "day",
-    "number": 43,
+    "contentHash": "c8fa59221b4a775a44f2ebad5c3ee79970852d2416af7af55253da8847cf8fb2",
+    "ruleVersion": 2,
+    "number": 40,
     "width": 6,
     "height": 5,
     "decorSeed": -720131289,
@@ -3245,31 +2911,31 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
       "biomeId": "forest",
-      "seasonId": "spring",
+      "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": 1096577314,
+      "moisture": 0.410897,
+      "treeDensity": 0.560745,
+      "clusterSeed": 37920,
       "meadowSpecies": [
         "grass",
-        "daisy",
         "poppy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.393939,
+      "weatherIntensity": 0.218161
     }
   },
   {
     "id": "gen:qc_camp:56",
     "environmentPreset": "pines",
-    "lighting": "morning",
-    "number": 44,
+    "lighting": "day",
+    "contentHash": "ab4c3e9ee72131e9404254036cfc1e7f2814d5a59711b45a167e819b4f3c296a",
+    "ruleVersion": 2,
+    "number": 41,
     "width": 6,
     "height": 8,
     "decorSeed": -720090057,
@@ -3304,31 +2970,31 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
       "biomeId": "forest",
-      "seasonId": "spring",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.84,
-      "clusterSeed": 1243816786,
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.424382,
+      "treeDensity": 0.564131,
+      "clusterSeed": 38093,
       "meadowSpecies": [
         "grass",
-        "daisy",
         "poppy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.40404,
+      "weatherIntensity": 0.240637
     }
   },
   {
     "id": "gen:qc_camp:57",
     "environmentPreset": "meadow",
-    "lighting": "evening",
-    "number": 45,
+    "lighting": "day",
+    "contentHash": "79e6b7a8859921b3d4407fc86cb0694332e1ea375f9a2c8bdb2cbb3ac08e0e1e",
+    "ruleVersion": 2,
+    "number": 42,
     "width": 8,
     "height": 6,
     "decorSeed": -720081657,
@@ -3370,31 +3036,31 @@
     ],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
       "biomeId": "meadow",
-      "seasonId": "spring",
+      "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": 1273813186,
+      "moisture": 0.437292,
+      "treeDensity": 0.567219,
+      "clusterSeed": 38266,
       "meadowSpecies": [
         "grass",
-        "daisy",
         "poppy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.414141,
+      "weatherIntensity": 0.262154
     }
   },
   {
     "id": "gen:qc_camp:58",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "number": 46,
+    "contentHash": "b455ae4231e29f494f58f7231ea1612bd74f1b241655bbb79409b24793cf37d7",
+    "ruleVersion": 2,
+    "number": 43,
     "width": 7,
     "height": 7,
     "decorSeed": -720105961,
@@ -3436,122 +3102,31 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "meadow",
+      "biomeId": "forest",
       "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": 1187023602,
+      "moisture": 0.449177,
+      "treeDensity": 0.569995,
+      "clusterSeed": 38439,
       "meadowSpecies": [
         "grass",
-        "wheat",
-        "daisy"
+        "poppy"
       ],
-      "storyMotifs": [
-        "bag",
-        "repaired-marker"
-      ],
-      "shore": null
-    }
-  },
-  {
-    "id": "gen:qc_camp:59",
-    "environmentPreset": "meadow",
-    "lighting": "day",
-    "number": 47,
-    "width": 5,
-    "height": 8,
-    "decorSeed": -720097433,
-    "shade": false,
-    "quiet": true,
-    "friends": true,
-    "fire": true,
-    "entry": [
-      2,
-      0
-    ],
-    "mapObjects": [
-      {
-        "assetId": "campfire_stones",
-        "x": 4,
-        "z": 0,
-        "rotation": 3
-      },
-      {
-        "assetId": "stone_largeA",
-        "x": 4,
-        "z": 3,
-        "rotation": 0
-      },
-      {
-        "assetId": "log",
-        "x": 0,
-        "z": 2,
-        "rotation": 1
-      },
-      {
-        "assetId": "stump_round",
-        "x": 4,
-        "z": 2,
-        "rotation": 2
-      }
-    ],
-    "accessPoints": [
-      {
-        "id": "trail-out",
-        "kind": "exit",
-        "x": 2,
-        "z": 7
-      }
-    ],
-    "canopies": [],
-    "exteriorWalkable": [
-      [
-        0,
-        -1
-      ],
-      [
-        1,
-        -1
-      ],
-      [
-        2,
-        -1
-      ],
-      [
-        3,
-        -1
-      ],
-      [
-        4,
-        -1
-      ]
-    ],
-    "environment": {
-      "biomeId": "meadow",
-      "seasonId": "summer",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": 1217477090,
-      "meadowSpecies": [
-        "grass",
-        "wheat",
-        "daisy"
-      ],
-      "storyMotifs": [
-        "bag",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.424242,
+      "weatherIntensity": 0.281962
     }
   },
   {
     "id": "gen:qc_camp:60",
-    "environmentPreset": "meadow",
-    "lighting": "morning",
-    "number": 48,
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "92e7e061156aefd477cca09f7a96fcbb03c209cf0d248a5553c6a1d8ee0d85e2",
+    "ruleVersion": 2,
+    "number": 44,
     "width": 8,
     "height": 5,
     "decorSeed": -720056222,
@@ -3586,36 +3161,31 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "shore",
+      "biomeId": "forest",
       "seasonId": "summer",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.55,
-      "clusterSeed": 1364641571,
+      "weatherId": "clear",
+      "moisture": 0.459654,
+      "treeDensity": 0.57245,
+      "clusterSeed": 38612,
       "meadowSpecies": [
         "grass",
-        "wheat",
-        "daisy"
+        "poppy"
       ],
-      "storyMotifs": [
-        "bag",
-        "repaired-marker"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "left",
-        "offset": 10.5,
-        "width": 7.0,
-        "seed": -720056222
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.434343,
+      "weatherIntensity": 0.299423
     }
   },
   {
     "id": "gen:qc_camp:61",
     "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 49,
+    "contentHash": "211cee6cabb2fbbe8cfc41e3bb166bed98357a05f75c27222536cd3df21f1129",
+    "ruleVersion": 2,
+    "number": 45,
     "width": 7,
     "height": 8,
     "decorSeed": -720047758,
@@ -3691,30 +3261,31 @@
         8
       ]
     ],
+    "noise": [],
     "environment": {
       "biomeId": "meadow",
       "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": 1394866515,
+      "moisture": 0.468432,
+      "treeDensity": 0.574572,
+      "clusterSeed": 38785,
       "meadowSpecies": [
         "grass",
-        "wheat",
-        "daisy"
+        "poppy"
       ],
-      "storyMotifs": [
-        "bag",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.444444,
+      "weatherIntensity": 0.314054
     }
   },
   {
     "id": "gen:qc_camp:62",
-    "environmentPreset": "meadow",
-    "lighting": "evening",
-    "number": 50,
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "9f1b2934435a29875d803301dbd6455d32b632c06a4edf2f6c1e7d79a402446f",
+    "ruleVersion": 2,
+    "number": 46,
     "width": 8,
     "height": 7,
     "decorSeed": -720072126,
@@ -3749,30 +3320,31 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "meadow",
+      "biomeId": "forest",
       "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": 1307848387,
+      "moisture": 0.47533,
+      "treeDensity": 0.576354,
+      "clusterSeed": 38958,
       "meadowSpecies": [
         "grass",
-        "wheat",
-        "daisy"
+        "poppy"
       ],
-      "storyMotifs": [
-        "bag",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.454545,
+      "weatherIntensity": 0.325551
     }
   },
   {
     "id": "gen:qc_camp:63",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "number": 51,
+    "contentHash": "9f3fe5d37a80b8b3113ffcf4391af74ce33ad63081190830b8f7f460d094cfad",
+    "ruleVersion": 2,
+    "number": 47,
     "width": 6,
     "height": 6,
     "decorSeed": -720063662,
@@ -3814,36 +3386,31 @@
     ],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "shore",
-      "seasonId": "autumn",
+      "biomeId": "forest",
+      "seasonId": "summer",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.55,
-      "clusterSeed": 1338073331,
+      "moisture": 0.480286,
+      "treeDensity": 0.577789,
+      "clusterSeed": 39131,
       "meadowSpecies": [
         "grass",
-        "daisy",
         "poppy"
       ],
-      "storyMotifs": [
-        "marker",
-        "bag"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "left",
-        "offset": 9.5,
-        "width": 7.0,
-        "seed": -720063662
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.464646,
+      "weatherIntensity": 0.33381
     }
   },
   {
     "id": "gen:qc_camp:64",
-    "environmentPreset": "pines",
-    "lighting": "morning",
-    "number": 52,
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "8dab4c34abe1c5fd822959f20e96e28a2ad0904708b6e70c1d87bc034fb06b52",
+    "ruleVersion": 2,
+    "number": 48,
     "width": 6,
     "height": 8,
     "decorSeed": -720022110,
@@ -3891,30 +3458,36 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [
+      [
+        5,
+        0
+      ]
+    ],
     "environment": {
-      "biomeId": "forest",
-      "seasonId": "autumn",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.84,
-      "clusterSeed": 1486455523,
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.483363,
+      "treeDensity": 0.578869,
+      "clusterSeed": 39304,
       "meadowSpecies": [
         "grass",
-        "daisy",
         "poppy"
       ],
-      "storyMotifs": [
-        "marker",
-        "bag"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.474747,
+      "weatherIntensity": 0.338939
     }
   },
   {
     "id": "gen:qc_camp:65",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "number": 53,
+    "contentHash": "69bc1f7deefe43ba11ae8a96f79eae70a88f04b70be4df737160cdf81140d3da",
+    "ruleVersion": 2,
+    "number": 49,
     "width": 8,
     "height": 6,
     "decorSeed": -720013646,
@@ -3977,36 +3550,31 @@
         6
       ]
     ],
+    "noise": [],
     "environment": {
-      "biomeId": "shore",
+      "biomeId": "forest",
       "seasonId": "autumn",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.55,
-      "clusterSeed": 1516680467,
+      "moisture": 0.484749,
+      "treeDensity": 0.579592,
+      "clusterSeed": 39477,
       "meadowSpecies": [
         "grass",
-        "daisy",
         "poppy"
       ],
-      "storyMotifs": [
-        "marker",
-        "bag"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "left",
-        "offset": 10.5,
-        "width": 7.0,
-        "seed": -720013646
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.484848,
+      "weatherIntensity": 0.341249
     }
   },
   {
     "id": "gen:qc_camp:66",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "number": 54,
+    "contentHash": "0582ab6aa0da3e86cfa2475a728c0a3803477de3181db8d58f1790f92876c3df",
+    "ruleVersion": 2,
+    "number": 50,
     "width": 7,
     "height": 7,
     "decorSeed": -720038014,
@@ -4041,108 +3609,31 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
-    "environment": {
-      "biomeId": "shore",
-      "seasonId": "autumn",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.55,
-      "clusterSeed": 1429662339,
-      "meadowSpecies": [
-        "grass",
-        "daisy",
-        "poppy"
-      ],
-      "storyMotifs": [
-        "marker",
-        "bag"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "right",
-        "offset": 10.0,
-        "width": 7.0,
-        "seed": -720038014
-      }
-    }
-  },
-  {
-    "id": "gen:qc_camp:67",
-    "environmentPreset": "pines",
-    "lighting": "evening",
-    "number": 55,
-    "width": 8,
-    "height": 8,
-    "decorSeed": -720029550,
-    "shade": true,
-    "quiet": false,
-    "friends": true,
-    "fire": false,
-    "entry": [
-      4,
-      0
-    ],
-    "mapObjects": [
-      {
-        "assetId": "tree_default",
-        "x": 7,
-        "z": 2,
-        "rotation": 3
-      },
-      {
-        "assetId": "stone_largeA",
-        "x": 2,
-        "z": 6,
-        "rotation": 0
-      },
-      {
-        "assetId": "log",
-        "x": 6,
-        "z": 3,
-        "rotation": 1
-      }
-    ],
-    "accessPoints": [
-      {
-        "id": "trail-out",
-        "kind": "exit",
-        "x": 4,
-        "z": 7
-      }
-    ],
-    "canopies": [
-      {
-        "x": 1.25,
-        "z": 1.25,
-        "radiusX": 1.6,
-        "radiusZ": 1.6
-      }
-    ],
-    "exteriorWalkable": [],
+    "noise": [],
     "environment": {
       "biomeId": "forest",
       "seasonId": "autumn",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": 1459887283,
+      "moisture": 0.484745,
+      "treeDensity": 0.579955,
+      "clusterSeed": 39650,
       "meadowSpecies": [
         "grass",
-        "daisy",
         "poppy"
       ],
-      "storyMotifs": [
-        "marker",
-        "bag"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.494949,
+      "weatherIntensity": 0.341241
     }
   },
   {
     "id": "gen:qc_camp:68",
     "environmentPreset": "meadow",
-    "lighting": "morning",
-    "number": 56,
+    "lighting": "day",
+    "contentHash": "252366346d359c50fbbb71366307e2a4b0b924eb1b5ef5a6b0791a0d4f878ece",
+    "ruleVersion": 2,
+    "number": 51,
     "width": 5,
     "height": 7,
     "decorSeed": -719988254,
@@ -4184,36 +3675,37 @@
     ],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
       "biomeId": "shore",
       "seasonId": "autumn",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.55,
-      "clusterSeed": 1607355299,
+      "weatherId": "clear",
+      "moisture": 0.483741,
+      "treeDensity": 0.579955,
+      "clusterSeed": 39823,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "bag"
-      ],
+      "storyMotifs": [],
       "shore": {
-        "kind": "lake",
+        "kind": "stream",
         "side": "left",
-        "offset": 9.0,
-        "width": 7.0,
-        "seed": -719988254
-      }
+        "offset": 8.1,
+        "width": 2.4,
+        "seed": 31663
+      },
+      "seasonTimeline": 0.505051,
+      "weatherIntensity": 0.339569
     }
   },
   {
     "id": "gen:qc_camp:69",
     "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 57,
+    "contentHash": "c3ce3f3422d083dc00fa8d99862c5e8f769bd6b8c026fb4495b5608808c94210",
+    "ruleVersion": 2,
+    "number": 52,
     "width": 7,
     "height": 5,
     "decorSeed": -719979790,
@@ -4282,36 +3774,42 @@
         5
       ]
     ],
+    "noise": [
+      [
+        6,
+        0
+      ]
+    ],
     "environment": {
       "biomeId": "shore",
       "seasonId": "autumn",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.55,
-      "clusterSeed": 1637580243,
+      "moisture": 0.482198,
+      "treeDensity": 0.579592,
+      "clusterSeed": 39996,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "bag"
-      ],
+      "storyMotifs": [],
       "shore": {
-        "kind": "lake",
+        "kind": "stream",
         "side": "left",
-        "offset": 10.0,
-        "width": 7.0,
-        "seed": -719979790
-      }
+        "offset": 9.1,
+        "width": 2.4,
+        "seed": 31676
+      },
+      "seasonTimeline": 0.515152,
+      "weatherIntensity": 0.336996
     }
   },
   {
     "id": "gen:qc_camp:70",
-    "environmentPreset": "pines",
+    "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 58,
+    "contentHash": "9213459faac3760365157854bd57058bb56d4e6484a417a4ccb1fd0b521a8ebf",
+    "ruleVersion": 2,
+    "number": 53,
     "width": 6,
     "height": 8,
     "decorSeed": -720004115,
@@ -4353,123 +3851,37 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "forest",
+      "biomeId": "shore",
       "seasonId": "autumn",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": 1550715668,
+      "moisture": 0.480602,
+      "treeDensity": 0.578869,
+      "clusterSeed": 40169,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "bag"
-      ],
-      "shore": null
-    }
-  },
-  {
-    "id": "gen:qc_camp:71",
-    "environmentPreset": "meadow",
-    "lighting": "day",
-    "number": 59,
-    "width": 8,
-    "height": 6,
-    "decorSeed": -719995651,
-    "shade": false,
-    "quiet": true,
-    "friends": true,
-    "fire": true,
-    "entry": [
-      4,
-      0
-    ],
-    "mapObjects": [
-      {
-        "assetId": "campfire_stones",
-        "x": 7,
-        "z": 0,
-        "rotation": 3
+      "storyMotifs": [],
+      "shore": {
+        "kind": "stream",
+        "side": "back",
+        "offset": 9.6,
+        "width": 2.4,
+        "seed": 31689
       },
-      {
-        "assetId": "stone_largeA",
-        "x": 4,
-        "z": 3,
-        "rotation": 0
-      },
-      {
-        "assetId": "log",
-        "x": 7,
-        "z": 4,
-        "rotation": 1
-      },
-      {
-        "assetId": "stump_round",
-        "x": 6,
-        "z": 1,
-        "rotation": 2
-      }
-    ],
-    "accessPoints": [
-      {
-        "id": "trail-out",
-        "kind": "exit",
-        "x": 4,
-        "z": 5
-      }
-    ],
-    "canopies": [],
-    "exteriorWalkable": [
-      [
-        2,
-        -1
-      ],
-      [
-        3,
-        -1
-      ],
-      [
-        4,
-        -1
-      ],
-      [
-        5,
-        -1
-      ],
-      [
-        6,
-        -1
-      ]
-    ],
-    "environment": {
-      "biomeId": "meadow",
-      "seasonId": "autumn",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": 1580940612,
-      "meadowSpecies": [
-        "grass",
-        "daisy",
-        "poppy"
-      ],
-      "storyMotifs": [
-        "ruin",
-        "repaired-marker",
-        "bench"
-      ],
-      "shore": null
+      "seasonTimeline": 0.525253,
+      "weatherIntensity": 0.334337
     }
   },
   {
     "id": "gen:qc_camp:72",
     "environmentPreset": "meadow",
-    "lighting": "evening",
-    "number": 60,
+    "lighting": "day",
+    "contentHash": "29efadaf54e3a18ac4a84890118e483c85e8688fe7168008e4bd449bf170f7d1",
+    "ruleVersion": 2,
+    "number": 54,
     "width": 8,
     "height": 8,
     "decorSeed": -719954483,
@@ -4504,37 +3916,37 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
       "biomeId": "shore",
       "seasonId": "autumn",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.55,
-      "clusterSeed": 1727951540,
+      "weatherId": "clear",
+      "moisture": 0.479436,
+      "treeDensity": 0.577789,
+      "clusterSeed": 40342,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "repaired-marker",
-        "bench"
-      ],
+      "storyMotifs": [],
       "shore": {
-        "kind": "lake",
+        "kind": "stream",
         "side": "left",
-        "offset": 10.5,
-        "width": 7.0,
-        "seed": -719954483
-      }
+        "offset": 9.6,
+        "width": 2.4,
+        "seed": 31702
+      },
+      "seasonTimeline": 0.535354,
+      "weatherIntensity": 0.332393
     }
   },
   {
     "id": "gen:qc_camp:73",
-    "environmentPreset": "pines",
+    "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 61,
+    "contentHash": "4371a21de000a8205e3c7e4fbba8d0b33022026ebfb78f6f8ddfa6a172ddbd80",
+    "ruleVersion": 2,
+    "number": 55,
     "width": 5,
     "height": 5,
     "decorSeed": -719946019,
@@ -4583,31 +3995,37 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "forest",
-      "seasonId": "spring",
+      "biomeId": "shore",
+      "seasonId": "autumn",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": 1758176484,
+      "moisture": 0.47913,
+      "treeDensity": 0.576354,
+      "clusterSeed": 40515,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": {
+        "kind": "stream",
+        "side": "left",
+        "offset": 8.1,
+        "width": 2.4,
+        "seed": 31715
+      },
+      "seasonTimeline": 0.545455,
+      "weatherIntensity": 0.331884
     }
   },
   {
     "id": "gen:qc_camp:74",
-    "environmentPreset": "pines",
+    "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 62,
+    "contentHash": "1335b1935a31e2100837c9f04df2bf813c61bdecc52bae8aa0f1fc5bd35ae852",
+    "ruleVersion": 2,
+    "number": 56,
     "width": 5,
     "height": 6,
     "decorSeed": -719970515,
@@ -4648,31 +4066,42 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [
+      [
+        4,
+        0
+      ]
+    ],
     "environment": {
-      "biomeId": "forest",
+      "biomeId": "shore",
       "seasonId": "autumn",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": 1670701268,
+      "moisture": 0.480033,
+      "treeDensity": 0.574572,
+      "clusterSeed": 40688,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": {
+        "kind": "stream",
+        "side": "back",
+        "offset": 8.6,
+        "width": 2.4,
+        "seed": 31728
+      },
+      "seasonTimeline": 0.555556,
+      "weatherIntensity": 0.333389
     }
   },
   {
     "id": "gen:qc_camp:75",
     "environmentPreset": "meadow",
-    "lighting": "night",
-    "number": 63,
+    "lighting": "day",
+    "contentHash": "ca28c53192f2423a9707b9011c297ff1f0ec09c33fcee76fec4b34b7d3ae93ad",
+    "ruleVersion": 2,
+    "number": 57,
     "width": 6,
     "height": 5,
     "decorSeed": -719978435,
@@ -4720,31 +4149,37 @@
     ],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "meadow",
-      "seasonId": "summer",
+      "biomeId": "shore",
+      "seasonId": "autumn",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": 1642418948,
+      "moisture": 0.482375,
+      "treeDensity": 0.57245,
+      "clusterSeed": 40861,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": {
+        "kind": "stream",
+        "side": "left",
+        "offset": 8.6,
+        "width": 2.4,
+        "seed": 31741
+      },
+      "seasonTimeline": 0.565657,
+      "weatherIntensity": 0.337292
     }
   },
   {
     "id": "gen:qc_camp:76",
-    "environmentPreset": "pines",
-    "lighting": "morning",
-    "number": 64,
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "8ead8b9eda2f143af40617662aaab023b6f5136b980bba6c8a32726e1f67cc13",
+    "ruleVersion": 2,
+    "number": 58,
     "width": 6,
     "height": 6,
     "decorSeed": -719970035,
@@ -4786,118 +4221,37 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "pines",
-      "seasonId": "winter",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.84,
-      "clusterSeed": 1672415348,
-      "meadowSpecies": [
-        "grass",
-        "daisy",
-        "poppy"
-      ],
-      "storyMotifs": [
-        "ruin",
-        "flowers",
-        "repaired-marker"
-      ],
-      "shore": null
-    }
-  },
-  {
-    "id": "gen:qc_camp:77",
-    "environmentPreset": "meadow",
-    "lighting": "evening",
-    "number": 65,
-    "width": 6,
-    "height": 7,
-    "decorSeed": -719928803,
-    "shade": false,
-    "quiet": false,
-    "friends": false,
-    "fire": false,
-    "entry": [
-      3,
-      6
-    ],
-    "mapObjects": [
-      {
-        "assetId": "log",
-        "x": 5,
-        "z": 2,
-        "rotation": 1
-      },
-      {
-        "assetId": "stump_round",
-        "x": 0,
-        "z": 6,
-        "rotation": 2
-      },
-      {
-        "assetId": "tree_default",
-        "x": 1,
-        "z": 4,
-        "rotation": 3
-      }
-    ],
-    "accessPoints": [
-      {
-        "id": "trail-out",
-        "kind": "exit",
-        "x": 3,
-        "z": 0
-      }
-    ],
-    "canopies": [],
-    "exteriorWalkable": [
-      [
-        1,
-        7
-      ],
-      [
-        2,
-        7
-      ],
-      [
-        3,
-        7
-      ],
-      [
-        4,
-        7
-      ],
-      [
-        5,
-        7
-      ]
-    ],
-    "environment": {
-      "biomeId": "meadow",
+      "biomeId": "shore",
       "seasonId": "autumn",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": 1819654820,
+      "moisture": 0.486251,
+      "treeDensity": 0.569995,
+      "clusterSeed": 41034,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "repaired-marker",
-        "bench"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": {
+        "kind": "stream",
+        "side": "left",
+        "offset": 8.6,
+        "width": 2.4,
+        "seed": 31754
+      },
+      "seasonTimeline": 0.575758,
+      "weatherIntensity": 0.343751
     }
   },
   {
     "id": "gen:qc_camp:78",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "number": 66,
+    "contentHash": "394199de5763daa2702aa7ca3c68319289e00fda5332c939f367ad11c9f5cf5d",
+    "ruleVersion": 2,
+    "number": 59,
     "width": 7,
     "height": 6,
     "decorSeed": -719920275,
@@ -4938,37 +4292,36 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [
+      [
+        6,
+        0
+      ]
+    ],
     "environment": {
-      "biomeId": "shore",
+      "biomeId": "forest",
       "seasonId": "autumn",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.55,
-      "clusterSeed": 1850108308,
+      "moisture": 0.491607,
+      "treeDensity": 0.567219,
+      "clusterSeed": 41207,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "repaired-marker",
-        "bench"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "right",
-        "offset": 10.0,
-        "width": 7.0,
-        "seed": -719920275
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.585859,
+      "weatherIntensity": 0.352679
     }
   },
   {
     "id": "gen:qc_camp:79",
-    "environmentPreset": "pines",
+    "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 67,
+    "contentHash": "f9daad64648164203b277c5508cb155d86671b1839759c37dd1522d46274712f",
+    "ruleVersion": 2,
+    "number": 60,
     "width": 6,
     "height": 8,
     "decorSeed": -719944579,
@@ -5023,28 +4376,42 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [
+      [
+        5,
+        0
+      ]
+    ],
     "environment": {
-      "biomeId": "pines",
-      "seasonId": "winter",
+      "biomeId": "shore",
+      "seasonId": "autumn",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": 1763318724,
+      "moisture": 0.498255,
+      "treeDensity": 0.564131,
+      "clusterSeed": 41380,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": {
+        "kind": "stream",
+        "side": "left",
+        "offset": 8.6,
+        "width": 2.4,
+        "seed": 31780
+      },
+      "seasonTimeline": 0.59596,
+      "weatherIntensity": 0.363758
     }
   },
   {
     "id": "gen:qc_camp:80",
     "environmentPreset": "pines",
-    "lighting": "morning",
-    "number": 68,
+    "lighting": "day",
+    "contentHash": "e238d47bc34f32eccd5611201fa537e36db9e33a5a358eaaa0f165c7dc5a72e4",
+    "ruleVersion": 2,
+    "number": 61,
     "width": 8,
     "height": 6,
     "decorSeed": -719936136,
@@ -5079,28 +4446,31 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "pines",
-      "seasonId": "winter",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.84,
-      "clusterSeed": 1793468677,
+      "biomeId": "forest",
+      "seasonId": "autumn",
+      "weatherId": "clear",
+      "moisture": 0.505885,
+      "treeDensity": 0.560745,
+      "clusterSeed": 41553,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.606061,
+      "weatherIntensity": 0.376474
     }
   },
   {
     "id": "gen:qc_camp:81",
     "environmentPreset": "pines",
     "lighting": "day",
-    "number": 69,
+    "contentHash": "09bfbe1b4c97b9bc8449f7902b9bc9ba058a6eaccf926d1ef74159bf57c2b0dc",
+    "ruleVersion": 2,
+    "number": 62,
     "width": 7,
     "height": 7,
     "decorSeed": -719894968,
@@ -5163,28 +4533,31 @@
         7
       ]
     ],
+    "noise": [],
     "environment": {
-      "biomeId": "pines",
-      "seasonId": "winter",
-      "weatherId": "mist",
-      "moisture": 0.82,
-      "treeDensity": 0.84,
-      "clusterSeed": 1940479605,
+      "biomeId": "forest",
+      "seasonId": "autumn",
+      "weatherId": "cloudy",
+      "moisture": 0.514099,
+      "treeDensity": 0.557074,
+      "clusterSeed": 41726,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.616162,
+      "weatherIntensity": 0.390165
     }
   },
   {
     "id": "gen:qc_camp:82",
-    "environmentPreset": "pines",
-    "lighting": "evening",
-    "number": 70,
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "dc3e684447219f2d15a0c7d1fe27d622ef0699f5efa23f2009bbb0d2ce35ebed",
+    "ruleVersion": 2,
+    "number": 63,
     "width": 7,
     "height": 8,
     "decorSeed": -719886504,
@@ -5233,28 +4606,31 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "pines",
-      "seasonId": "winter",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": 1970704549,
+      "biomeId": "meadow",
+      "seasonId": "autumn",
+      "weatherId": "cloudy",
+      "moisture": 0.522455,
+      "treeDensity": 0.553133,
+      "clusterSeed": 41899,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.626263,
+      "weatherIntensity": 0.404092
     }
   },
   {
     "id": "gen:qc_camp:83",
     "environmentPreset": "pines",
     "lighting": "day",
-    "number": 71,
+    "contentHash": "c8b53709ffc5a92ef255bcc33c60688abe392bdd11cac3f9aa4b63d913d63a39",
+    "ruleVersion": 2,
+    "number": 64,
     "width": 4,
     "height": 6,
     "decorSeed": -719910488,
@@ -5313,28 +4689,31 @@
         -1
       ]
     ],
+    "noise": [],
     "environment": {
-      "biomeId": "pines",
-      "seasonId": "winter",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": 1885057685,
+      "biomeId": "forest",
+      "seasonId": "autumn",
+      "weatherId": "cloudy",
+      "moisture": 0.530504,
+      "treeDensity": 0.548937,
+      "clusterSeed": 42072,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.636364,
+      "weatherIntensity": 0.417507
     }
   },
   {
     "id": "gen:qc_camp:84",
     "environmentPreset": "pines",
-    "lighting": "morning",
-    "number": 72,
+    "lighting": "day",
+    "contentHash": "b27b731a5661561dbee203fc3cdc88685259d9d6ea4dd3cf3c20f15a21256a50",
+    "ruleVersion": 2,
+    "number": 65,
     "width": 5,
     "height": 7,
     "decorSeed": -719902024,
@@ -5375,28 +4754,36 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [
+      [
+        4,
+        0
+      ]
+    ],
     "environment": {
-      "biomeId": "pines",
-      "seasonId": "winter",
-      "weatherId": "mist",
-      "moisture": 0.82,
-      "treeDensity": 0.84,
-      "clusterSeed": 1915282629,
+      "biomeId": "forest",
+      "seasonId": "autumn",
+      "weatherId": "cloudy",
+      "moisture": 0.537834,
+      "treeDensity": 0.544505,
+      "clusterSeed": 42245,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.646465,
+      "weatherIntensity": 0.429723
     }
   },
   {
     "id": "gen:qc_camp:85",
-    "environmentPreset": "pines",
+    "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 73,
+    "contentHash": "9f5743f4f0091c6318d0d9762c9b190c8de09ffb53cb42addd55cf8adc33e269",
+    "ruleVersion": 2,
+    "number": 66,
     "width": 6,
     "height": 5,
     "decorSeed": -719860856,
@@ -5472,28 +4859,36 @@
         5
       ]
     ],
+    "noise": [
+      [
+        5,
+        0
+      ]
+    ],
     "environment": {
-      "biomeId": "pines",
-      "seasonId": "winter",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": 2062293557,
+      "biomeId": "meadow",
+      "seasonId": "autumn",
+      "weatherId": "cloudy",
+      "moisture": 0.544103,
+      "treeDensity": 0.539853,
+      "clusterSeed": 42418,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.656566,
+      "weatherIntensity": 0.440172
     }
   },
   {
     "id": "gen:qc_camp:86",
     "environmentPreset": "pines",
     "lighting": "day",
-    "number": 74,
+    "contentHash": "13caa7331848444bba3223b2c287609ffd61e08af527d404da981529e8ec9534",
+    "ruleVersion": 2,
+    "number": 67,
     "width": 6,
     "height": 8,
     "decorSeed": -719852392,
@@ -5528,94 +4923,31 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "pines",
-      "seasonId": "winter",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": 2092518501,
-      "meadowSpecies": [
-        "grass"
-      ],
-      "storyMotifs": [
-        "marker",
-        "lantern"
-      ],
-      "shore": null
-    }
-  },
-  {
-    "id": "gen:qc_camp:87",
-    "environmentPreset": "meadow",
-    "lighting": "evening",
-    "number": 75,
-    "width": 8,
-    "height": 6,
-    "decorSeed": -719876632,
-    "shade": false,
-    "quiet": false,
-    "friends": true,
-    "fire": false,
-    "entry": [
-      4,
-      0
-    ],
-    "mapObjects": [
-      {
-        "assetId": "tree_default",
-        "x": 6,
-        "z": 2,
-        "rotation": 3
-      },
-      {
-        "assetId": "stone_largeA",
-        "x": 3,
-        "z": 4,
-        "rotation": 0
-      },
-      {
-        "assetId": "log",
-        "x": 0,
-        "z": 3,
-        "rotation": 1
-      }
-    ],
-    "accessPoints": [
-      {
-        "id": "trail-out",
-        "kind": "exit",
-        "x": 4,
-        "z": 5
-      }
-    ],
-    "canopies": [],
-    "exteriorWalkable": [],
-    "environment": {
-      "biomeId": "meadow",
-      "seasonId": "summer",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": 2005957461,
+      "biomeId": "forest",
+      "seasonId": "autumn",
+      "weatherId": "cloudy",
+      "moisture": 0.54906,
+      "treeDensity": 0.535,
+      "clusterSeed": 42591,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "bench",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.666667,
+      "weatherIntensity": 0.448434
     }
   },
   {
     "id": "gen:qc_camp:88",
-    "environmentPreset": "meadow",
-    "lighting": "morning",
-    "number": 76,
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "4b201117ecb01e5fd6b716a0f5b9e95bcd13842f599cc846315feb1fc8bbbfb4",
+    "ruleVersion": 2,
+    "number": 68,
     "width": 7,
     "height": 7,
     "decorSeed": -719868168,
@@ -5657,37 +4989,31 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "shore",
-      "seasonId": "summer",
+      "biomeId": "forest",
+      "seasonId": "autumn",
       "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.55,
-      "clusterSeed": 2036182405,
+      "moisture": 0.552557,
+      "treeDensity": 0.529966,
+      "clusterSeed": 42764,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "bench",
-        "lantern"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "left",
-        "offset": 10.0,
-        "width": 7.0,
-        "seed": -719868168
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.676768,
+      "weatherIntensity": 0.454261
     }
   },
   {
     "id": "gen:qc_camp:89",
     "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 77,
+    "contentHash": "f8b09c9bdeb501da4b58f56d51b366082c72a0a5cdeda17435cd10d561876004",
+    "ruleVersion": 2,
+    "number": 69,
     "width": 5,
     "height": 8,
     "decorSeed": -719827000,
@@ -5762,31 +5088,42 @@
         8
       ]
     ],
+    "noise": [
+      [
+        4,
+        0
+      ]
+    ],
     "environment": {
-      "biomeId": "meadow",
-      "seasonId": "summer",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": -2111773963,
+      "biomeId": "shore",
+      "seasonId": "autumn",
+      "weatherId": "cloudy",
+      "moisture": 0.554539,
+      "treeDensity": 0.524771,
+      "clusterSeed": 42937,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "bench",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": {
+        "kind": "stream",
+        "side": "right",
+        "offset": 8.1,
+        "width": 2.4,
+        "seed": 31897
+      },
+      "seasonTimeline": 0.686869,
+      "weatherIntensity": 0.457565
     }
   },
   {
     "id": "gen:qc_camp:90",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "number": 78,
+    "contentHash": "6bb40c437657f5f0031b516360dc5ad80c2a2d254dfb2b47f14ef46e5fabe9a8",
+    "ruleVersion": 2,
+    "number": 70,
     "width": 8,
     "height": 5,
     "decorSeed": -719818557,
@@ -5821,31 +5158,31 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "meadow",
-      "seasonId": "summer",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": -2081624010,
+      "biomeId": "pines",
+      "seasonId": "autumn",
+      "weatherId": "cloudy",
+      "moisture": 0.555033,
+      "treeDensity": 0.519436,
+      "clusterSeed": 43110,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "bench",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.69697,
+      "weatherIntensity": 0.458388
     }
   },
   {
     "id": "gen:qc_camp:91",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "number": 79,
+    "contentHash": "ab4e1f46b38be794bdda73f5b97ef6d451af2ae9b8da79d879ddd5bc781ef6f2",
+    "ruleVersion": 2,
+    "number": 71,
     "width": 7,
     "height": 8,
     "decorSeed": -719842861,
@@ -5894,31 +5231,31 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "meadow",
-      "seasonId": "summer",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": 2126553702,
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "cloudy",
+      "moisture": 0.55412,
+      "treeDensity": 0.513983,
+      "clusterSeed": 43283,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "bench",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.707071,
+      "weatherIntensity": 0.456866
     }
   },
   {
     "id": "gen:qc_camp:92",
-    "environmentPreset": "meadow",
-    "lighting": "evening",
-    "number": 80,
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "1d62c4725f8179c5a61aabc5129e1ba82c0966173b4d6dfa213a38c813f7fbdf",
+    "ruleVersion": 2,
+    "number": 72,
     "width": 8,
     "height": 7,
     "decorSeed": -719834589,
@@ -5959,37 +5296,36 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [
+      [
+        7,
+        0
+      ]
+    ],
     "environment": {
-      "biomeId": "shore",
-      "seasonId": "summer",
+      "biomeId": "pines",
+      "seasonId": "winter",
       "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.55,
-      "clusterSeed": -2138874282,
+      "moisture": 0.551909,
+      "treeDensity": 0.508433,
+      "clusterSeed": 43456,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "bench",
-        "lantern"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "left",
-        "offset": 10.5,
-        "width": 7.0,
-        "seed": -719834589
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.717172,
+      "weatherIntensity": 0.453182
     }
   },
   {
     "id": "gen:qc_camp:93",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "number": 81,
+    "contentHash": "c6af2bdf6560731fb5fe2bc8f79b8936fef2daa022fb10146c05e6b28b91d88b",
+    "ruleVersion": 2,
+    "number": 73,
     "width": 6,
     "height": 6,
     "decorSeed": -719793357,
@@ -6052,31 +5388,31 @@
         6
       ]
     ],
+    "noise": [],
     "environment": {
-      "biomeId": "meadow",
-      "seasonId": "summer",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": -1991634810,
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "cloudy",
+      "moisture": 0.548509,
+      "treeDensity": 0.502808,
+      "clusterSeed": 43629,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "bench",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.727273,
+      "weatherIntensity": 0.447516
     }
   },
   {
     "id": "gen:qc_camp:94",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "number": 82,
+    "contentHash": "80c4b40bee53089217e9e455d1e4f6f6bb5a76b1310efd04a5b270e3501e21dc",
+    "ruleVersion": 2,
+    "number": 74,
     "width": 6,
     "height": 8,
     "decorSeed": -719784957,
@@ -6124,123 +5460,36 @@
       }
     ],
     "exteriorWalkable": [],
-    "environment": {
-      "biomeId": "meadow",
-      "seasonId": "summer",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": -1961638410,
-      "meadowSpecies": [
-        "grass",
-        "daisy",
-        "poppy"
-      ],
-      "storyMotifs": [
-        "ruin",
-        "bench",
-        "lantern"
-      ],
-      "shore": null
-    }
-  },
-  {
-    "id": "gen:qc_camp:95",
-    "environmentPreset": "meadow",
-    "lighting": "day",
-    "number": 83,
-    "width": 8,
-    "height": 6,
-    "decorSeed": -719809261,
-    "shade": false,
-    "quiet": false,
-    "friends": true,
-    "fire": false,
-    "entry": [
-      4,
-      0
-    ],
-    "mapObjects": [
-      {
-        "assetId": "tree_default",
-        "x": 0,
-        "z": 1,
-        "rotation": 3
-      },
-      {
-        "assetId": "stone_largeA",
-        "x": 7,
-        "z": 3,
-        "rotation": 0
-      },
-      {
-        "assetId": "log",
-        "x": 0,
-        "z": 0,
-        "rotation": 1
-      }
-    ],
-    "accessPoints": [
-      {
-        "id": "trail-out",
-        "kind": "exit",
-        "x": 4,
-        "z": 5
-      }
-    ],
-    "canopies": [],
-    "exteriorWalkable": [
-      [
-        2,
-        -1
-      ],
-      [
-        3,
-        -1
-      ],
-      [
-        4,
-        -1
-      ],
+    "noise": [
       [
         5,
-        -1
-      ],
-      [
-        6,
-        -1
+        0
       ]
     ],
     "environment": {
-      "biomeId": "shore",
-      "seasonId": "summer",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.55,
-      "clusterSeed": -2048427994,
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "cloudy",
+      "moisture": 0.544008,
+      "treeDensity": 0.497132,
+      "clusterSeed": 43802,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "flowers"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "left",
-        "offset": 10.5,
-        "width": 7.0,
-        "seed": -719809261
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.737374,
+      "weatherIntensity": 0.440014
     }
   },
   {
     "id": "gen:qc_camp:96",
-    "environmentPreset": "meadow",
-    "lighting": "morning",
-    "number": 84,
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "5ea841bb6ff43fa889fa01b78f0ba54d30d9674043be3e1744de35c1a87ba28b",
+    "ruleVersion": 2,
+    "number": 75,
     "width": 7,
     "height": 7,
     "decorSeed": -719800733,
@@ -6282,36 +5531,31 @@
     ],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "shore",
-      "seasonId": "summer",
+      "biomeId": "pines",
+      "seasonId": "winter",
       "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.55,
-      "clusterSeed": -2017974506,
+      "moisture": 0.538459,
+      "treeDensity": 0.491428,
+      "clusterSeed": 43975,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "flowers"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "left",
-        "offset": 10.0,
-        "width": 7.0,
-        "seed": -719800733
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.747475,
+      "weatherIntensity": 0.430764
     }
   },
   {
     "id": "gen:qc_camp:97",
-    "environmentPreset": "meadow",
-    "lighting": "evening",
-    "number": 85,
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "e19cf302e57d9dc5c0143a72d74b1aa114d1a8ec34c0822d029aa8a033373dc8",
+    "ruleVersion": 2,
+    "number": 76,
     "width": 8,
     "height": 8,
     "decorSeed": -719759501,
@@ -6381,30 +5625,31 @@
         8
       ]
     ],
+    "noise": [],
     "environment": {
-      "biomeId": "meadow",
-      "seasonId": "summer",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": -1870735034,
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "cloudy",
+      "moisture": 0.531874,
+      "treeDensity": 0.485718,
+      "clusterSeed": 44148,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "flowers"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.757576,
+      "weatherIntensity": 0.41979
     }
   },
   {
     "id": "gen:qc_camp:98",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "number": 86,
+    "contentHash": "0146f38a1bc291d317197272eab838dfd472467f78b520e722d106c003e812c0",
+    "ruleVersion": 2,
+    "number": 77,
     "width": 5,
     "height": 7,
     "decorSeed": -719751101,
@@ -6439,36 +5684,31 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "shore",
-      "seasonId": "summer",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.55,
-      "clusterSeed": -1840738634,
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "cloudy",
+      "moisture": 0.524235,
+      "treeDensity": 0.480025,
+      "clusterSeed": 44321,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "flowers"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "right",
-        "offset": 9.0,
-        "width": 7.0,
-        "seed": -719751101
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.767677,
+      "weatherIntensity": 0.407059
     }
   },
   {
     "id": "gen:qc_camp:99",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "number": 87,
+    "contentHash": "da555109e65b79713c685dc34049d9b072e4525dcbc9b73d3b0a24cadf36ba03",
+    "ruleVersion": 2,
+    "number": 78,
     "width": 7,
     "height": 5,
     "decorSeed": -719775405,
@@ -6516,36 +5756,36 @@
     ],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [
+      [
+        6,
+        0
+      ]
+    ],
     "environment": {
-      "biomeId": "shore",
-      "seasonId": "summer",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.55,
-      "clusterSeed": -1927528218,
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "cloudy",
+      "moisture": 0.515505,
+      "treeDensity": 0.474372,
+      "clusterSeed": 44494,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "flowers"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "left",
-        "offset": 10.0,
-        "width": 7.0,
-        "seed": -719775405
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.777778,
+      "weatherIntensity": 0.392509
     }
   },
   {
     "id": "gen:qc_camp:100",
     "environmentPreset": "pines",
-    "lighting": "morning",
-    "number": 88,
+    "lighting": "day",
+    "contentHash": "c0f50a94ac82afcbe9351b60f9ad5f8b00babbeaedbe1a9e75b90e98b3218617",
+    "ruleVersion": 2,
+    "number": 79,
     "width": 6,
     "height": 8,
     "decorSeed": -1466366719,
@@ -6587,30 +5827,31 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
       "biomeId": "pines",
-      "seasonId": "summer",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.84,
-      "clusterSeed": -830419696,
+      "seasonId": "winter",
+      "weatherId": "clear",
+      "moisture": 0.505647,
+      "treeDensity": 0.468782,
+      "clusterSeed": 44667,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "flowers"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.787879,
+      "weatherIntensity": 0.376079
     }
   },
   {
     "id": "gen:qc_camp:101",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "number": 89,
+    "contentHash": "1dd4220a9d3632552db2cb928284f90193e60c9e725cdcd29c3a70e9efe0286b",
+    "ruleVersion": 2,
+    "number": 80,
     "width": 8,
     "height": 6,
     "decorSeed": -1466358255,
@@ -6673,36 +5914,31 @@
         6
       ]
     ],
+    "noise": [],
     "environment": {
-      "biomeId": "shore",
-      "seasonId": "summer",
+      "biomeId": "pines",
+      "seasonId": "winter",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.55,
-      "clusterSeed": -800194752,
+      "moisture": 0.494646,
+      "treeDensity": 0.463277,
+      "clusterSeed": 44840,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "flowers"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "left",
-        "offset": 10.5,
-        "width": 7.0,
-        "seed": -1466358255
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.79798,
+      "weatherIntensity": 0.357744
     }
   },
   {
     "id": "gen:qc_camp:102",
-    "environmentPreset": "meadow",
-    "lighting": "evening",
-    "number": 90,
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "ef1bf446aa112f698791fc91414e9bd748f39bd663baff189d01794158e7e3fc",
+    "ruleVersion": 2,
+    "number": 81,
     "width": 8,
     "height": 8,
     "decorSeed": -1466316959,
@@ -6737,36 +5973,31 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "shore",
-      "seasonId": "summer",
+      "biomeId": "pines",
+      "seasonId": "winter",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.55,
-      "clusterSeed": -652726736,
+      "moisture": 0.48253,
+      "treeDensity": 0.45788,
+      "clusterSeed": 45013,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "wheat"
       ],
-      "storyMotifs": [
-        "marker",
-        "flowers"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "right",
-        "offset": 10.5,
-        "width": 7.0,
-        "seed": -1466316959
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.808081,
+      "weatherIntensity": 0.33755
     }
   },
   {
     "id": "gen:qc_camp:103",
-    "environmentPreset": "pines",
+    "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 91,
+    "contentHash": "375d780cfe3d6958af899a2019ac42ad4bb25117718d0bc7813cf051cb1f6a94",
+    "ruleVersion": 2,
+    "number": 82,
     "width": 5,
     "height": 5,
     "decorSeed": -1466308495,
@@ -6821,28 +6052,37 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "pines",
+      "biomeId": "shore",
       "seasonId": "winter",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": -622501792,
+      "moisture": 0.469385,
+      "treeDensity": 0.452613,
+      "clusterSeed": 45186,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": {
+        "kind": "stream",
+        "side": "left",
+        "offset": 8.1,
+        "width": 2.4,
+        "seed": 32066
+      },
+      "seasonTimeline": 0.818182,
+      "weatherIntensity": 0.315642
     }
   },
   {
     "id": "gen:qc_camp:104",
     "environmentPreset": "pines",
-    "lighting": "morning",
-    "number": 92,
+    "lighting": "day",
+    "contentHash": "c7fe6d1392e160a2dbd3163a67b1c67956a096c1d3f8eb059352db8812021d77",
+    "ruleVersion": 2,
+    "number": 83,
     "width": 5,
     "height": 6,
     "decorSeed": -1466332863,
@@ -6883,28 +6123,36 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [
+      [
+        4,
+        0
+      ]
+    ],
     "environment": {
       "biomeId": "pines",
       "seasonId": "winter",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.84,
-      "clusterSeed": -709519920,
+      "weatherId": "clear",
+      "moisture": 0.45537,
+      "treeDensity": 0.447496,
+      "clusterSeed": 45359,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.828283,
+      "weatherIntensity": 0.292283
     }
   },
   {
     "id": "gen:qc_camp:105",
-    "environmentPreset": "pines",
+    "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 93,
+    "contentHash": "a1b8e9878d219b6bd73418ed1cd3a60cbfa6c8fb4597636bcb51434efa4b9f49",
+    "ruleVersion": 2,
+    "number": 84,
     "width": 6,
     "height": 5,
     "decorSeed": -1466324399,
@@ -6967,28 +6215,37 @@
         5
       ]
     ],
+    "noise": [],
     "environment": {
-      "biomeId": "pines",
+      "biomeId": "shore",
       "seasonId": "winter",
-      "weatherId": "mist",
-      "moisture": 0.82,
-      "treeDensity": 0.84,
-      "clusterSeed": -679294976,
+      "weatherId": "clear",
+      "moisture": 0.440716,
+      "treeDensity": 0.44255,
+      "clusterSeed": 45532,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": {
+        "kind": "stream",
+        "side": "left",
+        "offset": 8.6,
+        "width": 2.4,
+        "seed": 32092
+      },
+      "seasonTimeline": 0.838384,
+      "weatherIntensity": 0.267859
     }
   },
   {
     "id": "gen:qc_camp:106",
     "environmentPreset": "pines",
     "lighting": "day",
-    "number": 94,
+    "contentHash": "897ff8185ace93ee5b64b30ce658492d4cbe305460c75fc8f92af386b3d71962",
+    "ruleVersion": 2,
+    "number": 85,
     "width": 6,
     "height": 6,
     "decorSeed": -1466282847,
@@ -7036,112 +6293,36 @@
       }
     ],
     "exteriorWalkable": [],
-    "environment": {
-      "biomeId": "pines",
-      "seasonId": "winter",
-      "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": -530912784,
-      "meadowSpecies": [
-        "grass"
-      ],
-      "storyMotifs": [
-        "ruin",
-        "lantern"
-      ],
-      "shore": null
-    }
-  },
-  {
-    "id": "gen:qc_camp:107",
-    "environmentPreset": "pines",
-    "lighting": "evening",
-    "number": 95,
-    "width": 6,
-    "height": 7,
-    "decorSeed": -1466274383,
-    "shade": false,
-    "quiet": false,
-    "friends": true,
-    "fire": false,
-    "entry": [
-      3,
-      0
-    ],
-    "mapObjects": [
-      {
-        "assetId": "tree_default",
-        "x": 4,
-        "z": 1,
-        "rotation": 3
-      },
-      {
-        "assetId": "stone_largeA",
-        "x": 0,
-        "z": 5,
-        "rotation": 0
-      },
-      {
-        "assetId": "log",
-        "x": 4,
-        "z": 3,
-        "rotation": 1
-      }
-    ],
-    "accessPoints": [
-      {
-        "id": "trail-out",
-        "kind": "exit",
-        "x": 3,
-        "z": 6
-      }
-    ],
-    "canopies": [],
-    "exteriorWalkable": [
-      [
-        1,
-        -1
-      ],
-      [
-        2,
-        -1
-      ],
-      [
-        3,
-        -1
-      ],
-      [
-        4,
-        -1
-      ],
+    "noise": [
       [
         5,
-        -1
+        0
       ]
     ],
     "environment": {
-      "biomeId": "pines",
+      "biomeId": "forest",
       "seasonId": "winter",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": -500687840,
+      "moisture": 0.425724,
+      "treeDensity": 0.437795,
+      "clusterSeed": 45705,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.848485,
+      "weatherIntensity": 0.242873
     }
   },
   {
     "id": "gen:qc_camp:108",
     "environmentPreset": "pines",
-    "lighting": "morning",
-    "number": 96,
+    "lighting": "day",
+    "contentHash": "9f5bb65846cdf643ac866ca4d0744c7fddbaaa2d227764fd3005a8fa72013e25",
+    "ruleVersion": 2,
+    "number": 86,
     "width": 7,
     "height": 6,
     "decorSeed": -1466298751,
@@ -7176,28 +6357,31 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "pines",
+      "biomeId": "forest",
       "seasonId": "winter",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.84,
-      "clusterSeed": -587705968,
+      "weatherId": "clear",
+      "moisture": 0.410758,
+      "treeDensity": 0.43325,
+      "clusterSeed": 45878,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.858586,
+      "weatherIntensity": 0.21793
     }
   },
   {
     "id": "gen:qc_camp:109",
-    "environmentPreset": "pines",
+    "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 97,
+    "contentHash": "754fa6011544893afba76b3b415adee0cda841c9dda3a2c7895e4c86694d6ef0",
+    "ruleVersion": 2,
+    "number": 87,
     "width": 6,
     "height": 8,
     "decorSeed": -1466290287,
@@ -7273,28 +6457,36 @@
         8
       ]
     ],
+    "noise": [
+      [
+        5,
+        0
+      ]
+    ],
     "environment": {
-      "biomeId": "pines",
+      "biomeId": "meadow",
       "seasonId": "winter",
-      "weatherId": "mist",
-      "moisture": 0.82,
-      "treeDensity": 0.84,
-      "clusterSeed": -557481024,
+      "weatherId": "clear",
+      "moisture": 0.396224,
+      "treeDensity": 0.428934,
+      "clusterSeed": 46051,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.868687,
+      "weatherIntensity": 0.193706
     }
   },
   {
     "id": "gen:qc_camp:110",
-    "environmentPreset": "pines",
+    "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 98,
+    "contentHash": "3f3334b8789c3c096e06b9dffad0b93bb189b03f207c3ba3aaae3a17b8e94116",
+    "ruleVersion": 2,
+    "number": 88,
     "width": 8,
     "height": 6,
     "decorSeed": -1466249076,
@@ -7336,28 +6528,37 @@
     ],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "pines",
+      "biomeId": "shore",
       "seasonId": "winter",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": -410316543,
+      "moisture": 0.382553,
+      "treeDensity": 0.424864,
+      "clusterSeed": 46224,
       "meadowSpecies": [
-        "grass"
+        "grass",
+        "wheat"
       ],
-      "storyMotifs": [
-        "ruin",
-        "lantern"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": {
+        "kind": "stream",
+        "side": "right",
+        "offset": 9.6,
+        "width": 2.4,
+        "seed": 32144
+      },
+      "seasonTimeline": 0.878788,
+      "weatherIntensity": 0.170922
     }
   },
   {
     "id": "gen:qc_camp:111",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "number": 99,
+    "contentHash": "059869543400e99c8637393ceaf5e87722a2082ea45d810ea689e51d766d25cd",
+    "ruleVersion": 2,
+    "number": 89,
     "width": 7,
     "height": 7,
     "decorSeed": -1466240612,
@@ -7399,31 +6600,31 @@
     ],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "meadow",
-      "seasonId": "autumn",
+      "biomeId": "forest",
+      "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": -380091599,
+      "moisture": 0.370178,
+      "treeDensity": 0.421056,
+      "clusterSeed": 46397,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "marker",
-        "bag"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.888889,
+      "weatherIntensity": 0.150297
     }
   },
   {
     "id": "gen:qc_camp:112",
-    "environmentPreset": "pines",
-    "lighting": "evening",
-    "number": 100,
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "cfe5b9ae05d1488ac8c4e5c25e2feb4620b70218ff2c41a2b3649dffafc28ef7",
+    "ruleVersion": 2,
+    "number": 90,
     "width": 7,
     "height": 8,
     "decorSeed": -1466264852,
@@ -7465,31 +6666,37 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "forest",
-      "seasonId": "autumn",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.84,
-      "clusterSeed": -466652639,
+      "biomeId": "shore",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.359509,
+      "treeDensity": 0.417526,
+      "clusterSeed": 46570,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "marker",
-        "bag"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": {
+        "kind": "stream",
+        "side": "left",
+        "offset": 9.1,
+        "width": 2.4,
+        "seed": 32170
+      },
+      "seasonTimeline": 0.89899,
+      "weatherIntensity": 0.132515
     }
   },
   {
     "id": "gen:qc_camp:113",
     "environmentPreset": "pines",
     "lighting": "day",
-    "number": 101,
+    "contentHash": "3dfe545c8cb59ecffe5858f593ea553fec7cd3d5f4b5b9e056d639a494efacbf",
+    "ruleVersion": 2,
+    "number": 91,
     "width": 4,
     "height": 6,
     "decorSeed": -1466256388,
@@ -7554,31 +6761,36 @@
         6
       ]
     ],
+    "noise": [
+      [
+        3,
+        0
+      ]
+    ],
     "environment": {
       "biomeId": "forest",
-      "seasonId": "autumn",
+      "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": -436427695,
+      "moisture": 0.350913,
+      "treeDensity": 0.414287,
+      "clusterSeed": 46743,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "marker",
-        "bag"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.909091,
+      "weatherIntensity": 0.118188
     }
   },
   {
     "id": "gen:qc_camp:114",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "number": 102,
+    "contentHash": "4e9ab8638898af5000c36c98647aa3f875db1b7eed3aa1b7125df76ea0454e62",
+    "ruleVersion": 2,
+    "number": 92,
     "width": 5,
     "height": 7,
     "decorSeed": -1466215220,
@@ -7619,31 +6831,36 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [
+      [
+        4,
+        0
+      ]
+    ],
     "environment": {
-      "biomeId": "meadow",
-      "seasonId": "autumn",
-      "weatherId": "rain",
-      "moisture": 0.9,
-      "treeDensity": 0.25,
-      "clusterSeed": -289416767,
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.34469,
+      "treeDensity": 0.411354,
+      "clusterSeed": 46916,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "marker",
-        "bag"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.919192,
+      "weatherIntensity": 0.107816
     }
   },
   {
     "id": "gen:qc_camp:115",
-    "environmentPreset": "pines",
+    "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 103,
+    "contentHash": "066dd257eb32c99df05fd8b238851fa2846f33160604328f0391524a9c8cc095",
+    "ruleVersion": 2,
+    "number": 93,
     "width": 6,
     "height": 5,
     "decorSeed": -1466206756,
@@ -7692,31 +6909,31 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "forest",
-      "seasonId": "winter",
+      "biomeId": "meadow",
+      "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": -259191823,
+      "moisture": 0.341059,
+      "treeDensity": 0.408737,
+      "clusterSeed": 47089,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "marker",
-        "bag"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.929293,
+      "weatherIntensity": 0.101765
     }
   },
   {
     "id": "gen:qc_camp:116",
     "environmentPreset": "pines",
-    "lighting": "morning",
-    "number": 104,
+    "lighting": "day",
+    "contentHash": "dacafc64173ad64e8d1fcd1a1170790692757c4fa5780e9cc8523943c312c7cd",
+    "ruleVersion": 2,
+    "number": 94,
     "width": 6,
     "height": 8,
     "decorSeed": -1466231252,
@@ -7751,31 +6968,31 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
       "biomeId": "forest",
-      "seasonId": "winter",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.84,
-      "clusterSeed": -346667039,
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.340144,
+      "treeDensity": 0.406447,
+      "clusterSeed": 47262,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "marker",
-        "bag"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.939394,
+      "weatherIntensity": 0.10024
     }
   },
   {
     "id": "gen:qc_camp:117",
-    "environmentPreset": "meadow",
-    "lighting": "evening",
-    "number": 105,
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "31c42d7c1bf7e3be026a5cc5c19126529f2d7f2f55bf05d8df5901c89cea4771",
+    "ruleVersion": 2,
+    "number": 95,
     "width": 8,
     "height": 6,
     "decorSeed": -1466222788,
@@ -7844,31 +7061,31 @@
         6
       ]
     ],
+    "noise": [],
     "environment": {
-      "biomeId": "meadow",
-      "seasonId": "winter",
+      "biomeId": "forest",
+      "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": -316442095,
+      "moisture": 0.341966,
+      "treeDensity": 0.404494,
+      "clusterSeed": 47435,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "marker",
-        "bag"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.949495,
+      "weatherIntensity": 0.103277
     }
   },
   {
     "id": "gen:qc_camp:118",
-    "environmentPreset": "pines",
+    "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 106,
+    "contentHash": "cc00eb875147167df5bbf68562dbdb5889752a83e84d2b7647c50f9fde1753fc",
+    "ruleVersion": 2,
+    "number": 96,
     "width": 7,
     "height": 7,
     "decorSeed": -1466181620,
@@ -7910,31 +7127,31 @@
       }
     ],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "forest",
-      "seasonId": "winter",
+      "biomeId": "meadow",
+      "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.84,
-      "clusterSeed": -169431167,
+      "moisture": 0.346439,
+      "treeDensity": 0.402885,
+      "clusterSeed": 47608,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "ruin",
-        "marker",
-        "bag"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.959596,
+      "weatherIntensity": 0.110732
     }
   },
   {
     "id": "gen:qc_camp:119",
-    "environmentPreset": "meadow",
+    "environmentPreset": "pines",
     "lighting": "day",
-    "number": 107,
+    "contentHash": "b72b5e7479f79b86ce4a8e7daa088706a660b28dd7e33fc0623b6b59d5474b36",
+    "ruleVersion": 2,
+    "number": 97,
     "width": 5,
     "height": 8,
     "decorSeed": -1466173156,
@@ -8003,31 +7220,36 @@
         -1
       ]
     ],
+    "noise": [
+      [
+        4,
+        0
+      ]
+    ],
     "environment": {
-      "biomeId": "meadow",
+      "biomeId": "forest",
       "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": -139206223,
+      "moisture": 0.353371,
+      "treeDensity": 0.401626,
+      "clusterSeed": 47781,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "repaired-marker",
-        "flowers",
-        "bench"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.969697,
+      "weatherIntensity": 0.122285
     }
   },
   {
     "id": "gen:qc_camp:120",
-    "environmentPreset": "meadow",
-    "lighting": "morning",
-    "number": 108,
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "e3821a121dcb48ae6d4b19340dbcf6a06704ce7a3b0304cccfebf32e605a0d73",
+    "ruleVersion": 2,
+    "number": 98,
     "width": 8,
     "height": 5,
     "decorSeed": -1466197481,
@@ -8068,37 +7290,36 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [
+      [
+        7,
+        0
+      ]
+    ],
     "environment": {
-      "biomeId": "shore",
+      "biomeId": "forest",
       "seasonId": "spring",
-      "weatherId": "cloudy",
-      "moisture": 0.48,
-      "treeDensity": 0.55,
-      "clusterSeed": -226070798,
+      "weatherId": "clear",
+      "moisture": 0.362473,
+      "treeDensity": 0.400724,
+      "clusterSeed": 47954,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "repaired-marker",
-        "flowers",
-        "bench"
-      ],
-      "shore": {
-        "kind": "lake",
-        "side": "left",
-        "offset": 10.5,
-        "width": 7.0,
-        "seed": -1466197481
-      }
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.979798,
+      "weatherIntensity": 0.137456
     }
   },
   {
     "id": "gen:qc_camp:121",
     "environmentPreset": "meadow",
     "lighting": "day",
-    "number": 109,
+    "contentHash": "44a87639adfd1401d7f2355c63e5a58503343c2cbf7aed5d9b2e2f905bc44a11",
+    "ruleVersion": 2,
+    "number": 99,
     "width": 7,
     "height": 8,
     "decorSeed": -1466188953,
@@ -8168,31 +7389,31 @@
         8
       ]
     ],
+    "noise": [],
     "environment": {
       "biomeId": "meadow",
       "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": -195617310,
+      "moisture": 0.373369,
+      "treeDensity": 0.400181,
+      "clusterSeed": 48127,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "repaired-marker",
-        "flowers",
-        "bench"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 0.989899,
+      "weatherIntensity": 0.155615
     }
   },
   {
     "id": "gen:qc_camp:122",
-    "environmentPreset": "meadow",
-    "lighting": "evening",
-    "number": 110,
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "b4ba81df7397c3ac182e2c978e1c8262a18608a6fa68d3da0ec2027eb9dc7d86",
+    "ruleVersion": 2,
+    "number": 100,
     "width": 8,
     "height": 7,
     "decorSeed": -1466147721,
@@ -8227,24 +7448,22 @@
     "accessPoints": [],
     "canopies": [],
     "exteriorWalkable": [],
+    "noise": [],
     "environment": {
-      "biomeId": "meadow",
+      "biomeId": "forest",
       "seasonId": "spring",
       "weatherId": "clear",
-      "moisture": 0.26,
-      "treeDensity": 0.25,
-      "clusterSeed": -48377838,
+      "moisture": 0.385608,
+      "treeDensity": 0.4,
+      "clusterSeed": 48300,
       "meadowSpecies": [
         "grass",
-        "daisy",
-        "poppy"
+        "daisy"
       ],
-      "storyMotifs": [
-        "repaired-marker",
-        "flowers",
-        "bench"
-      ],
-      "shore": null
+      "storyMotifs": [],
+      "shore": null,
+      "seasonTimeline": 1.0,
+      "weatherIntensity": 0.176013
     }
   }
 ]

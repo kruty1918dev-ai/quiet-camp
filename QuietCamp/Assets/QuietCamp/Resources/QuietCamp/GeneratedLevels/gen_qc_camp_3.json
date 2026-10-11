@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "ruleVersion": 2,
   "order": 13,
-  "chapter": 3,
+  "chapter": 2,
   "seed": 20363951,
   "width": 6,
   "height": 5,
   "id": "gen:qc_camp:3",
-  "contentHash": "dac189423b430277d6578cf1acfe3ea37097e78cac83edf4940657f4650b4936",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "e00a9f20bde992f3ab248df486454d08c86b3194f574bd5d2bbe6e46200fc128",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -115,7 +115,7 @@
       "rotation": 1
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "log",
@@ -139,27 +139,116 @@
     }
   ],
   "environment": {
-    "biomeId": "shore",
-    "seasonId": "summer",
-    "weatherId": "rain",
-    "moisture": 0.9,
-    "treeDensity": 0.55,
-    "clusterSeed": -255233299,
+    "biomeId": "forest",
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.456289,
+    "treeDensity": 0.424864,
+    "clusterSeed": 33249,
     "meadowSpecies": [
       "grass",
-      "wheat",
       "daisy"
     ],
-    "storyMotifs": [
-      "ruin",
-      "bench"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.121212,
+    "weatherIntensity": 0.293814
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-013",
+    "beats": [
+      {
+        "id": "place-013",
+        "storyBeat": "Колишній шкільний двір лишився спільним простором навіть без занять.",
+        "heroLandmark": "place-013-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Довга лавка біля низького фундаменту; поряд квіти та затінене місце зустрічі.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Колишній шкільний двір лишився спільним простором навіть без занять.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:3"
+        ],
+        "props": [
+          {
+            "id": "place-013-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_foundation",
+              "x": -7.00048,
+              "z": -0.35,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-013-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": -1.5,
+              "z": -4.10091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-013-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_gate",
+              "x": 5.53462,
+              "z": -3.77462,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": {
-      "kind": "lake",
-      "side": "left",
-      "offset": 9.5,
-      "width": 7.0,
-      "seed": 20375024
-    }
+    "references": []
   }
 }

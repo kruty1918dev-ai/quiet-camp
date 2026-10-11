@@ -7,9 +7,9 @@
   "width": 6,
   "height": 7,
   "id": "QC005",
-  "contentHash": "892768b9423b35e9fd5eb425a33ec9b0fce92f4d2511998c761a8d1a383bf66d",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "evening",
+  "contentHash": "b3243f18cc221e083a7e8f4d0e1c38578825269831229ae3f65aa1fb994f504f",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "tutorial.5",
   "generationAttempt": 1,
   "decorSeed": 20290664,
@@ -97,17 +97,113 @@
     "biomeId": "forest",
     "seasonId": "spring",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.48,
-    "clusterSeed": -556482859,
+    "moisture": 0.360607,
+    "treeDensity": 0.402885,
+    "clusterSeed": 31865,
     "meadowSpecies": [
       "grass",
       "daisy"
     ],
-    "storyMotifs": [
-      "marker",
-      "bench"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.040404,
+    "weatherIntensity": 0.134344
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-005",
+    "beats": [
+      {
+        "id": "place-005",
+        "storyBeat": "Завершення уроків Остапа: близькість створює доступна дорога між людьми.",
+        "heroLandmark": "place-005-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Два садові дерева й спільна лавка; стежка між наметами залишається відкритою.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Завершення уроків Остапа: близькість створює доступна дорога між людьми.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "QC005"
+        ],
+        "props": [
+          {
+            "id": "place-005-prop-1",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_orchard",
+              "x": -4.79206,
+              "z": -0.35,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-005-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": 3.0,
+              "z": -5.10091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-005-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_fence_broken_1",
+              "x": 5.52258,
+              "z": -4.79145,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

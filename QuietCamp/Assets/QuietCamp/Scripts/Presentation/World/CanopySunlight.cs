@@ -96,7 +96,7 @@ namespace QuietCamp.Presentation.World
                 float opening = reduced ? .90f : .87f + .13f * Mathf.Sin(_time * .32f + i * 1.7f);
                 mat.SetFloat("_Density", .24f * _visibility * opening);
                 var palette=SeasonPalette.For(_level);
-                var scattering=palette.SnowCoverage>.5f?new Color(1.34f,1.40f,1.53f):new Color(1.55f,1.32f,.83f);
+                var scattering=Color.Lerp(new Color(1.55f,1.32f,.83f),new Color(1.34f,1.40f,1.53f),palette.SnowCoverage);
                 mat.SetColor("_FogColor", Color.Lerp(scattering, _profile.Sun * palette.SunTint * 1.5f, .4f));
             }
         }

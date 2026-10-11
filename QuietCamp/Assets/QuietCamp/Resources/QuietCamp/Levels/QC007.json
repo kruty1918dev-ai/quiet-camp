@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "ruleVersion": 2,
   "order": 7,
-  "chapter": 2,
+  "chapter": 1,
   "seed": 20316437,
   "width": 6,
   "height": 8,
   "id": "QC007",
-  "contentHash": "7d54113d6df37600c093ababc533f3a4fa0af4fc80d2217232f903d23d718eca",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "edb5a4b0791926c441d58e619d15f835b91a242546189ac2fc8a4310d18f2373",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "tutorial.7",
   "generationAttempt": 1,
@@ -120,7 +120,7 @@
       "rotation": 1
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "tree_default",
@@ -144,27 +144,116 @@
     }
   ],
   "environment": {
-    "biomeId": "shore",
-    "seasonId": "summer",
-    "weatherId": "rain",
-    "moisture": 0.9,
-    "treeDensity": 0.55,
-    "clusterSeed": -379239845,
+    "biomeId": "forest",
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.38323,
+    "treeDensity": 0.406447,
+    "clusterSeed": 32211,
     "meadowSpecies": [
       "grass",
-      "poppy",
       "daisy"
     ],
-    "storyMotifs": [
-      "bag",
-      "lantern"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.060606,
+    "weatherIntensity": 0.17205
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-007",
+    "beats": [
+      {
+        "id": "place-007",
+        "storyBeat": "Межа двору ще читається, хоча рослини давно вільно переходять її.",
+        "heroLandmark": "place-007-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Пошкоджена хвіртка, неглибокий фундамент і квіти по інший бік паркана.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Межа двору ще читається, хоча рослини давно вільно переходять її.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "QC007"
+        ],
+        "props": [
+          {
+            "id": "place-007-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_foundation",
+              "x": -7.00048,
+              "z": 0.55,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-007-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": -1.5,
+              "z": -5.60091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-007-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_gate",
+              "x": 5.53462,
+              "z": -5.27462,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": {
-      "kind": "stream",
-      "side": "left",
-      "offset": 7.1,
-      "width": 2.2,
-      "seed": 20340298
-    }
+    "references": []
   }
 }

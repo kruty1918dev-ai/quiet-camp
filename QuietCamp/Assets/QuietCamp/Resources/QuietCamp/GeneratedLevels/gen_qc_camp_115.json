@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 103,
-  "chapter": 21,
+  "order": 93,
+  "chapter": 10,
   "seed": -1466226045,
   "width": 6,
   "height": 5,
   "id": "gen:qc_camp:115",
-  "contentHash": "2e6e112e8cd0a690b933f02249b817304bb5fb617da9d02e4fc4ae10805f444b",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "066dd257eb32c99df05fd8b238851fa2846f33160604328f0391524a9c8cc095",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -124,7 +124,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "pines",
+  "environmentPreset": "meadow",
   "objects": [
     {
       "assetId": "tree_default",
@@ -154,22 +154,116 @@
     }
   ],
   "environment": {
-    "biomeId": "forest",
-    "seasonId": "winter",
+    "biomeId": "meadow",
+    "seasonId": "spring",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.84,
-    "clusterSeed": -259191823,
+    "moisture": 0.341059,
+    "treeDensity": 0.408737,
+    "clusterSeed": 47089,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "daisy"
     ],
-    "storyMotifs": [
-      "ruin",
-      "marker",
-      "bag"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.929293,
+    "weatherIntensity": 0.101765
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-093",
+    "beats": [
+      {
+        "id": "place-093",
+        "storyBeat": "Повернення звичайної праці є переконливим знаком життя після втрати.",
+        "heroLandmark": "place-093-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Вулики й садові крони оточені весняними квітами.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Повернення звичайної праці є переконливим знаком життя після втрати.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:115"
+        ],
+        "props": [
+          {
+            "id": "place-093-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_beehive",
+              "x": -4.4238,
+              "z": -0.35,
+              "elevation": 0.025,
+              "height": 0.72,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-093-prop-2",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_orchard",
+              "x": -3.0,
+              "z": -4.20604,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-093-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_beehive",
+              "x": 4.4238,
+              "z": -3.92718,
+              "elevation": 0.025,
+              "height": 0.72,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

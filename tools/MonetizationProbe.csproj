@@ -14,6 +14,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="MonetizationProbe.cs" />
+    <Compile Include="Campaign100Authoring.cs" />
+    <Compile Include="Campaign100PackContracts.cs" />
+    <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/ContentPackStore.cs" />
     <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Domain/*.cs" />
     <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Application/CampEconomy.cs" />
     <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Application/JourneyAccessService.cs" />

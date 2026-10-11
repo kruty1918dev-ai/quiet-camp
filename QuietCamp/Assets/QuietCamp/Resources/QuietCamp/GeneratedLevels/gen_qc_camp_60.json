@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 48,
-  "chapter": 10,
+  "order": 44,
+  "chapter": 5,
   "seed": -720072899,
   "width": 8,
   "height": 5,
   "id": "gen:qc_camp:60",
-  "contentHash": "14d522ef61fd08fbabe819415d1377e8bf3ab1f8e76ddf4e640e08018575f361",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "morning",
+  "contentHash": "92e7e061156aefd477cca09f7a96fcbb03c209cf0d248a5553c6a1d8ee0d85e2",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
   "decorSeed": -720056222,
@@ -79,7 +79,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "stone_largeA",
@@ -102,27 +102,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "shore",
+    "biomeId": "forest",
     "seasonId": "summer",
-    "weatherId": "cloudy",
-    "moisture": 0.48,
-    "treeDensity": 0.55,
-    "clusterSeed": 1364641571,
+    "weatherId": "clear",
+    "moisture": 0.459654,
+    "treeDensity": 0.57245,
+    "clusterSeed": 38612,
     "meadowSpecies": [
       "grass",
-      "wheat",
-      "daisy"
+      "poppy"
     ],
-    "storyMotifs": [
-      "bag",
-      "repaired-marker"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.434343,
+    "weatherIntensity": 0.299423
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-044",
+    "beats": [
+      {
+        "id": "place-044",
+        "storyBeat": "Літак — місце пам'яті, а не ігровий трофей; намети не ставляться на уламки.",
+        "heroLandmark": "place-044-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Дві віддалені частини літака і маленький квітковий акцент обабіч безпечного шляху.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Літак — місце пам'яті, а не ігровий трофей; намети не ставляться на уламки.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:60"
+        ],
+        "props": [
+          {
+            "id": "place-044-prop-1",
+            "category": "recovery",
+            "motif": "civilian-debris",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "staging_aircraft_fore",
+              "x": -7.10177,
+              "z": -0.8,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-044-prop-2",
+            "category": "recovery",
+            "motif": "civilian-debris",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "staging_aircraft_tail",
+              "x": 1.15,
+              "z": -5.40674,
+              "elevation": 0.025,
+              "height": 1.9,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-044-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "flower_yellowA",
+              "x": 5.29049,
+              "z": -3.8099,
+              "elevation": 0.025,
+              "height": 0.34,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
     ],
-    "shore": {
-      "kind": "lake",
-      "side": "left",
-      "offset": 10.5,
-      "width": 7.0,
-      "seed": -720056222
-    }
+    "references": []
   }
 }

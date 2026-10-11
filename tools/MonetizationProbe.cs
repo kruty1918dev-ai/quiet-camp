@@ -19,6 +19,7 @@ class MonetizationProbe
     static async Task Main(string[] args)
     {
         if (args.Length == 2 && args[0] == "--author-lighthouse") { AuthorLighthouse(args[1]); return; }
+        if(args.Length==2&&args[0]=="--author-campaign100"){Campaign100Authoring.Publish(args[1]);return;}
         VerifyDirectNavigation();
         var now = new DateTime(2026, 10, 5, 23, 59, 0, DateTimeKind.Utc);
         var state = new EconomySaveData();
@@ -155,7 +156,7 @@ class MonetizationProbe
         foreach (var id in ids.Skip(45)) progress.MarkCompleted(id);
         Expect(Next(ids.Last())==null && Continue()==ids.Last() && progress.CompletedCount==ids.Length+2,
             "Full campaign ends safely; replay and stored completions are preserved");
-        Pass("direct navigation: fresh/5/45/110 completions, resume, replay, journey and access gates");
+        Pass("direct navigation: fresh/5/45/final completions, resume, replay, journey and access gates");
     }
 
     static async Task NativeContracts()
@@ -232,6 +233,7 @@ class MonetizationProbe
         var resources = UnityEngine.Resources.Root;
         var campaign = JObject.Parse(File.ReadAllText(Path.Combine(resources, "QuietCamp/campaign.json")));
         var main = campaign["mvpLevelIds"].Values<string>().Concat(campaign["generatedLevelIds"].Values<string>()).ToArray();
+        if(campaign["bundledLevelLimit"]?.Value<int>()==100){Campaign100Contracts(main,resources);return;}
         Expect(main.Length == 110 && main.Distinct().Count() == 110, "110 campaign IDs across five acts");
         var manifest = JObject.Parse(File.ReadAllText(Path.Combine(resources, "QuietCamp/monetization.json")));
         var journeys = manifest["journeys"].ToObject<JourneyDefinition[]>();
@@ -298,6 +300,34 @@ class MonetizationProbe
         }
         Pass("all new economy, memory, journey and purchase keys localized in uk/en/de");
     }
+    static void Campaign100Contracts(string[] ids,string resources)
+    {
+        Expect(ids.Length==100&&ids.Distinct().Count()==100,"100 unique bundled IDs");
+        var design=Path.Combine(Environment.CurrentDirectory,"Design/Campaign100/2026-10-11");
+        var old=JObject.Parse(File.ReadAllText(Path.Combine(design,"Baseline/campaign.json")));
+        Expect(ids.Take(5).SequenceEqual(old["mvpLevelIds"].Values<string>().Take(5)),"Tutorial IDs preserved");
+        foreach(var id in ids)
+        {
+            var level=LevelLoader.Load(id);
+            Expect(LevelContentValidator.Validate(level).Count==0&&RuleEvaluator.Evaluate(level,level.witness).IsSolved,"Campaign100 witness "+id);
+            Expect(level.contentHash==CampContent.CalculateHash(level),"Campaign100 hash "+id);
+            var solver=new CampSolver(level,Array.Empty<Placement>(),20);var status=solver.Step();while(status==CampSolver.Status.Searching)status=solver.Step(.05);
+            Expect(status==CampSolver.Status.Solved&&RuleEvaluator.Evaluate(level,solver.Solution).IsSolved,"Campaign100 independent solver "+id);
+            Expect(level.environmentalStory?.beats.Length==1&&level.environment.seasonTimeline>=0,"Individual story/timeline "+id);
+        }
+        foreach(var path in Directory.GetFiles(Path.Combine(design,"Baseline/Levels"),"*.json"))
+        {
+            var level=Newtonsoft.Json.JsonConvert.DeserializeObject<LevelData>(File.ReadAllText(path));
+            Expect(LevelContentValidator.Validate(level).Count==0&&RuleEvaluator.Evaluate(level,level.witness).IsSolved,"Preserved historical level "+level.id);
+            var revision=CampContent.Revision(level.contentHash);Expect(revision?.contentHash==level.contentHash,"Historical revision retained "+level.id);
+        }
+        var monetization=JObject.Parse(File.ReadAllText(Path.Combine(resources,"QuietCamp/monetization.json")));
+        Expect(monetization["journeys"].All(j=>!j["published"].Value<bool>()),"Optional base-game routes deferred");
+        Expect(JArray.Parse(File.ReadAllText(Path.Combine(resources,"QuietCamp/bonus_camps.json"))).Count==0,"No additional base bonus levels");
+        Campaign100PackContracts.Run(ids);
+        Pass("100 campaign levels: validator, witness, independent solver, hashes, environmental story; 274 historical revisions retained");
+    }
+
     static void AuthorLighthouse(string folder)
     {
         if (!Directory.Exists(folder)) throw new InvalidOperationException("Missing target content directory");

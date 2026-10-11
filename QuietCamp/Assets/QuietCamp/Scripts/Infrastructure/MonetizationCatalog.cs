@@ -27,6 +27,7 @@ namespace QuietCamp.Infrastructure
             var mainStories = new string[main.Count];
             for (var i = 30; i < main.Count; i++)
             {
+                if(LevelLoader.Campaign100Enabled())continue; // New story is environmental, with no mandatory story cards.
                 var number = i + 1;
                 if (number <= 42 || number % 5 == 0 || districtEnds.Contains(number))
                     mainStories[i] = "journey.main.story." + number;
@@ -49,10 +50,12 @@ namespace QuietCamp.Infrastructure
             foreach (var journey in journeys ?? Array.Empty<JourneyDefinition>())
             {
                 if (journey == null) continue;
+                if(LevelLoader.Campaign100Enabled())journey.published=false;
                 foreach (var id in journey.levelIds ?? Array.Empty<string>())
                     if (!LevelLoader.Exists(id)) journey.published = false;
                 definitions.Add(journey);
             }
+            definitions.AddRange(ContentPackRuntime.Store.Journeys());
             if (JourneyCatalog.Validate(definitions).Count > 0)
             { Debug.LogWarning("[QuietCamp] Invalid journey catalog; optional journeys are disabled."); return new JourneyCatalog(new[] { definitions[0] }); }
             return new JourneyCatalog(definitions);

@@ -99,3 +99,11 @@ tools/**/bin/
 
 # Private donor-model photographs and local review gallery
 Design/Roadmap/ModelCatalogue/LocalPreviews~/
+
+# Local vendor source photography for the complete model catalogue
+Design/Campaign100/**/ModelPreviews~/
+Design/Campaign100/**/SourcePhotos~/
+
+# Temporary native photographs of already installed Unity package sources
+QuietCamp/Assets/QuietCamp/Editor/CampaignModelPhotography/
+QuietCamp/Assets/QuietCamp/Editor/CampaignModelPhotography.meta

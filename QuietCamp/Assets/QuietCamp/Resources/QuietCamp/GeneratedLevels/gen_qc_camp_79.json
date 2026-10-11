@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 67,
-  "chapter": 14,
+  "order": 60,
+  "chapter": 6,
   "seed": -719922398,
   "width": 6,
   "height": 8,
   "id": "gen:qc_camp:79",
-  "contentHash": "7b5548782e3bed061009803dd5555b00383f289816c2e774c89820459fb64650",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "f9daad64648164203b277c5508cb155d86671b1839759c37dd1522d46274712f",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -133,7 +133,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "pines",
+  "environmentPreset": "meadow",
   "objects": [
     {
       "assetId": "campfire_stones",
@@ -169,19 +169,122 @@
     }
   ],
   "environment": {
-    "biomeId": "pines",
-    "seasonId": "winter",
+    "biomeId": "shore",
+    "seasonId": "autumn",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.84,
-    "clusterSeed": 1763318724,
+    "moisture": 0.498255,
+    "treeDensity": 0.564131,
+    "clusterSeed": 41380,
     "meadowSpecies": [
-      "grass"
+      "grass",
+      "wheat"
     ],
-    "storyMotifs": [
-      "marker",
-      "lantern"
+    "storyMotifs": [],
+    "shore": {
+      "kind": "stream",
+      "side": "left",
+      "offset": 8.6,
+      "width": 2.4,
+      "seed": 31780
+    },
+    "seasonTimeline": 0.59596,
+    "weatherIntensity": 0.363758
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-060",
+    "beats": [
+      {
+        "id": "place-060",
+        "storyBeat": "Герої не повернули минулу водойму, але знайшли новий спосіб жити біля води.",
+        "heroLandmark": "place-060-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Невелике відкрите плесо, ліхтар і вербовий берег, споруда лишається позаду.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Герої не повернули минулу водойму, але знайшли новий спосіб жити біля води.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:79"
+        ],
+        "props": [
+          {
+            "id": "place-060-prop-1",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_willow",
+              "x": 4.7383,
+              "z": -0.8,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-060-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_mooring_post",
+              "x": 3.0,
+              "z": -5.276,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-060-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_workboat",
+              "x": 4.74063,
+              "z": -10.32817,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

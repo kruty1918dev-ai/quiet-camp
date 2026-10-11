@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 57,
-  "chapter": 12,
+  "order": 52,
+  "chapter": 6,
   "seed": -720001619,
   "width": 7,
   "height": 5,
   "id": "gen:qc_camp:69",
-  "contentHash": "ffe78520bea24a257e9607afb0e4fb0628d22cfa50dcb5091a86f8e651463e28",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "c3ce3f3422d083dc00fa8d99862c5e8f769bd6b8c026fb4495b5608808c94210",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -148,24 +148,119 @@
     "biomeId": "shore",
     "seasonId": "autumn",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.55,
-    "clusterSeed": 1637580243,
+    "moisture": 0.482198,
+    "treeDensity": 0.579592,
+    "clusterSeed": 39996,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "wheat"
     ],
-    "storyMotifs": [
-      "marker",
-      "bag"
-    ],
+    "storyMotifs": [],
     "shore": {
-      "kind": "lake",
+      "kind": "stream",
       "side": "left",
-      "offset": 10.0,
-      "width": 7.0,
-      "seed": -719979790
-    }
+      "offset": 9.1,
+      "width": 2.4,
+      "seed": 31676
+    },
+    "seasonTimeline": 0.515152,
+    "weatherIntensity": 0.336996
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-052",
+    "beats": [
+      {
+        "id": "place-052",
+        "storyBeat": "Новий рослинний пояс показує час, який минув після втрати великої води.",
+        "heroLandmark": "place-052-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Молоді верби та очерет ростуть між старим причалом і залишковою водою.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Новий рослинний пояс показує час, який минув після втрати великої води.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:69"
+        ],
+        "props": [
+          {
+            "id": "place-052-prop-1",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_willow",
+              "x": 5.2383,
+              "z": -0.8,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-052-prop-2",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_reed_clump",
+              "x": 3.0,
+              "z": -3.77261,
+              "elevation": 0.025,
+              "height": 1.15,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-052-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_mooring_post",
+              "x": 4.9335,
+              "z": -7.126,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
   }
 }

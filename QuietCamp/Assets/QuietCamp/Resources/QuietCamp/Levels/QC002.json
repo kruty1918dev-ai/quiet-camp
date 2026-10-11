@@ -7,8 +7,8 @@
   "width": 5,
   "height": 6,
   "id": "QC002",
-  "contentHash": "fb3f225b11e151c2ed124a6dc8fdda5585200b23a2c8a446ebbe65b6736dd575",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "7b9fd5afc68877dedd735026934291495c111900fa9b9694a0203f19ec6ebd3b",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "tutorial.2",
   "generationAttempt": 1,
@@ -60,17 +60,113 @@
     "biomeId": "forest",
     "seasonId": "spring",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.48,
-    "clusterSeed": -647168404,
+    "moisture": 0.341356,
+    "treeDensity": 0.400181,
+    "clusterSeed": 31346,
     "meadowSpecies": [
       "grass",
       "daisy"
     ],
-    "storyMotifs": [
-      "marker",
-      "bench"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.010101,
+    "weatherIntensity": 0.102261
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-002",
+    "beats": [
+      {
+        "id": "place-002",
+        "storyBeat": "Гості можуть жити поруч, коли ніхто не перекриває іншому дорогу.",
+        "heroLandmark": "place-002-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Два протоптані підходи сходяться під деревом; колода лежить обабіч проходу.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Гості можуть жити поруч, коли ніхто не перекриває іншому дорогу.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "QC002"
+        ],
+        "props": [
+          {
+            "id": "place-002-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_trail_shelter",
+              "x": -4.92188,
+              "z": 0.1,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-002-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log_stack",
+              "x": 1.15,
+              "z": -4.86736,
+              "elevation": 0.025,
+              "height": 0.7,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-002-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "sign",
+              "x": 4.03535,
+              "z": -4.23988,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

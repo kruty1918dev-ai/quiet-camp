@@ -14,7 +14,8 @@ namespace QuietCamp.Presentation.World
         public CampBiomeProfile(LevelData level, float rain = 0)
         {
             var environment = EnvironmentCompositionData.For(level);
-            Snow = environment.seasonId == "winter";
+            var season=SeasonProfile.For(level);
+            Snow = season.IsContinuous?season.SnowCoverage>.55f:environment.seasonId == "winter";
             bool autumn = environment.seasonId == "autumn";
             bool forest = environment.biomeId == "pines" || environment.treeDensity > .65f;
             bool wet = !Snow && (rain > .18f || environment.moisture > .65f);
@@ -28,6 +29,13 @@ namespace QuietCamp.Presentation.World
             Birds = Snow ? .16f : autumn ? .42f : environment.seasonId == "spring" ? 1 : .85f;
             Crickets = Snow ? 0 : autumn ? .12f : environment.seasonId == "spring" ? .35f : 1;
             BedWeight = Snow ? .42f : forest ? .60f : .45f;
+            if(season.IsContinuous)
+            {
+                TraceColor=Color.Lerp(season.Palette.Soil,new Color(.55f,.63f,.71f),season.SnowCoverage);
+                Birds=Mathf.Lerp(1,.16f,Mathf.Max(season.BareFraction*.7f,season.SnowCoverage));
+                Crickets=(1-season.SnowCoverage)*Mathf.Lerp(.8f,.12f,season.BareFraction);
+                BedWeight=Mathf.Lerp(forest?.60f:.45f,.42f,season.SnowCoverage);
+            }
             WaterWeight = environment.shore == null ? 0 : environment.shore.kind == "stream" ? .65f : .42f;
         }
     }

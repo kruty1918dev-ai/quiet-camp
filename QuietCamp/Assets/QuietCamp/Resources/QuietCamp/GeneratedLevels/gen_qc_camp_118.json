@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 106,
-  "chapter": 22,
+  "order": 96,
+  "chapter": 10,
   "seed": -1466202285,
   "width": 7,
   "height": 7,
   "id": "gen:qc_camp:118",
-  "contentHash": "dd495b0de4d80ea82b1f001992599399091614c925589f0087692db3466e71df",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "cc00eb875147167df5bbf68562dbdb5889752a83e84d2b7647c50f9fde1753fc",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -125,7 +125,7 @@
       "rotation": 1
     }
   ],
-  "environmentPreset": "pines",
+  "environmentPreset": "meadow",
   "objects": [
     {
       "assetId": "stump_round",
@@ -155,22 +155,116 @@
     }
   ],
   "environment": {
-    "biomeId": "forest",
-    "seasonId": "winter",
+    "biomeId": "meadow",
+    "seasonId": "spring",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.84,
-    "clusterSeed": -169431167,
+    "moisture": 0.346439,
+    "treeDensity": 0.402885,
+    "clusterSeed": 47608,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "daisy"
     ],
-    "storyMotifs": [
-      "ruin",
-      "marker",
-      "bag"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.959596,
+    "weatherIntensity": 0.110732
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-096",
+    "beats": [
+      {
+        "id": "place-096",
+        "storyBeat": "Пам'ять збереглася поряд із відновленим життям; весна не скасовує втрату.",
+        "heroLandmark": "place-096-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Тихий квітковий сад і ліхтар стоять біля давнього фундаменту.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Пам'ять збереглася поряд із відновленим життям; весна не скасовує втрату.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:118"
+        ],
+        "props": [
+          {
+            "id": "place-096-prop-1",
+            "category": "recovery",
+            "motif": "civilian-debris",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_memorial_garden",
+              "x": -9.93563,
+              "z": -6.0,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-096-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": 0.25,
+              "z": -5.10091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-096-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "flower_yellowA",
+              "x": 4.79049,
+              "z": -4.8099,
+              "elevation": 0.025,
+              "height": 0.34,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

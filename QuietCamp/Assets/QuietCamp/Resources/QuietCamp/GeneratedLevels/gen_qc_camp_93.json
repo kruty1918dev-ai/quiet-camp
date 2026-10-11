@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 81,
-  "chapter": 17,
+  "order": 73,
+  "chapter": 8,
   "seed": -719811476,
   "width": 6,
   "height": 6,
   "id": "gen:qc_camp:93",
-  "contentHash": "f1c90370443acdfb0ecf539795ec3eb6438d86c90cd52e82daf033175db85231",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "c6af2bdf6560731fb5fe2bc8f79b8936fef2daa022fb10146c05e6b28b91d88b",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -107,7 +107,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "log",
@@ -130,22 +130,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "meadow",
-    "seasonId": "summer",
-    "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.25,
-    "clusterSeed": -1991634810,
+    "biomeId": "pines",
+    "seasonId": "winter",
+    "weatherId": "cloudy",
+    "moisture": 0.548509,
+    "treeDensity": 0.502808,
+    "clusterSeed": 43629,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "wheat"
     ],
-    "storyMotifs": [
-      "ruin",
-      "bench",
-      "lantern"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.727273,
+    "weatherIntensity": 0.447516
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-073",
+    "beats": [
+      {
+        "id": "place-073",
+        "storyBeat": "Спільне тепло стає важливішим, але правила турботи вже відомі.",
+        "heroLandmark": "place-073-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Дорожнє укриття і сухі поліна серед хвойної зелені й світлого снігу.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Спільне тепло стає важливішим, але правила турботи вже відомі.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:93"
+        ],
+        "props": [
+          {
+            "id": "place-073-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_trail_shelter",
+              "x": -5.42188,
+              "z": -0.35,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-073-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log_stack",
+              "x": 3.0,
+              "z": -4.86736,
+              "elevation": 0.025,
+              "height": 0.7,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-073-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "sign",
+              "x": 4.53535,
+              "z": -4.23988,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

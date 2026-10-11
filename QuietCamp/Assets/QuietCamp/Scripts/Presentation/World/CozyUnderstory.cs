@@ -58,7 +58,7 @@ namespace QuietCamp.Presentation.World
 
         public void Build(LevelData level)
         {
-            _season=SeasonProfile.For(level);if(_season.Winter)return;
+            _season=SeasonProfile.For(level);if(_season.SnowCoverage>.92f)return;
             var library = CozyVegetationLibrary.Load();
             if (library == null || library.plants.Length < 6) return;
             var geometry = new Geometry[library.plants.Length];
@@ -113,6 +113,7 @@ namespace QuietCamp.Presentation.World
         }
         internal static bool CanPlant(LevelData level,Vector3 position,float radius)
         {
+            if(CampaignScenicFootprints.Intersects(level,position,radius))return false;
             // Include the whole bent silhouette, not just the root, in the exclusion.
             if (Mathf.Abs(position.x)<level.width*.5f+.18f+radius && Mathf.Abs(position.z)<level.height*.5f+.18f+radius) return false;
             if (ShorelineGeometry.Contains(EnvironmentCompositionData.For(level).shore,position,radius+.15f)) return false;

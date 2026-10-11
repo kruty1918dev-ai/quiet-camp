@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 96,
-  "chapter": 20,
+  "order": 86,
+  "chapter": 9,
   "seed": -1466281506,
   "width": 7,
   "height": 6,
   "id": "gen:qc_camp:108",
-  "contentHash": "607cef1658b2e9839f3c292bd047bcfcaec43bf45f26d36c096c58df2d88def7",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "morning",
+  "contentHash": "9f5bb65846cdf643ac866ca4d0744c7fddbaaa2d227764fd3005a8fa72013e25",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
   "decorSeed": -1466298751,
@@ -102,19 +102,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "pines",
+    "biomeId": "forest",
     "seasonId": "winter",
-    "weatherId": "cloudy",
-    "moisture": 0.48,
-    "treeDensity": 0.84,
-    "clusterSeed": -587705968,
+    "weatherId": "clear",
+    "moisture": 0.410758,
+    "treeDensity": 0.43325,
+    "clusterSeed": 45878,
     "meadowSpecies": [
-      "grass"
+      "grass",
+      "wheat"
     ],
-    "storyMotifs": [
-      "ruin",
-      "lantern"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.858586,
+    "weatherIntensity": 0.21793
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-086",
+    "beats": [
+      {
+        "id": "place-086",
+        "storyBeat": "Сад не стає новим за один день; ознаки весни ще локальні.",
+        "heroLandmark": "place-086-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Плодові дерева й маленькі квіткові плями з'являються між останнім снігом.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Сад не стає новим за один день; ознаки весни ще локальні.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:108"
+        ],
+        "props": [
+          {
+            "id": "place-086-prop-1",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_orchard",
+              "x": -5.29206,
+              "z": 0.1,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-086-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": 1.15,
+              "z": -4.60091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-086-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_fence_broken_1",
+              "x": 6.02258,
+              "z": -4.29145,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

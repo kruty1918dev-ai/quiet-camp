@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 108,
+  "chapter": 22,
+  "seed": -1466186424,
+  "width": 8,
+  "height": 5,
+  "id": "gen:qc_camp:120",
+  "contentHash": "002bd3bc0185f68b1e84faf7ec2ff71427f9a605a06a9997f4b4e27670a5fa98",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "morning",
+  "tutorialKey": "",
+  "generationAttempt": 1,
+  "decorSeed": -1466197481,
+  "entry": [
+    7,
+    2
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      7,
+      0
+    ],
+    [
+      3,
+      3
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      4,
+      2
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      7,
+      0
+    ]
+  ],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g1",
+      "x": 1,
+      "z": 3,
+      "rotation": 2
+    },
+    {
+      "guestId": "g2",
+      "x": 4,
+      "z": 3,
+      "rotation": 1
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "campfire_stones",
+      "x": 7,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 3,
+      "z": 3,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 0,
+      "z": 4,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 4,
+      "z": 2,
+      "rotation": 3
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "shore",
+    "seasonId": "spring",
+    "weatherId": "cloudy",
+    "moisture": 0.48,
+    "treeDensity": 0.55,
+    "clusterSeed": -226070798,
+    "meadowSpecies": [
+      "grass",
+      "daisy",
+      "poppy"
+    ],
+    "storyMotifs": [
+      "repaired-marker",
+      "flowers",
+      "bench"
+    ],
+    "shore": {
+      "kind": "lake",
+      "side": "left",
+      "offset": 10.5,
+      "width": 7.0,
+      "seed": -1466197481
+    }
+  }
+}

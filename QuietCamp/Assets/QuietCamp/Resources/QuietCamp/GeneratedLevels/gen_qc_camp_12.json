@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 22,
-  "chapter": 5,
+  "order": 21,
+  "chapter": 3,
   "seed": 20435222,
   "width": 6,
   "height": 8,
   "id": "gen:qc_camp:12",
-  "contentHash": "8cb4e8a373ad1576e4c0ca637fa2fe81d0293716a86ca7748e0d858d2bda99f2",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "08be17e8f0da7b1ab5716f46523a0d3deabf09691ce49b1650f656aec34b77b8",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -146,7 +146,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "pines",
+  "environmentPreset": "meadow",
   "objects": [
     {
       "assetId": "stump_round",
@@ -176,19 +176,116 @@
     }
   ],
   "environment": {
-    "biomeId": "pines",
-    "seasonId": "winter",
+    "biomeId": "meadow",
+    "seasonId": "summer",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.8,
-    "clusterSeed": -101333912,
+    "moisture": 0.44597,
+    "treeDensity": 0.463277,
+    "clusterSeed": 34633,
     "meadowSpecies": [
-      "grass"
+      "grass",
+      "daisy"
     ],
-    "storyMotifs": [
-      "lantern",
-      "bench"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.20202,
+    "weatherIntensity": 0.276617
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-021",
+    "beats": [
+      {
+        "id": "place-021",
+        "storyBeat": "Колись тут доглядали бджіл; відновлення починається зі збереження тихого краю саду.",
+        "heroLandmark": "place-021-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Невисокі вулики стоять різними рядами під садовими кронами.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Колись тут доглядали бджіл; відновлення починається зі збереження тихого краю саду.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:12"
+        ],
+        "props": [
+          {
+            "id": "place-021-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_beehive",
+              "x": -6.1238,
+              "z": -3.0,
+              "elevation": 0.025,
+              "height": 0.72,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-021-prop-2",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_orchard",
+              "x": 0.25,
+              "z": -5.70604,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-021-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_beehive",
+              "x": 4.4238,
+              "z": -5.42718,
+              "elevation": 0.025,
+              "height": 0.72,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

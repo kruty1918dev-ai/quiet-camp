@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 40,
-  "chapter": 8,
+  "order": 37,
+  "chapter": 4,
   "seed": 20577764,
   "width": 7,
   "height": 8,
   "id": "gen:qc_camp:30",
-  "contentHash": "f1100e05712f70375327f6f11004af9b19e6d3f58cfe0d1ea31d253714754c3f",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "evening",
+  "contentHash": "03437023719520b5508c40447376e4c082502038c2753dacdbdedb30d2fc8488",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
   "decorSeed": 20554427,
@@ -171,27 +171,121 @@
   ],
   "environment": {
     "biomeId": "shore",
-    "seasonId": "spring",
-    "weatherId": "cloudy",
-    "moisture": 0.48,
-    "treeDensity": 0.55,
-    "clusterSeed": 385414814,
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.372031,
+    "treeDensity": 0.548937,
+    "clusterSeed": 37401,
     "meadowSpecies": [
       "grass",
-      "daisy",
       "poppy"
     ],
-    "storyMotifs": [
-      "ruin",
-      "flowers",
-      "repaired-marker"
-    ],
+    "storyMotifs": [],
     "shore": {
-      "kind": "lake",
+      "kind": "stream",
       "side": "left",
-      "offset": 10.0,
-      "width": 7.0,
-      "seed": 20554427
-    }
+      "offset": 9.1,
+      "width": 2.4,
+      "seed": 31481
+    },
+    "seasonTimeline": 0.363636,
+    "weatherIntensity": 0.153385
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-037",
+    "beats": [
+      {
+        "id": "place-037",
+        "storyBeat": "Замість відсутнього мосту люди допомагали одне одному перейти воду.",
+        "heroLandmark": "place-037-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Причальний стовп, човен і ліхтар поруч із вербами.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Замість відсутнього мосту люди допомагали одне одному перейти воду.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:30"
+        ],
+        "props": [
+          {
+            "id": "place-037-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_mooring_post",
+              "x": 4.9335,
+              "z": -1.5,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-037-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_workboat",
+              "x": 0.7,
+              "z": -6.70733,
+              "elevation": 0.025,
+              "height": 1.15,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-037-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_willow",
+              "x": 5.2383,
+              "z": -9.00949,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
   }
 }

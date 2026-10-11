@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 54,
-  "chapter": 11,
+  "order": 50,
+  "chapter": 5,
   "seed": -720025379,
   "width": 7,
   "height": 7,
   "id": "gen:qc_camp:66",
-  "contentHash": "45fbe02f8daee59278be86921109c72782c4c46821df88e8464604b6e7f64cbf",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "0582ab6aa0da3e86cfa2475a728c0a3803477de3181db8d58f1790f92876c3df",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -92,7 +92,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "stump_round",
@@ -115,27 +115,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "shore",
+    "biomeId": "forest",
     "seasonId": "autumn",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.55,
-    "clusterSeed": 1429662339,
+    "moisture": 0.484745,
+    "treeDensity": 0.579955,
+    "clusterSeed": 39650,
     "meadowSpecies": [
       "grass",
-      "daisy",
       "poppy"
     ],
-    "storyMotifs": [
-      "marker",
-      "bag"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.494949,
+    "weatherIntensity": 0.341241
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-050",
+    "beats": [
+      {
+        "id": "place-050",
+        "storyBeat": "Пам'ятний розділ завершується теплом і продовженням маршруту.",
+        "heroLandmark": "place-050-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Невеликий ліхтар і лавка біля польових рослин; дальній шлях лишається відкритим.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Пам'ятний розділ завершується теплом і продовженням маршруту.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:66"
+        ],
+        "props": [
+          {
+            "id": "place-050-prop-1",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_sunflower_patch",
+              "x": -6.5195,
+              "z": 1.5,
+              "elevation": 0.025,
+              "height": 0.34,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-050-prop-2",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_field_weeds",
+              "x": 1.15,
+              "z": -4.73082,
+              "elevation": 0.025,
+              "height": 0.34,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-050-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "sign",
+              "x": 5.03535,
+              "z": -4.73988,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": {
-      "kind": "lake",
-      "side": "right",
-      "offset": 10.0,
-      "width": 7.0,
-      "seed": -720038014
-    }
+    "references": []
   }
 }

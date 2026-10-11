@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 62,
-  "chapter": 13,
+  "order": 56,
+  "chapter": 6,
   "seed": -719961998,
   "width": 5,
   "height": 6,
   "id": "gen:qc_camp:74",
-  "contentHash": "7199b76900f2e245e6265283e964ede6d832c9bb3f16ae9d57c935b7e8df2419",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "1335b1935a31e2100837c9f04df2bf813c61bdecc52bae8aa0f1fc5bd35ae852",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -75,7 +75,7 @@
       "rotation": 1
     }
   ],
-  "environmentPreset": "pines",
+  "environmentPreset": "meadow",
   "objects": [
     {
       "assetId": "campfire_stones",
@@ -104,22 +104,122 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "forest",
+    "biomeId": "shore",
     "seasonId": "autumn",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.84,
-    "clusterSeed": 1670701268,
+    "moisture": 0.480033,
+    "treeDensity": 0.574572,
+    "clusterSeed": 40688,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "wheat"
     ],
-    "storyMotifs": [
-      "ruin",
-      "flowers",
-      "repaired-marker"
+    "storyMotifs": [],
+    "shore": {
+      "kind": "stream",
+      "side": "back",
+      "offset": 8.6,
+      "width": 2.4,
+      "seed": 31728
+    },
+    "seasonTimeline": 0.555556,
+    "weatherIntensity": 0.333389
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-056",
+    "beats": [
+      {
+        "id": "place-056",
+        "storyBeat": "Причина зміни берега читається через геометрію споруди й шлях води.",
+        "heroLandmark": "place-056-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Пошкоджений сільський водоскид і нове русло обабіч його уламків.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Причина зміни берега читається через геометрію споруди й шлях води.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:74"
+        ],
+        "props": [
+          {
+            "id": "place-056-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_pond_spillway_ruin",
+              "x": -5.85434,
+              "z": -3.0,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-056-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_hydro_service_building",
+              "x": 1.15,
+              "z": 4.88818,
+              "elevation": 0.025,
+              "height": 1.15,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-056-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_willow",
+              "x": 4.2383,
+              "z": 4.65949,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

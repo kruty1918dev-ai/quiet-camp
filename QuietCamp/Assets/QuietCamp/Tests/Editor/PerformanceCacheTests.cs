@@ -10,7 +10,7 @@ namespace QuietCamp.Tests
         [Test] public void CampaignOrderIsReadOnlyAndStillMatchesContent()
         {
             var ids = LevelLoader.MvpLevelIds();
-            Assert.AreEqual(110, ids.Count);
+            Assert.AreEqual(100, ids.Count);
             Assert.AreEqual("QC001", ids[0]);
             Assert.IsTrue(((System.Collections.Generic.ICollection<string>)ids).IsReadOnly);
             Assert.Throws<System.NotSupportedException>(() => ((System.Collections.Generic.IList<string>)ids)[0] = "changed");

@@ -1,0 +1,12 @@
+PASS current-source compiler check: Kruty1918.LevelKit (warnings: 0)
+PASS current-source compiler check: Kruty1918.Atmos (warnings: 54)
+PASS current-source compiler check: Kruty1918.LevelGen (warnings: 3)
+PASS current-source compiler check: Kruty1918.LevelGen.LevelKitBridge (warnings: 0)
+PASS current-source compiler check: Kruty1918.AgentVerify (warnings: 8)
+PASS current-source compiler check: QuietCamp.Domain (warnings: 7)
+PASS current-source compiler check: QuietCamp.Application (warnings: 1)
+PASS current-source compiler check: QuietCamp.Infrastructure (warnings: 5)
+PASS current-source compiler check: QuietCamp.Presentation (warnings: 16)
+PASS current-source compiler check: QuietCamp.Tests.Editor (warnings: 0)
+PASS current-source compiler check: QuietCamp.Tests.PlayMode (warnings: 98)
+Compiler checks only; no Unity import, player build or runtime scene check performed.

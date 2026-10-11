@@ -162,7 +162,7 @@ namespace QuietCamp.Presentation.World
                 CameraFitter.Fit(camera,level,viewport);
                 var compositionRoot=new GameObject("ComposedEnvironment");compositionRoot.transform.SetParent(decorRoot,false);
                 _composition=compositionRoot.AddComponent<EnvironmentComposer>();
-                _composition.Configure(level,camera,decorRoot,QuietCampBootstrap.ServicesRef?.Assets,UnityEngine.Application.isPlaying);
+                _composition.Configure(level,camera,decorRoot,QuietCampBootstrap.ServicesRef?.Assets??AssetCatalog.Load(),UnityEngine.Application.isPlaying);
                 _windSim.SetShelter(_composition.Shelter);
                 _windShelterTexture=_composition.Shelter?.CreateTexture();
                 PublishShelter();
@@ -239,7 +239,7 @@ namespace QuietCamp.Presentation.World
             RenderSettings.ambientLight = ambient;
             RenderSettings.ambientSkyColor=ambient*.90f;
             RenderSettings.ambientEquatorColor=ambient*.72f;
-            RenderSettings.ambientGroundColor=ambient*(palette.SnowCoverage>.5f?new Color(.52f,.54f,.59f):new Color(.38f,.43f,.32f));
+            RenderSettings.ambientGroundColor=ambient*(Color.Lerp(new Color(.38f,.43f,.32f),new Color(.52f,.54f,.59f),palette.SnowCoverage));
             RenderSettings.fog = false;
             // Light targets ease over ~4 s — a phase change never snaps.
             _ambientTarget = ambient;

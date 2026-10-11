@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 79,
-  "chapter": 16,
+  "order": 71,
+  "chapter": 8,
   "seed": -719827316,
   "width": 7,
   "height": 8,
   "id": "gen:qc_camp:91",
-  "contentHash": "97aec4fb6c85e4139f0e6d676a2b05dc8d227e6775810c0856b3f8b72075e4d3",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "ab4e1f46b38be794bdda73f5b97ef6d451af2ae9b8da79d879ddd5bc781ef6f2",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -137,7 +137,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "tree_default",
@@ -167,22 +167,116 @@
     }
   ],
   "environment": {
-    "biomeId": "meadow",
-    "seasonId": "summer",
-    "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.25,
-    "clusterSeed": 2126553702,
+    "biomeId": "pines",
+    "seasonId": "winter",
+    "weatherId": "cloudy",
+    "moisture": 0.55412,
+    "treeDensity": 0.513983,
+    "clusterSeed": 43283,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "wheat"
     ],
-    "storyMotifs": [
-      "ruin",
-      "bench",
-      "lantern"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.707071,
+    "weatherIntensity": 0.456866
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-071",
+    "beats": [
+      {
+        "id": "place-071",
+        "storyBeat": "Зима приходить поступово, не замінює всю сцену одним білим кадром.",
+        "heroLandmark": "place-071-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Перша біла плівка на траві й тині; земля біля проходу ще темна.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Зима приходить поступово, не замінює всю сцену одним білим кадром.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:91"
+        ],
+        "props": [
+          {
+            "id": "place-071-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_gate",
+              "x": -6.54744,
+              "z": 0.55,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-071-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_fence_broken_0",
+              "x": 3.0,
+              "z": -5.27049,
+              "elevation": 0.025,
+              "height": 1.15,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-071-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_orchard",
+              "x": 5.29206,
+              "z": -5.70604,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

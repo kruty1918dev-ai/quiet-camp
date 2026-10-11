@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 78,
-  "chapter": 16,
+  "order": 70,
+  "chapter": 7,
   "seed": -719835236,
   "width": 8,
   "height": 5,
   "id": "gen:qc_camp:90",
-  "contentHash": "bd71c46c94e66066881bdebb0f784bda726d48378d49e6d53fcbaed89d3ba2f6",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "6bb40c437657f5f0031b516360dc5ad80c2a2d254dfb2b47f14ef46e5fabe9a8",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -79,7 +79,7 @@
       "rotation": 1
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "stump_round",
@@ -102,22 +102,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "meadow",
-    "seasonId": "summer",
-    "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.25,
-    "clusterSeed": -2081624010,
+    "biomeId": "pines",
+    "seasonId": "autumn",
+    "weatherId": "cloudy",
+    "moisture": 0.555033,
+    "treeDensity": 0.519436,
+    "clusterSeed": 43110,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "wheat"
     ],
-    "storyMotifs": [
-      "ruin",
-      "bench",
-      "lantern"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.69697,
+    "weatherIntensity": 0.458388
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-070",
+    "beats": [
+      {
+        "id": "place-070",
+        "storyBeat": "Перед холодом є зрозуміле місце, де можна зігрітися.",
+        "heroLandmark": "place-070-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Лісниче укриття, ліхтар і сухий запас деревини серед пізньої осені.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Перед холодом є зрозуміле місце, де можна зігрітися.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:90"
+        ],
+        "props": [
+          {
+            "id": "place-070-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_forester_hut",
+              "x": -7.04138,
+              "z": 3.0,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-070-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log_stack",
+              "x": 0.7,
+              "z": -4.36736,
+              "elevation": 0.025,
+              "height": 0.7,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-070-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": 5.29859,
+              "z": -4.10091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

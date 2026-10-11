@@ -1,0 +1,28 @@
+{
+  "verifiedUtc": "2026-10-11T09:38:47.449369+00:00",
+  "checks": {
+    "autonomous-contracts": {
+      "result": "Passed",
+      "sha256": "7567785486e1b3acd73e9dd151e698e11a778055b65e04800f52a7c907881e07",
+      "scope": "See exact output; compilation and contracts are not visual or mobile acceptance"
+    },
+    "source-compile": {
+      "result": "Passed",
+      "sha256": "4eb10bce08320e0af83f08efa54d849d0b598f42d76b22232b788471cee5a9a6",
+      "scope": "See exact output; compilation and contracts are not visual or mobile acceptance"
+    },
+    "portability": {
+      "result": "Passed",
+      "sha256": "3317726b4fe37b8b41ecb0d79930ee7385fc5f92f6f8fbec28b24ac83d777638",
+      "scope": "See exact output; compilation and contracts are not visual or mobile acceptance"
+    },
+    "guide-links": {
+      "result": "Passed",
+      "sha256": "d379952b27b408a423d64c6eadd019a3a8a72343b42cb161f72294b52cfd135e",
+      "scope": "See exact output; compilation and contracts are not visual or mobile acceptance"
+    }
+  },
+  "native100Accepted": false,
+  "playerBuild": false,
+  "mobileFpsMeasured": false
+}

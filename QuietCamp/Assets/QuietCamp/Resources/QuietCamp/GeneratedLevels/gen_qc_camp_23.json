@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 33,
-  "chapter": 7,
+  "order": 30,
+  "chapter": 3,
   "seed": 20522331,
   "width": 6,
   "height": 5,
   "id": "gen:qc_camp:23",
-  "contentHash": "b3e29e65ba774a20d8aacc7f3242bd4a3beb570ff710525bd1d5c0d30381720d",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "8f333b2e7154b7b41e97e0ba4e02668c8fab7a0fd0563268f1ebc3c0215446b7",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -125,21 +125,115 @@
   "canopies": [],
   "environment": {
     "biomeId": "meadow",
-    "seasonId": "spring",
+    "seasonId": "summer",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.25,
-    "clusterSeed": 348194281,
+    "moisture": 0.345046,
+    "treeDensity": 0.513983,
+    "clusterSeed": 36190,
     "meadowSpecies": [
       "grass",
-      "daisy",
       "poppy"
     ],
-    "storyMotifs": [
-      "ruin",
-      "flowers",
-      "repaired-marker"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.292929,
+    "weatherIntensity": 0.10841
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-030",
+    "beats": [
+      {
+        "id": "place-030",
+        "storyBeat": "Спільні запаси дозволяють героям залишити село й рухатися далі.",
+        "heroLandmark": "place-030-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Дорожнє укриття, ліхтар і складені біля лавки речі.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Спільні запаси дозволяють героям залишити село й рухатися далі.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:23"
+        ],
+        "props": [
+          {
+            "id": "place-030-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_trail_shelter",
+              "x": -5.42188,
+              "z": 0.1,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-030-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log_stack",
+              "x": -1.5,
+              "z": -5.06736,
+              "elevation": 0.025,
+              "height": 0.7,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-030-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "sign",
+              "x": 4.53535,
+              "z": -3.73988,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

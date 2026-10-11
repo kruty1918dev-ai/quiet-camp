@@ -38,8 +38,10 @@ namespace QuietCamp.Presentation.World
         public void Configure(Camera camera,LevelData level,bool night)
         {
             _camera=camera;_level=level;_seed=level.decorSeed;_night=night;
-            _weatherId=level.environment?.weatherId;_winter=EnvironmentCompositionData.For(level).seasonId=="winter";
+            _weatherId=level.environment?.weatherId;_winter=SeasonProfile.For(level).SnowCoverage>0;
             var initial=CampWeatherTimeline.Initial(_weatherId);_cloud=initial.Cloud;_wet=_winter?0:initial.Rain;
+            if(level.environment?.weatherIntensity>=0)
+            { _cloud=level.environment.weatherIntensity;_wet=_cloud*.28f*(1-SeasonProfile.For(level).SnowCoverage); }
             _texture=CozyParticleAtlas.Create(rainStreak: true);
             _material=CozyParticleMaterial.Create(_texture,0);
             if(_material!=null&&_material.HasProperty("_SoftDistance"))_material.SetFloat("_SoftDistance",.06f);
@@ -87,8 +89,14 @@ namespace QuietCamp.Presentation.World
             CozyParticleMaterial.ApplyTier(_material,tier);
             _clock+=Mathf.Max(0,seconds);var target=CampWeatherTimeline.Target(_clock,_seed,_weatherId);
             float ease=1-Mathf.Exp(-Mathf.Max(0,seconds)/5);
-            _cloud=Mathf.Lerp(_cloud,target.Cloud,ease);_wet=_winter?0:Mathf.Lerp(_wet,target.Rain,ease);
-            Snowfall=_winter?Mathf.Lerp(.16f,.72f,Mathf.Max(_cloud,target.Rain)):0;
+            float cloud=target.Cloud,rain=_winter?0:target.Rain,snow=SeasonProfile.For(_level).SnowCoverage;
+            if(_level.environment?.weatherIntensity>=0)
+            {
+                cloud=Mathf.Clamp01(_level.environment.weatherIntensity+Mathf.Sin(_clock*.009f)*.045f);
+                rain=cloud*.28f*(1-snow);
+            }
+            _cloud=Mathf.Lerp(_cloud,cloud,ease);_wet=Mathf.Lerp(_wet,rain,ease);
+            Snowfall=snow*Mathf.Lerp(.16f,.72f,_cloud);
             Current=_wet>.2f?Mood.Drizzle:_cloud>.3f?Mood.Cloudy:Mood.Sunshine;
             ParticleBudget=reduced?0:tier==0?12:tier==1?60:96;
             var main=_rain.main;main.maxParticles=Mathf.Max(1,ParticleBudget);

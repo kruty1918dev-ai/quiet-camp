@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 91,
-  "chapter": 19,
+  "order": 82,
+  "chapter": 9,
   "seed": -1466321106,
   "width": 5,
   "height": 5,
   "id": "gen:qc_camp:103",
-  "contentHash": "676d98548a4d8f85d7e96eeda8be009ceaf8bbd69238b7657eee004802448a06",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "375d780cfe3d6958af899a2019ac42ad4bb25117718d0bc7813cf051cb1f6a94",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -117,7 +117,7 @@
       "rotation": 2
     }
   ],
-  "environmentPreset": "pines",
+  "environmentPreset": "meadow",
   "objects": [
     {
       "assetId": "tree_default",
@@ -147,19 +147,122 @@
     }
   ],
   "environment": {
-    "biomeId": "pines",
+    "biomeId": "shore",
     "seasonId": "winter",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.84,
-    "clusterSeed": -622501792,
+    "moisture": 0.469385,
+    "treeDensity": 0.452613,
+    "clusterSeed": 45186,
     "meadowSpecies": [
-      "grass"
+      "grass",
+      "wheat"
     ],
-    "storyMotifs": [
-      "ruin",
-      "lantern"
+    "storyMotifs": [],
+    "shore": {
+      "kind": "stream",
+      "side": "left",
+      "offset": 8.1,
+      "width": 2.4,
+      "seed": 32066
+    },
+    "seasonTimeline": 0.818182,
+    "weatherIntensity": 0.315642
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-082",
+    "beats": [
+      {
+        "id": "place-082",
+        "storyBeat": "Маршрут знову видно завдяки воді й людському догляду.",
+        "heroLandmark": "place-082-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Причальний стовп і верба стоять біля відкритого русла, сніг відходить від підходу.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Маршрут знову видно завдяки воді й людському догляду.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:103"
+        ],
+        "props": [
+          {
+            "id": "place-082-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_mooring_post",
+              "x": 3.9335,
+              "z": 3.0,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-082-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_workboat",
+              "x": 3.0,
+              "z": -5.20733,
+              "elevation": 0.025,
+              "height": 1.15,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-082-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_willow",
+              "x": 4.5,
+              "z": -7.85949,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

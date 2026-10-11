@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 1,
+  "chapter": 1,
+  "seed": 610501,
+  "width": 6,
+  "height": 6,
+  "id": "QC_LH001",
+  "contentHash": "e13f2def3a5133e1265acb3ab12d28c1358736f16a3bcdf036370e87a1b4c6f0",
+  "generatorVersion": "lighthouse-authored-1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "generationAttempt": 0,
+  "decorSeed": 719001,
+  "entry": [
+    0,
+    3
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      3,
+      1
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 4,
+      "rotation": 1
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 3,
+      "z": 1,
+      "rotation": 0
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "shore",
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.58,
+    "treeDensity": 0.23,
+    "clusterSeed": 88101,
+    "meadowSpecies": [
+      "grass",
+      "reed"
+    ],
+    "storyMotifs": [
+      "pier",
+      "bench",
+      "bag"
+    ],
+    "shore": {
+      "kind": "lake",
+      "side": "right",
+      "offset": 7.2,
+      "width": 4.0,
+      "seed": 8101
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "kind": "native-unity-world-camera",
+  "capturedUtc": "2026-10-11T09:36:50.5306120Z",
+  "unityVersion": "6000.6.2f1",
+  "levelId": "QC001",
+  "number": 1,
+  "contentHash": "204acce459c908db9b491ca5e274e726586d603886ea3a9d924eda65382cc850",
+  "orientation": "landscape",
+  "width": 1280,
+  "height": 800,
+  "quality": "Balanced",
+  "graphics": "OpenGLCore",
+  "qaProduct": "QuietCampRoadmapQA",
+  "cameraPosition": [
+    7.249328,
+    17.2984619,
+    6.66828156
+  ],
+  "cameraEuler": [
+    58.0,
+    224.999985,
+    0.0
+  ],
+  "orthographicSize": 5.575199,
+  "storyTriangles": 320,
+  "seasonTimeline": 0.0,
+  "snow": 0.0,
+  "props": [
+    {
+      "id": "place-001-prop-1",
+      "asset": "sign",
+      "viewport": [
+        0.6690971,
+        0.687166631,
+        21.0829964
+      ]
+    },
+    {
+      "id": "place-001-prop-2",
+      "asset": "log",
+      "viewport": [
+        0.332747459,
+        0.6145014,
+        21.0660553
+      ]
+    },
+    {
+      "id": "place-001-prop-3",
+      "asset": "flower_yellowA",
+      "viewport": [
+        0.221791118,
+        0.435498267,
+        19.7480946
+      ]
+    }
+  ],
+  "syntheticWitnessLayout": true,
+  "reducedMotion": true,
+  "playerBuild": false,
+  "mobileFpsMeasured": false,
+  "audioMeasured": false
+}

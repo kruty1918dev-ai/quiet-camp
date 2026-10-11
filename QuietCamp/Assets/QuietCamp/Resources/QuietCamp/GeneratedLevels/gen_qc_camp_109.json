@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 97,
-  "chapter": 20,
+  "order": 87,
+  "chapter": 9,
   "seed": -1466273586,
   "width": 6,
   "height": 8,
   "id": "gen:qc_camp:109",
-  "contentHash": "bc4d9fd5769ead1d03d41b94e50d2b5daed460effcaaa473d3ae6a6411f8a5e2",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "754fa6011544893afba76b3b415adee0cda841c9dda3a2c7895e4c86694d6ef0",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -149,7 +149,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "pines",
+  "environmentPreset": "meadow",
   "objects": [
     {
       "assetId": "campfire_stones",
@@ -185,19 +185,116 @@
     }
   ],
   "environment": {
-    "biomeId": "pines",
+    "biomeId": "meadow",
     "seasonId": "winter",
-    "weatherId": "mist",
-    "moisture": 0.82,
-    "treeDensity": 0.84,
-    "clusterSeed": -557481024,
+    "weatherId": "clear",
+    "moisture": 0.396224,
+    "treeDensity": 0.428934,
+    "clusterSeed": 46051,
     "meadowSpecies": [
-      "grass"
+      "grass",
+      "wheat"
     ],
-    "storyMotifs": [
-      "ruin",
-      "lantern"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.868687,
+    "weatherIntensity": 0.193706
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-087",
+    "beats": [
+      {
+        "id": "place-087",
+        "storyBeat": "Речі, відремонтовані раніше, тепер допомагають пройти складний сезонний перехід.",
+        "heroLandmark": "place-087-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Вказівник із цілою дошкою й очищена лавка біля мокрої стежки.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Речі, відремонтовані раніше, тепер допомагають пройти складний сезонний перехід.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:109"
+        ],
+        "props": [
+          {
+            "id": "place-087-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "sign",
+              "x": -4.53535,
+              "z": 0.55,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-087-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": 3.0,
+              "z": -5.60091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-087-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "flower_yellowA",
+              "x": 4.29049,
+              "z": -5.3099,
+              "elevation": 0.025,
+              "height": 0.34,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

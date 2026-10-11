@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 90,
-  "chapter": 18,
+  "order": 81,
+  "chapter": 9,
   "seed": -1466329026,
   "width": 8,
   "height": 8,
   "id": "gen:qc_camp:102",
-  "contentHash": "40a5097e5456a66f48a8473ee1df2be9cdad4770c19103fb1a0e930c92d91732",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "evening",
+  "contentHash": "ef1bf446aa112f698791fc91414e9bd748f39bd663baff189d01794158e7e3fc",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
   "decorSeed": -1466316959,
@@ -118,7 +118,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "stump_round",
@@ -141,27 +141,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "shore",
-    "seasonId": "summer",
+    "biomeId": "pines",
+    "seasonId": "winter",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.55,
-    "clusterSeed": -652726736,
+    "moisture": 0.48253,
+    "treeDensity": 0.45788,
+    "clusterSeed": 45013,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "wheat"
     ],
-    "storyMotifs": [
-      "marker",
-      "flowers"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.808081,
+    "weatherIntensity": 0.33755
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-081",
+    "beats": [
+      {
+        "id": "place-081",
+        "storyBeat": "Зворотний перехід починається локальними змінами, а не стрибком у літо.",
+        "heroLandmark": "place-081-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Темна земля з'являється біля укриття, сніг тримається в затінених краях.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Зворотний перехід починається локальними змінами, а не стрибком у літо.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:102"
+        ],
+        "props": [
+          {
+            "id": "place-081-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_forester_hut",
+              "x": -6.34138,
+              "z": -4.5,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-081-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log_stack",
+              "x": 0.25,
+              "z": -5.86736,
+              "elevation": 0.025,
+              "height": 0.7,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-081-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": 5.29859,
+              "z": -5.60091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": {
-      "kind": "lake",
-      "side": "right",
-      "offset": 10.5,
-      "width": 7.0,
-      "seed": -1466316959
-    }
+    "references": []
   }
 }

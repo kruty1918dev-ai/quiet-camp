@@ -253,7 +253,7 @@ namespace QuietCamp.Presentation.World
             // Act framing: the first unplayed glade of a new district opens
             // with the guide narrating what this region is — once ever.
             var district = LevelLoader.DistrictFor(level.id);
-            if (district != null && !_services.Progression.IsCompleted(level.id)
+            if (!LevelLoader.Campaign100Enabled() && district != null && !_services.Progression.IsCompleted(level.id)
                 && !_tutorial.Guiding(level.id) && !_tutorial.DistrictSeen(district.id))
             {
                 _tutorial.MarkDistrictSeen(district.id);

@@ -6,6 +6,7 @@ Shader "Hidden/QuietCamp/TentThumbnail"
         Tags { "RenderPipeline"="UniversalPipeline" "RenderType"="Opaque" }
         Pass
         {
+            Cull Off
             Tags { "LightMode"="SRPDefaultUnlit" }
             HLSLPROGRAM
             #pragma vertex Vert

@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 4,
+  "chapter": 1,
+  "seed": 20292680,
+  "width": 6,
+  "height": 6,
+  "id": "QC004",
+  "contentHash": "8915cda32c07faa31f6dfab600f87d98a2e118d7a36d6fdd8ee088db87732d20",
+  "generatorVersion": "cozy-campaign-2",
+  "lighting": "morning",
+  "tutorialKey": "tutorial.4",
+  "generationAttempt": 1,
+  "decorSeed": 20314903,
+  "entry": [
+    5,
+    3
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      5,
+      0
+    ],
+    [
+      2,
+      5
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      5,
+      0
+    ]
+  ],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 3,
+      "rotation": 1
+    },
+    {
+      "guestId": "g2",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "campfire_stones",
+      "x": 5,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 2,
+      "z": 5,
+      "rotation": 1
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "spring",
+    "weatherId": "cloudy",
+    "moisture": 0.48,
+    "treeDensity": 0.48,
+    "clusterSeed": -469925390,
+    "meadowSpecies": [
+      "grass",
+      "daisy"
+    ],
+    "storyMotifs": [
+      "marker",
+      "bench"
+    ],
+    "shore": null
+  }
+}

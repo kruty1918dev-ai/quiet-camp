@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 73,
-  "chapter": 15,
+  "order": 66,
+  "chapter": 7,
   "seed": -719874857,
   "width": 6,
   "height": 5,
   "id": "gen:qc_camp:85",
-  "contentHash": "6a57f381e124b0255c75e0bf8b237f564b1889c52fbd55ed8717d1e3ba49aef6",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "9f5743f4f0091c6318d0d9762c9b190c8de09ffb53cb42addd55cf8adc33e269",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 2,
@@ -149,7 +149,7 @@
       "rotation": 2
     }
   ],
-  "environmentPreset": "pines",
+  "environmentPreset": "meadow",
   "objects": [
     {
       "assetId": "campfire_stones",
@@ -185,19 +185,116 @@
     }
   ],
   "environment": {
-    "biomeId": "pines",
-    "seasonId": "winter",
-    "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.84,
-    "clusterSeed": 2062293557,
+    "biomeId": "meadow",
+    "seasonId": "autumn",
+    "weatherId": "cloudy",
+    "moisture": 0.544103,
+    "treeDensity": 0.539853,
+    "clusterSeed": 42418,
     "meadowSpecies": [
-      "grass"
+      "grass",
+      "wheat"
     ],
-    "storyMotifs": [
-      "marker",
-      "lantern"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.656566,
+    "weatherIntensity": 0.440172
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-066",
+    "beats": [
+      {
+        "id": "place-066",
+        "storyBeat": "Культурне місце переживає пошкодження через збережені деталі й спільне користування.",
+        "heroLandmark": "place-066-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Низький фундамент, мозаїчний фрагмент укриття й лавка серед жовтого листя.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Культурне місце переживає пошкодження через збережені деталі й спільне користування.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:85"
+        ],
+        "props": [
+          {
+            "id": "place-066-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_foundation",
+              "x": -7.00048,
+              "z": 0.1,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-066-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": -1.5,
+              "z": -4.10091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-066-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_gate",
+              "x": 5.53462,
+              "z": -3.77462,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

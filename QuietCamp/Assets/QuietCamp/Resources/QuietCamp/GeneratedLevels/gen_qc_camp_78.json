@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 66,
-  "chapter": 14,
+  "order": 59,
+  "chapter": 6,
   "seed": -719930318,
   "width": 7,
   "height": 6,
   "id": "gen:qc_camp:78",
-  "contentHash": "075bd17207ef24f4ba154d28b0d68a16cbd16e2f1a6c6d505f84e9214451813c",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "394199de5763daa2702aa7ca3c68319289e00fda5332c939f367ad11c9f5cf5d",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -88,7 +88,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "campfire_stones",
@@ -117,28 +117,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "shore",
+    "biomeId": "forest",
     "seasonId": "autumn",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.55,
-    "clusterSeed": 1850108308,
+    "moisture": 0.491607,
+    "treeDensity": 0.567219,
+    "clusterSeed": 41207,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "wheat"
     ],
-    "storyMotifs": [
-      "ruin",
-      "repaired-marker",
-      "bench"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.585859,
+    "weatherIntensity": 0.352679
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-059",
+    "beats": [
+      {
+        "id": "place-059",
+        "storyBeat": "Різні рослинні пояси допомагають зрозуміти стару берегову лінію.",
+        "heroLandmark": "place-059-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Плодові дерева стоять вище молодих верб, а старий тин розділяє висоти.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Різні рослинні пояси допомагають зрозуміти стару берегову лінію.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:78"
+        ],
+        "props": [
+          {
+            "id": "place-059-prop-1",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_orchard",
+              "x": -5.29206,
+              "z": -3.0,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-059-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": 1.15,
+              "z": -4.60091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-059-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_fence_broken_1",
+              "x": 6.02258,
+              "z": -4.29145,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": {
-      "kind": "lake",
-      "side": "right",
-      "offset": 10.0,
-      "width": 7.0,
-      "seed": -719920275
-    }
+    "references": []
   }
 }

@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 64,
-  "chapter": 13,
+  "order": 58,
+  "chapter": 6,
   "seed": -719946158,
   "width": 6,
   "height": 6,
   "id": "gen:qc_camp:76",
-  "contentHash": "8ae3cfdfe3b159531efc88228700281c18e1c5cf33e7ffea3183c7576eeae48c",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "morning",
+  "contentHash": "8ead8b9eda2f143af40617662aaab023b6f5136b980bba6c8a32726e1f67cc13",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
   "decorSeed": -719970035,
@@ -112,7 +112,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "pines",
+  "environmentPreset": "meadow",
   "objects": [
     {
       "assetId": "stone_largeA",
@@ -142,22 +142,122 @@
     }
   ],
   "environment": {
-    "biomeId": "pines",
-    "seasonId": "winter",
-    "weatherId": "cloudy",
-    "moisture": 0.48,
-    "treeDensity": 0.84,
-    "clusterSeed": 1672415348,
+    "biomeId": "shore",
+    "seasonId": "autumn",
+    "weatherId": "clear",
+    "moisture": 0.486251,
+    "treeDensity": 0.569995,
+    "clusterSeed": 41034,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "wheat"
     ],
-    "storyMotifs": [
-      "ruin",
-      "flowers",
-      "repaired-marker"
+    "storyMotifs": [],
+    "shore": {
+      "kind": "stream",
+      "side": "left",
+      "offset": 8.6,
+      "width": 2.4,
+      "seed": 31754
+    },
+    "seasonTimeline": 0.575758,
+    "weatherIntensity": 0.343751
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-058",
+    "beats": [
+      {
+        "id": "place-058",
+        "storyBeat": "Мотив сусідської допомоги показаний придатними речами, а не героїчним монументом.",
+        "heroLandmark": "place-058-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Простий робочий човен, причальний стовп і впорядкована лавка біля берега.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Мотив сусідської допомоги показаний придатними речами, а не героїчним монументом.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:76"
+        ],
+        "props": [
+          {
+            "id": "place-058-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_workboat",
+              "x": 4.95938,
+              "z": -4.5,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-058-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_mooring_post",
+              "x": 0.7,
+              "z": -4.276,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-058-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_reed_clump",
+              "x": 4.44035,
+              "z": -7.64393,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

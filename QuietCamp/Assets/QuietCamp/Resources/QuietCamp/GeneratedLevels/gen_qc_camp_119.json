@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 107,
-  "chapter": 22,
+  "order": 97,
+  "chapter": 10,
   "seed": -1466194365,
   "width": 5,
   "height": 8,
   "id": "gen:qc_camp:119",
-  "contentHash": "7ed85e2f620b1eb17a58a7cea52370036cc83be56daa52c80c5154a26cdc9d52",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "b72b5e7479f79b86ce4a8e7daa088706a660b28dd7e33fc0623b6b59d5474b36",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -121,7 +121,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "campfire_stones",
@@ -150,22 +150,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "meadow",
+    "biomeId": "forest",
     "seasonId": "spring",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.25,
-    "clusterSeed": -139206223,
+    "moisture": 0.353371,
+    "treeDensity": 0.401626,
+    "clusterSeed": 47781,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "daisy"
     ],
-    "storyMotifs": [
-      "repaired-marker",
-      "flowers",
-      "bench"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.969697,
+    "weatherIntensity": 0.122285
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-097",
+    "beats": [
+      {
+        "id": "place-097",
+        "storyBeat": "Розрізнені місця складаються в мережу, яку гравець уже розуміє без пояснень.",
+        "heroLandmark": "place-097-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Кілька впізнаваних дерев'яних вказівників і лавка на світлому роздоріжжі.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Розрізнені місця складаються в мережу, яку гравець уже розуміє без пояснень.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:119"
+        ],
+        "props": [
+          {
+            "id": "place-097-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "sign",
+              "x": -4.03535,
+              "z": -0.35,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-097-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": 3.0,
+              "z": -7.30091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-097-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "flower_yellowA",
+              "x": 4.5,
+              "z": -5.3099,
+              "elevation": 0.025,
+              "height": 0.34,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

@@ -20,7 +20,7 @@ namespace QuietCamp.Presentation.UI
             [JsonIgnore] public Color[] Colors;
             [JsonIgnore] public float SourceHeight=1;
             [JsonIgnore] public Bounds Bounds;
-            internal void Expand()
+            public void Expand()
             {
                 SourceHeight=sourceHeight;Positions=new Vector3[data.Length/6];Normals=new Vector3[Positions.Length];Colors=new Color[colors.Length];
                 for(int i=0;i<Positions.Length;i++)
@@ -51,6 +51,9 @@ namespace QuietCamp.Presentation.UI
             if(stories!=null)foreach(var model in JsonConvert.DeserializeObject<Model[]>(stories.text)){model.Expand();_models.Add(model.id,model);}
             foreach(var model in JsonConvert.DeserializeObject<Model[]>(asset.text))
             { model.Expand();_models.Add(model.id,model); }
+            var campaign=Resources.Load<TextAsset>("QuietCamp/campaign100_models");
+            if(campaign!=null)foreach(var model in JsonConvert.DeserializeObject<Model[]>(campaign.text))
+            { if(_models.ContainsKey(model.id))continue;model.Expand();_models.Add(model.id,model); }
         }
         public static void Reset()=>_shared=null;
         public static RoadmapModelLibrary Load()=>_shared??(_shared=new RoadmapModelLibrary());
@@ -65,7 +68,7 @@ namespace QuietCamp.Presentation.UI
             var asset=Infrastructure.RoadmapEditorArchive.Load<TextAsset>("QuietCamp/roadmap_culture_models");
             if(asset==null)throw new InvalidOperationException("Roadmap rural models have not been exported.");
             foreach(var model in JsonConvert.DeserializeObject<Model[]>(asset.text))
-            {model.Expand();_models.Add(model.id,model);}
+            {if(_models.ContainsKey(model.id))continue;model.Expand();_models.Add(model.id,model);}
             BareTree("ua_orchard_tree");_cultureLoaded=true;
         }
         bool _environmentLoaded;

@@ -1,0 +1,602 @@
+[
+  {
+    "id": "QC_LH001",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "e13f2def3a5133e1265acb3ab12d28c1358736f16a3bcdf036370e87a1b4c6f0",
+    "ruleVersion": 2,
+    "number": 1,
+    "width": 6,
+    "height": 6,
+    "decorSeed": 719001,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 3,
+        "z": 1,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.58,
+      "treeDensity": 0.23,
+      "clusterSeed": 88101,
+      "meadowSpecies": [
+        "grass",
+        "reed"
+      ],
+      "storyMotifs": [
+        "pier",
+        "bench",
+        "bag"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "right",
+        "offset": 7.2,
+        "width": 4.0,
+        "seed": 8101
+      }
+    }
+  },
+  {
+    "id": "QC_LH002",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "8c3454644f3a04e19469c48ef8b988bf4d5b938aa342c8c78a27336a7409b8de",
+    "ruleVersion": 2,
+    "number": 2,
+    "width": 7,
+    "height": 5,
+    "decorSeed": 719002,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      0,
+      2
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 3,
+        "z": 2,
+        "rotation": 0
+      },
+      {
+        "assetId": "campfire_stones",
+        "x": 5,
+        "z": 0,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [
+      [
+        5,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.58,
+      "treeDensity": 0.23,
+      "clusterSeed": 88102,
+      "meadowSpecies": [
+        "grass",
+        "reed"
+      ],
+      "storyMotifs": [
+        "pier",
+        "bench",
+        "bag"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "right",
+        "offset": 7.7,
+        "width": 4.0,
+        "seed": 8102
+      }
+    }
+  },
+  {
+    "id": "QC_LH003",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "ec6b3a232fd997da21bf13ca165b0b97888fad0962f04c28284b4f239a38c362",
+    "ruleVersion": 2,
+    "number": 3,
+    "width": 6,
+    "height": 7,
+    "decorSeed": 719003,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 2,
+        "z": 1,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 4,
+        "z": 3,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.3,
+        "z": 5.3,
+        "radiusX": 1.8,
+        "radiusZ": 1.8
+      }
+    ],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "summer",
+      "weatherId": "rain",
+      "moisture": 0.58,
+      "treeDensity": 0.23,
+      "clusterSeed": 88103,
+      "meadowSpecies": [
+        "grass",
+        "reed"
+      ],
+      "storyMotifs": [
+        "pier",
+        "bench",
+        "bag"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "right",
+        "offset": 7.2,
+        "width": 4.0,
+        "seed": 8103
+      }
+    }
+  },
+  {
+    "id": "QC_LH004",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "24b1961e3aa43f5c1b4cd617f9931be2f36006b2122bfdfaaf5fc749cb827236",
+    "ruleVersion": 2,
+    "number": 4,
+    "width": 7,
+    "height": 6,
+    "decorSeed": 719004,
+    "shade": false,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 1,
+        "z": 1,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 4,
+        "z": 4,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        -1,
+        1
+      ],
+      [
+        -1,
+        2
+      ],
+      [
+        -1,
+        3
+      ],
+      [
+        -1,
+        4
+      ],
+      [
+        -1,
+        5
+      ]
+    ],
+    "noise": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "autumn",
+      "weatherId": "mist",
+      "moisture": 0.58,
+      "treeDensity": 0.23,
+      "clusterSeed": 88104,
+      "meadowSpecies": [
+        "grass",
+        "reed"
+      ],
+      "storyMotifs": [
+        "lighthouse",
+        "pier",
+        "bench",
+        "bag"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "right",
+        "offset": 7.7,
+        "width": 4.0,
+        "seed": 8104
+      }
+    }
+  },
+  {
+    "id": "QC_LH005",
+    "environmentPreset": "meadow",
+    "lighting": "evening",
+    "contentHash": "9cf6d957c8860228e8be67ff3b6908a76cf0e2a55a2dcf9afa7e21aabf737145",
+    "ruleVersion": 2,
+    "number": 5,
+    "width": 6,
+    "height": 8,
+    "decorSeed": 719005,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      0,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 2,
+        "z": 3,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 4,
+        "z": 6,
+        "rotation": 1
+      },
+      {
+        "assetId": "campfire_stones",
+        "x": 5,
+        "z": 0,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [
+      [
+        5,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "autumn",
+      "weatherId": "rain",
+      "moisture": 0.58,
+      "treeDensity": 0.23,
+      "clusterSeed": 88105,
+      "meadowSpecies": [
+        "grass",
+        "reed"
+      ],
+      "storyMotifs": [
+        "lighthouse",
+        "pier",
+        "bench",
+        "bag"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "right",
+        "offset": 7.2,
+        "width": 4.0,
+        "seed": 8105
+      }
+    }
+  },
+  {
+    "id": "QC_LH006",
+    "environmentPreset": "meadow",
+    "lighting": "evening",
+    "contentHash": "ec14f4ae2e23ee25fc8bcf5b86105362a2bff4b3366acbf74bcc383dc092a02f",
+    "ruleVersion": 2,
+    "number": 6,
+    "width": 8,
+    "height": 6,
+    "decorSeed": 719006,
+    "shade": true,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 2,
+        "z": 1,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 4,
+        "z": 3,
+        "rotation": 1
+      },
+      {
+        "assetId": "campfire_stones",
+        "x": 7,
+        "z": 0,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 6.3,
+        "z": 4.3,
+        "radiusX": 1.8,
+        "radiusZ": 1.8
+      }
+    ],
+    "exteriorWalkable": [],
+    "noise": [
+      [
+        7,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "autumn",
+      "weatherId": "clear",
+      "moisture": 0.58,
+      "treeDensity": 0.23,
+      "clusterSeed": 88106,
+      "meadowSpecies": [
+        "grass",
+        "reed"
+      ],
+      "storyMotifs": [
+        "lighthouse",
+        "pier",
+        "bench",
+        "bag"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "right",
+        "offset": 8.2,
+        "width": 4.0,
+        "seed": 8106
+      }
+    }
+  },
+  {
+    "id": "QC_LH007",
+    "environmentPreset": "meadow",
+    "lighting": "evening",
+    "contentHash": "a17d856a9a9c1e4f471f83cfa91168fb2ae00c72bbdbeeeff44356b377372a5d",
+    "ruleVersion": 2,
+    "number": 7,
+    "width": 7,
+    "height": 7,
+    "decorSeed": 719007,
+    "shade": false,
+    "quiet": true,
+    "friends": true,
+    "fire": true,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 2,
+        "z": 0,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 5,
+        "z": 2,
+        "rotation": 1
+      },
+      {
+        "assetId": "campfire_stones",
+        "x": 6,
+        "z": 0,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        -1,
+        1
+      ],
+      [
+        -1,
+        2
+      ],
+      [
+        -1,
+        3
+      ],
+      [
+        -1,
+        4
+      ],
+      [
+        -1,
+        5
+      ]
+    ],
+    "noise": [
+      [
+        6,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "winter",
+      "weatherId": "mist",
+      "moisture": 0.58,
+      "treeDensity": 0.23,
+      "clusterSeed": 88107,
+      "meadowSpecies": [
+        "grass",
+        "reed"
+      ],
+      "storyMotifs": [
+        "lighthouse",
+        "pier",
+        "bench",
+        "bag"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "right",
+        "offset": 7.7,
+        "width": 4.0,
+        "seed": 8107
+      }
+    }
+  },
+  {
+    "id": "QC_LH008",
+    "environmentPreset": "meadow",
+    "lighting": "night",
+    "contentHash": "0f1e350a062fcd1e28ba9327d3d0b667ed0b69c38d2d2e33dffe862cac64f3e9",
+    "ruleVersion": 2,
+    "number": 8,
+    "width": 8,
+    "height": 7,
+    "decorSeed": 719008,
+    "shade": true,
+    "quiet": true,
+    "friends": true,
+    "fire": true,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 3,
+        "z": 1,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 4,
+        "z": 4,
+        "rotation": 1
+      },
+      {
+        "assetId": "campfire_stones",
+        "x": 7,
+        "z": 0,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.3,
+        "z": 5.3,
+        "radiusX": 1.8,
+        "radiusZ": 1.8
+      }
+    ],
+    "exteriorWalkable": [],
+    "noise": [
+      [
+        7,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "winter",
+      "weatherId": "clear",
+      "moisture": 0.58,
+      "treeDensity": 0.23,
+      "clusterSeed": 88108,
+      "meadowSpecies": [
+        "grass",
+        "reed"
+      ],
+      "storyMotifs": [
+        "lighthouse",
+        "pier",
+        "bench",
+        "bag",
+        "beacon-ready"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "right",
+        "offset": 8.2,
+        "width": 4.0,
+        "seed": 8108
+      }
+    }
+  }
+]

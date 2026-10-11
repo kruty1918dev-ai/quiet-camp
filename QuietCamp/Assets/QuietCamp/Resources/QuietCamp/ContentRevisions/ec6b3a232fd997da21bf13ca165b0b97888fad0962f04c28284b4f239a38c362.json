@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 3,
+  "chapter": 1,
+  "seed": 610503,
+  "width": 6,
+  "height": 7,
+  "id": "QC_LH003",
+  "contentHash": "ec6b3a232fd997da21bf13ca165b0b97888fad0962f04c28284b4f239a38c362",
+  "generatorVersion": "lighthouse-authored-1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "generationAttempt": 0,
+  "decorSeed": 719003,
+  "entry": [
+    0,
+    3
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      2,
+      1
+    ],
+    [
+      4,
+      3
+    ]
+  ],
+  "shade": [
+    [
+      0,
+      4
+    ],
+    [
+      0,
+      5
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      2,
+      6
+    ]
+  ],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 4,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 3,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 2,
+      "z": 1,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 4,
+      "z": 3,
+      "rotation": 1
+    }
+  ],
+  "canopies": [
+    {
+      "x": 1.3,
+      "z": 5.3,
+      "radiusX": 1.8,
+      "radiusZ": 1.8
+    }
+  ],
+  "environment": {
+    "biomeId": "shore",
+    "seasonId": "summer",
+    "weatherId": "rain",
+    "moisture": 0.58,
+    "treeDensity": 0.23,
+    "clusterSeed": 88103,
+    "meadowSpecies": [
+      "grass",
+      "reed"
+    ],
+    "storyMotifs": [
+      "pier",
+      "bench",
+      "bag"
+    ],
+    "shore": {
+      "kind": "lake",
+      "side": "right",
+      "offset": 7.2,
+      "width": 4.0,
+      "seed": 8103
+    }
+  }
+}

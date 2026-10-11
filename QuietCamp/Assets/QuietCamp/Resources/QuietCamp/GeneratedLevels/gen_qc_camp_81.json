@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 69,
-  "chapter": 14,
+  "order": 62,
+  "chapter": 7,
   "seed": -719906537,
   "width": 7,
   "height": 7,
   "id": "gen:qc_camp:81",
-  "contentHash": "e0b6e988a028f1bdb998efcbebec33c35bddfc02c98382a28d0ad68e79689ed6",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "09bfbe1b4c97b9bc8449f7902b9bc9ba058a6eaccf926d1ef74159bf57c2b0dc",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -143,19 +143,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "pines",
-    "seasonId": "winter",
-    "weatherId": "mist",
-    "moisture": 0.82,
-    "treeDensity": 0.84,
-    "clusterSeed": 1940479605,
+    "biomeId": "forest",
+    "seasonId": "autumn",
+    "weatherId": "cloudy",
+    "moisture": 0.514099,
+    "treeDensity": 0.557074,
+    "clusterSeed": 41726,
     "meadowSpecies": [
-      "grass"
+      "grass",
+      "wheat"
     ],
-    "storyMotifs": [
-      "marker",
-      "lantern"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.616162,
+    "weatherIntensity": 0.390165
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-062",
+    "beats": [
+      {
+        "id": "place-062",
+        "storyBeat": "Підготовка до холодів показана малими запасами й доступним двором.",
+        "heroLandmark": "place-062-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Сарай, купа полін і осінній підлісок поряд із пошкодженим тином.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Підготовка до холодів показана малими запасами й доступним двором.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:81"
+        ],
+        "props": [
+          {
+            "id": "place-062-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_barn",
+              "x": -5.79157,
+              "z": 0.1,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-062-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log_stack",
+              "x": 3.0,
+              "z": -5.36736,
+              "elevation": 0.025,
+              "height": 0.7,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-062-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_gate",
+              "x": 6.03462,
+              "z": -4.77462,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

@@ -41,6 +41,10 @@ namespace QuietCamp.Domain
         public int clusterSeed;
         public string[] meadowSpecies = Array.Empty<string>(), storyMotifs = Array.Empty<string>();
         public ShorelineData shore;
+        // Optional continuous authoring, absent from historical snapshots/hashes.
+        public float seasonTimeline = -1, weatherIntensity = -1;
+        public bool ShouldSerializeseasonTimeline() => seasonTimeline >= 0;
+        public bool ShouldSerializeweatherIntensity() => weatherIntensity >= 0;
 
         // Old album snapshots have no composition descriptor. Resolve a
         // compatible view without changing or rehashing their saved content.

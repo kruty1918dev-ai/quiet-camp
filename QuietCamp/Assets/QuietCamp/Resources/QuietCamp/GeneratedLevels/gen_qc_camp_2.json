@@ -2,14 +2,14 @@
   "schemaVersion": 1,
   "ruleVersion": 2,
   "order": 12,
-  "chapter": 3,
+  "chapter": 2,
   "seed": 20356032,
   "width": 5,
   "height": 7,
   "id": "gen:qc_camp:2",
-  "contentHash": "2ab68a4dd9abee10eb9319b0ecc0a954ef42147ae8883e3ccb321d8bf4150026",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "morning",
+  "contentHash": "8c3cfa73628e978455a1494eabc729f9e0fc7e71a009a76d484d07c9dbe0a28f",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
   "decorSeed": 20366495,
@@ -129,20 +129,115 @@
   "canopies": [],
   "environment": {
     "biomeId": "meadow",
-    "seasonId": "summer",
-    "weatherId": "cloudy",
-    "moisture": 0.48,
-    "treeDensity": 0.25,
-    "clusterSeed": -285690358,
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.446634,
+    "treeDensity": 0.421056,
+    "clusterSeed": 33076,
     "meadowSpecies": [
       "grass",
-      "wheat",
       "daisy"
     ],
-    "storyMotifs": [
-      "ruin",
-      "bench"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.111111,
+    "weatherIntensity": 0.277723
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-012",
+    "beats": [
+      {
+        "id": "place-012",
+        "storyBeat": "Руйнування читається геометрією, а нова зелень пом'якшує втрату.",
+        "heroLandmark": "place-012-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Частково обвалений дах, низький паркан і дерево поряд із провалом.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Руйнування читається геометрією, а нова зелень пом'якшує втрату.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:2"
+        ],
+        "props": [
+          {
+            "id": "place-012-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_house",
+              "x": -5.00784,
+              "z": -0.8,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-012-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_gate",
+              "x": 0.25,
+              "z": -4.75615,
+              "elevation": 0.025,
+              "height": 1.15,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-012-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_fence_broken_2",
+              "x": 5.02283,
+              "z": -4.79145,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

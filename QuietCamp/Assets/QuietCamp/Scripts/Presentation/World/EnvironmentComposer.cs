@@ -189,6 +189,7 @@ namespace QuietCamp.Presentation.World
         }
         public static bool CanTree(LevelData level,Vector3 root,float height)
         {
+            if(CampaignScenicFootprints.Intersects(level,root,Mathf.Max(1.2f,height*.35f)))return false;
             if(Mathf.Abs(root.x)<level.width*.5f+3||Mathf.Abs(root.z)<level.height*.5f+3)
                 if(Mathf.Abs(root.x)<level.width*.5f+3&&Mathf.Abs(root.z)<level.height*.5f+3)return false;
             if(CampTrail.IsCorridor(level,root,1.5f))return false;
@@ -271,12 +272,13 @@ namespace QuietCamp.Presentation.World
             story.AddComponent<MeshRenderer>().sharedMaterial=material;var owned=story.AddComponent<OwnedEnvironmentMesh>();owned.Mesh=mesh;
             story.AddComponent<CampLandmarkVisual>().Configure(_level);
         }
-        public static bool CanScenicBounds(LevelData level,Bounds footprint)
+        public static bool CanScenicBounds(LevelData level,Bounds footprint,bool spansWater=false)
         {
-            if(footprint.min.x<level.width*.5f+2.5f&&footprint.max.x>-level.width*.5f-2.5f
-                &&footprint.min.z<level.height*.5f+2.5f&&footprint.max.z>-level.height*.5f-2.5f)return false;
+            float apron=level.environment?.seasonTimeline>=0?.85f:2.5f;
+            if(footprint.min.x<level.width*.5f+apron&&footprint.max.x>-level.width*.5f-apron
+                &&footprint.min.z<level.height*.5f+apron&&footprint.max.z>-level.height*.5f-apron)return false;
             var shore=EnvironmentCompositionData.For(level).shore;
-            if(shore!=null)
+            if(shore!=null&&!spansWater)
             {
                 float nearBank=shore.offset-shore.width*.5f-.8f-ShorelineGeometry.MaximumBend,farBank=shore.offset+shore.width*.5f+.8f+ShorelineGeometry.MaximumBend;
                 float axisMin=shore.side=="left"?-footprint.max.x:shore.side=="right"?footprint.min.x:shore.side=="back"?-footprint.max.z:footprint.min.z;

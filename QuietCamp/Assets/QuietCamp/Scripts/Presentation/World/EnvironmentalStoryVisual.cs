@@ -71,7 +71,7 @@ namespace QuietCamp.Presentation.World
                     var bounds = new Bounds(origin + rotation * model.Positions[0] * view.height, Vector3.zero);
                     foreach (var point in model.Positions) bounds.Encapsulate(origin + rotation * point * view.height);
                     // No automatic repositioning: authored clues stay where the designer placed them.
-                    if (!EnvironmentComposer.CanScenicBounds(level, bounds) || occupied.Exists(b => b.Intersects(bounds)))
+                    if (!EnvironmentComposer.CanScenicBounds(level, bounds, view.spansWater && (view.assetId == "ua_valley_footbridge" || view.assetId == "ua_valley_bridge_remnants")) || occupied.Exists(b => b.Intersects(bounds)))
                     { Debug.LogError("[EnvironmentalStory] Unsafe/overlapping detail: " + prop.id); continue; }
                     if (vertices.Count + model.Positions.Length > 60000)
                     { Debug.LogError("[EnvironmentalStory] Detail vertex budget exceeded"); break; }
@@ -79,7 +79,8 @@ namespace QuietCamp.Presentation.World
                     for (int i = 0; i < model.Positions.Length; i++)
                     {
                         indices.Add(vertices.Count); vertices.Add(origin + rotation * model.Positions[i] * view.height);
-                        normals.Add(rotation * model.Normals[i]); colors.Add(model.Colors[i / 3]);
+                        normals.Add(rotation * model.Normals[i]); colors.Add(view.sway
+                            ?SeasonPalette.For(level).Plant(model.Colors[i / 3],.52f):model.Colors[i / 3]);
                         roots.Add(new Vector4(origin.x, origin.z, origin.y, view.sway ? view.height : -1));
                     }
                 }

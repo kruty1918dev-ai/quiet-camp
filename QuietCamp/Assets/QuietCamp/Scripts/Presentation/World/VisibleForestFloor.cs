@@ -374,7 +374,7 @@ namespace QuietCamp.Presentation.World
                     Triangle(root+axis,fold,root-side,color*.88f,anchor);Triangle(root-side,fold,root-axis,color*.88f,anchor);
                 }
             }
-            if(season.Winter)
+            if(season.SnowCoverage>0)
             {
                 // Coherent world-space drifts bury roots, never the compacted puzzle or its paths.
                 const int steps=10;var shore=EnvironmentCompositionData.For(_level).shore;
@@ -395,6 +395,7 @@ namespace QuietCamp.Presentation.World
                     float dz=season.SnowDepth(_level,world+Vector3.forward*e)-season.SnowDepth(_level,world-Vector3.forward*e);
                     snowNormals[at]=new Vector3(-dx,2*e,-dz).normalized;
                     snowColors[at]=Color.Lerp(new Color(.78f,.83f,.91f),new Color(.96f,.97f,1),Mathf.Clamp01(p.y*.6f+.35f));
+                    snowColors[at]=Color.Lerp(palette.Soil,snowColors[at],season.SnowCoverage);
                     snowColors[at]=Color.Lerp(snowColors[at],palette.Soil*.72f,CampGroundDetails.HeatAt(_level,world));
                 }
                 bool Clear(Vector3 p)

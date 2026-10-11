@@ -197,6 +197,21 @@ namespace QuietCamp.Presentation
             Purchases = new PurchaseService(provider ?? new UnavailablePurchaseProvider(), config.products, Save.Purchases, GrantProduct, Save.Save);
             Economy.Changed += OnMonetizationChanged; AdLives.Changed += OnMonetizationChanged; Purchases.Changed += OnMonetizationChanged;
         }
+        /// <summary>Accept a downloaded/local, authenticated data manifest at the menu boundary.
+        /// Delivery may later use Addressables; installation never changes an active puzzle.</summary>
+        public IReadOnlyList<string> InstallContentPack(string manifestJson)
+        {
+            if (World.CampSceneHost.Current != null || MonetizationBusy) return new[] { "pack.session-busy" };
+            var errors = ContentPackRuntime.Store.Install(manifestJson);
+            if (errors.Count > 0) return errors;
+            Journeys = MonetizationConfiguration.Load().Catalog();
+            JourneyAccess = new JourneyAccessService(Journeys, Progression, Save.Entitlements,
+                () => Economy.IsPro, id => SubscriptionEntitlement?.Invoke(id) ?? false);
+            Completion = new CampCompletionService(Save, Progression, Memories, Journeys);
+            Attempts = new CampAttemptService(Save, Economy, Completion);
+            OnMonetizationChanged();
+            return errors;
+        }
         EconomyResult GrantProduct(string receipt, PurchaseProduct product)
         {
             if (product.currencyAmount > 0) return Economy.CreditVerified(receipt, product.currencyAmount);

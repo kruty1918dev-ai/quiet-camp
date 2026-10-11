@@ -2,7 +2,7 @@
 
 # Світ, сезони й подорожі
 
-Чотири сезони змінюють колір, рослинність, опади й освітлення. Оточення розповідає про місце, а puzzle rules залишаються частиною level data. У campsite gameplay стоять намети гостей; нова мапа веде через зарослу українську долину між п’ятьма місцями.
+Чотири сезони змінюють колір, рослинність, опади й освітлення. Оточення розповідає про місце, а puzzle rules залишаються частиною level data. У campsite gameplay стоять намети гостей; кампанія веде через 100 українських місць, а роадмапу відкладено.
 
 | Весна | Літо |
 | --- | --- |
@@ -12,36 +12,35 @@
 | --- | --- |
 | <img src="images/captures/2026-10-08/album-season-autumn.png" width="460" alt="Осінній табір" /> | <img src="images/captures/2026-10-08/album-season-winter.png" width="460" alt="Зимовий табір" /> |
 
-## Головна дорога
+## Кампанія 100
 
-Committed [campaign.json](../QuietCamp/Assets/QuietCamp/Resources/QuietCamp/campaign.json) задає **110 ordered main places**, 15 districts і пʼять актів. `MvpLevelIds()` складає десять початкових authored IDs та сто generated IDs. Це стан content catalog, не твердження, що всі місця пройшли native visual/device acceptance. Старий README й baseline gallery описували перші 30; новий довідник відділяє цей попередній зріз від поточного каталогу.
+[Campaign data](../QuietCamp/Assets/QuietCamp/Resources/QuietCamp/campaign.json) задає рівно 100 місць у 10 розділах. [HTML-звіт](../Design/Campaign100/2026-10-11/index.html) містить окремі пояснення сцен, план навчання й поточне native приймання.
 
-<a href="../Design/Roadmap/CinematicPilot/2026-10-10/index.html"><img src="../Design/Roadmap/CinematicPilot/2026-10-10/gameview-composition-04.png" width="350" alt="Безперервна українська долина: Game View 10.10.2026" /></a>
+| Рівні | Сюжетний відрізок |
+| --- | --- |
+| 1–10 | Перша весна: безпечна галявина, гості й повернення звичайного маршруту. |
+| 11–20 | Садиби, сад і шкільний двір: сліди повсякденності та взаємодопомоги. |
+| 21–30 | Криниці, майстерні й волонтерські двори. |
+| 31–40 | Залізниця й переправи: пам’ять евакуації та повернення руху. |
+| 41–50 | Літак у полі та тихі місця пам’яті. |
+| 51–60 | Осушений ставок, пошкоджена гребля й нове русло. |
+| 61–70 | Осінні дощі, ремонт і врятована спадщина. |
+| 71–80 | Поступовий сніг, лісове укриття й спільне тепло. |
+| 81–90 | Відлига, довші дні та перші паростки. |
+| 91–100 | Наступна весна, поновлені повсякденні функції й Гавань. |
 
-Кадр показує новий пілот, перевірений 10.10.2026. [Історичний кадр старої мапи від 08.10.2026](images/captures/2026-10-08/04-roadmap.png) збережено; її реалізацію вилучено. **11.10.2026 пілот відкладено й виключено з player.** Меню відкриває пазли напряму; Next працює за повним порядком кампанії. Геометрія й авторинг збережені для Editor. [Архів і перевірки](../Design/Roadmap/Paused/2026-10-11/README-UA.md). Новий світ розповідає історію через мозаїчну зупинку, садибу, залишки ЛЕП, переправу й пошкоджену греблю. На мапі немає наметів чи сюжетних панелей. [Повний план кампанії](../CAMPAIGN_ROADMAP.md) містить більше запланованого контенту, ніж initial verified puzzle slice.
+Сезон і погода мають неперервні параметри, а не випадкове чергування зими й літа. Оточення не додає прихованих правил пазла. [Сюжет і уточнення канону](../Design/Campaign100/2026-10-11/STORY-UA.md) пояснюють, чому ігровий літак та невелика гребля є авторськими місцями, а не реконструкціями конкретних трагедій.
 
-## Додаткові подорожі
+## Додатковий контент і старі збереження
 
-Наведені нижче дані читаються з [monetization.json](../QuietCamp/Assets/QuietCamp/Resources/QuietCamp/monetization.json). `published` означає local catalog availability; це не факт публікації гри в магазині.
+Раніше активні journeys та bonus відкладені: вони не збільшують базову гру понад 100 рівнів. Їхні catalog metadata й 274 попередні ревізії збережені для альбому та сумісності сесій. Наявність архіву не означає, що додаткова подорож доступна для нового запуску.
 
-| Напрямок | Місць у каталозі | Прогрес для відкриття | Жаринки | Local catalog |
-| --- | ---: | ---: | ---: | --- |
-| Memories | 3 | 15 main places | 0 | published |
-| Garden | 28 | 30 | 300 | published |
-| Station | 18 | 45 | 300 | published |
-| Lighthouse | 20 | 55 | 200 | **unpublished staging** |
-| Mountain | 24 | 65 | 500 | published |
-| Resort | 30 | 80 | 500 | published |
-| Coast | 20 | 90 | 400 | published |
+[Версійовані пакети даних](../Design/Campaign100/2026-10-11/CONTENT-PACKS-UA.md) дають окремі ID, контроль hash, валідності та розв’язності, атомарну установку й відновлення після перезапуску. Вони використовують встановлені gameplay assets. Live CDN / мережевий каталог та доставка нових art-ресурсів ще не налаштовані.
 
-Умови доступу та purchase/provider behavior мають власні checks. Наявність JSON або `published` flag не підтверджує розвʼязність усіх нових puzzles, visual acceptance чи реальні store purchases. [Стан перевірок](status.md).
+## Відкладена роадмапа
 
-## Нова semantic roadmap composition
+Роадмапу **виключено з player 11.10.2026**. Меню відкриває пазли напряму. Геометрія, ресурси й semantic авторинг збережені в [Editor-архіві](../Design/Roadmap/Paused/2026-10-11/README-UA.md); їх не можна повертати в Resources при routine content preparation.
 
-Новий [авторинг у main](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/QuietCamp/Assets/QuietCamp/Authoring/Roadmap/Composition) містить forest/water sources, owned village parcels, damaged power routes і aircraft/ship/dam staging ensembles. Його основа — composition checkpoint і попередній 30-main handoff; 10.10.2026 усі гілки об’єднано в main. Новий п’ятиточковий світ використовує окремий native index і перспективну URP-камеру. [Свіжа галерея та статус приймання](../Design/Roadmap/CinematicPilot/2026-10-10/README.md). Історичні кадри довідника показують старий renderer; окремі [12 діорам стилю](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/Design/Roadmap/DioramaStudies/2026-10-10) мають власні native Editor receipts.
+[Кадри пілота QC001–QC005 від 10 жовтня](../Design/Roadmap/CinematicPilot/2026-10-10/index.html), [12 діорам стилю](../Design/Roadmap/DioramaStudies/2026-10-10/index.html) та [сезонні кадри вище](gallery.md) є історичними й мають власні receipts. Поточні рівні перевіряються окремо.
 
-[Звіт source-реалізації](https://github.com/kruty1918dev-ai/quiet-camp/blob/main/Design/Roadmap/NATIVE-FINISH-2026-10-08-UA.md) · [Матриця моделей](https://github.com/kruty1918dev-ai/quiet-camp/blob/main/Design/Roadmap/Assets/MODEL-MATRIX-UA.md) · [Composition tools](https://github.com/kruty1918dev-ai/quiet-camp/tree/main/tools/scene-composition).
-
-Airplane-field і dam залишаються незалежними staging visual journeys; це не puzzles/unlocks перших main levels. Старі concept references або software mesh previews не є їхніми новими Game View renders.
-
-Далі: [Атлас мапи й journey UI](screens.md#мапа-галявин), [Seasonal rendering](../Design/Atmosphere/SEASONAL-RENDERING-UA.md), [Story canon](../Design/Story/COZY-LORE-UA.md).
+[Стан доказів](status.md) · [Карта кампанії](../CAMPAIGN_ROADMAP.md) · [Сезонний renderer](../Design/Atmosphere/SEASONAL-RENDERING-UA.md).

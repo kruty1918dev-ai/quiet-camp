@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 49,
-  "chapter": 10,
+  "order": 45,
+  "chapter": 5,
   "seed": -720064979,
   "width": 7,
   "height": 8,
   "id": "gen:qc_camp:61",
-  "contentHash": "f54da0bb16165382087f9e48e69cbcf03618397cb773dd1824fc225069bc68bb",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "211cee6cabb2fbbe8cfc41e3bb166bed98357a05f75c27222536cd3df21f1129",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -192,18 +192,113 @@
     "biomeId": "meadow",
     "seasonId": "summer",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.25,
-    "clusterSeed": 1394866515,
+    "moisture": 0.468432,
+    "treeDensity": 0.574572,
+    "clusterSeed": 38785,
     "meadowSpecies": [
       "grass",
-      "wheat",
-      "daisy"
+      "poppy"
     ],
-    "storyMotifs": [
-      "bag",
-      "repaired-marker"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.444444,
+    "weatherIntensity": 0.314054
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-045",
+    "beats": [
+      {
+        "id": "place-045",
+        "storyBeat": "Турбота про пам'ять виражена квітами й простором для тихої зупинки.",
+        "heroLandmark": "place-045-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Невеликий меморіальний сад і металевий силует у дальньому плані.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Турбота про пам'ять виражена квітами й простором для тихої зупинки.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:61"
+        ],
+        "props": [
+          {
+            "id": "place-045-prop-1",
+            "category": "recovery",
+            "motif": "civilian-debris",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_memorial_garden",
+              "x": -9.93563,
+              "z": -4.5,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-045-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": 3.0,
+              "z": -5.60091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-045-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "flower_yellowA",
+              "x": 4.79049,
+              "z": -5.3099,
+              "elevation": 0.025,
+              "height": 0.34,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

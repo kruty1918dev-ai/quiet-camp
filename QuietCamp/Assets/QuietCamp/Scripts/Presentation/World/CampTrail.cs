@@ -221,8 +221,8 @@ namespace QuietCamp.Presentation.World
         static void ApplySeason(Material material,LevelData level)
         {
             var season=SeasonProfile.For(level);var palette=season.Palette;
-            material.SetColor("_SoilDark",season.Winter?palette.GrassDark*.82f:palette.Soil*.86f);
-            material.SetColor("_SoilLight",season.Winter?palette.GrassLight*.88f:palette.Soil*1.06f);
+            material.SetColor("_SoilDark",Color.Lerp(palette.Soil*.86f,palette.GrassDark*.82f,season.SnowCoverage));
+            material.SetColor("_SoilLight",Color.Lerp(palette.Soil*1.06f,palette.GrassLight*.88f,season.SnowCoverage));
             material.SetColor("_MossDark",palette.GrassDark);material.SetColor("_MossLight",palette.GrassLight);
         }
         void BuildPebbles(LevelData level,Cell cell)

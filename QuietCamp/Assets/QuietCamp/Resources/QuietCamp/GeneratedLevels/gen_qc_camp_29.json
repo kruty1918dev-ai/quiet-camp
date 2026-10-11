@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 39,
-  "chapter": 8,
+  "order": 36,
+  "chapter": 4,
   "seed": 20569845,
   "width": 7,
   "height": 7,
   "id": "gen:qc_camp:29",
-  "contentHash": "fa1842174c806c9f31f30b694891ec44771cfd5a47967d27bf557a52827ca663",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "9be5b4b0236b2a82499e04602dbfe0a47549637da6ed97858364c13b6d3eb03b",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -127,22 +127,124 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "meadow",
-    "seasonId": "spring",
+    "biomeId": "shore",
+    "seasonId": "summer",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.25,
-    "clusterSeed": 355186299,
+    "moisture": 0.361285,
+    "treeDensity": 0.544505,
+    "clusterSeed": 37228,
     "meadowSpecies": [
       "grass",
-      "daisy",
       "poppy"
     ],
-    "storyMotifs": [
-      "ruin",
-      "flowers",
-      "repaired-marker"
+    "storyMotifs": [],
+    "shore": {
+      "kind": "stream",
+      "side": "left",
+      "offset": 9.1,
+      "width": 2.4,
+      "seed": 31468
+    },
+    "seasonTimeline": 0.353535,
+    "weatherIntensity": 0.135474
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-036",
+    "beats": [
+      {
+        "id": "place-036",
+        "storyBeat": "Пошкоджений автомобільний шлях замінено скромною людською переправою.",
+        "heroLandmark": "place-036-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Залишки берегового мосту й вузька дерев'яна кладка біля відкритого русла.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Пошкоджений автомобільний шлях замінено скромною людською переправою.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:29"
+        ],
+        "props": [
+          {
+            "id": "place-036-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_bridge_remnants",
+              "x": -9.33881,
+              "z": 0.0,
+              "elevation": 0.025,
+              "height": 0.72,
+              "yaw": 0.0,
+              "sway": false,
+              "spansWater": true
+            }
+          },
+          {
+            "id": "place-036-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_footbridge",
+              "x": -9.61879,
+              "z": 4.4,
+              "elevation": 0.025,
+              "height": 0.5,
+              "yaw": 90.0,
+              "sway": false,
+              "spansWater": true
+            }
+          },
+          {
+            "id": "place-036-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_willow",
+              "x": 5.2383,
+              "z": -8.50949,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

@@ -2,14 +2,14 @@
   "schemaVersion": 1,
   "ruleVersion": 2,
   "order": 8,
-  "chapter": 2,
+  "chapter": 1,
   "seed": 20324356,
   "width": 8,
   "height": 6,
   "id": "QC008",
-  "contentHash": "b09b6a9b206f1f1da47a9fef326c18e523608943aee3623b4d015fb97536397f",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "morning",
+  "contentHash": "de3c469f92f3e44a0dbb394b4080a13c6860c94856635650f622042cd92e397b",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "tutorial.8",
   "generationAttempt": 1,
   "decorSeed": 20348763,
@@ -114,20 +114,115 @@
   "canopies": [],
   "environment": {
     "biomeId": "forest",
-    "seasonId": "summer",
-    "weatherId": "cloudy",
-    "moisture": 0.48,
-    "treeDensity": 0.84,
-    "clusterSeed": -349011330,
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.396193,
+    "treeDensity": 0.408737,
+    "clusterSeed": 32384,
     "meadowSpecies": [
       "grass",
-      "poppy",
       "daisy"
     ],
-    "storyMotifs": [
-      "bag",
-      "lantern"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.070707,
+    "weatherIntensity": 0.193655
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-008",
+    "beats": [
+      {
+        "id": "place-008",
+        "storyBeat": "Заросла дорога пам'ятає щоденний рух; табір повертає їй людський масштаб.",
+        "heroLandmark": "place-008-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Нахилений вказівник і порожня лавка між молодими тополями.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Заросла дорога пам'ятає щоденний рух; табір повертає їй людський масштаб.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "QC008"
+        ],
+        "props": [
+          {
+            "id": "place-008-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "sign",
+              "x": -5.53535,
+              "z": -0.8,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-008-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": 1.15,
+              "z": -4.60091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-008-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "flower_yellowA",
+              "x": 5.29049,
+              "z": -4.3099,
+              "elevation": 0.025,
+              "height": 0.34,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

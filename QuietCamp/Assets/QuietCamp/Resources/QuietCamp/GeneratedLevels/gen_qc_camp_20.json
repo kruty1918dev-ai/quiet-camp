@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 30,
-  "chapter": 6,
+  "order": 27,
+  "chapter": 3,
   "seed": 20498574,
   "width": 8,
   "height": 8,
   "id": "gen:qc_camp:20",
-  "contentHash": "d48e7d7a208928c38bf422b3d61947387ab047840f859548a90f2ceb2e597d40",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "evening",
+  "contentHash": "8ff618571c4b36ae01c51f673e3a0efccbf7d9c5cad4afcc9a907a4b2803436d",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
   "decorSeed": 20486097,
@@ -177,22 +177,122 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "meadow",
-    "seasonId": "spring",
+    "biomeId": "shore",
+    "seasonId": "summer",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.25,
-    "clusterSeed": 141408384,
+    "moisture": 0.370494,
+    "treeDensity": 0.497132,
+    "clusterSeed": 35671,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "daisy"
     ],
-    "storyMotifs": [
-      "ruin",
-      "flowers",
-      "repaired-marker"
+    "storyMotifs": [],
+    "shore": {
+      "kind": "stream",
+      "side": "back",
+      "offset": 9.6,
+      "width": 2.4,
+      "seed": 31351
+    },
+    "seasonTimeline": 0.262626,
+    "weatherIntensity": 0.150824
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-027",
+    "beats": [
+      {
+        "id": "place-027",
+        "storyBeat": "Сільська дорога поступово переходить у природний берег.",
+        "heroLandmark": "place-027-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Молода верба, очерет і простий причальний стовп біля води.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Сільська дорога поступово переходить у природний берег.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:20"
+        ],
+        "props": [
+          {
+            "id": "place-027-prop-1",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_willow",
+              "x": -7.4383,
+              "z": -3.0,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-027-prop-2",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_reed_clump",
+              "x": 0.25,
+              "z": 5.27261,
+              "elevation": 0.025,
+              "height": 1.15,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-027-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_mooring_post",
+              "x": 5.4335,
+              "z": 5.276,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

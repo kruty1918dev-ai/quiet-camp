@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using QuietCamp.Presentation.UI;
 using UnityEditor;
 using UnityEngine;
@@ -17,7 +18,8 @@ namespace QuietCamp.Editor
     {
         public static readonly string[] Roots={"Assets/PolygonCity","Assets/PolygonNatureBiomes/PNB_Meadow_Forest",
             "Assets/PolygonNatureBiomes/PNB_Swamp_Marshland","Assets/PolygonBattleRoyale","Assets/PolygonParticles",
-            "Assets/PolygonNatureBiomes/PNB_Core","Assets/QuietCamp/Authoring/Roadmap/Models"};
+            "Assets/PolygonNatureBiomes/PNB_Core","Assets/QuietCamp/Authoring/Roadmap/Models",
+            "Assets/PolygonNatureBiomes/PNB_Tropical_Jungle","Assets/QuietCamp/ThirdParty","Assets/ThirdParty"};
         public sealed class Entry
         {
             public string id,displayId,path,name,sourceHash,package,materialBinding;
@@ -59,12 +61,23 @@ namespace QuietCamp.Editor
             if(SystemInfo.graphicsDeviceType==GraphicsDeviceType.Null)throw new InvalidOperationException("A real graphics device is required");
             string repository=Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath,"../.."));
             string output=Path.Combine(repository,"Design/Roadmap/ModelCatalogue/LocalPreviews~");
+            bool delta=Environment.GetEnvironmentVariable("QC_MODEL_CAMPAIGN100")=="1";
+            JObject[] coverage=null;
+            if(delta)
+            {
+                output=Path.Combine(repository,"Design/Campaign100/2026-10-11/ModelPreviews~");
+                coverage=JObject.Parse(File.ReadAllText(Path.Combine(repository,"Design/Campaign100/2026-10-11/existing-content-audit.json")))["modelSources"].OfType<JObject>().Where(r=>(bool)r["needsCapture"]).ToArray();
+            }
+            string selected=Environment.GetEnvironmentVariable("QC_MODEL_IDS");
+            if(delta&&!string.IsNullOrEmpty(selected))
+            {var ids=new HashSet<string>(selected.Split(','));coverage=coverage.Where(r=>ids.Contains((string)r["number"])).ToArray();}
             Directory.CreateDirectory(output);
             int start=IntVariable("QC_MODEL_REVIEW_START",0),count=IntVariable("QC_MODEL_REVIEW_COUNT",int.MaxValue);
             var paths=Roots.SelectMany(root=>AssetDatabase.FindAssets("t:Model",new[]{root}).Select(AssetDatabase.GUIDToAssetPath))
                 .Where(p=>p.EndsWith(".fbx",StringComparison.OrdinalIgnoreCase)||p.EndsWith(".obj",StringComparison.OrdinalIgnoreCase))
                 .Distinct().OrderBy(p=>p,StringComparer.Ordinal).ToArray();
-            if(paths.Length!=1210)throw new InvalidOperationException("Model coverage changed: expected 1210, got "+paths.Length);
+            if(delta)paths=coverage.Select(r=>(string)r["path"]).ToArray();
+            else if(paths.Length!=1210)throw new InvalidOperationException("Model coverage changed: expected 1210, got "+paths.Length);
             var materials=MaterialMap();EditorUtility.UnloadUnusedAssetsImmediate();
             var library=RoadmapModelLibrary.Load();library.PrepareCulture();library.PrepareStaging();
             var entries=new List<Entry>();
@@ -83,25 +96,40 @@ namespace QuietCamp.Editor
                 for(int index=start;index<paths.Length&&index-start<count;index++)
                 {
                     string path=paths[index];var entry=new Entry{id="m_"+AssetDatabase.AssetPathToGUID(path),
-                        displayId="M"+(index+1).ToString("D4"),path=path,name=Path.GetFileNameWithoutExtension(path),
-                        package=Roots.First(root=>path.StartsWith(root+"/",StringComparison.Ordinal)),sourceHash=Hash(path)};
+                        displayId=delta?(string)coverage[index]["number"]:"M"+(index+1).ToString("D4"),path=path,name=Path.GetFileNameWithoutExtension(path),
+                        package=Roots.FirstOrDefault(root=>path.StartsWith(root+"/",StringComparison.Ordinal))??(path.StartsWith("Packages/")?path.Split('/')[1]:"Assets"),sourceHash=delta?(string)coverage[index]["sourceSha256"]:Hash(path)};
+                    string photographPath=path;
+                    if(delta&&coverage[index]["photographySource"]!=null)
+                    {
+                        string physical=Path.Combine(repository,"QuietCamp",(string)coverage[index]["photographySource"]);
+                        if(Hash(physical)!=entry.sourceHash)throw new InvalidOperationException("Package source changed: "+path);
+                        photographPath="Assets/QuietCamp/Editor/CampaignModelPhotography/"+entry.displayId+Path.GetExtension(path);
+                        Directory.CreateDirectory(Path.GetDirectoryName(photographPath));File.Copy(physical,photographPath,true);
+                        AssetDatabase.ImportAsset(photographPath,ImportAssetOptions.ForceSynchronousImport|ImportAssetOptions.ForceUpdate);
+                    }
                     GameObject instance=null;Mesh ownedMesh=null;
                     try
                     {
                         var model=path.StartsWith("Assets/QuietCamp/Authoring/",StringComparison.Ordinal)?library.Get(entry.name):null;
+                        bool glb=path.EndsWith(".glb",StringComparison.OrdinalIgnoreCase);
+                        if(glb)
+                        {
+                            var derived=File.ReadAllText(Path.Combine(repository,"Design/Campaign100/2026-10-11/SourcePhotos~",entry.name+".json"));
+                            model=JsonConvert.DeserializeObject<RoadmapModelLibrary.Model>(derived);model.Expand();
+                        }
                         if(model!=null)
                         {
                             ownedMesh=NativeMesh(model);instance=new GameObject(entry.name);
-                            var original=AssetDatabase.LoadAssetAtPath<GameObject>(path);
-                            var sourceBounds=original.GetComponentsInChildren<MeshFilter>(true).Select(f=>f.sharedMesh.bounds).ToArray();
+                            var original=AssetDatabase.LoadAssetAtPath<GameObject>(photographPath);
+                            var sourceBounds=glb?new[]{ownedMesh.bounds}:original.GetComponentsInChildren<MeshFilter>(true).Select(f=>f.sharedMesh.bounds).ToArray();
                             var importedBounds=sourceBounds[0];foreach(var b in sourceBounds.Skip(1))importedBounds.Encapsulate(b);
                             instance.transform.localScale=Vector3.one*(importedBounds.size.y/Mathf.Max(.0001f,ownedMesh.bounds.size.y));
                             instance.AddComponent<MeshFilter>().sharedMesh=ownedMesh;
-                            instance.AddComponent<MeshRenderer>().sharedMaterial=colored;entry.materialBinding="project-palette-photography";
+                            instance.AddComponent<MeshRenderer>().sharedMaterial=colored;entry.materialBinding=glb?"source-glb-derived-vertex-colour":"project-palette-photography";
                         }
                         else
                         {
-                            var source=AssetDatabase.LoadAssetAtPath<GameObject>(path);
+                            var source=AssetDatabase.LoadAssetAtPath<GameObject>(photographPath);
                             if(source==null)throw new InvalidOperationException("Model root could not load");
                             instance=Object.Instantiate(source);entry.materialBinding="model-embedded";
                             foreach(var renderer in instance.GetComponentsInChildren<Renderer>(true))
@@ -115,7 +143,11 @@ namespace QuietCamp.Editor
                                 {var slots=renderer.sharedMaterials;if(slots.Length==0)slots=new[]{neutral};renderer.sharedMaterials=slots.Select(m=>m??neutral).ToArray();}
                             }
                         }
-                        foreach(var t in instance.GetComponentsInChildren<Transform>(true))t.gameObject.layer=31;
+                        foreach(var t in instance.GetComponentsInChildren<Transform>(true)){t.gameObject.layer=31;t.gameObject.SetActive(true);}
+                        foreach(var lod in instance.GetComponentsInChildren<LODGroup>(true))lod.enabled=false;
+                        foreach(var r in instance.GetComponentsInChildren<Renderer>(true))r.enabled=true;
+                        if(path.StartsWith("Packages/")||entry.displayId=="M1215"||entry.displayId=="M1257")
+                        {foreach(var r in instance.GetComponentsInChildren<Renderer>(true))r.sharedMaterials=r.sharedMaterials.Select(_=>neutral).ToArray();entry.materialBinding="two-sided-neutral-source-geometry-photography";}
                         preview.AddSingleGO(instance);
                         var renderers=instance.GetComponentsInChildren<Renderer>(true);
                         if(renderers.Length==0)throw new InvalidOperationException("Model has no renderers");

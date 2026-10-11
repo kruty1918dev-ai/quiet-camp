@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 52,
-  "chapter": 11,
+  "order": 48,
+  "chapter": 5,
   "seed": -720041219,
   "width": 6,
   "height": 8,
   "id": "gen:qc_camp:64",
-  "contentHash": "5b91a991b4300c357fa2aa50814bea0780300ef9ebe82bf0178c5ea4452ba369",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "morning",
+  "contentHash": "8dab4c34abe1c5fd822959f20e96e28a2ad0904708b6e70c1d87bc034fb06b52",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
   "decorSeed": -720022110,
@@ -134,7 +134,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "pines",
+  "environmentPreset": "meadow",
   "objects": [
     {
       "assetId": "campfire_stones",
@@ -170,21 +170,116 @@
     }
   ],
   "environment": {
-    "biomeId": "forest",
-    "seasonId": "autumn",
-    "weatherId": "cloudy",
-    "moisture": 0.48,
-    "treeDensity": 0.84,
-    "clusterSeed": 1486455523,
+    "biomeId": "meadow",
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.483363,
+    "treeDensity": 0.578869,
+    "clusterSeed": 39304,
     "meadowSpecies": [
       "grass",
-      "daisy",
       "poppy"
     ],
-    "storyMotifs": [
-      "marker",
-      "bag"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.474747,
+    "weatherIntensity": 0.338939
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-048",
+    "beats": [
+      {
+        "id": "place-048",
+        "storyBeat": "Слід пошкодження читається на тлі рослин, які повільно змінюють ландшафт.",
+        "heroLandmark": "place-048-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Зламаний дерев'яний стовп, низька огорожа й молоді крони між ними.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Слід пошкодження читається на тлі рослин, які повільно змінюють ландшафт.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:64"
+        ],
+        "props": [
+          {
+            "id": "place-048-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_village_wood_pole",
+              "x": -4.55385,
+              "z": -0.8,
+              "elevation": 0.025,
+              "height": 3.1,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-048-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_village_broken_pole",
+              "x": 0.25,
+              "z": -5.82078,
+              "elevation": 0.025,
+              "height": 0.65,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-048-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_fence_broken_2",
+              "x": 5.52283,
+              "z": -5.29145,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 24,
-  "chapter": 5,
+  "order": 23,
+  "chapter": 3,
   "seed": 20451060,
   "width": 7,
   "height": 7,
   "id": "gen:qc_camp:14",
-  "contentHash": "733e5ce205890a9e1463112546216b424ccced24041ed189bcdd7c23e06d4d31",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "morning",
+  "contentHash": "dc17e113dad3d3fce239fe8a669acad17fe03b6246b2a03f774dfc77a6940a9a",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
   "decorSeed": 20468139,
@@ -113,7 +113,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "stone_largeA",
@@ -136,25 +136,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "shore",
-    "seasonId": "winter",
-    "weatherId": "mist",
-    "moisture": 0.82,
-    "treeDensity": 0.55,
-    "clusterSeed": 77280366,
+    "biomeId": "forest",
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.421967,
+    "treeDensity": 0.474372,
+    "clusterSeed": 34979,
     "meadowSpecies": [
-      "grass"
+      "grass",
+      "daisy"
     ],
-    "storyMotifs": [
-      "lantern",
-      "bench"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.222222,
+    "weatherIntensity": 0.236611
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-023",
+    "beats": [
+      {
+        "id": "place-023",
+        "storyBeat": "Спільне користування водою зв'язує двори сильніше за колишні паркани.",
+        "heroLandmark": "place-023-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Простий журавель і дерев'яна лавка поруч зі старим сараєм.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Спільне користування водою зв'язує двори сильніше за колишні паркани.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:14"
+        ],
+        "props": [
+          {
+            "id": "place-023-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_well",
+              "x": -5.69063,
+              "z": 0.55,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-023-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": 1.15,
+              "z": -5.10091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-023-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_fence_broken_0",
+              "x": 6.02233,
+              "z": -4.79145,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": {
-      "kind": "lake",
-      "side": "left",
-      "offset": 10.0,
-      "width": 7.0,
-      "seed": 20468139
-    }
+    "references": []
   }
 }

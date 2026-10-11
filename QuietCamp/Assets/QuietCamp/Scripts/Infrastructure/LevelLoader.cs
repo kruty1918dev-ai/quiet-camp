@@ -16,7 +16,7 @@ namespace QuietCamp.Infrastructure
 
         [Serializable] sealed class CampaignData
         {
-            public int schemaVersion, freeLevelCount;
+            public int schemaVersion, freeLevelCount, bundledLevelLimit;
             public string testLevelId;
             public string[] mvpLevelIds, campaignLevelIds, generatedLevelIds;
             public DistrictDefinition[] districts;
@@ -31,6 +31,8 @@ namespace QuietCamp.Infrastructure
         {
             using var audit = PerformanceAudit.Measure("QC.LevelLoader.Load");
             levelId = CampContent.CanonicalId(levelId);
+            if(levelId?.StartsWith("pack:",StringComparison.Ordinal)==true)
+                return ContentPackRuntime.Store.Load(levelId)??throw new InvalidOperationException("Content pack level unavailable: "+levelId);
             if (GeneratedCampSource.IsGeneratedId(levelId))
             {
                 if (!GeneratedCampSource.TryParseId(levelId, out var recipeName, out var index))
@@ -89,6 +91,7 @@ namespace QuietCamp.Infrastructure
             var campaign = LoadCampaign();
             return campaign?.freeLevelCount ?? 12;
         }
+        public static bool Campaign100Enabled()=>LoadCampaign()?.bundledLevelLimit==100;
 
         /// <summary>Development/test level id — never part of the player path.</summary>
         public static string TestLevelId()
@@ -102,6 +105,7 @@ namespace QuietCamp.Infrastructure
         {
             levelId = CampContent.CanonicalId(levelId);
             if (string.IsNullOrEmpty(levelId)) return false;
+            if(levelId.StartsWith("pack:",StringComparison.Ordinal))return ContentPackRuntime.Store.Load(levelId)!=null;
             if (GeneratedCampSource.IsGeneratedId(levelId))
             {
                 if (Resources.Load<TextAsset>("QuietCamp/GeneratedLevels/" + levelId.Replace(':', '_')) != null)

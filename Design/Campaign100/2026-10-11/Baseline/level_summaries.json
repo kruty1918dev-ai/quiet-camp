@@ -1,0 +1,8250 @@
+[
+  {
+    "id": "QC001",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "e2c3b376421e857078591a26bda99744688e469796ff1adc9313fc797a94dec2",
+    "ruleVersion": 2,
+    "number": 1,
+    "width": 5,
+    "height": 5,
+    "decorSeed": 20256804,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      2,
+      4
+    ],
+    "mapObjects": [],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.48,
+      "clusterSeed": -677396919,
+      "meadowSpecies": [
+        "grass",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "QC002",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "fb3f225b11e151c2ed124a6dc8fdda5585200b23a2c8a446ebbe65b6736dd575",
+    "ruleVersion": 2,
+    "number": 2,
+    "width": 5,
+    "height": 6,
+    "decorSeed": 20265269,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      2,
+      5
+    ],
+    "mapObjects": [],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.48,
+      "clusterSeed": -647168404,
+      "meadowSpecies": [
+        "grass",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "QC003",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "e4b2f452e593c237ef8d2c00add728635fd478ab31b0edc0619972ecdd64f8e2",
+    "ruleVersion": 2,
+    "number": 3,
+    "width": 6,
+    "height": 5,
+    "decorSeed": 20306438,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 3,
+        "z": 3,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": -500153905,
+      "meadowSpecies": [
+        "grass",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "QC004",
+    "environmentPreset": "pines",
+    "lighting": "morning",
+    "contentHash": "8915cda32c07faa31f6dfab600f87d98a2e118d7a36d6fdd8ee088db87732d20",
+    "ruleVersion": 2,
+    "number": 4,
+    "width": 6,
+    "height": 6,
+    "decorSeed": 20314903,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      5,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 5,
+        "z": 0,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 2,
+        "z": 5,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [
+      [
+        5,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.48,
+      "clusterSeed": -469925390,
+      "meadowSpecies": [
+        "grass",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "QC005",
+    "environmentPreset": "pines",
+    "lighting": "evening",
+    "contentHash": "892768b9423b35e9fd5eb425a33ec9b0fce92f4d2511998c761a8d1a383bf66d",
+    "ruleVersion": 2,
+    "number": 5,
+    "width": 6,
+    "height": 7,
+    "decorSeed": 20290664,
+    "shade": false,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      3,
+      6
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 3,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.48,
+      "clusterSeed": -556482859,
+      "meadowSpecies": [
+        "grass",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "QC006",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "277fa05d1084c89d13c1cd3974b1d200aaebbaf8c35cde6c5934def32d34ef8d",
+    "ruleVersion": 2,
+    "number": 6,
+    "width": 7,
+    "height": 6,
+    "decorSeed": 20299129,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 6,
+        "z": 0,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 4,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 3,
+        "z": 5,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        -1,
+        1
+      ],
+      [
+        -1,
+        2
+      ],
+      [
+        -1,
+        3
+      ],
+      [
+        -1,
+        4
+      ],
+      [
+        -1,
+        5
+      ]
+    ],
+    "noise": [
+      [
+        6,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": -526254344,
+      "meadowSpecies": [
+        "grass",
+        "poppy",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "bag",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "QC007",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "7d54113d6df37600c093ababc533f3a4fa0af4fc80d2217232f903d23d718eca",
+    "ruleVersion": 2,
+    "number": 7,
+    "width": 6,
+    "height": 8,
+    "decorSeed": 20340298,
+    "shade": true,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 4,
+        "z": 5,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 1,
+        "z": 3,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 7
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "summer",
+      "weatherId": "rain",
+      "moisture": 0.9,
+      "treeDensity": 0.55,
+      "clusterSeed": -379239845,
+      "meadowSpecies": [
+        "grass",
+        "poppy",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "bag",
+        "lantern"
+      ],
+      "shore": {
+        "kind": "stream",
+        "side": "left",
+        "offset": 7.1,
+        "width": 2.2,
+        "seed": 20340298
+      }
+    }
+  },
+  {
+    "id": "QC008",
+    "environmentPreset": "pines",
+    "lighting": "morning",
+    "contentHash": "b09b6a9b206f1f1da47a9fef326c18e523608943aee3623b4d015fb97536397f",
+    "ruleVersion": 2,
+    "number": 8,
+    "width": 8,
+    "height": 6,
+    "decorSeed": 20348763,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      7,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 6,
+        "z": 1,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 4,
+        "z": 3,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        8,
+        1
+      ],
+      [
+        8,
+        2
+      ],
+      [
+        8,
+        3
+      ],
+      [
+        8,
+        4
+      ],
+      [
+        8,
+        5
+      ]
+    ],
+    "noise": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "summer",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.84,
+      "clusterSeed": -349011330,
+      "meadowSpecies": [
+        "grass",
+        "poppy",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "bag",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "QC009",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "6e3ad0e4a0b4e523ec8bbadac791b48b0a7357b2638d2fa6627507146cb597c1",
+    "ruleVersion": 2,
+    "number": 9,
+    "width": 7,
+    "height": 7,
+    "decorSeed": 20341164,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      3,
+      6
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 6,
+        "z": 0,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 6,
+        "z": 5,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 5,
+        "z": 6,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        1,
+        7
+      ],
+      [
+        2,
+        7
+      ],
+      [
+        3,
+        7
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        5,
+        7
+      ]
+    ],
+    "noise": [
+      [
+        6,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": -376147359,
+      "meadowSpecies": [
+        "grass",
+        "poppy",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "bag",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "QC010",
+    "environmentPreset": "meadow",
+    "lighting": "evening",
+    "contentHash": "e5882608f42307895df476742801a858e9d15972e82f61d23bc5fe9a9493ccc5",
+    "ruleVersion": 2,
+    "number": 10,
+    "width": 7,
+    "height": 8,
+    "decorSeed": 20316861,
+    "shade": true,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      0,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 6,
+        "z": 0,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 6,
+        "z": 3,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 0,
+        "z": 1,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 6.75,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "noise": [
+      [
+        6,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.55,
+      "clusterSeed": -462933372,
+      "meadowSpecies": [
+        "grass",
+        "poppy",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "bag",
+        "lantern"
+      ],
+      "shore": {
+        "kind": "stream",
+        "side": "right",
+        "offset": 7.6,
+        "width": 2.2,
+        "seed": 20316861
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:1",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "7a7943db83594883797a09ab4f50c93381dd2fc1c755c298b64a42e987af0085",
+    "ruleVersion": 2,
+    "number": 11,
+    "width": 4,
+    "height": 6,
+    "decorSeed": 20325262,
+    "shade": false,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      2,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 0,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 1,
+        "z": 2,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 2,
+        "z": 5
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": -432933401,
+      "meadowSpecies": [
+        "grass",
+        "wheat",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:2",
+    "environmentPreset": "meadow",
+    "lighting": "morning",
+    "contentHash": "2ab68a4dd9abee10eb9319b0ecc0a954ef42147ae8883e3ccb321d8bf4150026",
+    "ruleVersion": 2,
+    "number": 12,
+    "width": 5,
+    "height": 7,
+    "decorSeed": 20366495,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      4,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 4,
+        "z": 0,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 4,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 3,
+        "z": 4,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        5,
+        1
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        5,
+        4
+      ],
+      [
+        5,
+        5
+      ]
+    ],
+    "noise": [
+      [
+        4,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.25,
+      "clusterSeed": -285690358,
+      "meadowSpecies": [
+        "grass",
+        "wheat",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:3",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "dac189423b430277d6578cf1acfe3ea37097e78cac83edf4940657f4650b4936",
+    "ruleVersion": 2,
+    "number": 13,
+    "width": 6,
+    "height": 5,
+    "decorSeed": 20375024,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      3,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 5,
+        "z": 4,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 4,
+        "z": 3,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 0
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "summer",
+      "weatherId": "rain",
+      "moisture": 0.9,
+      "treeDensity": 0.55,
+      "clusterSeed": -255233299,
+      "meadowSpecies": [
+        "grass",
+        "wheat",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "bench"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 9.5,
+        "width": 7.0,
+        "seed": 20375024
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:4",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "866abf93e107d215bed848cdaf96c9fbe35dc8859e0725dcfdfdccda29607443",
+    "ruleVersion": 2,
+    "number": 14,
+    "width": 6,
+    "height": 8,
+    "decorSeed": 20350657,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 1,
+        "z": 6,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 1,
+        "z": 1,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "forest-entry",
+        "kind": "entry",
+        "x": 3,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        -1,
+        2
+      ],
+      [
+        -1,
+        3
+      ],
+      [
+        -1,
+        4
+      ],
+      [
+        -1,
+        5
+      ],
+      [
+        -1,
+        6
+      ]
+    ],
+    "noise": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": -342247856,
+      "meadowSpecies": [
+        "grass",
+        "wheat",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:5",
+    "environmentPreset": "meadow",
+    "lighting": "evening",
+    "contentHash": "a44a1c3138c06318fed9dacd6bc0f03b38f0c016b01c3e917da03aecd0a69648",
+    "ruleVersion": 2,
+    "number": 15,
+    "width": 8,
+    "height": 6,
+    "decorSeed": 20359122,
+    "shade": false,
+    "quiet": true,
+    "friends": true,
+    "fire": true,
+    "entry": [
+      4,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 7,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 3,
+        "z": 1,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 4,
+        "z": 2,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 4,
+        "z": 5
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [
+      [
+        7,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": -312019341,
+      "meadowSpecies": [
+        "grass",
+        "wheat",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:6",
+    "environmentPreset": "pines",
+    "lighting": "morning",
+    "contentHash": "f3184159fd69c05c9aaf3c8a84e89ef49a849d78d5d38c9990ac2a426ec849c2",
+    "ruleVersion": 2,
+    "number": 16,
+    "width": 7,
+    "height": 7,
+    "decorSeed": 20400163,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      6,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 3,
+        "z": 6,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 5,
+        "z": 4,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 4,
+        "z": 6,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 5.75,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "autumn",
+      "weatherId": "mist",
+      "moisture": 0.82,
+      "treeDensity": 0.84,
+      "clusterSeed": -165461930,
+      "meadowSpecies": [
+        "grass",
+        "wheat"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:7",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "e5355665da2c7526be7a027a9128c10dd2cb6e3c0b41f4240100b3709a0c9fcc",
+    "ruleVersion": 2,
+    "number": 17,
+    "width": 5,
+    "height": 8,
+    "decorSeed": 20408628,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      2,
+      7
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 2,
+        "z": 3,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 0,
+        "z": 7,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 4,
+        "z": 2,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 2,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        0,
+        8
+      ],
+      [
+        1,
+        8
+      ],
+      [
+        2,
+        8
+      ],
+      [
+        3,
+        8
+      ],
+      [
+        4,
+        8
+      ]
+    ],
+    "noise": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "autumn",
+      "weatherId": "rain",
+      "moisture": 0.9,
+      "treeDensity": 0.84,
+      "clusterSeed": -135233415,
+      "meadowSpecies": [
+        "grass",
+        "wheat"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:8",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "4dc93c95d865f3f9395fa1bc17548879bc8b0736a4e5f96715862028b7041459",
+    "ruleVersion": 2,
+    "number": 18,
+    "width": 8,
+    "height": 5,
+    "decorSeed": 20384261,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      0,
+      2
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 7,
+        "z": 0,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 5,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 3,
+        "z": 1,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 2,
+        "z": 3,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [
+      [
+        7,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "autumn",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": -222247972,
+      "meadowSpecies": [
+        "grass",
+        "wheat"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:9",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "c707a973f2643edd693052a91a44e868d9c9ab52e7763b2217b3f5c04a71e086",
+    "ruleVersion": 2,
+    "number": 19,
+    "width": 7,
+    "height": 8,
+    "decorSeed": 20392726,
+    "shade": true,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 5,
+        "z": 5,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 4,
+        "z": 3,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 3,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 7
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        5,
+        -1
+      ]
+    ],
+    "noise": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "autumn",
+      "weatherId": "rain",
+      "moisture": 0.9,
+      "treeDensity": 0.55,
+      "clusterSeed": -192019457,
+      "meadowSpecies": [
+        "grass",
+        "wheat"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "marker"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 10.0,
+        "width": 7.0,
+        "seed": 20392726
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:10",
+    "environmentPreset": "pines",
+    "lighting": "evening",
+    "contentHash": "50d17b120d5ea4f67ad27a5f6be3eca1a45836fc74cb995c54433637ada6ea38",
+    "ruleVersion": 2,
+    "number": 20,
+    "width": 8,
+    "height": 7,
+    "decorSeed": 20434023,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      7,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 7,
+        "z": 0,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 6,
+        "z": 1,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 7,
+        "z": 5,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 5,
+        "z": 6,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [
+      [
+        7,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "autumn",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.84,
+      "clusterSeed": -44547870,
+      "meadowSpecies": [
+        "grass",
+        "wheat"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:11",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "78424b2c4a6c27a5305faab163048067b2753382596a6a93f739282e01e11218",
+    "ruleVersion": 2,
+    "number": 21,
+    "width": 6,
+    "height": 6,
+    "decorSeed": 20442488,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      3,
+      5
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 5,
+        "z": 0,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 5,
+        "z": 4,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 1,
+        "z": 5,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 4,
+        "z": 4,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 0
+      },
+      {
+        "id": "forest-entry",
+        "kind": "entry",
+        "x": 0,
+        "z": 3
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [
+      [
+        5,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "mist",
+      "moisture": 0.82,
+      "treeDensity": 0.8,
+      "clusterSeed": -14319355,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "lantern",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:12",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "8cb4e8a373ad1576e4c0ca637fa2fe81d0293716a86ca7748e0d858d2bda99f2",
+    "ruleVersion": 2,
+    "number": 22,
+    "width": 6,
+    "height": 8,
+    "decorSeed": 20418121,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 3,
+        "z": 1,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 5,
+        "z": 4,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 1,
+        "z": 3,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 6.75,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [
+      [
+        -1,
+        2
+      ],
+      [
+        -1,
+        3
+      ],
+      [
+        -1,
+        4
+      ],
+      [
+        -1,
+        5
+      ],
+      [
+        -1,
+        6
+      ]
+    ],
+    "noise": [],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.8,
+      "clusterSeed": -101333912,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "lantern",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:13",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "6e05700731c190dffa94b7423e50904ba0c7ac94776cd84ba69f80bc920a8c22",
+    "ruleVersion": 2,
+    "number": 23,
+    "width": 8,
+    "height": 6,
+    "decorSeed": 20426586,
+    "shade": false,
+    "quiet": true,
+    "friends": true,
+    "fire": true,
+    "entry": [
+      4,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 7,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 0,
+        "z": 5,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 6,
+        "z": 2,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 6,
+        "z": 3,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 4,
+        "z": 5
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [
+      [
+        7,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.8,
+      "clusterSeed": -71105397,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "lantern",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:14",
+    "environmentPreset": "meadow",
+    "lighting": "morning",
+    "contentHash": "733e5ce205890a9e1463112546216b424ccced24041ed189bcdd7c23e06d4d31",
+    "ruleVersion": 2,
+    "number": 24,
+    "width": 7,
+    "height": 7,
+    "decorSeed": 20468139,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      6,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 1,
+        "z": 3,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 5,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 1,
+        "z": 0,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        7,
+        1
+      ],
+      [
+        7,
+        2
+      ],
+      [
+        7,
+        3
+      ],
+      [
+        7,
+        4
+      ],
+      [
+        7,
+        5
+      ]
+    ],
+    "noise": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "winter",
+      "weatherId": "mist",
+      "moisture": 0.82,
+      "treeDensity": 0.55,
+      "clusterSeed": 77280366,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "lantern",
+        "bench"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 10.0,
+        "width": 7.0,
+        "seed": 20468139
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:15",
+    "environmentPreset": "pines",
+    "lighting": "evening",
+    "contentHash": "1ad6a94b21ac15308a218e95c86e2b4a99f238f926f4e9767c7cc0733bd4ab86",
+    "ruleVersion": 2,
+    "number": 25,
+    "width": 8,
+    "height": 8,
+    "decorSeed": 20476604,
+    "shade": true,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      4,
+      7
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 7,
+        "z": 0,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 3,
+        "z": 3,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 1,
+        "z": 6,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 2,
+        "z": 7,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 4,
+        "z": 0
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "noise": [
+      [
+        7,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.8,
+      "clusterSeed": 107508881,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "lantern",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:16",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "contentHash": "d79ca27056a87df47bdfd7db2c602857dcafa63cb544bf544ea371c75aeddee2",
+    "ruleVersion": 2,
+    "number": 26,
+    "width": 5,
+    "height": 7,
+    "decorSeed": 20452237,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 1,
+        "z": 5,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 3,
+        "z": 1,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 3,
+        "z": 5,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": 20494324,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:17",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "cc092a1ab7bd85ecc3ff7e08e67fd387d5da264db6e4d365f01596e19acf0bc2",
+    "ruleVersion": 2,
+    "number": 27,
+    "width": 7,
+    "height": 5,
+    "decorSeed": 20460702,
+    "shade": false,
+    "quiet": true,
+    "friends": true,
+    "fire": true,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 6,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 6,
+        "z": 2,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 1,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 5,
+        "z": 3,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 4
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        5,
+        -1
+      ]
+    ],
+    "noise": [
+      [
+        6,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": 50722839,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:18",
+    "environmentPreset": "pines",
+    "lighting": "morning",
+    "contentHash": "19fa739c45413cceb22e5a3b463170ea27eb950e5a6c482107bf89e226a9883d",
+    "ruleVersion": 2,
+    "number": 28,
+    "width": 6,
+    "height": 8,
+    "decorSeed": 20501999,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      5,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 2,
+        "z": 4,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 2,
+        "z": 5,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 1,
+        "z": 2,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "forest-entry",
+        "kind": "entry",
+        "x": 3,
+        "z": 7
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 6.75,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "noise": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.84,
+      "clusterSeed": 198194426,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:19",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "contentHash": "cd935b0c89542bebc2582a8838ded4ed8ce08d1ac250f587a4495f6f93c73eb7",
+    "ruleVersion": 2,
+    "number": 29,
+    "width": 8,
+    "height": 6,
+    "decorSeed": 20510400,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      4,
+      5
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 4,
+        "z": 2,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 0,
+        "z": 2,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 1,
+        "z": 4,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 4,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        2,
+        6
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        6
+      ]
+    ],
+    "noise": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "spring",
+      "weatherId": "mist",
+      "moisture": 0.82,
+      "treeDensity": 0.55,
+      "clusterSeed": 228194397,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 10.5,
+        "width": 7.0,
+        "seed": 20510400
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:20",
+    "environmentPreset": "meadow",
+    "lighting": "evening",
+    "contentHash": "d48e7d7a208928c38bf422b3d61947387ab047840f859548a90f2ceb2e597d40",
+    "ruleVersion": 2,
+    "number": 30,
+    "width": 8,
+    "height": 8,
+    "decorSeed": 20486097,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      0,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 7,
+        "z": 0,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 5,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 6,
+        "z": 2,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 2,
+        "z": 2,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        -1,
+        2
+      ],
+      [
+        -1,
+        3
+      ],
+      [
+        -1,
+        4
+      ],
+      [
+        -1,
+        5
+      ],
+      [
+        -1,
+        6
+      ]
+    ],
+    "noise": [
+      [
+        7,
+        0
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": 141408384,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:21",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 31,
+    "width": 5,
+    "height": 5,
+    "decorSeed": 20494370,
+    "shade": true,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      2,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 3,
+        "z": 3,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 4,
+        "z": 2,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 4,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 2,
+        "z": 4
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": 170951267,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:22",
+    "environmentPreset": "meadow",
+    "lighting": "morning",
+    "number": 32,
+    "width": 5,
+    "height": 6,
+    "decorSeed": 20535603,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      4,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 4,
+        "z": 1,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 1,
+        "z": 4,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 3,
+        "z": 1,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        5,
+        1
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        5,
+        4
+      ],
+      [
+        5,
+        5
+      ]
+    ],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "spring",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.55,
+      "clusterSeed": 318194310,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 9.0,
+        "width": 7.0,
+        "seed": 20535603
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:23",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 33,
+    "width": 6,
+    "height": 5,
+    "decorSeed": 20544004,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      3,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 5,
+        "z": 0,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 5,
+        "z": 4,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 5,
+        "z": 3,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 0,
+        "z": 1,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": 348194281,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:24",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 34,
+    "width": 6,
+    "height": 6,
+    "decorSeed": 20519701,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 5,
+        "z": 1,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 1,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 5,
+        "z": 3,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 4.75,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": 261408268,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:25",
+    "environmentPreset": "pines",
+    "lighting": "evening",
+    "number": 35,
+    "width": 6,
+    "height": 7,
+    "decorSeed": 20528230,
+    "shade": false,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 0,
+        "z": 6,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 1,
+        "z": 3,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 2,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 6
+      },
+      {
+        "id": "forest-entry",
+        "kind": "entry",
+        "x": 5,
+        "z": 3
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        5,
+        -1
+      ]
+    ],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": 291865327,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:26",
+    "environmentPreset": "meadow",
+    "lighting": "morning",
+    "number": 36,
+    "width": 7,
+    "height": 6,
+    "decorSeed": 20569463,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      6,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 6,
+        "z": 0,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 1,
+        "z": 3,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 3,
+        "z": 4,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 1,
+        "z": 1,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "spring",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.25,
+      "clusterSeed": 439108370,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:27",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 37,
+    "width": 6,
+    "height": 8,
+    "decorSeed": 20577864,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      3,
+      7
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 5,
+        "z": 7,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 4,
+        "z": 5,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 0,
+        "z": 4,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 0
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": 469108341,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:28",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 38,
+    "width": 8,
+    "height": 6,
+    "decorSeed": 20553561,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 3,
+        "z": 4,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 0,
+        "z": 1,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 4,
+        "z": 3,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        -1,
+        1
+      ],
+      [
+        -1,
+        2
+      ],
+      [
+        -1,
+        3
+      ],
+      [
+        -1,
+        4
+      ],
+      [
+        -1,
+        5
+      ]
+    ],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": 382322328,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:29",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 39,
+    "width": 7,
+    "height": 7,
+    "decorSeed": 20545962,
+    "shade": false,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 3,
+        "z": 2,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 2,
+        "z": 3,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 6,
+        "z": 6,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 6
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": 355186299,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:30",
+    "environmentPreset": "meadow",
+    "lighting": "evening",
+    "number": 40,
+    "width": 7,
+    "height": 8,
+    "decorSeed": 20554427,
+    "shade": true,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      6,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 6,
+        "z": 0,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 7,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 4,
+        "z": 6,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 1,
+        "z": 3,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 6.75,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "spring",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.55,
+      "clusterSeed": 385414814,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 10.0,
+        "width": 7.0,
+        "seed": 20554427
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:31",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 41,
+    "width": 4,
+    "height": 6,
+    "decorSeed": 20595596,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      2,
+      5
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 4,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 3,
+        "z": 1,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 3,
+        "z": 3,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 2,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        0,
+        6
+      ],
+      [
+        1,
+        6
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        3,
+        6
+      ]
+    ],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": 532429313,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:32",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 42,
+    "width": 5,
+    "height": 7,
+    "decorSeed": 20604061,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 1,
+        "z": 2,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 4,
+        "z": 1,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 2,
+        "z": 4,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "forest-entry",
+        "kind": "entry",
+        "x": 2,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.55,
+      "clusterSeed": 562657828,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "right",
+        "offset": 9.0,
+        "width": 7.0,
+        "seed": 20604061
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:55",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 43,
+    "width": 6,
+    "height": 5,
+    "decorSeed": -720131289,
+    "shade": true,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 1,
+        "z": 4,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 5,
+        "z": 2,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 1,
+        "z": 3,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 4
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": 1096577314,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:56",
+    "environmentPreset": "pines",
+    "lighting": "morning",
+    "number": 44,
+    "width": 6,
+    "height": 8,
+    "decorSeed": -720090057,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      5,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 3,
+        "z": 0,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 5,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 1,
+        "z": 0,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.84,
+      "clusterSeed": 1243816786,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:57",
+    "environmentPreset": "meadow",
+    "lighting": "evening",
+    "number": 45,
+    "width": 8,
+    "height": 6,
+    "decorSeed": -720081657,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      4,
+      5
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 1,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 3,
+        "z": 4,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 2,
+        "z": 1,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 4,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": 1273813186,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:58",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 46,
+    "width": 7,
+    "height": 7,
+    "decorSeed": -720105961,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 2,
+        "z": 2,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 4,
+        "z": 3,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 4,
+        "z": 6,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 5.75,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": 1187023602,
+      "meadowSpecies": [
+        "grass",
+        "wheat",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "bag",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:59",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 47,
+    "width": 5,
+    "height": 8,
+    "decorSeed": -720097433,
+    "shade": false,
+    "quiet": true,
+    "friends": true,
+    "fire": true,
+    "entry": [
+      2,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 4,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 4,
+        "z": 3,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 2,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 4,
+        "z": 2,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 2,
+        "z": 7
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        0,
+        -1
+      ],
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        -1
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": 1217477090,
+      "meadowSpecies": [
+        "grass",
+        "wheat",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "bag",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:60",
+    "environmentPreset": "meadow",
+    "lighting": "morning",
+    "number": 48,
+    "width": 8,
+    "height": 5,
+    "decorSeed": -720056222,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      7,
+      2
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 1,
+        "z": 2,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 1,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 5,
+        "z": 3,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "summer",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.55,
+      "clusterSeed": 1364641571,
+      "meadowSpecies": [
+        "grass",
+        "wheat",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "bag",
+        "repaired-marker"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 10.5,
+        "width": 7.0,
+        "seed": -720056222
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:61",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 49,
+    "width": 7,
+    "height": 8,
+    "decorSeed": -720047758,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      3,
+      7
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 4,
+        "z": 4,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 6,
+        "z": 3,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 3,
+        "z": 3,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 0
+      },
+      {
+        "id": "forest-entry",
+        "kind": "entry",
+        "x": 0,
+        "z": 4
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [
+      [
+        1,
+        8
+      ],
+      [
+        2,
+        8
+      ],
+      [
+        3,
+        8
+      ],
+      [
+        4,
+        8
+      ],
+      [
+        5,
+        8
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": 1394866515,
+      "meadowSpecies": [
+        "grass",
+        "wheat",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "bag",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:62",
+    "environmentPreset": "meadow",
+    "lighting": "evening",
+    "number": 50,
+    "width": 8,
+    "height": 7,
+    "decorSeed": -720072126,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 3,
+        "z": 2,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 1,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 6,
+        "z": 0,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": 1307848387,
+      "meadowSpecies": [
+        "grass",
+        "wheat",
+        "daisy"
+      ],
+      "storyMotifs": [
+        "bag",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:63",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 51,
+    "width": 6,
+    "height": 6,
+    "decorSeed": -720063662,
+    "shade": false,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 2,
+        "z": 4,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 1,
+        "z": 4,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 3,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 5
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "autumn",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.55,
+      "clusterSeed": 1338073331,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bag"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 9.5,
+        "width": 7.0,
+        "seed": -720063662
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:64",
+    "environmentPreset": "pines",
+    "lighting": "morning",
+    "number": 52,
+    "width": 6,
+    "height": 8,
+    "decorSeed": -720022110,
+    "shade": true,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      5,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 5,
+        "z": 0,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 4,
+        "z": 7,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 2,
+        "z": 3,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 3,
+        "z": 4,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 6.75,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "autumn",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.84,
+      "clusterSeed": 1486455523,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bag"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:65",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 53,
+    "width": 8,
+    "height": 6,
+    "decorSeed": -720013646,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      4,
+      5
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 1,
+        "z": 0,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 6,
+        "z": 1,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 0,
+        "z": 0,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 4,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        2,
+        6
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        6
+      ]
+    ],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "autumn",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.55,
+      "clusterSeed": 1516680467,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bag"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 10.5,
+        "width": 7.0,
+        "seed": -720013646
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:66",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 54,
+    "width": 7,
+    "height": 7,
+    "decorSeed": -720038014,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 4,
+        "z": 1,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 3,
+        "z": 3,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 0,
+        "z": 0,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "autumn",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.55,
+      "clusterSeed": 1429662339,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bag"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "right",
+        "offset": 10.0,
+        "width": 7.0,
+        "seed": -720038014
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:67",
+    "environmentPreset": "pines",
+    "lighting": "evening",
+    "number": 55,
+    "width": 8,
+    "height": 8,
+    "decorSeed": -720029550,
+    "shade": true,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      4,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 7,
+        "z": 2,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 2,
+        "z": 6,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 6,
+        "z": 3,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 4,
+        "z": 7
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "autumn",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": 1459887283,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bag"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:68",
+    "environmentPreset": "meadow",
+    "lighting": "morning",
+    "number": 56,
+    "width": 5,
+    "height": 7,
+    "decorSeed": -719988254,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      4,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 1,
+        "z": 2,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 2,
+        "z": 4,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 2,
+        "z": 3,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "forest-entry",
+        "kind": "entry",
+        "x": 2,
+        "z": 6
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "autumn",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.55,
+      "clusterSeed": 1607355299,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bag"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 9.0,
+        "width": 7.0,
+        "seed": -719988254
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:69",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 57,
+    "width": 7,
+    "height": 5,
+    "decorSeed": -719979790,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      3,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 6,
+        "z": 0,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 5,
+        "z": 2,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 5,
+        "z": 1,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 4,
+        "z": 3,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        1,
+        5
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        5
+      ]
+    ],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "autumn",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.55,
+      "clusterSeed": 1637580243,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bag"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 10.0,
+        "width": 7.0,
+        "seed": -719979790
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:70",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 58,
+    "width": 6,
+    "height": 8,
+    "decorSeed": -720004115,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 1,
+        "z": 3,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 5,
+        "z": 1,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 3,
+        "z": 4,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 6.75,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "autumn",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": 1550715668,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "bag"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:71",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 59,
+    "width": 8,
+    "height": 6,
+    "decorSeed": -719995651,
+    "shade": false,
+    "quiet": true,
+    "friends": true,
+    "fire": true,
+    "entry": [
+      4,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 7,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 4,
+        "z": 3,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 7,
+        "z": 4,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 6,
+        "z": 1,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 4,
+        "z": 5
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        2,
+        -1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        5,
+        -1
+      ],
+      [
+        6,
+        -1
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "autumn",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": 1580940612,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "repaired-marker",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:72",
+    "environmentPreset": "meadow",
+    "lighting": "evening",
+    "number": 60,
+    "width": 8,
+    "height": 8,
+    "decorSeed": -719954483,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      7,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 7,
+        "z": 2,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 0,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 2,
+        "z": 1,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "autumn",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.55,
+      "clusterSeed": 1727951540,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "repaired-marker",
+        "bench"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 10.5,
+        "width": 7.0,
+        "seed": -719954483
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:73",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 61,
+    "width": 5,
+    "height": 5,
+    "decorSeed": -719946019,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      2,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 4,
+        "z": 3,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 1,
+        "z": 3,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 3,
+        "z": 3,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 2,
+        "z": 0
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": 1758176484,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:74",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 62,
+    "width": 5,
+    "height": 6,
+    "decorSeed": -719970515,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 4,
+        "z": 0,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 3,
+        "z": 5,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 4,
+        "z": 1,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 2,
+        "z": 3,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "autumn",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": 1670701268,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:75",
+    "environmentPreset": "meadow",
+    "lighting": "night",
+    "number": 63,
+    "width": 6,
+    "height": 5,
+    "decorSeed": -719978435,
+    "shade": false,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 0,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 5,
+        "z": 4,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 4,
+        "z": 1,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 4
+      },
+      {
+        "id": "forest-entry",
+        "kind": "entry",
+        "x": 5,
+        "z": 2
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": 1642418948,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:76",
+    "environmentPreset": "pines",
+    "lighting": "morning",
+    "number": 64,
+    "width": 6,
+    "height": 6,
+    "decorSeed": -719970035,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      5,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 3,
+        "z": 1,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 2,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 5,
+        "z": 5,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 4.75,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.84,
+      "clusterSeed": 1672415348,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "flowers",
+        "repaired-marker"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:77",
+    "environmentPreset": "meadow",
+    "lighting": "evening",
+    "number": 65,
+    "width": 6,
+    "height": 7,
+    "decorSeed": -719928803,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      3,
+      6
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 5,
+        "z": 2,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 0,
+        "z": 6,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 1,
+        "z": 4,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        1,
+        7
+      ],
+      [
+        2,
+        7
+      ],
+      [
+        3,
+        7
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        5,
+        7
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "autumn",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": 1819654820,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "repaired-marker",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:78",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 66,
+    "width": 7,
+    "height": 6,
+    "decorSeed": -719920275,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 6,
+        "z": 0,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 2,
+        "z": 2,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 4,
+        "z": 0,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 1,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "autumn",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.55,
+      "clusterSeed": 1850108308,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "repaired-marker",
+        "bench"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "right",
+        "offset": 10.0,
+        "width": 7.0,
+        "seed": -719920275
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:79",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 67,
+    "width": 6,
+    "height": 8,
+    "decorSeed": -719944579,
+    "shade": true,
+    "quiet": true,
+    "friends": true,
+    "fire": true,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 5,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 4,
+        "z": 4,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 7,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 0,
+        "z": 6,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 7
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": 1763318724,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "marker",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:80",
+    "environmentPreset": "pines",
+    "lighting": "morning",
+    "number": 68,
+    "width": 8,
+    "height": 6,
+    "decorSeed": -719936136,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      7,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 0,
+        "z": 3,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 0,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 3,
+        "z": 3,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.84,
+      "clusterSeed": 1793468677,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "marker",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:81",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 69,
+    "width": 7,
+    "height": 7,
+    "decorSeed": -719894968,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      3,
+      6
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 4,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 2,
+        "z": 3,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 4,
+        "z": 1,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        1,
+        7
+      ],
+      [
+        2,
+        7
+      ],
+      [
+        3,
+        7
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        5,
+        7
+      ]
+    ],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "mist",
+      "moisture": 0.82,
+      "treeDensity": 0.84,
+      "clusterSeed": 1940479605,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "marker",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:82",
+    "environmentPreset": "pines",
+    "lighting": "evening",
+    "number": 70,
+    "width": 7,
+    "height": 8,
+    "decorSeed": -719886504,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 6,
+        "z": 6,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 6,
+        "z": 7,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 5,
+        "z": 1,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "forest-entry",
+        "kind": "entry",
+        "x": 3,
+        "z": 0
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 6.75,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": 1970704549,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "marker",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:83",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 71,
+    "width": 4,
+    "height": 6,
+    "decorSeed": -719910488,
+    "shade": false,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      2,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 0,
+        "z": 3,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 0,
+        "z": 5,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 1,
+        "z": 1,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 2,
+        "z": 5
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        0,
+        -1
+      ],
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        3,
+        -1
+      ]
+    ],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": 1885057685,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "marker",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:84",
+    "environmentPreset": "pines",
+    "lighting": "morning",
+    "number": 72,
+    "width": 5,
+    "height": 7,
+    "decorSeed": -719902024,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      4,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 4,
+        "z": 0,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 0,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 2,
+        "z": 1,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 1,
+        "z": 3,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "mist",
+      "moisture": 0.82,
+      "treeDensity": 0.84,
+      "clusterSeed": 1915282629,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "marker",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:85",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 73,
+    "width": 6,
+    "height": 5,
+    "decorSeed": -719860856,
+    "shade": true,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      3,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 5,
+        "z": 0,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 5,
+        "z": 3,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 4,
+        "z": 3,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 2,
+        "z": 2,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 0
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [
+      [
+        1,
+        5
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        5
+      ]
+    ],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": 2062293557,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "marker",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:86",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 74,
+    "width": 6,
+    "height": 8,
+    "decorSeed": -719852392,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 2,
+        "z": 2,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 2,
+        "z": 1,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 4,
+        "z": 7,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": 2092518501,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "marker",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:87",
+    "environmentPreset": "meadow",
+    "lighting": "evening",
+    "number": 75,
+    "width": 8,
+    "height": 6,
+    "decorSeed": -719876632,
+    "shade": false,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      4,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 6,
+        "z": 2,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 3,
+        "z": 4,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 3,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 4,
+        "z": 5
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": 2005957461,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "bench",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:88",
+    "environmentPreset": "meadow",
+    "lighting": "morning",
+    "number": 76,
+    "width": 7,
+    "height": 7,
+    "decorSeed": -719868168,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      6,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 1,
+        "z": 3,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 2,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 1,
+        "z": 2,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 5.75,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "summer",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.55,
+      "clusterSeed": 2036182405,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "bench",
+        "lantern"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 10.0,
+        "width": 7.0,
+        "seed": -719868168
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:89",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 77,
+    "width": 5,
+    "height": 8,
+    "decorSeed": -719827000,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      2,
+      7
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 4,
+        "z": 0,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 3,
+        "z": 5,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 0,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 4,
+        "z": 2,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 2,
+        "z": 0
+      },
+      {
+        "id": "forest-entry",
+        "kind": "entry",
+        "x": 0,
+        "z": 4
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        0,
+        8
+      ],
+      [
+        1,
+        8
+      ],
+      [
+        2,
+        8
+      ],
+      [
+        3,
+        8
+      ],
+      [
+        4,
+        8
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": -2111773963,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "bench",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:90",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 78,
+    "width": 8,
+    "height": 5,
+    "decorSeed": -719818557,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      2
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 6,
+        "z": 4,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 4,
+        "z": 4,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 1,
+        "z": 3,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": -2081624010,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "bench",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:91",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 79,
+    "width": 7,
+    "height": 8,
+    "decorSeed": -719842861,
+    "shade": true,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 6,
+        "z": 3,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 6,
+        "z": 4,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 5,
+        "z": 0,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 7
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": 2126553702,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "bench",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:92",
+    "environmentPreset": "meadow",
+    "lighting": "evening",
+    "number": 80,
+    "width": 8,
+    "height": 7,
+    "decorSeed": -719834589,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      7,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 7,
+        "z": 0,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 6,
+        "z": 6,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 7,
+        "z": 6,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 5,
+        "z": 6,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "summer",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.55,
+      "clusterSeed": -2138874282,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "bench",
+        "lantern"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 10.5,
+        "width": 7.0,
+        "seed": -719834589
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:93",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 81,
+    "width": 6,
+    "height": 6,
+    "decorSeed": -719793357,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      3,
+      5
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 1,
+        "z": 0,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 5,
+        "z": 2,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 5,
+        "z": 3,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        1,
+        6
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        5,
+        6
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": -1991634810,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "bench",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:94",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 82,
+    "width": 6,
+    "height": 8,
+    "decorSeed": -719784957,
+    "shade": true,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      0,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 5,
+        "z": 0,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 3,
+        "z": 1,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 5,
+        "z": 7,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 1,
+        "z": 3,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 6.75,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": -1961638410,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "bench",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:95",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 83,
+    "width": 8,
+    "height": 6,
+    "decorSeed": -719809261,
+    "shade": false,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      4,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 0,
+        "z": 1,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 7,
+        "z": 3,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 0,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 4,
+        "z": 5
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        2,
+        -1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        5,
+        -1
+      ],
+      [
+        6,
+        -1
+      ]
+    ],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.55,
+      "clusterSeed": -2048427994,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "flowers"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 10.5,
+        "width": 7.0,
+        "seed": -719809261
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:96",
+    "environmentPreset": "meadow",
+    "lighting": "morning",
+    "number": 84,
+    "width": 7,
+    "height": 7,
+    "decorSeed": -719800733,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      6,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 2,
+        "z": 2,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 6,
+        "z": 0,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 4,
+        "z": 5,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "forest-entry",
+        "kind": "entry",
+        "x": 3,
+        "z": 6
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "summer",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.55,
+      "clusterSeed": -2017974506,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "flowers"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 10.0,
+        "width": 7.0,
+        "seed": -719800733
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:97",
+    "environmentPreset": "meadow",
+    "lighting": "evening",
+    "number": 85,
+    "width": 8,
+    "height": 8,
+    "decorSeed": -719759501,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      4,
+      7
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 6,
+        "z": 4,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 7,
+        "z": 4,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 2,
+        "z": 4,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 4,
+        "z": 0
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [
+      [
+        2,
+        8
+      ],
+      [
+        3,
+        8
+      ],
+      [
+        4,
+        8
+      ],
+      [
+        5,
+        8
+      ],
+      [
+        6,
+        8
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": -1870735034,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "flowers"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:98",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 86,
+    "width": 5,
+    "height": 7,
+    "decorSeed": -719751101,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 4,
+        "z": 0,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 3,
+        "z": 1,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 2,
+        "z": 4,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.55,
+      "clusterSeed": -1840738634,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "flowers"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "right",
+        "offset": 9.0,
+        "width": 7.0,
+        "seed": -719751101
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:99",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 87,
+    "width": 7,
+    "height": 5,
+    "decorSeed": -719775405,
+    "shade": false,
+    "quiet": true,
+    "friends": true,
+    "fire": true,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 6,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 4,
+        "z": 3,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 6,
+        "z": 3,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 0,
+        "z": 4,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 4
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.55,
+      "clusterSeed": -1927528218,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "flowers"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 10.0,
+        "width": 7.0,
+        "seed": -719775405
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:100",
+    "environmentPreset": "pines",
+    "lighting": "morning",
+    "number": 88,
+    "width": 6,
+    "height": 8,
+    "decorSeed": -1466366719,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      5,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 0,
+        "z": 2,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 0,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 4,
+        "z": 6,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 6.75,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "summer",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.84,
+      "clusterSeed": -830419696,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "flowers"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:101",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 89,
+    "width": 8,
+    "height": 6,
+    "decorSeed": -1466358255,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      4,
+      5
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 2,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 0,
+        "z": 3,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 3,
+        "z": 3,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 4,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        2,
+        6
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        6
+      ]
+    ],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.55,
+      "clusterSeed": -800194752,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "flowers"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 10.5,
+        "width": 7.0,
+        "seed": -1466358255
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:102",
+    "environmentPreset": "meadow",
+    "lighting": "evening",
+    "number": 90,
+    "width": 8,
+    "height": 8,
+    "decorSeed": -1466316959,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 6,
+        "z": 4,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 0,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 1,
+        "z": 2,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "summer",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.55,
+      "clusterSeed": -652726736,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "marker",
+        "flowers"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "right",
+        "offset": 10.5,
+        "width": 7.0,
+        "seed": -1466316959
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:103",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 91,
+    "width": 5,
+    "height": 5,
+    "decorSeed": -1466308495,
+    "shade": true,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      2,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 1,
+        "z": 3,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 0,
+        "z": 3,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 4,
+        "z": 0,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 2,
+        "z": 4
+      },
+      {
+        "id": "forest-entry",
+        "kind": "entry",
+        "x": 4,
+        "z": 2
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": -622501792,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:104",
+    "environmentPreset": "pines",
+    "lighting": "morning",
+    "number": 92,
+    "width": 5,
+    "height": 6,
+    "decorSeed": -1466332863,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      4,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 4,
+        "z": 0,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 4,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 0,
+        "z": 0,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 4,
+        "z": 5,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.84,
+      "clusterSeed": -709519920,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:105",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 93,
+    "width": 6,
+    "height": 5,
+    "decorSeed": -1466324399,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      3,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 4,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 0,
+        "z": 3,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 5,
+        "z": 2,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        1,
+        5
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        5
+      ]
+    ],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "mist",
+      "moisture": 0.82,
+      "treeDensity": 0.84,
+      "clusterSeed": -679294976,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:106",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 94,
+    "width": 6,
+    "height": 6,
+    "decorSeed": -1466282847,
+    "shade": true,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 5,
+        "z": 0,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 2,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 0,
+        "z": 1,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 1,
+        "z": 1,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 4.75,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": -530912784,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:107",
+    "environmentPreset": "pines",
+    "lighting": "evening",
+    "number": 95,
+    "width": 6,
+    "height": 7,
+    "decorSeed": -1466274383,
+    "shade": false,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 4,
+        "z": 1,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 0,
+        "z": 5,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 4,
+        "z": 3,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 6
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        -1
+      ],
+      [
+        5,
+        -1
+      ]
+    ],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": -500687840,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:108",
+    "environmentPreset": "pines",
+    "lighting": "morning",
+    "number": 96,
+    "width": 7,
+    "height": 6,
+    "decorSeed": -1466298751,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      6,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 1,
+        "z": 1,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 1,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 4,
+        "z": 3,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.84,
+      "clusterSeed": -587705968,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:109",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 97,
+    "width": 6,
+    "height": 8,
+    "decorSeed": -1466290287,
+    "shade": true,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      3,
+      7
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 5,
+        "z": 0,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 3,
+        "z": 3,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 0,
+        "z": 6,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 5,
+        "z": 2,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 0
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [
+      [
+        1,
+        8
+      ],
+      [
+        2,
+        8
+      ],
+      [
+        3,
+        8
+      ],
+      [
+        4,
+        8
+      ],
+      [
+        5,
+        8
+      ]
+    ],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "mist",
+      "moisture": 0.82,
+      "treeDensity": 0.84,
+      "clusterSeed": -557481024,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:110",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 98,
+    "width": 8,
+    "height": 6,
+    "decorSeed": -1466249076,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 3,
+        "z": 5,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 5,
+        "z": 4,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 4,
+        "z": 5,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "forest-entry",
+        "kind": "entry",
+        "x": 4,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "pines",
+      "seasonId": "winter",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": -410316543,
+      "meadowSpecies": [
+        "grass"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "lantern"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:111",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 99,
+    "width": 7,
+    "height": 7,
+    "decorSeed": -1466240612,
+    "shade": false,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 2,
+        "z": 3,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 3,
+        "z": 2,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 6,
+        "z": 3,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 6
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "autumn",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": -380091599,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "marker",
+        "bag"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:112",
+    "environmentPreset": "pines",
+    "lighting": "evening",
+    "number": 100,
+    "width": 7,
+    "height": 8,
+    "decorSeed": -1466264852,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      6,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 5,
+        "z": 5,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 7,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 0,
+        "z": 1,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 6.75,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "autumn",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.84,
+      "clusterSeed": -466652639,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "marker",
+        "bag"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:113",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 101,
+    "width": 4,
+    "height": 6,
+    "decorSeed": -1466256388,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      2,
+      5
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 3,
+        "z": 0,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 0,
+        "z": 4,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 2,
+        "z": 2,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 3,
+        "z": 4,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 2,
+        "z": 0
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        0,
+        6
+      ],
+      [
+        1,
+        6
+      ],
+      [
+        2,
+        6
+      ],
+      [
+        3,
+        6
+      ]
+    ],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "autumn",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": -436427695,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "marker",
+        "bag"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:114",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 102,
+    "width": 5,
+    "height": 7,
+    "decorSeed": -1466215220,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 4,
+        "z": 0,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 2,
+        "z": 6,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 2,
+        "z": 4,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 0,
+        "z": 1,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "autumn",
+      "weatherId": "rain",
+      "moisture": 0.9,
+      "treeDensity": 0.25,
+      "clusterSeed": -289416767,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "marker",
+        "bag"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:115",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 103,
+    "width": 6,
+    "height": 5,
+    "decorSeed": -1466206756,
+    "shade": true,
+    "quiet": false,
+    "friends": true,
+    "fire": false,
+    "entry": [
+      3,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "tree_default",
+        "x": 5,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 3,
+        "z": 2,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 4,
+        "z": 1,
+        "rotation": 1
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 4
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "winter",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": -259191823,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "marker",
+        "bag"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:116",
+    "environmentPreset": "pines",
+    "lighting": "morning",
+    "number": 104,
+    "width": 6,
+    "height": 8,
+    "decorSeed": -1466231252,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      5,
+      4
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stone_largeA",
+        "x": 2,
+        "z": 1,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 0,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 0,
+        "z": 0,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "winter",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.84,
+      "clusterSeed": -346667039,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "marker",
+        "bag"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:117",
+    "environmentPreset": "meadow",
+    "lighting": "evening",
+    "number": 105,
+    "width": 8,
+    "height": 6,
+    "decorSeed": -1466222788,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      4,
+      5
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 5,
+        "z": 1,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 4,
+        "z": 3,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 2,
+        "z": 5,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 4,
+        "z": 0
+      },
+      {
+        "id": "forest-entry",
+        "kind": "entry",
+        "x": 0,
+        "z": 3
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        2,
+        6
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        6
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "winter",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": -316442095,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "marker",
+        "bag"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:118",
+    "environmentPreset": "pines",
+    "lighting": "day",
+    "number": 106,
+    "width": 7,
+    "height": 7,
+    "decorSeed": -1466181620,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 4,
+        "z": 0,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 3,
+        "z": 4,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 5,
+        "z": 1,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 5.75,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "forest",
+      "seasonId": "winter",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.84,
+      "clusterSeed": -169431167,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "ruin",
+        "marker",
+        "bag"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:119",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 107,
+    "width": 5,
+    "height": 8,
+    "decorSeed": -1466173156,
+    "shade": false,
+    "quiet": true,
+    "friends": true,
+    "fire": true,
+    "entry": [
+      2,
+      0
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 4,
+        "z": 0,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 2,
+        "z": 4,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 5,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 3,
+        "z": 2,
+        "rotation": 2
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 2,
+        "z": 7
+      }
+    ],
+    "canopies": [],
+    "exteriorWalkable": [
+      [
+        0,
+        -1
+      ],
+      [
+        1,
+        -1
+      ],
+      [
+        2,
+        -1
+      ],
+      [
+        3,
+        -1
+      ],
+      [
+        4,
+        -1
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": -139206223,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "repaired-marker",
+        "flowers",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:120",
+    "environmentPreset": "meadow",
+    "lighting": "morning",
+    "number": 108,
+    "width": 8,
+    "height": 5,
+    "decorSeed": -1466197481,
+    "shade": false,
+    "quiet": true,
+    "friends": false,
+    "fire": true,
+    "entry": [
+      7,
+      2
+    ],
+    "mapObjects": [
+      {
+        "assetId": "campfire_stones",
+        "x": 7,
+        "z": 0,
+        "rotation": 0
+      },
+      {
+        "assetId": "log",
+        "x": 3,
+        "z": 3,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 0,
+        "z": 4,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 4,
+        "z": 2,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "shore",
+      "seasonId": "spring",
+      "weatherId": "cloudy",
+      "moisture": 0.48,
+      "treeDensity": 0.55,
+      "clusterSeed": -226070798,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "repaired-marker",
+        "flowers",
+        "bench"
+      ],
+      "shore": {
+        "kind": "lake",
+        "side": "left",
+        "offset": 10.5,
+        "width": 7.0,
+        "seed": -1466197481
+      }
+    }
+  },
+  {
+    "id": "gen:qc_camp:121",
+    "environmentPreset": "meadow",
+    "lighting": "day",
+    "number": 109,
+    "width": 7,
+    "height": 8,
+    "decorSeed": -1466188953,
+    "shade": true,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      3,
+      7
+    ],
+    "mapObjects": [
+      {
+        "assetId": "log",
+        "x": 2,
+        "z": 4,
+        "rotation": 1
+      },
+      {
+        "assetId": "stump_round",
+        "x": 6,
+        "z": 1,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 4,
+        "z": 3,
+        "rotation": 3
+      }
+    ],
+    "accessPoints": [
+      {
+        "id": "trail-out",
+        "kind": "exit",
+        "x": 3,
+        "z": 0
+      }
+    ],
+    "canopies": [
+      {
+        "x": 1.25,
+        "z": 1.25,
+        "radiusX": 1.6,
+        "radiusZ": 1.6
+      }
+    ],
+    "exteriorWalkable": [
+      [
+        1,
+        8
+      ],
+      [
+        2,
+        8
+      ],
+      [
+        3,
+        8
+      ],
+      [
+        4,
+        8
+      ],
+      [
+        5,
+        8
+      ]
+    ],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": -195617310,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "repaired-marker",
+        "flowers",
+        "bench"
+      ],
+      "shore": null
+    }
+  },
+  {
+    "id": "gen:qc_camp:122",
+    "environmentPreset": "meadow",
+    "lighting": "evening",
+    "number": 110,
+    "width": 8,
+    "height": 7,
+    "decorSeed": -1466147721,
+    "shade": false,
+    "quiet": false,
+    "friends": false,
+    "fire": false,
+    "entry": [
+      0,
+      3
+    ],
+    "mapObjects": [
+      {
+        "assetId": "stump_round",
+        "x": 5,
+        "z": 5,
+        "rotation": 2
+      },
+      {
+        "assetId": "tree_default",
+        "x": 7,
+        "z": 5,
+        "rotation": 3
+      },
+      {
+        "assetId": "stone_largeA",
+        "x": 7,
+        "z": 0,
+        "rotation": 0
+      }
+    ],
+    "accessPoints": [],
+    "canopies": [],
+    "exteriorWalkable": [],
+    "environment": {
+      "biomeId": "meadow",
+      "seasonId": "spring",
+      "weatherId": "clear",
+      "moisture": 0.26,
+      "treeDensity": 0.25,
+      "clusterSeed": -48377838,
+      "meadowSpecies": [
+        "grass",
+        "daisy",
+        "poppy"
+      ],
+      "storyMotifs": [
+        "repaired-marker",
+        "flowers",
+        "bench"
+      ],
+      "shore": null
+    }
+  }
+]

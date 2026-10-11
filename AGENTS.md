@@ -162,3 +162,27 @@ models, album and entitlement rules remain intact. Never republish archived map
 assets to Resources during routine content preparation. The build dependency
 guard rejects map assets reintroduced into player roots. This does not authorize
 a player build. Existing Unity isolation, RAM and renderer-preservation rules apply.
+
+# Campaign 100 — 2026-10-11
+
+The user authorized redesigning the base game as exactly 100 levels, retaining
+historical saves and supporting future content packs. Roadmap deferral still
+applies. Current sources and acceptance work live in
+`Design/Campaign100/2026-10-11`; start with `PLAN-UA.md`, `MECHANICS-UA.md` and
+`STORY-UA.md`. `Authoring/places.tsv` and `tools/build_campaign100_design.py`
+prepare level drafts; `Campaign100Authoring` validates every puzzle before
+publishing Resources. Preserve original IDs and the 274 historical content
+revisions; archived journeys/bonus must not inflate the base campaign.
+
+Use the autonomous .NET probe for validator/witness/independent solver,
+content-pack installation and save/session contracts. It restores Newtonsoft
+through NuGet, independently of Unity Library. Cached compiler checks still
+need real Unity response files. Neither check proves visual acceptance.
+
+Native campaign captures use `render_diorama_editor_isolated.sh --campaign-tests`
+in the same approved isolation. `QC_CAMPAIGN_OFFSCREEN=1` captures the actual
+world components through a native URP camera without allocating the menu/HUD;
+it is world-camera evidence, not Game View UI-flow evidence. All capture
+receipts must match the published level content hash. Full vendor-model
+photographs remain local. Historical captures keep their dates. One Editor,
+RAM/disk checks, workers 1/4 and the renderer-preservation rule remain required.

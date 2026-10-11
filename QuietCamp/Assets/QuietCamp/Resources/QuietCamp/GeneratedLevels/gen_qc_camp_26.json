@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 36,
-  "chapter": 8,
+  "order": 33,
+  "chapter": 4,
   "seed": 20546088,
   "width": 7,
   "height": 6,
   "id": "gen:qc_camp:26",
-  "contentHash": "63293359b599af4935d3f9285ac458e40652cec79180075efd24a4426f2e8562",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "morning",
+  "contentHash": "aca9cff5e6ef4a1c75fe0435ea396ea482052243919c20d95d1dc58bc58c034f",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
   "decorSeed": 20569463,
@@ -118,21 +118,115 @@
   "canopies": [],
   "environment": {
     "biomeId": "meadow",
-    "seasonId": "spring",
-    "weatherId": "cloudy",
-    "moisture": 0.48,
-    "treeDensity": 0.25,
-    "clusterSeed": 439108370,
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.341543,
+    "treeDensity": 0.529966,
+    "clusterSeed": 36709,
     "meadowSpecies": [
       "grass",
-      "daisy",
       "poppy"
     ],
-    "storyMotifs": [
-      "ruin",
-      "flowers",
-      "repaired-marker"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.323232,
+    "weatherIntensity": 0.102571
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-033",
+    "beats": [
+      {
+        "id": "place-033",
+        "storyBeat": "Евакуація показана через особисті речі та відсутність людей, без сцени насильства.",
+        "heroLandmark": "place-033-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Дорожні речі біля лавки й збережений вказівник уздовж підходу.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Евакуація показана через особисті речі та відсутність людей, без сцени насильства.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:26"
+        ],
+        "props": [
+          {
+            "id": "place-033-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_trail_shelter",
+              "x": -5.92188,
+              "z": -0.35,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-033-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log_stack",
+              "x": 0.25,
+              "z": -4.86736,
+              "elevation": 0.025,
+              "height": 0.7,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-033-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "sign",
+              "x": 5.03535,
+              "z": -4.23988,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

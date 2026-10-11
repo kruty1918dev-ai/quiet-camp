@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 42,
-  "chapter": 9,
+  "order": 39,
+  "chapter": 4,
   "seed": 20593602,
   "width": 5,
   "height": 7,
   "id": "gen:qc_camp:32",
-  "contentHash": "88a802260cbb8d8b1f7fb2d0f3d8761cfa79eb3c536873717465c556e47a1463",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "1d2df57a0f8b29f71d89d4b21ca969cba3039659adf8c0bbf981beed2db77edd",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -109,28 +109,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "shore",
-    "seasonId": "spring",
+    "biomeId": "meadow",
+    "seasonId": "summer",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.55,
-    "clusterSeed": 562657828,
+    "moisture": 0.397333,
+    "treeDensity": 0.557074,
+    "clusterSeed": 37747,
     "meadowSpecies": [
       "grass",
-      "daisy",
       "poppy"
     ],
-    "storyMotifs": [
-      "ruin",
-      "flowers",
-      "repaired-marker"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.383838,
+    "weatherIntensity": 0.195555
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-039",
+    "beats": [
+      {
+        "id": "place-039",
+        "storyBeat": "Високе дерево зберігає впізнаваний орієнтир для тих, хто повертається.",
+        "heroLandmark": "place-039-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Тополя підноситься над низькою станцією; біля входу світла лавка.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Високе дерево зберігає впізнаваний орієнтир для тих, хто повертається.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:32"
+        ],
+        "props": [
+          {
+            "id": "place-039-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "branch_station",
+              "x": -6.17273,
+              "z": -4.5,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-039-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": 3.0,
+              "z": -5.10091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-039-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_poplar",
+              "x": 3.97419,
+              "z": -4.93076,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
     ],
-    "shore": {
-      "kind": "lake",
-      "side": "right",
-      "offset": 9.0,
-      "width": 7.0,
-      "seed": 20604061
-    }
+    "references": []
   }
 }

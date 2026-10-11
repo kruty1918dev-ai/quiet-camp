@@ -2,14 +2,14 @@
   "schemaVersion": 1,
   "ruleVersion": 2,
   "order": 16,
-  "chapter": 4,
+  "chapter": 2,
   "seed": 20387708,
   "width": 7,
   "height": 7,
   "id": "gen:qc_camp:6",
-  "contentHash": "f3184159fd69c05c9aaf3c8a84e89ef49a849d78d5d38c9990ac2a426ec849c2",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "morning",
+  "contentHash": "292b596f5f3d0639035e249a4e1c442df46546f3460ce86d3fcc51ab771379a1",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
   "decorSeed": 20400163,
@@ -156,19 +156,115 @@
   ],
   "environment": {
     "biomeId": "forest",
-    "seasonId": "autumn",
-    "weatherId": "mist",
-    "moisture": 0.82,
-    "treeDensity": 0.84,
-    "clusterSeed": -165461930,
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.471701,
+    "treeDensity": 0.437795,
+    "clusterSeed": 33768,
     "meadowSpecies": [
       "grass",
-      "wheat"
+      "daisy"
     ],
-    "storyMotifs": [
-      "ruin",
-      "marker"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.151515,
+    "weatherIntensity": 0.319502
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-016",
+    "beats": [
+      {
+        "id": "place-016",
+        "storyBeat": "Місцева культурна деталь уціліла; її можна берегти без пояснювальної таблички.",
+        "heroLandmark": "place-016-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Кольоровий торець зупинки прихований молодою тополею, лавка очищена від гілок.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Місцева культурна деталь уціліла; її можна берегти без пояснювальної таблички.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:6"
+        ],
+        "props": [
+          {
+            "id": "place-016-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_bus_shelter_mosaic",
+              "x": -6.11318,
+              "z": -0.8,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-016-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_village_wood_pole",
+              "x": 0.7,
+              "z": -4.70334,
+              "elevation": 0.025,
+              "height": 3.1,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-016-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_poplar",
+              "x": 4.97419,
+              "z": -4.93076,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

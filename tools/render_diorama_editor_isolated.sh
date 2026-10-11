@@ -12,7 +12,8 @@ case "${1:---probe}" in
   --cinematic) task_mode=cinematic ;;
   --pilot-tests) task_mode=pilot-tests ;;
   --deferred-tests) task_mode=deferred-tests ;;
-  *) echo 'Use --probe, --models, --studies, --cinematic or --pilot-tests/--deferred-tests'; exit 2 ;;
+  --campaign-tests) task_mode=campaign-tests ;;
+  *) echo 'Use --probe, --models, --studies, --cinematic or --pilot-tests/--deferred-tests/--campaign-tests'; exit 2 ;;
 esac
 if [[ "$task_mode" != probe ]]; then
   task_status=$(cat /home/oleks/.local/state/sys-guard/status)
@@ -28,7 +29,7 @@ if [[ "$task_mode" != probe ]]; then
   mkdir -p "$task_root/TestResults"
 fi
 task_user_mapping=(--map-root-user)
-if [[ "$task_mode" == pilot-tests || "$task_mode" == deferred-tests ]]; then task_user_mapping=(--map-current-user --keep-caps); fi
+if [[ "$task_mode" == pilot-tests || "$task_mode" == deferred-tests || "$task_mode" == campaign-tests ]]; then task_user_mapping=(--map-current-user --keep-caps); fi
 unshare --user "${task_user_mapping[@]}" --pid --fork --mount-proc --net \
   bash -euo pipefail -c '
     if [[ -d /dev/bus/usb ]]; then
@@ -44,7 +45,7 @@ unshare --user "${task_user_mapping[@]}" --pid --fork --mount-proc --net \
       echo "PASS private PID/proc/network + masked USB; graphics uses filesystem X11; no Unity launch"
       exit 0
     fi
-    if [[ "$1" == pilot-tests || "$1" == deferred-tests ]]; then
+    if [[ "$1" == pilot-tests || "$1" == deferred-tests || "$1" == campaign-tests ]]; then
       task_qa=/home/oleks/.cache/quietcamp/cinematic-roadmap-qa
       [[ -d "$task_qa/ProjectSettings" ]]
       for task_cache in ScriptMapper ScriptAssemblies ArtifactDB SourceAssetDB Bee; do
@@ -63,8 +64,15 @@ unshare --user "${task_user_mapping[@]}" --pid --fork --mount-proc --net \
         task_label=deferred-roadmap
         export QC_DEFERRED_EVIDENCE_ROOT="$3/Design/Roadmap/Paused/2026-10-11"
       fi
+      if [[ "$1" == campaign-tests ]]; then
+        task_filter=QuietCamp.Tests.Campaign100CaptureTests
+        task_label=campaign100
+        export QC_CAMPAIGN100_ROOT="$3/Design/Campaign100/2026-10-11"
+      fi
+      task_graphics_flags=()
+      if [[ "${QC_CAMPAIGN_OFFSCREEN:-}" == 1 ]]; then task_graphics_flags=(-batchmode); fi
       exec setpriv --inh-caps=-all --ambient-caps=-all nice -n10 ionice -c2 -n7 "$2" \
-        -force-glcore -noaudio -buildTarget Linux64 -projectPath "$task_qa" \
+        -force-glcore -noaudio "${task_graphics_flags[@]}" -buildTarget Linux64 -projectPath "$task_qa" \
         -job-worker-count 1 -background-job-worker-count 4 \
         -runTests -testPlatform PlayMode -testFilter "$task_filter" \
         -testResults "$3/TestResults/${task_label}-playmode.xml" \

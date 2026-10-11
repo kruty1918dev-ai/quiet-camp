@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 32,
-  "chapter": 7,
+  "order": 29,
+  "chapter": 3,
   "seed": 20514412,
   "width": 5,
   "height": 6,
   "id": "gen:qc_camp:22",
-  "contentHash": "65b843f18686948a8dafbe40f6e803b16473e0209a8578349411ff25c011228e",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "morning",
+  "contentHash": "2ca56618b35a17c49f359fb7b8155b66aae53615afd57962f71bc2ce4ed9c901",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
   "decorSeed": 20535603,
@@ -87,7 +87,7 @@
       "rotation": 1
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "stone_largeA",
@@ -110,28 +110,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "shore",
-    "seasonId": "spring",
-    "weatherId": "cloudy",
-    "moisture": 0.48,
-    "treeDensity": 0.55,
-    "clusterSeed": 318194310,
+    "biomeId": "forest",
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.351402,
+    "treeDensity": 0.508433,
+    "clusterSeed": 36017,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "daisy"
     ],
-    "storyMotifs": [
-      "ruin",
-      "flowers",
-      "repaired-marker"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.282828,
+    "weatherIntensity": 0.119003
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-029",
+    "beats": [
+      {
+        "id": "place-029",
+        "storyBeat": "Місце розповідає про працю, яка не вимагала великої інфраструктури.",
+        "heroLandmark": "place-029-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Вулики, плодові дерева й низька лавка зібрані в тихий бічний кут.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Місце розповідає про працю, яка не вимагала великої інфраструктури.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:22"
+        ],
+        "props": [
+          {
+            "id": "place-029-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_beehive",
+              "x": -3.9238,
+              "z": -0.35,
+              "elevation": 0.025,
+              "height": 0.72,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-029-prop-2",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_orchard",
+              "x": 1.15,
+              "z": -4.70604,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-029-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_beehive",
+              "x": 3.9238,
+              "z": -4.42718,
+              "elevation": 0.025,
+              "height": 0.72,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": {
-      "kind": "lake",
-      "side": "left",
-      "offset": 9.0,
-      "width": 7.0,
-      "seed": 20535603
-    }
+    "references": []
   }
 }

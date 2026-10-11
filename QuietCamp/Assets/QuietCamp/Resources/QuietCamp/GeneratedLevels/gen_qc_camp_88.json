@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 76,
-  "chapter": 16,
+  "order": 68,
+  "chapter": 7,
   "seed": -719851097,
   "width": 7,
   "height": 7,
   "id": "gen:qc_camp:88",
-  "contentHash": "b1a9f62c40bdae836cd3d9a7f4a856058ac29076b4f0942c40a6be3c7c35779e",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "morning",
+  "contentHash": "4b201117ecb01e5fd6b716a0f5b9e95bcd13842f599cc846315feb1fc8bbbfb4",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
   "decorSeed": -719868168,
@@ -125,7 +125,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "stone_largeA",
@@ -155,28 +155,116 @@
     }
   ],
   "environment": {
-    "biomeId": "shore",
-    "seasonId": "summer",
+    "biomeId": "forest",
+    "seasonId": "autumn",
     "weatherId": "cloudy",
-    "moisture": 0.48,
-    "treeDensity": 0.55,
-    "clusterSeed": 2036182405,
+    "moisture": 0.552557,
+    "treeDensity": 0.529966,
+    "clusterSeed": 42764,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "wheat"
     ],
-    "storyMotifs": [
-      "ruin",
-      "bench",
-      "lantern"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.676768,
+    "weatherIntensity": 0.454261
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-068",
+    "beats": [
+      {
+        "id": "place-068",
+        "storyBeat": "Подорож лишає після себе речі, які працюють краще, ніж до приходу героїв.",
+        "heroLandmark": "place-068-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Поліна, сарай і відремонтований вказівник утворюють кут ремонту.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Подорож лишає після себе речі, які працюють краще, ніж до приходу героїв.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:88"
+        ],
+        "props": [
+          {
+            "id": "place-068-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_barn",
+              "x": -5.79157,
+              "z": -0.8,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-068-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log_stack",
+              "x": 1.15,
+              "z": -5.36736,
+              "elevation": 0.025,
+              "height": 0.7,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-068-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_gate",
+              "x": 6.03462,
+              "z": -4.77462,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": {
-      "kind": "lake",
-      "side": "left",
-      "offset": 10.0,
-      "width": 7.0,
-      "seed": -719868168
-    }
+    "references": []
   }
 }

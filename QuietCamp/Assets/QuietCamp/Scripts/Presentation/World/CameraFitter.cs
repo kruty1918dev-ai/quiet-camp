@@ -29,6 +29,24 @@ namespace QuietCamp.Presentation.World
             camera.transform.position = -camera.transform.forward * Distance;
         }
 
+        public static Bounds ContentBounds(LevelData level)
+        {
+            var bounds = new Bounds(Vector3.zero, new Vector3(level.width + 2 * (BoardMath.Overhang + SceneryMargin), .8f,
+                level.height + 2 * (BoardMath.Overhang + SceneryMargin)));
+            if(level.environment?.seasonTimeline>=0&&level.environmentalStory!=null)
+            {
+                var models=QuietCamp.Presentation.UI.RoadmapModelLibrary.Load();
+                foreach(var beat in level.environmentalStory.beats)
+                foreach(var prop in beat.props)
+                {
+                    var view=prop.level;if(view==null)continue;var model=models.Get(view.assetId);if(model==null)continue;
+                    var rotation=Quaternion.Euler(0,view.yaw,0);var origin=new Vector3(view.x,view.elevation,view.z);
+                    foreach(var point in model.Positions)bounds.Encapsulate(origin+rotation*point*view.height);
+                }
+            }
+            return bounds;
+        }
+
         /// <summary>Fits ortho size and target so the board bounds fill the viewport.</summary>
         public static void Fit(Camera camera, LevelData level, RectTransform viewport)
         {
@@ -43,9 +61,7 @@ namespace QuietCamp.Presentation.World
             var frame = adaptation.Frame;
             if (!frame.IsValid) return;
             camera.aspect = frame.RenderAspect;
-            var bounds = new Bounds(Vector3.zero, new Vector3(
-                level.width + 2 * (BoardMath.Overhang + SceneryMargin), .8f,
-                level.height + 2 * (BoardMath.Overhang + SceneryMargin)));
+            var bounds = ContentBounds(level);
             if (!Kruty1918.GameplayViewport.GameplayCameraMath.TryOrthographic(bounds, camera.transform.rotation,
                 camera.aspect, frame.NormalizedGameplay, Distance, FitMargin, out var pose, camera.nearClipPlane)) return;
             camera.orthographicSize = pose.OrthographicSize;

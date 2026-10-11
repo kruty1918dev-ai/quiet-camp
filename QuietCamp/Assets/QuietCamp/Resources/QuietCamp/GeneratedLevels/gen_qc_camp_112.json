@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 100,
-  "chapter": 20,
+  "order": 90,
+  "chapter": 9,
   "seed": -1466249805,
   "width": 7,
   "height": 8,
   "id": "gen:qc_camp:112",
-  "contentHash": "b8933cf7e0e2b7feb0a1d7b6a574d7233008b192575810646354aa5ae169e5a3",
-  "generatorVersion": "cozy-campaign-2",
-  "lighting": "evening",
+  "contentHash": "cfe5b9ae05d1488ac8c4e5c25e2feb4620b70218ff2c41a2b3649dffafc28ef7",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
   "decorSeed": -1466264852,
@@ -125,7 +125,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "pines",
+  "environmentPreset": "meadow",
   "objects": [
     {
       "assetId": "stone_largeA",
@@ -155,22 +155,122 @@
     }
   ],
   "environment": {
-    "biomeId": "forest",
-    "seasonId": "autumn",
-    "weatherId": "cloudy",
-    "moisture": 0.48,
-    "treeDensity": 0.84,
-    "clusterSeed": -466652639,
+    "biomeId": "shore",
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.359509,
+    "treeDensity": 0.417526,
+    "clusterSeed": 46570,
     "meadowSpecies": [
       "grass",
-      "daisy",
-      "poppy"
+      "daisy"
     ],
-    "storyMotifs": [
-      "ruin",
-      "marker",
-      "bag"
+    "storyMotifs": [],
+    "shore": {
+      "kind": "stream",
+      "side": "left",
+      "offset": 9.1,
+      "width": 2.4,
+      "seed": 32170
+    },
+    "seasonTimeline": 0.89899,
+    "weatherIntensity": 0.132515
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-090",
+    "beats": [
+      {
+        "id": "place-090",
+        "storyBeat": "Новий сезон завершує відлигу, зберігаючи наслідки зміненої води.",
+        "heroLandmark": "place-090-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Відкрите плесо, вербові пагони й ліхтар без снігової шапки.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Новий сезон завершує відлигу, зберігаючи наслідки зміненої води.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:112"
+        ],
+        "props": [
+          {
+            "id": "place-090-prop-1",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_willow",
+              "x": 5.2383,
+              "z": 3.0,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-090-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_mooring_post",
+              "x": 0.25,
+              "z": -5.276,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-090-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_workboat",
+              "x": 5.24063,
+              "z": -10.32817,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": null
+    "references": []
   }
 }

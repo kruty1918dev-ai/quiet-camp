@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "ruleVersion": 2,
-  "order": 51,
-  "chapter": 11,
+  "order": 47,
+  "chapter": 5,
   "seed": -720049139,
   "width": 6,
   "height": 6,
   "id": "gen:qc_camp:63",
-  "contentHash": "a93593db20f12c0759fe34d2a159c96291f989b6ffe364bf0a5c5b2724d3ceb2",
-  "generatorVersion": "cozy-campaign-2",
+  "contentHash": "9f3fe5d37a80b8b3113ffcf4391af74ce33ad63081190830b8f7f460d094cfad",
+  "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
   "generationAttempt": 1,
@@ -91,7 +91,7 @@
       "rotation": 0
     }
   ],
-  "environmentPreset": "meadow",
+  "environmentPreset": "pines",
   "objects": [
     {
       "assetId": "tree_default",
@@ -114,27 +114,116 @@
   ],
   "canopies": [],
   "environment": {
-    "biomeId": "shore",
-    "seasonId": "autumn",
+    "biomeId": "forest",
+    "seasonId": "summer",
     "weatherId": "clear",
-    "moisture": 0.26,
-    "treeDensity": 0.55,
-    "clusterSeed": 1338073331,
+    "moisture": 0.480286,
+    "treeDensity": 0.577789,
+    "clusterSeed": 39131,
     "meadowSpecies": [
       "grass",
-      "daisy",
       "poppy"
     ],
-    "storyMotifs": [
-      "marker",
-      "bag"
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.464646,
+    "weatherIntensity": 0.33381
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-047",
+    "beats": [
+      {
+        "id": "place-047",
+        "storyBeat": "Поле не стирає пам'ять, але життя не зупиняється назавжди.",
+        "heroLandmark": "place-047-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Соняшники виросли біля низького фундаменту, вказівник веде далі.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Поле не стирає пам'ять, але життя не зупиняється назавжди.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:63"
+        ],
+        "props": [
+          {
+            "id": "place-047-prop-1",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_sunflower_patch",
+              "x": -4.3195,
+              "z": 0.55,
+              "elevation": 0.025,
+              "height": 0.34,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-047-prop-2",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_field_weeds",
+              "x": 3.0,
+              "z": -4.23082,
+              "elevation": 0.025,
+              "height": 0.34,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-047-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "sign",
+              "x": 4.53535,
+              "z": -4.23988,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
     ],
-    "shore": {
-      "kind": "lake",
-      "side": "left",
-      "offset": 9.5,
-      "width": 7.0,
-      "seed": -720063662
-    }
+    "references": []
   }
 }
