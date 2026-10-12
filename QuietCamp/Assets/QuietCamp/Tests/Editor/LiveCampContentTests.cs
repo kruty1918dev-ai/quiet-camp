@@ -8,6 +8,46 @@ namespace QuietCamp.Tests
 {
     public class LiveCampContentTests
     {
+        [TestCase("QC001")]
+        [TestCase("QC009")]
+        [TestCase("QC010")]
+        public void AlbumRecoversMissingJaggedArraysWithoutChangingSavedSnapshot(string id)
+        {
+            var original = LevelLoader.Load(id);
+            var snapshot = CampContent.Snapshot(original);
+            snapshot.blocked = snapshot.shade = snapshot.noise = null;
+            snapshot.friends = null;
+            var entry = new AlbumSaveData.Entry { levelId = id, contentHash = original.contentHash,
+                levelSnapshot = snapshot, placements = original.witness };
+
+            var recovered = CampContent.AlbumLevel(entry);
+
+            Assert.AreEqual(original.contentHash, recovered.contentHash);
+            Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(original),
+                Newtonsoft.Json.JsonConvert.SerializeObject(recovered));
+            Assert.IsTrue(RuleEvaluator.Evaluate(recovered, entry.placements).IsSolved);
+            Assert.AreSame(snapshot, entry.levelSnapshot);
+            Assert.IsNull(snapshot.blocked);
+            Assert.AreSame(original.witness, entry.placements);
+        }
+        [Test] public void AlbumDoesNotReplaceUnavailableHistoricalSnapshotWithCurrentPuzzle()
+        {
+            var snapshot = CampContent.Snapshot(LevelLoader.Load("QC010"));
+            snapshot.contentHash = new string('a', 64);
+            snapshot.blocked = snapshot.shade = snapshot.noise = null;
+            snapshot.friends = null;
+            var entry = new AlbumSaveData.Entry { levelId = snapshot.id, contentHash = snapshot.contentHash,
+                levelSnapshot = snapshot, placements = snapshot.witness };
+
+            var preview = CampContent.AlbumLevel(entry);
+
+            Assert.AreNotSame(snapshot, preview);
+            Assert.AreEqual(snapshot.contentHash, preview.contentHash);
+            Assert.IsEmpty(preview.blocked); Assert.IsEmpty(preview.shade);
+            Assert.IsEmpty(preview.noise); Assert.IsEmpty(preview.friends);
+            Assert.IsNull(snapshot.blocked);
+            Assert.AreSame(snapshot, entry.levelSnapshot);
+        }
         [Test] public void AllHundredLevelsValidateAndSolverConfirmsTheirWitness()
         {
             var ids=LevelLoader.MvpLevelIds();Assert.AreEqual(100,ids.Count);

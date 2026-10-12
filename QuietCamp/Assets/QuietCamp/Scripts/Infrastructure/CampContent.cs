@@ -41,7 +41,37 @@ namespace QuietCamp.Infrastructure
             return text != null ? JsonConvert.DeserializeObject<LevelData>(text.text) : null;
         }
         public static LevelData AlbumLevel(AlbumSaveData.Entry entry)
-            => entry.levelSnapshot ?? Revision(entry.contentHash) ?? Legacy(entry.levelId) ?? LevelLoader.Load(CanonicalId(entry.levelId));
+        {
+            var snapshot = entry.levelSnapshot;
+            if (snapshot == null)
+                return Revision(entry.contentHash) ?? Legacy(entry.levelId) ?? LevelLoader.Load(CanonicalId(entry.levelId));
+            if (HasAlbumCollections(snapshot)) return snapshot;
+
+            // Older snapshots can lose jagged arrays. Recover the exact revision,
+            // never substitute a newer puzzle underneath the saved placements.
+            var hash = string.IsNullOrEmpty(snapshot.contentHash) ? entry.contentHash : snapshot.contentHash;
+            var revision = Revision(hash);
+            if (MatchesAlbumSnapshot(revision, snapshot, hash)) return revision;
+            var legacy = Legacy(entry.levelId);
+            if (MatchesAlbumSnapshot(legacy, snapshot, hash)) return legacy;
+            var text = Resources.Load<TextAsset>("QuietCamp/Levels/" + CanonicalId(entry.levelId));
+            var current = text != null ? JsonConvert.DeserializeObject<LevelData>(text.text) : null;
+            if (MatchesAlbumSnapshot(current, snapshot, hash)) return current;
+
+            // Unavailable historical content still gets a safe, detached preview.
+            // Keep the stored snapshot untouched so a future archive can recover it.
+            var preview = Snapshot(snapshot);
+            preview.blocked ??= Array.Empty<int[]>();
+            preview.shade ??= Array.Empty<int[]>();
+            preview.noise ??= Array.Empty<int[]>();
+            preview.friends ??= Array.Empty<string[]>();
+            return preview;
+        }
+        static bool HasAlbumCollections(LevelData level)
+            => level.blocked != null && level.shade != null && level.noise != null && level.friends != null;
+        static bool MatchesAlbumSnapshot(LevelData candidate, LevelData snapshot, string hash)
+            => candidate != null && !string.IsNullOrEmpty(hash) && candidate.contentHash == hash
+                && CanonicalId(candidate.id) == CanonicalId(snapshot.id) && HasAlbumCollections(candidate);
         public static string UnfinishedLevelId(SessionSaveData saved,IReadOnlyList<string> orderedIds)
         {
             var id=CanonicalId(saved?.levelId);
