@@ -201,6 +201,23 @@ namespace QuietCamp.Tests
                 window.SetDocument(d);string before=JsonConvert.SerializeObject(window.Document.level.witness);
                 window.BeginSolve();Assert.IsTrue(window.IsSearching);window.CancelSolver();Assert.IsFalse(window.IsSearching);
                 Assert.AreEqual(before,JsonConvert.SerializeObject(window.Document.level.witness));
+                var watch=System.Diagnostics.Stopwatch.StartNew();
+                for(int i=0;i<1000;i++)Assert.NotNull(window.Document.level);
+                Assert.Less(watch.ElapsedMilliseconds,30,"Scene View and the panel must not reparse the scenery snapshot per draw.");
+            }
+            finally { window.DiscardChanges();window.Close(); }
+        }
+        [Test] public void RejectedFieldEditKeepsTheDisplayedAndSavedDocumentUnchanged()
+        {
+            var window=LevelAuthoringWindow.OpenWindow();
+            try
+            {
+                window.SetDocument(LevelAuthoringDocument.Create(false));
+                string before=JsonConvert.SerializeObject(window.Document);
+                var edit=typeof(LevelAuthoringWindow).GetMethod("Edit",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
+                Action<LevelAuthoringDocument> rejected=d=>{d.title="Rejected";throw new ArgumentException("Invalid field edit");};
+                Assert.Throws<System.Reflection.TargetInvocationException>(()=>edit.Invoke(window,new object[]{"Rejected edit",rejected}));
+                Assert.AreEqual(before,JsonConvert.SerializeObject(window.Document));
             }
             finally { window.DiscardChanges();window.Close(); }
         }

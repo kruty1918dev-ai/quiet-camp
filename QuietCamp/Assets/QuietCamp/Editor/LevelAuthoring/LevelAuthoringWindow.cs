@@ -17,8 +17,11 @@ namespace QuietCamp.Editor.LevelAuthoring
         [SerializeField] string _path;
         [SerializeField] int _tab, _category, _guest, _rotation;
         [SerializeField] int _generationIndex = 1;
+        [SerializeField] int _entryType;
         [SerializeField] bool _dirty;
         LevelAuthoringWorkspace _workspace;
+        LevelAuthoringDocument _displayDocument;
+        string _displayJson;
         FieldTool _fieldTool;
         Vector2 _scroll;
         string _message = "";
@@ -33,7 +36,18 @@ namespace QuietCamp.Editor.LevelAuthoring
         Cell? _lastPaint;
         static readonly string[] Categories = { "Дерева", "Кущі", "Трава", "Квіти", "Каміння", "Паркани", "Містки", "Декор" };
         public LevelAuthoringWorkspace Workspace => _workspace;
-        public LevelAuthoringDocument Document => _state?.Read();
+        public LevelAuthoringDocument Document
+        {
+            get
+            {
+                if(_state==null)return null;
+                // IMGUI and Scene View ask repeatedly within each frame. Parsing
+                // a large scenery JSON every time makes a 10k-object editor stall.
+                if(_displayDocument==null||!ReferenceEquals(_displayJson,_state.json))
+                {_displayJson=_state.json;_displayDocument=_state.Read();}
+                return _displayDocument;
+            }
+        }
         public bool IsSearching => _solver != null;
 
         [MenuItem("Quiet Camp/Майстерня рівнів")]
@@ -111,8 +125,9 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         void Edit(string description, Action<LevelAuthoringDocument> action)
         {
-            CancelSolver(); var document = Document; Undo.RecordObject(_state, description);
-            action(document); document.ReconcileObjects(); _state.Write(document);
+            CancelSolver(); var document = LevelAuthoringDocument.Copy(Document);
+            action(document); document.ReconcileObjects();
+            Undo.RecordObject(_state, description); _state.Write(document);
             _refreshing = true; try { _workspace.ApplyDocument(document); } finally { _refreshing = false; }
             _dirty = true; Repaint(); SceneView.RepaintAll();
         }
@@ -218,6 +233,8 @@ namespace QuietCamp.Editor.LevelAuthoring
             EditorGUILayout.HelpBox("Оберіть інструмент і клацайте клітини в Scene View. Намет займає 2×2. Alt залишає керування камерою.", MessageType.None);
             int tool = GUILayout.SelectionGrid((int)_fieldTool, new[] { "Вибір", "Камінь", "Дерево", "Вогнище", "Гумка", "Вхід", "Вихід", "Прохід", "Намет" }, 3, GUILayout.Height(84));
             if (tool != (int)_fieldTool) { PlacementToolIntegration.Adapter?.Stop(); _fieldTool = (FieldTool)tool; SceneView.RepaintAll(); }
+            if (_fieldTool == FieldTool.Entry)
+                _entryType = EditorGUILayout.Popup("Тип входу", _entryType, new[] { "Основний", "Додатковий" });
             if (_fieldTool == FieldTool.Tent)
             {
                 _guest = EditorGUILayout.Popup("Гість", Mathf.Clamp(_guest, 0, level.guests.Length - 1), level.guests.Select((g, i) => "Гість " + (i + 1)).ToArray());
@@ -309,7 +326,10 @@ namespace QuietCamp.Editor.LevelAuthoring
         {
             if (_workspace?.Root == null || EditorApplication.isPlayingOrWillChangePlaymode) return;
             var level = Document.level;
-            foreach (var cell in level.shade ?? Array.Empty<int[]>()) DrawCell(level, new Cell(cell[0], cell[1]), new Color(.3f, .65f, 1, .13f));
+            foreach (var cell in level.exteriorWalkable ?? Array.Empty<int[]>()) DrawCell(level, new Cell(cell[0], cell[1]), new Color(.65f, .6f, .35f, .24f));
+            DrawCell(level, new Cell(level.entry[0], level.entry[1]), new Color(.2f, .85f, 1, .3f));
+            foreach (var access in level.accessPoints ?? Array.Empty<AccessPointData>()) DrawCell(level, new Cell(access.x, access.z), new Color(.2f, .85f, 1, .3f));
+            foreach (var cell in level.shade ?? Array.Empty<int[]>()) DrawCell(level, new Cell(cell[0], cell[1]), new Color(.25f, .72f, .35f, .14f));
             var placements = level.witness ?? Array.Empty<Placement>();
             var report = RuleEvaluator.Evaluate(level, placements, false);
             foreach (var issue in report.Issues) foreach (var cell in issue.Cells) DrawCell(level, cell, new Color(1, .2f, .15f, .25f));
@@ -347,8 +367,15 @@ namespace QuietCamp.Editor.LevelAuthoring
             if (_fieldTool == FieldTool.Entry || _fieldTool == FieldTool.Exit)
             {
                 if (cell.X != 0 && cell.Z != 0 && cell.X != level.width - 1 && cell.Z != level.height - 1) throw new ArgumentException("Вхід і вихід мають бути на краю поля.");
-                if (_fieldTool == FieldTool.Entry) level.entry = new[] { cell.X, cell.Z };
-                else level.accessPoints = level.accessPoints.Where(a => a.x != cell.X || a.z != cell.Z).Concat(new[] { new AccessPointData { id = "exit_" + cell.X + "_" + cell.Z, kind = "exit", x = cell.X, z = cell.Z } }).ToArray(); return;
+                level.accessPoints=level.accessPoints.Where(a=>a.x!=cell.X||a.z!=cell.Z).ToArray();
+                if (_fieldTool == FieldTool.Entry && _entryType == 0) level.entry = new[] { cell.X, cell.Z };
+                else
+                {
+                    if(level.entry[0]==cell.X&&level.entry[1]==cell.Z)throw new ArgumentException("Основний вхід уже займає цю клітину.");
+                    string kind=_fieldTool==FieldTool.Entry?"entry":"exit";
+                    level.accessPoints=level.accessPoints.Concat(new[]{new AccessPointData{id=kind+"_"+cell.X+"_"+cell.Z,kind=kind,x=cell.X,z=cell.Z}}).ToArray();
+                }
+                return;
             }
             if (_fieldTool == FieldTool.Tent) { document.PutTent(level.guests[_guest].id, cell, _rotation); return; }
             if (_fieldTool == FieldTool.Erase)
