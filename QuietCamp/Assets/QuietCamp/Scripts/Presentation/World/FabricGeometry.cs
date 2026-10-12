@@ -17,6 +17,8 @@ namespace QuietCamp.Presentation.World
         {
             if (!source.isReadable || fabricSlots == 0 || source.subMeshCount > 64) return null;
             var key = (source, fabricSlots);
+            // Native resources can be unloaded between Editor sessions without a domain reload.
+            if (Cache.TryGetValue(key, out var stale) && stale.Mesh == null) Cache.Remove(key);
             if (!Cache.TryGetValue(key, out var geometry))
             {
                 int triangles = 0;

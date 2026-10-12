@@ -1,9 +1,9 @@
 using UnityEngine;
 namespace QuietCamp.Presentation.World
 {
-    public sealed class OwnedCampMesh : MonoBehaviour
+    [ExecuteAlways] public sealed class OwnedCampMesh : MonoBehaviour
     {
         public Mesh Mesh;
-        void OnDestroy() { if (Mesh != null) Destroy(Mesh); }
+        void OnDestroy() { if (Mesh != null) { if (UnityEngine.Application.isPlaying) Destroy(Mesh); else DestroyImmediate(Mesh); } }
     }
 }

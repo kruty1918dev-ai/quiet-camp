@@ -91,6 +91,18 @@ namespace QuietCamp.Infrastructure
                 throw new InvalidDataException("Invalid generated groundcover.");
         }
         static bool Finite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
+        public float GroundHeight(float x,float z)
+        {
+            float yaw=frameYaw*Mathf.Deg2Rad;
+            var uv=new Vector2(x*Mathf.Cos(yaw)-z*Mathf.Sin(yaw),x*Mathf.Sin(yaw)+z*Mathf.Cos(yaw));
+            float centre=streamCentre+Kruty1918.ScenePlacement.Composition.RiverGeometry.Centre(uv.y,streamSlope,streamBend);
+            float width=Kruty1918.ScenePlacement.Composition.RiverGeometry.Width(uv.y,streamWidth,streamWidthVariation);
+            float bank=Mathf.Abs(uv.x-centre);
+            float bed=Kruty1918.ScenePlacement.Composition.RiverGeometry.Bed(bank,width,uv.y,uv.x-centre);
+            float margin=Mathf.Max(Mathf.Abs(x)-this.width*.5f,Mathf.Abs(z)-height*.5f);
+            float relief=Mathf.SmoothStep(0,1,margin*.5f)*meadowRelief*(.5f+.5f*Mathf.Sin(x*.55f)*Mathf.Cos(z*.68f));
+            return -.045f+relief-bed*waterDepth;
+        }
         public static Vector3 Vector(float[] value) => new Vector3(value[0], value[1], value[2]);
         public static Color Color(int rgb) => new Color(((rgb >> 16) & 255) / 255f, ((rgb >> 8) & 255) / 255f, (rgb & 255) / 255f);
     }

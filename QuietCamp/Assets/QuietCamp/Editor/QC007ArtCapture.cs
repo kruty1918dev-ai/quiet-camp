@@ -39,9 +39,23 @@ namespace QuietCamp.Editor
                 else if (request.mode == "tests") RunTests();
                 else if (request.mode == "authoring-tests") RunTests(true);
                 else if (request.mode == "authoring-open") LevelAuthoring.LevelAuthoringWindow.OpenWindow().NewDocument(false);
-                else if (request.mode == "authoring-play") LevelAuthoring.LevelAuthoringPlayDriver.Start(LevelAuthoring.LevelAuthoringDocument.Create(true));
+                else if (request.mode == "authoring-play")
+                {
+                    var window=LevelAuthoring.LevelAuthoringWindow.OpenWindow();
+                    window.SetDocument(LevelAuthoring.LevelAuthoringDocument.Create(true));
+                    var snapshot=window.Workspace.Capture();
+                    File.WriteAllText(Path.Combine(UnityEngine.Application.dataPath,"../Temp/ai/authoring-smoke-draft.json"),JsonConvert.SerializeObject(snapshot));
+                    LevelAuthoring.LevelAuthoringPlayDriver.Start(snapshot);
+                }
                 else if (request.mode == "authoring-status") File.WriteAllText(ResultPath, JsonConvert.SerializeObject(new { status = "authoring-status", playing = EditorApplication.isPlaying, memoryOnly = QuietCampBootstrap.ServicesRef?.Save.MemoryOnly, level = CampSceneHost.Current?.Session?.Level?.id, ready = CampSceneHost.Current?.UiReady, scene = SceneManager.GetActiveScene().name }));
                 else if (request.mode == "authoring-stop") EditorApplication.ExitPlaymode();
+                else if (request.mode == "authoring-restored")
+                {
+                    var window=LevelAuthoring.LevelAuthoringWindow.OpenWindow();
+                    var before=LevelAuthoring.LevelAuthoringDocument.Open(Path.Combine(UnityEngine.Application.dataPath,"../Temp/ai/authoring-smoke-draft.json"));
+                    File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new {status="authoring-restored",sceneObjects=window.Workspace?.SceneryCount,
+                        identical=window.Workspace!=null&&JsonConvert.SerializeObject(before.art)==JsonConvert.SerializeObject(window.Workspace.Capture().art)}));
+                }
                 else if (request.mode == "game-start") StartGame();
                 else if (request.mode == "game-shot") GameShot(request);
                 else if (request.mode == "game-stop") { SetGameStage("stopping"); EditorApplication.ExitPlaymode(); }
@@ -139,7 +153,7 @@ namespace QuietCamp.Editor
             var api = ScriptableObject.CreateInstance<TestRunnerApi>();
             api.RegisterCallbacks(new TestReport(api));
             api.Execute(new ExecutionSettings(new Filter { testMode = TestMode.EditMode,
-                testNames = authoring ? new[] { "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
+                testNames = authoring ? new[] { "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
         }
         sealed class TestReport : ICallbacks
         {

@@ -19,9 +19,11 @@ namespace QuietCamp.Editor.LevelAuthoring
         public string title = "Новий табір";
         public static T Copy<T>(T value) => JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(value));
 
-        public static LevelAuthoringDocument Create(bool generated, string sourceId = "QC007")
+        public static LevelAuthoringDocument Create(bool generated, string sourceId = null, int generationIndex = 1)
         {
-            var level = Copy(LevelLoader.Load(generated ? sourceId : "QC001"));
+            var level = Copy(generated && string.IsNullOrEmpty(sourceId)
+                ? GeneratedCampSource.Generate("qc_camp", generationIndex)
+                : LevelLoader.Load(generated ? sourceId : "QC001"));
             level.id = "QC_EDITOR_" + Guid.NewGuid().ToString("N").Substring(0, 8);
             // A starter becomes a new draft, without references to previously baked campaign scenery.
             var starter = Newtonsoft.Json.Linq.JObject.FromObject(level);
@@ -91,6 +93,10 @@ namespace QuietCamp.Editor.LevelAuthoring
             if (requireSolution && (snapshot.witness == null || snapshot.witness.Length != snapshot.guests.Length)) errors.Add("Потрібне рішення для всіх гостей.");
             if (requireSolution && errors.Count == 0 && !RuleEvaluator.Evaluate(snapshot, snapshot.witness).IsSolved) errors.Add("Еталонне рішення порушує умови гри.");
             try { art.Validate(level); } catch (Exception e) { errors.Add(e.Message); }
+            if (errors.Count == 0)
+                for(int z=0;z<=level.height*4;z++) for(int x=0;x<=level.width*4;x++)
+                    if(art.GroundHeight(x*.25f-level.width*.5f,z*.25f-level.height*.5f)<-.075f)
+                    { errors.Add("Річка накриває ігрове поле. Відсуньте русло або зменшіть його ширину."); return errors; }
             return errors;
         }
         public static string SafeName(string id)
@@ -118,6 +124,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             var errors = Validate(true); if (errors.Count > 0) throw new InvalidDataException(string.Join("\n", errors));
             var copy = Copy(this); copy.art.levelId = copy.level.id;
             string id = SafeName(copy.level.id);
+            copy.level.contentHash = null;
             using (var hash = SHA256.Create()) copy.level.contentHash = BitConverter.ToString(hash.ComputeHash(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(copy.level)))).Replace("-", "").ToLowerInvariant();
             Directory.CreateDirectory(directory);
             copy.Save(Path.Combine(directory, id + ".draft.json"));
@@ -138,11 +145,5 @@ namespace QuietCamp.Editor.LevelAuthoring
     {
         public static IPlacementToolAdapter Adapter { get; private set; }
         public static void Register(IPlacementToolAdapter adapter) => Adapter = adapter ?? throw new ArgumentNullException(nameof(adapter));
-    }
-    public sealed class LevelAuthoringState : ScriptableObject
-    {
-        [TextArea] public string json;
-        public LevelAuthoringDocument Read() => JsonConvert.DeserializeObject<LevelAuthoringDocument>(json);
-        public void Write(LevelAuthoringDocument document) => json = JsonConvert.SerializeObject(document);
     }
 }

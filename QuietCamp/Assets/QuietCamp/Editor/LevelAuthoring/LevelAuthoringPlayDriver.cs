@@ -31,6 +31,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             Directory.CreateDirectory(Path.GetDirectoryName(EditorAuthoringPreview.RequestPath));
             File.WriteAllText(EditorAuthoringPreview.RequestPath, JsonConvert.SerializeObject(new EditorAuthoringPreview.Request { level = document.level, art = document.art }));
             EditorAuthoringPreview.Reset();
+            EditorAuthoringPreview.Enable(true);
             SessionState.SetString(PreviousScene, AssetDatabase.GetAssetPath(EditorSceneManager.playModeStartScene));
             EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(bootPath);
             SessionState.SetString(Stage, "boot"); EditorApplication.EnterPlaymode();
@@ -57,6 +58,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             SessionState.EraseString(Stage); SessionState.EraseString(PreviousScene);
             if (File.Exists(EditorAuthoringPreview.RequestPath)) File.Delete(EditorAuthoringPreview.RequestPath);
             EditorAuthoringPreview.Reset();
+            EditorAuthoringPreview.Enable(false);
             LevelAuthoringWindow.OpenWindow().RestoreAfterPlay();
         }
     }

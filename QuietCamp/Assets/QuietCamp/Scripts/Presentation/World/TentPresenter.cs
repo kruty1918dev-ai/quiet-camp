@@ -25,7 +25,7 @@ namespace QuietCamp.Presentation.World
         public TentPresenter(GameObject root, LevelData level, string guestId)
         {
             _root = root;
-            TentCloth.Apply(root);
+            if (UnityEngine.Application.isPlaying) TentCloth.Apply(root);
             _level = level;
             GuestId = guestId;
             _liftNode = new GameObject("LiftNode").transform;
@@ -59,7 +59,7 @@ namespace QuietCamp.Presentation.World
                 r.shadowCastingMode=UnityEngine.Rendering.ShadowCastingMode.Off;r.receiveShadows=true;
                 r.sharedMaterial=material;marker.AddComponent<OwnedCampMaterial>().Material=material;
             }
-            TentStoryVisual.Attach(root,level,guestId);
+            if (UnityEngine.Application.isPlaying) TentStoryVisual.Attach(root,level,guestId);
         }
 
         /// <summary>Keep the small doorway cue readable; the tent and its collider keep their authored size.</summary>

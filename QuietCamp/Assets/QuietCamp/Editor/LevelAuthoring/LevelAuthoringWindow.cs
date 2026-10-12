@@ -15,6 +15,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         [SerializeField] LevelAuthoringState _state;
         [SerializeField] string _path;
         [SerializeField] int _tab, _category, _guest, _rotation;
+        [SerializeField] int _generationIndex = 1;
         [SerializeField] bool _dirty;
         LevelAuthoringWorkspace _workspace;
         FieldTool _fieldTool;
@@ -32,6 +33,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         static readonly string[] Categories = { "Дерева", "Кущі", "Трава", "Квіти", "Каміння", "Паркани", "Містки", "Декор" };
         public LevelAuthoringWorkspace Workspace => _workspace;
         public LevelAuthoringDocument Document => _state?.Read();
+        public bool IsSearching => _solver != null;
 
         [MenuItem("Quiet Camp/Майстерня рівнів")]
         public static LevelAuthoringWindow OpenWindow()
@@ -40,6 +42,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         void OnEnable()
         {
+            saveChangesMessage = "Зберегти зміни рівня перед закриттям майстерні?";
             SceneView.duringSceneGui += DuringScene; Undo.undoRedoPerformed += UndoChanged;
             EditorApplication.update += Tick; EditorApplication.hierarchyChanged += HierarchyChanged;
             if (_state != null && !EditorApplication.isPlayingOrWillChangePlaymode) EditorApplication.delayCall += Recover;
@@ -76,8 +79,8 @@ namespace QuietCamp.Editor.LevelAuthoring
         public void NewDocument(bool generated)
         {
             if (!ConfirmReplace()) return;
-            SetDocument(LevelAuthoringDocument.Create(generated)); _path = null; _dirty = true;
-            _message = generated ? "Основа з QC007. Об’єкти вже можна редагувати вручну." : "Порожнє поле. Додайте ігрові об’єкти та гостей, потім намалюйте оточення.";
+            SetDocument(LevelAuthoringDocument.Create(generated, generationIndex:_generationIndex)); _path = null; _dirty = true;
+            _message = generated ? "Згенерований пазл і табір уже можна редагувати вручну." : "Порожнє поле. Додайте ігрові об’єкти та гостей, потім намалюйте оточення.";
         }
         public void SetDocument(LevelAuthoringDocument document)
         {
@@ -109,6 +112,8 @@ namespace QuietCamp.Editor.LevelAuthoring
             if (string.IsNullOrEmpty(path)) return;
             var document = _workspace.Capture(); document.Save(path); _state.Write(document); _path = path; _dirty = false; _message = "Чернетку збережено.";
         }
+        public override void SaveChanges() { Try(Save); if (!_dirty) base.SaveChanges(); }
+        public override void DiscardChanges() { _dirty = false; base.DiscardChanges(); }
         void OpenDraft()
         {
             if (!ConfirmReplace()) return;
@@ -171,6 +176,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             {
                 EditorGUILayout.Space(16); GUILayout.Label("Складіть свій табір", EditorStyles.boldLabel);
                 EditorGUILayout.HelpBox("Оберіть початок. Поле й умови гри редагуються тут, оточення — готовими інструментами PWB у Scene View.", MessageType.Info);
+                _generationIndex = EditorGUILayout.IntSlider("Варіант генерації", _generationIndex, 1, 80);
                 if (GUILayout.Button("Порожнє поле", GUILayout.Height(36))) Try(() => NewDocument(false));
                 if (GUILayout.Button("Взяти згенерований табір", GUILayout.Height(36))) Try(() => NewDocument(true));
                 if (!string.IsNullOrEmpty(_message)) EditorGUILayout.HelpBox(_message, MessageType.Warning); return;
@@ -205,6 +211,9 @@ namespace QuietCamp.Editor.LevelAuthoring
                 if (EditorGUI.EndChangeCheck()) Edit("Змінити тінь", d => { var c = d.level.canopies.First(x => x.x == canopy.x && x.z == canopy.z); c.radiusX = c.radiusZ = radius; });
             }
             if (GUILayout.Button("Показати поле й оточення")) _workspace.Frame();
+            EditorGUILayout.Space();
+            _generationIndex = EditorGUILayout.IntSlider("Варіант нового табору", _generationIndex, 1, 80);
+            EditorGUILayout.LabelField("Застосовується лише до наступного «Новий → Згенерований табір».",EditorStyles.wordWrappedMiniLabel);
         }
         void DrawScenery()
         {
@@ -232,7 +241,12 @@ namespace QuietCamp.Editor.LevelAuthoring
             EditorGUI.BeginChangeCheck(); float intensity = EditorGUILayout.Slider("Світло", art.sunIntensity, .4f, 2);
             float sunYaw = EditorGUILayout.Slider("Напрям сонця", art.sunEuler[1], 0, 360);
             float size = EditorGUILayout.Slider("Масштаб камери", art.orthographicSize, 4, 18);
-            if (EditorGUI.EndChangeCheck()) Edit("Світло й камера", d => { d.art.sunIntensity = intensity; d.art.sunEuler[1] = sunYaw; d.art.orthographicSize = size; });
+            float cameraPitch = EditorGUILayout.Slider("Нахил камери", art.cameraEuler[0], 25, 80);
+            float cameraYaw = EditorGUILayout.Slider("Поворот камери", art.cameraEuler[1], 0, 360);
+            var target = EditorGUILayout.Vector3Field("Центр кадру", CampArtDefinition.Vector(art.cameraTarget));
+            float blur = EditorGUILayout.Slider("Розмиття країв", art.blurPixels, 0, 12);
+            if (EditorGUI.EndChangeCheck()) Edit("Світло й камера", d => { d.art.sunIntensity = intensity; d.art.sunEuler[1] = sunYaw; d.art.orthographicSize = size; d.art.cameraEuler[0] = cameraPitch; d.art.cameraEuler[1] = cameraYaw; d.art.cameraTarget = new[]{target.x,target.y,target.z}; d.art.blurPixels=blur; });
+            if (GUILayout.Button("Подивитися з камери рівня")) _workspace.Frame();
             EditorGUILayout.Space(); GUILayout.Label("Шаблон: річкова галявина", EditorStyles.boldLabel);
             EditorGUI.BeginChangeCheck();
             float riverWidth = EditorGUILayout.Slider("Ширина річки", art.streamWidth, .8f, 5);
@@ -348,6 +362,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         void Tick()
         {
+            hasUnsavedChanges = _dirty;
             if (_workspace != null && _workspace.Root != null && !EditorApplication.isPlayingOrWillChangePlaymode)
                 foreach (var selected in Selection.transforms)
                     if (selected.IsChildOf(_workspace.Scenery) && selected.hasChanged)

@@ -147,13 +147,7 @@ namespace QuietCamp.Presentation.World
             AddMesh("MeadowGround", MakeMesh("Meadow triangles", positions, colors), groundMaterial, false);
         }
         float GroundHeight(float x, float z)
-        {
-            var uv = ViewGround(x, z); float bank = Mathf.Abs(uv.x - StreamU(uv.y));
-            float bed = RiverGeometry.Bed(bank, StreamWidth(uv.y), uv.y, uv.x - StreamU(uv.y));
-            float margin = Mathf.Max(Mathf.Abs(x) - _level.width * .5f, Mathf.Abs(z) - _level.height * .5f);
-            float relief = Mathf.SmoothStep(0, 1, margin * .5f) * Definition.meadowRelief * (.5f + .5f * Mathf.Sin(x * .55f) * Mathf.Cos(z * .68f));
-            return -.045f + relief - bed * Definition.waterDepth;
-        }
+            => Definition.GroundHeight(x,z);
         void BuildGroundcover(Material material)
         {
             var library = CozyVegetationLibrary.Load();

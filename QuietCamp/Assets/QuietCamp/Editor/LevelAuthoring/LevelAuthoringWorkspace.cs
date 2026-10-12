@@ -105,7 +105,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             Camera.orthographicSize = document.art.orthographicSize;
             var sun = Root.GetComponentInChildren<Light>(); sun.transform.rotation = Quaternion.Euler(CampArtDefinition.Vector(document.art.sunEuler)); sun.intensity = document.art.sunIntensity;
         }
-        static string TerrainKey(LevelAuthoringDocument d) => string.Join("/", d.level.width, d.level.height, d.art.streamCentre, d.art.streamWidth, d.art.streamSlope, d.art.streamBend, d.art.meadowRelief, d.art.waterDepth);
+        static string TerrainKey(LevelAuthoringDocument d) => string.Join("/", d.level.width, d.level.height, d.art.streamCentre, d.art.streamWidth, d.art.streamSlope, d.art.streamBend, d.art.meadowRelief, d.art.waterDepth,d.art.blurPixels);
         void UpdateSurface()
         {
             if (_paintMesh != null) UnityEngine.Object.DestroyImmediate(_paintMesh);
@@ -117,6 +117,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             for (int i = 0; i < triangles.Length; i += 3)
             {
                 var a = points[triangles[i]]; var b = points[triangles[i+1]]; var c = points[triangles[i+2]];
+                if (Mathf.Min(a.y,b.y,c.y) < -.075f) continue; // No painting on the submerged riverbed.
                 if (Mathf.Min(a.x,b.x,c.x) < halfX && Mathf.Max(a.x,b.x,c.x) > -halfX && Mathf.Min(a.z,b.z,c.z) < halfZ && Mathf.Max(a.z,b.z,c.z) > -halfZ) continue;
                 filtered.Add(triangles[i]); filtered.Add(triangles[i+1]); filtered.Add(triangles[i+2]);
             }

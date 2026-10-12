@@ -344,7 +344,7 @@ namespace QuietCamp.Presentation.World
             go.transform.localPosition = BoardMath.TentCenter(_level, move.x, move.z);
             go.transform.localEulerAngles = new Vector3(0f, BoardMath.TentYaw(move.rotation), 0f);
             foreach (var collider in go.GetComponentsInChildren<Collider>()) collider.enabled = false;
-            TentCloth.Apply(go);
+            if (UnityEngine.Application.isPlaying) TentCloth.Apply(go);
             _hintGhost = go;
             if (_animateOverlays)
             {
@@ -540,7 +540,7 @@ namespace QuietCamp.Presentation.World
             go.transform.localPosition = localPos;
             go.transform.localEulerAngles = new Vector3(0f, yaw, 0f);
             SetLayerRecursively(go, layer);
-            if(layer==GameplayObstacleLayer||layer==TentSelectableLayer||assetId.StartsWith("tree"))RainSurface.Attach(go);
+            if(UnityEngine.Application.isPlaying && (layer==GameplayObstacleLayer||layer==TentSelectableLayer||assetId.StartsWith("tree")))RainSurface.Attach(go);
             return go;
         }
 

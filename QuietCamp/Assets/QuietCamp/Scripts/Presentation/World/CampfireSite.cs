@@ -8,7 +8,7 @@ namespace QuietCamp.Presentation.World
 {
     /// <summary>A readable, cell-sized fire pit. Logs stay below the flames;
     /// the effect does not inherit arbitrary model normalization scales.</summary>
-    public sealed class CampfireSite : MonoBehaviour
+    [ExecuteAlways] public sealed class CampfireSite : MonoBehaviour
     {
         readonly List<Material> _owned=new List<Material>();
         Light _light;int _tier=-1;
@@ -20,7 +20,7 @@ namespace QuietCamp.Presentation.World
             site.Model(catalog,"campfire_stones",.86f,.20f,0);
             var ash=GameObject.CreatePrimitive(PrimitiveType.Cylinder);ash.name="CharcoalBed";ash.transform.SetParent(go.transform,false);
             ash.transform.localScale=new Vector3(.56f,.004f,.56f);ash.transform.localPosition=Vector3.up*.014f;
-            if(ash.GetComponent<Collider>()!=null)Destroy(ash.GetComponent<Collider>());
+            if(ash.GetComponent<Collider>()!=null)DestroyOwned(ash.GetComponent<Collider>());
             var material=new Material(Shader.Find("Universal Render Pipeline/Simple Lit"));material.SetColor("_BaseColor",new Color(.13f,.105f,.075f));
             ash.GetComponent<Renderer>().sharedMaterial=material;site._owned.Add(material);
             site.Model(catalog,"log_stack",.51f,.18f,.020f);
@@ -31,7 +31,7 @@ namespace QuietCamp.Presentation.World
                 if(renderer.sharedMaterial!=null)site._owned.Add(renderer.sharedMaterial);
             site._light=site.Visual.GetComponentInChildren<Light>(true);
             foreach(var t in go.GetComponentsInChildren<Transform>(true))t.gameObject.layer=layer;
-            RainSurface.Attach(ash);site.ApplyQuality();return site;
+            if(UnityEngine.Application.isPlaying)RainSurface.Attach(ash);site.ApplyQuality();return site;
         }
         void Model(AssetCatalog catalog,string id,float width,float height,float floor)
         {
@@ -43,8 +43,8 @@ namespace QuietCamp.Presentation.World
             model.transform.localScale*=scale;
             bounds=renderers[0].bounds;foreach(var renderer in renderers)bounds.Encapsulate(renderer.bounds);
             model.transform.position+=new Vector3(transform.position.x-bounds.center.x,transform.position.y+floor-bounds.min.y,transform.position.z-bounds.center.z);
-            foreach(var collider in model.GetComponentsInChildren<Collider>())Destroy(collider);
-            RainSurface.Attach(model);
+            foreach(var collider in model.GetComponentsInChildren<Collider>())DestroyOwned(collider);
+            if(UnityEngine.Application.isPlaying)RainSurface.Attach(model);
         }
         void Update()=>ApplyQuality();
         void ApplyQuality()
@@ -52,6 +52,8 @@ namespace QuietCamp.Presentation.World
             int tier=QuietCampBootstrap.ServicesRef?.EffectiveQuality??1;if(tier==_tier)return;_tier=tier;
             if(_light!=null)_light.enabled=tier>0;
         }
-        void OnDestroy(){foreach(var material in _owned)if(material!=null)Destroy(material);}
+        static void DestroyOwned(UnityEngine.Object value)
+        {if(UnityEngine.Application.isPlaying)Destroy(value);else DestroyImmediate(value);}
+        void OnDestroy(){foreach(var material in _owned)if(material!=null)DestroyOwned(material);}
     }
 }

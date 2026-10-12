@@ -34,7 +34,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             foreach (var model in library.models)
             {
                 string category = model.id.Contains("tree") || model.id.Contains("willow") ? "Дерева" : model.id.Contains("reed") ? "Кущі" : model.id.Contains("sunflower") ? "Квіти" : model.id.Contains("fence") ? "Паркани" : "Містки";
-                AddModel(result, model, category, model.id.Replace("ua_", "").Replace('_', ' '), false);
+                AddModel(result, model, category, Label(model.id), false);
             }
             var plants = CozyVegetationLibrary.Load();
             foreach (var plant in plants.plants.Where(p => p.mesh != null && p.mesh.isReadable))
@@ -48,7 +48,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                     var color = plant.colors[Math.Min(slot, plant.colors.Length - 1)]; colors.Add(Rgb(color));
                 }
                 AddModel(result, new CampArtDefinition.Model { id = "cover_" + plant.id, shading = "foliage", vertices = vertices.ToArray(), normals = normals.ToArray(), colors = colors.ToArray() },
-                    plant.kind == CozyVegetationLibrary.PlantKind.Flower ? "Квіти" : plant.kind == CozyVegetationLibrary.PlantKind.Shrub ? "Кущі" : "Трава", plant.id, true);
+                    plant.kind == CozyVegetationLibrary.PlantKind.Flower ? "Квіти" : plant.kind == CozyVegetationLibrary.PlantKind.Shrub ? "Кущі" : "Трава", Label(plant.id), true);
             }
             var blade = new CampArtDefinition.Model { id = "cover_blades", shading = "foliage",
                 vertices = new[] { -.02f, 0, 0, 0, .17f, 0, .02f, 0, 0, 0, 0, -.02f, 0, .14f, 0, 0, 0, .02f },
@@ -65,11 +65,39 @@ namespace QuietCamp.Editor.LevelAuthoring
                     foreach (var collider in copy.GetComponentsInChildren<Collider>()) UnityEngine.Object.DestroyImmediate(collider);
                     prefab = PrefabUtility.SaveAsPrefabAsset(copy, path); UnityEngine.Object.DestroyImmediate(copy);
                 }
-                result.Add(new AuthoringPaletteEntry { id = item.assetId, label = item.assetId.Replace('_', ' '), category = item.assetId.Contains("tree") ? "Дерева" : item.assetId.Contains("stone") ? "Каміння" : "Декор", prefab = prefab });
+                result.Add(new AuthoringPaletteEntry { id = item.assetId, label = Label(item.assetId), category = item.assetId.Contains("tree") ? "Дерева" : item.assetId.Contains("stone") ? "Каміння" : "Декор", prefab = prefab });
             }
             AssetDatabase.SaveAssets(); return result.ToArray();
         }
         static int Rgb(Color color) => Mathf.RoundToInt(color.r * 255) << 16 | Mathf.RoundToInt(color.g * 255) << 8 | Mathf.RoundToInt(color.b * 255);
+        static string Label(string id)
+        {
+            switch(id)
+            {
+                case "ua_orchard_tree": return "Садове дерево";
+                case "ua_young_willow": return "Молода верба";
+                case "ua_reed_clump": return "Очерет";
+                case "ua_sunflower_patch": return "Соняхи";
+                case "ua_wattle_fence": return "Тин";
+                case "ua_plank_bridge": return "Дощатий місток";
+                case "grass_leafs": return "Листяна трава";
+                case "grass_leafsLarge": return "Велика листяна трава";
+                case "plant_bushSmall": return "Низький кущ";
+                case "plant_bushDetailed": return "Пишний кущ";
+                case "flower_purpleA": return "Лілові квіти";
+                case "flower_yellowA": case "flower_yellowB": return "Жовті квіти";
+                case "tree_default": return "Листяне дерево";
+                case "tree_pineRoundA": return "Сосна";
+                case "stone_largeA": return "Великий камінь";
+                case "stump_round": return "Пень";
+                case "campfire_stones": return "Кам’яне вогнище";
+                case "log": return "Колода";
+                case "log_stack": return "Складені колоди";
+                case "grass": return "Пучок трави";
+                case "sign": return "Вказівник";
+                default: return id.Replace('_',' ');
+            }
+        }
         static void AddModel(List<AuthoringPaletteEntry> result, CampArtDefinition.Model model, string category, string label, bool small)
         {
             string file = new string(model.id.Select(c => char.IsLetterOrDigit(c) || c == '_' ? c : '_').ToArray());

@@ -13,6 +13,7 @@ namespace QuietCamp.Tests
 {
     public sealed class LevelAuthoringTests
     {
+        [TearDown] public void StopPaintTool() => PlacementToolIntegration.Adapter?.Stop();
         [TestCase(false)] [TestCase(true)]
         public void BothStartersKeepPublishedContentUntouched(bool generated)
         {
@@ -50,6 +51,8 @@ namespace QuietCamp.Tests
                 Assert.IsNull(opened.art.generation);
                 Assert.AreEqual(JsonConvert.SerializeObject(d.art), File.ReadAllText(Path.Combine(path, d.level.id + ".art.json")));
                 Assert.AreEqual(64, opened.level.contentHash.Length);
+                string firstHash=opened.level.contentHash;opened.Export(path);
+                Assert.AreEqual(firstHash,LevelAuthoringDocument.Open(Path.Combine(path,d.level.id+".draft.json")).level.contentHash);
             }
             finally { if (Directory.Exists(path)) Directory.Delete(path, true); }
         }
@@ -136,6 +139,103 @@ namespace QuietCamp.Tests
                 TestContext.WriteLine(metrics);
                 Assert.Less(batchMs,5000,"A full foliage rebuild should finish in under five seconds on this editor host.");
             }
+        }
+        [Test] public void PwbPaintEraseAndMovementUseNativeUndo()
+        {
+            Assert.NotNull(PlacementToolIntegration.Adapter);
+            var assembly = PlacementToolIntegration.Adapter.GetType().Assembly;
+            var flags = System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic;
+            var io = assembly.GetType("PluginMaster.PWBIO",true);
+            var strokeType = io.GetNestedType("PaintStrokeItem",System.Reflection.BindingFlags.NonPublic);
+            var stroke = (System.Collections.IList)io.GetField("_paintStroke",flags).GetValue(null);
+            using (var w = new LevelAuthoringWorkspace(LevelAuthoringDocument.Create(false)))
+            {
+                var prefab = LevelAuthoringPalette.Get("cover_blades").prefab;
+                PlacementToolIntegration.Adapter.Activate(PlacementTool.Paint,prefab,w.Scenery,w.Surface,1,65,.2f,.15f);
+                Undo.IncrementCurrentGroup(); int group=Undo.GetCurrentGroup();
+                stroke.Clear();
+                for(int i=0;i<3;i++) stroke.Add(Activator.CreateInstance(strokeType,new object[] { prefab,AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(prefab)),new Vector3(5+i*.2f,0,5),Quaternion.identity,Vector3.one,0,w.Scenery,w.Surface.transform,false,false,-1 }));
+                var manager=assembly.GetType("PluginMaster.BrushManager",true);
+                var settings=manager.GetProperty("settings",System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.Public|System.Reflection.BindingFlags.FlattenHierarchy).GetValue(null);
+                io.GetMethod("Paint",flags).Invoke(null,new[] {settings,"Paint contract",(object)false,false,""});
+                Undo.CollapseUndoOperations(group); Assert.AreEqual(3,w.SceneryCount);
+                Undo.PerformUndo(); Assert.AreEqual(0,w.SceneryCount); Undo.PerformRedo(); Assert.AreEqual(3,w.SceneryCount);
+                var plant=w.Scenery.GetComponentsInChildren<LevelAuthoringAsset>()[0].transform;
+                Undo.IncrementCurrentGroup(); Undo.RecordObject(plant,"Move contract"); plant.position+=Vector3.right; Undo.FlushUndoRecordObjects();
+                Undo.PerformUndo(); Assert.AreEqual(5,plant.position.x,.001f); Undo.PerformRedo(); Assert.AreEqual(6,plant.position.x,.001f);
+                PlacementToolIntegration.Adapter.Activate(PlacementTool.Erase,prefab,w.Scenery,w.Surface,1,65,.2f,.15f);
+                var targets=io.GetField("_toErase",flags).GetValue(null); targets.GetType().GetMethod("Add").Invoke(targets,new object[]{plant.gameObject});
+                Undo.IncrementCurrentGroup(); io.GetMethod("Erase",flags).Invoke(null,null);
+                Assert.AreEqual(2,w.SceneryCount); Undo.PerformUndo(); Assert.AreEqual(3,w.SceneryCount); Undo.PerformRedo(); Assert.AreEqual(2,w.SceneryCount);
+                PlacementToolIntegration.Adapter.Stop();
+            }
+        }
+        [Test] public void UnreachableDoorsAndImpossiblePuzzlesStayInvalid()
+        {
+            var d=LevelAuthoringDocument.Create(false);
+            d.PutTent(d.level.guests[0].id,new Cell(0,0),2);
+            Assert.IsTrue(RuleEvaluator.Evaluate(d.level,d.level.witness,false).Issues.Any(i=>i.Code=="path"));
+            foreach(var g in d.level.guests) g.shade=true; d.level.witness=null;
+            var solver=new CampSolver(d.level,Array.Empty<Placement>(),1);
+            while(solver.CurrentStatus==CampSolver.Status.Searching) solver.Step(.002);
+            Assert.AreEqual(CampSolver.Status.Unsatisfiable,solver.CurrentStatus);
+        }
+        [Test] public void ShadowAndFriendRequirementsRemainCanonical()
+        {
+            var d=LevelAuthoringDocument.Create(true); d.level.witness[0].rotation=(d.level.witness[0].rotation+1)%4;
+            var report=RuleEvaluator.Evaluate(d.level,d.level.witness);
+            Assert.AreEqual(report.IsSolved,d.Validate(true).Count==0);
+            foreach(var g in d.level.guests)g.shade=true;d.level.canopies=Array.Empty<ShadeCanopyData>();d.ReconcileObjects();
+            Assert.IsTrue(RuleEvaluator.Evaluate(d.level,d.level.witness).Issues.Any(i=>i.Code=="shade"));
+        }
+        [Test] public void SearchCanBeCancelledWithoutReplacingManualTents()
+        {
+            var window=LevelAuthoringWindow.OpenWindow();var d=LevelAuthoringDocument.Create(true);
+            try
+            {
+                window.SetDocument(d);string before=JsonConvert.SerializeObject(window.Document.level.witness);
+                window.BeginSolve();Assert.IsTrue(window.IsSearching);window.CancelSolver();Assert.IsFalse(window.IsSearching);
+                Assert.AreEqual(before,JsonConvert.SerializeObject(window.Document.level.witness));
+            }
+            finally { window.DiscardChanges();window.Close(); }
+        }
+        [Test] public void TimeLimitIsDifferentFromNoSolution()
+        {
+            var solver=new CampSolver(LevelAuthoringDocument.Create(true).level,Array.Empty<Placement>(),.01);
+            System.Threading.Thread.Sleep(20);Assert.AreEqual(CampSolver.Status.Timeout,solver.Step(.002));
+        }
+        [Test] public void RebuildingTheFieldKeepsAllLogicalObjectsAndTents()
+        {
+            var d=LevelAuthoringDocument.Create(false);
+            d.PlaceObject(new Cell(4,4),"campfire_stones");d.PlaceObject(new Cell(3,4),"tree_default");d.PlaceObject(new Cell(5,5),"stone_largeA");
+            d.PutTent(d.level.guests[0].id,new Cell(1,1),0);
+            using(var workspace=new LevelAuthoringWorkspace(d))
+            {
+                for(int i=0;i<3;i++)workspace.ApplyDocument(LevelAuthoringDocument.Copy(d));
+                Assert.IsEmpty(workspace.Capture().Validate(false));
+                Assert.AreEqual(1,workspace.Root.GetComponentsInChildren<Transform>().Count(t=>t.name=="DoorDot"));
+            }
+        }
+        [Test] public void PaintingCannotTargetThePuzzleOrSubmergedGround()
+        {
+            var d=LevelAuthoringDocument.Create(false);
+            using(var w=new LevelAuthoringWorkspace(d))
+            {
+                var collider=w.Surface.GetComponent<MeshCollider>();
+                Assert.IsFalse(collider.Raycast(new Ray(new Vector3(0,50,0),Vector3.down),out _,100));
+                Assert.IsTrue(collider.Raycast(new Ray(new Vector3(5,50,5),Vector3.down),out _,100));
+                var vertices=collider.sharedMesh.vertices;
+                Assert.IsTrue(collider.sharedMesh.triangles.All(i=>vertices[i].y>=-.075f));
+            }
+            d.art.streamCentre=0;Assert.IsTrue(d.Validate(false).Any(e=>e.Contains("Річка")));
+        }
+        [Test] public void FriendsUseTheExistingDoorToDoorDistance()
+        {
+            var d=LevelAuthoringDocument.Create(false);d.level.friends=new[]{new[]{d.level.guests[0].id,d.level.guests[1].id}};
+            d.PutTent(d.level.guests[0].id,new Cell(0,0),0);d.PutTent(d.level.guests[1].id,new Cell(4,4),2);
+            var report=RuleEvaluator.Evaluate(d.level,d.level.witness,false);
+            Assert.IsTrue(report.CanCommit);Assert.IsTrue(report.Issues.Any(i=>i.Code=="friends"));
+            Assert.IsFalse(report.Issues.Any(i=>i.Code=="path"));
         }
     }
 }
