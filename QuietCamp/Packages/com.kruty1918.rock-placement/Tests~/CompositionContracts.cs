@@ -17,6 +17,8 @@ static class CompositionContracts
             if (!a.Ok || a.instances.Count < 2) throw new Exception("FAIL shoreline empty"); checks++;
             if (!a.instances.Select(p => p.id + p.pose.position).SequenceEqual(b.instances.Select(p => p.id + p.pose.position))) throw new Exception("FAIL deterministic banks"); checks++;
             if (a.instances.Any(p => a.layout.InLanding(p.pose.position) || a.layout.InBoard(p.pose.position, .2f))) throw new Exception("FAIL bank exclusions"); checks++;
+            if (a.instances.Select(p => Math.Round(p.pose.scale.x, 3)).Distinct().Count() < 3) throw new Exception("FAIL repeated anchor sizes"); checks++;
+            if (!a.instances.Any(p => p.id.EndsWith("/1", StringComparison.Ordinal))) throw new Exception("FAIL no cluster satellites"); checks++;
             if (a.instances.Any(p => p.pose.up.y < .999f)) throw new Exception("FAIL host planar adapter contract"); checks++;
         }
         Console.WriteLine("composition rocks: " + checks + " assertions passed.");

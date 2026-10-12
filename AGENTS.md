@@ -218,3 +218,19 @@ under Design; experimental BakedEnvironments were removed from Resources.
 Do not republish this experiment or resume the refinement plan without a new user
 request. The roadmap remains deferred; the campaign remains exactly 100 levels.
 Chrome must remain open during any future authorized capture work.
+
+# Visual iteration requirement — 2026-10-12
+
+For every newly delivered scene frame, perform at least seven actual correction
+cycles before acceptance: inspect the native render, compare it with the user's
+reference and requirements, identify concrete defects, change the responsible
+rules/assets, render again, and inspect that result before the next cycle.
+Seven unchanged captures or seven parameter edits without inspection do not count.
+Record the defects, changes, residual issues and capture receipts for each cycle.
+Review river shape, terrain/water contact, shoreline ecology, repeated silhouettes,
+flower and fence visibility, foreground framing, lighting, shadows and artifacts.
+Consult relevant primary documentation when behavior is uncertain. Numerical
+generator scores cannot replace visual review or prove reference equivalence.
+Use actual Unity captures as implementation evidence. Keep source revisions stable
+during each capture batch. Preserve gameplay, saves, the existing renderer assets
+and the Unity/process restrictions above. Never claim an unresolved frame passed.

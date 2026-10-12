@@ -54,7 +54,7 @@ namespace Kruty1918.VegetationPlacement
                     if (!layout.InSupportedFrames(point)) continue;
                     bool shore = bank < style.bankBand;
                     float patch = .5f + .25f * (float)Math.Sin(point.x * 1.45f) + .25f * (float)Math.Cos(point.z * .8f);
-                    float chance = shore ? style.shorelineDensity : density * (.35f + patch * .65f);
+                    float chance = shore ? style.shorelineDensity * (.4f + patch * .6f) : density * (.35f + patch * .65f);
                     if (Numbers.Unit(key, seed, 2) > chance) continue;
                     float variation = Numbers.Unit(key, seed, 3);
                     var kind = blades ? CoverKind.Blade : shore ? CoverKind.Shrub : variation < style.flowerFraction ? CoverKind.Flower : variation < .42f ? CoverKind.Shrub : CoverKind.Leaf;

@@ -63,7 +63,7 @@ static class Program
             stages.Add(new CompositionVegetationStage(habitat.id, habitat.habitat, habitat.species, habitat.cellSize, habitat.density, habitat.minimumCount, habitat.fields));
         }
         var plan = CompositionGenerator.Generate(request, stages, critic: new CompositionCritic(profile.quality));
-        if (!plan.Ok) throw new InvalidOperationException(string.Join("; ", plan.diagnostics.Where(d => d.error)));
+        if (!plan.Ok) throw new InvalidOperationException(string.Join("; ", plan.diagnostics.Where(d => d.error)) + " | " + string.Join("; ", plan.attempts.Select(a => a.attempt + ": " + string.Join(",", a.failures))));
         var cover = CompositionGroundcover.Generate(plan.layout, profile.groundcover, plan.effectiveSeed, plan.instances);
         var artifact = new CompositionArtifact { kind = "portable-composition-plan", profileSha256 = Convert.ToHexString(SHA256.HashData(source)).ToLowerInvariant(),
             engineAssemblySha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(typeof(Program).Assembly.Location))).ToLowerInvariant(),

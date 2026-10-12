@@ -69,5 +69,28 @@ namespace QuietCamp.Tests
             var document = Newtonsoft.Json.Linq.JObject.Parse(text);
             CollectionAssert.AreEquivalent(new[] { "profile", "seed" }, document.Properties().Select(p => p.Name).ToArray());
         }
+
+        [Test] public void NativeWaterMasksLeaveTheChannelClearAndTheShoreVisible()
+        {
+            var level = LevelLoader.Load("QC007");
+            var art = CampArtDefinition.Load(level);
+            var root = new UnityEngine.GameObject("Water mask contract");
+            try
+            {
+                root.AddComponent<UnityEngine.Camera>();
+                var view = root.AddComponent<QuietCamp.Presentation.World.CampArtView>();
+                view.Configure(art, level, root.transform, AssetCatalog.Load());
+                var water = root.GetComponentsInChildren<UnityEngine.MeshRenderer>().Single(r => r.name == "ExteriorStream");
+                var mesh = water.GetComponent<UnityEngine.MeshFilter>().sharedMesh;
+                Assert.AreEqual("Stylized Water 3/Standard", water.sharedMaterial.shader.name);
+                Assert.Less(mesh.colors.Min(c => c.r), .001f, "The deep channel must not get bank foam.");
+                Assert.Greater(mesh.colors.Max(c => c.r), .05f, "The bank needs a nonzero foam mask.");
+                Assert.Less(mesh.colors.Min(c => c.g), .5f);
+                Assert.Greater(mesh.colors.Max(c => c.g), .95f);
+                Assert.IsTrue(mesh.normals.All(n => n.y > .999f));
+                Assert.AreEqual(mesh.vertexCount, mesh.tangents.Length);
+            }
+            finally { UnityEngine.Object.DestroyImmediate(root); }
+        }
     }
 }

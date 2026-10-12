@@ -25,12 +25,16 @@ namespace Kruty1918.RockPlacement
             for (int i = -count; i <= count; i++) foreach (float side in new[] { -1f, 1f })
             {
                 cancellation.ThrowIfCancellationRequested(); string id = Id + "/" + i + "/" + side;
-                float v = i * interval + (Numbers.Unit(id, run.Seed) - .5f) * interval * .6f;
-                var p = frame.Point(frame.River(v) + side * (frame.riverWidth * .5f + .06f), v);
+                if (Numbers.Unit(id, run.Seed, 6) < .30f) continue;
+                float v = i * interval + (Numbers.Unit(id, run.Seed) - .5f) * interval * 1.4f;
+                var p = frame.Point(frame.River(v) + side * (frame.WidthAt(v) * .5f + .08f + Numbers.Unit(id, run.Seed, 7) * .38f), v);
                 if (frame.InLanding(p) || frame.InBoard(p, frame.request.style.boardMargin)) continue;
+                float anchorScale = minimumScale + (maximumScale - minimumScale) * (float)Math.Pow(Numbers.Unit(id, run.Seed, 8), 1.6f);
+                float angle = Numbers.Unit(id, run.Seed, 9) * 6.2831853f;
+                var axis = new V3((float)Math.Cos(angle), 0, (float)Math.Sin(angle));
                 var result = RockGenerator.Generate(new RockSpec { id = id, seed = run.Seed, rocks = shapes, alignToSurface = false, maximumSlope = 90,
-                    groups = new[] { new RockGroup { id = "bank", center = p, axis = frame.far, count = 1, radius = 0,
-                        minimumScale = minimumScale, maximumScale = maximumScale, buriedFraction = .15f } } }, run.context, cancellation);
+                    groups = new[] { new RockGroup { id = "bank", center = p, axis = axis, count = 1 + (int)(Numbers.Unit(id, run.Seed, 10) * 3), radius = .75f,
+                        minimumScale = minimumScale * .55f, maximumScale = anchorScale, buriedFraction = .12f + Numbers.Unit(id, run.Seed, 11) * .18f } } }, run.context, cancellation);
                 // Bank accents are optional; rejected stones cannot invalidate a valid crossing.
                 foreach (var issue in result.diagnostics) issue.error = false;
                 instances.AddRange(result.instances); diagnostics.AddRange(result.diagnostics);

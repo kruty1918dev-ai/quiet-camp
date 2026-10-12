@@ -14,6 +14,7 @@ namespace QuietCamp.Infrastructure
         public int width, height, seed;
         public float[] cameraEuler, cameraTarget, sunEuler;
         public float orthographicSize, cameraAspect, sunIntensity, streamCentre, streamWidth, streamSlope;
+        public float streamWidthVariation;
         public float streamBend = .32f, frameYaw = 225, bridgeFar = -1, landingRadius = .9f, meadowRelief = .13f, waterDepth = .64f, surroundExtent = 17.6f;
         public string waterMaterial = "QuietCamp/ArtCompositions/QC007Water", generation;
         public int generationAttempt;
@@ -32,7 +33,7 @@ namespace QuietCamp.Infrastructure
 
         public sealed class Model
         {
-            public string id;
+            public string id; public string shading;
             public float[] vertices, normals;
             public int[] colors;
         }

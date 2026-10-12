@@ -100,20 +100,20 @@ namespace QuietCamp.Infrastructure
             var stages = new List<ICompositionStage> { new CrossingStage(bridge, longX ? 0 : 90) };
             if (!string.IsNullOrEmpty(profile.boundary)) stages.Add(new BankBoundaryStage(Resolve(profile.boundary), profile.boundaryLengthRatio));
             stages.Add(new ShorelineRockStage(profile.rocks.assets.Select(Resolve).ToArray(), profile.rocks.interval, profile.rocks.minimumScale, profile.rocks.maximumScale));
+            stages.Add(PlantsStage(profile.flowers, CompositionHabitat.AccentMeadow));
             stages.Add(PlantsStage(profile.trees, CompositionHabitat.WoodlandFrame));
             stages.Add(PlantsStage(profile.reeds, CompositionHabitat.Shoreline));
-            stages.Add(PlantsStage(profile.flowers, CompositionHabitat.WoodlandFrame));
             if (profile.quality == null) throw new InvalidDataException("A composition quality profile is required.");
             plan = CompositionGenerator.Generate(new CompositionRequest { id = level.id, seed = seed, width = level.width, depth = level.height, style = profile.layout }, stages,
                 critic: new CompositionCritic(profile.quality));
-            if (!plan.Ok) throw new InvalidDataException("Composition rejected: " + string.Join("; ", plan.diagnostics.Where(d => d.error)));
+            if (!plan.Ok) throw new InvalidDataException("Composition rejected: " + string.Join("; ", plan.diagnostics.Where(d => d.error)) + " | " + string.Join("; ", plan.attempts.Select(a => a.attempt + ":" + string.Join(",", a.failures))));
             var layout = plan.layout;
             var result = new CampArtDefinition { levelId = level.id, width = level.width, height = level.height, seed = seed,
                 cameraEuler = new[] { profile.layout.pitch, profile.layout.yaw, 0 }, cameraTarget = new[] { layout.target.x, layout.target.y, layout.target.z },
                 cameraAspect = profile.layout.aspect, orthographicSize = layout.orthoSize, sunEuler = profile.sunEuler, sunIntensity = profile.sunIntensity,
                 sunColor = profile.sunColor, ambientColor = profile.ambientColor, groundLow = profile.groundLow, groundHigh = profile.groundHigh, soilColor = profile.soilColor,
                 streamCentre = layout.riverCentre, streamWidth = layout.riverWidth, streamSlope = profile.layout.riverSlope,
-                streamBend = profile.layout.riverBend, frameYaw = profile.layout.yaw, bridgeFar = layout.bridgeFar, landingRadius = profile.layout.landingRadius,
+                streamWidthVariation = profile.layout.riverWidthVariation, streamBend = profile.layout.riverBend, frameYaw = profile.layout.yaw, bridgeFar = layout.bridgeFar, landingRadius = profile.layout.landingRadius,
                 meadowRelief = profile.layout.meadowRelief, waterDepth = profile.layout.waterDepth,
                 surroundExtent = layout.extent,
                 waterMaterial = profile.waterMaterial, blurPixels = profile.blurPixels, exposure = profile.exposure, saturation = profile.saturation, contrast = profile.contrast,

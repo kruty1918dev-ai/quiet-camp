@@ -7,7 +7,7 @@ using Kruty1918.ScenePlacement.Composition;
 
 namespace Kruty1918.VegetationPlacement
 {
-    public enum CompositionHabitat { WoodlandFrame, Shoreline }
+    public enum CompositionHabitat { WoodlandFrame, Shoreline, AccentMeadow }
     [Serializable] public sealed class CompositionHabitatStyle
     {
         public float moistureFalloff = .35f, minimumMoisture = .2f, bankClearance = .1f;
@@ -49,6 +49,7 @@ namespace Kruty1918.VegetationPlacement
                 zone = new Box(V3.Zero, new V3(frame.extent, 1, frame.extent)), cellSize = CellSize,
                 density = Density, patchScale = style.patchScale, patchContrast = style.patchContrast, species = species }, run.context, new Fields(frame, Habitat, style), cancellation);
             run.Add(Id, result.instances, result.diagnostics);
+            if (Habitat == CompositionHabitat.AccentMeadow) run.ProtectVisibility(result.instances);
             if (result.instances.Count < MinimumCount) run.plan.diagnostics.Add(new Diagnostic("insufficient-habitat", Id, "Not enough readable plants in this habitat."));
         }
         sealed class Fields : IEnvironmentalFields
@@ -65,6 +66,7 @@ namespace Kruty1918.VegetationPlacement
                 if (!frame.InSupportedFrames(point)) return 0;
                 if (habitat == CompositionHabitat.Shoreline) return bank < style.shorelineBand ? 1 : 0;
                 float edge = Math.Max(Math.Abs(screen.x - .5f) / .5f, Math.Abs(screen.y - .5f) / .5f);
+                if (habitat == CompositionHabitat.AccentMeadow) return edge < .83f && bank > .7f && screen.y < .76f ? 1 : 0;
                 // Foreground framing and bank trees; the central meadow remains legible.
                 return edge > style.frameEdge || bank < style.treeBankBand ? 1 : style.interiorDensity;
             }

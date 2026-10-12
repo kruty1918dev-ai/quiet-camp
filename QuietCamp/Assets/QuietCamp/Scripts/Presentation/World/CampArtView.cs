@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using QuietCamp.Domain;
+using Kruty1918.ScenePlacement.Composition;
 using QuietCamp.Infrastructure;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -30,7 +31,7 @@ namespace QuietCamp.Presentation.World
             var shader = Resources.Load<Shader>("QuietCamp/CampArtLit");
             if (shader == null) throw new InvalidOperationException("Camp art lighting shader missing.");
             var material = new Material(shader) { name = "Camp art vertex palette" };
-            material.SetColor("_ArtAmbient", CampArtDefinition.Color(definition.ambientColor) * .48f);
+            material.SetColor("_ArtAmbient", CampArtDefinition.Color(definition.ambientColor) * .55f);
             _materials.Add(material);
             var catalogMeshes = new Dictionary<string, Mesh>(StringComparer.Ordinal);
             foreach (var source in definition.models)
@@ -48,7 +49,7 @@ namespace QuietCamp.Presentation.World
                 mesh.triangles = Enumerable.Range(0, count).ToArray(); mesh.RecalculateBounds();
                 _meshes.Add(mesh); catalogMeshes.Add(source.id, mesh);
             }
-            var batches = new List<CombineInstance>();
+            var batches = new List<CombineInstance>(); var foliageBatches = new List<CombineInstance>();
             foreach (var item in definition.instances)
             {
                 var position = new Vector3(item.x, item.y, item.z);
@@ -63,11 +64,18 @@ namespace QuietCamp.Presentation.World
                     foreach (var collider in instance.GetComponentsInChildren<Collider>()) DestroyOwned(collider);
                     foreach (var child in instance.GetComponentsInChildren<Transform>()) child.gameObject.layer = BoardRenderer.DecorLayer;
                 }
-                else batches.Add(new CombineInstance { mesh = catalogMeshes[item.modelId], transform = Matrix4x4.TRS(position, rotation, Vector3.one * item.scale) });
+                else (definition.models.First(m => m.id == item.modelId).shading == "foliage" ? foliageBatches : batches).Add(new CombineInstance { mesh = catalogMeshes[item.modelId], transform = Matrix4x4.TRS(position, rotation, Vector3.one * item.scale) });
             }
             var combined = new Mesh { name = "Authored camp trees, reeds and bridge", indexFormat = IndexFormat.UInt32 };
             combined.CombineMeshes(batches.ToArray(), true, true); _meshes.Add(combined);
             AddMesh("CampModels", combined, material);
+            if (foliageBatches.Count > 0)
+            {
+                var flowers = new Mesh { name = "Readable flower foliage", indexFormat = IndexFormat.UInt32 };
+                flowers.CombineMeshes(foliageBatches.ToArray(), true, true); _meshes.Add(flowers);
+                var flowerMaterial = new Material(material); flowerMaterial.SetFloat("_ArtGrass", 1); _materials.Add(flowerMaterial);
+                AddMesh("CampFlowerAccents", flowers, flowerMaterial);
+            }
             BuildGround(material);
             BuildGroundcover(material);
             BuildStream(material);
@@ -114,16 +122,24 @@ namespace QuietCamp.Presentation.World
         {
             var positions = new List<Vector3>(); var colors = new List<Color>(); var rng = new System.Random(Definition.seed);
             Vector3 At(float x, float z) => new Vector3(x, GroundHeight(x, z), z);
-            float step = Mathf.Max(.275f, Definition.surroundExtent / 64);
-            for (int x = -64; x < 64; x++) for (int z = -64; z < 64; z++)
+            var corners = new[] { ViewGround(-_level.width * .5f, -_level.height * .5f), ViewGround(-_level.width * .5f, _level.height * .5f),
+                ViewGround(_level.width * .5f, -_level.height * .5f), ViewGround(_level.width * .5f, _level.height * .5f) };
+            var pathStart = corners.OrderByDescending(p => p.x - p.y).First() + new Vector2(.25f, -.25f);
+            var pathDirection = new Vector2(_level.width * .22f, -_level.height * .75f);
+            float step = Mathf.Max(.15f, Definition.surroundExtent / 128);
+            for (int x = -128; x < 128; x++) for (int z = -128; z < 128; z++)
             {
                 float s = step; float wx = x * s, wz = z * s;
                 var uv = ViewGround(wx, wz);
                 float bank = Mathf.Abs(uv.x - StreamU(uv.y));
                 var color = Color.Lerp(CampArtDefinition.Color(Definition.groundLow), CampArtDefinition.Color(Definition.groundHigh), .4f);
-                if (bank < Definition.streamWidth * .5f + .22f) color = Color.Lerp(color, CampArtDefinition.Color(Definition.soilColor), .6f);
-                if (uv.x > 3.4f && uv.y < -3.6f && Mathf.Abs(uv.x - (4.1f - .12f * uv.y)) < .34f)
-                    color = Color.Lerp(color, CampArtDefinition.Color(Definition.soilColor), .75f);
+                float shore = bank - StreamWidth(uv.y) * .5f;
+                float wet = 1 - Mathf.SmoothStep(0, 1, Mathf.Max(0, shore) / .65f);
+                var bankColor = Color.Lerp(CampArtDefinition.Color(Definition.soilColor), CampArtDefinition.Color(0x65794E), .35f + .2f * Mathf.Sin(uv.y * .8f));
+                color = Color.Lerp(color, bankColor, wet * .62f);
+                float along = Mathf.Clamp01(Vector2.Dot(uv - pathStart, pathDirection) / pathDirection.sqrMagnitude);
+                float pathDistance = Vector2.Distance(uv, pathStart + pathDirection * along);
+                if (pathDistance < .34f && along > 0) color = Color.Lerp(color, CampArtDefinition.Color(Definition.soilColor), .65f * (1 - Mathf.SmoothStep(0, 1, pathDistance / .34f)));
                 Quad(positions, colors, At(wx, wz), At(wx, wz + s), At(wx + s, wz + s), At(wx + s, wz), color);
             }
             var groundMaterial = new Material(material); groundMaterial.SetFloat("_ArtGround", 1); _materials.Add(groundMaterial);
@@ -132,10 +148,10 @@ namespace QuietCamp.Presentation.World
         float GroundHeight(float x, float z)
         {
             var uv = ViewGround(x, z); float bank = Mathf.Abs(uv.x - StreamU(uv.y));
-            float channel = 1 - Mathf.SmoothStep(0, 1, Mathf.InverseLerp(Definition.streamWidth * .30f, Definition.streamWidth * .59f, bank));
+            float bed = RiverGeometry.Bed(bank, StreamWidth(uv.y), uv.y, uv.x - StreamU(uv.y));
             float margin = Mathf.Max(Mathf.Abs(x) - _level.width * .5f, Mathf.Abs(z) - _level.height * .5f);
             float relief = Mathf.SmoothStep(0, 1, margin * .5f) * Definition.meadowRelief * (.5f + .5f * Mathf.Sin(x * .55f) * Mathf.Cos(z * .68f));
-            return -.045f + relief - channel * Definition.waterDepth;
+            return -.045f + relief - bed * Definition.waterDepth;
         }
         void BuildGroundcover(Material material)
         {
@@ -181,7 +197,8 @@ namespace QuietCamp.Presentation.World
             var foliage = new Material(material); foliage.SetFloat("_ArtGrass", 1); _materials.Add(foliage);
             AddMesh("GeneratedGroundcover", MakeMesh("Ecological groundcover", vertices, colors), foliage);
         }
-        float StreamU(float v) => Definition.streamCentre + Definition.streamSlope * v + Mathf.Sin(v * .38f) * Definition.streamBend + Mathf.Sin(v * .83f) * Definition.streamBend * .34f;
+        float StreamWidth(float v) => RiverGeometry.Width(v, Definition.streamWidth, Definition.streamWidthVariation);
+        float StreamU(float v) => Definition.streamCentre + RiverGeometry.Centre(v, Definition.streamSlope, Definition.streamBend);
         Vector2 ViewGround(float x, float z)
         {
             float yaw = Definition.frameYaw * Mathf.Deg2Rad;
@@ -195,15 +212,16 @@ namespace QuietCamp.Presentation.World
         void BuildStream(Material baseMaterial)
         {
             var vertices = new List<Vector3>(); var colors = new List<Color>();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 240; i++)
             {
                 float length = Definition.surroundExtent * 1.5f;
-                float a = -length + i * (length * .02f), b = a + length * .02f, width = Definition.streamWidth * .5f + .22f;
-                for (int band = 0; band < 5; band++)
+                float a = -length + i * (length / 120), b = a + length / 120, width = Definition.streamWidth * .5f + .22f;
+                for (int band = 0; band < 12; band++)
                 {
-                    float low = -width + band * width * .4f, high = low + width * .4f;
-                    Quad(vertices, colors, GroundPoint(StreamU(a) + low, a, -.018f), GroundPoint(StreamU(b) + low, b, -.018f),
-                        GroundPoint(StreamU(b) + high, b, -.018f), GroundPoint(StreamU(a) + high, a, -.018f), Color.clear);
+                    float low = -1 + band / 6f, high = low + 1f / 6;
+                    float wa = StreamWidth(a) * .5f + .22f, wb = StreamWidth(b) * .5f + .22f;
+                    Quad(vertices, colors, GroundPoint(StreamU(a) + low * wa, a, -.075f), GroundPoint(StreamU(b) + low * wb, b, -.075f),
+                        GroundPoint(StreamU(b) + high * wb, b, -.075f), GroundPoint(StreamU(a) + high * wa, a, -.075f), Color.clear);
                 }
             }
             var source = Resources.Load<Material>(Definition.waterMaterial);
@@ -211,6 +229,13 @@ namespace QuietCamp.Presentation.World
             var water = new Material(source) { name = "QC007 Stylized Water 3 stream" }; _materials.Add(water);
             var mesh = MakeMesh("Stream ribbon", vertices, colors);
             mesh.SetUVs(0, vertices.Select(p => { var uv = ViewGround(p.x, p.z); return new Vector2((uv.x - StreamU(uv.y)) * .4f, uv.y * .4f); }).ToList());
+            mesh.SetColors(vertices.Select(p => {
+                float depth = Mathf.Max(0, p.y - GroundHeight(p.x, p.z));
+                var uv = ViewGround(p.x, p.z);
+                float shore = 1 - Mathf.SmoothStep(0, 1, depth / .14f);
+                float current = Mathf.Pow(.5f + .5f * Mathf.Sin(uv.y * 1.7f), 4);
+                return new Color(shore * .16f, Mathf.Exp(-depth * 4), 0, shore * .15f + current * .12f);
+            }).ToList());
             mesh.RecalculateTangents();
             AddMesh("ExteriorStream", mesh, water, false);
             var cameraData = _camera.GetUniversalAdditionalCameraData();

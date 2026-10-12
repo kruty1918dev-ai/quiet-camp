@@ -1,5 +1,8 @@
 # Композиція з автоматичним відбором — 12 жовтня 2026
 
+> Ці кадри історичні. Новий перегляд річки, берегів, повторень, соняхів і паркану:
+> [RiverReview — кадри та дев’ять циклів правок](../RiverReview/README-UA.md).
+
 [Методологія та схема систем](../METHODOLOGY-UA.md) описують повний шлях:
 профіль → surface/layout → структурні об'єкти → ecological placement →
 composition critic → краща допустима спроба → groundcover → host renderer.

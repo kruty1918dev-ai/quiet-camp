@@ -5,51 +5,53 @@
     "yaw": 219,
     "aspect": 1.5,
     "framing": 1.28,
-    "targetRight": -0.65,
+    "targetRight": -1.25,
     "targetFar": -0.2,
     "boardMargin": 0.22,
     "peakHeight": 1.4,
     "bankGap": 0.75,
     "riverWidthRatio": 0.225,
-    "riverSlope": -0.15,
-    "riverBend": 0.25,
+    "riverSlope": -0.3,
+    "riverBend": 0.48,
     "bridgeFarRatio": -0.14,
     "landingRadius": 0.8,
     "meadowRelief": 0.13,
     "waterDepth": 0.64,
     "attempts": 8,
     "minimumAspect": 0.5625,
-    "maximumAspect": 2
+    "maximumAspect": 2,
+    "riverWidthVariation": 0.22,
+    "riverFramingMarginRatio": 0.25
   },
   "sunEuler": [
-    52,
-    75,
+    48,
+    270,
     0
   ],
-  "sunIntensity": 1.4,
-  "sunColor": 16774366,
-  "ambientColor": 12899768,
-  "groundLow": 8558678,
-  "groundHigh": 10202217,
+  "sunIntensity": 1.25,
+  "sunColor": 16773332,
+  "ambientColor": 13096889,
+  "groundLow": 7899986,
+  "groundHigh": 10268007,
   "soilColor": 11507313,
-  "blurPixels": 2.5,
-  "exposure": 0.18,
+  "blurPixels": 2.8,
+  "exposure": 0.12,
   "saturation": 0,
-  "contrast": 7,
+  "contrast": 8,
   "waterMaterial": "QuietCamp/ArtCompositions/QC007Water",
   "bridge": "ua_plank_bridge",
   "trees": {
     "id": "woodland-frame",
-    "cellSize": 1.8,
+    "cellSize": 1.5,
     "density": 0.98,
-    "minimumCount": 12,
+    "minimumCount": 14,
     "species": [
       {
         "id": "ua_orchard_tree",
         "weight": 3,
         "minimumScale": 0.9,
-        "maximumScale": 1.25,
-        "spacing": 1.65
+        "maximumScale": 1.28,
+        "spacing": 1.3
       },
       {
         "id": "tree_default",
@@ -57,6 +59,13 @@
         "minimumScale": 0.9,
         "maximumScale": 1.5,
         "spacing": 1.3
+      },
+      {
+        "id": "ua_young_willow",
+        "weight": 1,
+        "minimumScale": 0.75,
+        "maximumScale": 1.05,
+        "spacing": 1.35
       }
     ],
     "fields": {
@@ -65,10 +74,10 @@
       "bankClearance": 0.1,
       "shorelineBand": 1.1,
       "treeBankBand": 1.5,
-      "frameEdge": 0.58,
-      "interiorDensity": 0.12,
+      "frameEdge": 0.43,
+      "interiorDensity": 0.3,
       "patchScale": 0.7,
-      "patchContrast": 0.65
+      "patchContrast": 0.5
     }
   },
   "reeds": {
@@ -89,25 +98,25 @@
       "moistureFalloff": 0.35,
       "minimumMoisture": 0.2,
       "bankClearance": 0.1,
-      "shorelineBand": 1.1,
+      "shorelineBand": 1.6,
       "treeBankBand": 1.5,
       "frameEdge": 0.58,
       "interiorDensity": 0.12,
-      "patchScale": 0.7,
-      "patchContrast": 0.65
+      "patchScale": 0.52,
+      "patchContrast": 0.85
     }
   },
   "flowers": {
     "id": "sunflower-accents",
-    "cellSize": 4.5,
-    "density": 0.65,
-    "minimumCount": 1,
+    "cellSize": 3.5,
+    "density": 0.8,
+    "minimumCount": 2,
     "species": [
       {
         "id": "ua_sunflower_patch",
         "weight": 1,
-        "minimumScale": 0.75,
-        "maximumScale": 0.95,
+        "minimumScale": 0.9,
+        "maximumScale": 1.18,
         "spacing": 2.1,
         "minimumYaw": 205,
         "maximumYaw": 230
@@ -129,26 +138,26 @@
     "assets": [
       "stone_largeA"
     ],
-    "interval": 2.1,
-    "minimumScale": 1.15,
-    "maximumScale": 1.9
+    "interval": 1.65,
+    "minimumScale": 0.6,
+    "maximumScale": 1.65
   },
   "boundary": "ua_wattle_fence",
   "boundaryLengthRatio": 0.3,
   "groundcover": {
     "cellSize": 0.24,
-    "density": 0.72,
-    "shorelineDensity": 0.95,
-    "bankBand": 1.2,
-    "flowerFraction": 0.055,
+    "density": 0.8,
+    "shorelineDensity": 0.94,
+    "bankBand": 1.55,
+    "flowerFraction": 0.085,
     "minimumHeight": 0.065,
     "maximumHeight": 0.18,
     "maximumSpan": 0.18,
-    "bankHeight": 0.3,
-    "bankSpan": 0.34,
+    "bankHeight": 0.32,
+    "bankSpan": 0.38,
     "bladeCellSize": 0.18,
     "bladeDensity": 0.55,
-    "maximumCandidates": 300000,
+    "maximumCandidates": 600000,
     "leafSpan": 0.11,
     "leafHeight": 0.09
   },
@@ -157,9 +166,9 @@
     "roles": [
       {
         "stage": "woodland-frame",
-        "minimumVisible": 6,
-        "targetVisible": 12,
-        "maximumVisible": 28,
+        "minimumVisible": 8,
+        "targetVisible": 16,
+        "maximumVisible": 35,
         "minimumQuadrants": 3,
         "weight": 3,
         "minimumArea": 0.12,
@@ -183,20 +192,31 @@
         "stage": "shoreline-rocks",
         "minimumVisible": 5,
         "targetVisible": 16,
-        "maximumVisible": 28,
+        "maximumVisible": 42,
         "minimumQuadrants": 2,
         "weight": 1,
-        "minimumArea": 0.015,
-        "maximumArea": 0.3
+        "minimumArea": 0.003,
+        "maximumArea": 0.2
       },
       {
         "stage": "sunflower-accents",
-        "minimumVisible": 1,
+        "minimumVisible": 2,
         "targetVisible": 3,
         "maximumVisible": 8,
         "minimumQuadrants": 1,
-        "weight": 0.5,
-        "maximumArea": 0.1
+        "weight": 1,
+        "maximumArea": 0.15,
+        "minimumArea": 0.003
+      },
+      {
+        "stage": "bank-boundary",
+        "minimumVisible": 1,
+        "targetVisible": 1,
+        "maximumVisible": 1,
+        "minimumQuadrants": 1,
+        "minimumArea": 0.003,
+        "maximumArea": 0.07,
+        "weight": 1
       }
     ]
   }

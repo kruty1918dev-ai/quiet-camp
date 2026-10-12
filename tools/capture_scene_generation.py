@@ -24,6 +24,8 @@ def main():
     output.mkdir(parents=True, exist_ok=True)
     receipt = output / (args.name + ".json")
     previous = receipt.stat().st_mtime_ns if receipt.exists() else 0
+    result = temp / "qc007-art-result.json"
+    previous_result = result.stat().st_mtime_ns if result.exists() else 0
     payload = dict(mode=args.mode, levelId=args.level, profile="riparian-clearing", seed=args.seed,
                    name=args.name, width=args.width, height=args.height, output=output.as_posix())
     staging = temp / "qc007-art-request.pending"
@@ -36,7 +38,7 @@ def main():
             print(f"Captured {args.name}: {data['width']}x{data['height']}, {data['kind']}")
             return
         result = temp / "qc007-art-result.json"
-        if not request.exists() and result.exists():
+        if not request.exists() and result.exists() and result.stat().st_mtime_ns != previous_result:
             data = json.loads(result.read_text(encoding="utf-8-sig"))
             if data.get("status") == "error":
                 raise SystemExit(data["error"])

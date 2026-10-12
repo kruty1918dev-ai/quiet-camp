@@ -34,6 +34,7 @@ namespace QuietCamp.Editor
             {
                 var request = JsonConvert.DeserializeObject<Request>(File.ReadAllText(RequestPath));
                 File.Delete(RequestPath);
+                if (UnityEditor.EditorUtility.scriptCompilationFailed) throw new InvalidOperationException("Capture refused: Unity script compilation failed; loaded assemblies may be stale.");
                 if (request.mode == "capture") Capture(request);
                 else if (request.mode == "tests") RunTests();
                 else if (request.mode == "game-start") StartGame();
@@ -156,18 +157,32 @@ namespace QuietCamp.Editor
         static string Hash(byte[] bytes) { using var hash = SHA256.Create(); return BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant(); }
         static object SourceReceipt(CampArtDefinition art)
         {
+            var catalog = AssetCatalog.Load();
             var paths = new[] { "Assets/QuietCamp/Scripts/Infrastructure/CampArtDefinition.cs", "Assets/QuietCamp/Scripts/Infrastructure/CampCompositionGenerator.cs",
                 "Assets/QuietCamp/Scripts/Presentation/World/CampArtView.cs", "Assets/QuietCamp/Scripts/Presentation/World/BoardRenderer.cs",
                 "Assets/QuietCamp/Scripts/Presentation/World/CampArtEdgeBlur.cs", "Assets/QuietCamp/Scripts/Presentation/World/CampAtmosphere.cs",
                 "Assets/QuietCamp/Resources/QuietCamp/CampArtLit.shader", "Assets/QuietCamp/Resources/QuietCamp/CampArtEdgeBlur.shader",
                 "Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/Profiles/" + art.generation + ".json",
-                "Assets/QuietCamp/Settings/URP/QC_Renderer.asset" }
+                "Assets/QuietCamp/Settings/URP/QC_Renderer.asset", "Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/CampModelLibrary.json",
+                "Assets/QuietCamp/Scripts/Presentation/QuietCamp.Presentation.asmdef", "Assets/QuietCamp/Editor/QC007ArtCapture.cs" }
                 .Concat(new[] { "scene-placement", "vegetation-placement", "rock-placement" }.SelectMany(id => Directory.GetFiles("Packages/com.kruty1918." + id + "/Runtime/Core", "*.cs")))
                 .Concat(AssetDatabase.GetDependencies(AssetDatabase.GetAssetPath(Resources.Load<Material>(art.waterMaterial)), true))
                 .Concat(AssetDatabase.GetDependencies("Assets/QuietCamp/Resources/QuietCamp/CozyVegetationLibrary.asset", true))
-                .Where(File.Exists).Distinct().OrderBy(p => p, StringComparer.Ordinal).ToArray();
+                .Concat(art.instances.Where(i => !string.IsNullOrEmpty(i.assetId)).Select(i => i.assetId).Distinct().SelectMany(id => AssetDatabase.GetDependencies(AssetDatabase.GetAssetPath(catalog.Prefab(id)), true)))
+                .Select(path => path.Replace('\\', '/')).Where(File.Exists).Distinct().OrderBy(p => p, StringComparer.Ordinal).ToArray();
             return new { resolvedArtSha256 = Hash(System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(art))),
+                assemblies = new[] { typeof(CampArtView).Assembly, typeof(CampCompositionGenerator).Assembly }.Select(a => new { name = a.GetName().Name, moduleVersion = a.ManifestModule.ModuleVersionId.ToString(), sha256 = Hash(File.ReadAllBytes(a.Location)) }).ToArray(),
                 sources = paths.Select(path => new { path, sha256 = Hash(File.ReadAllBytes(path)) }).ToArray() };
+        }
+        static object WaterEvidence(GameObject root)
+        {
+            var river = root.GetComponentsInChildren<MeshRenderer>().First(r => r.name == "ExteriorStream");
+            var m = river.sharedMaterial; var mesh = river.GetComponent<MeshFilter>().sharedMesh;
+            return new { shader = m.shader.name, keywords = m.shaderKeywords,
+                properties = new[] { "_FogSource", "_IntersectionSource", "_FoamBaseAmount", "_FoamStrength", "_VertexColorFoam", "_SlopeFoam", "_IntersectionSharp", "_BaseColor" }.ToDictionary(k => k, k => k == "_BaseColor" ? (object)new[] { m.GetColor(k).r, m.GetColor(k).g, m.GetColor(k).b } : m.GetFloat(k)),
+                normals = new[] { mesh.normals[0].y, mesh.normals[mesh.vertexCount / 2].y },
+                colorMinimum = new[] { mesh.colors.Min(c => c.r), mesh.colors.Min(c => c.g), mesh.colors.Min(c => c.b), mesh.colors.Min(c => c.a) },
+                colorMaximum = new[] { mesh.colors.Max(c => c.r), mesh.colors.Max(c => c.g), mesh.colors.Max(c => c.b), mesh.colors.Max(c => c.a) } };
         }
         static void Capture(Request request)
         {
@@ -225,7 +240,7 @@ namespace QuietCamp.Editor
                     width = request.width, height = request.height, levelId = level.id, contentHash = level.contentHash,
                     imageSha256 = Hash(bytes), artSha256 = Hash(File.ReadAllBytes("Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/QC007.json")),
                     cameraEuler = art.cameraEuler, cameraPosition = new[] { camera.transform.position.x, camera.transform.position.y, camera.transform.position.z }, camera.orthographicSize,
-                    sourceMeshes = art.models.Select(model => model.id).ToArray(), instances = art.instances.Length, triangles = view.TriangleCount,
+                    waterEvidence = WaterEvidence(root), sourceMeshes = art.models.Select(model => model.id).ToArray(), instances = art.instances.Length, triangles = view.TriangleCount,
                     profile = art.generation, generationAttempt = art.generationAttempt, seed = art.seed, effectiveSeed = art.generationSeed,
                     review = art.review, attempts = art.attempts, sourceReceipt = SourceReceipt(art),
                     sunEuler = art.sunEuler, art.sunIntensity, art.blurPixels, warmupFrames = 3, capturedUtc = DateTime.UtcNow.ToString("o"), playerBuild = false, shaderErrors = errors };

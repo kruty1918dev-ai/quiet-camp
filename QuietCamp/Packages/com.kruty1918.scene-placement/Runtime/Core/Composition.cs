@@ -14,20 +14,41 @@ namespace Kruty1918.ScenePlacement.Composition
         public float boardMargin = .28f, peakHeight = 1.6f, bankGap = .65f, riverWidthRatio = .32f;
         public float riverSlope = -.19f, riverBend = .32f, bridgeFarRatio = -.14f, landingRadius = .8f;
         public float meadowRelief = .12f, waterDepth = .64f;
+        public float riverWidthVariation, riverFramingMarginRatio;
         public int attempts = 6;
         public CompositionStyle Snapshot() => (CompositionStyle)MemberwiseClone();
         public void Validate()
         {
             var values = new[] { pitch, yaw, aspect, minimumAspect, maximumAspect, framing, targetRight, targetFar, boardMargin, peakHeight,
-                bankGap, riverWidthRatio, riverSlope, riverBend, bridgeFarRatio, landingRadius, meadowRelief, waterDepth };
+                bankGap, riverWidthRatio, riverSlope, riverBend, bridgeFarRatio, landingRadius, meadowRelief, waterDepth, riverWidthVariation, riverFramingMarginRatio };
             if (string.IsNullOrWhiteSpace(id) || values.Any(v => !Numbers.Finite(v)) || pitch < 30 || pitch > 80
                 || aspect < .25f || aspect > 4 || framing < 1 || framing > 2 || boardMargin < 0 || peakHeight <= 0
                 || minimumAspect < .25f || minimumAspect > aspect || maximumAspect < aspect || maximumAspect > 4
                 || bankGap < .2f || riverWidthRatio < .1f || riverWidthRatio > .6f || Math.Abs(riverSlope) > .35f
                 || riverBend < 0 || riverBend > 1 || Math.Abs(bridgeFarRatio) > .75f || landingRadius < .3f
+                || riverFramingMarginRatio < 0 || riverFramingMarginRatio > .4f
+                || riverWidthVariation < 0 || riverWidthVariation > .3f
                 || meadowRelief < 0 || meadowRelief > .4f || waterDepth < .1f || waterDepth > 2
                 || attempts < 1 || attempts > 16)
                 throw new ArgumentException("Composition style requires finite bounded geometry, framing and search budgets.");
+        }
+    }
+    // The host mesh and placement surface consume the same cross-section and curves.
+    public static class RiverGeometry
+    {
+        public static float Centre(float v, float slope, float bend) => slope * v
+            - (float)Math.Sin(v * .38f) * bend - (float)Math.Sin(v * .83f) * bend * .34f;
+        public static float Tangent(float v, float slope, float bend) => slope
+            - bend * (.38f * (float)Math.Cos(v * .38f) + .2822f * (float)Math.Cos(v * .83f));
+        public static float Width(float v, float width, float variation) => width
+            * (1 + variation * (.65f * (float)Math.Sin(v * .48f) + .35f * (float)Math.Sin(v * 1.06f + 1.2f)));
+        public static float Bed(float distance, float width, float v, float side)
+        {
+            float radius = distance / width;
+            float shelf = .43f + .02f * (float)Math.Sin(v * .75f + Math.Sign(side) * 2.1f);
+            float edge = .60f + .018f * (float)Math.Sin(v * 1.1f + Math.Sign(side));
+            return .18f * (1 - Numbers.Smooth((radius - shelf) / (edge - shelf)))
+                + .82f * (1 - Numbers.Smooth((radius - .24f) / (shelf - .24f)));
         }
     }
     public sealed class CompositionRequest
@@ -66,12 +87,18 @@ namespace Kruty1918.ScenePlacement.Composition
                 var corner = new V3(x, 0, z);
                 shoreSupport = Math.Min(shoreSupport, V3.Dot(corner, right) - input.style.riverSlope * V3.Dot(corner, far));
             }
-            riverCentre = shoreSupport - riverWidth * .5f - input.style.bankGap - input.style.riverBend * 1.34f;
+            riverCentre = shoreSupport - riverWidth * .5f * (1 + input.style.riverWidthVariation) - input.style.bankGap - input.style.riverBend * 1.34f;
             bridgeFar = span * input.style.bridgeFarRatio;
             target = Point(input.style.targetRight, input.style.targetFar);
             // Project the gameplay bounds and retain room for its surroundings.
             float vertical = (Math.Abs(far.x) * input.width + Math.Abs(far.z) * input.depth) * (float)Math.Sin(input.style.pitch * Numbers.Radians);
             orthoSize = Math.Max(vertical * .5f + input.style.peakHeight, support / input.style.aspect) * input.style.framing;
+            if (input.style.riverFramingMarginRatio > 0)
+            {
+                float accentFar = bridgeFar + input.style.landingRadius + span * .15f + .2f;
+                float left = River(accentFar) - WidthAt(accentFar) * .5f - span * input.style.riverFramingMarginRatio;
+                orthoSize = Math.Max(orthoSize, (input.style.targetRight - left) / input.style.aspect);
+            }
             float horizontal = orthoSize * input.style.maximumAspect;
             float verticalGround = orthoSize * input.style.aspect / input.style.minimumAspect / (float)Math.Sin(input.style.pitch * Numbers.Radians);
             extent = Math.Max(Math.Abs(right.x) * horizontal + Math.Abs(far.x) * verticalGround,
@@ -79,9 +106,10 @@ namespace Kruty1918.ScenePlacement.Composition
         }
         public V3 Point(float u, float v, float y = 0) => right * u + far * v + V3.Up * y;
         public V2 Ground(V3 p) => new V2(V3.Dot(p, right), V3.Dot(p, far));
-        public float River(float v) => riverCentre + request.style.riverSlope * v
-            + (float)Math.Sin(v * .38f) * request.style.riverBend + (float)Math.Sin(v * .83f) * request.style.riverBend * .34f;
-        public float BankDistance(V3 p) { var uv = Ground(p); return Math.Abs(uv.x - River(uv.y)) - riverWidth * .5f; }
+        public float River(float v) => riverCentre + RiverGeometry.Centre(v, request.style.riverSlope, request.style.riverBend);
+        public float WidthAt(float v) => RiverGeometry.Width(v, riverWidth, request.style.riverWidthVariation);
+        public float RiverTangent(float v) => RiverGeometry.Tangent(v, request.style.riverSlope, request.style.riverBend);
+        public float BankDistance(V3 p) { var uv = Ground(p); return Math.Abs(uv.x - River(uv.y)) - WidthAt(uv.y) * .5f; }
         public bool InLanding(V3 p)
         {
             var uv = Ground(p); return Math.Abs(uv.y - bridgeFar) < request.style.landingRadius
@@ -91,10 +119,10 @@ namespace Kruty1918.ScenePlacement.Composition
         public float Height(float x, float z)
         {
             var p = new V3(x, 0, z); var uv = Ground(p); float distance = Math.Abs(uv.x - River(uv.y));
-            float channel = 1 - Numbers.Smooth((distance - riverWidth * .30f) / (riverWidth * .29f));
+            float bed = RiverGeometry.Bed(distance, WidthAt(uv.y), uv.y, uv.x - River(uv.y));
             float margin = Math.Max(Math.Abs(x) - request.width * .5f, Math.Abs(z) - request.depth * .5f);
             float relief = Numbers.Smooth(margin * .5f) * request.style.meadowRelief * (.5f + .5f * (float)Math.Sin(x * .55f) * (float)Math.Cos(z * .68f));
-            return -.045f + relief - channel * request.style.waterDepth;
+            return -.045f + relief - bed * request.style.waterDepth;
         }
         public bool TrySample(V3 p, V3 direction, out SurfaceSample sample)
         {
@@ -263,9 +291,9 @@ namespace Kruty1918.ScenePlacement.Composition
         {
             var layout = run.Layout; float v = layout.bridgeFar;
             float length = bridge.volumes.Max(b => Math.Max(b.half.x, b.half.z) * 2);
-            float scale = (layout.riverWidth + layout.request.style.landingRadius) / length;
+            float scale = (layout.WidthAt(v) + layout.request.style.landingRadius) / (float)Math.Sqrt(1 + layout.RiverTangent(v) * layout.RiverTangent(v)) / length;
             var result = PlacementSolver.Place(new PlacementRequest { id = Id + "/bridge", owner = Id, shape = bridge,
-                target = layout.Point(layout.River(v), v), yaw = layout.request.style.yaw + longAxisYaw,
+                target = layout.Point(layout.River(v), v), yaw = layout.request.style.yaw + longAxisYaw + (float)Math.Atan(layout.RiverTangent(v)) / Numbers.Radians,
                 scale = scale, maxSupportGap = .18f, maxSlope = 90, seed = run.Seed }, run.context, cancellation);
             run.Add(Id, result.instances, result.diagnostics);
             if (result.Ok)
@@ -284,19 +312,24 @@ namespace Kruty1918.ScenePlacement.Composition
         public BankBoundaryStage(AssetShape shape, float lengthRatio = .3f)
         {
             if (shape == null || !Numbers.Finite(lengthRatio) || lengthRatio <= 0 || lengthRatio > 1) throw new ArgumentException("Invalid bank boundary.");
-            this.shape = shape; this.lengthRatio = lengthRatio;
+            this.shape = shape.Snapshot(); this.lengthRatio = lengthRatio;
         }
         public void Generate(CompositionRun run, CancellationToken cancellation)
         {
             var frame = run.Layout; var bounds = shape.volumes[0]; bool longX = bounds.half.x > bounds.half.z;
             float scale = frame.span * lengthRatio / (2 * Math.Max(bounds.half.x, bounds.half.z));
             float v = frame.bridgeFar + frame.request.style.landingRadius + frame.span * lengthRatio * .5f + .2f;
-            var p = frame.Point(frame.River(v) + frame.riverWidth * .5f + .45f, v);
+            // Open the long face towards the view, while keeping both ends on dry bank.
+            float opening = 30 * Numbers.Radians;
+            float halfLength = frame.span * lengthRatio * .5f;
+            float clearance = halfLength * ((float)Math.Sin(opening) + Math.Abs(frame.request.style.riverSlope) * (float)Math.Cos(opening)) + .3f;
+            var p = frame.Point(frame.River(v) - frame.WidthAt(v) * .5f - clearance, v);
             var result = PlacementSolver.Place(new PlacementRequest { id = Id + "/section", owner = Id, shape = shape, target = p,
-                scale = scale, yaw = frame.request.style.yaw + (longX ? 90 : 0), maxSlope = 65, maxSupportGap = .16f,
+                scale = scale, yaw = frame.request.style.yaw + (longX ? 60 : -30), maxSlope = 65, maxSupportGap = .20f,
                 searchRadius = .5f, candidates = 32, seed = run.Seed, required = false }, run.context, cancellation);
             foreach (var diagnostic in result.diagnostics) diagnostic.error = false;
             run.Add(Id, result.instances, result.diagnostics);
+            if (result.Ok) run.ProtectVisibility(result.instances);
         }
     }
 }
