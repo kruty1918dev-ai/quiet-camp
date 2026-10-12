@@ -23,6 +23,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         BoardRenderer _board;
         Transform _boardRoot;
         readonly List<Mesh> _batches = new List<Mesh>();
+        readonly Dictionary<Material,Material> _previewMaterials = new Dictionary<Material,Material>();
         GameObject _batchRoot;
         Mesh _paintMesh;
         string _terrainKey;
@@ -32,6 +33,8 @@ namespace QuietCamp.Editor.LevelAuthoring
         public LevelAuthoringWorkspace(LevelAuthoringDocument document)
         {
             Document = document;
+            try
+            {
             // Open a saved empty template, so an existing unsaved Untitled scene is preserved.
             const string cache = "Assets/QuietCamp/Editor/LevelAuthoring/Workspaces";
             System.IO.Directory.CreateDirectory(cache);
@@ -60,6 +63,8 @@ namespace QuietCamp.Editor.LevelAuthoring
             RefreshBoard(); RefreshPlantBatches();
             EditorSceneManager.SetActiveScene(scene);
             Frame();
+            }
+            catch { Dispose(); throw; }
         }
         static Transform Child(string name, Transform parent)
         {
@@ -73,6 +78,11 @@ namespace QuietCamp.Editor.LevelAuthoring
             go.transform.localRotation = item.rotationEuler != null ? Quaternion.Euler(CampArtDefinition.Vector(item.rotationEuler)) : Quaternion.Euler(0, item.yaw, 0);
             var scale = item.scaleXYZ != null ? CampArtDefinition.Vector(item.scaleXYZ) : Vector3.one * item.scale;
             go.transform.localScale = entry.model != null ? scale : Vector3.Scale(go.transform.localScale, scale);
+            var marker=go.GetComponent<LevelAuthoringAsset>(); marker.instanceId=item.id??("authored/"+Guid.NewGuid().ToString("N"));
+            marker.sourcePose=item; marker.capturedPosition=go.transform.localPosition;
+            marker.capturedRotation=go.transform.localRotation;
+            marker.capturedScale=marker.packedModel?go.transform.localScale:scale;
+            ApplyPreviewMaterial(marker);
             if (undo) Undo.RegisterCreatedObjectUndo(go, "Додати декор"); return go;
         }
         void MaterializeCover(CampArtDefinition.CoverPoint[] cover)
@@ -100,9 +110,11 @@ namespace QuietCamp.Editor.LevelAuthoring
                 var view = Camera.gameObject.AddComponent<CampArtView>(); view.Configure(background, document.level, Root.transform, AssetCatalog.Load());
                 UpdateSurface(); _terrainKey = TerrainKey(document);
             }
-            Camera.transform.rotation = Quaternion.Euler(CampArtDefinition.Vector(document.art.cameraEuler));
-            float distance = 18; Camera.transform.position = CampArtDefinition.Vector(document.art.cameraTarget) - Camera.transform.forward * distance;
-            Camera.orthographicSize = document.art.orthographicSize;
+            var cameraView=Camera.GetComponent<CampArtView>();
+            cameraView.Definition.cameraEuler=document.art.cameraEuler;
+            cameraView.Definition.cameraTarget=document.art.cameraTarget;
+            cameraView.Definition.orthographicSize=document.art.orthographicSize;
+            cameraView.FitCamera(new Rect(0,0,1,1));
             var sun = Root.GetComponentInChildren<Light>(); sun.transform.rotation = Quaternion.Euler(CampArtDefinition.Vector(document.art.sunEuler)); sun.intensity = document.art.sunIntensity;
         }
         static string TerrainKey(LevelAuthoringDocument d) => string.Join("/", d.level.width, d.level.height, d.art.streamCentre, d.art.streamWidth, d.art.streamSlope, d.art.streamBend, d.art.meadowRelief, d.art.waterDepth,d.art.blurPixels);
@@ -130,15 +142,26 @@ namespace QuietCamp.Editor.LevelAuthoring
             var markers = Scenery.GetComponentsInChildren<LevelAuthoringAsset>();
             copy.art.instances = markers.Select((m, i) =>
             {
-                var p = Root.transform.InverseTransformPoint(m.transform.position);
-                var rotation = Quaternion.Inverse(Root.transform.rotation) * m.transform.rotation;
-                var scale = m.transform.localScale;
-                // PWB subparents are disabled by the adapter; support user-created groups too.
-                for (var parent = m.transform.parent; parent != Scenery && parent != null; parent = parent.parent) scale = Vector3.Scale(scale, parent.localScale);
+                var matrix=Root.transform.worldToLocalMatrix*m.transform.localToWorldMatrix;
+                Vector3 a=matrix.GetColumn(0),b=matrix.GetColumn(1),c=matrix.GetColumn(2);
+                if(matrix.determinant<=0||Mathf.Abs(Vector3.Dot(a.normalized,b.normalized))>.0001f||Mathf.Abs(Vector3.Dot(a.normalized,c.normalized))>.0001f||Mathf.Abs(Vector3.Dot(b.normalized,c.normalized))>.0001f)
+                    throw new InvalidOperationException("Розгрупуйте об’єкти зі скошеним або дзеркальним масштабом перед збереженням.");
+                Vector3 p=matrix.GetColumn(3);var rotation=matrix.rotation;var scale=matrix.lossyScale;
                 if (!m.packedModel) scale = new Vector3(scale.x / m.baseScale.x, scale.y / m.baseScale.y, scale.z / m.baseScale.z);
                 var euler = rotation.eulerAngles;
-                return new CampArtDefinition.Instance { id = "authored/" + i, modelId = m.packedModel ? m.stableId : null, assetId = m.packedModel ? null : m.stableId,
+                if(string.IsNullOrEmpty(m.instanceId))m.instanceId="authored/"+Guid.NewGuid().ToString("N");
+                var source=m.sourcePose;
+                // Keep the saved pose exactly when Unity only round-tripped its quaternion.
+                // Moving/scaling/rotating an object replaces this transient cache on capture.
+                var q=m.capturedRotation;
+                var difference=new Vector4(rotation.x-q.x,rotation.y-q.y,rotation.z-q.z,rotation.w-q.w);
+                var negated=new Vector4(rotation.x+q.x,rotation.y+q.y,rotation.z+q.z,rotation.w+q.w);
+                bool same=source!=null&&(p-m.capturedPosition).sqrMagnitude<1e-12f&&(scale-m.capturedScale).sqrMagnitude<1e-12f&&Mathf.Min(difference.sqrMagnitude,negated.sqrMagnitude)<1e-12f;
+                var item = new CampArtDefinition.Instance { id = m.instanceId, modelId = m.packedModel ? m.stableId : null, assetId = m.packedModel ? null : m.stableId,
                     x = p.x, y = p.y, z = p.z, yaw = euler.y, scale = scale.x, rotationEuler = new[] { euler.x, euler.y, euler.z }, scaleXYZ = new[] { scale.x, scale.y, scale.z } };
+                if(same) {item.x=source.x;item.y=source.y;item.z=source.z;item.yaw=source.yaw;item.scale=source.scale;item.rotationEuler=source.rotationEuler;item.scaleXYZ=source.scaleXYZ;}
+                m.sourcePose=item;m.capturedPosition=p;m.capturedRotation=rotation;m.capturedScale=scale;
+                return item;
             }).ToArray();
             copy.art.models = markers.Where(m => m.packedModel).Select(m => m.stableId).Distinct().Select(id => LevelAuthoringPalette.Get(id).model).ToArray();
             copy.art.cover = Array.Empty<CampArtDefinition.CoverPoint>(); copy.art.levelId = copy.level.id;
@@ -159,7 +182,9 @@ namespace QuietCamp.Editor.LevelAuthoring
             if (_batchRoot != null) UnityEngine.Object.DestroyImmediate(_batchRoot);
             foreach (var mesh in _batches) UnityEngine.Object.DestroyImmediate(mesh); _batches.Clear();
             _batchRoot = Child("Пакети дрібної зелені — preview", Root.transform).gameObject; _batchRoot.hideFlags = HideFlags.DontSave;
-            var plants = Scenery.GetComponentsInChildren<LevelAuthoringAsset>().Where(m => m.smallPlant).ToArray();
+            var all=Scenery.GetComponentsInChildren<LevelAuthoringAsset>();
+            foreach(var marker in all)ApplyPreviewMaterial(marker);
+            var plants = all.Where(m => m.smallPlant).ToArray();
             foreach (var group in plants.GroupBy(p => p.GetComponent<MeshRenderer>().sharedMaterial))
             {
                 var parts = group.ToArray();
@@ -175,6 +200,19 @@ namespace QuietCamp.Editor.LevelAuthoring
                 }
             }
         }
+        void ApplyPreviewMaterial(LevelAuthoringAsset marker)
+        {
+            if(!marker.packedModel)return;
+            var renderer=marker.GetComponent<MeshRenderer>();var source=renderer.sharedMaterial;
+            if(_previewMaterials.Values.Contains(source))return;
+            if(!_previewMaterials.TryGetValue(source,out var preview))
+            {
+                preview=new Material(source){name="Authoring composition lighting"};
+                preview.SetColor("_ArtAmbient",CampArtDefinition.Color(Document.art.ambientColor)*.55f);
+                _previewMaterials.Add(source,preview);
+            }
+            renderer.sharedMaterial=preview;
+        }
         public void Frame()
         {
             var view = SceneView.lastActiveSceneView ?? EditorWindow.GetWindow<SceneView>();
@@ -188,6 +226,8 @@ namespace QuietCamp.Editor.LevelAuthoring
             foreach (var mesh in _batches) if (mesh != null) UnityEngine.Object.DestroyImmediate(mesh); _batches.Clear();
             if (Root != null) { var scene = Root.scene; UnityEngine.Object.DestroyImmediate(Root); if (scene.IsValid() && scene.isLoaded) EditorSceneManager.CloseScene(scene, true); }
             if (!string.IsNullOrEmpty(_scenePath)) AssetDatabase.DeleteAsset(_scenePath);
+            foreach(var material in _previewMaterials.Values)if(material!=null)UnityEngine.Object.DestroyImmediate(material);
+            _previewMaterials.Clear();
         }
     }
 }

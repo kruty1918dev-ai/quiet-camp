@@ -30,7 +30,15 @@ public sealed class PwbLevelAuthoringAdapter : IPlacementToolAdapter
         var marker = prefab.GetComponent<LevelAuthoringAsset>();
         int index = Array.FindIndex(palette.brushes, b => b.name == marker.stableId);
         if (index < 0) throw new InvalidOperationException("Model is missing from the QuietCamp PWB palette.");
-        PaletteManager.SelectBrush(index);
+        bool brushPopup=PWBCore.staticData.openBrushPropertiesWhenABrushIsSelected;
+        bool toolPopup=PWBCore.staticData.openToolPropertiesWhenAToolIsSelected;
+        PWBCore.staticData.openBrushPropertiesWhenABrushIsSelected=false;
+        PWBCore.staticData.openToolPropertiesWhenAToolIsSelected=false;
+        try
+        {
+        // SelectBrush depends on the optional native Palette window and its filters.
+        // The public index API avoids depending on the native window's search filters.
+        PaletteManager.ClearSelection(false); PaletteManager.selectedBrushIdx=index; PaletteManager.AddToSelection(index);
         Setup(BrushManager.settings, parent, variation); Setup(PinManager.settings, parent, variation); Setup(LineManager.settings, parent, 0);
         BrushManager.settings.radius = radius; BrushManager.settings.density = Mathf.RoundToInt(density);
         BrushManager.settings.spacingType = BrushToolBase.SpacingType.CUSTOM; BrushManager.settings.minSpacing = spacing;
@@ -42,7 +50,18 @@ public sealed class PwbLevelAuthoringAdapter : IPlacementToolAdapter
         EraserManager.settings.modifyAllButSelected = false;
         Selection.activeGameObject = surface;
         ToolController.current = tool == PlacementTool.Paint ? ToolController.Tool.BRUSH : tool == PlacementTool.Place ? ToolController.Tool.PIN : tool == PlacementTool.Line ? ToolController.Tool.LINE : ToolController.Tool.ERASER;
+        // PWB opens its native palette when activating a tool; OnEnable clears
+        // brush selection. Reapply our choice after that lifecycle completes.
+        PaletteManager.selectedPalette=PaletteManager.allPalettes.First(p=>p.name=="QuietCamp — декор");
+        index=Array.FindIndex(PaletteManager.selectedPalette.brushes,b=>b.name==marker.stableId);
+        PaletteManager.ClearSelection(false); PaletteManager.selectedBrushIdx=index; PaletteManager.AddToSelection(index);
         SceneView.RepaintAll();
+        }
+        finally
+        {
+            PWBCore.staticData.openBrushPropertiesWhenABrushIsSelected=brushPopup;
+            PWBCore.staticData.openToolPropertiesWhenAToolIsSelected=toolPopup;
+        }
     }
     static void Setup(IPaintToolSettings settings, Transform parent, float variation)
     {

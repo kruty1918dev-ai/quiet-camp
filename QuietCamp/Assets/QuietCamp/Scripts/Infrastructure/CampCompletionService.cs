@@ -17,6 +17,11 @@ namespace QuietCamp.Infrastructure
         {
             if (session == null || !RuleEvaluator.Evaluate(session.Level, session.State.Placements).IsSolved) return false;
             var level = session.Level;
+#if UNITY_EDITOR
+            // A validated authoring puzzle is outside the published journey catalog.
+            // CampSession still owns completion; the preview never writes campaign rewards.
+            if(EditorAuthoringPreview.Matches(level.id))return _save.MemoryOnly;
+#endif
             var journey = _catalog.ForLevel(level.id);
             if (journey == null) return false;
             var ids = _progress.CompletedIds.ToArray(); var last = _progress.LastLevelId; var flags = _progress.CosmeticFlags;

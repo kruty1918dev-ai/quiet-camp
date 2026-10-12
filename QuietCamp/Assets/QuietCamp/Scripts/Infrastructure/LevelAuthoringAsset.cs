@@ -9,6 +9,10 @@ namespace QuietCamp.Editor.LevelAuthoring
         public string stableId;
         public bool packedModel, smallPlant;
         public Vector3 baseScale = Vector3.one;
+        public string instanceId;
+        [System.NonSerialized] public QuietCamp.Infrastructure.CampArtDefinition.Instance sourcePose;
+        [System.NonSerialized] public Vector3 capturedPosition, capturedScale;
+        [System.NonSerialized] public Quaternion capturedRotation;
     }
 }
 

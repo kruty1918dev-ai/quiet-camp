@@ -86,7 +86,7 @@ namespace QuietCamp.Presentation.World
         public void Release()
         {
             if (--_owners != 0) return;
-            Cache.Remove(_key);
+            if(Cache.TryGetValue(_key,out var current)&&ReferenceEquals(current,this))Cache.Remove(_key);
             if (UnityEngine.Application.isPlaying) Object.Destroy(Mesh); else Object.DestroyImmediate(Mesh);
         }
     }

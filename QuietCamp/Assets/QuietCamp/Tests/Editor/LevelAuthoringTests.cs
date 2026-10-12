@@ -99,7 +99,12 @@ namespace QuietCamp.Tests
                 CollectionAssert.AreEqual(document.art.instances[0].scaleXYZ, captured.art.instances[0].scaleXYZ);
                 Assert.AreEqual(1,first.SceneryCount);
                 using (var second = new LevelAuthoringWorkspace(captured))
-                    CollectionAssert.AreEqual(captured.art.instances[0].scaleXYZ,second.Capture().art.instances[0].scaleXYZ);
+                {
+                    var reopened=second.Capture();
+                    CollectionAssert.AreEqual(captured.art.instances[0].scaleXYZ,reopened.art.instances[0].scaleXYZ);
+                    CollectionAssert.AreEqual(captured.art.instances[0].rotationEuler,reopened.art.instances[0].rotationEuler);
+                    Assert.AreEqual(captured.art.instances[0].id,reopened.art.instances[0].id);
+                }
             }
         }
         [Test] public void ReadyPaletteContainsSunflowerFenceAndPlants()
@@ -236,6 +241,68 @@ namespace QuietCamp.Tests
             var report=RuleEvaluator.Evaluate(d.level,d.level.witness,false);
             Assert.IsTrue(report.CanCommit);Assert.IsTrue(report.Issues.Any(i=>i.Code=="friends"));
             Assert.IsFalse(report.Issues.Any(i=>i.Code=="path"));
+        }
+        [Test] public void GroupsPreserveWorldScaleAndRejectShearedTransforms()
+        {
+            using(var w=new LevelAuthoringWorkspace(LevelAuthoringDocument.Create(false)))
+            {
+                var plant=w.Spawn(new CampArtDefinition.Instance{modelId="cover_blades",x=5,z=5,scale=1},false);
+                var group=new GameObject("Authoring group");group.transform.SetParent(w.Scenery,false);group.transform.localScale=new Vector3(2,1,1);
+                plant.transform.SetParent(group.transform,false);plant.transform.localRotation=Quaternion.Euler(0,90,0);
+                var scale=w.Capture().art.instances[0].scaleXYZ;Assert.AreEqual(1,scale[0],.0001);Assert.AreEqual(2,scale[2],.0001);
+                plant.transform.localRotation=Quaternion.Euler(0,45,0);Assert.Throws<InvalidOperationException>(()=>w.Capture());
+            }
+        }
+        [Test] public void PwbCanStartWithItsNativePaletteClosed()
+        {
+            Assert.NotNull(PlacementToolIntegration.Adapter);
+            var assembly=PlacementToolIntegration.Adapter.GetType().Assembly;
+            var palette=assembly.GetType("PluginMaster.PrefabPalette");
+            bool wasOpen=palette.GetProperty("instance").GetValue(null)!=null;
+            palette.GetMethod("CloseWindow").Invoke(null,null);
+            try
+            {
+                using(var w=new LevelAuthoringWorkspace(LevelAuthoringDocument.Create(false)))
+                {
+                    PlacementToolIntegration.Adapter.Activate(PlacementTool.Paint,LevelAuthoringPalette.Get("cover_blades").prefab,w.Scenery,w.Surface,1,65,.2f,.15f);
+                    var brush=assembly.GetType("PluginMaster.PaletteManager").GetProperty("selectedBrush").GetValue(null);
+                    Assert.NotNull(brush);Assert.AreEqual("cover_blades",brush.GetType().GetProperty("name").GetValue(brush));
+                    Assert.NotNull(palette.GetProperty("instance").GetValue(null),"PWB owns and opens its native palette when a tool is activated.");
+                    PlacementToolIntegration.Adapter.Stop();
+                }
+            }
+            finally{if(wasOpen)palette.GetMethod("ShowWindow").Invoke(null,null);}
+        }
+        [Test] public void PreviewCompletionRequiresSolvedLayoutAndMemoryStore()
+        {
+            var d=LevelAuthoringDocument.Create(true);
+            string path=EditorAuthoringPreview.RequestPath;
+            byte[] previous=File.Exists(path)?File.ReadAllBytes(path):null;
+            bool enabled=EditorAuthoringPreview.Active;
+            try
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+                File.WriteAllText(path,JsonConvert.SerializeObject(new EditorAuthoringPreview.Request{level=d.level,art=d.art}));
+                EditorAuthoringPreview.Reset();EditorAuthoringPreview.Enable(true);
+                var save=EditorAuthoringPreview.CreateSave();
+                var progress=new QuietCamp.Application.ProgressionService();
+                var memories=new QuietCamp.Application.CampMemoryService(save.Memories);
+                var catalog=MonetizationConfiguration.Load().Catalog();
+                var completion=new CampCompletionService(save,progress,memories,catalog);
+                using(var session=new QuietCamp.Application.CampSession(d.level))
+                {
+                    Assert.IsFalse(completion.Complete(session,"day"));
+                    session.DebugApplyWitness();Assert.IsTrue(session.Check(()=>completion.Complete(session,"day")).IsSolved);Assert.IsTrue(session.IsCompleted);
+                    Assert.IsEmpty(save.Progress.completedIds);Assert.IsEmpty(save.Album.entries);
+                    var unsafeCompletion=new CampCompletionService(new SaveAdapter(),progress,memories,catalog);
+                    Assert.IsFalse(unsafeCompletion.Complete(session,"day"));
+                }
+            }
+            finally
+            {
+                if(previous==null)File.Delete(path);else File.WriteAllBytes(path,previous);
+                EditorAuthoringPreview.Reset();EditorAuthoringPreview.Enable(enabled);
+            }
         }
     }
 }

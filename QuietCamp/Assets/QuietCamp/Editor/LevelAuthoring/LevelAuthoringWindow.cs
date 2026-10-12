@@ -5,6 +5,7 @@ using System.Linq;
 using QuietCamp.Domain;
 using QuietCamp.Infrastructure;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace QuietCamp.Editor.LevelAuthoring
@@ -45,28 +46,39 @@ namespace QuietCamp.Editor.LevelAuthoring
             saveChangesMessage = "Зберегти зміни рівня перед закриттям майстерні?";
             SceneView.duringSceneGui += DuringScene; Undo.undoRedoPerformed += UndoChanged;
             EditorApplication.update += Tick; EditorApplication.hierarchyChanged += HierarchyChanged;
+            EditorSceneManager.sceneClosing += WorkspaceClosing;
             if (_state != null && !EditorApplication.isPlayingOrWillChangePlaymode) EditorApplication.delayCall += Recover;
         }
         void OnDisable()
         {
             SceneView.duringSceneGui -= DuringScene; Undo.undoRedoPerformed -= UndoChanged;
             EditorApplication.update -= Tick; EditorApplication.hierarchyChanged -= HierarchyChanged;
+            EditorSceneManager.sceneClosing -= WorkspaceClosing;
             PlacementToolIntegration.Adapter?.Stop();
             if (_workspace != null && !EditorApplication.isPlayingOrWillChangePlaymode)
             {
-                _state.Write(_workspace.Capture()); _workspace.Dispose(); _workspace = null;
+                if (_workspace.Root != null) _state.Write(_workspace.Capture());
+                _workspace.Dispose(); _workspace = null;
             }
         }
         void Recover()
         {
-            if (this == null || _workspace != null || _state == null) return;
+            if (this == null || _state == null || _workspace?.Root != null) return;
+            _workspace?.Dispose(); _workspace = null;
             Try(() => _workspace = new LevelAuthoringWorkspace(_state.Read()));
+        }
+        void WorkspaceClosing(UnityEngine.SceneManagement.Scene scene,bool removing)
+        {
+            if (_refreshing || _workspace?.Root == null || _workspace.Scene != scene) return;
+            CancelSolver(); PlacementToolIntegration.Adapter?.Stop();
+            _state.Write(_workspace.Capture());
         }
         public void PreparePlay()
         {
             CancelSolver(); PlacementToolIntegration.Adapter?.Stop();
             if (_workspace == null) return;
-            _state.Write(_workspace.Capture()); _workspace.Dispose(); _workspace = null;
+            if (_workspace.Root != null) _state.Write(_workspace.Capture());
+            _workspace.Dispose(); _workspace = null;
         }
         public void RestoreAfterPlay() => Recover();
         bool ConfirmReplace()
@@ -106,11 +118,12 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         public void Save()
         {
-            if (_workspace == null) return;
+            if (_state == null) return;
             string path = _path;
             if (string.IsNullOrEmpty(path)) path = EditorUtility.SaveFilePanel("Зберегти чернетку", Path.GetFullPath("Assets/QuietCamp/Authoring/Levels"), Document.level.id + ".draft", "json");
             if (string.IsNullOrEmpty(path)) return;
-            var document = _workspace.Capture(); document.Save(path); _state.Write(document); _path = path; _dirty = false; _message = "Чернетку збережено.";
+            var document = _workspace?.Root != null ? _workspace.Capture() : Document;
+            document.Save(path); _state.Write(document); _path = path; _dirty = false; _message = "Чернетку збережено.";
         }
         public override void SaveChanges() { Try(Save); if (!_dirty) base.SaveChanges(); }
         public override void DiscardChanges() { _dirty = false; base.DiscardChanges(); }
@@ -182,6 +195,11 @@ namespace QuietCamp.Editor.LevelAuthoring
                 if (!string.IsNullOrEmpty(_message)) EditorGUILayout.HelpBox(_message, MessageType.Warning); return;
             }
             _tab = GUILayout.Toolbar(_tab, new[] { "Поле", "Сцена", "Гості та перевірка" });
+            if (_workspace.Root == null)
+            {
+                EditorGUILayout.HelpBox("Робочу сцену закрито. Чернетка залишилася в майстерні.",MessageType.Info);
+                if(GUILayout.Button("Відновити відкритий рівень"))Recover();return;
+            }
             _scroll = EditorGUILayout.BeginScrollView(_scroll);
             using (new EditorGUI.DisabledScope(_solver != null))
             {
@@ -289,7 +307,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         void DuringScene(SceneView view)
         {
-            if (_workspace == null || EditorApplication.isPlayingOrWillChangePlaymode) return;
+            if (_workspace?.Root == null || EditorApplication.isPlayingOrWillChangePlaymode) return;
             var level = Document.level;
             foreach (var cell in level.shade ?? Array.Empty<int[]>()) DrawCell(level, new Cell(cell[0], cell[1]), new Color(.3f, .65f, 1, .13f));
             var placements = level.witness ?? Array.Empty<Placement>();
@@ -356,13 +374,14 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         void UndoChanged()
         {
-            if (_workspace == null || _state == null) return;
+            if (_workspace?.Root == null || _state == null) return;
             _refreshing = true; try { _workspace.ApplyDocument(Document); _workspace.RefreshPlantBatches(); } finally { _refreshing = false; }
             _dirty = true; Repaint();
         }
         void Tick()
         {
             hasUnsavedChanges = _dirty;
+            if (_workspace?.Root == null) _hierarchyChangedAt = -1;
             if (_workspace != null && _workspace.Root != null && !EditorApplication.isPlayingOrWillChangePlaymode)
                 foreach (var selected in Selection.transforms)
                     if (selected.IsChildOf(_workspace.Scenery) && selected.hasChanged)

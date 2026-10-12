@@ -25,6 +25,18 @@ namespace QuietCamp.Editor
         static readonly string ResultPath = Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, "../Temp/ai/qc007-art-result.json"));
         static readonly string GamePath = Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, "../Temp/ai/qc007-game-session.json"));
         static QC007ArtCapture() => EditorApplication.update += Poll;
+        [MenuItem("Quiet Camp/Майстерня/Стан перевірки редактора")]
+        static void AuthoringProbe()
+        {
+            File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="editor-probe",compiling=EditorApplication.isCompiling,updating=EditorApplication.isUpdating,requestPath=RequestPath,pending=File.Exists(RequestPath)}));
+            Poll();
+        }
+        [MenuItem("Quiet Camp/Майстерня/Перевірити інтеграцію")]
+        static void AuthoringTestsFromMenu()
+        {
+            if(EditorApplication.isCompiling || EditorApplication.isPlayingOrWillChangePlaymode || EditorUtility.scriptCompilationFailed)return;
+            RunTests(true);
+        }
         static void Poll()
         {
             if (EditorApplication.isCompiling || EditorApplication.isUpdating) return;
@@ -49,10 +61,24 @@ namespace QuietCamp.Editor
                 }
                 else if (request.mode == "authoring-status") File.WriteAllText(ResultPath, JsonConvert.SerializeObject(new { status = "authoring-status", playing = EditorApplication.isPlaying, memoryOnly = QuietCampBootstrap.ServicesRef?.Save.MemoryOnly, level = CampSceneHost.Current?.Session?.Level?.id, ready = CampSceneHost.Current?.UiReady, scene = SceneManager.GetActiveScene().name }));
                 else if (request.mode == "authoring-stop") EditorApplication.ExitPlaymode();
+                else if (request.mode == "authoring-complete")
+                {
+                    if(!EditorApplication.isPlaying||!EditorAuthoringPreview.Active||QuietCampBootstrap.ServicesRef?.Save.MemoryOnly!=true)
+                        throw new InvalidOperationException("Only an isolated authoring preview can run this smoke check.");
+                    var session=CampSceneHost.Current?.Session??throw new InvalidOperationException("Camp is not ready.");
+                    var services=QuietCampBootstrap.ServicesRef;
+                    var progress=JsonConvert.SerializeObject(services.Save.Progress);var album=JsonConvert.SerializeObject(services.Save.Album);
+                    session.DebugApplyWitness();var report=session.Check();
+                    var view=UnityEngine.Object.FindAnyObjectByType<CampArtView>();
+                    File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new {status="authoring-completion",solved=report.IsSolved,completed=session.IsCompleted,
+                        memoryOnly=services.Save.MemoryOnly,progressUnchanged=progress==JsonConvert.SerializeObject(services.Save.Progress),albumUnchanged=album==JsonConvert.SerializeObject(services.Save.Album),
+                        frozenArtMatches=view!=null&&JsonConvert.SerializeObject(view.Definition)==JsonConvert.SerializeObject(EditorAuthoringPreview.Current.art)}));
+                }
                 else if (request.mode == "authoring-restored")
                 {
                     var window=LevelAuthoring.LevelAuthoringWindow.OpenWindow();
                     var before=LevelAuthoring.LevelAuthoringDocument.Open(Path.Combine(UnityEngine.Application.dataPath,"../Temp/ai/authoring-smoke-draft.json"));
+                    if(window.Workspace!=null)window.Workspace.Capture().Save(Path.Combine(UnityEngine.Application.dataPath,"../Temp/ai/authoring-smoke-restored.json"));
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new {status="authoring-restored",sceneObjects=window.Workspace?.SceneryCount,
                         identical=window.Workspace!=null&&JsonConvert.SerializeObject(before.art)==JsonConvert.SerializeObject(window.Workspace.Capture().art)}));
                 }
@@ -61,6 +87,7 @@ namespace QuietCamp.Editor
                 else if (request.mode == "game-stop") { SetGameStage("stopping"); EditorApplication.ExitPlaymode(); }
                 else File.WriteAllText(ResultPath, JsonConvert.SerializeObject(new { status = "ready", playing = EditorApplication.isPlaying, unity = UnityEngine.Application.unityVersion }, Formatting.Indented));
             }
+            catch (IOException) when (File.Exists(RequestPath)) { /* Retry a producer/scanner sharing lock on the next Editor update. */ }
             catch (Exception error) { File.WriteAllText(ResultPath, JsonConvert.SerializeObject(new { status = "error", error = error.ToString() })); }
         }
         sealed class GameState { public string stage, saveRoot, backupRoot; public string[] files; }
@@ -150,6 +177,7 @@ namespace QuietCamp.Editor
         }
         static void RunTests(bool authoring = false)
         {
+            File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="tests-running",authoring,started=DateTime.UtcNow}));
             var api = ScriptableObject.CreateInstance<TestRunnerApi>();
             api.RegisterCallbacks(new TestReport(api));
             api.Execute(new ExecutionSettings(new Filter { testMode = TestMode.EditMode,
