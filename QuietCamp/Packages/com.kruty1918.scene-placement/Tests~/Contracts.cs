@@ -13,6 +13,7 @@ static class Contracts
     static void Main()
     {
         CompositionContracts.Run();
+        ReviewContracts.Run();
         Check(Example.Run().Ok,"basic API");
         var slope=new PlaneSurface(V3.Zero,new V3(-.25f,1,0));
         var bench=Example.Shape("four-legs");bench.contacts=new[]{new V3(-.5f,0,-.25f),new V3(.5f,0,-.25f),new V3(-.5f,0,.25f),new V3(.5f,0,.25f)};

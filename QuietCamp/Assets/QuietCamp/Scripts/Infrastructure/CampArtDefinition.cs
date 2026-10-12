@@ -17,6 +17,9 @@ namespace QuietCamp.Infrastructure
         public float streamBend = .32f, frameYaw = 225, bridgeFar = -1, landingRadius = .9f, meadowRelief = .13f, waterDepth = .64f, surroundExtent = 17.6f;
         public string waterMaterial = "QuietCamp/ArtCompositions/QC007Water", generation;
         public int generationAttempt;
+        public int generationSeed;
+        public Kruty1918.ScenePlacement.Composition.CompositionReview review;
+        public Kruty1918.ScenePlacement.Composition.CompositionAttempt[] attempts;
         public int sunColor, ambientColor, groundLow, groundHigh, soilColor;
         public float blurPixels, exposure, saturation, contrast;
         public Model[] models;

@@ -115,7 +115,8 @@ namespace QuietCamp.Editor
                 var result = new { status = "game-captured", kind = "native-live-gameplay-camera", output, imageSha256 = Hash(bytes),
                     level = host.Session.Level.id, contentHash = host.Session.Level.contentHash, scene = SceneManager.GetActiveScene().name,
                     width = request.width, height = request.height, artSha256 = Hash(File.ReadAllBytes("Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/QC007.json")),
-                    profile = view.Definition.generation, seed = view.Definition.seed, sourceReceipt = SourceReceipt(view.Definition),
+                    profile = view.Definition.generation, seed = view.Definition.seed, effectiveSeed = view.Definition.generationSeed,
+                    review = view.Definition.review, attempts = view.Definition.attempts, sourceReceipt = SourceReceipt(view.Definition),
                     cameraEuler = view.Definition.cameraEuler, camera.orthographicSize, capturedUtc = DateTime.UtcNow.ToString("o"), playerBuild = false };
                 string serialized = JsonConvert.SerializeObject(result, Formatting.Indented);
                 File.WriteAllText(Path.Combine(request.output, request.name + ".json"), serialized); File.WriteAllText(ResultPath, serialized);
@@ -225,7 +226,8 @@ namespace QuietCamp.Editor
                     imageSha256 = Hash(bytes), artSha256 = Hash(File.ReadAllBytes("Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/QC007.json")),
                     cameraEuler = art.cameraEuler, cameraPosition = new[] { camera.transform.position.x, camera.transform.position.y, camera.transform.position.z }, camera.orthographicSize,
                     sourceMeshes = art.models.Select(model => model.id).ToArray(), instances = art.instances.Length, triangles = view.TriangleCount,
-                    profile = art.generation, generationAttempt = art.generationAttempt, seed = art.seed, sourceReceipt = SourceReceipt(art),
+                    profile = art.generation, generationAttempt = art.generationAttempt, seed = art.seed, effectiveSeed = art.generationSeed,
+                    review = art.review, attempts = art.attempts, sourceReceipt = SourceReceipt(art),
                     sunEuler = art.sunEuler, art.sunIntensity, art.blurPixels, warmupFrames = 3, capturedUtc = DateTime.UtcNow.ToString("o"), playerBuild = false, shaderErrors = errors };
                 string serialized = JsonConvert.SerializeObject(receipt, Formatting.Indented);
                 File.WriteAllText(Path.Combine(request.output, request.name + ".json"), serialized);

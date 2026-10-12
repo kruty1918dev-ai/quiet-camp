@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Linq;
 using Kruty1918.ScenePlacement;
 using Kruty1918.ScenePlacement.Composition;
 
@@ -14,11 +15,13 @@ namespace Kruty1918.RockPlacement
         {
             if (shapes == null || shapes.Length == 0 || !Numbers.Finite(interval) || interval < .5f || !Numbers.Finite(minimumScale)
                 || !Numbers.Finite(maximumScale) || minimumScale <= 0 || maximumScale < minimumScale) throw new ArgumentException("Invalid shoreline rocks.");
-            this.shapes = shapes; this.interval = interval; this.minimumScale = minimumScale; this.maximumScale = maximumScale;
+            if (shapes.Any(s => s == null)) throw new ArgumentException("Resolved rock shapes required.");
+            this.shapes = shapes.Select(s => s.Snapshot()).ToArray(); this.interval = interval; this.minimumScale = minimumScale; this.maximumScale = maximumScale;
         }
         public void Generate(CompositionRun run, CancellationToken cancellation)
         {
             var frame = run.Layout; int count = (int)Math.Ceiling(frame.extent / interval);
+            var instances = new List<PlacedInstance>(); var diagnostics = new List<Diagnostic>();
             for (int i = -count; i <= count; i++) foreach (float side in new[] { -1f, 1f })
             {
                 cancellation.ThrowIfCancellationRequested(); string id = Id + "/" + i + "/" + side;
@@ -30,9 +33,9 @@ namespace Kruty1918.RockPlacement
                         minimumScale = minimumScale, maximumScale = maximumScale, buriedFraction = .15f } } }, run.context, cancellation);
                 // Bank accents are optional; rejected stones cannot invalidate a valid crossing.
                 foreach (var issue in result.diagnostics) issue.error = false;
-                run.plan.instances.AddRange(result.instances); run.plan.diagnostics.AddRange(result.diagnostics);
+                instances.AddRange(result.instances); diagnostics.AddRange(result.diagnostics);
             }
-            run.plan.accepted[Id] = run.plan.instances.FindAll(p => p.id.StartsWith(Id + "/", StringComparison.Ordinal)).Count;
+            run.Add(Id, instances, diagnostics);
         }
     }
 }

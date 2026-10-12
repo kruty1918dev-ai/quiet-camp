@@ -44,28 +44,23 @@ preset. Розміщення виконується C#, у Python немає с�
 
 ```mermaid
 flowchart TD
-  G[Gameplay adapter: межі та незмінний пазл] --> V[Load → Validate → Resolve → snapshot]
-  J[JSON style + asset geometry + seed] --> V
-  V --> L[Layout: камера, русло, рельєф, перехід]
-  L --> B[Місток і резерв підходу]
-  B --> F[Берегова межа]
-  F --> R[Каміння]
-  R --> T[Дерева]
-  T --> P[Очерет і квіткові акценти]
-  P --> C[Дрібна зелень та травинки]
-  S[Спільний solver: опора, перетини, проєкція] <--> B
-  S <--> F
-  S <--> R
-  S <--> T
-  S <--> P
-  C --> O[Resolved presentation snapshot]
-  O --> U[Unity adapter: меші, Stylized Water 3, світло, вітер, blur]
-  U --> N[Native рендер + технічні й візуальні перевірки]
-  N --> A{Приймання}
-  A -->|геометрична помилка| X[Нова спроба з чистим контекстом]
+  G[Gameplay bounds + asset shapes] --> V[Load ? Validate ? Resolve ? input snapshot]
+  J[JSON layout + ecology + quality rules + seed] --> V
+  V --> L[Layout: camera, channel, terrain, crossing]
+  L --> B[Crossing ? boundary ? rocks ? trees ? reeds ? accents]
+  S[Shared solver: contact, collision, protected projection] <--> B
+  B --> K[Composition critic: visibility, density, spread, balance]
+  K -->|reject| X[Next seed, clean placement context]
   X --> B
-  A -->|художня невідповідність| J
+  K -->|pass| P[Candidate pool]
+  P -->|budget exhausted| W[Best score, stable tie break]
+  W --> C[Fine groundcover with structural clearance]
+  C --> O[Resolved snapshot + all attempt explanations]
+  O --> U[Host renderer: models, water, light, motion, blur]
+  U --> N[Native render and visual verification]
+  N -->|artistic feedback| J
 ```
+
 
 ## Правила композиції
 
@@ -136,4 +131,48 @@ style та rendering adapter. Для perspective, печер або довіль
 Stylized Water 3 залишається залежністю конкретного Unity adapter; переносне
 ядро не містить vendor shader або ліцензованих текстур.
 
-?? generated ????? BoardRenderer ?? ??????? ????????? legacy shade-canopy ??????. Shade masks ?? rule UI ???????? gameplay, ? scenic trees ? composition generator. ?? ?????? ?????? ???????, ???? ??? ????????? ?????.
+## Відбір кращої композиції
+
+`quality.roles` задає stage ID, minimum/target/maximum visible counts, minimum
+quadrants, minimum side fraction, area limits і ваги count/spread/balance.
+Видимість визначається перетином проєкції об'єму з кадром та часткою силуету
+в кадрі. Об'єкти повністю за кадром не покращують оцінку. Невідомий stage ID
+відхиляється. Projected area — сума clipped габаритних прямокутників, proxy
+щільності, а не точна segmentation маска рендера.
+
+`CompositionGenerator` із critic перевіряє весь бюджет (у цьому профілі 8
+спроб), збирає придатні кандидати й обирає найвищу оцінку. Рівність вирішується
+першою спробою. Без жодного прийнятого кандидата повертається явна помилка;
+пороги не зменшуються приховано. Без critic збережено source-compatible режим
+first-valid для попередніх callers пакетів. QuietCamp вимагає quality profile.
+
+`effectiveSeed` записується окремо від base seed і використовується також для
+дрібної зелені. `attempts` містить оцінки, метрики, geometry/quality outcomes
+та причини відмов. Score не вимірює схожість з AI-референсом; матеріали, тіні
+та animation artifacts перевіряються через native render після відбору.
+
+Ecological fields (`CompositionHabitatStyle`) винесено у JSON: moisture
+falloff, bank bands/clearance, frame threshold, interior density та patch
+parameters. Species, shapes і review thresholds копіюються перед роботою;
+зовнішня зміна source arrays не змінює наступний запуск stage.
+
+## Доказ межі між ядром та грою
+
+[CompositionGallery](../../../QuietCamp/Packages/com.kruty1918.scene-placement/Samples~/CompositionGallery/README-UA.md)
+компілює ті самі три пакети як .NET console host без UnityEngine або QuietCamp.
+JSON profiles `riverside-garden` і `cooling-courtyard` змінюють asset family,
+габарити та правила, а не алгоритм. Export перевіряється як непорожній plan,
+і повторний запуск порівнюється побайтово. Це доводить host boundary для
+поточної ортографічної топології з каналом; інші топології потребують іншого
+layout, а художній результат іншої гри потребує її renderer.
+
+## Єдиний власник видимих структур
+
+На generated сцені BoardRenderer не створює додаткові legacy shade-canopy
+дерева. Shade masks та rule UI належать gameplay, а scenic trees — composition
+generator. Це усуває другий спавнер, який міг перекрити намет.
+
+Місток має visibility reservation: дерева можуть фізично не торкатися його,
+але закрити місток своєю кроною в кадрі. `ReadabilityRule` відхиляє такі
+candidates через structural-occlusion. Аналогічно host може захистити інші
+важливі структури через `ProtectVisibility`.

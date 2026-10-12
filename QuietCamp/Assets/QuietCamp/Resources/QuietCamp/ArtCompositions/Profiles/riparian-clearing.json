@@ -5,7 +5,7 @@
     "yaw": 219,
     "aspect": 1.5,
     "framing": 1.28,
-    "targetRight": 0.15,
+    "targetRight": -0.65,
     "targetFar": -0.2,
     "boardMargin": 0.22,
     "peakHeight": 1.4,
@@ -58,7 +58,18 @@
         "maximumScale": 1.5,
         "spacing": 1.3
       }
-    ]
+    ],
+    "fields": {
+      "moistureFalloff": 0.35,
+      "minimumMoisture": 0.2,
+      "bankClearance": 0.1,
+      "shorelineBand": 1.1,
+      "treeBankBand": 1.5,
+      "frameEdge": 0.58,
+      "interiorDensity": 0.12,
+      "patchScale": 0.7,
+      "patchContrast": 0.65
+    }
   },
   "reeds": {
     "id": "riparian-reeds",
@@ -73,7 +84,18 @@
         "maximumScale": 0.95,
         "spacing": 0.6
       }
-    ]
+    ],
+    "fields": {
+      "moistureFalloff": 0.35,
+      "minimumMoisture": 0.2,
+      "bankClearance": 0.1,
+      "shorelineBand": 1.1,
+      "treeBankBand": 1.5,
+      "frameEdge": 0.58,
+      "interiorDensity": 0.12,
+      "patchScale": 0.7,
+      "patchContrast": 0.65
+    }
   },
   "flowers": {
     "id": "sunflower-accents",
@@ -90,7 +112,18 @@
         "minimumYaw": 205,
         "maximumYaw": 230
       }
-    ]
+    ],
+    "fields": {
+      "moistureFalloff": 0.35,
+      "minimumMoisture": 0.2,
+      "bankClearance": 0.1,
+      "shorelineBand": 1.1,
+      "treeBankBand": 1.5,
+      "frameEdge": 0.58,
+      "interiorDensity": 0.12,
+      "patchScale": 0.7,
+      "patchContrast": 0.65
+    }
   },
   "rocks": {
     "assets": [
@@ -118,5 +151,53 @@
     "maximumCandidates": 300000,
     "leafSpan": 0.11,
     "leafHeight": 0.09
+  },
+  "quality": {
+    "minimumScore": 0.55,
+    "roles": [
+      {
+        "stage": "woodland-frame",
+        "minimumVisible": 6,
+        "targetVisible": 12,
+        "maximumVisible": 28,
+        "minimumQuadrants": 3,
+        "weight": 3,
+        "minimumArea": 0.12,
+        "maximumArea": 0.9,
+        "minimumSideFraction": 0.2,
+        "countWeight": 0.6,
+        "spreadWeight": 0.2,
+        "balanceWeight": 0.2
+      },
+      {
+        "stage": "riparian-reeds",
+        "minimumVisible": 3,
+        "targetVisible": 14,
+        "maximumVisible": 32,
+        "minimumQuadrants": 2,
+        "weight": 1,
+        "minimumArea": 0.006,
+        "maximumArea": 0.22
+      },
+      {
+        "stage": "shoreline-rocks",
+        "minimumVisible": 5,
+        "targetVisible": 16,
+        "maximumVisible": 28,
+        "minimumQuadrants": 2,
+        "weight": 1,
+        "minimumArea": 0.015,
+        "maximumArea": 0.3
+      },
+      {
+        "stage": "sunflower-accents",
+        "minimumVisible": 1,
+        "targetVisible": 3,
+        "maximumVisible": 8,
+        "minimumQuadrants": 1,
+        "weight": 0.5,
+        "maximumArea": 0.1
+      }
+    ]
   }
 }

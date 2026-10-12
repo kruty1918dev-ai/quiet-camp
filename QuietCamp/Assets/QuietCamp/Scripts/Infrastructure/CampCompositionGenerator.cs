@@ -25,10 +25,12 @@ namespace QuietCamp.Infrastructure
         public Habitat trees, reeds, flowers;
         public Rocks rocks;
         public GroundcoverStyle groundcover;
+        public CompositionReviewProfile quality;
         public sealed class Habitat
         {
             public string id; public float cellSize, density; public int minimumCount;
             public Plant[] species;
+            public CompositionHabitatStyle fields;
         }
         public sealed class Plant
         {
@@ -87,7 +89,7 @@ namespace QuietCamp.Infrastructure
                 weight = p.weight, minimumScale = p.minimumScale, maximumScale = p.maximumScale, spacing = p.spacing,
                 minimumYaw = p.minimumYaw, maximumYaw = p.maximumYaw, maximumSlope = 65 }).ToArray();
             CompositionVegetationStage PlantsStage(CampCompositionProfile.Habitat h, CompositionHabitat habitat) =>
-                new CompositionVegetationStage(h.id, habitat, Plants(h), h.cellSize, h.density, h.minimumCount);
+                new CompositionVegetationStage(h.id, habitat, Plants(h), h.cellSize, h.density, h.minimumCount, h.fields);
             var bridge = Resolve(profile.bridge);
             var bounds = bridge.volumes[0];
             // The contacts belong to the source model's two ends, with both banks required.
@@ -101,7 +103,9 @@ namespace QuietCamp.Infrastructure
             stages.Add(PlantsStage(profile.trees, CompositionHabitat.WoodlandFrame));
             stages.Add(PlantsStage(profile.reeds, CompositionHabitat.Shoreline));
             stages.Add(PlantsStage(profile.flowers, CompositionHabitat.WoodlandFrame));
-            plan = CompositionGenerator.Generate(new CompositionRequest { id = level.id, seed = seed, width = level.width, depth = level.height, style = profile.layout }, stages);
+            if (profile.quality == null) throw new InvalidDataException("A composition quality profile is required.");
+            plan = CompositionGenerator.Generate(new CompositionRequest { id = level.id, seed = seed, width = level.width, depth = level.height, style = profile.layout }, stages,
+                critic: new CompositionCritic(profile.quality));
             if (!plan.Ok) throw new InvalidDataException("Composition rejected: " + string.Join("; ", plan.diagnostics.Where(d => d.error)));
             var layout = plan.layout;
             var result = new CampArtDefinition { levelId = level.id, width = level.width, height = level.height, seed = seed,
@@ -114,7 +118,8 @@ namespace QuietCamp.Infrastructure
                 surroundExtent = layout.extent,
                 waterMaterial = profile.waterMaterial, blurPixels = profile.blurPixels, exposure = profile.exposure, saturation = profile.saturation, contrast = profile.contrast,
                 models = library.models, generation = profileId, generationAttempt = plan.attempt,
-                cover = CompositionGroundcover.Generate(layout, profile.groundcover, seed, plan.instances).Select(p => new CampArtDefinition.CoverPoint {
+                generationSeed = plan.effectiveSeed, review = plan.review, attempts = plan.attempts,
+                cover = CompositionGroundcover.Generate(layout, profile.groundcover, plan.effectiveSeed, plan.instances).Select(p => new CampArtDefinition.CoverPoint {
                     x = p.point.x, y = p.point.y, z = p.point.z, kind = (int)p.kind, height = p.height, maximumSpan = p.maximumSpan, yaw = p.yaw, variation = p.variation }).ToArray(),
                 instances = plan.instances.Select(p => new CampArtDefinition.Instance { id = p.id,
                     modelId = library.models.Any(m => m.id == p.asset) ? p.asset : null,

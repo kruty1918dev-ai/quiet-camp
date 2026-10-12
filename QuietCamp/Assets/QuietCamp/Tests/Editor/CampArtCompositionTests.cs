@@ -47,6 +47,9 @@ namespace QuietCamp.Tests
             var first = CampCompositionGenerator.Generate(level, "riparian-clearing", seed, out var plan);
             var again = CampCompositionGenerator.Generate(level, "riparian-clearing", seed, out _);
             Assert.IsTrue(plan.Ok);
+            Assert.IsTrue(plan.review.passed);
+            Assert.AreEqual(8, plan.attempts.Length);
+            Assert.AreEqual(plan.attempts.Where(a => a.qualityPassed).Max(a => a.score), plan.review.score);
             Assert.AreEqual(JsonConvert.SerializeObject(first), JsonConvert.SerializeObject(again));
             Assert.GreaterOrEqual(first.instances.Count(i => i.id.StartsWith("woodland-frame/", StringComparison.Ordinal)), 12);
             Assert.AreEqual(1, first.instances.Count(i => i.id == "crossing/bridge"));

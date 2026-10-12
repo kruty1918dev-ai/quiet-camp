@@ -14,6 +14,7 @@ namespace Kruty1918.VegetationPlacement
         public string id;public AssetShape shape;public int tier;public float weight=1,minimumScale=.8f,maximumScale=1.2f;
         public float minimumYaw,maximumYaw=360;
         public float minimumMoisture,maximumMoisture=1,minimumLight,maximumLight=1,maximumSlope=40,spacing=.5f;
+        public Species Snapshot() {var copy=(Species)MemberwiseClone();copy.shape=shape?.Snapshot();return copy;}
     }
     public sealed class VegetationSpec
     {

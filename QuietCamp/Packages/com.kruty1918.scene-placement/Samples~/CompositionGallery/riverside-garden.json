@@ -1,0 +1,180 @@
+{
+  "id": "riverside-garden",
+  "layout": {
+    "id": "riverside-family",
+    "pitch": 56,
+    "yaw": 219,
+    "aspect": 1.5,
+    "framing": 1.28,
+    "targetRight": -0.65,
+    "bankGap": 0.75,
+    "riverWidthRatio": 0.225,
+    "attempts": 8
+  },
+  "crossing": "footbridge",
+  "assets": [
+    {
+      "id": "footbridge",
+      "volumes": [
+        {
+          "center": {
+            "x": 0,
+            "y": 0.11,
+            "z": 0
+          },
+          "half": {
+            "x": 2.1,
+            "y": 0.11,
+            "z": 0.35
+          }
+        }
+      ],
+      "contacts": [
+        {
+          "x": -1.9320000000000002,
+          "y": 0,
+          "z": 0
+        },
+        {
+          "x": 1.9320000000000002,
+          "y": 0,
+          "z": 0
+        }
+      ]
+    },
+    {
+      "id": "broadleaf",
+      "volumes": [
+        {
+          "center": {
+            "x": 0,
+            "y": 1.35,
+            "z": 0
+          },
+          "half": {
+            "x": 0.95,
+            "y": 1.35,
+            "z": 0.9
+          }
+        }
+      ],
+      "contacts": [
+        {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      ]
+    },
+    {
+      "id": "bank-stone",
+      "volumes": [
+        {
+          "center": {
+            "x": 0,
+            "y": 0.11,
+            "z": 0
+          },
+          "half": {
+            "x": 0.3,
+            "y": 0.11,
+            "z": 0.4
+          }
+        }
+      ],
+      "contacts": [
+        {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      ]
+    },
+    {
+      "id": "reed",
+      "volumes": [
+        {
+          "center": {
+            "x": 0,
+            "y": 0.4,
+            "z": 0
+          },
+          "half": {
+            "x": 0.125,
+            "y": 0.4,
+            "z": 0.125
+          }
+        }
+      ],
+      "contacts": [
+        {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      ]
+    }
+  ],
+  "rocks": [
+    "bank-stone"
+  ],
+  "rockInterval": 2.5,
+  "habitats": [
+    {
+      "id": "frame",
+      "habitat": 0,
+      "cellSize": 2.2,
+      "density": 0.9,
+      "minimumCount": 6,
+      "species": [
+        {
+          "id": "broadleaf",
+          "minimumScale": 0.7,
+          "maximumScale": 1.2,
+          "spacing": 1.5
+        }
+      ]
+    },
+    {
+      "id": "bank",
+      "habitat": 1,
+      "cellSize": 0.8,
+      "density": 0.8,
+      "minimumCount": 3,
+      "species": [
+        {
+          "id": "reed",
+          "minimumScale": 0.7,
+          "maximumScale": 1,
+          "spacing": 0.35
+        }
+      ]
+    }
+  ],
+  "quality": {
+    "minimumScore": 0.4,
+    "roles": [
+      {
+        "stage": "frame",
+        "minimumVisible": 3,
+        "targetVisible": 10,
+        "maximumVisible": 28,
+        "minimumQuadrants": 3,
+        "weight": 2
+      },
+      {
+        "stage": "bank",
+        "minimumVisible": 3,
+        "targetVisible": 14,
+        "maximumVisible": 50,
+        "minimumQuadrants": 2,
+        "weight": 1
+      }
+    ]
+  },
+  "groundcover": {
+    "cellSize": 0.35,
+    "bladeCellSize": 0.3,
+    "maximumCandidates": 150000
+  }
+}

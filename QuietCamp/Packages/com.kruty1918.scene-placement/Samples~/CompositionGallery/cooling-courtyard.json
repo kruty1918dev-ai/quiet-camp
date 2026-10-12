@@ -1,0 +1,191 @@
+{
+  "id": "cooling-courtyard",
+  "layout": {
+    "id": "industrial-family",
+    "pitch": 56,
+    "yaw": 219,
+    "aspect": 1.5,
+    "framing": 1.28,
+    "targetRight": -0.65,
+    "bankGap": 0.75,
+    "riverWidthRatio": 0.225,
+    "attempts": 8,
+    "meadowRelief": 0.025,
+    "riverBend": 0.03
+  },
+  "crossing": "service-walkway",
+  "assets": [
+    {
+      "id": "service-walkway",
+      "volumes": [
+        {
+          "center": {
+            "x": 0,
+            "y": 0.09,
+            "z": 0
+          },
+          "half": {
+            "x": 2.1,
+            "y": 0.09,
+            "z": 0.45
+          }
+        }
+      ],
+      "contacts": [
+        {
+          "x": -1.9320000000000002,
+          "y": 0,
+          "z": 0
+        },
+        {
+          "x": 1.9320000000000002,
+          "y": 0,
+          "z": 0
+        }
+      ]
+    },
+    {
+      "id": "column",
+      "volumes": [
+        {
+          "center": {
+            "x": 0,
+            "y": 1.5,
+            "z": 0
+          },
+          "half": {
+            "x": 0.3,
+            "y": 1.5,
+            "z": 0.3
+          }
+        }
+      ],
+      "contacts": [
+        {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      ]
+    },
+    {
+      "id": "tank",
+      "volumes": [
+        {
+          "center": {
+            "x": 0,
+            "y": 0.25,
+            "z": 0
+          },
+          "half": {
+            "x": 0.35,
+            "y": 0.25,
+            "z": 0.35
+          }
+        }
+      ],
+      "contacts": [
+        {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      ]
+    },
+    {
+      "id": "pipe",
+      "volumes": [
+        {
+          "center": {
+            "x": 0,
+            "y": 0.35,
+            "z": 0
+          },
+          "half": {
+            "x": 0.08,
+            "y": 0.35,
+            "z": 0.08
+          }
+        }
+      ],
+      "contacts": [
+        {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      ]
+    }
+  ],
+  "rocks": [
+    "tank"
+  ],
+  "rockInterval": 2.5,
+  "habitats": [
+    {
+      "id": "frame",
+      "habitat": 0,
+      "cellSize": 2.2,
+      "density": 0.9,
+      "minimumCount": 6,
+      "species": [
+        {
+          "id": "column",
+          "minimumScale": 0.7,
+          "maximumScale": 1.1,
+          "spacing": 2
+        }
+      ],
+      "fields": {
+        "interiorDensity": 0,
+        "frameEdge": 0.72,
+        "treeBankBand": 0.7,
+        "shorelineBand": 1.2
+      }
+    },
+    {
+      "id": "bank",
+      "habitat": 1,
+      "cellSize": 0.8,
+      "density": 0.8,
+      "minimumCount": 3,
+      "species": [
+        {
+          "id": "pipe",
+          "minimumScale": 0.5,
+          "maximumScale": 1,
+          "spacing": 0.3
+        }
+      ]
+    }
+  ],
+  "quality": {
+    "minimumScore": 0.4,
+    "roles": [
+      {
+        "stage": "frame",
+        "minimumVisible": 3,
+        "targetVisible": 10,
+        "maximumVisible": 28,
+        "minimumQuadrants": 3,
+        "weight": 2
+      },
+      {
+        "stage": "bank",
+        "minimumVisible": 3,
+        "targetVisible": 14,
+        "maximumVisible": 50,
+        "minimumQuadrants": 2,
+        "weight": 1
+      }
+    ]
+  },
+  "groundcover": {
+    "density": 0.06,
+    "shorelineDensity": 0.12,
+    "cellSize": 0.45,
+    "bladeCellSize": 0.45,
+    "bladeDensity": 0.025,
+    "maximumCandidates": 120000
+  }
+}

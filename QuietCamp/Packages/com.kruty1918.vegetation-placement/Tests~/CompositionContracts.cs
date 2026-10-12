@@ -30,6 +30,13 @@ static class CompositionContracts
         var blocked = CompositionGroundcover.Generate(layout, coverStyle, 1, new[] { new PlacedInstance { id = "blocked", volumes = new[] {
             new OrientedBox(new Box(new V3(0, 0, 0), new V3(100, 100, 100)), Pose.At(V3.Zero)) } } });
         if (blocked.Count != 0) throw new Exception("FAIL cover intersects structural geometry"); checks++;
+        var stableBefore = CompositionGenerator.Generate(new CompositionRequest { id = "freeze", seed = 2, width = 6, depth = 8, style = new CompositionStyle() }, stages);
+        species[0].spacing = 99; species[0].shape.contacts[0] = new V3(500, 500, 500);
+        var getter = ((CompositionVegetationStage)stages[0]).Species; getter[0].spacing = 99;
+        var stableAfter = CompositionGenerator.Generate(new CompositionRequest { id = "freeze", seed = 2, width = 6, depth = 8, style = new CompositionStyle() }, stages);
+        if (!stableBefore.instances.Select(p => p.id + p.pose.position).SequenceEqual(stableAfter.instances.Select(p => p.id + p.pose.position))) throw new Exception("FAIL frozen species input"); checks++;
+        try { new CompositionVegetationStage("bad", CompositionHabitat.Shoreline, ((CompositionVegetationStage)stages[0]).Species, .6f, .9f,
+            style: new CompositionHabitatStyle { shorelineBand = float.NaN }); throw new Exception("FAIL field validation"); } catch (ArgumentException) { checks++; }
         Console.WriteLine("composition vegetation: " + checks + " assertions passed.");
     }
 }

@@ -77,3 +77,5 @@ MIT, власний код. Комерційні моделі й їхні фот
 ## Rule-based scene composition
 
 Engine-independent layout, protected camera projection, supported crossings and a bounded deterministic pipeline. See [Ukrainian methodology](Documentation~/COMPOSITION-UA.md).
+
+Bounded candidate ranking is available through `CompositionCritic`, with explicit role thresholds, weights and a per-attempt explanation. [Portable host gallery](Samples~/CompositionGallery/README-UA.md) executes the same pipeline with two asset families and no Unity or game dependency. Geometric scores do not certify visual fidelity.

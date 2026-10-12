@@ -40,6 +40,7 @@ namespace Kruty1918.ScenePlacement
     [Serializable] public sealed class AssetShape
     {
         public string id;public Box[] volumes=Array.Empty<Box>();public V3[] contacts=Array.Empty<V3>();public float motionMargin;
+        public AssetShape Snapshot()=>new AssetShape{id=id,volumes=volumes?.ToArray(),contacts=contacts?.ToArray(),motionMargin=motionMargin};
         public static AssetShape FromMesh(string id,MeshData mesh)
         {var b=mesh.Bounds;return new AssetShape{id=id,volumes=new[]{b},contacts=new[]{new V3(b.center.x,b.center.y-b.half.y,b.center.z)}};}
     }

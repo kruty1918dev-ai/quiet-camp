@@ -121,10 +121,13 @@ namespace Kruty1918.ScenePlacement.Composition
     }
     public sealed class CompositionPlan
     {
-        public CompositionLayout layout; public int attempt;
+        public CompositionLayout layout; public int attempt, effectiveSeed;
+        public CompositionReview review;
+        public CompositionAttempt[] attempts = Array.Empty<CompositionAttempt>();
         public readonly List<PlacedInstance> instances = new List<PlacedInstance>();
         public readonly List<Diagnostic> diagnostics = new List<Diagnostic>();
         public readonly Dictionary<string, int> accepted = new Dictionary<string, int>(StringComparer.Ordinal);
+        public readonly Dictionary<string, List<PlacedInstance>> byStage = new Dictionary<string, List<PlacedInstance>>(StringComparer.Ordinal);
         public bool Ok => !diagnostics.Any(d => d.error);
     }
     public interface ICompositionStage
@@ -135,6 +138,7 @@ namespace Kruty1918.ScenePlacement.Composition
     public sealed class CompositionRun
     {
         public readonly CompositionPlan plan; public readonly PlacementContext context;
+        readonly ReadabilityRule readability;
         public CompositionLayout Layout => plan.layout;
         public int Seed { get; }
         public CompositionRun(CompositionPlan plan, int seed)
@@ -142,41 +146,69 @@ namespace Kruty1918.ScenePlacement.Composition
             this.plan = plan; Seed = seed; context = new PlacementContext(plan.layout);
             context.Reserve("gameplay", new OrientedBox(new Box(new V3(0, 3, 0),
                 new V3(Layout.request.width * .5f + Layout.request.style.boardMargin, 4, Layout.request.depth * .5f + Layout.request.style.boardMargin)), Pose.At(V3.Zero)));
-            context.rules.Add(new ReadabilityRule(Layout));
+            readability = new ReadabilityRule(Layout); context.rules.Add(readability);
+        }
+        public void ProtectVisibility(IEnumerable<PlacedInstance> instances)
+        {
+            foreach (var instance in instances) readability.Protect(instance.id, instance.volumes);
         }
         public void Add(string stage, IEnumerable<PlacedInstance> instances, IEnumerable<Diagnostic> diagnostics)
         {
-            var items = instances.ToArray(); plan.instances.AddRange(items); plan.accepted[stage] = items.Length;
+            var items = instances.ToArray(); plan.instances.AddRange(items);
+            if (!plan.byStage.TryGetValue(stage, out var owned)) plan.byStage.Add(stage, owned = new List<PlacedInstance>());
+            owned.AddRange(items); plan.accepted[stage] = owned.Count;
             plan.diagnostics.AddRange(diagnostics);
         }
     }
     public static class CompositionGenerator
     {
-        public static CompositionPlan Generate(CompositionRequest request, IReadOnlyList<ICompositionStage> stages, CancellationToken cancellation = default)
+        public static CompositionPlan Generate(CompositionRequest request, IReadOnlyList<ICompositionStage> stages, CancellationToken cancellation = default, ICompositionCritic critic = null)
         {
             request.Validate(); request = request.Snapshot();
             if (stages == null || stages.Count == 0 || stages.Any(s => s == null || string.IsNullOrWhiteSpace(s.Id)) || stages.Select(s => s.Id).Distinct().Count() != stages.Count)
                 throw new ArgumentException("An explicit ordered pipeline of unique stage IDs is required.");
-            CompositionPlan last = null;
+            CompositionPlan last = null, best = null;
+            var attempts = new List<CompositionAttempt>();
             for (int attempt = 0; attempt < request.style.attempts; attempt++)
             {
                 cancellation.ThrowIfCancellationRequested();
-                last = new CompositionPlan { layout = new CompositionLayout(request), attempt = attempt };
-                var run = new CompositionRun(last, unchecked(request.seed + attempt * 104729));
+                last = new CompositionPlan { layout = new CompositionLayout(request), attempt = attempt, effectiveSeed = unchecked(request.seed + attempt * 104729) };
+                var run = new CompositionRun(last, last.effectiveSeed);
                 foreach (var stage in stages)
                 {
                     stage.Generate(run, cancellation);
                     if (!last.Ok) break;
                 }
-                if (last.Ok) return last;
+                bool geometryPassed = last.Ok;
+                if (geometryPassed && critic != null)
+                {
+                    last.review = critic.Evaluate(last);
+                    if (last.review == null || !Numbers.Finite(last.review.score) || last.review.score < 0 || last.review.score > 1)
+                        throw new InvalidOperationException("Critic must return a finite normalized review.");
+                    if (!last.review.passed) last.diagnostics.Add(new Diagnostic("quality-rejected", "composition", "Composition fails configured role or score thresholds."));
+                }
+                attempts.Add(new CompositionAttempt { attempt = attempt, seed = last.effectiveSeed, geometryPassed = geometryPassed,
+                    qualityPassed = last.Ok, score = last.review?.score ?? 0,
+                    metrics = last.review?.metrics ?? Array.Empty<RoleMetric>(),
+                    failures = last.diagnostics.Where(d => d.error).Select(d => d.code)
+                        .Concat(last.review?.metrics.SelectMany(m => m.failures.Select(f => m.stage + ":" + f)) ?? Array.Empty<string>()).ToArray() });
+                if (last.Ok && critic == null) { last.attempts = attempts.ToArray(); return last; }
+                // Stable tie-break: the first equally good attempt wins.
+                if (last.Ok && (best == null || last.review.score > best.review.score)) best = last;
             }
-            return last; // Failure is evidence, never an automatic visual acceptance.
+            var result = best ?? last; result.attempts = attempts.ToArray();
+            return result; // Failure is evidence, never an automatic visual acceptance.
         }
     }
     public sealed class ReadabilityRule : IPlacementRule
     {
         readonly CompositionLayout layout;
+        readonly List<(string id, V2[] points)> protectedSilhouettes = new List<(string, V2[])>();
         public ReadabilityRule(CompositionLayout layout) { this.layout = layout; }
+        public void Protect(string id, IEnumerable<OrientedBox> volumes)
+        {
+            foreach (var volume in volumes) protectedSilhouettes.Add((id, ProjectedBox(volume, layout)));
+        }
         public Diagnostic Check(PlacementRequest request, PlacedInstance candidate, PlacementContext context)
         {
             foreach (var box in candidate.volumes)
@@ -184,6 +216,9 @@ namespace Kruty1918.ScenePlacement.Composition
                 var projection = ProjectedBox(box, layout);
                 // Test projected convex gameplay polygon, not only world-space anchors.
                 if (OverlapGameplay(projection, layout)) return new Diagnostic("gameplay-occlusion", request.id, "Silhouette intrudes into the protected play area.");
+                foreach (var reservation in protectedSilhouettes)
+                    if (!(request.allowedContacts ?? Array.Empty<string>()).Contains(reservation.id)
+                        && Overlap(projection, reservation.points)) return new Diagnostic("structural-occlusion", request.id, "Silhouette conceals protected structure " + reservation.id);
             }
             return null;
         }
@@ -201,9 +236,13 @@ namespace Kruty1918.ScenePlacement.Composition
             foreach (float x in new[] { -request.width * .5f - margin, request.width * .5f + margin })
             foreach (float z in new[] { -request.depth * .5f - margin, request.depth * .5f + margin })
             { board.Add(frame.Project(new V3(x, 0, z))); board.Add(frame.Project(new V3(x, request.style.peakHeight, z))); }
-            // SAT against edges of the projected prism and an AABB around the candidate.
+            return Overlap(points, board.ToArray());
+        }
+        static bool Overlap(V2[] points, V2[] board)
+        {
+            // SAT against projected silhouettes. Chord axes include all convex hull edges.
             var axes = new List<V2> { new V2(1, 0), new V2(0, 1) };
-            for (int i = 0; i < board.Count; i++) for (int j = i + 1; j < board.Count; j++)
+            for (int i = 0; i < board.Length; i++) for (int j = i + 1; j < board.Length; j++)
                 axes.Add(new V2(board[j].y - board[i].y, board[i].x - board[j].x));
             foreach (var axis in axes)
             {
@@ -231,6 +270,7 @@ namespace Kruty1918.ScenePlacement.Composition
             run.Add(Id, result.instances, result.diagnostics);
             if (result.Ok)
             {
+                run.ProtectVisibility(result.instances);
                 // Reserve the approach in the river's own coordinate frame.
                 var local = new Box(new V3(0, .7f, 0), new V3(layout.riverWidth * .5f + layout.request.style.landingRadius, 1, layout.request.style.landingRadius));
                 run.context.Reserve("crossing-approach", new OrientedBox(local, Pose.At(layout.Point(layout.River(v), v), layout.request.style.yaw)));

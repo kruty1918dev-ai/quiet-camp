@@ -77,3 +77,5 @@ MIT, власний код. Комерційні моделі й їхні фот
 ## Rule-based scene composition
 
 `CompositionVegetationStage` consumes the shared layout, moisture and landing exclusions. Species support a bounded yaw range for readable flower faces. Core tests include shoreline habitat and deterministic replay; native acceptance remains separate.
+
+Ecological field thresholds are now profile data (`CompositionHabitatStyle`), and stage species/shapes are copied on construction. Caller mutation cannot change a later generation run.

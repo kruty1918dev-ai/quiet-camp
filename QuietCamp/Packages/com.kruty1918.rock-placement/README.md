@@ -77,3 +77,5 @@ MIT, власний код. Комерційні моделі й їхні фот
 ## Rule-based scene composition
 
 `ShorelineRockStage` derives bank groups from a shared composition layout, excludes the crossing and delegates contact/collision to the canonical solver. A planar host may disable surface alignment explicitly. Native acceptance remains separate.
+
+Shoreline stage inputs are copied and outputs retain stage ownership for independent composition review. The canonical placement solver still owns collision/contact decisions.
