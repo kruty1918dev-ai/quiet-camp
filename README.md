@@ -41,7 +41,7 @@
 
 Завершені табори лишаються в **Моїх кемпінгах**: їх можна роздивлятися, обертати й проходити повторно. Text scale, contrast, reduced motion, calm pacing, звук і haptics допомагають грати у власному темпі. [Правила й керування](docs/gameplay.md) · [Екрани й налаштування](docs/screens.md).
 
-**Quiet Camp** is a calm, offline-first campsite puzzle set in a recovering Ukrainian world. Arrange tents around paths, shade, quiet and friendship. The base campaign has 100 levels; visual acceptance is in progress. The level-path screen has been removed from gameplay and Editor Play Mode; its source backup is retained in commit 5035e856. QC007 now has a JSON-authored streamside surround, a composed camera and protected edge blur; [native Gameplay captures](Design/LevelVisualConcepts/2026-10-12/NativeQC007/README-UA.md) document the current result and its remaining differences from the AI concept.
+**Quiet Camp** is a calm, offline-first campsite puzzle set in a recovering Ukrainian world. Arrange tents around paths, shade, quiet and friendship. The base campaign has 100 levels; visual acceptance is in progress. The level-path screen has been removed from gameplay and Editor Play Mode; its source backup is retained in commit 5035e856. QC007 now uses a deterministic rule-based scene generator for camera framing, supported crossings, Stylized Water 3, protected foliage placement and edge blur. [Methodology and fresh native captures](Design/SceneGeneration/2026-10-12/README-UA.md) document the reusable systems, verification and remaining visual differences from the AI concept.
 
 ## З чого почати
 

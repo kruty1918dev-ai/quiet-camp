@@ -1,0 +1,122 @@
+{
+  "layout": {
+    "id": "riparian-clearing",
+    "pitch": 56,
+    "yaw": 219,
+    "aspect": 1.5,
+    "framing": 1.28,
+    "targetRight": 0.15,
+    "targetFar": -0.2,
+    "boardMargin": 0.22,
+    "peakHeight": 1.4,
+    "bankGap": 0.75,
+    "riverWidthRatio": 0.225,
+    "riverSlope": -0.15,
+    "riverBend": 0.25,
+    "bridgeFarRatio": -0.14,
+    "landingRadius": 0.8,
+    "meadowRelief": 0.13,
+    "waterDepth": 0.64,
+    "attempts": 8,
+    "minimumAspect": 0.5625,
+    "maximumAspect": 2
+  },
+  "sunEuler": [
+    52,
+    75,
+    0
+  ],
+  "sunIntensity": 1.4,
+  "sunColor": 16774366,
+  "ambientColor": 12899768,
+  "groundLow": 8558678,
+  "groundHigh": 10202217,
+  "soilColor": 11507313,
+  "blurPixels": 2.5,
+  "exposure": 0.18,
+  "saturation": 0,
+  "contrast": 7,
+  "waterMaterial": "QuietCamp/ArtCompositions/QC007Water",
+  "bridge": "ua_plank_bridge",
+  "trees": {
+    "id": "woodland-frame",
+    "cellSize": 1.8,
+    "density": 0.98,
+    "minimumCount": 12,
+    "species": [
+      {
+        "id": "ua_orchard_tree",
+        "weight": 3,
+        "minimumScale": 0.9,
+        "maximumScale": 1.25,
+        "spacing": 1.65
+      },
+      {
+        "id": "tree_default",
+        "weight": 1,
+        "minimumScale": 0.9,
+        "maximumScale": 1.5,
+        "spacing": 1.3
+      }
+    ]
+  },
+  "reeds": {
+    "id": "riparian-reeds",
+    "cellSize": 0.9,
+    "density": 0.82,
+    "minimumCount": 5,
+    "species": [
+      {
+        "id": "ua_reed_clump",
+        "weight": 1,
+        "minimumScale": 0.6,
+        "maximumScale": 0.95,
+        "spacing": 0.6
+      }
+    ]
+  },
+  "flowers": {
+    "id": "sunflower-accents",
+    "cellSize": 4.5,
+    "density": 0.65,
+    "minimumCount": 1,
+    "species": [
+      {
+        "id": "ua_sunflower_patch",
+        "weight": 1,
+        "minimumScale": 0.75,
+        "maximumScale": 0.95,
+        "spacing": 2.1,
+        "minimumYaw": 205,
+        "maximumYaw": 230
+      }
+    ]
+  },
+  "rocks": {
+    "assets": [
+      "stone_largeA"
+    ],
+    "interval": 2.1,
+    "minimumScale": 1.15,
+    "maximumScale": 1.9
+  },
+  "boundary": "ua_wattle_fence",
+  "boundaryLengthRatio": 0.3,
+  "groundcover": {
+    "cellSize": 0.24,
+    "density": 0.72,
+    "shorelineDensity": 0.95,
+    "bankBand": 1.2,
+    "flowerFraction": 0.055,
+    "minimumHeight": 0.065,
+    "maximumHeight": 0.18,
+    "maximumSpan": 0.18,
+    "bankHeight": 0.3,
+    "bankSpan": 0.34,
+    "bladeCellSize": 0.18,
+    "bladeDensity": 0.55,
+    "maximumCandidates": 300000,
+    "leafSpan": 0.11,
+    "leafHeight": 0.09
+  }
+}

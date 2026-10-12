@@ -13,6 +13,7 @@ static class Contracts
     static void Expect<T>(Action action,string name) where T:Exception{try{action();}catch(T){checks++;return;}throw new Exception("FAIL: "+name);}
     static void Main()
     {
+        CompositionContracts.Run();
         var spec=Example.Spec();var result=Example.Run();Check(result.Ok&&result.acceptedTotal>10,"patch placement API");
         var again=VegetationGenerator.Generate(spec,new PlacementContext(new PlaneSurface()));Check(JsonSerializer.Serialize(result.instances,options)==JsonSerializer.Serialize(again.instances,options),"deterministic species and positions");
         var a=Example.Spec();a.outputBounds=new Box(new V3(-2,0,0),new V3(2,1,4));var b=Example.Spec();b.outputBounds=new Box(new V3(2,0,0),new V3(2,1,4));

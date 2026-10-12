@@ -30,7 +30,7 @@ namespace QuietCamp.Presentation.World
             var shader = Resources.Load<Shader>("QuietCamp/CampArtLit");
             if (shader == null) throw new InvalidOperationException("Camp art lighting shader missing.");
             var material = new Material(shader) { name = "Camp art vertex palette" };
-            material.SetColor("_ArtAmbient", CampArtDefinition.Color(definition.ambientColor) * .38f);
+            material.SetColor("_ArtAmbient", CampArtDefinition.Color(definition.ambientColor) * .48f);
             _materials.Add(material);
             var catalogMeshes = new Dictionary<string, Mesh>(StringComparer.Ordinal);
             foreach (var source in definition.models)
@@ -87,7 +87,8 @@ namespace QuietCamp.Presentation.World
             var centre = gameplay.center;
             var offset = _camera.transform.right * ((.5f - centre.x) * 2 * size * _camera.aspect)
                 + _camera.transform.up * ((.5f - centre.y) * 2 * size);
-            _camera.transform.position = target + offset - _camera.transform.forward * 30;
+            // Keep the entire composition inside the existing 32 m shadow distance.
+            _camera.transform.position = target + offset - _camera.transform.forward * 18;
             _camera.nearClipPlane = .1f; _camera.farClipPlane = 90;
             _blur?.ProtectBoard(_level);
         }
@@ -97,7 +98,7 @@ namespace QuietCamp.Presentation.World
             sun.transform.rotation = Quaternion.Euler(CampArtDefinition.Vector(Definition.sunEuler));
             sun.color = CampArtDefinition.Color(Definition.sunColor);
             sun.intensity = Definition.sunIntensity * Mathf.Max(.75f, weatherMultiplier);
-            sun.shadows = LightShadows.Soft; sun.shadowStrength = .56f; sun.shadowBias = .025f; sun.shadowNormalBias = .12f;
+            sun.shadows = LightShadows.Soft; sun.shadowStrength = .82f; sun.shadowBias = .018f; sun.shadowNormalBias = .06f;
             sun.GetUniversalAdditionalLightData().softShadowQuality = SoftShadowQuality.High;
         }
         void ConfigureVolume()
@@ -112,60 +113,34 @@ namespace QuietCamp.Presentation.World
         void BuildGround(Material material)
         {
             var positions = new List<Vector3>(); var colors = new List<Color>(); var rng = new System.Random(Definition.seed);
-            for (int x = -32; x < 32; x++) for (int z = -32; z < 32; z++)
+            Vector3 At(float x, float z) => new Vector3(x, GroundHeight(x, z), z);
+            float step = Mathf.Max(.275f, Definition.surroundExtent / 64);
+            for (int x = -64; x < 64; x++) for (int z = -64; z < 64; z++)
             {
-                float s = .55f; float wx = x * s, wz = z * s;
-                var color = Color.Lerp(CampArtDefinition.Color(Definition.groundLow), CampArtDefinition.Color(Definition.groundHigh), (float)rng.NextDouble() * .04f + .35f);
-                Quad(positions, colors, new Vector3(wx, -.045f, wz), new Vector3(wx, -.045f, wz + s), new Vector3(wx + s, -.045f, wz + s), new Vector3(wx + s, -.045f, wz), color);
+                float s = step; float wx = x * s, wz = z * s;
+                var uv = ViewGround(wx, wz);
+                float bank = Mathf.Abs(uv.x - StreamU(uv.y));
+                var color = Color.Lerp(CampArtDefinition.Color(Definition.groundLow), CampArtDefinition.Color(Definition.groundHigh), .4f);
+                if (bank < Definition.streamWidth * .5f + .22f) color = Color.Lerp(color, CampArtDefinition.Color(Definition.soilColor), .6f);
+                if (uv.x > 3.4f && uv.y < -3.6f && Mathf.Abs(uv.x - (4.1f - .12f * uv.y)) < .34f)
+                    color = Color.Lerp(color, CampArtDefinition.Color(Definition.soilColor), .75f);
+                Quad(positions, colors, At(wx, wz), At(wx, wz + s), At(wx + s, wz + s), At(wx + s, wz), color);
             }
             var groundMaterial = new Material(material); groundMaterial.SetFloat("_ArtGround", 1); _materials.Add(groundMaterial);
             AddMesh("MeadowGround", MakeMesh("Meadow triangles", positions, colors), groundMaterial, false);
         }
+        float GroundHeight(float x, float z)
+        {
+            var uv = ViewGround(x, z); float bank = Mathf.Abs(uv.x - StreamU(uv.y));
+            float channel = 1 - Mathf.SmoothStep(0, 1, Mathf.InverseLerp(Definition.streamWidth * .30f, Definition.streamWidth * .59f, bank));
+            float margin = Mathf.Max(Mathf.Abs(x) - _level.width * .5f, Mathf.Abs(z) - _level.height * .5f);
+            float relief = Mathf.SmoothStep(0, 1, margin * .5f) * Definition.meadowRelief * (.5f + .5f * Mathf.Sin(x * .55f) * Mathf.Cos(z * .68f));
+            return -.045f + relief - channel * Definition.waterDepth;
+        }
         void BuildGroundcover(Material material)
         {
-            var vertices = new List<Vector3>(); var colors = new List<Color>(); var rng = new System.Random(Definition.seed + 31);
             var library = CozyVegetationLibrary.Load();
-            if (library != null && library.plants.Length > 0)
-            {
-                BuildLibraryGroundcover(vertices, colors, library, rng);
-                var foliage = new Material(material); foliage.SetFloat("_ArtGrass", 1); _materials.Add(foliage);
-                AddMesh("GroupedProjectVegetation", MakeMesh("Project groundcover", vertices, colors), foliage, false);
-                return;
-            }
-            for (int i = 0; i < 14500; i++)
-            {
-                float x = (float)(rng.NextDouble() * 32 - 16), z = (float)(rng.NextDouble() * 32 - 16);
-                if (Mathf.Abs(x) < _level.width * .5f + .32f && Mathf.Abs(z) < _level.height * .5f + .32f) continue;
-                var uv = ViewGround(x, z); if (Mathf.Abs(uv.x - StreamU(uv.y)) < Definition.streamWidth * .65f) continue;
-                float grouping = .5f + .5f * Mathf.Sin(x * 1.7f + Mathf.Cos(z * .85f));
-                if (rng.NextDouble() > .38f + .5f * grouping) continue;
-                float height = .08f + (float)rng.NextDouble() * .24f, width = height * .24f;
-                var color = Color.Lerp(CampArtDefinition.Color(0x647E3F), CampArtDefinition.Color(0x96AB54), (float)rng.NextDouble());
-                for (int blade = 0; blade < 3; blade++)
-                {
-                    float yaw = (float)rng.NextDouble() * Mathf.PI * 2;
-                    var side = new Vector3(Mathf.Cos(yaw), 0, Mathf.Sin(yaw)) * width;
-                    var root = new Vector3(x, -.02f, z);
-                    Triangle(vertices, colors, root - side, root + Vector3.up * height + side * .2f, root + side, color);
-                }
-                if (i % 9 == 0)
-                {
-                    var centre = new Vector3(x, height * .75f, z);
-                    float radius = .075f;
-                    for (int petal = 0; petal < 5; petal++)
-                    {
-                        float a = petal * Mathf.PI * .4f, b = a + .72f;
-                        Triangle(vertices, colors, centre, centre + new Vector3(Mathf.Cos(a), 0, Mathf.Sin(a)) * radius,
-                            centre + new Vector3(Mathf.Cos(b), .025f, Mathf.Sin(b)) * radius, new Color(.95f, .92f, .72f));
-                    }
-                }
-            }
-            var grassMaterial = new Material(material); grassMaterial.SetFloat("_ArtGrass", 1); _materials.Add(grassMaterial);
-            AddMesh("GroupedGrassAndDaisies", MakeMesh("Camp groundcover", vertices, colors), grassMaterial, false);
-        }
-        void BuildLibraryGroundcover(List<Vector3> vertices, List<Color> colors, CozyVegetationLibrary library, System.Random rng)
-        {
-            // Use the game's real readable CC0 meshes, with their baked source colours.
+            if (library == null) throw new InvalidOperationException("Project vegetation library unavailable.");
             var shapes = library.plants.Where(p => p.mesh != null && p.mesh.isReadable && p.colors != null && p.colors.Length > 0)
                 .Select(p =>
                 {
@@ -175,46 +150,71 @@ namespace QuietCamp.Presentation.World
                     { points.Add(source[index]); palette.Add(p.colors[Mathf.Min(slot, p.colors.Length - 1)]); }
                     return new { plant = p, points, palette };
                 }).ToArray();
-            if (shapes.Length == 0) throw new InvalidOperationException("Camp vegetation has no readable source meshes.");
-            for (int i = 0; i < 7800; i++)
+            var vertices = new List<Vector3>(); var colors = new List<Color>();
+            foreach (var item in Definition.cover)
             {
-                float x = (float)(rng.NextDouble() * 32 - 16), z = (float)(rng.NextDouble() * 32 - 16);
-                if (Mathf.Abs(x) < _level.width * .5f + .38f && Mathf.Abs(z) < _level.height * .5f + .38f) continue;
-                var uv = ViewGround(x, z);
-                if (Mathf.Abs(uv.x - StreamU(uv.y)) < Definition.streamWidth * .65f) continue;
-                float grouping = .5f + .5f * Mathf.Sin(x * 1.45f + Mathf.Cos(z * .8f));
-                if (rng.NextDouble() > .36f + .48f * grouping) continue;
-                var shape = shapes[rng.Next(shapes.Length)];
-                float height = shape.plant.kind == CozyVegetationLibrary.PlantKind.Shrub
-                    ? .16f + (float)rng.NextDouble() * .30f : .10f + (float)rng.NextDouble() * .23f;
-                float size = CozyVegetationLibrary.GroundcoverScale(shape.plant.kind, shape.plant.mesh.bounds, height);
-                var rotation = Quaternion.Euler(0, (float)rng.NextDouble() * 360, 0); var origin = new Vector3(x, -.02f, z);
-                for (int index = 0; index < shape.points.Count; index++)
+                var root = new Vector3(item.x, item.y, item.z);
+                var rotation = Quaternion.Euler(0, item.yaw, 0);
+                if (item.kind == 3)
                 {
-                    vertices.Add(origin + rotation * shape.points[index] * size);
-                    colors.Add(Linear(shape.palette[index]));
+                    var tint = Color.Lerp(CampArtDefinition.Color(0x647F3C), CampArtDefinition.Color(0xA7B66B), item.variation);
+                    for (int blade = 0; blade < 3; blade++)
+                    {
+                        var side = rotation * (Quaternion.Euler(0, blade * 60, 0) * Vector3.right) * item.height * .12f;
+                        Triangle(vertices, colors, root - side, root + Vector3.up * item.height + side * .25f, root + side, tint);
+                    }
+                    continue;
+                }
+                var compatible = shapes.Where(p => (int)p.plant.kind == item.kind).ToArray();
+                if (compatible.Length == 0) throw new InvalidOperationException("Groundcover kind has no source mesh: " + item.kind);
+                var shape = compatible[Mathf.Min(compatible.Length - 1, (int)(item.variation * compatible.Length))];
+                float span = Mathf.Max(shape.plant.mesh.bounds.size.x, shape.plant.mesh.bounds.size.z);
+                float size = Mathf.Min(item.height / Mathf.Max(.001f, shape.plant.mesh.bounds.size.y), item.maximumSpan / Mathf.Max(.001f, span));
+                for (int j = 0; j < shape.points.Count; j++)
+                {
+                    vertices.Add(root + rotation * shape.points[j] * size);
+                    var tint = shape.palette[j];
+                    if (item.kind != 2) tint = Color.Lerp(tint, CampArtDefinition.Color(0x779B45), .55f);
+                    colors.Add(Linear(tint));
                 }
             }
+            var foliage = new Material(material); foliage.SetFloat("_ArtGrass", 1); _materials.Add(foliage);
+            AddMesh("GeneratedGroundcover", MakeMesh("Ecological groundcover", vertices, colors), foliage);
         }
-        float StreamU(float v) => Definition.streamCentre + Mathf.Sin(v * .38f) * .32f + Mathf.Sin(v * .83f) * .11f;
-        static Vector2 ViewGround(float x, float z) => new Vector2((-x + z) * .7071068f, (-x - z) * .7071068f);
-        static Vector3 GroundPoint(float u, float v, float y) => new Vector3((-u - v) * .7071068f, y, (u - v) * .7071068f);
+        float StreamU(float v) => Definition.streamCentre + Definition.streamSlope * v + Mathf.Sin(v * .38f) * Definition.streamBend + Mathf.Sin(v * .83f) * Definition.streamBend * .34f;
+        Vector2 ViewGround(float x, float z)
+        {
+            float yaw = Definition.frameYaw * Mathf.Deg2Rad;
+            return new Vector2(x * Mathf.Cos(yaw) - z * Mathf.Sin(yaw), x * Mathf.Sin(yaw) + z * Mathf.Cos(yaw));
+        }
+        Vector3 GroundPoint(float u, float v, float y)
+        {
+            float yaw = Definition.frameYaw * Mathf.Deg2Rad;
+            return new Vector3(u * Mathf.Cos(yaw) + v * Mathf.Sin(yaw), y, -u * Mathf.Sin(yaw) + v * Mathf.Cos(yaw));
+        }
         void BuildStream(Material baseMaterial)
         {
             var vertices = new List<Vector3>(); var colors = new List<Color>();
             for (int i = 0; i < 100; i++)
             {
-                float a = -24 + i * .48f, b = a + .48f, width = Definition.streamWidth * .5f;
+                float length = Definition.surroundExtent * 1.5f;
+                float a = -length + i * (length * .02f), b = a + length * .02f, width = Definition.streamWidth * .5f + .22f;
                 for (int band = 0; band < 5; band++)
                 {
                     float low = -width + band * width * .4f, high = low + width * .4f;
-                    var color = Color.Lerp(CampArtDefinition.Color(0x397D86), CampArtDefinition.Color(0x6EB4AF), .18f + band * .12f + (i % 4) * .04f);
                     Quad(vertices, colors, GroundPoint(StreamU(a) + low, a, -.018f), GroundPoint(StreamU(b) + low, b, -.018f),
-                        GroundPoint(StreamU(b) + high, b, -.018f), GroundPoint(StreamU(a) + high, a, -.018f), color);
+                        GroundPoint(StreamU(b) + high, b, -.018f), GroundPoint(StreamU(a) + high, a, -.018f), Color.clear);
                 }
             }
-            var water = new Material(baseMaterial) { name = "Faceted stream water" }; water.SetFloat("_ArtWater", 1); _materials.Add(water);
-            AddMesh("ExteriorStream", MakeMesh("Stream ribbon", vertices, colors), water, false);
+            var source = Resources.Load<Material>(Definition.waterMaterial);
+            if (source == null || !source.shader.isSupported) throw new InvalidOperationException("Stylized Water 3 camp material unavailable.");
+            var water = new Material(source) { name = "QC007 Stylized Water 3 stream" }; _materials.Add(water);
+            var mesh = MakeMesh("Stream ribbon", vertices, colors);
+            mesh.SetUVs(0, vertices.Select(p => { var uv = ViewGround(p.x, p.z); return new Vector2((uv.x - StreamU(uv.y)) * .4f, uv.y * .4f); }).ToList());
+            mesh.RecalculateTangents();
+            AddMesh("ExteriorStream", mesh, water, false);
+            var cameraData = _camera.GetUniversalAdditionalCameraData();
+            cameraData.requiresDepthTexture = true; cameraData.requiresColorTexture = true;
         }
         void AddMesh(string name, Mesh mesh, Material material, bool casts = true)
         {

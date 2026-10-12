@@ -12,6 +12,7 @@ namespace Kruty1918.VegetationPlacement
     [Serializable] public sealed class Species
     {
         public string id;public AssetShape shape;public int tier;public float weight=1,minimumScale=.8f,maximumScale=1.2f;
+        public float minimumYaw,maximumYaw=360;
         public float minimumMoisture,maximumMoisture=1,minimumLight,maximumLight=1,maximumSlope=40,spacing=.5f;
     }
     public sealed class VegetationSpec
@@ -41,7 +42,8 @@ namespace Kruty1918.VegetationPlacement
                 var compatible=spec.species.Where(s=>s.weight>0&&moisture>=s.minimumMoisture&&moisture<=s.maximumMoisture&&light>=s.minimumLight&&light<=s.maximumLight).OrderBy(s=>s.id,StringComparer.Ordinal).ToArray();if(compatible.Length==0)continue;
                 float draw=Numbers.Unit(id,spec.seed,3)*compatible.Sum(s=>s.weight);var chosen=compatible.Last();foreach(var s in compatible){draw-=s.weight;if(draw<=0){chosen=s;break;}}
                 float scale=chosen.minimumScale+(chosen.maximumScale-chosen.minimumScale)*Numbers.Unit(id,spec.seed,4);
-                candidates.Add((new PlacementRequest{id=id,owner=spec.id,shape=chosen.shape,target=p,scale=scale,yaw=Numbers.Unit(id,spec.seed,5)*360,settlement=.005f*scale,maxSlope=chosen.maximumSlope,maxSupportGap=.08f},chosen));
+                if(!Numbers.Finite(chosen.minimumYaw)||!Numbers.Finite(chosen.maximumYaw)||chosen.maximumYaw<chosen.minimumYaw)throw new ArgumentException("Finite ordered species yaw range required.");
+                candidates.Add((new PlacementRequest{id=id,owner=spec.id,shape=chosen.shape,target=p,scale=scale,yaw=chosen.minimumYaw+Numbers.Unit(id,spec.seed,5)*(chosen.maximumYaw-chosen.minimumYaw),settlement=.005f*scale,maxSlope=chosen.maximumSlope,maxSupportGap=.08f},chosen));
             }
             var admitted=new List<(PlacedInstance instance,Species species)>();
             var tierCells=new Dictionary<(int,int,int),List<(PlacedInstance instance,Species species)>>();

@@ -20,7 +20,7 @@ namespace QuietCamp.Editor
     [InitializeOnLoad]
     public static class QC007ArtCapture
     {
-        sealed class Request { public string mode, output, name; public int width = 1536, height = 1024; }
+        sealed class Request { public string mode, output, name, levelId, profile; public int width = 1536, height = 1024, seed = 12007; }
         static readonly string RequestPath = Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, "../Temp/ai/qc007-art-request.json"));
         static readonly string ResultPath = Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, "../Temp/ai/qc007-art-result.json"));
         static readonly string GamePath = Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, "../Temp/ai/qc007-game-session.json"));
@@ -115,6 +115,7 @@ namespace QuietCamp.Editor
                 var result = new { status = "game-captured", kind = "native-live-gameplay-camera", output, imageSha256 = Hash(bytes),
                     level = host.Session.Level.id, contentHash = host.Session.Level.contentHash, scene = SceneManager.GetActiveScene().name,
                     width = request.width, height = request.height, artSha256 = Hash(File.ReadAllBytes("Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/QC007.json")),
+                    profile = view.Definition.generation, seed = view.Definition.seed, sourceReceipt = SourceReceipt(view.Definition),
                     cameraEuler = view.Definition.cameraEuler, camera.orthographicSize, capturedUtc = DateTime.UtcNow.ToString("o"), playerBuild = false };
                 string serialized = JsonConvert.SerializeObject(result, Formatting.Indented);
                 File.WriteAllText(Path.Combine(request.output, request.name + ".json"), serialized); File.WriteAllText(ResultPath, serialized);
@@ -136,18 +137,37 @@ namespace QuietCamp.Editor
         sealed class TestReport : ICallbacks
         {
             readonly TestRunnerApi _api;
+            readonly System.Collections.Generic.List<object> _failures = new System.Collections.Generic.List<object>();
             public TestReport(TestRunnerApi api) => _api = api;
             public void RunStarted(ITestAdaptor testsToRun) { }
             public void TestStarted(ITestAdaptor test) { }
-            public void TestFinished(ITestResultAdaptor result) { }
+            public void TestFinished(ITestResultAdaptor result)
+            {
+                if (result.TestStatus == TestStatus.Failed) _failures.Add(new { name = result.Test.FullName, result.Message, result.StackTrace });
+            }
             public void RunFinished(ITestResultAdaptor result)
             {
                 File.WriteAllText(ResultPath, JsonConvert.SerializeObject(new { status = "tests", outcome = result.TestStatus.ToString(),
-                    passed = result.PassCount, failed = result.FailCount, skipped = result.SkipCount, duration = result.Duration }, Formatting.Indented));
+                    passed = result.PassCount, failed = result.FailCount, skipped = result.SkipCount, duration = result.Duration, failures = _failures }, Formatting.Indented));
                 UnityEngine.Object.DestroyImmediate(_api);
             }
         }
         static string Hash(byte[] bytes) { using var hash = SHA256.Create(); return BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant(); }
+        static object SourceReceipt(CampArtDefinition art)
+        {
+            var paths = new[] { "Assets/QuietCamp/Scripts/Infrastructure/CampArtDefinition.cs", "Assets/QuietCamp/Scripts/Infrastructure/CampCompositionGenerator.cs",
+                "Assets/QuietCamp/Scripts/Presentation/World/CampArtView.cs", "Assets/QuietCamp/Scripts/Presentation/World/BoardRenderer.cs",
+                "Assets/QuietCamp/Scripts/Presentation/World/CampArtEdgeBlur.cs", "Assets/QuietCamp/Scripts/Presentation/World/CampAtmosphere.cs",
+                "Assets/QuietCamp/Resources/QuietCamp/CampArtLit.shader", "Assets/QuietCamp/Resources/QuietCamp/CampArtEdgeBlur.shader",
+                "Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/Profiles/" + art.generation + ".json",
+                "Assets/QuietCamp/Settings/URP/QC_Renderer.asset" }
+                .Concat(new[] { "scene-placement", "vegetation-placement", "rock-placement" }.SelectMany(id => Directory.GetFiles("Packages/com.kruty1918." + id + "/Runtime/Core", "*.cs")))
+                .Concat(AssetDatabase.GetDependencies(AssetDatabase.GetAssetPath(Resources.Load<Material>(art.waterMaterial)), true))
+                .Concat(AssetDatabase.GetDependencies("Assets/QuietCamp/Resources/QuietCamp/CozyVegetationLibrary.asset", true))
+                .Where(File.Exists).Distinct().OrderBy(p => p, StringComparer.Ordinal).ToArray();
+            return new { resolvedArtSha256 = Hash(System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(art))),
+                sources = paths.Select(path => new { path, sha256 = Hash(File.ReadAllBytes(path)) }).ToArray() };
+        }
         static void Capture(Request request)
         {
             if (request.width < 640 || request.width > 2560 || request.height < 480 || request.height > 2560)
@@ -156,8 +176,8 @@ namespace QuietCamp.Editor
                 || request.name.Any(c => !(char.IsLetterOrDigit(c) || c == '-' || c == '_')))
                 throw new InvalidDataException("Invalid capture destination.");
             Directory.CreateDirectory(request.output);
-            var level = LevelLoader.Load("QC007");
-            var art = CampArtDefinition.Load(level);
+            var level = LevelLoader.Load(request.levelId ?? "QC007");
+            var art = string.IsNullOrEmpty(request.profile) ? CampArtDefinition.Load(level) : CampCompositionGenerator.Generate(level, request.profile, request.seed, out _);
             var catalog = AssetCatalog.Load();
             var oldAsync = ShaderUtil.allowAsyncCompilation;
             var oldSun = RenderSettings.sun; var oldAmbient = RenderSettings.ambientLight;
@@ -196,8 +216,8 @@ namespace QuietCamp.Editor
                 preview.BeginStaticPreview(new Rect(0, 0, request.width, request.height)); preview.Render(true);
                 var image = preview.EndStaticPreview(); var bytes = image.EncodeToPNG(); UnityEngine.Object.DestroyImmediate(image);
                 string output = Path.Combine(request.output, request.name + ".png"); File.WriteAllBytes(output, bytes);
-                var errors = new[] { "QuietCamp/CampArtLit", "QuietCamp/CampArtEdgeBlur" }
-                    .SelectMany(id => ShaderUtil.GetShaderMessages(Resources.Load<Shader>(id))).Where(message => message.severity.ToString() == "Error").Select(message => message.message).ToArray();
+                var errors = new[] { Resources.Load<Shader>("QuietCamp/CampArtLit"), Resources.Load<Shader>("QuietCamp/CampArtEdgeBlur"), Resources.Load<Material>(art.waterMaterial).shader }
+                    .SelectMany(ShaderUtil.GetShaderMessages).Where(message => message.severity.ToString() == "Error").Select(message => message.message).ToArray();
                 if (errors.Length != 0) throw new InvalidOperationException(string.Join("\n", errors));
                 var receipt = new { status = "captured", kind = "native-unity-production-world-components", output,
                     unity = UnityEngine.Application.unityVersion, graphics = SystemInfo.graphicsDeviceType.ToString(), device = SystemInfo.graphicsDeviceName,
@@ -205,6 +225,7 @@ namespace QuietCamp.Editor
                     imageSha256 = Hash(bytes), artSha256 = Hash(File.ReadAllBytes("Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/QC007.json")),
                     cameraEuler = art.cameraEuler, cameraPosition = new[] { camera.transform.position.x, camera.transform.position.y, camera.transform.position.z }, camera.orthographicSize,
                     sourceMeshes = art.models.Select(model => model.id).ToArray(), instances = art.instances.Length, triangles = view.TriangleCount,
+                    profile = art.generation, generationAttempt = art.generationAttempt, seed = art.seed, sourceReceipt = SourceReceipt(art),
                     sunEuler = art.sunEuler, art.sunIntensity, art.blurPixels, warmupFrames = 3, capturedUtc = DateTime.UtcNow.ToString("o"), playerBuild = false, shaderErrors = errors };
                 string serialized = JsonConvert.SerializeObject(receipt, Formatting.Indented);
                 File.WriteAllText(Path.Combine(request.output, request.name + ".json"), serialized);

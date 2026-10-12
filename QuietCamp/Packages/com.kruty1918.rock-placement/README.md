@@ -72,3 +72,8 @@ MIT, власний код. Комерційні моделі й їхні фот
 
 Докладні parameters, принцип роботи й обмеження: [API-UA](Documentation~/API-UA.md).
 [Receipt](Validation~/receipt.json) відокремлює Core/cached compilation від native acceptance.
+
+
+## Rule-based scene composition
+
+`ShorelineRockStage` derives bank groups from a shared composition layout, excludes the crossing and delegates contact/collision to the canonical solver. A planar host may disable surface alignment explicitly. Native acceptance remains separate.

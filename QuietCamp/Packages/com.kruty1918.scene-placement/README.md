@@ -72,3 +72,8 @@ MIT, власний код. Комерційні моделі й їхні фот
 
 Докладні parameters, принцип роботи й обмеження: [API-UA](Documentation~/API-UA.md).
 [Receipt](Validation~/receipt.json) відокремлює Core/cached compilation від native acceptance.
+
+
+## Rule-based scene composition
+
+Engine-independent layout, protected camera projection, supported crossings and a bounded deterministic pipeline. See [Ukrainian methodology](Documentation~/COMPOSITION-UA.md).

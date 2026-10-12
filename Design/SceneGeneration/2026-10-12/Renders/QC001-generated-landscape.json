@@ -1,0 +1,222 @@
+{
+  "status": "captured",
+  "kind": "native-unity-production-world-components",
+  "output": "C:/Users/yelyzaveta.khodos.TP-GE26-20/Documents/GitHub/quiet-camp/Design/SceneGeneration/2026-10-12/Renders\\QC001-generated-landscape.png",
+  "unity": "6000.6.2f1",
+  "graphics": "Direct3D12",
+  "device": "AMD Radeon(TM)  840M Graphics",
+  "width": 1536,
+  "height": 1024,
+  "levelId": "QC001",
+  "contentHash": "e2c3b376421e857078591a26bda99744688e469796ff1adc9313fc797a94dec2",
+  "imageSha256": "595ef4b6d70269f0d9614896067f389445de661fd4d5d88843a2d5460e0af3ea",
+  "artSha256": "ae777846e11868e4633670c6c7631b7c9e2e77326d0a8822fddb23346434d81f",
+  "cameraEuler": [
+    56.0,
+    219.0,
+    0.0
+  ],
+  "cameraPosition": [
+    6.3437,
+    14.922678,
+    8.072168
+  ],
+  "orthographicSize": 5.52324247,
+  "sourceMeshes": [
+    "ua_orchard_tree",
+    "ua_young_willow",
+    "ua_reed_clump",
+    "ua_plank_bridge",
+    "ua_wattle_fence",
+    "ua_sunflower_patch"
+  ],
+  "instances": 120,
+  "triangles": 512420,
+  "profile": "riparian-clearing",
+  "generationAttempt": 0,
+  "seed": 41001,
+  "sourceReceipt": {
+    "resolvedArtSha256": "79a3ac6c0ebdc4abe8c831caeb9a25d5013b6e4ca0a169d87f4f027e1843f554",
+    "sources": [
+      {
+        "path": "Assets/QuietCamp/Art/CozyVegetation/flower_purpleA.asset",
+        "sha256": "1dbf9266ad1fe19eb2366024f806f52a5380642a3312311861cb57ab4a428a95"
+      },
+      {
+        "path": "Assets/QuietCamp/Art/CozyVegetation/flower_yellowB.asset",
+        "sha256": "895408b0469f183199525b70c43253fb75bceb094fb4ade73036cd0e05d0e792"
+      },
+      {
+        "path": "Assets/QuietCamp/Art/CozyVegetation/grass_leafs.asset",
+        "sha256": "2a0a3c22d262b29e9d730815a0bc35b88103d059b7f5b8a7bd9936eb51b48a4c"
+      },
+      {
+        "path": "Assets/QuietCamp/Art/CozyVegetation/grass_leafsLarge.asset",
+        "sha256": "9e470cd7dbbd500174a79e3598134114fd1168847615cc076409545ad7f8cf6c"
+      },
+      {
+        "path": "Assets/QuietCamp/Art/CozyVegetation/plant_bushDetailed.asset",
+        "sha256": "e8c4406ce44e51ae136c675d632843ad4acc01f13c16b496d6837debdfa43ea5"
+      },
+      {
+        "path": "Assets/QuietCamp/Art/CozyVegetation/plant_bushSmall.asset",
+        "sha256": "ee823d61cca3b5d0b2b02439facb8e5a4c54d0036b5f718d2310b7cb64368b8e"
+      },
+      {
+        "path": "Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/Profiles/riparian-clearing.json",
+        "sha256": "deb9627b9267c5a9dfb89da9b73249ac09126cd97d295fae336a60b30bfa18ec"
+      },
+      {
+        "path": "Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/QC007Water.mat",
+        "sha256": "504f8af7ba9e4e7fc374c1b197832f258b76080f38e36b5523b12005d9e0981f"
+      },
+      {
+        "path": "Assets/QuietCamp/Resources/QuietCamp/CampArtEdgeBlur.shader",
+        "sha256": "52477d5fa7e9e242b2bf120281ab64e23843e669dd083c98df2a57b6713beb6a"
+      },
+      {
+        "path": "Assets/QuietCamp/Resources/QuietCamp/CampArtLit.shader",
+        "sha256": "c6e4101ad5809b4af02381bf78fe3b87c5ae254d9509a53ae7826a27c2601213"
+      },
+      {
+        "path": "Assets/QuietCamp/Resources/QuietCamp/CozyVegetationLibrary.asset",
+        "sha256": "308c95d186696d4bdc6247d2783a7f020872440da41fdbada802e07e37343f2d"
+      },
+      {
+        "path": "Assets/QuietCamp/Scripts/Infrastructure/CampArtDefinition.cs",
+        "sha256": "6f2b4c193bd031505126be42bcfee216a9e79cb27a1c939891eb72a682b816cb"
+      },
+      {
+        "path": "Assets/QuietCamp/Scripts/Infrastructure/CampCompositionGenerator.cs",
+        "sha256": "49b10b97a9da5ee3f9464686e55cf7d36ca123085e7c38d1d20122731aa77b71"
+      },
+      {
+        "path": "Assets/QuietCamp/Scripts/Presentation/World/BoardRenderer.cs",
+        "sha256": "306fddb87d45a969ea07e1b23f0f6cecc9fb544f8818d329956b0b0b74665462"
+      },
+      {
+        "path": "Assets/QuietCamp/Scripts/Presentation/World/CampArtEdgeBlur.cs",
+        "sha256": "c8472af1a0ee9b2492ff2b6b248a740414206bf045b96b4838ecd1eebdb649bc"
+      },
+      {
+        "path": "Assets/QuietCamp/Scripts/Presentation/World/CampArtView.cs",
+        "sha256": "3ad5a59704d18485ce3ff061131a18dfa1060aaec4f9ab74cfcde7bb0f24fa97"
+      },
+      {
+        "path": "Assets/QuietCamp/Scripts/Presentation/World/CampAtmosphere.cs",
+        "sha256": "af3845bb539c164015b3ec80fbda5de25e5a8e31c22d1661b169cb62fee61f3e"
+      },
+      {
+        "path": "Assets/QuietCamp/Scripts/Presentation/World/CozyVegetationLibrary.cs",
+        "sha256": "196faf9282e586ae04bd8f4d1c41c63557864e0d2ce27d88ec8cc00960c2af0d"
+      },
+      {
+        "path": "Assets/QuietCamp/Settings/URP/QC_Renderer.asset",
+        "sha256": "d4ce2f649119d392646e6258e1c808d7f28903608cc03fea7d789af0310430c5"
+      },
+      {
+        "path": "Assets/ThirdParty/Stylized Water 3/Editor/Resources/wave-profile-icon.png",
+        "sha256": "625c9bf7d83cb1a53a02870e3f437c33d72f86172da57cd337e06184de33cab5"
+      },
+      {
+        "path": "Assets/ThirdParty/Stylized Water 3/Editor/Shader/WaterShaderImporter.cs",
+        "sha256": "8d15c51fbba51a9291a0e7a04699b821db7ed85d044af6373cc5c204d1fceacd"
+      },
+      {
+        "path": "Assets/ThirdParty/Stylized Water 3/Materials/Textures/Caustics/Caustics_1.png",
+        "sha256": "3ee89d55472ae3e52f6bd7814dd97dfd7eb1c11eaf114f82f345c331777fc05c"
+      },
+      {
+        "path": "Assets/ThirdParty/Stylized Water 3/Materials/Textures/Foam/DirectionalFoam.png",
+        "sha256": "ed771414581c380963d2b9c2739783ce4a0e46812b7cf2de187147abe98ced7b"
+      },
+      {
+        "path": "Assets/ThirdParty/Stylized Water 3/Materials/Textures/Foam/Foam1.png",
+        "sha256": "f75f9ac860bff2c2ad0e480bea5f7bedee842ca06535a02f64f89dfae598692d"
+      },
+      {
+        "path": "Assets/ThirdParty/Stylized Water 3/Materials/Textures/Foam/FoamSea.png",
+        "sha256": "64a135a2fcbe37b1990e7a5b8324944a2d5ba71fcd0bfa07772d4ed2d2b7f4e5"
+      },
+      {
+        "path": "Assets/ThirdParty/Stylized Water 3/Materials/Textures/Normals/RoughWaves.png",
+        "sha256": "c1e631c1ee31bd4a5d86b998dc5c05ba3a4fe2107a8eac5d77af140faa28cb08"
+      },
+      {
+        "path": "Assets/ThirdParty/Stylized Water 3/Materials/Textures/Normals/SharpWaves.png",
+        "sha256": "4e2367cf45e9c9e318dce5b554b0f28eebea14090034ab20176d76647aab8e27"
+      },
+      {
+        "path": "Assets/ThirdParty/Stylized Water 3/Materials/Textures/Normals/StreamWaves.png",
+        "sha256": "041b5e3d8281299b6c2dddebd52211dde2f20fa91043ef25658c8f88a5efadde"
+      },
+      {
+        "path": "Assets/ThirdParty/Stylized Water 3/Profiles/River Wave Profile.asset",
+        "sha256": "603c048cc347f1e6aeb09ebb93e45beea6970c071d40fde8751bb428b63b3265"
+      },
+      {
+        "path": "Assets/ThirdParty/Stylized Water 3/Runtime/WaveProfile.cs",
+        "sha256": "a4af144547e35c34b26d709109b898c79118344d9bb9cd0da883211109a0054d"
+      },
+      {
+        "path": "Assets/ThirdParty/Stylized Water 3/Shaders/StylizedWater3_Standard.watershader3",
+        "sha256": "47c8d14069359b6ab94c943449051ada031447948740a8f4dc6261853622a167"
+      },
+      {
+        "path": "Packages/com.kruty1918.rock-placement/Runtime/Core\\CompositionRocks.cs",
+        "sha256": "2287d7e1cc6f74d118522458ebf26b3b22ed8b92b01b592a0017ecde7c8a5900"
+      },
+      {
+        "path": "Packages/com.kruty1918.rock-placement/Runtime/Core\\RockPlacement.cs",
+        "sha256": "bf917e7d1ef2ab8d267113451eeab4098044e6a5b3d70e83015719be1c1429de"
+      },
+      {
+        "path": "Packages/com.kruty1918.scene-placement/Runtime/Core\\Composition.cs",
+        "sha256": "5d08c64737063029cdf17f2174f7d371d1891093c6f8304b8c17dd540074f490"
+      },
+      {
+        "path": "Packages/com.kruty1918.scene-placement/Runtime/Core\\Geometry.cs",
+        "sha256": "ddeb5e9612016e33cffa1797ceeecac72dd607e4105b3d24ec306b6eedab22f7"
+      },
+      {
+        "path": "Packages/com.kruty1918.scene-placement/Runtime/Core\\Placement.cs",
+        "sha256": "b283399610c682ee79746b9e39b685b6aa97568f7bdadbe533479854e752011e"
+      },
+      {
+        "path": "Packages/com.kruty1918.scene-placement/Runtime/Core\\RoutesAndMeshes.cs",
+        "sha256": "519024f775f1a7fbf3bc215a12bb21897a90187e23fd878b69e76cb30f67668d"
+      },
+      {
+        "path": "Packages/com.kruty1918.scene-placement/Runtime/Core\\TriangleSurface.cs",
+        "sha256": "ebdd9b808bdeee625e234bdca3ce4d004f2093f5bb1accd2ee75dd8469529e7e"
+      },
+      {
+        "path": "Packages/com.kruty1918.vegetation-placement/Runtime/Core\\CompositionGroundcover.cs",
+        "sha256": "b54893dc52551281cb1962843c4e8825f4d7f215d4cbf0419dde49665040619b"
+      },
+      {
+        "path": "Packages/com.kruty1918.vegetation-placement/Runtime/Core\\CompositionVegetation.cs",
+        "sha256": "55201f7365f35a87da3cddce4a17333714bdfb5a6c84cfa70840ed248e1e8da0"
+      },
+      {
+        "path": "Packages/com.kruty1918.vegetation-placement/Runtime/Core\\VegetationPlacement.cs",
+        "sha256": "5aab1b59dc08e14172bc45da9aea4c0c04a587e0edcedd93e7d28701cbdc62a2"
+      },
+      {
+        "path": "Packages/com.unity.render-pipelines.universal/Editor/AssetVersion.cs",
+        "sha256": "96ed27e15286cda1fdada6923e804887b6447a905b38360e0f5561f79cd0344c"
+      }
+    ]
+  },
+  "sunEuler": [
+    52.0,
+    75.0,
+    0.0
+  ],
+  "sunIntensity": 1.4,
+  "blurPixels": 2.5,
+  "warmupFrames": 3,
+  "capturedUtc": "2026-10-12T04:38:08.4039647Z",
+  "playerBuild": false,
+  "shaderErrors": []
+}

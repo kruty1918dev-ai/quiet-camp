@@ -13,6 +13,7 @@ static class Contracts
     static void Expect<T>(Action action,string name) where T:Exception{try{action();}catch(T){checks++;return;}throw new Exception("FAIL: "+name);}
     static void Main()
     {
+        CompositionContracts.Run();
         var spec=Example.Spec();var result=Example.Run();Check(result.Ok&&result.instances.Count>0,"rock group API");var hero=result.instances.Single(p=>p.id.EndsWith("/0",StringComparison.Ordinal));Check(hero.pose.position.y<0,"hero embedded in ground");
         var repeat=RockGenerator.Generate(spec,new PlacementContext(new PlaneSurface()));Check(JsonSerializer.Serialize(result.instances,options)==JsonSerializer.Serialize(repeat.instances,options),"deterministic geology");
         foreach(var a in result.instances)foreach(var b in result.instances.Where(p=>StringComparer.Ordinal.Compare(a.id,p.id)<0))foreach(var av in a.volumes)foreach(var bv in b.volumes)Check(!av.Intersects(bv),"stones do not overlap");

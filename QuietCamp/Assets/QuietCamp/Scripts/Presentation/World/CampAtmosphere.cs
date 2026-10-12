@@ -160,7 +160,7 @@ namespace QuietCamp.Presentation.World
                 _artView?.ApplyLighting(_sun);
                 RenderSettings.sun = _sun;
             }
-            if(decorRoot!=null&&!BakedCampEnvironment.Uses(level))
+            if(decorRoot!=null && _artView == null && !BakedCampEnvironment.Uses(level))
             {
                 CameraFitter.Fit(camera,level,viewport);
                 var compositionRoot=new GameObject("ComposedEnvironment");compositionRoot.transform.SetParent(decorRoot,false);
@@ -174,7 +174,7 @@ namespace QuietCamp.Presentation.World
             _initialized = true;
             Apply(profile);
             RefreshLayout();
-            if (decorRoot != null&&!BakedCampEnvironment.Uses(level))
+            if (decorRoot != null && _artView == null && !BakedCampEnvironment.Uses(level))
             {
                 var floorRoot = new GameObject("VisibleForestFloor");
                 floorRoot.transform.SetParent(decorRoot, false);

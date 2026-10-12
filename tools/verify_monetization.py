@@ -22,6 +22,9 @@ def main():
                   ("Kruty1918.LevelGen", "Packages/com.kruty1918.levelgen/Runtime"),
                   ("Kruty1918.LevelGen.LevelKitBridge", "Packages/com.kruty1918.levelgen/Runtime/LevelKitBridge"),
                   ("Kruty1918.AgentVerify", "Packages/com.kruty1918.agentverify/Runtime"),
+                  ("Kruty1918.ScenePlacement.Core", "Packages/com.kruty1918.scene-placement/Runtime/Core"),
+                  ("Kruty1918.VegetationPlacement.Core", "Packages/com.kruty1918.vegetation-placement/Runtime/Core"),
+                  ("Kruty1918.RockPlacement.Core", "Packages/com.kruty1918.rock-placement/Runtime/Core"),
                   ("Domain", "Scripts/Domain"), ("Application", "Scripts/Application"),
                   ("Infrastructure", "Scripts/Infrastructure"), ("Presentation", "Scripts/Presentation"),
                   ("Tests.Editor", "Tests/Editor"), ("Tests.PlayMode", "Tests/PlayMode")]
@@ -36,7 +39,7 @@ def main():
         for name, folder in assemblies:
             is_package = name.startswith("Kruty1918.")
             assembly = name if is_package else "QuietCamp." + name
-            template = "QuietCamp.Presentation" if is_package else assembly
+            template = assembly if is_package and name.endswith(".Core") else "QuietCamp.Presentation" if is_package else assembly
             candidates = [path for path in ARTIFACTS.glob("*E*.dag/" + template + ".rsp")
                           if re.fullmatch(r"[0-9a-f]+E(?:Dbg|Rel)?\.dag", path.parent.name)]
             if not candidates:

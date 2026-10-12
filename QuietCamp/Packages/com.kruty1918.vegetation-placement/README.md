@@ -72,3 +72,8 @@ MIT, власний код. Комерційні моделі й їхні фот
 
 Докладні parameters, принцип роботи й обмеження: [API-UA](Documentation~/API-UA.md).
 [Receipt](Validation~/receipt.json) відокремлює Core/cached compilation від native acceptance.
+
+
+## Rule-based scene composition
+
+`CompositionVegetationStage` consumes the shared layout, moisture and landing exclusions. Species support a bounded yaw range for readable flower faces. Core tests include shoreline habitat and deterministic replay; native acceptance remains separate.

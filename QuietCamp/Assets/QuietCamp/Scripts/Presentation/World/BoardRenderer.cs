@@ -199,7 +199,8 @@ namespace QuietCamp.Presentation.World
             if(BakedCampEnvironment.Uses(_level))return; // Already rooted and baked with the real sun.
             var sun = RenderSettings.sun;
             var dir = sun != null ? sun.transform.forward : new Vector3(.4f,-.8f,.4f).normalized;
-            foreach (var crown in _level.canopies ?? System.Array.Empty<ShadeCanopyData>())
+            // The generated surround owns its trees. Keep rule masks and UI, without a second visual canopy spawner.
+            foreach (var crown in _art == null ? _level.canopies ?? System.Array.Empty<ShadeCanopyData>() : System.Array.Empty<ShadeCanopyData>())
             {
                 float crownHeight = 2.1f;
                 // Keep the trunk outside the board while projecting into the clearing.

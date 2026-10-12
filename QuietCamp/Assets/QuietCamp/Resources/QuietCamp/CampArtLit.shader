@@ -18,11 +18,17 @@ Shader "QuietCamp/CampArtLit"
             CBUFFER_START(UnityPerMaterial)
             float4 _ArtAmbient; float _ArtWater; float _ArtGrass; float _ArtGround;
             CBUFFER_END
+            float4 _AtmosWindXZ; float _AtmosWindStrength; float _AtmosWindTime;
             struct Attributes { float4 positionOS:POSITION; float3 normalOS:NORMAL; float4 color:COLOR; };
             struct Varyings { float4 positionCS:SV_POSITION; float3 positionWS:TEXCOORD0; float3 normalWS:TEXCOORD1; float4 color:COLOR; };
             Varyings Vert(Attributes input)
             {
                 Varyings output; output.positionWS=TransformObjectToWorld(input.positionOS.xyz);
+                if(_ArtGrass>.5)
+                {
+                    float sway=sin(_AtmosWindTime*1.3+output.positionWS.x*.65+output.positionWS.z*.8);
+                    output.positionWS.xz+=_AtmosWindXZ.xy*sway*_AtmosWindStrength*saturate(input.positionOS.y)*.025;
+                }
                 output.positionCS=TransformWorldToHClip(output.positionWS); output.normalWS=TransformObjectToWorldNormal(input.normalOS);
                 output.color=input.color; return output;
             }
@@ -37,8 +43,8 @@ Shader "QuietCamp/CampArtLit"
                 float3 normal=normalize(input.normalWS);
                 Light sun=GetMainLight(TransformWorldToShadowCoord(input.positionWS));
                 float diffuse=_ArtGrass>.5?abs(dot(normal,sun.direction)):saturate(dot(normal,sun.direction));
-                float3 lighting=_ArtAmbient.rgb*(.8+.2*abs(normal.y))+sun.color*(diffuse*sun.shadowAttenuation);
-                if(_ArtGrass>.5) lighting=max(lighting,float3(.68,.72,.61));
+                float3 lighting=_ArtAmbient.rgb*(.8+.2*abs(normal.y))+sun.color*((diffuse+.22*saturate(-dot(normal,sun.direction)))*sun.shadowAttenuation);
+                if(_ArtGrass>.5) lighting=max(lighting,float3(.42,.48,.36));
                 float3 color=input.color.rgb*lighting;
                 if(_ArtGround>.5) color*=.89+ArtNoise(input.positionWS.xz*.43)*.18+ArtNoise(input.positionWS.xz*2.4)*.07;
                 if(_ArtWater>.5)
@@ -50,6 +56,18 @@ Shader "QuietCamp/CampArtLit"
                 }
                 return half4(color,1);
             }
+            ENDHLSL
+        }
+        Pass
+        {
+            Name "DepthOnly" Tags { "LightMode"="DepthOnly" }
+            ZWrite On ColorMask R Cull Off
+            HLSLPROGRAM
+            #pragma vertex DepthVert
+            #pragma fragment DepthFrag
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            float4 DepthVert(float4 p:POSITION):SV_POSITION { return TransformObjectToHClip(p.xyz); }
+            half4 DepthFrag():SV_Target { return 0; }
             ENDHLSL
         }
         Pass
