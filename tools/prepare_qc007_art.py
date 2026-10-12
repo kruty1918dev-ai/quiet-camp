@@ -39,10 +39,10 @@ def prepare_water():
               "_NormalTiling": (3.2, 2.5, 0, 0), "_FoamTiling": (2.2, 1.8, 0, 0)}
     for key, c in colors.items():
         text = re.sub(r"(?m)^(    - " + re.escape(key) + r": ).*$", lambda m: m[1] + "{r: %s, g: %s, b: %s, a: %s}" % c, text)
-    target.write_text(text)
+    target.write_text("\n".join(line.rstrip() for line in text.splitlines()) + "\n")
     meta = target.with_suffix(".mat.meta")
     if not meta.exists():
-        meta.write_text("fileFormatVersion: 2\nguid: " + uuid.uuid4().hex + "\nNativeFormatImporter:\n  externalObjects: {}\n  mainObjectFileID: 2100000\n  userData: \n  assetBundleName: \n  assetBundleVariant: \n")
+        meta.write_text("fileFormatVersion: 2\nguid: " + uuid.uuid4().hex + "\nNativeFormatImporter:\n  externalObjects: {}\n  mainObjectFileID: 2100000\n  userData:\n  assetBundleName:\n  assetBundleVariant:\n")
 
 
 def prepare():
