@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="uk">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quiet Camp — нова зелень, 11 жовтня</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#14201c;color:#e3e9d9;font:16px/1.55 system-ui,sans-serif}main{max-width:1180px;margin:auto;padding:24px}h1{font-size:28px;margin:0 0 12px}a{color:#c4d9ad}p{max-width:900px}.controls{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0}label{display:grid;gap:5px}select{font:inherit;background:#293b31;color:#edf1e4;border:1px solid #61705b;border-radius:6px;padding:8px}figure{margin:0;background:#0b130f;padding:12px;border-radius:8px;text-align:center}.image{position:relative;display:inline-block;max-width:100%;vertical-align:top}.image img{display:block;width:auto;height:auto;max-width:100%;max-height:78vh;margin:auto}.image #after{position:absolute;inset:0;width:100%;height:100%;clip-path:inset(0 0 0 0)}input{width:min(100%,520px)}figcaption{margin-top:12px;color:#bac6b2}.note{border-left:3px solid #a7ba89;padding-left:14px;color:#c4d0bc}small{color:#b7c6ad}.films{display:grid;grid-template-columns:1fr 1fr;gap:18px}.films video{width:100%;max-height:640px;background:#0b130f}@media(max-width:700px){main{padding:16px}h1{font-size:23px}.films{grid-template-columns:1fr}}
+</style>
+<main>
+<h1>Густіша зелень і підлісок</h1>
+<p>Перегляд нового художнього проходу: трав’яні куртини й листяний покрив Polygon Nature Biomes, гранчасті кущі Polygon Battle Royale та густіші групи дерев. Палітра й вітер узгоджені; прозорі проміжки між листям збережені в освітленні, глибині та тінях.</p>
+<p class="note">Етап 1 триває. Цей прохід не є зафіксованим художнім еталоном; оптимізаційні бюджети й mobile FPS не підтверджені. Контроли цієї галереї призначені для огляду та не входять до гри.</p>
+<p><a href="native-capture-receipt.json">Native receipt</a> · <a href="vegetation-clearance-receipt.json">Перетини й береги</a> · <a href="artifact-integrity-receipt.json">Перевірка ресурсів</a> · <a href="../index.html">Попередній прохід долини</a></p>
+<div class="controls">
+<label>Місце / перехід<select id="place"><option value="00">QC001 · Остання зупинка</option><option value="01">Зупинка → садиба</option><option value="02">QC002 · Сад, що пережив дім</option><option value="03">Садиба → ліс</option><option value="04">QC003 · Ліс уздовж дротів</option><option value="05">Ліс → переправа</option><option value="06">QC004 · Очеретяна переправа</option><option value="07">Переправа → гребля</option><option value="08">QC005 · Тиха вода</option></select></label>
+<label>Орієнтація<select id="orientation"><option value="portrait">Portrait</option><option value="landscape">Landscape</option></select></label>
+<label>Наближення<select id="zoom"><option value="out">Найдалі · 0,85</option><option value="in">Найближче · 1,15</option></select></label>
+<label>Профіль<select id="quality"><option value="balanced">Balanced</option><option value="low">Low · той самий склад</option></select></label>
+</div>
+<figure><div class="image"><img id="before" src="../ArtReference/balanced-portrait-zoom-out-00.png" alt="Попередня зелень"><img id="after" src="balanced-portrait-zoom-out-00.png" alt="Нова зелень"></div><figcaption id="caption">QC001 · Остання зупинка</figcaption><label>Попередній кадр ↔ нова зелень<input type="range" min="0" max="100" value="100" id="wipe" aria-label="Частка нового кадру"></label><a id="full" href="balanced-portrait-zoom-out-00.png">Відкрити новий кадр</a></figure>
+<p><small>Production URP, native SingleCameraRequest в ізольованому Unity Editor. Обидва кадри мають однакову камеру, прогрес і час анімації. Фактична дата та source hash — у receipt. Game View перевіряється окремо.</small></p>
+<!-- movies inserted after verified recording -->
+</main>
+<script>
+const fields=['place','orientation','zoom','quality'].map(id=>document.getElementById(id));
+function show(){const [place,orientation,zoom,quality]=fields;const name=`${quality.value}-${orientation.value}-zoom-${zoom.value}-${place.value}.png`;document.getElementById('before').src=`../ArtReference/${name}`;document.getElementById('after').src=name;document.getElementById('full').href=name;document.getElementById('caption').textContent=`${place.selectedOptions[0].textContent} · ${orientation.value} · ${quality.value}`;}
+fields.forEach(field=>field.addEventListener('change',show));document.getElementById('wipe').addEventListener('input',event=>document.getElementById('after').style.clipPath=`inset(0 ${100-event.target.value}% 0 0)`);show();
+</script>
+</html>

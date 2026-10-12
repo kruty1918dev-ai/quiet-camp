@@ -1,0 +1,49 @@
+{
+  "sourceHash": "dcaee3fcc0f775f014d9482bf576035097e7fb1a676381db5eef8ba34a82a023",
+  "method": "Independent native terrain triangles and root heights, vertical canopy/trunk clearances, 32-point authored river/pool checks, oriented architecture and owned surfaces",
+  "samples": [
+    {
+      "quality": "low",
+      "plants": 12930,
+      "trees": 1245,
+      "groundProps": 42,
+      "grassTufts": 8304,
+      "shrubs": 3274,
+      "species": {
+        "pilot.hedge-bush": 1542,
+        "pilot.low-leaves": 2133,
+        "pilot.meadow-grass": 544,
+        "pilot.round-bush": 698,
+        "pilot.short-grass": 5627,
+        "plant_bushSmall": 1034
+      },
+      "flowers": 60,
+      "groundDetails": 42,
+      "minimumAnimatedPlantGap": 0.1500053418549927,
+      "minimumNativeTerrainAboveWater": 0.2605703970859161
+    },
+    {
+      "quality": "balanced",
+      "plants": 12930,
+      "trees": 1245,
+      "groundProps": 42,
+      "grassTufts": 8304,
+      "shrubs": 3274,
+      "species": {
+        "pilot.hedge-bush": 1542,
+        "pilot.low-leaves": 2133,
+        "pilot.meadow-grass": 544,
+        "pilot.round-bush": 698,
+        "pilot.short-grass": 5627,
+        "plant_bushSmall": 1034
+      },
+      "flowers": 60,
+      "groundDetails": 42,
+      "minimumAnimatedPlantGap": 0.1500053418549927,
+      "minimumNativeTerrainAboveWater": 0.2605703970859161
+    }
+  ],
+  "result": "Passed",
+  "playerBuild": false,
+  "mobileFpsMeasured": false
+}
