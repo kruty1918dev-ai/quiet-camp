@@ -11,7 +11,7 @@ namespace QuietCamp.Presentation.UI
 {
     /// <summary>
     /// Menu screens: the Main actions live on the safe-area surface; sheets
-    /// (Levels/Album/Settings/DemoComplete) render into a full-screen overlay
+    /// (Album/Settings/DemoComplete) render into a full-screen overlay
     /// on CanvasRoot — a dim button covers the whole display and an outside
     /// tap backs out with the declarative exit motion.
     /// </summary>
@@ -89,7 +89,7 @@ namespace QuietCamp.Presentation.UI
         void UpdateMenuVisibility()
         {
             Visibility(_menuVisibility,Current=="Main");
-            Visibility(_atmosphereVisibility,Current!="Levels"&&Current!="Album"&&Current!="AlbumQuiet");
+            Visibility(_atmosphereVisibility,Current!="Album"&&Current!="AlbumQuiet");
         }
         void RefreshAll() { UpdateMenuVisibility(); _surface.Refresh(); _overlay?.Refresh(); _bleed?.Refresh(); }
         string Render()
@@ -173,9 +173,6 @@ namespace QuietCamp.Presentation.UI
         string RenderOverlay()
         {
             if (Current == "Main") return "<view />";
-#if UNITY_EDITOR
-            if (Current == "Levels" && _services.EditorRoadmapPreview) return Roadmap();
-#endif
             if (Current == "Album") return FullMenu();
             if (Current == "AlbumQuiet") return "<view class=\"app album-quiet\" data-safe-area=\"all\" id=\"sheet\" data-motion-role=\"dialog\""
                 + (_closing ? " data-motion=\"exit\"" : "") + "><view id=\"album-viewport\" class=\"quiet-viewport\" />"
@@ -191,7 +188,7 @@ namespace QuietCamp.Presentation.UI
                     .Append("</view>").ToString();
             }
             var catKey = Current == "Settings" ? SettingsPanel.CategoryKey(_setNav) : null;
-            var title = catKey ?? (Current == "Economy" ? "economy.title" : Current == "PrivacyNotice" ? "settings.cat.privacy" : Current == "Levels" ? "menu.levels" : Current == "Album" ? "menu.album" : Current == "Settings" ? "menu.settings" : "demo.complete");
+            var title = catKey ?? (Current == "Economy" ? "economy.title" : Current == "PrivacyNotice" ? "settings.cat.privacy" : Current == "Album" ? "menu.album" : Current == "Settings" ? "menu.settings" : "demo.complete");
             var body = Current == "Economy" ? _economyPanel.Render() : Current == "PrivacyNotice" ? PrivacyPanel.Notice(_services, _overlay, Back) : Current == "Album" ? Album() : Current == "Settings" ? Settings() : OverlayButton("demo-album", "menu.album", () => Action("qc.album"));
             // Top ‹ is the sole back control; inside a settings category it
             // steps up to the category list instead of leaving the sheet.
@@ -207,19 +204,6 @@ namespace QuietCamp.Presentation.UI
             return sb.ToString();
         }
         void OnOverlayMounted() => OverlayMounted?.Invoke();
-        #if UNITY_EDITOR
-        string Roadmap()
-        {
-            var scale=_overlay.Viewport.PixelScale;
-            float dpi=Screen.dpi>0?Screen.dpi/160f:2.5f;
-            float size=Mathf.Max(144,48*dpi/Mathf.Max(.1f,Mathf.Min(scale.x>0?scale.x:1,scale.y>0?scale.y:1)));
-            return "<view id=\"sheet\" class=\"app cinematic-roadmap\" data-safe-area=\"all\">"
-                + CampIcons.Button(_overlay,"back","back",Back,"roadmap-exit",T("action.back"))
-                    .Replace("class=\"roadmap-exit\"","class=\"roadmap-exit\" style=\"width:"+HtmlUi.Number(size)+"px;height:"+HtmlUi.Number(size)+"px;min-height:"+HtmlUi.Number(size)+"px;min-width:"+HtmlUi.Number(size)+"px;border-radius:"+HtmlUi.Number(size*.5f)+"px\"")
-                    .Replace(CampIcons.Mark("back"),"<view class=\"roadmap-exit-disc\" style=\"width:"+HtmlUi.Number(size*.72f)+"px;height:"+HtmlUi.Number(size*.72f)+"px;border-radius:"+HtmlUi.Number(size*.36f)+"px\">"+CampIcons.Mark("back")+"</view>")
-                + "</view>";
-        }
-        #endif
         string FullMenu()
         {
             return "<view id=\"sheet\" class=\"app full-menu album-menu\" data-safe-area=\"all\" data-motion-role=\"dialog\""
@@ -323,14 +307,7 @@ namespace QuietCamp.Presentation.UI
 
         public void Show(string name)
         {
-            if (name == "Levels" || name == "BranchPreview")
-            {
-#if UNITY_EDITOR
-                if (!_services.EditorRoadmapPreview) name = "Main";
-#else
-                name = "Main";
-#endif
-            }
+            if (name == "Levels" || name == "BranchPreview" || name == "BonusPreview") name = "Main";
             if (!_services.Economy.IsPro && (name == "Album" && !_services.Tutorial.AlbumUnlocked && (_services.Save.Album.entries?.Length ?? 0) == 0)) return;
             if (name != Current) _history.Push(Current);
             if (Current == "Economy" || name == "Economy") _economyPanel?.ResetConfirmation();
@@ -346,10 +323,6 @@ namespace QuietCamp.Presentation.UI
         public void Back()
         {
             if (Current == "Main" || _closing) return;
-            if(Current=="Levels")
-            {
-                Current="Main";_history.Clear();RefreshAll();ScreenChanged?.Invoke(Current);return;
-            }
             _closing = true;
             _services.Audio?.Play("ui.back");
             _overlay?.Refresh();

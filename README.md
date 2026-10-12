@@ -41,7 +41,7 @@
 
 Завершені табори лишаються в **Моїх кемпінгах**: їх можна роздивлятися, обертати й проходити повторно. Text scale, contrast, reduced motion, calm pacing, звук і haptics допомагають грати у власному темпі. [Правила й керування](docs/gameplay.md) · [Екрани й налаштування](docs/screens.md).
 
-**Quiet Camp** is a calm, offline-first campsite puzzle set in a recovering Ukrainian world. Arrange tents around paths, shade, quiet and friendship. The base campaign has 100 levels; visual acceptance is in progress. The roadmap is preserved for Editor research and excluded from players.
+**Quiet Camp** is a calm, offline-first campsite puzzle set in a recovering Ukrainian world. Arrange tents around paths, shade, quiet and friendship. The base campaign has 100 levels; visual acceptance is in progress. The level-path screen has been removed from gameplay and Editor Play Mode; its source backup is retained in commit 5035e856.
 
 ## З чого почати
 

@@ -2,7 +2,7 @@ using System;
 
 namespace QuietCamp.Application
 {
-    /// <summary>Navigation while the roadmap is deferred. Uses existing campaign
+    /// <summary>Direct campaign navigation. Uses existing campaign
     /// order and access decisions without altering progress or save data.</summary>
     public static class DirectCampNavigation
     {

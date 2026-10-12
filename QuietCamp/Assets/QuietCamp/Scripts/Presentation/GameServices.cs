@@ -224,7 +224,6 @@ namespace QuietCamp.Presentation
             Save.Entitlements.ownedIds = before; return EconomyResult.SaveFailed;
         }
         #if UNITY_EDITOR
-        public bool EditorRoadmapPreview;
         public bool PilotCompleted(string id)=>RoadmapPilotPolicy.Completed(Progression,id);
         #endif
         public bool CanStart(string id)
@@ -233,28 +232,14 @@ namespace QuietCamp.Presentation
 #if UNITY_EDITOR
             if (id == LevelLoader.TestLevelId()) return true;
 #endif
-#if UNITY_EDITOR
-            if (EditorRoadmapPreview && (!RoadmapPilotPolicy.Contains(id)
-                || RoadmapPilotPolicy.Index(id)>RoadmapPilotPolicy.Frontier(PilotCompleted))) return false;
-#endif
             var bonus = BonusCampCatalog.ForLevel(id);
             if(bonus!=null)return BonusCampCatalog.IsPublished(bonus)&&(Economy.IsPro||BonusCamps.Evaluate(bonus).CanPlay);
             var access=JourneyAccess.Evaluate(id);
-#if UNITY_EDITOR
-            if (EditorRoadmapPreview && access.State==JourneyAccessState.Predecessor && access.Journey?.id=="main"
-                && access.Journey.requiredCompletions==0 && (access.Journey.requiredLevelIds?.Length??0)==0
-                && (Economy.IsPro||Save.Entitlements.Has(access.Journey.entitlementId))
-                && RoadmapPilotPolicy.LegacyBeyondPilot(Progression)) return true;
-#endif
             return access.CanStart;
         }
         public string ContinueLevel()
         {
             var saved = CampContent.CanonicalId(Save.Session?.levelId);
-#if UNITY_EDITOR
-            if (EditorRoadmapPreview) return !string.IsNullOrEmpty(saved) && CanStart(saved) ? saved
-                : RoadmapPilotPolicy.LevelIds[RoadmapPilotPolicy.Frontier(PilotCompleted)];
-#endif
             return DirectCampNavigation.ContinueTarget(Journeys, Progression, CanStart, saved);
         }
         public string NextLevel(string completedId)

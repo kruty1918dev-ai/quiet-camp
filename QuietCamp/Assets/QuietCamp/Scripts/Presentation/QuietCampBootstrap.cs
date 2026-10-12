@@ -332,7 +332,7 @@ namespace QuietCamp.Presentation
             {
                 "qc.back", "qc.pause", "qc.resume", "qc.rotate", "qc.undo",
                 "qc.redo", "qc.remove", "qc.check", "qc.hint", "qc.settings",
-                "qc.levels", "qc.next", "qc.album", "qc.select", "qc.play",
+                "qc.next", "qc.album", "qc.select", "qc.play",
                 "qc.continue", "qc.autoplace", "qc.transition.back",
                 "qc.menu", "qc.economy", "qc.tutorial.restart",
             })

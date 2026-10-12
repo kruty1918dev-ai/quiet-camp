@@ -36,14 +36,6 @@ namespace QuietCamp.Editor
                 || new[] { "roadmap_regions.json", "roadmap_culture_models.json", "RoadmapLit.shader",
                     "RoadmapMotes.shader", "CampMap.css.txt" }.Any(name => path.EndsWith("/" + name, StringComparison.Ordinal));
 
-        [MenuItem("Quiet Camp/Cinematic Roadmap/Open Archived Preview")]
-        static void Preview()
-        {
-            if (!EditorApplication.isPlaying || MenuSceneHost.Current == null)
-                throw new InvalidOperationException("Enter Play Mode in MainMenu before opening the archived roadmap.");
-            MenuSceneHost.Current.OpenRoadmapEditorPreview();
-        }
-
         [MenuItem("Quiet Camp/Cinematic Roadmap/Check Player Exclusion (No Build)")]
         static void Check() => UnityEngine.Debug.Log("[QuietCamp] Deferred roadmap excluded from "
             + ValidatePlayerDependencies().Length + " player dependencies; no build performed.");

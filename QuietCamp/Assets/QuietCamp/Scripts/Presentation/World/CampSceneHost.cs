@@ -389,15 +389,9 @@ namespace QuietCamp.Presentation.World
                 PersistSession();
                 _services.Save.Save();
                 _services.PendingMenuScreen=null;
-#if UNITY_EDITOR
-                if (_services.EditorRoadmapPreview) _services.PendingMenuScreen="Levels";
-#endif
                 _router.GoToMenu();
                 return Performed();
             }
-#if UNITY_EDITOR
-            _leases.Add(h.Register(new UiActionId("qc.levels"), LeaveCamp));
-#endif
             _leases.Add(h.Register(new UiActionId("qc.menu"), () =>
             {
                 _services.PendingMenuScreen = null;
@@ -408,16 +402,6 @@ namespace QuietCamp.Presentation.World
                 if (!_session.IsCompleted || _advancing) return Performed();
                 _advancing = true;
                 _services.Save.Save();
-#if UNITY_EDITOR
-                if (_services.EditorRoadmapPreview)
-                {
-                    _services.RoadmapAdvanceFrom=RoadmapPilotPolicy.Index(_session.Level.id);
-                    _services.LevelMapAnchor=null;
-                    _services.PendingMenuScreen="Levels";
-                    _router.GoToMenu();
-                    return Performed();
-                }
-#endif
                 _services.PendingMenuScreen=null;
                 var next = _services.NextLevel(_session.Level.id);
                 if (next != null) _router.GoToNextCamp(next);

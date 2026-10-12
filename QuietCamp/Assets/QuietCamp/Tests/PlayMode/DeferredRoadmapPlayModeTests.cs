@@ -68,7 +68,6 @@ namespace QuietCamp.Tests
             Assert.IsNull(Object.FindAnyObjectByType<RoadmapWorldPresenter>());
             Assert.IsNull(Object.FindAnyObjectByType<RoadmapWorldInput>());
             Assert.IsNull(PrivacyBootTestSupport.Find("levels"));
-            Assert.IsFalse(QuietCampBootstrap.ServicesRef.EditorRoadmapPreview);
         }
 
         [UnityTest, Timeout(300000)]
