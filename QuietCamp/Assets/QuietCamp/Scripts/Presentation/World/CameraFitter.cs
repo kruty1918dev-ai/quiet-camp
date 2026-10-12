@@ -62,6 +62,8 @@ namespace QuietCamp.Presentation.World
             var frame = adaptation.Frame;
             if (!frame.IsValid) return;
             camera.aspect = frame.RenderAspect;
+            var art = camera.GetComponent<CampArtView>();
+            if (art != null) { art.FitCamera(frame.NormalizedGameplay); return; }
             var bounds = ContentBounds(level);
             if (!Kruty1918.GameplayViewport.GameplayCameraMath.TryOrthographic(bounds, camera.transform.rotation,
                 camera.aspect, frame.NormalizedGameplay, Distance, FitMargin, out var pose, camera.nearClipPlane)) return;

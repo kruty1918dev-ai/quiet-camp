@@ -137,6 +137,7 @@ namespace QuietCamp.Presentation.World
 
         void BuildWorld(LevelData level)
         {
+            var art = CampArtDefinition.Load(level);
             using var audit = PerformanceAudit.Measure("QC.CampSceneHost.BuildWorld");
             var world = Find("World");
             var boardRoot = world != null ? world.transform.Find("BoardRoot") : null;
@@ -144,7 +145,7 @@ namespace QuietCamp.Presentation.World
 
             _renderer = new BoardRenderer(level, _services.Assets,
                 Child("Base"), Child("Grid"), Child("Obstacle"),
-                Child("Tent"), Child("Overlay"));
+                Child("Tent"), Child("Overlay"), art);
             _renderer.SyncPlacements(_session.State.Placements, level, _services.MotionScale, _services.ReducedMotion);
 
             _decorRoot = Find("DecorRoot")?.transform;
@@ -152,7 +153,7 @@ namespace QuietCamp.Presentation.World
             {
                 for (var i = _decorRoot.childCount - 1; i >= 0; i--)
                     Destroy(_decorRoot.GetChild(i).gameObject);
-                DecorSpawner.Spawn(level, _services.Assets, _decorRoot);
+                if (art == null) DecorSpawner.Spawn(level, _services.Assets, _decorRoot);
             }
 
             // The scene's evening fire light must sit over this level's fire
@@ -177,6 +178,7 @@ namespace QuietCamp.Presentation.World
             var viewport = viewportGo != null ? viewportGo.transform as RectTransform : null;
             // Menu and gameplay share the same view onto the clearing.
             CameraFitter.Configure(camera);
+            if (art != null) camera.gameObject.AddComponent<CampArtView>().Configure(art, level, _decorRoot, _services.Assets);
             CameraFitter.Fit(camera, level, viewport);
             _renderer.BindViewport(camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>());
 

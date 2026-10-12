@@ -25,6 +25,7 @@ namespace QuietCamp.Presentation.World
         static readonly Color PathColor = new Color(1f, 0.88f, 0.45f, 0.55f);
 
         readonly LevelData _level;
+        readonly CampArtDefinition _art;
         readonly AssetCatalog _catalog;
         readonly Transform _baseRoot, _gridRoot, _obstacleRoot, _tentRoot, _overlayRoot;
         readonly List<GameObject> _tintObjects = new List<GameObject>();
@@ -54,9 +55,10 @@ namespace QuietCamp.Presentation.World
         public BoardRenderer(
             LevelData level, AssetCatalog catalog,
             Transform baseRoot, Transform gridRoot, Transform obstacleRoot,
-            Transform tentRoot, Transform overlayRoot)
+            Transform tentRoot, Transform overlayRoot, CampArtDefinition art = null)
         {
             _level = level;
+            _art = art;
             _catalog = catalog;
             _baseRoot = baseRoot;
             _gridRoot = gridRoot;
@@ -74,12 +76,15 @@ namespace QuietCamp.Presentation.World
             // The scene Base is below the meadow; keep the visible rim with the surface grid.
             _rim = BoardRim.Create(_level, _gridRoot);
             BuildObstacles();
-            BuildTufts();
+            if (_art == null) BuildTufts();
 
             // A worn route through the forest explains access without glyphs.
-            if(!BakedCampEnvironment.Uses(_level))CampTrail.BuildAll(_level,_gridRoot);
-            _groundDetails = _gridRoot.gameObject.AddComponent<CampGroundDetails>();
-            _groundDetails.Configure(_level,_groundMaterial);
+            if (_art == null && !BakedCampEnvironment.Uses(_level)) CampTrail.BuildAll(_level,_gridRoot);
+            if (_art == null)
+            {
+                _groundDetails = _gridRoot.gameObject.AddComponent<CampGroundDetails>();
+                _groundDetails.Configure(_level,_groundMaterial);
+            }
         }
 
         // ─── Base ────────────────────────────────────────────────────────────
@@ -112,6 +117,12 @@ namespace QuietCamp.Presentation.World
             _groundMaterial.SetColor("_GroundLow",Color.Lerp(palette.GrassDark,palette.GrassLight,.43f));
             _groundMaterial.SetColor("_GroundHigh",Color.Lerp(palette.GrassDark,palette.GrassLight,.83f));
             _groundMaterial.SetColor("_SoilTone",palette.Soil);
+            if (_art != null)
+            {
+                _groundMaterial.SetColor("_GroundLow", CampArtDefinition.Color(_art.groundLow));
+                _groundMaterial.SetColor("_GroundHigh", CampArtDefinition.Color(_art.groundHigh));
+                _groundMaterial.SetColor("_SoilTone", CampArtDefinition.Color(_art.soilColor));
+            }
             _groundMaterial.SetFloat("_CellGrid",1);
             for (var x = 0; x < _level.width; x++)
             for (var z = 0; z < _level.height; z++)

@@ -103,6 +103,7 @@ namespace QuietCamp.Presentation.World
 
         VisibleForestFloor _floor;
         public bool InitialWorldReady => (_floor == null || _floor.InitialReady) && (_composition == null || _composition.InitialReady);
+        CampArtView _artView;
         public void Configure(Camera camera, LevelData level, RectTransform viewport,
             AtmosphereCatalog.Profile profile, Func<bool> reducedMotion, int qualityTier = 1,
             Transform decorRoot = null, Func<int> qualitySource = null)
@@ -115,6 +116,7 @@ namespace QuietCamp.Presentation.World
             _tier = qualityTier;
             _qualitySource=qualitySource;
             _decorRoot = decorRoot;
+            _artView = camera.GetComponent<CampArtView>();
             _previousAmbient = RenderSettings.ambientLight;
             _previousProbe = RenderSettings.ambientProbe;
             _environment = ForestLightingEnvironment.Load();
@@ -155,6 +157,7 @@ namespace QuietCamp.Presentation.World
                 _sun.transform.localEulerAngles = new Vector3(level.environment?.sunElevation>=0?level.environment.sunElevation:profile.Elevation, 65f, 0f);
                 _sun.intensity = profile.SunIntensity;
                 _sun.color = profile.Sun*SeasonPalette.For(_level).SunTint;
+                _artView?.ApplyLighting(_sun);
                 RenderSettings.sun = _sun;
             }
             if(decorRoot!=null&&!BakedCampEnvironment.Uses(level))
@@ -178,11 +181,14 @@ namespace QuietCamp.Presentation.World
                 _floor = floorRoot.AddComponent<VisibleForestFloor>();
                 _floor.Configure(level, camera, UnityEngine.Application.isPlaying);
             }
-            var sunlightRoot = new GameObject("CanopyLighting");
-            sunlightRoot.transform.SetParent(transform, false);
-            _sunlight = sunlightRoot.AddComponent<CanopySunlight>();
-            _sunlight.Configure(this, level, reducedMotion);
-            _sunlight.Apply(profile);
+            if (_artView == null)
+            {
+                var sunlightRoot = new GameObject("CanopyLighting");
+                sunlightRoot.transform.SetParent(transform, false);
+                _sunlight = sunlightRoot.AddComponent<CanopySunlight>();
+                _sunlight.Configure(this, level, reducedMotion);
+                _sunlight.Apply(profile);
+            }
             var life=new GameObject("LivingForest");life.transform.SetParent(transform,false);
             _life=life.AddComponent<LivingForest>();_life.Configure(this,camera,level,profile,reducedMotion,_tier);
             _weather=life.AddComponent<CampWeather>();_weather.Configure(camera,level,profile.Id=="night");
@@ -191,10 +197,13 @@ namespace QuietCamp.Presentation.World
                 var leafRoot=new GameObject("Seasonal leaf fall");leafRoot.transform.SetParent(transform,false);
                 _seasonalLeaves=leafRoot.AddComponent<SeasonalLeafFall>();_seasonalLeaves.Configure(this,_composition,level,camera);
             }
-            var edgeRoot=new GameObject("ForestDepth");edgeRoot.transform.SetParent(transform,false);
-            _edges=edgeRoot.AddComponent<ForestEdgeAtmosphere>();_edges.Configure(this,camera,level,reducedMotion);
-            var waterRoot=new GameObject("RainPuddles");waterRoot.transform.SetParent(transform,false);
-            _puddles=waterRoot.AddComponent<CampPuddles>();_puddles.Configure(this,camera,level,reducedMotion);
+            if (_artView == null)
+            {
+                var edgeRoot=new GameObject("ForestDepth");edgeRoot.transform.SetParent(transform,false);
+                _edges=edgeRoot.AddComponent<ForestEdgeAtmosphere>();_edges.Configure(this,camera,level,reducedMotion);
+                var waterRoot=new GameObject("RainPuddles");waterRoot.transform.SetParent(transform,false);
+                _puddles=waterRoot.AddComponent<CampPuddles>();_puddles.Configure(this,camera,level,reducedMotion);
+            }
             _soundscape=life.AddComponent<CampSoundscape>();
             _soundscape.Configure(this,level,profile,decorRoot,QuietCampBootstrap.ServicesRef?.Audio);
             _life.BirdPassing+=_soundscape.BirdPassing;
@@ -206,6 +215,7 @@ namespace QuietCamp.Presentation.World
             {
                 _cameraMotion=gameObject.AddComponent<CameraAtmosphereMotion>();
                 _cameraMotion.Configure(camera,()=>Wind,reducedMotion,()=>placement!=null&&placement.IsPlacementActive||!(CampSceneHost.Current?.GameplayActive??true));
+                if (_artView != null) _cameraMotion.enabled = false;
             }
         }
         void PublishShelter()
@@ -221,6 +231,7 @@ namespace QuietCamp.Presentation.World
 
         public void Apply(AtmosphereCatalog.Profile profile)
         {
+            _artView?.ApplyLighting(_sun);
             if (!_initialized) return;
             PhaseId = profile.Id;
             _profile=profile;
@@ -242,8 +253,9 @@ namespace QuietCamp.Presentation.World
             RenderSettings.ambientGroundColor=ambient*(Color.Lerp(new Color(.38f,.43f,.32f),new Color(.52f,.54f,.59f),palette.SnowCoverage));
             RenderSettings.fog = false;
             // Light targets ease over ~4 s — a phase change never snaps.
+            if (_artView != null) ambient = CampArtDefinition.Color(_artView.Definition.ambientColor);
             _ambientTarget = ambient;
-            _sunColorTarget = profile.Sun * palette.SunTint * profile.SunIntensity;
+            _sunColorTarget = _artView != null ? CampArtDefinition.Color(_artView.Definition.sunColor) * _artView.Definition.sunIntensity : profile.Sun * palette.SunTint * profile.SunIntensity;
             if (_sun != null) _sunDirTarget = -_sun.transform.forward;
             if (!_foliageLerping) // first apply: start already settled
             {
@@ -318,7 +330,7 @@ namespace QuietCamp.Presentation.World
             if(_sunlight!=null)_sunlight.gameObject.SetActive(!suspended);
             if(_edges!=null)_edges.gameObject.SetActive(!suspended);
             if(_puddles!=null)_puddles.gameObject.SetActive(!suspended);
-            if(_cameraMotion!=null)_cameraMotion.enabled=!suspended;
+            if(_cameraMotion!=null)_cameraMotion.enabled=!suspended && _artView == null;
         }
         LivingForest _life;
         bool _foliageLerping;
@@ -372,7 +384,8 @@ namespace QuietCamp.Presentation.World
             _puddles?.Advance(Time.deltaTime);
             if (_environment != null) RenderSettings.ambientProbe = _environment.Probe(_ambientNow, _weather?.Cloudiness ?? 0);
             float sunlight=_weather?.SunMultiplier??1;
-            if(_sun!=null&&_profile!=null){_sun.intensity=_profile.SunIntensity*sunlight;_sun.color=_profile.Sun*SeasonPalette.For(_level).SunTint;}
+            if (_artView != null) _artView.ApplyLighting(_sun, sunlight);
+            else if(_sun!=null&&_profile!=null){_sun.intensity=_profile.SunIntensity*sunlight;_sun.color=_profile.Sun*SeasonPalette.For(_level).SunTint;}
 
             // Shared vegetation state — one owner, one write per frame.
             Shader.SetGlobalVector(SunDirW, _sunDirNow.normalized);
