@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework><EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <VegetationRoot Condition="'$(VegetationRoot)'=='' and Exists('../../../vegetation-placement')">../../../vegetation-placement</VegetationRoot>
+    <VegetationRoot Condition="'$(VegetationRoot)'==''">../../../com.kruty1918.vegetation-placement</VegetationRoot>
+    <RockRoot Condition="'$(RockRoot)'=='' and Exists('../../../rock-placement')">../../../rock-placement</RockRoot>
+    <RockRoot Condition="'$(RockRoot)'==''">../../../com.kruty1918.rock-placement</RockRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Runtime/Core/**/*.cs"/><Compile Include="$(VegetationRoot)/Runtime/Core/**/*.cs"/>
+    <Compile Include="$(RockRoot)/Runtime/Core/**/*.cs"/><Compile Include="Program.cs"/>
+  </ItemGroup>
+</Project>
