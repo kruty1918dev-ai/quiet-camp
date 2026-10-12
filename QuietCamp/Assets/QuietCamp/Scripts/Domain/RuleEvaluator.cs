@@ -21,6 +21,8 @@ namespace QuietCamp.Domain
             }
         }
         public static bool Inside(LevelData l,Cell c) => c.X>=0 && c.Z>=0 && c.X<l.width && c.Z<l.height;
+        public static bool IsNoisy(LevelData l, Cell c)
+            => l.noise.Any(n => Math.Abs(c.X-n[0])+Math.Abs(c.Z-n[1])<=2);
         static HashSet<Cell> Cells(int[][] a) => new HashSet<Cell>(a.Select(c=>new Cell(c[0],c[1])));
         public static List<Cell> Path(LevelData l,HashSet<Cell> occupied,Cell start,Cell goal)
             => CampWalkability.Path(l,occupied,start,goal);
@@ -56,7 +58,7 @@ namespace QuietCamp.Domain
                 var route=CampWalkability.ExplainRoute(l,occupied,entry,door,p.guestId);report.Routes.Add(route);
                 if(!route.Reachable)report.Issues.Add(new RuleIssue("path",p.guestId,false,door));
                 if(g.shade && f.Any(c=>!shaded.Contains(c)))report.Issues.Add(new RuleIssue("shade",p.guestId,false,f.Where(c=>!shaded.Contains(c)).ToArray()));
-                if(g.quiet && l.noise.Any(n=>f.Any(c=>Math.Abs(c.X-n[0])+Math.Abs(c.Z-n[1])<=2)))
+                if(g.quiet && f.Any(c=>IsNoisy(l,c)))
                     report.Issues.Add(new RuleIssue("quiet",p.guestId,false,f));
             }
             foreach(var pair in l.friends)

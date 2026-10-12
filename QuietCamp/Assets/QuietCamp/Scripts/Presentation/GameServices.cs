@@ -230,6 +230,7 @@ namespace QuietCamp.Presentation
         {
             id = CampContent.CanonicalId(id);
 #if UNITY_EDITOR
+            if (EditorAuthoringPreview.Matches(id)) return true;
             if (id == LevelLoader.TestLevelId()) return true;
 #endif
             var bonus = BonusCampCatalog.ForLevel(id);

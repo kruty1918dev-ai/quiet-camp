@@ -40,10 +40,14 @@ namespace QuietCamp.Infrastructure
         public sealed class Instance
         {
             public string id, modelId, assetId;
+            public float[] rotationEuler, scaleXYZ;
             public float x, y, z, yaw, scale = 1;
         }
         public static CampArtDefinition Load(LevelData level)
         {
+#if UNITY_EDITOR
+            if (level != null && EditorAuthoringPreview.Matches(level.id)) return EditorAuthoringPreview.Art(level.id);
+#endif
             if (level == null || string.IsNullOrEmpty(level.id) || !level.id.StartsWith("QC", StringComparison.Ordinal)) return null;
             var asset = Resources.Load<TextAsset>("QuietCamp/ArtCompositions/" + level.id);
             if (asset == null) return null;
@@ -72,6 +76,7 @@ namespace QuietCamp.Infrastructure
                     throw new InvalidDataException("Invalid camp art mesh: " + model.id);
             foreach (var item in instances)
             {
+                if (item.rotationEuler != null && !Vector(item.rotationEuler) || item.scaleXYZ != null && (!Vector(item.scaleXYZ) || item.scaleXYZ.Any(v => v <= 0))) throw new InvalidDataException("Invalid authored transform.");
                 if (!Finite(item.x) || !Finite(item.y) || !Finite(item.z) || !Finite(item.yaw)
                     || !Finite(item.scale) || item.scale <= 0
                     || (string.IsNullOrEmpty(item.assetId) && !ids.Contains(item.modelId)))

@@ -53,18 +53,19 @@ namespace QuietCamp.Presentation.World
             foreach (var item in definition.instances)
             {
                 var position = new Vector3(item.x, item.y, item.z);
-                var rotation = Quaternion.Euler(0, item.yaw, 0);
+                var rotation = item.rotationEuler != null ? Quaternion.Euler(CampArtDefinition.Vector(item.rotationEuler)) : Quaternion.Euler(0, item.yaw, 0);
+                var scale = item.scaleXYZ != null ? CampArtDefinition.Vector(item.scaleXYZ) : Vector3.one * item.scale;
                 if (!string.IsNullOrEmpty(item.assetId))
                 {
                     var prefab = catalog?.Prefab(item.assetId);
                     if (prefab == null) throw new InvalidOperationException("Camp art asset missing: " + item.assetId);
                     var instance = Instantiate(prefab, _root.transform);
                     instance.name = "Scenery_" + item.assetId; instance.transform.localPosition = position;
-                    instance.transform.localRotation = rotation; instance.transform.localScale *= item.scale;
+                    instance.transform.localRotation = rotation; instance.transform.localScale = Vector3.Scale(instance.transform.localScale, scale);
                     foreach (var collider in instance.GetComponentsInChildren<Collider>()) DestroyOwned(collider);
                     foreach (var child in instance.GetComponentsInChildren<Transform>()) child.gameObject.layer = BoardRenderer.DecorLayer;
                 }
-                else (definition.models.First(m => m.id == item.modelId).shading == "foliage" ? foliageBatches : batches).Add(new CombineInstance { mesh = catalogMeshes[item.modelId], transform = Matrix4x4.TRS(position, rotation, Vector3.one * item.scale) });
+                else (definition.models.First(m => m.id == item.modelId).shading == "foliage" ? foliageBatches : batches).Add(new CombineInstance { mesh = catalogMeshes[item.modelId], transform = Matrix4x4.TRS(position, rotation, scale) });
             }
             var combined = new Mesh { name = "Authored camp trees, reeds and bridge", indexFormat = IndexFormat.UInt32 };
             combined.CombineMeshes(batches.ToArray(), true, true); _meshes.Add(combined);

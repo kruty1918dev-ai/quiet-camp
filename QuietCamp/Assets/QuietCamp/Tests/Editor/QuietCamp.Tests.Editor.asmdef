@@ -1,6 +1,7 @@
 {
   "name": "QuietCamp.Tests.Editor",
   "references": [
+    "QuietCamp.Editor",
     "QuietCamp.Domain",
     "QuietCamp.Application",
     "QuietCamp.Infrastructure",

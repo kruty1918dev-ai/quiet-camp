@@ -30,8 +30,11 @@ def main():
                   ("Tests.Editor", "Tests/Editor"), ("Tests.PlayMode", "Tests/PlayMode")]
     if player_sources:
         assemblies = [(name, folder) for name, folder in assemblies if not name.startswith("Tests.")]
-    if "--include-editor" in sys.argv and not player_sources:
-        assemblies.append(("Editor", "Editor"))
+    if not player_sources:
+        # Authoring tests reference the production Editor assembly. Compile their
+        # dependency first instead of reading an unrelated cached Editor DLL.
+        index = next(i for i, item in enumerate(assemblies) if item[0] == "Tests.Editor")
+        assemblies.insert(index, ("Editor", "Editor"))
     checks=[]
     with tempfile.TemporaryDirectory(prefix="quietcamp-monetization-compile-") as temporary:
         output = Path(temporary)

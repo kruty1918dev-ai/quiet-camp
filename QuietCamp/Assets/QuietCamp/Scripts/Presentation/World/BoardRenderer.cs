@@ -218,7 +218,7 @@ namespace QuietCamp.Presentation.World
                 tree.transform.localScale = Vector3.Scale(tree.transform.localScale,
                     new Vector3(crown.radiusX*2/Mathf.Max(.1f,bounds.size.x),1,crown.radiusZ*2/Mathf.Max(.1f,bounds.size.z)));
                 SeasonalTreeVisual.Apply(tree,_level,"tree_default");
-                foreach (var c in tree.GetComponentsInChildren<Collider>()) Object.Destroy(c);
+                foreach (var c in tree.GetComponentsInChildren<Collider>()) DestroyOwned(c);
             }
             // Restored camps can be drawn before lighting creates the canopies.
             // Re-evaluate packing against these final renderer bounds too.
@@ -325,7 +325,7 @@ namespace QuietCamp.Presentation.World
         public void HideIssueCells()
         {
             if (_issueOverlay == null) return;
-            Object.Destroy(_issueOverlay);
+            DestroyOwned(_issueOverlay);
             _issueOverlay = null;
         }
 
@@ -336,7 +336,7 @@ namespace QuietCamp.Presentation.World
         /// <summary>Actual tent at the suggested pose; the ground outline carries the hint colour.</summary>
         public void ShowHintGhost(Placement move, string assetId)
         {
-            if (_hintGhost != null) Object.Destroy(_hintGhost);
+            if (_hintGhost != null) DestroyOwned(_hintGhost);
             _hintGhost = null;
             if (move == null || assetId == null) return;
             var go = SpawnModel(assetId, _overlayRoot, Vector3.zero, 0, RuleOverlayLayer);
@@ -356,13 +356,13 @@ namespace QuietCamp.Presentation.World
 
         public void HideHint()
         {
-            if (_hintOverlay != null) { Object.Destroy(_hintOverlay); _hintOverlay = null; }
-            if (_hintGhost != null) { Object.Destroy(_hintGhost); _hintGhost = null; }
+            if (_hintOverlay != null) { DestroyOwned(_hintOverlay); _hintOverlay = null; }
+            if (_hintGhost != null) { DestroyOwned(_hintGhost); _hintGhost = null; }
         }
 
         GameObject CellsOverlay(string name, Cell[] cells, Color color, GameObject previous)
         {
-            if (previous != null) Object.Destroy(previous);
+            if (previous != null) DestroyOwned(previous);
             if (cells == null || cells.Length == 0) return null;
             var root = new GameObject(name);
             root.transform.SetParent(_overlayRoot, false);
@@ -502,25 +502,28 @@ namespace QuietCamp.Presentation.World
             }
         }
 
+        static void DestroyOwned(UnityEngine.Object value)
+        { if (UnityEngine.Application.isPlaying) UnityEngine.Object.Destroy(value); else UnityEngine.Object.DestroyImmediate(value); }
+
         public void ClearAll()
         {
-            if (_rim != null) Object.Destroy(_rim.gameObject);
-            if (_groundDetails != null) Object.Destroy(_groundDetails);
+            if (_rim != null) DestroyOwned(_rim.gameObject);
+            if (_groundDetails != null) DestroyOwned(_groundDetails);
             _rim = null;
             foreach (var t in _tents.Values) t.Dispose();
             _tents.Clear();
             HidePath();
             HideIssueCells();
             HideHint();
-            if(_shadeOverlay!=null) Object.Destroy(_shadeOverlay);
+            if(_shadeOverlay!=null) DestroyOwned(_shadeOverlay);
             _tintObjects.Clear();
-            if (_pathOverlay != null) Object.Destroy(_pathOverlay);
-            if (_previewOverlay != null) Object.Destroy(_previewOverlay);
-            if (_previewDoor != null) Object.Destroy(_previewDoor);
-            if (_routeBreakOverlay != null) Object.Destroy(_routeBreakOverlay);
+            if (_pathOverlay != null) DestroyOwned(_pathOverlay);
+            if (_previewOverlay != null) DestroyOwned(_previewOverlay);
+            if (_previewDoor != null) DestroyOwned(_previewDoor);
+            if (_routeBreakOverlay != null) DestroyOwned(_routeBreakOverlay);
             _pathCells.Clear(); _previewCells.Clear();
-            if (_overlayMaterial != null) Object.Destroy(_overlayMaterial);
-            if (_groundMaterial != null) Object.Destroy(_groundMaterial);
+            if (_overlayMaterial != null) DestroyOwned(_overlayMaterial);
+            if (_groundMaterial != null) DestroyOwned(_groundMaterial);
         }
 
         // ─── Helpers ─────────────────────────────────────────────────────────
@@ -556,7 +559,7 @@ namespace QuietCamp.Presentation.World
             go.transform.localScale = scale;
             go.transform.localPosition = localPos;
             var collider = go.GetComponent<Collider>();
-            if (collider != null) Object.Destroy(collider);
+            if (collider != null) DestroyOwned(collider);
             var renderer = go.GetComponent<Renderer>();
             if (material != null) renderer.sharedMaterial = material;
             else if (color.HasValue)

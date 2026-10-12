@@ -37,6 +37,7 @@ namespace QuietCamp.Presentation
         static SaveAdapter CreateStartupSave()
         {
 #if UNITY_EDITOR
+            if(EditorAuthoringPreview.Active)return EditorAuthoringPreview.CreateSave();
             if(EditorSaveFactory!=null)return EditorSaveFactory();
 #endif
             return new SaveAdapter();
@@ -197,7 +198,11 @@ namespace QuietCamp.Presentation
                 }
                 catch (Exception error) { failure = error; }
             }
-            if (failure == null)
+            bool authoringPreview = false;
+#if UNITY_EDITOR
+            authoringPreview = EditorAuthoringPreview.Active;
+#endif
+            if (failure == null && !authoringPreview)
             {
                 try { _privacyPanel = BootPrivacyPanel.Create(_bootView.PolicyParent, _startupSave, _startupLocale); }
                 catch (Exception error) { failure = error; }
@@ -207,6 +212,8 @@ namespace QuietCamp.Presentation
                 if (BootPrivacyPanel.Current != null) Destroy(BootPrivacyPanel.Current.gameObject);
                 Debug.LogException(failure); _bootView.ShowPolicy(false); _bootView.Fail(); _startup = null; yield break;
             }
+            if (!authoringPreview)
+            {
             _bootView.ShowPolicy(true);
             while (!_privacyPanel.Accepted && !_privacyPanel.Declined && !_exitRequested)
             {
@@ -225,6 +232,7 @@ namespace QuietCamp.Presentation
                 UnityEngine.Application.Quit(); yield break;
             }
             Destroy(_privacyPanel.gameObject); _privacyPanel = null; _bootView.ShowPolicy(false);
+            }
             if (_services == null)
             {
                 try { Compose(); }

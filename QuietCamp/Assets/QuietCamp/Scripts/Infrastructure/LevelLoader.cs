@@ -31,6 +31,9 @@ namespace QuietCamp.Infrastructure
         {
             using var audit = PerformanceAudit.Measure("QC.LevelLoader.Load");
             levelId = CampContent.CanonicalId(levelId);
+#if UNITY_EDITOR
+            if (EditorAuthoringPreview.Matches(levelId)) return EditorAuthoringPreview.Level(levelId);
+#endif
             if(levelId?.StartsWith("pack:",StringComparison.Ordinal)==true)
                 return ContentPackRuntime.Store.Load(levelId)??throw new InvalidOperationException("Content pack level unavailable: "+levelId);
             if (GeneratedCampSource.IsGeneratedId(levelId))

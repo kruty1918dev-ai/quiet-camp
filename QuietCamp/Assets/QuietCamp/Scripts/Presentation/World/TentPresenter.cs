@@ -159,7 +159,8 @@ namespace QuietCamp.Presentation.World
             _moveTween?.Kill();
             _rotateTween?.Kill();
             _liftTween?.Kill(); _scaleTween?.Kill();
-            if (_root != null) Object.Destroy(_root);
+            if (_root != null)
+            { if (UnityEngine.Application.isPlaying) Object.Destroy(_root); else Object.DestroyImmediate(_root); }
         }
     }
 }
