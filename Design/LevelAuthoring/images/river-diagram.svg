@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-labelledby="title desc">
+<title id="title">Як точки керують річкою</title><desc id="desc">Плавна річка з трьома контрольними точками. Зелені береги утворюються навколо кривої. Ігрове поле лежить збоку.</desc>
+<rect width="900" height="360" fill="#edf2e6"/><g font-family="Segoe UI, sans-serif" fill="#314c38">
+<path d="M60 300 C180 280 280 30 440 100 S660 290 850 70" fill="none" stroke="#bfd0a6" stroke-width="108"/>
+<path d="M60 300 C180 280 280 30 440 100 S660 290 850 70" fill="none" stroke="#8cbabe" stroke-width="58"/>
+<path d="M60 300 C180 280 280 30 440 100 S660 290 850 70" fill="none" stroke="#d5f0eb" stroke-width="3" stroke-dasharray="8 10"/>
+<g fill="#fff" stroke="#3e6246" stroke-width="3"><circle cx="165" cy="222" r="10"/><circle cx="440" cy="100" r="10"/><circle cx="695" cy="198" r="10"/></g>
+<g font-size="17" font-weight="600"><text x="96" y="194">Точка русла</text><text x="415" y="65">Перетягніть</text><text x="614" y="276">Берег підлаштується</text></g>
+<rect x="65" y="35" width="170" height="110" rx="8" fill="#faf9f3" stroke="#8ca47c" stroke-width="2"/>
+<path d="M107 35V145 M150 35V145 M192 35V145 M65 72H235 M65 108H235" stroke="#d3ddc8"/>
+<text x="94" y="95" font-size="16">Ігрове поле</text><text x="585" y="44" font-size="14">Схема керування · не рендер сцени</text>
+</g></svg>

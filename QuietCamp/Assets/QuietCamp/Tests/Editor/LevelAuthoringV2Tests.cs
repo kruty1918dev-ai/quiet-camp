@@ -51,6 +51,9 @@ namespace QuietCamp.Tests
                 Assert.That(snapshot.art.landscape.SampleHeight(10, 0), Is.GreaterThan(oldBed + .1f), "Bank follows edited river curve.");
                 var invalid = edit.EditingCopy(); invalid.terrain.points[1].x = 0;
                 Assert.Throws<InvalidOperationException>(() => workspace.River.Apply(invalid));
+                Assert.Throws<InvalidOperationException>(() => workspace.ApplyDocument(invalid));
+                Assert.AreSame(edit, workspace.Document, "Reject a crossing river before changing authoritative draft state.");
+                Assert.IsNotEmpty(invalid.Validate(true), "An unbaked invalid curve must also block export.");
                 Assert.AreSame(snapshot.art.landscape, workspace.River.Bake());
                 string path = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".json");
                 try { snapshot.Save(path); var restored = LevelAuthoringDocument.Open(path); Assert.AreEqual(JsonConvert.SerializeObject(snapshot.art.landscape), JsonConvert.SerializeObject(restored.art.landscape)); }

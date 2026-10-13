@@ -144,6 +144,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         void Recover()
         {
             _displayDocument = null; _displayJson = null; _overlay = null;
+            if (SessionState.GetBool("QuietCamp.Authoring.Verifying", false)) return;
             if (this == null || _state == null || _workspace?.Root != null) return;
             _workspace?.Dispose(); _workspace = null;
             LevelAuthoringWorkspace.CloseOrphanedScenes();
@@ -163,6 +164,20 @@ namespace QuietCamp.Editor.LevelAuthoring
             _workspace.Dispose(); _workspace = null;
         }
         public void RestoreAfterPlay() => Recover();
+        internal sealed class VerificationSession
+        {
+            internal LevelAuthoringDocument document;
+            internal string path;
+            internal bool dirty;
+        }
+        internal VerificationSession PrepareVerification()
+        {
+            if (_state == null) return null;
+            var session = new VerificationSession { document = _workspace?.Root != null ? CaptureDraft() : _state.Read(), path = _path, dirty = _dirty };
+            PreparePlay(); return session;
+        }
+        internal void RestoreVerification(VerificationSession session)
+        { SetDocument(session.document); _path = session.path; _dirty = session.dirty; }
         bool ConfirmReplace()
         {
             if (!_dirty) return true;
@@ -222,6 +237,12 @@ namespace QuietCamp.Editor.LevelAuthoring
         {
             if (_pendingDocument == null) return;
             var document = _pendingDocument;
+            try { RiverTerrainIntegration.Validate?.Invoke(document); }
+            catch (Exception error)
+            {
+                _pendingDocument = null; _applyAt = -1; _displayDocument = null; _message = error.Message;
+                Repaint(); SceneView.RepaintAll(); return;
+            }
             Undo.RecordObject(_state, _pendingEditName); _state.Write(document);
             _pendingDocument = null; _applyAt = -1; _displayJson = _state.json; _displayDocument = document;
             _refreshing = true; try { _workspace?.ApplyDocument(document); } finally { _refreshing = false; }
@@ -502,7 +523,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                     EditorGUI.BeginChangeCheck(); bool shade = EditorGUILayout.Toggle("Потрібна тінь", guest.shade), quiet = EditorGUILayout.Toggle("Потрібна тиша", guest.quiet);
                     var tents = AssetCatalog.Load().Entries.Where(e => e.assetId.StartsWith("tent", StringComparison.Ordinal)).ToArray();
                     int old = Array.FindIndex(tents, e => e.assetId == guest.assetId);
-                    int selected = EditorGUILayout.Popup("Намет", Mathf.Max(0, old), tents.Select(e => e.assetId).ToArray());
+                    int selected = EditorGUILayout.Popup("Намет", Mathf.Max(0, old), tents.Select(e => e.assetId == "tent_smallOpen" ? "Малий відкритий намет" : e.assetId == "tent_detailedOpen" ? "Туристичний відкритий намет" : e.prefab.name).ToArray());
                     if (EditorGUI.EndChangeCheck()) Edit("Вимоги гостя", d => { d.level.guests[index].shade = shade; d.level.guests[index].quiet = quiet; d.level.guests[index].assetId = tents[selected].assetId; });
                     if (GUILayout.Button("Поставити / перемістити намет у Scene View")) { PlacementToolIntegration.Adapter?.Stop(); _fieldTool = FieldTool.Tent; _guest = i; }
                 }
@@ -513,9 +534,10 @@ namespace QuietCamp.Editor.LevelAuthoring
                 using (new EditorGUI.DisabledScope(level.guests.Length <= 2)) if (GUILayout.Button("Прибрати останнього")) Edit("Прибрати гостя", d => { string id = d.level.guests.Last().id; d.level.guests = d.level.guests.Take(d.level.guests.Length - 1).ToArray(); d.level.friends = d.level.friends.Where(p => !p.Contains(id)).ToArray(); d.level.witness = (d.level.witness ?? Array.Empty<Placement>()).Where(p => p.guestId != id).ToArray(); });
             }
             var names = level.guests.Select((g, i) => "Гість " + (i + 1)).ToArray();
+            string GuestLabel(string id) { int index = Array.FindIndex(level.guests, g => g.id == id); return index < 0 ? "Невідомий гість" : names[index]; }
             _friendA = EditorGUILayout.Popup("Друг", Mathf.Clamp(_friendA, 0, names.Length - 1), names); _friendB = EditorGUILayout.Popup("Друг", Mathf.Clamp(_friendB, 0, names.Length - 1), names);
             using (new EditorGUI.DisabledScope(_friendA == _friendB)) if (GUILayout.Button("З’єднати друзів")) Edit("Друзі", d => { var pair = new[] { d.level.guests[_friendA].id, d.level.guests[_friendB].id }; if (!d.level.friends.Any(p => p.Contains(pair[0]) && p.Contains(pair[1]))) d.level.friends = d.level.friends.Concat(new[] { pair }).ToArray(); });
-            for (int i = 0; i < level.friends.Length; i++) { int index = i; if (GUILayout.Button("Прибрати зв’язок: " + string.Join(" ↔ ", level.friends[i]))) Edit("Прибрати друзів", d => d.level.friends = d.level.friends.Where((p, n) => n != index).ToArray()); }
+            for (int i = 0; i < level.friends.Length; i++) { int index = i; if (GUILayout.Button("Прибрати зв’язок: " + string.Join(" ↔ ", level.friends[i].Select(GuestLabel)))) Edit("Прибрати друзів", d => d.level.friends = d.level.friends.Where((p, n) => n != index).ToArray()); }
             if (GUILayout.Button("Знайти еталонне рішення", GUILayout.Height(32))) Try(BeginSolve);
             if (GUILayout.Button("Очистити еталонні намети")) Edit("Очистити рішення", d => d.level.witness = null);
             if (GUILayout.Button("Перевірити всі умови")) Try(Validate);

@@ -45,6 +45,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 if (!scene.path.Replace('\\', '/').StartsWith("Assets/QuietCamp/Editor/LevelAuthoring/Workspaces/", StringComparison.Ordinal)) continue;
                 var roots = scene.GetRootGameObjects();
                 if (roots.Length != 1 || roots[0].name != "QuietCamp — майстерня рівня") continue;
+                if (SceneManager.sceneCount == 1) EditorSceneManager.SetActiveScene(EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive));
                 EditorSceneManager.CloseScene(scene, true);
             }
         }
@@ -125,6 +126,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         public void ApplyDocument(LevelAuthoringDocument document)
         {
+            RiverTerrainIntegration.Validate?.Invoke(document);
             Document = document;
             if (_boardKey != Newtonsoft.Json.JsonConvert.SerializeObject(document.level)) RefreshBoard();
             if (_terrainKey != TerrainKey(document))
@@ -332,7 +334,17 @@ namespace QuietCamp.Editor.LevelAuthoring
             _board?.ClearAll(); _board = null;
             if (_paintMesh != null) UnityEngine.Object.DestroyImmediate(_paintMesh);
             foreach (var mesh in _batches) if (mesh != null) UnityEngine.Object.DestroyImmediate(mesh); _batches.Clear();
-            if (Root != null) { var scene = Root.scene; UnityEngine.Object.DestroyImmediate(Root); if (scene.IsValid() && scene.isLoaded) EditorSceneManager.CloseScene(scene, true); }
+            if (Root != null)
+            {
+                var scene = Root.scene; UnityEngine.Object.DestroyImmediate(Root);
+                if (scene.IsValid() && scene.isLoaded)
+                {
+                    // Unity cannot close its last loaded scene. Leave a harmless
+                    // empty scene before removing the derived workspace asset.
+                    if (SceneManager.sceneCount == 1) EditorSceneManager.SetActiveScene(EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive));
+                    EditorSceneManager.CloseScene(scene, true);
+                }
+            }
             if (!string.IsNullOrEmpty(_scenePath)) AssetDatabase.DeleteAsset(_scenePath);
             foreach(var material in _previewMaterials.Values)if(material!=null)UnityEngine.Object.DestroyImmediate(material);
             _previewMaterials.Clear();

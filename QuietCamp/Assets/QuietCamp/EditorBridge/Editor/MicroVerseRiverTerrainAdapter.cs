@@ -17,7 +17,7 @@ namespace QuietCamp.EditorBridge
 {
     [InitializeOnLoad] static class MicroVerseRiverTerrainConnection
     {
-        static MicroVerseRiverTerrainConnection() => RiverTerrainIntegration.Register(workspace => new MicroVerseRiverTerrainAdapter(workspace));
+        static MicroVerseRiverTerrainConnection() => RiverTerrainIntegration.Register(workspace => new MicroVerseRiverTerrainAdapter(workspace), MicroVerseRiverTerrainAdapter.ValidateDocument);
     }
     // Only this boundary knows vendor components. Export contains their evaluated geometry.
     sealed class MicroVerseRiverTerrainAdapter : IRiverTerrainAuthoringAdapter
@@ -101,7 +101,8 @@ namespace QuietCamp.EditorBridge
         }
         static GameObject Child(string name, Transform parent)
         { var go = new GameObject(name); go.transform.SetParent(parent, false); return go; }
-        public void Apply(LevelAuthoringDocument document)
+        public static void ValidateDocument(LevelAuthoringDocument document) { if (document.terrain != null) ValidatedCurve(document); }
+        static Spline ValidatedCurve(LevelAuthoringDocument document)
         {
             document.terrain.Validate();
             var data = document.terrain;
@@ -113,6 +114,12 @@ namespace QuietCamp.EditorBridge
                     && Mathf.Abs(point.z) < document.level.height / 2f + data.width / 2 + .2f)
                     throw new InvalidOperationException("Русло перетинає поле. Пересуньте точки річки перед застосуванням.");
             }
+            return curve;
+        }
+        public void Apply(LevelAuthoringDocument document)
+        {
+            var data = document.terrain;
+            var curve = ValidatedCurve(document);
             _document = document;
             string key = document.level.width + "/" + document.level.height + "/" + JsonConvert.SerializeObject(new
                 { data.width, data.depth, data.bankWidth, data.bankSoftness, data.points, data.stamps });

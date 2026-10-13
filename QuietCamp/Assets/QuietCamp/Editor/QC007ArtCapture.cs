@@ -9,6 +9,7 @@ using QuietCamp.Infrastructure;
 using QuietCamp.Presentation.World;
 using QuietCamp.Presentation;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEditor.TestTools.TestRunner.Api;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -118,7 +119,7 @@ namespace QuietCamp.Editor
                 else File.WriteAllText(ResultPath, JsonConvert.SerializeObject(new { status = "ready", playing = EditorApplication.isPlaying, unity = UnityEngine.Application.unityVersion }, Formatting.Indented));
             }
             catch (IOException) when (File.Exists(RequestPath)) { /* Retry a producer/scanner sharing lock on the next Editor update. */ }
-            catch (Exception error) { File.WriteAllText(ResultPath, JsonConvert.SerializeObject(new { status = "error", error = error.ToString() })); }
+            catch (Exception error) { SessionState.SetBool("QuietCamp.Authoring.Verifying", false); File.WriteAllText(ResultPath, JsonConvert.SerializeObject(new { status = "error", error = error.ToString() })); }
         }
         sealed class GameState { public string stage, saveRoot, backupRoot; public string[] files; }
         static void StartGame()
@@ -207,17 +208,34 @@ namespace QuietCamp.Editor
         }
         static void RunTests(bool authoring = false, string focused = null)
         {
+            if (authoring) SessionState.SetBool("QuietCamp.Authoring.Verifying", true);
+            var window = authoring ? Resources.FindObjectsOfTypeAll<LevelAuthoring.LevelAuthoringWindow>().FirstOrDefault() : null;
+            var session = window?.PrepareVerification();
+            if (authoring) LevelAuthoring.LevelAuthoringWorkspace.CloseOrphanedScenes();
+            if (authoring)
+                for (int i = 0; i < SceneManager.sceneCount; i++)
+                {
+                    var scene = SceneManager.GetSceneAt(i);
+                    if (!scene.isLoaded || !scene.isDirty || !string.IsNullOrEmpty(scene.path)) continue;
+                    // Preserve an unsaved scene as its own local asset instead of
+                    // asking TestRunner to discard it or restore an absent path.
+                    const string backups = "Assets/QuietCamp/Editor/LevelAuthoring/SceneBackups";
+                    Directory.CreateDirectory(backups);
+                    if (!EditorSceneManager.SaveScene(scene, backups + "/PreservedUntitled-" + Guid.NewGuid().ToString("N") + ".unity"))
+                        throw new IOException("Could not preserve the unsaved Editor scene before verification.");
+                }
             File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="tests-running",authoring,started=DateTime.UtcNow}));
             var api = ScriptableObject.CreateInstance<TestRunnerApi>();
-            api.RegisterCallbacks(new TestReport(api));
+            api.RegisterCallbacks(new TestReport(api, session));
             api.Execute(new ExecutionSettings(new Filter { testMode = TestMode.EditMode,
                 testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
         }
         sealed class TestReport : ICallbacks
         {
             readonly TestRunnerApi _api;
+            readonly LevelAuthoring.LevelAuthoringWindow.VerificationSession _session;
             readonly System.Collections.Generic.List<object> _failures = new System.Collections.Generic.List<object>();
-            public TestReport(TestRunnerApi api) => _api = api;
+            public TestReport(TestRunnerApi api, LevelAuthoring.LevelAuthoringWindow.VerificationSession session) { _api = api; _session = session; }
             public void RunStarted(ITestAdaptor testsToRun) { }
             public void TestStarted(ITestAdaptor test) { }
             public void TestFinished(ITestResultAdaptor result)
@@ -226,9 +244,11 @@ namespace QuietCamp.Editor
             }
             public void RunFinished(ITestResultAdaptor result)
             {
+                SessionState.SetBool("QuietCamp.Authoring.Verifying", false);
                 File.WriteAllText(ResultPath, JsonConvert.SerializeObject(new { status = "tests", outcome = result.TestStatus.ToString(),
                     passed = result.PassCount, failed = result.FailCount, skipped = result.SkipCount, duration = result.Duration, failures = _failures }, Formatting.Indented));
-                UnityEngine.Object.DestroyImmediate(_api);
+                _api.UnregisterCallbacks(this); UnityEngine.Object.DestroyImmediate(_api);
+                if (_session != null) EditorApplication.delayCall += () => LevelAuthoring.LevelAuthoringWindow.OpenWindow().RestoreVerification(_session);
             }
         }
         static string Hash(byte[] bytes) { using var hash = SHA256.Create(); return BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant(); }

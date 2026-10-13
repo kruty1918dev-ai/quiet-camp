@@ -125,7 +125,7 @@ def main():
     parser.add_argument('--odin-source', type=Path, required=True)
     parser.add_argument('--project', type=Path, action='append', required=True)
     parser.add_argument('--dry-run', action='store_true')
-    parser.add_argument('--refresh-compatibility', action='store_true', help='Refresh only known package/assembly metadata, never source or GUIDs')
+    parser.add_argument('--refresh-compatibility', action='store_true', help='Refresh known Unity metadata and River integration patch; preserve GUIDs')
     args = parser.parse_args()
     files = river_files(args.river)
     files.update(microverse_files(args.microverse))

@@ -102,6 +102,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             if (requireSolution && errors.Count == 0 && !RuleEvaluator.Evaluate(snapshot, snapshot.witness).IsSolved) errors.Add("Еталонне рішення порушує умови гри.");
             try { art.Validate(level); } catch (Exception e) { errors.Add(e.Message); }
             try { terrain?.Validate(); } catch (Exception e) { errors.Add(e.Message); }
+            try { RiverTerrainIntegration.Validate?.Invoke(this); } catch (Exception e) { errors.Add(e.Message); }
             if (terrain != null && art.landscape == null) errors.Add("Спочатку дочекайтеся оновлення річки й землі.");
             if (art.landscape != null)
                 foreach (var mesh in art.landscape.meshes.Where(m => m.water))

@@ -68,7 +68,8 @@ namespace QuietCamp.Editor.LevelAuthoring
     public static class RiverTerrainIntegration
     {
         public static Func<LevelAuthoringWorkspace, IRiverTerrainAuthoringAdapter> Factory { get; private set; }
-        public static void Register(Func<LevelAuthoringWorkspace, IRiverTerrainAuthoringAdapter> factory)
-            => Factory = factory ?? throw new ArgumentNullException(nameof(factory));
+        public static Action<LevelAuthoringDocument> Validate { get; private set; }
+        public static void Register(Func<LevelAuthoringWorkspace, IRiverTerrainAuthoringAdapter> factory, Action<LevelAuthoringDocument> validate = null)
+        { Factory = factory ?? throw new ArgumentNullException(nameof(factory)); Validate = validate; }
     }
 }

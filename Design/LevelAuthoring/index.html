@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Майстерня QuietCamp — інструкція</title>
+  <link rel="stylesheet" href="guide.css"><script src="guide.js" defer></script>
+</head>
+<body>
+<aside class="sidebar">
+  <a class="brand" href="#start"><span class="brand-mark">QC</span> Майстерня<br><small>QuietCamp · довідка</small></a>
+  <label class="search-label" for="search">Знайти дію</label><input id="search" type="search" placeholder="Річка, трава, збереження…" autocomplete="off">
+  <nav aria-label="Розділи інструкції">
+    <a href="#start">01 · Перший рівень</a><a href="#levels">02 · Наявні рівні</a>
+    <a href="#field">03 · Поле та перешкоди</a><a href="#objects">04 · Об’єкти й пензлі</a>
+    <a href="#river">05 · Річка та береги</a><a href="#terrain">06 · Пагорби й низини</a>
+    <a href="#guests">07 · Гості та рішення</a><a href="#finish">08 · Гра й збереження</a>
+    <a href="#troubles">Якщо щось не виходить</a>
+  </nav>
+  <p class="offline">Усі картинки й підказки збережені поруч із цією сторінкою. Інтернет не потрібен.</p>
+</aside>
+<main>
+  <header class="hero"><span class="eyebrow">ВАШ ТАБІР, КРОК ЗА КРОКОМ</span><h1>Зберіть рівень<br>як із деталей.</h1>
+    <p>Оберіть поле, додайте об’єкти, намалюйте зелень і сформуйте берег. Майстерня перевірить правила гри перед запуском.</p>
+    <div class="keys"><span><kbd>Alt</kbd> огляд сцени</span><span><kbd>Ctrl</kbd> + <kbd>Z</kbd> скасувати</span><span><kbd>Ctrl</kbd> + <kbd>Y</kbd> повторити</span></div>
+  </header>
+  <p id="search-result" role="status" hidden></p>
+  <section id="start" data-search>
+    <span class="number">01</span><h2>Почніть з простого</h2>
+    <p>У Unity відкрийте <strong>Quiet Camp → Майстерня рівнів</strong>. Закріпіть вікно поруч із <strong>Scene View</strong>: у майстерні обираєте інструмент, у сцені розміщуєте деталі.</p>
+    <div class="choices"><article><h3>Порожнє поле</h3><p>Для власного пазла з нуля. Почніть із розміру й двох гостей.</p></article><article><h3>Згенерувати основу</h3><p>Готовий табір, який можна змінити вручну. Номер варіанта задає початкову заготовку.</p></article><article><h3>Наявний рівень</h3><p>Найпростіший спосіб навчитися. Відкрийте знайомий пазл і змініть кілька деталей.</p></article></div>
+    <div class="tip"><strong>Перший маршрут:</strong> відкрийте рівень → поставте один декоративний об’єкт → збережіть чернетку → натисніть «Грати».</div>
+  </section>
+  <section id="levels" data-search>
+    <span class="number">02</span><h2>Відкрийте рівень, який уже є</h2>
+    <figure><img src="images/levels.png" alt="Розділ Рівні: початкові дії, пошук і картки кампанії" data-zoom loading="lazy"><figcaption>Натисніть картку рівня. Його розмір і кількість гостей показані перед відкриттям.</figcaption></figure>
+    <ol><li>Оберіть <strong>Рівні</strong> зліва.</li><li>Знайдіть номер або ID у пошуку.</li><li>Натисніть картку. Майстерня відкриє <strong>чернетку</strong> цього рівня.</li></ol>
+    <div class="tip">Початкова кампанія зміниться лише після окремої команди <strong>«Застосувати до рівня кампанії»</strong>. Звичайне збереження записує вашу чернетку.</div>
+  </section>
+  <section id="field" data-search>
+    <span class="number">03</span><h2>Складіть ігрове поле</h2>
+    <figure><img src="images/field.png" alt="Розділ Поле: розмір, інструменти клітин і налаштування входів" data-zoom loading="lazy"><figcaption>Оберіть інструмент у панелі, потім клацніть потрібну клітину у Scene View.</figcaption></figure>
+    <ol><li>Задайте ширину й висоту: <strong>від 4 до 8 клітин</strong>.</li><li>Оберіть камінь, дерево чи вогнище та поставте їх на клітини.</li><li>Вхід і вихід ставте на межі поля. Основний вхід один; додаткові входи задаються окремо.</li><li>Зовнішні проходи малюйте до двох клітин поза полем. Гумка їх прибирає.</li></ol>
+    <div class="legend"><span class="shade">Тінь</span><span class="noise">Шум</span><span class="route">Маршрут</span><span class="issue">Порушення</span></div>
+    <div class="tip"><strong>Ігрове дерево</strong> займає клітину й дає тінь. <strong>Декоративне дерево</strong> прикрашає оточення. Це різні інструменти.</div>
+  </section>
+  <section id="objects" data-search>
+    <span class="number">04</span><h2>Деталі, трава й паркани</h2>
+    <figure><img src="images/objects.png" alt="Палітра об’єктів із категоріями, пошуком та інструментами PWB" data-zoom loading="lazy"><figcaption>Обирайте модель за карткою. Зірочка зберігає її в обраному.</figcaption></figure>
+    <div class="choices"><article><h3>Один об’єкт</h3><p>Для дерева, криниці, містка чи хати. Оберіть модель і клацніть поверхню.</p></article><article><h3>Пензель</h3><p>Для трави, квітів і кущів. Задайте розмір та густоту; протягніть по землі.</p></article><article><h3>Лінія</h3><p>Для паркану. Оберіть секцію й задайте лінію готовим інструментом PWB.</p></article></div>
+    <ol><li>Знайдіть модель у категорії або через пошук.</li><li>Оберіть потрібний інструмент.</li><li>Малюйте у <strong>Scene View</strong>. Декор розміщується поза полем і водою.</li><li>Для звичайного переміщення натисніть <strong>«Завершити інструмент»</strong>, оберіть об’єкт і використайте інструменти Unity.</li></ol>
+    <div class="tip"><strong>Для живої зелені:</strong> невелика густота, більша відстань між рослинами й помірна варіація масштабу. Залишайте відкриті ділянки біля входів і важливих деталей.</div>
+    <details><summary>Приклад: намалювати траву</summary><figure><img src="images/grass.png" alt="Категорія Трава та основні параметри пензля" data-zoom loading="lazy"><figcaption>1 — категорія, 2 — модель, 3 — параметри та кнопка «Пензель».</figcaption></figure><ol><li>Оберіть <strong>Трава</strong> й картку «Дрібна трава» або іншої рослини.</li><li>Почніть з розміру пензля 1, густоти 30, відстані 0,2 та варіації 0,15.</li><li>Натисніть <strong>Пензель</strong>, перейдіть у Scene View і протягніть по сухому берегу.</li><li>Для прорідження оберіть <strong>Гумка</strong>. Ctrl+Z скасовує мазок.</li></ol></details>
+    <details><summary>Приклад: скласти паркан</summary><figure><img src="images/fence.png" alt="Категорія Паркани, секції та кнопка Лінія" data-zoom loading="lazy"><figcaption>1 — «Паркани», 2 — секція, 3 — «Лінія».</figcaption></figure><ol><li>Оберіть <strong>Паркани</strong>, потім тин або секцію штахетника.</li><li>Натисніть <strong>Лінія</strong>. У Scene View клацніть початок і кінець паркану.</li><li>Перевірте попередній перегляд і натисніть <kbd>Enter</kbd>, щоб поставити секції.</li><li>Натисніть <strong>Завершити інструмент</strong> для звичайного переміщення.</li></ol></details>
+    <details><summary>Як додати власний prefab?</summary><p>Перетягніть його з Project у поле <strong>«Додати свій prefab»</strong>. Він реєструється як декор зі стабільним ID. Не перетягуйте звичайний об’єкт із Hierarchy.</p></details>
+    <details><summary>Як редагувати зелень старого процедурного рівня?</summary><p>Його вже об’єднані генератором рослини відкриваються як групи. Для зміни окремої рослини замініть потрібну групу власними мазками. Нові мазки зберігають окремі об’єкти, які можна переміщувати й видаляти.</p></details>
+    <details><summary>Чому відкрилася додаткова Palette?</summary><p>Це штатне вікно Prefab World Builder. Закріпіть його поруч. Закриття Palette вимикає інструмент PWB; кнопка майстерні активує його повторно.</p></details>
+  </section>
+  <section id="river" data-search>
+    <span class="number">05</span><h2>Намалюйте вигин річки</h2>
+    <figure><img src="images/river.png" alt="Налаштування річки: ширина, глибина, берег і редагування точок" data-zoom loading="lazy"><figcaption>Вода й земля використовують спільну криву. Точки керують руслом, параметри — його перерізом.</figcaption></figure>
+    <ol><li>Відкрийте <strong>Річка та земля</strong>.</li><li>Для старого шаблону натисніть <strong>«Перейти до редагованої річки та землі»</strong>.</li><li>Увімкніть <strong>«Точки у сцені»</strong> та перетягніть позначені точки у Scene View. Або задайте X/Z у панелі.</li><li>Кнопками <strong>+ Точка</strong> і <strong>− Точка</strong> додайте або приберіть вигини.</li><li>Налаштуйте ширину води, глибину дна, ширину берега й м’якість переходу.</li></ol>
+    <figure class="diagram"><img src="images/river-diagram.svg" alt="Схема: точки формують плавну криву русла, берег підлаштовується навколо неї" loading="lazy"><figcaption>Схема роботи інструмента, а не рендер ігрового рівня.</figcaption></figure>
+    <div class="tip">Після завершення руху зачекайте оновлення землі. Під час цього етапу збереження й запуск можуть попросити зачекати. Річка не повинна перетинати ігрове поле.</div>
+  </section>
+  <section id="terrain" data-search>
+    <span class="number">06</span><h2>Додайте об’єм землі</h2>
+    <figure><img src="images/terrain.png" alt="Прості параметри пагорба або низини: положення, розмір і висота" data-zoom loading="lazy"><figcaption>Кожна форма редагується окремо. Висота зі знаком мінус створює низину.</figcaption></figure>
+    <ol><li>Натисніть <strong>+ Пагорб</strong> або <strong>+ Низина</strong>.</li><li>Оберіть форму зі списку.</li><li>Задайте положення X/Z, розмір і висоту.</li><li>Оцініть форму з камери рівня. Приберіть зайве кнопкою <strong>«Прибрати вибрану форму»</strong>.</li></ol>
+    <div class="tip">Почніть із широкого й невисокого пагорба. Ігрове поле залишається рівним. Рослини з прив’язкою до землі підлаштовуються під поверхню; вручну задана висота зберігається.</div>
+    <details><summary>Камера, світло й розмиття</summary><p>Розгорніть <strong>«Додатково»</strong>. Тут можна змінити напрям сонця, нахил і масштаб камери та розмиття країв. Спочатку перевірте, чи всі потрібні об’єкти видно у кадрі.</p></details>
+  </section>
+  <section id="guests" data-search>
+    <span class="number">07</span><h2>Гості та умови перемоги</h2>
+    <figure><img src="images/guests.png" alt="Картки гостей з вимогами тіні, тиші та вибором намету" data-zoom loading="lazy"><figcaption>Намет займає 2×2 клітини. Важливі не лише місце, а й напрям дверей.</figcaption></figure>
+    <ol><li>Залиште від <strong>2 до 6 гостей</strong> й задайте потрібні намети.</li><li>Увімкніть вимоги тіні або тиші.</li><li>Для друзів оберіть двох різних гостей і натисніть <strong>«З’єднати друзів»</strong>.</li><li>Поставте еталонні намети вручну або натисніть <strong>«Знайти рішення»</strong>.</li><li>Перевірте доступ до дверей і кольорові маршрути.</li></ol>
+    <div class="tip">Пошук можна скасувати. <strong>«Час вичерпано»</strong> означає, що пошук не завершився; це не доказ відсутності рішення.</div>
+  </section>
+  <section id="finish" data-search>
+    <span class="number">08</span><h2>Перевірте, зіграйте й збережіть</h2>
+    <figure><img src="images/checks.png" alt="Розділ Перевірка: перевірка, пошук рішення, тестова гра та застосування до кампанії" data-zoom loading="lazy"><figcaption>Тестова гра використовує тимчасовий прогрес. Після зупинки Play Mode повертаєтеся до майстерні.</figcaption></figure>
+    <div class="choices"><article><h3>Зберегти</h3><p>JSON-чернетка для подальшого редагування. Відкривайте саме файл .draft.json.</p></article><article><h3>Експорт</h3><p>Перевірений пазл, зафіксована композиція та чернетка. Новий рівень ще не додається до меню кампанії.</p></article><article><h3>Застосувати</h3><p>Замінює початковий рівень після перевірки. Доступно для чернетки, відкритої з кампанії.</p></article></div>
+    <ol><li>Натисніть <strong>«Перевірити»</strong> та усуньте повідомлення.</li><li>Натисніть <strong>«Грати»</strong>. Перевірте намети, двері, тінь і тишу.</li><li>Зупиніть Play Mode у Unity.</li><li>Збережіть чернетку. За потреби експортуйте або застосуйте її до початкового рівня.</li></ol>
+  </section>
+  <section id="troubles" data-search>
+    <h2>Якщо щось не виходить</h2>
+    <details><summary>Пензель не малює</summary><p>Перейдіть в Scene View, оберіть картку моделі та натисніть інструмент ще раз. Малюйте на сухій землі поза полем. Перевірте, чи PWB завершив підключення.</p></details>
+    <details><summary>Об’єкт стоїть не там або його не видно</summary><p>Завершіть інструмент, оберіть об’єкт у Hierarchy й натисніть F у Scene View. Перевірте масштаб і положення. Потім поверніться до камери рівня.</p></details>
+    <details><summary>Збереження просить зачекати</summary><p>MicroVerse ще формує землю або River Modeler — геометрію. Дочекайтеся завершення оновлення та повторіть збереження.</p></details>
+    <details><summary>Немає рішення або двері недоступні</summary><p>Перевірте вхід, напрям дверей, перешкоди, зовнішні проходи й вимоги гостей. Червоні клітини показують порушення, маршрути — доступ.</p></details>
+    <details><summary>Не можна застосувати чернетку</summary><p>Потрібен перевірений пазл із рішенням та зв’язок із початковим рівнем. Якщо початковий файл змінився, збережіть чернетку й відкрийте актуальний рівень окремо.</p></details>
+  </section>
+  <footer>QuietCamp · майстерня рівнів · українська інструкція<br><button type="button" id="print">Зберегти інструкцію як PDF</button></footer>
+</main>
+<dialog id="zoom"><button type="button" class="close" aria-label="Закрити картинку">×</button><img alt=""><p></p></dialog>
+</body></html>
