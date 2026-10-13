@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 82,
+  "chapter": 9,
+  "seed": -1466321106,
+  "width": 5,
+  "height": 5,
+  "id": "gen:qc_camp:103",
+  "contentHash": "580c287fd8ca97d09c1b2d0f69c4d444aca35574e8e89fbb0e92f7fb456f9b0f",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "compositionHash": "4a760f4d167520fae2ee97cf5bea2124bbaae22a1b29c061a9bdcef7c2c6a436",
+  "generationAttempt": 1,
+  "decorSeed": -1466308495,
+  "entry": [
+    2,
+    0
+  ],
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 2,
+      "z": 4
+    },
+    {
+      "id": "forest-entry",
+      "kind": "entry",
+      "x": 4,
+      "z": 2
+    }
+  ],
+  "blocked": [
+    [
+      1,
+      3
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      4,
+      0
+    ]
+  ],
+  "shade": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [
+    [
+      "g1",
+      "g2"
+    ]
+  ],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 3,
+      "z": 3,
+      "rotation": 2
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "tree_default",
+      "x": 1,
+      "z": 3,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 0,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 4,
+      "z": 0,
+      "rotation": 1
+    }
+  ],
+  "canopies": [
+    {
+      "x": 1.25,
+      "z": 1.25,
+      "radiusX": 1.6,
+      "radiusZ": 1.6
+    }
+  ],
+  "environment": {
+    "biomeId": "shore",
+    "seasonId": "winter",
+    "weatherId": "clear",
+    "moisture": 0.469385,
+    "treeDensity": 0.452613,
+    "clusterSeed": 45186,
+    "meadowSpecies": [
+      "grass",
+      "wheat"
+    ],
+    "storyMotifs": [],
+    "shore": {
+      "kind": "stream",
+      "side": "left",
+      "offset": 8.1,
+      "width": 2.4,
+      "seed": 32066
+    },
+    "seasonTimeline": 0.818182,
+    "weatherIntensity": 0.315642
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-082",
+    "beats": [
+      {
+        "id": "place-082",
+        "storyBeat": "Маршрут знову видно завдяки воді й людському догляду.",
+        "heroLandmark": "place-082-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Причальний стовп і верба стоять біля відкритого русла, сніг відходить від підходу.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Маршрут знову видно завдяки воді й людському догляду.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:103"
+        ],
+        "props": [
+          {
+            "id": "place-082-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_mooring_post",
+              "x": 3.9335,
+              "z": 3.0,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-082-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_workboat",
+              "x": 3.0,
+              "z": -4.80107,
+              "elevation": 0.025,
+              "height": 0.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-082-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_willow",
+              "x": 4.2383,
+              "z": -7.50949,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  }
+}

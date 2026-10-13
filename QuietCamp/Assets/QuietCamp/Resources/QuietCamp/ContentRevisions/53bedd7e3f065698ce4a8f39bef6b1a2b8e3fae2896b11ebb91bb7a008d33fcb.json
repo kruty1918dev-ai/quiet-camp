@@ -1,0 +1,231 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 41,
+  "chapter": 5,
+  "seed": -720104600,
+  "width": 6,
+  "height": 8,
+  "id": "gen:qc_camp:56",
+  "contentHash": "53bedd7e3f065698ce4a8f39bef6b1a2b8e3fae2896b11ebb91bb7a008d33fcb",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "compositionHash": "60503632593c49df820e4cbb3e3f3177958cef7adb53207efbde7d43ad0e5850",
+  "generationAttempt": 1,
+  "decorSeed": -720090057,
+  "entry": [
+    5,
+    4
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      3,
+      0
+    ],
+    [
+      0,
+      5
+    ],
+    [
+      1,
+      0
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 1,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 6,
+      "rotation": 1
+    },
+    {
+      "guestId": "g3",
+      "x": 1,
+      "z": 4,
+      "rotation": 0
+    },
+    {
+      "guestId": "g4",
+      "x": 2,
+      "z": 1,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 3,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 0,
+      "z": 5,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 1,
+      "z": 0,
+      "rotation": 2
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.424382,
+    "treeDensity": 0.564131,
+    "clusterSeed": 38093,
+    "meadowSpecies": [
+      "grass",
+      "poppy"
+    ],
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.40404,
+    "weatherIntensity": 0.240637
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-041",
+    "beats": [
+      {
+        "id": "place-041",
+        "storyBeat": "Перед пам'ятним місцем звичайна краса поля задає спокійний тон.",
+        "heroLandmark": "place-041-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Соняшники, польові бур'яни й дерев'яний вказівник на краю відкритої ділянки.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Перед пам'ятним місцем звичайна краса поля задає спокійний тон.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:56"
+        ],
+        "props": [
+          {
+            "id": "place-041-prop-1",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_sunflower_patch",
+              "x": -4.3195,
+              "z": -0.35,
+              "elevation": 0.025,
+              "height": 0.34,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-041-prop-2",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_field_weeds",
+              "x": 1.15,
+              "z": -5.23082,
+              "elevation": 0.025,
+              "height": 0.34,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-041-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "sign",
+              "x": 4.53535,
+              "z": -5.23988,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 23,
+  "chapter": 3,
+  "seed": 20451060,
+  "width": 7,
+  "height": 7,
+  "id": "gen:qc_camp:14",
+  "contentHash": "095fc7bbba3391483498c939f81e19e93187a9fbf605dfab2e070713a3687b72",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "compositionHash": "b1ff84749209e09e20ed806d29a393ff6da07090c79b74610ccaad3e2d969246",
+  "generationAttempt": 1,
+  "decorSeed": 20468139,
+  "entry": [
+    6,
+    3
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      1,
+      3
+    ],
+    [
+      0,
+      5
+    ],
+    [
+      1,
+      0
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [
+    [
+      7,
+      1
+    ],
+    [
+      7,
+      2
+    ],
+    [
+      7,
+      3
+    ],
+    [
+      7,
+      4
+    ],
+    [
+      7,
+      5
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 5,
+      "z": 4,
+      "rotation": 1
+    },
+    {
+      "guestId": "g2",
+      "x": 1,
+      "z": 4,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 2,
+      "rotation": 0
+    },
+    {
+      "guestId": "g4",
+      "x": 4,
+      "z": 1,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 1,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 0,
+      "z": 5,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 1,
+      "z": 0,
+      "rotation": 2
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.421967,
+    "treeDensity": 0.474372,
+    "clusterSeed": 34979,
+    "meadowSpecies": [
+      "grass",
+      "daisy"
+    ],
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.222222,
+    "weatherIntensity": 0.236611
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-023",
+    "beats": [
+      {
+        "id": "place-023",
+        "storyBeat": "Спільне користування водою зв'язує двори сильніше за колишні паркани.",
+        "heroLandmark": "place-023-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Простий журавель і дерев'яна лавка поруч зі старим сараєм.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Спільне користування водою зв'язує двори сильніше за колишні паркани.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:14"
+        ],
+        "props": [
+          {
+            "id": "place-023-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_well",
+              "x": -5.69063,
+              "z": 0.55,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 180.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-023-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "camp_bench",
+              "x": 1.15,
+              "z": -4.86417,
+              "elevation": 0.025,
+              "height": 0.72,
+              "yaw": 180.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-023-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_fence_broken_0",
+              "x": 6.02233,
+              "z": -4.79145,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  }
+}

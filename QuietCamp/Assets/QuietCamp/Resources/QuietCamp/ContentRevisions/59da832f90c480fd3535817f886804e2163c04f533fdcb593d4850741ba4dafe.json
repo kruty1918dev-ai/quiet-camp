@@ -1,0 +1,238 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 42,
+  "chapter": 5,
+  "seed": -720096680,
+  "width": 8,
+  "height": 6,
+  "id": "gen:qc_camp:57",
+  "contentHash": "59da832f90c480fd3535817f886804e2163c04f533fdcb593d4850741ba4dafe",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "compositionHash": "3c0be4177ec4b6acf068a66f8ad2188ccfb69046ea6678d04fe51d59170563d1",
+  "generationAttempt": 1,
+  "decorSeed": -720081657,
+  "entry": [
+    4,
+    5
+  ],
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 4,
+      "z": 0
+    }
+  ],
+  "blocked": [
+    [
+      0,
+      1
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 2,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 2,
+      "z": 2,
+      "rotation": 1
+    },
+    {
+      "guestId": "g3",
+      "x": 4,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "guestId": "g4",
+      "x": 5,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "log",
+      "x": 0,
+      "z": 1,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 3,
+      "z": 4,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 2,
+      "z": 1,
+      "rotation": 3
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "meadow",
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.437292,
+    "treeDensity": 0.567219,
+    "clusterSeed": 38266,
+    "meadowSpecies": [
+      "grass",
+      "poppy"
+    ],
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.414141,
+    "weatherIntensity": 0.262154
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-042",
+    "beats": [
+      {
+        "id": "place-042",
+        "storyBeat": "Герої бачать втрату через впізнавану людську машину в незвичному місці.",
+        "heroLandmark": "place-042-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Носова частина розбитого літака лежить поза табором; трава обступає метал.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Герої бачать втрату через впізнавану людську машину в незвичному місці.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:57"
+        ],
+        "props": [
+          {
+            "id": "place-042-prop-1",
+            "category": "recovery",
+            "motif": "civilian-debris",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "staging_aircraft_fore",
+              "x": -7.10177,
+              "z": 0.1,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-042-prop-2",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_field_weeds",
+              "x": -1.5,
+              "z": -4.23082,
+              "elevation": 0.025,
+              "height": 0.34,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-042-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "flower_yellowA",
+              "x": 5.29049,
+              "z": -4.3099,
+              "elevation": 0.025,
+              "height": 0.34,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  }
+}

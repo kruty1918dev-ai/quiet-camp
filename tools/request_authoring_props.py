@@ -29,7 +29,8 @@ while time.time()-started<a.timeout:
     if a.mode=='authoring-stop' and not request.exists():
         print('{"status":"stop-request-consumed"}');break
     if not request.exists() and result.exists() and result.stat().st_mtime>=started:
-        d=json.loads(result.read_text(encoding='utf-8'))
+        try:d=json.loads(result.read_text(encoding='utf-8'))
+        except (json.JSONDecodeError,PermissionError):time.sleep(.1);continue
         if d.get('status') in ('tests-running','campaign-generating','profiling'):time.sleep(.3);continue
         print(json.dumps({k:v for k,v in d.items() if k in ('status','error','errors','draftPath','output','playing','ready','memoryOnly','objects','baked','identical','solved','completed','result','passed','failed','total','duration','forbiddenComponents','persistentDataPath')},ensure_ascii=False))
         if d.get('status')=='error' or d.get('errors'):raise SystemExit(1)

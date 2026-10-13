@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 8,
+  "chapter": 1,
+  "seed": 20324356,
+  "width": 8,
+  "height": 6,
+  "id": "QC008",
+  "contentHash": "23aa1fe0e228e343d83331e24bc1768bbaff3c1b030cb3ed30323009bc99249f",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "tutorial.8",
+  "compositionHash": "2971bbb7ba4f79c61ba9a55b2af8419643db4807c6e8db6eec293f9f7bc1539f",
+  "generationAttempt": 1,
+  "decorSeed": 20348763,
+  "entry": [
+    7,
+    3
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      6,
+      1
+    ],
+    [
+      4,
+      3
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [
+    [
+      8,
+      1
+    ],
+    [
+      8,
+      2
+    ],
+    [
+      8,
+      3
+    ],
+    [
+      8,
+      4
+    ],
+    [
+      8,
+      5
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 6,
+      "z": 4,
+      "rotation": 1
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 6,
+      "z": 1,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 4,
+      "z": 3,
+      "rotation": 1
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.396193,
+    "treeDensity": 0.408737,
+    "clusterSeed": 32384,
+    "meadowSpecies": [
+      "grass",
+      "daisy"
+    ],
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.070707,
+    "weatherIntensity": 0.193655
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-008",
+    "beats": [
+      {
+        "id": "place-008",
+        "storyBeat": "Заросла дорога пам'ятає щоденний рух; табір повертає їй людський масштаб.",
+        "heroLandmark": "place-008-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Нахилений вказівник і порожня лавка між молодими тополями.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Заросла дорога пам'ятає щоденний рух; табір повертає їй людський масштаб.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "QC008"
+        ],
+        "props": [
+          {
+            "id": "place-008-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "sign",
+              "x": -5.53535,
+              "z": -0.8,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-008-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "camp_bench",
+              "x": 1.15,
+              "z": -4.36417,
+              "elevation": 0.025,
+              "height": 0.72,
+              "yaw": 180.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-008-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "flower_yellowA",
+              "x": 5.29049,
+              "z": -4.3099,
+              "elevation": 0.025,
+              "height": 0.34,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  }
+}

@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 69,
+  "chapter": 7,
+  "seed": -719843177,
+  "width": 5,
+  "height": 8,
+  "id": "gen:qc_camp:89",
+  "contentHash": "de61e919b4e55bf32ca6493460a6a6d73feb342f2ee073c2e570af593759f049",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "compositionHash": "bfcf645884924221f56a282928972fa4814008ca5bb1f976158ffe01730cad82",
+  "generationAttempt": 1,
+  "decorSeed": -719827000,
+  "entry": [
+    2,
+    7
+  ],
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 2,
+      "z": 0
+    },
+    {
+      "id": "forest-entry",
+      "kind": "entry",
+      "x": 0,
+      "z": 4
+    }
+  ],
+  "blocked": [
+    [
+      4,
+      0
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      4,
+      2
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      4,
+      0
+    ]
+  ],
+  "exteriorWalkable": [
+    [
+      0,
+      8
+    ],
+    [
+      1,
+      8
+    ],
+    [
+      2,
+      8
+    ],
+    [
+      3,
+      8
+    ],
+    [
+      4,
+      8
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 1,
+      "rotation": 0
+    },
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 6,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 3,
+      "z": 3,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "campfire_stones",
+      "x": 4,
+      "z": 0,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 3,
+      "z": 5,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 0,
+      "z": 0,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 4,
+      "z": 2,
+      "rotation": 0
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "shore",
+    "seasonId": "autumn",
+    "weatherId": "cloudy",
+    "moisture": 0.554539,
+    "treeDensity": 0.524771,
+    "clusterSeed": 42937,
+    "meadowSpecies": [
+      "grass",
+      "wheat"
+    ],
+    "storyMotifs": [],
+    "shore": {
+      "kind": "stream",
+      "side": "right",
+      "offset": 8.1,
+      "width": 2.4,
+      "seed": 31897
+    },
+    "seasonTimeline": 0.686869,
+    "weatherIntensity": 0.457565
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-069",
+    "beats": [
+      {
+        "id": "place-069",
+        "storyBeat": "Той самий тип допомоги потрібний і восени; природа поступово готує зиму.",
+        "heroLandmark": "place-069-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Верба з рідшим листям і дерев'яний перехід над холодним руслом.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Той самий тип допомоги потрібний і восени; природа поступово готує зиму.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:89"
+        ],
+        "props": [
+          {
+            "id": "place-069-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_bridge_remnants",
+              "x": 7.62232,
+              "z": 0.0,
+              "elevation": 0.025,
+              "height": 0.72,
+              "yaw": 0.0,
+              "sway": false,
+              "spansWater": true
+            }
+          },
+          {
+            "id": "place-069-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_footbridge",
+              "x": 8.00865,
+              "z": -4.4,
+              "elevation": 0.025,
+              "height": 0.5,
+              "yaw": 90.0,
+              "sway": false,
+              "spansWater": true
+            }
+          },
+          {
+            "id": "place-069-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_willow",
+              "x": 4.2383,
+              "z": -5.65949,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  }
+}

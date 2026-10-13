@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 36,
+  "chapter": 4,
+  "seed": 20569845,
+  "width": 7,
+  "height": 7,
+  "id": "gen:qc_camp:29",
+  "contentHash": "f8873ee3da9e1ae4e1c9e45e2b9def67c197a97cb76008c142ab6e1d0f80ef90",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "compositionHash": "f85470343fc3d03a0652a16b064aa1f9d6f2673b3b29bd11a51d94ee7198dfac",
+  "generationAttempt": 1,
+  "decorSeed": 20545962,
+  "entry": [
+    3,
+    0
+  ],
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 3,
+      "z": 6
+    }
+  ],
+  "blocked": [
+    [
+      3,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      6,
+      6
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [
+    [
+      "g1",
+      "g2"
+    ]
+  ],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 3,
+      "rotation": 2
+    },
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 5,
+      "rotation": 1
+    },
+    {
+      "guestId": "g4",
+      "x": 3,
+      "z": 3,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "tree_default",
+      "x": 3,
+      "z": 2,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 2,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 6,
+      "z": 6,
+      "rotation": 1
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "shore",
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.361285,
+    "treeDensity": 0.544505,
+    "clusterSeed": 37228,
+    "meadowSpecies": [
+      "grass",
+      "poppy"
+    ],
+    "storyMotifs": [],
+    "shore": {
+      "kind": "stream",
+      "side": "left",
+      "offset": 9.1,
+      "width": 2.4,
+      "seed": 31468
+    },
+    "seasonTimeline": 0.353535,
+    "weatherIntensity": 0.135474
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-036",
+    "beats": [
+      {
+        "id": "place-036",
+        "storyBeat": "Пошкоджений автомобільний шлях замінено скромною людською переправою.",
+        "heroLandmark": "place-036-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Залишки берегового мосту й вузька дерев'яна кладка біля відкритого русла.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Пошкоджений автомобільний шлях замінено скромною людською переправою.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:29"
+        ],
+        "props": [
+          {
+            "id": "place-036-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_bridge_remnants",
+              "x": -9.33881,
+              "z": 0.0,
+              "elevation": 0.025,
+              "height": 0.72,
+              "yaw": 0.0,
+              "sway": false,
+              "spansWater": true
+            }
+          },
+          {
+            "id": "place-036-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_footbridge",
+              "x": -9.61879,
+              "z": 4.4,
+              "elevation": 0.025,
+              "height": 0.5,
+              "yaw": 90.0,
+              "sway": false,
+              "spansWater": true
+            }
+          },
+          {
+            "id": "place-036-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_willow",
+              "x": 5.2383,
+              "z": -8.50949,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  }
+}
