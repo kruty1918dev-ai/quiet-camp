@@ -36,6 +36,18 @@ namespace QuietCamp.Editor.LevelAuthoring
         string _terrainKey;
         string _scenePath;
         public int SceneryCount => Scenery.GetComponentsInChildren<LevelAuthoringAsset>().Length;
+        public static void CloseOrphanedScenes()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode) return;
+            for (int i = SceneManager.sceneCount - 1; i >= 0; i--)
+            {
+                var scene = SceneManager.GetSceneAt(i);
+                if (!scene.path.Replace('\\', '/').StartsWith("Assets/QuietCamp/Editor/LevelAuthoring/Workspaces/", StringComparison.Ordinal)) continue;
+                var roots = scene.GetRootGameObjects();
+                if (roots.Length != 1 || roots[0].name != "QuietCamp — майстерня рівня") continue;
+                EditorSceneManager.CloseScene(scene, true);
+            }
+        }
 
         public LevelAuthoringWorkspace(LevelAuthoringDocument document)
         {

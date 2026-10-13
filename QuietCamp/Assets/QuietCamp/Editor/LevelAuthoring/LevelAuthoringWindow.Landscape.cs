@@ -29,11 +29,11 @@ namespace QuietCamp.Editor.LevelAuthoring
                 float bank = EditorGUILayout.Slider("Ширина берега", terrain.bankWidth, .1f, 6);
                 float softness = EditorGUILayout.Slider("М’якість переходу", terrain.bankSoftness, .05f, 4);
                 if (EditorGUI.EndChangeCheck()) Edit("Форма берегів", d => { d.terrain.width = width; d.terrain.depth = depth; d.terrain.bankWidth = bank; d.terrain.bankSoftness = softness; });
-                _riverEditing = EditorGUILayout.Toggle("Редагувати точки у Scene View", _riverEditing);
+                _riverEditing = EditorGUILayout.Toggle(new GUIContent("Точки у сцені", "Перетягніть точки русла в Scene View"), _riverEditing);
                 _selectedRiverPoint = EditorGUILayout.Popup("Вибрана точка", Mathf.Clamp(_selectedRiverPoint, 0, terrain.points.Length - 1), terrain.points.Select((p, i) => "Точка " + (i + 1)).ToArray());
                 var selected = terrain.points[_selectedRiverPoint];
                 EditorGUI.BeginChangeCheck();
-                var riverPoint = EditorGUILayout.Vector2Field("Положення точки X / Z", new Vector2(selected.x, selected.z));
+                var riverPoint = GroundPosition("Положення точки", new Vector2(selected.x, selected.z));
                 if (EditorGUI.EndChangeCheck()) Edit("Положення точки річки", d => { d.terrain.points[_selectedRiverPoint].x = riverPoint.x; d.terrain.points[_selectedRiverPoint].z = riverPoint.y; });
                 using (new EditorGUILayout.HorizontalScope())
                 {
@@ -56,10 +56,10 @@ namespace QuietCamp.Editor.LevelAuthoring
                 }
                 if (terrain.stamps.Length > 0)
                 {
-                    _stampEditing = EditorGUILayout.Toggle("Переміщувати форми у Scene View", _stampEditing);
+                    _stampEditing = EditorGUILayout.Toggle(new GUIContent("Форми у сцені", "Перетягніть пагорб чи низину в Scene View"), _stampEditing);
                     _selectedStamp = EditorGUILayout.Popup("Форма землі", Mathf.Clamp(_selectedStamp, 0, terrain.stamps.Length - 1), terrain.stamps.Select((s, i) => (s.height >= 0 ? "Пагорб " : "Низина ") + (i + 1)).ToArray());
                     var stamp = terrain.stamps[_selectedStamp];
-                    EditorGUI.BeginChangeCheck(); var point = EditorGUILayout.Vector2Field("Положення X / Z", new Vector2(stamp.x, stamp.z));
+                    EditorGUI.BeginChangeCheck(); var point = GroundPosition("Положення форми", new Vector2(stamp.x, stamp.z));
                     float radius = EditorGUILayout.Slider("Розмір", stamp.radius, .25f, 12), stampHeight = EditorGUILayout.Slider("Висота", stamp.height, -4, 4);
                     if (EditorGUI.EndChangeCheck()) Edit("Форма землі", d => { var s = d.terrain.stamps[_selectedStamp]; s.x = point.x; s.z = point.y; s.radius = radius; s.height = stampHeight; });
                     if (GUILayout.Button("Прибрати вибрану форму")) Edit("Прибрати форму землі", d => d.terrain.stamps = d.terrain.stamps.Where((s, i) => i != _selectedStamp).ToArray());
@@ -71,6 +71,18 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         void AddStamp(float height) => Edit("Додати форму землі", d => d.terrain.stamps = d.terrain.stamps.Concat(new[]
             { new LandscapeStamp { x = d.level.width / 2f + 3, z = -d.level.height / 2f - 2, height = height } }).ToArray());
+        static Vector2 GroundPosition(string label, Vector2 point)
+        {
+            EditorGUILayout.LabelField(label);
+            float previous = EditorGUIUtility.labelWidth;
+            try
+            {
+                EditorGUIUtility.labelWidth = 18;
+                using (new EditorGUILayout.HorizontalScope())
+                    return new Vector2(EditorGUILayout.FloatField("X", point.x), EditorGUILayout.FloatField("Z", point.y));
+            }
+            finally { EditorGUIUtility.labelWidth = previous; }
+        }
         bool DrawRiverHandles()
         {
             if ((!_riverEditing && !_stampEditing) || Document.terrain == null || Event.current.alt) return false;

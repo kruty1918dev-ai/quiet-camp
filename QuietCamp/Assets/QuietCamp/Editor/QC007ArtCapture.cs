@@ -61,6 +61,9 @@ namespace QuietCamp.Editor
                         objects = snapshot.art.instances.Length, baked = snapshot.art.landscape != null, errors = snapshot.Validate(true) }));
                 }
                 else if (request.mode == "authoring-open") LevelAuthoring.LevelAuthoringWindow.OpenWindow().NewDocument(false);
+                else if (request.mode == "authoring-recover") LevelAuthoring.LevelAuthoringWindow.OpenWindow().RestoreAfterPlay();
+                else if (request.mode == "authoring-load-smoke")
+                    LevelAuthoring.LevelAuthoringWindow.OpenWindow().SetDocument(LevelAuthoring.LevelAuthoringDocument.Open(Path.Combine(UnityEngine.Application.dataPath, "../Temp/ai/authoring-smoke-draft.json")));
                 else if (request.mode == "authoring-page")
                 {
                     var window = LevelAuthoring.LevelAuthoringWindow.OpenWindow();

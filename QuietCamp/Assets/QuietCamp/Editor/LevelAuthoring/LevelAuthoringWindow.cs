@@ -24,8 +24,8 @@ namespace QuietCamp.Editor.LevelAuthoring
         [SerializeField] int _entryType;
         [SerializeField] bool _dirty;
         LevelAuthoringWorkspace _workspace;
-        LevelAuthoringDocument _displayDocument;
-        string _displayJson;
+        [NonSerialized] LevelAuthoringDocument _displayDocument;
+        [NonSerialized] string _displayJson;
         FieldTool _fieldTool;
         Vector2 _scroll;
         string _message = "";
@@ -44,10 +44,10 @@ namespace QuietCamp.Editor.LevelAuthoring
         AuthoringCampaignCard[] _gallery;
         AuthoringPaletteEntry[] _filteredPalette;
         readonly Dictionary<GameObject, Texture> _thumbnails = new Dictionary<GameObject, Texture>();
-        RuleReport _overlay;
-        string _overlayJson;
+        [NonSerialized] RuleReport _overlay;
+        [NonSerialized] string _overlayJson;
         double _applyAt = -1;
-        LevelAuthoringDocument _pendingDocument;
+        [NonSerialized] LevelAuthoringDocument _pendingDocument;
         string _pendingEditName;
         readonly List<Transform> _movedTransforms = new List<Transform>();
         bool _structureDirty;
@@ -117,6 +117,9 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         void EnableWorkshop()
         {
+            // Unity hot reload also serializes private Serializable fields. A JSON
+            // cache must be rebuilt rather than restored as a partial Unity DTO.
+            _displayDocument = null; _displayJson = null; _overlay = null; _overlayJson = null;
             saveChangesMessage = "Зберегти зміни рівня перед закриттям майстерні?";
             SceneView.duringSceneGui += DuringScene; Undo.undoRedoPerformed += UndoChanged;
             EditorApplication.update += Tick; EditorApplication.hierarchyChanged += HierarchyChanged;
@@ -134,15 +137,17 @@ namespace QuietCamp.Editor.LevelAuthoring
             PlacementToolIntegration.Adapter?.Stop();
             if (_workspace != null && !EditorApplication.isPlayingOrWillChangePlaymode)
             {
-                if (_workspace.Root != null) _state.Write(CaptureDraft(false));
-                _workspace.Dispose(); _workspace = null;
+                try { if (_workspace.Root != null) _state.Write(CaptureDraft(false)); }
+                finally { _workspace.Dispose(); _workspace = null; }
             }
         }
         void Recover()
         {
+            _displayDocument = null; _displayJson = null; _overlay = null;
             if (this == null || _state == null || _workspace?.Root != null) return;
             _workspace?.Dispose(); _workspace = null;
-            Try(() => _workspace = new LevelAuthoringWorkspace(_state.Read()));
+            LevelAuthoringWorkspace.CloseOrphanedScenes();
+            Try(() => { _workspace = new LevelAuthoringWorkspace(_state.Read()); _message = ""; });
         }
         void WorkspaceClosing(UnityEngine.SceneManagement.Scene scene,bool removing)
         {
@@ -173,6 +178,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         public void SetDocument(LevelAuthoringDocument document)
         {
+            _message = "";
             _pendingDocument = null; _applyAt = -1;
             CancelSolver(); PlacementToolIntegration.Adapter?.Stop(); _fieldTool = FieldTool.None;
             _refreshing = true;
@@ -263,7 +269,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         void Try(Action action)
         {
-            try { action(); } catch (Exception e) { _message = e.Message; Debug.LogWarning("[LevelAuthoring] " + e.Message); }
+            try { action(); } catch (Exception e) { _message = e.Message; Debug.LogWarning("[LevelAuthoring] " + e); }
             Repaint();
         }
         void DrawWorkshop()
