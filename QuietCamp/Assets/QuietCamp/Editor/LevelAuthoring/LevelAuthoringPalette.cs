@@ -45,7 +45,12 @@ namespace QuietCamp.Editor.LevelAuthoring
         {
             var entries = Entries.ToList();
             foreach (var model in models.Where(m => !entries.Any(e => e.id == m.id)))
-                AddModel(entries, model, "Декор", "Деталь наявного рівня", model.shading == "foliage");
+            {
+                var source=entries.FirstOrDefault(e=>e.id==model.sourceModelId);
+                AddModel(entries,model,source?.category??"Декор",source?.label??"Деталь наявного рівня",source?.smallPlant??model.shading=="foliage");
+                var original=AuthoringPropCatalog.FindBase(model.sourceModelId??model.id);
+                if(original!=null){var prop=LevelAuthoringDocument.Copy(original);prop.id=model.id;var bounds=AuthoringPropCatalog.ModelBounds(model);prop.boundsMin=new[]{bounds.min.x,bounds.min.y,bounds.min.z};prop.boundsMax=new[]{bounds.max.x,bounds.max.y,bounds.max.z};entries.Last().prop=prop;}
+            }
             _entries = entries.ToArray();
         }
         static AuthoringPaletteEntry[] Build()
@@ -134,6 +139,8 @@ namespace QuietCamp.Editor.LevelAuthoring
                 }
                 result.Add(new AuthoringPaletteEntry { id = item.assetId, label = item.assetId.StartsWith("custom_") ? item.prefab.name : Label(item.assetId), category = item.assetId.Contains("tree") ? "Дерева" : item.assetId.Contains("stone") ? "Каміння" : "Декор", prefab = prefab });
             }
+            result.RemoveAll(e=>e.id=="ua_sunflower_patch");
+            AddModel(result,SunflowerGeometry.Create(),"Квіти","Соняхи — три рослини, 1,9 м",false,true);
             AssetDatabase.SaveAssets(); return result.ToArray();
         }
         static int Rgb(Color color) => Mathf.RoundToInt(color.r * 255) << 16 | Mathf.RoundToInt(color.g * 255) << 8 | Mathf.RoundToInt(color.b * 255);
@@ -275,6 +282,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             if(model.tangents?.Length==count*4)mesh.tangents=Enumerable.Range(0,count).Select(i=>new Vector4(model.tangents[i*4],model.tangents[i*4+1],model.tangents[i*4+2],model.tangents[i*4+3])).ToArray();
             mesh.colors = model.colors.Select(c => QualitySettings.activeColorSpace == ColorSpace.Linear ? CampArtDefinition.Color(c).linear : CampArtDefinition.Color(c)).ToArray();
             mesh.triangles = Enumerable.Range(0, count).ToArray(); mesh.RecalculateBounds();
+            mesh.uv2=QuietCamp.Presentation.World.PlantWeatherResponse.Weights(model);
         }
     }
 }

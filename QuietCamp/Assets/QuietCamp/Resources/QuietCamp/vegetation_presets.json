@@ -1,0 +1,7 @@
+{"version":1,"presets":[
+ {"id":"enrich","label":"Густіша наявна зелень","description":"Підсилює групи навколо наявних дерев, кущів і каміння.","radius":2.1,"spacing":0.22,"height":0.22,"attempts":1600,"models":["cover_blades","qc_kenney_nature_plant_bush","ua_field_weeds"]},
+ {"id":"forest","label":"Лісове підлісся","description":"Низькі кущі, папоротеподібні рослини та дрібна трава між стовбурами.","radius":2.5,"spacing":0.27,"height":0.32,"attempts":1700,"models":["cover_blades","ua_field_weeds","qc_kenney_nature_plant_bush"]},
+ {"id":"meadow","label":"Луг із квітами","description":"Групи дрібних квітів і трави з вільними проміжками.","radius":3.3,"spacing":0.23,"height":0.22,"attempts":1800,"models":["cover_blades","ua_field_weeds","qc_kenney_nature_flower_redC"]},
+ {"id":"shore","label":"Живий берег","description":"Розпізнає воду й додає очерет та нижчу зелень уздовж сухого краю берега.","shoreline":true,"radius":3.2,"spacing":0.3,"height":0.65,"attempts":2600,"models":["ua_reed_clump","cover_blades","ua_field_weeds"]},
+ {"id":"farm","label":"Сільська галявина","description":"Трава, польові рослини й компактні групи пропорційних соняхів.","radius":2.8,"spacing":0.7,"height":0.3,"attempts":900,"models":["cover_blades","ua_field_weeds","ua_sunflower_patch"]}
+]}

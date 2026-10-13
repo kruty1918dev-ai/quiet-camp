@@ -22,20 +22,23 @@ namespace QuietCamp.Presentation.World
         LevelData _level;
         public CampArtDefinition Definition { get; private set; }
         public int TriangleCount { get; private set; }
+        public SeasonAtmosphereView SeasonAtmosphere {get;private set;}
 
         public void Configure(CampArtDefinition definition, LevelData level, Transform parent, AssetCatalog catalog, bool excludeLandscape = false)
         {
             if (Definition != null) throw new InvalidOperationException("Camp art is already configured.");
             Definition = definition; _level = level; _camera = GetComponent<Camera>();
+            _camera.transform.rotation=Quaternion.Euler(CampArtDefinition.Vector(definition.cameraEuler));
             _root = new GameObject("AuthoredCampSurround"); _root.transform.SetParent(parent, false);
             var shader = Resources.Load<Shader>("QuietCamp/CampArtLit");
             if (shader == null) throw new InvalidOperationException("Camp art lighting shader missing.");
             var material = new Material(shader) { name = "Camp art vertex palette" };
-            material.SetColor("_ArtAmbient", CampArtDefinition.Color(definition.ambientColor) * .55f);
+            material.SetColor("_ArtAmbient", CampArtDefinition.Color(definition.atmosphere?.ambientColor??definition.ambientColor) * .55f);
             _materials.Add(material);
             var catalogMeshes = new Dictionary<string, Mesh>(StringComparer.Ordinal);
-            foreach (var source in definition.models)
+            foreach (var original in definition.models)
             {
+                var source=SeasonModelAppearance.Resolve(original,definition.atmosphere);
                 var mesh = new Mesh { name = source.id, indexFormat = IndexFormat.UInt32 };
                 int count = source.colors.Length; var positions = new Vector3[count]; var normals = new Vector3[count]; var colors = new Color[count];
                 for (int i = 0; i < count; i++)
@@ -49,6 +52,7 @@ namespace QuietCamp.Presentation.World
                 if(source.uv?.Length==count*2)mesh.uv=Enumerable.Range(0,count).Select(i=>new Vector2(source.uv[i*2],source.uv[i*2+1])).ToArray();
                 if(source.tangents?.Length==count*4)mesh.tangents=Enumerable.Range(0,count).Select(i=>new Vector4(source.tangents[i*4],source.tangents[i*4+1],source.tangents[i*4+2],source.tangents[i*4+3])).ToArray();
                 mesh.triangles = Enumerable.Range(0, count).ToArray(); mesh.RecalculateBounds();
+                mesh.uv2=PlantWeatherResponse.Weights(source);
                 _meshes.Add(mesh); catalogMeshes.Add(source.id, mesh);
             }
             var batches = new List<CombineInstance>(); var foliageBatches = new List<CombineInstance>();
@@ -67,7 +71,7 @@ namespace QuietCamp.Presentation.World
                     foreach (var collider in instance.GetComponentsInChildren<Collider>()) DestroyOwned(collider);
                     foreach (var child in instance.GetComponentsInChildren<Transform>()) child.gameObject.layer = BoardRenderer.DecorLayer;
                 }
-                else (definition.models.First(m => m.id == item.modelId).shading == "foliage" ? foliageBatches : batches).Add(new CombineInstance { mesh = catalogMeshes[item.modelId], transform = Matrix4x4.TRS(position, rotation, scale) });
+                else if(catalogMeshes[item.modelId].vertexCount>0) (definition.models.First(m => m.id == item.modelId).shading == "foliage" ? foliageBatches : batches).Add(new CombineInstance { mesh = catalogMeshes[item.modelId], transform = Matrix4x4.TRS(position, rotation, scale) });
             }
             var combined = new Mesh { name = "Authored camp trees, reeds and bridge", indexFormat = IndexFormat.UInt32 };
             combined.CombineMeshes(batches.ToArray(), true, true); _meshes.Add(combined);
@@ -89,6 +93,11 @@ namespace QuietCamp.Presentation.World
             ConfigureVolume();
             _blur = new CampArtEdgeBlur(_camera, definition.blurPixels);
             _camera.GetUniversalAdditionalCameraData().renderPostProcessing = true;
+            if(definition.atmosphere!=null)
+            {
+                SeasonAtmosphere=new GameObject("Season atmosphere").AddComponent<SeasonAtmosphereView>();
+                SeasonAtmosphere.Configure(definition.atmosphere,definition,_camera,_root.transform);
+            }
         }
         public void FitCamera(Rect gameplay)
         {
@@ -115,6 +124,10 @@ namespace QuietCamp.Presentation.World
         public void ApplyLighting(Light sun, float weatherMultiplier = 1)
         {
             if (sun == null) return;
+            if(Definition.atmosphere!=null)
+            {
+                var p=Definition.atmosphere;sun.transform.rotation=Quaternion.Euler(CampArtDefinition.Vector(p.sunEuler));sun.color=CampArtDefinition.Color(p.sunColor);sun.intensity=p.sunIntensity;sun.shadows=LightShadows.Soft;sun.shadowStrength=p.shadows;sun.shadowBias=.018f;sun.shadowNormalBias=.06f;return;
+            }
             sun.transform.rotation = Quaternion.Euler(CampArtDefinition.Vector(Definition.sunEuler));
             sun.color = CampArtDefinition.Color(Definition.sunColor);
             sun.intensity = Definition.sunIntensity * Mathf.Max(.75f, weatherMultiplier);

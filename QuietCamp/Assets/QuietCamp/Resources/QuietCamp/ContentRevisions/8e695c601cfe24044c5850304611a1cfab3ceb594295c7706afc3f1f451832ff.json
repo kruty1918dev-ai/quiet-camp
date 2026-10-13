@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 79,
+  "chapter": 8,
+  "seed": -1466344866,
+  "width": 6,
+  "height": 8,
+  "id": "gen:qc_camp:100",
+  "contentHash": "8e695c601cfe24044c5850304611a1cfab3ceb594295c7706afc3f1f451832ff",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "compositionHash": "2652bf7e86ef976620ca4590eab19d0c07e22f793de040541c97145fd45683df",
+  "generationAttempt": 1,
+  "decorSeed": -1466366719,
+  "entry": [
+    5,
+    4
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      0,
+      2
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      4,
+      6
+    ]
+  ],
+  "shade": [
+    [
+      0,
+      5
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      0,
+      7
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      1,
+      7
+    ],
+    [
+      2,
+      6
+    ],
+    [
+      2,
+      7
+    ]
+  ],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 5,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 3,
+      "rotation": 1
+    },
+    {
+      "guestId": "g3",
+      "x": 1,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g4",
+      "x": 2,
+      "z": 4,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 0,
+      "z": 2,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 0,
+      "z": 0,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 4,
+      "z": 6,
+      "rotation": 2
+    }
+  ],
+  "canopies": [
+    {
+      "x": 1.25,
+      "z": 6.75,
+      "radiusX": 1.6,
+      "radiusZ": 1.6
+    }
+  ],
+  "environment": {
+    "biomeId": "pines",
+    "seasonId": "winter",
+    "weatherId": "clear",
+    "moisture": 0.505647,
+    "treeDensity": 0.468782,
+    "clusterSeed": 44667,
+    "meadowSpecies": [
+      "grass",
+      "wheat"
+    ],
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.787879,
+    "weatherIntensity": 0.376079
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-079",
+    "beats": [
+      {
+        "id": "place-079",
+        "storyBeat": "Місце очікування підтримує людей у найкоротші дні.",
+        "heroLandmark": "place-079-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Станція й ліхтар стоять серед темних хвойних крон і холодної води неба.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Місце очікування підтримує людей у найкоротші дні.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:100"
+        ],
+        "props": [
+          {
+            "id": "place-079-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "branch_station",
+              "x": -6.67273,
+              "z": 0.55,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-079-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log",
+              "x": 0.7,
+              "z": -5.60091,
+              "elevation": 0.025,
+              "height": 0.22,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-079-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_poplar",
+              "x": 4.47419,
+              "z": -5.43076,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-079-prop-4",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "camp_lantern",
+              "x": 0.0,
+              "z": 5.24799,
+              "elevation": 0.025,
+              "height": 0.52,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  }
+}

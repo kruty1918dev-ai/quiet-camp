@@ -1,9 +1,23 @@
 Shader "QuietCamp/CampArtLit"
 {
-    Properties { _ArtAmbient("Ambient", Color) = (.22,.24,.16,1) _ArtWater("Water", Float) = 0 _ArtGrass("Grass", Float) = 0 _ArtGround("Ground", Float) = 0 }
+    Properties { _ArtAmbient("Ambient", Color) = (.22,.24,.16,1) _ArtWater("Water", Float) = 0 _ArtGrass("Grass", Float) = 0 _ArtGround("Ground", Float) = 0 _QCWeather("Weather time, wind, rain, active",Vector)=(0,0,0,0) }
     SubShader
     {
         Tags { "RenderPipeline"="UniversalPipeline" "RenderType"="Opaque" "Queue"="Geometry" }
+        HLSLINCLUDE
+        #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+        float4 _QCWeather;
+        float3 WeatherPosition(float3 p,float2 response)
+        {
+            float t=_QCWeather.x;
+            float gust=.65+.35*sin(t*.7+p.x*.19+p.z*.24);
+            float wave=sin(t*1.7+p.x*.54+p.z*.39);
+            float weight=response.x*min(response.y,3);
+            p.xz+=float2(.8,.35)*wave*gust*_QCWeather.y*weight*.14;
+            p.y-=abs(wave)*_QCWeather.z*weight*.028;
+            return p;
+        }
+        ENDHLSL
         Pass
         {
             Name "CampArtForward" Tags { "LightMode"="UniversalForward" }
@@ -19,11 +33,12 @@ Shader "QuietCamp/CampArtLit"
             float4 _ArtAmbient; float _ArtWater; float _ArtGrass; float _ArtGround;
             CBUFFER_END
             float4 _AtmosWindXZ; float _AtmosWindStrength; float _AtmosWindTime;
-            struct Attributes { float4 positionOS:POSITION; float3 normalOS:NORMAL; float4 color:COLOR; };
+            struct Attributes { float4 positionOS:POSITION; float3 normalOS:NORMAL; float4 color:COLOR; float2 response:TEXCOORD1; };
             struct Varyings { float4 positionCS:SV_POSITION; float3 positionWS:TEXCOORD0; float3 normalWS:TEXCOORD1; float4 color:COLOR; };
             Varyings Vert(Attributes input)
             {
                 Varyings output; output.positionWS=TransformObjectToWorld(input.positionOS.xyz);
+                output.positionWS=WeatherPosition(output.positionWS,input.response);
                 if(_ArtGrass>.5)
                 {
                     float sway=sin(_AtmosWindTime*1.3+output.positionWS.x*.65+output.positionWS.z*.8);
@@ -46,6 +61,12 @@ Shader "QuietCamp/CampArtLit"
                 float3 lighting=_ArtAmbient.rgb*(.8+.2*abs(normal.y))+sun.color*((diffuse+.22*saturate(-dot(normal,sun.direction)))*sun.shadowAttenuation);
                 if(_ArtGrass>.5) lighting=max(lighting,float3(.42,.48,.36));
                 float3 color=input.color.rgb*lighting;
+                if(_QCWeather.w>.5 && _ArtWater<.5)
+                {
+                    color*=1-_QCWeather.z*.12;
+                    float wetSpec=pow(saturate(dot(reflect(-sun.direction,normal),GetWorldSpaceNormalizeViewDir(input.positionWS))),24);
+                    color+=sun.color*wetSpec*_QCWeather.z*.10*sun.shadowAttenuation;
+                }
                 if(_ArtGround>.5) color*=.89+ArtNoise(input.positionWS.xz*.43)*.18+ArtNoise(input.positionWS.xz*2.4)*.07;
                 if(_ArtWater>.5)
                 {
@@ -66,7 +87,8 @@ Shader "QuietCamp/CampArtLit"
             #pragma vertex DepthVert
             #pragma fragment DepthFrag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-            float4 DepthVert(float4 p:POSITION):SV_POSITION { return TransformObjectToHClip(p.xyz); }
+            struct DepthAttributes {float4 p:POSITION;float2 response:TEXCOORD1;};
+            float4 DepthVert(DepthAttributes input):SV_POSITION { return TransformWorldToHClip(WeatherPosition(TransformObjectToWorld(input.p.xyz),input.response)); }
             half4 DepthFrag():SV_Target { return 0; }
             ENDHLSL
         }
@@ -80,10 +102,11 @@ Shader "QuietCamp/CampArtLit"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl"
             float3 _LightDirection;
-            struct Attributes { float4 positionOS:POSITION; float3 normalOS:NORMAL; };
+            struct Attributes { float4 positionOS:POSITION; float3 normalOS:NORMAL;float2 response:TEXCOORD1; };
             float4 ShadowVert(Attributes input):SV_POSITION
             {
                 float3 position=TransformObjectToWorld(input.positionOS.xyz);
+                position=WeatherPosition(position,input.response);
                 float3 normal=TransformObjectToWorldNormal(input.normalOS);
                 float4 clip=TransformWorldToHClip(ApplyShadowBias(position,normal,_LightDirection));
                 #if UNITY_REVERSED_Z

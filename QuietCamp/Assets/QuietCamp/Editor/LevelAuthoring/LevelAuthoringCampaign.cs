@@ -37,6 +37,15 @@ namespace QuietCamp.Editor.LevelAuthoring
         {
             if (!Cards.Any(c => c.id == id)) throw new ArgumentException("Рівень відсутній у кампанії.");
             var level = LevelAuthoringDocument.Copy(LevelLoader.Load(id));
+            string draftPath=Path.Combine("Assets/QuietCamp/Authoring/CampaignLevels",id.Replace(':','_')+".draft.json");
+            if(File.Exists(draftPath))
+            {
+                var draft=LevelAuthoringDocument.Open(draftPath);
+                if(draft.sourceContentHash==HashFile(LevelPath(Content,id))&&draft.sourceArtHash==ArtHash(Content,id))
+                {
+                    var previous=draft.level.id;draft.level.id="QC_EDITOR_"+Guid.NewGuid().ToString("N").Substring(0,8);BindStory(draft.level,previous,draft.level.id);draft.art.levelId=draft.level.id;return draft;
+                }
+            }
             var art = CampArtDefinition.Load(level);
             if (art == null)
             {
@@ -88,7 +97,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             try
             {
                 foreach (var pair in writes) { Directory.CreateDirectory(Path.GetDirectoryName(pair.Key)); File.WriteAllText(pair.Key + ".pending", pair.Value); }
-                foreach (var path in writes.Keys) { if (File.Exists(path)) File.Replace(path + ".pending", path, null); else File.Move(path + ".pending", path); }
+                foreach (var path in writes.Keys) { AuthoringFileTransaction.CommitPrepared(path); }
             }
             catch
             {

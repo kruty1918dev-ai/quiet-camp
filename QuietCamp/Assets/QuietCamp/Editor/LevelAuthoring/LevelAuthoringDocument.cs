@@ -19,11 +19,14 @@ namespace QuietCamp.Editor.LevelAuthoring
         public LevelData level;
         public CampArtDefinition art;
         public string title = "Новий табір";
+        public string vegetationPreset;
+        public int vegetationSeed;
         public static T Copy<T>(T value) => JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(value));
         // Geometry snapshots are immutable; editing settings must not copy megabytes of mesh data.
         public LevelAuthoringDocument EditingCopy() => new LevelAuthoringDocument
         {
             version = version, title = title, sourceLevelId = sourceLevelId, sourceContentHash = sourceContentHash, sourceArtHash = sourceArtHash,
+            vegetationPreset=vegetationPreset,vegetationSeed=vegetationSeed,
             level = Copy(level), art = art.EditingCopy(), terrain = terrain?.EditingCopy()
         };
 

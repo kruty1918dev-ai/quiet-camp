@@ -16,7 +16,7 @@ namespace QuietCamp.Tests
             string before = JsonConvert.SerializeObject(level);
             var art = CampArtDefinition.Load(level);
             Assert.NotNull(art);
-            Assert.AreEqual(6, art.models.Length);
+            Assert.GreaterOrEqual(art.models.Length, 6);
             Assert.IsTrue(RuleEvaluator.Evaluate(level, level.witness).IsSolved);
             Assert.AreEqual(before, JsonConvert.SerializeObject(level));
         }
@@ -34,8 +34,8 @@ namespace QuietCamp.Tests
             art.models[0].vertices[0] = float.NaN;
             Assert.Throws<InvalidDataException>(() => art.Validate(level));
         }
-        [Test] public void OtherLevelsUseTheirExistingPresentation()
-            => Assert.IsNull(CampArtDefinition.Load(LevelLoader.Load("QC001")));
+        [Test] public void AllCampaignLevelsHaveEditablePresentation()
+            => Assert.NotNull(CampArtDefinition.Load(LevelLoader.Load("QC001")));
 
         [TestCase(4, 12, 73)]
         [TestCase(12, 4, 74)]
@@ -63,11 +63,14 @@ namespace QuietCamp.Tests
             Assert.AreNotEqual(JsonConvert.SerializeObject(first.instances), JsonConvert.SerializeObject(second.instances));
             Assert.AreEqual(before, JsonConvert.SerializeObject(level));
         }
-        [Test] public void LevelReferenceContainsOnlyAProfileAndSeed()
+        [Test] public void PublishedPresentationContainsFrozenGeometryAndSeason()
         {
             var text = UnityEngine.Resources.Load<UnityEngine.TextAsset>("QuietCamp/ArtCompositions/QC007").text;
             var document = Newtonsoft.Json.Linq.JObject.Parse(text);
-            CollectionAssert.AreEquivalent(new[] { "profile", "seed" }, document.Properties().Select(p => p.Name).ToArray());
+            Assert.IsNotEmpty(document["models"].ToArray());
+            Assert.IsNotEmpty(document["instances"].ToArray());
+            Assert.AreEqual("QC007", (string)document["levelId"]);
+            Assert.NotNull(document["atmosphere"]);
         }
 
         [Test] public void NativeWaterMasksLeaveTheChannelClearAndTheShoreVisible()

@@ -122,6 +122,14 @@ namespace QuietCamp.Presentation.World
                 _groundMaterial.SetColor("_GroundLow", CampArtDefinition.Color(_art.groundLow));
                 _groundMaterial.SetColor("_GroundHigh", CampArtDefinition.Color(_art.groundHigh));
                 _groundMaterial.SetColor("_SoilTone", CampArtDefinition.Color(_art.soilColor));
+                if(_art.atmosphere!=null)
+                {
+                    var p=_art.atmosphere;var seasonal=SeasonPalette.For(p.season);
+                    var low=Color.Lerp(CampArtDefinition.Color(_art.groundLow),seasonal.GrassDark,.32f);
+                    var high=Color.Lerp(CampArtDefinition.Color(_art.groundHigh),seasonal.GrassLight,.32f);
+                    if(p.snowCover>0){low=Color.Lerp(low,new Color(.67f,.73f,.76f),p.snowCover);high=Color.Lerp(high,new Color(.85f,.90f,.91f),p.snowCover);}
+                    _groundMaterial.SetColor("_GroundLow",low);_groundMaterial.SetColor("_GroundHigh",high);
+                }
             }
             _groundMaterial.SetFloat("_CellGrid",1);
             for (var x = 0; x < _level.width; x++)

@@ -39,7 +39,9 @@ namespace QuietCamp.Editor.LevelAuthoring
         int _sceneryCount;
         Cell? _lastPaint;
         string _search = "", _levelSearch = "";
-        bool _favoritesOnly, _advanced, _tips = true;
+        bool _favoritesOnly, _advanced, _tips;
+        int _buildTool=1;
+        bool _buildAdvanced;
         string _galleryQuery, _paletteQuery;
         AuthoringCampaignCard[] _gallery;
         AuthoringPaletteEntry[] _filteredPalette;
@@ -54,7 +56,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         string _pendingEditName;
         readonly List<Transform> _movedTransforms = new List<Transform>();
         bool _structureDirty;
-        static readonly string[] Pages = { "Рівні", "Поле", "Об’єкти", "Річка та земля", "Гості", "Перевірка", "Модель" };
+        static readonly string[] Pages = { "Рівні", "Поле", "Об’єкти", "Річка та земля", "Гості", "Перевірка", "Модель", "Сезон і атмосфера" };
         static readonly string[] Categories = { "Дерева", "Кущі", "Трава", "Квіти", "Каміння", "Паркани", "Містки", "Будівлі", "Декор", "Пропси", "Великі об’єкти", "Лісові деталі", "Табірні деталі" };
         static readonly Unity.Profiling.ProfilerMarker PanelTiming = new Unity.Profiling.ProfilerMarker("QuietCamp.Authoring.Panel"),
             SceneTiming = new Unity.Profiling.ProfilerMarker("QuietCamp.Authoring.SceneView"),
@@ -88,14 +90,14 @@ namespace QuietCamp.Editor.LevelAuthoring
         OdinMenuTree BuildMenuTree()
         {
             var tree = new OdinMenuTree(false);
-            for (int i = 0; i < Pages.Length; i++) tree.Add(Pages[i], new WorkshopPage(this, i));
+            tree.Add("Рівні",new WorkshopPage(this,0));tree.Add("Будувати",new WorkshopPage(this,-1));tree.Add("Настрій",new WorkshopPage(this,7));tree.Add("Перевірити",new WorkshopPage(this,5));
             return tree;
         }
         sealed class WorkshopPage
         {
             readonly LevelAuthoringWindow _window; readonly int _index;
             public WorkshopPage(LevelAuthoringWindow window, int index) { _window = window; _index = index; }
-            [OnInspectorGUI] void Draw() { _window._tab = _index; _window.DrawWorkshop(); }
+            [OnInspectorGUI] void Draw() { _window._tab = _index==-1?new[]{1,2,3,4,6}[_window._buildTool]:_index; _window.DrawWorkshop(); }
         }
 #endif
         void OnEnable() => EnableWorkshop();
@@ -103,7 +105,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         {
             using var timing = PanelTiming.Auto();
 #if QUIETCAMP_ODIN
-            if (MenuTree == null) { MenuTree = BuildMenuTree(); MenuTree.MenuItems[Mathf.Clamp(_tab, 0, MenuTree.MenuItems.Count - 1)].Select(); }
+            if (MenuTree == null) { MenuTree = BuildMenuTree(); MenuTree.MenuItems[_tab==0?0:_tab==7?2:_tab==5?3:1].Select(); }
             using (new EditorGUILayout.HorizontalScope())
             {
                 using (new EditorGUILayout.VerticalScope(GUILayout.Width(165))) MenuTree.DrawMenuTree();
@@ -131,6 +133,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         void OnDisable()
         {
+            StopMoodAudio();
             CancelModelSession();
 #if QUIETCAMP_ODIN
             _pageInspector?.Dispose(); _pageInspector = null; _inspectedPage = null;
@@ -162,6 +165,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         public void PreparePlay()
         {
+            StopMoodAudio();
             CancelSolver(); PlacementToolIntegration.Adapter?.Stop();
             if (_workspace == null) return;
             if (_workspace.Root != null) _state.Write(CaptureDraft(false));
@@ -197,6 +201,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         public void SetDocument(LevelAuthoringDocument document)
         {
+            StopMoodAudio();
             CancelModelSession();
             _message = "";
             _pendingDocument = null; _applyAt = -1;
@@ -221,7 +226,8 @@ namespace QuietCamp.Editor.LevelAuthoring
         {
             _tab = Mathf.Clamp(page, 0, Pages.Length - 1); _scroll = Vector2.zero;
 #if QUIETCAMP_ODIN
-            if (MenuTree != null) MenuTree.MenuItems[_tab].Select();
+            if(page!=0&&page!=7&&page!=5)_buildTool=page==1?0:page==2?1:page==3?2:page==4?3:4;
+            if (MenuTree != null) MenuTree.MenuItems[_tab==0?0:_tab==7?2:_tab==5?3:1].Select();
 #endif
             Repaint();
         }
@@ -319,11 +325,10 @@ namespace QuietCamp.Editor.LevelAuthoring
                 using (new EditorGUI.DisabledScope(_workspace == null || EditorApplication.isPlayingOrWillChangePlaymode))
                 {
                     if (GUILayout.Button("Зберегти" + (_dirty ? " *" : ""), EditorStyles.toolbarButton)) Try(Save);
-                    if (GUILayout.Button("Перевірити", EditorStyles.toolbarButton)) Try(Validate);
                     if (GUILayout.Button("Грати", EditorStyles.toolbarButton)) Try(() => LevelAuthoringPlayDriver.Start(CaptureDraft()));
-                    if (GUILayout.Button("Експорт", EditorStyles.toolbarButton)) Try(Export);
                 }
-                if (GUILayout.Button(new GUIContent("Допомога", "Покрокова інструкція з картинками"), EditorStyles.toolbarButton)) OpenHelp();
+                if(GUILayout.Button(new GUIContent("⋯","Перевірка, експорт і довідка"),EditorStyles.toolbarButton,GUILayout.Width(32)))
+                {var menu=new GenericMenu();menu.AddItem(new GUIContent("Перевірити"),false,()=>Try(Validate));menu.AddItem(new GUIContent("Експортувати"),false,()=>Try(Export));menu.AddItem(new GUIContent("Допомога"),false,OpenHelp);menu.ShowAsContext();}
             }
             if (EditorApplication.isPlayingOrWillChangePlaymode)
             {
@@ -346,6 +351,13 @@ namespace QuietCamp.Editor.LevelAuthoring
                 if(GUILayout.Button("Відновити відкритий рівень"))Recover();return;
             }
             _scroll = EditorGUILayout.BeginScrollView(_scroll);
+            if(_tab!=0&&_tab!=7&&_tab!=5)
+            {
+                int next=GUILayout.Toolbar(_buildTool<3?_buildTool:-1,new[]{"Поле","Об’єкти","Земля"});if(next>=0)_buildTool=next;
+                _buildAdvanced=EditorGUILayout.Foldout(_buildAdvanced,"Додатково: гості та геометрія",true);
+                if(_buildAdvanced){using(new EditorGUILayout.HorizontalScope()){if(GUILayout.Button("Гості"))_buildTool=3;if(GUILayout.Button("Модель"))_buildTool=4;}}
+                _tab=new[]{1,2,3,4,6}[_buildTool];
+            }
             using (new EditorGUI.DisabledScope(_solver != null))
             {
                 if (_tips)
@@ -353,7 +365,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                     EditorGUILayout.HelpBox("Спочатку оберіть інструмент тут, потім працюйте у Scene View. Alt — огляд, Ctrl+Z — скасування. «Допомога» відкриває приклади з картинками.", MessageType.Info);
                     if (GUILayout.Button("Зрозуміло — сховати вступні підказки")) _tips = false;
                 }
-                if (_tab == 1) DrawField(); else if (_tab == 2) DrawScenery(); else if (_tab == 3) DrawLandscape(); else if (_tab == 4) DrawGuests(); else if (_tab==6) DrawModelWorkshop(); else DrawChecks();
+                if (_tab == 1) DrawField(); else if (_tab == 2) DrawScenery(); else if (_tab == 3) DrawLandscape(); else if (_tab == 4) DrawGuests(); else if (_tab==6) DrawModelWorkshop(); else if(_tab==7)DrawAtmosphere(); else DrawChecks();
             }
             if (_solver != null && GUILayout.Button("Скасувати пошук")) { CancelSolver(); _message = "Пошук скасовано."; }
             if (!string.IsNullOrEmpty(_message)) EditorGUILayout.HelpBox(_message, MessageType.Info);
@@ -672,6 +684,10 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         void Tick()
         {
+            // TestRunner restores its scene setup after RunFinished. If it closes
+            // the derived workspace, reconstruct it from the preserved JSON state.
+            if(_state!=null&&_workspace!=null&&_workspace.Root==null&&!EditorApplication.isCompiling&&!EditorApplication.isPlayingOrWillChangePlaymode&&!SessionState.GetBool("QuietCamp.Authoring.Verifying",false))Recover();
+            TickMood();
             PollModelJob();
             hasUnsavedChanges = _dirty;
             if (_applyAt >= 0 && EditorApplication.timeSinceStartup >= _applyAt && _workspace?.Root != null)

@@ -21,6 +21,9 @@ namespace QuietCamp.Editor.LevelAuthoring
         public LevelAuthoringDocument Document { get; private set; }
         public Scene Scene => Root.scene;
         public IRiverTerrainAuthoringAdapter River { get; private set; }
+        public SeasonAtmosphereView Mood {get;private set;}
+        string _moodKey;
+        readonly Dictionary<string,Mesh> _seasonMeshes=new Dictionary<string,Mesh>();
         public int BoardRebuilds { get; private set; }
         public int FullPlantRebuilds { get; private set; }
         public int PartialPlantRebuilds { get; private set; }
@@ -55,6 +58,7 @@ namespace QuietCamp.Editor.LevelAuthoring
 
         public LevelAuthoringWorkspace(LevelAuthoringDocument document)
         {
+            AuthoringVegetationSnapshot.ExpandCover(document);
             Document = document;
             foreach (var model in document.art.models) _frozenModels[model.id] = model;
             LevelAuthoringPalette.EnsureDocumentModels(document.art.models);
@@ -73,8 +77,9 @@ namespace QuietCamp.Editor.LevelAuthoring
             var cameraRoot = Child("Камера майстерні", Root.transform).gameObject;
             Camera = cameraRoot.AddComponent<Camera>(); Camera.enabled = false;
             Camera.clearFlags = CameraClearFlags.SolidColor; Camera.backgroundColor = new Color(.3f, .4f, .25f);
-            var background = LevelAuthoringDocument.Copy(document.art);
+            var background = document.art.EditingCopy();
             background.instances = Array.Empty<CampArtDefinition.Instance>(); background.cover = Array.Empty<CampArtDefinition.CoverPoint>();
+            background.atmosphere=null;
             var view = cameraRoot.AddComponent<CampArtView>(); view.Configure(background, document.level, Root.transform, AssetCatalog.Load(), document.terrain != null);
             Camera.aspect = document.art.cameraAspect;
             view.FitCamera(new Rect(0, 0, 1, 1));
@@ -85,9 +90,8 @@ namespace QuietCamp.Editor.LevelAuthoring
             _terrainKey = TerrainKey(document);
             // Only this selected paint surface has a collider. The puzzle and water are not brush targets.
             foreach (var marker in document.art.instances) Spawn(marker, false);
-            MaterializeCover(document.art.cover);
-            document.art.cover = Array.Empty<CampArtDefinition.CoverPoint>();
             RefreshBoard(); RefreshPlantBatches();
+            ApplyMood(document);
             EditorSceneManager.SetActiveScene(scene);
             Frame();
             }
@@ -125,33 +129,33 @@ namespace QuietCamp.Editor.LevelAuthoring
             ApplyPreviewMaterial(marker);
             if (undo) Undo.RegisterCreatedObjectUndo(go, "Додати декор"); return go;
         }
-        void MaterializeCover(CampArtDefinition.CoverPoint[] cover)
-        {
-            var plants = LevelAuthoringPalette.Entries.Where(e => e.smallPlant && e.id != "cover_blades").ToArray();
-            foreach (var point in cover ?? Array.Empty<CampArtDefinition.CoverPoint>())
-            {
-                var options = plants.Where(e => point.kind == 0 ? e.category == "Кущі" : point.kind == 1 ? e.category == "Трава" : e.category == "Квіти").ToArray();
-                var entry = point.kind == 3 ? LevelAuthoringPalette.Get("cover_blades") : options.Length == 0 ? LevelAuthoringPalette.Get("cover_blades") : options[Math.Min(options.Length - 1, (int)(point.variation * options.Length))];
-                var bounds = entry.prefab.GetComponent<MeshFilter>().sharedMesh.bounds;
-                float scale = Mathf.Min(point.height / Mathf.Max(.001f, bounds.size.y), point.maximumSpan / Mathf.Max(.001f, Mathf.Max(bounds.size.x, bounds.size.z)));
-                var go = Spawn(new CampArtDefinition.Instance { modelId = entry.id, x = point.x, y = point.y, z = point.z, yaw = point.yaw, scale = 1 }, false);
-                go.transform.localScale = Vector3.one * scale;
-            }
-        }
         public void ApplyDocument(LevelAuthoringDocument document)
         {
+            AuthoringVegetationSnapshot.ExpandCover(document);
+            bool replaceScenery=document.art.instances.Length!=Document.art.instances.Length ||
+                !document.art.instances.Select(i=>i.id+"/"+i.modelId).SequenceEqual(Document.art.instances.Select(i=>i.id+"/"+i.modelId));
+            foreach(var model in document.art.models)_frozenModels[model.id]=model;
             RiverTerrainIntegration.Validate?.Invoke(document);
             Document = document;
-            if (_boardKey != Newtonsoft.Json.JsonConvert.SerializeObject(document.level)) RefreshBoard();
+            if(replaceScenery)
+            {
+                PlacementToolIntegration.Adapter?.Stop();
+                for(int i=Scenery.childCount-1;i>=0;i--)UnityEngine.Object.DestroyImmediate(Scenery.GetChild(i).gameObject);
+                foreach(var item in document.art.instances)Spawn(item,false);
+                RefreshPlantBatches();
+            }
+            if (_boardKey != Newtonsoft.Json.JsonConvert.SerializeObject(document.level)+Newtonsoft.Json.JsonConvert.SerializeObject(document.art.atmosphere)) RefreshBoard();
             if (_terrainKey != TerrainKey(document))
             {
                 PlacementToolIntegration.Adapter?.Stop();
                 var old = Camera.GetComponent<CampArtView>(); old.Release(); UnityEngine.Object.DestroyImmediate(old);
-                var background = LevelAuthoringDocument.Copy(document.art);
+                var background = document.art.EditingCopy();
+                background.atmosphere=null;
                 background.instances = Array.Empty<CampArtDefinition.Instance>(); background.cover = Array.Empty<CampArtDefinition.CoverPoint>();
                 var view = Camera.gameObject.AddComponent<CampArtView>(); view.Configure(background, document.level, Root.transform, AssetCatalog.Load(), document.terrain != null);
                 if (document.terrain == null) UpdateSurface();
                 _terrainKey = TerrainKey(document);
+                _moodKey=null;
             }
             if (document.terrain != null) ConnectRiver(document);
             else if (River != null) { River.Dispose(); River = null; UpdateSurface(); }
@@ -162,6 +166,26 @@ namespace QuietCamp.Editor.LevelAuthoring
             cameraView.FitCamera(new Rect(0,0,1,1));
             cameraView.SetBlur(document.art.blurPixels);
             var sun = Root.GetComponentInChildren<Light>(); sun.transform.rotation = Quaternion.Euler(CampArtDefinition.Vector(document.art.sunEuler)); sun.intensity = document.art.sunIntensity;
+            ApplyMood(document);
+        }
+        void ApplyMood(LevelAuthoringDocument document)
+        {
+            string key=Newtonsoft.Json.JsonConvert.SerializeObject(document.art.atmosphere);
+            if(_moodKey==key)return;
+            _moodKey=key;if(Mood!=null)UnityEngine.Object.DestroyImmediate(Mood.gameObject);Mood=null;
+            foreach(var mesh in _seasonMeshes.Values)UnityEngine.Object.DestroyImmediate(mesh);_seasonMeshes.Clear();
+            RefreshPlantBatches();
+            var sun=Root.GetComponentInChildren<Light>();
+            foreach(var material in _previewMaterials.Values)material.SetColor("_ArtAmbient",CampArtDefinition.Color(document.art.atmosphere?.ambientColor??document.art.ambientColor)*.55f);
+            if(document.art.atmosphere!=null)
+            {
+                Mood=new GameObject("Сезонна атмосфера").AddComponent<SeasonAtmosphereView>();
+                UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(Mood.gameObject,Scene);
+                Mood.Configure(document.art.atmosphere,document.art,Camera,Root.transform);
+                var p=document.art.atmosphere;sun.transform.rotation=Quaternion.Euler(CampArtDefinition.Vector(p.sunEuler));sun.color=CampArtDefinition.Color(p.sunColor);sun.intensity=p.sunIntensity;sun.shadowStrength=p.shadows;
+            }
+            else {sun.color=CampArtDefinition.Color(document.art.sunColor);sun.shadowStrength=.82f;}
+            SceneView.RepaintAll();
         }
         public void ReplaceModel(LevelAuthoringAsset marker, AuthoredModelVariant variant)
         {
@@ -184,6 +208,8 @@ namespace QuietCamp.Editor.LevelAuthoring
             RefreshPlantBatches(changed);
         }
         public CampArtDefinition.Model FrozenModel(string id) => _frozenModels.TryGetValue(id,out var model)?model:LevelAuthoringPalette.Get(id).model;
+        public void AdvanceBaseBreeze(float time)
+        {if(Mood!=null)return;foreach(var material in _previewMaterials.Values)PlantWeatherResponse.Set(material,time,.17f,0);}
         static string TerrainKey(LevelAuthoringDocument d) => d.terrain != null ? "terrain/" + d.level.width + "/" + d.level.height : string.Join("/", d.level.width, d.level.height, d.art.streamCentre, d.art.streamWidth, d.art.streamSlope, d.art.streamBend, d.art.meadowRelief, d.art.waterDepth);
         void ConnectRiver(LevelAuthoringDocument document)
         {
@@ -271,7 +297,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         public void RefreshBoard()
         {
             BoardRebuilds++;
-            _boardKey = Newtonsoft.Json.JsonConvert.SerializeObject(Document.level);
+            _boardKey = Newtonsoft.Json.JsonConvert.SerializeObject(Document.level)+Newtonsoft.Json.JsonConvert.SerializeObject(Document.art.atmosphere);
             _board?.ClearAll();
             for (int i = _boardRoot.childCount - 1; i >= 0; i--) UnityEngine.Object.DestroyImmediate(_boardRoot.GetChild(i).gameObject);
             Transform Part(string name) => Child(name, _boardRoot);
@@ -319,8 +345,17 @@ namespace QuietCamp.Editor.LevelAuthoring
                 LevelAuthoringPalette.PopulateMesh(mesh,model);_frozenMeshes[marker.stableId]=mesh;
             }
             marker.GetComponent<MeshFilter>().sharedMesh=mesh;
+            if(Document.art.atmosphere!=null)
+            {
+                if(!_seasonMeshes.TryGetValue(marker.stableId,out var seasonal))
+                {
+                    seasonal=new Mesh{name=marker.stableId+" — season",indexFormat=IndexFormat.UInt32};
+                    LevelAuthoringPalette.PopulateMesh(seasonal,SeasonModelAppearance.Resolve(FrozenModel(marker.stableId),Document.art.atmosphere));_seasonMeshes[marker.stableId]=seasonal;
+                }
+                marker.GetComponent<MeshFilter>().sharedMesh=seasonal;
+            }
             var renderer=marker.GetComponent<MeshRenderer>();var source=renderer.sharedMaterial;
-            if(_previewMaterials.Values.Contains(source))return;
+            if(_previewMaterials.Values.Contains(source)||Mood?.OwnsMaterial(source)==true){Mood?.BindRenderer(renderer);return;}
             if(!_previewMaterials.TryGetValue(source,out var preview))
             {
                 preview=new Material(source){name="Authoring composition lighting"};
@@ -328,6 +363,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 _previewMaterials.Add(source,preview);
             }
             renderer.sharedMaterial=preview;
+            Mood?.BindRenderer(renderer);
         }
         public Bounds PropBounds(string id) => _frozenMeshes.TryGetValue(id,out var mesh) ? mesh.bounds
             : _frozenModels.TryGetValue(id,out var model) ? AuthoringPropCatalog.ModelBounds(model) : LevelAuthoringPalette.Get(id).prop.Bounds;
@@ -367,6 +403,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 changed.Add(marker.transform);
             }
             RefreshPlantBatches(changed);
+            Mood?.RefreshSurfaces();
         }
         public void Frame()
         {
@@ -376,6 +413,8 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         public void Dispose()
         {
+            if(Mood!=null)UnityEngine.Object.DestroyImmediate(Mood.gameObject);Mood=null;
+            foreach(var mesh in _seasonMeshes.Values)if(mesh!=null)UnityEngine.Object.DestroyImmediate(mesh);_seasonMeshes.Clear();
             Undo.undoRedoPerformed-=RestoreEditedMeshes;_modelEdits.Clear();
             River?.Dispose(); River = null;
             _board?.ClearAll(); _board = null;

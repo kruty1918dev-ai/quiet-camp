@@ -1,0 +1,237 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 38,
+  "chapter": 4,
+  "seed": 20585683,
+  "width": 4,
+  "height": 6,
+  "id": "gen:qc_camp:31",
+  "contentHash": "0e8b16d1acb07c830d59ec909326f99a6d4b77ab9f6d19e664bd7049ab2cdc6b",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "compositionHash": "0ffb9af8b4f98470001de17c45a3d74ad598a2c5a5aca742a85b2246dd5678f1",
+  "generationAttempt": 4,
+  "decorSeed": 20595596,
+  "entry": [
+    2,
+    5
+  ],
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 2,
+      "z": 0
+    }
+  ],
+  "blocked": [
+    [
+      3,
+      4
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      3,
+      3
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [
+    [
+      0,
+      6
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      2,
+      6
+    ],
+    [
+      3,
+      6
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 4,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "log",
+      "x": 3,
+      "z": 4,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 3,
+      "z": 1,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 3,
+      "z": 3,
+      "rotation": 3
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "shore",
+    "seasonId": "summer",
+    "weatherId": "clear",
+    "moisture": 0.384207,
+    "treeDensity": 0.553133,
+    "clusterSeed": 37574,
+    "meadowSpecies": [
+      "grass",
+      "poppy"
+    ],
+    "storyMotifs": [],
+    "shore": {
+      "kind": "stream",
+      "side": "left",
+      "offset": 7.6,
+      "width": 2.4,
+      "seed": 31494
+    },
+    "seasonTimeline": 0.373737,
+    "weatherIntensity": 0.173679
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-038",
+    "beats": [
+      {
+        "id": "place-038",
+        "storyBeat": "Ремонт має практичну причину: зробити шлях знову прохідним.",
+        "heroLandmark": "place-038-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Стара берегова конструкція, свіжий короткий настил і очищена стежка.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Ремонт має практичну причину: зробити шлях знову прохідним.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:31"
+        ],
+        "props": [
+          {
+            "id": "place-038-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_bridge_remnants",
+              "x": -7.93782,
+              "z": 0.0,
+              "elevation": 0.025,
+              "height": 0.72,
+              "yaw": 0.0,
+              "sway": false,
+              "spansWater": true
+            }
+          },
+          {
+            "id": "place-038-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_footbridge",
+              "x": -8.08584,
+              "z": 4.4,
+              "elevation": 0.025,
+              "height": 0.5,
+              "yaw": 90.0,
+              "sway": false,
+              "spansWater": true
+            }
+          },
+          {
+            "id": "place-038-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_willow",
+              "x": 3.7383,
+              "z": -8.00949,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  }
+}

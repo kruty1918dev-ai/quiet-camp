@@ -1,0 +1,784 @@
+[
+  {
+    "id": "spring_morning",
+    "label": "Весняний світанок",
+    "season": "spring",
+    "description": "Свіжа зелень, ранковий серпанок і спів птахів.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      34,
+      120,
+      0
+    ],
+    "sunColor": 16773077,
+    "ambientColor": 10463114,
+    "skyColor": 8887187,
+    "sunIntensity": 0.9785,
+    "shadows": 0.7200000000000001,
+    "exposure": 0.1,
+    "contrast": 4,
+    "saturation": -5,
+    "temperature": 9,
+    "bloom": 0.12,
+    "fog": 0.23800000000000002,
+    "rays": 0.3,
+    "rain": 0,
+    "snow": 0,
+    "snowCover": 0,
+    "leaves": 0,
+    "insects": 0.12,
+    "wind": 0.2,
+    "audioKeys": [
+      "ambience.wind",
+      "ambience.bird"
+    ],
+    "audioGains": [
+      0.2,
+      0.3
+    ]
+  },
+  {
+    "id": "spring_sunny",
+    "label": "Сонячна квітуча весна",
+    "season": "spring",
+    "description": "М’яке сонце, квіти й кілька метеликів.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      45,
+      65,
+      0
+    ],
+    "sunColor": 16773077,
+    "ambientColor": 10463114,
+    "skyColor": 8887187,
+    "sunIntensity": 1.133,
+    "shadows": 0.7200000000000001,
+    "exposure": 0.1,
+    "contrast": 4,
+    "saturation": 0,
+    "temperature": 6,
+    "bloom": 0.12,
+    "fog": 0,
+    "rays": 0.38,
+    "rain": 0,
+    "snow": 0,
+    "snowCover": 0,
+    "leaves": 0,
+    "insects": 0.4,
+    "wind": 0.14,
+    "audioKeys": [
+      "ambience.wind",
+      "ambience.bird"
+    ],
+    "audioGains": [
+      0.2,
+      0.3
+    ]
+  },
+  {
+    "id": "spring_drizzle",
+    "label": "Весняна мряка",
+    "season": "spring",
+    "description": "Прохолодне розсіяне світло й дрібний дощ.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      45,
+      65,
+      0
+    ],
+    "sunColor": 16773077,
+    "ambientColor": 10463114,
+    "skyColor": 8887187,
+    "sunIntensity": 0.4944,
+    "shadows": 0.21999999999999997,
+    "exposure": 0.1,
+    "contrast": 4,
+    "saturation": -5,
+    "temperature": -7,
+    "bloom": 0.12,
+    "fog": 0.1275,
+    "rays": 0,
+    "rain": 0.3,
+    "snow": 0,
+    "snowCover": 0,
+    "leaves": 0,
+    "insects": 0,
+    "wind": 0.2,
+    "audioKeys": [
+      "ambience.wind",
+      "ambience.rain"
+    ],
+    "audioGains": [
+      0.16,
+      0.4
+    ]
+  },
+  {
+    "id": "spring_after_rain",
+    "label": "Весна після дощу",
+    "season": "spring",
+    "description": "Теплі просвіти в хмарах і свіже листя.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      38,
+      180,
+      0
+    ],
+    "sunColor": 16773077,
+    "ambientColor": 10463114,
+    "skyColor": 8887187,
+    "sunIntensity": 1.133,
+    "shadows": 0.7200000000000001,
+    "exposure": 0.1,
+    "contrast": 4,
+    "saturation": -5,
+    "temperature": 5,
+    "bloom": 0.12,
+    "fog": 0.102,
+    "rays": 0.55,
+    "rain": 0,
+    "snow": 0,
+    "snowCover": 0,
+    "leaves": 0,
+    "insects": 0.2,
+    "wind": 0.2,
+    "audioKeys": [
+      "ambience.wind",
+      "ambience.bird"
+    ],
+    "audioGains": [
+      0.12,
+      0.5
+    ]
+  },
+  {
+    "id": "spring_breeze",
+    "label": "Вітряний весняний день",
+    "season": "spring",
+    "description": "Рух трави, легкий пилок і виразні хмарні тіні.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      45,
+      65,
+      0
+    ],
+    "sunColor": 16773077,
+    "ambientColor": 10463114,
+    "skyColor": 8887187,
+    "sunIntensity": 0.8755,
+    "shadows": 0.7200000000000001,
+    "exposure": 0.1,
+    "contrast": 4,
+    "saturation": -5,
+    "temperature": 0,
+    "bloom": 0.12,
+    "fog": 0,
+    "rays": 0.15,
+    "rain": 0,
+    "snow": 0,
+    "snowCover": 0,
+    "leaves": 0,
+    "insects": 0.12,
+    "wind": 0.7,
+    "audioKeys": [
+      "ambience.wind",
+      "ambience.bird"
+    ],
+    "audioGains": [
+      0.5,
+      0.2
+    ]
+  },
+  {
+    "id": "summer_day",
+    "label": "Сонячний літній день",
+    "season": "summer",
+    "description": "Ясне світло, жучки біля трави та сонячні промені.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      58,
+      150,
+      0
+    ],
+    "sunColor": 16773077,
+    "ambientColor": 10463114,
+    "skyColor": 8887187,
+    "sunIntensity": 1.133,
+    "shadows": 0.7200000000000001,
+    "exposure": 0.1,
+    "contrast": 7,
+    "saturation": -5,
+    "temperature": 7,
+    "bloom": 0.12,
+    "fog": 0,
+    "rays": 0.55,
+    "rain": 0,
+    "snow": 0,
+    "snowCover": 0,
+    "leaves": 0,
+    "insects": 0.65,
+    "wind": 0.2,
+    "audioKeys": [
+      "ambience.wind",
+      "ambience.bird"
+    ],
+    "audioGains": [
+      0.15,
+      0.35
+    ]
+  },
+  {
+    "id": "summer_evening",
+    "label": "Теплий літній вечір",
+    "season": "summer",
+    "description": "Золоте бокове світло, спокій і цвіркуни.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      34,
+      190,
+      0
+    ],
+    "sunColor": 16764803,
+    "ambientColor": 10463114,
+    "skyColor": 8887187,
+    "sunIntensity": 1.133,
+    "shadows": 0.7200000000000001,
+    "exposure": 0.1,
+    "contrast": 4,
+    "saturation": -5,
+    "temperature": 22,
+    "bloom": 0.2,
+    "fog": 0,
+    "rays": 0.45,
+    "rain": 0,
+    "snow": 0,
+    "snowCover": 0,
+    "leaves": 0,
+    "insects": 0.5,
+    "wind": 0.2,
+    "audioKeys": [
+      "ambience.wind",
+      "ambience.crickets"
+    ],
+    "audioGains": [
+      0.12,
+      0.48
+    ]
+  },
+  {
+    "id": "summer_rain",
+    "label": "Легкий літній дощ",
+    "season": "summer",
+    "description": "М’яка прохолода, краплі та приглушений ліс.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      45,
+      65,
+      0
+    ],
+    "sunColor": 16773077,
+    "ambientColor": 10463114,
+    "skyColor": 8887187,
+    "sunIntensity": 0.5974,
+    "shadows": 0.26999999999999996,
+    "exposure": 0.1,
+    "contrast": 4,
+    "saturation": -5,
+    "temperature": -4,
+    "bloom": 0.12,
+    "fog": 0.102,
+    "rays": 0,
+    "rain": 0.4,
+    "snow": 0,
+    "snowCover": 0,
+    "leaves": 0,
+    "insects": 0.06,
+    "wind": 0.2,
+    "audioKeys": [
+      "ambience.wind",
+      "ambience.rain"
+    ],
+    "audioGains": [
+      0.2,
+      0.55
+    ]
+  },
+  {
+    "id": "summer_forest",
+    "label": "Літній лісовий ранок",
+    "season": "summer",
+    "description": "Промені між кронами, серпанок і метелики.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      34,
+      120,
+      0
+    ],
+    "sunColor": 16773077,
+    "ambientColor": 10463114,
+    "skyColor": 8887187,
+    "sunIntensity": 1.133,
+    "shadows": 0.7200000000000001,
+    "exposure": 0.1,
+    "contrast": 4,
+    "saturation": -5,
+    "temperature": 7,
+    "bloom": 0.12,
+    "fog": 0.17,
+    "rays": 0.75,
+    "rain": 0,
+    "snow": 0,
+    "snowCover": 0,
+    "leaves": 0,
+    "insects": 0.38,
+    "wind": 0.2,
+    "audioKeys": [
+      "ambience.wind",
+      "ambience.bird"
+    ],
+    "audioGains": [
+      0.18,
+      0.55
+    ]
+  },
+  {
+    "id": "summer_fireflies",
+    "label": "Літня ніч зі світлячками",
+    "season": "summer",
+    "description": "Синє місячне світло й теплі живі вогники.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      42,
+      165,
+      0
+    ],
+    "sunColor": 10008031,
+    "ambientColor": 9215406,
+    "skyColor": 2637401,
+    "sunIntensity": 0.4944,
+    "shadows": 0.7200000000000001,
+    "exposure": 0.22,
+    "contrast": 4,
+    "saturation": -5,
+    "temperature": -10,
+    "bloom": 0.4,
+    "fog": 0.068,
+    "rays": 0,
+    "rain": 0,
+    "snow": 0,
+    "snowCover": 0,
+    "leaves": 0,
+    "insects": 0.8,
+    "wind": 0.2,
+    "audioKeys": [
+      "ambience.wind",
+      "ambience.crickets",
+      "ambience.owl"
+    ],
+    "audioGains": [
+      0.1,
+      0.5,
+      0.12
+    ]
+  },
+  {
+    "id": "autumn_golden",
+    "label": "Золотий осінній день",
+    "season": "autumn",
+    "description": "Золоті крони, тепле сонце та повільний листопад.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      38,
+      175,
+      0
+    ],
+    "sunColor": 16773077,
+    "ambientColor": 10463114,
+    "skyColor": 8887187,
+    "sunIntensity": 1.133,
+    "shadows": 0.7200000000000001,
+    "exposure": 0.1,
+    "contrast": 4,
+    "saturation": -5,
+    "temperature": 18,
+    "bloom": 0.12,
+    "fog": 0,
+    "rays": 0.4,
+    "rain": 0,
+    "snow": 0,
+    "snowCover": 0,
+    "leaves": 0.45,
+    "insects": 0,
+    "wind": 0.28,
+    "audioKeys": [
+      "ambience.wind",
+      "sfx.rustle"
+    ],
+    "audioGains": [
+      0.24,
+      0.35
+    ]
+  },
+  {
+    "id": "autumn_morning",
+    "label": "Туманний осінній ранок",
+    "season": "autumn",
+    "description": "Мідне листя крізь прохолодну ранкову імлу.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      45,
+      65,
+      0
+    ],
+    "sunColor": 16773077,
+    "ambientColor": 10463114,
+    "skyColor": 8887187,
+    "sunIntensity": 0.7004,
+    "shadows": 0.7200000000000001,
+    "exposure": 0.1,
+    "contrast": 4,
+    "saturation": -5,
+    "temperature": -3,
+    "bloom": 0.12,
+    "fog": 0.357,
+    "rays": 0.15,
+    "rain": 0,
+    "snow": 0,
+    "snowCover": 0,
+    "leaves": 0.2,
+    "insects": 0,
+    "wind": 0.2,
+    "audioKeys": [
+      "ambience.wind",
+      "ambience.bird",
+      "sfx.rustle"
+    ],
+    "audioGains": [
+      0.18,
+      0.15,
+      0.2
+    ]
+  },
+  {
+    "id": "autumn_rain",
+    "label": "Тихий осінній дощ",
+    "season": "autumn",
+    "description": "Темніші крони, мокрий берег і дрібні краплі.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      45,
+      65,
+      0
+    ],
+    "sunColor": 16773077,
+    "ambientColor": 10463114,
+    "skyColor": 8887187,
+    "sunIntensity": 0.4326,
+    "shadows": 0.18,
+    "exposure": 0.1,
+    "contrast": 4,
+    "saturation": -5,
+    "temperature": -8,
+    "bloom": 0.12,
+    "fog": 0.136,
+    "rays": 0,
+    "rain": 0.48,
+    "snow": 0,
+    "snowCover": 0,
+    "leaves": 0.15,
+    "insects": 0,
+    "wind": 0.2,
+    "audioKeys": [
+      "ambience.wind",
+      "ambience.rain",
+      "sfx.rustle"
+    ],
+    "audioGains": [
+      0.28,
+      0.6,
+      0.12
+    ]
+  },
+  {
+    "id": "autumn_wind",
+    "label": "Вітряний листопад",
+    "season": "autumn",
+    "description": "Помітні пориви й листя, що летить із крон.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      45,
+      65,
+      0
+    ],
+    "sunColor": 16773077,
+    "ambientColor": 10463114,
+    "skyColor": 8887187,
+    "sunIntensity": 0.824,
+    "shadows": 0.7200000000000001,
+    "exposure": 0.1,
+    "contrast": 4,
+    "saturation": -5,
+    "temperature": 5,
+    "bloom": 0.12,
+    "fog": 0,
+    "rays": 0.12,
+    "rain": 0,
+    "snow": 0,
+    "snowCover": 0,
+    "leaves": 0.85,
+    "insects": 0,
+    "wind": 0.8,
+    "audioKeys": [
+      "ambience.wind",
+      "sfx.rustle"
+    ],
+    "audioGains": [
+      0.6,
+      0.55
+    ]
+  },
+  {
+    "id": "autumn_sunset",
+    "label": "Осінній захід сонця",
+    "season": "autumn",
+    "description": "Мідний захід, довгі тіні та зріджені крони.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      34,
+      195,
+      0
+    ],
+    "sunColor": 16759671,
+    "ambientColor": 10463114,
+    "skyColor": 8887187,
+    "sunIntensity": 1.133,
+    "shadows": 0.7200000000000001,
+    "exposure": 0.1,
+    "contrast": 4,
+    "saturation": -5,
+    "temperature": 24,
+    "bloom": 0.18,
+    "fog": 0,
+    "rays": 0.5,
+    "rain": 0,
+    "snow": 0,
+    "snowCover": 0,
+    "leaves": 0.35,
+    "insects": 0,
+    "wind": 0.2,
+    "audioKeys": [
+      "ambience.wind",
+      "sfx.rustle",
+      "ambience.owl"
+    ],
+    "audioGains": [
+      0.2,
+      0.25,
+      0.08
+    ]
+  },
+  {
+    "id": "winter_clear",
+    "label": "Ясний морозний день",
+    "season": "winter",
+    "description": "Снігові шапки, холодні тіні й чітке сонце.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      35,
+      170,
+      0
+    ],
+    "sunColor": 15266559,
+    "ambientColor": 11057604,
+    "skyColor": 10336197,
+    "sunIntensity": 1.133,
+    "shadows": 0.7200000000000001,
+    "exposure": -0.01999999999999999,
+    "contrast": 4,
+    "saturation": -5,
+    "temperature": -12,
+    "bloom": 0.12,
+    "fog": 0,
+    "rays": 0.3,
+    "rain": 0,
+    "snow": 0,
+    "snowCover": 0.82,
+    "leaves": 0,
+    "insects": 0,
+    "wind": 0.18,
+    "audioKeys": [
+      "ambience.wind"
+    ],
+    "audioGains": [
+      0.25
+    ]
+  },
+  {
+    "id": "winter_snowfall",
+    "label": "Тихий зимовий сніг",
+    "season": "winter",
+    "description": "Розсіяне світло та великі повільні сніжинки.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      45,
+      65,
+      0
+    ],
+    "sunColor": 16773077,
+    "ambientColor": 10463114,
+    "skyColor": 8887187,
+    "sunIntensity": 0.5665,
+    "shadows": 0.26999999999999996,
+    "exposure": 0.1,
+    "contrast": 4,
+    "saturation": -5,
+    "temperature": -8,
+    "bloom": 0.12,
+    "fog": 0.136,
+    "rays": 0,
+    "rain": 0,
+    "snow": 0.48,
+    "snowCover": 0.88,
+    "leaves": 0,
+    "insects": 0,
+    "wind": 0.2,
+    "audioKeys": [
+      "ambience.wind"
+    ],
+    "audioGains": [
+      0.3
+    ]
+  },
+  {
+    "id": "winter_blizzard",
+    "label": "Зимова завірюха",
+    "season": "winter",
+    "description": "Косий сніг, пориви вітру й молочна імла.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      45,
+      65,
+      0
+    ],
+    "sunColor": 16773077,
+    "ambientColor": 10463114,
+    "skyColor": 8887187,
+    "sunIntensity": 0.3502,
+    "shadows": 0.18,
+    "exposure": 0.1,
+    "contrast": -4,
+    "saturation": -5,
+    "temperature": -14,
+    "bloom": 0.12,
+    "fog": 0.408,
+    "rays": 0,
+    "rain": 0,
+    "snow": 1,
+    "snowCover": 1,
+    "leaves": 0,
+    "insects": 0,
+    "wind": 1,
+    "audioKeys": [
+      "ambience.wind",
+      "ambience.gust"
+    ],
+    "audioGains": [
+      0.68,
+      0.45
+    ]
+  },
+  {
+    "id": "winter_evening",
+    "label": "Рожевий зимовий вечір",
+    "season": "winter",
+    "description": "Рожеве сонце, синій сніг і легке мерехтіння.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      34,
+      190,
+      0
+    ],
+    "sunColor": 16762544,
+    "ambientColor": 10333636,
+    "skyColor": 8623541,
+    "sunIntensity": 1.133,
+    "shadows": 0.7200000000000001,
+    "exposure": 0.1,
+    "contrast": 4,
+    "saturation": -5,
+    "temperature": 6,
+    "bloom": 0.22,
+    "fog": 0,
+    "rays": 0.38,
+    "rain": 0,
+    "snow": 0.15,
+    "snowCover": 0.85,
+    "leaves": 0,
+    "insects": 0,
+    "wind": 0.2,
+    "audioKeys": [
+      "ambience.wind"
+    ],
+    "audioGains": [
+      0.2
+    ]
+  },
+  {
+    "id": "winter_moon",
+    "label": "Місячна зимова ніч",
+    "season": "winter",
+    "description": "Холодна ніч, рідкі сніжинки й тихий вітер.",
+    "revision": 1,
+    "seed": 1918,
+    "sunEuler": [
+      42,
+      160,
+      0
+    ],
+    "sunColor": 10599903,
+    "ambientColor": 9215406,
+    "skyColor": 2570575,
+    "sunIntensity": 0.4944,
+    "shadows": 0.7200000000000001,
+    "exposure": 0.22,
+    "contrast": 4,
+    "saturation": -5,
+    "temperature": -18,
+    "bloom": 0.24,
+    "fog": 0.085,
+    "rays": 0,
+    "rain": 0,
+    "snow": 0.2,
+    "snowCover": 0.9,
+    "leaves": 0,
+    "insects": 0,
+    "wind": 0.2,
+    "audioKeys": [
+      "ambience.wind",
+      "ambience.owl"
+    ],
+    "audioGains": [
+      0.25,
+      0.08
+    ]
+  }
+]

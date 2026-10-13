@@ -40,9 +40,20 @@ namespace QuietCamp.Editor
         }
         static LevelAuthoring.LevelAuthoringWorkspace _worldWorkspace;
         static Request _worldRequest;
+        static LevelAuthoring.CampaignWorkshopRegeneration _campaignBatch;
         static void Poll()
         {
             if (EditorApplication.isCompiling || EditorApplication.isUpdating) return;
+            if(_campaignBatch!=null)
+            {
+                try
+                {
+                    if(_campaignBatch.Completed<_campaignBatch.Total){_campaignBatch.Step();File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="campaign-generating",completed=_campaignBatch.Completed,total=_campaignBatch.Total}));}
+                    else{_campaignBatch.Publish();File.WriteAllText(ResultPath,File.ReadAllText(Path.Combine(_campaignBatch.Output,"published.json")));_campaignBatch=null;}
+                }
+                catch(Exception e){File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="error",error=e.ToString()}));_campaignBatch=null;}
+                return;
+            }
             if(_worldWorkspace!=null)
             {
                 if(_worldWorkspace.River!=null && _worldWorkspace.River.IsUpdating)return;
@@ -81,10 +92,25 @@ namespace QuietCamp.Editor
                     doc.Export(request.output);
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new {status="world-export",output=request.output,errors=doc.Validate(true)}));
                 }
+                else if(request.mode=="mood-demo")
+                {
+                    var doc=LevelAuthoring.LevelAuthoringDocument.Open(request.draftPath);
+                    var flower=SunflowerGeometry.Create();doc.art.models=doc.art.models.Where(m=>m.id!=flower.id).Concat(new[]{flower}).ToArray();
+                    doc.art.instances=doc.art.instances.Concat(new[]{new CampArtDefinition.Instance{id="demo/sunflowers",modelId=flower.id,x=5.5f,z=-3.8f,y=doc.art.GroundHeight(5.5f,-3.8f),scale=1,yaw=225}}).ToArray();
+                    LevelAuthoring.LevelAuthoringPalette.EnsureDocumentModels(doc.art.models);SeasonAtmosphereCatalog.Reset();
+                    LevelAuthoring.SeasonAtmosphereAuthoring.Apply(doc,SeasonAtmosphereCatalog.Get(request.profile));doc.art.cameraAspect=1;doc.art.orthographicSize=11.5f;
+                    string path=Path.Combine(request.output,request.name+".draft.json");doc.Save(path);
+                    File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="mood-demo",draftPath=path,errors=doc.Validate(true)}));
+                }
                 else if (request.mode == "props-play")
                 {
                     LevelAuthoring.LevelAuthoringPlayDriver.Start(LevelAuthoring.LevelAuthoringDocument.Open(request.draftPath));
                     File.WriteAllText(ResultPath, "{\"status\":\"props-play-started\"}");
+                }
+                else if(request.mode=="authoring-focus-game")
+                {
+                    if(EditorApplication.isPlaying)EditorWindow.GetWindow(typeof(EditorWindow).Assembly.GetType("UnityEditor.GameView")).Focus();
+                    File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="game-focus",playing=EditorApplication.isPlaying,audioPaused=AudioListener.pause}));
                 }
                 else if (request.mode == "props-game-status")
                 {
@@ -96,11 +122,13 @@ namespace QuietCamp.Editor
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new { status="props-game-status",playing=EditorApplication.isPlaying,
                         ready=CampSceneHost.Current?.UiReady,memoryOnly=QuietCampBootstrap.ServicesRef?.Save.MemoryOnly,
                         identical=view!=null && JsonConvert.SerializeObject(view.Definition)==JsonConvert.SerializeObject(draft.art),
-                        objects=view?.Definition.instances.Length, forbiddenComponents=foreign, persistentDataPath=UnityEngine.Application.persistentDataPath }));
+                        objects=view?.Definition.instances.Length, atmosphere=view?.SeasonAtmosphere?.Preset.id, particles=view?.SeasonAtmosphere?.LiveParticles, voices=view?.SeasonAtmosphere?.OwnedVoices, playingVoices=view?.SeasonAtmosphere?.PlayingVoices, audioPaused=AudioListener.pause, dsp=AudioSettings.dspTime, forbiddenComponents=foreign, persistentDataPath=UnityEngine.Application.persistentDataPath }));
                 }
                 else if (request.mode == "tests") RunTests();
                 else if (request.mode == "authoring-tests") RunTests(true);
                 else if (request.mode == "world-tests") RunTests(true,"QuietCamp.Tests.ModelWorkshopTests");
+                else if(request.mode=="mood-tests")RunTests(true,"QuietCamp.Tests.SeasonAtmosphereTests");
+                else if(request.mode=="campaign-regenerate")_campaignBatch=new LevelAuthoring.CampaignWorkshopRegeneration(request.output);
                 else if (request.mode == "terrain-tests") RunTests(true, "QuietCamp.Tests.LevelAuthoringV2Tests.RiverAndTerrainBakeAndRestoreWithoutVendorRuntimeComponents");
                 else if (request.mode == "gallery-tests") RunTests(true, "QuietCamp.Tests.LevelAuthoringV2Tests.CampaignGalleryOpensAllHundredPublishedPuzzles");
                 else if (request.mode == "authoring-profile") BeginAuthoringProfile();
@@ -284,7 +312,7 @@ namespace QuietCamp.Editor
             var api = ScriptableObject.CreateInstance<TestRunnerApi>();
             api.RegisterCallbacks(new TestReport(api, session));
             api.Execute(new ExecutionSettings(new Filter { testMode = TestMode.EditMode,
-                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.ModelWorkshopTests", "QuietCamp.Tests.FreeWorldAssetsTests", "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
+                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.ModelWorkshopTests", "QuietCamp.Tests.FreeWorldAssetsTests", "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
         }
         sealed class TestReport : ICallbacks
         {
@@ -342,6 +370,7 @@ namespace QuietCamp.Editor
         }
         static void Capture(Request request)
         {
+            if(request.mode=="draft-capture" && LevelAuthoring.LevelAuthoringDocument.Open(request.draftPath).art.atmosphere!=null)request.width=request.height=1024;
             if (request.width < 640 || request.width > 2560 || request.height < 480 || request.height > 2560)
                 throw new InvalidDataException("Capture dimensions out of range.");
             if (string.IsNullOrEmpty(request.output) || string.IsNullOrEmpty(request.name)
@@ -377,7 +406,7 @@ namespace QuietCamp.Editor
                 view.FitCamera(new Rect(0, 0, 1, 1));
                 preview.lights[0].type = LightType.Directional; view.ApplyLighting(preview.lights[0]);
                 preview.lights[1].intensity = 0;
-                preview.ambientColor = CampArtDefinition.Color(art.ambientColor) * .60f;
+                preview.ambientColor = CampArtDefinition.Color(art.atmosphere?.ambientColor??art.ambientColor) * .60f;
                 RenderSettings.ambientMode = AmbientMode.Flat; RenderSettings.ambientLight = preview.ambientColor; RenderSettings.sun = preview.lights[0]; RenderSettings.fog = false;
                 Shader.SetGlobalVector("_CampSunDirW", -preview.lights[0].transform.forward);
                 Shader.SetGlobalColor("_CampSunColor", preview.lights[0].color * preview.lights[0].intensity);
@@ -385,6 +414,8 @@ namespace QuietCamp.Editor
                 foreach (var transform in root.GetComponentsInChildren<Transform>(true)) transform.gameObject.layer = 31;
                 camera.GetUniversalAdditionalCameraData().volumeLayerMask = 1 << 31;
                 preview.AddSingleGO(root);
+                if(view.SeasonAtmosphere!=null)for(int i=0;i<180;i++)view.SeasonAtmosphere.Advance(.05f);
+                if(view.SeasonAtmosphere!=null)File.WriteAllText(Path.Combine(request.output,request.name+".effects.json"),JsonConvert.SerializeObject(new{preset=art.atmosphere.id,particles=view.SeasonAtmosphere.LiveParticles,systems=view.SeasonAtmosphere.GetComponentsInChildren<ParticleSystem>().Select(s=>new{name=s.name,count=s.particleCount}),rays=view.SeasonAtmosphere.GetComponentsInChildren<MeshRenderer>().Count(r=>r.name=="Промінь між деревами")}));
                 for (int frame = 0; frame < 3; frame++)
                 { preview.BeginStaticPreview(new Rect(0, 0, request.width, request.height)); preview.Render(true); UnityEngine.Object.DestroyImmediate(preview.EndStaticPreview()); }
                 preview.BeginStaticPreview(new Rect(0, 0, request.width, request.height)); preview.Render(true);

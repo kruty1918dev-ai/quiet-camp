@@ -1,0 +1,267 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 52,
+  "chapter": 6,
+  "seed": -720001619,
+  "width": 7,
+  "height": 5,
+  "id": "gen:qc_camp:69",
+  "contentHash": "94aa981710357db1a1fc8afa82c3dd53480400fd08529eb4e3f154d1a5163924",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "compositionHash": "de8f9d4f0211a2106693da96c7943407be839d0584b2034af0181f86942d246c",
+  "generationAttempt": 1,
+  "decorSeed": -719979790,
+  "entry": [
+    3,
+    4
+  ],
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 3,
+      "z": 0
+    }
+  ],
+  "blocked": [
+    [
+      6,
+      0
+    ],
+    [
+      5,
+      2
+    ],
+    [
+      5,
+      1
+    ],
+    [
+      4,
+      3
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      6,
+      0
+    ]
+  ],
+  "exteriorWalkable": [
+    [
+      1,
+      5
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      5,
+      5
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 3,
+      "z": 1,
+      "rotation": 2
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "campfire_stones",
+      "x": 6,
+      "z": 0,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 5,
+      "z": 2,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 5,
+      "z": 1,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 4,
+      "z": 3,
+      "rotation": 0
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "shore",
+    "seasonId": "autumn",
+    "weatherId": "clear",
+    "moisture": 0.482198,
+    "treeDensity": 0.579592,
+    "clusterSeed": 39996,
+    "meadowSpecies": [
+      "grass",
+      "wheat"
+    ],
+    "storyMotifs": [],
+    "shore": {
+      "kind": "stream",
+      "side": "left",
+      "offset": 9.1,
+      "width": 2.4,
+      "seed": 31676
+    },
+    "seasonTimeline": 0.515152,
+    "weatherIntensity": 0.336996
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-052",
+    "beats": [
+      {
+        "id": "place-052",
+        "storyBeat": "Новий рослинний пояс показує час, який минув після втрати великої води.",
+        "heroLandmark": "place-052-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Молоді верби та очерет ростуть між старим причалом і залишковою водою.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Новий рослинний пояс показує час, який минув після втрати великої води.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:69"
+        ],
+        "props": [
+          {
+            "id": "place-052-prop-1",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_willow",
+              "x": 5.2383,
+              "z": -0.8,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-052-prop-2",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_reed_clump",
+              "x": 3.0,
+              "z": -3.77261,
+              "elevation": 0.025,
+              "height": 1.15,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-052-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_mooring_post",
+              "x": 4.9335,
+              "z": -7.126,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  }
+}

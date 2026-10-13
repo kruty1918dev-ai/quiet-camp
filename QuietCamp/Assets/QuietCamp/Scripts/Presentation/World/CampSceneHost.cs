@@ -586,12 +586,12 @@ namespace QuietCamp.Presentation.World
                     (_placement != null && _placement.HasPreview)
                     || (_hud != null && _hud.HasModalOpen)
                     || (_router != null && _router.IsBusy);
-            _atmosphere.Soundscape.AccentSuppressed = () => !GameplayActive;
+            if(_atmosphere.Soundscape!=null)_atmosphere.Soundscape.AccentSuppressed = () => !GameplayActive;
             // Voice budget by quality tier (Low/Balanced/High → 8/12/16);
             // decorative one-shots are skipped first when the pool is full.
             if (_services.Audio != null)
                 _services.Audio.MaxActiveVoices = tier == 0 ? 8 : tier == 1 ? 12 : 16;
-            SetAtmospherePhase(profile.Id);
+            SetAtmospherePhase(_atmosphere.PhaseId??profile.Id);
         }
 
         /// <summary>0–2 = Low/Balanced/High. settings.quality 0 = auto from

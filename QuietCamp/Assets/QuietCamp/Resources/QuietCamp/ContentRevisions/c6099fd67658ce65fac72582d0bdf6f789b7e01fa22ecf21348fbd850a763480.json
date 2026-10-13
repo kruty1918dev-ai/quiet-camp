@@ -1,0 +1,259 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 19,
+  "chapter": 2,
+  "seed": 20419384,
+  "width": 8,
+  "height": 7,
+  "id": "gen:qc_camp:10",
+  "contentHash": "c6099fd67658ce65fac72582d0bdf6f789b7e01fa22ecf21348fbd850a763480",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "compositionHash": "0c5b07c1c661d94e5193460d8fef89b6b53e30d7bba671c0cf73293ca5800c5a",
+  "generationAttempt": 1,
+  "decorSeed": 20434023,
+  "entry": [
+    7,
+    3
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      7,
+      0
+    ],
+    [
+      6,
+      1
+    ],
+    [
+      7,
+      5
+    ],
+    [
+      5,
+      6
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      7,
+      0
+    ]
+  ],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g5",
+      "nameKey": "guest.5",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g5",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "guestId": "g4",
+      "x": 4,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "campfire_stones",
+      "x": 7,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 6,
+      "z": 1,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 7,
+      "z": 5,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 5,
+      "z": 6,
+      "rotation": 3
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.463469,
+    "treeDensity": 0.452613,
+    "clusterSeed": 34287,
+    "meadowSpecies": [
+      "grass",
+      "daisy"
+    ],
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.181818,
+    "weatherIntensity": 0.305782
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-019",
+    "beats": [
+      {
+        "id": "place-019",
+        "storyBeat": "Життя повертається через буденні речі, а не через урочистий знак перемоги.",
+        "heroLandmark": "place-019-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Курник, кілька низьких огорож і яблуня; вільний підхід не закритий травою.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Життя повертається через буденні речі, а не через урочистий знак перемоги.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:10"
+        ],
+        "props": [
+          {
+            "id": "place-019-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_chicken_coop",
+              "x": -6.03032,
+              "z": 0.55,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 180.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-019-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_chicken",
+              "x": 0.7,
+              "z": -5.34812,
+              "elevation": 0.025,
+              "height": 1.15,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-019-prop-3",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_orchard",
+              "x": 5.79206,
+              "z": -5.20604,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  }
+}

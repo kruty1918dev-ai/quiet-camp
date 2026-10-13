@@ -10,6 +10,7 @@ namespace QuietCamp.Infrastructure
     /// <summary>Resolved presentation data. Puzzle data and saved revisions stay separate.</summary>
     public sealed class CampArtDefinition
     {
+        public SeasonAtmospherePreset atmosphere;
         public string levelId;
         public int width, height, seed;
         public float[] cameraEuler, cameraTarget, sunEuler;
@@ -22,6 +23,7 @@ namespace QuietCamp.Infrastructure
         {
             var copy = (CampArtDefinition)MemberwiseClone();
             copy.cameraEuler = cameraEuler?.ToArray(); copy.cameraTarget = cameraTarget?.ToArray(); copy.sunEuler = sunEuler?.ToArray();
+            copy.atmosphere=atmosphere==null?null:SeasonAtmosphereCatalog.Copy(atmosphere);
             return copy;
         }
         public int generationAttempt;
@@ -43,6 +45,8 @@ namespace QuietCamp.Infrastructure
             public string id; public string shading;
             public string sourceModelId;
             public string authoringRecipe;
+            public string seasonalRole;
+            public int[] seasonalLeafTriangles;
             public float[] vertices, normals;
             public float[] uv, tangents;
             public int[] colors;
@@ -75,6 +79,7 @@ namespace QuietCamp.Infrastructure
         sealed class ProfileReference { public string profile; public int seed; }
         public void Validate(LevelData level)
         {
+            atmosphere?.Validate();
             landscape?.Validate();
             bool Vector(float[] value) => value != null && value.Length == 3 && value.All(Finite);
             if (levelId != level.id || width != level.width || height != level.height

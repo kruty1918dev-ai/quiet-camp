@@ -33,7 +33,7 @@ namespace QuietCamp.Presentation.World
         CameraAtmosphereMotion _cameraMotion;
         public EnvironmentComposer Environment=>_composition;
         public CameraAtmosphereMotion CameraMotion=>_cameraMotion;
-        public WindFieldMath.Sample SampleWind(Vector3 position,float height)=>_windSim.Sample(position,height);
+        public WindFieldMath.Sample SampleWind(Vector3 position,float height)=>_windSim!=null?_windSim.Sample(position,height):default;
         Rect _lastViewport;
         Vector2Int _lastScreen;
         WindSim _windSim;
@@ -80,7 +80,7 @@ namespace QuietCamp.Presentation.World
         public CampSoundscape Soundscape => _soundscape;
         public void BindRainWorld(Transform world)
         {
-            if(world==null)return;
+            if(world==null||_seasonPresetActive)return;
             _weather.World=world;
             _soundscape?.BindWorld(world);
             if(_shelter==null)_shelter=gameObject.AddComponent<CampRainShelter>();
@@ -104,6 +104,7 @@ namespace QuietCamp.Presentation.World
         VisibleForestFloor _floor;
         public bool InitialWorldReady => (_floor == null || _floor.InitialReady) && (_composition == null || _composition.InitialReady);
         CampArtView _artView;
+        bool _seasonPresetActive;
         public void Configure(Camera camera, LevelData level, RectTransform viewport,
             AtmosphereCatalog.Profile profile, Func<bool> reducedMotion, int qualityTier = 1,
             Transform decorRoot = null, Func<int> qualitySource = null)
@@ -117,6 +118,13 @@ namespace QuietCamp.Presentation.World
             _qualitySource=qualitySource;
             _decorRoot = decorRoot;
             _artView = camera.GetComponent<CampArtView>();
+            if(_artView?.SeasonAtmosphere!=null)
+            {
+                _seasonPresetActive=true;_initialized=true;_sun=RenderSettings.sun;
+                PhaseId=_artView.Definition.atmosphere.id.Contains("fireflies")||_artView.Definition.atmosphere.id.Contains("moon")?"night":"day";
+                _artView.ApplyLighting(_sun);_artView.SeasonAtmosphere.BindAudio(QuietCampBootstrap.ServicesRef?.Audio);
+                return;
+            }
             _previousAmbient = RenderSettings.ambientLight;
             _previousProbe = RenderSettings.ambientProbe;
             _environment = ForestLightingEnvironment.Load();
@@ -231,6 +239,7 @@ namespace QuietCamp.Presentation.World
 
         public void Apply(AtmosphereCatalog.Profile profile)
         {
+            if(_artView?.SeasonAtmosphere!=null){_artView.ApplyLighting(_sun);return;}
             _artView?.ApplyLighting(_sun);
             if (!_initialized) return;
             PhaseId = profile.Id;
@@ -323,6 +332,7 @@ namespace QuietCamp.Presentation.World
 
         public void SetSuspended(bool suspended)
         {
+            if(_seasonPresetActive){enabled=!suspended;_artView?.SeasonAtmosphere?.gameObject.SetActive(!suspended);_artView?.SeasonAtmosphere?.SetAudioVisibility(suspended?0:1);return;}
             enabled=!suspended;
             if(_particles!=null)_particles.gameObject.SetActive(!suspended);
             if(_postFx!=null)_postFx.SetSuspended(suspended);
@@ -339,6 +349,7 @@ namespace QuietCamp.Presentation.World
         {
             using var audit = PerformanceAudit.Measure("QC.CampAtmosphere.LateUpdate");
             if (!_initialized || _camera == null) return;
+            if(_artView?.SeasonAtmosphere!=null){_artView.SeasonAtmosphere.Advance(Time.unscaledDeltaTime,_reducedMotion?.Invoke()??false,_qualitySource?.Invoke()??_tier);return;}
             if (_windShelterTexture == null && _composition?.Shelter != null)
             {
                 _windSim.SetShelter(_composition.Shelter);
@@ -430,6 +441,7 @@ namespace QuietCamp.Presentation.World
 
         void OnDestroy()
         {
+            if(_seasonPresetActive){_artView?.SeasonAtmosphere?.StopAudio();return;}
             if (_particles != null) Destroy(_particles.gameObject);
             if (_life != null) Destroy(_life.gameObject);
             if (_postFx != null) Destroy(_postFx);

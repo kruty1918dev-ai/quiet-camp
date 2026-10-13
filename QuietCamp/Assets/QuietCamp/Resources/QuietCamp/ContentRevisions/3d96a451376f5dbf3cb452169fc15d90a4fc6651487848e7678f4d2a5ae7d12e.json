@@ -1,0 +1,309 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 54,
+  "chapter": 6,
+  "seed": -719977838,
+  "width": 8,
+  "height": 8,
+  "id": "gen:qc_camp:72",
+  "contentHash": "3d96a451376f5dbf3cb452169fc15d90a4fc6651487848e7678f4d2a5ae7d12e",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "compositionHash": "3c633c185aa44e859159927e44b2be436377f99ce6210db22b42a8f3651ec693",
+  "generationAttempt": 1,
+  "decorSeed": -719954483,
+  "entry": [
+    7,
+    4
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      7,
+      2
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g5",
+      "nameKey": "guest.5",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g6",
+      "nameKey": "guest.6",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 1,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 4,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 2,
+      "z": 4,
+      "rotation": 0
+    },
+    {
+      "guestId": "g4",
+      "x": 3,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g5",
+      "x": 4,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "guestId": "g6",
+      "x": 5,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "meadow",
+  "objects": [
+    {
+      "assetId": "stone_largeA",
+      "x": 7,
+      "z": 2,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 0,
+      "z": 0,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 2,
+      "z": 1,
+      "rotation": 2
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "shore",
+    "seasonId": "autumn",
+    "weatherId": "clear",
+    "moisture": 0.479436,
+    "treeDensity": 0.577789,
+    "clusterSeed": 40342,
+    "meadowSpecies": [
+      "grass",
+      "wheat"
+    ],
+    "storyMotifs": [],
+    "shore": {
+      "kind": "stream",
+      "side": "left",
+      "offset": 9.6,
+      "width": 2.4,
+      "seed": 31702
+    },
+    "seasonTimeline": 0.535354,
+    "weatherIntensity": 0.332393
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-054",
+    "beats": [
+      {
+        "id": "place-054",
+        "storyBeat": "Вода стала меншою; безпечна галявина пристосовується до нової географії.",
+        "heroLandmark": "place-054-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Залишкове русло, верби й човен на сухому краї відкривають зміну водойми.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Вода стала меншою; безпечна галявина пристосовується до нової географії.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:72"
+        ],
+        "props": [
+          {
+            "id": "place-054-prop-1",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_willow",
+              "x": 5.7383,
+              "z": 3.0,
+              "elevation": 0.025,
+              "height": 2.4,
+              "yaw": 0.0,
+              "sway": true
+            }
+          },
+          {
+            "id": "place-054-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_mooring_post",
+              "x": 0.25,
+              "z": -5.276,
+              "elevation": 0.025,
+              "height": 1.05,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-054-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "story_workboat",
+              "x": 5.52188,
+              "z": -9.65107,
+              "elevation": 0.025,
+              "height": 0.85,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-054-prop-4",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "branch_pond",
+              "x": 0.0,
+              "z": 6.29742,
+              "elevation": 0.025,
+              "height": 0.18,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-054-prop-5",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "branch_pond",
+              "x": -4.5,
+              "z": 6.29742,
+              "elevation": 0.025,
+              "height": 0.18,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  }
+}

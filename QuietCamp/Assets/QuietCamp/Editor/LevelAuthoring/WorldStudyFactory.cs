@@ -58,6 +58,10 @@ namespace QuietCamp.Editor.LevelAuthoring
         public static LevelAuthoringDocument Create(string profileId)
         {
             var p=Profiles.Single(x=>x.id==profileId);var d=LevelAuthoringDocument.Create(true,p.sourceLevel);
+            return Compose(d,p);
+        }
+        public static LevelAuthoringDocument Compose(LevelAuthoringDocument d,WorldStudyProfile p,bool persistVariants=true)
+        {
             d.title=p.title;d.level.id="QC_STUDY_"+p.id.ToUpperInvariant();d.art.levelId=d.level.id;d.art.seed=p.seed;d.art.generation="world-study/"+p.id;
             d.art.cameraEuler=new[]{p.cameraPitch,p.cameraYaw,0};d.art.cameraTarget=p.target;d.art.orthographicSize=p.cameraSize;
             d.art.sunEuler=new[]{p.sunPitch,p.sunYaw,0};d.art.sunIntensity=p.sunIntensity;d.art.frameYaw=0;
@@ -66,14 +70,24 @@ namespace QuietCamp.Editor.LevelAuthoring
             var models=new Dictionary<string,CampArtDefinition.Model>();var instances=new List<CampArtDefinition.Instance>();var random=new System.Random(p.seed);
             void Place(CampArtDefinition.Model model,float x,float z,float size,float yaw,float y=0,bool attached=true)
             {
+                var shape=AuthoringPropCatalog.ModelBounds(model);
+                var rotation=Quaternion.Euler(0,yaw,0);var lo=new Vector3(float.MaxValue,0,float.MaxValue);var hi=new Vector3(float.MinValue,0,float.MinValue);
+                for(int k=0;k<4;k++)
+                {var q=rotation*(new Vector3((k&1)==0?shape.min.x:shape.max.x,0,(k&2)==0?shape.min.z:shape.max.z)*size);lo.x=Mathf.Min(lo.x,q.x);lo.z=Mathf.Min(lo.z,q.z);hi.x=Mathf.Max(hi.x,q.x);hi.z=Mathf.Max(hi.z,q.z);}
+                float halfX=d.level.width*.5f+.65f,halfZ=d.level.height*.5f+.65f;
+                if(x+lo.x<halfX&&x+hi.x>-halfX&&z+lo.z<halfZ&&z+hi.z>-halfZ)
+                {
+                    var offsets=new[]{new Vector2(halfX-x-lo.x,0),new Vector2(-halfX-x-hi.x,0),new Vector2(0,halfZ-z-lo.z),new Vector2(0,-halfZ-z-hi.z)};
+                    var shift=offsets.OrderBy(v=>v.sqrMagnitude).First();x+=shift.x;z+=shift.y;
+                }
                 models[model.id]=model;
                 instances.Add(new CampArtDefinition.Instance{id=p.id+"/"+instances.Count,modelId=model.id,x=x,z=z,y=attached?d.art.GroundHeight(x,z)+y:y,yaw=yaw,scale=size,surfaceAttached=attached,surfaceOffset=y});
             }
             foreach(var anchor in p.anchors)
             {
                 var source=MetricModel(anchor.model);
-                if(anchor.metric!=1)source=ModelAuthoringWorkshop.Create(source,new ModelAuthoringRecipe{operation="scale",size=anchor.metric,label=anchor.label??anchor.model,category="Декор"}).model;
-                var model=ModelAuthoringWorkshop.Create(source,new ModelAuthoringRecipe{operation="age",backend=anchor.age,amount=anchor.ageAmount<0?p.age:anchor.ageAmount,seed=p.seed,label=anchor.label??LevelAuthoringPalette.Get(anchor.model).label+" — "+p.title,category=LevelAuthoringPalette.Get(anchor.model).category}).model;
+                if(anchor.metric!=1)source=ModelAuthoringWorkshop.Create(source,new ModelAuthoringRecipe{operation="scale",size=anchor.metric,label=anchor.label??anchor.model,category="Декор"},persistVariants).model;
+                var model=ModelAuthoringWorkshop.Create(source,new ModelAuthoringRecipe{operation="age",backend=anchor.age,amount=anchor.ageAmount<0?p.age:anchor.ageAmount,seed=p.seed,label=anchor.label??LevelAuthoringPalette.Get(anchor.model).label+" — "+p.title,category=LevelAuthoringPalette.Get(anchor.model).category},persistVariants).model;
                 Place(model,anchor.x,anchor.z,anchor.scale,anchor.yaw,anchor.y,!anchor.water);
             }
             if(p.biome=="aircraft")
@@ -86,7 +100,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 }
             }
             var trees=p.treeModels.Select(MetricModel).ToArray();
-            if(p.biome=="orchard")trees=trees.Select(m=>ModelAuthoringWorkshop.Create(m,new ModelAuthoringRecipe{operation="age",backend="autumn",amount=.8f,seed=p.seed,label="Осіннє дерево — "+m.id,category="Дерева"}).model).ToArray();
+            if(p.biome=="orchard")trees=trees.Select(m=>ModelAuthoringWorkshop.Create(m,new ModelAuthoringRecipe{operation="age",backend="autumn",amount=.8f,seed=p.seed,label="Осіннє дерево — "+m.id,category="Дерева"},persistVariants).model).ToArray();
             for(int i=0;i<p.trees;i++)
             {
                 double angle=random.NextDouble()*Math.PI*2;float radius=p.innerForest+(float)random.NextDouble()*(p.outerForest-p.innerForest);

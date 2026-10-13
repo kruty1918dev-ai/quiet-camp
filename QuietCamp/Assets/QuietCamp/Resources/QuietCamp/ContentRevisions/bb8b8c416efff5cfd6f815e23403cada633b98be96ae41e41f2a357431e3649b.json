@@ -1,0 +1,325 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 76,
+  "chapter": 8,
+  "seed": -719779796,
+  "width": 8,
+  "height": 8,
+  "id": "gen:qc_camp:97",
+  "contentHash": "bb8b8c416efff5cfd6f815e23403cada633b98be96ae41e41f2a357431e3649b",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "compositionHash": "4b0dba511353f2959975f4484255740b4187e71e233f6531c59be492a1d79f29",
+  "generationAttempt": 1,
+  "decorSeed": -719759501,
+  "entry": [
+    4,
+    7
+  ],
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 4,
+      "z": 0
+    }
+  ],
+  "blocked": [
+    [
+      6,
+      4
+    ],
+    [
+      7,
+      4
+    ],
+    [
+      2,
+      4
+    ]
+  ],
+  "shade": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "noise": [],
+  "exteriorWalkable": [
+    [
+      2,
+      8
+    ],
+    [
+      3,
+      8
+    ],
+    [
+      4,
+      8
+    ],
+    [
+      5,
+      8
+    ],
+    [
+      6,
+      8
+    ]
+  ],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g4",
+      "nameKey": "guest.4",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g5",
+      "nameKey": "guest.5",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g6",
+      "nameKey": "guest.6",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 5,
+      "z": 6,
+      "rotation": 0
+    },
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 6,
+      "rotation": 1
+    },
+    {
+      "guestId": "g4",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g5",
+      "x": 3,
+      "z": 3,
+      "rotation": 0
+    },
+    {
+      "guestId": "g6",
+      "x": 5,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "log",
+      "x": 6,
+      "z": 4,
+      "rotation": 1
+    },
+    {
+      "assetId": "stump_round",
+      "x": 7,
+      "z": 4,
+      "rotation": 2
+    },
+    {
+      "assetId": "tree_default",
+      "x": 2,
+      "z": 4,
+      "rotation": 3
+    }
+  ],
+  "canopies": [
+    {
+      "x": 1.25,
+      "z": 1.25,
+      "radiusX": 1.6,
+      "radiusZ": 1.6
+    }
+  ],
+  "environment": {
+    "biomeId": "pines",
+    "seasonId": "winter",
+    "weatherId": "cloudy",
+    "moisture": 0.531874,
+    "treeDensity": 0.485718,
+    "clusterSeed": 44148,
+    "meadowSpecies": [
+      "grass",
+      "wheat"
+    ],
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.757576,
+    "weatherIntensity": 0.41979
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-076",
+    "beats": [
+      {
+        "id": "place-076",
+        "storyBeat": "Герої дбають не лише про себе, а й про людей, яких ще не зустріли.",
+        "heroLandmark": "place-076-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Невеликий сарай і впорядкований склад деревини обабіч поля.",
+        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Герої дбають не лише про себе, а й про людей, яких ще не зустріли.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:97"
+        ],
+        "props": [
+          {
+            "id": "place-076-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_barn",
+              "x": -6.29157,
+              "z": -0.8,
+              "elevation": 0.025,
+              "height": 1.85,
+              "yaw": 180.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-076-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "log_stack",
+              "x": -1.5,
+              "z": -6.56736,
+              "elevation": 0.025,
+              "height": 0.7,
+              "yaw": 0.0,
+              "sway": false
+            }
+          },
+          {
+            "id": "place-076-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "detail",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": {
+              "assetId": "ua_valley_gate",
+              "x": 6.53462,
+              "z": -5.27462,
+              "elevation": 0.025,
+              "height": 1.35,
+              "yaw": 0.0,
+              "sway": false
+            }
+          }
+        ]
+      }
+    ],
+    "references": []
+  }
+}
