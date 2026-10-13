@@ -21,7 +21,7 @@ namespace QuietCamp.Editor
     [InitializeOnLoad]
     public static partial class QC007ArtCapture
     {
-        sealed class Request { public string mode, output, name, levelId, profile; public int width = 1536, height = 1024, seed = 12007; }
+        sealed class Request { public string mode, output, name, levelId, profile, draftPath; public int width = 1536, height = 1024, seed = 12007; }
         static readonly string RequestPath = Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, "../Temp/ai/qc007-art-request.json"));
         static readonly string ResultPath = Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, "../Temp/ai/qc007-art-result.json"));
         static readonly string GamePath = Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, "../Temp/ai/qc007-game-session.json"));
@@ -48,7 +48,13 @@ namespace QuietCamp.Editor
                 var request = JsonConvert.DeserializeObject<Request>(File.ReadAllText(RequestPath));
                 File.Delete(RequestPath);
                 if (UnityEditor.EditorUtility.scriptCompilationFailed) throw new InvalidOperationException("Capture refused: Unity script compilation failed; loaded assemblies may be stale.");
-                if (request.mode == "capture") Capture(request);
+                if (request.mode == "capture" || request.mode == "draft-capture") Capture(request);
+                else if (request.mode == "props-demo")
+                {
+                    var doc = LevelAuthoring.PropDemonstrations.Create(request.profile);
+                    doc.Save(request.draftPath);
+                    File.WriteAllText(ResultPath, JsonConvert.SerializeObject(new { status = "props-demo", draftPath = request.draftPath, errors = doc.Validate(true) }));
+                }
                 else if (request.mode == "tests") RunTests();
                 else if (request.mode == "authoring-tests") RunTests(true);
                 else if (request.mode == "terrain-tests") RunTests(true, "QuietCamp.Tests.LevelAuthoringV2Tests.RiverAndTerrainBakeAndRestoreWithoutVendorRuntimeComponents");
@@ -228,7 +234,7 @@ namespace QuietCamp.Editor
             var api = ScriptableObject.CreateInstance<TestRunnerApi>();
             api.RegisterCallbacks(new TestReport(api, session));
             api.Execute(new ExecutionSettings(new Filter { testMode = TestMode.EditMode,
-                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
+                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
         }
         sealed class TestReport : ICallbacks
         {
@@ -261,7 +267,8 @@ namespace QuietCamp.Editor
                 "Assets/QuietCamp/Resources/QuietCamp/CampArtLit.shader", "Assets/QuietCamp/Resources/QuietCamp/CampArtEdgeBlur.shader",
                 "Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/Profiles/" + art.generation + ".json",
                 "Assets/QuietCamp/Settings/URP/QC_Renderer.asset", "Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/CampModelLibrary.json",
-                "Assets/QuietCamp/Scripts/Presentation/QuietCamp.Presentation.asmdef", "Assets/QuietCamp/Editor/QC007ArtCapture.cs" }
+                "Assets/QuietCamp/Scripts/Presentation/QuietCamp.Presentation.asmdef", "Assets/QuietCamp/Editor/QC007ArtCapture.cs",
+                LevelAuthoring.AuthoringPropCatalog.ModelPath, LevelAuthoring.AuthoringPropCatalog.CatalogPath }
                 .Concat(new[] { "scene-placement", "vegetation-placement", "rock-placement" }.SelectMany(id => Directory.GetFiles("Packages/com.kruty1918." + id + "/Runtime/Core", "*.cs")))
                 .Concat(AssetDatabase.GetDependencies(AssetDatabase.GetAssetPath(Resources.Load<Material>(art.waterMaterial)), true))
                 .Concat(AssetDatabase.GetDependencies("Assets/QuietCamp/Resources/QuietCamp/CozyVegetationLibrary.asset", true))
@@ -289,8 +296,10 @@ namespace QuietCamp.Editor
                 || request.name.Any(c => !(char.IsLetterOrDigit(c) || c == '-' || c == '_')))
                 throw new InvalidDataException("Invalid capture destination.");
             Directory.CreateDirectory(request.output);
-            var level = LevelLoader.Load(request.levelId ?? "QC007");
-            var art = string.IsNullOrEmpty(request.profile) ? CampArtDefinition.Load(level) : CampCompositionGenerator.Generate(level, request.profile, request.seed, out _);
+            var draft = request.mode == "draft-capture" ? LevelAuthoring.LevelAuthoringDocument.Open(request.draftPath) : null;
+            if (draft != null && draft.Validate(true).Count != 0) throw new InvalidDataException(string.Join("\n", draft.Validate(true)));
+            var level = draft?.level ?? LevelLoader.Load(request.levelId ?? "QC007");
+            var art = draft?.art ?? (string.IsNullOrEmpty(request.profile) ? CampArtDefinition.Load(level) : CampCompositionGenerator.Generate(level, request.profile, request.seed, out _));
             var catalog = AssetCatalog.Load();
             var oldAsync = ShaderUtil.allowAsyncCompilation;
             var oldSun = RenderSettings.sun; var oldAmbient = RenderSettings.ambientLight;
@@ -335,7 +344,7 @@ namespace QuietCamp.Editor
                 var receipt = new { status = "captured", kind = "native-unity-production-world-components", output,
                     unity = UnityEngine.Application.unityVersion, graphics = SystemInfo.graphicsDeviceType.ToString(), device = SystemInfo.graphicsDeviceName,
                     width = request.width, height = request.height, levelId = level.id, contentHash = level.contentHash,
-                    imageSha256 = Hash(bytes), artSha256 = Hash(File.ReadAllBytes("Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/QC007.json")),
+                    imageSha256 = Hash(bytes), artSha256 = Hash(System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(art))), draftPath = request.draftPath,
                     cameraEuler = art.cameraEuler, cameraPosition = new[] { camera.transform.position.x, camera.transform.position.y, camera.transform.position.z }, camera.orthographicSize,
                     waterEvidence = WaterEvidence(root), sourceMeshes = art.models.Select(model => model.id).ToArray(), instances = art.instances.Length, triangles = view.TriangleCount,
                     profile = art.generation, generationAttempt = art.generationAttempt, seed = art.seed, effectiveSeed = art.generationSeed,

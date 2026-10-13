@@ -16,6 +16,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         public GameObject prefab;
         public CampArtDefinition.Model model;
         public bool smallPlant;
+        public AuthoringPropDescriptor prop;
     }
     public static class LevelAuthoringPalette
     {
@@ -25,7 +26,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         static AuthoringPaletteEntry[] _entries;
         public static AuthoringPaletteEntry[] Entries => _entries ?? (_entries = Build());
         public static AuthoringPaletteEntry Get(string id) => Entries.FirstOrDefault(e => e.id == id) ?? throw new InvalidOperationException("Невідомий об’єкт: " + id);
-        public static void ResetCache() => _entries = null;
+        public static void ResetCache() { _entries = null; AuthoringPropCatalog.ResetCache(); }
         public static void EnsureDocumentModels(IEnumerable<CampArtDefinition.Model> models)
         {
             var entries = Entries.ToList();
@@ -66,6 +67,13 @@ namespace QuietCamp.Editor.LevelAuthoring
                     }
                     AddModel(result, model, Category(model.id), Label(model.id), model.id.Contains("field_weeds"));
                 }
+            }
+            var propModels = JsonConvert.DeserializeObject<Library>(System.IO.File.ReadAllText(AuthoringPropCatalog.ModelPath)).models;
+            foreach (var prop in AuthoringPropCatalog.Entries)
+            {
+                var model = propModels.Single(m => m.id == prop.id);
+                AddModel(result, model, prop.category, prop.label, false, true);
+                result[result.Count - 1].prop = prop;
             }
             var plants = CozyVegetationLibrary.Load();
             foreach (var plant in plants.plants.Where(p => p.mesh != null && p.mesh.isReadable))
@@ -197,19 +205,28 @@ namespace QuietCamp.Editor.LevelAuthoring
             serialized.ApplyModifiedPropertiesWithoutUndo(); EditorUtility.SetDirty(catalog); AssetDatabase.SaveAssets();
             ResetCache();
         }
-        static void AddModel(List<AuthoringPaletteEntry> result, CampArtDefinition.Model model, string category, string label, bool small)
+        static void AddModel(List<AuthoringPaletteEntry> result, CampArtDefinition.Model model, string category, string label, bool small, bool refresh = false)
         {
             string file = new string(model.id.Select(c => char.IsLetterOrDigit(c) || c == '_' ? c : '_').ToArray());
             string path = Folder + "/" + file + ".prefab";
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            if (prefab != null && refresh)
+            {
+                string signature;
+                using (var hash = System.Security.Cryptography.SHA256.Create())
+                    signature = Convert.ToBase64String(hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(model))));
+                var importer = AssetImporter.GetAtPath(path);
+                if (importer.userData != signature)
+                {
+                    var mesh = prefab.GetComponent<MeshFilter>().sharedMesh;
+                    mesh.Clear(); PopulateMesh(mesh, model); EditorUtility.SetDirty(mesh);
+                    importer.userData = signature; importer.SaveAndReimport();
+                }
+            }
             if (prefab == null)
             {
                 var mesh = new Mesh { name = model.id, indexFormat = IndexFormat.UInt32 };
-                int count = model.colors.Length;
-                mesh.vertices = Enumerable.Range(0, count).Select(i => new Vector3(model.vertices[i * 3], model.vertices[i * 3 + 1], model.vertices[i * 3 + 2])).ToArray();
-                mesh.normals = Enumerable.Range(0, count).Select(i => new Vector3(model.normals[i * 3], model.normals[i * 3 + 1], model.normals[i * 3 + 2])).ToArray();
-                mesh.colors = model.colors.Select(c => QualitySettings.activeColorSpace == ColorSpace.Linear ? CampArtDefinition.Color(c).linear : CampArtDefinition.Color(c)).ToArray();
-                mesh.triangles = Enumerable.Range(0, count).ToArray(); mesh.RecalculateBounds();
+                PopulateMesh(mesh, model);
                 AssetDatabase.CreateAsset(mesh, Folder + "/" + file + ".asset");
                 var material = new Material(Resources.Load<Shader>("QuietCamp/CampArtLit")); material.SetColor("_ArtAmbient", new Color(.35f, .4f, .29f));
                 material.SetFloat("_ArtGrass", model.shading == "foliage" ? 1 : 0); AssetDatabase.CreateAsset(material, Folder + "/" + file + ".mat");
@@ -220,6 +237,14 @@ namespace QuietCamp.Editor.LevelAuthoring
                 prefab = PrefabUtility.SaveAsPrefabAsset(go, path); UnityEngine.Object.DestroyImmediate(go);
             }
             result.Add(new AuthoringPaletteEntry { id = model.id, label = label, category = category, prefab = prefab, model = model, smallPlant = small });
+        }
+        static void PopulateMesh(Mesh mesh, CampArtDefinition.Model model)
+        {
+            int count = model.colors.Length;
+            mesh.vertices = Enumerable.Range(0, count).Select(i => new Vector3(model.vertices[i * 3], model.vertices[i * 3 + 1], model.vertices[i * 3 + 2])).ToArray();
+            mesh.normals = Enumerable.Range(0, count).Select(i => new Vector3(model.normals[i * 3], model.normals[i * 3 + 1], model.normals[i * 3 + 2])).ToArray();
+            mesh.colors = model.colors.Select(c => QualitySettings.activeColorSpace == ColorSpace.Linear ? CampArtDefinition.Color(c).linear : CampArtDefinition.Color(c)).ToArray();
+            mesh.triangles = Enumerable.Range(0, count).ToArray(); mesh.RecalculateBounds();
         }
     }
 }

@@ -52,7 +52,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         readonly List<Transform> _movedTransforms = new List<Transform>();
         bool _structureDirty;
         static readonly string[] Pages = { "Рівні", "Поле", "Об’єкти", "Річка та земля", "Гості", "Перевірка" };
-        static readonly string[] Categories = { "Дерева", "Кущі", "Трава", "Квіти", "Каміння", "Паркани", "Містки", "Будівлі", "Декор" };
+        static readonly string[] Categories = { "Дерева", "Кущі", "Трава", "Квіти", "Каміння", "Паркани", "Містки", "Будівлі", "Декор", "Пропси", "Великі об’єкти" };
         static readonly Unity.Profiling.ProfilerMarker PanelTiming = new Unity.Profiling.ProfilerMarker("QuietCamp.Authoring.Panel"),
             SceneTiming = new Unity.Profiling.ProfilerMarker("QuietCamp.Authoring.SceneView"),
             ThumbnailTiming = new Unity.Profiling.ProfilerMarker("QuietCamp.Authoring.Thumbnail"),
@@ -195,7 +195,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         {
             _message = "";
             _pendingDocument = null; _applyAt = -1;
-            CancelSolver(); PlacementToolIntegration.Adapter?.Stop(); _fieldTool = FieldTool.None;
+            CancelSolver(); PlacementToolIntegration.Adapter?.Stop(); _fieldTool = FieldTool.None; _placingProp = false;
             _refreshing = true;
             try
             {
@@ -440,15 +440,17 @@ namespace QuietCamp.Editor.LevelAuthoring
         {
             if (PlacementToolIntegration.Adapter == null) { EditorGUILayout.HelpBox("PWB ще не підключений. Імпортуйте наданий пакет і дочекайтеся компіляції.", MessageType.Warning); return; }
             _category = GUILayout.SelectionGrid(_category, Categories, 4);
+            DrawPropFilters();
             _search = EditorGUILayout.TextField("Пошук об’єктів", _search);
             _favoritesOnly = EditorGUILayout.Toggle("Лише обране ★", _favoritesOnly);
-            string query = _category + "/" + _search + "/" + _favoritesOnly;
+            string query = _category + "/" + _search + "/" + _favoritesOnly + "/" + _propPack + "/" + _showPropParts;
             if (_filteredPalette == null || _paletteQuery != query)
             {
                 _paletteQuery = query;
                 _filteredPalette = LevelAuthoringPalette.Entries.Where(e => (string.IsNullOrWhiteSpace(_search) ? e.category == Categories[_category] : true)
                     && (string.IsNullOrEmpty(_search) || e.label.IndexOf(_search, StringComparison.OrdinalIgnoreCase) >= 0 || e.id.IndexOf(_search, StringComparison.OrdinalIgnoreCase) >= 0)
-                    && (!_favoritesOnly || EditorPrefs.GetBool("QuietCamp.Authoring.Favorite." + e.id))).ToArray();
+                    && (!_favoritesOnly || EditorPrefs.GetBool("QuietCamp.Authoring.Favorite." + e.id))
+                    && PropMatchesFilter(e)).ToArray();
             }
             var entries = _filteredPalette;
             for (int row = 0; row < entries.Length; row += 3)
@@ -468,10 +470,13 @@ namespace QuietCamp.Editor.LevelAuthoring
                     }
                     var content = new GUIContent(entry.label + "\nдекор", image, entry.id);
                     var card = new Rect(rowRect.x + (i - row) * (cardWidth + 4), rowRect.y, cardWidth, 72);
-                    if (GUI.Button(card, content, _asset == entry.id ? EditorStyles.helpBox : GUI.skin.button)) _asset = entry.id;
+                    if (GUI.Button(card, content, _asset == entry.id ? EditorStyles.helpBox : GUI.skin.button)) SelectPaletteEntry(entry);
                 }
             }
-            _radius = EditorGUILayout.Slider("Розмір пензля", _radius, .15f, 4);
+            var selectedEntry = LevelAuthoringPalette.Get(_asset);
+            bool singleOnly = selectedEntry.prop?.SingleOnly == true;
+            if (!singleOnly) _radius = EditorGUILayout.Slider("Розмір пензля", _radius, .15f, 4);
+            DrawPropSettings(selectedEntry);
             if (!string.IsNullOrEmpty(_asset))
             {
                 bool favorite = EditorPrefs.GetBool("QuietCamp.Authoring.Favorite." + _asset);
@@ -480,12 +485,15 @@ namespace QuietCamp.Editor.LevelAuthoring
             }
             var custom = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Додати свій prefab", "Перетягніть модель із Project; вона стане декоративним об’єктом"), null, typeof(GameObject), false);
             if (custom != null) Try(() => { LevelAuthoringPalette.RegisterPrefab(custom); _filteredPalette = null; _message = "Власний prefab додано до декору."; });
+            if (!singleOnly)
+            {
             _density = EditorGUILayout.Slider("Густота", _density, 1, 100);
             _spacing = EditorGUILayout.Slider("Мін. відстань", _spacing, .03f, 2);
             _variation = EditorGUILayout.Slider("Варіація масштабу", _variation, 0, .5f);
             using (new EditorGUILayout.HorizontalScope()) foreach (var pair in new[] { ("Пензель", PlacementTool.Paint), ("Один об’єкт", PlacementTool.Place), ("Лінія", PlacementTool.Line), ("Гумка", PlacementTool.Erase) })
-                if (GUILayout.Button(pair.Item1)) Try(() => { _fieldTool = FieldTool.None; PlacementToolIntegration.Adapter.Activate(pair.Item2, LevelAuthoringPalette.Get(_asset).prefab, _workspace.Scenery, _workspace.Surface, _radius, _density, _spacing, _variation); });
-            if (GUILayout.Button("Завершити інструмент / перемістити об’єкти")) PlacementToolIntegration.Adapter.Stop();
+                if (GUILayout.Button(pair.Item1)) Try(() => { _placingProp = false; _fieldTool = FieldTool.None; if (pair.Item2 == PlacementTool.Place && selectedEntry.prop != null) BeginPropPlacement(); else PlacementToolIntegration.Adapter.Activate(pair.Item2, selectedEntry.prefab, _workspace.Scenery, _workspace.Surface, _radius, _density, _spacing, _variation); });
+            }
+            if (GUILayout.Button("Завершити інструмент / перемістити об’єкти")) { _placingProp = false; PlacementToolIntegration.Adapter.Stop(); }
             if (GUILayout.Button("Детальні налаштування PWB")) PlacementToolIntegration.Adapter.OpenAdvanced();
             EditorGUILayout.HelpBox("Це декор: його колайдери не є перешкодами пазла. Ігрові дерево, камінь і вогнище додаються у вкладці «Поле». Великий декор залишайте поза сіткою.", MessageType.None);
         }
@@ -569,6 +577,8 @@ namespace QuietCamp.Editor.LevelAuthoring
                 foreach (var c in route.BlockingCells) DrawCell(level, c, new Color(1, .1f, .1f, .5f));
                 Handles.Label(Point(route.Goal), route.GuestId ?? route.AccessPointId ?? "Вхід");
             }
+            DrawSelectedPropFootprint();
+            if (_tab == 2 && DrawPropPlacement()) return;
             if (_tab == 3 && DrawRiverHandles()) return;
             if (_fieldTool == FieldTool.None || Event.current.alt) return;
             HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));

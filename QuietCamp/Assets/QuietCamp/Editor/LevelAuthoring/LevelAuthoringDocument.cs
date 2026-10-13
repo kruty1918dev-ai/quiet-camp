@@ -98,6 +98,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             var snapshot = Copy(level);
             if (!requireSolution) snapshot.witness = null;
             var errors = LevelContentValidator.Validate(snapshot);
+            errors.AddRange(AuthoringPropCatalog.Validate(this));
             if (requireSolution && (snapshot.witness == null || snapshot.witness.Length != snapshot.guests.Length)) errors.Add("Потрібне рішення для всіх гостей.");
             if (requireSolution && errors.Count == 0 && !RuleEvaluator.Evaluate(snapshot, snapshot.witness).IsSolved) errors.Add("Еталонне рішення порушує умови гри.");
             try { art.Validate(level); } catch (Exception e) { errors.Add(e.Message); }

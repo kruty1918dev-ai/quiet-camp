@@ -1,0 +1,710 @@
+{
+  "version": 1,
+  "donorGeometrySha256": "e5c8014c42160af0465094ffd053f4ddc5619ed730c48472b45260cd761308b5",
+  "entries": [
+    {
+      "id": "qc_bench",
+      "label": "Дерев’яна лавка",
+      "category": "Пропси",
+      "pack": "Табір",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Товсті дошки, похилі ніжки та низька спинка.",
+      "boundsMin": [
+        -0.775,
+        0.022180738902156272,
+        -0.30588480693374986
+      ],
+      "boundsMax": [
+        0.775,
+        0.9551081877679523,
+        0.37715045649419865
+      ],
+      "triangles": 108
+    },
+    {
+      "id": "qc_picnic_table",
+      "label": "Столик для пікніка",
+      "category": "Пропси",
+      "pack": "Табір",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Дощатий стіл із двома лавками на спільній основі.",
+      "boundsMin": [
+        -0.825,
+        -0.004934709611483245,
+        -0.795
+      ],
+      "boundsMax": [
+        0.825,
+        0.8250000000000001,
+        0.795
+      ],
+      "triangles": 132
+    },
+    {
+      "id": "qc_lantern",
+      "label": "Похідний ліхтар",
+      "category": "Пропси",
+      "pack": "Табір",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Гранований ліхтар зі склом, захисними стійками та ручкою.",
+      "boundsMin": [
+        -0.16,
+        0.0,
+        -0.16
+      ],
+      "boundsMax": [
+        0.16,
+        0.521,
+        0.16
+      ],
+      "triangles": 272
+    },
+    {
+      "id": "qc_cooking_pot",
+      "label": "Казанок",
+      "category": "Пропси",
+      "pack": "Табір",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Відкритий казанок з товстим обідком і дужкою.",
+      "boundsMin": [
+        -0.278,
+        0,
+        -0.22825356391083687
+      ],
+      "boundsMax": [
+        0.278,
+        0.5880000000000001,
+        0.22825356391083687
+      ],
+      "triangles": 232
+    },
+    {
+      "id": "qc_mug",
+      "label": "Кухоль",
+      "category": "Пропси",
+      "pack": "Табір",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Простий синій кухоль з порожниною та ручкою.",
+      "boundsMin": [
+        -0.09,
+        0,
+        -0.09
+      ],
+      "boundsMax": [
+        0.188,
+        0.19,
+        0.09
+      ],
+      "triangles": 160
+    },
+    {
+      "id": "qc_backpack",
+      "label": "Рюкзак",
+      "category": "Пропси",
+      "pack": "Табір",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Оливковий рюкзак, накладна кишеня, ремені й верхній клапан.",
+      "boundsMin": [
+        -0.23,
+        0.019999999999999962,
+        -0.17999483671089886
+      ],
+      "boundsMax": [
+        0.23,
+        0.64,
+        0.23500000000000001
+      ],
+      "triangles": 84
+    },
+    {
+      "id": "qc_barrel",
+      "label": "Діжка",
+      "category": "Пропси",
+      "pack": "Сільський двір",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Дерев’яні клепки й темні металеві обручі.",
+      "boundsMin": [
+        -0.335,
+        0.0,
+        -0.335
+      ],
+      "boundsMax": [
+        0.335,
+        0.725,
+        0.335
+      ],
+      "triangles": 384
+    },
+    {
+      "id": "qc_bucket",
+      "label": "Відро",
+      "category": "Пропси",
+      "pack": "Сільський двір",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Відкрите оцинковане відро з дужкою.",
+      "boundsMin": [
+        -0.21600000000000003,
+        0,
+        -0.1807007380960792
+      ],
+      "boundsMax": [
+        0.21600000000000003,
+        0.636,
+        0.1807007380960792
+      ],
+      "triangles": 208
+    },
+    {
+      "id": "qc_wheelbarrow",
+      "label": "Тачка",
+      "category": "Пропси",
+      "pack": "Сільський двір",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Дерев’яна тачка з відкритим коритом, колесом та опорними ніжками.",
+      "boundsMin": [
+        -0.37,
+        0.014498010091650887,
+        -0.7888031659833697
+      ],
+      "boundsMax": [
+        0.37,
+        0.7000000000000001,
+        0.9337973405459404
+      ],
+      "triangles": 148
+    },
+    {
+      "id": "qc_apple_basket",
+      "label": "Кошик яблук",
+      "category": "Пропси",
+      "pack": "Сільський двір",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Плетений кошик із кількома великими читабельними яблуками.",
+      "boundsMin": [
+        -0.28,
+        0,
+        -0.26629582456264306
+      ],
+      "boundsMax": [
+        0.28,
+        0.44000000000000006,
+        0.26629582456264306
+      ],
+      "triangles": 404
+    },
+    {
+      "id": "qc_haystack",
+      "label": "Невеликий стіг сіна",
+      "category": "Пропси",
+      "pack": "Сільський двір",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Приземкуватий стіг із широкою основою та нерівним верхом.",
+      "boundsMin": [
+        -0.6014032773029814,
+        0.0,
+        -0.6302769619278132
+      ],
+      "boundsMax": [
+        0.64,
+        1.0550000000000002,
+        0.6302769619278131
+      ],
+      "triangles": 162
+    },
+    {
+      "id": "qc_garden_ladder",
+      "label": "Садова драбина",
+      "category": "Пропси",
+      "pack": "Сільський двір",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Складна драбина з поперечинами, що стоїть на власних опорах.",
+      "boundsMin": [
+        -0.2775,
+        0.013077187133407789,
+        -0.47661436946489893
+      ],
+      "boundsMax": [
+        0.2775,
+        1.7569228128665921,
+        0.47661436946489893
+      ],
+      "triangles": 108
+    },
+    {
+      "id": "qc_rowboat",
+      "label": "Старий човен",
+      "category": "Пропси",
+      "pack": "Берег",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": true,
+      "part": false,
+      "description": "Відкритий дерев’яний човен з товстим бортом, сидіннями та кілем.",
+      "boundsMin": [
+        -0.46,
+        0.06,
+        -1.25
+      ],
+      "boundsMax": [
+        0.46,
+        0.43,
+        1.05
+      ],
+      "triangles": 80
+    },
+    {
+      "id": "qc_oar",
+      "label": "Весло",
+      "category": "Пропси",
+      "pack": "Берег",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Широка лопать та товсте древко; лежить плазом.",
+      "boundsMin": [
+        -0.1,
+        0.015,
+        -0.62
+      ],
+      "boundsMax": [
+        0.1,
+        0.075,
+        0.93
+      ],
+      "triangles": 24
+    },
+    {
+      "id": "qc_rope_coil",
+      "label": "Моток мотузки",
+      "category": "Пропси",
+      "pack": "Берег",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Кілька виразних витків без надмірної деталізації.",
+      "boundsMin": [
+        -0.316,
+        0.007483339501604597,
+        -0.30807722024945633
+      ],
+      "boundsMax": [
+        0.5181406061829908,
+        0.0525166604983954,
+        0.3080772202494563
+      ],
+      "triangles": 684
+    },
+    {
+      "id": "qc_fish_trap",
+      "label": "Плетена пастка для риби",
+      "category": "Пропси",
+      "pack": "Берег",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Відкрита плетена пастка з кільцями й поздовжніми прутами.",
+      "boundsMin": [
+        -0.258,
+        0.03441154273188011,
+        -0.24537258120414965
+      ],
+      "boundsMax": [
+        0.258,
+        0.5755884572681199,
+        0.24537258120414965
+      ],
+      "triangles": 560
+    },
+    {
+      "id": "qc_fishing_basket",
+      "label": "Рибальський кошик",
+      "category": "Пропси",
+      "pack": "Берег",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Низький кошик із кришкою та ручкою.",
+      "boundsMin": [
+        -0.25,
+        0,
+        -0.2377641290737884
+      ],
+      "boundsMax": [
+        0.25,
+        0.536,
+        0.2377641290737884
+      ],
+      "triangles": 248
+    },
+    {
+      "id": "qc_dock_section",
+      "label": "Секція причалу",
+      "category": "Пропси",
+      "pack": "Берег",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": true,
+      "part": false,
+      "description": "Настил на чотирьох опорах; висота задається від води.",
+      "boundsMin": [
+        -0.65,
+        0.0,
+        -0.9
+      ],
+      "boundsMax": [
+        0.65,
+        0.66,
+        0.9
+      ],
+      "triangles": 196
+    },
+    {
+      "id": "qc_grain_sack",
+      "label": "Мішок зерна",
+      "category": "Пропси",
+      "pack": "Старі споруди",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Гранований полотняний мішок зі зв’язаною горловиною.",
+      "boundsMin": [
+        -0.25,
+        0.010000000000000009,
+        -0.25
+      ],
+      "boundsMax": [
+        0.25,
+        0.7,
+        0.25
+      ],
+      "triangles": 72
+    },
+    {
+      "id": "qc_millstone",
+      "label": "Жорно",
+      "category": "Пропси",
+      "pack": "Старі споруди",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Кам’яне жорно з отвором і виразною товщиною.",
+      "boundsMin": [
+        -0.5,
+        0.02,
+        -0.5
+      ],
+      "boundsMax": [
+        0.5,
+        0.19,
+        0.5
+      ],
+      "triangles": 128
+    },
+    {
+      "id": "qc_wagon_wheel",
+      "label": "Колесо воза",
+      "category": "Пропси",
+      "pack": "Старі споруди",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Дерев’яний обід, вісім спиць та маточина.",
+      "boundsMin": [
+        -0.2,
+        0.0050000000000000044,
+        -0.495
+      ],
+      "boundsMax": [
+        0.2,
+        0.995,
+        0.495
+      ],
+      "triangles": 320
+    },
+    {
+      "id": "qc_broken_beam",
+      "label": "Пошкоджена балка",
+      "category": "Пропси",
+      "pack": "Старі споруди",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Балка з нерівним, але закритим торцем.",
+      "boundsMin": [
+        -0.675,
+        0.0,
+        -0.09
+      ],
+      "boundsMax": [
+        0.8300257630087192,
+        0.2,
+        0.093018638536986
+      ],
+      "triangles": 36
+    },
+    {
+      "id": "qc_stone_wall_fragment",
+      "label": "Фрагмент кам’яної стіни",
+      "category": "Пропси",
+      "pack": "Старі споруди",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Нерівна кладка із великих каменів, без дрібного шуму.",
+      "boundsMin": [
+        -0.7100000000000001,
+        0.009999999999999995,
+        -0.15
+      ],
+      "boundsMax": [
+        0.8600000000000001,
+        0.9349999999999999,
+        0.15
+      ],
+      "triangles": 168
+    },
+    {
+      "id": "qc_bent_sheet",
+      "label": "Погнутий лист металу",
+      "category": "Пропси",
+      "pack": "Старі споруди",
+      "recommendedScale": 1,
+      "placement": "surface",
+      "waterRelative": false,
+      "part": false,
+      "description": "Три складки металу з товщиною та локальним слідом іржі.",
+      "boundsMin": [
+        -0.5401819276961163,
+        -0.2981822288604362,
+        -0.3675
+      ],
+      "boundsMax": [
+        0.5401819276961163,
+        0.4581822288604362,
+        -0.33249999999999996
+      ],
+      "triangles": 36
+    },
+    {
+      "id": "qc_windmill_rotor",
+      "label": "Лопаті вітряка",
+      "category": "Великі об’єкти",
+      "pack": "Частини",
+      "recommendedScale": 1,
+      "placement": "single",
+      "waterRelative": false,
+      "part": true,
+      "description": "Три лопаті та залишок четвертої з видимою дерев’яною рамою.",
+      "boundsMin": [
+        -1.0891148884682127,
+        -1.5646914384135333,
+        -0.12
+      ],
+      "boundsMax": [
+        1.5646914384135335,
+        1.5646914384135335,
+        0.12
+      ],
+      "triangles": 236
+    },
+    {
+      "id": "qc_windmill_ruin",
+      "label": "Старий вітряк",
+      "category": "Великі об’єкти",
+      "pack": "Орієнтири",
+      "recommendedScale": 1,
+      "placement": "single",
+      "waterRelative": false,
+      "part": false,
+      "description": "Кам’яна основа, відкриті балки, пошкоджений дах і впізнавані лопаті.",
+      "boundsMin": [
+        -1.0891148884682127,
+        0.0,
+        -0.8535990704603731
+      ],
+      "boundsMax": [
+        1.5646914384135335,
+        5.014691438413534,
+        1.18
+      ],
+      "triangles": 1244
+    },
+    {
+      "id": "qc_watermill_wheel",
+      "label": "Водяне колесо",
+      "category": "Великі об’єкти",
+      "pack": "Частини",
+      "recommendedScale": 1,
+      "placement": "single",
+      "waterRelative": true,
+      "part": true,
+      "description": "Товстий обід, спиці та лопатки; два сегменти відсутні.",
+      "boundsMin": [
+        -0.2536121593216773,
+        -0.14999999999999994,
+        -1.130570230503482
+      ],
+      "boundsMax": [
+        0.2536121593216773,
+        2.23,
+        1.1305702305034822
+      ],
+      "triangles": 672
+    },
+    {
+      "id": "qc_watermill_ruin",
+      "label": "Напівзруйнований водяний млин",
+      "category": "Великі об’єкти",
+      "pack": "Орієнтири",
+      "recommendedScale": 1,
+      "placement": "single",
+      "waterRelative": true,
+      "part": false,
+      "description": "Відкритий береговий млин із пошкодженим колесом і залишками настилу.",
+      "boundsMin": [
+        -1.25,
+        -0.58,
+        -1.26457594520696
+      ],
+      "boundsMax": [
+        1.85,
+        2.9512759643916917,
+        1.85
+      ],
+      "triangles": 1488
+    },
+    {
+      "id": "qc_aircraft_fore",
+      "label": "Передня частина літака",
+      "category": "Великі об’єкти",
+      "pack": "Частини",
+      "recommendedScale": 1,
+      "placement": "single",
+      "waterRelative": false,
+      "part": true,
+      "description": "Адаптована геометрія Poly by Google; приглушені матеріали й локальна іржа.",
+      "boundsMin": [
+        -2.4462989378605062,
+        0.0,
+        -1.9570391502884048
+      ],
+      "boundsMax": [
+        2.4462989378605062,
+        1.3046927668589365,
+        1.9570391502884048
+      ],
+      "triangles": 1176
+    },
+    {
+      "id": "qc_aircraft_tail",
+      "label": "Хвостова частина літака",
+      "category": "Великі об’єкти",
+      "pack": "Частини",
+      "recommendedScale": 1,
+      "placement": "single",
+      "waterRelative": false,
+      "part": true,
+      "description": "Адаптована геометрія Poly by Google; приглушені матеріали й локальна іржа.",
+      "boundsMin": [
+        -3.8461964734628356,
+        0.0,
+        -2.1590429594167193
+      ],
+      "boundsMax": [
+        3.8461964734628356,
+        2.335115325164795,
+        2.1590429594167193
+      ],
+      "triangles": 1144
+    },
+    {
+      "id": "qc_aircraft_wing",
+      "label": "Відокремлене крило",
+      "category": "Великі об’єкти",
+      "pack": "Частини",
+      "recommendedScale": 1,
+      "placement": "single",
+      "waterRelative": false,
+      "part": true,
+      "description": "Відламане крило з товстою кромкою, видимим торцем і двома ребрами.",
+      "boundsMin": [
+        -1.1,
+        0,
+        -0.35
+      ],
+      "boundsMax": [
+        1.4,
+        0.13,
+        0.65
+      ],
+      "triangles": 12
+    },
+    {
+      "id": "qc_aircraft_ruin",
+      "label": "Зарослий зруйнований літак",
+      "category": "Великі об’єкти",
+      "pack": "Орієнтири",
+      "recommendedScale": 1,
+      "placement": "single",
+      "waterRelative": false,
+      "part": false,
+      "description": "Розділені частини цивільного літака та крило; зелень розставляється окремо.",
+      "boundsMin": [
+        -3.0933815838283767,
+        0.0,
+        -4.683010326361252
+      ],
+      "boundsMax": [
+        4.4911503156138535,
+        2.335115325164795,
+        3.8138059588694198
+      ],
+      "triangles": 2332
+    }
+  ]
+}

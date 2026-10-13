@@ -1,0 +1,35 @@
+"""Serial requests to an already open QuietCamp Editor. Never launches Unity."""
+import argparse
+import json
+import os
+from pathlib import Path
+import time
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
+
+p=argparse.ArgumentParser(description=__doc__)
+p.add_argument('--project',type=Path,required=True)
+p.add_argument('--mode',choices=['props-demo','draft-capture','authoring-tests','authoring-profile','authoring-page','authoring-workspace-status','authoring-current-play','authoring-stop','authoring-status','authoring-restored','authoring-complete'],required=True)
+p.add_argument('--draft',type=Path)
+p.add_argument('--profile')
+p.add_argument('--output',type=Path)
+p.add_argument('--name',default='props')
+p.add_argument('--seed',type=int,default=12007)
+a=p.parse_args()
+temp=a.project.resolve()/'Temp/ai';temp.mkdir(parents=True,exist_ok=True)
+request=temp/'qc007-art-request.json';result=temp/'qc007-art-result.json'
+if request.exists():raise SystemExit('A native request is pending; refusing to overwrite it.')
+payload=dict(mode=a.mode,profile=a.profile,name=a.name,seed=a.seed,width=1536,height=1024)
+if a.draft:payload['draftPath']=a.draft.resolve().as_posix()
+if a.output:payload['output']=a.output.resolve().as_posix()
+started=time.time();pending=request.with_suffix('.pending')
+pending.write_text(json.dumps(payload),encoding='utf-8');os.replace(pending,request)
+while time.time()-started<240:
+    if not request.exists() and result.exists() and result.stat().st_mtime>=started:
+        d=json.loads(result.read_text(encoding='utf-8'))
+        if d.get('status')=='tests-running':time.sleep(.3);continue
+        print(json.dumps({k:v for k,v in d.items() if k in ('status','error','errors','draftPath','output','playing','ready','memoryOnly','objects','baked','identical','solved','completed','result','passed','failed','total','duration')},ensure_ascii=False))
+        if d.get('status')=='error' or d.get('errors'):raise SystemExit(1)
+        break
+    time.sleep(.3)
+else:raise SystemExit('Timed out; inspect the existing Editor. No new Editor was started.')
