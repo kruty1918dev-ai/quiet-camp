@@ -46,6 +46,8 @@ namespace QuietCamp.Presentation.World
                     colors[i] = Linear(CampArtDefinition.Color(source.colors[i]));
                 }
                 mesh.vertices = positions; mesh.normals = normals; mesh.colors = colors;
+                if(source.uv?.Length==count*2)mesh.uv=Enumerable.Range(0,count).Select(i=>new Vector2(source.uv[i*2],source.uv[i*2+1])).ToArray();
+                if(source.tangents?.Length==count*4)mesh.tangents=Enumerable.Range(0,count).Select(i=>new Vector4(source.tangents[i*4],source.tangents[i*4+1],source.tangents[i*4+2],source.tangents[i*4+3])).ToArray();
                 mesh.triangles = Enumerable.Range(0, count).ToArray(); mesh.RecalculateBounds();
                 _meshes.Add(mesh); catalogMeshes.Add(source.id, mesh);
             }

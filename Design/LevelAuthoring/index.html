@@ -12,6 +12,8 @@
   <nav aria-label="Розділи інструкції">
     <a href="#start">01 · Перший рівень</a><a href="#levels">02 · Наявні рівні</a>
     <a href="#field">03 · Поле та перешкоди</a><a href="#objects">04 · Об’єкти й пензлі</a>
+    <a href="#props">Пропси та великі об’єкти</a>
+    <a href="#models">Масштаб, старіння й геометрія</a>
     <a href="#river">05 · Річка та береги</a><a href="#terrain">06 · Пагорби й низини</a>
     <a href="#guests">07 · Гості та рішення</a><a href="#finish">08 · Гра й збереження</a>
     <a href="#troubles">Якщо щось не виходить</a>
@@ -24,6 +26,12 @@
     <div class="keys"><span><kbd>Alt</kbd> огляд сцени</span><span><kbd>Ctrl</kbd> + <kbd>Z</kbd> скасувати</span><span><kbd>Ctrl</kbd> + <kbd>Y</kbd> повторити</span></div>
   </header>
   <p id="search-result" role="status" hidden></p>
+  <section id="models" data-search="модель масштаб метри літак старіння мох іржа деталізація полігони розріз probuilder polybrush п’ять рівнів">
+    <span class="eyebrow">НОВІ МОЖЛИВОСТІ</span><h2>Моделі та п’ять готових рівнів</h2>
+    <p>Відкрийте <a href="WorldImprovement/Levels/index.html">галерею п’яти різних рівнів зі справжніми рендерами Unity</a>. У кожній картці є чернетка: натисніть <strong>Відкрити</strong> в майстерні та виберіть її <code>.draft.json</code>. Камера, світло й розміщення вже збережені.</p>
+    <ol><li>Оберіть декоративний об’єкт у сцені та перейдіть у вкладку <strong>Модель</strong>.</li><li>Перевірте розмір у метрах поруч із орієнтиром людини 1,75 м. Оберіть масштаб, старіння або деталізацію.</li><li>Створіть попередній перегляд. Порівняйте з оригіналом, а тоді <strong>збережіть варіант</strong> або скасуйте.</li><li>Для граней і форми відкрийте <strong>ProBuilder</strong>; для кольорів і деформації — <strong>Polybrush</strong>. Працюйте з копією та перед збереженням оберіть саме її геометрію.</li></ol>
+    <p>Розріз автоматично закриває опуклі моделі. Порожнисті будівлі та літак потребують ручної роботи з оболонкою. Спрощення захищає межі, тому кількість полігонів може залишитися більшою за цільову. <a href="WorldImprovement/README-UA.md">Докладніше про інструменти, джерела та перевірки</a>.</p>
+  </section>
   <section id="start" data-search>
     <span class="number">01</span><h2>Почніть з простого</h2>
     <p>У Unity відкрийте <strong>Quiet Camp → Майстерня рівнів</strong>. Закріпіть вікно поруч із <strong>Scene View</strong>: у майстерні обираєте інструмент, у сцені розміщуєте деталі.</p>
@@ -54,6 +62,32 @@
     <details><summary>Як додати власний prefab?</summary><p>Перетягніть його з Project у поле <strong>«Додати свій prefab»</strong>. Він реєструється як декор зі стабільним ID. Не перетягуйте звичайний об’єкт із Hierarchy.</p></details>
     <details><summary>Як редагувати зелень старого процедурного рівня?</summary><p>Його вже об’єднані генератором рослини відкриваються як групи. Для зміни окремої рослини замініть потрібну групу власними мазками. Нові мазки зберігають окремі об’єкти, які можна переміщувати й видаляти.</p></details>
     <details><summary>Чому відкрилася додаткова Palette?</summary><p>Це штатне вікно Prefab World Builder. Закріпіть його поруч. Закриття Palette вимикає інструмент PWB; кнопка майстерні активує його повторно.</p></details>
+  </section>
+  <section id="props" data-search>
+    <span class="number">04+</span><h2>Пропси та великі об’єкти</h2>
+    <p>У вкладці <strong>Об’єкти</strong> відкрийте <strong>Пропси</strong> або <strong>Великі об’єкти</strong>. У добірці 24 дрібні речі, три зібрані орієнтири та п’ять окремих частин. Усі картки позначені як декор.</p>
+    <figure><img src="images/props.png" alt="Нові пропси, фільтр набору та доступні налаштування розміщення" data-zoom loading="lazy"><figcaption>1 — категорія; 2 — набір; 3 — картка; 4 — поворот і масштаб; 5 — розміщення у Scene View.</figcaption></figure>
+    <div class="choices">
+      <article><h3>Табір</h3><p>Лавка, столик для пікніка, ліхтар, казанок, кухоль і рюкзак.</p></article>
+      <article><h3>Сільський двір</h3><p>Діжка, відро, тачка, кошик яблук, стіг сіна й драбина.</p></article>
+      <article><h3>Берег</h3><p>Човен, весло, мотузка, плетена пастка, рибальський кошик і причал.</p></article>
+      <article><h3>Старі споруди</h3><p>Мішок зерна, жорно, колесо воза, балка, кам’яна стіна й лист металу.</p></article>
+    </div>
+    <figure><img src="images/landmarks.png" alt="Літак, вітряк і водяний млин у палітрі великих об’єктів" data-zoom loading="lazy"><figcaption>Великі моделі розміщуються по одній. Увімкніть «Показати окремі частини», щоб скласти власний варіант.</figcaption></figure>
+    <details><summary>Показати всі моделі добірки</summary>
+      <figure><img src="images/props-village.png" alt="Шість моделей сільського двору" data-zoom loading="lazy"><figcaption>Сільський двір: дерево, сіно та плетені речі в спільній палітрі.</figcaption></figure>
+      <figure><img src="images/props-river.png" alt="Шість берегових моделей і налаштування висоти човна" data-zoom loading="lazy"><figcaption>Берег: висота від води доступна для одиночного розміщення човна й причалу.</figcaption></figure>
+      <figure><img src="images/props-ruins.png" alt="Шість моделей для старих споруд" data-zoom loading="lazy"><figcaption>Старі споруди: доповнюйте великий орієнтир кількома пов’язаними деталями.</figcaption></figure>
+      <figure><img src="images/parts.png" alt="П’ять окремих частин літака й млинів поряд із готовими композиціями" data-zoom loading="lazy"><figcaption>Окремі частини дозволяють змінювати форму руїн; зелень додавайте окремо.</figcaption></figure>
+    </details>
+    <ol><li>Оберіть картку та натисніть <strong>Поставити об’єкт у Scene View</strong>.</li><li>Підведіть курсор до потрібного місця: зелений контур дозволяє розміщення, червоний означає перетин поля, помаранчевий попереджає про можливе перекриття клітин із камери.</li><li>Клацніть для розміщення. <kbd>Esc</kbd> завершує інструмент; <kbd>Ctrl</kbd> + <kbd>Z</kbd> скасовує дію.</li><li>Для човна, причалу та водяного колеса ввімкніть <strong>Висота від поверхні води</strong>. Зміщення задається в метрах. Висоту вже вибраного об’єкта також можна змінити в панелі.</li></ol>
+    <aside class="tip">Почніть із готової композиції: <strong>Новий → Приклади → Літак на узліссі / Вітряк біля поля / Водяний млин на березі</strong>. Вона відкривається як нова редагована чернетка. Рослини й пропси залишаються окремими об’єктами.</aside>
+    <div class="choices">
+      <article><h3>Літак на узліссі</h3><img src="Props/Review/R10/aircraft.png" alt="Перевірена композиція з уламками цивільного літака" data-zoom loading="lazy"><p><a href="Props/aircraft.draft.json" download>Чернетка JSON</a></p></article>
+      <article><h3>Вітряк біля поля</h3><img src="Props/Review/R09/windmill.png" alt="Перевірена композиція зі старим вітряком, жорном і сільськими пропсами" data-zoom loading="lazy"><p><a href="Props/windmill.draft.json" download>Чернетка JSON</a></p></article>
+      <article><h3>Водяний млин</h3><img src="Props/Review/R10/watermill.png" alt="Перевірена композиція з водяним колесом, причалом і човном" data-zoom loading="lazy"><p><a href="Props/watermill.draft.json" download>Чернетка JSON</a></p></article>
+    </div>
+    <details><summary>Що зберігається та експортується?</summary><p>Чернетка містить геометрію моделей і точні положення. Оновлення палітри не підміняє моделі вже відкритої чернетки. Експорт із літаком містить також ATTRIBUTION.md із зазначенням Poly by Google. Великі моделі, що перетинають поле, не пройдуть перевірку експорту.</p></details>
   </section>
   <section id="river" data-search>
     <span class="number">05</span><h2>Намалюйте вигин річки</h2>

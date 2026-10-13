@@ -1,0 +1,925 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "qc_kenney_nature_tree_oak",
+      "label": "Дуб — широка крона",
+      "category": "Дерева",
+      "smallPlant": false,
+      "source": "Models/OBJ format/tree_oak.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 9,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.3202769,
+          0.0,
+          -0.369824
+        ],
+        [
+          0.3202771,
+          1.22624,
+          0.369824
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_tree_default",
+      "label": "Листяне дерево",
+      "category": "Дерева",
+      "smallPlant": false,
+      "source": "Models/OBJ format/tree_default.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 8,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.3775,
+          0.0,
+          -0.3269245
+        ],
+        [
+          0.3775,
+          1.707887,
+          0.3269245
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_tree_thin",
+      "label": "Струнке листяне дерево",
+      "category": "Дерева",
+      "smallPlant": false,
+      "source": "Models/OBJ format/tree_thin.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 10,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.4229868,
+          0.0,
+          -0.3650486
+        ],
+        [
+          0.2574497,
+          1.490298,
+          0.2514739
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_tree_tall",
+      "label": "Високе листяне дерево",
+      "category": "Дерева",
+      "smallPlant": false,
+      "source": "Models/OBJ format/tree_tall.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 12,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.1997916,
+          0.0,
+          -0.2306995
+        ],
+        [
+          0.1997916,
+          1.687719,
+          0.2306995
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_tree_pineTallA",
+      "label": "Сосна висока А",
+      "category": "Дерева",
+      "smallPlant": false,
+      "source": "Models/OBJ format/tree_pineTallA.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 13,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.2070935,
+          0.0,
+          -0.1980365
+        ],
+        [
+          0.1791794,
+          1.529606,
+          0.1939135
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_tree_pineTallB",
+      "label": "Сосна висока Б",
+      "category": "Дерева",
+      "smallPlant": false,
+      "source": "Models/OBJ format/tree_pineTallB.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 11,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.2070935,
+          0.0,
+          -0.1980365
+        ],
+        [
+          0.1791794,
+          1.934606,
+          0.1939135
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_tree_pineRoundA",
+      "label": "Сосна з широкою кроною",
+      "category": "Дерева",
+      "smallPlant": false,
+      "source": "Models/OBJ format/tree_pineRoundA.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 8,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.3085094,
+          0.0,
+          -0.356236
+        ],
+        [
+          0.3085094,
+          1.366437,
+          0.356236
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_tree_pineSmallA",
+      "label": "Молода сосна",
+      "category": "Дерева",
+      "smallPlant": false,
+      "source": "Models/OBJ format/tree_pineSmallA.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 3,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.25,
+          0.0,
+          -0.25
+        ],
+        [
+          0.25,
+          0.9672,
+          0.25
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_stump_old",
+      "label": "Старий пень",
+      "category": "Лісові деталі",
+      "smallPlant": false,
+      "source": "Models/OBJ format/stump_old.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 0.7,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.1958793,
+          0.0,
+          -0.1855
+        ],
+        [
+          0.1606477,
+          0.2665,
+          0.1855
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_stump_roundDetailed",
+      "label": "Пень із корінням",
+      "category": "Лісові деталі",
+      "smallPlant": false,
+      "source": "Models/OBJ format/stump_roundDetailed.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 0.6,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.1958793,
+          0.0,
+          -0.1855
+        ],
+        [
+          0.1606477,
+          0.2065,
+          0.1855
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_stump_squareDetailedWide",
+      "label": "Широкий пень",
+      "category": "Лісові деталі",
+      "smallPlant": false,
+      "source": "Models/OBJ format/stump_squareDetailedWide.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 0.55,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.32,
+          0.0,
+          -0.32
+        ],
+        [
+          0.32,
+          0.2,
+          0.32
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_log",
+      "label": "Повалена колода",
+      "category": "Лісові деталі",
+      "smallPlant": false,
+      "source": "Models/OBJ format/log.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 3,
+      "sizingAxis": "longest",
+      "originalBounds": [
+        [
+          -0.1247172,
+          0.0,
+          -0.355
+        ],
+        [
+          0.1092439,
+          0.1732051,
+          0.355
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_log_large",
+      "label": "Велика повалена колода",
+      "category": "Лісові деталі",
+      "smallPlant": false,
+      "source": "Models/OBJ format/log_large.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 4.5,
+      "sizingAxis": "longest",
+      "originalBounds": [
+        [
+          -0.5,
+          0.0,
+          -0.2965801
+        ],
+        [
+          0.5,
+          0.4167194,
+          0.2527415
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_log_stack",
+      "label": "Складені колоди",
+      "category": "Лісові деталі",
+      "smallPlant": false,
+      "source": "Models/OBJ format/log_stack.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 2,
+      "sizingAxis": "longest",
+      "originalBounds": [
+        [
+          -0.2,
+          -8.195639e-08,
+          -0.355
+        ],
+        [
+          0.2247171,
+          0.3464101,
+          0.355
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_plant_bush",
+      "label": "Лісовий кущ",
+      "category": "Кущі",
+      "smallPlant": true,
+      "source": "Models/OBJ format/plant_bush.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 0.9,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.198,
+          0.0,
+          -0.198
+        ],
+        [
+          0.198,
+          0.2444436,
+          0.198
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_plant_bushDetailed",
+      "label": "Розлогий кущ",
+      "category": "Кущі",
+      "smallPlant": true,
+      "source": "Models/OBJ format/plant_bushDetailed.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 1.1,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.3012719,
+          0.0,
+          -0.3012719
+        ],
+        [
+          0.3012719,
+          0.3604109,
+          0.3012719
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_plant_bushSmall",
+      "label": "Молодий кущ",
+      "category": "Кущі",
+      "smallPlant": true,
+      "source": "Models/OBJ format/plant_bushSmall.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 0.4,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.1914886,
+          0.0,
+          -0.1681711
+        ],
+        [
+          0.1914886,
+          0.2072925,
+          0.1681711
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_plant_flatShort",
+      "label": "Низький підлісок",
+      "category": "Кущі",
+      "smallPlant": true,
+      "source": "Models/OBJ format/plant_flatShort.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 0.3,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.1388099,
+          0.0,
+          -0.1388099
+        ],
+        [
+          0.1388099,
+          0.2350794,
+          0.1388099
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_grass_large",
+      "label": "Високий пучок трави",
+      "category": "Трава",
+      "smallPlant": true,
+      "source": "Models/OBJ format/grass_large.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 0.4,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.2098561,
+          0.0,
+          -0.1957935
+        ],
+        [
+          0.1991418,
+          0.254,
+          0.2120955
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_grass_leafsLarge",
+      "label": "Широколиста трава",
+      "category": "Трава",
+      "smallPlant": true,
+      "source": "Models/OBJ format/grass_leafsLarge.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 0.3,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.2342869,
+          0.0,
+          -0.244246
+        ],
+        [
+          0.2416103,
+          0.1425,
+          0.2430622
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_mushroom_redGroup",
+      "label": "Група червоних грибів",
+      "category": "Лісові деталі",
+      "smallPlant": true,
+      "source": "Models/OBJ format/mushroom_redGroup.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 0.18,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.1333016,
+          0.0,
+          -0.142183
+        ],
+        [
+          0.1363294,
+          0.250488,
+          0.1120136
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_mushroom_tanGroup",
+      "label": "Група лісових грибів",
+      "category": "Лісові деталі",
+      "smallPlant": true,
+      "source": "Models/OBJ format/mushroom_tanGroup.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 0.16,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.1333016,
+          0.0,
+          -0.142183
+        ],
+        [
+          0.1363294,
+          0.250488,
+          0.1120136
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_mushroom_red",
+      "label": "Окремий червоний гриб",
+      "category": "Лісові деталі",
+      "smallPlant": true,
+      "source": "Models/OBJ format/mushroom_red.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 0.14,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.08789589,
+          0.0,
+          -0.1054714
+        ],
+        [
+          0.08607133,
+          0.2028,
+          0.09540864
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_rock_largeA",
+      "label": "Лісовий валун А",
+      "category": "Каміння",
+      "smallPlant": false,
+      "source": "Models/OBJ format/rock_largeA.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 1.6,
+      "sizingAxis": "longest",
+      "originalBounds": [
+        [
+          -0.3924533,
+          0.0,
+          -0.5077307
+        ],
+        [
+          0.3924533,
+          0.259776,
+          0.5077307
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_rock_largeC",
+      "label": "Лісовий валун Б",
+      "category": "Каміння",
+      "smallPlant": false,
+      "source": "Models/OBJ format/rock_largeC.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 1.9,
+      "sizingAxis": "longest",
+      "originalBounds": [
+        [
+          -0.5322049,
+          0.0,
+          -0.507831
+        ],
+        [
+          0.5322049,
+          0.321112,
+          0.507831
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_rock_smallFlatA",
+      "label": "Плаский лісовий камінь",
+      "category": "Каміння",
+      "smallPlant": false,
+      "source": "Models/OBJ format/rock_smallFlatA.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 0.7,
+      "sizingAxis": "longest",
+      "originalBounds": [
+        [
+          -0.2478949,
+          0.0,
+          -0.2147887
+        ],
+        [
+          0.2478949,
+          0.06494399,
+          0.2147887
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_rock_tallA",
+      "label": "Витягнутий камінь",
+      "category": "Каміння",
+      "smallPlant": false,
+      "source": "Models/OBJ format/rock_tallA.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 1.3,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.4915344,
+          0.0,
+          -0.3416054
+        ],
+        [
+          0.4915344,
+          0.9959259,
+          0.3416054
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_flower_purpleA",
+      "label": "Лісові фіолетові квіти",
+      "category": "Квіти",
+      "smallPlant": true,
+      "source": "Models/OBJ format/flower_purpleA.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 0.3,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.05456302,
+          0.0,
+          -0.09052953
+        ],
+        [
+          0.1045345,
+          0.2425,
+          0.09052953
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_flower_yellowB",
+      "label": "Лісові жовті квіти",
+      "category": "Квіти",
+      "smallPlant": true,
+      "source": "Models/OBJ format/flower_yellowB.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 0.32,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.07860767,
+          0.0,
+          -0.1195898
+        ],
+        [
+          0.1287269,
+          0.1585,
+          0.1195898
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_flower_redC",
+      "label": "Лісові червоні квіти",
+      "category": "Квіти",
+      "smallPlant": true,
+      "source": "Models/OBJ format/flower_redC.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 0.28,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.0760625,
+          0.0,
+          -0.09052953
+        ],
+        [
+          0.1045345,
+          0.2325,
+          0.09052953
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_fence_gate",
+      "label": "Дерев’яна хвіртка",
+      "category": "Паркани",
+      "smallPlant": false,
+      "source": "Models/OBJ format/fence_gate.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 1.2,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.5,
+          0.0,
+          0.4299999
+        ],
+        [
+          0.5,
+          0.3450273,
+          0.5
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_nature_fence_planks",
+      "label": "Паркан із дощок",
+      "category": "Паркани",
+      "smallPlant": false,
+      "source": "Models/OBJ format/fence_planks.obj",
+      "sourcePack": "nature",
+      "role": "decor",
+      "targetMetres": 1.1,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.5,
+          0.0,
+          0.43
+        ],
+        [
+          0.5,
+          0.3450273,
+          0.5259
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_survival_bedroll_packed",
+      "label": "Згорнутий спальник",
+      "category": "Табірні деталі",
+      "smallPlant": false,
+      "source": "Models/OBJ format/bedroll-packed.obj",
+      "sourcePack": "survival",
+      "role": "decor",
+      "targetMetres": 0.5,
+      "sizingAxis": "longest",
+      "originalBounds": [
+        [
+          -0.1302,
+          0.0,
+          -0.04484
+        ],
+        [
+          0.1302,
+          0.08967999,
+          0.04484
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_survival_bedroll",
+      "label": "Розкладений спальник",
+      "category": "Табірні деталі",
+      "smallPlant": false,
+      "source": "Models/OBJ format/bedroll.obj",
+      "sourcePack": "survival",
+      "role": "decor",
+      "targetMetres": 1.9,
+      "sizingAxis": "longest",
+      "originalBounds": [
+        [
+          -0.1552,
+          -0.05,
+          -0.303791
+        ],
+        [
+          0.1552,
+          0.07484,
+          0.303791
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_survival_bottle",
+      "label": "Похідна пляшка",
+      "category": "Табірні деталі",
+      "smallPlant": false,
+      "source": "Models/OBJ format/bottle.obj",
+      "sourcePack": "survival",
+      "role": "decor",
+      "targetMetres": 0.28,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.02634449,
+          0.0,
+          -0.03042
+        ],
+        [
+          0.02634449,
+          0.1538686,
+          0.03042
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_survival_tool_axe",
+      "label": "Лісова сокира",
+      "category": "Табірні деталі",
+      "smallPlant": false,
+      "source": "Models/OBJ format/tool-axe.obj",
+      "sourcePack": "survival",
+      "role": "decor",
+      "targetMetres": 0.65,
+      "sizingAxis": "longest",
+      "originalBounds": [
+        [
+          -0.07331644,
+          0.0,
+          -0.0154635
+        ],
+        [
+          0.04116938,
+          0.256,
+          0.0154635
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_survival_tool_shovel",
+      "label": "Лопата",
+      "category": "Табірні деталі",
+      "smallPlant": false,
+      "source": "Models/OBJ format/tool-shovel.obj",
+      "sourcePack": "survival",
+      "role": "decor",
+      "targetMetres": 1.1,
+      "sizingAxis": "longest",
+      "originalBounds": [
+        [
+          -0.0354635,
+          0.0,
+          -0.0154635
+        ],
+        [
+          0.0354635,
+          0.29,
+          0.0154635
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_survival_signpost",
+      "label": "Старий дерев’яний вказівник",
+      "category": "Табірні деталі",
+      "smallPlant": false,
+      "source": "Models/OBJ format/signpost.obj",
+      "sourcePack": "survival",
+      "role": "decor",
+      "targetMetres": 1.8,
+      "sizingAxis": "height",
+      "originalBounds": [
+        [
+          -0.1122773,
+          0.0,
+          -0.018
+        ],
+        [
+          0.1018446,
+          0.46008,
+          0.0249778
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_survival_floor_old",
+      "label": "Старий дощатий настил",
+      "category": "Табірні деталі",
+      "smallPlant": false,
+      "source": "Models/OBJ format/floor-old.obj",
+      "sourcePack": "survival",
+      "role": "decor",
+      "targetMetres": 2,
+      "sizingAxis": "longest",
+      "originalBounds": [
+        [
+          -0.2553475,
+          0.0,
+          -0.2466769
+        ],
+        [
+          0.2446525,
+          0.0512,
+          0.2533231
+        ]
+      ]
+    },
+    {
+      "id": "qc_kenney_survival_metal_panel",
+      "label": "Металева панель уламка",
+      "category": "Табірні деталі",
+      "smallPlant": false,
+      "source": "Models/OBJ format/metal-panel.obj",
+      "sourcePack": "survival",
+      "role": "decor",
+      "targetMetres": 1.4,
+      "sizingAxis": "longest",
+      "originalBounds": [
+        [
+          -0.25,
+          0.0,
+          -0.025
+        ],
+        [
+          0.25,
+          0.5,
+          0.025
+        ]
+      ]
+    }
+  ]
+}

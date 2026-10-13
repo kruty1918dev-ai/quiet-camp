@@ -66,8 +66,8 @@ def compatibility(name, data):
         # Old packages detect mathematics through a UPM package that no longer exists.
         if any(v.get('define', '').startswith('MATHEMATICS') for v in obj.get('versionDefines', [])):
             obj['versionDefines'] += [
-                {'name': 'Unity', 'expression': '[6000.5,)', 'define': 'MATHEMATICS'},
-                {'name': 'Unity', 'expression': '[6000.5,)', 'define': 'MATHEMATICS_1_3_1'}]
+                {'name': 'Unity', 'expression': '[6000.5.0,)', 'define': 'MATHEMATICS'},
+                {'name': 'Unity', 'expression': '[6000.5.0,)', 'define': 'MATHEMATICS_1_3_1'}]
         return (json.dumps(obj, indent=2) + '\n').encode()
     return data
 

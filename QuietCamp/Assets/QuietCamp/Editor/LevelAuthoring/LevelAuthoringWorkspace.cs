@@ -28,6 +28,9 @@ namespace QuietCamp.Editor.LevelAuthoring
         Transform _boardRoot;
         readonly List<Mesh> _batches = new List<Mesh>();
         readonly Dictionary<Material,Material> _previewMaterials = new Dictionary<Material,Material>();
+        readonly Dictionary<string, Mesh> _frozenMeshes = new Dictionary<string, Mesh>();
+        readonly Dictionary<string, CampArtDefinition.Model> _frozenModels = new Dictionary<string, CampArtDefinition.Model>();
+        readonly HashSet<LevelAuthoringAsset> _modelEdits = new HashSet<LevelAuthoringAsset>();
         GameObject _batchRoot;
         Mesh _paintMesh;
         string _boardKey;
@@ -53,6 +56,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         public LevelAuthoringWorkspace(LevelAuthoringDocument document)
         {
             Document = document;
+            foreach (var model in document.art.models) _frozenModels[model.id] = model;
             LevelAuthoringPalette.EnsureDocumentModels(document.art.models);
             try
             {
@@ -97,6 +101,16 @@ namespace QuietCamp.Editor.LevelAuthoring
         {
             var entry = LevelAuthoringPalette.Get(item.modelId ?? item.assetId);
             var go = (GameObject)PrefabUtility.InstantiatePrefab(entry.prefab, Scene); go.transform.SetParent(Scenery, false);
+            if (entry.model != null)
+            {
+                if (!_frozenModels.TryGetValue(entry.id, out var model)) _frozenModels[entry.id] = model = entry.model;
+                if (!_frozenMeshes.TryGetValue(entry.id, out var mesh))
+                {
+                    mesh = new Mesh { name = entry.id + " — frozen draft", indexFormat = IndexFormat.UInt32 };
+                    LevelAuthoringPalette.PopulateMesh(mesh, model); _frozenMeshes[entry.id] = mesh;
+                }
+                go.GetComponent<MeshFilter>().sharedMesh = mesh;
+            }
             go.transform.localPosition = new Vector3(item.x, item.y, item.z);
             go.transform.localRotation = item.rotationEuler != null ? Quaternion.Euler(CampArtDefinition.Vector(item.rotationEuler)) : Quaternion.Euler(0, item.yaw, 0);
             var scale = item.scaleXYZ != null ? CampArtDefinition.Vector(item.scaleXYZ) : Vector3.one * item.scale;
@@ -149,6 +163,27 @@ namespace QuietCamp.Editor.LevelAuthoring
             cameraView.SetBlur(document.art.blurPixels);
             var sun = Root.GetComponentInChildren<Light>(); sun.transform.rotation = Quaternion.Euler(CampArtDefinition.Vector(document.art.sunEuler)); sun.intensity = document.art.sunIntensity;
         }
+        public void ReplaceModel(LevelAuthoringAsset marker, AuthoredModelVariant variant)
+        {
+            if(marker==null || !marker.transform.IsChildOf(Scenery))throw new ArgumentException("Оберіть декор відкритого рівня.");
+            if(_modelEdits.Count==0)Undo.undoRedoPerformed+=RestoreEditedMeshes;
+            _modelEdits.Add(marker);
+            var filter=marker.GetComponent<MeshFilter>();Undo.RecordObjects(new UnityEngine.Object[]{marker,filter},"Застосувати варіант моделі");
+            marker.stableId=variant.model.id;marker.packedModel=true;
+            _frozenModels[variant.model.id]=variant.model;
+            var entry=LevelAuthoringPalette.Get(variant.model.id);filter.sharedMesh=entry.prefab.GetComponent<MeshFilter>().sharedMesh;
+            EditorUtility.SetDirty(marker);EditorUtility.SetDirty(filter);ApplyPreviewMaterial(marker);RefreshPlantBatches(new[]{marker.transform});
+        }
+        void RestoreEditedMeshes()
+        {
+            // Unity may restore the prefab asset reference for a transient mesh.
+            // The serialized stable ID is authoritative; resolve only edited instances.
+            var changed=new List<Transform>();
+            foreach(var marker in _modelEdits)
+                if(marker!=null){ApplyPreviewMaterial(marker);changed.Add(marker.transform);}
+            RefreshPlantBatches(changed);
+        }
+        public CampArtDefinition.Model FrozenModel(string id) => _frozenModels.TryGetValue(id,out var model)?model:LevelAuthoringPalette.Get(id).model;
         static string TerrainKey(LevelAuthoringDocument d) => d.terrain != null ? "terrain/" + d.level.width + "/" + d.level.height : string.Join("/", d.level.width, d.level.height, d.art.streamCentre, d.art.streamWidth, d.art.streamSlope, d.art.streamBend, d.art.meadowRelief, d.art.waterDepth);
         void ConnectRiver(LevelAuthoringDocument document)
         {
@@ -228,7 +263,8 @@ namespace QuietCamp.Editor.LevelAuthoring
                 item.surfaceAttached = m.surfaceAttached; item.surfaceOffset = m.surfaceOffset;
                 return item;
             }).ToArray();
-            copy.art.models = markers.Where(m => m.packedModel).Select(m => m.stableId).Distinct().Select(id => LevelAuthoringPalette.Get(id).model).ToArray();
+            copy.art.models = markers.Where(m => m.packedModel).Select(m => m.stableId).Distinct().Select(id =>
+                _frozenModels.TryGetValue(id, out var frozen) ? frozen : LevelAuthoringPalette.Get(id).model).ToArray();
             copy.art.cover = Array.Empty<CampArtDefinition.CoverPoint>(); copy.art.levelId = copy.level.id;
             return copy;
         }
@@ -275,6 +311,14 @@ namespace QuietCamp.Editor.LevelAuthoring
         void ApplyPreviewMaterial(LevelAuthoringAsset marker)
         {
             if(!marker.packedModel)return;
+            // New PWB strokes must use the same frozen model as existing instances of this ID.
+            if(!_frozenMeshes.TryGetValue(marker.stableId,out var mesh))
+            {
+                if(!_frozenModels.TryGetValue(marker.stableId,out var model))_frozenModels[marker.stableId]=model=LevelAuthoringPalette.Get(marker.stableId).model;
+                mesh=new Mesh{name=marker.stableId+" — frozen draft",indexFormat=IndexFormat.UInt32};
+                LevelAuthoringPalette.PopulateMesh(mesh,model);_frozenMeshes[marker.stableId]=mesh;
+            }
+            marker.GetComponent<MeshFilter>().sharedMesh=mesh;
             var renderer=marker.GetComponent<MeshRenderer>();var source=renderer.sharedMaterial;
             if(_previewMaterials.Values.Contains(source))return;
             if(!_previewMaterials.TryGetValue(source,out var preview))
@@ -285,6 +329,8 @@ namespace QuietCamp.Editor.LevelAuthoring
             }
             renderer.sharedMaterial=preview;
         }
+        public Bounds PropBounds(string id) => _frozenMeshes.TryGetValue(id,out var mesh) ? mesh.bounds
+            : _frozenModels.TryGetValue(id,out var model) ? AuthoringPropCatalog.ModelBounds(model) : LevelAuthoringPalette.Get(id).prop.Bounds;
         public void RefreshPlantBatches(IEnumerable<Transform> changed)
         {
             using var timing = new Unity.Profiling.ProfilerMarker("QuietCamp.Authoring.Plants.Partial").Auto();
@@ -330,6 +376,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         public void Dispose()
         {
+            Undo.undoRedoPerformed-=RestoreEditedMeshes;_modelEdits.Clear();
             River?.Dispose(); River = null;
             _board?.ClearAll(); _board = null;
             if (_paintMesh != null) UnityEngine.Object.DestroyImmediate(_paintMesh);
@@ -348,6 +395,8 @@ namespace QuietCamp.Editor.LevelAuthoring
             if (!string.IsNullOrEmpty(_scenePath)) AssetDatabase.DeleteAsset(_scenePath);
             foreach(var material in _previewMaterials.Values)if(material!=null)UnityEngine.Object.DestroyImmediate(material);
             _previewMaterials.Clear();
+            foreach(var mesh in _frozenMeshes.Values)if(mesh!=null)UnityEngine.Object.DestroyImmediate(mesh);
+            _frozenMeshes.Clear(); _frozenModels.Clear();
         }
     }
 }

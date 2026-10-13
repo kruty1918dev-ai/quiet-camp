@@ -31,7 +31,8 @@ namespace QuietCamp.Tests
                 Assert.AreEqual(JsonConvert.SerializeObject(d.art),JsonConvert.SerializeObject(restored.art));
                 var exported = JsonConvert.DeserializeObject<CampArtDefinition>(File.ReadAllText(Path.Combine(folder,d.level.id+".art.json")));
                 exported.Validate(restored.level);
-                Assert.AreEqual(32,exported.instances.Length);
+                Assert.AreEqual(entries.Length,exported.instances.Length);
+                StringAssert.Contains("Poly by Google",File.ReadAllText(Path.Combine(folder,"ATTRIBUTION.md")));
             }
             finally { if(Directory.Exists(folder)) Directory.Delete(folder,true); }
         }
@@ -72,6 +73,21 @@ namespace QuietCamp.Tests
             var published=JsonConvert.SerializeObject(LevelLoader.Load("QC007"));
             var d=PropDemonstrations.Create(kind); Assert.IsEmpty(d.Validate(true));
             Assert.AreEqual(published,JsonConvert.SerializeObject(LevelLoader.Load("QC007")));
+        }
+        [Test] public void DraftOwnsFrozenGeometryEvenWhenPaletteHasANewerModel()
+        {
+            var d=LevelAuthoringDocument.Create(false);
+            var frozen=LevelAuthoringDocument.Copy(LevelAuthoringPalette.Get("qc_mug").model);
+            frozen.colors=Enumerable.Repeat(0x795D44,frozen.colors.Length).ToArray();
+            for(int i=0;i<frozen.vertices.Length;i+=3)frozen.vertices[i]*=1.3f;
+            d.art.models=new[]{frozen};d.art.instances=new[]{new CampArtDefinition.Instance{modelId=frozen.id,x=9,z=8,scale=1,surfaceAttached=false}};
+            using(var workspace=new LevelAuthoringWorkspace(d))
+            {
+                var mesh=workspace.Scenery.GetChild(0).GetComponent<MeshFilter>().sharedMesh;
+                Assert.AreEqual(frozen.vertices[0],mesh.vertices[0].x);
+                Assert.AreEqual(JsonConvert.SerializeObject(frozen),JsonConvert.SerializeObject(workspace.Capture(false).art.models[0]));
+                Assert.AreNotEqual(JsonConvert.SerializeObject(frozen),JsonConvert.SerializeObject(LevelAuthoringPalette.Get(frozen.id).model));
+            }
         }
     }
 }

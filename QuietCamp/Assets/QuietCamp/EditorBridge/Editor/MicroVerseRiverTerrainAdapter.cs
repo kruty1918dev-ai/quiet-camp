@@ -220,6 +220,16 @@ namespace QuietCamp.EditorBridge
                     mesh.uv[i * 2] = x / (float)(n - 1); mesh.uv[i * 2 + 1] = worldZ / (float)(n - 1);
                     var c = Color.Lerp(CampArtDefinition.Color(_document.art.groundLow), CampArtDefinition.Color(_document.art.groundHigh), Mathf.Clamp01((h + .05f) * .5f));
                     if (h < -.06f) c = Color.Lerp(c, CampArtDefinition.Color(_document.art.soilColor), .6f);
+                    // Express the evaluated bank even where the terrain rises above the water.
+                    float px=mesh.vertices[i*3],pz=mesh.vertices[i*3+2],nearest=float.MaxValue;
+                    var line=_document.terrain.points;
+                    for(int segment=1;segment<line.Length;segment++)
+                    {
+                        var a=new Vector2(line[segment-1].x,line[segment-1].z);var b=new Vector2(line[segment].x,line[segment].z);var q=new Vector2(px,pz);
+                        var direction=b-a;float t=Mathf.Clamp01(Vector2.Dot(q-a,direction)/Mathf.Max(.001f,direction.sqrMagnitude));nearest=Mathf.Min(nearest,Vector2.Distance(q,a+direction*t));
+                    }
+                    float shore=Mathf.Abs(nearest-_document.terrain.width*.5f);
+                    c=Color.Lerp(c,CampArtDefinition.Color(_document.art.soilColor),.64f*(1-Mathf.SmoothStep(0,1,shore/1.05f)));
                     mesh.colors[i * 4] = c.r; mesh.colors[i * 4 + 1] = c.g; mesh.colors[i * 4 + 2] = c.b; mesh.colors[i * 4 + 3] = 1;
                 }
                 int index = 0;

@@ -21,7 +21,7 @@ PALETTE["aircraft_body"] = 0x9DA696
 
 
 def model(key, label, pack, description, *, large=False, part=False, water=False):
-    m = Mesh("qc_" + key, 8000 if large else 2400, description)
+    m = Mesh("qc_" + key, 8000 if large or key == "aircraft_fore" else 2400, description)
     MODELS.append(m)
     ENTRIES.append(dict(id=m.id, label=label, category="Великі об’єкти" if large or part else "Пропси",
                         pack=pack, recommendedScale=1, placement="single" if large or part else "surface",
@@ -90,7 +90,7 @@ def wheel(m, center, radius, water=False, broken=False):
         if water:
             # Tangential paddle planks, with visible thickness.
             tangent=(0,-math.sin(a)*.2,math.cos(a)*.2)
-            m.beam(tuple(end[j]-tangent[j] for j in range(3)),tuple(end[j]+tangent[j] for j in range(3)),.15,"wood_light",True,.48)
+            m.beam(tuple(end[j]-tangent[j] for j in range(3)),tuple(end[j]+tangent[j] for j in range(3)),.48,"wood_light",True,.15)
 
 
 def props():
@@ -114,9 +114,11 @@ def props():
         x,z=math.cos(a*math.pi/2)*.125,math.sin(a*math.pi/2)*.125
         m.beam((x,.06,z),(x,.32,z),.026,"steel_dark",True)
     ring(m,(0,.4,0),.105,.016,"steel","z",10,math.pi)
+    for s in (-1,1): m.tube((s*.1,.345,0),(s*.105,.4,0),.015,"steel_dark",6,True)
     m=model("cooking_pot","Казанок","Табір","Відкритий казанок з товстим обідком і дужкою.")
     vessel(m,.24,.25,"steel_dark",10)
     ring(m,(0,.31,0),.26,.018,"steel","z",12,math.pi)
+    for s in (-1,1): m.tube((s*.23,.225,0),(s*.26,.31,0),.018,"steel_dark",6,True)
     m=model("mug","Кухоль","Табір","Простий синій кухоль з порожниною та ручкою.")
     vessel(m,.09,.19,"blue",8,.94)
     ring(m,(.11,.11,0),.06,.018,"blue_dark","z",8)
@@ -134,6 +136,7 @@ def props():
     m=model("bucket","Відро","Сільський двір","Відкрите оцинковане відро з дужкою.")
     vessel(m,.19,.36,"steel",10,.77)
     ring(m,(0,.42,0),.2,.016,"steel_dark","z",10,math.pi)
+    for s in (-1,1): m.tube((s*.18,.32,0),(s*.2,.42,0),.014,"steel_dark",6,True)
     m=model("wheelbarrow","Тачка","Сільський двір","Дерев’яна тачка з відкритим коритом, колесом та опорними ніжками.")
     m.box((0,.4,0),(.58,.08,.73),"wood")
     for x in (-.33,.33): m.box((x,.55,0),(.08,.3,.77),"wood_light")
@@ -212,16 +215,26 @@ def props():
     for row in range(4):
         for col in range(4-row//2):
             x=(col-1.5)*.36+(.15 if row%2 else 0)
-            m.box((x,.12+row*.235,0),(.34,.22,.3 if row<2 else .25),"stone" if (row+col)%3 else "concrete_dark")
+            m.box((x,.12+row*.235,0),(.34,.24,.3 if row<2 else .25),"stone" if (row+col)%3 else "concrete_dark")
     m=model("bent_sheet","Погнутий лист металу","Старі споруди","Три складки металу з товщиною та локальним слідом іржі.")
     for i in range(3):
-        m.beam((-.45+i*.3,.04+(i%2)*.08,-.35),(-.15+i*.3,.04+((i+1)%2)*.08,-.35),.035,"rust" if i==1 else "steel",True,.7)
+        x0,x1=-.45+i*.3,-.15+i*.3
+        y0,y1=.04+(i%2)*.08,.04+((i+1)%2)*.08
+        top=[(x0,y0,-.35),(x1,y1,-.35),(x1,y1,.35),(x0,y0,.35)]
+        low=[(x,y-.025,z) for x,y,z in top]
+        color="rust" if i==1 else "steel"
+        m.quad(*top,color,(0,1,0));m.quad(*low,"steel_dark",(0,-1,0))
+        for j in range(4):
+            k=(j+1)%4
+            m.quad(low[j],low[k],top[k],top[j],color,(-1,0,0) if j==3 else (1,0,0) if j==1 else (0,0,-1) if j==0 else (0,0,1))
 
 
 def mill_shell(m, water=False):
     width,depth,height=(2.5,2.4,2.2) if water else (1.65,1.6,3.45)
     for x in (-width*.39,width*.39):
-        for z in (-depth*.38,depth*.38): m.box((x,.2,z),(.48,.4,.48),"stone")
+        for z in (-depth*.38,depth*.38):
+            m.box((x,.2,z),(.48,.4,.48),"stone")
+            if water: m.beam((x,-.9,z),(x,.24,z),.2,"wood_dark",True)
     m.box((0,.44,0),(width,.14,depth),"wood_dark")
     for x in (-width*.43,width*.43):
         for z in (-depth*.43,depth*.43): m.beam((x,.48,z),(x,height,z),.15,"wood_dark",True)
@@ -273,7 +286,7 @@ def landmarks():
     manifest=json.loads((DONOR/"manifest.json").read_text(encoding="utf-8"))
     parts=[]
     for suffix,label in (("fore","Передня частина літака"),("tail","Хвостова частина літака")):
-        source=next(x for x in sources if x["id"]=="staging_aircraft_"+suffix+"_coarse")
+        source=next(x for x in sources if x["id"]=="staging_aircraft_"+suffix)
         info=next(x for x in manifest["models"] if x["id"]==source["id"])
         m=model("aircraft_"+suffix,label,"Частини","Адаптована геометрія Poly by Google; приглушені матеріали й локальна іржа.",part=True)
         for i,rgb in enumerate(source["colors"]):
@@ -282,6 +295,15 @@ def landmarks():
             material="aircraft_body" if channels[2]-channels[0]>45 else "concrete" if sum(channels)>620 else "steel" if sum(channels)>320 else "steel_dark"
             points=[tuple(source["data"][i*18+j*6+k]*info["height"]*.28 for k in range(3)) for j in range(3)]
             m.tri(*points,material)
+        lo,hi=m.bounds()
+        aged=[]
+        for a,b,c,n,color in m.tris:
+            # A restrained band at the broken end and one contiguous weathered flank.
+            z=(a[2]+b[2]+c[2])/3; x=(a[0]+b[0]+c[0])/3; y=(a[1]+b[1]+c[1])/3
+            if color=="aircraft_body" and (z<lo[2]+.18 or (x>.5 and -.4<z<.2 and .3<y<.55)):
+                color="rust"
+            aged.append((a,b,c,n,color))
+        m.tris=aged
         parts.append(m)
     wing=model("aircraft_wing","Відокремлене крило","Частини","Відламане крило з товстою кромкою, видимим торцем і двома ребрами.",part=True)
     # Closed prism tapered in plan; resting on its lowest edge.

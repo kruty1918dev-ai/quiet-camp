@@ -21,12 +21,26 @@ namespace QuietCamp.Editor.LevelAuthoring
     public static class LevelAuthoringPalette
     {
         public const string Folder = "Assets/QuietCamp/Editor/LevelAuthoring/Palette";
+        public const string FreeModelPath = "Assets/QuietCamp/Authoring/FreeWorldAssets/models.json";
+        public const string FreeCatalogPath = "Assets/QuietCamp/Authoring/FreeWorldAssets/catalog.json";
         sealed class Library { public CampArtDefinition.Model[] models; }
+        sealed class FreeCatalog { public FreeEntry[] entries; }
+        sealed class FreeEntry { public string id, label, category; public bool smallPlant; }
         sealed class PackedProjectModel { public string id; public float[] data; public int[] colors; }
         static AuthoringPaletteEntry[] _entries;
+        public static int Revision { get; private set; }
         public static AuthoringPaletteEntry[] Entries => _entries ?? (_entries = Build());
         public static AuthoringPaletteEntry Get(string id) => Entries.FirstOrDefault(e => e.id == id) ?? throw new InvalidOperationException("Невідомий об’єкт: " + id);
-        public static void ResetCache() { _entries = null; AuthoringPropCatalog.ResetCache(); }
+        public static void ResetCache() { _entries = null; AuthoringPropCatalog.ResetCache(); ModelAuthoringWorkshop.Reset(); Revision++; }
+        public static void AddVariant(AuthoredModelVariant variant)
+        {
+            if(_entries!=null && !_entries.Any(e=>e.id==variant.model.id))
+            {
+                var list=_entries.ToList();AddModel(list,variant.model,variant.recipe.category??"Декор",variant.recipe.label??variant.model.id,variant.smallPlant,true);
+                list[list.Count-1].prop=variant.prop;_entries=list.ToArray();
+            }
+            Revision++;
+        }
         public static void EnsureDocumentModels(IEnumerable<CampArtDefinition.Model> models)
         {
             var entries = Entries.ToList();
@@ -75,7 +89,21 @@ namespace QuietCamp.Editor.LevelAuthoring
                 AddModel(result, model, prop.category, prop.label, false, true);
                 result[result.Count - 1].prop = prop;
             }
+            if (System.IO.File.Exists(FreeModelPath) && System.IO.File.Exists(FreeCatalogPath))
+            {
+                var metadata = JsonConvert.DeserializeObject<FreeCatalog>(System.IO.File.ReadAllText(FreeCatalogPath)).entries.ToDictionary(e => e.id);
+                foreach (var model in JsonConvert.DeserializeObject<Library>(System.IO.File.ReadAllText(FreeModelPath)).models)
+                {
+                    var entry = metadata[model.id];
+                    AddModel(result, model, entry.category, entry.label, entry.smallPlant, true);
+                }
+            }
             var plants = CozyVegetationLibrary.Load();
+            foreach(var variant in ModelAuthoringWorkshop.Entries)
+            {
+                AddModel(result, variant.model, variant.recipe.category ?? "Декор", variant.recipe.label ?? variant.model.id, variant.smallPlant, true);
+                result[result.Count-1].prop=variant.prop;
+            }
             foreach (var plant in plants.plants.Where(p => p.mesh != null && p.mesh.isReadable))
             {
                 var vertices = new List<float>(); var normals = new List<float>(); var colors = new List<int>();
@@ -238,11 +266,13 @@ namespace QuietCamp.Editor.LevelAuthoring
             }
             result.Add(new AuthoringPaletteEntry { id = model.id, label = label, category = category, prefab = prefab, model = model, smallPlant = small });
         }
-        static void PopulateMesh(Mesh mesh, CampArtDefinition.Model model)
+        internal static void PopulateMesh(Mesh mesh, CampArtDefinition.Model model)
         {
             int count = model.colors.Length;
             mesh.vertices = Enumerable.Range(0, count).Select(i => new Vector3(model.vertices[i * 3], model.vertices[i * 3 + 1], model.vertices[i * 3 + 2])).ToArray();
             mesh.normals = Enumerable.Range(0, count).Select(i => new Vector3(model.normals[i * 3], model.normals[i * 3 + 1], model.normals[i * 3 + 2])).ToArray();
+            if(model.uv?.Length==count*2)mesh.uv=Enumerable.Range(0,count).Select(i=>new Vector2(model.uv[i*2],model.uv[i*2+1])).ToArray();
+            if(model.tangents?.Length==count*4)mesh.tangents=Enumerable.Range(0,count).Select(i=>new Vector4(model.tangents[i*4],model.tangents[i*4+1],model.tangents[i*4+2],model.tangents[i*4+3])).ToArray();
             mesh.colors = model.colors.Select(c => QualitySettings.activeColorSpace == ColorSpace.Linear ? CampArtDefinition.Color(c).linear : CampArtDefinition.Color(c)).ToArray();
             mesh.triangles = Enumerable.Range(0, count).ToArray(); mesh.RecalculateBounds();
         }

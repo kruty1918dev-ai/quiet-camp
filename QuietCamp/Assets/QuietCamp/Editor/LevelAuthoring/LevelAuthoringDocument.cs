@@ -153,6 +153,8 @@ namespace QuietCamp.Editor.LevelAuthoring
             copy.Save(Path.Combine(directory, id + ".draft.json"));
             File.WriteAllText(Path.Combine(directory, id + ".level.json"), JsonConvert.SerializeObject(copy.level, Formatting.Indented));
             File.WriteAllText(Path.Combine(directory, id + ".art.json"), JsonConvert.SerializeObject(copy.art));
+            if (copy.art.models.Any(m => m.id.StartsWith("qc_aircraft_", StringComparison.Ordinal) || (m.sourceModelId??"").StartsWith("qc_aircraft_", StringComparison.Ordinal)))
+                File.Copy("Assets/QuietCamp/Authoring/LevelProps/ATTRIBUTION.md", Path.Combine(directory, "ATTRIBUTION.md"), true);
             File.WriteAllText(Path.Combine(directory, "README.txt"), "Verified authoring export. Not installed into the campaign. Level + frozen art must be loaded together. Prefab World Builder is Editor-only.");
         }
     }

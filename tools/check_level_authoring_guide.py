@@ -47,7 +47,7 @@ def main():
         page.locator('#search').fill('\u0440\u0456\u0447\u043a\u0430')
         assert page.locator('#river').is_visible()
         page.locator('#search').fill('zzzzzz'); assert page.locator('[data-search]:visible').count() == 0
-        page.locator('#search').fill(''); assert page.locator('[data-search]:visible').count() == 9
+        page.locator('#search').fill(''); assert page.locator('[data-search]:visible').count() == page.locator('[data-search]').count()
         for details in page.locator('details').all():
             details.evaluate('(element) => element.open = true')
         for img in page.locator('img[data-zoom]').all():

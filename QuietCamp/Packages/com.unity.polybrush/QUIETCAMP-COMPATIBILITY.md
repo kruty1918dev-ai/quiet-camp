@@ -1,0 +1,3 @@
+Polybrush 1.2.1, official Unity registry archive SHA256 5301457572f17e32b4892b6cd782e43fb765a07771f29bffcd43b56fbbda3975.
+
+Unity 6000.6 compatibility patch: PolyAsset uses the object overload of GetAssetPath. Mesh-instance ownership uses EntityId/ToULong/FromULong instead of obsolete int InstanceID. Reflection uses CurrentAssemblies instead of AppDomain, which can include unloaded assemblies in CoreCLR. Mesh names are editor-local ownership tokens, never stable content IDs. Unknown legacy names trigger a safe mesh copy. Original package GUIDs and Unity Companion License retained. Reproduce with tools/install_free_world_assets.py.

@@ -12,8 +12,37 @@ namespace QuietCamp.Editor.LevelAuthoring
         bool _placingProp, _propWaterMode;
         float _propYaw, _propScale = 1, _propWaterOffset;
         static readonly string[] PropPacks = { "Усі", "Табір", "Сільський двір", "Берег", "Старі споруди" };
-        // The current legacy river and Terrain adapter both author their surface at this height.
-        const float AuthoringWaterSurface = -.075f;
+        [NonSerialized] GUIStyle _propCardStyle, _selectedPropCardStyle;
+        void EnsurePaletteCardStyles()
+        {
+            if(_propCardStyle!=null)return;
+            _propCardStyle=new GUIStyle(GUI.skin.button){wordWrap=true,fontSize=11};
+            _selectedPropCardStyle=new GUIStyle(EditorStyles.helpBox){wordWrap=true,fontSize=11,alignment=TextAnchor.MiddleLeft};
+            // Odin/PWB can provide a dark workshop skin independently of isProSkin.
+            var color=new Color(.88f,.88f,.88f);
+            foreach(var style in new[]{_propCardStyle,_selectedPropCardStyle})
+                foreach(var state in new[]{style.normal,style.hover,style.active,style.focused,style.onNormal,style.onHover,style.onActive,style.onFocused})state.textColor=color;
+        }
+        float AuthoringWaterSurface => AuthoringPropCatalog.WaterSurface(Document);
+        public void ShowPropPalette(bool landmarks, bool parts = false)
+        {
+            ShowPaletteCategory(landmarks ? 10 : 9); _showPropParts=parts; _propPack=0; _scroll=Vector2.zero;
+            SelectPaletteEntry(LevelAuthoringPalette.Get(landmarks ? "qc_windmill_ruin" : "qc_bench")); Repaint();
+        }
+        public void ShowPropPack(int pack)
+        {
+            ShowPropPalette(false); _propPack=Mathf.Clamp(pack,0,4);
+            if(_propPack>0)SelectPaletteEntry(System.Linq.Enumerable.First(LevelAuthoringPalette.Entries,e=>e.prop?.pack==PropPacks[_propPack]));
+            Repaint();
+        }
+        void NewPropExample(string kind)
+        {
+            if(!ConfirmReplace())return;
+            var document=PropDemonstrations.Create(kind);
+            document.level.id="QC_EDITOR_"+Guid.NewGuid().ToString("N").Substring(0,8);document.art.levelId=document.level.id;
+            SetDocument(document);_path=null;_dirty=true;ShowPropPalette(true);
+            SelectPaletteEntry(LevelAuthoringPalette.Get("qc_"+kind+"_ruin"));
+        }
 
         void DrawPropFilters()
         {
@@ -81,9 +110,10 @@ namespace QuietCamp.Editor.LevelAuthoring
                 point.y = _propWaterMode ? AuthoringWaterSurface + _propWaterOffset : Document.art.GroundHeight(point.x, point.z);
             }
             var pose = Matrix4x4.TRS(point, Quaternion.Euler(0, _propYaw, 0), Vector3.one * _propScale);
-            bool blocked = entry.prop.SingleOnly && AuthoringPropCatalog.OverlapsBoard(entry.prop, pose, Document.level.width, Document.level.height);
-            bool hidden = AuthoringPropCatalog.OccludesBoard(entry.prop, _workspace.Root.transform.localToWorldMatrix * pose, _workspace.Camera, Document.level.width, Document.level.height);
-            DrawFootprint(entry.prop, pose, blocked ? Color.red : hidden ? new Color(1,.65f,.1f) : new Color(.3f,.9f,.7f));
+            var bounds = _workspace.PropBounds(entry.id);
+            bool blocked = entry.prop.SingleOnly && AuthoringPropCatalog.OverlapsBoard(entry.prop, pose, Document.level.width, Document.level.height,bounds);
+            bool hidden = AuthoringPropCatalog.OccludesBoard(entry.prop, _workspace.Root.transform.localToWorldMatrix * pose, _workspace.Camera, Document.level.width, Document.level.height,bounds);
+            DrawFootprint(entry.prop, pose, blocked ? Color.red : hidden ? new Color(1,.65f,.1f) : new Color(.3f,.9f,.7f),bounds);
             Handles.Label(_workspace.Root.transform.TransformPoint(point), blocked ? "Перетинає поле — пересуньте об’єкт" : hidden ? "Може закривати клітини з ігрової камери" : entry.label + " · клацніть для розміщення");
             if (e.type == EventType.MouseDown && e.button == 0)
             {
@@ -107,14 +137,15 @@ namespace QuietCamp.Editor.LevelAuthoring
             if (marker == null || !marker.transform.IsChildOf(_workspace.Scenery)) return;
             var prop = AuthoringPropCatalog.Find(marker.stableId); if (prop == null) return;
             var pose = _workspace.Root.transform.worldToLocalMatrix * marker.transform.localToWorldMatrix;
-            bool blocked = prop.SingleOnly && AuthoringPropCatalog.OverlapsBoard(prop, pose, Document.level.width, Document.level.height);
-            bool hidden = AuthoringPropCatalog.OccludesBoard(prop, marker.transform.localToWorldMatrix, _workspace.Camera, Document.level.width, Document.level.height);
-            DrawFootprint(prop, pose, blocked ? Color.red : hidden ? new Color(1,.65f,.1f) : new Color(.3f,.9f,.7f));
+            var bounds=marker.GetComponent<MeshFilter>().sharedMesh.bounds;
+            bool blocked = prop.SingleOnly && AuthoringPropCatalog.OverlapsBoard(prop, pose, Document.level.width, Document.level.height,bounds);
+            bool hidden = AuthoringPropCatalog.OccludesBoard(prop, marker.transform.localToWorldMatrix, _workspace.Camera, Document.level.width, Document.level.height,bounds);
+            DrawFootprint(prop, pose, blocked ? Color.red : hidden ? new Color(1,.65f,.1f) : new Color(.3f,.9f,.7f),bounds);
             if (blocked || hidden) Handles.Label(marker.transform.position, blocked ? "Перетинає поле — експорт заблокований" : "Може закривати клітини з ігрової камери");
         }
-        void DrawFootprint(AuthoringPropDescriptor prop, Matrix4x4 pose, Color color)
+        void DrawFootprint(AuthoringPropDescriptor prop, Matrix4x4 pose, Color color, Bounds? geometryBounds=null)
         {
-            var corners = AuthoringPropCatalog.Corners(prop, _workspace.Root.transform.localToWorldMatrix * pose);
+            var corners = AuthoringPropCatalog.Corners(prop, _workspace.Root.transform.localToWorldMatrix * pose,geometryBounds);
             Handles.color = color; Handles.DrawAAPolyLine(3, corners[0], corners[1], corners[5], corners[4], corners[0]);
         }
     }

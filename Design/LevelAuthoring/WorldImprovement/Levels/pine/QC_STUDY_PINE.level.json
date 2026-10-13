@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 1,
+  "chapter": 1,
+  "seed": 20268923,
+  "width": 5,
+  "height": 5,
+  "id": "QC_STUDY_PINE",
+  "contentHash": "2e16a5a389c45182c6627179268fbee4cd30ecb3e5cfb08c2025283bb4402e2f",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "tutorial.1",
+  "compositionHash": "79a4a7da2386eba4880683047c0f3e4d41847fcc2eb8eb21d98e2a49b05af60b",
+  "generationAttempt": 1,
+  "decorSeed": 20256804,
+  "entry": [
+    2,
+    4
+  ],
+  "accessPoints": [],
+  "blocked": [],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 3,
+      "rotation": 1
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [],
+  "canopies": [],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.34,
+    "treeDensity": 0.4,
+    "clusterSeed": 31173,
+    "meadowSpecies": [
+      "grass",
+      "daisy"
+    ],
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.0,
+    "weatherIntensity": 0.1
+  }
+}

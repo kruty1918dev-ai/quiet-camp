@@ -1,0 +1,31 @@
+{
+  "units": "metres",
+  "count": 40,
+  "sources": {
+    "meshsimplifier": {
+      "url": "https://codeload.github.com/Whinarn/UnityMeshSimplifier/zip/53fdb3122645bcd3ad2c258235200dff3dfbaa9b",
+      "license": "MIT",
+      "sha256": "fc2f4229268c3c49574be199be4b9d575917eaac1b052e51cef294a5ebe0b52a"
+    },
+    "ezyslice": {
+      "url": "https://codeload.github.com/DavidArayan/ezy-slice/zip/073efdcaf595a25f1086bdc5b7a23335a80a6755",
+      "license": "MIT",
+      "sha256": "52393db125ea4cb06f2ab7eb5659c656069187fd008b3f7e258bfccb95036cde"
+    },
+    "nature": {
+      "url": "https://kenney.nl/media/pages/assets/nature-kit/37ac38a37b-1677698939/kenney_nature-kit.zip",
+      "license": "CC0-1.0",
+      "sha256": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d"
+    },
+    "survival": {
+      "url": "https://kenney.nl/media/pages/assets/survival-kit/4065a8185b-1712149243/kenney_survival-kit.zip",
+      "license": "CC0-1.0",
+      "sha256": "c3586341b5932c87eb43d75d915434f47daed168b17ed36a03e8ca9977c7443e"
+    }
+  },
+  "registryPackages": {
+    "com.unity.probuilder": "6.1.3",
+    "com.unity.polybrush": "1.2.1"
+  },
+  "polybrushCompatibility": "Editor EntityId, official embedded package, reproducible patch"
+}
