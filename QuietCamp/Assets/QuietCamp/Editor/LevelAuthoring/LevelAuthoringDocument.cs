@@ -13,11 +13,19 @@ namespace QuietCamp.Editor.LevelAuthoring
 {
     [Serializable] public sealed class LevelAuthoringDocument
     {
-        public int version = 1;
+        public int version = 2;
+        public string sourceLevelId, sourceContentHash, sourceArtHash;
+        public RiverTerrainAuthoringData terrain;
         public LevelData level;
         public CampArtDefinition art;
         public string title = "Новий табір";
         public static T Copy<T>(T value) => JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(value));
+        // Geometry snapshots are immutable; editing settings must not copy megabytes of mesh data.
+        public LevelAuthoringDocument EditingCopy() => new LevelAuthoringDocument
+        {
+            version = version, title = title, sourceLevelId = sourceLevelId, sourceContentHash = sourceContentHash, sourceArtHash = sourceArtHash,
+            level = Copy(level), art = art.EditingCopy(), terrain = terrain?.EditingCopy()
+        };
 
         public static LevelAuthoringDocument Create(bool generated, string sourceId = null, int generationIndex = 1)
         {
@@ -93,6 +101,18 @@ namespace QuietCamp.Editor.LevelAuthoring
             if (requireSolution && (snapshot.witness == null || snapshot.witness.Length != snapshot.guests.Length)) errors.Add("Потрібне рішення для всіх гостей.");
             if (requireSolution && errors.Count == 0 && !RuleEvaluator.Evaluate(snapshot, snapshot.witness).IsSolved) errors.Add("Еталонне рішення порушує умови гри.");
             try { art.Validate(level); } catch (Exception e) { errors.Add(e.Message); }
+            try { terrain?.Validate(); } catch (Exception e) { errors.Add(e.Message); }
+            if (terrain != null && art.landscape == null) errors.Add("Спочатку дочекайтеся оновлення річки й землі.");
+            if (art.landscape != null)
+                foreach (var mesh in art.landscape.meshes.Where(m => m.water))
+                    for (int i = 0; i < mesh.triangles.Length; i += 3)
+                    {
+                        int a = mesh.triangles[i] * 3, b = mesh.triangles[i + 1] * 3, c = mesh.triangles[i + 2] * 3;
+                        float halfX = level.width / 2f + .15f, halfZ = level.height / 2f + .15f;
+                        if (Mathf.Min(mesh.vertices[a], mesh.vertices[b], mesh.vertices[c]) < halfX && Mathf.Max(mesh.vertices[a], mesh.vertices[b], mesh.vertices[c]) > -halfX
+                            && Mathf.Min(mesh.vertices[a + 2], mesh.vertices[b + 2], mesh.vertices[c + 2]) < halfZ && Mathf.Max(mesh.vertices[a + 2], mesh.vertices[b + 2], mesh.vertices[c + 2]) > -halfZ)
+                        { errors.Add("Вода перетинає ігрове поле. Пересуньте точки русла."); return errors; }
+                    }
             if (errors.Count == 0)
                 for(int z=0;z<=level.height*4;z++) for(int x=0;x<=level.width*4;x++)
                     if(art.GroundHeight(x*.25f-level.width*.5f,z*.25f-level.height*.5f)<-.075f)
@@ -107,7 +127,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         public void Save(string path)
         {
-            if (version != 1 || level == null || art == null) throw new InvalidDataException("Неповна чернетка.");
+            if ((version != 1 && version != 2) || level == null || art == null) throw new InvalidDataException("Неповна чернетка.");
             Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(path)));
             string temporary = path + ".pending";
             File.WriteAllText(temporary, JsonConvert.SerializeObject(this, Formatting.Indented), new UTF8Encoding(false));
@@ -116,7 +136,8 @@ namespace QuietCamp.Editor.LevelAuthoring
         public static LevelAuthoringDocument Open(string path)
         {
             var result = JsonConvert.DeserializeObject<LevelAuthoringDocument>(File.ReadAllText(path));
-            if (result?.version != 1 || result.level == null || result.art == null) throw new InvalidDataException("Непідтримувана чернетка.");
+            if (result == null || (result.version != 1 && result.version != 2) || result.level == null || result.art == null) throw new InvalidDataException("Непідтримувана чернетка.");
+            result.version = 2;
             return result;
         }
         public void Export(string directory)
@@ -124,8 +145,8 @@ namespace QuietCamp.Editor.LevelAuthoring
             var errors = Validate(true); if (errors.Count > 0) throw new InvalidDataException(string.Join("\n", errors));
             var copy = Copy(this); copy.art.levelId = copy.level.id;
             string id = SafeName(copy.level.id);
-            copy.level.contentHash = null;
-            using (var hash = SHA256.Create()) copy.level.contentHash = BitConverter.ToString(hash.ComputeHash(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(copy.level)))).Replace("-", "").ToLowerInvariant();
+            using (var hash = SHA256.Create()) copy.level.compositionHash = BitConverter.ToString(hash.ComputeHash(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(copy.art)))).Replace("-", "").ToLowerInvariant();
+            copy.level.contentHash = CampContent.CalculateHash(copy.level);
             Directory.CreateDirectory(directory);
             copy.Save(Path.Combine(directory, id + ".draft.json"));
             File.WriteAllText(Path.Combine(directory, id + ".level.json"), JsonConvert.SerializeObject(copy.level, Formatting.Indented));

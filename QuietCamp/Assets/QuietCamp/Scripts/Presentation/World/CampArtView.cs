@@ -23,7 +23,7 @@ namespace QuietCamp.Presentation.World
         public CampArtDefinition Definition { get; private set; }
         public int TriangleCount { get; private set; }
 
-        public void Configure(CampArtDefinition definition, LevelData level, Transform parent, AssetCatalog catalog)
+        public void Configure(CampArtDefinition definition, LevelData level, Transform parent, AssetCatalog catalog, bool excludeLandscape = false)
         {
             if (Definition != null) throw new InvalidOperationException("Camp art is already configured.");
             Definition = definition; _level = level; _camera = GetComponent<Camera>();
@@ -77,9 +77,13 @@ namespace QuietCamp.Presentation.World
                 var flowerMaterial = new Material(material); flowerMaterial.SetFloat("_ArtGrass", 1); _materials.Add(flowerMaterial);
                 AddMesh("CampFlowerAccents", flowers, flowerMaterial);
             }
-            BuildGround(material);
+            if (!excludeLandscape)
+            {
+                if (definition.landscape == null) BuildGround(material);
+                else BuildFrozenLandscape(material);
+            }
             BuildGroundcover(material);
-            BuildStream(material);
+            if (!excludeLandscape && definition.landscape == null) BuildStream(material);
             ConfigureVolume();
             _blur = new CampArtEdgeBlur(_camera, definition.blurPixels);
             _camera.GetUniversalAdditionalCameraData().renderPostProcessing = true;
@@ -100,6 +104,11 @@ namespace QuietCamp.Presentation.World
             _camera.transform.position = target + offset - _camera.transform.forward * 18;
             _camera.nearClipPlane = .1f; _camera.farClipPlane = 90;
             _blur?.ProtectBoard(_level);
+        }
+        public void SetBlur(float pixels)
+        {
+            if (Mathf.Approximately(Definition.blurPixels, pixels)) return;
+            Definition.blurPixels = pixels; _blur?.Dispose(); _blur = new CampArtEdgeBlur(_camera, pixels); _blur.ProtectBoard(_level);
         }
         public void ApplyLighting(Light sun, float weatherMultiplier = 1)
         {
@@ -145,6 +154,22 @@ namespace QuietCamp.Presentation.World
             }
             var groundMaterial = new Material(material); groundMaterial.SetFloat("_ArtGround", 1); _materials.Add(groundMaterial);
             AddMesh("MeadowGround", MakeMesh("Meadow triangles", positions, colors), groundMaterial, false);
+        }
+        void BuildFrozenLandscape(Material material)
+        {
+            Definition.landscape.Validate();
+            var sourceWater = Resources.Load<Material>(Definition.waterMaterial);
+            if (sourceWater == null) throw new InvalidOperationException("Матеріал води відсутній: " + Definition.waterMaterial);
+            var water = new Material(sourceWater) { name = "Frozen authored river" };
+            if (water.HasProperty("_VertexColorTransparency")) water.SetFloat("_VertexColorTransparency", 1);
+            _materials.Add(water);
+            var ground = new Material(material); ground.SetFloat("_ArtGround", 1); _materials.Add(ground);
+            foreach (var data in Definition.landscape.meshes)
+            {
+                var mesh = data.CreateMesh();
+                _meshes.Add(mesh);
+                AddMesh(data.name, mesh, data.water ? water : ground, false);
+            }
         }
         float GroundHeight(float x, float z)
             => Definition.GroundHeight(x,z);

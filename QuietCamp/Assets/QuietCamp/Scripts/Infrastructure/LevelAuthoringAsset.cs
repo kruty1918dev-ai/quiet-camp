@@ -10,6 +10,10 @@ namespace QuietCamp.Editor.LevelAuthoring
         public bool packedModel, smallPlant;
         public Vector3 baseScale = Vector3.one;
         public string instanceId;
+        public bool surfaceAttached = true;
+        public float surfaceOffset;
+        [System.NonSerialized] public bool attachmentInitialized;
+        [System.NonSerialized] public float attachedY;
         [System.NonSerialized] public QuietCamp.Infrastructure.CampArtDefinition.Instance sourcePose;
         [System.NonSerialized] public Vector3 capturedPosition, capturedScale;
         [System.NonSerialized] public Quaternion capturedRotation;

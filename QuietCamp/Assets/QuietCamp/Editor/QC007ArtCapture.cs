@@ -18,7 +18,7 @@ using UnityEngine.SceneManagement;
 namespace QuietCamp.Editor
 {
     [InitializeOnLoad]
-    public static class QC007ArtCapture
+    public static partial class QC007ArtCapture
     {
         sealed class Request { public string mode, output, name, levelId, profile; public int width = 1536, height = 1024, seed = 12007; }
         static readonly string RequestPath = Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, "../Temp/ai/qc007-art-request.json"));
@@ -50,11 +50,38 @@ namespace QuietCamp.Editor
                 if (request.mode == "capture") Capture(request);
                 else if (request.mode == "tests") RunTests();
                 else if (request.mode == "authoring-tests") RunTests(true);
+                else if (request.mode == "terrain-tests") RunTests(true, "QuietCamp.Tests.LevelAuthoringV2Tests.RiverAndTerrainBakeAndRestoreWithoutVendorRuntimeComponents");
+                else if (request.mode == "gallery-tests") RunTests(true, "QuietCamp.Tests.LevelAuthoringV2Tests.CampaignGalleryOpensAllHundredPublishedPuzzles");
+                else if (request.mode == "authoring-profile") BeginAuthoringProfile();
+                else if (request.mode == "authoring-workspace-status")
+                {
+                    var window = LevelAuthoring.LevelAuthoringWindow.OpenWindow();
+                    var snapshot = window.Workspace.Capture(false);
+                    File.WriteAllText(ResultPath, JsonConvert.SerializeObject(new { status = "workspace", busy = window.Workspace.River?.IsUpdating ?? false,
+                        objects = snapshot.art.instances.Length, baked = snapshot.art.landscape != null, errors = snapshot.Validate(true) }));
+                }
                 else if (request.mode == "authoring-open") LevelAuthoring.LevelAuthoringWindow.OpenWindow().NewDocument(false);
-                else if (request.mode == "authoring-play")
+                else if (request.mode == "authoring-page")
+                {
+                    var window = LevelAuthoring.LevelAuthoringWindow.OpenWindow();
+                    if (window.Workspace == null) window.SetDocument(LevelAuthoring.LevelAuthoringCampaign.Open("QC007"));
+                    window.ShowPage(request.seed); window.position = new Rect(80, 100, 950, 760);
+                    if (request.profile == "grass") window.ShowPaletteCategory(2);
+                    if (request.profile == "fence") window.ShowPaletteCategory(5);
+                    File.WriteAllText(ResultPath, JsonConvert.SerializeObject(new { status = "authoring-page", page = request.seed }));
+                }
+                else if (request.mode == "authoring-terrain")
+                {
+                    var document = LevelAuthoring.LevelAuthoringCampaign.Open("QC007");
+                    document.terrain = LevelAuthoring.RiverTerrainAuthoringData.FromLegacy(document.art);
+                    document.terrain.stamps = new[] { new LevelAuthoring.LandscapeStamp { x = -8, z = -8, radius = 3, height = 1 } };
+                    var window = LevelAuthoring.LevelAuthoringWindow.OpenWindow(); window.SetDocument(document); window.ShowPage(3);
+                    File.WriteAllText(ResultPath, "{\"status\":\"terrain-started\"}");
+                }
+                else if (request.mode == "authoring-play" || request.mode == "authoring-current-play")
                 {
                     var window=LevelAuthoring.LevelAuthoringWindow.OpenWindow();
-                    window.SetDocument(LevelAuthoring.LevelAuthoringDocument.Create(true));
+                    if (request.mode == "authoring-play") window.SetDocument(LevelAuthoring.LevelAuthoringDocument.Create(true));
                     var snapshot=window.Workspace.Capture();
                     File.WriteAllText(Path.Combine(UnityEngine.Application.dataPath,"../Temp/ai/authoring-smoke-draft.json"),JsonConvert.SerializeObject(snapshot));
                     LevelAuthoring.LevelAuthoringPlayDriver.Start(snapshot);
@@ -175,13 +202,13 @@ namespace QuietCamp.Editor
                 texture.Release(); UnityEngine.Object.DestroyImmediate(texture); UnityEngine.Object.DestroyImmediate(image);
             }
         }
-        static void RunTests(bool authoring = false)
+        static void RunTests(bool authoring = false, string focused = null)
         {
             File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="tests-running",authoring,started=DateTime.UtcNow}));
             var api = ScriptableObject.CreateInstance<TestRunnerApi>();
             api.RegisterCallbacks(new TestReport(api));
             api.Execute(new ExecutionSettings(new Filter { testMode = TestMode.EditMode,
-                testNames = authoring ? new[] { "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
+                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
         }
         sealed class TestReport : ICallbacks
         {

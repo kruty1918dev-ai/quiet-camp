@@ -21,10 +21,18 @@ namespace QuietCamp.Editor.LevelAuthoring
     {
         public const string Folder = "Assets/QuietCamp/Editor/LevelAuthoring/Palette";
         sealed class Library { public CampArtDefinition.Model[] models; }
+        sealed class PackedProjectModel { public string id; public float[] data; public int[] colors; }
         static AuthoringPaletteEntry[] _entries;
         public static AuthoringPaletteEntry[] Entries => _entries ?? (_entries = Build());
         public static AuthoringPaletteEntry Get(string id) => Entries.FirstOrDefault(e => e.id == id) ?? throw new InvalidOperationException("Невідомий об’єкт: " + id);
         public static void ResetCache() => _entries = null;
+        public static void EnsureDocumentModels(IEnumerable<CampArtDefinition.Model> models)
+        {
+            var entries = Entries.ToList();
+            foreach (var model in models.Where(m => !entries.Any(e => e.id == m.id)))
+                AddModel(entries, model, "Декор", "Деталь наявного рівня", model.shading == "foliage");
+            _entries = entries.ToArray();
+        }
         static AuthoringPaletteEntry[] Build()
         {
             System.IO.Directory.CreateDirectory(Folder);
@@ -35,6 +43,29 @@ namespace QuietCamp.Editor.LevelAuthoring
             {
                 string category = model.id.Contains("tree") || model.id.Contains("willow") ? "Дерева" : model.id.Contains("reed") ? "Кущі" : model.id.Contains("sunflower") ? "Квіти" : model.id.Contains("fence") ? "Паркани" : "Містки";
                 AddModel(result, model, category, Label(model.id), false);
+            }
+            const string ruralLibrary = "Assets/QuietCamp/Authoring/Roadmap/Models/EnvironmentKit/models.json";
+            if (System.IO.File.Exists(ruralLibrary))
+            {
+                var sourceModels = JsonConvert.DeserializeObject<PackedProjectModel[]>(System.IO.File.ReadAllText(ruralLibrary)).ToList();
+                const string originalGeometry = "Assets/QuietCamp/Editor/RoadmapArchive/roadmap_culture_models.json";
+                if (System.IO.File.Exists(originalGeometry))
+                    sourceModels.AddRange(JsonConvert.DeserializeObject<PackedProjectModel[]>(System.IO.File.ReadAllText(originalGeometry)).Where(m => m.id == "ua_wheat_patch"));
+                foreach (var source in sourceModels)
+                {
+                    if (result.Any(e => e.id == source.id) || source.id.EndsWith("_lod", StringComparison.Ordinal)) continue;
+                    if (source.data == null || source.colors == null || source.data.Length != source.colors.Length * 18)
+                        throw new InvalidOperationException("Некоректна модель палітри: " + source.id);
+                    int count = source.colors.Length * 3;
+                    var model = new CampArtDefinition.Model { id = source.id, shading = "solid", vertices = new float[count * 3], normals = new float[count * 3], colors = new int[count] };
+                    for (int i = 0; i < count; i++)
+                    {
+                        Array.Copy(source.data, i * 6, model.vertices, i * 3, 3);
+                        Array.Copy(source.data, i * 6 + 3, model.normals, i * 3, 3);
+                        model.colors[i] = source.colors[i / 3];
+                    }
+                    AddModel(result, model, Category(model.id), Label(model.id), model.id.Contains("field_weeds"));
+                }
             }
             var plants = CozyVegetationLibrary.Load();
             foreach (var plant in plants.plants.Where(p => p.mesh != null && p.mesh.isReadable))
@@ -65,7 +96,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                     foreach (var collider in copy.GetComponentsInChildren<Collider>()) UnityEngine.Object.DestroyImmediate(collider);
                     prefab = PrefabUtility.SaveAsPrefabAsset(copy, path); UnityEngine.Object.DestroyImmediate(copy);
                 }
-                result.Add(new AuthoringPaletteEntry { id = item.assetId, label = Label(item.assetId), category = item.assetId.Contains("tree") ? "Дерева" : item.assetId.Contains("stone") ? "Каміння" : "Декор", prefab = prefab });
+                result.Add(new AuthoringPaletteEntry { id = item.assetId, label = item.assetId.StartsWith("custom_") ? item.prefab.name : Label(item.assetId), category = item.assetId.Contains("tree") ? "Дерева" : item.assetId.Contains("stone") ? "Каміння" : "Декор", prefab = prefab });
             }
             AssetDatabase.SaveAssets(); return result.ToArray();
         }
@@ -78,8 +109,41 @@ namespace QuietCamp.Editor.LevelAuthoring
                 case "ua_young_willow": return "Молода верба";
                 case "ua_reed_clump": return "Очерет";
                 case "ua_sunflower_patch": return "Соняхи";
+                case "ua_wheat_patch": return "Пшениця";
                 case "ua_wattle_fence": return "Тин";
                 case "ua_plank_bridge": return "Дощатий місток";
+                case "ua_abandoned_house": return "Старенька хата";
+                case "ua_forester_hut": return "Лісова хатина";
+                case "ua_barn": return "Комора";
+                case "ua_chicken_coop": return "Курник";
+                case "ua_beehive": return "Вулик";
+                case "ua_well_sweep": return "Криниця-журавель";
+                case "ua_picket_fence_damaged": return "Старий штахетник";
+                case "ua_valley_house": return "Сільська хата";
+                case "ua_valley_well": return "Криниця";
+                case "ua_valley_fence": return "Дерев’яний паркан";
+                case "ua_valley_gate": return "Ворота";
+                case "ua_power_pylon_rusted": return "Стара опора";
+                case "ua_power_pylon_fallen": return "Повалена опора";
+                case "ua_bus_shelter_mosaic": return "Зупинка з мозаїкою";
+                case "ua_hydro_service_building": return "Невелика технічна будівля";
+                case "ua_mooring_post": return "Причальний стовпчик";
+                case "ua_chicken": return "Курка";
+                case "ua_field_weeds": return "Польові трави";
+                case "ua_poplar": return "Тополя";
+                case "ua_village_wood_pole": return "Дерев’яний стовп";
+                case "ua_village_concrete_pole": return "Бетонний стовп";
+                case "ua_village_broken_pole": return "Похилений стовп";
+                case "ua_valley_footbridge": return "Пішохідний місток";
+                case "ua_valley_bridge_remnants": return "Старі дошки містка";
+                case "ua_pond_spillway_ruin": return "Кам’яний водозлив";
+                case "ua_valley_fence_broken_0": return "Паркан з просвітом";
+                case "ua_valley_fence_broken_1": return "Старий паркан — секція";
+                case "ua_valley_fence_broken_2": return "Низький паркан";
+                case "ua_dam_breached": return "Берегова кам’яна кладка";
+                case "ua_valley_poplar": return "Висока тополя";
+                case "ua_valley_willow": return "Прибережна верба";
+                case "ua_valley_orchard": return "Садове дерево — варіант";
                 case "grass_leafs": return "Листяна трава";
                 case "grass_leafsLarge": return "Велика листяна трава";
                 case "plant_bushSmall": return "Низький кущ";
@@ -97,6 +161,41 @@ namespace QuietCamp.Editor.LevelAuthoring
                 case "sign": return "Вказівник";
                 default: return id.Replace('_',' ');
             }
+        }
+        static string Category(string id)
+        {
+            if (id.Contains("willow") || id.Contains("poplar") || id.Contains("orchard")) return "Дерева";
+            if (id.Contains("reed")) return "Кущі";
+            if (id.Contains("weeds") || id.Contains("wheat")) return "Трава";
+            if (id.Contains("sunflower")) return "Квіти";
+            if (id.Contains("fence") || id.Contains("gate")) return "Паркани";
+            if (id.Contains("bridge")) return "Містки";
+            if (id.Contains("house") || id.Contains("hut") || id.Contains("barn") || id.Contains("coop") || id.Contains("building")) return "Будівлі";
+            return "Декор";
+        }
+        public static void RegisterPrefab(GameObject prefab)
+        {
+            string path = AssetDatabase.GetAssetPath(prefab);
+            if (string.IsNullOrEmpty(path) || !path.StartsWith("Assets/", StringComparison.Ordinal) || !PrefabUtility.IsPartOfPrefabAsset(prefab))
+                throw new ArgumentException("Перетягніть prefab із вікна Project.");
+            string guid = AssetDatabase.AssetPathToGUID(path), id = "custom_" + guid;
+            var catalog = AssetCatalog.Load();
+            if (catalog.Entries.Any(e => e.assetId == id)) return;
+            const string registryPath = "Assets/QuietCamp/Authoring/LevelObjects.json";
+            var registry = System.IO.File.Exists(registryPath)
+                ? JsonConvert.DeserializeObject<Dictionary<string, string>>(System.IO.File.ReadAllText(registryPath))
+                : new Dictionary<string, string>();
+            registry[id] = guid;
+            System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(registryPath));
+            System.IO.File.WriteAllText(registryPath, JsonConvert.SerializeObject(registry, Formatting.Indented));
+            var serialized = new SerializedObject(catalog); var entries = serialized.FindProperty("_entries");
+            entries.arraySize++; var entry = entries.GetArrayElementAtIndex(entries.arraySize - 1);
+            entry.FindPropertyRelative("assetId").stringValue = id;
+            entry.FindPropertyRelative("prefab").objectReferenceValue = prefab;
+            entry.FindPropertyRelative("role").stringValue = "decor";
+            entry.FindPropertyRelative("logicalFootprint").stringValue = "none";
+            serialized.ApplyModifiedPropertiesWithoutUndo(); EditorUtility.SetDirty(catalog); AssetDatabase.SaveAssets();
+            ResetCache();
         }
         static void AddModel(List<AuthoringPaletteEntry> result, CampArtDefinition.Model model, string category, string label, bool small)
         {

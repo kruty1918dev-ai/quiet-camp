@@ -17,6 +17,8 @@ namespace QuietCamp.Domain
     {
         public int schemaVersion, ruleVersion, order, chapter, seed, width, height;
         public string id, contentHash, generatorVersion, lighting, tutorialKey;
+        public string compositionHash;
+        public bool ShouldSerializecompositionHash() => compositionHash != null;
         public int generationAttempt, decorSeed;
         public int[] entry;
         public AccessPointData[] accessPoints = Array.Empty<AccessPointData>();

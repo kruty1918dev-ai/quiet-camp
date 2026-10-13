@@ -17,6 +17,13 @@ namespace QuietCamp.Infrastructure
         public float streamWidthVariation;
         public float streamBend = .32f, frameYaw = 225, bridgeFar = -1, landingRadius = .9f, meadowRelief = .13f, waterDepth = .64f, surroundExtent = 17.6f;
         public string waterMaterial = "QuietCamp/ArtCompositions/QC007Water", generation;
+        public FrozenLandscape landscape;
+        public CampArtDefinition EditingCopy()
+        {
+            var copy = (CampArtDefinition)MemberwiseClone();
+            copy.cameraEuler = cameraEuler?.ToArray(); copy.cameraTarget = cameraTarget?.ToArray(); copy.sunEuler = sunEuler?.ToArray();
+            return copy;
+        }
         public int generationAttempt;
         public int generationSeed;
         public Kruty1918.ScenePlacement.Composition.CompositionReview review;
@@ -39,6 +46,8 @@ namespace QuietCamp.Infrastructure
         }
         public sealed class Instance
         {
+            public bool? surfaceAttached;
+            public float surfaceOffset;
             public string id, modelId, assetId;
             public float[] rotationEuler, scaleXYZ;
             public float x, y, z, yaw, scale = 1;
@@ -48,9 +57,12 @@ namespace QuietCamp.Infrastructure
 #if UNITY_EDITOR
             if (level != null && EditorAuthoringPreview.Matches(level.id)) return EditorAuthoringPreview.Art(level.id);
 #endif
-            if (level == null || string.IsNullOrEmpty(level.id) || !level.id.StartsWith("QC", StringComparison.Ordinal)) return null;
-            var asset = Resources.Load<TextAsset>("QuietCamp/ArtCompositions/" + level.id);
+            if (level == null || string.IsNullOrEmpty(level.id)) return null;
+            var revision = string.IsNullOrEmpty(level.contentHash) ? null : Resources.Load<TextAsset>("QuietCamp/ArtRevisions/" + level.contentHash);
+            var current = Resources.Load<TextAsset>("QuietCamp/ArtCompositions/" + level.id.Replace(':', '_'));
+            var asset = revision ?? current;
             if (asset == null) return null;
+            if (Newtonsoft.Json.Linq.JObject.Parse(asset.text).Value<bool?>("absent") == true) return null;
             var reference = JsonConvert.DeserializeObject<ProfileReference>(asset.text);
             if (!string.IsNullOrEmpty(reference.profile)) return CampCompositionGenerator.Generate(level, reference.profile, reference.seed, out _);
             var definition = JsonConvert.DeserializeObject<CampArtDefinition>(asset.text);
@@ -60,6 +72,7 @@ namespace QuietCamp.Infrastructure
         sealed class ProfileReference { public string profile; public int seed; }
         public void Validate(LevelData level)
         {
+            landscape?.Validate();
             bool Vector(float[] value) => value != null && value.Length == 3 && value.All(Finite);
             if (levelId != level.id || width != level.width || height != level.height
                 || !Vector(cameraEuler) || !Vector(cameraTarget) || !Vector(sunEuler)
@@ -81,8 +94,9 @@ namespace QuietCamp.Infrastructure
                     || !Finite(item.scale) || item.scale <= 0
                     || (string.IsNullOrEmpty(item.assetId) && !ids.Contains(item.modelId)))
                     throw new InvalidDataException("Invalid camp art instance.");
-                if (Mathf.Abs(item.x) < width * .5f + .2f && Mathf.Abs(item.z) < height * .5f + .2f)
-                    throw new InvalidDataException("Camp art instance enters the gameplay board.");
+                if (Mathf.Abs(item.x) < width * .5f + .2f && Mathf.Abs(item.z) < height * .5f + .2f
+                    && (!string.IsNullOrEmpty(item.assetId) || MeshTouchesBoard(item, models.First(m => m.id == item.modelId))))
+                    throw new InvalidDataException("Camp art instance enters the gameplay board: " + (item.id ?? item.modelId ?? item.assetId));
             }
             if (cover == null || cover.Length > 180000 || cover.Any(p => p == null || p.kind < 0 || p.kind > 3
                 || !Finite(p.x) || !Finite(p.y) || !Finite(p.z) || !Finite(p.yaw) || !Finite(p.height) || p.height <= 0
@@ -91,8 +105,23 @@ namespace QuietCamp.Infrastructure
                 throw new InvalidDataException("Invalid generated groundcover.");
         }
         static bool Finite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
+        bool MeshTouchesBoard(Instance item, Model model)
+        {
+            var matrix = Matrix4x4.TRS(new Vector3(item.x, item.y, item.z),
+                Quaternion.Euler(item.rotationEuler == null ? new Vector3(0, item.yaw, 0) : Vector(item.rotationEuler)),
+                item.scaleXYZ == null ? Vector3.one * item.scale : Vector(item.scaleXYZ));
+            for (int i = 0; i < model.vertices.Length; i += 9)
+            {
+                Vector3 Point(int offset) => matrix.MultiplyPoint3x4(new Vector3(model.vertices[offset], model.vertices[offset + 1], model.vertices[offset + 2]));
+                var a = Point(i); var b = Point(i + 3); var c = Point(i + 6);
+                if (Mathf.Min(a.x, b.x, c.x) < width * .5f + .2f && Mathf.Max(a.x, b.x, c.x) > -width * .5f - .2f
+                    && Mathf.Min(a.z, b.z, c.z) < height * .5f + .2f && Mathf.Max(a.z, b.z, c.z) > -height * .5f - .2f) return true;
+            }
+            return false;
+        }
         public float GroundHeight(float x,float z)
         {
+            if (landscape != null) return landscape.SampleHeight(x, z);
             float yaw=frameYaw*Mathf.Deg2Rad;
             var uv=new Vector2(x*Mathf.Cos(yaw)-z*Mathf.Sin(yaw),x*Mathf.Sin(yaw)+z*Mathf.Cos(yaw));
             float centre=streamCentre+Kruty1918.ScenePlacement.Composition.RiverGeometry.Centre(uv.y,streamSlope,streamBend);

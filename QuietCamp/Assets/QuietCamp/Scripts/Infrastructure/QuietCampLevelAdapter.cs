@@ -88,6 +88,7 @@ namespace QuietCamp.Infrastructure
             level.tutorialKey = doc.Prop<string>("tutorialKey");
             level.decorSeed = doc.Prop("decorSeed", 0);
             level.contentHash = doc.Prop<string>("contentHash");
+            level.compositionHash = doc.Prop<string>("compositionHash");
             level.friends = Friends(doc.Prop<JArray>("friends"));
             level.environmentPreset = doc.Prop<string>("environmentPreset");
             level.objects = doc.Prop<JArray>("objects")?.ToObject<EnvironmentObjectData[]>() ?? System.Array.Empty<EnvironmentObjectData>();
@@ -168,6 +169,7 @@ namespace QuietCamp.Infrastructure
             if(level.environmentalStory!=null)doc.SetProp("environmentalStory",JObject.FromObject(level.environmentalStory));
             if(!string.IsNullOrEmpty(level.bakedEnvironment))doc.SetProp("bakedEnvironment",level.bakedEnvironment);
             if (level.contentHash != null) doc.SetProp("contentHash", level.contentHash);
+            if (level.compositionHash != null) doc.SetProp("compositionHash", level.compositionHash);
             if (level.friends != null)
             {
                 var arr = new JArray();

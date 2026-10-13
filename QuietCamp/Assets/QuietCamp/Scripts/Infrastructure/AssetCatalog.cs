@@ -30,6 +30,7 @@ namespace QuietCamp.Infrastructure
             => Resources.Load<AssetCatalog>(ResourcePath);
 
         void OnEnable() => _map = null;
+        void OnValidate() => _map = null;
 
         Dictionary<string, Entry> Map
         {
