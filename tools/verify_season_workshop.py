@@ -11,6 +11,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 ROOT=Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser(description=__doc__)
 p.add_argument('--project',type=Path,required=True)
+p.add_argument('--resume',action='store_true')
 a=p.parse_args()
 proof=ROOT/'Design/LevelAuthoring/SeasonAtmosphere/Verification';proof.mkdir(parents=True,exist_ok=True)
 
@@ -32,6 +33,7 @@ for index in (0,26,52,78,99):
 info=request('props-game-status',draft=drafts[0][1]);progress=Path(info['persistentDataPath']);before=snapshot(progress)
 workspace=request('authoring-workspace-status');results=[]
 for key,path in drafts:
+    if a.resume and (proof/f'{key}-play.json').exists():results.append(key);continue
     request('props-play',draft=path)
     try:
         for _ in range(60):
@@ -42,11 +44,13 @@ for key,path in drafts:
         else:raise RuntimeError('Game not ready: '+key)
         assert playing.get('memoryOnly') is True and playing.get('identical') is True and playing.get('forbiddenComponents')==[],playing
         assert playing.get('atmosphere'),playing
+        subprocess.run([sys.executable,str(ROOT/'tools/refresh_existing_editor.py'),'--pid','23052','--focus-only'],check=True,capture_output=True)
+        request('authoring-focus-game')
         if not playing.get('playingVoices'):
             for _ in range(20):
                 time.sleep(.5);playing=request('props-game-status',draft=path)
                 if playing.get('playingVoices'):break
-        assert playing.get('playingVoices',0)>0,'No playing preset audio: '+key
+        assert playing.get('playingVoices',0)>0,'No playing preset audio: '+key+' '+str(playing)
         complete=request('authoring-complete')
         assert all(complete.get(k) is True for k in ('solved','completed','memoryOnly','progressUnchanged','albumUnchanged','frozenArtMatches')),complete
         (proof/f'{key}-play.json').write_text(json.dumps({'play':playing,'completion':complete},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')

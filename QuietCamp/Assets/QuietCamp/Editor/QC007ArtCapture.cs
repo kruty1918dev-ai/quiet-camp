@@ -110,7 +110,15 @@ namespace QuietCamp.Editor
                 else if(request.mode=="authoring-focus-game")
                 {
                     if(EditorApplication.isPlaying)EditorWindow.GetWindow(typeof(EditorWindow).Assembly.GetType("UnityEditor.GameView")).Focus();
-                    File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="game-focus",playing=EditorApplication.isPlaying,audioPaused=AudioListener.pause}));
+                    // Exercise the focused-app audio path in our memory-only test.
+                    // Other desktop sessions can move OS focus between native requests.
+                    if(EditorAuthoringPreview.Active&&QuietCampBootstrap.ServicesRef?.Save.MemoryOnly==true)
+                    {
+                        var bootstrap=UnityEngine.Object.FindAnyObjectByType<QuietCampBootstrap>();
+                        bootstrap?.SendMessage("OnApplicationPause",false,SendMessageOptions.RequireReceiver);
+                        bootstrap?.SendMessage("OnApplicationFocus",true,SendMessageOptions.RequireReceiver);
+                    }
+                    File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="game-focus",playing=EditorApplication.isPlaying,audioPaused=AudioListener.pause,focusSimulated=EditorAuthoringPreview.Active}));
                 }
                 else if (request.mode == "props-game-status")
                 {
@@ -141,6 +149,13 @@ namespace QuietCamp.Editor
                         artSha256=Hash(System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(snapshot.art))) }));
                 }
                 else if (request.mode == "authoring-open") LevelAuthoring.LevelAuthoringWindow.OpenWindow().NewDocument(false);
+                else if(request.mode=="authoring-load-draft")
+                {
+                    var restored=LevelAuthoring.LevelAuthoringDocument.Open(request.draftPath);
+                    if(request.profile=="legacy-annotations")LevelAuthoring.SeasonAtmosphereAuthoring.Annotate(restored);
+                    LevelAuthoring.LevelAuthoringWindow.OpenWindow().SetDocument(restored);
+                    File.WriteAllText(ResultPath,"{\"status\":\"draft-restored\"}");
+                }
                 else if (request.mode == "authoring-recover") LevelAuthoring.LevelAuthoringWindow.OpenWindow().RestoreAfterPlay();
                 else if (request.mode == "authoring-load-smoke")
                     LevelAuthoring.LevelAuthoringWindow.OpenWindow().SetDocument(LevelAuthoring.LevelAuthoringDocument.Open(Path.Combine(UnityEngine.Application.dataPath, "../Temp/ai/authoring-smoke-draft.json")));
@@ -293,8 +308,13 @@ namespace QuietCamp.Editor
         static void RunTests(bool authoring = false, string focused = null)
         {
             if (authoring) SessionState.SetBool("QuietCamp.Authoring.Verifying", true);
-            var window = authoring ? Resources.FindObjectsOfTypeAll<LevelAuthoring.LevelAuthoringWindow>().FirstOrDefault() : null;
+            var window = authoring ? LevelAuthoring.LevelAuthoringWindow.OpenWindow() : null;
             var session = window?.PrepareVerification();
+            if(session!=null)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(ResultPath));
+                File.WriteAllText(Path.Combine(Path.GetDirectoryName(ResultPath),"authoring-before-tests.json"),JsonConvert.SerializeObject(new{document=session.document,path=session.path,dirty=session.dirty}));
+            }
             if (authoring) LevelAuthoring.LevelAuthoringWorkspace.CloseOrphanedScenes();
             if (authoring)
                 for (int i = 0; i < SceneManager.sceneCount; i++)
@@ -328,11 +348,23 @@ namespace QuietCamp.Editor
             }
             public void RunFinished(ITestResultAdaptor result)
             {
-                SessionState.SetBool("QuietCamp.Authoring.Verifying", false);
-                File.WriteAllText(ResultPath, JsonConvert.SerializeObject(new { status = "tests", outcome = result.TestStatus.ToString(),
-                    passed = result.PassCount, failed = result.FailCount, skipped = result.SkipCount, duration = result.Duration, failures = _failures }, Formatting.Indented));
+                string report=JsonConvert.SerializeObject(new { status = "tests", outcome = result.TestStatus.ToString(),
+                    passed = result.PassCount, failed = result.FailCount, skipped = result.SkipCount, duration = result.Duration, failures = _failures }, Formatting.Indented);
                 _api.UnregisterCallbacks(this); UnityEngine.Object.DestroyImmediate(_api);
-                if (_session != null) EditorApplication.delayCall += () => LevelAuthoring.LevelAuthoringWindow.OpenWindow().RestoreVerification(_session);
+                if(_session==null){SessionState.SetBool("QuietCamp.Authoring.Verifying",false);File.WriteAllText(ResultPath,report);return;}
+                // RunFinished precedes TestRunner's scene/window restoration. Wait
+                // until it settles before restoring the user's preserved session.
+                double restoreAt=EditorApplication.timeSinceStartup+1;
+                EditorApplication.CallbackFunction restore=null;
+                restore=()=>
+                {
+                    if(EditorApplication.isCompiling||EditorApplication.timeSinceStartup<restoreAt)return;
+                    EditorApplication.update-=restore;
+                    SessionState.SetBool("QuietCamp.Authoring.Verifying",false);
+                    try{LevelAuthoring.LevelAuthoringWindow.OpenWindow().RestoreVerification(_session);File.WriteAllText(ResultPath,report);}
+                    catch(Exception e){File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="error",error="Workspace restoration: "+e}));}
+                };
+                EditorApplication.update+=restore;
             }
         }
         static string Hash(byte[] bytes) { using var hash = SHA256.Create(); return BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant(); }

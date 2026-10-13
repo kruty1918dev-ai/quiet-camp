@@ -10,14 +10,22 @@ namespace QuietCamp.Editor.LevelAuthoring
     public partial class LevelAuthoringWindow
     {
         int _seasonFilter;
+        int _vegetationChoice;
         readonly Dictionary<string,Texture2D> _moodImages=new Dictionary<string,Texture2D>();
         AudioService _moodAudio;
         double _moodTime;
         void DrawAtmosphere()
         {
             EditorGUILayout.LabelField("Допомога з рослинністю",EditorStyles.boldLabel);
-            foreach(var preset in VegetationAuthoring.Presets)
-                if(GUILayout.Button(new GUIContent(preset.label,preset.description),GUILayout.Height(34)))Try(()=>{StopMoodAudio();var d=CaptureDraft(false);Undo.RecordObject(_state,"Додати живу зелень");VegetationAuthoring.Apply(d,preset,d.art.seed);_state.Write(d);_refreshing=true;try{_workspace?.Dispose();_workspace=new LevelAuthoringWorkspace(d);}finally{_refreshing=false;}_dirty=true;_message="Зелень додана навколо наявних деталей. Ctrl+Z — скасування.";});
+            var greenery=VegetationAuthoring.Presets;
+            _vegetationChoice=Mathf.Clamp(_vegetationChoice,0,greenery.Length-1);
+            var plantPreset=greenery[_vegetationChoice];
+            using(new EditorGUILayout.HorizontalScope())
+            {
+                _vegetationChoice=EditorGUILayout.Popup(_vegetationChoice,greenery.Select(p=>p.label).ToArray());plantPreset=greenery[_vegetationChoice];
+                if(GUILayout.Button(new GUIContent("Додати зелень",plantPreset.description),GUILayout.Width(160),GUILayout.Height(28)))Try(()=>{StopMoodAudio();var d=CaptureDraft(false);Undo.RecordObject(_state,"Додати живу зелень");VegetationAuthoring.Apply(d,plantPreset,d.art.seed);_state.Write(d);_refreshing=true;try{_workspace?.Dispose();_workspace=new LevelAuthoringWorkspace(d);}finally{_refreshing=false;}_dirty=true;_message="Зелень додана навколо наявних деталей. Ctrl+Z — скасування.";});
+            }
+            EditorGUILayout.HelpBox(plantPreset.description,MessageType.None);
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Одне натискання — новий настрій рівня",EditorStyles.boldLabel);
             EditorGUILayout.HelpBox("Картки показують справжні рендери одного деморівня. Пресет застосовує світло, тіні, сезонні моделі, частинки, звуки й постобробку. Ctrl+Z скасовує застосування.",MessageType.None);
