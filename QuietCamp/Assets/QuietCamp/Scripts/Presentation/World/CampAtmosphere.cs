@@ -74,17 +74,18 @@ namespace QuietCamp.Presentation.World
         Color _previousSky,_previousEquator,_previousGround;
         CampWeather _weather;AtmosphereCatalog.Profile _profile;
         public CampWeather Weather=>_weather;
+        public SeasonAtmosphereView SeasonalWeather=>_artView?.SeasonAtmosphere;
         CampRainShelter _shelter;
         public CampRainShelter RainShelter=>_shelter;
         CampSoundscape _soundscape;
         public CampSoundscape Soundscape => _soundscape;
-        public void BindRainWorld(Transform world)
+        public void BindRainWorld(Transform world,BoardRenderer board=null)
         {
-            if(world==null||_seasonPresetActive)return;
-            _weather.World=world;
+            if(world==null)return;
+            if(_weather!=null)_weather.World=world;
             _soundscape?.BindWorld(world);
             if(_shelter==null)_shelter=gameObject.AddComponent<CampRainShelter>();
-            _shelter.Configure(this,world);
+            _shelter.Configure(this,world,board);
         }
 
         public string PhaseId { get; private set; }
@@ -349,7 +350,16 @@ namespace QuietCamp.Presentation.World
         {
             using var audit = PerformanceAudit.Measure("QC.CampAtmosphere.LateUpdate");
             if (!_initialized || _camera == null) return;
-            if(_artView?.SeasonAtmosphere!=null){_artView.SeasonAtmosphere.Advance(Time.unscaledDeltaTime,_reducedMotion?.Invoke()??false,_qualitySource?.Invoke()??_tier);return;}
+            if(_artView?.SeasonAtmosphere!=null)
+            {
+                var weather=_artView.SeasonAtmosphere;bool seasonalReduced=_reducedMotion?.Invoke()??false;
+                weather.Advance(Time.unscaledDeltaTime,seasonalReduced,_qualitySource?.Invoke()??_tier);
+                Shader.SetGlobalVector(WindXZ,new Vector4(weather.WindDirection.x,weather.WindDirection.y,0,0));
+                Shader.SetGlobalFloat(WindStrength,weather.WindStrength);
+                Shader.SetGlobalFloat(WindTime,weather.WeatherClock);
+                _shelter?.Advance(Time.unscaledDeltaTime,weather.Preset.rain);
+                return;
+            }
             if (_windShelterTexture == null && _composition?.Shelter != null)
             {
                 _windSim.SetShelter(_composition.Shelter);

@@ -15,20 +15,23 @@ namespace QuietCamp.Editor.LevelAuthoring
         const string Content="Assets/QuietCamp/Resources/QuietCamp";
         const string Drafts="Assets/QuietCamp/Authoring/CampaignLevels";
         readonly string _stage;
+        readonly bool _presentationOnly;
         readonly AuthoringCampaignCard[] _cards;
         readonly List<object> _proofs=new List<object>();
         readonly Dictionary<string,string> _sourceHashes=new Dictionary<string,string>();
         public int Completed {get;private set;}
         public int Total=>_cards.Length;
         public string Output=>_stage;
-        public CampaignWorkshopRegeneration(string output)
+        public CampaignWorkshopRegeneration(string output,bool presentationOnly=false)
         {
+            _presentationOnly=presentationOnly;
             _stage=Path.GetFullPath(output);Directory.CreateDirectory(_stage);_cards=LevelAuthoringCampaign.Cards;
             if(_cards.Length!=100)throw new InvalidOperationException("Expected exactly 100 campaign levels.");
             foreach(var folder in new[]{"Levels","GeneratedLevels","ArtCompositions","ContentRevisions","ArtRevisions"})
                 if(Directory.Exists(Path.Combine(Content,folder)))
                     foreach(var file in Directory.GetFiles(Path.Combine(Content,folder),"*.json"))
                     {var path=Path.Combine(_stage,"Content",folder,Path.GetFileName(file));Directory.CreateDirectory(Path.GetDirectoryName(path));File.Copy(file,path);}
+            if(_presentationOnly)foreach(var file in Directory.GetFiles(Drafts,"*.draft.json"))_sourceHashes[file]=Hash(file);
             File.Copy(Path.Combine(Content,"campaign.json"),Path.Combine(_stage,"Content/campaign.json"));
             foreach(var folder in new[]{"Levels","GeneratedLevels","ArtCompositions"})
                 if(Directory.Exists(Path.Combine(Content,folder)))foreach(var file in Directory.GetFiles(Path.Combine(Content,folder),"*.json"))_sourceHashes[file]=Hash(file);
@@ -41,9 +44,20 @@ namespace QuietCamp.Editor.LevelAuthoring
             string name=card.id.Replace(':','_')+".json";
             string source=Path.Combine(Content,card.id.StartsWith("gen:")?"GeneratedLevels":"Levels",name);
             string artSource=Path.Combine(Content,"ArtCompositions",name);
+            LevelAuthoringDocument d;
+            if(_presentationOnly)
+            {
+                string saved=Path.Combine(Drafts,card.id.Replace(':','_')+".draft.json");
+                d=LevelAuthoringDocument.Open(saved);
+                if(d.sourceContentHash!=Hash(source)||d.sourceArtHash!=Hash(artSource))throw new InvalidOperationException("Draft is out of date: "+card.id);
+                d.sourceLevelId=card.id;d.level=original;d.art.levelId=original.id;
+                SeasonAtmosphereAuthoring.Apply(d,SeasonAtmosphereCatalog.Get(d.art.atmosphere.id));
+            }
+            else
+            {
             // This operation replaces the surroundings. Avoid rendering and capturing the
             // discarded old scenery before generating the new editable composition.
-            var d=new LevelAuthoringDocument{level=LevelAuthoringDocument.Copy(original),sourceLevelId=card.id,sourceContentHash=Hash(source),sourceArtHash=File.Exists(artSource)?Hash(artSource):null};
+            d=new LevelAuthoringDocument{level=LevelAuthoringDocument.Copy(original),sourceLevelId=card.id,sourceContentHash=Hash(source),sourceArtHash=File.Exists(artSource)?Hash(artSource):null};
             var profile=LevelAuthoringDocument.Copy(WorldStudyFactory.Profiles[Completed%5]);
             profile.seed=191800+card.number*7919;profile.plants=650;profile.cameraSize=Math.Max(profile.cameraSize,Math.Max(card.width,card.height)*1.15f);
             d.art=CampCompositionGenerator.Generate(d.level,"riparian-clearing",profile.seed,out _);d.terrain=null;
@@ -52,6 +66,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             var preset=VegetationAuthoring.Presets[Completed%5];VegetationAuthoring.Apply(d,preset,profile.seed);
             string season=new[]{"spring","summer","autumn","winter"}[Completed/25];var moods=SeasonAtmosphereCatalog.All.Where(p=>p.season==season).ToArray();
             SeasonAtmosphereAuthoring.Apply(d,moods[Completed%5]);
+            }
             var errors=d.Validate(true);if(errors.Count>0)throw new InvalidDataException(card.id+": "+string.Join("; ",errors));
             // Publish only presentation changes; all rule fields remain byte-identical.
             var before=JsonConvert.SerializeObject(original);var comparison=LevelAuthoringDocument.Copy(d.level);if(before!=JsonConvert.SerializeObject(comparison))throw new InvalidOperationException("Puzzle changed: "+card.id);
@@ -61,7 +76,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             d.sourceArtHash=Hash(Path.Combine(_stage,"Content/ArtCompositions",card.id.Replace(':','_')+".json"));
             string draft=Path.Combine(_stage,"Drafts",card.id.Replace(':','_')+".draft.json");Directory.CreateDirectory(Path.GetDirectoryName(draft));
             File.WriteAllText(draft,JsonConvert.SerializeObject(d));
-            _proofs.Add(new{id=card.id,number=card.number,objects=d.art.instances.Length,preset=d.art.atmosphere.id,vegetation=d.vegetationPreset,seed=profile.seed,puzzleUnchanged=true});Completed++;
+            _proofs.Add(new{id=card.id,number=card.number,objects=d.art.instances.Length,preset=d.art.atmosphere.id,vegetation=d.vegetationPreset,seed=d.art.seed,puzzleUnchanged=true});Completed++;
         }
         public void Publish()
         {

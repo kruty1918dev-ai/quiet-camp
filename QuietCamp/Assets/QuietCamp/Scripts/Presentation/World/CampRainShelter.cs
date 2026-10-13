@@ -8,7 +8,7 @@ namespace QuietCamp.Presentation.World
     /// noise/occupancy rules. Interior warmth uses emission without extra lights.</summary>
     public sealed class CampRainShelter : MonoBehaviour
     {
-        CampAtmosphere _atmosphere;Transform _world;FireVisual[] _fires;Vector3[] _scales;
+        CampAtmosphere _atmosphere;Transform _world;BoardRenderer _board;FireVisual[] _fires;Vector3[] _scales;
         Light[] _fireLights;float[] _lightIntensity;FireFlicker[] _flickers;
         readonly List<TentCloth> _tents=new List<TentCloth>();Light _rigFire;
         bool _stoppedParticles;
@@ -16,9 +16,9 @@ namespace QuietCamp.Presentation.World
         public bool Extinguished { get; private set; }
         public float FireStrength => _burn;
         public float InteriorWarmth => _warmth;
-        public void Configure(CampAtmosphere atmosphere,Transform world)
+        public void Configure(CampAtmosphere atmosphere,Transform world,BoardRenderer board=null)
         {
-            _atmosphere=atmosphere;_world=world;
+            _atmosphere=atmosphere;_world=world;_board=board;
             _fires=world.GetComponentsInChildren<FireVisual>(true);_scales=new Vector3[_fires.Length];
             for(int i=0;i<_fires.Length;i++)_scales[i]=_fires[i].transform.localScale;
             var lights=new List<Light>();var flickers=new List<FireFlicker>();
@@ -56,12 +56,17 @@ namespace QuietCamp.Presentation.World
             _refresh-=dt;
             if(_refresh<=0)
             {
-                _refresh=.5f;_world.GetComponentsInChildren(true,_tents);
+                _refresh=.5f;var board=_board;
+                if(board==null)_world.GetComponentsInChildren(true,_tents);
+                else{_tents.Clear();foreach(var presenter in board.Tents.Values){var cloth=presenter.Root.GetComponent<TentCloth>();if(cloth!=null)_tents.Add(cloth);}}
+                _atmosphere?.SeasonalWeather?.SetTents(_tents);
             }
             foreach(var tent in _tents)if(tent!=null)
             {
                 tent.SetShelterWarmth(_warmth);
-                tent.AdvanceSurface(dt,rain,_atmosphere?.Weather?.Snowfall??0,Shader.GetGlobalFloat("_AtmosWindStrength"));
+                var seasonal=_atmosphere?.SeasonalWeather;
+                if(seasonal!=null)tent.ApplyClimate(seasonal.Preset.season,seasonal.Preset.wetness,seasonal.Preset.snowCover);
+                tent.AdvanceSurface(dt,rain,seasonal?.Preset.snow??_atmosphere?.Weather?.Snowfall??0,Shader.GetGlobalFloat("_AtmosWindStrength"));
             }
         }
     }

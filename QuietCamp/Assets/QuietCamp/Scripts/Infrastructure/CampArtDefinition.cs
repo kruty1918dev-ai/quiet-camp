@@ -56,6 +56,8 @@ namespace QuietCamp.Infrastructure
             public bool? surfaceAttached;
             public float surfaceOffset;
             public string id, modelId, assetId;
+            public string motion;
+            public float[] motionPivot;
             public float[] rotationEuler, scaleXYZ;
             public float x, y, z, yaw, scale = 1;
         }
@@ -99,6 +101,8 @@ namespace QuietCamp.Infrastructure
                     throw new InvalidDataException("Invalid camp art mesh: " + model.id);
             foreach (var item in instances)
             {
+                if(item.motion!=null&&item.motion!="boat"&&item.motion!="waterwheel")throw new InvalidDataException("Unknown authored motion.");
+                if(item.motion=="waterwheel"&&!Vector(item.motionPivot)||item.motionPivot!=null&&!Vector(item.motionPivot))throw new InvalidDataException("Invalid motion pivot.");
                 if (item.rotationEuler != null && !Vector(item.rotationEuler) || item.scaleXYZ != null && (!Vector(item.scaleXYZ) || item.scaleXYZ.Any(v => v <= 0))) throw new InvalidDataException("Invalid authored transform.");
                 if (!Finite(item.x) || !Finite(item.y) || !Finite(item.z) || !Finite(item.yaw)
                     || !Finite(item.scale) || item.scale <= 0

@@ -287,6 +287,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 }
                 if (Math.Abs(p.y - m.attachedY) > .001f) m.surfaceAttached = false;
                 item.surfaceAttached = m.surfaceAttached; item.surfaceOffset = m.surfaceOffset;
+                item.motion=m.sourcePose?.motion;item.motionPivot=m.sourcePose?.motionPivot;
                 return item;
             }).ToArray();
             copy.art.models = markers.Where(m => m.packedModel).Select(m => m.stableId).Distinct().Select(id =>
@@ -302,6 +303,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             for (int i = _boardRoot.childCount - 1; i >= 0; i--) UnityEngine.Object.DestroyImmediate(_boardRoot.GetChild(i).gameObject);
             Transform Part(string name) => Child(name, _boardRoot);
             _board = new BoardRenderer(Document.level, AssetCatalog.Load(), Part("Base"), Part("Grid"), Part("Obstacle"), Part("Tent"), Part("Overlay"), Document.art);
+            _board.SetPlacementGridVisible(true);
             _board.SyncPlacements(Document.level.witness ?? Array.Empty<Placement>(), Document.level, 1, true);
             // Logical picking uses the board plane, not scenery Physics.
             foreach (var collider in _boardRoot.GetComponentsInChildren<Collider>()) UnityEngine.Object.DestroyImmediate(collider);

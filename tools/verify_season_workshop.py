@@ -12,8 +12,9 @@ ROOT=Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser(description=__doc__)
 p.add_argument('--project',type=Path,required=True)
 p.add_argument('--resume',action='store_true')
+p.add_argument('--round',default='R07')
 a=p.parse_args()
-proof=ROOT/'Design/LevelAuthoring/SeasonAtmosphere/Verification';proof.mkdir(parents=True,exist_ok=True)
+proof=ROOT/'Design/LevelAuthoring/SeasonAtmosphere'/('Verification' if a.round=='R07' else 'VerificationV2');proof.mkdir(parents=True,exist_ok=True)
 
 def request(mode,**kwargs):
     args=[sys.executable,'-X','utf8',str(ROOT/'tools/request_authoring_props.py'),'--project',str(a.project),'--mode',mode]
@@ -26,7 +27,7 @@ def snapshot(folder):
     return {f.relative_to(folder).as_posix():hashlib.sha256(f.read_bytes()).hexdigest() for f in folder.rglob('*') if f.is_file() and f.suffix in ('.mvs','.bak','.txt')}
 
 presets=json.loads((ROOT/'QuietCamp/Assets/QuietCamp/Resources/QuietCamp/season_atmosphere.json').read_text(encoding='utf-8'))['presets']
-drafts=[(v['id'],a.project/'Temp/ai/SeasonAtmosphere/R07'/f"{v['id']}.draft.json") for v in presets]
+drafts=[(v['id'],a.project/'Temp/ai/SeasonAtmosphere'/a.round/f"{v['id']}.draft.json") for v in presets]
 campaign=json.loads((a.project/'Assets/QuietCamp/Resources/QuietCamp/campaign.json').read_text(encoding='utf-8'))['campaignLevelIds']
 for index in (0,26,52,78,99):
     key=campaign[index];drafts.append((f'campaign-{index+1:03}',a.project/'Assets/QuietCamp/Authoring/CampaignLevels'/f"{key.replace(':','_')}.draft.json"))
@@ -51,6 +52,8 @@ for key,path in drafts:
                 time.sleep(.5);playing=request('props-game-status',draft=path)
                 if playing.get('playingVoices'):break
         assert playing.get('playingVoices',0)>0,'No playing preset audio: '+key+' '+str(playing)
+        if key in ('summer_rain','winter_snowfall','winter_blizzard','autumn_wind'):
+            request('weather-motion',output=proof/'Motion'/key)
         complete=request('authoring-complete')
         assert all(complete.get(k) is True for k in ('solved','completed','memoryOnly','progressUnchanged','albumUnchanged','frozenArtMatches')),complete
         (proof/f'{key}-play.json').write_text(json.dumps({'play':playing,'completion':complete},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')

@@ -111,6 +111,12 @@ namespace QuietCamp.Presentation.World
             if(_interiorBelongings!=null)_interiorBelongings.SetFloat("_ShelterGlow",ShelterWarmth);
             if(_interior!=null)_interior.SetColor("_Tint",new Color(1,.65f,.24f,ShelterWarmth*.38f));
         }
+        public void ApplyClimate(string season,float wetness,float snowCover)
+        {
+            _season=season;Wetness=Mathf.Max(Wetness,Mathf.Clamp01(wetness));
+            if(season=="winter")SnowCover=Mathf.Max(SnowCover,Mathf.Clamp01(snowCover)*.9f);
+            ApplySurfaceState();
+        }
         public void ConfigureSeason(QuietCamp.Domain.LevelData level)
         {
             var environment=QuietCamp.Domain.EnvironmentCompositionData.For(level);

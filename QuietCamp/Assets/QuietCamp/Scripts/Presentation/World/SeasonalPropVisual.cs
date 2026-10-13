@@ -8,10 +8,10 @@ namespace QuietCamp.Presentation.World
     public sealed class SeasonalPropVisual:MonoBehaviour
     {
         readonly List<Material> _materials=new List<Material>();
-        public static void Apply(GameObject root,LevelData level,string assetId)
+        public static void Apply(GameObject root,LevelData level,string assetId,string season=null)
         {
-            if(root==null||!SeasonProfile.For(level).Winter||root.GetComponent<SeasonalPropVisual>()!=null)return;
-            if(assetId==null||!(assetId.StartsWith("stone")||assetId.StartsWith("stump")||assetId.StartsWith("log")))return;
+            if(root==null||!(season==null?SeasonProfile.For(level):SeasonProfile.For(season,level.order)).Winter||root.GetComponent<SeasonalPropVisual>()!=null)return;
+            if(assetId==null||!(assetId.StartsWith("stone")||assetId.StartsWith("stump")||assetId.StartsWith("log")||assetId.StartsWith("tent")))return;
             var shader=Resources.Load<Shader>("QuietCamp/FoliageLit");if(shader==null)return;
             var owner=root.AddComponent<SeasonalPropVisual>();var copies=new Dictionary<Material,Material>();
             foreach(var renderer in root.GetComponentsInChildren<MeshRenderer>())

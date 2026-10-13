@@ -91,7 +91,7 @@ namespace QuietCamp.Presentation.World
             ConfigureAtmosphere(level); yield return null;
             _renderer.BuildCanopies();
             _atmosphere.RegisterDecor(Find("World")?.transform);
-            _atmosphere.BindRainWorld(Find("World")?.transform);
+            _atmosphere.BindRainWorld(Find("World")?.transform,_renderer);
             _router?.Dive.WarmSceneUnderCover();
             _services.PendingLevelId = null;
             IsReady = true;

@@ -1,19 +1,19 @@
 Shader "QuietCamp/CampArtLit"
 {
-    Properties { _ArtAmbient("Ambient", Color) = (.22,.24,.16,1) _ArtWater("Water", Float) = 0 _ArtGrass("Grass", Float) = 0 _ArtGround("Ground", Float) = 0 _QCWeather("Weather time, wind, rain, active",Vector)=(0,0,0,0) }
+    Properties { _ArtAmbient("Ambient", Color) = (.22,.24,.16,1) _ArtWater("Water", Float) = 0 _ArtGrass("Grass", Float) = 0 _ArtGround("Ground", Float) = 0 _QCWeather("Weather time, wind, rain, active",Vector)=(0,0,0,0) _QCWind("Wind direction",Vector)=(.8,.35,0,0) }
     SubShader
     {
         Tags { "RenderPipeline"="UniversalPipeline" "RenderType"="Opaque" "Queue"="Geometry" }
         HLSLINCLUDE
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-        float4 _QCWeather;
+        float4 _QCWeather,_QCWind;
         float3 WeatherPosition(float3 p,float2 response)
         {
             float t=_QCWeather.x;
             float gust=.65+.35*sin(t*.7+p.x*.19+p.z*.24);
             float wave=sin(t*1.7+p.x*.54+p.z*.39);
             float weight=response.x*min(response.y,3);
-            p.xz+=float2(.8,.35)*wave*gust*_QCWeather.y*weight*.14;
+            p.xz+=_QCWind.xy*wave*gust*_QCWeather.y*weight*.14;
             p.y-=abs(wave)*_QCWeather.z*weight*.028;
             return p;
         }
@@ -63,9 +63,9 @@ Shader "QuietCamp/CampArtLit"
                 float3 color=input.color.rgb*lighting;
                 if(_QCWeather.w>.5 && _ArtWater<.5)
                 {
-                    color*=1-_QCWeather.z*.12;
+                    color*=1-_QCWeather.z*.18;
                     float wetSpec=pow(saturate(dot(reflect(-sun.direction,normal),GetWorldSpaceNormalizeViewDir(input.positionWS))),24);
-                    color+=sun.color*wetSpec*_QCWeather.z*.10*sun.shadowAttenuation;
+                    color+=sun.color*wetSpec*_QCWeather.z*.07*sun.shadowAttenuation;
                 }
                 if(_ArtGround>.5) color*=.89+ArtNoise(input.positionWS.xz*.43)*.18+ArtNoise(input.positionWS.xz*2.4)*.07;
                 if(_ArtWater>.5)

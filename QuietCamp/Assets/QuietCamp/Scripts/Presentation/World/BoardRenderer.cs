@@ -74,7 +74,7 @@ namespace QuietCamp.Presentation.World
             BuildBase();
             BuildCells();
             // The scene Base is below the meadow; keep the visible rim with the surface grid.
-            _rim = BoardRim.Create(_level, _gridRoot);
+            if(_art==null)_rim = BoardRim.Create(_level, _gridRoot);
             BuildObstacles();
             if (_art == null) BuildTufts();
 
@@ -91,6 +91,7 @@ namespace QuietCamp.Presentation.World
 
         void BuildBase()
         {
+            if(_art!=null)return;
             var baseGo = NewPrimitive(PrimitiveType.Cube, "BaseSlab", _baseRoot,
                 new Vector3(_level.width + BoardMath.Overhang * 2f,
                     BoardMath.BaseThickness, _level.height + BoardMath.Overhang * 2f),
@@ -132,6 +133,12 @@ namespace QuietCamp.Presentation.World
                 }
             }
             _groundMaterial.SetFloat("_CellGrid",1);
+            if(_art!=null)
+            {
+                DestroyOwned(_groundMaterial);
+                _groundMaterial=new Material(Resources.Load<Shader>("QuietCamp/PlacementGrid")){name="Placement lines above continuous landscape"};
+                _groundMaterial.SetVector("_GridOffset",new Vector4(_level.width*.5f,_level.height*.5f,0,0));
+            }
             for (var x = 0; x < _level.width; x++)
             for (var z = 0; z < _level.height; z++)
             {
@@ -187,12 +194,12 @@ namespace QuietCamp.Presentation.World
                     if(tree)Kruty1918.Atmos.FoliageSway.Shared.ApplySlots(model,new[]{Kruty1918.Atmos.FoliageSway.Species.Trunk,
                         data.assetId=="tree_default"?Kruty1918.Atmos.FoliageSway.Species.Canopy:Kruty1918.Atmos.FoliageSway.Species.Conifer});
                     DecorSpawner.ScaleToHeight(model,tree?2.4f:.6f);
-                    if(tree)SeasonalTreeVisual.Apply(model,_level,data.assetId);
+                    if(tree)SeasonalTreeVisual.Apply(model,_level,data.assetId,_art?.atmosphere?.season);
                     if(!tree)
                     {
                         var rs=model.GetComponentsInChildren<Renderer>();var bounds=rs[0].bounds;foreach(var r in rs)bounds.Encapsulate(r.bounds);
                         model.transform.localScale*=Mathf.Min(1,.86f/Mathf.Max(bounds.size.x,bounds.size.z));
-                        SeasonalPropVisual.Apply(model,_level,data?.assetId??"stone_largeA");
+                        SeasonalPropVisual.Apply(model,_level,data?.assetId??"stone_largeA",_art?.atmosphere?.season);
                     }
                 }
             }
@@ -276,6 +283,7 @@ namespace QuietCamp.Presentation.World
 
         public void ShowPlacementPreview(Placement placement, RuleReport report)
         {
+            SetPlacementGridVisible(true);
             var cells = new List<Cell>(RuleEvaluator.Footprint(placement));
             var door = RuleEvaluator.Door(placement);
             if (CampWalkability.Contains(_level, door)) cells.Add(door);
@@ -289,7 +297,9 @@ namespace QuietCamp.Presentation.World
         }
 
         public void HidePlacementPreview()
-        { if (_previewOverlay != null) _previewOverlay.SetActive(false); if(_previewDoor!=null)_previewDoor.SetActive(false); }
+        { SetPlacementGridVisible(false);if (_previewOverlay != null) _previewOverlay.SetActive(false); if(_previewDoor!=null)_previewDoor.SetActive(false); }
+        public void SetPlacementGridVisible(bool visible)
+        {if(_groundMaterial!=null&&_groundMaterial.HasProperty("_GridVisible"))_groundMaterial.SetFloat("_GridVisible",visible?1:0);}
 
         // Dragging retargets existing cells; no destroy/instantiate or material
         // cloning on every grid boundary. Path finding uses the candidate's occupancy.
@@ -438,6 +448,11 @@ namespace QuietCamp.Presentation.World
             _tents[guestId] = presenter;
             presenter.BindViewport(_viewport);
             presenter.ApplyPlacement(placement, instant: true);
+            if(_art?.atmosphere!=null)
+            {
+                if(UnityEngine.Application.isPlaying)go.GetComponent<TentCloth>()?.ApplyClimate(_art.atmosphere.season,_art.atmosphere.wetness,_art.atmosphere.snowCover);
+                else SeasonalPropVisual.Apply(go,_level,"tent",_art.atmosphere.season);
+            }
             return presenter;
         }
 

@@ -95,8 +95,7 @@ namespace QuietCamp.Editor
                 else if(request.mode=="mood-demo")
                 {
                     var doc=LevelAuthoring.LevelAuthoringDocument.Open(request.draftPath);
-                    var flower=SunflowerGeometry.Create();doc.art.models=doc.art.models.Where(m=>m.id!=flower.id).Concat(new[]{flower}).ToArray();
-                    doc.art.instances=doc.art.instances.Concat(new[]{new CampArtDefinition.Instance{id="demo/sunflowers",modelId=flower.id,x=5.5f,z=-3.8f,y=doc.art.GroundHeight(5.5f,-3.8f),scale=1,yaw=225}}).ToArray();
+                    LevelAuthoring.AtmosphereDemoComposition.Prepare(doc);
                     LevelAuthoring.LevelAuthoringPalette.EnsureDocumentModels(doc.art.models);SeasonAtmosphereCatalog.Reset();
                     LevelAuthoring.SeasonAtmosphereAuthoring.Apply(doc,SeasonAtmosphereCatalog.Get(request.profile));doc.art.cameraAspect=1;doc.art.orthographicSize=11.5f;
                     string path=Path.Combine(request.output,request.name+".draft.json");doc.Save(path);
@@ -120,6 +119,7 @@ namespace QuietCamp.Editor
                     }
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="game-focus",playing=EditorApplication.isPlaying,audioPaused=AudioListener.pause,focusSimulated=EditorAuthoringPreview.Active}));
                 }
+                else if(request.mode=="weather-motion")new LevelAuthoring.WeatherMotionCapture(request.output,ResultPath);
                 else if (request.mode == "props-game-status")
                 {
                     var draft = LevelAuthoring.LevelAuthoringDocument.Open(request.draftPath);
@@ -136,7 +136,7 @@ namespace QuietCamp.Editor
                 else if (request.mode == "authoring-tests") RunTests(true);
                 else if (request.mode == "world-tests") RunTests(true,"QuietCamp.Tests.ModelWorkshopTests");
                 else if(request.mode=="mood-tests")RunTests(true,"QuietCamp.Tests.SeasonAtmosphereTests");
-                else if(request.mode=="campaign-regenerate")_campaignBatch=new LevelAuthoring.CampaignWorkshopRegeneration(request.output);
+                else if(request.mode=="campaign-regenerate"||request.mode=="campaign-weather-upgrade")_campaignBatch=new LevelAuthoring.CampaignWorkshopRegeneration(request.output,request.mode=="campaign-weather-upgrade");
                 else if (request.mode == "terrain-tests") RunTests(true, "QuietCamp.Tests.LevelAuthoringV2Tests.RiverAndTerrainBakeAndRestoreWithoutVendorRuntimeComponents");
                 else if (request.mode == "gallery-tests") RunTests(true, "QuietCamp.Tests.LevelAuthoringV2Tests.CampaignGalleryOpensAllHundredPublishedPuzzles");
                 else if (request.mode == "authoring-profile") BeginAuthoringProfile();
@@ -379,6 +379,7 @@ namespace QuietCamp.Editor
                 "Assets/QuietCamp/Settings/URP/QC_Renderer.asset", "Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/CampModelLibrary.json",
                 "Assets/QuietCamp/Scripts/Presentation/QuietCamp.Presentation.asmdef", "Assets/QuietCamp/Editor/QC007ArtCapture.cs",
                 LevelAuthoring.AuthoringPropCatalog.ModelPath, LevelAuthoring.AuthoringPropCatalog.CatalogPath }
+                .Concat(new[]{"Assets/QuietCamp/Scripts/Presentation/World/SeasonAtmosphereView.cs","Assets/QuietCamp/Scripts/Presentation/World/RiverWeatherMaterial.cs","Assets/QuietCamp/Scripts/Presentation/World/SeasonVisibilityPass.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherCoverage.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherSurfaceField.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherObjectMotion.cs","Assets/QuietCamp/Scripts/Presentation/World/SeasonSurfaceAccents.cs","Assets/QuietCamp/Resources/QuietCamp/SeasonVisibility.shader","Assets/QuietCamp/Resources/QuietCamp/PlacementGrid.shader","Assets/QuietCamp/Resources/QuietCamp/season_atmosphere.json"})
                 .Concat(new[] { "scene-placement", "vegetation-placement", "rock-placement" }.SelectMany(id => Directory.GetFiles("Packages/com.kruty1918." + id + "/Runtime/Core", "*.cs")))
                 .Concat(AssetDatabase.GetDependencies(AssetDatabase.GetAssetPath(Resources.Load<Material>(art.waterMaterial)), true))
                 .Concat(AssetDatabase.GetDependencies("Assets/QuietCamp/Resources/QuietCamp/CozyVegetationLibrary.asset", true))
@@ -453,7 +454,7 @@ namespace QuietCamp.Editor
                 preview.BeginStaticPreview(new Rect(0, 0, request.width, request.height)); preview.Render(true);
                 var image = preview.EndStaticPreview(); var bytes = image.EncodeToPNG(); UnityEngine.Object.DestroyImmediate(image);
                 string output = Path.Combine(request.output, request.name + ".png"); File.WriteAllBytes(output, bytes);
-                var errors = new[] { Resources.Load<Shader>("QuietCamp/CampArtLit"), Resources.Load<Shader>("QuietCamp/CampArtEdgeBlur"), Resources.Load<Material>(art.waterMaterial).shader }
+                var errors = new[] { Resources.Load<Shader>("QuietCamp/CampArtLit"), Resources.Load<Shader>("QuietCamp/CampArtEdgeBlur"), Resources.Load<Shader>("QuietCamp/SeasonVisibility"),Resources.Load<Shader>("QuietCamp/PlacementGrid"), Resources.Load<Material>(art.waterMaterial).shader }
                     .SelectMany(ShaderUtil.GetShaderMessages).Where(message => message.severity.ToString() == "Error").Select(message => message.message).ToArray();
                 if (errors.Length != 0) throw new InvalidOperationException(string.Join("\n", errors));
                 var receipt = new { status = "captured", kind = "native-unity-production-world-components", output,

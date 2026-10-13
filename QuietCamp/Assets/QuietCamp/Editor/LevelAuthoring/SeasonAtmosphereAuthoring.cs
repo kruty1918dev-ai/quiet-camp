@@ -9,6 +9,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         public static void Apply(LevelAuthoringDocument document,SeasonAtmospherePreset preset)
         {
             document.art.atmosphere=SeasonAtmosphereCatalog.Copy(preset);
+            WeatherModelRigAuthoring.Prepare(document);
             Annotate(document);
         }
         public static void Annotate(LevelAuthoringDocument document)

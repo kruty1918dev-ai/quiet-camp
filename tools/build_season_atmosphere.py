@@ -38,5 +38,9 @@ for preset in presets:
  preset['contrast']+=1
  preset['sunIntensity']=round(preset['sunIntensity']*1.03,4)
 assert len(presets)==20
+if TARGET.exists():
+ existing=json.loads(TARGET.read_text(encoding='utf-8'))
+ if any(p.get('revision',1)>1 for p in existing.get('presets',[])):
+  raise SystemExit('Reviewed season_atmosphere.json is authoritative. Edit that JSON; refusing to overwrite revision 2.')
 TARGET.write_text(json.dumps(dict(version=1,presets=presets),ensure_ascii=False,indent=2),encoding='utf-8')
 print('Authored 20 presets, five per season')

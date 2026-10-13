@@ -14,6 +14,7 @@ namespace QuietCamp.Presentation.World
         readonly Camera _camera;
         readonly Material _material;
         readonly BlurPass _pass;
+        LevelData _level;
         public CampArtEdgeBlur(Camera camera, float pixels)
         {
             _camera = camera;
@@ -25,6 +26,7 @@ namespace QuietCamp.Presentation.World
         }
         public void ProtectBoard(LevelData level)
         {
+            _level=level;
             var low = Vector2.one; var high = Vector2.zero;
             foreach (float x in new[] { -level.width * .5f, level.width * .5f })
             foreach (float z in new[] { -level.height * .5f, level.height * .5f })
@@ -36,7 +38,7 @@ namespace QuietCamp.Presentation.World
             _material.SetVector("_SharpRect", new Vector4(low.x - .015f, low.y - .015f, high.x + .015f, high.y + .015f));
         }
         void Enqueue(ScriptableRenderContext context, Camera camera)
-        { if (camera == _camera && _material != null) camera.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(_pass); }
+        { if (camera == _camera && _material != null){if(_level!=null)ProtectBoard(_level);camera.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(_pass);} }
         public void Dispose()
         {
             RenderPipelineManager.beginCameraRendering -= Enqueue;

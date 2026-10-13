@@ -15,6 +15,32 @@ namespace QuietCamp.Tests
 {
     public sealed class SeasonAtmosphereTests
     {
+        [Test] public void WaterUsesDepthAndLeavesSourceMaterialUnchanged()
+        {
+            var source=Resources.Load<Material>("QuietCamp/Materials/CampWater");
+            if(source==null)source=Resources.Load<Material>(WorldStudyFactory.Create("watermill").art.waterMaterial);
+            Assert.NotNull(source);float fog=source.GetFloat("_FogSource");var color=source.GetColor("_BaseColor");
+            var copy=new Material(source);
+            try{RiverWeatherMaterial.Configure(copy);Assert.AreEqual(0,copy.GetFloat("_FogSource"));Assert.AreEqual(0,copy.GetFloat("_IntersectionSource"));Assert.AreEqual(fog,source.GetFloat("_FogSource"));Assert.AreEqual(color,source.GetColor("_BaseColor"));}
+            finally{UnityEngine.Object.DestroyImmediate(copy);}
+        }
+        [Test] public void WeatherRigIsIdempotentAndKeepsBuildingGeometryAndPuzzle()
+        {
+            var d=WorldStudyFactory.Create("watermill");var puzzle=JsonConvert.SerializeObject(d.level);
+            int vertices=d.art.instances.Sum(i=>d.art.models.Single(m=>m.id==i.modelId).vertices.Length);
+            WeatherModelRigAuthoring.Prepare(d);int after=d.art.instances.Sum(i=>d.art.models.Single(m=>m.id==i.modelId).vertices.Length);
+            Assert.AreEqual(vertices,after);Assert.AreEqual(puzzle,JsonConvert.SerializeObject(d.level));
+            var once=JsonConvert.SerializeObject(d.art);WeatherModelRigAuthoring.Prepare(d);Assert.AreEqual(once,JsonConvert.SerializeObject(d.art));
+            Assert.IsTrue(d.art.instances.Any(i=>i.motion=="waterwheel"));Assert.IsTrue(d.art.instances.Any(i=>i.motion=="boat"));
+            var opened=JsonConvert.DeserializeObject<LevelAuthoringDocument>(JsonConvert.SerializeObject(d));opened.art.Validate(opened.level);
+            var rotor=opened.art.instances.First(i=>i.motion=="waterwheel");rotor.motionPivot=new[]{float.NaN,0,0};Assert.Throws<System.IO.InvalidDataException>(()=>opened.art.Validate(opened.level));
+        }
+        [Test] public void CanvasClimateKeepsSnowAndAfterRainWetness()
+        {
+            var root=new GameObject("Climate canvas");
+            try{var cloth=root.AddComponent<TentCloth>();cloth.ApplyClimate("winter",0,1);Assert.Greater(cloth.SnowCover,.8f);cloth.AdvanceSurface(10,0,0,.1f);Assert.Greater(cloth.SnowCover,.8f);cloth.ApplyClimate("spring",.8f,0);Assert.AreEqual(.8f,cloth.Wetness);cloth.AdvanceSurface(1,0,0,0);Assert.Greater(cloth.Wetness,.7f);}
+            finally{UnityEngine.Object.DestroyImmediate(root);}
+        }
         [Test] public void TwentyPresetsHaveFivePerSeasonAndResolvableSound()
         {
             SeasonAtmosphereCatalog.Reset();var all=SeasonAtmosphereCatalog.All;Assert.AreEqual(20,all.Length);
@@ -47,6 +73,33 @@ namespace QuietCamp.Tests
             var m=SunflowerGeometry.Create();var bounds=AuthoringPropCatalog.ModelBounds(m);
             Assert.That(bounds.size.y,Is.InRange(1.8f,2.15f));Assert.That(bounds.size.x,Is.InRange(1.1f,1.5f));Assert.AreEqual("flower",m.seasonalRole);
             Assert.IsTrue(m.normals.All(n=>!float.IsNaN(n)&&!float.IsInfinity(n)));Assert.IsTrue(m.colors.Any(c=>((c>>16)&255)>220));
+        }
+        [Test] public void WeatherFollowsPanZoomAndRotatedCameraWithoutFixedOriginPatch()
+        {
+            var root=new GameObject("Weather coverage contract");var cameraObject=new GameObject("Weather camera");
+            try
+            {
+                var camera=cameraObject.AddComponent<Camera>();camera.orthographic=true;camera.aspect=1.5f;camera.orthographicSize=8;camera.transform.rotation=Quaternion.Euler(52,135,0);camera.transform.position=-camera.transform.forward*18;
+                var first=WeatherCoverage.Ground(camera,root.transform,4);camera.transform.position+=new Vector3(30,0,-20);
+                var moved=WeatherCoverage.Ground(camera,root.transform,4);Assert.That(moved.center.x-first.center.x,Is.EqualTo(30).Within(.01f));Assert.That(moved.center.y-first.center.y,Is.EqualTo(-20).Within(.01f));
+                camera.orthographicSize=14;var zoom=WeatherCoverage.Ground(camera,root.transform,4);Assert.Greater(zoom.width,moved.width);Assert.Greater(zoom.height,moved.height);
+            }
+            finally{UnityEngine.Object.DestroyImmediate(root);UnityEngine.Object.DestroyImmediate(cameraObject);}
+        }
+        [Test] public void WeatherSurfaceKeepsRainAboveRoofsAndBoatMotionPreservesAuthoredPose()
+        {
+            var doc=WorldStudyFactory.Create("watermill");AtmosphereDemoComposition.Prepare(doc);SeasonAtmosphereAuthoring.Apply(doc,SeasonAtmosphereCatalog.Get("summer_rain"));
+            var field=new WeatherSurfaceField(doc.art);Assert.Greater(field.Height(-10,2.4f,-.045f),3,"Open mill still has roof segments where geometry exists.");
+            var boat=doc.art.instances.Single(i=>i.motion=="boat");var node=new GameObject("Boat response");
+            try
+            {
+                node.transform.localPosition=new Vector3(boat.x,boat.y,boat.z);var original=node.transform.localPosition;
+                var motion=node.AddComponent<WeatherObjectMotion>();motion.Configure(boat);motion.Advance(2,.8f,false);Assert.AreNotEqual(original,node.transform.localPosition);
+                motion.Advance(2,.8f,true);Assert.AreEqual(original,node.transform.localPosition);
+                var rotor=doc.art.instances.Single(i=>i.motion=="waterwheel");Assert.NotNull(rotor.motionPivot);
+                Assert.IsEmpty(doc.Validate(true));
+            }
+            finally{UnityEngine.Object.DestroyImmediate(node);}
         }
         [Test] public void VegetationUndoAndTerrainEditKeepOneAtmosphereAndExactObjects()
         {

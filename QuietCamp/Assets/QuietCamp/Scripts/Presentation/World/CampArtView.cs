@@ -61,7 +61,13 @@ namespace QuietCamp.Presentation.World
                 var position = new Vector3(item.x, item.y, item.z);
                 var rotation = item.rotationEuler != null ? Quaternion.Euler(CampArtDefinition.Vector(item.rotationEuler)) : Quaternion.Euler(0, item.yaw, 0);
                 var scale = item.scaleXYZ != null ? CampArtDefinition.Vector(item.scaleXYZ) : Vector3.one * item.scale;
-                if (!string.IsNullOrEmpty(item.assetId))
+                if(!string.IsNullOrEmpty(item.motion)&&!string.IsNullOrEmpty(item.modelId))
+                {
+                    var moving=AddMesh("Scenery_"+item.id,catalogMeshes[item.modelId],material);
+                    moving.transform.localPosition=position;moving.transform.localRotation=rotation;moving.transform.localScale=scale;
+                    moving.gameObject.AddComponent<WeatherObjectMotion>().Configure(item);
+                }
+                else if (!string.IsNullOrEmpty(item.assetId))
                 {
                     var prefab = catalog?.Prefab(item.assetId);
                     if (prefab == null) throw new InvalidOperationException("Camp art asset missing: " + item.assetId);
@@ -146,7 +152,11 @@ namespace QuietCamp.Presentation.World
         void BuildGround(Material material)
         {
             var positions = new List<Vector3>(); var colors = new List<Color>(); var rng = new System.Random(Definition.seed);
-            Vector3 At(float x, float z) => new Vector3(x, GroundHeight(x, z), z);
+            Vector3 At(float x, float z)
+            {
+                float margin=Mathf.Max(Mathf.Abs(x)-_level.width*.5f,Mathf.Abs(z)-_level.height*.5f);
+                return new Vector3(x,GroundHeight(x,z)+.045f*(1-Mathf.SmoothStep(0,1,Mathf.Max(0,margin)*.5f)),z);
+            }
             var corners = new[] { ViewGround(-_level.width * .5f, -_level.height * .5f), ViewGround(-_level.width * .5f, _level.height * .5f),
                 ViewGround(_level.width * .5f, -_level.height * .5f), ViewGround(_level.width * .5f, _level.height * .5f) };
             var pathStart = corners.OrderByDescending(p => p.x - p.y).First() + new Vector2(.25f, -.25f);
@@ -161,7 +171,8 @@ namespace QuietCamp.Presentation.World
                 float shore = bank - StreamWidth(uv.y) * .5f;
                 float wet = 1 - Mathf.SmoothStep(0, 1, Mathf.Max(0, shore) / .65f);
                 var bankColor = Color.Lerp(CampArtDefinition.Color(Definition.soilColor), CampArtDefinition.Color(0x65794E), .35f + .2f * Mathf.Sin(uv.y * .8f));
-                color = Color.Lerp(color, bankColor, wet * .62f);
+                color = Color.Lerp(color, bankColor, wet * .72f);
+                if(shore<0)color=Color.Lerp(bankColor,CampArtDefinition.Color(0x81745B),.45f+.12f*Mathf.Sin(uv.y*.7f));
                 float along = Mathf.Clamp01(Vector2.Dot(uv - pathStart, pathDirection) / pathDirection.sqrMagnitude);
                 float pathDistance = Vector2.Distance(uv, pathStart + pathDirection * along);
                 if (pathDistance < .34f && along > 0) color = Color.Lerp(color, CampArtDefinition.Color(Definition.soilColor), .65f * (1 - Mathf.SmoothStep(0, 1, pathDistance / .34f)));
@@ -176,6 +187,7 @@ namespace QuietCamp.Presentation.World
             var sourceWater = Resources.Load<Material>(Definition.waterMaterial);
             if (sourceWater == null) throw new InvalidOperationException("Матеріал води відсутній: " + Definition.waterMaterial);
             var water = new Material(sourceWater) { name = "Frozen authored river" };
+            RiverWeatherMaterial.Configure(water);
             if (water.HasProperty("_VertexColorTransparency")) water.SetFloat("_VertexColorTransparency", 1);
             _materials.Add(water);
             var ground = new Material(material); ground.SetFloat("_ArtGround", 1); _materials.Add(ground);
@@ -262,6 +274,7 @@ namespace QuietCamp.Presentation.World
             var source = Resources.Load<Material>(Definition.waterMaterial);
             if (source == null || !source.shader.isSupported) throw new InvalidOperationException("Stylized Water 3 camp material unavailable.");
             var water = new Material(source) { name = "QC007 Stylized Water 3 stream" }; _materials.Add(water);
+            RiverWeatherMaterial.Configure(water);
             var mesh = MakeMesh("Stream ribbon", vertices, colors);
             mesh.SetUVs(0, vertices.Select(p => { var uv = ViewGround(p.x, p.z); return new Vector2((uv.x - StreamU(uv.y)) * .4f, uv.y * .4f); }).ToList());
             mesh.SetColors(vertices.Select(p => {
@@ -276,13 +289,14 @@ namespace QuietCamp.Presentation.World
             var cameraData = _camera.GetUniversalAdditionalCameraData();
             cameraData.requiresDepthTexture = true; cameraData.requiresColorTexture = true;
         }
-        void AddMesh(string name, Mesh mesh, Material material, bool casts = true)
+        MeshRenderer AddMesh(string name, Mesh mesh, Material material, bool casts = true)
         {
             var go = new GameObject(name); go.layer = BoardRenderer.DecorLayer; go.transform.SetParent(_root.transform, false);
             go.AddComponent<MeshFilter>().sharedMesh = mesh;
             var renderer = go.AddComponent<MeshRenderer>(); renderer.sharedMaterial = material;
             renderer.shadowCastingMode = casts ? ShadowCastingMode.On : ShadowCastingMode.Off; renderer.receiveShadows = true;
             TriangleCount += mesh.triangles.Length / 3;
+            return renderer;
         }
         Mesh MakeMesh(string name, List<Vector3> positions, List<Color> colors)
         {

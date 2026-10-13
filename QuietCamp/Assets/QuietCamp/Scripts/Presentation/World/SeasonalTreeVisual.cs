@@ -13,10 +13,10 @@ namespace QuietCamp.Presentation.World
         public bool HasLeaves {get;private set;}
         public Vector3 LeafSource=>transform.TransformPoint(_leafAt);
         readonly List<Material> _materials = new List<Material>();
-        public static void Apply(GameObject root, LevelData level, string assetId)
+        public static void Apply(GameObject root, LevelData level, string assetId,string season=null)
         {
             if(root==null||level==null||root.GetComponent<SeasonalTreeVisual>()!=null)return;
-            var profile=SeasonProfile.For(level);bool conifer=assetId!=null&&assetId.Contains("pine");
+            var profile=season==null?SeasonProfile.For(level):SeasonProfile.For(season,level.order);bool conifer=assetId!=null&&assetId.Contains("pine");
             var shader=Resources.Load<Shader>("QuietCamp/FoliageLit");if(shader==null)return;
             bool bare=profile.BareTree(root.transform.localPosition,level.decorSeed,conifer);
             var geometry=SeasonalTreeGeometry.Read(root);if(geometry.Vertices.Length==0)return;
