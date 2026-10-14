@@ -125,9 +125,47 @@ namespace QuietCamp.Editor
                     _openingBuild=new LevelAuthoring.OpeningCampaignAuthoring(request.profile);
                     _worldWorkspace=new LevelAuthoring.LevelAuthoringWorkspace(_openingBuild.Document);_worldRequest=request;
                 }
+                else if(request.mode=="authoring-suspend-workspace")
+                {
+                    const string preserved="Temp/ai/campaign-user-workspace.json";
+                    if(File.Exists(preserved))throw new InvalidOperationException("A user workspace is already preserved; resume it first.");
+                    var window=LevelAuthoring.LevelAuthoringWindow.OpenWindow();
+                    if(window.Workspace==null)throw new InvalidOperationException("No live workspace to suspend.");
+                    var session=window.PrepareVerification();
+                    File.WriteAllText(preserved,JsonConvert.SerializeObject(new{session.document,session.path,session.dirty}));
+                    SessionState.SetBool("QuietCamp.Authoring.Verifying",true);
+                    System.GC.Collect();EditorUtility.UnloadUnusedAssetsImmediate();
+                    File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="workspace-suspended",objects=session.document.art.instances.Length,artSha256=Hash(System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(session.document.art)))}));
+                }
+                else if(request.mode=="authoring-resume-workspace")
+                {
+                    const string preserved="Temp/ai/campaign-user-workspace.json";
+                    if(!File.Exists(preserved))throw new InvalidOperationException("No preserved workspace exists.");
+                    var window=LevelAuthoring.LevelAuthoringWindow.OpenWindow();
+                    if(window.Workspace!=null)throw new InvalidOperationException("Refusing to replace a live workspace; the preserved JSON is safe.");
+                    var original=Newtonsoft.Json.Linq.JObject.Parse(File.ReadAllText(preserved));
+                    SessionState.SetBool("QuietCamp.Authoring.Verifying",false);
+                    window.RestoreVerification(new LevelAuthoring.LevelAuthoringWindow.VerificationSession{document=original["document"].ToObject<LevelAuthoring.LevelAuthoringDocument>(),path=(string)original["path"],dirty=(bool)original["dirty"]});
+                    string restored="Temp/ai/campaign-user-workspace.restored-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmssfffffff")+".json";
+                    File.Move(preserved,restored);
+                    File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="workspace-resumed",objects=window.Workspace.Capture(false).art.instances.Length}));
+                }
+                else if(request.mode=="authoring-memory")
+                {
+                    var objects=Resources.FindObjectsOfTypeAll<UnityEngine.Object>().Where(o=>o is Texture || o is Mesh || o is TerrainData)
+                        .Select(o=>new{name=o.name,type=o.GetType().Name,bytes=UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(o)}).ToArray();
+                    File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="memory",allocated=UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong(),
+                        types=objects.GroupBy(o=>o.type).Select(g=>new{type=g.Key,count=g.Count(),bytes=g.Sum(o=>o.bytes)}),largest=objects.OrderByDescending(o=>o.bytes).Take(12)},Formatting.Indented));
+                }
                 else if(request.mode=="authoring-trim")
                 {
                     long before=UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong();
+                    if(_worldWorkspace==null && !EditorApplication.isPlayingOrWillChangePlaymode
+                        && Resources.FindObjectsOfTypeAll<LevelAuthoring.LevelAuthoringWindow>().All(w=>w.Workspace==null))
+                    {
+                        LevelAuthoring.LevelAuthoringWorkspace.CloseOrphanedScenes();
+                        LevelAuthoring.LevelAuthoringPalette.ResetCache();
+                    }
                     System.GC.Collect();System.GC.WaitForPendingFinalizers();System.GC.Collect();
                     EditorUtility.UnloadUnusedAssetsImmediate();
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="trimmed",allocatedBefore=before,allocatedAfter=UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong()}));
@@ -208,6 +246,7 @@ namespace QuietCamp.Editor
                 else if (request.mode == "authoring-workspace-status")
                 {
                     var window = LevelAuthoring.LevelAuthoringWindow.OpenWindow();
+                    if(window.Workspace==null)window.RestoreAfterPlay();
                     if(window.Workspace==null)
                     {
                         File.WriteAllText(ResultPath,"{\"status\":\"workspace-empty\"}");return;

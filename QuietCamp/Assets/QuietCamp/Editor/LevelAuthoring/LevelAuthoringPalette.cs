@@ -63,7 +63,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             foreach(var model in CampaignLandmarkCatalog.Models())
             {
                 var recipe=JsonConvert.DeserializeObject<ModelAuthoringRecipe>(model.authoringRecipe);
-                AddModel(result,model,recipe.category,recipe.label,false);
+                AddModel(result,model,recipe.category,recipe.label,false,true);
             }
             var library = JsonConvert.DeserializeObject<Library>(Resources.Load<TextAsset>("QuietCamp/ArtCompositions/CampModelLibrary").text);
             foreach (var model in library.models)

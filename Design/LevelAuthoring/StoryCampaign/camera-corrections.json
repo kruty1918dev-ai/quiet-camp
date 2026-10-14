@@ -1,0 +1,103 @@
+{
+  "42": {
+    "cameraEuler": [
+      60,
+      265,
+      0
+    ],
+    "cameraTarget": [
+      7,
+      1.5,
+      0
+    ],
+    "orthographicSize": 14,
+    "issue": "Початковий кадр показує білий край 50-метрової землі внизу. Потрібен новий напрямок камери, який збереже масштаб носової секції й поле."
+  },
+  "43": {
+    "cameraEuler": [
+      60,
+      265,
+      0
+    ],
+    "cameraTarget": [
+      -3,
+      3.5,
+      0
+    ],
+    "orthographicSize": 14.4,
+    "issue": "Початковий кадр обрізає верх хвоста й оголює край землі праворуч. Перевірити силует кіля та намети після зміни ракурсу."
+  },
+  "44": {
+    "cameraEuler": [
+      60,
+      0,
+      0
+    ],
+    "cameraTarget": [
+      0,
+      1,
+      0
+    ],
+    "orthographicSize": 15.2,
+    "issue": "Крило не читається як головний об’єкт, дві вже знайомі секції домінують, а краї землі видно. Крило має читатися на передньому плані; секції — обрамляти табір."
+  },
+  "52": {
+    "primaryPose": {
+      "x": -14,
+      "z": 4,
+      "yaw": 35
+    },
+    "issue": "The inspected shoreline frame hides the primary object in the channel or separates it from its functional bank. Move it to the bank and review contact again."
+  },
+  "53": {
+    "primaryPose": {
+      "x": -12.5,
+      "z": 4.5,
+      "yaw": 270
+    },
+    "issue": "The inspected shoreline frame hides the primary object in the channel or separates it from its functional bank. Move it to the bank and review contact again."
+  },
+  "60": {
+    "primaryPose": {
+      "x": -6.2,
+      "z": 7.5,
+      "yaw": 180
+    },
+    "issue": "The inspected shoreline frame hides the primary object in the channel or separates it from its functional bank. Move it to the bank and review contact again.",
+    "cameraEuler": [
+      52,
+      315,
+      0
+    ],
+    "cameraTarget": [
+      -2,
+      0.7,
+      1
+    ],
+    "orthographicSize": 10
+  },
+  "69": {
+    "primaryPose": {
+      "x": -13,
+      "z": 3.2,
+      "yaw": 25
+    },
+    "issue": "The inspected shoreline frame hides the primary object in the channel or separates it from its functional bank. Move it to the bank and review contact again."
+  },
+  "82": {
+    "primaryPose": {
+      "x": -13,
+      "z": 4.4,
+      "yaw": 0
+    },
+    "issue": "The inspected shoreline frame hides the primary object in the channel or separates it from its functional bank. Move it to the bank and review contact again."
+  },
+  "84": {
+    "primaryPose": {
+      "x": -13.8,
+      "z": 4,
+      "yaw": 45
+    },
+    "issue": "The inspected shoreline frame hides the primary object in the channel or separates it from its functional bank. Move it to the bank and review contact again."
+  }
+}

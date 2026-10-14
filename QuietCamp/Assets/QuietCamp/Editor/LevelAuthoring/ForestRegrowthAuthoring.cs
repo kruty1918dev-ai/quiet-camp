@@ -167,7 +167,18 @@ namespace QuietCamp.Editor.LevelAuthoring
                 if(onField)height=Mathf.Min(height,.18f);
                 if(clearance.TryGetValue(r,out var room)&&room<height+.1f)continue;
                 var bounds=AuthoringPropCatalog.ModelBounds(model);float scale=height/Mathf.Max(.01f,bounds.size.y),ground=d.art.GroundHeight(p.x,p.y);
-                originals.Add(new CampArtDefinition.Instance{id="regrowth/"+added++,modelId=model.id,x=p.x,z=p.y,y=ground-bounds.min.y*scale,scale=scale,yaw=Next()*360,surfaceAttached=true,surfaceOffset=-bounds.min.y*scale});
+                var plant=new CampArtDefinition.Instance{id="regrowth/"+added,modelId=model.id,x=p.x,z=p.y,y=ground-bounds.min.y*scale,scale=scale,yaw=Next()*360,surfaceAttached=true,surfaceOffset=-bounds.min.y*scale};
+                // A short plant can still stand >24 cm above a downhill vertex.
+                // Use the same full-geometry policy as validation, keeping natural cover.
+                if(onField)
+                {
+                    for(int fit=0;fit<6&&!d.art.IsCompressibleCover(plant,model);fit++)
+                    {
+                        plant.scale*=.5f;plant.surfaceOffset=-bounds.min.y*plant.scale;plant.y=ground+plant.surfaceOffset;
+                    }
+                    if(!d.art.IsCompressibleCover(plant,model))continue;
+                }
+                originals.Add(plant);added++;
                 if(!occupied.TryGetValue(cell,out var bucket))occupied[cell]=bucket=new List<Vector2>();bucket.Add(p);
             }
             var used=new HashSet<string>(originals.Where(i=>i.modelId!=null).Select(i=>i.modelId));d.art.models=models.Values.Where(m=>used.Contains(m.id)).ToArray();d.art.instances=originals.ToArray();

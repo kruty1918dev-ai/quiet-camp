@@ -431,6 +431,22 @@ def fingerprint(vertices):
     return hashlib.sha256(min(representations).encode()).hexdigest()
 
 
+def rigid_shape_profile(vertices):
+    """Rotation/translation/scale invariant screen for baked, tilted aliases."""
+    points=list(zip(vertices[::3],vertices[1::3],vertices[2::3]))
+    centre=[sum(p[k] for p in points)/len(points) for k in range(3)]
+    radii=[sum((p[k]-centre[k])**2 for k in range(3)) for p in points]
+    radius=sum(radii)/len(radii)
+    edges=[]
+    for j in range(0,len(points),3):
+        edges.extend(sum((points[j+x][k]-points[j+y][k])**2 for k in range(3))/radius for x,y in ((0,1),(1,2),(2,0)))
+    return sorted(r/radius for r in radii),sorted(edges)
+
+
+def is_rigid_clone(a,b,tolerance=2e-5):
+    return len(a[0])==len(b[0]) and all(abs(x-y)<=tolerance for left,right in zip(a,b) for x,y in zip(left,right))
+
+
 def build():
     DEST.mkdir(parents=True,exist_ok=True);models=[];entries=[];seen={}
     for line in SPEC.strip().splitlines():
@@ -455,7 +471,13 @@ def main():
     for name,data in [('catalog.json',catalog),('models.json',models)]:
         path=DEST/name;text=json.dumps(data,ensure_ascii=False,separators=(',',':'))+'\n'
         if a.check:assert path.read_text(encoding='utf-8')==text, f'Stale {path}'
-        else:path.write_text(text,encoding='utf-8');meta(path)
+        else:
+            path.write_text(text,encoding='utf-8')
+            metadata=Path(str(path)+'.meta')
+            if not metadata.exists():metadata.write_text(meta(path),encoding='utf-8')
+    if not a.check:
+        folder_meta=Path(str(DEST)+'.meta')
+        if not folder_meta.exists():folder_meta.write_text(meta(DEST,folder=True),encoding='utf-8')
     print(f'100 primary reservations; {len(models["models"])} original structural meshes; no duplicate geometry.')
 
 

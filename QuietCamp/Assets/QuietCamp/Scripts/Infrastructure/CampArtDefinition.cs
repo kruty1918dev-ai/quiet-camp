@@ -127,7 +127,7 @@ namespace QuietCamp.Infrastructure
                 throw new InvalidDataException("Invalid generated groundcover.");
         }
         static bool Finite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
-        bool IsCompressibleCover(Instance item,Model model)
+        public bool IsCompressibleCover(Instance item,Model model)
         {
             if(model.seasonalRole!="groundcover"||item.surfaceAttached!=true)return false;
             var scale=item.scaleXYZ==null?Vector3.one*item.scale:Vector(item.scaleXYZ);

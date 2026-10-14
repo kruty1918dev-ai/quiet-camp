@@ -5,13 +5,19 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        52.0,
+        220.0,
+        0.0
+      ],
       "cameraTarget": [
         -0.6930000252,
         0.55,
         0.099
       ],
       "orthographicSize": 6.8,
-      "occludingTreesRemoved": 0
+      "occludingTreesRemoved": 0,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "132e1c005e75f40d98e2d996f6046e578a696c21a17c137e7b255204f3c713e6",
     "resultSha256": "9c9a7a3b7eb6ce04623dd8128eb902c1afe865a12c7fa970aaa70d74e587c393",
@@ -23,16 +29,22 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        50.0,
+        225.0,
+        0.0
+      ],
       "cameraTarget": [
         1.2905136683999998,
         0.55,
         0.954
       ],
       "orthographicSize": 9.850257907495092,
-      "occludingTreesRemoved": 5
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "90720c07f03fa496587afedaae18e66c3468fc772ba318271467e80cdde36ce4",
-    "resultSha256": "647d4ac6fb2930bde0adb7c801ce1f522fe60ce167601340399492da19d4e554",
+    "resultSha256": "4397dab71453ce5fc45665a4c25cc8aaba6bf0c126d2bf8a526916f43a17d2f4",
     "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
   },
   {
@@ -41,13 +53,19 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        51.0,
+        230.0,
+        0.0
+      ],
       "cameraTarget": [
         -0.8995392,
         0.55,
         -0.063
       ],
       "orthographicSize": 6.8,
-      "occludingTreesRemoved": 0
+      "occludingTreesRemoved": 0,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "0afd3372e0a1bf5abc5744ac950fb301eda1df0c0177ce3ff2f7684fff36622d",
     "resultSha256": "9769ed5499ba4155cd18949cecb1d139b0a3f05b8d4f6d18c980630be3868245",
@@ -59,16 +77,22 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        52.0,
+        235.0,
+        0.0
+      ],
       "cameraTarget": [
         -1.3945391999999999,
         0.55,
         0.54
       ],
       "orthographicSize": 7.904694349231693,
-      "occludingTreesRemoved": 5
+      "occludingTreesRemoved": 4,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "0e3924a1b0afe99e67eb08ecc70032c1a8b13bdf6da0f0924bd19d9ec0014654",
-    "resultSha256": "ad56d32cedf1d9014c52ab26a78ab9f85ef340206693084fd8c7b8e02e32064e",
+    "resultSha256": "d3774be374a2c9b78fe8fe12f4d1fe7e0984580e7588b9a28638e11f34b3a90d",
     "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
   },
   {
@@ -77,13 +101,19 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        50.0,
+        215.0,
+        0.0
+      ],
       "cameraTarget": [
         -1.1808000755999999,
         0.55,
         0.099
       ],
       "orthographicSize": 7.473234431681626,
-      "occludingTreesRemoved": 2
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "af6db1350d0fbeadf62bd10b618903fe10bdd8f7eeb561a9397538150388ddcf",
     "resultSha256": "b613ca9bd5a804e992d8bc70dcbaa285d77b6d71bdd1053306716810e9ceca7b",
@@ -95,13 +125,19 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        51.0,
+        220.0,
+        0.0
+      ],
       "cameraTarget": [
         1.044,
         0.55,
         1.2289383882
       ],
       "orthographicSize": 9.710446129450235,
-      "occludingTreesRemoved": 1
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "4fd066a78f2133bbd1117798274de3f55a3d8f7fb766335fe55d5efd41601c56",
     "resultSha256": "60be927a869023dfe4aad5504e0245338532e46b9e99bfe42336f3f6945bfd57",
@@ -113,13 +149,19 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        52.0,
+        225.0,
+        0.0
+      ],
       "cameraTarget": [
         -1.17,
         0.55,
         0.954
       ],
       "orthographicSize": 11.439997818211886,
-      "occludingTreesRemoved": 4
+      "occludingTreesRemoved": 4,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "a9f700bcb54dab978c2917f8cc1583e30677d4c5655d6e144ed20a7c1491502a",
     "resultSha256": "b41c9422f248a4d911fa78e2ff32a3acb0871b339e4629e5ea797fff712c7c44",
@@ -131,16 +173,22 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        50.0,
+        230.0,
+        0.0
+      ],
       "cameraTarget": [
         -1.0795392,
         0.55,
         0.5894999999999999
       ],
       "orthographicSize": 7.458437801033151,
-      "occludingTreesRemoved": 3
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "302466bb725fb91bef16d6eec5f3305ae65cd3759b95e147c86b244de48baf9d",
-    "resultSha256": "bc4683474bc5579872e8b36d1a42c48eb18ba60cecd35df0ef3e63a5aeb8e812",
+    "resultSha256": "28c110ffa04598620e60745c1bf8600325d50a3e708f80cd39a934ab3cf06d50",
     "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
   },
   {
@@ -149,16 +197,22 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        51.0,
+        235.0,
+        0.0
+      ],
       "cameraTarget": [
         -1.0854575999999998,
         0.55,
         0.099
       ],
       "orthographicSize": 6.862081420137558,
-      "occludingTreesRemoved": 2
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "99bd7f09004c43c8c339425e2e2a3b560e0feb71f1ef62a59c6be6829cb9bc2d",
-    "resultSha256": "2d2fd74ccad37a6e610f1e2d599e8fe0ee62ef9c038ee7a64230307477b834b7",
+    "resultSha256": "c6823391246f00690b951108ecf0f76ff2d99bd09cd904cf35708e4dbf4a4008",
     "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
   },
   {
@@ -167,16 +221,22 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        52.0,
+        215.0,
+        0.0
+      ],
       "cameraTarget": [
         -0.981,
         0.55,
         -0.54
       ],
       "orthographicSize": 7.105477458835938,
-      "occludingTreesRemoved": 2
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "88454ccd580eabd39acd0e3ab2b238d03fac2e07f5ad45befda9e614126d66cb",
-    "resultSha256": "0b1e703a24712519dab56c4392a84c11124c98135a733d4087e399124d6ce316",
+    "resultSha256": "a11ec3aba605ec0fe65f3c887c82baab970228153b7042ce18acb68f1960aec5",
     "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
   },
   {
@@ -185,16 +245,22 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        50.0,
+        220.0,
+        0.0
+      ],
       "cameraTarget": [
         -1.102284,
         0.55,
         -0.54
       ],
       "orthographicSize": 6.8,
-      "occludingTreesRemoved": 2
+      "occludingTreesRemoved": 0,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "17063fc47496b0f65680f6f13c3fa7a415b56af98eb74a5974f1f59c9946fa37",
-    "resultSha256": "65aa064df86a49e3eefaeb26cfce7168b7161fcbce3b9088543945044470f158",
+    "resultSha256": "92b4cb729f1cdd8780c7934b3bde14bbbb30647d96c4faf743d5dcc4e846ac87",
     "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
   },
   {
@@ -203,13 +269,19 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        51.0,
+        225.0,
+        0.0
+      ],
       "cameraTarget": [
         -1.2685392,
         0.55,
         0.018
       ],
       "orthographicSize": 7.5375345972813745,
-      "occludingTreesRemoved": 3
+      "occludingTreesRemoved": 3,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "a6bf338a039dd512bcf8b4e2b9baf3ca4809e4e0cb7a7a11782c5223792b14a9",
     "resultSha256": "06bc37f1226933a364412ba453884ef2f68df35258e386241e2b04798b7a334e",
@@ -221,16 +293,22 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        52.0,
+        230.0,
+        0.0
+      ],
       "cameraTarget": [
         -1.17,
         0.55,
         0.954
       ],
       "orthographicSize": 8.889367830388458,
-      "occludingTreesRemoved": 4
+      "occludingTreesRemoved": 3,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "8a481e45dc830f2704113c7d03fa0bbcc46a883bc7f86956e857771e17366abd",
-    "resultSha256": "bfd0f096ba4273867abd8e193bf808524144a86d49a7d49db86ded2b78f78951",
+    "resultSha256": "57198f0f41ac4602ce6600a0f8d995a22b68a5d74c83114f68d60c6d7bc856a2",
     "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
   },
   {
@@ -239,16 +317,22 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        50.0,
+        235.0,
+        0.0
+      ],
       "cameraTarget": [
         1.044,
         0.55,
         0.954
       ],
       "orthographicSize": 7.77064265393452,
-      "occludingTreesRemoved": 2
+      "occludingTreesRemoved": 0,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "9643f940adf4c4e2a3774cc0a8b99d334bb4664e78b25cf675516203b34669bf",
-    "resultSha256": "b1abf72bb068b4cbe2d6624bad4c56049995ba22703387a00792a221f6a0279a",
+    "resultSha256": "af7a57e14f10520b4005c636cbf701e0128d9a19f36fb0c4a27e24a5cc13c3e4",
     "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
   },
   {
@@ -257,16 +341,22 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        51.0,
+        215.0,
+        0.0
+      ],
       "cameraTarget": [
         -1.2365355599999999,
         0.55,
         0.954
       ],
       "orthographicSize": 11.111646602634002,
-      "occludingTreesRemoved": 4
+      "occludingTreesRemoved": 3,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "aadbcfe8aa0b4593ef0657c79eb230fcdfcd199219a1ed7a474670fabe59863b",
-    "resultSha256": "424491f7c4e99b8fe28fbbd959f9f5529a6cf56d66b0c29ff09ef33f3f778c1a",
+    "resultSha256": "542408527f795944c5c5d7da6de11f244b12ff25622dc6904b27e01aa080a541",
     "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
   },
   {
@@ -275,13 +365,19 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        52.0,
+        220.0,
+        0.0
+      ],
       "cameraTarget": [
         1.044,
         0.55,
         1.084938354
       ],
       "orthographicSize": 8.982466964550103,
-      "occludingTreesRemoved": 3
+      "occludingTreesRemoved": 3,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "1a3d7cad86d48fdc39360fadc4a103d112556acf07a09b45574057eb6f6add8c",
     "resultSha256": "fb76aec624b677ef692a6e55e8b9a2f9e9ddf2c83b044ef309de25c1f306a25a",
@@ -293,13 +389,19 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        50.0,
+        225.0,
+        0.0
+      ],
       "cameraTarget": [
         -1.338894,
         0.55,
         -0.54
       ],
       "orthographicSize": 10.098609516464181,
-      "occludingTreesRemoved": 1
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "c0cb6173dca4c003563a148a0e8ec08eb3407d48d1689aede682cd29004110ea",
     "resultSha256": "dc0f4c31cf22378d16f9bebcf50504fc84c25a5d581a2a88dd6e55a8575a0296",
@@ -311,13 +413,19 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        51.0,
+        230.0,
+        0.0
+      ],
       "cameraTarget": [
         -1.2734992799999998,
         0.55,
         -0.144
       ],
       "orthographicSize": 19.968263192839753,
-      "occludingTreesRemoved": 1
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "082af5446a0fab675c35c02f78e6af58aa8e5be3efdc7a5bf3188c9715afe8ad",
     "resultSha256": "6064a7586ecde1d9ceb78e20d69363eb8df93c5d7bc89b6bd84a622db507f10d",
@@ -329,13 +437,19 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        52.0,
+        235.0,
+        0.0
+      ],
       "cameraTarget": [
         -0.9938628,
         0.55,
         -0.063
       ],
       "orthographicSize": 8.411816529857404,
-      "occludingTreesRemoved": 1
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "417d72a346bc3155d471873f75924cbd450d21effee27c6897a1900ef93ff370",
     "resultSha256": "136bc9977c16004fea89c21735ca72e8c1f4d78cec196d0e809a65011494e90c",
@@ -347,13 +461,19 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        50.0,
+        215.0,
+        0.0
+      ],
       "cameraTarget": [
         1.044,
         0.55,
         0.954
       ],
       "orthographicSize": 8.035914677473167,
-      "occludingTreesRemoved": 1
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "67ab5e0e797e28eb7ac97728d7c5eb6049c75dc951afb599abba0b29a58ce90f",
     "resultSha256": "4b827d467f58b018027d1ad700c3522348212e3611deca92749380731f8d892e",
@@ -365,13 +485,19 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        51.0,
+        220.0,
+        0.0
+      ],
       "cameraTarget": [
         -1.17,
         0.55,
         0.954
       ],
       "orthographicSize": 8.81243632156342,
-      "occludingTreesRemoved": 2
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "9fc099ab96dd727f5499a39791aede2f56a79557d8dd73f9b5cfff690c691f54",
     "resultSha256": "8b8d2d985334cc30e99ed3ade3de6d08f4d46591ce18188c88627dbe0ccc05c7",
@@ -383,13 +509,19 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        52.0,
+        225.0,
+        0.0
+      ],
       "cameraTarget": [
         1.086608619,
         0.55,
         0.954
       ],
       "orthographicSize": 8.59136528299027,
-      "occludingTreesRemoved": 1
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "f093b30feb5fcf265041a9a5632ebf4bcd34eb365cf93e0305b51c78ae8facba",
     "resultSha256": "7d788c8cf805682d1a8b5eb676bc7e3b494cfb5ea8e0c1d116dc09aba00945b3",
@@ -401,16 +533,22 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        50.0,
+        230.0,
+        0.0
+      ],
       "cameraTarget": [
         -1.360366974,
         0.55,
         0.954
       ],
       "orthographicSize": 10.804164418430208,
-      "occludingTreesRemoved": 6
+      "occludingTreesRemoved": 5,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "890f7e41e5b7babe2354bfb4d069fa2cf52a624a832825ff38cedee2e96c9e76",
-    "resultSha256": "ed2d147e4b703a16bdadd1de84d8bbc7178973e2b2a1d4d95d206f5ed2bbafb7",
+    "resultSha256": "9df0529a9ae431909548f190668464dd8a3970bf7f57668b9337a95d2e233a01",
     "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
   },
   {
@@ -419,16 +557,22 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        51.0,
+        235.0,
+        0.0
+      ],
       "cameraTarget": [
         1.05282684,
         0.55,
         0.954
       ],
       "orthographicSize": 7.599094454566543,
-      "occludingTreesRemoved": 4
+      "occludingTreesRemoved": 3,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "54ee1848445dc12e65476b36b42ba1c0e61209b4c12ef30bef5cc4ea1b08806e",
-    "resultSha256": "bbcd1758db684cb9a987179de823ef5423a41e1769a3d1c7941fcb3d634b3b60",
+    "resultSha256": "d5ba6fb074a23959e8db15d1a9fc252bdfb7238d08be1bc884e1471ae9fd0f78",
     "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
   },
   {
@@ -437,13 +581,19 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        52.0,
+        215.0,
+        0.0
+      ],
       "cameraTarget": [
         -1.71,
         0.55,
         0.576
       ],
       "orthographicSize": 12.29631396447539,
-      "occludingTreesRemoved": 7
+      "occludingTreesRemoved": 7,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "b2cdefa8986c545b3a9faeffdbd474f9ca86cf15e9b126fcd90450f6373955f6",
     "resultSha256": "929a2bb2179e8fd4d1fccd03675ef5bc9d112709dcd06b796b91161baa8b3598",
@@ -455,16 +605,33 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        50.0,
+        220.0,
+        0.0
+      ],
       "cameraTarget": [
         -1.7999999999999998,
         0.55,
         0.27
       ],
       "orthographicSize": 12.284026067695189,
-      "occludingTreesRemoved": 4
+      "occludingTreesRemoved": 4,
+      "waterHeightsRestored": [
+        {
+          "id": "opening/gen:qc_camp:29/landmark-0",
+          "before": -0.539708,
+          "after": 0.12
+        },
+        {
+          "id": "opening/gen:qc_camp:29/landmark-1",
+          "before": -0.619708,
+          "after": 0.04
+        }
+      ]
     },
     "sourceSha256": "36d651f249e1f69c3f8b3b3d4c9fe1d59b8d3625955cbed1dbe1375e6610dde2",
-    "resultSha256": "b20a8ccb6d9f7816aef28566bd19a2b6e5fe51ee4cc832eb45ca6a2e373b7981",
+    "resultSha256": "23c93b9ba1d98cc4a91a73556eb2215fb603ce1547728926ee7f27594d228200",
     "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
   },
   {
@@ -473,13 +640,19 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        51.0,
+        225.0,
+        0.0
+      ],
       "cameraTarget": [
         0.9630000684,
         0.55,
         -0.27
       ],
       "orthographicSize": 7.2249413751078215,
-      "occludingTreesRemoved": 2
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "c2b03a877edb7fccc4d5a936e736d039c479ad9983ad29e87de41865dbf70fa2",
     "resultSha256": "1cc5ca6720a0fc7e1793ed420e02cebf76e3e35ef8d613c75fb8e6dc4de9e49c",
@@ -491,16 +664,33 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        52.0,
+        230.0,
+        0.0
+      ],
       "cameraTarget": [
         -1.7999999999999998,
         0.55,
         0.27
       ],
       "orthographicSize": 11.769284294323294,
-      "occludingTreesRemoved": 7
+      "occludingTreesRemoved": 6,
+      "waterHeightsRestored": [
+        {
+          "id": "opening/gen:qc_camp:31/landmark-0",
+          "before": -0.539708,
+          "after": 0.12
+        },
+        {
+          "id": "opening/gen:qc_camp:31/landmark-1",
+          "before": -0.619708,
+          "after": 0.04
+        }
+      ]
     },
     "sourceSha256": "82a2ced570325b7869362b1ff9d2f28db886be0ea384510d7287372c6e8d3673",
-    "resultSha256": "6f5d0ab5a6e46c829a44b4a6d33a4540c6db3ae4c6f64f482522d4239eb75b4d",
+    "resultSha256": "24ef794ca4a9e5de3f191b47721cea3a0b759197096f52667af360fbdc2c2a0c",
     "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
   },
   {
@@ -509,13 +699,19 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        50.0,
+        235.0,
+        0.0
+      ],
       "cameraTarget": [
         -1.17,
         0.55,
         0.954
       ],
       "orthographicSize": 9.666143418971838,
-      "occludingTreesRemoved": 3
+      "occludingTreesRemoved": 3,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "96e2328bb101ba976892149be8f5bbcf5a29a6abf0ef53c1e53675476f733d52",
     "resultSha256": "1d77a9bdb8526d5607c637e861d36e599957d53158cf68cae2c34e8adcdcf3e6",
@@ -527,16 +723,1468 @@
     "correction": "U01",
     "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
     "change": {
+      "cameraEuler": [
+        51.0,
+        215.0,
+        0.0
+      ],
       "cameraTarget": [
         1.044,
         0.55,
         0.954
       ],
       "orthographicSize": 7.401402529540434,
-      "occludingTreesRemoved": 4
+      "occludingTreesRemoved": 3,
+      "waterHeightsRestored": []
     },
     "sourceSha256": "2bf3457ff3ebb42925e39786f878da03e7b251a0bd542ab3579ab4efc2d5e5a2",
-    "resultSha256": "d248dc75f1bd521c667219c3a34116a9d8215a07da751df3d4cff3d077997abf",
+    "resultSha256": "cfa5efeccf3eabb5f4490f097803253cb823174369cf8f762b0a8d78c43bc95e",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 41,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        220.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -0.9630000684,
+        0.55,
+        -0.063
+      ],
+      "orthographicSize": 9.523190144995244,
+      "occludingTreesRemoved": 0,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "e72cb62bcb2ad0ceffda0ad2740fe4259deea256750c69681abc3f00633eabed",
+    "resultSha256": "e90d2a8ed22e653a90d1a4de023f30fbef6bb4981a59f2b9566f694f4ce7b023",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 42,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "Початковий кадр показує білий край 50-метрової землі внизу. Потрібен новий напрямок камери, який збереже масштаб носової секції й поле.",
+    "change": {
+      "cameraEuler": [
+        60,
+        265,
+        0
+      ],
+      "cameraTarget": [
+        7,
+        1.5,
+        0
+      ],
+      "orthographicSize": 14,
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "2195d8988e660841f666e5120d187e0b79d5f58688448cb021250d1aa55034c7",
+    "resultSha256": "22836681b283871e120e8135d9d29ffdd2c08d2c2b9cfb21014cd6ea11109b82",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 43,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "Початковий кадр обрізає верх хвоста й оголює край землі праворуч. Перевірити силует кіля та намети після зміни ракурсу.",
+    "change": {
+      "cameraEuler": [
+        60,
+        265,
+        0
+      ],
+      "cameraTarget": [
+        -3,
+        3.5,
+        0
+      ],
+      "orthographicSize": 14.4,
+      "occludingTreesRemoved": 5,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "88f3d889d6cfc3a03d0c1cd2dfb158abe0cbcb18a339c34ef10ff82367e57e8e",
+    "resultSha256": "af425ac556f61063818b3d48310b4ed5c34d82696218bfd3b69fe647aee9be80",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 44,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "Крило не читається як головний об’єкт, дві вже знайомі секції домінують, а краї землі видно. Крило має читатися на передньому плані; секції — обрамляти табір.",
+    "change": {
+      "cameraEuler": [
+        60,
+        0,
+        0
+      ],
+      "cameraTarget": [
+        0,
+        1,
+        0
+      ],
+      "orthographicSize": 15.2,
+      "occludingTreesRemoved": 4,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "b64b06631d35aa76d676114b688ddf7086feaf77df5ae3b4655dd3564e0c6c19",
+    "resultSha256": "3ceb22f2857ed65ea36e67be83a6affce73ea6aee8f766552a094d42a09e4889",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 45,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        215.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.1712798,
+        0.55,
+        -0.54
+      ],
+      "orthographicSize": 7.799891687741833,
+      "occludingTreesRemoved": 0,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "abd5f8d9a8691b77a04e5f0fc3967464fc49d9991e6118570e8ba4818d20eb47",
+    "resultSha256": "ed01b6ebcb5ab6e880be7fa49f66d6d919a88d15242e6c1bc72523eb86d61816",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 46,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        220.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.2612797999999998,
+        0.55,
+        0.54
+      ],
+      "orthographicSize": 9.933931647476358,
+      "occludingTreesRemoved": 5,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "609f23eb3b90dc5d237f9fb69e36f41ab6b0007b11e921c1334928d70f891ade",
+    "resultSha256": "15799e4b3bb1d67d738696f99466f96dd4f2f54b11b7a912b254dae27a4cd85e",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 47,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        225.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -0.93864438,
+        0.55,
+        0.099
+      ],
+      "orthographicSize": 7.064745928921717,
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "1ed5856ea7eaeef06d136186c23b15fe6bbdd62b0768ffe42dbf1e214af9179f",
+    "resultSha256": "a0b9d9f8cfb465fd2de3d11d28c03082a207c054a4c793657ac1debb8f02e19c",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 48,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        230.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -0.8196929999999999,
+        0.55,
+        -1.2105006696
+      ],
+      "orthographicSize": 18.111980547357923,
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "46bce1a17e6880b92064c895770d881a2eeb7f3f623f1ad35bdad3ec2fa0b37b",
+    "resultSha256": "a5e32986c258aa82b55d00226deadb3c262cba819b7518ede20acda031461f22",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 49,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        235.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.17,
+        0.55,
+        1.1305039788
+      ],
+      "orthographicSize": 11.679234555763992,
+      "occludingTreesRemoved": 6,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "e531387424b84ef05c41cd0da1d820b1cfeee190c2d9a14d2299b9f4c0208275",
+    "resultSha256": "6efc0698b8ce1afc9839ca1d017e76f6eb4e6af1c0015d86bef4ddaf7492f78b",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 50,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        215.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.1735099999999998,
+        0.55,
+        0.27
+      ],
+      "orthographicSize": 7.904463641952157,
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "640a5f41e484dad06c67184720c7a79d86447e40c8bd2b650aba5141b3a39225",
+    "resultSha256": "55f83e9b259df5f60564b4b8185bad4bcbdc250c629372da8d1e504eab35b92c",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 51,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        220.0,
+        0.0
+      ],
+      "cameraTarget": [
+        0.7239365999999999,
+        0.55,
+        -0.54
+      ],
+      "orthographicSize": 6.8,
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "a5c48936f96fb14e4551f9e1bbca073994a705444d45d2ad32863efeee613958",
+    "resultSha256": "68ef58259f1c58ea2d954360c3b0dab1b733c7eca01b1ef4bfc7b5901185e7c9",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 52,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The inspected shoreline frame hides the primary object in the channel or separates it from its functional bank. Move it to the bank and review contact again.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        225.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -2.52,
+        0.55,
+        0.72
+      ],
+      "orthographicSize": 15.3015779847175,
+      "occludingTreesRemoved": 3,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "d770e0ea0b8493ad1af979d0361a7ffc0abbac868062e3f637cb9e15b7a2abf0",
+    "resultSha256": "dd937867f3d15b822c44f901f92c9632bd79e5197ba2fd78dbea6092fb80da3e",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 53,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The inspected shoreline frame hides the primary object in the channel or separates it from its functional bank. Move it to the bank and review contact again.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        230.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -2.25,
+        0.55,
+        0.8099999999999999
+      ],
+      "orthographicSize": 13.384946267315625,
+      "occludingTreesRemoved": 7,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "c4ced9dc98401c223425dd6b67eb31852669475fd348d636d04930e06f5e0af3",
+    "resultSha256": "75ef538aecb8cf8eaf7577753588a1f6bb5ea18930c7a50d0a5f13dc0ff7be95",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 54,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        235.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.71,
+        0.55,
+        0.576
+      ],
+      "orthographicSize": 9.32230961123279,
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "0f59c573ebb771cc010b5169416ed79f726016b61587e9a254e26b3e3c25b86a",
+    "resultSha256": "fa342e11dd1c43b0f8c70d9ea8a7c6ca9e4f1c31dd4916bf19142f94e09794d4",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 55,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        215.0,
+        0.0
+      ],
+      "cameraTarget": [
+        0.9315002915999999,
+        0.55,
+        0.099
+      ],
+      "orthographicSize": 6.980183940653993,
+      "occludingTreesRemoved": 4,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "f19dfcf7c5e6510d6327a1f7b6741d76c9199e05d3bcc9da9b42c8fb057c298f",
+    "resultSha256": "c7f8f972ec61f9ff2e1b93f970e75b51227ce5534ebbb10033c44a9ff3185656",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 56,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        220.0,
+        0.0
+      ],
+      "cameraTarget": [
+        1.72628064,
+        0.55,
+        -1.5498018
+      ],
+      "orthographicSize": 33.17176502573805,
+      "occludingTreesRemoved": 11,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "62ae21e0c4d1aba65df19fa781e7c37d7a2145ce9c81c0606f879553a84ed2d7",
+    "resultSha256": "1358fa9cbd3e9f6f12a0df444d141341ed486cf28b985cb72a5b1b7f82ff53c9",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 57,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        225.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.7999999999999998,
+        0.55,
+        0.27
+      ],
+      "orthographicSize": 11.739598913293419,
+      "occludingTreesRemoved": 4,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "8df09947444f02a08b548a5e4e7af0b9142cd0441f5d70b872a0769c824b734b",
+    "resultSha256": "b3e225fe3e91d93888db3f001f8994be56e6a4a6a2163ad26dbaa4ed05371efb",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 58,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        230.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.7459999999999998,
+        0.55,
+        0.576
+      ],
+      "orthographicSize": 11.695979988951503,
+      "occludingTreesRemoved": 4,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "aa9f6a3d74d27e128f46a32a14f63f67b0592ed267f6ad242fe3a61c634c97b4",
+    "resultSha256": "9a3288b748adbad613b3ecdb4eed2615affa8dd7324f7090aa9b904f924384c9",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 59,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        235.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -0.9525708,
+        0.55,
+        -0.954
+      ],
+      "orthographicSize": 8.987276704532748,
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "0c08674b148664f6f3c0f3b62b4c81583f4d63cd44673c37b3632dd059853393",
+    "resultSha256": "f8cb002733bccc530b0ec0f5474d4ae244e0fe85c832099fcf5b69e37352fdc7",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 60,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The inspected shoreline frame hides the primary object in the channel or separates it from its functional bank. Move it to the bank and review contact again.",
+    "change": {
+      "cameraEuler": [
+        52,
+        315,
+        0
+      ],
+      "cameraTarget": [
+        -2,
+        0.7,
+        1
+      ],
+      "orthographicSize": 10,
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "5da2730c90eb64ea0c636c0ce87e49d0995b465cce5f7644dcd77e9322229174",
+    "resultSha256": "db3834b8c2c1100866144df867e3a354540fc4ce340df45af98e31261dfc81ff",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 61,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        220.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.17,
+        0.55,
+        1.1187290375999999
+      ],
+      "orthographicSize": 11.560233316435873,
+      "occludingTreesRemoved": 3,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "d08731980b57d05e5fc1b2553670fca04e4300ac95139bd7cd84da75730aa719",
+    "resultSha256": "ecc28afb1b86de94208646233a08409883951e9e0c3c23cf8961c1faee1b3923",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 62,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        225.0,
+        0.0
+      ],
+      "cameraTarget": [
+        1.3108790592,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 9.974364295438063,
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "6aa22469bcdb56a77af6ce8c24c4a0647eaf617a4d8ac2476be965df79db2db3",
+    "resultSha256": "b4495ce6cf63e4cd12952f91b331d05fbe3c5c354541234970ced5d0b825a260",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 63,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        230.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.17,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 10.268055892247931,
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "efbc8c00a81f7650ff25a61fe23ee745300c35efec20c11ecde0296aa231faf3",
+    "resultSha256": "cc1d688321d587e046c1a14f11c60820c422d351be8487bc5ae6d36979dd551b",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 64,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        235.0,
+        0.0
+      ],
+      "cameraTarget": [
+        1.0698599628,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 8.685012694675153,
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "a1135f6bb9a226796ffb218446d78e18308db6a8a675e84db063fba62b02bc62",
+    "resultSha256": "456a0969183ca328ab9abd53846ebef95e38292226a7f54cca83a785456e8434",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 65,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        215.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -0.9985392,
+        0.55,
+        -0.063
+      ],
+      "orthographicSize": 6.8,
+      "occludingTreesRemoved": 0,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "fea8f5366865651ca5bc831cf559d3c82f6cc7cf9ae1618625822e457f2eb52a",
+    "resultSha256": "733e8986578750e98933232d06d449617bb0d425785fe063da4026270c719770",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 66,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        220.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.1664,
+        0.55,
+        0.018
+      ],
+      "orthographicSize": 8.563848095177468,
+      "occludingTreesRemoved": 0,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "c21451a530c6a546eef62962cbc958767381cb81ca8e2c37fbbb153bdf01e9b5",
+    "resultSha256": "0cde8ffece89c25bc87e5f04dc69150881521015d9f1207d1af7981e56c3dd09",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 67,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        225.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.1893338774,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 11.283598414723794,
+      "occludingTreesRemoved": 3,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "850cd0f86b0815d2d0ccd3218e267b55f55a50d619f2d7f0a499e81ca53dd22c",
+    "resultSha256": "779dd1a8e647a18fe701517e9f535ebfb6d8b0c42c5f03b9d6ab2cd702e63688",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 68,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        230.0,
+        0.0
+      ],
+      "cameraTarget": [
+        1.1630417922,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 8.499329068223176,
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "6c4000ce1beaa8fa2c426637ac96c5199da00e7e618deaba62640089bb4b86ea",
+    "resultSha256": "1b2b8b7c5eea43a01557fcd87b4862909104189106b8934e12d43abe8e0f7b38",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 69,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The inspected shoreline frame hides the primary object in the channel or separates it from its functional bank. Move it to the bank and review contact again.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        235.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -2.34,
+        0.55,
+        0.576
+      ],
+      "orthographicSize": 12.287959296322464,
+      "occludingTreesRemoved": 5,
+      "waterHeightsRestored": [
+        {
+          "id": "opening/gen:qc_camp:89/landmark-0",
+          "before": 0.11034290194104315,
+          "after": 0.04
+        }
+      ]
+    },
+    "sourceSha256": "578c8147da638db74f9a30820f8dcae51643e8cdbfd127a65baf9c2de7653b84",
+    "resultSha256": "5270768aa67a924b2d46b148e5708396d3ec2b29a37384d8a324fc18ae4da601",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 70,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        215.0,
+        0.0
+      ],
+      "cameraTarget": [
+        1.044,
+        0.55,
+        1.110777255
+      ],
+      "orthographicSize": 9.029540736553894,
+      "occludingTreesRemoved": 0,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "bbaba0046baf72b7fbd439919fa2c4f5f70d0d9b6c13ab6fd558a5e01f3385ba",
+    "resultSha256": "9ed232d015f242bd4c414d3a4bceaef1127272162a7c64e8c3e3efc8efbc7f37",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 71,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        220.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.1785392,
+        0.55,
+        0.099
+      ],
+      "orthographicSize": 7.2759437807699365,
+      "occludingTreesRemoved": 0,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "6e9f12e3d6e5fe5bfcc20ccc57387695a3c34240cf9a0df6e7c33036f4e6a561",
+    "resultSha256": "a57501eb099d879e00d0f2420da3d8ba5ff7f7332a37270f68d7abbf0705a52b",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 72,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        225.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.1831904594,
+        0.55,
+        -0.144
+      ],
+      "orthographicSize": 7.329389674965457,
+      "occludingTreesRemoved": 0,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "3e1cede2c7c50935eacfeda16c031c41550699f1347598389dd9f6c84db6eeba",
+    "resultSha256": "f45c6aa42e826b2a944fea56a787579a1b61200463a2d6601b33e86758545ea7",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 73,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        230.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.17,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 10.841914754521332,
+      "occludingTreesRemoved": 4,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "04b706cfb6913c68b88210bf7372805de2ad2185cf56b44ba4f57187089e1fdf",
+    "resultSha256": "eace16574dac859f1a603398cae6ce16b01ecdabdfaa3a4f3695f8ac11255bf7",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 74,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        235.0,
+        0.0
+      ],
+      "cameraTarget": [
+        1.12506336,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 8.354421628320816,
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "af487b7e3888b1923f2a0e67bbd375dc3700a92dc97858a6e3742b65c6515143",
+    "resultSha256": "24fa9932a9cb35f82f60a52c534b14def480a589d337803dddad29f2d8c84393",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 75,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        215.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.263111705,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 11.297880188321363,
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "5938fa6b3e75308bbad4b97b499d66474229b2b025432abca353e39f9dcb709b",
+    "resultSha256": "d609c837468acc63affc44973045c22f73543557520f0af387bc45667edad29b",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 76,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        220.0,
+        0.0
+      ],
+      "cameraTarget": [
+        1.34959374,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 9.3733037663813,
+      "occludingTreesRemoved": 3,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "e1b258e24eea71f98cf2e725e4565401ff57a9cfd6be6ba35c65e3c416ed4948",
+    "resultSha256": "7de21f50a93dedd91b0a856288ce8de9cf46e6f78edfaa40cc7596908d2c194a",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 77,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        225.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.089,
+        0.55,
+        -0.54
+      ],
+      "orthographicSize": 9.168748308909501,
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "317ffa58553ef6225dbbeac021572ba9a2b95edc757a66ffd393785e5d848729",
+    "resultSha256": "3204d14674ae93ac760a5b31933b5786486b045f26829742c5279d55c8ed37c2",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 78,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        230.0,
+        0.0
+      ],
+      "cameraTarget": [
+        1.044,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 7.464455624114806,
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "e72ac8c9ffe6e2024ab4fc0c49f336568ce7b352fe02d0f4f996080de0f726db",
+    "resultSha256": "4e6820af082f786b248147758bcba8790e50cc27491c81bb84feccbdbf40b7cb",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 79,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        235.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.27927692,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 12.124724848106718,
+      "occludingTreesRemoved": 4,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "d1a2cde513784265a89326fe3975f103cf3f6cbab86bf2b634582785642f4297",
+    "resultSha256": "7d686f80cf7a4a87c073a32e6b7757633287e35daf9b7735cf562231de0a8d98",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 80,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        215.0,
+        0.0
+      ],
+      "cameraTarget": [
+        1.044,
+        0.55,
+        1.1919692232
+      ],
+      "orthographicSize": 10.619912683125293,
+      "occludingTreesRemoved": 5,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "3da088f84fdf551faddad704bd97b7c98d28a93e2763517f45ebfd46de2c2399",
+    "resultSha256": "b6db9102712faaa8f3cd9b253749d423fb6749f2fdb9168e9f8b0de4a7dae52b",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 81,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        220.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.3435321428,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 10.994069151072585,
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "3c37b46caac182dec1e1bd8e4cd9cff37de3d66e0f699b25dbef569680f93243",
+    "resultSha256": "4eaf09a6da469395e2ce70056fc4453fc07adc3b012c6b92b0de43d87f78c55c",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 82,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The inspected shoreline frame hides the primary object in the channel or separates it from its functional bank. Move it to the bank and review contact again.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        225.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -2.34,
+        0.55,
+        0.792
+      ],
+      "orthographicSize": 13.789685319716328,
+      "occludingTreesRemoved": 3,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "de73506456880964590c2423ecf813ced89cd6db1e3987856f70e48c28b3a909",
+    "resultSha256": "6e060a86fa8e67fc3e58834fde49e6dfb0410b8115031ca417eaf2cef83578be",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 83,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        230.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.17,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 11.570854307021735,
+      "occludingTreesRemoved": 4,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "1db6a93c93ce5de5d4c0e7ecbac35ea8197d9f8d69a68dcfdc704ba90fe85c69",
+    "resultSha256": "5d122aa8f192312f4e20861361815707c9786a7dc0976eee727593512725051b",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 84,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The inspected shoreline frame hides the primary object in the channel or separates it from its functional bank. Move it to the bank and review contact again.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        235.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -2.484,
+        0.55,
+        0.72
+      ],
+      "orthographicSize": 13.827978860099881,
+      "occludingTreesRemoved": 4,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "4291b6a86850bd02bec3472e4e53818c86e866bd445f24e30a6702f984b84767",
+    "resultSha256": "dc7d086ab4c265bcc4a85082afa358a3b15b68d4c7f70cc3e17121cc23fe2eb1",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 85,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        215.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.17,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 10.692446998477108,
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "e64dfd81cf5865e9b454a794b9a5d70d535e15f4d3a768b5c1203a9110f6a382",
+    "resultSha256": "dc378907f4e90776d3770a2545422e8e3d9961b62bb5d6f3699403442fbb2169",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 86,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        220.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.152,
+        0.55,
+        0.018
+      ],
+      "orthographicSize": 7.887446897545339,
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "04a3ca41e209439a181f2194edda2d29f01d1d633fe1fb1b5f118dd36abbe136",
+    "resultSha256": "3496dfc7b70d9483c2a3be2e798839ddcdb44a3f1bdebc98a8f573264710f387",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 87,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        225.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -0.954,
+        0.55,
+        0.099
+      ],
+      "orthographicSize": 6.8,
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "bca676803a47875b9dd345176dbb15a02c770ae9a4cb8eae74c88f234e4cb750",
+    "resultSha256": "7204fbd84ed0fb5268b23d893c16161919acbfcc78592c5a4e4cb5549468d334",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 88,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        230.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.7999999999999998,
+        0.55,
+        0.27
+      ],
+      "orthographicSize": 11.112233994680325,
+      "occludingTreesRemoved": 3,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "dcb21cdd6589ca386ce3cf682bec733bd5645fa2984ef0187e23954f3b916bc6",
+    "resultSha256": "cc40d96cf2b390e9999d35869985a193082dce074953b4650f375b05a7eda380",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 89,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        235.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.2610002599999999,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 11.316936778169836,
+      "occludingTreesRemoved": 4,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "9b0b3c4df184141b1a3298982c185e3d940feb092122b9b7903cbb4d682180b1",
+    "resultSha256": "f143d606f41a68dd3185dc803da41b781f44ca41f6e88e9f0a3161b637c70dfe",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 90,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        215.0,
+        0.0
+      ],
+      "cameraTarget": [
+        1.206,
+        0.55,
+        0.54
+      ],
+      "orthographicSize": 7.861049493143031,
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "534a3eb924fc027dab597dfffc512c2e05eb81542a25a27272bc79b1aaf88b7b",
+    "resultSha256": "e4fab7fc5e008130f0935e2f3fe52a00e7ef9128987ec38db19a7282eea69c87",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 91,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        220.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -0.9089999999999999,
+        0.55,
+        0.099
+      ],
+      "orthographicSize": 7.0289625335261166,
+      "occludingTreesRemoved": 0,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "eeb1aa07f15140a7118c029c081935ca08cfdabb3e24be54e6bf6a5336cdb113",
+    "resultSha256": "638628388a2466dfdaabe348dd670ec17fce2697f8d1eb6a88fe83f178fa1a0b",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 92,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        225.0,
+        0.0
+      ],
+      "cameraTarget": [
+        1.2035653199999998,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 9.616156061094866,
+      "occludingTreesRemoved": 3,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "6e377d7e11e68f2ba07147b6541dd32b12c379a5cd26ef2c5daee760051ec8bb",
+    "resultSha256": "ac14cbcde926bb3a7127e3ab637250bcd2d3f6e3d9ee7dce8eeb059a302af951",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 93,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        230.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.2696624756,
+        0.55,
+        -0.063
+      ],
+      "orthographicSize": 6.95415909333143,
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "9fa8697c0f747d51a6fbe2b39eb4ba82073df7330932236c39e33b13f9a510ed",
+    "resultSha256": "452362b81c5b4f26851d330ca948ca0b2d56a64a2419c378775ae5fc347591c1",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 94,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        235.0,
+        0.0
+      ],
+      "cameraTarget": [
+        1.21679874,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 8.695106874700853,
+      "occludingTreesRemoved": 0,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "4648971dae80d228097beda1fd0327415d7a8db2b8cdfb236fe61097327db39c",
+    "resultSha256": "3ae1ee9b8f780dec002f6da00c143d61f602adc8cd2bd522fd7191957efd17bd",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 95,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        215.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.17,
+        0.55,
+        1.1311182683999998
+      ],
+      "orthographicSize": 11.43282631000132,
+      "occludingTreesRemoved": 3,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "6d247486b6d2d259df75f91dc85ffdb09e92e1f56771a388657ea314449ac381",
+    "resultSha256": "004ad781a1b94da931512da01f328722c7a17e5c77ce12636cb2e00d490eee89",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 96,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        220.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.1712798,
+        0.55,
+        -0.8099999999999999
+      ],
+      "orthographicSize": 9.851746216291257,
+      "occludingTreesRemoved": 0,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "e3f576f223d337ac4bcda1cd9ab32e1ddd5e79384e2847802c1c1857c7de736f",
+    "resultSha256": "eb753108759e9a0ddb2eab1fa52b1755203f29c33f473169822748dfac50c063",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 97,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        225.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -0.891,
+        0.55,
+        -0.063
+      ],
+      "orthographicSize": 6.8,
+      "occludingTreesRemoved": 0,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "5dbde9e56c42596697d8dcc10cabff3e25c8393ee4fa47486980e21bde94617a",
+    "resultSha256": "788f56eccc0dcc857e3ebdbbb180f179d264bcdd000ed5565d54a70f2d3504ab",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 98,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        52.0,
+        230.0,
+        0.0
+      ],
+      "cameraTarget": [
+        1.044,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 7.986226720195604,
+      "occludingTreesRemoved": 1,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "f3febe971c45d10a3a6c12bc22981e15c530c71fd26c7b50654aa519c9a44985",
+    "resultSha256": "fca69a885141c12bd6f08eef104aa284c567488752d18126cccf7559730b968c",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 99,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        50.0,
+        235.0,
+        0.0
+      ],
+      "cameraTarget": [
+        -1.3139999999999998,
+        0.55,
+        0.099
+      ],
+      "orthographicSize": 10.589610988656428,
+      "occludingTreesRemoved": 4,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "7ccc29f692ec82ad4ee23f475e6f64882559f4ed13dd28e1e8d4c2e28eb37684",
+    "resultSha256": "8c9d1f6ec23c95a3bc2564b583aaff040cb49e1b36b2cdc2066c17c1b7a55e0b",
+    "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
+  },
+  {
+    "order": 100,
+    "baseline": "U00",
+    "correction": "U01",
+    "issue": "The primary silhouette is small or screened by foreground tree crowns in the inspected native frame.",
+    "change": {
+      "cameraEuler": [
+        51.0,
+        215.0,
+        0.0
+      ],
+      "cameraTarget": [
+        1.47356532,
+        0.55,
+        0.954
+      ],
+      "orthographicSize": 10.049771008796418,
+      "occludingTreesRemoved": 2,
+      "waterHeightsRestored": []
+    },
+    "sourceSha256": "b69519fedd048c5829be8168cdfb0794f57cd5abd1a1ca3b2599f7519edd301e",
+    "resultSha256": "5de9bde155b0e32196d14ac4f2fd5b7b01a4fd185043418470480f619e267f2a",
     "residual": "Requires a fresh native capture and visual inspection; no acceptance implied."
   }
 ]

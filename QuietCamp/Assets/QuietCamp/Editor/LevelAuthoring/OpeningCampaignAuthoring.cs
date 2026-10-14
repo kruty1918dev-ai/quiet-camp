@@ -98,7 +98,8 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         public LevelAuthoringDocument Finish(LevelAuthoringWorkspace workspace)
         {
-            foreach(var pose in _landmarks)pose.y=(workspace.River!=null?workspace.River.SampleHeight(pose.x,pose.z):Document.art.GroundHeight(pose.x,pose.z))+pose.surfaceOffset;
+            foreach(var pose in _landmarks.Where(p=>p.surfaceAttached!=false))
+                pose.y=(workspace.River!=null?workspace.River.SampleHeight(pose.x,pose.z):Document.art.GroundHeight(pose.x,pose.z))+pose.surfaceOffset;
             Painted=Paint(workspace,_landmarks);
             var d=workspace.Capture(true);
             var forest=ForestRegrowthAuthoring.Defaults();forest.seed=_profile.world.seed;forest.extent=23;forest.targetTrees=48;forest.attempts=12500;forest.height=.42f;forest.flowerShare=.12f;forest.fernShare=.16f;

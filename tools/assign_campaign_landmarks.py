@@ -21,6 +21,8 @@ for i,(p,entry) in enumerate(zip(profiles,catalog),1):
         anchor.update(x=-9.5,z=3.2,water=False,y=0)
     if entry['construction'].startswith('bridge:'):
         anchor.update(x=-10,z=1.5,water=True,y=.12,yaw=90)
+    if entry['construction'].startswith('boat:'):
+        anchor.update(x=-9.7,z=3.2,water=True,y=-.18,yaw=90,motion='boat')
     if i==9:anchor.update(x=-6,z=4,yaw=15)
     if i==10:anchor.update(x=-5.8,z=4.2,yaw=15)
     p['world']['liveTerrain']=True

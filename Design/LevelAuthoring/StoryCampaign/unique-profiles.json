@@ -5801,16 +5801,17 @@
         {
           "model": "qc_campaign_landmark_058",
           "label": "Рятувальний човен із відкритою рубкою",
-          "x": -9.5,
+          "x": -9.7,
           "z": 3.2,
-          "yaw": 0.0,
+          "yaw": 90,
           "scale": 1,
           "metric": 1,
-          "y": 0,
-          "water": false,
+          "y": -0.18,
+          "water": true,
           "age": "dirt",
           "ageAmount": 0.38,
-          "sourceHeight": 0.85
+          "sourceHeight": 0.85,
+          "motion": "boat"
         },
         {
           "model": "ua_mooring_post",

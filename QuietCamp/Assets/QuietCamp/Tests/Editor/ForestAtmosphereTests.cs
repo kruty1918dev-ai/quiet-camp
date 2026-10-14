@@ -81,6 +81,19 @@ namespace QuietCamp.Tests
             Assert.That(ForestRegrowthAuthoring.Apply(d,settings),Is.EqualTo(count));
             Assert.That(JsonConvert.SerializeObject(d.art.instances.Where(i=>i.id.StartsWith("regrowth/"))),Is.EqualTo(plants));
         }
+        [Test] public void FieldCoverConformsToUnevenGroundAcrossItsWholeFootprint()
+        {
+            var d=LevelAuthoringDocument.Open(Draft);var land=d.art.landscape;
+            for(int z=0;z<land.resolution;z++)for(int x=0;x<land.resolution;x++)
+            {
+                float px=land.originX+x*land.size/(land.resolution-1),pz=land.originZ+z*land.size/(land.resolution-1);
+                land.heights[z*land.resolution+x]=.45f*Mathf.Sin(px*2.1f)*Mathf.Cos(pz*1.8f);
+            }
+            ForestRegrowthAuthoring.Apply(d,new ForestRegrowthSettings{attempts=3000,extent=8,density=1,seed=4637});
+            var cover=d.art.instances.Where(i=>i.id.StartsWith("regrowth/")&&Mathf.Abs(i.x)<d.level.width*.5f+.2f&&Mathf.Abs(i.z)<d.level.height*.5f+.2f).ToArray();
+            Assert.That(cover.Length,Is.GreaterThan(30));
+            foreach(var plant in cover)Assert.IsTrue(d.art.IsCompressibleCover(plant,d.art.models.Single(m=>m.id==plant.modelId)),plant.id);
+        }
         [Test] public void InvalidGrowthAndNonFiniteRegrowthSettingsAreRejected()
         {
             var d=LevelAuthoringDocument.Open(Draft);d.art.models[0].seasonalGrowth=new[]{1f,float.NaN,0f,0f};

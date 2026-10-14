@@ -27,6 +27,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         public float sourceHeight;
         public float x,z,y,yaw,scale=1,metric=1;
         public float ageAmount=-1;
+        public string motion;
         public bool water;
     }
     public static class WorldStudyFactory
@@ -90,6 +91,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 if(anchor.metric!=1)source=ModelAuthoringWorkshop.Create(source,new ModelAuthoringRecipe{operation="scale",size=anchor.metric,label=anchor.label??anchor.model,category="Декор"},persistVariants).model;
                 var model=ModelAuthoringWorkshop.Create(source,new ModelAuthoringRecipe{operation="age",backend=anchor.age,amount=anchor.ageAmount<0?p.age:anchor.ageAmount,seed=p.seed,label=anchor.label??LevelAuthoringPalette.Get(anchor.model).label+" — "+p.title,category=LevelAuthoringPalette.Get(anchor.model).category},persistVariants).model;
                 Place(model,anchor.x,anchor.z,anchor.scale,anchor.yaw,anchor.y,!anchor.water);
+                instances[instances.Count-1].motion=anchor.motion;
             }
             if(p.biome=="aircraft")
             {
