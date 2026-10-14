@@ -22,7 +22,7 @@ namespace QuietCamp.Presentation.World
             {
                 var anchor=anchors[preset.season=="spring"?(i/12)%anchors.Length:random.Next(anchors.Length)];float angle=(float)random.NextDouble()*Mathf.PI*2,radius=.5f+(float)random.NextDouble()*(preset.season=="spring"?1.1f:2.6f);
                 float x=anchor.x+Mathf.Cos(angle)*radius,z=anchor.z+Mathf.Sin(angle)*radius;
-                if(Mathf.Abs(x)<art.width*.5f+.8f&&Mathf.Abs(z)<art.height*.5f+.8f)continue;
+
                 float y=art.GroundHeight(x,z);if(y<-.055f)continue;
                 var root=new Vector3(x,y+.035f,z);
                 if(preset.season=="spring")

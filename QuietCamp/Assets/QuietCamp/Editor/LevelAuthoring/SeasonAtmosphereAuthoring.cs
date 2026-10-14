@@ -20,7 +20,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 string identity=(model.sourceModelId??entry?.id??model.id).ToLowerInvariant();
                 var role=entry?.category=="Дерева"?(identity.Contains("pine")||identity.Contains("conifer")||identity.Contains("spruce")?"conifer":"deciduous"):
                     entry?.category=="Кущі"?"deciduous":entry?.category=="Квіти"?"flower":entry?.smallPlant==true?"groundcover":"solid";
-                var source=entry?.model;var copy=new CampArtDefinition.Model{id=model.id,sourceModelId=model.sourceModelId,authoringRecipe=model.authoringRecipe,shading=model.shading,vertices=model.vertices,normals=model.normals,colors=model.colors,uv=model.uv,tangents=model.tangents,seasonalRole=model.seasonalRole??role,weatherExposure=model.weatherExposure,seasonalGrowth=model.seasonalGrowth};
+                var source=entry?.model;var copy=new CampArtDefinition.Model{id=model.id,sourceModelId=model.sourceModelId,authoringRecipe=model.authoringRecipe,shading=model.shading,vertices=model.vertices,normals=model.normals,colors=model.colors,uv=model.uv,tangents=model.tangents,seasonalRole=model.seasonalRole??role,weatherExposure=model.weatherExposure,seasonalGrowth=model.seasonalGrowth,mossCoverage=model.mossCoverage};
                 if(copy.seasonalRole=="deciduous")
                 {
                     var colors=source!=null&&source.colors.Length==model.colors.Length?source.colors:model.colors;

@@ -1,11 +1,12 @@
 Shader "QuietCamp/CampArtLit"
 {
-    Properties { _ArtAmbient("Ambient", Color) = (.22,.24,.16,1) _ArtWater("Water", Float) = 0 _ArtGrass("Grass", Float) = 0 _ArtGround("Ground", Float) = 0 _QCWeather("Weather time, wind, rain, active",Vector)=(0,0,0,0) _QCWind("Wind direction",Vector)=(.8,.35,0,0) }
+    Properties { _CampUse("Observed surface use",2D)="black"{} _GroundLow("Ground low",Color)=(.23,.30,.14,1) _GroundHigh("Ground high",Color)=(.40,.48,.22,1) _SoilTone("Soil",Color)=(.43,.35,.25,1) _ArtAmbient("Ambient", Color) = (.22,.24,.16,1) _ArtWater("Water", Float) = 0 _ArtGrass("Grass", Float) = 0 _ArtGround("Ground", Float) = 0 _QCWeather("Weather time, wind, rain, active",Vector)=(0,0,0,0) _QCWind("Wind direction",Vector)=(.8,.35,0,0) }
     SubShader
     {
         Tags { "RenderPipeline"="UniversalPipeline" "RenderType"="Opaque" "Queue"="Geometry" }
         HLSLINCLUDE
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+        #include "CampSurfaceUse.hlsl"
         float4 _QCWeather,_QCWind;
         float3 WeatherPosition(float3 p,float2 response)
         {
@@ -15,7 +16,7 @@ Shader "QuietCamp/CampArtLit"
             float weight=response.x*min(response.y,3);
             p.xz+=_QCWind.xy*wave*gust*_QCWeather.y*weight*.22;
             p.y-=abs(wave)*_QCWeather.z*weight*.028;
-            return p;
+            return CampPressure(p,response.x*response.y);
         }
         ENDHLSL
         Pass
@@ -30,7 +31,7 @@ Shader "QuietCamp/CampArtLit"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
             CBUFFER_START(UnityPerMaterial)
-            float4 _ArtAmbient; float _ArtWater; float _ArtGrass; float _ArtGround;
+            float4 _ArtAmbient,_GroundLow,_GroundHigh,_SoilTone; float _ArtWater; float _ArtGrass; float _ArtGround;
             CBUFFER_END
             float4 _AtmosWindXZ; float _AtmosWindStrength; float _AtmosWindTime;
             struct Attributes { float4 positionOS:POSITION; float3 normalOS:NORMAL; float4 color:COLOR; float2 response:TEXCOORD1; };
@@ -60,7 +61,30 @@ Shader "QuietCamp/CampArtLit"
                 float diffuse=_ArtGrass>.5?abs(dot(normal,sun.direction)):saturate(dot(normal,sun.direction));
                 float3 lighting=_ArtAmbient.rgb*(.8+.2*abs(normal.y))+sun.color*((diffuse+.22*saturate(-dot(normal,sun.direction)))*sun.shadowAttenuation);
                 if(_ArtGrass>.5) lighting=max(lighting,float3(.42,.48,.36));
-                float3 color=input.color.rgb*lighting;
+                float3 baseColor=input.color.rgb;
+                if(_ArtGround>.5)
+                {
+                    float2 p=input.positionWS.xz;float4 use=CampUse(p);
+                    float patches=ArtNoise(p*.27+17)*.65+ArtNoise(p*.92+31)*.35;
+                    float earth=smoothstep(.66,.85,ArtNoise(p*.63+61))*ArtNoise(p*2.1);
+                    float moss=smoothstep(.55,.8,ArtNoise(p*.41-23))*.18;
+                    float3 natural=lerp(_GroundLow.rgb,_GroundHigh.rgb,patches);
+                    natural=lerp(natural,_GroundLow.rgb*float3(.86,1.04,.86),moss);
+                    natural=lerp(natural,_SoilTone.rgb,earth*.42);
+                    // Preserve authored scars and banks without retaining a differently painted puzzle rectangle.
+                    baseColor=lerp(baseColor,natural,.72);
+                    float snow=_CampClimate.y;
+                    baseColor=lerp(baseColor,float3(.78,.85,.88),snow);
+                    baseColor=lerp(baseColor,lerp(natural*.92,_SoilTone.rgb,use.r),use.g*(1-snow)*.55);
+                    baseColor=lerp(baseColor,_SoilTone.rgb*(1-_CampClimate.x*.23),use.r*(1-snow)*.82);
+                    baseColor=lerp(baseColor,float3(.59,.69,.73),use.b*snow*.48);
+                    float churn=ArtNoise(p*7+5)*.6+ArtNoise(p*3)*.4;
+                    baseColor*=1-use.a*(.04+churn*.09)*(1-snow);
+                    // Small irregular wet depressions emerge only after substantial real traffic.
+                    float pool=use.a*smoothstep(.61,.79,ArtNoise(p*2.3+91))*(1-snow);
+                    baseColor=lerp(baseColor,float3(.30,.36,.34),pool*.34);
+                }
+                float3 color=baseColor*lighting;
                 if(_QCWeather.w>.5 && _ArtWater<.5)
                 {
                     float exposed=saturate(input.color.a);

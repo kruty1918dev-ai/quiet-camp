@@ -95,6 +95,14 @@ namespace QuietCamp.Editor
                     LevelAuthoring.LevelAuthoringWindow.OpenWindow().RestoreVerification(new LevelAuthoring.LevelAuthoringWindow.VerificationSession{document=original["document"].ToObject<LevelAuthoring.LevelAuthoringDocument>(),path=(string)original["path"],dirty=(bool)original["dirty"]});
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="aging-ui-restored"}));
                 }
+                else if(request.mode=="object-overgrowth")
+                {
+                    var d=LevelAuthoring.LevelAuthoringDocument.Open(request.draftPath);
+                    var settings=string.IsNullOrEmpty(request.profile)?LevelAuthoring.ObjectOvergrowthSettings.Defaults():JsonConvert.DeserializeObject<LevelAuthoring.ObjectOvergrowthSettings>(File.ReadAllText(request.profile));
+                    var ids=d.art.instances.Where(i=>i.id=="crash/airframe/nose"||i.id=="crash/airframe/tail"||i.id=="crash/wing").Select(i=>i.id).ToArray();
+                    int plants=LevelAuthoring.ObjectOvergrowthAuthoring.Apply(d,ids,settings);d.Save(request.output);
+                    File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="object-overgrowth",addedPlants=plants,objects=d.art.instances.Length,errors=d.Validate(true)}));
+                }
                 else if(request.mode=="forest-regrowth")
                 {
                     var d=LevelAuthoring.LevelAuthoringDocument.Open(request.draftPath);
@@ -164,6 +172,7 @@ namespace QuietCamp.Editor
                 }
                 else if (request.mode == "tests") RunTests();
                 else if (request.mode == "authoring-tests") RunTests(true);
+                else if(request.mode=="surface-tests")RunTests(true,"QuietCamp.Tests.CampSurfaceUseTests");
                 else if(request.mode=="forest-tests")RunTests(true,"QuietCamp.Tests.ForestAtmosphereTests");
                 else if(request.mode=="props-tests")RunTests(true,"QuietCamp.Tests.AuthoringPropTests");
                 else if (request.mode == "world-tests") RunTests(true,"QuietCamp.Tests.ModelWorkshopTests");
@@ -370,7 +379,7 @@ namespace QuietCamp.Editor
             var api = ScriptableObject.CreateInstance<TestRunnerApi>();
             api.RegisterCallbacks(new TestReport(api, session));
             api.Execute(new ExecutionSettings(new Filter { testMode = TestMode.EditMode,
-                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.SurfaceWeatheringTests", "QuietCamp.Tests.ForestAtmosphereTests", "QuietCamp.Tests.ModelWorkshopTests", "QuietCamp.Tests.FreeWorldAssetsTests", "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
+                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.CampSurfaceUseTests", "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.SurfaceWeatheringTests", "QuietCamp.Tests.ForestAtmosphereTests", "QuietCamp.Tests.ModelWorkshopTests", "QuietCamp.Tests.FreeWorldAssetsTests", "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
         }
         sealed class TestReport : ICallbacks
         {
@@ -419,6 +428,7 @@ namespace QuietCamp.Editor
                 LevelAuthoring.AuthoringPropCatalog.ModelPath, LevelAuthoring.AuthoringPropCatalog.CatalogPath }
                 .Concat(new[]{"Assets/QuietCamp/Scripts/Presentation/World/SeasonAtmosphereView.cs","Assets/QuietCamp/Scripts/Presentation/World/RiverWeatherMaterial.cs","Assets/QuietCamp/Scripts/Presentation/World/SeasonVisibilityPass.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherCoverage.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherSurfaceField.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherObjectMotion.cs","Assets/QuietCamp/Scripts/Presentation/World/SeasonSurfaceAccents.cs","Assets/QuietCamp/Resources/QuietCamp/SeasonVisibility.shader","Assets/QuietCamp/Resources/QuietCamp/SeasonLightShaft.shader","Assets/QuietCamp/Scripts/Presentation/World/SeasonLightShafts.cs","Assets/QuietCamp/Scripts/Presentation/World/SeasonModelAppearance.cs","Assets/QuietCamp/Editor/LevelAuthoring/ForestRegrowthAuthoring.cs","Assets/QuietCamp/Resources/QuietCamp/forest_regrowth.json","Assets/QuietCamp/Resources/QuietCamp/PlacementGrid.shader","Assets/QuietCamp/Resources/QuietCamp/TentCloth.shader","Assets/QuietCamp/Resources/QuietCamp/season_atmosphere.json"})
                 .Concat(new[] { "scene-placement", "vegetation-placement", "rock-placement" }.SelectMany(id => Directory.GetFiles("Packages/com.kruty1918." + id + "/Runtime/Core", "*.cs")))
+                .Concat(new[]{"Assets/QuietCamp/Scripts/Presentation/World/CampSurfaceUseField.cs","Assets/QuietCamp/Scripts/Presentation/World/CampGroundDetails.cs","Assets/QuietCamp/Scripts/Presentation/World/SeasonProfile.cs","Assets/QuietCamp/Resources/QuietCamp/CampSurfaceUse.hlsl","Assets/QuietCamp/Resources/QuietCamp/Meadow.shader","Assets/QuietCamp/Resources/QuietCamp/camp_surface_use.json","Assets/QuietCamp/Editor/LevelAuthoring/ObjectOvergrowthAuthoring.cs","Assets/QuietCamp/Editor/LevelAuthoring/SurfaceWeathering.cs","Assets/QuietCamp/Resources/QuietCamp/object_overgrowth.json"})
                 .Concat(AssetDatabase.GetDependencies(AssetDatabase.GetAssetPath(Resources.Load<Material>(art.waterMaterial)), true))
                 .Concat(AssetDatabase.GetDependencies("Assets/QuietCamp/Resources/QuietCamp/CozyVegetationLibrary.asset", true))
                 .Concat(art.instances.Where(i => !string.IsNullOrEmpty(i.assetId)).Select(i => i.assetId).Distinct().SelectMany(id => AssetDatabase.GetDependencies(AssetDatabase.GetAssetPath(catalog.Prefab(id)), true)))
@@ -480,6 +490,7 @@ namespace QuietCamp.Editor
                 camera.backgroundColor = CampArtDefinition.Color(art.groundLow); camera.aspect = (float)request.width / request.height;
                 camera.allowHDR = true; camera.allowMSAA = true;
                 view = camera.gameObject.AddComponent<CampArtView>(); view.Configure(art, level, decor, catalog);
+                board.SurfaceDetails.Bind(decor);
                 view.FitCamera(new Rect(0, 0, 1, 1));
                 preview.lights[0].type = LightType.Directional; view.ApplyLighting(preview.lights[0]);
                 preview.lights[1].intensity = 0;

@@ -150,12 +150,11 @@ namespace QuietCamp.Editor.LevelAuthoring
             for(int n=0;n<settings.attempts;n++)
             {
                 var p=new Vector2((Next()-.5f)*settings.extent*2,(Next()-.5f)*settings.extent*2);
-                if(Mathf.Abs(p.x)<d.level.width*.5f+1||Mathf.Abs(p.y)<d.level.height*.5f+1)
-                    if(Mathf.Abs(p.x)<d.level.width*.5f+.75f&&Mathf.Abs(p.y)<d.level.height*.5f+.75f)continue;
+                bool onField=Mathf.Abs(p.x)<d.level.width*.5f+.2f&&Mathf.Abs(p.y)<d.level.height*.5f+.2f;
                 if(Wet(p))continue;
                 var r=new Vector2Int(Mathf.RoundToInt(p.x/raster),Mathf.RoundToInt(p.y/raster));bool solid=false;
                 for(int dx=-1;dx<=1;dx++)for(int dz=-1;dz<=1;dz++)if(blocked.Contains(r+new Vector2Int(dx,dz)))solid=true;
-                if(solid||clear.Any(c=>Vector2.Distance(p,c.point)<c.radius)||paths.Any(line=>Distance(p,line.a,line.b)<.38f))continue;
+                if(solid||clear.Any(c=>Vector2.Distance(p,c.point)<c.radius))continue;
                 float shade=trees.Length==0?0:Mathf.Clamp01(1-trees.Min(t=>Vector2.Distance(t,p))/5);
                 float noise=Mathf.PerlinNoise(p.x*.17f+settings.seed*.023f,p.y*.17f-settings.seed*.013f);
                 float probability=settings.density*Mathf.Lerp(.35f,1,Mathf.SmoothStep(0,1,(noise-.22f)*1.9f))*(.8f+shade*.35f);
@@ -163,7 +162,9 @@ namespace QuietCamp.Editor.LevelAuthoring
                 var cell=Cell(p);bool near=false;for(int dx=-1;dx<=1;dx++)for(int dz=-1;dz<=1;dz++)if(occupied.TryGetValue(cell+new Vector2Int(dx,dz),out var points)&&points.Any(q=>Vector2.Distance(p,q)<settings.spacing))near=true;
                 if(near)continue;
                 float kind=Next();var model=kind<settings.bushShare?bush:kind<settings.bushShare+settings.flowerShare?flower:kind<settings.bushShare+settings.flowerShare+settings.fernShare*(.65f+shade)?fern:Next()<.5f?grass:broad;
+                if(onField)model=Next()<.65f?grass:broad;
                 float height=(model==bush?1f:model==flower?.48f:model==fern?.75f:model==broad?.36f:settings.height)*Mathf.Lerp(.7f,1.3f,Next());
+                if(onField)height=Mathf.Min(height,.18f);
                 if(clearance.TryGetValue(r,out var room)&&room<height+.1f)continue;
                 var bounds=AuthoringPropCatalog.ModelBounds(model);float scale=height/Mathf.Max(.01f,bounds.size.y),ground=d.art.GroundHeight(p.x,p.y);
                 originals.Add(new CampArtDefinition.Instance{id="regrowth/"+added++,modelId=model.id,x=p.x,z=p.y,y=ground-bounds.min.y*scale,scale=scale,yaw=Next()*360,surfaceAttached=true,surfaceOffset=-bounds.min.y*scale});
@@ -174,7 +175,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             return added;
         }
         static float Distance(Vector2 p,Vector2 a,Vector2 b)=>Vector2.Distance(p,Vector2.Lerp(a,b,Mathf.Clamp01(Vector2.Dot(p-a,b-a)/Mathf.Max(.001f,(b-a).sqrMagnitude))));
-        static CampArtDefinition.Model Fern()
+        internal static CampArtDefinition.Model Fern()
         {
             var vertices=new List<Vector3>();var colors=new List<Color>();
             for(int leaf=0;leaf<7;leaf++)

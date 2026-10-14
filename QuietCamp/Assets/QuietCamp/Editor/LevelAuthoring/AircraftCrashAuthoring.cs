@@ -165,9 +165,6 @@ namespace QuietCamp.Editor.LevelAuthoring
             }
             var mesh=new LandscapeMesh{name="Земля — зарослий слід катастрофи",vertices=new float[n*n*3],normals=new float[n*n*3],uv=new float[n*n*2],colors=new float[n*n*4],triangles=new int[(n-1)*(n-1)*6]};
             int t=0;
-            var routes=new[]{new[]{new Vector2(0,-d.level.height*.5f),new Vector2(-.2f,-d.level.height*.5f-2.2f)},
-                    new[]{new Vector2(-.2f,-d.level.height*.5f-2.2f),new Vector2(2.1f,-d.level.height*.5f-1.3f)},
-                    new[]{new Vector2(-d.level.width*.5f,-1.1f),new Vector2(-d.level.width*.5f-2,-1.6f)}};
 
             for(int z=0;z<n;z++)for(int x=0;x<n;x++)
             {
@@ -177,10 +174,6 @@ namespace QuietCamp.Editor.LevelAuthoring
                 mesh.normals[i*3]=normal.x;mesh.normals[i*3+1]=normal.y;mesh.normals[i*3+2]=normal.z;mesh.uv[i*2]=x/(float)(n-1);mesh.uv[i*2+1]=z/(float)(n-1);
                 var color=Color.Lerp(CampArtDefinition.Color(d.art.groundLow),CampArtDefinition.Color(d.art.groundHigh),.35f+.18f*Mathf.PerlinNoise(wx*.22f,wz*.22f));
                 color=Color.Lerp(color,new Color(.30f,.27f,.20f),Scar(wx,wz)*.8f);
-                // Repeated human passage connects the clearing to shelter and storage.
-                if(Mathf.Abs(wx)>d.level.width*.5f&&Mathf.Abs(wx)<d.level.width*.5f+3&&Mathf.Abs(wz+.2f)<.52f)color=Color.Lerp(color,new Color(.55f,.51f,.36f),.55f);
-                if(Mathf.Abs(wx)>d.level.width*.5f+.25f||Mathf.Abs(wz)>d.level.height*.5f+.25f)
-                foreach(var route in routes){var axis=route[1]-route[0];float along=Mathf.Clamp01(Vector2.Dot(new Vector2(wx,wz)-route[0],axis)/axis.sqrMagnitude);float distance=Vector2.Distance(new Vector2(wx,wz),route[0]+axis*along);if(distance<.4f)color=Color.Lerp(color,new Color(.52f,.45f,.32f),.65f*(1-distance/.4f));}
                 mesh.colors[i*4]=color.r;mesh.colors[i*4+1]=color.g;mesh.colors[i*4+2]=color.b;mesh.colors[i*4+3]=1;
                 if(x<n-1&&z<n-1){mesh.triangles[t++]=i;mesh.triangles[t++]=i+n;mesh.triangles[t++]=i+n+1;mesh.triangles[t++]=i;mesh.triangles[t++]=i+n+1;mesh.triangles[t++]=i+1;}
             }

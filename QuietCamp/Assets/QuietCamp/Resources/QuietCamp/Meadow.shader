@@ -2,6 +2,7 @@ Shader "QuietCamp/Meadow"
 {
     Properties
     {
+        _CampUse("Observed surface use",2D)="black"{}
         _ClearingHalfSize ("Clearing half size", Vector) = (5,5,0,0)
         _GroundLow("Dark grass",Color)=(.27,.4,.23,1)
         _GroundHigh("Light grass",Color)=(.43,.57,.31,1)
@@ -59,6 +60,7 @@ Shader "QuietCamp/Meadow"
                 return lerp(lerp(Hash(cell), Hash(cell + float2(1,0)), t.x),
                     lerp(Hash(cell + float2(0,1)), Hash(cell + 1), t.x), t.y);
             }
+            #include "CampSurfaceUse.hlsl"
             half4 Frag(Varyings i) : SV_Target
             {
                 float2 ground = i.positionWS.xz;
@@ -66,7 +68,7 @@ Shader "QuietCamp/Meadow"
                     length(ground / max(_ClearingHalfSize.xy, float2(1,1))));
                 float patches = Noise(ground * .32 + 17.0) * .7 + Noise(ground * 1.15) * .3;
                 half3 grass = lerp(_GroundLow.rgb, _GroundHigh.rgb, patches);
-                grass = lerp(grass, _GroundHigh.rgb, clearing * .22);
+
                 // Small irregular earth patches share the ground instead of a flat painted lawn.
                 float earth=smoothstep(.72,.88,Noise(ground*.75+41))*Noise(ground*2.1);
                 grass=lerp(grass,_SoilTone.rgb,earth*.45);
@@ -89,6 +91,11 @@ Shader "QuietCamp/Meadow"
                 float grain=Noise(ground*12.0+3);
                 float grainWeight=1-smoothstep(.18,.55,max(length(ddx(ground)),length(ddy(ground)))*12);
                 grass*=1+(grain-.5)*.09*grainWeight;
+                float4 use=CampUse(ground);float snow=_CampClimate.y;
+                grass=lerp(grass,float3(.78,.85,.88),snow);
+                grass=lerp(grass,_SoilTone.rgb*(1-_CampClimate.x*.23),use.r*(1-snow)*.82);
+                grass=lerp(grass,float3(.59,.69,.73),use.b*snow*.48);
+                grass*=1-use.a*(.04+Noise(ground*7)*.09)*(1-snow);
                 // Cell boundaries stay readable without alternating painted squares.
                 // Derivatives keep the thin soil seams stable at phone and tablet scales.
                 float2 phase=frac(ground+_ClearingHalfSize.xy);

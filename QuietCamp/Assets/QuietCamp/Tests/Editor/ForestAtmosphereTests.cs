@@ -63,7 +63,8 @@ namespace QuietCamp.Tests
             Assert.That(JsonConvert.SerializeObject(d.level),Is.EqualTo(puzzle));
             foreach(var i in d.art.instances.Where(i=>i.id.StartsWith("regrowth/")))
             {
-                Assert.That(Mathf.Abs(i.x)>=d.level.width*.5f+.75f||Mathf.Abs(i.z)>=d.level.height*.5f+.75f,Is.True);
+                // Low compressible cover may occupy the field; solid props still cannot.
+                if(Mathf.Abs(i.x)<d.level.width*.5f+.2f&&Mathf.Abs(i.z)<d.level.height*.5f+.2f)Assert.That(AuthoringPropCatalog.ModelBounds(d.art.models.First(m=>m.id==i.modelId)).size.y*i.scale,Is.LessThanOrEqualTo(.24f));
                 Assert.That(i.surfaceAttached,Is.True);
             }
             foreach(var original in originals)

@@ -29,6 +29,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         [MenuItem("QuietCamp/Інструменти/Старіння моделей")]
         static void OpenWeatheringTool(){var window=OpenWindow();window.ShowPage(6);}
 
+        ObjectOvergrowthSettings _overgrowth;
         LevelAuthoringAsset SelectedModel()
         {
             var go=Selection.activeGameObject;
@@ -69,6 +70,24 @@ namespace QuietCamp.Editor.LevelAuthoring
                 EditorGUILayout.HelpBox("Ефект запікається в кольори граней: без нових текстур і runtime-компонентів. Алюміній окиснюється; іржа доречна для сталевих деталей. Збережіть або скасуйте прев’ю.",MessageType.None);
                 if(GUILayout.Button("Переглянути старіння"))Try(()=>ApplyModelRecipe(marker,"age"));
                 if(GUILayout.Button("Малювати старіння пензлем Polybrush"))Try(()=>BeginModelSession(marker,false));
+                EditorGUILayout.Space();EditorGUILayout.LabelField("Обростання природою",EditorStyles.boldLabel);
+                _overgrowth??=ObjectOvergrowthSettings.Defaults();
+                var types=new[]{"climber","grass","fern"};var areas=new[]{"sheltered","base","upper"};var materials=new[]{"aluminium","steel","wood","stone","generic"};
+                _overgrowth.vegetation=types[EditorGUILayout.Popup("Рослини",Array.IndexOf(types,_overgrowth.vegetation),new[]{"Витка зелень","Трава","Папороть"})];
+                _overgrowth.coverage=areas[EditorGUILayout.Popup("Ділянки",Array.IndexOf(areas,_overgrowth.coverage),new[]{"Вологі й затінені","Біля основи","Верхні поверхні"})];
+                _overgrowth.material=materials[EditorGUILayout.Popup("Матеріал основи",Array.IndexOf(materials,_overgrowth.material),new[]{"Алюміній","Сталь","Дерево","Камінь","Інше"})];
+                _overgrowth.density=EditorGUILayout.Slider("Густота обростання",_overgrowth.density,0,1);
+                _overgrowth.scale=EditorGUILayout.Slider("Розмір рослин, м",_overgrowth.scale,.1f,1.5f);
+                _overgrowth.moisture=EditorGUILayout.Slider("Вологість місця",_overgrowth.moisture,0,1);
+                _overgrowth.seed=EditorGUILayout.IntField("Варіант обростання",_overgrowth.seed);
+                if(GUILayout.Button("Обростити вибраний об’єкт"))Try(()=>
+                {
+                    var d=CaptureDraft(false);var id=marker.instanceId;Undo.RecordObject(_state,"Обростання старого об’єкта");
+                    int count=ObjectOvergrowthAuthoring.Apply(d,new[]{id},_overgrowth);_state.Write(d);
+                    _refreshing=true;try{_workspace?.Dispose();_workspace=new LevelAuthoringWorkspace(d);}finally{_refreshing=false;}
+                    _dirty=true;_message=$"Додано {count} рослин; мох враховує матеріал, контакт із землею й затінення. Ctrl+Z — скасування.";
+                });
+                EditorGUILayout.HelpBox("Рослини залишаються окремими редагованими об’єктами. Повторне застосування замінює лише обростання цього об’єкта. Зимовий пресет прибирає листя, мох і старіння залишаються.",MessageType.None);
                 EditorGUILayout.Space();EditorGUILayout.LabelField("Розділення й форма",EditorStyles.boldLabel);
                 if(GUILayout.Button("Редагувати копію в ProBuilder"))Try(()=>BeginModelSession(marker,true));
                 _cutAxis=EditorGUILayout.Popup("Площина розрізу",_cutAxis,new[]{"X","Y","Z"});_cutOffset=EditorGUILayout.FloatField("Зсув площини, м",_cutOffset);

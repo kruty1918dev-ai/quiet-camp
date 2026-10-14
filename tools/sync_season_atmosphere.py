@@ -26,12 +26,14 @@ FILES+=['Assets/QuietCamp/Editor/LevelAuthoring/AuthoringWeatherExposure.cs']
 FILES+=['Assets/QuietCamp/Tests/Editor/SurfaceWeatheringTests.cs','Assets/QuietCamp/Editor/LevelAuthoring/AuthoringPropCatalog.cs']
 FILES+=['Assets/QuietCamp/Editor/LevelAuthoring/ForestRegrowthAuthoring.cs','Assets/QuietCamp/Scripts/Presentation/World/SeasonLightShafts.cs','Assets/QuietCamp/Resources/QuietCamp/SeasonLightShaft.shader','Assets/QuietCamp/Resources/QuietCamp/forest_regrowth.json']
 FILES+=['Assets/QuietCamp/Tests/Editor/ForestAtmosphereTests.cs']
+FILES+=['Assets/QuietCamp/Scripts/Presentation/World/CampSurfaceUseField.cs','Assets/QuietCamp/Scripts/Presentation/World/CampGroundDetails.cs','Assets/QuietCamp/Scripts/Presentation/World/MeadowSurface.cs','Assets/QuietCamp/Scripts/Presentation/World/SeasonProfile.cs','Assets/QuietCamp/Resources/QuietCamp/CampSurfaceUse.hlsl','Assets/QuietCamp/Resources/QuietCamp/Meadow.shader','Assets/QuietCamp/Resources/QuietCamp/camp_surface_use.json','Assets/QuietCamp/Editor/LevelAuthoring/ObjectOvergrowthAuthoring.cs','Assets/QuietCamp/Resources/QuietCamp/object_overgrowth.json','Assets/QuietCamp/Tests/Editor/CampSurfaceUseTests.cs']
 for name in FILES:
  source=PROJECT/name
  if not source.exists():continue
  meta=Path(str(source)+'.meta')
  if not meta.exists():
   importer='MonoImporter:\n  externalObjects: {}\n  serializedVersion: 2\n  defaultReferences: []\n  executionOrder: 0\n  icon: {instanceID: 0}\n  userData:\n  assetBundleName:\n  assetBundleVariant:\n' if source.suffix=='.cs' else 'TextScriptImporter:\n  externalObjects: {}\n  userData:\n  assetBundleName:\n  assetBundleVariant:\n'
+  if source.suffix=='.hlsl':importer='ShaderIncludeImporter:\n  externalObjects: {}\n  userData:\n  assetBundleName:\n  assetBundleVariant:\n'
   meta.write_text('fileFormatVersion: 2\nguid: '+uuid.uuid4().hex+'\n'+importer,encoding='utf-8')
  target=QA/name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,target);shutil.copy2(meta,Path(str(target)+'.meta'))
 print('Synced season atmosphere sources and GUIDs')

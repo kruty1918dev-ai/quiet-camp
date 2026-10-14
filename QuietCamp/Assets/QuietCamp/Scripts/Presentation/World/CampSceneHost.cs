@@ -181,6 +181,7 @@ namespace QuietCamp.Presentation.World
             if (art != null) camera.gameObject.AddComponent<CampArtView>().Configure(art, level, _decorRoot, _services.Assets);
             CameraFitter.Fit(camera, level, viewport);
             _renderer.BindViewport(camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>());
+            _renderer.SurfaceDetails.Bind(_decorRoot,paused:()=>!GameplayActive,reduced:()=>_services.ReducedMotion);
 
             // Stable listener proxy above the board centre — positional
             // sources read distance against the field, not the far camera.
@@ -586,6 +587,7 @@ namespace QuietCamp.Presentation.World
                     (_placement != null && _placement.HasPreview)
                     || (_hud != null && _hud.HasModalOpen)
                     || (_router != null && _router.IsBusy);
+            _renderer.SurfaceDetails.Bind(_decorRoot,_atmosphere,()=>!GameplayActive,()=>_services.ReducedMotion);
             if(_atmosphere.Soundscape!=null)_atmosphere.Soundscape.AccentSuppressed = () => !GameplayActive;
             // Voice budget by quality tier (Low/Balanced/High → 8/12/16);
             // decorative one-shots are skipped first when the pool is full.

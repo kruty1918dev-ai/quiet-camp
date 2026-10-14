@@ -43,6 +43,7 @@ namespace QuietCamp.Presentation.World
         Material _overlayMaterial;
         Material _groundMaterial;
         CampGroundDetails _groundDetails;
+        public CampGroundDetails SurfaceDetails=>_groundDetails;
 
         Kruty1918.GameplayViewport.GameplayViewport _viewport;
         public IReadOnlyDictionary<string, TentPresenter> Tents => _tents;
@@ -76,15 +77,11 @@ namespace QuietCamp.Presentation.World
             // The scene Base is below the meadow; keep the visible rim with the surface grid.
             if(_art==null)_rim = BoardRim.Create(_level, _gridRoot);
             BuildObstacles();
-            if (_art == null) BuildTufts();
+            BuildTufts();
 
-            // A worn route through the forest explains access without glyphs.
-            if (_art == null && !BakedCampEnvironment.Uses(_level)) CampTrail.BuildAll(_level,_gridRoot);
-            if (_art == null)
-            {
-                _groundDetails = _gridRoot.gameObject.AddComponent<CampGroundDetails>();
-                _groundDetails.Configure(_level,_groundMaterial);
-            }
+            _groundDetails = _gridRoot.gameObject.AddComponent<CampGroundDetails>();
+            _groundDetails.Configure(_level,_groundMaterial,_art);
+
         }
 
         // ─── Base ────────────────────────────────────────────────────────────
@@ -164,13 +161,13 @@ namespace QuietCamp.Presentation.World
             for (var z = 0; z < _level.height; z++)
             {
                 var cell = new Cell(x, z);
-                if (blocked.Contains(cell) || rng.NextDouble() > 0.28*season.GrassWeight) continue;
+                if (blocked.Contains(cell) || rng.NextDouble() > .82f*season.GrassWeight) continue;
                 var p = BoardMath.CellCenterWorld(_level, cell);
                 p.x += (float)(rng.NextDouble() * 0.5 - 0.25);
                 p.z += (float)(rng.NextDouble() * 0.5 - 0.25);
                 p.y = 0.016f;
                 var go = SpawnModel("grass", _gridRoot, p, rng.Next(360), DecorLayer);
-                if (go != null) { go.transform.localScale *= 0.65f;Kruty1918.Atmos.FoliageSway.Shared.ApplySlots(go,new[]{Kruty1918.Atmos.FoliageSway.Species.Grass}); }
+                if (go != null) { go.name="Camp field grass"; go.transform.localScale *= .38f;Kruty1918.Atmos.FoliageSway.Shared.ApplySlots(go,new[]{Kruty1918.Atmos.FoliageSway.Species.Grass}); }
             }
         }
 

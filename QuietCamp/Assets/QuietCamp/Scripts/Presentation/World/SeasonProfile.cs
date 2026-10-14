@@ -70,7 +70,7 @@ namespace QuietCamp.Presentation.World
         {
             if(SnowCoverage<=0||level==null||level.entry==null)return 0;
             float outside=Mathf.Max(Mathf.Abs(point.x)-level.width*.5f,Mathf.Abs(point.z)-level.height*.5f);
-            if(outside<.6f)return 0;
+
             return SnowDepth(level,point,CampTrail.CorridorDistance(level,point));
         }
         /// <summary>Identical snow field with a caller-cached distance to the static walking network.</summary>
@@ -78,7 +78,7 @@ namespace QuietCamp.Presentation.World
         {
             if(SnowCoverage<=0||level==null)return 0;
             float outside=Mathf.Max(Mathf.Abs(point.x)-level.width*.5f,Mathf.Abs(point.z)-level.height*.5f);
-            if(outside<.6f||pathDistance<=.85f)return 0;
+
             var shore=EnvironmentCompositionData.For(level).shore;
             float bankDistance=ShorelineGeometry.DistanceToBank(shore,point);
             if(bankDistance<=1.25f)return 0;
@@ -87,8 +87,8 @@ namespace QuietCamp.Presentation.World
             float roll=Mathf.PerlinNoise(point.x*.13f+phase,point.z*.13f+19)*.7f
                 +Mathf.PerlinNoise(point.x*.055f+phase,point.z*.055f-11)*.3f;
             roll=Mathf.SmoothStep(0,1,Mathf.Clamp01((roll-.24f)/.52f));
-            float clearing=Mathf.SmoothStep(0,1,Mathf.Clamp01((outside-.6f)/4.5f));
-            float path=Mathf.SmoothStep(0,1,Mathf.Clamp01((pathDistance-.85f)/2.8f));
+            float clearing=Mathf.Lerp(.025f,1,Mathf.SmoothStep(0,1,Mathf.Clamp01(outside/4.5f)));
+            float path=1; // Reserved access defines walkability, not previously walked snow.
             float bank=Mathf.SmoothStep(0,1,Mathf.Clamp01((bankDistance-1.25f)/2.4f));
             return SnowCoverage*clearing*path*bank*(1-CampGroundDetails.HeatAt(level,point))*(.8f+roll*1.35f);
         }

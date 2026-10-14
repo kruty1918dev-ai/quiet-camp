@@ -65,6 +65,14 @@ namespace QuietCamp.Editor.LevelAuthoring
                 }
             }
         }
+        public static float MossSuitability(Vector3 position,Vector3 normal,float contact,float light,float moisture,string material,string coverage,int seed)
+        {
+            float retention=material=="stone"?1:material=="wood"?.9f:material=="steel"?.55f:material=="aluminium"?.43f:.65f;
+            float sheltered=Mathf.Clamp01(1-light),upward=Mathf.Clamp01(normal.y);
+            float area=coverage=="base"?contact:coverage=="upper"?upward:Mathf.Max(contact*.85f,sheltered*(.4f+upward*.6f));
+            float patch=Mathf.SmoothStep(0,1,(Mathf.PerlinNoise(position.x*.8f+seed*.013f,position.z*.8f+position.y*.25f)-.32f)*2.5f);
+            return Mathf.Clamp01(retention*area*patch*(.15f+moisture*.85f)*(normal.y<-.4f?.15f:1));
+        }
         static int Pack(Color c) => Mathf.RoundToInt(Mathf.Clamp01(c.r)*255)<<16 | Mathf.RoundToInt(Mathf.Clamp01(c.g)*255)<<8 | Mathf.RoundToInt(Mathf.Clamp01(c.b)*255);
     }
 }

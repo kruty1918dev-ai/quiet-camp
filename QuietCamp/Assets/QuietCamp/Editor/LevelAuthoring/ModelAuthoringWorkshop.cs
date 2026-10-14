@@ -124,7 +124,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         public static AuthoredModelVariant Register(CampArtDefinition.Model model, ModelAuthoringRecipe recipe, bool persist = true)
         {
             string hash;
-            using(var sha=SHA256.Create())hash=BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes((JsonConvert.SerializeObject(new{model.vertices,model.normals,model.colors,model.uv,model.tangents,recipe})+(model.weatherExposure==null?"":JsonConvert.SerializeObject(model.weatherExposure))+(model.seasonalGrowth==null?"":JsonConvert.SerializeObject(model.seasonalGrowth)))))).Replace("-","").ToLowerInvariant().Substring(0,14);
+            using(var sha=SHA256.Create())hash=BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes((JsonConvert.SerializeObject(new{model.vertices,model.normals,model.colors,model.uv,model.tangents,recipe})+(model.weatherExposure==null?"":JsonConvert.SerializeObject(model.weatherExposure))+(model.seasonalGrowth==null?"":JsonConvert.SerializeObject(model.seasonalGrowth))+(model.mossCoverage==null?"":JsonConvert.SerializeObject(model.mossCoverage)))))).Replace("-","").ToLowerInvariant().Substring(0,14);
             model.id="qc_variant_"+hash;
             model.authoringRecipe=JsonConvert.SerializeObject(recipe);
             var variant=new AuthoredModelVariant{model=model,recipe=recipe};

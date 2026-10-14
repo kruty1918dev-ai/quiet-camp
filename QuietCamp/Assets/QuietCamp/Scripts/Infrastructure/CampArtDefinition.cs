@@ -52,6 +52,7 @@ namespace QuietCamp.Infrastructure
             public int[] colors;
             [JsonProperty(NullValueHandling=NullValueHandling.Ignore)] public float[] weatherExposure;
             [JsonProperty(NullValueHandling=NullValueHandling.Ignore)] public float[] seasonalGrowth;
+            [JsonProperty(NullValueHandling=NullValueHandling.Ignore)] public float[] mossCoverage;
         }
         public sealed class Instance
         {
@@ -99,6 +100,7 @@ namespace QuietCamp.Infrastructure
                     || model.normals.Length != model.vertices.Length || model.colors.Length * 3 != model.vertices.Length
                     || !model.vertices.All(Finite) || !model.normals.All(Finite)
                     || model.uv!=null&&(model.uv.Length!=model.colors.Length*2||!model.uv.All(Finite))
+                    || model.mossCoverage!=null&&(model.mossCoverage.Length!=model.colors.Length||!model.mossCoverage.All(v=>Finite(v)&&v>=0&&v<=1))
                     || model.weatherExposure!=null&&(model.weatherExposure.Length!=model.colors.Length||!model.weatherExposure.All(v=>Finite(v)&&v>=0&&v<=1))
                     || model.seasonalGrowth!=null&&(model.seasonalGrowth.Length!=4||!model.seasonalGrowth.All(v=>Finite(v)&&v>=0&&v<=2))
                     || model.tangents!=null&&(model.tangents.Length!=model.colors.Length*4||!model.tangents.All(Finite)))
@@ -113,7 +115,7 @@ namespace QuietCamp.Infrastructure
                     || (string.IsNullOrEmpty(item.assetId) && !ids.Contains(item.modelId)))
                     throw new InvalidDataException("Invalid camp art instance.");
                 if (Mathf.Abs(item.x) < width * .5f + .2f && Mathf.Abs(item.z) < height * .5f + .2f
-                    && (!string.IsNullOrEmpty(item.assetId) || MeshTouchesBoard(item, models.First(m => m.id == item.modelId))))
+                    && (!string.IsNullOrEmpty(item.assetId) || !IsCompressibleCover(item, models.First(m => m.id == item.modelId)) && MeshTouchesBoard(item, models.First(m => m.id == item.modelId))))
                     throw new InvalidDataException("Camp art instance enters the gameplay board: " + (item.id ?? item.modelId ?? item.assetId));
             }
             if (cover == null || cover.Length > 180000 || cover.Any(p => p == null || p.kind < 0 || p.kind > 3
@@ -123,6 +125,18 @@ namespace QuietCamp.Infrastructure
                 throw new InvalidDataException("Invalid generated groundcover.");
         }
         static bool Finite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
+        bool IsCompressibleCover(Instance item,Model model)
+        {
+            if(model.seasonalRole!="groundcover"||item.surfaceAttached!=true)return false;
+            var scale=item.scaleXYZ==null?Vector3.one*item.scale:Vector(item.scaleXYZ);
+            var rotation=Quaternion.Euler(item.rotationEuler==null?new Vector3(0,item.yaw,0):Vector(item.rotationEuler));
+            for(int i=0;i<model.vertices.Length;i+=3)
+            {
+                var p=new Vector3(item.x,item.y,item.z)+rotation*Vector3.Scale(new Vector3(model.vertices[i],model.vertices[i+1],model.vertices[i+2]),scale);
+                if(p.y-GroundHeight(p.x,p.z)>.24f)return false;
+            }
+            return true;
+        }
         bool MeshTouchesBoard(Instance item, Model model)
         {
             var matrix = Matrix4x4.TRS(new Vector3(item.x, item.y, item.z),

@@ -10,7 +10,7 @@ namespace QuietCamp.Presentation.World
         public static CampArtDefinition.Model Resolve(CampArtDefinition.Model source,SeasonAtmospherePreset preset)
         {
             if(preset==null||string.IsNullOrEmpty(source.seasonalRole))return source;
-            var m=new CampArtDefinition.Model{id=source.id,sourceModelId=source.sourceModelId,authoringRecipe=source.authoringRecipe,shading=source.shading,vertices=source.vertices,normals=source.normals,uv=source.uv,tangents=source.tangents,colors=source.colors.ToArray(),seasonalRole=source.seasonalRole,seasonalLeafTriangles=source.seasonalLeafTriangles,weatherExposure=source.weatherExposure,seasonalGrowth=source.seasonalGrowth};
+            var m=new CampArtDefinition.Model{id=source.id,sourceModelId=source.sourceModelId,authoringRecipe=source.authoringRecipe,shading=source.shading,vertices=source.vertices,normals=source.normals,uv=source.uv,tangents=source.tangents,colors=source.colors.ToArray(),seasonalRole=source.seasonalRole,seasonalLeafTriangles=source.seasonalLeafTriangles,weatherExposure=source.weatherExposure,seasonalGrowth=source.seasonalGrowth,mossCoverage=source.mossCoverage};
             if(source.seasonalGrowth!=null)
             {
                 int season=preset.season=="spring"?0:preset.season=="summer"?1:preset.season=="autumn"?2:3;
@@ -27,6 +27,11 @@ namespace QuietCamp.Presentation.World
                 {
                     var tint=preset.season=="autumn"?new Color(.70f,.46f,.14f):preset.season=="spring"?new Color(.38f,.53f,.22f):new Color(.32f,.43f,.18f);
                     if(preset.season!="winter"&&source.seasonalRole!="conifer")color=Color.Lerp(color,tint,preset.season=="autumn"?.68f:.27f);
+                }
+                if(source.mossCoverage!=null)
+                {
+                    var moss=preset.season=="winter"?new Color(.31f,.36f,.26f):preset.season=="autumn"?new Color(.30f,.35f,.15f):new Color(.27f,.38f,.16f);
+                    color=Color.Lerp(color,moss,source.mossCoverage[i]*(.75f+preset.wetness*.25f));
                 }
                 if(preset.snowCover>0 && source.normals[i*3+1]>.18f)
                     color=Color.Lerp(color,new Color(.79f,.84f,.85f),Mathf.SmoothStep(0,1,source.normals[i*3+1]) * preset.snowCover*(source.weatherExposure?[i]??1));
@@ -55,6 +60,7 @@ namespace QuietCamp.Presentation.World
             m.vertices=triangles.SelectMany(t=>m.vertices.Skip(t*9).Take(9)).ToArray();
             m.normals=triangles.SelectMany(t=>m.normals.Skip(t*9).Take(9)).ToArray();
             m.colors=triangles.SelectMany(t=>m.colors.Skip(t*3).Take(3)).ToArray();
+            m.mossCoverage=m.mossCoverage==null?null:triangles.SelectMany(t=>m.mossCoverage.Skip(t*3).Take(3)).ToArray();
             m.weatherExposure=m.weatherExposure==null?null:triangles.SelectMany(t=>m.weatherExposure.Skip(t*3).Take(3)).ToArray();
             m.uv=m.uv==null?null:triangles.SelectMany(t=>m.uv.Skip(t*6).Take(6)).ToArray();
             m.tangents=m.tangents==null?null:triangles.SelectMany(t=>m.tangents.Skip(t*12).Take(12)).ToArray();

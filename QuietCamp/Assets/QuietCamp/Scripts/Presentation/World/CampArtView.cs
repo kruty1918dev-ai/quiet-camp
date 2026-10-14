@@ -177,6 +177,15 @@ namespace QuietCamp.Presentation.World
             var vignette = _volumeProfile.Add<Vignette>(true); vignette.intensity.Override(.08f); vignette.smoothness.Override(.65f);
             var volume = _root.AddComponent<Volume>(); volume.isGlobal = true; volume.priority = 20; volume.sharedProfile = _volumeProfile;
         }
+        void GroundPalette(Material material)
+        {
+            var season=Definition.atmosphere?.season;
+            var palette=season==null?SeasonPalette.For(_level):SeasonPalette.For(season);
+            material.SetColor("_GroundLow",Color.Lerp(CampArtDefinition.Color(Definition.groundLow),palette.GrassDark,.35f));
+            material.SetColor("_GroundHigh",Color.Lerp(CampArtDefinition.Color(Definition.groundHigh),palette.GrassLight,.35f));
+            material.SetColor("_SoilTone",CampArtDefinition.Color(Definition.soilColor));
+            material.SetVector("_CampClimate",new Vector4(Definition.atmosphere?.wetness??0,Definition.atmosphere?.snowCover??SeasonProfile.For(_level).SnowCoverage,Definition.atmosphere?.snow??0,1));
+        }
         void BuildGround(Material material)
         {
             var positions = new List<Vector3>(); var colors = new List<Color>(); var rng = new System.Random(Definition.seed);
@@ -187,8 +196,6 @@ namespace QuietCamp.Presentation.World
             }
             var corners = new[] { ViewGround(-_level.width * .5f, -_level.height * .5f), ViewGround(-_level.width * .5f, _level.height * .5f),
                 ViewGround(_level.width * .5f, -_level.height * .5f), ViewGround(_level.width * .5f, _level.height * .5f) };
-            var pathStart = corners.OrderByDescending(p => p.x - p.y).First() + new Vector2(.25f, -.25f);
-            var pathDirection = new Vector2(_level.width * .22f, -_level.height * .75f);
             float step = Mathf.Max(.15f, Definition.surroundExtent / 128);
             for (int x = -128; x < 128; x++) for (int z = -128; z < 128; z++)
             {
@@ -201,12 +208,9 @@ namespace QuietCamp.Presentation.World
                 var bankColor = Color.Lerp(CampArtDefinition.Color(Definition.soilColor), CampArtDefinition.Color(0x65794E), .35f + .2f * Mathf.Sin(uv.y * .8f));
                 color = Color.Lerp(color, bankColor, wet * .72f);
                 if(shore<0)color=Color.Lerp(bankColor,CampArtDefinition.Color(0x81745B),.45f+.12f*Mathf.Sin(uv.y*.7f));
-                float along = Mathf.Clamp01(Vector2.Dot(uv - pathStart, pathDirection) / pathDirection.sqrMagnitude);
-                float pathDistance = Vector2.Distance(uv, pathStart + pathDirection * along);
-                if (pathDistance < .34f && along > 0) color = Color.Lerp(color, CampArtDefinition.Color(Definition.soilColor), .65f * (1 - Mathf.SmoothStep(0, 1, pathDistance / .34f)));
                 Quad(positions, colors, At(wx, wz), At(wx, wz + s), At(wx + s, wz + s), At(wx + s, wz), color);
             }
-            var groundMaterial = new Material(material); groundMaterial.SetFloat("_ArtGround", 1); _materials.Add(groundMaterial);
+            var groundMaterial = new Material(material); groundMaterial.SetFloat("_ArtGround", 1); GroundPalette(groundMaterial); _materials.Add(groundMaterial);
             AddMesh("MeadowGround", MakeMesh("Meadow triangles", positions, colors), groundMaterial, false);
         }
         void BuildFrozenLandscape(Material material)
@@ -218,7 +222,7 @@ namespace QuietCamp.Presentation.World
             RiverWeatherMaterial.Configure(water);
             if (water.HasProperty("_VertexColorTransparency")) water.SetFloat("_VertexColorTransparency", 1);
             _materials.Add(water);
-            var ground = new Material(material); ground.SetFloat("_ArtGround", 1); _materials.Add(ground);
+            var ground = new Material(material); ground.SetFloat("_ArtGround", 1); GroundPalette(ground); _materials.Add(ground);
             foreach (var data in Definition.landscape.meshes)
             {
                 var mesh = data.CreateMesh();
