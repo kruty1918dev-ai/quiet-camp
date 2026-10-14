@@ -13,7 +13,14 @@ def collect(handle,_):
  return True
 u.EnumWindows(collect,0)
 assert len(matches)==1,'Expected one visible QuietCamp Editor; no new Editor was started'
-u.keybd_event(0x12,0,0,0);u.SetForegroundWindow(matches[0]);u.keybd_event(0x12,0,2,0);time.sleep(.2)
+if u.IsIconic(matches[0]):u.ShowWindow(matches[0],9)
+foreground_thread=u.GetWindowThreadProcessId(u.GetForegroundWindow(),None)
+current_thread=ctypes.windll.kernel32.GetCurrentThreadId()
+attached=foreground_thread!=current_thread and u.AttachThreadInput(current_thread,foreground_thread,True)
+try:u.SetForegroundWindow(matches[0])
+finally:
+ if attached:u.AttachThreadInput(current_thread,foreground_thread,False)
+time.sleep(.2)
 pid=wintypes.DWORD();u.GetWindowThreadProcessId(u.GetForegroundWindow(),ctypes.byref(pid));assert pid.value==a.pid,'Refused to send keys to another application'
 if not a.focus_only:
  u.keybd_event(0x11,0,0,0);u.keybd_event(0x52,0,0,0);u.keybd_event(0x52,0,2,0);u.keybd_event(0x11,0,2,0)

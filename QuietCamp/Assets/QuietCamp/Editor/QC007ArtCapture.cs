@@ -116,17 +116,27 @@ namespace QuietCamp.Editor
                     var proof=LevelAuthoring.AircraftCrashAuthoring.BuildThroughPwb(request.draftPath,request.profile,request.output);
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(proof));
                 }
+                else if(request.mode=="opening-details")File.WriteAllText(ResultPath,JsonConvert.SerializeObject(LevelAuthoring.OpeningCampaignAuthoring.AddDetails(request.draftPath,request.profile,request.output)));
+                else if(request.mode=="opening-gameplay")File.WriteAllText(ResultPath,JsonConvert.SerializeObject(LevelAuthoring.OpeningCampaignGameplayProbe.Run(request.name,request.output)));
+                else if(request.mode=="opening-water-tests")RunTests(true,"QuietCamp.Tests.CampArtCompositionTests");
                 else if(request.mode=="opening-tests") RunTests(true,"QuietCamp.Tests.OpeningCampaignTests");
                 else if(request.mode=="opening-compose")
                 {
                     _openingBuild=new LevelAuthoring.OpeningCampaignAuthoring(request.profile);
                     _worldWorkspace=new LevelAuthoring.LevelAuthoringWorkspace(_openingBuild.Document);_worldRequest=request;
                 }
+                else if(request.mode=="authoring-trim")
+                {
+                    long before=UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong();
+                    System.GC.Collect();System.GC.WaitForPendingFinalizers();System.GC.Collect();
+                    EditorUtility.UnloadUnusedAssetsImmediate();
+                    File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="trimmed",allocatedBefore=before,allocatedAfter=UnityEngine.Profiling.Profiler.GetTotalAllocatedMemoryLong()}));
+                }
                 else if(request.mode=="opening-apply")
                 {
                     var doc=LevelAuthoring.LevelAuthoringDocument.Open(request.draftPath);
                     LevelAuthoring.LevelAuthoringCampaign.Apply(doc);
-                    doc.Save(Path.Combine("Assets/QuietCamp/Authoring/CampaignLevels",doc.sourceLevelId+".draft.json"));
+                    doc.Save(Path.Combine("Assets/QuietCamp/Authoring/CampaignLevels",doc.sourceLevelId.Replace(':','_')+".draft.json"));
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="opening-applied",id=doc.sourceLevelId,errors=doc.Validate(true)}));
                 }
                 else if(request.mode=="world-demo")
@@ -198,10 +208,15 @@ namespace QuietCamp.Editor
                 else if (request.mode == "authoring-workspace-status")
                 {
                     var window = LevelAuthoring.LevelAuthoringWindow.OpenWindow();
+                    if(window.Workspace==null)
+                    {
+                        File.WriteAllText(ResultPath,"{\"status\":\"workspace-empty\"}");return;
+                    }
                     var snapshot = window.Workspace.Capture(false);
                     File.WriteAllText(ResultPath, JsonConvert.SerializeObject(new { status = "workspace", busy = window.Workspace.River?.IsUpdating ?? false,
                         objects = snapshot.art.instances.Length, baked = snapshot.art.landscape != null, errors = snapshot.Validate(true),
-                        artSha256=Hash(System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(snapshot.art))) }));
+                        artSha256=Hash(System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(snapshot.art))),
+                        legacyArtSha256=Hash(System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(snapshot.art).Replace(",\"primaryLandmarkId\":null","").Replace(",\"primaryLandmarkInstanceId\":null",""))) }));
                 }
                 else if (request.mode == "authoring-open") LevelAuthoring.LevelAuthoringWindow.OpenWindow().NewDocument(false);
                 else if(request.mode=="authoring-load-draft")
@@ -393,7 +408,7 @@ namespace QuietCamp.Editor
             var api = ScriptableObject.CreateInstance<TestRunnerApi>();
             api.RegisterCallbacks(new TestReport(api, session));
             api.Execute(new ExecutionSettings(new Filter { testMode = TestMode.EditMode,
-                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.OpeningCampaignTests", "QuietCamp.Tests.SeasonPresentationTests", "QuietCamp.Tests.BiomeSurfaceTests", "QuietCamp.Tests.CampSurfaceUseTests", "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.SurfaceWeatheringTests", "QuietCamp.Tests.ForestAtmosphereTests", "QuietCamp.Tests.ModelWorkshopTests", "QuietCamp.Tests.FreeWorldAssetsTests", "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
+                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.TutorialDirectorTests", "QuietCamp.Tests.OpeningCampaignTests", "QuietCamp.Tests.SeasonPresentationTests", "QuietCamp.Tests.BiomeSurfaceTests", "QuietCamp.Tests.CampSurfaceUseTests", "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.SurfaceWeatheringTests", "QuietCamp.Tests.ForestAtmosphereTests", "QuietCamp.Tests.ModelWorkshopTests", "QuietCamp.Tests.FreeWorldAssetsTests", "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
         }
         sealed class TestReport : ICallbacks
         {

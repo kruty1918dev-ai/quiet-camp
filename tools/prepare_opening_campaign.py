@@ -39,6 +39,7 @@ for index,(row,extra,group) in enumerate(zip(rows,additions,anchors),1):
  title,kind,before,beat=row
  finding,mechanic,mood=extra
  entry={'id':f'QC{index:03}','title':title,'arrival':beat,'objective':'Облаштуйте табір для всіх гостей: виконайте їхні побажання й залиште доступ до кожних дверей.','finding':finding,'after':'Табір приймає людей; спільні маршрути лишаються відкритими. '+('Попереду — сад і наступна частина дороги.' if index==10 else 'Наступна зупинка: '+rows[index][0]+'.'),'nextId':f'QC{index+1:03}' if index<10 else 'gen:qc_camp:1','canonicalBefore':before,'canonicalBeat':beat,'mechanic':mechanic,'weather':mood,'proposedAdditions':finding}
+ if index==1:entry['arrival']='?? ????????? ?? ?????? ? ?????, ?? ????? ??????????. ????? ????? ?? ?????? ????? ??? ???????? ?????. '+entry['arrival']
  stories.append(entry)
  p=json.loads(json.dumps(base));p.update(id=f'opening-{index:03}',title=title,sourceLevel=entry['id'],biome="opening/"+kind,seed=714000+index*7919,trees=48,plants=180,extent=42,cameraPitch=52,cameraYaw=225,cameraSize=13.8,riverCentre=-13 if index in (3,9) else 25,riverWidth=1.8,riverBend=.9 if index==3 else .45,relief=.35,innerForest=8,outerForest=23,treeMin=.8,treeMax=1.3,liveTerrain=True,age=.42)
  p['anchors']=[dict(model=model,label=title+' — деталь '+str(i+1),x=x,z=z,yaw=yaw,age='moss' if 'well' in model or 'wall' in model else 'dirt',ageAmount=.45) for i,(model,x,z,yaw) in enumerate(group)]

@@ -7,11 +7,11 @@
   "width": 6,
   "height": 8,
   "id": "QC007",
-  "contentHash": "7b9f32cfe589a9733de8ae6ed6154bf5e26c18a0abf64ea45a321614ed1310cd",
+  "contentHash": "c39c3cd02e71234a752dd4993320f059826193bc08ac86f7c1f588793b45621b",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "tutorial.7",
-  "compositionHash": "c356eeeb485a10d68d365999159e601b05210a7158ca73c07311d82f810cb2d8",
+  "compositionHash": "354257bc76e9485b030687f8fe60246c38076548686cf04d03d23f25fcdf520d",
   "generationAttempt": 1,
   "decorSeed": 20340298,
   "entry": [
@@ -165,18 +165,18 @@
     "id": "campaign100-007",
     "beats": [
       {
-        "id": "place-007",
+        "id": "opening-007",
         "storyBeat": "Межа двору ще читається, хоча рослини давно вільно переходять її.",
         "heroLandmark": "place-007-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Пошкоджена хвіртка, неглибокий фундамент і квіти по інший бік паркана.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Табір приймає людей; спільні маршрути лишаються відкритими. Наступна зупинка: Стежка листоноші.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Межа двору ще читається, хоча рослини давно вільно переходять її.",
+        "intendedInference": "Біля розірваного паркана стоїть кошик із квітами; хвіртку підперли дошкою й зберегли прохід.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -190,21 +190,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "story_foundation",
-              "x": -4.99744,
-              "z": 0.55,
-              "elevation": 0.025,
-              "height": 0.55,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-007-prop-2",
@@ -213,21 +205,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log",
-              "x": -1.5,
-              "z": -5.60091,
-              "elevation": 0.025,
-              "height": 0.22,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-007-prop-3",
@@ -236,21 +220,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_gate",
-              "x": 5.53462,
-              "z": -5.27462,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

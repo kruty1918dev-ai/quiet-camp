@@ -1,0 +1,789 @@
+{
+  "status": "passed",
+  "levels": [
+    {
+      "id": "QC001",
+      "ready": {
+        "status": "opening-game-ready",
+        "id": "QC001",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Перша безпечна галявина",
+        "surfaceSteps": 0,
+        "particles": 15,
+        "voices": 1,
+        "wind": 0.179299936,
+        "cameraEuler": [
+          52.0000076,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 11.1867342,
+        "completed": [],
+        "next": null
+      },
+      "used": {
+        "status": "opening-game-ready",
+        "id": "QC001",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Перша безпечна галявина",
+        "surfaceSteps": 0,
+        "particles": 38,
+        "voices": 0,
+        "wind": 0.144756541,
+        "cameraEuler": [
+          52.0000076,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 11.1867342,
+        "completed": [],
+        "next": null
+      },
+      "completion": {
+        "status": "opening-game-checked",
+        "id": "QC001",
+        "solved": true,
+        "recorded": true,
+        "next": "QC002",
+        "completed": [
+          "QC001"
+        ],
+        "memoryOnly": true
+      },
+      "screenshot": {
+        "path": "Game/QC001.png",
+        "sha256": "9a854f570a4a90b6b43a79e1bb85a564d4e4b493e46fd7d6073c493c19af6484"
+      },
+      "transition": {
+        "status": "opening-game-next",
+        "from": "QC001",
+        "to": "QC002"
+      }
+    },
+    {
+      "id": "QC002",
+      "ready": {
+        "status": "opening-game-ready",
+        "id": "QC002",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Дві стежки, один прихисток",
+        "surfaceSteps": 0,
+        "particles": 6,
+        "voices": 0,
+        "wind": 0.212022185,
+        "cameraEuler": [
+          52.0000076,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 11.7914228,
+        "completed": [
+          "QC001"
+        ],
+        "next": null
+      },
+      "used": {
+        "status": "opening-game-ready",
+        "id": "QC002",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Дві стежки, один прихисток",
+        "surfaceSteps": 0,
+        "particles": 18,
+        "voices": 0,
+        "wind": 0.165358856,
+        "cameraEuler": [
+          52.0000076,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 11.7914228,
+        "completed": [
+          "QC001"
+        ],
+        "next": null
+      },
+      "completion": {
+        "status": "opening-game-checked",
+        "id": "QC002",
+        "solved": true,
+        "recorded": true,
+        "next": "QC003",
+        "completed": [
+          "QC001",
+          "QC002"
+        ],
+        "memoryOnly": true
+      },
+      "screenshot": {
+        "path": "Game/QC002.png",
+        "sha256": "9ffc252b490df0cc090f5386090e59635a82e9998aa1e57d981159e7c279e6d4"
+      },
+      "transition": {
+        "status": "opening-game-next",
+        "from": "QC002",
+        "to": "QC003"
+      }
+    },
+    {
+      "id": "QC003",
+      "ready": {
+        "status": "opening-game-ready",
+        "id": "QC003",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Крона над джерелом",
+        "surfaceSteps": 0,
+        "particles": 15,
+        "voices": 0,
+        "wind": 0.179343432,
+        "cameraEuler": [
+          52.0000076,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 12.8496265,
+        "completed": [
+          "QC001",
+          "QC002"
+        ],
+        "next": null
+      },
+      "used": {
+        "status": "opening-game-ready",
+        "id": "QC003",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Крона над джерелом",
+        "surfaceSteps": 0,
+        "particles": 39,
+        "voices": 0,
+        "wind": 0.1434324,
+        "cameraEuler": [
+          52.0000076,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 12.8496265,
+        "completed": [
+          "QC001",
+          "QC002"
+        ],
+        "next": null
+      },
+      "completion": {
+        "status": "opening-game-checked",
+        "id": "QC003",
+        "solved": true,
+        "recorded": true,
+        "next": "QC004",
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003"
+        ],
+        "memoryOnly": true
+      },
+      "screenshot": {
+        "path": "Game/QC003.png",
+        "sha256": "b8e058283baa768bc4d6b108e760e9d6bdb5a2f6bd386f79a9e02ca3e0488fd1"
+      },
+      "transition": {
+        "status": "opening-game-next",
+        "from": "QC003",
+        "to": "QC004"
+      }
+    },
+    {
+      "id": "QC004",
+      "ready": {
+        "status": "opening-game-ready",
+        "id": "QC004",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Тихий край вогню",
+        "surfaceSteps": 0,
+        "particles": 14,
+        "voices": 0,
+        "wind": 0.7396605,
+        "cameraEuler": [
+          52.0000076,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 12.0937662,
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003"
+        ],
+        "next": null
+      },
+      "used": {
+        "status": "opening-game-ready",
+        "id": "QC004",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Тихий край вогню",
+        "surfaceSteps": 0,
+        "particles": 33,
+        "voices": 0,
+        "wind": 0.5924499,
+        "cameraEuler": [
+          52.0000076,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 12.0937662,
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003"
+        ],
+        "next": null
+      },
+      "completion": {
+        "status": "opening-game-checked",
+        "id": "QC004",
+        "solved": true,
+        "recorded": true,
+        "next": "QC005",
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004"
+        ],
+        "memoryOnly": true
+      },
+      "screenshot": {
+        "path": "Game/QC004.png",
+        "sha256": "8e995cd6cd5343578955f7c6a9497a7e7ab4dc39af41b1ebece56458eb942f1a"
+      },
+      "transition": {
+        "status": "opening-game-next",
+        "from": "QC004",
+        "to": "QC005"
+      }
+    },
+    {
+      "id": "QC005",
+      "ready": {
+        "status": "opening-game-ready",
+        "id": "QC005",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Поруч із друзями",
+        "surfaceSteps": 0,
+        "particles": 13,
+        "voices": 0,
+        "wind": 0.177510351,
+        "cameraEuler": [
+          52.0000076,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 12.8496265,
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004"
+        ],
+        "next": null
+      },
+      "used": {
+        "status": "opening-game-ready",
+        "id": "QC005",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Поруч із друзями",
+        "surfaceSteps": 0,
+        "particles": 38,
+        "voices": 0,
+        "wind": 0.147003368,
+        "cameraEuler": [
+          52.0000076,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 12.8496265,
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004"
+        ],
+        "next": null
+      },
+      "completion": {
+        "status": "opening-game-checked",
+        "id": "QC005",
+        "solved": true,
+        "recorded": true,
+        "next": "QC006",
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004",
+          "QC005"
+        ],
+        "memoryOnly": true
+      },
+      "screenshot": {
+        "path": "Game/QC005.png",
+        "sha256": "b71eec13f29dbe90953adba4355621ad7d9b582280917acd00ac96e572b0f57f"
+      },
+      "transition": {
+        "status": "opening-game-next",
+        "from": "QC005",
+        "to": "QC006"
+      }
+    },
+    {
+      "id": "QC006",
+      "ready": {
+        "status": "opening-game-ready",
+        "id": "QC006",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Зупинка без розкладу",
+        "surfaceSteps": 0,
+        "particles": 1217,
+        "voices": 1,
+        "wind": 0.158462182,
+        "cameraEuler": [
+          46.0,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 13.1519709,
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004",
+          "QC005"
+        ],
+        "next": null
+      },
+      "used": {
+        "status": "opening-game-ready",
+        "id": "QC006",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Зупинка без розкладу",
+        "surfaceSteps": 0,
+        "particles": 1213,
+        "voices": 1,
+        "wind": 0.126104861,
+        "cameraEuler": [
+          46.0,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 13.1519709,
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004",
+          "QC005"
+        ],
+        "next": null
+      },
+      "completion": {
+        "status": "opening-game-checked",
+        "id": "QC006",
+        "solved": true,
+        "recorded": true,
+        "next": "QC007",
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004",
+          "QC005",
+          "QC006"
+        ],
+        "memoryOnly": true
+      },
+      "screenshot": {
+        "path": "Game/QC006.png",
+        "sha256": "e0b1945810673fc2810684aa34c0903f45b5c7b83c94bf5cf61d3843c06b20e5"
+      },
+      "transition": {
+        "status": "opening-game-next",
+        "from": "QC006",
+        "to": "QC007"
+      }
+    },
+    {
+      "id": "QC007",
+      "ready": {
+        "status": "opening-game-ready",
+        "id": "QC007",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Ромашки за огорожею",
+        "surfaceSteps": 0,
+        "particles": 6,
+        "voices": 0,
+        "wind": 0.211187884,
+        "cameraEuler": [
+          52.0000076,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 13.1519709,
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004",
+          "QC005",
+          "QC006"
+        ],
+        "next": null
+      },
+      "used": {
+        "status": "opening-game-ready",
+        "id": "QC007",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Ромашки за огорожею",
+        "surfaceSteps": 0,
+        "particles": 16,
+        "voices": 0,
+        "wind": 0.1687665,
+        "cameraEuler": [
+          52.0000076,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 13.1519709,
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004",
+          "QC005",
+          "QC006"
+        ],
+        "next": null
+      },
+      "completion": {
+        "status": "opening-game-checked",
+        "id": "QC007",
+        "solved": true,
+        "recorded": true,
+        "next": "QC008",
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004",
+          "QC005",
+          "QC006",
+          "QC007"
+        ],
+        "memoryOnly": true
+      },
+      "screenshot": {
+        "path": "Game/QC007.png",
+        "sha256": "7c7874d8a56abce06c7c9dd46c7f71ae01cf2bc91643d319e6eb9653b6cb416b"
+      },
+      "transition": {
+        "status": "opening-game-next",
+        "from": "QC007",
+        "to": "QC008"
+      }
+    },
+    {
+      "id": "QC008",
+      "ready": {
+        "status": "opening-game-ready",
+        "id": "QC008",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Стежка листоноші",
+        "surfaceSteps": 0,
+        "particles": 15,
+        "voices": 0,
+        "wind": 0.178774655,
+        "cameraEuler": [
+          52.0000076,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 13.3031435,
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004",
+          "QC005",
+          "QC006",
+          "QC007"
+        ],
+        "next": null
+      },
+      "used": {
+        "status": "opening-game-ready",
+        "id": "QC008",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Стежка листоноші",
+        "surfaceSteps": 0,
+        "particles": 38,
+        "voices": 0,
+        "wind": 0.1456941,
+        "cameraEuler": [
+          52.0000076,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 13.3031435,
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004",
+          "QC005",
+          "QC006",
+          "QC007"
+        ],
+        "next": null
+      },
+      "completion": {
+        "status": "opening-game-checked",
+        "id": "QC008",
+        "solved": true,
+        "recorded": true,
+        "next": "QC009",
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004",
+          "QC005",
+          "QC006",
+          "QC007",
+          "QC008"
+        ],
+        "memoryOnly": true
+      },
+      "screenshot": {
+        "path": "Game/QC008.png",
+        "sha256": "43984ee0381d5db90aa707e2a0fe963647a2a50f84c0ff547ef05e3a41a08cce"
+      },
+      "transition": {
+        "status": "opening-game-next",
+        "from": "QC008",
+        "to": "QC009"
+      }
+    },
+    {
+      "id": "QC009",
+      "ready": {
+        "status": "opening-game-ready",
+        "id": "QC009",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Спільна криниця",
+        "surfaceSteps": 0,
+        "particles": 1220,
+        "voices": 1,
+        "wind": 0.1563538,
+        "cameraEuler": [
+          52.0000076,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 13.6054878,
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004",
+          "QC005",
+          "QC006",
+          "QC007",
+          "QC008"
+        ],
+        "next": null
+      },
+      "used": {
+        "status": "opening-game-ready",
+        "id": "QC009",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Спільна криниця",
+        "surfaceSteps": 0,
+        "particles": 1215,
+        "voices": 1,
+        "wind": 0.1312116,
+        "cameraEuler": [
+          52.0000076,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 13.6054878,
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004",
+          "QC005",
+          "QC006",
+          "QC007",
+          "QC008"
+        ],
+        "next": null
+      },
+      "completion": {
+        "status": "opening-game-checked",
+        "id": "QC009",
+        "solved": true,
+        "recorded": true,
+        "next": "QC010",
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004",
+          "QC005",
+          "QC006",
+          "QC007",
+          "QC008",
+          "QC009"
+        ],
+        "memoryOnly": true
+      },
+      "screenshot": {
+        "path": "Game/QC009.png",
+        "sha256": "75c2c59c43cf4012ddeb7b1295a5e9612c6a08c88418d67fa74d822ef7145d05"
+      },
+      "transition": {
+        "status": "opening-game-next",
+        "from": "QC009",
+        "to": "QC010"
+      }
+    },
+    {
+      "id": "QC010",
+      "ready": {
+        "status": "opening-game-ready",
+        "id": "QC010",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Світло на роздоріжжі",
+        "surfaceSteps": 0,
+        "particles": 13,
+        "voices": 0,
+        "wind": 0.732241869,
+        "cameraEuler": [
+          46.0,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 13.9078312,
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004",
+          "QC005",
+          "QC006",
+          "QC007",
+          "QC008",
+          "QC009"
+        ],
+        "next": null
+      },
+      "used": {
+        "status": "opening-game-ready",
+        "id": "QC010",
+        "ready": true,
+        "memoryOnly": true,
+        "frozenArtMatches": true,
+        "story": "Світло на роздоріжжі",
+        "surfaceSteps": 0,
+        "particles": 32,
+        "voices": 0,
+        "wind": 0.603023946,
+        "cameraEuler": [
+          46.0,
+          225.0,
+          0.0
+        ],
+        "orthographicSize": 13.9078312,
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004",
+          "QC005",
+          "QC006",
+          "QC007",
+          "QC008",
+          "QC009"
+        ],
+        "next": null
+      },
+      "completion": {
+        "status": "opening-game-checked",
+        "id": "QC010",
+        "solved": true,
+        "recorded": true,
+        "next": "gen:qc_camp:1",
+        "completed": [
+          "QC001",
+          "QC002",
+          "QC003",
+          "QC004",
+          "QC005",
+          "QC006",
+          "QC007",
+          "QC008",
+          "QC009",
+          "QC010"
+        ],
+        "memoryOnly": true
+      },
+      "screenshot": {
+        "path": "Game/QC010.png",
+        "sha256": "bf97dbeaa20586266df80e3fe9ee52326a5d19f7ea34325488d93302fc89acd4"
+      }
+    }
+  ],
+  "canonicalCheckAndNext": true,
+  "memoryOnly": true,
+  "progressFilesUnchanged": true,
+  "manualDraftUnchanged": true,
+  "workspaceObjects": 63,
+  "testKind": "automated witness placement and actual gameplay action routing; not a human usability test"
+}

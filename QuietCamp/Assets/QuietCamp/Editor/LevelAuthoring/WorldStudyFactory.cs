@@ -24,6 +24,7 @@ namespace QuietCamp.Editor.LevelAuthoring
     [Serializable] public sealed class WorldStudyAnchor
     {
         public string model,label,age="moss";
+        public float sourceHeight;
         public float x,z,y,yaw,scale=1,metric=1;
         public float ageAmount=-1;
         public bool water;

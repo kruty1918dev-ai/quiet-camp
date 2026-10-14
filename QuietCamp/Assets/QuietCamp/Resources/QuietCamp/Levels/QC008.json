@@ -7,11 +7,11 @@
   "width": 8,
   "height": 6,
   "id": "QC008",
-  "contentHash": "d9cd78faf0fecd441449f3220eeec74b2cdee8a8597d2595dbed94791562dacd",
+  "contentHash": "6b345c6d9427b7ddd7caec7a19ec22671784d7c9555ba58cd142910145c438c7",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "tutorial.8",
-  "compositionHash": "284185e2687085c337e3651f7235de3e7aee1dd8d7ce6bcdb6b48b1bc19e49c3",
+  "compositionHash": "427a1be8cbfd18ed49f23f1b4f655798e7d6ed86fcbdcfc3971e94fb46910b9a",
   "generationAttempt": 1,
   "decorSeed": 20348763,
   "entry": [
@@ -134,18 +134,18 @@
     "id": "campaign100-008",
     "beats": [
       {
-        "id": "place-008",
+        "id": "opening-008",
         "storyBeat": "Заросла дорога пам'ятає щоденний рух; табір повертає їй людський масштаб.",
         "heroLandmark": "place-008-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Нахилений вказівник і порожня лавка між молодими тополями.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Табір приймає людей; спільні маршрути лишаються відкритими. Наступна зупинка: Спільна криниця.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Заросла дорога пам'ятає щоденний рух; табір повертає їй людський масштаб.",
+        "intendedInference": "Поштова торба лежить на лавці, поруч порожня скринька. Вказівник веде до спільної криниці.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -159,21 +159,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "sign",
-              "x": -5.53535,
-              "z": -0.8,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-008-prop-2",
@@ -182,21 +174,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_bench",
-              "x": 1.15,
-              "z": -4.36417,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-008-prop-3",
@@ -205,21 +189,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "flower_yellowA",
-              "x": 5.29049,
-              "z": -4.3099,
-              "elevation": 0.025,
-              "height": 0.34,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           }
         ]
       }

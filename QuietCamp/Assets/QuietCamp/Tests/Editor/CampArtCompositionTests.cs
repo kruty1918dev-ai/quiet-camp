@@ -73,21 +73,30 @@ namespace QuietCamp.Tests
             Assert.NotNull(document["atmosphere"]);
         }
 
-        [Test] public void NativeWaterMasksLeaveTheChannelClearAndTheShoreVisible()
+        [TestCase(false), TestCase(true)] public void NativeWaterMasksLeaveTheChannelClearAndTheShoreVisible(bool frozen)
         {
             var level = LevelLoader.Load("QC007");
-            var art = CampArtDefinition.Load(level);
+            var art = frozen ? CampArtDefinition.Load(level) : CampCompositionGenerator.Generate(level,"riparian-clearing",12007,out _);
             var root = new UnityEngine.GameObject("Water mask contract");
             try
             {
                 root.AddComponent<UnityEngine.Camera>();
                 var view = root.AddComponent<QuietCamp.Presentation.World.CampArtView>();
                 view.Configure(art, level, root.transform, AssetCatalog.Load());
-                var water = root.GetComponentsInChildren<UnityEngine.MeshRenderer>().Single(r => r.name == "ExteriorStream");
+                var water = root.GetComponentsInChildren<UnityEngine.MeshRenderer>().Single(r => r.sharedMaterial.shader.name == "Stylized Water 3/Standard");
                 var mesh = water.GetComponent<UnityEngine.MeshFilter>().sharedMesh;
                 Assert.AreEqual("Stylized Water 3/Standard", water.sharedMaterial.shader.name);
                 Assert.Less(mesh.colors.Min(c => c.r), .001f, "The deep channel must not get bank foam.");
-                Assert.Greater(mesh.colors.Max(c => c.r), .05f, "The bank needs a nonzero foam mask.");
+                if (!frozen) Assert.Greater(mesh.colors.Max(c => c.r), .05f, "The procedural bank needs a nonzero foam mask.");
+                else
+                {
+                    var source=art.landscape.meshes.Single(m=>m.water);
+                    Assert.AreEqual(source.vertices.Length/3,mesh.vertexCount);
+                    Assert.AreEqual(source.uv.Length,mesh.uv.Length*2);
+                    Assert.AreEqual(source.flow.Length,mesh.vertexCount*3);
+                    Assert.IsTrue(source.colors.SequenceEqual(mesh.colors.SelectMany(c=>new[]{c.r,c.g,c.b,c.a})),"River Modeler vertex channels must survive export exactly; foam is controlled by the shared material/depth.");
+                    Assert.AreEqual(0,water.sharedMaterial.GetFloat("_VertexColorFoam"));
+                }
                 Assert.Less(mesh.colors.Min(c => c.g), .5f);
                 Assert.Greater(mesh.colors.Max(c => c.g), .95f);
                 Assert.IsTrue(mesh.normals.All(n => n.y > .999f));

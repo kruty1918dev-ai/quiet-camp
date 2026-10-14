@@ -7,11 +7,11 @@
   "width": 6,
   "height": 6,
   "id": "QC004",
-  "contentHash": "a540fd4a6cc669fbfc0441727714a617ec85204812bed55948bad6fbec9eb502",
+  "contentHash": "90bd1e3464848b6bbc7afd247e007813788872087a895ed1f3913852704502f0",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "tutorial.4",
-  "compositionHash": "8d9bdb24e087fe679d158e161b2199dfe29e83a51251de0ab43d6b2fd2654877",
+  "compositionHash": "3ad5d1b50b990885536c62c357289c99138e4a5677660041f6734cd4d8669f1d",
   "generationAttempt": 1,
   "decorSeed": 20314903,
   "entry": [
@@ -118,18 +118,18 @@
     "id": "campaign100-004",
     "beats": [
       {
-        "id": "place-004",
+        "id": "opening-004",
         "storyBeat": "Спільне тепло не зобов'язує кожного сидіти біля багаття; є місце і для тиші.",
         "heroLandmark": "place-004-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Складені сухі поліна, кам'яне багаття на полі й лавка далі від шуму.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Табір приймає людей; спільні маршрути лишаються відкритими. Наступна зупинка: Поруч із друзями.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Спільне тепло не зобов'язує кожного сидіти біля багаття; є місце і для тиші.",
+        "intendedInference": "Біля дров — казанок; віддалік під деревом — порожня лавка для того, кому потрібен спокій.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -143,21 +143,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "story_trail_shelter",
-              "x": -5.42188,
-              "z": -0.8,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-004-prop-2",
@@ -166,21 +158,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log_stack",
-              "x": 0.7,
-              "z": -4.86736,
-              "elevation": 0.025,
-              "height": 0.7,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-004-prop-3",
@@ -189,21 +173,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "sign",
-              "x": 4.53535,
-              "z": -4.23988,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-004-prop-4",
@@ -212,21 +188,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_bench",
-              "x": 0.0,
-              "z": 4.36417,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

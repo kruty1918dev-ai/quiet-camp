@@ -7,11 +7,11 @@
   "width": 7,
   "height": 7,
   "id": "QC009",
-  "contentHash": "6add51c9b02398316f27b97eb228ff6d2da9a44b89d715270570f25ebe8e9c42",
+  "contentHash": "855195bd435a5114224efc26da69fbe6a2252034c2577a6a65abcbd202b66247",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "89abb67348c027eb122341336c1f456d4681057bcca81f08507158b645d01eec",
+  "compositionHash": "8cc30b6e965752ee50f750e013cd443e680dd4847ebb436cfcdea3e2a0124a1c",
   "generationAttempt": 1,
   "decorSeed": 20341164,
   "entry": [
@@ -169,18 +169,18 @@
     "id": "campaign100-009",
     "beats": [
       {
-        "id": "place-009",
+        "id": "opening-009",
         "storyBeat": "Безпечна вода є першою спільною справою подорожі.",
         "heroLandmark": "place-009-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Відро біля простого колодязя, два сліди підходів і відремонтована дошка.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Табір приймає людей; спільні маршрути лишаються відкритими. Наступна зупинка: Світло на роздоріжжі.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Безпечна вода є першою спільною справою подорожі.",
+        "intendedInference": "Нову дошку видно на старому колодязі; два відра й тачка залишені для спільного користування.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -194,21 +194,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_well",
-              "x": -5.69063,
-              "z": -0.35,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-009-prop-2",
@@ -217,21 +209,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log",
-              "x": 3.0,
-              "z": -5.10091,
-              "elevation": 0.025,
-              "height": 0.22,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-009-prop-3",
@@ -240,21 +224,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_fence_broken_0",
-              "x": 6.02233,
-              "z": -4.79145,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

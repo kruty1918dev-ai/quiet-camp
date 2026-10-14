@@ -18,6 +18,8 @@ namespace QuietCamp.Infrastructure
         public float streamWidthVariation;
         public float streamBend = .32f, frameYaw = 225, bridgeFar = -1, landingRadius = .9f, meadowRelief = .13f, waterDepth = .64f, surroundExtent = 17.6f;
         public string waterMaterial = "QuietCamp/ArtCompositions/QC007Water", generation;
+        // Optional authoring provenance. Decorative identity never changes puzzle rules.
+        public string primaryLandmarkId, primaryLandmarkInstanceId;
         public FrozenLandscape landscape;
         public CampArtDefinition EditingCopy()
         {

@@ -80,6 +80,11 @@ namespace QuietCamp.Editor.LevelAuthoring
                     throw new InvalidDataException("Кампанія не пройшла перевірку: " + id);
             }
             var old = JsonConvert.DeserializeObject<LevelData>(File.ReadAllText(levelPath));
+            if(copy.art.primaryLandmarkId!=null)
+            {
+                if(copy.level.order!=old.order)throw new InvalidDataException("Campaign order cannot change with scenery.");
+                CampaignLandmarkCatalog.Validate(copy.art,old.order);
+            }
             string revision = string.IsNullOrEmpty(old.contentHash) ? CampContent.CalculateHash(old) : old.contentHash;
             if (revision.Length != 64 || revision.Any(c => !Uri.IsHexDigit(c))) throw new InvalidDataException("Некоректний хеш попередньої ревізії.");
             string artPath = Path.Combine(root, "ArtCompositions", copy.level.id.Replace(':', '_') + ".json");

@@ -7,11 +7,11 @@
   "width": 5,
   "height": 6,
   "id": "QC002",
-  "contentHash": "8127a97fe46fcad15769e1a8ffd512ee2d7a12be4fee3695528ad5e0d85063c0",
+  "contentHash": "ad93ba68a6eb488e913d196755804ddfa138d2efa0fa2bed067c008ab5ca6d82",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "tutorial.2",
-  "compositionHash": "ac822b1980db68a396e21b0660f62b7dd24cca4dd597d81d0955b2128dc63cb0",
+  "compositionHash": "9516c1dc59e7229e5fb901f5f21794cb77fcd1e3795c1cd321e2857104386d1e",
   "generationAttempt": 1,
   "decorSeed": 20265269,
   "entry": [
@@ -78,18 +78,18 @@
     "id": "campaign100-002",
     "beats": [
       {
-        "id": "place-002",
+        "id": "opening-002",
         "storyBeat": "Гості можуть жити поруч, коли ніхто не перекриває іншому дорогу.",
         "heroLandmark": "place-002-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Два протоптані підходи сходяться під деревом; колода лежить обабіч проходу.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Табір приймає людей; спільні маршрути лишаються відкритими. Наступна зупинка: Крона над джерелом.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Гості можуть жити поруч, коли ніхто не перекриває іншому дорогу.",
+        "intendedInference": "Дві різні торбини лежать біля спільного навісу: тут чекали одне одного, не перегороджуючи шлях.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -103,21 +103,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "story_trail_shelter",
-              "x": -4.92188,
-              "z": 0.1,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-002-prop-2",
@@ -126,21 +118,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log_stack",
-              "x": 1.15,
-              "z": -4.86736,
-              "elevation": 0.025,
-              "height": 0.7,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-002-prop-3",
@@ -149,21 +133,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "sign",
-              "x": 4.03535,
-              "z": -4.23988,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

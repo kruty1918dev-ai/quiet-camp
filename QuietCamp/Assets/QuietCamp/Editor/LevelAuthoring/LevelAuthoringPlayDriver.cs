@@ -20,7 +20,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             EditorApplication.playModeStateChanged += Changed;
             EditorApplication.update += Tick;
         }
-        public static void Start(LevelAuthoringDocument document)
+        public static void Start(LevelAuthoringDocument document, bool campaign = false)
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Play Mode is already active.");
             var errors = document.Validate(true); if (errors.Count > 0) throw new InvalidOperationException(string.Join("\n", errors));
@@ -29,7 +29,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             // The workspace is reconstructed from the JSON snapshot after domain reload.
             var window = LevelAuthoringWindow.OpenWindow(); window.PreparePlay();
             Directory.CreateDirectory(Path.GetDirectoryName(EditorAuthoringPreview.RequestPath));
-            File.WriteAllText(EditorAuthoringPreview.RequestPath, JsonConvert.SerializeObject(new EditorAuthoringPreview.Request { level = document.level, art = document.art }));
+            File.WriteAllText(EditorAuthoringPreview.RequestPath, JsonConvert.SerializeObject(new EditorAuthoringPreview.Request { level = document.level, art = document.art, campaign = campaign }));
             EditorAuthoringPreview.Reset();
             EditorAuthoringPreview.Enable(true);
             SessionState.SetString(PreviousScene, AssetDatabase.GetAssetPath(EditorSceneManager.playModeStartScene));

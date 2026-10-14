@@ -60,6 +60,11 @@ namespace QuietCamp.Editor.LevelAuthoring
             System.IO.Directory.CreateDirectory(Folder);
             AssetDatabase.Refresh();
             var result = new List<AuthoringPaletteEntry>();
+            foreach(var model in CampaignLandmarkCatalog.Models())
+            {
+                var recipe=JsonConvert.DeserializeObject<ModelAuthoringRecipe>(model.authoringRecipe);
+                AddModel(result,model,recipe.category,recipe.label,false);
+            }
             var library = JsonConvert.DeserializeObject<Library>(Resources.Load<TextAsset>("QuietCamp/ArtCompositions/CampModelLibrary").text);
             foreach (var model in library.models)
             {

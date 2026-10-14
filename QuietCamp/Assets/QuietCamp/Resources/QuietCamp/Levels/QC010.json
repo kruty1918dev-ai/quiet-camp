@@ -7,11 +7,11 @@
   "width": 7,
   "height": 8,
   "id": "QC010",
-  "contentHash": "57acad6307cfda4d71a77a95a9f9aa544be39c3cc7592d58d380a6c761b74674",
+  "contentHash": "e498cec4f8aae3707481485c79cdb9752b2e8b6ded63ee4f9eb815431c0563d2",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "3f37b6d41ee0f8b39c3463f27d803c9f630cf6c34525538cb6ee3ea4469812cb",
+  "compositionHash": "dd5f68ff0bbeac26b7d45613a22a9079ea7c1133fec7ce7b0496a01fa2447f45",
   "generationAttempt": 1,
   "decorSeed": 20316861,
   "entry": [
@@ -181,18 +181,18 @@
     "id": "campaign100-010",
     "beats": [
       {
-        "id": "place-010",
+        "id": "opening-010",
         "storyBeat": "Перший відрізок завершений: хтось після нас зможе знайти цей шлях.",
         "heroLandmark": "place-010-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Ліхтар біля зупинки й маленький ремонтований вказівник на тлі попереднього маршруту.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Табір приймає людей; спільні маршрути лишаються відкритими. Попереду — сад і наступна частина дороги.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Перший відрізок завершений: хтось після нас зможе знайти цей шлях.",
+        "intendedInference": "Ліхтар і виправлений знак продовжують мотив першого вказівника. На лавці — запасний кухоль для тих, хто прийде після нас.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -206,21 +206,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_bus_shelter_mosaic",
-              "x": -6.81318,
-              "z": 3.0,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-010-prop-2",
@@ -229,21 +221,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_village_wood_pole",
-              "x": 0.7,
-              "z": -5.20334,
-              "elevation": 0.025,
-              "height": 3.1,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-010-prop-3",
@@ -252,21 +236,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_poplar",
-              "x": 4.97419,
-              "z": -5.43076,
-              "elevation": 0.025,
-              "height": 2.4,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           }
         ]
       }

@@ -1,0 +1,58 @@
+using System;
+using Newtonsoft.Json;
+using QuietCamp.Infrastructure;
+using QuietCamp.Presentation;
+using QuietCamp.Presentation.World;
+using Kruty1918.UIActions.API;
+using UnityEditor;
+using UnityEngine;
+
+namespace QuietCamp.Editor.LevelAuthoring
+{
+    public static class OpeningCampaignGameplayProbe
+    {
+        public static object Run(string action,string output=null)
+        {
+            if(action=="start")
+            {
+                var level=LevelLoader.Load("QC001");
+                LevelAuthoringPlayDriver.Start(new LevelAuthoringDocument{level=level,art=CampArtDefinition.Load(level)},true);
+                return new{status="opening-game-starting"};
+            }
+            if(EditorApplication.isPlayingOrWillChangePlaymode && EditorAuthoringPreview.CampaignPreview && QuietCampBootstrap.ServicesRef==null)
+                return new{status="opening-game-waiting"};
+            if(!EditorApplication.isPlaying || !EditorAuthoringPreview.CampaignPreview || QuietCampBootstrap.ServicesRef?.Save.MemoryOnly!=true)
+                throw new InvalidOperationException("Only the isolated campaign preview can run this probe.");
+            var host=CampSceneHost.Current;
+            if(host?.UiReady!=true)return new{status="opening-game-waiting"};
+            var services=QuietCampBootstrap.ServicesRef;var session=host.Session;string id=session.Level.id;
+            if(action=="pro")
+            {var result=services.Economy.GrantPro("qa-campaign-memory-only");return new{status="opening-game-pro",pro=services.Economy.IsPro,memoryOnly=services.Save.MemoryOnly,result=result.ToString()};}
+            if(action=="frame")
+            {
+                if(string.IsNullOrEmpty(output)||!output.EndsWith(".png",StringComparison.OrdinalIgnoreCase))throw new ArgumentException("Expected a PNG path.");
+                System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(output));ScreenCapture.CaptureScreenshot(output);return new{status="opening-game-frame-requested",id,output};
+            }
+            if(action=="check")
+            {
+                session.DebugApplyWitness();
+                services.Actions.Execute(new UiActionRequest(new UiActionId("qc.check"),UiActionSource.Programmatic,"Gameplay"));
+                return new{status="opening-game-checked",id,solved=session.IsCompleted,recorded=services.Progression.IsCompleted(id),next=services.NextLevel(id),completed=services.Save.Progress.completedIds,memoryOnly=services.Save.MemoryOnly};
+            }
+            if(action=="next")
+            {
+                if(!session.IsCompleted)throw new InvalidOperationException("Complete the current camp before Next.");
+                string next=services.NextLevel(id);
+                services.Actions.Execute(new UiActionRequest(new UiActionId("qc.next"),UiActionSource.Programmatic,"Gameplay"));
+                return new{status="opening-game-next",from=id,to=next};
+            }
+            var art=UnityEngine.Object.FindAnyObjectByType<CampArtView>();
+            return new{status="opening-game-ready",id,ready=host.UiReady,memoryOnly=services.Save.MemoryOnly,
+                frozenArtMatches=art!=null&&JsonConvert.SerializeObject(art.Definition)==JsonConvert.SerializeObject(CampArtDefinition.Load(session.Level)),
+                story=OpeningCampaignStory.For(session.Level)?.title,surfaceSteps=host.SurfaceDetails?.Surface?.Steps,
+                particles=art?.SeasonAtmosphere?.LiveParticles,voices=art?.SeasonAtmosphere?.OwnedVoices,wind=art?.SeasonAtmosphere?.WindStrength,
+                cameraEuler=Camera.main!=null?new[]{Camera.main.transform.eulerAngles.x,Camera.main.transform.eulerAngles.y,Camera.main.transform.eulerAngles.z}:new float[3],orthographicSize=Camera.main!=null?Camera.main.orthographicSize:0,
+                completed=services.Save.Progress.completedIds,next=services.NextLevel(id)};
+        }
+    }
+}
