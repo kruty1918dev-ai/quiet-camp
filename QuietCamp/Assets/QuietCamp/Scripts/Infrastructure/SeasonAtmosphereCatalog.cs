@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.ComponentModel;
 using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -16,6 +17,8 @@ namespace QuietCamp.Infrastructure
         public float bloom=.12f, fog, rays, rain, snow, snowCover, leaves, insects, wind=.2f;
         public float wetness,lowFog,lensRain,fogNear=3,fogDistance=22;
         public float windHeading=25;
+        [JsonProperty(DefaultValueHandling=DefaultValueHandling.Ignore)] public float pollen, dust, leafLoss;
+        [DefaultValue(.25f), JsonProperty(DefaultValueHandling=DefaultValueHandling.Ignore)] public float airLight=.25f;
         public int fogColor;
         public string[] audioKeys=Array.Empty<string>();
         public float[] audioGains=Array.Empty<float>();
@@ -25,12 +28,12 @@ namespace QuietCamp.Infrastructure
                 throw new InvalidDataException("Invalid season preset identity.");
             if(sunEuler==null||sunEuler.Length!=3||audioKeys==null||audioGains==null||audioKeys.Length!=audioGains.Length||audioKeys.Length>6)
                 throw new InvalidDataException("Invalid season preset channels.");
-            var values=sunEuler.Concat(audioGains).Concat(new[]{sunIntensity,shadows,exposure,contrast,saturation,temperature,bloom,fog,rays,rain,snow,snowCover,leaves,insects,wind,wetness,lowFog,lensRain,fogNear,fogDistance,windHeading});
+            var values=sunEuler.Concat(audioGains).Concat(new[]{sunIntensity,shadows,exposure,contrast,saturation,temperature,bloom,fog,rays,rain,snow,snowCover,leaves,insects,wind,wetness,lowFog,lensRain,fogNear,fogDistance,windHeading,pollen,dust,airLight,leafLoss});
             if(values.Any(v=>float.IsNaN(v)||float.IsInfinity(v))||sunIntensity<0||sunIntensity>3||Mathf.Abs(exposure)>2||Mathf.Abs(contrast)>30||Mathf.Abs(saturation)>40||Mathf.Abs(temperature)>40)
                 throw new InvalidDataException("Invalid season preset values.");
-            if(new[]{shadows,fog,rays,rain,snow,snowCover,leaves,insects,wind,wetness,lowFog,lensRain}.Concat(audioGains).Any(v=>v<0||v>1)||bloom<0||bloom>1||fogDistance<=fogNear||fogNear<0)
+            if(new[]{shadows,fog,rays,rain,snow,snowCover,leaves,insects,wind,wetness,lowFog,lensRain,pollen,dust,airLight,leafLoss}.Concat(audioGains).Any(v=>v<0||v>1)||bloom<0||bloom>1||fogDistance<=fogNear||fogNear<0)
                 throw new InvalidDataException("Invalid season preset intensity.");
-            if(season=="winter"&&(insects>0||leaves>0)||season!="winter"&&snowCover>0)
+            if(season=="winter"&&(insects>0||leaves>0)||season!="winter"&&snowCover>0||season!="autumn"&&leafLoss>0)
                 throw new InvalidDataException("Season effects conflict.");
         }
     }

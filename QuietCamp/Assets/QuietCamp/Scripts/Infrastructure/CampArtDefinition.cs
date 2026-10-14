@@ -51,6 +51,7 @@ namespace QuietCamp.Infrastructure
             public float[] uv, tangents;
             public int[] colors;
             [JsonProperty(NullValueHandling=NullValueHandling.Ignore)] public float[] weatherExposure;
+            [JsonProperty(NullValueHandling=NullValueHandling.Ignore)] public float[] seasonalGrowth;
         }
         public sealed class Instance
         {
@@ -99,12 +100,13 @@ namespace QuietCamp.Infrastructure
                     || !model.vertices.All(Finite) || !model.normals.All(Finite)
                     || model.uv!=null&&(model.uv.Length!=model.colors.Length*2||!model.uv.All(Finite))
                     || model.weatherExposure!=null&&(model.weatherExposure.Length!=model.colors.Length||!model.weatherExposure.All(v=>Finite(v)&&v>=0&&v<=1))
+                    || model.seasonalGrowth!=null&&(model.seasonalGrowth.Length!=4||!model.seasonalGrowth.All(v=>Finite(v)&&v>=0&&v<=2))
                     || model.tangents!=null&&(model.tangents.Length!=model.colors.Length*4||!model.tangents.All(Finite)))
                     throw new InvalidDataException("Invalid camp art mesh: " + model.id);
             foreach (var item in instances)
             {
-                if(item.motion!=null&&item.motion!="boat"&&item.motion!="waterwheel")throw new InvalidDataException("Unknown authored motion.");
-                if(item.motion=="waterwheel"&&!Vector(item.motionPivot)||item.motionPivot!=null&&!Vector(item.motionPivot))throw new InvalidDataException("Invalid motion pivot.");
+                if(item.motion!=null&&item.motion!="boat"&&item.motion!="waterwheel"&&item.motion!="cloth")throw new InvalidDataException("Unknown authored motion.");
+                if((item.motion=="waterwheel"||item.motion=="cloth")&&!Vector(item.motionPivot)||item.motionPivot!=null&&!Vector(item.motionPivot))throw new InvalidDataException("Invalid motion pivot.");
                 if (item.rotationEuler != null && !Vector(item.rotationEuler) || item.scaleXYZ != null && (!Vector(item.scaleXYZ) || item.scaleXYZ.Any(v => v <= 0))) throw new InvalidDataException("Invalid authored transform.");
                 if (!Finite(item.x) || !Finite(item.y) || !Finite(item.z) || !Finite(item.yaw)
                     || !Finite(item.scale) || item.scale <= 0

@@ -121,7 +121,7 @@ namespace QuietCamp.Presentation.World
             _artView = camera.GetComponent<CampArtView>();
             if(_artView?.SeasonAtmosphere!=null)
             {
-                _seasonPresetActive=true;_initialized=true;_sun=RenderSettings.sun;
+                _seasonPresetActive=true;_initialized=true;_sun=RenderSettings.sun;_artView.SetQualityTier(_qualitySource?.Invoke()??_tier);
                 PhaseId=_artView.Definition.atmosphere.id.Contains("fireflies")||_artView.Definition.atmosphere.id.Contains("moon")?"night":"day";
                 _artView.ApplyLighting(_sun);_artView.SeasonAtmosphere.BindAudio(QuietCampBootstrap.ServicesRef?.Audio);
                 return;
@@ -329,6 +329,7 @@ namespace QuietCamp.Presentation.World
             HasFire=active;
             _soundscape?.SetFire(position,active);
             _particles?.SetFire(position,active);
+            _artView?.SeasonAtmosphere?.SetFire(position,active);
         }
 
         public void SetSuspended(bool suspended)
@@ -353,7 +354,8 @@ namespace QuietCamp.Presentation.World
             if(_artView?.SeasonAtmosphere!=null)
             {
                 var weather=_artView.SeasonAtmosphere;bool seasonalReduced=_reducedMotion?.Invoke()??false;
-                weather.Advance(Time.unscaledDeltaTime,seasonalReduced,_qualitySource?.Invoke()??_tier);
+                int seasonalTier=_qualitySource?.Invoke()??_tier;_artView.SetQualityTier(seasonalTier);
+                weather.Advance(Time.unscaledDeltaTime,seasonalReduced,seasonalTier);
                 Shader.SetGlobalVector(WindXZ,new Vector4(weather.WindDirection.x,weather.WindDirection.y,0,0));
                 Shader.SetGlobalFloat(WindStrength,weather.WindStrength);
                 Shader.SetGlobalFloat(WindTime,weather.WeatherClock);

@@ -38,6 +38,13 @@ namespace QuietCamp.Presentation.World
         Camera _camera;
         CampArtDefinition _art;
         Vector3[] _leafSources;
+        Vector3[] _habitats;
+        SeasonLightShafts _shafts;
+        public int VisibleShafts=>_shafts?.VisibleCount??0;
+        public bool ActiveFire=>_fireActive;
+        bool _fireActive;Vector3 _firePosition;Light _fireLight;
+        ParticleSystem _petals,_dust,_smoke,_embers;
+        float _petalAmount,_dustAmount,_smokeAmount,_emberAmount;
         System.Random _random;
         ParticleSystem _rain,_snow,_leaves,_bugs,_splashes,_farSnow,_nearSnow,_drift,_farRain,_foam;
         Vector3[] _wheelContacts=Array.Empty<Vector3>();
@@ -73,11 +80,12 @@ namespace QuietCamp.Presentation.World
             preset.Validate();Preset=SeasonAtmosphereCatalog.Copy(preset);_art=art;_camera=camera;_random=new System.Random(preset.seed^art.seed);
             transform.SetParent(parent,false);gameObject.name="Сезонні ефекти — "+preset.label;
             var modelMap=art.models.ToDictionary(m=>m.id);
-            _leafSources=art.instances.Where(i=>i.modelId!=null&&modelMap.TryGetValue(i.modelId,out var m)&&m.seasonalRole=="deciduous").Select(i=>
+            _leafSources=art.instances.Where(i=>i.modelId!=null&&modelMap.TryGetValue(i.modelId,out var m)&&m.seasonalRole=="deciduous"&&AuthoringHeight(m)*i.scale>3).Select(i=>
             {
-                var m=modelMap[i.modelId];float top=0;for(int j=1;j<m.vertices.Length;j+=3)top=Mathf.Max(top,m.vertices[j]);
+                var m=SeasonModelAppearance.Resolve(modelMap[i.modelId],preset);float top=0;for(int j=1;j<m.vertices.Length;j+=3)top=Mathf.Max(top,m.vertices[j]);
                 return new Vector3(i.x,i.y+top*(i.scaleXYZ==null?i.scale:i.scaleXYZ[1])*.75f,i.z);
             }).ToArray();
+            _habitats=art.instances.Where(i=>i.modelId!=null&&modelMap.TryGetValue(i.modelId,out var m)&&(m.seasonalRole=="groundcover"||m.seasonalRole=="deciduous")&&(Mathf.Abs(i.x)>art.width*.5f+.8f||Mathf.Abs(i.z)>art.height*.5f+.8f)).Where((i,index)=>index%13==0).Select(i=>new Vector3(i.x,i.y,i.z)).ToArray();
             _profile=ScriptableObject.CreateInstance<VolumeProfile>();
             var color=_profile.Add<ColorAdjustments>(true);color.postExposure.Override(preset.exposure);color.contrast.Override(preset.contrast);color.saturation.Override(preset.saturation);
             var white=_profile.Add<WhiteBalance>(true);white.temperature.Override(preset.temperature);
@@ -92,12 +100,17 @@ namespace QuietCamp.Presentation.World
             ShapeSplash(_splashes);
             _snow=Pool("Сніг",new Color(.92f,.96f,1,.62f),.11f,9,new Vector3(0,-.8f,0),1800);
             _farSnow=Pool("Дальній сніг",new Color(.82f,.88f,.94f,.38f),.055f,11,new Vector3(0,-.65f,0),650);
-            _nearSnow=Pool("Ближні пластівці",new Color(.95f,.97f,1,.26f),.15f,2,_camera.transform.forward*.7f,24);
+            _nearSnow=Pool("Ближні пластівці",new Color(.95f,.97f,1,.23f),.22f,2,_camera.transform.forward*.7f,36);
             _drift=Pool("Низький сніговий перенос",new Color(.83f,.89f,.92f,.13f),1.8f,5,new Vector3(1,.025f,0),100);
             _leaves=Pool("Листя з крон",new Color(.72f,.44f,.12f,.9f),.07f,7,new Vector3(1,-.65f,.4f),100);
             _bugs=Pool("Жучки та світлячки",preset.id.Contains("fireflies")?new Color(4.2f,3.5f,.65f,1):new Color(.83f,.78f,.44f,.8f),.11f,5,new Vector3(.13f,.035f,.06f),60);
             ShapeParticle(_leaves,false);if(!preset.id.Contains("fireflies"))ShapeParticle(_bugs,true);
-            if(preset.rays>0)CreateRays(art,preset);
+            _petals=Pool("Весняні пелюстки",new Color(.98f,.86f,.8f,.8f),.13f,8,new Vector3(.1f,-.25f,0),80);ShapeParticle(_petals,false);
+            _dust=Pool("Частинки у світлі",new Color(.96f,.88f,.65f,.4f),.075f,7,new Vector3(.06f,.02f,0),200);
+            _smoke=Pool("Дим активного вогнища",new Color(.35f,.37f,.34f,.14f),.6f,4,new Vector3(0,.65f,0),64);
+            _embers=Pool("Іскри активного вогнища",new Color(2.8f,.7f,.14f,.8f),.06f,1.8f,new Vector3(0,.9f,0),36);
+            var fire=new GameObject("Тепле світло активного вогнища");fire.transform.SetParent(transform,false);_fireLight=fire.AddComponent<Light>();_fireLight.type=LightType.Point;_fireLight.color=new Color(1,.45f,.16f);_fireLight.range=3.5f;_fireLight.shadows=LightShadows.None;fire.SetActive(false);
+            if(preset.rays>0)_shafts=new SeasonLightShafts(transform,camera,art,preset,_leafSources);
             _visibility=new SeasonVisibilityPass(camera,Preset);
             _moving=parent.GetComponentsInChildren<WeatherObjectMotion>();
             _surfaceField=new WeatherSurfaceField(art);
@@ -175,18 +188,15 @@ namespace QuietCamp.Presentation.World
             var go=new GameObject(name);go.transform.SetParent(transform,false);var mesh=new Mesh{name=name};mesh.vertices=vertices;mesh.triangles=new[]{0,1,2,0,2,3};mesh.colors=Enumerable.Repeat(color,4).ToArray();mesh.uv=new[]{Vector2.zero,Vector2.right,Vector2.one,Vector2.up};mesh.RecalculateNormals();mesh.RecalculateBounds();
             _meshes.Add(mesh);go.AddComponent<MeshFilter>().sharedMesh=mesh;var r=go.AddComponent<MeshRenderer>();r.sharedMaterial=ParticleMaterial();r.shadowCastingMode=ShadowCastingMode.Off;r.receiveShadows=false;
         }
-        void CreateRays(CampArtDefinition art,SeasonAtmospherePreset preset)
+        static float AuthoringHeight(CampArtDefinition.Model m)
+        {float min=float.MaxValue,max=float.MinValue;for(int i=1;i<m.vertices.Length;i+=3){min=Mathf.Min(min,m.vertices[i]);max=Mathf.Max(max,m.vertices[i]);}return max-min;}
+        public void SetFire(Vector3 position,bool active)
+        {_fireActive=active;_firePosition=position;if(_fireLight!=null){_fireLight.transform.position=position+Vector3.up*.55f;_fireLight.gameObject.SetActive(active);}}
+        Vector3 Habitat(float height)
         {
-            var direction=Quaternion.Euler(CampArtDefinition.Vector(preset.sunEuler))*Vector3.forward;
-            foreach(var centre in _leafSources.Where(p=>Mathf.Abs(p.x)>art.width*.5f+1).Take(5))
-            {
-                var upper=centre+Vector3.up*2;var lower=upper+direction*8;var side=Vector3.Cross(_camera.transform.forward,direction).normalized;
-                var quad=new[]{upper-side*.05f,upper+side*.05f,lower+side*.35f,lower-side*.35f};
-                var inverse=Quaternion.Inverse(_camera.transform.rotation);var points=quad.Select(p=>inverse*p).ToArray();
-                bool covers=false;for(float x=-art.width*.5f;x<=art.width*.5f;x+=1)for(float z=-art.height*.5f;z<=art.height*.5f;z+=1)
-                {var cell=inverse*new Vector3(x,.5f,z);if(cell.x>=points.Min(p=>p.x)&&cell.x<=points.Max(p=>p.x)&&cell.y>=points.Min(p=>p.y)&&cell.y<=points.Max(p=>p.y))covers=true;}
-                if(!covers)AddVeil("Промінь між деревами",quad,new Color(1,.89f,.61f,preset.rays*.08f));
-            }
+            if(_habitats.Length==0){float x=Mathf.Lerp(_coverage.xMin,_coverage.xMax,Next()),z=Mathf.Lerp(_coverage.yMin,_coverage.yMax,Next());return transform.parent.TransformPoint(new Vector3(x,Surface(x,z)+height,z));}
+            var p=_habitats[_random.Next(_habitats.Length)];p.x+=(Next()-.5f)*1.5f;p.z+=(Next()-.5f)*1.5f;p.y=(_art.landscape?.SampleHeight(p.x,p.z)??_art.GroundHeight(p.x,p.z))+height;
+            return transform.parent.TransformPoint(p);
         }
         float Next()=>(float)_random.NextDouble();
         float _rainAmount,_snowAmount,_leafAmount,_bugAmount,_splashAmount,_farSnowAmount,_nearSnowAmount,_driftAmount,_farRainAmount,_foamAmount;
@@ -204,22 +214,23 @@ namespace QuietCamp.Presentation.World
                 var at=position();var local=transform.InverseTransformPoint(at);
                 var emit=new ParticleSystem.EmitParams{position=at,randomSeed=(uint)_random.Next(1,int.MaxValue)};
                 if(system==_rain||system==_farRain)emit.startLifetime=Mathf.Max(.05f,(local.y-Surface(local.x,local.z))/10);
-                if(system==_snow||system==_farSnow){emit.startSize=(system==_snow?.06f:.035f)+Next()*(system==_snow?.12f:.045f);emit.rotation=Next()*360;}
+                if(system==_snow||system==_farSnow){emit.startSize=(system==_snow?.06f:.035f)+Next()*(system==_snow?.16f:.045f);emit.rotation=Next()*360;}
                 system.Emit(emit,1);
             }
         }
         public void Advance(float seconds,bool reduced=false,int tier=1)
         {
-            if(Preset==null)return;float dt=Mathf.Min(.05f,Mathf.Max(0,seconds));_clock+=dt;float quality=tier==0?.45f:1;
-            float gust=.72f+.28f*Mathf.Sin(_clock*.63f)+.13f*Mathf.Sin(_clock*1.37f);float w=Preset.wind*gust;WindStrength=reduced?0:w;
+            if(Preset==null)return;float dt=Mathf.Min(.05f,Mathf.Max(0,seconds));_clock+=dt;float quality=tier==0?.45f:tier==1?1:1.3f;
+            float gust=.72f+.28f*Mathf.Sin(_clock*.63f)+.13f*Mathf.Sin(_clock*1.37f);float w=Mathf.Clamp01(Preset.wind*gust);WindStrength=reduced?0:w;
             var direction=new Vector2(Mathf.Cos(Preset.windHeading*Mathf.Deg2Rad),Mathf.Sin(Preset.windHeading*Mathf.Deg2Rad));
-            _visibility?.Update(_clock,direction*w);
-            foreach(var moving in _moving)if(moving!=null)moving.Advance(_clock,w,reduced);
+            _visibility?.Update(_clock,direction*w,tier);
+            _shafts?.Advance(_clock,direction*w,tier,reduced);
+            foreach(var moving in _moving)if(moving!=null)moving.Advance(_clock,w,reduced,direction);
             var previousCoverage=_coverage;
             _coverage=WeatherCoverage.Ground(_camera,transform.parent,3+w*6);
             if(!_coverageInitialized||Vector2.Distance(previousCoverage.center,_coverage.center)>2||_coverage.width*_coverage.height>previousCoverage.width*previousCoverage.height*1.12f)PrimeCoverage(previousCoverage,quality);
             _coverageInitialized=true;
-            SetFlow(_snow,direction*w*6);SetFlow(_farSnow,direction*w*6);SetFlow(_leaves,direction*w*6);SetFlow(_rain,direction*w*4);SetFlow(_farRain,direction*w*4);SetFlow(_drift,direction*w*6);
+            SetFlow(_snow,direction*w*6);SetFlow(_farSnow,direction*w*6);SetFlow(_leaves,direction*w*6);SetFlow(_rain,direction*w*4);SetFlow(_farRain,direction*w*4);SetFlow(_drift,direction*w*6);SetFlow(_petals,direction*w*3);SetFlow(_dust,direction*w*.6f);SetFlow(_smoke,direction*w*1.5f);SetFlow(_embers,direction*w);
             var noise=_snow.noise;noise.enabled=true;noise.strength=.22f;noise.frequency=.18f;noise.scrollSpeed=.25f;
             foreach(var material in _weatherMaterials){PlantWeatherResponse.Set(material,_clock,reduced?0:w,Mathf.Max(Preset.rain,Preset.wetness));material.SetVector("_QCWind",new Vector4(direction.x,direction.y,0,0));}
             foreach(var material in _waterMaterials)
@@ -234,11 +245,29 @@ namespace QuietCamp.Presentation.World
             Emit(_farSnow,ref _farSnowAmount,Preset.snow*65*quality*area,dt,()=>Around(7+Next()*4));
             Emit(_nearSnow,ref _nearSnowAmount,Preset.snow*(reduced?0:3)*quality,dt,()=>_camera.ViewportToWorldPoint(new Vector3(Next()<.5f?.04f+Next()*.14f:.82f+Next()*.14f,Next(),.8f)));
             Emit(_drift,ref _driftAmount,Preset.snow*Preset.wind*19*quality,dt,()=>{var p=transform.parent.InverseTransformPoint(Around(0));p.y=Surface(p.x,p.z)+.15f;return transform.parent.TransformPoint(p);});
-            if(_leafSources.Length>0)Emit(_leaves,ref _leafAmount,Preset.leaves*(reduced?0:4)*quality,dt,()=>transform.TransformPoint(_leafSources[_random.Next(_leafSources.Length)]+new Vector3((Next()-.5f)*2,Next(),(Next()-.5f)*2)));
-            Emit(_bugs,ref _bugAmount,Preset.insects*(reduced?0:7)*quality,dt,()=>transform.parent.TransformPoint(new Vector3((Next()-.5f)*18,.5f+Next()*1.3f,(Next()-.5f)*18)));
+            if(_leafSources.Length>0)Emit(_leaves,ref _leafAmount,Preset.leaves*(reduced?0:10)*quality,dt,()=>transform.TransformPoint(_leafSources[_random.Next(_leafSources.Length)]+new Vector3((Next()-.5f)*2,Next(),(Next()-.5f)*2)));
+            Emit(_bugs,ref _bugAmount,Preset.insects*(reduced?0:10)*quality,dt,()=>Habitat(.65f+Next()*1.5f));
+            Emit(_petals,ref _petalAmount,Preset.pollen*(reduced?0:7)*quality,dt,()=>Habitat(2.5f+Next()*2));
+            Emit(_dust,ref _dustAmount,Preset.dust*(reduced?0:16)*quality,dt,()=>Habitat(.6f+Next()*3));
+            if(_fireActive)
+            {
+                Emit(_smoke,ref _smokeAmount,5*quality,dt,()=>_firePosition+new Vector3((Next()-.5f)*.12f,.16f,(Next()-.5f)*.12f));
+                Emit(_embers,ref _emberAmount,4*quality,dt,()=>_firePosition+new Vector3((Next()-.5f)*.12f,.2f,(Next()-.5f)*.12f));
+                _fireLight.intensity=.7f+.13f*Mathf.Sin(_clock*7)+w*.15f;
+            }
             foreach(var system in _systems)system.Simulate(dt,false,false,false);
-            ClipToSurfaces(_rain);ClipToSurfaces(_farRain);ClipToSurfaces(_snow);ClipToSurfaces(_farSnow);GroundLeaves();
+            ClipToSurfaces(_rain);ClipToSurfaces(_farRain);ClipToSurfaces(_snow);ClipToSurfaces(_farSnow);ClearDriftFromBoard();GroundLeaves();
             if(_audio!=null)AdvanceAudio();
+        }
+        void ClearDriftFromBoard()
+        {
+            int count=_drift.GetParticles(_contacts);
+            for(int i=0;i<count;i++)
+            {
+                var p=transform.parent.InverseTransformPoint(_contacts[i].position);
+                if(Mathf.Abs(p.x)<_art.width*.5f+.5f&&Mathf.Abs(p.z)<_art.height*.5f+.5f)_contacts[i].remainingLifetime=0;
+            }
+            _drift.SetParticles(_contacts,count);
         }
         void ClipToSurfaces(ParticleSystem system)
         {
@@ -328,6 +357,7 @@ namespace QuietCamp.Presentation.World
         }
         void OnDestroy()
         {
+            _shafts?.Dispose();
             _visibility?.Dispose();_visibility=null;
             foreach(var pair in _originalMaterials)if(pair.Key!=null)pair.Key.sharedMaterials=pair.Value;
             foreach(var pair in _surfaceSources)if(pair.Key!=null)pair.Key.sharedMesh=pair.Value;

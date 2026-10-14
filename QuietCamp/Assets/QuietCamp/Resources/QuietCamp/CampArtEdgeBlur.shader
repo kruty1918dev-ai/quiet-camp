@@ -16,9 +16,8 @@ Shader "QuietCamp/CampArtEdgeBlur"
             half4 Frag(Varyings input):SV_Target
             {
                 float2 uv=input.texcoord;
-                float inside=step(_SharpRect.x,uv.x)*step(_SharpRect.y,uv.y)*step(uv.x,_SharpRect.z)*step(uv.y,_SharpRect.w);
-                float edge=smoothstep(.30,.48,abs(uv.x-.5));
-                edge*=1-inside;
+                float outside=max(max(_SharpRect.x-uv.x,uv.x-_SharpRect.z),max(_SharpRect.y-uv.y,uv.y-_SharpRect.w));
+                float edge=smoothstep(.28,.49,abs(uv.x-.5))*smoothstep(0,.035,outside);
                 float2 d=_BlurPixels*edge/_ScreenParams.xy;
                 half4 color=SAMPLE_TEXTURE2D_X(_BlitTexture,sampler_LinearClamp,uv)*.25;
                 color+=(SAMPLE_TEXTURE2D_X(_BlitTexture,sampler_LinearClamp,uv+float2(d.x,0))+SAMPLE_TEXTURE2D_X(_BlitTexture,sampler_LinearClamp,uv-float2(d.x,0)))*.125;

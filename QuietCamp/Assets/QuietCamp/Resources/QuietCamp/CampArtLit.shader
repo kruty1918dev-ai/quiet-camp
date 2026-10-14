@@ -13,7 +13,7 @@ Shader "QuietCamp/CampArtLit"
             float gust=.65+.35*sin(t*.7+p.x*.19+p.z*.24);
             float wave=sin(t*1.7+p.x*.54+p.z*.39);
             float weight=response.x*min(response.y,3);
-            p.xz+=_QCWind.xy*wave*gust*_QCWeather.y*weight*.14;
+            p.xz+=_QCWind.xy*wave*gust*_QCWeather.y*weight*.22;
             p.y-=abs(wave)*_QCWeather.z*weight*.028;
             return p;
         }

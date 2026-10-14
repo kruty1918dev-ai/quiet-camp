@@ -24,6 +24,8 @@ FILES+=['Assets/QuietCamp/Resources/QuietCamp/TentCloth.shader']
 FILES+=['Assets/QuietCamp/Editor/LevelAuthoring/SurfaceWeathering.cs','Assets/QuietCamp/Editor/LevelAuthoring/CrashMeshAuthoring.cs','Assets/QuietCamp/Editor/LevelAuthoring/AircraftCrashAuthoring.cs','Assets/QuietCamp/Editor/LevelAuthoring/ModelAuthoringWorkshop.cs','Assets/QuietCamp/Editor/LevelAuthoring/LevelAuthoringWindow.Models.cs','Assets/QuietCamp/EditorBridge/Editor/PwbLevelAuthoringAdapter.cs']
 FILES+=['Assets/QuietCamp/Editor/LevelAuthoring/AuthoringWeatherExposure.cs']
 FILES+=['Assets/QuietCamp/Tests/Editor/SurfaceWeatheringTests.cs','Assets/QuietCamp/Editor/LevelAuthoring/AuthoringPropCatalog.cs']
+FILES+=['Assets/QuietCamp/Editor/LevelAuthoring/ForestRegrowthAuthoring.cs','Assets/QuietCamp/Scripts/Presentation/World/SeasonLightShafts.cs','Assets/QuietCamp/Resources/QuietCamp/SeasonLightShaft.shader','Assets/QuietCamp/Resources/QuietCamp/forest_regrowth.json']
+FILES+=['Assets/QuietCamp/Tests/Editor/ForestAtmosphereTests.cs']
 for name in FILES:
  source=PROJECT/name
  if not source.exists():continue

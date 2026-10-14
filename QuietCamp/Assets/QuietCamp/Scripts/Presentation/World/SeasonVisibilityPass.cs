@@ -23,7 +23,7 @@ namespace QuietCamp.Presentation.World
             camera.GetUniversalAdditionalCameraData().requiresDepthTexture=true;
             RenderPipelineManager.beginCameraRendering+=Enqueue;
         }
-        public void Update(float clock,Vector2 wind)
+        public void Update(float clock,Vector2 wind,int tier=1)
         {
             var direction=Vector3.ProjectOnPlane(_camera.transform.forward,Vector3.up).normalized;
             var ray=_camera.ViewportPointToRay(new Vector3(.5f,.5f));
@@ -32,6 +32,10 @@ namespace QuietCamp.Presentation.World
             _material.SetVector("_WeatherVisibility",new Vector4(_preset.fog,_preset.snow*_preset.wind,_preset.rain,clock));
             _material.SetVector("_FogRange",new Vector4(_camera.orthographicSize,_preset.fogNear,_preset.fogDistance,_preset.lowFog));
             _material.SetColor("_FogColor",CampArtDefinition.Color(_preset.fogColor==0?_preset.skyColor:_preset.fogColor));
+            _material.SetVector("_AirLight",new Vector4(_preset.airLight,tier==0?2:tier==1?4:6,0,0));
+            _material.SetColor("_AirSunColor",CampArtDefinition.Color(_preset.sunColor)*_preset.sunIntensity);
+            var sun=Quaternion.Euler(CampArtDefinition.Vector(_preset.sunEuler))*Vector3.forward;
+            _material.SetVector("_AirSunDirection",new Vector4(sun.x,sun.y,sun.z,0));
             _material.SetVector("_Flow",new Vector4(wind.x,wind.y,_preset.lensRain,0));
         }
         void Enqueue(ScriptableRenderContext context,Camera camera)

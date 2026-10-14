@@ -12,7 +12,7 @@ namespace QuietCamp.Presentation.World
         bool _ready;float _lastClock,_angle;
         public void Configure(CampArtDefinition.Instance item)
         {kind=item.motion;pivot=item.motionPivot==null?Vector3.zero:CampArtDefinition.Vector(item.motionPivot);_position=transform.localPosition;_rotation=transform.localRotation;_ready=true;}
-        public void Advance(float clock,float wind,bool reduced)
+        public void Advance(float clock,float wind,bool reduced,Vector2 direction=default)
         {
             if(!_ready)return;float strength=reduced?0:1;
             if(kind=="waterwheel")
@@ -23,6 +23,15 @@ namespace QuietCamp.Presentation.World
                 transform.localRotation=_rotation*rotation;
                 var scaledPivot=Vector3.Scale(pivot,transform.localScale);
                 transform.localPosition=_position+_rotation*(scaledPivot-rotation*scaledPivot);
+            }
+            else if(kind=="cloth")
+            {
+                if(direction.sqrMagnitude<.01f)direction=Vector2.right;
+                var localWind=Quaternion.Inverse(_rotation)*new Vector3(direction.x,0,direction.y);
+                var axis=Vector3.Cross(Vector3.up,localWind).normalized;
+                var rotation=Quaternion.AngleAxis((.55f+.45f*Mathf.Sin(clock*1.7f+pivot.x*2))*wind*14*strength,axis);
+                var scaledPivot=Vector3.Scale(pivot,transform.localScale);
+                transform.localRotation=_rotation*rotation;transform.localPosition=_position+_rotation*(scaledPivot-rotation*scaledPivot);
             }
             else if(kind=="boat")
             {

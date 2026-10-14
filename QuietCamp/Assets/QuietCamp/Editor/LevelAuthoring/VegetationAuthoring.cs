@@ -21,6 +21,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         public static VegetationPreset[] Presets=>JsonConvert.DeserializeObject<Catalog>(Resources.Load<TextAsset>("QuietCamp/vegetation_presets").text).presets;
         public static int Apply(LevelAuthoringDocument d,VegetationPreset preset,int seed)
         {
+            if(preset.id=="forest_recovery"){var settings=ForestRegrowthAuthoring.Defaults();settings.seed=seed;return ForestRegrowthAuthoring.Apply(d,settings);}
             AuthoringVegetationSnapshot.ExpandCover(d);
             var palette=LevelAuthoringPalette.Entries.ToDictionary(e=>e.id);
             var models=d.art.models.ToDictionary(m=>m.id);var originals=d.art.instances.Where(i=>!(i.id??"").StartsWith("vegetation/",StringComparison.Ordinal)).ToList();

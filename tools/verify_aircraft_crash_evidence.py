@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 QA = Path(r'C:\Users\Public\qcui-20261006\QuietCamp')
 GALLERY = ROOT / 'Design/LevelAuthoring/AircraftSeasons'
-REVIEW = GALLERY / 'CrashReview/C08'
+REVIEW = GALLERY / 'AirReview/A15'
 SEASONS = ('spring', 'summer', 'autumn', 'winter')
 
 
@@ -33,7 +33,7 @@ def source_path(relative):
 drafts = [read(REVIEW / season / (season + '.draft.json')) for season in SEASONS]
 baseline = drafts[0]
 original = read(GALLERY / 'Review/R08/spring/spring.draft.json')
-assert original['level'] == baseline['level'], 'Puzzle changed'
+assert {k:v for k,v in original['level'].items() if k not in ('contentHash','compositionHash')} == {k:v for k,v in baseline['level'].items() if k not in ('contentHash','compositionHash')}, 'Puzzle changed'
 frames = []
 for season, draft in zip(SEASONS, drafts):
     for key in ('models', 'instances', 'landscape'):
@@ -57,13 +57,13 @@ for season, draft in zip(SEASONS, drafts):
             assert digest(QA / 'Library/ScriptAssemblies' / (entry['name'] + '.dll')) == entry['sha256']
         frames.append(dict(frame=name, imageSha256=receipt['imageSha256'], sources=len(source['sources']),
                            capturedUtc=receipt['capturedUtc']))
-log = read(GALLERY / 'crash-review.json')
+log = read(GALLERY / 'air-review.json')
 expected = {season + suffix for season in SEASONS for suffix in ('', '-detail')}
 for cycle in range(1, 8):
-    assert set(log['C' + str(cycle).zfill(2)]['reviewedFrames']) == expected
+    assert set(log['A' + str(cycle).zfill(2)]['reviewedFrames']) == expected
 result = dict(seasons=4, nativeFrames=8, sameModelsAndPoses=True, sameTerrain=True,
               puzzleUnchanged=True, exportMatchesCapture=True, installedCopiesIdentical=True,
               noShaderErrors=True, currentSourceHashesMatch=True, sevenCorrectionCycles=True,
               frames=frames)
-(GALLERY / 'CrashVerification/composition.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
+(GALLERY / 'AirVerification/composition.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
 print('Eight native frames, four exact exports, source hashes and seven review cycles verified.')

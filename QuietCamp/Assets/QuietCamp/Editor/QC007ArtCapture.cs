@@ -95,6 +95,13 @@ namespace QuietCamp.Editor
                     LevelAuthoring.LevelAuthoringWindow.OpenWindow().RestoreVerification(new LevelAuthoring.LevelAuthoringWindow.VerificationSession{document=original["document"].ToObject<LevelAuthoring.LevelAuthoringDocument>(),path=(string)original["path"],dirty=(bool)original["dirty"]});
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="aging-ui-restored"}));
                 }
+                else if(request.mode=="forest-regrowth")
+                {
+                    var d=LevelAuthoring.LevelAuthoringDocument.Open(request.draftPath);
+                    var settings=string.IsNullOrEmpty(request.profile)?LevelAuthoring.ForestRegrowthAuthoring.Defaults():JsonConvert.DeserializeObject<LevelAuthoring.ForestRegrowthSettings>(File.ReadAllText(request.profile));
+                    int plants=LevelAuthoring.ForestRegrowthAuthoring.Apply(d,settings);d.art.blurPixels=3f;d.Save(request.output);
+                    File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="forest-regrowth",addedPlants=plants,objects=d.art.instances.Length,errors=d.Validate(true)}));
+                }
                 else if(request.mode=="crash-compose")
                 {
                     var proof=LevelAuthoring.AircraftCrashAuthoring.BuildThroughPwb(request.draftPath,request.profile,request.output);
@@ -139,6 +146,7 @@ namespace QuietCamp.Editor
                     }
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="game-focus",playing=EditorApplication.isPlaying,audioPaused=AudioListener.pause,focusSimulated=EditorAuthoringPreview.Active}));
                 }
+                else if(request.mode=="forest-motion")new LevelAuthoring.WeatherMotionCapture(request.output,ResultPath,true);
                 else if(request.mode=="weather-motion")new LevelAuthoring.WeatherMotionCapture(request.output,ResultPath);
                 else if (request.mode == "props-game-status")
                 {
@@ -156,6 +164,7 @@ namespace QuietCamp.Editor
                 }
                 else if (request.mode == "tests") RunTests();
                 else if (request.mode == "authoring-tests") RunTests(true);
+                else if(request.mode=="forest-tests")RunTests(true,"QuietCamp.Tests.ForestAtmosphereTests");
                 else if(request.mode=="props-tests")RunTests(true,"QuietCamp.Tests.AuthoringPropTests");
                 else if (request.mode == "world-tests") RunTests(true,"QuietCamp.Tests.ModelWorkshopTests");
                 else if(request.mode=="mood-tests")RunTests(true,"QuietCamp.Tests.SeasonAtmosphereTests");
@@ -214,6 +223,12 @@ namespace QuietCamp.Editor
                 }
                 else if (request.mode == "authoring-status") File.WriteAllText(ResultPath, JsonConvert.SerializeObject(new { status = "authoring-status", playing = EditorApplication.isPlaying, memoryOnly = QuietCampBootstrap.ServicesRef?.Save.MemoryOnly, level = CampSceneHost.Current?.Session?.Level?.id, ready = CampSceneHost.Current?.UiReady, scene = SceneManager.GetActiveScene().name }));
                 else if (request.mode == "authoring-stop") EditorApplication.ExitPlaymode();
+                else if(request.mode=="authoring-place-witness")
+                {
+                    if(!EditorApplication.isPlaying||!EditorAuthoringPreview.Active||QuietCampBootstrap.ServicesRef?.Save.MemoryOnly!=true)throw new InvalidOperationException("Requires a memory-only authoring preview.");
+                    var session=CampSceneHost.Current?.Session??throw new InvalidOperationException("Camp is not ready.");session.DebugApplyWitness();
+                    File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="witness-placed"}));
+                }
                 else if (request.mode == "authoring-complete")
                 {
                     if(!EditorApplication.isPlaying||!EditorAuthoringPreview.Active||QuietCampBootstrap.ServicesRef?.Save.MemoryOnly!=true)
@@ -221,7 +236,7 @@ namespace QuietCamp.Editor
                     var session=CampSceneHost.Current?.Session??throw new InvalidOperationException("Camp is not ready.");
                     var services=QuietCampBootstrap.ServicesRef;
                     var progress=JsonConvert.SerializeObject(services.Save.Progress);var album=JsonConvert.SerializeObject(services.Save.Album);
-                    session.DebugApplyWitness();var report=session.Check();
+                    if(request.name!="placed")session.DebugApplyWitness();var report=session.Check();
                     var view=UnityEngine.Object.FindAnyObjectByType<CampArtView>();
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new {status="authoring-completion",solved=report.IsSolved,completed=session.IsCompleted,
                         memoryOnly=services.Save.MemoryOnly,progressUnchanged=progress==JsonConvert.SerializeObject(services.Save.Progress),albumUnchanged=album==JsonConvert.SerializeObject(services.Save.Album),
@@ -355,7 +370,7 @@ namespace QuietCamp.Editor
             var api = ScriptableObject.CreateInstance<TestRunnerApi>();
             api.RegisterCallbacks(new TestReport(api, session));
             api.Execute(new ExecutionSettings(new Filter { testMode = TestMode.EditMode,
-                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.SurfaceWeatheringTests", "QuietCamp.Tests.ModelWorkshopTests", "QuietCamp.Tests.FreeWorldAssetsTests", "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
+                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.SurfaceWeatheringTests", "QuietCamp.Tests.ForestAtmosphereTests", "QuietCamp.Tests.ModelWorkshopTests", "QuietCamp.Tests.FreeWorldAssetsTests", "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
         }
         sealed class TestReport : ICallbacks
         {
@@ -402,7 +417,7 @@ namespace QuietCamp.Editor
                 "Assets/QuietCamp/Settings/URP/QC_Renderer.asset", "Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/CampModelLibrary.json",
                 "Assets/QuietCamp/Scripts/Presentation/QuietCamp.Presentation.asmdef", "Assets/QuietCamp/Editor/QC007ArtCapture.cs",
                 LevelAuthoring.AuthoringPropCatalog.ModelPath, LevelAuthoring.AuthoringPropCatalog.CatalogPath }
-                .Concat(new[]{"Assets/QuietCamp/Scripts/Presentation/World/SeasonAtmosphereView.cs","Assets/QuietCamp/Scripts/Presentation/World/RiverWeatherMaterial.cs","Assets/QuietCamp/Scripts/Presentation/World/SeasonVisibilityPass.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherCoverage.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherSurfaceField.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherObjectMotion.cs","Assets/QuietCamp/Scripts/Presentation/World/SeasonSurfaceAccents.cs","Assets/QuietCamp/Resources/QuietCamp/SeasonVisibility.shader","Assets/QuietCamp/Resources/QuietCamp/PlacementGrid.shader","Assets/QuietCamp/Resources/QuietCamp/TentCloth.shader","Assets/QuietCamp/Resources/QuietCamp/season_atmosphere.json"})
+                .Concat(new[]{"Assets/QuietCamp/Scripts/Presentation/World/SeasonAtmosphereView.cs","Assets/QuietCamp/Scripts/Presentation/World/RiverWeatherMaterial.cs","Assets/QuietCamp/Scripts/Presentation/World/SeasonVisibilityPass.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherCoverage.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherSurfaceField.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherObjectMotion.cs","Assets/QuietCamp/Scripts/Presentation/World/SeasonSurfaceAccents.cs","Assets/QuietCamp/Resources/QuietCamp/SeasonVisibility.shader","Assets/QuietCamp/Resources/QuietCamp/SeasonLightShaft.shader","Assets/QuietCamp/Scripts/Presentation/World/SeasonLightShafts.cs","Assets/QuietCamp/Scripts/Presentation/World/SeasonModelAppearance.cs","Assets/QuietCamp/Editor/LevelAuthoring/ForestRegrowthAuthoring.cs","Assets/QuietCamp/Resources/QuietCamp/forest_regrowth.json","Assets/QuietCamp/Resources/QuietCamp/PlacementGrid.shader","Assets/QuietCamp/Resources/QuietCamp/TentCloth.shader","Assets/QuietCamp/Resources/QuietCamp/season_atmosphere.json"})
                 .Concat(new[] { "scene-placement", "vegetation-placement", "rock-placement" }.SelectMany(id => Directory.GetFiles("Packages/com.kruty1918." + id + "/Runtime/Core", "*.cs")))
                 .Concat(AssetDatabase.GetDependencies(AssetDatabase.GetAssetPath(Resources.Load<Material>(art.waterMaterial)), true))
                 .Concat(AssetDatabase.GetDependencies("Assets/QuietCamp/Resources/QuietCamp/CozyVegetationLibrary.asset", true))
@@ -477,13 +492,13 @@ namespace QuietCamp.Editor
                 camera.GetUniversalAdditionalCameraData().volumeLayerMask = 1 << 31;
                 preview.AddSingleGO(root);
                 if(view.SeasonAtmosphere!=null)for(int i=0;i<180;i++)view.SeasonAtmosphere.Advance(.05f);
-                if(view.SeasonAtmosphere!=null)File.WriteAllText(Path.Combine(request.output,request.name+".effects.json"),JsonConvert.SerializeObject(new{preset=art.atmosphere.id,particles=view.SeasonAtmosphere.LiveParticles,systems=view.SeasonAtmosphere.GetComponentsInChildren<ParticleSystem>().Select(s=>new{name=s.name,count=s.particleCount}),rays=view.SeasonAtmosphere.GetComponentsInChildren<MeshRenderer>().Count(r=>r.name=="Промінь між деревами")}));
+                if(view.SeasonAtmosphere!=null)File.WriteAllText(Path.Combine(request.output,request.name+".effects.json"),JsonConvert.SerializeObject(new{preset=art.atmosphere.id,particles=view.SeasonAtmosphere.LiveParticles,systems=view.SeasonAtmosphere.GetComponentsInChildren<ParticleSystem>().Select(s=>new{name=s.name,count=s.particleCount}),rays=view.SeasonAtmosphere.VisibleShafts}));
                 for (int frame = 0; frame < 3; frame++)
                 { preview.BeginStaticPreview(new Rect(0, 0, request.width, request.height)); preview.Render(true); UnityEngine.Object.DestroyImmediate(preview.EndStaticPreview()); }
                 preview.BeginStaticPreview(new Rect(0, 0, request.width, request.height)); preview.Render(true);
                 var image = preview.EndStaticPreview(); var bytes = image.EncodeToPNG(); UnityEngine.Object.DestroyImmediate(image);
                 string output = Path.Combine(request.output, request.name + ".png"); File.WriteAllBytes(output, bytes);
-                var errors = new[] { Resources.Load<Shader>("QuietCamp/CampArtLit"), Resources.Load<Shader>("QuietCamp/CampArtEdgeBlur"), Resources.Load<Shader>("QuietCamp/SeasonVisibility"),Resources.Load<Shader>("QuietCamp/PlacementGrid"), Resources.Load<Shader>("QuietCamp/TentCloth"), Resources.Load<Material>(art.waterMaterial).shader }
+                var errors = new[] { Resources.Load<Shader>("QuietCamp/CampArtLit"), Resources.Load<Shader>("QuietCamp/CampArtEdgeBlur"), Resources.Load<Shader>("QuietCamp/SeasonVisibility"),Resources.Load<Shader>("QuietCamp/SeasonLightShaft"),Resources.Load<Shader>("QuietCamp/PlacementGrid"), Resources.Load<Shader>("QuietCamp/TentCloth"), Resources.Load<Material>(art.waterMaterial).shader }
                     .SelectMany(ShaderUtil.GetShaderMessages).Where(message => message.severity.ToString() == "Error").Select(message => message.message).ToArray();
                 if (errors.Length != 0) throw new InvalidOperationException(string.Join("\n", errors));
                 var receipt = new { status = "captured", kind = "native-unity-production-world-components", output,

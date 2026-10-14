@@ -15,6 +15,9 @@ namespace QuietCamp.Presentation.World
     {
         readonly List<Mesh> _meshes = new List<Mesh>();
         readonly List<Material> _materials = new List<Material>();
+        readonly MeshRenderer[] _regrowthRenderers=new MeshRenderer[3];
+        public int[] RegrowthTriangleBands {get;private set;}=new int[3];
+        public int QualityTier {get;private set;}=2;
         GameObject _root;
         Camera _camera;
         CampArtEdgeBlur _blur;
@@ -56,6 +59,7 @@ namespace QuietCamp.Presentation.World
                 _meshes.Add(mesh); catalogMeshes.Add(source.id, mesh);
             }
             var batches = new List<CombineInstance>(); var foliageBatches = new List<CombineInstance>();
+            var regrowthBatches=new[]{new List<CombineInstance>(),new List<CombineInstance>(),new List<CombineInstance>()};
             foreach (var item in definition.instances)
             {
                 var position = new Vector3(item.x, item.y, item.z);
@@ -77,7 +81,18 @@ namespace QuietCamp.Presentation.World
                     foreach (var collider in instance.GetComponentsInChildren<Collider>()) DestroyOwned(collider);
                     foreach (var child in instance.GetComponentsInChildren<Transform>()) child.gameObject.layer = BoardRenderer.DecorLayer;
                 }
-                else if(catalogMeshes[item.modelId].vertexCount>0) (definition.models.First(m => m.id == item.modelId).shading == "foliage" ? foliageBatches : batches).Add(new CombineInstance { mesh = catalogMeshes[item.modelId], transform = Matrix4x4.TRS(position, rotation, scale) });
+                else if(catalogMeshes[item.modelId].vertexCount>0)
+                {
+                    var model=definition.models.First(m=>m.id==item.modelId);
+                    var batch=new CombineInstance{mesh=catalogMeshes[item.modelId],transform=Matrix4x4.TRS(position,rotation,scale)};
+                    if((item.id??"").StartsWith("regrowth/",StringComparison.Ordinal)&&model.shading=="foliage")
+                    {
+                        uint hash=2166136261;foreach(char c in item.id)hash=unchecked((hash^c)*16777619);
+                        float border=Mathf.Max(Mathf.Abs(item.x)-definition.width*.5f,Mathf.Abs(item.z)-definition.height*.5f);
+                        int band=model.seasonalRole=="flower"||border<2?0:(int)(hash%3);regrowthBatches[band].Add(batch);
+                    }
+                    else (model.shading=="foliage"?foliageBatches:batches).Add(batch);
+                }
             }
             var combined = new Mesh { name = "Authored camp trees, reeds and bridge", indexFormat = IndexFormat.UInt32 };
             combined.CombineMeshes(batches.ToArray(), true, true); _meshes.Add(combined);
@@ -97,6 +112,14 @@ namespace QuietCamp.Presentation.World
             BuildGroundcover(material);
             if (!excludeLandscape && definition.landscape == null) BuildStream(material);
             ConfigureVolume();
+            for(int band=0;band<3;band++)
+            {
+                if(regrowthBatches[band].Count==0)continue;
+                var mesh=new Mesh{name="Seasonal regrowth band "+band,indexFormat=IndexFormat.UInt32};mesh.CombineMeshes(regrowthBatches[band].ToArray(),true,true);_meshes.Add(mesh);
+                var grassMaterial=new Material(material);grassMaterial.SetFloat("_ArtGrass",1);_materials.Add(grassMaterial);
+                _regrowthRenderers[band]=AddMesh("ForestRegrowth"+band,mesh,grassMaterial);
+                RegrowthTriangleBands[band]=mesh.vertexCount/3;
+            }
             _blur = new CampArtEdgeBlur(_camera, definition.blurPixels);
             _camera.GetUniversalAdditionalCameraData().renderPostProcessing = true;
             if(definition.atmosphere!=null)
@@ -104,6 +127,11 @@ namespace QuietCamp.Presentation.World
                 SeasonAtmosphere=new GameObject("Season atmosphere").AddComponent<SeasonAtmosphereView>();
                 SeasonAtmosphere.Configure(definition.atmosphere,definition,_camera,_root.transform);
             }
+        }
+        public void SetQualityTier(int tier)
+        {
+            tier=Mathf.Clamp(tier,0,2);if(QualityTier==tier)return;QualityTier=tier;
+            for(int i=0;i<3;i++)if(_regrowthRenderers[i]!=null)_regrowthRenderers[i].enabled=i<=tier;
         }
         public void FitCamera(Rect gameplay)
         {

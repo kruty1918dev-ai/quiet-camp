@@ -10,7 +10,15 @@ namespace QuietCamp.Presentation.World
         public static CampArtDefinition.Model Resolve(CampArtDefinition.Model source,SeasonAtmospherePreset preset)
         {
             if(preset==null||string.IsNullOrEmpty(source.seasonalRole))return source;
-            var m=new CampArtDefinition.Model{id=source.id,sourceModelId=source.sourceModelId,authoringRecipe=source.authoringRecipe,shading=source.shading,vertices=source.vertices,normals=source.normals,uv=source.uv,tangents=source.tangents,colors=source.colors.ToArray(),seasonalRole=source.seasonalRole,seasonalLeafTriangles=source.seasonalLeafTriangles,weatherExposure=source.weatherExposure};
+            var m=new CampArtDefinition.Model{id=source.id,sourceModelId=source.sourceModelId,authoringRecipe=source.authoringRecipe,shading=source.shading,vertices=source.vertices,normals=source.normals,uv=source.uv,tangents=source.tangents,colors=source.colors.ToArray(),seasonalRole=source.seasonalRole,seasonalLeafTriangles=source.seasonalLeafTriangles,weatherExposure=source.weatherExposure,seasonalGrowth=source.seasonalGrowth};
+            if(source.seasonalGrowth!=null)
+            {
+                int season=preset.season=="spring"?0:preset.season=="summer"?1:preset.season=="autumn"?2:3;
+                float growth=source.seasonalGrowth[season];
+                m.vertices=source.vertices.ToArray();float bottom=float.MaxValue;
+                for(int j=1;j<m.vertices.Length;j+=3)bottom=Mathf.Min(bottom,m.vertices[j]);
+                for(int j=0;j<m.vertices.Length;j+=3){m.vertices[j]*=growth;m.vertices[j+1]=bottom+(m.vertices[j+1]-bottom)*growth;m.vertices[j+2]*=growth;}
+            }
             var leaf=new System.Collections.Generic.HashSet<int>(source.seasonalLeafTriangles??Array.Empty<int>());
             for(int i=0;i<m.colors.Length;i++)
             {
@@ -24,17 +32,45 @@ namespace QuietCamp.Presentation.World
                     color=Color.Lerp(color,new Color(.79f,.84f,.85f),Mathf.SmoothStep(0,1,source.normals[i*3+1]) * preset.snowCover*(source.weatherExposure?[i]??1));
                 m.colors[i]=Pack(color);
             }
-            if(preset.season=="winter" && (source.seasonalRole=="deciduous"||source.seasonalRole=="flower"||source.seasonalRole=="groundcover"))
+            if(preset.season=="autumn"&&source.seasonalRole=="deciduous"&&preset.leafLoss>0)
             {
-                var triangles=Enumerable.Range(0,source.colors.Length/3).Where(t=>source.seasonalRole=="deciduous"?!leaf.Contains(t):false).ToArray();
-                m.vertices=triangles.SelectMany(t=>source.vertices.Skip(t*9).Take(9)).ToArray();
-                m.normals=triangles.SelectMany(t=>source.normals.Skip(t*9).Take(9)).ToArray();
-                m.colors=triangles.SelectMany(t=>m.colors.Skip(t*3).Take(3)).ToArray();
-                m.weatherExposure=source.weatherExposure==null?null:triangles.SelectMany(t=>source.weatherExposure.Skip(t*3).Take(3)).ToArray();
-                m.uv=source.uv==null?null:triangles.SelectMany(t=>source.uv.Skip(t*6).Take(6)).ToArray();
-                m.tangents=source.tangents==null?null:triangles.SelectMany(t=>source.tangents.Skip(t*12).Take(12)).ToArray();
+                var groups=LeafPieces(source,leaf);
+                int loss=groups.Length<2?0:Mathf.Min(groups.Length-1,Mathf.Max(1,Mathf.FloorToInt(groups.Length*preset.leafLoss)));
+                if(groups.Length==1)
+                {
+                    m.vertices=m.vertices.ToArray();var points=groups[0].SelectMany(t=>new[]{t*9,t*9+3,t*9+6}).ToArray();
+                    float x=(points.Min(i=>m.vertices[i])+points.Max(i=>m.vertices[i]))*.5f,z=(points.Min(i=>m.vertices[i+2])+points.Max(i=>m.vertices[i+2]))*.5f,y=points.Min(i=>m.vertices[i+1]);
+                    float size=Mathf.Sqrt(1-preset.leafLoss*.9f);
+                    foreach(int i in points){m.vertices[i]=x+(m.vertices[i]-x)*size;m.vertices[i+1]=y+(m.vertices[i+1]-y)*size;m.vertices[i+2]=z+(m.vertices[i+2]-z)*size;}
+                }
+                var missing=new System.Collections.Generic.HashSet<int>(groups.Take(loss).SelectMany(g=>g));
+                Filter(m,Enumerable.Range(0,source.colors.Length/3).Where(t=>!missing.Contains(t)).ToArray(),leaf);
             }
+            if(preset.season=="winter" && (source.seasonalRole=="deciduous"||source.seasonalRole=="flower"||source.seasonalRole=="groundcover"))
+                Filter(m,Enumerable.Range(0,source.colors.Length/3).Where(t=>source.seasonalRole=="deciduous"?!leaf.Contains(t):false).ToArray(),leaf);
             return m;
+        }
+        static void Filter(CampArtDefinition.Model m,int[] triangles,System.Collections.Generic.HashSet<int> leaves)
+        {
+            m.vertices=triangles.SelectMany(t=>m.vertices.Skip(t*9).Take(9)).ToArray();
+            m.normals=triangles.SelectMany(t=>m.normals.Skip(t*9).Take(9)).ToArray();
+            m.colors=triangles.SelectMany(t=>m.colors.Skip(t*3).Take(3)).ToArray();
+            m.weatherExposure=m.weatherExposure==null?null:triangles.SelectMany(t=>m.weatherExposure.Skip(t*3).Take(3)).ToArray();
+            m.uv=m.uv==null?null:triangles.SelectMany(t=>m.uv.Skip(t*6).Take(6)).ToArray();
+            m.tangents=m.tangents==null?null:triangles.SelectMany(t=>m.tangents.Skip(t*12).Take(12)).ToArray();
+            m.seasonalLeafTriangles=triangles.Select((t,index)=>new{t,index}).Where(p=>leaves.Contains(p.t)).Select(p=>p.index).ToArray();
+        }
+        static int[][] LeafPieces(CampArtDefinition.Model m,System.Collections.Generic.HashSet<int> leaves)
+        {
+            var parent=Enumerable.Range(0,m.colors.Length/3).ToArray();var vertices=new System.Collections.Generic.Dictionary<Vector3Int,int>();
+            int Root(int i){while(parent[i]!=i){parent[i]=parent[parent[i]];i=parent[i];}return i;}
+            foreach(int t in leaves)for(int k=0;k<3;k++)
+            {
+                int v=t*9+k*3;var key=new Vector3Int(Mathf.RoundToInt(m.vertices[v]*1000),Mathf.RoundToInt(m.vertices[v+1]*1000),Mathf.RoundToInt(m.vertices[v+2]*1000));
+                if(vertices.TryGetValue(key,out var previous))parent[Root(t)]=Root(previous);else vertices[key]=t;
+            }
+            // Remove entire closed leaf clumps, never random faces with open holes.
+            return leaves.GroupBy(Root).Select(g=>g.ToArray()).OrderBy(g=>g.Min(t=>m.vertices[t*9])*.37f+g.Max(t=>m.vertices[t*9+2])*.61f).ThenBy(g=>g.Min()).ToArray();
         }
         public static int Pack(Color c)=>Mathf.RoundToInt(Mathf.Clamp01(c.r)*255)<<16|Mathf.RoundToInt(Mathf.Clamp01(c.g)*255)<<8|Mathf.RoundToInt(Mathf.Clamp01(c.b)*255);
     }
