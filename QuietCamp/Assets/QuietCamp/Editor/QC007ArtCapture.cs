@@ -92,12 +92,12 @@ namespace QuietCamp.Editor
                     doc.Export(request.output);
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new {status="world-export",output=request.output,errors=doc.Validate(true)}));
                 }
-                else if(request.mode=="mood-demo")
+                else if(request.mode=="mood-demo" || request.mode=="season-variant")
                 {
                     var doc=LevelAuthoring.LevelAuthoringDocument.Open(request.draftPath);
-                    LevelAuthoring.AtmosphereDemoComposition.Prepare(doc);
+                    if(request.mode=="mood-demo")LevelAuthoring.AtmosphereDemoComposition.Prepare(doc);
                     LevelAuthoring.LevelAuthoringPalette.EnsureDocumentModels(doc.art.models);SeasonAtmosphereCatalog.Reset();
-                    LevelAuthoring.SeasonAtmosphereAuthoring.Apply(doc,SeasonAtmosphereCatalog.Get(request.profile));doc.art.cameraAspect=1;doc.art.orthographicSize=11.5f;
+                    LevelAuthoring.SeasonAtmosphereAuthoring.Apply(doc,SeasonAtmosphereCatalog.Get(request.profile));doc.art.cameraAspect=1;if(request.mode=="mood-demo")doc.art.orthographicSize=11.5f;
                     string path=Path.Combine(request.output,request.name+".draft.json");doc.Save(path);
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="mood-demo",draftPath=path,errors=doc.Validate(true)}));
                 }
@@ -432,6 +432,12 @@ namespace QuietCamp.Editor
                 Transform Child(string name) { var go = new GameObject(name); go.transform.SetParent(root.transform, false); return go.transform; }
                 var board = new BoardRenderer(level, catalog, Child("Base"), Child("Grid"), Child("Obstacles"), Child("Tents"), Child("Overlay"), art);
                 board.SyncPlacements(level.witness, level, 0, true);
+                // Preview the same cloth and snow response used by the actual game.
+                if(art.atmosphere!=null)foreach(var tent in board.Tents.Values)
+                {
+                    TentCloth.Apply(tent.Root);
+                    tent.Root.GetComponent<TentCloth>()?.ApplyClimate(art.atmosphere.season,art.atmosphere.wetness,art.atmosphere.snowCover);
+                }
                 var decor = Child("Decor");
                 var camera = preview.camera;
                 camera.cameraType = CameraType.Game; camera.clearFlags = CameraClearFlags.SolidColor;

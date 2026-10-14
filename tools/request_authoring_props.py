@@ -9,7 +9,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 p=argparse.ArgumentParser(description=__doc__)
 p.add_argument('--project',type=Path,required=True)
-p.add_argument('--mode',choices=['campaign-weather-upgrade','weather-motion','authoring-load-draft','authoring-focus-game','campaign-regenerate','mood-tests','mood-demo','world-export','world-tests','world-demo','props-demo','props-play','props-game-status','draft-capture','authoring-tests','authoring-profile','authoring-page','authoring-workspace-status','authoring-current-play','authoring-stop','authoring-status','authoring-restored','authoring-complete'],required=True)
+p.add_argument('--mode',choices=['season-variant','campaign-weather-upgrade','weather-motion','authoring-load-draft','authoring-focus-game','campaign-regenerate','mood-tests','mood-demo','world-export','world-tests','world-demo','props-demo','props-play','props-game-status','draft-capture','authoring-tests','authoring-profile','authoring-page','authoring-workspace-status','authoring-current-play','authoring-stop','authoring-status','authoring-restored','authoring-complete'],required=True)
 p.add_argument('--draft',type=Path)
 p.add_argument('--profile')
 p.add_argument('--output',type=Path)
