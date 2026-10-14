@@ -8,6 +8,7 @@ Shader "QuietCamp/CampArtLit"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
         #include "CampSurfaceUse.hlsl"
         float4 _QCWeather,_QCWind;
+        float _ArtGround;
         float3 WeatherPosition(float3 p,float2 response)
         {
             float t=_QCWeather.x;
@@ -16,6 +17,11 @@ Shader "QuietCamp/CampArtLit"
             float weight=response.x*min(response.y,3);
             p.xz+=_QCWind.xy*wave*gust*_QCWeather.y*weight*.22;
             p.y-=abs(wave)*_QCWeather.z*weight*.028;
+            if(_ArtGround>.5)
+            {
+                float mud=CampUse(p.xz).a*(1-_CampClimate.y);
+                p.y+=sin(p.x*19+p.z*7)*sin(p.z*13-p.x*11)*mud*.009;
+            }
             return CampPressure(p,response.x*response.y);
         }
         ENDHLSL
@@ -31,7 +37,7 @@ Shader "QuietCamp/CampArtLit"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
             CBUFFER_START(UnityPerMaterial)
-            float4 _ArtAmbient,_GroundLow,_GroundHigh,_SoilTone; float _ArtWater; float _ArtGrass; float _ArtGround;
+            float4 _ArtAmbient,_GroundLow,_GroundHigh,_SoilTone,_CampFieldSize; float _ArtWater; float _ArtGrass;
             CBUFFER_END
             float4 _AtmosWindXZ; float _AtmosWindStrength; float _AtmosWindTime;
             struct Attributes { float4 positionOS:POSITION; float3 normalOS:NORMAL; float4 color:COLOR; float2 response:TEXCOORD1; };
@@ -57,34 +63,54 @@ Shader "QuietCamp/CampArtLit"
             half4 Frag(Varyings input):SV_Target
             {
                 float3 normal=normalize(input.normalWS);
+                if(_ArtGround>.5)
+                {
+                    float2 p=input.positionWS.xz;float4 use=CampUse(p);
+                    float grain=ArtNoise(p*3.7),dx=ArtNoise((p+float2(.03,0))*3.7)-grain,dz=ArtNoise((p+float2(0,.03))*3.7)-grain;
+                    normal=normalize(normal+float3(dx,0,dz)*(.7+use.a*2));
+                }
                 Light sun=GetMainLight(TransformWorldToShadowCoord(input.positionWS));
                 float diffuse=_ArtGrass>.5?abs(dot(normal,sun.direction)):saturate(dot(normal,sun.direction));
                 float3 lighting=_ArtAmbient.rgb*(.8+.2*abs(normal.y))+sun.color*((diffuse+.22*saturate(-dot(normal,sun.direction)))*sun.shadowAttenuation);
                 if(_ArtGrass>.5) lighting=max(lighting,float3(.42,.48,.36));
                 float3 baseColor=input.color.rgb;
+                if(_ArtGrass>.5)
+                {
+                    float4 trampled=CampUse(input.positionWS.xz);
+                    baseColor=lerp(baseColor,float3(.33,.37,.20),trampled.r*.65);
+                }
                 if(_ArtGround>.5)
                 {
                     float2 p=input.positionWS.xz;float4 use=CampUse(p);
-                    float patches=ArtNoise(p*.27+17)*.65+ArtNoise(p*.92+31)*.35;
-                    float earth=smoothstep(.66,.85,ArtNoise(p*.63+61))*ArtNoise(p*2.1);
-                    float moss=smoothstep(.55,.8,ArtNoise(p*.41-23))*.18;
+                    float patches=ArtNoise(p*.27+17)*.55+ArtNoise(p*.92+31)*.30+ArtNoise(p*2.4-17)*.15;
+                    float earth=smoothstep(.58,.80,ArtNoise(p*.63+61))*ArtNoise(p*2.1);
+                    float moss=smoothstep(.48,.75,ArtNoise(p*.41-23))*.24;
                     float3 natural=lerp(_GroundLow.rgb,_GroundHigh.rgb,patches);
                     natural=lerp(natural,_GroundLow.rgb*float3(.86,1.04,.86),moss);
-                    natural=lerp(natural,_SoilTone.rgb,earth*.42);
+                    natural=lerp(natural,_SoilTone.rgb,earth*.55);
                     // Preserve authored scars and banks without retaining a differently painted puzzle rectangle.
-                    baseColor=lerp(baseColor,natural,.72);
+                    float fieldDistance=max(abs(p.x)-_CampFieldSize.x,abs(p.y)-_CampFieldSize.y);
+                    float undisturbed=1-smoothstep(.3,2.0,fieldDistance+(ArtNoise(p*.8f)-.5)*.45);
+                    baseColor=lerp(baseColor,natural,lerp(.72,1,undisturbed));
                     float snow=_CampClimate.y;
-                    baseColor=lerp(baseColor,float3(.78,.85,.88),snow);
+                    baseColor=lerp(baseColor,lerp(float3(.73,.81,.85),float3(.84,.89,.91),ArtNoise(p*.38+21)),snow);
                     baseColor=lerp(baseColor,lerp(natural*.92,_SoilTone.rgb,use.r),use.g*(1-snow)*.55);
-                    baseColor=lerp(baseColor,_SoilTone.rgb*(1-_CampClimate.x*.23),use.r*(1-snow)*.82);
-                    baseColor=lerp(baseColor,float3(.59,.69,.73),use.b*snow*.48);
+                    baseColor=lerp(baseColor,_SoilTone.rgb*(1-_CampClimate.x*.23),use.r*(1-snow)*(.67+ArtNoise(p*2.8)*.23));
+                    baseColor=lerp(baseColor,float3(.59,.69,.73),use.b*snow*.72);
                     float churn=ArtNoise(p*7+5)*.6+ArtNoise(p*3)*.4;
                     baseColor*=1-use.a*(.04+churn*.09)*(1-snow);
                     // Small irregular wet depressions emerge only after substantial real traffic.
                     float pool=use.a*smoothstep(.61,.79,ArtNoise(p*2.3+91))*(1-snow);
-                    baseColor=lerp(baseColor,float3(.30,.36,.34),pool*.34);
+                    baseColor=lerp(baseColor,float3(.30,.37,.36),pool*.60);
                 }
                 float3 color=baseColor*lighting;
+                if(_ArtGround>.5)
+                {
+                    float4 use=CampUse(input.positionWS.xz);float2 p=input.positionWS.xz;
+                    float pools=use.a*smoothstep(.61,.79,ArtNoise(p*2.3+91))*(1-_CampClimate.y);
+                    float spec=pow(saturate(dot(reflect(-sun.direction,normal),GetWorldSpaceNormalizeViewDir(input.positionWS))),22);
+                    color+=(sun.color*spec*.24*sun.shadowAttenuation+float3(.07,.10,.11))*pools;
+                }
                 if(_QCWeather.w>.5 && _ArtWater<.5)
                 {
                     float exposed=saturate(input.color.a);
@@ -92,7 +118,12 @@ Shader "QuietCamp/CampArtLit"
                     float wetSpec=pow(saturate(dot(reflect(-sun.direction,normal),GetWorldSpaceNormalizeViewDir(input.positionWS))),24);
                     color+=sun.color*wetSpec*_QCWeather.z*.07*exposed*sun.shadowAttenuation;
                 }
-                if(_ArtGround>.5) color*=.89+ArtNoise(input.positionWS.xz*.43)*.18+ArtNoise(input.positionWS.xz*2.4)*.07;
+                if(_ArtGround>.5)
+                {
+                    float grainWeight=1-smoothstep(.12,.45,max(length(ddx(input.positionWS.xz)),length(ddy(input.positionWS.xz)))*6);
+                    color*=.90+ArtNoise(input.positionWS.xz*.43)*.15+ArtNoise(input.positionWS.xz*2.4)*.06;
+                    color*=1+(ArtNoise(input.positionWS.xz*7)-.5)*.06*grainWeight;
+                }
                 if(_ArtWater>.5)
                 {
                     float wave=sin(input.positionWS.x*4.5+input.positionWS.z*2.1+_Time.y*.5)*sin(input.positionWS.z*7-_Time.y*.3);

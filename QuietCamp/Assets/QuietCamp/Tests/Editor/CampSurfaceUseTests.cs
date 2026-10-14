@@ -41,11 +41,17 @@ namespace QuietCamp.Tests
         [Test] public void SnowfallCoversTracksWithoutErasingUnderlyingSoilHistory()
         {
             var f=Field();for(int i=0;i<160;i++)f.Step(Vector2.zero);float wear=f.Sample(Vector2.zero).r;
-            Assert.That(f.Sample(Vector2.zero).b,Is.GreaterThan(.9f));f.Advance(120,0,1);
+            Assert.That(f.Sample(Vector2.zero).b,Is.GreaterThan(.9f));f.Advance(240,0,1);
             Assert.That(f.Sample(Vector2.zero).b,Is.Zero);Assert.That(f.Sample(Vector2.zero).r,Is.EqualTo(wear));
         }
         [Test] public void SeparateScenesAndOutOfBoundsStepsCannotShareWear()
         {var a=Field();var b=Field();a.Step(Vector2.zero);a.Step(new Vector2(100,100));Assert.That(a.Steps,Is.EqualTo(1));Assert.That(b.Sample(Vector2.zero),Is.EqualTo(Color.clear));}
+        [Test] public void EveryCampaignBoardStartsWithNoInventedStepsAndWetPresetsStartWet()
+        {
+            var ids=LevelLoader.MvpLevelIds();Assert.That(ids.Count,Is.EqualTo(100));
+            foreach(var id in ids){var l=LevelLoader.Load(id);var field=new CampSurfaceUseField(l.width,l.height,new CampSurfaceUseSettings());Assert.That(field.Steps,Is.Zero,id);Assert.That(field.Sample(Vector2.zero),Is.EqualTo(Color.clear),id);}
+            var wet=new CampSurfaceUseField(6,8,new CampSurfaceUseSettings(),.9f);Assert.That(wet.Moisture,Is.EqualTo(.9f));Assert.That(wet.Sample(Vector2.zero).a,Is.Zero);
+        }
         [Test] public void InvalidBudgetsAndNonFiniteParametersAreRejected()
         {Assert.Throws<ArgumentException>(()=>new CampSurfaceUseSettings{stride=float.NaN}.Validate());Assert.Throws<ArgumentException>(()=>new CampSurfaceUseSettings{resolution=1024}.Validate());Assert.Throws<ArgumentException>(()=>new ObjectOvergrowthSettings{vegetation="anything"}.Validate());}
         [Test] public void MossPrefersMoistShadeContactAndRetentiveMaterials()
@@ -78,6 +84,19 @@ namespace QuietCamp.Tests
             Assert.That(JsonConvert.SerializeObject(d.level),Is.EqualTo(puzzle));Assert.That(JsonConvert.SerializeObject(d.art.instances.First(i=>i.id=="crash/airframe/tail")),Is.EqualTo(other));
             string plants=JsonConvert.SerializeObject(d.art.instances.Where(i=>i.id.StartsWith("overgrowth/")));
             int repeated=ObjectOvergrowthAuthoring.Apply(d,ids,settings);Assert.That(repeated,Is.EqualTo(count));Assert.That(JsonConvert.SerializeObject(d.art.instances.Where(i=>i.id.StartsWith("overgrowth/"))),Is.EqualTo(plants));d.art.Validate(d.level);
+        }
+        [Test] public void AttachedGrowthMovesWithUniformOwnerAndSurvivesCapture()
+        {
+            var d=LevelAuthoringDocument.Open(Draft);d.art.instances=d.art.instances.Where(i=>i.id=="crash/airframe/nose").ToArray();
+            var settings=ObjectOvergrowthSettings.Defaults();settings.density=1;settings.maxPlants=4;settings.coverage="base";
+            Assert.That(ObjectOvergrowthAuthoring.Apply(d,new[]{"crash/airframe/nose"},settings),Is.GreaterThan(0));
+            var before=d.art.instances.First(i=>i.id.StartsWith("overgrowth/"));
+            using(var workspace=new LevelAuthoringWorkspace(d))
+            {
+                var owner=workspace.Scenery.GetComponentsInChildren<LevelAuthoringAsset>().First(m=>m.instanceId=="crash/airframe/nose");
+                owner.transform.position+=Vector3.left*.5f;workspace.RefreshPlantBatches(new[]{owner.transform});
+                var captured=workspace.Capture(false).art.instances.First(i=>i.id==before.id);Assert.That(captured.x,Is.EqualTo(before.x-.5f).Within(.001f));Assert.That(captured.y,Is.EqualTo(before.y).Within(.001f));
+            }
         }
         [Test] public void PlacementRefreshCreatesNoStepsButActualResidentMotionDoes()
         {

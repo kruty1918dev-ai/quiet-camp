@@ -179,6 +179,7 @@ namespace QuietCamp.Presentation.World
         }
         void GroundPalette(Material material)
         {
+            material.SetVector("_CampFieldSize",new Vector4(_level.width*.5f,_level.height*.5f,0,0));
             var season=Definition.atmosphere?.season;
             var palette=season==null?SeasonPalette.For(_level):SeasonPalette.For(season);
             material.SetColor("_GroundLow",Color.Lerp(CampArtDefinition.Color(Definition.groundLow),palette.GrassDark,.35f));

@@ -47,6 +47,7 @@ namespace QuietCamp.Presentation.World
         Vector3 _firePos;
 
         public static CampSceneHost Current { get; private set; }
+        public CampGroundDetails SurfaceDetails=>_renderer?.SurfaceDetails;
 
         /// <summary>Set at the end of Start — the explicit readiness signal
         /// the ScreenRouter waits for before revealing (level loaded, world

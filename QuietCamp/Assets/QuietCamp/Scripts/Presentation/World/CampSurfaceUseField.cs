@@ -8,7 +8,7 @@ namespace QuietCamp.Presentation.World
     {
         public int resolution = 128;
         public float margin = 9, stride = .36f, walkingSpeed = .68f, wearPasses = 26,
-            snowRecoverySeconds = 90, grassRecoverySeconds = 180, moistureSeconds = 45;
+            snowRecoverySeconds = 180, grassRecoverySeconds = 180, moistureSeconds = 45;
         public void Validate()
         {
             foreach(var v in new[]{margin,stride,walkingSpeed,wearPasses,snowRecoverySeconds,grassRecoverySeconds,moistureSeconds})
@@ -34,9 +34,11 @@ namespace QuietCamp.Presentation.World
         public int Steps {get;private set;}
         public bool Dirty {get;private set;}=true;
         public int Count=>_passes.Length;
-        public CampSurfaceUseField(int width,int height,CampSurfaceUseSettings settings)
+        public CampSurfaceUseField(int width,int height,CampSurfaceUseSettings settings,float initialMoisture=0)
         {
             settings.Validate();Settings=settings;
+            if(float.IsNaN(initialMoisture)||float.IsInfinity(initialMoisture))throw new ArgumentException("Invalid initial moisture.");
+            Moisture=Mathf.Clamp01(initialMoisture);
             Bounds=new Rect(-width*.5f-settings.margin,-height*.5f-settings.margin,width+settings.margin*2,height+settings.margin*2);
             int count=settings.resolution*settings.resolution;
             _passes=new float[count];_pressure=new float[count];_snow=new float[count];_occupied=new float[count];
@@ -68,7 +70,7 @@ namespace QuietCamp.Presentation.World
                 float outer=1-Mathf.SmoothStep(0,1,Mathf.Clamp01(distance/.42f));
                 _passes[i]=Mathf.Min(Settings.wearPasses*3,_passes[i]+strength*(inner*.8f+outer*.2f));
                 _pressure[i]=Mathf.Min(1,_pressure[i]+strength*(inner*.28f+outer*.05f));
-                _snow[i]=Mathf.Min(1,_snow[i]+strength*inner*.30f);
+                _snow[i]=Mathf.Min(1,_snow[i]+strength*(inner*.24f+outer*.10f)*Mathf.Lerp(1,2,Mathf.Clamp01(_passes[i]/Settings.wearPasses)));
             });Dirty=true;
         }
         void Visit(Vector2 p,float radius,Action<int,Vector2> action)
@@ -92,7 +94,7 @@ namespace QuietCamp.Presentation.World
         public Color Sample(int i)
         {
             float wear=Mathf.SmoothStep(0,1,Mathf.Clamp01((_passes[i]-1.5f)/Settings.wearPasses));
-            return new Color(wear,Mathf.Max(_pressure[i],_occupied[i]),_snow[i],wear*wear*Moisture);
+            return new Color(wear,Mathf.Max(Mathf.Max(_pressure[i],_occupied[i]),wear*.85f),_snow[i],wear*wear*Moisture);
         }
         public Color Sample(Vector2 p){int i=Index(p);return i<0?Color.clear:Sample(i);}
         public void CopyPixels(Color32[] pixels){if(pixels.Length!=Count)throw new ArgumentException();for(int i=0;i<Count;i++)pixels[i]=Sample(i);Dirty=false;}

@@ -71,6 +71,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 var weather=_view.SeasonAtmosphere;var coverage=weather.Coverage;
                 _frames.Add(new{image=name,imageSha256=BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-","").ToLowerInvariant(),
                     clock=weather.WeatherClock,editorTime=EditorApplication.timeSinceStartup,stage=_forest?(_index<16?"ordinary-camera":_index<24?"low-quality":"high-quality"):(_index<8?"stationary":_index<16?"pan":"zoom"),
+                    surfaceSteps=CampSceneHost.Current?.SurfaceDetails?.Surface?.Steps??0,surfacePrints=CampSceneHost.Current?.SurfaceDetails?.PrintCount??0,surfaceResidents=CampSceneHost.Current?.SurfaceDetails?.Residents??0,
                     qualityTier=_view.QualityTier,regrowthTriangleBands=_view.RegrowthTriangleBands,visibleRegrowthTriangles=_view.RegrowthTriangleBands.Take(_view.QualityTier+1).Sum(),visibleShafts=weather.VisibleShafts,windDirection=new[]{weather.WindDirection.x,weather.WindDirection.y},activeFire=weather.ActiveFire,
                     cameraPosition=new[]{_camera.transform.position.x,_camera.transform.position.y,_camera.transform.position.z},orthographicSize=_camera.orthographicSize,
                     coverage=new[]{coverage.xMin,coverage.yMin,coverage.xMax,coverage.yMax},windStrength=weather.WindStrength,

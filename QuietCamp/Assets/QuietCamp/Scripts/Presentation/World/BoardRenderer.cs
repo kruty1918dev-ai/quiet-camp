@@ -77,7 +77,7 @@ namespace QuietCamp.Presentation.World
             // The scene Base is below the meadow; keep the visible rim with the surface grid.
             if(_art==null)_rim = BoardRim.Create(_level, _gridRoot);
             BuildObstacles();
-            BuildTufts();
+
 
             _groundDetails = _gridRoot.gameObject.AddComponent<CampGroundDetails>();
             _groundDetails.Configure(_level,_groundMaterial,_art);

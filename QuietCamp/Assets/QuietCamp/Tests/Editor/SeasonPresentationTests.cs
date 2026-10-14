@@ -41,14 +41,14 @@ namespace QuietCamp.Tests
                 Assert.IsFalse(winter.BareTree(new Vector3(i,0,3),71,true),"Conifers keep their snow-coated needles");
             }
         }
-        [Test] public void DeepSnowPreservesPuzzleWalkingNetworkAndWater()
+        [Test] public void FreshSnowCoversUnusedWalkingCellsWithoutBlockingThePuzzle()
         {
             var level=Winter();var season=SeasonProfile.For(level);
-            Assert.AreEqual(0,season.SnowDepth(level,Vector3.zero));
-            foreach(var p in new[]{new Vector3(-3,0,-2.5f),new Vector3(3,0,2.5f)})Assert.AreEqual(0,season.SnowDepth(level,p));
-            Assert.AreEqual(0,season.SnowDepth(level,CampTrail.Centre(level,new Cell(0,0),7)));
+            Assert.That(season.SnowDepth(level,Vector3.zero),Is.GreaterThan(0));
+            foreach(var p in new[]{new Vector3(-3,0,-2.5f),new Vector3(3,0,2.5f)})Assert.That(season.SnowDepth(level,p),Is.GreaterThan(0));
+            Assert.That(season.SnowDepth(level,CampTrail.Centre(level,new Cell(0,0),7)),Is.GreaterThan(0));
             level.exteriorWalkable=new[]{new[]{6,2},new[]{7,2}};
-            Assert.AreEqual(0,season.SnowDepth(level,BoardMath.CellCenterWorld(level,new Cell(7,2))));
+            Assert.That(season.SnowDepth(level,BoardMath.CellCenterWorld(level,new Cell(7,2))),Is.GreaterThan(0));
             var far=new Vector3(15,0,17);Assert.That(season.SnowDepth(level,far),Is.InRange(.79f,2.16f));
             level.environment.shore=new ShorelineData{side="right",offset=9,width=3,seed=14};
             Assert.AreEqual(0,season.SnowDepth(level,ShorelineGeometry.Point(level.environment.shore,5,.5f)));

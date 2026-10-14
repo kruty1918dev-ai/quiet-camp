@@ -379,7 +379,7 @@ namespace QuietCamp.Editor
             var api = ScriptableObject.CreateInstance<TestRunnerApi>();
             api.RegisterCallbacks(new TestReport(api, session));
             api.Execute(new ExecutionSettings(new Filter { testMode = TestMode.EditMode,
-                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.CampSurfaceUseTests", "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.SurfaceWeatheringTests", "QuietCamp.Tests.ForestAtmosphereTests", "QuietCamp.Tests.ModelWorkshopTests", "QuietCamp.Tests.FreeWorldAssetsTests", "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
+                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.SeasonPresentationTests", "QuietCamp.Tests.BiomeSurfaceTests", "QuietCamp.Tests.CampSurfaceUseTests", "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.SurfaceWeatheringTests", "QuietCamp.Tests.ForestAtmosphereTests", "QuietCamp.Tests.ModelWorkshopTests", "QuietCamp.Tests.FreeWorldAssetsTests", "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
         }
         sealed class TestReport : ICallbacks
         {
@@ -477,7 +477,7 @@ namespace QuietCamp.Editor
                 root = new GameObject("QC007_NativeComposition");
                 Transform Child(string name) { var go = new GameObject(name); go.transform.SetParent(root.transform, false); return go.transform; }
                 var board = new BoardRenderer(level, catalog, Child("Base"), Child("Grid"), Child("Obstacles"), Child("Tents"), Child("Overlay"), art);
-                board.SyncPlacements(level.witness, level, 0, true);
+                board.SyncPlacements(request.profile=="empty"?Array.Empty<Placement>():level.witness, level, 0, true);
                 // Preview the same cloth and snow response used by the actual game.
                 if(art.atmosphere!=null)foreach(var tent in board.Tents.Values)
                 {
@@ -490,7 +490,8 @@ namespace QuietCamp.Editor
                 camera.backgroundColor = CampArtDefinition.Color(art.groundLow); camera.aspect = (float)request.width / request.height;
                 camera.allowHDR = true; camera.allowMSAA = true;
                 view = camera.gameObject.AddComponent<CampArtView>(); view.Configure(art, level, decor, catalog);
-                board.SurfaceDetails.Bind(decor);
+                board.SurfaceDetails.Bind(decor,previewWeather:view.SeasonAtmosphere);
+                if(request.profile=="empty")board.SetPlacementGridVisible(true);
                 view.FitCamera(new Rect(0, 0, 1, 1));
                 preview.lights[0].type = LightType.Directional; view.ApplyLighting(preview.lights[0]);
                 preview.lights[1].intensity = 0;
@@ -503,6 +504,9 @@ namespace QuietCamp.Editor
                 camera.GetUniversalAdditionalCameraData().volumeLayerMask = 1 << 31;
                 preview.AddSingleGO(root);
                 if(view.SeasonAtmosphere!=null)for(int i=0;i<180;i++)view.SeasonAtmosphere.Advance(.05f);
+                if(request.profile=="used")for(int i=0;i<600;i++)board.SurfaceDetails.Advance(1,art.atmosphere?.wetness??0,art.atmosphere?.snow??0);
+                else board.SurfaceDetails.Advance(.25f,art.atmosphere?.wetness??0,art.atmosphere?.snow??0,true);
+                File.WriteAllText(Path.Combine(request.output,request.name+".surface.json"),JsonConvert.SerializeObject(new{mode=request.profile??"placed",acceleratedPreview=request.profile=="used",seconds=request.profile=="used"?600:0,steps=board.SurfaceDetails.Surface.Steps,residents=board.SurfaceDetails.Residents,prints=board.SurfaceDetails.PrintCount,moisture=board.SurfaceDetails.Surface.Moisture}));
                 if(view.SeasonAtmosphere!=null)File.WriteAllText(Path.Combine(request.output,request.name+".effects.json"),JsonConvert.SerializeObject(new{preset=art.atmosphere.id,particles=view.SeasonAtmosphere.LiveParticles,systems=view.SeasonAtmosphere.GetComponentsInChildren<ParticleSystem>().Select(s=>new{name=s.name,count=s.particleCount}),rays=view.SeasonAtmosphere.VisibleShafts}));
                 for (int frame = 0; frame < 3; frame++)
                 { preview.BeginStaticPreview(new Rect(0, 0, request.width, request.height)); preview.Render(true); UnityEngine.Object.DestroyImmediate(preview.EndStaticPreview()); }

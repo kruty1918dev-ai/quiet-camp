@@ -1,0 +1,646 @@
+{
+  "date": "2026-10-14",
+  "cycles": [
+    {
+      "cycle": "G00",
+      "countsAsCorrection": false,
+      "issue": "Початковий перегляд: поле ще виглядало підстриженим; мох надто слабкий; майбутня стежка не повинна існувати.",
+      "correction": "Базовий кадр нової поверхні, не цикл виправлення.",
+      "reviewed": "Переглянуто огляди, деталі й порівняння поверхні всіх 14 нативних кадрів.",
+      "frames": [
+        {
+          "frame": "G00/autumn-detail.png",
+          "sha256": "739f8d35d432e1f6bb874cfe66f10224d96ba5aadf8c19c39a4b04009592764f",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G00/autumn.png",
+          "sha256": "d98f1c5b5df2abfc91528aa0f890a4ea747ae2169a1680d04abae61477a8ba30",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G00/rain-empty.png",
+          "sha256": "7b2aeea54601a9224a082e95075386697456dd742d557d3801c2a58465c52ade",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G00/rain-used.png",
+          "sha256": "d922c06f6eecbb5039737399604021749d997354eeb29c0c199ce96c809e6431",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G00/spring-detail.png",
+          "sha256": "a262a376bf348a1bc29ab0770b30fbb7d27385addedf88aa9c7feedd6adffa61",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G00/spring-empty.png",
+          "sha256": "7d4aff8ee4369efbc2ccfb48c4bf6ce91f1d5848791714439d8407fc723ff153",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G00/spring-used.png",
+          "sha256": "1fa5a760d6c5ac4ec136073ab24728e3f4169e54f57a6f9a77f55523735b6743",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G00/spring.png",
+          "sha256": "4d8985d6ecdd5cd5829e1de12a03983c39b465fa3ff21bf0e26835af25ac48ae",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G00/summer-detail.png",
+          "sha256": "f55dbdf7fef01bd88342c34ae241cc3b8a1a30ec8455156e5b5065937ec466b0",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G00/summer.png",
+          "sha256": "4136f9ae4b1df13b671ea0ea3817a77ec313a4339720a6d9920585098a2991e2",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G00/winter-detail.png",
+          "sha256": "0c562f8be87e597d07def7f43e47cb0b5fbbd146316e97b2f24456e68ce565de",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G00/winter-empty.png",
+          "sha256": "cca6636e4b3bbade2d5e439021ee4697e9bc33785fdc8db2add22cc09e1d25f2",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G00/winter-used.png",
+          "sha256": "27ac759a8954046addf253c75cffbc3db6123ae5175be45c254da2d49ea221b0",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G00/winter.png",
+          "sha256": "2b5f287ea1a6aa4007a6a68d8702006b20457da4e9524ef053ff470405a2321d",
+          "shaderErrors": []
+        }
+      ]
+    },
+    {
+      "cycle": "G01",
+      "countsAsCorrection": true,
+      "issue": "Коротка трава майже непомітна, земля одноманітна.",
+      "correction": "Низький покрив із наявної бібліотеки, ширші природні земляні переходи.",
+      "reviewed": "Переглянуто огляди, деталі й порівняння поверхні всіх 14 нативних кадрів.",
+      "frames": [
+        {
+          "frame": "G01/autumn-detail.png",
+          "sha256": "b4e4fff3aad4da6926c36f86a0fd70767b469db76dd3a7d497d2e945cb979c55",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G01/autumn.png",
+          "sha256": "e77dc364bb69d2cc3b12ff735de41f554c36167c152b7b6ed58c511037769085",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G01/rain-empty.png",
+          "sha256": "0af814c1c5bbcbe598fb5ccd3f487b717775b7fcf6f08b1e70c13780046115c4",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G01/rain-used.png",
+          "sha256": "b1c08db7c94dcb2a981bfe7e1503a44e68cca9dbe9c1a33c9f150d09fdf81a7b",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G01/spring-detail.png",
+          "sha256": "05434e4953d083e095c79783323f4788a4a095f4666dba53a3c3685020c4a287",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G01/spring-empty.png",
+          "sha256": "62569a6aa613b5e901d86f5d42c1b8c0a6d7058f54dbb3ee7f2013efcfe761c8",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G01/spring-used.png",
+          "sha256": "65c8054b15cdb8d3f811dd7fe50a3728b05af34c52302f56541198dbe1d85027",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G01/spring.png",
+          "sha256": "3cae8c95382c685c242c9c15849e9cba311afbce59abc4bc123a70de11d84f19",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G01/summer-detail.png",
+          "sha256": "5b17651fbf8b0466713a9195aaf98dd03210cf8161fc74677e97c90e3a194f98",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G01/summer.png",
+          "sha256": "e035bca6520d9bdf8ae0fea4464bac72dc56f376332085b8b4f863d0092f34d9",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G01/winter-detail.png",
+          "sha256": "68b4ebfbfc2f5f105fb01eba129a8183f3f3b5896b29e313797d85f01ed2683e",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G01/winter-empty.png",
+          "sha256": "d3a7d056d6703601aec602827cbd457d09d382727f0c02888017e3365a15c7e5",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G01/winter-used.png",
+          "sha256": "a7c90a316ce58c1c786df291f349429cdf05606fb7f195b657ba8eaf41f588fc",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G01/winter.png",
+          "sha256": "9e23019ca5f8a0c0736e6ca764eac529975fca113876a74f0cd604544769b100",
+          "shaderErrors": []
+        }
+      ]
+    },
+    {
+      "cycle": "G02",
+      "countsAsCorrection": true,
+      "issue": "Однакові зіркоподібні групи читаються рядами; зношена трава знову піднімається; сніг плоского відтінку.",
+      "correction": "Випадкові групи, стале приминання зношених місць, спільний вітер, плями снігу, мікрорельєф багна.",
+      "reviewed": "Переглянуто огляди, деталі й порівняння поверхні всіх 14 нативних кадрів.",
+      "frames": [
+        {
+          "frame": "G02/autumn-detail.png",
+          "sha256": "2d964a7e5f28a40199ce30dd1cab4fec8659b98f457b68338ce5a2f323801f3b",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G02/autumn.png",
+          "sha256": "6f9cce9f8d3eed4a87a8968fc12bbf0cae2e890ab946d0af75de347152405904",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G02/rain-empty.png",
+          "sha256": "cdd2a4bb4236b7720553d8cca8346ff0acdf0c30c1b2b338b78b42663d688656",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G02/rain-used.png",
+          "sha256": "5a5d8b145a31c55eeb819ec9683a441dfd823cd40321ce082fc2091fbbb4722d",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G02/spring-detail.png",
+          "sha256": "29f2534f133cf510b2585d316ee1d56924665f040145e5e4fb78982af015a59e",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G02/spring-empty.png",
+          "sha256": "744414cd9dc9282a69949bac3c7a7ba44660e8810bae85b8707989ad34fb0175",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G02/spring-used.png",
+          "sha256": "81c0a8a8c52dcd81106a15b62951a1b9e504e85bf096e8801135add54a42187d",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G02/spring.png",
+          "sha256": "bc03b8da2ff174d49b3313f9575e7653fae1a5449ed8e7b7c328752da85f4f86",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G02/summer-detail.png",
+          "sha256": "bbaeb0b4df68be62940fc9f9e15ffb314d5ff37f48d114e840427ec116adf645",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G02/summer.png",
+          "sha256": "e0300be336ac3730396df568e4d8d5b177abaa2ba8dc51621e22d9b6bfd33f3b",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G02/winter-detail.png",
+          "sha256": "f20c3ec57389440c117ab7cbd8fe56e3da2d31196857542b423fa8d755b1a7c1",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G02/winter-empty.png",
+          "sha256": "4367d786578947ea51422781e3e5daecbd5030c25698ef6ff35cb2291f9c74a2",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G02/winter-used.png",
+          "sha256": "78f2d75f91bf1e758842b7894e4670e78b84fee3745a284994f18e9d0680fa8d",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G02/winter.png",
+          "sha256": "9627014a8cee4526531c8e3ef5f79cf9a7d1dd579d7bf61d1f409c19b9dd549a",
+          "shaderErrors": []
+        }
+      ]
+    },
+    {
+      "cycle": "G03",
+      "countsAsCorrection": true,
+      "issue": "Недостатньо дрібного каміння, осіння рослинність зависока, мох майже не читається на корпусі.",
+      "correction": "Фізична дрібна геометрія каміння; приплюснутий осінній покрив; посилене обростання лише в придатних місцях.",
+      "reviewed": "Переглянуто огляди, деталі й порівняння поверхні всіх 14 нативних кадрів.",
+      "frames": [
+        {
+          "frame": "G03/autumn-detail.png",
+          "sha256": "ad36780c5630d12c2e861082099cb0e2f09522c468c01cd161c27e9540e8cec4",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G03/autumn.png",
+          "sha256": "038dbbd5ca1b0e2cac2b37bd687767898164e54fd46a289f0176e982c864d313",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G03/rain-empty.png",
+          "sha256": "011b4c3f6e65f5c986ebc82c0daa2b3a585260d4c8efeea85670c8811cf2b20c",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G03/rain-used.png",
+          "sha256": "2d4591f436ac6682149542676a595079ae605a763f57b977a8c183ee51fc32e7",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G03/spring-detail.png",
+          "sha256": "c49f7dbdd12b539e69e3bb0017317bcf470d94f74724fd204b9a89079a807f70",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G03/spring-empty.png",
+          "sha256": "14dd49b4b06fc125e9ddb619559b70c731548bd326c5bcc24d09e8016945ff9e",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G03/spring-used.png",
+          "sha256": "2dc58cb77c8017fe787222d3dc257344ab43b1c6d8523bd5b7da8809c9bfb0a0",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G03/spring.png",
+          "sha256": "8d73e958ec804319b9a680942db8ca7bb63ae137718f8b88bd181596bb08045f",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G03/summer-detail.png",
+          "sha256": "92fec1e66e2e76f2f1e32e1d0ea6937092a7f38ced8ad89bfffd3b2d1a31631a",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G03/summer.png",
+          "sha256": "02d643feb991940b922299e3ebf83e07de2645d70c0c02998ac4653501e0012b",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G03/winter-detail.png",
+          "sha256": "fb39777fef575bec6d5fd3f9d71b9dff541eb53894fe818d284c4aa3696f79aa",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G03/winter-empty.png",
+          "sha256": "c0750418a467c36f8cdf6a410dcbe6b9ad78cf5e4a92a6742f42f5df92c011e6",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G03/winter-used.png",
+          "sha256": "fe6547d18eff988e378ddcaa833c64a9c8dd49cf96edff875b746472d28191d4",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G03/winter.png",
+          "sha256": "8eefe29fb2a693c684b25881468e9c4d50170d229442b625cd2d9081f64148e8",
+          "shaderErrors": []
+        }
+      ]
+    },
+    {
+      "cycle": "G04",
+      "countsAsCorrection": true,
+      "issue": "Стежки надто прямокутні, контакт ніг умовний, ущільнення снігу надто вузьке.",
+      "correction": "Повороти всередині дозволеної клітини, контакт від фактичної ноги, розширення ущільнення повторними проходами, нерівні краї ґрунту.",
+      "reviewed": "Переглянуто огляди, деталі й порівняння поверхні всіх 14 нативних кадрів.",
+      "frames": [
+        {
+          "frame": "G04/autumn-detail.png",
+          "sha256": "0ff20cc6458f61f7334c16cd02882b08e77734c145dad57cd76ec364333679b1",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G04/autumn.png",
+          "sha256": "0a1535702c9045be8f5cd9a95914232380ffd77b186360857705c7671ef74571",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G04/rain-empty.png",
+          "sha256": "a25b38286a8bce663f4abda9f98bc83c71ea7a00cd3eb7d4b235afc5df69389e",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G04/rain-used.png",
+          "sha256": "7bdbb10e80fa1c8e6a2a12573c629ab04d98b22f9345db1f49d52fbb69cc0dcc",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G04/spring-detail.png",
+          "sha256": "6d3e751a089c34c8371931fe753d0d79195875aa79321a385e0bc3b6288302e9",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G04/spring-empty.png",
+          "sha256": "5f4ab8a306dd12b3a2caae6f5f36ecaea2cfb4712c969b7523e9b11e6c2e01f3",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G04/spring-used.png",
+          "sha256": "2dbad70b9f587f29b4284133db3f2a58e24f0ed7a225cfe97bf5e3ae322d48b1",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G04/spring.png",
+          "sha256": "64952ff4c920e2885685616dfee50f8b5389cb37f2409a19ef773e9e514b3956",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G04/summer-detail.png",
+          "sha256": "f690f5942cb7722a4087eab2c0314ae8d74a27b5706c2184df25450a694a8bb2",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G04/summer.png",
+          "sha256": "2c5854756f47e731597187324c0e4f4f645784eede6a81c31e781f2b446eaf9b",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G04/winter-detail.png",
+          "sha256": "dd522acc3e871acf72c1e26dbe9c37fc95bb06f12d061a845e253840cd60d4bd",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G04/winter-empty.png",
+          "sha256": "24ce8de2871fa6dc6a2389c363bc2ab0cbdb03395f33173eba0736d2bcc60451",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G04/winter-used.png",
+          "sha256": "32f58acb24e45efba1c78911cc67b3f9b1eb6fb7b36e9c8b5510aa944aaaf7d4",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G04/winter.png",
+          "sha256": "5a5a1aa1963a3906f8b23cc9611a99f7b8dd2843fd7abdb4ca97eb884ab54eb7",
+          "shaderErrors": []
+        }
+      ]
+    },
+    {
+      "cycle": "G05",
+      "countsAsCorrection": true,
+      "issue": "Ноги зависають на кілька сантиметрів, мокрі сліди відсутні, малі калюжі губляться.",
+      "correction": "Контактна висота ходи, неглибокі світлі мокрі сліди, відблиски нерівних мокрих ділянок, фільтрований дрібний ґрунт.",
+      "reviewed": "Переглянуто огляди, деталі й порівняння поверхні всіх 14 нативних кадрів.",
+      "frames": [
+        {
+          "frame": "G05/autumn-detail.png",
+          "sha256": "cddceb601268cd45467dd4692d14afacac4ddf1158cb945d083442017537666a",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G05/autumn.png",
+          "sha256": "799b7ea7254f99b468429cf6e939ade37ab8d57022449742f743e806a98198cf",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G05/rain-empty.png",
+          "sha256": "45fbb32b76f505ef0025e7ec76e78c4fc9a868d466fd317947e302077fbbe7a1",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G05/rain-used.png",
+          "sha256": "e9e45f30f6275e30c4df0c1cd63671d9158231111e492d9442f32b6f7cef6a2d",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G05/spring-detail.png",
+          "sha256": "d7a10278e6d5809a2d7656a6962cfcffd140ab9dea61c51bdcf015fd67bce294",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G05/spring-empty.png",
+          "sha256": "0dec1e6a633a71a4336979c9ca26168ba0017567eee13d1bea3821f4593b260f",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G05/spring-used.png",
+          "sha256": "bd84d27229c5284a4b43330b9c15a56c0e3855001e0bda11d370f3d019686b73",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G05/spring.png",
+          "sha256": "e2341747ddde3f0ac93fd8d487b35b711d8a8f0a9c7810decf10ae44a5fabd1d",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G05/summer-detail.png",
+          "sha256": "2b6406120b19bc12151d6dbd9831837acb52a02739748e4d93d30ff7acf0284b",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G05/summer.png",
+          "sha256": "8664af4c0bfd8cb1f5edf8044530bc8a9f4a4341d28ca77c5e61a9174403f827",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G05/winter-detail.png",
+          "sha256": "2af458542fb6f8e7ff9a7072715c5d36156a4dd88476a141e602de10d5665376",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G05/winter-empty.png",
+          "sha256": "832629c7949100e9e5cfce81bde317947d047e5f0660062e743cec6bf4cdac91",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G05/winter-used.png",
+          "sha256": "580dd67b19f2bfb72b581a5aa414bdfe175739afeff11bf5ec8d8d72d6cf6444",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G05/winter.png",
+          "sha256": "3602335fc3b586d75ea355fa4b0352bb90b5d555dfdf19a5faf6034e7972ad9f",
+          "shaderErrors": []
+        }
+      ]
+    },
+    {
+      "cycle": "G06",
+      "countsAsCorrection": true,
+      "issue": "Старі запечені кольори ще підкреслюють поле; снігове ущільнення швидко зникає; порожнє поле не показує зону розміщення.",
+      "correction": "Природний колір у полі з м’яким переходом, час засипання 180 с при повній інтенсивності опадів, сітка лише режиму розміщення; зелень прикріплена до уламка.",
+      "reviewed": "Переглянуто огляди, деталі й порівняння поверхні всіх 14 нативних кадрів.",
+      "frames": [
+        {
+          "frame": "G06/autumn-detail.png",
+          "sha256": "bd3b8fad8cf46f9c718b29a1cea9beb0c241672889a49e1f1eb7d5dbc4c127fc",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G06/autumn.png",
+          "sha256": "86376212e027ef9b3ab63e7460131312b359f4cb197cda48820dc013f2ae5cd1",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G06/rain-empty.png",
+          "sha256": "4d78040283283d0bdf26dc08784af84a3843e54d995a02e547cc358f99ee65a5",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G06/rain-used.png",
+          "sha256": "6c0ebcf631c14ee2c919f18099b0330a13689f9ab4a9ce46a63c6cfba6bf9d89",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G06/spring-detail.png",
+          "sha256": "12cb0eaae3de07de8c72ee638fcd3521473149be0c79eed997899a1b55c267db",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G06/spring-empty.png",
+          "sha256": "2d277f56bd7a6294489a773b5e5f9277010ff2a1188fe126643e02b8b2ec49a4",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G06/spring-used.png",
+          "sha256": "9b48f51510bca810a87705eba22cfd4a1a216312c1cb8c013138662f16f1434c",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G06/spring.png",
+          "sha256": "8b894ba746393b24c913003305f2030cfde609a73ce69f1b0894368049733601",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G06/summer-detail.png",
+          "sha256": "ee1f6705ac44d71007c4177999b81fed41e276fb67c770b436a6b3f4cdd4445f",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G06/summer.png",
+          "sha256": "9ccc7789c3b0a4d3305afef3588bcbe96271c935b65223aa5fac56728b114b4c",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G06/winter-detail.png",
+          "sha256": "9b099bf6d74bf8c5bced994ad735d0b602d6620f026947443114d97d32e16176",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G06/winter-empty.png",
+          "sha256": "23aca9e3d9473fce374a9b4816683b3f031207fcfeeac6502838a06d5b101f77",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G06/winter-used.png",
+          "sha256": "8f7675469d611f541a83d0d51f32d80fdf7497095050eef1e315b93bc3dc5d23",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G06/winter.png",
+          "sha256": "18d590930543a50675d24eddf24ccc5b6a0383cc01dbc18faa93a51f5a705704",
+          "shaderErrors": []
+        }
+      ]
+    },
+    {
+      "cycle": "G07",
+      "countsAsCorrection": true,
+      "issue": "Покрив повторює один силует; вітер покриву оновлюється ривками; дощовий пресет починається із сухої землі.",
+      "correction": "Дві наявні форми трави з канонічним обмеженням ширини; спільний вітер щокадру; початкова вологість пресету; правильна стопа при reduced motion.",
+      "reviewed": "Переглянуто огляди, деталі й порівняння поверхні всіх 14 нативних кадрів.",
+      "frames": [
+        {
+          "frame": "G07/autumn-detail.png",
+          "sha256": "aede0619688903b6521f1c4a14399e9d870415c9653e19c455744f63d7c93a4e",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G07/autumn.png",
+          "sha256": "29696e8d8710dc638965fb9056db8868c76cf100f5b4c0a1d543697e864cb9ea",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G07/rain-empty.png",
+          "sha256": "8e1c99bc66734b616d573afa617258f085fc4c08af41ee7e4e44a1e83bff05d2",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G07/rain-used.png",
+          "sha256": "a2d81bb195176d29378acf16f4ce86223b47c372f97a06840fca07198efe23e2",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G07/spring-detail.png",
+          "sha256": "6d7d0471bacc69ac2f80b89d73cd67c5e6e9a5541e461cea448a1e9b9f897f0e",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G07/spring-empty.png",
+          "sha256": "c65368af833f256834dea70d09735559ffba21f3c8fda913e411fe7aa1a7448c",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G07/spring-used.png",
+          "sha256": "b48ece0582fdd445d008d65c62ce0bed5cc31fa02d92b019b134e88ae2283196",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G07/spring.png",
+          "sha256": "4ae8c0f70d3c6a57b220a08828bfa3348d3b5f984f46930e27f55d0fd6d89962",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G07/summer-detail.png",
+          "sha256": "60b0b45b09424e0de5d9bd5fcab8aee32c7c866428bbf393af2f424715ba7519",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G07/summer.png",
+          "sha256": "276abbe04563ff5f67386e786abc150769469920201df8490ce778e999d48baa",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G07/winter-detail.png",
+          "sha256": "9b099bf6d74bf8c5bced994ad735d0b602d6620f026947443114d97d32e16176",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G07/winter-empty.png",
+          "sha256": "23aca9e3d9473fce374a9b4816683b3f031207fcfeeac6502838a06d5b101f77",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G07/winter-used.png",
+          "sha256": "8f7675469d611f541a83d0d51f32d80fdf7497095050eef1e315b93bc3dc5d23",
+          "shaderErrors": []
+        },
+        {
+          "frame": "G07/winter.png",
+          "sha256": "18d590930543a50675d24eddf24ccc5b6a0383cc01dbc18faa93a51f5a705704",
+          "shaderErrors": []
+        }
+      ]
+    }
+  ],
+  "correctionCyclesPerFrame": 7,
+  "limitations": [
+    "Кадри used прискорюють 600 секунд фактичної симуляції руху в preview; це не відео десяти хвилин реального часу.",
+    "Малі калюжі та ущільнення — стилізоване візуальне наближення; немає фізики рідини або деформації колізій Terrain.",
+    "Затінення моху оцінюється межами крон і сусідніх об’єктів.",
+    "FPS мобільного пристрою не вимірювався."
+  ],
+  "intermediateFullFramesArchive": "C:\\Users\\Public\\qcui-20261006\\QuietCamp\\Temp\\ai\\GroundReviewArchive",
+  "intermediateComparisonsIncluded": true
+}

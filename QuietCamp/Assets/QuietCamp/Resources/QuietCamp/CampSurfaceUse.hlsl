@@ -5,7 +5,7 @@ float4 _CampUseBounds, _CampClimate;
 float4 CampUse(float2 position)
 {
     float2 uv=(position-_CampUseBounds.xy)*_CampUseBounds.zw;
-    float inside=step(0,uv.x)*step(uv.x,1)*step(0,uv.y)*step(uv.y,1)*_CampClimate.w;
+    float inside=step(0,uv.x)*step(uv.x,1)*step(0,uv.y)*step(uv.y,1)*_CampClimate.w*step(.00001,_CampUseBounds.z)*step(.00001,_CampUseBounds.w);
     return SAMPLE_TEXTURE2D_LOD(_CampUse,sampler_CampUse,uv,0)*inside;
 }
 float3 CampPressure(float3 position,float response)

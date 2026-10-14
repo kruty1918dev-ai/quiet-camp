@@ -92,9 +92,9 @@ Shader "QuietCamp/Meadow"
                 float grainWeight=1-smoothstep(.18,.55,max(length(ddx(ground)),length(ddy(ground)))*12);
                 grass*=1+(grain-.5)*.09*grainWeight;
                 float4 use=CampUse(ground);float snow=_CampClimate.y;
-                grass=lerp(grass,float3(.78,.85,.88),snow);
-                grass=lerp(grass,_SoilTone.rgb*(1-_CampClimate.x*.23),use.r*(1-snow)*.82);
-                grass=lerp(grass,float3(.59,.69,.73),use.b*snow*.48);
+                grass=lerp(grass,lerp(float3(.73,.81,.85),float3(.84,.89,.91),Noise(ground*.38+21)),snow);
+                grass=lerp(grass,_SoilTone.rgb*(1-_CampClimate.x*.23),use.r*(1-snow)*(.67+Noise(ground*2.8)*.23));
+                grass=lerp(grass,float3(.59,.69,.73),use.b*snow*.72);
                 grass*=1-use.a*(.04+Noise(ground*7)*.09)*(1-snow);
                 // Cell boundaries stay readable without alternating painted squares.
                 // Derivatives keep the thin soil seams stable at phone and tablet scales.

@@ -67,7 +67,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         public static float MossSuitability(Vector3 position,Vector3 normal,float contact,float light,float moisture,string material,string coverage,int seed)
         {
-            float retention=material=="stone"?1:material=="wood"?.9f:material=="steel"?.55f:material=="aluminium"?.43f:.65f;
+            float retention=material=="stone"?1:material=="wood"?.9f:material=="steel"?.72f:material=="aluminium"?.64f:.65f;
             float sheltered=Mathf.Clamp01(1-light),upward=Mathf.Clamp01(normal.y);
             float area=coverage=="base"?contact:coverage=="upper"?upward:Mathf.Max(contact*.85f,sheltered*(.4f+upward*.6f));
             float patch=Mathf.SmoothStep(0,1,(Mathf.PerlinNoise(position.x*.8f+seed*.013f,position.z*.8f+position.y*.25f)-.32f)*2.5f);

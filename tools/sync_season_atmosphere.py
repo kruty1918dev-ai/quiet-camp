@@ -27,6 +27,7 @@ FILES+=['Assets/QuietCamp/Tests/Editor/SurfaceWeatheringTests.cs','Assets/QuietC
 FILES+=['Assets/QuietCamp/Editor/LevelAuthoring/ForestRegrowthAuthoring.cs','Assets/QuietCamp/Scripts/Presentation/World/SeasonLightShafts.cs','Assets/QuietCamp/Resources/QuietCamp/SeasonLightShaft.shader','Assets/QuietCamp/Resources/QuietCamp/forest_regrowth.json']
 FILES+=['Assets/QuietCamp/Tests/Editor/ForestAtmosphereTests.cs']
 FILES+=['Assets/QuietCamp/Scripts/Presentation/World/CampSurfaceUseField.cs','Assets/QuietCamp/Scripts/Presentation/World/CampGroundDetails.cs','Assets/QuietCamp/Scripts/Presentation/World/MeadowSurface.cs','Assets/QuietCamp/Scripts/Presentation/World/SeasonProfile.cs','Assets/QuietCamp/Resources/QuietCamp/CampSurfaceUse.hlsl','Assets/QuietCamp/Resources/QuietCamp/Meadow.shader','Assets/QuietCamp/Resources/QuietCamp/camp_surface_use.json','Assets/QuietCamp/Editor/LevelAuthoring/ObjectOvergrowthAuthoring.cs','Assets/QuietCamp/Resources/QuietCamp/object_overgrowth.json','Assets/QuietCamp/Tests/Editor/CampSurfaceUseTests.cs']
+FILES+=['Assets/QuietCamp/Tests/Editor/SeasonPresentationTests.cs','Assets/QuietCamp/Tests/Editor/BiomeSurfaceTests.cs']
 for name in FILES:
  source=PROJECT/name
  if not source.exists():continue

@@ -90,7 +90,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             _terrainKey = TerrainKey(document);
             // Only this selected paint surface has a collider. The puzzle and water are not brush targets.
             foreach (var marker in document.art.instances) Spawn(marker, false);
-            RefreshBoard(); RefreshPlantBatches();
+            AttachOvergrowth(); RefreshBoard(); RefreshPlantBatches();
             ApplyMood(document);
             EditorSceneManager.SetActiveScene(scene);
             Frame();
@@ -142,7 +142,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 PlacementToolIntegration.Adapter?.Stop();
                 for(int i=Scenery.childCount-1;i>=0;i--)UnityEngine.Object.DestroyImmediate(Scenery.GetChild(i).gameObject);
                 foreach(var item in document.art.instances)Spawn(item,false);
-                RefreshPlantBatches();
+                AttachOvergrowth(); RefreshPlantBatches();
             }
             if (_boardKey != Newtonsoft.Json.JsonConvert.SerializeObject(document.level)+Newtonsoft.Json.JsonConvert.SerializeObject(document.art.atmosphere)) RefreshBoard();
             if (_terrainKey != TerrainKey(document))
@@ -206,6 +206,19 @@ namespace QuietCamp.Editor.LevelAuthoring
             foreach(var marker in _modelEdits)
                 if(marker!=null){ApplyPreviewMaterial(marker);changed.Add(marker.transform);}
             RefreshPlantBatches(changed);
+        }
+        void AttachOvergrowth()
+        {
+            var markers=Scenery.GetComponentsInChildren<LevelAuthoringAsset>();var owners=markers.ToDictionary(m=>m.instanceId);
+            foreach(var marker in markers)
+            {
+                var id=marker.instanceId??"";if(!id.StartsWith("overgrowth/",StringComparison.Ordinal))continue;
+                int separator=id.LastIndexOf('/');if(separator<=11)continue;
+                if(!owners.TryGetValue(id.Substring(11,separator-11),out var owner))continue;
+                // Uniform owner scale preserves the authored plant pose without introducing shear.
+                var scale=owner.transform.lossyScale;if(Mathf.Abs(scale.x-scale.y)>.0001f||Mathf.Abs(scale.x-scale.z)>.0001f)continue;
+                marker.transform.SetParent(owner.transform,true);
+            }
         }
         public CampArtDefinition.Model FrozenModel(string id) => _frozenModels.TryGetValue(id,out var model)?model:LevelAuthoringPalette.Get(id).model;
         public void AdvanceBaseBreeze(float time)
