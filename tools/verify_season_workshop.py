@@ -13,6 +13,7 @@ p=argparse.ArgumentParser(description=__doc__)
 p.add_argument('--project',type=Path,required=True)
 p.add_argument('--resume',action='store_true')
 p.add_argument('--round',default='R07')
+p.add_argument('--motion-only',action='store_true')
 a=p.parse_args()
 proof=ROOT/'Design/LevelAuthoring/SeasonAtmosphere'/('Verification' if a.round=='R07' else 'VerificationV2');proof.mkdir(parents=True,exist_ok=True)
 
@@ -34,6 +35,7 @@ for index in (0,26,52,78,99):
 info=request('props-game-status',draft=drafts[0][1]);progress=Path(info['persistentDataPath']);before=snapshot(progress)
 workspace=request('authoring-workspace-status');results=[]
 for key,path in drafts:
+    if a.motion_only and key not in ('summer_rain','winter_snowfall','winter_blizzard','autumn_wind'):continue
     if a.resume and (proof/f'{key}-play.json').exists():results.append(key);continue
     request('props-play',draft=path)
     try:
@@ -52,9 +54,10 @@ for key,path in drafts:
                 time.sleep(.5);playing=request('props-game-status',draft=path)
                 if playing.get('playingVoices'):break
         assert playing.get('playingVoices',0)>0,'No playing preset audio: '+key+' '+str(playing)
-        if key in ('summer_rain','winter_snowfall','winter_blizzard','autumn_wind'):
-            request('weather-motion',output=proof/'Motion'/key)
         complete=request('authoring-complete')
+        if key in ('summer_rain','winter_snowfall','winter_blizzard','autumn_wind'):
+            time.sleep(2)
+            request('weather-motion',output=proof/'Motion'/key)
         assert all(complete.get(k) is True for k in ('solved','completed','memoryOnly','progressUnchanged','albumUnchanged','frozenArtMatches')),complete
         (proof/f'{key}-play.json').write_text(json.dumps({'play':playing,'completion':complete},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
         results.append(key)
@@ -69,6 +72,6 @@ for key,path in drafts:
         assert restored['artSha256']==workspace['artSha256'],'Workspace changed after Play'
     print('Game/win/restore passed:',key,flush=True)
 after=snapshot(progress)
-(proof/'progress-preservation.json').write_text(json.dumps({'path':str(progress),'before':before,'after':after,'unchanged':before==after,'verifiedLevels':results},indent=2)+'\n',encoding='utf-8')
+(proof/('progress-preservation-motion.json' if a.motion_only else 'progress-preservation.json')).write_text(json.dumps({'path':str(progress),'before':before,'after':after,'unchanged':before==after,'verifiedLevels':results},indent=2)+'\n',encoding='utf-8')
 assert before==after,'Persistent progress changed'
-print('All 25 passed; progress preserved',flush=True)
+print(f'All {len(results)} passed; progress preserved',flush=True)

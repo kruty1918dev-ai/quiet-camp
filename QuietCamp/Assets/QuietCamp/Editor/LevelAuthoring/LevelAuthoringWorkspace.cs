@@ -287,7 +287,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 }
                 if (Math.Abs(p.y - m.attachedY) > .001f) m.surfaceAttached = false;
                 item.surfaceAttached = m.surfaceAttached; item.surfaceOffset = m.surfaceOffset;
-                item.motion=m.sourcePose?.motion;item.motionPivot=m.sourcePose?.motionPivot;
+                item.motion=source?.motion;item.motionPivot=source?.motionPivot;
                 return item;
             }).ToArray();
             copy.art.models = markers.Where(m => m.packedModel).Select(m => m.stableId).Distinct().Select(id =>

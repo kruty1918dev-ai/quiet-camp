@@ -64,7 +64,10 @@ Shader "QuietCamp/TentCloth"
                 float facetLength=dot(facet,facet);
                 float3 folded=facetLength>1e-12?facet*rsqrt(max(facetLength,1e-12)):authored;
                 folded*=dot(folded,authored)<0?-1:1;
-                half3 n=folded*(front?1:-1);Light sun=GetMainLight(TransformWorldToShadowCoord(v.w));
+                float3 viewFacing=GetWorldSpaceNormalizeViewDir(v.w);
+                // Imported two-sided cloth can have triangle winding opposite to its authored normals.
+                // Snow follows the visible upward surface, including those roof facets.
+                half3 n=folded*(dot(folded,viewFacing)>=0?1:-1);Light sun=GetMainLight(TransformWorldToShadowCoord(v.w));
                 half lambert=saturate(dot(n,sun.direction));
                 // A lantern lights the entrance locally; it never recolours
                 // the entire canopy yellow while rain extinguishes the fire.
@@ -76,7 +79,7 @@ Shader "QuietCamp/TentCloth"
                 // Bounded, stable procedural coverage: no decals, textures,
                 // transparent shells, cameras or extra render passes.
                 half snow=0;
-                UNITY_BRANCH if(_SnowCover+_LeafCover>.001&&front)
+                UNITY_BRANCH if(_SnowCover+_LeafCover>.001)
                 {
                     float2 cell=floor(v.local.xz*float2(17,13));float2 tile=frac(v.local.xz*float2(17,13))-.5;
                     float hash=frac(sin(dot(cell,float2(127.1,311.7)))*43758.5453);

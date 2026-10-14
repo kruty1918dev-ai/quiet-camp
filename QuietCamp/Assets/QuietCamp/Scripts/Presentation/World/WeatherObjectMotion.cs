@@ -21,7 +21,8 @@ namespace QuietCamp.Presentation.World
                 _angle=Mathf.Repeat(_angle+delta*(7+wind*5)*strength,360);_lastClock=clock;
                 var rotation=Quaternion.AngleAxis(_angle*strength,Vector3.right);
                 transform.localRotation=_rotation*rotation;
-                transform.localPosition=_position+_rotation*Vector3.Scale(pivot-rotation*pivot,transform.localScale);
+                var scaledPivot=Vector3.Scale(pivot,transform.localScale);
+                transform.localPosition=_position+_rotation*(scaledPivot-rotation*scaledPivot);
             }
             else if(kind=="boat")
             {

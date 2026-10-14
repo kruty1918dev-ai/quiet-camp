@@ -1,0 +1,3993 @@
+{
+  "status": "weather-motion-captured",
+  "error": null,
+  "kind": "native-running-world-camera-sequence-no-HUD",
+  "playerBuild": false,
+  "preset": "autumn_wind",
+  "frames": [
+    {
+      "image": "frame-00.png",
+      "imageSha256": "e72747f509058c68a40ff17cf6aac0c8f5b99d5bd8f54170c4e551fc01134f6f",
+      "clock": 4.70286846,
+      "editorTime": 85550.5050282,
+      "stage": "stationary",
+      "cameraPosition": [
+        6.050562,
+        12.4246254,
+        14.3312893
+      ],
+      "orthographicSize": 16.4049835,
+      "coverage": [
+        -35.59303,
+        -27.3122959,
+        36.2759438,
+        44.55668
+      ],
+      "windStrength": 0.6481873,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 24,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 16,
+          "visible": 8,
+          "quadrants": [
+            2,
+            2,
+            1,
+            3
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.111069158,
+            -5.7
+          ],
+          "rotation": [
+            -0.009624821,
+            -2.36094165E-05,
+            -0.002452851,
+            0.9999507
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            0.3202898,
+            1.48834252
+          ],
+          "rotation": [
+            0.425979048,
+            0.0,
+            0.0,
+            0.904733
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-01.png",
+      "imageSha256": "92a3429b0d6e367ddd9d739791a5223a29c48ad1a696f0509099b43309b9101a",
+      "clock": 4.97557831,
+      "editorTime": 85550.8056011,
+      "stage": "stationary",
+      "cameraPosition": [
+        6.050562,
+        12.4246254,
+        14.3312893
+      ],
+      "orthographicSize": 16.4049835,
+      "coverage": [
+        -35.58111,
+        -27.300375,
+        36.2640228,
+        44.544754
+      ],
+      "windStrength": 0.646200538,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 26,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 17,
+          "visible": 7,
+          "quadrants": [
+            2,
+            1,
+            1,
+            3
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 9,
+          "visible": 9,
+          "quadrants": [
+            0,
+            0,
+            0,
+            9
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.105073825,
+            -5.7
+          ],
+          "rotation": [
+            -0.0122844568,
+            3.28083443E-05,
+            0.00267050881,
+            0.999920964
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            0.356924,
+            1.44837928
+          ],
+          "rotation": [
+            0.447894,
+            0.0,
+            0.0,
+            0.894086659
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-02.png",
+      "imageSha256": "7627e572244c8bbb4ae38377a12561daa27d843c7e20b75f5551ab618de74501",
+      "clock": 5.25224733,
+      "editorTime": 85551.102438699992,
+      "stage": "stationary",
+      "cameraPosition": [
+        6.050562,
+        12.4246254,
+        14.3312893
+      ],
+      "orthographicSize": 16.4049835,
+      "coverage": [
+        -35.52278,
+        -27.2420464,
+        36.20569,
+        44.4864235
+      ],
+      "windStrength": 0.6364791,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 26,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 18,
+          "visible": 9,
+          "quadrants": [
+            2,
+            1,
+            3,
+            3
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.09660475,
+            -5.7
+          ],
+          "rotation": [
+            -0.0142591018,
+            0.000106115622,
+            0.00744099449,
+            0.999870658
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            0.395919085,
+            1.40981674
+          ],
+          "rotation": [
+            0.469792575,
+            0.0,
+            0.0,
+            0.882776856
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-03.png",
+      "imageSha256": "87a9551512ec586d3a85f001dd29bf6a2d1d354bedb3036b6eae05ed6846e51c",
+      "clock": 5.54842,
+      "editorTime": 85551.395235399992,
+      "stage": "stationary",
+      "cameraPosition": [
+        6.050562,
+        12.4246254,
+        14.3312893
+      ],
+      "orthographicSize": 16.4049835,
+      "coverage": [
+        -35.3881645,
+        -27.1074333,
+        36.07108,
+        44.35181
+      ],
+      "windStrength": 0.6140435,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 27,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 19,
+          "visible": 10,
+          "quadrants": [
+            2,
+            1,
+            3,
+            4
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.08599345,
+            -5.7
+          ],
+          "rotation": [
+            -0.0153578846,
+            0.00017244005,
+            0.01122608,
+            0.99981904
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            0.43935883,
+            1.37102008
+          ],
+          "rotation": [
+            0.4927363,
+            0.0,
+            0.0,
+            0.8701787
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-04.png",
+      "imageSha256": "d98f005be8c3a3b31d4596adf3fc2fe3e99944684d1ee6f81c051c75cbbcdc1b",
+      "clock": 5.835852,
+      "editorTime": 85551.6952215,
+      "stage": "stationary",
+      "cameraPosition": [
+        6.050562,
+        12.4246254,
+        14.3312893
+      ],
+      "orthographicSize": 16.4049835,
+      "coverage": [
+        -35.1771965,
+        -26.8964615,
+        35.86011,
+        44.1408463
+      ],
+      "windStrength": 0.5788817,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 29,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 21,
+          "visible": 11,
+          "quadrants": [
+            2,
+            3,
+            3,
+            3
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.07561798,
+            -5.7
+          ],
+          "rotation": [
+            -0.01532284,
+            0.00019887471,
+            0.0129763549,
+            0.999798357
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            0.4827515,
+            1.33608866
+          ],
+          "rotation": [
+            0.5143649,
+            0.0,
+            0.0,
+            0.8575714
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-05.png",
+      "imageSha256": "9bba49e60c4c3dfc0e9ec43e64c5ab2271e2b5124f6b862ebe685401e3efe218",
+      "clock": 6.116079,
+      "editorTime": 85551.9934881,
+      "stage": "stationary",
+      "cameraPosition": [
+        6.050562,
+        12.4246254,
+        14.3312893
+      ],
+      "orthographicSize": 16.4049835,
+      "coverage": [
+        -34.90018,
+        -26.6194477,
+        35.5830956,
+        43.86383
+      ],
+      "windStrength": 0.5327126,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 30,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 22,
+          "visible": 12,
+          "quadrants": [
+            2,
+            3,
+            4,
+            3
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.06682243,
+            -5.7
+          ],
+          "rotation": [
+            -0.0142958974,
+            0.000181158772,
+            0.01266977,
+            0.9998175
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            0.5257603,
+            1.304806
+          ],
+          "rotation": [
+            0.5347129,
+            0.0,
+            0.0,
+            0.845033765
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-06.png",
+      "imageSha256": "eb4e2f8204359ff13127ddfe4fac8ca8d235516071eea8a6637c517c4bacbe2e",
+      "clock": 6.406725,
+      "editorTime": 85552.2909043,
+      "stage": "stationary",
+      "cameraPosition": [
+        6.050562,
+        12.4246254,
+        14.3312893
+      ],
+      "orthographicSize": 16.4049835,
+      "coverage": [
+        -34.5576324,
+        -26.2769,
+        35.24054,
+        43.52128
+      ],
+      "windStrength": 0.475621134,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 31,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 23,
+          "visible": 13,
+          "quadrants": [
+            2,
+            3,
+            5,
+            3
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.060177356,
+            -5.7
+          ],
+          "rotation": [
+            -0.0123979971,
+            0.000130500033,
+            0.0105245057,
+            0.999867737
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            0.5706401,
+            1.27534926
+          ],
+          "rotation": [
+            0.554942846,
+            0.0,
+            0.0,
+            0.8318885
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-07.png",
+      "imageSha256": "a26d9fb70ccd0a9e64ff68541cbf452b187fec2017a5104e95f9d7532d705eb5",
+      "clock": 6.69476652,
+      "editorTime": 85552.5885141,
+      "stage": "stationary",
+      "cameraPosition": [
+        6.050562,
+        12.4246254,
+        14.3312893
+      ],
+      "orthographicSize": 16.4049835,
+      "coverage": [
+        -34.19392,
+        -25.913187,
+        34.8768349,
+        43.15757
+      ],
+      "windStrength": 0.415002584,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 32,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 24,
+          "visible": 11,
+          "quadrants": [
+            2,
+            2,
+            4,
+            3
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.05659277,
+            -5.7
+          ],
+          "rotation": [
+            -0.00998347,
+            7.176705E-05,
+            0.007188044,
+            0.999924362
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            0.6150159,
+            1.24913764
+          ],
+          "rotation": [
+            0.5740608,
+            0.0,
+            0.0,
+            0.818812668
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-08.png",
+      "imageSha256": "5002b3c4b5851d116d2541cb5b3e4526ee2f074c1b223d6f39a850819cfe5f39",
+      "clock": 6.994291,
+      "editorTime": 85552.8887679,
+      "stage": "pan",
+      "cameraPosition": [
+        13.0505619,
+        12.4246254,
+        9.331289
+      ],
+      "orthographicSize": 16.4049835,
+      "coverage": [
+        -33.8324356,
+        -25.5517025,
+        34.51535,
+        42.79608
+      ],
+      "windStrength": 0.3547552,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 33,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 25,
+          "visible": 19,
+          "quadrants": [
+            5,
+            4,
+            6,
+            4
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.05589645,
+            -5.7
+          ],
+          "rotation": [
+            -0.00725418562,
+            2.35058214E-05,
+            0.00324020931,
+            0.999968469
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            0.6608118,
+            1.224882
+          ],
+          "rotation": [
+            0.5929735,
+            0.0,
+            0.0,
+            0.805222034
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-09.png",
+      "imageSha256": "58f8a0bc692cf63acd24baf9882d815f60848b13deddce61ba54fb7f7af5c5ff",
+      "clock": 7.269882,
+      "editorTime": 85553.1852825,
+      "stage": "pan",
+      "cameraPosition": [
+        13.0505619,
+        12.4246254,
+        9.331289
+      ],
+      "orthographicSize": 16.4049835,
+      "coverage": [
+        -26.55468,
+        -30.2739449,
+        41.2375946,
+        37.51833
+      ],
+      "windStrength": 0.308462918,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 34,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 26,
+          "visible": 20,
+          "quadrants": [
+            5,
+            5,
+            6,
+            4
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.057436116,
+            -5.7
+          ],
+          "rotation": [
+            -0.0047837114,
+            -1.148236E-06,
+            -0.000240027628,
+            0.999988556
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            0.7026003,
+            1.20505512
+          ],
+          "rotation": [
+            0.609582067,
+            0.0,
+            0.0,
+            0.792723
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-10.png",
+      "imageSha256": "81c3424f27c447d69cc9f38dd1a13d3e3cffb3d8cdd5339b0887d519b5c40422",
+      "clock": 7.555833,
+      "editorTime": 85553.4787397,
+      "stage": "pan",
+      "cameraPosition": [
+        13.0505619,
+        12.4246254,
+        9.331289
+      ],
+      "orthographicSize": 16.4049835,
+      "coverage": [
+        -26.3588181,
+        -30.0780849,
+        41.0417328,
+        37.322464
+      ],
+      "windStrength": 0.2758194,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 33,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 25,
+          "visible": 19,
+          "quadrants": [
+            5,
+            4,
+            6,
+            4
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.0605725721,
+            -5.7
+          ],
+          "rotation": [
+            -0.0023744225,
+            -7.998848E-06,
+            -0.00336872647,
+            0.999991536
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            0.7457738,
+            1.1867435
+          ],
+          "rotation": [
+            0.6261526,
+            0.0,
+            0.0,
+            0.7797006
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-11.png",
+      "imageSha256": "797bf8ceb40eb6dab42bafdc1cf77bd02e1ff23f57077e0e83eec97b328a8f41",
+      "clock": 7.8470993,
+      "editorTime": 85553.7706603,
+      "stage": "pan",
+      "cameraPosition": [
+        13.0505619,
+        12.4246254,
+        9.331289
+      ],
+      "orthographicSize": 16.4049835,
+      "coverage": [
+        -26.28489,
+        -30.004158,
+        40.96781,
+        37.2485428
+      ],
+      "windStrength": 0.2634982,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 33,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 25,
+          "visible": 19,
+          "quadrants": [
+            6,
+            3,
+            6,
+            4
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.0648803,
+            -5.7
+          ],
+          "rotation": [
+            -5.414838E-05,
+            -3.226217E-07,
+            -0.005957999,
+            0.999982238
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            0.789916456,
+            1.17018449
+          ],
+          "rotation": [
+            0.642531037,
+            0.0,
+            0.0,
+            0.7662597
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-12.png",
+      "imageSha256": "931b9c07a75c50b47d9cdee42404983ef9a922c119e43d28a773e44464e8e96e",
+      "clock": 8.12614,
+      "editorTime": 85554.0671545,
+      "stage": "pan",
+      "cameraPosition": [
+        13.0505619,
+        12.4246254,
+        9.331289
+      ],
+      "orthographicSize": 16.4049835,
+      "coverage": [
+        -26.34769,
+        -30.0669575,
+        41.0306053,
+        37.31134
+      ],
+      "windStrength": 0.2739649,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 33,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 25,
+          "visible": 20,
+          "quadrants": [
+            6,
+            5,
+            6,
+            3
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.0699155852,
+            -5.7
+          ],
+          "rotation": [
+            0.002163831,
+            1.70340645E-05,
+            -0.00787191652,
+            0.9999667
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            0.8328299,
+            1.15608752
+          ],
+          "rotation": [
+            0.657952249,
+            0.0,
+            0.0,
+            0.7530596
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-13.png",
+      "imageSha256": "fd6ee7c09eaf7315ed9a4061186408f32a70b66a5807590b49f5673069ebf37b",
+      "clock": 8.409456,
+      "editorTime": 85554.3612504,
+      "stage": "pan",
+      "cameraPosition": [
+        13.0505619,
+        12.4246254,
+        9.331289
+      ],
+      "orthographicSize": 16.4049835,
+      "coverage": [
+        -26.5448723,
+        -30.2641411,
+        41.227787,
+        37.5085258
+      ],
+      "windStrength": 0.306828648,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 33,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 25,
+          "visible": 21,
+          "quadrants": [
+            7,
+            5,
+            6,
+            3
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.07605494,
+            -5.7
+          ],
+          "rotation": [
+            0.004552913,
+            4.17267765E-05,
+            -0.009164373,
+            0.999947667
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            0.8775518,
+            1.14341128
+          ],
+          "rotation": [
+            0.6735391,
+            0.0,
+            0.0,
+            0.7391516
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-14.png",
+      "imageSha256": "27d09ae531a320b725caafd8fecfd471645783df78ffc1f978d2a3f5969e1fa7",
+      "clock": 8.702876,
+      "editorTime": 85554.658402,
+      "stage": "pan",
+      "cameraPosition": [
+        13.0505619,
+        12.4246254,
+        9.331289
+      ],
+      "orthographicSize": 16.4049835,
+      "coverage": [
+        -26.87399,
+        -30.593256,
+        41.5569038,
+        37.8376465
+      ],
+      "windStrength": 0.361681372,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 33,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 25,
+          "visible": 20,
+          "quadrants": [
+            6,
+            5,
+            6,
+            3
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.08364561,
+            -5.7
+          ],
+          "rotation": [
+            0.007253288,
+            6.920191E-05,
+            -0.009540079,
+            0.9999282
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            0.9256362,
+            1.1319952
+          ],
+          "rotation": [
+            0.689788461,
+            0.0,
+            0.0,
+            0.724010944
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-15.png",
+      "imageSha256": "2cddde95ee8c55d2a79c748d198e999e4e828dafa504053cb61676a409eaf97c",
+      "clock": 8.992202,
+      "editorTime": 85554.9508724,
+      "stage": "pan",
+      "cameraPosition": [
+        13.0505619,
+        12.4246254,
+        9.331289
+      ],
+      "orthographicSize": 16.4049835,
+      "coverage": [
+        -27.2915878,
+        -31.0108547,
+        41.97451,
+        38.25524
+      ],
+      "windStrength": 0.431281149,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 34,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 25,
+          "visible": 19,
+          "quadrants": [
+            6,
+            3,
+            7,
+            3
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 9,
+          "visible": 9,
+          "quadrants": [
+            0,
+            0,
+            0,
+            9
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.09218975,
+            -5.7
+          ],
+          "rotation": [
+            0.010080616,
+            8.628774E-05,
+            -0.008559021,
+            0.99991256
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            0.975259244,
+            1.12254477
+          ],
+          "rotation": [
+            0.7060459,
+            0.0,
+            0.0,
+            0.7081661
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-16.png",
+      "imageSha256": "555a8f723d63218624cdea586f4e1cb9ce6ddd45db65f8ef993bbced3fe2f843",
+      "clock": 9.277381,
+      "editorTime": 85555.2677101,
+      "stage": "zoom",
+      "cameraPosition": [
+        13.0505619,
+        12.4246254,
+        9.331289
+      ],
+      "orthographicSize": 22.1467285,
+      "coverage": [
+        -27.7530346,
+        -31.4723015,
+        42.43595,
+        38.7166862
+      ],
+      "windStrength": 0.508188963,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 33,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 25,
+          "visible": 23,
+          "quadrants": [
+            7,
+            5,
+            7,
+            4
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.100955531,
+            -5.7
+          ],
+          "rotation": [
+            0.0128086517,
+            7.66150843E-05,
+            -0.005980913,
+            0.9999001
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            1.026581,
+            1.11519778
+          ],
+          "rotation": [
+            0.722353,
+            0.0,
+            0.0,
+            0.691524565
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-17.png",
+      "imageSha256": "9b5b2a8624370e8ac20def14cc466173a43d3236e7abd5fa0d28a2c46da0b974",
+      "clock": 9.561348,
+      "editorTime": 85555.5661213,
+      "stage": "zoom",
+      "cameraPosition": [
+        13.0505619,
+        12.4246254,
+        9.331289
+      ],
+      "orthographicSize": 22.1467285,
+      "coverage": [
+        -38.3847542,
+        -42.10403,
+        53.06509,
+        49.3458138
+      ],
+      "windStrength": 0.5856131,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 33,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 25,
+          "visible": 23,
+          "quadrants": [
+            5,
+            5,
+            8,
+            5
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.108852774,
+            -5.7
+          ],
+          "rotation": [
+            0.0151329143,
+            2.79516444E-05,
+            -0.00184686144,
+            0.999883831
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            1.0801115,
+            1.11011207
+          ],
+          "rotation": [
+            0.7388518,
+            0.0,
+            0.0,
+            0.673868
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-18.png",
+      "imageSha256": "3c1e7e9d7136f763e736302b9634bdeff420e3bf346fd756242c75385721e537",
+      "clock": 9.838779,
+      "editorTime": 85555.8743203,
+      "stage": "zoom",
+      "cameraPosition": [
+        13.0505619,
+        12.4246254,
+        9.331289
+      ],
+      "orthographicSize": 22.1467285,
+      "coverage": [
+        -38.8029022,
+        -42.52218,
+        53.48324,
+        49.76397
+      ],
+      "windStrength": 0.6553049,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 33,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 25,
+          "visible": 23,
+          "quadrants": [
+            7,
+            3,
+            8,
+            5
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.114414677,
+            -5.7
+          ],
+          "rotation": [
+            0.0166699346,
+            -5.42832749E-05,
+            0.00325588859,
+            0.999855757
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            1.13457561,
+            1.10760212
+          ],
+          "rotation": [
+            0.755140245,
+            0.0,
+            0.0,
+            0.6555633
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-19.png",
+      "imageSha256": "1a9537bc1c8fc2b36607f8009f2f7da9f0429ad075def7e584f8c9ea58499515",
+      "clock": 10.1257153,
+      "editorTime": 85556.1685378,
+      "stage": "zoom",
+      "cameraPosition": [
+        13.0505619,
+        12.4246254,
+        9.331289
+      ],
+      "orthographicSize": 22.1467285,
+      "coverage": [
+        -39.1628265,
+        -42.882103,
+        53.8431549,
+        50.1238937
+      ],
+      "windStrength": 0.715291858,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 33,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 25,
+          "visible": 23,
+          "quadrants": [
+            6,
+            3,
+            9,
+            5
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.11665871,
+            -5.7
+          ],
+          "rotation": [
+            0.0171826463,
+            -0.0001506958,
+            0.0087686,
+            0.9998139
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            1.19276965,
+            1.1078701
+          ],
+          "rotation": [
+            0.772025764,
+            0.0,
+            0.0,
+            0.635591269
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-20.png",
+      "imageSha256": "96dd4f3a52e0268383bb5413149ef1a875d586d94dc24d00533da4f5188648c5",
+      "clock": 10.4141207,
+      "editorTime": 85556.465921,
+      "stage": "zoom",
+      "cameraPosition": [
+        13.0505619,
+        12.4246254,
+        9.331289
+      ],
+      "orthographicSize": 22.1467285,
+      "coverage": [
+        -39.42534,
+        -43.1446152,
+        54.1056671,
+        50.3864059
+      ],
+      "windStrength": 0.759043932,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 33,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 25,
+          "visible": 22,
+          "quadrants": [
+            6,
+            1,
+            9,
+            6
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.114558347,
+            -5.7
+          ],
+          "rotation": [
+            0.0164156742,
+            -0.0002208475,
+            0.0134504233,
+            0.999774754
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            1.25260329,
+            1.1113261
+          ],
+          "rotation": [
+            0.788863838,
+            0.0,
+            0.0,
+            0.614568
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-21.png",
+      "imageSha256": "2b216ace4cbc4a65ea4942fe2f2e5376bfb078882329327a10c6e00dc360c7da",
+      "clock": 10.701396,
+      "editorTime": 85556.76353,
+      "stage": "zoom",
+      "cameraPosition": [
+        13.0505619,
+        12.4246254,
+        9.331289
+      ],
+      "orthographicSize": 22.1467285,
+      "coverage": [
+        -39.57731,
+        -43.2965851,
+        54.257637,
+        50.5383759
+      ],
+      "windStrength": 0.78437227,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 33,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 25,
+          "visible": 21,
+          "quadrants": [
+            5,
+            1,
+            8,
+            7
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.108159512,
+            -5.7
+          ],
+          "rotation": [
+            0.0143855354,
+            -0.0002339634,
+            0.01625996,
+            0.999764264
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            1.31286669,
+            1.118097
+          ],
+          "rotation": [
+            0.8053186,
+            0.0,
+            0.0,
+            0.5928423
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-22.png",
+      "imageSha256": "035d604bfbb6248400701f0a9eaf55e0f42e88c09456dc34c1dbf7d2b08c77c3",
+      "clock": 10.9850073,
+      "editorTime": 85557.05931,
+      "stage": "zoom",
+      "cameraPosition": [
+        13.0505619,
+        12.4246254,
+        9.331289
+      ],
+      "orthographicSize": 22.1467285,
+      "coverage": [
+        -39.6246529,
+        -43.34393,
+        54.30499,
+        50.5857124
+      ],
+      "windStrength": 0.792263269,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 33,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 25,
+          "visible": 22,
+          "quadrants": [
+            4,
+            1,
+            9,
+            8
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.0984469056,
+            -5.7
+          ],
+          "rotation": [
+            0.0113334628,
+            -0.000188558421,
+            0.0166339464,
+            0.9997974
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            1.37233639,
+            1.12807524
+          ],
+          "rotation": [
+            0.8210876,
+            0.0,
+            0.0,
+            0.5708022
+          ]
+        }
+      ]
+    },
+    {
+      "image": "frame-23.png",
+      "imageSha256": "84b47e97cf6d6b9baf47504b79df86bafb1e66918b18c96b9bd9ef94659fd1e6",
+      "clock": 11.2732763,
+      "editorTime": 85557.3567924,
+      "stage": "zoom",
+      "cameraPosition": [
+        13.0505619,
+        12.4246254,
+        9.331289
+      ],
+      "orthographicSize": 22.1467285,
+      "coverage": [
+        -39.58638,
+        -43.3056564,
+        54.26671,
+        50.5474472
+      ],
+      "windStrength": 0.785883963,
+      "width": 768,
+      "height": 586,
+      "aspect": 1.31121218,
+      "particles": 33,
+      "visibleLayers": [
+        {
+          "name": "Дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній дощ",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Краплі на землі та воді",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Дальній сніг",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Ближні пластівці",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Низький сніговий перенос",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Листя з крон",
+          "alive": 25,
+          "visible": 21,
+          "quadrants": [
+            3,
+            1,
+            8,
+            9
+          ]
+        },
+        {
+          "name": "Жучки та світлячки",
+          "alive": 0,
+          "visible": 0,
+          "quadrants": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Кола біля водяного колеса",
+          "alive": 8,
+          "visible": 8,
+          "quadrants": [
+            0,
+            0,
+            0,
+            8
+          ]
+        }
+      ],
+      "motions": [
+        {
+          "name": "Scenery_watermill/11",
+          "position": [
+            -7.8,
+            -0.0865188,
+            -5.7
+          ],
+          "rotation": [
+            0.007486824,
+            -0.000108681124,
+            0.0145143829,
+            0.999866664
+          ]
+        },
+        {
+          "name": "Scenery_watermill/0/wheel",
+          "position": [
+            -10.0,
+            1.43213558,
+            1.14150321
+          ],
+          "rotation": [
+            0.83649683,
+            0.0,
+            0.0,
+            0.5479718
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -20,6 +20,7 @@ FILES+=['Assets/QuietCamp/Scripts/Presentation/World/CampArtEdgeBlur.cs','Assets
 FILES+=['Assets/QuietCamp/Editor/LevelAuthoring/WeatherMotionCapture.cs']
 FILES+=['Assets/QuietCamp/Scripts/Presentation/World/TentCloth.cs','Assets/QuietCamp/Scripts/Presentation/World/CampRainShelter.cs']
 FILES+=['Assets/QuietCamp/Editor/LevelAuthoring/WeatherModelRigAuthoring.cs']
+FILES+=['Assets/QuietCamp/Resources/QuietCamp/TentCloth.shader']
 for name in FILES:
  source=PROJECT/name
  if not source.exists():continue

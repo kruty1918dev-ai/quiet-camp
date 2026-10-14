@@ -15,6 +15,67 @@ namespace QuietCamp.Tests
 {
     public sealed class SeasonAtmosphereTests
     {
+        [Test] public void CapturingDraftKeepsWheelAndBoatMotionAcrossRepeatedSaveAndOpen()
+        {
+            var document=WorldStudyFactory.Create("watermill");SeasonAtmosphereAuthoring.Apply(document,SeasonAtmosphereCatalog.Get("summer_day"));
+            using(var workspace=new LevelAuthoringWorkspace(document))
+            {
+                foreach(var capture in new[]{workspace.Capture(false),workspace.Capture(false)})
+                {
+                    var opened=JsonConvert.DeserializeObject<LevelAuthoringDocument>(JsonConvert.SerializeObject(capture));
+                    foreach(var moving in document.art.instances.Where(i=>i.motion!=null))
+                    {
+                        var item=opened.art.instances.Single(i=>i.id==moving.id);Assert.AreEqual(moving.motion,item.motion);CollectionAssert.AreEqual(moving.motionPivot,item.motionPivot);
+                    }
+                }
+            }
+        }
+        [Test] public void SnowIsVisibleOnRoofForBothTriangleWindings()
+        {
+            var scene=UnityEditor.SceneManagement.EditorSceneManager.NewPreviewScene();var root=new GameObject("Snow roof fixture");UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(root,scene);
+            var roof=new GameObject("Two-sided roof");roof.transform.SetParent(root.transform,false);roof.layer=30;
+            var mesh=new Mesh{vertices=new[]{new Vector3(-1,0,-1),new Vector3(-1,0,1),new Vector3(1,0,1),new Vector3(1,0,-1)},normals=Enumerable.Repeat(Vector3.up,4).ToArray()};
+            mesh.triangles=new[]{0,1,2,0,2,3};mesh.RecalculateBounds();roof.AddComponent<MeshFilter>().sharedMesh=mesh;
+            var material=new Material(Resources.Load<Shader>("QuietCamp/TentCloth"));material.SetColor("_BaseColor",new Color(.75f,.1f,.04f));material.SetVector("_MeshMin",new Vector3(-1,0,-1));material.SetVector("_MeshSize",new Vector3(2,.1f,2));roof.AddComponent<MeshRenderer>().sharedMaterial=material;
+            var cameraNode=new GameObject("Roof camera");cameraNode.transform.SetParent(root.transform,false);var camera=cameraNode.AddComponent<Camera>();camera.transform.position=new Vector3(0,3,-3);camera.transform.rotation=Quaternion.Euler(45,0,0);camera.orthographic=true;camera.orthographicSize=1.6f;camera.cullingMask=1<<30;camera.cameraType=CameraType.Game;camera.overrideSceneCullingMask=UnityEditor.SceneManagement.EditorSceneManager.GetSceneCullingMask(scene);camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Color.black;
+            var sunNode=new GameObject("Roof light");sunNode.transform.SetParent(root.transform,false);var sun=sunNode.AddComponent<Light>();sun.type=LightType.Directional;sun.intensity=1;sun.cullingMask=1<<30;sun.transform.rotation=Quaternion.Euler(50,-25,0);
+            var target=new RenderTexture(128,128,24,RenderTextureFormat.ARGB32);target.Create();var image=new Texture2D(128,128,TextureFormat.RGB24,false);
+            var oldActive=RenderTexture.active;var oldSun=RenderSettings.sun;var oldAmbient=RenderSettings.ambientLight;var oldMode=RenderSettings.ambientMode;float wind=Shader.GetGlobalFloat("_AtmosWindStrength");bool async=ShaderUtil.allowAsyncCompilation;
+            try
+            {
+                ShaderUtil.allowAsyncCompilation=false;Shader.SetGlobalFloat("_AtmosWindStrength",0);RenderSettings.sun=sun;RenderSettings.ambientMode=UnityEngine.Rendering.AmbientMode.Flat;RenderSettings.ambientLight=Color.white;camera.targetTexture=target;
+                Color Sample(float snow)
+                {
+                    material.SetFloat("_SnowCover",snow);var request=new UnityEngine.Rendering.Universal.UniversalRenderPipeline.SingleCameraRequest{destination=target};UnityEngine.Rendering.RenderPipeline.SubmitRenderRequest(camera,request);UnityEngine.Rendering.RenderPipeline.SubmitRenderRequest(camera,request);
+                    RenderTexture.active=target;image.ReadPixels(new Rect(0,0,128,128),0,0);image.Apply();return image.GetPixel(64,64);
+                }
+                foreach(bool reverse in new[]{false,true})
+                {
+                    mesh.triangles=reverse?new[]{0,2,1,0,3,2}:new[]{0,1,2,0,2,3};var dry=Sample(0);var snowy=Sample(1);
+                    Assert.Greater(snowy.g,snowy.r*.65f,"Snow is missing with reversed="+reverse);Assert.Greater(snowy.g,dry.g+.08f,"Roof surface did not change.");
+                }
+            }
+            finally
+            {
+                RenderTexture.active=oldActive;RenderSettings.sun=oldSun;RenderSettings.ambientMode=oldMode;RenderSettings.ambientLight=oldAmbient;Shader.SetGlobalFloat("_AtmosWindStrength",wind);ShaderUtil.allowAsyncCompilation=async;
+                camera.targetTexture=null;UnityEngine.Object.DestroyImmediate(image);target.Release();UnityEngine.Object.DestroyImmediate(target);UnityEngine.Object.DestroyImmediate(material);UnityEngine.Object.DestroyImmediate(mesh);UnityEditor.SceneManagement.EditorSceneManager.ClosePreviewScene(scene);
+            }
+        }
+        [Test] public void WheelKeepsPivotWithNonuniformScaleAndAngledPose()
+        {
+            var root=new GameObject("Scaled wheel contract");
+            try
+            {
+                root.transform.localPosition=new Vector3(4,2,-3);root.transform.localRotation=Quaternion.Euler(12,70,5);root.transform.localScale=new Vector3(1.1f,.8f,1.7f);
+                var pivot=new Vector3(1.4f,.7f,.2f);var centre=root.transform.TransformPoint(pivot);var motion=root.AddComponent<WeatherObjectMotion>();
+                motion.Configure(new CampArtDefinition.Instance{motion="waterwheel",motionPivot=new[]{pivot.x,pivot.y,pivot.z}});
+                for(int i=1;i<200;i++){motion.Advance(i*.1f,.7f+.2f*Mathf.Sin(i*.1f),false);Assert.Less(Vector3.Distance(centre,root.transform.TransformPoint(pivot)),.00001f);}
+                var doc=WorldStudyFactory.Create("watermill");var item=doc.art.instances.Single(i=>(doc.art.models.Single(m=>m.id==i.modelId).sourceModelId??doc.art.models.Single(m=>m.id==i.modelId).id)=="qc_watermill_ruin");
+                item.rotationEuler=new[]{12f,70f,5f};item.scaleXYZ=new[]{1.1f,.8f,1.7f};WeatherModelRigAuthoring.Prepare(doc);
+                var wheel=doc.art.instances.Single(i=>i.id==item.id+"/wheel");CollectionAssert.AreEqual(item.rotationEuler,wheel.rotationEuler);CollectionAssert.AreEqual(item.scaleXYZ,wheel.scaleXYZ);
+            }
+            finally{UnityEngine.Object.DestroyImmediate(root);}
+        }
         [Test] public void WaterUsesDepthAndLeavesSourceMaterialUnchanged()
         {
             var source=Resources.Load<Material>("QuietCamp/Materials/CampWater");

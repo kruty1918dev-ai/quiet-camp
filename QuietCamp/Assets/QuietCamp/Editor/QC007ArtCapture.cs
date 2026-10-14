@@ -130,6 +130,8 @@ namespace QuietCamp.Editor
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new { status="props-game-status",playing=EditorApplication.isPlaying,
                         ready=CampSceneHost.Current?.UiReady,memoryOnly=QuietCampBootstrap.ServicesRef?.Save.MemoryOnly,
                         identical=view!=null && JsonConvert.SerializeObject(view.Definition)==JsonConvert.SerializeObject(draft.art),
+                        tents=UnityEngine.Object.FindObjectsByType<TentCloth>(FindObjectsSortMode.None).Select(t=>new{name=t.name,t.SnowCover,t.Wetness,materials=t.GetComponentsInChildren<MeshRenderer>().SelectMany(r=>r.sharedMaterials).Where(m=>m!=null).Distinct().Select(m=>new{name=m.name,shader=m.shader.name,snow=m.HasProperty("_SnowCover")?m.GetFloat("_SnowCover"):-1}).ToArray()}).ToArray(),
+                        shelter=CampSceneHost.Current?.Atmosphere?.RainShelter!=null,
                         objects=view?.Definition.instances.Length, atmosphere=view?.SeasonAtmosphere?.Preset.id, particles=view?.SeasonAtmosphere?.LiveParticles, voices=view?.SeasonAtmosphere?.OwnedVoices, playingVoices=view?.SeasonAtmosphere?.PlayingVoices, audioPaused=AudioListener.pause, dsp=AudioSettings.dspTime, forbiddenComponents=foreign, persistentDataPath=UnityEngine.Application.persistentDataPath }));
                 }
                 else if (request.mode == "tests") RunTests();
@@ -379,7 +381,7 @@ namespace QuietCamp.Editor
                 "Assets/QuietCamp/Settings/URP/QC_Renderer.asset", "Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/CampModelLibrary.json",
                 "Assets/QuietCamp/Scripts/Presentation/QuietCamp.Presentation.asmdef", "Assets/QuietCamp/Editor/QC007ArtCapture.cs",
                 LevelAuthoring.AuthoringPropCatalog.ModelPath, LevelAuthoring.AuthoringPropCatalog.CatalogPath }
-                .Concat(new[]{"Assets/QuietCamp/Scripts/Presentation/World/SeasonAtmosphereView.cs","Assets/QuietCamp/Scripts/Presentation/World/RiverWeatherMaterial.cs","Assets/QuietCamp/Scripts/Presentation/World/SeasonVisibilityPass.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherCoverage.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherSurfaceField.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherObjectMotion.cs","Assets/QuietCamp/Scripts/Presentation/World/SeasonSurfaceAccents.cs","Assets/QuietCamp/Resources/QuietCamp/SeasonVisibility.shader","Assets/QuietCamp/Resources/QuietCamp/PlacementGrid.shader","Assets/QuietCamp/Resources/QuietCamp/season_atmosphere.json"})
+                .Concat(new[]{"Assets/QuietCamp/Scripts/Presentation/World/SeasonAtmosphereView.cs","Assets/QuietCamp/Scripts/Presentation/World/RiverWeatherMaterial.cs","Assets/QuietCamp/Scripts/Presentation/World/SeasonVisibilityPass.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherCoverage.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherSurfaceField.cs","Assets/QuietCamp/Scripts/Presentation/World/WeatherObjectMotion.cs","Assets/QuietCamp/Scripts/Presentation/World/SeasonSurfaceAccents.cs","Assets/QuietCamp/Resources/QuietCamp/SeasonVisibility.shader","Assets/QuietCamp/Resources/QuietCamp/PlacementGrid.shader","Assets/QuietCamp/Resources/QuietCamp/TentCloth.shader","Assets/QuietCamp/Resources/QuietCamp/season_atmosphere.json"})
                 .Concat(new[] { "scene-placement", "vegetation-placement", "rock-placement" }.SelectMany(id => Directory.GetFiles("Packages/com.kruty1918." + id + "/Runtime/Core", "*.cs")))
                 .Concat(AssetDatabase.GetDependencies(AssetDatabase.GetAssetPath(Resources.Load<Material>(art.waterMaterial)), true))
                 .Concat(AssetDatabase.GetDependencies("Assets/QuietCamp/Resources/QuietCamp/CozyVegetationLibrary.asset", true))
@@ -454,7 +456,7 @@ namespace QuietCamp.Editor
                 preview.BeginStaticPreview(new Rect(0, 0, request.width, request.height)); preview.Render(true);
                 var image = preview.EndStaticPreview(); var bytes = image.EncodeToPNG(); UnityEngine.Object.DestroyImmediate(image);
                 string output = Path.Combine(request.output, request.name + ".png"); File.WriteAllBytes(output, bytes);
-                var errors = new[] { Resources.Load<Shader>("QuietCamp/CampArtLit"), Resources.Load<Shader>("QuietCamp/CampArtEdgeBlur"), Resources.Load<Shader>("QuietCamp/SeasonVisibility"),Resources.Load<Shader>("QuietCamp/PlacementGrid"), Resources.Load<Material>(art.waterMaterial).shader }
+                var errors = new[] { Resources.Load<Shader>("QuietCamp/CampArtLit"), Resources.Load<Shader>("QuietCamp/CampArtEdgeBlur"), Resources.Load<Shader>("QuietCamp/SeasonVisibility"),Resources.Load<Shader>("QuietCamp/PlacementGrid"), Resources.Load<Shader>("QuietCamp/TentCloth"), Resources.Load<Material>(art.waterMaterial).shader }
                     .SelectMany(ShaderUtil.GetShaderMessages).Where(message => message.severity.ToString() == "Error").Select(message => message.message).ToArray();
                 if (errors.Length != 0) throw new InvalidOperationException(string.Join("\n", errors));
                 var receipt = new { status = "captured", kind = "native-unity-production-world-components", output,

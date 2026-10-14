@@ -36,7 +36,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             var rotor=Slice(model,Enumerable.Range(first,count).ToArray(),model.id+"/wheel");
             body.sourceModelId="qc_watermill_ruin";rotor.sourceModelId="qc_watermill_wheel";
             models[body.id]=body;models[rotor.id]=rotor;item.modelId=body.id;
-            instances.Add(new CampArtDefinition.Instance{id=item.id+"/wheel",modelId=rotor.id,x=item.x,y=item.y,z=item.z,yaw=item.yaw,scale=item.scale,surfaceAttached=false,motion="waterwheel",motionPivot=new[]{1.58f*scale,.61f*scale,-.1f*scale}});
+            instances.Add(new CampArtDefinition.Instance{id=item.id+"/wheel",modelId=rotor.id,x=item.x,y=item.y,z=item.z,yaw=item.yaw,scale=item.scale,rotationEuler=item.rotationEuler?.ToArray(),scaleXYZ=item.scaleXYZ?.ToArray(),surfaceAttached=false,motion="waterwheel",motionPivot=new[]{1.58f*scale,.61f*scale,-.1f*scale}});
         }
         static CampArtDefinition.Model Slice(CampArtDefinition.Model m,int[] triangles,string id)=>new CampArtDefinition.Model
         {id=id,shading=m.shading,seasonalRole="solid",vertices=triangles.SelectMany(t=>m.vertices.Skip(t*9).Take(9)).ToArray(),normals=triangles.SelectMany(t=>m.normals.Skip(t*9).Take(9)).ToArray(),colors=triangles.SelectMany(t=>m.colors.Skip(t*3).Take(3)).ToArray(),uv=m.uv==null?null:triangles.SelectMany(t=>m.uv.Skip(t*6).Take(6)).ToArray(),tangents=m.tangents==null?null:triangles.SelectMany(t=>m.tangents.Skip(t*12).Take(12)).ToArray()};
