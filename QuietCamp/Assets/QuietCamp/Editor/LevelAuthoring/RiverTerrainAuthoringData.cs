@@ -20,9 +20,10 @@ namespace QuietCamp.Editor.LevelAuthoring
             copy.stamps = stamps.Select(s => new LandscapeStamp { id = s.id, x = s.x, z = s.z, radius = s.radius, height = s.height }).ToArray();
             return copy;
         }
-        public static RiverTerrainAuthoringData FromLegacy(CampArtDefinition art)
+        public static RiverTerrainAuthoringData FromLegacy(CampArtDefinition art, int resolution = 257)
         {
-            var data = new RiverTerrainAuthoringData { size = art.surroundExtent * 2, width = art.streamWidth, depth = art.waterDepth };
+            if(resolution<33 || resolution>513 || ((resolution-1)&(resolution-2))!=0)throw new ArgumentException("Terrain resolution must be 2^n + 1.");
+            var data = new RiverTerrainAuthoringData { size = art.surroundExtent * 2, width = art.streamWidth, depth = art.waterDepth, resolution=resolution };
             var ground = LevelAuthoringDocument.Copy(art); ground.landscape = null; ground.waterDepth = 0;
             data.baseHeights = new float[data.resolution * data.resolution];
             for (int z = 0; z < data.resolution; z++) for (int x = 0; x < data.resolution; x++)

@@ -1,0 +1,877 @@
+[
+  {
+    "story": {
+      "id": "QC001",
+      "title": "Перша безпечна галявина",
+      "arrival": "Остап допомагає облаштувати першу зупинку; маленька доглянута ділянка вже змінює покинуте місце.",
+      "objective": "Облаштуйте табір для всіх гостей: виконайте їхні побажання й залиште доступ до кожних дверей.",
+      "finding": "На лавці залишено кухоль і складений дощовик. Вказівник обіцяє воду далі дорогою.",
+      "after": "Табір приймає людей; спільні маршрути лишаються відкритими. Наступна зупинка: Дві стежки, один прихисток.",
+      "nextId": "QC002",
+      "canonicalBefore": "Похилий вказівник, стара лавка й перші ромашки біля колишньої дороги.",
+      "canonicalBeat": "Остап допомагає облаштувати першу зупинку; маленька доглянута ділянка вже змінює покинуте місце.",
+      "mechanic": "Два намети, вибір гостя, розміщення й поворот",
+      "weather": "spring_sunny",
+      "proposedAdditions": "На лавці залишено кухоль і складений дощовик. Вказівник обіцяє воду далі дорогою."
+    },
+    "world": {
+      "id": "opening-001",
+      "title": "Перша безпечна галявина",
+      "sourceLevel": "QC001",
+      "biome": "opening/trail",
+      "seed": 721919,
+      "treeModels": [
+        "qc_kenney_nature_tree_oak",
+        "qc_kenney_nature_tree_default",
+        "qc_kenney_nature_tree_thin"
+      ],
+      "bushModels": [
+        "qc_kenney_nature_grass_large",
+        "qc_kenney_nature_grass_leafsLarge",
+        "qc_kenney_nature_plant_bushSmall"
+      ],
+      "anchors": [
+        {
+          "model": "qc_kenney_survival_signpost",
+          "label": "Перша безпечна галявина — деталь 1",
+          "x": -6,
+          "z": 2,
+          "yaw": 20,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_bench",
+          "label": "Перша безпечна галявина — деталь 2",
+          "x": -5,
+          "z": 5,
+          "yaw": 110,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_mug",
+          "label": "Перша безпечна галявина — деталь 3",
+          "x": -4.7,
+          "z": 5,
+          "yaw": 0,
+          "age": "dirt",
+          "ageAmount": 0.45
+        }
+      ],
+      "cameraSize": 13.8,
+      "cameraPitch": 52,
+      "cameraYaw": 225,
+      "trees": 48,
+      "innerForest": 8,
+      "outerForest": 23,
+      "riverCentre": 25,
+      "relief": 0.35,
+      "groundLow": 8750159,
+      "groundHigh": 10657631,
+      "plants": 180,
+      "sunPitch": 55,
+      "sunYaw": 260,
+      "extent": 42,
+      "riverWidth": 1.8,
+      "riverBend": 0.45,
+      "treeMin": 0.8,
+      "treeMax": 1.3,
+      "liveTerrain": true,
+      "age": 0.42
+    },
+    "reviewRevision": 0
+  },
+  {
+    "story": {
+      "id": "QC002",
+      "title": "Дві стежки, один прихисток",
+      "arrival": "Гості можуть жити поруч, коли ніхто не перекриває іншому дорогу.",
+      "objective": "Облаштуйте табір для всіх гостей: виконайте їхні побажання й залиште доступ до кожних дверей.",
+      "finding": "Дві різні торбини лежать біля спільного навісу: тут чекали одне одного, не перегороджуючи шлях.",
+      "after": "Табір приймає людей; спільні маршрути лишаються відкритими. Наступна зупинка: Крона над джерелом.",
+      "nextId": "QC003",
+      "canonicalBefore": "Два протоптані підходи сходяться під деревом; колода лежить обабіч проходу.",
+      "canonicalBeat": "Гості можуть жити поруч, коли ніхто не перекриває іншому дорогу.",
+      "mechanic": "Пересування намету, двері й доступний прохід",
+      "weather": "spring_morning",
+      "proposedAdditions": "Дві різні торбини лежать біля спільного навісу: тут чекали одне одного, не перегороджуючи шлях."
+    },
+    "world": {
+      "id": "opening-002",
+      "title": "Дві стежки, один прихисток",
+      "sourceLevel": "QC002",
+      "biome": "opening/shelter",
+      "seed": 729838,
+      "treeModels": [
+        "qc_kenney_nature_tree_oak",
+        "qc_kenney_nature_tree_thin",
+        "qc_kenney_nature_tree_pineTallA"
+      ],
+      "bushModels": [
+        "qc_kenney_nature_grass_large",
+        "qc_kenney_nature_grass_leafsLarge",
+        "qc_kenney_nature_plant_bushSmall"
+      ],
+      "anchors": [
+        {
+          "model": "qc_picnic_table",
+          "label": "Дві стежки, один прихисток — деталь 1",
+          "x": 5,
+          "z": 6,
+          "yaw": -25,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_backpack",
+          "label": "Дві стежки, один прихисток — деталь 2",
+          "x": 5.2,
+          "z": 3.8,
+          "yaw": 25,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_kenney_nature_log_large",
+          "label": "Дві стежки, один прихисток — деталь 3",
+          "x": -5,
+          "z": 3,
+          "yaw": 70,
+          "age": "dirt",
+          "ageAmount": 0.45
+        }
+      ],
+      "cameraSize": 13.8,
+      "cameraPitch": 52,
+      "cameraYaw": 225,
+      "trees": 48,
+      "innerForest": 8,
+      "outerForest": 23,
+      "riverCentre": 25,
+      "relief": 0.35,
+      "groundLow": 8750159,
+      "groundHigh": 10657631,
+      "plants": 180,
+      "sunPitch": 55,
+      "sunYaw": 260,
+      "extent": 42,
+      "riverWidth": 1.8,
+      "riverBend": 0.45,
+      "treeMin": 0.8,
+      "treeMax": 1.3,
+      "liveTerrain": true,
+      "age": 0.42
+    },
+    "reviewRevision": 0
+  },
+  {
+    "story": {
+      "id": "QC003",
+      "title": "Крона над джерелом",
+      "arrival": "Побажання гостя про тінь продовжує звичну людську турботу про прохолодне місце.",
+      "objective": "Облаштуйте табір для всіх гостей: виконайте їхні побажання й залиште доступ до кожних дверей.",
+      "finding": "Відро під цямриною й стара мотузка показують, де набирали воду. Кухоль із першої зупинки нагадує про спільну дорогу.",
+      "after": "Табір приймає людей; спільні маршрути лишаються відкритими. Наступна зупинка: Тихий край вогню.",
+      "nextId": "QC004",
+      "canonicalBefore": "Криниця з низьким цямринням, свіжа трава і тінь великого дерева.",
+      "canonicalBeat": "Побажання гостя про тінь продовжує звичну людську турботу про прохолодне місце.",
+      "mechanic": "Тінь для всіх чотирьох клітин намету",
+      "weather": "spring_sunny",
+      "proposedAdditions": "Відро під цямриною й стара мотузка показують, де набирали воду. Кухоль із першої зупинки нагадує про спільну дорогу."
+    },
+    "world": {
+      "id": "opening-003",
+      "title": "Крона над джерелом",
+      "sourceLevel": "QC003",
+      "biome": "opening/well",
+      "seed": 737757,
+      "treeModels": [
+        "qc_kenney_nature_tree_oak",
+        "qc_kenney_nature_tree_default",
+        "qc_kenney_nature_tree_thin"
+      ],
+      "bushModels": [
+        "qc_kenney_nature_grass_large",
+        "qc_kenney_nature_grass_leafsLarge",
+        "qc_kenney_nature_plant_bushSmall"
+      ],
+      "anchors": [
+        {
+          "model": "ua_well_sweep",
+          "label": "Крона над джерелом — деталь 1",
+          "x": -6,
+          "z": 4,
+          "yaw": -15,
+          "age": "moss",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_bucket",
+          "label": "Крона над джерелом — деталь 2",
+          "x": -5,
+          "z": 2.7,
+          "yaw": 10,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_rope_coil",
+          "label": "Крона над джерелом — деталь 3",
+          "x": -6.7,
+          "z": 2.5,
+          "yaw": 20,
+          "age": "dirt",
+          "ageAmount": 0.45
+        }
+      ],
+      "cameraSize": 13.8,
+      "cameraPitch": 52,
+      "cameraYaw": 225,
+      "trees": 48,
+      "innerForest": 8,
+      "outerForest": 23,
+      "riverCentre": -13,
+      "relief": 0.35,
+      "groundLow": 8750159,
+      "groundHigh": 10657631,
+      "plants": 180,
+      "sunPitch": 55,
+      "sunYaw": 260,
+      "extent": 42,
+      "riverWidth": 1.8,
+      "riverBend": 0.9,
+      "treeMin": 0.8,
+      "treeMax": 1.3,
+      "liveTerrain": true,
+      "age": 0.42
+    },
+    "reviewRevision": 0
+  },
+  {
+    "story": {
+      "id": "QC004",
+      "title": "Тихий край вогню",
+      "arrival": "Спільне тепло не зобов'язує кожного сидіти біля багаття; є місце і для тиші.",
+      "objective": "Облаштуйте табір для всіх гостей: виконайте їхні побажання й залиште доступ до кожних дверей.",
+      "finding": "Біля дров — казанок; віддалік під деревом — порожня лавка для того, кому потрібен спокій.",
+      "after": "Табір приймає людей; спільні маршрути лишаються відкритими. Наступна зупинка: Поруч із друзями.",
+      "nextId": "QC005",
+      "canonicalBefore": "Складені сухі поліна, кам'яне багаття на полі й лавка далі від шуму.",
+      "canonicalBeat": "Спільне тепло не зобов'язує кожного сидіти біля багаття; є місце і для тиші.",
+      "mechanic": "Тиша: понад дві клітини від багаття",
+      "weather": "spring_breeze",
+      "proposedAdditions": "Біля дров — казанок; віддалік під деревом — порожня лавка для того, кому потрібен спокій."
+    },
+    "world": {
+      "id": "opening-004",
+      "title": "Тихий край вогню",
+      "sourceLevel": "QC004",
+      "biome": "opening/shelter",
+      "seed": 745676,
+      "treeModels": [
+        "qc_kenney_nature_tree_oak",
+        "qc_kenney_nature_tree_thin",
+        "qc_kenney_nature_tree_pineTallA"
+      ],
+      "bushModels": [
+        "qc_kenney_nature_grass_large",
+        "qc_kenney_nature_grass_leafsLarge",
+        "qc_kenney_nature_plant_bushSmall"
+      ],
+      "anchors": [
+        {
+          "model": "qc_bench",
+          "label": "Тихий край вогню — деталь 1",
+          "x": -6,
+          "z": 5,
+          "yaw": 80,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_cooking_pot",
+          "label": "Тихий край вогню — деталь 2",
+          "x": 6,
+          "z": 4,
+          "yaw": 10,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_kenney_nature_log_large",
+          "label": "Тихий край вогню — деталь 3",
+          "x": 6,
+          "z": 6,
+          "yaw": 75,
+          "age": "dirt",
+          "ageAmount": 0.45
+        }
+      ],
+      "cameraSize": 13.8,
+      "cameraPitch": 52,
+      "cameraYaw": 225,
+      "trees": 48,
+      "innerForest": 8,
+      "outerForest": 23,
+      "riverCentre": 25,
+      "relief": 0.35,
+      "groundLow": 8750159,
+      "groundHigh": 10657631,
+      "plants": 180,
+      "sunPitch": 55,
+      "sunYaw": 260,
+      "extent": 42,
+      "riverWidth": 1.8,
+      "riverBend": 0.45,
+      "treeMin": 0.8,
+      "treeMax": 1.3,
+      "liveTerrain": true,
+      "age": 0.42
+    },
+    "reviewRevision": 0
+  },
+  {
+    "story": {
+      "id": "QC005",
+      "title": "Поруч із друзями",
+      "arrival": "Завершення уроків Остапа: близькість створює доступна дорога між людьми.",
+      "objective": "Облаштуйте табір для всіх гостей: виконайте їхні побажання й залиште доступ до кожних дверей.",
+      "finding": "Два кошики біля садової лавки належать друзям. Вони залишили стрічку на хвіртці як знак наступним мандрівникам.",
+      "after": "Табір приймає людей; спільні маршрути лишаються відкритими. Наступна зупинка: Зупинка без розкладу.",
+      "nextId": "QC006",
+      "canonicalBefore": "Два садові дерева й спільна лавка; стежка між наметами залишається відкритою.",
+      "canonicalBeat": "Завершення уроків Остапа: близькість створює доступна дорога між людьми.",
+      "mechanic": "Друзі: шлях між дверима не довший за три кроки",
+      "weather": "spring_sunny",
+      "proposedAdditions": "Два кошики біля садової лавки належать друзям. Вони залишили стрічку на хвіртці як знак наступним мандрівникам."
+    },
+    "world": {
+      "id": "opening-005",
+      "title": "Поруч із друзями",
+      "sourceLevel": "QC005",
+      "biome": "opening/orchard",
+      "seed": 753595,
+      "treeModels": [
+        "qc_kenney_nature_tree_oak",
+        "qc_kenney_nature_tree_default",
+        "qc_kenney_nature_tree_thin"
+      ],
+      "bushModels": [
+        "qc_kenney_nature_grass_large",
+        "qc_kenney_nature_grass_leafsLarge",
+        "qc_kenney_nature_plant_bushSmall"
+      ],
+      "anchors": [
+        {
+          "model": "ua_orchard_tree",
+          "label": "Поруч із друзями — деталь 1",
+          "x": -6,
+          "z": 5,
+          "yaw": 0,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "ua_orchard_tree",
+          "label": "Поруч із друзями — деталь 2",
+          "x": 5,
+          "z": 6,
+          "yaw": 20,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_bench",
+          "label": "Поруч із друзями — деталь 3",
+          "x": -5,
+          "z": 2,
+          "yaw": 110,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_apple_basket",
+          "label": "Поруч із друзями — деталь 4",
+          "x": -4.5,
+          "z": 1,
+          "yaw": 30,
+          "age": "dirt",
+          "ageAmount": 0.45
+        }
+      ],
+      "cameraSize": 13.8,
+      "cameraPitch": 52,
+      "cameraYaw": 225,
+      "trees": 48,
+      "innerForest": 8,
+      "outerForest": 23,
+      "riverCentre": 25,
+      "relief": 0.35,
+      "groundLow": 8750159,
+      "groundHigh": 10657631,
+      "plants": 180,
+      "sunPitch": 55,
+      "sunYaw": 260,
+      "extent": 42,
+      "riverWidth": 1.8,
+      "riverBend": 0.45,
+      "treeMin": 0.8,
+      "treeMax": 1.3,
+      "liveTerrain": true,
+      "age": 0.42
+    },
+    "reviewRevision": 0
+  },
+  {
+    "story": {
+      "id": "QC006",
+      "title": "Зупинка без розкладу",
+      "arrival": "Колишній сільський маршрут тепер служить пішим мандрівникам; очікування стає відпочинком.",
+      "objective": "Облаштуйте табір для всіх гостей: виконайте їхні побажання й залиште доступ до кожних дверей.",
+      "finding": "Складений плащ і рюкзак під мозаїчним навісом показують, що зупинка тепер прихисток для пішої дороги.",
+      "after": "Табір приймає людей; спільні маршрути лишаються відкритими. Наступна зупинка: Ромашки за огорожею.",
+      "nextId": "QC007",
+      "canonicalBefore": "Мозаїчна зупинка, вицвілий стовп і трав'яні тріщини біля старого під'їзду.",
+      "canonicalBeat": "Колишній сільський маршрут тепер служить пішим мандрівникам; очікування стає відпочинком.",
+      "mechanic": "Самостійне розміщення трьох гостей",
+      "weather": "spring_drizzle",
+      "proposedAdditions": "Складений плащ і рюкзак під мозаїчним навісом показують, що зупинка тепер прихисток для пішої дороги."
+    },
+    "world": {
+      "id": "opening-006",
+      "title": "Зупинка без розкладу",
+      "sourceLevel": "QC006",
+      "biome": "opening/bus",
+      "seed": 761514,
+      "treeModels": [
+        "qc_kenney_nature_tree_oak",
+        "qc_kenney_nature_tree_default",
+        "qc_kenney_nature_tree_thin"
+      ],
+      "bushModels": [
+        "qc_kenney_nature_grass_large",
+        "qc_kenney_nature_grass_leafsLarge",
+        "qc_kenney_nature_plant_bushSmall"
+      ],
+      "anchors": [
+        {
+          "model": "ua_bus_shelter_mosaic",
+          "label": "Зупинка без розкладу — деталь 1",
+          "x": -6,
+          "z": 4,
+          "yaw": 120,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "ua_village_wood_pole",
+          "label": "Зупинка без розкладу — деталь 2",
+          "x": -7,
+          "z": 7,
+          "yaw": -10,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_backpack",
+          "label": "Зупинка без розкладу — деталь 3",
+          "x": -5,
+          "z": 2.2,
+          "yaw": 20,
+          "age": "dirt",
+          "ageAmount": 0.45
+        }
+      ],
+      "cameraSize": 13.8,
+      "cameraPitch": 52,
+      "cameraYaw": 225,
+      "trees": 48,
+      "innerForest": 8,
+      "outerForest": 23,
+      "riverCentre": 25,
+      "relief": 0.35,
+      "groundLow": 8750159,
+      "groundHigh": 10657631,
+      "plants": 180,
+      "sunPitch": 55,
+      "sunYaw": 260,
+      "extent": 42,
+      "riverWidth": 1.8,
+      "riverBend": 0.45,
+      "treeMin": 0.8,
+      "treeMax": 1.3,
+      "liveTerrain": true,
+      "age": 0.42
+    },
+    "reviewRevision": 0
+  },
+  {
+    "story": {
+      "id": "QC007",
+      "title": "Ромашки за огорожею",
+      "arrival": "Межа двору ще читається, хоча рослини давно вільно переходять її.",
+      "objective": "Облаштуйте табір для всіх гостей: виконайте їхні побажання й залиште доступ до кожних дверей.",
+      "finding": "Біля розірваного паркана стоїть кошик із квітами; хвіртку підперли дошкою й зберегли прохід.",
+      "after": "Табір приймає людей; спільні маршрути лишаються відкритими. Наступна зупинка: Стежка листоноші.",
+      "nextId": "QC008",
+      "canonicalBefore": "Пошкоджена хвіртка, неглибокий фундамент і квіти по інший бік паркана.",
+      "canonicalBeat": "Межа двору ще читається, хоча рослини давно вільно переходять її.",
+      "mechanic": "Поєднання тіні, друзів і виходу",
+      "weather": "spring_morning",
+      "proposedAdditions": "Біля розірваного паркана стоїть кошик із квітами; хвіртку підперли дошкою й зберегли прохід."
+    },
+    "world": {
+      "id": "opening-007",
+      "title": "Ромашки за огорожею",
+      "sourceLevel": "QC007",
+      "biome": "opening/yard",
+      "seed": 769433,
+      "treeModels": [
+        "qc_kenney_nature_tree_oak",
+        "qc_kenney_nature_tree_default",
+        "qc_kenney_nature_tree_thin"
+      ],
+      "bushModels": [
+        "qc_kenney_nature_grass_large",
+        "qc_kenney_nature_grass_leafsLarge",
+        "qc_kenney_nature_plant_bushSmall"
+      ],
+      "anchors": [
+        {
+          "model": "ua_picket_fence_damaged",
+          "label": "Ромашки за огорожею — деталь 1",
+          "x": 5,
+          "z": 5,
+          "yaw": 0,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_kenney_nature_fence_gate",
+          "label": "Ромашки за огорожею — деталь 2",
+          "x": -5,
+          "z": 5,
+          "yaw": 35,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_stone_wall_fragment",
+          "label": "Ромашки за огорожею — деталь 3",
+          "x": 6,
+          "z": 7,
+          "yaw": 75,
+          "age": "moss",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_apple_basket",
+          "label": "Ромашки за огорожею — деталь 4",
+          "x": -5.5,
+          "z": 3.2,
+          "yaw": 20,
+          "age": "dirt",
+          "ageAmount": 0.45
+        }
+      ],
+      "cameraSize": 13.8,
+      "cameraPitch": 52,
+      "cameraYaw": 225,
+      "trees": 48,
+      "innerForest": 8,
+      "outerForest": 23,
+      "riverCentre": 25,
+      "relief": 0.35,
+      "groundLow": 8750159,
+      "groundHigh": 10657631,
+      "plants": 180,
+      "sunPitch": 55,
+      "sunYaw": 260,
+      "extent": 42,
+      "riverWidth": 1.8,
+      "riverBend": 0.45,
+      "treeMin": 0.8,
+      "treeMax": 1.3,
+      "liveTerrain": true,
+      "age": 0.42
+    },
+    "reviewRevision": 0
+  },
+  {
+    "story": {
+      "id": "QC008",
+      "title": "Стежка листоноші",
+      "arrival": "Заросла дорога пам'ятає щоденний рух; табір повертає їй людський масштаб.",
+      "objective": "Облаштуйте табір для всіх гостей: виконайте їхні побажання й залиште доступ до кожних дверей.",
+      "finding": "Поштова торба лежить на лавці, поруч порожня скринька. Вказівник веде до спільної криниці.",
+      "after": "Табір приймає людей; спільні маршрути лишаються відкритими. Наступна зупинка: Спільна криниця.",
+      "nextId": "QC009",
+      "canonicalBefore": "Нахилений вказівник і порожня лавка між молодими тополями.",
+      "canonicalBeat": "Заросла дорога пам'ятає щоденний рух; табір повертає їй людський масштаб.",
+      "mechanic": "Проходи, поворот і зовнішня доступна стежка",
+      "weather": "spring_sunny",
+      "proposedAdditions": "Поштова торба лежить на лавці, поруч порожня скринька. Вказівник веде до спільної криниці."
+    },
+    "world": {
+      "id": "opening-008",
+      "title": "Стежка листоноші",
+      "sourceLevel": "QC008",
+      "biome": "opening/trail",
+      "seed": 777352,
+      "treeModels": [
+        "qc_kenney_nature_tree_oak",
+        "qc_kenney_nature_tree_thin",
+        "qc_kenney_nature_tree_pineTallA"
+      ],
+      "bushModels": [
+        "qc_kenney_nature_grass_large",
+        "qc_kenney_nature_grass_leafsLarge",
+        "qc_kenney_nature_plant_bushSmall"
+      ],
+      "anchors": [
+        {
+          "model": "qc_kenney_survival_signpost",
+          "label": "Стежка листоноші — деталь 1",
+          "x": 6,
+          "z": 3,
+          "yaw": -35,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_bench",
+          "label": "Стежка листоноші — деталь 2",
+          "x": 5,
+          "z": 6,
+          "yaw": 170,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_backpack",
+          "label": "Стежка листоноші — деталь 3",
+          "x": 5.5,
+          "z": 4.5,
+          "yaw": 20,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "ua_valley_poplar",
+          "label": "Стежка листоноші — деталь 4",
+          "x": -6,
+          "z": 7,
+          "yaw": 0,
+          "age": "dirt",
+          "ageAmount": 0.45
+        }
+      ],
+      "cameraSize": 13.8,
+      "cameraPitch": 52,
+      "cameraYaw": 225,
+      "trees": 48,
+      "innerForest": 8,
+      "outerForest": 23,
+      "riverCentre": 25,
+      "relief": 0.35,
+      "groundLow": 8750159,
+      "groundHigh": 10657631,
+      "plants": 180,
+      "sunPitch": 55,
+      "sunYaw": 260,
+      "extent": 42,
+      "riverWidth": 1.8,
+      "riverBend": 0.45,
+      "treeMin": 0.8,
+      "treeMax": 1.3,
+      "liveTerrain": true,
+      "age": 0.42
+    },
+    "reviewRevision": 0
+  },
+  {
+    "story": {
+      "id": "QC009",
+      "title": "Спільна криниця",
+      "arrival": "Безпечна вода є першою спільною справою подорожі.",
+      "objective": "Облаштуйте табір для всіх гостей: виконайте їхні побажання й залиште доступ до кожних дверей.",
+      "finding": "Нову дошку видно на старому колодязі; два відра й тачка залишені для спільного користування.",
+      "after": "Табір приймає людей; спільні маршрути лишаються відкритими. Наступна зупинка: Світло на роздоріжжі.",
+      "nextId": "QC010",
+      "canonicalBefore": "Відро біля простого колодязя, два сліди підходів і відремонтована дошка.",
+      "canonicalBeat": "Безпечна вода є першою спільною справою подорожі.",
+      "mechanic": "Чотири гості, тиша й наскрізний маршрут",
+      "weather": "spring_drizzle",
+      "proposedAdditions": "Нову дошку видно на старому колодязі; два відра й тачка залишені для спільного користування."
+    },
+    "world": {
+      "id": "opening-009",
+      "title": "Спільна криниця",
+      "sourceLevel": "QC009",
+      "biome": "opening/well",
+      "seed": 785271,
+      "treeModels": [
+        "qc_kenney_nature_tree_oak",
+        "qc_kenney_nature_tree_default",
+        "qc_kenney_nature_tree_thin"
+      ],
+      "bushModels": [
+        "qc_kenney_nature_grass_large",
+        "qc_kenney_nature_grass_leafsLarge",
+        "qc_kenney_nature_plant_bushSmall"
+      ],
+      "anchors": [
+        {
+          "model": "ua_well_sweep",
+          "label": "Спільна криниця — деталь 1",
+          "x": 6,
+          "z": 6,
+          "yaw": 20,
+          "age": "moss",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_bucket",
+          "label": "Спільна криниця — деталь 2",
+          "x": 5.5,
+          "z": 3.6,
+          "yaw": 0,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_wheelbarrow",
+          "label": "Спільна криниця — деталь 3",
+          "x": -6,
+          "z": 5,
+          "yaw": 35,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_barrel",
+          "label": "Спільна криниця — деталь 4",
+          "x": 6.8,
+          "z": 3.8,
+          "yaw": 10,
+          "age": "dirt",
+          "ageAmount": 0.45
+        }
+      ],
+      "cameraSize": 13.8,
+      "cameraPitch": 52,
+      "cameraYaw": 225,
+      "trees": 48,
+      "innerForest": 8,
+      "outerForest": 23,
+      "riverCentre": -13,
+      "relief": 0.35,
+      "groundLow": 8750159,
+      "groundHigh": 10657631,
+      "plants": 180,
+      "sunPitch": 55,
+      "sunYaw": 260,
+      "extent": 42,
+      "riverWidth": 1.8,
+      "riverBend": 0.45,
+      "treeMin": 0.8,
+      "treeMax": 1.3,
+      "liveTerrain": true,
+      "age": 0.42
+    },
+    "reviewRevision": 0
+  },
+  {
+    "story": {
+      "id": "QC010",
+      "title": "Світло на роздоріжжі",
+      "arrival": "Перший відрізок завершений: хтось після нас зможе знайти цей шлях.",
+      "objective": "Облаштуйте табір для всіх гостей: виконайте їхні побажання й залиште доступ до кожних дверей.",
+      "finding": "Ліхтар і виправлений знак продовжують мотив першого вказівника. На лавці — запасний кухоль для тих, хто прийде після нас.",
+      "after": "Табір приймає людей; спільні маршрути лишаються відкритими. Попереду — сад і наступна частина дороги.",
+      "nextId": "gen:qc_camp:1",
+      "canonicalBefore": "Ліхтар біля зупинки й маленький ремонтований вказівник на тлі попереднього маршруту.",
+      "canonicalBeat": "Перший відрізок завершений: хтось після нас зможе знайти цей шлях.",
+      "mechanic": "Самостійне поєднання проходів, тіні й тиші",
+      "weather": "spring_breeze",
+      "proposedAdditions": "Ліхтар і виправлений знак продовжують мотив першого вказівника. На лавці — запасний кухоль для тих, хто прийде після нас."
+    },
+    "world": {
+      "id": "opening-010",
+      "title": "Світло на роздоріжжі",
+      "sourceLevel": "QC010",
+      "biome": "opening/bus",
+      "seed": 793190,
+      "treeModels": [
+        "qc_kenney_nature_tree_oak",
+        "qc_kenney_nature_tree_default",
+        "qc_kenney_nature_tree_thin"
+      ],
+      "bushModels": [
+        "qc_kenney_nature_grass_large",
+        "qc_kenney_nature_grass_leafsLarge",
+        "qc_kenney_nature_plant_bushSmall"
+      ],
+      "anchors": [
+        {
+          "model": "ua_bus_shelter_mosaic",
+          "label": "Світло на роздоріжжі — деталь 1",
+          "x": 6,
+          "z": 6,
+          "yaw": -20,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_kenney_survival_signpost",
+          "label": "Світло на роздоріжжі — деталь 2",
+          "x": -6,
+          "z": 3,
+          "yaw": 10,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_lantern",
+          "label": "Світло на роздоріжжі — деталь 3",
+          "x": -5.5,
+          "z": 4,
+          "yaw": 0,
+          "age": "dirt",
+          "ageAmount": 0.45
+        },
+        {
+          "model": "qc_bench",
+          "label": "Світло на роздоріжжі — деталь 4",
+          "x": -6,
+          "z": 6,
+          "yaw": 50,
+          "age": "dirt",
+          "ageAmount": 0.45
+        }
+      ],
+      "cameraSize": 13.8,
+      "cameraPitch": 52,
+      "cameraYaw": 225,
+      "trees": 48,
+      "innerForest": 8,
+      "outerForest": 23,
+      "riverCentre": 25,
+      "relief": 0.35,
+      "groundLow": 8750159,
+      "groundHigh": 10657631,
+      "plants": 180,
+      "sunPitch": 55,
+      "sunYaw": 260,
+      "extent": 42,
+      "riverWidth": 1.8,
+      "riverBend": 0.45,
+      "treeMin": 0.8,
+      "treeMax": 1.3,
+      "liveTerrain": true,
+      "age": 0.42
+    },
+    "reviewRevision": 0
+  }
+]

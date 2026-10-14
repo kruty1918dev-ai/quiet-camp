@@ -40,6 +40,7 @@ namespace QuietCamp.Editor
         }
         static LevelAuthoring.LevelAuthoringWorkspace _worldWorkspace;
         static Request _worldRequest;
+        static LevelAuthoring.OpeningCampaignAuthoring _openingBuild;
         static LevelAuthoring.CampaignWorkshopRegeneration _campaignBatch;
         static void Poll()
         {
@@ -59,11 +60,11 @@ namespace QuietCamp.Editor
                 if(_worldWorkspace.River!=null && _worldWorkspace.River.IsUpdating)return;
                 try
                 {
-                    var d=_worldWorkspace.Capture(true);d.Save(_worldRequest.draftPath);
-                    File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="world-demo",draftPath=_worldRequest.draftPath,errors=d.Validate(true),workspaceObjects=d.art.instances.Length,baked=d.art.landscape!=null}));
+                    var d=_openingBuild!=null?_openingBuild.Finish(_worldWorkspace):_worldWorkspace.Capture(true);d.Save(_worldRequest.draftPath);
+                    File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="world-demo",draftPath=_worldRequest.draftPath,errors=d.Validate(true),workspaceObjects=d.art.instances.Length,baked=d.art.landscape!=null,painted=_openingBuild?.Painted,backend=_openingBuild!=null?LevelAuthoring.PlacementToolIntegration.Controlled.Backend:null}));
                 }
                 catch(Exception e){File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="error",error=e.ToString()}));}
-                finally{_worldWorkspace.Dispose();_worldWorkspace=null;_worldRequest=null;}
+                finally{_worldWorkspace.Dispose();_worldWorkspace=null;_worldRequest=null;_openingBuild=null;}
                 return;
             }
             if (File.Exists(GamePath)) PollGame();
@@ -114,6 +115,19 @@ namespace QuietCamp.Editor
                 {
                     var proof=LevelAuthoring.AircraftCrashAuthoring.BuildThroughPwb(request.draftPath,request.profile,request.output);
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(proof));
+                }
+                else if(request.mode=="opening-tests") RunTests(true,"QuietCamp.Tests.OpeningCampaignTests");
+                else if(request.mode=="opening-compose")
+                {
+                    _openingBuild=new LevelAuthoring.OpeningCampaignAuthoring(request.profile);
+                    _worldWorkspace=new LevelAuthoring.LevelAuthoringWorkspace(_openingBuild.Document);_worldRequest=request;
+                }
+                else if(request.mode=="opening-apply")
+                {
+                    var doc=LevelAuthoring.LevelAuthoringDocument.Open(request.draftPath);
+                    LevelAuthoring.LevelAuthoringCampaign.Apply(doc);
+                    doc.Save(Path.Combine("Assets/QuietCamp/Authoring/CampaignLevels",doc.sourceLevelId+".draft.json"));
+                    File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="opening-applied",id=doc.sourceLevelId,errors=doc.Validate(true)}));
                 }
                 else if(request.mode=="world-demo")
                 {
@@ -379,7 +393,7 @@ namespace QuietCamp.Editor
             var api = ScriptableObject.CreateInstance<TestRunnerApi>();
             api.RegisterCallbacks(new TestReport(api, session));
             api.Execute(new ExecutionSettings(new Filter { testMode = TestMode.EditMode,
-                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.SeasonPresentationTests", "QuietCamp.Tests.BiomeSurfaceTests", "QuietCamp.Tests.CampSurfaceUseTests", "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.SurfaceWeatheringTests", "QuietCamp.Tests.ForestAtmosphereTests", "QuietCamp.Tests.ModelWorkshopTests", "QuietCamp.Tests.FreeWorldAssetsTests", "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
+                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.OpeningCampaignTests", "QuietCamp.Tests.SeasonPresentationTests", "QuietCamp.Tests.BiomeSurfaceTests", "QuietCamp.Tests.CampSurfaceUseTests", "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.SurfaceWeatheringTests", "QuietCamp.Tests.ForestAtmosphereTests", "QuietCamp.Tests.ModelWorkshopTests", "QuietCamp.Tests.FreeWorldAssetsTests", "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
         }
         sealed class TestReport : ICallbacks
         {

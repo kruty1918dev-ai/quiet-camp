@@ -28,6 +28,7 @@ FILES+=['Assets/QuietCamp/Editor/LevelAuthoring/ForestRegrowthAuthoring.cs','Ass
 FILES+=['Assets/QuietCamp/Tests/Editor/ForestAtmosphereTests.cs']
 FILES+=['Assets/QuietCamp/Scripts/Presentation/World/CampSurfaceUseField.cs','Assets/QuietCamp/Scripts/Presentation/World/CampGroundDetails.cs','Assets/QuietCamp/Scripts/Presentation/World/MeadowSurface.cs','Assets/QuietCamp/Scripts/Presentation/World/SeasonProfile.cs','Assets/QuietCamp/Resources/QuietCamp/CampSurfaceUse.hlsl','Assets/QuietCamp/Resources/QuietCamp/Meadow.shader','Assets/QuietCamp/Resources/QuietCamp/camp_surface_use.json','Assets/QuietCamp/Editor/LevelAuthoring/ObjectOvergrowthAuthoring.cs','Assets/QuietCamp/Resources/QuietCamp/object_overgrowth.json','Assets/QuietCamp/Tests/Editor/CampSurfaceUseTests.cs']
 FILES+=['Assets/QuietCamp/Tests/Editor/SeasonPresentationTests.cs','Assets/QuietCamp/Tests/Editor/BiomeSurfaceTests.cs']
+FILES+=['Assets/QuietCamp/Editor/LevelAuthoring/OpeningCampaignAuthoring.cs','Assets/QuietCamp/Scripts/Infrastructure/OpeningCampaignStory.cs','Assets/QuietCamp/Resources/QuietCamp/opening_campaign_story.json','Assets/QuietCamp/Editor/LevelAuthoring/RiverTerrainAuthoringData.cs','Assets/QuietCamp/Scripts/Presentation/UI/CampHud.cs','Assets/QuietCamp/Tests/Editor/OpeningCampaignTests.cs']
 for name in FILES:
  source=PROJECT/name
  if not source.exists():continue

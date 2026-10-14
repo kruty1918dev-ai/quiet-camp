@@ -156,6 +156,7 @@ namespace QuietCamp.Presentation.UI
                 (HintsAvailable ? HtmlUi.Button(_surface, "hint",
                     T("action.hint") + (_services.Economy.IsPro ? "" : " · " + _services.Economy.Hints),
                     () => Action("qc.hint"), "quiet hint-control") : "") +
+                (OpeningCampaignStory.For(_session.Level)!=null ? HtmlUi.Button(_surface,"opening-finding",T("opening.finding"),()=>OpenModal("OpeningFinding"),"quiet") : "") +
                 "<view class=\"grow\"></view>" +
                 CampIcons.Button(_surface, "pause", "pause", () => Action("qc.pause"), "orb quiet",
                     tooltip: T("hud.pause"));
@@ -330,7 +331,7 @@ namespace QuietCamp.Presentation.UI
                 sb.Append("<view class=\"celebrate\"><view id=\"sheet\" class=\"card\" data-motion-role=\"dialog\">"
                     + HtmlUi.Text("✓", "big win")
                     + HtmlUi.Text(T("rule.ok"), "big")
-                    + HtmlUi.Text(T("celebrate.next"), "sub")
+                    + HtmlUi.Text(OpeningCampaignStory.For(_session.Level)?.after??T("celebrate.next"), "sub")
                     + (_services.Tutorial.RewardOwned && _session.Level.id == "QC005"
                         ? "<view class=\"guide-farewell\"><img class=\"guide-portrait\" src=\"res:QuietCamp/UI/Mentor/farewell\"/>"
                             + HtmlUi.Text(T("guide.farewell"), "guide-instruction") + "</view>"
@@ -350,6 +351,11 @@ namespace QuietCamp.Presentation.UI
             string title, body;
             switch (modal)
             {
+                case "OpeningFinding":
+                    var finding=OpeningCampaignStory.For(_session.Level);
+                    title=finding?.title??T("opening.finding");
+                    body=finding==null?"":HtmlUi.Text(finding.arrival,"sub")+HtmlUi.Text(finding.finding,"sub")+HtmlUi.Text(finding.objective,"sub");
+                    break;
                 case "Economy":
                     title = T("economy.title"); body = _economyPanel.Render(); break;
                 case "GuideSkip":
