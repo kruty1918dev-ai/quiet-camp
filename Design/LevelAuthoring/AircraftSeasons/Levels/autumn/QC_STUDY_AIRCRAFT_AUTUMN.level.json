@@ -1,1 +1,163 @@
-{"schemaVersion":1,"ruleVersion":2,"order":7,"chapter":1,"seed":20316437,"width":6,"height":8,"id":"QC_STUDY_AIRCRAFT_AUTUMN","contentHash":"3ed36a2d00c52ea13ec82f95cf86690a673564a137f81ca659a165e3bb6cdf43","generatorVersion":"cozy-campaign-100-v1","lighting":"day","tutorialKey":"tutorial.7","compositionHash":"e0f4f8f9163a2aba3b43e2ca81c0f4aa291db03443de0cc331ecb82439fad5db","generationAttempt":1,"decorSeed":20340298,"entry":[3,0],"accessPoints":[{"id":"trail-out","kind":"exit","x":3,"z":7}],"blocked":[[4,5],[1,3]],"shade":[[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1]],"noise":[],"exteriorWalkable":[],"guests":[{"id":"g1","nameKey":"guest.1","assetId":"tent_smallOpen","shade":true,"quiet":false},{"id":"g2","nameKey":"guest.2","assetId":"tent_smallOpen","shade":false,"quiet":false},{"id":"g3","nameKey":"guest.3","assetId":"tent_detailedOpen","shade":false,"quiet":false}],"friends":[["g1","g2"]],"witness":[{"guestId":"g1","x":0,"z":0,"rotation":0},{"guestId":"g2","x":0,"z":4,"rotation":1},{"guestId":"g3","x":0,"z":6,"rotation":1}],"environmentPreset":"pines","objects":[{"assetId":"tree_default","x":4,"z":5,"rotation":3},{"assetId":"stone_largeA","x":1,"z":3,"rotation":0}],"canopies":[{"x":1.25,"z":1.25,"radiusX":1.6,"radiusZ":1.6}],"environment":{"biomeId":"forest","seasonId":"spring","weatherId":"clear","moisture":0.38323,"treeDensity":0.406447,"clusterSeed":32211,"meadowSpecies":["grass","daisy"],"storyMotifs":[],"shore":null,"seasonTimeline":0.060606,"weatherIntensity":0.17205}}
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 7,
+  "chapter": 1,
+  "seed": 20316437,
+  "width": 6,
+  "height": 8,
+  "id": "QC_STUDY_AIRCRAFT_AUTUMN",
+  "contentHash": "7913cae6139f74875762a0f90c9c18bcaa71d1ce1dff8932be7580dfd06dbba0",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "tutorial.7",
+  "compositionHash": "d59fd9089aafe38a0045329e1fde7150cbfdd806c4d5f99bfb98858ecfb61e40",
+  "generationAttempt": 1,
+  "decorSeed": 20340298,
+  "entry": [
+    3,
+    0
+  ],
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 3,
+      "z": 7
+    }
+  ],
+  "blocked": [
+    [
+      4,
+      5
+    ],
+    [
+      1,
+      3
+    ]
+  ],
+  "shade": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": true,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [
+    [
+      "g1",
+      "g2"
+    ]
+  ],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 4,
+      "rotation": 1
+    },
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 6,
+      "rotation": 1
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "tree_default",
+      "x": 4,
+      "z": 5,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 1,
+      "z": 3,
+      "rotation": 0
+    }
+  ],
+  "canopies": [
+    {
+      "x": 1.25,
+      "z": 1.25,
+      "radiusX": 1.6,
+      "radiusZ": 1.6
+    }
+  ],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.38323,
+    "treeDensity": 0.406447,
+    "clusterSeed": 32211,
+    "meadowSpecies": [
+      "grass",
+      "daisy"
+    ],
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.060606,
+    "weatherIntensity": 0.17205
+  }
+}

@@ -10,7 +10,7 @@ namespace QuietCamp.Presentation.World
         public static CampArtDefinition.Model Resolve(CampArtDefinition.Model source,SeasonAtmospherePreset preset)
         {
             if(preset==null||string.IsNullOrEmpty(source.seasonalRole))return source;
-            var m=new CampArtDefinition.Model{id=source.id,sourceModelId=source.sourceModelId,authoringRecipe=source.authoringRecipe,shading=source.shading,vertices=source.vertices,normals=source.normals,uv=source.uv,tangents=source.tangents,colors=source.colors.ToArray(),seasonalRole=source.seasonalRole,seasonalLeafTriangles=source.seasonalLeafTriangles};
+            var m=new CampArtDefinition.Model{id=source.id,sourceModelId=source.sourceModelId,authoringRecipe=source.authoringRecipe,shading=source.shading,vertices=source.vertices,normals=source.normals,uv=source.uv,tangents=source.tangents,colors=source.colors.ToArray(),seasonalRole=source.seasonalRole,seasonalLeafTriangles=source.seasonalLeafTriangles,weatherExposure=source.weatherExposure};
             var leaf=new System.Collections.Generic.HashSet<int>(source.seasonalLeafTriangles??Array.Empty<int>());
             for(int i=0;i<m.colors.Length;i++)
             {
@@ -21,7 +21,7 @@ namespace QuietCamp.Presentation.World
                     if(preset.season!="winter"&&source.seasonalRole!="conifer")color=Color.Lerp(color,tint,preset.season=="autumn"?.68f:.27f);
                 }
                 if(preset.snowCover>0 && source.normals[i*3+1]>.18f)
-                    color=Color.Lerp(color,new Color(.79f,.84f,.85f),Mathf.SmoothStep(0,1,source.normals[i*3+1]) * preset.snowCover);
+                    color=Color.Lerp(color,new Color(.79f,.84f,.85f),Mathf.SmoothStep(0,1,source.normals[i*3+1]) * preset.snowCover*(source.weatherExposure?[i]??1));
                 m.colors[i]=Pack(color);
             }
             if(preset.season=="winter" && (source.seasonalRole=="deciduous"||source.seasonalRole=="flower"||source.seasonalRole=="groundcover"))
@@ -30,6 +30,7 @@ namespace QuietCamp.Presentation.World
                 m.vertices=triangles.SelectMany(t=>source.vertices.Skip(t*9).Take(9)).ToArray();
                 m.normals=triangles.SelectMany(t=>source.normals.Skip(t*9).Take(9)).ToArray();
                 m.colors=triangles.SelectMany(t=>m.colors.Skip(t*3).Take(3)).ToArray();
+                m.weatherExposure=source.weatherExposure==null?null:triangles.SelectMany(t=>source.weatherExposure.Skip(t*3).Take(3)).ToArray();
                 m.uv=source.uv==null?null:triangles.SelectMany(t=>source.uv.Skip(t*6).Take(6)).ToArray();
                 m.tangents=source.tangents==null?null:triangles.SelectMany(t=>source.tangents.Skip(t*12).Take(12)).ToArray();
             }

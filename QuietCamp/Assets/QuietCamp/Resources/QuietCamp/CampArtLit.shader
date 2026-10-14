@@ -63,9 +63,10 @@ Shader "QuietCamp/CampArtLit"
                 float3 color=input.color.rgb*lighting;
                 if(_QCWeather.w>.5 && _ArtWater<.5)
                 {
-                    color*=1-_QCWeather.z*.18;
+                    float exposed=saturate(input.color.a);
+                    color*=1-_QCWeather.z*.18*exposed;
                     float wetSpec=pow(saturate(dot(reflect(-sun.direction,normal),GetWorldSpaceNormalizeViewDir(input.positionWS))),24);
-                    color+=sun.color*wetSpec*_QCWeather.z*.07*sun.shadowAttenuation;
+                    color+=sun.color*wetSpec*_QCWeather.z*.07*exposed*sun.shadowAttenuation;
                 }
                 if(_ArtGround>.5) color*=.89+ArtNoise(input.positionWS.xz*.43)*.18+ArtNoise(input.positionWS.xz*2.4)*.07;
                 if(_ArtWater>.5)

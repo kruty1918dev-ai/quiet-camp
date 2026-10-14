@@ -24,6 +24,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         public string sourceId, operation, label, category, backend;
         public float size = 1, amount, density = 1;
         public int seed;
+        [JsonProperty(NullValueHandling=NullValueHandling.Ignore)] public SurfaceWeatheringSettings weathering;
     }
     [Serializable] public sealed class AuthoredModelVariant
     {
@@ -91,7 +92,8 @@ namespace QuietCamp.Editor.LevelAuthoring
             var result = new CampArtDefinition.Model { sourceModelId = sourceId, shading = "solid",
                 vertices = new float[triangles.Length*3], normals = new float[triangles.Length*3], colors = new int[triangles.Length],
                 uv = uv.Length == positions.Length ? new float[triangles.Length*2] : null,
-                tangents = tangents.Length == positions.Length ? new float[triangles.Length*4] : null };
+                tangents = tangents.Length == positions.Length ? new float[triangles.Length*4] : null,
+                weatherExposure=colors.Length==positions.Length&&colors.Any(c=>c.a<.999f)?new float[triangles.Length]:null };
             for (int k=0;k<triangles.Length;k++)
             {
                 int i=triangles[k]; var p=positions[i]; var n=normals[i];
@@ -100,6 +102,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 var c=colors.Length==positions.Length?colors[i]:Color.gray;
                 if (QualitySettings.activeColorSpace==ColorSpace.Linear)c=c.gamma;
                 result.colors[k]=Pack(c);
+                if(result.weatherExposure!=null)result.weatherExposure[k]=Mathf.Clamp01(c.a);
                 if(result.uv!=null){result.uv[k*2]=uv[i].x;result.uv[k*2+1]=uv[i].y;}
                 if(result.tangents!=null)for(int j=0;j<4;j++)result.tangents[k*4+j]=tangents[i][j];
             }
@@ -121,7 +124,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         public static AuthoredModelVariant Register(CampArtDefinition.Model model, ModelAuthoringRecipe recipe, bool persist = true)
         {
             string hash;
-            using(var sha=SHA256.Create())hash=BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(new{model.vertices,model.normals,model.colors,model.uv,model.tangents,recipe})))).Replace("-","").ToLowerInvariant().Substring(0,14);
+            using(var sha=SHA256.Create())hash=BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes((JsonConvert.SerializeObject(new{model.vertices,model.normals,model.colors,model.uv,model.tangents,recipe})+(model.weatherExposure==null?"":JsonConvert.SerializeObject(model.weatherExposure)))))).Replace("-","").ToLowerInvariant().Substring(0,14);
             model.id="qc_variant_"+hash;
             model.authoringRecipe=JsonConvert.SerializeObject(recipe);
             var variant=new AuthoredModelVariant{model=model,recipe=recipe};
@@ -145,6 +148,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         }
         static void Age(CampArtDefinition.Model model,ModelAuthoringRecipe r)
         {
+            if(r.weathering!=null){SurfaceWeathering.Apply(model,r);return;}
             var b=AuthoringPropCatalog.ModelBounds(model);float h=Mathf.Max(.01f,b.size.y);
             var target= r.backend=="autumn"?new Color(.65f,.47f,.19f):r.backend=="moss"?new Color(.28f,.36f,.16f):r.backend=="rust"?new Color(.43f,.27f,.16f):r.backend=="fade"?new Color(.59f,.55f,.43f):new Color(.29f,.25f,.19f);
             for(int i=0;i<model.colors.Length;i++)

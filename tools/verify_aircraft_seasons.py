@@ -1,4 +1,5 @@
 """Check all four aircraft drafts through normal memory-only gameplay; preserve the user's workspace."""
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -9,7 +10,8 @@ import time
 sys.stdout.reconfigure(encoding='utf-8')
 ROOT=Path(__file__).resolve().parents[1]
 QA=Path(r'C:\Users\Public\qcui-20261006\QuietCamp')
-OUTPUT=ROOT/'Design/LevelAuthoring/AircraftSeasons/Verification'
+parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,default=ROOT/'Design/LevelAuthoring/AircraftSeasons/Verification');args=parser.parse_args()
+OUTPUT=args.output.resolve()
 OUTPUT.mkdir(parents=True,exist_ok=True)
 def request(mode,**kwargs):
     args=[sys.executable,'-X','utf8',str(ROOT/'tools/request_authoring_props.py'),'--project',str(QA),'--mode',mode]

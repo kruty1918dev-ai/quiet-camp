@@ -77,14 +77,25 @@ namespace QuietCamp.Editor.LevelAuthoring
             return points.Min(p => p.x) < width * .5f + .12f && points.Max(p => p.x) > -width * .5f - .12f
                 && points.Min(p => p.z) < height * .5f + .12f && points.Max(p => p.z) > -height * .5f - .12f;
         }
+        public static AuthoringPropDescriptor FrozenDescriptor(CampArtDefinition.Model model)
+        {
+            var known=Find(model.id);if(known!=null)return known;
+            if(string.IsNullOrEmpty(model.authoringRecipe))return null;
+            var recipe=JsonConvert.DeserializeObject<ModelAuthoringRecipe>(model.authoringRecipe);
+            if(recipe.category!="Великі об’єкти")return null;
+            var b=ModelBounds(model);
+            return new AuthoringPropDescriptor{id=model.id,label=recipe.label,category=recipe.category,placement="single",recommendedScale=1,
+                boundsMin=new[]{b.min.x,b.min.y,b.min.z},boundsMax=new[]{b.max.x,b.max.y,b.max.z},triangles=model.colors.Length/3};
+        }
         public static List<string> Validate(LevelAuthoringDocument document)
         {
             var errors = new List<string>();
-            var bounds = document.art.models.Where(m => Find(m.id)?.SingleOnly == true && m.vertices?.Length >= 3 && m.vertices.Length%3 == 0)
+            var bounds = document.art.models.Where(m => FrozenDescriptor(m)?.SingleOnly == true && m.vertices?.Length >= 3 && m.vertices.Length%3 == 0)
                 .GroupBy(m => m.id).ToDictionary(g => g.Key, g => ModelBounds(g.First()));
             foreach (var item in document.art.instances ?? Array.Empty<CampArtDefinition.Instance>())
             {
-                var prop = Find(item.modelId);
+                var model=document.art.models.FirstOrDefault(m=>m.id==item.modelId);
+                var prop = model==null?Find(item.modelId):FrozenDescriptor(model);
                 if (prop == null || !prop.SingleOnly) continue;
                 var pose = Matrix4x4.TRS(new Vector3(item.x, item.y, item.z),
                     item.rotationEuler != null ? Quaternion.Euler(CampArtDefinition.Vector(item.rotationEuler)) : Quaternion.Euler(0, item.yaw, 0),

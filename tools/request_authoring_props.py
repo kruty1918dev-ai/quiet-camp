@@ -9,7 +9,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 p=argparse.ArgumentParser(description=__doc__)
 p.add_argument('--project',type=Path,required=True)
-p.add_argument('--mode',choices=['season-variant','campaign-weather-upgrade','weather-motion','authoring-load-draft','authoring-focus-game','campaign-regenerate','mood-tests','mood-demo','world-export','world-tests','world-demo','props-demo','props-play','props-game-status','draft-capture','authoring-tests','authoring-profile','authoring-page','authoring-workspace-status','authoring-current-play','authoring-stop','authoring-status','authoring-restored','authoring-complete'],required=True)
+p.add_argument('--mode',choices=['props-tests','aging-ui','aging-ui-restore','crash-compose','season-variant','campaign-weather-upgrade','weather-motion','authoring-load-draft','authoring-focus-game','campaign-regenerate','mood-tests','mood-demo','world-export','world-tests','world-demo','props-demo','props-play','props-game-status','draft-capture','authoring-tests','authoring-profile','authoring-page','authoring-workspace-status','authoring-current-play','authoring-stop','authoring-status','authoring-restored','authoring-complete'],required=True)
 p.add_argument('--draft',type=Path)
 p.add_argument('--profile')
 p.add_argument('--output',type=Path)
@@ -33,7 +33,7 @@ while time.time()-started<a.timeout:
         except (json.JSONDecodeError,PermissionError):time.sleep(.1);continue
         if d.get('status') in ('tests-running','campaign-generating','profiling'):time.sleep(.3);continue
         print(json.dumps({k:v for k,v in d.items() if k in ('status','error','errors','draftPath','output','playing','ready','memoryOnly','objects','baked','identical','solved','completed','result','passed','failed','total','duration','forbiddenComponents','persistentDataPath')},ensure_ascii=False))
-        if d.get('status')=='error' or d.get('errors'):raise SystemExit(1)
+        if d.get('status')=='error' or d.get('errors') or d.get('failed',0):raise SystemExit(1)
         break
     time.sleep(.3)
 else:raise SystemExit('Timed out; inspect the existing Editor. No new Editor was started.')

@@ -31,6 +31,9 @@ if len(matches) != 1:
     raise SystemExit(f'Expected one detached authoring window, found {len(matches)}.')
 args.output.parent.mkdir(parents=True, exist_ok=True)
 handle = matches[0]
+user.ShowWindow(handle, 9)
+# Keep the detached window visible on the primary monitor before grabbing pixels.
+user.MoveWindow(handle, 20, 20, min(1200, user.GetSystemMetrics(0) - 40), min(1000, user.GetSystemMetrics(1) - 80), True)
 user.GetForegroundWindow.restype = wintypes.HWND
 previous = user.GetForegroundWindow()
 foreground_thread = user.GetWindowThreadProcessId(previous, None)

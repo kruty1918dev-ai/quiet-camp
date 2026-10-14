@@ -293,6 +293,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             copy.art.models = markers.Where(m => m.packedModel).Select(m => m.stableId).Distinct().Select(id =>
                 _frozenModels.TryGetValue(id, out var frozen) ? frozen : LevelAuthoringPalette.Get(id).model).ToArray();
             copy.art.cover = Array.Empty<CampArtDefinition.CoverPoint>(); copy.art.levelId = copy.level.id;
+            if(bakeLandscape)AuthoringWeatherExposure.Bake(copy);
             return copy;
         }
         public void RefreshBoard()

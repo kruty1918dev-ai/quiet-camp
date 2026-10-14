@@ -168,10 +168,16 @@ namespace QuietCamp.Editor.LevelAuthoring
         void Stop();
         void OpenAdvanced();
     }
+    public interface IControlledPlacementAdapter
+    {
+        string Backend { get; }
+        GameObject[] PlaceBatch(GameObject prefab, Transform parent, GameObject surface, CampArtDefinition.Instance[] poses);
+    }
     // Explicit Editor integration point; no vendor types in runtime or named Editor assemblies.
     public static class PlacementToolIntegration
     {
         public static IPlacementToolAdapter Adapter { get; private set; }
+        public static IControlledPlacementAdapter Controlled => Adapter as IControlledPlacementAdapter;
         public static void Register(IPlacementToolAdapter adapter) => Adapter = adapter ?? throw new ArgumentNullException(nameof(adapter));
     }
 }

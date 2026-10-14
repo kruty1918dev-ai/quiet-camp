@@ -46,7 +46,7 @@ namespace QuietCamp.Presentation.World
                     int n = i * 3;
                     positions[i] = new Vector3(source.vertices[n], source.vertices[n + 1], source.vertices[n + 2]);
                     normals[i] = new Vector3(source.normals[n], source.normals[n + 1], source.normals[n + 2]);
-                    colors[i] = Linear(CampArtDefinition.Color(source.colors[i]));
+                    colors[i] = Linear(CampArtDefinition.Color(source.colors[i])); colors[i].a=source.weatherExposure?[i]??1;
                 }
                 mesh.vertices = positions; mesh.normals = normals; mesh.colors = colors;
                 if(source.uv?.Length==count*2)mesh.uv=Enumerable.Range(0,count).Select(i=>new Vector2(source.uv[i*2],source.uv[i*2+1])).ToArray();

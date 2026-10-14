@@ -1,6 +1,11 @@
 #if QUIETCAMP_PWB
 using System;
 using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
+using QuietCamp.Infrastructure;
+using UnityEngine.SceneManagement;
 using PluginMaster;
 using QuietCamp.Editor.LevelAuthoring;
 using UnityEditor;
@@ -9,7 +14,7 @@ using UnityEngine;
 // Deliberately in Assembly-CSharp-Editor: the vendor has no asmdef.
 // This bridge references our named Editor assembly, never the reverse.
 [InitializeOnLoad]
-public sealed class PwbLevelAuthoringAdapter : IPlacementToolAdapter
+public sealed class PwbLevelAuthoringAdapter : IPlacementToolAdapter, IControlledPlacementAdapter
 {
     static PwbLevelAuthoringAdapter() => PlacementToolIntegration.Register(new PwbLevelAuthoringAdapter());
     public void Activate(PlacementTool tool, GameObject prefab, Transform parent, GameObject surface,
@@ -73,6 +78,37 @@ public sealed class PwbLevelAuthoringAdapter : IPlacementToolAdapter
         settings.brushSettings.randomEulerOffset = new RandomUtils.Range3(Vector3.zero, new Vector3(0, 360, 0));
         settings.brushSettings.randomScaleMultiplier = variation > 0;
         settings.brushSettings.randomScaleMultiplierRange = new RandomUtils.Range3(Vector3.one * (1-variation), Vector3.one * (1+variation));
+    }
+    public string Backend => "Prefab World Builder 4.12 — native Paint";
+    public GameObject[] PlaceBatch(GameObject prefab, Transform parent, GameObject surface, CampArtDefinition.Instance[] poses)
+    {
+        // Vendor 4.12 has no public scripted stroke API. Keep this version-checked
+        // reflection at the vendor boundary, without copying or changing vendor code.
+        var flags=BindingFlags.NonPublic|BindingFlags.Static;
+        var strokeField=typeof(PWBIO).GetField("_paintStroke",flags);
+        var itemType=typeof(PWBIO).GetNestedType("PaintStrokeItem",BindingFlags.NonPublic);
+        var paint=typeof(PWBIO).GetMethod("Paint",flags);
+        if(strokeField==null||itemType==null||paint==null||paint.GetParameters().Length!=5)
+            throw new InvalidOperationException("PWB scripted placement contract changed; native 4.12 Paint API expected.");
+        var previous=strokeField.GetValue(null);
+        if(((IList)previous).Count!=0)throw new InvalidOperationException("Finish the current PWB stroke before composing an example.");
+        var stroke=(IList)Activator.CreateInstance(strokeField.FieldType);
+        string guid=AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(prefab));
+        for(int k=0;k<poses.Length;k++)
+        {
+            var p=poses[k];var rotation=p.rotationEuler==null?Quaternion.Euler(0,p.yaw,0):Quaternion.Euler(CampArtDefinition.Vector(p.rotationEuler));
+            stroke.Add(Activator.CreateInstance(itemType,new object[]{prefab,guid,parent.TransformPoint(new Vector3(p.x,p.y,p.z)),parent.rotation*rotation,
+                p.scaleXYZ==null?Vector3.one*p.scale:CampArtDefinition.Vector(p.scaleXYZ),prefab.layer,parent,surface.transform,false,false,k}));
+        }
+        var settings=new PinSettings();Setup(settings,parent,0);
+        var active=SceneManager.GetActiveScene();bool wasPainting=PWBIO.painting;
+        try
+        {
+            SceneManager.SetActiveScene(parent.gameObject.scene);strokeField.SetValue(null,stroke);
+            var result=(Dictionary<string,List<(GameObject,int)>>)paint.Invoke(null,new object[]{settings,"QuietCamp — композиція PWB",false,false,""});
+            return result.Values.SelectMany(v=>v).OrderBy(v=>v.Item2).Select(v=>v.Item1).ToArray();
+        }
+        finally { strokeField.SetValue(null,previous);PWBIO.painting=wasPainting;if(active.IsValid()&&active.isLoaded)SceneManager.SetActiveScene(active); }
     }
     public void Stop() => ToolController.current = ToolController.Tool.NONE;
     public void OpenAdvanced()

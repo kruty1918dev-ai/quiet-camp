@@ -234,3 +234,7 @@ generator scores cannot replace visual review or prove reference equivalence.
 Use actual Unity captures as implementation evidence. Keep source revisions stable
 during each capture batch. Preserve gameplay, saves, the existing renderer assets
 and the Unity/process restrictions above. Never claim an unresolved frame passed.
+
+# Scene narrative and contact
+
+For scene work, follow Design/LevelAuthoring/SCENE-STORY-RULES-UA.md: physical supports, material-specific baked weathering, actual PWB placement, purposeful human traces and game-camera review. Preserve the common story across seasons; inspect both overview and details before acceptance.

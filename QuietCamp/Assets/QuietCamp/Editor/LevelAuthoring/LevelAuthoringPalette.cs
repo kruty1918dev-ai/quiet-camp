@@ -47,10 +47,12 @@ namespace QuietCamp.Editor.LevelAuthoring
             foreach (var model in models.Where(m => !entries.Any(e => e.id == m.id)))
             {
                 var source=entries.FirstOrDefault(e=>e.id==model.sourceModelId);
-                AddModel(entries,model,source?.category??"Декор",source?.label??"Деталь наявного рівня",source?.smallPlant??model.shading=="foliage");
+                var recipe=string.IsNullOrEmpty(model.authoringRecipe)?null:JsonConvert.DeserializeObject<ModelAuthoringRecipe>(model.authoringRecipe);
+                AddModel(entries,model,source?.category??recipe?.category??"Декор",source?.label??recipe?.label??"Деталь наявного рівня",source?.smallPlant??model.shading=="foliage");
                 var original=AuthoringPropCatalog.FindBase(model.sourceModelId??model.id);
                 if(original!=null){var prop=LevelAuthoringDocument.Copy(original);prop.id=model.id;var bounds=AuthoringPropCatalog.ModelBounds(model);prop.boundsMin=new[]{bounds.min.x,bounds.min.y,bounds.min.z};prop.boundsMax=new[]{bounds.max.x,bounds.max.y,bounds.max.z};entries.Last().prop=prop;}
             }
+            foreach(var entry in entries.Where(e=>e.model!=null&&e.prop==null))entry.prop=AuthoringPropCatalog.FrozenDescriptor(entry.model);
             _entries = entries.ToArray();
         }
         static AuthoringPaletteEntry[] Build()
@@ -280,7 +282,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             mesh.normals = Enumerable.Range(0, count).Select(i => new Vector3(model.normals[i * 3], model.normals[i * 3 + 1], model.normals[i * 3 + 2])).ToArray();
             if(model.uv?.Length==count*2)mesh.uv=Enumerable.Range(0,count).Select(i=>new Vector2(model.uv[i*2],model.uv[i*2+1])).ToArray();
             if(model.tangents?.Length==count*4)mesh.tangents=Enumerable.Range(0,count).Select(i=>new Vector4(model.tangents[i*4],model.tangents[i*4+1],model.tangents[i*4+2],model.tangents[i*4+3])).ToArray();
-            mesh.colors = model.colors.Select(c => QualitySettings.activeColorSpace == ColorSpace.Linear ? CampArtDefinition.Color(c).linear : CampArtDefinition.Color(c)).ToArray();
+            mesh.colors = model.colors.Select((c,i) => { var color=QualitySettings.activeColorSpace == ColorSpace.Linear ? CampArtDefinition.Color(c).linear : CampArtDefinition.Color(c);color.a=model.weatherExposure?[i]??1;return color; }).ToArray();
             mesh.triangles = Enumerable.Range(0, count).ToArray(); mesh.RecalculateBounds();
             mesh.uv2=QuietCamp.Presentation.World.PlantWeatherResponse.Weights(model);
         }

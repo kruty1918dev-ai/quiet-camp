@@ -21,6 +21,9 @@ FILES+=['Assets/QuietCamp/Editor/LevelAuthoring/WeatherMotionCapture.cs']
 FILES+=['Assets/QuietCamp/Scripts/Presentation/World/TentCloth.cs','Assets/QuietCamp/Scripts/Presentation/World/CampRainShelter.cs']
 FILES+=['Assets/QuietCamp/Editor/LevelAuthoring/WeatherModelRigAuthoring.cs']
 FILES+=['Assets/QuietCamp/Resources/QuietCamp/TentCloth.shader']
+FILES+=['Assets/QuietCamp/Editor/LevelAuthoring/SurfaceWeathering.cs','Assets/QuietCamp/Editor/LevelAuthoring/CrashMeshAuthoring.cs','Assets/QuietCamp/Editor/LevelAuthoring/AircraftCrashAuthoring.cs','Assets/QuietCamp/Editor/LevelAuthoring/ModelAuthoringWorkshop.cs','Assets/QuietCamp/Editor/LevelAuthoring/LevelAuthoringWindow.Models.cs','Assets/QuietCamp/EditorBridge/Editor/PwbLevelAuthoringAdapter.cs']
+FILES+=['Assets/QuietCamp/Editor/LevelAuthoring/AuthoringWeatherExposure.cs']
+FILES+=['Assets/QuietCamp/Tests/Editor/SurfaceWeatheringTests.cs','Assets/QuietCamp/Editor/LevelAuthoring/AuthoringPropCatalog.cs']
 for name in FILES:
  source=PROJECT/name
  if not source.exists():continue

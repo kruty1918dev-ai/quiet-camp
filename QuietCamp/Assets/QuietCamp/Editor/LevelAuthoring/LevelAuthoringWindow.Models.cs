@@ -11,7 +11,10 @@ namespace QuietCamp.Editor.LevelAuthoring
     public sealed partial class LevelAuthoringWindow
     {
         float _modelScale=1,_modelAge=.4f,_modelDensity=.75f,_cutOffset;
-        int _ageKind,_detailBackend,_cutAxis;
+        int _ageKind,_detailBackend,_cutAxis,_ageDistribution,_ageMaterial,_ageSeed=1918;
+        float _agePatchSize=1.5f;
+        Color _ageTint=new Color(.43f,.27f,.16f);
+        bool _customAgeTint;
         string _variantLabel="Мій варіант";
         GameObject _modelEditObject;
         LevelAuthoringAsset _modelEditOriginal;
@@ -20,8 +23,11 @@ namespace QuietCamp.Editor.LevelAuthoring
         bool _compareOriginal;
         ModelAuthoringWorkshop.DetailJob _detailJob;
         LevelAuthoringAsset _detailOriginal;
-        static readonly string[] AgeNames={"Мох","Вицвіле дерево","Окиснення металу","Бруд біля основи"};
-        static readonly string[] AgeKinds={"moss","fade","rust","dirt"};
+        static readonly string[] AgeNames={"Мох","Зношення фарби","Іржа сталі","Бруд біля основи","Окиснення алюмінію","Патьоки","Потемніння від давньої пожежі"};
+        static readonly string[] AgeKinds={"moss","paint","rust","dirt","oxidation","streaks","scorch"};
+
+        [MenuItem("QuietCamp/Інструменти/Старіння моделей")]
+        static void OpenWeatheringTool(){var window=OpenWindow();window.ShowPage(6);}
 
         LevelAuthoringAsset SelectedModel()
         {
@@ -54,6 +60,13 @@ namespace QuietCamp.Editor.LevelAuthoring
                 if(GUILayout.Button("Переглянути спрощений варіант"))Try(()=>ApplyModelRecipe(marker,"simplify"));
                 EditorGUILayout.Space();EditorGUILayout.LabelField("Старіння",EditorStyles.boldLabel);
                 _ageKind=EditorGUILayout.Popup("Матеріал старіння",_ageKind,AgeNames);_modelAge=EditorGUILayout.Slider("Інтенсивність",_modelAge,0,1);
+                _ageMaterial=EditorGUILayout.Popup("Матеріал",_ageMaterial,new[]{"Змішаний","Алюміній","Сталь","Дерево","Камінь","Тканина"});
+                _agePatchSize=EditorGUILayout.Slider("Розмір ділянок, м",_agePatchSize,.15f,8);
+                _ageDistribution=EditorGUILayout.Popup("Розподіл",_ageDistribution,new[]{"Природний","Біля основи","Верхні поверхні","Боки","Краї"});
+                _ageSeed=EditorGUILayout.IntField("Варіант / seed",_ageSeed);
+                _customAgeTint=EditorGUILayout.Toggle("Власний колір",_customAgeTint);
+                if(_customAgeTint)_ageTint=EditorGUILayout.ColorField("Колір старіння",_ageTint);
+                EditorGUILayout.HelpBox("Ефект запікається в кольори граней: без нових текстур і runtime-компонентів. Алюміній окиснюється; іржа доречна для сталевих деталей. Збережіть або скасуйте прев’ю.",MessageType.None);
                 if(GUILayout.Button("Переглянути старіння"))Try(()=>ApplyModelRecipe(marker,"age"));
                 if(GUILayout.Button("Малювати старіння пензлем Polybrush"))Try(()=>BeginModelSession(marker,false));
                 EditorGUILayout.Space();EditorGUILayout.LabelField("Розділення й форма",EditorStyles.boldLabel);
@@ -80,6 +93,13 @@ namespace QuietCamp.Editor.LevelAuthoring
         {
             var entry=LevelAuthoringPalette.Get(marker.stableId);var r=new ModelAuthoringRecipe{label=_variantLabel,category=entry.category,operation=operation,size=_modelScale,amount=_modelAge,density=_modelDensity,seed=Document.level.seed,
                 backend=operation=="age"?AgeKinds[_ageKind]:_detailBackend==0?"protected":"fast"};
+            if(operation=="age")
+            {
+                r.seed=_ageSeed;
+                r.weathering=new SurfaceWeatheringSettings{material=new[]{"generic","aluminium","steel","wood","stone","cloth"}[_ageMaterial],
+                    distribution=new[]{"natural","lower","upward","sides","edges"}[_ageDistribution],patchSize=_agePatchSize,
+                    tint=_customAgeTint?(int?)QuietCamp.Presentation.World.SeasonModelAppearance.Pack(_ageTint):null};
+            }
             if(operation=="simplify") {_detailOriginal=marker;_detailJob=new ModelAuthoringWorkshop.DetailJob(SourceModel(marker),r);return;}
             var preview=ModelAuthoringWorkshop.Create(SourceModel(marker),r,false);
             PreviewVariant(marker,preview);

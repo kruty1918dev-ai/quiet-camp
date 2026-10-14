@@ -50,6 +50,7 @@ namespace QuietCamp.Infrastructure
             public float[] vertices, normals;
             public float[] uv, tangents;
             public int[] colors;
+            [JsonProperty(NullValueHandling=NullValueHandling.Ignore)] public float[] weatherExposure;
         }
         public sealed class Instance
         {
@@ -97,6 +98,7 @@ namespace QuietCamp.Infrastructure
                     || model.normals.Length != model.vertices.Length || model.colors.Length * 3 != model.vertices.Length
                     || !model.vertices.All(Finite) || !model.normals.All(Finite)
                     || model.uv!=null&&(model.uv.Length!=model.colors.Length*2||!model.uv.All(Finite))
+                    || model.weatherExposure!=null&&(model.weatherExposure.Length!=model.colors.Length||!model.weatherExposure.All(v=>Finite(v)&&v>=0&&v<=1))
                     || model.tangents!=null&&(model.tangents.Length!=model.colors.Length*4||!model.tangents.All(Finite)))
                     throw new InvalidDataException("Invalid camp art mesh: " + model.id);
             foreach (var item in instances)
