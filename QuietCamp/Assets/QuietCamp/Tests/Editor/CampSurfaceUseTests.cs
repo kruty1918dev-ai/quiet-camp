@@ -67,6 +67,12 @@ namespace QuietCamp.Tests
             Assert.That(shaded,Is.GreaterThan(dry));Assert.That(underside,Is.LessThan(shaded));
 
         }
+        [Test] public void PointsInsideCanopyBoundsStillReceiveShelterAndFarObjectsDoNot()
+        {
+            var crown=new Bounds(Vector3.up,Vector3.one*4);float sheltered=ObjectOvergrowthAuthoring.EstimateLight(Vector3.zero,Vector3.up,Vector3.up,new[]{crown});
+            float open=ObjectOvergrowthAuthoring.EstimateLight(Vector3.zero,Vector3.up,Vector3.up,new[]{new Bounds(Vector3.up*30,Vector3.one)});
+            Assert.That(sheltered,Is.LessThan(open));Assert.That(open,Is.EqualTo(1));
+        }
         [Test] public void OptionalMossMetadataPreservesLegacyJsonAndSeasonalSourceGeometry()
         {
             var d=LevelAuthoringDocument.Open(Draft);var m=d.art.models.First(m=>m.shading=="solid");Assert.That(JsonConvert.SerializeObject(m),Does.Not.Contain("mossCoverage"));

@@ -42,8 +42,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 var normalMatrix=matrix.inverse.transpose;var bounds=WorldBounds(source,instance);var others=solids.Where(s=>s.Key!=instance.id).Select(s=>s.Value).Concat(canopy).ToArray();
                 float Mask(Vector3 at,Vector3 normal)
                 {
-                    var ray=new Ray(at+normal*.04f,sun);float light=Mathf.Max(0,Vector3.Dot(normal,sun));
-                    if(others.Any(b=>b.IntersectRay(ray,out float distance)&&distance>0&&distance<16))light*=.15f;
+                    float light=EstimateLight(at,normal,sun,others);
                     float contact=Mathf.Exp(-Mathf.Max(0,at.y-art.GroundHeight(at.x,at.z))/.9f);
                     return SurfaceWeathering.MossSuitability(at,normal,contact,light,settings.moisture,settings.material,settings.coverage,settings.seed)*settings.density;
                 }
@@ -78,6 +77,14 @@ namespace QuietCamp.Editor.LevelAuthoring
             var used=new HashSet<string>(items.Select(i=>i.modelId));art.models=models.Values.Where(m=>used.Contains(m.id)).ToArray();art.instances=items.ToArray();
             if(art.atmosphere!=null)SeasonAtmosphereAuthoring.Apply(document,art.atmosphere);
             return total;
+        }
+        public static float EstimateLight(Vector3 position,Vector3 normal,Vector3 sun,IEnumerable<Bounds> blockers)
+        {
+            var ray=new Ray(position+normal*.04f,sun);float light=Mathf.Max(0,Vector3.Dot(normal,sun));
+            // Test containment explicitly: a crown can already surround the sample.
+            // The caller excludes the object's own bounds; nearby covering geometry still shades it.
+            if(blockers.Any(b=>b.Contains(ray.origin)||b.IntersectRay(ray,out float distance)&&distance>=0&&distance<16))light*=.15f;
+            return light;
         }
         static int Stable(string value){uint h=2166136261;foreach(char c in value)h=unchecked((h^c)*16777619);return (int)h;}
         static Bounds WorldBounds(CampArtDefinition.Model model,CampArtDefinition.Instance i)

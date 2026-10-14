@@ -13,10 +13,16 @@ ROOT=Path(__file__).resolve().parents[1]
 QA=Path(r'C:\Users\Public\qcui-20261006\QuietCamp')
 GALLERY=ROOT/'Design/LevelAuthoring/AircraftSeasons'
 p=argparse.ArgumentParser(description=__doc__)
-p.add_argument('--round',default='A13')
+p.add_argument('--round',default='G07')
+p.add_argument('--draft-root',type=Path)
+p.add_argument('--surface',action='store_true')
 a=p.parse_args()
-OUTPUT=GALLERY/'AirVerification';OUTPUT.mkdir(exist_ok=True)
-MOVIES=GALLERY/'Motion';MOVIES.mkdir(exist_ok=True)
+OUTPUT=GALLERY/('GroundVerification' if a.surface else 'AirVerification');OUTPUT.mkdir(exist_ok=True)
+MOVIES=GALLERY/('GroundMotion' if a.surface else 'Motion');MOVIES.mkdir(exist_ok=True)
+DRAFTS=a.draft_root
+def draft_path(season):
+    if DRAFTS:return DRAFTS/season/(season+'.draft.json')
+    return ROOT/'QuietCamp/Assets/QuietCamp/Authoring/WorldStudies/AircraftSeasons'/(season+'.draft.json')
 
 
 def request(mode,**values):
@@ -31,11 +37,11 @@ def snapshot(folder):
     return {p.relative_to(folder).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in folder.rglob('*') if p.is_file() and p.suffix in ('.mvs','.bak','.txt')}
 
 
-first=GALLERY/'AirReview'/a.round/'spring/spring.draft.json'
+first=draft_path('spring')
 progress=Path(request('props-game-status',draft=first)['persistentDataPath'])
 before=snapshot(progress);workspace=request('authoring-workspace-status')
-for season in ('spring','summer','autumn','winter'):
-    draft=GALLERY/'AirReview'/a.round/season/(season+'.draft.json')
+for season in (('spring','summer','autumn','winter','rain') if a.surface else ('spring','summer','autumn','winter')):
+    draft=draft_path(season)
     request('props-play',draft=draft)
     try:
         for _ in range(60):
@@ -49,6 +55,10 @@ for season in ('spring','summer','autumn','winter'):
         output=QA/'Temp/ai/AircraftAirMotion'/a.round/season
         result=request('forest-motion',output=output)
         frames=result['frames'];assert len(frames)==32
+        if a.surface:
+            assert all(f['surfaceResidents']==3 for f in frames), 'Missing live campers'
+            assert frames[-1]['surfaceSteps']>frames[0]['surfaceSteps'], 'No actual steps accumulated'
+            assert all(y['surfaceSteps']>=x['surfaceSteps'] for x,y in zip(frames,frames[1:])), 'Foot traffic reset while walking'
         assert all(right['clock']>left['clock'] for left,right in zip(frames,frames[1:]))
         assert len({f['imageSha256'] for f in frames[:16]})>8
         assert len({tuple(f['cameraPosition']) for f in frames})==1
