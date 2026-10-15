@@ -83,6 +83,7 @@ namespace QuietCamp.Presentation.World
         {
             if(world==null)return;
             if(_weather!=null)_weather.World=world;
+            if(_artView?.SeasonAtmosphere!=null)_artView.SeasonAtmosphere.RainWorld=world;
             _soundscape?.BindWorld(world);
             if(_shelter==null)_shelter=gameObject.AddComponent<CampRainShelter>();
             _shelter.Configure(this,world,board);
@@ -361,9 +362,6 @@ namespace QuietCamp.Presentation.World
                 var weather=_artView.SeasonAtmosphere;bool seasonalReduced=_reducedMotion?.Invoke()??false;
                 int seasonalTier=_qualitySource?.Invoke()??_tier;_artView.SetQualityTier(seasonalTier);
                 weather.Advance(Time.unscaledDeltaTime,seasonalReduced,seasonalTier);
-                Shader.SetGlobalVector(WindXZ,new Vector4(weather.WindDirection.x,weather.WindDirection.y,0,0));
-                Shader.SetGlobalFloat(WindStrength,weather.WindStrength);
-                Shader.SetGlobalFloat(WindTime,weather.WeatherClock);
                 _shelter?.Advance(Time.unscaledDeltaTime,weather.Preset.rain);
                 return;
             }

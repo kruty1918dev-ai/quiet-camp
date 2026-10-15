@@ -60,11 +60,11 @@ namespace QuietCamp.Presentation.World
                 }
             }
         }
-        public float Height(float x,float z,float ground)
+        public float Height(float x,float z,float ground,bool includeTents=true)
         {
             var key=new Vector2Int(Mathf.FloorToInt(x/Step),Mathf.FloorToInt(z/Step));
             if(_heights.TryGetValue(key,out float surface))ground=Mathf.Max(ground,surface);
-            if(_tentHeights.TryGetValue(key,out float roof))ground=Mathf.Max(ground,roof);
+            if(includeTents&&_tentHeights.TryGetValue(key,out float roof))ground=Mathf.Max(ground,roof);
             return ground;
         }
     }

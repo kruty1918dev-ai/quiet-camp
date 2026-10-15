@@ -99,7 +99,7 @@ namespace QuietCamp.Presentation.World
                 float radius = mark.size * Mathf.Lerp(.15f, mark.fabric?.35f:1, progress);
                 var tangent = Vector3.Cross(normal, Mathf.Abs(normal.y) > .9f ? Vector3.forward : Vector3.up).normalized;
                 var bitangent = Vector3.Cross(normal, tangent);
-                float alpha = Mathf.Sin(progress * Mathf.PI) * (mark.fabric?.20f:.28f);
+                float alpha = Mathf.Sin(progress * Mathf.PI) * (mark.fabric?.20f:.48f);
                 for (int s = 0; s < Segments; s++)
                 {
                     float angle = s * Mathf.PI * 2 / Segments;
@@ -107,7 +107,7 @@ namespace QuietCamp.Presentation.World
                     for (int edge = 0; edge < 2; edge++)
                     {
                         int v = i * VerticesPerMark + s * 2 + edge;
-                        var offset = direction * Mathf.Max(0,radius + (edge == 0 ? -.006f : .006f));
+                        var offset = direction * Mathf.Max(0,radius + (edge == 0 ? -.01f : .01f));
                         var point = mark.contact.Project(offset, centre);
                         _vertices[v] = transform.InverseTransformPoint(point + normal * .009f);
                         _colors[v] = new Color(.82f, .94f, .95f, alpha);
@@ -162,6 +162,10 @@ namespace QuietCamp.Presentation.World
                 _colors[v]=_colors[v+1]=color;
             }
         }
-        void OnDestroy() { if (_mesh != null) Destroy(_mesh); if (_material != null) Destroy(_material); }
+        void OnDestroy()
+        {
+            if(UnityEngine.Application.isPlaying){if(_mesh!=null)Destroy(_mesh);if(_material!=null)Destroy(_material);}
+            else{if(_mesh!=null)DestroyImmediate(_mesh);if(_material!=null)DestroyImmediate(_material);}
+        }
     }
 }

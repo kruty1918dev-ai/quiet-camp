@@ -14,6 +14,17 @@ namespace QuietCamp.Editor.LevelAuthoring
 {
     public static class OpeningCampaignGameplayProbe
     {
+        static uint _previousWidth, _previousHeight;
+        static bool _reviewResolution;
+
+        static void RestoreReviewResolution(PlayModeStateChange state)
+        {
+            if(state!=PlayModeStateChange.ExitingPlayMode||!_reviewResolution)return;
+            PlayModeWindow.SetCustomRenderingResolution(_previousWidth,_previousHeight,"Restored after camera review");
+            _reviewResolution=false;
+            EditorApplication.playModeStateChanged-=RestoreReviewResolution;
+        }
+
         public static object Run(string action,string output=null,string levelId=null)
         {
             if(action=="start"||action=="start-menu")
@@ -26,6 +37,23 @@ namespace QuietCamp.Editor.LevelAuthoring
                 return new{status="opening-game-waiting"};
             if(!EditorApplication.isPlaying || !EditorAuthoringPreview.CampaignPreview || QuietCampBootstrap.ServicesRef?.Save.MemoryOnly!=true)
                 throw new InvalidOperationException("Only the isolated campaign preview can run this probe.");
+            if(action=="viewport")
+            {
+                var parts=(levelId??"").Split('x');
+                if(parts.Length!=2||!uint.TryParse(parts[0],out var width)||!uint.TryParse(parts[1],out var height)
+                    ||width<320||height<320||width>4096||height>4096)throw new ArgumentException("Expected a review size such as 750x1334.");
+                var game=Resources.FindObjectsOfTypeAll<EditorWindow>().FirstOrDefault(w=>w.GetType().FullName=="UnityEditor.GameView");
+                if(game==null)throw new InvalidOperationException("An existing Game View is required; no new window was opened.");
+                if(!_reviewResolution)
+                {
+                    PlayModeWindow.GetRenderingResolution(out _previousWidth,out _previousHeight);
+                    _reviewResolution=true;
+                    EditorApplication.playModeStateChanged+=RestoreReviewResolution;
+                }
+                game.Focus();game.Repaint();
+                PlayModeWindow.SetCustomRenderingResolution(width,height,"QuietCamp camera review");
+                return new{status="review-viewport-requested",width,height,memoryOnly=true};
+            }
             if(action=="frame")
             {
                 if(string.IsNullOrEmpty(output)||!System.IO.Path.IsPathRooted(output)||!output.EndsWith(".png",StringComparison.OrdinalIgnoreCase))throw new ArgumentException("Expected an absolute PNG path.");
@@ -190,6 +218,8 @@ namespace QuietCamp.Editor.LevelAuthoring
                 particles=art?.SeasonAtmosphere?.LiveParticles,voices=art?.SeasonAtmosphere?.OwnedVoices,
                 riverReflectionRendered=art?.RiverReflections?.HasRenderedReflection,
                 playingVoices=art?.SeasonAtmosphere?.PlayingVoices,wind=art?.SeasonAtmosphere?.WindStrength,
+                rainContacts=art?.SeasonAtmosphere?.RainContactCount,groundRainContacts=art?.SeasonAtmosphere?.GroundRainContacts,fabricRainContacts=art?.SeasonAtmosphere?.FabricRainContacts,
+                activeRainContacts=art?.SeasonAtmosphere?.RainContacts?.ActiveCount,rainRunoff=art?.SeasonAtmosphere?.RainContacts?.RunoffCount,
                 cameraEuler=Camera.main!=null?new[]{Camera.main.transform.eulerAngles.x,Camera.main.transform.eulerAngles.y,Camera.main.transform.eulerAngles.z}:new float[3],orthographicSize=Camera.main!=null?Camera.main.orthographicSize:0,
                 completed=services.Save.Progress.completedIds,next=services.NextLevel(id)};
         }
@@ -215,7 +245,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             var boardCentre=camera.WorldToViewportPoint(playable.center);
             var groundField=Enumerable.Range(0,8).Select(i=>camera.WorldToViewportPoint(playable.center+new Vector3(
                 (i&1)==0?-playable.extents.x:playable.extents.x,(i&2)==0?-playable.extents.y:playable.extents.y,(i&4)==0?-playable.extents.z:playable.extents.z))).ToArray();
-            return new{gameplay=new[]{rect.x,rect.y,rect.width,rect.height},
+            return new{screen=new[]{Screen.width,Screen.height},gameplay=new[]{rect.x,rect.y,rect.width,rect.height},
                 playableFieldContained=groundField.All(v=>v.z>0&&v.x>=rect.xMin-.001f&&v.x<=rect.xMax+.001f&&v.y>=rect.yMin-.001f&&v.y<=rect.yMax+.001f),
                 playableCentreErrorPixels=new[]{(boardCentre.x-rect.center.x)*Screen.width,(boardCentre.y-rect.center.y)*Screen.height},
                 frameCentreErrorPixels=new[]{(boardCentre.x-.5f)*Screen.width,(boardCentre.y-.5f)*Screen.height},

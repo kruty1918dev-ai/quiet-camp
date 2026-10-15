@@ -15,6 +15,64 @@ namespace QuietCamp.Tests
 {
     public sealed class SeasonAtmosphereTests
     {
+        [TestCase(0,false)]
+        [TestCase(1,false)]
+        [TestCase(2,false)]
+        [TestCase(1,true)]
+        public void SeasonalRainCreatesOneContactForEachActualGroundOrRoofHit(int tier,bool roof)
+        {
+            var root=new GameObject("Seasonal rain contact contract");var cameraObject=new GameObject("Rain camera");
+            Mesh mesh=null;Material fabric=null;
+            try
+            {
+                var camera=cameraObject.AddComponent<Camera>();CameraFitter.Configure(camera);camera.orthographicSize=8;
+                var art=new CampArtDefinition{width=6,height=6,streamCentre=100,models=Array.Empty<CampArtDefinition.Model>(),instances=Array.Empty<CampArtDefinition.Instance>()};
+                var preset=SeasonAtmosphereCatalog.Copy(SeasonAtmosphereCatalog.Get("summer_rain"));preset.wind=0;
+                var view=new GameObject("Rain").AddComponent<SeasonAtmosphereView>();view.Configure(preset,art,camera,root.transform);
+                float y=art.GroundHeight(0,0)+.2f;
+                if(roof)
+                {
+                    var node=new GameObject("Sloped fabric",typeof(MeshFilter),typeof(MeshRenderer));node.transform.SetParent(root.transform,false);
+                    mesh=new Mesh{vertices=new[]{new Vector3(-1,.6f,-1),new Vector3(1,1.6f,-1),new Vector3(-1,.6f,1),new Vector3(1,1.6f,1)},triangles=new[]{0,2,1,1,2,3}};
+                    mesh.RecalculateNormals();mesh.RecalculateBounds();node.GetComponent<MeshFilter>().sharedMesh=mesh;
+                    fabric=new Material(Shader.Find("QuietCamp/TentCloth"));fabric.SetVector("_MeshMin",mesh.bounds.min);fabric.SetVector("_MeshSize",mesh.bounds.size);
+                    node.GetComponent<MeshRenderer>().sharedMaterial=fabric;RainSurface.Attach(node);y=1.3f;
+                    // EditMode does not invoke the runtime Awake callback.
+                    node.GetComponent<RainSurface>().RefreshGeometry();
+                }
+                view.Advance(0,false,tier);
+                var rain=root.GetComponentsInChildren<ParticleSystem>().Single(p=>p.name=="Дощ");
+                foreach(var system in root.GetComponentsInChildren<ParticleSystem>())system.Clear();
+                rain.Play(false); // Initialize Unity's native particle playback in EditMode.
+                rain.Emit(new ParticleSystem.EmitParams{position=new Vector3(0,y,0),startLifetime=2,randomSeed=42},1);
+                rain.Pause(false);
+                var before=new ParticleSystem.Particle[1200];int beforeCount=rain.GetParticles(before);
+                Assert.AreEqual(1,beforeCount,"The test drop must exist before advancing.");
+                view.Advance(.04f,false,tier);
+                Assert.AreEqual(1,view.RainContactCount,"Only the visible particle crossing may emit a contact.");
+                Assert.AreEqual(roof?1:0,view.FabricRainContacts);Assert.AreEqual(roof?0:1,view.GroundRainContacts);
+                Assert.AreEqual(1,view.RainContacts.ActiveCount);Assert.LessOrEqual(view.RainContacts.ActiveCount,view.RainContacts.Budget);
+                view.Advance(.05f,false,tier);Assert.AreEqual(1,view.RainContactCount,"The consumed drop cannot hit again.");
+                view.Advance(0,true,tier);Assert.AreEqual(0,view.RainContacts.ActiveCount,"Reduced motion clears contact animation.");
+            }
+            finally{UnityEngine.Object.DestroyImmediate(root);UnityEngine.Object.DestroyImmediate(cameraObject);if(mesh!=null)UnityEngine.Object.DestroyImmediate(mesh);if(fabric!=null)UnityEngine.Object.DestroyImmediate(fabric);}
+        }
+
+        [Test] public void DryPresetDoesNotInventRainContactsOrSplashes()
+        {
+            var root=new GameObject("Dry weather contract");var cameraObject=new GameObject("Dry camera");
+            try
+            {
+                var camera=cameraObject.AddComponent<Camera>();CameraFitter.Configure(camera);camera.orthographicSize=8;
+                var art=new CampArtDefinition{width=6,height=6,streamCentre=100,models=Array.Empty<CampArtDefinition.Model>(),instances=Array.Empty<CampArtDefinition.Instance>()};
+                var view=new GameObject("Dry").AddComponent<SeasonAtmosphereView>();view.Configure(SeasonAtmosphereCatalog.Get("summer_day"),art,camera,root.transform);
+                for(int i=0;i<40;i++)view.Advance(.05f);
+                Assert.AreEqual(0,view.RainContactCount);Assert.AreEqual(0,view.RainContacts.ActiveCount);
+                Assert.AreEqual(0,root.GetComponentsInChildren<ParticleSystem>().Single(p=>p.name=="Бризки від влучання крапель").particleCount);
+            }
+            finally{UnityEngine.Object.DestroyImmediate(root);UnityEngine.Object.DestroyImmediate(cameraObject);}
+        }
+
         [Test] public void CapturingDraftKeepsWheelAndBoatMotionAcrossRepeatedSaveAndOpen()
         {
             var document=WorldStudyFactory.Create("watermill");SeasonAtmosphereAuthoring.Apply(document,SeasonAtmosphereCatalog.Get("summer_day"));

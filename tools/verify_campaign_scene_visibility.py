@@ -26,7 +26,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--first', type=int, default=1)
     parser.add_argument('--last', type=int, default=100)
-    parser.add_argument('--simulator', action='store_true', help='Use the already open Device Simulator; never open another window.')
+    parser.add_argument('--size', default='750x1334', help='Fixed review Game View size; restored when preview stops.')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     content = QA / 'Assets/QuietCamp/Resources/QuietCamp'
@@ -44,13 +44,12 @@ def main():
         'Editor/LevelAuthoring/OpeningCampaignGameplayProbe.cs', 'Editor/LevelAuthoring/LevelAuthoringPlayDriver.cs']]
     sources = {str(p.relative_to(QA)): sha(p) for p in source_files}
     results = []
-    report = {'status': 'running', 'artOverride': False, 'playerBuild': False, 'existingSimulator': args.simulator, 'sources': sources, 'levels': results}
+    report = {'status': 'running', 'artOverride': False, 'playerBuild': False, 'requestedSize': args.size, 'sources': sources, 'levels': results}
     try:
         request('opening-gameplay', name='start-menu', level=ids[args.first-1])
         menu_ready()
-        if args.simulator:
-            request('opening-gameplay', name='simulator')
-            time.sleep(.5)
+        request('opening-gameplay', name='viewport', level=args.size)
+        time.sleep(.5)
         request('opening-gameplay', name='menu-continue')
         for order in range(args.first, args.last+1):
             ident = ids[order-1]
@@ -72,6 +71,7 @@ def main():
                 time.sleep(.1)
             assert image.exists(), image
             with Image.open(image) as frame:
+                assert list(frame.size)==proof['screen'], 'Capture differs from the actual gameplay viewport: '+ident
                 x,y,w,h=status['cameraProof']['gameplay']
                 region=frame.crop((int((x+w*.05)*frame.width),int((1-y-h*.95)*frame.height),int((x+w*.95)*frame.width),int((1-y-h*.05)*frame.height)))
                 status['gameplayPixelStdDev']=ImageStat.Stat(region.convert('RGB').resize((64,64))).stddev

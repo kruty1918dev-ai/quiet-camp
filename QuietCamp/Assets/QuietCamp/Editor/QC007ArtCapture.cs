@@ -241,7 +241,7 @@ namespace QuietCamp.Editor
                 else if(request.mode=="forest-tests")RunTests(true,"QuietCamp.Tests.ForestAtmosphereTests");
                 else if(request.mode=="props-tests")RunTests(true,"QuietCamp.Tests.AuthoringPropTests");
                 else if (request.mode == "world-tests") RunTests(true,"QuietCamp.Tests.ModelWorkshopTests");
-                else if(request.mode=="mood-tests")RunTests(true,"QuietCamp.Tests.SeasonAtmosphereTests");
+                else if(request.mode=="mood-tests")RunTests(true,"QuietCamp.Tests.SeasonAtmosphereTests"+(string.IsNullOrEmpty(request.name)?"":"."+request.name));
                 else if(request.mode=="campaign-regenerate"||request.mode=="campaign-weather-upgrade")_campaignBatch=new LevelAuthoring.CampaignWorkshopRegeneration(request.output,request.mode=="campaign-weather-upgrade");
                 else if (request.mode == "terrain-tests") RunTests(true, "QuietCamp.Tests.LevelAuthoringV2Tests.RiverAndTerrainBakeAndRestoreWithoutVendorRuntimeComponents");
                 else if (request.mode == "gallery-tests") RunTests(true, "QuietCamp.Tests.LevelAuthoringV2Tests.CampaignGalleryOpensAllHundredPublishedPuzzles");

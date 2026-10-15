@@ -36,6 +36,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         bool _finished;
         int _firstFrame;
         bool _gridInStill;
+        int _peakRainRunoff;
         bool _stillsOnly, _screenChanged;
         uint _oldWidth, _oldHeight;
         int _oldCaptureRate;
@@ -138,11 +139,13 @@ namespace QuietCamp.Editor.LevelAuthoring
             _firstFrame = Time.frameCount;
             var input = UnityEngine.Object.FindAnyObjectByType<PlacementController>();
             var witness = host.Session.Level.witness;
+            var atmosphere=UnityEngine.Object.FindAnyObjectByType<CampArtView>()?.SeasonAtmosphere;
             if (witness == null || witness.Length != host.Session.Level.guests.Length) throw new InvalidOperationException("Missing complete witness.");
             int selected = -1;
             Vector2 aim = Vector2.zero;
             for (int frame = 0; frame < Frames; frame++)
             {
+                _peakRainRunoff=Math.Max(_peakRainRunoff,atmosphere?.RainContacts?.RunoffCount??0);
                 int step = (frame - 6) * witness.Length / 96;
                 if (frame >= 6 && frame < 102 && step != selected)
                 {
@@ -220,6 +223,10 @@ namespace QuietCamp.Editor.LevelAuthoring
                 elapsedGameFrames = Time.frameCount - _firstFrame, stillHasPlacementGrid = _gridInStill,
                 completed = host?.Session.IsCompleted, memoryOnly = QuietCampBootstrap.ServicesRef?.Save.MemoryOnly,
                 playingAtmosphereVoices = art?.SeasonAtmosphere?.PlayingVoices,
+                rainContacts=art?.SeasonAtmosphere?.RainContactCount,groundRainContacts=art?.SeasonAtmosphere?.GroundRainContacts,
+                fabricRainContacts=art?.SeasonAtmosphere?.FabricRainContacts,activeRainContacts=art?.SeasonAtmosphere?.RainContacts?.ActiveCount,
+                rainRunoff=art?.SeasonAtmosphere?.RainContacts?.RunoffCount,
+                peakRainRunoff=_peakRainRunoff,
                 riverParticles = art?.SeasonAtmosphere?.RiverParticles, riverRipples = art?.SeasonAtmosphere?.RiverRipples,
                 floatingLeaves = art?.SeasonAtmosphere?.FloatingLeaves, riverReflectionRendered=art?.RiverReflections?.HasRenderedReflection,
                 riverEnvironmentReflected=art?.RiverReflections?.HasEnvironmentReflection,

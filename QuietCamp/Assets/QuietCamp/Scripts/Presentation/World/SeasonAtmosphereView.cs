@@ -47,8 +47,21 @@ namespace QuietCamp.Presentation.World
         float _petalAmount,_dustAmount,_smokeAmount,_emberAmount;
         System.Random _random;
         ParticleSystem _rain,_snow,_leaves,_bugs,_splashes,_farSnow,_nearSnow,_drift,_farRain,_foam;
+        RainImpacts _rainImpacts;
+        float _nextSurfaceImpact;
+        readonly Dictionary<uint,Vector3> _previousDrops=new Dictionary<uint,Vector3>(1800);
+        public Transform RainWorld {get;set;}
+        public RainImpacts RainContacts=>_rainImpacts;
+        public int RainContactCount {get;private set;}
+        public int GroundRainContacts {get;private set;}
+        public int FabricRainContacts {get;private set;}
         Vector3[] _wheelContacts=Array.Empty<Vector3>();
-        public void SetTents(IEnumerable<TentCloth> tents)=>_surfaceField.RefreshTents(tents,transform.parent);
+        public void SetTents(IEnumerable<TentCloth> tents)
+        {
+            var items=tents.ToArray();
+            foreach(var tent in items)if(tent!=null)RainSurface.Attach(tent.gameObject);
+            _surfaceField.RefreshTents(items,transform.parent);
+        }
         Rect _coverage;bool _coverageInitialized;
         public Rect Coverage=>_coverage;
         public float WindStrength{get;private set;}
@@ -104,8 +117,10 @@ namespace QuietCamp.Presentation.World
             camera.backgroundColor=CampArtDefinition.Color(preset.skyColor);camera.GetUniversalAdditionalCameraData().renderPostProcessing=true;
             _rain=Pool("Дощ",new Color(.78f,.88f,.94f,.42f),.045f,2,new Vector3(0,-10,0),1200);
             _farRain=Pool("Дальній дощ",new Color(.71f,.8f,.85f,.19f),.025f,2,new Vector3(0,-10,0),650);
-            _splashes=Pool("Краплі на землі та воді",new Color(.73f,.84f,.89f,.28f),.13f,.55f,new Vector3(0,.12f,0),35);
-            ShapeSplash(_splashes);
+            _splashes=Pool("Бризки від влучання крапель",new Color(.83f,.92f,.95f,.65f),.035f,.22f,Vector3.zero,48);
+            var splashMain=_splashes.main;splashMain.gravityModifier=.6f;
+            var impacts=new GameObject("Rain surface contacts");impacts.transform.SetParent(transform,false);
+            _rainImpacts=impacts.AddComponent<RainImpacts>();_rainImpacts.Configure();
             _snow=Pool("Сніг",new Color(.92f,.96f,1,.62f),.11f,9,new Vector3(0,-.8f,0),1800);
             _farSnow=Pool("Дальній сніг",new Color(.82f,.88f,.94f,.38f),.055f,11,new Vector3(0,-.65f,0),650);
             _nearSnow=Pool("Ближні пластівці",new Color(.95f,.97f,1,.23f),.22f,2,_camera.transform.forward*.7f,36);
@@ -221,12 +236,12 @@ namespace QuietCamp.Presentation.World
             return transform.parent.TransformPoint(p);
         }
         float Next()=>(float)_random.NextDouble();
-        float _rainAmount,_snowAmount,_leafAmount,_bugAmount,_splashAmount,_farSnowAmount,_nearSnowAmount,_driftAmount,_farRainAmount,_foamAmount;
-        float Surface(float x,float z)
+        float _rainAmount,_snowAmount,_leafAmount,_bugAmount,_farSnowAmount,_nearSnowAmount,_driftAmount,_farRainAmount,_foamAmount;
+        float Surface(float x,float z,bool includeTents=true)
         {
             float ground=_art.landscape?.SampleHeight(x,z)??_art.GroundHeight(x,z);
             if(_riverField!=null&&_riverField.TrySample(x,z,out var water)&&water.Wet)ground=Mathf.Max(ground,water.centre.y);
-            return _surfaceField?.Height(x,z,ground)??ground;
+            return _surfaceField?.Height(x,z,ground,includeTents)??ground;
         }
         float _waterY=-.075f;
         void Emit(ParticleSystem system,ref float accumulated,float rate,float dt,Func<Vector3> position)
@@ -236,7 +251,7 @@ namespace QuietCamp.Presentation.World
             {
                 var at=position();var local=transform.InverseTransformPoint(at);
                 var emit=new ParticleSystem.EmitParams{position=at,randomSeed=(uint)_random.Next(1,int.MaxValue)};
-                if(system==_rain||system==_farRain)emit.startLifetime=Mathf.Max(.05f,(local.y-Surface(local.x,local.z))/10);
+                if(system==_rain||system==_farRain)emit.startLifetime=RainLifetime(local);
                 if(system==_snow||system==_farSnow){emit.startSize=(system==_snow?.06f:.035f)+Next()*(system==_snow?.16f:.045f);emit.rotation=Next()*360;}
                 system.Emit(emit,1);
             }
@@ -246,6 +261,9 @@ namespace QuietCamp.Presentation.World
             if(Preset==null)return;float dt=Mathf.Min(.05f,Mathf.Max(0,seconds));_clock+=dt;float quality=tier==0?.45f:tier==1?1:1.3f;
             float gust=.72f+.28f*Mathf.Sin(_clock*.63f)+.13f*Mathf.Sin(_clock*1.37f);float w=Mathf.Clamp01(Preset.wind*gust);WindStrength=reduced?0:w;
             var direction=new Vector2(Mathf.Cos(Preset.windHeading*Mathf.Deg2Rad),Mathf.Sin(Preset.windHeading*Mathf.Deg2Rad));
+            Shader.SetGlobalVector("_AtmosWindXZ",new Vector4(direction.x,direction.y,0,0));
+            Shader.SetGlobalFloat("_AtmosWindStrength",WindStrength);Shader.SetGlobalFloat("_AtmosWindTime",_clock);
+            RainSurface.CaptureWind();_rainImpacts.SetQuality(tier,reduced);_rainImpacts.Advance(dt);
             _visibility?.Update(_clock,direction*w,tier);
             _shafts?.Advance(_clock,direction*w,tier,reduced);
             foreach(var moving in _moving)if(moving!=null)moving.Advance(_clock,w,reduced,direction);
@@ -264,7 +282,6 @@ namespace QuietCamp.Presentation.World
             float area=Mathf.Clamp(_coverage.width*_coverage.height/600,.65f,3);
             Emit(_rain,ref _rainAmount,Preset.rain*440*quality*area,dt,()=>Around(8+Next()*3));
             Emit(_farRain,ref _farRainAmount,Preset.rain*210*quality*area,dt,()=>Around(7+Next()*4));
-            Emit(_splashes,ref _splashAmount,Preset.rain*18*quality,dt,()=>{var p=transform.InverseTransformPoint(Around(0));p.y=Surface(p.x,p.z)+.025f;return transform.TransformPoint(p);});
             if(_wheelContacts.Length>0)Emit(_foam,ref _foamAmount,(3+Preset.wind*3)*quality,dt,()=>{var p=_wheelContacts[_random.Next(_wheelContacts.Length)];p.x+=(Next()-.5f)*.2f;p.y=_waterY+.085f;p.z-=(Next()*.5f);return transform.parent.TransformPoint(p);});
             Emit(_snow,ref _snowAmount,Preset.snow*(Preset.snow>.75f?290:110)*quality*area,dt,()=>Around(5+Next()*5));
             Emit(_farSnow,ref _farSnowAmount,Preset.snow*65*quality*area,dt,()=>Around(7+Next()*4));
@@ -280,9 +297,11 @@ namespace QuietCamp.Presentation.World
                 Emit(_embers,ref _emberAmount,4*quality,dt,()=>_firePosition+new Vector3((Next()-.5f)*.12f,.2f,(Next()-.5f)*.12f));
                 _fireLight.intensity=.7f+.13f*Mathf.Sin(_clock*7)+w*.15f;
             }
-            foreach(var system in _systems)system.Simulate(dt,false,false,false);
+            foreach(var system in _systems)
+                if(system==_rain||system==_farRain)AdvanceRain(system,dt,reduced);
+                else system.Simulate(dt,false,false,false);
             AdvanceRiver(dt,quality,reduced);
-            ClipToSurfaces(_rain);ClipToSurfaces(_farRain);ClipToSurfaces(_snow);ClipToSurfaces(_farSnow);ClearDriftFromBoard();GroundLeaves();
+            ClipToSurfaces(_snow);ClipToSurfaces(_farSnow);ClearDriftFromBoard();GroundLeaves();
             if(_audio!=null)AdvanceAudio();
         }
         void ClearDriftFromBoard()
@@ -295,6 +314,57 @@ namespace QuietCamp.Presentation.World
             }
             _drift.SetParticles(_contacts,count);
         }
+        float RainLifetime(Vector3 local)
+        {
+            // Keep the drop alive beyond the expected impact. Otherwise Unity
+            // retires it before its last segment can reach the ground.
+            float ground=_art.landscape?.SampleHeight(local.x,local.z)??_art.GroundHeight(local.x,local.z);
+            return Mathf.Max(.25f,(local.y-ground)/10+.3f);
+        }
+        void AdvanceRain(ParticleSystem system,float dt,bool reduced)
+        {
+            _previousDrops.Clear();int count=system.GetParticles(_contacts);
+            for(int i=0;i<count;i++)_previousDrops[_contacts[i].randomSeed]=_contacts[i].position;
+            system.Simulate(dt,false,false,false);
+            count=system.GetParticles(_contacts);
+            for(int i=0;i<count;i++)
+            {
+                var particle=_contacts[i];var local=transform.parent.InverseTransformPoint(particle.position);
+                if(!_previousDrops.TryGetValue(particle.randomSeed,out var previous))continue;
+                float ground=transform.parent.TransformPoint(new Vector3(local.x,Surface(local.x,local.z,false),local.z)).y;
+                if(!RainSurface.TryCastSegment(previous,particle.position,ground,RainWorld??transform.parent,out var contact)
+                    ||!contact.Resolve(out var point,out var normal))continue;
+                RainContactCount++;
+                bool water=contact.surface==null&&_riverField!=null&&_riverField.TrySample(local.x,local.z,out var river)
+                    &&river.Wet&&ground<=transform.parent.TransformPoint(river.centre).y+.025f;
+                if(water)
+                {
+                    if(_riverRipples!=null&&_clock>=_nextWaterImpact)
+                    {
+                        _riverRipples.Emit(new ParticleSystem.EmitParams{position=point+normal*.025f},1);
+                        _nextWaterImpact=_clock+1/Mathf.Max(1,_riverProfile.rippleRate*Preset.rain);
+                    }
+                }
+                else
+                {
+                    if(contact.IsFabric)FabricRainContacts++;else GroundRainContacts++;
+                    var visible=_camera.WorldToViewportPoint(point);
+                    if(!reduced&&visible.z>0&&visible.x>.02f&&visible.x<.98f&&visible.y>.08f&&visible.y<.92f
+                        &&(contact.IsFabric||_clock>=_nextSurfaceImpact))
+                    {
+                        // Off-screen rain must not consume the contact budget or
+                        // overwrite rings before they become visible.
+                        _nextSurfaceImpact=_clock+.55f/Mathf.Max(1,_rainImpacts.Budget);
+                        _rainImpacts.Emit(contact,.12f+Next()*.035f);
+                        _splashes.Emit(new ParticleSystem.EmitParams{position=point+normal*.015f,
+                            velocity=normal*(.4f+Next()*.25f),startLifetime=.16f+Next()*.07f},2);
+                    }
+                }
+                particle.remainingLifetime=0;_contacts[i]=particle;
+            }
+            system.SetParticles(_contacts,count);
+            if(reduced)_splashes.Clear();
+        }
         void ClipToSurfaces(ParticleSystem system)
         {
             int count=system.GetParticles(_contacts);
@@ -303,12 +373,6 @@ namespace QuietCamp.Presentation.World
                 var local=transform.parent.InverseTransformPoint(_contacts[i].position);
                 if(local.y<=Surface(local.x,local.z)+.01f)
                 {
-                    if((system==_rain||system==_farRain)&&_riverRipples!=null&&_clock>=_nextWaterImpact
-                        &&_riverField.TrySample(local.x,local.z,out var water)&&water.Wet&&Surface(local.x,local.z)<=water.centre.y+.025f)
-                    {
-                        _riverRipples.Emit(new ParticleSystem.EmitParams{position=transform.parent.TransformPoint(new Vector3(local.x,water.centre.y+.04f,local.z))},1);
-                        _nextWaterImpact=_clock+1/Mathf.Max(1,_riverProfile.rippleRate*Preset.rain);
-                    }
                     _contacts[i].remainingLifetime=0;
                 }
             }
@@ -326,7 +390,7 @@ namespace QuietCamp.Presentation.World
                     float x=Mathf.Lerp(_coverage.xMin,_coverage.xMax,Next()),z=Mathf.Lerp(_coverage.yMin,_coverage.yMax,Next());
                     if(_coverageInitialized&&previous.Contains(new Vector2(x,z)))continue;
                     float y=Surface(x,z)+.3f+Next()*8;
-                    var emit=new ParticleSystem.EmitParams{position=transform.parent.TransformPoint(new Vector3(x,y,z)),startLifetime=system==_rain||system==_farRain?(y-Surface(x,z))/10:8,randomSeed=(uint)_random.Next(1,int.MaxValue)};
+                    var emit=new ParticleSystem.EmitParams{position=transform.parent.TransformPoint(new Vector3(x,y,z)),startLifetime=system==_rain||system==_farRain?RainLifetime(new Vector3(x,y,z)):8,randomSeed=(uint)_random.Next(1,int.MaxValue)};
                     if(system==_snow||system==_farSnow)emit.startSize=(system==_snow?.06f:.035f)+Next()*.08f;
                     system.Emit(emit,1);
                 }
