@@ -4,6 +4,13 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from campaign_surface_contact import surface_height,world_vertices,settle
 
 class AuthoredContact(unittest.TestCase):
+    def test_low_support_can_be_found_beneath_a_roof(self):
+        floor=[-1,.3,-1,-1,.3,1,1,.3,1]
+        roof=[-1,3,-1,-1,3,1,1,3,1]
+        model=dict(vertices=floor+roof);pose=dict(x=0,y=0,z=0,scale=1,yaw=0)
+        self.assertEqual(3,surface_height(pose,model,0,0))
+        self.assertAlmostEqual(.3,surface_height(pose,model,0,0,max_height=.8))
+
     def test_support_uses_transformed_upward_surface_not_bounds(self):
         model=dict(vertices=[-1,1,-1,-1,1,1,1,1,1, -1,1,-1,1,1,1,1,1,-1])
         pose=dict(x=4,y=2,z=-3,yaw=40,scale=2)

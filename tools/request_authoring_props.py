@@ -34,6 +34,10 @@ except OSError:raise SystemExit('Another native request is running. Wait for its
 temp=a.project.resolve()/'Temp/ai';temp.mkdir(parents=True,exist_ok=True)
 request=temp/'qc007-art-request.json';result=temp/'qc007-art-result.json'
 if request.exists():raise SystemExit('A native request is pending; refusing to overwrite it.')
+# Under the exclusive request lock, discard the previous completed response.
+# Identical fast responses can retain an older Windows filesystem timestamp;
+# wall-clock comparisons must not leave an already completed request waiting.
+result.unlink(missing_ok=True)
 payload=dict(mode=a.mode,profile=a.profile,name=a.name,seed=a.seed,width=1024 if a.mode=='capture' else 1536,height=1024)
 if a.level:payload['levelId']=a.level
 if a.draft:payload['draftPath']=a.draft.resolve().as_posix()
@@ -43,7 +47,7 @@ pending.write_text(json.dumps(payload),encoding='utf-8');os.replace(pending,requ
 while time.time()-started<a.timeout:
     if a.mode=='authoring-stop' and not request.exists():
         print('{"status":"stop-request-consumed"}');break
-    if not request.exists() and result.exists() and result.stat().st_mtime>=started:
+    if not request.exists() and result.exists():
         try:d=json.loads(result.read_text(encoding='utf-8'))
         except (json.JSONDecodeError,PermissionError):time.sleep(.1);continue
         if d.get('status') in ('tests-running','campaign-generating','profiling'):time.sleep(.3);continue

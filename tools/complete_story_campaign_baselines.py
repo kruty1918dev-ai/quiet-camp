@@ -27,7 +27,7 @@ while cursor<=a.end:
     if a.compose:args.append('--compose')
     result=subprocess.run(args,cwd=ROOT,capture_output=True,text=True,encoding='utf-8')
     log=QA/'UserSettings/QuietCampCampaignReview/BatchProofs'/f'{a.round}-{cursor:03}-{end:03}.log';log.parent.mkdir(parents=True,exist_ok=True);log.write_text(result.stdout+result.stderr,encoding='utf-8')
-    after=sum(complete(i) for i in range(cursor,end+1));print(f'{a.round}: {cursor:03}–{end:03}: {after}/'+str(end-cursor+1)+' native frames; user-workspace roundtrip recorded.',flush=True)
+    after=sum(complete(i) for i in range(cursor,end+1));print(f'{a.round}: {cursor:03}–{end:03}: {after}/'+str(end-cursor+1)+' native frames; workspace status recorded in BatchProofs.',flush=True)
     if not result.returncode and sum(progress(i) for i in range(cursor,end+1))<=before:
         raise SystemExit('Native batch returned without a current checkpoint. Stop and inspect its receipt; refusing unchanged retries.')
     if result.returncode and ('Paused after cleanup' not in result.stdout+result.stderr or sum(progress(i) for i in range(cursor,end+1))<=before):

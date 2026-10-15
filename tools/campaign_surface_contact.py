@@ -13,7 +13,7 @@ def world_vertices(pose,model):
         x,z=x*math.cos(ry)+z*math.sin(ry),-x*math.sin(ry)+z*math.cos(ry)
         yield x+pose['x'],y+pose['y'],z+pose['z']
 
-def surface_height(pose,model,x,z):
+def surface_height(pose,model,x,z,max_height=None):
     """Highest upward-facing triangle under a vertical support point."""
     vertices=list(world_vertices(pose,model));heights=[]
     for k in range(0,len(vertices),3):
@@ -24,7 +24,9 @@ def surface_height(pose,model,x,z):
         if abs(det)<.00001:continue
         u=((b[2]-c[2])*(x-c[0])+(c[0]-b[0])*(z-c[2]))/det
         v=((c[2]-a[2])*(x-c[0])+(a[0]-c[0])*(z-c[2]))/det
-        if min(u,v,1-u-v)>=-.0001:heights.append(u*a[1]+v*b[1]+(1-u-v)*c[1])
+        if min(u,v,1-u-v)>=-.0001:
+            height=u*a[1]+v*b[1]+(1-u-v)*c[1]
+            if max_height is None or height<=max_height:heights.append(height)
     return max(heights) if heights else None
 
 def settle(pose,model,art):
