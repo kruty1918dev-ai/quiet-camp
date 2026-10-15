@@ -11,7 +11,7 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 QA = Path('C:/Users/Public/qcui-20261006/QuietCamp')
-STAGE = QA / 'UserSettings/QuietCampPromoCapture/2026-10-15'
+STAGE = QA / 'UserSettings/QuietCampPromoCapture/2026-10-15-AudioVerified'
 TOOLS = QA / 'UserSettings/QuietCampPromoTools'
 
 
