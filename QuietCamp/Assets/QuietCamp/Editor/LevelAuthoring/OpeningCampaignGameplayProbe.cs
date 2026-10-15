@@ -28,6 +28,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             var host=CampSceneHost.Current;
             if(host?.UiReady!=true)return new{status="opening-game-waiting"};
             var services=QuietCampBootstrap.ServicesRef;var session=host.Session;string id=session.Level.id;
+            if(action=="promo") return CampaignPromoRecorder.Begin(output);
             if(action=="hud")
             {
                 var surface=UnityEngine.Object.FindObjectsByType<HtmlSurface>(FindObjectsSortMode.None).SingleOrDefault(s=>s.name=="CampHtml");
