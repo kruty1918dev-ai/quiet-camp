@@ -52,12 +52,12 @@
         "levelSha256": "31cbd7883ecaff652cde4698a0150fc2ca74263e0d34ffae86029b4f8659535a",
         "artSha256": "e672f478d3fe7ad7bec6b27852fb8dcdc4358a2e1ae2c1f5ee559a0966e6cf22",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "7f8101347dfa42626fe5d6eb957e5d795dc360a13077a24fcf8a1b849f347ca1",
-      "imageSha256": "cf8e983d3f5a78636245a9cdf9c330bb06f0b341dda62d6021de3262fd926f6a",
+      "movieSha256": "e01c5c6561af5592610efae9ea741afa4f50763925b0de7f02e961bdb9fe9457",
+      "imageSha256": "4442e20f7ce805e5d4b9e2107190f03063937e6f625ac41c153aafcb749febe0",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -65,7 +65,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.2
       }
     },
     {
@@ -119,12 +121,12 @@
         "levelSha256": "def3d99fb61ff53e5947095566be93fc348f3861732638fc8e872f3fb87e1c6c",
         "artSha256": "cad03f9842295948d635423f8da740791d6ae172729039a63fc09be702dfe2dc",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "55073b7d077007e3cef57045eb3d9c60687215e1b3a0caeb847ad1c41015121e",
-      "imageSha256": "781e778d04c80b8b36c3f86162778655894c9e9bed1a71138476f089b1c0a60b",
+      "movieSha256": "846c1ca7797e6fa6fec63ede582959f51e037734415e6562cd234355a5c7f7b8",
+      "imageSha256": "cc80d565349796e281737388eec3c1c4014c19594c6ae573854b9522298fd395",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -132,7 +134,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.7
       }
     },
     {
@@ -194,12 +198,12 @@
         "levelSha256": "aaa61f9169a3a5b580eeae0fd3b82cccfc35fd0589a4e1302cd808520bda1bfa",
         "artSha256": "2e8e0af6f1890edfbde6721ce28e350c5748a770764ee2b15cd9782e3938da61",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "ae2e7486ef2ede48c3c1d27afc9376b481768194425faed7a899633171e70ce2",
-      "imageSha256": "639beb3f3d143d1fd561e2e7478e84c28b3c33fb04f89d4fc48484824ca4c66b",
+      "movieSha256": "b9965105e44e15652b16e5f89eecd4849743b310606076fb7fb272100adc9468",
+      "imageSha256": "9227310a3132f8440817d7dff7d6ebab1c54a382f0f69e1f4cdb4174e429999e",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -207,7 +211,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.3
       }
     },
     {
@@ -269,12 +275,12 @@
         "levelSha256": "4da8d4deec9bb645acf8d075f4c9ed9e0608ea19479140aa4e91f04ad873fcc2",
         "artSha256": "0a1b607bb1bc8067ff38e007a0c66af044e93d69184aa97bbc38fc5edbb24e7e",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "1c512c0fb9ed94203eb05342a28634a2846441ff5f460a3162b9c503c74869f3",
-      "imageSha256": "8865e0f514499689f340c9330c2b15d3a543a9f2581480234d50cf9f60d70552",
+      "movieSha256": "a5d058b5b2f0a8bc48f4fef1d63ba6ba73242fd4d0c2674761358d295c72ce20",
+      "imageSha256": "c00ba566c3a884b7fc093bd42d1c2302aa2058e2b2c39467fc0b63c8d0f14612",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -282,7 +288,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -34.3
       }
     },
     {
@@ -344,12 +352,12 @@
         "levelSha256": "7e6eb1c9351c14f08f94abf40e3cac7f133b19260599e48f916b57ba6179912c",
         "artSha256": "feb8e1e7d70dd8cec12cd667bb70ed6269aa411563e1ce9903ff344f0c3bbd2e",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "d61ee75a9bd52600ee65306828d8c93e94c25bb8e923cbe2b1c893dca0e4bf45",
-      "imageSha256": "35fc41d90291c3e995fda24413515ec862d995c66f9cc587103f86b3a12e1a5d",
+      "movieSha256": "369fba4514bcf5613ed3c2a8884e1e7383a06f6175363f093774dff960bb4caa",
+      "imageSha256": "4057c4c1ec7d33233ef08f4ced30318b6ca4d6f7610472a73d95f62c907c7bd5",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -357,7 +365,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.6
       }
     },
     {
@@ -419,12 +429,12 @@
         "levelSha256": "9c4c887856e7722e3fe627c033ac4e69bd0dcdb1dd904fe722940ffce1d8f07d",
         "artSha256": "1e0ee3a6734f2dfbb81caf84cbaf487eb968deac1f1041a631fee49dcb95ade0",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "cb98b044b887fe318522f795c0848c10577051d667ab6e8d7c51c0a101c18ad8",
-      "imageSha256": "ed57d25da174d6081fa895b3c8c3007c8e9d0a2d5024eca22ff83fea7ddc8a82",
+      "movieSha256": "9cd2e05e8a1a469e51611697a4362d149d5c951b6df21825ed6054d0f17ece31",
+      "imageSha256": "49c2f9eab917762923cd6b17ec500ba8c591be1c1138708ae8c348444e25c0fb",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -432,7 +442,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.6
       }
     },
     {
@@ -494,12 +506,12 @@
         "levelSha256": "6b24556211977de2006f0d82e736ec4af542bcbdb204a036c2070f82955d7461",
         "artSha256": "878015a08b2f2e38ceb7106355be7fb46e9c6845b3c9959fd148c6250ffea615",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "089147ff5a23fad0de3d876779af31c144656b2efdae9f672bd5b8be23e5284e",
-      "imageSha256": "9551ae2c08e7804b4356d4e8730eff7573cb9777e912c3b9c83dad10c7f6795e",
+      "movieSha256": "d882512f3c770a27fc0944df9a41b8f50354c0a757230ae3aca0a6dd7bb7df7a",
+      "imageSha256": "9b9cd103577860ad07bbe1a27dbec5f78bf4968fa13b76c08efd6014363c0eb3",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -507,7 +519,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -37.6
       }
     },
     {
@@ -569,12 +583,12 @@
         "levelSha256": "bf273529115b06a5d8e9bb2b6943f575d33bd8bfd07daceacd30e4aeb6cba978",
         "artSha256": "855460d79b6fe4966865d6f51e71c52c585030f2d98e8c2e513306b31ca37367",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "840ef7cf314ce1271181a55fe0a9978037562c4d20dd5e8ace6ebca335fffb81",
-      "imageSha256": "82f6eb5d6b864362dc1f2f0072314a8124820cf93d3c32a547116274df13a23b",
+      "movieSha256": "840c146507c909621d3a70c7355856756f22ca07720d20c80a4087bc53dc1094",
+      "imageSha256": "90d3de980849e15c514cfbc13732850be9296961179d908ae15ad90b65451e7f",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -582,7 +596,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -37.4
       }
     },
     {
@@ -652,12 +668,12 @@
         "levelSha256": "da7efc6e014f4652fe226331dfe02b176e7caabf773cc54d9a2ee23dac2bb829",
         "artSha256": "04e5def072316abc60cbf2ba9707a7ce3d6e7cb6aa3296a098cfb069aad4eeca",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "293bac4ae3ad66854b24160f03a0a218af3fdced7f8b94cf254563930cfec1d2",
-      "imageSha256": "636844cd44d9eb955b1be4d654c88976513747ad894414b1301075b6036b5b8f",
+      "movieSha256": "0c46be3dcecacd3de7475034226563822978d28cc835da10182793ff2cc03bb6",
+      "imageSha256": "328a23ec804a300d5542c8a21eb4ef59b2d705e85193c8fbfed3fc41bd1273d2",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -665,7 +681,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.3
       }
     },
     {
@@ -735,12 +753,12 @@
         "levelSha256": "f5e716a800a9adf0de80b853dba49d9dee33fc24db9b8c4f8ebfde74eef1e35e",
         "artSha256": "eb8867aad6898880156aeb66eb32f34a03d3516e189eb024496ef60a31a9dcd6",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "2e400eed6c46910a2def117103aea1a9732669fc225cc68398144a03d8399af5",
-      "imageSha256": "11400a5364e4c4cd6f6fa6c8ce52a8062b6a78917cddffbe49d0f4adfc8f662a",
+      "movieSha256": "8b56be0e7d963b088bb2448afda15428ac6fedb962c89baa62083d751317e2dc",
+      "imageSha256": "361f813b4a557ed31ebcefedd447f78690458c310b0f79033b60e67a73ae796b",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -748,7 +766,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.7
       }
     },
     {
@@ -802,12 +822,12 @@
         "levelSha256": "1db3a35b8a271c445d649deec49b6f598b449a944cd865767dbccdbce5935023",
         "artSha256": "9fb7bc7ea9a84b6a680b003d905219f7f92875a839d284d8e9eff66271d6a7a8",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "8959cb46287406d35549743cc8a173e86de805a4fae625f5bcdf9f4d6d07542b",
-      "imageSha256": "690ec93166123f9b6efc0c4aa8d309208d81400acde325fae01f7788d9a19cec",
+      "movieSha256": "11c335bf1416bac7ce9c2ef1e2e56e1be997c585366759a3d98f8e7ba80109d0",
+      "imageSha256": "8fbd629ff5475192724286e2a39ef312bd4defeca1d2d6296e169b1a3fd61d8f",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -815,7 +835,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.2
       }
     },
     {
@@ -877,12 +899,12 @@
         "levelSha256": "9352dca8f51c67ae6bf444707171957e137fea9678d53f103b434f9e645601b9",
         "artSha256": "2510599edc0483f2816b50529a7857598fad26069fe93d54ca5b0e149abd9d6f",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "1a123863bcdb56398ab9d2092d1403e0e47b7ef0fc6fcbcc7c4688f7c134ebe4",
-      "imageSha256": "465e9a7a0262c0eb9d072b166537f745e4dc2d409d57350d55d8a8ce9f18e93d",
+      "movieSha256": "b684ddf1e1d6e012d8ab8c737086d5bb52344a2087301e01ada12f900067a404",
+      "imageSha256": "80de66ea0c990c699e16e0bda93b5a135f178f8b489ccc298e9ca05d58093472",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -890,7 +912,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.8
       }
     },
     {
@@ -952,12 +976,12 @@
         "levelSha256": "8366227891f0fe9dcd260acc0d751cc58c85431791f79571e86320dfad0f653e",
         "artSha256": "d028c0e6a084a51d51b3ada0a38da9399c39c8fd6d1e91c3fec0b44be95f7882",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "5ef7d4b65d1f0b0c09d916eb5f9ef1b222dc7bab73b1f8cf5bc3b809afe42708",
-      "imageSha256": "92da321e5833dc2742a5344a4f679be58e8b694c84c9bcdfc40e52df423cb4cb",
+      "movieSha256": "9bf18d6c2dabc27e24c0e24a51ec42dfb03b8ec3342e509cd06d696d9afe99aa",
+      "imageSha256": "67797de53f99ee71a956d68da61f2a772a631f6bb69d4c1707b79fd1edb34e3b",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -965,7 +989,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.8
       }
     },
     {
@@ -1035,12 +1061,12 @@
         "levelSha256": "8ab5a04e96c4198f609a8ac715a16a094a4fef243700f820e7a3c2cf1c392b08",
         "artSha256": "144962ba8389ae89dc041685f7c791e58d8220c3f52c9c0e6d581f410199808d",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "cf0e9c27c266c21f54ce82dc43af32ccf890276940b81df22383bce9470cb5ce",
-      "imageSha256": "7a6a7e2927df089a985749c3065ee64c1460006c05289f19443af1fe00f58b43",
+      "movieSha256": "44493ab92a18df14b796594798281962d8be46287c425db581334eb0c17db337",
+      "imageSha256": "76aa1bd93c8acd26427091183efb766957a431f5f9d0ae1b3d237bc82ed151e7",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -1048,7 +1074,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.9
       }
     },
     {
@@ -1118,12 +1146,12 @@
         "levelSha256": "0d379e2293f5a9201de607e17cb55fa1bb4b41dec216e8d172470d899491361d",
         "artSha256": "1db7352274b4d2fbb700026db5898125c8ffb36b1d45e427404ec80c1ea92b24",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "4a465e786895546c26c11ba1bccdfd1087998522854939a232718725dd6c722f",
-      "imageSha256": "2d2d2b1a6a360721e74041ae790eaa517403f7a8634c0077470d82233be48971",
+      "movieSha256": "2a4e131392f201e64d71cb4b5a61736e587aba7f43ae8d2b56ef7b00a173ebbd",
+      "imageSha256": "34c4f3972bb81e09f983a77c6dbd6dcf9b9b41f2baf831685251b98e1d4d0bf6",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -1131,7 +1159,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.5
       }
     },
     {
@@ -1201,12 +1231,12 @@
         "levelSha256": "2f6ce5c7ad44b4978250149936a56c07be867e5f5edd735cc57710a553df302f",
         "artSha256": "c730d884926b5d8ff14a048857e75b7c40a9c6de10155bdc6835ed73fa3a8085",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "a2f15f2b3ea7f71842834b76c0b703ef7e8bbc924128b648a883e638ee09190d",
-      "imageSha256": "844e6809fc8345f5fb29a84f8733d1b2527153325554683f6ba2e2169d6ab7e5",
+      "movieSha256": "829fd0f1ca5ddec0459f0c1e1539209a1703c085d216e76d3e409c9a77df3766",
+      "imageSha256": "f3d4fe01b92cf2636674a049c50b5c445c7f618594c450a1b22a0ead78c5226d",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -1214,7 +1244,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.5
       }
     },
     {
@@ -1276,12 +1308,12 @@
         "levelSha256": "4455d350169b3dab0862ae41b3f93cfb9385ba79e86d287279a050b3c70012ee",
         "artSha256": "6cfb428e09646dda3b27ba0e05e9e014c167821c061d0a1e44f9a458686a2ddd",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "ccb30289333cb457786c8b5d2141a373e596ffd1e3e78a814d4e0be2247678e1",
-      "imageSha256": "aba9f6acbed1ffe68e3f3965a3f608f479bbe532a3330c661acd80b522178cee",
+      "movieSha256": "dfcd82280ce03f2c39ad71ab951edb44d78b5db1a9c8f591b4e8efa20a381915",
+      "imageSha256": "61af967cfc66458d7d44e26346c8c13a550ef1736c92be5416af335fe0a86562",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -1289,7 +1321,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.6
       }
     },
     {
@@ -1351,12 +1385,12 @@
         "levelSha256": "6fa5f97746f7793908e2eae0be840b3fdae2a2e9a1f089e0196c3a63cce15b31",
         "artSha256": "40d3a21b178e4db99a81f4e4769f958b7a8a2a99226496cb5f0b8a1543b64347",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "e7f29ee91c70ebb83a6cfec95d19e863e08b81fd5e9a38a618cf9ad7ee0accff",
-      "imageSha256": "c564e34dda333c387658a79f812746fb5b514aa1517fb9a20a53f1a97f497f73",
+      "movieSha256": "767a627b227b93e409b8f09811969aa462b4afcfd5ec834765a32e99b67d7384",
+      "imageSha256": "54d5b8302702f62c5d4ce26410b4f52a1e5e4d695ccd9ba77f92ee9600121728",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -1364,7 +1398,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -34.4
       }
     },
     {
@@ -1442,12 +1478,12 @@
         "levelSha256": "c32268c35df09f674d9d14d9cb6fce94878b5bfe2d7be093445028e372af7cf0",
         "artSha256": "80dedfb0bbb9c68d91d5aed3daebc6c6f30a862829e2f4305501c9f0cd426237",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "559a3ea10c30852dae2d109df3c6e5b47a1fcb2622caae79aaf4fed9c120ad9e",
-      "imageSha256": "44a56c0886704bd4db43d70420f9168a37920ef3285132ecb4f8e89d556f5ee0",
+      "movieSha256": "aa3bee08c510b2147e530d778081ffd73ec89fbdb63cc7fc2631da7dbb192e61",
+      "imageSha256": "99b8d013510905cc81213131a46e87b956818ac8b6bd9923da504cd873040e22",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -1455,7 +1491,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.3
       }
     },
     {
@@ -1517,12 +1555,12 @@
         "levelSha256": "2a334984867a2110f0c69a8289f89d05b00ed97084da0837c1ec84109de9fb76",
         "artSha256": "e92e4de1d70ec45c78dee069264160aae8cfcb0dec70b8d9bb3650124a67c133",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "49bd92392b8ef5efaa101912220dd19f5a688ffb6b7dff5e89650ed13e3aa1cf",
-      "imageSha256": "5f7d44997bba45207a0f1d9a785b301a15152e615e6bb2ebfcfc58e10e8538c2",
+      "movieSha256": "0cdc115653a0ddc15908afd70415367b4b0a835357d5c1afc9b4f386461addfa",
+      "imageSha256": "e7c5e77bf98bf575c28c9df5f18e0d8490958483882072a582e27d4dafcecf43",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -1530,7 +1568,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.2
       }
     },
     {
@@ -1600,12 +1640,12 @@
         "levelSha256": "d5810553a315a7014bcac074e234ae350130c756a7806169dd010ebfec7871ee",
         "artSha256": "e4082eab73ed1083dcfc7bd7ff5de12a751b4e3633adf846e6a342db79a8bfa9",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "3166751edf41ec207a2f01b5df880a4fb9e841991709c99c8cca4d451aa57aee",
-      "imageSha256": "b40072bddd61f20e3dabbe6305fbbdbfcbfa813ba2c78dcaeb60671389aacbba",
+      "movieSha256": "88593a8fbd8e162345baab3f857687cac122905c8e665320c822da6b3b5081e1",
+      "imageSha256": "343de7f75627208066bbaa003189453e73e33ec7ebf1706fe4bbe5579c2dbc93",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -1613,7 +1653,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.1
       }
     },
     {
@@ -1683,12 +1725,12 @@
         "levelSha256": "c3de792548776fb7a0d9d8dc3061367672da79f1d8fdd2250fa385e4649e36eb",
         "artSha256": "02692c338d0bb4d53d17782dfa032771de708619fd6f81ab35aa15ac81231d4a",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "4718c0d627302d81910468448a8674af91feaa2a8c88e27ca599ef6999035bea",
-      "imageSha256": "dbd2ad5c5803233898546b0469309b98b24ff8a3f6787c7bed3155bc20ad337e",
+      "movieSha256": "03de5b4cfeee76472a0fed96aac5198e1cb6cfce4d02102ebd2d0b05acce21f0",
+      "imageSha256": "6d541448f95b6bdc65362d6e6f66a194e0699b67d8cf87ef3eedc24bfa5d0e41",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -1696,7 +1738,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.8
       }
     },
     {
@@ -1766,12 +1810,12 @@
         "levelSha256": "639f07671c853d9f892b302e9472ec51030314624fccc7f137f39f91ed2d15dd",
         "artSha256": "05872279701ee531bd6faca2fe70dd6f145bc96f56faf8205a791b688afdbb47",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "24ad260cd63e9920845bb4bf1280125a2be2be87e097b6ad3d3afb97b3ecd8dc",
-      "imageSha256": "02dd64610f81425a86f4b92e46b8c630c2d2dd87db60b6e64c52326cfb9a86ec",
+      "movieSha256": "20780f3cca275dd86d88f95ca1c5d79148152ebaa89c6a763145a866b5bc9841",
+      "imageSha256": "849969c68936555e2c43f5f6ed2e387c7147bf7aae8739ecb1346b5f2c832efd",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -1779,7 +1823,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.8
       }
     },
     {
@@ -1841,12 +1887,12 @@
         "levelSha256": "3a5e74497535864d8f3a54f08de0435c1792d938fdf1c7dab8da7aa03fb4154d",
         "artSha256": "9e03e5d18ee7df9827d582774ccbcb38f4457d3a89d7f265b7b7afa7b950ee1a",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "675ea4a27f2911b6637621462d416c376bab6276577bf14814e624f733721156",
-      "imageSha256": "43874acf4d12412a735e60ed05854dca40d5781f3e4a5ec516a6c0d17c7c9a44",
+      "movieSha256": "af5efc12aaa03ab75db8c7b489e909eca737639b9e7cc82a07728fd142d9cdcd",
+      "imageSha256": "45d18803004124db92dbfd408b06718e5047f13e6d56bffc25df609c7f9d439e",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -1854,7 +1900,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.3
       }
     },
     {
@@ -1924,12 +1972,12 @@
         "levelSha256": "a5552b5563df0b5616b70c9b6b27be45955a7a98a7297b407594c490b0ffe823",
         "artSha256": "2c08b17a9564ab6dbb449731a62fd3afe2fc8d238884cb11131ad74048e4e6f0",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "d1ab9adf53ea0071652b710cac500ac223ad7606382147b151bcb750f2355cd8",
-      "imageSha256": "76715bd61b1528267e44c61a483619f525c8182beff0c29349ee312359625ccc",
+      "movieSha256": "7146db105feca5f51f78bf22d7be970e2205dda93bbb107eed40e38eef982c1a",
+      "imageSha256": "3f67ffa983cd514d33b1e63b6924de35fa95c26e83031a7d12da987007daa433",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -1937,7 +1985,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.1
       }
     },
     {
@@ -2007,12 +2057,12 @@
         "levelSha256": "7e2bc35b40f54a117deaf8a17bf65dc99263ab8e7aaf125368c1830f913a8cd7",
         "artSha256": "00a119628cd117910645c178e7f79b44cb0cca13191477219c83782212e9803c",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "dd54d7bc1871ebba12703f511c2c2ddc05fd8e9a0631202c4830337da185dad9",
-      "imageSha256": "cae98cbb148d6292d6da1858c715e4e826add5d520cc2866df93ce61d2fc6b9e",
+      "movieSha256": "11d7c6e1b7c5f6d724a235522837c71d840e9df08a31c28869fd01e57a808167",
+      "imageSha256": "72d0d354f31ffcbc0431017f1737c9a9c30443bf08c87538582a0fd3396e462e",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -2020,7 +2070,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.0
       }
     },
     {
@@ -2106,12 +2158,12 @@
         "levelSha256": "a5a39a09db8617a1fb8b5020a32379e038e028a1cbb27c8c4211eb9974b8d85a",
         "artSha256": "6678dc22adf9364bf74399bb1961e214f5b3bbd9e0f4787838d8ce5af59d77b9",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "b89d6ceb268386b8191397badf689f96ecbeeceb9678b40c199560fbe2792ad5",
-      "imageSha256": "eb7d23b40dd88819d1740323ada8717e89693c80c6d3c8d7a59ee3251cbd4866",
+      "movieSha256": "a591b71d734406ef0aae5a62e3af7f77fd05b726064f8f27219023b498505504",
+      "imageSha256": "81e156591b4043ba1053c22def1cdb82570790f242b135a0bd57d628d63dc746",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -2119,7 +2171,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.2
       }
     },
     {
@@ -2173,12 +2227,12 @@
         "levelSha256": "95a9d94c5f87204759b9122f8caad8fc42468d0d8a620fb4a79e83d0b57cfdec",
         "artSha256": "c542dfdf953157a69de6fef75894ef01f5df938d2ae6fc8051ab6da34a4204ca",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "ec528747e0b565e37190b05c89a846f8a6dbbea1ca13fec43459e550e135fdfe",
-      "imageSha256": "41b64161bfaa3a4678179624e8fa1a16663f9042342678493a03160cdf35c06b",
+      "movieSha256": "6cd53f74558867ebe11eae0ecc2013ef4f294011fe1c4c7bef5aee237682ae48",
+      "imageSha256": "cc6e69e6c8d834855510f4cce45701d9cb80bf880f86e842e2d6a7153f56243b",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -2186,7 +2240,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -37.6
       }
     },
     {
@@ -2240,12 +2296,12 @@
         "levelSha256": "96e4e343635a2778d0ff681ffe41a984e1d559157afa58a3a425026b5e14f503",
         "artSha256": "d9d2aa6d97698223433e04100f4c33fe035d35b86f0441a76d30e1b9fb386985",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "9a5b4cce9da9044bbca79118734f938963a29fd0eb3c6743dd1bc97e4e14cd33",
-      "imageSha256": "dedef2d430b83a0e7a9f0ee5b969d758929cf37d9b5ef87c69cce1e3f66df625",
+      "movieSha256": "156e818ead033fc3246da64f54c6e64de9b0a17c7e4d54eb7d41acaf2f73a7f6",
+      "imageSha256": "d427696390740674b58dd4c04b9db19b0aaf14d147e3972b5432ecef19d3fd07",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -2253,7 +2309,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -37.7
       }
     },
     {
@@ -2315,12 +2373,12 @@
         "levelSha256": "ca803e64143416b44ebfeb726beb7a2570fc54f34f69a47529e6c3dbd3016ca9",
         "artSha256": "aac31b9631d2a50a7f1b0ea09940f89c4a026b4a0071427b5fbb9ae4b8972189",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "7bb77952a60c57dc1787aee68d1451cf0a7998c103dbfde0d0e9166a0bb40985",
-      "imageSha256": "55606915505b28578b11285dada1220c9871f04b0171e08cc3cc6f5978ac6b38",
+      "movieSha256": "02ce8684969e46b294b55461702494e1bdbb546c1604585e17c8ed03b9f217e9",
+      "imageSha256": "a6030a81d4e9ebf32533f5b81669a2a143b436c3e5d31374906ff99836fbd536",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -2328,7 +2386,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -37.0
       }
     },
     {
@@ -2390,12 +2450,12 @@
         "levelSha256": "7c2f6e4cadace873438fbb86bb780dc405344f3b65deb8e3a21d2f6eecc35317",
         "artSha256": "61785cee795c379f20e3a1134e55a28d9fa7f59d8ea2e2a30527a0436f539904",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "512a9c9a4746f40770995530c3f8ffa84a17d98c13713f9120de7d7408277732",
-      "imageSha256": "78629dabb92ee0739f54c4d958b36668c6f50c35cd1a2b2c25032066836ed42d",
+      "movieSha256": "b3157e7316f01263cfcd385a8be95f31a9390db81d6b780b0af4c4a9c95bd48e",
+      "imageSha256": "0aa825d168b0abaeb36dd4ca3c60a5a1e9f4d4ae4f276813578559db4fb79303",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -2403,7 +2463,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.9
       }
     },
     {
@@ -2465,12 +2527,12 @@
         "levelSha256": "91491f9e4c26619e33286345eed92e0f459327762a32d4b168540967785e71b1",
         "artSha256": "4f0a338a328cab1297682cdafc25f17c1e9370d41dc4224b0125f47435e1e825",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "9ef26c0bbc5201d19d9420befb0b4f397e642e58df7e9e13258c59f2feceb609",
-      "imageSha256": "c3df2d966cd84f051d7c12fc690e71699aecdb41033d49960dbde04a84bd9990",
+      "movieSha256": "01fcc871964b910208599af858b8c5a61864d42bed0973ddec2ea70479f8bea0",
+      "imageSha256": "da736a02b21687ac85bc83729653d9025b408f74c9588c810b6c2241e6021796",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -2478,7 +2540,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -34.9
       }
     },
     {
@@ -2540,12 +2604,12 @@
         "levelSha256": "43a449ea2df0cd120528eed6d808dfc33c8a9b238c2c5a52c4327a84f5115ea8",
         "artSha256": "b0d8332c330fe5e1b7584b67aeca03dc815742f761f208108bcd1afd893fabed",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "a6af83b750d9a6c998981d00f169f249e478afeda1b5faf569454e22341bcca4",
-      "imageSha256": "4f26e59187b6fea6b887df204efa5923b9d6225806421bc681abc2c7a5b10d1c",
+      "movieSha256": "505925a2614bfa180e9eb2fe10d7a9ff8ef98395363da16aa99204acece7942b",
+      "imageSha256": "dc4f8e0d269f5dc221c691faaea69e0f00093d9e730dc5cf91ec6ff03823a8f1",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -2553,7 +2617,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.0
       }
     },
     {
@@ -2615,12 +2681,12 @@
         "levelSha256": "89c9f515e91fcfb8edbd317ecc52b40d18b907183220128d72477b3a629a00fb",
         "artSha256": "019be01c9a1b67556860bec48a226440465e07dc974d909ace7c6146cd557f81",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "b10fa6f27bf34e97c3efa191f4e39979550c0ec1097714ede5ed95a0d22d8952",
-      "imageSha256": "cdd60a7e04d3965489511f450dc25d99bcf6b186fa46eeee26e12445b5b1a619",
+      "movieSha256": "2d13bdb459d860550d6fb270078f9e57ca4432eb8c210a440a401eebf928b327",
+      "imageSha256": "850fd4ab561a4f7ab99874132aa75960049ce065256407ef0d47893336dd5152",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -2628,7 +2694,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -37.2
       }
     },
     {
@@ -2690,12 +2758,12 @@
         "levelSha256": "085470b1b62b1d25aee00fc86987fdec5c2fedaedb999545468fd347a930c382",
         "artSha256": "4d9fdbdcc9988bc7c3162e895f47b707508b25542ba3439bdb14cd3c533b9286",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "55b4cb5017457aa8e5f923a0740437bae417e015248c732fea13f029d4c5c19d",
-      "imageSha256": "7f64cb9778b0174796da5308a2ae946d3931ef185a0f06083853f153d839f450",
+      "movieSha256": "4618d0212adcbc01024d4abb45d2dd0bc004a5cf2ce213740d1e252165c00d9b",
+      "imageSha256": "7d1684ba4c57c5eef46e003edfb0e2644ce7c2d12f04fefde03931431c3a83e1",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -2703,7 +2771,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -37.8
       }
     },
     {
@@ -2773,12 +2843,12 @@
         "levelSha256": "a3362c6fcc156b91bf471a975a0c582c190285ed242b2dce212bab0fabbddd84",
         "artSha256": "ca3561caa3a4a414b2d601406b418753e2bbbf30ce2a76779683b9594b8c7f32",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "b5b4d7c670e526d09d97e65da2b8bc8d29c9acd09268852350c57a7167d67d4e",
-      "imageSha256": "a02bf7c87cae993f22ae840509773ac9abefad0b0e9e3ae5d074109839d52270",
+      "movieSha256": "224900e3a626d099e5ee10e0ebffa55090c05b40b4888b27692450665d6b291a",
+      "imageSha256": "108240843c56cc8d315915eb2ae5c13d909b91252ee1938e29004023573e7cf4",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -2786,7 +2856,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.6
       }
     },
     {
@@ -2856,12 +2928,12 @@
         "levelSha256": "119082d738d20b903f07e7b68a60b5ebf83ea7b2c2fea1b956617e2e0376d992",
         "artSha256": "0ed6c3eb9fc53215d0294bbc8124413ec7db0f39e43b5887dd62af8617f6f629",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "8d151fb76e25b4e50f4b944c5c0d9bf111e12f1fdf0b7a32db3dd2484602b17f",
-      "imageSha256": "150c25b06a040328095730f78a537d8f325c0e064916e956458f1fd3a66986a9",
+      "movieSha256": "a18f29b6a02737d9db8b40a28c06b66c9d10bc1af6179fe205c4c7413d53835c",
+      "imageSha256": "e57f97c5ef1e600e9556d0a7453852de561e6212487f738f3f301e7e7a4ee4f5",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -2869,7 +2941,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.5
       }
     },
     {
@@ -2923,12 +2997,12 @@
         "levelSha256": "45ef29b5af4afdbc3cad19951bbd4de4ee5e02f49380615f282721b2019b482d",
         "artSha256": "0f08a276b38d1984bc7a621f1eedf414bce0a8370bbfc53ca55baed2cb186f1a",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "1cf236e7e9fc452172aba8ca3400c05f44f14c14eb7c51501b89cf9cbb15eb6a",
-      "imageSha256": "36dbb584ef879c224e3a773f852f7322aa383bf1e57ef6e1bb8d1ea571eed673",
+      "movieSha256": "38017db9c632fa010ee83082f783e2dbe7a209a545ed6b75db33bfb41b4795e9",
+      "imageSha256": "3f9a4ed1b9119f1b24ef395e3fde03bc037b037b471edcd2d98a891282e62fa6",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -2936,7 +3010,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -37.1
       }
     },
     {
@@ -2998,12 +3074,12 @@
         "levelSha256": "a2e403196178888514d7b0c68f45c905414a39de1d501419a2aecbea57fd124a",
         "artSha256": "bba59f19bf9f38e79e8d41d205bfd8cabf026c00d8c69f17d8ec7d7abb18fa34",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "6d3bedfe0835776ab918803ff29f39ea4822c897a921d83ad1c6e440d6514cb7",
-      "imageSha256": "13d6c91953bae59e642e402aadc4f9980055e737a52628d27b47048e9dc25707",
+      "movieSha256": "d422b377b9e004cc56acced2516b73d680f92611f05af4092daeb2a7a7cf5528",
+      "imageSha256": "8c283ffaa6cabfda4e8cfe585f7a7923550c4aa59066314097188967c231cb21",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -3011,7 +3087,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.3
       }
     },
     {
@@ -3073,12 +3151,12 @@
         "levelSha256": "e56b12cfb4b5f5eecd75ff76d53be2d559708606c64c6fc68e768192fbd8b644",
         "artSha256": "b449ecbf9163e7a6e44e4f1ebd3aa499e9b76b1e4badb9fd06fb0bae919d1167",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "48b60ed151c038e50614e0967cc8b718f3a09a260ccf05dc8bdfd2b105a7f43f",
-      "imageSha256": "66a1ec33c5ab2757a2426e71062bb3442f04f3c0c7fb24d851ff01ef73e48058",
+      "movieSha256": "69f123070db247569b175b386b35acfe880a264b2eb6201bc50882f05b9523c3",
+      "imageSha256": "5c8079f76f3271991d9a01348668618025672e475737751f77a254d4395c332a",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -3086,7 +3164,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -34.8
       }
     },
     {
@@ -3156,12 +3236,12 @@
         "levelSha256": "1c3e313037f7f5aba55de04bd12dd9499e3e4f8d27ddd089a8963916d052e184",
         "artSha256": "b40a9d3ba0b59beb1c73493b97324ae203e1d39a83e81289b363f133dbb61821",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "13ef43938e107821a87335b62f551459e386c072cec89a799353ad77fc5e126c",
-      "imageSha256": "68b53125d75558596caa638288025d5a7f2e18812b9b6a758570fcd788f748b8",
+      "movieSha256": "3b4f41e00ea1dfdeb1fce811d0b335bbe89b6fd8b2e96bed0f4c66ba1eee728f",
+      "imageSha256": "03419807312d2d55f5e95325e589b7fca61e03679aafeff92d7a8d900ea2557a",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -3169,7 +3249,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.4
       }
     },
     {
@@ -3239,12 +3321,12 @@
         "levelSha256": "a6f922480ba6885d7f01d0e827404fba6438a256de990403cca0484fddc5f423",
         "artSha256": "20031db3386e637d9d9200f84616af0729ac7e0528a798a5aca2da76571a1e86",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "b980e951644d3b866cd5fb398820e7194535f01868e561ba602e263819d712f3",
-      "imageSha256": "a36b69e5da25ca38f115d296468e937b3655becc5ee372f17dd2058a89d95890",
+      "movieSha256": "1ec921d311913c5aebd95427d678f206cefa6357cd768256ad3b444f239cc123",
+      "imageSha256": "3baa7a83865ef2d709247336a8174f15e3b37ac27b40c3a0b7235c5fdbac9a34",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -3252,7 +3334,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.3
       }
     },
     {
@@ -3322,12 +3406,12 @@
         "levelSha256": "e5dc6938f093c5342255a2d8ff60dc8de5f844d2aadc590a8397e8d99b981b9c",
         "artSha256": "663ac781ea435b91af6832800cb136ca48e494ba7dda8ed9af5dfc859428a681",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "5287e2fc62668bebc03236b86a5aae96d82c23c24bb7391c5719ae947b1e2e13",
-      "imageSha256": "1dcd35502f9cb0cc8775257cfdc5fe2e8b0373f85c153f5755c5123bb8ee3554",
+      "movieSha256": "b35b623067d4060b89996a156c049706cb0925db3fc8c5bc478f8e4adcab06aa",
+      "imageSha256": "10df89c0401d8db190a92f4150727d09fe52b84f16b8705bc2067195e2200545",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -3335,7 +3419,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.5
       }
     },
     {
@@ -3397,12 +3483,12 @@
         "levelSha256": "41c76aa244a63e49d2462128ce372663070a1531f1ad87c41975a0c103e80c3e",
         "artSha256": "0aef9f1dec7fc9247f3487fc346e4743c4135dd0a481148753fefc508a6cc322",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "8e647590f960813b5929657e887fd31c69c7317d2e91e75270f657c2f132d4b2",
-      "imageSha256": "3e0f3640958c8cf674935ef7acbe61d3eaacd960721417fb0885cd3a40dab51c",
+      "movieSha256": "aec74c6ffe5d293416e40ba70b7479345496485b688832764a6b12ae78357b20",
+      "imageSha256": "4e3536d3f9a779a9b4c39059e659b37cfed071f4dfde19b8f4a4b9b440021eb3",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -3410,7 +3496,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.3
       }
     },
     {
@@ -3480,12 +3568,12 @@
         "levelSha256": "408b33b94964a4e643cd7bcab86e3ee93cb5d56c7bb53b0b13a9b0231bcb12ab",
         "artSha256": "b6a7d981751dc2e81c119edc4ea4f8f351945fc40b2d84096d1a324f36a76b47",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "72b4ab25bdcafb92d0127661e248dd5d1188a71793878299edfb485172ec3561",
-      "imageSha256": "616887b3660e4b90a86e1b393cbb33ed51d851cb79b31c7e878d7a2856f25907",
+      "movieSha256": "270ce0f3fc92056ea0711d45582c2233882402b8a4807272e2f6c3770c35d27a",
+      "imageSha256": "7e5184faf6c37e28d94bd0f262f6fde392893a681d9dc3b19044740821655b62",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -3493,7 +3581,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -37.0
       }
     },
     {
@@ -3571,12 +3661,12 @@
         "levelSha256": "dee03fd25ac62a5e577cda7d0212831022deed57031a3a06c6c301ddbd5bc089",
         "artSha256": "ad9390faf8411800b42fda7a3aefcbcfd3797b335c5a0b542352e5ba0f21ce7c",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "035dd39633e42244474c0363ce6cc3a64f19f3b73771d9c1abfd99f70ca68829",
-      "imageSha256": "af020ae850af5a43696782c7efcf5da38c9ed2888fdaf04e1fad517b41830d6e",
+      "movieSha256": "7ba31ad095dee236a27745641d04a63d6d383582cf5b4d5777f469df58de91e4",
+      "imageSha256": "697e1ea6456e99c7d36135e0a1548729571ceddb2e14cf2f9b8225e3a1c2e032",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -3584,7 +3674,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.1
       }
     },
     {
@@ -3646,12 +3738,12 @@
         "levelSha256": "27c6ebc068d6291da531f9e9e396e9ec049c5ec905f03621bce470b6f7a527be",
         "artSha256": "bd5f6b17a080deb2bf2569c643a1821362141f6caf4dd8ac1412f60b3b755c30",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "257838d10844e2f3f9e5e464d04c88b46176187f6825cdd5d25d57536c62ef78",
-      "imageSha256": "455625d50108f474a41d5797cac62b34216fcd6927c36e0013819154002b7eb8",
+      "movieSha256": "2a56bc2b3646671b8add4ffb9d173b5c7421a3c25aa088fca7d5a7531862b7f0",
+      "imageSha256": "d0612e2e0e49908b9562704b8424bf3b9882af27491cc14ebb47c80669c09521",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -3659,7 +3751,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.7
       }
     },
     {
@@ -3729,12 +3823,12 @@
         "levelSha256": "059866211220c94f3a365bdcc4f82dc7fa0d5dd3166458f56e906e38fd4546b1",
         "artSha256": "1409d3bf655d235bc30dec8a309bae0d29a36b3ff39607b2821406c961e5fa35",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "dd17b6fc2d96bbbed1be066b5424e89146a87b50833bc69c92457324423089e4",
-      "imageSha256": "370c074dee2a978ed4f972f4ad9d8d8db36147f1ea1345da91c828cde5e3ddcd",
+      "movieSha256": "7c2c326224f7ac401dd4f5a38f4bcc28dbae77d9a096d2018287be67c1749f1f",
+      "imageSha256": "fe0c72598f12aed6b3d0d53b88e5e3ad21af85bc4fa766cb59dc12a178b53c93",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -3742,7 +3836,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.9
       }
     },
     {
@@ -3812,12 +3908,12 @@
         "levelSha256": "cc967f8b7ec31ca4a7f738b04074164f9503f13ac52f7a8a64f4705d06cc0ff2",
         "artSha256": "c124570113c1b31da5139fec49fbf301796b3cad021683775072df6cffab4fbb",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "ae69c04e87789be1c947031350a041a4b2878a76ddb47272a42d78edd6653e39",
-      "imageSha256": "dc4e6d6ddd9a4ed6b2e52c38b3ec95f41b993b364234b016b5e9930577e48b60",
+      "movieSha256": "19ddbbec48a20eac2d61ae03535e3b7113b9524a21edf86c0e03c5a11dfaacef",
+      "imageSha256": "39d27249b3ffb3ca4838729f11c41af8400928e270ddee6ed0fafe05e0086f2f",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -3825,7 +3921,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -34.2
       }
     },
     {
@@ -3895,12 +3993,12 @@
         "levelSha256": "9eb573ebf0068c344b013ad30bd74236d7870343fee06d225a1e00d4ae34bd8d",
         "artSha256": "81c80b3a89721b29157407c0e212122cced61e45dfe9a240788eb4e81ed939ae",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "03af8afadf9b63f1be9c819f32d503e187f8278902c4e50ced13706acdf2943d",
-      "imageSha256": "2565706b0daa905247a6251c0966cb3c87592df7c2eed28790be7cfbfa517ba5",
+      "movieSha256": "64a288a979302232a30a42d064cf5f96a4f0e3413ff766e886f44f80edcfa896",
+      "imageSha256": "b3e234d329c4066c9679d0fe18bfab48e8c6ec93c60af682c32c20ddf16e23ec",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -3908,7 +4006,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -34.2
       }
     },
     {
@@ -3970,12 +4070,12 @@
         "levelSha256": "23c75432fa5cc4a354e94b02f4c5c3ca1af0c7a017efa6ff6610bb52cb553241",
         "artSha256": "96cc36ca6dc12460cef7d35ccba2c93f4aa25ef71988e9e253c7c08083ae3503",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "6411f1445a90a407994f607cdf7835653be3ad8b4a8caf4059ca79f9bb55d11d",
-      "imageSha256": "47de41951934a27e8ffc92f0d4bad7942287ddfab066912f120171ae46787774",
+      "movieSha256": "94a29de43da1783236786de5b83131467edeaca7f92e8aac19470124f598187e",
+      "imageSha256": "63cc0027d873f37bde8f616c04c5c0ac39d4ad41596ef7112664c6caafac56d0",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -3983,7 +4083,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.1
       }
     },
     {
@@ -4045,12 +4147,12 @@
         "levelSha256": "12138e56aa1b8920e3669ac10f7ec4ed959d1d05775ae8a414652ea838ec4ec6",
         "artSha256": "d15d8eba267f7638eba3f311f206dd4c428674ff5c40b0763a28567e12f6206e",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "a282c3a7fc560ea7c7b3b91a4e6b1d2e6de721fe6cd9aaaf4b4b690f8b4ce94c",
-      "imageSha256": "a56e97c36bd367cebda5bb6d82ad5ea122721bf914365d776938e1197aa4faa2",
+      "movieSha256": "58563c01ca15f46838a959cf96585f67714015d9b4ccbd03a9df766ade86ceed",
+      "imageSha256": "9e064a713d95faa6d6fd715302f21e74428299eb825a669267f477374b961cab",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -4058,7 +4160,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.5
       }
     },
     {
@@ -4128,12 +4232,12 @@
         "levelSha256": "eb5873a6c1066e1a2ee6e666494f3577ba8e1837d4ba7c4829f5142320f2c9f5",
         "artSha256": "d2594e090734c5be50206acef19d9ed32cb63dd3464343a4984c6f0fd38270b7",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "b2b80ca50c0be79fc961a88db4ac94da845c523b71ac60f2e74bf0545316d121",
-      "imageSha256": "fae34f8d843ea2dae3387b0ed1f7840f524bbc14bed7504f062dfbb739c0d406",
+      "movieSha256": "d2548c99b9f65a6721b2bfc169fb4f8fa824bf80afca467ecdc1a398155a9311",
+      "imageSha256": "378777ab1f5d2ca7093cdf9fd3fbd6351796a74bc74ff2c6dcae0430e68dcbd6",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -4141,7 +4245,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.8
       }
     },
     {
@@ -4227,12 +4333,12 @@
         "levelSha256": "8cc17471a913aa9ffbe645593fa5e7b54ab5965db85ff533c8a11f6fa8d3585a",
         "artSha256": "08837e45fdefbb0f375b31658ffca241e40df3ddfdf98ae89a56da345eaeb750",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "bffa54005d60c5d9e940b9688b3a557c7beffceafd2d91833a2f5f39b367025e",
-      "imageSha256": "38cc43b11f45cae76ffa9b52116e1430bfcba18f025b91b0cb9b5eb24e2f06fd",
+      "movieSha256": "091dd2033cbdd2ef7e77f31c1980180950137acb4c4bee34ca3c6b739d227a78",
+      "imageSha256": "ba24c0da0e09d095b85680f19c86ebf76d9603687eaa6e0be12e8a994b3c3384",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -4240,7 +4346,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.4
       }
     },
     {
@@ -4294,12 +4402,12 @@
         "levelSha256": "094d9fbaf891ccd03b85b18c3a6a8655d3c4979852b66c7c82af864e227554ac",
         "artSha256": "2daf0e58a446c94f64d9eaf4019d92073dec5197dc5597368c0365a8b9f4afcc",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "0d778673564e32614592e42d77b74af4ea604a1695c84e77679c9aabcb2a10ba",
-      "imageSha256": "5d656d346e81ec3b7cebf630743c24ebb5e76d090bf771aeb8f3fc794a9f5bf1",
+      "movieSha256": "45e107201af6ba44733a45313c65d5c709efc520373629e6c76c9d020953cad8",
+      "imageSha256": "420cfceee92c4f33e6c5b8c8e5c7eb54d5f70d52541423423fb71871a3e733b4",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -4307,7 +4415,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -37.6
       }
     },
     {
@@ -4361,12 +4471,12 @@
         "levelSha256": "bd287d2ed825b0a833e22099924646794ef2ab61ac72fbd6941774a941d804ad",
         "artSha256": "f3e836dd8495d65361cd80772c00b78fe904b2d7bbf126913e29203d884284ef",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "2b3e451d93335eebf3a1b8475ce05e6467c44a5d22f8dbc28167641c531b0ba0",
-      "imageSha256": "ad9119ea0ce7e98328dc02511afea86a71e83d6016ef6fc0c039299e5df77023",
+      "movieSha256": "e5bf74c3b6e8d61b715ef5c928a90dc8492e59fab0d39d19b0fff9acd84ee270",
+      "imageSha256": "01ccc9fd8cb27743f864f298d1ce69c350773147f0c792967451bc60fdf1da99",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -4374,7 +4484,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -37.9
       }
     },
     {
@@ -4436,12 +4548,12 @@
         "levelSha256": "e2bf4306a5f055947bd4eea5cadfcabb663d3f9cbdd60d88b57a3ed33d4572be",
         "artSha256": "261fcf7e1e96d9daae88676ebc5158918d2910bd5cc40129e6e4db11286b8b5a",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "f9ab546b7e0c3c018e38da48734fe74956f37f9eab178942f9669a1d2143be07",
-      "imageSha256": "24310619a96f6498a702d02e94e90f3e99b0c02555201e69f7d0515787b84b90",
+      "movieSha256": "f03a901679a7f2a4863819adcdf513cffcdb4fe79ad69e851f8ff8f3485c168c",
+      "imageSha256": "6731d77ab2265bbcc42fd825dd0e7c76e7d5d34e0d26d57dc5c50264c93f37f5",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -4449,7 +4561,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -34.8
       }
     },
     {
@@ -4511,12 +4625,12 @@
         "levelSha256": "7acb16e4dff2f9bb35a9202f8e4246cd359a9d0c70ddbf8b124f2107f06aba42",
         "artSha256": "6c507365c1751a5deca25d57374c2691de27a3157c8ccc711f9f88b3f6046c79",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "e0591b622e16f2124865b3261a56e642f98f51f2fe2cfe9ab2a995475430d274",
-      "imageSha256": "9856080c320103b5c861193e96133cdf6107c070f0211c9f28e32e32334e2d38",
+      "movieSha256": "80b5baaf92949528018eac2b549ab65bf0fa5ff5b676ecafd110556b79fbcb4d",
+      "imageSha256": "18f646320c743181c06dce5d4ba0e0e65da7da82d74cc87da969be86fe13aaeb",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -4524,7 +4638,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -34.9
       }
     },
     {
@@ -4586,12 +4702,12 @@
         "levelSha256": "a658bf59359cbabe3fb17b28f5f19ed1b4f86006a00b0043ee1169c94a43ee45",
         "artSha256": "9172e258fa504e309519c64fb6db167e4f497f01a8be213c1a8b4dfa5d0bfaa3",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "32c88b07ed7fc55ede4b055690f024c9fc850acc790c1ef914d2ad7b349d6d4a",
-      "imageSha256": "97f8fd30426e59be4636af956f814a74895640db1730bc39d5ca740d264482d0",
+      "movieSha256": "19bd2cb7b80b44cd90ce0501cf22ad228aefe6cd1937a7b9dd8ebcb6cf3bce6d",
+      "imageSha256": "eff1ae0f0c9d77a73b7c7f72cc5de49cf1b35de92f8256e349c721a1c85237e1",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -4599,7 +4715,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.9
       }
     },
     {
@@ -4661,12 +4779,12 @@
         "levelSha256": "5a97ad1c57eef535a3397a697229c1d8c4c941fcc1ae12f7a45d549290f9e549",
         "artSha256": "29d87945b5648215711af6ccdced948ed6b47a57a02e6d9975700664010c9bf7",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "4959a4a9deb2daefc81b27df45070c36ea0191f6ed327b6f264e78d10aaffa0f",
-      "imageSha256": "591e0d90fb0ec334b47d61371b670a5274bfc133bdec0d305c9c161efae33985",
+      "movieSha256": "c843a685d0923d85c3b59df71d4bcc436cccdd52e40f540e8af9feb7401930cb",
+      "imageSha256": "ca13b3e01340c5c25927b10263ac510191c1a9ebafe478ea89d25bc11df22d30",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -4674,7 +4792,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -37.3
       }
     },
     {
@@ -4736,12 +4856,12 @@
         "levelSha256": "4a3cb7afa4d21057944891e64703b86bc1144e7033fbbe278b2e1b8295ddf4d7",
         "artSha256": "2bca1c7e758d5ab587f368608f6d8f74a02a499fa88671314f45ed85cb44e59b",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "24c917fa781dc96d29de6662e76310c36a1644a9860beb7d807aaaa54c37cc61",
-      "imageSha256": "98aeb096ab11d97bd133267ffe5cb1a59ec38e4e16fc01996c278e99b579ff07",
+      "movieSha256": "340de4c5dee9af8eec02ea720257cb7a6b0a02be3f91d692175155492908fc6f",
+      "imageSha256": "0863134788831b31d8a6daf9999d35fca87d6b948d618fe4e36fe76ceff2adbb",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -4749,7 +4869,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -37.5
       }
     },
     {
@@ -4819,12 +4941,12 @@
         "levelSha256": "a921c0ddc5512cc4fd3a8713b259d5be5c48aa6d6f03af986589029128fcc1c9",
         "artSha256": "5b1bf9f79b8a870ba166e9701544afbb3e227b70c93bf8cc83ab3ecb740c4c78",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "8d98f83b9a7f23f2ce60e0e15b20fc039a9803b9ecc593132b0576f1349f1142",
-      "imageSha256": "b8debdf1010a72608d28644361369d22db2ddc31e6d999fadfed4b7b1940fcfd",
+      "movieSha256": "76e7c880110f1d45aed03953920afccaaca781b10305a33d58d593c07461b3e7",
+      "imageSha256": "532357e31e3576d8700639bc95cec5270cd7e9477640991cba0a5ee801605bec",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -4832,7 +4954,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.4
       }
     },
     {
@@ -4902,12 +5026,12 @@
         "levelSha256": "60f0af069ef43f0adc6a6a4e42a693ef36f248f3c578c7575d534c3a06f47082",
         "artSha256": "22b705314bf8aa699e601c85f340887cfe26668caa560cf2cf9997d212f51552",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "dbadf28c898f035e84a5e9bde3eb0ac25767ab17475bed0ab630340e3d644eb8",
-      "imageSha256": "7b99fd14b4d85845c3196baed7e69ab7d6699303f497601ce3c2b5d7707caa9b",
+      "movieSha256": "292efe0620a13b1501d5ae682a73cd67a29e4eea0881d32f28614d13b4a6bb99",
+      "imageSha256": "b8de2d0d2c980c6cf2c0244807b7063a276bb8ace862fc6723829ff3a3a45bd8",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -4915,7 +5039,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.9
       }
     },
     {
@@ -4969,12 +5095,12 @@
         "levelSha256": "6f9b64d307891bae88cc4ef175a33f13e1ddb0ebf49131a5746d190fe78c3801",
         "artSha256": "d9e7133cd16a82853a5b962cada0e15c22bda4b0b9d50f06bd6a6efb01781c61",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "36b14cdd87bf0bc856bb3bad95c0baacb4c84afac340aae140171d71853337f1",
-      "imageSha256": "be12e2b5f190aad39cc684d7c6f951e0710c99a24e3aaa56caf7289d7f7dbfc5",
+      "movieSha256": "46749456ddbd3f649ab8196efe57f9a8d930ce2a47d769a98f5800fa56bf6b07",
+      "imageSha256": "e09283b972fe28e0f0baba292d54465aea5f7d20291b190fa21bd14b4b73429d",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -4982,7 +5108,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -33.8
       }
     },
     {
@@ -5044,12 +5172,12 @@
         "levelSha256": "f30cbbafca1a5997e1e28b399053b075251cbeec52260275eb5fdd998e53e650",
         "artSha256": "839ea12c1c76c0767c461ece20060b8e6904bb732f60cbb7aac7dd3a51195806",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "313fdf1a77f99bc31fc6bfbedada805c627b11c5338abf009986984a899f25d4",
-      "imageSha256": "6c59a025a3773d946c6c6354bff2b172179654f1e4f56530e9063052590917dc",
+      "movieSha256": "6fe0db813f0aa801245c34d2f5e66a4da935732a7f3bbf9e37377bc2d5d0725a",
+      "imageSha256": "54b874403dc1eefa84b90d52453838d529aa6e9f8c4bf6a17010dbf0b4e0886a",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -5057,7 +5185,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -34.9
       }
     },
     {
@@ -5119,12 +5249,12 @@
         "levelSha256": "040ef1a31f197b2bc7bf2e53352b5753362d9efc76a94d1a2e3610ee27cffd6d",
         "artSha256": "27a7fe53732a4f146a8fc67789839cab79683711dd874f05758b4595ae50faf3",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "7d948fff60ed7aedb90446bd18a98d42f146eb23f42a729f4dfc9d4a016a23f7",
-      "imageSha256": "45f410a1e8cbba14b8c78fa2290872ec47a3f40b771ad307e096c3c9f0f86ec9",
+      "movieSha256": "e9c3ce2ab3ea5cd85ea9862ffbf89ae7914f323c44ebc23826995da358420883",
+      "imageSha256": "061e777de81d3fb47bfb6ff042fe09dc345536d72f47e544884772c69fa7dc43",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -5132,7 +5262,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.3
       }
     },
     {
@@ -5202,12 +5334,12 @@
         "levelSha256": "6b8853d5f1df0c2bf47fe208367a102ad724a892dbf00f5f3ce14d8fbd2fb5f4",
         "artSha256": "9c1a27a334b57360441f6ee3adf38301ee448d262ee22eda7f10606c4bdd0321",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "8cfc63a05f7dcfc4099aa99687c4d0b1e6d8e3788428ed1f150a7ee72fbf569c",
-      "imageSha256": "0d787e5164432b896d7ec3c8e2510b0e5707471b0eb7787637c457ff047c84e4",
+      "movieSha256": "f88d06edb45237e9c1677fdc797efbd3b80179fc580b316d06482eedc5ba9627",
+      "imageSha256": "7e9cbe68a570a2228ac708396a93e18183913ea45693f070c04d3f1ac92f7836",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -5215,7 +5347,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.5
       }
     },
     {
@@ -5285,12 +5419,12 @@
         "levelSha256": "eb1272112f9da74bae3284a8c338d27b63e6b572dab9388725449a01ccb1ce37",
         "artSha256": "8c1596f0939aaea2bfb60832eeab2b0f2b9b71a65c4c7c66114d2645606a7195",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "155fc86f03abdb1f74a3b3983546d55b33fe1370becf6ea10f9d7c049a068879",
-      "imageSha256": "b800addf9341b2de163f8d444a9a102cf91d2a2af51236269966d591b192957d",
+      "movieSha256": "66b089030cbfd1ec53dde2434a349b79621259f99da30bc8a0677c4c0941a0b4",
+      "imageSha256": "a6587783f41b9503c6ad099436e36da7e36fff9d04894df47c70367a7924fbce",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -5298,7 +5432,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.3
       }
     },
     {
@@ -5360,12 +5496,12 @@
         "levelSha256": "a8d58dbf824ac332a344b717f8fe7d43a8ed1f8ba6dbb2fcc3a36e3f767fb001",
         "artSha256": "ef319b70ad01245539d2fc92c4ec408472b2f19cc9861de9b0f927759732a787",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "9e6261f4a85f9ace7502cf3fea53bf4993acd3fa8689d2e4d7b382cdadc0417b",
-      "imageSha256": "9104289e1e3f2fc0934cd50c979de3bdcd8d448d6cd129de33fa31ccbdeec753",
+      "movieSha256": "7598c38f5e2bbb31bc5997a78fc68a020c73d25bd3617a11d297fc3d10955025",
+      "imageSha256": "be2561042e31f0fe2688f9167815287d7e64757c97fdba0541ff479985da883d",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -5373,7 +5509,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.0
       }
     },
     {
@@ -5435,12 +5573,12 @@
         "levelSha256": "f17a35f51db57683ed849c359e2d8d8f162799e934bc20520dcac8ce2985199d",
         "artSha256": "252e8510627f9f133ba6c2db408caa707a596645befa9dd1021488cfeb7ca942",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "ff2bab4d60533307d839f529e06439b14b3fc5b98fc884e312432d0788bd9f05",
-      "imageSha256": "0570e2f3d44579c6deadb91e9dc14256869ebf5aa2aa01f0a7a25d6a85572817",
+      "movieSha256": "d5e5064fd0360d51ce2924689ac5cf9a8babb5ac27c17f9207c6cfde80175dab",
+      "imageSha256": "a5a4056331036d4033e461175e90f0119799566b219cb558f0c4fccb7103d704",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -5448,7 +5586,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -37.0
       }
     },
     {
@@ -5518,12 +5658,12 @@
         "levelSha256": "ee700fcd370c57f575b9b22cd53925d8495f2ca4bde3f66a308a3dbd4c8a996e",
         "artSha256": "e9658114afb33cd25681362e830e33126188025ed734867090f121488dc26ec0",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "01dd255ef29b2b4dc7d32b4035c37d19c96fd543e937569deb1a9f22bf21dafb",
-      "imageSha256": "746cc262124a64553bf3209ca9fc91bb9e1d78c7ce29f7730544b6d9ae50c4a3",
+      "movieSha256": "0045358e05bf8933650961c58cbb729a97042751a858c205f843d86cd45d99f8",
+      "imageSha256": "91dba86a1930ab601594fa21f9f61d4eefefc2d48a401957e48fba95154a7817",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -5531,7 +5671,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.9
       }
     },
     {
@@ -5609,12 +5751,12 @@
         "levelSha256": "d5b3e44d231d2b0f5fc3d0f921d7ec565a2a1e05779590f7b4edafd328248cdb",
         "artSha256": "aca17b337fb5b53ce092ec939217d710c54db3cf96b7dcb027fa6dca0c6507c9",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "81a355cc5f5b549024027fa3ed9f68df8f7295d0ec279cf45fb016881ebe9b35",
-      "imageSha256": "d3516ce2151492ff2e3315b32fb5709bd2f7cc661ed9cc15ad647c1d29f5a510",
+      "movieSha256": "cd41ea0a8b41c289e417da57da334e75588bbb85aadd2a8edb0d0e67b577ba45",
+      "imageSha256": "5e0e7d6a85f472b9764c8c7d81ad54d8aa003c4b2cd32a8cb163596174d5ce1a",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -5622,7 +5764,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -34.6
       }
     },
     {
@@ -5684,12 +5828,12 @@
         "levelSha256": "179eede0fc94b0a3cc26a526c8dea8e4406112ee99d06c1fccd0c1c2ecb7aab7",
         "artSha256": "eaf513f6f17c329aa4d98d22d926c6443d681184bc7492de2f5bc03b1a9ca826",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "5f19d5d61f831b881665c9840e8d2c80d3e03a03578b464e93e3b1de3a94c8ac",
-      "imageSha256": "f3d82fcd1f8807adc3636f3bf54029259fd19ac426d8c2e7ab6548823de6ef4b",
+      "movieSha256": "8fd24b91f9e4f905640dbb8429b97a7423e6781ee69a3753f4559365e512ed13",
+      "imageSha256": "7fb80b604beff07611372ce8c167c6c185f31ebb9db7c2a0538e8bedaf843193",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -5697,7 +5841,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -33.9
       }
     },
     {
@@ -5767,12 +5913,12 @@
         "levelSha256": "0879de79fd0b13a86af11660dac0e395b45a982dbfbc748ae291b9017cf7aedf",
         "artSha256": "cdd581ff53a42e1df20e02778a607a9dd4a933b86273aa58d15c32be897bfb24",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "4718dadb31441a1a1ef7341b6ac67f75499b92795e688d0c1d0c23314f644e12",
-      "imageSha256": "11aa3e7bb24d8955c9a05f97f32b122ce0734e8be59c928068bf0465231eba32",
+      "movieSha256": "645a650ca166f5371e26ab0dfc21d10357110f8b0085e35b37b76088c7aae6cd",
+      "imageSha256": "4aa821b4b2352311e373be46d10662654b4ec5957eb9c2f23b4ca437b7e377d8",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -5780,7 +5926,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.3
       }
     },
     {
@@ -5850,12 +5998,12 @@
         "levelSha256": "5956fa2247ae5c530bc76e7ceb1bb6531d7f1be4d29a5c039503fba6ce7b697e",
         "artSha256": "6e1d16a3b12f08d8173a141906d488a27fc4471566c6eec7f375ba20206128a0",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "4a01b2e949a21ab54d66641fcb7c55bbf7820a593203e36a9708e35c6334e20f",
-      "imageSha256": "0cb6754faf9e4676eaab8d113ed9ce2149fb9544c8e5b4900b4974ef67380472",
+      "movieSha256": "d37b203ca5c2f22936492a6577b92c896c604e2e338eb4b2cd136b7fa24e64dd",
+      "imageSha256": "e11a8aef504e68d2856aff848abd74ffb548dd0f784eb40301ebe84dc88ce66c",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -5863,7 +6011,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.0
       }
     },
     {
@@ -5949,12 +6099,12 @@
         "levelSha256": "8d92d725c7d2e5e3b29f7e160d8e7dcc6a0b55a9c640dea2320b5dbf5abf4368",
         "artSha256": "3bb02f34baa506f170896fa30343a8bd1a41fd1687ba2c6c4d75534fdf16df4f",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "1366ab8ac51259bd5128b4a42406f9191d15417ccbc37a3d69eacbeb5956931d",
-      "imageSha256": "aa08a9ad1ca2d38791e2aa3564cde14d1ddf5285224ce10b9e696326f347531b",
+      "movieSha256": "69916046e24f0e19ebfa1519a1ee69dbe243012396b7127a59112a200f24b7dc",
+      "imageSha256": "58d98e2a8b321716aac06a1853d3f5406a9c6f79df99b760ad0be3f4a7c2f3ba",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -5962,7 +6112,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.2
       }
     },
     {
@@ -6024,12 +6176,12 @@
         "levelSha256": "0505e17cb0b88535b0670af79739d5be475d29ada87e3077363c5a5684966cfe",
         "artSha256": "1330afcab95f87c6f1adc58aad8d750987e213904669aa878f4504ef7d30af18",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "757f4e688aca170b6d61d80eafed7558c0a8be56aac40a1c0c034e308d3251ee",
-      "imageSha256": "b03d071539f75ceaa261c231bb3bff0af6d3385068a26c1a2f5b4fc83f5cb36e",
+      "movieSha256": "965854b281c0ba6c8a4106d3caf04f68750ae895877fa28ef09bd188fed723ee",
+      "imageSha256": "d044a340d212f057b80fec1d438eee1b2811933017d75240b1524654954a2922",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -6037,7 +6189,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.6
       }
     },
     {
@@ -6099,12 +6253,12 @@
         "levelSha256": "734530a18cc5de7fcc67d56c816e0342899c129db6d661b4133ff9914d4f5ff4",
         "artSha256": "b1cc3cd6e4bb0c911f6e13ec2c19b259b56ae0248a592ed6277ca9ed86cbf9b6",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "11da8eece7d350466956bfdfd620b2d7677fb01cee38fe860cd6b4f53490cb19",
-      "imageSha256": "5b087735cb56feeaef14de85605c61705a56bf59645025f82dee91d0b1d7f7e0",
+      "movieSha256": "d7e29c704bf38927262e76dd36c0efc7b9567b383918fa1f4e9e1bd1610ea147",
+      "imageSha256": "c8a56c6416452d3602c51c1d9811b1ee817a45ca9439e6808f1ed8ecd81776e1",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -6112,7 +6266,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.5
       }
     },
     {
@@ -6182,12 +6338,12 @@
         "levelSha256": "084ef4aff602c4cd880468f536661c128ecc8c5f06e28eb340994252b4860ee7",
         "artSha256": "22857215af0edd6cf56d16da2577602f041013a1290da8a6fb754ba7f42c689f",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "97ba68438f36796e7166ec5e47492ac711ae1e068eff061dcca2f031c28d229d",
-      "imageSha256": "b0c16abeb85c310c5ba5712523b379c09b80097197699a9c8f84090164340a1d",
+      "movieSha256": "bc1b8fc6e5a0361748a35791da246b0e190049604e186fb65125af0559da9488",
+      "imageSha256": "c4473c7723cd23c32448a2077c606271bd97d0a7cf4da4ec5a760d8cf2b764dc",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -6195,7 +6351,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.2
       }
     },
     {
@@ -6265,12 +6423,12 @@
         "levelSha256": "b4f0739b261e5e6a3d565d38c7878a3080da56a09b3a2007f29ef58aa2c24201",
         "artSha256": "e1262dac36efef72c1ba72e5a42809ea22b5fff6c5a37a9c650ccaa785f4baa6",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "bab610c80a1c4880a567880fe6fca4a981893549301f7bc6f5d5311e8b6ab7a3",
-      "imageSha256": "221bcabb08a31dd7547df4dbeb5d89941606b4db84a36d6e6efecc704c03e832",
+      "movieSha256": "1b93711f73d294a9f0a87d49b745bcc2b2244005d15d8f31dc58f452900e9153",
+      "imageSha256": "044382cf192c4c917b477bc55599e2ecab6cca2c8dbbd15d449faafef34142d7",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -6278,7 +6436,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.2
       }
     },
     {
@@ -6364,12 +6524,12 @@
         "levelSha256": "b3221b7f33b8f6ddef4180dea7a0559b2ba757a582aa7cff8d0fa1133956b916",
         "artSha256": "28e6bec08c26c33b076fa7edaea9fd82df4ceb453dfa7fec395b7dcaec66d08c",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "e79a104db6e5c1dc8d47dee9e40c89e9b54b8d70446df32896bd8ee8041bfc98",
-      "imageSha256": "95254e043de7623f36cebce45c06eacf17e04bfc3cd84b1034f6d4386f1b10f7",
+      "movieSha256": "84b42f98b72a6653d5c5cbadfc7a7f688962454f5df959eeed451ff355dc6345",
+      "imageSha256": "bc965fd474a663e1a4a3fa8d50ade5ccd3f8f1971685964d88bcb9fdaa6c5530",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -6377,7 +6537,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.2
       }
     },
     {
@@ -6431,12 +6593,12 @@
         "levelSha256": "c9dfad36467aa7092edb3d8e39099c55344fe097dd980233bb99596b424d2e2d",
         "artSha256": "e3121ae194bc8271cbd10b52eb6e60dbebc785da9c3140b05efd50da72f68697",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "68d082303655624f76a5e002614f9ad91f4a04538756cf24c8a04f5445f8aeb9",
-      "imageSha256": "ae61ca166555f10858f762254feb30c46a3d001b94dcce1859bff957d2600675",
+      "movieSha256": "6413cd93ad68c20a2a20793a6605e6f8df6fdebc95705497546db239de5f49fb",
+      "imageSha256": "8e97125286c23ddea148265102f88175833871b32d2e6cc70fbba8dc4cc27c96",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -6444,7 +6606,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -37.1
       }
     },
     {
@@ -6498,12 +6662,12 @@
         "levelSha256": "eb1edb4aac551259487edc7127c2c78f0bea6f30b1f42bd844ba514177f7f363",
         "artSha256": "7a5cc6b852076ed999b141b352df69312a850f7fb96328ec32b72674f1731ae8",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "063e9bfd7112c085c4f5e12d0c57c28a178419919f8f24d4134a6741ae2350bc",
-      "imageSha256": "1a28fddf9dcb7f5c871b71241ce60029ac6a2f2985aa8162fce245b808d42eb0",
+      "movieSha256": "2ee34ccec91fa175905f956037961f3bbee329af1949fa08bede07021298b302",
+      "imageSha256": "9581242b986ada572ab29bcbe0758bd53d8c14947e2a3dd229aea15aa7e4279e",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -6511,7 +6675,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.9
       }
     },
     {
@@ -6573,12 +6739,12 @@
         "levelSha256": "5cb2274553d12da8264859c0d3c606baa9a1faef78b8d73fd3d3543cda5120ea",
         "artSha256": "6ac3e086d6298017e20236e033fe7ef904abd3e08b88f160f9ee84782ecdc496",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "b33de3b85630faf02cb7e0d66c3b437f9defc127aec00ec484c9645b2d740c5b",
-      "imageSha256": "1555e7675f4aeed9366ad610310d3c7817c93bc70b9291ad83410aadc49a0f10",
+      "movieSha256": "e4a8d7f21822a91edfd8087ca4607c2333960cec5fbb3c4fc67c7081a8799968",
+      "imageSha256": "dc22a84837cc69ebc6862723aa53ebd1ca3b28aefcb45b451516086ce6fe5b15",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -6586,7 +6752,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -34.1
       }
     },
     {
@@ -6648,12 +6816,12 @@
         "levelSha256": "d992b22a6ea8f7aba1add3d08a864a3b2ca073cdf3f9c61cd11ec83000d33704",
         "artSha256": "09f645cc8c52c8895b8e1fc7faf973ebeab7ffc57681ea4a9f512e0c093bbc73",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "523be42e1de5453382d65a506cc2248727b9f47b186053f01b601f46ee119f36",
-      "imageSha256": "66be9292e451e73d4889b6888df139783f262e130298f5db610e97978bb1bee6",
+      "movieSha256": "cd8bbb38f43118e2f8b6b5c598a28cd478699390e93b2006ffa7f5080d3b3af9",
+      "imageSha256": "2b61dad1e9228272f649bc28ad489ba6e6b363ba7471d592275dd0d261b9fd1f",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -6661,7 +6829,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -34.8
       }
     },
     {
@@ -6723,12 +6893,12 @@
         "levelSha256": "7d055a17688a72b898aab5e0dab843aefd77472a2f45e39a253df81376f904d8",
         "artSha256": "fac2a3155a18eb03522aeb9f12b54a227d5d656f620083b313a2fe8ddaaf95e8",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "882289beb92dac425bbaf568509ac22930a42fe651277fd37b6c8db7498cdba2",
-      "imageSha256": "a3dffa44b68a7732b42640ed4b691114388d6bf3db75720e24de3234ef6ef408",
+      "movieSha256": "882b85b5bed12f3e16a9343bc490cf336548768234681166b8dbb5d3c54088ca",
+      "imageSha256": "10660191b86dd939a0a69304e89b120481fe63d3cc63876cfa38d4b15439cd57",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -6736,7 +6906,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -34.9
       }
     },
     {
@@ -6798,12 +6970,12 @@
         "levelSha256": "0ee78eb294262922d046ed2a85b7a9097df9d5dd9693118b89ebbe5c8f2f505f",
         "artSha256": "d466aad20cb7074f18a9b1722d2b2ee9271cd8fbb72dfc3daf3e0ee5309ad952",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "2141d790004ed62d3c824cf8d405005eb75a380db8384a7929c6d537a5a2f861",
-      "imageSha256": "27a02c1dc634a398893d10eade546e1b486ef59dbe9f4d760f4c9aa489aeb120",
+      "movieSha256": "2454d9acfaf8f0b375bed19ad59b3262963dd37762f6d922f05fa81cee983d65",
+      "imageSha256": "18510919d42a15eba47b2df0230ee53f0090d98c2674cad007e34001d5ea0da8",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -6811,7 +6983,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.2
       }
     },
     {
@@ -6873,12 +7047,12 @@
         "levelSha256": "086d1544cf441c860bf25b55dfab7d85cb275163fa3bb804bff332d041eec423",
         "artSha256": "88ecc94156689568de86141ec93f3d8348bbd8aa81188f07e8916f64cfd861e0",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "ffc3157c4ddf84216bac7c26575ffda768cb8828c57d3fd83bf70a80283d942e",
-      "imageSha256": "a2ac0ea9c6cad8615f18276aeda0d8baa33c1030af1ef463db7457fe56605de8",
+      "movieSha256": "9f3bc75378c240bdddbf7a8ad5900987e1348c7bf8b8f5d14db904cd2251344b",
+      "imageSha256": "30d0cce74b85d595e7e4aa77b8a7fc42afe2b3e32951c767324f7acc03fbb000",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -6886,7 +7060,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.8
       }
     },
     {
@@ -6956,12 +7132,12 @@
         "levelSha256": "db32215ca463683deac3376dc83ca2b02d25eb1eee944ae66b0896d2c3c7806d",
         "artSha256": "8cdb3de332d0816f065e4b8882147b7c96a73153b043130aa24f3aac23690ac9",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "3c7006046343c785c7867df9b26ddcaedb278db6c30e4ebf121fbf91cdf9b5cb",
-      "imageSha256": "1665138410460ada4ed924af64aa050d6bc24e2acb36d5ec9e8b67442e92b2fa",
+      "movieSha256": "69868113f337979aacd385c6d01202e6b47fc6d10b193ab5e6f97d9fa56eda53",
+      "imageSha256": "f5eb13576df686aa03692fab871bbd3943a41ec7f2827958a77dcc442d9a250e",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -6969,7 +7145,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.5
       }
     },
     {
@@ -7039,12 +7217,12 @@
         "levelSha256": "d5c86b82548bbacabeda96afc4e873f8f031704a2165fc76608a222b73053e63",
         "artSha256": "9defeddc9cc791461bd1a4e4682cc2209fbf94f4f0c954916160cb1b4deb9c9d",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "0d77b7cb64f5fd2e78a298d6f552baff85fcd94ab6829a2274e7a97ffd419e66",
-      "imageSha256": "1bae365078eea7489ebdc4b4f1e44ecabcd5518a7f98796e6eeaeffa15f8ab3a",
+      "movieSha256": "f60a51d0e1c2994bae96ac1cb0a6696dbd86c2f9b43073cbb01ac7f48d932887",
+      "imageSha256": "5a83016bb74a375fced0f16db6c1ce570ba6c05d9f2786931da4d5955bbd8cf8",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -7052,7 +7230,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.9
       }
     },
     {
@@ -7106,12 +7286,12 @@
         "levelSha256": "dd56459740f2b3c83fe77b66e03dcd754bb0d09dd22a0ede156668c1f79b85b6",
         "artSha256": "7644b235c8199d5f82447cc1d71b5fbad31f6b1856316760b3eed94d1f57fa6b",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "83e0beaaee0b0d11a47e677196a6ab455c00162ab122eae1239f38f29292023f",
-      "imageSha256": "3df5e53130d328e43c9c0b8f45373d2fb9c902ac4a613d7dd5a7d1c399fc62a0",
+      "movieSha256": "013d4f4117cabc50ed97ede4dcb97806673a75a23de9fc76e681b6c9196c8b26",
+      "imageSha256": "85dfc17bf20d82ab73a5b21ed1cf455cf71df3337cfc83c4c09e2f050e2ce0e2",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -7119,7 +7299,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -37.2
       }
     },
     {
@@ -7181,12 +7363,12 @@
         "levelSha256": "38c0e52b4e11aaae9634c5d8f9e9fd4998707ffb74a35cda8a037738ca865fc8",
         "artSha256": "e50a3f51a405a13b42fb03b237a8957a85a9a99f694e6704f309b0d1f8c4cdfc",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "6b32eadf0c827a1561014055079abaffc906a4b82a210ffb0adcab6d6385a389",
-      "imageSha256": "bd561afc536905f1253b0408e7f6581150907e5f8fef58f53b51d7e675136e33",
+      "movieSha256": "3152d94359f417a6b90d963bb4ec509799dd670864708726dc82452ee0553d03",
+      "imageSha256": "1bd93d57d88d1055e46ca92ce4cbbdfc6458100e15bfce28fedeaa69f4381588",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -7194,7 +7376,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.9
       }
     },
     {
@@ -7256,12 +7440,12 @@
         "levelSha256": "e71d5757cb734706231bcddadcbda6f28ce9ff9979b2a4e1b45c78c855e6bae9",
         "artSha256": "c81a470a9d799116cd7a15f902d27c1b102dce6a494fc5238ee3b8bc32781d2d",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "df28961de5552db60989c02c552e55f2ba975b1e3cc7a66b5c8c2a60a99f0956",
-      "imageSha256": "ea88ed9e77dc83346e815fde5dd51e8d789809eb314ecaaad9bdca2cfcf6a8d6",
+      "movieSha256": "6af8322cf0c8327d457584454578ccd539df337d1885a533b78e5a448b9de595",
+      "imageSha256": "641f2b60182c3a30ac624957e4853bbdde46b90fe8e00d9734e5c42fee6ab8a7",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -7269,7 +7453,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -37.0
       }
     },
     {
@@ -7339,12 +7525,12 @@
         "levelSha256": "70eb3b94d48845f6b036739d2f5b6dd347b735fc243f0acd90f819737e7223f6",
         "artSha256": "b8dba00b9e9a7d798dc55aedf40a55af2294df8734baf74f8093b37d6648123a",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "5e8118613babbab5d69383b3525aa21caa492aaa13a578dcba53fb2108a22000",
-      "imageSha256": "899ea1e9d30825d802780399d43d5811e936a57df79bb883c353df1a9147ab66",
+      "movieSha256": "70898b1f5ebecfe32ea82f464fa581506c1e56c1d0fe182f8d4d5860b808c9dd",
+      "imageSha256": "e369d32149388f6f2ed626cca9cd17901dd54d50cc6ff5279f67e2cad6320644",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -7352,7 +7538,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -36.2
       }
     },
     {
@@ -7422,12 +7610,12 @@
         "levelSha256": "58404db73761da88388bd399eab6badc6e739ace683f7d41fc9d3a4b86a91e93",
         "artSha256": "f8ea744d717ca515e61e87cf9a1dcc7f20cba1e81b3843961547edd11723578f",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "7547a491354a20c9a498559520d9c2980cb2b0b51d5a8a832e6dd6cd41883106",
-      "imageSha256": "f84dc364fbe42607e2070806c430f179b150a418aa498ab8ed739335403d9370",
+      "movieSha256": "a189b808586442232df687d387d6e38db4371b04ba8bdaf6915d2ed1d149da2d",
+      "imageSha256": "021978e137fb4023208e0960331ec5d0e3e67cf32ce7967fe68b8fa9f1b90653",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -7435,7 +7623,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.3
       }
     },
     {
@@ -7505,12 +7695,12 @@
         "levelSha256": "33ed701efb5d90dd4d777c128955981b597c5eb5034317dc302f3baa2d9c91aa",
         "artSha256": "cbfb57cd518f48bf9fe133fdb435ced279795ae77b21e2f918d3880b30f5941a",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "348739a797d4f7d79a0c3951449d95a699dc66896a38925439bc2983e773af37",
-      "imageSha256": "a4af5cccbf25cc2f7ac31e9c8fbf17505a6d97ba7307e1ebf76d5ae6622f62bd",
+      "movieSha256": "4a8132438a359897a7a9c5220e5b2c0f9b77cb65d4cc3b9a0c2d1d76b22254ba",
+      "imageSha256": "bcc06d7ce6aba691a8f889b85c671d490af46f50870a789cf5b4ae7317d81025",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -7518,7 +7708,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.3
       }
     },
     {
@@ -7580,12 +7772,12 @@
         "levelSha256": "008bb97770534fa94208691531897a00233465df40e0f2b2d33f14d939c577bf",
         "artSha256": "12307bb145303f5f96a85e74fff073f22ae2c7fc5f092505d813f363e2966b0a",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "28f2a7dded309e4bfe58da4f3a81c5b3171a46c292881bf42af16701e9203dde",
-      "imageSha256": "d2df99002ac887d9803bb116dbe403602ed5b686661a8ae9d0defc136314f7c6",
+      "movieSha256": "81be3669d5abe3514752b1a6519896911d4edc641d2ac5e9814998b927cf2c57",
+      "imageSha256": "937248cef87f7c8641de83b2e776716fcab42ef6a9d533f97056e48d8da84769",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -7593,7 +7785,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.2
       }
     },
     {
@@ -7655,12 +7849,12 @@
         "levelSha256": "3154dadf16ebeeaff77f614c725a09ad6a19ae11d2386136ca991101b87b7fe0",
         "artSha256": "56a6f5cd91fe433071a93e4078dd090c0ac42d66fef07ea986d80aeb7b254f39",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "c2750ad24d56b877a159de65fc78510a68b989ae9a392f8717f64cd58f2bedff",
-      "imageSha256": "9614617555623ba54ac4d75e72759e941c5a837d253fbbbfcb79bcfe6d7cb9e9",
+      "movieSha256": "384144742ebd25309328f9c395293d3cbaef39963455e85afb193c7465e28e52",
+      "imageSha256": "f20a89b0756f7dabed1a601610103986ea19303d8694122040bd9a903b4af363",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -7668,7 +7862,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.0
       }
     },
     {
@@ -7738,12 +7934,12 @@
         "levelSha256": "71e32b27c0cd7623562587dd16c62fd27c0ce7168886abea8499e6f4542111ed",
         "artSha256": "361fd1ce25c0087c9c9117d923c4755bb9393d09515cba31d40295999b83bd85",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "b68c48c0555f26d5bd81efa43f5c24befc2c1e9ade7464be50efe9a726d09bbe",
-      "imageSha256": "a19b94f35e0dda8ad96bf046fa4b43193ab602d60e0b6dc0b84ebb2ef60907e5",
+      "movieSha256": "428df71fcf8e87bfdb877dadecf99623cca08a055f05c3f26225d6588df6c649",
+      "imageSha256": "d286f50ef5212707dba3538bb1886b820c070b75beb962860811f325b9fed569",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -7751,7 +7947,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.7
       }
     },
     {
@@ -7829,12 +8027,12 @@
         "levelSha256": "745129c2ed8f6effa036be64409dfac5f69aa5a02d870882951ef7b6bdb0ee2d",
         "artSha256": "797c98eb444a8cc760f17f15c4cb5cdb29a1e0eef4c296e4af8bdb24ac4d1543",
         "sources": {
-          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "ffa7d4084fa18ac8d21b81de4384ddaa576f6fa341d17d109978afe3ff289d11",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
           "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
         }
       },
-      "movieSha256": "f9e16af618cbc36b22dfc90588be636d600b2b33d997c32b5db1cb0c441be187",
-      "imageSha256": "3fdbea364d4818796c9bc280e1cb9409b1001d98ad01a54816548390c5b7130c",
+      "movieSha256": "a68eb0b57fc8df56cc598877f632512013a688d87b409c95de550243621fef60",
+      "imageSha256": "46b6393f20ca26032108bef47c6e6e6f2a2f531f68e19aed6955a614d9d5ee09",
       "media": {
         "duration": 4.3333,
         "video": "h264",
@@ -7842,7 +8040,9 @@
         "width": 1440,
         "height": 1080,
         "frames": "130",
-        "sampleRate": "48000"
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -35.7
       }
     }
   ],
