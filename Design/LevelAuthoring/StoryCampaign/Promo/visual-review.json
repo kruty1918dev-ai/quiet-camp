@@ -1,5 +1,5 @@
 {
-  "status": "audio-verified replacement in progress; source stills 1-60 inspected",
+  "status": "replacement source stills 1-70 inspected; 73rd input replay rejected and being retried",
   "sourceStills": [
     {
       "order": 1,
@@ -420,6 +420,76 @@
       "sourceStillInspected": true,
       "imageSha256": "ca13b3e01340c5c25927b10263ac510191c1a9ebafe478ea89d25bc11df22d30",
       "observations": "Replacement source inspected: real gameplay UI and active placement grid visible; aircraft, windmill and autumn scenes remain readable."
+    },
+    {
+      "order": 61,
+      "id": "gen:qc_camp:80",
+      "sourceStillInspected": true,
+      "imageSha256": "0863134788831b31d8a6daf9999d35fca87d6b948d618fe4e36fe76ceff2adbb",
+      "observations": "Replacement autumn source inspected: gameplay UI, grid and landmarks remain visible in rain and fog."
+    },
+    {
+      "order": 62,
+      "id": "gen:qc_camp:81",
+      "sourceStillInspected": true,
+      "imageSha256": "532357e31e3576d8700639bc95cec5270cd7e9477640991cba0a5ee801605bec",
+      "observations": "Replacement autumn source inspected: gameplay UI, grid and landmarks remain visible in rain and fog."
+    },
+    {
+      "order": 63,
+      "id": "gen:qc_camp:82",
+      "sourceStillInspected": true,
+      "imageSha256": "b8de2d0d2c980c6cf2c0244807b7063a276bb8ace862fc6723829ff3a3a45bd8",
+      "observations": "Replacement autumn source inspected: gameplay UI, grid and landmarks remain visible in rain and fog."
+    },
+    {
+      "order": 64,
+      "id": "gen:qc_camp:83",
+      "sourceStillInspected": true,
+      "imageSha256": "e09283b972fe28e0f0baba292d54465aea5f7d20291b190fa21bd14b4b73429d",
+      "observations": "Replacement autumn source inspected: gameplay UI, grid and landmarks remain visible in rain and fog."
+    },
+    {
+      "order": 65,
+      "id": "gen:qc_camp:84",
+      "sourceStillInspected": true,
+      "imageSha256": "54b874403dc1eefa84b90d52453838d529aa6e9f8c4bf6a17010dbf0b4e0886a",
+      "observations": "Replacement autumn source inspected: gameplay UI, grid and landmarks remain visible in rain and fog."
+    },
+    {
+      "order": 66,
+      "id": "gen:qc_camp:85",
+      "sourceStillInspected": true,
+      "imageSha256": "061e777de81d3fb47bfb6ff042fe09dc345536d72f47e544884772c69fa7dc43",
+      "observations": "Replacement autumn source inspected: gameplay UI, grid and landmarks remain visible in rain and fog."
+    },
+    {
+      "order": 67,
+      "id": "gen:qc_camp:86",
+      "sourceStillInspected": true,
+      "imageSha256": "7e9cbe68a570a2228ac708396a93e18183913ea45693f070c04d3f1ac92f7836",
+      "observations": "Replacement autumn source inspected: gameplay UI, grid and landmarks remain visible in rain and fog."
+    },
+    {
+      "order": 68,
+      "id": "gen:qc_camp:88",
+      "sourceStillInspected": true,
+      "imageSha256": "a6587783f41b9503c6ad099436e36da7e36fff9d04894df47c70367a7924fbce",
+      "observations": "Replacement autumn source inspected: gameplay UI, grid and landmarks remain visible in rain and fog."
+    },
+    {
+      "order": 69,
+      "id": "gen:qc_camp:89",
+      "sourceStillInspected": true,
+      "imageSha256": "be2561042e31f0fe2688f9167815287d7e64757c97fdba0541ff479985da883d",
+      "observations": "Replacement autumn source inspected: gameplay UI, grid and landmarks remain visible in rain and fog."
+    },
+    {
+      "order": 70,
+      "id": "gen:qc_camp:90",
+      "sourceStillInspected": true,
+      "imageSha256": "a5a4056331036d4033e461175e90f0119799566b219cb558f0c4fccb7103d704",
+      "observations": "Replacement autumn source inspected: gameplay UI, grid and landmarks remain visible in rain and fog."
     }
   ],
   "motionReviewed": [],
@@ -434,5 +504,9 @@
     "motionSamples": 100,
     "rejection": "Many source MP4s have an AAC stream but zero audio packets. Montage rejected before delivery. Repeat recordings require decoded nonsilent audio per source."
   },
-  "sourceFolder": "2026-10-15-AudioVerified"
+  "sourceFolder": "2026-10-15-AudioVerified",
+  "rejectedReplay": {
+    "order": 73,
+    "reason": "First guest placement did not reach witness; recording rejected before delivery; prior successful captures retained."
+  }
 }

@@ -70,6 +70,8 @@ def main():
     if args.stage:STAGE=args.stage.resolve()
     STAGE.mkdir(parents=True, exist_ok=True)
     ids = json.loads((QA/'Assets/QuietCamp/Resources/QuietCamp/campaign.json').read_text(encoding='utf-8'))['campaignLevelIds'][:args.count]
+    transition = json.loads((QA/'Assets/QuietCamp/Resources/QuietCamp/transition.json').read_text(encoding='utf-8'))
+    reveal_settle = float(transition['revealDuration']) + float(transition['coveredHold']) + .8
     before = persisted()
     workspace = request('authoring-workspace-status')
     state = dict(status='recording', levels=[])
@@ -80,6 +82,9 @@ def main():
         request('opening-gameplay', name='start')
         for order, ident in enumerate(ids, 1):
             status = ready(ident)
+            # UiReady precedes the normal scene reveal. Do not drag against its
+            # moving camera or send Next while the router still owns navigation.
+            time.sleep(reveal_settle)
             if order == 1:
                 grant = request('opening-gameplay', name='pro')
                 assert grant['pro'] and grant['memoryOnly']
