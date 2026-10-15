@@ -109,30 +109,85 @@ def stage_camera(start,end):
     print('Staged camera proposals:',len(corrections),'(not published or visually accepted).',flush=True)
 
 
+def viewport_bounds(item,model,art,level,rect):
+    """Authoring estimate mirroring the published orthographic fit, not acceptance."""
+    pitch,yaw=map(math.radians,art['cameraEuler'][:2])
+    extent=[(level['width']+1.6)/2,1.15,(level['height']+1.6)/2]
+    mx=abs(math.cos(yaw))*extent[0]+abs(math.sin(yaw))*extent[2]
+    my=abs(math.sin(yaw)*math.sin(pitch))*extent[0]+math.cos(pitch)*extent[1]+abs(math.cos(yaw)*math.sin(pitch))*extent[2]
+    size=max(mx/(4/3*rect[2]),my/rect[3])*art['gameplayCameraMargin']
+    bounds=projected_bounds(item,model,art)
+    centre=[rect[0]+rect[2]/2,rect[1]+rect[3]/2]
+    return [[centre[0]+p[0]/(2*size*4/3),centre[1]+(p[1]-1.05*math.cos(pitch))/(2*size)] for p in bounds]
+
+
+def refine_camera(start,end):
+    corrections=[]
+    for n,ident in enumerate(ids(),1):
+        if not start<=n<=end:continue
+        previous=WORK/'C01'/f'L{n:03}.draft.json'
+        d=json.loads(previous.read_text(encoding='utf-8'));art=d['art'];level=d['level']
+        inspection=json.loads((DOC/'C01/inspection.json').read_text(encoding='utf-8'))['levels'][n-1]
+        assert inspection['inspected'] and inspection['order']==n
+        native=json.loads((WORK/'C01'/f'L{n:03}/capture.json').read_text(encoding='utf-8'))
+        rect=native['cameraAfter']['gameplay']
+        models={m['id']:proxy(m) for m in art['models']}
+        primary=next(i for i in art['instances'] if i['id']==art['primaryLandmarkInstanceId'])
+        before=deepcopy({k:art[k] for k in ['cameraEuler','gameplayCameraMargin']})
+        options=[]
+        for yaw in [45,135,225,315]:
+            art['cameraEuler']=[50,yaw,0]
+            for margin in [1.12,1.2,1.3,1.4]:
+                art['gameplayCameraMargin']=margin
+                box=viewport_bounds(primary,models[primary['modelId']],art,level,rect)
+                area=max(.00001,(box[1][0]-box[0][0])*(box[1][1]-box[0][1]))
+                inside=math.prod(max(0,min(box[1][k],[.96,.88][k])-max(box[0][k],[.035,.12][k])) for k in [0,1])/area
+                ui=max(0,min(box[1][0],1)-max(box[0][0],.52))*max(0,min(box[1][1],.37)-max(box[0][1],0))/area
+                centre=[(box[0][k]+box[1][k])/2 for k in [0,1]]
+                bad=blockers(art,level,models)
+                # The native C01 review found roof-only tents and cropped landmarks.
+                # Diagonal yaw keeps all four tent rotations legible; hero visibility
+                # is secondary to the centred, unobstructed gameplay bounds.
+                score=5*(1-inside)+4*ui+sum(min(1,r['fraction']) for r in bad)*2
+                score+=abs(centre[0]-.70)*.32+abs(centre[1]-.64)*.28+(margin-1.12)*1.2
+                options.append((score,yaw,margin,box,bad))
+        best=min(options,key=lambda r:r[0])
+        art['cameraEuler']=[50,best[1],0];art['gameplayCameraMargin']=best[2]
+        write(WORK/'C02'/f'L{n:03}.draft.json',d)
+        write(WORK/'C02'/(ident.replace(':','_')+'.json'),dict(art,levelId=ident))
+        corrections.append(dict(order=n,id=ident,round='C02',baseline='C01',observed=inspection['residual'],
+            cameraBefore=before,cameraAfter={k:art[k] for k in before},estimatedPrimaryViewport=best[3],projectedBlockers=best[4],
+            change='Show tent gables with a diagonal camera; keep the unique landmark clear of the guest card and frame edges without shifting the camp.',
+            status='requires-native-game-view-inspection'))
+    write(DOC/'C02/corrections.json',corrections)
+    print('Staged diagonal camera refinements:',len(corrections),flush=True)
+
+
 def sheets(round_name,start,end):
     from PIL import Image,ImageDraw,ImageFont
     font=ImageFont.truetype('C:/Windows/Fonts/segoeui.ttf',17)
     out=WORK/round_name/'review';out.mkdir(parents=True,exist_ok=True)
     for begin in range(start,end+1,5):
         numbers=list(range(begin,min(end+1,begin+5)))
-        canvas=Image.new('RGB',(768,len(numbers)*312),(23,42,32));draw=ImageDraw.Draw(canvas)
+        canvas=Image.new('RGB',(1152,len(numbers)*312),(23,42,32));draw=ImageDraw.Draw(canvas)
         for row,n in enumerate(numbers):
             folder=WORK/round_name/f'L{n:03}'
             placement=folder/('placement.png' if round_name=='B00' else 'gameplay.png')
             complete=folder/'complete.png'
             if not complete.exists():
                 subprocess.run([str(FF),'-y','-hide_banner','-loglevel','error','-threads','1','-i',str(folder/'gameplay.mp4'),'-vf','select=eq(n\\,118)','-frames:v','1',str(complete)],check=True)
-            for column,path in enumerate([placement,complete]):
+            for column,path in enumerate([WORK/'B00'/f'L{n:03}/placement.png',placement,complete]):
                 with Image.open(path) as im:
                     assert im.size==(1440,1080)
                     im.thumbnail((384,288));canvas.paste(im,(column*384,row*312+24))
-            draw.text((5,row*312),f'{n:03} · {round_name} · placement / complete',font=font)
+            draw.text((5,row*312),f'{n:03} · before / {round_name} placement / {round_name} complete',font=font)
         canvas.save(out/f'{begin:03}.jpg',quality=94)
     print('Game View placement/completion comparison sheets:',out,flush=True)
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('step',choices=['baseline','stage-camera','sheets']);p.add_argument('--round',default='C01');p.add_argument('--start',type=int,default=1);p.add_argument('--end',type=int,default=100);a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('step',choices=['baseline','stage-camera','refine-camera','sheets']);p.add_argument('--round',default='C01');p.add_argument('--start',type=int,default=1);p.add_argument('--end',type=int,default=100);a=p.parse_args()
     if a.step=='baseline':baseline()
     elif a.step=='stage-camera':stage_camera(a.start,a.end)
+    elif a.step=='refine-camera':refine_camera(a.start,a.end)
     else:sheets(a.round,a.start,a.end)
