@@ -27,7 +27,7 @@
 
 Базова кампанія містить **рівно 100 рівнів у 10 розділах**. Навчання поступово знайомить із керуванням, проходами, тінню, тишею й дружбою. Далі знайомі правила поєднуються в нових таборах; погода й сезони змінюються плавно. Покинуті садиби, сліди евакуації, розбитий літак і осушений ставок розповідають історію через оточення.
 
-Усі 100 пазлів пройшли перевірку структури, контрольного розв’язку й незалежного solver. **Художнє та native UI приймання ще триває**: [онлайн-галерея](https://kruty1918dev-ai.github.io/quiet-camp/campaign100/) і [HTML-звіт](Design/Campaign100/2026-10-11/index.html) показують фактичну кількість актуальних кадрів, їхнє походження й незавершені перевірки. Старі кадри мають власні дати.
+Усі 100 рівнів мають застосовані редаговані композиції з різними головними моделями, власними сюжетними деталями й сезонним оформленням. Виконано сім художніх раундів правок, 164 EditMode-тести та автоматичне проходження всіх 100 рівнів через звичайні «Перевірити» й «Далі» — 99 переходів без зміни збереженого прогресу. [Актуальна офлайн-галерея з кадрами гри](Design/LevelAuthoring/StoryCampaign/index.html) містить історії, нативні композиції та знімки з інтерфейсом. Перевірка автоматична; мобільний FPS і зручність для новачків не вимірювалися.
 
 Роадмапу **відкладено й виключено з player**. Почати / Продовжити відкриває рівень напряму; після перемоги можна перейти до наступного. Геометрія та авторинг збережені в [Editor-архіві](Design/Roadmap/Paused/2026-10-11/README-UA.md).
 
@@ -43,7 +43,7 @@
 
 Завершені табори лишаються в **Моїх кемпінгах**: їх можна роздивлятися, обертати й проходити повторно. Text scale, contrast, reduced motion, calm pacing, звук і haptics допомагають грати у власному темпі. [Правила й керування](docs/gameplay.md) · [Екрани й налаштування](docs/screens.md).
 
-**Quiet Camp** is a calm, offline-first campsite puzzle set in a recovering Ukrainian world. Arrange tents around paths, shade, quiet and friendship. The base campaign has 100 levels; visual acceptance is in progress. The level-path screen has been removed from gameplay and Editor Play Mode; its source backup is retained in commit 5035e856. QC007 now uses a deterministic rule-based scene generator with ranked candidate review for camera framing, supported crossings, Stylized Water 3, protected foliage placement and edge blur. [Methodology and fresh native captures](Design/SceneGeneration/2026-10-12/Reviewed/README-UA.md) document the reusable systems, verification and remaining visual differences from the AI concept.
+**Quiet Camp** is a calm, offline-first campsite puzzle set in a recovering Ukrainian world. Arrange tents around paths, shade, quiet and friendship. All 100 campaign levels now have editable, reviewed compositions with unique main landmarks. Seven art correction rounds, 164 EditMode tests and a full automated Check/Next campaign run are recorded in the [current gallery](Design/LevelAuthoring/StoryCampaign/index.html). This is Editor evidence, not measured mobile performance or novice usability. The level-path screen remains excluded from gameplay and Editor Play Mode; its source backup is retained in commit 5035e856. The scene generator uses shared rules for framing, crossings, Stylized Water 3, vegetation, weather and living ground surfaces.
 
 ## З чого почати
 

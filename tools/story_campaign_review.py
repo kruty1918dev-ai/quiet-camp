@@ -64,5 +64,30 @@ def sheets(round_name,start=1,end=100):
     print('Native review contact sheets:',temp)
 
 
+def gameplay_sheets(start=1,end=100):
+    from PIL import Image,ImageDraw,ImageFont
+    import hashlib,textwrap
+    report=ROOT/'Design/LevelAuthoring/StoryCampaign/Verification/gameplay.json'
+    proofs={r['id']:r for r in json.loads(report.read_text(encoding='utf-8'))['levels']}
+    profiles=json.loads((ROOT/'Design/LevelAuthoring/StoryCampaign/unique-profiles.json').read_text(encoding='utf-8'))
+    folder=QA/'UserSettings/QuietCampCampaignReview/GameplayReview';folder.mkdir(parents=True,exist_ok=True)
+    font=ImageFont.truetype('C:/Windows/Fonts/segoeui.ttf',14)
+    for begin in range(start,end+1,10):
+        indices=list(range(begin,min(end+1,begin+10)))
+        if not all(profiles[n-1]['story']['id'] in proofs for n in indices):continue
+        canvas=Image.new('RGB',(1152,328*((len(indices)+2)//3)),(32,48,40));draw=ImageDraw.Draw(canvas)
+        for slot,n in enumerate(indices):
+            story=profiles[n-1]['story'];proof=proofs[story['id']]['screenshot'];path=ROOT/'Design/LevelAuthoring/StoryCampaign'/proof['path']
+            assert hashlib.sha256(path.read_bytes()).hexdigest()==proof['sha256']
+            x=slot%3*384;y=slot//3*328
+            draw.multiline_text((x+4,y+2),'\n'.join(textwrap.wrap(str(n)+' · '+story['title'],width=47)),font=font,fill='white',spacing=1)
+            with Image.open(path) as native:canvas.paste(native.convert('RGB').resize((384,288),Image.Resampling.LANCZOS),(x,y+40))
+        canvas.save(folder/f'{begin:03}-{indices[-1]:03}.png')
+    print('Live gameplay review sheets:',folder)
+
+
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--round',required=True);p.add_argument('--start',type=int,default=1);p.add_argument('--end',type=int,default=100);a=p.parse_args();sheets(a.round,a.start,a.end)
+    p=argparse.ArgumentParser();p.add_argument('--round');p.add_argument('--gameplay',action='store_true');p.add_argument('--start',type=int,default=1);p.add_argument('--end',type=int,default=100);a=p.parse_args()
+    if a.gameplay:gameplay_sheets(a.start,a.end)
+    elif a.round:sheets(a.round,a.start,a.end)
+    else:p.error('Select --round or --gameplay.')

@@ -21,7 +21,7 @@ def saved_files():
    for p in folder.rglob('*'):
     if p.is_file() and p.suffix in ['.mvs','.bak','.txt','.json']:result[str(p)]=hashlib.sha256(p.read_bytes()).hexdigest()
  return result
-before=saved_files();workspace=request('authoring-workspace-status');proofs=[]
+before=saved_files();workspace=request('authoring-workspace-status');proofs=[];ending=None
 def ready(ident):
  limit=time.monotonic()+180
  while time.monotonic()<limit:
@@ -47,15 +47,22 @@ try:
   assert status['surfaceSteps']==0,'Camp starts with invented traffic'
   request('authoring-place-witness');time.sleep(.7)
   screenshot=frame(ident);used=request('opening-gameplay',name='status')
+  assert used.get('playingVoices',0)>0,'No playing preset ambience (including its existing shared wind voice): '+ident
   result=request('opening-gameplay',name='check')
   assert result['solved'] and result['recorded'] and result['memoryOnly'],result
   assert set(result['completed'])==set(ids[:i]),result
-  proofs.append(dict(id=ident,ready=status,used=used,completion=result,screenshot=screenshot))
+  safe=ident.replace(':','_');content=QA/'Assets/QuietCamp/Resources/QuietCamp'
+  level_path=content/('GeneratedLevels' if ident.startswith('gen:') else 'Levels')/(safe+'.json')
+  art_path=content/'ArtCompositions'/(safe+'.json')
+  proofs.append(dict(id=ident,ready=status,used=used,completion=result,screenshot=screenshot,
+    publishedLevelSha256=hashlib.sha256(level_path.read_bytes()).hexdigest(),publishedArtSha256=hashlib.sha256(art_path.read_bytes()).hexdigest()))
   (VERIFY/'gameplay.json').write_text(json.dumps(dict(status='running',levels=proofs),ensure_ascii=False,indent=2),encoding='utf-8')
   if i<a.count:
    assert result['next']==ids[i],result
    route=request('opening-gameplay',name='next');assert route['to']==ids[i],route;proofs[-1]['transition']=route
-  elif a.count==100:assert result['next'] is None,'Campaign must end after level 100.'
+  elif a.count==100:
+   assert result['next'] is None,'Campaign must end after level 100.'
+   time.sleep(3);ending=frame('campaign_ending')
   print('Completed canonical campaign level:',ident,flush=True)
 finally:
  status=request('authoring-status')
@@ -67,6 +74,6 @@ finally:
 restored=request('authoring-workspace-status');after=saved_files()
 assert before==after,'Saved progress changed'
 assert workspace.get('artSha256')==restored.get('artSha256') and workspace.get('objects')==restored.get('objects') and workspace['status']==restored['status'],'Manual workspace changed'
-(VERIFY/'gameplay.json').write_text(json.dumps(dict(status='passed',levels=proofs,canonicalCheckAndNext=True,memoryOnly=True,progressFilesUnchanged=before==after,manualDraftUnchanged=workspace['status']=='workspace',workspaceStatus=restored['status'],workspaceObjects=restored.get('objects'),testKind='automated witness placement and actual gameplay action routing; not a human usability test'),ensure_ascii=False,indent=2),encoding='utf-8')
+(VERIFY/'gameplay.json').write_text(json.dumps(dict(status='passed',levels=proofs,ending=ending,canonicalCheckAndNext=True,memoryOnly=True,progressFilesUnchanged=before==after,workspaceUnchanged=True,manualDraftUnchanged=True if workspace['status']=='workspace' else None,workspaceStatus=restored['status'],workspaceObjects=restored.get('objects'),testKind='automated witness placement and actual gameplay action routing; not a human usability test'),ensure_ascii=False,indent=2),encoding='utf-8')
 (VERIFY/'workspace-after.json').write_text(json.dumps(restored,ensure_ascii=False,indent=2),encoding='utf-8')
-print(f'{a.count} completions, {a.count-1} transitions; persisted progress and manual draft unchanged.',flush=True)
+print(f'{a.count} completions, {a.count-1} transitions; persisted progress and workspace unchanged ({restored["status"]}).',flush=True)

@@ -1,0 +1,806 @@
+{
+  "status": "reviewed",
+  "levels": [
+    {
+      "order": 1,
+      "id": "QC001",
+      "inspected": true,
+      "imageSha256": "9d6e6be86290000cf1f1d1271d11c56f95602344b4a486e2bf5751a504fefbfd",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 2,
+      "id": "QC002",
+      "inspected": true,
+      "imageSha256": "7787ee07f1025ab597ca4e1d616ea5daf60911c555e2bb7ba9bf708d6dd7f04b",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 3,
+      "id": "QC003",
+      "inspected": true,
+      "imageSha256": "c3db987f8002d304904a86efb96c424c0a4cde967fb69e870fde23a0426499c0",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 4,
+      "id": "QC004",
+      "inspected": true,
+      "imageSha256": "dbbaf689e8c1d7f20b35eeebd5491222a432721ba5cbffcb7a2ebf3c1bde354f",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 5,
+      "id": "QC005",
+      "inspected": true,
+      "imageSha256": "296f44611dd139f0b89ac486c11792e27e41e07012e3fa3627eed12bcd56e7d1",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 6,
+      "id": "QC006",
+      "inspected": true,
+      "imageSha256": "c5d61008086f7eb7abd784e2c18d4eabceab4d2797652a578929eaa07d6fcb0b",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 7,
+      "id": "QC007",
+      "inspected": true,
+      "imageSha256": "ba2bfc816640b15a5667a8f49e74abd4381a550d5ba15b80d5e31a4fadd6f6dc",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 8,
+      "id": "QC008",
+      "inspected": true,
+      "imageSha256": "6e194d9287019771f15c599f9bf275b91d82bd34ca35aa35124f7d37448fa89b",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 9,
+      "id": "QC009",
+      "inspected": true,
+      "imageSha256": "7cfd795492d0b8c9e376c61ad08fef9f2c84a7e0c6b738605372b5b362a46989",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 10,
+      "id": "QC010",
+      "inspected": true,
+      "imageSha256": "0478de86f91e7e970c664c01439a2a3b5aca64ea80a24546dd9b0e048007ac94",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 11,
+      "id": "gen:qc_camp:1",
+      "inspected": true,
+      "imageSha256": "5abf2468fa132ca77313fa883ed3414ea4e31a3ca53d2dea369e9f1db6a36e90",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 12,
+      "id": "gen:qc_camp:2",
+      "inspected": true,
+      "imageSha256": "7fc8f4964635590289b827dcb67719e594b6aa8c963ff47f7a85c3169608af7a",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 13,
+      "id": "gen:qc_camp:3",
+      "inspected": true,
+      "imageSha256": "551fe665a0f249d0b966779692bf5b6b0d4f539d8ab97d94ef3d17bdf0c7837d",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 14,
+      "id": "gen:qc_camp:4",
+      "inspected": true,
+      "imageSha256": "31665b9613563a0408041225c3a7a51e10cfc1221ee1c492adc5a67541441cee",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 15,
+      "id": "gen:qc_camp:5",
+      "inspected": true,
+      "imageSha256": "3b25120e860d5067766fd985f6d123b13f66d005a9d05ad7838421779950d02e",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 16,
+      "id": "gen:qc_camp:6",
+      "inspected": true,
+      "imageSha256": "2fefb47a9778a04325d7f154054ce4880d7c56ee580222db1daaebea62d10f19",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 17,
+      "id": "gen:qc_camp:7",
+      "inspected": true,
+      "imageSha256": "7022989e013cce5c86327fb750c2b371eac6b06b7692096a9e4f0d04298c6446",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 18,
+      "id": "gen:qc_camp:8",
+      "inspected": true,
+      "imageSha256": "10f3fde1b4a49b9ff10c61fc8715da47bcd18f567d50cc6de0081b8665251008",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 19,
+      "id": "gen:qc_camp:10",
+      "inspected": true,
+      "imageSha256": "15f460acda84ed5ce4542b0a462d83f5d941073d3411ad7cbe3ee66faadbc722",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 20,
+      "id": "gen:qc_camp:11",
+      "inspected": true,
+      "imageSha256": "85e08578f78c2fb063398da6b7c07d24e479967ed8772bc21858d43d9a2d362a",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 21,
+      "id": "gen:qc_camp:12",
+      "inspected": true,
+      "imageSha256": "4156f74fd6385401fd9d4bf3470b09fcacc40db1f51dcf9789aacf406b60401f",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 22,
+      "id": "gen:qc_camp:13",
+      "inspected": true,
+      "imageSha256": "d746e8010792bfa6e0c31a2290e0adf08a4847640522bf9316dc0e60c03785a0",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 23,
+      "id": "gen:qc_camp:14",
+      "inspected": true,
+      "imageSha256": "ffc35b309b733dd7670947452ea79b73d4e1f307fa7e1a9e85953f1c357098b6",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 24,
+      "id": "gen:qc_camp:16",
+      "inspected": true,
+      "imageSha256": "30841fbe1b1d68266a3578417f96327b7744e6cea1892555d475ba9ee526c81d",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 25,
+      "id": "gen:qc_camp:18",
+      "inspected": true,
+      "imageSha256": "309b33ec12adad49d390a0278a3b66b1878e902910a6effc9fa4c01504a2b2e1",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 26,
+      "id": "gen:qc_camp:19",
+      "inspected": true,
+      "imageSha256": "e66ef8bd1051316591e1ee0deb7bd14c3d3d20ceb963599028260adde44d708a",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 27,
+      "id": "gen:qc_camp:20",
+      "inspected": true,
+      "imageSha256": "492253497007cf0c6046e52c2d2d669892e4d40eb551bc420711db3ed22c23c7",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 28,
+      "id": "gen:qc_camp:21",
+      "inspected": true,
+      "imageSha256": "512154f1ecec56f8e191a4b8a44c9d54035843e1814401cee7dd27f1e9e9c1fe",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 29,
+      "id": "gen:qc_camp:22",
+      "inspected": true,
+      "imageSha256": "577ba86563c074b6449efe3d48c125ed96543c969ae8f3cb09f8dd64f636ccf2",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 30,
+      "id": "gen:qc_camp:23",
+      "inspected": true,
+      "imageSha256": "fd9b2ec68009463b59eb8d85ec57be6980b53bfd6f2bf05a37e4f9e3b3897752",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 31,
+      "id": "gen:qc_camp:24",
+      "inspected": true,
+      "imageSha256": "03dd41e64247e2d49d4127debaae483e70512389ca6c7c175a1f95e53b81f03f",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 32,
+      "id": "gen:qc_camp:25",
+      "inspected": true,
+      "imageSha256": "3b28a49fefd5d0aa9788e56aed46af2ffe9b195c40655f1105e288d70e8f06f7",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 33,
+      "id": "gen:qc_camp:26",
+      "inspected": true,
+      "imageSha256": "214e40fbffaed174c9527d632df5dcb4d0b1cc27851c96a0782ba7a0d6671041",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 34,
+      "id": "gen:qc_camp:27",
+      "inspected": true,
+      "imageSha256": "9d21300705767269fa83829a7f044c876a7d3645085c8e03f6ea87633a9ef246",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 35,
+      "id": "gen:qc_camp:28",
+      "inspected": true,
+      "imageSha256": "152f14e7d3ad37478d18f45c88b5d21086db066246c472c2164980de1b4327cc",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 36,
+      "id": "gen:qc_camp:29",
+      "inspected": true,
+      "imageSha256": "6461e65f35f19f31e58dda6b8729c4148236f47c1a49bcb066d9dabc2a306cf1",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 37,
+      "id": "gen:qc_camp:30",
+      "inspected": true,
+      "imageSha256": "c292a0bea9fdde7905fae6c52277e030fe4eab7ae70505301db7d300baea4dbd",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 38,
+      "id": "gen:qc_camp:31",
+      "inspected": true,
+      "imageSha256": "f5b781d019cb27c6f8818c53f6ac3ba1ce46d15f90e3b48d2363aadd9b8ee7e3",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 39,
+      "id": "gen:qc_camp:32",
+      "inspected": true,
+      "imageSha256": "76d4016aab24a12931f435ff35b99d728b4f77573375a2b82c7a638064bc3667",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 40,
+      "id": "gen:qc_camp:55",
+      "inspected": true,
+      "imageSha256": "49a2eb816564ee4240247bb22f9f83037c0f3c2e548e4064220210b695ecfb94",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 41,
+      "id": "gen:qc_camp:56",
+      "inspected": true,
+      "imageSha256": "5526da901e8479db71b53b88a2830c2c7e79011ecd0216ce94f074bbd0a5249c",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 42,
+      "id": "gen:qc_camp:57",
+      "inspected": true,
+      "imageSha256": "432b0b11cf1cf83c2e920ffd1408d895399affd901cb1a80ba83ae77a6d8eeee",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 43,
+      "id": "gen:qc_camp:58",
+      "inspected": true,
+      "imageSha256": "ace8bfa383951ecf5267ea1cf4e869688cb347445202abc2d934f9ce6225ecda",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 44,
+      "id": "gen:qc_camp:60",
+      "inspected": true,
+      "imageSha256": "fde71496d7d05b979795251547f9b414ecd3cb6bf9e93de77935536f05e379ce",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 45,
+      "id": "gen:qc_camp:61",
+      "inspected": true,
+      "imageSha256": "1accb44619688453a6ebc54a2bc523d6554536cb98e4acb760f2a299490ea786",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 46,
+      "id": "gen:qc_camp:62",
+      "inspected": true,
+      "imageSha256": "b5dea5433e0ae77861bc4d6a3a832a91fb4d3384cc3a00ada42a1b3b50c3ccc1",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 47,
+      "id": "gen:qc_camp:63",
+      "inspected": true,
+      "imageSha256": "ef82692672ace16bd9436b160b45c33710e58fae02fe15d83c22dd089cee05bd",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 48,
+      "id": "gen:qc_camp:64",
+      "inspected": true,
+      "imageSha256": "548d3a715aa293101f3bfaf962da6458db0866e9da272250c891931ce73fbd79",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 49,
+      "id": "gen:qc_camp:65",
+      "inspected": true,
+      "imageSha256": "3fc20f3bf9434e4ffa06438c669b73d7e9f9df046a9aeae6bf0d79ca8163cc68",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 50,
+      "id": "gen:qc_camp:66",
+      "inspected": true,
+      "imageSha256": "7a65c49bbad14b6c7025247d31745efc024ff70d44f208ea1da1014fc1903b1c",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 51,
+      "id": "gen:qc_camp:68",
+      "inspected": true,
+      "imageSha256": "2228cf27dfe04e9b5faa397beb70be5d40d921627631afd8bcebf5ce50feed88",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 52,
+      "id": "gen:qc_camp:69",
+      "inspected": true,
+      "imageSha256": "a9d87c92cea68e9a7e6f3e9e26926c1246cc3d67991696ce5755bfabd1078a72",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 53,
+      "id": "gen:qc_camp:70",
+      "inspected": true,
+      "imageSha256": "a9ef048453bedb216977202a2559eae30bd9bca56c8bbf48dfc8f03c87c584a8",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 54,
+      "id": "gen:qc_camp:72",
+      "inspected": true,
+      "imageSha256": "4f801c9c5276c34980ee8189885e28c13b42c88017239d1155314653041795d6",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 55,
+      "id": "gen:qc_camp:73",
+      "inspected": true,
+      "imageSha256": "3c39e622c061838e60a26f32faba59688a63c2713d1c9a9b9cfc2b0f14bb35cd",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 56,
+      "id": "gen:qc_camp:74",
+      "inspected": true,
+      "imageSha256": "68be2a05fa79ca287755ffeb57f05b46b7353867a66bc611b6be3a266bdddbb6",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 57,
+      "id": "gen:qc_camp:75",
+      "inspected": true,
+      "imageSha256": "f8a2c694440ca0dc4690e8f9dfca3ae55c553ff6a5998dbb773ae094b0ae4caf",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 58,
+      "id": "gen:qc_camp:76",
+      "inspected": true,
+      "imageSha256": "330d09eab7bf7c34944a4858680c002585de07cd291f94f772fe457118cb605c",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 59,
+      "id": "gen:qc_camp:78",
+      "inspected": true,
+      "imageSha256": "38df6bb6f61e220f1f765c20408f4ddd630ee1d88ac61233cfd2292715b63d3a",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 60,
+      "id": "gen:qc_camp:79",
+      "inspected": true,
+      "imageSha256": "9bc5acf6ab4e9756b699ee1e3cd992d301476a6c0520b385bd04637edcdc27fb",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 61,
+      "id": "gen:qc_camp:80",
+      "inspected": true,
+      "imageSha256": "c6a09b5dfe9d3630ddbb2648d40717e05a0cb2ca08f82b12fa18d0516846dd0a",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 62,
+      "id": "gen:qc_camp:81",
+      "inspected": true,
+      "imageSha256": "d9e70d838272a443bfa4f579bdc7a1a8cb9db7623ccb61c411087d6ca56beace",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 63,
+      "id": "gen:qc_camp:82",
+      "inspected": true,
+      "imageSha256": "53c6e1cfc2bc154e618e8d47c11c27b0f7a8bce0893a1937b43630b3550b331c",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 64,
+      "id": "gen:qc_camp:83",
+      "inspected": true,
+      "imageSha256": "324851991a97839c8bae67d74087b2fc1fda46084cde3bd49a50e8093d9dfcc5",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 65,
+      "id": "gen:qc_camp:84",
+      "inspected": true,
+      "imageSha256": "f0ab1dbbfe88411c8c44e511ec254e928e3edc8f3edf6a5eae52df6247c71ef2",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 66,
+      "id": "gen:qc_camp:85",
+      "inspected": true,
+      "imageSha256": "389201690561c6aad16c913e5f5434e6ae8d028b03d49c88b1bb6736660ee0d2",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 67,
+      "id": "gen:qc_camp:86",
+      "inspected": true,
+      "imageSha256": "55559f3e6b5aa649e416c3a5d2098041ac7a1effa467278cbdbc6bbe77941605",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 68,
+      "id": "gen:qc_camp:88",
+      "inspected": true,
+      "imageSha256": "c9b5f9de38c17297a11a25abda253077028ccf54cd94fe5ea28fb20c693ea3b6",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 69,
+      "id": "gen:qc_camp:89",
+      "inspected": true,
+      "imageSha256": "7f9c06f338d5f695e2fba5c78d684d410cd3a441aa8aa06ac5ee80d9a5e0a8ea",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 70,
+      "id": "gen:qc_camp:90",
+      "inspected": true,
+      "imageSha256": "ce449ae1eda07c8345ccf6afdf45aa3752578ba2c1d48097d2800fe1904aed43",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Seasonal surfaces, lighting and weather retain the scene mood."
+    },
+    {
+      "order": 71,
+      "id": "gen:qc_camp:91",
+      "inspected": true,
+      "imageSha256": "21138c0acffdf4d9eb8a093ac0e76665c555372d7bfbdb72a84adbcf95de0acd",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 72,
+      "id": "gen:qc_camp:92",
+      "inspected": true,
+      "imageSha256": "1ee33415d9c69c8733adece3c34b01d248ff3a6ffc31e979635f7548157134ea",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 73,
+      "id": "gen:qc_camp:93",
+      "inspected": true,
+      "imageSha256": "b25b2444e9e2bc594ec35a34deb555b24fbe541e073d5871320341412d941049",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 74,
+      "id": "gen:qc_camp:94",
+      "inspected": true,
+      "imageSha256": "fde68072a96c7cfc6a91cf5d59aa684070b2fd684f563188e1e089f03b585d44",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 75,
+      "id": "gen:qc_camp:96",
+      "inspected": true,
+      "imageSha256": "edaf5898cf1ec4d75aa9affd030dd2eff5a0a88582cd08b818376e7cf9933e25",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 76,
+      "id": "gen:qc_camp:97",
+      "inspected": true,
+      "imageSha256": "a111ed98c7f8f501dfc769459207433f2e1ab8cf034c65cf066af97829eb8444",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 77,
+      "id": "gen:qc_camp:98",
+      "inspected": true,
+      "imageSha256": "58ae263ca2574d29d7079d3ff80c04a6c9cb72616e21a5e287d4d967ad492d38",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 78,
+      "id": "gen:qc_camp:99",
+      "inspected": true,
+      "imageSha256": "99b5db7f8a41a17a311c01c7c8c23bf06c7845cca68ece7dd878542c74b8e440",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 79,
+      "id": "gen:qc_camp:100",
+      "inspected": true,
+      "imageSha256": "1fdb4bd848cef9d28fc49ab6251624e3f3792298d342ef69c5782111186dc2c5",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 80,
+      "id": "gen:qc_camp:101",
+      "inspected": true,
+      "imageSha256": "676341ebf9f4bd4ef9a32f49f865c7f1021ca567d8a297c9bdcc348a4a2acda5",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 81,
+      "id": "gen:qc_camp:102",
+      "inspected": true,
+      "imageSha256": "b101504cbbb63ffb2c374cf6a3a312e40c733f18ee471795b9b43507642efaa2",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 82,
+      "id": "gen:qc_camp:103",
+      "inspected": true,
+      "imageSha256": "20e3518625103381117f22127fa01586ba804624ec256300bb18431f2509c433",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 83,
+      "id": "gen:qc_camp:104",
+      "inspected": true,
+      "imageSha256": "f6ff20366931d741c0faa4265d13d7b95323452e21be16cb3ed82705d2cac180",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 84,
+      "id": "gen:qc_camp:105",
+      "inspected": true,
+      "imageSha256": "76159779445eedaf218c46d9f16c67dc4689fb78836edc4844d3a89bd11918db",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 85,
+      "id": "gen:qc_camp:106",
+      "inspected": true,
+      "imageSha256": "429a7d3aafa97afa160e05d1e92e1bc92eaec787c91e834d4d29b131213a6cf8",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 86,
+      "id": "gen:qc_camp:108",
+      "inspected": true,
+      "imageSha256": "451cef56a93749d68aba04c66541b3dc9d1ca62763c2aa9216d8ea6e9d79d9b0",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 87,
+      "id": "gen:qc_camp:109",
+      "inspected": true,
+      "imageSha256": "c0a664847b0d49e005dd4acdc81b7ff61ec72af12bdf6eec22d650cf2c918e58",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 88,
+      "id": "gen:qc_camp:110",
+      "inspected": true,
+      "imageSha256": "a73a4cb28824d9c252db0786568ca31dde01cb3a7284a2971cdaa349b4da01cd",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 89,
+      "id": "gen:qc_camp:111",
+      "inspected": true,
+      "imageSha256": "5fa338cb21e7db513c5b28611d775b4373b685fe1fb1f9684aa293d583f26675",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 90,
+      "id": "gen:qc_camp:112",
+      "inspected": true,
+      "imageSha256": "9fb2111f7b8028062e246bddae31c5b1ec9a08dc6fd039414165f7d819e3a9d6",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 91,
+      "id": "gen:qc_camp:113",
+      "inspected": true,
+      "imageSha256": "6344f23b2478eee87959be5134c992a13173eb92460745e6b01bbe396a339a2d",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 92,
+      "id": "gen:qc_camp:114",
+      "inspected": true,
+      "imageSha256": "6fc445b4344a32470b51f077bd9107a64e7695e65116d13a6a9df729f90bac7a",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 93,
+      "id": "gen:qc_camp:115",
+      "inspected": true,
+      "imageSha256": "8bbbaf35ca8a58acc4e3482978d8933bef05d3798c786c55c7b5395186b5a363",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 94,
+      "id": "gen:qc_camp:116",
+      "inspected": true,
+      "imageSha256": "540b1ccec1d998e10e79c8bdca30d88918a621d65bf8a7b17cf44a5fad2466f9",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 95,
+      "id": "gen:qc_camp:117",
+      "inspected": true,
+      "imageSha256": "292406e2d097a8d71df114b1810dfa1f7a28cf0ffda87a959db29537dd4d77bc",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 96,
+      "id": "gen:qc_camp:118",
+      "inspected": true,
+      "imageSha256": "57140a6bc7302b76f2d333defbe323e881f101feef611f5da4c3aa2cfd016e2c",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 97,
+      "id": "gen:qc_camp:119",
+      "inspected": true,
+      "imageSha256": "5682b505200140f1e753d7b841e5921e069ad4fb63c5a6d457d428e815b879cd",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 98,
+      "id": "gen:qc_camp:120",
+      "inspected": true,
+      "imageSha256": "1581c2636987a61c5b962841235eedd6d99150f6b796411491efda3d486e377b",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 99,
+      "id": "gen:qc_camp:121",
+      "inspected": true,
+      "imageSha256": "be02c9096500f7f2cf409e3fe2a52dab68207ec34407624343b67c8d3c848dac",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    },
+    {
+      "order": 100,
+      "id": "gen:qc_camp:122",
+      "inspected": true,
+      "imageSha256": "bb74b6328edd0da72ea60eb1d5ed21631b9020003de1d6b99d0c66125116531b",
+      "scope": "Actual Game View with ordinary selection controls and HUD; source composition reviewed separately through U07.",
+      "observations": "Primary and camp visible; header and completion controls remain inside the viewport. Snow/thaw/green spring surfaces and weather retain their canonical season."
+    }
+  ],
+  "ending": "Post-completion frame during the final camp story sequence; next level is null."
+}
