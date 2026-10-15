@@ -7,11 +7,11 @@
   "width": 7,
   "height": 8,
   "id": "gen:qc_camp:121",
-  "contentHash": "d58e3e5f35f4bc6a3f43c7032e83c58a937e384999ea45c818cf6593298493db",
+  "contentHash": "24447ce6e42b77a21a7461914dc3d85a312fe4b95cb9eea9581d20c4a7f1ae00",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "e4c0fedcc2888067b8e5ea9dc708b9c8a5d9ff61cd38783d2824fa1f25e21b87",
+  "compositionHash": "361fd1ce25c0087c9c9117d923c4755bb9393d09515cba31d40295999b83bd85",
   "generationAttempt": 1,
   "decorSeed": -1466188953,
   "entry": [
@@ -204,18 +204,18 @@
     "id": "campaign100-099",
     "beats": [
       {
-        "id": "place-099",
+        "id": "opening-099",
         "storyBeat": "Знайомі мотиви з різних розділів нарешті живуть разом.",
         "heroLandmark": "place-099-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Плодові дерева, вулики й світла лавка обрамляють просторий табір.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Місце, де можна лишитися.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Знайомі мотиви з різних розділів нарешті живуть разом.",
+        "intendedInference": "Плодові дерева, вулики й світла лавка обрамляють просторий табір. Тут могли зупинятися садівники. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -229,21 +229,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_orchard",
-              "x": -5.29206,
-              "z": 0.55,
-              "elevation": 0.025,
-              "height": 2.4,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-099-prop-2",
@@ -252,21 +244,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_bench",
-              "x": 3.0,
-              "z": -5.36417,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-099-prop-3",
@@ -275,21 +259,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_fence_broken_1",
-              "x": 6.02258,
-              "z": -5.29145,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

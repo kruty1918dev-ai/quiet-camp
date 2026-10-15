@@ -7,11 +7,11 @@
   "width": 5,
   "height": 7,
   "id": "gen:qc_camp:84",
-  "contentHash": "b4254d1d24a8594b1244418b14458b54db27c45264b3156fb9889d2eb98deee7",
+  "contentHash": "618be6dcfa7fb76d656bad9e64b3ed685b7597f1ced33a66dc584f4b69f038de",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "5348213ec3ddc60c217dbce06675d36815e7b1e935065da616d5ee09155fc7cc",
+  "compositionHash": "839ea12c1c76c0767c461ece20060b8e6904bb732f60cbb7aac7dd3a51195806",
   "generationAttempt": 1,
   "decorSeed": -719902024,
   "entry": [
@@ -138,18 +138,18 @@
     "id": "campaign100-065",
     "beats": [
       {
-        "id": "place-065",
+        "id": "opening-065",
         "storyBeat": "Межа двору не є ізоляцією: люди повертають їй гостинну функцію.",
         "heroLandmark": "place-065-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Нерівна огорожа має доступний вхід, поряд світла лавка й ліхтар.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Сад старого будинку культури.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Межа двору не є ізоляцією: люди повертають їй гостинну функцію.",
+        "intendedInference": "Нерівна огорожа має доступний вхід, поряд світла лавка й ліхтар. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -163,21 +163,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_gate",
-              "x": -5.54744,
-              "z": -0.35,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-065-prop-2",
@@ -186,21 +178,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_fence_broken_0",
-              "x": 1.15,
-              "z": -4.77049,
-              "elevation": 0.025,
-              "height": 1.15,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-065-prop-3",
@@ -209,21 +193,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_orchard",
-              "x": 4.29206,
-              "z": -5.20604,
-              "elevation": 0.025,
-              "height": 2.4,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-065-prop-4",
@@ -232,21 +208,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_bench",
-              "x": 0.0,
-              "z": 4.86417,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-065-prop-5",
@@ -255,21 +223,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_lantern",
-              "x": -3.76976,
-              "z": 2.275,
-              "elevation": 0.025,
-              "height": 0.52,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

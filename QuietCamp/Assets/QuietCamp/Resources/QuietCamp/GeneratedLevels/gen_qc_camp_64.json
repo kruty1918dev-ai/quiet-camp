@@ -7,11 +7,11 @@
   "width": 6,
   "height": 8,
   "id": "gen:qc_camp:64",
-  "contentHash": "b171c3cb774da0870a477866922663a4d2f69f537e2bb976861aef452fa1ef89",
+  "contentHash": "5e1739f55158028b1615fea9cce829ace220a7987d33002af156e7d2f97b13b0",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "ca36ae4fcd19a8e1bd0fa5cf8f4487123a5a3d3008a2e7dbf93ddf1d6a74f869",
+  "compositionHash": "1409d3bf655d235bc30dec8a309bae0d29a36b3ff39607b2821406c961e5fa35",
   "generationAttempt": 1,
   "decorSeed": -720022110,
   "entry": [
@@ -191,18 +191,18 @@
     "id": "campaign100-048",
     "beats": [
       {
-        "id": "place-048",
+        "id": "opening-048",
         "storyBeat": "Слід пошкодження читається на тлі рослин, які повільно змінюють ландшафт.",
         "heroLandmark": "place-048-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Зламаний дерев'яний стовп, низька огорожа й молоді крони між ними.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Безпечний край поля.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Слід пошкодження читається на тлі рослин, які повільно змінюють ландшафт.",
+        "intendedInference": "Зламаний дерев'яний стовп, низька огорожа й молоді крони між ними. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -216,21 +216,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_village_wood_pole",
-              "x": -4.55385,
-              "z": -0.8,
-              "elevation": 0.025,
-              "height": 3.1,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-048-prop-2",
@@ -239,21 +231,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_village_broken_pole",
-              "x": 0.25,
-              "z": -5.82078,
-              "elevation": 0.025,
-              "height": 0.65,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-048-prop-3",
@@ -262,21 +246,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_fence_broken_2",
-              "x": 5.52283,
-              "z": -5.29145,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

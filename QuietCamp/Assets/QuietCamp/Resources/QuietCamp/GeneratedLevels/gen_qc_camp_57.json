@@ -7,11 +7,11 @@
   "width": 8,
   "height": 6,
   "id": "gen:qc_camp:57",
-  "contentHash": "8588392f03ad7ddd3a4db2150152cf9c460a924217f3ea7c5d89fa38127d61c4",
+  "contentHash": "f1f142d4fb27566803dffe976021f4906b8d2e1f99e35116c2121545cd8d49b3",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "98500ae3768746deb13ef6c592f67d316a2a6b241386323a7d65d4382480defe",
+  "compositionHash": "20031db3386e637d9d9200f84616af0729ac7e0528a798a5aca2da76571a1e86",
   "generationAttempt": 1,
   "decorSeed": -720081657,
   "entry": [
@@ -143,18 +143,18 @@
     "id": "campaign100-042",
     "beats": [
       {
-        "id": "place-042",
+        "id": "opening-042",
         "storyBeat": "Герої бачать втрату через впізнавану людську машину в незвичному місці.",
         "heroLandmark": "place-042-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Носова частина розбитого літака лежить поза табором; трава обступає метал.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Хвіст за лісосмугою.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Герої бачать втрату через впізнавану людську машину в незвичному місці.",
+        "intendedInference": "Носова частина розбитого літака лежить поза табором; трава обступає метал. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -168,21 +168,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "staging_aircraft_fore",
-              "x": -7.10177,
-              "z": 0.1,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-042-prop-2",
@@ -191,21 +183,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_field_weeds",
-              "x": -1.5,
-              "z": -4.23082,
-              "elevation": 0.025,
-              "height": 0.34,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-042-prop-3",
@@ -214,21 +198,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "flower_yellowA",
-              "x": 5.29049,
-              "z": -4.3099,
-              "elevation": 0.025,
-              "height": 0.34,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           }
         ]
       }

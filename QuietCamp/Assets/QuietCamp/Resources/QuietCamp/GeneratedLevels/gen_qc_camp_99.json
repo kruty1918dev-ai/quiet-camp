@@ -7,11 +7,11 @@
   "width": 7,
   "height": 5,
   "id": "gen:qc_camp:99",
-  "contentHash": "cc0b65796bd145f931fad5cff7b4f21f207fdf66e44722b8b5a2d831acaf5d81",
+  "contentHash": "532f0ab7fa17c3c65b9c4665a1bb5b518d8ea32c11839359f658e281896838ef",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "0aa47dc1924265b6ad4f8f5731e36d76be58ce82d25858920e0bae6d2c87a934",
+  "compositionHash": "b1cc3cd6e4bb0c911f6e13ec2c19b259b56ae0248a592ed6277ca9ed86cbf9b6",
   "generationAttempt": 1,
   "decorSeed": -719775405,
   "entry": [
@@ -150,18 +150,18 @@
     "id": "campaign100-078",
     "beats": [
       {
-        "id": "place-078",
+        "id": "opening-078",
         "storyBeat": "Щоденна вода лишається ціннішою за масштабні руїни довкола.",
         "heroLandmark": "place-078-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Криниця, похилий тин і очищений край підходу серед м'якого снігу.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Світло станційного навісу.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Щоденна вода лишається ціннішою за масштабні руїни довкола.",
+        "intendedInference": "Криниця, похилий тин і очищений край підходу серед м'якого снігу. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -175,21 +175,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_well",
-              "x": -5.69063,
-              "z": 0.1,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-078-prop-2",
@@ -198,21 +190,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log",
-              "x": 3.0,
-              "z": -4.10091,
-              "elevation": 0.025,
-              "height": 0.22,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-078-prop-3",
@@ -221,21 +205,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_fence_broken_0",
-              "x": 6.02233,
-              "z": -3.79145,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

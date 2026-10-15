@@ -7,11 +7,11 @@
   "width": 6,
   "height": 8,
   "id": "gen:qc_camp:18",
-  "contentHash": "b20a7dc03dd3fe605c55ae2e7432091c33db21da6ee8341694c27469d9548a5a",
+  "contentHash": "e100cacb6daef67d58152d7ed0d52a5ef8fd02d1e9becad897d21dad922a740a",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "c6e00cc50ca580c033b6f52433376d31cbbdc8bbb7be5a8cf12d2dd7ceca762c",
+  "compositionHash": "2c08b17a9564ab6dbb449731a62fd3afe2fc8d238884cb11131ad74048e4e6f0",
   "generationAttempt": 1,
   "decorSeed": 20501999,
   "entry": [
@@ -183,18 +183,18 @@
     "id": "campaign100-025",
     "beats": [
       {
-        "id": "place-025",
+        "id": "opening-025",
         "storyBeat": "Їжа й догляд — видимі сліди взаємодопомоги після війни.",
         "heroLandmark": "place-025-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Каркас старої теплиці й підготовлена зелена ділянка біля нього.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Двір майстерні.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Їжа й догляд — видимі сліди взаємодопомоги після війни.",
+        "intendedInference": "Каркас старої теплиці й підготовлена зелена ділянка біля нього. Тут могли зупинятися волонтери. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -208,21 +208,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "branch_greenhouse",
-              "x": -6.49634,
-              "z": -0.35,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-025-prop-2",
@@ -231,21 +223,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log",
-              "x": 0.7,
-              "z": -5.60091,
-              "elevation": 0.025,
-              "height": 0.22,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-025-prop-3",
@@ -254,21 +238,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_fence_broken_1",
-              "x": 5.52258,
-              "z": -5.29145,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-025-prop-4",
@@ -277,21 +253,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_crate",
-              "x": -3.0,
-              "z": 5.59443,
-              "elevation": 0.025,
-              "height": 0.6,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

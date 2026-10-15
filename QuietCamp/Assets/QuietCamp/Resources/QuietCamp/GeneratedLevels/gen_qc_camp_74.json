@@ -7,11 +7,11 @@
   "width": 5,
   "height": 6,
   "id": "gen:qc_camp:74",
-  "contentHash": "d0019f63df719517c03c785a16c21b062ff9367b36651a790615eac11b5cf1fd",
+  "contentHash": "148599a7d6ca6e057933d34b8c5d3d00580d941e252056049bac1ee2f6b95cb1",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "7c21f31f3ecbee92553f7954aa1f915a30f53daadc102990ce78a6fe7ce483aa",
+  "compositionHash": "f3e836dd8495d65361cd80772c00b78fe904b2d7bbf126913e29203d884284ef",
   "generationAttempt": 1,
   "decorSeed": -719970515,
   "entry": [
@@ -131,18 +131,18 @@
     "id": "campaign100-056",
     "beats": [
       {
-        "id": "place-056",
+        "id": "opening-056",
         "storyBeat": "Причина зміни берега читається через геометрію споруди й шлях води.",
         "heroLandmark": "place-056-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Пошкоджений сільський водоскид і нове русло обабіч його уламків.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Нова кладка на старому руслі.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Причина зміни берега читається через геометрію споруди й шлях води.",
+        "intendedInference": "Пошкоджений сільський водоскид і нове русло обабіч його уламків. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -156,22 +156,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_pond_spillway_ruin",
-              "x": 0.0,
-              "z": -8.61001,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 90.0,
-              "sway": false,
-              "spansWater": true
-            }
+            "level": null
           },
           {
             "id": "place-056-prop-2",
@@ -180,21 +171,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_hydro_service_building",
-              "x": 1.15,
-              "z": 4.88818,
-              "elevation": 0.025,
-              "height": 1.15,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-056-prop-3",
@@ -203,21 +186,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_willow",
-              "x": 4.2383,
-              "z": 4.65949,
-              "elevation": 0.025,
-              "height": 2.4,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           }
         ]
       }

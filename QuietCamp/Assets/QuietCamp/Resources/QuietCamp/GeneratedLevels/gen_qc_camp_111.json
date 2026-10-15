@@ -7,11 +7,11 @@
   "width": 7,
   "height": 7,
   "id": "gen:qc_camp:111",
-  "contentHash": "e4ea770192bc9a46ef10e447c00fadfee96df5aad8499ed65ac2ee32cd16c434",
+  "contentHash": "d64fea1c5492620e58953456b3e17184d42dcb4ab5a8b9aa66cee7f779f88bc2",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "2e8e403679e48f658aee1f3cfdb198630773e1498833abe3588627a9a8d066df",
+  "compositionHash": "8cdb3de332d0816f065e4b8882147b7c96a73153b043130aa24f3aac23690ac9",
   "generationAttempt": 1,
   "decorSeed": -1466240612,
   "entry": [
@@ -148,18 +148,18 @@
     "id": "campaign100-089",
     "beats": [
       {
-        "id": "place-089",
+        "id": "opening-089",
         "storyBeat": "Після зими спільна робота виходить із укриття назовні.",
         "heroLandmark": "place-089-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Сарай, поліна й світла лавка стоять на майже звільненій від снігу землі.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Світлий берег весни.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Після зими спільна робота виходить із укриття назовні.",
+        "intendedInference": "Сарай, поліна й світла лавка стоять на майже звільненій від снігу землі. Тут могли зупинятися майстри. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -173,21 +173,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_barn",
-              "x": -5.79157,
-              "z": -0.35,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-089-prop-2",
@@ -196,21 +188,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log_stack",
-              "x": 3.0,
-              "z": -5.36736,
-              "elevation": 0.025,
-              "height": 0.7,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-089-prop-3",
@@ -219,21 +203,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_gate",
-              "x": 6.03462,
-              "z": -4.77462,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-089-prop-4",
@@ -242,21 +218,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_bench",
-              "x": -3.0,
-              "z": 4.86417,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

@@ -7,11 +7,11 @@
   "width": 5,
   "height": 6,
   "id": "gen:qc_camp:22",
-  "contentHash": "5ced36c34a25f05b158764c19cec64f65a9c42cd18ead239b2621fbd778271cd",
+  "contentHash": "86a7e8d26c6b68b87d4e1ce5624764734a6a2c698591103f0ecf457580299bcd",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "f25d43ff3ac6a37f9bb7d9432a6b9befff0ea60fbf3a476330ae651e42a4cc75",
+  "compositionHash": "d9d2aa6d97698223433e04100f4c33fe035d35b86f0441a76d30e1b9fb386985",
   "generationAttempt": 1,
   "decorSeed": 20535603,
   "entry": [
@@ -131,18 +131,18 @@
     "id": "campaign100-029",
     "beats": [
       {
-        "id": "place-029",
+        "id": "opening-029",
         "storyBeat": "Місце розповідає про працю, яка не вимагала великої інфраструктури.",
         "heroLandmark": "place-029-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Вулики, плодові дерева й низька лавка зібрані в тихий бічний кут.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Пакунки в дорогу.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Місце розповідає про працю, яка не вимагала великої інфраструктури.",
+        "intendedInference": "Вулики, плодові дерева й низька лавка зібрані в тихий бічний кут. Тут могли зупинятися пасічники. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -156,21 +156,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_beehive",
-              "x": -3.9238,
-              "z": -0.35,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-029-prop-2",
@@ -179,21 +171,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_orchard",
-              "x": 1.15,
-              "z": -4.70604,
-              "elevation": 0.025,
-              "height": 2.4,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-029-prop-3",
@@ -202,21 +186,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_beehive",
-              "x": 3.9238,
-              "z": -4.42718,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-029-prop-4",
@@ -225,21 +201,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_bench",
-              "x": 0.0,
-              "z": 4.36417,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

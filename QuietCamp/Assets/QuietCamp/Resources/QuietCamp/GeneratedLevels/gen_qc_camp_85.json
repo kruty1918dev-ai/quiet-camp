@@ -7,11 +7,11 @@
   "width": 6,
   "height": 5,
   "id": "gen:qc_camp:85",
-  "contentHash": "821d49973095f5f561d160055bdcf122c2a279ce365b7b921b0c33a157f6e91b",
+  "contentHash": "ed2bf94686010e126172ecacaf56749bb36f6df410a4b266a515fa8fb27e5274",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "620e6fc49874e0cd2cdc38808d8facf577f579c065eb2ab15f99abd7a8310403",
+  "compositionHash": "27a7fe53732a4f146a8fc67789839cab79683711dd874f05758b4595ae50faf3",
   "generationAttempt": 2,
   "decorSeed": -719860856,
   "entry": [
@@ -206,18 +206,18 @@
     "id": "campaign100-066",
     "beats": [
       {
-        "id": "place-066",
+        "id": "opening-066",
         "storyBeat": "Культурне місце переживає пошкодження через збережені деталі й спільне користування.",
         "heroLandmark": "place-066-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Низький фундамент, мозаїчний фрагмент укриття й лавка серед жовтого листя.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Теплиця перед холодом.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Культурне місце переживає пошкодження через збережені деталі й спільне користування.",
+        "intendedInference": "Низький фундамент, мозаїчний фрагмент укриття й лавка серед жовтого листя. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -231,21 +231,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "story_foundation",
-              "x": -4.99744,
-              "z": 0.1,
-              "elevation": 0.025,
-              "height": 0.55,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-066-prop-2",
@@ -254,21 +246,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_bench",
-              "x": -1.5,
-              "z": -5.56417,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-066-prop-3",
@@ -277,21 +261,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_gate",
-              "x": 5.53462,
-              "z": -3.77462,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

@@ -7,11 +7,11 @@
   "width": 7,
   "height": 8,
   "id": "gen:qc_camp:61",
-  "contentHash": "9b304e4fa1a05c0c5c1a9bef27fe64b87fb646f2e39407b71fa4a2e983eddaf1",
+  "contentHash": "ae2f23264ea0426f221198f7a17f9b9f7e8627f3e48b7097635e52afd75fceef",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "466c65e4f13e38045ed177c079bec8b69634674f799cb096f806b465e982ae14",
+  "compositionHash": "b6a7d981751dc2e81c119edc4ea4f8f351945fc40b2d84096d1a324f36a76b47",
   "generationAttempt": 1,
   "decorSeed": -720047758,
   "entry": [
@@ -210,18 +210,18 @@
     "id": "campaign100-045",
     "beats": [
       {
-        "id": "place-045",
+        "id": "opening-045",
         "storyBeat": "Турбота про пам'ять виражена квітами й простором для тихої зупинки.",
         "heroLandmark": "place-045-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Невеликий меморіальний сад і металевий силует у дальньому плані.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Лавка для тих, хто пам'ятає.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Турбота про пам'ять виражена квітами й простором для тихої зупинки.",
+        "intendedInference": "Невеликий меморіальний сад і металевий силует у дальньому плані. Тут могли зупинятися ті, хто бережуть пам’ять. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -235,21 +235,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "story_memorial_garden",
-              "x": -6.50711,
-              "z": -3.0,
-              "elevation": 0.025,
-              "height": 0.65,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-045-prop-2",
@@ -258,21 +250,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log",
-              "x": 3.0,
-              "z": -5.60091,
-              "elevation": 0.025,
-              "height": 0.22,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-045-prop-3",
@@ -281,21 +265,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "flower_yellowA",
-              "x": 4.79049,
-              "z": -5.3099,
-              "elevation": 0.025,
-              "height": 0.34,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           }
         ]
       }

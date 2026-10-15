@@ -7,11 +7,11 @@
   "width": 7,
   "height": 7,
   "id": "gen:qc_camp:66",
-  "contentHash": "b01b28802cbb323ef02901c20ac46734423c2f8be483ede3b0c80e0bae0a1041",
+  "contentHash": "3c1381968866804a53c75644d488c79c9f583564833b1deda3182e238db1a4bc",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "7f2148e406fbc69c4a696102130a8fc7507d17eb80512b332199906fa03ac281",
+  "compositionHash": "81c80b3a89721b29157407c0e212122cced61e45dfe9a240788eb4e81ed939ae",
   "generationAttempt": 1,
   "decorSeed": -720038014,
   "entry": [
@@ -136,18 +136,18 @@
     "id": "campaign100-050",
     "beats": [
       {
-        "id": "place-050",
+        "id": "opening-050",
         "storyBeat": "Пам'ятний розділ завершується теплом і продовженням маршруту.",
         "heroLandmark": "place-050-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Невеликий ліхтар і лавка біля польових рослин; дальній шлях лишається відкритим.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Берег, який відійшов.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Пам'ятний розділ завершується теплом і продовженням маршруту.",
+        "intendedInference": "Невеликий ліхтар і лавка біля польових рослин; дальній шлях лишається відкритим. Тут могли зупинятися люди, що доглядають поле. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -161,21 +161,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_sunflower_patch",
-              "x": -6.5195,
-              "z": 1.5,
-              "elevation": 0.025,
-              "height": 0.34,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-050-prop-2",
@@ -184,21 +176,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_field_weeds",
-              "x": 1.15,
-              "z": -4.73082,
-              "elevation": 0.025,
-              "height": 0.34,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-050-prop-3",
@@ -207,21 +191,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "sign",
-              "x": 5.03535,
-              "z": -4.73988,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-050-prop-4",
@@ -230,21 +206,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_bench",
-              "x": 0.0,
-              "z": 4.86417,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-050-prop-5",
@@ -253,21 +221,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_lantern",
-              "x": -4.76976,
-              "z": 2.275,
-              "elevation": 0.025,
-              "height": 0.52,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

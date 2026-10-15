@@ -7,11 +7,11 @@
   "width": 6,
   "height": 8,
   "id": "gen:qc_camp:109",
-  "contentHash": "957017892495adea6510408cc40a2cf63a28b1c0fc4998826f4685e59e19837a",
+  "contentHash": "1812e54d9673be5c2a25a59daa6fde0b65c33f9b60b0046df1b4fce29dd732b7",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "5bc5c2ecb72ee06059e6a7fe2cc92c3643976ca2b4d978f65e9003b7202c7de2",
+  "compositionHash": "d466aad20cb7074f18a9b1722d2b2ee9271cd8fbb72dfc3daf3e0ee5309ad952",
   "generationAttempt": 1,
   "decorSeed": -1466290287,
   "entry": [
@@ -206,18 +206,18 @@
     "id": "campaign100-087",
     "beats": [
       {
-        "id": "place-087",
+        "id": "opening-087",
         "storyBeat": "Речі, відремонтовані раніше, тепер допомагають пройти складний сезонний перехід.",
         "heroLandmark": "place-087-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Вказівник із цілою дошкою й очищена лавка біля мокрої стежки.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Переправа після льоду.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Речі, відремонтовані раніше, тепер допомагають пройти складний сезонний перехід.",
+        "intendedInference": "Вказівник із цілою дошкою й очищена лавка біля мокрої стежки. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -231,21 +231,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "sign",
-              "x": -4.53535,
-              "z": 0.55,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-087-prop-2",
@@ -254,21 +246,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_bench",
-              "x": 3.0,
-              "z": -5.36417,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-087-prop-3",
@@ -277,21 +261,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "flower_yellowA",
-              "x": 4.29049,
-              "z": -5.3099,
-              "elevation": 0.025,
-              "height": 0.34,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           }
         ]
       }

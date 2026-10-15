@@ -7,11 +7,11 @@
   "width": 7,
   "height": 7,
   "id": "gen:qc_camp:118",
-  "contentHash": "b6b560038ee392cd8abbac9c8b44db1f475591ae316d45345edfcffb518ae8b8",
+  "contentHash": "f9553d05b92ec87e2046ddbf03456e4c3758c14238da10bc2b69542d755d0432",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "d31390bb769e0f0316dc8af18def88730a1ca8d53b1dcfe52114e0ace19b1073",
+  "compositionHash": "cbfb57cd518f48bf9fe133fdb435ced279795ae77b21e2f918d3880b30f5941a",
   "generationAttempt": 1,
   "decorSeed": -1466181620,
   "entry": [
@@ -176,18 +176,18 @@
     "id": "campaign100-096",
     "beats": [
       {
-        "id": "place-096",
+        "id": "opening-096",
         "storyBeat": "Пам'ять збереглася поряд із відновленим життям; весна не скасовує втрату.",
         "heroLandmark": "place-096-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Тихий квітковий сад і ліхтар стоять біля давнього фундаменту.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Знаки ведуть до Гавані.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Пам'ять збереглася поряд із відновленим життям; весна не скасовує втрату.",
+        "intendedInference": "Тихий квітковий сад і ліхтар стоять біля давнього фундаменту. Тут могли зупинятися ті, хто бережуть пам’ять. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -201,21 +201,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "story_memorial_garden",
-              "x": -6.50711,
-              "z": -4.5,
-              "elevation": 0.025,
-              "height": 0.65,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-096-prop-2",
@@ -224,21 +216,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log",
-              "x": 0.25,
-              "z": -5.10091,
-              "elevation": 0.025,
-              "height": 0.22,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-096-prop-3",
@@ -247,21 +231,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "flower_yellowA",
-              "x": 4.79049,
-              "z": -4.8099,
-              "elevation": 0.025,
-              "height": 0.34,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-096-prop-4",
@@ -270,21 +246,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_lantern",
-              "x": 0.0,
-              "z": 4.74799,
-              "elevation": 0.025,
-              "height": 0.52,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

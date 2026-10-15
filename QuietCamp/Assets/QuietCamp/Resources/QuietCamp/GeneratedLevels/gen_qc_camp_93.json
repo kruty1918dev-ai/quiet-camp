@@ -7,11 +7,11 @@
   "width": 6,
   "height": 6,
   "id": "gen:qc_camp:93",
-  "contentHash": "eec5a438abfb4311edcd77994302bc6d5af042923739a5a86e4f53df72319679",
+  "contentHash": "77fe9374bb2d9d21d5ab28b63b5716bcfc2b207d23704ec1cddf3816da890738",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "0059cadef80b7a6e89039772e4b2f7b2357d2ac9c7bd503653d545a319d8f491",
+  "compositionHash": "eaf513f6f17c329aa4d98d22d926c6443d681184bc7492de2f5bc03b1a9ca826",
   "generationAttempt": 1,
   "decorSeed": -719793357,
   "entry": [
@@ -151,18 +151,18 @@
     "id": "campaign100-073",
     "beats": [
       {
-        "id": "place-073",
+        "id": "opening-073",
         "storyBeat": "Спільне тепло стає важливішим, але правила турботи вже відомі.",
         "heroLandmark": "place-073-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Дорожнє укриття і сухі поліна серед хвойної зелені й світлого снігу.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Не заметений підхід.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Спільне тепло стає важливішим, але правила турботи вже відомі.",
+        "intendedInference": "Дорожнє укриття і сухі поліна серед хвойної зелені й світлого снігу. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -176,21 +176,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "story_trail_shelter",
-              "x": -5.42188,
-              "z": -0.35,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-073-prop-2",
@@ -199,21 +191,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log_stack",
-              "x": 3.0,
-              "z": -4.86736,
-              "elevation": 0.025,
-              "height": 0.7,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-073-prop-3",
@@ -222,21 +206,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "sign",
-              "x": 4.53535,
-              "z": -4.23988,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

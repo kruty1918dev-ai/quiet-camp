@@ -7,11 +7,11 @@
   "width": 6,
   "height": 5,
   "id": "gen:qc_camp:55",
-  "contentHash": "a41f16c7d634db1bd3d30f48beec0ba3b3532326cc20c799aeb92ab4cd0b3148",
+  "contentHash": "a225fe0efa950f24d6298d94ccdbac3d1b3eb4983fe000e0571f85dc92e68c86",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "53d073574895937630a89ee11170f861bf962b5dcf64fe9ef1eb69482a48dcb4",
+  "compositionHash": "b449ecbf9163e7a6e44e4f1ebd3aa499e9b76b1e4badb9fd06fb0bae919d1167",
   "generationAttempt": 1,
   "decorSeed": -720131289,
   "entry": [
@@ -175,18 +175,18 @@
     "id": "campaign100-040",
     "beats": [
       {
-        "id": "place-040",
+        "id": "opening-040",
         "storyBeat": "Станційний розділ закінчується можливістю продовжити подорож.",
         "heroLandmark": "place-040-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Ліхтар і дорожнє укриття на відкритій галявині за старим маршрутом.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Поле до горизонту.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Станційний розділ закінчується можливістю продовжити подорож.",
+        "intendedInference": "Ліхтар і дорожнє укриття на відкритій галявині за старим маршрутом. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -200,21 +200,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "story_trail_shelter",
-              "x": -5.42188,
-              "z": -0.8,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-040-prop-2",
@@ -223,21 +215,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log_stack",
-              "x": 3.0,
-              "z": -4.36736,
-              "elevation": 0.025,
-              "height": 0.7,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-040-prop-3",
@@ -246,21 +230,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "sign",
-              "x": 4.53535,
-              "z": -3.73988,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

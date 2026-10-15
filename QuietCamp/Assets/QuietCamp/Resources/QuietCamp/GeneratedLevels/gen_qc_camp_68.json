@@ -7,11 +7,11 @@
   "width": 5,
   "height": 7,
   "id": "gen:qc_camp:68",
-  "contentHash": "7f3738e898a8e57b9b8068b403b1cc3b07bcd301a14abcd5c3acc6377e3b87a4",
+  "contentHash": "00362e1e89b91b6a16fdce2db86663176725dc6eb36c90f0b5aed3240992e406",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "b21e736d4964bed63b83422841ba189e302f6d3ffe471c252c4d18a6221e2d46",
+  "compositionHash": "96cc36ca6dc12460cef7d35ccba2c93f4aa25ef71988e9e253c7c08083ae3503",
   "generationAttempt": 1,
   "decorSeed": -719988254,
   "entry": [
@@ -136,18 +136,18 @@
     "id": "campaign100-051",
     "beats": [
       {
-        "id": "place-051",
+        "id": "opening-051",
         "storyBeat": "Невідповідність човна й води пояснює, що раніше тут був інший берег.",
         "heroLandmark": "place-051-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Старий причальний стовп і човен стоять вище нового вузького русла.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Верби на колишньому дні.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Невідповідність човна й води пояснює, що раніше тут був інший берег.",
+        "intendedInference": "Старий причальний стовп і човен стоять вище нового вузького русла. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -161,21 +161,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "story_workboat",
-              "x": 4.02187,
-              "z": -3.0,
-              "elevation": 0.025,
-              "height": 0.85,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-051-prop-2",
@@ -184,21 +176,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_mooring_post",
-              "x": 0.25,
-              "z": -4.776,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-051-prop-3",
@@ -207,21 +191,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_reed_clump",
-              "x": 3.94035,
-              "z": -8.14393,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           }
         ]
       }

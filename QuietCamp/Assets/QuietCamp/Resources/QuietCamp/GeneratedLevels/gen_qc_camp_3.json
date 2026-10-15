@@ -7,11 +7,11 @@
   "width": 6,
   "height": 5,
   "id": "gen:qc_camp:3",
-  "contentHash": "d67bf5bebfe2cd8aefe78f4b451dae6bd280481a2b899ac8e8641d32e4cb5170",
+  "contentHash": "b1d486c404884ab437f3f9af16dcbb357d28e85ed1dc64c0a060b5b4d9b3923d",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "a78b3d73811ba84d824f1b02c429768b2752922741c3a303d3d2f5308f8cd1fc",
+  "compositionHash": "d028c0e6a084a51d51b3ada0a38da9399c39c8fd6d1e91c3fec0b44be95f7882",
   "generationAttempt": 1,
   "decorSeed": 20375024,
   "entry": [
@@ -160,18 +160,18 @@
     "id": "campaign100-013",
     "beats": [
       {
-        "id": "place-013",
+        "id": "opening-013",
         "storyBeat": "Колишній шкільний двір лишився спільним простором навіть без занять.",
         "heroLandmark": "place-013-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Довга лавка біля низького фундаменту; поряд квіти та затінене місце зустрічі.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Хвіртка на двох.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Колишній шкільний двір лишився спільним простором навіть без занять.",
+        "intendedInference": "Довга лавка біля низького фундаменту; поряд квіти та затінене місце зустрічі. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -185,21 +185,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "story_foundation",
-              "x": -4.99744,
-              "z": -0.35,
-              "elevation": 0.025,
-              "height": 0.55,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-013-prop-2",
@@ -208,21 +200,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_bench",
-              "x": -3.0,
-              "z": -3.86417,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-013-prop-3",
@@ -231,21 +215,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_gate",
-              "x": 5.53462,
-              "z": -3.77462,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

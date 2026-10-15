@@ -7,11 +7,11 @@
   "width": 6,
   "height": 6,
   "id": "gen:qc_camp:24",
-  "contentHash": "5fe24e8c900ec11629a03bdcaccdf1dd7f63439a75fad70911937c79451e9065",
+  "contentHash": "d08504455f66778d0b6feedc6dda94bf3925c5107656842f8b8f23e1b3c1ce79",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "6c80fe0fa07a312f18435a7f8dbd9a412774a135f3572a68f5911e097571f31f",
+  "compositionHash": "61785cee795c379f20e3a1134e55a28d9fa7f59d8ea2e2a30527a0436f539904",
   "generationAttempt": 1,
   "decorSeed": 20519701,
   "entry": [
@@ -163,18 +163,18 @@
     "id": "campaign100-031",
     "beats": [
       {
-        "id": "place-031",
+        "id": "opening-031",
         "storyBeat": "Колишній шлях евакуації тепер може стати шляхом повернення.",
         "heroLandmark": "place-031-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Мала станційна споруда й ліхтар біля порожньої платформи.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Лавка під навісом.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Колишній шлях евакуації тепер може стати шляхом повернення.",
+        "intendedInference": "Мала станційна споруда й ліхтар біля порожньої платформи. Тут могли зупинятися люди, що повертаються додому. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -188,21 +188,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "branch_station",
-              "x": -6.67273,
-              "z": -3.0,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-031-prop-2",
@@ -211,21 +203,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log",
-              "x": 0.7,
-              "z": -4.60091,
-              "elevation": 0.025,
-              "height": 0.22,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-031-prop-3",
@@ -234,21 +218,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_poplar",
-              "x": 4.47419,
-              "z": -4.43076,
-              "elevation": 0.025,
-              "height": 2.4,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-031-prop-4",
@@ -257,21 +233,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_lantern",
-              "x": 0.0,
-              "z": 4.24799,
-              "elevation": 0.025,
-              "height": 0.52,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

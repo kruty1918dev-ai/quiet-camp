@@ -7,11 +7,11 @@
   "width": 4,
   "height": 6,
   "id": "gen:qc_camp:83",
-  "contentHash": "2d7f6f151270ae1674a4c5d778246d0b45f84b0785dca891263a9d0aa6f186c6",
+  "contentHash": "1dd164f469f8b6c4d364817e970198d10cbc23fbddcb810225e646ddd03bd1ac",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "51d0520939f53c72eab19bffddb7a83ac6d58ef82107f07f2e559e3ada21a2f6",
+  "compositionHash": "d9e7133cd16a82853a5b962cada0e15c22bda4b0b9d50f06bd6a6efb01781c61",
   "generationAttempt": 2,
   "decorSeed": -719910488,
   "entry": [
@@ -139,18 +139,18 @@
     "id": "campaign100-064",
     "beats": [
       {
-        "id": "place-064",
+        "id": "opening-064",
         "storyBeat": "Відновлення починається з матеріалу, який хтось приніс для іншої людини.",
         "heroLandmark": "place-064-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Пошкоджений дім і невеликий склад деревини біля входу.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Відкрита хвіртка сусідам.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Відновлення починається з матеріалу, який хтось приніс для іншої людини.",
+        "intendedInference": "Пошкоджений дім і невеликий склад деревини біля входу. Тут могли зупинятися колишні мешканці двору. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -164,21 +164,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_house",
-              "x": -4.50784,
-              "z": 0.0,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-064-prop-2",
@@ -187,21 +179,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_gate",
-              "x": 4.32949,
-              "z": -6.0,
-              "elevation": 0.025,
-              "height": 1.15,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-064-prop-3",
@@ -210,21 +194,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_fence_broken_2",
-              "x": 5.22283,
-              "z": -4.5,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

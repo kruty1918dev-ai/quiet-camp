@@ -7,11 +7,11 @@
   "width": 6,
   "height": 6,
   "id": "gen:qc_camp:63",
-  "contentHash": "97e6abeab30cf19027953f7ce1a2211049f284618eed16e54499767b674dabdc",
+  "contentHash": "5cb7d316c780a480f0ecae7fe1294376c3b9c444c3ca1e56d7d2df74060e5be1",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "35a8a23af1819afba26706392d14f8536cef2014ee533f6189ef888432bd8f0c",
+  "compositionHash": "bd5f6b17a080deb2bf2569c643a1821362141f6caf4dd8ac1412f60b3b755c30",
   "generationAttempt": 1,
   "decorSeed": -720063662,
   "entry": [
@@ -135,18 +135,18 @@
     "id": "campaign100-047",
     "beats": [
       {
-        "id": "place-047",
+        "id": "opening-047",
         "storyBeat": "Поле не стирає пам'ять, але життя не зупиняється назавжди.",
         "heroLandmark": "place-047-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Соняшники виросли біля низького фундаменту, вказівник веде далі.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Лісосмуга зі шрамом.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Поле не стирає пам'ять, але життя не зупиняється назавжди.",
+        "intendedInference": "Соняшники виросли біля низького фундаменту, вказівник веде далі. Тут могли зупинятися люди, що доглядають поле. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -160,21 +160,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_sunflower_patch",
-              "x": -4.3195,
-              "z": 0.55,
-              "elevation": 0.025,
-              "height": 0.34,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-047-prop-2",
@@ -183,21 +175,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_field_weeds",
-              "x": 3.0,
-              "z": -4.23082,
-              "elevation": 0.025,
-              "height": 0.34,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-047-prop-3",
@@ -206,21 +190,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "sign",
-              "x": 4.53535,
-              "z": -4.23988,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

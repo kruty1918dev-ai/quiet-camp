@@ -7,11 +7,11 @@
   "width": 8,
   "height": 6,
   "id": "gen:qc_camp:19",
-  "contentHash": "c2dfb1b4923658ad8666ad34df4e1bab559d839d316516233cb37103e356ca30",
+  "contentHash": "991f173bd033a206738d505d3c9fca83148f0184c3b65f07d3f45c8044bdab5f",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "cbcb82077939e02e828bc20182c3743e58766da075c138891b98ee3ca3a2ab28",
+  "compositionHash": "00a119628cd117910645c178e7f79b44cb0cca13191477219c83782212e9803c",
   "generationAttempt": 1,
   "decorSeed": 20510400,
   "entry": [
@@ -164,18 +164,18 @@
     "id": "campaign100-026",
     "beats": [
       {
-        "id": "place-026",
+        "id": "opening-026",
         "storyBeat": "Речі перестали бути сміттям: їх починають використовувати для наступних місць.",
         "heroLandmark": "place-026-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Сарай, відремонтований вказівник і впорядкована купа деревини.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Під вербою за селом.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Речі перестали бути сміттям: їх починають використовувати для наступних місць.",
+        "intendedInference": "Сарай, відремонтований вказівник і впорядкована купа деревини. Тут могли зупинятися майстри. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -189,21 +189,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_barn",
-              "x": -6.29157,
-              "z": 0.1,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-026-prop-2",
@@ -212,21 +204,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log_stack",
-              "x": 3.0,
-              "z": -4.86736,
-              "elevation": 0.025,
-              "height": 0.7,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-026-prop-3",
@@ -235,21 +219,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_gate",
-              "x": 6.53462,
-              "z": -4.27462,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-026-prop-4",
@@ -258,21 +234,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_crate",
-              "x": -3.0,
-              "z": 6.29443,
-              "elevation": 0.025,
-              "height": 0.6,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

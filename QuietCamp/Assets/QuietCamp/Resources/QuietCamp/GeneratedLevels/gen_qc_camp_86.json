@@ -7,11 +7,11 @@
   "width": 6,
   "height": 8,
   "id": "gen:qc_camp:86",
-  "contentHash": "5ea44440187adc2027373979d526441e25d8b1944956ae322d32cf778dc9c351",
+  "contentHash": "e76477428d41984b61fa430db83fdf7b292540b634ea7dd2ba839fd2afe34aa5",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "291df1ebf082269688a13c2066b296ba64f54a35ceb1ace9c2dbc3735a51dbec",
+  "compositionHash": "9c1a27a334b57360441f6ee3adf38301ee448d262ee22eda7f10606c4bdd0321",
   "generationAttempt": 1,
   "decorSeed": -719852392,
   "entry": [
@@ -136,18 +136,18 @@
     "id": "campaign100-067",
     "beats": [
       {
-        "id": "place-067",
+        "id": "opening-067",
         "storyBeat": "Урожай і тепло стають спільною турботою без нового правила пазла.",
         "heroLandmark": "place-067-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Старий каркас і ліхтар, сухі проходи обрамлені останньою зеленню.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Польова майстерня.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Урожай і тепло стають спільною турботою без нового правила пазла.",
+        "intendedInference": "Старий каркас і ліхтар, сухі проходи обрамлені останньою зеленню. Тут могли зупинятися волонтери. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -161,21 +161,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "branch_greenhouse",
-              "x": -6.49634,
-              "z": -3.0,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-067-prop-2",
@@ -184,21 +176,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log",
-              "x": 0.7,
-              "z": -5.60091,
-              "elevation": 0.025,
-              "height": 0.22,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-067-prop-3",
@@ -207,21 +191,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_fence_broken_1",
-              "x": 5.52258,
-              "z": -5.29145,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-067-prop-4",
@@ -230,21 +206,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_lantern",
-              "x": 0.0,
-              "z": 5.24799,
-              "elevation": 0.025,
-              "height": 0.52,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

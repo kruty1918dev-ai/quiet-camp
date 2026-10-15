@@ -7,11 +7,11 @@
   "width": 5,
   "height": 8,
   "id": "gen:qc_camp:89",
-  "contentHash": "f184bf2566130f4950d55cadc5750d20aecdfd49e09af4895f7c05a2cddb9d36",
+  "contentHash": "c5ffa2da34aed25e3b821cb1cb9495f7e73d38e56105ac8ad8a9447e4bb3342e",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "917737388aed11fa5f3ea3cbd0a999e09faf5130a06ca52266ad98daf5e9f58a",
+  "compositionHash": "ef319b70ad01245539d2fc92c4ec408472b2f19cc9861de9b0f927759732a787",
   "generationAttempt": 1,
   "decorSeed": -719827000,
   "entry": [
@@ -178,18 +178,18 @@
     "id": "campaign100-069",
     "beats": [
       {
-        "id": "place-069",
+        "id": "opening-069",
         "storyBeat": "Той самий тип допомоги потрібний і восени; природа поступово готує зиму.",
         "heroLandmark": "place-069-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Верба з рідшим листям і дерев'яний перехід над холодним руслом.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Світло в лісничому домі.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Той самий тип допомоги потрібний і восени; природа поступово готує зиму.",
+        "intendedInference": "Верба з рідшим листям і дерев'яний перехід над холодним руслом. Тут могли зупинятися мешканці двох берегів. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -203,22 +203,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_bridge_remnants",
-              "x": 7.62232,
-              "z": 0.0,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 0.0,
-              "sway": false,
-              "spansWater": true
-            }
+            "level": null
           },
           {
             "id": "place-069-prop-2",
@@ -227,22 +218,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_footbridge",
-              "x": 8.00865,
-              "z": -4.4,
-              "elevation": 0.025,
-              "height": 0.5,
-              "yaw": 90.0,
-              "sway": false,
-              "spansWater": true
-            }
+            "level": null
           },
           {
             "id": "place-069-prop-3",
@@ -251,21 +233,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_willow",
-              "x": 4.2383,
-              "z": -5.65949,
-              "elevation": 0.025,
-              "height": 2.4,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           }
         ]
       }

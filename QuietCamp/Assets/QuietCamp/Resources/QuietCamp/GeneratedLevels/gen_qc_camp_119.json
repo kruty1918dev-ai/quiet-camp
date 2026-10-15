@@ -7,11 +7,11 @@
   "width": 5,
   "height": 8,
   "id": "gen:qc_camp:119",
-  "contentHash": "f1d7fb69306e74767565d5de5b19807832e1d6956535f3d1a08d66d9b5ba7960",
+  "contentHash": "d12620fde3e25ff8d9fdadb743871838b0a75966e0aaf1d9cf466693180dee07",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "bf59f759fc774b18b3f23e4b4361fe402ba30e5e4b33f67e22d91bc36009f469",
+  "compositionHash": "12307bb145303f5f96a85e74fff073f22ae2c7fc5f092505d813f363e2966b0a",
   "generationAttempt": 1,
   "decorSeed": -1466173156,
   "entry": [
@@ -171,18 +171,18 @@
     "id": "campaign100-097",
     "beats": [
       {
-        "id": "place-097",
+        "id": "opening-097",
         "storyBeat": "Розрізнені місця складаються в мережу, яку гравець уже розуміє без пояснень.",
         "heroLandmark": "place-097-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Кілька впізнаваних дерев'яних вказівників і лавка на світлому роздоріжжі.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Джерело під великою кроною.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Розрізнені місця складаються в мережу, яку гравець уже розуміє без пояснень.",
+        "intendedInference": "Кілька впізнаваних дерев'яних вказівників і лавка на світлому роздоріжжі. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -196,21 +196,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "sign",
-              "x": -4.03535,
-              "z": -0.35,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-097-prop-2",
@@ -219,21 +211,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_bench",
-              "x": 3.0,
-              "z": -7.06417,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-097-prop-3",
@@ -242,21 +226,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "flower_yellowA",
-              "x": 4.5,
-              "z": -5.3099,
-              "elevation": 0.025,
-              "height": 0.34,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           }
         ]
       }

@@ -7,11 +7,11 @@
   "width": 7,
   "height": 7,
   "id": "gen:qc_camp:6",
-  "contentHash": "5e1848d44a16602a24833d4090190623748465d89de8478cd76e671384ee32a0",
+  "contentHash": "268e92cf3df2fa04a4d64a9193f536ede879b3ec13c89e60f35196a5b785ce12",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "13d6ab5d9c7f7cb733a0aa5af942913d50daa102cb25a926e72e6872e7de0b7c",
+  "compositionHash": "c730d884926b5d8ff14a048857e75b7c40a9c6de10155bdc6835ed73fa3a8085",
   "generationAttempt": 1,
   "decorSeed": 20400163,
   "entry": [
@@ -176,18 +176,18 @@
     "id": "campaign100-016",
     "beats": [
       {
-        "id": "place-016",
+        "id": "opening-016",
         "storyBeat": "Місцева культурна деталь уціліла; її можна берегти без пояснювальної таблички.",
         "heroLandmark": "place-016-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Кольоровий торець зупинки прихований молодою тополею, лавка очищена від гілок.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Сліди сусідських дворів.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Місцева культурна деталь уціліла; її можна берегти без пояснювальної таблички.",
+        "intendedInference": "Кольоровий торець зупинки прихований молодою тополею, лавка очищена від гілок. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -201,21 +201,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_bus_shelter_mosaic",
-              "x": -6.11318,
-              "z": -0.8,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-016-prop-2",
@@ -224,21 +216,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_village_wood_pole",
-              "x": 0.7,
-              "z": -4.70334,
-              "elevation": 0.025,
-              "height": 3.1,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-016-prop-3",
@@ -247,21 +231,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_poplar",
-              "x": 4.97419,
-              "z": -4.93076,
-              "elevation": 0.025,
-              "height": 2.4,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-016-prop-4",
@@ -270,21 +246,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_bench",
-              "x": 0.0,
-              "z": 4.86417,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

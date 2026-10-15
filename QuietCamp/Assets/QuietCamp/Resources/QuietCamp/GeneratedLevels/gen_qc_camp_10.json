@@ -7,11 +7,11 @@
   "width": 8,
   "height": 7,
   "id": "gen:qc_camp:10",
-  "contentHash": "652287ee1bcb87c30e39bb51061c4ba3b05d07b89104807e6f473cbd95e7feb9",
+  "contentHash": "c01b9e8528ad0fc52887c5ae149e340178863d0b325c317ce73f4ea97594aac2",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "10785375b5d2960f0f1ba925f3b0810c03b017e8ce35acdc0f8d19d7aeeb9bac",
+  "compositionHash": "80dedfb0bbb9c68d91d5aed3daebc6c6f30a862829e2f4305501c9f0cd426237",
   "generationAttempt": 1,
   "decorSeed": 20434023,
   "entry": [
@@ -164,18 +164,18 @@
     "id": "campaign100-019",
     "beats": [
       {
-        "id": "place-019",
+        "id": "opening-019",
         "storyBeat": "Життя повертається через буденні речі, а не через урочистий знак перемоги.",
         "heroLandmark": "place-019-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Курник, кілька низьких огорож і яблуня; вільний підхід не закритий травою.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Вечір спільного саду.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Життя повертається через буденні речі, а не через урочистий знак перемоги.",
+        "intendedInference": "Курник, кілька низьких огорож і яблуня; вільний підхід не закритий травою. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -189,21 +189,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_chicken_coop",
-              "x": -6.03032,
-              "z": 0.55,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-019-prop-2",
@@ -212,21 +204,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_chicken",
-              "x": 0.7,
-              "z": -5.34812,
-              "elevation": 0.025,
-              "height": 1.15,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-019-prop-3",
@@ -235,21 +219,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_orchard",
-              "x": 5.79206,
-              "z": -5.20604,
-              "elevation": 0.025,
-              "height": 2.4,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           }
         ]
       }

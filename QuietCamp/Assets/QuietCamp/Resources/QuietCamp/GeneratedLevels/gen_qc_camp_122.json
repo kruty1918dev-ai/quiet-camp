@@ -7,11 +7,11 @@
   "width": 8,
   "height": 7,
   "id": "gen:qc_camp:122",
-  "contentHash": "f7c1b3e300d37e90f276eca82596fdc1f05cee869618c72ac461eb2ba2b12dd3",
+  "contentHash": "3c175c54765f1ad21667ae1dfb5e1262d334d475f39907a23803d0da74cc4457",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "cddaaa4593cfb246c6ecd33245df85ceddd740b1c3a4c7ca27e586e41abbfe5b",
+  "compositionHash": "797c98eb444a8cc760f17f15c4cb5cdb29a1e0eef4c296e4af8bdb24ac4d1543",
   "generationAttempt": 1,
   "decorSeed": -1466147721,
   "entry": [
@@ -149,18 +149,18 @@
     "id": "campaign100-100",
     "beats": [
       {
-        "id": "place-100",
+        "id": "opening-100",
         "storyBeat": "Гавань — результат накопиченої турботи, а не нагорода, яка раптово з'явилася після останнього пазла.",
         "heroLandmark": "place-100-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Дорожнє укриття, вода, квіти й відремонтований вказівник завершують шлях.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Гавань приймає нас. Тепер тут можна залишитися й дбати про тих, хто прийде наступним.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Гавань — результат накопиченої турботи, а не нагорода, яка раптово з'явилася після останнього пазла.",
+        "intendedInference": "Дорожнє укриття, вода, квіти й відремонтований вказівник завершують шлях. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -174,21 +174,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "story_trail_shelter",
-              "x": -6.42188,
-              "z": -3.0,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-100-prop-2",
@@ -197,21 +189,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_well",
-              "x": 0.7,
-              "z": -5.11719,
-              "elevation": 0.025,
-              "height": 1.15,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-100-prop-3",
@@ -220,21 +204,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "flower_yellowA",
-              "x": 5.29049,
-              "z": -4.8099,
-              "elevation": 0.025,
-              "height": 0.34,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           }
         ]
       }

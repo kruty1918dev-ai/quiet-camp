@@ -7,11 +7,11 @@
   "width": 7,
   "height": 8,
   "id": "gen:qc_camp:30",
-  "contentHash": "ff3172914d335e78fa52cc6b503029fe376fc2936142a03bbb06cd6ea8759d2a",
+  "contentHash": "2e5f79da5d092fe476a9b5a45e407c74d830b8a8f4ab0bbdaa75042acd700674",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "d3874ad874266175f39e240e353bbce7fae8e2c0dcfd0357eb175bc35a56cc7a",
+  "compositionHash": "0ed6c3eb9fc53215d0294bbc8124413ec7db0f39e43b5887dd62af8617f6f629",
   "generationAttempt": 1,
   "decorSeed": 20554427,
   "entry": [
@@ -197,18 +197,18 @@
     "id": "campaign100-037",
     "beats": [
       {
-        "id": "place-037",
+        "id": "opening-037",
         "storyBeat": "Замість відсутнього мосту люди допомагали одне одному перейти воду.",
         "heroLandmark": "place-037-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Причальний стовп, човен і ліхтар поруч із вербами.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Полагоджений підхід.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Замість відсутнього мосту люди допомагали одне одному перейти воду.",
+        "intendedInference": "Причальний стовп, човен і ліхтар поруч із вербами. Тут могли зупинятися перевізники. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -222,21 +222,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_mooring_post",
-              "x": 4.9335,
-              "z": -1.5,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-037-prop-2",
@@ -245,21 +237,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "story_workboat",
-              "x": 0.7,
-              "z": -6.30107,
-              "elevation": 0.025,
-              "height": 0.85,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-037-prop-3",
@@ -268,21 +252,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_willow",
-              "x": 5.2383,
-              "z": -9.00949,
-              "elevation": 0.025,
-              "height": 2.4,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-037-prop-4",
@@ -291,21 +267,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_lantern",
-              "x": 0.0,
-              "z": 5.24799,
-              "elevation": 0.025,
-              "height": 0.52,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

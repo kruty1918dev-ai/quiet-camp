@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 2,
+  "chapter": 1,
+  "seed": 20276842,
+  "width": 5,
+  "height": 6,
+  "id": "QC002",
+  "contentHash": "ad93ba68a6eb488e913d196755804ddfa138d2efa0fa2bed067c008ab5ca6d82",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "tutorial.2",
+  "compositionHash": "9516c1dc59e7229e5fb901f5f21794cb77fcd1e3795c1cd321e2857104386d1e",
+  "generationAttempt": 1,
+  "decorSeed": 20265269,
+  "entry": [
+    2,
+    5
+  ],
+  "accessPoints": [],
+  "blocked": [],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g2",
+      "x": 0,
+      "z": 3,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [],
+  "canopies": [],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.341356,
+    "treeDensity": 0.400181,
+    "clusterSeed": 31346,
+    "meadowSpecies": [
+      "grass",
+      "daisy"
+    ],
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.010101,
+    "weatherIntensity": 0.102261
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-002",
+    "beats": [
+      {
+        "id": "opening-002",
+        "storyBeat": "Гості можуть жити поруч, коли ніхто не перекриває іншому дорогу.",
+        "heroLandmark": "place-002-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Два протоптані підходи сходяться під деревом; колода лежить обабіч проходу.",
+        "worldStateAfter": "Табір приймає людей; спільні маршрути лишаються відкритими. Наступна зупинка: Крона над джерелом.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Дві різні торбини лежать біля спільного навісу: тут чекали одне одного, не перегороджуючи шлях.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "QC002"
+        ],
+        "props": [
+          {
+            "id": "place-002-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "hidden",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": null
+          },
+          {
+            "id": "place-002-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "hidden",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": null
+          },
+          {
+            "id": "place-002-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "hidden",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": null
+          }
+        ]
+      }
+    ],
+    "references": []
+  }
+}

@@ -7,11 +7,11 @@
   "width": 6,
   "height": 8,
   "id": "gen:qc_camp:27",
-  "contentHash": "0b5012fd10cfb745b244b738354840454e0dfc5ce6342f67c65f23293965bf1b",
+  "contentHash": "b4d0275a6e6abfc7ac0a4c39b9433fb3f637530ee91f3a3527617f6e25ce7860",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "a023587207297d83b83161ccaf206d6432e26652d7a6b751b2de254433d0b16d",
+  "compositionHash": "019be01c9a1b67556860bec48a226440465e07dc974d909ace7c6146cd557f81",
   "generationAttempt": 1,
   "decorSeed": 20577864,
   "entry": [
@@ -170,18 +170,18 @@
     "id": "campaign100-034",
     "beats": [
       {
-        "id": "place-034",
+        "id": "opening-034",
         "storyBeat": "Природа поглинула другорядну інфраструктуру; головний прохід усе ще важливий.",
         "heroLandmark": "place-034-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Станційний силует обступає підлісок, одна частина підходу залишається чистою.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Перепочинок біля насипу.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Природа поглинула другорядну інфраструктуру; головний прохід усе ще важливий.",
+        "intendedInference": "Станційний силует обступає підлісок, одна частина підходу залишається чистою. Тут могли зупинятися люди, що повертаються додому. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -195,21 +195,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "branch_station",
-              "x": -6.67273,
-              "z": 0.1,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-034-prop-2",
@@ -218,21 +210,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log",
-              "x": -1.5,
-              "z": -5.60091,
-              "elevation": 0.025,
-              "height": 0.22,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-034-prop-3",
@@ -241,21 +225,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_poplar",
-              "x": 4.47419,
-              "z": -5.43076,
-              "elevation": 0.025,
-              "height": 2.4,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           }
         ]
       }

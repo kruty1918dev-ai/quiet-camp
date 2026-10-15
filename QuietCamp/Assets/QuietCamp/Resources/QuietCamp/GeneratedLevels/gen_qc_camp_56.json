@@ -7,11 +7,11 @@
   "width": 6,
   "height": 8,
   "id": "gen:qc_camp:56",
-  "contentHash": "efe16e19d69681a3d63a3f79e66b64dc0a9afe46680596625f72cff5d3feae93",
+  "contentHash": "b62019828f8e019fb46ace1e21846bd04a9b28d704a5c90857082e25284e9689",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "c3d636d628abe7ff7c747081cb2965a0d1960755d4b4e99a3885a9e73ab9ebb5",
+  "compositionHash": "b40a9d3ba0b59beb1c73493b97324ae203e1d39a83e81289b363f133dbb61821",
   "generationAttempt": 1,
   "decorSeed": -720090057,
   "entry": [
@@ -136,18 +136,18 @@
     "id": "campaign100-041",
     "beats": [
       {
-        "id": "place-041",
+        "id": "opening-041",
         "storyBeat": "Перед пам'ятним місцем звичайна краса поля задає спокійний тон.",
         "heroLandmark": "place-041-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Соняшники, польові бур'яни й дерев'яний вказівник на краю відкритої ділянки.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Незвична тінь у траві.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Перед пам'ятним місцем звичайна краса поля задає спокійний тон.",
+        "intendedInference": "Соняшники, польові бур'яни й дерев'яний вказівник на краю відкритої ділянки. Тут могли зупинятися люди, що доглядають поле. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -161,21 +161,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_sunflower_patch",
-              "x": -4.3195,
-              "z": -0.35,
-              "elevation": 0.025,
-              "height": 0.34,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-041-prop-2",
@@ -184,21 +176,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_field_weeds",
-              "x": 1.15,
-              "z": -5.23082,
-              "elevation": 0.025,
-              "height": 0.34,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-041-prop-3",
@@ -207,21 +191,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "sign",
-              "x": 4.53535,
-              "z": -5.23988,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

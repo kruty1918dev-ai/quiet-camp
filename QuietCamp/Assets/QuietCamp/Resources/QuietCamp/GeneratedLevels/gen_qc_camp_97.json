@@ -7,11 +7,11 @@
   "width": 8,
   "height": 8,
   "id": "gen:qc_camp:97",
-  "contentHash": "6fbf40f9b3c06c3931cbfe230bbbbb520e47fcba074185401867a706a4496fae",
+  "contentHash": "3e7c5193ec6388e8e80edeebb5ec9af11e1536f5811f614888140091818bb2fc",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "28d17061526cfe3391374a902bacfdcfa83687a7e4e603f8538e57c1eb62cd24",
+  "compositionHash": "3bb02f34baa506f170896fa30343a8bd1a41fd1687ba2c6c4d75534fdf16df4f",
   "generationAttempt": 1,
   "decorSeed": -719759501,
   "entry": [
@@ -230,18 +230,18 @@
     "id": "campaign100-076",
     "beats": [
       {
-        "id": "place-076",
+        "id": "opening-076",
         "storyBeat": "Герої дбають не лише про себе, а й про людей, яких ще не зустріли.",
         "heroLandmark": "place-076-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Невеликий сарай і впорядкований склад деревини обабіч поля.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Друзі за сніговою стежкою.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Герої дбають не лише про себе, а й про людей, яких ще не зустріли.",
+        "intendedInference": "Невеликий сарай і впорядкований склад деревини обабіч поля. Тут могли зупинятися майстри. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -255,21 +255,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_barn",
-              "x": -6.29157,
-              "z": -0.8,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-076-prop-2",
@@ -278,21 +270,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log_stack",
-              "x": -1.5,
-              "z": -6.56736,
-              "elevation": 0.025,
-              "height": 0.7,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-076-prop-3",
@@ -301,21 +285,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_gate",
-              "x": 6.53462,
-              "z": -5.27462,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

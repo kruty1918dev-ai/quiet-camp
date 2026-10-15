@@ -7,11 +7,11 @@
   "width": 6,
   "height": 7,
   "id": "gen:qc_camp:25",
-  "contentHash": "29e178e9dbb59ef4c75c6445adc29e839a83373f175aabe356d14889f6568be2",
+  "contentHash": "ae4e4d0de19bc83b5653aa3a2e02503f16744b7c2c307e8806b977187409e533",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "c0fb6d4fbd1f289ddfedde7e76c8819f89214dfa9381851cccdc5eb054a4dfa4",
+  "compositionHash": "4f0a338a328cab1297682cdafc25f17c1e9370d41dc4224b0125f47435e1e825",
   "generationAttempt": 1,
   "decorSeed": 20528230,
   "entry": [
@@ -162,18 +162,18 @@
     "id": "campaign100-032",
     "beats": [
       {
-        "id": "place-032",
+        "id": "opening-032",
         "storyBeat": "Людям потрібне просте місце чекати разом; це продовження навченої турботи.",
         "heroLandmark": "place-032-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Станційна лавка й захищений від вітру кут, поряд молоді дерева.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Речі, які взяли з собою.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Людям потрібне просте місце чекати разом; це продовження навченої турботи.",
+        "intendedInference": "Станційна лавка й захищений від вітру кут, поряд молоді дерева. Тут могли зупинятися люди, що повертаються додому. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -187,21 +187,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "branch_station",
-              "x": -6.67273,
-              "z": -0.8,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-032-prop-2",
@@ -210,21 +202,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_bench",
-              "x": 4.5,
-              "z": -6.56417,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-032-prop-3",
@@ -233,21 +217,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_poplar",
-              "x": 5.17419,
-              "z": -4.5,
-              "elevation": 0.025,
-              "height": 2.4,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           }
         ]
       }

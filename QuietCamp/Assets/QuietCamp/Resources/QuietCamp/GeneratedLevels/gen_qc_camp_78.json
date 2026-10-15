@@ -7,11 +7,11 @@
   "width": 7,
   "height": 6,
   "id": "gen:qc_camp:78",
-  "contentHash": "45ff02c96cf2a63db8340c160ea9e59588e2f2f3a1e49f0f4e35b44f4f89a353",
+  "contentHash": "602b371b9bf6ed0039559f501f108269e9f1a9de6217be8f1c5005feb6280377",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "c2f3c34ce26ab37e6786d87636a0725aee7c30879ae34aa0bebf046da75a2676",
+  "compositionHash": "9172e258fa504e309519c64fb6db167e4f497f01a8be213c1a8b4dfa5d0bfaa3",
   "generationAttempt": 1,
   "decorSeed": -719920275,
   "entry": [
@@ -138,18 +138,18 @@
     "id": "campaign100-059",
     "beats": [
       {
-        "id": "place-059",
+        "id": "opening-059",
         "storyBeat": "Різні рослинні пояси допомагають зрозуміти стару берегову лінію.",
         "heroLandmark": "place-059-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Плодові дерева стоять вище молодих верб, а старий тин розділяє висоти.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Тиха вода після греблі.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Різні рослинні пояси допомагають зрозуміти стару берегову лінію.",
+        "intendedInference": "Плодові дерева стоять вище молодих верб, а старий тин розділяє висоти. Тут могли зупинятися садівники. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -163,21 +163,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_orchard",
-              "x": -5.29206,
-              "z": -3.0,
-              "elevation": 0.025,
-              "height": 2.4,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-059-prop-2",
@@ -186,21 +178,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log",
-              "x": 1.15,
-              "z": -4.60091,
-              "elevation": 0.025,
-              "height": 0.22,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-059-prop-3",
@@ -209,21 +193,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_fence_broken_1",
-              "x": 6.02258,
-              "z": -4.29145,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

@@ -7,11 +7,11 @@
   "width": 5,
   "height": 8,
   "id": "gen:qc_camp:7",
-  "contentHash": "7b7884943f993cd92a65932264be302d486bed76a8b70dd32c9c811068a73f5e",
+  "contentHash": "854acfdaa45a029328b25f831a6cb439ad02242d83dbc1159a0bbde80398b13f",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "76fb16bff8322a5f672bc1d77e6797a5527797b41fc1a0d1f36aabb388280218",
+  "compositionHash": "6cfb428e09646dda3b27ba0e05e9e014c167821c061d0a1e44f9a458686a2ddd",
   "generationAttempt": 1,
   "decorSeed": 20408628,
   "entry": [
@@ -151,18 +151,18 @@
     "id": "campaign100-017",
     "beats": [
       {
-        "id": "place-017",
+        "id": "opening-017",
         "storyBeat": "Мандрівники вперше бачать, що окремі галявини утворюють мережу сусідства.",
         "heroLandmark": "place-017-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Старий дім, короткі секції тину й криниця позначають кілька людських маршрутів.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Зелень під шкільним вікном.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Мандрівники вперше бачать, що окремі галявини утворюють мережу сусідства.",
+        "intendedInference": "Старий дім, короткі секції тину й криниця позначають кілька людських маршрутів. Тут могли зупинятися колишні мешканці двору. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -176,21 +176,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_house",
-              "x": -5.00784,
-              "z": -0.35,
-              "elevation": 0.025,
-              "height": 1.85,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-017-prop-2",
@@ -199,21 +191,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_gate",
-              "x": 3.0,
-              "z": -5.25615,
-              "elevation": 0.025,
-              "height": 1.15,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-017-prop-3",
@@ -222,21 +206,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_fence_broken_2",
-              "x": 5.02283,
-              "z": -6.0,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

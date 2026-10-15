@@ -7,11 +7,11 @@
   "width": 6,
   "height": 5,
   "id": "gen:qc_camp:105",
-  "contentHash": "8d535b66d69a98426fc07a10e853a24a267643a93ccd8203dc943c9ab8b8b4f2",
+  "contentHash": "e595409197ec18f74b0a102d9dcd9e64ebe5aa91ecd5827cc2001376bdd6fe5a",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "1ee8b1761089617093a2fcd2cf5904f0ea907e21d9f2a7bce5bdb68941c14ef4",
+  "compositionHash": "6ac3e086d6298017e20236e033fe7ef904abd3e08b88f160f9ee84782ecdc496",
   "generationAttempt": 1,
   "decorSeed": -1466324399,
   "entry": [
@@ -157,18 +157,18 @@
     "id": "campaign100-084",
     "beats": [
       {
-        "id": "place-084",
+        "id": "opening-084",
         "storyBeat": "Ті самі рослини осушеного дна пережили зиму й продовжують рости.",
         "heroLandmark": "place-084-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Молода верба й очерет обрамляють воду між сніговими плямами.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Криниця довшого дня.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Ті самі рослини осушеного дна пережили зиму й продовжують рости.",
+        "intendedInference": "Молода верба й очерет обрамляють воду між сніговими плямами. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -182,21 +182,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_willow",
-              "x": 4.7383,
-              "z": -0.8,
-              "elevation": 0.025,
-              "height": 2.4,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-084-prop-2",
@@ -205,21 +197,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_reed_clump",
-              "x": 3.0,
-              "z": -3.77261,
-              "elevation": 0.025,
-              "height": 1.15,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-084-prop-3",
@@ -228,21 +212,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_mooring_post",
-              "x": 4.4335,
-              "z": -7.126,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

@@ -7,11 +7,11 @@
   "width": 6,
   "height": 8,
   "id": "gen:qc_camp:12",
-  "contentHash": "a2ce0fa65eb6af5d07a2b35cb0debb4a82fe76294b3e47b547b22fed0f6e03bf",
+  "contentHash": "6421bb4b8ab64f20dabef416f17a10277e820e023cc22009f692a4203610a2c5",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "3fea2cbc99b43f741f7c24c7216a2120849317ae107231c2127a92b7046df892",
+  "compositionHash": "e4082eab73ed1083dcfc7bd7ff5de12a751b4e3633adf846e6a342db79a8bfa9",
   "generationAttempt": 1,
   "decorSeed": 20418121,
   "entry": [
@@ -197,18 +197,18 @@
     "id": "campaign100-021",
     "beats": [
       {
-        "id": "place-021",
+        "id": "opening-021",
         "storyBeat": "Колись тут доглядали бджіл; відновлення починається зі збереження тихого краю саду.",
         "heroLandmark": "place-021-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Невисокі вулики стоять різними рядами під садовими кронами.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Дорога до городу.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Колись тут доглядали бджіл; відновлення починається зі збереження тихого краю саду.",
+        "intendedInference": "Невисокі вулики стоять різними рядами під садовими кронами. Тут могли зупинятися пасічники. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -222,21 +222,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_beehive",
-              "x": -6.1238,
-              "z": -3.0,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-021-prop-2",
@@ -245,21 +237,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_orchard",
-              "x": 0.25,
-              "z": -5.70604,
-              "elevation": 0.025,
-              "height": 2.4,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-021-prop-3",
@@ -268,21 +252,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_beehive",
-              "x": 4.4238,
-              "z": -5.42718,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

@@ -7,11 +7,11 @@
   "width": 8,
   "height": 5,
   "id": "gen:qc_camp:8",
-  "contentHash": "94eda9ce6d5838d26f49f33df134830feaf97398993b0aa35c79f8c6ec1d7680",
+  "contentHash": "3bd04bc0fba8d30aba343bd270d54be5ada01ad1eaf1f09ccaa054b328ad8014",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "ae44d32797a7755ba34e751223e09e5dbcd9c4cef4989f523cc435bddd5238c3",
+  "compositionHash": "40d3a21b178e4db99a81f4e4769f958b7a8a2a99226496cb5f0b8a1543b64347",
   "generationAttempt": 1,
   "decorSeed": 20384261,
   "entry": [
@@ -138,18 +138,18 @@
     "id": "campaign100-018",
     "beats": [
       {
-        "id": "place-018",
+        "id": "opening-018",
         "storyBeat": "Навіть невеликий ремонт дозволяє знову користуватися знайомим місцем.",
         "heroLandmark": "place-018-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Рослини обступають фундамент, а нова дошка підпирає похилу огорожу.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Курячий двір.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Навіть невеликий ремонт дозволяє знову користуватися знайомим місцем.",
+        "intendedInference": "Рослини обступають фундамент, а нова дошка підпирає похилу огорожу. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -163,21 +163,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "story_foundation",
-              "x": -5.99744,
-              "z": 3.0,
-              "elevation": 0.025,
-              "height": 0.55,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-018-prop-2",
@@ -186,21 +178,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log",
-              "x": 0.25,
-              "z": -4.10091,
-              "elevation": 0.025,
-              "height": 0.22,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-018-prop-3",
@@ -209,21 +193,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_gate",
-              "x": 6.53462,
-              "z": -3.77462,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

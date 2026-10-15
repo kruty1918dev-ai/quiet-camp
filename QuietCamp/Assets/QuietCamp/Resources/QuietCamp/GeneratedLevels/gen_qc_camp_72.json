@@ -7,11 +7,11 @@
   "width": 8,
   "height": 8,
   "id": "gen:qc_camp:72",
-  "contentHash": "698773b07db75743983bcc1d12ac566ef2451d7b573ffed4aa93689b58f9c5cd",
+  "contentHash": "e47b3657419ea13441d95fa0f224ebf963762b63515dd15c4d62e1764034aca8",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "751f6695dea6a9438e3712e8939bcc62ef02f9c71bf2c58b356623d420faac6e",
+  "compositionHash": "08837e45fdefbb0f375b31658ffca241e40df3ddfdf98ae89a56da345eaeb750",
   "generationAttempt": 1,
   "decorSeed": -719954483,
   "entry": [
@@ -168,18 +168,18 @@
     "id": "campaign100-054",
     "beats": [
       {
-        "id": "place-054",
+        "id": "opening-054",
         "storyBeat": "Вода стала меншою; безпечна галявина пристосовується до нової географії.",
         "heroLandmark": "place-054-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Залишкове русло, верби й човен на сухому краї відкривають зміну водойми.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Земля під водяною рискою.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Вода стала меншою; безпечна галявина пристосовується до нової географії.",
+        "intendedInference": "Залишкове русло, верби й човен на сухому краї відкривають зміну водойми. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -193,21 +193,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_willow",
-              "x": 5.7383,
-              "z": 3.0,
-              "elevation": 0.025,
-              "height": 2.4,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-054-prop-2",
@@ -216,21 +208,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_mooring_post",
-              "x": 0.25,
-              "z": -5.276,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-054-prop-3",
@@ -239,21 +223,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "story_workboat",
-              "x": 5.52188,
-              "z": -9.65107,
-              "elevation": 0.025,
-              "height": 0.85,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-054-prop-4",
@@ -262,21 +238,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "branch_pond",
-              "x": 0.0,
-              "z": 6.29742,
-              "elevation": 0.025,
-              "height": 0.18,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-054-prop-5",
@@ -285,21 +253,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "branch_pond",
-              "x": -4.5,
-              "z": 6.29742,
-              "elevation": 0.025,
-              "height": 0.18,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

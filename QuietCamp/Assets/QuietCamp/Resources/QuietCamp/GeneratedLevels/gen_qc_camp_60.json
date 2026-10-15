@@ -7,11 +7,11 @@
   "width": 8,
   "height": 5,
   "id": "gen:qc_camp:60",
-  "contentHash": "e14d1f232528f1371e67486e84a734214d413bf73c6bf771e3b17b37bfee2a1a",
+  "contentHash": "044a4474ca6ee477a36ef3008d7566af57634e10a7743adeea0b00e143630602",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "d232059c579565c0a4a10a1ea5a46dd193580516c8c2ef462dac9fc20b4902cd",
+  "compositionHash": "0aef9f1dec7fc9247f3487fc346e4743c4135dd0a481148753fefc508a6cc322",
   "generationAttempt": 1,
   "decorSeed": -720056222,
   "entry": [
@@ -123,18 +123,18 @@
     "id": "campaign100-044",
     "beats": [
       {
-        "id": "place-044",
+        "id": "opening-044",
         "storyBeat": "Літак — місце пам'яті, а не ігровий трофей; намети не ставляться на уламки.",
         "heroLandmark": "place-044-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Дві віддалені частини літака і маленький квітковий акцент обабіч безпечного шляху.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Квіти біля тихого металу.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Літак — місце пам'яті, а не ігровий трофей; намети не ставляться на уламки.",
+        "intendedInference": "Дві віддалені частини літака і маленький квітковий акцент обабіч безпечного шляху. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -148,21 +148,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "staging_aircraft_fore",
-              "x": -7.10177,
-              "z": -0.8,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-044-prop-2",
@@ -171,21 +163,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "staging_aircraft_tail",
-              "x": 1.15,
-              "z": -5.40674,
-              "elevation": 0.025,
-              "height": 1.9,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-044-prop-3",
@@ -194,21 +178,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "flower_yellowA",
-              "x": 5.29049,
-              "z": -3.8099,
-              "elevation": 0.025,
-              "height": 0.34,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           }
         ]
       }

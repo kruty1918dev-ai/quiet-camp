@@ -7,11 +7,11 @@
   "width": 6,
   "height": 6,
   "id": "gen:qc_camp:76",
-  "contentHash": "f60bfc116ccf336ae064a24297cb54ef4ec0aaeae35fd0389387befdfcfe796a",
+  "contentHash": "9f3d242580f43fa828d1f6b8338c086d898239ccd3072855e9b09a6053cd6341",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "bfaa8005e4d6a16e2a7dc5c0033177a2cdeab43e8bf33bd06ea83e25a299a714",
+  "compositionHash": "6c507365c1751a5deca25d57374c2691de27a3157c8ccc711f9f88b3f6046c79",
   "generationAttempt": 1,
   "decorSeed": -719970035,
   "entry": [
@@ -169,18 +169,18 @@
     "id": "campaign100-058",
     "beats": [
       {
-        "id": "place-058",
+        "id": "opening-058",
         "storyBeat": "Мотив сусідської допомоги показаний придатними речами, а не героїчним монументом.",
         "heroLandmark": "place-058-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Простий робочий човен, причальний стовп і впорядкована лавка біля берега.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Сад над осушеним дном.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Мотив сусідської допомоги показаний придатними речами, а не героїчним монументом.",
+        "intendedInference": "Простий робочий човен, причальний стовп і впорядкована лавка біля берега. Тут могли зупинятися мандрівники й сусіди. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -194,21 +194,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "story_workboat",
-              "x": 4.52188,
-              "z": -3.0,
-              "elevation": 0.025,
-              "height": 0.85,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-058-prop-2",
@@ -217,21 +209,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_mooring_post",
-              "x": 0.7,
-              "z": -4.276,
-              "elevation": 0.025,
-              "height": 1.05,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-058-prop-3",
@@ -240,21 +224,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_reed_clump",
-              "x": 4.44035,
-              "z": -7.64393,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-058-prop-4",
@@ -263,21 +239,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "camp_bench",
-              "x": 0.0,
-              "z": 4.36417,
-              "elevation": 0.025,
-              "height": 0.72,
-              "yaw": 180.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }

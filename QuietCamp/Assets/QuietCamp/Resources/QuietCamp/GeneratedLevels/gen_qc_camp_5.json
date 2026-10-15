@@ -7,11 +7,11 @@
   "width": 8,
   "height": 6,
   "id": "gen:qc_camp:5",
-  "contentHash": "675b0e25b21696b03b8d33eee4cab34974a81b45cd7b42d3352e35336272fa62",
+  "contentHash": "17cd27b2583355215421263d9d087b7e0eba0ebc665dcb469363ae35970b26ba",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "",
-  "compositionHash": "fdd81bf2ce3b37e26b85b88d6aed89d5d8e739164bab9f74ee71158eb4d70c7a",
+  "compositionHash": "1db7352274b4d2fbb700026db5898125c8ffb36b1d45e427404ec80c1ea92b24",
   "generationAttempt": 1,
   "decorSeed": 20359122,
   "entry": [
@@ -153,18 +153,18 @@
     "id": "campaign100-015",
     "beats": [
       {
-        "id": "place-015",
+        "id": "opening-015",
         "storyBeat": "Після кількох складніших місць подорож робить світлу паузу.",
         "heroLandmark": "place-015-prop-1",
         "returningProp": "",
         "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
         "worldStateBefore": "Невеликий сад завертає за зруйнованим цоколем; білі квіти видно в зелені.",
-        "worldStateAfter": "Доглянутий табір із вільними проходами знову дозволяє людям користуватися місцем.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Мозаїка серед листя.",
         "historicalReference": null,
         "referenceConfidence": "fictional",
         "roadmapVisibility": "hidden",
         "levelDetailVisibility": "detail",
-        "intendedInference": "Після кількох складніших місць подорож робить світлу паузу.",
+        "intendedInference": "Невеликий сад завертає за зруйнованим цоколем; білі квіти видно в зелені. Тут могли зупинятися садівники. Залишені речі та вільний прохід допомагають продовжити дорогу.",
         "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
         "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
         "levelIds": [
@@ -178,21 +178,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_orchard",
-              "x": -5.79206,
-              "z": 0.55,
-              "elevation": 0.025,
-              "height": 2.4,
-              "yaw": 0.0,
-              "sway": true
-            }
+            "level": null
           },
           {
             "id": "place-015-prop-2",
@@ -201,21 +193,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "log",
-              "x": 3.0,
-              "z": -4.60091,
-              "elevation": 0.025,
-              "height": 0.22,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           },
           {
             "id": "place-015-prop-3",
@@ -224,21 +208,13 @@
             "returningProp": "",
             "claimId": null,
             "roadmapVisibility": "hidden",
-            "levelDetailVisibility": "detail",
+            "levelDetailVisibility": "hidden",
             "appearance": "always",
             "contentTags": [
               "fiction-inspired"
             ],
             "roadmap": null,
-            "level": {
-              "assetId": "ua_valley_fence_broken_1",
-              "x": 6.52258,
-              "z": -4.29145,
-              "elevation": 0.025,
-              "height": 1.35,
-              "yaw": 0.0,
-              "sway": false
-            }
+            "level": null
           }
         ]
       }
