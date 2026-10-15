@@ -119,7 +119,7 @@ namespace QuietCamp.Presentation.World
             _embers=Pool("Іскри активного вогнища",new Color(2.8f,.7f,.14f,.8f),.06f,1.8f,new Vector3(0,.9f,0),36);
             var fire=new GameObject("Тепле світло активного вогнища");fire.transform.SetParent(transform,false);_fireLight=fire.AddComponent<Light>();_fireLight.type=LightType.Point;_fireLight.color=new Color(1,.45f,.16f);_fireLight.range=3.5f;_fireLight.shadows=LightShadows.None;fire.SetActive(false);
             if(preset.rays>0)_shafts=new SeasonLightShafts(transform,camera,art,preset,_leafSources);
-            _visibility=new SeasonVisibilityPass(camera,Preset);
+            _visibility=new SeasonVisibilityPass(camera,Preset,()=>gameObject.activeInHierarchy);
             _moving=parent.GetComponentsInChildren<WeatherObjectMotion>();
             _surfaceField=new WeatherSurfaceField(art);
             _wheelContacts=art.instances.Where(i=>i.motion=="waterwheel"&&i.motionPivot!=null).Select(i=>new Vector3(i.x,i.y,i.z)+Quaternion.Euler(0,i.yaw,0)*Vector3.Scale(CampArtDefinition.Vector(i.motionPivot),i.scaleXYZ==null?Vector3.one*i.scale:CampArtDefinition.Vector(i.scaleXYZ))).ToArray();

@@ -1,0 +1,85 @@
+{
+  "date": "2026-10-15",
+  "editor": "6000.6.2f1",
+  "playerBuild": false,
+  "editModePassed": 178,
+  "editModeFailed": 0,
+  "persistentPlayerDataUnchanged": true,
+  "nativeFlow": {
+    "directGameplay": {
+      "id": "QC009",
+      "ready": true,
+      "memoryOnly": true,
+      "residents": 0,
+      "surfaceSteps": 0,
+      "transitionIdle": true
+    },
+    "completion": {
+      "id": "QC009",
+      "memoryOnly": true
+    },
+    "menu": {
+      "id": "QC009",
+      "ready": true,
+      "memoryOnly": true,
+      "residents": 0,
+      "opaqueCells": 0,
+      "mask": -1
+    },
+    "album": {
+      "id": "QC009",
+      "ready": true,
+      "memoryOnly": true,
+      "residents": 0,
+      "opaqueCells": 49,
+      "mask": -1
+    },
+    "returnedMenu": {
+      "id": "QC009",
+      "ready": true,
+      "memoryOnly": true,
+      "residents": 0,
+      "opaqueCells": 0,
+      "mask": -1
+    },
+    "menuToGameplay": {
+      "id": "QC010",
+      "ready": true,
+      "memoryOnly": true,
+      "residents": 0,
+      "surfaceSteps": 0,
+      "transitionIdle": true
+    }
+  },
+  "gameplayInputChecks": [
+    {
+      "id": "QC009",
+      "status": "captured",
+      "completed": true,
+      "memoryOnly": true,
+      "stillHasPlacementGrid": true,
+      "surfaceSteps": 0,
+      "frames": {
+        "gameplay.png": "0057ac51177cb63acf94dc41aea8c1e03240c9a80e693ab7e5265e17620d3841",
+        "complete.png": "ea62f50d99408cbe5fdfb07313f0cf9f45cc22804361c5a20eba2775b450ee3a"
+      }
+    },
+    {
+      "id": "gen:qc_camp:92",
+      "status": "captured",
+      "completed": true,
+      "memoryOnly": true,
+      "stillHasPlacementGrid": true,
+      "surfaceSteps": 0,
+      "frames": {
+        "gameplay.png": "7dab5bda67f8b674e8acb5c33d223a7aad7056187b1ac4601fba55b98435d314",
+        "complete.png": "c77bbc30c1c58a152e4fec72d6229eb8d58bce8ae67590a37fc78c2b252ec750"
+      }
+    }
+  ],
+  "limitations": [
+    "C01 cameras are staged, not published. Private frames were inspected for this surface regression, not accepted as new scene artwork.",
+    "Published QC009 wide-screen replay failed one placement with the existing camera. Full 100-camera review remains incomplete.",
+    "NUnit PlayMode tests compiled but were not run in this verification."
+  ]
+}

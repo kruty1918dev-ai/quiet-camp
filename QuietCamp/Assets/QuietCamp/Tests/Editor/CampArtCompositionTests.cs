@@ -202,5 +202,19 @@ namespace QuietCamp.Tests
             }
             finally{UnityEngine.Object.DestroyImmediate(water);}
         }
+        [Test] public void RiverSetupPreservesTheTransitionCameraVisibilityMask()
+        {
+            var level=LevelLoader.Load("QC009");var art=CampArtDefinition.Load(level);
+            var root=new UnityEngine.GameObject("Hidden camera contract");
+            try
+            {
+                var node=new UnityEngine.GameObject("Covered camera");node.transform.SetParent(root.transform,false);
+                var camera=node.AddComponent<UnityEngine.Camera>();camera.cullingMask=0;
+                var view=node.AddComponent<CampArtView>();view.Configure(art,level,root.transform,AssetCatalog.Load());
+                Assert.NotNull(view.RiverReflections);
+                Assert.AreEqual(0,camera.cullingMask,"Water must not replace a transition's hidden mask with Water-only (16), which prevents normal restoration.");
+            }
+            finally{UnityEngine.Object.DestroyImmediate(root);}
+        }
     }
 }

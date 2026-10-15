@@ -14,10 +14,12 @@ namespace QuietCamp.Presentation.World
         readonly Camera _camera;
         readonly Material _material;
         readonly BlurPass _pass;
+        readonly Func<bool> _visible;
         LevelData _level;
-        public CampArtEdgeBlur(Camera camera, float pixels)
+        public CampArtEdgeBlur(Camera camera, float pixels, Func<bool> visible = null)
         {
             _camera = camera;
+            _visible = visible;
             var shader = Resources.Load<Shader>("QuietCamp/CampArtEdgeBlur");
             if (shader == null) throw new InvalidOperationException("Camp edge blur shader missing.");
             _material = new Material(shader); _material.SetFloat("_BlurPixels", pixels);
@@ -38,7 +40,7 @@ namespace QuietCamp.Presentation.World
             _material.SetVector("_SharpRect", new Vector4(low.x - .015f, low.y - .015f, high.x + .015f, high.y + .015f));
         }
         void Enqueue(ScriptableRenderContext context, Camera camera)
-        { if (camera == _camera && _material != null){if(_level!=null)ProtectBoard(_level);camera.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(_pass);} }
+        { if (camera == _camera && _material != null && (_visible?.Invoke() ?? true)){if(_level!=null)ProtectBoard(_level);camera.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(_pass);} }
         public void Dispose()
         {
             RenderPipelineManager.beginCameraRendering -= Enqueue;

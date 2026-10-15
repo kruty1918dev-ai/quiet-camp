@@ -15,9 +15,10 @@ namespace QuietCamp.Presentation.World
         readonly Material _material;
         readonly FogPass _pass;
         readonly SeasonAtmospherePreset _preset;
-        public SeasonVisibilityPass(Camera camera,SeasonAtmospherePreset preset)
+        readonly Func<bool> _visible;
+        public SeasonVisibilityPass(Camera camera,SeasonAtmospherePreset preset,Func<bool> visible=null)
         {
-            _camera=camera;_preset=preset;
+            _camera=camera;_preset=preset;_visible=visible;
             _material=new Material(Resources.Load<Shader>("QuietCamp/SeasonVisibility"));
             _pass=new FogPass(_material);
             camera.GetUniversalAdditionalCameraData().requiresDepthTexture=true;
@@ -39,7 +40,7 @@ namespace QuietCamp.Presentation.World
             _material.SetVector("_Flow",new Vector4(wind.x,wind.y,_preset.lensRain,0));
         }
         void Enqueue(ScriptableRenderContext context,Camera camera)
-        {if(camera==_camera)camera.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(_pass);}
+        {if(camera==_camera&&(_visible?.Invoke()??true))camera.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(_pass);}
         public void Dispose()
         {
             RenderPipelineManager.beginCameraRendering-=Enqueue;

@@ -119,6 +119,7 @@ namespace QuietCamp.Presentation.World
             _qualitySource=qualitySource;
             _decorRoot = decorRoot;
             _artView = camera.GetComponent<CampArtView>();
+            if (_artView != null && !_artView.PresentationActive) _artView = null;
             if(_artView?.SeasonAtmosphere!=null)
             {
                 _seasonPresetActive=true;_initialized=true;_sun=RenderSettings.sun;_artView.SetQualityTier(_qualitySource?.Invoke()??_tier);

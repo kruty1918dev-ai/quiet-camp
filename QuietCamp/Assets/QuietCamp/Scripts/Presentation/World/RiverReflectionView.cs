@@ -38,16 +38,16 @@ namespace QuietCamp.Presentation.World
             probe.nearClipPlane=.04f;probe.farClipPlane=64;probe.boxProjection=true;probe.importance=100;probe.blendDistance=0;
             var bounds=surfaces[0].bounds;foreach(var s in surfaces.Skip(1))bounds.Encapsulate(s.bounds);
             bounds.Expand(new Vector3(16,24,16));probe.center=probe.transform.InverseTransformPoint(bounds.center);probe.size=bounds.size;
-            probe.cullingMask=camera.cullingMask&~(1<<WaterObject.WaterLayer)&~(1<<5);probe.shadowDistance=0;
+            int visibleLayers=camera.cullingMask==0?-1:camera.cullingMask;
+            probe.cullingMask=visibleLayers&~(1<<WaterObject.WaterLayer)&~(1<<5);probe.shadowDistance=0;
             var reflection=node.AddComponent<PlanarReflectionRenderer>();view._renderer=reflection;
             reflection.renderScale=profile.reflectionScale;reflection.offset=.008f;
             reflection.includeSkybox=false;reflection.enableFog=false;reflection.renderShadows=false;reflection.enableInSceneView=false;
-            reflection.cullingMask=camera.cullingMask&~(1<<WaterObject.WaterLayer)&~(1<<5);
+            reflection.cullingMask=probe.cullingMask;
             foreach(var surface in surfaces)
             {
                 surface.gameObject.layer=WaterObject.WaterLayer;
                 surface.probeAnchor=probe.transform;surface.reflectionProbeUsage=ReflectionProbeUsage.BlendProbes;
-                camera.cullingMask|=1<<WaterObject.WaterLayer;
                 var material=surface.sharedMaterial;
                 // Mesh UVs already follow the bends. This permits real planar reflections
                 // without losing directional UV animation or editing the vendor shader.
@@ -61,6 +61,13 @@ namespace QuietCamp.Presentation.World
         }
         void LateUpdate()
         {
+            // A transition can temporarily hide this camera with mask 0. Never
+            // change that mask: the transition owns its restoration. Capture the
+            // environment only after visibility and seasonal lighting are ready.
+            if(_camera==null||_camera.cullingMask==0)return;
+            int layers=_camera.cullingMask&~(1<<WaterObject.WaterLayer)&~(1<<5);
+            if(_renderer!=null)_renderer.cullingMask=layers;
+            if(_environment!=null)_environment.cullingMask=layers;
             // Capture after level models and seasonal lighting exist, once per view.
             // The cube fills gaps in planar reflections, including off-screen treetops.
             if(_environment!=null&&!_captureRequested&&_camera!=null&&QualitySettings.realtimeReflectionProbes)

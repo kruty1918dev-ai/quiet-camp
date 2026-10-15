@@ -236,6 +236,7 @@ namespace QuietCamp.Editor
                 }
                 else if (request.mode == "tests") RunTests();
                 else if (request.mode == "authoring-tests") RunTests(true);
+                else if (request.mode == "clearing-tests") RunTests(true,"QuietCamp.Tests.MenuBackdropTests");
                 else if(request.mode=="surface-tests")RunTests(true,"QuietCamp.Tests.CampSurfaceUseTests");
                 else if(request.mode=="forest-tests")RunTests(true,"QuietCamp.Tests.ForestAtmosphereTests");
                 else if(request.mode=="props-tests")RunTests(true,"QuietCamp.Tests.AuthoringPropTests");
@@ -451,7 +452,7 @@ namespace QuietCamp.Editor
             api.RegisterCallbacks(new TestReport(api, session));
             SessionState.SetBool("QuietCamp.NativeTestsRunning",true);
             api.Execute(new ExecutionSettings(new Filter { testMode = TestMode.EditMode,
-                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.SafeAreaFitterTests", "QuietCamp.Tests.TutorialDirectorTests", "QuietCamp.Tests.OpeningCampaignTests", "QuietCamp.Tests.SeasonPresentationTests", "QuietCamp.Tests.BiomeSurfaceTests", "QuietCamp.Tests.CampSurfaceUseTests", "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.SurfaceWeatheringTests", "QuietCamp.Tests.ForestAtmosphereTests", "QuietCamp.Tests.ModelWorkshopTests", "QuietCamp.Tests.FreeWorldAssetsTests", "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
+                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.MenuBackdropTests", "QuietCamp.Tests.SafeAreaFitterTests", "QuietCamp.Tests.TutorialDirectorTests", "QuietCamp.Tests.OpeningCampaignTests", "QuietCamp.Tests.SeasonPresentationTests", "QuietCamp.Tests.BiomeSurfaceTests", "QuietCamp.Tests.CampSurfaceUseTests", "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.SurfaceWeatheringTests", "QuietCamp.Tests.ForestAtmosphereTests", "QuietCamp.Tests.ModelWorkshopTests", "QuietCamp.Tests.FreeWorldAssetsTests", "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
         }
         sealed class TestReport : ICallbacks
         {

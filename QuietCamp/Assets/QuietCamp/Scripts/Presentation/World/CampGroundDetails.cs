@@ -8,33 +8,23 @@ using UnityEngine.Rendering;
 
 namespace QuietCamp.Presentation.World
 {
-    /// <summary>Owns camp surface pressure and observed foot traffic, using the canonical evaluator's routes.
+    /// <summary>Owns scene-local tent pressure and weather changes to the natural surface.
     /// Scene-local presentation; there are no fictitious steps when tents or routes change.</summary>
     public sealed class CampGroundDetails : MonoBehaviour
     {
         public const int MaximumPrints=256;
-        LevelData _level; CampArtDefinition _art; Material _ground,_actorMaterial,_fieldMaterial;
+        LevelData _level; CampArtDefinition _art; Material _ground,_fieldMaterial;
         CampAtmosphere _atmosphere; SeasonAtmosphereView _previewWeather; Func<bool> _paused,_reduced;
         Texture2D _useTexture; Color32[] _pixels; float _refresh,_melt=1,_printClock;
         readonly List<Material> _bound=new List<Material>();
-        readonly List<Vector3> _centres=new List<Vector3>();
-        readonly List<Resident> _residents=new List<Resident>();
         readonly List<Transform> _tufts=new List<Transform>();
         readonly List<Vector3> _tuftScales=new List<Vector3>();
         GameObject _fieldCover,_pebbleCover;
-        Mesh _printMesh; Material _printMaterial; GameObject _printRoot;
-        struct Print {public Vector3 at,forward;public float age;}
-        readonly List<Print> _prints=new List<Print>();
-        sealed class Resident
-        {
-            public string id;public GameObject root;public Transform left,right;public Vector3[] route;
-            public int node,direction=1,parity;public float wait,distance,phase;
-        }
         public CampSurfaceUseField Surface {get;private set;}
-        public int PrintCount=>_centres.Count;
-        public IReadOnlyList<Vector3> PrintCentres=>_centres;
+        public int PrintCount=>0;
+        public IReadOnlyList<Vector3> PrintCentres=>Array.Empty<Vector3>();
         public float MeltAmount=>_melt;
-        public int Residents=>_residents.Count;
+        public int Residents=>0;
         public void Configure(LevelData level,Material ground,CampArtDefinition art=null)
         {
             _level=level;_ground=ground;_art=art;
@@ -135,132 +125,21 @@ namespace QuietCamp.Presentation.World
         {
             Surface.ClearOccupancy();
             foreach(var p in placements){var at=BoardMath.TentCenter(_level,p.x,p.z);Surface.Tent(new Rect(at.x-1,at.z-1,2,2),Stable(p.guestId));}
-            var routes=RuleEvaluator.Evaluate(_level,placements,false).Routes.Where(r=>r.Reachable&&!string.IsNullOrEmpty(r.GuestId)&&r.Cells.Length>1).ToArray();
-            foreach(var resident in _residents.ToArray())if(!routes.Any(r=>r.GuestId==resident.id)){Release(resident.root);_residents.Remove(resident);}
-            foreach(var route in routes)
-            {
-                var points=WalkingCurve(route.Cells);
-                var resident=_residents.FirstOrDefault(r=>r.id==route.GuestId);
-                if(resident!=null&&resident.route.SequenceEqual(points))continue;
-                if(resident!=null){Release(resident.root);_residents.Remove(resident);}
-                resident=CreateResident(route.GuestId,points);_residents.Add(resident);
-            }
             Publish();
         }
-        Vector3[] WalkingCurve(Cell[] cells)
-        {
-            var result=new List<Vector3>();
-            for(int i=0;i<cells.Length;i++)
-            {
-                var at=BoardMath.CellCenterWorld(_level,cells[i]);
-                if(i>0&&i<cells.Length-1)
-                {
-                    var incoming=(at-BoardMath.CellCenterWorld(_level,cells[i-1])).normalized;
-                    var outgoing=(BoardMath.CellCenterWorld(_level,cells[i+1])-at).normalized;
-                    if(Vector3.Dot(incoming,outgoing)<.5f)
-                    {
-                        // The bevel lies entirely inside the current free cell, so it cannot cut across an obstacle.
-                        result.Add(at-incoming*.20f);result.Add(at+(outgoing-incoming)*.07f);result.Add(at+outgoing*.20f);continue;
-                    }
-                }
-                result.Add(at);
-            }
-            return result.ToArray();
-        }
         static int Stable(string id){uint h=2166136261;foreach(char c in id??"")h=unchecked((h^c)*16777619);return (int)(h&65535);}
-        Resident CreateResident(string id,Vector3[] points)
-        {
-            if(_actorMaterial==null){_actorMaterial=new Material(Resources.Load<Shader>("QuietCamp/FoliageLit"));_actorMaterial.SetColor("_BaseColor",Color.white);_actorMaterial.SetFloat("_VertexTint",0);_actorMaterial.SetFloat("_SwayAmp",0);_actorMaterial.SetFloat("_FlutterAmp",0);}
-            var root=new GameObject("Camp resident / "+id);root.transform.SetParent(transform,false);root.layer=BoardRenderer.DecorLayer;
-            var rng=new System.Random(Stable(id));var coat=Color.Lerp(new Color(.35f,.40f,.30f),new Color(.55f,.42f,.25f),(float)rng.NextDouble());
-            Transform Part(string name,Vector3 at,Vector3 size,Color color,PrimitiveType shape=PrimitiveType.Cube)
-            {
-                var go=GameObject.CreatePrimitive(shape);go.name=name;go.transform.SetParent(root.transform,false);go.transform.localPosition=at;go.transform.localScale=size;go.layer=root.layer;
-                var collider=go.GetComponent<Collider>();if(collider!=null)Release(collider);
-                var renderer=go.GetComponent<Renderer>();renderer.sharedMaterial=_actorMaterial;var block=new MaterialPropertyBlock();block.SetColor("_BaseColor",color);renderer.SetPropertyBlock(block);return go.transform;
-            }
-            Part("Jacket",new Vector3(0,.98f,0),new Vector3(.32f,.48f,.22f),coat);
-            Part("Head",new Vector3(0,1.38f,0),Vector3.one*.23f,new Color(.69f,.55f,.41f));
-            Part("Cap",new Vector3(0,1.53f,0),new Vector3(.28f,.09f,.28f),coat*.75f);
-            Part("Left arm",new Vector3(-.21f,.95f,0),new Vector3(.10f,.42f,.11f),coat);
-            Part("Right arm",new Vector3(.21f,.95f,0),new Vector3(.10f,.42f,.11f),coat);
-            var left=Part("Left leg",new Vector3(-.095f,.34f,0),new Vector3(.13f,.68f,.15f),new Color(.29f,.29f,.25f));
-            var right=Part("Right leg",new Vector3(.095f,.34f,0),new Vector3(.13f,.68f,.15f),new Color(.29f,.29f,.25f));
-            var start=points[0];start.y=Height(start)+.025f;root.transform.position=start;
-            root.SetActive(false);
-            return new Resident{id=id,root=root,left=left,right=right,route=points,node=1,wait=1+Stable(id)%7};
-        }
         public void Advance(float seconds,float rain,float snowfall,bool reduced=false)
         {
             if(Surface==null||seconds<=0)return;
             Surface.Advance(seconds,rain,snowfall);AdvanceHeat(seconds,_atmosphere?.RainShelter?.FireStrength??1,snowfall);
-            foreach(var r in _residents)
-            {
-                if(reduced){r.left.localRotation=r.right.localRotation=Quaternion.identity;var a=r.left.localPosition;var b=r.right.localPosition;a.y=b.y=.34f;r.left.localPosition=a;r.right.localPosition=b;continue;}
-                float remaining=seconds;
-                // Consume elapsed movement without skipping contact samples on long frames.
-                while(remaining>0)
-                {
-                    float dt=Mathf.Min(.05f,remaining);remaining-=dt;
-                    if(r.wait>0){r.wait=Mathf.Max(0,r.wait-dt);continue;}
-                    r.root.SetActive(true);
-                    var target=r.route[r.node];target.y=Height(target)+.025f;
-                    var previous=r.root.transform.position;var next=Vector3.MoveTowards(previous,target,dt*Surface.Settings.walkingSpeed);
-                    var direction=next-previous;direction.y=0;
-                    if(direction.sqrMagnitude>1e-8f)r.root.transform.rotation=Quaternion.LookRotation(direction);
-                    r.root.transform.position=next;r.distance+=Vector3.Distance(previous,next);r.phase+=dt*7;
-                    float angle=Mathf.Sin(r.phase)*18;
-                    r.left.localRotation=Quaternion.Euler(angle,0,0);r.right.localRotation=Quaternion.Euler(-angle,0,0);
-                    var left=r.left.localPosition;left.y=.34f*Mathf.Cos(angle*Mathf.Deg2Rad);r.left.localPosition=left;
-                    var right=r.right.localPosition;right.y=left.y;r.right.localPosition=right;
-                    if(r.distance>=Surface.Settings.stride)
-                    {
-                        r.distance-=Surface.Settings.stride;var forward=direction.sqrMagnitude>0?direction.normalized:r.root.transform.forward;
-                        var leg=r.parity++%2==0?r.left:r.right;
-                        var foot=leg.TransformPoint(new Vector3(0,-.5f,0));
-                        Surface.Step(new Vector2(foot.x,foot.z));
-                        if((_art?.atmosphere?.snowCover??SeasonProfile.For(_level).SnowCoverage)>.1f||Surface.Moisture>.2f&&Surface.Sample(new Vector2(foot.x,foot.z)).r<.55f)AddPrint(foot,forward);
-                    }
-                    if(Vector3.Distance(next,target)<.002f){if(r.node==r.route.Length-1||r.node==0){r.direction=-r.direction;r.wait=3+Stable(r.id)%4;if(r.node==0)r.root.SetActive(false);}r.node+=r.direction;}
-                }
-            }
-            for(int i=_prints.Count-1;i>=0;i--){var p=_prints[i];p.age+=seconds*(.05f+snowfall);if(p.age>Surface.Settings.snowRecoverySeconds)_prints.RemoveAt(i);else _prints[i]=p;}
             _refresh+=seconds;_printClock+=seconds;PublishFieldWeather();
-            if(_refresh>=.25f){_refresh=0;if(Surface.Dirty)Publish();RebuildPrintMesh();}
+            if(_refresh>=.25f){_refresh=0;if(Surface.Dirty)Publish();}
         }
         void LateUpdate()
         {
             if(!UnityEngine.Application.isPlaying||_paused?.Invoke()==true)return;
             var p=_atmosphere?.SeasonalWeather?.Preset??_art?.atmosphere;
             Advance(Mathf.Min(Time.deltaTime,.1f),p?.wetness??_atmosphere?.Weather?.RainAmount??0,p?.snow??_atmosphere?.Weather?.Snowfall??0,_reduced?.Invoke()??false);
-        }
-        void AddPrint(Vector3 at,Vector3 forward)
-        {
-            if(_prints.Count==MaximumPrints)_prints.RemoveAt(0);at.y=Height(at)+.014f;_prints.Add(new Print{at=at,forward=forward});
-        }
-        void RebuildPrintMesh()
-        {
-            _centres.Clear();if(_prints.Count==0&&_printMesh==null)return;
-            if(_printRoot==null)
-            {
-                _printRoot=new GameObject("Observed snow footsteps",typeof(MeshFilter),typeof(MeshRenderer));_printRoot.transform.SetParent(transform,false);_printRoot.layer=gameObject.layer;
-                _printMesh=new Mesh{name="Bounded recessed snow soles"};_printRoot.GetComponent<MeshFilter>().sharedMesh=_printMesh;
-                _printMaterial=new Material(Resources.Load<Shader>("QuietCamp/FoliageLit"));_printMaterial.SetColor("_BaseColor",Color.white);_printMaterial.SetFloat("_VertexTint",1);_printMaterial.SetFloat("_SwayAmp",0);_printMaterial.SetFloat("_FlutterAmp",0);
-                var renderer=_printRoot.GetComponent<MeshRenderer>();renderer.sharedMaterial=_printMaterial;renderer.shadowCastingMode=ShadowCastingMode.Off;
-            }
-            var vertices=new List<Vector3>();var colors=new List<Color>();var indices=new List<int>();
-            foreach(var p in _prints)
-            {
-                var side=Vector3.Cross(Vector3.up,p.forward);float fade=1-Mathf.Clamp01(p.age/Surface.Settings.snowRecoverySeconds);
-                bool snow=(_art?.atmosphere?.snowCover??SeasonProfile.For(_level).SnowCoverage)>.1f;
-                var clean=snow?new Color(.84f,.89f,.90f):Color.Lerp(SeasonPalette.For(_level).GrassLight,SeasonPalette.For(_level).Soil,.55f);
-                var compressed=snow?new Color(.52f,.63f,.67f):clean*.89f;
-                var tint=Color.Lerp(clean,compressed,fade*(snow?.65f:.35f));_centres.Add(p.at);
-                int start=vertices.Count;vertices.Add(p.at);colors.Add(tint);
-                for(int k=0;k<8;k++){float a=k*Mathf.PI*.25f;vertices.Add(p.at+side*Mathf.Cos(a)*.047f+p.forward*Mathf.Sin(a)*.105f+Vector3.up*.004f);colors.Add(Color.Lerp(tint,clean,.65f));}
-                for(int k=0;k<8;k++)indices.AddRange(new[]{start,start+1+(k+1)%8,start+1+k});
-            }
-            _printMesh.Clear();_printMesh.SetVertices(vertices);_printMesh.SetColors(colors);_printMesh.SetTriangles(indices,0);_printMesh.RecalculateNormals();_printMesh.RecalculateBounds();
         }
         public static float HeatAt(LevelData level, Vector3 point)
         {
@@ -303,7 +182,7 @@ namespace QuietCamp.Presentation.World
         void OnDestroy()
         {
             foreach(var m in _bound)if(m!=null){m.SetTexture("_CampUse",Texture2D.blackTexture);m.SetVector("_CampUseBounds",Vector4.zero);}
-            foreach(var r in _residents)Release(r.root);Release(_pebbleCover);Release(_fieldCover);Release(_actorMaterial);Release(_useTexture);Release(_printRoot);Release(_printMesh);Release(_printMaterial);
+            Release(_pebbleCover);Release(_fieldCover);Release(_useTexture);
         }
     }
 }

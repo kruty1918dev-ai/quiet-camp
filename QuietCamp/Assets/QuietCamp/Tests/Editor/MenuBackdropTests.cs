@@ -11,6 +11,23 @@ namespace QuietCamp.Tests
 {
     public class MenuBackdropTests
     {
+        [Test] public void AuthoredMenuBoardUsesOnlyGridOverTheSameNaturalLandscapeAsGameplay()
+        {
+            var level=LevelLoader.Load("QC009");var art=CampArtDefinition.Load(level);
+            var root=new UnityEngine.GameObject("Authored menu contract");BoardRenderer board=null;
+            try
+            {
+                Assert.NotNull(art);board=MenuDiorama.Build(root.transform,AssetCatalog.Load(),level,art);
+                var cells=root.GetComponentsInChildren<UnityEngine.MeshRenderer>().Where(r=>r.name.StartsWith("Cell_",StringComparison.Ordinal)).ToArray();
+                Assert.AreEqual(level.width*level.height,cells.Length);
+                Assert.IsTrue(cells.All(r=>r.sharedMaterial.shader.name=="QuietCamp/PlacementGrid"),"Cells provide grid lines and picking, never a different ground surface.");
+                Assert.IsTrue(cells.All(r=>r.sharedMaterial.GetFloat("_GridVisible")==0),"Menu scenery does not show placement guides.");
+                Assert.IsFalse(root.GetComponentsInChildren<UnityEngine.Transform>().Any(t=>t.name=="BaseSlab"||t.name=="BaseSide"));
+                board.SurfaceDetails.Advance(120,.5f,.5f);Assert.AreEqual(0,board.SurfaceDetails.Residents);Assert.AreEqual(0,board.SurfaceDetails.Surface.Steps);
+                Assert.IsTrue(root.GetComponentsInChildren<UnityEngine.Collider>(true).All(c=>!c.enabled),"The menu must not take gameplay input.");
+            }
+            finally{board?.ClearAll();UnityEngine.Object.DestroyImmediate(root);}
+        }
         [Test] public void CampSceneRotationsAreNormalizedBeforeHostsInitialize()
         {
             var scene = System.IO.File.ReadAllText("Assets/QuietCamp/Scenes/Camp.unity");

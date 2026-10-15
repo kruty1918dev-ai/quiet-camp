@@ -26,9 +26,40 @@ namespace QuietCamp.Editor.LevelAuthoring
                 return new{status="opening-game-waiting"};
             if(!EditorApplication.isPlaying || !EditorAuthoringPreview.CampaignPreview || QuietCampBootstrap.ServicesRef?.Save.MemoryOnly!=true)
                 throw new InvalidOperationException("Only the isolated campaign preview can run this probe.");
+            if(action=="menu-continue"||action=="menu-album"||action=="menu-back")
+            {
+                if(MenuSceneHost.Current?.UiReady!=true)throw new InvalidOperationException("The menu is not ready.");
+                string command=action=="menu-continue"?"qc.continue":action=="menu-album"?"qc.album":"qc.back";
+                QuietCampBootstrap.ServicesRef.Actions.Execute(new UiActionRequest(new UiActionId(command),UiActionSource.Programmatic,"Menu"));
+                return new{status="menu-action-requested",command,memoryOnly=true};
+            }
+            if(action=="menu-status"||action=="menu-frame")
+            {
+                var menu=MenuSceneHost.Current;var view=Camera.main?.GetComponent<CampArtView>();
+                var menuTransition=UnityEngine.Object.FindAnyObjectByType<FoliageDiveTransition>();
+                bool ready=menu!=null&&menu.UiReady&&(menuTransition==null||menuTransition.IsIdle);
+                if(action=="menu-frame"&&ready)
+                {
+                    if(string.IsNullOrEmpty(output)||!System.IO.Path.IsPathRooted(output)||!output.EndsWith(".png",StringComparison.OrdinalIgnoreCase))throw new ArgumentException("Expected an absolute PNG path.");
+                    System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(output));ScreenCapture.CaptureScreenshot(output);
+                }
+                return new{status="menu-review",ready,memoryOnly=true,id=menu?.BackgroundLevel?.id,authored=view!=null,
+                    size=new[]{Screen.width,Screen.height},residents=UnityEngine.Object.FindObjectsByType<CampGroundDetails>(FindObjectsSortMode.None).Sum(s=>s.Residents),
+                    cameraPosition=Camera.main==null?null:new[]{Camera.main.transform.position.x,Camera.main.transform.position.y,Camera.main.transform.position.z},
+                    cameraEuler=Camera.main==null?null:new[]{Camera.main.transform.eulerAngles.x,Camera.main.transform.eulerAngles.y,Camera.main.transform.eulerAngles.z},
+                    cameraSize=Camera.main?.orthographicSize,mask=Camera.main?.cullingMask,far=Camera.main?.farClipPlane,
+                    ground=UnityEngine.Object.FindObjectsByType<MeshRenderer>(FindObjectsSortMode.None).Where(r=>r.sharedMaterial!=null&&r.sharedMaterial.HasProperty("_ArtGround")&&r.sharedMaterial.GetFloat("_ArtGround")>.5f).Select(r=>new{name=r.name,active=r.gameObject.activeInHierarchy,centre=new[]{r.bounds.center.x,r.bounds.center.y,r.bounds.center.z},size=new[]{r.bounds.size.x,r.bounds.size.y,r.bounds.size.z}}).ToArray(),
+                    opaqueCells=UnityEngine.Object.FindObjectsByType<MeshRenderer>(FindObjectsSortMode.None).Count(r=>r.name.StartsWith("Cell_",StringComparison.Ordinal)&&r.sharedMaterial?.shader.name!="QuietCamp/PlacementGrid")};
+            }
             var host=CampSceneHost.Current;
             if(host?.UiReady!=true)return new{status="opening-game-waiting"};
             var services=QuietCampBootstrap.ServicesRef;var session=host.Session;string id=session.Level.id;
+            if(action=="menu")
+            {
+                typeof(GameServices).GetProperty(nameof(GameServices.MenuBackdrop)).SetValue(services,LevelLoader.Load(levelId??id));
+                services.Actions.Execute(new UiActionRequest(new UiActionId("qc.menu"),UiActionSource.Programmatic,"Gameplay"));
+                return new{status="menu-requested",memoryOnly=true};
+            }
             if(action=="promo") return CampaignPromoRecorder.Begin(output);
             if(action=="composition-stills") return CampaignPromoRecorder.Begin(output, true);
             if(action=="hud")
@@ -102,7 +133,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 transitionIdle=transition==null||transition.Current==FoliageDiveTransition.State.Idle,
                 cameraProof=CameraProof(session.Level,art?.Definition),
                 frozenArtMatches=art!=null&&JsonConvert.SerializeObject(art.Definition)==JsonConvert.SerializeObject(CampArtDefinition.Load(session.Level)),
-                story=OpeningCampaignStory.For(session.Level)?.title,surfaceSteps=host.SurfaceDetails?.Surface?.Steps,
+                story=OpeningCampaignStory.For(session.Level)?.title,surfaceSteps=host.SurfaceDetails?.Surface?.Steps,residents=host.SurfaceDetails?.Residents,
                 particles=art?.SeasonAtmosphere?.LiveParticles,voices=art?.SeasonAtmosphere?.OwnedVoices,
                 riverReflectionRendered=art?.RiverReflections?.HasRenderedReflection,
                 playingVoices=art?.SeasonAtmosphere?.PlayingVoices,wind=art?.SeasonAtmosphere?.WindStrength,

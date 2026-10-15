@@ -44,7 +44,7 @@ namespace QuietCamp.Tests
                 for(int frame=0;frame<25;frame++)yield return null;
                 var host=CampSceneHost.Current;Assert.IsTrue(host.IsReady);host.Session.DebugApplyWitness();host.Session.Select(null);
                 host.SetAtmospherePhase("morning");
-                var details=Object.FindAnyObjectByType<CampGroundDetails>();Assert.NotNull(details);Assert.Greater(details.PrintCount,10);
+                var details=Object.FindAnyObjectByType<CampGroundDetails>();Assert.NotNull(details);Assert.AreEqual(0,details.PrintCount);Assert.AreEqual(0,details.Residents);
                 Assert.Greater(host.Session.Level.noise.Length,0,"The visual fixture must contain a real fire pit");
                 var ground=details.GetComponentsInChildren<MeshRenderer>().First(r=>r.name.StartsWith("Cell_")).sharedMaterial;
                 Assert.AreEqual(1,ground.GetFloat("_SnowSeason"));Assert.Greater(ground.GetFloat("_HeatMelt"),.9f);
@@ -72,7 +72,7 @@ namespace QuietCamp.Tests
             Assert.Ignore("Editor capture helper required.");yield return null;
 #endif
         }
-        [UnityTest] public IEnumerator TracesUseFreeRoutesInEverySeasonAndReleaseOwnedMeshes()
+        [UnityTest] public IEnumerator TentsDoNotSpawnPeopleOrFootstepsInAnySeasonAndReleaseOwnedMeshes()
         {
             foreach(var season in new[]{"spring","summer","autumn","winter"})
             {
@@ -80,25 +80,17 @@ namespace QuietCamp.Tests
                 string before=JsonConvert.SerializeObject(level);
                 var root=new GameObject("ground details "+season);
                 var material=new Material(Resources.Load<Shader>("QuietCamp/Meadow"));
-                Mesh mesh=null;Material printMaterial=null;
+                Mesh[] meshes=null;
                 try
                 {
                     var details=root.AddComponent<CampGroundDetails>();details.Configure(level,material);
-                    details.Rebuild(level.witness);Assert.Greater(details.PrintCount,10);
-                    Assert.LessOrEqual(details.PrintCount,CampGroundDetails.MaximumPrints);
-                    var occupied=new HashSet<Cell>(level.blocked.Concat(level.noise).Select(p=>new Cell(p[0],p[1])));
-                    foreach(var p in level.witness)foreach(var cell in RuleEvaluator.Footprint(p))occupied.Add(cell);
-                    foreach(var point in details.PrintCentres)
-                    {
-                        var cell=new Cell(Mathf.FloorToInt(point.x+level.width*.5f),Mathf.FloorToInt(point.z+level.height*.5f));
-                        Assert.IsFalse(occupied.Contains(cell));
-                        Assert.IsFalse(ShorelineGeometry.Contains(level.environment.shore,point));
-                    }
+                    details.Rebuild(level.witness);details.Advance(120,.7f,.5f);
+                    Assert.AreEqual(0,details.Residents);Assert.AreEqual(0,details.PrintCount);Assert.AreEqual(0,details.Surface.Steps);
+                    Assert.IsEmpty(details.PrintCentres);
                     Assert.IsEmpty(root.GetComponentsInChildren<Collider>());
-                    mesh=root.GetComponentInChildren<MeshFilter>().sharedMesh;printMaterial=root.GetComponentInChildren<MeshRenderer>().sharedMaterial;
-                    Assert.LessOrEqual(mesh.triangles.Length/3,CampGroundDetails.MaximumPrints*8);
+                    meshes=root.GetComponentsInChildren<MeshFilter>().Select(f=>f.sharedMesh).ToArray();
                     int count=details.PrintCount;details.Rebuild(level.witness);Assert.AreEqual(count,details.PrintCount);
-                    Assert.AreSame(mesh,root.GetComponentInChildren<MeshFilter>().sharedMesh);
+                    CollectionAssert.AreEqual(meshes,root.GetComponentsInChildren<MeshFilter>().Select(f=>f.sharedMesh).ToArray());
                     details.AdvanceHeat(3,0,1);Assert.Greater(details.MeltAmount,.97f,"A quenched fire must not instantly undo its thaw");
                     details.AdvanceHeat(200,0,1);Assert.AreEqual(0,details.MeltAmount);
                     details.AdvanceHeat(12,1,1);Assert.AreEqual(1,details.MeltAmount);
@@ -106,7 +98,7 @@ namespace QuietCamp.Tests
                 }
                 finally{Object.Destroy(root);Object.Destroy(material);}
                 yield return null;
-                Assert.IsTrue(mesh==null);Assert.IsTrue(printMaterial==null);
+                Assert.IsTrue(meshes.All(mesh=>mesh==null));
             }
         }
     }

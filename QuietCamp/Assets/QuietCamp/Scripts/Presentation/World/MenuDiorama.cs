@@ -58,19 +58,20 @@ namespace QuietCamp.Presentation.World
         }
 
         /// <summary>One scene-owned board; the host releases its materials and presenters.</summary>
-        public static BoardRenderer Build(Transform world, AssetCatalog catalog, LevelData level)
+        public static BoardRenderer Build(Transform world, AssetCatalog catalog, LevelData level, CampArtDefinition art = null)
         {
             Transform Child(string name)
             {
                 var child = new GameObject(name).transform;
                 child.SetParent(world, false); return child;
             }
-            var board = new BoardRenderer(level, catalog, Child("Base"), Child("Grid"), Child("Obstacle"), Child("Tents"), Child("Overlay"));
+            var board = new BoardRenderer(level, catalog, Child("Base"), Child("Grid"), Child("Obstacle"), Child("Tents"), Child("Overlay"),art);
             board.SyncPlacements(DecorativePlacements(level), level, 1, true);
+            if(art!=null)board.SetPlacementGridVisible(false);
             foreach (var tent in board.Tents.Values)
                 foreach (var child in tent.Root.GetComponentsInChildren<Transform>())
                     if (child.name == "DoorDot") child.gameObject.SetActive(false);
-            DecorSpawner.Spawn(level, catalog, Child("DecorRoot"));
+            if(art==null)DecorSpawner.Spawn(level, catalog, Child("DecorRoot"));
             // The menu has no world interaction; HTML retains its normal raycasts.
             foreach (var collider in world.GetComponentsInChildren<Collider>()) collider.enabled = false;
             return board;

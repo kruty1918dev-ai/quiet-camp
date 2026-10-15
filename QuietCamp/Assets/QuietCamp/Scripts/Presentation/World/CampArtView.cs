@@ -24,6 +24,7 @@ namespace QuietCamp.Presentation.World
         VolumeProfile _volumeProfile;
         LevelData _level;
         public CampArtDefinition Definition { get; private set; }
+        public bool PresentationActive => _root != null && _root.activeInHierarchy;
         public int TriangleCount { get; private set; }
         public SeasonAtmosphereView SeasonAtmosphere {get;private set;}
         public FrozenLandscape PresentedLandscape {get;private set;}
@@ -138,7 +139,7 @@ namespace QuietCamp.Presentation.World
                 _regrowthRenderers[band]=AddMesh("ForestRegrowth"+band,mesh,grassMaterial);
                 RegrowthTriangleBands[band]=mesh.vertexCount/3;
             }
-            _blur = new CampArtEdgeBlur(_camera, definition.blurPixels);
+            _blur = new CampArtEdgeBlur(_camera, definition.blurPixels, () => PresentationActive);
             _camera.GetUniversalAdditionalCameraData().renderPostProcessing = true;
             if(definition.atmosphere!=null)
             {
@@ -178,7 +179,7 @@ namespace QuietCamp.Presentation.World
         public void SetBlur(float pixels)
         {
             if (Mathf.Approximately(Definition.blurPixels, pixels)) return;
-            Definition.blurPixels = pixels; _blur?.Dispose(); _blur = new CampArtEdgeBlur(_camera, pixels); _blur.ProtectBoard(_level);
+            Definition.blurPixels = pixels; _blur?.Dispose(); _blur = new CampArtEdgeBlur(_camera, pixels, () => PresentationActive); _blur.ProtectBoard(_level);
         }
         public void ApplyLighting(Light sun, float weatherMultiplier = 1)
         {

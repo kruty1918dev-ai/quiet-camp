@@ -104,16 +104,17 @@ namespace QuietCamp.Tests
                 var captured=workspace.Capture(false).art.instances.First(i=>i.id==before.id);Assert.That(captured.x,Is.EqualTo(before.x-.5f).Within(.001f));Assert.That(captured.y,Is.EqualTo(before.y).Within(.001f));
             }
         }
-        [Test] public void PlacementRefreshCreatesNoStepsButActualResidentMotionDoes()
+        [Test] public void TentPlacementAndWeatherNeverSpawnPeopleOrInventFootsteps()
         {
             var d=LevelAuthoringDocument.Open(Draft);var go=new GameObject("surface test");var material=new Material(Resources.Load<Shader>("QuietCamp/Meadow"));
             try
             {
                 var surface=go.AddComponent<CampGroundDetails>();surface.Configure(d.level,material,d.art);
                 surface.Rebuild(Array.Empty<Placement>());Assert.That(surface.Residents,Is.Zero);surface.Advance(60,0,0);Assert.That(surface.Surface.Steps,Is.Zero);
-                surface.Rebuild(d.level.witness);Assert.That(surface.Residents,Is.GreaterThan(0));Assert.That(surface.Surface.Steps,Is.Zero);
-                surface.Advance(30,0,0);Assert.That(surface.Surface.Steps,Is.GreaterThan(10));int steps=surface.Surface.Steps;
-                surface.Rebuild(d.level.witness);Assert.That(surface.Surface.Steps,Is.EqualTo(steps));surface.Advance(30,0,0,true);Assert.That(surface.Surface.Steps,Is.EqualTo(steps));
+                surface.Rebuild(d.level.witness);Assert.That(surface.Residents,Is.Zero);Assert.That(surface.Surface.Steps,Is.Zero);
+                surface.Advance(60,.8f,.4f);Assert.That(surface.Surface.Steps,Is.Zero);Assert.That(surface.PrintCount,Is.Zero);
+                Assert.IsFalse(go.GetComponentsInChildren<Transform>(true).Any(t=>t.name.StartsWith("Camp resident /",StringComparison.Ordinal)));
+                surface.Rebuild(d.level.witness);surface.Advance(30,0,0,true);Assert.That(surface.Surface.Steps,Is.Zero);
                 surface.Rebuild(Array.Empty<Placement>());Assert.That(surface.Residents,Is.Zero);
             }
             finally{UnityEngine.Object.DestroyImmediate(go);UnityEngine.Object.DestroyImmediate(material);}

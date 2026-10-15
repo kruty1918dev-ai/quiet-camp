@@ -35,6 +35,7 @@ namespace QuietCamp.Presentation.World
         System.IDisposable _menuContext;
         AlbumDiorama _album;
         BoardRenderer _board;
+        CampArtView _artView;
         public LevelData BackgroundLevel => _services?.MenuBackdrop;
 
         public static MenuSceneHost Current { get; private set; }
@@ -119,7 +120,14 @@ namespace QuietCamp.Presentation.World
             var world = new GameObject("World").transform;
             _world=world;
             SceneManager.MoveGameObjectToScene(world.gameObject, gameObject.scene);
-            _board = MenuDiorama.Build(world, _services.Assets, level);
+            var art=CampArtDefinition.Load(level);
+            _board = MenuDiorama.Build(world, _services.Assets, level, art);
+            CameraFitter.Configure(camera);
+            if(art!=null)
+            {
+                _artView=camera.gameObject.AddComponent<CampArtView>();
+                _artView.Configure(art,level,world,_services.Assets);
+            }
 
             // Leave the wordmark and navigation their own edge bands. The
             // campfire belongs in the open centre, never under the CTA.
@@ -167,7 +175,8 @@ namespace QuietCamp.Presentation.World
             _atmosphere.RegisterDecor(world);
             _atmosphere.SetFire(_firePos, hasFire);
             _atmosphere.BindRainWorld(world);
-            _atmosphere.Soundscape.AccentSuppressed = () => (_router?.IsBusy ?? false)
+            _board.SurfaceDetails.Bind(world,_atmosphere,()=>_router?.IsBusy??false,()=>_services.ReducedMotion);
+            if(_atmosphere.Soundscape!=null)_atmosphere.Soundscape.AccentSuppressed = () => (_router?.IsBusy ?? false)
                 || (_screens.Current != "Main" && _screens.Current != "Album");
         }
 
@@ -178,6 +187,7 @@ namespace QuietCamp.Presentation.World
             {
                 Debug.LogWarning($"[QuietCamp] Menu scenery unavailable; navigation remains usable. {error.GetType().Name}: {error.Message}");
                 _board?.ClearAll(); _board = null;
+                if(_artView!=null){_artView.Release();Destroy(_artView);_artView=null;}
                 if (_atmosphere != null) { _atmosphere.SetSuspended(true); Destroy(_atmosphere); _atmosphere = null; }
                 var drift = GetComponent<MenuCameraDrift>(); if (drift != null) { drift.enabled = false; Destroy(drift); }
                 if (_world != null) { _world.gameObject.SetActive(false); Destroy(_world.gameObject); _world = null; }
