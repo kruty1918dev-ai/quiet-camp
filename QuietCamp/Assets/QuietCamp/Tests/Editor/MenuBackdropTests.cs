@@ -21,6 +21,7 @@ namespace QuietCamp.Tests
                 var camera=node.AddComponent<UnityEngine.Camera>();
                 var view=node.AddComponent<CampArtView>();view.Configure(art,level,root.transform,AssetCatalog.Load());
                 CameraFitter.Configure(camera);CameraFitter.Fit(camera,level,null);
+                Assert.NotNull(camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>().SafeAreaProvider,"Camera and HUD must share safe-area normalization after an orientation change.");
                 var frame=camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>().Frame;
                 var oldBounds=new UnityEngine.Bounds(UnityEngine.Vector3.zero,new UnityEngine.Vector3(
                     level.width+2*(BoardMath.Overhang+.3f),.8f,level.height+2*(BoardMath.Overhang+.3f)));

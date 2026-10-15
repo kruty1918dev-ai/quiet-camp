@@ -9,15 +9,19 @@ namespace QuietCamp.Presentation.World
         public const float MinimumTouchLiftDp = 96f;
         readonly Camera _camera;
         readonly LevelData _level;
+        readonly System.Func<Rect> _safeAreaProvider;
         readonly Plane _ground = new Plane(Vector3.up, Vector3.zero);
         Vector2 _grab;
         int _width, _height;
         Rect _safeArea;
         public float LiftPixels { get; private set; }
         public float DensityScale { get; private set; } = 1f;
-        public bool LayoutUnchanged => _width == Screen.width && _height == Screen.height && _safeArea == Screen.safeArea;
+        Rect CurrentSafeArea => UI.SafeAreaFitter.NormalizeSafeArea(
+            _safeAreaProvider?.Invoke() ?? Screen.safeArea, Screen.width, Screen.height);
+        public bool LayoutUnchanged => _width == Screen.width && _height == Screen.height && _safeArea == CurrentSafeArea;
 
-        public PlacementTargetProjector(Camera camera, LevelData level) { _camera = camera; _level = level; }
+        public PlacementTargetProjector(Camera camera, LevelData level, System.Func<Rect> safeAreaProvider = null)
+        { _camera = camera; _level = level; _safeAreaProvider = safeAreaProvider; }
 
         public static float ScreenDpScale()
         {
@@ -28,7 +32,7 @@ namespace QuietCamp.Presentation.World
 
         public void Begin(bool touchDrag, Vector2 grabInFootprint, Vector3 tentCenter)
         {
-            _width = Screen.width; _height = Screen.height; _safeArea = Screen.safeArea;
+            _width = Screen.width; _height = Screen.height; _safeArea = CurrentSafeArea;
             _grab = grabInFootprint; DensityScale = ScreenDpScale(); LiftPixels = 0f;
             if (!touchDrag || _camera == null) return;
             float lowest = float.PositiveInfinity;

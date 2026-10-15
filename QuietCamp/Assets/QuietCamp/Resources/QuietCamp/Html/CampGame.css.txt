@@ -115,7 +115,10 @@ switch { flex-shrink: 0; width: 124px; height: 68px; margin: 0; }
 button text, .gc-text text { white-space: normal; }
 .dock-tools { flex-wrap: wrap; }
 @media (layout: wide) {
-.bottom { left: 100%; margin-left: -752px; right: 0; width: 720px; bottom: 32px; }
+.bottom { left: 28px; margin-left: 0; right: 28px; width: auto; bottom: 32px; }
+.dock { flex-direction: row; align-items: center; }
+.dock-tools { flex-shrink: 0; flex-wrap: nowrap; }
+.guest-card { min-width: 360px; }
 .tutorial .pill { max-width: 100%; }
 .message { right: 644px; }
 }

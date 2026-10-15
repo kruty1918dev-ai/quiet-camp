@@ -218,6 +218,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             return new{gameplay=new[]{rect.x,rect.y,rect.width,rect.height},
                 playableFieldContained=groundField.All(v=>v.z>0&&v.x>=rect.xMin-.001f&&v.x<=rect.xMax+.001f&&v.y>=rect.yMin-.001f&&v.y<=rect.yMax+.001f),
                 playableCentreErrorPixels=new[]{(boardCentre.x-rect.center.x)*Screen.width,(boardCentre.y-rect.center.y)*Screen.height},
+                frameCentreErrorPixels=new[]{(boardCentre.x-.5f)*Screen.width,(boardCentre.y-.5f)*Screen.height},
                 boardViewport=projected.Select(v=>new[]{v.x,v.y,v.z}),
                 centreErrorPixels=new[]{(centre.x-rect.center.x)*Screen.width,(centre.y-rect.center.y)*Screen.height},
                 fieldContained=projected.All(v=>v.z>0&&v.x>=rect.xMin-.001f&&v.x<=rect.xMax+.001f&&v.y>=rect.yMin-.001f&&v.y<=rect.yMax+.001f),

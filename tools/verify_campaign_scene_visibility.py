@@ -26,6 +26,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--first', type=int, default=1)
     parser.add_argument('--last', type=int, default=100)
+    parser.add_argument('--simulator', action='store_true', help='Use the already open Device Simulator; never open another window.')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     content = QA / 'Assets/QuietCamp/Resources/QuietCamp'
@@ -36,15 +37,20 @@ def main():
     source_files = [QA/'Assets/QuietCamp'/name for name in [
         'Scripts/Presentation/World/BoardRenderer.cs', 'Scripts/Presentation/World/CampArtView.cs',
         'Scripts/Presentation/World/CameraFitter.cs', 'Scripts/Presentation/World/CampAtmosphere.cs',
+        'Scripts/Presentation/UI/CampHud.cs', 'Resources/QuietCamp/Html/CampGame.css.txt',
+        'Scripts/Presentation/World/PlacementTargetProjector.cs',
         'Scripts/Presentation/World/MenuSceneHost.cs', 'Scripts/Presentation/World/CampSceneHost.cs',
         'Scripts/Presentation/World/RiverReflectionView.cs', 'Scripts/Presentation/FoliageDiveTransition.cs',
         'Editor/LevelAuthoring/OpeningCampaignGameplayProbe.cs', 'Editor/LevelAuthoring/LevelAuthoringPlayDriver.cs']]
     sources = {str(p.relative_to(QA)): sha(p) for p in source_files}
     results = []
-    report = {'status': 'running', 'artOverride': False, 'playerBuild': False, 'sources': sources, 'levels': results}
+    report = {'status': 'running', 'artOverride': False, 'playerBuild': False, 'existingSimulator': args.simulator, 'sources': sources, 'levels': results}
     try:
         request('opening-gameplay', name='start-menu', level=ids[args.first-1])
         menu_ready()
+        if args.simulator:
+            request('opening-gameplay', name='simulator')
+            time.sleep(.5)
         request('opening-gameplay', name='menu-continue')
         for order in range(args.first, args.last+1):
             ident = ids[order-1]
@@ -56,6 +62,7 @@ def main():
             proof=status['cameraProof']
             assert proof['playableFieldContained'], 'The field leaves the gameplay viewport: '+ident
             assert max(abs(v) for v in proof['playableCentreErrorPixels'])<2, 'The field is not centred in the usable viewport: '+ident
+            assert max(abs(v) for v in proof['frameCentreErrorPixels'])<2, 'The field is not centred in the actual frame: '+ident
             assert abs(status['cameraEuler'][0]-58)<.01, 'Historical gameplay camera pitch was overridden: '+ident
             image = args.output/f'{order:03}.png'
             image.unlink(missing_ok=True)

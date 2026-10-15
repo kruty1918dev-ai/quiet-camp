@@ -58,6 +58,10 @@ namespace QuietCamp.Presentation.World
             camera.rect = new Rect(0f, 0f, 1f, 1f);
             var adaptation = camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>();
             if (adaptation == null) adaptation = camera.gameObject.AddComponent<Kruty1918.GameplayViewport.GameplayViewport>();
+            // Device Simulator may report the previous orientation's insets.
+            // Use the same validation as the HUD instead of intersecting the
+            // camera with a stale rectangle and shifting the field sideways.
+            adaptation.SafeAreaProvider = () => QuietCamp.Presentation.UI.SafeAreaFitter.NormalizeSafeArea(Screen.safeArea,Screen.width,Screen.height);
             adaptation.ContentViewport = viewport;
             adaptation.Refresh();
             var frame = adaptation.Frame;

@@ -105,6 +105,7 @@ namespace QuietCamp.Presentation.UI
         void AdaptBoardViewport()
         {
             if (_boardViewport == null || _safeArea == null || HasModalOpen) return;
+            Canvas.ForceUpdateCanvases();
             var layout = _surface.Viewport;
             if (!_surface.IsMounted || !layout.IsValid) return;
             var language = _services.Localization.CurrentLanguageId;
@@ -116,18 +117,21 @@ namespace QuietCamp.Presentation.UI
             if (_boardLayout.Equals(layout) && _boardLanguage == language && _boardTextScale == textScale) return;
             var bottom = _surface.Element("bottom")?.transform as RectTransform;
             if (bottom == null || bottom.rect.height < 1) return;
-            if (layout.IsWide)
-            {
-                var reserved = Mathf.Min(_safeArea.rect.width * .43f, bottom.rect.width + 64);
-                _boardViewport.offsetMin = new Vector2(24, 40);
-                _boardViewport.offsetMax = new Vector2(-reserved, -180);
-            }
-            else
-            {
-                var reserved = Mathf.Min(_safeArea.rect.height * .42f, bottom.rect.height + 48);
-                _boardViewport.offsetMin = new Vector2(6, reserved);
-                _boardViewport.offsetMax = new Vector2(-6, -180);
-            }
+            // The field belongs at the centre of the actual frame, including
+            // landscape. Keep UI at the edges and fit into a symmetric region
+            // around that centre; a right-hand dock must not pull it left.
+            var safe = _safeArea.rect;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(_safeArea,
+                new Vector2(Screen.width*.5f,Screen.height*.5f),null,out var centre);
+            float side = layout.IsWide ? 24 : 6;
+            float reserved = Mathf.Min(safe.height*.42f,bottom.rect.height+48);
+            var header = _surface.Element("header")?.transform as RectTransform;
+            float top = Mathf.Max(180,(header?.rect.height??0)+48);
+            float halfWidth = Mathf.Max(1,Mathf.Min(centre.x-safe.xMin-side,safe.xMax-centre.x-side));
+            float halfHeight = Mathf.Max(1,Mathf.Min(centre.y-safe.yMin-reserved,safe.yMax-centre.y-top));
+            var half = new Vector2(halfWidth,halfHeight);
+            _boardViewport.offsetMin = centre-half-safe.min;
+            _boardViewport.offsetMax = centre+half-safe.max;
             _boardLayout = layout;
             _boardLanguage = language;
             _boardTextScale = textScale;

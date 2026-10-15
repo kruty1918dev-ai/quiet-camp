@@ -7,6 +7,30 @@ namespace QuietCamp.Tests.Editor
 {
     public class PlacementTargetTests
     {
+        [Test]
+        public void StaleSimulatorInsetsCannotRejectVisiblePlacementAfterResize()
+        {
+            var go = new GameObject("Resized target camera");
+            try
+            {
+                var camera = go.AddComponent<Camera>();
+                camera.orthographic = true; camera.orthographicSize = 8;
+                camera.transform.SetPositionAndRotation(Vector3.up * 20, Quaternion.Euler(90,0,0));
+                var reported = new Rect(0,0,Screen.width*.55f,Screen.height*2);
+                var projector = new PlacementTargetProjector(camera,new LevelData{width=8,height=8},()=>reported);
+                projector.Begin(false,Vector2.one,Vector3.zero);
+                var aim = new Vector2(Screen.width*.75f,Screen.height*.5f);
+                Assert.IsTrue(projector.TryProject(aim,true,null,out _),"Visible board must use the same normalized safe area as the camera and HUD.");
+                reported = new Rect(0,0,Screen.width,Screen.height);
+                Assert.IsTrue(projector.LayoutUnchanged,"Valid insets replacing equivalent stale insets must not cancel a drag.");
+                reported = new Rect(0,0,Screen.width*.6f,Screen.height);
+                Assert.IsFalse(projector.LayoutUnchanged,"A real safe-area change still cancels the gesture.");
+                projector.Begin(false,Vector2.one,Vector3.zero);
+                Assert.IsFalse(projector.TryProject(aim,true,null,out _),"A valid device cutout must remain excluded.");
+            }
+            finally { Object.DestroyImmediate(go); }
+        }
+
         [TestCase(0,0,.25f,.35f)]
         [TestCase(4,0,1.75f,.30f)]
         [TestCase(0,6,.25f,1.75f)]

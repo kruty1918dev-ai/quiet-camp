@@ -126,6 +126,8 @@ def main():
     source_files += [Path('Assets/QuietCamp/EditorBridge/Editor/MicroVerseRiverTerrainAdapter.cs')]
     source_files += [Path('Assets/QuietCamp')/name for name in ['Scripts/Presentation/World/RiverReflectionView.cs','Scripts/Presentation/QuietCamp.Presentation.asmdef']]
     source_files += [Path('Assets/QuietCamp/Scripts/Presentation/World')/name for name in ['BoardRenderer.cs','CampGroundDetails.cs','MenuSceneHost.cs','MenuDiorama.cs','CampAtmosphere.cs','CampArtEdgeBlur.cs','SeasonVisibilityPass.cs']]
+    source_files += [Path('Assets/QuietCamp')/name for name in ['Scripts/Presentation/World/CampSceneHost.cs','Scripts/Presentation/UI/CampHud.cs','Resources/QuietCamp/Html/CampGame.css.txt']]
+    source_files += [Path('Assets/QuietCamp/Scripts/Presentation/World/PlacementTargetProjector.cs')]
     source = {str(p): sha(QA/p) for p in source_files}
     (STAGE/'before.json').write_text(json.dumps(dict(progress=before, workspace=workspace, captureSources=source), indent=2), encoding='utf-8')
     try:
