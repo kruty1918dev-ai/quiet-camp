@@ -1,8 +1,10 @@
 using System;
+using System.Linq;
 using Newtonsoft.Json;
 using QuietCamp.Infrastructure;
 using QuietCamp.Presentation;
 using QuietCamp.Presentation.World;
+using QuietCamp.Presentation.UI;
 using Kruty1918.UIActions.API;
 using UnityEditor;
 using UnityEngine;
@@ -26,6 +28,26 @@ namespace QuietCamp.Editor.LevelAuthoring
             var host=CampSceneHost.Current;
             if(host?.UiReady!=true)return new{status="opening-game-waiting"};
             var services=QuietCampBootstrap.ServicesRef;var session=host.Session;string id=session.Level.id;
+            if(action=="hud")
+            {
+                var surface=UnityEngine.Object.FindObjectsByType<HtmlSurface>(FindObjectsSortMode.None).SingleOrDefault(s=>s.name=="CampHtml");
+                var nodes=new[]{"camp","header","pause","opening-finding","bottom","tutorial","guide-portrait"}.Select(key=>
+                {
+                    var rect=surface?.Element(key);var corners=new Vector3[4];if(rect!=null)rect.GetWorldCorners(corners);
+                    return new{id=key,exists=rect!=null,active=rect?.gameObject.activeInHierarchy??false,
+                        corners=rect==null?null:corners.Select(p=>new[]{p.x,p.y}).ToArray(),
+                        alpha=rect==null?0:rect.GetComponentsInParent<CanvasGroup>().Aggregate(1f,(value,group)=>value*group.alpha)};
+                }).ToArray();
+                var safe=Screen.safeArea;
+                var parents=surface?.GetComponentsInParent<RectTransform>().Select(rect=>new{name=rect.name,
+                    size=new[]{rect.rect.width,rect.rect.height},anchors=new[]{rect.anchorMin.x,rect.anchorMin.y,rect.anchorMax.x,rect.anchorMax.y},scale=new[]{rect.lossyScale.x,rect.lossyScale.y}}).ToArray();
+                return new{status="opening-game-hud",id,screen=new[]{Screen.width,Screen.height},safeArea=new[]{safe.x,safe.y,safe.width,safe.height},parents,nodes};
+            }
+            if(action=="finding")
+            {
+                var surface=UnityEngine.Object.FindObjectsByType<HtmlSurface>(FindObjectsSortMode.None).Single(s=>s.name=="CampHtml");
+                surface.Callbacks.Click("opening-finding");return new{status="opening-finding-requested",id};
+            }
             if(action=="pro")
             {var result=services.Economy.GrantPro("qa-campaign-memory-only");return new{status="opening-game-pro",pro=services.Economy.IsPro,memoryOnly=services.Save.MemoryOnly,result=result.ToString()};}
             if(action=="frame")
@@ -50,7 +72,8 @@ namespace QuietCamp.Editor.LevelAuthoring
             return new{status="opening-game-ready",id,ready=host.UiReady,memoryOnly=services.Save.MemoryOnly,
                 frozenArtMatches=art!=null&&JsonConvert.SerializeObject(art.Definition)==JsonConvert.SerializeObject(CampArtDefinition.Load(session.Level)),
                 story=OpeningCampaignStory.For(session.Level)?.title,surfaceSteps=host.SurfaceDetails?.Surface?.Steps,
-                particles=art?.SeasonAtmosphere?.LiveParticles,voices=art?.SeasonAtmosphere?.OwnedVoices,wind=art?.SeasonAtmosphere?.WindStrength,
+                particles=art?.SeasonAtmosphere?.LiveParticles,voices=art?.SeasonAtmosphere?.OwnedVoices,
+                playingVoices=art?.SeasonAtmosphere?.PlayingVoices,wind=art?.SeasonAtmosphere?.WindStrength,
                 cameraEuler=Camera.main!=null?new[]{Camera.main.transform.eulerAngles.x,Camera.main.transform.eulerAngles.y,Camera.main.transform.eulerAngles.z}:new float[3],orthographicSize=Camera.main!=null?Camera.main.orthographicSize:0,
                 completed=services.Save.Progress.completedIds,next=services.NextLevel(id)};
         }

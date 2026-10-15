@@ -18,6 +18,7 @@ button:disabled { opacity: 0.42; }
 .hint-control { min-height: 144px; max-width: 65%; padding: 20px 28px; }
 .hint-control text { font-size: 32px; }
 .check-notice { font-size: 28px; color: #344d40; background-color: rgba(246,240,223,.96); padding: 14px 20px; border-radius: 18px; white-space: normal; width: 100%; }
+.check-notice text { font-size: 28px; color: #344d40; white-space: normal; }
 .top { position: absolute; top: 24px; left: 28px; right: 28px; gap: 16px; flex-direction: row; align-items: flex-start; justify-content: flex-end; }
 .top > button { min-width: 96px; }
 .selected { border-color: #b0763a; border-width: 4px; background-color: #f9ecd4; }

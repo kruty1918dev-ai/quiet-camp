@@ -60,20 +60,28 @@ namespace QuietCamp.Tests
                 finally { if (File.Exists(path)) File.Delete(path); }
             }
         }
-        [Test] public void CampaignGalleryOpensAllHundredPublishedPuzzles()
+        [UnityTest] public IEnumerator CampaignGalleryOpensAllHundredPublishedPuzzles()
         {
             Assert.AreEqual(100, LevelAuthoringCampaign.Cards.Length);
+            LevelAuthoringDocument document = null;
             foreach (var card in LevelAuthoringCampaign.Cards)
             {
                 Assert.That(card.width, Is.InRange(4, 8)); Assert.That(card.height, Is.InRange(4, 8));
                 Assert.That(card.guests, Is.InRange(2, 6));
+                document = LevelAuthoringCampaign.Open(card.id);
+                Assert.AreEqual(card.id, document.sourceLevelId);
+                Assert.IsEmpty(document.Validate(true), card.id);
+                Assert.Greater(document.art.instances.Length, 0, card.id);
+                yield return null;
             }
-            var document = LevelAuthoringCampaign.Open(LevelAuthoringCampaign.Cards.Last().id);
             Assert.AreEqual(LevelAuthoringCampaign.Cards.Last().id, document.sourceLevelId);
             Assert.IsEmpty(document.Validate(true));
             Assert.Greater(document.art.instances.Length, 0, "Retain the canonical generator's actual surround.");
             using (var workspace = new LevelAuthoringWorkspace(document))
             {
+                double deadline = EditorApplication.timeSinceStartup + 45;
+                while (workspace.River?.IsUpdating == true && EditorApplication.timeSinceStartup < deadline) yield return null;
+                Assert.IsFalse(workspace.River?.IsUpdating ?? false, "Wait for the actual terrain evaluation before saving the opened level.");
                 var captured = workspace.Capture();
                 Assert.AreEqual(document.art.instances.Length, captured.art.instances.Length);
                 Assert.IsEmpty(captured.Validate(true));

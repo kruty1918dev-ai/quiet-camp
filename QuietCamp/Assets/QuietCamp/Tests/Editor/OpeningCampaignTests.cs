@@ -21,6 +21,14 @@ namespace QuietCamp.Tests
                 Assert.AreEqual(i+1,level.order);
                 Assert.AreEqual(level.environment.seasonId,SeasonAtmosphereCatalog.Get(entries[i].weather).season);
                 Assert.AreEqual(i==99?null:entries[i+1].id,entries[i].nextId);
+                foreach(var text in new[]{entries[i].title,entries[i].arrival,entries[i].finding,entries[i].objective,entries[i].after})
+                {
+                    Assert.IsNotNull(text,entries[i].id);
+                    Assert.Less(text.IndexOf("??",StringComparison.Ordinal),0,entries[i].id+": lossy narrative encoding");
+                    Assert.Less(text.IndexOf('\uFFFD'),0,entries[i].id+": invalid UTF-8 replacement");
+                }
+                foreach(var beat in level.environmentalStory.beats)
+                    Assert.Less(beat.storyBeat.IndexOf("??",StringComparison.Ordinal),0,entries[i].id+": corrupted published story");
             }
         }
         [Test] public void EveryLocationReservesADifferentPrimaryObject()

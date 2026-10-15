@@ -233,11 +233,16 @@ namespace QuietCamp.Presentation.UI
                     + HtmlUi.Text(T(_lastReport?.IsSolved == true ? "rule.ok" : "hud.checkme"), "gc-wish")
                     + "</view><text class=\"gc-count\">" + placed + "/" + total + "</text></view>");
             }
-            if (placed == total) dock.Append(HtmlUi.Text(_services.Economy.IsPro
+            if (placed == total)
+            {
+                var notice = _services.Economy.IsPro
                 ? T("economy.check.notice.pro")
                 : _services.Tutorial.Guiding(_session.Level.id)
                     ? T("guide.check.free")
-                    : string.Format(T("economy.check.notice"), _services.Economy.Lives), "check-notice"));
+                    : string.Format(T("economy.check.notice"), _services.Economy.Lives);
+                if (!string.IsNullOrWhiteSpace(notice))
+                    dock.Append("<view class=\"check-notice\">" + HtmlUi.Text(notice) + "</view>");
+            }
             dock.Append("</view>");
             return dock.ToString();
         }

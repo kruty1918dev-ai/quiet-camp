@@ -1,0 +1,120 @@
+{
+  "status": "opening-game-hud",
+  "id": "QC001",
+  "screen": [
+    1248,
+    934
+  ],
+  "nodes": [
+    {
+      "id": "header",
+      "exists": true,
+      "active": true,
+      "corners": [
+        [
+          32.99352,
+          2431.713
+        ],
+        [
+          32.99352,
+          2539.692
+        ],
+        [
+          926.8187,
+          2539.692
+        ],
+        [
+          926.8187,
+          2431.713
+        ]
+      ],
+      "alpha": 1.0
+    },
+    {
+      "id": "pause",
+      "exists": true,
+      "active": true,
+      "corners": [
+        [
+          818.839844,
+          2431.713
+        ],
+        [
+          818.839844,
+          2539.692
+        ],
+        [
+          926.8187,
+          2539.692
+        ],
+        [
+          926.8187,
+          2431.713
+        ]
+      ],
+      "alpha": 1.0
+    },
+    {
+      "id": "opening-finding",
+      "exists": true,
+      "active": true,
+      "corners": [
+        [
+          172.466263,
+          2461.707
+        ],
+        [
+          172.466263,
+          2539.692
+        ],
+        [
+          320.187378,
+          2539.692
+        ],
+        [
+          320.187378,
+          2461.707
+        ]
+      ],
+      "alpha": 1.0
+    },
+    {
+      "id": "bottom",
+      "exists": true,
+      "active": true,
+      "corners": [
+        [
+          32.99352,
+          26.9333229
+        ],
+        [
+          32.99352,
+          325.374969
+        ],
+        [
+          926.8187,
+          325.374969
+        ],
+        [
+          926.8187,
+          26.9333229
+        ]
+      ],
+      "alpha": 1.0
+    },
+    {
+      "id": "tutorial",
+      "exists": false,
+      "active": false,
+      "corners": null,
+      "alpha": 0.0
+    },
+    {
+      "id": "guide-portrait",
+      "exists": false,
+      "active": false,
+      "corners": null,
+      "alpha": 0.0
+    }
+  ]
+}
