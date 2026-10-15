@@ -62,6 +62,14 @@ namespace QuietCamp.Presentation.World
         readonly List<Material> _weatherMaterials=new List<Material>();
         readonly Dictionary<Material,Material> _weatherCopies=new Dictionary<Material,Material>();
         readonly List<Material> _waterMaterials=new List<Material>();
+        RiverSurfaceField _riverField;
+        RiverEnvironmentProfile _riverProfile;
+        ParticleSystem _riverRipples,_riverLeaves,_riverMist,_riverFish,_riverFoam;
+        float _riverLeafAmount,_riverMistAmount,_riverFishAmount,_riverFoamAmount,_nextWaterImpact;
+        bool _riverPrimed;
+        public int RiverParticles=>(_riverRipples?.particleCount??0)+(_riverLeaves?.particleCount??0)+(_riverMist?.particleCount??0)+(_riverFish?.particleCount??0)+(_riverFoam?.particleCount??0);
+        public int RiverRipples=>_riverRipples?.particleCount??0;
+        public int FloatingLeaves=>_riverLeaves?.particleCount??0;
         public bool OwnsMaterial(Material material)=>_weatherMaterials.Contains(material);
         public void BindRenderer(MeshRenderer renderer)
         {
@@ -117,6 +125,17 @@ namespace QuietCamp.Presentation.World
             _wheelContacts=art.instances.Where(i=>i.motion=="waterwheel"&&i.motionPivot!=null).Select(i=>new Vector3(i.x,i.y,i.z)+Quaternion.Euler(0,i.yaw,0)*Vector3.Scale(CampArtDefinition.Vector(i.motionPivot),i.scaleXYZ==null?Vector3.one*i.scale:CampArtDefinition.Vector(i.scaleXYZ))).ToArray();
             _foam=Pool("Кола біля водяного колеса",new Color(.82f,.87f,.8f,.33f),.6f,1.5f,new Vector3(0,0,-.24f),40);ShapeSplash(_foam);var foamMain=_foam.main;foamMain.startSize=.65f;
             _waterY=art.landscape?.meshes.FirstOrDefault(m=>m.water)?.vertices[1]??-.075f;
+            _riverProfile=RiverEnvironmentProfile.Load();_riverField=new RiverSurfaceField(art.landscape);
+            if(_riverField.reaches.Length>0&&_riverProfile.maxParticles>0)
+            {
+                int budget=_riverProfile.maxParticles,ripples=budget*4/10,leaves=budget*2/10,mist=budget*2/10,fish=budget/20;
+                _riverRipples=Pool("Дощові кола на річці",new Color(.7f,.8f,.76f,.44f),.35f,1.1f,Vector3.zero,ripples);ShapeSplash(_riverRipples);
+                var size=_riverRipples.sizeOverLifetime;size.enabled=true;size.size=new ParticleSystem.MinMaxCurve(1,new AnimationCurve(new Keyframe(0,.35f),new Keyframe(1,2.6f)));
+                _riverLeaves=Pool("Листя за течією",new Color(.48f,.35f,.17f,.85f),.13f,12,Vector3.zero,leaves);ShapeParticle(_riverLeaves,false);
+                _riverMist=Pool("Низький серпанок над водою",new Color(.72f,.79f,.76f,.055f),1.6f,6,new Vector3(0,.012f,0),mist);
+                _riverFish=Pool("Рідкісні силуети риб",new Color(.19f,.27f,.24f,.5f),.2f,7,Vector3.zero,fish);ShapeFish(_riverFish);
+                _riverFoam=Pool("Локальні хвилі біля каміння й човнів",new Color(.76f,.83f,.76f,.24f),.35f,1.2f,Vector3.zero,budget-ripples-leaves-mist-fish);ShapeSplash(_riverFoam);
+            }
             var accents=SeasonSurfaceAccents.Build(art,preset);
             if(accents!=null)
             {
@@ -206,7 +225,8 @@ namespace QuietCamp.Presentation.World
         float Surface(float x,float z)
         {
             float ground=_art.landscape?.SampleHeight(x,z)??_art.GroundHeight(x,z);
-            return _surfaceField?.Height(x,z,Mathf.Max(ground,_waterY))??ground;
+            if(_riverField!=null&&_riverField.TrySample(x,z,out var water)&&water.Wet)ground=Mathf.Max(ground,water.centre.y);
+            return _surfaceField?.Height(x,z,ground)??ground;
         }
         float _waterY=-.075f;
         void Emit(ParticleSystem system,ref float accumulated,float rate,float dt,Func<Vector3> position)
@@ -237,7 +257,9 @@ namespace QuietCamp.Presentation.World
             var noise=_snow.noise;noise.enabled=true;noise.strength=.22f;noise.frequency=.18f;noise.scrollSpeed=.25f;
             foreach(var material in _weatherMaterials){PlantWeatherResponse.Set(material,_clock,reduced?0:w,Mathf.Max(Preset.rain,Preset.wetness));material.SetVector("_QCWind",new Vector4(direction.x,direction.y,0,0));}
             foreach(var material in _waterMaterials)
-            {if(material.HasProperty("_WaveHeight"))material.SetFloat("_WaveHeight",.02f+w*.035f);if(material.HasProperty("_NormalStrength"))material.SetFloat("_NormalStrength",.25f+w*.15f+Preset.rain*.22f);if(material.HasProperty("_IntersectionRippleStrength"))material.SetFloat("_IntersectionRippleStrength",.12f+Preset.rain*.32f);}
+            {if(material.HasProperty("_WaveHeight"))material.SetFloat("_WaveHeight",.012f+w*.02f);if(material.HasProperty("_NormalStrength"))material.SetFloat("_NormalStrength",.25f+w*.15f+Preset.rain*.12f);if(material.HasProperty("_IntersectionRippleStrength"))material.SetFloat("_IntersectionRippleStrength",.08f+Preset.rain*.16f);}
+            foreach(var material in _waterMaterials)
+                if(material.HasProperty("_Speed"))material.SetFloat("_Speed",reduced?0:(_riverProfile?.flowSpeed??.22f)*(Preset.season=="winter"?.12f:1)*(1+Preset.rain*.15f));
             Vector3 Around(float y)=>transform.parent.TransformPoint(new Vector3(Mathf.Lerp(_coverage.xMin,_coverage.xMax,Next()),y,Mathf.Lerp(_coverage.yMin,_coverage.yMax,Next())));
             float area=Mathf.Clamp(_coverage.width*_coverage.height/600,.65f,3);
             Emit(_rain,ref _rainAmount,Preset.rain*440*quality*area,dt,()=>Around(8+Next()*3));
@@ -259,6 +281,7 @@ namespace QuietCamp.Presentation.World
                 _fireLight.intensity=.7f+.13f*Mathf.Sin(_clock*7)+w*.15f;
             }
             foreach(var system in _systems)system.Simulate(dt,false,false,false);
+            AdvanceRiver(dt,quality,reduced);
             ClipToSurfaces(_rain);ClipToSurfaces(_farRain);ClipToSurfaces(_snow);ClipToSurfaces(_farSnow);ClearDriftFromBoard();GroundLeaves();
             if(_audio!=null)AdvanceAudio();
         }
@@ -278,7 +301,16 @@ namespace QuietCamp.Presentation.World
             for(int i=0;i<count;i++)
             {
                 var local=transform.parent.InverseTransformPoint(_contacts[i].position);
-                if(local.y<=Surface(local.x,local.z)+.01f)_contacts[i].remainingLifetime=0;
+                if(local.y<=Surface(local.x,local.z)+.01f)
+                {
+                    if((system==_rain||system==_farRain)&&_riverRipples!=null&&_clock>=_nextWaterImpact
+                        &&_riverField.TrySample(local.x,local.z,out var water)&&water.Wet&&Surface(local.x,local.z)<=water.centre.y+.025f)
+                    {
+                        _riverRipples.Emit(new ParticleSystem.EmitParams{position=transform.parent.TransformPoint(new Vector3(local.x,water.centre.y+.04f,local.z))},1);
+                        _nextWaterImpact=_clock+1/Mathf.Max(1,_riverProfile.rippleRate*Preset.rain);
+                    }
+                    _contacts[i].remainingLifetime=0;
+                }
             }
             system.SetParticles(_contacts,count);
         }
@@ -310,6 +342,82 @@ namespace QuietCamp.Presentation.World
                 if(local.y<ground){local.y=ground;_contacts[i].position=transform.parent.TransformPoint(local);}
             }
             _leaves.SetParticles(_contacts,count);
+        }
+        void AdvanceRiver(float dt,float quality,bool reduced)
+        {
+            if(_riverRipples==null)return;
+            SetFlow(_riverMist,reduced?Vector2.zero:WindDirection*WindStrength*.18f);
+            var rotation=_riverLeaves.rotationOverLifetime;rotation.enabled=!reduced;
+            if(!_riverPrimed&&_clock>.2f&&_coverage.width>0)
+            {
+                _riverPrimed=true;
+                float initial=Preset.season=="winter"?0:1;
+                EmitRiver(_riverLeaves,ref initial,0,0,.025f);
+            }
+            float cold=Preset.season=="winter"?.12f:1;
+            EmitRiver(_riverLeaves,ref _riverLeafAmount,_riverProfile.leafRate*(Preset.leaves+Preset.pollen*.2f+.025f)*quality*cold,dt,.025f);
+            EmitRiver(_riverMist,ref _riverMistAmount,_riverProfile.mistRate*Preset.lowFog*quality,dt,.13f);
+            EmitRiver(_riverFish,ref _riverFishAmount,_riverProfile.fishRate*(Preset.season=="summer"?1:.3f)*quality*cold,dt,-.085f);
+            FlowRiverParticles(_riverLeaves,.025f,reduced?0:_riverProfile.flowSpeed*cold);
+            FlowRiverParticles(_riverFish,-.085f,reduced?0:_riverProfile.flowSpeed*.65f*cold);
+            _riverFoamAmount+=dt*quality*cold*1.5f;
+            if(_riverFoamAmount>=1)
+            {
+                _riverFoamAmount-=1;
+                if(_riverField.contacts.Length>0)
+                {
+                    var p=_riverField.contacts[_random.Next(_riverField.contacts.Length)];
+                    if(_coverage.Contains(new Vector2(p.x,p.z))&&_riverField.TrySample(p.x,p.z,out var sample))
+                        _riverFoam.Emit(new ParticleSystem.EmitParams{position=transform.parent.TransformPoint(p+new Vector3(sample.direction.x*.16f,.025f,sample.direction.y*.16f)),velocity=transform.parent.TransformVector(new Vector3(sample.direction.x,0,sample.direction.y)*.08f)},1);
+                }
+                foreach(var boat in _moving)
+                {
+                    if(boat==null||boat.kind!="boat")continue;
+                    var p=transform.parent.InverseTransformPoint(boat.transform.position);
+                    if(_coverage.Contains(new Vector2(p.x,p.z))&&_riverField.TrySample(p.x,p.z,out var sample)&&sample.Wet)
+                        _riverFoam.Emit(new ParticleSystem.EmitParams{position=transform.parent.TransformPoint(new Vector3(p.x,sample.centre.y+.025f,p.z))},1);
+                }
+            }
+        }
+        void EmitRiver(ParticleSystem system,ref float accumulator,float rate,float dt,float height)
+        {
+            accumulator+=rate*dt;
+            while(accumulator>=1)
+            {
+                accumulator-=1;
+                if(system.particleCount>=system.main.maxParticles)continue;
+                for(int attempt=0;attempt<12;attempt++)
+                {
+                    var reach=_riverField.reaches[_random.Next(_riverField.reaches.Length)];var station=reach[_random.Next(reach.Length)];
+                    float across=(Next()-.5f)*station.halfWidth*1.3f;
+                    var point=station.centre+new Vector3(station.side.x,0,station.side.y)*across;
+                    if(!_coverage.Contains(new Vector2(point.x,point.z))||Surface(point.x,point.z)>station.centre.y+.035f)continue;
+                    point.y+=height;system.Emit(new ParticleSystem.EmitParams{position=transform.parent.TransformPoint(point)},1);break;
+                }
+            }
+        }
+        void FlowRiverParticles(ParticleSystem system,float height,float speed)
+        {
+            int count=system.GetParticles(_contacts);
+            for(int i=0;i<count;i++)
+            {
+                var local=transform.parent.InverseTransformPoint(_contacts[i].position);
+                if(!_riverField.TrySample(local.x,local.z,out var water)||!water.Wet){_contacts[i].remainingLifetime=0;continue;}
+                // Slow edges hold leaves in sheltered bays; the centre follows the curved channel.
+                var flow=_riverField.Velocity(local.x,local.z,speed);
+                var velocity=new Vector3(flow.x,0,flow.y);
+                local.y=water.centre.y+height;_contacts[i].position=transform.parent.TransformPoint(local);
+                _contacts[i].velocity=transform.parent.TransformVector(velocity);
+                _contacts[i].rotation3D=new Vector3(system==_riverFish?0:90,Mathf.Atan2(water.direction.x,water.direction.y)*Mathf.Rad2Deg,0);
+            }
+            system.SetParticles(_contacts,count);
+        }
+        void ShapeFish(ParticleSystem system)
+        {
+            var mesh=new Mesh{name="Low-poly river fish silhouette"};
+            mesh.vertices=new[]{new Vector3(0,0,.6f),new Vector3(-.15f,0,0),new Vector3(0,0,-.35f),new Vector3(0,0,.6f),new Vector3(0,0,-.35f),new Vector3(.15f,0,0),new Vector3(0,0,-.25f),new Vector3(-.22f,0,-.6f),new Vector3(.22f,0,-.6f)};
+            mesh.triangles=Enumerable.Range(0,9).ToArray();mesh.uv=Enumerable.Repeat(new Vector2(.5f,.5f),9).ToArray();mesh.RecalculateNormals();mesh.RecalculateBounds();_meshes.Add(mesh);
+            var renderer=system.GetComponent<ParticleSystemRenderer>();renderer.renderMode=ParticleSystemRenderMode.Mesh;renderer.mesh=mesh;
         }
         void ShapeSplash(ParticleSystem system)
         {

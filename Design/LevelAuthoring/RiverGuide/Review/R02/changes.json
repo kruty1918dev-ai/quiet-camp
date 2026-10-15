@@ -1,0 +1,29 @@
+{
+  "baseline": "R01",
+  "scope": "Shared river presentation, not per-level hardcoded transforms",
+  "observed": {
+    "3": "Broad pointed grass hides shallow water edges",
+    "36": "Oversized bank plants and overly broad beige bank",
+    "53": "Wet soil band lacks a tight transition to vegetation",
+    "88": "Wet bank is too broad under winter haze"
+  },
+  "changes": {
+    "owner": [
+      "RiverBankEcology",
+      "CampArtView",
+      "river_environment.json"
+    ],
+    "bankWidth": [
+      1.15,
+      0.85
+    ],
+    "bankPlantHeightMetres": 0.42,
+    "plantBudget": [
+      110,
+      90
+    ],
+    "existingPlants": "Reduce tall groundcover only within 1.1 metres of the actual bank; suppress newly submerged grass."
+  },
+  "acceptance": "Native captures and inspection pending",
+  "status": "native-inspected; superseded by R10"
+}

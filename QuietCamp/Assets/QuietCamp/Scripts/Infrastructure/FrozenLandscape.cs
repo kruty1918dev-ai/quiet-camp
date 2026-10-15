@@ -9,6 +9,8 @@ namespace QuietCamp.Infrastructure
     [Serializable] public sealed class FrozenLandscape
     {
         public int resolution;
+        public int riverEnvironmentVersion;
+        public float[] riverContacts;
         public float originX, originZ, size;
         public float[] heights;
         public LandscapeMesh[] meshes;
@@ -24,7 +26,8 @@ namespace QuietCamp.Infrastructure
         {
             if (resolution < 2 || resolution > 1025 || !Finite(size) || size <= 0 || !Finite(originX) || !Finite(originZ)
                 || heights == null || heights.Length != resolution * resolution || heights.Any(v => !Finite(v))
-                || meshes == null || meshes.Length == 0 || meshes.Length > 128) throw new InvalidDataException("Некоректний запечений ландшафт.");
+                || meshes == null || meshes.Length == 0 || meshes.Length > 128 || riverEnvironmentVersion<0
+                || riverContacts!=null&&(riverContacts.Length%3!=0||riverContacts.Length>4096||riverContacts.Any(v=>!Finite(v)))) throw new InvalidDataException("Некоректний запечений ландшафт.");
             foreach (var mesh in meshes) mesh.Validate();
         }
         internal static bool Finite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
@@ -33,6 +36,7 @@ namespace QuietCamp.Infrastructure
     {
         public string name;
         public bool water;
+        public bool decoration;
         public float[] vertices, normals, uv, colors;
         public float[] lightmapUv, flow, tangents;
         public int[] triangles;

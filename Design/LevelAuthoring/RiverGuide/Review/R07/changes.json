@@ -1,0 +1,6 @@
+{
+  "baseline": "R06",
+  "observed": "Bank details remain equally dry across rain and snow. Driftwood triangle winding is inward on inspection, and the editor preview paints these decorations as terrain. River mist has an unrelated fixed drift.",
+  "change": "Correct driftwood winding; give the existing shared art shader a river-detail branch for waterline wetting and upward seasonal snow; use it in both runtime and terrain preview. Keep detail meshes out of the paintable terrain collider. Drive mist and water speed from the shared weather wind, season and reduced-motion state.",
+  "status": "native-review-pending"
+}

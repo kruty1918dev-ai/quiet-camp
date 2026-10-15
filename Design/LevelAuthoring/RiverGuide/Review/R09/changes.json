@@ -1,0 +1,6 @@
+{
+  "baseline": "R08",
+  "observed": "Native reflection target inspected: geometry is captured, but open river pixels have no reflected environment; blending is too weak and sun glints are too small. Seasonal update also overrides the configured normal strength.",
+  "change": "Add a single time-sliced environment reflection capture after the complete level exists; planar geometry remains primary. Increase nadir reflection readability and body opacity, use broader sun highlights, and strengthen weather-driven normals and coherent UV current. The cubemap is captured once per level, not every frame.",
+  "status": "native-inspected; superseded by R10"
+}

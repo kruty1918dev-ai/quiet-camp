@@ -30,6 +30,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             if(host?.UiReady!=true)return new{status="opening-game-waiting"};
             var services=QuietCampBootstrap.ServicesRef;var session=host.Session;string id=session.Level.id;
             if(action=="promo") return CampaignPromoRecorder.Begin(output);
+            if(action=="composition-stills") return CampaignPromoRecorder.Begin(output, true);
             if(action=="hud")
             {
                 var surface=UnityEngine.Object.FindObjectsByType<HtmlSurface>(FindObjectsSortMode.None).SingleOrDefault(s=>s.name=="CampHtml");
@@ -71,6 +72,31 @@ namespace QuietCamp.Editor.LevelAuthoring
                 return new{status="opening-game-next",from=id,to=next};
             }
             var art=UnityEngine.Object.FindAnyObjectByType<CampArtView>();
+            if(action=="river-focus")
+            {
+                var field=new RiverSurfaceField(art.PresentedLandscape);
+                var point=field.reaches.SelectMany(r=>r).OrderBy(s=>Mathf.Abs(s.centre.x-8)+Mathf.Abs(s.centre.z)).First().centre;
+                var surface=UnityEngine.Object.FindObjectsByType<MeshRenderer>(FindObjectsSortMode.None).First(r=>r.sharedMaterial!=null&&r.sharedMaterial.shader.name=="Stylized Water 3/Standard");
+                var camera=Camera.main;camera.orthographicSize=3.4f;
+                camera.transform.position=surface.transform.TransformPoint(point)-camera.transform.forward*20+camera.transform.right*1.5f;
+                return new{status="river-focus",id,point=new[]{point.x,point.y,point.z}};
+            }
+            if(action=="river-debug")
+            {
+                var target=art?.RiverReflections?.ReflectionTexture;
+                if(target==null)throw new InvalidOperationException("No rendered river reflection texture.");
+                if(string.IsNullOrEmpty(output)||!System.IO.Path.IsPathRooted(output))throw new ArgumentException("Expected an absolute diagnostics directory.");
+                System.IO.Directory.CreateDirectory(output);var previous=RenderTexture.active;
+                var image=new Texture2D(target.width,target.height,TextureFormat.RGBA32,false);
+                try{RenderTexture.active=target;image.ReadPixels(new Rect(0,0,target.width,target.height),0,0);image.Apply();System.IO.File.WriteAllBytes(System.IO.Path.Combine(output,"reflection.png"),image.EncodeToPNG());}
+                finally{RenderTexture.active=previous;UnityEngine.Object.DestroyImmediate(image);}
+                var surfaces=UnityEngine.Object.FindObjectsByType<MeshRenderer>(FindObjectsSortMode.None)
+                    .Where(r=>r.sharedMaterial!=null&&r.sharedMaterial.shader.name=="Stylized Water 3/Standard")
+                    .Select(r=>{var m=r.sharedMaterial;var block=new MaterialPropertyBlock();r.GetPropertyBlock(block);return new{name=r.name,
+                        river=m.IsKeywordEnabled("_RIVER"),worldUV=m.GetFloat("_WorldSpaceUV"),strength=m.GetFloat("_ReflectionStrength"),fresnel=m.GetFloat("_ReflectionFresnel"),normal=m.GetFloat("_NormalStrength"),speed=m.GetFloat("_Speed"),
+                        normalTexture=m.GetTexture("_BumpMap")?.name,planar=block.GetFloat("_PlanarReflectionsEnabled"),reflectionTexture=block.GetTexture("_PlanarReflection")?.name};}).ToArray();
+                return new{status="river-debug",id,width=target.width,height=target.height,surfaces};
+            }
             var transition=UnityEngine.Object.FindAnyObjectByType<FoliageDiveTransition>();
             return new{status="opening-game-ready",id,ready=host.UiReady,memoryOnly=services.Save.MemoryOnly,
                 transitionIdle=transition==null||transition.Current==FoliageDiveTransition.State.Idle,
@@ -78,12 +104,13 @@ namespace QuietCamp.Editor.LevelAuthoring
                 frozenArtMatches=art!=null&&JsonConvert.SerializeObject(art.Definition)==JsonConvert.SerializeObject(CampArtDefinition.Load(session.Level)),
                 story=OpeningCampaignStory.For(session.Level)?.title,surfaceSteps=host.SurfaceDetails?.Surface?.Steps,
                 particles=art?.SeasonAtmosphere?.LiveParticles,voices=art?.SeasonAtmosphere?.OwnedVoices,
+                riverReflectionRendered=art?.RiverReflections?.HasRenderedReflection,
                 playingVoices=art?.SeasonAtmosphere?.PlayingVoices,wind=art?.SeasonAtmosphere?.WindStrength,
                 cameraEuler=Camera.main!=null?new[]{Camera.main.transform.eulerAngles.x,Camera.main.transform.eulerAngles.y,Camera.main.transform.eulerAngles.z}:new float[3],orthographicSize=Camera.main!=null?Camera.main.orthographicSize:0,
                 completed=services.Save.Progress.completedIds,next=services.NextLevel(id)};
         }
 
-        static object CameraProof(LevelData level,CampArtDefinition art)
+        internal static object CameraProof(LevelData level,CampArtDefinition art)
         {
             var camera=Camera.main;
             if(camera==null||art==null)return null;

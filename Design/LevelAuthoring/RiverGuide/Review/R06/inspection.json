@@ -1,0 +1,133 @@
+{
+  "round": "R06",
+  "levels": [
+    {
+      "order": 3,
+      "id": "QC003",
+      "inspected": true,
+      "imageSha256": "2653451fd3b19f6f27aaf9dc7362036c8f24f80269ba29355508b49e3d8c84a5",
+      "completeSha256": "f5df84f440f48541b3ff0e2b0c51f547d83da0628508c9b27860db7e1f32bafe",
+      "inputs": {
+        "levelSha256": "aaa61f9169a3a5b580eeae0fd3b82cccfc35fd0589a4e1302cd808520bda1bfa",
+        "artSha256": "c175021a6b273d25fdbf9e312bb74f935f8f416daabee960859162d4e8c46750",
+        "sources": {
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "51d8d541d1f837758cc78a6d2f36c6dd460337c071a144533a3c1a1508ff6771",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "cdc1b39a25734d7879a36a58ae2330fc4c1a3c92b5d3b444d8a03ffcf7588848",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\CampArtDefinition.cs": "f1d9295478f90b0ac9094b5a0c538d1cd4f37d9f19e4e6e695657c818f8e21a4",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\EditorAuthoringPreview.cs": "18ff904dc60beebf7ddd3a5757c734314c6a83812d30d77ecd8f8a9fec58b471",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CameraFitter.cs": "ae89bebd82ecdd35430ae3d3eba8e31629f4387c1572afa8d0947abe9b39b872",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampArtView.cs": "d234ec2198a4af51b0c979a2daa91f6167afbd3de29eec5d1deb8bfd0dd44317",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\LevelAuthoringPlayDriver.cs": "49d3d2d1d8471a4949bfa64c02b0b9d56ea6956ddbf8a258927e5d4409d7350b",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\FrozenLandscape.cs": "fdde55ef3c9b4f0a8438c7565be811fb02d0467c6bd4da9bd9455d190424ed79",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverEnvironmentProfile.cs": "e5d3a11c9e85187317539d7a4b879713e9e7666d7dd2a93ed5bbe4c0c729cf0a",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverSurfaceField.cs": "20f61071f5e5dbbe3b270bb563f84460afc66b35359c48f8edcea26c1d2e7bc7",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverLandscapeGeometry.cs": "530519d51504818cecea7c191f92fbdbd35a536c0c81a49695d47862897eaa40",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverBankEcology.cs": "793f6895115d57207831e802012eac41dda3c09fbcf2baf5c0054d9f8ffdf291",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RiverWeatherMaterial.cs": "a0eb1e3055930affa57a9116c3eeedea2c49f6b92adb9a5c4719eaeb4db5b1ff",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\SeasonAtmosphereView.cs": "bff2e81cb346f822352c4d67358a3df6fb5c48817c5112141c28671c04fa2b9a",
+          "Assets\\QuietCamp\\Resources\\QuietCamp\\river_environment.json": "b95ffa2beb5a776613ee7b33827d7b83b44780ec87ef66d6cf03430b4e1b045f"
+        },
+        "publishedArtSha256": "2e8e0af6f1890edfbde6721ce28e350c5748a770764ee2b15cd9782e3938da61"
+      },
+      "observations": "Viewed placement and completion. Compact plants now occupy the visible near bank without closing the channel; there is no continuous white foam edge. Water remains too peripheral to assess tiny debris here; use the bridge and rainy references for those. River detail still lacks seasonal wetting.",
+      "status": "inspected-not-final",
+      "nativeReceiptSha256": "93b527486f7e97ef19766757d26ce5c1232601227debf6bd86108e198619cc5b"
+    },
+    {
+      "order": 36,
+      "id": "gen:qc_camp:29",
+      "inspected": true,
+      "imageSha256": "6cfef28b9cba54607dcbb9eed078cb8816aeb11a75861b767368888afa789f0d",
+      "completeSha256": "f5f1ef5dd6be9f976a5d3f9306914441a977089244b1f7b65c490b7bab7d2c27",
+      "inputs": {
+        "levelSha256": "a3362c6fcc156b91bf471a975a0c582c190285ed242b2dce212bab0fabbddd84",
+        "artSha256": "54b94a8a647847c5f2fe6906dd287be0b7e7f3ede355be47bc5a568116e2479e",
+        "sources": {
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "51d8d541d1f837758cc78a6d2f36c6dd460337c071a144533a3c1a1508ff6771",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "cdc1b39a25734d7879a36a58ae2330fc4c1a3c92b5d3b444d8a03ffcf7588848",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\CampArtDefinition.cs": "f1d9295478f90b0ac9094b5a0c538d1cd4f37d9f19e4e6e695657c818f8e21a4",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\EditorAuthoringPreview.cs": "18ff904dc60beebf7ddd3a5757c734314c6a83812d30d77ecd8f8a9fec58b471",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CameraFitter.cs": "ae89bebd82ecdd35430ae3d3eba8e31629f4387c1572afa8d0947abe9b39b872",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampArtView.cs": "d234ec2198a4af51b0c979a2daa91f6167afbd3de29eec5d1deb8bfd0dd44317",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\LevelAuthoringPlayDriver.cs": "49d3d2d1d8471a4949bfa64c02b0b9d56ea6956ddbf8a258927e5d4409d7350b",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\FrozenLandscape.cs": "fdde55ef3c9b4f0a8438c7565be811fb02d0467c6bd4da9bd9455d190424ed79",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverEnvironmentProfile.cs": "e5d3a11c9e85187317539d7a4b879713e9e7666d7dd2a93ed5bbe4c0c729cf0a",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverSurfaceField.cs": "20f61071f5e5dbbe3b270bb563f84460afc66b35359c48f8edcea26c1d2e7bc7",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverLandscapeGeometry.cs": "530519d51504818cecea7c191f92fbdbd35a536c0c81a49695d47862897eaa40",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverBankEcology.cs": "793f6895115d57207831e802012eac41dda3c09fbcf2baf5c0054d9f8ffdf291",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RiverWeatherMaterial.cs": "a0eb1e3055930affa57a9116c3eeedea2c49f6b92adb9a5c4719eaeb4db5b1ff",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\SeasonAtmosphereView.cs": "bff2e81cb346f822352c4d67358a3df6fb5c48817c5112141c28671c04fa2b9a",
+          "Assets\\QuietCamp\\Resources\\QuietCamp\\river_environment.json": "b95ffa2beb5a776613ee7b33827d7b83b44780ec87ef66d6cf03430b4e1b045f"
+        },
+        "publishedArtSha256": "ca3561caa3a4a414b2d601406b418753e2bbbf30ce2a76779683b9594b8c7f32"
+      },
+      "observations": "Viewed placement and completion. The bridge sockets stay aligned and the banks are irregular rather than parallel strips. Grass reaches the water without oversized new plants. Driftwood shading requires an outward-normal check; it should not receive the ground recolouring used by the editor preview.",
+      "status": "inspected-not-final",
+      "nativeReceiptSha256": "afe187e9d30b07ce6bcb029e27f58d8fabfbb21ffe65f620d0bde0baee7f0911"
+    },
+    {
+      "order": 53,
+      "id": "gen:qc_camp:70",
+      "inspected": true,
+      "imageSha256": "4339be6cd422601ab041e3a440e05c7b29f77f336b37a1ffac3d93559171d8d0",
+      "completeSha256": "e9081de27166f2358a3adbaf7599978c018dc95a092654fae83b5d755e9e9b3e",
+      "inputs": {
+        "levelSha256": "eb5873a6c1066e1a2ee6e666494f3577ba8e1837d4ba7c4829f5142320f2c9f5",
+        "artSha256": "6bd2ee031fc140538604f9367b86de30408cb4f7f0754d26c726e3d6017e0623",
+        "sources": {
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "51d8d541d1f837758cc78a6d2f36c6dd460337c071a144533a3c1a1508ff6771",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "cdc1b39a25734d7879a36a58ae2330fc4c1a3c92b5d3b444d8a03ffcf7588848",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\CampArtDefinition.cs": "f1d9295478f90b0ac9094b5a0c538d1cd4f37d9f19e4e6e695657c818f8e21a4",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\EditorAuthoringPreview.cs": "18ff904dc60beebf7ddd3a5757c734314c6a83812d30d77ecd8f8a9fec58b471",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CameraFitter.cs": "ae89bebd82ecdd35430ae3d3eba8e31629f4387c1572afa8d0947abe9b39b872",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampArtView.cs": "d234ec2198a4af51b0c979a2daa91f6167afbd3de29eec5d1deb8bfd0dd44317",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\LevelAuthoringPlayDriver.cs": "49d3d2d1d8471a4949bfa64c02b0b9d56ea6956ddbf8a258927e5d4409d7350b",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\FrozenLandscape.cs": "fdde55ef3c9b4f0a8438c7565be811fb02d0467c6bd4da9bd9455d190424ed79",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverEnvironmentProfile.cs": "e5d3a11c9e85187317539d7a4b879713e9e7666d7dd2a93ed5bbe4c0c729cf0a",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverSurfaceField.cs": "20f61071f5e5dbbe3b270bb563f84460afc66b35359c48f8edcea26c1d2e7bc7",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverLandscapeGeometry.cs": "530519d51504818cecea7c191f92fbdbd35a536c0c81a49695d47862897eaa40",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverBankEcology.cs": "793f6895115d57207831e802012eac41dda3c09fbcf2baf5c0054d9f8ffdf291",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RiverWeatherMaterial.cs": "a0eb1e3055930affa57a9116c3eeedea2c49f6b92adb9a5c4719eaeb4db5b1ff",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\SeasonAtmosphereView.cs": "bff2e81cb346f822352c4d67358a3df6fb5c48817c5112141c28671c04fa2b9a",
+          "Assets\\QuietCamp\\Resources\\QuietCamp\\river_environment.json": "b95ffa2beb5a776613ee7b33827d7b83b44780ec87ef66d6cf03430b4e1b045f"
+        },
+        "publishedArtSha256": "d2594e090734c5be50206acef19d9ed32cb63dd3464343a4984c6f0fd38270b7"
+      },
+      "observations": "Viewed placement and completion. Rain, blue-green channel and sparse autumn banks remain readable. Local bank plants add variation without summer density. Rainy stones and wood still look dry; add restrained wetting below the waterline and on rain-exposed surfaces.",
+      "status": "inspected-not-final",
+      "nativeReceiptSha256": "72e7421882e6c043a85182bd8d18fb956fa6914dcee9f999dff2044f16762133"
+    },
+    {
+      "order": 88,
+      "id": "gen:qc_camp:110",
+      "inspected": true,
+      "imageSha256": "3b45c76ddc1dbfaeedccee545e8f6f87c4fa40feb604cee521850be0a57a9409",
+      "completeSha256": "f3313973f57c3d9fc4ecccea4ad42130af51bec1bf5fcc82e7f769d68f7e63ea",
+      "inputs": {
+        "levelSha256": "086d1544cf441c860bf25b55dfab7d85cb275163fa3bb804bff332d041eec423",
+        "artSha256": "3b1f1f39a19d1f4f66b5e68717a58b62957530b975f6383552cf3da8ae4afc1a",
+        "sources": {
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "51d8d541d1f837758cc78a6d2f36c6dd460337c071a144533a3c1a1508ff6771",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "cdc1b39a25734d7879a36a58ae2330fc4c1a3c92b5d3b444d8a03ffcf7588848",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\CampArtDefinition.cs": "f1d9295478f90b0ac9094b5a0c538d1cd4f37d9f19e4e6e695657c818f8e21a4",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\EditorAuthoringPreview.cs": "18ff904dc60beebf7ddd3a5757c734314c6a83812d30d77ecd8f8a9fec58b471",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CameraFitter.cs": "ae89bebd82ecdd35430ae3d3eba8e31629f4387c1572afa8d0947abe9b39b872",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampArtView.cs": "d234ec2198a4af51b0c979a2daa91f6167afbd3de29eec5d1deb8bfd0dd44317",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\LevelAuthoringPlayDriver.cs": "49d3d2d1d8471a4949bfa64c02b0b9d56ea6956ddbf8a258927e5d4409d7350b",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\FrozenLandscape.cs": "fdde55ef3c9b4f0a8438c7565be811fb02d0467c6bd4da9bd9455d190424ed79",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverEnvironmentProfile.cs": "e5d3a11c9e85187317539d7a4b879713e9e7666d7dd2a93ed5bbe4c0c729cf0a",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverSurfaceField.cs": "20f61071f5e5dbbe3b270bb563f84460afc66b35359c48f8edcea26c1d2e7bc7",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverLandscapeGeometry.cs": "530519d51504818cecea7c191f92fbdbd35a536c0c81a49695d47862897eaa40",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverBankEcology.cs": "793f6895115d57207831e802012eac41dda3c09fbcf2baf5c0054d9f8ffdf291",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RiverWeatherMaterial.cs": "a0eb1e3055930affa57a9116c3eeedea2c49f6b92adb9a5c4719eaeb4db5b1ff",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\SeasonAtmosphereView.cs": "bff2e81cb346f822352c4d67358a3df6fb5c48817c5112141c28671c04fa2b9a",
+          "Assets\\QuietCamp\\Resources\\QuietCamp\\river_environment.json": "b95ffa2beb5a776613ee7b33827d7b83b44780ec87ef66d6cf03430b4e1b045f"
+        },
+        "publishedArtSha256": "88ecc94156689568de86141ec93f3d8348bbd8aa81188f07e8916f64cfd861e0"
+      },
+      "observations": "Viewed placement and completion. Cold mist and snow preserve a different mood. The new dark exposed bank stones have no upward snow/frost, unlike surrounding objects. Correct their seasonal response and make mist use the same wind as the snowfall. Bridge silhouette/composition remains a separate unfinished campaign review item.",
+      "status": "inspected-not-final",
+      "nativeReceiptSha256": "0ee0750823bdde14946783b87771360707d6faebbe927bacb1cdeed96a358d6a"
+    }
+  ]
+}

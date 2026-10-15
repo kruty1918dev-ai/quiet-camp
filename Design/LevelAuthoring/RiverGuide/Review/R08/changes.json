@@ -1,0 +1,8 @@
+{
+  "baseline": "R06; R07 capture did not complete and does not count as a visual cycle",
+  "userCorrection": "Water reads as a foggy ditch. It must visibly reflect the surroundings and carry a readable current where appropriate.",
+  "observed": "The old material attenuated reflection by strength 0.08 and Fresnel exponent 8, with no reflection capture. Native river mode also suppresses planar reflection sampling.",
+  "change": "Use the installed SW3 planar renderer for flat water; preserve curved mesh UVs and UV-space directional animation outside native River mode. Capture actual scene geometry, exclude water and UI, scale reflection resolution by quality. Increase readable reflections, retain transparent shallows and reduce river-only mist eightfold. Keep R07 contact, normal and seasonal fixes.",
+  "status": "native-inspected; superseded by R10",
+  "reference": "https://staggart.xyz/unity/stylized-water-3/sw3-docs/?section=reflection-rendering"
+}

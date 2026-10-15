@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="uk"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QuietCamp — спільна система річок</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#16251f;color:#e9e8d9}body{max-width:1300px;margin:auto;padding:30px}h1{font-size:clamp(25px,4vw,42px)}p{max-width:85ch;line-height:1.6;color:#c4d2c5}a{color:#c7dca3}section{margin:35px 0;border-top:1px solid #526454;padding-top:20px}figure{margin:0}img{width:100%;display:block;border-radius:10px;cursor:zoom-in}figcaption{padding:10px 0;color:#ced6c5}.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}button{border:1px solid #728065;background:#344b3e;color:inherit;padding:10px 17px;border-radius:7px;cursor:pointer}.active{background:#566e45}.note{background:#283c30;padding:15px;border-radius:10px}dialog{width:94vw;max-width:1600px;border:0;background:#14231c;color:inherit}dialog::backdrop{background:#000d}dialog img{cursor:zoom-out}nav{display:flex;gap:10px;flex-wrap:wrap;position:sticky;top:0;padding:12px 0;background:#16251ff2;z-index:1}@media(max-width:750px){.pair{grid-template-columns:1fr}body{padding:16px}}
+</style>
+<h1>Річка як частина живого світу</h1>
+<p>Спільні правила русла, мілководдя, берега й погоди працюють у звичайному відображенні кампанії та під час запікання нового Terrain. Крива та місця мостів беруться з конкретного рівня. Сухі лісові локації залишаються сухими.</p>
+<p><a href="river_guide.pdf">Оригінальний гайд із наданого архіву</a> · <a href="README-UA.md">Реалізація, перевірки та межі</a></p>
+<div class="note" id="status">Реальні ігрові кадри після виправлення прозорості — R10. Переглянуто розміщення й завершення на чотирьох локаціях. Повна перевірка тестів ще триває.</div>
+<nav aria-label="Стан гри"><button class="active" data-state="gameplay">Розміщення, сітка й інтерфейс</button><button data-state="complete">Усі намети встановлено</button></nav>
+<main id="levels"></main>
+<p>Зображення — реальний Unity Game View, 1440×1080. Для зручності сторінки використовуються JPEG-копії; вихідні PNG та нативні квитанції залишаються в QA. Збільшення: натисніть зображення. Це порівняння спільної річкової системи, а не приймання всієї постановки 100 сцен.</p>
+<dialog id="zoom"><button autofocus>Закрити</button><img alt="Збільшений ігровий кадр"></dialog>
+<script>
+const levels=[['003','Весняна локація','Нерівномірний зарослий берег і відкрите русло.'],['036','Літня переправа','Контакт берегів із мостом, мілководдя й стримані відблиски.'],['053','Осінній дощ','Кола від опадів на воді, мокрі деталі та рідша сезонна рослинність.'],['088','Зимова переправа','Холодний серпанок, сніг на відкритих верхніх поверхнях і повільніша течія.']];
+let state='gameplay';
+function render(){document.querySelector('#levels').innerHTML=levels.map(([n,title,note])=>`<section><h2>${n} · ${title}</h2><p>${note}</p><div class="pair">${['before','after'].map(phase=>`<figure><img loading="lazy" src="Images/${n}-${phase}-${state}.jpg" alt="Рівень ${n}, ${phase==='before'?'до змін':'спільна система річки'}, ${state==='gameplay'?'розміщення':'завершення'}"><figcaption>${phase==='before'?'До змін річки — C01':'Після змін річки — R10'}</figcaption></figure>`).join('')}</div></section>`).join('');}
+document.querySelectorAll('[data-state]').forEach(b=>b.onclick=()=>{state=b.dataset.state;document.querySelectorAll('[data-state]').forEach(x=>x.classList.toggle('active',x===b));render();});
+document.querySelector('main').onclick=e=>{if(e.target.tagName!=='IMG')return;const d=document.querySelector('dialog');d.querySelector('img').src=e.target.src;d.querySelector('img').alt=e.target.alt;d.showModal();};
+document.querySelector('dialog').onclick=()=>document.querySelector('dialog').close();render();
+</script></html>

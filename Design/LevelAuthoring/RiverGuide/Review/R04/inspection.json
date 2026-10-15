@@ -1,0 +1,133 @@
+{
+  "round": "R04",
+  "levels": [
+    {
+      "order": 3,
+      "id": "QC003",
+      "inspected": true,
+      "imageSha256": "c10ee93f81be7f85e01bc960e2ed70237e4cb2ecb61d4d5c4fe2c8d2a14ab354",
+      "completeSha256": "4898cf50e299579eeb1d98f37eb4a82cb931dca3670d63cbe95a3578a337db22",
+      "inputs": {
+        "levelSha256": "aaa61f9169a3a5b580eeae0fd3b82cccfc35fd0589a4e1302cd808520bda1bfa",
+        "artSha256": "c175021a6b273d25fdbf9e312bb74f935f8f416daabee960859162d4e8c46750",
+        "sources": {
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "4e96a3bdabacb83dd8e8877ec105d3712068f2084efc9b47aa62881cea165d01",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "cdc1b39a25734d7879a36a58ae2330fc4c1a3c92b5d3b444d8a03ffcf7588848",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\CampArtDefinition.cs": "f1d9295478f90b0ac9094b5a0c538d1cd4f37d9f19e4e6e695657c818f8e21a4",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\EditorAuthoringPreview.cs": "18ff904dc60beebf7ddd3a5757c734314c6a83812d30d77ecd8f8a9fec58b471",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CameraFitter.cs": "ae89bebd82ecdd35430ae3d3eba8e31629f4387c1572afa8d0947abe9b39b872",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampArtView.cs": "d234ec2198a4af51b0c979a2daa91f6167afbd3de29eec5d1deb8bfd0dd44317",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\LevelAuthoringPlayDriver.cs": "49d3d2d1d8471a4949bfa64c02b0b9d56ea6956ddbf8a258927e5d4409d7350b",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\FrozenLandscape.cs": "fdde55ef3c9b4f0a8438c7565be811fb02d0467c6bd4da9bd9455d190424ed79",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverEnvironmentProfile.cs": "b164b82af177d08e0deaf68ce9c833ca05154a5639c2d8b54160e1f18b49d9d6",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverSurfaceField.cs": "20f61071f5e5dbbe3b270bb563f84460afc66b35359c48f8edcea26c1d2e7bc7",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverLandscapeGeometry.cs": "2540999794ea510191778612f2a934e03c352f51f08c3bcd63b14096e7e1a3e4",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverBankEcology.cs": "517d75485744e1917940213906026b1ec9bb14c9e73a2561cc8f22d31bd024af",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RiverWeatherMaterial.cs": "a0eb1e3055930affa57a9116c3eeedea2c49f6b92adb9a5c4719eaeb4db5b1ff",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\SeasonAtmosphereView.cs": "ea441c7f89a528b4438cd398849683529da2fd6fb9e6597274d4a1c2123e04ac",
+          "Assets\\QuietCamp\\Resources\\QuietCamp\\river_environment.json": "b95ffa2beb5a776613ee7b33827d7b83b44780ec87ef66d6cf03430b4e1b045f"
+        },
+        "publishedArtSha256": "2e8e0af6f1890edfbde6721ce28e350c5748a770764ee2b15cd9782e3938da61"
+      },
+      "observations": "Bank stones now sit in the evaluated bed; shaded shallow water reads calmly. Floating debris is absent at ordinary gameplay times.",
+      "status": "inspected-not-final",
+      "nativeReceiptSha256": "8d092f5ff85e66f0f63a4cb393083f9d2774a2b063d4af4fed882042c677d301"
+    },
+    {
+      "order": 36,
+      "id": "gen:qc_camp:29",
+      "inspected": true,
+      "imageSha256": "29b691508b25597a63bad9a9252009014055d16cac63a1ba5ceeb51cf42d6b59",
+      "completeSha256": "d43545462c4423c3ea28b2b0d5bfed56b86cbc2b8a2e27bd4aabbec27e826666",
+      "inputs": {
+        "levelSha256": "a3362c6fcc156b91bf471a975a0c582c190285ed242b2dce212bab0fabbddd84",
+        "artSha256": "54b94a8a647847c5f2fe6906dd287be0b7e7f3ede355be47bc5a568116e2479e",
+        "sources": {
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "4e96a3bdabacb83dd8e8877ec105d3712068f2084efc9b47aa62881cea165d01",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "cdc1b39a25734d7879a36a58ae2330fc4c1a3c92b5d3b444d8a03ffcf7588848",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\CampArtDefinition.cs": "f1d9295478f90b0ac9094b5a0c538d1cd4f37d9f19e4e6e695657c818f8e21a4",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\EditorAuthoringPreview.cs": "18ff904dc60beebf7ddd3a5757c734314c6a83812d30d77ecd8f8a9fec58b471",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CameraFitter.cs": "ae89bebd82ecdd35430ae3d3eba8e31629f4387c1572afa8d0947abe9b39b872",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampArtView.cs": "d234ec2198a4af51b0c979a2daa91f6167afbd3de29eec5d1deb8bfd0dd44317",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\LevelAuthoringPlayDriver.cs": "49d3d2d1d8471a4949bfa64c02b0b9d56ea6956ddbf8a258927e5d4409d7350b",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\FrozenLandscape.cs": "fdde55ef3c9b4f0a8438c7565be811fb02d0467c6bd4da9bd9455d190424ed79",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverEnvironmentProfile.cs": "b164b82af177d08e0deaf68ce9c833ca05154a5639c2d8b54160e1f18b49d9d6",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverSurfaceField.cs": "20f61071f5e5dbbe3b270bb563f84460afc66b35359c48f8edcea26c1d2e7bc7",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverLandscapeGeometry.cs": "2540999794ea510191778612f2a934e03c352f51f08c3bcd63b14096e7e1a3e4",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverBankEcology.cs": "517d75485744e1917940213906026b1ec9bb14c9e73a2561cc8f22d31bd024af",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RiverWeatherMaterial.cs": "a0eb1e3055930affa57a9116c3eeedea2c49f6b92adb9a5c4719eaeb4db5b1ff",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\SeasonAtmosphereView.cs": "ea441c7f89a528b4438cd398849683529da2fd6fb9e6597274d4a1c2123e04ac",
+          "Assets\\QuietCamp\\Resources\\QuietCamp\\river_environment.json": "b95ffa2beb5a776613ee7b33827d7b83b44780ec87ef66d6cf03430b4e1b045f"
+        },
+        "publishedArtSha256": "ca3561caa3a4a414b2d601406b418753e2bbbf30ce2a76779683b9594b8c7f32"
+      },
+      "observations": "Bridge contact and calmer water hold; tiny river life is barely detectable from the game camera.",
+      "status": "inspected-not-final",
+      "nativeReceiptSha256": "7be5a854b0e3b11be2c590327cf9a31f6621c0cb84bb053a057a771cfb8e3b68"
+    },
+    {
+      "order": 53,
+      "id": "gen:qc_camp:70",
+      "inspected": true,
+      "imageSha256": "08fc0e5347bab43c47f4b679efd3e4e8a3efcecb8f85c7d413a1ebd67506d2bc",
+      "completeSha256": "2e3bd8e5c095aa5cc7cce52b93598eb8fc48032cd19d61fe50ad055f4de2aeed",
+      "inputs": {
+        "levelSha256": "eb5873a6c1066e1a2ee6e666494f3577ba8e1837d4ba7c4829f5142320f2c9f5",
+        "artSha256": "6bd2ee031fc140538604f9367b86de30408cb4f7f0754d26c726e3d6017e0623",
+        "sources": {
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "4e96a3bdabacb83dd8e8877ec105d3712068f2084efc9b47aa62881cea165d01",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "cdc1b39a25734d7879a36a58ae2330fc4c1a3c92b5d3b444d8a03ffcf7588848",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\CampArtDefinition.cs": "f1d9295478f90b0ac9094b5a0c538d1cd4f37d9f19e4e6e695657c818f8e21a4",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\EditorAuthoringPreview.cs": "18ff904dc60beebf7ddd3a5757c734314c6a83812d30d77ecd8f8a9fec58b471",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CameraFitter.cs": "ae89bebd82ecdd35430ae3d3eba8e31629f4387c1572afa8d0947abe9b39b872",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampArtView.cs": "d234ec2198a4af51b0c979a2daa91f6167afbd3de29eec5d1deb8bfd0dd44317",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\LevelAuthoringPlayDriver.cs": "49d3d2d1d8471a4949bfa64c02b0b9d56ea6956ddbf8a258927e5d4409d7350b",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\FrozenLandscape.cs": "fdde55ef3c9b4f0a8438c7565be811fb02d0467c6bd4da9bd9455d190424ed79",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverEnvironmentProfile.cs": "b164b82af177d08e0deaf68ce9c833ca05154a5639c2d8b54160e1f18b49d9d6",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverSurfaceField.cs": "20f61071f5e5dbbe3b270bb563f84460afc66b35359c48f8edcea26c1d2e7bc7",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverLandscapeGeometry.cs": "2540999794ea510191778612f2a934e03c352f51f08c3bcd63b14096e7e1a3e4",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverBankEcology.cs": "517d75485744e1917940213906026b1ec9bb14c9e73a2561cc8f22d31bd024af",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RiverWeatherMaterial.cs": "a0eb1e3055930affa57a9116c3eeedea2c49f6b92adb9a5c4719eaeb4db5b1ff",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\SeasonAtmosphereView.cs": "ea441c7f89a528b4438cd398849683529da2fd6fb9e6597274d4a1c2123e04ac",
+          "Assets\\QuietCamp\\Resources\\QuietCamp\\river_environment.json": "b95ffa2beb5a776613ee7b33827d7b83b44780ec87ef66d6cf03430b4e1b045f"
+        },
+        "publishedArtSha256": "d2594e090734c5be50206acef19d9ed32cb63dd3464343a4984c6f0fd38270b7"
+      },
+      "observations": "Bed-supported pebbles are irregular; actual rain is visible but its water rings are still too faint and short-lived.",
+      "status": "inspected-not-final",
+      "nativeReceiptSha256": "9473b5ccfbfb4ccc22ca8276142033ede077116c01986ed314afaf37d3572775"
+    },
+    {
+      "order": 88,
+      "id": "gen:qc_camp:110",
+      "inspected": true,
+      "imageSha256": "c0b0d0b9417c799a68930711921f1118bdcc33da6a22568a5ce0c015b0d83783",
+      "completeSha256": "78283b94bcd54366c092df1c83030192d30f87008798938bde2076373ad4cecc",
+      "inputs": {
+        "levelSha256": "086d1544cf441c860bf25b55dfab7d85cb275163fa3bb804bff332d041eec423",
+        "artSha256": "3b1f1f39a19d1f4f66b5e68717a58b62957530b975f6383552cf3da8ae4afc1a",
+        "sources": {
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "4e96a3bdabacb83dd8e8877ec105d3712068f2084efc9b47aa62881cea165d01",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "cdc1b39a25734d7879a36a58ae2330fc4c1a3c92b5d3b444d8a03ffcf7588848",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\CampArtDefinition.cs": "f1d9295478f90b0ac9094b5a0c538d1cd4f37d9f19e4e6e695657c818f8e21a4",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\EditorAuthoringPreview.cs": "18ff904dc60beebf7ddd3a5757c734314c6a83812d30d77ecd8f8a9fec58b471",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CameraFitter.cs": "ae89bebd82ecdd35430ae3d3eba8e31629f4387c1572afa8d0947abe9b39b872",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampArtView.cs": "d234ec2198a4af51b0c979a2daa91f6167afbd3de29eec5d1deb8bfd0dd44317",
+          "Assets\\QuietCamp\\Editor\\LevelAuthoring\\LevelAuthoringPlayDriver.cs": "49d3d2d1d8471a4949bfa64c02b0b9d56ea6956ddbf8a258927e5d4409d7350b",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\FrozenLandscape.cs": "fdde55ef3c9b4f0a8438c7565be811fb02d0467c6bd4da9bd9455d190424ed79",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverEnvironmentProfile.cs": "b164b82af177d08e0deaf68ce9c833ca05154a5639c2d8b54160e1f18b49d9d6",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverSurfaceField.cs": "20f61071f5e5dbbe3b270bb563f84460afc66b35359c48f8edcea26c1d2e7bc7",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverLandscapeGeometry.cs": "2540999794ea510191778612f2a934e03c352f51f08c3bcd63b14096e7e1a3e4",
+          "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverBankEcology.cs": "517d75485744e1917940213906026b1ec9bb14c9e73a2561cc8f22d31bd024af",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RiverWeatherMaterial.cs": "a0eb1e3055930affa57a9116c3eeedea2c49f6b92adb9a5c4719eaeb4db5b1ff",
+          "Assets\\QuietCamp\\Scripts\\Presentation\\World\\SeasonAtmosphereView.cs": "ea441c7f89a528b4438cd398849683529da2fd6fb9e6597274d4a1c2123e04ac",
+          "Assets\\QuietCamp\\Resources\\QuietCamp\\river_environment.json": "b95ffa2beb5a776613ee7b33827d7b83b44780ec87ef66d6cf03430b4e1b045f"
+        },
+        "publishedArtSha256": "88ecc94156689568de86141ec93f3d8348bbd8aa81188f07e8916f64cfd861e0"
+      },
+      "observations": "Cold fog and bed contact remain coherent; keep the extra effects subtle and bounded, rather than filling the winter river with clutter.",
+      "status": "inspected-not-final",
+      "nativeReceiptSha256": "8145161680750edcf7ed673da9cc014e32fe1f3f7001fd726209baea4c7bd6e8"
+    }
+  ]
+}

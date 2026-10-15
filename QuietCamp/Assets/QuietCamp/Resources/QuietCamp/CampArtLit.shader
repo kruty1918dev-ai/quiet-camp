@@ -1,6 +1,6 @@
 Shader "QuietCamp/CampArtLit"
 {
-    Properties { _CampUse("Observed surface use",2D)="black"{} _GroundLow("Ground low",Color)=(.23,.30,.14,1) _GroundHigh("Ground high",Color)=(.40,.48,.22,1) _SoilTone("Soil",Color)=(.43,.35,.25,1) _ArtAmbient("Ambient", Color) = (.22,.24,.16,1) _ArtWater("Water", Float) = 0 _ArtGrass("Grass", Float) = 0 _ArtGround("Ground", Float) = 0 _QCWeather("Weather time, wind, rain, active",Vector)=(0,0,0,0) _QCWind("Wind direction",Vector)=(.8,.35,0,0) }
+    Properties { _ArtRiverDetail("River-bank detail",Float)=0 _ArtRiverWaterline("River waterline",Float)=0 _CampUse("Observed surface use",2D)="black"{} _GroundLow("Ground low",Color)=(.23,.30,.14,1) _GroundHigh("Ground high",Color)=(.40,.48,.22,1) _SoilTone("Soil",Color)=(.43,.35,.25,1) _ArtAmbient("Ambient", Color) = (.22,.24,.16,1) _ArtWater("Water", Float) = 0 _ArtGrass("Grass", Float) = 0 _ArtGround("Ground", Float) = 0 _QCWeather("Weather time, wind, rain, active",Vector)=(0,0,0,0) _QCWind("Wind direction",Vector)=(.8,.35,0,0) }
     SubShader
     {
         Tags { "RenderPipeline"="UniversalPipeline" "RenderType"="Opaque" "Queue"="Geometry" }
@@ -38,6 +38,7 @@ Shader "QuietCamp/CampArtLit"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
             CBUFFER_START(UnityPerMaterial)
             float4 _ArtAmbient,_GroundLow,_GroundHigh,_SoilTone,_CampFieldSize; float _ArtWater; float _ArtGrass;
+            float _ArtRiverDetail, _ArtRiverWaterline;
             CBUFFER_END
             float4 _AtmosWindXZ; float _AtmosWindStrength; float _AtmosWindTime;
             struct Attributes { float4 positionOS:POSITION; float3 normalOS:NORMAL; float4 color:COLOR; float2 response:TEXCOORD1; };
@@ -74,6 +75,16 @@ Shader "QuietCamp/CampArtLit"
                 float3 lighting=_ArtAmbient.rgb*(.8+.2*abs(normal.y))+sun.color*((diffuse+.22*saturate(-dot(normal,sun.direction)))*sun.shadowAttenuation);
                 if(_ArtGrass>.5) lighting=max(lighting,float3(.42,.48,.36));
                 float3 baseColor=input.color.rgb;
+                if(_ArtRiverDetail>.5)
+                {
+                    float2 p=input.positionWS.xz;
+                    float wet=max(_CampClimate.x*.55,1-smoothstep(_ArtRiverWaterline-.02,_ArtRiverWaterline+.16,input.positionWS.y));
+                    baseColor*=1-wet*.22;
+                    float upward=smoothstep(.15,.72,normal.y);
+                    float aboveWater=smoothstep(_ArtRiverWaterline+.015,_ArtRiverWaterline+.07,input.positionWS.y);
+                    float snow=saturate(_CampClimate.y)*upward*aboveWater*smoothstep(.2,.7,ArtNoise(p*3.1+23));
+                    baseColor=lerp(baseColor,float3(.83,.89,.92),snow);
+                }
                 if(_ArtGrass>.5)
                 {
                     float4 trampled=CampUse(input.positionWS.xz);

@@ -26,11 +26,15 @@ namespace QuietCamp.Presentation.World
         public CampArtDefinition Definition { get; private set; }
         public int TriangleCount { get; private set; }
         public SeasonAtmosphereView SeasonAtmosphere {get;private set;}
+        public FrozenLandscape PresentedLandscape {get;private set;}
+        public RiverReflectionView RiverReflections {get;private set;}
 
         public void Configure(CampArtDefinition definition, LevelData level, Transform parent, AssetCatalog catalog, bool excludeLandscape = false)
         {
             if (Definition != null) throw new InvalidOperationException("Camp art is already configured.");
             Definition = definition; _level = level; _camera = GetComponent<Camera>();
+            var riverProfile=RiverEnvironmentProfile.Load();
+            PresentedLandscape=excludeLandscape?definition.landscape:RiverLandscapeGeometry.Resolve(definition,riverProfile);
             _camera.transform.rotation=Quaternion.Euler(CampArtDefinition.Vector(definition.cameraEuler));
             _root = new GameObject("AuthoredCampSurround"); _root.transform.SetParent(parent, false);
             var shader = Resources.Load<Shader>("QuietCamp/CampArtLit");
@@ -60,11 +64,25 @@ namespace QuietCamp.Presentation.World
             }
             var batches = new List<CombineInstance>(); var foliageBatches = new List<CombineInstance>();
             var regrowthBatches=new[]{new List<CombineInstance>(),new List<CombineInstance>(),new List<CombineInstance>()};
-            foreach (var item in definition.instances)
+            var bankPlants=excludeLandscape?Array.Empty<CampArtDefinition.Instance>():RiverBankEcology.Generate(definition,PresentedLandscape,riverProfile);
+            var riverField=new RiverSurfaceField(PresentedLandscape);
+            var sourceModels=definition.models.ToDictionary(m=>m.id);
+            var modelHeights=definition.models.ToDictionary(m=>m.id,m=>Enumerable.Range(0,m.vertices.Length/3).Max(i=>m.vertices[i*3+1])-Enumerable.Range(0,m.vertices.Length/3).Min(i=>m.vertices[i*3+1]));
+            foreach (var item in definition.instances.Concat(bankPlants))
             {
                 var position = new Vector3(item.x, item.y, item.z);
+                if(item.surfaceAttached==true&&PresentedLandscape!=null&&definition.landscape!=null&&!item.id.StartsWith("river-bank/",StringComparison.Ordinal))
+                    position.y+=PresentedLandscape.SampleHeight(item.x,item.z)-definition.landscape.SampleHeight(item.x,item.z);
                 var rotation = item.rotationEuler != null ? Quaternion.Euler(CampArtDefinition.Vector(item.rotationEuler)) : Quaternion.Euler(0, item.yaw, 0);
                 var scale = item.scaleXYZ != null ? CampArtDefinition.Vector(item.scaleXYZ) : Vector3.one * item.scale;
+                if(item.surfaceAttached==true&&item.modelId!=null&&sourceModels.TryGetValue(item.modelId,out var plant)&&(plant.seasonalRole=="groundcover"||plant.seasonalRole=="flower")
+                    &&riverField.TrySample(item.x,item.z,out var bank)&&bank.signedDistance<1.1f)
+                {
+                    if(bank.Wet&&PresentedLandscape.SampleHeight(item.x,item.z)<bank.centre.y)continue;
+                    float target=riverProfile.bankPlantHeight*(.8f+RiverLandscapeGeometry.Patch(item.x,item.z,definition.seed)*.4f);
+                    float height=modelHeights[item.modelId]*scale.y;
+                    scale*=Mathf.Lerp(Mathf.Min(1,target/Mathf.Max(.01f,height)),1,Mathf.SmoothStep(0,1,bank.signedDistance/1.1f));
+                }
                 if(!string.IsNullOrEmpty(item.motion)&&!string.IsNullOrEmpty(item.modelId))
                 {
                     var moving=AddMesh("Scenery_"+item.id,catalogMeshes[item.modelId],material);
@@ -83,7 +101,7 @@ namespace QuietCamp.Presentation.World
                 }
                 else if(catalogMeshes[item.modelId].vertexCount>0)
                 {
-                    var model=definition.models.First(m=>m.id==item.modelId);
+                    var model=sourceModels[item.modelId];
                     var batch=new CombineInstance{mesh=catalogMeshes[item.modelId],transform=Matrix4x4.TRS(position,rotation,scale)};
                     if((item.id??"").StartsWith("regrowth/",StringComparison.Ordinal)&&model.shading=="foliage")
                     {
@@ -125,12 +143,14 @@ namespace QuietCamp.Presentation.World
             if(definition.atmosphere!=null)
             {
                 SeasonAtmosphere=new GameObject("Season atmosphere").AddComponent<SeasonAtmosphereView>();
-                SeasonAtmosphere.Configure(definition.atmosphere,definition,_camera,_root.transform);
+                var weatherArt=definition.EditingCopy();weatherArt.landscape=PresentedLandscape;
+                SeasonAtmosphere.Configure(definition.atmosphere,weatherArt,_camera,_root.transform);
             }
         }
         public void SetQualityTier(int tier)
         {
             tier=Mathf.Clamp(tier,0,2);if(QualityTier==tier)return;QualityTier=tier;
+            RiverReflections?.SetQuality(tier);
             for(int i=0;i<3;i++)if(_regrowthRenderers[i]!=null)_regrowthRenderers[i].enabled=i<=tier;
         }
         public void FitCamera(Rect gameplay)
@@ -224,8 +244,8 @@ namespace QuietCamp.Presentation.World
         }
         void BuildFrozenLandscape(Material material)
         {
-            Definition.landscape.Validate();
-            if(Definition.landscape.meshes.Any(mesh=>mesh.water))
+            PresentedLandscape.Validate();
+            if(PresentedLandscape.meshes.Any(mesh=>mesh.water))
             {
                 var cameraData=_camera.GetUniversalAdditionalCameraData();
                 cameraData.requiresDepthTexture=true;cameraData.requiresColorTexture=true;
@@ -233,19 +253,26 @@ namespace QuietCamp.Presentation.World
             var sourceWater = Resources.Load<Material>(Definition.waterMaterial);
             if (sourceWater == null) throw new InvalidOperationException("Матеріал води відсутній: " + Definition.waterMaterial);
             var water = new Material(sourceWater) { name = "Frozen authored river" };
-            RiverWeatherMaterial.Configure(water);
+            RiverWeatherMaterial.NaturalChannel(water,RiverEnvironmentProfile.Load());
             if (water.HasProperty("_VertexColorTransparency")) water.SetFloat("_VertexColorTransparency", 1);
             _materials.Add(water);
             var ground = new Material(material); ground.SetFloat("_ArtGround", 1); GroundPalette(ground); _materials.Add(ground);
-            foreach (var data in Definition.landscape.meshes)
+            var detail = new Material(material) { name = "Seasonal river-bank details" };
+            detail.SetFloat("_ArtRiverDetail",1);
+            var waterMesh=PresentedLandscape.meshes.FirstOrDefault(m=>m.water);
+            detail.SetFloat("_ArtRiverWaterline",waterMesh==null?0:_root.transform.TransformPoint(new Vector3(0,waterMesh.vertices[1],0)).y); _materials.Add(detail);
+            var waterSurfaces=new List<MeshRenderer>();
+            foreach (var data in PresentedLandscape.meshes)
             {
                 var mesh = data.CreateMesh();
                 _meshes.Add(mesh);
-                AddMesh(data.name, mesh, data.water ? water : ground, false);
+                var renderer=AddMesh(data.name, mesh, data.water ? water : data.decoration ? detail : ground, data.decoration);
+                if(data.water)waterSurfaces.Add(renderer);
             }
+            RiverReflections=RiverReflectionView.Attach(_root.transform,_camera,waterSurfaces,RiverEnvironmentProfile.Load());
         }
         float GroundHeight(float x, float z)
-            => Definition.GroundHeight(x,z);
+            => PresentedLandscape?.SampleHeight(x,z)??Definition.GroundHeight(x,z);
         void BuildGroundcover(Material material)
         {
             var library = CozyVegetationLibrary.Load();

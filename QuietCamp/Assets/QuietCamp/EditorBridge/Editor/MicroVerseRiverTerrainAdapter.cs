@@ -6,6 +6,7 @@ using JBooth.MicroVerseCore;
 using Newtonsoft.Json;
 using QuietCamp.Editor.LevelAuthoring;
 using QuietCamp.Infrastructure;
+using QuietCamp.Presentation.World;
 using sc.modeling.river.runtime;
 using Unity.Mathematics;
 using UnityEditor;
@@ -35,7 +36,7 @@ namespace QuietCamp.EditorBridge
         readonly List<UnityEngine.Object> _owned = new List<UnityEngine.Object>();
         readonly List<Mesh> _previewMeshes = new List<Mesh>();
         readonly Texture2D _hill;
-        readonly Material _groundMaterial, _waterMaterial;
+        readonly Material _groundMaterial, _waterMaterial, _detailMaterial;
         Texture2D _baseTexture;
         LevelAuthoringDocument _document;
         FrozenLandscape _baked;
@@ -75,6 +76,7 @@ namespace QuietCamp.EditorBridge
             var riverObject = riverRoot;
             riverObject.AddComponent<MeshFilter>(); riverObject.AddComponent<MeshRenderer>();
             _waterMaterial = new Material(Resources.Load<Material>(workspace.Document.art.waterMaterial)) { name = "Authoring Stylized Water 3" }; _owned.Add(_waterMaterial);
+            RiverWeatherMaterial.NaturalChannel(_waterMaterial,RiverEnvironmentProfile.Load());
             if (_waterMaterial.HasProperty("_VertexColorTransparency")) _waterMaterial.SetFloat("_VertexColorTransparency", 1);
             riverObject.GetComponent<MeshRenderer>().sharedMaterial = _waterMaterial;
             _microverse.enabled = false;
@@ -94,6 +96,8 @@ namespace QuietCamp.EditorBridge
             _hill.SetPixels(pixels); _hill.Apply(); _owned.Add(_hill);
             _groundMaterial = new Material(Resources.Load<Shader>("QuietCamp/CampArtLit")) { name = "Authoring ground" }; _owned.Add(_groundMaterial);
             _groundMaterial.SetFloat("_ArtGround", 1);
+            _detailMaterial=new Material(_groundMaterial){name="Authoring river-bank details"};_owned.Add(_detailMaterial);
+            _detailMaterial.SetFloat("_ArtGround",0);_detailMaterial.SetFloat("_ArtRiverDetail",1);
             _preview = Child("Оточення — точний перегляд експорту", workspace.Root.transform);
             Surface = Child("Поверхня для пензля", _preview.transform); Surface.AddComponent<MeshCollider>();
             MicroVerse.OnFinishedUpdating.AddListener(Finished);
@@ -154,6 +158,7 @@ namespace QuietCamp.EditorBridge
             _flat.transform.localPosition = new Vector3(0, -.045f, 0); _flat.transform.localScale = new Vector3(document.level.width + .8f, .01f, document.level.height + .8f);
             _flat.transform.SetAsLastSibling();
             _groundMaterial.SetColor("_ArtAmbient", CampArtDefinition.Color(document.art.ambientColor) * .55f);
+            _detailMaterial.SetColor("_ArtAmbient",_groundMaterial.GetColor("_ArtAmbient"));
             _waiting = true; _finished = false; _evaluate = true; _microverse.enabled = true; _root.SetActive(true);
             _river.Rebuild(); _river.UpdateMicroVerseSpline(); _microverse.Invalidate();
             // This Core version has a smooth trench rather than a cross-section curve.
@@ -251,7 +256,8 @@ namespace QuietCamp.EditorBridge
                 flow = flow.SelectMany(v => new[] { v.x, v.y, v.z }).ToArray(), tangents = tangents.SelectMany(v => new[] { v.x, v.y, v.z, v.w }).ToArray(),
                 colors = (colors.Length == vertices.Length ? colors : Enumerable.Repeat(Color.white, vertices.Length).ToArray()).SelectMany(c => new[] { c.r, c.g, c.b, c.a }).ToArray(), triangles = river.triangles });
             data.meshes = meshes.ToArray();var marginArt=_document.art.EditingCopy();marginArt.landscape=data;RiverTerrainAuthoringData.EnsureGroundMargins(marginArt);
-            data.Validate(); return data;
+            data.Validate();var resolved=_document.art.EditingCopy();resolved.landscape=data;
+            return RiverLandscapeGeometry.Resolve(resolved,RiverEnvironmentProfile.Load());
         }
         void BuildPreview()
         {
@@ -259,11 +265,13 @@ namespace QuietCamp.EditorBridge
             for (int i = _preview.transform.childCount - 1; i >= 0; i--)
                 if (_preview.transform.GetChild(i).gameObject != Surface) UnityEngine.Object.DestroyImmediate(_preview.transform.GetChild(i).gameObject);
             var filters = new List<MeshFilter>();
-            foreach (var data in _baked.meshes.Where(m => !m.water))
+            _river.GetComponent<MeshRenderer>().enabled=false;
+            foreach (var data in _baked.meshes)
             {
                 var node = Child(data.name, _preview.transform); var mesh = data.CreateMesh(); _previewMeshes.Add(mesh);
-                var filter = node.AddComponent<MeshFilter>(); filter.sharedMesh = mesh; filters.Add(filter);
-                var renderer = node.AddComponent<MeshRenderer>(); renderer.sharedMaterial = _groundMaterial;
+                var filter = node.AddComponent<MeshFilter>(); filter.sharedMesh = mesh; if(!data.decoration&&!data.water)filters.Add(filter);
+                var renderer = node.AddComponent<MeshRenderer>(); renderer.sharedMaterial = data.water?_waterMaterial:data.decoration?_detailMaterial:_groundMaterial;
+                if(data.decoration)_detailMaterial.SetFloat("_ArtRiverWaterline",_workspace.Root.transform.TransformPoint(new Vector3(0,_baked.meshes.FirstOrDefault(m=>m.water)?.vertices[1]??0,0)).y);
             }
             var paint = new Mesh { name = "Paintable dry ground", indexFormat = UnityEngine.Rendering.IndexFormat.UInt32 };
             paint.CombineMeshes(filters.Select(f => new CombineInstance { mesh = f.sharedMesh, transform = Matrix4x4.identity }).ToArray());

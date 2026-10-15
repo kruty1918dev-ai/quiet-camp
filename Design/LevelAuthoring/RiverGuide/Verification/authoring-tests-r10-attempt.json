@@ -1,0 +1,45 @@
+{
+  "status": "tests",
+  "outcome": "Failed",
+  "passed": 172,
+  "failed": 1,
+  "skipped": 0,
+  "duration": 402.7306088,
+  "failures": [
+    {
+      "name": "QuietCamp.Tests.CampArtCompositionTests.NativeWaterMasksLeaveTheChannelClearAndTheShoreVisible(True)",
+      "Message": "  A flat authored river needs actual scene reflections.\r\n  Expected: not null\r\n  But was:  null\r\n",
+      "StackTrace": "at QuietCamp.Tests.CampArtCompositionTests.NativeWaterMasksLeaveTheChannelClearAndTheShoreVisible (System.Boolean frozen) [0x00259] in C:\\Users\\Public\\qcui-20261006\\QuietCamp\\Assets\\QuietCamp\\Tests\\Editor\\CampArtCompositionTests.cs:104\r\n"
+    },
+    {
+      "name": "QuietCamp.Tests.CampArtCompositionTests.NativeWaterMasksLeaveTheChannelClearAndTheShoreVisible",
+      "Message": "One or more child tests had errors",
+      "StackTrace": null
+    },
+    {
+      "name": "QuietCamp.Tests.CampArtCompositionTests",
+      "Message": "One or more child tests had errors",
+      "StackTrace": null
+    },
+    {
+      "name": "QuietCamp.Tests",
+      "Message": "One or more child tests had errors",
+      "StackTrace": null
+    },
+    {
+      "name": "QuietCamp",
+      "Message": "One or more child tests had errors",
+      "StackTrace": null
+    },
+    {
+      "name": "C:/Users/Public/qcui-20261006/QuietCamp/Library/ScriptAssemblies/QuietCamp.Tests.Editor.dll",
+      "Message": "One or more child tests had errors",
+      "StackTrace": null
+    },
+    {
+      "name": "Quiet Camp QA",
+      "Message": "One or more child tests had errors",
+      "StackTrace": null
+    }
+  ]
+}

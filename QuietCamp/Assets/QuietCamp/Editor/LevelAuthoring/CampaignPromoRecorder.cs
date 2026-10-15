@@ -28,13 +28,23 @@ namespace QuietCamp.Editor.LevelAuthoring
         MovieRecorderSettings _movie;
         Mouse _mouse;
         InputDevice[] _hardware;
+        InputSettings _previousInputSettings;
+        InputSettings.BackgroundBehavior _previousBackground;
+        InputSettings.EditorInputBehaviorInPlayMode _previousEditorInput;
         string _output;
         readonly List<object> _actions = new();
         bool _finished;
         int _firstFrame;
         bool _gridInStill;
+        bool _stillsOnly, _screenChanged;
+        uint _oldWidth, _oldHeight;
+        int _oldCaptureRate;
+        object _cameraBefore, _cameraAfter;
+        AdaptiveCampQuality _adaptiveQuality;
+        bool _adaptiveWasEnabled;
+        int _oldEffectiveQuality,_oldRenderQuality;
 
-        public static object Begin(string output)
+        public static object Begin(string output, bool stillsOnly = false)
         {
             if (_active != null) throw new InvalidOperationException("A recording is already active.");
             if (!EditorApplication.isPlaying || !EditorAuthoringPreview.CampaignPreview || QuietCampBootstrap.ServicesRef?.Save.MemoryOnly != true)
@@ -46,6 +56,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             Directory.CreateDirectory(output);
             var runner = new CampaignPromoRecorder(); _active = runner;
             runner._output = output;
+            runner._stillsOnly = stillsOnly;
             EditorApplication.playModeStateChanged += runner.PlayModeChanged;
             AssemblyReloadEvents.beforeAssemblyReload += runner.Interrupted;
             host.StartCoroutine(runner.Guarded(runner.Record()));
@@ -68,12 +79,26 @@ namespace QuietCamp.Editor.LevelAuthoring
         {
             var host = CampSceneHost.Current;
             var services = QuietCampBootstrap.ServicesRef;
+            _adaptiveQuality=UnityEngine.Object.FindAnyObjectByType<AdaptiveCampQuality>();
+            _adaptiveWasEnabled=_adaptiveQuality!=null&&_adaptiveQuality.enabled;
+            if(_adaptiveQuality!=null)_adaptiveQuality.enabled=false;
+            _oldEffectiveQuality=services.EffectiveQuality;_oldRenderQuality=QualitySettings.GetQualityLevel();
+            services.EffectiveQuality=1;QualitySettings.SetQualityLevel(1,true);
             services.Localization.TrySetLanguage("uk");
             var bootstrap = UnityEngine.Object.FindAnyObjectByType<QuietCampBootstrap>();
             bootstrap.SendMessage("OnApplicationPause", false, SendMessageOptions.RequireReceiver);
             bootstrap.SendMessage("OnApplicationFocus", true, SendMessageOptions.RequireReceiver);
             var game = EditorWindow.GetWindow(typeof(EditorWindow).Assembly.GetType("UnityEditor.GameView"));
             game.Focus();
+            if (_stillsOnly)
+            {
+                PlayModeWindow.GetRenderingResolution(out _oldWidth, out _oldHeight);
+                _oldCaptureRate = Time.captureFramerate; _screenChanged = true;
+                PlayModeWindow.SetCustomRenderingResolution(1440, 1080, "QuietCamp composition review");
+                Time.captureFramerate = 30;
+            }
+            else
+            {
             _movie = ScriptableObject.CreateInstance<MovieRecorderSettings>();
             _movie.name = "QuietCamp Gameplay"; _movie.Enabled = true;
             _movie.EncoderSettings = new CoreEncoderSettings
@@ -90,12 +115,23 @@ namespace QuietCamp.Editor.LevelAuthoring
             _settings.FrameRate = 30; _settings.FrameRatePlayback = FrameRatePlayback.Constant;
             _settings.CapFrameRate = false; _settings.ExitPlayMode = false;
             _controller = new RecorderController(_settings); _controller.PrepareRecording();
+            }
             // Recorder changes the Game View size. Let layout and input projection settle first.
             for (int i = 0; i < 20; i++) yield return new WaitForEndOfFrame();
-            _hardware = InputSystem.devices.Where(d => d is Mouse && d.enabled).ToArray();
+            // The temporary replay must keep receiving its virtual pointer while
+            // Windows focuses the user's IDE. Never alter the project's input asset.
+            _previousInputSettings=InputSystem.settings;
+            _previousBackground=_previousInputSettings.backgroundBehavior;
+            _previousEditorInput=_previousInputSettings.editorInputBehaviorInPlayMode;
+            _previousInputSettings.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;
+            _previousInputSettings.editorInputBehaviorInPlayMode=InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
+            _hardware = InputSystem.devices.Where(d => (d is Mouse || d is Keyboard || d is Touchscreen) && d.enabled).ToArray();
             foreach (var device in _hardware) InputSystem.DisableDevice(device);
             _mouse = InputSystem.AddDevice<Mouse>("QuietCampPromoReplay"); _mouse.MakeCurrent();
-            if (!_controller.StartRecording()) throw new InvalidOperationException("Unity Recorder did not start.");
+            if (!_stillsOnly && !_controller.StartRecording()) throw new InvalidOperationException("Unity Recorder did not start.");
+            if (Screen.width != 1440 || Screen.height != 1080) throw new InvalidOperationException("Game View did not reach the required review resolution.");
+            _cameraBefore=OpeningCampaignGameplayProbe.CameraProof(host.Session.Level,
+                UnityEngine.Object.FindAnyObjectByType<CampArtView>()?.Definition);
             _firstFrame = Time.frameCount;
             var input = UnityEngine.Object.FindAnyObjectByType<PlacementController>();
             var witness = host.Session.Level.witness;
@@ -138,11 +174,19 @@ namespace QuietCamp.Editor.LevelAuthoring
                     {
                         var placed = host.Session.State.Find(expected.guestId);
                         if (placed == null || placed.x != expected.x || placed.z != expected.z || placed.rotation != expected.rotation)
-                            throw new InvalidOperationException("Pointer replay did not reach the intended placement: " + expected.guestId);
+                            throw new InvalidOperationException("Pointer replay did not reach the intended placement: " + expected.guestId+
+                                "; expected="+JsonConvert.SerializeObject(expected)+"; actual="+JsonConvert.SerializeObject(placed));
                     }
                     services.Actions.Execute(new UiActionRequest(new UiActionId("qc.check"), UiActionSource.Programmatic, "Gameplay"));
                     if (!host.Session.IsCompleted) throw new InvalidOperationException("The replay did not solve the level through Check.");
                     _actions.Add(new { frame, kind = "canonical-check", solved = true });
+                }
+                if (_stillsOnly && frame == 120)
+                {
+                    ScreenCapture.CaptureScreenshot(Path.Combine(_output, "complete.png"));
+                    _cameraAfter = OpeningCampaignGameplayProbe.CameraProof(host.Session.Level,
+                        UnityEngine.Object.FindAnyObjectByType<CampArtView>()?.Definition);
+                    _actions.Add(new { frame, kind = "completed-gameplay-still" });
                 }
                 yield return new WaitForEndOfFrame();
             }
@@ -157,22 +201,39 @@ namespace QuietCamp.Editor.LevelAuthoring
             // The movie is closed; prevent its queued SkipFrame from rendering stopped audio.
             if (_movie != null) _movie.AudioInputSettings.PreserveAudio = false;
             if (_mouse != null && _mouse.added) InputSystem.RemoveDevice(_mouse);
+            if(_previousInputSettings!=null)
+            {
+                _previousInputSettings.backgroundBehavior=_previousBackground;
+                _previousInputSettings.editorInputBehaviorInPlayMode=_previousEditorInput;
+            }
             if (_hardware != null) foreach (var device in _hardware) if (device.added) InputSystem.EnableDevice(device);
             var host = CampSceneHost.Current;
             var art = UnityEngine.Object.FindAnyObjectByType<CampArtView>();
             var receipt = new
             {
                 status = error == null ? "captured" : "error", error,
-                kind = "native-game-view-recorded-game-audio-and-real-placement-input", playerBuild = false,
+                kind = _stillsOnly ? "native-game-view-real-placement-stills" : "native-game-view-recorded-game-audio-and-real-placement-input", playerBuild = false,
                 id = host?.Session.Level.id, width = 1440, height = 1080, fps = 30, plannedFrames = Frames,
                 elapsedGameFrames = Time.frameCount - _firstFrame, stillHasPlacementGrid = _gridInStill,
                 completed = host?.Session.IsCompleted, memoryOnly = QuietCampBootstrap.ServicesRef?.Save.MemoryOnly,
                 playingAtmosphereVoices = art?.SeasonAtmosphere?.PlayingVoices,
+                riverParticles = art?.SeasonAtmosphere?.RiverParticles, riverRipples = art?.SeasonAtmosphere?.RiverRipples,
+                floatingLeaves = art?.SeasonAtmosphere?.FloatingLeaves, riverReflectionRendered=art?.RiverReflections?.HasRenderedReflection,
+                riverEnvironmentReflected=art?.RiverReflections?.HasEnvironmentReflection,
+                renderQuality=QualitySettings.GetQualityLevel(),effectiveQuality=QuietCampBootstrap.ServicesRef?.EffectiveQuality,
                 surfaceSteps = host?.SurfaceDetails?.Surface?.Steps, actions = _actions,
-                audioSource = "Unity Recorder captures the running Unity audio mix. No external soundtrack.",
-                movie = "gameplay.mp4", image = "gameplay.png"
+                audioSource = _stillsOnly ? "Still inspection; no audio recording claimed." : "Unity Recorder captures the running Unity audio mix. No external soundtrack.",
+                movie = _stillsOnly ? null : "gameplay.mp4", image = "gameplay.png", cameraBefore = _cameraBefore, cameraAfter = _cameraAfter
             };
             File.WriteAllText(Path.Combine(_output, "capture.json"), JsonConvert.SerializeObject(receipt, Formatting.Indented));
+            if(QuietCampBootstrap.ServicesRef!=null)QuietCampBootstrap.ServicesRef.EffectiveQuality=_oldEffectiveQuality;
+            QualitySettings.SetQualityLevel(_oldRenderQuality,true);
+            if(_adaptiveQuality!=null)_adaptiveQuality.enabled=_adaptiveWasEnabled;
+            if (_screenChanged)
+            {
+                Time.captureFramerate = _oldCaptureRate;
+                PlayModeWindow.SetCustomRenderingResolution(_oldWidth, _oldHeight, "QuietCamp restored Game View");
+            }
             if (_movie != null) UnityEngine.Object.Destroy(_movie); if (_settings != null) UnityEngine.Object.Destroy(_settings);
             EditorApplication.playModeStateChanged -= PlayModeChanged;
             AssemblyReloadEvents.beforeAssemblyReload -= Interrupted;

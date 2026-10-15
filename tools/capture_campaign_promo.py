@@ -8,11 +8,37 @@ import subprocess
 import sys
 import time
 import re
+import ctypes
 
 ROOT = Path(__file__).resolve().parents[1]
 QA = Path('C:/Users/Public/qcui-20261006/QuietCamp')
 STAGE = QA / 'UserSettings/QuietCampPromoCapture/2026-10-15-AudioVerified'
 TOOLS = QA / 'UserSettings/QuietCampPromoTools'
+
+
+def available_memory_mb():
+    if os.name!='nt':return 4096
+    class Memory(ctypes.Structure):
+        _fields_=[('length',ctypes.c_ulong),('load',ctypes.c_ulong)]+[(n,ctypes.c_ulonglong) for n in ['total','available','pageTotal','pageAvailable','virtualTotal','virtualAvailable','extended']]
+    state=Memory();state.length=ctypes.sizeof(state);ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(state))
+    return state.available//1048576
+
+
+def trim_selected_editor(pid):
+    """Release resident cache pages of the explicitly selected Editor, never other apps."""
+    if os.name!='nt' or not pid:return
+    from ctypes import wintypes
+    kernel=ctypes.windll.kernel32;psapi=ctypes.windll.psapi
+    kernel.OpenProcess.argtypes=[wintypes.DWORD,wintypes.BOOL,wintypes.DWORD];kernel.OpenProcess.restype=wintypes.HANDLE
+    kernel.QueryFullProcessImageNameW.argtypes=[wintypes.HANDLE,wintypes.DWORD,wintypes.LPWSTR,ctypes.POINTER(wintypes.DWORD)]
+    kernel.CloseHandle.argtypes=[wintypes.HANDLE];psapi.EmptyWorkingSet.argtypes=[wintypes.HANDLE]
+    handle=kernel.OpenProcess(0x100|0x400,False,pid)
+    if not handle:return
+    try:
+        path=ctypes.create_unicode_buffer(2048);length=wintypes.DWORD(2048)
+        if kernel.QueryFullProcessImageNameW(handle,0,path,ctypes.byref(length)) and Path(path.value).name.lower()=='unity.exe':
+            psapi.EmptyWorkingSet(handle);time.sleep(.5)
+    finally:kernel.CloseHandle(handle)
 
 
 def sha(path):
@@ -68,6 +94,8 @@ def main():
     parser.add_argument('--stage',type=Path,help='Separate durable capture folder, for isolated recorder verification.')
     parser.add_argument('--art-stage',type=Path,help='Editor-only staged art JSON directory; published puzzles and art remain untouched.')
     parser.add_argument('--start',type=int,default=1,choices=range(1,101),help='First campaign order; --count is the final order, inclusive.')
+    parser.add_argument('--stills',action='store_true',help='Two actual Game View PNGs with the same input replay; no movie or recorded-audio claim.')
+    parser.add_argument('--editor-pid',type=int,help='Explicit existing Editor for focus and low-memory working-set cleanup; no process is started or closed.')
     args = parser.parse_args()
     if args.stage:STAGE=args.stage.resolve()
     STAGE.mkdir(parents=True, exist_ok=True)
@@ -78,11 +106,25 @@ def main():
         assert all((art_stage/(ident.replace(':','_')+'.json')).is_file() for ident in ids[args.start-1:]), 'Incomplete staged art'
     transition = json.loads((QA/'Assets/QuietCamp/Resources/QuietCamp/transition.json').read_text(encoding='utf-8'))
     reveal_settle = float(transition['revealDuration']) + float(transition['coveredHold']) + .8
+    if available_memory_mb()<1500:
+        if request('authoring-status').get('playing'):raise RuntimeError('Low memory; refusing to disturb active Play Mode.')
+        request('authoring-trim')
+        if available_memory_mb()<1000:trim_selected_editor(args.editor_pid)
+        # Windows returns released cache pages asynchronously. Give that cleanup
+        # time to settle before declaring a resumable low-memory failure.
+        for _ in range(12):
+            if available_memory_mb()>=750:break
+            time.sleep(.5)
+        if available_memory_mb()<750:raise RuntimeError('Low memory after Editor cleanup; capture can be resumed without losing verified frames.')
     before = persisted()
     workspace = request('authoring-workspace-status')
     state = dict(status='recording', levels=[])
     source_files = [Path('Assets/QuietCamp/Editor/LevelAuthoring')/name for name in ['CampaignPromoRecorder.cs', 'OpeningCampaignGameplayProbe.cs']]
     source_files += [Path('Assets/QuietCamp')/name for name in ['Scripts/Infrastructure/CampArtDefinition.cs','Scripts/Infrastructure/EditorAuthoringPreview.cs','Scripts/Presentation/World/CameraFitter.cs','Scripts/Presentation/World/CampArtView.cs','Editor/LevelAuthoring/LevelAuthoringPlayDriver.cs']]
+    source_files += [Path('Assets/QuietCamp')/name for name in ['Scripts/Infrastructure/FrozenLandscape.cs','Scripts/Infrastructure/RiverEnvironmentProfile.cs','Scripts/Infrastructure/RiverSurfaceField.cs','Scripts/Infrastructure/RiverLandscapeGeometry.cs','Scripts/Infrastructure/RiverBankEcology.cs','Scripts/Presentation/World/RiverWeatherMaterial.cs','Scripts/Presentation/World/SeasonAtmosphereView.cs','Resources/QuietCamp/river_environment.json']]
+    source_files += [Path('Assets/QuietCamp/Resources/QuietCamp/CampArtLit.shader')]
+    source_files += [Path('Assets/QuietCamp/EditorBridge/Editor/MicroVerseRiverTerrainAdapter.cs')]
+    source_files += [Path('Assets/QuietCamp')/name for name in ['Scripts/Presentation/World/RiverReflectionView.cs','Scripts/Presentation/QuietCamp.Presentation.asmdef']]
     source = {str(p): sha(QA/p) for p in source_files}
     (STAGE/'before.json').write_text(json.dumps(dict(progress=before, workspace=workspace, captureSources=source), indent=2), encoding='utf-8')
     try:
@@ -108,19 +150,21 @@ def main():
             inputs = dict(levelSha256=sha(level), artSha256=sha(art_stage/(safe+'.json') if art_stage else art), sources=source)
             if art_stage:inputs['publishedArtSha256']=sha(art)
             prior = json.loads(receipt.read_text(encoding='utf-8')) if receipt.exists() else {}
+            required=[('gameplay.png','imageSha256'),('complete.png','completeSha256')] if args.stills else [('gameplay.mp4','movieSha256'),('gameplay.png','imageSha256')]
             reuse = (prior.get('status') == 'captured' and prior.get('inputs') == inputs and
-                     all((folder/name).exists() and sha(folder/name) == prior.get(key) for name, key in [('gameplay.mp4','movieSha256'), ('gameplay.png','imageSha256')]))
+                     all((folder/name).exists() and sha(folder/name) == prior.get(key) for name, key in required))
             if reuse:
-                prior['media'] = verify_movie(folder/'gameplay.mp4')
+                if not args.stills:prior['media'] = verify_movie(folder/'gameplay.mp4')
                 result = request('opening-gameplay', name='check')
                 assert result['solved'] and result['recorded']
                 captured = prior
             else:
                 receipt.unlink(missing_ok=True)
                 request('authoring-focus-game')
-                focus=subprocess.run([sys.executable,str(ROOT/'tools/focus_existing_game_view.py'),'--pid','18660','--allow-docked'],capture_output=True,text=True,encoding='utf-8')
-                if focus.returncode:raise RuntimeError(focus.stdout+focus.stderr)
-                request('opening-gameplay', name='promo', output=folder)
+                if not args.stills:
+                    focus=subprocess.run([sys.executable,str(ROOT/'tools/focus_existing_game_view.py'),'--pid',str(args.editor_pid or 18660),'--allow-docked'],capture_output=True,text=True,encoding='utf-8')
+                    if focus.returncode:raise RuntimeError(focus.stdout+focus.stderr)
+                request('opening-gameplay', name='composition-stills' if args.stills else 'promo', output=folder)
                 limit = time.monotonic() + 300
                 while not receipt.exists() and time.monotonic() < limit:
                     time.sleep(.5)
@@ -129,10 +173,16 @@ def main():
                 captured = json.loads(receipt.read_text(encoding='utf-8'))
                 assert captured['status'] == 'captured', captured
                 assert captured['id'] == ident and captured['completed'] and captured['memoryOnly'] and captured['stillHasPlacementGrid']
-                assert captured['playingAtmosphereVoices'] > 0, 'No live preset ambience: '+ident
-                captured.update(order=order, inputs=inputs, movieSha256=sha(folder/'gameplay.mp4'), imageSha256=sha(folder/'gameplay.png'), media=verify_movie(folder/'gameplay.mp4'))
-                captured['cameraBefore']=status.get('cameraProof')
-                captured['cameraAfter']=request('opening-gameplay',name='status').get('cameraProof')
+                if not args.stills:assert captured['playingAtmosphereVoices'] > 0, 'No live preset ambience: '+ident
+                captured.update(order=order, inputs=inputs,imageSha256=sha(folder/'gameplay.png'))
+                if args.stills:
+                    from PIL import Image
+                    for name in ['gameplay.png','complete.png']:
+                        with Image.open(folder/name) as frame:assert frame.size==(1440,1080)
+                    captured.update(completeSha256=sha(folder/'complete.png'),media=dict(kind='two-game-view-stills',width=1440,height=1080))
+                else:captured.update(movieSha256=sha(folder/'gameplay.mp4'),media=verify_movie(folder/'gameplay.mp4'))
+                captured['cameraBefore']=captured.get('cameraBefore') or status.get('cameraProof')
+                captured['cameraAfter']=captured.get('cameraAfter') or request('opening-gameplay',name='status').get('cameraProof')
                 if art_stage:
                     for proof in [captured['cameraBefore'],captured['cameraAfter']]:
                         assert proof and proof['boardFraming'] and proof['fieldContained'] and proof['groundContained'], 'Staged framing failed: '+ident
@@ -140,7 +190,8 @@ def main():
                 receipt.write_text(json.dumps(captured, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
             state['levels'].append(captured)
             (STAGE/'session.json').write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding='utf-8')
-            print(f'{order:03}: recorded {ident}, grid + real placement + game audio, {captured["media"]["duration"]:.2f}s' + (' (reused)' if reuse else ''), flush=True)
+            label='placement + completed Game View PNGs' if args.stills else f'grid + real placement + game audio, {captured["media"]["duration"]:.2f}s'
+            print(f'{order:03}: recorded {ident}, {label}' + (' (reused)' if reuse else ''), flush=True)
             if order < len(ids):
                 result = request('opening-gameplay', name='next')
                 assert result['to'] == ids[order]
