@@ -57,9 +57,12 @@ def verify_movie(path):
 
 
 def main():
+    global STAGE
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--count', type=int, default=100, choices=range(1, 101))
+    parser.add_argument('--stage',type=Path,help='Separate durable capture folder, for isolated recorder verification.')
     args = parser.parse_args()
+    if args.stage:STAGE=args.stage.resolve()
     STAGE.mkdir(parents=True, exist_ok=True)
     ids = json.loads((QA/'Assets/QuietCamp/Resources/QuietCamp/campaign.json').read_text(encoding='utf-8'))['campaignLevelIds'][:args.count]
     before = persisted()

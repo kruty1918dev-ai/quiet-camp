@@ -153,6 +153,9 @@ namespace QuietCamp.Editor.LevelAuthoring
             if (_finished) return; _finished = true;
             try { _controller?.StopRecording(); }
             catch (Exception e) { error = (error ?? "") + "\n" + e; }
+            // Recorder's end-of-frame hook can outlive StopRecording by a frame.
+            // The movie is closed; prevent its queued SkipFrame from rendering stopped audio.
+            if (_movie != null) _movie.AudioInputSettings.PreserveAudio = false;
             if (_mouse != null && _mouse.added) InputSystem.RemoveDevice(_mouse);
             if (_hardware != null) foreach (var device in _hardware) if (device.added) InputSystem.EnableDevice(device);
             var host = CampSceneHost.Current;

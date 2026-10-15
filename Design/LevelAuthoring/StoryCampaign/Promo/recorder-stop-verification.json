@@ -1,0 +1,74 @@
+{
+  "status": "passed",
+  "newErrors": [],
+  "progressUnchanged": true,
+  "workspaceUnchanged": true,
+  "capture": {
+    "status": "captured",
+    "error": null,
+    "kind": "native-game-view-recorded-game-audio-and-real-placement-input",
+    "playerBuild": false,
+    "id": "QC001",
+    "width": 1440,
+    "height": 1080,
+    "fps": 30,
+    "plannedFrames": 132,
+    "elapsedGameFrames": 132,
+    "stillHasPlacementGrid": true,
+    "completed": true,
+    "memoryOnly": true,
+    "playingAtmosphereVoices": 1,
+    "surfaceSteps": 0,
+    "actions": [
+      {
+        "frame": 6,
+        "kind": "begin-card-drag",
+        "guestId": "g1",
+        "x": 0,
+        "z": 0,
+        "rotation": 0
+      },
+      {
+        "frame": 54,
+        "kind": "begin-card-drag",
+        "guestId": "g2",
+        "x": 0,
+        "z": 3,
+        "rotation": 1
+      },
+      {
+        "frame": 97,
+        "kind": "gameplay-still-with-placement-grid"
+      },
+      {
+        "frame": 116,
+        "kind": "canonical-check",
+        "solved": true
+      }
+    ],
+    "audioSource": "Unity Recorder captures the running Unity audio mix. No external soundtrack.",
+    "movie": "gameplay.mp4",
+    "image": "gameplay.png",
+    "order": 1,
+    "inputs": {
+      "levelSha256": "31cbd7883ecaff652cde4698a0150fc2ca74263e0d34ffae86029b4f8659535a",
+      "artSha256": "e672f478d3fe7ad7bec6b27852fb8dcdc4358a2e1ae2c1f5ee559a0966e6cf22",
+      "sources": {
+        "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "c1e3a08c1a48706097e133e1c49486577fb6f8c72ae974b6d7b80b03a6fd5aa1",
+        "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "b9b77a083b411e7658f49798841fec3afe8eea7f49c944e3aeb822faa77570b4"
+      }
+    },
+    "movieSha256": "61cde24a5994369f40d30e3fee32cb414629ea37346c8a79e314dee668c8ecac",
+    "imageSha256": "d5ff14e5dc147cd75c204f5fca73f669b5f4056c5d28ed214152bf5b20670f6a",
+    "media": {
+      "duration": 4.3333,
+      "video": "h264",
+      "audio": "aac",
+      "width": 1440,
+      "height": 1080,
+      "frames": "130",
+      "sampleRate": "48000"
+    }
+  },
+  "scope": "Post-batch verification of closing the Recorder audio gate after StopRecording; original 100-level capture cohort preserved separately."
+}
