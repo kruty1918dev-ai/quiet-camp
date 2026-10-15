@@ -1,5 +1,5 @@
 {
-  "status": "100-source-stills-and-100-motion-samples-reviewed; final-montage-pending",
+  "status": "initial-source-visuals-reviewed; rejected-audio-recording; replacement-capture-pending",
   "sourceStills": [
     {
       "order": 1,
@@ -806,5 +806,7 @@
   ],
   "finalEncodingReviewed": false,
   "transitionsReviewed": false,
-  "motionReviewMethod": "Actual source movie frames 20, 60 and 118 inspected for every level in twenty contact sheets; placement progression, normal gameplay UI, weather and completed state are visible. This is temporal sampling, not continuous human playback."
+  "motionReviewMethod": "Actual source movie frames 20, 60 and 118 inspected for every level in twenty contact sheets; placement progression, normal gameplay UI, weather and completed state are visible. This is temporal sampling, not continuous human playback.",
+  "rejectedSourceFolder": "2026-10-15",
+  "rejection": "Many source MP4s have an AAC stream but zero audio packets. Montage rejected before delivery. Repeat recordings require decoded nonsilent audio per source."
 }

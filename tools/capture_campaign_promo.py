@@ -7,6 +7,7 @@ from pathlib import Path
 import subprocess
 import sys
 import time
+import re
 
 ROOT = Path(__file__).resolve().parents[1]
 QA = Path('C:/Users/Public/qcui-20261006/QuietCamp')
@@ -45,15 +46,19 @@ def ready(ident):
 
 
 def verify_movie(path):
-    result = subprocess.run([str(TOOLS/'ffprobe.exe'), '-v', 'error', '-show_streams', '-show_format', '-of', 'json', str(path)], capture_output=True, text=True, check=True)
+    result = subprocess.run([str(TOOLS/'ffprobe.exe'), '-v', 'error', '-count_packets', '-show_streams', '-show_format', '-of', 'json', str(path)], capture_output=True, text=True, encoding='utf-8', check=True)
     data = json.loads(result.stdout)
     video = next(s for s in data['streams'] if s['codec_type'] == 'video')
     audio = next(s for s in data['streams'] if s['codec_type'] == 'audio')
     assert video['width'] == 1440 and video['height'] == 1080
     assert 4 <= float(data['format']['duration']) <= 4.8, data['format']
     assert audio['sample_rate'] in ['44100', '48000'] and int(audio['channels']) == 2
+    assert int(audio.get('nb_read_packets', 0)) >= 180, 'Audio track has no complete recording: '+str(path)
+    decoded = subprocess.run([str(TOOLS/'ffmpeg.exe'), '-hide_banner', '-v', 'info', '-xerror', '-threads', '1', '-i', str(path), '-vn', '-af', 'volumedetect', '-f', 'null', '-'], capture_output=True, text=True, encoding='utf-8', check=True)
+    mean = re.search(r'mean_volume: ([-\d.]+) dB', decoded.stderr)
+    assert mean and float(mean[1]) > -60, 'Recorded audio is empty or silent: '+str(path)
     return dict(duration=float(data['format']['duration']), video=video['codec_name'], audio=audio['codec_name'],
-                width=video['width'], height=video['height'], frames=video.get('nb_frames'), sampleRate=audio['sample_rate'])
+                width=video['width'], height=video['height'], frames=video.get('nb_frames'), sampleRate=audio['sample_rate'], audioPackets=int(audio['nb_read_packets']), audioMeanDb=float(mean[1]))
 
 
 def main():
@@ -91,6 +96,7 @@ def main():
             reuse = (prior.get('status') == 'captured' and prior.get('inputs') == inputs and
                      all((folder/name).exists() and sha(folder/name) == prior.get(key) for name, key in [('gameplay.mp4','movieSha256'), ('gameplay.png','imageSha256')]))
             if reuse:
+                prior['media'] = verify_movie(folder/'gameplay.mp4')
                 result = request('opening-gameplay', name='check')
                 assert result['solved'] and result['recorded']
                 captured = prior
