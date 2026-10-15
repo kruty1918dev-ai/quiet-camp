@@ -1,0 +1,6 @@
+{
+  "baseline": "R10",
+  "observed": "Post-render UV audit found a reversed tangent handedness: UV V decreases along flow, but the normal-map basis pointed downstream. Last-row flow also lacked the previous-segment sign check.",
+  "change": "Align tangent basis and last-row vectors to the actual UV/current direction. Recalculate the owned Unity water-mesh tangents to repair older bakes without modifying their serialized source. Keep the improved R10 body colour and reflections.",
+  "status": "native-inspected; water visibility reviewed in R11"
+}

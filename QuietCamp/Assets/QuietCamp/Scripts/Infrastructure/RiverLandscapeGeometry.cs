@@ -172,7 +172,8 @@ namespace QuietCamp.Infrastructure
             for(int row=0;row<stations.Count;row++)
             {
                 var s=stations[row];var flow=new Vector2(-s.side.y,s.side.x);
-                if(row+1<stations.Count&&Vector2.Dot(flow,new Vector2(stations[row+1].centre.x-s.centre.x,stations[row+1].centre.z-s.centre.z))<0)flow=-flow;
+                var step=row+1<stations.Count?stations[row+1].centre-s.centre:s.centre-stations[row-1].centre;
+                if(Vector2.Dot(flow,new Vector2(step.x,step.z))<0)flow=-flow;
                 for(int col=0;col<=across;col++)
                 {
                     int i=row*(across+1)+col;float u=col/(float)across,f=u*2-1;
@@ -181,7 +182,8 @@ namespace QuietCamp.Infrastructure
                     mesh.vertices[i*3]=point.x;mesh.vertices[i*3+1]=point.y;mesh.vertices[i*3+2]=point.z;mesh.normals[i*3+1]=1;
                     mesh.uv[i*2]=u*s.halfWidth*2;mesh.uv[i*2+1]=-s.distance;
                     mesh.flow[i*3]=flow.x*.5f+.5f;mesh.flow[i*3+1]=flow.y*.5f+.5f;
-                    mesh.tangents[i*4]=s.side.x;mesh.tangents[i*4+2]=s.side.y;mesh.tangents[i*4+3]=-1;
+                    mesh.tangents[i*4]=s.side.x;mesh.tangents[i*4+2]=s.side.y;
+                    mesh.tangents[i*4+3]=Vector3.Dot(Vector3.Cross(Vector3.up,new Vector3(s.side.x,0,s.side.y)),new Vector3(-flow.x,0,-flow.y))>=0?1:-1;
                     mesh.colors[i*4+1]=Mathf.Pow(Mathf.Abs(f),5)*.62f; // transparency at the shallow lip only
                     mesh.colors[i*4+2]=Mathf.Pow(Mathf.Abs(f),3)*.8f; // calm waves at banks
                     if(row==stations.Count-1||col==across)continue;

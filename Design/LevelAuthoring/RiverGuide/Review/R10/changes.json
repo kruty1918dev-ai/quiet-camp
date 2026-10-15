@@ -2,5 +2,5 @@
   "baseline": "R09",
   "observed": "The shader multiplies measured depth by its depth parameters. We supplied metres where it expects inverse-metre extinction. Water therefore mostly refracted the riverbed even after reflections were enabled.",
   "change": "Calibrate extinction against channel depth: 2/depth vertically and 4/depth along view, leaving the shallow lip transparent. Increase restrained absorption. No river widening or per-level edits.",
-  "status": "native-inspected; superseded by R10"
+  "status": "native-inspected; superseded by R11"
 }

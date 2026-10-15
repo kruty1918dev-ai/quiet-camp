@@ -1,0 +1,566 @@
+{
+  "scope": "Actual R11 gameplay and Unity audio; no added soundtrack or speed changes",
+  "capture": {
+    "status": "captured",
+    "error": null,
+    "kind": "native-game-view-recorded-game-audio-and-real-placement-input",
+    "playerBuild": false,
+    "id": "gen:qc_camp:70",
+    "width": 1440,
+    "height": 1080,
+    "fps": 30,
+    "plannedFrames": 132,
+    "elapsedGameFrames": 132,
+    "stillHasPlacementGrid": true,
+    "completed": true,
+    "memoryOnly": true,
+    "playingAtmosphereVoices": 2,
+    "riverParticles": 8,
+    "riverRipples": 5,
+    "floatingLeaves": 1,
+    "riverReflectionRendered": true,
+    "riverEnvironmentReflected": true,
+    "renderQuality": 1,
+    "effectiveQuality": 1,
+    "surfaceSteps": 0,
+    "actions": [
+      {
+        "frame": 6,
+        "kind": "begin-card-drag",
+        "guestId": "g1",
+        "x": 0,
+        "z": 5,
+        "rotation": 0
+      },
+      {
+        "frame": 30,
+        "kind": "begin-card-drag",
+        "guestId": "g2",
+        "x": 0,
+        "z": 0,
+        "rotation": 0
+      },
+      {
+        "frame": 54,
+        "kind": "begin-card-drag",
+        "guestId": "g3",
+        "x": 2,
+        "z": 0,
+        "rotation": 0
+      },
+      {
+        "frame": 78,
+        "kind": "begin-card-drag",
+        "guestId": "g4",
+        "x": 2,
+        "z": 5,
+        "rotation": 0
+      },
+      {
+        "frame": 97,
+        "kind": "gameplay-still-with-placement-grid"
+      },
+      {
+        "frame": 116,
+        "kind": "canonical-check",
+        "solved": true
+      }
+    ],
+    "audioSource": "Unity Recorder captures the running Unity audio mix. No external soundtrack.",
+    "movie": "gameplay.mp4",
+    "image": "gameplay.png",
+    "cameraBefore": {
+      "gameplay": [
+        0.0240562353,
+        0.0416975059,
+        0.544596553,
+        0.804342449
+      ],
+      "boardViewport": [
+        [
+          0.24731268,
+          0.6566645,
+          24.5979347
+        ],
+        [
+          0.05323106,
+          0.4136446,
+          21.01359
+        ],
+        [
+          0.24731268,
+          0.7316733,
+          22.78551
+        ],
+        [
+          0.05323106,
+          0.488653332,
+          19.2011662
+        ],
+        [
+          0.539478,
+          0.399084032,
+          20.7988338
+        ],
+        [
+          0.3453964,
+          0.156064153,
+          17.214489
+        ],
+        [
+          0.539478,
+          0.474092782,
+          18.9864082
+        ],
+        [
+          0.3453964,
+          0.231072873,
+          15.4020653
+        ]
+      ],
+      "centreErrorPixels": [
+        4.29153442e-05,
+        -3.21865082e-05
+      ],
+      "fieldContained": true,
+      "groundCorners": [
+        [
+          12.3122444,
+          0.5935471
+        ],
+        [
+          -3.8672142,
+          19.8754845
+        ],
+        [
+          -22.2190628,
+          4.476461
+        ],
+        [
+          -6.03959656,
+          -14.8054752
+        ]
+      ],
+      "groundContained": true,
+      "boardFraming": true
+    },
+    "cameraAfter": {
+      "gameplay": [
+        0.0240562353,
+        0.0416975059,
+        0.544596553,
+        0.804342449
+      ],
+      "boardViewport": [
+        [
+          0.24731268,
+          0.6566645,
+          24.5979347
+        ],
+        [
+          0.05323106,
+          0.4136446,
+          21.01359
+        ],
+        [
+          0.24731268,
+          0.7316733,
+          22.78551
+        ],
+        [
+          0.05323106,
+          0.488653332,
+          19.2011662
+        ],
+        [
+          0.539478,
+          0.399084032,
+          20.7988338
+        ],
+        [
+          0.3453964,
+          0.156064153,
+          17.214489
+        ],
+        [
+          0.539478,
+          0.474092782,
+          18.9864082
+        ],
+        [
+          0.3453964,
+          0.231072873,
+          15.4020653
+        ]
+      ],
+      "centreErrorPixels": [
+        4.29153442e-05,
+        -3.21865082e-05
+      ],
+      "fieldContained": true,
+      "groundCorners": [
+        [
+          12.3122444,
+          0.5935471
+        ],
+        [
+          -3.8672142,
+          19.8754845
+        ],
+        [
+          -22.2190628,
+          4.476461
+        ],
+        [
+          -6.03959656,
+          -14.8054752
+        ]
+      ],
+      "groundContained": true,
+      "boardFraming": true
+    },
+    "order": 53,
+    "inputs": {
+      "levelSha256": "eb5873a6c1066e1a2ee6e666494f3577ba8e1837d4ba7c4829f5142320f2c9f5",
+      "artSha256": "6bd2ee031fc140538604f9367b86de30408cb4f7f0754d26c726e3d6017e0623",
+      "sources": {
+        "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "01f0c4f803aeee212d1a81660a7ee6efa4e1f0656081b87f49475caa111d0445",
+        "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "475f564c550cd8021d41e7e2f691d6a3677b00743493e4e59a88a0ab8aa882e3",
+        "Assets\\QuietCamp\\Scripts\\Infrastructure\\CampArtDefinition.cs": "f1d9295478f90b0ac9094b5a0c538d1cd4f37d9f19e4e6e695657c818f8e21a4",
+        "Assets\\QuietCamp\\Scripts\\Infrastructure\\EditorAuthoringPreview.cs": "18ff904dc60beebf7ddd3a5757c734314c6a83812d30d77ecd8f8a9fec58b471",
+        "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CameraFitter.cs": "ae89bebd82ecdd35430ae3d3eba8e31629f4387c1572afa8d0947abe9b39b872",
+        "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampArtView.cs": "48135751b344ba39c22029e9c68ca86db29d19b086017b2039fa80ed1ab19beb",
+        "Assets\\QuietCamp\\Editor\\LevelAuthoring\\LevelAuthoringPlayDriver.cs": "49d3d2d1d8471a4949bfa64c02b0b9d56ea6956ddbf8a258927e5d4409d7350b",
+        "Assets\\QuietCamp\\Scripts\\Infrastructure\\FrozenLandscape.cs": "bad119874097b6f16b7558b02849edcbdcb28b740f3169537415bb0ac2498b83",
+        "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverEnvironmentProfile.cs": "996b18dcc8699f17731fb278384bed437c1d5ec83d68cba97817c228e5db1b0a",
+        "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverSurfaceField.cs": "5e0abb2b3fc24d150ca2f4ee69ed5957201bf6a12a6cd3188cb1ad4b38881b49",
+        "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverLandscapeGeometry.cs": "b511003d0e535edd1b2263287f45d7ebd27352b6e374e6f096ae314973061072",
+        "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverBankEcology.cs": "793f6895115d57207831e802012eac41dda3c09fbcf2baf5c0054d9f8ffdf291",
+        "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RiverWeatherMaterial.cs": "7543e5bd1f9b91a4022493867d9a9a644e25d7d4a36c28e913a0885eef556ed0",
+        "Assets\\QuietCamp\\Scripts\\Presentation\\World\\SeasonAtmosphereView.cs": "46848139b94396ea592243687ed698514d0242fb4f73443f36804aada3d0580c",
+        "Assets\\QuietCamp\\Resources\\QuietCamp\\river_environment.json": "1357bb01ccf000ba1c1c797f5844a4ffd47cbfb14fce1fca8c8f997289d04f12",
+        "Assets\\QuietCamp\\Resources\\QuietCamp\\CampArtLit.shader": "05e475c0b3a783abc9f3d9df4fcac95fe0346b77677893146135ab1530eac8eb",
+        "Assets\\QuietCamp\\EditorBridge\\Editor\\MicroVerseRiverTerrainAdapter.cs": "8c5d7205926c6bdd65496b9624b5f12fd13c322df4c50717c2e8b2c1d68d1ad4",
+        "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RiverReflectionView.cs": "f777f9315b0540fdf304da37945b04c69bb698e8ff07a387abe0ef50b803f59c",
+        "Assets\\QuietCamp\\Scripts\\Presentation\\QuietCamp.Presentation.asmdef": "0cc944e5612c28884ed43ecd16800a70fbd49f0e8340181a16ed82ede2847c94"
+      },
+      "publishedArtSha256": "d2594e090734c5be50206acef19d9ed32cb63dd3464343a4984c6f0fd38270b7"
+    },
+    "imageSha256": "12c3d1e7190a54fc6886754d54269194eb5540ab185866516443d0c89960f3ff",
+    "movieSha256": "f605e4e21e3aecbfc48c514bc55e564042f80f6c59ad3eef68c1a0491e7658d1",
+    "media": {
+      "duration": 4.3333,
+      "video": "h264",
+      "audio": "aac",
+      "width": 1440,
+      "height": 1080,
+      "frames": "130",
+      "sampleRate": "48000",
+      "audioPackets": 203,
+      "audioMeanDb": -34.7
+    }
+  },
+  "videoSha256": "f605e4e21e3aecbfc48c514bc55e564042f80f6c59ad3eef68c1a0491e7658d1",
+  "before": {
+    "progress": {
+      "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\AppData\\LocalLow\\kruty1918\\Quiet Camp\\qc_language.txt": "83116acf18e4dc4414762f584ff43d9979ff2c2b0e9e48fbc97b21e23d7004ec",
+      "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\AppData\\LocalLow\\kruty1918\\Quiet Camp\\saves\\slot00.mvs": "a4edfd185cb88c9c7a6ca61f567e0c0d95462b75182246e785f6da8881ece540",
+      "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\AppData\\LocalLow\\kruty1918\\Quiet Camp\\saves\\slot00.mvs.bak": "a4edfd185cb88c9c7a6ca61f567e0c0d95462b75182246e785f6da8881ece540",
+      "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\AppData\\LocalLow\\kruty1918\\Quiet Camp QA\\qc_language.txt": "83116acf18e4dc4414762f584ff43d9979ff2c2b0e9e48fbc97b21e23d7004ec",
+      "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\AppData\\LocalLow\\kruty1918\\Quiet Camp QA\\saves\\slot00.mvs": "d0d51f28df73a4d1618402849537ac58ac53fc227a4bfe9b1b07f0808b634788",
+      "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\AppData\\LocalLow\\kruty1918\\Quiet Camp QA\\saves\\slot00.mvs.bak": "d0d51f28df73a4d1618402849537ac58ac53fc227a4bfe9b1b07f0808b634788"
+    },
+    "workspace": {
+      "status": "workspace-empty"
+    },
+    "captureSources": {
+      "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "01f0c4f803aeee212d1a81660a7ee6efa4e1f0656081b87f49475caa111d0445",
+      "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "475f564c550cd8021d41e7e2f691d6a3677b00743493e4e59a88a0ab8aa882e3",
+      "Assets\\QuietCamp\\Scripts\\Infrastructure\\CampArtDefinition.cs": "f1d9295478f90b0ac9094b5a0c538d1cd4f37d9f19e4e6e695657c818f8e21a4",
+      "Assets\\QuietCamp\\Scripts\\Infrastructure\\EditorAuthoringPreview.cs": "18ff904dc60beebf7ddd3a5757c734314c6a83812d30d77ecd8f8a9fec58b471",
+      "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CameraFitter.cs": "ae89bebd82ecdd35430ae3d3eba8e31629f4387c1572afa8d0947abe9b39b872",
+      "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampArtView.cs": "48135751b344ba39c22029e9c68ca86db29d19b086017b2039fa80ed1ab19beb",
+      "Assets\\QuietCamp\\Editor\\LevelAuthoring\\LevelAuthoringPlayDriver.cs": "49d3d2d1d8471a4949bfa64c02b0b9d56ea6956ddbf8a258927e5d4409d7350b",
+      "Assets\\QuietCamp\\Scripts\\Infrastructure\\FrozenLandscape.cs": "bad119874097b6f16b7558b02849edcbdcb28b740f3169537415bb0ac2498b83",
+      "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverEnvironmentProfile.cs": "996b18dcc8699f17731fb278384bed437c1d5ec83d68cba97817c228e5db1b0a",
+      "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverSurfaceField.cs": "5e0abb2b3fc24d150ca2f4ee69ed5957201bf6a12a6cd3188cb1ad4b38881b49",
+      "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverLandscapeGeometry.cs": "b511003d0e535edd1b2263287f45d7ebd27352b6e374e6f096ae314973061072",
+      "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverBankEcology.cs": "793f6895115d57207831e802012eac41dda3c09fbcf2baf5c0054d9f8ffdf291",
+      "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RiverWeatherMaterial.cs": "7543e5bd1f9b91a4022493867d9a9a644e25d7d4a36c28e913a0885eef556ed0",
+      "Assets\\QuietCamp\\Scripts\\Presentation\\World\\SeasonAtmosphereView.cs": "46848139b94396ea592243687ed698514d0242fb4f73443f36804aada3d0580c",
+      "Assets\\QuietCamp\\Resources\\QuietCamp\\river_environment.json": "1357bb01ccf000ba1c1c797f5844a4ffd47cbfb14fce1fca8c8f997289d04f12",
+      "Assets\\QuietCamp\\Resources\\QuietCamp\\CampArtLit.shader": "05e475c0b3a783abc9f3d9df4fcac95fe0346b77677893146135ab1530eac8eb",
+      "Assets\\QuietCamp\\EditorBridge\\Editor\\MicroVerseRiverTerrainAdapter.cs": "8c5d7205926c6bdd65496b9624b5f12fd13c322df4c50717c2e8b2c1d68d1ad4",
+      "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RiverReflectionView.cs": "f777f9315b0540fdf304da37945b04c69bb698e8ff07a387abe0ef50b803f59c",
+      "Assets\\QuietCamp\\Scripts\\Presentation\\QuietCamp.Presentation.asmdef": "0cc944e5612c28884ed43ecd16800a70fbd49f0e8340181a16ed82ede2847c94"
+    }
+  },
+  "session": {
+    "status": "captured",
+    "levels": [
+      {
+        "status": "captured",
+        "error": null,
+        "kind": "native-game-view-recorded-game-audio-and-real-placement-input",
+        "playerBuild": false,
+        "id": "gen:qc_camp:70",
+        "width": 1440,
+        "height": 1080,
+        "fps": 30,
+        "plannedFrames": 132,
+        "elapsedGameFrames": 132,
+        "stillHasPlacementGrid": true,
+        "completed": true,
+        "memoryOnly": true,
+        "playingAtmosphereVoices": 2,
+        "riverParticles": 8,
+        "riverRipples": 5,
+        "floatingLeaves": 1,
+        "riverReflectionRendered": true,
+        "riverEnvironmentReflected": true,
+        "renderQuality": 1,
+        "effectiveQuality": 1,
+        "surfaceSteps": 0,
+        "actions": [
+          {
+            "frame": 6,
+            "kind": "begin-card-drag",
+            "guestId": "g1",
+            "x": 0,
+            "z": 5,
+            "rotation": 0
+          },
+          {
+            "frame": 30,
+            "kind": "begin-card-drag",
+            "guestId": "g2",
+            "x": 0,
+            "z": 0,
+            "rotation": 0
+          },
+          {
+            "frame": 54,
+            "kind": "begin-card-drag",
+            "guestId": "g3",
+            "x": 2,
+            "z": 0,
+            "rotation": 0
+          },
+          {
+            "frame": 78,
+            "kind": "begin-card-drag",
+            "guestId": "g4",
+            "x": 2,
+            "z": 5,
+            "rotation": 0
+          },
+          {
+            "frame": 97,
+            "kind": "gameplay-still-with-placement-grid"
+          },
+          {
+            "frame": 116,
+            "kind": "canonical-check",
+            "solved": true
+          }
+        ],
+        "audioSource": "Unity Recorder captures the running Unity audio mix. No external soundtrack.",
+        "movie": "gameplay.mp4",
+        "image": "gameplay.png",
+        "cameraBefore": {
+          "gameplay": [
+            0.0240562353,
+            0.0416975059,
+            0.544596553,
+            0.804342449
+          ],
+          "boardViewport": [
+            [
+              0.24731268,
+              0.6566645,
+              24.5979347
+            ],
+            [
+              0.05323106,
+              0.4136446,
+              21.01359
+            ],
+            [
+              0.24731268,
+              0.7316733,
+              22.78551
+            ],
+            [
+              0.05323106,
+              0.488653332,
+              19.2011662
+            ],
+            [
+              0.539478,
+              0.399084032,
+              20.7988338
+            ],
+            [
+              0.3453964,
+              0.156064153,
+              17.214489
+            ],
+            [
+              0.539478,
+              0.474092782,
+              18.9864082
+            ],
+            [
+              0.3453964,
+              0.231072873,
+              15.4020653
+            ]
+          ],
+          "centreErrorPixels": [
+            4.29153442e-05,
+            -3.21865082e-05
+          ],
+          "fieldContained": true,
+          "groundCorners": [
+            [
+              12.3122444,
+              0.5935471
+            ],
+            [
+              -3.8672142,
+              19.8754845
+            ],
+            [
+              -22.2190628,
+              4.476461
+            ],
+            [
+              -6.03959656,
+              -14.8054752
+            ]
+          ],
+          "groundContained": true,
+          "boardFraming": true
+        },
+        "cameraAfter": {
+          "gameplay": [
+            0.0240562353,
+            0.0416975059,
+            0.544596553,
+            0.804342449
+          ],
+          "boardViewport": [
+            [
+              0.24731268,
+              0.6566645,
+              24.5979347
+            ],
+            [
+              0.05323106,
+              0.4136446,
+              21.01359
+            ],
+            [
+              0.24731268,
+              0.7316733,
+              22.78551
+            ],
+            [
+              0.05323106,
+              0.488653332,
+              19.2011662
+            ],
+            [
+              0.539478,
+              0.399084032,
+              20.7988338
+            ],
+            [
+              0.3453964,
+              0.156064153,
+              17.214489
+            ],
+            [
+              0.539478,
+              0.474092782,
+              18.9864082
+            ],
+            [
+              0.3453964,
+              0.231072873,
+              15.4020653
+            ]
+          ],
+          "centreErrorPixels": [
+            4.29153442e-05,
+            -3.21865082e-05
+          ],
+          "fieldContained": true,
+          "groundCorners": [
+            [
+              12.3122444,
+              0.5935471
+            ],
+            [
+              -3.8672142,
+              19.8754845
+            ],
+            [
+              -22.2190628,
+              4.476461
+            ],
+            [
+              -6.03959656,
+              -14.8054752
+            ]
+          ],
+          "groundContained": true,
+          "boardFraming": true
+        },
+        "order": 53,
+        "inputs": {
+          "levelSha256": "eb5873a6c1066e1a2ee6e666494f3577ba8e1837d4ba7c4829f5142320f2c9f5",
+          "artSha256": "6bd2ee031fc140538604f9367b86de30408cb4f7f0754d26c726e3d6017e0623",
+          "sources": {
+            "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "01f0c4f803aeee212d1a81660a7ee6efa4e1f0656081b87f49475caa111d0445",
+            "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "475f564c550cd8021d41e7e2f691d6a3677b00743493e4e59a88a0ab8aa882e3",
+            "Assets\\QuietCamp\\Scripts\\Infrastructure\\CampArtDefinition.cs": "f1d9295478f90b0ac9094b5a0c538d1cd4f37d9f19e4e6e695657c818f8e21a4",
+            "Assets\\QuietCamp\\Scripts\\Infrastructure\\EditorAuthoringPreview.cs": "18ff904dc60beebf7ddd3a5757c734314c6a83812d30d77ecd8f8a9fec58b471",
+            "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CameraFitter.cs": "ae89bebd82ecdd35430ae3d3eba8e31629f4387c1572afa8d0947abe9b39b872",
+            "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampArtView.cs": "48135751b344ba39c22029e9c68ca86db29d19b086017b2039fa80ed1ab19beb",
+            "Assets\\QuietCamp\\Editor\\LevelAuthoring\\LevelAuthoringPlayDriver.cs": "49d3d2d1d8471a4949bfa64c02b0b9d56ea6956ddbf8a258927e5d4409d7350b",
+            "Assets\\QuietCamp\\Scripts\\Infrastructure\\FrozenLandscape.cs": "bad119874097b6f16b7558b02849edcbdcb28b740f3169537415bb0ac2498b83",
+            "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverEnvironmentProfile.cs": "996b18dcc8699f17731fb278384bed437c1d5ec83d68cba97817c228e5db1b0a",
+            "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverSurfaceField.cs": "5e0abb2b3fc24d150ca2f4ee69ed5957201bf6a12a6cd3188cb1ad4b38881b49",
+            "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverLandscapeGeometry.cs": "b511003d0e535edd1b2263287f45d7ebd27352b6e374e6f096ae314973061072",
+            "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverBankEcology.cs": "793f6895115d57207831e802012eac41dda3c09fbcf2baf5c0054d9f8ffdf291",
+            "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RiverWeatherMaterial.cs": "7543e5bd1f9b91a4022493867d9a9a644e25d7d4a36c28e913a0885eef556ed0",
+            "Assets\\QuietCamp\\Scripts\\Presentation\\World\\SeasonAtmosphereView.cs": "46848139b94396ea592243687ed698514d0242fb4f73443f36804aada3d0580c",
+            "Assets\\QuietCamp\\Resources\\QuietCamp\\river_environment.json": "1357bb01ccf000ba1c1c797f5844a4ffd47cbfb14fce1fca8c8f997289d04f12",
+            "Assets\\QuietCamp\\Resources\\QuietCamp\\CampArtLit.shader": "05e475c0b3a783abc9f3d9df4fcac95fe0346b77677893146135ab1530eac8eb",
+            "Assets\\QuietCamp\\EditorBridge\\Editor\\MicroVerseRiverTerrainAdapter.cs": "8c5d7205926c6bdd65496b9624b5f12fd13c322df4c50717c2e8b2c1d68d1ad4",
+            "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RiverReflectionView.cs": "f777f9315b0540fdf304da37945b04c69bb698e8ff07a387abe0ef50b803f59c",
+            "Assets\\QuietCamp\\Scripts\\Presentation\\QuietCamp.Presentation.asmdef": "0cc944e5612c28884ed43ecd16800a70fbd49f0e8340181a16ed82ede2847c94"
+          },
+          "publishedArtSha256": "d2594e090734c5be50206acef19d9ed32cb63dd3464343a4984c6f0fd38270b7"
+        },
+        "imageSha256": "12c3d1e7190a54fc6886754d54269194eb5540ab185866516443d0c89960f3ff",
+        "movieSha256": "f605e4e21e3aecbfc48c514bc55e564042f80f6c59ad3eef68c1a0491e7658d1",
+        "media": {
+          "duration": 4.3333,
+          "video": "h264",
+          "audio": "aac",
+          "width": 1440,
+          "height": 1080,
+          "frames": "130",
+          "sampleRate": "48000",
+          "audioPackets": 203,
+          "audioMeanDb": -34.7
+        }
+      }
+    ],
+    "progressUnchanged": true,
+    "workspaceUnchanged": true
+  },
+  "visualReview": "Viewed four full gameplay states. River highlights change shape continuously while rain and placements animate; no frozen reflection, wave seam or rectangular foam outline observed. Small water ripples remain more subtle than the broad sun patch at this camera scale."
+}

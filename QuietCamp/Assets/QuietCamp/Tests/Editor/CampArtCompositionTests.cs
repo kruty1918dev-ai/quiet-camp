@@ -142,6 +142,12 @@ namespace QuietCamp.Tests
                     Assert.LessOrEqual(ys.Max()-ys.Min(),.08f,id+": non-planar water requires its native river fallback");
                     Assert.IsTrue(water.flow.All(v=>v>=0&&v<=1),id);
                     Assert.IsTrue(water.normals.Where((_,i)=>i%3==1).All(v=>v>.999f),id);
+                    for(int i=0;i<water.vertices.Length/3;i++)
+                    {
+                        var tangent=new UnityEngine.Vector3(water.tangents[i*4],0,water.tangents[i*4+2]);
+                        var uvAlong=new UnityEngine.Vector3(1-water.flow[i*3]*2,0,1-water.flow[i*3+1]*2).normalized;
+                        Assert.Greater(UnityEngine.Vector3.Dot(UnityEngine.Vector3.Cross(UnityEngine.Vector3.up,tangent)*water.tangents[i*4+3],uvAlong),.99f,id+": tangent must follow negative-distance UV, not invert the normal map");
+                    }
                 }
                 count++;
             }

@@ -71,6 +71,9 @@ namespace QuietCamp.Infrastructure
             if (lightmapUv?.Length > 0) mesh.uv2 = Enumerable.Range(0, count).Select(i => new Vector2(lightmapUv[i * 2], lightmapUv[i * 2 + 1])).ToArray();
             if (flow?.Length > 0) mesh.SetUVs(2, Enumerable.Range(0, count).Select(i => new Vector3(flow[i * 3], flow[i * 3 + 1], flow[i * 3 + 2])).ToArray());
             if (tangents?.Length > 0) mesh.tangents = Enumerable.Range(0, count).Select(i => new Vector4(tangents[i * 4], tangents[i * 4 + 1], tangents[i * 4 + 2], tangents[i * 4 + 3])).ToArray();
+            // Old river bakes may have a tangent sign that contradicts their UVs.
+            // Repair the owned display mesh without modifying serialized source data.
+            if(water)mesh.RecalculateTangents();
             mesh.RecalculateBounds(); return mesh;
         }
     }
