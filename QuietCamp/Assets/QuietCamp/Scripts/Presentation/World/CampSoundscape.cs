@@ -25,6 +25,7 @@ namespace QuietCamp.Presentation.World
         AudioHandle _biomeBed, _water;
         CampBiomeProfile _biome;
         LevelData _level;
+        bool _presetOwnsAmbience;
         Vector3? _waterPosition;
         float _biomeWeight, _waterWeight, _surfaceGap;
         Vector3 _firePosition;
@@ -49,9 +50,10 @@ namespace QuietCamp.Presentation.World
         }
 
         public void Configure(CampAtmosphere atmosphere, LevelData level,
-            AtmosphereCatalog.Profile profile, Transform decor, AudioService audio)
+            AtmosphereCatalog.Profile profile, Transform decor, AudioService audio,bool presetOwnsAmbience=false)
         {
             _audio = audio; _atmosphere = atmosphere; _random = new System.Random(level.decorSeed ^ 191819);
+            _presetOwnsAmbience=presetOwnsAmbience;
             _level = level; _biome = new CampBiomeProfile(level);
             var shore = EnvironmentCompositionData.For(level).shore;
             _waterPosition = shore == null ? (Vector3?)null : ShorelineGeometry.Point(shore,0,.5f);
@@ -104,7 +106,7 @@ namespace QuietCamp.Presentation.World
                 _tents.Clear();
                 if (_world != null) _world.GetComponentsInChildren(false, _tents);
             }
-            float wet = _atmosphere.Weather?.RainAmount ?? 0;
+            float wet = _atmosphere.SeasonalWeather?.Preset.rain??_atmosphere.Weather?.RainAmount??0;
             float burn = _atmosphere.RainShelter?.FireStrength ?? 1;
             bool extinguished = _atmosphere.RainShelter?.Extinguished ?? false;
             if (extinguished && !_quenched)
@@ -114,16 +116,19 @@ namespace QuietCamp.Presentation.World
                 if (_hadFire) PlayAccent("sfx.fire.quench", _firePosition, .65f);
             }
             TickLoop(ref _fire, ref _fireWeight, "ambience.fire", _hasFire && !extinguished ? burn : 0, 1.4f, dt, _firePosition);
+            if(!_presetOwnsAmbience)
+            {
             TickLoop(ref _crickets, ref _cricketWeight, "ambience.crickets", _profile.Crickets * _biome.Crickets * (1 - wet * .8f), 4, dt);
             TickLoop(ref _biomeBed, ref _biomeWeight, _biome.BedKey,
                 _biome.BedWeight*(.7f+.3f*_atmosphere.Wind.Strength)*(1-wet*.35f),4,dt);
             TickLoop(ref _water, ref _waterWeight, "ambience.biome.water", _biome.WaterWeight,4,dt,_waterPosition);
             TickLoop(ref _rain, ref _rainWeight, "ambience.rain", wet * .8f, 2, dt);
+            }
             Vector3 roof = _tents.Count > 0 && _tents[0] != null ? _tents[0].transform.position + Vector3.up * .6f : Vector3.zero;
             TickLoop(ref _canvas, ref _canvasWeight, "ambience.rain.canvas", _tents.Count > 0 ? wet * .65f : 0, 2, dt, roof);
             _windWeight = Mathf.MoveTowards(_windWeight, _profile.WindAudio, dt / 3);
             var services = QuietCampBootstrap.ServicesRef;
-            if (services?.Audio == _audio)
+            if (!_presetOwnsAmbience&&services?.Audio == _audio)
                 _audio.SetPlaybackScale(services.AmbientWindHandle,
                     _windWeight * (.78f + .22f * _atmosphere.Wind.Strength) * _visibility);
 
@@ -136,6 +141,7 @@ namespace QuietCamp.Presentation.World
                 _dripClock = Delay(3, 5);
                 if (!Quiet) PlayAccent("sfx.rain.drip", NextCanopy() - Vector3.up * 1.6f, .45f);
             }
+            if(_presetOwnsAmbience)return;
             _birdClock -= dt; _owlClock -= dt;
             if (_birdClock <= 0)
             {
@@ -179,7 +185,7 @@ namespace QuietCamp.Presentation.World
         {
             if (_audio == null || _surfaceGap > 0 || AudioListener.pause || _visibility < .8f) return;
             _surfaceGap=.2f;
-            var surface=new CampBiomeProfile(_level,_atmosphere.Weather?.RainAmount??0);
+            var surface=new CampBiomeProfile(_level,_atmosphere.SeasonalWeather?.Preset.rain??_atmosphere.Weather?.RainAmount??0);
             PlayAccent(surface.SurfaceKey,position,.55f);
         }
         void OnGust()

@@ -1,0 +1,311 @@
+{
+  "status": "passed",
+  "date": "2026-10-16",
+  "kind": "native-runtime-atmosphere-and-game-audio",
+  "playerBuild": false,
+  "sourcesAtCapture": {
+    "Assets\\QuietCamp\\Editor\\LevelAuthoring\\CampaignPromoRecorder.cs": "caee8f9702340f630275ecccefd528474b7b4726b8cc30e282cf6e6e0e280c7e",
+    "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "d97e3d0fc08ca4e9695b6f01fcfd8d3a3abe0ab1f3b5a30e913b6c483166873d",
+    "Assets\\QuietCamp\\Scripts\\Infrastructure\\CampArtDefinition.cs": "f1d9295478f90b0ac9094b5a0c538d1cd4f37d9f19e4e6e695657c818f8e21a4",
+    "Assets\\QuietCamp\\Scripts\\Infrastructure\\EditorAuthoringPreview.cs": "18ff904dc60beebf7ddd3a5757c734314c6a83812d30d77ecd8f8a9fec58b471",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CameraFitter.cs": "cd0f9e036599f3d846e768a8e5a929d0fb858bf53e2a4cbf9e6f5e1fe7e2cb4d",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampArtView.cs": "86c978c99266a77589b0543419c7c3578aace622e0a678b711333eae69ca7be4",
+    "Assets\\QuietCamp\\Editor\\LevelAuthoring\\LevelAuthoringPlayDriver.cs": "285defb0c8653e0a851cec65d9486d53cca458a155ae99a40925c03051dbffdd",
+    "Assets\\QuietCamp\\Scripts\\Infrastructure\\FrozenLandscape.cs": "bad119874097b6f16b7558b02849edcbdcb28b740f3169537415bb0ac2498b83",
+    "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverEnvironmentProfile.cs": "996b18dcc8699f17731fb278384bed437c1d5ec83d68cba97817c228e5db1b0a",
+    "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverSurfaceField.cs": "5e0abb2b3fc24d150ca2f4ee69ed5957201bf6a12a6cd3188cb1ad4b38881b49",
+    "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverLandscapeGeometry.cs": "b511003d0e535edd1b2263287f45d7ebd27352b6e374e6f096ae314973061072",
+    "Assets\\QuietCamp\\Scripts\\Infrastructure\\RiverBankEcology.cs": "793f6895115d57207831e802012eac41dda3c09fbcf2baf5c0054d9f8ffdf291",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RiverWeatherMaterial.cs": "7543e5bd1f9b91a4022493867d9a9a644e25d7d4a36c28e913a0885eef556ed0",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\SeasonAtmosphereView.cs": "1b1e1715e65d84e3d30f7730a4b72f1d42b6a5731bc518b8ed68ac34d76e8a29",
+    "Assets\\QuietCamp\\Resources\\QuietCamp\\river_environment.json": "1357bb01ccf000ba1c1c797f5844a4ffd47cbfb14fce1fca8c8f997289d04f12",
+    "Assets\\QuietCamp\\Resources\\QuietCamp\\CampArtLit.shader": "05e475c0b3a783abc9f3d9df4fcac95fe0346b77677893146135ab1530eac8eb",
+    "Assets\\QuietCamp\\EditorBridge\\Editor\\MicroVerseRiverTerrainAdapter.cs": "8c5d7205926c6bdd65496b9624b5f12fd13c322df4c50717c2e8b2c1d68d1ad4",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RiverReflectionView.cs": "a3b69711fb2af9f4be0f4614318a8a1ce540615b0f7ad835d6c74af36db60676",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\QuietCamp.Presentation.asmdef": "0cc944e5612c28884ed43ecd16800a70fbd49f0e8340181a16ed82ede2847c94",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\BoardRenderer.cs": "a04a25ac3b876e6f81101cc2f0f37ad582eca0e6c0b6222b05a23c3b42bf3582",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampGroundDetails.cs": "2f37cef4d2f2694b328b1009b3dd7dc9e1bdf45acd2b1fbf2b61fa21add64576",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\MenuSceneHost.cs": "95a5da543e364d1582e4b770fbb181a74b49dc44de9d033e8a1caaf2d4865b90",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\MenuDiorama.cs": "12a41aaf144a2422a698df22bf3cd44be7010e365921852d9a7eaa1fe1bda609",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampAtmosphere.cs": "bb51ba669fa157d3bc0fd4cf2e1e9a25bf1a8b47fc7635485fa453ecdc21ca0c",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampArtEdgeBlur.cs": "b39d2b1067ebb4d15fab07f1dcc6fbf9535ed4c5de41f8893fffacb044b3dd37",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\SeasonVisibilityPass.cs": "41b7572ec51563033dbd58bfff7bea89a82a437f9e26339c80d212d8212f1ac5",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampSceneHost.cs": "070deae4b7c7cdeaa1a608e3fccec5f84ea39e2d6a513ff8ccba8e486cfc6726",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\UI\\CampHud.cs": "ee49df99173ad206a0ee5893bb003b067ee4ae264b8cc6ce8dcf3a9a7d248e66",
+    "Assets\\QuietCamp\\Resources\\QuietCamp\\Html\\CampGame.css.txt": "2cd592fb697f941b7d979b9416761612e17309015e1de1acd64acea0ae38a48c",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\PlacementTargetProjector.cs": "73562506ef10de9d08031aa16bc82f5cac5adeffc579214546bf48ab07deba69",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RainSurface.cs": "6381f74a0a19b28db633f9a2c9a73d3abd7622392afc431dc99e4955be60dd1c",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RainImpacts.cs": "28546b5205b0536b94630bdc1801451a84db977a47d0356aa3a22993c39c1d44",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\WeatherSurfaceField.cs": "2eced507257ef1a3bf360aa56c45ba0cb6dae62edf7d38834d8daac8576d9836",
+    "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampSoundscape.cs": "bea83bf19783c7205e7a5a37c9a7b7d2f73fc0c0a10d3577dd6737b742c7a308"
+  },
+  "levels": [
+    {
+      "id": "QC009",
+      "completed": true,
+      "memoryOnly": true,
+      "playingAtmosphereVoices": 2,
+      "ambientPeakRms": 0.0265001189,
+      "sharedWindStrength": 0.15,
+      "reactiveVoices": 1,
+      "canvasRainPlaying": true,
+      "voiceAnchorDistance": 0.0,
+      "audioAnchor": "ListenerProxy",
+      "foliageWaveLength": 10.0,
+      "foliageWaveSpeed": 1.5,
+      "foliageFlutter": 1.0,
+      "media": {
+        "duration": 4.3333,
+        "video": "h264",
+        "audio": "aac",
+        "width": 1440,
+        "height": 1080,
+        "frames": "130",
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -33.5
+      },
+      "directory": "AtmosphereRuntime-R02",
+      "movieSha256": "340ec73481c7d6f6d1a15beff93f590fe182b21dac2a00687d2deb5e077a5350",
+      "imageSha256": "52e5531ac925d1b524baee91e070842a9b0410b36502801c4c8db452480b7e9e",
+      "progressUnchanged": true,
+      "workspaceUnchanged": true
+    },
+    {
+      "id": "gen:qc_camp:12",
+      "completed": true,
+      "memoryOnly": true,
+      "playingAtmosphereVoices": 1,
+      "ambientPeakRms": 0.02407788,
+      "sharedWindStrength": 0.23,
+      "reactiveVoices": 0,
+      "canvasRainPlaying": false,
+      "voiceAnchorDistance": 0.0,
+      "audioAnchor": "ListenerProxy",
+      "foliageWaveLength": 10.0,
+      "foliageWaveSpeed": 1.5,
+      "foliageFlutter": 1.0,
+      "media": {
+        "duration": 4.3333,
+        "video": "h264",
+        "audio": "aac",
+        "width": 1440,
+        "height": 1080,
+        "frames": "130",
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -34.0
+      },
+      "directory": "AtmosphereRuntime-Dry",
+      "movieSha256": "97d189ba445b05b4d87567f54a0b43552203cbbeef1a6d789a7ad9979fb0d048",
+      "imageSha256": "c5d6f4bcae06ad2834bddcc3fcaa5ae569d0967921077802d0a2adc070426013",
+      "progressUnchanged": true,
+      "workspaceUnchanged": true
+    },
+    {
+      "id": "gen:qc_camp:96",
+      "completed": true,
+      "memoryOnly": true,
+      "playingAtmosphereVoices": 1,
+      "ambientPeakRms": 0.0231093671,
+      "sharedWindStrength": 0.2,
+      "reactiveVoices": 0,
+      "canvasRainPlaying": false,
+      "voiceAnchorDistance": 0.0,
+      "audioAnchor": "ListenerProxy",
+      "foliageWaveLength": 10.0,
+      "foliageWaveSpeed": 1.5,
+      "foliageFlutter": 1.0,
+      "media": {
+        "duration": 4.3333,
+        "video": "h264",
+        "audio": "aac",
+        "width": 1440,
+        "height": 1080,
+        "frames": "130",
+        "sampleRate": "48000",
+        "audioPackets": 203,
+        "audioMeanDb": -34.1
+      },
+      "directory": "AtmosphereRuntime-Winter",
+      "movieSha256": "1d403b9246a075ff68e1750734eafd9e6de143d34b1758b5c3ae55c511b83801",
+      "imageSha256": "e4d92d21f487cd7b0663b9bd8acb22d16af2d80fa90e5827d4b77de98ecda027",
+      "progressUnchanged": true,
+      "workspaceUnchanged": true
+    }
+  ],
+  "normalMenuFlow": {
+    "status": "passed",
+    "artOverride": false,
+    "playerBuild": false,
+    "requestedSize": "750x1334",
+    "sources": {
+      "Assets\\QuietCamp\\Scripts\\Presentation\\World\\BoardRenderer.cs": "a04a25ac3b876e6f81101cc2f0f37ad582eca0e6c0b6222b05a23c3b42bf3582",
+      "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampArtView.cs": "86c978c99266a77589b0543419c7c3578aace622e0a678b711333eae69ca7be4",
+      "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CameraFitter.cs": "cd0f9e036599f3d846e768a8e5a929d0fb858bf53e2a4cbf9e6f5e1fe7e2cb4d",
+      "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampAtmosphere.cs": "bb51ba669fa157d3bc0fd4cf2e1e9a25bf1a8b47fc7635485fa453ecdc21ca0c",
+      "Assets\\QuietCamp\\Scripts\\Presentation\\UI\\CampHud.cs": "ee49df99173ad206a0ee5893bb003b067ee4ae264b8cc6ce8dcf3a9a7d248e66",
+      "Assets\\QuietCamp\\Resources\\QuietCamp\\Html\\CampGame.css.txt": "2cd592fb697f941b7d979b9416761612e17309015e1de1acd64acea0ae38a48c",
+      "Assets\\QuietCamp\\Scripts\\Presentation\\World\\PlacementTargetProjector.cs": "73562506ef10de9d08031aa16bc82f5cac5adeffc579214546bf48ab07deba69",
+      "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampSoundscape.cs": "bea83bf19783c7205e7a5a37c9a7b7d2f73fc0c0a10d3577dd6737b742c7a308",
+      "Assets\\QuietCamp\\Scripts\\Presentation\\World\\SeasonAtmosphereView.cs": "1b1e1715e65d84e3d30f7730a4b72f1d42b6a5731bc518b8ed68ac34d76e8a29",
+      "Assets\\QuietCamp\\Scripts\\Presentation\\World\\MenuSceneHost.cs": "95a5da543e364d1582e4b770fbb181a74b49dc44de9d033e8a1caaf2d4865b90",
+      "Assets\\QuietCamp\\Scripts\\Presentation\\World\\CampSceneHost.cs": "070deae4b7c7cdeaa1a608e3fccec5f84ea39e2d6a513ff8ccba8e486cfc6726",
+      "Assets\\QuietCamp\\Scripts\\Presentation\\World\\RiverReflectionView.cs": "a3b69711fb2af9f4be0f4614318a8a1ce540615b0f7ad835d6c74af36db60676",
+      "Assets\\QuietCamp\\Scripts\\Presentation\\FoliageDiveTransition.cs": "4255bf1c76315f9a3eb596625231dfc2d55a05d836cd770394f719a463d42c1f",
+      "Assets\\QuietCamp\\Editor\\LevelAuthoring\\OpeningCampaignGameplayProbe.cs": "32588b19666f1685fc60b6d89cfe70b0e283da81f1eec3d06c0b3594c4aa29b9",
+      "Assets\\QuietCamp\\Editor\\LevelAuthoring\\LevelAuthoringPlayDriver.cs": "285defb0c8653e0a851cec65d9486d53cca458a155ae99a40925c03051dbffdd"
+    },
+    "levels": [
+      {
+        "status": "opening-game-ready",
+        "id": "QC009",
+        "ready": true,
+        "memoryOnly": true,
+        "activeScene": "Camp",
+        "hostScene": "Camp",
+        "transitionIdle": true,
+        "cameraProof": {
+          "screen": [
+            750,
+            1334
+          ],
+          "gameplay": [
+            0.0203754529,
+            0.1957844,
+            0.959249,
+            0.6084312
+          ],
+          "playableFieldContained": true,
+          "playableCentreErrorPixels": [
+            0.0,
+            7.95125961e-05
+          ],
+          "frameCentreErrorPixels": [
+            -2.23517418e-05,
+            7.95125961e-05
+          ],
+          "boardViewport": [
+            [
+              0.5,
+              0.7495431,
+              23.3073082
+            ],
+            [
+              -0.0288168173,
+              0.497409254,
+              20.0848045
+            ],
+            [
+              0.5,
+              0.8091319,
+              21.3567963
+            ],
+            [
+              -0.0288168173,
+              0.5569981,
+              18.1342964
+            ],
+            [
+              1.0288167,
+              0.4974092,
+              20.0848045
+            ],
+            [
+              0.4999999,
+              0.245275408,
+              16.8623028
+            ],
+            [
+              1.0288167,
+              0.556998,
+              18.1342926
+            ],
+            [
+              0.4999999,
+              0.3048642,
+              14.9117928
+            ]
+          ],
+          "centreErrorPixels": [
+            0.0,
+            36.2896271
+          ],
+          "fieldContained": false,
+          "groundCorners": [
+            [
+              12.5928955,
+              4.46153831
+            ],
+            [
+              4.46153355,
+              12.5928993
+            ],
+            [
+              -12.5928993,
+              -4.461539
+            ],
+            [
+              -4.461537,
+              -12.5929022
+            ]
+          ],
+          "groundContained": true,
+          "boardFraming": false
+        },
+        "frozenArtMatches": true,
+        "artTriangles": 579619,
+        "artModels": 25,
+        "artInstances": 3535,
+        "previewArtOverride": false,
+        "cameraMask": -1,
+        "sceneryActive": true,
+        "sceneryRenderers": 15,
+        "placementScene": "Camp",
+        "listenerScenes": [
+          "Camp"
+        ],
+        "inFrustumSceneryRenderers": 14,
+        "visibleGridCells": 49,
+        "story": "\u0421\u043f\u0456\u043b\u044c\u043d\u0430 \u043a\u0440\u0438\u043d\u0438\u0446\u044f",
+        "surfaceSteps": 0,
+        "residents": 0,
+        "particles": 752,
+        "voices": 1,
+        "riverReflectionRendered": true,
+        "playingVoices": 2,
+        "wind": 0.15,
+        "sharedWind": 0.15,
+        "soundscapeAttached": true,
+        "shaderWind": 0.15,
+        "shaderWindTime": 1.08130836,
+        "seasonWindTime": 1.08130836,
+        "audioAnchor": "ListenerProxy",
+        "voiceAnchorDistance": 0.0,
+        "rainContacts": 299,
+        "groundRainContacts": 284,
+        "fabricRainContacts": 0,
+        "activeRainContacts": 8,
+        "rainRunoff": 0,
+        "cameraEuler": [
+          58.0,
+          224.999985,
+          0.0
+        ],
+        "orthographicSize": 10.2268724,
+        "completed": [],
+        "next": null,
+        "gameplayPixelStdDev": [
+          12.78025543288575,
+          8.279926924907103,
+          10.335034732506482
+        ],
+        "frameSha256": "19bb3151bc79307f97d7f46bd963fe4859abd6dd680cda7391f96b4534e80f1f",
+        "publishedArtSha256": "04e5def072316abc60cbf2ba9707a7ce3d6e7cb6aa3296a098cfb069aad4eeca",
+        "puzzleSha256": "da7efc6e014f4652fe226331dfe02b176e7caabf773cc54d9a2ee23dac2bb829"
+      }
+    ],
+    "persistentPlayerDataUnchanged": true,
+    "sourcesUnchanged": true
+  }
+}

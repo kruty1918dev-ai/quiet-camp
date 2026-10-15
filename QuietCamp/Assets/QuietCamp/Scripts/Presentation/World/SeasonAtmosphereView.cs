@@ -14,9 +14,18 @@ namespace QuietCamp.Presentation.World
     {
         public SeasonAtmospherePreset Preset {get;private set;}
         public float WeatherClock=>_clock;
-        public Vector2 WindDirection=>new Vector2(Mathf.Cos(Preset.windHeading*Mathf.Deg2Rad),Mathf.Sin(Preset.windHeading*Mathf.Deg2Rad));
+        WindSim _windSimulation;
+        public WindSim.Snapshot Wind {get;private set;}
+        public Vector2 WindDirection=>Wind.DirectionXZ;
+        public event Action GustStarted {add{if(_windSimulation!=null)_windSimulation.GustStarted+=value;}remove{if(_windSimulation!=null)_windSimulation.GustStarted-=value;}}
+        public WindFieldMath.Sample SampleWind(Vector3 position,float height)
+            =>WindFieldMath.Evaluate(Wind.DirectionXZ,Wind.Strength,Wind.PhaseSeconds,position,height);
+        public bool HasReactiveSoundscape {get;set;}
+        public Transform AudioAnchor {get;set;}
         public int LiveParticles=>_systems.Sum(s=>s.particleCount);
         public int OwnedVoices=>_voices.Count(v=>v.IsValid);
+        public float MaximumVoiceAnchorDistance=>_voices.Where(v=>v.IsValid)
+            .Select(v=>Vector3.Distance(v.Source.transform.position,AudioAnchor!=null?AudioAnchor.position:_camera.transform.position)).DefaultIfEmpty(0).Max();
         public int PlayingVoices
         {
             get
@@ -99,6 +108,9 @@ namespace QuietCamp.Presentation.World
         public void Configure(SeasonAtmospherePreset preset,CampArtDefinition art,Camera camera,Transform parent)
         {
             preset.Validate();Preset=SeasonAtmosphereCatalog.Copy(preset);_art=art;_camera=camera;_random=new System.Random(preset.seed^art.seed);
+            var windProfile=AtmosphereCatalog.Load().Get(preset.id.Contains("moon")||preset.id.Contains("fireflies")?"night":"day");
+            _windSimulation=new WindSim(preset.seed^art.seed,preset.wind,preset.wind>0?windProfile.GustMin:1000000,preset.wind>0?windProfile.GustMax:1000000,preset.windHeading);
+            Wind=_windSimulation.Advance(0);
             transform.SetParent(parent,false);gameObject.name="Сезонні ефекти — "+preset.label;
             var modelMap=art.models.ToDictionary(m=>m.id);
             _leafSources=art.instances.Where(i=>i.modelId!=null&&modelMap.TryGetValue(i.modelId,out var m)&&m.seasonalRole=="deciduous"&&AuthoringHeight(m)*i.scale>3).Select(i=>
@@ -259,8 +271,9 @@ namespace QuietCamp.Presentation.World
         public void Advance(float seconds,bool reduced=false,int tier=1)
         {
             if(Preset==null)return;float dt=Mathf.Min(.05f,Mathf.Max(0,seconds));_clock+=dt;float quality=tier==0?.45f:tier==1?1:1.3f;
-            float gust=.72f+.28f*Mathf.Sin(_clock*.63f)+.13f*Mathf.Sin(_clock*1.37f);float w=Mathf.Clamp01(Preset.wind*gust);WindStrength=reduced?0:w;
-            var direction=new Vector2(Mathf.Cos(Preset.windHeading*Mathf.Deg2Rad),Mathf.Sin(Preset.windHeading*Mathf.Deg2Rad));
+            var wind=_windSimulation.Advance(dt);
+            Wind=new WindSim.Snapshot(wind.DirectionXZ,wind.BaseStrength,reduced?0:wind.GustEnvelope,reduced?0:wind.Strength,_clock);
+            float w=WindStrength=Wind.Strength;var direction=Wind.DirectionXZ;
             Shader.SetGlobalVector("_AtmosWindXZ",new Vector4(direction.x,direction.y,0,0));
             Shader.SetGlobalFloat("_AtmosWindStrength",WindStrength);Shader.SetGlobalFloat("_AtmosWindTime",_clock);
             RainSurface.CaptureWind();_rainImpacts.SetQuality(tier,reduced);_rainImpacts.Advance(dt);
@@ -514,18 +527,23 @@ namespace QuietCamp.Presentation.World
         }
         void AdvanceAudio()
         {
+            var anchor=AudioAnchor!=null?AudioAnchor.position:_camera.transform.position;
+            foreach(var voice in _voices)if(voice.IsValid)voice.Source.transform.position=anchor;
+            var services=QuietCampBootstrap.ServicesRef;int windIndex=Array.IndexOf(Preset.audioKeys,"ambience.wind");
+            if(services?.Audio==_audio&&services.AmbientWindHandle.IsValid&&windIndex>=0)
+                _audio.SetPlaybackScale(services.AmbientWindHandle,_audioVisibility*Preset.audioGains[windIndex]*(.78f+.22f*Wind.Strength));
             if(_clock<_audioAt)return;_audioAt=_clock+8+Next()*5;
             var catalog=QuietCampAudioCatalog.Load();
             for(int i=0;i<Preset.audioKeys.Length;i++)
             {
-                var services=QuietCampBootstrap.ServicesRef;
+                if(HasReactiveSoundscape&&(Preset.audioKeys[i]=="ambience.gust"||Preset.audioKeys[i]=="sfx.rustle"))continue;
                 if(Preset.audioKeys[i]=="ambience.wind"&&services?.Audio==_audio&&services.AmbientWindHandle.IsValid)
-                {_audio.SetPlaybackScale(services.AmbientWindHandle,_audioVisibility*Preset.audioGains[i]);continue;}
+                {continue;}
                 if(!catalog.TryGet(Preset.audioKeys[i],out var definition))continue;
                 if(definition.Loop && _voices.Any(h=>h.IsValid&&h.Source.clip==definition.Clip))continue;
                 // Ambience follows the game camera: an orthographic camera can be farther
                 // from the origin than a bird clip's maximum spatial distance.
-                var handle=_audio.Play(Preset.audioKeys[i],new AudioPlayOptions(initialPlaybackScale:_audioVisibility*Preset.audioGains[i],position:_camera.transform.position));
+                var handle=_audio.Play(Preset.audioKeys[i],new AudioPlayOptions(initialPlaybackScale:_audioVisibility*Preset.audioGains[i],position:anchor));
                 if(handle.IsValid){_voices.Add(handle);_voiceGains[handle]=Preset.audioGains[i];}
             }
             foreach(var voice in _voices.Where(h=>!h.IsValid).ToArray()){_voices.Remove(voice);_voiceGains.Remove(voice);}

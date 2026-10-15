@@ -32,6 +32,16 @@ namespace QuietCamp.Tests
                 Assert.That(UnityEngine.Quaternion.Angle(camera.transform.rotation,UnityEngine.Quaternion.Euler(58,225,0)),Is.LessThan(.01f));
                 CameraFitter.Fit(camera,level,null);
                 Assert.That(UnityEngine.Vector3.Distance(camera.transform.position,expected.Position),Is.LessThan(.0001f),"A layout refresh must retain the restored pose.");
+                var atmosphere=root.AddComponent<CampAtmosphere>();
+                atmosphere.Configure(camera,level,null,AtmosphereCatalog.Load().Get("day"),()=>false,1,root.transform);
+                Assert.NotNull(atmosphere.Soundscape,"Published seasonal levels must connect the ordinary camp sound reactions.");
+                Assert.IsTrue(view.SeasonAtmosphere.HasReactiveSoundscape);
+                Assert.AreEqual(10,UnityEngine.Shader.GetGlobalFloat("_AtmosWaveLen"));
+                Assert.AreEqual(1.5f,UnityEngine.Shader.GetGlobalFloat("_AtmosWaveSpeed"));
+                Assert.AreEqual(1,UnityEngine.Shader.GetGlobalFloat("_AtmosFlutterScale"));
+                view.SeasonAtmosphere.Advance(.05f);
+                Assert.AreEqual(view.SeasonAtmosphere.Wind.Strength,atmosphere.Wind.Strength);
+                Assert.That(atmosphere.SampleWind(UnityEngine.Vector3.zero,1).Strength,Is.GreaterThan(0));
             }
             finally{UnityEngine.Object.DestroyImmediate(root);}
         }

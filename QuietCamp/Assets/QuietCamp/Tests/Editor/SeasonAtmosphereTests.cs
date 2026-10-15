@@ -15,6 +15,30 @@ namespace QuietCamp.Tests
 {
     public sealed class SeasonAtmosphereTests
     {
+        [Test] public void SeasonalWindSharesSamplesShaderStateAndRealGustEvents()
+        {
+            var root=new GameObject("Shared seasonal wind");var cameraObject=new GameObject("Wind camera");
+            try
+            {
+                var camera=cameraObject.AddComponent<Camera>();CameraFitter.Configure(camera);camera.orthographicSize=8;
+                var art=new CampArtDefinition{width=6,height=6,streamCentre=100,models=Array.Empty<CampArtDefinition.Model>(),instances=Array.Empty<CampArtDefinition.Instance>()};
+                var preset=SeasonAtmosphereCatalog.Copy(SeasonAtmosphereCatalog.Get("summer_day"));preset.wind=.4f;preset.windHeading=36;
+                var view=new GameObject("Wind").AddComponent<SeasonAtmosphereView>();view.Configure(preset,art,camera,root.transform);
+                int gusts=0;view.GustStarted+=()=>gusts++;
+                int steps=Mathf.CeilToInt((AtmosphereCatalog.Load().Get("day").GustMax+3)/.05f);
+                for(int i=0;i<steps;i++)view.Advance(.05f,false,0);
+                Assert.Greater(gusts,0,"Season presets must use the shared gust simulation, including its audio events.");
+                Assert.That(view.Wind.Strength,Is.EqualTo(view.WindStrength));
+                Assert.That(Shader.GetGlobalFloat("_AtmosWindStrength"),Is.EqualTo(view.WindStrength));
+                Assert.That(Shader.GetGlobalFloat("_AtmosWindTime"),Is.EqualTo(view.WeatherClock));
+                var expected=WindFieldMath.Evaluate(view.WindDirection,view.WindStrength,view.WeatherClock,Vector3.one,1);
+                var actual=view.SampleWind(Vector3.one,1);Assert.That(actual.Strength,Is.EqualTo(expected.Strength).Within(.0001f));
+                Assert.That(Vector2.Distance(actual.DirectionXZ,expected.DirectionXZ),Is.LessThan(.0001f));
+                view.Advance(.05f,true);Assert.AreEqual(0,view.Wind.Strength);Assert.AreEqual(0,view.SampleWind(Vector3.one,1).Strength);
+            }
+            finally{UnityEngine.Object.DestroyImmediate(root);UnityEngine.Object.DestroyImmediate(cameraObject);}
+        }
+
         [TestCase(0,false)]
         [TestCase(1,false)]
         [TestCase(2,false)]
@@ -316,8 +340,17 @@ namespace QuietCamp.Tests
                 Undo.RecordObject(state,"Atmosphere test");var winter=state.Read();SeasonAtmosphereAuthoring.Apply(winter,SeasonAtmosphereCatalog.Get("winter_clear"));state.Write(winter);Undo.FlushUndoRecordObjects();workspace.ApplyDocument(winter);
                 Assert.AreEqual("winter_clear",workspace.Mood.Preset.id);Undo.PerformUndo();workspace.ApplyDocument(state.Read());Assert.AreEqual("summer_rain",workspace.Mood.Preset.id);Undo.PerformRedo();workspace.ApplyDocument(state.Read());Assert.AreEqual("winter_clear",workspace.Mood.Preset.id);
                 var catalog=QuietCampAudioCatalog.Load();var audio=new AudioService(catalog,catalog);audio.Initialize();
-                try{workspace.Mood.BindAudio(audio);for(int i=0;i<30;i++){workspace.Mood.Advance(.05f);audio.Tick();yield return null;}Assert.Greater(workspace.Mood.OwnedVoices,0);workspace.Mood.StopAudio();Assert.AreEqual(0,workspace.Mood.OwnedVoices);}
-                finally{audio.Dispose();}
+                var anchor=new GameObject("Game listener anchor");anchor.transform.position=new Vector3(7,2,-4);
+                try
+                {
+                    workspace.Mood.AudioAnchor=anchor.transform;workspace.Mood.BindAudio(audio);
+                    for(int i=0;i<30;i++){workspace.Mood.Advance(.05f);audio.Tick();yield return null;}
+                    Assert.Greater(workspace.Mood.OwnedVoices,0);Assert.That(workspace.Mood.MaximumVoiceAnchorDistance,Is.LessThan(.001f));
+                    anchor.transform.position+=Vector3.right*5;workspace.Mood.Advance(.05f);
+                    Assert.That(workspace.Mood.MaximumVoiceAnchorDistance,Is.LessThan(.001f),"Existing voices must follow the listener without waiting for the next ambient schedule.");
+                    workspace.Mood.StopAudio();Assert.AreEqual(0,workspace.Mood.OwnedVoices);
+                }
+                finally{audio.Dispose();UnityEngine.Object.DestroyImmediate(anchor);}
             }
             Undo.ClearUndo(state);UnityEngine.Object.DestroyImmediate(state);
         }

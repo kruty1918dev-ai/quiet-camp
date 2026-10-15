@@ -39,6 +39,7 @@ def main():
         'Scripts/Presentation/World/CameraFitter.cs', 'Scripts/Presentation/World/CampAtmosphere.cs',
         'Scripts/Presentation/UI/CampHud.cs', 'Resources/QuietCamp/Html/CampGame.css.txt',
         'Scripts/Presentation/World/PlacementTargetProjector.cs',
+        'Scripts/Presentation/World/CampSoundscape.cs','Scripts/Presentation/World/SeasonAtmosphereView.cs',
         'Scripts/Presentation/World/MenuSceneHost.cs', 'Scripts/Presentation/World/CampSceneHost.cs',
         'Scripts/Presentation/World/RiverReflectionView.cs', 'Scripts/Presentation/FoliageDiveTransition.cs',
         'Editor/LevelAuthoring/OpeningCampaignGameplayProbe.cs', 'Editor/LevelAuthoring/LevelAuthoringPlayDriver.cs']]
@@ -58,6 +59,9 @@ def main():
             assert status['sceneryActive'] and status['artModels'] > 0 and status['artInstances'] > 0, status
             assert status['cameraMask'] != 0 and status['inFrustumSceneryRenderers'] > 0, status
             assert status['visibleGridCells'] > 0 and status['residents'] == 0, status
+            assert status['soundscapeAttached'] and status['audioAnchor']=='ListenerProxy', 'Runtime atmosphere is disconnected: '+ident
+            assert abs(status['sharedWind']-status['wind'])<.0001 and status['voiceAnchorDistance']<.001, 'Runtime wind or audio anchor disagrees: '+ident
+            assert abs(status['sharedWind']-status['shaderWind'])<.0001 and abs(status['seasonWindTime']-status['shaderWindTime'])<.0001, 'The rendered wind does not match the active atmosphere: '+ident
             proof=status['cameraProof']
             assert proof['playableFieldContained'], 'The field leaves the gameplay viewport: '+ident
             assert max(abs(v) for v in proof['playableCentreErrorPixels'])<2, 'The field is not centred in the usable viewport: '+ident

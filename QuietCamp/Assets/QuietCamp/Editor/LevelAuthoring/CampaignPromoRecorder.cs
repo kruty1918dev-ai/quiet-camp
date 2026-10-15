@@ -37,6 +37,8 @@ namespace QuietCamp.Editor.LevelAuthoring
         int _firstFrame;
         bool _gridInStill;
         int _peakRainRunoff;
+        float _ambientPeakRms,_windMinimum=float.PositiveInfinity,_windMaximum;
+        readonly float[] _audioSamples=new float[512];
         bool _stillsOnly, _screenChanged;
         uint _oldWidth, _oldHeight;
         int _oldCaptureRate;
@@ -91,11 +93,11 @@ namespace QuietCamp.Editor.LevelAuthoring
             bootstrap.SendMessage("OnApplicationFocus", true, SendMessageOptions.RequireReceiver);
             var game = EditorWindow.GetWindow(typeof(EditorWindow).Assembly.GetType("UnityEditor.GameView"));
             game.Focus();
+            PlayModeWindow.GetRenderingResolution(out _oldWidth, out _oldHeight);
+            _oldCaptureRate = Time.captureFramerate; _screenChanged = true;
+            PlayModeWindow.SetCustomRenderingResolution(1440, 1080, "QuietCamp composition review");
             if (_stillsOnly)
             {
-                PlayModeWindow.GetRenderingResolution(out _oldWidth, out _oldHeight);
-                _oldCaptureRate = Time.captureFramerate; _screenChanged = true;
-                PlayModeWindow.SetCustomRenderingResolution(1440, 1080, "QuietCamp composition review");
                 Time.captureFramerate = 30;
             }
             else
@@ -146,6 +148,12 @@ namespace QuietCamp.Editor.LevelAuthoring
             for (int frame = 0; frame < Frames; frame++)
             {
                 _peakRainRunoff=Math.Max(_peakRainRunoff,atmosphere?.RainContacts?.RunoffCount??0);
+                if(atmosphere!=null){_windMinimum=Mathf.Min(_windMinimum,atmosphere.WindStrength);_windMaximum=Mathf.Max(_windMaximum,atmosphere.WindStrength);}
+                if(frame<6||(frame>104&&frame<116))
+                {
+                    AudioListener.GetOutputData(_audioSamples,0);float sum=0;foreach(var sample in _audioSamples)sum+=sample*sample;
+                    _ambientPeakRms=Mathf.Max(_ambientPeakRms,Mathf.Sqrt(sum/_audioSamples.Length));
+                }
                 int step = (frame - 6) * witness.Length / 96;
                 if (frame >= 6 && frame < 102 && step != selected)
                 {
@@ -227,6 +235,12 @@ namespace QuietCamp.Editor.LevelAuthoring
                 fabricRainContacts=art?.SeasonAtmosphere?.FabricRainContacts,activeRainContacts=art?.SeasonAtmosphere?.RainContacts?.ActiveCount,
                 rainRunoff=art?.SeasonAtmosphere?.RainContacts?.RunoffCount,
                 peakRainRunoff=_peakRainRunoff,
+                ambientPeakRms=_ambientPeakRms,windMinimum=_windMinimum,windMaximum=_windMaximum,
+                sharedWindStrength=host?.Atmosphere?.Wind.Strength,reactiveVoices=host?.Atmosphere?.Soundscape?.OwnedVoiceCount,
+                canvasRainPlaying=host?.Atmosphere?.Soundscape?.CanvasRainVoice.IsValid==true&&host.Atmosphere.Soundscape.CanvasRainVoice.Source.isPlaying,
+                voiceAnchorDistance=art?.SeasonAtmosphere?.MaximumVoiceAnchorDistance,
+                audioAnchor=art?.SeasonAtmosphere?.AudioAnchor?.name,
+                foliageWaveLength=Shader.GetGlobalFloat("_AtmosWaveLen"),foliageWaveSpeed=Shader.GetGlobalFloat("_AtmosWaveSpeed"),foliageFlutter=Shader.GetGlobalFloat("_AtmosFlutterScale"),
                 riverParticles = art?.SeasonAtmosphere?.RiverParticles, riverRipples = art?.SeasonAtmosphere?.RiverRipples,
                 floatingLeaves = art?.SeasonAtmosphere?.FloatingLeaves, riverReflectionRendered=art?.RiverReflections?.HasRenderedReflection,
                 riverEnvironmentReflected=art?.RiverReflections?.HasEnvironmentReflection,

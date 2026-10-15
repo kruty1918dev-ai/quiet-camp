@@ -586,6 +586,7 @@ namespace QuietCamp.Presentation.World
             var tier = QualityTier();
             _atmosphere.Configure(FindCamera(), level, viewport, profile,
                 () => _services.ReducedMotion, tier, _decorRoot, ()=>_services.EffectiveQuality);
+            if(_atmosphere.SeasonalWeather!=null)_atmosphere.SeasonalWeather.AudioAnchor=transform.Find("ListenerProxy");
             // No near-leaf flyby while dragging a tent, behind a modal or
             // during a scene transition (atmosphere spec §4.2/§9).
             if (_atmosphere.Particles != null)

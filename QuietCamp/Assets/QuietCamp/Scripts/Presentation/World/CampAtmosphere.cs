@@ -33,7 +33,7 @@ namespace QuietCamp.Presentation.World
         CameraAtmosphereMotion _cameraMotion;
         public EnvironmentComposer Environment=>_composition;
         public CameraAtmosphereMotion CameraMotion=>_cameraMotion;
-        public WindFieldMath.Sample SampleWind(Vector3 position,float height)=>_windSim!=null?_windSim.Sample(position,height):default;
+        public WindFieldMath.Sample SampleWind(Vector3 position,float height)=>SeasonalWeather!=null?SeasonalWeather.SampleWind(position,height):_windSim!=null?_windSim.Sample(position,height):default;
         Rect _lastViewport;
         Vector2Int _lastScreen;
         WindSim _windSim;
@@ -93,14 +93,14 @@ namespace QuietCamp.Presentation.World
         public Rect ProtectedViewport { get; private set; }
         /// <summary>Latest shared wind snapshot — one owner for foliage,
         /// particles and ambience scheduling. Zero-struct before Configure.</summary>
-        public WindSim.Snapshot Wind => _wind;
+        public WindSim.Snapshot Wind => SeasonalWeather!=null?SeasonalWeather.Wind:_wind;
         public AtmosphereParticles Particles => _particles;
         /// <summary>Raised once when a gust's attack phase begins — audio
         /// hooks a single gust one-shot here rather than on its own timer.</summary>
         public event Action GustStarted
         {
-            add { if (_windSim != null) _windSim.GustStarted += value; }
-            remove { if (_windSim != null) _windSim.GustStarted -= value; }
+            add { if(SeasonalWeather!=null)SeasonalWeather.GustStarted+=value;else if (_windSim != null) _windSim.GustStarted += value; }
+            remove { if(SeasonalWeather!=null)SeasonalWeather.GustStarted-=value;else if (_windSim != null) _windSim.GustStarted -= value; }
         }
 
         VisibleForestFloor _floor;
@@ -126,6 +126,11 @@ namespace QuietCamp.Presentation.World
                 _seasonPresetActive=true;_initialized=true;_sun=RenderSettings.sun;_artView.SetQualityTier(_qualitySource?.Invoke()??_tier);
                 PhaseId=_artView.Definition.atmosphere.id.Contains("fireflies")||_artView.Definition.atmosphere.id.Contains("moon")?"night":"day";
                 _artView.ApplyLighting(_sun);_artView.SeasonAtmosphere.BindAudio(QuietCampBootstrap.ServicesRef?.Audio);
+                Shader.SetGlobalFloat(WaveLen,10);Shader.SetGlobalFloat(WaveSpeed,1.5f);
+                Shader.SetGlobalFloat(FlutterScale,_tier>0?1:0);PublishShelter();RegisterDecor(decorRoot);
+                _soundscape=gameObject.AddComponent<CampSoundscape>();
+                _soundscape.Configure(this,level,profile,decorRoot,QuietCampBootstrap.ServicesRef?.Audio,true);
+                _artView.SeasonAtmosphere.HasReactiveSoundscape=true;
                 return;
             }
             _previousAmbient = RenderSettings.ambientLight;
@@ -336,7 +341,7 @@ namespace QuietCamp.Presentation.World
 
         public void SetSuspended(bool suspended)
         {
-            if(_seasonPresetActive){enabled=!suspended;_artView?.SeasonAtmosphere?.gameObject.SetActive(!suspended);_artView?.SeasonAtmosphere?.SetAudioVisibility(suspended?0:1);return;}
+            if(_seasonPresetActive){enabled=!suspended;_artView?.SeasonAtmosphere?.gameObject.SetActive(!suspended);_artView?.SeasonAtmosphere?.SetAudioVisibility(suspended?0:1);_soundscape?.SetVisibility(suspended?0:1);return;}
             enabled=!suspended;
             if(_particles!=null)_particles.gameObject.SetActive(!suspended);
             if(_postFx!=null)_postFx.SetSuspended(suspended);
@@ -362,7 +367,12 @@ namespace QuietCamp.Presentation.World
                 var weather=_artView.SeasonAtmosphere;bool seasonalReduced=_reducedMotion?.Invoke()??false;
                 int seasonalTier=_qualitySource?.Invoke()??_tier;_artView.SetQualityTier(seasonalTier);
                 weather.Advance(Time.unscaledDeltaTime,seasonalReduced,seasonalTier);
+                Shader.SetGlobalFloat(FlutterScale,!seasonalReduced&&seasonalTier>0?1:0);
+                Shader.SetGlobalVector(SunDirW,_sun!=null?-_sun.transform.forward:Vector3.up);
+                Shader.SetGlobalColor(SunColor,_sun!=null?_sun.color*_sun.intensity:Color.white);
+                Shader.SetGlobalColor(AmbientId,CampArtDefinition.Color(weather.Preset.ambientColor)*.72f);
                 _shelter?.Advance(Time.unscaledDeltaTime,weather.Preset.rain);
+                _soundscape?.Advance(Time.unscaledDeltaTime);
                 return;
             }
             if (_windShelterTexture == null && _composition?.Shelter != null)
@@ -452,7 +462,14 @@ namespace QuietCamp.Presentation.World
 
         void OnDestroy()
         {
-            if(_seasonPresetActive){_artView?.SeasonAtmosphere?.StopAudio();return;}
+            if(_seasonPresetActive)
+            {
+                _artView?.SeasonAtmosphere?.StopAudio();
+                if(_soundscape!=null){if(UnityEngine.Application.isPlaying)Destroy(_soundscape);else DestroyImmediate(_soundscape);}
+                if(_shelter!=null){if(UnityEngine.Application.isPlaying)Destroy(_shelter);else DestroyImmediate(_shelter);}
+                foreach(var pair in _foliage){if(UnityEngine.Application.isPlaying)Destroy(pair.Key);else DestroyImmediate(pair.Key);}
+                _foliage.Clear();return;
+            }
             if (_particles != null) Destroy(_particles.gameObject);
             if (_life != null) Destroy(_life.gameObject);
             if (_postFx != null) Destroy(_postFx);
