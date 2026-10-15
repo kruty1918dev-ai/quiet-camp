@@ -1,0 +1,2302 @@
+[
+  {
+    "order": 1,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "Signpost and bench are readable; the timber still lacks local weathering and the route marker needs a clear purpose."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "86d4aa7044d4c98139702be327fdf68d7baf5a4de79ba7d636dbe37cba43b176",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 2,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The three-metre auxiliary log dominates the picnic details; the cup is on the ground beneath the table and should sit on its top."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "43696b1871a0461b4105be80529a32b68ee3723e23c11d1ae377aa65f8a405ca",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 3,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The well is visible, but the base needs material-specific damp staining rather than the same dirt treatment as timber."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "2636e4481f0e2d7a0f0d525879263a2f2071f42a05dd9138e8af6f785e55e4b9",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 4,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The kitchen silhouette is clear; its surfaces are uniformly dark and the cooking utensils need a supported preparation area."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "238d648d4cbdfe03965e83a24988b96afefb1b912dc250f440e9d39107e12e8e",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 5,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The orchard reads, but the harvest traces should belong to the tree and the timber items need a coherent worn palette."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "fa1fe15543f5e1b6ff4585fe834998f994cbaee26703a6a7a18654f4f254dbfc",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 6,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The shelter roof dominates and its mosaic face is hidden; reverse the asset front before adjusting weathering."
+    ],
+    "change": {
+      "material": "stone",
+      "weathering": "moss",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "54b81845111f087d34fb2ff1eda56ffffcad24df3e5f587e750a21bd5f6f495c",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 7,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The damaged fence reads as a low bar; emphasize its broken timber and retain the flower groups."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "290422dcb9c7d7da857177e7385e7be60f6c92a08371e38a8f320e8c7a0dac3a",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 8,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "Mail cabinet front is readable; small parcels need to be grouped at its base and door weathering should follow the wood."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "92c10cad201bfabc78e26b230e3d838353b7299847debfcf15e166903fe3712d",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 9,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The winch well is readable; damp stone and timber need separate visual character and the bucket must stay accessible."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "f11b36115c381153b562791bbaa27c8194f1d20714625e60d8823c5335508913",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 10,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The twin lamp is readable; its old supports and the night-stop belongings need local wear instead of uniform dark colour."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "8100439bac07dc035858b9144e5fb2b0f6cfeb9d9d3702af8552021dcbcd0e62",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 11,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "Fruit press structure is readable; its timber needs weathering and harvest props must explain the orchard work."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "4b4066a2665f6ffceb41731b19b883b5dccb6b70050d3041dcab9b44f4fe7a32",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 12,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The roof hole is visible but broad stone surfaces are too clean; add damp lower wear and a purposeful sheltered belongings group."
+    ],
+    "change": {
+      "material": "stone",
+      "weathering": "moss",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "c89c6c24f81118a557bdfba313937fae0a2086d0513852165b632374bc63029c",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 13,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "School bench reads as an ordinary seat; weather the wood and group belongings so the location has a human trace."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        230.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "92a2a278ab904111a3a45a4efd540b5a43ca645ca52b794438d7b4d840ecbfc2",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 14,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The gate lacks a clear used threshold; keep natural ground and add worn timber with adjacent gardening belongings."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        235.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "fe02d6f7f5ea8db9580d6bc6a780315ccc7ce1b85cb224d7f357baba95d7d095",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 15,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The arch is no longer screened by a tree, but plain timber and absent climbing use make it feel newly built."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        215.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "61cfbb226c5bf03f480dd660d27d9b6a9c4873d5bcc61c4d95837b3632496f1e",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 16,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The canopy still dominates the bench; lower the viewing angle and make old timber wear visible on its supports."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "408b22b63fcbd16afb5a0550f367381bd7c63eb6f07ffb46e6a48d759a30b8f3",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 17,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "Roofless hearth is readable; stone and exposed timber need coherent age and supported repair supplies."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "1bf328906c7630d227b10852416adf11f1b2b488122b68d0b15c7254018bf64e",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 18,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The window wall is very flat; lower damp staining and planting tools should explain the former garden."
+    ],
+    "change": {
+      "material": "stone",
+      "weathering": "moss",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        230.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "92f143a20f1ceca56b22b306c5ea247e1fad01c11c6bd51216948687f1443eab",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 19,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The coop is visible; weather its wooden base and add a small purposeful feed-and-water group."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        235.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "6d502922fbad8316c3ab73a71b8add7d35d072672a9b8133667d5daf6431bfe5",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 20,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The drying rack is mostly its roof; a lower camera and visible harvest baskets should explain its purpose."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        215.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "93dd68f7587e3520edfdd8d25e7153c9b17ad0c27739ed70f95a58cdd24d24a4",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 21,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The hive is small but correctly scaled; add coherent age and working belongings without turning the scene into a second apiary hero."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "d7639404643f43d9b2ba46872b76d88de44ec5d72519b38be9cab42422af946a",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 22,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The pergola is clean and bare; timber weathering and gardening supplies should connect it to the vegetable route."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "6261344f6996823ccfec9477a1e02017c7f8b022c79fef63d663c2a5189bea1f",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 23,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The pump is readable but uniformly grey; distinguish metal wear and the damp working area at its spout."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        230.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "2c9291795af2ff82fa8449a99de41a63958d81778b98a8df000b5225e69264ce",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 24,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The barn presents a blank back wall; turn its entrance toward the camera and show supported repair supplies."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        235.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "87a62a236c829833faeb84387180a9637adcda9504e404b0e0bc8d85ea834fbd",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 25,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The greenhouse frame is clear but empty; weather its base and add a readable cultivated bed."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        215.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "7dbf927447109f104fccaa050a9383451f733ed091b71d4e20cbf0f716ef8bdf",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 26,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The workshop is mainly a blank roof; a lower view and visible tools at the open edge should explain the work area."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "80b3d672140d13343376460473a3712afd9d2da9ef3e57b21ecd9ecac9ce4c8b",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 27,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The dome structure is readable; weather the frame and connect the sitting area to the willow bank."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "18c42377ea03fbb3519dcfe03009bb7defb161a9695eda92cad48c038485521b",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 28,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The pylon silhouette is distinct; local steel corrosion and a safe lower work trace should replace generic dirt."
+    ],
+    "change": {
+      "material": "steel",
+      "weathering": "rust",
+      "amount": 0.58,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        230.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "794b06604f474fde403f369cf38f4f7ded37237acb83f66e067778cb89637cca",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 29,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The apiary boxes are hidden by the roof; lower the view and place related baskets near the open edge."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        235.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "4cac0718eb2a9a6d1874db2ca6bd0bfc7119cb8e00f079513f8b288545664c32",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 30,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The parcel rack is mainly a flat canopy; lower the view and move grouped luggage to its visible edge."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        215.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "4b9057f79c415bbb7951b130402c30caa90fb892e7dded5cb9f37ddd4940dcb0",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 31,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The clock face is too small and low contrast; weather the metal while keeping the face readable."
+    ],
+    "change": {
+      "material": "steel",
+      "weathering": "rust",
+      "amount": 0.58,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "fc601b65f036383558f457449e46e223054e98dce45c0d1e3487679a23382c78",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 32,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The station bench has little context; weather its timber and place supported travel belongings nearby."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "f346806e4f36070f75874014c4f35f45c5b7db58ffa5d1d0eeae54c163bd2d16",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 33,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The luggage cart reads, but its surfaces are clean and the objects need to feel collected rather than evenly laid out."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        230.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "7dad583b9c6380592661eb7211fb20382117dd018a945f7d5154ae0e832be27f",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 34,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The rail buffer has no legible track approach; preserve the distinct buffer and add a limited functional ground context."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        235.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "f879bb6da26ac184e26ec4d647f371abe81f1b8a9ee8e27a6ba671cba3cac3c6",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 35,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The stairs appear as a grey box from the rear; turn the first step toward the camera and age the stone."
+    ],
+    "change": {
+      "material": "stone",
+      "weathering": "moss",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        215.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "27353129b3cd81d2e7aaf75b0b3bf91d37fff95ee1fe00c77750bc5b90bffb0c",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 36,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The bridge structure is legible but the water renders white; explicitly request camera depth and opaque colour before judging contact."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "2ca5a8c8119b2c88980e4b6a8679b1314d458579b9f093b43170c0e7f6d332a5",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 37,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The beacon is readable; its clean supports and isolated boat need a coherent old ferry-station belongings group."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "1b968e8f7f519e7670570172181186bad9b16e6171eb444033e93242a137c5bc",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 38,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The masonry crossing reads as a plank deck; improve the arch-facing view and fix the white river before judging bank contact."
+    ],
+    "change": {
+      "material": "stone",
+      "weathering": "moss",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        230.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "cf717fa9fa55e7e01d9c3db01dd7a54ee80538cef3fca7a29189c01803e1251a",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 39,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The water tower is clear; its metal vessel needs local corrosion and a plausible pipe-and-water use context."
+    ],
+    "change": {
+      "material": "steel",
+      "weathering": "rust",
+      "amount": 0.58,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        235.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "577b997beb9b8c610d698a934142223900c02b97b821924f2171c38a7ebc4c7a",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 40,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The signal kiosk is clear but too clean and isolated; lower streaks and a small collected travel group should explain use."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        215.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "fb9eef24b25d3d782020e21bf340ff10088f5c4fea86064477bb1d4a07f8cd45",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 41,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The wind pump is readable; its steel fan and timber platform require different ageing treatment and water-use belongings."
+    ],
+    "change": {
+      "material": "steel",
+      "weathering": "rust",
+      "amount": 0.58,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "344bee351d3e9874beef8dfdfe1402b0c02ea1fc95e0f0736633a8e0e6dde232",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 42,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The complete torn nose is readable and the ground no longer ends in white; preserve its deformed geometry during additional oxidation."
+    ],
+    "change": {
+      "material": "aluminium",
+      "weathering": "oxidation",
+      "amount": 0.23,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        58.0,
+        0.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "7bec8fa8bee62acdb3449ced8cfb5faf7847974da4ced65e0573fecefac8337c",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 43,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The tail silhouette is readable; preserve its tilt and torn geometry while improving the material-specific surface age."
+    ],
+    "change": {
+      "material": "aluminium",
+      "weathering": "oxidation",
+      "amount": 0.23,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        58.0,
+        0.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "3bcf398db053f19e0cf0e5906fc5a6cf373bceedaa8acd3c4fde412533b7d2f4",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 44,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The wing is readable but overlaps chairs/clothes; reposition the owned belongings and widen the frame enough to show both fuselage breaks."
+    ],
+    "change": {
+      "material": "aluminium",
+      "weathering": "oxidation",
+      "amount": 0.23,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        54.0,
+        0.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "cf995787c755a625b05aa5152e4104c4d0cd8d2f88fffb45c11c12fff26ed174",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 45,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The memorial niche is too dark and clean; use subtle damp stone wear and a visible restrained flower offering."
+    ],
+    "change": {
+      "material": "stone",
+      "weathering": "moss",
+      "amount": 0.32,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        215.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "e1d331673406af0caf4cacc315e33ff92d22c3954a451c0c60e88223ea29105f",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 46,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The circular seat loses its shape in foliage; retain its footprint, weather the timber and keep its opening readable."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "fd4e9f238cc38916d73222f23669803e83606b2d2a1fc5e22db79e47e62e796a",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 47,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The mill rotor faces away and sunflowers are absent; reverse the front and place the existing corrected sunflower model in field-edge groups."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "7ce0435cfb48ca9827fcfdfb5a3cc95d56078f30d244ca124e3973e1b0c014af",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 48,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The transformer replaces the repeated pylon successfully; add steel-specific corrosion while protecting the ceramic insulators."
+    ],
+    "change": {
+      "material": "steel",
+      "weathering": "rust",
+      "amount": 0.58,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        230.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "5346e4027a878f56a3d015f98cff3479dc9f4654e6a634692d47303893c2f6f5",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 49,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The tripod shelter is clear but its surface and use are too generic; weather the supports and group a single travel stop underneath."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        235.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "a8ccf77d9d8fa57a3096072b808338abc5772ffd69a9a19ea30cafb84d71395d",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 50,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The grain tower silhouette is readable; weather its supports and use grain sacks and a lantern to connect it to the field."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        215.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "2d1a902b954ce2bd8159cf1c97e849b5ee35d7234557b14ddac6fb9aeac0e3df",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 51,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The stranded rowboat is clear; weather its timber and group oar/rope at the old shoreline."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "4dd8abc71b0487c89b9a1bb174fdb4c11c3c4d0fc214852a6b02d14ff9904bd6",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 52,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The platform is roof-dominant and the river is white; lower the view, weather the timber and fix camera depth."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "3fe2616fd1dbf928a309d96d95c0129f24692a87bb5e8741d968cd5bc7167ec2",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 53,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The landing stairs read but the river is white; maintain supported feet and add damp timber wear after the shared water fix."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        230.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "80b5cc46c1e1765d9478977cfb83943edefde74171fc616e5ff883be87e11dd0",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 54,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The double sluice reads; improve concrete/metal weathering and correct the white channel before accepting contact."
+    ],
+    "change": {
+      "material": "stone",
+      "weathering": "moss",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        235.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "a56b2eb22b0503e5d8d1d38f7569ad22c6aee5af69ece58ef8ffc3344ea73234",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 55,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The service building has broad clean walls; add lower damp streaks and purposeful maintenance belongings."
+    ],
+    "change": {
+      "material": "stone",
+      "weathering": "moss",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        215.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "6ec004aac481e49e248ddeb50936942c5596527692c68ae981d61defcbe78bdf",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 56,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The broken dam reads at its actual scale; add concrete weathering and fix water depth without shrinking the abutments."
+    ],
+    "change": {
+      "material": "stone",
+      "weathering": "moss",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "ace70996193afc4fcafd970479f1c1958aaca20731d0772479fc97d5e66835ce",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 57,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The truss is visible, but clean timber and white water weaken the old-crossing story; fix both shared causes."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "b5ed37c6a33d6a1077fc26083b9b303038f62d7d45f647c022eed307498ea938",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 58,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The rescue boat is readable; material-specific wear and supported rope/fishing supplies should tell its continued use."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        230.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "ab5e25a1cffa365bd181455a4fff729af2c69bfe40c0731d21eb664121d93456",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 59,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The terrace is too clean and empty; damp stone, planting containers and orchard work traces should explain the former bank."
+    ],
+    "change": {
+      "material": "stone",
+      "weathering": "moss",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        235.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "15e5911380a0e870d780beb2354468239f5ea9fcd234a2759f69171bb90e4af8",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 60,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The wheel now follows its building and is no longer duplicated; white water and plain wooden surfaces still need correction."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        135.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "e58e913eb0de380184b8daae82dd92509cf35e4072582d63726d52ef73ffc253",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 61,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The brick shelter is roof-dominant; lower the camera and add lower masonry wear around its dry edge."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "f2a8db15b631349b824dd2deb37e801ccdf76aa4701b1a4341ddaab8d683d2a7",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 62,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The hayloft barn reads as a blank rear wall; turn the entrance to the camera and weather the wood."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "3fd71d78a0fbcf96f3d36907a96bdf113a45dd4c5981cadd235d380c528ff5ac",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 63,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The well is readable but its wet surroundings lack material wear; stain the lower base and keep the bucket visible."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        230.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "7ada421271c260fe6a9bf5452eecf8daea2348571015230753cca316fb9c2079",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 64,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The open house frame is distinct; weather the exposed beams and group supported building supplies at the dry edge."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        235.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "79258e047a8bad85213b8116765cfaab527008b23109865a3c7d20891bc12a21",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 65,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The gate is clear but looks new; add restrained lower stone wear and a purposeful neighbourly yard group."
+    ],
+    "change": {
+      "material": "stone",
+      "weathering": "moss",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        215.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "e8a6203095e48d19bb15334a408ccc678b1b7e5b1487b16f2c181f0bff093ee6",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 66,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The cultural stage is mostly a roof; reveal its open face and add weathered timber and a modest gathered seating context."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "6d54f6aa6d7f1dd193742b361d4dbcb88e9a4f0888b7ae51709bc32a87b67fa8",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 67,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The lean greenhouse is clear but empty; weather the lower frame and add season-appropriate collected planting supplies."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "1ec8a9fdbfd16876428aad614ce5fc19ff0ef83a32dd984c31612d7a34fd39cd",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 68,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The gantry is readable but generic; visible hoisting/repair belongings and wood weathering should explain the workshop."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        230.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "632ea317d227e108d5d7772d3c40c545f5220b339b56066a718efa5be3739973",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 69,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The small abutment is dominated by the auxiliary footbridge; enlarge the actual broken pier construction, add exposed reinforcement and refit."
+    ],
+    "change": {
+      "material": "stone",
+      "weathering": "moss",
+      "amount": 0.56,
+      "preserveGeometry": false,
+      "cameraEuler": [
+        47.0,
+        235.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "fb999ec8536e9a102b1708e61ed20ebb99f59d6e0f5f559908ede283afa2da9f",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 70,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The forester hut presents a broad plain wall; reveal the entrance and weather the wood while keeping camp visibility."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        215.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "aeba3524d45e0aa1b06f8dac2c2de7de08b5efb35786473573d9b199a6b8d6c3",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 71,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "Partial winter cover reads as uniformly white terrain; keep dormant substrate and local snow patches, and weather the iron gate."
+    ],
+    "change": {
+      "material": "steel",
+      "weathering": "rust",
+      "amount": 0.58,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "813941fa1aa9025e5a537faa8b73fa8b7f3ed7b29471bf5a520040e81393bf40",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 72,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The cellar is roof-dominant and the ground is uniformly white; reveal the entrance and give the lower stone a damp history."
+    ],
+    "change": {
+      "material": "stone",
+      "weathering": "moss",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "70a3cee889b4f51ed33c60bdd822f93540d5cd42dc70f682aaaef6703085e811",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 73,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The A-frame reads in fog, but its supports lack age; keep storm atmosphere while giving partial ground snow a spatial distribution."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        230.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "8753473ca60fd4b264d0a9157a2caf22231213faf2649362bc8ad02dfb7aea92",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 74,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The porch is visible but plain; weather timber and avoid the same uniform snow surface used by every winter frame."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        235.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "927072e1e01d0575ad01228528d828d32082c6e0a2c84d1b11e534e09d5db049",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 75,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The vestibule is dominated by its snowy roof; lower the camera and show supported travel belongings at the open edge."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        215.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "fc73b672499238f7cae9f927034c6252aa3f472519d291f67536d4438ec5eb37",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 76,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The firewood rack is recognizable; weather the timber and retain exposed ground patches where the snow coverage is partial."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "d0e8a809d699a106e4e8ab5681bc31de0f96a5d7c2453e1e7e143b631ca32988",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 77,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The paired memorial is readable through snow; preserve its restrained tone with gentle stone wear and local ground snow."
+    ],
+    "change": {
+      "material": "stone",
+      "weathering": "moss",
+      "amount": 0.32,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "4cf4ef5a03408bc163f7ed7aaca3e667fe759a199c40406a6ec1e9be0ac431b5",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 78,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The well is clear, but its base looks clean and winter ground is too uniform; use damp timber and coherent snow patches."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        230.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "27e4ac7a6ae623de6e0b530670908c2e0677a394fc2170939c0224dc71621932",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 79,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The station canopy reads as a flat roof; lower the view, weather the columns and preserve readable seating beneath it."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        235.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "d0ea4a2c66012600abbb682542183aec5a532f3242b2ab5e9784781b922f8d25",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 80,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The communal kitchen is hidden by its roof; lower the view and keep local timber/stone wear separate from snow."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        215.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "152c2082f8b2dcda2714c2f61429f52eb4588069764106e69b4156fa745b632e",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 81,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The supposedly thawing ground is uniformly covered; keep canonical snow amount but use one spatial snow authority and visible worn wood."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "3951fa117bee4d04c4d2aec13d0ac6c959816125ef0372e2a24ea07514ae1dc5",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 82,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The landing crane is readable; fix white water, localize ground snow and add material-specific damp wear."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "d65027b2c487b6e134e48a08ce4350aeef39b5651f6b0a77560e3a78cfd2ddcc",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 83,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The fan shelter is readable in fog; the green edge is absent, so preserve dormant substrate and show collected planting life at its shelter."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        230.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "25b5eaf147951ca28f90843c48bd096789420db7085f41dcc060ae0fd90bae21",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 84,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The raised lookout reads, but the white water and uniform snow erase the shore; fix depth, snow distribution and timber wear."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        235.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "90828e54fbbd3201ca9a92dd5668e872a366c308be6247fc95d57ac018a12240",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 85,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The trough is readable but clean; age its lower material and use patchy partial snow to distinguish the longer thawing day."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        215.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "aa5b72b3249e1ef3f52c82d8ced29e83c9269d6402c4736abe0c2868fa924d5f",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 86,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The first-flower beds are completely empty and white; expose partial ground substrate and add a small legible planting group later."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "371b90aa9210b791c478b77c16334e53a1cf53aace23dd87b32f7d8701d70f1b",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 87,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The repaired sign has no readable repaired contrast; keep old timber wear distinct from the new board and localize snow."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "18732de2508138603f6c5565002ffc6bb887d94f480abf5f36dd01cd5a297eb0",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 88,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The arch crossing is lost against white water/fog; fix river camera depth, partial snow and gentle stone age before acceptance."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        230.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "0913bbcb3ca6820d7aa544d4e4f8c12c75c9372c215e9f6cd3bf3f761be89b8f",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 89,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The workshop doors are visible but clean and empty; weather its lower timber and add supported repair belongings."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        235.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "ae3449c3c5a270e7010772d72de4dc24462aaa81b82b650f7b9d3f0c105ba3a3",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 90,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The shore gazebo is mostly a roof; reveal its open sitting space and fix the white river."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        215.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "f714eb605de91ce6080fb3f5f621fe2cb444639b4749a6def56fe95b212613cb",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 91,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The new orchard is only empty support stakes; weather the nursery frame and add young orchard planting without hiding the field."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "02e89f17a6f574b2ac91cda91709418ed3e1d59f1b9741dc7f277103ec7af2cf",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 92,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The veranda house is dominated by roofs and a blank wall; lower the view and expose purposeful returned-home belongings."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "06983127002a1de32a8f548c208e5de9fb7d977a726a499f2ac2230658c8748b",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 93,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The travelling apiary reads but looks newly made; age the wood and add small supported beekeeper belongings."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        230.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "b9f87cc2242d55ab68cc729dc8779d9632e1fc4cb28a563ee5adfe3fa7fd21c1",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 94,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The greenhouse is an empty frame; weather its lower supports and add a restrained planting group."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        235.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "9987cbc179dbeb3e3a876be25e931c63dc790ec0e01248b0e22aae45c6c88503",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 95,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The bell shelter reads; age the wood and clarify a gathered outgoing-traveller belongings group."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        215.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "441a74f1e75e3a47481c2d53891394542898733d0f4cc2f238e73ff34d4cc396",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 96,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The memorial arch is readable but uniformly clean; add restrained lower stone wear and a visible flower offering."
+    ],
+    "change": {
+      "material": "stone",
+      "weathering": "moss",
+      "amount": 0.32,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        220.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "b954cd7de827bdb4f058694e64b88b7882e92c344aee0ad5b338291a5145db2c",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 97,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The Haven waystone is readable but its face is plain; use subtle lower stone age and an obvious approach marker."
+    ],
+    "change": {
+      "material": "stone",
+      "weathering": "moss",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        225.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "d7fb6a36161bd6bd6d0a224fec66e5a5481cf12b5b681c8bc705b1178913c199",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 98,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The vaulted spring is nearly edge-on; turn its open mouth toward the camera and age the damp masonry."
+    ],
+    "change": {
+      "material": "stone",
+      "weathering": "moss",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        47.0,
+        230.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "90e0ab6ea7ef06071aac23bba58ff8cb818c084c9983774c48c4a5802722604d",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 99,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The rotunda is roof-dominant and empty; lower the view, weather its supports and add a modest communal sitting trace."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        235.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "2390029483e9ad732b9537b95ce8502f52e18566000551f57ff842de96cd714b",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  },
+  {
+    "order": 100,
+    "baseline": "U03",
+    "correction": "U04",
+    "issues": [
+      "The Haven L-wing is distinct but too roof-dominant; lower the view and replace redundant auxiliary wells with a purposeful settled-home group."
+    ],
+    "change": {
+      "material": "wood",
+      "weathering": "streaks",
+      "amount": 0.56,
+      "preserveGeometry": true,
+      "cameraEuler": [
+        35,
+        215.0,
+        0.0
+      ],
+      "water": "Frozen river cameras explicitly request depth and opaque textures.",
+      "snow": "One ground-shader authority, dormant substrate and spatial snow patches."
+    },
+    "sourceSha256": "7ba88941de1589ede3f10391d7880910b842a5d90a2a9d9c96254cc6364cf7f6",
+    "residual": "Fresh native PWB placement, capture and visual inspection required."
+  }
+]

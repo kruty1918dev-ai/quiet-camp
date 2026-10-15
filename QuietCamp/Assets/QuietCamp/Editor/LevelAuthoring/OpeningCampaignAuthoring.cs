@@ -151,7 +151,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         {
             var d=LevelAuthoringDocument.Open(sourcePath);
             var p=JsonConvert.DeserializeObject<OpeningCampaignProfile>(File.ReadAllText(profilePath));
-            if(p.world.anchors.Length>0){LevelAuthoringPalette.EnsureDocumentModels(d.art.models);ImportStoryModels(p.world.anchors);}
+            if(p.world.anchors.Length>0){LevelAuthoringPalette.EnsureDocumentModels(d.art.models);ImportStoryModels(p.world.anchors.Where(anchor=>!anchor.preserveGeometry).ToArray());}
             var models=d.art.models.ToDictionary(m=>m.id);
             var poses=p.world.anchors.Select((anchor,i)=>
             {
