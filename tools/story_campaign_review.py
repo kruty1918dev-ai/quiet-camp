@@ -52,7 +52,9 @@ def sheets(round_name,start=1,end=100):
     # the memory-constrained Editor. These are review sheets, not new renders.
     for begin in range(start,end+1,10):
         indices=[i for i in range(begin,min(end+1,begin+10)) if (output/f'L{i:03}.png').exists() and (output/f'L{i:03}.json').exists()]
-        if not indices:continue
+        # A sheet named 031-040 must actually contain those ten frames. Leave
+        # incomplete batches pending rather than silently presenting seven as ten.
+        if len(indices)!=min(end+1,begin+10)-begin:continue
         canvas=Image.new('RGB',(1152,424*((len(indices)+2)//3)),(32,48,40));draw=ImageDraw.Draw(canvas)
         for slot,i in enumerate(indices):
             x=slot%3*384;y=slot//3*424
