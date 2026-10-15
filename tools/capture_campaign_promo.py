@@ -94,6 +94,7 @@ def main():
             else:
                 receipt.unlink(missing_ok=True)
                 request('authoring-focus-game')
+                subprocess.run([sys.executable,str(ROOT/'tools/focus_existing_game_view.py'),'--pid','18660'],check=True,capture_output=True)
                 request('opening-gameplay', name='promo', output=folder)
                 limit = time.monotonic() + 300
                 while not receipt.exists() and time.monotonic() < limit:
