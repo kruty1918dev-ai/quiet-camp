@@ -1,5 +1,5 @@
 {
-  "status": "100 audio-verified replacement stills and temporal samples inspected; final montage pending",
+  "status": "accepted-native-gameplay-media",
   "sourceStills": [
     {
       "order": 1,
@@ -804,8 +804,8 @@
     99,
     100
   ],
-  "finalEncodingReviewed": false,
-  "transitionsReviewed": false,
+  "finalEncodingReviewed": true,
+  "transitionsReviewed": true,
   "motionReviewMethod": "Actual source movie frames 20, 60 and 118 inspected for every level in twenty contact sheets; placement progression, normal gameplay UI, weather and completed state are visible. This is temporal sampling, not continuous human playback.",
   "rejectedSourceFolder": "2026-10-15",
   "rejection": "Many source MP4s have an AAC stream but zero audio packets. Montage rejected before delivery. Repeat recordings require decoded nonsilent audio per source.",
@@ -824,5 +824,22 @@
   "nativeFullResolutionAdditionalReview": [
     44,
     72
+  ],
+  "movieSha256": "b40a3eb342a79c469f9368789be91fac70612fe2982b61943c03b92e34bb4a06",
+  "transitionMidpointsReviewed": 99,
+  "finalFullResolutionFramesReviewed": [
+    1,
+    26,
+    44,
+    47,
+    72,
+    73,
+    81,
+    100
+  ],
+  "finalReviewMethod": "All 99 crossfade midpoints inspected from the final MP4; eight full-resolution encoded gameplay frames inspected for compression, UI, placement grid, aircraft, dense foliage, snowfall and fog. Source temporal frames reviewed for every level. Full movie/audio decoding and per-level audio checks are separate machine validations; this is not a claim of continuous human playback/listening.",
+  "qualityNotes": [
+    "Final compression softens fine vegetation while keeping gameplay UI and tent silhouettes readable.",
+    "The native thin placement grid has lower contrast on bright snow (notably level 81); the capture preserves the actual player view. Full-size stills are also provided."
   ]
 }
