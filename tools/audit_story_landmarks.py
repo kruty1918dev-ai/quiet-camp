@@ -10,7 +10,7 @@ catalog=json.loads((ROOT/'QuietCamp/Assets/QuietCamp/Authoring/CampaignLandmarks
 rows=[];missing=[];errors=[];seen={};rigid=[]
 for entry in catalog:
     order=entry['order'];stage=a.opening_round if order<=10 and a.opening_round else a.round
-    path=QA/'Temp/ai/StoryCampaign'/stage/f'L{order:03}.draft.json'
+    path=QA/'UserSettings/QuietCampCampaignReview'/stage/f'L{order:03}.draft.json'
     if not path.exists():missing.append(order);continue
     doc=json.loads(path.read_text(encoding='utf-8'));art=doc['art'];models={m['id']:m for m in art['models']}
     matches=[i for i in art['instances'] if i['id']==art.get('primaryLandmarkInstanceId')]

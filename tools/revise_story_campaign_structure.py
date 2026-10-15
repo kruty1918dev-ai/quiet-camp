@@ -6,7 +6,7 @@ import hashlib,json,math
 from copy import deepcopy
 from story_campaign_review import ROOT,QA,projected_bounds,terrain_height
 
-source=QA/'Temp/ai/StoryCampaign/U01';target=QA/'Temp/ai/StoryCampaign/U02'
+source=QA/'UserSettings/QuietCampCampaignReview/U01';target=QA/'UserSettings/QuietCampCampaignReview/U02'
 review=ROOT/'Design/LevelAuthoring/StoryCampaign/Review/U02'
 target.mkdir(parents=True,exist_ok=True);review.mkdir(parents=True,exist_ok=True)
 catalog=json.loads((ROOT/'QuietCamp/Assets/QuietCamp/Authoring/CampaignLandmarks/catalog.json').read_text(encoding='utf-8'))['entries']

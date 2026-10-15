@@ -45,7 +45,7 @@ def sheets(round_name,start=1,end=100):
     from PIL import Image,ImageDraw,ImageFont
     import textwrap
     output=ROOT/'Design/LevelAuthoring/StoryCampaign/Review'/round_name
-    temp=QA/'Temp/ai/StoryCampaign'/round_name;temp.mkdir(parents=True,exist_ok=True)
+    temp=QA/'UserSettings/QuietCampCampaignReview'/round_name;temp.mkdir(parents=True,exist_ok=True)
     profiles=json.loads((ROOT/'Design/LevelAuthoring/StoryCampaign/unique-profiles.json').read_text(encoding='utf-8'))
     font=ImageFont.truetype('C:/Windows/Fonts/segoeui.ttf',14)
     # Assemble unmodified native captures without starting a browser alongside

@@ -4,7 +4,7 @@ from pathlib import Path
 from story_campaign_review import ROOT,QA,projected_bounds,terrain_height
 
 p=argparse.ArgumentParser();p.add_argument('--from-round',required=True);p.add_argument('--to-round',required=True);p.add_argument('--start',type=int,required=True);p.add_argument('--end',type=int,required=True);p.add_argument('--replace-unrendered',action='store_true');p.add_argument('--correction',choices=['primary-framing'],required=True);a=p.parse_args()
-stage=QA/'Temp/ai/StoryCampaign';target=stage/a.to_round;target.mkdir(parents=True,exist_ok=True)
+stage=QA/'UserSettings/QuietCampCampaignReview';target=stage/a.to_round;target.mkdir(parents=True,exist_ok=True)
 out=ROOT/'Design/LevelAuthoring/StoryCampaign/Review'/a.to_round;out.mkdir(parents=True,exist_ok=True)
 record=out/'corrections.json';rows=json.loads(record.read_text(encoding='utf-8')) if record.exists() else []
 profiles=json.loads((ROOT/'Design/LevelAuthoring/StoryCampaign/unique-profiles.json').read_text(encoding='utf-8'))

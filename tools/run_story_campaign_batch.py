@@ -11,7 +11,7 @@ def request(mode):
     if r.returncode:raise RuntimeError(r.stdout+r.stderr)
     return json.loads((QA/'Temp/ai/qc007-art-result.json').read_text(encoding='utf-8'))
 
-if (QA/'Temp/ai/campaign-user-workspace.json').exists():raise RuntimeError('A preserved user workspace exists. Resume it before starting another batch.')
+if (QA/'UserSettings/QuietCampCampaignReview/campaign-user-workspace.json').exists():raise RuntimeError('A preserved user workspace exists. Resume it before starting another batch.')
 before=request('authoring-workspace-status');deadline=time.monotonic()+90
 while before.get('busy') and time.monotonic()<deadline:
     time.sleep(.3);before=request('authoring-workspace-status')
@@ -31,6 +31,6 @@ finally:
         assert proof['workspaceUnchanged'],'User workspace changed during batch restoration.'
         print('User workspace restored; exact art hash unchanged.',flush=True)
     proof['nativeBatchExitCode']=code
-    out=QA/'Temp/ai/StoryCampaign/BatchProofs';out.mkdir(parents=True,exist_ok=True)
+    out=QA/'UserSettings/QuietCampCampaignReview/BatchProofs';out.mkdir(parents=True,exist_ok=True)
     (out/f'{a.round}-{a.start:03}-{a.end:03}.json').write_text(json.dumps(proof,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 sys.exit(code)

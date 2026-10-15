@@ -29,6 +29,8 @@ namespace QuietCamp.Editor.LevelAuthoring
         public float x,z,y,yaw,scale=1,metric=1;
         public float ageAmount=-1;
         public string motion;
+        public SurfaceWeatheringSettings weathering;
+        public bool preserveGeometry;
         public bool water;
     }
     public static class WorldStudyFactory

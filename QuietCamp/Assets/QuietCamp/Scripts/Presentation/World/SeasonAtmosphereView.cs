@@ -141,6 +141,9 @@ namespace QuietCamp.Presentation.World
                     var renderer=filter.GetComponent<MeshRenderer>();if(renderer==null||renderer.sharedMaterial==null||renderer.sharedMaterial.shader.name.IndexOf("Water",StringComparison.OrdinalIgnoreCase)>=0)continue;
                     bool ground=filter.name=="ExteriorMeadow"||filter.name=="MeadowGround"||filter.name.IndexOf("земля",StringComparison.OrdinalIgnoreCase)>=0||filter.name.IndexOf("terrain",StringComparison.OrdinalIgnoreCase)>=0;
                     if(!ground)continue;
+                    // CampArtLit owns spatial snow and traffic on these meshes.
+                    // Recolouring their vertices here applies snow a second time.
+                    if(renderer.sharedMaterials.Any(m=>m!=null&&m.HasProperty("_ArtGround")&&m.GetFloat("_ArtGround")>.5f))continue;
                     var mesh=UnityEngine.Object.Instantiate(source);var colors=mesh.colors;var normals=mesh.normals;
                     var snowColor=QualitySettings.activeColorSpace==ColorSpace.Linear?new Color(.79f,.84f,.85f).linear:new Color(.79f,.84f,.85f);
                     var seasonalColor=preset.season=="spring"?new Color(.39f,.51f,.27f):new Color(.49f,.42f,.27f);

@@ -45,6 +45,7 @@ namespace QuietCamp.Editor
         static void Poll()
         {
             if (EditorApplication.isCompiling || EditorApplication.isUpdating) return;
+            if(SessionState.GetBool("QuietCamp.NativeTestsRunning",false))return;
             if(_campaignBatch!=null)
             {
                 try
@@ -127,11 +128,12 @@ namespace QuietCamp.Editor
                 }
                 else if(request.mode=="authoring-suspend-workspace")
                 {
-                    const string preserved="Temp/ai/campaign-user-workspace.json";
+                    const string preserved="UserSettings/QuietCampCampaignReview/campaign-user-workspace.json";
                     if(File.Exists(preserved))throw new InvalidOperationException("A user workspace is already preserved; resume it first.");
                     var window=LevelAuthoring.LevelAuthoringWindow.OpenWindow();
                     if(window.Workspace==null)throw new InvalidOperationException("No live workspace to suspend.");
                     var session=window.PrepareVerification();
+                    Directory.CreateDirectory(Path.GetDirectoryName(preserved));
                     File.WriteAllText(preserved,JsonConvert.SerializeObject(new{session.document,session.path,session.dirty}));
                     SessionState.SetBool("QuietCamp.Authoring.Verifying",true);
                     System.GC.Collect();EditorUtility.UnloadUnusedAssetsImmediate();
@@ -139,14 +141,14 @@ namespace QuietCamp.Editor
                 }
                 else if(request.mode=="authoring-resume-workspace")
                 {
-                    const string preserved="Temp/ai/campaign-user-workspace.json";
+                    const string preserved="UserSettings/QuietCampCampaignReview/campaign-user-workspace.json";
                     if(!File.Exists(preserved))throw new InvalidOperationException("No preserved workspace exists.");
                     var window=LevelAuthoring.LevelAuthoringWindow.OpenWindow();
                     if(window.Workspace!=null)throw new InvalidOperationException("Refusing to replace a live workspace; the preserved JSON is safe.");
                     var original=Newtonsoft.Json.Linq.JObject.Parse(File.ReadAllText(preserved));
                     SessionState.SetBool("QuietCamp.Authoring.Verifying",false);
                     window.RestoreVerification(new LevelAuthoring.LevelAuthoringWindow.VerificationSession{document=original["document"].ToObject<LevelAuthoring.LevelAuthoringDocument>(),path=(string)original["path"],dirty=(bool)original["dirty"]});
-                    string restored="Temp/ai/campaign-user-workspace.restored-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmssfffffff")+".json";
+                    string restored="UserSettings/QuietCampCampaignReview/campaign-user-workspace.restored-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmssfffffff")+".json";
                     File.Move(preserved,restored);
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="workspace-resumed",objects=window.Workspace.Capture(false).art.instances.Length}));
                 }
@@ -422,6 +424,7 @@ namespace QuietCamp.Editor
         }
         static void RunTests(bool authoring = false, string focused = null)
         {
+            if(SessionState.GetBool("QuietCamp.NativeTestsRunning",false))throw new InvalidOperationException("Wait for the active native test run.");
             if (authoring) SessionState.SetBool("QuietCamp.Authoring.Verifying", true);
             var window = authoring ? LevelAuthoring.LevelAuthoringWindow.OpenWindow() : null;
             var session = window?.PrepareVerification();
@@ -446,6 +449,7 @@ namespace QuietCamp.Editor
             File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="tests-running",authoring,started=DateTime.UtcNow}));
             var api = ScriptableObject.CreateInstance<TestRunnerApi>();
             api.RegisterCallbacks(new TestReport(api, session));
+            SessionState.SetBool("QuietCamp.NativeTestsRunning",true);
             api.Execute(new ExecutionSettings(new Filter { testMode = TestMode.EditMode,
                 testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.TutorialDirectorTests", "QuietCamp.Tests.OpeningCampaignTests", "QuietCamp.Tests.SeasonPresentationTests", "QuietCamp.Tests.BiomeSurfaceTests", "QuietCamp.Tests.CampSurfaceUseTests", "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.SurfaceWeatheringTests", "QuietCamp.Tests.ForestAtmosphereTests", "QuietCamp.Tests.ModelWorkshopTests", "QuietCamp.Tests.FreeWorldAssetsTests", "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
         }
@@ -466,7 +470,7 @@ namespace QuietCamp.Editor
                 string report=JsonConvert.SerializeObject(new { status = "tests", outcome = result.TestStatus.ToString(),
                     passed = result.PassCount, failed = result.FailCount, skipped = result.SkipCount, duration = result.Duration, failures = _failures }, Formatting.Indented);
                 _api.UnregisterCallbacks(this); UnityEngine.Object.DestroyImmediate(_api);
-                if(_session==null){SessionState.SetBool("QuietCamp.Authoring.Verifying",false);File.WriteAllText(ResultPath,report);return;}
+                if(_session==null){SessionState.SetBool("QuietCamp.Authoring.Verifying",false);File.WriteAllText(ResultPath,report);SessionState.SetBool("QuietCamp.NativeTestsRunning",false);return;}
                 // RunFinished precedes TestRunner's scene/window restoration. Wait
                 // until it settles before restoring the user's preserved session.
                 double restoreAt=EditorApplication.timeSinceStartup+1;
@@ -478,6 +482,7 @@ namespace QuietCamp.Editor
                     SessionState.SetBool("QuietCamp.Authoring.Verifying",false);
                     try{LevelAuthoring.LevelAuthoringWindow.OpenWindow().RestoreVerification(_session);File.WriteAllText(ResultPath,report);}
                     catch(Exception e){File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="error",error="Workspace restoration: "+e}));}
+                    finally{SessionState.SetBool("QuietCamp.NativeTestsRunning",false);}
                 };
                 EditorApplication.update+=restore;
             }
@@ -588,6 +593,7 @@ namespace QuietCamp.Editor
                     unity = UnityEngine.Application.unityVersion, graphics = SystemInfo.graphicsDeviceType.ToString(), device = SystemInfo.graphicsDeviceName,
                     width = request.width, height = request.height, levelId = level.id, contentHash = level.contentHash,
                     imageSha256 = Hash(bytes), artSha256 = Hash(System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(art))), draftPath = request.draftPath,
+                    draftSha256 = draft == null ? null : Hash(File.ReadAllBytes(request.draftPath)),
                     cameraEuler = art.cameraEuler, cameraPosition = new[] { camera.transform.position.x, camera.transform.position.y, camera.transform.position.z }, camera.orthographicSize,
                     waterEvidence = WaterEvidence(root), sourceMeshes = art.models.Select(model => model.id).ToArray(), instances = art.instances.Length, triangles = view.TriangleCount,
                     profile = art.generation, generationAttempt = art.generationAttempt, seed = art.seed, effectiveSeed = art.generationSeed,

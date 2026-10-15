@@ -92,7 +92,10 @@ Shader "QuietCamp/CampArtLit"
                     float fieldDistance=max(abs(p.x)-_CampFieldSize.x,abs(p.y)-_CampFieldSize.y);
                     float undisturbed=1-smoothstep(.3,2.0,fieldDistance+(ArtNoise(p*.8f)-.5)*.45);
                     baseColor=lerp(baseColor,natural,lerp(.72,1,undisturbed));
-                    float snow=_CampClimate.y;
+                    float cover=saturate(_CampClimate.y);
+                    float drift=ArtNoise(p*.23+71)*.7+ArtNoise(p*.81-29)*.3;
+                    float snow=cover>=.999?1:smoothstep(1-cover-.12,1-cover+.12,drift)*smoothstep(0,.12,cover);
+                    snow*=smoothstep(.2,.75,normal.y);
                     baseColor=lerp(baseColor,lerp(float3(.73,.81,.85),float3(.84,.89,.91),ArtNoise(p*.38+21)),snow);
                     baseColor=lerp(baseColor,lerp(natural*.92,_SoilTone.rgb,use.r),use.g*(1-snow)*.55);
                     baseColor=lerp(baseColor,_SoilTone.rgb*(1-_CampClimate.x*.23),use.r*(1-snow)*(.67+ArtNoise(p*2.8)*.23));

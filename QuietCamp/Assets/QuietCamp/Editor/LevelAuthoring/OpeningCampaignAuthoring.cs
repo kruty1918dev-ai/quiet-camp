@@ -155,11 +155,16 @@ namespace QuietCamp.Editor.LevelAuthoring
             var models=d.art.models.ToDictionary(m=>m.id);
             var poses=p.world.anchors.Select((anchor,i)=>
             {
-                var source=WorldStudyFactory.MetricModel(anchor.model);
-                var model=ModelAuthoringWorkshop.Create(source,new ModelAuthoringRecipe{operation="age",backend=anchor.age,amount=anchor.ageAmount<0?.22f:anchor.ageAmount,seed=p.world.seed+i,label=anchor.label,category="Декор"},false).model;
+                var id=anchor.instanceId??"opening/"+p.story.id+"/detail-"+i;
+                var previous=d.art.instances.SingleOrDefault(item=>item.id==id);
+                if(anchor.preserveGeometry&&previous==null)throw new InvalidDataException("Cannot preserve geometry of a missing instance: "+id);
+                var source=anchor.preserveGeometry?d.art.models.Single(m=>m.id==previous.modelId):WorldStudyFactory.MetricModel(anchor.model);
+                var model=ModelAuthoringWorkshop.Create(source,new ModelAuthoringRecipe{operation="age",backend=anchor.age,amount=anchor.ageAmount<0?.22f:anchor.ageAmount,seed=p.world.seed+i,label=anchor.label,category="Декор",weathering=anchor.weathering},false).model;
                 models[model.id]=model;
                 var at=WorldStudyFactory.OutsideField(d,model,anchor.x,anchor.z,anchor.scale,anchor.yaw);
-                return new CampArtDefinition.Instance{id=anchor.instanceId??"opening/"+p.story.id+"/detail-"+i,modelId=model.id,x=at.x,z=at.y,y=anchor.water?anchor.y:d.art.GroundHeight(at.x,at.y)+anchor.y,yaw=anchor.yaw,scale=anchor.scale,surfaceAttached=!anchor.water,surfaceOffset=anchor.y,motion=anchor.motion};
+                var euler=previous?.rotationEuler?.ToArray();if(euler!=null)euler[1]=anchor.yaw;
+                var scaleXYZ=previous?.scaleXYZ?.Select(value=>value*anchor.scale/previous.scale).ToArray();
+                return new CampArtDefinition.Instance{id=id,modelId=model.id,x=at.x,z=at.y,y=anchor.water?anchor.y:d.art.GroundHeight(at.x,at.y)+anchor.y,yaw=anchor.yaw,scale=anchor.scale,rotationEuler=euler,scaleXYZ=scaleXYZ,surfaceAttached=!anchor.water,surfaceOffset=anchor.y,motion=anchor.motion??previous?.motion,motionPivot=previous?.motionPivot?.ToArray()};
             }).ToArray();
             int painted=0;
             if(poses.Length>0)
@@ -179,8 +184,9 @@ namespace QuietCamp.Editor.LevelAuthoring
             int refined=p.world.refineExistingPlants?ForestRegrowthAuthoring.RefineExisting(d,p.world.seed):0;
             if(poses.Any(i=>i.id==d.art.primaryLandmarkInstanceId))
             {
-                d.art.primaryLandmarkId=CampaignLandmarkCatalog.Read()[d.level.order-1].modelId;
-                ObjectOvergrowthAuthoring.Apply(d,new[]{d.art.primaryLandmarkInstanceId},new ObjectOvergrowthSettings{material=d.level.order==48?"steel":"wood",seed=p.world.seed,maxPlants=12,density=.35f,scale=.28f});
+                var entry=CampaignLandmarkCatalog.Read()[d.level.order-1];d.art.primaryLandmarkId=entry.modelId;
+                var material=p.world.anchors.Single(a=>a.instanceId==d.art.primaryLandmarkInstanceId).weathering?.material??(entry.construction.StartsWith("transformer:",StringComparison.Ordinal)?"steel":"wood");
+                ObjectOvergrowthAuthoring.Apply(d,new[]{d.art.primaryLandmarkInstanceId},new ObjectOvergrowthSettings{material=material,seed=p.world.seed,maxPlants=12,density=.35f,scale=.28f});
             }
             AuthoringWeatherExposure.Bake(d,d.art.instances.Where(i=>i.id.StartsWith("opening/",StringComparison.Ordinal)).Select(i=>i.id).ToArray());
             if(poses.Length>0)SeasonAtmosphereAuthoring.Apply(d,d.art.atmosphere);

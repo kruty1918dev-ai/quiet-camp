@@ -1,10 +1,11 @@
 """Serial native authoring/review of the remaining canonical campaign places."""
 import argparse,json,subprocess,sys,html,os,ctypes,hashlib,uuid
+from campaign_capture_receipt import current
 from pathlib import Path
 sys.stdout.reconfigure(encoding='utf-8')
 ROOT=Path(__file__).resolve().parents[1];QA=Path('C:/Users/Public/qcui-20261006/QuietCamp');DEST=ROOT/'Design/LevelAuthoring/StoryCampaign'
 p=argparse.ArgumentParser();p.add_argument('--round',required=True);p.add_argument('--no-sheets',action='store_true');p.add_argument('--compose',action='store_true');p.add_argument('--start',type=int,default=11);p.add_argument('--end',type=int,default=100);a=p.parse_args()
-drafts=QA/'Temp/ai/StoryCampaign'/a.round;drafts.mkdir(parents=True,exist_ok=True);output=DEST/'Review'/a.round;output.mkdir(parents=True,exist_ok=True)
+drafts=QA/'UserSettings/QuietCampCampaignReview'/a.round;drafts.mkdir(parents=True,exist_ok=True);output=DEST/'Review'/a.round;output.mkdir(parents=True,exist_ok=True)
 profiles=json.loads((DEST/'unique-profiles.json').read_text(encoding='utf-8'));by_order={i+1:v for i,v in enumerate(profiles)}
 def request(mode,**kwargs):
  if os.name=='nt':
@@ -35,13 +36,18 @@ for i in range(a.start,a.end+1):
   native=path.with_name(name+'.'+uuid.uuid4().hex+'.draft.json')
   proof=request('opening-details',profile=details,draft=path,output=native)
   frozen=json.loads(native.read_text(encoding='utf-8'))
+  detail_profile=json.loads(details.read_text(encoding='utf-8'))
+  if detail_profile.get('refitPrimaryAfterPlacement'):
+   from story_campaign_review import fit_primary_camera
+   fit_primary_camera(frozen,margin=.12)
+   frozen['art'].update(detail_profile.get('cameraOverrides',{}))
   native.write_text(json.dumps(frozen,ensure_ascii=False,separators=(',',':'))+'\n',encoding='utf-8')
   del frozen
   os.replace(native,path)
   placement.write_text(json.dumps(proof,ensure_ascii=False,indent=2),encoding='utf-8')
  png=output/(name+'.png');receipt=output/(name+'.json');valid=False
  if png.exists() and receipt.exists():
-  valid=hashlib.sha256(png.read_bytes()).hexdigest()==json.loads(receipt.read_text(encoding='utf-8')).get('imageSha256')
+  valid=current(QA,png,receipt,path)
  if not valid:request('draft-capture',draft=path,output=output,name=name)
  print(a.round,name,by_order[i]['story']['title'],flush=True)
 if not a.no_sheets:

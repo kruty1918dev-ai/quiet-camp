@@ -8,7 +8,7 @@ from copy import deepcopy
 from story_campaign_review import ROOT,QA,projected_bounds,terrain_height,fit_primary_camera
 
 p=argparse.ArgumentParser();p.add_argument('--start',type=int,default=1);p.add_argument('--end',type=int,default=100);a=p.parse_args()
-source=QA/'Temp/ai/StoryCampaign/U02';target=QA/'Temp/ai/StoryCampaign/U03';target.mkdir(parents=True,exist_ok=True)
+source=QA/'UserSettings/QuietCampCampaignReview/U02';target=QA/'UserSettings/QuietCampCampaignReview/U03';target.mkdir(parents=True,exist_ok=True)
 review=ROOT/'Design/LevelAuthoring/StoryCampaign/Review';output=review/'U03';output.mkdir(parents=True,exist_ok=True)
 inspection={r['order']:r for r in json.loads((review/'U02/inspection.json').read_text(encoding='utf-8'))['levels']}
 profiles=json.loads((ROOT/'Design/LevelAuthoring/StoryCampaign/unique-profiles.json').read_text(encoding='utf-8'))

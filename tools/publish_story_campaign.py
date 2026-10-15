@@ -31,7 +31,7 @@ def main():
     subprocess.run([sys.executable,str(ROOT/'tools/audit_story_landmarks.py'),'--round',a.round,'--require-all'],cwd=ROOT,check=True)
     ids=json.loads((PROJECT/CONTENT/'campaign.json').read_text(encoding='utf-8'))['campaignLevelIds']
     assert len(ids)==100 and len(set(ids))==100
-    stage=QA/'Temp/ai/StoryCampaign'/a.round;planned=[];rules=[];unchanged={}
+    stage=QA/'UserSettings/QuietCampCampaignReview'/a.round;planned=[];rules=[];unchanged={}
     # Freeze original history, including pre-existing user revision files.
     for base in (PROJECT,QA):
         for folder in ('ContentRevisions','ArtRevisions'):

@@ -83,6 +83,9 @@ namespace QuietCamp.Tests
                 root.AddComponent<UnityEngine.Camera>();
                 var view = root.AddComponent<QuietCamp.Presentation.World.CampArtView>();
                 view.Configure(art, level, root.transform, AssetCatalog.Load());
+                var cameraData=root.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
+                Assert.IsTrue(cameraData.requiresDepthTexture,"Frozen and procedural rivers both need their own camera depth request.");
+                Assert.IsTrue(cameraData.requiresColorTexture,"Refraction must not depend on another camera having rendered first.");
                 var water = root.GetComponentsInChildren<UnityEngine.MeshRenderer>().Single(r => r.sharedMaterial.shader.name == "Stylized Water 3/Standard");
                 var mesh = water.GetComponent<UnityEngine.MeshFilter>().sharedMesh;
                 Assert.AreEqual("Stylized Water 3/Standard", water.sharedMaterial.shader.name);

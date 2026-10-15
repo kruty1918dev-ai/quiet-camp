@@ -15,18 +15,30 @@ namespace QuietCamp.Editor.LevelAuthoring
                 if(item.modelId==null||!models.TryGetValue(item.modelId,out var model))continue;
                 var source=model.sourceModelId??model.id;
                 if(source=="qc_rowboat"&&item.motion==null)item.motion="boat";
-                if(source=="qc_crash_drying"&&!instances.Any(i=>i.id==item.id+"/cloth0"))SplitDrying(model,item,models,instances);
-                if(source=="qc_watermill_ruin"&&!instances.Any(i=>i.id==item.id+"/wheel"))SplitWheel(model,item,models,instances);
+                if(source=="qc_crash_drying")SplitDrying(model,item,models,instances);
+                if(source=="qc_crash_drying"||source=="qc_crash_drying_support")
+                    foreach(var child in instances.Where(i=>i.id==item.id+"/cloth0"||i.id==item.id+"/cloth1"))CopyPose(item,child);
+                if(source=="qc_watermill_ruin")
+                {
+                    SplitWheel(model,item,models,instances);
+                    foreach(var child in instances.Where(i=>i.id==item.id+"/wheel"))CopyPose(item,child);
+                }
                 if(source=="qc_watermill_wheel"&&item.motion==null)
                 {var pivot=AuthoringPropCatalog.ModelBounds(model).center;item.motion="waterwheel";item.motionPivot=new[]{pivot.x,pivot.y,pivot.z};}
             }
             document.art.models=models.Values.ToArray();document.art.instances=instances.ToArray();
+        }
+        static void CopyPose(CampArtDefinition.Instance parent,CampArtDefinition.Instance child)
+        {
+            child.x=parent.x;child.y=parent.y;child.z=parent.z;child.yaw=parent.yaw;child.scale=parent.scale;
+            child.rotationEuler=parent.rotationEuler?.ToArray();child.scaleXYZ=parent.scaleXYZ?.ToArray();
         }
         static void SplitDrying(CampArtDefinition.Model model,CampArtDefinition.Instance item,Dictionary<string,CampArtDefinition.Model> models,List<CampArtDefinition.Instance> instances)
         {
             // Our five closed boxes: two supports, rope, and two cloth panels.
             // Edited topology stays intact; never guess a cut from unrelated triangles.
             if(model.colors.Length!=180)return;
+            instances.RemoveAll(i=>i.id==item.id+"/cloth0"||i.id==item.id+"/cloth1");
             var support=Slice(model,Enumerable.Range(0,36).ToArray(),model.id+"/support");support.sourceModelId="qc_crash_drying_support";models[support.id]=support;item.modelId=support.id;
             for(int panel=0;panel<2;panel++)
             {
@@ -45,6 +57,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             for(int i=0;i<=original.vertices.Length-wheel.vertices.Length;i+=9)
                 if(Mathf.Abs(original.vertices[i]-(wheel.vertices[0]+offset.x))<.0001f&&Mathf.Abs(original.vertices[i+1]-(wheel.vertices[1]+offset.y))<.0001f&&Mathf.Abs(original.vertices[i+2]-(wheel.vertices[2]+offset.z))<.0001f){start=i;break;}
             if(start<0)throw new InvalidOperationException("The watermill wheel topology changed; rebuild its separate part.");
+            instances.RemoveAll(i=>i.id==item.id+"/wheel");
             int first=start/9,count=wheel.colors.Length/3;
             var body=Slice(model,Enumerable.Range(0,model.colors.Length/3).Where(t=>t<first||t>=first+count).ToArray(),model.id+"/body");
             var rotor=Slice(model,Enumerable.Range(first,count).ToArray(),model.id+"/wheel");

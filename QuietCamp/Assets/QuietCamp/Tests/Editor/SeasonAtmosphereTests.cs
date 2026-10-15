@@ -61,6 +61,42 @@ namespace QuietCamp.Tests
                 camera.targetTexture=null;UnityEngine.Object.DestroyImmediate(image);target.Release();UnityEngine.Object.DestroyImmediate(target);UnityEngine.Object.DestroyImmediate(material);UnityEngine.Object.DestroyImmediate(mesh);UnityEditor.SceneManagement.EditorSceneManager.ClosePreviewScene(scene);
             }
         }
+        [Test] public void PartialGroundSnowLeavesBothExposedEarthAndCoveredPatches()
+        {
+            var scene=UnityEditor.SceneManagement.EditorSceneManager.NewPreviewScene();var node=new GameObject("Snow ground fixture");
+            UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(node,scene);node.layer=30;
+            var mesh=new Mesh{vertices=new[]{new Vector3(-8,0,-8),new Vector3(-8,0,8),new Vector3(8,0,8),new Vector3(8,0,-8)},triangles=new[]{0,1,2,0,2,3},normals=Enumerable.Repeat(Vector3.up,4).ToArray(),colors=Enumerable.Repeat(Color.white,4).ToArray()};
+            node.AddComponent<MeshFilter>().sharedMesh=mesh;
+            var material=new Material(Resources.Load<Shader>("QuietCamp/CampArtLit"));node.AddComponent<MeshRenderer>().sharedMaterial=material;
+            material.SetFloat("_ArtGround",1);material.SetColor("_ArtAmbient",Color.white);material.SetColor("_GroundLow",new Color(.16f,.22f,.1f));material.SetColor("_GroundHigh",new Color(.3f,.36f,.18f));material.SetColor("_SoilTone",new Color(.3f,.22f,.12f));material.SetVector("_CampFieldSize",new Vector4(20,20,0,0));
+            var cameraNode=new GameObject("Snow ground camera");cameraNode.transform.SetParent(node.transform,false);var camera=cameraNode.AddComponent<Camera>();camera.cameraType=CameraType.Game;camera.orthographic=true;camera.orthographicSize=8;camera.transform.position=new Vector3(0,20,0);camera.transform.rotation=Quaternion.Euler(90,0,0);
+            camera.cullingMask=1<<30;camera.overrideSceneCullingMask=UnityEditor.SceneManagement.EditorSceneManager.GetSceneCullingMask(scene);camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Color.black;
+            var target=RenderTexture.GetTemporary(128,128,24);var image=new Texture2D(128,128,TextureFormat.RGB24,false);
+            var active=RenderTexture.active;bool async=ShaderUtil.allowAsyncCompilation;
+            try
+            {
+                ShaderUtil.allowAsyncCompilation=false;
+                Color[] Sample(float cover)
+                {
+                    material.SetVector("_CampClimate",new Vector4(0,cover,0,1));camera.targetTexture=target;
+                    var request=new UnityEngine.Rendering.Universal.UniversalRenderPipeline.SingleCameraRequest{destination=target};
+                    UnityEngine.Rendering.RenderPipeline.SubmitRenderRequest(camera,request);UnityEngine.Rendering.RenderPipeline.SubmitRenderRequest(camera,request);
+                    RenderTexture.active=target;image.ReadPixels(new Rect(0,0,128,128),0,0);image.Apply();return image.GetPixels();
+                }
+                var dry=Sample(0);var partial=Sample(.45f);var full=Sample(1);
+                int earth=0,snow=0;
+                for(int i=0;i<partial.Length;i++)
+                {
+                    float range=full[i].grayscale-dry[i].grayscale;
+                    if(range<.08f)continue;
+                    float coverage=(partial[i].grayscale-dry[i].grayscale)/range;
+                    if(coverage<.15f)earth++;if(coverage>.85f)snow++;
+                }
+                Assert.Greater(earth,128,"Partial snow must leave visible substrate. Dry/partial/full means: "+dry.Average(c=>c.grayscale)+"/"+partial.Average(c=>c.grayscale)+"/"+full.Average(c=>c.grayscale));Assert.Greater(snow,128,"Partial snow must form covered patches, rather than uniformly greying the ground.");
+                CollectionAssert.AreEqual(Enumerable.Repeat(Color.white,4).ToArray(),mesh.colors,"Snow must not accumulate in authored vertex colours.");
+            }
+            finally{RenderTexture.active=active;ShaderUtil.allowAsyncCompilation=async;camera.targetTexture=null;RenderTexture.ReleaseTemporary(target);UnityEngine.Object.DestroyImmediate(image);UnityEngine.Object.DestroyImmediate(material);UnityEngine.Object.DestroyImmediate(mesh);UnityEditor.SceneManagement.EditorSceneManager.ClosePreviewScene(scene);}
+        }
         [Test] public void WheelKeepsPivotWithNonuniformScaleAndAngledPose()
         {
             var root=new GameObject("Scaled wheel contract");
@@ -82,7 +118,7 @@ namespace QuietCamp.Tests
             if(source==null)source=Resources.Load<Material>(WorldStudyFactory.Create("watermill").art.waterMaterial);
             Assert.NotNull(source);float fog=source.GetFloat("_FogSource");var color=source.GetColor("_BaseColor");
             var copy=new Material(source);
-            try{RiverWeatherMaterial.Configure(copy);Assert.AreEqual(0,copy.GetFloat("_FogSource"));Assert.AreEqual(0,copy.GetFloat("_IntersectionSource"));Assert.AreEqual(fog,source.GetFloat("_FogSource"));Assert.AreEqual(color,source.GetColor("_BaseColor"));}
+            try{RiverWeatherMaterial.Configure(copy);Assert.AreEqual(0,copy.GetFloat("_FogSource"));Assert.AreEqual(0,copy.GetFloat("_IntersectionSource"));Assert.AreEqual(fog,source.GetFloat("_FogSource"));Assert.AreEqual(color,source.GetColor("_BaseColor"));Assert.AreEqual(color,copy.GetColor("_BaseColor"),"Weather must preserve the authored river palette and opacity.");Assert.AreEqual(source.GetColor("_ShallowColor"),copy.GetColor("_ShallowColor"));Assert.AreEqual(source.GetFloat("_DepthVertical"),copy.GetFloat("_DepthVertical"));}
             finally{UnityEngine.Object.DestroyImmediate(copy);}
         }
         [Test] public void WeatherRigIsIdempotentAndKeepsBuildingGeometryAndPuzzle()
@@ -95,6 +131,23 @@ namespace QuietCamp.Tests
             Assert.IsTrue(d.art.instances.Any(i=>i.motion=="waterwheel"));Assert.IsTrue(d.art.instances.Any(i=>i.motion=="boat"));
             var opened=JsonConvert.DeserializeObject<LevelAuthoringDocument>(JsonConvert.SerializeObject(d));opened.art.Validate(opened.level);
             var rotor=opened.art.instances.First(i=>i.motion=="waterwheel");rotor.motionPivot=new[]{float.NaN,0,0};Assert.Throws<System.IO.InvalidDataException>(()=>opened.art.Validate(opened.level));
+        }
+        [Test] public void MovingAndReplacingWatermillKeepsOneWheelAtItsOwnedAttachment()
+        {
+            var d=WorldStudyFactory.Create("watermill");WeatherModelRigAuthoring.Prepare(d);
+            var body=d.art.instances.Single(i=>(d.art.models.Single(m=>m.id==i.modelId).sourceModelId??i.modelId)=="qc_watermill_ruin");
+            body.x+=3;body.y+=.7f;body.z-=2;body.yaw=135;
+            body.rotationEuler=new[]{7f,135f,-4f};body.scaleXYZ=new[]{1.2f,.9f,1.5f};
+            WeatherModelRigAuthoring.Prepare(d);
+            var wheel=d.art.instances.Single(i=>i.id==body.id+"/wheel");
+            Assert.AreEqual(body.x,wheel.x);Assert.AreEqual(body.y,wheel.y);Assert.AreEqual(body.z,wheel.z);
+            CollectionAssert.AreEqual(body.rotationEuler,wheel.rotationEuler);CollectionAssert.AreEqual(body.scaleXYZ,wheel.scaleXYZ);
+            var complete=LevelAuthoringPalette.Get("qc_watermill_ruin").model;
+            d.art.models=d.art.models.Where(m=>m.id!=complete.id).Concat(new[]{complete}).ToArray();body.modelId=complete.id;
+            WeatherModelRigAuthoring.Prepare(d);
+            Assert.AreEqual(1,d.art.instances.Count(i=>i.id==body.id+"/wheel"));
+            Assert.AreEqual(complete.vertices.Length,d.art.models.Single(m=>m.id==body.modelId).vertices.Length+d.art.models.Single(m=>m.id==d.art.instances.Single(i=>i.id==body.id+"/wheel").modelId).vertices.Length);
+            var once=JsonConvert.SerializeObject(d.art);WeatherModelRigAuthoring.Prepare(d);Assert.AreEqual(once,JsonConvert.SerializeObject(d.art));
         }
         [Test] public void CanvasClimateKeepsSnowAndAfterRainWetness()
         {

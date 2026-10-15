@@ -1,5 +1,6 @@
 """Read-only acceptance gate for the 100 native campaign compositions."""
 import hashlib,json
+from campaign_capture_receipt import current
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -34,7 +35,8 @@ def require_review(final_round):
             if not art_hash or art_hash in compositions[row['order']]:raise ValueError('Unchanged composition cannot count as another correction: '+name+'/'+stem)
             compositions[row['order']].add(art_hash)
             if revision==count:
-                draft=QA/'Temp/ai/StoryCampaign'/name/(stem+'.draft.json')
+                draft=QA/'UserSettings/QuietCampCampaignReview'/name/(stem+'.draft.json')
+                if not current(QA,image,receipt,draft):raise ValueError('Final frame uses stale source files or assemblies: '+stem)
                 if row.get('status')!='accepted' or row.get('residual') or row.get('imageSha256')!=sha(image) or row.get('draftSha256')!=sha(draft):
                     raise ValueError('Final composition has not been accepted at its current image and draft hashes: '+stem)
     return count

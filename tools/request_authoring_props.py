@@ -18,6 +18,19 @@ p.add_argument('--name',default='props')
 p.add_argument('--seed',type=int,default=12007)
 p.add_argument('--timeout',type=int,default=1200)
 a=p.parse_args()
+lock_path=a.project.resolve()/'UserSettings/QuietCampCampaignReview/native-request.lock'
+lock_path.parent.mkdir(parents=True,exist_ok=True)
+_request_lock=lock_path.open('a+b')
+if not lock_path.stat().st_size:_request_lock.write(b'0');_request_lock.flush()
+_request_lock.seek(0)
+try:
+    if os.name=='nt':
+        import msvcrt
+        msvcrt.locking(_request_lock.fileno(),msvcrt.LK_NBLCK,1)
+    else:
+        import fcntl
+        fcntl.flock(_request_lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+except OSError:raise SystemExit('Another native request is running. Wait for its final result before starting the next one.')
 temp=a.project.resolve()/'Temp/ai';temp.mkdir(parents=True,exist_ok=True)
 request=temp/'qc007-art-request.json';result=temp/'qc007-art-result.json'
 if request.exists():raise SystemExit('A native request is pending; refusing to overwrite it.')
@@ -34,6 +47,8 @@ while time.time()-started<a.timeout:
         try:d=json.loads(result.read_text(encoding='utf-8'))
         except (json.JSONDecodeError,PermissionError):time.sleep(.1);continue
         if d.get('status') in ('tests-running','campaign-generating','profiling'):time.sleep(.3);continue
+        if a.mode.endswith('tests') and d.get('status') not in ('tests','error'):
+            raise SystemExit('Unexpected result during a test run; refusing to report it as completed tests: '+str(d.get('status')))
         print(json.dumps({k:v for k,v in d.items() if k in ('status','error','errors','draftPath','output','playing','ready','memoryOnly','objects','baked','identical','solved','completed','result','passed','failed','total','duration','forbiddenComponents','persistentDataPath')},ensure_ascii=False))
         if d.get('status')=='error' or d.get('errors') or d.get('failed',0):raise SystemExit(1)
         break

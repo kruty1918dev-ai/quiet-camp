@@ -160,7 +160,8 @@ namespace QuietCamp.Presentation.World
             if (sun == null) return;
             if(Definition.atmosphere!=null)
             {
-                var p=Definition.atmosphere;sun.transform.rotation=Quaternion.Euler(CampArtDefinition.Vector(p.sunEuler));sun.color=CampArtDefinition.Color(p.sunColor);sun.intensity=p.sunIntensity;sun.shadows=LightShadows.Soft;sun.shadowStrength=p.shadows;sun.shadowBias=.018f;sun.shadowNormalBias=.06f;return;
+                var p=Definition.atmosphere;sun.transform.rotation=Quaternion.Euler(CampArtDefinition.Vector(p.sunEuler));sun.color=CampArtDefinition.Color(p.sunColor);sun.intensity=p.sunIntensity;sun.shadows=LightShadows.Soft;sun.shadowStrength=p.shadows;sun.shadowBias=.018f;sun.shadowNormalBias=.06f;
+                sun.GetUniversalAdditionalLightData().softShadowQuality=SoftShadowQuality.High;return;
             }
             sun.transform.rotation = Quaternion.Euler(CampArtDefinition.Vector(Definition.sunEuler));
             sun.color = CampArtDefinition.Color(Definition.sunColor);
@@ -181,7 +182,9 @@ namespace QuietCamp.Presentation.World
         {
             material.SetVector("_CampFieldSize",new Vector4(_level.width*.5f,_level.height*.5f,0,0));
             var season=Definition.atmosphere?.season;
-            var palette=season==null?SeasonPalette.For(_level):SeasonPalette.For(season);
+            // Snow is applied once by the ground shader; the exposed substrate
+            // stays dormant grass/soil instead of receiving a white palette too.
+            var palette=season=="winter"?SeasonPalette.For("autumn"):season==null?SeasonPalette.For(_level):SeasonPalette.For(season);
             material.SetColor("_GroundLow",Color.Lerp(CampArtDefinition.Color(Definition.groundLow),palette.GrassDark,.35f));
             material.SetColor("_GroundHigh",Color.Lerp(CampArtDefinition.Color(Definition.groundHigh),palette.GrassLight,.35f));
             material.SetColor("_SoilTone",CampArtDefinition.Color(Definition.soilColor));
@@ -217,6 +220,11 @@ namespace QuietCamp.Presentation.World
         void BuildFrozenLandscape(Material material)
         {
             Definition.landscape.Validate();
+            if(Definition.landscape.meshes.Any(mesh=>mesh.water))
+            {
+                var cameraData=_camera.GetUniversalAdditionalCameraData();
+                cameraData.requiresDepthTexture=true;cameraData.requiresColorTexture=true;
+            }
             var sourceWater = Resources.Load<Material>(Definition.waterMaterial);
             if (sourceWater == null) throw new InvalidOperationException("Матеріал води відсутній: " + Definition.waterMaterial);
             var water = new Material(sourceWater) { name = "Frozen authored river" };

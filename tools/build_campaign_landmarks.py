@@ -395,7 +395,17 @@ def construct_special(m,family,form):
                 for x in (-1.1,1.1):post(m,x,3.2,1.3)
             return
         if family=='abutment':
-            for x,h in ((-1.4,1.5),(0,.65),(1.2,1)):box(m,x,h/2,0,1.1,h,2.2,'concrete_dark')
+            # An old road-bridge pier must remain legible beside the much smaller
+            # replacement footbridge. Stepped break crowns and embedded rebar
+            # explain the missing deck; each heavy block reaches the ground.
+            for x,h,z in ((-2.3,3.6,0),(0,1.3,.25),(2.1,2.8,-.12)):
+                box(m,x,h/2,z,1.7,h,2.4,'concrete_dark')
+                box(m,x-.22,h+.23,z+.1,1.15,.46,1.8,'stone')
+                for dx,dz,bend in ((-.52,-.65,-.4),(.43,.55,.3)):
+                    m.tube((x+dx,h-.3,z+dz),(x+dx,h+.8,z+dz),.045,'rust',6,True)
+                    m.tube((x+dx,h+.8,z+dz),(x+dx+bend,h+1.05,z+dz+.2),.045,'rust',6,True)
+            for x,z,w in ((-3.4,-1.5,.9),(-.6,1.8,1.1),(3.2,.9,.7)):
+                box(m,x,.18,z,w,.36,.65,'stone')
             return
         box(m,0,.35,0,w,.22,d,'wood_light' if family not in ('terrace','stage') else 'stone')
         for x in (-w/2+.2,w/2-.2):
