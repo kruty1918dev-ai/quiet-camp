@@ -30,10 +30,10 @@ def ready(ident):
   time.sleep(.4)
  raise RuntimeError('Camp did not become ready: '+ident)
 def frame(ident):
- path=GAME/(ident.replace(':','_')+'.png');start=time.time();request('opening-gameplay',name='frame',output=path)
+ path=GAME/(ident.replace(':','_')+'.png');path.unlink(missing_ok=True);request('opening-gameplay',name='frame',output=path)
  limit=time.monotonic()+30
  while time.monotonic()<limit:
-  if path.exists() and path.stat().st_mtime>=start and path.stat().st_size>1000:return dict(path=path.relative_to(OUT).as_posix(),sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+  if path.exists() and path.stat().st_size>1000:return dict(path=path.relative_to(OUT).as_posix(),sha256=hashlib.sha256(path.read_bytes()).hexdigest())
   time.sleep(.2)
  raise RuntimeError('Gameplay screenshot was not written: '+ident)
 try:
@@ -66,7 +66,7 @@ finally:
   time.sleep(.4)
 restored=request('authoring-workspace-status');after=saved_files()
 assert before==after,'Saved progress changed'
-assert workspace['artSha256']==restored['artSha256'] and workspace['objects']==restored['objects'],'Manual workspace changed'
-(VERIFY/'gameplay.json').write_text(json.dumps(dict(status='passed',levels=proofs,canonicalCheckAndNext=True,memoryOnly=True,progressFilesUnchanged=before==after,manualDraftUnchanged=True,workspaceObjects=restored['objects'],testKind='automated witness placement and actual gameplay action routing; not a human usability test'),ensure_ascii=False,indent=2),encoding='utf-8')
+assert workspace.get('artSha256')==restored.get('artSha256') and workspace.get('objects')==restored.get('objects') and workspace['status']==restored['status'],'Manual workspace changed'
+(VERIFY/'gameplay.json').write_text(json.dumps(dict(status='passed',levels=proofs,canonicalCheckAndNext=True,memoryOnly=True,progressFilesUnchanged=before==after,manualDraftUnchanged=workspace['status']=='workspace',workspaceStatus=restored['status'],workspaceObjects=restored.get('objects'),testKind='automated witness placement and actual gameplay action routing; not a human usability test'),ensure_ascii=False,indent=2),encoding='utf-8')
 (VERIFY/'workspace-after.json').write_text(json.dumps(restored,ensure_ascii=False,indent=2),encoding='utf-8')
 print(f'{a.count} completions, {a.count-1} transitions; persisted progress and manual draft unchanged.',flush=True)

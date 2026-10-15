@@ -39,7 +39,7 @@ for i in range(a.start,a.end+1):
   detail_profile=json.loads(details.read_text(encoding='utf-8'))
   if detail_profile.get('refitPrimaryAfterPlacement'):
    from story_campaign_review import fit_primary_camera
-   fit_primary_camera(frozen,margin=.12)
+   fit_primary_camera(frozen,margin=detail_profile.get('cameraFitMargin',.12),minimum=detail_profile.get('cameraFitMinimum',7.4))
    frozen['art'].update(detail_profile.get('cameraOverrides',{}))
   native.write_text(json.dumps(frozen,ensure_ascii=False,separators=(',',':'))+'\n',encoding='utf-8')
   del frozen
