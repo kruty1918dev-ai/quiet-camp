@@ -47,22 +47,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                     var edge=new Vector2(Mathf.Clamp(point.x,-d.level.width*.5f,d.level.width*.5f),Mathf.Clamp(point.y,-d.level.height*.5f,d.level.height*.5f));
                     if(Vector2.Distance(point,edge)<5)paths.Add((point,edge));
                 }
-                for(int t=0;t<m.vertices.Length;t+=9)
-                {
-                    Vector3 P(int n)=>pose.MultiplyPoint3x4(new Vector3(m.vertices[t+n],m.vertices[t+n+1],m.vertices[t+n+2]));
-                    var a=P(0);var b=P(3);var c=P(6);float det=(b.z-c.z)*(a.x-c.x)+(c.x-b.x)*(a.z-c.z);if(Mathf.Abs(det)<.001f)continue;
-                    float low=Mathf.Min(a.y,Mathf.Min(b.y,c.y));if(low>d.art.GroundHeight((a.x+b.x+c.x)/3,(a.z+b.z+c.z)/3)+1.8f)continue;
-                    int minX=Mathf.FloorToInt(Mathf.Min(a.x,Mathf.Min(b.x,c.x))/raster),maxX=Mathf.CeilToInt(Mathf.Max(a.x,Mathf.Max(b.x,c.x))/raster);
-                    int minZ=Mathf.FloorToInt(Mathf.Min(a.z,Mathf.Min(b.z,c.z))/raster),maxZ=Mathf.CeilToInt(Mathf.Max(a.z,Mathf.Max(b.z,c.z))/raster);
-                    for(int x=minX;x<=maxX;x++)for(int z=minZ;z<=maxZ;z++)
-                    {
-                        float px=x*raster,pz=z*raster,u=((b.z-c.z)*(px-c.x)+(c.x-b.x)*(pz-c.z))/det,v=((c.z-a.z)*(px-c.x)+(a.x-c.x)*(pz-c.z))/det;
-                        if(u<-.05f||v<-.05f||u+v>1.05f)continue;
-                        float y=u*a.y+v*b.y+(1-u-v)*c.y;float gap=y-d.art.GroundHeight(px,pz);var key=new Vector2Int(x,z);
-                        if(!clearance.TryGetValue(key,out var old)||gap<old)clearance[key]=gap;
-                        if(gap<.65f)blocked.Add(key);
-                    }
-                }
+                AccumulateClearance(d.art,m,pose,raster,blocked,clearance);
             }
             var water=d.art.landscape?.meshes.Where(m=>m.water).SelectMany(m=>Enumerable.Range(0,m.triangles.Length/3).Select(t=>new[]{m.triangles[t*3],m.triangles[t*3+1],m.triangles[t*3+2]}.Select(i=>new Vector2(m.vertices[i*3],m.vertices[i*3+2])).ToArray())).ToArray()??Array.Empty<Vector2[]>();
             bool Wet(Vector2 p)
@@ -110,7 +95,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             }
             var protectedViews=new List<Bounds>{ScreenBounds(new Bounds(Vector3.up*1.2f,new Vector3(d.level.width+2.5f,2.4f,d.level.height+2.5f)),Matrix4x4.identity)};
             const float screenCell=.65f;var heroDepth=new Dictionary<Vector2Int,float>();
-            foreach(var i in originals.Where(i=>i.modelId!=null&&models[i.modelId].seasonalRole=="solid"))
+            foreach(var i in originals.Where(i=>i.modelId!=null&&models[i.modelId].shading=="solid"&&models[i.modelId].seasonalRole!="deciduous"&&models[i.modelId].seasonalRole!="conifer"))
             {
                 var bounds=AuthoringPropCatalog.ModelBounds(models[i.modelId]);if(bounds.size.magnitude*i.scale<6)continue;
                 var pose=Matrix4x4.TRS(new Vector3(i.x,i.y,i.z),Quaternion.Euler(i.rotationEuler==null?new Vector3(0,i.yaw,0):CampArtDefinition.Vector(i.rotationEuler)),i.scaleXYZ==null?Vector3.one*i.scale:CampArtDefinition.Vector(i.scaleXYZ));var m=models[i.modelId];
@@ -139,6 +124,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 var tree=treeModels[random.Next(treeModels.Length)];
                 if(treeModels.Length>1&&originals.Any(i=>i.modelId==tree.id&&Vector2.Distance(new Vector2(i.x,i.z),p)<6.5f))tree=treeModels[(Array.IndexOf(treeModels,tree)+1)%treeModels.Length];
                 var bounds=AuthoringPropCatalog.ModelBounds(tree);float scale=Mathf.Lerp(.72f,1.08f,Next()),yaw=Next()*360,ground=d.art.GroundHeight(p.x,p.y);
+                if(clearance.TryGetValue(r,out var roof)&&roof<bounds.size.y*scale+.2f)continue;
                 var pose=Matrix4x4.TRS(new Vector3(p.x,ground-bounds.min.y*scale,p.y),Quaternion.Euler(0,yaw,0),Vector3.one*scale);var view=ScreenBounds(bounds,pose);
                 bool hides=protectedViews.Any(h=>view.min.z<h.max.z&&view.min.x<h.max.x+.35f&&view.max.x>h.min.x-.35f&&view.min.y<h.max.y+.35f&&view.max.y>h.min.y-.35f);
                 if(!hides)for(int x=Mathf.FloorToInt(view.min.x/screenCell);x<=Mathf.CeilToInt(view.max.x/screenCell)&&!hides;x++)for(int y=Mathf.FloorToInt(view.min.y/screenCell);y<=Mathf.CeilToInt(view.max.y/screenCell);y++)
@@ -162,6 +148,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 var cell=Cell(p);bool near=false;for(int dx=-1;dx<=1;dx++)for(int dz=-1;dz<=1;dz++)if(occupied.TryGetValue(cell+new Vector2Int(dx,dz),out var points)&&points.Any(q=>Vector2.Distance(p,q)<settings.spacing))near=true;
                 if(near)continue;
                 float kind=Next();var model=kind<settings.bushShare?bush:kind<settings.bushShare+settings.flowerShare?flower:kind<settings.bushShare+settings.flowerShare+settings.fernShare*(.65f+shade)?fern:Next()<.5f?grass:broad;
+                if(model==flower&&FlowerPatchWeight(p.x,p.y,settings.seed)<.52f&&Next()>.08f)continue;
                 if(onField)model=Next()<.65f?grass:broad;
                 float height=(model==bush?1f:model==flower?.48f:model==fern?.75f:model==broad?.36f:settings.height)*Mathf.Lerp(.7f,1.3f,Next());
                 if(onField)height=Mathf.Min(height,.18f);
@@ -184,6 +171,53 @@ namespace QuietCamp.Editor.LevelAuthoring
             var used=new HashSet<string>(originals.Where(i=>i.modelId!=null).Select(i=>i.modelId));d.art.models=models.Values.Where(m=>used.Contains(m.id)).ToArray();d.art.instances=originals.ToArray();
             d.vegetationPreset="forest_recovery";d.vegetationSeed=settings.seed;if(d.art.atmosphere!=null)SeasonAtmosphereAuthoring.Apply(d,d.art.atmosphere);
             return added;
+        }
+        static void AccumulateClearance(CampArtDefinition art,CampArtDefinition.Model m,Matrix4x4 pose,float raster,HashSet<Vector2Int> blocked,Dictionary<Vector2Int,float> clearance)
+        {
+            for(int t=0;t<m.vertices.Length;t+=9)
+            {
+                Vector3 P(int n)=>pose.MultiplyPoint3x4(new Vector3(m.vertices[t+n],m.vertices[t+n+1],m.vertices[t+n+2]));
+                var a=P(0);var b=P(3);var c=P(6);float det=(b.z-c.z)*(a.x-c.x)+(c.x-b.x)*(a.z-c.z);if(Mathf.Abs(det)<.001f)continue;
+                int minX=Mathf.FloorToInt(Mathf.Min(a.x,Mathf.Min(b.x,c.x))/raster),maxX=Mathf.CeilToInt(Mathf.Max(a.x,Mathf.Max(b.x,c.x))/raster);
+                int minZ=Mathf.FloorToInt(Mathf.Min(a.z,Mathf.Min(b.z,c.z))/raster),maxZ=Mathf.CeilToInt(Mathf.Max(a.z,Mathf.Max(b.z,c.z))/raster);
+                for(int x=minX;x<=maxX;x++)for(int z=minZ;z<=maxZ;z++)
+                {
+                    float px=x*raster,pz=z*raster,u=((b.z-c.z)*(px-c.x)+(c.x-b.x)*(pz-c.z))/det,v=((c.z-a.z)*(px-c.x)+(a.x-c.x)*(pz-c.z))/det;
+                    if(u<-.05f||v<-.05f||u+v>1.05f)continue;
+                    float gap=u*a.y+v*b.y+(1-u-v)*c.y-art.GroundHeight(px,pz);var key=new Vector2Int(x,z);
+                    if(!clearance.TryGetValue(key,out var old)||gap<old)clearance[key]=gap;
+                    if(gap<.65f)blocked.Add(key);
+                }
+            }
+        }
+        public static float FlowerPatchWeight(float x,float z,int seed)=>Mathf.Clamp01(.5f+.24f*Mathf.Sin(x*.63f+seed*.13f)+.22f*Mathf.Cos(z*.51f-seed*.29f)+.1f*Mathf.Sin((x-z)*.88f+seed*.07f));
+        public static int RefineExisting(LevelAuthoringDocument d,int seed)
+        {
+            var art=d.art;var models=art.models.ToDictionary(m=>m.id);const float raster=.32f;
+            var clearance=new Dictionary<Vector2Int,float>();var blocked=new HashSet<Vector2Int>();
+            foreach(var i in art.instances)
+            {
+                var m=models[i.modelId];if(m.shading!="solid"||new[]{"groundcover","flower","deciduous","conifer"}.Contains(m.seasonalRole))continue;
+                var matrix=Matrix4x4.TRS(new Vector3(i.x,i.y,i.z),Quaternion.Euler(i.rotationEuler==null?new Vector3(0,i.yaw,0):CampArtDefinition.Vector(i.rotationEuler)),i.scaleXYZ==null?Vector3.one*i.scale:CampArtDefinition.Vector(i.scaleXYZ));
+                AccumulateClearance(art,m,matrix,raster,blocked,clearance);
+            }
+            var removed=new HashSet<string>();
+            foreach(var i in art.instances)
+            {
+                if(i.id==art.primaryLandmarkInstanceId||i.id.StartsWith("overgrowth/",StringComparison.Ordinal))continue;
+                var m=models[i.modelId];if(!new[]{"groundcover","flower","deciduous","conifer"}.Contains(m.seasonalRole))continue;
+                float h=AuthoringPropCatalog.ModelBounds(m).size.y*(i.scaleXYZ?[1]??i.scale);
+                var cell=new Vector2Int(Mathf.RoundToInt(i.x/raster),Mathf.RoundToInt(i.z/raster));
+                if(clearance.TryGetValue(cell,out var room)&&room<h+.06f){removed.Add(i.id);continue;}
+                if(m.seasonalRole=="flower"&&FlowerPatchWeight(i.x,i.z,seed)<.52f&&Mathf.Abs(Mathf.Sin(i.x*17.1f+i.z*33.7f))>.08f)removed.Add(i.id);
+            }
+            bool OwnedByRemoved(string id)
+            {
+                if(!id.StartsWith("overgrowth/",StringComparison.Ordinal))return false;
+                int end=id.LastIndexOf('/');return end>11&&removed.Contains(id.Substring(11,end-11));
+            }
+            art.instances=art.instances.Where(i=>!removed.Contains(i.id)&&!OwnedByRemoved(i.id)).ToArray();
+            return removed.Count;
         }
         static float Distance(Vector2 p,Vector2 a,Vector2 b)=>Vector2.Distance(p,Vector2.Lerp(a,b,Mathf.Clamp01(Vector2.Dot(p-a,b-a)/Mathf.Max(.001f,(b-a).sqrMagnitude))));
         internal static CampArtDefinition.Model Fern()

@@ -28,7 +28,7 @@ namespace QuietCamp.Tests
             var entries=CampaignLandmarkCatalog.Read();
             Assert.AreEqual(100,entries.Select(e=>e.modelId).Distinct().Count());
             var models=CampaignLandmarkCatalog.Models();
-            Assert.AreEqual(78,models.Length);
+            Assert.AreEqual(79,models.Length);
             foreach(var model in models)
             {
                 var bounds=AuthoringPropCatalog.ModelBounds(model);
@@ -38,6 +38,48 @@ namespace QuietCamp.Tests
             }
             var art=new CampArtDefinition{primaryLandmarkId=entries[0].modelId,primaryLandmarkInstanceId="primary",instances=new[]{new CampArtDefinition.Instance{id="primary",modelId="clone"}},models=new[]{new CampArtDefinition.Model{id="clone",sourceModelId="some-other-model"}}};
             Assert.Throws<System.IO.InvalidDataException>(()=>CampaignLandmarkCatalog.Validate(art,1));
+        }
+        [Test] public void LargerLandmarkReplacementKeepsItsWholeFootprintOutsideThePuzzle()
+        {
+            var document=new LevelAuthoringDocument{level=new LevelData{width=6,height=5}};
+            var model=new CampArtDefinition.Model{vertices=new[]{-4f,0,-2f,4f,0,2f}};
+            var at=WorldStudyFactory.OutsideField(document,model,0,0,1,90);
+            Assert.IsTrue(Mathf.Abs(at.x)>=3+.65f+2-.001f || Mathf.Abs(at.y)>=2.5f+.65f+4-.001f);
+            var unchanged=WorldStudyFactory.OutsideField(document,model,12,8,1,90);
+            Assert.AreEqual(new Vector2(12,8),unchanged);
+        }
+        [Test] public void DraftCanBeSavedWhileAReaderAllowsWritingButDeniesReplacement()
+        {
+            string folder=System.IO.Path.Combine(System.IO.Path.GetTempPath(),"qc-draft-save-"+Guid.NewGuid().ToString("N"));
+            string path=System.IO.Path.Combine(folder,"test.draft.json");
+            try
+            {
+                var d=new LevelAuthoringDocument{level=new LevelData{id="QC_READER"},art=new CampArtDefinition(),title="Before"};
+                d.Save(path);
+                using(var reader=new System.IO.FileStream(path,System.IO.FileMode.Open,System.IO.FileAccess.Read,System.IO.FileShare.ReadWrite))
+                {d.title="After";d.Save(path);}
+                Assert.AreEqual("After",LevelAuthoringDocument.Open(path).title);
+                Assert.IsFalse(System.IO.File.Exists(path+".pending"));
+            }
+            finally{if(System.IO.Directory.Exists(folder))System.IO.Directory.Delete(folder,true);}
+        }
+        [Test] public void GroundMarginsPreserveExistingTerrainAndUseUpwardFacingTriangles()
+        {
+            var d=LevelAuthoringDocument.Open("Assets/QuietCamp/Authoring/WorldStudies/AircraftSeasons/summer.draft.json");
+            var original=Newtonsoft.Json.JsonConvert.SerializeObject(d.art.landscape);
+            var heights=d.art.landscape.heights.ToArray();var meshes=d.art.landscape.meshes.ToArray();
+            d.art.surroundExtent=d.art.landscape.size*.5f+8;
+            RiverTerrainAuthoringData.EnsureGroundMargins(d.art);d.art.landscape.Validate();
+            CollectionAssert.AreEqual(heights,d.art.landscape.heights);
+            foreach(var mesh in meshes)Assert.IsTrue(d.art.landscape.meshes.Contains(mesh));
+            var margin=d.art.landscape.meshes.Single(m=>m.name=="Surrounding ground margins");
+            Vector3 P(int i)=>new Vector3(margin.vertices[i*3],margin.vertices[i*3+1],margin.vertices[i*3+2]);
+            for(int t=0;t<margin.triangles.Length;t+=3)Assert.Greater(Vector3.Cross(P(margin.triangles[t+1])-P(margin.triangles[t]),P(margin.triangles[t+2])-P(margin.triangles[t])).y,0);
+            var once=Newtonsoft.Json.JsonConvert.SerializeObject(d.art.landscape);
+            RiverTerrainAuthoringData.EnsureGroundMargins(d.art);
+            Assert.AreEqual(once,Newtonsoft.Json.JsonConvert.SerializeObject(d.art.landscape));
+            d.art.surroundExtent=d.art.landscape.size*.5f;RiverTerrainAuthoringData.EnsureGroundMargins(d.art);
+            Assert.AreEqual(original,Newtonsoft.Json.JsonConvert.SerializeObject(d.art.landscape));
         }
         [Test] public void StoriesFollowTheActualFirstTenAndDoNotInventAnotherCampaign()
         {

@@ -136,7 +136,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(path)));
             string temporary = path + ".pending";
             File.WriteAllText(temporary, JsonConvert.SerializeObject(this, Formatting.Indented), new UTF8Encoding(false));
-            if (File.Exists(path)) File.Replace(temporary, path, null); else File.Move(temporary, path);
+            AuthoringFileTransaction.CommitPrepared(path);
         }
         public static LevelAuthoringDocument Open(string path)
         {

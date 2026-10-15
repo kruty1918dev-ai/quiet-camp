@@ -94,6 +94,20 @@ namespace QuietCamp.Tests
             Assert.That(cover.Length,Is.GreaterThan(30));
             foreach(var plant in cover)Assert.IsTrue(d.art.IsCompressibleCover(plant,d.art.models.Single(m=>m.id==plant.modelId)),plant.id);
         }
+        [Test] public void ExistingTreesCannotGrowThroughAHighRoofButLowGrassCanRemainBelowIt()
+        {
+            var roof=new CampArtDefinition.Model{id="roof",shading="solid",vertices=new[]{-2f,3,-2,2f,3,2,2f,3,-2,-2f,3,-2,-2f,3,2,2f,3,2}};
+            var tree=new CampArtDefinition.Model{id="tree",shading="solid",seasonalRole="conifer",vertices=new[]{0f,0,0,0f,5,0,1f,0,0}};
+            var grass=new CampArtDefinition.Model{id="grass",shading="foliage",seasonalRole="groundcover",vertices=new[]{0f,0,0,0f,.2f,0,.1f,0,0}};
+            var d=new LevelAuthoringDocument{art=new CampArtDefinition{width=6,height=5,streamWidth=2,waterDepth=0,meadowRelief=0,primaryLandmarkInstanceId="roof",models=new[]{roof,tree,grass},instances=new[]{
+                new CampArtDefinition.Instance{id="roof",modelId="roof",scale=1},
+                new CampArtDefinition.Instance{id="tree",modelId="tree",scale=1},
+                new CampArtDefinition.Instance{id="grass",modelId="grass",scale=1},
+                new CampArtDefinition.Instance{id="overgrowth/tree/0",modelId="grass",scale=1},
+                new CampArtDefinition.Instance{id="outside",modelId="tree",x=8,scale=1}}}};
+            Assert.AreEqual(1,ForestRegrowthAuthoring.RefineExisting(d,314));
+            CollectionAssert.AreEquivalent(new[]{"roof","grass","outside"},d.art.instances.Select(i=>i.id));
+        }
         [Test] public void InvalidGrowthAndNonFiniteRegrowthSettingsAreRejected()
         {
             var d=LevelAuthoringDocument.Open(Draft);d.art.models[0].seasonalGrowth=new[]{1f,float.NaN,0f,0f};

@@ -18,6 +18,7 @@ for entry in catalog:
     model=models[matches[0]['modelId']];root=model.get('sourceModelId') or model['id']
     if art.get('primaryLandmarkId')!=entry['modelId'] or root!=entry['modelId']:errors.append(f'{order}: wrong primary source {root}')
     shape=fingerprint(model['vertices'])
+    if entry.get('geometryHash') and shape!=entry['geometryHash']:errors.append(f'{order}: frozen primary geometry is older than the current structural model')
     if shape in seen:errors.append(f'{order}: primary geometry repeats level {seen[shape]}')
     seen[shape]=order
     profile=rigid_shape_profile(model['vertices'])

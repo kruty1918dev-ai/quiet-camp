@@ -250,7 +250,8 @@ namespace QuietCamp.EditorBridge
                 lightmapUv = river.uv2.SelectMany(v => new[] { v.x, v.y }).ToArray(),
                 flow = flow.SelectMany(v => new[] { v.x, v.y, v.z }).ToArray(), tangents = tangents.SelectMany(v => new[] { v.x, v.y, v.z, v.w }).ToArray(),
                 colors = (colors.Length == vertices.Length ? colors : Enumerable.Repeat(Color.white, vertices.Length).ToArray()).SelectMany(c => new[] { c.r, c.g, c.b, c.a }).ToArray(), triangles = river.triangles });
-            data.meshes = meshes.ToArray(); data.Validate(); return data;
+            data.meshes = meshes.ToArray();var marginArt=_document.art.EditingCopy();marginArt.landscape=data;RiverTerrainAuthoringData.EnsureGroundMargins(marginArt);
+            data.Validate(); return data;
         }
         void BuildPreview()
         {

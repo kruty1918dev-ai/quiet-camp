@@ -61,7 +61,7 @@ SPEC = '''
 45|Камінь із меморіальною нішею|memorial:niche
 46|Кругла лава пам’яті|bench:circle
 47|Пошкоджений вітряк|existing:qc_windmill_ruin
-48|Повалена сталева опора|existing:ua_power_pylon_fallen
+48|Пошкоджений береговий трансформатор|transformer:damaged
 49|Польовий навіс на триногах|shelter:tripod
 50|Зерновий підйомник із ліхтарем|tower:grain
 51|Старий човен на ребрах|existing:qc_rowboat
@@ -193,17 +193,34 @@ def construct(m,family,form):
             box(m,0,.6,0,3,1.2,2.6,'stone');roof(m,3.8,3.3,1.2,.8);box(m,0,.55,-1.35,.9,1.1,.14,'wood_dark')
         else:
             w,d,h={'house':(4.8,3.6,2.7),'barn':(4.6,3.3,3),'hut':(3.1,2.8,2.5),'workshop':(4.5,2.4,2.4),'kiosk':(2,1.6,2.5),'station':(5.8,2.8,2.9)}[family]
-            frame(m,w,d,h,'flat' if family=='station' else 'lean' if form=='canopy' else 'gable')
-            if form not in ('frame','canopy','columns'):
+            frame(m,w,d,h,'none' if form in ('frame','hearth') else 'flat' if family=='station' else 'lean' if form=='canopy' else 'gable')
+            if form not in ('frame','canopy','columns','hearth'):
                 box(m,-w/2,h*.45,0,.18,h*.9,d,'plaster_worn');box(m,w/2,h*.45,0,.18,h*.9,d,'wood' if family=='barn' else 'plaster')
                 box(m,0,h*.45,d/2,w,h*.9,.18,'wood_dark')
-            if form=='hearth':box(m,-1.4,1,-.7,.9,2,.8,'stone');box(m,-1.4,2.8,-.7,.35,1.6,.4,'concrete_dark')
+            if form=='hearth':
+                # A roofless corner: broken wall courses reveal the hearth from above.
+                for x,ht in ((-1.8,1.8),(-.8,1.25),(.2,.7)):
+                    box(m,x,ht/2,d/2,1,ht,.26,'plaster_worn')
+                box(m,-w/2,.85,.65,.25,1.7,2.3,'plaster_worn')
+                box(m,-1.4,1,-.7,.9,2,.8,'stone');box(m,-1.4,2.8,-.7,.35,1.6,.4,'concrete_dark')
+            if form=='frame':
+                for z in (-d/2,-d/6,d/6,d/2):
+                    for side in (-1,1):m.beam((side*w/2,h,z),(0,h+.9,z),.16,'wood_light',True)
+                m.beam((0,h+.9,-d/2),(0,h+.9,d/2),.16,'wood',True)
+                m.beam((-w/2,0,d/2),(-w/2,h,-d/2),.16,'wood_dark',True)
             if form in ('porch','veranda','haven'):
                 box(m,0,.15,-d/2-1,w+1,.3,2,'stone');frame_shift(m,(0,0,-d/2-1),w,1.8,h*.85,'lean')
             if form in ('loft','hayloft'):box(m,0,h*.72,0,w,.14,d);box(m,w/2+.35,1.2,0,.2,2.4,.3);ladder(m,w/2+.35,0,2.4)
             if form=='doors':
                 for s in (-1,1):m.beam((s*.2,1.1,-d/2-.8),(s*1.6,1.1,-d/2),2.2,'wood',True,.12)
-            if form=='haven':box(m,0,h+1.1,0,1.8,.8,1.5,'plaster');roof(m,2.2,1.9,h+1.5,.65)
+            if form=='haven':
+                # An inhabited L-shaped hall, rather than another veranda cottage.
+                wing=Mesh('wing',1000,'wing');frame(wing,3.2,5.6,2.5,'gable')
+                for x in (-1.6,1.6):box(wing,x,1.12,0,.18,2.24,5.6,'plaster_worn')
+                box(wing,0,1.12,-2.8,3.2,2.24,.18,'plaster')
+                for a,b,c,n,color in wing.tris:m.tri(tuple(a[i]+(3.7,0,1.2)[i] for i in range(3)),tuple(b[i]+(3.7,0,1.2)[i] for i in range(3)),tuple(c[i]+(3.7,0,1.2)[i] for i in range(3)),color)
+                box(m,0,h+1.1,0,1.8,.8,1.5,'plaster');roof(m,2.2,1.9,h+1.5,.65)
+                for x in (-1.45,1.45):box(m,x,1.4,-d/2-.11,.8,.85,.08,'window')
     elif family in ('shelter','greenhouse','gazebo'):
         if family=='greenhouse':
             w,d,h=(4.6,3.8,2.3) if form=='gable' else (4.8,2.6,2) if form=='lean' else (4,4.6,2.5)
@@ -230,7 +247,10 @@ def construct(m,family,form):
             for a,b in [((-2,2,-1.6),(2,2,-1.6)),((2,2,-1.6),(0,2.8,2)),((0,2.8,2),(-2,2,-1.6))]:m.beam(a,b,.18,'wood',True)
             m.extrude([(-2,2),(2,2),(0,3.1)],2.5,'roof')
         elif form=='curved':
-            for x in (-2.1,2.1):post(m,x,1,2.6,'steel')
+            for x in (-2.1,2.1):
+                height=2.7+.7*(1-(x/2.6)**2)-.065
+                post(m,x,1,height,'steel')
+                m.beam((x,height,1),(x,height, -1),.14,'steel',True)
             for j in range(7):
                 x=-2.5+j*.8;box(m,x,2.7+.7*(1-(x/2.6)**2),0,.86,.13,2.8,'roof_light')
             seat(m,0,.9,3.4)
@@ -266,7 +286,20 @@ def stairs(m,w,n,x=0,z=0):
 
 
 def construct_special(m,family,form):
-    if family=='cabinet':
+    if family=='transformer':
+        box(m,0,.17,0,3.2,.34,2.6,'concrete_dark')
+        box(m,0,1.05,0,1.9,1.45,1.5,'steel')
+        for x in (-1.06,1.06):
+            for z in (-.5,-.25,0,.25,.5):box(m,x,1,z,.19,1.15,.09,'steel_dark')
+        for x in (-.55,0,.55):
+            m.cylinder((x,1.96,0),.12,.44,'insulator',8)
+            m.cylinder((x,2.08,0),.19,.07,'insulator',8)
+        # Bent lid, exposed core and a fallen porcelain stack establish damage.
+        m.beam((-.98,1.8,-.8),(.7,2.03,-.8),1.55,'steel_dark',True,.09)
+        for z in (-.38,0,.38):box(m,.55,1.86,z,.32,.2,.18,'rust')
+        m.tube((1.2,.52,.5),(1.8,.26,.7),.15,'insulator',8,True)
+        m.tube((-.6,2.15,.1),(-1.4,.45,.6),.045,'steel_dark',6,True)
+    elif family=='cabinet':
         box(m,0,1.25,0,2.1,2.5,.5,'wood_dark');roof(m,2.5,.85,2.5,.35)
         for x in (-.65,0,.65):
             for y in (.5,1.2,1.9):box(m,x,y,-.29,.53,.56,.08,'wood_light');box(m,x,y+.12,-.35,.3,.035,.04,'steel_dark')
@@ -349,7 +382,18 @@ def construct_special(m,family,form):
                 for x in (-1.1,0,1):box(m,x,1.05,0,.8,.6,1.2,'wicker_dark')
     elif family in ('bridge','platform','terrace','stairs','stage','abutment'):
         w,d=(3.4,5.8) if family=='bridge' else (4.8,3.2)
-        if family=='stairs':stairs(m,2.4,8 if form=='embankment' else 5);return
+        if family=='stairs':
+            if form=='embankment':stairs(m,2.4,8)
+            else:
+                for i in range(6):
+                    y=.23*(i+1);z=i*.4
+                    box(m,0,y,z,2.4,.13,.43,'wood_light')
+                    for x in (-1.1,1.1):
+                        post(m,x,z,y+.85);box(m,x,y+.84,z,.12,.1,.5,'wood')
+                for x in (-1.05,1.05):m.beam((x,.07,-.2),(x,1.35,2.3),.2,'wood_dark',True)
+                box(m,0,1.38,2.75,2.6,.16,1.2,'wood_light')
+                for x in (-1.1,1.1):post(m,x,3.2,1.3)
+            return
         if family=='abutment':
             for x,h in ((-1.4,1.5),(0,.65),(1.2,1)):box(m,x,h/2,0,1.1,h,2.2,'concrete_dark')
             return
@@ -373,7 +417,16 @@ def construct_special(m,family,form):
                 else:
                     for z in (-d/2,d/2):box(m,x,.3,z,.6,.6,1.4,'stone')
                     m.beam((x,1.3,-d/2),(x,1.3,d/2),.14,'wood',True)
-        elif family=='platform' and form=='lookout':frame(m,3.6,2.3,3.2,'flat');ladder(m,2.2,0,3.2)
+        elif family=='platform' and form=='lookout':
+            for x in (-2,2):
+                for z in (-1.2,1.2):post(m,x,z,1.6)
+                m.beam((x,0,-1.2),(x,1.6,1.2),.18,'wood_dark',True)
+            box(m,0,1.68,0,4.8,.2,3.2,'wood_light')
+            for z in (-1.5,1.5):
+                for x in (-2.25,0,2.25):post(m,x,z,.95,y=1.78)
+                box(m,0,2.7,z,4.6,.12,.12,'wood')
+            for x in (-2.25,2.25):box(m,x,2.7,0,.12,.12,3,'wood')
+            ladder(m,2.5,0,1.68)
         elif family=='stage':frame(m,5.5,2.7,3.1,'lean');box(m,0,1.7,1.3,5.5,2.8,.2,'plaster_worn')
         elif family=='terrace':stairs(m,2,4,3,0);box(m,0,.8,1.5,4.8,1,.3,'stone')
         else:stairs(m,1.6,3,0,-2)

@@ -38,6 +38,37 @@ namespace QuietCamp.Editor.LevelAuthoring
             }
             data.points = points.ToArray(); return data;
         }
+        // Continue a legacy heightfield to its authored surround extent. Interior
+        // heights and rivers are preserved; ordinary full-size terrain needs none.
+        public static void EnsureGroundMargins(CampArtDefinition art)
+        {
+            var land=art.landscape;if(land==null)return;
+            const string name="Surrounding ground margins";
+            var meshes=land.meshes.Where(m=>m.name!=name).ToList();
+            float extent=art.surroundExtent;
+            float minX=Mathf.Min(land.originX,-extent),minZ=Mathf.Min(land.originZ,-extent);
+            float maxX=Mathf.Max(land.originX+land.size,extent),maxZ=Mathf.Max(land.originZ+land.size,extent);
+            if(minX==land.originX&&minZ==land.originZ&&maxX==land.originX+land.size&&maxZ==land.originZ+land.size){land.meshes=meshes.ToArray();return;}
+            var vertices=new List<float>();var normals=new List<float>();var uv=new List<float>();var colors=new List<float>();var indices=new List<int>();
+            int segments=land.resolution-1,rings=4;
+            var inner=new[]{new Vector2(land.originX,land.originZ),new Vector2(land.originX+land.size,land.originZ),new Vector2(land.originX+land.size,land.originZ+land.size),new Vector2(land.originX,land.originZ+land.size)};
+            var outer=new[]{new Vector2(minX,minZ),new Vector2(maxX,minZ),new Vector2(maxX,maxZ),new Vector2(minX,maxZ)};
+            for(int side=0;side<4;side++)
+            {
+                int start=vertices.Count/3,next=(side+1)%4;
+                for(int r=0;r<=rings;r++)for(int j=0;j<=segments;j++)
+                {
+                    float along=j/(float)segments;var p=Vector2.Lerp(Vector2.Lerp(inner[side],inner[next],along),Vector2.Lerp(outer[side],outer[next],along),r/(float)rings);
+                    float h=land.SampleHeight(p.x,p.y),eps=.1f;
+                    var normal=new Vector3(land.SampleHeight(p.x-eps,p.y)-land.SampleHeight(p.x+eps,p.y),eps*2,land.SampleHeight(p.x,p.y-eps)-land.SampleHeight(p.x,p.y+eps)).normalized;
+                    var c=Color.Lerp(CampArtDefinition.Color(art.groundLow),CampArtDefinition.Color(art.groundHigh),Mathf.Clamp01((h+.05f)*.5f));
+                    vertices.AddRange(new[]{p.x,h,p.y});normals.AddRange(new[]{normal.x,normal.y,normal.z});uv.AddRange(new[]{(p.x-land.originX)/land.size,(p.y-land.originZ)/land.size});colors.AddRange(new[]{c.r,c.g,c.b,1f});
+                }
+                for(int r=0;r<rings;r++)for(int j=0;j<segments;j++)
+                {int a=start+r*(segments+1)+j,b=a+1,c=a+segments+1,d=c+1;indices.AddRange(new[]{a,b,c,b,d,c});}
+            }
+            meshes.Add(new LandscapeMesh{name=name,vertices=vertices.ToArray(),normals=normals.ToArray(),uv=uv.ToArray(),colors=colors.ToArray(),triangles=indices.ToArray()});land.meshes=meshes.ToArray();
+        }
         public void Validate()
         {
             bool Finite(float v) => !float.IsNaN(v) && !float.IsInfinity(v);

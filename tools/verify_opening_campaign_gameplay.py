@@ -1,7 +1,12 @@
-"""Play the published QC001–QC010 through canonical Check/Next, in memory only."""
-import hashlib,json,os,subprocess,sys,time
+"""Play the published opening or full campaign through Check/Next, in memory only."""
+import argparse,hashlib,json,os,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];QA=Path('C:/Users/Public/qcui-20261006/QuietCamp');OUT=ROOT/'Design/LevelAuthoring/OpeningCampaign';VERIFY=OUT/'Verification';GAME=OUT/'Game';GAME.mkdir(parents=True,exist_ok=True)
+p=argparse.ArgumentParser();p.add_argument('--count',type=int,choices=[10,100],default=10);a=p.parse_args()
+if a.count==100:
+ OUT=ROOT/'Design/LevelAuthoring/StoryCampaign';VERIFY=OUT/'Verification';GAME=OUT/'Game';GAME.mkdir(parents=True,exist_ok=True)
+ids=json.loads((QA/'Assets/QuietCamp/Resources/QuietCamp/campaign.json').read_text(encoding='utf-8'))['campaignLevelIds'][:a.count]
+assert len(ids)==a.count and len(set(ids))==a.count
 def request(mode,**values):
  args=[sys.executable,str(ROOT/'tools/request_authoring_props.py'),'--project',str(QA),'--mode',mode]
  for key,value in values.items():args+=['--'+key,str(value)]
@@ -25,7 +30,7 @@ def ready(ident):
   time.sleep(.4)
  raise RuntimeError('Camp did not become ready: '+ident)
 def frame(ident):
- path=GAME/(ident+'.png');start=time.time();request('opening-gameplay',name='frame',output=path)
+ path=GAME/(ident.replace(':','_')+'.png');start=time.time();request('opening-gameplay',name='frame',output=path)
  limit=time.monotonic()+30
  while time.monotonic()<limit:
   if path.exists() and path.stat().st_mtime>=start and path.stat().st_size>1000:return dict(path=path.relative_to(OUT).as_posix(),sha256=hashlib.sha256(path.read_bytes()).hexdigest())
@@ -33,20 +38,24 @@ def frame(ident):
  raise RuntimeError('Gameplay screenshot was not written: '+ident)
 try:
  request('opening-gameplay',name='start')
- for i in range(1,11):
-  ident=f'QC{i:03}';status=ready(ident);request('authoring-focus-game');status=request('opening-gameplay',name='status')
+ for i,ident in enumerate(ids,1):
+  status=ready(ident)
+  if a.count==100 and i==1:
+   entitlement=request('opening-gameplay',name='pro');assert entitlement['pro'] and entitlement['memoryOnly'],entitlement
+  request('authoring-focus-game');status=request('opening-gameplay',name='status')
   assert status['memoryOnly'] and status['frozenArtMatches'] and status['story'],status
   assert status['surfaceSteps']==0,'Camp starts with invented traffic'
   request('authoring-place-witness');time.sleep(.7)
   screenshot=frame(ident);used=request('opening-gameplay',name='status')
   result=request('opening-gameplay',name='check')
   assert result['solved'] and result['recorded'] and result['memoryOnly'],result
-  assert set(result['completed'])=={f'QC{j:03}' for j in range(1,i+1)},result
+  assert set(result['completed'])==set(ids[:i]),result
   proofs.append(dict(id=ident,ready=status,used=used,completion=result,screenshot=screenshot))
   (VERIFY/'gameplay.json').write_text(json.dumps(dict(status='running',levels=proofs),ensure_ascii=False,indent=2),encoding='utf-8')
-  if i<10:
-   assert result['next']==f'QC{i+1:03}',result
-   route=request('opening-gameplay',name='next');assert route['to']==f'QC{i+1:03}',route;proofs[-1]['transition']=route
+  if i<a.count:
+   assert result['next']==ids[i],result
+   route=request('opening-gameplay',name='next');assert route['to']==ids[i],route;proofs[-1]['transition']=route
+  elif a.count==100:assert result['next'] is None,'Campaign must end after level 100.'
   print('Completed canonical campaign level:',ident,flush=True)
 finally:
  status=request('authoring-status')
@@ -60,4 +69,4 @@ assert before==after,'Saved progress changed'
 assert workspace['artSha256']==restored['artSha256'] and workspace['objects']==restored['objects'],'Manual workspace changed'
 (VERIFY/'gameplay.json').write_text(json.dumps(dict(status='passed',levels=proofs,canonicalCheckAndNext=True,memoryOnly=True,progressFilesUnchanged=before==after,manualDraftUnchanged=True,workspaceObjects=restored['objects'],testKind='automated witness placement and actual gameplay action routing; not a human usability test'),ensure_ascii=False,indent=2),encoding='utf-8')
 (VERIFY/'workspace-after.json').write_text(json.dumps(restored,ensure_ascii=False,indent=2),encoding='utf-8')
-print('10 completions, 9 transitions; persisted progress and manual draft unchanged.',flush=True)
+print(f'{a.count} completions, {a.count-1} transitions; persisted progress and manual draft unchanged.',flush=True)

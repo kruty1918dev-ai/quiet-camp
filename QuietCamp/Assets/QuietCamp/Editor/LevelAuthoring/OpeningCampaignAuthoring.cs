@@ -151,29 +151,42 @@ namespace QuietCamp.Editor.LevelAuthoring
         {
             var d=LevelAuthoringDocument.Open(sourcePath);
             var p=JsonConvert.DeserializeObject<OpeningCampaignProfile>(File.ReadAllText(profilePath));
+            if(p.world.anchors.Length>0){LevelAuthoringPalette.EnsureDocumentModels(d.art.models);ImportStoryModels(p.world.anchors);}
             var models=d.art.models.ToDictionary(m=>m.id);
             var poses=p.world.anchors.Select((anchor,i)=>
             {
                 var source=WorldStudyFactory.MetricModel(anchor.model);
-                var model=ModelAuthoringWorkshop.Create(source,new ModelAuthoringRecipe{operation="age",backend=anchor.age,amount=.22f,seed=p.world.seed+i,label=anchor.label,category="??????"},false).model;
+                var model=ModelAuthoringWorkshop.Create(source,new ModelAuthoringRecipe{operation="age",backend=anchor.age,amount=anchor.ageAmount<0?.22f:anchor.ageAmount,seed=p.world.seed+i,label=anchor.label,category="Декор"},false).model;
                 models[model.id]=model;
-                return new CampArtDefinition.Instance{id="opening/"+p.story.id+"/detail-"+i,modelId=model.id,x=anchor.x,z=anchor.z,y=d.art.GroundHeight(anchor.x,anchor.z)+anchor.y,yaw=anchor.yaw,scale=anchor.scale,surfaceAttached=true,surfaceOffset=anchor.y};
+                var at=WorldStudyFactory.OutsideField(d,model,anchor.x,anchor.z,anchor.scale,anchor.yaw);
+                return new CampArtDefinition.Instance{id=anchor.instanceId??"opening/"+p.story.id+"/detail-"+i,modelId=model.id,x=at.x,z=at.y,y=anchor.water?anchor.y:d.art.GroundHeight(at.x,at.y)+anchor.y,yaw=anchor.yaw,scale=anchor.scale,surfaceAttached=!anchor.water,surfaceOffset=anchor.y,motion=anchor.motion};
             }).ToArray();
-            var staging=LevelAuthoringDocument.Copy(d);staging.art.models=models.Values.ToArray();staging.art.instances=Array.Empty<CampArtDefinition.Instance>();staging.terrain=null;
-            int painted;
-            using(var workspace=new LevelAuthoringWorkspace(staging))
+            int painted=0;
+            if(poses.Length>0)
             {
-                painted=Paint(workspace,poses);
-                var captured=workspace.Capture(false);
-                foreach(var model in captured.art.models)models[model.id]=model;
-                var replacement=poses.Select(i=>i.id).ToHashSet();
-                d.art.instances=d.art.instances.Where(i=>!replacement.Contains(i.id)).Concat(captured.art.instances).ToArray();
+                var staging=LevelAuthoringDocument.Copy(d);staging.art.models=models.Values.ToArray();staging.art.instances=Array.Empty<CampArtDefinition.Instance>();staging.terrain=null;
+                using(var workspace=new LevelAuthoringWorkspace(staging))
+                {
+                    painted=Paint(workspace,poses);
+                    var captured=workspace.Capture(false);
+                    foreach(var model in captured.art.models)models[model.id]=model;
+                    var replacement=poses.Select(i=>i.id).ToHashSet();
+                    d.art.instances=d.art.instances.Where(i=>!replacement.Contains(i.id)&&!replacement.Any(id=>i.id.StartsWith("overgrowth/"+id+"/",StringComparison.Ordinal))).Concat(captured.art.instances).ToArray();
+                }
             }
             d.art.models=models.Values.ToArray();
+            if(p.world.refineExistingPlants)RiverTerrainAuthoringData.EnsureGroundMargins(d.art);
+            int refined=p.world.refineExistingPlants?ForestRegrowthAuthoring.RefineExisting(d,p.world.seed):0;
+            if(poses.Any(i=>i.id==d.art.primaryLandmarkInstanceId))
+            {
+                d.art.primaryLandmarkId=CampaignLandmarkCatalog.Read()[d.level.order-1].modelId;
+                ObjectOvergrowthAuthoring.Apply(d,new[]{d.art.primaryLandmarkInstanceId},new ObjectOvergrowthSettings{material=d.level.order==48?"steel":"wood",seed=p.world.seed,maxPlants=12,density=.35f,scale=.28f});
+            }
             AuthoringWeatherExposure.Bake(d,d.art.instances.Where(i=>i.id.StartsWith("opening/",StringComparison.Ordinal)).Select(i=>i.id).ToArray());
-            SeasonAtmosphereAuthoring.Apply(d,d.art.atmosphere);
+            if(poses.Length>0)SeasonAtmosphereAuthoring.Apply(d,d.art.atmosphere);
+            if(d.art.primaryLandmarkId!=null)CampaignLandmarkCatalog.Validate(d.art,d.level.order);
             var errors=d.Validate(true);if(errors.Count>0)throw new InvalidDataException(string.Join("\n",errors));d.Save(output);
-            return new{status="opening-details",painted,backend=PlacementToolIntegration.Controlled.Backend,errors};
+            return new{status="opening-details",painted,refined,backend=painted>0?PlacementToolIntegration.Controlled.Backend:"existing-forest-regrowth",errors};
         }
     }
 }

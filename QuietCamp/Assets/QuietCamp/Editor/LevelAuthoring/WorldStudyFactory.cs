@@ -19,11 +19,12 @@ namespace QuietCamp.Editor.LevelAuthoring
         public WorldStudyAnchor[] anchors=Array.Empty<WorldStudyAnchor>();
         public float age=.4f,treeMin=.65f,treeMax=1,innerForest=9,outerForest=24;
         public bool liveTerrain;
+        public bool refineExistingPlants;
         public int groundLow=0x76824a,groundHigh=0x9a9e60;
     }
     [Serializable] public sealed class WorldStudyAnchor
     {
-        public string model,label,age="moss";
+        public string model,label,age="moss",instanceId;
         public float sourceHeight;
         public float x,z,y,yaw,scale=1,metric=1;
         public float ageAmount=-1;
@@ -72,16 +73,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             var models=new Dictionary<string,CampArtDefinition.Model>();var instances=new List<CampArtDefinition.Instance>();var random=new System.Random(p.seed);
             void Place(CampArtDefinition.Model model,float x,float z,float size,float yaw,float y=0,bool attached=true)
             {
-                var shape=AuthoringPropCatalog.ModelBounds(model);
-                var rotation=Quaternion.Euler(0,yaw,0);var lo=new Vector3(float.MaxValue,0,float.MaxValue);var hi=new Vector3(float.MinValue,0,float.MinValue);
-                for(int k=0;k<4;k++)
-                {var q=rotation*(new Vector3((k&1)==0?shape.min.x:shape.max.x,0,(k&2)==0?shape.min.z:shape.max.z)*size);lo.x=Mathf.Min(lo.x,q.x);lo.z=Mathf.Min(lo.z,q.z);hi.x=Mathf.Max(hi.x,q.x);hi.z=Mathf.Max(hi.z,q.z);}
-                float halfX=d.level.width*.5f+.65f,halfZ=d.level.height*.5f+.65f;
-                if(x+lo.x<halfX&&x+hi.x>-halfX&&z+lo.z<halfZ&&z+hi.z>-halfZ)
-                {
-                    var offsets=new[]{new Vector2(halfX-x-lo.x,0),new Vector2(-halfX-x-hi.x,0),new Vector2(0,halfZ-z-lo.z),new Vector2(0,-halfZ-z-hi.z)};
-                    var shift=offsets.OrderBy(v=>v.sqrMagnitude).First();x+=shift.x;z+=shift.y;
-                }
+                var position=OutsideField(d,model,x,z,size,yaw);x=position.x;z=position.y;
                 models[model.id]=model;
                 instances.Add(new CampArtDefinition.Instance{id=p.id+"/"+instances.Count,modelId=model.id,x=x,z=z,y=attached?d.art.GroundHeight(x,z)+y:y,yaw=yaw,scale=size,surfaceAttached=attached,surfaceOffset=y});
             }
@@ -145,6 +137,23 @@ namespace QuietCamp.Editor.LevelAuthoring
             }
             d.art.instances=instances.ToArray();d.art.models=models.Values.ToArray();d.art.cover=cover.ToArray();d.art.review=null;d.art.attempts=Array.Empty<Kruty1918.ScenePlacement.Composition.CompositionAttempt>();
             return d;
+        }
+        public static Vector2 OutsideField(LevelAuthoringDocument d,CampArtDefinition.Model model,float x,float z,float scale,float yaw)
+        {
+            var shape=AuthoringPropCatalog.ModelBounds(model);
+            var rotation=Quaternion.Euler(0,yaw,0);var lo=new Vector2(float.MaxValue,float.MaxValue);var hi=new Vector2(float.MinValue,float.MinValue);
+            for(int k=0;k<4;k++)
+            {
+                var q=rotation*(new Vector3((k&1)==0?shape.min.x:shape.max.x,0,(k&2)==0?shape.min.z:shape.max.z)*scale);
+                lo=Vector2.Min(lo,new Vector2(q.x,q.z));hi=Vector2.Max(hi,new Vector2(q.x,q.z));
+            }
+            float hx=d.level.width*.5f+.65f,hz=d.level.height*.5f+.65f;
+            if(x+lo.x<hx&&x+hi.x>-hx&&z+lo.y<hz&&z+hi.y>-hz)
+            {
+                var shift=new[]{new Vector2(hx-x-lo.x,0),new Vector2(-hx-x-hi.x,0),new Vector2(0,hz-z-lo.y),new Vector2(0,-hz-z-hi.y)}.OrderBy(v=>v.sqrMagnitude).First();
+                x+=shift.x;z+=shift.y;
+            }
+            return new Vector2(x,z);
         }
         static bool OccludesField(LevelAuthoringDocument d,WorldStudyProfile p,CampArtDefinition.Model model,float x,float z,float scale)
         {

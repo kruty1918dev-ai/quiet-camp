@@ -1,5 +1,5 @@
 """Serial native authoring/review of the remaining canonical campaign places."""
-import argparse,json,subprocess,sys,html,os,ctypes,hashlib
+import argparse,json,subprocess,sys,html,os,ctypes,hashlib,uuid
 from pathlib import Path
 sys.stdout.reconfigure(encoding='utf-8')
 ROOT=Path(__file__).resolve().parents[1];QA=Path('C:/Users/Public/qcui-20261006/QuietCamp');DEST=ROOT/'Design/LevelAuthoring/StoryCampaign'
@@ -30,6 +30,15 @@ for i in range(a.start,a.end+1):
  if a.compose and not path.exists():
   profile=drafts/(name+'.profile.json');profile.write_text(json.dumps(by_order[i],ensure_ascii=False),encoding='utf-8')
   proof=request('opening-compose',profile=profile,draft=path);(output/(name+'.pwb.json')).write_text(json.dumps(proof,ensure_ascii=False,indent=2),encoding='utf-8')
+ details=drafts/(name+'.details.json');placement=output/(name+'.pwb.json')
+ if details.exists() and not placement.exists():
+  native=path.with_name(name+'.'+uuid.uuid4().hex+'.draft.json')
+  proof=request('opening-details',profile=details,draft=path,output=native)
+  frozen=json.loads(native.read_text(encoding='utf-8'))
+  native.write_text(json.dumps(frozen,ensure_ascii=False,separators=(',',':'))+'\n',encoding='utf-8')
+  del frozen
+  os.replace(native,path)
+  placement.write_text(json.dumps(proof,ensure_ascii=False,indent=2),encoding='utf-8')
  png=output/(name+'.png');receipt=output/(name+'.json');valid=False
  if png.exists() and receipt.exists():
   valid=hashlib.sha256(png.read_bytes()).hexdigest()==json.loads(receipt.read_text(encoding='utf-8')).get('imageSha256')
