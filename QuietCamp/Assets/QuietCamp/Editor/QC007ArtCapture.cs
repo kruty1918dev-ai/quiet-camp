@@ -118,7 +118,7 @@ namespace QuietCamp.Editor
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(proof));
                 }
                 else if(request.mode=="opening-details")File.WriteAllText(ResultPath,JsonConvert.SerializeObject(LevelAuthoring.OpeningCampaignAuthoring.AddDetails(request.draftPath,request.profile,request.output)));
-                else if(request.mode=="opening-gameplay")File.WriteAllText(ResultPath,JsonConvert.SerializeObject(LevelAuthoring.OpeningCampaignGameplayProbe.Run(request.name,request.output)));
+                else if(request.mode=="opening-gameplay")File.WriteAllText(ResultPath,JsonConvert.SerializeObject(LevelAuthoring.OpeningCampaignGameplayProbe.Run(request.name,request.output,request.levelId)));
                 else if(request.mode=="opening-water-tests")RunTests(true,"QuietCamp.Tests.CampArtCompositionTests");
                 else if(request.mode=="opening-tests") RunTests(true,"QuietCamp.Tests.OpeningCampaignTests");
                 else if(request.mode=="opening-compose")

@@ -47,6 +47,22 @@ namespace QuietCamp.Presentation.World
             return bounds;
         }
 
+        // Include tent roofs, residents and the short approaches around the field.
+        // Decorative landmarks must never enlarge or displace the gameplay subject.
+        public static Bounds GameplayBounds(LevelData level)
+            => new Bounds(new Vector3(0, 1.05f, 0), new Vector3(level.width + 1.6f, 2.3f, level.height + 1.6f));
+
+        public static bool FitGameplayBoard(Camera camera, LevelData level, Rect gameplay, float margin)
+        {
+            if (!Kruty1918.GameplayViewport.GameplayCameraMath.TryOrthographic(GameplayBounds(level), camera.transform.rotation,
+                camera.aspect, gameplay, Distance, margin, out var pose, Near)) return false;
+            camera.orthographicSize = pose.OrthographicSize;
+            camera.transform.position = pose.Position;
+            camera.nearClipPlane = Near;
+            camera.farClipPlane = Mathf.Max(90, pose.RequiredFarClip);
+            return true;
+        }
+
         /// <summary>Fits ortho size and target so the board bounds fill the viewport.</summary>
         public static void Fit(Camera camera, LevelData level, RectTransform viewport)
         {

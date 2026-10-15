@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Newtonsoft.Json;
+using QuietCamp.Domain;
 using QuietCamp.Infrastructure;
 using QuietCamp.Presentation;
 using QuietCamp.Presentation.World;
@@ -13,12 +14,12 @@ namespace QuietCamp.Editor.LevelAuthoring
 {
     public static class OpeningCampaignGameplayProbe
     {
-        public static object Run(string action,string output=null)
+        public static object Run(string action,string output=null,string levelId=null)
         {
             if(action=="start")
             {
-                var level=LevelLoader.Load("QC001");
-                LevelAuthoringPlayDriver.Start(new LevelAuthoringDocument{level=level,art=CampArtDefinition.Load(level)},true);
+                var level=LevelLoader.Load(levelId??"QC001");
+                LevelAuthoringPlayDriver.Start(new LevelAuthoringDocument{level=level,art=CampArtDefinition.Load(level)},true,output);
                 return new{status="opening-game-starting"};
             }
             if(EditorApplication.isPlayingOrWillChangePlaymode && EditorAuthoringPreview.CampaignPreview && QuietCampBootstrap.ServicesRef==null)
@@ -70,13 +71,42 @@ namespace QuietCamp.Editor.LevelAuthoring
                 return new{status="opening-game-next",from=id,to=next};
             }
             var art=UnityEngine.Object.FindAnyObjectByType<CampArtView>();
+            var transition=UnityEngine.Object.FindAnyObjectByType<FoliageDiveTransition>();
             return new{status="opening-game-ready",id,ready=host.UiReady,memoryOnly=services.Save.MemoryOnly,
+                transitionIdle=transition==null||transition.Current==FoliageDiveTransition.State.Idle,
+                cameraProof=CameraProof(session.Level,art?.Definition),
                 frozenArtMatches=art!=null&&JsonConvert.SerializeObject(art.Definition)==JsonConvert.SerializeObject(CampArtDefinition.Load(session.Level)),
                 story=OpeningCampaignStory.For(session.Level)?.title,surfaceSteps=host.SurfaceDetails?.Surface?.Steps,
                 particles=art?.SeasonAtmosphere?.LiveParticles,voices=art?.SeasonAtmosphere?.OwnedVoices,
                 playingVoices=art?.SeasonAtmosphere?.PlayingVoices,wind=art?.SeasonAtmosphere?.WindStrength,
                 cameraEuler=Camera.main!=null?new[]{Camera.main.transform.eulerAngles.x,Camera.main.transform.eulerAngles.y,Camera.main.transform.eulerAngles.z}:new float[3],orthographicSize=Camera.main!=null?Camera.main.orthographicSize:0,
                 completed=services.Save.Progress.completedIds,next=services.NextLevel(id)};
+        }
+
+        static object CameraProof(LevelData level,CampArtDefinition art)
+        {
+            var camera=Camera.main;
+            if(camera==null||art==null)return null;
+            var adaptation=camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>();
+            var rect=adaptation!=null?adaptation.Frame.NormalizedGameplay:new Rect(0,0,1,1);
+            var bounds=CameraFitter.GameplayBounds(level);
+            var projected=Enumerable.Range(0,8).Select(i=>camera.WorldToViewportPoint(bounds.center+new Vector3(
+                (i&1)==0?-bounds.extents.x:bounds.extents.x,(i&2)==0?-bounds.extents.y:bounds.extents.y,(i&4)==0?-bounds.extents.z:bounds.extents.z))).ToArray();
+            var centre=camera.WorldToViewportPoint(bounds.center);
+            var ground=new Plane(Vector3.up,Vector3.zero);
+            var corners=new[]{new Vector2(0,0),new Vector2(1,0),new Vector2(1,1),new Vector2(0,1)}.Select(v=>
+            {
+                var ray=camera.ViewportPointToRay(v);
+                return ground.Raycast(ray,out var distance)?ray.GetPoint(distance):new Vector3(float.NaN,0,float.NaN);
+            }).ToArray();
+            var land=art.landscape;
+            return new{gameplay=new[]{rect.x,rect.y,rect.width,rect.height},
+                boardViewport=projected.Select(v=>new[]{v.x,v.y,v.z}),
+                centreErrorPixels=new[]{(centre.x-rect.center.x)*Screen.width,(centre.y-rect.center.y)*Screen.height},
+                fieldContained=projected.All(v=>v.z>0&&v.x>=rect.xMin-.001f&&v.x<=rect.xMax+.001f&&v.y>=rect.yMin-.001f&&v.y<=rect.yMax+.001f),
+                groundCorners=corners.Select(v=>new[]{v.x,v.z}),
+                groundContained=land!=null&&corners.All(v=>v.x>=land.originX+1&&v.x<=land.originX+land.size-1&&v.z>=land.originZ+1&&v.z<=land.originZ+land.size-1),
+                boardFraming=art.frameGameplayBoard};
         }
     }
 }

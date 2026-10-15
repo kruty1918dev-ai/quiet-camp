@@ -39,7 +39,7 @@ def ready(ident):
     limit = time.monotonic() + 180
     while time.monotonic() < limit:
         status = request('opening-gameplay', name='status')
-        if status.get('status') == 'opening-game-ready' and status['id'] == ident:
+        if status.get('status') == 'opening-game-ready' and status['id'] == ident and status.get('transitionIdle', True):
             return status
         time.sleep(.4)
     raise RuntimeError('Camp did not become ready: ' + ident)
@@ -66,26 +66,35 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--count', type=int, default=100, choices=range(1, 101))
     parser.add_argument('--stage',type=Path,help='Separate durable capture folder, for isolated recorder verification.')
+    parser.add_argument('--art-stage',type=Path,help='Editor-only staged art JSON directory; published puzzles and art remain untouched.')
+    parser.add_argument('--start',type=int,default=1,choices=range(1,101),help='First campaign order; --count is the final order, inclusive.')
     args = parser.parse_args()
     if args.stage:STAGE=args.stage.resolve()
     STAGE.mkdir(parents=True, exist_ok=True)
     ids = json.loads((QA/'Assets/QuietCamp/Resources/QuietCamp/campaign.json').read_text(encoding='utf-8'))['campaignLevelIds'][:args.count]
+    assert args.start<=len(ids)
+    art_stage=args.art_stage.resolve() if args.art_stage else None
+    if art_stage:
+        assert all((art_stage/(ident.replace(':','_')+'.json')).is_file() for ident in ids[args.start-1:]), 'Incomplete staged art'
     transition = json.loads((QA/'Assets/QuietCamp/Resources/QuietCamp/transition.json').read_text(encoding='utf-8'))
     reveal_settle = float(transition['revealDuration']) + float(transition['coveredHold']) + .8
     before = persisted()
     workspace = request('authoring-workspace-status')
     state = dict(status='recording', levels=[])
     source_files = [Path('Assets/QuietCamp/Editor/LevelAuthoring')/name for name in ['CampaignPromoRecorder.cs', 'OpeningCampaignGameplayProbe.cs']]
+    source_files += [Path('Assets/QuietCamp')/name for name in ['Scripts/Infrastructure/CampArtDefinition.cs','Scripts/Infrastructure/EditorAuthoringPreview.cs','Scripts/Presentation/World/CameraFitter.cs','Scripts/Presentation/World/CampArtView.cs','Editor/LevelAuthoring/LevelAuthoringPlayDriver.cs']]
     source = {str(p): sha(QA/p) for p in source_files}
     (STAGE/'before.json').write_text(json.dumps(dict(progress=before, workspace=workspace, captureSources=source), indent=2), encoding='utf-8')
     try:
-        request('opening-gameplay', name='start')
-        for order, ident in enumerate(ids, 1):
+        start_values=dict(name='start',level=ids[args.start-1])
+        if art_stage:start_values['output']=art_stage
+        request('opening-gameplay', **start_values)
+        for order, ident in list(enumerate(ids, 1))[args.start-1:]:
             status = ready(ident)
             # UiReady precedes the normal scene reveal. Do not drag against its
             # moving camera or send Next while the router still owns navigation.
-            time.sleep(reveal_settle)
-            if order == 1:
+            if 'transitionIdle' not in status:time.sleep(reveal_settle)
+            if order == args.start:
                 grant = request('opening-gameplay', name='pro')
                 assert grant['pro'] and grant['memoryOnly']
             assert status['memoryOnly'] and status['frozenArtMatches'] and status['surfaceSteps'] == 0
@@ -96,7 +105,8 @@ def main():
             safe = ident.replace(':', '_')
             level = content/('GeneratedLevels' if ident.startswith('gen:') else 'Levels')/(safe+'.json')
             art = content/'ArtCompositions'/(safe+'.json')
-            inputs = dict(levelSha256=sha(level), artSha256=sha(art), sources=source)
+            inputs = dict(levelSha256=sha(level), artSha256=sha(art_stage/(safe+'.json') if art_stage else art), sources=source)
+            if art_stage:inputs['publishedArtSha256']=sha(art)
             prior = json.loads(receipt.read_text(encoding='utf-8')) if receipt.exists() else {}
             reuse = (prior.get('status') == 'captured' and prior.get('inputs') == inputs and
                      all((folder/name).exists() and sha(folder/name) == prior.get(key) for name, key in [('gameplay.mp4','movieSha256'), ('gameplay.png','imageSha256')]))
@@ -108,7 +118,8 @@ def main():
             else:
                 receipt.unlink(missing_ok=True)
                 request('authoring-focus-game')
-                subprocess.run([sys.executable,str(ROOT/'tools/focus_existing_game_view.py'),'--pid','18660'],check=True,capture_output=True)
+                focus=subprocess.run([sys.executable,str(ROOT/'tools/focus_existing_game_view.py'),'--pid','18660','--allow-docked'],capture_output=True,text=True,encoding='utf-8')
+                if focus.returncode:raise RuntimeError(focus.stdout+focus.stderr)
                 request('opening-gameplay', name='promo', output=folder)
                 limit = time.monotonic() + 300
                 while not receipt.exists() and time.monotonic() < limit:
@@ -120,6 +131,12 @@ def main():
                 assert captured['id'] == ident and captured['completed'] and captured['memoryOnly'] and captured['stillHasPlacementGrid']
                 assert captured['playingAtmosphereVoices'] > 0, 'No live preset ambience: '+ident
                 captured.update(order=order, inputs=inputs, movieSha256=sha(folder/'gameplay.mp4'), imageSha256=sha(folder/'gameplay.png'), media=verify_movie(folder/'gameplay.mp4'))
+                captured['cameraBefore']=status.get('cameraProof')
+                captured['cameraAfter']=request('opening-gameplay',name='status').get('cameraProof')
+                if art_stage:
+                    for proof in [captured['cameraBefore'],captured['cameraAfter']]:
+                        assert proof and proof['boardFraming'] and proof['fieldContained'] and proof['groundContained'], 'Staged framing failed: '+ident
+                        assert max(abs(v) for v in proof['centreErrorPixels'])<8, 'Field is not centred: '+ident
                 receipt.write_text(json.dumps(captured, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
             state['levels'].append(captured)
             (STAGE/'session.json').write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding='utf-8')

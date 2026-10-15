@@ -138,6 +138,11 @@ namespace QuietCamp.Presentation.World
             var data = Definition;
             _camera.transform.rotation = Quaternion.Euler(CampArtDefinition.Vector(data.cameraEuler));
             _camera.orthographic = true;
+            if (data.frameGameplayBoard && CameraFitter.FitGameplayBoard(_camera, _level, gameplay, data.gameplayCameraMargin))
+            {
+                _blur?.ProtectBoard(_level);
+                return;
+            }
             float areaAspect = _camera.aspect * gameplay.width / Mathf.Max(.01f, gameplay.height);
             float size = data.orthographicSize * Mathf.Max(1, data.cameraAspect / areaAspect) / Mathf.Max(.01f, gameplay.height);
             _camera.orthographicSize = size;

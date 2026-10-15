@@ -15,6 +15,8 @@ namespace QuietCamp.Infrastructure
         public int width, height, seed;
         public float[] cameraEuler, cameraTarget, sunEuler;
         public float orthographicSize, cameraAspect, sunIntensity, streamCentre, streamWidth, streamSlope;
+        public bool frameGameplayBoard;
+        public float gameplayCameraMargin = 1.12f;
         public float streamWidthVariation;
         public float streamBend = .32f, frameYaw = 225, bridgeFar = -1, landingRadius = .9f, meadowRelief = .13f, waterDepth = .64f, surroundExtent = 17.6f;
         public string waterMaterial = "QuietCamp/ArtCompositions/QC007Water", generation;
@@ -69,7 +71,12 @@ namespace QuietCamp.Infrastructure
         public static CampArtDefinition Load(LevelData level)
         {
 #if UNITY_EDITOR
-            if (level != null && EditorAuthoringPreview.Matches(level.id)) return EditorAuthoringPreview.Art(level.id);
+            if (level != null && EditorAuthoringPreview.MatchesArt(level.id))
+            {
+                var preview = EditorAuthoringPreview.Art(level.id);
+                preview.Validate(level);
+                return preview;
+            }
 #endif
             if (level == null || string.IsNullOrEmpty(level.id)) return null;
             var revision = string.IsNullOrEmpty(level.contentHash) ? null : Resources.Load<TextAsset>("QuietCamp/ArtRevisions/" + level.contentHash);
@@ -92,6 +99,7 @@ namespace QuietCamp.Infrastructure
             if (levelId != level.id || width != level.width || height != level.height
                 || !Vector(cameraEuler) || !Vector(cameraTarget) || !Vector(sunEuler)
                 || !Finite(orthographicSize) || orthographicSize <= 0 || cameraAspect <= 0
+                || frameGameplayBoard && (!Finite(gameplayCameraMargin) || gameplayCameraMargin < 1 || gameplayCameraMargin > 1.6f)
                 || streamWidth <= 0 || !Finite(streamSlope) || blurPixels < 0 || blurPixels > 12 || models == null || instances == null)
                 throw new InvalidDataException("Invalid camp art definition: " + levelId);
             var ids = models.Select(m => m.id).ToArray();

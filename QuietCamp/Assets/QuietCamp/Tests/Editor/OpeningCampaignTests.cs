@@ -5,12 +5,42 @@ using NUnit.Framework;
 using QuietCamp.Domain;
 using QuietCamp.Infrastructure;
 using QuietCamp.Editor.LevelAuthoring;
+using QuietCamp.Presentation.World;
 using UnityEngine;
 
 namespace QuietCamp.Tests
 {
     public sealed class OpeningCampaignTests
     {
+        [TestCase(4,4,.5625f,52f,225f)]
+        [TestCase(8,8,.5625f,60f,135f)]
+        [TestCase(4,8,1.333333f,55f,80f)]
+        [TestCase(8,4,1.777778f,58f,310f)]
+        [TestCase(8,8,2.388889f,62f,225f)]
+        public void GameplayFramingKeepsTentsAndResidentsInsideUiViewport(int width,int height,float aspect,float pitch,float yaw)
+        {
+            var go=new GameObject("Board framing test");
+            try
+            {
+                var camera=go.AddComponent<Camera>();CameraFitter.Configure(camera,new Vector3(pitch,yaw,0));camera.aspect=aspect;
+                var level=new LevelData{width=width,height=height};
+                var rect=new Rect(.03f,.31f,.94f,.54f);
+                Assert.IsTrue(CameraFitter.FitGameplayBoard(camera,level,rect,1.12f));
+                var bounds=CameraFitter.GameplayBounds(level);
+                var centre=camera.WorldToViewportPoint(bounds.center);
+                Assert.That(centre.x,Is.EqualTo(rect.center.x).Within(.0001));
+                Assert.That(centre.y,Is.EqualTo(rect.center.y).Within(.0001));
+                for(int i=0;i<8;i++)
+                {
+                    var point=bounds.center+new Vector3((i&1)==0?-bounds.extents.x:bounds.extents.x,(i&2)==0?-bounds.extents.y:bounds.extents.y,(i&4)==0?-bounds.extents.z:bounds.extents.z);
+                    var view=camera.WorldToViewportPoint(point);
+                    Assert.That(view.x,Is.InRange(rect.xMin,rect.xMax));Assert.That(view.y,Is.InRange(rect.yMin,rect.yMax));
+                    Assert.That(view.z,Is.GreaterThan(camera.nearClipPlane));
+                }
+            }
+            finally{UnityEngine.Object.DestroyImmediate(go);}
+        }
+
         [Test] public void AllHundredStoriesFollowCampaignOrderSeasonsAndTheEnding()
         {
             var entries=OpeningCampaignStory.Read(Resources.Load<TextAsset>("QuietCamp/opening_campaign_story").text);

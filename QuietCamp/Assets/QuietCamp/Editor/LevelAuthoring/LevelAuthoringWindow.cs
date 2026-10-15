@@ -540,12 +540,21 @@ namespace QuietCamp.Editor.LevelAuthoring
             var art = Document.art;
             EditorGUI.BeginChangeCheck(); float intensity = EditorGUILayout.Slider("Світло", art.sunIntensity, .4f, 2);
             float sunYaw = EditorGUILayout.Slider("Напрям сонця", art.sunEuler[1], 0, 360);
-            float size = EditorGUILayout.Slider("Масштаб камери", art.orthographicSize, 4, 18);
+            bool boardFraming = EditorGUILayout.Toggle("Центрувати ігрове поле", art.frameGameplayBoard);
+            float margin = art.gameplayCameraMargin;
+            float size = art.orthographicSize;
+            var target = CampArtDefinition.Vector(art.cameraTarget);
+            if (boardFraming)
+                margin = EditorGUILayout.Slider("Відступ навколо поля", margin, 1, 1.6f);
+            else
+            {
+                size = EditorGUILayout.Slider("Масштаб камери", size, 4, 18);
+                target = EditorGUILayout.Vector3Field("Центр кадру", target);
+            }
             float cameraPitch = EditorGUILayout.Slider("Нахил камери", art.cameraEuler[0], 25, 80);
             float cameraYaw = EditorGUILayout.Slider("Поворот камери", art.cameraEuler[1], 0, 360);
-            var target = EditorGUILayout.Vector3Field("Центр кадру", CampArtDefinition.Vector(art.cameraTarget));
             float blur = EditorGUILayout.Slider("Розмиття країв", art.blurPixels, 0, 12);
-            if (EditorGUI.EndChangeCheck()) Edit("Світло й камера", d => { d.art.sunIntensity = intensity; d.art.sunEuler[1] = sunYaw; d.art.orthographicSize = size; d.art.cameraEuler[0] = cameraPitch; d.art.cameraEuler[1] = cameraYaw; d.art.cameraTarget = new[]{target.x,target.y,target.z}; d.art.blurPixels=blur; });
+            if (EditorGUI.EndChangeCheck()) Edit("Світло й камера", d => { d.art.sunIntensity = intensity; d.art.sunEuler[1] = sunYaw; d.art.orthographicSize = size; d.art.cameraEuler[0] = cameraPitch; d.art.cameraEuler[1] = cameraYaw; d.art.cameraTarget = new[]{target.x,target.y,target.z}; d.art.frameGameplayBoard=boardFraming; d.art.gameplayCameraMargin=margin; d.art.blurPixels=blur; });
             if (GUILayout.Button("Подивитися з камери рівня")) _workspace.Frame();
             if (Document.terrain != null) return;
             EditorGUILayout.Space(); GUILayout.Label("Шаблон: річкова галявина", EditorStyles.boldLabel);
