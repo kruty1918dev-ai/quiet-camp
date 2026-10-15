@@ -277,10 +277,10 @@ namespace QuietCamp.Presentation.World
 
         // ─── Scene helpers ───────────────────────────────────────────────────
 
-        static Transform ResolveScene(string path)
+        Transform ResolveScene(string path)
         {
             var parts = path.Split('/');
-            var scene = SceneManager.GetActiveScene();
+            var scene = gameObject.scene;
             foreach (var root in scene.GetRootGameObjects())
             {
                 var t = root.transform;
@@ -291,12 +291,13 @@ namespace QuietCamp.Presentation.World
             return null;
         }
 
-        static Camera FindCamera()
+        Camera FindCamera()
         {
-            var cam = Camera.main;
-            if (cam == null)
-                cam = FindFirstObjectByType<Camera>();
-            return cam;
+            var cam=ResolveScene("MainCamera")?.GetComponent<Camera>();
+            if(cam!=null)return cam;
+            foreach(var root in gameObject.scene.GetRootGameObjects())
+            {cam=root.GetComponentInChildren<Camera>();if(cam!=null)return cam;}
+            return null;
         }
     }
 }

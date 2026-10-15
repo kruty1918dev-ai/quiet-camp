@@ -11,6 +11,89 @@ namespace QuietCamp.Tests
 {
     public class MenuBackdropTests
     {
+        [Test] public void PublishedSceneryCannotOverrideTheOctoberTenthPlayableCamera()
+        {
+            var level=LevelLoader.Load("QC009");var art=CampArtDefinition.Load(level);
+            var root=new UnityEngine.GameObject("Historical camera contract");
+            try
+            {
+                var node=new UnityEngine.GameObject("Camera");node.transform.SetParent(root.transform,false);
+                var camera=node.AddComponent<UnityEngine.Camera>();
+                var view=node.AddComponent<CampArtView>();view.Configure(art,level,root.transform,AssetCatalog.Load());
+                CameraFitter.Configure(camera);CameraFitter.Fit(camera,level,null);
+                var frame=camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>().Frame;
+                var oldBounds=new UnityEngine.Bounds(UnityEngine.Vector3.zero,new UnityEngine.Vector3(
+                    level.width+2*(BoardMath.Overhang+.3f),.8f,level.height+2*(BoardMath.Overhang+.3f)));
+                Assert.IsTrue(Kruty1918.GameplayViewport.GameplayCameraMath.TryOrthographic(oldBounds,
+                    UnityEngine.Quaternion.Euler(58,225,0),frame.RenderAspect,frame.NormalizedGameplay,20,1,out var expected,.1f));
+                Assert.That(UnityEngine.Vector3.Distance(camera.transform.position,expected.Position),Is.LessThan(.0001f));
+                Assert.That(camera.orthographicSize,Is.EqualTo(expected.OrthographicSize).Within(.0001f));
+                Assert.That(UnityEngine.Quaternion.Angle(camera.transform.rotation,UnityEngine.Quaternion.Euler(58,225,0)),Is.LessThan(.01f));
+                CameraFitter.Fit(camera,level,null);
+                Assert.That(UnityEngine.Vector3.Distance(camera.transform.position,expected.Position),Is.LessThan(.0001f),"A layout refresh must retain the restored pose.");
+            }
+            finally{UnityEngine.Object.DestroyImmediate(root);}
+        }
+        [TestCase(typeof(CampSceneHost),"Find")]
+        [TestCase(typeof(MenuSceneHost),"ResolveScene")]
+        public void SceneHostFindsItsOwnWorldWhenAnotherSceneIsActive(Type hostType,string lookup)
+            => AssertSceneOwnership(hostType,lookup,false);
+        [TestCase(typeof(CampSceneHost),"FindCamera")]
+        [TestCase(typeof(MenuSceneHost),"FindCamera")]
+        public void SceneHostFindsItsOwnCameraWhenAnotherSceneIsActive(Type hostType,string lookup)
+            => AssertSceneOwnership(hostType,lookup,true);
+        static void AssertSceneOwnership(Type hostType,string lookup,bool camera)
+        {
+            var original=UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+            const string folder="Assets/QuietCamp/Editor/LevelAuthoring/Workspaces";
+            if(!UnityEditor.AssetDatabase.IsValidFolder(folder))UnityEditor.AssetDatabase.CreateFolder("Assets/QuietCamp/Editor/LevelAuthoring","Workspaces");
+            string ownerPath=folder+"/scene-owner-"+Guid.NewGuid().ToString("N")+".unity",foreignPath=folder+"/scene-foreign-"+Guid.NewGuid().ToString("N")+".unity";
+            UnityEngine.SceneManagement.Scene owner=default,foreign=default;
+            UnityEngine.GameObject Add(string name,UnityEngine.SceneManagement.Scene scene)
+            {var go=new UnityEngine.GameObject(name);UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(go,scene);return go;}
+            try
+            {
+                Assert.IsTrue(UnityEditor.AssetDatabase.CopyAsset("Assets/QuietCamp/Editor/LevelAuthoring/WorkspaceTemplate.unity",ownerPath));
+                Assert.IsTrue(UnityEditor.AssetDatabase.CopyAsset("Assets/QuietCamp/Editor/LevelAuthoring/WorkspaceTemplate.unity",foreignPath));
+                owner=UnityEditor.SceneManagement.EditorSceneManager.OpenScene(ownerPath,UnityEditor.SceneManagement.OpenSceneMode.Additive);
+                foreign=UnityEditor.SceneManagement.EditorSceneManager.OpenScene(foreignPath,UnityEditor.SceneManagement.OpenSceneMode.Additive);
+                var host=Add("Host under test",owner).AddComponent(hostType);
+                var expected=Add(camera?"MainCamera":"DecorRoot",owner);
+                var other=Add(camera?"MainCamera":"DecorRoot",foreign);
+                if(camera){expected.AddComponent<UnityEngine.Camera>();other.AddComponent<UnityEngine.Camera>();other.tag="MainCamera";}
+                UnityEngine.SceneManagement.SceneManager.SetActiveScene(foreign);
+                var method=hostType.GetMethod(lookup,System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
+                var found=method.Invoke(method.IsStatic?null:host,camera?null:new object[]{"DecorRoot"});
+                var actual=found is UnityEngine.Component component?component.gameObject:found as UnityEngine.GameObject;
+                Assert.AreSame(expected,actual,"An unrelated active authoring scene must not own this host's world or camera.");
+            }
+            finally
+            {
+                UnityEngine.SceneManagement.SceneManager.SetActiveScene(original);
+                if(owner.IsValid()&&owner.isLoaded)UnityEditor.SceneManagement.EditorSceneManager.CloseScene(owner,true);
+                if(foreign.IsValid()&&foreign.isLoaded)UnityEditor.SceneManagement.EditorSceneManager.CloseScene(foreign,true);
+                UnityEditor.AssetDatabase.DeleteAsset(ownerPath);UnityEditor.AssetDatabase.DeleteAsset(foreignPath);
+            }
+        }
+        [Test] public void GameplayGridExistsBeforeFirstDragAndSurvivesPreviewCancellation()
+        {
+            var level=LevelLoader.Load("QC001");var art=CampArtDefinition.Load(level);
+            var root=new UnityEngine.GameObject("Idle gameplay board contract");BoardRenderer board=null;
+            UnityEngine.Transform Child(string name){var child=new UnityEngine.GameObject(name).transform;child.SetParent(root.transform,false);return child;}
+            try
+            {
+                board=new BoardRenderer(level,AssetCatalog.Load(),Child("Base"),Child("Grid"),Child("Obstacle"),Child("Tents"),Child("Overlay"),art);
+                var cells=root.GetComponentsInChildren<UnityEngine.MeshRenderer>().Where(r=>r.name.StartsWith("Cell_",StringComparison.Ordinal)).ToArray();
+                Assert.AreEqual(level.width*level.height,cells.Length);
+                Assert.IsTrue(cells.All(r=>r.sharedMaterial.GetFloat("_GridVisible")==1),"An empty playable board must be visible before the player drags anything.");
+                var move=level.witness[0];var report=RuleEvaluator.Evaluate(level,new[]{move},false);
+                board.ShowPlacementPreview(move,report);board.HidePlacementPreview();
+                Assert.IsTrue(cells.All(r=>r.sharedMaterial.GetFloat("_GridVisible")==1),"Ending or cancelling a drag must not hide the field.");
+                board.SetPlacementGridVisible(false);board.ShowPlacementPreview(move,report);board.HidePlacementPreview();
+                Assert.IsTrue(cells.All(r=>r.sharedMaterial.GetFloat("_GridVisible")==0),"Preview cleanup must preserve a host's explicitly hidden grid.");
+            }
+            finally{board?.ClearAll();UnityEngine.Object.DestroyImmediate(root);}
+        }
         [Test] public void AuthoredMenuBoardUsesOnlyGridOverTheSameNaturalLandscapeAsGameplay()
         {
             var level=LevelLoader.Load("QC009");var art=CampArtDefinition.Load(level);

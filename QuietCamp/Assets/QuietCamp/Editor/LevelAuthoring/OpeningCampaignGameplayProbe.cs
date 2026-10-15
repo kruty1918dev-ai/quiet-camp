@@ -16,16 +16,57 @@ namespace QuietCamp.Editor.LevelAuthoring
     {
         public static object Run(string action,string output=null,string levelId=null)
         {
-            if(action=="start")
+            if(action=="start"||action=="start-menu")
             {
                 var level=LevelLoader.Load(levelId??"QC001");
-                LevelAuthoringPlayDriver.Start(new LevelAuthoringDocument{level=level,art=CampArtDefinition.Load(level)},true,output);
+                LevelAuthoringPlayDriver.Start(new LevelAuthoringDocument{level=level,art=CampArtDefinition.Load(level)},true,output,action=="start-menu");
                 return new{status="opening-game-starting"};
             }
             if(EditorApplication.isPlayingOrWillChangePlaymode && EditorAuthoringPreview.CampaignPreview && QuietCampBootstrap.ServicesRef==null)
                 return new{status="opening-game-waiting"};
             if(!EditorApplication.isPlaying || !EditorAuthoringPreview.CampaignPreview || QuietCampBootstrap.ServicesRef?.Save.MemoryOnly!=true)
                 throw new InvalidOperationException("Only the isolated campaign preview can run this probe.");
+            if(action=="frame")
+            {
+                if(string.IsNullOrEmpty(output)||!System.IO.Path.IsPathRooted(output)||!output.EndsWith(".png",StringComparison.OrdinalIgnoreCase))throw new ArgumentException("Expected an absolute PNG path.");
+                System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(output));ScreenCapture.CaptureScreenshot(output);
+                return new{status="opening-game-frame-requested",id=CampSceneHost.Current?.Session?.Level?.id,output};
+            }
+            if(action=="quality")
+            {
+                if(!int.TryParse(levelId,out int quality)||quality<0||quality>3)throw new ArgumentException("Expected quality preference 0 through 3.");
+                QuietCampBootstrap.ServicesRef.Settings.quality=quality;
+                return new{status="memory-quality-requested",quality,memoryOnly=true};
+            }
+            if(action=="simulator")
+            {
+                var window=Resources.FindObjectsOfTypeAll<EditorWindow>().FirstOrDefault(w=>w.GetType().FullName=="UnityEditor.DeviceSimulation.SimulatorWindow");
+                if(window==null)throw new InvalidOperationException("No existing Device Simulator window; no new window was opened.");
+                window.Focus();window.Repaint();return new{status="existing-simulator-focused",memoryOnly=true};
+            }
+            if(action=="additive-camp")
+            {
+                var menu=MenuSceneHost.Current;
+                if(menu?.UiReady!=true)throw new InvalidOperationException("The menu must be ready before the additive-scene regression check.");
+                var previewServices=QuietCampBootstrap.ServicesRef;
+                if(!previewServices.CanStart(levelId))throw new InvalidOperationException("The requested level is not unlocked in this RAM-only preview.");
+                foreach(var root in menu.gameObject.scene.GetRootGameObjects())root.SetActive(false);
+                var auxiliary=UnityEngine.SceneManagement.SceneManager.CreateScene("QA unrelated active scene");
+                UnityEngine.SceneManagement.SceneManager.SetActiveScene(auxiliary);
+                previewServices.PendingLevelId=levelId;
+                UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Camp",UnityEngine.SceneManagement.LoadSceneMode.Additive);
+                return new{status="additive-camp-starting",memoryOnly=true};
+            }
+            if(action=="resume-session")
+            {
+                if(string.IsNullOrEmpty(output)||!System.IO.Path.IsPathRooted(output))throw new ArgumentException("Expected an absolute copied session JSON path.");
+                var saved=JsonConvert.DeserializeObject<QuietCamp.Application.SessionSaveData>(System.IO.File.ReadAllText(output));
+                var resumed=CampContent.SessionLevel(saved,saved.levelId);
+                var savedServices=QuietCampBootstrap.ServicesRef;
+                if(!savedServices.CanStart(resumed.id))throw new InvalidOperationException("The isolated preview has not unlocked this session.");
+                savedServices.Save.Session=saved;
+                return new{status="session-copied-to-memory",id=resumed.id,hash=resumed.contentHash,placements=saved.placements?.Length,memoryOnly=true};
+            }
             if(action=="menu-continue"||action=="menu-album"||action=="menu-back")
             {
                 if(MenuSceneHost.Current?.UiReady!=true)throw new InvalidOperationException("The menu is not ready.");
@@ -52,8 +93,16 @@ namespace QuietCamp.Editor.LevelAuthoring
                     opaqueCells=UnityEngine.Object.FindObjectsByType<MeshRenderer>(FindObjectsSortMode.None).Count(r=>r.name.StartsWith("Cell_",StringComparison.Ordinal)&&r.sharedMaterial?.shader.name!="QuietCamp/PlacementGrid")};
             }
             var host=CampSceneHost.Current;
-            if(host?.UiReady!=true)return new{status="opening-game-waiting"};
+            if(host?.UiReady!=true)return new{status="opening-game-waiting",scene=UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,host=host!=null,mask=Camera.main?.cullingMask,transition=UnityEngine.Object.FindAnyObjectByType<FoliageDiveTransition>()?.Current.ToString()};
             var services=QuietCampBootstrap.ServicesRef;var session=host.Session;string id=session.Level.id;
+            if(action=="close-auxiliary")
+            {
+                var auxiliary=UnityEngine.SceneManagement.SceneManager.GetSceneByName("QA unrelated active scene");
+                if(!auxiliary.IsValid())throw new InvalidOperationException("No owned auxiliary regression scene is loaded.");
+                UnityEngine.SceneManagement.SceneManager.SetActiveScene(host.gameObject.scene);
+                UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(auxiliary);
+                return new{status="owned-auxiliary-scene-closing",memoryOnly=true};
+            }
             if(action=="menu")
             {
                 typeof(GameServices).GetProperty(nameof(GameServices.MenuBackdrop)).SetValue(services,LevelLoader.Load(levelId??id));
@@ -84,11 +133,6 @@ namespace QuietCamp.Editor.LevelAuthoring
             }
             if(action=="pro")
             {var result=services.Economy.GrantPro("qa-campaign-memory-only");return new{status="opening-game-pro",pro=services.Economy.IsPro,memoryOnly=services.Save.MemoryOnly,result=result.ToString()};}
-            if(action=="frame")
-            {
-                if(string.IsNullOrEmpty(output)||!output.EndsWith(".png",StringComparison.OrdinalIgnoreCase))throw new ArgumentException("Expected a PNG path.");
-                System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(output));ScreenCapture.CaptureScreenshot(output);return new{status="opening-game-frame-requested",id,output};
-            }
             if(action=="check")
             {
                 session.DebugApplyWitness();
@@ -129,10 +173,19 @@ namespace QuietCamp.Editor.LevelAuthoring
                 return new{status="river-debug",id,width=target.width,height=target.height,surfaces};
             }
             var transition=UnityEngine.Object.FindAnyObjectByType<FoliageDiveTransition>();
-            return new{status="opening-game-ready",id,ready=host.UiReady,memoryOnly=services.Save.MemoryOnly,
+            var scenery=GameObject.Find("AuthoredCampSurround")?.GetComponentsInChildren<MeshRenderer>()??Array.Empty<MeshRenderer>();
+            var planes=Camera.main==null?null:GeometryUtility.CalculateFrustumPlanes(Camera.main);
+            return new{status="opening-game-ready",id,ready=host.UiReady,memoryOnly=services.Save.MemoryOnly,activeScene=UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,hostScene=host.gameObject.scene.name,
                 transitionIdle=transition==null||transition.Current==FoliageDiveTransition.State.Idle,
                 cameraProof=CameraProof(session.Level,art?.Definition),
                 frozenArtMatches=art!=null&&JsonConvert.SerializeObject(art.Definition)==JsonConvert.SerializeObject(CampArtDefinition.Load(session.Level)),
+                artTriangles=art?.TriangleCount,artModels=art?.Definition.models.Length,artInstances=art?.Definition.instances.Length,previewArtOverride=EditorAuthoringPreview.MatchesArt(id),
+                cameraMask=Camera.main?.cullingMask,
+                sceneryActive=art?.PresentationActive,sceneryRenderers=scenery.Length,
+                placementScene=UnityEngine.Object.FindAnyObjectByType<PlacementController>()?.gameObject.scene.name,
+                listenerScenes=UnityEngine.Object.FindObjectsByType<AudioListener>(FindObjectsSortMode.None).Where(l=>l.enabled).Select(l=>l.gameObject.scene.name).ToArray(),
+                inFrustumSceneryRenderers=planes==null?0:scenery.Count(r=>r.enabled&&((1<<r.gameObject.layer)&Camera.main.cullingMask)!=0&&GeometryUtility.TestPlanesAABB(planes,r.bounds)),
+                visibleGridCells=UnityEngine.Object.FindObjectsByType<MeshRenderer>(FindObjectsSortMode.None).Count(r=>r.name.StartsWith("Cell_",StringComparison.Ordinal)&&r.sharedMaterial!=null&&r.sharedMaterial.HasProperty("_GridVisible")&&r.sharedMaterial.GetFloat("_GridVisible")>.5f),
                 story=OpeningCampaignStory.For(session.Level)?.title,surfaceSteps=host.SurfaceDetails?.Surface?.Steps,residents=host.SurfaceDetails?.Residents,
                 particles=art?.SeasonAtmosphere?.LiveParticles,voices=art?.SeasonAtmosphere?.OwnedVoices,
                 riverReflectionRendered=art?.RiverReflections?.HasRenderedReflection,
@@ -158,7 +211,13 @@ namespace QuietCamp.Editor.LevelAuthoring
                 return ground.Raycast(ray,out var distance)?ray.GetPoint(distance):new Vector3(float.NaN,0,float.NaN);
             }).ToArray();
             var land=art.landscape;
+            var playable=CameraFitter.ContentBounds(level);
+            var boardCentre=camera.WorldToViewportPoint(playable.center);
+            var groundField=Enumerable.Range(0,8).Select(i=>camera.WorldToViewportPoint(playable.center+new Vector3(
+                (i&1)==0?-playable.extents.x:playable.extents.x,(i&2)==0?-playable.extents.y:playable.extents.y,(i&4)==0?-playable.extents.z:playable.extents.z))).ToArray();
             return new{gameplay=new[]{rect.x,rect.y,rect.width,rect.height},
+                playableFieldContained=groundField.All(v=>v.z>0&&v.x>=rect.xMin-.001f&&v.x<=rect.xMax+.001f&&v.y>=rect.yMin-.001f&&v.y<=rect.yMax+.001f),
+                playableCentreErrorPixels=new[]{(boardCentre.x-rect.center.x)*Screen.width,(boardCentre.y-rect.center.y)*Screen.height},
                 boardViewport=projected.Select(v=>new[]{v.x,v.y,v.z}),
                 centreErrorPixels=new[]{(centre.x-rect.center.x)*Screen.width,(centre.y-rect.center.y)*Screen.height},
                 fieldContained=projected.All(v=>v.z>0&&v.x>=rect.xMin-.001f&&v.x<=rect.xMax+.001f&&v.y>=rect.yMin-.001f&&v.y<=rect.yMax+.001f),

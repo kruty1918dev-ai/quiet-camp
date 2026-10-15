@@ -135,6 +135,7 @@ namespace QuietCamp.Presentation.World
                 DestroyOwned(_groundMaterial);
                 _groundMaterial=new Material(Resources.Load<Shader>("QuietCamp/PlacementGrid")){name="Placement lines above continuous landscape"};
                 _groundMaterial.SetVector("_GridOffset",new Vector4(_level.width*.5f,_level.height*.5f,0,0));
+                SetPlacementGridVisible(true);
             }
             for (var x = 0; x < _level.width; x++)
             for (var z = 0; z < _level.height; z++)
@@ -280,7 +281,6 @@ namespace QuietCamp.Presentation.World
 
         public void ShowPlacementPreview(Placement placement, RuleReport report)
         {
-            SetPlacementGridVisible(true);
             var cells = new List<Cell>(RuleEvaluator.Footprint(placement));
             var door = RuleEvaluator.Door(placement);
             if (CampWalkability.Contains(_level, door)) cells.Add(door);
@@ -294,7 +294,7 @@ namespace QuietCamp.Presentation.World
         }
 
         public void HidePlacementPreview()
-        { SetPlacementGridVisible(false);if (_previewOverlay != null) _previewOverlay.SetActive(false); if(_previewDoor!=null)_previewDoor.SetActive(false); }
+        { if (_previewOverlay != null) _previewOverlay.SetActive(false); if(_previewDoor!=null)_previewDoor.SetActive(false); }
         public void SetPlacementGridVisible(bool visible)
         {if(_groundMaterial!=null&&_groundMaterial.HasProperty("_GridVisible"))_groundMaterial.SetFloat("_GridVisible",visible?1:0);}
 

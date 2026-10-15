@@ -352,6 +352,10 @@ namespace QuietCamp.Presentation.World
         {
             using var audit = PerformanceAudit.Measure("QC.CampAtmosphere.LateUpdate");
             if (!_initialized || _camera == null) return;
+            var rect = _viewport != null ? _viewport.rect : default;
+            var size = new Vector2Int(Screen.width, Screen.height);
+            var position = _viewport != null ? _viewport.position : Vector3.zero;
+            if (size != _lastScreen || rect != _lastViewport || position != _lastViewportPosition) RefreshLayout();
             if(_artView?.SeasonAtmosphere!=null)
             {
                 var weather=_artView.SeasonAtmosphere;bool seasonalReduced=_reducedMotion?.Invoke()??false;
@@ -370,10 +374,6 @@ namespace QuietCamp.Presentation.World
             }
             var tier=_qualitySource?.Invoke()??_tier;
             if(tier!=_tier){_tier=tier;_postFx?.Apply(AtmosphereCatalog.Load().Get(PhaseId),tier);_life?.SetTier(tier);_particles?.SetTier((AtmosphereParticles.Tier)tier);Shader.SetGlobalFloat(FlutterScale,tier>0?1:0);}
-            var rect = _viewport != null ? _viewport.rect : default;
-            var size = new Vector2Int(Screen.width, Screen.height);
-            var position = _viewport != null ? _viewport.position : Vector3.zero;
-            if (size != _lastScreen || rect != _lastViewport || position != _lastViewportPosition) RefreshLayout();
             _wind = _windSim.Advance(Time.deltaTime);
             bool reduced = _reducedMotion != null && _reducedMotion();
 

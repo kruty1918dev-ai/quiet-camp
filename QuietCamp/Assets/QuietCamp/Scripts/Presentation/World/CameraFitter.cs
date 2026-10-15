@@ -30,24 +30,10 @@ namespace QuietCamp.Presentation.World
         }
 
         public static Bounds ContentBounds(LevelData level)
-        {
-            var bounds = new Bounds(Vector3.zero, new Vector3(level.width + 2 * (BoardMath.Overhang + SceneryMargin), .8f,
+            => new Bounds(Vector3.zero, new Vector3(level.width + 2 * (BoardMath.Overhang + SceneryMargin), .8f,
                 level.height + 2 * (BoardMath.Overhang + SceneryMargin)));
-            if(level.environment?.seasonTimeline>=0&&level.environmentalStory!=null)
-            {
-                var models=QuietCamp.Presentation.UI.RoadmapModelLibrary.Load();
-                foreach(var beat in level.environmentalStory.beats)
-                foreach(var prop in beat.props)
-                {
-                    var view=prop.level;if(view==null)continue;var model=models.Get(view.assetId);if(model==null)continue;
-                    var rotation=Quaternion.Euler(0,view.yaw,0);var origin=new Vector3(view.x,view.elevation,view.z);
-                    foreach(var point in model.Positions)bounds.Encapsulate(origin+rotation*point*view.height);
-                }
-            }
-            return bounds;
-        }
 
-        // Include tent roofs, residents and the short approaches around the field.
+        // Include tent roofs and the short approaches around the field.
         // Decorative landmarks must never enlarge or displace the gameplay subject.
         public static Bounds GameplayBounds(LevelData level)
             => new Bounds(new Vector3(0, 1.05f, 0), new Vector3(level.width + 1.6f, 2.3f, level.height + 1.6f));
@@ -68,7 +54,6 @@ namespace QuietCamp.Presentation.World
         {
             using var audit = PerformanceAudit.Measure("QC.CameraFitter.Fit");
             if (camera == null || level == null) return;
-            if(BakedCampEnvironment.Uses(level))camera.transform.rotation=Quaternion.Euler(BakedCampEnvironment.CameraEuler(level));
             // Scene adapter: full forest render, reserved gameplay region from UI.
             camera.rect = new Rect(0f, 0f, 1f, 1f);
             var adaptation = camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>();
@@ -78,8 +63,8 @@ namespace QuietCamp.Presentation.World
             var frame = adaptation.Frame;
             if (!frame.IsValid) return;
             camera.aspect = frame.RenderAspect;
-            var art = camera.GetComponent<CampArtView>();
-            if (art != null && art.PresentationActive) { art.FitCamera(frame.NormalizedGameplay); return; }
+            // Restore the 2026-10-10 playable framing: the board and its UI
+            // viewport own the pose. Authored scenery must not pull it away.
             var bounds = ContentBounds(level);
             if (!Kruty1918.GameplayViewport.GameplayCameraMath.TryOrthographic(bounds, camera.transform.rotation,
                 camera.aspect, frame.NormalizedGameplay, Distance, FitMargin, out var pose, camera.nearClipPlane)) return;

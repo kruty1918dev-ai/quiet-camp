@@ -36,7 +36,7 @@ namespace QuietCamp.Tests
             art.models[0].vertices[0] = float.NaN;
             Assert.Throws<InvalidDataException>(() => art.Validate(level));
         }
-        [Test] public void AllCampaignLevelsHaveEditablePresentation()
+        [Test] public void FirstCampaignLevelHasEditablePresentation()
             => Assert.NotNull(CampArtDefinition.Load(LevelLoader.Load("QC001")));
 
         [TestCase(4, 12, 73)]
@@ -118,11 +118,14 @@ namespace QuietCamp.Tests
         }
         [Test] public void CommonRiverProfileResolvesEveryCampaignLandscapeWithoutChangingPuzzleOrSourceHeights()
         {
+            Assert.IsFalse(EditorAuthoringPreview.Active,"This contract must read published campaign content, not a staged art override.");
             var campaign=JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(UnityEngine.Resources.Load<UnityEngine.TextAsset>("QuietCamp/campaign").text);
             var profile=RiverEnvironmentProfile.Load();int count=0;
             foreach(string id in campaign["campaignLevelIds"].Values<string>())
             {
                 var level=LevelLoader.Load(id);string puzzle=JsonConvert.SerializeObject(level);var art=CampArtDefinition.Load(level);
+                Assert.NotNull(art,id);Assert.Greater(art.models.Length,0,id);Assert.Greater(art.instances.Length,0,id);
+                Assert.NotNull(art.landscape,id);Assert.IsTrue(art.landscape.meshes.Any(m=>m.vertices.Length>0),id);
                 var before=(float[])art.landscape.heights.Clone();
                 var resolved=RiverLandscapeGeometry.Resolve(art,profile);resolved.Validate();
                 if(!art.landscape.meshes.Any(m=>m.water))

@@ -180,6 +180,9 @@ namespace QuietCamp.Presentation.World
             // Menu and gameplay share the same view onto the clearing.
             CameraFitter.Configure(camera);
             if (art != null) camera.gameObject.AddComponent<CampArtView>().Configure(art, level, _decorRoot, _services.Assets);
+            // Art construction also supports its own Editor camera. The game
+            // uses the board-centred camera contract from 2026-10-10.
+            CameraFitter.Configure(camera);
             CameraFitter.Fit(camera, level, viewport);
             _renderer.BindViewport(camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>());
             _renderer.SurfaceDetails.Bind(_decorRoot,paused:()=>!GameplayActive,reduced:()=>_services.ReducedMotion);
@@ -189,11 +192,13 @@ namespace QuietCamp.Presentation.World
             var camListener = camera.GetComponent<AudioListener>();
             if (camListener != null) { camListener.enabled = false; Destroy(camListener); }
             var proxy = new GameObject("ListenerProxy");
+            proxy.transform.SetParent(transform,false);
             proxy.transform.SetPositionAndRotation(
                 new Vector3(0f, 2f * BoardMath.CellSize, 0f), camera.transform.rotation);
             proxy.AddComponent<AudioListener>();
 
             var inputGo = new GameObject("PlacementController");
+            inputGo.transform.SetParent(transform,false);
             _placement = inputGo.AddComponent<PlacementController>();
             _placement.Configure(_session, _renderer, _services.InputPolicy, camera,
                 _services.Assets, () => _services.ReducedMotion,
@@ -699,9 +704,9 @@ namespace QuietCamp.Presentation.World
 
         // ─── Scene helpers ───────────────────────────────────────────────────
 
-        static GameObject Find(string path)
+        GameObject Find(string path)
         {
-            var scene = SceneManager.GetActiveScene();
+            var scene = gameObject.scene;
             foreach (var root in scene.GetRootGameObjects())
             {
                 var t = Resolve(root.transform, path);
@@ -723,11 +728,14 @@ namespace QuietCamp.Presentation.World
             return t;
         }
 
-        static Camera FindCamera()
+        Camera FindCamera()
         {
             var go = Find("MainCamera");
             var camera = go != null ? go.GetComponent<Camera>() : null;
-            return camera != null ? camera : Camera.main;
+            if(camera!=null)return camera;
+            foreach(var root in gameObject.scene.GetRootGameObjects())
+            {camera=root.GetComponentInChildren<Camera>();if(camera!=null)return camera;}
+            return null;
         }
     }
 }

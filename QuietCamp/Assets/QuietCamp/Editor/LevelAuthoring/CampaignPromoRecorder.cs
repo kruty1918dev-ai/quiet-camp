@@ -117,7 +117,10 @@ namespace QuietCamp.Editor.LevelAuthoring
             _controller = new RecorderController(_settings); _controller.PrepareRecording();
             }
             // Recorder changes the Game View size. Let layout and input projection settle first.
-            for (int i = 0; i < 20; i++) yield return new WaitForEndOfFrame();
+            // Device Simulator can own the visible play view. Its rendering
+            // does not resume Game View's WaitForEndOfFrame coroutine; still
+            // inspection uses normal player frames and ScreenCapture instead.
+            for (int i = 0; i < 20; i++) yield return _stillsOnly ? null : new WaitForEndOfFrame();
             // The temporary replay must keep receiving its virtual pointer while
             // Windows focuses the user's IDE. Never alter the project's input asset.
             _previousInputSettings=InputSystem.settings;
@@ -188,7 +191,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                         UnityEngine.Object.FindAnyObjectByType<CampArtView>()?.Definition);
                     _actions.Add(new { frame, kind = "completed-gameplay-still" });
                 }
-                yield return new WaitForEndOfFrame();
+                yield return _stillsOnly ? null : new WaitForEndOfFrame();
             }
         }
 
