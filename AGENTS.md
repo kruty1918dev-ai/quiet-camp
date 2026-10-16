@@ -219,14 +219,32 @@ Do not republish this experiment or resume the refinement plan without a new use
 request. The roadmap remains deferred; the campaign remains exactly 100 levels.
 Chrome must remain open during any future authorized capture work.
 
-# Visual iteration requirement — 2026-10-12
+# WorldOps visual workflow — 2026-10-16
 
-For every newly delivered scene frame, perform at least seven actual correction
-cycles before acceptance: inspect the native render, compare it with the user's
-reference and requirements, identify concrete defects, change the responsible
-rules/assets, render again, and inspect that result before the next cycle.
-Seven unchanged captures or seven parameter edits without inspection do not count.
-Record the defects, changes, residual issues and capture receipts for each cycle.
+Правки оформлення рівнів виконувати через WorldOps. Інструмент керує підготовкою,
+перевірками, рендерами, повторними виправленнями та застосуванням. Агент оцінює
+актуальні кадри й повертає структурований висновок. Приймання визначається
+виконанням критеріїв; незастарілі докази обов'язкові. Згенеровані JSON, хеші та
+квитанції вручну не виправляти.
+
+Use `tools/qc_world.py --project <existing-QA-project> run <recipe.json>` and
+the same service in the workshop's WorldOps section. See
+`Design/LevelAuthoring/WorldOps.md`. Recipes belong in
+`QuietCamp/Assets/QuietCamp/Authoring/WorldOps/`; editor implementation is the
+only editing authority. Extend an allow-listed operation and its checks when
+a capability is missing, then use the shared process. Do not add another ad-hoc
+Python writer or use historical scripts to bypass it.
+
+Inspect current before/after Game View frames with active UI in both profiles;
+submit a `ReviewVerdict` bound to their hashes. Diagnostic masks are not gameplay
+renders. No review agent means awaiting review, never artistic acceptance.
+At most five correction rounds per level; the same unchanging defect twice
+becomes an exception. Fix criteria, not cycle counts. The old seven-cycle rule
+is superseded for this workflow. Record defects, corrections and residuals.
+Only explicitly requested agent delivery commits/pushes owned files; ordinary
+workshop actions never run Git. Existing continuous delivery still applies to
+the agent's verified implementation milestones.
+
 Review river shape, terrain/water contact, shoreline ecology, repeated silhouettes,
 flower and fence visibility, foreground framing, lighting, shadows and artifacts.
 Consult relevant primary documentation when behavior is uncertain. Numerical

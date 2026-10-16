@@ -362,17 +362,22 @@ namespace QuietCamp.Presentation.World
             var size = new Vector2Int(Screen.width, Screen.height);
             var position = _viewport != null ? _viewport.position : Vector3.zero;
             if (size != _lastScreen || rect != _lastViewport || position != _lastViewportPosition) RefreshLayout();
+            float seasonalDelta=Time.unscaledDeltaTime;
+#if UNITY_EDITOR
+            if(EditorAuthoringPreview.ControlledCapture)
+            {seasonalDelta=EditorAuthoringPreview.CaptureDelta;if(seasonalDelta==0)return;}
+#endif
             if(_artView?.SeasonAtmosphere!=null)
             {
                 var weather=_artView.SeasonAtmosphere;bool seasonalReduced=_reducedMotion?.Invoke()??false;
                 int seasonalTier=_qualitySource?.Invoke()??_tier;_artView.SetQualityTier(seasonalTier);
-                weather.Advance(Time.unscaledDeltaTime,seasonalReduced,seasonalTier);
+                weather.Advance(seasonalDelta,seasonalReduced,seasonalTier);
                 Shader.SetGlobalFloat(FlutterScale,!seasonalReduced&&seasonalTier>0?1:0);
                 Shader.SetGlobalVector(SunDirW,_sun!=null?-_sun.transform.forward:Vector3.up);
                 Shader.SetGlobalColor(SunColor,_sun!=null?_sun.color*_sun.intensity:Color.white);
                 Shader.SetGlobalColor(AmbientId,CampArtDefinition.Color(weather.Preset.ambientColor)*.72f);
-                _shelter?.Advance(Time.unscaledDeltaTime,weather.Preset.rain);
-                _soundscape?.Advance(Time.unscaledDeltaTime);
+                _shelter?.Advance(seasonalDelta,weather.Preset.rain);
+                _soundscape?.Advance(seasonalDelta);
                 return;
             }
             if (_windShelterTexture == null && _composition?.Shelter != null)

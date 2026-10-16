@@ -137,6 +137,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         {
             AuthoringVegetationSnapshot.ExpandCover(document);
             RiverTerrainIntegration.Validate?.Invoke(document);
+            PreservePendingNativeAdditions(document);
             var changedModels=new HashSet<string>();
             foreach(var model in document.art.models)
             {
@@ -206,6 +207,18 @@ namespace QuietCamp.Editor.LevelAuthoring
             ApplyMood(document);
         }
         static string PoseKey(CampArtDefinition.Instance item)=>Newtonsoft.Json.JsonConvert.SerializeObject(item);
+        void PreservePendingNativeAdditions(LevelAuthoringDocument incoming)
+        {
+            var previousIds=new HashSet<string>(Document.art.instances.Select(p=>p.id));
+            var incomingIds=new HashSet<string>(incoming.art.instances.Select(p=>p.id));
+            var additions=_markers.Where(pair=>pair.Value!=null&&!previousIds.Contains(pair.Key)&&!incomingIds.Contains(pair.Key)).Select(pair=>pair.Value).ToArray();
+            if(additions.Length==0)return;
+            // Absence deletes an object only if the prior document owned it.
+            // New native placements have not entered that document yet.
+            incoming.art.instances=incoming.art.instances.Concat(additions.Select(CapturePose)).ToArray();
+            var modelIds=new HashSet<string>(incoming.art.models.Select(m=>m.id));
+            incoming.art.models=incoming.art.models.Concat(additions.Where(m=>m.packedModel&&modelIds.Add(m.stableId)).Select(m=>FrozenModel(m.stableId))).ToArray();
+        }
         static string ModelKey(CampArtDefinition.Model model)=>Hash128.Compute(Newtonsoft.Json.JsonConvert.SerializeObject(model)).ToString();
         void ApplyMood(LevelAuthoringDocument document)
         {
@@ -305,44 +318,45 @@ namespace QuietCamp.Editor.LevelAuthoring
             _paintMesh.triangles = filtered.ToArray();
             Surface.AddComponent<MeshCollider>().sharedMesh = _paintMesh;
         }
+        CampArtDefinition.Instance CapturePose(LevelAuthoringAsset m)
+        {
+            var matrix=Root.transform.worldToLocalMatrix*m.transform.localToWorldMatrix;
+            Vector3 a=matrix.GetColumn(0),b=matrix.GetColumn(1),c=matrix.GetColumn(2);
+            if(matrix.determinant<=0||Mathf.Abs(Vector3.Dot(a.normalized,b.normalized))>.0001f||Mathf.Abs(Vector3.Dot(a.normalized,c.normalized))>.0001f||Mathf.Abs(Vector3.Dot(b.normalized,c.normalized))>.0001f)
+                throw new InvalidOperationException("Розгрупуйте об’єкти зі скошеним або дзеркальним масштабом перед збереженням.");
+            Vector3 p=matrix.GetColumn(3);var rotation=matrix.rotation;var scale=matrix.lossyScale;
+            if (!m.packedModel) scale = new Vector3(scale.x / m.baseScale.x, scale.y / m.baseScale.y, scale.z / m.baseScale.z);
+            var euler = rotation.eulerAngles;
+            if(string.IsNullOrEmpty(m.instanceId))m.instanceId="authored/"+Guid.NewGuid().ToString("N");
+            var source=m.sourcePose;
+            // Keep the saved pose exactly when Unity only round-tripped its quaternion.
+            // Moving/scaling/rotating an object replaces this transient cache on capture.
+            var q=m.capturedRotation;
+            var difference=new Vector4(rotation.x-q.x,rotation.y-q.y,rotation.z-q.z,rotation.w-q.w);
+            var negated=new Vector4(rotation.x+q.x,rotation.y+q.y,rotation.z+q.z,rotation.w+q.w);
+            bool same=source!=null&&(p-m.capturedPosition).sqrMagnitude<1e-12f&&(scale-m.capturedScale).sqrMagnitude<1e-12f&&Mathf.Min(difference.sqrMagnitude,negated.sqrMagnitude)<1e-12f;
+            var item = new CampArtDefinition.Instance { id = m.instanceId, modelId = m.packedModel ? m.stableId : null, assetId = m.packedModel ? null : m.stableId,
+                x = p.x, y = p.y, z = p.z, yaw = euler.y, scale = scale.x, rotationEuler = new[] { euler.x, euler.y, euler.z }, scaleXYZ = new[] { scale.x, scale.y, scale.z } };
+            if(same) {item.x=source.x;item.y=source.y;item.z=source.z;item.yaw=source.yaw;item.scale=source.scale;item.rotationEuler=source.rotationEuler;item.scaleXYZ=source.scaleXYZ;}
+            m.sourcePose=item;m.capturedPosition=p;m.capturedRotation=rotation;m.capturedScale=scale;
+            if (!m.attachmentInitialized)
+            {
+                m.surfaceOffset = p.y - Document.art.GroundHeight(p.x, p.z);
+                m.attachedY = p.y; m.attachmentInitialized = true;
+            }
+            if (Math.Abs(p.y - m.attachedY) > .001f) m.surfaceAttached = false;
+            item.surfaceAttached = m.surfaceAttached; item.surfaceOffset = m.surfaceOffset;
+            item.motion=source?.motion;item.motionPivot=source?.motionPivot;
+                _markers[m.instanceId]=m;_poseKeys[m.instanceId]=PoseKey(item);
+            return item;
+        }
         public LevelAuthoringDocument Capture(bool bakeLandscape = true)
         {
             if (bakeLandscape && River != null && River.IsUpdating) throw new InvalidOperationException("Оновлюється річка й земля. Зачекайте завершення перед збереженням або грою.");
             var copy = LevelAuthoringDocument.Copy(Document);
             if (bakeLandscape && River != null) copy.art.landscape = River.Bake();
             var markers = Scenery.GetComponentsInChildren<LevelAuthoringAsset>();
-            foreach(var marker in markers)if(!string.IsNullOrEmpty(marker.instanceId))_markers[marker.instanceId]=marker;
-            copy.art.instances = markers.Select((m, i) =>
-            {
-                var matrix=Root.transform.worldToLocalMatrix*m.transform.localToWorldMatrix;
-                Vector3 a=matrix.GetColumn(0),b=matrix.GetColumn(1),c=matrix.GetColumn(2);
-                if(matrix.determinant<=0||Mathf.Abs(Vector3.Dot(a.normalized,b.normalized))>.0001f||Mathf.Abs(Vector3.Dot(a.normalized,c.normalized))>.0001f||Mathf.Abs(Vector3.Dot(b.normalized,c.normalized))>.0001f)
-                    throw new InvalidOperationException("Розгрупуйте об’єкти зі скошеним або дзеркальним масштабом перед збереженням.");
-                Vector3 p=matrix.GetColumn(3);var rotation=matrix.rotation;var scale=matrix.lossyScale;
-                if (!m.packedModel) scale = new Vector3(scale.x / m.baseScale.x, scale.y / m.baseScale.y, scale.z / m.baseScale.z);
-                var euler = rotation.eulerAngles;
-                if(string.IsNullOrEmpty(m.instanceId))m.instanceId="authored/"+Guid.NewGuid().ToString("N");
-                var source=m.sourcePose;
-                // Keep the saved pose exactly when Unity only round-tripped its quaternion.
-                // Moving/scaling/rotating an object replaces this transient cache on capture.
-                var q=m.capturedRotation;
-                var difference=new Vector4(rotation.x-q.x,rotation.y-q.y,rotation.z-q.z,rotation.w-q.w);
-                var negated=new Vector4(rotation.x+q.x,rotation.y+q.y,rotation.z+q.z,rotation.w+q.w);
-                bool same=source!=null&&(p-m.capturedPosition).sqrMagnitude<1e-12f&&(scale-m.capturedScale).sqrMagnitude<1e-12f&&Mathf.Min(difference.sqrMagnitude,negated.sqrMagnitude)<1e-12f;
-                var item = new CampArtDefinition.Instance { id = m.instanceId, modelId = m.packedModel ? m.stableId : null, assetId = m.packedModel ? null : m.stableId,
-                    x = p.x, y = p.y, z = p.z, yaw = euler.y, scale = scale.x, rotationEuler = new[] { euler.x, euler.y, euler.z }, scaleXYZ = new[] { scale.x, scale.y, scale.z } };
-                if(same) {item.x=source.x;item.y=source.y;item.z=source.z;item.yaw=source.yaw;item.scale=source.scale;item.rotationEuler=source.rotationEuler;item.scaleXYZ=source.scaleXYZ;}
-                m.sourcePose=item;m.capturedPosition=p;m.capturedRotation=rotation;m.capturedScale=scale;
-                if (!m.attachmentInitialized)
-                {
-                    m.surfaceOffset = p.y - Document.art.GroundHeight(p.x, p.z);
-                    m.attachedY = p.y; m.attachmentInitialized = true;
-                }
-                if (Math.Abs(p.y - m.attachedY) > .001f) m.surfaceAttached = false;
-                item.surfaceAttached = m.surfaceAttached; item.surfaceOffset = m.surfaceOffset;
-                item.motion=source?.motion;item.motionPivot=source?.motionPivot;
-                return item;
-            }).ToArray();
+            copy.art.instances = markers.Select(CapturePose).ToArray();
             copy.art.models = markers.Where(m => m.packedModel).Select(m => m.stableId).Distinct().Select(id =>
                 _frozenModels.TryGetValue(id, out var frozen) ? frozen : LevelAuthoringPalette.Get(id).model).ToArray();
             copy.art.cover = Array.Empty<CampArtDefinition.CoverPoint>(); copy.art.levelId = copy.level.id;

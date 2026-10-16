@@ -128,6 +128,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             saveChangesMessage = "Зберегти зміни рівня перед закриттям майстерні?";
             SceneView.duringSceneGui += DuringScene; Undo.undoRedoPerformed += UndoChanged;
             EditorApplication.update += Tick; EditorApplication.hierarchyChanged += HierarchyChanged;
+            WorldOps.WorldOpsService.Changed += Repaint;
             EditorSceneManager.sceneClosing += WorkspaceClosing;
             if (_state != null && !EditorApplication.isPlayingOrWillChangePlaymode) EditorApplication.delayCall += Recover;
         }
@@ -140,6 +141,7 @@ namespace QuietCamp.Editor.LevelAuthoring
 #endif
             SceneView.duringSceneGui -= DuringScene; Undo.undoRedoPerformed -= UndoChanged;
             EditorApplication.update -= Tick; EditorApplication.hierarchyChanged -= HierarchyChanged;
+            WorldOps.WorldOpsService.Changed -= Repaint;
             EditorSceneManager.sceneClosing -= WorkspaceClosing;
             PlacementToolIntegration.Adapter?.Stop();
             if (_workspace != null && !EditorApplication.isPlayingOrWillChangePlaymode)

@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "id": "audit-first-ten",
+  "label": "Ігровий перегляд перших десяти рівнів",
+  "orders": [1,2,3,4,5,6,7,8,9,10],
+  "autoApply": false,
+  "operations": [{"id": "audit", "kind": "audit"}],
+  "criteria": {"autoRepair": false, "requireVisualReview": true, "profiles": ["portrait", "landscape"], "quality": 2}
+}

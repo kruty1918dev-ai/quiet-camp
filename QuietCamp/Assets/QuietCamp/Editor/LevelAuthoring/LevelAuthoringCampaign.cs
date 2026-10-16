@@ -63,7 +63,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         internal static Dictionary<string,string> PrepareApply(LevelAuthoringDocument document,string root=Content,bool validateCampaign=true)
         {
             if (string.IsNullOrEmpty(document.sourceLevelId)) throw new InvalidOperationException("Це новий рівень. Експортуйте його окремо.");
-            var ids = ReadCards(root).Select(c => c.id).ToArray();
+            var ids = JObject.Parse(File.ReadAllText(Path.Combine(root,"campaign.json")))["campaignLevelIds"].Values<string>().ToArray();
             if (!ids.Contains(document.sourceLevelId)) throw new InvalidOperationException("Початковий рівень більше не входить до кампанії.");
             string levelPath = LevelPath(root, document.sourceLevelId);
             if (HashFile(levelPath) != document.sourceContentHash) throw new InvalidOperationException("Початковий рівень змінився. Відкрийте його заново; ваша чернетка залишається збереженою.");

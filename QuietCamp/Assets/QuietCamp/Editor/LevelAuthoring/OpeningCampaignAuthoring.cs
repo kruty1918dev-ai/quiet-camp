@@ -128,7 +128,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 LevelAuthoringPalette.EnsureDocumentModels(new[]{model});
             }
         }
-        static int Paint(LevelAuthoringWorkspace workspace,CampArtDefinition.Instance[] landmarks)
+        internal static int Paint(LevelAuthoringWorkspace workspace,CampArtDefinition.Instance[] landmarks)
         {
             int count=0;
             Undo.IncrementCurrentGroup();int group=Undo.GetCurrentGroup();

@@ -5,17 +5,18 @@ Shader "Hidden/QuietCamp/WorldOpsMask"
         Tags { "RenderPipeline"="UniversalPipeline" }
         Pass
         {
-            Cull Off ZWrite On ZTest LEqual Offset -1,-1
+            Cull Off ZWrite On ZTest LEqual
             HLSLPROGRAM
             #pragma vertex Vert
             #pragma fragment Frag
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             float _WorldOpsId;
+            float4x4 _WorldOpsVP,_WorldOpsView,_WorldOpsModel;
             struct Varyings { float4 positionCS:SV_POSITION; float eye:TEXCOORD0; };
             Varyings Vert(float4 p:POSITION)
             {
-                Varyings o;float3 world=TransformObjectToWorld(p.xyz);o.positionCS=TransformWorldToHClip(world);
-                o.eye=-TransformWorldToView(world).z;return o;
+                Varyings o;float4 world=mul(_WorldOpsModel,p);o.positionCS=mul(_WorldOpsVP,world);
+                o.eye=-mul(_WorldOpsView,world).z;return o;
             }
             float4 Frag(Varyings i):SV_Target
             {

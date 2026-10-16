@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "id": "audit-all",
+  "label": "Технічний аудит 100 рівнів — без художнього приймання",
+  "capture": false,
+  "autoApply": false,
+  "operations": [{"id": "audit", "kind": "audit"}],
+  "criteria": {"autoRepair": false, "requireVisualReview": true, "profiles": ["portrait", "landscape"], "quality": 2}
+}

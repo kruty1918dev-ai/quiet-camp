@@ -23,12 +23,13 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 if(command=="run")
                 {
                     if(SessionState.GetBool("QuietCamp.NativeTestsRunning",false)||File.Exists(Path.Combine(WorldOpsService.EditorProject,"Temp/ai/qc007-art-request.json")))throw new InvalidOperationException("Another native verification job is active.");
-                    WorldOpsService.Start(WorldOpsStorage.Read<WorldRecipe>((string)request["recipe"]),(string)request["repositoryProject"]);
+                    WorldOpsService.Start(WorldOpsStorage.Read<WorldRecipe>((string)request["recipe"]),(string)request["repositoryProject"],request["agentDelivery"]?.Value<bool>()??false,request["preexistingDirtyPaths"]?.ToObject<string[]>());
                 }
                 else if(command=="resume")WorldOpsService.Resume((string)request["runId"]);
                 else if(command=="cancel")WorldOpsService.Cancel();
                 else if(command=="review")WorldOpsService.Submit(WorldOpsStorage.Read<ReviewVerdict>((string)request["verdict"]));
                 else if(command=="rollback")WorldOpsService.Rollback((string)request["levelId"]);
+                else if(command=="delivery"||command=="verify-publication")WorldOpsService.PrepareDelivery(command=="verify-publication");
                 else if(command=="apply")
                 {var run=WorldOpsService.Current??throw new InvalidOperationException("No run.");foreach(var item in run.levels.FindAll(l=>l.status=="ready"))WorldOpsService.Apply(item);}
                 else if(command!="status")throw new ArgumentException("Unknown WorldOps command.");

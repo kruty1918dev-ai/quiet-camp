@@ -18,7 +18,17 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         {
             path=Path.GetFullPath(path);Directory.CreateDirectory(Path.GetDirectoryName(path));string pending=path+".worldops-pending";
             using(var stream=new FileStream(pending,FileMode.Create,FileAccess.Write,FileShare.None)){stream.Write(bytes,0,bytes.Length);stream.Flush(true);}
-            if(File.Exists(path))File.Replace(pending,path,null);else File.Move(pending,path);
+            for(int attempt=0;;attempt++)
+            {
+                try{if(File.Exists(path))File.Replace(pending,path,null);else File.Move(pending,path);break;}
+                catch(IOException e)
+                {
+                    // Windows indexers and a simultaneous status reader can briefly hold a file.
+                    // Keep replacement atomic; never fall back to truncating the destination.
+                    if(attempt>=8)throw new IOException("Atomic replacement failed: "+path,e);
+                    System.Threading.Thread.Sleep(5);
+                }
+            }
         }
         public static void Write(string path,string value)=>Write(path,new UTF8Encoding(false).GetBytes(value));
         public static void Json(string path,object value)=>Write(path,JsonConvert.SerializeObject(value,Formatting.Indented));
@@ -40,12 +50,15 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
     [Serializable] public sealed class WorldJournal
     {
         public int version=1;
-        public string id,state="prepared",error;
+        public string id,state="prepared",error,integrity;
         public List<WorldWrite> writes=new List<WorldWrite>();
         public Dictionary<string,string> preconditions=new Dictionary<string,string>();
     }
     public static class WorldOpsTransaction
     {
+        static string Integrity(WorldJournal j)=>WorldOpsStorage.Digest(new{j.version,j.id,j.writes,j.preconditions});
+        static WorldJournal Read(string path)
+        {var j=WorldOpsStorage.Read<WorldJournal>(path);if(j.version!=1||j.integrity!=Integrity(j))throw new InvalidDataException("Damaged transaction journal.");return j;}
         public static WorldJournal Prepare(string directory,Dictionary<string,string> writes,Dictionary<string,string> preconditions,IEnumerable<string> roots)
         {
             var journal=new WorldJournal{id=Guid.NewGuid().ToString("N"),preconditions=new Dictionary<string,string>(preconditions)};
@@ -61,12 +74,12 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 if(File.Exists(path))WorldOpsStorage.Write(item.backup,File.ReadAllBytes(path));
                 WorldOpsStorage.Write(item.prepared,pair.Value);journal.writes.Add(item);
             }
-            WorldOpsStorage.Json(Path.Combine(directory,"journal.json"),journal);return journal;
+            journal.integrity=Integrity(journal);WorldOpsStorage.Json(Path.Combine(directory,"journal.json"),journal);return journal;
         }
         public static void Commit(string directory,Action<int> afterWrite=null)
         {
-            string path=Path.Combine(directory,"journal.json");var journal=WorldOpsStorage.Read<WorldJournal>(path);
-            if(journal.state=="committed")return;
+            string path=Path.Combine(directory,"journal.json");var journal=Read(path);
+            if(journal.state=="committed"){WorldOpsStorage.Check(journal.writes.ToDictionary(w=>w.path,w=>w.afterHash));return;}
             if(journal.state!="prepared"&&journal.state!="committing")throw new IOException("Transaction is not commit-ready.");
             // Verify the entire group first. A resumed half-write accepts exactly its own bytes.
             foreach(var item in journal.writes)
@@ -92,7 +105,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         }
         public static void Rollback(string directory)
         {
-            string path=Path.Combine(directory,"journal.json");var journal=WorldOpsStorage.Read<WorldJournal>(path);
+            string path=Path.Combine(directory,"journal.json");var journal=Read(path);
             if(journal.state=="rolled-back")return;
             // No changes at all if even one target contains later user work.
             foreach(var item in journal.writes)
@@ -108,6 +121,12 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 else WorldOpsStorage.Write(item.path,File.ReadAllBytes(item.backup));
             }
             journal.state="rolled-back";WorldOpsStorage.Json(path,journal);
+        }
+        public static Dictionary<string,string> VerifyCommitted(string directory)
+        {
+            var journal=Read(Path.Combine(directory,"journal.json"));
+            if(journal.state!="committed")throw new InvalidDataException("The transaction is not committed.");
+            var files=journal.writes.ToDictionary(w=>w.path,w=>w.afterHash);WorldOpsStorage.Check(files);return files;
         }
     }
 }

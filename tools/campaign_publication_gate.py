@@ -1,4 +1,4 @@
-"""Read-only acceptance gate for the 100 native campaign compositions."""
+"""WorldOps publication gate; historical round inspection remains an explicit read-only audit."""
 import hashlib,json
 from campaign_capture_receipt import current
 from pathlib import Path
@@ -43,5 +43,9 @@ def require_review(final_round):
 
 if __name__=='__main__':
     import argparse
-    p=argparse.ArgumentParser();p.add_argument('--round',required=True);a=p.parse_args()
-    print('Inspected correction cycles:',require_review(a.round))
+    import subprocess,sys
+    p=argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--legacy-round',help='Inspect an archived seven-cycle package; never publish it')
+    p.add_argument('--project',type=Path,default=QA);a=p.parse_args()
+    if a.legacy_round:print('Archived inspected correction cycles:',require_review(a.legacy_round))
+    else:raise SystemExit(subprocess.call([sys.executable,str(Path(__file__).with_name('qc_world.py')),'--project',str(a.project),'verify-publication']))

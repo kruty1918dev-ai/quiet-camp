@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "id": "pilot-contact",
+  "label": "Пілот: опори головних об’єктів",
+  "orders": [9,17,75],
+  "autoApply": true,
+  "maxRepairRounds": 5,
+  "operations": [{"id": "ground-primary", "kind": "building.ground", "selector": {"primaryOnly": true}, "parameters": {"maximumBurial": 0.04}}],
+  "criteria": {"autoRepair": true, "requireVisualReview": true, "profiles": ["portrait", "landscape"], "quality": 2}
+}

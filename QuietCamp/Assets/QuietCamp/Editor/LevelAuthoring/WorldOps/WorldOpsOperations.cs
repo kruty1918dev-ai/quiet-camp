@@ -10,12 +10,15 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
 {
     public static class WorldOpsOperations
     {
-        public static readonly string[] Kinds={"audit","vegetation.redistribute","vegetation.scale","vegetation.preset","building.move","building.ground","building.refresh-model","model.age","model.simplify","path.upsert","path.remove","atmosphere.preset","river.edit","terrain.stamp"};
+        public static readonly string[] Kinds={"audit","camera.frame","vegetation.redistribute","vegetation.scale","vegetation.preset","building.move","building.ground","building.refresh-model","model.age","model.simplify","path.upsert","path.remove","atmosphere.preset","river.edit","terrain.stamp"};
         public static void Validate(WorldRecipe recipe)
         {
             if(recipe==null||recipe.version!=1||string.IsNullOrWhiteSpace(recipe.id)||recipe.maxRepairRounds<1||recipe.maxRepairRounds>5)throw new ArgumentException("Invalid WorldOps recipe/version/repair budget.");
+            if(recipe.levelIds==null||recipe.orders==null)throw new ArgumentException("Level selections must be arrays.");
             if(recipe.criteria==null||recipe.criteria.profiles==null||recipe.criteria.profiles.Length==0||recipe.criteria.profiles.Any(p=>p!="portrait"&&p!="landscape"))throw new ArgumentException("Expected portrait/landscape capture profiles.");
             if(recipe.operations==null||recipe.operations.Any(o=>o==null||string.IsNullOrWhiteSpace(o.id)||!Kinds.Contains(o.kind)||o.parameters==null||o.selector==null)||recipe.operations.Select(o=>o.id).Distinct().Count()!=recipe.operations.Length)throw new ArgumentException("Operations need unique IDs and allow-listed kinds.");
+            if(recipe.operations.Any(o=>o.selector.ids==null||o.selector.modelIds==null||o.selector.roles==null))throw new ArgumentException("Object selectors must use arrays.");
+            if(!recipe.capture&&(recipe.autoApply||recipe.criteria.autoRepair||recipe.operations.Any(o=>o.kind!="audit")))throw new ArgumentException("Skipping capture is allowed only for a read-only technical audit without repairs.");
             if(!Finite(recipe.criteria.contactTolerance)||recipe.criteria.contactTolerance<=0||recipe.criteria.contactTolerance>.1f||!Finite(recipe.criteria.minimumCellPixels)||recipe.criteria.minimumCellPixels<24||!Finite(recipe.criteria.maximumCentreError)||recipe.criteria.maximumCentreError<=0||recipe.criteria.maximumCentreError>2||recipe.criteria.quality<0||recipe.criteria.quality>3)throw new ArgumentException("Invalid acceptance limits.");
             foreach(var op in recipe.operations)
                 foreach(var token in op.parameters.DescendantsAndSelf().OfType<JValue>())
@@ -29,7 +32,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             if(model.seasonalRole=="groundcover"||model.shading=="foliage")return "vegetation";
             return "prop";
         }
-        public static bool Generated(string id)=>new[]{"vegetation/","regrowth/","overgrowth/","worldops/"}.Any(p=>(id??"").StartsWith(p,StringComparison.Ordinal));
+        public static bool Generated(string id)=>new[]{"cover/","vegetation/","regrowth/","overgrowth/","worldops/"}.Any(p=>(id??"").StartsWith(p,StringComparison.Ordinal));
         public static WorldObjectRecord Record(LevelAuthoringDocument d,string id,bool create=false)
         {
             var existing=d.worldOps?.objects.FirstOrDefault(r=>r.id==id);
@@ -40,15 +43,17 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         public static CampArtDefinition.Instance[] Select(LevelAuthoringDocument d,WorldSelector selector)
         {
             var models=d.art.models.ToDictionary(m=>m.id);
+            var records=(d.worldOps?.objects??new List<WorldObjectRecord>()).ToDictionary(r=>r.id);
             return d.art.instances.Where(p=>
             {
-                if(p.modelId==null||!models.TryGetValue(p.modelId,out var m)||Record(d,p.id)?.pinned==true)return false;
+                records.TryGetValue(p.id,out var record);
+                if(p.modelId==null||!models.TryGetValue(p.modelId,out var m)||record?.pinned==true)return false;
                 bool explicitId=selector.ids.Contains(p.id)||selector.primaryOnly&&p.id==d.art.primaryLandmarkInstanceId;
                 if(selector.ids.Length>0&&!selector.ids.Contains(p.id))return false;
                 if(selector.primaryOnly&&p.id!=d.art.primaryLandmarkInstanceId)return false;
                 if(selector.modelIds.Length>0&&!selector.modelIds.Contains(m.sourceModelId??m.id)&&!selector.modelIds.Contains(m.id))return false;
                 if(selector.roles.Length>0&&!selector.roles.Contains(Role(d.art,p,m)))return false;
-                return explicitId||!selector.generatedOnly||Generated(p.id)||Record(d,p.id)?.owner=="generated";
+                return explicitId||!selector.generatedOnly||Generated(p.id)||record?.owner=="generated";
             }).ToArray();
         }
         static float Number(JObject p,string key,float fallback,float min,float max)
@@ -58,6 +63,13 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             if(!Kinds.Contains(op.kind))throw new ArgumentException("Unsupported operation: "+op.kind);
             var p=op.parameters;
             if(op.kind=="audit")return;
+            if(op.kind=="camera.frame")
+            {
+                d.art.frameGameplayBoard=true;d.art.gameplayCameraMargin=Number(p,"margin",d.art.gameplayCameraMargin,1.02f,3);
+                if(p["euler"]!=null)
+                {var e=p["euler"].ToObject<float[]>();if(e.Length!=3||e.Any(v=>!Finite(v)))throw new ArgumentException("Invalid camera Euler angles.");d.art.cameraEuler=e;}
+                return;
+            }
             if(op.kind=="atmosphere.preset"){SeasonAtmosphereAuthoring.Apply(d,SeasonAtmosphereCatalog.Get((string)p["preset"]));return;}
             if(op.kind=="vegetation.preset"){VegetationAuthoring.Apply(d,VegetationAuthoring.Presets.Single(x=>x.id==(string)p["preset"]),seed);return;}
             if(op.kind=="path.upsert"){UpsertPath(d,op);return;}
@@ -86,6 +98,8 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 d.terrain.Validate();return;
             }
             var chosen=Select(d,op.selector);var models=d.art.models.ToDictionary(m=>m.id);
+            var records=(d.worldOps?.objects??new List<WorldObjectRecord>()).ToDictionary(r=>r.id);
+            WorldObjectRecord Find(string id)=>records.TryGetValue(id,out var value)?value:null;
             if(op.kind=="building.move")
             {
                 var affected=new HashSet<string>();
@@ -93,9 +107,11 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 {
                     var rotation=Quaternion.Euler(0,Number(p,"yaw",0,-180,180),0);
                     var origin=new Vector3(root.x,root.y,root.z);var shift=new Vector3(Number(p,"dx",0,-100,100),Number(p,"dy",0,-20,20),Number(p,"dz",0,-100,100));
-                    foreach(var item in d.art.instances.Where(i=>i.id==root.id||Record(d,i.id)?.ensembleId==root.id||i.id.StartsWith("overgrowth/"+root.id+"/",StringComparison.Ordinal)||i.id.StartsWith(root.id+"/craft/",StringComparison.Ordinal)))
+                    var ensemble=d.art.instances.Where(i=>i.id==root.id||Find(i.id)?.ensembleId==root.id||Find(i.id)?.support=="object:"+root.id||i.id.StartsWith("overgrowth/"+root.id+"/",StringComparison.Ordinal)||i.id.StartsWith(root.id+"/craft/",StringComparison.Ordinal)).ToArray();
+                    if(ensemble.Any(i=>Find(i.id)?.pinned==true))throw new InvalidOperationException("A pinned ensemble member prevents moving the group.");
+                    foreach(var item in ensemble)
                     {
-                        if(!affected.Add(item.id)||Record(d,item.id)?.pinned==true)continue;
+                        if(!affected.Add(item.id))continue;
                         var at=origin+shift+rotation*(new Vector3(item.x,item.y,item.z)-origin);item.x=at.x;item.y=at.y;item.z=at.z;
                         var old=item.rotationEuler==null?Quaternion.Euler(0,item.yaw,0):Quaternion.Euler(CampArtDefinition.Vector(item.rotationEuler));
                         var e=(rotation*old).eulerAngles;item.yaw=e.y;item.rotationEuler=new[]{e.x,e.y,e.z};
@@ -104,14 +120,33 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 }
                 AuthoringWeatherExposure.Bake(d);return;
             }
+            float spacing=op.kind=="vegetation.redistribute"?Number(p,"spacing",.18f,.02f,3):.18f;
+            var occupied=new Dictionary<Vector2Int,List<CampArtDefinition.Instance>>();
+            Vector2Int Cell(float x,float z)=>new Vector2Int(Mathf.FloorToInt(x/spacing),Mathf.FloorToInt(z/spacing));
+            void Occupy(CampArtDefinition.Instance item){var cell=Cell(item.x,item.z);if(!occupied.TryGetValue(cell,out var list)){list=new List<CampArtDefinition.Instance>();occupied.Add(cell,list);}list.Add(item);}
+            bool Near(float x,float z,string id)
+            {
+                var cell=Cell(x,z);
+                for(int dx=-1;dx<=1;dx++)for(int dz=-1;dz<=1;dz++)
+                    if(occupied.TryGetValue(cell+new Vector2Int(dx,dz),out var list)&&list.Any(i=>i.id!=id&&(new Vector2(i.x-x,i.z-z)).sqrMagnitude<spacing*spacing))return true;
+                return false;
+            }
+            var river=op.kind=="vegetation.redistribute"?new RiverSurfaceField(d.art.landscape):null;
+            if(river!=null)foreach(var instance in d.art.instances.Where(i=>i.modelId!=null&&models.TryGetValue(i.modelId,out var m)&&(Role(d.art,i,m)=="vegetation"||Role(d.art,i,m)=="tree")))Occupy(instance);
             foreach(var item in chosen)
             {
                 var m=models[item.modelId];
+                if(op.kind.StartsWith("vegetation.",StringComparison.Ordinal)&&item.id.StartsWith("overgrowth/",StringComparison.Ordinal)&&!op.selector.ids.Contains(item.id))continue;
                 if(op.kind=="building.ground")
                 {
+                    if(Role(d.art,item,m)=="vegetation"||Role(d.art,item,m)=="tree")
+                    {item.y=d.art.GroundHeight(item.x,item.z)+item.surfaceOffset;item.surfaceAttached=true;continue;}
                     var record=Record(d,item.id,true);record.support=(string)p["support"]??record.support;
                     record.maximumBurial=Number(p,"maximumBurial",record.maximumBurial,0,2);
-                    WorldOpsGeometry.Ground(d,item,m,record);continue;
+                    float previousY=item.y;WorldOpsGeometry.Ground(d,item,m,record);float shift=item.y-previousY;
+                    foreach(var child in d.art.instances.Where(i=>i.id!=item.id&&(Find(i.id)?.ensembleId==item.id||Find(i.id)?.support=="object:"+item.id||i.id.StartsWith("overgrowth/"+item.id+"/",StringComparison.Ordinal)||i.id.StartsWith(item.id+"/craft/",StringComparison.Ordinal))))
+                    {if(Find(child.id)?.pinned==true)throw new InvalidOperationException("A pinned ensemble member prevents grounding the group.");child.y+=shift;child.surfaceOffset=child.y-d.art.GroundHeight(child.x,child.z);}
+                    continue;
                 }
                 if(op.kind=="vegetation.scale")
                 {
@@ -128,8 +163,9 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                     for(int attempt=0;attempt<12;attempt++)
                     {
                         float px=x+((float)random.NextDouble()*2-1)*radius,pz=z+((float)random.NextDouble()*2-1)*radius;
-                        if(WorldOpsGeometry.Protected(d,px,pz)||new RiverSurfaceField(d.art.landscape).TrySample(px,pz,out _))continue;
-                        item.x=px;item.z=pz;item.y=d.art.GroundHeight(px,pz)+item.surfaceOffset;break;
+                        if(WorldOpsGeometry.ProtectedPlant(d,px,pz)||river.TrySample(px,pz,out var water)&&water.Wet||Near(px,pz,item.id))continue;
+                        occupied[Cell(item.x,item.z)].Remove(item);
+                        item.x=px;item.z=pz;item.y=d.art.GroundHeight(px,pz)+item.surfaceOffset;Occupy(item);break;
                     }
                     continue;
                 }
@@ -147,6 +183,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 }
             }
             d.art.models=models.Values.ToArray();
+            if(op.kind=="building.ground"&&chosen.Length>0)AuthoringWeatherExposure.Bake(d);
         }
         internal static int Stable(string text){unchecked{int h=17;foreach(char c in text??"")h=h*31+c;return h;}}
         static void UpsertPath(LevelAuthoringDocument d,WorldOperation op)
@@ -159,15 +196,26 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             var vertices=new List<float>();var normals=new List<float>();var colors=new List<int>();
             void Triangle(Vector3 a,Vector3 b,Vector3 c)
             {foreach(var v in new[]{a,b,c}){vertices.AddRange(new[]{v.x,v.y,v.z});normals.AddRange(new[]{0f,1f,0f});colors.Add(path.color);}}
+            var controls=path.points.Select(point=>new Vector2(point[0],point[1])).ToArray();
+            Vector2 Side(int index)
+            {
+                Vector2 previous=(controls[Math.Max(0,index-1)]-controls[index]).normalized;
+                Vector2 next=(controls[Math.Min(controls.Length-1,index+1)]-controls[index]).normalized;
+                if(index==0)previous=-next;if(index==controls.Length-1)next=-previous;
+                var incoming=new Vector2(previous.y,-previous.x);var outgoing=new Vector2(-next.y,next.x);
+                var bisector=(incoming+outgoing).normalized;float denominator=Vector2.Dot(bisector,outgoing);
+                if(denominator<.3f)throw new InvalidOperationException("A path corner reverses too sharply; add a wider bend.");
+                return bisector*(path.width*.5f/denominator);
+            }
             for(int segment=1;segment<path.points.Length;segment++)
             {
                 var a=new Vector2(path.points[segment-1][0],path.points[segment-1][1]);var b=new Vector2(path.points[segment][0],path.points[segment][1]);
                 if(Vector2.Distance(a,b)<.01f)throw new ArgumentException("Duplicate path point.");
-                var side=new Vector2(-(b-a).y,(b-a).x).normalized*path.width*.5f;int steps=Mathf.CeilToInt(Vector2.Distance(a,b)/.3f);
-                Vector3 At(float t,float sign){var xz=Vector2.Lerp(a,b,t)+side*sign;if(Protected(d,xz.x,xz.y))throw new InvalidOperationException("Decorative paths cannot clear the puzzle field.");return new Vector3(xz.x,d.art.GroundHeight(xz.x,xz.y)+.008f,xz.y);}
-                for(int k=0;k<steps;k++){float t=(float)k/steps,u=(float)(k+1)/steps;var l=At(t,-1);var r=At(t,1);var nl=At(u,-1);var nr=At(u,1);Triangle(l,nl,r);Triangle(r,nl,nr);}
+                var sideA=Side(segment-1);var sideB=Side(segment);int steps=Mathf.CeilToInt(Vector2.Distance(a,b)/.3f);
+                Vector3 At(float t,float sign){var xz=Vector2.Lerp(a,b,t)+Vector2.Lerp(sideA,sideB,t)*sign;if(Protected(d,xz.x,xz.y))throw new InvalidOperationException("Decorative paths cannot clear the puzzle field.");return new Vector3(xz.x,d.art.GroundHeight(xz.x,xz.y)+.008f,xz.y);}
+                for(int k=0;k<steps;k++){float t=(float)k/steps,u=(float)(k+1)/steps;var l=At(t,-1);var r=At(t,1);var nl=At(u,-1);var nr=At(u,1);Triangle(l,r,nl);Triangle(r,nr,nl);}
             }
-            var model=new CampArtDefinition.Model{id="worldops_path_"+Stable(path.id).ToString("x8"),shading="solid",seasonalRole="solid",vertices=vertices.ToArray(),normals=normals.ToArray(),colors=colors.ToArray()};
+            var model=new CampArtDefinition.Model{id="worldops_path_"+WorldOpsStorage.Hash(path.id).Substring(0,24),shading="solid",seasonalRole="solid",vertices=vertices.ToArray(),normals=normals.ToArray(),colors=colors.ToArray()};
             string instance="worldops/path/"+path.id;
             d.art.models=d.art.models.Where(m=>m.id!=model.id).Concat(new[]{model}).ToArray();
             d.art.instances=d.art.instances.Where(i=>i.id!=instance).Concat(new[]{new CampArtDefinition.Instance{id=instance,modelId=model.id,scale=1,surfaceAttached=false}}).ToArray();

@@ -29,6 +29,20 @@ namespace QuietCamp.Presentation.World
         public SeasonAtmosphereView SeasonAtmosphere {get;private set;}
         public FrozenLandscape PresentedLandscape {get;private set;}
         public RiverReflectionView RiverReflections {get;private set;}
+#if UNITY_EDITOR
+        Mesh _primaryPresentedMesh;
+        Matrix4x4 _primaryPresentedMatrix;
+        Transform _primaryMovingTransform;
+        // Diagnostics consume exactly the mesh/pose used to build the live batch,
+        // including seasonal geometry and river presentation offsets.
+        public bool TryGetPrimaryPresentedGeometry(out Mesh mesh,out Matrix4x4 matrix)
+        {
+            mesh=_primaryPresentedMesh;
+            matrix=_primaryMovingTransform!=null?_primaryMovingTransform.localToWorldMatrix:
+                (_root!=null?_root.transform.localToWorldMatrix:Matrix4x4.identity)*_primaryPresentedMatrix;
+            return mesh!=null;
+        }
+#endif
 
         public void Configure(CampArtDefinition definition, LevelData level, Transform parent, AssetCatalog catalog, bool excludeLandscape = false)
         {
@@ -89,6 +103,9 @@ namespace QuietCamp.Presentation.World
                     var moving=AddMesh("Scenery_"+item.id,catalogMeshes[item.modelId],material);
                     moving.transform.localPosition=position;moving.transform.localRotation=rotation;moving.transform.localScale=scale;
                     moving.gameObject.AddComponent<WeatherObjectMotion>().Configure(item);
+#if UNITY_EDITOR
+                    if(item.id==definition.primaryLandmarkInstanceId)_primaryMovingTransform=moving.transform;
+#endif
                 }
                 else if (!string.IsNullOrEmpty(item.assetId))
                 {
@@ -112,6 +129,10 @@ namespace QuietCamp.Presentation.World
                     }
                     else (model.shading=="foliage"?foliageBatches:batches).Add(batch);
                 }
+#if UNITY_EDITOR
+                if(item.id==definition.primaryLandmarkInstanceId&&item.modelId!=null)
+                {_primaryPresentedMesh=catalogMeshes[item.modelId];_primaryPresentedMatrix=Matrix4x4.TRS(position,rotation,scale);}
+#endif
             }
             var combined = new Mesh { name = "Authored camp trees, reeds and bridge", indexFormat = IndexFormat.UInt32 };
             combined.CombineMeshes(batches.ToArray(), true, true); _meshes.Add(combined);
@@ -385,6 +406,9 @@ namespace QuietCamp.Presentation.World
         { Triangle(vertices, colors, a, b, c, color); Triangle(vertices, colors, a, c, d, color); }
         public void Release()
         {
+#if UNITY_EDITOR
+            _primaryPresentedMesh=null;_primaryMovingTransform=null;
+#endif
             _blur?.Dispose(); _blur = null;
             if (_root != null) DestroyOwned(_root); _root = null;
             foreach (var mesh in _meshes) if (mesh != null) DestroyOwned(mesh); _meshes.Clear();

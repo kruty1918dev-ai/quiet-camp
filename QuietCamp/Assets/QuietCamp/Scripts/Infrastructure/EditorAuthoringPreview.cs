@@ -11,7 +11,17 @@ namespace QuietCamp.Infrastructure
     // Only explicit authoring requests activate this boundary. Never included in a player.
     public static class EditorAuthoringPreview
     {
-        [Serializable] public sealed class Request { public LevelData level; public CampArtDefinition art; public bool campaign; public string campaignArtDirectory; }
+        [Serializable] public sealed class Request { public LevelData level; public CampArtDefinition art; public bool campaign,controlledCapture; public string campaignArtDirectory; }
+        public static bool CaptureClockRunning {get;set;}
+        public static bool ControlledCapture=>Active&&Current.controlledCapture;
+        public static float CaptureDelta=>CaptureClockRunning?1f/30:0;
+        public static void SwitchCampaignCapture(LevelData level,CampArtDefinition art,string directory)
+        {
+            if(!CampaignPreview||!ControlledCapture||!Path.IsPathRooted(directory)||!Directory.Exists(directory))throw new InvalidOperationException("Only the controlled memory preview can switch capture inputs.");
+            var next=new Request{level=level,art=art,campaign=true,controlledCapture=true,campaignArtDirectory=directory};
+            string pending=RequestPath+".pending";File.WriteAllText(pending,JsonConvert.SerializeObject(next));File.Replace(pending,RequestPath,null);
+            _request=next;CaptureClockRunning=false;
+        }
         public static string RequestPath => Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, "../Temp/ai/level-authoring-preview.json"));
         static Request _request;
         const string EnabledKey = "QuietCamp.Authoring.PreviewEnabled";
@@ -30,7 +40,7 @@ namespace QuietCamp.Infrastructure
             if (!MatchesArt(id)) return null;
             return JsonConvert.DeserializeObject<CampArtDefinition>(File.ReadAllText(Path.Combine(Current.campaignArtDirectory, id.Replace(':', '_') + ".json")));
         }
-        public static void Reset() => _request = null;
+        public static void Reset(){_request=null;CaptureClockRunning=false;}
         public static SaveAdapter CreateSave()
         {
             var save = new SaveAdapter(memoryOnly: true);

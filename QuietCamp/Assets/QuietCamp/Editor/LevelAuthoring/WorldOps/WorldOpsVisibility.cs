@@ -12,7 +12,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
 {
     public static class WorldOpsVisibility
     {
-        public static List<ValidationFinding> Project(Camera camera,CampArtDefinition art,Rect gameplay,WorldCriteria criteria)
+        public static List<ValidationFinding> Project(Camera camera,CampArtDefinition art,Rect gameplay,WorldCriteria criteria,Vector3[] primaryWorldVertices=null)
         {
             var result=new List<ValidationFinding>();
             void Add(string code,string obj,string message,float measured=0,float limit=0)=>result.Add(new ValidationFinding{code=code,levelId=art.levelId,objectId=obj,message=message,measured=measured,limit=limit});
@@ -23,7 +23,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             var p=art.instances.FirstOrDefault(x=>x.id==art.primaryLandmarkInstanceId);var m=art.models.FirstOrDefault(x=>x.id==p?.modelId);
             if(p!=null&&m!=null)
             {
-                var vertices=WorldOpsGeometry.Vertices(p,m).Select(camera.WorldToViewportPoint).ToArray();
+                var vertices=(primaryWorldVertices??WorldOpsGeometry.Vertices(p,m)).Select(camera.WorldToViewportPoint).ToArray();
                 int outside=vertices.Count(v=>v.z<=0||v.x<gameplay.xMin||v.x>gameplay.xMax||v.y<gameplay.yMin||v.y>gameplay.yMax);
                 if(outside>0)Add("landmark.clipped",p.id,"Transformed primary geometry is clipped by the frame or the gameplay UI boundary.",outside,0);
             }
@@ -37,6 +37,52 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             }
             return result;
         }
+        public static void RenderMask(Camera camera,Mesh primary,Matrix4x4 matrix,Material material,RenderTexture target,bool isolated)
+        {
+            using(var cmd=new CommandBuffer{name="WorldOps ID/depth diagnostics"})
+            {
+                cmd.SetRenderTarget(target);cmd.ClearRenderTarget(true,true,Color.black);
+                // SetViewProjectionMatrices is not a supported URP camera boundary.
+                // Diagnostic uniforms must not inherit the last Game/Scene View globals.
+                cmd.SetGlobalMatrix("_WorldOpsVP",GL.GetGPUProjectionMatrix(camera.projectionMatrix,true)*camera.worldToCameraMatrix);
+                cmd.SetGlobalMatrix("_WorldOpsView",camera.worldToCameraMatrix);
+                if(!isolated)
+                {
+                    foreach(var renderer in UnityEngine.Object.FindObjectsByType<MeshRenderer>(FindObjectsSortMode.None).Where(r=>r.enabled&&r.gameObject.activeInHierarchy&&(camera.cullingMask&(1<<r.gameObject.layer))!=0))
+                    {
+                        var filter=renderer.GetComponent<MeshFilter>();if(filter?.sharedMesh==null)continue;
+                        var sources=renderer.sharedMaterials;
+                        for(int sub=0;sub<filter.sharedMesh.subMeshCount;sub++)
+                        {
+                            var source=sources.Length==0?null:sources[Math.Min(sub,sources.Length-1)];
+                            if(source==null||source.renderQueue>(int)RenderQueue.GeometryLast||source.HasProperty("_ZWrite")&&source.GetFloat("_ZWrite")==0)continue;
+                            var properties=new MaterialPropertyBlock();properties.SetFloat("_WorldOpsId",0);properties.SetMatrix("_WorldOpsModel",renderer.localToWorldMatrix);
+                            cmd.DrawMesh(filter.sharedMesh,Matrix4x4.identity,material,sub,0,properties);
+                        }
+                    }
+                }
+                if(isolated)
+                {
+                    var primaryProperties=new MaterialPropertyBlock();primaryProperties.SetFloat("_WorldOpsId",1);
+                    primaryProperties.SetMatrix("_WorldOpsModel",matrix);cmd.DrawMesh(primary,Matrix4x4.identity,material,0,0,primaryProperties);
+                }
+                Graphics.ExecuteCommandBuffer(cmd);
+            }
+        }
+        public static int ComposeVisibility(Color32[] scene,Color32[] isolated)
+        {
+            if(scene.Length!=isolated.Length)throw new ArgumentException("Visibility buffers have different dimensions.");
+            int visible=0;
+            for(int i=0;i<scene.Length;i++)
+            {
+                var a=scene[i];var b=isolated[i];int depth=a.g*256+a.b,primaryDepth=b.g*256+b.b;
+                // 16-bit eye depth over 512 m: two quantization units (15.6 mm)
+                // accommodate CPU-baked versus GPU-transformed coplanar geometry.
+                bool survives=b.r>127&&(depth==0||primaryDepth<=depth+2);
+                a.r=survives?(byte)255:(byte)0;scene[i]=a;if(survives)visible++;
+            }
+            return visible;
+        }
         // Diagnostic render only. Beauty PNGs always come from ScreenCapture/Game View.
         public static void Capture(string path,WorldCriteria criteria)
         {
@@ -44,44 +90,49 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             if(camera==null||view?.Definition==null)throw new InvalidOperationException("The real gameplay camera is required.");
             var art=view.Definition;var viewport=camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>();
             var rect=viewport!=null?viewport.Frame.NormalizedGameplay:new Rect(0,0,1,1);
-            var findings=Project(camera,art,rect,criteria);
             var primary=art.instances.SingleOrDefault(i=>i.id==art.primaryLandmarkInstanceId);var model=art.models.SingleOrDefault(m=>m.id==primary?.modelId);
-            if(primary==null||model==null){WorldOpsStorage.Json(path+".diagnostics.json",new{kind="diagnostic-only",findings,mask=false});return;}
+            if(primary==null||model==null){WorldOpsStorage.Json(path+".diagnostics.json",new{kind="diagnostic-only",findings=Project(camera,art,rect,criteria),mask=false});return;}
+            if(!view.TryGetPrimaryPresentedGeometry(out var mesh,out var primaryMatrix))throw new InvalidOperationException("The live primary mesh is unavailable; source geometry cannot substitute for it.");
+            var worldVertices=mesh.vertices.Select(primaryMatrix.MultiplyPoint3x4).ToArray();
+            var findings=Project(camera,art,rect,criteria,worldVertices);
             var shader=Shader.Find("Hidden/QuietCamp/WorldOpsMask");if(shader==null)throw new InvalidOperationException("WorldOps diagnostic shader was not imported.");
             var material=new Material(shader){hideFlags=HideFlags.HideAndDontSave};
-            var mesh=new Mesh{indexFormat=IndexFormat.UInt32,name="WorldOps primary diagnostic"};
-            mesh.vertices=WorldOpsGeometry.Vertices(primary,model);mesh.triangles=Enumerable.Range(0,mesh.vertexCount).ToArray();mesh.RecalculateBounds();
-            int width=Screen.width,height=Screen.height,remaining=2,visible=0,potential=0;string error=null;
+            int width=Screen.width,height=Screen.height,remaining=2,visible=0,potential=0;string error=null;Color32[] scenePixels=null,isolatedPixels=null;
             void Finish()
             {
                 if(--remaining>0)return;
+                if(error==null)
+                {
+                    visible=ComposeVisibility(scenePixels,isolatedPixels);potential=isolatedPixels.Count(p=>p.r>127);
+                    void Write(Color32[] colors,string suffix)
+                    {
+                        var texture=new Texture2D(width,height,TextureFormat.RGBA32,false,true);
+                        try
+                        {
+                            if(SystemInfo.graphicsUVStartsAtTop)
+                            {var oriented=new Color32[colors.Length];for(int row=0;row<height;row++)Array.Copy(colors,row*width,oriented,(height-1-row)*width,width);colors=oriented;}
+                            texture.SetPixels32(colors);texture.Apply();File.WriteAllBytes(path+suffix,texture.EncodeToPNG());
+                        }
+                        finally{UnityEngine.Object.DestroyImmediate(texture);}
+                    }
+                    try{Write(scenePixels,".id-depth.png");Write(isolatedPixels,".isolated.png");}catch(Exception e){error=e.Message;}
+                }
                 if(error==null&&potential>0&&visible/(float)potential<.75f)findings.Add(new ValidationFinding{code="landmark.occluded",levelId=art.levelId,objectId=primary.id,message="Less than 75% of the projected primary silhouette survives scene depth.",measured=visible/(float)potential,limit=.75f});
                 if(error!=null)findings.Add(new ValidationFinding{code="mask.readback",levelId=art.levelId,message=error});
                 WorldOpsStorage.Json(path+".diagnostics.json",new{kind="diagnostic-id-and-depth-not-gameplay",width,height,findings,visible,potential,asyncReadback=SystemInfo.supportsAsyncGPUReadback,depthRangeMetres=512});
-                UnityEngine.Object.DestroyImmediate(mesh);UnityEngine.Object.DestroyImmediate(material);
+                UnityEngine.Object.DestroyImmediate(material);
             }
             void Render(bool isolated)
             {
                 var rt=new RenderTexture(width,height,24,RenderTextureFormat.ARGB32,RenderTextureReadWrite.Linear){antiAliasing=1};rt.Create();
-                using(var cmd=new CommandBuffer{name="WorldOps ID/depth diagnostics"})
-                {
-                    cmd.SetRenderTarget(rt);cmd.ClearRenderTarget(true,true,Color.black);
-                    cmd.SetViewProjectionMatrices(camera.worldToCameraMatrix,GL.GetGPUProjectionMatrix(camera.projectionMatrix,true));
-                    if(!isolated)
-                    {
-                        cmd.SetGlobalFloat("_WorldOpsId",0);
-                        foreach(var renderer in UnityEngine.Object.FindObjectsByType<MeshRenderer>(FindObjectsSortMode.None).Where(r=>r.enabled&&r.gameObject.activeInHierarchy&&(camera.cullingMask&(1<<r.gameObject.layer))!=0))
-                        {
-                            var filter=renderer.GetComponent<MeshFilter>();if(filter?.sharedMesh==null)continue;
-                            for(int sub=0;sub<filter.sharedMesh.subMeshCount;sub++)cmd.DrawRenderer(renderer,material,sub,0);
-                        }
-                    }
-                    cmd.SetGlobalFloat("_WorldOpsId",1);cmd.DrawMesh(mesh,Matrix4x4.identity,material,0,0);Graphics.ExecuteCommandBuffer(cmd);
-                }
+                RenderMask(camera,mesh,primaryMatrix,material,rt,isolated);
                 void Save(byte[] pixels)
                 {
                     var texture=new Texture2D(width,height,TextureFormat.RGBA32,false,true);
-                    try{texture.LoadRawTextureData(pixels);texture.Apply();var colors=texture.GetPixels32();int count=colors.Count(p=>p.r>127);if(isolated)potential=count;else visible=count;File.WriteAllBytes(path+(isolated?".isolated.png":".id-depth.png"),texture.EncodeToPNG());}
+                    try
+                    {
+                        texture.LoadRawTextureData(pixels);texture.Apply();if(isolated)isolatedPixels=texture.GetPixels32();else scenePixels=texture.GetPixels32();
+                    }
                     catch(Exception e){error=e.Message;}
                     finally{UnityEngine.Object.DestroyImmediate(texture);rt.Release();UnityEngine.Object.DestroyImmediate(rt);Finish();}
                 }

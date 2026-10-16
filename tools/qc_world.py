@@ -6,6 +6,52 @@ from pathlib import Path
 import sys
 import time
 import uuid
+import hashlib
+import subprocess
+import tempfile
+
+
+def git(repo, *args):
+    return subprocess.run(['git', '-C', str(repo), *args], check=True, capture_output=True).stdout
+
+
+def dirty_paths(repo):
+    paths = set()
+    for args in [('diff', '--name-only', '-z'), ('diff', '--cached', '--name-only', '-z'),
+                 ('ls-files', '--others', '--exclude-standard', '-z')]:
+        paths.update(p.decode('utf-8') for p in git(repo, *args).split(b'\0') if p)
+    return sorted(paths)
+
+
+def deliver(proof_path, message, push):
+    proof = json.loads(proof_path.read_text(encoding='utf-8-sig'))
+    if not proof.get('agentDelivery'):
+        raise SystemExit('This run has no agent delivery baseline. UI runs never trigger Git.')
+    repo = Path(proof['repository']).resolve()
+    protected = {os.path.normcase(p) for p in proof['preexistingDirtyPaths']}
+    owned, excluded = {}, []
+    for group, files in proof['groups'].items():
+        relative = {Path(p).resolve().relative_to(repo).as_posix(): (Path(p), sha) for p, sha in files.items()}
+        if any(os.path.normcase(p) in protected for p in relative): excluded.append(group)
+        else: owned.update(relative)
+    for relative, (path, sha) in owned.items():
+        if hashlib.sha256(path.read_bytes()).hexdigest() != sha:
+            raise SystemExit('Published file changed after delivery verification: ' + relative)
+    changed = set(dirty_paths(repo))
+    paths = sorted(set(owned) & changed)
+    if not paths:
+        print(json.dumps({'delivery': 'nothing-to-commit', 'excludedGroups': excluded})); return
+    if push and git(repo, 'rev-list', '@{upstream}..HEAD').strip():
+        raise SystemExit('Unpublished commits already exist; refusing to push unrelated history.')
+    with tempfile.TemporaryDirectory(prefix='qc-world-delivery-') as temp:
+        specs = Path(temp) / 'paths'; specs.write_bytes(b''.join(p.encode('utf-8') + b'\0' for p in paths))
+        body = Path(temp) / 'message'; body.write_text(message + '\n', encoding='utf-8')
+        git(repo, 'add', '--pathspec-from-file=' + str(specs), '--pathspec-file-nul')
+        git(repo, 'commit', '--only', '--pathspec-from-file=' + str(specs), '--pathspec-file-nul', '--file=' + str(body))
+    committed = set(git(repo, 'diff-tree', '--no-commit-id', '--name-only', '-r', 'HEAD').decode('utf-8').splitlines())
+    if not committed <= set(paths): raise SystemExit('Unexpected commit ownership; push stopped.')
+    if push: git(repo, 'push')
+    print(json.dumps({'delivery': 'pushed' if push else 'committed', 'commit': git(repo, 'rev-parse', 'HEAD').decode().strip(), 'files': len(committed), 'excludedGroups': excluded}))
 
 
 def main():
@@ -16,12 +62,17 @@ def main():
     run = sub.add_parser('run')
     run.add_argument('recipe', type=Path)
     run.add_argument('--repository-project', type=Path, default=Path(__file__).resolve().parents[1] / 'QuietCamp')
+    run.add_argument('--agent-delivery', action='store_true', help='Record protected user files for later explicit delivery')
     sub.add_parser('status')
     resume = sub.add_parser('resume'); resume.add_argument('--run-id')
     sub.add_parser('cancel')
     review = sub.add_parser('review'); review.add_argument('verdict', type=Path)
     rollback = sub.add_parser('rollback'); rollback.add_argument('level_id')
     sub.add_parser('apply')
+    sub.add_parser('verify-publication')
+    delivery = sub.add_parser('deliver')
+    delivery.add_argument('--message', default='Apply reviewed QuietCamp WorldOps changes')
+    delivery.add_argument('--push', action='store_true')
     args = parser.parse_args()
     project = args.project.resolve()
     if not (project / 'Temp/UnityLockfile').exists():
@@ -29,9 +80,11 @@ def main():
     temp = project / 'Temp/ai'; temp.mkdir(parents=True, exist_ok=True)
     inbox = temp / 'qc-world-request.json'; outbox = temp / 'qc-world-result.json'
     # One writer per native bridge. Do not replace an outstanding request.
-    payload = {'requestId': uuid.uuid4().hex, 'command': args.command}
+    payload = {'requestId': uuid.uuid4().hex, 'command': 'delivery' if args.command == 'deliver' else args.command}
     if args.command == 'run':
         payload.update(recipe=str(args.recipe.resolve()), repositoryProject=str(args.repository_project.resolve()))
+        if args.agent_delivery:
+            payload.update(agentDelivery=True, preexistingDirtyPaths=dirty_paths(args.repository_project.resolve().parent))
     if args.command == 'review': payload['verdict'] = str(args.verdict.resolve())
     if args.command == 'resume': payload['runId'] = args.run_id
     if args.command == 'rollback': payload['levelId'] = args.level_id
@@ -49,6 +102,8 @@ def main():
         try: result = json.loads(outbox.read_text(encoding='utf-8-sig'))
         except (FileNotFoundError, json.JSONDecodeError): result = {}
         if result.get('requestId') == payload['requestId']:
+            if args.command == 'deliver' and result.get('status') == 'ok':
+                deliver(Path(result['path']) / 'delivery.json', args.message, args.push)
             if args.command == 'status' and result.get('path'):
                 state = json.loads((Path(result['path']) / 'run.json').read_text(encoding='utf-8-sig'))
                 counts = {}
@@ -57,7 +112,7 @@ def main():
                 result['exceptions'] = [{'id': x['levelId'], 'status': x['status'], 'error': x.get('error'),
                                          'defects': len(x.get('findings', []))}
                                         for x in state['levels'] if x['status'] in ('exception', 'conflict')]
-                result['reviewPackets'] = [str(Path(result['path']) / x['levelId'] / ('review-%s.json' % x['round']))
+                result['reviewPackets'] = [str(Path(result['path']) / x['levelId'].replace(':', '_') / ('review-%s.json' % x['round']))
                                           for x in state['levels'] if x['status'] == 'review']
             print(json.dumps(result, ensure_ascii=False, indent=2))
             return 0 if result.get('status') == 'ok' else 1

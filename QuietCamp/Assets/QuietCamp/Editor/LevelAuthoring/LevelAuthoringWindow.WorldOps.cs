@@ -13,7 +13,8 @@ namespace QuietCamp.Editor.LevelAuthoring
         bool _worldOpsOpen;
         TextAsset _worldRecipe;
         string _worldRepository;
-        public static bool WorldOpsConflict(string id)=>Resources.FindObjectsOfTypeAll<LevelAuthoringWindow>().Any(w=>w._dirty&&w.Document?.sourceLevelId==id);
+        public static bool WorldOpsConflict(string id)=>Resources.FindObjectsOfTypeAll<LevelAuthoringWindow>().Any(w=>w.Document?.sourceLevelId==id&&
+            (w._dirty||w._pendingDocument!=null||w._structureDirty||w._movedTransforms.Count>0||w._hierarchyChangedAt>=0||GUIUtility.hotControl!=0));
         public static void WorldOpsApplied(string id,string path)
         {
             foreach(var window in Resources.FindObjectsOfTypeAll<LevelAuthoringWindow>().Where(w=>w.Document?.sourceLevelId==id))
@@ -40,11 +41,11 @@ namespace QuietCamp.Editor.LevelAuthoring
                 using(new EditorGUI.DisabledScope(_worldRecipe==null||WorldOpsService.Busy||EditorApplication.isPlayingOrWillChangePlaymode))
                     if(GUILayout.Button("Запустити"))Try(()=>WorldOpsService.Start(JsonConvert.DeserializeObject<WorldRecipe>(_worldRecipe.text),_worldRepository));
                 if(run==null)return;
-                int done=run.levels.Count(x=>x.status=="applied"||x.status=="completed");
-                EditorGUILayout.LabelField($"{run.status}: {done}/{run.levels.Count} · {_worldRecipe?.name}");
+                int done=run.levels.Count(x=>!new[]{"queued","capture","baking"}.Contains(x.status));
+                EditorGUILayout.LabelField($"{run.status} · опрацьовано {done}/{run.levels.Count}");
                 if(WorldOpsService.Busy&&GUILayout.Button("Скасувати"))Try(WorldOpsService.Cancel);
                 if(!WorldOpsService.Busy&&GUILayout.Button("Продовжити"))Try(()=>WorldOpsService.Resume());
-                if(GUILayout.Button("Відкрити кадри й звіт"))EditorUtility.RevealInFinder(run.directory);
+                if(GUILayout.Button("Відкрити кадри й звіт"))UnityEngine.Application.OpenURL(new Uri(Path.Combine(run.directory,"index.html")).AbsoluteUri);
                 foreach(var item in run.levels.Where(x=>x.status=="exception"||x.status=="conflict"||x.status=="review"))
                     EditorGUILayout.HelpBox(item.levelId+" · "+item.status+"\n"+(item.error??string.Join("\n",item.findings.Take(3).Select(f=>f.code+": "+f.message))),item.status=="review"?MessageType.Info:MessageType.Warning);
             }
