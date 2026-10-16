@@ -344,6 +344,44 @@ namespace QuietCamp.Tests
                 UnityEditor.Undo.ClearUndo(native);
             }
         }
+        [TestCase("forest-regrowth")][TestCase("opening-details")][TestCase("campaign-regenerate")][TestCase("season-variant")]
+        public void LegacyAgentMutationCannotBypassWorldOps(string mode)
+        {Assert.Throws<InvalidOperationException>(()=>WorldOpsBridge.GuardLegacyMutation(mode));}
+        [TestCase("forest-tests")][TestCase("authoring-load-draft")][TestCase("authoring-workspace-status")]
+        public void LegacyReadAndTestToolsRemainAvailable(string mode)
+        {Assert.DoesNotThrow(()=>WorldOpsBridge.GuardLegacyMutation(mode));}
+        [Test] public void RefineUsesWorldDimensionsAndKeepsManualPinsTreesAndOvergrowth()
+        {
+            var d=Document();var m=LevelAuthoringDocument.Copy(LevelAuthoringPalette.Get("cover_blades").model);m.shading="foliage";m.seasonalRole="groundcover";
+            var tree=LevelAuthoringDocument.Copy(m);tree.id="fixture-tree";tree.seasonalRole="deciduous";d.art.models=new[]{m,tree};
+            CampArtDefinition.Instance Plant(string id,float x,string model)=>new CampArtDefinition.Instance{id=id,modelId=model,x=x,z=8,scale=4,scaleXYZ=new[]{4f,2f,3f},rotationEuler=new[]{12f,63f,9f},surfaceAttached=true};
+            d.art.instances=new[]{Plant("regrowth/leaf",8,m.id),Plant("overgrowth/wreck/leaf",9,m.id),Plant("regrowth/pinned",10,m.id),Plant("manual/leaf",11,m.id),Plant("regrowth/tree",12,tree.id)};
+            WorldOpsOperations.Record(d,"regrowth/pinned",true).pinned=true;
+            var unchanged=d.art.instances.Skip(1).Take(3).Select(WorldOpsStorage.Digest).ToArray();var scale=d.art.instances[4].scaleXYZ.ToArray();
+            var op=new WorldOperation{id="refine",kind="vegetation.refine"};WorldOpsOperations.Apply(d,op,51);
+            var b=WorldOpsGeometry.Bounds(d.art.instances[0],m);Assert.LessOrEqual(b.size.y,.42001);Assert.LessOrEqual(Mathf.Max(b.size.x,b.size.z),.68001);
+            Assert.That(WorldOpsGeometry.Clearance(d,d.art.instances[0],m),Is.EqualTo(-.006f).Within(.0001));
+            CollectionAssert.AreEqual(unchanged,d.art.instances.Skip(1).Take(3).Select(WorldOpsStorage.Digest).ToArray());CollectionAssert.AreEqual(scale,d.art.instances[4].scaleXYZ);
+        }
+        [Test] public void RefinePreservesNaturalBoardCoverAndDoesNotAccumulateScaleChanges()
+        {
+            var d=Document();var m=LevelAuthoringDocument.Copy(LevelAuthoringPalette.Get("cover_blades").model);m.shading="foliage";m.seasonalRole="groundcover";d.art.models=new[]{m};
+            var i=d.art.instances[0];i.id="regrowth/board";i.modelId=m.id;i.x=0;i.z=0;i.scale=4;
+            var op=new WorldOperation{id="refine",kind="vegetation.refine"};WorldOpsOperations.Apply(d,op,71);float scale=i.scale;
+            Assert.AreEqual(1,d.art.instances.Length);Assert.AreEqual(0,i.x);Assert.AreEqual(0,i.z);Assert.LessOrEqual(WorldOpsGeometry.Bounds(i,m).size.y,.14001);
+            WorldOpsOperations.Apply(d,op,71);Assert.AreEqual(scale,i.scale);
+        }
+        [Test] public void RefineMovesWaterPlantsToDryLandAndPreservesAquaticPlants()
+        {
+            var d=Document();var m=LevelAuthoringDocument.Copy(LevelAuthoringPalette.Get("cover_blades").model);m.shading="foliage";m.seasonalRole="groundcover";d.art.models=new[]{m};
+            d.art.landscape=new FrozenLandscape{originX=-20,originZ=-20,size=40,resolution=2,heights=new float[4],meshes=new[]{new LandscapeMesh{name="River",water=true,
+                vertices=new[]{7f,0,7,9,0,7,7,0,9,9,0,9},normals=new[]{0f,1,0,0,1,0,0,1,0,0,1,0},uv=new[]{0f,0,1,0,0,1,1,1},colors=Enumerable.Repeat(1f,16).ToArray(),triangles=new[]{0,2,1,1,2,3}}}};
+            var i=d.art.instances[0];i.id="regrowth/wet";i.modelId=m.id;var aquatic=LevelAuthoringDocument.Copy(i);aquatic.id="regrowth/reed";d.art.instances=new[]{i,aquatic};
+            WorldOpsOperations.Record(d,aquatic.id,true).role="aquatic";string before=WorldOpsStorage.Digest(aquatic);
+            WorldOpsOperations.Apply(d,new WorldOperation{id="refine",kind="vegetation.refine"},19);
+            Assert.IsFalse(new WorldOpsGeometry.PlantSites(d).Wet(i.x,i.z));Assert.AreEqual(before,WorldOpsStorage.Digest(aquatic));
+            Assert.IsFalse(WorldOpsGeometry.Validate(d,new WorldCriteria()).Any(f=>f.code=="vegetation.water"));
+        }
         [Test] public void VegetationRedistributionPreservesOwnedOvergrowthUnlessExplicitlySelected()
         {
             var d=Document();var plant=LevelAuthoringPalette.Entries.First(e=>e.smallPlant&&e.model!=null).model;d.art.models=new[]{LevelAuthoringDocument.Copy(plant)};

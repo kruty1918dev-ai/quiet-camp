@@ -10,7 +10,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
 {
     public static class WorldOpsOperations
     {
-        public static readonly string[] Kinds={"audit","camera.frame","vegetation.redistribute","vegetation.scale","vegetation.preset","building.move","building.ground","building.refresh-model","model.age","model.simplify","path.upsert","path.remove","atmosphere.preset","river.edit","terrain.stamp"};
+        public static readonly string[] Kinds={"audit","camera.frame","vegetation.refine","vegetation.redistribute","vegetation.scale","vegetation.preset","building.move","building.ground","building.refresh-model","model.age","model.simplify","path.upsert","path.remove","atmosphere.preset","river.edit","terrain.stamp"};
         public static void Validate(WorldRecipe recipe)
         {
             if(recipe==null||recipe.version!=1||string.IsNullOrWhiteSpace(recipe.id)||recipe.maxRepairRounds<1||recipe.maxRepairRounds>5)throw new ArgumentException("Invalid WorldOps recipe/version/repair budget.");
@@ -63,6 +63,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             if(!Kinds.Contains(op.kind))throw new ArgumentException("Unsupported operation: "+op.kind);
             var p=op.parameters;
             if(op.kind=="audit")return;
+            if(op.kind=="vegetation.refine"){WorldOpsVegetation.Refine(d,op,seed);return;}
             if(op.kind=="camera.frame")
             {
                 d.art.frameGameplayBoard=true;d.art.gameplayCameraMargin=Number(p,"margin",d.art.gameplayCameraMargin,1.02f,3);
@@ -131,8 +132,8 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                     if(occupied.TryGetValue(cell+new Vector2Int(dx,dz),out var list)&&list.Any(i=>i.id!=id&&(new Vector2(i.x-x,i.z-z)).sqrMagnitude<spacing*spacing))return true;
                 return false;
             }
-            var river=op.kind=="vegetation.redistribute"?new RiverSurfaceField(d.art.landscape):null;
-            if(river!=null)foreach(var instance in d.art.instances.Where(i=>i.modelId!=null&&models.TryGetValue(i.modelId,out var m)&&(Role(d.art,i,m)=="vegetation"||Role(d.art,i,m)=="tree")))Occupy(instance);
+            var sites=op.kind=="vegetation.redistribute"?new WorldOpsGeometry.PlantSites(d):null;
+            if(sites!=null)foreach(var instance in d.art.instances.Where(i=>i.modelId!=null&&models.TryGetValue(i.modelId,out var m)&&(Role(d.art,i,m)=="vegetation"||Role(d.art,i,m)=="tree")))Occupy(instance);
             foreach(var item in chosen)
             {
                 var m=models[item.modelId];
@@ -163,7 +164,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                     for(int attempt=0;attempt<12;attempt++)
                     {
                         float px=x+((float)random.NextDouble()*2-1)*radius,pz=z+((float)random.NextDouble()*2-1)*radius;
-                        if(WorldOpsGeometry.ProtectedPlant(d,px,pz)||river.TrySample(px,pz,out var water)&&water.Wet||Near(px,pz,item.id))continue;
+                        if(WorldOpsGeometry.ProtectedPlant(d,px,pz)||sites.Wet(px,pz)||sites.InSolid(new Vector3(px,d.art.GroundHeight(px,pz)+.12f,pz))||Near(px,pz,item.id))continue;
                         occupied[Cell(item.x,item.z)].Remove(item);
                         item.x=px;item.z=pz;item.y=d.art.GroundHeight(px,pz)+item.surfaceOffset;Occupy(item);break;
                     }

@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "id": "greenery-pilot-v1",
+  "label": "Природна зелень: масштаб, ґрунт і береги",
+  "seed": 4157,
+  "maxRepairRounds": 5,
+  "autoApply": true,
+  "capture": true,
+  "operations": [
+    {
+      "id": "natural-existing-greenery",
+      "kind": "vegetation.refine",
+      "selector": {
+        "roles": [
+          "vegetation",
+          "tree"
+        ],
+        "generatedOnly": false
+      },
+      "parameters": {
+        "maximumHeight": 0.42,
+        "maximumSpan": 0.68,
+        "boardHeight": 0.14,
+        "boardSpan": 0.28,
+        "repairRadius": 3,
+        "spacing": 0.14
+      }
+    }
+  ],
+  "criteria": {
+    "autoRepair": false,
+    "requireVisualReview": true,
+    "profiles": [
+      "portrait",
+      "landscape"
+    ],
+    "quality": 2
+  },
+  "orders": [
+    9,
+    17,
+    75
+  ]
+}

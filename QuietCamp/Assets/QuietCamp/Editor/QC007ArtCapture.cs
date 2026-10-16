@@ -76,6 +76,7 @@ namespace QuietCamp.Editor
                 var request = JsonConvert.DeserializeObject<Request>(File.ReadAllText(RequestPath));
                 File.Delete(RequestPath);
                 if (UnityEditor.EditorUtility.scriptCompilationFailed) throw new InvalidOperationException("Capture refused: Unity script compilation failed; loaded assemblies may be stale.");
+                LevelAuthoring.WorldOps.WorldOpsBridge.GuardLegacyMutation(request.mode);
                 if (request.mode == "capture" || request.mode == "draft-capture") Capture(request);
                 else if (request.mode == "props-demo")
                 {

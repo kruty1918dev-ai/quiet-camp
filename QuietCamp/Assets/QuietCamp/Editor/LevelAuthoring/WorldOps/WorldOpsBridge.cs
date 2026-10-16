@@ -11,6 +11,16 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         static string Inbox=>Path.Combine(WorldOpsService.EditorProject,"Temp/ai/qc-world-request.json");
         static string Outbox=>Path.Combine(WorldOpsService.EditorProject,"Temp/ai/qc-world-result.json");
         static WorldOpsBridge(){EditorApplication.update+=Poll;}
+        public static void GuardLegacyMutation(string mode)
+        {
+            switch(mode)
+            {
+                case "forest-regrowth":case "object-overgrowth":case "opening-details":
+                case "opening-compose":case "opening-apply":case "crash-compose":
+                case "campaign-regenerate":case "campaign-weather-upgrade":case "season-variant":
+                    throw new InvalidOperationException("Legacy world mutation '"+mode+"' is disabled. Use tools/qc_world.py run <recipe.json> and its hash-bound review. Greenery recipe: Assets/QuietCamp/Authoring/WorldOps/greenery-all.json. Extend a WorldOps operation if needed; do not write generated drafts directly.");
+            }
+        }
         static void Poll()
         {
             if(EditorApplication.isCompiling||EditorApplication.isUpdating||!File.Exists(Inbox))return;

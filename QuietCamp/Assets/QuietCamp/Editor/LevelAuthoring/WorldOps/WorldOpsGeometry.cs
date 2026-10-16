@@ -84,6 +84,34 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             }
             return true;
         }
+        // Shared candidate checks: repair operations must obey the same geometry as validation.
+        public sealed class PlantSites
+        {
+            readonly LevelAuthoringDocument document;
+            readonly RiverSurfaceField river;
+            readonly (Bounds bounds,Vector3[] vertices)[] solids;
+            public PlantSites(LevelAuthoringDocument d)
+            {
+                document=d;river=new RiverSurfaceField(d.art.landscape);
+                var models=d.art.models.ToDictionary(m=>m.id);
+                solids=d.art.instances.Where(p=>p.modelId!=null&&models.TryGetValue(p.modelId,out var m)&&m.shading!="foliage"&&WorldOpsOperations.Role(d.art,p,m)!="tree"&&!p.id.StartsWith("worldops/path/",StringComparison.Ordinal))
+                    .Select(p=>(bounds:Bounds(p,models[p.modelId]),vertices:Vertices(p,models[p.modelId]))).Where(s=>s.bounds.size.y>.7f).ToArray();
+            }
+            public bool InSolid(Vector3 point)=>solids.Any(s=>s.bounds.Contains(point)&&Inside(point,s.vertices));
+            public bool WetRoot(float x,float y,float z,float tolerance)
+            {
+                if(document.art.landscape!=null)return river.TrySample(x,z,out var sample)&&sample.Wet&&y<=sample.centre.y+tolerance;
+                return Wet(x,z)&&y<=.03f+tolerance;
+            }
+            public bool Wet(float x,float z)
+            {
+                if(document.art.landscape!=null)return river.TrySample(x,z,out var sample)&&sample.Wet;
+                var a=document.art; if(a.streamWidth<=0)return false;
+                float yaw=a.frameYaw*Mathf.Deg2Rad,u=x*Mathf.Cos(yaw)-z*Mathf.Sin(yaw),v=x*Mathf.Sin(yaw)+z*Mathf.Cos(yaw);
+                float centre=a.streamCentre+Kruty1918.ScenePlacement.Composition.RiverGeometry.Centre(v,a.streamSlope,a.streamBend);
+                return Mathf.Abs(u-centre)<Kruty1918.ScenePlacement.Composition.RiverGeometry.Width(v,a.streamWidth,a.streamWidthVariation)*.5f;
+            }
+        }
         public static List<ValidationFinding> Validate(LevelAuthoringDocument d,WorldCriteria criteria)
         {
             var findings=new List<ValidationFinding>();string id=d.sourceLevelId??d.level.id;
@@ -92,26 +120,24 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             foreach(var issue in d.Validate(true))Add("document.invalid",null,issue);
             if(d.art.primaryLandmarkId!=null)
                 try{CampaignLandmarkCatalog.Validate(d.art,d.level.order);}catch(Exception e){Add("landmark.identity",d.art.primaryLandmarkInstanceId,e.Message);}
-            var models=d.art.models.ToDictionary(m=>m.id);var water=new RiverSurfaceField(d.art.landscape);
+            var models=d.art.models.ToDictionary(m=>m.id);var sites=new PlantSites(d);
             var records=(d.worldOps?.objects??new List<WorldObjectRecord>()).ToDictionary(r=>r.id);
-            var solids=d.art.instances.Where(p=>p.modelId!=null&&models.TryGetValue(p.modelId,out var m)&&m.shading!="foliage"&&WorldOpsOperations.Role(d.art,p,m)!="tree"&&!p.id.StartsWith("worldops/path/",StringComparison.Ordinal))
-                .Select(p=>new{p,bounds=Bounds(p,models[p.modelId]),vertices=Vertices(p,models[p.modelId])}).Where(s=>s.bounds.size.y>.7f).ToArray();
             foreach(var p in d.art.instances)
             {
                 if(!models.TryGetValue(p.modelId??"",out var model))continue;
                 var role=WorldOpsOperations.Role(d.art,p,model);records.TryGetValue(p.id,out var record);
                 if(role=="vegetation"||role=="tree")
                 {
-                    if(water.TrySample(p.x,p.z,out var sample)&&sample.Wet&&p.y<=sample.centre.y+criteria.contactTolerance&&record?.role!="aquatic")Add("vegetation.water",p.id,"Plant root intersects the authored water surface.",repair:WorldOpsOperations.Generated(p.id)&&!p.id.StartsWith("overgrowth/",StringComparison.Ordinal)?"vegetation.redistribute":null);
+                    if(sites.WetRoot(p.x,p.y,p.z,criteria.contactTolerance)&&record?.role!="aquatic"&&record?.support?.StartsWith("object:",StringComparison.Ordinal)!=true)Add("vegetation.water",p.id,"Plant root intersects the authored water surface.",repair:WorldOpsOperations.Generated(p.id)&&!p.id.StartsWith("overgrowth/",StringComparison.Ordinal)?"vegetation.refine":null);
                     float delta=p.y-d.art.GroundHeight(p.x,p.z)-p.surfaceOffset;
                     if(p.surfaceAttached==true&&Mathf.Abs(delta)>criteria.contactTolerance)Add("vegetation.surface",p.id,"Attached root lost contact with the terrain.",Mathf.Abs(delta),criteria.contactTolerance,"building.ground");
                     if(p.surfaceAttached==false&&!p.id.StartsWith("overgrowth/",StringComparison.Ordinal)&&(record==null||record.support=="grounded"))
-                    {float rootGap=Clearance(d,p,model);if(rootGap>criteria.contactTolerance)Add("vegetation.floating",p.id,"The plant has no declared support above the ground.",rootGap,criteria.contactTolerance);}
+                    {float rootGap=Clearance(d,p,model);if(rootGap>criteria.contactTolerance)Add("vegetation.floating",p.id,"The plant has no declared support above the ground.",rootGap,criteria.contactTolerance,WorldOpsOperations.Generated(p.id)?"vegetation.refine":null);}
                     if(!Protected(d,p.x,p.z)&&ProtectedPlant(d,p.x,p.z))Add("vegetation.path",p.id,"A plant root blocks a protected path.",repair:WorldOpsOperations.Generated(p.id)?"vegetation.redistribute":null);
                     if(!p.id.StartsWith("overgrowth/",StringComparison.Ordinal))
                     {
                         var root=new Vector3(p.x,p.y+.12f,p.z);
-                        if(solids.Any(s=>s.bounds.Contains(root)&&Inside(root,s.vertices)))Add("vegetation.solid",p.id,"The plant root lies inside solid prop geometry.",repair:WorldOpsOperations.Generated(p.id)?"vegetation.redistribute":null);
+                        if(sites.InSolid(root))Add("vegetation.solid",p.id,"The plant root lies inside solid prop geometry.",repair:WorldOpsOperations.Generated(p.id)?"vegetation.refine":null);
                     }
                     continue;
                 }
@@ -136,7 +162,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                     {
                         var at=Vector2.Lerp(new Vector2(a[0],a[1]),new Vector2(b[0],b[1]),j/(float)steps);float h=d.art.GroundHeight(at.x,at.y);
                         if(Mathf.Abs(h-previous)/(length/steps)>path.maximumSlope)Add("path.slope",path.id,"Path exceeds its permitted slope.");
-                        if(water.TrySample(at.x,at.y,out var sample)&&sample.Wet)Add("path.water",path.id,"Path crosses water without an explicit bridge.");previous=h;
+                        if(sites.Wet(at.x,at.y))Add("path.water",path.id,"Path crosses water without an explicit bridge.");previous=h;
                     }
                 }
                 foreach(var endpoint in new[]{(path.startObjectId,0),(path.endObjectId,(path.points?.Length??1)-1)})
