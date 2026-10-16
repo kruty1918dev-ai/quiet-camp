@@ -64,7 +64,7 @@ python tools/qc_world.py --project C:/Users/Public/qcui-20261006/QuietCamp resum
 | Група | Дозволені операції |
 |---|---|
 | Перевірки й камера | `audit`, `camera.frame` |
-| Рослинність | `vegetation.redistribute`, `vegetation.scale`, `vegetation.preset` |
+| Рослинність | `vegetation.refine`, `vegetation.redistribute`, `vegetation.scale`, `vegetation.preset` |
 | Споруди й ансамблі | `building.move`, `building.ground`, `building.refresh-model` |
 | Моделі | `model.age`, `model.simplify` |
 | Стежки | `path.upsert`, `path.remove` |
@@ -233,3 +233,8 @@ Git index зберігається. `verify-publication` вимагає всіх
 на WorldOps. Тести, читання стану та звичайне ручне редагування не блокуються.
 Це контроль відомих точок входу, а не твердження про нагляд за сторонніми
 процесами чи довільними файловими командами.
+
+Старі `render_story_campaign.py` та `run_story_campaign_batch.py` також
+делегують WorldOps. Без рецепта вони виконують лише Game View аудит вибраного
+діапазону; `--compose` вимагає явного `--recipe`. Прямого запису трансформів
+або повторного запуску старого генератора в цих обгортках більше немає.

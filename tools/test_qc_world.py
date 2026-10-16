@@ -6,8 +6,10 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from types import SimpleNamespace
 
 from qc_world import deliver, git
+from render_story_campaign import recipe_for
 
 
 class DeliveryTests(unittest.TestCase):
@@ -52,6 +54,27 @@ class DeliveryTests(unittest.TestCase):
         proof = self.proof(); (self.repo / 'owned.json').write_text('later change', encoding='utf-8')
         with self.assertRaises(SystemExit): deliver(proof, 'Must not commit', False)
         with self.assertRaises(SystemExit): deliver(self.proof(agent=False), 'Must not commit', False)
+
+
+class LegacyRoutingTests(unittest.TestCase):
+    def args(self, **changes):
+        return SimpleNamespace(**dict(dict(start=9,end=17,compose=False,recipe=None,round=None),**changes))
+
+    def test_capture_only_route_never_repairs_or_publishes(self):
+        recipe=recipe_for(self.args())
+        self.assertEqual(list(range(9,18)),recipe['orders'])
+        self.assertEqual(['audit'],[o['kind'] for o in recipe['operations']])
+        self.assertFalse(recipe['autoApply']);self.assertFalse(recipe['criteria']['autoRepair'])
+
+    def test_composition_cannot_fall_back_to_legacy_writer(self):
+        with self.assertRaises(ValueError):recipe_for(self.args(compose=True))
+
+    def test_range_cannot_expand_recipe_or_stable_id_selection(self):
+        with tempfile.TemporaryDirectory(prefix='qc-world-routing-') as temporary:
+            p=Path(temporary)/'recipe.json';p.write_text(json.dumps({'orders':[9,75]}),encoding='utf-8')
+            self.assertEqual([9],recipe_for(self.args(recipe=p))['orders'])
+            p.write_text(json.dumps({'levelIds':['QC009']}),encoding='utf-8')
+            with self.assertRaises(ValueError):recipe_for(self.args(recipe=p))
 
 
 if __name__ == '__main__': unittest.main()
