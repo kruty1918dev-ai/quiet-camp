@@ -117,7 +117,12 @@ namespace QuietCamp.Editor
                     var proof=LevelAuthoring.AircraftCrashAuthoring.BuildThroughPwb(request.draftPath,request.profile,request.output);
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(proof));
                 }
-                else if(request.mode=="opening-details")File.WriteAllText(ResultPath,JsonConvert.SerializeObject(LevelAuthoring.OpeningCampaignAuthoring.AddDetails(request.draftPath,request.profile,request.output)));
+                else if(request.mode=="opening-details")
+                {
+                    // External JSON model bakes may have changed since the last staged pass.
+                    LevelAuthoring.LevelAuthoringPalette.ResetCache();
+                    File.WriteAllText(ResultPath,JsonConvert.SerializeObject(LevelAuthoring.OpeningCampaignAuthoring.AddDetails(request.draftPath,request.profile,request.output)));
+                }
                 else if(request.mode=="opening-gameplay")File.WriteAllText(ResultPath,JsonConvert.SerializeObject(LevelAuthoring.OpeningCampaignGameplayProbe.Run(request.name,request.output,request.levelId)));
                 else if(request.mode=="opening-water-tests")RunTests(true,"QuietCamp.Tests.CampArtCompositionTests");
                 else if(request.mode=="opening-tests") RunTests(true,"QuietCamp.Tests.OpeningCampaignTests");

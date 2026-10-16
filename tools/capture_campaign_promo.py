@@ -124,6 +124,7 @@ def main():
     source_files += [Path('Assets/QuietCamp')/name for name in ['Scripts/Infrastructure/FrozenLandscape.cs','Scripts/Infrastructure/RiverEnvironmentProfile.cs','Scripts/Infrastructure/RiverSurfaceField.cs','Scripts/Infrastructure/RiverLandscapeGeometry.cs','Scripts/Infrastructure/RiverBankEcology.cs','Scripts/Presentation/World/RiverWeatherMaterial.cs','Scripts/Presentation/World/SeasonAtmosphereView.cs','Resources/QuietCamp/river_environment.json']]
     source_files += [Path('Assets/QuietCamp/Resources/QuietCamp/CampArtLit.shader')]
     source_files += [Path('Assets/QuietCamp/Resources/QuietCamp/PlacementGrid.shader')]
+    source_files += [Path('Assets/QuietCamp/Editor/LevelAuthoring/SurfaceWeathering.cs')]
     source_files += [Path('Assets/QuietCamp/EditorBridge/Editor/MicroVerseRiverTerrainAdapter.cs')]
     source_files += [Path('Assets/QuietCamp')/name for name in ['Scripts/Presentation/World/RiverReflectionView.cs','Scripts/Presentation/QuietCamp.Presentation.asmdef']]
     source_files += [Path('Assets/QuietCamp/Scripts/Presentation/World')/name for name in ['BoardRenderer.cs','CampGroundDetails.cs','MenuSceneHost.cs','MenuDiorama.cs','CampAtmosphere.cs','CampArtEdgeBlur.cs','SeasonVisibilityPass.cs']]
@@ -191,8 +192,10 @@ def main():
                 captured['cameraAfter']=captured.get('cameraAfter') or request('opening-gameplay',name='status').get('cameraProof')
                 if art_stage:
                     for proof in [captured['cameraBefore'],captured['cameraAfter']]:
-                        assert proof and proof['boardFraming'] and proof['fieldContained'] and proof['groundContained'], 'Staged framing failed: '+ident
-                        assert max(abs(v) for v in proof['centreErrorPixels'])<8, 'Field is not centred: '+ident
+                        # The current camera contract centres the playable ground in the frame.
+                        # The old framing flag/height-box metric describes a retired camera mode.
+                        assert proof and proof['playableFieldContained'] and proof['groundContained'], 'Staged framing failed: '+ident
+                        assert max(abs(v) for v in proof['frameCentreErrorPixels'])<2, 'Field is not centred: '+ident
                 receipt.write_text(json.dumps(captured, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
             state['levels'].append(captured)
             (STAGE/'session.json').write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding='utf-8')

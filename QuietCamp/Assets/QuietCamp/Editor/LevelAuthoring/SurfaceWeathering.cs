@@ -11,7 +11,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         public int? tint;
     }
 
-    /// <summary>Deterministic face-level material wear, baked into the existing vertex palette.</summary>
+    /// <summary>Continuous material wear baked into the existing vertex palette; flat normals remain intact.</summary>
     public static class SurfaceWeathering
     {
         public static void Apply(CampArtDefinition.Model model, ModelAuthoringRecipe recipe)
@@ -29,15 +29,13 @@ namespace QuietCamp.Editor.LevelAuthoring
                 recipe.backend == "paint" ? new Color(.63f,.65f,.60f) :
                 recipe.backend == "moss" ? new Color(.25f,.32f,.13f) :
                 recipe.backend == "scorch" ? new Color(.16f,.15f,.12f) : new Color(.27f,.22f,.15f);
-            for (int t = 0; t < model.colors.Length; t += 3)
+            for (int t = 0; t < model.colors.Length; t++)
             {
-                Vector3 centre = Vector3.zero, normal = Vector3.zero;
-                for (int j = 0; j < 3; j++)
-                {
-                    int v = (t+j)*3;
-                    centre += new Vector3(model.vertices[v],model.vertices[v+1],model.vertices[v+2])/3;
-                    normal += new Vector3(model.normals[v],model.normals[v+1],model.normals[v+2])/3;
-                }
+                // Duplicated vertices on the same surface must receive identical wear.
+                // Sampling triangle centres painted a visible diagonal across every quad.
+                int v=t*3;
+                var centre=new Vector3(model.vertices[v],model.vertices[v+1],model.vertices[v+2]);
+                var normal=new Vector3(model.normals[v],model.normals[v+1],model.normals[v+2]).normalized;
                 float lower = 1-Mathf.Clamp01((centre.y-bounds.min.y)/height);
                 float patch = Mathf.PerlinNoise(centre.x/s.patchSize+seed,centre.z/s.patchSize-seed*.7f);
                 float mask = Mathf.SmoothStep(0,1,(patch-.3f)*2.2f);
@@ -54,15 +52,12 @@ namespace QuietCamp.Editor.LevelAuthoring
                 else if (s.distribution == "sides") mask *= 1-Mathf.Abs(normal.y);
                 else if (s.distribution == "edges") mask *= Mathf.Max(lower,1-lower);
                 float amount = Mathf.Clamp01(recipe.amount)*mask;
-                for (int j = 0; j < 3; j++)
-                {
-                    var old = CampArtDefinition.Color(model.colors[t+j]);
-                    // Preserve dark apertures, rubber and windows as readable material changes.
-                    float protection = old.maxColorComponent < .41f && s.material == "aluminium" ? .16f : 1;
-                    if(s.material=="aluminium" && (recipe.backend=="oxidation"||recipe.backend=="paint") && old.maxColorComponent-Mathf.Min(old.r,old.g,old.b)>.14f)protection=0;
-                    if(s.material=="steel" && recipe.backend=="rust" && old.maxColorComponent-Mathf.Min(old.r,old.g,old.b)>.085f)protection=0;
-                    model.colors[t+j] = Pack(Color.Lerp(old,target,amount*protection));
-                }
+                var old = CampArtDefinition.Color(model.colors[t]);
+                // Preserve dark apertures, rubber and windows as readable material changes.
+                float protection = old.maxColorComponent < .41f && s.material == "aluminium" ? .16f : 1;
+                if(s.material=="aluminium" && (recipe.backend=="oxidation"||recipe.backend=="paint") && old.maxColorComponent-Mathf.Min(old.r,old.g,old.b)>.14f)protection=0;
+                if(s.material=="steel" && recipe.backend=="rust" && old.maxColorComponent-Mathf.Min(old.r,old.g,old.b)>.085f)protection=0;
+                model.colors[t] = Pack(Color.Lerp(old,target,amount*protection));
             }
         }
         public static float MossSuitability(Vector3 position,Vector3 normal,float contact,float light,float moisture,string material,string coverage,int seed)

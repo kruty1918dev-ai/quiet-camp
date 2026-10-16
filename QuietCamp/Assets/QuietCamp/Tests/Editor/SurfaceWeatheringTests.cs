@@ -11,6 +11,21 @@ namespace QuietCamp.Tests
 {
     public sealed class SurfaceWeatheringTests
     {
+        [Test] public void CoplanarTriangleSeamsReceiveTheSameWearAtSharedVertices()
+        {
+            foreach(var backend in new[]{"dirt","streaks","moss","paint"})
+            {
+                var source=Quad();var original=JsonConvert.SerializeObject(source);
+                var recipe=new ModelAuthoringRecipe{operation="age",backend=backend,amount=.9f,seed=71,
+                    weathering=new SurfaceWeatheringSettings{material="stone",patchSize=.35f}};
+                var result=ModelAuthoringWorkshop.Create(source,recipe,false).model;
+                Assert.AreEqual(result.colors[0],result.colors[3],backend+": first diagonal endpoint");
+                Assert.AreEqual(result.colors[2],result.colors[4],backend+": second diagonal endpoint");
+                CollectionAssert.AreEqual(source.vertices,result.vertices);
+                CollectionAssert.AreEqual(source.normals,result.normals);
+                Assert.AreEqual(original,JsonConvert.SerializeObject(source));
+            }
+        }
         [Test] public void AluminiumRejectsRustAndWearIsDeterministicWithoutChangingSourceGeometry()
         {
             var source=LevelAuthoringPalette.Get("qc_aircraft_fore").model;var before=JsonConvert.SerializeObject(source);

@@ -9,6 +9,7 @@ import json
 import math
 from pathlib import Path
 from build_ukrainian_roadmap_models import Mesh, PALETTE, meta
+from landmark_craft import CraftedLandmarkMesh
 
 ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT/'QuietCamp/Assets/QuietCamp/Authoring/CampaignLandmarks'
@@ -193,14 +194,19 @@ def construct(m,family,form):
             box(m,0,.6,0,3,1.2,2.6,'stone');roof(m,3.8,3.3,1.2,.8);box(m,0,.55,-1.35,.9,1.1,.14,'wood_dark')
         else:
             w,d,h={'house':(4.8,3.6,2.7),'barn':(4.6,3.3,3),'hut':(3.1,2.8,2.5),'workshop':(4.5,2.4,2.4),'kiosk':(2,1.6,2.5),'station':(5.8,2.8,2.9)}[family]
-            frame(m,w,d,h,'none' if form in ('frame','hearth') else 'flat' if family=='station' else 'lean' if form=='canopy' else 'gable')
+            if form!='hearth':
+                frame(m,w,d,h,'none' if form=='frame' else 'flat' if family=='station' else 'lean' if form=='canopy' else 'gable')
             if form not in ('frame','canopy','columns','hearth'):
                 box(m,-w/2,h*.45,0,.18,h*.9,d,'plaster_worn');box(m,w/2,h*.45,0,.18,h*.9,d,'wood' if family=='barn' else 'plaster')
                 box(m,0,h*.45,d/2,w,h*.9,.18,'wood_dark')
             if form=='hearth':
                 # A roofless corner: broken wall courses reveal the hearth from above.
-                for x,ht in ((-1.8,1.8),(-.8,1.25),(.2,.7)):
-                    box(m,x,ht/2,d/2,1,ht,.26,'plaster_worn')
+                # Unequal remaining piers explain the lost roof. Full-height corner
+                # posts and an intact rectangle misleadingly resembled a new frame.
+                for x,z,ht in ((-w/2,-d/2,1.1),(w/2,d/2,.65)):
+                    post(m,x,z,ht,'wood_dark')
+                for x,ht in ((-2.05,1.82),(-1.4,1.53),(-.75,1.17),(-.1,1.30),(.55,.69)):
+                    box(m,x,ht/2,d/2,.65,ht,.32,'plaster_worn')
                 box(m,-w/2,.85,.65,.25,1.7,2.3,'plaster_worn')
                 box(m,-1.4,1,-.7,.9,2,.8,'stone');box(m,-1.4,2.8,-.7,.35,1.6,.4,'concrete_dark')
             if form=='frame':
@@ -512,11 +518,15 @@ def is_rigid_clone(a,b,tolerance=2e-5):
 
 def build():
     DEST.mkdir(parents=True,exist_ok=True);models=[];entries=[];seen={}
+    craft=json.loads((DEST/'craft.json').read_text(encoding='utf-8'))
+    if craft.get('version')!=1 or len(set(craft['refinedOrders']))!=len(craft['refinedOrders']) or any(type(n)!=int or not 1<=n<=100 for n in craft['refinedOrders']):
+        raise ValueError('Invalid reviewed construction selections')
     for line in SPEC.strip().splitlines():
         number,label,construction=line.split('|');order=int(number);family,form=construction.split(':');ident=form if family in ('existing','aircraft') else 'qc_campaign_landmark_'+number.zfill(3)
         entry=dict(order=order,modelId=ident,label=label,construction=construction,role='primary',placement='single',scaleMetres=1)
         if family not in ('existing','aircraft'):
-            m=Mesh(ident,4500,label);construct(m,family,form)
+            mesh_type=CraftedLandmarkMesh if order in craft['refinedOrders'] else Mesh
+            m=mesh_type(ident,4500,label);construct(m,family,form)
             vertices=[round(v,5) for t in m.tris for p in t[:3] for v in p];normals=[round(v,6) for t in m.tris for _ in range(3) for v in t[3]];colors=[PALETTE[t[4]] if isinstance(t[4],str) else t[4] for t in m.tris for _ in range(3)]
             shape=fingerprint(vertices)
             if shape in seen:raise ValueError(f'Duplicate geometry {number} / {seen[shape]}')
