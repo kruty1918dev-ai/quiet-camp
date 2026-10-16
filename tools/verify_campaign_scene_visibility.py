@@ -39,6 +39,7 @@ def main():
         'Scripts/Presentation/World/CameraFitter.cs', 'Scripts/Presentation/World/CampAtmosphere.cs',
         'Scripts/Presentation/UI/CampHud.cs', 'Resources/QuietCamp/Html/CampGame.css.txt',
         'Scripts/Presentation/World/PlacementTargetProjector.cs',
+        'Resources/QuietCamp/CampArtLit.shader', 'Resources/QuietCamp/PlacementGrid.shader',
         'Scripts/Presentation/World/CampSoundscape.cs','Scripts/Presentation/World/SeasonAtmosphereView.cs',
         'Scripts/Presentation/World/MenuSceneHost.cs', 'Scripts/Presentation/World/CampSceneHost.cs',
         'Scripts/Presentation/World/RiverReflectionView.cs', 'Scripts/Presentation/FoliageDiveTransition.cs',

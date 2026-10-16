@@ -40,20 +40,16 @@ Shader "QuietCamp/CampArtLit"
             float4 _ArtAmbient,_GroundLow,_GroundHigh,_SoilTone,_CampFieldSize; float _ArtWater; float _ArtGrass;
             float _ArtRiverDetail, _ArtRiverWaterline;
             CBUFFER_END
-            float4 _AtmosWindXZ; float _AtmosWindStrength; float _AtmosWindTime;
             struct Attributes { float4 positionOS:POSITION; float3 normalOS:NORMAL; float4 color:COLOR; float2 response:TEXCOORD1; };
-            struct Varyings { float4 positionCS:SV_POSITION; float3 positionWS:TEXCOORD0; float3 normalWS:TEXCOORD1; float4 color:COLOR; };
+            struct Varyings { float4 positionCS:SV_POSITION; float3 positionWS:TEXCOORD0; float3 normalWS:TEXCOORD1; float2 response:TEXCOORD2; float4 color:COLOR; };
             Varyings Vert(Attributes input)
             {
                 Varyings output; output.positionWS=TransformObjectToWorld(input.positionOS.xyz);
                 output.positionWS=WeatherPosition(output.positionWS,input.response);
-                if(_ArtGrass>.5)
-                {
-                    float sway=sin(_AtmosWindTime*1.3+output.positionWS.x*.65+output.positionWS.z*.8);
-                    output.positionWS.xz+=_AtmosWindXZ.xy*sway*_AtmosWindStrength*saturate(input.positionOS.y)*.025;
-                }
+                // WeatherPosition is shared by forward, depth and shadow passes.
+                // Do not add a second offset here: it detaches moving blades from their shadows.
                 output.positionCS=TransformWorldToHClip(output.positionWS); output.normalWS=TransformObjectToWorldNormal(input.normalOS);
-                output.color=input.color; return output;
+                output.response=input.response; output.color=input.color; return output;
             }
             float ArtHash(float2 p) { return frac(sin(dot(p,float2(127.1,311.7)))*43758.5453); }
             float ArtNoise(float2 p)
@@ -73,7 +69,14 @@ Shader "QuietCamp/CampArtLit"
                 Light sun=GetMainLight(TransformWorldToShadowCoord(input.positionWS));
                 float diffuse=_ArtGrass>.5?abs(dot(normal,sun.direction)):saturate(dot(normal,sun.direction));
                 float3 lighting=_ArtAmbient.rgb*(.8+.2*abs(normal.y))+sun.color*((diffuse+.22*saturate(-dot(normal,sun.direction)))*sun.shadowAttenuation);
-                if(_ArtGrass>.5) lighting=max(lighting,float3(.42,.48,.36));
+                // Grass receives the same weather-dependent light as its surroundings.
+                // A fixed green light floor erased shadows and glowed through overcast weather.
+                if(_ArtGrass>.5)
+                {
+                    // Thin leaves scatter daylight; retain the preset's light colour in shade.
+                    float leafDiffuse=.32+.68*diffuse;
+                    lighting=_ArtAmbient.rgb*1.35+sun.color*leafDiffuse*lerp(.16,1,sun.shadowAttenuation);
+                }
                 float3 baseColor=input.color.rgb;
                 if(_ArtRiverDetail>.5)
                 {
@@ -87,18 +90,25 @@ Shader "QuietCamp/CampArtLit"
                 }
                 if(_ArtGrass>.5)
                 {
+                    // Broad, coherent groups and darker roots, rather than noise on every blade.
+                    float green=step(baseColor.r*1.05,baseColor.g)*step(baseColor.b*1.1,baseColor.g);
+                    float rootToTip=lerp(.80,1.08,sqrt(saturate(input.response.x)));
+                    float patchTone=lerp(.91,1.06,ArtNoise(input.positionWS.xz*.24+9));
+                    baseColor*=lerp(float3(1,1,1),float3(.94,1,1.08)*rootToTip*patchTone,green);
                     float4 trampled=CampUse(input.positionWS.xz);
                     baseColor=lerp(baseColor,float3(.33,.37,.20),trampled.r*.65);
                 }
                 if(_ArtGround>.5)
                 {
                     float2 p=input.positionWS.xz;float4 use=CampUse(p);
-                    float patches=ArtNoise(p*.27+17)*.55+ArtNoise(p*.92+31)*.30+ArtNoise(p*2.4-17)*.15;
-                    float earth=smoothstep(.58,.80,ArtNoise(p*.63+61))*ArtNoise(p*2.1);
-                    float moss=smoothstep(.48,.75,ArtNoise(p*.41-23))*.24;
+                    // The main variation must survive a phone-sized view; small grain is secondary.
+                    float patches=ArtNoise(p*.27+17)*.70+ArtNoise(p*.92+31)*.22+ArtNoise(p*2.4-17)*.08;
+                    patches=saturate((patches-.5)*1.7+.5);
+                    float earth=smoothstep(.45,.74,ArtNoise(p*.48+61))*lerp(.45,1,ArtNoise(p*1.3));
+                    float moss=smoothstep(.40,.73,ArtNoise(p*.32-23))*.42;
                     float3 natural=lerp(_GroundLow.rgb,_GroundHigh.rgb,patches);
-                    natural=lerp(natural,_GroundLow.rgb*float3(.86,1.04,.86),moss);
-                    natural=lerp(natural,_SoilTone.rgb,earth*.55);
+                    natural=lerp(natural,_GroundLow.rgb*float3(.76,.94,.88),moss);
+                    natural=lerp(natural,_SoilTone.rgb,earth*.72);
                     // Preserve authored scars and banks without retaining a differently painted puzzle rectangle.
                     float fieldDistance=max(abs(p.x)-_CampFieldSize.x,abs(p.y)-_CampFieldSize.y);
                     float undisturbed=1-smoothstep(.3,2.0,fieldDistance+(ArtNoise(p*.8f)-.5)*.45);

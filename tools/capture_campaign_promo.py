@@ -123,6 +123,7 @@ def main():
     source_files += [Path('Assets/QuietCamp')/name for name in ['Scripts/Infrastructure/CampArtDefinition.cs','Scripts/Infrastructure/EditorAuthoringPreview.cs','Scripts/Presentation/World/CameraFitter.cs','Scripts/Presentation/World/CampArtView.cs','Editor/LevelAuthoring/LevelAuthoringPlayDriver.cs']]
     source_files += [Path('Assets/QuietCamp')/name for name in ['Scripts/Infrastructure/FrozenLandscape.cs','Scripts/Infrastructure/RiverEnvironmentProfile.cs','Scripts/Infrastructure/RiverSurfaceField.cs','Scripts/Infrastructure/RiverLandscapeGeometry.cs','Scripts/Infrastructure/RiverBankEcology.cs','Scripts/Presentation/World/RiverWeatherMaterial.cs','Scripts/Presentation/World/SeasonAtmosphereView.cs','Resources/QuietCamp/river_environment.json']]
     source_files += [Path('Assets/QuietCamp/Resources/QuietCamp/CampArtLit.shader')]
+    source_files += [Path('Assets/QuietCamp/Resources/QuietCamp/PlacementGrid.shader')]
     source_files += [Path('Assets/QuietCamp/EditorBridge/Editor/MicroVerseRiverTerrainAdapter.cs')]
     source_files += [Path('Assets/QuietCamp')/name for name in ['Scripts/Presentation/World/RiverReflectionView.cs','Scripts/Presentation/QuietCamp.Presentation.asmdef']]
     source_files += [Path('Assets/QuietCamp/Scripts/Presentation/World')/name for name in ['BoardRenderer.cs','CampGroundDetails.cs','MenuSceneHost.cs','MenuDiorama.cs','CampAtmosphere.cs','CampArtEdgeBlur.cs','SeasonVisibilityPass.cs']]
