@@ -39,6 +39,9 @@ namespace QuietCamp.Tests
                 Assert.AreEqual(font.atlasPadding+1,font.material.GetFloat("_GradientScale"));
                 Assert.AreEqual(font.atlasTextures[0],font.material.mainTexture);
                 Assert.IsNotEmpty(font.fontFeatureTable.glyphPairAdjustmentRecords,"Kerning must be prepared for both scripts.");
+                var glyphs=font.glyphTable.Select(g=>g.index).ToArray();
+                Assert.IsTrue(font.fontFeatureTable.glyphPairAdjustmentRecords.All(r=>glyphs.Contains(r.firstAdjustmentRecord.glyphIndex)&&glyphs.Contains(r.secondAdjustmentRecord.glyphIndex)),"Only usable kerning records should be serialized.");
+                Assert.IsTrue(font.fontFeatureTable.MarkToBaseAdjustmentRecords.All(r=>glyphs.Contains(r.baseGlyphID)&&glyphs.Contains(r.markGlyphID)));
                 Assert.AreEqual(0,font.boldSpacing);
                 Assert.IsFalse(new SerializedObject(font).FindProperty("m_ClearDynamicDataOnBuild").boolValue);
             }

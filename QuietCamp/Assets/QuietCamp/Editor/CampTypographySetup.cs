@@ -18,6 +18,7 @@ namespace QuietCamp.Editor
             if(EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("Stop preview before preparing fonts.");
             var regular=Create("NotoSans-Regular.ttf","NotoSans SDF");
             var bold=Create("NotoSans-Bold.ttf","NotoSans Bold SDF");
+            CompactFeatures(regular);CompactFeatures(bold);
             var weights=regular.fontWeightTable;
             weights[7].regularTypeface=bold;
             // Symbols may use the legacy font; all supported-language letters live in Noto itself.
@@ -85,6 +86,18 @@ namespace QuietCamp.Editor
             var supported=candidates.Where(c=>FontEngine.TryGetGlyphWithUnicodeValue((uint)c,GlyphLoadFlags.LOAD_DEFAULT,out _)).Select(c=>(uint)c).ToArray();
             if(!asset.TryAddCharacters(supported,out var missing,true)||(missing?.Length??0)!=0)
                 throw new InvalidOperationException("Font atlas could not fit the UI alphabet: "+font.name);
+        }
+
+        static void CompactFeatures(TMP_FontAsset asset)
+        {
+            // TextCore returns tables for the entire source face, including thousands of unbaked glyphs.
+            // Keep every usable adjustment, without serializing unrelated scripts and accents.
+            var glyphs=new System.Collections.Generic.HashSet<uint>(asset.glyphTable.Select(g=>g.index));
+            var features=asset.fontFeatureTable;
+            features.glyphPairAdjustmentRecords.RemoveAll(r=>!glyphs.Contains(r.firstAdjustmentRecord.glyphIndex)||!glyphs.Contains(r.secondAdjustmentRecord.glyphIndex));
+            features.MarkToBaseAdjustmentRecords.RemoveAll(r=>!glyphs.Contains(r.baseGlyphID)||!glyphs.Contains(r.markGlyphID));
+            features.MarkToMarkAdjustmentRecords.RemoveAll(r=>!glyphs.Contains(r.baseMarkGlyphID)||!glyphs.Contains(r.combiningMarkGlyphID));
+            asset.ReadFontAssetDefinition();
         }
     }
 }
