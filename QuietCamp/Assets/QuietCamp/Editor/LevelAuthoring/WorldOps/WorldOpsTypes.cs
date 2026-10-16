@@ -100,6 +100,8 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         public List<ValidationFinding> findings=new List<ValidationFinding>();
         public ReviewPacket review;
         public bool visualAccepted;
+        public List<ValidationFinding> previousReviewFindings=new List<ValidationFinding>();
+        public Dictionary<string,int> visualStalls=new Dictionary<string,int>();
     }
     public sealed class WorldRun
     {

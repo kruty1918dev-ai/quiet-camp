@@ -31,7 +31,10 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 else if(command=="rollback")WorldOpsService.Rollback((string)request["levelId"]);
                 else if(command=="delivery"||command=="verify-publication")WorldOpsService.PrepareDelivery(command=="verify-publication");
                 else if(command=="apply")
-                {var run=WorldOpsService.Current??throw new InvalidOperationException("No run.");foreach(var item in run.levels.FindAll(l=>l.status=="ready"))WorldOpsService.Apply(item);}
+                {
+                    if(WorldOpsService.Busy||EditorApplication.isPlayingOrWillChangePlaymode||SessionState.GetBool("QuietCamp.NativeTestsRunning",false))throw new InvalidOperationException("Wait for the current native operation before applying.");
+                    var run=WorldOpsService.Current??throw new InvalidOperationException("No run.");foreach(var item in run.levels.FindAll(l=>l.status=="ready"))WorldOpsService.Apply(item);
+                }
                 else if(command!="status")throw new ArgumentException("Unknown WorldOps command.");
                 var current=WorldOpsService.Current;
                 WorldOpsStorage.Json(Outbox,new{requestId,status="ok",runId=current?.id,path=current?.directory,runStatus=current?.status,busy=WorldOpsService.Busy});

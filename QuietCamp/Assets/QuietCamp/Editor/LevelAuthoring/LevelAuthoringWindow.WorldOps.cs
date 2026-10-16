@@ -20,7 +20,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             foreach(var window in Resources.FindObjectsOfTypeAll<LevelAuthoringWindow>().Where(w=>w.Document?.sourceLevelId==id))
             {
                 if(window._dirty)continue;
-                window.SetDocument(LevelAuthoringDocument.Open(path));window._path=path;window._dirty=false;window._gallery=null;window.Repaint();
+                window.SetDocument(File.Exists(path)?LevelAuthoringDocument.Open(path):LevelAuthoringCampaign.Open(id,preview:false));window._path=File.Exists(path)?path:null;window._dirty=false;window._gallery=null;window.Repaint();
             }
         }
         void DrawWorldOps()

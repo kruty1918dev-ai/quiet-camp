@@ -164,6 +164,19 @@ namespace QuietCamp.Tests
                 UnityEngine.Object.DestroyImmediate(root);UnityEngine.Object.DestroyImmediate(cameraObject);UnityEngine.Object.DestroyImmediate(combined);
             }
         }
+        [Test] public void RepeatedVisualDefectsStopAfterTwoUnimprovedRoundsAndResetOnImprovement()
+        {
+            var clipping=new ValidationFinding{code="landmark.clipped",objectId="ruin",profile="portrait",measured=80};
+            var occlusion=new ValidationFinding{code="landmark.occluded",objectId="ruin",profile="portrait",measured=.5f,limit=.75f};
+            var item=new WorldLevelRun{previousReviewFindings=new System.Collections.Generic.List<ValidationFinding>{clipping,occlusion}};
+            var current=LevelAuthoringDocument.Copy(item.previousReviewFindings);current[0].measured=40;current[1].measured=.6f;
+            Assert.IsFalse(WorldOpsService.RecordReviewProgress(item,current));Assert.IsTrue(item.visualStalls.Values.All(n=>n==0));
+            item.previousReviewFindings=LevelAuthoringDocument.Copy(current);
+            Assert.IsFalse(WorldOpsService.RecordReviewProgress(item,current));Assert.IsTrue(WorldOpsService.RecordReviewProgress(item,current));
+            current[0].measured=20;current[1].measured=.7f;
+            Assert.IsFalse(WorldOpsService.RecordReviewProgress(item,current));Assert.IsTrue(item.visualStalls.Values.All(n=>n==0));
+            Assert.IsFalse(WorldOpsService.RecordReviewProgress(item,new System.Collections.Generic.List<ValidationFinding>()));Assert.AreEqual(0,item.visualStalls.Count);
+        }
         [Test] public void ArbitraryCommandsAndUnsafePathsAreRejected()
         {
             Assert.Throws<ArgumentException>(()=>WorldOpsOperations.Validate(new WorldRecipe{id="bad",operations=new[]{new WorldOperation{id="x",kind="csharp.execute"}}}));

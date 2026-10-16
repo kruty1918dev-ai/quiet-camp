@@ -106,6 +106,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         }
         public static void Resume(string id=null)
         {
+            if(SessionState.GetBool("QuietCamp.NativeTestsRunning",false)||File.Exists(Path.Combine(EditorProject,"Temp/ai/qc007-art-request.json")))throw new InvalidOperationException("Wait for the active native verification job.");
             if(Busy)throw new InvalidOperationException("WorldOps is already working.");
             if(id!=null){var file=WorldOpsStorage.SafeChild(Home,id+"/run.json");_run=WorldOpsStorage.Read<WorldRun>(file);SessionState.SetString(ActiveKey,id);RestoreWorkspaceSnapshot();}
             if(_run==null)throw new InvalidOperationException("No run to resume.");
@@ -298,14 +299,15 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         }
         static void Repair(WorldLevelRun item,LevelAuthoringDocument doc)
         {
+            var progress=new WorldLevelRun();
             while(_run.recipe.criteria.autoRepair&&item.round<_run.recipe.maxRepairRounds&&item.findings.Any(f=>f.repair!=null))
             {
-                string signature=WorldOpsStorage.Digest(item.findings);item.round++;
+                progress.previousReviewFindings=item.findings;item.round++;
                 foreach(var finding in item.findings.Where(f=>f.repair!=null))
                     WorldOpsOperations.Apply(doc,new WorldOperation{id="repair/"+finding.code,kind=finding.repair,selector=new WorldSelector{ids=new[]{finding.objectId}},parameters=new Newtonsoft.Json.Linq.JObject()},_run.recipe.seed+item.round);
-                item.findings=WorldOpsGeometry.Validate(doc,_run.recipe.criteria);string after=WorldOpsStorage.Digest(item.findings);
-                item.stalled=after==signature?item.stalled+1:0;item.lastFailure=after;
-                if(item.stalled>=2)break;
+                item.findings=WorldOpsGeometry.Validate(doc,_run.recipe.criteria);bool stalled=RecordReviewProgress(progress,item.findings);
+                item.stalled=progress.visualStalls.Values.DefaultIfEmpty(0).Max();item.lastFailure=WorldOpsStorage.Digest(item.findings);
+                if(stalled)break;
             }
             Stage(item,doc);
         }
@@ -333,6 +335,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             else
             {
                 var recipe=new WorldRecipe{id="review",operations=verdict.corrections};WorldOpsOperations.Validate(recipe);
+                item.previousReviewFindings=LevelAuthoringDocument.Copy(item.review.findings);
                 var doc=WorldOpsStorage.Read<LevelAuthoringDocument>(item.stagePath);foreach(var op in verdict.corrections)WorldOpsOperations.Apply(doc,op,_run.recipe.seed+item.round);
                 string previous=item.documentHash;Stage(item,doc);
                 item.stalled=previous==item.documentHash?item.stalled+1:0;item.round++;item.review=null;item.visualAccepted=false;item.findings=WorldOpsGeometry.Validate(doc,_run.recipe.criteria);
@@ -424,10 +427,27 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         internal static void NativeFinished(WorldLevelRun item,List<WorldFrame> frames,List<ValidationFinding> findings)
         {
             Fresh(item);item.findings.AddRange(findings);item.findings=item.findings.GroupBy(f=>f.code+"/"+f.objectId+"/"+f.profile).Select(g=>g.First()).ToList();
+            bool stalled=RecordReviewProgress(item,item.findings)||item.stalled>=2;
             item.review=new ReviewPacket{runId=_run.id,levelId=item.levelId,inputHash=item.inputHash,documentHash=item.documentHash,round=item.round,frames=frames,findings=item.findings};
             item.reviewHash=WorldOpsStorage.Digest(item.review);WorldOpsStorage.Json(Path.Combine(LevelFolder(_run,item.levelId),"review-"+item.round+".json"),item.review);
-            item.status="review";_run.nativeState=null;_run.nativeLevel=null;
+            item.status=stalled?"exception":"review";if(stalled)item.error="The same visual defect did not improve in two correction rounds.";_run.nativeState=null;_run.nativeLevel=null;
             WorldOpsStorage.Json(Path.Combine(Home,"cache",item.cacheKey+".json"),item);
+        }
+        public static bool RecordReviewProgress(WorldLevelRun item,List<ValidationFinding> current)
+        {
+            string Key(ValidationFinding f)=>f.code+"/"+f.objectId+"/"+f.profile;
+            var previous=item.previousReviewFindings.GroupBy(Key).ToDictionary(g=>g.Key,g=>g.First());
+            var active=new HashSet<string>();
+            foreach(var finding in current.Where(f=>f.severity=="error"))
+            {
+                string key=Key(finding);active.Add(key);
+                if(!previous.TryGetValue(key,out var before)){item.visualStalls[key]=0;continue;}
+                bool improved=finding.code=="landmark.occluded"?finding.measured>before.measured+.001f:
+                    finding.measured<before.measured-.001f;
+                item.visualStalls.TryGetValue(key,out int attempts);item.visualStalls[key]=improved?0:attempts+1;
+            }
+            foreach(var key in item.visualStalls.Keys.Where(k=>!active.Contains(k)).ToArray())item.visualStalls.Remove(key);
+            return item.visualStalls.Values.Any(n=>n>=2);
         }
     }
 }
