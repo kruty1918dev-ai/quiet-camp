@@ -344,6 +344,16 @@ namespace QuietCamp.Tests
                 UnityEditor.Undo.ClearUndo(native);
             }
         }
+        [Test] public void MassResizingTenThousandExistingPlantsDoesNotRepaintThemThroughPwb()
+        {
+            var before=Document();var original=before.art.instances[0];
+            before.art.instances=Enumerable.Range(0,10000).Select(n=>new CampArtDefinition.Instance{id="regrowth/"+n,modelId=original.modelId,x=8+n*.1f,z=8,scale=1}).ToArray();
+            var after=LevelAuthoringDocument.Copy(before);foreach(var i in after.art.instances){i.scale*=.5f;i.y-=.03f;}
+            Assert.IsEmpty(WorldOpsService.NativePlacements(before,after));
+            after.art.instances[5000].x+=.1f;after.art.instances[6000].rotationEuler=new[]{0f,50f,0f};
+            after.art.instances=after.art.instances.Concat(new[]{new CampArtDefinition.Instance{id="regrowth/new",modelId=original.modelId,scale=1}}).ToArray();
+            CollectionAssert.AreEquivalent(new[]{"regrowth/5000","regrowth/6000","regrowth/new"},WorldOpsService.NativePlacements(before,after).Select(i=>i.id).ToArray());
+        }
         [TestCase("forest-regrowth")][TestCase("opening-details")][TestCase("campaign-regenerate")][TestCase("season-variant")]
         public void LegacyAgentMutationCannotBypassWorldOps(string mode)
         {Assert.Throws<InvalidOperationException>(()=>WorldOpsBridge.GuardLegacyMutation(mode));}

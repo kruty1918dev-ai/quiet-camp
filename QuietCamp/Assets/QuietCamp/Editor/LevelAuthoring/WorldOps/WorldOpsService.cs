@@ -183,7 +183,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 if(!already)foreach(var op in _run.recipe.operations)WorldOpsOperations.Apply(doc,op,_run.recipe.seed);
                 item.stagePath=Path.Combine(folder,"after.draft.json");Stage(item,doc);
                 if(!already&&_run.recipe.operations.Any(o=>o.kind=="river.edit"||o.kind=="terrain.stamp")){item.status="baking";return;}
-                item.changes=Changes(WorldOpsStorage.Read<LevelAuthoringDocument>(item.beforePath),doc);item.findings=WorldOpsGeometry.Validate(doc,_run.recipe.criteria);
+                item.findings=WorldOpsGeometry.Validate(doc,_run.recipe.criteria);
                 Repair(item,doc);
                 PlaceChanged(item,doc);
                 item.changes=Changes(WorldOpsStorage.Read<LevelAuthoringDocument>(item.beforePath),doc);
@@ -273,9 +273,12 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         }
         static void PlaceChanged(WorldLevelRun item,LevelAuthoringDocument doc)
         {
-            var change=Changes(WorldOpsStorage.Read<LevelAuthoringDocument>(item.beforePath),doc);
-            var poses=doc.art.instances.Where(p=>change.changedObjects.Contains(p.id)&&!p.id.StartsWith("worldops/path/",StringComparison.Ordinal)).ToArray();
-            if(poses.Length==0)return;
+            var poses=NativePlacements(WorldOpsStorage.Read<LevelAuthoringDocument>(item.beforePath),doc);
+            if(poses.Length==0)
+            {
+                WorldOpsStorage.Json(Path.Combine(LevelFolder(_run,item.levelId),"placement-receipt.json"),new{adapter="Prefab World Builder",placed=0,reason="Existing IDs: dimensions and vertical contact only; native Game View still required."});
+                return;
+            }
             var staging=doc.EditingCopy();staging.terrain=null;staging.art.instances=Array.Empty<CampArtDefinition.Instance>();staging.art.cover=Array.Empty<CampArtDefinition.CoverPoint>();
             using(var workspace=new LevelAuthoringWorkspace(staging))
             {
@@ -294,6 +297,19 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 WorldOpsStorage.Json(Path.Combine(LevelFolder(_run,item.levelId),"placement-receipt.json"),new{adapter="Prefab World Builder",placed=count,objects=poses.Select(p=>p.id),nativeHash=WorldOpsStorage.Digest(captured.art.instances)});
             }
             WorldOpsStorage.Json(item.stagePath,doc);item.documentHash=WorldOpsStorage.FileHash(item.stagePath);
+        }
+        public static CampArtDefinition.Instance[] NativePlacements(LevelAuthoringDocument before,LevelAuthoringDocument after)
+        {
+            var existing=before.art.instances.ToDictionary(p=>p.id);
+            return after.art.instances.Where(p=>
+            {
+                if(p.id.StartsWith("worldops/path/",StringComparison.Ordinal))return false;
+                if(!existing.TryGetValue(p.id,out var old))return true;
+                if(Mathf.Abs(p.x-old.x)>.00001f||Mathf.Abs(p.z-old.z)>.00001f)return true;
+                var a=old.rotationEuler==null?Quaternion.Euler(0,old.yaw,0):Quaternion.Euler(CampArtDefinition.Vector(old.rotationEuler));
+                var b=p.rotationEuler==null?Quaternion.Euler(0,p.yaw,0):Quaternion.Euler(CampArtDefinition.Vector(p.rotationEuler));
+                return Quaternion.Angle(a,b)>.01f;
+            }).ToArray();
         }
         static WorldChangeSet Changes(LevelAuthoringDocument before,LevelAuthoringDocument after)
         {
