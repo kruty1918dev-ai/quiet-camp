@@ -1,0 +1,6 @@
+interface:
+  display_name: "QuietCamp WorldOps"
+  short_description: "QuietCamp level edits, capture and review"
+  default_prompt: "Use $quietcamp-worldops to improve QuietCamp greenery through the shared recipe workflow."
+policy:
+  allow_implicit_invocation: true

@@ -11,6 +11,11 @@ requests sent without the Python wrapper. Add missing capabilities to WorldOps
 and test them; never bypass it by patching generated JSON or receipts. Existing
 manual workshop tools remain available to the user. No automatic artistic pass.
 
+The local `quietcamp-worldops` skill routes QuietCamp requests here even from
+another workspace. Its maintained source is
+`tools/agent-skills/quietcamp-worldops/`; keep installed routing instructions
+aligned with this source. It does not replace the project rules or review gate.
+
 The user explicitly prohibited player builds on 2026-10-04. Do not run Android, iOS, desktop or other player builds, APK/AAB packaging, or scripts that launch them unless the user explicitly asks for a build again. Implement changes and use isolated Editor/EditMode/PlayMode checks instead. Do not install or publish a new build as part of routine verification.
 
 # Host resource rules (8GB RAM / 4 cores, parallel agents)
