@@ -127,7 +127,9 @@ namespace QuietCamp.Presentation.UI
             float side = layout.IsWide ? 24 : 6;
             float reserved = Mathf.Min(safe.height*.42f,bottom.rect.height+48);
             var header = _surface.Element("header")?.transform as RectTransform;
+            var guidance = _surface.Element("guide-region")?.transform as RectTransform;
             float top = Mathf.Max(144,(header?.rect.height??0)+32);
+            if(guidance!=null&&guidance.rect.height>0)top=Mathf.Max(top,148+guidance.rect.height+24);
             float halfWidth = Mathf.Max(1,Mathf.Min(centre.x-safe.xMin-side,safe.xMax-centre.x-side));
             float halfHeight = Mathf.Max(1,Mathf.Min(centre.y-safe.yMin-reserved,safe.yMax-centre.y-top));
             var half = new Vector2(halfWidth,halfHeight);
@@ -168,8 +170,9 @@ namespace QuietCamp.Presentation.UI
             else if (_previewReport != null)
             {
                 var key = PreviewKey(_previewReport);
-                tutorial = "<view id=\"placement-status\" class=\"hud-feedback "
-                    + (!_previewReport.CanCommit ? "blocked" : key == "hud.preview.ok" ? "ready" : "wish") + "\">"
+                var tone=!_previewReport.CanCommit ? "blocked" : key=="hud.preview.ok" ? "ready" : "wish";
+                tutorial = _services.Tutorial.Guiding(_session.Level.id)?GuideMarkup(PreviewMessage(key),tone):
+                    "<view id=\"placement-status\" class=\"hud-feedback " + tone + "\">"
                     + CampIcons.Mark(key == "hud.preview.ok" ? "check" : "hint")
                     + HtmlUi.Text(PreviewMessage(key)) + "</view>";
             }
@@ -189,45 +192,53 @@ namespace QuietCamp.Presentation.UI
             _surface.Callbacks.Bind("hint",()=>Action("qc.hint"));
             return "<button id=\"hint\" class=\"orb quiet hint-control\" data-tooltip=\""+HtmlUi.Escape(T("action.hint"))
                 + "\" onClick=\"Globals.campUi.Click('hint')\">"+CampIcons.Mark("hint")
-                + (_services.Economy.IsPro ? "" : HtmlUi.Text(_services.Economy.Hints.ToString(),"hud-badge")) + "</button>";
+                + (_services.Economy.IsPro ? "" : "<view class=\"hud-badge\">"+HtmlUi.Text(_services.Economy.Hints.ToString(),"hud-count")+"</view>") + "</button>";
         }
 
         string PreviewMessage(string key)
         {
-            if(key=="rule.overlap")
-            {
-                var overlap=_previewReport?.Issues.Find(i=>i.Code=="overlap");
-                if(overlap?.Cells!=null&&Array.Exists(overlap.Cells,c=>CampAccess.IsReserved(_session.Level,c)))
-                    return T("hud.compact.entry");
-            }
-            var guest=Array.Find(_session.Level.guests,g=>g.id==_session.SelectedGuestId);
-            if((key=="rule.shade"||key=="rule.quiet")&&guest?.shade==true&&guest.quiet)
-                return T("hud.compact.quiet-shade");
-            if(key=="rule.friends"||key=="rule.friends-missing")return T("hud.compact.friends");
-            if(key.StartsWith("rule.path",StringComparison.Ordinal))return T("hud.compact.path");
+            var feedback=PlacementGuidance.Explain(_session.Level,_previewReport,_session.SelectedGuestId);
             var compact=key switch
             {
                 "hud.preview.ok"=>"release", "rule.shade"=>"shade", "rule.quiet"=>"quiet",
-                "rule.bounds"=>"bounds", "rule.overlap"=>"overlap", "rule.blocked"=>"overlap", _=>null
+                "rule.bounds"=>"bounds", "rule.overlap"=>"overlap", "rule.blocked"=>"overlap", "rule.entry"=>"entry", _=>null
             };
-            return compact==null?T(key):T("hud.compact."+compact);
+            return WithAffectedGuest(compact==null?T(key):T("hud.compact."+compact),feedback);
         }
 
-        string GuideMarkup()
+        string WithAffectedGuest(string message,PlacementGuidance.Feedback feedback)
         {
-            if (_tutorialKey == null) return "";
+            if(feedback.GuestId==null)return message;
+            var guest=Array.Find(_session.Level.guests,g=>g.id==feedback.GuestId);
+            if(guest==null)return message;
+            var names=T(guest.nameKey);
+            if(feedback.Key=="rule.friends")
+            {
+                var pair=Array.Find(_session.Level.friends,p=>p.Length==2&&p[0]==feedback.GuestId);
+                var other=pair==null?null:Array.Find(_session.Level.guests,g=>g.id==pair[1]);
+                if(other!=null)names+=" + "+T(other.nameKey);
+            }
+            return names+": "+message;
+        }
+
+        string GuideMarkup(string previewMessage=null,string tone=null)
+        {
+            if (_tutorialKey == null&&previewMessage==null) return "";
             var portrait = _services.Tutorial.Portrait;
-            return "<view id=\"tutorial\" class=\"guide-card\" data-motion-role=\"toast\">"
+            var feedback=PlacementGuidance.Explain(_session.Level,_lastReport,_session.SelectedGuestId);
+            var text=previewMessage??WithAffectedGuest(T(_tutorialKey),feedback.Key==_tutorialKey?feedback:default);
+            return "<view id=\"tutorial\" class=\"guide-card "+(tone??"")+"\" data-motion-role=\"toast\">"
                 + "<img id=\"guide-portrait\" class=\"guide-portrait\" src=\"res:QuietCamp/UI/Mentor/" + portrait + "\"/>"
-                + "<view class=\"guide-copy\">" + HtmlUi.Text(T(_tutorialKey), "guide-instruction")
+                + "<view class=\"guide-copy\">" + HtmlUi.Text(text, "guide-instruction")
                 + "</view>"
-                + (_services.Tutorial.Guiding(_session.Level.id)
+                + (previewMessage==null&&_services.Tutorial.Guiding(_session.Level.id)
                     ? CampIcons.Button(_surface, "guide-skip", "remove", () => OpenModal("GuideSkip"), "guide-skip", T("guide.skip"))
                     : "")
                 + "</view>";
         }
 
-        string GuideFocus(string target) => _tutorialKey != null && _services.Tutorial.Target == target ? " guide-focus" : "";
+        string GuideFocus(string target) => _tutorialKey=="guide.adaptive.finish"?target=="check"?" guide-focus":""
+            : _tutorialKey!=null&&_tutorialKey==_services.Tutorial.ActiveKey&&_services.Tutorial.Target==target?" guide-focus":"";
 
         /// <summary>History and check sit above the full guest card, keeping
         /// the card closest to the bottom edge without squeezing its wishes.</summary>
@@ -556,7 +567,7 @@ namespace QuietCamp.Presentation.UI
 
         void OnTutorialChanged()
         {
-            SetTutorial(_services.Tutorial.Cue(_session.Level.id));
+            SetTutorial(_services.Tutorial.Cue(_session));
             _overlay?.Refresh();
         }
 
@@ -564,16 +575,18 @@ namespace QuietCamp.Presentation.UI
         {
             var previous = _previewReport==null?null:PreviewMessage(PreviewKey(_previewReport));
             _previewReport = report;
+            if(report==null&&_services.Tutorial.Guiding(_session.Level.id))
+            {
+                _hintUntil=-1;
+                _tutorialKey=_services.Tutorial.Cue(_session);
+            }
             var current=report==null?null:PreviewMessage(PreviewKey(report));
             if (previous!=current) _surface.Refresh();
         }
 
         string PreviewKey(RuleReport report)
         {
-            if (report == null) return null;
-            var issue = report.Issues.Find(i => i.GuestId == _session.SelectedGuestId)
-                ?? (report.Issues.Count > 0 ? report.Issues[0] : null);
-            return issue == null ? "hud.preview.ok" : IssueKey(report, issue);
+            return report==null?null:PlacementGuidance.Explain(_session.Level,report,_session.SelectedGuestId).Key??"hud.preview.ok";
         }
 
         static string IssueKey(RuleReport report, RuleIssue issue)
@@ -611,7 +624,7 @@ namespace QuietCamp.Presentation.UI
             if (_hintUntil > 0 && Time.unscaledTime >= _hintUntil)
             {
                 _hintUntil = -1;
-                SetTutorial(_services.Tutorial.Cue(_session.Level.id));
+                SetTutorial(_services.Tutorial.Cue(_session));
             }
         }
 
@@ -683,6 +696,12 @@ namespace QuietCamp.Presentation.UI
                 _tentToolsUntil=Time.unscaledTime+5f;
             if (e.Kind == CampEventKind.BoardCommitted) _showIssue = false;
             if (e.Kind == CampEventKind.RulesChanged) _lastReport = e.Report;
+            if(_services.Tutorial.Guiding(_session.Level.id)
+                &&(e.Kind==CampEventKind.BoardCommitted||e.Kind==CampEventKind.RulesChanged||e.Kind==CampEventKind.SelectionChanged))
+            {
+                _hintUntil=-1;
+                _tutorialKey=_services.Tutorial.Cue(_session);
+            }
             if (e.Kind == CampEventKind.LevelCompleted) BeginCelebration();
             RefreshAll();
         }

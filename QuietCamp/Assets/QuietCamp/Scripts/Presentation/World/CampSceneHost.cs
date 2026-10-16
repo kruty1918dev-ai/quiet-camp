@@ -211,7 +211,7 @@ namespace QuietCamp.Presentation.World
                 PlayAudio("rule.invalid");
                 _services.PlayHaptic(HapticCue.Warning);
                 if (_tutorial.Guiding(_session.Level.id))
-                    _hud.ShowGuideHint(GuideMistakeKey(key));
+                    _hud.ShowGuideHint(key);
             };
             _placement.PlacementCommitted += PersistSession;
             _placement.DragMotion += (position,speed) => _atmosphere?.Soundscape?.TentDragged(position,speed);
@@ -258,7 +258,7 @@ namespace QuietCamp.Presentation.World
             if (_session.SelectedGuestId == null && level.guests.Length > 0)
                 _session.Select(level.guests[0].id);
             _hud.GuestSelected += _ => _tutorial.ReportAction("select", _session);
-            _hud.SetTutorial(_tutorial.Cue(level.id));
+            _hud.SetTutorial(_tutorial.Cue(_session));
             // Act framing: the first unplayed glade of a new district opens
             // with the guide narrating what this region is — once ever.
             var district = LevelLoader.DistrictFor(level.id);
@@ -457,7 +457,6 @@ namespace QuietCamp.Presentation.World
                             BoardMath.TentCenter(_session.Level, placed.x, placed.z), .65f);
                         _services.PlayHaptic(HapticCue.Confirm);
                     }
-                    if (_tutorial.Guiding(_session.Level.id)) GuideFirstIssue(null);
                     break;
                 case CampEventKind.SelectionChanged:
                     if(!_placement.HasPreview)_renderer.ShowShade(false);
@@ -526,25 +525,6 @@ namespace QuietCamp.Presentation.World
             _renderer.ShowHintGhost(s.Move,guest?.assetId);
             PlayAudio("sfx.hint");
             _hud.ShowGuideHint("guide.recovery",6);
-        }
-
-        static string GuideMistakeKey(string rawKey)
-        {
-            var code = rawKey != null && rawKey.StartsWith("rule.") ? rawKey.Substring(5) : rawKey;
-            if(code=="entry")return "rule.entry";
-            return code == "bounds" || code == "overlap" || code == "path" || code == "shade"
-                || code == "quiet" || code == "friends" ? "guide.mistake." + code : "guide.mistake.generic";
-        }
-
-        /// <summary>The mentor reacts to real violations only — unmet wishes
-        /// (path/shade/quiet/friends), never unplaced guests, which are steps
-        /// the player simply has not taken yet.</summary>
-        void GuideFirstIssue(string fallback)
-        {
-            var report = RuleEvaluator.Evaluate(_session.Level, _session.State.Placements, false);
-            var issue = report.Issues.Find(i => i.Code == "path" || i.Code == "shade"
-                || i.Code == "quiet" || i.Code == "friends");
-            _hud.ShowGuideHint(issue != null ? GuideMistakeKey("rule." + issue.Code) : fallback);
         }
 
         /// <summary>The completion chime is a soft afterglow, not a second

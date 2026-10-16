@@ -328,9 +328,9 @@
     "boot.privacy.continue": "Read policy, continue",
     "guide.name": "Ostap · your guide",
     "guide.select": "Hold the clearing and drag a tent.",
-    "guide.place": "Release the tent near a green marker. The yellow dot marks its door: keep a path open.",
-    "guide.rotate": "Turn the tent — its door should face an open trail.",
-    "guide.first-check": "Place both tents, then tap Check.",
+    "guide.place": "Choose a free spot. Green means it meets the rules.",
+    "guide.rotate": "You can rotate a tent. Keep a clear path from its door.",
+    "guide.first-check": "Place both tents and tap Finish.",
     "guide.move": "Drag a placed tent to a new spot.",
     "guide.undo": "The back arrow undoes your last move — try it.",
     "guide.shared-route": "Every tent needs a path to the trail. A shared trail works too.",
@@ -346,7 +346,7 @@
     "guide.reward.earned": "The Trail pennant is yours!",
     "settings.trailPennant": "Trail pennant",
     "settings.trailPennant.sub": "A small memory of your first clearings",
-    "rule.path.outside-trail": "Turn the tent entrance toward the clearing or trail.",
+    "rule.path.outside-trail": "The door must lead onto the clearing or a walkable trail.",
     "rule.path.blocked": "Leave the entrance clear.",
     "rule.path.disconnected": "Keep a clear route from the tent entrance to the exit.",
     "guide.farewell": "Your camp just gained this clearing. Heading to the menu — the rest is yours!",
@@ -566,6 +566,9 @@
     "hud.compact.overlap": "No room here",
     "hud.compact.friends": "Friends need to be nearby",
     "hud.compact.entry": "Keep the camp entrance clear",
-    "rule.entry": "This is the camp entrance. Keep it clear."
+    "rule.entry": "This is the camp entrance. Keep it clear.",
+    "guide.adaptive.start": "Hold the clearing to place a tent. You can move it later.",
+    "guide.adaptive.next": "The path is clear. Place the next tent.",
+    "guide.adaptive.finish": "All wishes are met. Tap Finish."
   }
 }

@@ -279,7 +279,8 @@ namespace QuietCamp.Tests
             yield return Frames(8);
             var guideText=string.Join(" ",Hud().Element("tutorial")
                 .GetComponentsInChildren<TMPro.TMP_Text>().Select(t=>t.text));
-            Assert.IsTrue(guideText.Contains(services.Localization.T("guide.mistake."+badCode)),
+            var feedback=PlacementGuidance.Explain(level,RuleEvaluator.Evaluate(level,host.Session.State.Placements,false),host.Session.SelectedGuestId);
+            Assert.IsTrue(guideText.Contains(services.Localization.T(feedback.Key)),
                 "The mentor must explain the broken wish ("+badCode+"), got: "+guideText);
             yield return Shot("03-mentor-explains-mistake");
             Assert.IsTrue(host.Session.Undo(),"Undo must return the board to the guided step.");

@@ -101,6 +101,19 @@ namespace QuietCamp.Application
         }
         public bool Guiding(string levelId) => !_save.existingPlayer && !Skipped && !Finished && CurrentLevelId == levelId;
         public string Cue(string levelId) => Guiding(levelId) ? ActiveKey : null;
+        /// <summary>The lesson introduces a concept; the live board decides the next cue.
+        /// A reachable door never requires a cosmetic rotation or a witness position.</summary>
+        public string Cue(CampSession session)
+        {
+            if(session==null||!Guiding(session.Level.id)||session.IsCompleted)return null;
+            var report=RuleEvaluator.Evaluate(session.Level,session.State.Placements,false);
+            var feedback=PlacementGuidance.Explain(session.Level,report,session.SelectedGuestId);
+            if(feedback.IsIssue)return feedback.Key;
+            if(session.State.Count==session.Level.guests.Length)return "guide.adaptive.finish";
+            if(session.State.Count>0)return "guide.adaptive.next";
+            return Target=="rotate"||Target=="undo"||Target=="check"||ActiveKey=="guide.move"
+                ?"guide.adaptive.start":ActiveKey;
+        }
         public bool HasStep(string id) => _runner.IsComplete(id);
         public bool CanCompleteLevel(string levelId)
         {

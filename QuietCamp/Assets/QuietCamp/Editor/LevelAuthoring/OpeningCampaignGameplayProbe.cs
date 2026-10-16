@@ -145,7 +145,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             if(action=="hud-guide")
             {
                 services.Tutorial.LearnAgain();
-                return new{status="hud-guide",cue=services.Tutorial.Cue(id),memoryOnly=true};
+                return new{status="hud-guide",cue=services.Tutorial.Cue(session),memoryOnly=true};
             }
             if(action=="hud-scale")
             {
@@ -177,7 +177,14 @@ namespace QuietCamp.Editor.LevelAuthoring
                     return new{id=b.name,enabled=b.interactable,width=corners[2].x-corners[0].x,height=corners[2].y-corners[0].y,at=new[]{corners[0].x,corners[0].y,corners[2].x,corners[2].y}};
                 }).ToArray();
                 var bottom=surface.Element("bottom");var c=new Vector3[4];bottom.GetWorldCorners(c);
+                var guidance=new[]{"header","guide-region","tutorial","guide-portrait","bottom"}.Select(key=>
+                {
+                    var rect=surface.Element(key);if(rect==null)return new{id=key,at=(float[])null};
+                    var corners=new Vector3[4];rect.GetWorldCorners(corners);
+                    return new{id=key,at=new[]{corners[0].x,corners[0].y,corners[2].x,corners[2].y}};
+                }).ToArray();
                 return new{status="hud-review",id,placed=session.State.Count,total=session.Level.guests.Length,pro=services.Economy.IsPro,memoryOnly=true,
+                    guidance,cue=services.Tutorial.Cue(session),
                     text=surface.GetComponentsInChildren<TMPro.TMP_Text>().Where(t=>t.gameObject.activeInHierarchy).Select(t=>t.text).ToArray(),buttons,
                     bottomHeight=c[2].y-c[0].y,uiReady=surface.IsMounted,scale=services.Settings.textScale,language=services.Localization.CurrentLanguageId,persistentDataPath=UnityEngine.Application.persistentDataPath,
                     grid=UnityEngine.Object.FindObjectsByType<MeshRenderer>(FindObjectsSortMode.None).Where(r=>r.sharedMaterial?.HasProperty("_GridVisible")==true).Select(r=>r.sharedMaterial.GetFloat("_GridVisible")).Distinct().ToArray()};
@@ -193,7 +200,15 @@ namespace QuietCamp.Editor.LevelAuthoring
                     selected=session.SelectedGuestId,sites=QuietCamp.Application.PlacementGuidance.Sites(session,session.SelectedGuestId,0)
                         .GroupBy(s=>s.Status).Select(g=>new{status=g.Key.ToString(),count=g.Count()}).ToArray(),
                     recoveryHint=services.Economy.RecoveryHintPending(id),lives=services.Economy.Lives,hints=services.Economy.Hints,
-                    curriculum=services.Tutorial.Save.curriculumVersion,cue=services.Tutorial.Cue(id)};
+                    curriculum=services.Tutorial.Save.curriculumVersion,cue=services.Tutorial.Cue(session)};
+            }
+            if(action=="learning-place")
+            {
+                var parts=(levelId??"").Split(',');
+                if(parts.Length!=4||!int.TryParse(parts[1],out var x)||!int.TryParse(parts[2],out var z)||!int.TryParse(parts[3],out var r))
+                    throw new ArgumentException("Expected guest,x,z,rotation for a canonical RAM-only placement.");
+                var committed=session.TryCommit(QuietCamp.Application.PlacementCommand.Place(parts[0],x,z,r),out var report);
+                return new{status="learning-placed",committed,issues=report.Issues.Select(i=>new{i.Code,i.GuestId}),cue=services.Tutorial.Cue(session),memoryOnly=true};
             }
             if(action=="check-layout")
             {
