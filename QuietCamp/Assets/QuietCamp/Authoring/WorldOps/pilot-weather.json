@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "id": "pilot-weather",
+  "label": "Пілот: літній дощ, рух і звук",
+  "orders": [9],
+  "autoApply": false,
+  "operations": [{"id": "summer-rain", "kind": "atmosphere.preset", "parameters": {"preset": "summer_rain"}}],
+  "criteria": {"autoRepair": false, "requireVisualReview": true, "profiles": ["portrait", "landscape"], "quality": 2}
+}

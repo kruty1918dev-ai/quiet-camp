@@ -75,7 +75,9 @@ namespace QuietCamp.Tests
                 var before=WorldOpsService.Dependencies();Assert.IsTrue(before.ContainsKey(path),"Resources loaded by path must invalidate cached frames too.");
                 Assert.IsTrue(before.ContainsKey("Assets/QuietCamp/Audio/Generated/wind_loop.wav"));
                 Assert.IsTrue(before.ContainsKey("Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/CampModelLibrary.json"));
-                texture.SetPixels(Enumerable.Repeat(Color.blue,4).ToArray());texture.Apply();File.WriteAllBytes(path,texture.EncodeToPNG());AssetDatabase.ImportAsset(path,ImportAssetOptions.ForceSynchronousImport);
+                texture.SetPixels(Enumerable.Repeat(Color.blue,4).ToArray());texture.Apply();File.WriteAllBytes(path,texture.EncodeToPNG());
+                var pending=WorldOpsService.Dependencies();Assert.AreNotEqual(before["editor/"+path],pending["editor/"+path],"An external source edit must invalidate evidence before its import finishes.");
+                AssetDatabase.ImportAsset(path,ImportAssetOptions.ForceSynchronousImport);
                 var after=WorldOpsService.Dependencies();Assert.AreNotEqual(before[path],after[path]);
             }
             finally

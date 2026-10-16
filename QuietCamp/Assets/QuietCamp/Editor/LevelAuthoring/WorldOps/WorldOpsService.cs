@@ -85,9 +85,12 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 !(Path.GetExtension(p)==".json"&&(new[]{"/Levels/","/GeneratedLevels/","/ArtRevisions/","/ContentRevisions/","/CampaignLevels/"}.Any(p.Contains)||p.Contains("/ArtCompositions/")&&levelFiles.Contains(Path.GetFileName(p))))).OrderBy(p=>p,StringComparer.Ordinal))
             {
                 result[path]=AssetDatabase.GetAssetDependencyHash(path).ToString();
+                string local=Path.Combine(EditorProject,path);
+                result["editor/"+path]=WorldOpsStorage.FileHash(local);
+                result["editor/"+path+".meta"]=WorldOpsStorage.FileHash(local+".meta");
                 if(repositoryProject!=null)
                 {
-                    string local=Path.Combine(EditorProject,path),canonical=Path.Combine(repositoryProject,path);
+                    string canonical=Path.Combine(repositoryProject,path);
                     result["repository/"+path]=WorldOpsStorage.FileHash(canonical);
                     result["repository/"+path+".meta"]=WorldOpsStorage.FileHash(canonical+".meta");
                     // QA may retain editor-only legacy files absent from the repository. They

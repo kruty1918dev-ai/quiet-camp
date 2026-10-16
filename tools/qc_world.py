@@ -9,6 +9,29 @@ import uuid
 import hashlib
 import subprocess
 import tempfile
+from collections import Counter
+
+
+def watch(directory, seconds=1800):
+    """Observe the C# journal; never launch Unity or decide whether art is acceptable."""
+    deadline = time.monotonic() + seconds
+    previous = None
+    while time.monotonic() < deadline:
+        try:
+            run = json.loads((directory / 'run.json').read_text(encoding='utf-8-sig'))
+        except (FileNotFoundError, PermissionError, json.JSONDecodeError):
+            time.sleep(.5); continue
+        counts = dict(Counter(item['status'] for item in run['levels']))
+        progress = (run['status'], counts, run.get('nativeLevel'), run.get('nativeProfile'), run.get('nativePhase'))
+        if progress != previous:
+            print(json.dumps({'runStatus': run['status'], 'levels': counts, 'level': run.get('nativeLevel'),
+                              'profile': run.get('nativeProfile'), 'phase': run.get('nativePhase')}, ensure_ascii=False), flush=True)
+            previous = progress
+        if run['status'] not in ('preparing', 'running', 'capturing', 'applying', 'cancelling'):
+            print(json.dumps({'runId': run['id'], 'report': str(directory / 'index.html'), 'error': run.get('error')}, ensure_ascii=False), flush=True)
+            return 1 if run['status'] == 'error' else 0
+        time.sleep(1)
+    raise SystemExit('Watch timed out. The Editor job continues; inspect ' + str(directory / 'index.html'))
 
 
 def git(repo, *args):
@@ -64,6 +87,8 @@ def main():
     run.add_argument('--repository-project', type=Path, default=Path(__file__).resolve().parents[1] / 'QuietCamp')
     run.add_argument('--agent-delivery', action='store_true', help='Record protected user files for later explicit delivery')
     sub.add_parser('status')
+    observing = sub.add_parser('watch', help='Stream progress from the current Editor journal until it stops')
+    observing.add_argument('--duration', type=float, default=1800, help='Maximum observation time in seconds; does not cancel the job')
     resume = sub.add_parser('resume'); resume.add_argument('--run-id')
     sub.add_parser('cancel')
     review = sub.add_parser('review'); review.add_argument('verdict', type=Path)
@@ -80,7 +105,7 @@ def main():
     temp = project / 'Temp/ai'; temp.mkdir(parents=True, exist_ok=True)
     inbox = temp / 'qc-world-request.json'; outbox = temp / 'qc-world-result.json'
     # One writer per native bridge. Do not replace an outstanding request.
-    payload = {'requestId': uuid.uuid4().hex, 'command': 'delivery' if args.command == 'deliver' else args.command}
+    payload = {'requestId': uuid.uuid4().hex, 'command': 'delivery' if args.command == 'deliver' else 'status' if args.command == 'watch' else args.command}
     if args.command == 'run':
         payload.update(recipe=str(args.recipe.resolve()), repositoryProject=str(args.repository_project.resolve()))
         if args.agent_delivery:
@@ -102,6 +127,8 @@ def main():
         try: result = json.loads(outbox.read_text(encoding='utf-8-sig'))
         except (FileNotFoundError, json.JSONDecodeError): result = {}
         if result.get('requestId') == payload['requestId']:
+            if args.command == 'watch' and result.get('status') == 'ok' and result.get('path'):
+                return watch(Path(result['path']), args.duration)
             if args.command == 'deliver' and result.get('status') == 'ok':
                 deliver(Path(result['path']) / 'delivery.json', args.message, args.push)
             if args.command == 'status' and result.get('path'):

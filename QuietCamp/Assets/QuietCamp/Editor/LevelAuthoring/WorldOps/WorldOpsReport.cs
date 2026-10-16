@@ -11,7 +11,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         public static void Write(WorldRun run)
         {
             string E(string text)=>WebUtility.HtmlEncode(text??"");
-            var html=new StringBuilder("<!doctype html><html lang='uk'><meta charset='utf-8'><meta name='viewport' content='width=device-width'><title>WorldOps</title><style>body{background:#18221e;color:#eee;font:16px system-ui;max-width:1300px;margin:auto;padding:30px}section{border-top:1px solid #596b5b;padding:20px 0}a{color:#c4dbac}.pair{display:flex;gap:16px;align-items:flex-start}figure{width:48%;margin:0 0 24px}img{width:100%;border-radius:8px}pre{white-space:pre-wrap;color:#f5c9a7}small{color:#b9c5bc;overflow-wrap:anywhere}@media(max-width:650px){.pair{display:block}figure{width:100%}}</style>");
+            var html=new StringBuilder("<!doctype html><html lang='uk'><meta charset='utf-8'><meta name='viewport' content='width=device-width'><title>WorldOps</title><style>body{background:#18221e;color:#eee;font:16px system-ui;max-width:1300px;margin:auto;padding:30px}section{border-top:1px solid #596b5b;padding:20px 0}a{color:#c4dbac}.pair{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start}figure{width:48%;margin:0 0 24px}img,video{width:100%;border-radius:8px}pre{white-space:pre-wrap;color:#f5c9a7}small{color:#b9c5bc;overflow-wrap:anywhere}@media(max-width:650px){.pair{display:block}figure{width:100%}}</style>");
             html.Append("<h1>WorldOps · ").Append(E(run.recipe.label??run.recipe.id)).Append("</h1><p>").Append(E(run.status)).Append(" · ").Append(E(run.createdUtc)).Append("</p><p>Ігрові кадри містять справжній UI. Маски ID/глибини — окремі діагностичні файли. Числові перевірки не є художнім прийманням.</p>");
             if(run.error!=null)html.Append("<pre>").Append(E(run.error)).Append("</pre>");
             foreach(var item in run.levels)
@@ -19,6 +19,17 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 html.Append("<section><h2>").Append(E(item.levelId)).Append(" · ").Append(E(item.status)).Append(item.cached?" · актуальний кеш":"").Append("</h2><pre>").Append(E(item.error)).Append("</pre><ul>");
                 foreach(var f in item.findings)html.Append("<li>").Append(E(f.code+" · "+f.objectId+" · "+f.message)).Append("</li>");
                 html.Append("</ul>");
+                var movies=(item.review?.frames??new System.Collections.Generic.List<WorldFrame>()).SelectMany(f=>f.evidence.Keys).Where(p=>Path.GetExtension(p)==".mp4").Distinct().ToArray();
+                if(movies.Length>0)
+                {
+                    html.Append("<h3>Рух і звук — нативний запис гри</h3><div class='pair'>");
+                    foreach(var movie in movies)
+                    {
+                        string link=new Uri(movie).AbsoluteUri;
+                        html.Append("<figure><video controls preload='metadata' src='").Append(E(link)).Append("'></video><figcaption>").Append(E(Path.GetFileName(Path.GetDirectoryName(Path.GetDirectoryName(movie)))+" · "+Path.GetFileName(Path.GetDirectoryName(movie)))).Append("</figcaption><a href='").Append(E(link)).Append("'>Відкрити відео</a></figure>");
+                    }
+                    html.Append("</div>");
+                }
                 foreach(var group in (item.review?.frames??new System.Collections.Generic.List<WorldFrame>()).GroupBy(f=>f.profile+" · "+f.state))
                 {
                     html.Append("<h3>").Append(E(group.Key)).Append("</h3><div class='pair'>");
