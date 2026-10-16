@@ -53,6 +53,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         static string DraftFile(string root,string id)=>Path.Combine(root,Drafts,id.Replace(':','_')+".draft.json");
         public static WorldRun Start(WorldRecipe recipe,string repositoryProject,bool agentDelivery=false,string[] preexistingDirtyPaths=null)
         {
+            if(EditorUtility.scriptCompilationFailed||EditorApplication.isCompiling||EditorApplication.isUpdating)throw new InvalidOperationException("Wait for successful Unity compilation before starting WorldOps.");
             if(Busy||EditorApplication.isPlayingOrWillChangePlaymode||SessionState.GetBool("QuietCamp.NativeTestsRunning",false))throw new InvalidOperationException("Wait for the current Editor operation; a second Unity instance is not used.");
             WorldOpsOperations.Validate(recipe);repositoryProject=Path.GetFullPath(repositoryProject);
             if(!File.Exists(Path.Combine(repositoryProject,Content,"campaign.json")))throw new DirectoryNotFoundException("QuietCamp campaign not found in "+repositoryProject);
@@ -137,11 +138,13 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             _ticking=true;
             try
             {
+                if(EditorUtility.scriptCompilationFailed&&!_run.cancelled)throw new InvalidOperationException("Unity compilation failed during WorldOps; the current sources have no valid loaded assembly.");
                 if(_run.cancelled)
                 {
                     DisposeTerrain();
                     if(EditorApplication.isPlaying){EditorApplication.ExitPlaymode();return;}
                     if(EditorApplication.isPlayingOrWillChangePlaymode)return;
+                    WorldOpsNativeRunner.RestoreCaptureSettings(_run);
                     _run.nativeState=null;_run.nativeLevel=null;
                     _run.status="cancelled";Save();return;
                 }
@@ -336,6 +339,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             {
                 var recipe=new WorldRecipe{id="review",operations=verdict.corrections};WorldOpsOperations.Validate(recipe);
                 item.previousReviewFindings=LevelAuthoringDocument.Copy(item.review.findings);
+                item.beforeFrames=item.review.frames.Where(f=>f.phase=="before").ToList();
                 var doc=WorldOpsStorage.Read<LevelAuthoringDocument>(item.stagePath);foreach(var op in verdict.corrections)WorldOpsOperations.Apply(doc,op,_run.recipe.seed+item.round);
                 string previous=item.documentHash;Stage(item,doc);
                 item.stalled=previous==item.documentHash?item.stalled+1:0;item.round++;item.review=null;item.visualAccepted=false;item.findings=WorldOpsGeometry.Validate(doc,_run.recipe.criteria);
@@ -415,8 +419,12 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         {
             if(item.review==null||WorldOpsStorage.Digest(item.review)!=item.reviewHash)throw new InvalidDataException("Damaged review packet.");
             if(item.review.frames.Count==0)throw new InvalidDataException("No native frames.");
+            VerifyFrames(item.review.frames);
+        }
+        public static void VerifyFrames(IEnumerable<WorldFrame> frames)
+        {
             var evidence=new Dictionary<string,string>();
-            foreach(var frame in item.review.frames)
+            foreach(var frame in frames)
             {
                 if(WorldOpsStorage.FileHash(frame.path)!=frame.sha256)throw new InvalidDataException("Stale or damaged gameplay frame.");
                 foreach(var pair in frame.evidence)

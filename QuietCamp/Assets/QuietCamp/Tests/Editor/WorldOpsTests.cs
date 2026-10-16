@@ -103,6 +103,20 @@ namespace QuietCamp.Tests
             }
             finally{Directory.Delete(root,true);}
         }
+        [Test] public void ConcurrentEditDuringCommitIsPreservedBeforeItsWrite()
+        {
+            string root=Path.Combine(Path.GetTempPath(),"qc-worldops-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(root);
+            try
+            {
+                string a=Path.Combine(root,"a"),b=Path.Combine(root,"b"),journal=Path.Combine(root,"transaction");File.WriteAllText(a,"old-a");File.WriteAllText(b,"old-b");
+                WorldOpsTransaction.Prepare(journal,new System.Collections.Generic.Dictionary<string,string>{{a,"new-a"},{b,"new-b"}},new System.Collections.Generic.Dictionary<string,string>(),new[]{root});
+                Assert.Throws<IOException>(()=>WorldOpsTransaction.Commit(journal,i=>{if(i==1)File.WriteAllText(b,"concurrent user edit");}));
+                Assert.AreEqual("new-a",File.ReadAllText(a));Assert.AreEqual("concurrent user edit",File.ReadAllText(b));
+                Assert.Throws<IOException>(()=>WorldOpsTransaction.Commit(journal));Assert.Throws<IOException>(()=>WorldOpsTransaction.Rollback(journal));
+                Assert.AreEqual("concurrent user edit",File.ReadAllText(b));
+            }
+            finally{Directory.Delete(root,true);}
+        }
         [Test] public void ChangedSourceOrCorruptPreparedWritePreventsEveryWrite()
         {
             string root=Path.Combine(Path.GetTempPath(),"qc-worldops-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(root);
@@ -135,7 +149,7 @@ namespace QuietCamp.Tests
             var matrix=Matrix4x4.TRS(new Vector3(12.183f,.054f,8.631f),Quaternion.Euler(13,37,4),new Vector3(1.6f,1.2f,.8f));
             var combined=new Mesh();combined.CombineMeshes(new[]{new CombineInstance{mesh=primary,transform=matrix}},true,true);
             model.GetComponent<MeshFilter>().sharedMesh=combined;
-            var target=matrix.MultiplyPoint3x4(Vector3.zero);camera.transform.position=target+new Vector3(0,3,-8);camera.transform.LookAt(target);
+            var target=matrix.MultiplyPoint3x4(Vector3.zero);camera.transform.position=target+new Vector3(0,3,-8);camera.transform.LookAt(target+Vector3.up*.8f);
             var shader=Shader.Find("Hidden/QuietCamp/WorldOpsMask");Assert.IsNotNull(shader);
             var material=new Material(shader);var rt=new RenderTexture(128,128,24,RenderTextureFormat.ARGB32,RenderTextureReadWrite.Linear);rt.Create();
             var pixels=new Texture2D(128,128,TextureFormat.RGBA32,false,true);var previous=RenderTexture.active;
@@ -149,6 +163,8 @@ namespace QuietCamp.Tests
             {
                 yield return null; // Let Unity publish newly created renderer transforms.
                 var isolated=Read(true);int potential=isolated.Count(p=>p.r>127);Assert.Greater(potential,100);
+                float rowCentre=Enumerable.Range(0,isolated.Length).Where(i=>isolated[i].r>127).Average(i=>(float)(i/128));
+                Assert.That(rowCentre,Is.EqualTo(camera.WorldToViewportPoint(target).y*128).Within(4),"Diagnostic rows must align with Game View, not a vertically mirrored image.");
                 Assert.That(WorldOpsVisibility.ComposeVisibility(Read(false),isolated)/(float)potential,Is.GreaterThan(.98f),"A batched copy must not hide the primary itself.");
                 var obstruction=GameObject.CreatePrimitive(PrimitiveType.Cube);obstruction.transform.SetParent(root.transform);obstruction.layer=30;
                 obstruction.transform.position=target-camera.transform.forward*2;obstruction.transform.rotation=camera.transform.rotation;obstruction.transform.localScale=new Vector3(4,4,.1f);

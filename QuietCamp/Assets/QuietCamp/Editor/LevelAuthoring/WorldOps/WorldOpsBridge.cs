@@ -20,6 +20,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 var request=JObject.Parse(File.ReadAllText(Inbox));requestId=(string)request["requestId"];
                 if(string.IsNullOrWhiteSpace(requestId))throw new ArgumentException("A requestId is required.");
                 var command=(string)request["command"];
+                if(EditorUtility.scriptCompilationFailed&&command!="status"&&command!="cancel")throw new InvalidOperationException("Unity compilation failed; loaded assemblies cannot certify the current sources.");
                 if(command=="run")
                 {
                     if(SessionState.GetBool("QuietCamp.NativeTestsRunning",false)||File.Exists(Path.Combine(WorldOpsService.EditorProject,"Temp/ai/qc007-art-request.json")))throw new InvalidOperationException("Another native verification job is active.");

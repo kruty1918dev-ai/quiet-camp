@@ -109,8 +109,8 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                         var texture=new Texture2D(width,height,TextureFormat.RGBA32,false,true);
                         try
                         {
-                            if(SystemInfo.graphicsUVStartsAtTop)
-                            {var oriented=new Color32[colors.Length];for(int row=0;row<height;row++)Array.Copy(colors,row*width,oriented,(height-1-row)*width,width);colors=oriented;}
+                            // The explicit GPU projection already includes the render-target
+                            // orientation. Flipping readback again would mirror Game View.
                             texture.SetPixels32(colors);texture.Apply();File.WriteAllBytes(path+suffix,texture.EncodeToPNG());
                         }
                         finally{UnityEngine.Object.DestroyImmediate(texture);}

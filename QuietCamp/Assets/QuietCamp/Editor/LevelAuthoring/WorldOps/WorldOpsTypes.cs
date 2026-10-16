@@ -102,6 +102,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         public bool visualAccepted;
         public List<ValidationFinding> previousReviewFindings=new List<ValidationFinding>();
         public Dictionary<string,int> visualStalls=new Dictionary<string,int>();
+        public List<WorldFrame> beforeFrames=new List<WorldFrame>();
     }
     public sealed class WorldRun
     {
@@ -114,6 +115,8 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         public bool cancelled;
         public string nativeLevel,nativeProfile,nativePhase,nativeState,nativeFolder;
         public double nativeDeadline;
+        public int nativeOriginalQuality=-1;
+        public uint nativeOriginalWidth,nativeOriginalHeight;
         public bool workspaceCaptured;
         public string terrainScenePath;
         public string campaignValidationHash;

@@ -80,6 +80,13 @@ namespace QuietCamp.Presentation
         public int AlbumIndex;
         /// <summary>Chosen once per application launch; returning from gameplay keeps the same backdrop.</summary>
         public LevelData MenuBackdrop { get; internal set; }
+#if UNITY_EDITOR
+        public void SelectMenuCapture()
+        {
+            if(!EditorAuthoringPreview.CampaignPreview||!EditorAuthoringPreview.ControlledCapture||!Save.MemoryOnly)throw new InvalidOperationException("Only the controlled memory preview can select a menu backdrop.");
+            MenuBackdrop=EditorAuthoringPreview.Current.level;
+        }
+#endif
         public int EffectiveQuality = UnityEngine.Mathf.Clamp(UnityEngine.QualitySettings.GetQualityLevel(),0,2);
 
 

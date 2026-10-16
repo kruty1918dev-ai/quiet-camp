@@ -98,7 +98,9 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             journal.state="committing";WorldOpsStorage.Json(path,journal);int index=0;
             foreach(var item in journal.writes)
             {
-                if(WorldOpsStorage.FileHash(item.path)!=item.afterHash)WorldOpsStorage.Write(item.path,File.ReadAllBytes(item.prepared));
+                string current=WorldOpsStorage.FileHash(item.path);
+                if(current!=item.beforeHash&&current!=item.afterHash)throw new IOException("Target changed while committing: "+item.path);
+                if(current!=item.afterHash)WorldOpsStorage.Write(item.path,File.ReadAllBytes(item.prepared));
                 afterWrite?.Invoke(++index);
             }
             journal.state="committed";WorldOpsStorage.Json(path,journal);
