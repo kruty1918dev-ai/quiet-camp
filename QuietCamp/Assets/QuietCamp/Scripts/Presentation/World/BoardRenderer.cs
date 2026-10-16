@@ -129,20 +129,20 @@ namespace QuietCamp.Presentation.World
                     _groundMaterial.SetColor("_GroundLow",low);_groundMaterial.SetColor("_GroundHigh",high);
                 }
             }
-            _groundMaterial.SetFloat("_CellGrid",1);
+            _groundMaterial.SetFloat("_CellGrid",0);
             if(_art!=null)
             {
                 DestroyOwned(_groundMaterial);
                 _groundMaterial=new Material(Resources.Load<Shader>("QuietCamp/PlacementGrid")){name="Placement lines above continuous landscape"};
                 _groundMaterial.SetVector("_GridOffset",new Vector4(_level.width*.5f,_level.height*.5f,0,0));
-                SetPlacementGridVisible(true);
+                SetPlacementGridVisible(false);
             }
             for (var x = 0; x < _level.width; x++)
             for (var z = 0; z < _level.height; z++)
             {
                 var cell = new Cell(x, z);
                 var tile = NewPrimitive(PrimitiveType.Cube, $"Cell_{x}_{z}", _gridRoot,
-                    new Vector3(0.992f, 0.014f, 0.992f),
+                    new Vector3(1f, 0.014f, 1f),
                     BoardMath.CellCenterWorld(_level, cell) + new Vector3(0f, 0.007f, 0f),
                     null, BoardSurfaceLayer,_groundMaterial);
                 _tintObjects.Add(tile);
@@ -275,7 +275,7 @@ namespace QuietCamp.Presentation.World
         { if (_pathOverlay != null) _pathOverlay.SetActive(false); if (_routeBreakOverlay != null) _routeBreakOverlay.SetActive(false); }
 
         public static Color PreviewColor(RuleReport report)
-            => !report.CanCommit ? new Color(1f, .62f, .3f, .55f)
+            => !report.CanCommit ? new Color(1f, .28f, .24f, .6f)
                 : report.Issues.Count > 0 ? new Color(.95f, .82f, .46f, .5f)
                 : new Color(.55f, .85f, .64f, .5f);
 
@@ -296,7 +296,55 @@ namespace QuietCamp.Presentation.World
         public void HidePlacementPreview()
         { if (_previewOverlay != null) _previewOverlay.SetActive(false); if(_previewDoor!=null)_previewDoor.SetActive(false); }
         public void SetPlacementGridVisible(bool visible)
-        {if(_groundMaterial!=null&&_groundMaterial.HasProperty("_GridVisible"))_groundMaterial.SetFloat("_GridVisible",visible?1:0);}
+        {
+            if(_groundMaterial==null)return;
+            if(_groundMaterial.HasProperty("_GridVisible"))_groundMaterial.SetFloat("_GridVisible",visible?1:0);
+            if(_groundMaterial.HasProperty("_CellGrid"))_groundMaterial.SetFloat("_CellGrid",visible?1:0);
+        }
+
+        readonly List<GameObject> _placementSites=new List<GameObject>();
+        GameObject _friendDoorOverlay;
+        readonly List<GameObject> _friendDoorCells=new List<GameObject>();
+        public void ShowPlacementGuidance(QuietCamp.Application.CampSession session,string guestId,int rotation)
+        {
+            var sites=QuietCamp.Application.PlacementGuidance.Sites(session,guestId,rotation);
+            for(int i=0;i<sites.Length;i++)
+            {
+                if(i==_placementSites.Count)
+                    _placementSites.Add(NewPrimitive(PrimitiveType.Cylinder,"PlacementSite_"+i,_overlayRoot,
+                        new Vector3(.18f,.008f,.18f),Vector3.zero,null,RuleOverlayLayer,_overlayMaterial));
+                var go=_placementSites[i]; var site=sites[i];
+                go.transform.position=BoardMath.TentCenter(_level,site.X,site.Z)+Vector3.up*.04f;
+                Tint(go,site.Status==QuietCamp.Application.PlacementGuidance.Fit.Ready?new Color(.3f,.95f,.55f,.8f):
+                    site.Status==QuietCamp.Application.PlacementGuidance.Fit.UnmetWish?new Color(1,.76f,.25f,.7f):new Color(1,.32f,.28f,.6f));
+                go.SetActive(true);
+            }
+            for(int i=sites.Length;i<_placementSites.Count;i++)_placementSites[i].SetActive(false);
+            var guest=System.Array.Find(_level.guests,g=>g.id==guestId);
+            var quietShade=new List<Cell>();
+            if(guest?.shade==true||guest?.quiet==true)
+                for(int x=0;x<_level.width;x++)for(int z=0;z<_level.height;z++)
+                {
+                    var cell=new Cell(x,z);
+                    bool shaded=System.Array.Exists(_level.shade,s=>s[0]==x&&s[1]==z);
+                    if((!guest.shade||shaded)&&(!guest.quiet||!RuleEvaluator.IsNoisy(_level,cell)))quietShade.Add(cell);
+                }
+            UpdateCells(ref _shadeOverlay,_shadeCells,"ShadeRule",quietShade,new Color(.35f,.75f,1f,.18f));
+            var friendDoors=new List<Cell>();
+            foreach(var pair in _level.friends)
+            {
+                string friend=pair[0]==guestId?pair[1]:pair[1]==guestId?pair[0]:null;
+                var pose=friend==null?null:session.State.Find(friend);
+                if(pose!=null)friendDoors.Add(RuleEvaluator.Door(pose));
+            }
+            UpdateCells(ref _friendDoorOverlay,_friendDoorCells,"FriendDoors",friendDoors,new Color(.75f,.5f,1f,.6f));
+        }
+        public void HidePlacementGuidance()
+        {
+            SetPlacementGridVisible(false);ShowShade(false);
+            if(_friendDoorOverlay!=null)_friendDoorOverlay.SetActive(false);
+            foreach(var site in _placementSites)if(site!=null)site.SetActive(false);
+        }
 
         // Dragging retargets existing cells; no destroy/instantiate or material
         // cloning on every grid boundary. Path finding uses the candidate's occupancy.
@@ -420,6 +468,7 @@ namespace QuietCamp.Presentation.World
             }
             Strip(-.46f,0,.035f,.95f); Strip(.46f,0,.035f,.95f);
             Strip(0,-.46f,.95f,.035f); Strip(0,.46f,.95f,.035f);
+            if(name.StartsWith("ShadeRule")||name.StartsWith("FriendDoors"))Strip(0,0,.90f,.90f);
             if (name.StartsWith("RouteBreak"))
             { Strip(0,0,.07f,.60f); Strip(0,0,.60f,.07f); }
             mesh.SetVertices(vertices); mesh.SetTriangles(triangles,0); mesh.RecalculateNormals(); mesh.RecalculateBounds();
@@ -541,6 +590,10 @@ namespace QuietCamp.Presentation.World
             if (_previewOverlay != null) DestroyOwned(_previewOverlay);
             if (_previewDoor != null) DestroyOwned(_previewDoor);
             if (_routeBreakOverlay != null) DestroyOwned(_routeBreakOverlay);
+            foreach(var site in _placementSites)if(site!=null)DestroyOwned(site);
+            _placementSites.Clear();
+            if(_friendDoorOverlay!=null)DestroyOwned(_friendDoorOverlay);
+            _friendDoorCells.Clear();
             _pathCells.Clear(); _previewCells.Clear();
             if (_overlayMaterial != null) DestroyOwned(_overlayMaterial);
             if (_groundMaterial != null) DestroyOwned(_groundMaterial);
@@ -604,15 +657,9 @@ namespace QuietCamp.Presentation.World
 
         Material MakeOverlayMaterial()
         {
-            var shader = Shader.Find("Universal Render Pipeline/Unlit");
+            var shader = Resources.Load<Shader>("QuietCamp/RuleOverlay");
             var m = new Material(shader);
-            m.SetFloat("_Surface", 1f);
-            m.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
-            m.SetFloat("_Blend", 0f);
-            m.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-            m.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            m.SetInt("_ZWrite", 0);
-            m.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+            m.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Overlay;
             return m;
         }
 

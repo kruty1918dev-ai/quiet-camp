@@ -9,6 +9,7 @@ namespace QuietCamp.Application
     public sealed class TutorialSaveData
     {
         public bool initialized, existingPlayer, controlsUnlocked, introductionSeen, menuIntroSeen;
+        public int curriculumVersion;
         public TutorialProgress progress = new TutorialProgress();
         /// <summary>Wish signs the ongoing guide has already explained once.</summary>
         public string[] explainedSigns = Array.Empty<string>();
@@ -28,6 +29,8 @@ namespace QuietCamp.Application
         readonly ProgressionService _progression;
         readonly Func<bool> _persist;
         bool _saving;
+        readonly LearningCurriculum _availableCurriculum;
+        LearningCurriculum _curriculum;
         public event Action Changed;
         public TutorialSaveData Save => _save;
         public bool Skipped => _runner.Skipped;
@@ -60,14 +63,25 @@ namespace QuietCamp.Application
         public bool HistoryUnlocked => AllControls || _progression.IsCompleted("QC001");
         public bool HintsUnlocked => AllControls || _progression.IsCompleted("QC002");
         public bool GuestListUnlocked => AllControls || _progression.IsCompleted("QC002");
-        public string CurrentLevelId => _runner.Current == null ? null : _runner.Current.Id.Substring(0, 5);
+        public string CurrentLevelId => _runner.Current == null ? null : _runner.Current.Id.Substring(0, _runner.Current.Id.LastIndexOf('.'));
         public string ActiveKey => _save.existingPlayer ? null : _runner.Current?.TextKey;
         public string Portrait => _runner.Current?.PortraitId ?? "welcome";
         public string Target => _runner.Current?.TargetId;
 
-        public TutorialDirector(TutorialSaveData saved, bool hasExistingPlay, ProgressionService progression, Func<bool> persist)
+        public TutorialDirector(TutorialSaveData saved, bool hasExistingPlay, ProgressionService progression, Func<bool> persist, LearningCurriculum curriculum=null)
         {
             _save = saved ?? new TutorialSaveData(); _progression = progression ?? throw new ArgumentNullException(nameof(progression));
+            _save.progress??=new TutorialProgress();
+            _curriculum=_availableCurriculum=curriculum;
+            if(_curriculum!=null&&_save.initialized&&_save.curriculumVersion<2)
+            {
+                var completed=_save.progress?.completedSteps??Array.Empty<string>();
+                // Finished/skipped guides stay finished. In-progress guides retain their learned actions.
+                if(Array.IndexOf(completed,"QC005.friends")>=0||_save.progress.skipped)_curriculum=null;
+                else _save.progress.completedSteps=Array.ConvertAll(completed,id=>id=="QC003.shade"?"QC003.lesson":
+                    id=="QC004.quiet"?"QC004.lesson":id=="QC005.friends"?"QC005.lesson":id);
+            }
+            if(_curriculum!=null)_save.curriculumVersion=2;
             _persist = persist;
             if (!_save.initialized)
             { _save.initialized = true; _save.existingPlayer = hasExistingPlay; _save.controlsUnlocked = hasExistingPlay; _save.menuIntroSeen = hasExistingPlay; }
@@ -176,6 +190,13 @@ namespace QuietCamp.Application
         public void LearnAgain()
         {
             _save.existingPlayer = false; _save.controlsUnlocked = true; _save.introductionSeen = true;
+            if(_curriculum==null&&_availableCurriculum!=null)
+            {
+                // Explicitly restarting a finished legacy guide uses today's paced campaign.
+                _curriculum=_availableCurriculum;_save.curriculumVersion=2;
+                _save.progress=new TutorialProgress{flowId=_save.progress.flowId,claimedRewards=_save.progress.claimedRewards};
+                BindRunner();OnChanged();return;
+            }
             if (Finished)
             {
                 _save.progress = new TutorialProgress { flowId = _save.progress.flowId, claimedRewards = _save.progress.claimedRewards };
@@ -239,7 +260,7 @@ namespace QuietCamp.Application
             Changed?.Invoke();
         }
         sealed class Grant : ITutorialRewardSink { public bool TryGrant(string id) => id == RewardId; }
-        static TutorialDefinition Definition()
+        TutorialDefinition Definition()
         {
             var steps = new List<TutorialStep>();
             void Add(string level, string id, string action, string fact, string target, string portrait)
@@ -254,6 +275,16 @@ namespace QuietCamp.Application
             Add("QC002", "move", "move", "route-valid", "board", "point");
             Add("QC002", "undo", "undo", null, "undo", "listen");
             Add("QC002", "shared-route", "complete", "solved", "check", "encourage");
+            if(_curriculum!=null)
+            {
+                for(int i=2;i<_curriculum.lessons.Length;i++)
+                {
+                    var lesson=_curriculum.lessons[i];var id=lesson.levelId;
+                    steps.Add(new TutorialStep(id+".lesson",lesson.textKey,"board",
+                        new TutorialPredicate(o=>o.ActionId=="complete"&&o.Has("level."+id)&&o.Has("solved")),"point"));
+                }
+                return new TutorialDefinition("quietcamp.first-camps",1,steps,RewardId);
+            }
             Add("QC003", "shade", "complete", "shade-valid", "board", "point");
             Add("QC004", "quiet", "complete", "quiet-valid", "board", "listen");
             Add("QC005", "friends", "complete", "friends-valid", "board", "celebrate");

@@ -280,7 +280,8 @@ namespace QuietCamp.Presentation
             if (Save.Progress == null) Save.Progress = new ProgressSaveData();
             var existing = Progression.CompletedCount > 0 || !string.IsNullOrEmpty(Progression.LastLevelId)
                 || !string.IsNullOrEmpty(Save.Session?.levelId) || (Save.Album.entries?.Length ?? 0) > 0;
-            var tutorial = new TutorialDirector(Save.Progress.tutorial, existing, Progression, Save.Save);
+            var curriculum=LearningCurriculum.Read(UnityEngine.Resources.Load<UnityEngine.TextAsset>("QuietCamp/learning_curriculum").text);
+            var tutorial = new TutorialDirector(Save.Progress.tutorial, existing, Progression, Save.Save, curriculum);
             Save.Progress.tutorial = tutorial.Save;
             return tutorial;
         }

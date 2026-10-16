@@ -16,7 +16,7 @@ namespace QuietCamp.Presentation.World
         Transform _inside,_outside;Mesh _insideMesh,_outsideMesh;Material _belongingsMaterial;
         Rect[] _outdoor=new Rect[2];Placement _lastPlacement;Transform _outdoorParent;
         bool _pending,_held,_built,_retiring,_lifeMotion=true;float _settleAt;
-        bool _cared;
+        bool _cared, _closed;
         public bool Cared => _cared;
         public TentLivingSpace LivingSpace {get;private set;}
         public bool Settled=>!_pending;
@@ -46,6 +46,7 @@ namespace QuietCamp.Presentation.World
         }
         public void Close(bool reducedMotion)
         {
+            _closed=true;
             _reduced=reducedMotion;_target=1;
             RefreshLifeMotion();
             if(_reduced){_closure=1;Pose();}
@@ -58,7 +59,8 @@ namespace QuietCamp.Presentation.World
         public void ShowCare()
         {
             if (!_built || _cared) return;
-            _cared = true; _target = .15f; _closure = .15f; Pose();
+            _cared = true;
+            if(!_closed){_target = .15f; _closure = .15f; Pose();}
             BuildInside(_shelteredMask);
             if (_inside != null) _inside.gameObject.SetActive(true);
         }

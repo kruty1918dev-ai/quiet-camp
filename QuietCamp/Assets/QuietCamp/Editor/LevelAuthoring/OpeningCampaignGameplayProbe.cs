@@ -123,6 +123,44 @@ namespace QuietCamp.Editor.LevelAuthoring
             var host=CampSceneHost.Current;
             if(host?.UiReady!=true)return new{status="opening-game-waiting",scene=UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,host=host!=null,mask=Camera.main?.cullingMask,transition=UnityEngine.Object.FindAnyObjectByType<FoliageDiveTransition>()?.Current.ToString()};
             var services=QuietCampBootstrap.ServicesRef;var session=host.Session;string id=session.Level.id;
+            if(action=="learning-status")
+            {
+                var stories=UnityEngine.Object.FindObjectsByType<TentStoryVisual>(FindObjectsSortMode.None);
+                var grids=UnityEngine.Object.FindObjectsByType<MeshRenderer>(FindObjectsSortMode.None)
+                    .Where(r=>r.name.StartsWith("Cell_",StringComparison.Ordinal)&&r.sharedMaterial?.HasProperty("_GridVisible")==true)
+                    .Select(r=>r.sharedMaterial.GetFloat("_GridVisible")).Distinct().ToArray();
+                return new{status="learning-status",id,memoryOnly=services.Save.MemoryOnly,placed=session.State.Count,
+                    completed=session.IsCompleted,grids,closures=stories.Select(s=>s.Closure).ToArray(),
+                    selected=session.SelectedGuestId,sites=QuietCamp.Application.PlacementGuidance.Sites(session,session.SelectedGuestId,0)
+                        .GroupBy(s=>s.Status).Select(g=>new{status=g.Key.ToString(),count=g.Count()}).ToArray(),
+                    recoveryHint=services.Economy.RecoveryHintPending(id),lives=services.Economy.Lives,hints=services.Economy.Hints,
+                    curriculum=services.Tutorial.Save.curriculumVersion,cue=services.Tutorial.Cue(id)};
+            }
+            if(action=="check-layout")
+            {
+                services.Actions.Execute(new UiActionRequest(new UiActionId("qc.check"),UiActionSource.Programmatic,"Gameplay"));
+                return new{status="learning-check",id,completed=session.IsCompleted,placed=session.State.Count,memoryOnly=true};
+            }
+            if(action=="learning-hold"||action=="learning-release")
+            {
+                var placement=UnityEngine.Object.FindAnyObjectByType<PlacementController>();
+                var mouse=UnityEngine.InputSystem.Mouse.current??UnityEngine.InputSystem.InputSystem.AddDevice<UnityEngine.InputSystem.Mouse>();
+                Vector2 point=new Vector2(Screen.width*.5f,Screen.height*.5f);
+                var artView=UnityEngine.Object.FindAnyObjectByType<CampArtView>();
+                if(action=="learning-hold")
+                {
+                    var pose=session.Level.witness[0];
+                    point=Camera.main.WorldToScreenPoint(BoardMath.TentCenter(session.Level,pose.x,pose.z));
+                    UnityEngine.InputSystem.InputSystem.QueueStateEvent(mouse,new UnityEngine.InputSystem.LowLevel.MouseState{position=point}.WithButton(UnityEngine.InputSystem.LowLevel.MouseButton.Left));
+                    UnityEngine.InputSystem.InputSystem.Update();
+                    bool started=placement.BeginCardDrag(session.Level.guests[0].id,0,point);
+                    return new{status="learning-held",started,memoryOnly=true};
+                }
+                placement.Cancel();
+                UnityEngine.InputSystem.InputSystem.QueueStateEvent(mouse,new UnityEngine.InputSystem.LowLevel.MouseState{position=point});
+                UnityEngine.InputSystem.InputSystem.Update();
+                return new{status="learning-released",memoryOnly=true};
+            }
             if(action=="close-auxiliary")
             {
                 var auxiliary=UnityEngine.SceneManagement.SceneManager.GetSceneByName("QA unrelated active scene");

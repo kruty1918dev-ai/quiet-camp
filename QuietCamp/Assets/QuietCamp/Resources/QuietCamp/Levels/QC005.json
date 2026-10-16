@@ -7,7 +7,7 @@
   "width": 6,
   "height": 7,
   "id": "QC005",
-  "contentHash": "9a0dccb2b07c2ab963e18eacdeede5f152f3e008064b9842ccdb42d6ac741230",
+  "contentHash": "5a5e1225ce7cbdeec3cf516d82bd8a82f5fd8c399cde0b11119b08a0950876f5",
   "generatorVersion": "cozy-campaign-100-v1",
   "lighting": "day",
   "tutorialKey": "tutorial.5",
@@ -18,14 +18,7 @@
     3,
     6
   ],
-  "accessPoints": [
-    {
-      "id": "trail-out",
-      "kind": "exit",
-      "x": 3,
-      "z": 0
-    }
-  ],
+  "accessPoints": [],
   "blocked": [
     [
       3,
@@ -58,12 +51,7 @@
       "quiet": false
     }
   ],
-  "friends": [
-    [
-      "g1",
-      "g2"
-    ]
-  ],
+  "friends": [],
   "witness": [
     {
       "guestId": "g1",

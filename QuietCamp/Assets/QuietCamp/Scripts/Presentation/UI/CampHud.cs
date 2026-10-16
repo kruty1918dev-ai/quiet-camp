@@ -171,7 +171,8 @@ namespace QuietCamp.Presentation.UI
             {
                 var key = PreviewKey(_previewReport);
                 tutorial = GuideMarkup() + "<view id=\"placement-status\" class=\"tutorial preview-feedback\"><view class=\"pill\">"
-                    + HtmlUi.Text(T(key)) + "</view></view>";
+                    + HtmlUi.Text(T(key)) + HtmlUi.Text(T("hud.placement.legend"),"placement-legend")
+                    + HtmlUi.Text(PlacementWish(),"placement-legend") + "</view></view>";
             }
             else if (_tutorialKey != null)
                 tutorial = GuideMarkup();
@@ -227,6 +228,7 @@ namespace QuietCamp.Presentation.UI
                     + "<img class=\"tent-art\" src=\"res:QuietCamp/UI/Tents/"+next.assetId+"\"/>" + "<view class=\"gc-text\">"
                     + HtmlUi.Text(T(next.nameKey), "gc-name")
                     + CampIcons.Wishes(_session.Level,next)
+                    + HtmlUi.Text(T("hud.hold.place"),"gc-help")
                     + "</view><text class=\"gc-count\">" + placed + "/" + total + "</text></button>");
                 _surface.Callbacks.Bind("guest-card", () => SelectGuest(next.id));
             }
@@ -303,6 +305,24 @@ namespace QuietCamp.Presentation.UI
             return null;
         }
 
+        string PlacementWish()
+        {
+            var guest=System.Array.Find(_session.Level.guests,g=>g.id==_session.SelectedGuestId);
+            if(guest==null)return "";
+            var parts=new List<string>();
+            if(guest.shade&&guest.quiet)parts.Add(T("hud.zone.quiet-shade"));
+            else if(guest.shade)parts.Add(T("hud.zone.shade"));
+            else if(guest.quiet)parts.Add(T("hud.zone.quiet"));
+            foreach(var pair in _session.Level.friends)
+                if(pair[0]==guest.id||pair[1]==guest.id)
+                {
+                    var friend=pair[0]==guest.id?pair[1]:pair[0];
+                    var name=System.Array.Find(_session.Level.guests,g=>g.id==friend)?.nameKey;
+                    parts.Add(string.Format(T(_session.State.Contains(friend)?"hud.zone.friends":"hud.zone.friend-first"),T(name)));
+                }
+            return string.Join(" · ",parts);
+        }
+
         string WishText(GuestData guest)
         {
             var wishes = new List<string> { T("wish.path") };
@@ -320,6 +340,8 @@ namespace QuietCamp.Presentation.UI
         string RenderOverlay()
         {
             if (!HasModalOpen && !_celebrating) return "<view />";
+            if(_celebrating&&!HasModalOpen)
+                return "<view class=\"completion-note\">"+HtmlUi.Text(T("hud.camp.complete"))+"</view>";
             var sb = new StringBuilder("<view class=\"app dimroot\">");
             if (HasModalOpen)
             {
@@ -329,25 +351,6 @@ namespace QuietCamp.Presentation.UI
                     + " onClick=\"Globals.campUi.Click('dim')\"></button>");
                 sb.Append(Sheet());
                 _overlay.Callbacks.Bind("dim", () => CloseTopModal());
-            }
-            else if (_celebrating && _storyPlaying)
-            {
-                sb.Append("<view class=\"story-skip\" data-safe-area=\"all\">")
-                    .Append(OverlayButton("story-skip", "memory.skip", () => _skipStory?.Invoke(), "quiet")).Append("</view>");
-            }
-            else if (_celebrating)
-            {
-                sb.Append("<view class=\"celebrate\"><view id=\"sheet\" class=\"card\" data-motion-role=\"dialog\">"
-                    + HtmlUi.Text("✓", "big win")
-                    + HtmlUi.Text(T("rule.ok"), "big")
-                    + HtmlUi.Text(OpeningCampaignStory.For(_session.Level)?.after??T("celebrate.next"), "sub")
-                    + (_services.Tutorial.RewardOwned && _session.Level.id == "QC005"
-                        ? "<view class=\"guide-farewell\"><img class=\"guide-portrait\" src=\"res:QuietCamp/UI/Mentor/farewell\"/>"
-                            + HtmlUi.Text(T("guide.farewell"), "guide-instruction") + "</view>"
-                            + HtmlUi.Text(T("guide.reward.earned"), "guide-reward") : "")
-                    + OverlayButton("memory-album", "menu.album", () => Action("qc.album"), "quiet")
-                    + OverlayButton("next", _services.NextLevel(_session.Level.id) != null ? "action.next" : "menu.main", () => Action("qc.next"), "primary")
-                    + "</view></view>");
             }
             sb.Append("</view>");
             return sb.ToString();
@@ -585,7 +588,7 @@ namespace QuietCamp.Presentation.UI
             _ => sign,
         };
 
-        /// <summary>The finished camp stays available to enjoy until Next is tapped.</summary>
+        /// <summary>Briefly block placement while the scene host advances after completion.</summary>
         void BeginCelebration()
         {
             _celebrating = true;

@@ -241,7 +241,7 @@ namespace QuietCamp.Tests
                 "Finishing after skip must not grant the gift twice.");
         }
 
-        [UnityTest,Timeout(240000)] public IEnumerator GuideExplainsMistakesAndFinishedLearningReturnsToMenu()
+        [UnityTest,Timeout(240000)] public IEnumerator MigratedGuideExplainsMistakesAndAdvancesToTheNextCamp()
         {
             if(UnityEngine.Application.isBatchMode)Assert.Ignore("Requires rendered Game View.");
             typeof(ScreenshotPlayModeTest).GetMethod("SetGameViewSize",BindingFlags.Static|BindingFlags.NonPublic)
@@ -256,7 +256,7 @@ namespace QuietCamp.Tests
             yield return ColdBoot();yield return Camp("QC005");
             var services=QuietCampBootstrap.ServicesRef;
             Assert.IsTrue(services.Tutorial.Guiding("QC005"));
-            Assert.AreEqual("guide.friends",services.Tutorial.Cue("QC005"));
+            Assert.AreEqual("guide.practice.place",services.Tutorial.Cue("QC005"));
             var host=CampSceneHost.Current;var level=host.Session.Level;
 
             // A committable pose that still breaks a wish makes the mentor explain it.
@@ -288,17 +288,13 @@ namespace QuietCamp.Tests
             foreach(var pose in level.witness)
                 Assert.IsTrue(host.Session.TryCommit(PlacementCommand.Place(pose.guestId,pose.x,pose.z,pose.rotation),out _));
             yield return Frames();Tap("check");yield return Frames(20);
-            Assert.IsTrue(host.Session.IsCompleted);Assert.IsTrue(services.Tutorial.Finished);
-            Assert.IsTrue(services.Tutorial.RewardOwned,"The last guided glade grants the pennant.");
+            Assert.IsTrue(host.Session.IsCompleted);Assert.IsFalse(services.Tutorial.Finished);
             float deadline=Time.realtimeSinceStartup+25;
-            while(SceneManager.GetActiveScene().name!="MainMenu"&&Time.realtimeSinceStartup<deadline)yield return null;
-            Assert.AreEqual("MainMenu",SceneManager.GetActiveScene().name,
-                "A finished tutorial must return the player to the menu automatically.");
+            while((CampSceneHost.Current==null||CampSceneHost.Current.Session?.Level.id!="QC006")&&Time.realtimeSinceStartup<deadline)yield return null;
+            Assert.AreEqual("QC006",CampSceneHost.Current?.Session?.Level.id,
+                "A completed camp advances automatically without another Next tap.");
             yield return Frames(20);
-            Assert.IsTrue(services.Tutorial.NeedsMenuIntro,"Fresh finishers get one menu orientation card.");
-            Assert.NotNull(Button("menu-guide-ok"));yield return Shot("04-menu-orientation");
-            Tap("menu-guide-ok");yield return Frames(6);
-            Assert.IsFalse(services.Tutorial.NeedsMenuIntro);Assert.IsNull(Button("menu-guide-ok"));
+            Assert.IsFalse(services.Tutorial.NeedsMenuIntro,"Learning continues through twenty camps.");
         }
 
         [UnityTest,Timeout(240000)] public IEnumerator BoardTapPicksUpTheNextTent()

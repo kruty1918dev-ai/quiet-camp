@@ -61,7 +61,7 @@ def main():
     all_classes = set(re.findall(r'\.([\w-]+)', css))
     map_classes = {'app', 'cinematic-roadmap', 'roadmap-exit', 'roadmap-exit-disc', 'ico', 'ico-back'}
     game_classes = {c for c in all_classes if c.startswith(('gc-', 'dock', 'guest-card', 'guide-', 'ico', 'tent-chip'))}
-    game_classes.update('app top bottom grow quiet primary orb icon hint-control check-button guest-list-button message tutorial preview-feedback pill arr idle completed selected check-notice tent-art wish-icons tag verbs verb chip-wish person left right head body pause-bar'.split())
+    game_classes.update('app top bottom grow quiet primary orb icon hint-control check-button guest-list-button message tutorial preview-feedback pill arr idle completed selected completion-note placement-legend check-notice tent-art wish-icons tag verbs verb chip-wish person left right head body pause-bar'.split())
     # Retain all common controls, icon parts, privacy and optional resource rules.
     # Only classes belonging exclusively to other screen compositions are removed.
     settings_classes = all_classes - {c for c in all_classes if c.startswith((

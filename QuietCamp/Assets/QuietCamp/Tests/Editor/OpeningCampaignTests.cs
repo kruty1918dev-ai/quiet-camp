@@ -131,7 +131,11 @@ namespace QuietCamp.Tests
                 if(i<9)Assert.AreEqual(entries[i+1].id,entries[i].nextId);
                 Assert.IsNotEmpty(entries[i].canonicalBeat);Assert.IsNotEmpty(entries[i].proposedAdditions);
             }
-            Assert.IsTrue(entries[2].mechanic.Contains("Тінь"));Assert.IsTrue(entries[3].mechanic.Contains("Тиша"));Assert.IsTrue(entries[4].mechanic.Contains("Друзі"));
+            Assert.IsTrue(entries[2].mechanic.IndexOf("тінь",StringComparison.OrdinalIgnoreCase)>=0);
+            Assert.IsFalse(LevelLoader.Load(entries[3].id).guests.Any(g=>g.quiet));
+            Assert.IsEmpty(LevelLoader.Load(entries[4].id).friends);
+            Assert.IsTrue(entries[8].mechanic.IndexOf("тиша",StringComparison.OrdinalIgnoreCase)>=0);
+            Assert.IsTrue(entries[10].mechanic.IndexOf("друзі",StringComparison.OrdinalIgnoreCase)>=0);
         }
         [Test] public void HistoricalLevelsDoNotAcquireNewFindingsAndInvalidCatalogsAreRejected()
         {

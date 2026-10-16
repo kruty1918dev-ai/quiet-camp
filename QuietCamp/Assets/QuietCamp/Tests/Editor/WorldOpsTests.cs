@@ -365,6 +365,7 @@ namespace QuietCamp.Tests
             {
                 view.Configure(d.art,d.level,root.transform,AssetCatalog.Load());
                 CameraFitter.Fit(camera,d.level,null);float small=camera.orthographicSize;
+                Assert.IsTrue(camera.orthographic,"The canonical fitter must not leave a fresh camera in perspective mode.");
                 d.art.gameplayCameraMargin=1.45f;CameraFitter.Fit(camera,d.level,null);
                 Assert.That(camera.orthographicSize/small,Is.EqualTo(1.45f/1.1f).Within(.001));
                 var target=camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>().Frame.NormalizedGameplay.center;

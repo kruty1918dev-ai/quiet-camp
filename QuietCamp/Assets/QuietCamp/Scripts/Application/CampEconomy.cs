@@ -11,6 +11,8 @@ namespace QuietCamp.Application
     {
         public string levelId;
         public int checks;
+        public int consecutiveFailures;
+        public bool recoveryHintPending;
     }
     [Serializable] public sealed class EconomySaveData
     {
@@ -25,7 +27,7 @@ namespace QuietCamp.Application
         {
             version = version, initialized = initialized, pro = pro, lives = lives, hints = hints,
             currency = currency, adLivesUsed = adLivesUsed, adDay = adDay,
-            attempts = (attempts ?? Array.Empty<AttemptRecord>()).Select(a => new AttemptRecord { levelId = a.levelId, checks = a.checks }).ToArray(),
+            attempts = (attempts ?? Array.Empty<AttemptRecord>()).Select(a => new AttemptRecord { levelId = a.levelId, checks = a.checks, consecutiveFailures=a.consecutiveFailures, recoveryHintPending=a.recoveryHintPending }).ToArray(),
             appliedReceiptIds = (string[])(appliedReceiptIds ?? Array.Empty<string>()).Clone()
         };
         public void Restore(EconomySaveData value)
@@ -74,18 +76,30 @@ namespace QuietCamp.Application
             if (!CanHint) return EconomyResult.NoHints;
             return IsPro ? EconomyResult.Applied : Commit(() => _data.hints--);
         }
-        public EconomyResult RecordCheck(string levelId, bool solved)
+        public bool RecoveryHintPending(string levelId) => _data.attempts.Any(a=>a.levelId==levelId&&a.recoveryHintPending);
+        public EconomyResult UseRecoveryHint(string levelId)
+        {
+            var record=_data.attempts.FirstOrDefault(a=>a.levelId==levelId);
+            if(record?.recoveryHintPending!=true)return EconomyResult.NoHints;
+            return Commit(()=>record.recoveryHintPending=false);
+        }
+        public EconomyResult RecordCheck(string levelId, bool solved, bool learning=false)
         {
             if (string.IsNullOrWhiteSpace(levelId)) return EconomyResult.Invalid;
-            if (!CanCheck) return EconomyResult.NoLives;
-            if (IsPro) return EconomyResult.Applied;
+            if (!learning&&!CanCheck) return EconomyResult.NoLives;
             if (Attempts(levelId) == int.MaxValue) return EconomyResult.Invalid;
             return Commit(() =>
             {
                 var record = _data.attempts.FirstOrDefault(a => a.levelId == levelId);
                 if (record == null) { record = new AttemptRecord { levelId = levelId }; _data.attempts = _data.attempts.Append(record).ToArray(); }
-                record.checks++;
-                if (!solved) _data.lives--;
+                if(!IsPro&&!learning)record.checks++;
+                if(solved){record.consecutiveFailures=0;record.recoveryHintPending=false;}
+                else
+                {
+                    record.consecutiveFailures=Math.Min(3,record.consecutiveFailures+1);
+                    if(record.consecutiveFailures==3){record.recoveryHintPending=true;record.consecutiveFailures=0;}
+                    if(!IsPro&&!learning)_data.lives--;
+                }
             });
         }
         public EconomyResult SpendCurrency(int cost)

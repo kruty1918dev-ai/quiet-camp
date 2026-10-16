@@ -289,6 +289,8 @@ namespace QuietCamp.Presentation.World
 
         void BeginPreview(int x, int z, int rotation)
         {
+            _renderer.SetPlacementGridVisible(true);
+            _renderer.ShowPlacementGuidance(_session,_session.SelectedGuestId,rotation);
             _phase = Phase.Preview;
             _preview = new Placement
             {
@@ -387,6 +389,7 @@ namespace QuietCamp.Presentation.World
             {
                 _preview.rotation = (_preview.rotation + 1) % 4;
                 _rotation = _preview.rotation;
+                _renderer.ShowPlacementGuidance(_session,_session.SelectedGuestId,_rotation);
                 RefreshPreview();
                 return true;
             }
@@ -427,6 +430,7 @@ namespace QuietCamp.Presentation.World
 
         void EndPreview()
         {
+            _renderer?.HidePlacementGuidance();
             _hasDragWorld = false;
             _targetValid = false;
             _cardDrag = false; _dragCard?.Hide();

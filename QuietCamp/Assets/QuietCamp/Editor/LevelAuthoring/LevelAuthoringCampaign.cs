@@ -60,7 +60,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             return new LevelAuthoringDocument { level = level, art = art, title = "Рівень " + (Array.IndexOf(campaignIds,id)+1),
                 sourceLevelId = id, sourceContentHash = HashFile(LevelPath(root, id)), sourceArtHash = ArtHash(root, id) };
         }
-        internal static Dictionary<string,string> PrepareApply(LevelAuthoringDocument document,string root=Content,bool validateCampaign=true)
+        internal static Dictionary<string,string> PrepareApply(LevelAuthoringDocument document,string root=Content,bool validateCampaign=true,bool includeArt=true)
         {
             if (string.IsNullOrEmpty(document.sourceLevelId)) throw new InvalidOperationException("Це новий рівень. Експортуйте його окремо.");
             var ids = JObject.Parse(File.ReadAllText(Path.Combine(root,"campaign.json")))["campaignLevelIds"].Values<string>().ToArray();
@@ -95,10 +95,12 @@ namespace QuietCamp.Editor.LevelAuthoring
             if (!File.Exists(oldRevision)) writes.Add(oldRevision, File.ReadAllText(levelPath));
             string artRevision = Path.Combine(root, "ArtRevisions", revision + ".json");
             if (!File.Exists(artRevision)) writes.Add(artRevision, File.Exists(artPath) ? File.ReadAllText(artPath) : "{\"absent\":true}");
-            using (var sha = SHA256.Create()) copy.level.compositionHash = BitConverter.ToString(sha.ComputeHash(System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(copy.art)))).Replace("-", "").ToLowerInvariant();
+            if(includeArt)
+                using (var sha = SHA256.Create()) copy.level.compositionHash = BitConverter.ToString(sha.ComputeHash(System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(copy.art)))).Replace("-", "").ToLowerInvariant();
+            else copy.level.compositionHash=old.compositionHash;
             copy.level.contentHash = CampContent.CalculateHash(copy.level);
             writes.Add(levelPath, JsonConvert.SerializeObject(copy.level, Formatting.Indented));
-            writes.Add(artPath, JsonConvert.SerializeObject(copy.art));
+            if(includeArt)writes.Add(artPath, JsonConvert.SerializeObject(copy.art));
             return writes;
         }
         public static void Apply(LevelAuthoringDocument document, string root = Content)

@@ -45,11 +45,13 @@ namespace QuietCamp.Tests.Editor
                 var level=new LevelData{width=6,height=8};
                 var centre=BoardMath.TentCenter(level,x,z);
                 var grab=new Vector2(grabX,grabZ);
-                var projector=new PlacementTargetProjector(camera,level);projector.Begin(true,grab,centre);
+                // This tests grab geometry, independently of the device simulator's current cutout.
+                // Cutout rejection is covered separately above.
+                var projector=new PlacementTargetProjector(camera,level,()=>new Rect(0,0,Screen.width,Screen.height));projector.Begin(true,grab,centre);
                 var grabbed=centre+new Vector3(grabX-1,-centre.y,grabZ-1);
                 var aim=(Vector2)camera.WorldToScreenPoint(grabbed);
                 var pointer=aim-Vector2.up*projector.LiftPixels;
-                Assert.IsTrue(projector.TryProject(pointer,true,null,out var target));
+                Assert.IsTrue(projector.TryProject(pointer,true,null,out var target),$"pointer={pointer}, aim={aim}, screen={Screen.width}x{Screen.height}, camera={camera.pixelRect}, lift={projector.LiftPixels}");
                 Assert.AreEqual(new Cell(x,z),target.Anchor);
                 Assert.That(Vector3.Distance(target.GroundPoint,grabbed),Is.LessThan(.001f));
                 var lift=projector.LiftPixels;

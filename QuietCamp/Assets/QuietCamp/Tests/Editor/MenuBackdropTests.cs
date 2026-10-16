@@ -86,7 +86,7 @@ namespace QuietCamp.Tests
                 UnityEditor.AssetDatabase.DeleteAsset(ownerPath);UnityEditor.AssetDatabase.DeleteAsset(foreignPath);
             }
         }
-        [Test] public void GameplayGridExistsBeforeFirstDragAndSurvivesPreviewCancellation()
+        [Test] public void GameplayGridOnlyAppearsDuringPlacementAndHidesAfterCancellation()
         {
             var level=LevelLoader.Load("QC001");var art=CampArtDefinition.Load(level);
             var root=new UnityEngine.GameObject("Idle gameplay board contract");BoardRenderer board=null;
@@ -96,10 +96,14 @@ namespace QuietCamp.Tests
                 board=new BoardRenderer(level,AssetCatalog.Load(),Child("Base"),Child("Grid"),Child("Obstacle"),Child("Tents"),Child("Overlay"),art);
                 var cells=root.GetComponentsInChildren<UnityEngine.MeshRenderer>().Where(r=>r.name.StartsWith("Cell_",StringComparison.Ordinal)).ToArray();
                 Assert.AreEqual(level.width*level.height,cells.Length);
-                Assert.IsTrue(cells.All(r=>r.sharedMaterial.GetFloat("_GridVisible")==1),"An empty playable board must be visible before the player drags anything.");
+                Assert.IsTrue(cells.All(r=>r.sharedMaterial.GetFloat("_GridVisible")==0),"Idle gameplay shows the natural scenery without a grid.");
                 var move=level.witness[0];var report=RuleEvaluator.Evaluate(level,new[]{move},false);
+                using var session=new QuietCamp.Application.CampSession(level);
+                board.SetPlacementGridVisible(true);board.ShowPlacementGuidance(session,move.guestId,move.rotation);
+                Assert.IsTrue(cells.All(r=>r.sharedMaterial.GetFloat("_GridVisible")==1));
                 board.ShowPlacementPreview(move,report);board.HidePlacementPreview();
-                Assert.IsTrue(cells.All(r=>r.sharedMaterial.GetFloat("_GridVisible")==1),"Ending or cancelling a drag must not hide the field.");
+                board.HidePlacementGuidance();
+                Assert.IsTrue(cells.All(r=>r.sharedMaterial.GetFloat("_GridVisible")==0),"Ending or cancelling placement hides its grid and guides.");
                 board.SetPlacementGridVisible(false);board.ShowPlacementPreview(move,report);board.HidePlacementPreview();
                 Assert.IsTrue(cells.All(r=>r.sharedMaterial.GetFloat("_GridVisible")==0),"Preview cleanup must preserve a host's explicitly hidden grid.");
             }

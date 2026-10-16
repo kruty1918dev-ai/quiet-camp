@@ -20,7 +20,7 @@ namespace QuietCamp.Presentation.World
         IEnumerator Sequence(Func<bool> reduced)
         {
             float time = 0;
-            while (time < 3.5f && !reduced()) { time += Time.unscaledDeltaTime; yield return null; }
+            while (time < .7f && !reduced()) { time += Time.unscaledDeltaTime; yield return null; }
             _playing = null; Apply();
         }
         public void Skip()

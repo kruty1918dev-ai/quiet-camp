@@ -48,6 +48,7 @@ namespace QuietCamp.Presentation.World
 
         public static bool FitGameplayBoard(Camera camera, LevelData level, Rect gameplay, float margin)
         {
+            camera.orthographic=true;
             if (!Kruty1918.GameplayViewport.GameplayCameraMath.TryOrthographic(CentredGameplayBounds(level), camera.transform.rotation,
                 camera.aspect, gameplay, Distance, margin, out var pose, Near)) return false;
             camera.orthographicSize = pose.OrthographicSize;
@@ -62,6 +63,7 @@ namespace QuietCamp.Presentation.World
         {
             using var audit = PerformanceAudit.Measure("QC.CameraFitter.Fit");
             if (camera == null || level == null) return;
+            camera.orthographic=true;
             // Scene adapter: full forest render, reserved gameplay region from UI.
             camera.rect = new Rect(0f, 0f, 1f, 1f);
             var adaptation = camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>();

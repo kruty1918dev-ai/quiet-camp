@@ -28,14 +28,16 @@ namespace QuietCamp.Tests
             Assert.AreEqual(previous.contentHash,save.Album.entries[0].contentHash);
         }
         [Test]
-        public void FourthClearingIntroducesQuietAroundVisibleFireAndOldAlbumsKeepTheirOriginalWorld()
+        public void FireRemainsVisibleButQuietIsIntroducedLaterAndOldAlbumsKeepTheirOriginalWorld()
         {
             var level=LevelLoader.Load("QC004");
             var previous=CampContent.Revision("95b3640722c0c82dd9c3d051fd25cf6dada6f787cb4fb903a0d7304c9ad8ad47");Assert.NotNull(previous);
             Assert.AreNotEqual(previous.contentHash,level.contentHash);
             var fire=level.objects.Single(o=>o.assetId=="campfire_stones");
             Assert.IsTrue(level.noise.Any(c=>c[0]==fire.x&&c[1]==fire.z));Assert.IsTrue(CampContent.Summary(level.id).fire);
-            Assert.IsTrue(level.guests.Any(g=>g.quiet));Assert.IsTrue(RuleEvaluator.Evaluate(level,level.witness).IsSolved);
+            Assert.IsFalse(level.guests.Any(g=>g.quiet));
+            Assert.IsTrue(LevelLoader.Load("QC009").guests.Any(g=>g.quiet));
+            Assert.IsTrue(RuleEvaluator.Evaluate(level,level.witness).IsSolved);
             Assert.IsEmpty(LevelContentValidator.Validate(level));
             var album=CampContent.AlbumLevel(new AlbumSaveData.Entry{levelId=previous.id,contentHash=previous.contentHash,placements=previous.witness});
             Assert.AreEqual(previous.contentHash,album.contentHash);Assert.IsEmpty(album.noise);Assert.IsTrue(RuleEvaluator.Evaluate(album,previous.witness).IsSolved);

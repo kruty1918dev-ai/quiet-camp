@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 4,
+  "chapter": 1,
+  "seed": 20292680,
+  "width": 6,
+  "height": 6,
+  "id": "QC004",
+  "contentHash": "28c27399a81aa2c2b6c5c14eeaa9df1a4f553895c0d0d81a35c68486fb00d367",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "tutorial.4",
+  "compositionHash": "0a1b607bb1bc8067ff38e007a0c66af044e93d69184aa97bbc38fc5edbb24e7e",
+  "generationAttempt": 1,
+  "decorSeed": 20314903,
+  "entry": [
+    5,
+    3
+  ],
+  "accessPoints": [],
+  "blocked": [
+    [
+      5,
+      0
+    ],
+    [
+      2,
+      5
+    ]
+  ],
+  "shade": [],
+  "noise": [
+    [
+      5,
+      0
+    ]
+  ],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g3",
+      "nameKey": "guest.3",
+      "assetId": "tent_detailedOpen",
+      "shade": false,
+      "quiet": true
+    }
+  ],
+  "friends": [],
+  "witness": [
+    {
+      "guestId": "g3",
+      "x": 0,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 3,
+      "rotation": 1
+    },
+    {
+      "guestId": "g2",
+      "x": 2,
+      "z": 0,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "campfire_stones",
+      "x": 5,
+      "z": 0,
+      "rotation": 0
+    },
+    {
+      "assetId": "log",
+      "x": 2,
+      "z": 5,
+      "rotation": 1
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.351876,
+    "treeDensity": 0.401626,
+    "clusterSeed": 31692,
+    "meadowSpecies": [
+      "grass",
+      "daisy"
+    ],
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.030303,
+    "weatherIntensity": 0.119793
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-004",
+    "beats": [
+      {
+        "id": "opening-004",
+        "storyBeat": "Спільне тепло не зобов'язує кожного сидіти біля багаття; є місце і для тиші.",
+        "heroLandmark": "place-004-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Складені сухі поліна, кам'яне багаття на полі й лавка далі від шуму.",
+        "worldStateAfter": "Табір приймає людей; спільні маршрути лишаються відкритими. Наступна зупинка: Поруч із друзями.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Біля дров — казанок; віддалік під деревом — порожня лавка для того, кому потрібен спокій.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "QC004"
+        ],
+        "props": [
+          {
+            "id": "place-004-prop-1",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "hidden",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": null
+          },
+          {
+            "id": "place-004-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "hidden",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": null
+          },
+          {
+            "id": "place-004-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "hidden",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": null
+          },
+          {
+            "id": "place-004-prop-4",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "hidden",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": null
+          }
+        ]
+      }
+    ],
+    "references": []
+  }
+}

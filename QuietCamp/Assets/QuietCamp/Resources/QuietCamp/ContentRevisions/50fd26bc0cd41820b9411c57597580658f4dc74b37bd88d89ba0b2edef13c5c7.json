@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 2,
+  "order": 11,
+  "chapter": 2,
+  "seed": 20348113,
+  "width": 4,
+  "height": 6,
+  "id": "gen:qc_camp:1",
+  "contentHash": "50fd26bc0cd41820b9411c57597580658f4dc74b37bd88d89ba0b2edef13c5c7",
+  "generatorVersion": "cozy-campaign-100-v1",
+  "lighting": "day",
+  "tutorialKey": "",
+  "compositionHash": "9fb7bc7ea9a84b6a680b003d905219f7f92875a839d284d8e9eff66271d6a7a8",
+  "generationAttempt": 1,
+  "decorSeed": 20325262,
+  "entry": [
+    2,
+    0
+  ],
+  "accessPoints": [
+    {
+      "id": "trail-out",
+      "kind": "exit",
+      "x": 2,
+      "z": 5
+    }
+  ],
+  "blocked": [
+    [
+      0,
+      0
+    ],
+    [
+      1,
+      2
+    ]
+  ],
+  "shade": [],
+  "noise": [],
+  "exteriorWalkable": [],
+  "guests": [
+    {
+      "id": "g1",
+      "nameKey": "guest.1",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    },
+    {
+      "id": "g2",
+      "nameKey": "guest.2",
+      "assetId": "tent_smallOpen",
+      "shade": false,
+      "quiet": false
+    }
+  ],
+  "friends": [
+    [
+      "g1",
+      "g2"
+    ]
+  ],
+  "witness": [
+    {
+      "guestId": "g1",
+      "x": 0,
+      "z": 4,
+      "rotation": 1
+    },
+    {
+      "guestId": "g2",
+      "x": 2,
+      "z": 1,
+      "rotation": 0
+    }
+  ],
+  "environmentPreset": "pines",
+  "objects": [
+    {
+      "assetId": "tree_default",
+      "x": 0,
+      "z": 0,
+      "rotation": 3
+    },
+    {
+      "assetId": "stone_largeA",
+      "x": 1,
+      "z": 2,
+      "rotation": 0
+    }
+  ],
+  "canopies": [],
+  "environment": {
+    "biomeId": "forest",
+    "seasonId": "spring",
+    "weatherId": "clear",
+    "moisture": 0.435308,
+    "treeDensity": 0.417526,
+    "clusterSeed": 32903,
+    "meadowSpecies": [
+      "grass",
+      "daisy"
+    ],
+    "storyMotifs": [],
+    "shore": null,
+    "seasonTimeline": 0.10101,
+    "weatherIntensity": 0.258847
+  },
+  "environmentalStory": {
+    "schemaVersion": 1,
+    "id": "campaign100-011",
+    "beats": [
+      {
+        "id": "opening-011",
+        "storyBeat": "Село впізнається через працю людей, яка пережила покинуті будинки.",
+        "heroLandmark": "place-011-prop-1",
+        "returningProp": "",
+        "characterFocus": "мандрівники й люди, що повертають повсякденне життя",
+        "worldStateBefore": "Плодові дерева стоять нерівними старими рядами; між ними молодий підлісок.",
+        "worldStateAfter": "Доглянута зупинка лишається іншим. Далі — Дім із відкритим небом.",
+        "historicalReference": null,
+        "referenceConfidence": "fictional",
+        "roadmapVisibility": "hidden",
+        "levelDetailVisibility": "detail",
+        "intendedInference": "Плодові дерева стоять нерівними старими рядами; між ними молодий підлісок. Тут могли зупинятися садівники. Залишені речі та вільний прохід допомагають продовжити дорогу.",
+        "alternativeInference": "Гравець може просто помітити гарне затишне місце без обов’язкового прочитання історії.",
+        "culturalContext": "Україна після війни; авторська сцена, не документальна реконструкція.",
+        "levelIds": [
+          "gen:qc_camp:1"
+        ],
+        "props": [
+          {
+            "id": "place-011-prop-1",
+            "category": "nature",
+            "motif": "orchard",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "hidden",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": null
+          },
+          {
+            "id": "place-011-prop-2",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "hidden",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": null
+          },
+          {
+            "id": "place-011-prop-3",
+            "category": "civilian",
+            "motif": "rural-infrastructure",
+            "returningProp": "",
+            "claimId": null,
+            "roadmapVisibility": "hidden",
+            "levelDetailVisibility": "hidden",
+            "appearance": "always",
+            "contentTags": [
+              "fiction-inspired"
+            ],
+            "roadmap": null,
+            "level": null
+          }
+        ]
+      }
+    ],
+    "references": []
+  }
+}

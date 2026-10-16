@@ -17,7 +17,24 @@ namespace QuietCamp.Presentation.UI
         int _pointer = -1;
         int _eventPointer;
         bool _held, _started;
-        public void Configure(PlacementController placement, string guest) { _placement = placement; _guest = guest; }
+        public static Color ReleasedColor => Color.white;
+        public static Color HeldColor => new Color(.64f,.64f,.64f,1);
+        public void Configure(PlacementController placement, string guest)
+        {
+            _placement = placement; _guest = guest;
+            var button=GetComponent<Button>();
+            if(button!=null)
+            {
+                // One colour authority; multiplying Button tint by Image tint made the held card too dark.
+                button.transition=Selectable.Transition.None;
+            }
+            SetHeldColor(placement.HasPreview);
+        }
+        void SetHeldColor(bool held)
+        {
+            var graphic=GetComponent<Button>()?.targetGraphic;
+            if(graphic!=null)graphic.color=held?HeldColor:ReleasedColor;
+        }
         public void OnPointerDown(PointerEventData e)
         {
             if (_held || _placement == null) return;
@@ -28,6 +45,7 @@ namespace QuietCamp.Presentation.UI
                 : e.pointerId < 0 ? 0 : e.pointerId;
             _eventPointer = e.pointerId;
             _press = e.position; _time = Time.unscaledTime; _held = true; _started = false;
+            SetHeldColor(true);
         }
         public void OnDrag(PointerEventData e)
         {
@@ -47,7 +65,7 @@ namespace QuietCamp.Presentation.UI
                 var button = GetComponent<Button>(); if (button != null) button.interactable = false;
             }
         }
-        public void OnPointerUp(PointerEventData e) { if(e.pointerId == _eventPointer) _held = false; }
-        void OnDisable() { _held = false; }
+        public void OnPointerUp(PointerEventData e) { if(e.pointerId == _eventPointer) { _held = false;SetHeldColor(false); } }
+        void OnDisable() { _held = false;SetHeldColor(false); }
     }
 }

@@ -334,16 +334,10 @@ namespace QuietCamp.Presentation.World
             {
                 if (_session.IsCompleted || _services.MonetizationBusy || !_tutorial.CanCompleteLevel(_session.Level.id)) return Performed();
                 _placement.Cancel();
-                if (_tutorial.Guiding(_session.Level.id))
-                {
-                    // Learning checks are free: no life spent, no layout wipe.
-                    _session.Check(() => _services.Completion.Complete(_session, _atmosphere?.PhaseId));
-                    if (!_session.IsCompleted) { GuideFirstIssue("guide.mistake.check"); PlayAudio("rule.invalid"); }
-                    return Performed();
-                }
-                if (!_services.Economy.CanCheck) { _hud.ShowEconomy(); return Performed(); }
+                var learning=_tutorial.Guiding(_session.Level.id);
+                if (!learning&&!_services.Economy.CanCheck) { _hud.ShowEconomy(); return Performed(); }
                 var report = RuleEvaluator.Evaluate(_session.Level, _session.State.Placements, true);
-                var outcome = _services.Attempts.Check(_session, _atmosphere?.PhaseId); // done — clear in-progress
+                var outcome = _services.Attempts.Check(_session, _atmosphere?.PhaseId, learning);
                 if (outcome == CampAttemptResult.SaveFailed)
                 {
                     _services.Notifications.Show(_services.Localization.T("save.failed"), GameplayNotificationKind.Error);
@@ -354,9 +348,10 @@ namespace QuietCamp.Presentation.World
                 {
                     _services.Analytics.Action(ComfortAction.Check);
                     _advisor = new HintAdvisor(_session.Level);
-                    _services.Notifications.Show(_services.Localization.T("economy.attempt.failed"), GameplayNotificationKind.Warning, dedupKey: "attempt.failed");
+                    _services.Notifications.Show(_services.Localization.T("rule."+report.Issues[0].Code), GameplayNotificationKind.Warning, dedupKey: "attempt.failed");
                     PlayAudio("rule.invalid"); _services.PlayHaptic(HapticCue.Warning);
-                    if (!_services.Economy.CanCheck) _hud.ShowEconomy();
+                    if(_services.Economy.RecoveryHintPending(_session.Level.id))ShowRecoveryHint();
+                    else if (!learning&&!_services.Economy.CanCheck) _hud.ShowEconomy();
                 }
                 return Performed();
             }));
@@ -365,6 +360,7 @@ namespace QuietCamp.Presentation.World
             _leases.Add(h.Register(new UiActionId("qc.hint"), () =>
             {
                 if (_session.IsCompleted || _services.MonetizationBusy) return Performed();
+                if(_services.Economy.RecoveryHintPending(_session.Level.id)){ShowRecoveryHint();return Performed();}
                 if (!_services.Economy.CanHint) { _hud.ShowEconomy(); return Performed(); }
                 var s = _advisor.Suggest(_session.State.Placements, _session.SelectedGuestId);
                 if (s == null) return Performed();
@@ -408,7 +404,7 @@ namespace QuietCamp.Presentation.World
             }));
             _leases.Add(h.Register(new UiActionId("qc.next"), () =>
             {
-                if (!_session.IsCompleted || _advancing) return Performed();
+                if (!_session.IsCompleted || _advancing || _router.IsBusy || _services.MonetizationBusy) return Performed();
                 _advancing = true;
                 _services.Save.Save();
                 _services.PendingMenuScreen=null;
@@ -464,7 +460,7 @@ namespace QuietCamp.Presentation.World
                     if (_tutorial.Guiding(_session.Level.id)) GuideFirstIssue(null);
                     break;
                 case CampEventKind.SelectionChanged:
-                    _renderer.ShowShade(Array.Find(_session.Level.guests, g => g.id == e.GuestId)?.shade == true);
+                    if(!_placement.HasPreview)_renderer.ShowShade(false);
                     if (e.GuestId != null && _renderer.Tents.TryGetValue(e.GuestId, out var selected))
                         selected.Pulse(_services.ReducedMotion, _services.MotionScale);
                     break;
@@ -478,7 +474,6 @@ namespace QuietCamp.Presentation.World
         {
             if (_completed) return;
             _completed = true;
-            var guided = _tutorial.Guiding(_session.Level.id);
             _tutorial.ReportAction("complete", _session);
             TentStoryVisual.CloseAll(Find("World")?.transform, _services.ReducedMotion);
             _services.Analytics.EndLevel(ComfortOutcome.Completed);
@@ -502,18 +497,35 @@ namespace QuietCamp.Presentation.World
             {
                 // DemoComplete follows the completion panel via qc.next.
             }
-            if (guided && _tutorial.Finished) StartCoroutine(TutorialAutoMenu());
+            StartCoroutine(AdvanceAfterCompletion());
         }
 
-        /// <summary>After the farewell card the tutorial hands the player back
-        /// to the menu on its own — no hidden tap required. Scene teardown or
-        /// any earlier navigation simply cancels this coroutine.</summary>
-        System.Collections.IEnumerator TutorialAutoMenu()
+        /// <summary>Advance after the settled closing animation. Scene teardown cancels the pending transition.</summary>
+        System.Collections.IEnumerator AdvanceAfterCompletion()
         {
-            yield return new WaitForSecondsRealtime(8f);
+#if UNITY_EDITOR
+            // A capture has a deliberately frozen simulation schedule and advances explicitly.
+            if(EditorAuthoringPreview.ControlledCapture)yield break;
+#endif
+            yield return new WaitForSecondsRealtime(1.6f);
+            while(_session!=null&&_session.IsCompleted&&(_router.IsBusy||_services.MonetizationBusy))yield return null;
             if (_session != null && _session.IsCompleted && !_router.IsBusy)
                 _services.Actions.Execute(new UiActionRequest(
                     new UiActionId("qc.next"), UiActionSource.Programmatic, "Gameplay"));
+        }
+
+        void ShowRecoveryHint()
+        {
+            var s=_advisor.Suggest(_session.State.Placements,_session.SelectedGuestId);
+            if(s?.Move==null)return;
+            if(_services.Economy.UseRecoveryHint(_session.Level.id)!=EconomyResult.Applied)
+            {_services.Notifications.Show(_services.Localization.T("save.failed"),GameplayNotificationKind.Error);return;}
+            _session.Select(s.GuestId);
+            _renderer.ShowHintCells(s.Cells);
+            var guest=Array.Find(_session.Level.guests,g=>g.id==s.GuestId);
+            _renderer.ShowHintGhost(s.Move,guest?.assetId);
+            PlayAudio("sfx.hint");
+            _hud.ShowGuideHint("guide.recovery",6);
         }
 
         static string GuideMistakeKey(string rawKey)
