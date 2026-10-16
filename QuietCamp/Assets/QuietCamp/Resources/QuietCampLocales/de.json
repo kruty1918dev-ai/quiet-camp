@@ -327,7 +327,7 @@
     "boot.privacy.continueDraft": "Entwurf gelesen, weiter",
     "boot.privacy.continue": "Erklärung gelesen, weiter",
     "guide.name": "Ostap · dein Begleiter",
-    "guide.select": "Halte die weiße Gästekarte und ziehe sie auf die Lichtung.",
+    "guide.select": "Halte die Lichtung gedrückt und ziehe ein Zelt.",
     "guide.place": "Zelt an einer grünen Markierung loslassen. Der gelbe Punkt zeigt die Tür: Weg frei halten.",
     "guide.rotate": "Drehe das Zelt — die Tür zeigt auf einen freien Pfad.",
     "guide.first-check": "Stelle beide Zelte auf und tippe auf Prüfen.",
@@ -553,6 +553,19 @@
     "journey.main.story.106": "Der letzte Grenzstein. Dahinter liegt Land, in dem noch niemand lebt — außer jenen, die unterwegs sind.",
     "journey.main.story.110": "Der Hafen. Hier endet euer Weg — und beginnt ein Ort, an dem alle Straßen der Welt rasten.",
     "map.veiled": "Die Welt dahinter liegt noch im Nebel",
-    "opening.finding": "Fundstück"
+    "opening.finding": "Fundstück",
+    "hud.compact.finish": "Fertig",
+    "hud.compact.risk": "Fehler: −1 Leben",
+    "hud.compact.resources": "Leben: {0} · Tipps: {1}",
+    "hud.compact.release": "Zum Aufstellen loslassen",
+    "hud.compact.shade": "Braucht Schatten",
+    "hud.compact.quiet": "Braucht Ruhe",
+    "hud.compact.quiet-shade": "Braucht Ruhe und Schatten",
+    "hud.compact.path": "Zugang zur Tür freihalten",
+    "hud.compact.bounds": "Zelt innerhalb des Feldes halten",
+    "hud.compact.overlap": "Hier ist kein Platz",
+    "hud.compact.friends": "Freunde brauchen Nähe",
+    "hud.compact.entry": "Eingang zum Camp freihalten",
+    "rule.entry": "Das ist der Eingang zum Camp. Halte ihn frei."
   }
 }

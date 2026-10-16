@@ -45,6 +45,7 @@ namespace QuietCamp.Editor
         static void Poll()
         {
             if (EditorApplication.isCompiling || EditorApplication.isUpdating) return;
+            if(RecoverFinishedNativePlayTests())return;
             if(LevelAuthoring.WorldOps.WorldOpsService.Busy)return;
             if(SessionState.GetBool("QuietCamp.NativeTestsRunning",false))return;
             if(_campaignBatch!=null)
@@ -129,8 +130,9 @@ namespace QuietCamp.Editor
                 else if(request.mode=="opening-water-tests")RunTests(true,"QuietCamp.Tests.CampArtCompositionTests");
                 else if(request.mode=="opening-tests") RunTests(true,"QuietCamp.Tests.OpeningCampaignTests");
                 else if(request.mode=="font-prepare") { CampTypographySetup.Prepare(); File.WriteAllText(ResultPath,"{\"status\":\"fonts-prepared\"}"); }
+                else if(request.mode=="placement-play-tests") RunTests(true,"QuietCamp.Tests.PlacementPlayModeTests",true);
                 else if(request.mode=="font-tests") RunTests(true,"QuietCamp.Tests.CampTypographyTests");
-                else if(request.mode=="learning-tests") RunTests(true,request.profile=="placement"?"QuietCamp.Tests.Editor.PlacementTargetTests":request.profile=="legacy"?"QuietCamp.Tests.TutorialDirectorTests":"QuietCamp.Tests.CampLearningTests");
+                else if(request.mode=="learning-tests") RunTests(true,request.profile=="freedom"?"QuietCamp.Tests.FreePlacementTests":request.profile=="placement"?"QuietCamp.Tests.Editor.PlacementTargetTests":request.profile=="legacy"?"QuietCamp.Tests.TutorialDirectorTests":"QuietCamp.Tests.CampLearningTests");
                 else if(request.mode=="learning-apply") File.WriteAllText(ResultPath,JsonConvert.SerializeObject(LevelAuthoring.LearningCurriculumAuthoring.Apply(request.draftPath,request.profile=="format")));
                 else if(request.mode=="opening-compose")
                 {
@@ -435,7 +437,7 @@ namespace QuietCamp.Editor
                 texture.Release(); UnityEngine.Object.DestroyImmediate(texture); UnityEngine.Object.DestroyImmediate(image);
             }
         }
-        static void RunTests(bool authoring = false, string focused = null)
+        static void RunTests(bool authoring = false, string focused = null, bool playMode = false)
         {
             if(SessionState.GetBool("QuietCamp.NativeTestsRunning",false))throw new InvalidOperationException("Wait for the active native test run.");
             if (authoring) SessionState.SetBool("QuietCamp.Authoring.Verifying", true);
@@ -460,26 +462,77 @@ namespace QuietCamp.Editor
                         throw new IOException("Could not preserve the unsaved Editor scene before verification.");
                 }
             File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="tests-running",authoring,started=DateTime.UtcNow}));
+            SessionState.SetBool("QuietCamp.NativePlayTests",playMode);
+            SessionState.SetString("QuietCamp.NativePlayFailures","[]");
             var api = ScriptableObject.CreateInstance<TestRunnerApi>();
             api.RegisterCallbacks(new TestReport(api, session));
             SessionState.SetBool("QuietCamp.NativeTestsRunning",true);
-            api.Execute(new ExecutionSettings(new Filter { testMode = TestMode.EditMode,
-                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.CampTypographyTests", "QuietCamp.Tests.CampLearningTests", "QuietCamp.Tests.VisibleFireContentTests", "QuietCamp.Tests.MonetizationTests", "QuietCamp.Tests.CampSessionTests", "QuietCamp.Tests.MenuBackdropTests", "QuietCamp.Tests.Editor.PlacementTargetTests", "QuietCamp.Tests.SafeAreaFitterTests", "QuietCamp.Tests.TutorialDirectorTests", "QuietCamp.Tests.OpeningCampaignTests", "QuietCamp.Tests.SeasonPresentationTests", "QuietCamp.Tests.BiomeSurfaceTests", "QuietCamp.Tests.CampSurfaceUseTests", "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.SurfaceWeatheringTests", "QuietCamp.Tests.ForestAtmosphereTests", "QuietCamp.Tests.ModelWorkshopTests", "QuietCamp.Tests.FreeWorldAssetsTests", "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.WorldOpsTests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
+            api.Execute(new ExecutionSettings(new Filter { testMode = playMode ? TestMode.PlayMode : TestMode.EditMode,
+                testNames = focused != null ? new[] { focused } : authoring ? new[] { "QuietCamp.Tests.FreePlacementTests", "QuietCamp.Tests.CampTypographyTests", "QuietCamp.Tests.CampLearningTests", "QuietCamp.Tests.VisibleFireContentTests", "QuietCamp.Tests.MonetizationTests", "QuietCamp.Tests.CampSessionTests", "QuietCamp.Tests.MenuBackdropTests", "QuietCamp.Tests.Editor.PlacementTargetTests", "QuietCamp.Tests.SafeAreaFitterTests", "QuietCamp.Tests.TutorialDirectorTests", "QuietCamp.Tests.OpeningCampaignTests", "QuietCamp.Tests.SeasonPresentationTests", "QuietCamp.Tests.BiomeSurfaceTests", "QuietCamp.Tests.CampSurfaceUseTests", "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.SurfaceWeatheringTests", "QuietCamp.Tests.ForestAtmosphereTests", "QuietCamp.Tests.ModelWorkshopTests", "QuietCamp.Tests.FreeWorldAssetsTests", "QuietCamp.Tests.AuthoringPropTests", "QuietCamp.Tests.LevelAuthoringTests", "QuietCamp.Tests.LevelAuthoringV2Tests", "QuietCamp.Tests.WorldOpsTests", "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } : new[] { "QuietCamp.Tests.CampArtCompositionTests", "QuietCamp.Tests.RulesTests", "QuietCamp.Tests.LiveCampContentTests" } }));
+        }
+        [InitializeOnLoadMethod]
+        static void RestoreNativePlayTestCallbacks()
+        {
+            if(!SessionState.GetBool("QuietCamp.NativePlayTests",false)||!SessionState.GetBool("QuietCamp.NativeTestsRunning",false))return;
+            string snapshot=Path.Combine(Path.GetDirectoryName(ResultPath),"authoring-before-tests.json");
+            var saved=File.Exists(snapshot)?JsonConvert.DeserializeObject<LevelAuthoring.LevelAuthoringWindow.VerificationSession>(File.ReadAllText(snapshot)):null;
+            var api=ScriptableObject.CreateInstance<TestRunnerApi>();
+            api.RegisterCallbacks(new TestReport(api,saved));
+        }
+
+        static bool RecoverFinishedNativePlayTests()
+        {
+            // Test Framework callbacks can be lost on domain reload. Its finished NUnit XML
+            // remains authoritative; never leave the transport locked or reuse an older run.
+            if(!SessionState.GetBool("QuietCamp.NativeTestsRunning",false)
+                ||EditorApplication.isPlayingOrWillChangePlaymode||!File.Exists(ResultPath))return false;
+            var pending=Newtonsoft.Json.Linq.JObject.Parse(File.ReadAllText(ResultPath));
+            if((string)pending["status"]!="tests-running"||pending["started"]==null)return false;
+            string xml=Path.Combine(UnityEngine.Application.persistentDataPath,"TestResults.xml");
+            if(!File.Exists(xml)||File.GetLastWriteTimeUtc(xml)<(DateTime)pending["started"]||File.GetLastWriteTimeUtc(xml).AddSeconds(2)>DateTime.UtcNow)return false;
+            var root=System.Xml.Linq.XDocument.Load(xml).Root;
+            var cases=root.Descendants("test-case").ToArray();
+            if(cases.Length==0||cases.Any(t=>!((string)t.Attribute("fullname")??"").StartsWith("QuietCamp.Tests.PlacementPlayModeTests.",StringComparison.Ordinal)))return false;
+            int passed=(int)root.Attribute("passed"),failed=(int)root.Attribute("failed"),skipped=(int)root.Attribute("skipped");
+            if(passed+failed+skipped!=cases.Length)return false;
+            string report=JsonConvert.SerializeObject(new{status="tests",outcome=failed==0?"Passed":"Failed",passed,failed,skipped,
+                duration=double.Parse(((string)root.Attribute("duration")).Replace(',','.'),System.Globalization.CultureInfo.InvariantCulture),source=xml,
+                failures=cases.Where(t=>(string)t.Attribute("result")=="Failed").Select(t=>new{name=(string)t.Attribute("fullname"),Message=t.Element("failure")?.Element("message")?.Value,StackTrace=t.Element("failure")?.Element("stack-trace")?.Value})});
+            SessionState.SetBool("QuietCamp.NativePlayTests",false);
+            SessionState.SetBool("QuietCamp.Authoring.Verifying",false);
+            try
+            {
+                string snapshot=Path.Combine(Path.GetDirectoryName(ResultPath),"authoring-before-tests.json");
+                if(File.Exists(snapshot))LevelAuthoring.LevelAuthoringWindow.OpenWindow().RestoreVerification(JsonConvert.DeserializeObject<LevelAuthoring.LevelAuthoringWindow.VerificationSession>(File.ReadAllText(snapshot)));
+                File.WriteAllText(ResultPath,report);
+            }
+            finally{SessionState.SetBool("QuietCamp.NativeTestsRunning",false);}
+            return true;
         }
         sealed class TestReport : ICallbacks
         {
             readonly TestRunnerApi _api;
             readonly LevelAuthoring.LevelAuthoringWindow.VerificationSession _session;
             readonly System.Collections.Generic.List<object> _failures = new System.Collections.Generic.List<object>();
-            public TestReport(TestRunnerApi api, LevelAuthoring.LevelAuthoringWindow.VerificationSession session) { _api = api; _session = session; }
+            public TestReport(TestRunnerApi api, LevelAuthoring.LevelAuthoringWindow.VerificationSession session)
+            {
+                _api = api; _session = session;
+                if(SessionState.GetBool("QuietCamp.NativePlayTests",false))
+                    _failures.AddRange(JsonConvert.DeserializeObject<System.Collections.Generic.List<object>>(SessionState.GetString("QuietCamp.NativePlayFailures","[]")));
+            }
             public void RunStarted(ITestAdaptor testsToRun) { }
             public void TestStarted(ITestAdaptor test) { }
             public void TestFinished(ITestResultAdaptor result)
             {
-                if (result.TestStatus == TestStatus.Failed) _failures.Add(new { name = result.Test.FullName, result.Message, result.StackTrace });
+                if (result.TestStatus == TestStatus.Failed)
+                {
+                    _failures.Add(new { name = result.Test.FullName, result.Message, result.StackTrace });
+                    if(SessionState.GetBool("QuietCamp.NativePlayTests",false))SessionState.SetString("QuietCamp.NativePlayFailures",JsonConvert.SerializeObject(_failures));
+                }
             }
             public void RunFinished(ITestResultAdaptor result)
             {
+                SessionState.SetBool("QuietCamp.NativePlayTests",false);
                 string report=JsonConvert.SerializeObject(new { status = "tests", outcome = result.TestStatus.ToString(),
                     passed = result.PassCount, failed = result.FailCount, skipped = result.SkipCount, duration = result.Duration, failures = _failures }, Formatting.Indented);
                 _api.UnregisterCallbacks(this); UnityEngine.Object.DestroyImmediate(_api);

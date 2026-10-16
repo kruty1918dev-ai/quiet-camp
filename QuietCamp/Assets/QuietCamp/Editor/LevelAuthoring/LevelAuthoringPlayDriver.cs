@@ -20,7 +20,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             EditorApplication.playModeStateChanged += Changed;
             EditorApplication.update += Tick;
         }
-        public static void Start(LevelAuthoringDocument document, bool campaign = false, string campaignArtDirectory = null, bool menuFirst = false,bool controlledCapture=false)
+        public static void Start(LevelAuthoringDocument document, bool campaign = false, string campaignArtDirectory = null, bool menuFirst = false,bool controlledCapture=false,bool grantPro=true)
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Play Mode is already active.");
             if (campaignArtDirectory != null && (!Path.IsPathRooted(campaignArtDirectory) || !Directory.Exists(campaignArtDirectory)))
@@ -34,6 +34,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             File.WriteAllText(EditorAuthoringPreview.RequestPath, JsonConvert.SerializeObject(new EditorAuthoringPreview.Request { level = document.level, art = document.art, campaign = campaign, campaignArtDirectory = campaignArtDirectory,controlledCapture=controlledCapture }));
             EditorAuthoringPreview.Reset();
             EditorAuthoringPreview.Enable(true);
+            SessionState.SetBool("QuietCamp.Authoring.GrantPreviewPro",grantPro);
             SessionState.SetString(PreviousScene, AssetDatabase.GetAssetPath(EditorSceneManager.playModeStartScene));
             EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(bootPath);
             SessionState.SetString(Stage, menuFirst ? "boot-menu" : "boot"); EditorApplication.EnterPlaymode();
@@ -55,7 +56,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 // A direct review of level N needs the ordinary preceding unlocks.
                 // Seed only this explicitly requested, disposable preview through
                 // the canonical progression service; persistent saves stay isolated.
-                services.Economy.GrantPro("qa-campaign-composition-preview");
+                if(SessionState.GetBool("QuietCamp.Authoring.GrantPreviewPro",true))services.Economy.GrantPro("qa-campaign-composition-preview");
                 foreach (var id in LevelLoader.MvpLevelIds())
                 {
                     if (id == EditorAuthoringPreview.Current.level.id) break;

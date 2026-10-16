@@ -27,10 +27,10 @@ namespace QuietCamp.Editor.LevelAuthoring
 
         public static object Run(string action,string output=null,string levelId=null)
         {
-            if(action=="start"||action=="start-menu")
+            if(action=="start"||action=="start-menu"||action=="start-casual")
             {
                 var level=LevelLoader.Load(levelId??"QC001");
-                LevelAuthoringPlayDriver.Start(new LevelAuthoringDocument{level=level,art=CampArtDefinition.Load(level)},true,output,action=="start-menu");
+                LevelAuthoringPlayDriver.Start(new LevelAuthoringDocument{level=level,art=CampArtDefinition.Load(level)},true,output,action=="start-menu",grantPro:action!="start-casual");
                 return new{status="opening-game-starting"};
             }
             if(EditorApplication.isPlayingOrWillChangePlaymode && EditorAuthoringPreview.CampaignPreview && QuietCampBootstrap.ServicesRef==null)
@@ -137,6 +137,51 @@ namespace QuietCamp.Editor.LevelAuthoring
             var host=CampSceneHost.Current;
             if(host?.UiReady!=true)return new{status="opening-game-waiting",scene=UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,host=host!=null,mask=Camera.main?.cullingMask,transition=UnityEngine.Object.FindAnyObjectByType<FoliageDiveTransition>()?.Current.ToString()};
             var services=QuietCampBootstrap.ServicesRef;var session=host.Session;string id=session.Level.id;
+            if(action=="hud-witness")
+            {
+                session.DebugApplyWitness();
+                return new{status="hud-witness",placed=session.State.Count,memoryOnly=true};
+            }
+            if(action=="hud-guide")
+            {
+                services.Tutorial.LearnAgain();
+                return new{status="hud-guide",cue=services.Tutorial.Cue(id),memoryOnly=true};
+            }
+            if(action=="hud-scale")
+            {
+                if(levelId!="1"&&levelId!="1.3")throw new ArgumentException("Expected the default or largest supported text scale.");
+                services.Settings.textScale=levelId=="1"?1f:1.3f;
+                LocalizedLabel.TextScale=services.Settings.textScale;
+                return new{status="hud-scale",scale=services.Settings.textScale,memoryOnly=true};
+            }
+            if(action=="hud-tap")
+            {
+                var allowed=new[]{"pause","resume","guests","opening-finding","signs","resources","back","check","undo","redo","guide-skip","guide-keep"};
+                if(!allowed.Contains(levelId))throw new ArgumentException("Unsupported HUD review action.");
+                var button=UnityEngine.Object.FindObjectsByType<UnityEngine.UI.Button>(FindObjectsSortMode.None).SingleOrDefault(b=>b.name=="<button #"+levelId+">"&&b.gameObject.activeInHierarchy);
+                if(button==null||!button.interactable)throw new InvalidOperationException("No active HUD control: "+levelId);
+                var rect=(RectTransform)button.transform;
+                var pointer=new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current){position=RectTransformUtility.WorldToScreenPoint(null,rect.TransformPoint(rect.rect.center))};
+                var hits=new System.Collections.Generic.List<UnityEngine.EventSystems.RaycastResult>();
+                UnityEngine.EventSystems.EventSystem.current.RaycastAll(pointer,hits);
+                if(hits.Count==0||!(hits[0].gameObject.transform==rect||hits[0].gameObject.transform.IsChildOf(rect)))throw new InvalidOperationException("HUD control is covered: "+levelId);
+                UnityEngine.EventSystems.ExecuteEvents.Execute(button.gameObject,pointer,UnityEngine.EventSystems.ExecuteEvents.pointerClickHandler);
+                return new{status="hud-tap",control=levelId,memoryOnly=true};
+            }
+            if(action=="hud-review")
+            {
+                var surface=UnityEngine.Object.FindObjectsByType<HtmlSurface>(FindObjectsSortMode.None).Single(s=>s.name=="CampHtml");
+                var buttons=surface.GetComponentsInChildren<UnityEngine.UI.Button>().Where(b=>b.gameObject.activeInHierarchy).Select(b=>
+                {
+                    var r=(RectTransform)b.transform;var corners=new Vector3[4];r.GetWorldCorners(corners);
+                    return new{id=b.name,enabled=b.interactable,width=corners[2].x-corners[0].x,height=corners[2].y-corners[0].y,at=new[]{corners[0].x,corners[0].y,corners[2].x,corners[2].y}};
+                }).ToArray();
+                var bottom=surface.Element("bottom");var c=new Vector3[4];bottom.GetWorldCorners(c);
+                return new{status="hud-review",id,placed=session.State.Count,total=session.Level.guests.Length,pro=services.Economy.IsPro,memoryOnly=true,
+                    text=surface.GetComponentsInChildren<TMPro.TMP_Text>().Where(t=>t.gameObject.activeInHierarchy).Select(t=>t.text).ToArray(),buttons,
+                    bottomHeight=c[2].y-c[0].y,uiReady=surface.IsMounted,scale=services.Settings.textScale,language=services.Localization.CurrentLanguageId,persistentDataPath=UnityEngine.Application.persistentDataPath,
+                    grid=UnityEngine.Object.FindObjectsByType<MeshRenderer>(FindObjectsSortMode.None).Where(r=>r.sharedMaterial?.HasProperty("_GridVisible")==true).Select(r=>r.sharedMaterial.GetFloat("_GridVisible")).Distinct().ToArray()};
+            }
             if(action=="learning-status")
             {
                 var stories=UnityEngine.Object.FindObjectsByType<TentStoryVisual>(FindObjectsSortMode.None);

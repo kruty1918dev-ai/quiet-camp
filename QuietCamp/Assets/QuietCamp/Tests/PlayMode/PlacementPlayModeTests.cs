@@ -213,6 +213,61 @@ namespace QuietCamp.Tests
         }
 
         [UnityTest]
+        public IEnumerator StationaryWorldTouchLiftsTentWithoutUsingTheCard()
+        {
+            var touch=InputSystem.AddDevice<Touchscreen>();
+            try
+            {
+                InputSystem.QueueStateEvent(touch,new TouchState{touchId=41,phase=UnityEngine.InputSystem.TouchPhase.Began,position=At(0,0)});
+                yield return null;
+                Assert.IsTrue(_controller.HasPreview);
+                yield return new WaitForSecondsRealtime(.25f);
+                Assert.Greater(_controller.TouchLiftPixels,0,"A stationary hold must lift the tent above the finger.");
+                Assert.AreEqual(0,_session.State.Count,"Holding never commits before release.");
+                var target=At(1,0)-Vector2.up*_controller.TouchLiftPixels;
+                InputSystem.QueueStateEvent(touch,new TouchState{touchId=41,phase=UnityEngine.InputSystem.TouchPhase.Ended,position=target});
+                yield return null;
+                Assert.AreEqual(1,_session.State.Find("g1").x);Assert.AreEqual(0,_session.State.Find("g1").z);
+                Assert.IsFalse(_controller.IsPlacementActive);
+                Assert.IsTrue(_session.Undo());Assert.IsFalse(_session.Undo());
+            }
+            finally{_controller.Cancel();InputSystem.RemoveDevice(touch);}
+        }
+
+        [UnityTest]
+        public IEnumerator SceneryHoldPicksNextGuestButQuickTapDoesNotPlace()
+        {
+            var outside=At(0,-1);
+            MouseAt(outside,true);yield return null;
+            MouseAt(outside,false);yield return null;
+            Assert.AreEqual(0,_session.State.Count);Assert.IsFalse(_controller.HasPreview);
+            foreach(var target in new[]{new Cell(0,0),new Cell(3,0)})
+            {
+                MouseAt(outside,true);yield return null;
+                yield return new WaitForSecondsRealtime(.25f);
+                Assert.IsTrue(_controller.HasPreview,"Hold the scenery to pick up the next tent.");
+                MouseAt(At(target.X,target.Z),true);yield return null;
+                MouseAt(At(target.X,target.Z),false);yield return null;
+                Physics.SyncTransforms();
+            }
+            Assert.AreEqual(2,_session.State.Count);
+            Assert.AreEqual(3,_session.State.Find("g2").x);
+            Assert.IsFalse(_controller.IsPlacementActive);
+        }
+
+        [UnityTest]
+        public IEnumerator SwipingSceneryCancelsPendingHoldWithoutStartingPlacement()
+        {
+            var outside=At(0,-1);
+            MouseAt(outside,true);yield return null;
+            MouseAt(outside+Vector2.right*100,true);yield return null;
+            yield return new WaitForSecondsRealtime(.25f);
+            Assert.IsFalse(_controller.HasPreview);Assert.IsFalse(_controller.IsPlacementActive);
+            MouseAt(outside+Vector2.right*100,false);yield return null;
+            Assert.AreEqual(0,_session.State.Count);Assert.IsFalse(_session.CanUndo);
+        }
+
+        [UnityTest]
         public IEnumerator ReleasingOutsideScreenDoesNotCommitLastValidTarget()
         {
             Assert.IsTrue(_controller.BeginCardDrag("g1",0,At(-3,-3)));
@@ -252,9 +307,9 @@ namespace QuietCamp.Tests
             _controller.PlacementFailed += key => failure = key;
             var revision = _session.State.Revision;
             MouseAt(At(0, 0), true); yield return null;
-            MouseAt(At(-2, 0), true); yield return null;
+            MouseAt(At(0, -2), true); yield return null;
             Assert.IsTrue(_controller.HasPreview);
-            MouseAt(At(-2, 0), false); yield return null;
+            MouseAt(At(0, -2), false); yield return null;
             Assert.AreEqual("rule.bounds", failure);
             Assert.AreEqual(revision, _session.State.Revision);
             Assert.IsFalse(_controller.HasPreview);

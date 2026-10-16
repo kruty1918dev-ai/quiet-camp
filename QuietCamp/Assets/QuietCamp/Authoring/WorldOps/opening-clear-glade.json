@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "id": "opening-clear-glade-v1",
+  "label": "Вільна галявина біля криниці",
+  "seed": 17101,
+  "levelIds": ["QC001"],
+  "autoApply": true,
+  "capture": true,
+  "maxRepairRounds": 5,
+  "operations": [
+    {
+      "id": "well-and-belongings",
+      "kind": "building.move",
+      "selector": {
+        "ids": ["opening/QC001/landmark-0", "opening/QC001/detail-1", "opening/QC001/human-trace-0", "opening/QC001/human-trace-1", "opening/QC001/human-trace-2"],
+        "generatedOnly": false
+      },
+      "parameters": {"dx": 1.5, "dz": -2.0}
+    },
+    {
+      "id": "well-ground-contact",
+      "kind": "building.ground",
+      "selector": {"primaryOnly": true, "generatedOnly": false},
+      "parameters": {"maximumBurial": 0.04}
+    },
+    {
+      "id": "readable-meadow",
+      "kind": "vegetation.refine",
+      "selector": {"roles": ["vegetation", "tree"], "generatedOnly": false},
+      "parameters": {
+        "maximumHeight": 0.38,
+        "maximumSpan": 0.65,
+        "boardHeight": 0.08,
+        "boardSpan": 0.2,
+        "repairRadius": 3,
+        "spacing": 0.14,
+        "fieldCover": {"density": 4, "maximumHeight": 0.08, "maximumSpan": 0.2, "fringe": 3, "broadLeafShare": 0.05}
+      }
+    },
+    {"id": "camp-at-the-centre", "kind": "camera.frame", "parameters": {"margin": 1.2}}
+  ],
+  "criteria": {"autoRepair": false, "requireVisualReview": true, "profiles": ["portrait", "landscape"], "quality": 2}
+}

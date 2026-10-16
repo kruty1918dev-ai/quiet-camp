@@ -531,6 +531,7 @@ namespace QuietCamp.Presentation.World
         static string GuideMistakeKey(string rawKey)
         {
             var code = rawKey != null && rawKey.StartsWith("rule.") ? rawKey.Substring(5) : rawKey;
+            if(code=="entry")return "rule.entry";
             return code == "bounds" || code == "overlap" || code == "path" || code == "shade"
                 || code == "quiet" || code == "friends" ? "guide.mistake." + code : "guide.mistake.generic";
         }

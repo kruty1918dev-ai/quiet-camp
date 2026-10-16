@@ -77,6 +77,7 @@ namespace QuietCamp.Presentation.World
             // The scene Base is below the meadow; keep the visible rim with the surface grid.
             if(_art==null)_rim = BoardRim.Create(_level, _gridRoot);
             BuildObstacles();
+            BuildAccessMarkers();
 
 
             _groundDetails = _gridRoot.gameObject.AddComponent<CampGroundDetails>();
@@ -303,10 +304,37 @@ namespace QuietCamp.Presentation.World
         }
 
         readonly List<GameObject> _placementSites=new List<GameObject>();
+        GameObject _accessMarkers;
+        GameObject _accessCellsOverlay;
+        readonly List<GameObject> _accessCells=new List<GameObject>();
+
+        void BuildAccessMarkers()
+        {
+            _accessMarkers=new GameObject("CampEntrances");
+            _accessMarkers.transform.SetParent(_overlayRoot,false);
+            foreach(var cell in CampAccess.Points(_level))
+            {
+                if(!CampWalkability.Contains(_level,cell))continue;
+                var marker=new GameObject("Entrance_"+cell.X+"_"+cell.Z);
+                marker.transform.SetParent(_accessMarkers.transform,false);
+                marker.transform.localPosition=BoardMath.CellCenterWorld(_level,cell)+Vector3.up*.046f;
+                var inward=-marker.transform.localPosition;inward.y=0;
+                if(inward.sqrMagnitude<.01f)inward=Vector3.forward;
+                marker.transform.localRotation=Quaternion.LookRotation(inward);
+                var shaft=NewPrimitive(PrimitiveType.Cube,"EntryArrowShaft",marker.transform,new Vector3(.07f,.008f,.38f),new Vector3(0,0,-.05f),null,RuleOverlayLayer,_overlayMaterial);
+                var left=NewPrimitive(PrimitiveType.Cube,"EntryArrowLeft",marker.transform,new Vector3(.07f,.008f,.23f),new Vector3(-.08f,0,.1f),null,RuleOverlayLayer,_overlayMaterial);
+                var right=NewPrimitive(PrimitiveType.Cube,"EntryArrowRight",marker.transform,new Vector3(.07f,.008f,.23f),new Vector3(.08f,0,.1f),null,RuleOverlayLayer,_overlayMaterial);
+                left.transform.localRotation=Quaternion.Euler(0,45,0);right.transform.localRotation=Quaternion.Euler(0,-45,0);
+                Tint(shaft,Color.white);Tint(left,Color.white);Tint(right,Color.white);
+            }
+            _accessMarkers.SetActive(false);
+        }
         GameObject _friendDoorOverlay;
         readonly List<GameObject> _friendDoorCells=new List<GameObject>();
         public void ShowPlacementGuidance(QuietCamp.Application.CampSession session,string guestId,int rotation)
         {
+            _accessMarkers?.SetActive(true);
+            UpdateCells(ref _accessCellsOverlay,_accessCells,"ReservedEntrance",new List<Cell>(CampAccess.Points(_level)),new Color(.18f,.55f,.7f,.65f));
             var sites=QuietCamp.Application.PlacementGuidance.Sites(session,guestId,rotation);
             for(int i=0;i<sites.Length;i++)
             {
@@ -343,6 +371,8 @@ namespace QuietCamp.Presentation.World
         {
             SetPlacementGridVisible(false);ShowShade(false);
             if(_friendDoorOverlay!=null)_friendDoorOverlay.SetActive(false);
+            _accessMarkers?.SetActive(false);
+            _accessCellsOverlay?.SetActive(false);
             foreach(var site in _placementSites)if(site!=null)site.SetActive(false);
         }
 
@@ -593,6 +623,9 @@ namespace QuietCamp.Presentation.World
             foreach(var site in _placementSites)if(site!=null)DestroyOwned(site);
             _placementSites.Clear();
             if(_friendDoorOverlay!=null)DestroyOwned(_friendDoorOverlay);
+            if(_accessMarkers!=null)DestroyOwned(_accessMarkers);
+            if(_accessCellsOverlay!=null)DestroyOwned(_accessCellsOverlay);
+            _accessCells.Clear();
             _friendDoorCells.Clear();
             _pathCells.Clear(); _previewCells.Clear();
             if (_overlayMaterial != null) DestroyOwned(_overlayMaterial);

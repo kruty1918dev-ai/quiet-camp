@@ -139,21 +139,21 @@ namespace QuietCamp.Tests
             Assert.IsFalse(tutorial.ReportAction("complete",session));Assert.AreEqual("QC003",tutorial.CurrentLevelId);
             Complete(tutorial,session);Assert.AreEqual("QC004",tutorial.CurrentLevelId);
         }
-        [Test] public void GuidedFirstTwoGladesRequireTheirActionsBeforeCheckButSkipAndLegacyDoNot()
+        [Test] public void CoachingFirstTwoGladesDoesNotGateTheFinishButton()
         {
             var tutorial=new TutorialDirector(null,false,new ProgressionService(),()=>true);
-            Assert.IsFalse(tutorial.CanCompleteLevel("QC001"));Assert.IsTrue(tutorial.CanCompleteLevel("QC003"));
+            Assert.IsTrue(tutorial.CanCompleteLevel("QC001"));Assert.IsTrue(tutorial.CanCompleteLevel("QC003"));
             using(var first=new CampSession(Level("QC001")))
             {
                 first.Select("a");tutorial.ReportAction("select",first);Place(first);tutorial.ReportAction("commit",first);
-                Assert.IsFalse(tutorial.CanCompleteLevel("QC001"),"A valid layout cannot bypass learning rotation.");
+                Assert.IsTrue(tutorial.CanCompleteLevel("QC001"),"Rotation is advice, not a hidden victory condition.");
                 Place(first,rotation:1);tutorial.ReportAction("rotate",first);Assert.IsTrue(tutorial.CanCompleteLevel("QC001"));Complete(tutorial,first);
             }
-            Assert.IsFalse(tutorial.CanCompleteLevel("QC002"));
+            Assert.IsTrue(tutorial.CanCompleteLevel("QC002"));
             using(var second=new CampSession(Level("QC002")))
             {
                 Place(second);Place(second,2,1);tutorial.ReportAction("move",second);
-                Assert.IsFalse(tutorial.CanCompleteLevel("QC002"),"Moving alone cannot bypass learning undo.");
+                Assert.IsTrue(tutorial.CanCompleteLevel("QC002"),"Undo is advice, not a hidden victory condition.");
                 second.Undo();tutorial.ReportAction("undo",second);Assert.IsTrue(tutorial.CanCompleteLevel("QC002"));
             }
             var skipped=new TutorialDirector(null,false,new ProgressionService(),()=>true);skipped.Skip();

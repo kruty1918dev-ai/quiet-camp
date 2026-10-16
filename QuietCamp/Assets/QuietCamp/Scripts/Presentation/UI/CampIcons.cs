@@ -21,9 +21,10 @@ namespace QuietCamp.Presentation.UI
                 + (tooltip == null ? "" : " data-tooltip=\""+HtmlUi.Escape(tooltip)+"\"")
                 + " onClick=\"Globals.campUi.Click('"+HtmlUi.Escape(id)+"')\">"+Mark(icon)+"</button>";
         }
-        public static string Wishes(LevelData level, GuestData guest)
+        public static string Wishes(LevelData level, GuestData guest, bool includePath = true)
         {
-            var s = new StringBuilder("<view class=\"wish-icons\">").Append(Mark("path"));
+            var s = new StringBuilder("<view class=\"wish-icons\">");
+            if(includePath)s.Append(Mark("path"));
             if (guest.shade) s.Append(Mark("shade"));
             if (guest.quiet) s.Append(Mark("quiet"));
             foreach (var pair in level.friends ?? Array.Empty<string[]>())

@@ -13,7 +13,7 @@ namespace QuietCamp.Presentation.World
     /// </summary>
     public sealed class PlacementController : MonoBehaviour
     {
-        enum Phase { Idle, Pressed, Preview, Dragging }
+        enum Phase { Idle, WaitingWorldHold, Pressed, Preview, Dragging }
 
         CampSession _session;
         BoardRenderer _renderer;
@@ -110,7 +110,7 @@ namespace QuietCamp.Presentation.World
             var sample = ReadPointer();
             if (!sample.Has)
             {
-                if (_captured) Cancel();
+                if (_pointerId != -1) Cancel();
                 return;
             }
             if (sample.Canceled) { if (sample.Id == _pointerId) Cancel(); return; }
@@ -120,11 +120,26 @@ namespace QuietCamp.Presentation.World
 
             // A global input block (scene transition) cancels an in-flight
             // drag without committing — the ghost vanishes, no placement.
-            if (_captured && _policy != null
+            if (_pointerId != -1 && _policy != null
                 && !_policy.CanProcess(GameplayInputKind.Placement, sample.Position, _pointerId))
             {
                 Cancel();
                 return;
+            }
+
+            if(sample.Active&&_phase==Phase.WaitingWorldHold)
+            {
+                float threshold=BoardMath.DragThresholdDp*PlacementTargetProjector.ScreenDpScale();
+                // A quick swipe on the scenery remains available to other gestures.
+                if((sample.Position-_pressScreen).sqrMagnitude>=threshold*threshold){Cancel();return;}
+                if(Time.unscaledTime-_pressTime>=.2f)
+                {
+                    var selected=_session.SelectedGuestId;
+                    var guest=selected!=null&&!_session.State.Contains(selected)?selected:NextUnplacedGuest();
+                    if(guest==null||_policy!=null&&!_policy.TryBeginPointerCapture(GameplayInputKind.Placement,sample.Position,sample.Id))
+                    {Cancel();return;}
+                    BeginHeldPreview(guest,sample.Id,sample.Position);
+                }
             }
 
             if (sample.Active && _phase == Phase.Pressed)
@@ -147,8 +162,14 @@ namespace QuietCamp.Presentation.World
             if (sample.Active && _phase == Phase.Preview)
             {
                 var threshold = BoardMath.DragThresholdDp * _projector.DensityScale;
-                if ((sample.Position - _pressScreen).sqrMagnitude >= threshold * threshold)
-                { _phase = Phase.Dragging; StartAiming(sample.Id > 0); }
+                if ((sample.Position - _pressScreen).sqrMagnitude >= threshold * threshold
+                    || Time.unscaledTime-_pressTime>=.2f)
+                {
+                    _phase = Phase.Dragging;
+                    StartAiming(sample.Id > 0);
+                    _cardDrag=true;
+                    LiftCard(_preview.guestId,sample.Position);
+                }
                 UpdateTarget(sample.Position);
             }
             else if (sample.Active && _phase == Phase.Dragging)
@@ -174,8 +195,15 @@ namespace QuietCamp.Presentation.World
 
         public bool BeginCardDrag(string guestId, int pointerId, Vector2 screen)
         {
-            if (_pointerId != -1 || _session.IsCompleted || System.Array.Find(_level.guests,g=>g.id==guestId)==null) return false;
+            bool pendingSamePointer=_phase==Phase.WaitingWorldHold&&_pointerId==pointerId;
+            if (_pointerId != -1&&!pendingSamePointer || _session.IsCompleted || System.Array.Find(_level.guests,g=>g.id==guestId)==null) return false;
             if (_policy != null && !_policy.TryBeginUiPointerCapture(GameplayInputKind.Placement,pointerId)) return false;
+            BeginHeldPreview(guestId,pointerId,screen);
+            return true;
+        }
+
+        void BeginHeldPreview(string guestId,int pointerId,Vector2 screen)
+        {
             _session.Select(guestId);
             _pointerId = pointerId; _captured = true; _pressScreen = screen;
             _pressTime = Time.unscaledTime;
@@ -191,7 +219,6 @@ namespace QuietCamp.Presentation.World
             // The first guest can already be selected when the scene opens.
             // Card dragging is still an explicit selection for the guide.
             PreviewBegan?.Invoke(_targetValid ? _target.GroundPoint : Hit(screen));
-            return true;
         }
         void LiftCard(string guestId, Vector2 screen)
         {
@@ -205,10 +232,17 @@ namespace QuietCamp.Presentation.World
         void OnPress(PointerSample sample)
         {
             if (_pointerId != -1 || _session.IsCompleted) return;
+            if(!new Rect(0,0,Screen.width,Screen.height).Contains(sample.Position)||!_camera.pixelRect.Contains(sample.Position))return;
             if (!ScreenToCell(sample.Position, out var cell)) return;
             var picked = PickTent(sample.Position);
-            if (picked == null && !RuleEvaluator.Inside(_level, cell)) return;
             if (_policy != null && !_policy.CanProcess(GameplayInputKind.Placement, sample.Position, sample.Id)) return;
+            if(picked==null&&!RuleEvaluator.Inside(_level,cell))
+            {
+                if(NextUnplacedGuest()==null)return;
+                _pointerId=sample.Id;_pressScreen=sample.Position;_pressTime=Time.unscaledTime;
+                _phase=Phase.WaitingWorldHold;
+                return;
+            }
 
             // Selection is a tap; only a deliberate drag lifts a committed tent.
             if (picked != null) _session.Select(picked);
@@ -378,6 +412,8 @@ namespace QuietCamp.Presentation.World
             if (Time.unscaledTime < _invalidToastCooldown) return;
             _invalidToastCooldown = Time.unscaledTime + .4f;
             var issue = report.Issues.Find(i => i.Hard) ?? report.Issues.Find(i => i.GuestId == _session.SelectedGuestId);
+            if(issue?.Code=="overlap"&&issue.Cells!=null&&System.Array.Exists(issue.Cells,c=>CampAccess.IsReserved(_level,c)))
+            { PlacementFailed?.Invoke("rule.entry");return; }
             PlacementFailed?.Invoke("rule." + (issue?.Code ?? "bounds"));
         }
 

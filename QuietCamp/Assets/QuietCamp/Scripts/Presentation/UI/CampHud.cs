@@ -50,6 +50,7 @@ namespace QuietCamp.Presentation.UI
         string _tagGuest;
         float _tagUntil = -1f;
         float _hintUntil = -1f;
+        float _tentToolsUntil = -1f;
 
         bool SideJourney => _services.Journeys.ForLevel(_session.Level.id)?.id is string id && id != "main";
         bool HintsAvailable => _services.Economy.IsPro || _services.Tutorial.HintsUnlocked || SideJourney;
@@ -126,7 +127,7 @@ namespace QuietCamp.Presentation.UI
             float side = layout.IsWide ? 24 : 6;
             float reserved = Mathf.Min(safe.height*.42f,bottom.rect.height+48);
             var header = _surface.Element("header")?.transform as RectTransform;
-            float top = Mathf.Max(180,(header?.rect.height??0)+48);
+            float top = Mathf.Max(144,(header?.rect.height??0)+32);
             float halfWidth = Mathf.Max(1,Mathf.Min(centre.x-safe.xMin-side,safe.xMax-centre.x-side));
             float halfHeight = Mathf.Max(1,Mathf.Min(centre.y-safe.yMin-reserved,safe.yMax-centre.y-top));
             var half = new Vector2(halfWidth,halfHeight);
@@ -157,10 +158,7 @@ namespace QuietCamp.Presentation.UI
             // While a modal owns the screen the gameplay orbs stay hidden —
             // two competing HUD layers read as broken UI under the dim.
             var header = HasModalOpen ? "" :
-                (HintsAvailable ? HtmlUi.Button(_surface, "hint",
-                    T("action.hint") + (_services.Economy.IsPro ? "" : " · " + _services.Economy.Hints),
-                    () => Action("qc.hint"), "quiet hint-control") : "") +
-                (OpeningCampaignStory.For(_session.Level)!=null ? HtmlUi.Button(_surface,"opening-finding",T("opening.finding"),()=>OpenModal("OpeningFinding"),"quiet") : "") +
+                (HintsAvailable ? HintButton() : "") +
                 "<view class=\"grow\"></view>" +
                 CampIcons.Button(_surface, "pause", "pause", () => Action("qc.pause"), "orb quiet",
                     tooltip: T("hud.pause"));
@@ -170,9 +168,10 @@ namespace QuietCamp.Presentation.UI
             else if (_previewReport != null)
             {
                 var key = PreviewKey(_previewReport);
-                tutorial = GuideMarkup() + "<view id=\"placement-status\" class=\"tutorial preview-feedback\"><view class=\"pill\">"
-                    + HtmlUi.Text(T(key)) + HtmlUi.Text(T("hud.placement.legend"),"placement-legend")
-                    + HtmlUi.Text(PlacementWish(),"placement-legend") + "</view></view>";
+                tutorial = "<view id=\"placement-status\" class=\"hud-feedback "
+                    + (!_previewReport.CanCommit ? "blocked" : key == "hud.preview.ok" ? "ready" : "wish") + "\">"
+                    + CampIcons.Mark(key == "hud.preview.ok" ? "check" : "hint")
+                    + HtmlUi.Text(PreviewMessage(key)) + "</view>";
             }
             else if (_tutorialKey != null)
                 tutorial = GuideMarkup();
@@ -185,18 +184,47 @@ namespace QuietCamp.Presentation.UI
                 "anchors", HasModalOpen || _celebrating ? "" : Anchors());
         }
 
+        string HintButton()
+        {
+            _surface.Callbacks.Bind("hint",()=>Action("qc.hint"));
+            return "<button id=\"hint\" class=\"orb quiet hint-control\" data-tooltip=\""+HtmlUi.Escape(T("action.hint"))
+                + "\" onClick=\"Globals.campUi.Click('hint')\">"+CampIcons.Mark("hint")
+                + (_services.Economy.IsPro ? "" : HtmlUi.Text(_services.Economy.Hints.ToString(),"hud-badge")) + "</button>";
+        }
+
+        string PreviewMessage(string key)
+        {
+            if(key=="rule.overlap")
+            {
+                var overlap=_previewReport?.Issues.Find(i=>i.Code=="overlap");
+                if(overlap?.Cells!=null&&Array.Exists(overlap.Cells,c=>CampAccess.IsReserved(_session.Level,c)))
+                    return T("hud.compact.entry");
+            }
+            var guest=Array.Find(_session.Level.guests,g=>g.id==_session.SelectedGuestId);
+            if((key=="rule.shade"||key=="rule.quiet")&&guest?.shade==true&&guest.quiet)
+                return T("hud.compact.quiet-shade");
+            if(key=="rule.friends"||key=="rule.friends-missing")return T("hud.compact.friends");
+            if(key.StartsWith("rule.path",StringComparison.Ordinal))return T("hud.compact.path");
+            var compact=key switch
+            {
+                "hud.preview.ok"=>"release", "rule.shade"=>"shade", "rule.quiet"=>"quiet",
+                "rule.bounds"=>"bounds", "rule.overlap"=>"overlap", "rule.blocked"=>"overlap", _=>null
+            };
+            return compact==null?T(key):T("hud.compact."+compact);
+        }
+
         string GuideMarkup()
         {
             if (_tutorialKey == null) return "";
             var portrait = _services.Tutorial.Portrait;
             return "<view id=\"tutorial\" class=\"guide-card\" data-motion-role=\"toast\">"
                 + "<img id=\"guide-portrait\" class=\"guide-portrait\" src=\"res:QuietCamp/UI/Mentor/" + portrait + "\"/>"
-                + "<view class=\"guide-copy\">" + HtmlUi.Text(T("guide.name"), "guide-name")
-                + HtmlUi.Text(T(_tutorialKey), "guide-instruction")
+                + "<view class=\"guide-copy\">" + HtmlUi.Text(T(_tutorialKey), "guide-instruction")
+                + "</view>"
                 + (_services.Tutorial.Guiding(_session.Level.id)
-                    ? HtmlUi.Button(_surface, "guide-skip", T("guide.skip"), () => OpenModal("GuideSkip"), "guide-skip")
+                    ? CampIcons.Button(_surface, "guide-skip", "remove", () => OpenModal("GuideSkip"), "guide-skip", T("guide.skip"))
                     : "")
-                + "</view></view>";
+                + "</view>";
         }
 
         string GuideFocus(string target) => _tutorialKey != null && _services.Tutorial.Target == target ? " guide-focus" : "";
@@ -209,17 +237,7 @@ namespace QuietCamp.Presentation.UI
             var placed = _session.State.Count;
             var total = _session.Level.guests.Length;
             var dock = new StringBuilder("<view class=\"dock"+(placed==total?" completed":"")+"\">");
-            dock.Append("<view class=\"dock-tools\">");
-            if (GuestListAvailable)
-                dock.Append(CampIcons.Button(_surface, "guests", "guests", () => OpenModal("Guests"), "icon quiet guest-list-button", T("hud.guests")));
-            if (HistoryAvailable)
-                dock.Append(CampIcons.Button(_surface, "undo", "undo", () => Action("qc.undo"), "icon quiet" + GuideFocus("undo"), T("action.undo"), _session.CanUndo));
-            if (_session.CanRedo)
-                dock.Append(CampIcons.Button(_surface, "redo", "redo", () => Action("qc.redo"), "icon quiet", T("action.redo")));
-            if (placed == total)
-                dock.Append(HtmlUi.Button(_surface, "check", T("hud.ready"), () => Action("qc.check"),
-                    "primary check-button" + GuideFocus("check"), _services.Tutorial.CanCompleteLevel(_session.Level.id)));
-            dock.Append("</view>");
+            dock.Append("<view class=\"dock-main\">");
             if (next != null)
             {
                 var selected = _session.SelectedGuestId == next.id;
@@ -227,27 +245,27 @@ namespace QuietCamp.Presentation.UI
                     + "\" onClick=\"Globals.campUi.Click('guest-card')\">"
                     + "<img class=\"tent-art\" src=\"res:QuietCamp/UI/Tents/"+next.assetId+"\"/>" + "<view class=\"gc-text\">"
                     + HtmlUi.Text(T(next.nameKey), "gc-name")
-                    + CampIcons.Wishes(_session.Level,next)
-                    + HtmlUi.Text(T("hud.hold.place"),"gc-help")
+                    + CampIcons.Wishes(_session.Level,next,includePath:false)
                     + "</view><text class=\"gc-count\">" + placed + "/" + total + "</text></button>");
                 _surface.Callbacks.Bind("guest-card", () => SelectGuest(next.id));
             }
             else
             {
-                dock.Append("<view class=\"guest-card idle\"><view class=\"gc-text\">"
-                    + HtmlUi.Text(T("hud.allplaced"), "gc-name")
-                    + HtmlUi.Text(T(_lastReport?.IsSolved == true ? "rule.ok" : "hud.checkme"), "gc-wish")
-                    + "</view><text class=\"gc-count\">" + placed + "/" + total + "</text></view>");
+                dock.Append(HtmlUi.Button(_surface, "check", T("hud.compact.finish")+"  ·  "+placed+"/"+total, () => Action("qc.check"),
+                    "primary check-button"+GuideFocus("check"),_services.Tutorial.CanCompleteLevel(_session.Level.id)));
             }
             if (placed == total)
             {
-                var notice = _services.Economy.IsPro
-                ? T("economy.check.notice.pro")
-                : _services.Tutorial.Guiding(_session.Level.id)
-                    ? T("guide.check.free")
-                    : string.Format(T("economy.check.notice"), _services.Economy.Lives);
-                if (!string.IsNullOrWhiteSpace(notice))
-                    dock.Append("<view class=\"check-notice\">" + HtmlUi.Text(notice) + "</view>");
+                if(!_services.Economy.IsPro&&!_services.Tutorial.Guiding(_session.Level.id))
+                    dock.Append(HtmlUi.Text(T("hud.compact.risk"),"hud-risk"));
+            }
+            dock.Append("</view>");
+            if(HistoryAvailable&&(_session.CanUndo||_session.CanRedo))
+            {
+                dock.Append("<view class=\"dock-actions\">");
+                if(_session.CanUndo)dock.Append(CampIcons.Button(_surface,"undo","undo",()=>Action("qc.undo"),"orb quiet"+GuideFocus("undo"),T("action.undo")));
+                if(_session.CanRedo)dock.Append(CampIcons.Button(_surface,"redo","redo",()=>Action("qc.redo"),"orb quiet",T("action.redo")));
+                dock.Append("</view>");
             }
             dock.Append("</view>");
             return dock.ToString();
@@ -264,7 +282,7 @@ namespace QuietCamp.Presentation.UI
             var selPlaced = selected != null && _session.State.Contains(selected);
             if (_tagGuest != null && _tagGuest != selected && Time.unscaledTime < _tagUntil)
                 Chip(sb, _tagGuest, tagOnly: true);
-            if (selPlaced)
+            if (selPlaced&&(Time.unscaledTime<_tentToolsUntil||GuideFocus("rotate")!=""))
                 Chip(sb, selected, tagOnly: false);
             return sb.ToString();
         }
@@ -303,24 +321,6 @@ namespace QuietCamp.Presentation.UI
             foreach (var g in _session.Level.guests)
                 if (!_session.State.Contains(g.id)) return g;
             return null;
-        }
-
-        string PlacementWish()
-        {
-            var guest=System.Array.Find(_session.Level.guests,g=>g.id==_session.SelectedGuestId);
-            if(guest==null)return "";
-            var parts=new List<string>();
-            if(guest.shade&&guest.quiet)parts.Add(T("hud.zone.quiet-shade"));
-            else if(guest.shade)parts.Add(T("hud.zone.shade"));
-            else if(guest.quiet)parts.Add(T("hud.zone.quiet"));
-            foreach(var pair in _session.Level.friends)
-                if(pair[0]==guest.id||pair[1]==guest.id)
-                {
-                    var friend=pair[0]==guest.id?pair[1]:pair[0];
-                    var name=System.Array.Find(_session.Level.guests,g=>g.id==friend)?.nameKey;
-                    parts.Add(string.Format(T(_session.State.Contains(friend)?"hud.zone.friends":"hud.zone.friend-first"),T(name)));
-                }
-            return string.Join(" · ",parts);
         }
 
         string WishText(GuestData guest)
@@ -394,7 +394,10 @@ namespace QuietCamp.Presentation.UI
                 default:
                     title = T("qc.pause.title");
                     body = OverlayButton("resume", "qc.resume.button", () => Action("qc.resume"), "primary")
+                        + (GuestListAvailable ? OverlayButton("guests","hud.guests",()=>OpenModal("Guests"),"quiet") : "")
+                        + (OpeningCampaignStory.For(_session.Level)!=null ? OverlayButton("opening-finding","opening.finding",()=>OpenModal("OpeningFinding"),"quiet") : "")
                         + OverlayButton("signs", "guide.signs.title", () => OpenModal("WishLegend"), "quiet")
+                        + (!_services.Economy.IsPro ? HtmlUi.Button(_overlay,"resources",string.Format(T("hud.compact.resources"),_services.Economy.Lives,_services.Economy.Hints),ShowEconomy,"quiet") : "")
                         + OverlayButton("settings", "menu.settings", ShowSettings, "quiet")
                         + OverlayButton("menu", "menu.main", () => Action("qc.menu"), "quiet");
                     break;
@@ -516,6 +519,7 @@ namespace QuietCamp.Presentation.UI
 
         public void SelectGuest(string id)
         {
+            if(_session.State.Contains(id))_tentToolsUntil=Time.unscaledTime+5f;
             _services.Actions.Execute(new UiActionRequest(new UiActionId("qc.select"), UiActionSource.Button, "Gameplay", id, id));
             GuestSelected?.Invoke(id);
             _surface.Refresh();
@@ -527,6 +531,7 @@ namespace QuietCamp.Presentation.UI
         {
             _tagGuest = guestId;
             _tagUntil = Time.unscaledTime + TagSeconds;
+            _tentToolsUntil = Time.unscaledTime + TagSeconds;
             _surface.Refresh();
         }
 
@@ -557,9 +562,10 @@ namespace QuietCamp.Presentation.UI
 
         public void SetPlacementPreview(RuleReport report)
         {
-            var changed = PreviewKey(_previewReport) != PreviewKey(report);
+            var previous = _previewReport==null?null:PreviewMessage(PreviewKey(_previewReport));
             _previewReport = report;
-            if (changed) _surface.Refresh();
+            var current=report==null?null:PreviewMessage(PreviewKey(report));
+            if (previous!=current) _surface.Refresh();
         }
 
         string PreviewKey(RuleReport report)
@@ -600,6 +606,8 @@ namespace QuietCamp.Presentation.UI
         {
             if (_tagGuest != null && Time.unscaledTime >= _tagUntil)
             { _tagGuest = null; _surface.Refresh(); }
+            if(_tentToolsUntil>0&&Time.unscaledTime>=_tentToolsUntil)
+            { _tentToolsUntil=-1;_surface.Refresh(); }
             if (_hintUntil > 0 && Time.unscaledTime >= _hintUntil)
             {
                 _hintUntil = -1;
@@ -671,6 +679,8 @@ namespace QuietCamp.Presentation.UI
 
         void OnSessionEvent(CampEvent e)
         {
+            if(e.Kind==CampEventKind.SelectionChanged&&_session.SelectedGuestId!=null&&_session.State.Contains(_session.SelectedGuestId))
+                _tentToolsUntil=Time.unscaledTime+5f;
             if (e.Kind == CampEventKind.BoardCommitted) _showIssue = false;
             if (e.Kind == CampEventKind.RulesChanged) _lastReport = e.Report;
             if (e.Kind == CampEventKind.LevelCompleted) BeginCelebration();

@@ -327,7 +327,7 @@
     "boot.privacy.continueDraft": "Read draft, continue",
     "boot.privacy.continue": "Read policy, continue",
     "guide.name": "Ostap · your guide",
-    "guide.select": "Hold the white guest card and drag it onto the clearing.",
+    "guide.select": "Hold the clearing and drag a tent.",
     "guide.place": "Release the tent near a green marker. The yellow dot marks its door: keep a path open.",
     "guide.rotate": "Turn the tent — its door should face an open trail.",
     "guide.first-check": "Place both tents, then tap Check.",
@@ -553,6 +553,19 @@
     "journey.main.story.106": "The last stone post of the frontier. Beyond lies land where nobody lives yet — except those still on their way.",
     "journey.main.story.110": "The haven. Your road ends here — and a place begins where all the world's roads come to rest.",
     "map.veiled": "The world beyond is still veiled",
-    "opening.finding": "Finding"
+    "opening.finding": "Finding",
+    "hud.compact.finish": "Finish",
+    "hud.compact.risk": "Mistake: −1 life",
+    "hud.compact.resources": "Lives: {0} · Hints: {1}",
+    "hud.compact.release": "Release to place",
+    "hud.compact.shade": "Needs shade",
+    "hud.compact.quiet": "Needs quiet",
+    "hud.compact.quiet-shade": "Needs quiet and shade",
+    "hud.compact.path": "Keep the doorway accessible",
+    "hud.compact.bounds": "Keep the tent inside the field",
+    "hud.compact.overlap": "No room here",
+    "hud.compact.friends": "Friends need to be nearby",
+    "hud.compact.entry": "Keep the camp entrance clear",
+    "rule.entry": "This is the camp entrance. Keep it clear."
   }
 }

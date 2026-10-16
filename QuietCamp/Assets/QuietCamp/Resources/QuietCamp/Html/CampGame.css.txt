@@ -154,3 +154,37 @@ button text, .gc-text text { white-space: normal; }
 .completion-note { position: absolute; top: 180px; left: 120px; right: 120px; padding: 24px; border-radius: 24px; background-color: #ffffff; }
 .completion-note text { text-align: center; font-size: 40px; color: #294537; }
 .guest-card:disabled { opacity: 1; background-color: #a3a3a3; }
+.camp-hud .top { top: 20px; left: 24px; right: 24px; align-items: center; }
+.camp-hud .orb { width: 108px; min-width: 108px; min-height: 108px; height: 108px; padding: 14px; border-radius: 54px; }
+.camp-hud .orb .ico { width: 52px; height: 52px; min-width: 52px; min-height: 52px; }
+.camp-hud .hint-control { position: relative; max-width: none; }
+.hud-badge { position: absolute; top: 0; right: -4px; width: 36px; height: 36px; font-size: 24px; border-radius: 18px; background-color: #35584a; color: #f6f0df; text-align: center; }
+.camp-hud .hint-control .hud-badge { font-size: 22px; width: 40px; height: 40px; border-radius: 20px; }
+.camp-hud .bottom { left: 24px; right: 24px; bottom: 24px; gap: 10px; }
+.camp-hud .dock { flex-direction: row; align-items: center; min-height: 124px; gap: 12px; flex-wrap: nowrap; }
+.dock-main { flex-grow: 1; flex-shrink: 1; flex-basis: 0; min-width: 0; gap: 6px; }
+.dock-actions { flex-direction: row; align-items: center; gap: 8px; flex-shrink: 0; }
+.camp-hud .guest-card { min-height: 124px; min-width: 0; padding: 12px 18px; gap: 14px; border-radius: 28px; }
+.camp-hud .guest-card .tent-art { width: 80px; height: 80px; flex-shrink: 0; }
+.camp-hud .guest-card .gc-name { font-size: 34px; }
+.camp-hud .gc-count { font-size: 26px; }
+.camp-hud .wish-icons { gap: 8px; }
+.camp-hud .wish-icons .ico { width: 36px; height: 36px; min-width: 36px; min-height: 36px; }
+.camp-hud .check-button { min-height: 112px; width: 100%; border-radius: 28px; font-size: 34px; }
+.hud-risk { width: 100%; text-align: center; font-size: 22px; color: #344d40; background-color: rgba(246,240,223,.94); border-radius: 14px; padding: 4px 8px; }
+.hud-feedback { flex-direction: row; align-items: center; justify-content: center; gap: 12px; min-height: 72px; padding: 12px 18px; border-radius: 24px; background-color: #f6f0df; }
+.hud-feedback .ico { width: 32px; height: 32px; min-width: 32px; min-height: 32px; }
+.hud-feedback text { flex-shrink: 1; font-size: 28px; color: #294537; white-space: normal; text-align: center; }
+.hud-feedback.blocked { background-color: #f1ddd1; }
+.hud-feedback.wish { background-color: #eee4c8; }
+.hud-feedback.ready { background-color: #deead6; }
+.camp-hud .guide-card { padding: 10px 14px; gap: 12px; border-radius: 24px; }
+.camp-hud .guide-portrait { width: 96px; height: 112px; max-width: 20%; }
+.camp-hud .guide-copy { gap: 0; }
+.camp-hud .guide-instruction { font-size: 30px; }
+.camp-hud .guide-skip { align-self: center; min-width: 88px; min-height: 88px; width: 88px; height: 88px; padding: 18px; }
+.camp-hud .guide-skip .ico { width: 32px; height: 32px; min-width: 32px; min-height: 32px; }
+@media (layout: wide) {
+.camp-hud .bottom { left: 15%; right: 15%; bottom: 24px; }
+.camp-hud .guide-card { max-width: 100%; }
+}

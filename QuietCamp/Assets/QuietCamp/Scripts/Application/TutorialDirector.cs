@@ -104,9 +104,8 @@ namespace QuietCamp.Application
         public bool HasStep(string id) => _runner.IsComplete(id);
         public bool CanCompleteLevel(string levelId)
         {
-            if (!Guiding(levelId)) return true;
-            return levelId == "QC001" ? HasStep("QC001.rotate")
-                : levelId != "QC002" || HasStep("QC002.undo");
+            // Coaching suggests controls; only puzzle rules decide whether a camp is valid.
+            return true;
         }
         /// <summary>First sign this glade introduces that the player was never
         /// taught — null during guided steps (those already teach their sign)
@@ -232,7 +231,12 @@ namespace QuietCamp.Application
                 ["friends-valid"] = friendsPlaced && NoIssue("friends"),
                 ["solved"] = session.IsCompleted && RuleEvaluator.Evaluate(session.Level, session.State.Placements).IsSolved
             };
-            var observed = _runner.Observe(new TutorialObservation(actionId, facts));
+            var observation=new TutorialObservation(actionId,facts);
+            var observed = _runner.Observe(observation);
+            // A successful camp satisfies the lesson goal even if the player did not need
+            // a suggested control. Advance this level only, without inventing input actions.
+            if(actionId=="complete")
+                while(Guiding(session.Level.id)&&_runner.Observe(observation))observed=true;
             // A taught sign stays taught — later glades don't re-explain it.
             if (observed && actionId == "complete") LearnLevelSigns(session.Level);
             return observed;
@@ -266,7 +270,8 @@ namespace QuietCamp.Application
             void Add(string level, string id, string action, string fact, string target, string portrait)
             {
                 steps.Add(new TutorialStep(level + "." + id, "guide." + id, target,
-                    new TutorialPredicate(o => o.ActionId == action && o.Has("level." + level) && (fact == null || o.Has(fact))), portrait));
+                    new TutorialPredicate(o => o.Has("level."+level)
+                        && (o.ActionId=="complete"&&o.Has("solved") || o.ActionId==action&&(fact==null||o.Has(fact)))), portrait));
             }
             Add("QC001", "select", "select", "selected", "guest-card", "welcome");
             Add("QC001", "place", "commit", "route-valid", "board", "point");
