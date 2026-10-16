@@ -33,6 +33,9 @@ namespace QuietCamp.Editor.LevelAuthoring
         readonly Dictionary<Material,Material> _previewMaterials = new Dictionary<Material,Material>();
         readonly Dictionary<string, Mesh> _frozenMeshes = new Dictionary<string, Mesh>();
         readonly Dictionary<string, CampArtDefinition.Model> _frozenModels = new Dictionary<string, CampArtDefinition.Model>();
+        readonly Dictionary<string, string> _modelKeys = new Dictionary<string, string>();
+        readonly Dictionary<string, LevelAuthoringAsset> _markers = new Dictionary<string, LevelAuthoringAsset>();
+        readonly Dictionary<string, string> _poseKeys = new Dictionary<string, string>();
         readonly HashSet<LevelAuthoringAsset> _modelEdits = new HashSet<LevelAuthoringAsset>();
         GameObject _batchRoot;
         Mesh _paintMesh;
@@ -60,7 +63,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         {
             AuthoringVegetationSnapshot.ExpandCover(document);
             Document = document;
-            foreach (var model in document.art.models) _frozenModels[model.id] = model;
+            foreach (var model in document.art.models) { _frozenModels[model.id] = model; _modelKeys[model.id] = ModelKey(model); }
             LevelAuthoringPalette.EnsureDocumentModels(document.art.models);
             try
             {
@@ -126,24 +129,58 @@ namespace QuietCamp.Editor.LevelAuthoring
             marker.sourcePose=item; marker.capturedPosition=go.transform.localPosition;
             marker.capturedRotation=go.transform.localRotation;
             marker.capturedScale=marker.packedModel?go.transform.localScale:scale;
+            _markers[marker.instanceId]=marker;_poseKeys[marker.instanceId]=PoseKey(item);
             ApplyPreviewMaterial(marker);
             if (undo) Undo.RegisterCreatedObjectUndo(go, "Додати декор"); return go;
         }
         public void ApplyDocument(LevelAuthoringDocument document)
         {
             AuthoringVegetationSnapshot.ExpandCover(document);
-            bool replaceScenery=document.art.instances.Length!=Document.art.instances.Length ||
-                !document.art.instances.Select(i=>i.id+"/"+i.modelId).SequenceEqual(Document.art.instances.Select(i=>i.id+"/"+i.modelId));
-            foreach(var model in document.art.models)_frozenModels[model.id]=model;
             RiverTerrainIntegration.Validate?.Invoke(document);
-            Document = document;
-            if(replaceScenery)
+            var changedModels=new HashSet<string>();
+            foreach(var model in document.art.models)
             {
-                PlacementToolIntegration.Adapter?.Stop();
-                for(int i=Scenery.childCount-1;i>=0;i--)UnityEngine.Object.DestroyImmediate(Scenery.GetChild(i).gameObject);
-                foreach(var item in document.art.instances)Spawn(item,false);
-                AttachOvergrowth(); RefreshPlantBatches();
+                string key=ModelKey(model);
+                if(!_modelKeys.TryGetValue(model.id,out var oldKey)||key!=oldKey)
+                {
+                    changedModels.Add(model.id);
+                    if(_frozenMeshes.TryGetValue(model.id,out var mesh)){mesh.Clear();LevelAuthoringPalette.PopulateMesh(mesh,model);}
+                    if(_seasonMeshes.TryGetValue(model.id,out var seasonal)){UnityEngine.Object.DestroyImmediate(seasonal);_seasonMeshes.Remove(model.id);}
+                }
+                _modelKeys[model.id]=key;_frozenModels[model.id]=model;
             }
+            Document = document;
+            var incoming=new HashSet<string>(document.art.instances.Select(i=>i.id));
+            bool topology=false;var changed=new List<Transform>();
+            foreach(var id in _markers.Keys.Where(id=>!incoming.Contains(id)).ToArray())
+            {
+                if(_markers[id]!=null)UnityEngine.Object.DestroyImmediate(_markers[id].gameObject);
+                _markers.Remove(id);_poseKeys.Remove(id);topology=true;
+            }
+            foreach(var item in document.art.instances)
+            {
+                if(!_markers.TryGetValue(item.id,out var marker)||marker==null||marker.stableId!=(item.modelId??item.assetId))
+                {
+                    if(marker!=null)UnityEngine.Object.DestroyImmediate(marker.gameObject);
+                    Spawn(item,false);topology=true;continue;
+                }
+                string key=PoseKey(item);
+                if(!_poseKeys.TryGetValue(item.id,out var previous)||key!=previous)
+                {
+                    var localScale=item.scaleXYZ!=null?CampArtDefinition.Vector(item.scaleXYZ):Vector3.one*item.scale;
+                    marker.transform.SetParent(Scenery,false);
+                    marker.transform.localPosition=new Vector3(item.x,item.y,item.z);
+                    marker.transform.localRotation=item.rotationEuler!=null?Quaternion.Euler(CampArtDefinition.Vector(item.rotationEuler)):Quaternion.Euler(0,item.yaw,0);
+                    marker.transform.localScale=marker.packedModel?localScale:Vector3.Scale(marker.baseScale,localScale);
+                    marker.surfaceAttached=item.surfaceAttached??true;marker.surfaceOffset=item.surfaceOffset;
+                    marker.attachmentInitialized=true;marker.attachedY=item.y;marker.sourcePose=item;
+                    marker.capturedPosition=marker.transform.localPosition;marker.capturedRotation=marker.transform.localRotation;marker.capturedScale=localScale;
+                    _poseKeys[item.id]=key;changed.Add(marker.transform);
+                }
+                if(changedModels.Contains(item.modelId??item.assetId)){ApplyPreviewMaterial(marker);changed.Add(marker.transform);}
+            }
+            if(topology){PlacementToolIntegration.Adapter?.Stop();AttachOvergrowth();RefreshPlantBatches();}
+            else if(changed.Count>0)RefreshPlantBatches(changed);
             if (_boardKey != Newtonsoft.Json.JsonConvert.SerializeObject(document.level)+Newtonsoft.Json.JsonConvert.SerializeObject(document.art.atmosphere)) RefreshBoard();
             if (_terrainKey != TerrainKey(document))
             {
@@ -168,6 +205,8 @@ namespace QuietCamp.Editor.LevelAuthoring
             var sun = Root.GetComponentInChildren<Light>(); sun.transform.rotation = Quaternion.Euler(CampArtDefinition.Vector(document.art.sunEuler)); sun.intensity = document.art.sunIntensity;
             ApplyMood(document);
         }
+        static string PoseKey(CampArtDefinition.Instance item)=>Newtonsoft.Json.JsonConvert.SerializeObject(item);
+        static string ModelKey(CampArtDefinition.Model model)=>Hash128.Compute(Newtonsoft.Json.JsonConvert.SerializeObject(model)).ToString();
         void ApplyMood(LevelAuthoringDocument document)
         {
             string key=Newtonsoft.Json.JsonConvert.SerializeObject(document.art.atmosphere);
@@ -272,6 +311,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             var copy = LevelAuthoringDocument.Copy(Document);
             if (bakeLandscape && River != null) copy.art.landscape = River.Bake();
             var markers = Scenery.GetComponentsInChildren<LevelAuthoringAsset>();
+            foreach(var marker in markers)if(!string.IsNullOrEmpty(marker.instanceId))_markers[marker.instanceId]=marker;
             copy.art.instances = markers.Select((m, i) =>
             {
                 var matrix=Root.transform.worldToLocalMatrix*m.transform.localToWorldMatrix;

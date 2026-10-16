@@ -241,6 +241,7 @@ namespace QuietCamp.Editor
                 }
                 else if (request.mode == "tests") RunTests();
                 else if (request.mode == "authoring-tests") RunTests(true);
+                else if(request.mode=="worldops-tests")RunTests(true,"QuietCamp.Tests.WorldOpsTests");
                 else if (request.mode == "clearing-tests") RunTests(true,"QuietCamp.Tests.MenuBackdropTests");
                 else if(request.mode=="surface-tests")RunTests(true,"QuietCamp.Tests.CampSurfaceUseTests");
                 else if(request.mode=="forest-tests")RunTests(true,"QuietCamp.Tests.ForestAtmosphereTests");
