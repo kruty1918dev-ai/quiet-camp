@@ -78,10 +78,11 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         public static Dictionary<string,string> Dependencies(string repositoryProject=null)
         {
             var result=new Dictionary<string,string>{{"@engine",UnityEngine.Application.unityVersion},{"@worldops",Version},{"@target",EditorUserBuildSettings.activeBuildTarget.ToString()}};
+            var levelFiles=new HashSet<string>(Newtonsoft.Json.Linq.JObject.Parse(File.ReadAllText(Path.Combine(EditorProject,Content,"campaign.json")))["campaignLevelIds"].Values<string>().Select(id=>id.Replace(':','_')+".json"));
             // Archived roadmap shaders and catalogue-only thumbnails cannot affect a campaign capture.
             // Their QA-local versions are deliberately not synchronized by this tool.
-            foreach(var path in AssetDatabase.GetAllAssetPaths().Where(p=>p.StartsWith("Assets/QuietCamp/",StringComparison.Ordinal)&&!p.Contains("/Editor/RoadmapArchive/Legacy/")&&p!="Assets/QuietCamp/Editor/TentThumbnail.shader"&&!p.Contains("/LevelAuthoring/Palette/")&&!p.Contains("/LevelAuthoring/Workspaces/")&&
-                (new[]{".cs",".shader",".hlsl",".mat",".prefab",".asmdef",".compute",".asset",".uxml",".uss",".ttf",".otf"}.Contains(Path.GetExtension(p))||Path.GetExtension(p)==".json"&&!new[]{"/Levels/","/GeneratedLevels/","/ArtCompositions/","/ArtRevisions/","/ContentRevisions/","/CampaignLevels/"}.Any(p.Contains))).OrderBy(p=>p,StringComparer.Ordinal))
+            foreach(var path in AssetDatabase.GetAllAssetPaths().Where(p=>p.StartsWith("Assets/QuietCamp/",StringComparison.Ordinal)&&!AssetDatabase.IsValidFolder(p)&&!p.Contains("/Editor/RoadmapArchive/Legacy/")&&p!="Assets/QuietCamp/Editor/TentThumbnail.shader"&&!p.Contains("/LevelAuthoring/Palette/")&&!p.Contains("/LevelAuthoring/Workspaces/")&&
+                !(Path.GetExtension(p)==".json"&&(new[]{"/Levels/","/GeneratedLevels/","/ArtRevisions/","/ContentRevisions/","/CampaignLevels/"}.Any(p.Contains)||p.Contains("/ArtCompositions/")&&levelFiles.Contains(Path.GetFileName(p))))).OrderBy(p=>p,StringComparer.Ordinal))
             {
                 result[path]=AssetDatabase.GetAssetDependencyHash(path).ToString();
                 if(repositoryProject!=null)

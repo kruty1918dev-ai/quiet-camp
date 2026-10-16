@@ -14,13 +14,26 @@ namespace QuietCamp.Editor.LevelAuthoring
         TextAsset _worldRecipe;
         string _worldRepository;
         public static bool WorldOpsConflict(string id)=>Resources.FindObjectsOfTypeAll<LevelAuthoringWindow>().Any(w=>w.Document?.sourceLevelId==id&&
-            (w._dirty||w._pendingDocument!=null||w._structureDirty||w._movedTransforms.Count>0||w._hierarchyChangedAt>=0||GUIUtility.hotControl!=0));
+            (w._dirty||w._pendingDocument!=null||w._structureDirty||w._movedTransforms.Count>0||w._hierarchyChangedAt>=0||w._modelEditObject!=null||w._modelPreview!=null||w._detailJob!=null||GUIUtility.hotControl!=0));
         public static void WorldOpsApplied(string id,string path)
         {
             foreach(var window in Resources.FindObjectsOfTypeAll<LevelAuthoringWindow>().Where(w=>w.Document?.sourceLevelId==id))
             {
                 if(window._dirty)continue;
-                window.SetDocument(File.Exists(path)?LevelAuthoringDocument.Open(path):LevelAuthoringCampaign.Open(id,preview:false));window._path=File.Exists(path)?path:null;window._dirty=false;window._gallery=null;window.Repaint();
+                var document=File.Exists(path)?LevelAuthoringDocument.Open(path):LevelAuthoringCampaign.Open(id,preview:false);
+                if(window._workspace==null)window.SetDocument(document);
+                else
+                {
+                    window._refreshing=true;
+                    try
+                    {
+                        window.CancelSolver();window._workspace.ApplyDocument(document);window._state.Write(document);
+                        window._displayDocument=null;window._displayJson=null;window._overlay=null;window._overlayJson=null;
+                        window._sceneryCount=window._workspace.SceneryCount;window._structureDirty=false;window._movedTransforms.Clear();window._hierarchyChangedAt=-1;
+                    }
+                    finally{window._refreshing=false;}
+                }
+                window._path=File.Exists(path)?path:null;window._dirty=false;window._gallery=null;window.Repaint();
             }
         }
         void DrawWorldOps()

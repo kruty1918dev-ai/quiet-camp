@@ -10,6 +10,7 @@ using QuietCamp.Infrastructure;
 using QuietCamp.Presentation.World;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEditor;
 
 namespace QuietCamp.Tests
 {
@@ -39,6 +40,49 @@ namespace QuietCamp.Tests
                 var captured=workspace.Capture(false).art.instances.Single();
                 Assert.AreEqual(9,captured.x);Assert.AreEqual(10,captured.z);CollectionAssert.AreEqual(p.scaleXYZ,captured.scaleXYZ);
                 Assert.AreEqual(rebuilds,workspace.FullPlantRebuilds,"A pose edit must not rebuild every plant.");
+            }
+        }
+        [Test] public void CleanWorkshopRefreshKeepsItsWorkspaceAndDoesNotRebuildTenThousandPlants()
+        {
+            var previousStates=Resources.FindObjectsOfTypeAll<LevelAuthoringState>();
+            var window=ScriptableObject.CreateInstance<LevelAuthoringWindow>();
+            string path=Path.Combine(Path.GetTempPath(),"qc-worldops-window-"+Guid.NewGuid().ToString("N")+".json");
+            try
+            {
+                var d=Document();d.sourceLevelId="QC_WORLDOPS_WINDOW_TEST";
+                var model=LevelAuthoringPalette.Entries.First(e=>e.smallPlant&&e.model!=null).model;d.art.models=new[]{LevelAuthoringDocument.Copy(model)};
+                d.art.instances=Enumerable.Range(0,10000).Select(i=>new CampArtDefinition.Instance{id="regrowth/window/"+i,modelId=model.id,x=8+(i%100)*.1f,z=8+(i/100)*.1f,scale=.4f}).ToArray();
+                window.SetDocument(d);var workspace=window.Workspace;int rebuilds=workspace.FullPlantRebuilds;
+                var changed=window.Document.EditingCopy();changed.art.instances[5000].x+=.03f;changed.Save(path);
+                LevelAuthoringWindow.WorldOpsApplied(d.sourceLevelId,path);
+                Assert.AreSame(workspace,window.Workspace);Assert.AreEqual(rebuilds,workspace.FullPlantRebuilds);
+                Assert.That(window.Workspace.Capture(false).art.instances.Single(p=>p.id=="regrowth/window/5000").x,Is.EqualTo(changed.art.instances[5000].x).Within(.0001));
+                Assert.That(window.Document.art.instances[5000].x,Is.EqualTo(changed.art.instances[5000].x).Within(.0001));
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(window);if(File.Exists(path))File.Delete(path);
+                foreach(var state in Resources.FindObjectsOfTypeAll<LevelAuthoringState>().Except(previousStates))UnityEngine.Object.DestroyImmediate(state);
+            }
+        }
+        [Test] public void DynamicTexturesAudioAndSharedModelLibrariesBelongToTheDependencyManifest()
+        {
+            string folder="Assets/QuietCamp/Resources/QuietCamp/WorldOpsCacheTest"+Guid.NewGuid().ToString("N"),path=folder+"/icon.png";
+            var texture=new Texture2D(2,2);
+            try
+            {
+                Directory.CreateDirectory(folder);texture.SetPixels(Enumerable.Repeat(Color.red,4).ToArray());texture.Apply();File.WriteAllBytes(path,texture.EncodeToPNG());AssetDatabase.ImportAsset(path,ImportAssetOptions.ForceSynchronousImport);
+                var before=WorldOpsService.Dependencies();Assert.IsTrue(before.ContainsKey(path),"Resources loaded by path must invalidate cached frames too.");
+                Assert.IsTrue(before.ContainsKey("Assets/QuietCamp/Audio/Generated/wind_loop.wav"));
+                Assert.IsTrue(before.ContainsKey("Assets/QuietCamp/Resources/QuietCamp/ArtCompositions/CampModelLibrary.json"));
+                texture.SetPixels(Enumerable.Repeat(Color.blue,4).ToArray());texture.Apply();File.WriteAllBytes(path,texture.EncodeToPNG());AssetDatabase.ImportAsset(path,ImportAssetOptions.ForceSynchronousImport);
+                var after=WorldOpsService.Dependencies();Assert.AreNotEqual(before[path],after[path]);
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(texture);
+                Assert.IsTrue(Path.GetFullPath(folder).StartsWith(Path.GetFullPath("Assets/QuietCamp/Resources/QuietCamp/").TrimEnd(Path.DirectorySeparatorChar)+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase));
+                AssetDatabase.DeleteAsset(folder);
             }
         }
         [Test] public void SameIdFrozenGeometryChangesReachMeshesAndCapture()
