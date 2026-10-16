@@ -46,7 +46,9 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 var role=WorldOpsOperations.Role(d.art,i,m);
                 if(role!="vegetation"&&role!="tree")continue;
                 bool inBoard=WorldOpsGeometry.Protected(d,i.x,i.z),flower=m.seasonalRole=="flower";
-                var bounds=WorldOpsGeometry.Bounds(i,m);float h=inBoard?boardHeight:flower?1.8f:height,w=inBoard?boardSpan:flower?.85f:span;
+                var random=new System.Random(seed^WorldOpsOperations.Stable(i.id));
+                float variation=.8f+.2f*(float)random.NextDouble();
+                var bounds=WorldOpsGeometry.Bounds(i,m);float h=(inBoard?boardHeight:flower?1.8f:height)*variation,w=(inBoard?boardSpan:flower?.85f:span)*variation;
                 // World bounds include arbitrary rotation and non-uniform scale. Reduce uniformly
                 // to preserve the silhouette; an existing small plant is never enlarged.
                 float factor=role=="tree"?1:Mathf.Min(1,Mathf.Min(h/Mathf.Max(.001f,bounds.size.y),w/Mathf.Max(.001f,Mathf.Max(bounds.size.x,bounds.size.z))));
@@ -55,9 +57,8 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 // Root the actual low vertices, including fern assets with positive local minima.
                 i.y-=WorldOpsGeometry.Clearance(d,i,m)+.006f;
                 i.surfaceAttached=true;i.surfaceOffset=i.y-d.art.GroundHeight(i.x,i.z);
-                bool Bad(float x,float z)=>sites.Wet(x,z)||(!WorldOpsGeometry.Protected(d,x,z)&&WorldOpsGeometry.ProtectedPlant(d,x,z))||sites.InSolid(new Vector3(x,d.art.GroundHeight(x,z)+.12f,z));
+                bool Bad(float x,float z)=>sites.Wet(x,z)||(!WorldOpsGeometry.Protected(d,x,z)&&WorldOpsGeometry.ProtectedPlant(d,x,z))||sites.InSolid(new Vector3(x,d.art.GroundHeight(x,z)+i.surfaceOffset+.12f,z));
                 if(!Bad(i.x,i.z))continue;
-                var random=new System.Random(seed^WorldOpsOperations.Stable(i.id));
                 for(int attempt=0;attempt<96;attempt++)
                 {
                     double angle=random.NextDouble()*Math.PI*2;

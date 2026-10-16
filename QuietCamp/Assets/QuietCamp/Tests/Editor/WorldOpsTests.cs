@@ -371,6 +371,24 @@ namespace QuietCamp.Tests
             Assert.AreEqual(1,d.art.instances.Length);Assert.AreEqual(0,i.x);Assert.AreEqual(0,i.z);Assert.LessOrEqual(WorldOpsGeometry.Bounds(i,m).size.y,.14001);
             WorldOpsOperations.Apply(d,op,71);Assert.AreEqual(scale,i.scale);
         }
+        [Test] public void RefineChecksTheSamePivotOffsetAsSolidValidation()
+        {
+            var d=Document();var plant=LevelAuthoringDocument.Copy(LevelAuthoringPalette.Get("cover_blades").model);plant.shading="foliage";plant.seasonalRole="groundcover";
+            for(int k=1;k<plant.vertices.Length;k+=3)plant.vertices[k]=plant.vertices[k]*.01f-.7f;
+            var native=GameObject.CreatePrimitive(PrimitiveType.Cube);
+            try
+            {
+                var mesh=native.GetComponent<MeshFilter>().sharedMesh;var vertices=mesh.vertices;
+                var solid=new CampArtDefinition.Model{id="fixture-solid",shading="solid",seasonalRole="solid",vertices=mesh.triangles.SelectMany(t=>new[]{vertices[t].x,vertices[t].y,vertices[t].z}).ToArray()};
+                d.art.models=new[]{plant,solid};var i=d.art.instances[0];i.id="regrowth/pivot";i.modelId=plant.id;
+                d.art.instances=new[]{i,new CampArtDefinition.Instance{id="fixture/support",modelId=solid.id,x=8,z=8,y=.8f,scale=1}};
+                var sites=new WorldOpsGeometry.PlantSites(d);Assert.IsFalse(sites.InSolid(new Vector3(8,d.art.GroundHeight(8,8)+.12f,8)));
+                WorldOpsOperations.Apply(d,new WorldOperation{id="refine",kind="vegetation.refine"},77);
+                Assert.IsFalse(sites.InSolid(new Vector3(i.x,i.y+.12f,i.z)),"An offset-pivot plant must not pass a different collision test during repair.");
+                Assert.Greater(Vector2.Distance(new Vector2(i.x,i.z),new Vector2(8,8)),.1f);
+            }
+            finally{UnityEngine.Object.DestroyImmediate(native);}
+        }
         [Test] public void RefineMovesWaterPlantsToDryLandAndPreservesAquaticPlants()
         {
             var d=Document();var m=LevelAuthoringDocument.Copy(LevelAuthoringPalette.Get("cover_blades").model);m.shading="foliage";m.seasonalRole="groundcover";d.art.models=new[]{m};
