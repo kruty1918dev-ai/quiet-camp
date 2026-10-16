@@ -330,6 +330,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 if(GUILayout.Button(new GUIContent("⋯","Перевірка, експорт і довідка"),EditorStyles.toolbarButton,GUILayout.Width(32)))
                 {var menu=new GenericMenu();menu.AddItem(new GUIContent("Перевірити"),false,()=>Try(Validate));menu.AddItem(new GUIContent("Експортувати"),false,()=>Try(Export));menu.AddItem(new GUIContent("Допомога"),false,OpenHelp);menu.ShowAsContext();}
             }
+            DrawWorldOps();
             if (EditorApplication.isPlayingOrWillChangePlaymode)
             {
                 EditorGUILayout.HelpBox("Тестовий запуск із тимчасовим прогресом. Зупиніть Play Mode, щоб продовжити редагування.", MessageType.Info);

@@ -46,8 +46,10 @@ namespace QuietCamp.Editor.LevelAuthoring
         AdaptiveCampQuality _adaptiveQuality;
         bool _adaptiveWasEnabled;
         int _oldEffectiveQuality,_oldRenderQuality;
+        int _width=1440,_height=1080,_quality=1;
+        WorldOps.WorldCriteria _worldCriteria;
 
-        public static object Begin(string output, bool stillsOnly = false)
+        public static object Begin(string output, bool stillsOnly = false,int width=1440,int height=1080,WorldOps.WorldCriteria criteria=null)
         {
             if (_active != null) throw new InvalidOperationException("A recording is already active.");
             if (!EditorApplication.isPlaying || !EditorAuthoringPreview.CampaignPreview || QuietCampBootstrap.ServicesRef?.Save.MemoryOnly != true)
@@ -60,6 +62,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             var runner = new CampaignPromoRecorder(); _active = runner;
             runner._output = output;
             runner._stillsOnly = stillsOnly;
+            runner._width=width;runner._height=height;runner._worldCriteria=criteria;runner._quality=criteria?.quality??1;
             EditorApplication.playModeStateChanged += runner.PlayModeChanged;
             AssemblyReloadEvents.beforeAssemblyReload += runner.Interrupted;
             host.StartCoroutine(runner.Guarded(runner.Record()));
@@ -86,7 +89,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             _adaptiveWasEnabled=_adaptiveQuality!=null&&_adaptiveQuality.enabled;
             if(_adaptiveQuality!=null)_adaptiveQuality.enabled=false;
             _oldEffectiveQuality=services.EffectiveQuality;_oldRenderQuality=QualitySettings.GetQualityLevel();
-            services.EffectiveQuality=1;QualitySettings.SetQualityLevel(1,true);
+            services.EffectiveQuality=_quality;QualitySettings.SetQualityLevel(Mathf.Min(_quality,QualitySettings.names.Length-1),true);
             services.Localization.TrySetLanguage("uk");
             var bootstrap = UnityEngine.Object.FindAnyObjectByType<QuietCampBootstrap>();
             bootstrap.SendMessage("OnApplicationPause", false, SendMessageOptions.RequireReceiver);
@@ -95,7 +98,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             game.Focus();
             PlayModeWindow.GetRenderingResolution(out _oldWidth, out _oldHeight);
             _oldCaptureRate = Time.captureFramerate; _screenChanged = true;
-            PlayModeWindow.SetCustomRenderingResolution(1440, 1080, "QuietCamp composition review");
+            PlayModeWindow.SetCustomRenderingResolution((uint)_width, (uint)_height, "QuietCamp composition review");
             if (_stillsOnly)
             {
                 Time.captureFramerate = 30;
@@ -111,7 +114,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             };
             _movie.CaptureAudio = true;
             _movie.AudioInputSettings.PreserveAudio = true;
-            _movie.ImageInputSettings = new GameViewInputSettings { OutputWidth = 1440, OutputHeight = 1080 };
+            _movie.ImageInputSettings = new GameViewInputSettings { OutputWidth = _width, OutputHeight = _height };
             _movie.OutputFile = Path.Combine(_output, "gameplay");
             _settings = ScriptableObject.CreateInstance<RecorderControllerSettings>();
             _settings.AddRecorderSettings(_movie); _settings.SetRecordModeToManual();
@@ -135,7 +138,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             foreach (var device in _hardware) InputSystem.DisableDevice(device);
             _mouse = InputSystem.AddDevice<Mouse>("QuietCampPromoReplay"); _mouse.MakeCurrent();
             if (!_stillsOnly && !_controller.StartRecording()) throw new InvalidOperationException("Unity Recorder did not start.");
-            if (Screen.width != 1440 || Screen.height != 1080) throw new InvalidOperationException("Game View did not reach the required review resolution.");
+            if (Screen.width != _width || Screen.height != _height) throw new InvalidOperationException("Game View did not reach the required review resolution.");
             _cameraBefore=OpeningCampaignGameplayProbe.CameraProof(host.Session.Level,
                 UnityEngine.Object.FindAnyObjectByType<CampArtView>()?.Definition);
             _firstFrame = Time.frameCount;
@@ -147,6 +150,8 @@ namespace QuietCamp.Editor.LevelAuthoring
             Vector2 aim = Vector2.zero;
             for (int frame = 0; frame < Frames; frame++)
             {
+                if(_worldCriteria!=null&&frame==0)WorldFrame("empty");
+                if(_worldCriteria!=null&&frame==110)WorldFrame("placed");
                 _peakRainRunoff=Math.Max(_peakRainRunoff,atmosphere?.RainContacts?.RunoffCount??0);
                 if(atmosphere!=null){_windMinimum=Mathf.Min(_windMinimum,atmosphere.WindStrength);_windMaximum=Mathf.Max(_windMaximum,atmosphere.WindStrength);}
                 if(frame<6||(frame>104&&frame<116))
@@ -179,6 +184,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                         _gridInStill = input.HasPreview;
                         if (!_gridInStill) throw new InvalidOperationException("The gameplay still must show an active placement grid.");
                         ScreenCapture.CaptureScreenshot(Path.Combine(_output, "gameplay.png"));
+                        if(_worldCriteria!=null)WorldOps.WorldOpsVisibility.Capture(Path.Combine(_output,"placement"),_worldCriteria);
                         _actions.Add(new { frame, kind = "gameplay-still-with-placement-grid" });
                     }
                 }
@@ -227,7 +233,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             {
                 status = error == null ? "captured" : "error", error,
                 kind = _stillsOnly ? "native-game-view-real-placement-stills" : "native-game-view-recorded-game-audio-and-real-placement-input", playerBuild = false,
-                id = host?.Session.Level.id, width = 1440, height = 1080, fps = 30, plannedFrames = Frames,
+                id = host?.Session.Level.id, width = _width, height = _height, fps = 30, plannedFrames = Frames,
                 elapsedGameFrames = Time.frameCount - _firstFrame, stillHasPlacementGrid = _gridInStill,
                 completed = host?.Session.IsCompleted, memoryOnly = QuietCampBootstrap.ServicesRef?.Save.MemoryOnly,
                 playingAtmosphereVoices = art?.SeasonAtmosphere?.PlayingVoices,
@@ -262,6 +268,12 @@ namespace QuietCamp.Editor.LevelAuthoring
             EditorApplication.playModeStateChanged -= PlayModeChanged;
             AssemblyReloadEvents.beforeAssemblyReload -= Interrupted;
             _active = null;
+        }
+
+        void WorldFrame(string state)
+        {
+            ScreenCapture.CaptureScreenshot(Path.Combine(_output,state+".png"));
+            WorldOps.WorldOpsVisibility.Capture(Path.Combine(_output,state),_worldCriteria);
         }
 
         void Interrupted() { if (!_finished) Finish("Capture interrupted before completion."); }

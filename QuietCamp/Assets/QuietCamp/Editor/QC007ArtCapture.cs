@@ -45,6 +45,7 @@ namespace QuietCamp.Editor
         static void Poll()
         {
             if (EditorApplication.isCompiling || EditorApplication.isUpdating) return;
+            if(LevelAuthoring.WorldOps.WorldOpsService.Busy)return;
             if(SessionState.GetBool("QuietCamp.NativeTestsRunning",false))return;
             if(_campaignBatch!=null)
             {

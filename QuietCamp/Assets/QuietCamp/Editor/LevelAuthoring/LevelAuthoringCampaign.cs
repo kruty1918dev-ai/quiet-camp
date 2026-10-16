@@ -33,32 +33,34 @@ namespace QuietCamp.Editor.LevelAuthoring
                 return new AuthoringCampaignCard { id = id, number = i + 1, width = level.width, height = level.height, guests = level.guests.Length };
             }).ToArray();
         }
-        public static LevelAuthoringDocument Open(string id)
+        public static LevelAuthoringDocument Open(string id,string root=Content,string draftRoot=null,bool preview=true)
         {
-            if (!Cards.Any(c => c.id == id)) throw new ArgumentException("Рівень відсутній у кампанії.");
-            var level = LevelAuthoringDocument.Copy(LevelLoader.Load(id));
-            string draftPath=Path.Combine("Assets/QuietCamp/Authoring/CampaignLevels",id.Replace(':','_')+".draft.json");
+            var campaignIds=JObject.Parse(File.ReadAllText(Path.Combine(root,"campaign.json")))["campaignLevelIds"].Values<string>().ToArray();
+            if (!campaignIds.Contains(id)) throw new ArgumentException("Рівень відсутній у кампанії.");
+            var level = JsonConvert.DeserializeObject<LevelData>(File.ReadAllText(LevelPath(root,id)));
+            string draftPath=Path.Combine(draftRoot??"Assets/QuietCamp/Authoring/CampaignLevels",id.Replace(':','_')+".draft.json");
             if(File.Exists(draftPath))
             {
                 var draft=LevelAuthoringDocument.Open(draftPath);
-                if(draft.sourceContentHash==HashFile(LevelPath(Content,id))&&draft.sourceArtHash==ArtHash(Content,id))
+                if(draft.sourceContentHash==HashFile(LevelPath(root,id))&&draft.sourceArtHash==ArtHash(root,id))
                 {
-                    var previous=draft.level.id;draft.level.id="QC_EDITOR_"+Guid.NewGuid().ToString("N").Substring(0,8);BindStory(draft.level,previous,draft.level.id);draft.art.levelId=draft.level.id;return draft;
+                    var previous=draft.level.id;draft.level.id=preview?"QC_EDITOR_"+Guid.NewGuid().ToString("N").Substring(0,8):id;BindStory(draft.level,previous,draft.level.id);draft.art.levelId=draft.level.id;return draft;
                 }
             }
-            var art = CampArtDefinition.Load(level);
+            string publishedArt=Path.Combine(root,"ArtCompositions",id.Replace(':','_')+".json");
+            var art = File.Exists(publishedArt)?JsonConvert.DeserializeObject<CampArtDefinition>(File.ReadAllText(publishedArt)):null;
             if (art == null)
             {
                 art = ProceduralSurroundSnapshot.Capture(level);
             }
             art = LevelAuthoringDocument.Copy(art);
-            level.id = "QC_EDITOR_" + Guid.NewGuid().ToString("N").Substring(0, 8);
+            level.id = preview?"QC_EDITOR_" + Guid.NewGuid().ToString("N").Substring(0, 8):id;
             BindStory(level, id, level.id);
             art.levelId = level.id; art.width = level.width; art.height = level.height;
-            return new LevelAuthoringDocument { level = level, art = art, title = "Рівень " + Cards.Single(c => c.id == id).number,
-                sourceLevelId = id, sourceContentHash = HashFile(LevelPath(Content, id)), sourceArtHash = ArtHash(Content, id) };
+            return new LevelAuthoringDocument { level = level, art = art, title = "Рівень " + (Array.IndexOf(campaignIds,id)+1),
+                sourceLevelId = id, sourceContentHash = HashFile(LevelPath(root, id)), sourceArtHash = ArtHash(root, id) };
         }
-        public static void Apply(LevelAuthoringDocument document, string root = Content)
+        internal static Dictionary<string,string> PrepareApply(LevelAuthoringDocument document,string root=Content,bool validateCampaign=true)
         {
             if (string.IsNullOrEmpty(document.sourceLevelId)) throw new InvalidOperationException("Це новий рівень. Експортуйте його окремо.");
             var ids = ReadCards(root).Select(c => c.id).ToArray();
@@ -72,7 +74,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             copy.level.id = copy.art.levelId = copy.sourceLevelId;
             var errors = copy.Validate(true);
             if (errors.Count > 0) throw new InvalidDataException(string.Join("\n", errors));
-            foreach (var id in ids)
+            foreach (var id in validateCampaign?ids:Array.Empty<string>())
             {
                 var level = id == copy.level.id ? copy.level : JsonConvert.DeserializeObject<LevelData>(File.ReadAllText(LevelPath(root, id)));
                 var issues = LevelContentValidator.Validate(level);
@@ -97,6 +99,12 @@ namespace QuietCamp.Editor.LevelAuthoring
             copy.level.contentHash = CampContent.CalculateHash(copy.level);
             writes.Add(levelPath, JsonConvert.SerializeObject(copy.level, Formatting.Indented));
             writes.Add(artPath, JsonConvert.SerializeObject(copy.art));
+            return writes;
+        }
+        public static void Apply(LevelAuthoringDocument document, string root = Content)
+        {
+            var writes=PrepareApply(document,root);
+            string levelPath=LevelPath(root,document.sourceLevelId);
             // Stage every file first; restore every original on a failed replacement.
             var originals = writes.Keys.ToDictionary(p => p, p => File.Exists(p) ? File.ReadAllBytes(p) : null);
             try
@@ -113,6 +121,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             document.sourceContentHash = HashFile(levelPath); document.sourceArtHash = ArtHash(root, document.sourceLevelId); _cards = null;
             if (Path.GetFullPath(root) == Path.GetFullPath(Content)) AssetDatabase.Refresh();
         }
+        internal static void InvalidateCards()=>_cards=null;
         static void BindStory(LevelData level, string previous, string current)
         {
             foreach (var beat in level.environmentalStory?.beats ?? Array.Empty<EnvironmentalStoryBeat>())

@@ -1,5 +1,8 @@
 using System;
 using System.Linq;
+using System.IO;
+using Newtonsoft.Json.Linq;
+using QuietCamp.Editor.LevelAuthoring.WorldOps;
 using NUnit.Framework;
 using QuietCamp.Editor.LevelAuthoring;
 using QuietCamp.Infrastructure;
@@ -46,6 +49,70 @@ namespace QuietCamp.Tests
                 Assert.That(mesh.vertices[0].x,Is.EqualTo(next.art.models[0].vertices[0]).Within(.0001));
                 CollectionAssert.AreEqual(next.art.models[0].vertices,workspace.Capture(false).art.models.Single().vertices);
             }
+        }
+        [Test] public void ManualAndPinnedObjectsNeedExplicitSelection()
+        {
+            var d=Document();Assert.IsEmpty(WorldOpsOperations.Select(d,new WorldSelector()));
+            Assert.AreEqual(1,WorldOpsOperations.Select(d,new WorldSelector{ids=new[]{"test/barrel"}}).Length);
+            WorldOpsOperations.Record(d,"test/barrel",true).pinned=true;
+            Assert.IsEmpty(WorldOpsOperations.Select(d,new WorldSelector{ids=new[]{"test/barrel"}}));
+        }
+        [Test] public void GroundingUsesRotatedNonuniformGeometry()
+        {
+            var d=Document();var p=d.art.instances[0];p.y=4;p.rotationEuler=new[]{14f,41f,8f};p.scaleXYZ=new[]{1.2f,.8f,1.5f};
+            Assert.IsTrue(WorldOpsGeometry.Validate(d,new WorldCriteria()).Any(f=>f.code=="support.floating"));
+            WorldOpsGeometry.Ground(d,p,d.art.models[0],new WorldObjectRecord());
+            Assert.That(WorldOpsGeometry.Clearance(d,p,d.art.models[0]),Is.EqualTo(0).Within(.0001));
+        }
+        [Test] public void PathUpsertIsIdempotentAndCannotClearThePuzzle()
+        {
+            var d=Document();var op=new WorldOperation{id="path-a",kind="path.upsert",parameters=JObject.Parse("{\"pathId\":\"approach\",\"points\":[[8,8],[9,9]],\"width\":0.6}")};
+            WorldOpsOperations.Apply(d,op,3);string hash=WorldOpsStorage.Digest(d);WorldOpsOperations.Apply(d,op,3);
+            Assert.AreEqual(hash,WorldOpsStorage.Digest(d));Assert.AreEqual(1,d.worldOps.paths.Count);
+            op.parameters["points"]=JArray.Parse("[[0,0],[9,9]]");Assert.Throws<InvalidOperationException>(()=>WorldOpsOperations.Apply(d,op,3));
+        }
+        [Test] public void TransactionResumesAfterInterruptionAndProtectsLaterEdits()
+        {
+            string root=Path.Combine(Path.GetTempPath(),"qc-worldops-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(root);
+            try
+            {
+                string a=Path.Combine(root,"a.json"),b=Path.Combine(root,"b.json"),journal=Path.Combine(root,"transaction");File.WriteAllText(a,"old-a");File.WriteAllText(b,"old-b");
+                var sources=new System.Collections.Generic.Dictionary<string,string>{{a,WorldOpsStorage.FileHash(a)},{b,WorldOpsStorage.FileHash(b)}};
+                WorldOpsTransaction.Prepare(journal,new System.Collections.Generic.Dictionary<string,string>{{a,"new-a"},{b,"new-b"}},sources,new[]{root});
+                Assert.Throws<IOException>(()=>WorldOpsTransaction.Commit(journal,i=>{if(i==1)throw new IOException("power loss");}));
+                WorldOpsTransaction.Commit(journal);Assert.AreEqual("new-b",File.ReadAllText(b));
+                File.WriteAllText(a,"later user edit");Assert.Throws<IOException>(()=>WorldOpsTransaction.Rollback(journal));Assert.AreEqual("new-b",File.ReadAllText(b));
+                File.WriteAllText(a,"new-a");WorldOpsTransaction.Rollback(journal);Assert.AreEqual("old-a",File.ReadAllText(a));Assert.AreEqual("old-b",File.ReadAllText(b));
+            }
+            finally{Directory.Delete(root,true);}
+        }
+        [Test] public void ChangedSourceOrCorruptPreparedWritePreventsEveryWrite()
+        {
+            string root=Path.Combine(Path.GetTempPath(),"qc-worldops-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(root);
+            try
+            {
+                string a=Path.Combine(root,"a"),source=Path.Combine(root,"source"),journal=Path.Combine(root,"transaction");File.WriteAllText(a,"old");File.WriteAllText(source,"old source");
+                var j=WorldOpsTransaction.Prepare(journal,new System.Collections.Generic.Dictionary<string,string>{{a,"new"}},new System.Collections.Generic.Dictionary<string,string>{{source,WorldOpsStorage.FileHash(source)}},new[]{root});
+                File.WriteAllText(source,"changed");Assert.Throws<IOException>(()=>WorldOpsTransaction.Commit(journal));Assert.AreEqual("old",File.ReadAllText(a));
+                File.WriteAllText(source,"old source");File.WriteAllText(j.writes[0].prepared,"broken");Assert.Throws<IOException>(()=>WorldOpsTransaction.Commit(journal));Assert.AreEqual("old",File.ReadAllText(a));
+            }
+            finally{Directory.Delete(root,true);}
+        }
+        [Test] public void ProjectedPrimaryGeometryCreatesClippingFinding()
+        {
+            var d=Document();d.art.primaryLandmarkInstanceId=d.art.instances[0].id;
+            var go=new GameObject("WorldOps camera fixture");var camera=go.AddComponent<Camera>();
+            try
+            {
+                camera.orthographic=true;camera.orthographicSize=2;camera.transform.position=new Vector3(0,10,-10);camera.transform.LookAt(Vector3.zero);
+                Assert.IsTrue(WorldOpsVisibility.Project(camera,d.art,new Rect(0,0,1,1),new WorldCriteria()).Any(f=>f.code=="landmark.clipped"));
+            }
+            finally{UnityEngine.Object.DestroyImmediate(go);}
+        }
+        [Test] public void ArbitraryCommandsAndUnsafePathsAreRejected()
+        {
+            Assert.Throws<ArgumentException>(()=>WorldOpsOperations.Validate(new WorldRecipe{id="bad",operations=new[]{new WorldOperation{id="x",kind="csharp.execute"}}}));
+            Assert.Throws<InvalidDataException>(()=>WorldOpsStorage.SafeChild(Path.GetTempPath(),"../outside"));
         }
     }
 }

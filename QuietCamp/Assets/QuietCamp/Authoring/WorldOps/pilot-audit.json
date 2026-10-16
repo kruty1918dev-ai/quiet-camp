@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "id": "pilot-audit",
+  "label": "Перевірити дощ, руїну й зиму: 9, 17, 75",
+  "orders": [9, 17, 75],
+  "seed": 4157,
+  "maxRepairRounds": 5,
+  "autoApply": false,
+  "operations": [{"id": "audit", "kind": "audit"}],
+  "criteria": {
+    "requireVisualReview": true,
+    "autoRepair": false,
+    "profiles": ["portrait", "landscape"],
+    "quality": 2,
+    "contactTolerance": 0.03,
+    "minimumCellPixels": 24,
+    "maximumCentreError": 2
+  }
+}
