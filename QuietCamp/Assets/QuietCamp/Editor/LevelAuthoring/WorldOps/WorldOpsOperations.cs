@@ -68,7 +68,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             if(op.kind=="vegetation.refine"){WorldOpsVegetation.Refine(d,op,seed);return;}
             if(op.kind=="camera.frame")
             {
-                d.art.frameGameplayBoard=true;d.art.gameplayCameraMargin=Number(p,"margin",d.art.gameplayCameraMargin,1.02f,3);
+                d.art.frameGameplayBoard=true;d.art.gameplayCameraMargin=Number(p,"margin",d.art.gameplayCameraMargin,1.02f,1.6f);
                 if(p["euler"]!=null)
                 {var e=p["euler"].ToObject<float[]>();if(e.Length!=3||e.Any(v=>!Finite(v)))throw new ArgumentException("Invalid camera Euler angles.");d.art.cameraEuler=e;}
                 return;

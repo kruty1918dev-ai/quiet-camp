@@ -344,6 +344,51 @@ namespace QuietCamp.Tests
                 UnityEditor.Undo.ClearUndo(native);
             }
         }
+        [Test] public void FieldCoverStyleSurvivesCaptureAndOnlyRefreshesTheBoard()
+        {
+            var d=Document();Assert.IsFalse(Newtonsoft.Json.JsonConvert.SerializeObject(d.art).Contains("\"fieldCover\""));
+            using(var workspace=new LevelAuthoringWorkspace(d))
+            {
+                int board=workspace.BoardRebuilds,plants=workspace.FullPlantRebuilds;
+                var next=LevelAuthoringDocument.Copy(d);
+                WorldOpsOperations.Apply(next,new WorldOperation{id="field-style",kind="vegetation.refine",parameters=JObject.Parse("{\"fieldCover\":{\"density\":7,\"maximumHeight\":0.12,\"maximumSpan\":0.24,\"fringe\":3,\"broadLeafShare\":0.2}}")},12);
+                workspace.ApplyDocument(next);Assert.AreEqual(board+1,workspace.BoardRebuilds);Assert.AreEqual(plants,workspace.FullPlantRebuilds);
+                var captured=workspace.Capture(false);Assert.AreEqual(.12f,captured.art.fieldCover.maximumHeight);Assert.AreEqual(3,captured.art.fieldCover.fringe);
+            }
+            Assert.Throws<InvalidDataException>(()=>new CampArtDefinition.FieldCoverSettings{density=100}.Validate());
+        }
+        [Test] public void AuthoredCameraMarginSurvivesTheCanonicalViewportRefit()
+        {
+            var d=Document();d.art.frameGameplayBoard=true;d.art.gameplayCameraMargin=1.1f;
+            var root=new GameObject("authored camera test root");var go=new GameObject("authored camera test");var camera=go.AddComponent<Camera>();var view=go.AddComponent<CampArtView>();
+            try
+            {
+                view.Configure(d.art,d.level,root.transform,AssetCatalog.Load());
+                CameraFitter.Fit(camera,d.level,null);float small=camera.orthographicSize;
+                d.art.gameplayCameraMargin=1.45f;CameraFitter.Fit(camera,d.level,null);
+                Assert.That(camera.orthographicSize/small,Is.EqualTo(1.45f/1.1f).Within(.001));
+                var target=camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>().Frame.NormalizedGameplay.center;
+                var centre=camera.WorldToViewportPoint(Vector3.zero);Assert.That(centre.x,Is.EqualTo(target.x).Within(.001));Assert.That(centre.y,Is.EqualTo(target.y).Within(.001));
+                d.art.frameGameplayBoard=false;CameraFitter.Fit(camera,d.level,null);float legacy=camera.orthographicSize;
+                d.art.gameplayCameraMargin=1.2f;CameraFitter.Fit(camera,d.level,null);Assert.AreEqual(legacy,camera.orthographicSize);
+            }
+            finally{UnityEngine.Object.DestroyImmediate(go);UnityEngine.Object.DestroyImmediate(root);}
+        }
+        [Test] public void FieldCoverHasAHeightLimitAndBlendsPastTheOldRectangularApron()
+        {
+            var d=Document();d.art.atmosphere=new SeasonAtmospherePreset{season="summer"};
+            d.art.landscape=new FrozenLandscape{originX=-20,originZ=-20,size=40,resolution=2,heights=new float[4],meshes=Array.Empty<LandscapeMesh>()};
+            d.art.fieldCover=new CampArtDefinition.FieldCoverSettings{maximumHeight=.1f,maximumSpan=.22f};
+            var go=new GameObject("field-cover style test");var material=new Material(Resources.Load<Shader>("QuietCamp/Meadow"));
+            try
+            {
+                go.AddComponent<CampGroundDetails>().Configure(d.level,material,d.art);
+                var mesh=go.GetComponentsInChildren<MeshFilter>().Single(f=>f.name=="Natural field cover").sharedMesh;
+                Assert.Greater(mesh.vertexCount,0);Assert.LessOrEqual(mesh.bounds.max.y,.109f);
+                Assert.Greater(mesh.bounds.max.x,d.level.width*.5f+1.3f,"The transition must extend beyond the old narrow rectangular apron.");
+            }
+            finally{UnityEngine.Object.DestroyImmediate(go);UnityEngine.Object.DestroyImmediate(material);}
+        }
         [Test] public void HangingFabricIsNotVegetationAndMustRemainAttachedToItsRope()
         {
             var d=Document();var cube=GameObject.CreatePrimitive(PrimitiveType.Cube);CampArtDefinition.Model source;

@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "id": "greenery-pilot-v1",
-  "label": "Природна зелень: масштаб, ґрунт і береги",
+  "id": "greenery-pilot-v2",
+  "label": "Збалансована зелень поля та лісу",
   "seed": 4157,
   "maxRepairRounds": 5,
   "autoApply": true,
@@ -18,12 +18,26 @@
         "generatedOnly": false
       },
       "parameters": {
-        "maximumHeight": 0.42,
-        "maximumSpan": 0.68,
+        "maximumHeight": 0.48,
+        "maximumSpan": 0.85,
         "boardHeight": 0.14,
         "boardSpan": 0.28,
         "repairRadius": 3,
-        "spacing": 0.14
+        "spacing": 0.14,
+        "fieldCover": {
+          "density": 7,
+          "maximumHeight": 0.14,
+          "maximumSpan": 0.28,
+          "fringe": 3,
+          "broadLeafShare": 0.2
+        }
+      }
+    },
+    {
+      "id": "readable-framing",
+      "kind": "camera.frame",
+      "parameters": {
+        "margin": 1.45
       }
     }
   ],

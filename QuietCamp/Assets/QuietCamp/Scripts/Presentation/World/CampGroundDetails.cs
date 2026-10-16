@@ -59,21 +59,31 @@ namespace QuietCamp.Presentation.World
             var library=CozyVegetationLibrary.Load();var shapes=library?.plants.Where(p=>p.id.Contains("grass")&&p.mesh!=null&&p.mesh.isReadable&&p.colors?.Length>0)
                 .Select(p=>new{plant=p,points=p.mesh.vertices,slots=Enumerable.Range(0,p.mesh.subMeshCount).SelectMany(slot=>p.mesh.GetTriangles(slot)).ToArray(),bounds=p.mesh.bounds}).ToArray();
             if(shapes==null||shapes.Length==0)return;
+            var style=_art?.fieldCover;style?.Validate();
+            var broad=shapes.Where(s=>s.plant.id.IndexOf("leaf",StringComparison.OrdinalIgnoreCase)>=0).ToArray();
+            var fine=shapes.Where(s=>s.plant.id.IndexOf("leaf",StringComparison.OrdinalIgnoreCase)<0).ToArray();
+            var water=style==null?null:new RiverSurfaceField(_art?.landscape);
             var vertices=new List<Vector3>();var colors=new List<Color>();var response=new List<Vector2>();var random=new System.Random(_level.decorSeed^4157);
-            var palette=SeasonPalette.For(season);float halfX=_level.width*.5f+1.1f,halfZ=_level.height*.5f+1.1f;
+            var palette=SeasonPalette.For(season);float fringe=style?.fringe??1.1f,halfX=_level.width*.5f+fringe,halfZ=_level.height*.5f+fringe;
             var blocked=new HashSet<Cell>((_level.blocked??Array.Empty<int[]>()).Concat(_level.noise??Array.Empty<int[]>()).Where(p=>p?.Length==2).Select(p=>new Cell(p[0],p[1])));
-            int attempts=Mathf.CeilToInt(halfX*halfZ*4*12);
+            int attempts=Mathf.CeilToInt(halfX*halfZ*4*(style?.density??12));
             for(int k=0;k<attempts;k++)
             {
                 float x=Mathf.Lerp(-halfX,halfX,(float)random.NextDouble()),z=Mathf.Lerp(-halfZ,halfZ,(float)random.NextDouble());
                 var root=new Vector3(x,0,z);
-                if(blocked.Contains(BoardMath.CellOf(_level,root))||random.NextDouble()>.32f+.58f*Mathf.PerlinNoise(x*.8f+13,z*.8f))continue;
+                float edge=Mathf.Max(Mathf.Abs(x)-_level.width*.5f,Mathf.Abs(z)-_level.height*.5f);
+                float fade=style==null?1:1-Mathf.SmoothStep(0,1,Mathf.Max(0,edge)/fringe);
+                if(blocked.Contains(BoardMath.CellOf(_level,root))||random.NextDouble()>(.32f+.58f*Mathf.PerlinNoise(x*.8f+13,z*.8f))*fade)continue;
+                if(water!=null&&water.TrySample(x,z,out var wet)&&wet.Wet)continue;
                 root.y=Height(root)+.008f;if(root.y<-.08f)continue;
                 float size=.09f+(float)random.NextDouble()*.14f;var rotation=Quaternion.Euler(0,(float)random.NextDouble()*360,0);
                 var tint=Color.Lerp(palette.GrassDark,palette.GrassLight,(float)random.NextDouble()*.65f);
                 if(season=="autumn")tint=Color.Lerp(tint,new Color(.57f,.42f,.19f),.55f);
                 if(QualitySettings.activeColorSpace==ColorSpace.Linear)tint=tint.linear;
-                var shape=shapes[random.Next(shapes.Length)];float height=Mathf.Max(.01f,shape.bounds.size.y),scale=CozyVegetationLibrary.GroundcoverScale(shape.plant.kind,shape.bounds,size);
+                var choices=shapes;
+                if(style!=null&&broad.Length>0&&fine.Length>0)choices=random.NextDouble()<style.broadLeafShare?broad:fine;
+                var shape=choices[random.Next(choices.Length)];float height=Mathf.Max(.01f,shape.bounds.size.y),scale=CozyVegetationLibrary.GroundcoverScale(shape.plant.kind,shape.bounds,size);
+                if(style!=null)scale=Mathf.Min(scale,Mathf.Min(style.maximumHeight/height,style.maximumSpan/Mathf.Max(.001f,Mathf.Max(shape.bounds.size.x,shape.bounds.size.z))));
                 foreach(int index in shape.slots)
                 {
                     var p=shape.points[index];p.y-=shape.bounds.min.y;float responseHeight=p.y/height;if(season=="autumn")p.y*=.32f;

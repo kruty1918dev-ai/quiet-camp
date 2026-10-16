@@ -204,10 +204,10 @@ namespace QuietCamp.Presentation.UI
         /// the card closest to the bottom edge without squeezing its wishes.</summary>
         string Dock()
         {
-            var dock = new StringBuilder("<view class=\"dock\">");
             var next = NextUnplaced();
             var placed = _session.State.Count;
             var total = _session.Level.guests.Length;
+            var dock = new StringBuilder("<view class=\"dock"+(placed==total?" completed":"")+"\">");
             dock.Append("<view class=\"dock-tools\">");
             if (GuestListAvailable)
                 dock.Append(CampIcons.Button(_surface, "guests", "guests", () => OpenModal("Guests"), "icon quiet guest-list-button", T("hud.guests")));

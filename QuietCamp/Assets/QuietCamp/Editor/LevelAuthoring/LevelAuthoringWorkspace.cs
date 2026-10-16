@@ -182,7 +182,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             }
             if(topology){PlacementToolIntegration.Adapter?.Stop();AttachOvergrowth();RefreshPlantBatches();}
             else if(changed.Count>0)RefreshPlantBatches(changed);
-            if (_boardKey != Newtonsoft.Json.JsonConvert.SerializeObject(document.level)+Newtonsoft.Json.JsonConvert.SerializeObject(document.art.atmosphere)) RefreshBoard();
+            if (_boardKey != BoardKey(document)) RefreshBoard();
             if (_terrainKey != TerrainKey(document))
             {
                 PlacementToolIntegration.Adapter?.Stop();
@@ -363,10 +363,11 @@ namespace QuietCamp.Editor.LevelAuthoring
             if(bakeLandscape)AuthoringWeatherExposure.Bake(copy);
             return copy;
         }
+        static string BoardKey(LevelAuthoringDocument d)=>Newtonsoft.Json.JsonConvert.SerializeObject(d.level)+Newtonsoft.Json.JsonConvert.SerializeObject(d.art.atmosphere)+Newtonsoft.Json.JsonConvert.SerializeObject(d.art.fieldCover);
         public void RefreshBoard()
         {
             BoardRebuilds++;
-            _boardKey = Newtonsoft.Json.JsonConvert.SerializeObject(Document.level)+Newtonsoft.Json.JsonConvert.SerializeObject(Document.art.atmosphere);
+            _boardKey = BoardKey(Document);
             _board?.ClearAll();
             for (int i = _boardRoot.childCount - 1; i >= 0; i--) UnityEngine.Object.DestroyImmediate(_boardRoot.GetChild(i).gameObject);
             Transform Part(string name) => Child(name, _boardRoot);

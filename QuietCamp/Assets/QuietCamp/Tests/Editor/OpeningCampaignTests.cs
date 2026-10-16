@@ -17,7 +17,7 @@ namespace QuietCamp.Tests
         [TestCase(4,8,1.333333f,55f,80f)]
         [TestCase(8,4,1.777778f,58f,310f)]
         [TestCase(8,8,2.388889f,62f,225f)]
-        public void GameplayFramingKeepsTentsAndResidentsInsideUiViewport(int width,int height,float aspect,float pitch,float yaw)
+        public void GameplayFramingCentresGroundAndKeepsTentsInsideUiViewport(int width,int height,float aspect,float pitch,float yaw)
         {
             var go=new GameObject("Board framing test");
             try
@@ -27,7 +27,7 @@ namespace QuietCamp.Tests
                 var rect=new Rect(.03f,.31f,.94f,.54f);
                 Assert.IsTrue(CameraFitter.FitGameplayBoard(camera,level,rect,1.12f));
                 var bounds=CameraFitter.GameplayBounds(level);
-                var centre=camera.WorldToViewportPoint(bounds.center);
+                var centre=camera.WorldToViewportPoint(Vector3.zero);
                 Assert.That(centre.x,Is.EqualTo(rect.center.x).Within(.0001));
                 Assert.That(centre.y,Is.EqualTo(rect.center.y).Within(.0001));
                 for(int i=0;i<8;i++)

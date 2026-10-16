@@ -38,9 +38,17 @@ namespace QuietCamp.Presentation.World
         public static Bounds GameplayBounds(LevelData level)
             => new Bounds(new Vector3(0, 1.05f, 0), new Vector3(level.width + 1.6f, 2.3f, level.height + 1.6f));
 
+        static Bounds CentredGameplayBounds(LevelData level)
+        {
+            var bounds=GameplayBounds(level);
+            float vertical=Mathf.Max(Mathf.Abs(bounds.min.y),Mathf.Abs(bounds.max.y));
+            bounds.center=Vector3.zero;bounds.extents=new Vector3(bounds.extents.x,vertical,bounds.extents.z);
+            return bounds;
+        }
+
         public static bool FitGameplayBoard(Camera camera, LevelData level, Rect gameplay, float margin)
         {
-            if (!Kruty1918.GameplayViewport.GameplayCameraMath.TryOrthographic(GameplayBounds(level), camera.transform.rotation,
+            if (!Kruty1918.GameplayViewport.GameplayCameraMath.TryOrthographic(CentredGameplayBounds(level), camera.transform.rotation,
                 camera.aspect, gameplay, Distance, margin, out var pose, Near)) return false;
             camera.orthographicSize = pose.OrthographicSize;
             camera.transform.position = pose.Position;
@@ -69,9 +77,11 @@ namespace QuietCamp.Presentation.World
             camera.aspect = frame.RenderAspect;
             // Restore the 2026-10-10 playable framing: the board and its UI
             // viewport own the pose. Authored scenery must not pull it away.
-            var bounds = ContentBounds(level);
+            var art=camera.GetComponent<CampArtView>()?.Definition;
+            bool authored=art?.frameGameplayBoard==true;
+            var bounds = authored?CentredGameplayBounds(level):ContentBounds(level);
             if (!Kruty1918.GameplayViewport.GameplayCameraMath.TryOrthographic(bounds, camera.transform.rotation,
-                camera.aspect, frame.NormalizedGameplay, Distance, FitMargin, out var pose, camera.nearClipPlane)) return;
+                camera.aspect, frame.NormalizedGameplay, Distance, authored?art.gameplayCameraMargin:FitMargin, out var pose, camera.nearClipPlane)) return;
             camera.orthographicSize = pose.OrthographicSize;
             camera.transform.position = pose.Position;
             camera.farClipPlane = Mathf.Max(camera.farClipPlane, pose.RequiredFarClip);

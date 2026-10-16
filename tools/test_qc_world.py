@@ -7,8 +7,9 @@ from pathlib import Path
 import tempfile
 import unittest
 from types import SimpleNamespace
+from unittest import mock
 
-from qc_world import deliver, git
+from qc_world import deliver, git, main
 from render_story_campaign import recipe_for
 
 
@@ -75,6 +76,21 @@ class LegacyRoutingTests(unittest.TestCase):
             self.assertEqual([9],recipe_for(self.args(recipe=p))['orders'])
             p.write_text(json.dumps({'levelIds':['QC009']}),encoding='utf-8')
             with self.assertRaises(ValueError):recipe_for(self.args(recipe=p))
+
+    def test_transport_retries_a_temporarily_locked_editor_reply(self):
+        with tempfile.TemporaryDirectory(prefix='qc-world-reply-') as temporary:
+            project=Path(temporary).resolve();folder=project/'Temp/ai';folder.mkdir(parents=True)
+            (project/'Temp/UnityLockfile').touch()
+            reply=folder/'qc-world-result.json';reply.write_text(json.dumps({'requestId':'fixture','status':'ok'}),encoding='utf-8')
+            original=Path.read_text;attempts=[]
+            def read(path,*args,**kwargs):
+                if path==reply:
+                    attempts.append(True)
+                    if len(attempts)==1:raise PermissionError('Editor is atomically replacing its reply')
+                return original(path,*args,**kwargs)
+            with mock.patch('sys.argv',['qc_world.py','--project',str(project),'--timeout','1','status']),mock.patch('qc_world.uuid.uuid4',return_value=SimpleNamespace(hex='fixture')),mock.patch.object(Path,'read_text',read),mock.patch('qc_world.time.sleep'),contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(0,main())
+            self.assertEqual(2,len(attempts))
 
 
 if __name__ == '__main__': unittest.main()

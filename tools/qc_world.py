@@ -125,7 +125,7 @@ def main():
     deadline = time.monotonic() + args.timeout
     while time.monotonic() < deadline:
         try: result = json.loads(outbox.read_text(encoding='utf-8-sig'))
-        except (FileNotFoundError, json.JSONDecodeError): result = {}
+        except (FileNotFoundError, PermissionError, json.JSONDecodeError): result = {}
         if result.get('requestId') == payload['requestId']:
             if args.command == 'watch' and result.get('status') == 'ok' and result.get('path'):
                 return watch(Path(result['path']), args.duration)

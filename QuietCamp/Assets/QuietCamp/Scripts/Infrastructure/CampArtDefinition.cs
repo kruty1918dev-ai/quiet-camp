@@ -11,6 +11,16 @@ namespace QuietCamp.Infrastructure
     public sealed class CampArtDefinition
     {
         public SeasonAtmospherePreset atmosphere;
+        [JsonProperty(NullValueHandling=NullValueHandling.Ignore)] public FieldCoverSettings fieldCover;
+        public sealed class FieldCoverSettings
+        {
+            public float density=7,maximumHeight=.14f,maximumSpan=.28f,fringe=3,broadLeafShare=.2f;
+            public void Validate()
+            {
+                if(!new[]{density,maximumHeight,maximumSpan,fringe,broadLeafShare}.All(Finite)||density<2||density>12||maximumHeight<.06f||maximumHeight>.2f||maximumSpan<.12f||maximumSpan>.45f||fringe<1||fringe>4||broadLeafShare<0||broadLeafShare>1)
+                    throw new InvalidDataException("Invalid natural field-cover settings.");
+            }
+        }
         public string levelId;
         public int width, height, seed;
         public float[] cameraEuler, cameraTarget, sunEuler;
@@ -94,6 +104,7 @@ namespace QuietCamp.Infrastructure
         public void Validate(LevelData level)
         {
             atmosphere?.Validate();
+            fieldCover?.Validate();
             landscape?.Validate();
             bool Vector(float[] value) => value != null && value.Length == 3 && value.All(Finite);
             if (levelId != level.id || width != level.width || height != level.height

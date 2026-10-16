@@ -222,7 +222,12 @@ button text, .gc-text text { white-space: normal; }
 .menu-actions { left: 5%; right: auto; width: 620px; bottom: 8%; }
 .menu-cards { flex-direction: column; gap: 12px; }
 .menu-card { min-height: 104px; padding: 14px 22px; }
-.bottom { left: 100%; margin-left: -752px; right: 0; width: 720px; bottom: 32px; }
+.bottom { left: 28px; margin-left: 0; right: 28px; width: auto; bottom: 32px; }
+.dock { flex-direction: row; align-items: center; min-height: 256px; }
+.dock.completed { flex-wrap: wrap; }
+.dock.completed .check-notice { flex-shrink: 0; }
+.dock-tools { flex-shrink: 0; flex-wrap: nowrap; }
+.guest-card { min-width: 360px; }
 .tutorial .pill { max-width: 100%; }
 .message { right: 644px; }
 .sheet { max-width: 860px; max-height: 92%; }

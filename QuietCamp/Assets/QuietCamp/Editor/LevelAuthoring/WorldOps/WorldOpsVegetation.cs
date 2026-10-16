@@ -19,6 +19,8 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         public static void Refine(LevelAuthoringDocument d,WorldOperation operation,int seed)
         {
             var p=operation.parameters;
+            if(p["fieldCover"]!=null)
+            {var style=p["fieldCover"].ToObject<CampArtDefinition.FieldCoverSettings>();style.Validate();d.art.fieldCover=style;}
             float height=Limit(p,"maximumHeight",.42f,.15f,1),span=Limit(p,"maximumSpan",.68f,.25f,1.5f);
             float boardHeight=Limit(p,"boardHeight",.14f,.06f,.2f),boardSpan=Limit(p,"boardSpan",.28f,.12f,.45f);
             float radius=Limit(p,"repairRadius",3,.2f,8),spacing=Limit(p,"spacing",.14f,.05f,.5f);
