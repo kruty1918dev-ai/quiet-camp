@@ -15,8 +15,6 @@ namespace QuietCamp.Editor
     /// </summary>
     public static class QuietCampProjectSetup
     {
-        private const string FontPath = "Assets/QuietCamp/Resources/Fonts/DejaVuSans.ttf";
-        private const string FontAssetPath = "Assets/QuietCamp/Resources/Fonts/DejaVuSans SDF.asset";
         // Must be the TMP-owned settings path — TMP_Settings.instance loads
         // exactly one asset by name and validates assetVersion on it.
         private const string TmpSettingsPath = "Assets/TextMesh Pro/Resources/TMP Settings.asset";
@@ -76,33 +74,8 @@ namespace QuietCamp.Editor
 
         private static TMP_FontAsset EnsureTmpFont()
         {
-            var existing = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontAssetPath);
-            if (existing != null) return existing;
-            var font = AssetDatabase.LoadAssetAtPath<Font>(FontPath);
-            if (font == null) { Debug.LogError($"[QuietCamp] Font missing: {FontPath}"); return null; }
-            var asset = TMP_FontAsset.CreateFontAsset(font);
-            asset.name = "DejaVuSans SDF";
-            asset.atlasPopulationMode = AtlasPopulationMode.Dynamic;
-            AssetDatabase.CreateAsset(asset, FontAssetPath);
-            var atlas = new Texture2D(asset.atlasWidth, asset.atlasHeight, TextureFormat.Alpha8, false)
-            {
-                name = "DejaVuSans Atlas",
-                hideFlags = HideFlags.HideInHierarchy
-            };
-            AssetDatabase.AddObjectToAsset(atlas, asset);
-            asset.atlasTextures = new[] { atlas };
-            var shader = Shader.Find("TextMeshPro/Mobile/Distance Field")
-                ?? Shader.Find("TextMeshPro/Distance Field");
-            var material = new Material(shader)
-            {
-                name = "DejaVuSans SDF Material",
-                hideFlags = HideFlags.HideInHierarchy
-            };
-            material.SetTexture(ShaderUtilities.ID_MainTex, atlas);
-            AssetDatabase.AddObjectToAsset(material, asset);
-            asset.material = material;
-            EditorUtility.SetDirty(asset);
-            return asset;
+            CampTypographySetup.Prepare();
+            return QuietCamp.Presentation.UI.CampTypography.Font;
         }
 
         private static void EnsureBuildProfiles()

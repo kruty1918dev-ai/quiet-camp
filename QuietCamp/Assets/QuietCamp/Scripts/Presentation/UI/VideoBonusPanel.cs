@@ -56,7 +56,7 @@ namespace QuietCamp.Presentation.UI
             scaler.referenceResolution = new Vector2(1080, 1920); scaler.matchWidthOrHeight = .5f;
             var dim = QcUi.Stretch(go.transform, "Dim").gameObject.AddComponent<UnityEngine.UI.Image>(); dim.color = new Color(.09f, .18f, .13f, .85f);
             var text = QcUi.Stretch(go.transform, "Preparing").gameObject.AddComponent<TMPro.TextMeshProUGUI>();
-            text.font = Resources.Load<TMPro.TMP_FontAsset>("Fonts/DejaVuSans SDF");
+            text.font = CampTypography.Font;
             text.text = title; text.fontSize = 34; text.color = MenuArt.Cream; text.alignment = TMPro.TextAlignmentOptions.Center; text.raycastTarget = false;
             var gate = go.AddComponent<VideoBonusGate>(); gate._cancel = services.Ads as IAdRequestCancellation;
             if (gate._cancel != null)

@@ -37,6 +37,20 @@ namespace QuietCamp.Editor.LevelAuthoring
                 return new{status="opening-game-waiting"};
             if(!EditorApplication.isPlaying || !EditorAuthoringPreview.CampaignPreview || QuietCampBootstrap.ServicesRef?.Save.MemoryOnly!=true)
                 throw new InvalidOperationException("Only the isolated campaign preview can run this probe.");
+            if(action=="font-language")
+            {
+                if(!new[]{"uk","en","de"}.Contains(levelId))throw new ArgumentException("Expected a supported language.");
+                QuietCampBootstrap.ServicesRef.Localization.TrySetLanguage(levelId);
+                return new{status="font-language",language=QuietCampBootstrap.ServicesRef.Localization.CurrentLanguageId,memoryOnly=true};
+            }
+            if(action=="font-status")
+            {
+                var labels=UnityEngine.Object.FindObjectsByType<TMPro.TMP_Text>(FindObjectsSortMode.None);
+                return new{status="font-status",language=QuietCampBootstrap.ServicesRef.Localization.CurrentLanguageId,
+                    labels=labels.Select(t=>new{text=t.text,font=t.font?.name,family=t.font?.faceInfo.familyName,
+                        style=t.fontStyle.ToString(),size=t.fontSize,
+                        rendered=t.textInfo.characterInfo.Take(t.textInfo.characterCount).Select(c=>c.fontAsset?.name).Distinct().ToArray()}).ToArray()};
+            }
             if(action=="viewport")
             {
                 var parts=(levelId??"").Split('x');

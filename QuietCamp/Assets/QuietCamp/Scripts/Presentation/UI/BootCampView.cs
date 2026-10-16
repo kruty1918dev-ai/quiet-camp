@@ -69,7 +69,7 @@ namespace QuietCamp.Presentation.UI
         static TMP_Text Text(RectTransform parent, string name, float size, Color color)
         {
             var text = QcUi.Stretch(parent, name).gameObject.AddComponent<TextMeshProUGUI>();
-            text.font = Resources.Load<TMP_FontAsset>("Fonts/DejaVuSans SDF");
+            text.font = CampTypography.Font;
             text.fontSize = size; text.alignment = TextAlignmentOptions.Center; text.color = color; text.raycastTarget = false;
             return text;
         }

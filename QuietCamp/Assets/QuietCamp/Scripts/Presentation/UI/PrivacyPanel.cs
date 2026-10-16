@@ -130,6 +130,8 @@ namespace QuietCamp.Presentation.UI
                     html.Append(HtmlUi.Text(T("legal.credits"), "s-sub"));
                     var roadmapCredits = Resources.Load<TextAsset>("QuietCamp/roadmap_attribution");
                     if (roadmapCredits != null) html.Append(HtmlUi.Text(roadmapCredits.text, "legal-license-text"));
+                    var notoLicense = Resources.Load<TextAsset>("Fonts/NotoSans_License");
+                    if (notoLicense != null) html.Append(HtmlUi.Text(notoLicense.text, "legal-license-text"));
                     var license = Resources.Load<TextAsset>("Fonts/DejaVu_License");
                     if (license != null) html.Append(HtmlUi.Text(license.text, "legal-license-text"));
                 }

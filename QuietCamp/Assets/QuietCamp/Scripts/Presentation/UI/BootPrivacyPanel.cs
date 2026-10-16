@@ -122,7 +122,7 @@ namespace QuietCamp.Presentation.UI
                 var css = System.Text.RegularExpressions.Regex.Replace(Css, @"font-size:\s*([0-9.]+)px", match => "font-size:" + HtmlUi.Number(float.Parse(match.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture) * _save.Settings.textScale) + "px");
                 _host.Motion.ReducedMotion = _save.Settings.reducedMotion;
                 var result = _host.Mount((RectTransform)transform, new UnityHtmlDocument(Render(), css, "Boot privacy"), new Dictionary<string, object>
-                { ["campFont"] = Resources.Load<TMP_FontAsset>("Fonts/DejaVuSans SDF"), ["moyvaFont"] = Resources.Load<TMP_FontAsset>("Fonts/DejaVuSans SDF") });
+                { ["campFont"] = CampTypography.Font, ["moyvaFont"] = CampTypography.Font });
                 if (!result.Succeeded) MountError = result.ErrorMessage;
             }
             catch (Exception exception) { MountError = exception.Message; }

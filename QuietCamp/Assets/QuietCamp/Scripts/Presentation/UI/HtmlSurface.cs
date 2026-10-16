@@ -173,7 +173,7 @@ namespace QuietCamp.Presentation.UI
             }
             if (_globals.Count == 0)
             {
-                var font = Resources.Load<TMP_FontAsset>("Fonts/DejaVuSans SDF");
+                var font = CampTypography.Font;
                 _globals["campUi"] = _callbacks; _globals["campFont"] = font; _globals["moyvaFont"] = font;
             }
             var result = _host.Mount((RectTransform)transform, new UnityHtmlDocument(html, css, name), _globals);

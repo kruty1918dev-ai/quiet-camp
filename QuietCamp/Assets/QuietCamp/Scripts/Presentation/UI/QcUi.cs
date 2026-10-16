@@ -142,6 +142,7 @@ namespace QuietCamp.Presentation.UI
                 rt.sizeDelta = new Vector2(rt.sizeDelta.x, minSize.Value.y);
             var labelRect = Stretch(rt, "Label");
             var tmp = labelRect.gameObject.AddComponent<TextMeshProUGUI>();
+            tmp.font = CampTypography.Font;
             tmp.fontSize = TextButton;
             tmp.alignment = TextAlignmentOptions.Center;
             tmp.color = isLight ? Ink : Cream;

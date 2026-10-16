@@ -95,7 +95,7 @@ namespace QuietCamp.Presentation.UI
             var rect = QcUi.Stretch(parent, "Label");
             rect.offsetMin = new Vector2(12, 4); rect.offsetMax = new Vector2(-12, -4);
             var text = rect.gameObject.AddComponent<TextMeshProUGUI>();
-            text.font = Resources.Load<TMP_FontAsset>("Fonts/DejaVuSans SDF");
+            text.font = CampTypography.Font;
             text.text = title; text.color = color; text.fontSize = 30;
             text.alignment = TextAlignmentOptions.Center; text.raycastTarget = false;
         }
