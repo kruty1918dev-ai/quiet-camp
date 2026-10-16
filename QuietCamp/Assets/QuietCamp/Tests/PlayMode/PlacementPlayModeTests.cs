@@ -299,6 +299,54 @@ namespace QuietCamp.Tests
         }
 
         [UnityTest]
+        public IEnumerator InspectingAPlacedTentWithAFastSwipeNeverStartsMovingIt()
+        {
+            Assert.IsTrue(_session.TryCommit(PlacementCommand.Place("g1",0,0,0),out _));
+            Physics.SyncTransforms();_session.Select("g2");
+            int revision=_session.State.Revision,grabbed=0;
+            _controller.TentGrabbed+=_=>grabbed++;
+            var point=At(0,0);
+            MouseAt(point,true);yield return null;
+            Assert.AreEqual("g1",_session.SelectedGuestId,"Inspection must still select the placed tent.");
+            Assert.IsFalse(_controller.HasPreview);
+            MouseAt(point+Vector2.right*40,true);yield return null;
+            Assert.IsFalse(_controller.HasPreview,"Movement alone cannot arm dragging a placed tent.");
+            yield return new WaitForSecondsRealtime(.4f);
+            Assert.IsFalse(_controller.HasPreview,"A canceled swipe cannot become a delayed hold.");
+            MouseAt(point+Vector2.right*40,false);yield return null;
+            Assert.AreEqual(0,grabbed);Assert.AreEqual(revision,_session.State.Revision);
+            Assert.IsTrue(_session.Undo());Assert.AreEqual(0,_session.State.Count);
+        }
+
+        [UnityTest]
+        public IEnumerator PlacedTentTouchSelectsOnTapAndOnlyLiftsAfterAStationaryHold()
+        {
+            Assert.IsTrue(_session.TryCommit(PlacementCommand.Place("g1",0,0,0),out _));
+            Physics.SyncTransforms();_session.Select("g2");
+            int revision=_session.State.Revision,grabbed=0;
+            _controller.TentGrabbed+=_=>grabbed++;
+            var touch=InputSystem.AddDevice<Touchscreen>();var point=At(0,0);
+            try
+            {
+                InputSystem.QueueStateEvent(touch,new TouchState{touchId=51,phase=UnityEngine.InputSystem.TouchPhase.Began,position=point});yield return null;
+                Assert.AreEqual("g1",_session.SelectedGuestId);Assert.IsFalse(_controller.HasPreview);
+                InputSystem.QueueStateEvent(touch,new TouchState{touchId=51,phase=UnityEngine.InputSystem.TouchPhase.Moved,position=point+Vector2.one});yield return null;
+                InputSystem.QueueStateEvent(touch,new TouchState{touchId=51,phase=UnityEngine.InputSystem.TouchPhase.Ended,position=point+Vector2.one});yield return null;
+                Assert.IsFalse(_controller.HasPreview);Assert.AreEqual(0,grabbed);Assert.AreEqual(revision,_session.State.Revision);
+                InputSystem.QueueStateEvent(touch,new TouchState{touchId=52,phase=UnityEngine.InputSystem.TouchPhase.Began,position=point});yield return null;
+                yield return new WaitForSecondsRealtime(.1f);
+                Assert.IsFalse(_controller.HasPreview,"A brief press is inspection, not a grab.");
+                yield return new WaitForSecondsRealtime(.3f);
+                Assert.IsTrue(_controller.HasPreview);Assert.AreEqual(1,grabbed);
+                Assert.AreEqual(revision,_session.State.Revision,"Holding alone never commits a move.");
+                _controller.Cancel();
+                InputSystem.QueueStateEvent(touch,new TouchState{touchId=52,phase=UnityEngine.InputSystem.TouchPhase.Ended,position=point});yield return null;
+                Assert.AreEqual(revision,_session.State.Revision);Assert.IsFalse(_controller.IsPlacementActive);
+            }
+            finally{_controller.Cancel();InputSystem.RemoveDevice(touch);}
+        }
+
+        [UnityTest]
         public IEnumerator InvalidDragRestoresTentAndReleasesPreview()
         {
             Assert.IsTrue(_session.TryCommit(PlacementCommand.Place("g1", 0, 0, 0), out _));
@@ -307,6 +355,7 @@ namespace QuietCamp.Tests
             _controller.PlacementFailed += key => failure = key;
             var revision = _session.State.Revision;
             MouseAt(At(0, 0), true); yield return null;
+            yield return new WaitForSecondsRealtime(.4f);
             MouseAt(At(0, -2), true); yield return null;
             Assert.IsTrue(_controller.HasPreview);
             MouseAt(At(0, -2), false); yield return null;
@@ -387,6 +436,7 @@ namespace QuietCamp.Tests
             var moved = 0;
             _controller.PlacementMoved += () => moved++;
             MouseAt(At(0, 0), true); yield return null;
+            yield return new WaitForSecondsRealtime(.4f);
             MouseAt(At(1, 1), true); yield return null;
             Assert.IsTrue(_controller.HasPreview);
             Assert.AreEqual(0, moved);

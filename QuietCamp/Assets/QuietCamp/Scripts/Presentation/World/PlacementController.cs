@@ -14,6 +14,7 @@ namespace QuietCamp.Presentation.World
     public sealed class PlacementController : MonoBehaviour
     {
         enum Phase { Idle, WaitingWorldHold, Pressed, Preview, Dragging }
+        const float PlacedTentHoldSeconds = .35f;
 
         CampSession _session;
         BoardRenderer _renderer;
@@ -145,8 +146,12 @@ namespace QuietCamp.Presentation.World
             if (sample.Active && _phase == Phase.Pressed)
             {
                 var threshold = BoardMath.DragThresholdDp * _projector.DensityScale;
-                if ((sample.Position - _pressScreen).sqrMagnitude >= threshold * threshold
-                    || (sample.Id > 0 && Time.unscaledTime - _pressTime >= .2f))
+                // Inspecting a placed tent must never turn into a move from a
+                // quick swipe or finger jitter. A stationary hold arms the move
+                // for both touch and mouse; only then may the pointer drag it.
+                if ((sample.Position - _pressScreen).sqrMagnitude >= threshold * threshold)
+                { Cancel(); return; }
+                if (Time.unscaledTime - _pressTime >= PlacedTentHoldSeconds)
                 {
                     BeginPreview(_movedOriginal.x, _movedOriginal.z, _movedOriginal.rotation);
                     _phase = Phase.Dragging;
@@ -244,7 +249,7 @@ namespace QuietCamp.Presentation.World
                 return;
             }
 
-            // Selection is a tap; only a deliberate drag lifts a committed tent.
+            // Selection is a tap; only a deliberate hold lifts a committed tent.
             if (picked != null) _session.Select(picked);
             else
             {
