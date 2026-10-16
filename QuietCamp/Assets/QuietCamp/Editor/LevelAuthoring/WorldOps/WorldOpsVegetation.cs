@@ -57,8 +57,9 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 // Root the actual low vertices, including fern assets with positive local minima.
                 i.y-=WorldOpsGeometry.Clearance(d,i,m)+.006f;
                 i.surfaceAttached=true;i.surfaceOffset=i.y-d.art.GroundHeight(i.x,i.z);
-                bool Bad(float x,float z)=>sites.Wet(x,z)||(!WorldOpsGeometry.Protected(d,x,z)&&WorldOpsGeometry.ProtectedPlant(d,x,z))||sites.InSolid(new Vector3(x,d.art.GroundHeight(x,z)+i.surfaceOffset+.12f,z));
-                if(!Bad(i.x,i.z))continue;
+                bool Bad(float x,float y,float z)=>sites.Wet(x,z)||(!WorldOpsGeometry.Protected(d,x,z)&&WorldOpsGeometry.ProtectedPlant(d,x,z))||sites.InSolid(new Vector3(x,y+.12f,z));
+                if(!Bad(i.x,i.y,i.z))continue;
+                var candidate=LevelAuthoringDocument.Copy(i);
                 for(int attempt=0;attempt<96;attempt++)
                 {
                     double angle=random.NextDouble()*Math.PI*2;
@@ -66,10 +67,12 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                     float x=i.x+(float)Math.Cos(angle)*distance,z=i.z+(float)Math.Sin(angle)*distance;
                     // Relocation cannot invade the puzzle, a path, or the edge of frozen terrain.
                     var land=d.art.landscape;
-                    if(WorldOpsGeometry.ProtectedPlant(d,x,z)||land!=null&&(x<land.originX+.4f||z<land.originZ+.4f||x>land.originX+land.size-.4f||z>land.originZ+land.size-.4f)||Bad(x,z)||Near(x,z,i.id))continue;
+                    if(WorldOpsGeometry.ProtectedPlant(d,x,z)||land!=null&&(x<land.originX+.4f||z<land.originZ+.4f||x>land.originX+land.size-.4f||z>land.originZ+land.size-.4f)||sites.Wet(x,z)||Near(x,z,i.id))continue;
+                    candidate.x=x;candidate.z=z;candidate.y=d.art.GroundHeight(x,z)+i.surfaceOffset;
+                    candidate.y-=WorldOpsGeometry.Clearance(d,candidate,m)+.006f;
+                    if(Bad(x,candidate.y,z))continue;
                     if(cells.TryGetValue(Cell(i.x,i.z),out var old))old.Remove(i);
-                    i.x=x;i.z=z;i.y=d.art.GroundHeight(x,z)+i.surfaceOffset;
-                    i.y-=WorldOpsGeometry.Clearance(d,i,m)+.006f;i.surfaceOffset=i.y-d.art.GroundHeight(x,z);Add(i);break;
+                    i.x=x;i.z=z;i.y=candidate.y;i.surfaceOffset=i.y-d.art.GroundHeight(x,z);Add(i);break;
                 }
             }
         }

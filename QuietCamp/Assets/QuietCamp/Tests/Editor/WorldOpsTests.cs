@@ -344,6 +344,29 @@ namespace QuietCamp.Tests
                 UnityEditor.Undo.ClearUndo(native);
             }
         }
+        [Test] public void HangingFabricIsNotVegetationAndMustRemainAttachedToItsRope()
+        {
+            var d=Document();var cube=GameObject.CreatePrimitive(PrimitiveType.Cube);CampArtDefinition.Model source;
+            try
+            {
+                var mesh=cube.GetComponent<MeshFilter>().sharedMesh;var v=mesh.vertices;
+                var boxes=new[]{new Bounds(new Vector3(-1.1f,.85f,0),new Vector3(.16f,1.7f,.08f)),new Bounds(new Vector3(1.1f,.85f,0),new Vector3(.16f,1.7f,.08f)),
+                    new Bounds(new Vector3(0,1.6f,0),new Vector3(2.3f,.025f,.025f)),new Bounds(new Vector3(-.35f,1.3f,0),new Vector3(.65f,.65f,.045f)),new Bounds(new Vector3(.4f,1.35f,0),new Vector3(.5f,.53f,.045f))};
+                source=new CampArtDefinition.Model{id="fixture-drying",sourceModelId="qc_crash_drying",shading="solid",seasonalRole="solid",
+                    vertices=boxes.SelectMany(b=>mesh.triangles.Select(t=>b.center+Vector3.Scale(v[t],b.size))).SelectMany(p=>new[]{p.x,p.y,p.z}).ToArray(),
+                    normals=Enumerable.Repeat(new[]{0f,1f,0f},180).SelectMany(n=>n).ToArray(),colors=Enumerable.Repeat(0x809060,180).ToArray()};
+            }
+            finally{UnityEngine.Object.DestroyImmediate(cube);}
+            d.art.models=new[]{source};d.art.instances[0].id="fixture/drying";d.art.instances[0].modelId=source.id;
+            WeatherModelRigAuthoring.Prepare(d);
+            var cloth=d.art.instances.Where(i=>i.motion=="cloth").ToArray();Assert.AreEqual(2,cloth.Length);
+            var before=cloth.Select(WorldOpsStorage.Digest).ToArray();
+            WorldOpsOperations.Apply(d,new WorldOperation{id="greenery",kind="vegetation.refine",selector=new WorldSelector{generatedOnly=false}},12);
+            CollectionAssert.AreEqual(before,cloth.Select(WorldOpsStorage.Digest).ToArray());
+            Assert.IsFalse(WorldOpsGeometry.Validate(d,new WorldCriteria()).Any(f=>cloth.Any(i=>i.id==f.objectId)&&f.code.StartsWith("support.")));
+            cloth[0].x+=2;
+            Assert.IsTrue(WorldOpsGeometry.Validate(d,new WorldCriteria()).Any(f=>f.objectId==cloth[0].id&&f.code=="support.missing"));
+        }
         [Test] public void MassResizingTenThousandExistingPlantsDoesNotRepaintThemThroughPwb()
         {
             var before=Document();var original=before.art.instances[0];

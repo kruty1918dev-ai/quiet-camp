@@ -46,6 +46,16 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         }
         static float SupportClearance(LevelAuthoringDocument d,CampArtDefinition.Instance p,CampArtDefinition.Model m,WorldObjectRecord record)
         {
+            if(record==null&&p.motion=="cloth"&&m.sourceModelId=="qc_crash_drying_cloth")
+            {
+                int slash=p.id.LastIndexOf('/');var owner=slash<0?null:d.art.instances.SingleOrDefault(i=>i.id==p.id.Substring(0,slash));
+                var support=owner==null?null:d.art.models.SingleOrDefault(model=>model.id==owner.modelId);
+                if(support?.sourceModelId!="qc_crash_drying_support"||p.motionPivot?.Length!=3)return float.PositiveInfinity;
+                var pivot=Matrix(p).MultiplyPoint3x4(CampArtDefinition.Vector(p.motionPivot));
+                // WeatherModelRigAuthoring owns this joint. Verify actual rope geometry,
+                // not a guessed ground contact or the mere existence of a parent ID.
+                return Inside(pivot,Vertices(owner,support))?0:float.PositiveInfinity;
+            }
             if(record==null||record.support=="grounded")return Clearance(d,p,m);
             var vertices=Vertices(p,m);float gap=float.PositiveInfinity;
             if(record.support=="water")

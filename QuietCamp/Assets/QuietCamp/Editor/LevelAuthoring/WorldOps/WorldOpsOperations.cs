@@ -28,6 +28,8 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         public static string Role(CampArtDefinition art,CampArtDefinition.Instance pose,CampArtDefinition.Model model)
         {
             if(pose.id==art.primaryLandmarkInstanceId)return "primary";
+            // The shared wind shader also renders hanging fabric. Shader choice is not botany.
+            if(pose.motion=="cloth"||model.seasonalRole=="solid")return "prop";
             if(model.seasonalRole=="deciduous"||model.seasonalRole=="conifer")return "tree";
             if(model.seasonalRole=="groundcover"||model.shading=="foliage")return "vegetation";
             return "prop";
