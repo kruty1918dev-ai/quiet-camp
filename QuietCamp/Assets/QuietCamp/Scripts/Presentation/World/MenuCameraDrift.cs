@@ -1,4 +1,5 @@
 using System;
+using Kruty1918.InputRouting.API;
 using QuietCamp.Domain;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,12 +7,9 @@ using UnityEngine.InputSystem;
 namespace QuietCamp.Presentation.World
 {
     /// <summary>
-    /// Menu camera: owns the fitted pose (CameraFitter into the lower
-    /// viewport band) and layers two kinds of life on top — a very slow
-    /// positional/rotational drift (~10 s cycles, ±0.15 m / ±0.4°) and a
-    /// pointer-follow parallax nudge. Because the scene is real 3D with
-    /// world-space forest, the nudge preserves the scenery's perspective.
-    /// Reduced motion settles the camera to the plain fitted pose.
+    /// Fitted menu pose with a tiny, slow translation and a bounded swipe
+    /// response. Hovering and tapping UI never steer the camera. Its angle
+    /// stays fixed; reduced motion restores the fitted pose.
     /// </summary>
     public sealed class MenuCameraDrift : MonoBehaviour
     {
@@ -20,73 +18,119 @@ namespace QuietCamp.Presentation.World
         RectTransform _viewport;
         Func<bool> _reducedMotion;
         Func<bool> _suppressed;
+        IGameplayInputPolicy _input;
         Vector3 _basePos;
         Quaternion _baseRot;
         Vector2 _parallax;
-        Vector2 _parallaxTarget;
+        Vector2 _parallaxTarget, _parallaxVelocity, _pressPosition;
+        Vector3 _offset, _lastPosition;
+        Quaternion _lastRotation;
+        int _pointerId = -1;
+        bool _gesture, _swiping, _hasWritten;
+        float _elapsed;
         Vector2Int _screen;
         Rect _viewportRect;
         Vector3 _viewportPosition;
         bool _dirty = true;
-        CampAtmosphere _atmosphere;
+        public Vector3 VisualOffset => _offset;
+        public Vector2 SwipeOffset => _parallax * SwipeRange;
+        float SwipeRange => _camera == null ? 0 : Mathf.Min(.075f,_camera.orthographicSize*.008f);
 
         public void Configure(Camera camera, LevelData level, RectTransform viewport,
-            Func<bool> reducedMotion, Func<bool> suppressed = null)
+            Func<bool> reducedMotion, Func<bool> suppressed = null, IGameplayInputPolicy input = null)
         {
             _camera = camera;
             _level = level;
             _viewport = viewport;
             _reducedMotion = reducedMotion;
             _suppressed = suppressed;
+            _input = input;
+            _baseRot = camera.transform.rotation;
             _dirty = true;
-            _atmosphere=GetComponent<CampAtmosphere>();
         }
 
         void LateUpdate()
         {
             if (_camera == null || _level == null) return;
+            // A transition owns the actual transform. Never snap it back to
+            // the fitted pose while the other owner is moving it.
+            if (_suppressed?.Invoke()==true)
+            {
+                ClearGesture();_dirty=true;_hasWritten=false;return;
+            }
             var size = new Vector2Int(Screen.width, Screen.height);
             var rect = _viewport != null ? _viewport.rect : default;
             var position = _viewport != null ? _viewport.position : Vector3.zero;
             if (size != _screen || _dirty || rect != _viewportRect || position != _viewportPosition)
             {
                 _screen = size; _viewportRect = rect; _viewportPosition = position;
+                _camera.transform.rotation = _baseRot;
                 CameraFitter.Fit(_camera, _level, _viewport);
                 _basePos = _camera.transform.position;
-                _baseRot = _camera.transform.rotation;
+                ClearGesture();_parallax=Vector2.zero;_parallaxVelocity=Vector2.zero;_offset=Vector3.zero;
                 _dirty = false;
             }
-            // Frozen under reduced motion and while a scene transition owns
-            // the frame — a screen wipe must not fight camera drift.
-            if ((_reducedMotion != null && _reducedMotion())
-                || (_suppressed != null && _suppressed()))
+            if (_reducedMotion?.Invoke()==true)
             {
-                _camera.transform.SetPositionAndRotation(_basePos, _baseRot);
+                ClearGesture();_parallax=Vector2.zero;_parallaxVelocity=Vector2.zero;_offset=Vector3.zero;
+                WritePose();
                 return;
             }
-            var pointer = Pointer.current;
-            if (pointer != null)
-            {
-                var p = pointer.position.ReadValue();
-                _parallaxTarget = new Vector2(
-                    Mathf.Clamp01(p.x / Mathf.Max(1, Screen.width)) * 2f - 1f,
-                    Mathf.Clamp01(p.y / Mathf.Max(1, Screen.height)) * 2f - 1f);
-            }
-            _parallax = Vector2.Lerp(_parallax, _parallaxTarget,
-                1f - Mathf.Exp(-Time.deltaTime * 2.5f));
-            var t = Time.unscaledTime;
+            ReadSwipe();
+            float dt=Mathf.Min(.05f,Time.unscaledDeltaTime);
+            _parallax=Vector2.SmoothDamp(_parallax,_parallaxTarget,ref _parallaxVelocity,.6f,2f,dt);
+            _elapsed+=dt;
             var right = _baseRot * Vector3.right;
             var up = _baseRot * Vector3.up;
-            var offset = right * (Mathf.Sin(t * 0.62f) * 0.09f + Mathf.Sin(t * 0.171f) * 0.06f
-                    - _parallax.x * 0.32f)
-                + up * (Mathf.Sin(t * 0.53f + 1.7f) * 0.07f + Mathf.Sin(t * 0.147f) * 0.05f
-                    - _parallax.y * 0.22f);
-            var wind=_atmosphere!=null?_atmosphere.Wind:default;
-            offset+=new Vector3(wind.DirectionXZ.x,0,wind.DirectionXZ.y)*Mathf.Sin(wind.PhaseSeconds*.67f)*wind.Strength*.035f;
-            _camera.transform.SetPositionAndRotation(_basePos + offset,
-                _baseRot * Quaternion.Euler(
-                    Mathf.Sin(t * 0.41f + 0.8f) * 0.22f,
-                    Mathf.Sin(t * 0.37f) * 0.30f, 0f));
+            // Scenery follows the finger by a few pixels, then eases home.
+            var swipe=SwipeOffset;
+            _offset=right*(Mathf.Sin(_elapsed*.15f)*.012f-swipe.x)
+                +up*(Mathf.Sin(_elapsed*.12f)*.008f-swipe.y);
+            WritePose();
+        }
+
+        void ReadSwipe()
+        {
+            var touch=Touchscreen.current?.primaryTouch;
+            bool touching=touch!=null&&(touch.press.isPressed||touch.press.wasReleasedThisFrame);
+            var mouse=Mouse.current;
+            if(!touching&&mouse==null){ClearGesture();return;}
+            int id=touching?touch.touchId.ReadValue():0;
+            var position=touching?touch.position.ReadValue():mouse.position.ReadValue();
+            bool began=touching?touch.press.wasPressedThisFrame:mouse.leftButton.wasPressedThisFrame;
+            bool held=touching?touch.press.isPressed:mouse.leftButton.isPressed;
+            if(touching)
+            {
+                int count=0;foreach(var finger in Touchscreen.current.touches)if(finger.press.isPressed)count++;
+                if(count>1){ClearGesture();return;}
+            }
+            if(began)
+            {
+                _pointerId=id;_pressPosition=position;_swiping=false;_parallaxTarget=Vector2.zero;
+                _gesture=_camera.pixelRect.Contains(position)&&(_input?.CanProcess(GameplayInputKind.PointerPan,position,id)??true);
+            }
+            if(!held||id!=_pointerId){ClearGesture();return;}
+            if(!_gesture)return;
+            if(!(_input?.CanProcess(GameplayInputKind.PointerPan,position,id)??true)){ClearGesture();return;}
+            var delta=position-_pressPosition;
+            float threshold=12*PlacementTargetProjector.ScreenDpScale();
+            if(!_swiping&&delta.sqrMagnitude<threshold*threshold)return;
+            _swiping=true;
+            _parallaxTarget=Vector2.ClampMagnitude(delta*(3f/Mathf.Max(1,Mathf.Min(Screen.width,Screen.height))),1);
+        }
+
+        void ClearGesture(){_gesture=false;_swiping=false;_pointerId=-1;_parallaxTarget=Vector2.zero;}
+        void WritePose()
+        {
+            _camera.transform.SetPositionAndRotation(_basePos+_offset,_baseRot);
+            _lastPosition=_camera.transform.position;_lastRotation=_camera.transform.rotation;_hasWritten=true;
+        }
+        void OnApplicationFocus(bool focused){if(!focused)ClearGesture();}
+        void OnDisable()
+        {
+            if(_hasWritten&&_camera!=null&&_camera.transform.position==_lastPosition&&_camera.transform.rotation==_lastRotation)
+                _camera.transform.SetPositionAndRotation(_basePos,_baseRot);
+            ClearGesture();_parallax=Vector2.zero;_parallaxVelocity=Vector2.zero;_offset=Vector3.zero;_hasWritten=false;_dirty=true;
         }
     }
 }

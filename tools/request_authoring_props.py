@@ -9,7 +9,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 p=argparse.ArgumentParser(description=__doc__)
 p.add_argument('--project',type=Path,required=True)
-p.add_argument('--mode',choices=['placement-play-tests','font-prepare','font-tests','learning-tests','learning-apply','worldops-tests','clearing-tests','authoring-memory','authoring-suspend-workspace','authoring-resume-workspace','authoring-trim','opening-water-tests','capture','opening-details','opening-gameplay','opening-tests','opening-compose','opening-apply','object-overgrowth','surface-tests','authoring-place-witness','forest-motion','forest-tests','forest-regrowth','props-tests','aging-ui','aging-ui-restore','crash-compose','season-variant','campaign-weather-upgrade','weather-motion','authoring-load-draft','authoring-focus-game','campaign-regenerate','mood-tests','mood-demo','world-export','world-tests','world-demo','props-demo','props-play','props-game-status','draft-capture','authoring-tests','authoring-profile','authoring-page','authoring-workspace-status','authoring-current-play','authoring-stop','authoring-status','authoring-restored','authoring-complete','gallery-tests','terrain-tests'],required=True)
+p.add_argument('--mode',choices=['cancel-tests','input-reload','input-reload-tests','input-status','menu-camera-tests','placement-play-tests','font-prepare','font-tests','learning-tests','learning-apply','worldops-tests','clearing-tests','authoring-memory','authoring-suspend-workspace','authoring-resume-workspace','authoring-trim','opening-water-tests','capture','opening-details','opening-gameplay','opening-tests','opening-compose','opening-apply','object-overgrowth','surface-tests','authoring-place-witness','forest-motion','forest-tests','forest-regrowth','props-tests','aging-ui','aging-ui-restore','crash-compose','season-variant','campaign-weather-upgrade','weather-motion','authoring-load-draft','authoring-focus-game','campaign-regenerate','mood-tests','mood-demo','world-export','world-tests','world-demo','props-demo','props-play','props-game-status','draft-capture','authoring-tests','authoring-profile','authoring-page','authoring-workspace-status','authoring-current-play','authoring-stop','authoring-status','authoring-restored','authoring-complete','gallery-tests','terrain-tests'],required=True)
 p.add_argument('--level')
 p.add_argument('--draft',type=Path)
 p.add_argument('--profile')
@@ -50,7 +50,7 @@ while time.time()-started<a.timeout:
     if not request.exists() and result.exists():
         try:d=json.loads(result.read_text(encoding='utf-8'))
         except (json.JSONDecodeError,PermissionError):time.sleep(.1);continue
-        if d.get('status') in ('tests-running','campaign-generating','profiling'):time.sleep(.3);continue
+        if d.get('status') in ('tests-running','tests-cancelling','campaign-generating','profiling'):time.sleep(.3);continue
         if a.mode.endswith('tests') and d.get('status') not in ('tests','error'):
             raise SystemExit('Unexpected result during a test run; refusing to report it as completed tests: '+str(d.get('status')))
         print(json.dumps({k:v for k,v in d.items() if k in ('status','error','errors','draftPath','output','playing','ready','memoryOnly','objects','baked','identical','solved','completed','result','passed','failed','total','duration','forbiddenComponents','persistentDataPath')},ensure_ascii=False))

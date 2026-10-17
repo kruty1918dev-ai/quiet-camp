@@ -167,7 +167,7 @@ namespace QuietCamp.Presentation.World
             var drift = gameObject.AddComponent<MenuCameraDrift>();
             drift.Configure(camera, level, viewport, () => _services.ReducedMotion,
                 () => _router != null && (_router.IsBusy
-                    || (_router.Dive != null && !_router.Dive.IsIdle)));
+                    || (_router.Dive != null && !_router.Dive.IsIdle)), _services.InputPolicy);
 
             // A fire exists exactly where this playable clearing has one.
             bool hasFire = level.noise != null && level.noise.Length > 0;

@@ -116,6 +116,35 @@ namespace QuietCamp.Editor.LevelAuthoring
                 QuietCampBootstrap.ServicesRef.Actions.Execute(new UiActionRequest(new UiActionId(command),UiActionSource.Programmatic,"Menu"));
                 return new{status="menu-action-requested",command,memoryOnly=true};
             }
+            if(action=="ui-touch")
+            {
+                if(!new[]{"start","continue","pause","resume"}.Contains(levelId))throw new ArgumentException("Expected a supported visible UI control.");
+                var button=UnityEngine.Object.FindObjectsByType<UnityEngine.UI.Button>(FindObjectsSortMode.None)
+                    .SingleOrDefault(b=>b.gameObject.activeInHierarchy&&b.name=="<button #"+levelId+">");
+                if(button==null||!button.interactable)throw new InvalidOperationException("The requested visible button is not available.");
+                SendUiTouch(button);
+                return new{status="ui-touch-queued",control=levelId,memoryOnly=true};
+            }
+            if(action=="world-touch")
+            {
+                var camp=CampSceneHost.Current;
+                if(camp?.UiReady!=true)throw new InvalidOperationException("RAM-only camp is not ready.");
+                var point=(Vector2)Camera.main.WorldToScreenPoint(BoardMath.CellCenter(camp.Session.Level,0,0));
+                SendTouch(point);
+                return new{status="world-touch-queued",memoryOnly=true};
+            }
+            if(action=="menu-swipe")
+            {
+                if(MenuSceneHost.Current?.UiReady!=true)throw new InvalidOperationException("RAM-only menu is not ready.");
+                if(!new[]{"begin","move","release"}.Contains(levelId))throw new ArgumentException("Expected begin, move or release.");
+                var mouse=UnityEngine.InputSystem.Mouse.current;
+                if(mouse==null)throw new InvalidOperationException("An existing mouse is required for the menu gesture probe.");
+                var point=new Vector2(Screen.width*.5f,Screen.height*.5f);
+                if(levelId!="begin")point.x+=Mathf.Min(Screen.width,Screen.height)*.2f;
+                UnityEngine.InputSystem.InputSystem.QueueStateEvent(mouse,new UnityEngine.InputSystem.LowLevel.MouseState{position=point}
+                    .WithButton(UnityEngine.InputSystem.LowLevel.MouseButton.Left,levelId!="release"));
+                return new{status="menu-swipe",phase=levelId,memoryOnly=true};
+            }
             if(action=="menu-status"||action=="menu-frame")
             {
                 var menu=MenuSceneHost.Current;var view=Camera.main?.GetComponent<CampArtView>();
@@ -126,7 +155,11 @@ namespace QuietCamp.Editor.LevelAuthoring
                     if(string.IsNullOrEmpty(output)||!System.IO.Path.IsPathRooted(output)||!output.EndsWith(".png",StringComparison.OrdinalIgnoreCase))throw new ArgumentException("Expected an absolute PNG path.");
                     System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(output));ScreenCapture.CaptureScreenshot(output);
                 }
+                var motion=menu?.GetComponent<MenuCameraDrift>();
                 return new{status="menu-review",ready,memoryOnly=true,id=menu?.BackgroundLevel?.id,authored=view!=null,
+                    motionOffset=motion==null?null:new[]{motion.VisualOffset.x,motion.VisualOffset.y,motion.VisualOffset.z},
+                    swipeOffset=motion==null?null:new[]{motion.SwipeOffset.x,motion.SwipeOffset.y},
+                    cameraRotation=Camera.main==null?null:new[]{Camera.main.transform.eulerAngles.x,Camera.main.transform.eulerAngles.y,Camera.main.transform.eulerAngles.z},
                     size=new[]{Screen.width,Screen.height},residents=UnityEngine.Object.FindObjectsByType<CampGroundDetails>(FindObjectsSortMode.None).Sum(s=>s.Residents),
                     cameraPosition=Camera.main==null?null:new[]{Camera.main.transform.position.x,Camera.main.transform.position.y,Camera.main.transform.position.z},
                     cameraEuler=Camera.main==null?null:new[]{Camera.main.transform.eulerAngles.x,Camera.main.transform.eulerAngles.y,Camera.main.transform.eulerAngles.z},
@@ -337,6 +370,38 @@ namespace QuietCamp.Editor.LevelAuthoring
                 activeRainContacts=art?.SeasonAtmosphere?.RainContacts?.ActiveCount,rainRunoff=art?.SeasonAtmosphere?.RainContacts?.RunoffCount,
                 cameraEuler=Camera.main!=null?new[]{Camera.main.transform.eulerAngles.x,Camera.main.transform.eulerAngles.y,Camera.main.transform.eulerAngles.z}:new float[3],orthographicSize=Camera.main!=null?Camera.main.orthographicSize:0,
                 completed=services.Save.Progress.completedIds,next=services.NextLevel(id)};
+        }
+
+        static void SendUiTouch(UnityEngine.UI.Button button)
+        {
+            var rect=(RectTransform)button.transform;var canvas=button.GetComponentInParent<Canvas>();
+            var point=RectTransformUtility.WorldToScreenPoint(canvas.renderMode==RenderMode.ScreenSpaceOverlay?null:canvas.worldCamera,rect.TransformPoint(rect.rect.center));
+            SendTouch(point);
+        }
+        static void SendTouch(Vector2 point)
+        {
+            var touch=UnityEngine.InputSystem.InputSystem.AddDevice<UnityEngine.InputSystem.Touchscreen>("QuietCamp UI touch probe");
+            UnityEngine.InputSystem.InputSystem.QueueStateEvent(touch,new UnityEngine.InputSystem.LowLevel.TouchState
+                {touchId=91,phase=UnityEngine.InputSystem.TouchPhase.Began,position=point});
+            int startFrame=Time.frameCount;double startTime=EditorApplication.timeSinceStartup;bool released=false;
+            EditorApplication.CallbackFunction tick=null;Action<PlayModeStateChange> exit=null;
+            void Cleanup()
+            {
+                EditorApplication.update-=tick;EditorApplication.playModeStateChanged-=exit;AssemblyReloadEvents.beforeAssemblyReload-=Cleanup;
+                if(touch.added)UnityEngine.InputSystem.InputSystem.RemoveDevice(touch);
+            }
+            exit=state=>{if(state==PlayModeStateChange.ExitingPlayMode)Cleanup();};
+            tick=()=>
+            {
+                if(!EditorApplication.isPlaying){Cleanup();return;}
+                if(!released&&Time.frameCount>=startFrame+3&&EditorApplication.timeSinceStartup>=startTime+.12)
+                {
+                    released=true;UnityEngine.InputSystem.InputSystem.QueueStateEvent(touch,new UnityEngine.InputSystem.LowLevel.TouchState
+                        {touchId=91,phase=UnityEngine.InputSystem.TouchPhase.Ended,position=point});
+                }
+                if(released&&Time.frameCount>=startFrame+6&&EditorApplication.timeSinceStartup>=startTime+.6)Cleanup();
+            };
+            EditorApplication.update+=tick;EditorApplication.playModeStateChanged+=exit;AssemblyReloadEvents.beforeAssemblyReload+=Cleanup;
         }
 
         internal static object CameraProof(LevelData level,CampArtDefinition art)

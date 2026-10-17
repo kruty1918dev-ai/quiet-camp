@@ -37,8 +37,9 @@ namespace QuietCamp.Presentation
         static SaveAdapter CreateStartupSave()
         {
 #if UNITY_EDITOR
-            if(EditorAuthoringPreview.Active)return EditorAuthoringPreview.CreateSave();
+            // An explicit test/reload factory owns its save; preview is the default fallback.
             if(EditorSaveFactory!=null)return EditorSaveFactory();
+            if(EditorAuthoringPreview.Active)return EditorAuthoringPreview.CreateSave();
 #endif
             return new SaveAdapter();
         }
