@@ -60,6 +60,8 @@ namespace QuietCamp.Presentation.World
         public event System.Action Cancelled;
         /// <summary>Raised when a committed tent is picked up to move it.</summary>
         public event System.Action<string> TentGrabbed;
+        /// <summary>A released inspection tap, including on the already selected tent.</summary>
+        public event System.Action<string> TentInspected;
         /// <summary>Raised when pressing the board starts a fresh preview for
         /// the selected guest — payload is the world point under the pointer.</summary>
         public event System.Action<Vector3> PreviewBegan;
@@ -301,6 +303,7 @@ namespace QuietCamp.Presentation.World
         void OnRelease(PointerSample sample)
         {
             if (sample.Id != _pointerId) return;
+            var inspected = _phase == Phase.Pressed ? _movedOriginal?.guestId : null;
             // A lift-free tap never writes a duplicate undo step.
             if (_phase == Phase.Preview || _phase == Phase.Dragging)
             {
@@ -309,6 +312,9 @@ namespace QuietCamp.Presentation.World
             }
             else EndPreview();
             ReleasePointer();
+            // Open controls after releasing capture so they cannot steal the press
+            // which may still become a deliberate hold-to-move gesture.
+            if (inspected != null) TentInspected?.Invoke(inspected);
         }
 
         void ReleasePointer()

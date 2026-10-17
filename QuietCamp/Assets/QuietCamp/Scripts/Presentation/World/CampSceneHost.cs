@@ -255,6 +255,7 @@ namespace QuietCamp.Presentation.World
             _hud.GuestAnchor = GuestWorldAnchor;
             _hud.ProjectToHud = ProjectToHud;
             _placement.PreviewChanged += _hud.SetPlacementPreview;
+            _placement.TentInspected += _hud.InspectTent;
             if (_session.SelectedGuestId == null && level.guests.Length > 0)
                 _session.Select(level.guests[0].id);
             _hud.GuestSelected += _ => _tutorial.ReportAction("select", _session);

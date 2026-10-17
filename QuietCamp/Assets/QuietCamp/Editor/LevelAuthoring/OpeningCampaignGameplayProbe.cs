@@ -118,7 +118,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             }
             if(action=="ui-touch")
             {
-                if(!new[]{"start","continue","pause","resume"}.Contains(levelId))throw new ArgumentException("Expected a supported visible UI control.");
+                if(!new[]{"start","continue","pause","resume","rotate"}.Contains(levelId))throw new ArgumentException("Expected a supported visible UI control.");
                 var button=UnityEngine.Object.FindObjectsByType<UnityEngine.UI.Button>(FindObjectsSortMode.None)
                     .SingleOrDefault(b=>b.gameObject.activeInHierarchy&&b.name=="<button #"+levelId+">");
                 if(button==null||!button.interactable)throw new InvalidOperationException("The requested visible button is not available.");

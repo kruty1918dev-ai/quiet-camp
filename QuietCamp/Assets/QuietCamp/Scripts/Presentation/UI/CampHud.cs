@@ -51,6 +51,7 @@ namespace QuietCamp.Presentation.UI
         float _tagUntil = -1f;
         float _hintUntil = -1f;
         float _tentToolsUntil = -1f;
+        string _inspectedGuest;
 
         bool SideJourney => _services.Journeys.ForLevel(_session.Level.id)?.id is string id && id != "main";
         bool HintsAvailable => _services.Economy.IsPro || _services.Tutorial.HintsUnlocked || SideJourney;
@@ -293,7 +294,7 @@ namespace QuietCamp.Presentation.UI
             var selPlaced = selected != null && _session.State.Contains(selected);
             if (_tagGuest != null && _tagGuest != selected && Time.unscaledTime < _tagUntil)
                 Chip(sb, _tagGuest, tagOnly: true);
-            if (selPlaced&&(Time.unscaledTime<_tentToolsUntil||GuideFocus("rotate")!=""))
+            if (selPlaced&&(selected==_inspectedGuest||Time.unscaledTime<_tentToolsUntil||GuideFocus("rotate")!=""))
                 Chip(sb, selected, tagOnly: false);
             return sb.ToString();
         }
@@ -311,7 +312,8 @@ namespace QuietCamp.Presentation.UI
                 + "px; top: " + HtmlUi.Number(at.Value.y) + "px\">");
             if (guest != null)
                 sb.Append("<view class=\"tag\"><text>" + HtmlUi.Escape(T(guest.nameKey)) + "</text>"
-                    + (tagOnly ? "" : CampIcons.Wishes(_session.Level,guest)) + "</view>");
+                    + (tagOnly ? "" : CampIcons.Wishes(_session.Level,guest))
+                    + (!tagOnly && _inspectedGuest==guestId ? HtmlUi.Text(WishText(guest),"chip-wish") : "") + "</view>");
             if (!tagOnly)
             {
                 sb.Append("<view class=\"verbs\">");
@@ -530,9 +532,16 @@ namespace QuietCamp.Presentation.UI
 
         public void SelectGuest(string id)
         {
-            if(_session.State.Contains(id))_tentToolsUntil=Time.unscaledTime+5f;
             _services.Actions.Execute(new UiActionRequest(new UiActionId("qc.select"), UiActionSource.Button, "Gameplay", id, id));
+            _inspectedGuest=_session.State.Contains(id)?id:null;
             GuestSelected?.Invoke(id);
+            _surface.Refresh();
+        }
+
+        public void InspectTent(string id)
+        {
+            if (id != _session.SelectedGuestId || !_session.State.Contains(id)) return;
+            _inspectedGuest=id;
             _surface.Refresh();
         }
 
@@ -692,6 +701,7 @@ namespace QuietCamp.Presentation.UI
 
         void OnSessionEvent(CampEvent e)
         {
+            if(e.Kind==CampEventKind.SelectionChanged)_inspectedGuest=null;
             if(e.Kind==CampEventKind.SelectionChanged&&_session.SelectedGuestId!=null&&_session.State.Contains(_session.SelectedGuestId))
                 _tentToolsUntil=Time.unscaledTime+5f;
             if (e.Kind == CampEventKind.BoardCommitted) _showIssue = false;

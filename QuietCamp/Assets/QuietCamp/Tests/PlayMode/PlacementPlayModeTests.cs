@@ -299,6 +299,35 @@ namespace QuietCamp.Tests
         }
 
         [UnityTest]
+        public IEnumerator RepeatedInspectionTapsNotifyAfterReleaseWithoutChangingSelectionOrBoard()
+        {
+            Assert.IsTrue(_session.TryCommit(PlacementCommand.Place("g1",0,0,0),out _));
+            Physics.SyncTransforms();
+            _session.Select("g1");
+            int revision=_session.State.Revision,inspected=0;
+            _controller.TentInspected+=id=>
+            {
+                Assert.AreEqual("g1",id);
+                Assert.IsFalse(_controller.IsPlacementActive,"HUD controls open only after pointer capture ends.");
+                inspected++;
+            };
+            var point=At(0,0);
+            for(int i=0;i<2;i++)
+            {
+                MouseAt(point,true);yield return null;
+                Assert.AreEqual(i,inspected);
+                MouseAt(point,false);yield return null;
+                Assert.AreEqual(i+1,inspected);
+            }
+            Assert.AreEqual(revision,_session.State.Revision);
+            MouseAt(point,true);yield return null;
+            yield return new WaitForSecondsRealtime(.4f);
+            Assert.IsTrue(_controller.HasPreview);
+            MouseAt(point,false);yield return null;
+            Assert.AreEqual(2,inspected,"A completed drag is not an inspection tap.");
+        }
+
+        [UnityTest]
         public IEnumerator InspectingAPlacedTentWithAFastSwipeNeverStartsMovingIt()
         {
             Assert.IsTrue(_session.TryCommit(PlacementCommand.Place("g1",0,0,0),out _));
