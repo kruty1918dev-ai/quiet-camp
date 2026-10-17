@@ -52,6 +52,13 @@ namespace QuietCamp.Presentation.UI
         string _finishHudMarkup, _finishOverlayMarkup;
         public bool IsFinishing => _finishing;
         public bool FinishExitComplete => _finishHidden;
+        bool _shadeIntroduction, _shadeGuideVisible;
+        IDisposable _shadeBlock, _shadeContext;
+        RectTransform _shadePointer;
+        Vector2 _shadePointerAt;
+        public bool IsShadeIntroduction => _shadeIntroduction;
+        public Vector3? ShadeIntroductionAnchor;
+        bool InteractionBlocked => _finishing || _shadeIntroduction;
         RuleReport _previewReport;
         string _tagGuest;
         float _tagUntil = -1f;
@@ -152,7 +159,7 @@ namespace QuietCamp.Presentation.UI
             => HtmlUi.Button(_surface, id, T(key), action, cls, enabled);
         void Action(string id, object payload = null)
         {
-            if (_finishing) return;
+            if (InteractionBlocked) return;
             _services.Audio?.Play("ui.click");
             _services.Actions.Execute(new UiActionRequest(new UiActionId(id), UiActionSource.Button, "Gameplay", null, payload));
             if (id == "qc.check") { _showIssue = true; _surface.Refresh(); }
@@ -168,14 +175,15 @@ namespace QuietCamp.Presentation.UI
             if (_finishing && !_restoring) return _finishHidden ? "<view />" : _finishHudMarkup;
             // While a modal owns the screen the gameplay orbs stay hidden —
             // two competing HUD layers read as broken UI under the dim.
-            var header = HasModalOpen ? "" :
+            var header = HasModalOpen || _shadeIntroduction ? "" :
                 (HintsAvailable ? HintButton() : "") +
                 "<view class=\"grow\"></view>" +
                 CampIcons.Button(_surface, "pause", "pause", () => Action("qc.pause"), "orb quiet",
                     tooltip: T("hud.pause"));
             var message = "";
             var tutorial = "";
-            if (_celebrating || HasModalOpen) { }
+            if (_shadeIntroduction) tutorial=_shadeGuideVisible?ShadeGuideMarkup():"";
+            else if (_celebrating || HasModalOpen) { }
             else if (_previewReport != null)
             {
                 var key = PreviewKey(_previewReport);
@@ -192,8 +200,26 @@ namespace QuietCamp.Presentation.UI
                     + HtmlUi.Button(_surface, "issue", T(IssueKey(_lastReport, _lastReport.Issues[0])), ShowIssueArea)
                     + "</view>";
             return HtmlUi.Template("Gameplay", "header", header, "message", message,
-                "tutorial", tutorial, "context", "", "dock", HasModalOpen || _celebrating ? "" : Dock(),
-                "anchors", HasModalOpen || _celebrating ? "" : Anchors());
+                "tutorial", tutorial, "context", "", "dock", HasModalOpen || _celebrating || _shadeIntroduction ? "" : Dock(),
+                "anchors", _shadeIntroduction ? ShadePointerMarkup() : HasModalOpen || _celebrating ? "" : Anchors());
+        }
+
+        string ShadeGuideMarkup()
+            => "<view id=\"shade-introduction\" class=\"guide-card shade-lesson\" data-motion-role=\"toast\">"
+                + "<img id=\"guide-portrait\" class=\"guide-portrait\" src=\"res:QuietCamp/UI/Mentor/point\"/>"
+                + "<view class=\"guide-copy\"><view id=\"shade-sign\" class=\"shade-lesson-sign\">"+CampIcons.Mark("shade")
+                + HtmlUi.Text(T("guide.ostap")+" · "+T("wish.shade"))+"</view>"
+                + HtmlUi.Text(T("guide.shade.intro"),"guide-instruction")+"</view></view>";
+
+        string ShadePointerMarkup()
+        {
+            if(!_shadeGuideVisible||!ShadeIntroductionAnchor.HasValue||ProjectToHud==null)return "";
+            var at=ProjectToHud(ShadeIntroductionAnchor.Value);
+            if(!at.HasValue)return "";
+            _shadePointerAt=at.Value;
+            return "<view id=\"shade-pointer\" class=\"shade-pointer\" style=\"left: "+HtmlUi.Number(at.Value.x)
+                + "px; top: "+HtmlUi.Number(at.Value.y)+"px\">"+CampIcons.Mark("shade")
+                + "<view class=\"shade-pointer-stem\"></view><view class=\"shade-pointer-tip\"></view></view>";
         }
 
         string HintButton()
@@ -361,6 +387,7 @@ namespace QuietCamp.Presentation.UI
         string RenderOverlay()
         {
             if (_finishing && !_restoring) return _finishHidden ? "<view />" : _finishOverlayMarkup;
+            if (_shadeIntroduction) return "<view />";
             if (!HasModalOpen && !_celebrating) return "<view />";
             if(_celebrating&&!HasModalOpen)
                 return "<view class=\"completion-note\">"+HtmlUi.Text(T("hud.camp.complete"))+"</view>";
@@ -486,7 +513,7 @@ namespace QuietCamp.Presentation.UI
 
         void OpenModal(string modal)
         {
-            if (_finishing) return;
+            if (InteractionBlocked) return;
             if (Enum.TryParse<ComfortScreen>(modal, out var screen)) _services.Analytics.Screen(screen);
             _release?.Kill(); _release = null;
             _closing = false;
@@ -507,7 +534,7 @@ namespace QuietCamp.Presentation.UI
         /// data-motion="exit" until Motion.ExitFinished settles the close.</summary>
         public bool CloseTopModal()
         {
-            if (_finishing || !HasModalOpen || _closing) return false;
+            if (InteractionBlocked || !HasModalOpen || _closing) return false;
             _closing = true;
             _services.Audio?.Play("ui.back");
             RefreshAll();
@@ -542,7 +569,7 @@ namespace QuietCamp.Presentation.UI
 
         public void SelectGuest(string id)
         {
-            if (_finishing) return;
+            if (InteractionBlocked) return;
             _services.Actions.Execute(new UiActionRequest(new UiActionId("qc.select"), UiActionSource.Button, "Gameplay", id, id));
             _inspectedGuest=_session.State.Contains(id)?id:null;
             GuestSelected?.Invoke(id);
@@ -631,22 +658,14 @@ namespace QuietCamp.Presentation.UI
         /// while fading it, even if synchronous session events refresh its content.</summary>
         public bool BeginFinishing()
         {
-            if (_finishing) return false;
+            if (InteractionBlocked) return false;
             _finishHudMarkup=Render(); _finishOverlayMarkup=RenderOverlay();
             _finishing=true; _finishHidden=false; _restoring=false;
             _completionBlock=_services.InputPolicy?.AcquireBlock(GameplayInputKind.All,this);
             _finishContext=_services.ContextStack.Push(new UiContextRegistration(
                 "CampFinishing",UiContextLayer.Modal,110,()=>_finishing,
                 blocksLowerHotkeys:true,allowedHotkeyActionIds:Array.Empty<UiActionId>()));
-            CanvasGroup Group(HtmlSurface surface)
-            {
-                if(surface==null)return null;
-                var group=surface.GetComponent<CanvasGroup>();
-                if(group==null)group=surface.gameObject.AddComponent<CanvasGroup>();
-                group.interactable=false; group.blocksRaycasts=true;
-                return group;
-            }
-            _hudGroup=Group(_surface); _overlayGroup=Group(_overlay);
+            BlockHudSurfaces();
             float duration=_services.ReducedMotion ? .08f : .24f*_services.MotionScale;
             _finishTween=DOVirtual.Float(1,0,duration,SetFinishAlpha).SetEase(Ease.OutQuad).SetUpdate(true)
                 .OnComplete(()=>{_finishHidden=true;RefreshAll();});
@@ -678,6 +697,47 @@ namespace QuietCamp.Presentation.UI
             if(_overlayGroup!=null)_overlayGroup.alpha=alpha;
         }
 
+        void BlockHudSurfaces()
+        {
+            CanvasGroup Group(HtmlSurface surface)
+            {
+                if(surface==null)return null;
+                var group=surface.GetComponent<CanvasGroup>();
+                if(group==null)group=surface.gameObject.AddComponent<CanvasGroup>();
+                group.interactable=false; group.blocksRaycasts=true;
+                return group;
+            }
+            _hudGroup=Group(_surface); _overlayGroup=Group(_overlay);
+        }
+
+        public void BeginShadeIntroduction()
+        {
+            if(InteractionBlocked)return;
+            _shadeIntroduction=true; _shadeGuideVisible=false;
+            _shadeBlock=_services.InputPolicy?.AcquireBlock(GameplayInputKind.All,this);
+            _shadeContext=_services.ContextStack.Push(new UiContextRegistration(
+                "ShadeIntroduction",UiContextLayer.Modal,110,()=>_shadeIntroduction,
+                blocksLowerHotkeys:true,allowedHotkeyActionIds:Array.Empty<UiActionId>()));
+            BlockHudSurfaces();_hudGroup.alpha=0;RefreshAll();
+        }
+        public void SetShadeIntroductionOpacity(float opacity)
+        { if(_shadeIntroduction&&_hudGroup!=null)_hudGroup.alpha=Mathf.Clamp01(opacity); }
+        public void ShowShadeExplanation()
+        {
+            if(!_shadeIntroduction)return;
+            _shadeGuideVisible=true; RefreshAll();
+        }
+        public void EndShadeIntroduction()
+        {
+            if(!_shadeIntroduction)return;
+            _shadeIntroduction=false; _shadeGuideVisible=false;
+            if(_hudGroup!=null){_hudGroup.alpha=1;_hudGroup.interactable=true;}
+            if(_overlayGroup!=null)_overlayGroup.interactable=true;
+            _shadeBlock?.Dispose(); _shadeBlock=null;
+            _shadeContext?.Dispose(); _shadeContext=null;
+            RefreshAll();
+        }
+
         void BeginCelebration()
         {
             BeginFinishing();
@@ -702,6 +762,7 @@ namespace QuietCamp.Presentation.UI
         public void BindPlacement(World.PlacementController placement) { _placement = placement; }
         void CacheAnchors()
         {
+            _shadePointer=_surface.Element("shade-pointer");
             var card = _surface.Element("guest-card");
             var guest = NextUnplaced();
             if (card != null && guest != null && _placement != null)
@@ -721,6 +782,16 @@ namespace QuietCamp.Presentation.UI
         /// <summary>Follow animated tents without rebuilding the HTML document every frame.</summary>
         public void TickAnchors()
         {
+            if(_shadePointer!=null&&ShadeIntroductionAnchor.HasValue&&ProjectToHud!=null)
+            {
+                var point=ProjectToHud(ShadeIntroductionAnchor.Value);
+                if(point.HasValue)
+                {
+                    var delta=point.Value-_shadePointerAt;
+                    _shadePointer.anchoredPosition+=new Vector2(delta.x,-delta.y);
+                    _shadePointerAt=point.Value;
+                }
+            }
             if (GuestAnchor == null || ProjectToHud == null) return;
             for (var i = 0; i < _anchorRects.Count; i++)
             {
@@ -793,6 +864,7 @@ namespace QuietCamp.Presentation.UI
             _finishTween?.Kill();
             _completionBlock?.Dispose();
             _finishContext?.Dispose();
+            _shadeBlock?.Dispose(); _shadeContext?.Dispose();
             if (_surface != null) UnityEngine.Object.Destroy(_surface.gameObject);
             if (_overlay != null) UnityEngine.Object.Destroy(_overlay.gameObject);
         }

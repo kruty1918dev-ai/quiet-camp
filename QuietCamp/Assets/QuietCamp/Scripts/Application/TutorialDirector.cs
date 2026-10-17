@@ -120,6 +120,9 @@ namespace QuietCamp.Application
             // Coaching suggests controls; only puzzle rules decide whether a camp is valid.
             return true;
         }
+        /// <summary>Introduce the actual shade zone on a fresh board; never interrupt a resumed layout.</summary>
+        public static bool ShouldIntroduceShade(CampSession session)
+            => session!=null&&!session.IsCompleted&&session.State.Count==0&&session.Level.shade?.Length>0;
         /// <summary>First sign this glade introduces that the player was never
         /// taught — null during guided steps (those already teach their sign)
         /// and when nothing in the level is new. Works for skippers and for

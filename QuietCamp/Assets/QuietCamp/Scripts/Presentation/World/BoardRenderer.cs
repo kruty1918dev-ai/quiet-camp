@@ -249,6 +249,33 @@ namespace QuietCamp.Presentation.World
             if (visible) foreach (var s in _level.shade) cells.Add(new Cell(s[0],s[1]));
             UpdateCells(ref _shadeOverlay, _shadeCells, "ShadeRule", cells, new Color(.65f,.8f,.95f,.23f));
         }
+        /// <summary>Tint the existing rule-zone pool; no per-frame mesh rebuild or new placements.</summary>
+        public void SetShadeIntroductionStrength(float strength)
+        {
+            strength=Mathf.Clamp01(strength);
+            if(_shadeOverlay==null)return;
+            _shadeOverlay.SetActive(strength>0);
+            foreach(var node in _shadeCells)
+                if(node.activeSelf)Tint(node,new Color(.42f,.83f,.92f,.48f*strength));
+        }
+        public Vector3? ShadeIntroductionAnchor
+        {
+            get
+            {
+                if(_level.shade==null||_level.shade.Length==0)return null;
+                var centre=Vector3.zero;
+                foreach(var cell in _level.shade)centre+=BoardMath.CellCenterWorld(_level,new Cell(cell[0],cell[1]));
+                centre/=_level.shade.Length;
+                var best=Vector3.zero;float distance=float.PositiveInfinity;
+                foreach(var cell in _level.shade)
+                {
+                    var point=BoardMath.CellCenterWorld(_level,new Cell(cell[0],cell[1]));
+                    float d=(point-centre).sqrMagnitude;
+                    if(d<distance){distance=d;best=point;}
+                }
+                return best+Vector3.up*BoardMath.OverlayY;
+            }
+        }
         GameObject _shadeOverlay;
         readonly List<GameObject> _shadeCells = new List<GameObject>();
 

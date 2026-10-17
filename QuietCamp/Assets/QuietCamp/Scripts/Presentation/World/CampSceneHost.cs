@@ -44,6 +44,7 @@ namespace QuietCamp.Presentation.World
         bool _advancing;
         bool _checkingCamp;
         public bool IsFinishingCamp => _checkingCamp || (_hud?.IsFinishing ?? false);
+        public bool IsIntroducingShade => _hud?.IsShadeIntroduction ?? false;
         float _twigCooldown;
         float _musicScale = 1;
         Vector3 _firePos;
@@ -58,7 +59,7 @@ namespace QuietCamp.Presentation.World
 
         public CampSession Session => _session;
         public CampAtmosphere Atmosphere => _atmosphere;
-        public bool GameplayActive => IsReady && !_completed && !IsFinishingCamp && !(_hud?.HasModalOpen ?? false) && !(_router?.IsBusy ?? false) && !_services.MonetizationBusy;
+        public bool GameplayActive => IsReady && !_completed && !IsFinishingCamp && !IsIntroducingShade && !(_hud?.HasModalOpen ?? false) && !(_router?.IsBusy ?? false) && !_services.MonetizationBusy;
         public bool UiReady => IsReady && (_atmosphere?.InitialWorldReady ?? true) && (_hud?.UiReady ?? false);
 
         public void Configure(GameServices services, ScreenRouter router)
@@ -97,8 +98,51 @@ namespace QuietCamp.Presentation.World
             _atmosphere.BindRainWorld(Find("World")?.transform,_renderer);
             _router?.Dive.WarmSceneUnderCover();
             _services.PendingLevelId = null;
+            if(TutorialDirector.ShouldIntroduceShade(_session))_hud.BeginShadeIntroduction();
             IsReady = true;
             if (_tutorial.Guiding(_session.Level.id)) _tutorial.BeginIntroduction();
+            if(IsIntroducingShade)StartCoroutine(IntroduceShade());
+        }
+
+        System.Collections.IEnumerator IntroduceShade()
+        {
+            // Do not spend the lesson underneath the scene-transition cover or during cold art loading.
+            while(!UiReady||(_router?.IsBusy??false))yield return null;
+            try
+            {
+                _renderer.ShowShade(true);_renderer.SetShadeIntroductionStrength(0);
+                yield return AnimateShadeIntroduction(_services.ReducedMotion ? .08f : .65f,0,1,0,0);
+                _hud.ShowShadeExplanation();
+                yield return AnimateShadeIntroduction(_services.ReducedMotion ? .08f : .25f,1,1,0,1);
+                float time=0;
+                while(time<5f)
+                {
+                    time+=Mathf.Min(.05f,Time.unscaledDeltaTime);
+                    _renderer.SetShadeIntroductionStrength(_services.ReducedMotion?1:.92f+.08f*Mathf.Cos(time*3));
+                    yield return null;
+                }
+                yield return AnimateShadeIntroduction(_services.ReducedMotion ? .08f : .35f,1,0,1,0);
+                _tutorial.ExplainSign("shade");
+            }
+            finally
+            {
+                _renderer?.ShowShade(false);
+                _hud?.EndShadeIntroduction();
+                _hud?.SetTutorial(_tutorial.Cue(_session));
+            }
+        }
+
+        System.Collections.IEnumerator AnimateShadeIntroduction(float duration,float shadeFrom,float shadeTo,float guideFrom,float guideTo)
+        {
+            float time=0;
+            while(time<duration)
+            {
+                time+=Mathf.Min(.05f,Time.unscaledDeltaTime);
+                float t=Mathf.SmoothStep(0,1,Mathf.Clamp01(time/duration));
+                _renderer.SetShadeIntroductionStrength(Mathf.Lerp(shadeFrom,shadeTo,t));
+                _hud.SetShadeIntroductionOpacity(Mathf.Lerp(guideFrom,guideTo,t));
+                yield return null;
+            }
         }
 
         /// <summary>Cancels an in-flight placement drag without committing —
@@ -256,6 +300,7 @@ namespace QuietCamp.Presentation.World
             // World-anchored chips: tent top → HUD css px.
             _hud.GuestAnchor = GuestWorldAnchor;
             _hud.ProjectToHud = ProjectToHud;
+            _hud.ShadeIntroductionAnchor = _renderer.ShadeIntroductionAnchor;
             _placement.PreviewChanged += _hud.SetPlacementPreview;
             _placement.TentInspected += _hud.InspectTent;
             if (_session.SelectedGuestId == null && level.guests.Length > 0)
@@ -276,7 +321,7 @@ namespace QuietCamp.Presentation.World
                 // The ongoing guide: a glade that introduces a sign the player was
                 // never taught gets a one-time explanation — even after updates.
                 var sign = _tutorial.PendingSign(level);
-                if (sign != null)
+                if (sign != null && !(sign=="shade"&&TutorialDirector.ShouldIntroduceShade(_session)))
                 {
                     _tutorial.ExplainSign(sign);
                     _hud.ShowGuideHint("guide.sign." + sign, 7f);
@@ -335,7 +380,7 @@ namespace QuietCamp.Presentation.World
             }));
             _leases.Add(h.Register(new UiActionId("qc.check"), () =>
             {
-                if (IsFinishingCamp || _session.IsCompleted || _services.MonetizationBusy || !_tutorial.CanCompleteLevel(_session.Level.id)) return Performed();
+                if (IsIntroducingShade || IsFinishingCamp || _session.IsCompleted || _services.MonetizationBusy || !_tutorial.CanCompleteLevel(_session.Level.id)) return Performed();
                 _placement.Cancel();
                 var learning=_tutorial.Guiding(_session.Level.id);
                 if (!learning&&!_services.Economy.CanCheck) { _hud.ShowEconomy(); return Performed(); }
@@ -459,7 +504,7 @@ namespace QuietCamp.Presentation.World
                     }
                     break;
                 case CampEventKind.SelectionChanged:
-                    if(!_placement.HasPreview)_renderer.ShowShade(false);
+                    if(!IsIntroducingShade&&!_placement.HasPreview)_renderer.ShowShade(false);
                     if (e.GuestId != null && _renderer.Tents.TryGetValue(e.GuestId, out var selected))
                         selected.Pulse(_services.ReducedMotion, _services.MotionScale);
                     break;

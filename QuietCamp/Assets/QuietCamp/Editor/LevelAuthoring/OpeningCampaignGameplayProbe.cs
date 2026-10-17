@@ -231,6 +231,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 return new{status="learning-status",id,memoryOnly=services.Save.MemoryOnly,placed=session.State.Count,
                     completed=session.IsCompleted,grids,closures=stories.Select(s=>s.Closure).ToArray(),
                     finishing=CampSceneHost.Current?.IsFinishingCamp,
+                    shadeIntroduction=CampSceneHost.Current?.IsIntroducingShade,
                     selected=session.SelectedGuestId,sites=QuietCamp.Application.PlacementGuidance.Sites(session,session.SelectedGuestId,0)
                         .GroupBy(s=>s.Status).Select(g=>new{status=g.Key.ToString(),count=g.Count()}).ToArray(),
                     recoveryHint=services.Economy.RecoveryHintPending(id),lives=services.Economy.Lives,hints=services.Economy.Hints,
