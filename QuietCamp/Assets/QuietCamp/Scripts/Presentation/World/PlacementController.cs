@@ -105,6 +105,11 @@ namespace QuietCamp.Presentation.World
                 EndPreview();
                 ReleasePointer();
             }
+            else if(e.Kind==CampEventKind.RulesChanged&&_preview!=null)
+            {
+                _renderer.ShowPlacementGuidance(_session,_session.SelectedGuestId,_rotation);
+                RefreshPreview();
+            }
         }
 
         void Update()

@@ -9,7 +9,7 @@ namespace QuietCamp.Application
     public sealed class TutorialSaveData
     {
         public bool initialized, existingPlayer, controlsUnlocked, introductionSeen, menuIntroSeen;
-        public bool placementDemonstrationSeen;
+        public bool placementDemonstrationSeen, passageDemonstrationSeen;
         public int curriculumVersion;
         public TutorialProgress progress = new TutorialProgress();
         /// <summary>Wish signs the ongoing guide has already explained once.</summary>
@@ -107,9 +107,13 @@ namespace QuietCamp.Application
         public string Cue(CampSession session)
         {
             if(session==null||!Guiding(session.Level.id)||session.IsCompleted)return null;
+            if(session.Level.id=="QC002"&&session.State.Count==0&&!_save.passageDemonstrationSeen)return "guide.path.start";
             var report=RuleEvaluator.Evaluate(session.Level,session.State.Placements,false);
             var feedback=PlacementGuidance.Explain(session.Level,report,session.SelectedGuestId);
             if(feedback.IsIssue)return feedback.Key;
+            if(session.State.Count==0&&session.Level.CampfireNoiseSuppressed
+                &&Array.Exists(session.Level.guests,g=>g.quiet))return "guide.quiet.extinguished";
+            if(session.Level.id=="QC001"&&session.State.Count==0&&_save.placementDemonstrationSeen)return "guide.drag.try";
             if(session.State.Count==session.Level.guests.Length)return "guide.adaptive.finish";
             if(session.State.Count>0)return "guide.adaptive.next";
             return Target=="rotate"||Target=="undo"||Target=="check"||ActiveKey=="guide.move"
@@ -124,15 +128,36 @@ namespace QuietCamp.Application
         /// <summary>Introduce the actual shade zone on a fresh board; never interrupt a resumed layout.</summary>
         public static bool ShouldIntroduceShade(CampSession session)
             => session!=null&&!session.IsCompleted&&session.State.Count==0&&session.Level.shade?.Length>0;
+        bool SignExplained(string sign)=>Array.IndexOf(_save.explainedSigns??Array.Empty<string>(),sign)>=0;
+        public bool NeedsShadeDemonstration(CampSession session)
+            => ShouldIntroduceShade(session)&&!SignExplained("shade");
+        public bool NeedsQuietDemonstration(CampSession session)
+            => session!=null&&!session.IsCompleted&&session.State.Count==0
+                &&!session.Level.CampfireNoiseSuppressed&&session.Level.noise?.Length>0
+                &&Array.Exists(session.Level.guests,g=>g.quiet)&&!SignExplained("quiet");
         public bool NeedsPlacementDemonstration(CampSession session)
             => session?.Level.id=="QC001"&&session.State.Count==0&&!session.IsCompleted
                 &&!_save.placementDemonstrationSeen&&!_save.existingPlayer&&!Skipped&&!Finished;
         public bool MarkPlacementDemonstrationSeen()
+            => MarkDemonstrationSeen(ref _save.placementDemonstrationSeen);
+        public bool NeedsPassageDemonstration(CampSession session)
+            => session?.Level.id=="QC002"&&session.State.Count>0&&!session.IsCompleted
+                &&!_save.passageDemonstrationSeen&&!_save.existingPlayer&&!Skipped&&!Finished;
+        public bool MarkPassageDemonstrationSeen()
+            => MarkDemonstrationSeen(ref _save.passageDemonstrationSeen);
+        bool MarkDemonstrationSeen(ref bool flag)
         {
-            if(_save.placementDemonstrationSeen)return true;
-            _save.placementDemonstrationSeen=true;
-            if(_persist!=null&&!_persist()){_save.placementDemonstrationSeen=false;return false;}
+            if(flag)return true;
+            flag=true;
+            if(_persist!=null&&!_persist()){flag=false;return false;}
             Changed?.Invoke();return true;
+        }
+        public static RouteEvidence PassageIntroductionRoute(CampSession session)
+        {
+            if(session==null||session.State.Count==0)return null;
+            var routes=RuleEvaluator.Evaluate(session.Level,session.State.Placements,false).Routes;
+            return routes.Find(r=>r.GuestId!=null&&r.GuestId==session.SelectedGuestId)
+                ??routes.Find(r=>r.GuestId!=null);
         }
         /// <summary>First sign this glade introduces that the player was never
         /// taught — null during guided steps (those already teach their sign)
@@ -216,6 +241,8 @@ namespace QuietCamp.Application
         public void LearnAgain()
         {
             _save.placementDemonstrationSeen=false;
+            _save.passageDemonstrationSeen=false;
+            _save.explainedSigns=Array.Empty<string>();
             _save.existingPlayer = false; _save.controlsUnlocked = true; _save.introductionSeen = true;
             if(_curriculum==null&&_availableCurriculum!=null)
             {

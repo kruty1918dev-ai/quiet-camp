@@ -278,6 +278,32 @@ namespace QuietCamp.Presentation.World
         }
         GameObject _shadeOverlay;
         readonly List<GameObject> _shadeCells = new List<GameObject>();
+        GameObject _noiseOverlay;
+        readonly List<GameObject> _noiseCells=new List<GameObject>();
+        public void ShowQuietIntroduction(bool visible)
+        {
+            var safe=new List<Cell>();var noisy=new List<Cell>();
+            var blocked=new HashSet<Cell>();
+            foreach(var at in _level.blocked)blocked.Add(new Cell(at[0],at[1]));
+            foreach(var at in _level.noise)blocked.Add(new Cell(at[0],at[1]));
+            if(visible)
+                for(int x=0;x<_level.width;x++)for(int z=0;z<_level.height;z++)
+                {
+                    var cell=new Cell(x,z);
+                    if(!blocked.Contains(cell)&&!CampAccess.IsReserved(_level,cell))
+                        (RuleEvaluator.IsNoisy(_level,cell)?noisy:safe).Add(cell);
+                }
+            UpdateCells(ref _shadeOverlay,_shadeCells,"QuietSafe",safe,new Color(.35f,.8f,.6f,.32f));
+            UpdateCells(ref _noiseOverlay,_noiseCells,"FireNoise",noisy,new Color(.95f,.43f,.18f,.42f));
+        }
+        public void SetQuietIntroductionStrength(float strength)
+        {
+            strength=Mathf.Clamp01(strength);
+            if(_shadeOverlay!=null)_shadeOverlay.SetActive(strength>0);
+            if(_noiseOverlay!=null)_noiseOverlay.SetActive(strength>0);
+            foreach(var node in _shadeCells)if(node.activeSelf)Tint(node,new Color(.35f,.8f,.6f,.32f*strength));
+            foreach(var node in _noiseCells)if(node.activeSelf)Tint(node,new Color(.95f,.43f,.18f,.42f*strength));
+        }
 
         // ─── Overlays ────────────────────────────────────────────────────────
 
@@ -295,6 +321,19 @@ namespace QuietCamp.Presentation.World
                 route != null && route.Reachable ? PathColor : new Color(.95f,.64f,.33f,.62f));
             UpdateCells(ref _routeBreakOverlay, _routeBreakCells, "RouteBreak", route?.BlockingCells,
                 new Color(.86f,.36f,.20f,.78f));
+        }
+        /// <summary>Reveal the cached route from the real door towards the camp entrance.</summary>
+        public void SetPassageIntroductionStrength(RouteEvidence route,float strength,float progress)
+        {
+            strength=Mathf.Clamp01(strength);progress=Mathf.Clamp01(progress);
+            int count=route?.Cells?.Length??0;
+            for(int i=0;i<_pathCells.Count&&i<count;i++)
+            {
+                float reveal=Mathf.Clamp01(progress*count-(count-1-i));
+                var color=route.Reachable?new Color(1f,.86f,.36f,.8f):new Color(.95f,.64f,.33f,.7f);
+                color.a*=strength*reveal;Tint(_pathCells[i],color);
+            }
+            foreach(var cell in _routeBreakCells)if(cell.activeSelf)Tint(cell,new Color(.95f,.32f,.2f,.8f*strength));
         }
         GameObject _routeBreakOverlay;
         readonly List<GameObject> _routeBreakCells = new List<GameObject>();
@@ -525,7 +564,8 @@ namespace QuietCamp.Presentation.World
             }
             Strip(-.46f,0,.035f,.95f); Strip(.46f,0,.035f,.95f);
             Strip(0,-.46f,.95f,.035f); Strip(0,.46f,.95f,.035f);
-            if(name.StartsWith("ShadeRule")||name.StartsWith("FriendDoors"))Strip(0,0,.90f,.90f);
+            if(name.StartsWith("ShadeRule")||name.StartsWith("FriendDoors")
+                ||name.StartsWith("QuietSafe")||name.StartsWith("FireNoise"))Strip(0,0,.90f,.90f);
             if (name.StartsWith("RouteBreak"))
             { Strip(0,0,.07f,.60f); Strip(0,0,.60f,.07f); }
             mesh.SetVertices(vertices); mesh.SetTriangles(triangles,0); mesh.RecalculateNormals(); mesh.RecalculateBounds();
@@ -642,6 +682,8 @@ namespace QuietCamp.Presentation.World
             HideIssueCells();
             HideHint();
             if(_shadeOverlay!=null) DestroyOwned(_shadeOverlay);
+            if(_noiseOverlay!=null) DestroyOwned(_noiseOverlay);
+            _shadeCells.Clear();_noiseCells.Clear();
             _tintObjects.Clear();
             if (_pathOverlay != null) DestroyOwned(_pathOverlay);
             if (_previewOverlay != null) DestroyOwned(_previewOverlay);

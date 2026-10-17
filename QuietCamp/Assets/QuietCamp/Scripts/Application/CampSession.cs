@@ -29,6 +29,16 @@ namespace QuietCamp.Application
         public CampSession(LevelData level)
         {
             Level = level ?? throw new ArgumentNullException(nameof(level));
+            Level.CampfireNoiseSuppressed=false;
+        }
+
+        /// <summary>The live fire drives the same quiet rule used by previews and completion.</summary>
+        public bool SetCampfireBurning(bool burning)
+        {
+            if(Level.CampfireNoiseSuppressed==!burning)return false;
+            Level.CampfireNoiseSuppressed=!burning;
+            Emit(CampEventKind.RulesChanged,report:LastReport());
+            return true;
         }
 
         void Emit(CampEventKind kind, string guestId = null, RuleReport report = null)

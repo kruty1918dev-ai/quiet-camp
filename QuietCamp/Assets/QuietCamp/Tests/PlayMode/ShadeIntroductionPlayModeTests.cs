@@ -21,6 +21,7 @@ namespace QuietCamp.Tests
         static IEnumerator LoadShade(bool reduced)
         {
             Assert.IsTrue(UnityEngine.Application.productName.Contains("QA"));
+            IntroductionTapTestSupport.ResetRamBoot();
             QuietCampBootstrap.EditorSaveFactory=()=>
             {
                 QuietCampBootstrap.EditorSaveFactory=null;
@@ -58,6 +59,7 @@ namespace QuietCamp.Tests
             services.Actions.Execute(new UiActionRequest(new UiActionId("qc.check"),UiActionSource.Programmatic,"Gameplay"));
             Assert.IsFalse(host.IsFinishingCamp);Assert.AreEqual(0,services.Economy.Attempts("QC003"));
             bool sawGuide=false,sawZone=false;float deadline=Time.realtimeSinceStartup+14;
+            bool tapped=false;
             while(host.IsIntroducingShade&&Time.realtimeSinceStartup<deadline)
             {
                 Assert.IsFalse(WorldAllowed());Assert.AreEqual(0,host.Session.State.Count);
@@ -75,6 +77,7 @@ namespace QuietCamp.Tests
                     var expected=host.Session.Level.shade.Select(c=>BoardMath.CellCenterWorld(host.Session.Level,new Cell(c[0],c[1]))+Vector3.up*BoardMath.OverlayY).ToArray();
                     foreach(var node in nodes)Assert.IsTrue(expected.Any(p=>Vector3.Distance(p,node.transform.position)<.001f));
                 }
+                if(host.CanContinueIntroduction&&!tapped){tapped=true;yield return IntroductionTapTestSupport.Continue(host);}
                 yield return null;
             }
             Assert.IsFalse(host.IsIntroducingShade);Assert.IsTrue(sawGuide);Assert.IsTrue(sawZone);Assert.IsTrue(WorldAllowed());

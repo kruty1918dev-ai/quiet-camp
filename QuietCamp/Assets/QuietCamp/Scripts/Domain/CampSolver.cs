@@ -26,7 +26,6 @@ namespace QuietCamp.Domain
         readonly LevelData _level;
         readonly Dictionary<string, GuestData> _guests;
         readonly HashSet<Cell> _shaded;
-        readonly HashSet<Cell> _noise;
         readonly Cell _entry;
         readonly List<Placement> _assigned;
         readonly Stack<Frame> _frames = new Stack<Frame>();
@@ -42,7 +41,6 @@ namespace QuietCamp.Domain
             _level = level ?? throw new ArgumentNullException(nameof(level));
             _budgetSeconds = Math.Max(0.01, budgetSeconds);
             _shaded = Cells(level.shade);
-            _noise = Cells(level.noise);
             _entry = new Cell(level.entry[0], level.entry[1]);
             _guests = level.guests.ToDictionary(g => g.id);
             _assigned = (initial ?? Enumerable.Empty<Placement>())
@@ -174,7 +172,7 @@ namespace QuietCamp.Domain
             }
             // Static soft constraints prune immediately — they never improve by waiting.
             if (g.shade && footprint.Any(c => !_shaded.Contains(c))) return false;
-            if (g.quiet && _noise.Any(n => footprint.Any(c => Math.Abs(c.X - n.X) + Math.Abs(c.Z - n.Z) <= 2)))
+            if (g.quiet && footprint.Any(c => RuleEvaluator.IsNoisy(_level,c)))
                 return false;
             occupied.UnionWith(footprint);
             var door = RuleEvaluator.Door(p);

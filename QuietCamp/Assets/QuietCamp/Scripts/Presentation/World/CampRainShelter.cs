@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace QuietCamp.Presentation.World
 {
-    /// <summary>Rain quenches scene-owned fire presentation, never the saved
-    /// noise/occupancy rules. Interior warmth uses emission without extra lights.</summary>
+    /// <summary>Rain quenches scene-owned fire presentation. The session follows its live
+    /// state for quiet rules; authored pit occupancy remains unchanged. Interior warmth uses emission without extra lights.</summary>
     public sealed class CampRainShelter : MonoBehaviour
     {
         CampAtmosphere _atmosphere;Transform _world;BoardRenderer _board;FireVisual[] _fires;Vector3[] _scales;

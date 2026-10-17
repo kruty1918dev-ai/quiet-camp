@@ -20,6 +20,7 @@ namespace QuietCamp.Tests
         static IEnumerator LoadCamp(bool reduced=false)
         {
             Assert.IsTrue(UnityEngine.Application.productName.Contains("QA"));
+            IntroductionTapTestSupport.ResetRamBoot();
             QuietCampBootstrap.EditorSaveFactory=()=>
             {
                 QuietCampBootstrap.EditorSaveFactory=null;

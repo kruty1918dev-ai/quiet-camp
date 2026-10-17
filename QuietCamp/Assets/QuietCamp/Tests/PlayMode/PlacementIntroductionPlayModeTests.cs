@@ -57,6 +57,7 @@ namespace QuietCamp.Tests
         [UnityTest] public IEnumerator FirstCampShowsTheGestureWithoutPlacingThenAcceptsThePlayersOwnDrag()
         {
             Assert.IsTrue(UnityEngine.Application.productName.Contains("QA"));
+            IntroductionTapTestSupport.ResetRamBoot();
             QuietCampBootstrap.EditorSaveFactory=()=>{QuietCampBootstrap.EditorSaveFactory=null;return new SaveAdapter(memoryOnly:true);};
             yield return SceneManager.LoadSceneAsync("Boot");yield return PrivacyBootTestSupport.EnterGame();
             var services=QuietCampBootstrap.ServicesRef;services.PendingLevelId="QC001";
@@ -64,6 +65,7 @@ namespace QuietCamp.Tests
             float deadline=Time.realtimeSinceStartup+40;
             while(CampSceneHost.Current?.UiReady!=true&&Time.realtimeSinceStartup<deadline)yield return null;
             var host=CampSceneHost.Current;Assert.IsTrue(host?.UiReady==true);Assert.IsTrue(host.IsIntroducingPlacement);
+            double readyAt=-1;bool tapped=false;
             bool sawGuide=false,sawDemo=false,landed=false;var positions=new HashSet<int>();deadline=Time.realtimeSinceStartup+14;
             while(host.IsIntroducingPlacement&&Time.realtimeSinceStartup<deadline)
             {
@@ -71,6 +73,12 @@ namespace QuietCamp.Tests
                 Assert.IsFalse(services.InputPolicy.CanProcess(GameplayInputKind.Placement,new Vector2(Screen.width*.5f,Screen.height*.5f)));
                 var surface=Object.FindObjectsByType<HtmlSurface>().Single(s=>s.name=="CampHtml");
                 sawGuide|=surface.Element("placement-introduction")!=null;
+                if(host.CanContinueIntroduction&&!tapped)
+                {
+                    if(readyAt<0)readyAt=Time.unscaledTimeAsDouble;
+                    if(Time.unscaledTimeAsDouble-readyAt>1.4)
+                    {tapped=true;yield return IntroductionTapTestSupport.Continue(host);}
+                }
                 var demo=surface.Element("placement-demo");
                 if(demo!=null){sawDemo=true;positions.Add(Mathf.RoundToInt(demo.position.x));}
                 if(demo!=null&&host.PlacementDemonstrationStep==2)
@@ -86,6 +94,7 @@ namespace QuietCamp.Tests
             }
             Assert.IsFalse(host.IsIntroducingPlacement);Assert.IsTrue(sawGuide);Assert.IsTrue(sawDemo);Assert.Greater(positions.Count,2);
             Assert.IsTrue(landed,"The rendered pointer must actually reach the highlighted destination.");
+            Assert.IsTrue(tapped,"A lesson must remain until an explicit fresh tap.");
             Assert.IsTrue(services.Tutorial.Save.placementDemonstrationSeen);
             for(int i=0;i<3;i++)yield return null;
             Assert.IsTrue(PrivacyBootTestSupport.Find("guest-card").IsInteractable());

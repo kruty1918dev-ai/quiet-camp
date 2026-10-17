@@ -233,6 +233,11 @@ namespace QuietCamp.Editor.LevelAuthoring
                     finishing=CampSceneHost.Current?.IsFinishingCamp,
                     shadeIntroduction=CampSceneHost.Current?.IsIntroducingShade,
                     placementIntroduction=CampSceneHost.Current?.IsIntroducingPlacement,
+                    passageIntroduction=CampSceneHost.Current?.IsIntroducingPassage,
+                    quietIntroduction=CampSceneHost.Current?.IsIntroducingQuiet,
+                    fireNoiseSuppressed=session.Level.CampfireNoiseSuppressed,
+                    introductionWaiting=CampSceneHost.Current?.IntroductionWaiting,
+                    introductionTapReady=CampSceneHost.Current?.CanContinueIntroduction,
                     placementDemonstrationStep=CampSceneHost.Current?.PlacementDemonstrationStep,
                     selected=session.SelectedGuestId,sites=QuietCamp.Application.PlacementGuidance.Sites(session,session.SelectedGuestId,0)
                         .GroupBy(s=>s.Status).Select(g=>new{status=g.Key.ToString(),count=g.Count()}).ToArray(),

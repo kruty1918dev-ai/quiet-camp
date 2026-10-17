@@ -137,6 +137,8 @@ namespace QuietCamp.Editor
                 else if(request.mode=="camp-finish-tests") RunTests(true,"QuietCamp.Tests.CampFinishPlayModeTests",true);
                 else if(request.mode=="shade-intro-tests") RunTests(true,"QuietCamp.Tests.ShadeIntroductionPlayModeTests",true);
                 else if(request.mode=="placement-intro-tests") RunTests(true,"QuietCamp.Tests.PlacementIntroductionPlayModeTests",true);
+                else if(request.mode=="passage-intro-tests") RunTests(true,"QuietCamp.Tests.PassageIntroductionPlayModeTests",true);
+                else if(request.mode=="tutorial-tap-tests") RunTests(true,"QuietCamp.Tests.TutorialTapGateTests",true);
                 else if(request.mode=="input-reload-tests") RunTests(true,"QuietCamp.Tests.EditorPlaySessionRecoveryTests");
                 else if(request.mode=="input-reload")
                 {
@@ -516,7 +518,11 @@ namespace QuietCamp.Editor
         static void RunTests(bool authoring = false, string focused = null, bool playMode = false)
         {
             if(EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("Stop Play Mode before starting native tests.");
+            if(NativeTestJobs().Any(j=>j.Active))throw new InvalidOperationException("Wait for Unity TestRunner cleanup before starting another test run.");
             if(SessionState.GetBool("QuietCamp.NativeTestsRunning",false))throw new InvalidOperationException("Wait for the active native test run.");
+            var activeScene=SceneManager.GetActiveScene();
+            if(activeScene.name.StartsWith("InitTestScene",StringComparison.Ordinal)&&!string.IsNullOrEmpty(activeScene.path)&&!File.Exists(activeScene.path))
+                EditorSceneManager.OpenScene("Assets/QuietCamp/Scenes/Boot.unity");
             if (authoring) SessionState.SetBool("QuietCamp.Authoring.Verifying", true);
             var window = authoring ? LevelAuthoring.LevelAuthoringWindow.OpenWindow() : null;
             var session = window?.PrepareVerification();
@@ -564,7 +570,9 @@ namespace QuietCamp.Editor
             // Test Framework callbacks can be lost on domain reload. Its finished NUnit XML
             // remains authoritative; never leave the transport locked or reuse an older run.
             if(!SessionState.GetBool("QuietCamp.NativeTestsRunning",false)
+                ||!SessionState.GetBool("QuietCamp.NativePlayTests",false)
                 ||EditorApplication.isPlayingOrWillChangePlaymode||!File.Exists(ResultPath))return false;
+            if(NativeTestJobs().Any(j=>j.Active))return false;
             var pending=Newtonsoft.Json.Linq.JObject.Parse(File.ReadAllText(ResultPath));
             if((string)pending["status"]!="tests-running"||pending["started"]==null)return false;
             string xml=Path.Combine(UnityEngine.Application.persistentDataPath,"TestResults.xml");
@@ -572,7 +580,7 @@ namespace QuietCamp.Editor
             var root=System.Xml.Linq.XDocument.Load(xml).Root;
             var cases=root.Descendants("test-case").ToArray();
             var testClass=SessionState.GetString("QuietCamp.NativePlayTestClass","QuietCamp.Tests.PlacementPlayModeTests");
-            if(!new[]{"QuietCamp.Tests.PlacementPlayModeTests","QuietCamp.Tests.MenuCameraMotionPlayModeTests","QuietCamp.Tests.CampFinishPlayModeTests","QuietCamp.Tests.ShadeIntroductionPlayModeTests","QuietCamp.Tests.PlacementIntroductionPlayModeTests"}.Contains(testClass))return false;
+            if(!new[]{"QuietCamp.Tests.PlacementPlayModeTests","QuietCamp.Tests.MenuCameraMotionPlayModeTests","QuietCamp.Tests.CampFinishPlayModeTests","QuietCamp.Tests.ShadeIntroductionPlayModeTests","QuietCamp.Tests.PlacementIntroductionPlayModeTests","QuietCamp.Tests.PassageIntroductionPlayModeTests","QuietCamp.Tests.TutorialTapGateTests"}.Contains(testClass))return false;
             if(cases.Length==0||cases.Any(t=>!((string)t.Attribute("fullname")??"").StartsWith(testClass+".",StringComparison.Ordinal)))return false;
             int passed=(int)root.Attribute("passed"),failed=(int)root.Attribute("failed"),skipped=(int)root.Attribute("skipped");
             if(passed+failed+skipped!=cases.Length)return false;
@@ -624,7 +632,7 @@ namespace QuietCamp.Editor
                 EditorApplication.CallbackFunction restore=null;
                 restore=()=>
                 {
-                    if(EditorApplication.isCompiling||EditorApplication.timeSinceStartup<restoreAt)return;
+                    if(EditorApplication.isCompiling||EditorApplication.isPlayingOrWillChangePlaymode||NativeTestJobs().Any(j=>j.Active)||EditorApplication.timeSinceStartup<restoreAt)return;
                     EditorApplication.update-=restore;
                     SessionState.SetBool("QuietCamp.Authoring.Verifying",false);
                     try{LevelAuthoring.LevelAuthoringWindow.OpenWindow().RestoreVerification(_session);File.WriteAllText(ResultPath,report);}

@@ -23,6 +23,9 @@ namespace QuietCamp.Domain
         public int[] entry;
         public AccessPointData[] accessPoints = Array.Empty<AccessPointData>();
         public int[][] blocked, shade, noise;
+        // Live attempt state only. Authored fire cells still block tent footprints.
+        [NonSerialized] public bool CampfireNoiseSuppressed;
+        public bool ShouldSerializeCampfireNoiseSuppressed() => false;
         // Version 2 walking topology: only these authored cells outside the
         // placement grid are walkable. Tent footprints always remain inside.
         public int[][] exteriorWalkable = Array.Empty<int[]>();

@@ -46,6 +46,10 @@ namespace QuietCamp.Presentation.World
         public bool IsFinishingCamp => _checkingCamp || (_hud?.IsFinishing ?? false);
         public bool IsIntroducingShade => _hud?.IsShadeIntroduction ?? false;
         public bool IsIntroducingPlacement => _hud?.IsPlacementIntroduction ?? false;
+        public bool IsIntroducingPassage => _hud?.IsPassageIntroduction ?? false;
+        public bool IsIntroducingQuiet => _hud?.IsQuietIntroduction ?? false;
+        public bool IntroductionWaiting { get; private set; }
+        public bool CanContinueIntroduction { get; private set; }
         public int? PlacementDemonstrationStep => IsIntroducingPlacement ? _hud.PlacementDemonstrationStep : (int?)null;
         float _twigCooldown;
         float _musicScale = 1;
@@ -61,7 +65,7 @@ namespace QuietCamp.Presentation.World
 
         public CampSession Session => _session;
         public CampAtmosphere Atmosphere => _atmosphere;
-        public bool GameplayActive => IsReady && !_completed && !IsFinishingCamp && !IsIntroducingShade && !IsIntroducingPlacement && !(_hud?.HasModalOpen ?? false) && !(_router?.IsBusy ?? false) && !_services.MonetizationBusy;
+        public bool GameplayActive => IsReady && !_completed && !IsFinishingCamp && !IsIntroducingShade && !IsIntroducingPlacement && !IsIntroducingPassage && !IsIntroducingQuiet && !(_hud?.HasModalOpen ?? false) && !(_router?.IsBusy ?? false) && !_services.MonetizationBusy;
         public bool UiReady => IsReady && (_atmosphere?.InitialWorldReady ?? true) && (_hud?.UiReady ?? false);
 
         public void Configure(GameServices services, ScreenRouter router)
@@ -117,7 +121,8 @@ namespace QuietCamp.Presentation.World
                 var target=BoardMath.TentCenter(level,demo.x,demo.z);
                 _hud.BeginPlacementIntroduction(target+new Vector3(1.15f,0,-.95f),target);
             }
-            else if(TutorialDirector.ShouldIntroduceShade(_session))_hud.BeginShadeIntroduction();
+            else if(_tutorial.NeedsShadeDemonstration(_session))_hud.BeginShadeIntroduction();
+            else TryIntroduceQuiet();
             IsReady = true;
             if (_tutorial.Guiding(_session.Level.id)) _tutorial.BeginIntroduction();
             if(IsIntroducingShade)StartCoroutine(IntroduceShade());
@@ -139,6 +144,7 @@ namespace QuietCamp.Presentation.World
                     _hud.SetIntroductionOpacity(Mathf.Clamp01(elapsed/.3f));
                     yield return null;
                 }
+                yield return WaitForIntroductionTap();
                 elapsed=0;
                 while(elapsed<.3f)
                 {
@@ -152,7 +158,7 @@ namespace QuietCamp.Presentation.World
             {
                 _renderer?.HideHint();
                 _hud?.EndIntroduction();
-                _hud?.ShowGuideHint("guide.drag.try",5f);
+                _hud?.SetTutorial(_tutorial.Cue(_session));
             }
         }
 
@@ -166,13 +172,7 @@ namespace QuietCamp.Presentation.World
                 yield return AnimateShadeIntroduction(_services.ReducedMotion ? .08f : .65f,0,1,0,0);
                 _hud.ShowShadeExplanation();
                 yield return AnimateShadeIntroduction(_services.ReducedMotion ? .08f : .25f,1,1,0,1);
-                float time=0;
-                while(time<5f)
-                {
-                    time+=Mathf.Min(.05f,Time.unscaledDeltaTime);
-                    _renderer.SetShadeIntroductionStrength(_services.ReducedMotion?1:.92f+.08f*Mathf.Cos(time*3));
-                    yield return null;
-                }
+                yield return WaitForIntroductionTap();
                 yield return AnimateShadeIntroduction(_services.ReducedMotion ? .08f : .35f,1,0,1,0);
                 _tutorial.ExplainSign("shade");
             }
@@ -182,6 +182,143 @@ namespace QuietCamp.Presentation.World
                 _hud?.EndIntroduction();
                 _hud?.SetTutorial(_tutorial.Cue(_session));
             }
+            if(IsReady)TryIntroduceQuiet();
+        }
+
+        void TryIntroduceQuiet()
+        {
+            if(!_tutorial.NeedsQuietDemonstration(_session)||_hud==null||IsIntroducingQuiet)return;
+            var fire=_session.Level.noise[0];
+            _hud.BeginQuietIntroduction(BoardMath.CellCenterWorld(_session.Level,new Cell(fire[0],fire[1])));
+            StartCoroutine(IntroduceQuiet());
+        }
+        System.Collections.IEnumerator IntroduceQuiet()
+        {
+            while(!UiReady||(_router?.IsBusy??false))yield return null;
+            // Rain can quench the pit during cold scene loading. Do not teach
+            // an absent restriction or mark the burning-fire lesson as seen.
+            if(_session.Level.CampfireNoiseSuppressed)
+            {
+                _hud.EndIntroduction();_hud.SetTutorial(_tutorial.Cue(_session));yield break;
+            }
+            try
+            {
+                _renderer.ShowQuietIntroduction(true);
+                _hud.ShowShadeExplanation();
+                float elapsed=0,duration=_services.ReducedMotion ? .08f : .65f;
+                while(elapsed<duration)
+                {
+                    elapsed+=Time.unscaledDeltaTime;float strength=Mathf.Clamp01(elapsed/duration);
+                    _renderer.SetQuietIntroductionStrength(strength);_hud.SetIntroductionOpacity(strength);
+                    yield return null;
+                }
+                yield return WaitForIntroductionTap();
+                elapsed=0;duration=_services.ReducedMotion ? .08f : .35f;
+                while(elapsed<duration)
+                {
+                    elapsed+=Time.unscaledDeltaTime;float strength=1-Mathf.Clamp01(elapsed/duration);
+                    _renderer.SetQuietIntroductionStrength(strength);_hud.SetIntroductionOpacity(strength);
+                    yield return null;
+                }
+                _tutorial.ExplainSign("quiet");
+            }
+            finally
+            {
+                _renderer?.ShowQuietIntroduction(false);_hud?.EndIntroduction();
+                _hud?.SetTutorial(_tutorial.Cue(_session));
+            }
+        }
+
+        void TryIntroducePassage()
+        {
+            if(!_tutorial.NeedsPassageDemonstration(_session)||IsIntroducingPassage||IsFinishingCamp)return;
+            var route=TutorialDirector.PassageIntroductionRoute(_session);
+            if(route==null)return;
+            _hud.BeginPassageIntroduction(BoardMath.CellCenterWorld(_session.Level,route.Goal),route.Reachable);
+            StartCoroutine(IntroducePassage(route));
+        }
+        System.Collections.IEnumerator IntroducePassage(RouteEvidence route)
+        {
+            // Let the real placement release its capture and finish removing its preview first.
+            yield return null;
+            while(!UiReady||(_router?.IsBusy??false))yield return null;
+            try
+            {
+                _renderer.ShowRoute(route);_renderer.ShowHintCells(new[]{route.Start,route.Goal});
+                float reveal=_services.ReducedMotion ? .08f : .7f;
+                float enter=_services.ReducedMotion ? .08f : .25f;
+                float exit=_services.ReducedMotion ? .08f : .35f;
+                float total=reveal+enter,elapsed=0;bool speaking=false;
+                while(elapsed<total)
+                {
+                    elapsed+=Time.unscaledDeltaTime;
+                    if(elapsed>=reveal&&!speaking){speaking=true;_hud.ShowShadeExplanation();}
+                    _renderer.SetPassageIntroductionStrength(route,1,_services.ReducedMotion?1:Mathf.Clamp01(elapsed/reveal));
+                    _hud.SetIntroductionOpacity(Mathf.Clamp01((elapsed-reveal)/enter));
+                    yield return null;
+                }
+                yield return WaitForIntroductionTap();
+                elapsed=0;
+                while(elapsed<exit)
+                {
+                    elapsed+=Time.unscaledDeltaTime;
+                    float alpha=1-Mathf.Clamp01(elapsed/exit);
+                    _renderer.SetPassageIntroductionStrength(route,alpha,1);_hud.SetIntroductionOpacity(alpha);
+                    yield return null;
+                }
+                _tutorial.MarkPassageDemonstrationSeen();
+            }
+            finally
+            {
+                _renderer?.HidePath();_renderer?.HideHint();
+                _hud?.EndIntroduction();_hud?.SetTutorial(_tutorial.Cue(_session));
+            }
+        }
+
+        System.Collections.IEnumerator WaitForIntroductionTap()
+        {
+            var gate=new TutorialTapGate(Time.unscaledTimeAsDouble,12*PlacementTargetProjector.ScreenDpScale());
+            IntroductionWaiting=true;CanContinueIntroduction=false;
+            _hud.ShowIntroductionContinue(false);
+            try
+            {
+                bool accepted=false;
+                while(!accepted)
+                {
+                    if(!CanContinueIntroduction&&gate.Ready(Time.unscaledTimeAsDouble))
+                    {CanContinueIntroduction=true;_hud.ShowIntroductionContinue(true);}
+                    var screen=UnityEngine.InputSystem.Touchscreen.current;
+                    var touch=screen?.primaryTouch;
+                    bool touchActive=touch!=null&&(touch.press.isPressed||touch.press.wasReleasedThisFrame);
+                    int fingers=0;
+                    if(screen!=null)foreach(var finger in screen.touches)if(finger.press.isPressed)fingers++;
+                    if(fingers>1)gate.Cancel();
+                    else
+                    {
+                        var mouse=UnityEngine.InputSystem.Mouse.current;
+                        bool mouseActive=!touchActive&&mouse!=null&&mouse.enabled;
+                        if(touchActive||mouseActive)
+                        {
+                            var position=touchActive?touch.position.ReadValue():mouse.position.ReadValue();
+                            int id=touchActive?touch.touchId.ReadValue():-1;
+                            bool began=touchActive?touch.press.wasPressedThisFrame:mouse.leftButton.wasPressedThisFrame;
+                            bool ended=touchActive?touch.press.wasReleasedThisFrame:mouse.leftButton.wasReleasedThisFrame;
+                            bool canceled=touchActive&&touch.phase.ReadValue()==UnityEngine.InputSystem.TouchPhase.Canceled;
+                            if(canceled||!new Rect(0,0,Screen.width,Screen.height).Contains(position))gate.Cancel();
+                            else
+                            {
+                                if(began)gate.Press(Time.unscaledTimeAsDouble,id,position.x,position.y);
+                                gate.Move(id,position.x,position.y);
+                                if(ended)accepted=gate.Release(Time.unscaledTimeAsDouble,id,position.x,position.y);
+                            }
+                        }
+                    }
+                    yield return null;
+                }
+                // Consume the release while world controls are still blocked.
+                yield return null;
+            }
+            finally{IntroductionWaiting=false;CanContinueIntroduction=false;_hud?.HideIntroductionContinue();}
         }
 
         System.Collections.IEnumerator AnimateShadeIntroduction(float duration,float shadeFrom,float shadeTo,float guideFrom,float guideTo)
@@ -312,6 +449,7 @@ namespace QuietCamp.Presentation.World
                     _hud.ShowGuideHint(key);
             };
             _placement.PlacementCommitted += PersistSession;
+            _placement.PlacementCommitted += TryIntroducePassage;
             _placement.DragMotion += (position,speed) => _atmosphere?.Soundscape?.TentDragged(position,speed);
             _placement.Cancelled += () => { PlayAudio("ui.back"); _services.Analytics.Action(ComfortAction.CancelDrag); };
             // Lifting a committed tent is a dry woody accent at its old cell;
@@ -373,7 +511,7 @@ namespace QuietCamp.Presentation.World
                 // The ongoing guide: a glade that introduces a sign the player was
                 // never taught gets a one-time explanation — even after updates.
                 var sign = _tutorial.PendingSign(level);
-                if (sign != null && !(sign=="shade"&&TutorialDirector.ShouldIntroduceShade(_session)))
+                if (sign != null && sign!="shade" && sign!="quiet")
                 {
                     _tutorial.ExplainSign(sign);
                     _hud.ShowGuideHint("guide.sign." + sign, 7f);
@@ -432,7 +570,7 @@ namespace QuietCamp.Presentation.World
             }));
             _leases.Add(h.Register(new UiActionId("qc.check"), () =>
             {
-                if (IsIntroducingPlacement || IsIntroducingShade || IsFinishingCamp || _session.IsCompleted || _services.MonetizationBusy || !_tutorial.CanCompleteLevel(_session.Level.id)) return Performed();
+                if (IsIntroducingQuiet || IsIntroducingPassage || IsIntroducingPlacement || IsIntroducingShade || IsFinishingCamp || _session.IsCompleted || _services.MonetizationBusy || !_tutorial.CanCompleteLevel(_session.Level.id)) return Performed();
                 _placement.Cancel();
                 var learning=_tutorial.Guiding(_session.Level.id);
                 if (!learning&&!_services.Economy.CanCheck) { _hud.ShowEconomy(); return Performed(); }
@@ -556,7 +694,7 @@ namespace QuietCamp.Presentation.World
                     }
                     break;
                 case CampEventKind.SelectionChanged:
-                    if(!IsIntroducingShade&&!_placement.HasPreview)_renderer.ShowShade(false);
+                    if(!IsIntroducingShade&&!IsIntroducingQuiet&&!_placement.HasPreview)_renderer.ShowShade(false);
                     if (e.GuestId != null && _renderer.Tents.TryGetValue(e.GuestId, out var selected))
                         selected.Pulse(_services.ReducedMotion, _services.MotionScale);
                     break;
@@ -762,6 +900,15 @@ namespace QuietCamp.Presentation.World
                 var summary = CampContent.Summary(_session.Level.id);
                 if (summary != null) _services.Analytics.BeginLevel(summary.number, _session.Level.width, _session.Level.height,
                     _session.Level.lighting == "night" ? 3 : _session.Level.lighting == "evening" ? 2 : _session.Level.lighting == "morning" ? 0 : 1);
+            }
+            if(IsReady&&_session!=null&&_atmosphere!=null&&_fireVisuals!=null)
+            {
+                bool burning=_fireVisuals.Length>0&&!(_atmosphere.RainShelter?.Extinguished??false);
+                if(_session.SetCampfireBurning(burning))
+                {
+                    _advisor=new HintAdvisor(_session.Level);
+                    if(IsIntroducingQuiet)_renderer.ShowQuietIntroduction(true);
+                }
             }
             _renderer?.ConfigureMotion(_services?.ReducedMotion ?? true, _services?.MotionScale ?? 1f);
             _hud?.Tick();

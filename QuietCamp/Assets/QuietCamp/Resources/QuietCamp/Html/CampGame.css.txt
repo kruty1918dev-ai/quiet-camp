@@ -196,6 +196,9 @@ button text, .gc-text text { white-space: normal; }
 .shade-pointer-stem { width: 5px; height: 30px; background-color: #f6f0df; }
 .shade-pointer-tip { width: 0; height: 0; border-left: 13px solid transparent; border-right: 13px solid transparent; border-top: 17px solid #f6f0df; }
 .demo-guide-name { font-size: 28px; font-weight: bold; color: #294537; }
+.intro-continue { font-size: 26px; color: #294537; margin-top: 10px; }
+.camp-hud .guide-card { min-height: 220px; }
+.camp-hud .guide-instruction { min-height: 96px; }
 .demo-step { font-size: 30px; font-weight: bold; color: #294537; margin-top: 8px; }
 .placement-demo { position: absolute; width: 84px; height: 104px; translate: -50% -50%; align-items: center; pointer-events: none; }
 .demo-tent { position: absolute; left: -50px; top: -56px; width: 184px; height: 184px; object-fit: contain; }

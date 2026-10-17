@@ -22,7 +22,8 @@ namespace QuietCamp.Domain
         }
         public static bool Inside(LevelData l,Cell c) => c.X>=0 && c.Z>=0 && c.X<l.width && c.Z<l.height;
         public static bool IsNoisy(LevelData l, Cell c)
-            => l.noise.Any(n => Math.Abs(c.X-n[0])+Math.Abs(c.Z-n[1])<=2);
+            => !l.CampfireNoiseSuppressed && l.noise.Any(n =>
+                (c.X-n[0])*(c.X-n[0])+(c.Z-n[1])*(c.Z-n[1])<=5);
         static HashSet<Cell> Cells(int[][] a) => new HashSet<Cell>(a.Select(c=>new Cell(c[0],c[1])));
         public static List<Cell> Path(LevelData l,HashSet<Cell> occupied,Cell start,Cell goal)
             => CampWalkability.Path(l,occupied,start,goal);
