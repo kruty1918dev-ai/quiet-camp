@@ -8,6 +8,7 @@ Shader "QuietCamp/Meadow"
         _GroundHigh("Light grass",Color)=(.43,.57,.31,1)
         _SoilTone("Worn earth",Color)=(.43,.35,.25,1)
         _CellGrid("Quiet placement grid",Range(0,1))=0
+        _PlacementFocus("Held tent",Vector)=(0,0,3.2,0)
         _SnowSeason("Snow-covered clearing",Range(0,1))=0
         _HeatMelt("Retained campfire heat",Range(0,1))=0
         _HeatSite0("Fire centre/radius/active",Vector)=(0,0,0,0)
@@ -24,6 +25,7 @@ Shader "QuietCamp/Meadow"
             float4 _ClearingHalfSize;
             half4 _GroundLow,_GroundHigh,_SoilTone;
             float _CellGrid;
+            float4 _PlacementFocus;
             float _SnowSeason,_HeatMelt;
             float4 _HeatSite0,_HeatSite1,_HeatSite2,_HeatSite3;
         CBUFFER_END
@@ -101,7 +103,10 @@ Shader "QuietCamp/Meadow"
                 float2 phase=frac(ground+_ClearingHalfSize.xy);
                 float2 cellEdge=min(phase,1-phase);
                 float2 seam=1-smoothstep(float2(.006,.006),.006+max(fwidth(ground),float2(.001,.001)),cellEdge);
-                grass*=1-max(seam.x,seam.y)*.14*_CellGrid;
+                float2 fromTent=abs(i.positionWS.xz-_PlacementFocus.xy);
+                float focus=(1-smoothstep(1.7,_PlacementFocus.z,length(fromTent)))
+                    *smoothstep(1.02,1.12,max(fromTent.x,fromTent.y));
+                grass*=1-max(seam.x,seam.y)*.14*_CellGrid*lerp(1,focus,_PlacementFocus.w);
                 Light sun = GetMainLight(TransformWorldToShadowCoord(i.positionWS));
                 half3 lighting = SampleSH(half3(0,1,0))
                     + sun.color * saturate(sun.direction.y) * sun.shadowAttenuation;

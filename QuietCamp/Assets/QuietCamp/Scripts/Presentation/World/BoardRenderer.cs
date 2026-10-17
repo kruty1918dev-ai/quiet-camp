@@ -77,9 +77,6 @@ namespace QuietCamp.Presentation.World
             // The scene Base is below the meadow; keep the visible rim with the surface grid.
             if(_art==null)_rim = BoardRim.Create(_level, _gridRoot);
             BuildObstacles();
-            BuildAccessMarkers();
-
-
             _groundDetails = _gridRoot.gameObject.AddComponent<CampGroundDetails>();
             _groundDetails.Configure(_level,_groundMaterial,_art);
 
@@ -278,6 +275,8 @@ namespace QuietCamp.Presentation.World
         }
         GameObject _shadeOverlay;
         readonly List<GameObject> _shadeCells = new List<GameObject>();
+        GameObject _wishOverlay;
+        readonly List<GameObject> _wishCells=new List<GameObject>();
         GameObject _noiseOverlay;
         readonly List<GameObject> _noiseCells=new List<GameObject>();
         public void ShowQuietIntroduction(bool visible)
@@ -348,16 +347,34 @@ namespace QuietCamp.Presentation.World
 
         public void ShowPlacementPreview(Placement placement, RuleReport report)
         {
-            var cells = new List<Cell>(RuleEvaluator.Footprint(placement));
-            var door = RuleEvaluator.Door(placement);
-            if (CampWalkability.Contains(_level, door)) cells.Add(door);
-            UpdateCells(ref _previewOverlay, _previewCells, "PlacementPreview", cells, PreviewColor(report));
+            var centre=BoardMath.TentCenter(_level,placement.x,placement.z);
+            var color=PreviewColor(report);
+            // One tent-sized outline instead of four separate cell boxes plus a door dot.
+            if(_previewOverlay==null)
+            {
+                _previewOverlay=new GameObject("TentPlacementFootprint");
+                _previewOverlay.transform.SetParent(_overlayRoot,false);
+                var outline=OverlayCell("TentFootprint",new Cell(0,0),color);
+                outline.transform.SetParent(_previewOverlay.transform,true);
+                outline.transform.localScale=new Vector3(2,1,2);
+                _previewCells.Add(outline);
+            }
+            _previewOverlay.SetActive(true);
+            var footprint=_previewCells[0];
+            footprint.transform.position=new Vector3(centre.x,BoardMath.OverlayY+.002f,centre.z);
+            Tint(footprint,color);
+            if(_groundMaterial.HasProperty("_PlacementFocus"))
+                _groundMaterial.SetVector("_PlacementFocus",new Vector4(centre.x,centre.z,3.2f,1));
             if(_previewDoor==null)
-                _previewDoor=NewPrimitive(PrimitiveType.Cylinder,"PreviewDoorDot",_overlayRoot,
-                    new Vector3(.17f,.018f,.17f),Vector3.zero,null,RuleOverlayLayer,_overlayMaterial);
-            _previewDoor.transform.position=BoardMath.CellCenterWorld(_level,door)+Vector3.up*.047f;
-            Tint(_previewDoor,new Color(1f,.84f,.26f,.95f));
-            _previewDoor.SetActive(CampWalkability.Contains(_level,door));
+                _previewDoor=NewPrimitive(PrimitiveType.Cube,"TentEntranceMat",_overlayRoot,
+                    new Vector3(.48f,.008f,.30f),Vector3.zero,null,RuleOverlayLayer,_overlayMaterial);
+            // Cardinal doorway direction is independent of the asymmetric logical exit cell.
+            var direction=placement.rotation==0?Vector3.forward:placement.rotation==1?Vector3.right:
+                placement.rotation==2?Vector3.back:Vector3.left;
+            _previewDoor.transform.position=new Vector3(centre.x,BoardMath.OverlayY+.004f,centre.z)+direction*1.12f;
+            _previewDoor.transform.rotation=Quaternion.LookRotation(direction);
+            Tint(_previewDoor,color);
+            _previewDoor.SetActive(true);
         }
 
         public void HidePlacementPreview()
@@ -369,51 +386,8 @@ namespace QuietCamp.Presentation.World
             if(_groundMaterial.HasProperty("_CellGrid"))_groundMaterial.SetFloat("_CellGrid",visible?1:0);
         }
 
-        readonly List<GameObject> _placementSites=new List<GameObject>();
-        GameObject _accessMarkers;
-        GameObject _accessCellsOverlay;
-        readonly List<GameObject> _accessCells=new List<GameObject>();
-
-        void BuildAccessMarkers()
-        {
-            _accessMarkers=new GameObject("CampEntrances");
-            _accessMarkers.transform.SetParent(_overlayRoot,false);
-            foreach(var cell in CampAccess.Points(_level))
-            {
-                if(!CampWalkability.Contains(_level,cell))continue;
-                var marker=new GameObject("Entrance_"+cell.X+"_"+cell.Z);
-                marker.transform.SetParent(_accessMarkers.transform,false);
-                marker.transform.localPosition=BoardMath.CellCenterWorld(_level,cell)+Vector3.up*.046f;
-                var inward=-marker.transform.localPosition;inward.y=0;
-                if(inward.sqrMagnitude<.01f)inward=Vector3.forward;
-                marker.transform.localRotation=Quaternion.LookRotation(inward);
-                var shaft=NewPrimitive(PrimitiveType.Cube,"EntryArrowShaft",marker.transform,new Vector3(.07f,.008f,.38f),new Vector3(0,0,-.05f),null,RuleOverlayLayer,_overlayMaterial);
-                var left=NewPrimitive(PrimitiveType.Cube,"EntryArrowLeft",marker.transform,new Vector3(.07f,.008f,.23f),new Vector3(-.08f,0,.1f),null,RuleOverlayLayer,_overlayMaterial);
-                var right=NewPrimitive(PrimitiveType.Cube,"EntryArrowRight",marker.transform,new Vector3(.07f,.008f,.23f),new Vector3(.08f,0,.1f),null,RuleOverlayLayer,_overlayMaterial);
-                left.transform.localRotation=Quaternion.Euler(0,45,0);right.transform.localRotation=Quaternion.Euler(0,-45,0);
-                Tint(shaft,Color.white);Tint(left,Color.white);Tint(right,Color.white);
-            }
-            _accessMarkers.SetActive(false);
-        }
-        GameObject _friendDoorOverlay;
-        readonly List<GameObject> _friendDoorCells=new List<GameObject>();
         public void ShowPlacementGuidance(QuietCamp.Application.CampSession session,string guestId,int rotation)
         {
-            _accessMarkers?.SetActive(true);
-            UpdateCells(ref _accessCellsOverlay,_accessCells,"ReservedEntrance",new List<Cell>(CampAccess.Points(_level)),new Color(.18f,.55f,.7f,.65f));
-            var sites=QuietCamp.Application.PlacementGuidance.Sites(session,guestId,rotation);
-            for(int i=0;i<sites.Length;i++)
-            {
-                if(i==_placementSites.Count)
-                    _placementSites.Add(NewPrimitive(PrimitiveType.Cylinder,"PlacementSite_"+i,_overlayRoot,
-                        new Vector3(.18f,.008f,.18f),Vector3.zero,null,RuleOverlayLayer,_overlayMaterial));
-                var go=_placementSites[i]; var site=sites[i];
-                go.transform.position=BoardMath.TentCenter(_level,site.X,site.Z)+Vector3.up*.04f;
-                Tint(go,site.Status==QuietCamp.Application.PlacementGuidance.Fit.Ready?new Color(.3f,.95f,.55f,.8f):
-                    site.Status==QuietCamp.Application.PlacementGuidance.Fit.UnmetWish?new Color(1,.76f,.25f,.7f):new Color(1,.32f,.28f,.6f));
-                go.SetActive(true);
-            }
-            for(int i=sites.Length;i<_placementSites.Count;i++)_placementSites[i].SetActive(false);
             var guest=System.Array.Find(_level.guests,g=>g.id==guestId);
             var quietShade=new List<Cell>();
             if(guest?.shade==true||guest?.quiet==true)
@@ -423,23 +397,12 @@ namespace QuietCamp.Presentation.World
                     bool shaded=System.Array.Exists(_level.shade,s=>s[0]==x&&s[1]==z);
                     if((!guest.shade||shaded)&&(!guest.quiet||!RuleEvaluator.IsNoisy(_level,cell)))quietShade.Add(cell);
                 }
-            UpdateCells(ref _shadeOverlay,_shadeCells,"ShadeRule",quietShade,new Color(.35f,.75f,1f,.18f));
-            var friendDoors=new List<Cell>();
-            foreach(var pair in _level.friends)
-            {
-                string friend=pair[0]==guestId?pair[1]:pair[1]==guestId?pair[0]:null;
-                var pose=friend==null?null:session.State.Find(friend);
-                if(pose!=null)friendDoors.Add(RuleEvaluator.Door(pose));
-            }
-            UpdateCells(ref _friendDoorOverlay,_friendDoorCells,"FriendDoors",friendDoors,new Color(.75f,.5f,1f,.6f));
+            UpdateCells(ref _wishOverlay,_wishCells,"PlacementWish",quietShade,new Color(.49f,.73f,.67f,.13f));
         }
         public void HidePlacementGuidance()
         {
-            SetPlacementGridVisible(false);ShowShade(false);
-            if(_friendDoorOverlay!=null)_friendDoorOverlay.SetActive(false);
-            _accessMarkers?.SetActive(false);
-            _accessCellsOverlay?.SetActive(false);
-            foreach(var site in _placementSites)if(site!=null)site.SetActive(false);
+            SetPlacementGridVisible(false);
+            if(_wishOverlay!=null)_wishOverlay.SetActive(false);
         }
 
         // Dragging retargets existing cells; no destroy/instantiate or material
@@ -562,8 +525,12 @@ namespace QuietCamp.Presentation.World
                 vertices.Add(new Vector3(x+sx*.5f,0,z+sz*.5f)); vertices.Add(new Vector3(x+sx*.5f,0,z-sz*.5f));
                 triangles.AddRange(new[]{i,i+1,i+2,i,i+2,i+3});
             }
-            Strip(-.46f,0,.035f,.95f); Strip(.46f,0,.035f,.95f);
-            Strip(0,-.46f,.95f,.035f); Strip(0,.46f,.95f,.035f);
+            if(!name.StartsWith("PlacementWish"))
+            {
+                Strip(-.46f,0,.035f,.95f); Strip(.46f,0,.035f,.95f);
+                Strip(0,-.46f,.95f,.035f); Strip(0,.46f,.95f,.035f);
+            }
+            else Strip(0,0,1f,1f);
             if(name.StartsWith("ShadeRule")||name.StartsWith("FriendDoors")
                 ||name.StartsWith("QuietSafe")||name.StartsWith("FireNoise"))Strip(0,0,.90f,.90f);
             if (name.StartsWith("RouteBreak"))
@@ -683,19 +650,14 @@ namespace QuietCamp.Presentation.World
             HideHint();
             if(_shadeOverlay!=null) DestroyOwned(_shadeOverlay);
             if(_noiseOverlay!=null) DestroyOwned(_noiseOverlay);
+            if(_wishOverlay!=null) DestroyOwned(_wishOverlay);
+            _wishCells.Clear();
             _shadeCells.Clear();_noiseCells.Clear();
             _tintObjects.Clear();
             if (_pathOverlay != null) DestroyOwned(_pathOverlay);
             if (_previewOverlay != null) DestroyOwned(_previewOverlay);
             if (_previewDoor != null) DestroyOwned(_previewDoor);
             if (_routeBreakOverlay != null) DestroyOwned(_routeBreakOverlay);
-            foreach(var site in _placementSites)if(site!=null)DestroyOwned(site);
-            _placementSites.Clear();
-            if(_friendDoorOverlay!=null)DestroyOwned(_friendDoorOverlay);
-            if(_accessMarkers!=null)DestroyOwned(_accessMarkers);
-            if(_accessCellsOverlay!=null)DestroyOwned(_accessCellsOverlay);
-            _accessCells.Clear();
-            _friendDoorCells.Clear();
             _pathCells.Clear(); _previewCells.Clear();
             if (_overlayMaterial != null) DestroyOwned(_overlayMaterial);
             if (_groundMaterial != null) DestroyOwned(_groundMaterial);

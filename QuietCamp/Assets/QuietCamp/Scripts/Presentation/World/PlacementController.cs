@@ -393,9 +393,9 @@ namespace QuietCamp.Presentation.World
             PoseGhost(_preview, report);
             _renderer.ShowPlacementPreview(_preview, report);
             PreviewChanged?.Invoke(report);
-            // Path overlay tracks the preview door.
+            // A valid route needs no diagram. Show evidence only for a blocked passage.
             var route = report.Routes.Find(r => r.GuestId == _preview.guestId);
-            if (report.CanCommit && route != null)
+            if (report.CanCommit && route != null && !route.Reachable)
                 _renderer.ShowRoute(route);
             else _renderer.HidePath();
         }
