@@ -118,10 +118,10 @@ namespace QuietCamp.Editor.LevelAuthoring
             }
             if(action=="ui-touch")
             {
-                if(!new[]{"start","continue","pause","resume","rotate"}.Contains(levelId))throw new ArgumentException("Expected a supported visible UI control.");
+                if(!new[]{"start","continue","pause","resume","rotate","check"}.Contains(levelId))throw new ArgumentException("Expected a supported visible UI control.");
                 var button=UnityEngine.Object.FindObjectsByType<UnityEngine.UI.Button>(FindObjectsSortMode.None)
                     .SingleOrDefault(b=>b.gameObject.activeInHierarchy&&b.name=="<button #"+levelId+">");
-                if(button==null||!button.interactable)throw new InvalidOperationException("The requested visible button is not available.");
+                if(button==null||!button.IsInteractable())throw new InvalidOperationException("The requested visible button is not available.");
                 SendUiTouch(button);
                 return new{status="ui-touch-queued",control=levelId,memoryOnly=true};
             }
@@ -207,7 +207,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 var buttons=surface.GetComponentsInChildren<UnityEngine.UI.Button>().Where(b=>b.gameObject.activeInHierarchy).Select(b=>
                 {
                     var r=(RectTransform)b.transform;var corners=new Vector3[4];r.GetWorldCorners(corners);
-                    return new{id=b.name,enabled=b.interactable,width=corners[2].x-corners[0].x,height=corners[2].y-corners[0].y,at=new[]{corners[0].x,corners[0].y,corners[2].x,corners[2].y}};
+                    return new{id=b.name,enabled=b.IsInteractable(),width=corners[2].x-corners[0].x,height=corners[2].y-corners[0].y,at=new[]{corners[0].x,corners[0].y,corners[2].x,corners[2].y}};
                 }).ToArray();
                 var bottom=surface.Element("bottom");var c=new Vector3[4];bottom.GetWorldCorners(c);
                 var guidance=new[]{"header","guide-region","tutorial","guide-portrait","bottom"}.Select(key=>
@@ -230,6 +230,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                     .Select(r=>r.sharedMaterial.GetFloat("_GridVisible")).Distinct().ToArray();
                 return new{status="learning-status",id,memoryOnly=services.Save.MemoryOnly,placed=session.State.Count,
                     completed=session.IsCompleted,grids,closures=stories.Select(s=>s.Closure).ToArray(),
+                    finishing=CampSceneHost.Current?.IsFinishingCamp,
                     selected=session.SelectedGuestId,sites=QuietCamp.Application.PlacementGuidance.Sites(session,session.SelectedGuestId,0)
                         .GroupBy(s=>s.Status).Select(g=>new{status=g.Key.ToString(),count=g.Count()}).ToArray(),
                     recoveryHint=services.Economy.RecoveryHintPending(id),lives=services.Economy.Lives,hints=services.Economy.Hints,

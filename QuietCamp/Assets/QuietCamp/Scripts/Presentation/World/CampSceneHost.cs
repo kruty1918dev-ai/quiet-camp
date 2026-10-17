@@ -42,6 +42,8 @@ namespace QuietCamp.Presentation.World
         FireVisual[] _fireVisuals;
         bool _completed;
         bool _advancing;
+        bool _checkingCamp;
+        public bool IsFinishingCamp => _checkingCamp || (_hud?.IsFinishing ?? false);
         float _twigCooldown;
         float _musicScale = 1;
         Vector3 _firePos;
@@ -56,7 +58,7 @@ namespace QuietCamp.Presentation.World
 
         public CampSession Session => _session;
         public CampAtmosphere Atmosphere => _atmosphere;
-        public bool GameplayActive => IsReady && !_completed && !(_hud?.HasModalOpen ?? false) && !(_router?.IsBusy ?? false) && !_services.MonetizationBusy;
+        public bool GameplayActive => IsReady && !_completed && !IsFinishingCamp && !(_hud?.HasModalOpen ?? false) && !(_router?.IsBusy ?? false) && !_services.MonetizationBusy;
         public bool UiReady => IsReady && (_atmosphere?.InitialWorldReady ?? true) && (_hud?.UiReady ?? false);
 
         public void Configure(GameServices services, ScreenRouter router)
@@ -333,26 +335,23 @@ namespace QuietCamp.Presentation.World
             }));
             _leases.Add(h.Register(new UiActionId("qc.check"), () =>
             {
-                if (_session.IsCompleted || _services.MonetizationBusy || !_tutorial.CanCompleteLevel(_session.Level.id)) return Performed();
+                if (IsFinishingCamp || _session.IsCompleted || _services.MonetizationBusy || !_tutorial.CanCompleteLevel(_session.Level.id)) return Performed();
                 _placement.Cancel();
                 var learning=_tutorial.Guiding(_session.Level.id);
                 if (!learning&&!_services.Economy.CanCheck) { _hud.ShowEconomy(); return Performed(); }
+                _checkingCamp=true;
+                _hud.BeginFinishing();
                 var report = RuleEvaluator.Evaluate(_session.Level, _session.State.Placements, true);
-                var outcome = _services.Attempts.Check(_session, _atmosphere?.PhaseId, learning);
-                if (outcome == CampAttemptResult.SaveFailed)
+                try
                 {
-                    _services.Notifications.Show(_services.Localization.T("save.failed"), GameplayNotificationKind.Error);
-                    return Performed();
+                    var outcome = _services.Attempts.Check(_session, _atmosphere?.PhaseId, learning);
+                    _services.Analytics.RuleReport(report);
+                    if(outcome!=CampAttemptResult.Completed)StartCoroutine(ResumeAfterCheck(outcome,report,learning));
                 }
-                _services.Analytics.RuleReport(report);
-                if (outcome == CampAttemptResult.FailedAttempt)
+                catch(Exception exception)
                 {
-                    _services.Analytics.Action(ComfortAction.Check);
-                    _advisor = new HintAdvisor(_session.Level);
-                    _services.Notifications.Show(_services.Localization.T("rule."+report.Issues[0].Code), GameplayNotificationKind.Warning, dedupKey: "attempt.failed");
-                    PlayAudio("rule.invalid"); _services.PlayHaptic(HapticCue.Warning);
-                    if(_services.Economy.RecoveryHintPending(_session.Level.id))ShowRecoveryHint();
-                    else if (!learning&&!_services.Economy.CanCheck) _hud.ShowEconomy();
+                    Debug.LogException(exception);
+                    if(!_session.IsCompleted)StartCoroutine(ResumeAfterCheck(CampAttemptResult.SaveFailed,report,learning));
                 }
                 return Performed();
             }));
@@ -468,6 +467,29 @@ namespace QuietCamp.Presentation.World
                     OnLevelCompleted();
                     break;
             }
+        }
+
+        System.Collections.IEnumerator ResumeAfterCheck(CampAttemptResult outcome,RuleReport report,bool learning)
+        {
+            while(!_hud.FinishExitComplete)yield return null;
+            _hud.ResumeAfterFinishing();
+            while(_hud.IsFinishing)yield return null;
+            _checkingCamp=false;
+            if(outcome==CampAttemptResult.SaveFailed)
+            {
+                _services.Notifications.Show(_services.Localization.T("save.failed"),GameplayNotificationKind.Error);
+                yield break;
+            }
+            if(outcome==CampAttemptResult.FailedAttempt)
+            {
+                _services.Analytics.Action(ComfortAction.Check);
+                _advisor=new HintAdvisor(_session.Level);
+                if(report.Issues.Count>0)_services.Notifications.Show(_services.Localization.T("rule."+report.Issues[0].Code),GameplayNotificationKind.Warning,dedupKey:"attempt.failed");
+                PlayAudio("rule.invalid"); _services.PlayHaptic(HapticCue.Warning);
+                if(_services.Economy.RecoveryHintPending(_session.Level.id))ShowRecoveryHint();
+                else if(!learning&&!_services.Economy.CanCheck)_hud.ShowEconomy();
+            }
+            else if(outcome==CampAttemptResult.NoLives)_hud.ShowEconomy();
         }
 
         void OnLevelCompleted()

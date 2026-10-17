@@ -45,7 +45,13 @@ namespace QuietCamp.Presentation.UI
         bool _celebrating, _storyPlaying;
         Action _skipStory;
         EconomyPanel _economyPanel;
-        IDisposable _completionBlock;
+        IDisposable _completionBlock, _finishContext;
+        Tween _finishTween;
+        CanvasGroup _hudGroup, _overlayGroup;
+        bool _finishing, _finishHidden, _restoring;
+        string _finishHudMarkup, _finishOverlayMarkup;
+        public bool IsFinishing => _finishing;
+        public bool FinishExitComplete => _finishHidden;
         RuleReport _previewReport;
         string _tagGuest;
         float _tagUntil = -1f;
@@ -146,6 +152,7 @@ namespace QuietCamp.Presentation.UI
             => HtmlUi.Button(_surface, id, T(key), action, cls, enabled);
         void Action(string id, object payload = null)
         {
+            if (_finishing) return;
             _services.Audio?.Play("ui.click");
             _services.Actions.Execute(new UiActionRequest(new UiActionId(id), UiActionSource.Button, "Gameplay", null, payload));
             if (id == "qc.check") { _showIssue = true; _surface.Refresh(); }
@@ -158,6 +165,7 @@ namespace QuietCamp.Presentation.UI
 
         string Render()
         {
+            if (_finishing && !_restoring) return _finishHidden ? "<view />" : _finishHudMarkup;
             // While a modal owns the screen the gameplay orbs stay hidden —
             // two competing HUD layers read as broken UI under the dim.
             var header = HasModalOpen ? "" :
@@ -352,6 +360,7 @@ namespace QuietCamp.Presentation.UI
 
         string RenderOverlay()
         {
+            if (_finishing && !_restoring) return _finishHidden ? "<view />" : _finishOverlayMarkup;
             if (!HasModalOpen && !_celebrating) return "<view />";
             if(_celebrating&&!HasModalOpen)
                 return "<view class=\"completion-note\">"+HtmlUi.Text(T("hud.camp.complete"))+"</view>";
@@ -477,6 +486,7 @@ namespace QuietCamp.Presentation.UI
 
         void OpenModal(string modal)
         {
+            if (_finishing) return;
             if (Enum.TryParse<ComfortScreen>(modal, out var screen)) _services.Analytics.Screen(screen);
             _release?.Kill(); _release = null;
             _closing = false;
@@ -497,7 +507,7 @@ namespace QuietCamp.Presentation.UI
         /// data-motion="exit" until Motion.ExitFinished settles the close.</summary>
         public bool CloseTopModal()
         {
-            if (!HasModalOpen || _closing) return false;
+            if (_finishing || !HasModalOpen || _closing) return false;
             _closing = true;
             _services.Audio?.Play("ui.back");
             RefreshAll();
@@ -532,6 +542,7 @@ namespace QuietCamp.Presentation.UI
 
         public void SelectGuest(string id)
         {
+            if (_finishing) return;
             _services.Actions.Execute(new UiActionRequest(new UiActionId("qc.select"), UiActionSource.Button, "Gameplay", id, id));
             _inspectedGuest=_session.State.Contains(id)?id:null;
             GuestSelected?.Invoke(id);
@@ -616,11 +627,61 @@ namespace QuietCamp.Presentation.UI
             _ => sign,
         };
 
-        /// <summary>Briefly block placement while the scene host advances after completion.</summary>
+        /// <summary>Lock before evaluating the attempt. Keep the mounted UI intact
+        /// while fading it, even if synchronous session events refresh its content.</summary>
+        public bool BeginFinishing()
+        {
+            if (_finishing) return false;
+            _finishHudMarkup=Render(); _finishOverlayMarkup=RenderOverlay();
+            _finishing=true; _finishHidden=false; _restoring=false;
+            _completionBlock=_services.InputPolicy?.AcquireBlock(GameplayInputKind.All,this);
+            _finishContext=_services.ContextStack.Push(new UiContextRegistration(
+                "CampFinishing",UiContextLayer.Modal,110,()=>_finishing,
+                blocksLowerHotkeys:true,allowedHotkeyActionIds:Array.Empty<UiActionId>()));
+            CanvasGroup Group(HtmlSurface surface)
+            {
+                if(surface==null)return null;
+                var group=surface.GetComponent<CanvasGroup>();
+                if(group==null)group=surface.gameObject.AddComponent<CanvasGroup>();
+                group.interactable=false; group.blocksRaycasts=true;
+                return group;
+            }
+            _hudGroup=Group(_surface); _overlayGroup=Group(_overlay);
+            float duration=_services.ReducedMotion ? .08f : .24f*_services.MotionScale;
+            _finishTween=DOVirtual.Float(1,0,duration,SetFinishAlpha).SetEase(Ease.OutQuad).SetUpdate(true)
+                .OnComplete(()=>{_finishHidden=true;RefreshAll();});
+            return true;
+        }
+
+        /// <summary>Failed checks restore fresh UI, with input locked until its fade finishes.</summary>
+        public void ResumeAfterFinishing()
+        {
+            if (!_finishing || !_finishHidden || _celebrating || _restoring) return;
+            _restoring=true;
+            RefreshAll();
+            float duration=_services.ReducedMotion ? .08f : .18f*_services.MotionScale;
+            _finishTween=DOVirtual.Float(0,1,duration,SetFinishAlpha).SetEase(Ease.OutQuad).SetUpdate(true).OnComplete(()=>
+            {
+                _finishing=false; _finishHidden=false; _restoring=false;
+                _finishHudMarkup=null; _finishOverlayMarkup=null;
+                _hudGroup.interactable=true;
+                if(_overlayGroup!=null)_overlayGroup.interactable=true;
+                _completionBlock?.Dispose(); _completionBlock=null;
+                _finishContext?.Dispose(); _finishContext=null;
+                RefreshAll();
+            });
+        }
+
+        void SetFinishAlpha(float alpha)
+        {
+            if(_hudGroup!=null)_hudGroup.alpha=alpha;
+            if(_overlayGroup!=null)_overlayGroup.alpha=alpha;
+        }
+
         void BeginCelebration()
         {
+            BeginFinishing();
             _celebrating = true;
-            _completionBlock = _services.InputPolicy?.AcquireBlock(GameplayInputKind.AllPointer, this);
             RefreshAll();
         }
 
@@ -729,7 +790,9 @@ namespace QuietCamp.Presentation.UI
                 _surface.LayoutChanged -= AdaptBoardViewport;
             }
             _release?.Kill(); ReleaseModalLeases();
+            _finishTween?.Kill();
             _completionBlock?.Dispose();
+            _finishContext?.Dispose();
             if (_surface != null) UnityEngine.Object.Destroy(_surface.gameObject);
             if (_overlay != null) UnityEngine.Object.Destroy(_overlay.gameObject);
         }
