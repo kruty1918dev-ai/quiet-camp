@@ -9,6 +9,7 @@ namespace QuietCamp.Application
     public sealed class TutorialSaveData
     {
         public bool initialized, existingPlayer, controlsUnlocked, introductionSeen, menuIntroSeen;
+        public bool placementDemonstrationSeen;
         public int curriculumVersion;
         public TutorialProgress progress = new TutorialProgress();
         /// <summary>Wish signs the ongoing guide has already explained once.</summary>
@@ -123,6 +124,16 @@ namespace QuietCamp.Application
         /// <summary>Introduce the actual shade zone on a fresh board; never interrupt a resumed layout.</summary>
         public static bool ShouldIntroduceShade(CampSession session)
             => session!=null&&!session.IsCompleted&&session.State.Count==0&&session.Level.shade?.Length>0;
+        public bool NeedsPlacementDemonstration(CampSession session)
+            => session?.Level.id=="QC001"&&session.State.Count==0&&!session.IsCompleted
+                &&!_save.placementDemonstrationSeen&&!_save.existingPlayer&&!Skipped&&!Finished;
+        public bool MarkPlacementDemonstrationSeen()
+        {
+            if(_save.placementDemonstrationSeen)return true;
+            _save.placementDemonstrationSeen=true;
+            if(_persist!=null&&!_persist()){_save.placementDemonstrationSeen=false;return false;}
+            Changed?.Invoke();return true;
+        }
         /// <summary>First sign this glade introduces that the player was never
         /// taught — null during guided steps (those already teach their sign)
         /// and when nothing in the level is new. Works for skippers and for
@@ -204,6 +215,7 @@ namespace QuietCamp.Application
         }
         public void LearnAgain()
         {
+            _save.placementDemonstrationSeen=false;
             _save.existingPlayer = false; _save.controlsUnlocked = true; _save.introductionSeen = true;
             if(_curriculum==null&&_availableCurriculum!=null)
             {

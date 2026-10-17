@@ -27,10 +27,10 @@ namespace QuietCamp.Editor.LevelAuthoring
 
         public static object Run(string action,string output=null,string levelId=null)
         {
-            if(action=="start"||action=="start-menu"||action=="start-casual")
+            if(action=="start"||action=="start-menu"||action=="start-casual"||action=="start-learning")
             {
                 var level=LevelLoader.Load(levelId??"QC001");
-                LevelAuthoringPlayDriver.Start(new LevelAuthoringDocument{level=level,art=CampArtDefinition.Load(level)},true,output,action=="start-menu",grantPro:action!="start-casual");
+                LevelAuthoringPlayDriver.Start(new LevelAuthoringDocument{level=level,art=CampArtDefinition.Load(level)},true,output,action=="start-menu",grantPro:action!="start-casual",learning:action=="start-learning");
                 return new{status="opening-game-starting"};
             }
             if(EditorApplication.isPlayingOrWillChangePlaymode && EditorAuthoringPreview.CampaignPreview && QuietCampBootstrap.ServicesRef==null)
@@ -232,6 +232,8 @@ namespace QuietCamp.Editor.LevelAuthoring
                     completed=session.IsCompleted,grids,closures=stories.Select(s=>s.Closure).ToArray(),
                     finishing=CampSceneHost.Current?.IsFinishingCamp,
                     shadeIntroduction=CampSceneHost.Current?.IsIntroducingShade,
+                    placementIntroduction=CampSceneHost.Current?.IsIntroducingPlacement,
+                    placementDemonstrationStep=CampSceneHost.Current?.PlacementDemonstrationStep,
                     selected=session.SelectedGuestId,sites=QuietCamp.Application.PlacementGuidance.Sites(session,session.SelectedGuestId,0)
                         .GroupBy(s=>s.Status).Select(g=>new{status=g.Key.ToString(),count=g.Count()}).ToArray(),
                     recoveryHint=services.Economy.RecoveryHintPending(id),lives=services.Economy.Lives,hints=services.Economy.Hints,

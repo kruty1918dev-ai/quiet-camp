@@ -195,6 +195,12 @@ button text, .gc-text text { white-space: normal; }
 .shade-pointer .ico { width: 64px; height: 64px; min-width: 64px; min-height: 64px; background-color: #f6f0df; border-radius: 32px; }
 .shade-pointer-stem { width: 5px; height: 30px; background-color: #f6f0df; }
 .shade-pointer-tip { width: 0; height: 0; border-left: 13px solid transparent; border-right: 13px solid transparent; border-top: 17px solid #f6f0df; }
+.demo-guide-name { font-size: 28px; font-weight: bold; color: #294537; }
+.demo-step { font-size: 30px; font-weight: bold; color: #294537; margin-top: 8px; }
+.placement-demo { position: absolute; width: 84px; height: 104px; translate: -50% -50%; align-items: center; pointer-events: none; }
+.demo-tent { position: absolute; left: -50px; top: -56px; width: 184px; height: 184px; object-fit: contain; }
+.demo-finger { width: 60px; height: 94px; border-radius: 30px; border: 5px solid #f6f0df; background-color: rgba(41,69,55,.72); align-items: center; }
+.demo-finger-tip { width: 32px; height: 32px; border-radius: 16px; background-color: #f6f0df; margin-top: 8px; }
 .camp-hud .guide-skip { align-self: center; min-width: 88px; min-height: 88px; width: 88px; height: 88px; padding: 18px; }
 .camp-hud .guide-skip .ico { width: 32px; height: 32px; min-width: 32px; min-height: 32px; }
 @media (layout: wide) {

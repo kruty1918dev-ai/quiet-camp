@@ -20,7 +20,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             EditorApplication.playModeStateChanged += Changed;
             EditorApplication.update += Tick;
         }
-        public static void Start(LevelAuthoringDocument document, bool campaign = false, string campaignArtDirectory = null, bool menuFirst = false,bool controlledCapture=false,bool grantPro=true)
+        public static void Start(LevelAuthoringDocument document, bool campaign = false, string campaignArtDirectory = null, bool menuFirst = false,bool controlledCapture=false,bool grantPro=true,bool learning=false)
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Play Mode is already active.");
             if (campaignArtDirectory != null && (!Path.IsPathRooted(campaignArtDirectory) || !Directory.Exists(campaignArtDirectory)))
@@ -31,7 +31,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             // The workspace is reconstructed from the JSON snapshot after domain reload.
             var window = LevelAuthoringWindow.OpenWindow(); window.PreparePlay();
             Directory.CreateDirectory(Path.GetDirectoryName(EditorAuthoringPreview.RequestPath));
-            File.WriteAllText(EditorAuthoringPreview.RequestPath, JsonConvert.SerializeObject(new EditorAuthoringPreview.Request { level = document.level, art = document.art, campaign = campaign, campaignArtDirectory = campaignArtDirectory,controlledCapture=controlledCapture }));
+            File.WriteAllText(EditorAuthoringPreview.RequestPath, JsonConvert.SerializeObject(new EditorAuthoringPreview.Request { level = document.level, art = document.art, campaign = campaign, campaignArtDirectory = campaignArtDirectory,controlledCapture=controlledCapture,learning=learning }));
             EditorAuthoringPreview.Reset();
             EditorAuthoringPreview.Enable(true);
             SessionState.SetBool("QuietCamp.Authoring.GrantPreviewPro",grantPro);

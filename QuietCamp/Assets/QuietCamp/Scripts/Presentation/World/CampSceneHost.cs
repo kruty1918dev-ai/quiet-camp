@@ -45,6 +45,8 @@ namespace QuietCamp.Presentation.World
         bool _checkingCamp;
         public bool IsFinishingCamp => _checkingCamp || (_hud?.IsFinishing ?? false);
         public bool IsIntroducingShade => _hud?.IsShadeIntroduction ?? false;
+        public bool IsIntroducingPlacement => _hud?.IsPlacementIntroduction ?? false;
+        public int? PlacementDemonstrationStep => IsIntroducingPlacement ? _hud.PlacementDemonstrationStep : (int?)null;
         float _twigCooldown;
         float _musicScale = 1;
         Vector3 _firePos;
@@ -59,7 +61,7 @@ namespace QuietCamp.Presentation.World
 
         public CampSession Session => _session;
         public CampAtmosphere Atmosphere => _atmosphere;
-        public bool GameplayActive => IsReady && !_completed && !IsFinishingCamp && !IsIntroducingShade && !(_hud?.HasModalOpen ?? false) && !(_router?.IsBusy ?? false) && !_services.MonetizationBusy;
+        public bool GameplayActive => IsReady && !_completed && !IsFinishingCamp && !IsIntroducingShade && !IsIntroducingPlacement && !(_hud?.HasModalOpen ?? false) && !(_router?.IsBusy ?? false) && !_services.MonetizationBusy;
         public bool UiReady => IsReady && (_atmosphere?.InitialWorldReady ?? true) && (_hud?.UiReady ?? false);
 
         public void Configure(GameServices services, ScreenRouter router)
@@ -98,10 +100,60 @@ namespace QuietCamp.Presentation.World
             _atmosphere.BindRainWorld(Find("World")?.transform,_renderer);
             _router?.Dive.WarmSceneUnderCover();
             _services.PendingLevelId = null;
-            if(TutorialDirector.ShouldIntroduceShade(_session))_hud.BeginShadeIntroduction();
+            Placement demo=null;
+            if(_tutorial.NeedsPlacementDemonstration(_session))
+            {
+                var guest=_session.Level.guests[0];float distance=float.PositiveInfinity;
+                foreach(var site in PlacementGuidance.Sites(_session,guest.id,0))
+                {
+                    if(site.Status!=PlacementGuidance.Fit.Ready)continue;
+                    var centre=BoardMath.TentCenter(level,site.X,site.Z);
+                    if(centre.sqrMagnitude>=distance)continue;
+                    distance=centre.sqrMagnitude;demo=new Placement{guestId=guest.id,x=site.X,z=site.Z,rotation=0};
+                }
+            }
+            if(demo!=null)
+            {
+                var target=BoardMath.TentCenter(level,demo.x,demo.z);
+                _hud.BeginPlacementIntroduction(target+new Vector3(1.15f,0,-.95f),target);
+            }
+            else if(TutorialDirector.ShouldIntroduceShade(_session))_hud.BeginShadeIntroduction();
             IsReady = true;
             if (_tutorial.Guiding(_session.Level.id)) _tutorial.BeginIntroduction();
             if(IsIntroducingShade)StartCoroutine(IntroduceShade());
+            if(IsIntroducingPlacement)StartCoroutine(IntroducePlacement(demo));
+        }
+
+        System.Collections.IEnumerator IntroducePlacement(Placement example)
+        {
+            while(!UiReady||(_router?.IsBusy??false))yield return null;
+            try
+            {
+                _renderer.ShowHintCells(RuleEvaluator.Footprint(example));
+                _hud.SetPlacementDemonstration(0);
+                float elapsed=0;
+                while(elapsed<5.5f)
+                {
+                    elapsed+=Time.unscaledDeltaTime;
+                    _hud.SetPlacementDemonstration(elapsed/5.5f);
+                    _hud.SetIntroductionOpacity(Mathf.Clamp01(elapsed/.3f));
+                    yield return null;
+                }
+                elapsed=0;
+                while(elapsed<.3f)
+                {
+                    elapsed+=Time.unscaledDeltaTime;
+                    _hud.SetIntroductionOpacity(1-Mathf.Clamp01(elapsed/.3f));
+                    yield return null;
+                }
+                _tutorial.MarkPlacementDemonstrationSeen();
+            }
+            finally
+            {
+                _renderer?.HideHint();
+                _hud?.EndIntroduction();
+                _hud?.ShowGuideHint("guide.drag.try",5f);
+            }
         }
 
         System.Collections.IEnumerator IntroduceShade()
@@ -127,7 +179,7 @@ namespace QuietCamp.Presentation.World
             finally
             {
                 _renderer?.ShowShade(false);
-                _hud?.EndShadeIntroduction();
+                _hud?.EndIntroduction();
                 _hud?.SetTutorial(_tutorial.Cue(_session));
             }
         }
@@ -140,7 +192,7 @@ namespace QuietCamp.Presentation.World
                 time+=Mathf.Min(.05f,Time.unscaledDeltaTime);
                 float t=Mathf.SmoothStep(0,1,Mathf.Clamp01(time/duration));
                 _renderer.SetShadeIntroductionStrength(Mathf.Lerp(shadeFrom,shadeTo,t));
-                _hud.SetShadeIntroductionOpacity(Mathf.Lerp(guideFrom,guideTo,t));
+                _hud.SetIntroductionOpacity(Mathf.Lerp(guideFrom,guideTo,t));
                 yield return null;
             }
         }
@@ -380,7 +432,7 @@ namespace QuietCamp.Presentation.World
             }));
             _leases.Add(h.Register(new UiActionId("qc.check"), () =>
             {
-                if (IsIntroducingShade || IsFinishingCamp || _session.IsCompleted || _services.MonetizationBusy || !_tutorial.CanCompleteLevel(_session.Level.id)) return Performed();
+                if (IsIntroducingPlacement || IsIntroducingShade || IsFinishingCamp || _session.IsCompleted || _services.MonetizationBusy || !_tutorial.CanCompleteLevel(_session.Level.id)) return Performed();
                 _placement.Cancel();
                 var learning=_tutorial.Guiding(_session.Level.id);
                 if (!learning&&!_services.Economy.CanCheck) { _hud.ShowEconomy(); return Performed(); }

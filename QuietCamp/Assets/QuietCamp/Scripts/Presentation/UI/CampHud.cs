@@ -52,13 +52,21 @@ namespace QuietCamp.Presentation.UI
         string _finishHudMarkup, _finishOverlayMarkup;
         public bool IsFinishing => _finishing;
         public bool FinishExitComplete => _finishHidden;
-        bool _shadeIntroduction, _shadeGuideVisible;
+        bool _shadeIntroduction, _placementIntroduction, _shadeGuideVisible;
         IDisposable _shadeBlock, _shadeContext;
         RectTransform _shadePointer;
         Vector2 _shadePointerAt;
         public bool IsShadeIntroduction => _shadeIntroduction;
+        public bool IsPlacementIntroduction => _placementIntroduction;
+        public int PlacementDemonstrationStep => _demoStep;
+        bool Introducing => _shadeIntroduction || _placementIntroduction;
+        Vector3 _demoFrom, _demoTo;
+        RectTransform _demoPointer, _demoTent;
+        ReactUnity.UGUI.UGUIComponent _demoNode, _demoTentNode, _demoFingerNode;
+        float _demoProgress;
+        int _demoStep;
         public Vector3? ShadeIntroductionAnchor;
-        bool InteractionBlocked => _finishing || _shadeIntroduction;
+        bool InteractionBlocked => _finishing || Introducing;
         RuleReport _previewReport;
         string _tagGuest;
         float _tagUntil = -1f;
@@ -175,14 +183,15 @@ namespace QuietCamp.Presentation.UI
             if (_finishing && !_restoring) return _finishHidden ? "<view />" : _finishHudMarkup;
             // While a modal owns the screen the gameplay orbs stay hidden —
             // two competing HUD layers read as broken UI under the dim.
-            var header = HasModalOpen || _shadeIntroduction ? "" :
+            var header = HasModalOpen || Introducing ? "" :
                 (HintsAvailable ? HintButton() : "") +
                 "<view class=\"grow\"></view>" +
                 CampIcons.Button(_surface, "pause", "pause", () => Action("qc.pause"), "orb quiet",
                     tooltip: T("hud.pause"));
             var message = "";
             var tutorial = "";
-            if (_shadeIntroduction) tutorial=_shadeGuideVisible?ShadeGuideMarkup():"";
+            if (_placementIntroduction) tutorial=_shadeGuideVisible?PlacementGuideMarkup():"";
+            else if (_shadeIntroduction) tutorial=_shadeGuideVisible?ShadeGuideMarkup():"";
             else if (_celebrating || HasModalOpen) { }
             else if (_previewReport != null)
             {
@@ -201,7 +210,25 @@ namespace QuietCamp.Presentation.UI
                     + "</view>";
             return HtmlUi.Template("Gameplay", "header", header, "message", message,
                 "tutorial", tutorial, "context", "", "dock", HasModalOpen || _celebrating || _shadeIntroduction ? "" : Dock(),
-                "anchors", _shadeIntroduction ? ShadePointerMarkup() : HasModalOpen || _celebrating ? "" : Anchors());
+                "anchors", _placementIntroduction ? PlacementDemoMarkup() : _shadeIntroduction ? ShadePointerMarkup() : HasModalOpen || _celebrating ? "" : Anchors());
+        }
+
+        string PlacementGuideMarkup()
+            => "<view id=\"placement-introduction\" class=\"guide-card\" data-motion-role=\"toast\">"
+                + "<img id=\"guide-portrait\" class=\"guide-portrait\" src=\"res:QuietCamp/UI/Mentor/point\"/>"
+                + "<view class=\"guide-copy\">"+HtmlUi.Text(T("guide.ostap"),"demo-guide-name")
+                + HtmlUi.Text(T("guide.drag.intro"),"guide-instruction")
+                + HtmlUi.Text(T("guide.drag.step."+_demoStep),"demo-step")+"</view></view>";
+
+        string PlacementDemoMarkup()
+        {
+            if(!_shadeGuideVisible||ProjectToHud==null)return "";
+            var at=ProjectToHud(DemoWorldPoint());if(!at.HasValue)return "";
+            var guest=NextUnplaced();if(guest==null)return "";
+            return "<view id=\"placement-demo\" class=\"placement-demo\" style=\"left: "+HtmlUi.Number(at.Value.x)
+                + "px; top: "+HtmlUi.Number(at.Value.y)+"px\">"
+                + "<img id=\"demo-tent\" class=\"demo-tent\" src=\"res:QuietCamp/UI/Tents/"+HtmlUi.Escape(guest.assetId)+"\"/>"
+                + "<view id=\"demo-finger\" class=\"demo-finger\"><view class=\"demo-finger-tip\"></view></view></view>";
         }
 
         string ShadeGuideMarkup()
@@ -387,7 +414,7 @@ namespace QuietCamp.Presentation.UI
         string RenderOverlay()
         {
             if (_finishing && !_restoring) return _finishHidden ? "<view />" : _finishOverlayMarkup;
-            if (_shadeIntroduction) return "<view />";
+            if (Introducing) return "<view />";
             if (!HasModalOpen && !_celebrating) return "<view />";
             if(_celebrating&&!HasModalOpen)
                 return "<view class=\"completion-note\">"+HtmlUi.Text(T("hud.camp.complete"))+"</view>";
@@ -711,31 +738,69 @@ namespace QuietCamp.Presentation.UI
         }
 
         public void BeginShadeIntroduction()
+            => BeginLesson(true);
+        void BeginLesson(bool shade)
         {
             if(InteractionBlocked)return;
-            _shadeIntroduction=true; _shadeGuideVisible=false;
+            _shadeIntroduction=shade;_placementIntroduction=!shade;_shadeGuideVisible=false;
             _shadeBlock=_services.InputPolicy?.AcquireBlock(GameplayInputKind.All,this);
             _shadeContext=_services.ContextStack.Push(new UiContextRegistration(
-                "ShadeIntroduction",UiContextLayer.Modal,110,()=>_shadeIntroduction,
+                shade?"ShadeIntroduction":"PlacementIntroduction",UiContextLayer.Modal,110,()=>Introducing,
                 blocksLowerHotkeys:true,allowedHotkeyActionIds:Array.Empty<UiActionId>()));
             BlockHudSurfaces();_hudGroup.alpha=0;RefreshAll();
         }
-        public void SetShadeIntroductionOpacity(float opacity)
-        { if(_shadeIntroduction&&_hudGroup!=null)_hudGroup.alpha=Mathf.Clamp01(opacity); }
+        public void SetIntroductionOpacity(float opacity)
+        { if(Introducing&&_hudGroup!=null)_hudGroup.alpha=Mathf.Clamp01(opacity); }
         public void ShowShadeExplanation()
         {
             if(!_shadeIntroduction)return;
             _shadeGuideVisible=true; RefreshAll();
         }
-        public void EndShadeIntroduction()
+        public void EndIntroduction()
         {
-            if(!_shadeIntroduction)return;
-            _shadeIntroduction=false; _shadeGuideVisible=false;
+            if(!Introducing)return;
+            _shadeIntroduction=false;_placementIntroduction=false;_shadeGuideVisible=false;
             if(_hudGroup!=null){_hudGroup.alpha=1;_hudGroup.interactable=true;}
             if(_overlayGroup!=null)_overlayGroup.interactable=true;
             _shadeBlock?.Dispose(); _shadeBlock=null;
             _shadeContext?.Dispose(); _shadeContext=null;
             RefreshAll();
+        }
+
+        public void BeginPlacementIntroduction(Vector3 from,Vector3 to)
+        {
+            _demoFrom=from;_demoTo=to;_demoProgress=0;_demoStep=0;
+            BeginLesson(false);
+        }
+        public void SetPlacementDemonstration(float progress)
+        {
+            if(!_placementIntroduction)return;
+            _shadeGuideVisible=true;_demoProgress=Mathf.Clamp01(progress);
+            int step=progress<.28f?0:progress<.72f?1:2;
+            if(step!=_demoStep||_demoPointer==null){_demoStep=step;_surface.Refresh();}
+            UpdatePlacementDemonstration();
+        }
+        void UpdatePlacementDemonstration()
+        {
+            if(!_placementIntroduction||_demoNode==null||_demoNode.Context.IsDisposed||ProjectToHud==null)return;
+            var point=ProjectToHud(DemoWorldPoint());if(!point.HasValue)return;
+            // These elements are layout-owned: animate their actual style inputs,
+            // otherwise React's next layout pass restores the initial transform.
+            _demoNode.Style["left"]=point.Value.x;_demoNode.Style["top"]=point.Value.y;
+            if(_demoTentNode!=null)
+            {
+                float lift=_demoStep==0?Mathf.InverseLerp(.08f,.28f,_demoProgress):_demoStep==1?1:1-Mathf.InverseLerp(.72f,.9f,_demoProgress);
+                if(_services.ReducedMotion)lift=_demoStep==1?1:0;
+                _demoTentNode.Style["top"]=-56-108*lift;
+                _demoTentNode.Style["opacity"]=_services.ReducedMotion||_demoStep!=0?1:Mathf.InverseLerp(.08f,.28f,_demoProgress);
+            }
+            if(_demoFingerNode!=null)_demoFingerNode.Style["opacity"]=_services.ReducedMotion?_demoStep==2?0:1:1-Mathf.InverseLerp(.82f,.96f,_demoProgress);
+        }
+        Vector3 DemoWorldPoint()
+        {
+            float move=Mathf.SmoothStep(0,1,Mathf.InverseLerp(.28f,.72f,_demoProgress));
+            if(_services.ReducedMotion)move=_demoStep==0?0:1;
+            return Vector3.Lerp(_demoFrom,_demoTo,move);
         }
 
         void BeginCelebration()
@@ -763,6 +828,12 @@ namespace QuietCamp.Presentation.UI
         void CacheAnchors()
         {
             _shadePointer=_surface.Element("shade-pointer");
+            _demoPointer=_surface.Element("placement-demo");_demoTent=_surface.Element("demo-tent");
+            _demoNode=_demoPointer!=null?_demoPointer.GetComponent<ReactUnity.UGUI.Behaviours.ReactElement>()?.Component:null;
+            _demoTentNode=_demoTent!=null?_demoTent.GetComponent<ReactUnity.UGUI.Behaviours.ReactElement>()?.Component:null;
+            var finger=_surface.Element("demo-finger");
+            _demoFingerNode=finger!=null?finger.GetComponent<ReactUnity.UGUI.Behaviours.ReactElement>()?.Component:null;
+            UpdatePlacementDemonstration();
             var card = _surface.Element("guest-card");
             var guest = NextUnplaced();
             if (card != null && guest != null && _placement != null)
@@ -782,6 +853,7 @@ namespace QuietCamp.Presentation.UI
         /// <summary>Follow animated tents without rebuilding the HTML document every frame.</summary>
         public void TickAnchors()
         {
+            UpdatePlacementDemonstration();
             if(_shadePointer!=null&&ShadeIntroductionAnchor.HasValue&&ProjectToHud!=null)
             {
                 var point=ProjectToHud(ShadeIntroductionAnchor.Value);

@@ -136,6 +136,7 @@ namespace QuietCamp.Editor
                 else if(request.mode=="menu-camera-tests") RunTests(true,"QuietCamp.Tests.MenuCameraMotionPlayModeTests",true);
                 else if(request.mode=="camp-finish-tests") RunTests(true,"QuietCamp.Tests.CampFinishPlayModeTests",true);
                 else if(request.mode=="shade-intro-tests") RunTests(true,"QuietCamp.Tests.ShadeIntroductionPlayModeTests",true);
+                else if(request.mode=="placement-intro-tests") RunTests(true,"QuietCamp.Tests.PlacementIntroductionPlayModeTests",true);
                 else if(request.mode=="input-reload-tests") RunTests(true,"QuietCamp.Tests.EditorPlaySessionRecoveryTests");
                 else if(request.mode=="input-reload")
                 {
@@ -571,7 +572,7 @@ namespace QuietCamp.Editor
             var root=System.Xml.Linq.XDocument.Load(xml).Root;
             var cases=root.Descendants("test-case").ToArray();
             var testClass=SessionState.GetString("QuietCamp.NativePlayTestClass","QuietCamp.Tests.PlacementPlayModeTests");
-            if(!new[]{"QuietCamp.Tests.PlacementPlayModeTests","QuietCamp.Tests.MenuCameraMotionPlayModeTests","QuietCamp.Tests.CampFinishPlayModeTests","QuietCamp.Tests.ShadeIntroductionPlayModeTests"}.Contains(testClass))return false;
+            if(!new[]{"QuietCamp.Tests.PlacementPlayModeTests","QuietCamp.Tests.MenuCameraMotionPlayModeTests","QuietCamp.Tests.CampFinishPlayModeTests","QuietCamp.Tests.ShadeIntroductionPlayModeTests","QuietCamp.Tests.PlacementIntroductionPlayModeTests"}.Contains(testClass))return false;
             if(cases.Length==0||cases.Any(t=>!((string)t.Attribute("fullname")??"").StartsWith(testClass+".",StringComparison.Ordinal)))return false;
             int passed=(int)root.Attribute("passed"),failed=(int)root.Attribute("failed"),skipped=(int)root.Attribute("skipped");
             if(passed+failed+skipped!=cases.Length)return false;

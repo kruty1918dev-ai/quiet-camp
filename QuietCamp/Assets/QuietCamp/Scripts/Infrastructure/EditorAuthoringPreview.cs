@@ -11,7 +11,7 @@ namespace QuietCamp.Infrastructure
     // Only explicit authoring requests activate this boundary. Never included in a player.
     public static class EditorAuthoringPreview
     {
-        [Serializable] public sealed class Request { public LevelData level; public CampArtDefinition art; public bool campaign,controlledCapture; public string campaignArtDirectory; }
+        [Serializable] public sealed class Request { public LevelData level; public CampArtDefinition art; public bool campaign,controlledCapture,learning; public string campaignArtDirectory; }
         public static bool CaptureClockRunning {get;set;}
         public static bool ControlledCapture=>Active&&Current.controlledCapture;
         public static float CaptureDelta=>CaptureClockRunning?1f/30:0;
@@ -44,7 +44,8 @@ namespace QuietCamp.Infrastructure
         public static SaveAdapter CreateSave()
         {
             var save = new SaveAdapter(memoryOnly: true);
-            save.Progress.tutorial = new TutorialSaveData { initialized = true, existingPlayer = true, controlsUnlocked = true, introductionSeen = true, menuIntroSeen = true };
+            save.Progress.tutorial = Current?.learning==true ? new TutorialSaveData { initialized=true, curriculumVersion=2 }
+                : new TutorialSaveData { initialized = true, existingPlayer = true, controlsUnlocked = true, introductionSeen = true, menuIntroSeen = true };
             return save;
         }
     }
