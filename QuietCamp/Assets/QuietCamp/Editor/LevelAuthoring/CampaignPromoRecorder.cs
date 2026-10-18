@@ -223,6 +223,8 @@ namespace QuietCamp.Editor.LevelAuthoring
                         UnityEngine.Object.FindAnyObjectByType<CampArtView>()?.Definition);
                     _actions.Add(new { frame, kind = "completed-gameplay-still" });
                 }
+                if(frame==124&&_worldCriteria?.inspectMapCoverage==true)
+                    yield return InspectMapCoverage();
                 yield return _stillsOnly ? null : new WaitForEndOfFrame();
             }
         }
@@ -286,6 +288,36 @@ namespace QuietCamp.Editor.LevelAuthoring
         {
             ScreenCapture.CaptureScreenshot(Path.Combine(_output,state+".png"));
             WorldOps.WorldOpsVisibility.Capture(Path.Combine(_output,state),_worldCriteria);
+        }
+
+        IEnumerator InspectMapCoverage()
+        {
+            var cover=UnityEngine.Object.FindAnyObjectByType<CampGroundDetails>();var camera=Camera.main;
+            if(cover==null||camera==null)throw new InvalidOperationException("Map cover inspection needs the active world.");
+            var position=camera.transform.position;var rotation=camera.transform.rotation;float size=camera.orthographicSize;
+            var motion=camera.GetComponent<CameraAtmosphereMotion>();bool moving=motion!=null&&motion.enabled;
+            if(moving)motion.enabled=false;
+            try
+            {
+                var bounds=cover.VegetationBounds;
+                if(bounds.width<=0)throw new InvalidOperationException("No seasonal ground cover to inspect.");
+                int index=0;
+                foreach(var offset in new[]{new Vector2(-.28f,-.28f),new Vector2(-.28f,.28f),new Vector2(.28f,-.28f),new Vector2(.28f,.28f)})
+                {
+                    var point=bounds.center+Vector2.Scale(bounds.size,offset);
+                    var art=UnityEngine.Object.FindAnyObjectByType<CampArtView>()?.Definition;
+                    var target=new Vector3(point.x,art?.GroundHeight(point.x,point.y)??0,point.y);
+                    camera.transform.SetPositionAndRotation(target-rotation*Vector3.forward*25,rotation);camera.orthographicSize=6;
+                    yield return null;yield return null;
+                    // Deliberately displaced camera: diagnostic evidence, not a player view.
+                    string name="coverage-"+index++;
+                    ScreenCapture.CaptureScreenshot(Path.Combine(_output,name+".png"));
+                    File.WriteAllText(Path.Combine(_output,name+".json"),JsonConvert.SerializeObject(new{kind="environment-coverage-diagnostic",target=new[]{target.x,target.y,target.z},bounds=new[]{bounds.xMin,bounds.yMin,bounds.xMax,bounds.yMax},patches=cover.VegetationPatchCount},Formatting.Indented));
+                    yield return null;yield return null;
+                }
+            }
+            finally
+            {camera.transform.SetPositionAndRotation(position,rotation);camera.orthographicSize=size;if(moving)motion.enabled=true;}
         }
 
         void Interrupted() { if (!_finished) Finish("Capture interrupted before completion."); }

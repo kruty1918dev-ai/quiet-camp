@@ -20,6 +20,8 @@ namespace QuietCamp.Presentation.World
         readonly List<Transform> _tufts=new List<Transform>();
         readonly List<Vector3> _tuftScales=new List<Vector3>();
         GameObject _fieldCover,_pebbleCover;
+        public Rect VegetationBounds {get;private set;}
+        public int VegetationPatchCount {get;private set;}
         public CampSurfaceUseField Surface {get;private set;}
         public int PrintCount=>0;
         public IReadOnlyList<Vector3> PrintCentres=>Array.Empty<Vector3>();
@@ -28,6 +30,7 @@ namespace QuietCamp.Presentation.World
         public void Configure(LevelData level,Material ground,CampArtDefinition art=null)
         {
             _level=level;_ground=ground;_art=art;
+            VegetationBounds=CoverBounds(art?.fieldCover??new CampArtDefinition.FieldCoverSettings());
             var finish=art?.groundSurface??new CampArtDefinition.GroundSurfaceSettings();
             if(ground!=null&&ground.HasProperty("_GroundFinish"))ground.SetVector("_GroundFinish",new Vector4(finish.patchScale,finish.facetScale,finish.relief,0));
             Surface=new CampSurfaceUseField(level.width,level.height,CampSurfaceUseSettings.Load(),art?.atmosphere?.wetness??CampWeatherTimeline.Initial(level.environment?.weatherId).Rain);
@@ -79,13 +82,16 @@ namespace QuietCamp.Presentation.World
             var broad=shapes.Where(s=>s.plant.id.IndexOf("leaf",StringComparison.OrdinalIgnoreCase)>=0).ToArray();
             var fine=shapes.Where(s=>s.plant.id.IndexOf("leaf",StringComparison.OrdinalIgnoreCase)<0).ToArray();
             var water=style==null?null:new RiverSurfaceField(_art?.landscape);
-            var vertices=new List<Vector3>();var colors=new List<Color>();var response=new List<Vector2>();var random=new System.Random(_level.decorSeed^4157);
-            var palette=SeasonPalette.For(season);float fringe=CoverFringe(style),halfX=_level.width*.5f+fringe,halfZ=_level.height*.5f+fringe;
+            var vertices=new List<Vector3>();var colors=new List<Color>();var response=new List<Vector2>();
+            var palette=SeasonPalette.For(season);float fringe=style.fringe;
+            var area=VegetationBounds;
             var blocked=new HashSet<Cell>((_level.blocked??Array.Empty<int[]>()).Concat(_level.noise??Array.Empty<int[]>()).Where(p=>p?.Length==2).Select(p=>new Cell(p[0],p[1])));
             var flowers=library.plants.Where(p=>p.kind==CozyVegetationLibrary.PlantKind.Flower&&p.mesh!=null&&p.mesh.isReadable&&p.colors?.Length>0)
                 .Select(p=>new{plant=p,points=p.mesh.vertices,bounds=p.mesh.bounds,groups=Enumerable.Range(0,p.mesh.subMeshCount)
                     .Select(slot=>new{indices=p.mesh.GetTriangles(slot),color=p.colors[Mathf.Min(slot,p.colors.Length-1)]}).ToArray()}).ToArray();
-            int flowerCount=0;
+            _fieldCover=new GameObject("Natural map cover",typeof(OwnedCampMaterial));_fieldCover.transform.SetParent(transform,false);
+            var material=new Material(Resources.Load<Shader>("QuietCamp/CampArtLit"));_fieldMaterial=material;material.SetFloat("_ArtGrass",1);material.SetFloat("_ArtMeadow",style.continuousMeadow?1:0);material.SetColor("_ArtAmbient",_art==null?new Color(.22f,.24f,.16f):CampArtDefinition.Color(_art.atmosphere?.ambientColor??_art.ambientColor)*.55f);
+            _fieldCover.GetComponent<OwnedCampMaterial>().Material=material;BindMaterial(material);
             void AddMeadowBlade(Vector3 root,float angle,float height,float width,Color tint)
             {
                 var forward=Quaternion.Euler(0,angle,0)*Vector3.forward;
@@ -95,13 +101,26 @@ namespace QuietCamp.Presentation.World
                 colors.Add(tint);colors.Add(tint);colors.Add(tint);
                 response.Add(Vector2.up);response.Add(Vector2.one);response.Add(Vector2.up);
             }
-            int attempts=Mathf.Min(42000,Mathf.CeilToInt(halfX*halfZ*4*style.density*(style.continuousMeadow?12:1)));
+            // World-anchored patches cover the entire authored terrain. Separate bounds
+            // let Unity cull off-screen grass without a separate object for every blade.
+            const float patchSize=8;
+            for(int tx=Mathf.FloorToInt(area.xMin/patchSize);tx<Mathf.CeilToInt(area.xMax/patchSize);tx++)
+            for(int tz=Mathf.FloorToInt(area.yMin/patchSize);tz<Mathf.CeilToInt(area.yMax/patchSize);tz++)
+            {
+            var tile=Rect.MinMaxRect(Mathf.Max(area.xMin,tx*patchSize),Mathf.Max(area.yMin,tz*patchSize),Mathf.Min(area.xMax,(tx+1)*patchSize),Mathf.Min(area.yMax,(tz+1)*patchSize));
+            var random=new System.Random(unchecked(_level.decorSeed^4157^tx*73856093^tz*19349663));
+            vertices.Clear();colors.Clear();response.Clear();int flowerCount=0;
+            float nearest=Mathf.Max(0,Mathf.Max(Mathf.Max(tile.xMin,-tile.xMax)-_level.width*.5f,Mathf.Max(tile.yMin,-tile.yMax)-_level.height*.5f));
+            float density=style.continuousMeadow?CoverDensity(nearest,style.density):style.density;
+            int attempts=Mathf.CeilToInt(tile.width*tile.height*density);
             for(int k=0;k<attempts;k++)
             {
-                float x=Mathf.Lerp(-halfX,halfX,(float)random.NextDouble()),z=Mathf.Lerp(-halfZ,halfZ,(float)random.NextDouble());
+                float x=Mathf.Lerp(tile.xMin,tile.xMax,(float)random.NextDouble()),z=Mathf.Lerp(tile.yMin,tile.yMax,(float)random.NextDouble());
                 var root=new Vector3(x,0,z);
                 float edge=Mathf.Max(Mathf.Abs(x)-_level.width*.5f,Mathf.Abs(z)-_level.height*.5f);
-                float fade=1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(style.continuousMeadow?fringe*.65f:0,fringe,Mathf.Max(0,edge)));
+                float border=Mathf.Min(Mathf.Min(x-area.xMin,area.xMax-x),Mathf.Min(z-area.yMin,area.yMax-z));
+                float fade=style.continuousMeadow?Mathf.SmoothStep(0,1,border/.6f)*CoverDensity(edge,style.density)/density
+                    :1-Mathf.SmoothStep(0,1,Mathf.Max(0,edge)/fringe);
                 float patch=Mathf.PerlinNoise(x*.46f+13,z*.46f+37);
                 float coverage=style.continuousMeadow ? .68f+.28f*patch : .32f+.58f*patch;
                 if(blocked.Contains(BoardMath.CellOf(_level,root))||random.NextDouble()>coverage*fade)continue;
@@ -115,7 +134,7 @@ namespace QuietCamp.Presentation.World
                 {
                     bool onField=edge<=0;
                     float bladeCeiling=onField?Mathf.Min(style.maximumHeight,.075f+patch*.08f)
-                        :Mathf.Min(.26f,style.maximumHeight*1.65f)*(.8f+patch*.2f);
+                        :Mathf.Min(.32f,style.maximumHeight*2)*(.8f+patch*.2f);
                     if(season=="autumn")bladeCeiling*=.55f;
                     var carpet=Color.Lerp(palette.GrassDark,palette.GrassLight,.42f+patch*.18f);
                     if(_art!=null)
@@ -129,12 +148,13 @@ namespace QuietCamp.Presentation.World
                     // Dense, very small blades overlap; no solid discs or repeated turf polygons.
                     for(int blade=0;blade<3;blade++)
                     {
-                        var offset=Quaternion.Euler(0,yaw+blade*119,0)*Vector3.forward*.045f;
+                        float distanceBlend=Mathf.SmoothStep(0,1,Mathf.InverseLerp(3,12,edge));
+                        var offset=Quaternion.Euler(0,yaw+blade*119,0)*Vector3.forward*Mathf.Lerp(.045f,.13f,distanceBlend);
                         float bladeHeight=bladeCeiling*(.78f+(float)random.NextDouble()*.3f);
-                        AddMeadowBlade(root+offset,yaw+blade*119,bladeHeight,.035f+patch*.020f,carpet);
+                        AddMeadowBlade(root+offset,yaw+blade*119,bladeHeight,Mathf.Lerp(.035f+patch*.020f,.065f+patch*.025f,distanceBlend),carpet);
                     }
                     float flowerPatch=Mathf.PerlinNoise(x*.25f+73,z*.25f+21);
-                    if(season!="autumn"&&flowers.Length>0&&flowerCount<192&&vertices.Count<150000
+                    if(season!="autumn"&&flowers.Length>0&&flowerCount<4&&vertices.Count<150000
                         &&flowerPatch>Mathf.Lerp(.82f,.42f,style.flowerCoverage)
                         &&random.NextDouble()<style.flowerCoverage*.3f)
                     {
@@ -162,14 +182,17 @@ namespace QuietCamp.Presentation.World
                     vertices.Add(root+rotation*p*scale);colors.Add(tint);response.Add(new Vector2(responseHeight,1));
                 }
             }
-            var mesh=new Mesh{name="Unoccupied natural field cover",indexFormat=IndexFormat.UInt32};mesh.SetVertices(vertices);mesh.SetColors(colors);mesh.SetUVs(1,response);mesh.SetTriangles(Enumerable.Range(0,vertices.Count).ToArray(),0);mesh.RecalculateNormals();mesh.RecalculateBounds();
-            _fieldCover=new GameObject("Natural field cover",typeof(MeshFilter),typeof(MeshRenderer),typeof(OwnedCampMesh),typeof(OwnedCampMaterial));_fieldCover.transform.SetParent(transform,false);_fieldCover.layer=BoardRenderer.DecorLayer;
-            _fieldCover.GetComponent<MeshFilter>().sharedMesh=mesh;_fieldCover.GetComponent<OwnedCampMesh>().Mesh=mesh;
-            var material=new Material(Resources.Load<Shader>("QuietCamp/CampArtLit"));_fieldMaterial=material;material.SetFloat("_ArtGrass",1);material.SetFloat("_ArtMeadow",style.continuousMeadow?1:0);material.SetColor("_ArtAmbient",_art==null?new Color(.22f,.24f,.16f):CampArtDefinition.Color(_art.atmosphere?.ambientColor??_art.ambientColor)*.55f);
-            var carpetRenderer=_fieldCover.GetComponent<MeshRenderer>();carpetRenderer.sharedMaterial=material;
+            if(vertices.Count==0)continue;
+            var mesh=new Mesh{name=$"Natural map cover {tx},{tz}",indexFormat=IndexFormat.UInt32};mesh.SetVertices(vertices);mesh.SetColors(colors);mesh.SetUVs(1,response);mesh.SetTriangles(Enumerable.Range(0,vertices.Count).ToArray(),0);mesh.RecalculateNormals();mesh.RecalculateBounds();
+            var patchObject=new GameObject(mesh.name,typeof(MeshFilter),typeof(MeshRenderer),typeof(OwnedCampMesh));patchObject.transform.SetParent(_fieldCover.transform,false);patchObject.layer=BoardRenderer.DecorLayer;
+            patchObject.GetComponent<MeshFilter>().sharedMesh=mesh;patchObject.GetComponent<OwnedCampMesh>().Mesh=mesh;
+            var carpetRenderer=patchObject.GetComponent<MeshRenderer>();carpetRenderer.sharedMaterial=material;
             carpetRenderer.shadowCastingMode=style.continuousMeadow?UnityEngine.Rendering.ShadowCastingMode.Off:UnityEngine.Rendering.ShadowCastingMode.On;
             carpetRenderer.receiveShadows=true;
-            _fieldCover.GetComponent<OwnedCampMaterial>().Material=material;BindMaterial(material);
+            // Pressure and weather are shader-driven; no CPU geometry edits follow.
+            mesh.UploadMeshData(true);
+            VegetationPatchCount++;
+            }
         }
         public void Bind(Transform decor,CampAtmosphere atmosphere=null,Func<bool> paused=null,Func<bool> reduced=null,SeasonAtmosphereView previewWeather=null)
         {
@@ -184,7 +207,10 @@ namespace QuietCamp.Presentation.World
         {
             if(material==null||!material.HasProperty("_CampUse")||_bound.Contains(material))return;
             var cover=_art?.fieldCover??new CampArtDefinition.FieldCoverSettings();
-            if(material.HasProperty("_MeadowExtent"))material.SetVector("_MeadowExtent",new Vector4(_level.width*.5f,_level.height*.5f,CoverFringe(cover),cover.continuousMeadow?1:0));
+            var area=CoverBounds(cover);
+            if(material.HasProperty("_MeadowExtent"))material.SetVector("_MeadowExtent",cover.continuousMeadow
+                ?new Vector4(Mathf.Max(Mathf.Abs(area.xMin),Mathf.Abs(area.xMax)),Mathf.Max(Mathf.Abs(area.yMin),Mathf.Abs(area.yMax)),.6f,1)
+                :new Vector4(_level.width*.5f,_level.height*.5f,cover.fringe,0));
             material.SetTexture("_CampUse",_useTexture);material.SetVector("_CampUseBounds",new Vector4(Surface.Bounds.xMin,Surface.Bounds.yMin,1/Surface.Bounds.width,1/Surface.Bounds.height));_bound.Add(material);
         }
         void Publish()
@@ -207,8 +233,15 @@ namespace QuietCamp.Presentation.World
                 _fieldMaterial.SetVector("_QCWind",new Vector4(direction.x,direction.y,0,0));
             }
         }
-        float CoverFringe(CampArtDefinition.FieldCoverSettings cover)=>cover.continuousMeadow
-            ?Mathf.Max(cover.fringe,Mathf.Max(_level.width,_level.height)*.5f+2):cover.fringe;
+        static float CoverDensity(float edge,float density)=>Mathf.Lerp(density*6,Mathf.Max(32,density*1.7f),Mathf.SmoothStep(0,1,Mathf.InverseLerp(2,12,edge)));
+        Rect CoverBounds(CampArtDefinition.FieldCoverSettings cover)
+        {
+            if(!cover.continuousMeadow)return new Rect(-_level.width*.5f-cover.fringe,-_level.height*.5f-cover.fringe,_level.width+cover.fringe*2,_level.height+cover.fringe*2);
+            var landscape=_art?.landscape;
+            if(landscape!=null)return new Rect(landscape.originX,landscape.originZ,landscape.size,landscape.size);
+            float half=_art!=null?Mathf.Max(19.2f,_art.surroundExtent):Mathf.Max(_level.width,_level.height)*.5f+24;
+            return new Rect(-half,-half,half*2,half*2);
+        }
         float Height(Vector3 p)=>_art?.GroundHeight(p.x,p.z)??MeadowSurface.GroundY;
         public void Rebuild(IReadOnlyList<Placement> placements)
         {

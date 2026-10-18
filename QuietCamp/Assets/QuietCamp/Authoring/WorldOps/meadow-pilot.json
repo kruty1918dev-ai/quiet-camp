@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "id": "continuous-meadow-pilot-v6-dense-cover",
+  "id": "continuous-meadow-pilot-v7-whole-map",
   "label": "Суцільний луг і природний ґрунт",
   "levelIds": [
     "QC001",
@@ -45,6 +45,7 @@
     }
   ],
   "criteria": {
+    "inspectMapCoverage": true,
     "autoRepair": false,
     "requireVisualReview": true,
     "profiles": [

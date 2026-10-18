@@ -11,6 +11,12 @@ requests sent without the Python wrapper. Add missing capabilities to WorldOps
 and test them; never bypass it by patching generated JSON or receipts. Existing
 manual workshop tools remain available to the user. No automatic artistic pass.
 
+Vegetation must cover the full authored landscape, including distant visible
+areas, rather than a board-centred fringe. Use `meadow-map-coverage.json` and
+`criteria.inspectMapCoverage` to inspect the four distant terrain regions as
+well as the regular player views. Coverage shots are labelled diagnostics;
+they do not replace gameplay-camera review.
+
 The local `quietcamp-worldops` skill routes QuietCamp requests here even from
 another workspace. Its maintained source is
 `tools/agent-skills/quietcamp-worldops/`; keep installed routing instructions

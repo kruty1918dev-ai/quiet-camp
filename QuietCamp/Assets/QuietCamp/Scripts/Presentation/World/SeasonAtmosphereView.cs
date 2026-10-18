@@ -183,7 +183,7 @@ namespace QuietCamp.Presentation.World
             if(preset.snowCover>0||preset.season=="spring"||preset.season=="autumn")
                 foreach(var filter in parent.GetComponentsInChildren<MeshFilter>())
                 {
-                    var source=filter.sharedMesh;if(_surfaceSources.ContainsKey(filter)||source==null||source.colors.Length!=source.vertexCount)continue;
+                    var source=filter.sharedMesh;if(_surfaceSources.ContainsKey(filter)||source==null||!source.isReadable||source.colors.Length!=source.vertexCount)continue;
                     var renderer=filter.GetComponent<MeshRenderer>();if(renderer==null||renderer.sharedMaterial==null||renderer.sharedMaterial.shader.name.IndexOf("Water",StringComparison.OrdinalIgnoreCase)>=0)continue;
                     bool ground=filter.name=="ExteriorMeadow"||filter.name=="MeadowGround"||filter.name.IndexOf("земля",StringComparison.OrdinalIgnoreCase)>=0||filter.name.IndexOf("terrain",StringComparison.OrdinalIgnoreCase)>=0;
                     if(!ground)continue;

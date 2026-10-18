@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "id": "meadow-whole-map-renderer-v1",
+  "label": "Рослинний покрив усієї мапи",
+  "levelIds": ["QC001", "QC009"],
+  "seed": 4157,
+  "maxRepairRounds": 2,
+  "autoApply": false,
+  "capture": true,
+  "operations": [{"id": "shared-renderer", "kind": "audit", "parameters": {}}],
+  "criteria": {
+    "inspectMapCoverage": true,
+    "autoRepair": false,
+    "requireVisualReview": true,
+    "profiles": ["portrait", "landscape"],
+    "quality": 2
+  },
+  "previewOnly": true
+}
