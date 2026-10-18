@@ -10,10 +10,11 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
 {
     public static class WorldOpsOperations
     {
-        public static readonly string[] Kinds={"audit","camera.frame","vegetation.refine","vegetation.redistribute","vegetation.scale","vegetation.preset","building.move","building.ground","building.refresh-model","model.age","model.simplify","path.upsert","path.remove","atmosphere.preset","river.edit","terrain.stamp"};
+        public static readonly string[] Kinds={"audit","camera.frame","ground.refine","vegetation.refine","vegetation.redistribute","vegetation.scale","vegetation.preset","building.move","building.ground","building.refresh-model","model.age","model.simplify","path.upsert","path.remove","atmosphere.preset","river.edit","terrain.stamp"};
         public static void Validate(WorldRecipe recipe)
         {
             if(recipe==null||recipe.version!=1||string.IsNullOrWhiteSpace(recipe.id)||recipe.maxRepairRounds<1||recipe.maxRepairRounds>5)throw new ArgumentException("Invalid WorldOps recipe/version/repair budget.");
+            if(recipe.previewOnly&&(!recipe.capture||recipe.autoApply))throw new ArgumentException("Preview-only recipes require capture and cannot auto-apply.");
             if(recipe.levelIds==null||recipe.orders==null)throw new ArgumentException("Level selections must be arrays.");
             if(recipe.criteria==null||recipe.criteria.profiles==null||recipe.criteria.profiles.Length==0||recipe.criteria.profiles.Any(p=>p!="portrait"&&p!="landscape"))throw new ArgumentException("Expected portrait/landscape capture profiles.");
             if(recipe.operations==null||recipe.operations.Any(o=>o==null||string.IsNullOrWhiteSpace(o.id)||!Kinds.Contains(o.kind)||o.parameters==null||o.selector==null)||recipe.operations.Select(o=>o.id).Distinct().Count()!=recipe.operations.Length)throw new ArgumentException("Operations need unique IDs and allow-listed kinds.");
@@ -65,6 +66,11 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             if(!Kinds.Contains(op.kind))throw new ArgumentException("Unsupported operation: "+op.kind);
             var p=op.parameters;
             if(op.kind=="audit")return;
+            if(op.kind=="ground.refine")
+            {
+                var settings=p.ToObject<CampArtDefinition.GroundSurfaceSettings>();settings.Validate();
+                d.art.groundSurface=settings;return;
+            }
             if(op.kind=="vegetation.refine"){WorldOpsVegetation.Refine(d,op,seed);return;}
             if(op.kind=="camera.frame")
             {

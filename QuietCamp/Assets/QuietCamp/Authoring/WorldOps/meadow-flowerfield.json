@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "id": "flower-meadow-pilot-v6",
+  "label": "Flower meadow",
+  "levelIds": [
+    "QC001"
+  ],
+  "seed": 4157,
+  "maxRepairRounds": 2,
+  "autoApply": false,
+  "capture": true,
+  "operations": [
+    {
+      "id": "ground",
+      "kind": "ground.refine",
+      "parameters": {
+        "patchScale": 0.34,
+        "facetScale": 1.1,
+        "relief": 0.12,
+        "stoneScale": 1.65
+      }
+    },
+    {
+      "id": "meadow",
+      "kind": "vegetation.refine",
+      "selector": {
+        "roles": [
+          "vegetation"
+        ],
+        "generatedOnly": true
+      },
+      "parameters": {
+        "adjustAccents": false,
+        "fieldCover": {
+          "continuousMeadow": true,
+          "density": 24,
+          "maximumHeight": 0.14,
+          "maximumSpan": 0.28,
+          "fringe": 3,
+          "broadLeafShare": 0.04,
+          "flowerCoverage": 0.65
+        }
+      }
+    }
+  ],
+  "criteria": {
+    "autoRepair": false,
+    "requireVisualReview": true,
+    "profiles": [
+      "portrait",
+      "landscape"
+    ],
+    "quality": 2
+  },
+  "previewOnly": true
+}

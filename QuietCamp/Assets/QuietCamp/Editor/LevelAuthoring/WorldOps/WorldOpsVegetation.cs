@@ -21,6 +21,8 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             var p=operation.parameters;
             if(p["fieldCover"]!=null)
             {var style=p["fieldCover"].ToObject<CampArtDefinition.FieldCoverSettings>();style.Validate();d.art.fieldCover=style;}
+            // A carpet-only pass must preserve the authored middle and upper layers.
+            if(p["adjustAccents"]?.Value<bool>()==false)return;
             float height=Limit(p,"maximumHeight",.42f,.15f,1),span=Limit(p,"maximumSpan",.68f,.25f,1.5f);
             float boardHeight=Limit(p,"boardHeight",.14f,.06f,.2f),boardSpan=Limit(p,"boardSpan",.28f,.12f,.45f);
             float radius=Limit(p,"repairRadius",3,.2f,8),spacing=Limit(p,"spacing",.14f,.05f,.5f);
@@ -28,6 +30,20 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             var sites=new WorldOpsGeometry.PlantSites(d);
             var selected=WorldOpsOperations.Select(d,operation.selector).OrderBy(i=>i.id,StringComparer.Ordinal).ToArray();
             var records=(d.worldOps?.objects??new List<WorldObjectRecord>()).ToDictionary(r=>r.id);
+            if(p["accentRetention"]!=null)
+            {
+                float keep=Limit(p,"accentRetention",1,.1f,1);
+                // Only generated groundcover becomes sparse accents. Trees, flowers,
+                // manual plants, pinned details and supported overgrowth retain ownership.
+                var remove=new HashSet<string>(selected.Where(i=>WorldOpsOperations.Generated(i.id)
+                    &&!i.id.StartsWith("overgrowth/",StringComparison.Ordinal)
+                    &&models[i.modelId].seasonalRole=="groundcover"
+                    &&(!records.TryGetValue(i.id,out var r)||r.support==null||r.support=="grounded")
+                    &&(uint)WorldOpsOperations.Stable(i.id)%1000>=keep*1000).Select(i=>i.id));
+                d.art.instances=d.art.instances.Where(i=>!remove.Contains(i.id)).ToArray();
+                if(d.worldOps!=null)d.worldOps.objects.RemoveAll(r=>remove.Contains(r.id));
+                selected=selected.Where(i=>!remove.Contains(i.id)).ToArray();
+            }
             var cells=new Dictionary<Vector2Int,List<CampArtDefinition.Instance>>();
             Vector2Int Cell(float x,float z)=>new Vector2Int(Mathf.FloorToInt(x/spacing),Mathf.FloorToInt(z/spacing));
             void Add(CampArtDefinition.Instance i)

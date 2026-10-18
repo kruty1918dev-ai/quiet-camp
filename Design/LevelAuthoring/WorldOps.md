@@ -69,6 +69,19 @@ python tools/qc_world.py --project C:/Users/Public/qcui-20261006/QuietCamp resum
 | Моделі | `model.age`, `model.simplify` |
 | Стежки | `path.upsert`, `path.remove` |
 | Оточення | `atmosphere.preset`, `river.edit`, `terrain.stamp` |
+| Ґрунт і луг | `ground.refine`, `vegetation.refine` з `continuousMeadow`, `flowerCoverage`, `accentRetention` |
+
+`ground-pilot.json`, `meadow-pilot.json`, `meadow-flowerfield.json` — окремі
+попередні перегляди землі й рослинного покриву. Правила спільної реалізації:
+[Природний ґрунт і суцільний луг](NaturalMeadow-UA.md).
+
+`previewOnly: true` дозволяє отримати кадри вибраних рівнів, коли загальна
+перевірка кампанії заблокована іншим пазлом. Вибрані пазли й їхні рішення
+все одно перевіряються; знімок джерел, геометрія та оцінка кадрів зберігаються.
+Цей режим вимагає `capture: true`, `autoApply: false` і ніколи не дозволяє
+публікацію, навіть після позитивної оцінки кадрів. Для застосування потрібен
+звичайний запуск з успішною повною перевіркою кампанії. Квитанція позначає
+область як `selected-preview-only`, а не як прийняту кампанію.
 
 Селектор підтримує ID екземплярів і моделей, ролі та `primaryOnly`.
 Нерозпізнані ручні об’єкти захищені від загальних операцій; потрібен явний

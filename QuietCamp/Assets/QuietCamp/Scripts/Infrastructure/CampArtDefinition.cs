@@ -11,13 +11,26 @@ namespace QuietCamp.Infrastructure
     public sealed class CampArtDefinition
     {
         public SeasonAtmospherePreset atmosphere;
+        [JsonProperty(NullValueHandling=NullValueHandling.Ignore)] public GroundSurfaceSettings groundSurface;
+        public sealed class GroundSurfaceSettings
+        {
+            public float patchScale=.34f,facetScale=1.1f,relief=.12f,stoneScale=1.65f;
+            public void Validate()
+            {
+                if(!new[]{patchScale,facetScale,relief,stoneScale}.All(Finite)
+                    ||patchScale<.15f||patchScale>.7f||facetScale<.5f||facetScale>2
+                    ||relief<0||relief>.2f||stoneScale<.5f||stoneScale>2)
+                    throw new InvalidDataException("Invalid natural ground surface settings.");
+            }
+        }
         [JsonProperty(NullValueHandling=NullValueHandling.Ignore)] public FieldCoverSettings fieldCover;
         public sealed class FieldCoverSettings
         {
-            public float density=7,maximumHeight=.14f,maximumSpan=.28f,fringe=3,broadLeafShare=.2f;
+            public bool continuousMeadow=true;
+            public float density=20,maximumHeight=.14f,maximumSpan=.28f,fringe=3,broadLeafShare=.04f,flowerCoverage=.04f;
             public void Validate()
             {
-                if(!new[]{density,maximumHeight,maximumSpan,fringe,broadLeafShare}.All(Finite)||density<2||density>12||maximumHeight<.06f||maximumHeight>.2f||maximumSpan<.12f||maximumSpan>.45f||fringe<1||fringe>4||broadLeafShare<0||broadLeafShare>1)
+                if(!new[]{density,maximumHeight,maximumSpan,fringe,broadLeafShare,flowerCoverage}.All(Finite)||density<2||density>28||maximumHeight<.06f||maximumHeight>.2f||maximumSpan<.12f||maximumSpan>.45f||fringe<1||fringe>4||broadLeafShare<0||broadLeafShare>1||flowerCoverage<0||flowerCoverage>1)
                     throw new InvalidDataException("Invalid natural field-cover settings.");
             }
         }
@@ -38,6 +51,8 @@ namespace QuietCamp.Infrastructure
             var copy = (CampArtDefinition)MemberwiseClone();
             copy.cameraEuler = cameraEuler?.ToArray(); copy.cameraTarget = cameraTarget?.ToArray(); copy.sunEuler = sunEuler?.ToArray();
             copy.atmosphere=atmosphere==null?null:SeasonAtmosphereCatalog.Copy(atmosphere);
+            copy.groundSurface=groundSurface==null?null:new GroundSurfaceSettings{patchScale=groundSurface.patchScale,
+                facetScale=groundSurface.facetScale,relief=groundSurface.relief,stoneScale=groundSurface.stoneScale};
             return copy;
         }
         public int generationAttempt;
@@ -105,6 +120,7 @@ namespace QuietCamp.Infrastructure
         {
             atmosphere?.Validate();
             fieldCover?.Validate();
+            groundSurface?.Validate();
             landscape?.Validate();
             bool Vector(float[] value) => value != null && value.Length == 3 && value.All(Finite);
             if (levelId != level.id || width != level.width || height != level.height

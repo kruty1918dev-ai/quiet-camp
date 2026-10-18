@@ -11,6 +11,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         public string[] levelIds=Array.Empty<string>();
         public int[] orders=Array.Empty<int>();
         public bool autoApply=true,capture=true;
+        public bool previewOnly;
         public WorldOperation[] operations=Array.Empty<WorldOperation>();
         public WorldCriteria criteria=new WorldCriteria();
     }

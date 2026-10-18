@@ -7,6 +7,8 @@ Shader "QuietCamp/Meadow"
         _GroundLow("Dark grass",Color)=(.27,.4,.23,1)
         _GroundHigh("Light grass",Color)=(.43,.57,.31,1)
         _SoilTone("Worn earth",Color)=(.43,.35,.25,1)
+        _MeadowExtent("Meadow extent",Vector)=(0,0,3,0)
+        _GroundFinish("Natural ground finish",Vector)=(.34,1.1,.12,0)
         _CellGrid("Quiet placement grid",Range(0,1))=0
         _PlacementFocus("Held tent",Vector)=(0,0,3.2,0)
         _SnowSeason("Snow-covered clearing",Range(0,1))=0
@@ -24,6 +26,7 @@ Shader "QuietCamp/Meadow"
         CBUFFER_START(UnityPerMaterial)
             float4 _ClearingHalfSize;
             half4 _GroundLow,_GroundHigh,_SoilTone;
+            float4 _GroundFinish,_MeadowExtent;
             float _CellGrid;
             float4 _PlacementFocus;
             float _SnowSeason,_HeatMelt;
@@ -63,17 +66,13 @@ Shader "QuietCamp/Meadow"
                     lerp(Hash(cell + float2(0,1)), Hash(cell + 1), t.x), t.y);
             }
             #include "CampSurfaceUse.hlsl"
+            #include "NaturalGround.hlsl"
             half4 Frag(Varyings i) : SV_Target
             {
                 float2 ground = i.positionWS.xz;
                 float clearing = 1.0 - smoothstep(.65, 1.65,
                     length(ground / max(_ClearingHalfSize.xy, float2(1,1))));
-                float patches = Noise(ground * .32 + 17.0) * .7 + Noise(ground * 1.15) * .3;
-                half3 grass = lerp(_GroundLow.rgb, _GroundHigh.rgb, patches);
-
-                // Small irregular earth patches share the ground instead of a flat painted lawn.
-                float earth=smoothstep(.72,.88,Noise(ground*.75+41))*Noise(ground*2.1);
-                grass=lerp(grass,_SoilTone.rgb,earth*.45);
+                half3 grass=MeadowSubstrate(NaturalGroundColor(ground,_GroundLow.rgb,_GroundHigh.rgb,_SoilTone.rgb,_GroundFinish,_CampClimate.x),ground,_MeadowExtent);
                 // An irregular damp thaw around the real fire pit, with a soft dirty-snow bank.
                 if(_SnowSeason>0)
                 {
@@ -89,10 +88,6 @@ Shader "QuietCamp/Meadow"
                     }
                     grass=lerp(grass,_SoilTone.rgb*half3(.75,.53,.38),thaw*_HeatMelt*saturate(_SnowSeason));
                 }
-                // Quiet granular soil/grass detail, filtered as the camera recedes.
-                float grain=Noise(ground*12.0+3);
-                float grainWeight=1-smoothstep(.18,.55,max(length(ddx(ground)),length(ddy(ground)))*12);
-                grass*=1+(grain-.5)*.09*grainWeight;
                 float4 use=CampUse(ground);float snow=_CampClimate.y;
                 grass=lerp(grass,lerp(float3(.73,.81,.85),float3(.84,.89,.91),Noise(ground*.38+21)),snow);
                 grass=lerp(grass,_SoilTone.rgb*(1-_CampClimate.x*.23),use.r*(1-snow)*(.67+Noise(ground*2.8)*.23));
@@ -109,8 +104,9 @@ Shader "QuietCamp/Meadow"
                 float insideEdge=min(_ClearingHalfSize.x-abs(i.positionWS.x),_ClearingHalfSize.y-abs(i.positionWS.z));
                 grass*=1-max(seam.x,seam.y)*.14*_CellGrid*lerp(1,focus,_PlacementFocus.w)*smoothstep(.015,.06,insideEdge);
                 Light sun = GetMainLight(TransformWorldToShadowCoord(i.positionWS));
-                half3 lighting = SampleSH(half3(0,1,0))
-                    + sun.color * saturate(sun.direction.y) * sun.shadowAttenuation;
+                half3 normal=NaturalGroundNormal(float3(0,1,0),ground,_GroundFinish,_CampClimate.x+use.a,snow);
+                half3 lighting = SampleSH(normal)
+                    + sun.color * saturate(dot(normal,sun.direction)) * sun.shadowAttenuation;
                 return half4(grass * max(lighting, half3(.16,.16,.16)), 1);
             }
             ENDHLSL

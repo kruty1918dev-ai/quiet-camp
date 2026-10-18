@@ -275,7 +275,8 @@ namespace QuietCamp.Editor.LevelAuthoring
         public CampArtDefinition.Model FrozenModel(string id) => _frozenModels.TryGetValue(id,out var model)?model:LevelAuthoringPalette.Get(id).model;
         public void AdvanceBaseBreeze(float time)
         {if(Mood!=null)return;foreach(var material in _previewMaterials.Values)PlantWeatherResponse.Set(material,time,.17f,0);}
-        static string TerrainKey(LevelAuthoringDocument d) => d.terrain != null ? "terrain/" + d.level.width + "/" + d.level.height : string.Join("/", d.level.width, d.level.height, d.art.streamCentre, d.art.streamWidth, d.art.streamSlope, d.art.streamBend, d.art.meadowRelief, d.art.waterDepth);
+        static string TerrainKey(LevelAuthoringDocument d) => (d.terrain != null ? "terrain/" + d.level.width + "/" + d.level.height : string.Join("/", d.level.width, d.level.height, d.art.streamCentre, d.art.streamWidth, d.art.streamSlope, d.art.streamBend, d.art.meadowRelief, d.art.waterDepth))
+            +Newtonsoft.Json.JsonConvert.SerializeObject(d.art.groundSurface)+Newtonsoft.Json.JsonConvert.SerializeObject(d.art.fieldCover);
         void ConnectRiver(LevelAuthoringDocument document)
         {
             if (River == null) River = RiverTerrainIntegration.Factory?.Invoke(this) ?? throw new InvalidOperationException("Інструменти річки ще не підключені.");
@@ -363,7 +364,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             if(bakeLandscape)AuthoringWeatherExposure.Bake(copy);
             return copy;
         }
-        static string BoardKey(LevelAuthoringDocument d)=>Newtonsoft.Json.JsonConvert.SerializeObject(d.level)+Newtonsoft.Json.JsonConvert.SerializeObject(d.art.atmosphere)+Newtonsoft.Json.JsonConvert.SerializeObject(d.art.fieldCover);
+        static string BoardKey(LevelAuthoringDocument d)=>Newtonsoft.Json.JsonConvert.SerializeObject(d.level)+Newtonsoft.Json.JsonConvert.SerializeObject(d.art.atmosphere)+Newtonsoft.Json.JsonConvert.SerializeObject(d.art.fieldCover)+Newtonsoft.Json.JsonConvert.SerializeObject(d.art.groundSurface);
         public void RefreshBoard()
         {
             BoardRebuilds++;

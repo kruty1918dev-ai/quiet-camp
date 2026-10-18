@@ -105,7 +105,13 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         static void Fresh(WorldLevelRun item)
         {
             WorldOpsStorage.Check(item.sources);
-            if(WorldOpsStorage.Digest(Dependencies(_run.repositoryProject))!=_run.sourceManifestHash)throw new IOException("Unity/assets/assemblies changed; prepare fresh evidence.");
+            var current=Dependencies(_run.repositoryProject);
+            if(WorldOpsStorage.Digest(current)!=_run.sourceManifestHash)
+            {
+                var changed=current.Keys.Concat(_run.dependencies.Keys).Distinct().Where(k=>
+                    !current.TryGetValue(k,out var a)||!_run.dependencies.TryGetValue(k,out var b)||a!=b).Take(8);
+                throw new IOException("Unity/assets/assemblies changed; prepare fresh evidence: "+string.Join(", ",changed));
+            }
             if(WorldOpsStorage.FileHash(item.stagePath)!=item.documentHash)throw new IOException("Staged document changed outside WorldOps.");
             if(WorldOpsStorage.FileHash(item.beforePath)!=item.beforeFileHash)throw new IOException("Source snapshot changed outside WorldOps.");
         }
@@ -195,6 +201,23 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         static void ValidateCampaign()
         {
             var sources=new SortedDictionary<string,string>();
+            if(_run.recipe.previewOnly)
+            {
+                // Selected native preview is useful while an unrelated puzzle is broken.
+                // This is never a successful campaign preflight and cannot be published.
+                foreach(var item in _run.levels)
+                {
+                    string path=LevelFile(_run.repositoryProject,item.levelId);
+                    var level=WorldOpsStorage.Read<LevelData>(path);
+                    if(LevelContentValidator.Validate(level).Count>0||!RuleEvaluator.Evaluate(level,level.witness).IsSolved)
+                        throw new InvalidDataException("Preview puzzle/witness failed: "+item.levelId);
+                    sources[path]=WorldOpsStorage.FileHash(path);
+                }
+                _run.campaignSources=sources.ToDictionary(p=>p.Key,p=>p.Value);
+                _run.campaignValidationHash="preview-only:"+WorldOpsStorage.Digest(sources);
+                WorldOpsStorage.Json(Path.Combine(_run.directory,"campaign-validation.json"),new{scope="selected-preview-only",publicationAllowed=false,sources});
+                return;
+            }
             foreach(var root in new[]{_run.repositoryProject,_run.editorProject}.Distinct(StringComparer.OrdinalIgnoreCase))
                 foreach(var card in LevelAuthoringCampaign.ReadCards(Path.Combine(root,Content)))
                 {
@@ -373,6 +396,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         {
             try
             {
+                if(_run.recipe.previewOnly)throw new InvalidOperationException("Preview-only run cannot publish. A normal run with full campaign validation is required.");
                 if(!item.visualAccepted||item.status!="ready")throw new InvalidOperationException("Current native frames need artistic acceptance first.");
                 VerifyEvidence(item);
                 if(WorldOpsStorage.FileHash(Path.Combine(LevelFolder(_run,item.levelId),"verdict-"+item.round+".json"))!=item.verdictHash)throw new InvalidDataException("Damaged artistic verdict.");

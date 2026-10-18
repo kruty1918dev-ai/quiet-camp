@@ -1,6 +1,6 @@
 Shader "QuietCamp/CampArtLit"
 {
-    Properties { _ArtRiverDetail("River-bank detail",Float)=0 _ArtRiverWaterline("River waterline",Float)=0 _CampUse("Observed surface use",2D)="black"{} _GroundLow("Ground low",Color)=(.23,.30,.14,1) _GroundHigh("Ground high",Color)=(.40,.48,.22,1) _SoilTone("Soil",Color)=(.43,.35,.25,1) _ArtAmbient("Ambient", Color) = (.22,.24,.16,1) _ArtWater("Water", Float) = 0 _ArtGrass("Grass", Float) = 0 _ArtGround("Ground", Float) = 0 _QCWeather("Weather time, wind, rain, active",Vector)=(0,0,0,0) _QCWind("Wind direction",Vector)=(.8,.35,0,0) }
+    Properties { _MeadowExtent("Meadow extent",Vector)=(0,0,3,0) _ArtMeadow("Continuous meadow",Float)=0 _GroundFinish("Natural ground finish",Vector)=(.34,1.1,.12,0) _ArtRiverDetail("River-bank detail",Float)=0 _ArtRiverWaterline("River waterline",Float)=0 _CampUse("Observed surface use",2D)="black"{} _GroundLow("Ground low",Color)=(.23,.30,.14,1) _GroundHigh("Ground high",Color)=(.40,.48,.22,1) _SoilTone("Soil",Color)=(.43,.35,.25,1) _ArtAmbient("Ambient", Color) = (.22,.24,.16,1) _ArtWater("Water", Float) = 0 _ArtGrass("Grass", Float) = 0 _ArtGround("Ground", Float) = 0 _QCWeather("Weather time, wind, rain, active",Vector)=(0,0,0,0) _QCWind("Wind direction",Vector)=(.8,.35,0,0) }
     SubShader
     {
         Tags { "RenderPipeline"="UniversalPipeline" "RenderType"="Opaque" "Queue"="Geometry" }
@@ -37,7 +37,8 @@ Shader "QuietCamp/CampArtLit"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
             CBUFFER_START(UnityPerMaterial)
-            float4 _ArtAmbient,_GroundLow,_GroundHigh,_SoilTone,_CampFieldSize; float _ArtWater; float _ArtGrass;
+            float4 _GroundFinish,_MeadowExtent;
+            float4 _ArtAmbient,_GroundLow,_GroundHigh,_SoilTone,_CampFieldSize; float _ArtWater; float _ArtGrass; float _ArtMeadow;
             float _ArtRiverDetail, _ArtRiverWaterline;
             CBUFFER_END
             struct Attributes { float4 positionOS:POSITION; float3 normalOS:NORMAL; float4 color:COLOR; float2 response:TEXCOORD1; };
@@ -51,6 +52,7 @@ Shader "QuietCamp/CampArtLit"
                 output.positionCS=TransformWorldToHClip(output.positionWS); output.normalWS=TransformObjectToWorldNormal(input.normalOS);
                 output.response=input.response; output.color=input.color; return output;
             }
+            #include "NaturalGround.hlsl"
             float ArtHash(float2 p) { return frac(sin(dot(p,float2(127.1,311.7)))*43758.5453); }
             float ArtNoise(float2 p)
             {
@@ -63,9 +65,9 @@ Shader "QuietCamp/CampArtLit"
                 if(_ArtGround>.5)
                 {
                     float2 p=input.positionWS.xz;float4 use=CampUse(p);
-                    float grain=ArtNoise(p*3.7),dx=ArtNoise((p+float2(.03,0))*3.7)-grain,dz=ArtNoise((p+float2(0,.03))*3.7)-grain;
-                    normal=normalize(normal+float3(dx,0,dz)*(.7+use.a*2));
+                    normal=NaturalGroundNormal(normal,p,_GroundFinish,_CampClimate.x+use.a,_CampClimate.y);
                 }
+                if(_ArtMeadow>.5)normal=normalize(lerp(float3(0,1,0),normal,.22));
                 Light sun=GetMainLight(TransformWorldToShadowCoord(input.positionWS));
                 float diffuse=_ArtGrass>.5?abs(dot(normal,sun.direction)):saturate(dot(normal,sun.direction));
                 float3 lighting=_ArtAmbient.rgb*(.8+.2*abs(normal.y))+sun.color*((diffuse+.22*saturate(-dot(normal,sun.direction)))*sun.shadowAttenuation);
@@ -92,8 +94,8 @@ Shader "QuietCamp/CampArtLit"
                 {
                     // Broad, coherent groups and darker roots, rather than noise on every blade.
                     float green=step(baseColor.r*1.05,baseColor.g)*step(baseColor.b*1.1,baseColor.g);
-                    float rootToTip=lerp(.80,1.08,sqrt(saturate(input.response.x)));
-                    float patchTone=lerp(.91,1.06,ArtNoise(input.positionWS.xz*.24+9));
+                    float rootToTip=lerp(_ArtMeadow>.5 ? .70 : .90,1.04,sqrt(saturate(input.response.x)));
+                    float patchTone=lerp(.94,1.04,ArtNoise(input.positionWS.xz*.24+9));
                     baseColor*=lerp(float3(1,1,1),float3(.94,1,1.08)*rootToTip*patchTone,green);
                     float4 trampled=CampUse(input.positionWS.xz);
                     baseColor=lerp(baseColor,float3(.33,.37,.20),trampled.r*.65);
@@ -101,14 +103,7 @@ Shader "QuietCamp/CampArtLit"
                 if(_ArtGround>.5)
                 {
                     float2 p=input.positionWS.xz;float4 use=CampUse(p);
-                    // The main variation must survive a phone-sized view; small grain is secondary.
-                    float patches=ArtNoise(p*.27+17)*.70+ArtNoise(p*.92+31)*.22+ArtNoise(p*2.4-17)*.08;
-                    patches=saturate((patches-.5)*1.7+.5);
-                    float earth=smoothstep(.45,.74,ArtNoise(p*.48+61))*lerp(.45,1,ArtNoise(p*1.3));
-                    float moss=smoothstep(.40,.73,ArtNoise(p*.32-23))*.42;
-                    float3 natural=lerp(_GroundLow.rgb,_GroundHigh.rgb,patches);
-                    natural=lerp(natural,_GroundLow.rgb*float3(.76,.94,.88),moss);
-                    natural=lerp(natural,_SoilTone.rgb,earth*.72);
+                    float3 natural=MeadowSubstrate(NaturalGroundColor(p,_GroundLow.rgb,_GroundHigh.rgb,_SoilTone.rgb,_GroundFinish,_CampClimate.x),p,_MeadowExtent);
                     // Preserve authored scars and banks without retaining a differently painted puzzle rectangle.
                     float fieldDistance=max(abs(p.x)-_CampFieldSize.x,abs(p.y)-_CampFieldSize.y);
                     float undisturbed=1-smoothstep(.3,2.0,fieldDistance+(ArtNoise(p*.8f)-.5)*.45);
