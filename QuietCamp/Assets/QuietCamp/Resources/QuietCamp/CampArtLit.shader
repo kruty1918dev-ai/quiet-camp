@@ -67,7 +67,7 @@ Shader "QuietCamp/CampArtLit"
                     float2 p=input.positionWS.xz;float4 use=CampUse(p);
                     normal=NaturalGroundNormal(normal,p,_GroundFinish,_CampClimate.x+use.a,_CampClimate.y);
                 }
-                if(_ArtMeadow>.5)normal=normalize(lerp(float3(0,1,0),normal,.22));
+                if(_ArtMeadow>.5)normal=normalize(lerp(float3(0,1,0),normal,.12));
                 Light sun=GetMainLight(TransformWorldToShadowCoord(input.positionWS));
                 float diffuse=_ArtGrass>.5?abs(dot(normal,sun.direction)):saturate(dot(normal,sun.direction));
                 float3 lighting=_ArtAmbient.rgb*(.8+.2*abs(normal.y))+sun.color*((diffuse+.22*saturate(-dot(normal,sun.direction)))*sun.shadowAttenuation);
@@ -94,7 +94,7 @@ Shader "QuietCamp/CampArtLit"
                 {
                     // Broad, coherent groups and darker roots, rather than noise on every blade.
                     float green=step(baseColor.r*1.05,baseColor.g)*step(baseColor.b*1.1,baseColor.g);
-                    float rootToTip=lerp(_ArtMeadow>.5 ? .70 : .90,1.04,sqrt(saturate(input.response.x)));
+                    float rootToTip=lerp(_ArtMeadow>.5 ? .82 : .90,_ArtMeadow>.5?1.02:1.04,sqrt(saturate(input.response.x)));
                     float patchTone=lerp(.94,1.04,ArtNoise(input.positionWS.xz*.24+9));
                     baseColor*=lerp(float3(1,1,1),float3(.94,1,1.08)*rootToTip*patchTone,green);
                     float4 trampled=CampUse(input.positionWS.xz);
@@ -152,6 +152,21 @@ Shader "QuietCamp/CampArtLit"
                 }
                 return half4(color,1);
             }
+            ENDHLSL
+        }
+        Pass
+        {
+            Name "VegetationMask" Tags { "LightMode"="QuietCampVegetationMask" }
+            ZWrite Off ZTest LEqual Cull Off ColorMask R
+            HLSLPROGRAM
+            #pragma vertex VegetationVert
+            #pragma fragment VegetationFrag
+            float _ArtGrass,_ArtMeadow;
+            struct VegetationAttributes {float4 p:POSITION;float2 response:TEXCOORD1;};
+            float4 VegetationVert(VegetationAttributes input):SV_POSITION
+            {return TransformWorldToHClip(WeatherPosition(TransformObjectToWorld(input.p.xyz),input.response));}
+            half4 VegetationFrag():SV_Target
+            {clip(_ArtGrass-.5);return _ArtMeadow>.5?1:.65;}
             ENDHLSL
         }
         Pass

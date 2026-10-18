@@ -160,7 +160,7 @@ namespace QuietCamp.Presentation.World
                 _regrowthRenderers[band]=AddMesh("ForestRegrowth"+band,mesh,grassMaterial);
                 RegrowthTriangleBands[band]=mesh.vertexCount/3;
             }
-            _blur = new CampArtEdgeBlur(_camera, definition.blurPixels, () => PresentationActive);
+            _blur = new CampArtEdgeBlur(_camera, definition.blurPixels, () => PresentationActive,definition.fieldCover?.softnessPixels??2.2f);
             _camera.GetUniversalAdditionalCameraData().renderPostProcessing = true;
             if(definition.atmosphere!=null)
             {
@@ -200,7 +200,7 @@ namespace QuietCamp.Presentation.World
         public void SetBlur(float pixels)
         {
             if (Mathf.Approximately(Definition.blurPixels, pixels)) return;
-            Definition.blurPixels = pixels; _blur?.Dispose(); _blur = new CampArtEdgeBlur(_camera, pixels, () => PresentationActive); _blur.ProtectBoard(_level);
+            Definition.blurPixels = pixels; _blur?.Dispose(); _blur = new CampArtEdgeBlur(_camera, pixels, () => PresentationActive,Definition.fieldCover?.softnessPixels??2.2f); _blur.ProtectBoard(_level);
         }
         public void ApplyLighting(Light sun, float weatherMultiplier = 1)
         {

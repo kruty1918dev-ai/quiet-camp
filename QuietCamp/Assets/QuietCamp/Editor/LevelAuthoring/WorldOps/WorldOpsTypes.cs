@@ -17,7 +17,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
     }
     public sealed class WorldCriteria
     {
-        public bool requireVisualReview=true,autoRepair=true,inspectMapCoverage;
+        public bool requireVisualReview=true,autoRepair=true,inspectMapCoverage,includeMenu;
         public float contactTolerance=.03f,minimumCellPixels=24,maximumCentreError=2;
         public string[] profiles={"portrait","landscape"};
         public int quality=2;

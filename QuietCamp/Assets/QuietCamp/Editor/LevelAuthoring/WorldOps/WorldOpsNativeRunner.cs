@@ -74,7 +74,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                     if(!File.Exists(Path.Combine(run.nativeFolder,name+".png"))||!File.Exists(Path.Combine(run.nativeFolder,state+".diagnostics.json")))return false;
                 }
                 if(run.recipe.criteria.inspectMapCoverage&&Enumerable.Range(0,4).Any(i=>!File.Exists(Path.Combine(run.nativeFolder,"coverage-"+i+".png"))))return false;
-                if(item.changes?.changed==true)
+                if(item.changes?.changed==true||run.recipe.criteria.includeMenu)
                 {
                     QuietCampBootstrap.ServicesRef.SelectMenuCapture();
                     PlayModeWindow.SetCustomRenderingResolution(run.nativeProfile=="portrait"?750u:1440u,run.nativeProfile=="portrait"?1334u:1080u,"QuietCamp WorldOps menu");
@@ -136,7 +136,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                     if(width!=(profile=="portrait"?750:1440)||height!=(profile=="portrait"?1334:1080))throw new InvalidDataException("Coverage image dimensions do not match the capture profile.");
                     frames.Add(new WorldFrame{path=file,sha256=WorldOpsStorage.FileHash(file),profile=profile,state="environment-coverage-"+i,phase=phase,evidence=evidence});
                 }
-                if(item.changes?.changed==true)
+                if(item.changes?.changed==true||run.recipe.criteria.includeMenu)
                 {
                     string file=Path.Combine(folder,"menu.png");var png=File.ReadAllBytes(file);
                     int width=(png[16]<<24)|(png[17]<<16)|(png[18]<<8)|png[19],height=(png[20]<<24)|(png[21]<<16)|(png[22]<<8)|png[23];

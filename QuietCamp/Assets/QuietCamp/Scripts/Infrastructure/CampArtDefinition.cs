@@ -27,10 +27,10 @@ namespace QuietCamp.Infrastructure
         public sealed class FieldCoverSettings
         {
             public bool continuousMeadow=true;
-            public float density=28,maximumHeight=.14f,maximumSpan=.28f,fringe=6,broadLeafShare=.04f,flowerCoverage=.06f;
+            public float density=28,maximumHeight=.14f,maximumSpan=.28f,fringe=6,broadLeafShare=.04f,flowerCoverage=.06f,softnessPixels=2.2f;
             public void Validate()
             {
-                if(!new[]{density,maximumHeight,maximumSpan,fringe,broadLeafShare,flowerCoverage}.All(Finite)||density<2||density>28||maximumHeight<.06f||maximumHeight>.2f||maximumSpan<.12f||maximumSpan>.45f||fringe<1||fringe>8||broadLeafShare<0||broadLeafShare>1||flowerCoverage<0||flowerCoverage>1)
+                if(!new[]{density,maximumHeight,maximumSpan,fringe,broadLeafShare,flowerCoverage,softnessPixels}.All(Finite)||density<2||density>28||maximumHeight<.06f||maximumHeight>.2f||maximumSpan<.12f||maximumSpan>.45f||fringe<1||fringe>8||broadLeafShare<0||broadLeafShare>1||flowerCoverage<0||flowerCoverage>1||softnessPixels<0||softnessPixels>4)
                     throw new InvalidDataException("Invalid natural field-cover settings.");
             }
         }
