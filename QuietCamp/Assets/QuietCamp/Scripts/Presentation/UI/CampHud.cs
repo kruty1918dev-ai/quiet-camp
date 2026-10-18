@@ -63,6 +63,8 @@ namespace QuietCamp.Presentation.UI
         float _previewRefreshAt=-1;
         IDisposable _shadeBlock, _shadeContext;
         RectTransform _shadePointer;
+        readonly List<(Cell Cell,Vector2 At)> _exitPositions=new List<(Cell,Vector2)>();
+        readonly List<(RectTransform Rect,Cell Cell,Vector2 At)> _exitRects=new List<(RectTransform,Cell,Vector2)>();
         Vector2 _shadePointerAt;
         public bool IsShadeIntroduction => _shadeIntroduction;
         public bool IsPlacementIntroduction => _placementIntroduction;
@@ -70,6 +72,10 @@ namespace QuietCamp.Presentation.UI
         public bool IsQuietIntroduction => _quietIntroduction;
         public int PlacementDemonstrationStep => _demoStep;
         bool Introducing => _introduction!=Introduction.None;
+        public bool CampOrientationVisible => !HasModalOpen&&!_celebrating&&!_finishing
+            &&(Introducing||_previewReport!=null||_tutorialKey=="rule.bounds"||_tutorialKey=="rule.entry"
+                ||(_tutorialKey?.StartsWith("rule.path",StringComparison.Ordinal)??false)
+                ||_tutorialKey=="guide.drag.try"||_tutorialKey=="guide.path.start"||_tutorialKey=="guide.adaptive.start");
         Vector3 _demoFrom, _demoTo;
         RectTransform _demoPointer, _demoTent;
         ReactUnity.UGUI.UGUIComponent _demoNode, _demoTentNode, _demoFingerNode;
@@ -215,7 +221,7 @@ namespace QuietCamp.Presentation.UI
                 var tone=!_previewReport.CanCommit ? "blocked" : key=="hud.preview.ok" ? "ready" : "wish";
                 tutorial = _services.Tutorial.Guiding(_session.Level.id)?GuideMarkup(PreviewMessage(key),tone):
                     "<view id=\"placement-status\" class=\"hud-feedback " + tone + "\">"
-                    + CampIcons.Mark(key == "hud.preview.ok" ? "check" : "hint")
+                    + CampIcons.Mark(GuideConcept=="friends"?"guests":GuideConcept??(key == "hud.preview.ok" ? "check" : "hint"))
                     + HtmlUi.Text(PreviewMessage(key)) + "</view>";
             }
             else if (_tutorialKey != null)
@@ -225,8 +231,26 @@ namespace QuietCamp.Presentation.UI
                     + HtmlUi.Button(_surface, "issue", T(IssueKey(_lastReport, _lastReport.Issues[0])), ShowIssueArea)
                     + "</view>";
             return HtmlUi.Template("Gameplay", "header", header, "message", message,
-                "tutorial", tutorial, "context", "", "dock", HasModalOpen || _celebrating || (Introducing&&!_placementIntroduction) ? "" : Dock(),
-                "anchors", _placementIntroduction ? PlacementDemoMarkup() : _shadeIntroduction || _passageIntroduction || _quietIntroduction ? ShadePointerMarkup() : HasModalOpen || _celebrating ? "" : Anchors());
+                "tutorial", tutorial, "context", "", "dock", HasModalOpen || _celebrating || (Introducing&&!_placementIntroduction&&!_shadeIntroduction&&!_quietIntroduction) ? "" : Dock(),
+                "anchors", (_placementIntroduction ? PlacementDemoMarkup() : _shadeIntroduction || _passageIntroduction || _quietIntroduction ? ShadePointerMarkup() : HasModalOpen || _celebrating ? "" : Anchors())+PlacementExitMarkup());
+        }
+
+        string PlacementExitMarkup()
+        {
+            _exitPositions.Clear();
+            if(!CampOrientationVisible||ProjectToHud==null)return "";
+            var html=new StringBuilder();
+            foreach(var cell in new HashSet<Cell>(CampAccess.Points(_session.Level)))
+            {
+                var at=ProjectToHud(World.BoardMath.CellCenterWorld(_session.Level,cell)+Vector3.up*.04f);
+                if(!at.HasValue)continue;
+                int i=_exitPositions.Count;_exitPositions.Add((cell,at.Value));
+                html.Append("<view id=\"camp-exit-").Append(i).Append("\" class=\"camp-exit-label\" style=\"left: ")
+                    .Append(HtmlUi.Number(at.Value.x)).Append("px; top: ").Append(HtmlUi.Number(at.Value.y))
+                    .Append("px\"><view class=\"camp-exit-badge\">").Append(HtmlUi.Text(T("hud.camp.exit"),"camp-exit-text")).Append("</view>")
+                    .Append("<view class=\"camp-exit-stem\"></view></view>");
+            }
+            return html.ToString();
         }
 
         string PlacementGuideMarkup()
@@ -317,12 +341,35 @@ namespace QuietCamp.Presentation.UI
             var text=previewMessage??WithAffectedGuest(T(_tutorialKey),feedback.Key==_tutorialKey?feedback:default);
             return "<view id=\"tutorial\" class=\"guide-card "+(tone??"")+"\">"
                 + "<img id=\"guide-portrait\" class=\"guide-portrait\" src=\"res:QuietCamp/UI/Mentor/" + portrait + "\"/>"
-                + "<view class=\"guide-copy\">" + HtmlUi.Text(text, "guide-instruction")
+                + "<view class=\"guide-copy\">" + GuideConceptMarkup()+HtmlUi.Text(text, "guide-instruction")
                 + "</view>"
                 + (_services.Tutorial.Guiding(_session.Level.id)
                     ? CampIcons.Button(_surface, "guide-skip", "remove", () => OpenModal("GuideSkip"), "guide-skip", T("guide.skip"))
                     : "")
                 + "</view>";
+        }
+
+        string GuideConcept
+        {
+            get
+            {
+                if(_shadeIntroduction)return "shade";
+                if(_quietIntroduction)return "quiet";
+                if(_passageIntroduction)return "path";
+                var key=_previewReport!=null?PreviewKey(_previewReport):_tutorialKey;
+                if(key==null)return null;
+                foreach(var concept in new[]{"shade","quiet","friends","path"})
+                    if(key=="rule."+concept||key.StartsWith("rule."+concept+".",StringComparison.Ordinal)
+                        ||key=="guide."+concept||key.StartsWith("guide."+concept+".",StringComparison.Ordinal)
+                        ||key=="guide.sign."+concept)return concept;
+                return null;
+            }
+        }
+        string GuideConceptMarkup()
+        {
+            var concept=GuideConcept;
+            return concept==null?"":"<view class=\"guide-concept\">"+CampIcons.Mark(concept=="friends"?"guests":concept)
+                +HtmlUi.Text(T("wish."+concept))+"</view>";
         }
 
         string GuideFocus(string target) => _tutorialKey=="guide.adaptive.finish"?target=="check"?" guide-focus":""
@@ -333,6 +380,8 @@ namespace QuietCamp.Presentation.UI
         string Dock()
         {
             var next = NextUnplaced();
+            if(_shadeIntroduction||_quietIntroduction)
+                next=Array.Find(_session.Level.guests,g=>(_shadeIntroduction?g.shade:g.quiet)&&_session.State.Find(g.id)==null)??next;
             var placed = _session.State.Count;
             var total = _session.Level.guests.Length;
             var dock = new StringBuilder("<view class=\"dock"+(placed==total?" completed":"")+"\">");
@@ -340,7 +389,8 @@ namespace QuietCamp.Presentation.UI
             if (next != null)
             {
                 var selected = _session.SelectedGuestId == next.id;
-                dock.Append("<button id=\"guest-card\" class=\"guest-card" + (selected ? " selected" : "") + GuideFocus("guest-card")
+                dock.Append("<button id=\"guest-card\" class=\"guest-card" + (selected ? " selected" : "")
+                    +(GuideConcept==null?"":" wish-focus-"+GuideConcept)+ GuideFocus("guest-card")
                     + "\" onClick=\"Globals.campUi.Click('guest-card')\">"
                     + "<img class=\"tent-art\" src=\"res:QuietCamp/UI/Tents/"+next.assetId+"\"/>" + "<view class=\"gc-text\">"
                     + HtmlUi.Text(T(next.nameKey), "gc-name")
@@ -871,6 +921,12 @@ namespace QuietCamp.Presentation.UI
         public void BindPlacement(World.PlacementController placement) { _placement = placement; }
         void CacheAnchors()
         {
+            _exitRects.Clear();
+            for(int i=0;i<_exitPositions.Count;i++)
+            {
+                var rect=_surface.Element("camp-exit-"+i);
+                if(rect!=null)_exitRects.Add((rect,_exitPositions[i].Cell,_exitPositions[i].At));
+            }
             _shadePointer=_surface.Element(_quietIntroduction?"quiet-pointer":_passageIntroduction?"path-pointer":"shade-pointer");
             _demoPointer=_surface.Element("placement-demo");_demoTent=_surface.Element("demo-tent");
             _demoNode=_demoPointer!=null?_demoPointer.GetComponent<ReactUnity.UGUI.Behaviours.ReactElement>()?.Component:null;
@@ -898,6 +954,16 @@ namespace QuietCamp.Presentation.UI
         public void TickAnchors()
         {
             UpdatePlacementDemonstration();
+            if(ProjectToHud!=null)
+                for(int i=0;i<_exitRects.Count;i++)
+                {
+                    var item=_exitRects[i];if(item.Rect==null)continue;
+                    var at=ProjectToHud(World.BoardMath.CellCenterWorld(_session.Level,item.Cell)+Vector3.up*.04f);
+                    if(!at.HasValue)continue;
+                    var delta=at.Value-item.At;
+                    item.Rect.anchoredPosition+=new Vector2(delta.x,-delta.y);
+                    _exitRects[i]=(item.Rect,item.Cell,at.Value);
+                }
             if(_shadePointer!=null&&ZoneIntroductionAnchor.HasValue&&ProjectToHud!=null)
             {
                 var point=ProjectToHud(ZoneIntroductionAnchor.Value);

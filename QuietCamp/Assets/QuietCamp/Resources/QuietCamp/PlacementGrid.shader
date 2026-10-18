@@ -29,11 +29,13 @@ Shader "QuietCamp/PlacementGrid"
                 float rimAlpha=max(0,rim-gridLine)*_GridColor.a*.65;
                 float alpha=coreAlpha+rimAlpha;
                 float3 color=(_GridColor.rgb*coreAlpha+float3(.10,.16,.13)*rimAlpha)/max(.0001,alpha);
-                // A local guide, fading into the scene instead of covering the whole camp.
+                // The whole field stays legible; nearby cells have slightly stronger lines.
                 float2 fromTent=abs(i.world.xz-_PlacementFocus.xy);
                 float outsideTent=smoothstep(1.02,1.12,max(fromTent.x,fromTent.y));
-                float focus=(1-smoothstep(1.7,_PlacementFocus.z,length(fromTent)))*outsideTent;
-                return half4(color,alpha*_GridVisible*lerp(1,focus,_PlacementFocus.w));
+                float focus=lerp(.45,1,1-smoothstep(1.7,_PlacementFocus.z,length(fromTent)))*outsideTent;
+                // The separate camp border owns the outer edge, including its exit opening.
+                float insideEdge=min(_GridOffset.x-abs(i.world.x),_GridOffset.y-abs(i.world.z));
+                return half4(color,alpha*_GridVisible*lerp(1,focus,_PlacementFocus.w)*smoothstep(.015,.06,insideEdge));
             }
             ENDHLSL
         }

@@ -35,6 +35,7 @@ namespace QuietCamp.Presentation.World
         GameObject _pathOverlay;
         GameObject _previewOverlay;
         GameObject _previewDoor;
+        GameObject _campOrientation;
         readonly List<GameObject> _pathCells = new List<GameObject>();
         readonly List<GameObject> _previewCells = new List<GameObject>();
         GameObject _issueOverlay;
@@ -386,6 +387,93 @@ namespace QuietCamp.Presentation.World
             if(_groundMaterial.HasProperty("_CellGrid"))_groundMaterial.SetFloat("_CellGrid",visible?1:0);
         }
 
+        /// <summary>Stable spatial orientation, separate from candidate validity and wish zones.</summary>
+        public void ShowCampOrientation(bool visible)
+        {
+            if(visible&&_campOrientation==null)BuildCampOrientation();
+            if(_campOrientation!=null)_campOrientation.SetActive(visible);
+        }
+
+        void BuildCampOrientation()
+        {
+            _campOrientation=new GameObject("CampBoundaryAndExits");
+            _campOrientation.transform.SetParent(_overlayRoot,false);
+            float halfX=_level.width*.5f,halfZ=_level.height*.5f;
+            var exits=new HashSet<Cell>(CampAccess.Points(_level));
+            var gaps=new List<Vector2>[] {new List<Vector2>(),new List<Vector2>(),new List<Vector2>(),new List<Vector2>()};
+            foreach(var cell in exits)
+            {
+                var at=BoardMath.CellCenterWorld(_level,cell);
+                // Nearest actual edge, not a radial arrow towards an arbitrary board centre.
+                float[] distances={Mathf.Abs(at.z+halfZ),Mathf.Abs(at.x-halfX),Mathf.Abs(at.z-halfZ),Mathf.Abs(at.x+halfX)};
+                int edge=0;
+                for(int i=1;i<4;i++)if(distances[i]<distances[edge])edge=i;
+                float along=edge%2==0?at.x:at.z;
+                if(distances[edge]<=.6f)gaps[edge].Add(new Vector2(along-.46f,along+.46f));
+                var marker=new GameObject("CampExit_"+cell.X+"_"+cell.Z);
+                marker.transform.SetParent(_campOrientation.transform,false);
+                marker.transform.localPosition=at+Vector3.up*(BoardMath.OverlayY+.006f);
+                var outward=edge==0?Vector3.back:edge==1?Vector3.right:edge==2?Vector3.forward:Vector3.left;
+                marker.transform.localRotation=Quaternion.LookRotation(outward);
+                var color=new Color(1,.96f,.80f,.95f);
+                NewPrimitive(PrimitiveType.Cube,"ExitArrowStem",marker.transform,new Vector3(.08f,.006f,.65f),new Vector3(0,0,.10f),color,RuleOverlayLayer,_overlayMaterial);
+                var left=NewPrimitive(PrimitiveType.Cube,"ExitArrowLeft",marker.transform,new Vector3(.08f,.006f,.28f),new Vector3(-.08f,0,.50f),color,RuleOverlayLayer,_overlayMaterial);
+                var right=NewPrimitive(PrimitiveType.Cube,"ExitArrowRight",marker.transform,new Vector3(.08f,.006f,.28f),new Vector3(.08f,0,.50f),color,RuleOverlayLayer,_overlayMaterial);
+                left.transform.localRotation=Quaternion.Euler(0,-45,0);right.transform.localRotation=Quaternion.Euler(0,45,0);
+            }
+            var vertices=new List<Vector3>();var triangles=new List<int>();
+            void Strip(float x,float z,float width,float depth)
+            {
+                int n=vertices.Count;float y=BoardMath.OverlayY+.003f;
+                vertices.Add(new Vector3(x-width*.5f,y,z-depth*.5f));vertices.Add(new Vector3(x-width*.5f,y,z+depth*.5f));
+                vertices.Add(new Vector3(x+width*.5f,y,z+depth*.5f));vertices.Add(new Vector3(x+width*.5f,y,z-depth*.5f));
+                triangles.AddRange(new[]{n,n+1,n+2,n,n+2,n+3});
+            }
+            for(int edge=0;edge<4;edge++)
+            {
+                bool horizontal=edge%2==0;float half=horizontal?halfX:halfZ;
+                float fixedAt=edge==0?-halfZ:edge==1?halfX:edge==2?halfZ:-halfX;
+                gaps[edge].Sort((a,b)=>a.x.CompareTo(b.x));float start=-half;
+                void Segment(float end)
+                {
+                    end=Mathf.Clamp(end,-half,half);
+                    if(end>start)
+                    {
+                        float mid=(start+end)*.5f;
+                        if(horizontal)Strip(mid,fixedAt,end-start,.045f);else Strip(fixedAt,mid,.045f,end-start);
+                    }
+                }
+                foreach(var gap in gaps[edge]){Segment(gap.x);start=Mathf.Max(start,Mathf.Min(half,gap.y));}
+                Segment(half);
+            }
+            // A narrow dark edge keeps the same light border legible on snow as on grass.
+            var contrast=new List<Vector3>(vertices);
+            for(int i=0;i<vertices.Count;i+=4)
+            {
+                var centre=(vertices[i]+vertices[i+2])*.5f;
+                bool horizontal=vertices[i+2].x-vertices[i].x>vertices[i+2].z-vertices[i].z;
+                for(int j=0;j<4;j++)
+                {
+                    var point=contrast[i+j];point.y-=.001f;
+                    if(horizontal)point.z+=Mathf.Sign(point.z-centre.z)*.025f;
+                    else point.x+=Mathf.Sign(point.x-centre.x)*.025f;
+                    contrast[i+j]=point;
+                }
+            }
+            void BoundaryMesh(string name,List<Vector3> points,Color color,int order)
+            {
+                var mesh=new Mesh{name=name};
+                mesh.SetVertices(points);mesh.SetTriangles(triangles,0);mesh.RecalculateNormals();mesh.RecalculateBounds();
+                var line=new GameObject(name);line.transform.SetParent(_campOrientation.transform,false);
+                line.AddComponent<MeshFilter>().sharedMesh=mesh;
+                var renderer=line.AddComponent<MeshRenderer>();renderer.sharedMaterial=_overlayMaterial;renderer.sortingOrder=order;
+                renderer.shadowCastingMode=UnityEngine.Rendering.ShadowCastingMode.Off;renderer.receiveShadows=false;
+                line.layer=RuleOverlayLayer;line.AddComponent<OwnedCampMesh>().Mesh=mesh;Tint(line,color);
+            }
+            BoundaryMesh("CampBoundaryContrast",contrast,new Color(.1f,.2f,.16f,.45f),0);
+            BoundaryMesh("CampBoundary",vertices,new Color(1,.96f,.80f,.72f),1);
+        }
+
         public void ShowPlacementGuidance(QuietCamp.Application.CampSession session,string guestId,int rotation)
         {
             var guest=System.Array.Find(_level.guests,g=>g.id==guestId);
@@ -657,6 +745,7 @@ namespace QuietCamp.Presentation.World
             if (_pathOverlay != null) DestroyOwned(_pathOverlay);
             if (_previewOverlay != null) DestroyOwned(_previewOverlay);
             if (_previewDoor != null) DestroyOwned(_previewDoor);
+            if(_campOrientation!=null)DestroyOwned(_campOrientation);
             if (_routeBreakOverlay != null) DestroyOwned(_routeBreakOverlay);
             _pathCells.Clear(); _previewCells.Clear();
             if (_overlayMaterial != null) DestroyOwned(_overlayMaterial);

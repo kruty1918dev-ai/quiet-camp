@@ -270,8 +270,7 @@ namespace QuietCamp.Presentation.World
             }
             finally
             {
-                _renderer?.HidePath();_renderer?.HideHint();
-                _hud?.EndIntroduction();_hud?.SetTutorial(_tutorial.Cue(_session));
+                _renderer?.HidePath();_renderer?.HideHint();_hud?.EndIntroduction();_hud?.SetTutorial(_tutorial.Cue(_session));
             }
         }
 
@@ -891,7 +890,11 @@ namespace QuietCamp.Presentation.World
 
         // ─── Frame loop ──────────────────────────────────────────────────────
 
-        void LateUpdate() => _hud?.TickAnchors();
+        void LateUpdate()
+        {
+            if(IsReady&&_renderer!=null&&_hud!=null)_renderer.ShowCampOrientation(_hud.CampOrientationVisible);
+            _hud?.TickAnchors();
+        }
 
         void Update()
         {

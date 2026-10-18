@@ -229,6 +229,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                     .Where(r=>r.name.StartsWith("Cell_",StringComparison.Ordinal)&&r.sharedMaterial?.HasProperty("_GridVisible")==true)
                     .Select(r=>r.sharedMaterial.GetFloat("_GridVisible")).Distinct().ToArray();
                 return new{status="learning-status",id,memoryOnly=services.Save.MemoryOnly,placed=session.State.Count,
+                    entry=session.Level.entry,boardSize=new[]{session.Level.width,session.Level.height},
                     completed=session.IsCompleted,grids,closures=stories.Select(s=>s.Closure).ToArray(),
                     finishing=CampSceneHost.Current?.IsFinishingCamp,
                     shadeIntroduction=CampSceneHost.Current?.IsIntroducingShade,

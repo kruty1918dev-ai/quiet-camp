@@ -195,6 +195,15 @@ button text, .gc-text text { white-space: normal; }
 .shade-pointer .ico { width: 64px; height: 64px; min-width: 64px; min-height: 64px; background-color: #f6f0df; border-radius: 32px; }
 .shade-pointer-stem { width: 5px; height: 30px; background-color: #f6f0df; }
 .shade-pointer-tip { width: 0; height: 0; border-left: 13px solid transparent; border-right: 13px solid transparent; border-top: 17px solid #f6f0df; }
+.camp-exit-label { position: absolute; translate: -50% -100%; align-items: center; pointer-events: none; }
+.camp-exit-badge { background-color: #f6f0df; border-radius: 14px; padding: 6px 14px; }
+.camp-exit-text { font-size: 25px; font-weight: bold; color: #294537; }
+.camp-exit-stem { width: 3px; height: 18px; background-color: #f6f0df; }
+.guide-concept { flex-direction: row; align-items: center; gap: 12px; margin-bottom: 8px; }
+.guide-concept .ico { width: 48px; height: 48px; min-width: 48px; min-height: 48px; }
+.guide-concept text { font-size: 28px; font-weight: bold; color: #294537; }
+.guest-card.wish-focus-shade .ico-shade, .guest-card.wish-focus-quiet .ico-quiet,
+.guest-card.wish-focus-friends .ico-guests { background-color: #eadfab; border: 3px solid #6d8060; border-radius: 12px; width: 56px; height: 56px; min-width: 56px; min-height: 56px; }
 .demo-guide-name { font-size: 28px; font-weight: bold; color: #294537; }
 .intro-continue { font-size: 26px; color: #294537; margin-top: 10px; }
 .camp-hud .guide-card { min-height: 220px; }

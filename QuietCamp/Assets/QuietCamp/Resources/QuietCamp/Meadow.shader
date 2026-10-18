@@ -104,9 +104,10 @@ Shader "QuietCamp/Meadow"
                 float2 cellEdge=min(phase,1-phase);
                 float2 seam=1-smoothstep(float2(.006,.006),.006+max(fwidth(ground),float2(.001,.001)),cellEdge);
                 float2 fromTent=abs(i.positionWS.xz-_PlacementFocus.xy);
-                float focus=(1-smoothstep(1.7,_PlacementFocus.z,length(fromTent)))
+                float focus=lerp(.45,1,1-smoothstep(1.7,_PlacementFocus.z,length(fromTent)))
                     *smoothstep(1.02,1.12,max(fromTent.x,fromTent.y));
-                grass*=1-max(seam.x,seam.y)*.14*_CellGrid*lerp(1,focus,_PlacementFocus.w);
+                float insideEdge=min(_ClearingHalfSize.x-abs(i.positionWS.x),_ClearingHalfSize.y-abs(i.positionWS.z));
+                grass*=1-max(seam.x,seam.y)*.14*_CellGrid*lerp(1,focus,_PlacementFocus.w)*smoothstep(.015,.06,insideEdge);
                 Light sun = GetMainLight(TransformWorldToShadowCoord(i.positionWS));
                 half3 lighting = SampleSH(half3(0,1,0))
                     + sun.color * saturate(sun.direction.y) * sun.shadowAttenuation;
