@@ -286,8 +286,8 @@ namespace QuietCamp.Presentation.World
                 {
                     if(!CanContinueIntroduction&&gate.Ready(Time.unscaledTimeAsDouble))
                     {CanContinueIntroduction=true;_hud.ShowIntroductionContinue(true);}
-                    var screen=UnityEngine.InputSystem.Touchscreen.current;
-                    var touch=screen?.primaryTouch;
+                    var touch=CampTouchInput.Find();
+                    var screen=touch?.device as UnityEngine.InputSystem.Touchscreen;
                     bool touchActive=touch!=null&&(touch.press.isPressed||touch.press.wasReleasedThisFrame);
                     int fingers=0;
                     if(screen!=null)foreach(var finger in screen.touches)if(finger.press.isPressed)fingers++;

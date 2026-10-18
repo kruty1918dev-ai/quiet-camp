@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "id": "greenery-all-v2",
+  "id": "greenery-all-v2-dense-cover",
   "label": "Збалансована зелень поля та лісу",
   "seed": 4157,
   "maxRepairRounds": 5,
@@ -25,11 +25,12 @@
         "repairRadius": 3,
         "spacing": 0.14,
         "fieldCover": {
-          "density": 7,
+          "density": 28,
           "maximumHeight": 0.14,
           "maximumSpan": 0.28,
-          "fringe": 3,
-          "broadLeafShare": 0.2
+          "fringe": 6,
+          "broadLeafShare": 0.2,
+          "continuousMeadow": true
         }
       }
     },

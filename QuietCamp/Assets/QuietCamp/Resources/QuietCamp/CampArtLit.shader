@@ -107,7 +107,7 @@ Shader "QuietCamp/CampArtLit"
                     // Preserve authored scars and banks without retaining a differently painted puzzle rectangle.
                     float fieldDistance=max(abs(p.x)-_CampFieldSize.x,abs(p.y)-_CampFieldSize.y);
                     float undisturbed=1-smoothstep(.3,2.0,fieldDistance+(ArtNoise(p*.8f)-.5)*.45);
-                    baseColor=lerp(baseColor,natural,lerp(.72,1,undisturbed));
+                    baseColor=lerp(baseColor,natural,lerp(.94,1,undisturbed));
                     float cover=saturate(_CampClimate.y);
                     float drift=ArtNoise(p*.23+71)*.7+ArtNoise(p*.81-29)*.3;
                     float snow=cover>=.999?1:smoothstep(1-cover-.12,1-cover+.12,drift)*smoothstep(0,.12,cover);

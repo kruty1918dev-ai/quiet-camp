@@ -1,6 +1,6 @@
 #ifndef QC_NATURAL_GROUND
 #define QC_NATURAL_GROUND
-// A metre-scale triangular surface: continuous heights, one gentle normal per facet.
+// Continuous metre-scale relief; no triangle boundaries in colour or lighting.
 // No texture fetches or subpixel grain; terrain silhouette and collision stay authored.
 float GroundHash(float2 p)
 {
@@ -12,24 +12,23 @@ float GroundNoise(float2 p)
     return lerp(lerp(GroundHash(a),GroundHash(a+float2(1,0)),f.x),
         lerp(GroundHash(a+float2(0,1)),GroundHash(a+1),f.x),f.y);
 }
-float3 GroundFacet(float2 p,float scale)
+float3 GroundRelief(float2 p,float scale)
 {
-    // Skew and rotate so the facets cannot read as the gameplay grid.
     float2 q=float2(p.x*.86+p.y*.51,p.y*.86-p.x*.51)*scale;
     float2 a=floor(q),f=frac(q);
     float h0=GroundHash(a),h1=GroundHash(a+float2(1,0)),h2=GroundHash(a+float2(0,1)),h3=GroundHash(a+1);
-    bool lower=f.x+f.y<1;
-    float2 slope=lower?float2(h1-h0,h2-h0):float2(h3-h2,h3-h1);
-    float height=lower?h0+dot(slope,f):h3+dot(slope,f-1);
+    float2 blend=f*f*(3-2*f),derivative=6*f*(1-f);
+    float2 slope=float2(lerp(h1-h0,h3-h2,blend.y),lerp(h2-h0,h3-h1,blend.x))*derivative;
+    float height=lerp(lerp(h0,h1,blend.x),lerp(h2,h3,blend.x),blend.y);
     slope=float2(slope.x*.86-slope.y*.51,slope.x*.51+slope.y*.86)*scale;
     return float3(slope,height);
 }
 float3 NaturalGroundNormal(float3 authored,float2 p,float4 finish,float wet,float snow)
 {
-    float3 facet=GroundFacet(p,finish.y);
+    float3 relief=GroundRelief(p,finish.y);
     float softness=lerp(1,.40,saturate(snow))*lerp(1,.85,saturate(wet));
     float weight=smoothstep(.4,.9,authored.y)*finish.z*softness;
-    return normalize(authored+float3(-facet.x,0,-facet.y)*weight);
+    return normalize(authored+float3(-relief.x,0,-relief.y)*weight);
 }
 float3 NaturalGroundColor(float2 p,float3 low,float3 high,float3 soil,float4 finish,float wet)
 {
@@ -41,8 +40,7 @@ float3 NaturalGroundColor(float2 p,float3 low,float3 high,float3 soil,float4 fin
     float3 color=lerp(low,high,patches);
     color=lerp(color,soil,earth*.60);
     color=lerp(color,low*float3(.85,1,.91),moss*.28);
-    float facet=GroundFacet(p,finish.y).z;
-    color*=lerp(.97,1.03,facet);
+    color*=lerp(.98,1.02,GroundNoise(p*finish.y));
     return color*(1-saturate(wet)*(.05+earth*.07));
 }
 float3 MeadowSubstrate(float3 color,float2 p,float4 extent)

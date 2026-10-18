@@ -32,8 +32,8 @@ Shader "QuietCamp/TentCloth"
             float3 rootWorld=TransformObjectToWorld(float3(0,0,0));
             float4 localWind=CampWindAt(rootWorld,heightWorld*.6,_AtmosWindXZ.xy,_AtmosWindStrength,_AtmosWindTime);
             // Tensioned canvas breathes between fixed seams; it cannot flap like a flag.
-            float amplitude=min(heightWorld*.035,.045);
-            float3 windWorld=float3(localWind.x*wave,ripple,localWind.y*wave)*pin*localWind.z*amplitude;
+            float amplitude=min(heightWorld*.08,.085);
+            float3 windWorld=float3(localWind.x*wave,ripple,localWind.y*wave)*pin*sqrt(saturate(localWind.z))*amplitude;
             // Local packing pressure shares the same seam/ridge pin mask as
             // wind. Rigid submeshes do not use this shader.
             float falloff=saturate(1-distance(p,_StorageBulge.xyz)/max(.001,_StorageBulge.w));falloff*=falloff;

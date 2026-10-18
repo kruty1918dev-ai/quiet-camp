@@ -197,7 +197,7 @@ namespace QuietCamp.Presentation.World
             var localWind=QuietCamp.Infrastructure.WindFieldMath.Evaluate(wind,strength,seconds,localToWorld.MultiplyPoint3x4(Vector3.zero),height*.6f,QuietCamp.Infrastructure.WindFieldMath.CurrentShelter);
             float falloff=Mathf.Clamp01(1-Vector3.Distance(p,new Vector3(storage.x,storage.y,storage.z))/Mathf.Max(.001f,storage.w));falloff*=falloff;
             p.x+=(storage.x>=bounds.center.x?1:-1)*falloff*pin*Mathf.Clamp01(pressure)*size.x*.018f;
-            return p+worldToLocal.MultiplyVector(new Vector3(localWind.DirectionXZ.x*wave,ripple,localWind.DirectionXZ.y*wave)*(pin*localWind.Strength*Mathf.Min(height*.035f,.045f)));
+            return p+worldToLocal.MultiplyVector(new Vector3(localWind.DirectionXZ.x*wave,ripple,localWind.DirectionXZ.y*wave)*(pin*Mathf.Sqrt(Mathf.Clamp01(localWind.Strength))*Mathf.Min(height*.08f,.085f)));
         }
         void OnDestroy(){foreach(var geometry in _geometry)geometry.Release();foreach(var m in _owned) if(m!=null)Destroy(m);if(_interior!=null)Destroy(_interior);if(_atlas!=null)Destroy(_atlas);if(_glowMesh!=null)Destroy(_glowMesh);}
     }

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "id": "flower-meadow-pilot-v6",
+  "id": "flower-meadow-pilot-v6-dense-cover",
   "label": "Flower meadow",
   "levelIds": [
     "QC001"
@@ -33,10 +33,10 @@
         "adjustAccents": false,
         "fieldCover": {
           "continuousMeadow": true,
-          "density": 24,
+          "density": 28,
           "maximumHeight": 0.14,
           "maximumSpan": 0.28,
-          "fringe": 3,
+          "fringe": 6,
           "broadLeafShare": 0.04,
           "flowerCoverage": 0.65
         }

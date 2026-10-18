@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace QuietCamp.Presentation.World
 {
-    /// <summary>One cached refinement of fabric triangles; rigid submeshes and colliders retain authored geometry.</summary>
+    /// <summary>Cached refinement of fabric triangles; rigid submeshes and colliders retain authored geometry.</summary>
     internal sealed class FabricGeometry
     {
         static readonly Dictionary<(Mesh, ulong), FabricGeometry> Cache = new Dictionary<(Mesh, ulong), FabricGeometry>();
@@ -59,15 +59,21 @@ namespace QuietCamp.Presentation.World
                         if (!hasFabricBounds) { fabricBounds = new Bounds(vertices[index], Vector3.zero); hasFabricBounds = true; }
                         else fabricBounds.Encapsulate(vertices[index]);
                     }
-                    var refined = new int[original.Length * 4]; int next = 0;
-                    void Triangle(int a, int b, int c) { refined[next++] = a; refined[next++] = b; refined[next++] = c; }
-                    for (int i = 0; i < original.Length; i += 3)
+                    // A sparse imported roof needs distributed folds, not one moving
+                    // midpoint making a sharp dent. Keep dense fabric within the old budget.
+                    for(int pass=0;pass<(triangles<=256?2:1);pass++)
                     {
-                        int a = original[i], b = original[i+1], c = original[i+2];
-                        int ab = Midpoint(a,b), bc = Midpoint(b,c), ca = Midpoint(c,a);
-                        Triangle(a,ab,ca); Triangle(ab,b,bc); Triangle(ca,bc,c); Triangle(ab,bc,ca);
+                        var refined = new int[original.Length * 4]; int next = 0;
+                        void Triangle(int a, int b, int c) { refined[next++] = a; refined[next++] = b; refined[next++] = c; }
+                        for (int i = 0; i < original.Length; i += 3)
+                        {
+                            int a = original[i], b = original[i+1], c = original[i+2];
+                            int ab = Midpoint(a,b), bc = Midpoint(b,c), ca = Midpoint(c,a);
+                            Triangle(a,ab,ca); Triangle(ab,b,bc); Triangle(ca,bc,c); Triangle(ab,bc,ca);
+                        }
+                        original=refined;
                     }
-                    parts[slot] = refined;
+                    parts[slot] = original;
                 }
                 var mesh = new Mesh { name = source.name + " (wind fabric)", indexFormat = vertices.Count > 65535 ? UnityEngine.Rendering.IndexFormat.UInt32 : source.indexFormat };
                 mesh.SetVertices(vertices);

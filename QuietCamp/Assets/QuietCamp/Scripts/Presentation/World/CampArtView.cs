@@ -264,7 +264,9 @@ namespace QuietCamp.Presentation.World
                 Quad(positions, colors, At(wx, wz), At(wx, wz + s), At(wx + s, wz + s), At(wx + s, wz), color);
             }
             var groundMaterial = new Material(material); groundMaterial.SetFloat("_ArtGround", 1); GroundPalette(groundMaterial); _materials.Add(groundMaterial);
-            AddMesh("MeadowGround", MakeMesh("Meadow triangles", positions, colors), groundMaterial, false);
+            var groundMesh=MakeMesh("Meadow surface",positions,colors);
+            LandscapeMesh.SmoothGroundNormals(groundMesh);
+            AddMesh("MeadowGround",groundMesh,groundMaterial,false);
         }
         void BuildFrozenLandscape(Material material)
         {

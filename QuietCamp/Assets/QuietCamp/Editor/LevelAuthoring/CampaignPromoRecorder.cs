@@ -28,9 +28,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         MovieRecorderSettings _movie;
         Mouse _mouse;
         InputDevice[] _hardware;
-        InputSettings _previousInputSettings;
-        InputSettings.BackgroundBehavior _previousBackground;
-        InputSettings.EditorInputBehaviorInPlayMode _previousEditorInput;
+        EditorPointerInputScope _inputScope;
         string _output;
         readonly List<object> _actions = new();
         bool _finished;
@@ -134,11 +132,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             }
             // The temporary replay must keep receiving its virtual pointer while
             // Windows focuses the user's IDE. Never alter the project's input asset.
-            _previousInputSettings=InputSystem.settings;
-            _previousBackground=_previousInputSettings.backgroundBehavior;
-            _previousEditorInput=_previousInputSettings.editorInputBehaviorInPlayMode;
-            _previousInputSettings.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;
-            _previousInputSettings.editorInputBehaviorInPlayMode=InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
+            _inputScope=new EditorPointerInputScope();
             _hardware = InputSystem.devices.Where(d => (d is Mouse || d is Keyboard || d is Touchscreen) && d.enabled).ToArray();
             foreach (var device in _hardware) InputSystem.DisableDevice(device);
             _mouse = InputSystem.AddDevice<Mouse>("QuietCampPromoReplay"); _mouse.MakeCurrent();
@@ -157,6 +151,12 @@ namespace QuietCamp.Editor.LevelAuthoring
             {
                 if(_worldCriteria!=null&&frame==0)WorldFrame("empty");
                 if(_worldCriteria!=null&&frame==110)WorldFrame("placed");
+                if(_worldCriteria!=null&&frame==115)
+                {
+                    // Same placed tents, a later wind phase, before completion props.
+                    for(int tick=0;tick<24;tick++)yield return _stillsOnly?null:new WaitForEndOfFrame();
+                    WorldFrame("breeze");
+                }
                 _peakRainRunoff=Math.Max(_peakRainRunoff,atmosphere?.RainContacts?.RunoffCount??0);
                 if(atmosphere!=null){_windMinimum=Mathf.Min(_windMinimum,atmosphere.WindStrength);_windMaximum=Mathf.Max(_windMaximum,atmosphere.WindStrength);}
                 if(frame<6||(frame>104&&frame<116))
@@ -237,11 +237,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             // The movie is closed; prevent its queued SkipFrame from rendering stopped audio.
             if (_movie != null) _movie.AudioInputSettings.PreserveAudio = false;
             if (_mouse != null && _mouse.added) InputSystem.RemoveDevice(_mouse);
-            if(_previousInputSettings!=null)
-            {
-                _previousInputSettings.backgroundBehavior=_previousBackground;
-                _previousInputSettings.editorInputBehaviorInPlayMode=_previousEditorInput;
-            }
+            _inputScope?.Dispose();_inputScope=null;
             if (_hardware != null) foreach (var device in _hardware) if (device.added) InputSystem.EnableDevice(device);
             var host = CampSceneHost.Current;
             var art = UnityEngine.Object.FindAnyObjectByType<CampArtView>();

@@ -28,6 +28,7 @@ namespace QuietCamp.Presentation.World
 
         Phase _phase = Phase.Idle;
         int _pointerId = -1;
+        int _touchscreenId;
         Vector2 _pressScreen;
         bool _captured;
         Vector3 _lastDragWorld;
@@ -218,6 +219,7 @@ namespace QuietCamp.Presentation.World
         {
             _session.Select(guestId);
             _pointerId = pointerId; _captured = true; _pressScreen = screen;
+            _touchscreenId=pointerId>0?CampTouchInput.Find(pointerId)?.device.deviceId??0:0;
             _pressTime = Time.unscaledTime;
             _movedOriginal = _session.State.Find(guestId)?.Copy();
             _grabOffset = new Cell(0,0); _cardDrag = true;
@@ -326,6 +328,7 @@ namespace QuietCamp.Presentation.World
         {
             EndCapture();
             _pointerId = -1;
+            _touchscreenId=0;
         }
 
         void EndCapture()
@@ -601,17 +604,10 @@ namespace QuietCamp.Presentation.World
 
         PointerSample ReadPointer()
         {
-            var touch = Touchscreen.current;
-            if (touch != null && _pointerId != 0)
+            var primary=_pointerId==0?null:CampTouchInput.Find(_pointerId,_pointerId>0?_touchscreenId:0);
+            if (primary != null)
             {
-                var primary = touch.primaryTouch;
-                if (_pointerId > 0)
-                {
-                    primary = null;
-                    foreach (var candidate in touch.touches)
-                        if (candidate.touchId.ReadValue() == _pointerId) { primary = candidate; break; }
-                    if (primary == null) return default;
-                }
+                _touchscreenId=primary.device.deviceId;
                 var phase = primary.phase.ReadValue();
                 if (phase == UnityEngine.InputSystem.TouchPhase.Began
                     || phase == UnityEngine.InputSystem.TouchPhase.Moved
@@ -634,7 +630,7 @@ namespace QuietCamp.Presentation.World
             }
             if (_pointerId > 0) return default;
             var mouse = Mouse.current;
-            if (mouse == null) return default;
+            if (mouse == null||!mouse.enabled) return default;
             return new PointerSample
             {
                 Has = true,

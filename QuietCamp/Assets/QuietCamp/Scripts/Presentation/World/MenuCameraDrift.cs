@@ -91,9 +91,10 @@ namespace QuietCamp.Presentation.World
 
         void ReadSwipe()
         {
-            var touch=Touchscreen.current?.primaryTouch;
+            var touch=CampTouchInput.Find();
             bool touching=touch!=null&&(touch.press.isPressed||touch.press.wasReleasedThisFrame);
             var mouse=Mouse.current;
+            if(mouse!=null&&!mouse.enabled)mouse=null;
             if(!touching&&mouse==null){ClearGesture();return;}
             int id=touching?touch.touchId.ReadValue():0;
             var position=touching?touch.position.ReadValue():mouse.position.ReadValue();
@@ -101,7 +102,7 @@ namespace QuietCamp.Presentation.World
             bool held=touching?touch.press.isPressed:mouse.leftButton.isPressed;
             if(touching)
             {
-                int count=0;foreach(var finger in Touchscreen.current.touches)if(finger.press.isPressed)count++;
+                int count=0;foreach(var finger in ((Touchscreen)touch.device).touches)if(finger.press.isPressed)count++;
                 if(count>1){ClearGesture();return;}
             }
             if(began)

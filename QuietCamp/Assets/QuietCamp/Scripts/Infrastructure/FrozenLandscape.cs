@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -54,6 +55,23 @@ namespace QuietCamp.Infrastructure
         }
         static bool OptionalChannel(float[] values, int length) => values == null || values.Length == 0
             || values.Length == length && values.All(FrozenLandscape.Finite);
+        public static void SmoothGroundNormals(Mesh mesh)
+        {
+            var points=mesh.vertices;var indices=mesh.triangles;var authored=mesh.normals;
+            var accumulated=new Dictionary<Vector3,Vector3>();
+            for(int i=0;i<indices.Length;i+=3)
+            {
+                var a=points[indices[i]];var b=points[indices[i+1]];var c=points[indices[i+2]];
+                var face=Vector3.Cross(b-a,c-a);
+                if(authored.Length==points.Length&&Vector3.Dot(face,authored[indices[i]])<0)face=-face;
+                for(int j=0;j<3;j++)
+                {var at=points[indices[i+j]];accumulated.TryGetValue(at,out var sum);accumulated[at]=sum+face;}
+            }
+            var normals=new Vector3[points.Length];
+            for(int i=0;i<points.Length;i++)
+            {accumulated.TryGetValue(points[i],out var n);normals[i]=n.sqrMagnitude>1e-12f?n.normalized:Vector3.up;}
+            mesh.normals=normals;
+        }
         public Mesh CreateMesh()
         {
             Validate(); int count = vertices.Length / 3;
@@ -68,6 +86,7 @@ namespace QuietCamp.Infrastructure
             }
             var mesh = new Mesh { name = name, indexFormat = UnityEngine.Rendering.IndexFormat.UInt32 };
             mesh.vertices = points; mesh.normals = directions; mesh.uv = texture; mesh.colors = tint; mesh.triangles = triangles;
+            if(!water&&!decoration)SmoothGroundNormals(mesh);
             if (lightmapUv?.Length > 0) mesh.uv2 = Enumerable.Range(0, count).Select(i => new Vector2(lightmapUv[i * 2], lightmapUv[i * 2 + 1])).ToArray();
             if (flow?.Length > 0) mesh.SetUVs(2, Enumerable.Range(0, count).Select(i => new Vector3(flow[i * 3], flow[i * 3 + 1], flow[i * 3 + 2])).ToArray());
             if (tangents?.Length > 0) mesh.tangents = Enumerable.Range(0, count).Select(i => new Vector4(tangents[i * 4], tangents[i * 4 + 1], tangents[i * 4 + 2], tangents[i * 4 + 3])).ToArray();

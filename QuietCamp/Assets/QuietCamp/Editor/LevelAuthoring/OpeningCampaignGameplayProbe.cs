@@ -9,6 +9,7 @@ using QuietCamp.Presentation.UI;
 using Kruty1918.UIActions.API;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace QuietCamp.Editor.LevelAuthoring
 {
@@ -79,6 +80,30 @@ namespace QuietCamp.Editor.LevelAuthoring
                 if(!int.TryParse(levelId,out int quality)||quality<0||quality>3)throw new ArgumentException("Expected quality preference 0 through 3.");
                 QuietCampBootstrap.ServicesRef.Settings.quality=quality;
                 return new{status="memory-quality-requested",quality,memoryOnly=true};
+            }
+            if(action=="simulator-pointer")
+            {
+                var parts=(levelId??"").Split(',');
+                if(parts.Length!=3||!float.TryParse(parts[0],System.Globalization.NumberStyles.Float,System.Globalization.CultureInfo.InvariantCulture,out float x)
+                    ||!float.TryParse(parts[1],System.Globalization.NumberStyles.Float,System.Globalization.CultureInfo.InvariantCulture,out float y)
+                    ||float.IsNaN(x)||float.IsInfinity(x)||float.IsNaN(y)||float.IsInfinity(y)||x<0||x>1||y<0||y>1)
+                    throw new ArgumentException("Expected normalized device-view x,y,down/up/move.");
+                var kind=parts[2]=="down"?EventType.MouseDown:parts[2]=="up"?EventType.MouseUp:parts[2]=="move"?EventType.MouseDrag:throw new ArgumentException("Unknown pointer phase.");
+                var window=Resources.FindObjectsOfTypeAll<EditorWindow>().First(w=>w.GetType().FullName=="UnityEditor.DeviceSimulation.SimulatorWindow"&&w.rootVisualElement.panel!=null);
+                var view=window.rootVisualElement.Query<VisualElement>().ToList().First(e=>e.GetType().Name=="DeviceView");
+                var point=new Vector2(view.worldBound.x+x*view.worldBound.width,view.worldBound.y+y*view.worldBound.height);
+                window.Focus();var native=new Event{type=kind,mousePosition=point,button=0};
+                if(kind==EventType.MouseDown){using(var evt=MouseDownEvent.GetPooled(native))view.SendEvent(evt);}
+                else if(kind==EventType.MouseUp){using(var evt=MouseUpEvent.GetPooled(native))view.SendEvent(evt);}
+                else{using(var evt=MouseMoveEvent.GetPooled(native))view.SendEvent(evt);}
+                return new{status="simulator-pointer-sent",phase=parts[2],memoryOnly=true};
+            }
+            if(action=="simulator-layout")
+            {
+                var windows=Resources.FindObjectsOfTypeAll<EditorWindow>().Where(w=>w.GetType().FullName=="UnityEditor.DeviceSimulation.SimulatorWindow");
+                return new{status="simulator-layout",screen=new[]{Screen.width,Screen.height},focused=EditorWindow.focusedWindow?.GetType().FullName,windows=windows.Select(w=>new{w.name,focused=EditorWindow.focusedWindow==w,panel=w.rootVisualElement.panel!=null,
+                    elements=w.rootVisualElement.Query<VisualElement>().ToList().Where(e=>e.GetType().Name.Contains("Device")||e.GetType().Name.Contains("Screen")||e is IMGUIContainer)
+                        .Select(e=>new{e.name,type=e.GetType().FullName,e.enabledInHierarchy,e.visible,e.pickingMode,bounds=new[]{e.worldBound.x,e.worldBound.y,e.worldBound.width,e.worldBound.height}}).ToArray()}).ToArray()};
             }
             if(action=="simulator")
             {

@@ -154,12 +154,21 @@ namespace QuietCamp.Editor
                     var module=system?.currentInputModule as UnityEngine.InputSystem.UI.InputSystemUIInputModule;
                     var centre=new Vector2(Screen.width*.5f,Screen.height*.5f);
                     File.WriteAllText(ResultPath,JsonConvert.SerializeObject(new{status="input-status",playing=EditorApplication.isPlaying,paused=EditorApplication.isPaused,
+                        focused=UnityEngine.Application.isFocused,runBackground=UnityEngine.Application.runInBackground,timeScale=Time.timeScale,
+                        inputSettings=JsonUtility.ToJson(UnityEngine.InputSystem.InputSystem.settings),
                         scene=SceneManager.GetActiveScene().name,memoryOnly=services?.Save.MemoryOnly,transition=UnityEngine.Object.FindAnyObjectByType<FoliageDiveTransition>()?.Current.ToString(),
                         recovery=SessionState.GetString("QuietCamp.PlayReload.Phase",""),
+                        lastSimulatorTouch=SessionState.GetString("QuietCamp.Simulator.LastTouch",""),
+                        simulatorRouting=SimulatorTouchRouting.Diagnostics,
                         eventSystem=system?.isActiveAndEnabled,module=module?.isActiveAndEnabled,pointAction=module?.point?.action?.enabled,clickAction=module?.leftClick?.action?.enabled,
                         worldAllowed=services?.InputPolicy.CanProcess(Kruty1918.InputRouting.API.GameplayInputKind.Placement,centre),
                         overUi=services?.InputPolicy.IsPointerOverUi(centre),
                         devices=UnityEngine.InputSystem.InputSystem.devices.Select(d=>new{d.name,d.layout,d.deviceId,d.enabled}),
+                        currentTouchscreen=UnityEngine.InputSystem.Touchscreen.current?.deviceId,
+                        activeTouchscreen=CampTouchInput.Find()?.device.deviceId,
+                        uiPointDevices=module?.point?.action?.controls.Select(c=>c.device.deviceId).Distinct().ToArray(),
+                        uiClickDevices=module?.leftClick?.action?.controls.Select(c=>c.device.deviceId).Distinct().ToArray(),
+                        buttons=UnityEngine.Object.FindObjectsByType<UnityEngine.UI.Button>(FindObjectsSortMode.None).Where(b=>b.gameObject.activeInHierarchy).Take(12).Select(b=>new{b.name,b.interactable,point=new[]{b.transform.position.x,b.transform.position.y}}).ToArray(),
                         updateMode=UnityEngine.InputSystem.InputSystem.settings.updateMode.ToString()}));
                 }
                 else if(request.mode=="font-tests") RunTests(true,"QuietCamp.Tests.CampTypographyTests");
