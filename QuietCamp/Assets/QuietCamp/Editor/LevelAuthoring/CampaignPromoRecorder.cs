@@ -206,8 +206,18 @@ namespace QuietCamp.Editor.LevelAuthoring
                     if (!host.Session.IsCompleted) throw new InvalidOperationException("The replay did not solve the level through Check.");
                     _actions.Add(new { frame, kind = "canonical-check", solved = true });
                 }
-                if (_stillsOnly && frame == 120)
+                if (frame == 120 && (_stillsOnly || _worldCriteria!=null))
                 {
+                    if(_worldCriteria!=null)
+                    {
+                        // Inspect the actual completed state, after care props appear and
+                        // entrance panels close. Four frames after Check was too early.
+                        var tents=UnityEngine.Object.FindObjectsByType<TentStoryVisual>(FindObjectsSortMode.None);
+                        float deadline=Time.realtimeSinceStartup+6;
+                        while(tents.Any(t=>!t.Cared||t.Closure<.999f)&&Time.realtimeSinceStartup<deadline)yield return null;
+                        if(tents.Any(t=>!t.Cared||t.Closure<.999f))throw new InvalidOperationException("Completed tent presentation did not settle.");
+                        WorldFrame("complete");
+                    }
                     ScreenCapture.CaptureScreenshot(Path.Combine(_output, "complete.png"));
                     _cameraAfter = OpeningCampaignGameplayProbe.CameraProof(host.Session.Level,
                         UnityEngine.Object.FindAnyObjectByType<CampArtView>()?.Definition);

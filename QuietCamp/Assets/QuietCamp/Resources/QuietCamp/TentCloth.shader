@@ -24,18 +24,20 @@ Shader "QuietCamp/TentCloth"
         {
             float3 u=saturate((p-_MeshMin.xyz)/max(_MeshSize.xyz,float3(.001,.001,.001)));
             // Edge seams, ground pegs and roof ridge remain anchored.
-            float pin=sin(u.y*PI)*sin(u.x*PI)*(.35+.65*sin(u.z*PI));
+            float pin=sin(u.y*PI)*sin(u.x*PI)*sin(u.z*PI);
             float3 world=TransformObjectToWorld(p);
-            float wave=sin(_AtmosWindTime*2.1+dot(world.xz,float2(.8,1.1)))+.3*sin(_AtmosWindTime*4.4+world.x);
-            float ripple=.18*sin(_AtmosWindTime*3.3+world.z*2.4-world.x*1.6);
+            float wave=.75*sin(_AtmosWindTime*1.4+dot(world.xz,float2(.8,1.1)))+.25*sin(_AtmosWindTime*2.8+world.x);
+            float ripple=.08*sin(_AtmosWindTime*2.2+world.z*2.4-world.x*1.6);
             float heightWorld=length(TransformObjectToWorldDir(float3(0,_MeshSize.y,0),false));
             float3 rootWorld=TransformObjectToWorld(float3(0,0,0));
             float4 localWind=CampWindAt(rootWorld,heightWorld*.6,_AtmosWindXZ.xy,_AtmosWindStrength,_AtmosWindTime);
-            float3 windWorld=float3(localWind.x*wave,ripple,localWind.y*wave)*pin*sqrt(localWind.z)*heightWorld*.22;
+            // Tensioned canvas breathes between fixed seams; it cannot flap like a flag.
+            float amplitude=min(heightWorld*.035,.045);
+            float3 windWorld=float3(localWind.x*wave,ripple,localWind.y*wave)*pin*localWind.z*amplitude;
             // Local packing pressure shares the same seam/ridge pin mask as
             // wind. Rigid submeshes do not use this shader.
             float falloff=saturate(1-distance(p,_StorageBulge.xyz)/max(.001,_StorageBulge.w));falloff*=falloff;
-            p.x+=(_StorageBulge.x>=_MeshMin.x+_MeshSize.x*.5?1:-1)*falloff*pin*_StorageAmount*_MeshSize.x*.24;
+            p.x+=(_StorageBulge.x>=_MeshMin.x+_MeshSize.x*.5?1:-1)*falloff*pin*_StorageAmount*_MeshSize.x*.018;
             p+=TransformWorldToObjectDir(windWorld,false);
             return p;
         }

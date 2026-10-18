@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "id": "tent-storm-readability-v1",
+  "label": "Tent readability in strong wind",
+  "levelIds": [
+    "QC001"
+  ],
+  "seed": 4157,
+  "maxRepairRounds": 1,
+  "autoApply": false,
+  "capture": true,
+  "previewOnly": true,
+  "operations": [
+    {
+      "id": "storm-preview",
+      "kind": "atmosphere.preset",
+      "parameters": {
+        "preset": "winter_blizzard"
+      }
+    }
+  ],
+  "criteria": {
+    "autoRepair": false,
+    "requireVisualReview": true,
+    "profiles": [
+      "portrait"
+    ],
+    "quality": 2
+  }
+}

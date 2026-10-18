@@ -254,7 +254,17 @@ namespace QuietCamp.Presentation.World
             var vertices=new List<Vector3>();var indices=new List<int>();var colors=new List<Color>();
             var b=LivingSpace.Bounds;float w=LivingSpace.Width,h=LivingSpace.Height,d=LivingSpace.Depth,y=LivingSpace.Floor;
             var fabric=(_identitySeed&2)==0?new Color(.39f,.49f,.43f):new Color(.57f,.45f,.31f);
-            void Add(Vector3 at,Vector3 size,Color color)=>Box(vertices,indices,colors,at,size,color);
+            void FitFrom(int first)
+            {
+                if(first>=vertices.Count)return;
+                var original=new Bounds(vertices[first],Vector3.zero);
+                for(int i=first+1;i<vertices.Count;i++)original.Encapsulate(vertices[i]);
+                var fitted=LivingSpace.FitInterior(original);
+                float scale=original.size.x>.001f?fitted.size.x/original.size.x:1;
+                for(int i=first;i<vertices.Count;i++)vertices[i]=fitted.center+(vertices[i]-original.center)*scale;
+            }
+            void Add(Vector3 at,Vector3 size,Color color)
+            {var fitted=LivingSpace.FitInterior(new Bounds(at,size));Box(vertices,indices,colors,fitted.center,fitted.size,color);}
             // Sleep, rest, and reading are visible through the real open entrance.
             Add(new Vector3(b.center.x,y+.014f,b.center.z),new Vector3(w*.64f,.028f,d*.67f),new Color(.33f,.36f,.28f));
             Add(new Vector3(b.center.x-w*.12f,y+.055f,b.center.z-d*.03f),new Vector3(w*.30f,.07f,d*.56f),fabric);
@@ -266,7 +276,8 @@ namespace QuietCamp.Presentation.World
             // Valuable papers, seeds, keepsakes and a mug live indoors in every weather.
             Add(new Vector3(b.center.x+w*.12f,y+.023f,b.center.z+d*.22f),new Vector3(w*.13f,.026f,d*.11f),new Color(.71f,.65f,.50f));
             Add(new Vector3(b.center.x+w*.12f,y+.041f,b.center.z+d*.22f),new Vector3(.016f,.012f,d*.10f),new Color(.40f,.35f,.27f));
-            Cup(vertices,indices,colors,new Vector3(b.center.x+w*.28f,y,b.center.z+d*.19f));
+            int mugStart=vertices.Count;
+            Cup(vertices,indices,colors,new Vector3(b.center.x+w*.28f,y,b.center.z+d*.19f));FitFrom(mugStart);
             var box=new Vector3(b.center.x+w*.27f,y+h*.085f,b.center.z-d*.08f);
             Add(box,new Vector3(w*.17f,h*.17f,d*.17f),new Color(.48f,.34f,.23f));
             Add(box+Vector3.up*(h*.091f),new Vector3(w*.18f,.025f,d*.18f),new Color(.56f,.42f,.28f));
@@ -282,10 +293,12 @@ namespace QuietCamp.Presentation.World
             {
                 // Folded furniture can fit in a corner without piercing the pitched roof.
                 var at=new Vector3(b.center.x-w*.34f,y,b.center.z-d*.10f);
-                Add(at+Vector3.up*.11f,new Vector3(.065f,.22f,.20f),new Color(.40f,.31f,.22f));
-                Add(at+new Vector3(.04f,.09f,0),new Vector3(.025f,.18f,.16f),new Color(.33f,.26f,.19f));
+                int first=vertices.Count;
+                Box(vertices,indices,colors,at+Vector3.up*.11f,new Vector3(.065f,.22f,.20f),new Color(.40f,.31f,.22f));
+                Box(vertices,indices,colors,at+new Vector3(.04f,.09f,0),new Vector3(.025f,.18f,.16f),new Color(.33f,.26f,.19f));FitFrom(first);
             }
-            if((shelteredMask&2)!=0)OutdoorItem(1,new Vector3(b.center.x+w*.18f,y,b.center.z+d*.29f),vertices,indices,colors);
+            if((shelteredMask&2)!=0)
+            {int first=vertices.Count;OutdoorItem(1,new Vector3(b.center.x+w*.18f,y,b.center.z+d*.29f),vertices,indices,colors);FitFrom(first);}
             var lamp=new Vector3(b.center.x,y,b.center.z-d*.37f);
             Add(lamp+Vector3.up*.02f,new Vector3(.11f,.04f,.11f),new Color(.29f,.31f,.26f));
             Add(lamp+Vector3.up*.10f,new Vector3(.065f,.12f,.065f),new Color(1.25f,.79f,.30f));
@@ -301,9 +314,14 @@ namespace QuietCamp.Presentation.World
             // No extra light, shadow map or per-frame distance calculation.
             if (_cared)
             {
+                int first=vertices.Count;
                 Cup(vertices,indices,colors,new Vector3(b.center.x+w*.16f,y,b.center.z+d*.19f));
-                Add(new Vector3(b.center.x-w*.29f,y+h*.43f,b.center.z-d*.08f),new Vector3(w*.14f,h*.24f,.018f),fabric);
-                Add(new Vector3(b.center.x-w*.29f,y+h*.565f,b.center.z-d*.08f),new Vector3(w*.20f,.022f,.03f),new Color(.44f,.32f,.22f));
+                FitFrom(first);
+                // Keep the hanging cloth and its rail together, below the sloped roof.
+                first=vertices.Count;
+                Box(vertices,indices,colors,new Vector3(b.center.x-w*.18f,y+h*.25f,b.center.z-d*.08f),new Vector3(w*.14f,h*.20f,.018f),fabric);
+                Box(vertices,indices,colors,new Vector3(b.center.x-w*.18f,y+h*.355f,b.center.z-d*.08f),new Vector3(w*.20f,.022f,.03f),new Color(.44f,.32f,.22f));
+                FitFrom(first);
             }
             var lightAt=lamp+Vector3.up*.13f;
             for(int i=0;i<colors.Count;i++)

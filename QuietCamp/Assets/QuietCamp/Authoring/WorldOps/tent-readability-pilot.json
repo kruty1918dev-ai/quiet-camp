@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "id": "tent-readability-audit-v1",
+  "label": "Tent canvas and completed camp",
+  "levelIds": [
+    "QC001",
+    "QC009"
+  ],
+  "seed": 4157,
+  "maxRepairRounds": 1,
+  "autoApply": false,
+  "capture": true,
+  "previewOnly": true,
+  "operations": [
+    {
+      "id": "inspect-tents",
+      "kind": "audit"
+    }
+  ],
+  "criteria": {
+    "autoRepair": false,
+    "requireVisualReview": true,
+    "profiles": [
+      "portrait",
+      "landscape"
+    ],
+    "quality": 2
+  }
+}

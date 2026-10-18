@@ -189,15 +189,15 @@ namespace QuietCamp.Presentation.World
         {
             var min=bounds.min;var size=bounds.size;
             var u=new Vector3(Mathf.Clamp01((p.x-min.x)/Mathf.Max(.001f,size.x)),Mathf.Clamp01((p.y-min.y)/Mathf.Max(.001f,size.y)),Mathf.Clamp01((p.z-min.z)/Mathf.Max(.001f,size.z)));
-            float pin=Mathf.Sin(u.y*Mathf.PI)*Mathf.Sin(u.x*Mathf.PI)*(.35f+.65f*Mathf.Sin(u.z*Mathf.PI));
+            float pin=Mathf.Sin(u.y*Mathf.PI)*Mathf.Sin(u.x*Mathf.PI)*Mathf.Sin(u.z*Mathf.PI);
             var world=localToWorld.MultiplyPoint3x4(p);
-            float wave=Mathf.Sin(seconds*2.1f+world.x*.8f+world.z*1.1f)+.3f*Mathf.Sin(seconds*4.4f+world.x);
-            float ripple=.18f*Mathf.Sin(seconds*3.3f+world.z*2.4f-world.x*1.6f);
+            float wave=.75f*Mathf.Sin(seconds*1.4f+world.x*.8f+world.z*1.1f)+.25f*Mathf.Sin(seconds*2.8f+world.x);
+            float ripple=.08f*Mathf.Sin(seconds*2.2f+world.z*2.4f-world.x*1.6f);
             float height=localToWorld.MultiplyVector(Vector3.up*size.y).magnitude;
             var localWind=QuietCamp.Infrastructure.WindFieldMath.Evaluate(wind,strength,seconds,localToWorld.MultiplyPoint3x4(Vector3.zero),height*.6f,QuietCamp.Infrastructure.WindFieldMath.CurrentShelter);
             float falloff=Mathf.Clamp01(1-Vector3.Distance(p,new Vector3(storage.x,storage.y,storage.z))/Mathf.Max(.001f,storage.w));falloff*=falloff;
-            p.x+=(storage.x>=bounds.center.x?1:-1)*falloff*pin*Mathf.Clamp01(pressure)*size.x*.24f;
-            return p+worldToLocal.MultiplyVector(new Vector3(localWind.DirectionXZ.x*wave,ripple,localWind.DirectionXZ.y*wave)*(pin*Mathf.Sqrt(localWind.Strength)*height*.22f));
+            p.x+=(storage.x>=bounds.center.x?1:-1)*falloff*pin*Mathf.Clamp01(pressure)*size.x*.018f;
+            return p+worldToLocal.MultiplyVector(new Vector3(localWind.DirectionXZ.x*wave,ripple,localWind.DirectionXZ.y*wave)*(pin*localWind.Strength*Mathf.Min(height*.035f,.045f)));
         }
         void OnDestroy(){foreach(var geometry in _geometry)geometry.Release();foreach(var m in _owned) if(m!=null)Destroy(m);if(_interior!=null)Destroy(_interior);if(_atlas!=null)Destroy(_atlas);if(_glowMesh!=null)Destroy(_glowMesh);}
     }

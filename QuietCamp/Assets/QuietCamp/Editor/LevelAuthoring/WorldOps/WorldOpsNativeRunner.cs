@@ -56,7 +56,9 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             if(run.nativeState=="settling")
             {
                 if(EditorApplication.timeSinceStartup<run.nativeDeadline)return false;
-                bool motion=run.recipe.operations.Any(o=>o.kind=="atmosphere.preset");
+                // Preview-only runs inspect native stills without claiming movie/audio
+                // validation. Recorder's end-of-frame wait stalls in Device Simulator.
+                bool motion=!run.recipe.previewOnly&&run.recipe.operations.Any(o=>o.kind=="atmosphere.preset");
                 CampaignPromoRecorder.Begin(run.nativeFolder,!motion,run.nativeProfile=="portrait"?750:1440,run.nativeProfile=="portrait"?1334:1080,run.recipe.criteria);
                 run.nativeState="recording";run.nativeDeadline=EditorApplication.timeSinceStartup+240;return true;
             }
@@ -66,7 +68,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 var capture=JObject.Parse(File.ReadAllText(receipt));
                 if((string)capture["status"]!="captured"||capture["completed"]?.Value<bool>()!=true||capture["memoryOnly"]?.Value<bool>()!=true)
                 {item.status="exception";item.error="Native placement replay failed: "+(string)capture["error"];run.nativeState="failed-stop";return true;}
-                foreach(var state in new[]{"empty","placement","placed"})
+                foreach(var state in new[]{"empty","placement","placed","complete"})
                 {
                     string name=state=="placement"?"gameplay":state;
                     if(!File.Exists(Path.Combine(run.nativeFolder,name+".png"))||!File.Exists(Path.Combine(run.nativeFolder,state+".diagnostics.json")))return false;
@@ -116,7 +118,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             {
                 string folder=Path.Combine(RoundFolder(run,item),phase,profile);
                 var evidence=Directory.GetFiles(folder,"*",SearchOption.AllDirectories).ToDictionary(f=>f,WorldOpsStorage.FileHash);
-                foreach(var state in new[]{"empty","placement","placed"})
+                foreach(var state in new[]{"empty","placement","placed","complete"})
                 {
                     string file=Path.Combine(folder,(state=="placement"?"gameplay":state)+".png");
                     var diagnostics=JObject.Parse(File.ReadAllText(Path.Combine(folder,state+".diagnostics.json")));

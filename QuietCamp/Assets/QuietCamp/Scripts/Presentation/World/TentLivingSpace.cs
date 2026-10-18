@@ -11,6 +11,23 @@ namespace QuietCamp.Presentation.World
         public float Depth=>Bounds.size.z;
         public float Floor=>Bounds.min.y+.025f;
         public TentLivingSpace(Bounds bounds)=>Bounds=bounds;
+        /// <summary>Fit one rigid item below the pitched roof, retaining its proportions.</summary>
+        public Bounds FitInterior(Bounds item)
+        {
+            // Leave clearance for inward wind movement, canvas thickness and end panels.
+            float margin=Mathf.Min(.07f,Width*.04f);
+            float width=Mathf.Max(.01f,Width-2*margin),height=Mathf.Max(.01f,Height-margin-.025f);
+            float depth=Mathf.Max(.01f,Depth-2*margin);
+            float scale=Mathf.Min(1,depth/Mathf.Max(.001f,item.size.z),
+                .9f/Mathf.Max(.001f,item.size.x/width+item.size.y/height));
+            var size=item.size*scale;
+            float top=Floor+height*(.9f-size.x/width);
+            float y=Mathf.Clamp(item.center.y,Floor+size.y*.5f,top-size.y*.5f);
+            float halfX=Mathf.Max(0,width*.5f*(.9f-(y+size.y*.5f-Floor)/height)-size.x*.5f);
+            float halfZ=Mathf.Max(0,(depth-size.z)*.5f);
+            return new Bounds(new Vector3(Mathf.Clamp(item.center.x,Bounds.center.x-halfX,Bounds.center.x+halfX),
+                y,Mathf.Clamp(item.center.z,Bounds.center.z-halfZ,Bounds.center.z+halfZ)),size);
+        }
         public static TentLivingSpace Measure(Transform root)
         {
             var bounds=new Bounds();bool found=false;
