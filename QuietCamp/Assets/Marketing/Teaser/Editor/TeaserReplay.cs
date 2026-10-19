@@ -21,6 +21,7 @@ using UnityEditor.Recorder.Input;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using UnityEngine.Timeline;
 using UnityEngine.InputSystem;
@@ -105,12 +106,15 @@ namespace QuietCamp.Marketing
             director.ClearGenericBinding(audioTrack);
             var music=_rig.GetComponent<AudioSource>();music.clip=score.clip;music.loop=score.loop;music.spatialBlend=0;music.volume=config.musicGain;
             music.Play();
-            var volume=_rig.AddComponent<Volume>();volume.isGlobal=true;volume.priority=100;volume.sharedProfile=config.profile;
+            var volume=_rig.AddComponent<Volume>();volume.isGlobal=true;volume.priority=100;volume.sharedProfile=shot.look!=null?shot.look:config.profile;
+            foreach(var light in FindObjectsByType<Light>(FindObjectsSortMode.None))if(light.type==LightType.Directional)light.intensity*=shot.sunMultiplier;
+            services.Audio.SetBusVolume(AudioBus.Ambience,config.ambienceGain*shot.ambienceMultiplier);
             double start=config.shots.Take(job.shot).Sum(s=>s.frames)/30.0;
             director.timeUpdateMode=DirectorUpdateMode.Manual;director.Play();director.time=start;director.Evaluate();brain.ManualUpdate();
             EditorAuthoringPreview.CaptureClockRunning=true;
             Time.captureFramerate=30;
-            if(shot.startWithTents)foreach(var p in host.Session.Level.witness)Commit(host,p,receipt);
+            int initial=shot.initialTentCount==-2?host.Session.Level.witness.Length:shot.initialTentCount<0?(shot.startWithTents?host.Session.Level.witness.Length:0):shot.initialTentCount;
+            for(int i=0;i<initial;i++)Commit(host,i==shot.alternateGuest?Alternative(host,host.Session.Level.witness[i]):host.Session.Level.witness[i],receipt);
             for(int i=0;i<90;i++){HideUi();if(i%15==0)TeaserPipeline.Progress("prewarm",i);yield return null;}
             string folder=Path.Combine(job.output,"Shots",shot.id);Directory.CreateDirectory(folder);
             if(job.record)
@@ -139,11 +143,13 @@ namespace QuietCamp.Marketing
                 if(frame%15==0)TeaserPipeline.Progress("recording",frame);
                 HideUi();
                 double time=start+frame/30.0;director.time=time;director.Evaluate();brain.ManualUpdate();
-                music.volume=config.musicGain*Mathf.Lerp(.25f,1,Mathf.Clamp01((float)time/35));
+                music.volume=config.musicGain*shot.musicMultiplier*(config.revision=="v01"?Mathf.Lerp(.25f,1,Mathf.Clamp01((float)time/35)):1);
                 while(nextSignal<signals.Length&&time+1e-5>=signals[nextSignal].time)
                 {
                     var signal=signals[nextSignal++].asset.name;
-                    if(signal.StartsWith("place-")&&int.TryParse(signal.Substring(6),out int index)&&index>=0&&index<host.Session.Level.witness.Length)Commit(host,host.Session.Level.witness[index],receipt);
+                    if(signal=="look:"+shot.id){receipt.actions.Add("frame"+frame+": shot lighting/profile applied");}
+                    else if(signal.StartsWith("place-alternate-")&&int.TryParse(signal.Substring(16),out int alternate))Commit(host,Alternative(host,host.Session.Level.witness[alternate]),receipt);
+                    else if(signal.StartsWith("place-")&&int.TryParse(signal.Substring(6),out int index)&&index>=0&&index<host.Session.Level.witness.Length)Commit(host,host.Session.Level.witness[index],receipt);
                     else if(signal=="complete-camp")
                     {
                         if(!host.Session.Check().IsSolved)throw new InvalidOperationException("Canonical camp completion rejected replay.");
@@ -151,11 +157,16 @@ namespace QuietCamp.Marketing
                     }
                     else throw new InvalidOperationException("Unknown replay signal: "+signal);
                 }
-                if(time>=41.4)
+                if(time>=config.fadeAt)
+                {
+                    float fade=Mathf.Clamp01((float)(time-config.fadeAt)/Mathf.Max(.01f,config.fadeSeconds));AudioListener.volume=1-fade;
+                    if(config.revision=="v02"&&volume.profile.TryGet<ColorAdjustments>(out var grade))grade.postExposure.value=-4*fade*fade;
+                }
+                if(time>=config.blackAt)
                 {
                     _blackout.Active=true;
                     camera.cullingMask=0;camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Color.black;
-                    AudioListener.volume=Mathf.Clamp01(1-(float)(time-41.4)/.12f);
+                    AudioListener.volume=Mathf.Clamp01(1-(float)(time-config.fadeAt)/Mathf.Max(.01f,config.fadeSeconds));
                 }
                 if(frame==1||frame==shot.frames/2||frame==shot.frames-24)ScreenCapture.CaptureScreenshot(Path.Combine(folder,"frame-"+frame.ToString("D4")+".png"));
                 AudioListener.GetOutputData(_samples,0);foreach(float sample in _samples)receipt.audioPeak=Mathf.Max(receipt.audioPeak,Mathf.Abs(sample));
@@ -178,6 +189,15 @@ namespace QuietCamp.Marketing
             if(job.record&&(receipt.video==null||new FileInfo(receipt.video).Length<10000))throw new IOException("Recorder did not produce an MP4.");
             WorldOpsStorage.Json(Path.Combine(folder,"capture.json"),receipt);
             Cleanup();TeaserPipeline.Captured(receipt);
+        }
+        static QuietCamp.Domain.Placement Alternative(CampSceneHost host,QuietCamp.Domain.Placement p)
+        {
+            for(int r=1;r<4;r++)
+            {
+                var candidate=p.Copy();candidate.rotation=(p.rotation+r)%4;
+                if(host.Session.Preview(PlacementCommand.Place(candidate.guestId,candidate.x,candidate.z,candidate.rotation)).CanCommit)return candidate;
+            }
+            throw new InvalidOperationException("No legal alternate rotation for the authored replay.");
         }
         static void Commit(CampSceneHost host,QuietCamp.Domain.Placement p,TeaserReceipt receipt)
         {

@@ -26,16 +26,17 @@ def audio(ffmpeg, path):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project', type=Path, required=True)
+    parser.add_argument('--version',choices=['v01','v02'],default='v01')
     parser.add_argument('--final', action='store_true')
     args = parser.parse_args()
     project = args.project.resolve()
     ffmpeg, ffprobe = [project / 'UserSettings/QuietCampPromoTools' / n for n in ('ffmpeg.exe', 'ffprobe.exe')]
-    output = project / 'Marketing/Exports'
+    output = project / ('Marketing/Exports' if args.version=='v01' else 'Marketing/Exports/v02')
     review = output / 'Review'
     review.mkdir(exist_ok=True)
-    receipts = takes(project)
+    receipts = takes(project,args.version)
     packet = dict(sourceHash=receipts[0]['sourceHash'],kind='decoded-native-gameplay-video-review',artisticStatus='awaiting-agent-review',shots=[])
-    contact = Image.new('RGB',(1920,7*244),(20,25,22))
+    contact = Image.new('RGB',(1920,len(receipts)*244),(20,25,22))
     for row, receipt in enumerate(receipts):
         movie=Path(receipt['video']); frames=receipt['frames']
         verify(ffprobe,ffmpeg,movie,frames)
@@ -53,7 +54,7 @@ def main():
         packet['shots'].append(dict(id=receipt['shotId'],videoSha256=sha(movie),images=images,audio=metrics))
     contact.save(review/'contact-sheet.jpg',quality=94)
     if args.final:
-        final=output/'Teaser_v01_1920x1080_30fps.mp4'
+        final=output/('Teaser_'+args.version+'_1920x1080_30fps.mp4')
         verify(ffprobe,ffmpeg,final,1260)
         packet['finalAudio']=audio(ffmpeg,final)
         # RGB conversion accounts for limited/full video range. Raw gray can
@@ -61,21 +62,35 @@ def main():
         decoded=subprocess.run([str(ffmpeg),'-v','error','-i',str(final),'-vf','scale=64:36','-pix_fmt','rgb24','-f','rawvideo','-'],capture_output=True,check=True)
         pixels=np.frombuffer(decoded.stdout,dtype=np.uint8).reshape((-1,64*36*3))
         black=np.flatnonzero(np.max(pixels,axis=1)<5)
-        if not np.array_equal(black,np.arange(1242,1260)):
+        job=json.loads((project/('UserSettings/Teaser/job.json' if args.version=='v01' else 'UserSettings/Teaser/job-v02.json')).read_text(encoding='utf-8-sig'))
+        first_black=round(job.get('blackAt',41.4)*30)
+        if not np.array_equal(black,np.arange(first_black,1260)):
             raise RuntimeError('Unexpected black frames: '+str(black.tolist()))
-        packet['blackFrames'] = dict(first=1242,last=1259,count=18)
+        packet['blackFrames'] = dict(first=first_black,last=1259,count=1260-first_black)
         packet['finalSha256']=sha(final)
         final_folder=review/'Final';final_folder.mkdir(exist_ok=True)
         indexes=[75,240,420,600,780,960,1170,1250]
+        if args.version=='v02':
+            cuts=np.cumsum([r['frames'] for r in receipts])[:-1].tolist()
+            indexes=sorted(set(list(range(0,1260,60))+[c+d for c in cuts for d in (-1,0)]+[1250]))
         selector='+'.join('eq(n,'+str(n)+')' for n in indexes)
-        run([ffmpeg,'-y','-v','error','-i',final,'-vf','select='+selector.replace(',',r'\,'),'-fps_mode','vfr','-frames:v','8',final_folder/'frame-%02d.png'])
-        sheet=Image.new('RGB',(960,4*294),(20,25,22));packet['finalImages']=[]
+        run([ffmpeg,'-y','-v','error','-i',final,'-vf','select='+selector.replace(',',r'\,'),'-fps_mode','vfr','-frames:v',str(len(indexes)),final_folder/'frame-%02d.png'])
+        sheet=Image.new('RGB',(960,((len(indexes)+1)//2)*294),(20,25,22));packet['finalImages']=[]
         for index,path in enumerate(sorted(final_folder.glob('frame-*.png'))):
             x=(index%2)*480;y=(index//2)*294
             with Image.open(path) as image:sheet.paste(image.resize((480,270),Image.Resampling.LANCZOS),(x,y+24))
             ImageDraw.Draw(sheet).text((x+8,y+6),str(round(indexes[index]/30,2))+' seconds / final MP4',fill='white')
             packet['finalImages'].append(dict(path=str(path),sha256=sha(path),sourceFrame=indexes[index]))
         sheet.save(review/'final-contact-sheet.jpg',quality=94)
+        # Review pages retain readable thumbnails for every 2-second checkpoint
+        # and both actual final-MP4 frames at each editorial cut.
+        for page,offset in enumerate(range(0,len(packet['finalImages']),12)):
+            group=packet['finalImages'][offset:offset+12];board=Image.new('RGB',(1440,((len(group)+2)//3)*294),(20,25,22))
+            for i,item in enumerate(group):
+                x=(i%3)*480;y=(i//3)*294
+                with Image.open(item['path']) as picture:board.paste(picture.resize((480,270),Image.Resampling.LANCZOS),(x,y+24))
+                ImageDraw.Draw(board).text((x+8,y+6),str(round(item['sourceFrame']/30,3))+' s | frame '+str(item['sourceFrame']),fill='white')
+            board.save(review/('final-review-'+str(page+1).zfill(2)+'.jpg'),quality=94)
     (review/'packet.json').write_text(json.dumps(packet,indent=2),encoding='utf-8')
     print(json.dumps(dict(shots=len(packet['shots']),frames=1260,packet=str(review/'packet.json'),sheet=str(review/'contact-sheet.jpg'),finalChecked=args.final)))
 

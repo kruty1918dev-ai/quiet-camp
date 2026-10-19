@@ -1,6 +1,6 @@
 {
   "name": "QuietCamp.Marketing.Editor",
-  "references": ["QuietCamp.Editor", "QuietCamp.Domain", "QuietCamp.Application", "QuietCamp.Infrastructure", "QuietCamp.Presentation", "Unity.Cinemachine", "Unity.Timeline", "Unity.Recorder.Editor", "Unity.RenderPipelines.Core.Runtime", "Unity.RenderPipelines.Universal.Runtime", "Newtonsoft.Json", "Kruty1918.Audio", "Unity.InputSystem"],
+  "references": ["QuietCamp.Editor", "QuietCamp.Domain", "QuietCamp.Application", "QuietCamp.Infrastructure", "QuietCamp.Presentation", "Unity.Cinemachine", "Unity.Timeline", "Unity.Recorder.Editor", "Unity.RenderPipelines.Core.Runtime", "Unity.RenderPipelines.Universal.Runtime", "Newtonsoft.Json", "Kruty1918.Audio", "Unity.InputSystem", "Unity.Splines", "Unity.Mathematics"],
   "includePlatforms": ["Editor"],
   "autoReferenced": true
 }

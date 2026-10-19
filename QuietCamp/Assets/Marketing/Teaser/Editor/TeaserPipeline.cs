@@ -30,6 +30,9 @@ namespace QuietCamp.Marketing
     {
         public string status, phase, error, sourceHash, output;
         public bool record;
+        public string version = "v01";
+        public int shotCount;
+        public float blackAt = 41.4f;
         public int shot, onlyShot = -1, frames;
         public double deadline;
         public List<TeaserReceipt> receipts = new();
@@ -50,7 +53,15 @@ namespace QuietCamp.Marketing
         const string JobKey = "QuietCamp.Marketing.Job";
         static TeaserJob _job;
         static EditorWindow _gameView;
-        static string Journal => Path.GetFullPath("UserSettings/Teaser/job.json");
+        public static string Version => SessionState.GetString("QuietCamp.Marketing.Version","v01");
+        public static void SelectVersion(string version)
+        {
+            if(version!="v01"&&version!="v02")throw new ArgumentException("Unknown teaser revision.");
+            if(version==Version)return;
+            if(Busy||EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("Stop the active teaser before switching revision.");
+            SessionState.SetString("QuietCamp.Marketing.Version",version);_job=null;
+        }
+        static string Journal => Path.GetFullPath("UserSettings/Teaser/"+(Version=="v01"?"job.json":"job-v02.json"));
         public static bool Busy => Job != null && new[]{"launch","waiting","recording","stopping"}.Contains(Job.status);
         public static TeaserJob Job => _job ??= File.Exists(Journal) ? WorldOpsStorage.Read<TeaserJob>(Journal) : null;
         static TeaserPipeline()
@@ -62,6 +73,7 @@ namespace QuietCamp.Marketing
         }
         public static object Command(JObject request)
         {
+            SelectVersion((string)request["version"]??"v01");
             string action = (string)request["action"] ?? "status";
             if (action == "status") return new { job=Job,playing=EditorApplication.isPlaying,view=PlayModeWindow.GetViewType().ToString(),frame=Time.frameCount,scale=Time.timeScale,
                 screen=new[]{Screen.width,Screen.height},camera=Camera.main==null?null:new{position=Vector(Camera.main.transform.position),euler=Vector(Camera.main.transform.eulerAngles)},
@@ -69,6 +81,7 @@ namespace QuietCamp.Marketing
             if (action == "cancel") { Fail("Cancelled by user."); return Job; }
             if (action == "create") { TeaserAssets.Create(); return Validate(); }
             if (action == "validate") return Validate();
+            if(action=="bake"){TeaserAssets.ApplyConfiguration();return Validate();}
             if (action == "reframe")
             {
                 if(Busy||EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("Stop the capture before changing cameras.");
@@ -76,7 +89,12 @@ namespace QuietCamp.Marketing
                 if(index<0||index>=config.shots.Length)throw new ArgumentOutOfRangeException("shot");
                 var shot=config.shots[index];
                 if(request["target"]!=null){var target=request["target"].ToObject<float[]>();if(target.Length!=3||target.Any(v=>float.IsNaN(v)||float.IsInfinity(v)||Math.Abs(v)>30))throw new ArgumentException("Invalid target.");shot.target=new Vector3(target[0],target[1],target[2]);}
-                if(request["ortho"]!=null)shot.ortho=Mathf.Clamp((float)request["ortho"],3,20);
+                if(request["ortho"]!=null)shot.ortho=Mathf.Clamp((float)request["ortho"],1.8f,20);
+                if(request["endTarget"]!=null){var v=request["endTarget"].ToObject<float[]>();if(v.Length!=3||v.Any(x=>float.IsNaN(x)||float.IsInfinity(x)||Math.Abs(x)>30))throw new ArgumentException("Invalid end target.");shot.endTarget=new Vector3(v[0],v[1],v[2]);}
+                if(request["endOrtho"]!=null)shot.endOrtho=Mathf.Clamp((float)request["endOrtho"],1.8f,20);
+                if(request["endYaw"]!=null)shot.endYaw=(float)request["endYaw"];
+                if(request["pitch"]!=null)shot.pitch=Mathf.Clamp((float)request["pitch"],25,75);
+                if(request["yaw"]!=null)shot.yaw=(float)request["yaw"];
                 TeaserAssets.Reframe(config,index);return Validate();
             }
             if (action == "record" || action == "preview") { Start(action == "record", (int?)request["shot"] ?? -1); return Job; }
@@ -85,10 +103,11 @@ namespace QuietCamp.Marketing
         public static object Validate()
         {
             var config = TeaserAssets.Load() ?? throw new InvalidOperationException("Create the teaser assets first.");
-            if (config.shots == null || config.shots.Length != 7 || config.shots.Sum(s=>s.frames) != 1260) throw new InvalidDataException("Seven shots must total exactly 1260 frames.");
+            if (config.shots == null || config.shots.Length < 1 || config.shots.Sum(s=>s.frames) != 1260) throw new InvalidDataException("Shots must total exactly 1260 frames.");
+            if(config.revision!=Version||config.shots.Select(s=>s.id).Distinct().Count()!=config.shots.Length)throw new InvalidDataException("Invalid revision or duplicate shot IDs.");
             if (config.width != 1920 || config.height != 1080 || config.timeline == null || Math.Abs(config.timeline.duration - 42) > .001 || config.cameraRig == null || config.music == null)
                 throw new InvalidDataException("Missing assets or incorrect export/Timeline duration.");
-            if (EditorBuildSettings.scenes.Any(s=>s.enabled && s.path==TeaserAssets.ScenePath)) throw new InvalidOperationException("Marketing scene must remain outside the player build.");
+            if (EditorBuildSettings.scenes.Any(s=>s.enabled && (s.path==TeaserAssets.ScenePath||s.path==TeaserV02Assets.ScenePath))) throw new InvalidOperationException("Marketing scene must remain outside the player build.");
             foreach (var shot in config.shots)
             {
                 if (shot.frames <= 0 || shot.motion == null || shot.scene!="Camp" || shot.transition != "Cut" || shot.transitionSeconds != 0) throw new InvalidDataException("Unsupported shot timing, scene or transition: " + shot.id);
@@ -103,9 +122,9 @@ namespace QuietCamp.Marketing
             if (Busy || WorldOpsService.Busy || EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Wait for the existing Editor operation to finish.");
             if(SessionState.GetBool("QuietCamp.NativeTestsRunning",false)||File.Exists(Path.GetFullPath("Temp/ai/qc007-art-request.json")))throw new InvalidOperationException("Another native verification job is active.");
             Validate();
-            if (onlyShot < -1 || onlyShot > 6) throw new ArgumentOutOfRangeException(nameof(onlyShot));
+            if (onlyShot < -1 || onlyShot >= TeaserAssets.Load().shots.Length) throw new ArgumentOutOfRangeException(nameof(onlyShot));
             var config = TeaserAssets.Load();
-            _job = new TeaserJob { status="launch", record=record, shot=Math.Max(0,onlyShot), onlyShot=onlyShot, sourceHash=SourceHash(), output=Path.GetFullPath(config.exportFolder) };
+            _job = new TeaserJob { status="launch", record=record, version=Version, shotCount=config.shots.Length, blackAt=config.blackAt, shot=Math.Max(0,onlyShot), onlyShot=onlyShot, sourceHash=SourceHash(), output=Path.GetFullPath(config.exportFolder) };
             Directory.CreateDirectory(_job.output); Write();
             SessionState.SetBool(JobKey,true);
         }
@@ -168,7 +187,7 @@ namespace QuietCamp.Marketing
                 }
                 if(job.status=="stopping"&&!EditorApplication.isPlayingOrWillChangePlaymode)
                 {
-                    if(job.onlyShot>=0||job.shot==6){job.status="captured";SessionState.SetBool(JobKey,false);}
+                    if(job.onlyShot>=0||job.shot==TeaserAssets.Load().shots.Length-1){job.status="captured";SessionState.SetBool(JobKey,false);}
                     else{job.shot++;job.status="launch";}Write();
                 }
             }
@@ -185,7 +204,7 @@ namespace QuietCamp.Marketing
             Debug.LogError("[Teaser] "+error);EditorApplication.delayCall+=()=>{if(EditorApplication.isPlaying)EditorApplication.ExitPlaymode();};
         }
         [MenuItem("Tools/Marketing/Teaser/Create Assets")] static void Create()=>TeaserAssets.Create();
-        [MenuItem("Tools/Marketing/Teaser/Open Teaser")] static void Open(){TeaserAssets.Create();if(!EditorApplication.isPlaying&&EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())EditorSceneManager.OpenScene(TeaserAssets.ScenePath);}
+        [MenuItem("Tools/Marketing/Teaser/Open Teaser")] static void Open(){TeaserAssets.Create();if(!EditorApplication.isPlaying&&EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())EditorSceneManager.OpenScene(Version=="v02"?TeaserV02Assets.ScenePath:TeaserAssets.ScenePath);}
         [MenuItem("Tools/Marketing/Teaser/Validate Teaser")] static void ValidateMenu()=>Debug.Log(Validate());
         [MenuItem("Tools/Marketing/Teaser/Preview Teaser")] static void Preview()=>Start(false);
         [MenuItem("Tools/Marketing/Teaser/Record Teaser")] static void Record()=>Start(true);

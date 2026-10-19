@@ -88,10 +88,16 @@ def main():
     run.add_argument('--agent-delivery', action='store_true', help='Record protected user files for later explicit delivery')
     sub.add_parser('status')
     teaser = sub.add_parser('teaser', help='Isolated real-game marketing capture through the WorldOps extension')
-    teaser.add_argument('action', choices=['create', 'validate', 'preview', 'record', 'status', 'cancel', 'reframe'])
+    teaser.add_argument('action', choices=['create', 'validate', 'preview', 'record', 'status', 'cancel', 'reframe', 'bake'])
+    teaser.add_argument('--version',choices=['v01','v02'],default='v01')
+    teaser.add_argument('--pitch',type=float)
+    teaser.add_argument('--yaw',type=float)
     teaser.add_argument('--shot', type=int, default=-1, help='Zero-based individual take, or all seven by default')
     teaser.add_argument('--target', type=float, nargs=3)
     teaser.add_argument('--ortho', type=float)
+    teaser.add_argument('--end-target',type=float,nargs=3)
+    teaser.add_argument('--end-ortho',type=float)
+    teaser.add_argument('--end-yaw',type=float)
     observing = sub.add_parser('watch', help='Stream progress from the current Editor journal until it stops')
     observing.add_argument('--duration', type=float, default=1800, help='Maximum observation time in seconds; does not cancel the job')
     resume = sub.add_parser('resume'); resume.add_argument('--run-id')
@@ -112,9 +118,14 @@ def main():
     # One writer per native bridge. Do not replace an outstanding request.
     payload = {'requestId': uuid.uuid4().hex, 'command': 'delivery' if args.command == 'deliver' else 'status' if args.command == 'watch' else args.command}
     if args.command == 'teaser':
-        payload.update(action=args.action, shot=args.shot)
+        payload.update(action=args.action, shot=args.shot, version=args.version)
+        if args.pitch is not None: payload['pitch'] = args.pitch
+        if args.yaw is not None: payload['yaw'] = args.yaw
         if args.target is not None: payload['target'] = args.target
         if args.ortho is not None: payload['ortho'] = args.ortho
+        if args.end_target is not None: payload['endTarget'] = args.end_target
+        if args.end_ortho is not None: payload['endOrtho'] = args.end_ortho
+        if args.end_yaw is not None: payload['endYaw'] = args.end_yaw
     if args.command == 'run':
         payload.update(recipe=str(args.recipe.resolve()), repositoryProject=str(args.repository_project.resolve()))
         if args.agent_delivery:

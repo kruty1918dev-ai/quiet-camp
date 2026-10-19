@@ -29,12 +29,12 @@ def verify(binary, ffmpeg, path, frames):
     return data
 
 
-def takes(project):
-    job = json.loads((project / 'UserSettings/Teaser/job.json').read_text(encoding='utf-8-sig'))
+def takes(project, version="v01"):
+    job = json.loads((project / ('UserSettings/Teaser/job.json' if version=='v01' else 'UserSettings/Teaser/job-v02.json')).read_text(encoding='utf-8-sig'))
     receipts = job.get('receipts', [])
-    if job.get('status') != 'captured' or not job.get('record') or job.get('onlyShot') != -1 or len(receipts) != 7:
-        raise RuntimeError('Finish one complete seven-shot recording before assembling.')
-    if sum(r['frames'] for r in receipts) != 1260 or len({r['shotId'] for r in receipts}) != 7:
+    if job.get('status') != 'captured' or not job.get('record') or job.get('onlyShot') != -1 or len(receipts) != job.get('shotCount',7):
+        raise RuntimeError('Finish one complete recording for this revision before assembling.')
+    if sum(r['frames'] for r in receipts) != 1260 or len({r['shotId'] for r in receipts}) != len(receipts):
         raise RuntimeError('Invalid recorded sequence.')
     for receipt in receipts:
         path = Path(receipt['video'])
@@ -47,6 +47,7 @@ def takes(project):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project', type=Path, required=True)
+    parser.add_argument('--version',choices=['v01','v02'],default='v01')
     parser.add_argument('--verify-only', type=Path)
     parser.add_argument('--gain-db', type=float, default=6, help='Delivery master gain; source audio remains the Unity recording (0 keeps the raw game mix)')
     args = parser.parse_args()
@@ -59,8 +60,8 @@ def main():
         data = probe(ffprobe, args.verify_only)
         print(json.dumps(data, indent=2))
         return
-    output = project / 'Marketing/Exports'
-    ordered = takes(project)
+    output = project / ('Marketing/Exports' if args.version=='v01' else 'Marketing/Exports/v02')
+    ordered = takes(project,args.version)
     paths = [Path(r['video']) for r in ordered]
     counts = [r['frames'] for r in ordered]
     receipts = []
@@ -78,7 +79,7 @@ def main():
         raise RuntimeError('Takes have different source revisions; record all seven again.')
     listing = output / 'takes.txt'
     listing.write_text('\n'.join("file '" + str(p).replace('\\','/').replace("'", "'\\''") + "'" for p in paths), encoding='utf-8')
-    target = output / 'Teaser_v01_1920x1080_30fps.mp4'
+    target = output / ('Teaser_'+args.version+'_1920x1080_30fps.mp4')
     candidate = target.with_suffix('.pending.mp4')
     run([ffmpeg, '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', listing,
          '-map', '0:v:0', '-map', '0:a:0', '-c:v', 'libx264', '-preset', 'medium', '-crf', '18',

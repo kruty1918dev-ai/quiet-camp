@@ -1,0 +1,423 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72763a60e303004489504b4b6a0d6c39, type: 3}
+  m_Name: Teaser_v02
+  m_EditorClassIdentifier: QuietCamp.Marketing.Editor::QuietCamp.Marketing.TeaserConfig
+  seed: 1918
+  width: 1920
+  height: 1080
+  exportFolder: Marketing/Exports/v02
+  revision: v02
+  blackAt: 41.5
+  fadeAt: 40.8
+  fadeSeconds: 0.7
+  musicGain: 0.25
+  ambienceGain: 0.8
+  effectsGain: 0.8
+  music: {fileID: 8300000, guid: dc9e7561744eb56e98db270b47dd3e6a, type: 3}
+  profile: {fileID: 11400000, guid: 45c3b674646cfd746a6bcdfd3d36d0ef, type: 2}
+  timeline: {fileID: 11400000, guid: 5f6630e4d5557d64f93cd08b234abffb, type: 2}
+  cameraRig: {fileID: 2809730220180696143, guid: bc5904c6082909c4cbb357f00b614e2f, type: 3}
+  shots:
+  - id: 01-fracture
+    levelId: gen:qc_camp:57
+    purpose: 'Torn airframe: an unanswered trace'
+    scene: Camp
+    frames: 90
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 0
+    startWithTents: 0
+    complete: 0
+    target: {x: 8, y: 0.9, z: 0}
+    start: {x: 4.1438375, y: 16.149895, z: 23.165092}
+    end: {x: 3.7006738, y: 16.149895, z: 23.086952}
+    pitch: 33
+    yaw: 170
+    ortho: 3.2
+    motion: {fileID: 7400000, guid: 7962d065eb753aa4dbf01b3e751650ec, type: 2}
+    initialTentCount: 0
+    alternateGuest: -1
+    endOrtho: 3.2
+    endYaw: 170
+    travel: 0.45
+    endTarget: {x: 8, y: 0.9, z: 0}
+    movement: Slide
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: 45c3b674646cfd746a6bcdfd3d36d0ef, type: 2}
+    cues: []
+  - id: 02-human-scale
+    levelId: gen:qc_camp:57
+    purpose: Wreck and belongings belong to the same inhabited landscape
+    scene: Camp
+    frames: 90
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 0
+    startWithTents: 0
+    complete: 0
+    target: {x: 5, y: 0.7, z: 0}
+    start: {x: -1.9554477, y: 23.352476, z: 14.916}
+    end: {x: -3.9554477, y: 23.352476, z: 14.916}
+    pitch: 54
+    yaw: 155
+    ortho: 6.3
+    motion: {fileID: 7400000, guid: c2bf8008b8a293c48b47e7d45f5f866f, type: 2}
+    initialTentCount: 0
+    alternateGuest: -1
+    endOrtho: 6.8
+    endYaw: 155
+    travel: 1.2
+    endTarget: {x: 3, y: 0.7, z: 0}
+    movement: Reveal
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: b8a9b2b95897ce44bbc3eec321bb6dac, type: 2}
+    cues: []
+  - id: 03-a-place
+    levelId: QC003
+    purpose: A sheltered clearing, water and the well
+    scene: Camp
+    frames: 90
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 0
+    startWithTents: 0
+    complete: 0
+    target: {x: -2, y: 0.5, z: 1}
+    start: {x: 12.713514, y: 19.235657, z: 15.713518}
+    end: {x: 12.713514, y: 19.235657, z: 15.713518}
+    pitch: 42
+    yaw: 225
+    ortho: 8.2
+    motion: {fileID: 7400000, guid: 92b5dafb99c5b29439ef9f2254169e70, type: 2}
+    initialTentCount: 0
+    alternateGuest: -1
+    endOrtho: 8.2
+    endYaw: 225
+    travel: 0
+    endTarget: {x: -2, y: 0.5, z: 1}
+    movement: Locked
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: cecb49344ce23f14f9da0b7fa1aebc11, type: 2}
+    cues: []
+  - id: 04-place
+    levelId: QC001
+    purpose: One actual tent placement
+    scene: Camp
+    frames: 90
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 1
+    startWithTents: 0
+    complete: 0
+    target: {x: -1.5, y: 0.5, z: -1.5}
+    start: {x: 8.09874, y: 24.989353, z: 8.09874}
+    end: {x: 8.09874, y: 24.989353, z: 8.09874}
+    pitch: 61
+    yaw: 225
+    ortho: 3.9
+    motion: {fileID: 7400000, guid: 83569dc37dc6c8c499d89a02dbe6823b, type: 2}
+    initialTentCount: 0
+    alternateGuest: 0
+    endOrtho: 3.6
+    endYaw: 225
+    travel: 0
+    endTarget: {x: -1.5, y: 0.5, z: -1.5}
+    movement: Push
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: e3da49ee3f2f4bc4b890596ace6b6a06, type: 2}
+    cues:
+    - frame: 24
+      command: place-alternate-0
+  - id: 05-turn
+    levelId: QC001
+    purpose: Actual rotation and its settling animation
+    scene: Camp
+    frames: 90
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 1
+    startWithTents: 0
+    complete: 0
+    target: {x: -1.5, y: 0.65, z: -1.5}
+    start: {x: 12.119769, y: 15.48774, z: 17.951044}
+    end: {x: 12.119769, y: 15.48774, z: 17.951044}
+    pitch: 32
+    yaw: 215
+    ortho: 2.2
+    motion: {fileID: 7400000, guid: 9f50865382e63cf4087b897ae6abb811, type: 2}
+    initialTentCount: 1
+    alternateGuest: 0
+    endOrtho: 2.2
+    endYaw: 215
+    travel: 0
+    endTarget: {x: -1.5, y: 0.65, z: -1.5}
+    movement: Locked
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: 740bb9d5d373f334385be4920ab13be4, type: 2}
+    cues:
+    - frame: 25
+      command: place-0
+  - id: 06-settle
+    levelId: QC001
+    purpose: Second tent and canonical completion
+    scene: Camp
+    frames: 90
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 1
+    startWithTents: 0
+    complete: 0
+    target: {x: -1.5, y: 0.5, z: 0}
+    start: {x: 11.236109, y: 23.152473, z: 10.425778}
+    end: {x: 10.978994, y: 23.152473, z: 10.732196}
+    pitch: 54
+    yaw: 230
+    ortho: 4.2
+    motion: {fileID: 7400000, guid: ededefae7625b004da603412f708a256, type: 2}
+    initialTentCount: 1
+    alternateGuest: -1
+    endOrtho: 4.2
+    endYaw: 230
+    travel: 0.4
+    endTarget: {x: -1.5, y: 0.5, z: 0}
+    movement: Slide
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: 143853939254e4348a0e05b077aa89bc, type: 2}
+    cues:
+    - frame: 10
+      command: place-1
+    - frame: 43
+      command: complete-camp
+  - id: 07-the-route
+    levelId: gen:qc_camp:24
+    purpose: 'Station shelter: the journey continues'
+    scene: Camp
+    frames: 90
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 0
+    startWithTents: 0
+    complete: 0
+    target: {x: -5.7, y: 1.1, z: 4.6}
+    start: {x: -21.796791, y: 18.33852, z: -10.506843}
+    end: {x: -20.806843, y: 18.33852, z: -11.496793}
+    pitch: 38
+    yaw: 45
+    ortho: 4.8
+    motion: {fileID: 7400000, guid: 511c1177f306a3d489ef1fd646620aee, type: 2}
+    initialTentCount: 0
+    alternateGuest: -1
+    endOrtho: 4.8
+    endYaw: 45
+    travel: 1.4
+    endTarget: {x: -5.7, y: 1.1, z: 4.6}
+    movement: Slide
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: 54f32f07ffdf52946b0f3d1215d01f9b, type: 2}
+    cues: []
+  - id: 08-water
+    levelId: QC003
+    purpose: The actual moving water surface and planted banks
+    scene: Camp
+    frames: 90
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 0
+    startWithTents: 0
+    complete: 0
+    target: {x: -13, y: 0.1, z: -4}
+    start: {x: -32.721336, y: 17.720972, z: -13.196209}
+    end: {x: -32.721336, y: 17.720972, z: -13.196209}
+    pitch: 39
+    yaw: 65
+    ortho: 3.8
+    motion: {fileID: 7400000, guid: ea0223e45fc31e34995d1a11c1dd84ef, type: 2}
+    initialTentCount: 0
+    alternateGuest: -1
+    endOrtho: 3.8
+    endYaw: 65
+    travel: 0
+    endTarget: {x: -13, y: 0.1, z: -4}
+    movement: Locked
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 0.5
+    look: {fileID: 11400000, guid: 93db7b36db5d15542a74ad87501a5b24, type: 2}
+    cues: []
+  - id: 09-weather-turns
+    levelId: QC009
+    purpose: Rain changes the mood, not the rules
+    scene: Camp
+    frames: 90
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 0
+    startWithTents: 0
+    complete: 0
+    target: {x: 0, y: 0.5, z: 0}
+    start: {x: 9.59874, y: 24.989353, z: 9.59874}
+    end: {x: 9.59874, y: 24.989353, z: 9.59874}
+    pitch: 61
+    yaw: 225
+    ortho: 5.3
+    motion: {fileID: 7400000, guid: 91c85af2163a77748b5982d33716d994, type: 2}
+    initialTentCount: 2
+    alternateGuest: -1
+    endOrtho: 5.3
+    endYaw: 225
+    travel: 0
+    endTarget: {x: 0, y: 0.5, z: 0}
+    movement: Locked
+    sunMultiplier: 1.08
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: 2e9f668bb532ad744919a7cc2ba4a08d, type: 2}
+    cues: []
+  - id: 10-rain-on-cloth
+    levelId: QC009
+    purpose: Rain contacts cloth and ground; wind moves the fabric
+    scene: Camp
+    frames: 90
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 0
+    startWithTents: 0
+    complete: 0
+    target: {x: -2, y: 0.6, z: -2}
+    start: {x: 12.072318, y: 14.6, z: 17.748667}
+    end: {x: 11.744657, y: 14.6, z: 17.978098}
+    pitch: 30
+    yaw: 215
+    ortho: 2.5
+    motion: {fileID: 7400000, guid: b50fdceb8842e7e439017e47484bd85d, type: 2}
+    initialTentCount: 2
+    alternateGuest: -1
+    endOrtho: 2.5
+    endYaw: 215
+    travel: 0.4
+    endTarget: {x: -2, y: 0.6, z: -2}
+    movement: Slide
+    sunMultiplier: 1.08
+    ambienceMultiplier: 1
+    musicMultiplier: 0.35
+    look: {fileID: 11400000, guid: 4ae98fa804bc4d54e9e7a5c892c9f51b, type: 2}
+    cues: []
+  - id: 11-make-room
+    levelId: QC009
+    purpose: Two more real placements, then shelter for everyone
+    scene: Camp
+    frames: 120
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 1
+    startWithTents: 0
+    complete: 0
+    target: {x: 0, y: 0.5, z: 0}
+    start: {x: 15.86357, y: 21.308054, z: 10.0090885}
+    end: {x: 14.831134, y: 21.308054, z: 11.483562}
+    pitch: 48
+    yaw: 235
+    ortho: 5.7
+    motion: {fileID: 7400000, guid: 37ca8fc05359ab94b8a1e4bc5083255f, type: 2}
+    initialTentCount: 2
+    alternateGuest: -1
+    endOrtho: 5.7
+    endYaw: 235
+    travel: 1.8
+    endTarget: {x: 0, y: 0.5, z: 0}
+    movement: Slide
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: 7244c5517a1080444980a0ea7a3f92da, type: 2}
+    cues:
+    - frame: 15
+      command: place-2
+    - frame: 48
+      command: place-3
+    - frame: 79
+      command: complete-camp
+  - id: 12-beyond-the-garden
+    levelId: gen:qc_camp:122
+    purpose: Reveal the existing Haven shelter
+    scene: Camp
+    frames: 120
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 0
+    startWithTents: 0
+    complete: 0
+    target: {x: 10.5, y: 1, z: 5.3}
+    start: {x: 26.101816, y: 18.23852, z: 20.90182}
+    end: {x: 16.655561, y: 18.038519, z: 20.074013}
+    pitch: 38
+    yaw: 225
+    ortho: 5
+    motion: {fileID: 7400000, guid: 17cd5c8a54f59dc459c8b0a1f03bc6fd, type: 2}
+    initialTentCount: -2
+    alternateGuest: -1
+    endOrtho: 8.3
+    endYaw: 215
+    travel: 1
+    endTarget: {x: 4, y: 0.8, z: 2}
+    movement: Reveal
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: e0455d8c557890e479c69aa2d74dab26, type: 2}
+    cues: []
+  - id: 13-haven
+    levelId: gen:qc_camp:122
+    purpose: A cared-for camp is a destination; the route still continues
+    scene: Camp
+    frames: 120
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 1
+    startWithTents: 0
+    complete: 0
+    target: {x: 4, y: 0.8, z: 2}
+    start: {x: 13.8876095, y: 22.864302, z: 16.120974}
+    end: {x: 10.285314, y: 22.664303, z: 17.123405}
+    pitch: 52
+    yaw: 215
+    ortho: 8.3
+    motion: {fileID: 7400000, guid: 7cc231e3061c7144ea6a62a772d7a574, type: 2}
+    initialTentCount: -2
+    alternateGuest: -1
+    endOrtho: 9.6
+    endYaw: 205
+    travel: 1
+    endTarget: {x: 3, y: 0.6, z: 1.5}
+    movement: Reveal
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: e20bdc91dcb505342a9df031b5361797, type: 2}
+    cues:
+    - frame: 15
+      command: complete-camp

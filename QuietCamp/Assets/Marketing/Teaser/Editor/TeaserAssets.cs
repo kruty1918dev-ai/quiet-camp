@@ -18,10 +18,11 @@ namespace QuietCamp.Marketing
         public const string Root = "Assets/Marketing/Teaser";
         public const string ConfigPath = Root + "/Settings/TeaserConfig.asset";
         public const string ScenePath = Root + "/Scenes/Teaser.unity";
-        public static TeaserConfig Load() => AssetDatabase.LoadAssetAtPath<TeaserConfig>(ConfigPath);
+        public static TeaserConfig Load() => AssetDatabase.LoadAssetAtPath<TeaserConfig>(TeaserPipeline.Version == "v02" ? TeaserV02Assets.ConfigPath : ConfigPath);
         public static void Reframe(TeaserConfig config,int index)
         {
             if(TeaserPipeline.Busy||EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("Stop the capture before changing cameras.");
+            if(config.revision=="v02"){TeaserV02Assets.Reframe(config,index);return;}
             var shot=config.shots[index];var q=Quaternion.Euler(shot.pitch,shot.yaw,0);
             var centre=shot.target-q*Vector3.forward*28;
             shot.start=centre-q*Vector3.right*.4f;shot.end=centre+q*Vector3.right*.4f;
@@ -32,14 +33,14 @@ namespace QuietCamp.Marketing
             EditorUtility.SetDirty(shot.motion);EditorUtility.SetDirty(config);AssetDatabase.SaveAssets();
         }
         [MenuItem("Tools/Marketing/Teaser/Apply Camera Framing")]
-        static void ReframeAll(){var config=Load();for(int i=0;i<config.shots.Length;i++)Reframe(config,i);}
+        public static void ReframeAll(){var config=Load();for(int i=0;i<config.shots.Length;i++)Reframe(config,i);}
 
         [MenuItem("Tools/Marketing/Teaser/Apply Configuration")]
-        static void ApplyConfiguration()
+        public static void ApplyConfiguration()
         {
             if(TeaserPipeline.Busy||EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("Stop the capture first.");
             var config=Load();
-            if(config.shots.Length!=7||config.shots.Sum(s=>s.frames)!=1260||config.shots.Any(s=>s.frames<30)||config.shots.Select(s=>s.id).Distinct().Count()!=7)throw new InvalidOperationException("Seven unique shots must total 1260 frames.");
+            if(config.shots.Length<1||config.shots.Sum(s=>s.frames)!=1260||config.shots.Any(s=>s.frames<30)||config.shots.Select(s=>s.id).Distinct().Count()!=config.shots.Length)throw new InvalidOperationException("Unique shots must total 1260 frames.");
             var cameras=config.timeline.GetOutputTracks().OfType<CinemachineTrack>().Single();
             var old=cameras.GetClips().ToDictionary(c=>c.displayName,c=>new{c.start,c.duration});
             if(config.shots.Any(s=>!old.ContainsKey(s.id)))throw new InvalidOperationException("Keep stable shot IDs when changing order.");
@@ -59,6 +60,7 @@ namespace QuietCamp.Marketing
 
         public static TeaserConfig Create()
         {
+            if(TeaserPipeline.Version=="v02")return TeaserV02Assets.Create();
             if (Load() != null) { EnsureRotations(Load()); return Load(); }
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Create assets outside Play Mode.");
             foreach (var folder in new[] { "Scenes", "Timelines", "Cameras", "Animations", "Profiles", "Settings", "Documentation" })
