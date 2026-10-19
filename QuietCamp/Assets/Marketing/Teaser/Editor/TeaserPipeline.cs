@@ -88,6 +88,8 @@ namespace QuietCamp.Marketing
                 var config=TeaserAssets.Load();int index=(int)request["shot"];
                 if(index<0||index>=config.shots.Length)throw new ArgumentOutOfRangeException("shot");
                 var shot=config.shots[index];
+                if(request["purpose"]!=null){string purpose=(string)request["purpose"];if(purpose.Length>240)throw new ArgumentException("Shot purpose is too long.");shot.purpose=purpose;}
+                if(request["levelId"]!=null){string level=(string)request["levelId"];LevelAuthoringCampaign.Open(level,preview:false);shot.levelId=level;}
                 if(request["target"]!=null){var target=request["target"].ToObject<float[]>();if(target.Length!=3||target.Any(v=>float.IsNaN(v)||float.IsInfinity(v)||Math.Abs(v)>30))throw new ArgumentException("Invalid target.");shot.target=new Vector3(target[0],target[1],target[2]);}
                 if(request["ortho"]!=null)shot.ortho=Mathf.Clamp((float)request["ortho"],1.8f,20);
                 if(request["endTarget"]!=null){var v=request["endTarget"].ToObject<float[]>();if(v.Length!=3||v.Any(x=>float.IsNaN(x)||float.IsInfinity(x)||Math.Abs(x)>30))throw new ArgumentException("Invalid end target.");shot.endTarget=new Vector3(v[0],v[1],v[2]);}

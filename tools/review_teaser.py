@@ -72,7 +72,7 @@ def main():
         indexes=[75,240,420,600,780,960,1170,1250]
         if args.version=='v02':
             cuts=np.cumsum([r['frames'] for r in receipts])[:-1].tolist()
-            indexes=sorted(set(list(range(0,1260,60))+[c+d for c in cuts for d in (-1,0)]+[1250]))
+            indexes=sorted(set(list(range(0,1260,60))+[c+d for c in cuts for d in (-1,0)]+[382,388,394,1250]))
         selector='+'.join('eq(n,'+str(n)+')' for n in indexes)
         run([ffmpeg,'-y','-v','error','-i',final,'-vf','select='+selector.replace(',',r'\,'),'-fps_mode','vfr','-frames:v',str(len(indexes)),final_folder/'frame-%02d.png'])
         sheet=Image.new('RGB',(960,((len(indexes)+1)//2)*294),(20,25,22));packet['finalImages']=[]
@@ -81,6 +81,16 @@ def main():
             with Image.open(path) as image:sheet.paste(image.resize((480,270),Image.Resampling.LANCZOS),(x,y+24))
             ImageDraw.Draw(sheet).text((x+8,y+6),str(round(indexes[index]/30,2))+' seconds / final MP4',fill='white')
             packet['finalImages'].append(dict(path=str(path),sha256=sha(path),sourceFrame=indexes[index]))
+        if args.version=='v02':
+            by_frame={i['sourceFrame']:i for i in packet['finalImages']};checks=[];cut=0
+            for before,after in zip(packet['shots'][:-1],packet['shots'][1:]):
+                cut+=next(r['frames'] for r in receipts if r['shotId']==before['id'])
+                for frame,expected in [(cut-1,before['images'][-1]),(cut,after['images'][0])]:
+                    with Image.open(by_frame[frame]['path']) as a,Image.open(expected['path']) as b:
+                        delta=float(np.mean(np.abs(np.asarray(a.convert('RGB').resize((96,54)),dtype=np.float32)-np.asarray(b.convert('RGB').resize((96,54)),dtype=np.float32))))
+                    if delta>4:raise RuntimeError('Final cut does not match native take at frame '+str(frame)+': MAE '+str(delta))
+                    checks.append(dict(frame=frame,nativeImageSha256=expected['sha256'],meanAbsoluteRgbError=round(delta,3)))
+            packet['cutChecks']=checks
         sheet.save(review/'final-contact-sheet.jpg',quality=94)
         # Review pages retain readable thumbnails for every 2-second checkpoint
         # and both actual final-MP4 frames at each editorial cut.

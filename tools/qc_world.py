@@ -89,6 +89,8 @@ def main():
     sub.add_parser('status')
     teaser = sub.add_parser('teaser', help='Isolated real-game marketing capture through the WorldOps extension')
     teaser.add_argument('action', choices=['create', 'validate', 'preview', 'record', 'status', 'cancel', 'reframe', 'bake'])
+    teaser.add_argument('--level')
+    teaser.add_argument('--purpose')
     teaser.add_argument('--version',choices=['v01','v02'],default='v01')
     teaser.add_argument('--pitch',type=float)
     teaser.add_argument('--yaw',type=float)
@@ -119,6 +121,8 @@ def main():
     payload = {'requestId': uuid.uuid4().hex, 'command': 'delivery' if args.command == 'deliver' else 'status' if args.command == 'watch' else args.command}
     if args.command == 'teaser':
         payload.update(action=args.action, shot=args.shot, version=args.version)
+        if args.level is not None: payload['levelId'] = args.level
+        if args.purpose is not None: payload['purpose'] = args.purpose
         if args.pitch is not None: payload['pitch'] = args.pitch
         if args.yaw is not None: payload['yaw'] = args.yaw
         if args.target is not None: payload['target'] = args.target

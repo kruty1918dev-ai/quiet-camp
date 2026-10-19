@@ -211,8 +211,8 @@ MonoBehaviour:
     - frame: 43
       command: complete-camp
   - id: 07-the-route
-    levelId: gen:qc_camp:24
-    purpose: 'Station shelter: the journey continues'
+    levelId: gen:qc_camp:29
+    purpose: 'Timber crossing: the journey continues'
     scene: Camp
     frames: 90
     transition: Cut
@@ -220,19 +220,19 @@ MonoBehaviour:
     gameplay: 0
     startWithTents: 0
     complete: 0
-    target: {x: -5.7, y: 1.1, z: 4.6}
-    start: {x: -21.796791, y: 18.33852, z: -10.506843}
-    end: {x: -20.806843, y: 18.33852, z: -11.496793}
-    pitch: 38
-    yaw: 45
-    ortho: 4.8
+    target: {x: -10, y: 1, z: 1.5}
+    start: {x: 5.096963, y: 17.457989, z: 18.402855}
+    end: {x: 4.024501, y: 17.457989, z: 19.302757}
+    pitch: 36
+    yaw: 220
+    ortho: 4.3
     motion: {fileID: 7400000, guid: 511c1177f306a3d489ef1fd646620aee, type: 2}
     initialTentCount: 0
     alternateGuest: -1
-    endOrtho: 4.8
-    endYaw: 45
+    endOrtho: 4.3
+    endYaw: 220
     travel: 1.4
-    endTarget: {x: -5.7, y: 1.1, z: 4.6}
+    endTarget: {x: -10, y: 1, z: 1.5}
     movement: Slide
     sunMultiplier: 1
     ambienceMultiplier: 1
@@ -249,19 +249,19 @@ MonoBehaviour:
     gameplay: 0
     startWithTents: 0
     complete: 0
-    target: {x: -13, y: 0.1, z: -4}
-    start: {x: -32.721336, y: 17.720972, z: -13.196209}
-    end: {x: -32.721336, y: 17.720972, z: -13.196209}
-    pitch: 39
-    yaw: 65
-    ortho: 3.8
+    target: {x: -13.5, y: 0.1, z: -1}
+    start: {x: -6.083168, y: 26.061148, z: 6.4168353}
+    end: {x: -6.083168, y: 26.061148, z: 6.4168353}
+    pitch: 68
+    yaw: 225
+    ortho: 2.6
     motion: {fileID: 7400000, guid: ea0223e45fc31e34995d1a11c1dd84ef, type: 2}
     initialTentCount: 0
     alternateGuest: -1
-    endOrtho: 3.8
-    endYaw: 65
+    endOrtho: 2.6
+    endYaw: 225
     travel: 0
-    endTarget: {x: -13, y: 0.1, z: -4}
+    endTarget: {x: -13.5, y: 0.1, z: -1}
     movement: Locked
     sunMultiplier: 1
     ambienceMultiplier: 1
