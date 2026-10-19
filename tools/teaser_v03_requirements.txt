@@ -1,0 +1,5 @@
+# Isolated QA environment only; no Unity/runtime dependency.
+opencv-python-headless==4.13.0.92
+scenedetect==0.6.7.1
+numpy==2.5.3
+Pillow==12.3.0

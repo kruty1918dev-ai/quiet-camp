@@ -30,11 +30,11 @@ def verify(binary, ffmpeg, path, frames):
 
 
 def takes(project, version="v01"):
-    job = json.loads((project / ('UserSettings/Teaser/job.json' if version=='v01' else 'UserSettings/Teaser/job-v02.json')).read_text(encoding='utf-8-sig'))
+    job = json.loads((project / ('UserSettings/Teaser/job.json' if version=='v01' else 'UserSettings/Teaser/job-'+version+'.json')).read_text(encoding='utf-8-sig'))
     receipts = job.get('receipts', [])
     if job.get('status') != 'captured' or not job.get('record') or job.get('onlyShot') != -1 or len(receipts) != job.get('shotCount',7):
         raise RuntimeError('Finish one complete recording for this revision before assembling.')
-    if sum(r['frames'] for r in receipts) != 1260 or len({r['shotId'] for r in receipts}) != len(receipts):
+    if sum(r['frames'] for r in receipts) != (job.get('totalFrames') or 1260) or len({r['shotId'] for r in receipts}) != len(receipts):
         raise RuntimeError('Invalid recorded sequence.')
     for receipt in receipts:
         path = Path(receipt['video'])
@@ -47,7 +47,7 @@ def takes(project, version="v01"):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project', type=Path, required=True)
-    parser.add_argument('--version',choices=['v01','v02'],default='v01')
+    parser.add_argument('--version',choices=['v01','v02','v03-a','v03-b','v03-c','v03-rough','v03'],default='v01')
     parser.add_argument('--verify-only', type=Path)
     parser.add_argument('--gain-db', type=float, default=6, help='Delivery master gain; source audio remains the Unity recording (0 keeps the raw game mix)')
     args = parser.parse_args()
@@ -60,7 +60,10 @@ def main():
         data = probe(ffprobe, args.verify_only)
         print(json.dumps(data, indent=2))
         return
-    output = project / ('Marketing/Exports' if args.version=='v01' else 'Marketing/Exports/v02')
+    job=json.loads((project/('UserSettings/Teaser/job.json' if args.version=='v01' else 'UserSettings/Teaser/job-'+args.version+'.json')).read_text(encoding='utf-8-sig'))
+    output = Path(job['output'])
+    expected=job.get('totalFrames') or 1260
+    seconds=expected/30
     ordered = takes(project,args.version)
     paths = [Path(r['video']) for r in ordered]
     counts = [r['frames'] for r in ordered]
@@ -79,21 +82,22 @@ def main():
         raise RuntimeError('Takes have different source revisions; record all seven again.')
     listing = output / 'takes.txt'
     listing.write_text('\n'.join("file '" + str(p).replace('\\','/').replace("'", "'\\''") + "'" for p in paths), encoding='utf-8')
-    target = output / ('Teaser_'+args.version+'_1920x1080_30fps.mp4')
+    target = output / ((job.get('videoName') or 'Teaser_'+args.version+'_1920x1080_30fps')+'.mp4')
     candidate = target.with_suffix('.pending.mp4')
     run([ffmpeg, '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', listing,
          '-map', '0:v:0', '-map', '0:a:0', '-c:v', 'libx264', '-preset', 'medium', '-crf', '18',
-         '-threads', '2', '-pix_fmt', 'yuv420p', '-r', '30', '-frames:v', '1260', '-c:a', 'aac',
-         '-b:a', '192k', '-ar', '48000', '-ac', '2', '-af', 'volume='+str(args.gain_db)+'dB', '-t', '42', '-movflags', '+faststart', candidate])
-    data = verify(ffprobe, ffmpeg, candidate, 1260)
-    if abs(float(data['format']['duration']) - 42) > .05:
+         '-threads', '2', '-pix_fmt', 'yuv420p', '-r', '30', '-frames:v', str(expected), '-c:a', 'aac',
+         '-b:a', '192k', '-ar', '48000', '-ac', '2', '-af', 'volume='+str(args.gain_db)+'dB', '-t', str(seconds), '-movflags', '+faststart', candidate])
+    data = verify(ffprobe, ffmpeg, candidate, expected)
+    if abs(float(data['format']['duration']) - seconds) > .05:
         raise RuntimeError('Unexpected final duration')
     candidate.replace(target)
     stats = subprocess.run([str(ffmpeg), '-v', 'info', '-i', str(target), '-vn', '-af', 'volumedetect', '-f', 'null', '-'], capture_output=True, text=True, encoding='utf-8')
     (output / 'audio-analysis.txt').write_text(stats.stderr, encoding='utf-8')
-    (output / 'ATTRIBUTION.md').write_text('Aircraft geometry: Airplane — Poly by Google, CC BY 3.0.\nhttps://poly.pizza/m/a3XrQkLNna9\nhttps://creativecommons.org/licenses/by/3.0/\nAdaptations: section separation, metric scale, damage, muted colours, weathering.\nMusic: original procedurally synthesized QuietCamp score (tools/cozy_audio.py).\nGame sound remains part of the Unity recording. No external music overlay.\n', encoding='utf-8')
+    score_tool='tools/teaser_v03_score.py' if args.version.startswith('v03') else 'tools/cozy_audio.py'
+    (output / 'ATTRIBUTION.md').write_text('Aircraft geometry: Airplane - Poly by Google, CC BY 3.0.\nhttps://poly.pizza/m/a3XrQkLNna9\nhttps://creativecommons.org/licenses/by/3.0/\nAdaptations: section separation, metric scale, damage, muted colours, weathering.\nMusic: original procedurally synthesized QuietCamp score ('+score_tool+').\nGame sound remains part of the Unity recording. No external music overlay.\n', encoding='utf-8')
     result = dict(file=str(target), bytes=target.stat().st_size, sha256=hashlib.sha256(target.read_bytes()).hexdigest(),
-                  frames=1260, seconds=float(data['format']['duration']), sourceHash=receipts[0]['sourceHash'],
+                  frames=expected, seconds=float(data['format']['duration']), sourceHash=receipts[0]['sourceHash'],
                   codec='h264',width=1920,height=1080,fps=30,channels=2,sampleRate=48000,fullyDecoded=True,masterGainDb=args.gain_db)
     (output / 'export-verification.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
     print(json.dumps(result, indent=2))

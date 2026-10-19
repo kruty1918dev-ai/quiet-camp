@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72763a60e303004489504b4b6a0d6c39, type: 3}
+  m_Name: v03-a
+  m_EditorClassIdentifier: QuietCamp.Marketing.Editor::QuietCamp.Marketing.TeaserConfig
+  seed: 1918
+  totalFrames: 180
+  videoName: QuietCamp_Hook_A
+  width: 1920
+  height: 1080
+  exportFolder: Marketing/Exports/v03/v03-a
+  revision: v03-a
+  blackAt: 6
+  fadeAt: 5.86
+  fadeSeconds: 0.14
+  musicGain: 0.2
+  ambienceGain: 0.8
+  effectsGain: 0.8
+  music: {fileID: 8300000, guid: e2f4db1bbb0e79f468585c144b9631b8, type: 3}
+  profile: {fileID: 11400000, guid: 0b8cb9ebb28e3ea4685c6dfb20581b79, type: 2}
+  timeline: {fileID: 11400000, guid: fbf1f0501d7800b469c757673f3f62eb, type: 2}
+  cameraRig: {fileID: 7905770725487835029, guid: 5be6c6e0f18d2414ba658172749ba96e, type: 3}
+  shots:
+  - id: A-one-small-turn
+    levelId: QC003
+    purpose: A-one-small-turn
+    scene: Camp
+    frames: 180
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 1
+    startWithTents: 0
+    complete: 0
+    target: {x: -1, y: 0.55, z: 0}
+    start: {x: 11.189474, y: 22.614304, z: 12.189479}
+    end: {x: 11.189474, y: 22.614304, z: 12.189479}
+    pitch: 52
+    yaw: 225
+    ortho: 4.5
+    motion: {fileID: 7400000, guid: 3985fbf9972703d4ca068225b766a879, type: 2}
+    initialTentCount: 1
+    alternateGuest: 0
+    endOrtho: 4.5
+    endYaw: 225
+    travel: 0
+    endTarget: {x: -1, y: 0.55, z: 0}
+    movement: Locked
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: 0b8cb9ebb28e3ea4685c6dfb20581b79, type: 2}
+    cues:
+    - frame: 8
+      command: place-0
+    - frame: 30
+      command: route-0
+    - frame: 52
+      command: preview-1
+    - frame: 74
+      command: place-1
+    - frame: 75
+      command: preview-off
+    - frame: 108
+      command: route-off
+    - frame: 120
+      command: preview-2
+    - frame: 146
+      command: place-2
+    - frame: 147
+      command: preview-off

@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72763a60e303004489504b4b6a0d6c39, type: 3}
+  m_Name: v03-b
+  m_EditorClassIdentifier: QuietCamp.Marketing.Editor::QuietCamp.Marketing.TeaserConfig
+  seed: 1918
+  totalFrames: 180
+  videoName: QuietCamp_Hook_B
+  width: 1920
+  height: 1080
+  exportFolder: Marketing/Exports/v03/v03-b
+  revision: v03-b
+  blackAt: 6
+  fadeAt: 5.86
+  fadeSeconds: 0.14
+  musicGain: 0.2
+  ambienceGain: 0.8
+  effectsGain: 0.8
+  music: {fileID: 8300000, guid: e2f4db1bbb0e79f468585c144b9631b8, type: 3}
+  profile: {fileID: 11400000, guid: 276590ce40c2a9f42bd1974c73ecfb50, type: 2}
+  timeline: {fileID: 11400000, guid: 60dbbd993c1e95a4c9b3255e48d81334, type: 2}
+  cameraRig: {fileID: 6685306829843021132, guid: 0ff80469511cb88479c3032c225003e7, type: 3}
+  shots:
+  - id: B-living-among-traces
+    levelId: gen:qc_camp:57
+    purpose: B-living-among-traces
+    scene: Camp
+    frames: 180
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 1
+    startWithTents: 0
+    complete: 0
+    target: {x: 3, y: 0.7, z: 0}
+    start: {x: -1.8491464, y: 21.508055, z: 18.09725}
+    end: {x: -1.8491464, y: 21.508055, z: 18.09725}
+    pitch: 48
+    yaw: 165
+    ortho: 6.8
+    motion: {fileID: 7400000, guid: d92c6747d053c2548ae49b6924471e5e, type: 2}
+    initialTentCount: 0
+    alternateGuest: -1
+    endOrtho: 6.8
+    endYaw: 165
+    travel: 0
+    endTarget: {x: 3, y: 0.7, z: 0}
+    movement: Locked
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: 276590ce40c2a9f42bd1974c73ecfb50, type: 2}
+    cues:
+    - frame: 8
+      command: place-0
+    - frame: 54
+      command: place-1
+    - frame: 100
+      command: place-2

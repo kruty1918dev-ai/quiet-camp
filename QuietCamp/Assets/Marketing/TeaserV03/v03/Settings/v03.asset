@@ -1,0 +1,238 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72763a60e303004489504b4b6a0d6c39, type: 3}
+  m_Name: v03
+  m_EditorClassIdentifier: QuietCamp.Marketing.Editor::QuietCamp.Marketing.TeaserConfig
+  seed: 1918
+  totalFrames: 480
+  videoName: QuietCamp_V03_Review
+  width: 1920
+  height: 1080
+  exportFolder: Marketing/Exports/v03/v03
+  revision: v03
+  blackAt: 15.8
+  fadeAt: 15.6
+  fadeSeconds: 0.2
+  musicGain: 0.38
+  ambienceGain: 0.8
+  effectsGain: 0.8
+  music: {fileID: 8300000, guid: e2f4db1bbb0e79f468585c144b9631b8, type: 3}
+  profile: {fileID: 11400000, guid: 9a2fa22b15d6f8345895fa5aac9b6940, type: 2}
+  timeline: {fileID: 11400000, guid: 4777775d2e480c840ae9b06d3644cd00, type: 2}
+  cameraRig: {fileID: 3690292745319475347, guid: 458d88080de79d04e8eac26aa22f1e23, type: 3}
+  shots:
+  - id: 01-turn-makes-room
+    levelId: QC003
+    purpose: 01-turn-makes-room
+    scene: Camp
+    frames: 75
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 1
+    startWithTents: 0
+    complete: 0
+    target: {x: -2, y: 0.6, z: -1.5}
+    start: {x: 13.601816, y: 17.83852, z: 14.101819}
+    end: {x: 13.601816, y: 17.83852, z: 14.101819}
+    pitch: 38
+    yaw: 225
+    ortho: 2.35
+    motion: {fileID: 7400000, guid: 7350a6bd1f897454da864415d729b35e, type: 2}
+    initialTentCount: 1
+    alternateGuest: 0
+    endOrtho: 2.35
+    endYaw: 225
+    travel: 0
+    endTarget: {x: -2, y: 0.6, z: -1.5}
+    movement: Locked
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: 9a2fa22b15d6f8345895fa5aac9b6940, type: 2}
+    cues:
+    - frame: 8
+      command: place-0
+    - frame: 25
+      command: route-0
+  - id: 02-welcome-another
+    levelId: QC003
+    purpose: 02-welcome-another
+    scene: Camp
+    frames: 75
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 1
+    startWithTents: 0
+    complete: 0
+    target: {x: -1, y: 0.6, z: 0}
+    start: {x: 10.637552, y: 23.252474, z: 11.637555}
+    end: {x: 10.637552, y: 23.252474, z: 11.637555}
+    pitch: 54
+    yaw: 225
+    ortho: 3.6
+    motion: {fileID: 7400000, guid: 0842fed74b7dab64b9b69b5c9b200e93, type: 2}
+    initialTentCount: 1
+    alternateGuest: -1
+    endOrtho: 3.6
+    endYaw: 225
+    travel: 0
+    endTarget: {x: -1, y: 0.6, z: 0}
+    movement: Locked
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: 3233ade6578a34b4aa2920efdaf6eb3a, type: 2}
+    cues:
+    - frame: 0
+      command: preview-1
+    - frame: 20
+      command: place-1
+    - frame: 21
+      command: preview-off
+  - id: 03-a-place-in-shade
+    levelId: QC003
+    purpose: 03-a-place-in-shade
+    scene: Camp
+    frames: 60
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 1
+    startWithTents: 0
+    complete: 0
+    target: {x: -2, y: 0.65, z: -1.5}
+    start: {x: 14.218382, y: 16.71014, z: 14.718388}
+    end: {x: 14.218382, y: 16.71014, z: 14.718388}
+    pitch: 35
+    yaw: 225
+    ortho: 2.7
+    motion: {fileID: 7400000, guid: d60fe4d713b2a254fb1e85b5a67a27d9, type: 2}
+    initialTentCount: 2
+    alternateGuest: -1
+    endOrtho: 2.7
+    endYaw: 225
+    travel: 0
+    endTarget: {x: -2, y: 0.65, z: -1.5}
+    movement: Locked
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: ad99c6cf328aac3449416d333f9fcca3, type: 2}
+    cues:
+    - frame: 0
+      command: shade-on
+    - frame: 52
+      command: shade-off
+  - id: 04-fit-the-last-tent
+    levelId: QC003
+    purpose: 04-fit-the-last-tent
+    scene: Camp
+    frames: 90
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 1
+    startWithTents: 0
+    complete: 0
+    target: {x: 0, y: 0.6, z: 0}
+    start: {x: 10.197233, y: 24.600685, z: 10.197231}
+    end: {x: 10.197233, y: 24.600685, z: 10.197231}
+    pitch: 59
+    yaw: 225
+    ortho: 3.6
+    motion: {fileID: 7400000, guid: 079c13f35fe2b2c4895f857548d470db, type: 2}
+    initialTentCount: 2
+    alternateGuest: -1
+    endOrtho: 3.6
+    endYaw: 225
+    travel: 0
+    endTarget: {x: 0, y: 0.6, z: 0}
+    movement: Locked
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: 622f68f1a03d0f74f90bb315d9dd17dd, type: 2}
+    cues:
+    - frame: 0
+      command: preview-2
+    - frame: 24
+      command: place-2
+    - frame: 25
+      command: preview-off
+    - frame: 48
+      command: route-2
+  - id: 05-leave-a-way-through
+    levelId: QC003
+    purpose: 05-leave-a-way-through
+    scene: Camp
+    frames: 60
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 1
+    startWithTents: 0
+    complete: 0
+    target: {x: 0, y: 0.3, z: 0}
+    start: {x: 11.356232, y: 23.236258, z: 11.356235}
+    end: {x: 11.356232, y: 23.236258, z: 11.356235}
+    pitch: 55
+    yaw: 225
+    ortho: 3.4
+    motion: {fileID: 7400000, guid: 5ba634c273b3f304aa4d6e46f79f2745, type: 2}
+    initialTentCount: 3
+    alternateGuest: -1
+    endOrtho: 3.4
+    endYaw: 225
+    travel: 0
+    endTarget: {x: 0, y: 0.3, z: 0}
+    movement: Locked
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: 4e7dc084471001643a3fca2966406a84, type: 2}
+    cues:
+    - frame: 0
+      command: route-2
+    - frame: 58
+      command: route-off
+  - id: 06-everybody-can-rest
+    levelId: QC003
+    purpose: 06-everybody-can-rest
+    scene: Camp
+    frames: 120
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 1
+    startWithTents: 0
+    complete: 0
+    target: {x: 0, y: 0.65, z: 0}
+    start: {x: 16.01772, y: 17.10799, z: 16.017725}
+    end: {x: 16.01772, y: 17.10799, z: 16.017725}
+    pitch: 36
+    yaw: 225
+    ortho: 3.6
+    motion: {fileID: 7400000, guid: e4f89a8322e2e7942ad412cb2b84643c, type: 2}
+    initialTentCount: 3
+    alternateGuest: -1
+    endOrtho: 3.6
+    endYaw: 225
+    travel: 0
+    endTarget: {x: 0, y: 0.65, z: 0}
+    movement: Locked
+    sunMultiplier: 1
+    ambienceMultiplier: 1
+    musicMultiplier: 1
+    look: {fileID: 11400000, guid: 84233038d6e171b44a865496ddcf304e, type: 2}
+    cues:
+    - frame: 0
+      command: route-2
+    - frame: 20
+      command: route-off
+    - frame: 24
+      command: complete-camp

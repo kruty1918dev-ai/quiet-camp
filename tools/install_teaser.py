@@ -24,8 +24,9 @@ def install(project):
                 raise SystemExit('Unresolved existing local package: ' + key)
     data['dependencies'].update({'com.unity.cinemachine': '3.1.7', 'com.unity.timeline': '6.6.0', 'com.unity.recorder': '5.1.7'})
     manifest.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
-    for relative in ['Assets/Marketing/Teaser', 'Assets/QuietCamp/Editor/LevelAuthoring/WorldOps/WorldOpsBridge.cs']:
+    for relative in ['Assets/Marketing/Teaser', 'Assets/Marketing/TeaserV03', 'Assets/QuietCamp/Editor/LevelAuthoring/WorldOps/WorldOpsBridge.cs']:
         src = source / relative
+        if not src.exists(): continue
         dst = project / relative
         if src.is_dir():
             for file in src.rglob('*'):

@@ -31,7 +31,8 @@ namespace QuietCamp.Marketing
         public string status, phase, error, sourceHash, output;
         public bool record;
         public string version = "v01";
-        public int shotCount;
+        public int shotCount, totalFrames;
+        public string videoName;
         public float blackAt = 41.4f;
         public int shot, onlyShot = -1, frames;
         public double deadline;
@@ -56,12 +57,12 @@ namespace QuietCamp.Marketing
         public static string Version => SessionState.GetString("QuietCamp.Marketing.Version","v01");
         public static void SelectVersion(string version)
         {
-            if(version!="v01"&&version!="v02")throw new ArgumentException("Unknown teaser revision.");
+            if(!new[]{"v01","v02","v03-a","v03-b","v03-c","v03-rough","v03"}.Contains(version))throw new ArgumentException("Unknown teaser revision.");
             if(version==Version)return;
             if(Busy||EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("Stop the active teaser before switching revision.");
             SessionState.SetString("QuietCamp.Marketing.Version",version);_job=null;
         }
-        static string Journal => Path.GetFullPath("UserSettings/Teaser/"+(Version=="v01"?"job.json":"job-v02.json"));
+        static string Journal => Path.GetFullPath("UserSettings/Teaser/"+(Version=="v01"?"job.json":"job-"+Version+".json"));
         public static bool Busy => Job != null && new[]{"launch","waiting","recording","stopping"}.Contains(Job.status);
         public static TeaserJob Job => _job ??= File.Exists(Journal) ? WorldOpsStorage.Read<TeaserJob>(Journal) : null;
         static TeaserPipeline()
@@ -105,11 +106,11 @@ namespace QuietCamp.Marketing
         public static object Validate()
         {
             var config = TeaserAssets.Load() ?? throw new InvalidOperationException("Create the teaser assets first.");
-            if (config.shots == null || config.shots.Length < 1 || config.shots.Sum(s=>s.frames) != 1260) throw new InvalidDataException("Shots must total exactly 1260 frames.");
+            if (config.shots == null || config.shots.Length < 1 || config.shots.Sum(s=>s.frames) != config.totalFrames) throw new InvalidDataException("Shots must total the configured frame count.");
             if(config.revision!=Version||config.shots.Select(s=>s.id).Distinct().Count()!=config.shots.Length)throw new InvalidDataException("Invalid revision or duplicate shot IDs.");
-            if (config.width != 1920 || config.height != 1080 || config.timeline == null || Math.Abs(config.timeline.duration - 42) > .001 || config.cameraRig == null || config.music == null)
+            if (config.width != 1920 || config.height != 1080 || config.timeline == null || Math.Abs(config.timeline.duration - config.totalFrames/30.0) > .001 || config.cameraRig == null || config.music == null)
                 throw new InvalidDataException("Missing assets or incorrect export/Timeline duration.");
-            if (EditorBuildSettings.scenes.Any(s=>s.enabled && (s.path==TeaserAssets.ScenePath||s.path==TeaserV02Assets.ScenePath))) throw new InvalidOperationException("Marketing scene must remain outside the player build.");
+            if (EditorBuildSettings.scenes.Any(s=>s.enabled && (s.path==TeaserAssets.ScenePath||s.path==TeaserV02Assets.ScenePath||s.path.StartsWith("Assets/Marketing/TeaserV03/")))) throw new InvalidOperationException("Marketing scene must remain outside the player build.");
             foreach (var shot in config.shots)
             {
                 if (shot.frames <= 0 || shot.motion == null || shot.scene!="Camp" || shot.transition != "Cut" || shot.transitionSeconds != 0) throw new InvalidDataException("Unsupported shot timing, scene or transition: " + shot.id);
@@ -117,7 +118,7 @@ namespace QuietCamp.Marketing
                 var errors = doc.Validate(true); if (errors.Count > 0) throw new InvalidDataException(string.Join("; ",errors));
                 if (doc.level.witness == null || doc.level.witness.Length != doc.level.guests.Length) throw new InvalidDataException("Missing legal replay: " + shot.id);
             }
-            return new { status="valid",frames=1260,seconds=42,width=1920,height=1080,sourceHash=SourceHash() };
+            return new { status="valid",frames=config.totalFrames,seconds=config.totalFrames/30.0,width=1920,height=1080,sourceHash=SourceHash() };
         }
         public static void Start(bool record,int onlyShot=-1)
         {
@@ -126,7 +127,7 @@ namespace QuietCamp.Marketing
             Validate();
             if (onlyShot < -1 || onlyShot >= TeaserAssets.Load().shots.Length) throw new ArgumentOutOfRangeException(nameof(onlyShot));
             var config = TeaserAssets.Load();
-            _job = new TeaserJob { status="launch", record=record, version=Version, shotCount=config.shots.Length, blackAt=config.blackAt, shot=Math.Max(0,onlyShot), onlyShot=onlyShot, sourceHash=SourceHash(), output=Path.GetFullPath(config.exportFolder) };
+            _job = new TeaserJob { status="launch", record=record, version=Version, shotCount=config.shots.Length, totalFrames=config.totalFrames, videoName=config.videoName, blackAt=config.blackAt, shot=Math.Max(0,onlyShot), onlyShot=onlyShot, sourceHash=SourceHash(), output=Path.GetFullPath(config.exportFolder) };
             Directory.CreateDirectory(_job.output); Write();
             SessionState.SetBool(JobKey,true);
         }
@@ -136,6 +137,7 @@ namespace QuietCamp.Marketing
         public static string SourceHash()
         {
             var files = Directory.GetFiles("Assets/Marketing/Teaser","*",SearchOption.AllDirectories)
+                .Concat(Directory.Exists("Assets/Marketing/TeaserV03")?Directory.GetFiles("Assets/Marketing/TeaserV03","*",SearchOption.AllDirectories):Array.Empty<string>())
                 .Concat(Directory.GetFiles("Assets/QuietCamp/Scripts","*.cs",SearchOption.AllDirectories))
                 .Concat(Directory.GetFiles("Assets/QuietCamp/Resources/QuietCamp","*",SearchOption.TopDirectoryOnly))
                 .Concat(new[]{"Packages/manifest.json","Packages/packages-lock.json"})
@@ -206,7 +208,7 @@ namespace QuietCamp.Marketing
             Debug.LogError("[Teaser] "+error);EditorApplication.delayCall+=()=>{if(EditorApplication.isPlaying)EditorApplication.ExitPlaymode();};
         }
         [MenuItem("Tools/Marketing/Teaser/Create Assets")] static void Create()=>TeaserAssets.Create();
-        [MenuItem("Tools/Marketing/Teaser/Open Teaser")] static void Open(){TeaserAssets.Create();if(!EditorApplication.isPlaying&&EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())EditorSceneManager.OpenScene(Version=="v02"?TeaserV02Assets.ScenePath:TeaserAssets.ScenePath);}
+        [MenuItem("Tools/Marketing/Teaser/Open Teaser")] static void Open(){TeaserAssets.Create();if(!EditorApplication.isPlaying&&EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())EditorSceneManager.OpenScene(Version.StartsWith("v03")?TeaserV03Assets.Root+"/"+Version+"/Scenes/"+Version+".unity":Version=="v02"?TeaserV02Assets.ScenePath:TeaserAssets.ScenePath);}
         [MenuItem("Tools/Marketing/Teaser/Validate Teaser")] static void ValidateMenu()=>Debug.Log(Validate());
         [MenuItem("Tools/Marketing/Teaser/Preview Teaser")] static void Preview()=>Start(false);
         [MenuItem("Tools/Marketing/Teaser/Record Teaser")] static void Record()=>Start(true);

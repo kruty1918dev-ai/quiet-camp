@@ -150,6 +150,7 @@ namespace QuietCamp.Marketing
                     if(signal=="look:"+shot.id){receipt.actions.Add("frame"+frame+": shot lighting/profile applied");}
                     else if(signal.StartsWith("place-alternate-")&&int.TryParse(signal.Substring(16),out int alternate))Commit(host,Alternative(host,host.Session.Level.witness[alternate]),receipt);
                     else if(signal.StartsWith("place-")&&int.TryParse(signal.Substring(6),out int index)&&index>=0&&index<host.Session.Level.witness.Length)Commit(host,host.Session.Level.witness[index],receipt);
+                    else if(TeaserGameplayEvidence.Execute(host,signal)){receipt.actions.Add("frame"+frame+": native "+signal);}
                     else if(signal=="complete-camp")
                     {
                         if(!host.Session.Check().IsSolved)throw new InvalidOperationException("Canonical camp completion rejected replay.");
@@ -160,9 +161,9 @@ namespace QuietCamp.Marketing
                 if(time>=config.fadeAt)
                 {
                     float fade=Mathf.Clamp01((float)(time-config.fadeAt)/Mathf.Max(.01f,config.fadeSeconds));AudioListener.volume=1-fade;
-                    if(config.revision=="v02"&&volume.profile.TryGet<ColorAdjustments>(out var grade))grade.postExposure.value=-4*fade*fade;
+                    if((config.revision=="v02"||config.revision=="v03")&&volume.profile.TryGet<ColorAdjustments>(out var grade))grade.postExposure.value=-4*fade*fade;
                 }
-                if(time>=config.blackAt)
+                if(config.revision=="v03"?Mathf.RoundToInt((float)time*30)>=Mathf.RoundToInt(config.blackAt*30):time>=config.blackAt)
                 {
                     _blackout.Active=true;
                     camera.cullingMask=0;camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Color.black;

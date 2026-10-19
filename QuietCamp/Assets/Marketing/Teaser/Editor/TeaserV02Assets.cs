@@ -72,11 +72,16 @@ namespace QuietCamp.Marketing
             config.shots[3].endOrtho=3.6f;
             config.shots[11].endTarget=new Vector3(4,.8f,2);config.shots[11].endOrtho=8.3f;config.shots[11].endYaw=215;
             config.shots[12].endTarget=new Vector3(3,.6f,1.5f);config.shots[12].endOrtho=9.6f;config.shots[12].endYaw=205;
-            var timeline=ScriptableObject.CreateInstance<TimelineAsset>();timeline.editorSettings.frameRate=30;timeline.durationMode=TimelineAsset.DurationMode.FixedLength;timeline.fixedDuration=42;
-            AssetDatabase.CreateAsset(timeline,Root+"/Timelines/Master42_v02.playable");config.timeline=timeline;
+            return Build(config,Root,ConfigPath,ScenePath);
+        }
+
+        public static TeaserConfig Build(TeaserConfig config,string root,string configPath,string scenePath)
+        {
+            var timeline=ScriptableObject.CreateInstance<TimelineAsset>();timeline.editorSettings.frameRate=30;timeline.durationMode=TimelineAsset.DurationMode.FixedLength;timeline.fixedDuration=config.totalFrames/30.0;
+            AssetDatabase.CreateAsset(timeline,root+"/Timelines/Master42_v02.playable");config.timeline=timeline;
             var rig=new GameObject("Teaser V02 — curiosity, action, weather, destination");
             var director=rig.AddComponent<PlayableDirector>();director.playOnAwake=false;director.playableAsset=timeline;director.timeUpdateMode=DirectorUpdateMode.Manual;
-            var cuts=timeline.CreateTrack<CinemachineTrack>(null,"13 editorial shots");
+            var cuts=timeline.CreateTrack<CinemachineTrack>(null,"Editorial shots");
             var signals=timeline.CreateTrack<SignalTrack>(null,"Canonical gameplay and shot lighting cues");
             double start=0;
             foreach(var shot in config.shots)
@@ -85,32 +90,32 @@ namespace QuietCamp.Marketing
                 cam.Lens=LensSettings.Default;cam.Lens.ModeOverride=LensSettings.OverrideModes.Orthographic;cam.Lens.OrthographicSize=shot.ortho;
                 var animator=cam.gameObject.AddComponent<Animator>();
                 var path=new GameObject(shot.id+" path").AddComponent<SplineContainer>();path.transform.SetParent(rig.transform,false);path.Spline=Path(shot);
-                var animation=new AnimationClip{name=shot.id+" framing",frameRate=30};AssetDatabase.CreateAsset(animation,Root+"/Animations/"+shot.id+".anim");shot.motion=animation;Bake(shot,path.Spline);
+                var animation=new AnimationClip{name=shot.id+" framing",frameRate=30};AssetDatabase.CreateAsset(animation,root+"/Animations/"+shot.id+".anim");shot.motion=animation;Bake(shot,path.Spline);
                 cam.transform.position=shot.start;cam.transform.rotation=Quaternion.Euler(shot.pitch,shot.yaw,0);
                 var clip=cuts.CreateClip<CinemachineShot>();clip.displayName=shot.id;clip.start=start;clip.duration=shot.frames/30.0;
                 ((CinemachineShot)clip.asset).VirtualCamera.exposedName=shot.id;director.SetReferenceValue(shot.id,cam);
                 var motion=timeline.CreateTrack<AnimationTrack>(null,shot.id+" motion");motion.trackOffset=TrackOffset.ApplyTransformOffsets;
                 var move=motion.CreateClip(animation);move.start=start;move.duration=clip.duration;((AnimationPlayableAsset)move.asset).removeStartOffset=false;director.SetGenericBinding(motion,animator);
-                shot.look=ScriptableObject.CreateInstance<VolumeProfile>();AssetDatabase.CreateAsset(shot.look,Root+"/Profiles/"+shot.id+".asset");
+                shot.look=ScriptableObject.CreateInstance<VolumeProfile>();AssetDatabase.CreateAsset(shot.look,root+"/Profiles/"+shot.id+".asset");
                 var vignette=shot.look.Add<Vignette>(true);vignette.intensity.Override(.055f);AssetDatabase.AddObjectToAsset(vignette,shot.look);
                 var grade=shot.look.Add<ColorAdjustments>(true);grade.postExposure.Override(0);AssetDatabase.AddObjectToAsset(grade,shot.look);
-                shot.sunMultiplier=shot.id.Contains("rain")||shot.id.Contains("weather")?1.08f:1;
-                shot.musicMultiplier=shot.id.Contains("rain")?.35f:shot.id.Contains("water")?.5f:1;
+                if(config.revision=="v02")shot.sunMultiplier=shot.id.Contains("rain")||shot.id.Contains("weather")?1.08f:1;
+                if(config.revision=="v02")shot.musicMultiplier=shot.id.Contains("rain")?.35f:shot.id.Contains("water")?.5f:1;
                 foreach(var cue in shot.cues)AddSignal(timeline,signals,start+cue.frame/30.0,cue.command);
                 AddSignal(timeline,signals,start,"look:"+shot.id);
                 start+=clip.duration;
             }
             config.profile=config.shots[0].look;
             var source=rig.AddComponent<AudioSource>();source.playOnAwake=false;
-            var score=timeline.CreateTrack<AudioTrack>(null,"Continuous original score — recorded in engine");var music=score.CreateClip<AudioPlayableAsset>();music.start=0;music.duration=42;
+            var score=timeline.CreateTrack<AudioTrack>(null,"Continuous original score — recorded in engine");var music=score.CreateClip<AudioPlayableAsset>();music.start=0;music.duration=config.totalFrames/30.0;
             ((AudioPlayableAsset)music.asset).clip=config.music;((AudioPlayableAsset)music.asset).loop=true;director.SetGenericBinding(score,source);
             var weather=timeline.CreateTrack<ActivationTrack>(null,"Native weather until final darkness");var active=weather.CreateDefaultClip();active.duration=config.blackAt;weather.postPlaybackState=ActivationTrack.PostPlaybackState.Revert;
-            config.cameraRig=PrefabUtility.SaveAsPrefabAsset(rig,Root+"/Cameras/TeaserRig_v02.prefab");AssetDatabase.CreateAsset(config,ConfigPath);
+            config.cameraRig=PrefabUtility.SaveAsPrefabAsset(rig,root+"/Cameras/TeaserRig_v02.prefab");AssetDatabase.CreateAsset(config,configPath);
             var previous=UnityEngine.SceneManagement.SceneManager.GetActiveScene();var scene=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Additive);
             UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(rig,scene);
             var output=new GameObject("Preview output — WorldOps binds real Camp camera").AddComponent<Camera>();UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(output.gameObject,scene);
             director.SetGenericBinding(cuts,output.gameObject.AddComponent<CinemachineBrain>());
-            EditorSceneManager.SaveScene(scene,ScenePath);EditorSceneManager.CloseScene(scene,true);UnityEngine.SceneManagement.SceneManager.SetActiveScene(previous);
+            EditorSceneManager.SaveScene(scene,scenePath);EditorSceneManager.CloseScene(scene,true);UnityEngine.SceneManagement.SceneManager.SetActiveScene(previous);
             EditorUtility.SetDirty(timeline);EditorUtility.SetDirty(config);AssetDatabase.SaveAssets();return config;
         }
 

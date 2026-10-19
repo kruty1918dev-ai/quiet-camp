@@ -91,7 +91,7 @@ def main():
     teaser.add_argument('action', choices=['create', 'validate', 'preview', 'record', 'status', 'cancel', 'reframe', 'bake'])
     teaser.add_argument('--level')
     teaser.add_argument('--purpose')
-    teaser.add_argument('--version',choices=['v01','v02'],default='v01')
+    teaser.add_argument('--version',choices=['v01','v02','v03-a','v03-b','v03-c','v03-rough','v03'],default='v01')
     teaser.add_argument('--pitch',type=float)
     teaser.add_argument('--yaw',type=float)
     teaser.add_argument('--shot', type=int, default=-1, help='Zero-based individual take, or all seven by default')
