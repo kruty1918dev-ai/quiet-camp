@@ -1,5 +1,11 @@
 # QuietCamp Teaser V02
 
+Готовий локальний MP4: **42 секунди, 1920×1080, 30 FPS, stereo 48 kHz,
+37.28 MB**. [Фактичне QA](QA_REPORT.md),
+[порівняння V01/V02](../V01_V02_COMPARISON.md).
+
+![Фінальний кадр V02](preview.jpg)
+
 Редагована версія: `QuietCamp/Assets/Marketing/Teaser/V02/`.
 Окремі Teaser_v02.asset, Master42_v02.playable, 13 камер, сплайни, криві,
 профілі та сцена не замінюють авторські assets і MP4 версії V01.

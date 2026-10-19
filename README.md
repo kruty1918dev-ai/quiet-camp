@@ -17,9 +17,9 @@
   <a href="docs/status.md">Стан перевірок</a>
 </p>
 
-![Кадр ігрового тизера QuietCamp, 19.10.2026, без HUD](Design/Marketing/Teaser/preview.jpg)
+![Кадр ігрового тизера QuietCamp V02, 19.10.2026, без HUD](Design/Marketing/Teaser/V02/preview.jpg)
 
-Справжній кадр із 42-секундного тизера від 19 жовтня. [Монтаж, відтворення та перевірки](Design/Marketing/Teaser/README-UA.md). HUD приховано лише для маркетингового запису.
+Справжній кадр із 42-секундного тизера V02: 13 планів, реальні розміщення й поворот намету, дощ зблизька та відкриття Гавані. [Монтаж, відтворення та перевірки](Design/Marketing/Teaser/V02/README-UA.md), [порівняння V01/V02](Design/Marketing/Teaser/V01_V02_COMPARISON.md). HUD приховано лише для маркетингового запису; V01 збережено окремо.
 
 ## Що зараз у main
 
