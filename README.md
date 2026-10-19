@@ -17,9 +17,9 @@
   <a href="docs/status.md">Стан перевірок</a>
 </p>
 
-![QC002 — native сцена кампанії, 11.10.2026, камера світу без HUD](Design/Campaign100/2026-10-11/Renders/level-002-landscape.png)
+![Кадр ігрового тизера QuietCamp, 19.10.2026, без HUD](Design/Marketing/Teaser/preview.jpg)
 
-Справжній кадр навчального табору від 11 жовтня; [receipt камери й джерел](Design/Campaign100/2026-10-11/Renders/level-002-landscape.json). HUD перевіряється окремо.
+Справжній кадр із 42-секундного тизера від 19 жовтня. [Монтаж, відтворення та перевірки](Design/Marketing/Teaser/README-UA.md). HUD приховано лише для маркетингового запису.
 
 ## Що зараз у main
 

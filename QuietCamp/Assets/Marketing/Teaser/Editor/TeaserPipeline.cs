@@ -38,7 +38,8 @@ namespace QuietCamp.Marketing
     {
         public string shotId, levelId, sourceHash, video;
         public int frames, placements, sampleRate;
-        public bool memoryOnly, completed;
+        public bool memoryOnly, completed, recorded;
+        public int renderedFrames;
         public float audioPeak;
         public List<string> actions = new();
     }
@@ -55,6 +56,7 @@ namespace QuietCamp.Marketing
         static TeaserPipeline()
         {
             WorldOpsBridge.TeaserCommand = Command;
+            WorldOpsBridge.TeaserBusy = () => Busy;
             EditorApplication.update += Tick;
             AssemblyReloadEvents.beforeAssemblyReload += () => { if (Job?.status == "recording") Fail("Assembly reload interrupted the capture; re-record this shot."); };
         }
@@ -67,6 +69,16 @@ namespace QuietCamp.Marketing
             if (action == "cancel") { Fail("Cancelled by user."); return Job; }
             if (action == "create") { TeaserAssets.Create(); return Validate(); }
             if (action == "validate") return Validate();
+            if (action == "reframe")
+            {
+                if(Busy||EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("Stop the capture before changing cameras.");
+                var config=TeaserAssets.Load();int index=(int)request["shot"];
+                if(index<0||index>=config.shots.Length)throw new ArgumentOutOfRangeException("shot");
+                var shot=config.shots[index];
+                if(request["target"]!=null){var target=request["target"].ToObject<float[]>();if(target.Length!=3||target.Any(v=>float.IsNaN(v)||float.IsInfinity(v)||Math.Abs(v)>30))throw new ArgumentException("Invalid target.");shot.target=new Vector3(target[0],target[1],target[2]);}
+                if(request["ortho"]!=null)shot.ortho=Mathf.Clamp((float)request["ortho"],3,20);
+                TeaserAssets.Reframe(config,index);return Validate();
+            }
             if (action == "record" || action == "preview") { Start(action == "record", (int?)request["shot"] ?? -1); return Job; }
             throw new ArgumentException("Unknown teaser action.");
         }
@@ -79,7 +91,7 @@ namespace QuietCamp.Marketing
             if (EditorBuildSettings.scenes.Any(s=>s.enabled && s.path==TeaserAssets.ScenePath)) throw new InvalidOperationException("Marketing scene must remain outside the player build.");
             foreach (var shot in config.shots)
             {
-                if (shot.frames <= 0 || shot.motion == null || shot.transition != "Cut" || shot.transitionSeconds != 0) throw new InvalidDataException("Unsupported shot timing or transition: " + shot.id);
+                if (shot.frames <= 0 || shot.motion == null || shot.scene!="Camp" || shot.transition != "Cut" || shot.transitionSeconds != 0) throw new InvalidDataException("Unsupported shot timing, scene or transition: " + shot.id);
                 var doc = LevelAuthoringCampaign.Open(shot.levelId,preview:false);
                 var errors = doc.Validate(true); if (errors.Count > 0) throw new InvalidDataException(string.Join("; ",errors));
                 if (doc.level.witness == null || doc.level.witness.Length != doc.level.guests.Length) throw new InvalidDataException("Missing legal replay: " + shot.id);
@@ -89,6 +101,7 @@ namespace QuietCamp.Marketing
         public static void Start(bool record,int onlyShot=-1)
         {
             if (Busy || WorldOpsService.Busy || EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Wait for the existing Editor operation to finish.");
+            if(SessionState.GetBool("QuietCamp.NativeTestsRunning",false)||File.Exists(Path.GetFullPath("Temp/ai/qc007-art-request.json")))throw new InvalidOperationException("Another native verification job is active.");
             Validate();
             if (onlyShot < -1 || onlyShot > 6) throw new ArgumentOutOfRangeException(nameof(onlyShot));
             var config = TeaserAssets.Load();
@@ -103,6 +116,7 @@ namespace QuietCamp.Marketing
         {
             var files = Directory.GetFiles("Assets/Marketing/Teaser","*",SearchOption.AllDirectories)
                 .Concat(Directory.GetFiles("Assets/QuietCamp/Scripts","*.cs",SearchOption.AllDirectories))
+                .Concat(Directory.GetFiles("Assets/QuietCamp/Resources/QuietCamp","*",SearchOption.TopDirectoryOnly))
                 .Concat(new[]{"Packages/manifest.json","Packages/packages-lock.json"})
                 .Where(p=>File.Exists(p)&&Path.GetExtension(p)!=".md").OrderBy(p=>p,StringComparer.Ordinal);
             var text = string.Join("\n", files.Select(p=>p+":"+WorldOpsStorage.FileHash(p))) + "\n" + UnityEngine.Application.unityVersion;
@@ -144,6 +158,14 @@ namespace QuietCamp.Marketing
                     job.status="recording";job.deadline=EditorApplication.timeSinceStartup+180;Write();
                     new TeaserReplay().Begin(TeaserAssets.Load(),job);return;
                 }
+                if(job.status=="stopping"&&EditorApplication.isPlaying)
+                {
+                    // Let the restored Game View finish its layout/repaint. Exiting
+                    // synchronously inside a player's coroutine left Unity 6.6's
+                    // GameView.OnPlayModeStateChanged with a null render target.
+                    if(EditorApplication.timeSinceStartup>=job.deadline)EditorApplication.ExitPlaymode();
+                    return;
+                }
                 if(job.status=="stopping"&&!EditorApplication.isPlayingOrWillChangePlaymode)
                 {
                     if(job.onlyShot>=0||job.shot==6){job.status="captured";SessionState.SetBool(JobKey,false);}
@@ -155,12 +177,12 @@ namespace QuietCamp.Marketing
         public static void Captured(TeaserReceipt receipt)
         {
             if(SourceHash()!=Job.sourceHash){Fail("Sources changed during capture. This take cannot certify the current revision.");return;}
-            Job.receipts.Add(receipt);Job.status="stopping";Write();EditorApplication.ExitPlaymode();
+            Job.receipts.Add(receipt);Job.status="stopping";Job.deadline=EditorApplication.timeSinceStartup+.3;Write();
         }
         public static void Fail(string error)
         {
             if(Job==null)return;Job.status="error";Job.error=error;Write();SessionState.SetBool(JobKey,false);
-            Debug.LogError("[Teaser] "+error);if(EditorApplication.isPlaying)EditorApplication.ExitPlaymode();
+            Debug.LogError("[Teaser] "+error);EditorApplication.delayCall+=()=>{if(EditorApplication.isPlaying)EditorApplication.ExitPlaymode();};
         }
         [MenuItem("Tools/Marketing/Teaser/Create Assets")] static void Create()=>TeaserAssets.Create();
         [MenuItem("Tools/Marketing/Teaser/Open Teaser")] static void Open(){TeaserAssets.Create();if(!EditorApplication.isPlaying&&EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())EditorSceneManager.OpenScene(TeaserAssets.ScenePath);}

@@ -10,11 +10,13 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
     {
         // Optional Editor-only capture extension; no dependency on marketing in the core assembly.
         public static Func<JObject,object> TeaserCommand;
+        public static Func<bool> TeaserBusy;
         static string Inbox=>Path.Combine(WorldOpsService.EditorProject,"Temp/ai/qc-world-request.json");
         static string Outbox=>Path.Combine(WorldOpsService.EditorProject,"Temp/ai/qc-world-result.json");
         static WorldOpsBridge(){EditorApplication.update+=Poll;}
         public static void GuardLegacyMutation(string mode)
         {
+            if(TeaserBusy?.Invoke()==true&&mode!="input-status"&&mode!="authoring-status")throw new InvalidOperationException("Wait for the WorldOps teaser capture to finish.");
             switch(mode)
             {
                 case "forest-regrowth":case "object-overgrowth":case "opening-details":
@@ -32,6 +34,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 var request=JObject.Parse(File.ReadAllText(Inbox));requestId=(string)request["requestId"];
                 if(string.IsNullOrWhiteSpace(requestId))throw new ArgumentException("A requestId is required.");
                 var command=(string)request["command"];
+                if(TeaserBusy?.Invoke()==true&&command!="teaser"&&command!="status")throw new InvalidOperationException("Wait for the WorldOps teaser capture to finish.");
                 if(command=="teaser")
                 {
                     if(WorldOpsService.Busy)throw new InvalidOperationException("Wait for the current WorldOps run.");

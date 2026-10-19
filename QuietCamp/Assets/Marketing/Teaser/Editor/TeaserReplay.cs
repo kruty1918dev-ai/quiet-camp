@@ -23,6 +23,7 @@ using UnityEngine.Playables;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.Timeline;
+using UnityEngine.InputSystem;
 using static UnityEngine.Object;
 
 namespace QuietCamp.Marketing
@@ -31,6 +32,7 @@ namespace QuietCamp.Marketing
     {
         RecorderController _recorder;
         RecorderRenderBridge _renderBridge;
+        TeaserBlackout _blackout;
         RecorderControllerSettings _settings;
         MovieRecorderSettings _movie;
         uint _oldWidth,_oldHeight;
@@ -43,6 +45,7 @@ namespace QuietCamp.Marketing
         bool _oldEditorMute;
         GameObject _rig;
         readonly float[] _samples=new float[512];
+        readonly Dictionary<InputDevice,bool> _inputStates=new();
         public void Begin(TeaserConfig config,TeaserJob job)
         {
             EditorApplication.playModeStateChanged+=PlayChanged;
@@ -60,7 +63,7 @@ namespace QuietCamp.Marketing
         IEnumerator Record(TeaserConfig config,TeaserJob job)
         {
             var host=CampSceneHost.Current;var services=QuietCampBootstrap.ServicesRef;var shot=config.shots[job.shot];
-            var receipt=new TeaserReceipt{shotId=shot.id,levelId=shot.levelId,frames=shot.frames,sourceHash=job.sourceHash,memoryOnly=services.Save.MemoryOnly,sampleRate=AudioSettings.outputSampleRate};
+            var receipt=new TeaserReceipt{shotId=shot.id,levelId=shot.levelId,frames=shot.frames,sourceHash=job.sourceHash,memoryOnly=services.Save.MemoryOnly,sampleRate=AudioSettings.outputSampleRate,recorded=job.record};
             if(receipt.sampleRate!=48000)throw new InvalidOperationException("Set Editor audio output to 48000 Hz before capture; current="+receipt.sampleRate);
             UnityEngine.Random.InitState(config.seed+job.shot);
             PlayModeWindow.GetRenderingResolution(out _oldWidth,out _oldHeight);_oldRate=Time.captureFramerate;
@@ -75,20 +78,33 @@ namespace QuietCamp.Marketing
             foreach(var adaptive in FindObjectsByType<AdaptiveCampQuality>(FindObjectsSortMode.None))adaptive.enabled=false;
             services.EffectiveQuality=2;QualitySettings.SetQualityLevel(Mathf.Min(2,QualitySettings.names.Length-1),true);
             foreach(var art in FindObjectsByType<CampArtView>(FindObjectsSortMode.None))art.SetQualityTier(2);
+            foreach(var device in InputSystem.devices)_inputStates[device]=device.enabled;
             _oldView=PlayModeWindow.GetViewType();
-            PlayModeWindow.SetViewType(PlayModeWindow.PlayModeViewTypes.GameView);
+            if(_oldView!=PlayModeWindow.PlayModeViewTypes.GameView)PlayModeWindow.SetViewType(PlayModeWindow.PlayModeViewTypes.GameView);
             var game=EditorWindow.GetWindow(typeof(EditorWindow).Assembly.GetType("UnityEditor.GameView"));game.Focus();
             PlayModeWindow.SetCustomRenderingResolution(1920,1080,"QuietCamp teaser Full HD");
+            InputSystem.onDeviceChange+=DeviceChanged;
+            foreach(var device in InputSystem.devices.ToArray())BlockDevice(device);
             foreach(var input in FindObjectsByType<PlacementController>(FindObjectsSortMode.None))input.enabled=false;
             foreach(var motion in FindObjectsByType<CameraAtmosphereMotion>(FindObjectsSortMode.None))motion.enabled=false;
             services.Audio.SetBusVolume(AudioBus.Master,1);services.Audio.SetBusVolume(AudioBus.Music,0);services.Audio.SetBusVolume(AudioBus.Ambience,config.ambienceGain);services.Audio.SetBusVolume(AudioBus.Sfx,config.effectsGain);services.Audio.SetBusVolume(AudioBus.Ui,0);
             _rig=Instantiate(config.cameraRig);var director=_rig.GetComponent<PlayableDirector>();
             var camera=Camera.main;camera.orthographic=true;camera.rect=new Rect(0,0,1,1);
+            _blackout=new TeaserBlackout(camera);
             var brain=camera.GetComponent<CinemachineBrain>()??camera.gameObject.AddComponent<CinemachineBrain>();
             brain.UpdateMethod=CinemachineBrain.UpdateMethods.ManualUpdate;
             foreach(var track in config.timeline.GetOutputTracks())if(track is CinemachineTrack)director.SetGenericBinding(track,brain);
             var atmosphere=FindAnyObjectByType<SeasonAtmosphereView>();
             foreach(var track in config.timeline.GetOutputTracks())if(track is ActivationTrack&&atmosphere!=null)director.SetGenericBinding(track,atmosphere.gameObject);
+            // Offline capture samples the authored Timeline score on an ordinary
+            // in-engine AudioSource. This avoids DSP seeks on every manual Timeline
+            // evaluation. The music is still recorded by Recorder with game audio.
+            var audioTrack=config.timeline.GetOutputTracks().OfType<AudioTrack>().Single();
+            var scoreClip=audioTrack.GetClips().Single();
+            var score=(AudioPlayableAsset)scoreClip.asset;
+            director.ClearGenericBinding(audioTrack);
+            var music=_rig.GetComponent<AudioSource>();music.clip=score.clip;music.loop=score.loop;music.spatialBlend=0;music.volume=config.musicGain;
+            music.Play();
             var volume=_rig.AddComponent<Volume>();volume.isGlobal=true;volume.priority=100;volume.sharedProfile=config.profile;
             double start=config.shots.Take(job.shot).Sum(s=>s.frames)/30.0;
             director.timeUpdateMode=DirectorUpdateMode.Manual;director.Play();director.time=start;director.Evaluate();brain.ManualUpdate();
@@ -111,10 +127,10 @@ namespace QuietCamp.Marketing
                 if(!_recorder.StartRecording())throw new InvalidOperationException("Unity Recorder refused capture.");
                 _renderBridge=new RecorderRenderBridge(_recorder,camera);
             }
-            // Repeated Evaluate seeks reschedule AudioClipPlayable into silence.
-            // Seek once, then play the real Timeline on Recorder's fixed game clock.
-            director.time=start;director.Evaluate();director.timeUpdateMode=DirectorUpdateMode.GameTime;
-            brain.UpdateMethod=CinemachineBrain.UpdateMethods.LateUpdate;
+            Time.timeScale=1;
+            music.Stop();music.timeSamples=Mathf.RoundToInt((float)((start-scoreClip.start+scoreClip.clipIn)%score.clip.length)*score.clip.frequency);music.Play();
+            director.timeUpdateMode=DirectorUpdateMode.Manual;
+            brain.UpdateMethod=CinemachineBrain.UpdateMethods.ManualUpdate;
             var signals=config.timeline.GetOutputTracks().OfType<SignalTrack>().SelectMany(t=>t.GetMarkers().OfType<SignalEmitter>()).Where(s=>s.time>=start&&s.time<start+shot.frames/30.0).OrderBy(s=>s.time).ToArray();
             int nextSignal=0;int mask=camera.cullingMask;var color=camera.backgroundColor;var flags=camera.clearFlags;
             for(int frame=0;frame<shot.frames;frame++)
@@ -122,8 +138,8 @@ namespace QuietCamp.Marketing
                 if(job.status=="error")yield break;
                 if(frame%15==0)TeaserPipeline.Progress("recording",frame);
                 HideUi();
-                double time=start+frame/30.0;
-                var music=_rig.GetComponentInChildren<AudioSource>();if(music!=null)music.volume=config.musicGain*Mathf.Lerp(.25f,1,Mathf.Clamp01((float)time/35));
+                double time=start+frame/30.0;director.time=time;director.Evaluate();brain.ManualUpdate();
+                music.volume=config.musicGain*Mathf.Lerp(.25f,1,Mathf.Clamp01((float)time/35));
                 while(nextSignal<signals.Length&&time+1e-5>=signals[nextSignal].time)
                 {
                     var signal=signals[nextSignal++].asset.name;
@@ -137,6 +153,7 @@ namespace QuietCamp.Marketing
                 }
                 if(time>=41.4)
                 {
+                    _blackout.Active=true;
                     camera.cullingMask=0;camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Color.black;
                     AudioListener.volume=Mathf.Clamp01(1-(float)(time-41.4)/.12f);
                 }
@@ -150,8 +167,11 @@ namespace QuietCamp.Marketing
                 else yield return null;
             }
             receipt.placements=host.Session.State.Placements.Count;receipt.completed=host.Session.IsCompleted;
+            receipt.renderedFrames=_renderBridge?.Frames??0;
+            if(job.record&&receipt.renderedFrames!=shot.frames)throw new InvalidOperationException("Recorder render count mismatch.");
             camera.cullingMask=mask;camera.clearFlags=flags;camera.backgroundColor=color;
             _renderBridge?.Dispose();_renderBridge=null;
+            _blackout?.Dispose();_blackout=null;
             _recorder?.StopRecording();if(_movie!=null)_movie.AudioInputSettings.PreserveAudio=false;
             yield return null;
             receipt.video=Directory.GetFiles(folder,"*.mp4").OrderByDescending(File.GetLastWriteTimeUtc).FirstOrDefault();
@@ -169,14 +189,25 @@ namespace QuietCamp.Marketing
             foreach(var canvas in FindObjectsByType<Canvas>(FindObjectsSortMode.None))canvas.enabled=false;
             foreach(var text in FindObjectsByType<TextMesh>(FindObjectsSortMode.None))text.GetComponent<Renderer>().enabled=false;
         }
+        void DeviceChanged(InputDevice device,InputDeviceChange change)
+        {if(change==InputDeviceChange.Added||change==InputDeviceChange.Enabled)BlockDevice(device);}
+        void BlockDevice(InputDevice device)
+        {
+            if(!_inputStates.ContainsKey(device))_inputStates[device]=device.enabled;
+            if(device.enabled)InputSystem.DisableDevice(device);
+        }
         void Cleanup()
         {
             EditorApplication.playModeStateChanged-=PlayChanged;
+            InputSystem.onDeviceChange-=DeviceChanged;
             _renderBridge?.Dispose();_renderBridge=null;
+            _blackout?.Dispose();_blackout=null;
             try{_recorder?.StopRecording();}catch(Exception e){Debug.LogWarning(e.Message);}
             if(_movie!=null)_movie.AudioInputSettings.PreserveAudio=false;
             EditorAuthoringPreview.CaptureClockRunning=false;AudioListener.volume=1;
-            if(_restore){PlayModeWindow.SetCustomRenderingResolution(_oldWidth,_oldHeight,"Restored Game View");PlayModeWindow.SetViewType(_oldView);Time.captureFramerate=_oldRate;Time.timeScale=_oldTimeScale;AudioListener.pause=_oldAudioPause;EditorUtility.audioMasterMute=_oldEditorMute;UnityEngine.Application.runInBackground=_oldBackground;QualitySettings.SetQualityLevel(_oldQuality,true);if(QuietCampBootstrap.ServicesRef!=null)QuietCampBootstrap.ServicesRef.EffectiveQuality=_oldEffective;_restore=false;}
+            if(_restore){PlayModeWindow.SetCustomRenderingResolution(_oldWidth,_oldHeight,"Restored Game View");if(PlayModeWindow.GetViewType()!=_oldView)PlayModeWindow.SetViewType(_oldView);Time.captureFramerate=_oldRate;Time.timeScale=_oldTimeScale;AudioListener.pause=_oldAudioPause;EditorUtility.audioMasterMute=_oldEditorMute;UnityEngine.Application.runInBackground=_oldBackground;QualitySettings.SetQualityLevel(_oldQuality,true);if(QuietCampBootstrap.ServicesRef!=null)QuietCampBootstrap.ServicesRef.EffectiveQuality=_oldEffective;_restore=false;}
+            foreach(var pair in _inputStates)if(pair.Key.added&&pair.Key.enabled!=pair.Value){if(pair.Value)InputSystem.EnableDevice(pair.Key);else InputSystem.DisableDevice(pair.Key);}
+            _inputStates.Clear();
             if(_movie!=null)DestroyImmediate(_movie);if(_settings!=null)DestroyImmediate(_settings);
         }
     }

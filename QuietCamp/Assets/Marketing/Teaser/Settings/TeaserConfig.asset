@@ -34,12 +34,12 @@ MonoBehaviour:
     gameplay: 0
     startWithTents: 0
     complete: 0
-    target: {x: 13, y: 1, z: 1}
-    start: {x: 11.734153, y: 21.477905, z: 20.05815}
-    end: {x: 10.937198, y: 21.477905, z: 19.988424}
+    target: {x: 7, y: 1, z: 0}
+    start: {x: 5.7341533, y: 21.477905, z: 19.05815}
+    end: {x: 4.937197, y: 21.477905, z: 18.988424}
     pitch: 47
     yaw: 175
-    ortho: 3.4
+    ortho: 5.2
     motion: {fileID: 7400000, guid: db247f812ee619445a86bc0a6e0d6aa6, type: 2}
   - id: 02-world
     levelId: QC003
@@ -141,5 +141,5 @@ MonoBehaviour:
     end: {x: 4.308326, y: 24.745346, z: 14.746417}
     pitch: 58
     yaw: 175
-    ortho: 12.5
+    ortho: 10.5
     motion: {fileID: 7400000, guid: b50521cd07dead34eafdb55feff57a5a, type: 2}

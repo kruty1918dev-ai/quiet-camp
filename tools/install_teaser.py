@@ -28,13 +28,39 @@ def install(project):
         src = source / relative
         dst = project / relative
         if src.is_dir():
-            shutil.copytree(src, dst, dirs_exist_ok=True)
+            for file in src.rglob('*'):
+                if not file.is_file():
+                    continue
+                relative_file = file.relative_to(src)
+                target = dst / relative_file
+                # Existing cameras, scene, curves and config are user-authored.
+                # Installing code must never reset framing or Timeline edits.
+                if target.exists() and relative_file.parts[0] not in ('Editor', 'Documentation'):
+                    continue
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(file, target)
         else:
             shutil.copy2(src, dst)
     print('Teaser sources synchronized; local package mappings preserved. Refresh the existing Editor.')
 
 
+def collect(project):
+    source = project / 'Assets/Marketing'
+    destination = ROOT / 'QuietCamp/Assets/Marketing'
+    for file in source.rglob('*'):
+        if file.is_file() and file.suffix in ('.asset', '.prefab', '.anim', '.unity', '.playable', '.meta'):
+            target = destination / file.relative_to(source)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(file, target)
+    parent_meta = project / 'Assets/Marketing.meta'
+    if parent_meta.exists():
+        shutil.copy2(parent_meta, destination.with_suffix('.meta'))
+    print('Collected authored teaser assets and GUIDs; code and documentation were preserved.')
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project', required=True, type=Path)
-    install(parser.parse_args().project.resolve())
+    parser.add_argument('--collect', action='store_true', help='Collect edited Unity assets and generated metadata back to the repository')
+    args = parser.parse_args()
+    (collect if args.collect else install)(args.project.resolve())

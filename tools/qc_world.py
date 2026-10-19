@@ -88,8 +88,10 @@ def main():
     run.add_argument('--agent-delivery', action='store_true', help='Record protected user files for later explicit delivery')
     sub.add_parser('status')
     teaser = sub.add_parser('teaser', help='Isolated real-game marketing capture through the WorldOps extension')
-    teaser.add_argument('action', choices=['create', 'validate', 'preview', 'record', 'status', 'cancel'])
+    teaser.add_argument('action', choices=['create', 'validate', 'preview', 'record', 'status', 'cancel', 'reframe'])
     teaser.add_argument('--shot', type=int, default=-1, help='Zero-based individual take, or all seven by default')
+    teaser.add_argument('--target', type=float, nargs=3)
+    teaser.add_argument('--ortho', type=float)
     observing = sub.add_parser('watch', help='Stream progress from the current Editor journal until it stops')
     observing.add_argument('--duration', type=float, default=1800, help='Maximum observation time in seconds; does not cancel the job')
     resume = sub.add_parser('resume'); resume.add_argument('--run-id')
@@ -109,7 +111,10 @@ def main():
     inbox = temp / 'qc-world-request.json'; outbox = temp / 'qc-world-result.json'
     # One writer per native bridge. Do not replace an outstanding request.
     payload = {'requestId': uuid.uuid4().hex, 'command': 'delivery' if args.command == 'deliver' else 'status' if args.command == 'watch' else args.command}
-    if args.command == 'teaser': payload.update(action=args.action, shot=args.shot)
+    if args.command == 'teaser':
+        payload.update(action=args.action, shot=args.shot)
+        if args.target is not None: payload['target'] = args.target
+        if args.ortho is not None: payload['ortho'] = args.ortho
     if args.command == 'run':
         payload.update(recipe=str(args.recipe.resolve()), repositoryProject=str(args.repository_project.resolve()))
         if args.agent_delivery:

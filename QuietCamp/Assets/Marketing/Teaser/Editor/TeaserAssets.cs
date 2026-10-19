@@ -19,6 +19,43 @@ namespace QuietCamp.Marketing
         public const string ConfigPath = Root + "/Settings/TeaserConfig.asset";
         public const string ScenePath = Root + "/Scenes/Teaser.unity";
         public static TeaserConfig Load() => AssetDatabase.LoadAssetAtPath<TeaserConfig>(ConfigPath);
+        public static void Reframe(TeaserConfig config,int index)
+        {
+            if(TeaserPipeline.Busy||EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("Stop the capture before changing cameras.");
+            var shot=config.shots[index];var q=Quaternion.Euler(shot.pitch,shot.yaw,0);
+            var centre=shot.target-q*Vector3.forward*28;
+            shot.start=centre-q*Vector3.right*.4f;shot.end=centre+q*Vector3.right*.4f;
+            string[] xyz={"x","y","z"},xyzw={"x","y","z","w"};
+            for(int i=0;i<3;i++)AnimationUtility.SetEditorCurve(shot.motion,EditorCurveBinding.FloatCurve("",typeof(Transform),"m_LocalPosition."+xyz[i]),AnimationCurve.EaseInOut(0,shot.start[i],shot.frames/30f,shot.end[i]));
+            for(int i=0;i<4;i++)AnimationUtility.SetEditorCurve(shot.motion,EditorCurveBinding.FloatCurve("",typeof(Transform),"m_LocalRotation."+xyzw[i]),AnimationCurve.Constant(0,shot.frames/30f,q[i]));
+            AnimationUtility.SetEditorCurve(shot.motion,EditorCurveBinding.FloatCurve("",typeof(CinemachineCamera),"Lens.OrthographicSize"),AnimationCurve.EaseInOut(0,shot.ortho,shot.frames/30f,shot.ortho*(index==6?1.25f:1)));
+            EditorUtility.SetDirty(shot.motion);EditorUtility.SetDirty(config);AssetDatabase.SaveAssets();
+        }
+        [MenuItem("Tools/Marketing/Teaser/Apply Camera Framing")]
+        static void ReframeAll(){var config=Load();for(int i=0;i<config.shots.Length;i++)Reframe(config,i);}
+
+        [MenuItem("Tools/Marketing/Teaser/Apply Configuration")]
+        static void ApplyConfiguration()
+        {
+            if(TeaserPipeline.Busy||EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("Stop the capture first.");
+            var config=Load();
+            if(config.shots.Length!=7||config.shots.Sum(s=>s.frames)!=1260||config.shots.Any(s=>s.frames<30)||config.shots.Select(s=>s.id).Distinct().Count()!=7)throw new InvalidOperationException("Seven unique shots must total 1260 frames.");
+            var cameras=config.timeline.GetOutputTracks().OfType<CinemachineTrack>().Single();
+            var old=cameras.GetClips().ToDictionary(c=>c.displayName,c=>new{c.start,c.duration});
+            if(config.shots.Any(s=>!old.ContainsKey(s.id)))throw new InvalidOperationException("Keep stable shot IDs when changing order.");
+            var cues=config.timeline.GetOutputTracks().OfType<SignalTrack>().SelectMany(t=>t.GetMarkers().OfType<SignalEmitter>()).Select(s=>new{marker=s,time=s.time,owner=old.First(p=>s.time>=p.Value.start&&s.time<p.Value.start+p.Value.duration).Key}).ToArray();
+            double start=0;
+            foreach(var shot in config.shots)
+            {
+                var clip=cameras.GetClips().Single(c=>c.displayName==shot.id);clip.start=start;clip.duration=shot.frames/30.0;
+                var motion=config.timeline.GetOutputTracks().OfType<AnimationTrack>().Single(t=>t.name==shot.id+" motion");
+                foreach(var animation in motion.GetClips()){animation.start=start;animation.duration=clip.duration;}
+                foreach(var cue in cues.Where(c=>c.owner==shot.id)){cue.marker.time=start+(cue.time-old[shot.id].start)*clip.duration/old[shot.id].duration;EditorUtility.SetDirty(cue.marker);}
+                EditorUtility.SetDirty(motion);start+=clip.duration;
+            }
+            foreach(var track in config.timeline.GetOutputTracks().OfType<AudioTrack>())foreach(var clip in track.GetClips())((AudioPlayableAsset)clip.asset).clip=config.music;
+            EditorUtility.SetDirty(cameras);EditorUtility.SetDirty(config.timeline);ReframeAll();AssetDatabase.SaveAssets();
+        }
 
         public static TeaserConfig Create()
         {
