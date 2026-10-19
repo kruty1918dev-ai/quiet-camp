@@ -1,5 +1,10 @@
 # QuietCamp WorldOps
 
+V03 має окремі вступні проби й монтаж: `teaser ... --version v03-a|v03-b|v03-c|v03-rough|v03`.
+Почніть із [етапів виробництва та повторного запису](../../QuietCamp/Assets/Marketing/TeaserV03/REPRODUCTION_GUIDE.md).
+Режим `v03` називає результат **Review**, доки агент не підтвердив усі художні критерії.
+Технічні перевірки не присвоюють статус Final. V01/V02 збережені окремо.
+
 Для ізольованого ігрового тизера використовуйте те саме ядро через
 `qc_world.py ... teaser create|validate|reframe|preview|record|status`.
 Для V02 додавайте `--version v02`: окремі 13 планів, журнал, assets та export.

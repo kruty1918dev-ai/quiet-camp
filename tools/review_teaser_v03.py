@@ -6,10 +6,13 @@ from pathlib import Path
 import subprocess
 import cv2
 import numpy as np
+import scenedetect
 from PIL import Image, ImageDraw
 from scenedetect import open_video, SceneManager, ContentDetector
 from package_teaser import takes, verify
 from review_teaser import audio
+
+cv2.setNumThreads(1)
 
 
 def sha(path):
@@ -43,8 +46,8 @@ def analyze(movie, folder, planned_cuts, black_at):
     expected=list(range(round(black_at*30),count))
     # Older rough captures compare a float32 cutoff with a double Timeline time.
     # Report that one-frame boundary defect explicitly; never tolerate an interior gap.
-    offset=1 if expected and black==expected[1:] else 0
-    if black!=expected and not offset: raise RuntimeError('Unexpected black frame range: '+str(black))
+    black_offset=1 if expected and black==expected[1:] else 0
+    if black!=expected and not black_offset: raise RuntimeError('Unexpected black frame range: '+str(black))
     manager=SceneManager();manager.add_detector(ContentDetector(threshold=18,min_scene_len=6))
     video=open_video(str(movie));manager.detect_scenes(video,show_progress=False)
     detected=[a.get_frames() for a,b in manager.get_scene_list()[1:]]
@@ -76,11 +79,12 @@ def analyze(movie, folder, planned_cuts, black_at):
             c,d=boundaries[j:j+2]
             distance=int(np.count_nonzero(hashes[(a+b)//2]!=hashes[(c+d)//2]))
             if distance<=12:similar.append(dict(leftShot=i,rightShot=j,hamming=distance))
-    return dict(images=images,blackFrames=black,expectedBlackFrames=expected,blackStartOffsetFrames=offset,plannedCuts=planned_cuts,detectedCuts=detected,
+    return dict(images=images,blackFrames=black,expectedBlackFrames=expected,blackStartOffsetFrames=black_offset,plannedCuts=planned_cuts,detectedCuts=detected,
         unmatchedDetectedCuts=[n for n in detected if not any(abs(n-c)<=2 for c in planned_cuts)],
         undetectedPlannedCuts=[c for c in planned_cuts if not any(abs(n-c)<=2 for n in detected)],
         nearStaticCandidates=static,duplicateFrameRunCandidates=duplicate_pairs,similarShotCandidates=similar,
         warmRegionAreaMedian=float(np.median(red_sizes)),warmRegionAreaMeaning='Heuristic candidate only; not proof of subject visibility.',
+        thresholds=dict(contentCut=18,similarHash=12,nearStaticDifference=.18,nearStaticSeconds=2),
         averageFrameDifference=round(float(np.mean(changes)),4),hashes=[np.packbits(h).tobytes().hex() for h in hashes])
 
 
@@ -105,7 +109,15 @@ def main():
             boundary_checks.append(dict(frame=offset+frame,shot=receipt['shotId'],meanAbsoluteRgbError=round(delta,4)))
         native.release();offset+=receipt['frames']
     delivery.release()
+    raw=subprocess.run([str(ffmpeg),'-v','error','-i',str(movie),'-vn','-f','f32le','-ac','2','-ar','48000','-'],capture_output=True,check=True)
+    samples=np.frombuffer(raw.stdout,dtype=np.float32)
+    windows=[round(float(20*np.log10(max(1e-10,np.sqrt(np.mean(samples[n:n+96000]**2))))),2) for n in range(0,len(samples),96000)]
+    exported=json.loads((output/'export-verification.json').read_text())
+    if exported['sha256']!=sha(movie) or exported['sourceHash']!=job['sourceHash']:raise RuntimeError('Stale export verification.')
     packet=dict(version=a.version,sourceHash=job['sourceHash'],movie=str(movie),movieSha256=sha(movie),
+        validatorSha256=sha(Path(__file__)),tools=dict(opencv=cv2.__version__,scenedetect=scenedetect.__version__),
+        deliverySettings=exported,
+        audioRmsDbfsPerSecond=windows,
         frames=job['totalFrames'],audio=audio(ffmpeg,movie),analysis=analysis,nativeBoundaryChecks=boundary_checks,
         artisticStatus='awaiting-agent-review',receipts=receipts,
         limitations=['Content changes and colour regions are review candidates, not aesthetic judgments.',

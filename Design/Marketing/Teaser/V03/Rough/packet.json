@@ -3,6 +3,45 @@
   "sourceHash": "274ffea4433b1e9d38340754c6349f917fbf467cc91d94e8d5b66b60ff86b00d",
   "movie": "C:\\Users\\Public\\qcui-20261006\\QuietCamp\\Marketing\\Exports\\v03\\v03-rough\\QuietCamp_V03_RoughCut.mp4",
   "movieSha256": "8f611b5e053a4fdb70f691a74b43af2ff7f6bb604e4e26acedd8611172eb4293",
+  "validatorSha256": "57edf8e959ac2e846b691d5ace6112799050b8c8e8b3b25d60553cac9b496e80",
+  "tools": {
+    "opencv": "4.13.0",
+    "scenedetect": "0.6.7.1"
+  },
+  "deliverySettings": {
+    "file": "C:\\Users\\Public\\qcui-20261006\\QuietCamp\\Marketing\\Exports\\v03\\v03-rough\\QuietCamp_V03_RoughCut.mp4",
+    "bytes": 12318670,
+    "sha256": "8f611b5e053a4fdb70f691a74b43af2ff7f6bb604e4e26acedd8611172eb4293",
+    "frames": 480,
+    "seconds": 16.0,
+    "sourceHash": "274ffea4433b1e9d38340754c6349f917fbf467cc91d94e8d5b66b60ff86b00d",
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "channels": 2,
+    "sampleRate": 48000,
+    "fullyDecoded": true,
+    "masterGainDb": 6
+  },
+  "audioRmsDbfsPerSecond": [
+    -35.53,
+    -47.64,
+    -44.12,
+    -35.34,
+    -47.82,
+    -45.67,
+    -46.78,
+    -32.78,
+    -46.44,
+    -46.63,
+    -46.86,
+    -47.18,
+    -32.61,
+    -29.13,
+    -45.82,
+    -54.06
+  ],
   "frames": 480,
   "audio": {
     "peakDbfs": -4.98,
@@ -236,7 +275,7 @@
       478,
       479
     ],
-    "blackStartOffsetFrames": 24,
+    "blackStartOffsetFrames": 1,
     "plannedCuts": [
       75,
       150,
@@ -262,6 +301,12 @@
     "similarShotCandidates": [],
     "warmRegionAreaMedian": 296.0,
     "warmRegionAreaMeaning": "Heuristic candidate only; not proof of subject visibility.",
+    "thresholds": {
+      "contentCut": 18,
+      "similarHash": 12,
+      "nearStaticDifference": 0.18,
+      "nearStaticSeconds": 2
+    },
     "averageFrameDifference": 0.5181,
     "hashes": [
       "29d842db5a994c15",
@@ -746,6 +791,68 @@
       "0000000000000000"
     ]
   },
+  "nativeBoundaryChecks": [
+    {
+      "frame": 0,
+      "shot": "01-turn-makes-room",
+      "meanAbsoluteRgbError": 0.4635
+    },
+    {
+      "frame": 74,
+      "shot": "01-turn-makes-room",
+      "meanAbsoluteRgbError": 0.8606
+    },
+    {
+      "frame": 75,
+      "shot": "02-welcome-another",
+      "meanAbsoluteRgbError": 0.3728
+    },
+    {
+      "frame": 149,
+      "shot": "02-welcome-another",
+      "meanAbsoluteRgbError": 0.8806
+    },
+    {
+      "frame": 150,
+      "shot": "03-a-place-in-shade",
+      "meanAbsoluteRgbError": 0.3695
+    },
+    {
+      "frame": 209,
+      "shot": "03-a-place-in-shade",
+      "meanAbsoluteRgbError": 0.7868
+    },
+    {
+      "frame": 210,
+      "shot": "04-fit-the-last-tent",
+      "meanAbsoluteRgbError": 0.379
+    },
+    {
+      "frame": 299,
+      "shot": "04-fit-the-last-tent",
+      "meanAbsoluteRgbError": 0.7687
+    },
+    {
+      "frame": 300,
+      "shot": "05-leave-a-way-through",
+      "meanAbsoluteRgbError": 0.6781
+    },
+    {
+      "frame": 359,
+      "shot": "05-leave-a-way-through",
+      "meanAbsoluteRgbError": 0.8054
+    },
+    {
+      "frame": 360,
+      "shot": "06-everybody-can-rest",
+      "meanAbsoluteRgbError": 0.3477
+    },
+    {
+      "frame": 479,
+      "shot": "06-everybody-can-rest",
+      "meanAbsoluteRgbError": 0.0001
+    }
+  ],
   "artisticStatus": "awaiting-agent-review",
   "receipts": [
     {

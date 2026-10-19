@@ -22,6 +22,7 @@ class TrailerQaTests(unittest.TestCase):
             root=Path(temp);path=self.movie(root,[((0,0,200),30),((0,180,0),30),((0,0,0),30)])
             result=analyze(path,root/'review',[30,60],2)
             self.assertEqual(result['blackFrames'],list(range(60,90)))
+            self.assertEqual(result['blackStartOffsetFrames'],0)
             self.assertTrue(any(abs(n-30)<=1 for n in result['detectedCuts']))
             self.assertTrue(result['duplicateFrameRunCandidates'])
             self.assertTrue(result['similarShotCandidates']) # Flat dHash is ambiguous by design.

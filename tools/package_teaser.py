@@ -50,9 +50,12 @@ def main():
     parser.add_argument('--version',choices=['v01','v02','v03-a','v03-b','v03-c','v03-rough','v03'],default='v01')
     parser.add_argument('--verify-only', type=Path)
     parser.add_argument('--gain-db', type=float, default=6, help='Delivery master gain; source audio remains the Unity recording (0 keeps the raw game mix)')
+    parser.add_argument('--finish-v03','--compress-native-mix',dest='finish_v03',action='store_true',help='V03 finishing: compress recorded audio and complete the final fade; no added content')
     args = parser.parse_args()
     if not -12 <= args.gain_db <= 12:
         raise SystemExit('Master gain must stay within -12..12 dB.')
+    if args.finish_v03 and args.version!='v03':
+        raise SystemExit('Native-mix finishing is isolated to V03; earlier exports stay unchanged.')
     project = args.project.resolve()
     tools = project / 'UserSettings/QuietCampPromoTools'
     ffmpeg, ffprobe = tools / 'ffmpeg.exe', tools / 'ffprobe.exe'
@@ -84,10 +87,15 @@ def main():
     listing.write_text('\n'.join("file '" + str(p).replace('\\','/').replace("'", "'\\''") + "'" for p in paths), encoding='utf-8')
     target = output / ((job.get('videoName') or 'Teaser_'+args.version+'_1920x1080_30fps')+'.mp4')
     candidate = target.with_suffix('.pending.mp4')
+    audio_filter=('acompressor=threshold=0.03:ratio=3:attack=12:release=180:makeup=2.5,' if args.finish_v03 else '')+'volume='+str(args.gain_db)+'dB'
+    if args.finish_v03:audio_filter+=',alimiter=limit=0.89:level=false:latency=true'
+    # The URP capture has a one-frame neutral-colour tail when its blackout pass
+    # becomes active. Finishing closes the authored fade at the exact delivery frame.
+    video_filter='fade=t=out:st='+str(seconds-.4)+':d=0.2' if args.finish_v03 else None
     run([ffmpeg, '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', listing,
-         '-map', '0:v:0', '-map', '0:a:0', '-c:v', 'libx264', '-preset', 'medium', '-crf', '18',
+         '-map', '0:v:0', '-map', '0:a:0', *(['-vf',video_filter] if video_filter else []), '-c:v', 'libx264', '-preset', 'medium', '-crf', '18',
          '-threads', '2', '-pix_fmt', 'yuv420p', '-r', '30', '-frames:v', str(expected), '-c:a', 'aac',
-         '-b:a', '192k', '-ar', '48000', '-ac', '2', '-af', 'volume='+str(args.gain_db)+'dB', '-t', str(seconds), '-movflags', '+faststart', candidate])
+         '-b:a', '192k', '-ar', '48000', '-ac', '2', '-af', audio_filter, '-t', str(seconds), '-movflags', '+faststart', candidate])
     data = verify(ffprobe, ffmpeg, candidate, expected)
     if abs(float(data['format']['duration']) - seconds) > .05:
         raise RuntimeError('Unexpected final duration')
@@ -98,7 +106,7 @@ def main():
     (output / 'ATTRIBUTION.md').write_text('Aircraft geometry: Airplane - Poly by Google, CC BY 3.0.\nhttps://poly.pizza/m/a3XrQkLNna9\nhttps://creativecommons.org/licenses/by/3.0/\nAdaptations: section separation, metric scale, damage, muted colours, weathering.\nMusic: original procedurally synthesized QuietCamp score ('+score_tool+').\nGame sound remains part of the Unity recording. No external music overlay.\n', encoding='utf-8')
     result = dict(file=str(target), bytes=target.stat().st_size, sha256=hashlib.sha256(target.read_bytes()).hexdigest(),
                   frames=expected, seconds=float(data['format']['duration']), sourceHash=receipts[0]['sourceHash'],
-                  codec='h264',width=1920,height=1080,fps=30,channels=2,sampleRate=48000,fullyDecoded=True,masterGainDb=args.gain_db)
+                  codec='h264',width=1920,height=1080,fps=30,channels=2,sampleRate=48000,fullyDecoded=True,masterGainDb=args.gain_db,masterAudioFilter=audio_filter,videoFinishingFilter=video_filter)
     (output / 'export-verification.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
     print(json.dumps(result, indent=2))
 
