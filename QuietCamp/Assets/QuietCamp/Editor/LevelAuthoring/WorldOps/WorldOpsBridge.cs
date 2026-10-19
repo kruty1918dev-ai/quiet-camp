@@ -8,6 +8,8 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
 {
     [InitializeOnLoad] public static class WorldOpsBridge
     {
+        // Optional Editor-only capture extension; no dependency on marketing in the core assembly.
+        public static Func<JObject,object> TeaserCommand;
         static string Inbox=>Path.Combine(WorldOpsService.EditorProject,"Temp/ai/qc-world-request.json");
         static string Outbox=>Path.Combine(WorldOpsService.EditorProject,"Temp/ai/qc-world-result.json");
         static WorldOpsBridge(){EditorApplication.update+=Poll;}
@@ -30,6 +32,13 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 var request=JObject.Parse(File.ReadAllText(Inbox));requestId=(string)request["requestId"];
                 if(string.IsNullOrWhiteSpace(requestId))throw new ArgumentException("A requestId is required.");
                 var command=(string)request["command"];
+                if(command=="teaser")
+                {
+                    if(WorldOpsService.Busy)throw new InvalidOperationException("Wait for the current WorldOps run.");
+                    if(TeaserCommand==null)throw new InvalidOperationException("The marketing capture extension is not loaded.");
+                    var result=TeaserCommand(request);
+                    WorldOpsStorage.Json(Outbox,new{requestId,status="ok",result});return;
+                }
                 if(EditorUtility.scriptCompilationFailed&&command!="status"&&command!="cancel")throw new InvalidOperationException("Unity compilation failed; loaded assemblies cannot certify the current sources.");
                 if(command=="run")
                 {

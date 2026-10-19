@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72763a60e303004489504b4b6a0d6c39, type: 3}
+  m_Name: TeaserConfig
+  m_EditorClassIdentifier: QuietCamp.Marketing.Editor::QuietCamp.Marketing.TeaserConfig
+  seed: 1918
+  width: 1920
+  height: 1080
+  exportFolder: Marketing/Exports
+  musicGain: 0.24
+  ambienceGain: 0.8
+  effectsGain: 0.8
+  music: {fileID: 8300000, guid: dc9e7561744eb56e98db270b47dd3e6a, type: 3}
+  profile: {fileID: 11400000, guid: 5108cd0128a299a4eb52f3b12b4855f8, type: 2}
+  timeline: {fileID: 11400000, guid: 3957eb116cb62a44594e905fc853c86a, type: 2}
+  cameraRig: {fileID: 835915287737358377, guid: 608c96092ac7a2645903523b3c57ccc7, type: 3}
+  shots:
+  - id: 01-hook
+    levelId: gen:qc_camp:57
+    purpose: Overgrown airframe detail; no invented crash event
+    scene: Camp
+    frames: 150
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 0
+    startWithTents: 0
+    complete: 0
+    target: {x: 13, y: 1, z: 1}
+    start: {x: 11.734153, y: 21.477905, z: 20.05815}
+    end: {x: 10.937198, y: 21.477905, z: 19.988424}
+    pitch: 47
+    yaw: 175
+    ortho: 3.4
+    motion: {fileID: 7400000, guid: db247f812ee619445a86bc0a6e0d6aa6, type: 2}
+  - id: 02-world
+    levelId: QC003
+    purpose: Water and a place to rest
+    scene: Camp
+    frames: 180
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 0
+    startWithTents: 0
+    complete: 0
+    target: {x: -2, y: 0.6, z: 1}
+    start: {x: 11.78572, y: 21.077906, z: 14.220041}
+    end: {x: 11.220035, y: 21.077906, z: 14.785727}
+    pitch: 47
+    yaw: 225
+    ortho: 8
+    motion: {fileID: 7400000, guid: 677fc7c17a4d86a4a806519c67a10c01, type: 2}
+  - id: 03-play
+    levelId: QC001
+    purpose: Real legal tent placement; preparation, action, consequence
+    scene: Camp
+    frames: 180
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 1
+    startWithTents: 0
+    complete: 0
+    target: {x: 0, y: 0.5, z: 0}
+    start: {x: 12.472317, y: 22.564304, z: 11.906636}
+    end: {x: 11.906631, y: 22.564304, z: 12.4723215}
+    pitch: 52
+    yaw: 225
+    ortho: 5.5
+    motion: {fileID: 7400000, guid: b1d21caf30315ed4d8f15a3a533d1d76, type: 2}
+  - id: 04-care
+    levelId: QC003
+    purpose: Complete a real camp; doors close and care props appear
+    scene: Camp
+    frames: 180
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 1
+    startWithTents: 1
+    complete: 1
+    target: {x: -1, y: 0.6, z: 1}
+    start: {x: 12.78572, y: 21.077906, z: 14.220041}
+    end: {x: 12.220035, y: 21.077906, z: 14.785727}
+    pitch: 47
+    yaw: 225
+    ortho: 6
+    motion: {fileID: 7400000, guid: b928c0a4e2bbd9e4da76a870afe5cbcb, type: 2}
+  - id: 05-rain
+    levelId: QC009
+    purpose: Rain meets tent cloth and ground; existing weather
+    scene: Camp
+    frames: 180
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 0
+    startWithTents: 1
+    complete: 0
+    target: {x: 0, y: 0.6, z: 0}
+    start: {x: 13.530951, y: 21.408052, z: 12.965266}
+    end: {x: 12.965265, y: 21.408052, z: 13.5309515}
+    pitch: 48
+    yaw: 225
+    ortho: 6.8
+    motion: {fileID: 7400000, guid: 11641fa24c3cb2e46ae772a17d6177c6, type: 2}
+  - id: 06-traces
+    levelId: gen:qc_camp:57
+    purpose: Occupied space between wreck sections
+    scene: Camp
+    frames: 180
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 0
+    startWithTents: 1
+    complete: 0
+    target: {x: 6, y: 0.7, z: 0}
+    start: {x: 3.3340716, y: 22.460089, z: 17.422728}
+    end: {x: 2.5462255, y: 22.460089, z: 17.283808}
+    pitch: 51
+    yaw: 170
+    ortho: 8.5
+    motion: {fileID: 7400000, guid: 4c6544c7f8201954c80bb7f7655a075d, type: 2}
+  - id: 07-reveal
+    levelId: gen:qc_camp:57
+    purpose: Reveal an inhabited clearing; unanswered history
+    scene: Camp
+    frames: 210
+    transition: Cut
+    transitionSeconds: 0
+    gameplay: 0
+    startWithTents: 1
+    complete: 0
+    target: {x: 6, y: 1, z: 0}
+    start: {x: 5.105282, y: 24.745346, z: 14.816142}
+    end: {x: 4.308326, y: 24.745346, z: 14.746417}
+    pitch: 58
+    yaw: 175
+    ortho: 12.5
+    motion: {fileID: 7400000, guid: b50521cd07dead34eafdb55feff57a5a, type: 2}
