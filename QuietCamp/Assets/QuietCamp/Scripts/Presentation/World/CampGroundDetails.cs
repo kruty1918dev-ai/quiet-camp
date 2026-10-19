@@ -22,6 +22,7 @@ namespace QuietCamp.Presentation.World
         GameObject _fieldCover,_pebbleCover;
         public Rect VegetationBounds {get;private set;}
         public int VegetationPatchCount {get;private set;}
+        public int SnowPatchCount {get;private set;}
         public CampSurfaceUseField Surface {get;private set;}
         public int PrintCount=>0;
         public IReadOnlyList<Vector3> PrintCentres=>Array.Empty<Vector3>();
@@ -74,7 +75,7 @@ namespace QuietCamp.Presentation.World
         }
         void BuildFieldCover()
         {
-            var season=_art?.atmosphere?.season??SeasonProfile.For(_level).Id;if(season=="winter")return;
+            var season=_art?.atmosphere?.season??SeasonProfile.For(_level).Id;if(season=="winter"){BuildSnowCover();return;}
             var library=CozyVegetationLibrary.Load();var shapes=library?.plants.Where(p=>p.id.Contains("grass")&&p.mesh!=null&&p.mesh.isReadable&&p.colors?.Length>0)
                 .Select(p=>new{plant=p,points=p.mesh.vertices,slots=Enumerable.Range(0,p.mesh.subMeshCount).SelectMany(slot=>p.mesh.GetTriangles(slot)).ToArray(),bounds=p.mesh.bounds}).ToArray();
             if(shapes==null||shapes.Length==0)return;
@@ -192,6 +193,82 @@ namespace QuietCamp.Presentation.World
             // Pressure and weather are shader-driven; no CPU geometry edits follow.
             mesh.UploadMeshData(true);
             VegetationPatchCount++;
+            }
+        }
+        void BuildSnowCover()
+        {
+            float cover=_art?.atmosphere?.snowCover??SeasonProfile.For(_level).SnowCoverage;
+            float depth=(_art?.groundSurface??new CampArtDefinition.GroundSurfaceSettings()).snowDepth*cover;
+            if(depth<=.001f||cover<=0)return;
+            var water=new RiverSurfaceField(_art?.landscape);var area=CoverBounds(new CampArtDefinition.FieldCoverSettings());VegetationBounds=area;
+            _fieldCover=new GameObject("Settled map snow");_fieldCover.transform.SetParent(transform,false);
+            // The legacy meadow owns its shader grid. Reuse that material so snow cannot hide it.
+            var material=_art==null?_ground:new Material(Resources.Load<Shader>("QuietCamp/CampArtLit")){name="Soft settled snow"};
+            if(_art!=null)
+            {
+                _fieldMaterial=material;material.SetFloat("_ArtGround",1);material.SetFloat("_ArtSnowSurface",1);
+                material.SetColor("_GroundLow",CampArtDefinition.Color(_art.groundLow));material.SetColor("_GroundHigh",CampArtDefinition.Color(_art.groundHigh));material.SetColor("_SoilTone",CampArtDefinition.Color(_art.soilColor));
+                material.SetColor("_ArtAmbient",CampArtDefinition.Color(_art.atmosphere?.ambientColor??_art.ambientColor)*.55f);
+                _fieldCover.AddComponent<OwnedCampMaterial>().Material=material;
+            }
+            BindMaterial(material);
+            var anchors=new Dictionary<Vector2Int,List<Vector2>>();
+            var models=_art?.models?.ToDictionary(m=>m.id);
+            foreach(var item in _art?.instances??Array.Empty<CampArtDefinition.Instance>())
+            {
+                if(item.modelId==null||models==null||!models.TryGetValue(item.modelId,out var model)||model.seasonalRole=="groundcover"||model.seasonalRole=="flower")continue;
+                float low=float.MaxValue,high=float.MinValue;for(int v=1;v<model.vertices.Length;v+=3){low=Mathf.Min(low,model.vertices[v]);high=Mathf.Max(high,model.vertices[v]);}
+                if((high-low)*(item.scaleXYZ?[1]??item.scale)<.8f||Mathf.Abs(item.y-Height(new Vector3(item.x,0,item.z)))>.6f)continue;
+                var key=new Vector2Int(Mathf.FloorToInt(item.x/4),Mathf.FloorToInt(item.z/4));
+                if(!anchors.TryGetValue(key,out var group))anchors[key]=group=new List<Vector2>();group.Add(new Vector2(item.x,item.z));
+            }
+            float heading=(_art?.atmosphere?.windHeading??25)*Mathf.Deg2Rad;var lee=new Vector2(Mathf.Sin(heading),Mathf.Cos(heading))*.65f;
+            float SnowY(float x,float z)
+            {
+                float edge=Mathf.Max(Mathf.Abs(x)-_level.width*.5f,Mathf.Abs(z)-_level.height*.5f);
+                float transition=Mathf.SmoothStep(0,1,Mathf.InverseLerp(.25f,2,edge));
+                float bank=0;int ax=Mathf.FloorToInt(x/4),az=Mathf.FloorToInt(z/4);var point=new Vector2(x,z);
+                for(int dx=-1;dx<=1;dx++)for(int dz=-1;dz<=1;dz++)if(anchors.TryGetValue(new Vector2Int(ax+dx,az+dz),out var group))
+                    foreach(var anchor in group)bank=Mathf.Max(bank,Mathf.Exp(-(point-anchor-lee).sqrMagnitude*.65f));
+                var along=new Vector2(lee.y,-lee.x).normalized;
+                float ripple=Mathf.PerlinNoise(Vector2.Dot(point,along)*.7f+43,Vector2.Dot(point,lee.normalized)*.22f+61);
+                float drift=.22f+.9f*Mathf.PerlinNoise(x*.34f+17,z*.34f+31)+ripple*.18f+bank*.8f;
+                float packed=Mathf.Min(.058f,depth*.32f)+Mathf.PerlinNoise(x*.62f+9,z*.62f+41)*.004f;
+                float ground=Height(new Vector3(x,0,z));
+                float field=1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(-.15f,.25f,edge));
+                // Never flatten raised terrain outside the puzzle: it would pierce the snow.
+                float baseY=Mathf.Lerp(ground+packed,Mathf.Min(ground+packed,BoardMath.TentY-.004f),field);
+                return Mathf.Lerp(baseY,ground+depth*drift,transition);
+            }
+            bool Dry(float x,float z)=>!water.TrySample(x,z,out var sample)||!sample.Wet;
+            const float size=8;
+            for(int tx=Mathf.FloorToInt(area.xMin/size);tx<Mathf.CeilToInt(area.xMax/size);tx++)
+            for(int tz=Mathf.FloorToInt(area.yMin/size);tz<Mathf.CeilToInt(area.yMax/size);tz++)
+            {
+                float x0=Mathf.Max(area.xMin,tx*size),z0=Mathf.Max(area.yMin,tz*size),x1=Mathf.Min(area.xMax,(tx+1)*size),z1=Mathf.Min(area.yMax,(tz+1)*size);
+                bool near=x0<_level.width*.5f+1&&x1>-_level.width*.5f-1&&z0<_level.height*.5f+1&&z1>-_level.height*.5f-1;
+                float step=near?.25f:.5f;int nx=Mathf.CeilToInt((x1-x0)/step),nz=Mathf.CeilToInt((z1-z0)/step);
+                var vertices=new List<Vector3>();var normals=new List<Vector3>();var colors=new List<Color>();var indices=new List<int>();
+                for(int z=0;z<=nz;z++)for(int x=0;x<=nx;x++)
+                {
+                    float px=Mathf.Lerp(x0,x1,x/(float)nx),pz=Mathf.Lerp(z0,z1,z/(float)nz);float y=SnowY(px,pz);vertices.Add(new Vector3(px,y,pz));
+                    var normal=new Vector3(SnowY(px-.1f,pz)-SnowY(px+.1f,pz),.2f,SnowY(px,pz-.1f)-SnowY(px,pz+.1f)).normalized;normals.Add(normal);
+                    // Broad drift shading survives small mobile pixels without grain or triangle colours.
+                    float crest=Mathf.PerlinNoise(px*.34f+17,pz*.34f+31);
+                    // An occlusion multiplier, not sRGB paint. Keep it continuous across the field.
+                    colors.Add(Color.Lerp(new Color(.76f,.84f,.94f),Color.white,.22f+crest*.78f));
+                }
+                for(int z=0;z<nz;z++)for(int x=0;x<nx;x++)
+                {
+                    int a=z*(nx+1)+x,b=a+nx+1,c=b+1,d=a+1;
+                    if(!Dry(vertices[a].x,vertices[a].z)||!Dry(vertices[b].x,vertices[b].z)||!Dry(vertices[c].x,vertices[c].z)||!Dry(vertices[d].x,vertices[d].z))continue;
+                    indices.AddRange(new[]{a,b,c,a,c,d});
+                }
+                if(indices.Count==0)continue;
+                var mesh=new Mesh{name=$"Settled snow {tx},{tz}"};mesh.SetVertices(vertices);mesh.SetNormals(normals);mesh.SetColors(colors);mesh.SetTriangles(indices,0);mesh.RecalculateBounds();
+                var node=new GameObject(mesh.name,typeof(MeshFilter),typeof(MeshRenderer),typeof(OwnedCampMesh));node.transform.SetParent(_fieldCover.transform,false);node.layer=BoardRenderer.DecorLayer;
+                node.GetComponent<MeshFilter>().sharedMesh=mesh;node.GetComponent<OwnedCampMesh>().Mesh=mesh;node.GetComponent<MeshRenderer>().sharedMaterial=material;
+                mesh.UploadMeshData(true);SnowPatchCount++;
             }
         }
         public void Bind(Transform decor,CampAtmosphere atmosphere=null,Func<bool> paused=null,Func<bool> reduced=null,SeasonAtmosphereView previewWeather=null)

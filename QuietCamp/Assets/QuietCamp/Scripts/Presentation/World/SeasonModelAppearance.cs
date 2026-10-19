@@ -33,8 +33,8 @@ namespace QuietCamp.Presentation.World
                     var moss=preset.season=="winter"?new Color(.31f,.36f,.26f):preset.season=="autumn"?new Color(.30f,.35f,.15f):new Color(.27f,.38f,.16f);
                     color=Color.Lerp(color,moss,source.mossCoverage[i]*(.75f+preset.wetness*.25f));
                 }
-                if(preset.snowCover>0 && source.normals[i*3+1]>.18f)
-                    color=Color.Lerp(color,new Color(.79f,.84f,.85f),Mathf.SmoothStep(0,1,source.normals[i*3+1]) * preset.snowCover*(source.weatherExposure?[i]??1));
+                // Snow is applied in world space by the weather material, after scene shelter
+                // is known. Local normals alone paint interiors and rotated objects incorrectly.
                 m.colors[i]=Pack(color);
             }
             if(preset.season=="autumn"&&source.seasonalRole=="deciduous"&&preset.leafLoss>0)

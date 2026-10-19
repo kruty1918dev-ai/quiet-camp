@@ -1,14 +1,24 @@
 Shader "QuietCamp/CampArtLit"
 {
-    Properties { _MeadowExtent("Meadow extent",Vector)=(0,0,3,0) _ArtMeadow("Continuous meadow",Float)=0 _GroundFinish("Natural ground finish",Vector)=(.34,1.1,.12,0) _ArtRiverDetail("River-bank detail",Float)=0 _ArtRiverWaterline("River waterline",Float)=0 _CampUse("Observed surface use",2D)="black"{} _GroundLow("Ground low",Color)=(.23,.30,.14,1) _GroundHigh("Ground high",Color)=(.40,.48,.22,1) _SoilTone("Soil",Color)=(.43,.35,.25,1) _ArtAmbient("Ambient", Color) = (.22,.24,.16,1) _ArtWater("Water", Float) = 0 _ArtGrass("Grass", Float) = 0 _ArtGround("Ground", Float) = 0 _QCWeather("Weather time, wind, rain, active",Vector)=(0,0,0,0) _QCWind("Wind direction",Vector)=(.8,.35,0,0) }
+    Properties { _WeatherSnowCover("Weather snow cover",Float)=0 _WeatherSkyHeight("Precipitation shelter",2D)="black"{} _WeatherSkyBounds("Shelter bounds",Vector)=(0,0,0,0) _ArtSnowSurface("Settled snow geometry",Float)=0 _MeadowExtent("Meadow extent",Vector)=(0,0,3,0) _ArtMeadow("Continuous meadow",Float)=0 _GroundFinish("Natural ground finish",Vector)=(.34,1.1,.12,0) _ArtRiverDetail("River-bank detail",Float)=0 _ArtRiverWaterline("River waterline",Float)=0 _CampUse("Observed surface use",2D)="black"{} _GroundLow("Ground low",Color)=(.23,.30,.14,1) _GroundHigh("Ground high",Color)=(.40,.48,.22,1) _SoilTone("Soil",Color)=(.43,.35,.25,1) _ArtAmbient("Ambient", Color) = (.22,.24,.16,1) _ArtWater("Water", Float) = 0 _ArtGrass("Grass", Float) = 0 _ArtGround("Ground", Float) = 0 _QCWeather("Weather time, wind, rain, active",Vector)=(0,0,0,0) _QCWind("Wind direction",Vector)=(.8,.35,0,0) }
     SubShader
     {
         Tags { "RenderPipeline"="UniversalPipeline" "RenderType"="Opaque" "Queue"="Geometry" }
         HLSLINCLUDE
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+        // Identical material layout in colour, depth, shadows and vegetation mask.
+        CBUFFER_START(UnityPerMaterial)
+        float4 _QCWeather,_QCWind,_GroundFinish,_MeadowExtent;
+        float4 _ArtAmbient,_GroundLow,_GroundHigh,_SoilTone,_CampFieldSize;
+        float4 _CampUseBounds,_CampClimate,_WeatherSkyBounds,_WeatherSkyGrid;
+        float4x4 _WeatherSkyToLocal,_WeatherSkyNormalToLocal;
+        float _WeatherSnowCover;
+        float _ArtGround,_ArtSnowSurface,_ArtWater,_ArtGrass,_ArtMeadow;
+        float _ArtRiverDetail,_ArtRiverWaterline;
+        CBUFFER_END
+        #define QC_CAMP_SURFACE_UNIFORMS
         #include "CampSurfaceUse.hlsl"
-        float4 _QCWeather,_QCWind;
-        float _ArtGround;
+        #include "WeatherSky.hlsl"
         float3 WeatherPosition(float3 p,float2 response)
         {
             float t=_QCWeather.x;
@@ -21,6 +31,7 @@ Shader "QuietCamp/CampArtLit"
             {
                 float mud=CampUse(p.xz).a*(1-_CampClimate.y);
                 p.y+=sin(p.x*19+p.z*7)*sin(p.z*13-p.x*11)*mud*.009;
+                if(_ArtSnowSurface>.5){float4 use=CampUse(p.xz);p.y-=use.b*.018+use.g*.01;}
             }
             return CampPressure(p,response.x*response.y);
         }
@@ -36,16 +47,13 @@ Shader "QuietCamp/CampArtLit"
             #pragma multi_compile_fragment _ _SHADOWS_SOFT _SHADOWS_SOFT_LOW _SHADOWS_SOFT_MEDIUM _SHADOWS_SOFT_HIGH
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-            CBUFFER_START(UnityPerMaterial)
-            float4 _GroundFinish,_MeadowExtent;
-            float4 _ArtAmbient,_GroundLow,_GroundHigh,_SoilTone,_CampFieldSize; float _ArtWater; float _ArtGrass; float _ArtMeadow;
-            float _ArtRiverDetail, _ArtRiverWaterline;
-            CBUFFER_END
-            struct Attributes { float4 positionOS:POSITION; float3 normalOS:NORMAL; float4 color:COLOR; float2 response:TEXCOORD1; };
-            struct Varyings { float4 positionCS:SV_POSITION; float3 positionWS:TEXCOORD0; float3 normalWS:TEXCOORD1; float2 response:TEXCOORD2; float4 color:COLOR; };
+            struct Attributes { float4 positionOS:POSITION; float3 normalOS:NORMAL; float4 color:COLOR; float2 response:TEXCOORD1; float2 snowCatch:TEXCOORD2; };
+            struct Varyings { float4 positionCS:SV_POSITION; float3 positionWS:TEXCOORD0; float3 normalWS:TEXCOORD1; float2 response:TEXCOORD2; float3 restWS:TEXCOORD3; float snowCatch:TEXCOORD4; float4 color:COLOR; };
             Varyings Vert(Attributes input)
             {
                 Varyings output; output.positionWS=TransformObjectToWorld(input.positionOS.xyz);
+                output.restWS=output.positionWS;
+                output.snowCatch=input.snowCatch.x;
                 output.positionWS=WeatherPosition(output.positionWS,input.response);
                 // WeatherPosition is shared by forward, depth and shadow passes.
                 // Do not add a second offset here: it detaches moving blades from their shadows.
@@ -112,15 +120,34 @@ Shader "QuietCamp/CampArtLit"
                     float drift=ArtNoise(p*.23+71)*.7+ArtNoise(p*.81-29)*.3;
                     float snow=cover>=.999?1:smoothstep(1-cover-.12,1-cover+.12,drift)*smoothstep(0,.12,cover);
                     snow*=smoothstep(.2,.75,normal.y);
-                    baseColor=lerp(baseColor,lerp(float3(.73,.81,.85),float3(.84,.89,.91),ArtNoise(p*.38+21)),snow);
+                    baseColor=lerp(baseColor,SettledSnowColor(p)*lerp(float3(1,1,1),input.color.rgb,saturate(_ArtSnowSurface)),snow);
+                    // Snow scatters the overcast sky light; shadows remain directional,
+                    // without turning the whole blizzard ground into dark grey earth.
+                    float skyFacing=.78+.22*saturate(normal.y);
+                    float snowDiffuse=.55+.45*saturate(dot(normal,normalize(sun.direction+float3(0,.25,0))));
+                    float skyLuma=dot(_ArtAmbient.rgb,float3(.2126,.7152,.0722));
+                    float3 snowSky=lerp(_ArtAmbient.rgb,skyLuma*float3(.94,1,1.06),.8);
+                    float3 snowLight=(snowSky*1.9*skyFacing+sun.color*.65*snowDiffuse)*lerp(.76,1,sun.shadowAttenuation);
+                    lighting=lerp(lighting,snowLight,snow);
                     baseColor=lerp(baseColor,lerp(natural*.92,_SoilTone.rgb,use.r),use.g*(1-snow)*.55);
                     baseColor=lerp(baseColor,_SoilTone.rgb*(1-_CampClimate.x*.23),use.r*(1-snow)*(.67+ArtNoise(p*2.8)*.23));
-                    baseColor=lerp(baseColor,float3(.59,.69,.73),use.b*snow*.72);
+                    baseColor=lerp(baseColor,float3(.68,.78,.86),use.b*snow*.42);
                     float churn=ArtNoise(p*7+5)*.6+ArtNoise(p*3)*.4;
                     baseColor*=1-use.a*(.04+churn*.09)*(1-snow);
                     // Small irregular wet depressions emerge only after substantial real traffic.
                     float pool=use.a*smoothstep(.61,.79,ArtNoise(p*2.3+91))*(1-snow);
                     baseColor=lerp(baseColor,float3(.30,.37,.36),pool*.60);
+                }
+                if(_ArtGround<.5 && _ArtWater<.5 && _WeatherSnowCover>0)
+                {
+                    float retention=saturate(input.snowCatch);
+                    float snow=smoothstep(lerp(.12,.05,retention),lerp(.62,.33,retention),normal.y)*_WeatherSnowCover*saturate(input.color.a)*WeatherSkyExposure(input.restWS,normal);
+                    snow*=step(0,dot(normal,GetWorldSpaceNormalizeViewDir(input.positionWS)));
+                    baseColor=lerp(baseColor,SettledSnowColor(input.positionWS.xz),snow);
+                    float sky=dot(_ArtAmbient.rgb,float3(.2126,.7152,.0722));
+                    float3 snowLight=lerp(_ArtAmbient.rgb,sky*float3(.94,1,1.06),.8)*1.9
+                        +sun.color*(.35+.30*saturate(dot(normal,sun.direction)));
+                    lighting=lerp(lighting,snowLight*lerp(.76,1,sun.shadowAttenuation),snow);
                 }
                 float3 color=baseColor*lighting;
                 if(_ArtGround>.5)
@@ -133,15 +160,17 @@ Shader "QuietCamp/CampArtLit"
                 if(_QCWeather.w>.5 && _ArtWater<.5)
                 {
                     float exposed=saturate(input.color.a);
-                    color*=1-_QCWeather.z*.18*exposed;
+                    float wetness=_QCWeather.z*(_ArtGround>.5?1-saturate(_CampClimate.y):1);
+                    color*=1-wetness*.18*exposed;
                     float wetSpec=pow(saturate(dot(reflect(-sun.direction,normal),GetWorldSpaceNormalizeViewDir(input.positionWS))),24);
-                    color+=sun.color*wetSpec*_QCWeather.z*.07*exposed*sun.shadowAttenuation;
+                    color+=sun.color*wetSpec*wetness*.07*exposed*sun.shadowAttenuation;
                 }
                 if(_ArtGround>.5)
                 {
                     float grainWeight=1-smoothstep(.12,.45,max(length(ddx(input.positionWS.xz)),length(ddy(input.positionWS.xz)))*6);
-                    color*=.90+ArtNoise(input.positionWS.xz*.43)*.15+ArtNoise(input.positionWS.xz*2.4)*.06;
-                    color*=1+(ArtNoise(input.positionWS.xz*7)-.5)*.06*grainWeight;
+                    float exposedEarth=1-saturate(_CampClimate.y);
+                    color*=lerp(1,.90+ArtNoise(input.positionWS.xz*.43)*.15+ArtNoise(input.positionWS.xz*2.4)*.06,exposedEarth);
+                    color*=1+(ArtNoise(input.positionWS.xz*7)-.5)*.06*grainWeight*exposedEarth;
                 }
                 if(_ArtWater>.5)
                 {
@@ -161,7 +190,6 @@ Shader "QuietCamp/CampArtLit"
             HLSLPROGRAM
             #pragma vertex VegetationVert
             #pragma fragment VegetationFrag
-            float _ArtGrass,_ArtMeadow;
             struct VegetationAttributes {float4 p:POSITION;float2 response:TEXCOORD1;};
             float4 VegetationVert(VegetationAttributes input):SV_POSITION
             {return TransformWorldToHClip(WeatherPosition(TransformObjectToWorld(input.p.xyz),input.response));}

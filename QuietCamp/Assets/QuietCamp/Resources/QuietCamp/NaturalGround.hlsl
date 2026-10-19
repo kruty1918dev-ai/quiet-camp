@@ -26,9 +26,17 @@ float3 GroundRelief(float2 p,float scale)
 float3 NaturalGroundNormal(float3 authored,float2 p,float4 finish,float wet,float snow)
 {
     float3 relief=GroundRelief(p,finish.y);
-    float softness=lerp(1,.40,saturate(snow))*lerp(1,.85,saturate(wet));
-    float weight=smoothstep(.4,.9,authored.y)*finish.z*softness;
+    relief*=finish.z*lerp(1,.85,saturate(wet));
+    float3 snowRelief=GroundRelief(p,.38)*.22+GroundRelief(p,1.4)*.025;
+    relief=lerp(relief,snowRelief,saturate(snow));
+    float weight=smoothstep(.4,.9,authored.y);
     return normalize(authored+float3(-relief.x,0,-relief.y)*weight);
+}
+float3 SettledSnowColor(float2 p)
+{
+    float broad=GroundNoise(p*.18+21);
+    float powder=GroundNoise(p*1.1+73);
+    return lerp(float3(.68,.77,.87),float3(.96,.98,1),.25+broad*.7)*(.985+powder*.015);
 }
 float3 NaturalGroundColor(float2 p,float3 low,float3 high,float3 soil,float4 finish,float wet)
 {

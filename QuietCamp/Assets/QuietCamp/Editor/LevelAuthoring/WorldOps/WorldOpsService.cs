@@ -123,7 +123,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             if(_run==null)throw new InvalidOperationException("No run to resume.");
             if(!EditorApplication.isPlayingOrWillChangePlaymode&&_run.nativeState!=null&&_run.nativeState!="stopping")
             {_run.nativeState=null;_run.nativeLevel=null;}
-            _run.cancelled=false;_run.status="running";Save();
+            _run.cancelled=false;_run.error=null;_run.nativeIoRetries=0;_run.nativeRetryAt=0;_run.status="running";Save();
         }
         public static void Cancel(){if(_run==null)return;_run.cancelled=true;_run.status="cancelling";Save();}
         public static void Rollback(string levelId)

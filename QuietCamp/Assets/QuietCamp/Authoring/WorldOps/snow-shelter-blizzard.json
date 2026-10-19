@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "snow-shelter-blizzard-v1",
+  "label": "Завірюха — покрив та захищені поверхні",
+  "levelIds": ["gen:qc_camp:6", "gen:qc_camp:7"],
+  "seed": 4157,
+  "maxRepairRounds": 2,
+  "autoApply": false,
+  "capture": true,
+  "previewOnly": true,
+  "operations": [{"id": "winter-preview", "kind": "atmosphere.preset", "parameters": {"preset": "winter_blizzard"}}],
+  "criteria": {
+    "inspectMapCoverage": true,
+    "includeMenu": true,
+    "autoRepair": false,
+    "requireVisualReview": true,
+    "profiles": ["portrait", "landscape"],
+    "quality": 1
+  }
+}

@@ -114,7 +114,7 @@ namespace QuietCamp.Presentation.World
         public void ApplyClimate(string season,float wetness,float snowCover)
         {
             _season=season;Wetness=Mathf.Max(Wetness,Mathf.Clamp01(wetness));
-            if(season=="winter")SnowCover=Mathf.Max(SnowCover,Mathf.Clamp01(snowCover)*.9f);
+            if(season=="winter")SnowCover=Mathf.Max(SnowCover,Mathf.Clamp01(snowCover));
             ApplySurfaceState();
         }
         public void ConfigureSeason(QuietCamp.Domain.LevelData level)

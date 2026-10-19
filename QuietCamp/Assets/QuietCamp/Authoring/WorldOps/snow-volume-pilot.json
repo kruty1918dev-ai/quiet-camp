@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "snow-volume-blizzard-v1",
+  "label": "Об’ємний сніг і земля під завірюхою",
+  "levelIds": ["QC001"],
+  "seed": 4157,
+  "maxRepairRounds": 2,
+  "autoApply": false,
+  "capture": true,
+  "previewOnly": true,
+  "operations": [{"id": "winter-preview", "kind": "atmosphere.preset", "parameters": {"preset": "winter_blizzard"}}],
+  "criteria": {
+    "inspectMapCoverage": true,
+    "includeMenu": true,
+    "autoRepair": false,
+    "requireVisualReview": true,
+    "profiles": ["portrait", "landscape"],
+    "quality": 2
+  }
+}

@@ -70,6 +70,9 @@ namespace QuietCamp.Presentation.World
             var items=tents.ToArray();
             foreach(var tent in items)if(tent!=null)RainSurface.Attach(tent.gameObject);
             _surfaceField.RefreshTents(items,transform.parent);
+            foreach(var tent in items)if(tent!=null)
+                foreach(var renderer in tent.GetComponentsInChildren<Renderer>())
+                    foreach(var material in renderer.sharedMaterials)BindSky(material);
         }
         Rect _coverage;bool _coverageInitialized;
         public Rect Coverage=>_coverage;
@@ -78,6 +81,28 @@ namespace QuietCamp.Presentation.World
         SeasonVisibilityPass _visibility;
         WeatherObjectMotion[] _moving=Array.Empty<WeatherObjectMotion>();
         WeatherSurfaceField _surfaceField;
+        Texture2D _skyHeight;Vector4 _skyBounds;
+        readonly HashSet<Material> _skyBound=new HashSet<Material>();
+        void BindSky(Material material)
+        {
+            if(material==null||!material.HasProperty("_WeatherSkyHeight")||!_skyBound.Add(material))return;
+            material.SetTexture("_WeatherSkyHeight",_skyHeight);
+            material.SetVector("_WeatherSkyBounds",_skyBounds);
+            material.SetVector("_WeatherSkyGrid",_skyHeight==null?Vector4.one:new Vector4(_skyHeight.width,_skyHeight.height,0,0));
+            material.SetMatrix("_WeatherSkyToLocal",transform.parent.worldToLocalMatrix);
+            material.SetMatrix("_WeatherSkyNormalToLocal",transform.parent.localToWorldMatrix.transpose);
+            if(material.HasProperty("_WeatherSnowCover"))material.SetFloat("_WeatherSnowCover",Preset.snowCover);
+        }
+        public void BindSceneShelter(Transform world)
+        {
+            if(world==null||_skyHeight==null)return;
+            var filters=world.GetComponentsInChildren<MeshFilter>().Where(f=>f.GetComponent<MeshRenderer>()?.sharedMaterials.Any(m=>m!=null&&m.shader.name=="QuietCamp/FoliageLit")==true).ToArray();
+            _surfaceField.AddSurfaces(filters,transform.parent);
+            var previous=_skyHeight;_skyHeight=_surfaceField.CreateSkyHeightTexture(out _skyBounds);_textures.Add(_skyHeight);
+            var bound=_skyBound.ToArray();_skyBound.Clear();foreach(var material in bound)BindSky(material);
+            foreach(var filter in filters)foreach(var material in filter.GetComponent<MeshRenderer>().sharedMaterials)BindSky(material);
+            _textures.Remove(previous);Destroy(previous);
+        }
         readonly ParticleSystem.Particle[] _contacts=new ParticleSystem.Particle[1800];
         readonly Dictionary<MeshFilter,Mesh> _surfaceSources=new Dictionary<MeshFilter,Mesh>();
         readonly Dictionary<MeshRenderer,Material[]> _originalMaterials=new Dictionary<MeshRenderer,Material[]>();
@@ -101,7 +126,7 @@ namespace QuietCamp.Presentation.World
                 bool water=materials[i]!=null&&materials[i].shader.name.IndexOf("Water",StringComparison.OrdinalIgnoreCase)>=0;
                 if(materials[i]==null||(!materials[i].HasProperty("_QCWeather")&&!water)||OwnsMaterial(materials[i])||_waterMaterials.Contains(materials[i]))continue;
                 if(!_weatherCopies.TryGetValue(materials[i],out var copy)){copy=new Material(materials[i]);_weatherCopies[materials[i]]=copy;_materials.Add(copy);if(water)_waterMaterials.Add(copy);else _weatherMaterials.Add(copy);}
-                materials[i]=copy;PlantWeatherResponse.Set(copy,_clock,Preset.wind,Preset.rain);changed=true;
+                materials[i]=copy;PlantWeatherResponse.Set(copy,_clock,Preset.wind,Preset.rain);BindSky(copy);changed=true;
             }
             if(changed){_originalMaterials[renderer]=originals;renderer.sharedMaterials=materials;}
         }
@@ -133,10 +158,10 @@ namespace QuietCamp.Presentation.World
             var splashMain=_splashes.main;splashMain.gravityModifier=.6f;
             var impacts=new GameObject("Rain surface contacts");impacts.transform.SetParent(transform,false);
             _rainImpacts=impacts.AddComponent<RainImpacts>();_rainImpacts.Configure();
-            _snow=Pool("Сніг",new Color(.92f,.96f,1,.62f),.11f,9,new Vector3(0,-.8f,0),1800);
-            _farSnow=Pool("Дальній сніг",new Color(.82f,.88f,.94f,.38f),.055f,11,new Vector3(0,-.65f,0),650);
-            _nearSnow=Pool("Ближні пластівці",new Color(.95f,.97f,1,.23f),.22f,2,_camera.transform.forward*.7f,36);
-            _drift=Pool("Низький сніговий перенос",new Color(.83f,.89f,.92f,.13f),1.8f,5,new Vector3(1,.025f,0),100);
+            _snow=Pool("Сніг",new Color(.94f,.97f,1,.78f),.11f,9,new Vector3(0,-.8f,0),1800,true);
+            _farSnow=Pool("Дальній сніг",new Color(.85f,.91f,.98f,.5f),.055f,11,new Vector3(0,-.65f,0),650,true);
+            _nearSnow=Pool("Ближні пластівці",new Color(.97f,.98f,1,.29f),.26f,2,_camera.transform.forward*.7f,36,true);
+            _drift=Pool("Низький сніговий перенос",new Color(.87f,.93f,.98f,.14f),1.8f,5,new Vector3(1,.025f,0),100,true);
             _leaves=Pool("Листя з крон",new Color(.72f,.44f,.12f,.9f),.07f,7,new Vector3(1,-.65f,.4f),100);
             _bugs=Pool("Жучки та світлячки",preset.id.Contains("fireflies")?new Color(4.2f,3.5f,.65f,1):new Color(.83f,.78f,.44f,.8f),.11f,5,new Vector3(.13f,.035f,.06f),60);
             ShapeParticle(_leaves,false);if(!preset.id.Contains("fireflies"))ShapeParticle(_bugs,true);
@@ -148,7 +173,16 @@ namespace QuietCamp.Presentation.World
             if(preset.rays>0)_shafts=new SeasonLightShafts(transform,camera,art,preset,_leafSources);
             _visibility=new SeasonVisibilityPass(camera,Preset,()=>gameObject.activeInHierarchy);
             _moving=parent.GetComponentsInChildren<WeatherObjectMotion>();
-            _surfaceField=new WeatherSurfaceField(art);
+            // Use the presented winter meshes, including actual river-bank height adjustments.
+            var shelterMeshes=parent.GetComponentsInChildren<MeshFilter>().Where(f=>
+            {
+                var renderer=f.GetComponent<MeshRenderer>();
+                return renderer!=null&&renderer.enabled&&f.GetComponent<WeatherObjectMotion>()?.kind!="waterwheel"
+                    &&renderer.sharedMaterials.All(m=>m!=null&&m.shader.name.IndexOf("Water",StringComparison.OrdinalIgnoreCase)<0
+                        &&(!m.HasProperty("_ArtGround")||m.GetFloat("_ArtGround")<.5f));
+            });
+            _surfaceField=new WeatherSurfaceField(shelterMeshes,parent,preset.snowCover>0?.2f:.45f);
+            if(preset.snowCover>0){_skyHeight=_surfaceField.CreateSkyHeightTexture(out _skyBounds);if(_skyHeight!=null)_textures.Add(_skyHeight);}
             _wheelContacts=art.instances.Where(i=>i.motion=="waterwheel"&&i.motionPivot!=null).Select(i=>new Vector3(i.x,i.y,i.z)+Quaternion.Euler(0,i.yaw,0)*Vector3.Scale(CampArtDefinition.Vector(i.motionPivot),i.scaleXYZ==null?Vector3.one*i.scale:CampArtDefinition.Vector(i.scaleXYZ))).ToArray();
             _foam=Pool("Кола біля водяного колеса",new Color(.82f,.87f,.8f,.33f),.6f,1.5f,new Vector3(0,0,-.24f),40);ShapeSplash(_foam);var foamMain=_foam.main;foamMain.startSize=.65f;
             _waterY=art.landscape?.meshes.FirstOrDefault(m=>m.water)?.vertices[1]??-.075f;
@@ -202,25 +236,33 @@ namespace QuietCamp.Presentation.World
                     mesh.colors=colors;_surfaceSources[filter]=source;filter.sharedMesh=mesh;_meshes.Add(mesh);
                 }
         }
-        ParticleSystem Pool(string name,Color color,float size,float life,Vector3 speed,int budget)
+        ParticleSystem Pool(string name,Color color,float size,float life,Vector3 speed,int budget,bool softSnow=false)
         {
             var node=new GameObject(name);node.transform.SetParent(transform,false);var s=node.AddComponent<ParticleSystem>();s.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);
             var main=s.main;main.playOnAwake=false;main.loop=false;main.maxParticles=budget;main.startLifetime=life;main.startSize=size;main.startColor=color;main.startSpeed=0;main.simulationSpace=ParticleSystemSimulationSpace.World;main.useUnscaledTime=true;main.cullingMode=ParticleSystemCullingMode.AlwaysSimulate;
             var emission=s.emission;emission.enabled=false;var shape=s.shape;shape.enabled=false;
             var velocity=s.velocityOverLifetime;velocity.enabled=true;velocity.space=ParticleSystemSimulationSpace.World;velocity.x=speed.x;velocity.y=speed.y;velocity.z=speed.z;
-            var renderer=s.GetComponent<ParticleSystemRenderer>();renderer.sharedMaterial=ParticleMaterial();renderer.shadowCastingMode=ShadowCastingMode.Off;renderer.receiveShadows=false;
+            var renderer=s.GetComponent<ParticleSystemRenderer>();renderer.sharedMaterial=ParticleMaterial(softSnow);renderer.shadowCastingMode=ShadowCastingMode.Off;renderer.receiveShadows=false;
             if(name.Contains("дощ")||name=="Дощ"){renderer.renderMode=ParticleSystemRenderMode.Stretch;renderer.lengthScale=2;renderer.velocityScale=.025f;}
             var fade=s.colorOverLifetime;fade.enabled=true;var g=new Gradient();g.SetKeys(new[]{new GradientColorKey(Color.white,0),new GradientColorKey(Color.white,1)},new[]{new GradientAlphaKey(0,0),new GradientAlphaKey(1,.15f),new GradientAlphaKey(1,.7f),new GradientAlphaKey(0,1)});fade.color=g;
             s.useAutoRandomSeed=false;s.randomSeed=(uint)_random.Next(1,int.MaxValue);s.Simulate(0,false,true,false);
             _systems.Add(s);return s;
         }
-        Material ParticleMaterial()
+        Material ParticleMaterial(bool softSnow=false)
         {
-            var shader=Shader.Find("Universal Render Pipeline/Particles/Unlit");if(shader==null)throw new InvalidOperationException("URP particle shader missing.");
-            var m=new Material(shader){renderQueue=3000};m.SetFloat("_Surface",1);m.SetFloat("_Blend",0);m.SetFloat("_SrcBlend",(float)BlendMode.SrcAlpha);m.SetFloat("_DstBlend",(float)BlendMode.OneMinusSrcAlpha);m.SetFloat("_ZWrite",0);m.SetFloat("_Cull",0);m.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
             var t=new Texture2D(32,32,TextureFormat.RGBA32,false);var colors=new Color[1024];
-            for(int y=0;y<32;y++)for(int x=0;x<32;x++){float r=new Vector2((x-15.5f)/15.5f,(y-15.5f)/15.5f).magnitude;colors[y*32+x]=new Color(1,1,1,Mathf.Clamp01((1-r)*4));}
-            t.SetPixels(colors);t.Apply();m.SetTexture("_BaseMap",t);m.SetColor("_BaseColor",Color.white);_textures.Add(t);_materials.Add(m);return m;
+            for(int y=0;y<32;y++)for(int x=0;x<32;x++){float r=new Vector2((x-15.5f)/15.5f,(y-15.5f)/15.5f).magnitude;colors[y*32+x]=new Color(1,1,1,softSnow?Mathf.Clamp01(1-r*r):Mathf.Clamp01((1-r)*4));}
+            t.SetPixels(colors);t.Apply();_textures.Add(t);
+            Material m;
+            if(softSnow)
+            {m=CozyParticleMaterial.Create(t,1);if(m==null)throw new InvalidOperationException("Soft snow particle shader missing.");m.SetFloat("_SoftDistance",.3f);}
+            else
+            {
+                var shader=Shader.Find("Universal Render Pipeline/Particles/Unlit");if(shader==null)throw new InvalidOperationException("URP particle shader missing.");
+                m=new Material(shader){renderQueue=3000};m.SetFloat("_Surface",1);m.SetFloat("_Blend",0);m.SetFloat("_SrcBlend",(float)BlendMode.SrcAlpha);m.SetFloat("_DstBlend",(float)BlendMode.OneMinusSrcAlpha);m.SetFloat("_ZWrite",0);m.SetFloat("_Cull",0);m.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+                m.SetTexture("_BaseMap",t);m.SetColor("_BaseColor",Color.white);
+            }
+            _materials.Add(m);return m;
         }
         void ShapeParticle(ParticleSystem system,bool butterfly)
         {
@@ -265,6 +307,7 @@ namespace QuietCamp.Presentation.World
                 var emit=new ParticleSystem.EmitParams{position=at,randomSeed=(uint)_random.Next(1,int.MaxValue)};
                 if(system==_rain||system==_farRain)emit.startLifetime=RainLifetime(local);
                 if(system==_snow||system==_farSnow){emit.startSize=(system==_snow?.06f:.035f)+Next()*(system==_snow?.16f:.045f);emit.rotation=Next()*360;}
+                if(system==_nearSnow)emit.startSize=.18f+Next()*.22f;
                 system.Emit(emit,1);
             }
         }
@@ -286,6 +329,7 @@ namespace QuietCamp.Presentation.World
             _coverageInitialized=true;
             SetFlow(_snow,direction*w*6);SetFlow(_farSnow,direction*w*6);SetFlow(_leaves,direction*w*6);SetFlow(_rain,direction*w*4);SetFlow(_farRain,direction*w*4);SetFlow(_drift,direction*w*6);SetFlow(_petals,direction*w*3);SetFlow(_dust,direction*w*.6f);SetFlow(_smoke,direction*w*1.5f);SetFlow(_embers,direction*w);
             var noise=_snow.noise;noise.enabled=true;noise.strength=.22f;noise.frequency=.18f;noise.scrollSpeed=.25f;
+            var drifting=_drift.noise;drifting.enabled=true;drifting.strength=.10f;drifting.frequency=.3f;drifting.scrollSpeed=.25f;
             foreach(var material in _weatherMaterials){PlantWeatherResponse.Set(material,_clock,reduced?0:w,Mathf.Max(Preset.rain,Preset.wetness));material.SetVector("_QCWind",new Vector4(direction.x,direction.y,0,0));}
             foreach(var material in _waterMaterials)
             {if(material.HasProperty("_WaveHeight"))material.SetFloat("_WaveHeight",.012f+w*.02f);if(material.HasProperty("_NormalStrength"))material.SetFloat("_NormalStrength",.25f+w*.15f+Preset.rain*.12f);if(material.HasProperty("_IntersectionRippleStrength"))material.SetFloat("_IntersectionRippleStrength",.08f+Preset.rain*.16f);}
@@ -296,9 +340,9 @@ namespace QuietCamp.Presentation.World
             Emit(_rain,ref _rainAmount,Preset.rain*440*quality*area,dt,()=>Around(8+Next()*3));
             Emit(_farRain,ref _farRainAmount,Preset.rain*210*quality*area,dt,()=>Around(7+Next()*4));
             if(_wheelContacts.Length>0)Emit(_foam,ref _foamAmount,(3+Preset.wind*3)*quality,dt,()=>{var p=_wheelContacts[_random.Next(_wheelContacts.Length)];p.x+=(Next()-.5f)*.2f;p.y=_waterY+.085f;p.z-=(Next()*.5f);return transform.parent.TransformPoint(p);});
-            Emit(_snow,ref _snowAmount,Preset.snow*(Preset.snow>.75f?290:110)*quality*area,dt,()=>Around(5+Next()*5));
-            Emit(_farSnow,ref _farSnowAmount,Preset.snow*65*quality*area,dt,()=>Around(7+Next()*4));
-            Emit(_nearSnow,ref _nearSnowAmount,Preset.snow*(reduced?0:3)*quality,dt,()=>_camera.ViewportToWorldPoint(new Vector3(Next()<.5f?.04f+Next()*.14f:.82f+Next()*.14f,Next(),.8f)));
+            Emit(_snow,ref _snowAmount,Preset.snow*(Preset.snow>.75f?360:110)*quality*area,dt,()=>Around(5+Next()*5));
+            Emit(_farSnow,ref _farSnowAmount,Preset.snow*100*quality*area,dt,()=>Around(7+Next()*4));
+            Emit(_nearSnow,ref _nearSnowAmount,Preset.snow*(reduced?0:5)*quality,dt,()=>_camera.ViewportToWorldPoint(new Vector3(Next()<.5f?.04f+Next()*.14f:.82f+Next()*.14f,Next(),.8f)));
             Emit(_drift,ref _driftAmount,Preset.snow*Preset.wind*19*quality,dt,()=>{var p=transform.parent.InverseTransformPoint(Around(0));p.y=Surface(p.x,p.z)+.15f;return transform.parent.TransformPoint(p);});
             if(_leafSources.Length>0)Emit(_leaves,ref _leafAmount,Preset.leaves*(reduced?0:10)*quality,dt,()=>transform.TransformPoint(_leafSources[_random.Next(_leafSources.Length)]+new Vector3((Next()-.5f)*2,Next(),(Next()-.5f)*2)));
             Emit(_bugs,ref _bugAmount,Preset.insects*(reduced?0:10)*quality,dt,()=>Habitat(.65f+Next()*1.5f));

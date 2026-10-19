@@ -22,7 +22,9 @@ Shader "QuietCamp/FoliageLit"
 {
     Properties
     {
+        _WeatherSkyHeight("Precipitation shelter",2D)="black"{} _WeatherSkyBounds("Shelter bounds",Vector)=(0,0,0,0)
         _BaseColor ("Color", Color) = (0.4, 0.6, 0.35, 1)
+        _SnowCatch ("Needle snow retention",Float)=0
         _SnowCover ("Seasonal snow on upward faces", Range(0,1)) = 0
         _Dew ("Subtle morning dew glint", Range(0,.1)) = 0
         _SwayAmp ("Tip Sway (fraction of height)", Range(0, 0.4)) = 0.05
@@ -49,11 +51,13 @@ Shader "QuietCamp/FoliageLit"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
         CBUFFER_START(UnityPerMaterial)
-            float4 _BaseColor;
+            float4 _BaseColor,_WeatherSkyBounds,_WeatherSkyGrid;
+            float4x4 _WeatherSkyToLocal,_WeatherSkyNormalToLocal;
             float _SwayAmp, _SwayFreq, _FlutterAmp, _FlutterFreq;
             float _RootLock, _PhaseLag, _InnerShade, _Cull, _ClusterWind, _VertexTint;
-            float _TreeWind, _CrownStart, _SnowCover, _Dew;
+            float _TreeWind, _CrownStart, _SnowCover, _Dew, _SnowCatch;
         CBUFFER_END
+        #include "WeatherSky.hlsl"
 
         // Shared wind/light state — one scene owner writes these.
         float4 _AtmosWindXZ;      // xy = direction, zw unused
@@ -216,7 +220,7 @@ Shader "QuietCamp/FoliageLit"
                 half3 tint = _BaseColor.rgb * lerp(half3(1,1,1), vertexTint, _VertexTint);
                 // Snow ground already has authored snow colours; its fine variation
                 // and directional slopes must survive the coating used on tree crowns.
-                tint=lerp(tint,half3(.88,.92,.98),_SnowCover*smoothstep(.35,.75,n.y)*(rigid?0:1));
+                tint=lerp(tint,half3(.88,.92,.98),_SnowCover*smoothstep(lerp(.12,.05,_SnowCatch),lerp(.62,.33,_SnowCatch),n.y)*WeatherSkyExposure(TransformObjectToWorld(v.vertex.xyz),n)*(rigid?0:1));
                 o.col=tint*SampleSH(n)*inner;
                 o.sunlight=tint*sun.color*(ndl+translucency)*inner;
                 float dew=pow(saturate(dot(reflect(-sunDirection,n),normalize(_WorldSpaceCameraPos-wp))),16)*_Dew;

@@ -845,6 +845,7 @@ namespace QuietCamp.Presentation.World
                     || (_hud != null && _hud.HasModalOpen)
                     || (_router != null && _router.IsBusy);
             _renderer.SurfaceDetails.Bind(_decorRoot,_atmosphere,()=>!GameplayActive,()=>_services.ReducedMotion);
+            _atmosphere.SeasonalWeather?.BindSceneShelter(Find("World")?.transform);
             if(_atmosphere.Soundscape!=null)_atmosphere.Soundscape.AccentSuppressed = () => !GameplayActive;
             // Voice budget by quality tier (Low/Balanced/High → 8/12/16);
             // decorative one-shots are skipped first when the pool is full.

@@ -78,7 +78,8 @@ namespace QuietCamp.Presentation.World
         {
             if(_reduced?.Invoke()==true)return;
             // Autumn has real crown-sourced leaves; winter has snow, never green leaf flybys.
-            var season=SeasonProfile.For(_level);if(season.Winter||season.Autumn)return;
+            var season=_atmosphere.SeasonalWeather?.Preset?.season??SeasonProfile.For(_level).Id;
+            if(season=="winter"||season=="autumn")return;
             var wind=_atmosphere.Wind;var direction=new Vector3(wind.DirectionXZ.x,0,wind.DirectionXZ.y);
             var lateral=Vector3.Cross(direction,Vector3.up);
             // The stream starts on the upwind forest rim, outside the puzzle.

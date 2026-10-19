@@ -116,6 +116,8 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         public bool cancelled;
         public string nativeLevel,nativeProfile,nativePhase,nativeState,nativeFolder;
         public double nativeDeadline;
+        public double nativeRetryAt;
+        public int nativeIoRetries;
         public int nativeOriginalQuality=-1;
         public uint nativeOriginalWidth,nativeOriginalHeight;
         public bool workspaceCaptured;

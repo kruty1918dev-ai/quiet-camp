@@ -36,6 +36,7 @@ namespace QuietCamp.Presentation.World
                         CampFoliageResponse.Apply(copy);
                         copy.SetColor("_BaseColor",profile.Palette.Plant(color,variation,conifer));
                         if(copy.HasProperty("_SnowCover"))copy.SetFloat("_SnowCover",profile.Palette.SnowCoverage);
+                        if(copy.HasProperty("_SnowCatch"))copy.SetFloat("_SnowCatch",conifer?1:0);
                         slots[i]=copy;
                     }
                     renderer.sharedMaterials=slots;

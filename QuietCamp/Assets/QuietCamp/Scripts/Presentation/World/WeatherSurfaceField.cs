@@ -7,31 +7,42 @@ namespace QuietCamp.Presentation.World
 {
     public sealed class WeatherSurfaceField
     {
-        const float Step=.45f;
+        readonly float Step;
         readonly Dictionary<Vector2Int,float> _heights=new Dictionary<Vector2Int,float>();
+        public WeatherSurfaceField(IEnumerable<MeshFilter> filters,Transform world,float step=.2f){Step=step;AddSurfaces(filters,world);}
         public WeatherSurfaceField(CampArtDefinition art)
         {
-            var models=art.models.ToDictionary(m=>m.id);
+            Step=art.atmosphere?.snowCover>0?.2f:.45f;
+            var models=art.models.ToDictionary(m=>m.id,m=>SeasonModelAppearance.Resolve(m,art.atmosphere));
             foreach(var item in art.instances)
             {
-                if(item.modelId==null||!models.TryGetValue(item.modelId,out var m)||m.seasonalRole!="solid"||item.motion!=null)continue;
+                if(item.modelId==null||!models.TryGetValue(item.modelId,out var m)||m.seasonalRole=="groundcover"||m.seasonalRole=="flower"||item.motion=="waterwheel")continue;
                 var pose=Matrix4x4.TRS(new Vector3(item.x,item.y,item.z),item.rotationEuler==null?Quaternion.Euler(0,item.yaw,0):Quaternion.Euler(CampArtDefinition.Vector(item.rotationEuler)),item.scaleXYZ==null?Vector3.one*item.scale:CampArtDefinition.Vector(item.scaleXYZ));
                 for(int i=0;i<m.vertices.Length;i+=9)
                 {
                     Vector3 Point(int n)=>pose.MultiplyPoint3x4(new Vector3(m.vertices[n],m.vertices[n+1],m.vertices[n+2]));
                     var a=Point(i);var b=Point(i+3);var c=Point(i+6);
-                    float denominator=(b.z-c.z)*(a.x-c.x)+(c.x-b.x)*(a.z-c.z);if(Mathf.Abs(denominator)<.001f)continue;
-                    int x0=Mathf.FloorToInt(Mathf.Min(a.x,b.x,c.x)/Step),x1=Mathf.CeilToInt(Mathf.Max(a.x,b.x,c.x)/Step);
-                    int z0=Mathf.FloorToInt(Mathf.Min(a.z,b.z,c.z)/Step),z1=Mathf.CeilToInt(Mathf.Max(a.z,b.z,c.z)/Step);
-                    for(int x=x0;x<=x1;x++)for(int z=z0;z<=z1;z++)
-                    {
-                        var p=new Vector2((x+.5f)*Step,(z+.5f)*Step);float u=((b.z-c.z)*(p.x-c.x)+(c.x-b.x)*(p.y-c.z))/denominator;
-                        float v=((c.z-a.z)*(p.x-c.x)+(a.x-c.x)*(p.y-c.z))/denominator;
-                        if(u<0||v<0||u+v>1)continue;float y=a.y*u+b.y*v+c.y*(1-u-v);
-                        var key=new Vector2Int(x,z);if(!_heights.TryGetValue(key,out float previous)||y>previous)_heights[key]=y;
-                    }
+                    Raster(a,b,c,_heights);
                 }
             }
+        }
+        /// <summary>Same precipitation surface used by rain, sampled once for snow shelter.
+        /// Trees use their winter geometry: bare branches do not become an invisible summer roof.</summary>
+        public Texture2D CreateSkyHeightTexture(out Vector4 bounds)
+        {
+            if(_heights.Count==0){bounds=Vector4.zero;return null;}
+            int minX=_heights.Keys.Min(k=>k.x)-1,maxX=_heights.Keys.Max(k=>k.x)+1;
+            int minZ=_heights.Keys.Min(k=>k.y)-1,maxZ=_heights.Keys.Max(k=>k.y)+1;
+            int width=maxX-minX+1,height=maxZ-minZ+1;
+            // Very large authored worlds retain a bounded texture; the game maps fit below 512.
+            int stride=Mathf.Max(1,Mathf.CeilToInt(Mathf.Max(width,height)/1024f));
+            int nx=Mathf.CeilToInt(width/(float)stride),nz=Mathf.CeilToInt(height/(float)stride);
+            var pixels=Enumerable.Repeat(-10000f,nx*nz).ToArray();
+            foreach(var pair in _heights)
+            {int x=(pair.Key.x-minX)/stride,z=(pair.Key.y-minZ)/stride;pixels[z*nx+x]=Mathf.Max(pixels[z*nx+x],pair.Value);}
+            var texture=new Texture2D(nx,nz,TextureFormat.RFloat,false,true){name="Weather sky shelter",filterMode=FilterMode.Point,wrapMode=TextureWrapMode.Clamp};
+            texture.SetPixelData(pixels,0);texture.Apply(false,true);
+            bounds=new Vector4(minX*Step,minZ*Step,1/(nx*stride*Step),1/(nz*stride*Step));return texture;
         }
         readonly Dictionary<Vector2Int,float> _tentHeights=new Dictionary<Vector2Int,float>();
         int _tentSignature;
@@ -47,17 +58,33 @@ namespace QuietCamp.Presentation.World
                 for(int index=0;index<triangles.Length;index+=3)
                 {
                     var a=pose.MultiplyPoint3x4(points[triangles[index]]);var b=pose.MultiplyPoint3x4(points[triangles[index+1]]);var c=pose.MultiplyPoint3x4(points[triangles[index+2]]);
-                    float denominator=(b.z-c.z)*(a.x-c.x)+(c.x-b.x)*(a.z-c.z);if(Mathf.Abs(denominator)<.001f)continue;
-                    int x0=Mathf.FloorToInt(Mathf.Min(a.x,b.x,c.x)/Step),x1=Mathf.CeilToInt(Mathf.Max(a.x,b.x,c.x)/Step);
-                    int z0=Mathf.FloorToInt(Mathf.Min(a.z,b.z,c.z)/Step),z1=Mathf.CeilToInt(Mathf.Max(a.z,b.z,c.z)/Step);
-                    for(int x=x0;x<=x1;x++)for(int z=z0;z<=z1;z++)
-                    {
-                        var p=new Vector2((x+.5f)*Step,(z+.5f)*Step);float u=((b.z-c.z)*(p.x-c.x)+(c.x-b.x)*(p.y-c.z))/denominator;
-                        float v=((c.z-a.z)*(p.x-c.x)+(a.x-c.x)*(p.y-c.z))/denominator;if(u<0||v<0||u+v>1)continue;
-                        float height=a.y*u+b.y*v+c.y*(1-u-v);var key=new Vector2Int(x,z);
-                        if(!_tentHeights.TryGetValue(key,out float old)||height>old)_tentHeights[key]=height;
-                    }
+                    Raster(a,b,c,_tentHeights);
                 }
+            }
+        }
+        void Raster(Vector3 a,Vector3 b,Vector3 c,Dictionary<Vector2Int,float> target)
+        {
+            float denominator=(b.z-c.z)*(a.x-c.x)+(c.x-b.x)*(a.z-c.z);if(Mathf.Abs(denominator)<.00001f)return;
+            int x0=Mathf.FloorToInt(Mathf.Min(a.x,b.x,c.x)/Step),x1=Mathf.CeilToInt(Mathf.Max(a.x,b.x,c.x)/Step);
+            int z0=Mathf.FloorToInt(Mathf.Min(a.z,b.z,c.z)/Step),z1=Mathf.CeilToInt(Mathf.Max(a.z,b.z,c.z)/Step);
+            for(int x=x0;x<=x1;x++)for(int z=z0;z<=z1;z++)
+            {
+                var p=new Vector2((x+.5f)*Step,(z+.5f)*Step);
+                float u=((b.z-c.z)*(p.x-c.x)+(c.x-b.x)*(p.y-c.z))/denominator;
+                float v=((c.z-a.z)*(p.x-c.x)+(a.x-c.x)*(p.y-c.z))/denominator;
+                if(u<0||v<0||u+v>1)continue;float y=a.y*u+b.y*v+c.y*(1-u-v);
+                var key=new Vector2Int(x,z);if(!target.TryGetValue(key,out float old)||y>old)target[key]=y;
+            }
+        }
+        public void AddSurfaces(IEnumerable<MeshFilter> filters,Transform world)
+        {
+            foreach(var filter in filters)
+            {
+                var renderer=filter.GetComponent<MeshRenderer>();var mesh=filter.sharedMesh;
+                if(renderer==null||!renderer.enabled||mesh==null||!mesh.isReadable)continue;
+                var points=mesh.vertices;var indices=mesh.triangles;var pose=world.worldToLocalMatrix*filter.transform.localToWorldMatrix;
+                for(int i=0;i<indices.Length;i+=3)
+                    Raster(pose.MultiplyPoint3x4(points[indices[i]]),pose.MultiplyPoint3x4(points[indices[i+1]]),pose.MultiplyPoint3x4(points[indices[i+2]]),_heights);
             }
         }
         public float Height(float x,float z,float ground,bool includeTents=true)

@@ -75,6 +75,8 @@ namespace QuietCamp.Presentation.World
                 if(source.tangents?.Length==count*4)mesh.tangents=Enumerable.Range(0,count).Select(i=>new Vector4(source.tangents[i*4],source.tangents[i*4+1],source.tangents[i*4+2],source.tangents[i*4+3])).ToArray();
                 mesh.triangles = Enumerable.Range(0, count).ToArray(); mesh.RecalculateBounds();
                 mesh.uv2=PlantWeatherResponse.Weights(source);
+                // Needles retain snow on steeper facets than smooth timber or metal.
+                mesh.SetUVs(2,Enumerable.Repeat(new Vector2(source.seasonalRole=="conifer"?1:0,0),count).ToList());
                 _meshes.Add(mesh); catalogMeshes.Add(source.id, mesh);
             }
             var batches = new List<CombineInstance>(); var foliageBatches = new List<CombineInstance>();

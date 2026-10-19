@@ -15,11 +15,13 @@ namespace QuietCamp.Infrastructure
         public static bool CaptureClockRunning {get;set;}
         public static bool ControlledCapture=>Active&&Current.controlledCapture;
         public static float CaptureDelta=>CaptureClockRunning?1f/30:0;
-        public static void SwitchCampaignCapture(LevelData level,CampArtDefinition art,string directory)
+        public static void SwitchCampaignCapture(LevelData level,CampArtDefinition art,string directory,Action<string,string> atomicWrite=null)
         {
             if(!CampaignPreview||!ControlledCapture||!Path.IsPathRooted(directory)||!Directory.Exists(directory))throw new InvalidOperationException("Only the controlled memory preview can switch capture inputs.");
             var next=new Request{level=level,art=art,campaign=true,controlledCapture=true,campaignArtDirectory=directory};
-            string pending=RequestPath+".pending";File.WriteAllText(pending,JsonConvert.SerializeObject(next));File.Replace(pending,RequestPath,null);
+            string json=JsonConvert.SerializeObject(next);
+            if(atomicWrite!=null)atomicWrite(RequestPath,json);
+            else{string pending=RequestPath+".pending";File.WriteAllText(pending,json);File.Replace(pending,RequestPath,null);}
             _request=next;CaptureClockRunning=false;
         }
         public static string RequestPath => Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, "../Temp/ai/level-authoring-preview.json"));

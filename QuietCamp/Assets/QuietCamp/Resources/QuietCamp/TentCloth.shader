@@ -2,6 +2,7 @@ Shader "QuietCamp/TentCloth"
 {
     Properties
     {
+        _WeatherSkyHeight("Precipitation shelter",2D)="black"{} _WeatherSkyBounds("Shelter bounds",Vector)=(0,0,0,0)
         _BaseColor("Fabric",Color)=(.8,.3,.15,1) _MeshMin("Minimum",Vector)=(0,0,0,0) _MeshSize("Size",Vector)=(1,1,1,0)
         _ShelterGlow("Interior warmth",Range(0,1))=0 _DoorAnchor("Door warmth centre and radius",Vector)=(0,0,0,1)
         _ClothWetness("Canvas moisture",Range(0,1))=0 _SnowCover("Settled snow",Range(0,1))=0 _LeafCover("Settled autumn leaves",Range(0,1))=0
@@ -16,8 +17,10 @@ Shader "QuietCamp/TentCloth"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
         CBUFFER_START(UnityPerMaterial)
         half4 _BaseColor;float4 _MeshMin;float4 _MeshSize;float4 _DoorAnchor;float4 _StorageBulge;
+        float4 _WeatherSkyBounds,_WeatherSkyGrid;float4x4 _WeatherSkyToLocal,_WeatherSkyNormalToLocal;
         half _ShelterGlow,_ClothWetness,_SnowCover,_LeafCover,_StorageAmount;
         CBUFFER_END
+        #include "WeatherSky.hlsl"
         float4 _AtmosWindXZ;float _AtmosWindStrength;float _AtmosWindTime;
         #include "WindField.hlsl"
         float3 Cloth(float3 p)
@@ -89,7 +92,8 @@ Shader "QuietCamp/TentCloth"
                     // Soft connected deposits follow the roof, rather than a grid of painted squares.
                     float2 drift=v.local.xz*float2(11,8);
                     float deposit=.5+.22*sin(drift.x+drift.y*.4)+.16*sin(drift.y*.71-drift.x*.9)+.12*sin(drift.x*1.73+drift.y*1.3);
-                    snow=smoothstep(deposit-.16,deposit+.16,_SnowCover)*smoothstep(0,.08,_SnowCover)*upward;
+                    float accumulation=_SnowCover>=.999?1:smoothstep(deposit-.16,deposit+.16,_SnowCover)*smoothstep(0,.08,_SnowCover);
+                    snow=accumulation*upward*WeatherSkyExposure(v.w,n);
                     canvas=lerp(canvas,half3(.83,.88,.85),snow);
                     float leafEdge=abs(tile.x)+abs(tile.y)*.65;
                     float softness=max(.005,fwidth(leafEdge));

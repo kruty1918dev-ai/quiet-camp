@@ -1,7 +1,9 @@
 #ifndef QC_CAMP_SURFACE_USE
 #define QC_CAMP_SURFACE_USE
 TEXTURE2D(_CampUse); SAMPLER(sampler_CampUse);
+#ifndef QC_CAMP_SURFACE_UNIFORMS
 float4 _CampUseBounds, _CampClimate;
+#endif
 float4 CampUse(float2 position)
 {
     float2 uv=(position-_CampUseBounds.xy)*_CampUseBounds.zw;

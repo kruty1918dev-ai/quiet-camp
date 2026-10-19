@@ -14,12 +14,12 @@ namespace QuietCamp.Infrastructure
         [JsonProperty(NullValueHandling=NullValueHandling.Ignore)] public GroundSurfaceSettings groundSurface;
         public sealed class GroundSurfaceSettings
         {
-            public float patchScale=.34f,facetScale=1.1f,relief=.12f,stoneScale=1.65f;
+            public float patchScale=.34f,facetScale=1.1f,relief=.12f,stoneScale=1.65f,snowDepth=.28f;
             public void Validate()
             {
-                if(!new[]{patchScale,facetScale,relief,stoneScale}.All(Finite)
+                if(!new[]{patchScale,facetScale,relief,stoneScale,snowDepth}.All(Finite)
                     ||patchScale<.15f||patchScale>.7f||facetScale<.5f||facetScale>2
-                    ||relief<0||relief>.2f||stoneScale<.5f||stoneScale>2)
+                    ||relief<0||relief>.2f||stoneScale<.5f||stoneScale>2||snowDepth<0||snowDepth>.4f)
                     throw new InvalidDataException("Invalid natural ground surface settings.");
             }
         }
@@ -52,7 +52,7 @@ namespace QuietCamp.Infrastructure
             copy.cameraEuler = cameraEuler?.ToArray(); copy.cameraTarget = cameraTarget?.ToArray(); copy.sunEuler = sunEuler?.ToArray();
             copy.atmosphere=atmosphere==null?null:SeasonAtmosphereCatalog.Copy(atmosphere);
             copy.groundSurface=groundSurface==null?null:new GroundSurfaceSettings{patchScale=groundSurface.patchScale,
-                facetScale=groundSurface.facetScale,relief=groundSurface.relief,stoneScale=groundSurface.stoneScale};
+                facetScale=groundSurface.facetScale,relief=groundSurface.relief,stoneScale=groundSurface.stoneScale,snowDepth=groundSurface.snowDepth};
             return copy;
         }
         public int generationAttempt;

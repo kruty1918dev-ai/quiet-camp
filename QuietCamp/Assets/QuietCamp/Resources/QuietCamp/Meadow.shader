@@ -89,9 +89,9 @@ Shader "QuietCamp/Meadow"
                     grass=lerp(grass,_SoilTone.rgb*half3(.75,.53,.38),thaw*_HeatMelt*saturate(_SnowSeason));
                 }
                 float4 use=CampUse(ground);float snow=_CampClimate.y;
-                grass=lerp(grass,lerp(float3(.73,.81,.85),float3(.84,.89,.91),Noise(ground*.38+21)),snow);
+                grass=lerp(grass,SettledSnowColor(ground),snow);
                 grass=lerp(grass,_SoilTone.rgb*(1-_CampClimate.x*.23),use.r*(1-snow)*(.67+Noise(ground*2.8)*.23));
-                grass=lerp(grass,float3(.59,.69,.73),use.b*snow*.72);
+                grass=lerp(grass,float3(.68,.78,.86),use.b*snow*.42);
                 grass*=1-use.a*(.04+Noise(ground*7)*.09)*(1-snow);
                 // Cell boundaries stay readable without alternating painted squares.
                 // Derivatives keep the thin soil seams stable at phone and tablet scales.
@@ -107,6 +107,7 @@ Shader "QuietCamp/Meadow"
                 half3 normal=NaturalGroundNormal(float3(0,1,0),ground,_GroundFinish,_CampClimate.x+use.a,snow);
                 half3 lighting = SampleSH(normal)
                     + sun.color * saturate(dot(normal,sun.direction)) * sun.shadowAttenuation;
+                lighting=lerp(lighting,max(lighting,SampleSH(float3(0,1,0))*1.15+sun.color*.18*sun.shadowAttenuation),snow);
                 return half4(grass * max(lighting, half3(.16,.16,.16)), 1);
             }
             ENDHLSL

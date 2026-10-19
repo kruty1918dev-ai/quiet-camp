@@ -47,10 +47,11 @@ Shader "QuietCamp/SeasonVisibility"
                 low=low/max(1,steps)*min(28,length(ray))*_FogRange.w*.22;
                 float storm=_WeatherVisibility.y;
                 float heightFog=low*saturate((distance+_FogRange.x)/max(1,_FogRange.x*1.5));
-                float campClear=lerp(.32,1,smoothstep(4,14,length(world.xz)));
+                float campClear=lerp(lerp(.32,.23,storm),1,smoothstep(4,14,length(world.xz-_FogAxis.zw)));
                 float fog=saturate(farMask*_WeatherVisibility.x*.85+heightFog*.55+storm*(.07+farMask*.52+drift*.08));
                 float forward=pow(saturate(dot(normalize(ray),_AirSunDirection.xyz)*.5+.5),3);
                 float3 litFog=_FogColor.rgb+_AirSunColor.rgb*forward*_AirLight.x*.16;
+                litFog=lerp(litFog,float3(.76,.83,.89),storm*.22);
                 color.rgb=lerp(color.rgb,litFog,min(.84,fog*campClear));
                 // Brief, sparse lens droplets at the outer view; centre stays clear.
                 float2 grid=uv*float2(19,13);float2 cell=floor(grid);float random=Hash(cell);

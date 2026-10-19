@@ -312,7 +312,10 @@ namespace QuietCamp.Editor.LevelAuthoring
                     // Deliberately displaced camera: diagnostic evidence, not a player view.
                     string name="coverage-"+index++;
                     ScreenCapture.CaptureScreenshot(Path.Combine(_output,name+".png"));
-                    File.WriteAllText(Path.Combine(_output,name+".json"),JsonConvert.SerializeObject(new{kind="environment-coverage-diagnostic",target=new[]{target.x,target.y,target.z},bounds=new[]{bounds.xMin,bounds.yMin,bounds.xMax,bounds.yMax},patches=cover.VegetationPatchCount},Formatting.Indented));
+                    var snow=cover.GetComponentsInChildren<MeshRenderer>().FirstOrDefault(r=>r.name.StartsWith("Settled snow "));
+                    var snowMaterial=snow?.sharedMaterial;
+                    File.WriteAllText(Path.Combine(_output,name+".json"),JsonConvert.SerializeObject(new{kind="environment-coverage-diagnostic",target=new[]{target.x,target.y,target.z},bounds=new[]{bounds.xMin,bounds.yMin,bounds.xMax,bounds.yMax},patches=cover.VegetationPatchCount,snowPatches=cover.SnowPatchCount,
+                        snowSurface=snow==null?null:new{shader=snowMaterial.shader.name,climate=snowMaterial.GetVector("_CampClimate").ToString(),ground=snowMaterial.HasProperty("_ArtGround")?snowMaterial.GetFloat("_ArtGround"):0,ambient=snowMaterial.HasProperty("_ArtAmbient")?snowMaterial.GetColor("_ArtAmbient").ToString():null,height=snow.bounds.center.y,thickness=snow.bounds.size.y}},Formatting.Indented));
                     yield return null;yield return null;
                 }
             }

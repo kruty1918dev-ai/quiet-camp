@@ -29,19 +29,26 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             var item=run.levels.Single(x=>x.levelId==run.nativeLevel);
             if(run.nativeState=="launch")
             {
+                if(EditorApplication.timeSinceStartup<run.nativeRetryAt)return false;
                 if(EditorApplication.isPlayingOrWillChangePlaymode&&!EditorApplication.isPlaying)return false;
                 if(EditorApplication.isPlaying&&(!EditorAuthoringPreview.ControlledCapture||QuietCampBootstrap.ServicesRef?.Save.MemoryOnly!=true))throw new InvalidOperationException("Another Play Mode session is active.");
                 string folder=Path.Combine(RoundFolder(run,item),run.nativePhase,run.nativeProfile);Directory.CreateDirectory(folder);
                 var document=WorldOpsStorage.Read<LevelAuthoringDocument>(run.nativePhase=="before"?item.beforePath:item.stagePath);
                 string art=Path.Combine(folder,"art");Directory.CreateDirectory(art);WorldOpsStorage.Json(Path.Combine(art,item.levelId.Replace(':','_')+".json"),document.art);
-                run.nativeFolder=folder;run.nativeState="starting";run.nativeDeadline=EditorApplication.timeSinceStartup+240;
+                run.nativeFolder=folder;
                 if(!EditorApplication.isPlaying)LevelAuthoringPlayDriver.Start(document,true,art,false,true);
                 else
                 {
-                    EditorAuthoringPreview.SwitchCampaignCapture(document.level,document.art,art);
+                    try{EditorAuthoringPreview.SwitchCampaignCapture(document.level,document.art,art,WorldOpsStorage.Write);}
+                    catch(IOException) when(++run.nativeIoRetries<=3)
+                    {run.nativeRetryAt=EditorApplication.timeSinceStartup+.5;return true;}
                     var services=QuietCampBootstrap.ServicesRef;services.Save.Session=new QuietCamp.Application.SessionSaveData();services.PendingLevelId=item.levelId;
                     SceneManager.LoadSceneAsync("Camp");
                 }
+                // Advance only after capture inputs were committed. A failed replacement
+                // must remain resumable in launch, not wait for a scene that never started.
+                run.nativeIoRetries=0;run.nativeRetryAt=0;
+                run.nativeState="starting";run.nativeDeadline=EditorApplication.timeSinceStartup+240;
                 return true;
             }
             if(EditorApplication.timeSinceStartup>run.nativeDeadline&&run.nativeState!="launch"&&run.nativeState!="settling"&&run.nativeState!="menu-settling"&&run.nativeState!="failed-stop")
