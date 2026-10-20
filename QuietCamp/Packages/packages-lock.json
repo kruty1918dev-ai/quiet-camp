@@ -644,6 +644,25 @@
         "com.unity.splines": "2.8.4",
         "com.unity.modules.imgui": "1.0.0"
       }
+    },
+    "com.google.ads.mobile": {
+      "version": "https://github.com/googleads/googleads-mobile-unity.git?path=/packages/com.google.ads.mobile#v11.6.0",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.external-dependency-manager": "2.1.0",
+        "com.unity.modules.androidjni": "1.0.0"
+      },
+      "hash": "8ea7b043986dd7221b001023c85d569fff810666"
+    },
+    "com.unity.external-dependency-manager": {
+      "version": "2.1.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.uielements": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
     }
   }
 }

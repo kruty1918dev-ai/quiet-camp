@@ -9,9 +9,22 @@ namespace QuietCamp.Infrastructure
     {
         public bool analyticsEnabled;
         public bool rewardedAdsEnabled;
+        public bool useTestAds;
         public string privacyPolicyUrl = "";
         public string deletionRequestUrl = "";
         public string androidRewardedUnitId = "";
+        public string iosRewardedUnitId = "";
+        public const string AndroidTestRewardedUnitId = "ca-app-pub-3940256099942544/5224354917";
+        public const string IosTestRewardedUnitId = "ca-app-pub-3940256099942544/1712485313";
+        public bool TestAdsActive => useTestAds && (UnityEngine.Application.isEditor || Debug.isDebugBuild);
+        // A prototype can exercise Google sample inventory before publication.
+        // Release players still require the normal publication and consent gates.
+        public bool CanUseRewardedAds(bool developmentEnvironment)
+            => rewardedAdsEnabled && (useTestAds ? developmentEnvironment : OnlineServicesApproved);
+        public string RewardedUnitId(bool ios)
+            => useTestAds ? (ios ? IosTestRewardedUnitId : AndroidTestRewardedUnitId)
+                : (ios ? iosRewardedUnitId : androidRewardedUnitId);
+        public string CurrentRewardedUnitId => RewardedUnitId(UnityEngine.Application.platform == RuntimePlatform.IPhonePlayer);
         // Enabling collection also requires published disclosures and a way to
         // request server-side deletion. Empty templates are intentionally inert.
         public bool PrivacyConfigured => Https(privacyPolicyUrl) && Https(deletionRequestUrl);
@@ -46,6 +59,7 @@ namespace QuietCamp.Infrastructure
         public static IComfortTransport Analytics(GoogleServicesConfiguration config)
             => config.analyticsEnabled && config.OnlineServicesApproved && AnalyticsFactory != null ? AnalyticsFactory() : new OfflineComfortTransport();
         public static IAdService Ads(GoogleServicesConfiguration config)
-            => config.rewardedAdsEnabled && config.OnlineServicesApproved && !string.IsNullOrWhiteSpace(config.androidRewardedUnitId) && AdsFactory != null ? AdsFactory(config) : new AdServiceStub();
+            => config.CanUseRewardedAds(UnityEngine.Application.isEditor || Debug.isDebugBuild)
+                && !string.IsNullOrWhiteSpace(config.CurrentRewardedUnitId) && AdsFactory != null ? AdsFactory(config) : new AdServiceStub();
     }
 }

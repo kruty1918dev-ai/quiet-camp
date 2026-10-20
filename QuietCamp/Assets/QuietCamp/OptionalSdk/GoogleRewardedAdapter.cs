@@ -1,4 +1,4 @@
-#if QC_GOOGLE_REWARDED && UNITY_ANDROID
+#if QC_GOOGLE_REWARDED && (UNITY_ANDROID || UNITY_IOS || UNITY_EDITOR)
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,6 +11,7 @@ using UnityEngine;
 sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCancellation, IDisposable
 {
     readonly string _unit;
+    readonly bool _testAds;
     readonly SynchronizationContext _main;
     bool _initialized, _disposed, _busy, _showing, _consentForm;
     TaskCompletionSource<bool> _cancel;
@@ -22,10 +23,16 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
     { return await Task.WhenAny(task, Task.Delay(milliseconds), _cancel.Task) == task && !_disposed && !_cancel.Task.IsCompleted; }
     RewardedAd _ad;
     public bool IsReady => !_disposed && !_busy && !string.IsNullOrEmpty(_unit);
-    public bool PrivacyOptionsRequired => ConsentInformation.PrivacyOptionsRequirementStatus == PrivacyOptionsRequirementStatus.Required;
-    public GoogleRewardedAdapter(string unit) { _unit = unit; _main = SynchronizationContext.Current; }
+    public bool PrivacyOptionsRequired => !_testAds && ConsentInformation.PrivacyOptionsRequirementStatus == PrivacyOptionsRequirementStatus.Required;
+    public GoogleRewardedAdapter(string unit, bool testAds = false)
+    {
+        // Never skip UMP for a publisher's unit, even if a caller passes testAds.
+        _testAds = testAds && (unit == GoogleServicesConfiguration.AndroidTestRewardedUnitId
+            || unit == GoogleServicesConfiguration.IosTestRewardedUnitId);
+        _unit = unit; _main = SynchronizationContext.Current;
+    }
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    static void Register() => OptionalGoogleServices.AdsFactory = c => new GoogleRewardedAdapter(c.androidRewardedUnitId);
+    static void Register() => OptionalGoogleServices.AdsFactory = c => new GoogleRewardedAdapter(c.CurrentRewardedUnitId, c.TestAdsActive);
     void Main(Action action) { if (_main != null) _main.Post(_ => action(), null); else action(); }
     public void ShowBanner(string placementId) { }
     public void HideBanner() { }
@@ -37,21 +44,26 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
         var cancellation = _cancel.Task;
         try
         {
-            // No UMP / ad traffic at startup. Update at each explicit request;
-            // cached app consent is never used as permission to request ads.
-            var consent = new TaskCompletionSource<bool>();
-            ConsentInformation.Update(new ConsentRequestParameters(), error => Main(() =>
-                consent.TrySetResult(error == null && !_disposed && !cancellation.IsCompleted)));
-            if (!await AwaitPending(consent.Task, 30000) || !await consent.Task) return AdResult.Unavailable;
-            // This API loads and displays the UMP form in one operation. Never
-            // release the game gate on a timer while a native form may be open.
-            _consentForm = true;
-            _privacyClosed = new TaskCompletionSource<bool>();
-            var form = _privacyClosed;
-            ConsentForm.LoadAndShowConsentFormIfRequired(error => Main(() =>
-                form.TrySetResult(!_disposed && error == null && ConsentInformation.CanRequestAds())));
-            if (!await form.Task || _disposed) return AdResult.Unavailable;
-            _consentForm = false; _privacyClosed = null;
+            if (!_testAds)
+            {
+                // No UMP / ad traffic at startup. Update at each explicit request;
+                // cached app consent is never used as permission to request ads.
+                var consent = new TaskCompletionSource<bool>();
+                ConsentInformation.Update(new ConsentRequestParameters(), error => Main(() =>
+                    consent.TrySetResult(error == null && !_disposed && !cancellation.IsCompleted)));
+                if (!await AwaitPending(consent.Task, 30000) || !await consent.Task) return AdResult.Unavailable;
+                // This API loads and displays the UMP form in one operation. Never
+                // release the game gate on a timer while a native form may be open.
+                _consentForm = true;
+                _privacyClosed = new TaskCompletionSource<bool>();
+                var form = _privacyClosed;
+                ConsentForm.LoadAndShowConsentFormIfRequired(error => Main(() =>
+                    form.TrySetResult(!_disposed && error == null && ConsentInformation.CanRequestAds())));
+                if (!await form.Task || _disposed) return AdResult.Unavailable;
+                _consentForm = false; _privacyClosed = null;
+            }
+            // Google sample app IDs have no publisher UMP message configured.
+            // This path is restricted to sample units in Editor/development players.
             if (!_initialized)
             {
                 var init = new TaskCompletionSource<bool>();
@@ -65,7 +77,11 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
             RewardedAd.Load(_unit, new AdRequest(), (ad, error) => Main(() =>
             {
                 if (abandoned || _disposed || cancellation.IsCompleted) { ad?.Destroy(); loaded.TrySetResult(null); }
-                else loaded.TrySetResult(error == null ? ad : null);
+                else
+                {
+                    if (error != null) { Debug.LogWarning("[QuietCamp Ads] Load failed: " + error); ad?.Destroy(); }
+                    loaded.TrySetResult(error == null ? ad : null);
+                }
             }));
             if (!await AwaitPending(loaded.Task, 30000))
             { abandoned = true; return AdResult.Unavailable; }
@@ -74,14 +90,18 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
             var closed = _adClosed = new TaskCompletionSource<AdResult>();
             bool earned = false;
             _ad.OnAdFullScreenContentClosed += () => Main(() => closed.TrySetResult(earned ? AdResult.Completed : AdResult.Skipped));
-            _ad.OnAdFullScreenContentFailed += error => Main(() => closed.TrySetResult(AdResult.Failed));
+            _ad.OnAdFullScreenContentFailed += error => Main(() =>
+            {
+                Debug.LogWarning("[QuietCamp Ads] Show failed: " + error);
+                closed.TrySetResult(AdResult.Failed);
+            });
             _showing = true;
             _ad.Show(reward => Main(() => { if (!_disposed) earned = true; }));
             // Do not time out while an ad is actually visible: input/audio must
             // stay gated until its close callback, including app backgrounding.
             return await closed.Task;
         }
-        catch { return AdResult.Failed; }
+        catch (Exception error) { Debug.LogWarning("[QuietCamp Ads] " + error.Message); return AdResult.Failed; }
         finally { _ad?.Destroy(); _ad = null; _adClosed = null; _privacyClosed = null; _busy = false; _showing = false; _consentForm = false; }
     }
     public async Task ShowPrivacyOptions()

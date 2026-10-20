@@ -100,11 +100,37 @@ Unity Analytics/Ads і їхній initialize-on-startup вимкнено. Engine
 
 Відкликання перемагає незавершену ініціалізацію; transport перестає надсилати, локальні лічильники очищуються. Кнопка очищення викликає `ResetAnalyticsData` й вимикає згоду, зберігаючи прогрес/альбом. Це очищення **локальних SDK даних**; вже надіслані серверні дані видаляються окремим запитом через опублікований deletion endpoint. UI пояснює відмінність.
 
+## Тестова реклама AdMob
+
+Google Mobile Ads 11.6.0 закріплено в Packages. У `Resources/QuietCamp/google_services.json`
+увімкнено `rewardedAdsEnabled` і `useTestAds`. У Unity Editor та Development Build
+використовуються лише офіційні sample rewarded ID: Android
+`ca-app-pub-3940256099942544/5224354917`, iOS `ca-app-pub-3940256099942544/1712485313`.
+Поля production ID у цьому режимі ігноруються. Sample App ID обох платформ задано
+в `Assets/GoogleMobileAds/Resources/GoogleMobileAdsSettings.asset`.
+У звичайному Release player цей тестовий режим не активує рекламу.
+
+Для перевірки: відкрити гру в Editor, дозволити відеобонуси в налаштуваннях,
+відкрити панель ресурсів і натиснути відео за життя. Підтверджений перегляд додає
+одне життя та витрачає одну з десяти добових спроб. Закриття без reward callback,
+помилка та відсутність мережі нічого не додають. Pro приховує ресурсні обмеження.
+Також доступний наявний добровільний косметичний відеобонус. Editor показує макет
+SDK; доставку тестової реклами на мобільному пристрої потрібно перевіряти окремо.
+
+Sample App ID не має publisher UMP повідомлення. Лише для sample unit у тестовому
+development-режимі пропускається publisher UMP. Власні ID зберігають перевірки
+публікації документів, підтвердження користувачем та UMP перед запитом реклами.
+Firebase і купівлі цим підключенням не активуються.
+
+Для production вимкнути `useTestAds`, задати власні App ID, `androidRewardedUnitId`
+та `iosRewardedUnitId` й виконати налаштування нижче.
+[Офіційні тестові блоки Google](https://developers.google.com/admob/unity/test-ads).
+
 ## Підключення Google
 
 Google Play Games Services — для входу/досягнень/лідербордів; це не транспорт подій аналітики. Для описаних діагностичних подій підготовлено Firebase Analytics; авторизація Play Games не потрібна й не запитується. Для відеобонусів — Google Mobile Ads + UMP.
 
-1. Імпортувати актуальні офіційні `FirebaseAnalytics.unitypackage` та/або Google Mobile Ads Unity plugin із UMP. Бібліотеки сюди автоматично не завантажувалися.
+1. Google Mobile Ads із UMP уже підключено через Packages (11.6.0). Для аналітики окремо імпортувати офіційний `FirebaseAnalytics.unitypackage`.
 2. `OptionalGoogleSdkDetection` після імпорту/видалення шукає відповідні типи й наявні файли та керує `QC_FIREBASE_ANALYTICS` / `QC_GOOGLE_REWARDED`. Menu `QuietCamp/Refresh Optional Google SDKs` повторює перевірку. Підтримується Firebase з чотирма ConsentType; старі API не вмикаються. Код адаптерів у predefined assembly бачить optional SDK assemblies, а базові asmdefs не мають обов’язкових Google refs.
 3. Додати власний `google-services.json` для `com.kruty1918.quietcamp` за процедурою Firebase. Перевірити dependencies на Android і SDK version compatibility. Не вмикати collection при custom Firebase init; цим керує тільки `ComfortAnalytics`.
 4. У `Resources/QuietCamp/google_services.json` вписати реальні HTTPS privacy/deletion URLs; тільки після підготовки політики й механізму запитів встановити відповідні `analyticsEnabled` / `rewardedAdsEnabled`. Порожня конфігурація залишається offline.

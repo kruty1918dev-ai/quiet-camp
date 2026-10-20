@@ -3,13 +3,14 @@
 Run with .NET 8 (also bundled with this project's Unity Editor):
 
 ```sh
-DOTNET_CLI_TELEMETRY_OPTOUT=1 dotnet run \
-  --project tools/optional-google-probe/Probe.csproj \
-  --artifacts-path /tmp/quietcamp-google-probe
+dotnet build tools/optional-google-probe/Probe.csproj --artifacts-path QuietCamp/Temp/ai/google-probe
+dotnet QuietCamp/Temp/ai/google-probe/bin/Probe/debug/Probe.dll
 ```
 
 The project compiles the game's actual guarded adapter files with deterministic
-SDK API doubles defined in `Program.cs`. It checks pending-task ownership,
+SDK API doubles defined in `Program.cs`. It also compiles the actual Google
+configuration and publication gate. It checks sample-ID selection, development-only
+activation, publisher-unit consent, pending-task ownership,
 reward versus dismissal, cancellation/disposal, offline behavior and the
 Firebase consent boundary. It has no SDK, network, account or player saves.
 

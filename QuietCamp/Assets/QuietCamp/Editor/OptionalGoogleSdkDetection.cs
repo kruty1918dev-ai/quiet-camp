@@ -24,7 +24,7 @@ namespace QuietCamp.Editor
                 && ConsentApiAvailable();
             bool ads = (sourceFiles.Any(p => Path.GetFileName(p) == "RewardedAd.cs") || dlls.Any(p => File.Exists(p) && Path.GetFileName(p).StartsWith("GoogleMobileAds")))
                 && Has("GoogleMobileAds.Api.RewardedAd") && Has("GoogleMobileAds.Ump.Api.ConsentInformation");
-            foreach (var target in new[] { NamedBuildTarget.Android, NamedBuildTarget.Standalone })
+            foreach (var target in new[] { NamedBuildTarget.Android, NamedBuildTarget.iOS, NamedBuildTarget.Standalone })
             {
                 var old = PlayerSettings.GetScriptingDefineSymbols(target);
                 var symbols = new HashSet<string>(old.Split(';').Where(s => !string.IsNullOrWhiteSpace(s)));

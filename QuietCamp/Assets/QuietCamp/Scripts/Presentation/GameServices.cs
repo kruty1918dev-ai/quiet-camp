@@ -173,7 +173,10 @@ namespace QuietCamp.Presentation
             GoogleConfiguration = GoogleServicesConfiguration.Load(Legal);
             if (save.Settings.privacyAcknowledgementDraft || save.Settings.privacyAcknowledgementRevision != Legal.revision
                 || string.IsNullOrEmpty(save.Settings.privacyAcknowledgementHash))
-            { GoogleConfiguration.analyticsEnabled = false; GoogleConfiguration.rewardedAdsEnabled = false; }
+            {
+                GoogleConfiguration.analyticsEnabled = false;
+                if (!GoogleConfiguration.TestAdsActive) GoogleConfiguration.rewardedAdsEnabled = false;
+            }
             Ads = ads ?? OptionalGoogleServices.Ads(GoogleConfiguration);
             // Document acknowledgement never grants consent. Changed policy words also invalidate old optional choices.
             var consentPublication = Legal.Published ? Legal.revision + ":" + save.Settings.privacyAcknowledgementHash : Legal.revision;

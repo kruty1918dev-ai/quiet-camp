@@ -180,11 +180,16 @@ namespace QuietCamp.Tests.Editor
             Assert.IsFalse(rewards.Owned); Assert.IsFalse(settings.fireflyLantern);
         }
         [Test]
-        public void ReleaseTemplateIsInertWithoutSdkAndPublishedPrivacyEndpoints()
+        public void SampleAdsAreDevelopmentOnlyAndAnalyticsRemainDisabled()
         {
             var config = GoogleServicesConfiguration.Load();
-            Assert.IsFalse(config.analyticsEnabled); Assert.IsFalse(config.rewardedAdsEnabled);
-            Assert.IsFalse(OptionalGoogleServices.Analytics(config).Available); Assert.IsFalse(OptionalGoogleServices.Ads(config).IsReady);
+            Assert.IsFalse(config.analyticsEnabled); Assert.IsTrue(config.rewardedAdsEnabled); Assert.IsTrue(config.useTestAds);
+            Assert.IsFalse(OptionalGoogleServices.Analytics(config).Available);
+            Assert.IsTrue(config.CanUseRewardedAds(true)); Assert.IsFalse(config.CanUseRewardedAds(false));
+            Assert.AreEqual(GoogleServicesConfiguration.AndroidTestRewardedUnitId, config.RewardedUnitId(false));
+            Assert.AreEqual(GoogleServicesConfiguration.IosTestRewardedUnitId, config.RewardedUnitId(true));
+            config.useTestAds = false;
+            Assert.IsFalse(config.CanUseRewardedAds(true));
         }
     }
 }

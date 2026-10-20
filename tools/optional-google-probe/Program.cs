@@ -7,6 +7,7 @@ using GoogleMobileAds.Api;
 using GoogleMobileAds.Ump.Api;
 using QuietCamp.Application;
 using Firebase.Analytics;
+using QuietCamp.Infrastructure;
 
 class Program
 {
@@ -20,6 +21,36 @@ class Program
     static void Pass(string name) { _passed++; Console.WriteLine("PASS " + name); }
     static async Task Main()
     {
+        var config = new GoogleServicesConfiguration { rewardedAdsEnabled = true, useTestAds = true,
+            androidRewardedUnitId = "publisher-android", iosRewardedUnitId = "publisher-ios" };
+        Check(config.RewardedUnitId(false) == GoogleServicesConfiguration.AndroidTestRewardedUnitId
+            && config.RewardedUnitId(true) == GoogleServicesConfiguration.IosTestRewardedUnitId, "Test mode must override publisher IDs");
+        Check(config.CanUseRewardedAds(true) && !config.CanUseRewardedAds(false), "Test mode is development only");
+        OptionalGoogleServices.AdsFactory = c => new GoogleRewardedAdapter(c.CurrentRewardedUnitId, c.TestAdsActive);
+        UnityEngine.Debug.isDebugBuild = false;
+        Check(!OptionalGoogleServices.Ads(config).IsReady, "Release must not activate sample ads");
+        UnityEngine.Debug.isDebugBuild = true;
+        using (var testProvider = (GoogleRewardedAdapter)OptionalGoogleServices.Ads(config))
+        {
+            ConsentInformation.Reset(); RewardedAd.Reset();
+            var task = testProvider.ShowRewarded("camp.life");
+            Check(ConsentInformation.Updates == 0 && !testProvider.PrivacyOptionsRequired, "Sample inventory needs no publisher UMP message");
+            RewardedAd.Last.Earn(); Check(!task.IsCompleted, "Sample reward must wait for close");
+            RewardedAd.Last.Close(); Check(await task == AdResult.Completed, "Sample reward callback");
+        }
+        config.useTestAds = false;
+        Check(!config.CanUseRewardedAds(true) && !OptionalGoogleServices.Ads(config).IsReady, "Live units require publication even in development");
+        Check(config.RewardedUnitId(true) == "publisher-ios", "Live iOS unit selection");
+        OptionalGoogleServices.AdsFactory = null;
+        Pass("sample IDs, development gate, live publication gate and sample reward");
+        using (var provider = new GoogleRewardedAdapter("publisher-unit", true))
+        {
+            ConsentInformation.Reset(); RewardedAd.Reset();
+            var task = provider.ShowRewarded("camp.life");
+            Check(ConsentInformation.Updates == 1, "A publisher unit cannot bypass consent via test flag");
+            RewardedAd.Last.Close(); Check(await task == AdResult.Skipped, "No reward on dismissal");
+            Pass("publisher unit cannot bypass UMP");
+        }
         using (var provider = NewAd())
         {
             UnityEngine.Application.internetReachability = UnityEngine.NetworkReachability.NotReachable;
@@ -96,17 +127,26 @@ class Program
             Check(!FirebaseAnalytics.Collection && FirebaseAnalytics.Resets == 1 && FirebaseAnalytics.Events == 1, "Reset withdraws collection");
             Pass("Firebase consent, numeric event and local reset boundary");
         }
-        Console.WriteLine(_passed + "/9 contract scenarios passed. SDK doubles only; no real Google/Android integration verified.");
+        Console.WriteLine(_passed + "/11 contract scenarios passed. SDK doubles only; no real Google/Android integration verified.");
     }
 }
 
 namespace UnityEngine
 {
-    public enum RuntimeInitializeLoadType { BeforeSceneLoad }
+    public enum RuntimeInitializeLoadType { BeforeSceneLoad, SubsystemRegistration }
     public class RuntimeInitializeOnLoadMethodAttribute : Attribute { public RuntimeInitializeOnLoadMethodAttribute(RuntimeInitializeLoadType type) { } }
     public enum NetworkReachability { NotReachable, ReachableViaLocalAreaNetwork }
-    public static class Application { public static NetworkReachability internetReachability = NetworkReachability.ReachableViaLocalAreaNetwork; }
-    public static class Debug { public static void Log(string message) { } }
+    public enum RuntimePlatform { Android, IPhonePlayer }
+    public static class Application
+    {
+        public static bool isEditor;
+        public static RuntimePlatform platform = RuntimePlatform.Android;
+        public static NetworkReachability internetReachability = NetworkReachability.ReachableViaLocalAreaNetwork;
+    }
+    public static class Debug { public static bool isDebugBuild; public static void Log(string message) { } public static void LogWarning(string message) { } }
+    public class TextAsset { public string text; }
+    public static class Resources { public static T Load<T>(string path) where T : class => null; }
+    public static class JsonUtility { public static T FromJson<T>(string json) => System.Text.Json.JsonSerializer.Deserialize<T>(json); }
 }
 namespace QuietCamp.Application
 {
@@ -121,11 +161,14 @@ namespace QuietCamp.Application
 }
 namespace QuietCamp.Infrastructure
 {
-    public class GoogleServicesConfiguration { public string androidRewardedUnitId; }
-    public static class OptionalGoogleServices
+    public sealed class OfflineComfortTransport : IComfortTransport
     {
-        public static Func<IComfortTransport> AnalyticsFactory;
-        public static Func<GoogleServicesConfiguration, IAdService> AdsFactory;
+        public bool Available => false;
+        public Task<bool> Initialize() => Task.FromResult(false);
+        public void SetConsent(bool value) { }
+        public void Send(ComfortRecord record) { }
+        public void ResetLocalData() { }
+        public void Dispose() { }
     }
 }
 namespace GoogleMobileAds.Ump.Api

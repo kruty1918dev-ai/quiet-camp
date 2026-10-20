@@ -1,7 +1,9 @@
 {
   "analyticsEnabled": false,
-  "rewardedAdsEnabled": false,
+  "rewardedAdsEnabled": true,
+  "useTestAds": true,
   "privacyPolicyUrl": "",
   "deletionRequestUrl": "",
-  "androidRewardedUnitId": ""
+  "androidRewardedUnitId": "",
+  "iosRewardedUnitId": ""
 }
