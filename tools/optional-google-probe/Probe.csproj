@@ -2,11 +2,12 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-    <DefineConstants>QC_FIREBASE_ANALYTICS;QC_GOOGLE_REWARDED;UNITY_ANDROID</DefineConstants>
+    <DefineConstants>QC_FIREBASE_ANALYTICS;QC_FIREBASE_CRASHLYTICS;QC_GOOGLE_REWARDED;UNITY_ANDROID;UNITY_EDITOR</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../../QuietCamp/Assets/QuietCamp/OptionalSdk/*.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/AdService.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/CrashDiagnostics.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/OptionalGoogleServices.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/LegalConfiguration.cs" />
   </ItemGroup>

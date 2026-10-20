@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnitLite" Version="3.14.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Domain/*.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/ComfortAnalytics.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/CrashDiagnostics.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/AdService.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/CozyRewardService.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/CampSaveData.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/ProgressionService.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/PrivacyAcknowledgement.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/OptionalGoogleServices.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/LegalConfiguration.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Tests/Editor/ComfortAndRewardsTests.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Tests/Editor/CrashDiagnosticsTests.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Tests/Editor/LegalConfigurationTests.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Tests/Editor/PrivacyAcknowledgementTests.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Tests/Editor/AdServiceStubTests.cs" />
+  </ItemGroup>
+</Project>

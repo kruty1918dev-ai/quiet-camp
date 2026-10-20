@@ -1,9 +1,14 @@
 using System.Threading.Tasks;
 namespace QuietCamp.Application
 {
+    public enum RewardStage { Requested, Completed, Granted }
+    public interface IAdConsentInitialization
+    {
+        Task RefreshConsent();
+    }
     /// <summary>
-    /// Result of an ad request. Ads are an optional future monetization slot;
-    /// the MVP ships with a disabled stub — never a fake "reward" UI.
+    /// Result of an optional SDK ad request. Completed requires the earned
+    /// reward callback and dismissal of the full-screen ad.
     /// </summary>
     public enum AdResult
     {
@@ -14,20 +19,19 @@ namespace QuietCamp.Application
     }
 
     /// <summary>
-    /// Monetization boundary. Templates for a later rewarded-ad / banner
-    /// integration: implement with a real SDK adapter, keep this surface
-    /// stable so gameplay code never sees SDK types.
+    /// Monetization boundary shared by the SDK adapter and offline fallback.
+    /// Gameplay code never consumes Google SDK types.
     /// </summary>
     public interface IAdService
     {
-        /// <summary>False while no SDK is configured (offline MVP default).</summary>
+        /// <summary>Whether a rewarded request can start; does not imply a preloaded ad.</summary>
         bool IsReady { get; }
 
         /// <summary>Reserved banner slot — stub does nothing.</summary>
         void ShowBanner(string placementId);
         void HideBanner();
 
-        /// <summary>Reserved rewarded slot — stub resolves Unavailable.</summary>
+        /// <summary>Request a user-chosen reward; the offline fallback resolves Unavailable.</summary>
         Task<AdResult> ShowRewarded(string placementId);
     }
 

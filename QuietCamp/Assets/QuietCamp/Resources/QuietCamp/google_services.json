@@ -1,9 +1,10 @@
 {
-  "analyticsEnabled": false,
+  "analyticsEnabled": true,
+  "crashlyticsEnabled": true,
   "rewardedAdsEnabled": true,
   "useTestAds": true,
-  "privacyPolicyUrl": "",
-  "deletionRequestUrl": "",
+  "privacyPolicyUrl": "https://oleksiy-havryliuk.de/quiet-camp/privacy/",
+  "deletionRequestUrl": "https://oleksiy-havryliuk.de/quiet-camp/privacy/#retention",
   "androidRewardedUnitId": "",
   "iosRewardedUnitId": ""
 }

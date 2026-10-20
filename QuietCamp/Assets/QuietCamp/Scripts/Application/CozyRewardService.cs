@@ -29,6 +29,8 @@ namespace QuietCamp.Application
         public bool Owned => (_progression.CosmeticFlags & LanternFlag) != 0;
         public bool Available => _settings.optionalVideoBonuses && _ads.IsReady && !Owned && !Busy;
         public event Action Changed;
+        public event Action<RewardStage> RewardObserved;
+        void Observe(RewardStage stage) { try { RewardObserved?.Invoke(stage); } catch { } }
 
         public CozyRewardService(IAdService ads, SettingsSaveData settings, ProgressionService progression, Func<bool> persist)
         { _ads = ads; _settings = settings; _progression = progression; _persist = persist; }
@@ -46,12 +48,16 @@ namespace QuietCamp.Application
             Busy = true; Changed?.Invoke();
             try
             {
+                Observe(RewardStage.Requested);
                 var result = await _ads.ShowRewarded(placement);
                 // The provider returns Completed only after the SDK reward
                 // callback AND full-screen dismissal. Close alone earns nothing.
                 if (result == AdResult.Completed)
                 {
+                    Observe(RewardStage.Completed);
+                    bool alreadyOwned = Owned;
                     if (!Owned && !Grant()) return CozyRewardResult.Failed;
+                    if (!alreadyOwned) Observe(RewardStage.Granted);
                     return CozyRewardResult.Granted;
                 }
                 return result == AdResult.Skipped ? CozyRewardResult.Skipped : result == AdResult.Unavailable ? CozyRewardResult.Unavailable : CozyRewardResult.Failed;

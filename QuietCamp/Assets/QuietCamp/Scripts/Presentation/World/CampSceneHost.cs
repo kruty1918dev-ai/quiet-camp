@@ -367,6 +367,7 @@ namespace QuietCamp.Presentation.World
             }
             _session.Evented += OnSessionEvent;
             _session.ActionRecorded += _services.Analytics.Action;
+            _services.Crashes.SetLevel(CampContent.Summary(_session.Level.id)?.number ?? 0);
             _session.ActionRecorded += OnTutorialAction;
         }
 
@@ -716,6 +717,7 @@ namespace QuietCamp.Presentation.World
             }
             if(outcome==CampAttemptResult.FailedAttempt)
             {
+                _services.Analytics.FailedLevelCheck();
                 _services.Analytics.Action(ComfortAction.Check);
                 _advisor=new HintAdvisor(_session.Level);
                 if(report.Issues.Count>0)_services.Notifications.Show(_services.Localization.T("rule."+report.Issues[0].Code),GameplayNotificationKind.Warning,dedupKey:"attempt.failed");

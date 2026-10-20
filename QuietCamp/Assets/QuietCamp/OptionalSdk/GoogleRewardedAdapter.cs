@@ -8,7 +8,7 @@ using QuietCamp.Application;
 using QuietCamp.Infrastructure;
 using UnityEngine;
 
-sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCancellation, IDisposable
+sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCancellation, IAdConsentInitialization, IDisposable
 {
     readonly string _unit;
     readonly bool _testAds;
@@ -37,6 +37,25 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
     public void ShowBanner(string placementId) { }
     public void HideBanner() { }
 
+    public async Task RefreshConsent()
+    {
+        // Publisher inventory only. Refresh information each launch without
+        // initializing ads or opening a native form over unrelated core play.
+        if (_testAds || !IsReady || UnityEngine.Application.internetReachability == NetworkReachability.NotReachable) return;
+        _busy = true; _cancel = new TaskCompletionSource<bool>();
+        try { await UpdateConsentInformation(); }
+        catch (Exception error) { Debug.LogWarning("[QuietCamp Ads] Consent refresh unavailable: " + error.GetType().Name); }
+        finally { _busy = false; }
+    }
+    async Task<bool> UpdateConsentInformation()
+    {
+        var cancellation = _cancel.Task;
+        var consent = new TaskCompletionSource<bool>();
+        ConsentInformation.Update(new ConsentRequestParameters(), error => Main(() =>
+            consent.TrySetResult(error == null && !_disposed && !cancellation.IsCompleted)));
+        return await AwaitPending(consent.Task, 30000) && await consent.Task;
+    }
+
     public async Task<AdResult> ShowRewarded(string placementId)
     {
         if (!IsReady || UnityEngine.Application.internetReachability == NetworkReachability.NotReachable) return AdResult.Unavailable;
@@ -46,12 +65,9 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
         {
             if (!_testAds)
             {
-                // No UMP / ad traffic at startup. Update at each explicit request;
-                // cached app consent is never used as permission to request ads.
-                var consent = new TaskCompletionSource<bool>();
-                ConsentInformation.Update(new ConsentRequestParameters(), error => Main(() =>
-                    consent.TrySetResult(error == null && !_disposed && !cancellation.IsCompleted)));
-                if (!await AwaitPending(consent.Task, 30000) || !await consent.Task) return AdResult.Unavailable;
+                // Refresh again for the explicit request; launch-cached consent
+                // alone never permits requesting ads.
+                if (!await UpdateConsentInformation()) return AdResult.Unavailable;
                 // This API loads and displays the UMP form in one operation. Never
                 // release the game gate on a timer while a native form may be open.
                 _consentForm = true;

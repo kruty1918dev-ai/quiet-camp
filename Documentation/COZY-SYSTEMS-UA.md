@@ -98,7 +98,7 @@ Google Analytics for Firebase має власні автоматичні под�
 
 Unity Analytics/Ads і їхній initialize-on-startup вимкнено. Engine Diagnostics вимкнено в `UnityConnectSettings` та явно в Android Development/Release профілях (`BuildProfileEngineDiagnosticsState.Disabled = 0`, перевірено за enum у встановленому Unity 6000.6). Проєкт не підключений до Unity Cloud; це не твердження, що попередня offline збірка надсилала діагностику. [Unity описує окреме налаштування Diagnostic Data та його перевизначення профілем](https://docs.unity3d.com/6000.2/Documentation/Manual/diagnostics-settings.html).
 
-Відкликання перемагає незавершену ініціалізацію; transport перестає надсилати, локальні лічильники очищуються. Кнопка очищення викликає `ResetAnalyticsData` й вимикає згоду, зберігаючи прогрес/альбом. Це очищення **локальних SDK даних**; вже надіслані серверні дані видаляються окремим запитом через опублікований deletion endpoint. UI пояснює відмінність.
+Відкликання перемагає незавершену ініціалізацію; transport перестає надсилати, локальні лічильники очищуються. Кнопка очищення викликає `ResetAnalyticsData` й вимикає згоду, зберігаючи прогрес/альбом. Це очищення **локальних SDK даних**; щодо вже надісланих серверних даних потрібен окремий запит на privacy@oleksiy-havryliuk.de; його виконання потребує процедури розробника й провайдера. UI пояснює відмінність.
 
 ## Тестова реклама AdMob
 
@@ -130,15 +130,18 @@ Firebase і купівлі цим підключенням не активуют
 
 Google Play Games Services — для входу/досягнень/лідербордів; це не транспорт подій аналітики. Для описаних діагностичних подій підготовлено Firebase Analytics; авторизація Play Games не потрібна й не запитується. Для відеобонусів — Google Mobile Ads + UMP.
 
-1. Google Mobile Ads із UMP уже підключено через Packages (11.6.0). Для аналітики окремо імпортувати офіційний `FirebaseAnalytics.unitypackage`.
-2. `OptionalGoogleSdkDetection` після імпорту/видалення шукає відповідні типи й наявні файли та керує `QC_FIREBASE_ANALYTICS` / `QC_GOOGLE_REWARDED`. Menu `QuietCamp/Refresh Optional Google SDKs` повторює перевірку. Підтримується Firebase з чотирма ConsentType; старі API не вмикаються. Код адаптерів у predefined assembly бачить optional SDK assemblies, а базові asmdefs не мають обов’язкових Google refs.
-3. Додати власний `google-services.json` для `com.kruty1918.quietcamp` за процедурою Firebase. Перевірити dependencies на Android і SDK version compatibility. Не вмикати collection при custom Firebase init; цим керує тільки `ComfortAnalytics`.
-4. У `Resources/QuietCamp/google_services.json` вписати реальні HTTPS privacy/deletion URLs; тільки після підготовки політики й механізму запитів встановити відповідні `analyticsEnabled` / `rewardedAdsEnabled`. Порожня конфігурація залишається offline.
-5. Для реклами налаштувати Android **App ID** у Google Mobile Ads Settings, свою rewarded **Ad Unit ID** у конфігурації гри, UMP повідомлення та privacy options у AdMob. Починати з офіційних test IDs/test devices; перед production прибрати тестові налаштування. App ID та Ad Unit ID не взаємозамінні.
-6. Перевірити merged Android manifest, щоб collection/ad ID/default consent denied не були переписані іншим плагіном. Firebase зберігає рішення між сесіями; окремо перевірити accepted → crash/relaunch, withdrawal → relaunch і policy upgrade. iOS адаптер і його plist defaults не реалізовані в цій Android роботі.
-7. У Firebase/GA залишити мінімальний строк зберігання, вимкнути Google Signals/advertising linking та непотрібні user properties. Рекомендований старт — 2 місяці та доступ лише тим, хто покращує гру; це конфігурація серверного проєкту, її тут немає. Не публікувати малі групи й персональні траєкторії; аналізувати достатні агреговані вибірки.
-8. Узгодити цільову вікову аудиторію, Play Data safety, privacy policy, disclosure й умови обробника. Для дитячої або змішаної аудиторії потрібна окрема реалізація age/parental flows і відповідні SDK/AdMob flags до увімкнення сервісів. Поточний шаблон не визначає вік гравця і не є підтвердженням юридичної відповідності для всіх країн.
-9. На тестовому пристрої перевірити consent accept/deny/revoke, offline/no-fill/error, fast double-tap, скасування очікування, закриття без reward, reward callback, згортання/повернення, звільнення ad object, muted settings, back/input gate. Для Firebase перевірити DebugView та мережу: до згоди немає власних подій, після revoke нові події припиняються. SDK callback порядки й реальну мережу не заміняють тести заглушок.
+Core, Analytics і Crashlytics **14.0.0** уже підключено через UPM разом із наявним
+AdMob **11.6.0** та єдиним Unity EDM **2.1.0**. Не додавайте Firebase unitypackage
+паралельно до цих пакетів. `OptionalGoogleSdkDetection` керує
+`QC_FIREBASE_ANALYTICS`, `QC_FIREBASE_CRASHLYTICS` і `QC_GOOGLE_REWARDED`.
+
+Повна карта ініціалізації, схема подій, інвентар обробки даних, команди перевірки
+й умови релізу зведені в [Firebase і приватність](FIREBASE-PRIVACY-UA.md).
+Надана вебполітика та вбудована копія поки мають статус review draft; URL сам
+не вмикає передавання. Analytics і Crashlytics мають окремі дозволи. Publisher
+UMP information оновлюється при старті й перед явним запитом відео; потрібна форма
+відкривається при запиті реклами. Development sample inventory пропускає цей
+publisher-шлях. Нативну доставку й Console налаштування перевіряють окремо.
 
 ## Як використовувати результати
 

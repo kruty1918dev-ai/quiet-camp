@@ -42,6 +42,7 @@ namespace QuietCamp.Presentation
         /// <summary>Monetization boundary — offline stub until a real SDK adapter lands.</summary>
         public IAdService Ads { get; }
         public ComfortAnalytics Analytics { get; }
+        public CrashDiagnostics Crashes { get; }
         public CozyRewardService Rewards { get; }
         public BonusCampAccessService BonusCamps { get; }
         public CampEconomy Economy { get; private set; }
@@ -175,13 +176,18 @@ namespace QuietCamp.Presentation
                 || string.IsNullOrEmpty(save.Settings.privacyAcknowledgementHash))
             {
                 GoogleConfiguration.analyticsEnabled = false;
+                GoogleConfiguration.crashlyticsEnabled = false;
                 if (!GoogleConfiguration.TestAdsActive) GoogleConfiguration.rewardedAdsEnabled = false;
             }
             Ads = ads ?? OptionalGoogleServices.Ads(GoogleConfiguration);
             // Document acknowledgement never grants consent. Changed policy words also invalidate old optional choices.
             var consentPublication = Legal.Published ? Legal.revision + ":" + save.Settings.privacyAcknowledgementHash : Legal.revision;
-            Analytics = new ComfortAnalytics(save.Settings, OptionalGoogleServices.Analytics(GoogleConfiguration), () => save.Save(), consentPublication);
+            Analytics = new ComfortAnalytics(save.Settings, OptionalGoogleServices.Analytics(GoogleConfiguration), () =>
+            { if (!save.Save()) throw new InvalidOperationException("Privacy choice could not be saved."); }, consentPublication);
+            Crashes = new CrashDiagnostics(save.Settings, OptionalGoogleServices.Crashes(GoogleConfiguration), save.Save, consentPublication);
+            Save.SaveFailed += OnSaveFailed;
             Rewards = new CozyRewardService(Ads, save.Settings, Progression, save.Save);
+            Rewards.RewardObserved += OnCosmeticReward;
             BonusCamps = new BonusCampAccessService(Progression,LevelLoader.MvpLevelIds(),BonusCampCatalog.IsPublished,
                 id=>BonusEntitlement?.Invoke(id)??false);
             Tutorial = CreateTutorial();
@@ -193,6 +199,7 @@ namespace QuietCamp.Presentation
 
         void ConfigureMonetization(IPurchaseProvider provider = null)
         {
+            if (AdLives != null) AdLives.RewardObserved -= OnLifeReward;
             if (Economy != null) Economy.Changed -= OnMonetizationChanged;
             if (AdLives != null) AdLives.Changed -= OnMonetizationChanged;
             if (Purchases != null) Purchases.Changed -= OnMonetizationChanged;
@@ -204,6 +211,7 @@ namespace QuietCamp.Presentation
             Completion = new CampCompletionService(Save, Progression, Memories, Journeys);
             Attempts = new CampAttemptService(Save, Economy, Completion);
             AdLives = new AdLifeService(Ads, Economy, () => Settings.optionalVideoBonuses && !Rewards.Busy && !Purchases.Busy);
+            AdLives.RewardObserved += OnLifeReward;
             Purchases = new PurchaseService(provider ?? new UnavailablePurchaseProvider(), config.products, Save.Purchases, GrantProduct, Save.Save);
             Economy.Changed += OnMonetizationChanged; AdLives.Changed += OnMonetizationChanged; Purchases.Changed += OnMonetizationChanged;
         }
@@ -296,6 +304,7 @@ namespace QuietCamp.Presentation
             if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "MainMenu" || MonetizationBusy)
                 return false;
             await Analytics.ClearLocalDataAndWithdraw();
+            await Crashes.SetConsent(false);
             if (!Save.MemoryOnly && !SaveAdapter.TryEraseLocalFiles(UnityEngine.Application.persistentDataPath, out _)) return false;
             Save.ResetAfterErase();
             Progression.Restore(null, null, 0);
@@ -326,11 +335,18 @@ namespace QuietCamp.Presentation
 
         public void Dispose()
         {
+            Rewards.RewardObserved -= OnCosmeticReward;
+            AdLives.RewardObserved -= OnLifeReward;
+            Save.SaveFailed -= OnSaveFailed;
             Save.BeforeSave -= SyncProgress;
             Analytics.Dispose();
+            Crashes.Dispose();
             (Ads as IDisposable)?.Dispose();
             Haptics.Dispose();
             Audio?.Dispose();
         }
+        void OnSaveFailed(string ignoredMessage) => Crashes.Report(CrashArea.Save);
+        void OnLifeReward(RewardStage stage) => Analytics.Reward(stage, 0);
+        void OnCosmeticReward(RewardStage stage) => Analytics.Reward(stage, 1);
     }
 }

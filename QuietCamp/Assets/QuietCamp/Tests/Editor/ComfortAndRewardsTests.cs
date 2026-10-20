@@ -183,13 +183,29 @@ namespace QuietCamp.Tests.Editor
         public void SampleAdsAreDevelopmentOnlyAndAnalyticsRemainDisabled()
         {
             var config = GoogleServicesConfiguration.Load();
-            Assert.IsFalse(config.analyticsEnabled); Assert.IsTrue(config.rewardedAdsEnabled); Assert.IsTrue(config.useTestAds);
+            Assert.IsTrue(config.analyticsEnabled); Assert.IsTrue(config.crashlyticsEnabled);
+            Assert.IsTrue(config.rewardedAdsEnabled); Assert.IsTrue(config.useTestAds);
             Assert.IsFalse(OptionalGoogleServices.Analytics(config).Available);
+            Assert.IsFalse(OptionalGoogleServices.Crashes(config).Available);
             Assert.IsTrue(config.CanUseRewardedAds(true)); Assert.IsFalse(config.CanUseRewardedAds(false));
             Assert.AreEqual(GoogleServicesConfiguration.AndroidTestRewardedUnitId, config.RewardedUnitId(false));
             Assert.AreEqual(GoogleServicesConfiguration.IosTestRewardedUnitId, config.RewardedUnitId(true));
             config.useTestAds = false;
             Assert.IsFalse(config.CanUseRewardedAds(true));
+        }
+        [Test] public async Task LaterCampaignLevelsAndRewardStagesUseTheConsentedTransport()
+        {
+            var transport = new Transport();
+            using var analytics = new ComfortAnalytics(new SettingsSaveData(), transport);
+            analytics.Reward(RewardStage.Granted, 0); Assert.IsEmpty(transport.Records);
+            await analytics.SetConsent(true);
+            analytics.BeginLevel(100, 6, 6, 1); analytics.FailedLevelCheck();
+            analytics.Reward(RewardStage.Requested, 0); analytics.Reward(RewardStage.Completed, 0); analytics.Reward(RewardStage.Granted, 0);
+            Assert.AreEqual(100, transport.Records.Single(r => r.Name == "qc_level_begin").Values["level"]);
+            Assert.AreEqual(1, transport.Records.Count(r => r.Name == "level_fail"));
+            Assert.AreEqual(1, transport.Records.Count(r => r.Name == "reward_granted"));
+            await analytics.SetConsent(false); var count = transport.Records.Count;
+            analytics.Reward(RewardStage.Granted, 0); Assert.AreEqual(count, transport.Records.Count);
         }
     }
 }

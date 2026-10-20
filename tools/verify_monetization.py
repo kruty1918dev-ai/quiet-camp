@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 import subprocess
 import tempfile
+import tarfile
 
 ROOT = Path(__file__).resolve().parent.parent
 PROJECT = ROOT / "QuietCamp"
@@ -17,7 +18,10 @@ def main():
     sdk = subprocess.check_output(["dotnet", "--list-sdks"], text=True).splitlines()[-1]
     version, directory = sdk.split(" ", 1)
     compiler = Path(directory.strip("[]")) / version / "Roslyn/bincore/csc.dll"
-    assemblies = [("Kruty1918.LevelKit", "Packages/com.kruty1918.levelkit/Runtime"),
+    assemblies = [("Kruty1918.InputRouting", "Packages/com.kruty1918.input-context/Runtime"),
+                  ("Kruty1918.Audio", "Packages/com.kruty1918.audio/Runtime"),
+                  ("Kruty1918.UiFoundation", "Packages/com.kruty1918.ui-foundation/Runtime"),
+                  ("Kruty1918.LevelKit", "Packages/com.kruty1918.levelkit/Runtime"),
                   ("Kruty1918.Atmos", "Packages/com.kruty1918.atmos/Runtime"),
                   ("Kruty1918.LevelGen", "Packages/com.kruty1918.levelgen/Runtime"),
                   ("Kruty1918.LevelGen.LevelKitBridge", "Packages/com.kruty1918.levelgen/Runtime/LevelKitBridge"),
@@ -35,14 +39,31 @@ def main():
         # dependency first instead of reading an unrelated cached Editor DLL.
         index = next(i for i, item in enumerate(assemblies) if item[0] == "Tests.Editor")
         assemblies.insert(index, ("Editor", "Editor"))
+    google_sdk = "--google-sdk-check" in sys.argv
+    if google_sdk:
+        assemblies.append(("OptionalSdk", "OptionalSdk"))
     checks=[]
     with tempfile.TemporaryDirectory(prefix="quietcamp-monetization-compile-") as temporary:
         output = Path(temporary)
+        google_references = []
+        if google_sdk:
+            for product in ("app", "analytics", "crashlytics"):
+                archive = PROJECT / "GooglePackages" / ("com.google.firebase." + product + "-14.0.0.tgz")
+                extracted = output / product
+                with tarfile.open(archive) as package:
+                    package.extractall(extracted, filter="data")
+                google_references.extend((extracted / "package/Firebase/Plugins").glob("*.dll"))
+            ads = sorted((CACHE_PROJECT / "Library/PackageCache").glob("com.google.ads.mobile@*/GoogleMobileAds"))
+            if not ads:
+                raise RuntimeError("Install Google Mobile Ads 11.6.0 before checking its actual SDK API.")
+            google_references.extend(ads[-1].glob("*.dll"))
         compiled = {}
         for name, folder in assemblies:
             is_package = name.startswith("Kruty1918.")
             assembly = name if is_package else "QuietCamp." + name
             template = assembly if is_package and name.endswith(".Core") else "QuietCamp.Presentation" if is_package else assembly
+            if name == "OptionalSdk":
+                template = "Assembly-CSharp"
             candidates = [path for path in ARTIFACTS.glob("*E*.dag/" + template + ".rsp")
                           if re.fullmatch(r"[0-9a-f]+E(?:Dbg|Rel)?\.dag", path.parent.name)]
             if not candidates:
@@ -93,6 +114,11 @@ def main():
             options.append('-parallel-')
             source_root = PROJECT / folder if is_package else PROJECT / "Assets/QuietCamp" / folder
             sources = sorted(source_root.rglob("*.cs"))
+            if name == "OptionalSdk" and google_sdk:
+                google_names = {path.name for path in google_references}
+                options = [line for line in options if not (line.startswith("-r:") and Path(line[3:].strip('"')).name in google_names)]
+                options.append("-define:QC_FIREBASE_ANALYTICS;QC_FIREBASE_CRASHLYTICS;QC_GOOGLE_REWARDED;UNITY_ANDROID")
+                options.extend('-r:"' + str(path) + '"' for path in google_references)
             if name == "Kruty1918.LevelGen":
                 sources = [path for path in sources if "LevelKitBridge" not in path.parts]
             if name == "Kruty1918.LevelGen.LevelKitBridge":

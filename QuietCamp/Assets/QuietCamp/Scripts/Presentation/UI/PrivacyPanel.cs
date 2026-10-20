@@ -47,6 +47,7 @@ namespace QuietCamp.Presentation.UI
                 html.Append("<view class=\"settings-topics\">");
                 Entry("data", "tent", "legal.summary.data");
                 Entry("analytics", "quiet", services.Analytics.Available ? "legal.summary.analytics" : "legal.summary.offline");
+                Entry("crashes", "quiet", "privacy.crashes.summary");
                 Entry("documents", "lock", "legal.summary.documents");
                 html.Append("</view>");
             }
@@ -65,10 +66,32 @@ namespace QuietCamp.Presentation.UI
                         .Append(HtmlUi.Text(T("legal.dataInformation.requests"), "s-sub")).Append("</view>");
                 Group("legal.remoteData");
                 Link("privacy-delete-request", "privacy.deleteRequest", config.deletionRequestUrl);
+                html.Append(HtmlUi.Button(surface, "privacy-email", T("privacy.contact"), () =>
+                {
+                    if (LegalConfiguration.Email(legal.privacyEmail)) UnityEngine.Application.OpenURL("mailto:"
+                        + Uri.EscapeDataString(legal.privacyEmail) + "?subject=QuietCamp%20privacy%20request");
+                }, "legal-link", LegalConfiguration.Email(legal.privacyEmail)));
                 html.Append(HtmlUi.Text(T("legal.serverDeleteHelp"), "s-sub"));
                 if (legal.accountsEnabled) Link("account-delete", "legal.accountDelete", legal.accountDeletionUrl);
                 if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "MainMenu")
                     html.Append(HtmlUi.Text(T("legal.erase.menuOnly"), "s-sub"));
+            }
+            else if (nav.Section == "crashes")
+            {
+                html.Append(HtmlUi.Text(T("privacy.crashes.explanation"), "s-sub"));
+                if (!services.Crashes.Available) html.Append(HtmlUi.Text(T("privacy.crashes.unavailable"), "s-sub"));
+                Link("privacy-crashes-policy", "privacy.policy", config.privacyPolicyUrl);
+                surface.Callbacks.BindToggle("crash-consent", async value =>
+                { if (!services.Crashes.Available) return; await services.Crashes.SetConsent(value); if (surface != null) surface.Refresh(); });
+                html.Append("<view class=\"toggle-row\"><view class=\"tr-text\"><label for=\"#crash-consent\">")
+                    .Append(HtmlUi.Escape(T("privacy.crashes.consent"))).Append("</label></view><switch id=\"crash-consent\" checked=\"")
+                    .Append(services.Crashes.Consented ? "true" : "false").Append("\" disabled=\"")
+                    .Append(services.Crashes.Available ? "false" : "true")
+                    .Append("\" onChange=\"Globals.campUi.Toggle('crash-consent', event)\" /></view>");
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+                html.Append(HtmlUi.Button(surface, "crash-test", T("privacy.crashes.test"),
+                    () => services.Crashes.Report(QuietCamp.Application.CrashArea.DevelopmentTest), "quiet", services.Crashes.Collecting));
+#endif
             }
             else if (nav.Section == "analytics")
             {

@@ -12,6 +12,8 @@ namespace QuietCamp.Application
         public bool Busy { get; private set; }
         public bool Available => !Busy && !_economy.IsPro && _economy.AdLivesRemaining > 0 && _allowed() && (_pendingReward != null || _ads.IsReady);
         public event Action Changed;
+        public event Action<RewardStage> RewardObserved;
+        void Observe(RewardStage stage) { try { RewardObserved?.Invoke(stage); } catch { } }
         public AdLifeService(IAdService ads, CampEconomy economy, Func<bool> allowed)
         { _ads = ads; _economy = economy; _allowed = allowed; }
         public async Task<EconomyResult> Request()
@@ -24,10 +26,13 @@ namespace QuietCamp.Application
             {
                 if (_pendingReward == null)
                 {
+                    Observe(RewardStage.Requested);
                     if (await _ads.ShowRewarded("camp.life") != AdResult.Completed) return EconomyResult.Unavailable;
+                    Observe(RewardStage.Completed);
                     _pendingReward = "ad:" + Guid.NewGuid().ToString("N");
                 }
                 var result = _economy.GrantAdLife(_pendingReward);
+                if (result == EconomyResult.Applied) Observe(RewardStage.Granted);
                 if (result == EconomyResult.Applied || result == EconomyResult.AlreadyApplied) _pendingReward = null;
                 return result;
             }

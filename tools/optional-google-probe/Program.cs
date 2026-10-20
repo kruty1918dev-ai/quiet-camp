@@ -53,6 +53,12 @@ class Program
         }
         using (var provider = NewAd())
         {
+            await provider.RefreshConsent();
+            Check(ConsentInformation.Updates == 1 && RewardedAd.Last == null, "Launch refresh must not load an ad");
+            Pass("publisher launch refresh requests consent information without loading an ad");
+        }
+        using (var provider = NewAd())
+        {
             UnityEngine.Application.internetReachability = UnityEngine.NetworkReachability.NotReachable;
             Check(await provider.ShowRewarded("album.lantern") == AdResult.Unavailable && ConsentInformation.Updates == 0, "Offline must not request");
             UnityEngine.Application.internetReachability = UnityEngine.NetworkReachability.ReachableViaLocalAreaNetwork;
@@ -127,7 +133,89 @@ class Program
             Check(!FirebaseAnalytics.Collection && FirebaseAnalytics.Resets == 1 && FirebaseAnalytics.Events == 1, "Reset withdraws collection");
             Pass("Firebase consent, numeric event and local reset boundary");
         }
-        Console.WriteLine(_passed + "/11 contract scenarios passed. SDK doubles only; no real Google/Android integration verified.");
+        await CheckCrashPrivacy();
+        Console.WriteLine(_passed + " contract scenarios passed. SDK doubles only; no real Google/Android integration verified.");
+    }
+    sealed class Crashes : ICrashTransport
+    {
+        public bool Available => true;
+        public bool Enabled, SentPrevious;
+        public int Reports;
+        public TaskCompletionSource<bool> Pending;
+        public Task<bool> Initialize() => Pending?.Task ?? Task.FromResult(true);
+        public void SetConsent(bool enabled, bool sendPreviousSession = false)
+        { Enabled = enabled; SentPrevious = enabled && sendPreviousSession; }
+        public void SetLevel(int level) { }
+        public void Report(CrashArea area) { Reports++; }
+        public void Dispose() { Enabled = false; }
+    }
+    static async Task CheckCrashPrivacy()
+    {
+        var settings = new SettingsSaveData(); var transport = new Crashes();
+        using (var service = new CrashDiagnostics(settings, transport, () => true, "review"))
+        {
+            await service.RestoreConsent(); service.Report(CrashArea.Save);
+            Check(!transport.Enabled && transport.Reports == 0, "Default crash consent must be off");
+            await service.SetConsent(true); service.Report(CrashArea.Save); service.Report(CrashArea.Save);
+            Check(transport.Enabled && !transport.SentPrevious && transport.Reports == 1, "Fresh opt-in cannot send previous reports; duplicate boundary is suppressed");
+            Check(!settings.analyticsConsent, "Crash consent must not enable analytics");
+            await service.SetConsent(false); service.Report(CrashArea.DevelopmentTest);
+            Check(!transport.Enabled && !settings.crashSessionEligible && transport.Reports == 1, "Withdrawal must stop diagnostics");
+        }
+        Pass("crash default-off, separate consent, first opt-in, deduplication and withdrawal");
+        settings = new SettingsSaveData(); transport = new Crashes { Pending = new TaskCompletionSource<bool>() };
+        using (var service = new CrashDiagnostics(settings, transport, () => true, "r1"))
+        {
+            var enabling = service.SetConsent(true); var revoking = service.SetConsent(false);
+            transport.Pending.SetResult(true); await Task.WhenAll(enabling, revoking);
+            Check(!service.Collecting && !transport.Enabled, "Pending initialization cannot override withdrawal");
+        }
+        Pass("crash consent withdrawal wins over pending dependency check");
+        settings = new SettingsSaveData { crashReportingConsent = true, crashPolicyVersion = CrashDiagnostics.PolicyVersion,
+            crashPublicationRevision = "r1", crashSessionEligible = false };
+        transport = new Crashes();
+        using (var service = new CrashDiagnostics(settings, transport, () => true, "r1"))
+        {
+            await service.RestoreConsent();
+            Check(transport.Enabled && !transport.SentPrevious && settings.crashSessionEligible, "A launch without prior consent is discarded");
+        }
+        using (var service = new CrashDiagnostics(settings, transport, () => true, "r1"))
+        {
+            await service.RestoreConsent(); Check(transport.SentPrevious, "Only an eligible previous session can be uploaded");
+        }
+        using (var service = new CrashDiagnostics(settings, transport, () => true, "r2"))
+        {
+            await service.RestoreConsent(); Check(!transport.Enabled && !transport.SentPrevious, "New publication invalidates crash consent");
+        }
+        Pass("crash restart receipt, previous-session eligibility and publication revision");
+        using (var service = new CrashDiagnostics(new SettingsSaveData(), new Crashes(), () => false, "r1"))
+        { await service.SetConsent(true); Check(!service.Collecting, "Failed consent save cannot enable diagnostics"); }
+        Pass("crash consent save failure stays disabled");
+        using (var sdk = new FirebaseCrashTransport())
+        {
+            Check(await sdk.Initialize(), "Shared Firebase initialization");
+            sdk.Report(CrashArea.Save); Check(Firebase.Crashlytics.Crashlytics.Reports == 0, "No diagnostic before explicit consent");
+            sdk.SetConsent(true); sdk.SetLevel(7); sdk.Report(CrashArea.DevelopmentTest);
+            Check(Firebase.Crashlytics.Crashlytics.Reports == 1 && !Firebase.Crashlytics.Crashlytics.IsCrashlyticsCollectionEnabled,
+                "Manual diagnostic keeps persistent auto-upload disabled");
+            sdk.SetConsent(false); sdk.Report(CrashArea.Save); Check(Firebase.Crashlytics.Crashlytics.Reports == 1, "SDK transport withdrawal");
+            Check(Firebase.FirebaseApp.Checks == 1, "Analytics and crashes share a single Firebase dependency check");
+        }
+        Pass("Firebase single initialization and crash SDK transport consent boundary");
+        var config = new GoogleServicesConfiguration { analyticsEnabled = true, crashlyticsEnabled = true };
+        Check(!await OptionalGoogleServices.InitializeFirebase(config) && !OptionalGoogleServices.Crashes(config).Available,
+            "Review draft cannot start Firebase or crash uploads");
+        Pass("policy review blocks Firebase startup and Crashlytics factory");
+        typeof(FirebaseRuntime).GetMethod("Reset", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic).Invoke(null, null);
+        Firebase.FirebaseApp.Result = Firebase.DependencyStatus.Unavailable;
+        using (var analytics = new FirebaseComfortTransport())
+        using (var crashes = new FirebaseCrashTransport())
+        {
+            Check(!await analytics.Initialize() && !await crashes.Initialize(), "Dependency failure must leave adapters unavailable");
+            analytics.SetConsent(true); crashes.SetConsent(true);
+            Check(!FirebaseRuntime.Ready && !Firebase.Analytics.FirebaseAnalytics.Collection, "Dependency failure must not enable analytics");
+        }
+        Pass("Firebase dependency failure leaves optional adapters disabled without blocking gameplay");
     }
 }
 
@@ -139,6 +227,7 @@ namespace UnityEngine
     public enum RuntimePlatform { Android, IPhonePlayer }
     public static class Application
     {
+        public static string version = "probe";
         public static bool isEditor;
         public static RuntimePlatform platform = RuntimePlatform.Android;
         public static NetworkReachability internetReachability = NetworkReachability.ReachableViaLocalAreaNetwork;
@@ -150,6 +239,12 @@ namespace UnityEngine
 }
 namespace QuietCamp.Application
 {
+    public sealed class SettingsSaveData
+    {
+        public bool analyticsConsent, crashReportingConsent, crashSessionEligible;
+        public int crashPolicyVersion;
+        public string crashPublicationRevision;
+    }
     public interface IAdPrivacyOptions { bool PrivacyOptionsRequired { get; } Task ShowPrivacyOptions(); }
     public interface IAdRequestCancellation { bool CanCancelPending { get; } void CancelPending(); }
     public interface IComfortTransport : IDisposable { bool Available { get; } Task<bool> Initialize(); void SetConsent(bool value); void Send(ComfortRecord record); void ResetLocalData(); }
@@ -227,11 +322,23 @@ namespace GoogleMobileAds.Api
 }
 namespace Firebase
 {
-    public enum DependencyStatus { Available }
+    public enum DependencyStatus { Available, Unavailable }
     public class FirebaseApp
     {
+        public static int Checks;
+        public static DependencyStatus Result = DependencyStatus.Available;
         public static FirebaseApp DefaultInstance => new FirebaseApp();
-        public static Task<DependencyStatus> CheckAndFixDependenciesAsync() => Task.FromResult(DependencyStatus.Available);
+        public static Task<DependencyStatus> CheckAndFixDependenciesAsync() { Checks++; return Task.FromResult(Result); }
+    }
+}
+namespace Firebase.Crashlytics
+{
+    public static class Crashlytics
+    {
+        public static bool IsCrashlyticsCollectionEnabled, ReportUncaughtExceptionsAsFatal;
+        public static int Reports;
+        public static void SetCustomKey(string key, string value) { }
+        public static void LogException(Exception error) { Reports++; }
     }
 }
 namespace Firebase.Analytics

@@ -43,6 +43,10 @@ namespace QuietCamp.Application
         public bool analyticsConsent;
         public int analyticsPolicyVersion;
         public string analyticsPublicationRevision;
+        public bool crashReportingConsent;
+        public int crashPolicyVersion;
+        public string crashPublicationRevision;
+        public bool crashSessionEligible;
         // Local acknowledgement receipt, never consent to optional processing.
         public string privacyAcknowledgementRevision, privacyAcknowledgementHash;
         public string privacyAcknowledgementLanguage, privacyAcknowledgedUtc;

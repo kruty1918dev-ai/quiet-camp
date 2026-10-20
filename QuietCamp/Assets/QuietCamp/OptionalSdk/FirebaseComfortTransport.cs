@@ -1,4 +1,4 @@
-#if QC_FIREBASE_ANALYTICS
+#if QC_FIREBASE_ANALYTICS && (UNITY_ANDROID || UNITY_EDITOR)
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,9 +20,7 @@ sealed class FirebaseComfortTransport : IComfortTransport
     public Task<bool> Initialize() => _initialization ?? (_initialization = InitializeCore());
     async Task<bool> InitializeCore()
     {
-        var dependencies = await FirebaseApp.CheckAndFixDependenciesAsync();
-        if (_disposed || dependencies != DependencyStatus.Available) return false;
-        _ = FirebaseApp.DefaultInstance;
+        if (!await FirebaseRuntime.Initialize() || _disposed) return false;
         _ready = true;
         SetConsent(false);
         return true;

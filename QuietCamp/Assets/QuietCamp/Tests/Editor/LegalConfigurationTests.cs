@@ -7,6 +7,7 @@ namespace QuietCamp.Tests.Editor
     public sealed class LegalConfigurationTests
     {
         static LegalConfiguration Ready() => new LegalConfiguration {
+            policyIsDraft = false,
             publisherName = "QA Publisher", supportEmail = "privacy@quietcamp.dev",
             privacyPolicyUrl = "https://quietcamp.dev/privacy", dataRequestUrl = "https://quietcamp.dev/data",
             revision = "1", publishedOn = "2026-10-04", teenPrivacyReviewed = true, sdkDisclosuresReviewed = true };
@@ -44,6 +45,15 @@ namespace QuietCamp.Tests.Editor
             legal.teenPrivacyReviewed = false; Assert.IsFalse(config.OnlineServicesApproved);
             legal.teenPrivacyReviewed = true; legal.sdkDisclosuresReviewed = false; Assert.IsFalse(config.OnlineServicesApproved);
             legal.sdkDisclosuresReviewed = true; legal.minimumAge = 0; Assert.IsFalse(config.OnlineServicesApproved);
+        }
+        [Test] public void PublicContactDetailsDoNotApproveAPolicyReviewCopy()
+        {
+            var legal = Ready(); legal.policyIsDraft = true;
+            var config = new GoogleServicesConfiguration { analyticsEnabled = true, crashlyticsEnabled = true };
+            config.ResolveLegal(legal);
+            Assert.IsFalse(legal.Published); Assert.IsFalse(config.OnlineServicesApproved);
+            Assert.IsFalse(OptionalGoogleServices.Analytics(config).Available);
+            Assert.IsFalse(OptionalGoogleServices.Crashes(config).Available);
         }
         [Test] public void AccountsNeedAnExternalDeletionRouteButOfflineGameDoesNot()
         {

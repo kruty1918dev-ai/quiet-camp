@@ -8,6 +8,7 @@ namespace QuietCamp.Infrastructure
     public sealed class GoogleServicesConfiguration
     {
         public bool analyticsEnabled;
+        public bool crashlyticsEnabled;
         public bool rewardedAdsEnabled;
         public bool useTestAds;
         public string privacyPolicyUrl = "";
@@ -53,9 +54,16 @@ namespace QuietCamp.Infrastructure
     public static class OptionalGoogleServices
     {
         public static Func<IComfortTransport> AnalyticsFactory;
+        public static Func<ICrashTransport> CrashFactory;
+        public static Func<System.Threading.Tasks.Task<bool>> FirebaseInitialization;
         public static Func<GoogleServicesConfiguration, IAdService> AdsFactory;
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void Reset() { AnalyticsFactory = null; AdsFactory = null; }
+        static void Reset() { AnalyticsFactory = null; AdsFactory = null; CrashFactory = null; FirebaseInitialization = null; }
+        public static System.Threading.Tasks.Task<bool> InitializeFirebase(GoogleServicesConfiguration config)
+            => config.OnlineServicesApproved && (config.analyticsEnabled || config.crashlyticsEnabled)
+                && FirebaseInitialization != null ? FirebaseInitialization() : System.Threading.Tasks.Task.FromResult(false);
+        public static ICrashTransport Crashes(GoogleServicesConfiguration config)
+            => config.crashlyticsEnabled && config.OnlineServicesApproved && CrashFactory != null ? CrashFactory() : new OfflineCrashTransport();
         public static IComfortTransport Analytics(GoogleServicesConfiguration config)
             => config.analyticsEnabled && config.OnlineServicesApproved && AnalyticsFactory != null ? AnalyticsFactory() : new OfflineComfortTransport();
         public static IAdService Ads(GoogleServicesConfiguration config)

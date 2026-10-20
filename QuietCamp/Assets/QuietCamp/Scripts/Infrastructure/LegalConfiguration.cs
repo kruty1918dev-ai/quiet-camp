@@ -8,12 +8,13 @@ namespace QuietCamp.Infrastructure
     [Serializable] public sealed class LegalConfiguration
     {
         public string appName = "QuietCamp", publisherName = "", supportEmail = "";
-        public string privacyPolicyUrl = "", dataRequestUrl = "", accountDeletionUrl = "";
+        public string privacyPolicyUrl = "", dataRequestUrl = "", accountDeletionUrl = "", privacyEmail = "";
         public string termsUrl = "", supportUrl = "", revision = "", publishedOn = "";
         public int minimumAge = 13;
         public bool accountsEnabled, cloudSavesEnabled, purchasesEnabled;
         public bool teenPrivacyReviewed, sdkDisclosuresReviewed;
-        public bool Published => !string.IsNullOrWhiteSpace(publisherName) && Email(supportEmail)
+        public bool policyIsDraft = true;
+        public bool Published => !policyIsDraft && !string.IsNullOrWhiteSpace(publisherName) && Email(supportEmail)
             && PublishedUrl(privacyPolicyUrl) && !string.IsNullOrWhiteSpace(revision)
             && DateTime.TryParseExact(publishedOn, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture,
                 System.Globalization.DateTimeStyles.None, out _);
@@ -49,6 +50,7 @@ namespace QuietCamp.Infrastructure
         public IReadOnlyList<string> PublicationIssues(GoogleServicesConfiguration google)
         {
             var issues = new List<string>();
+            if (policyIsDraft) issues.Add("The public policy is a review draft; publication approval is still required.");
             if (string.IsNullOrWhiteSpace(publisherName)) issues.Add("Fill publisherName with the store-listed publisher/controller.");
             if (!Email(supportEmail)) issues.Add("Provide a monitored support/privacy email.");
             if (!PublishedUrl(privacyPolicyUrl)) issues.Add("Publish an accessible HTTPS privacy policy; verify without login, geo-block or PDF.");
@@ -57,7 +59,7 @@ namespace QuietCamp.Infrastructure
                 System.Globalization.DateTimeStyles.None, out _)) issues.Add("Set publishedOn as yyyy-MM-dd.");
             if (minimumAge != 13) issues.Add("Review target age groups: the approved audience for this project is 13+.");
             if (!teenPrivacyReviewed) issues.Add("Review teen consent/advertising rules for the selected countries.");
-            if (google.analyticsEnabled || google.rewardedAdsEnabled || cloudSavesEnabled || accountsEnabled)
+            if (google.analyticsEnabled || google.crashlyticsEnabled || google.rewardedAdsEnabled || cloudSavesEnabled || accountsEnabled)
             {
                 if (!PublishedUrl(dataRequestUrl)) issues.Add("Publish a data-rights request route and implement its server/support workflow.");
                 if (!sdkDisclosuresReviewed) issues.Add("Audit exact SDK versions, default collection and Data safety disclosures.");

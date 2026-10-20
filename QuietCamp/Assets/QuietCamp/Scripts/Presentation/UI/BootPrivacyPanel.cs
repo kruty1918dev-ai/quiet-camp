@@ -47,7 +47,7 @@ namespace QuietCamp.Presentation.UI
             var legal = LegalConfiguration.Load();
             // Draft resources never fetch a remote URL or create a network consent receipt.
             if (panel._publication.draft)
-                foreach (var variant in panel._publication.document.variants) { variant.url = ""; variant.sourceUrl = ""; }
+                foreach (var variant in panel._publication.document.variants) variant.url = "";
             else
             {
                 if (!legal.Published) throw new InvalidOperationException("Publish legal metadata before enabling the real Boot policy.");

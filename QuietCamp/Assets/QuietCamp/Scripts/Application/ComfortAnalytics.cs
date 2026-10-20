@@ -42,7 +42,7 @@ namespace QuietCamp.Application
     /// collection. A level has counters, not a trace of individual gestures.</summary>
     public sealed class ComfortAnalytics : IDisposable
     {
-        public const int PolicyVersion = 1;
+        public const int PolicyVersion = 2;
         public const int SessionEventLimit = 120;
         readonly SettingsSaveData _settings;
         readonly IComfortTransport _transport;
@@ -78,7 +78,13 @@ namespace QuietCamp.Application
             ClearAttempt(); _lastScreen = null;
             _settingBands.Clear();
             _performanceSeconds = _frames = _frameTotal = 0;
-            _save?.Invoke();
+            try { _save?.Invoke(); }
+            catch
+            {
+                _settings.analyticsConsent = false;
+                try { _transport.SetConsent(false); _transport.ResetLocalData(); } catch { }
+                return;
+            }
             if (!enabled)
             {
                 try { _transport.SetConsent(false); _transport.ResetLocalData(); } catch { }
@@ -112,9 +118,18 @@ namespace QuietCamp.Application
         public void BeginLevel(int number, int width, int height, int preset)
         {
             ClearAttempt();
-            if (!Collecting || number < 1 || number > 30) return;
+            if (!Collecting || number < 1 || number > 10000) return;
             _level = number; _width = Clamp(width, 4, 8); _height = Clamp(height, 4, 8); _preset = Clamp(preset, 0, 3);
             Send("qc_level_begin", LevelValues());
+        }
+        public void FailedLevelCheck()
+        { if (Collecting && _level > 0) Send("level_fail", new Dictionary<string, long> { ["level"] = _level }); }
+        public void Reward(RewardStage stage, int category)
+        {
+            if (!Enum.IsDefined(typeof(RewardStage), stage) || category < 0 || category > 1) return;
+            var name = stage == RewardStage.Requested ? "rewarded_ad_requested"
+                : stage == RewardStage.Completed ? "rewarded_ad_completed" : "reward_granted";
+            Send(name, new Dictionary<string, long> { ["reward_category"] = category });
         }
         public void Action(ComfortAction action)
         {

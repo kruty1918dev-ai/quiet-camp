@@ -29,6 +29,7 @@ namespace QuietCamp.Editor
                 var old = PlayerSettings.GetScriptingDefineSymbols(target);
                 var symbols = new HashSet<string>(old.Split(';').Where(s => !string.IsNullOrWhiteSpace(s)));
                 Set(symbols, "QC_FIREBASE_ANALYTICS", firebase);
+                Set(symbols, "QC_FIREBASE_CRASHLYTICS", Has("Firebase.Crashlytics.Crashlytics") && Has("Firebase.FirebaseApp"));
                 Set(symbols, "QC_GOOGLE_REWARDED", ads);
                 var next = string.Join(";", symbols.OrderBy(s => s));
                 if (new HashSet<string>(old.Split(';')).SetEquals(next.Split(';'))) continue;
