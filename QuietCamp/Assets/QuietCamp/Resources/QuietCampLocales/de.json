@@ -294,7 +294,7 @@
     "legal.accountDelete": "Konto und zugehörige Daten löschen",
     "legal.dataInformation": "Wie werden meine Daten gespeichert?",
     "legal.dataInformation.local": "Das Spiel speichert Fortschritt, Zelte, Album, Extras und Einstellungen, bis du sie löschst. Beim Zurücksetzen bleiben Extras und Einstellungen erhalten; beim Löschen der Spieldaten werden auch sie entfernt.",
-    "legal.dataInformation.optional": "Analyse, Absturzdiagnosen und Werbung haben getrennte Auswahlmöglichkeiten. Aktive Google-SDKs können technische Daten und pseudonyme Kennungen verarbeiten. Testwerbung im Entwicklungsmodus kann ebenfalls Google kontaktieren.",
+    "legal.dataInformation.optional": "Analytics und Absturzberichte haben getrennte freiwillige Auswahlmöglichkeiten. SDK-Initialisierung ist von Datenerhebung zu unterscheiden und kann vorher erfolgen. Produktive Dienste bleiben gesperrt; Entwicklungstestanzeigen können Google kontaktieren. Im aktuellen main fehlen Altersauswahl und erzwungene NPA-Werbung; siehe vollständige Prüffassung.",
     "legal.dataInformation.backups": "Das Löschen umfasst den Spielstand und seine lokalen Sicherungskopien. Es löscht keine Betriebssystem-Backups, Daten des Werbe-SDKs oder bereits übermittelte Serverdaten.",
     "legal.dataInformation.requests": "Für bereits übermittelte Daten nutze die veröffentlichte Anfrageseite. Das Öffnen einer Seite sendet keine Anfrage und bestätigt keine Löschung.",
     "legal.erase.section": "Spieldaten löschen",
@@ -588,7 +588,7 @@
     "privacy.contact": "Datenschutzkontakt anschreiben",
     "privacy.crashes.summary": "Getrennte Auswahl für Absturzdiagnosen",
     "legal.section.crashes": "Absturzberichte",
-    "privacy.crashes.explanation": "Optionale Diagnosen werden von Firebase Crashlytics (Google) verarbeitet. Berichte können Stacktraces, Fehlermeldungen, App- und Geräteinformationen, Diagnosekennungen und freigegebenen Kontext wie die Levelnummer enthalten. Diese Auswahl ist von Analyse und Werbung getrennt. Eine Ablehnung schränkt das Spiel nicht ein. Automatische Uploads sind aus: Berichte werden bei späteren Starts nur gesendet, wenn die vorherige Sitzung und die aktuelle Datenschutzauswahl dies erlauben. Ein Widerruf löscht gespeicherte ausstehende Berichte; bereits übertragene Daten erfordern eine gesonderte Anfrage.",
+    "privacy.crashes.explanation": "Freiwillige Firebase-Crashlytics-Diagnosen können Stacktraces, Ausnahmemeldungen, Geräte-/App-Angaben, Diagnosekennungen und Kontext wie Spielversion, Level und Fehlerkategorie enthalten. Die Auswahl ist von Analytics unabhängig. Automatische Uploads bleiben aus; der Adapter fordert ausstehende Berichte nur bei erlaubter vorheriger Sitzung und aktueller Auswahl an. Ein Widerruf veranlasst die Löschung ungesendeter, nicht bereits übermittelter Berichte. Das native Warteschlangenverhalten wird noch geprüft; Einzelheiten stehen in der vollständigen Erklärung.",
     "privacy.crashes.unavailable": "Absturzberichte sind bis zum Abschluss der Datenschutzprüfung für die Veröffentlichung deaktiviert. Lokale SDK-Daten lassen sich auch über die Android-App-Speichereinstellungen löschen.",
     "privacy.crashes.consent": "Optionale Absturzdiagnosen erlauben",
     "privacy.crashes.test": "Testdiagnose senden (Entwicklung)"

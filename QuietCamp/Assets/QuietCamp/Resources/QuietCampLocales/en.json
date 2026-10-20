@@ -294,7 +294,7 @@
     "legal.accountDelete": "Delete account and associated data",
     "legal.dataInformation": "How is my data stored?",
     "legal.dataInformation.local": "The game keeps progress, tents, your album, cosmetics and settings until you clear them. Resetting progress retains cosmetics and settings; erasing game data removes those too.",
-    "legal.dataInformation.optional": "Analytics, crash diagnostics and advertising have separate choices. Google SDKs may process technical data and pseudonymous identifiers when active. Development sample ads can also contact Google.",
+    "legal.dataInformation.optional": "Analytics and crash reporting have separate optional choices. SDK initialization is distinct from collection and can occur before these choices. Production services remain gated; development sample ads can contact Google. Current main has no age selector or enforced NPA-only advertising; see the full review policy.",
     "legal.dataInformation.backups": "Erasing covers the game save and its local recovery copies. It does not delete operating-system backups, advertising SDK data or records already sent to servers.",
     "legal.dataInformation.requests": "For previously sent data, use the published request page. Opening a page does not submit a request or confirm deletion.",
     "legal.erase.section": "Erase game data",
@@ -588,7 +588,7 @@
     "privacy.contact": "Email the privacy contact",
     "privacy.crashes.summary": "Separate choice for crash diagnostics",
     "legal.section.crashes": "Crash reports",
-    "privacy.crashes.explanation": "Optional diagnostics are processed by Firebase Crashlytics (Google). Reports may include stack traces, exception messages, app and device details, diagnostic identifiers and approved context such as the level number. This choice is separate from analytics and advertising. Core play remains available when you decline. Automatic uploads are disabled; reports are sent on a later launch only when the previous session and the current privacy choice permit it. Withdrawal deletes pending stored reports; already uploaded reports require a separate privacy request.",
+    "privacy.crashes.explanation": "Optional Firebase Crashlytics diagnostics can include stack traces, exception messages, device/app details, diagnostic identifiers and context such as game version, level and failure category. This choice is separate from Analytics. Automatic uploads stay off; the adapter requests sending pending reports only when the previous session and current choice permit it. Withdrawal requests deletion of unsent reports, not already uploaded records. Native queue behavior remains under review; see the full policy.",
     "privacy.crashes.unavailable": "Crash reporting is disabled until the release privacy review is complete. Android app-storage controls also remove locally stored SDK data.",
     "privacy.crashes.consent": "Allow optional crash diagnostics",
     "privacy.crashes.test": "Send a test diagnostic (development)"
