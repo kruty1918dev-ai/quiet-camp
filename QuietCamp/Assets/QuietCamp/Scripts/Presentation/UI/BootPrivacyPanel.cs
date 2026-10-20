@@ -64,7 +64,7 @@ namespace QuietCamp.Presentation.UI
         void DocumentChanged()
         {
             _dirty = true;
-            if (Document != null && PrivacyAcknowledgement.IsCurrent(_save.Settings, Document.Revision, Document.ContentHash, _publication.draft))
+            if (Document != null && PrivacyEligibility.CanContinue(_save.Settings) && PrivacyAcknowledgement.IsCurrent(_save.Settings, Document.Revision, Document.ContentHash, _publication.draft))
                 Accepted = true;
         }
         string T(string key) => UnityHtmlContentReader.Escape(_locale.T(key));
@@ -91,22 +91,33 @@ namespace QuietCamp.Presentation.UI
                     status += " " + T("boot.privacy.sourceLanguage") + " " + UnityHtmlContentReader.Escape(Document.Language);
                 if (Document.Origin == ContentOrigin.Cache) status += " " + T("boot.privacy.cached");
             }
+            string age = "<text class=\"policy-note\">" + T("privacy.age.prompt") + "</text><view class=\"policy-links\">";
+            foreach (PrivacyAgeBand band in new[] { PrivacyAgeBand.Under13, PrivacyAgeBand.From13To15, PrivacyAgeBand.From16To17, PrivacyAgeBand.Adult })
+            {
+                var selected = band;
+                age += Button("boot-age-" + (int)band, T("privacy.age." + (int)band)
+                    + (PrivacyEligibility.Band(_save.Settings) == band ? " ✓" : ""),
+                    () => { PrivacyEligibility.RecordAge(_save.Settings, selected); _dirty = true; }, "policy-link");
+            }
+            age += "</view>";
+            if (PrivacyEligibility.Band(_save.Settings) == PrivacyAgeBand.Under13)
+                age += "<text class=\"policy-note\">" + T("privacy.age.under13") + "</text>";
             string links = Button("boot-policy-full", T(_full ? "boot.privacy.short" : "boot.privacy.full"), () => { _full = !_full; _dirty = true; }, "policy-link", Document != null)
                 + Button("boot-policy-source", T("boot.privacy.website"), () => _content.OpenSource(_publication.document), "policy-link", _content.CanOpenSource(_publication.document));
             if (!_content.Loading && Document == null)
                 links += Button("boot-policy-retry", T("boot.retry"), () => _content.Load(_publication.document, _locale.CurrentLanguageId, new UnityHtmlContentLoader(Path.Combine(UnityEngine.Application.persistentDataPath, "qc_policy_cache"))));
             return "<view class=\"policy-page\"><view class=\"policy-card\"><text class=\"policy-title\">" + T("boot.privacy.title")
                 + "</text><text class=\"policy-status\">" + status + "</text><scroll id=\"boot-policy-scroll\" class=\"policy-scroll\"><view>" + text
-                + "<text class=\"policy-note\">" + T("boot.privacy.separate") + "</text></view></scroll><view class=\"policy-links\">" + links + "</view>"
+                + age + "<text class=\"policy-note\">" + T("boot.privacy.separate") + "</text></view></scroll><view class=\"policy-links\">" + links + "</view>"
                 + (_saveFailed ? "<text class=\"policy-status\">" + T("save.failed") + "</text>" : "")
                 + "<view class=\"policy-actions\">" + Button("boot-policy-exit", T("boot.privacy.exit"), Refuse)
-                + Button("boot-policy-ack", T(_publication.draft ? "boot.privacy.continueDraft" : "boot.privacy.continue"), Accept, "policy-primary", Document != null && !Declined)
+                + Button("boot-policy-ack", T(_publication.draft ? "boot.privacy.continueDraft" : "boot.privacy.continue"), Accept, "policy-primary", Document != null && !Declined && PrivacyEligibility.CanContinue(_save.Settings))
                 + "</view></view></view>";
         }
         void Refuse() { if (!Accepted) Declined = true; }
         void Accept()
         {
-            if (Accepted || Declined || Document == null) return;
+            if (Accepted || Declined || Document == null || !PrivacyEligibility.CanContinue(_save.Settings)) return;
             string previous = JsonUtility.ToJson(_save.Settings);
             PrivacyAcknowledgement.Record(_save.Settings, Document.Revision, Document.ContentHash, Document.Language, _publication.draft);
             _save.Settings.language = _locale.CurrentLanguageId;

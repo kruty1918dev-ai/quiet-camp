@@ -22,14 +22,18 @@ namespace QuietCamp.Editor
             bool firebase = dlls.Any(p => File.Exists(p) && Path.GetFileName(p) == "Firebase.Analytics.dll")
                 && Has("Firebase.Analytics.FirebaseAnalytics") && Has("Firebase.FirebaseApp") && Has("Firebase.Analytics.ConsentType")
                 && ConsentApiAvailable();
+            bool crashes = dlls.Any(p => File.Exists(p) && Path.GetFileName(p) == "Firebase.Crashlytics.dll")
+                && Has("Firebase.Crashlytics.Crashlytics") && Has("Firebase.FirebaseApp");
             bool ads = (sourceFiles.Any(p => Path.GetFileName(p) == "RewardedAd.cs") || dlls.Any(p => File.Exists(p) && Path.GetFileName(p).StartsWith("GoogleMobileAds")))
-                && Has("GoogleMobileAds.Api.RewardedAd") && Has("GoogleMobileAds.Ump.Api.ConsentInformation");
+                && Has("GoogleMobileAds.Api.RewardedAd") && Has("GoogleMobileAds.Ump.Api.ConsentInformation")
+                && Has("GoogleMobileAds.Api.AgeRestrictedTreatment");
             foreach (var target in new[] { NamedBuildTarget.Android, NamedBuildTarget.iOS, NamedBuildTarget.Standalone })
             {
                 var old = PlayerSettings.GetScriptingDefineSymbols(target);
                 var symbols = new HashSet<string>(old.Split(';').Where(s => !string.IsNullOrWhiteSpace(s)));
                 Set(symbols, "QC_FIREBASE_ANALYTICS", firebase);
                 Set(symbols, "QC_GOOGLE_REWARDED", ads);
+                Set(symbols, "QC_FIREBASE_CRASHLYTICS", crashes);
                 var next = string.Join(";", symbols.OrderBy(s => s));
                 if (new HashSet<string>(old.Split(';')).SetEquals(next.Split(';'))) continue;
                 PlayerSettings.SetScriptingDefineSymbols(target, next);

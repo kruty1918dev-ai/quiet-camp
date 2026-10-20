@@ -19,6 +19,8 @@ namespace QuietCamp.Tests
             while (Object.FindAnyObjectByType<QuietCampBootstrap>()?.StartupReady != true && Time.realtimeSinceStartup < deadline)
             {
                 var button = Find("boot-policy-ack");
+                var age = Find("boot-age-4");
+                if (BootPrivacyPanel.Current?.Accepted == false && button != null && !button.interactable && age != null && age.interactable) Tap(age);
                 if (BootPrivacyPanel.Current?.Accepted == false && button != null && button.interactable) Tap(button);
                 yield return null;
             }

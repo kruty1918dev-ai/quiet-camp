@@ -45,7 +45,11 @@ namespace QuietCamp.Tests
         {
             float deadline = Time.realtimeSinceStartup + 60;
             while ((PrivacyBootTestSupport.Find("boot-policy-ack") == null || !PrivacyBootTestSupport.Find("boot-policy-ack").interactable) && Time.realtimeSinceStartup < deadline)
+            {
+                var age = PrivacyBootTestSupport.Find("boot-age-4");
+                if (age != null && age.interactable) PrivacyBootTestSupport.Tap(age);
                 yield return null;
+            }
             Assert.NotNull(BootPrivacyPanel.Current); Assert.IsNull(BootPrivacyPanel.Current.MountError);
             Assert.NotNull(PrivacyBootTestSupport.Find("boot-policy-ack")); yield return Frames();
         }

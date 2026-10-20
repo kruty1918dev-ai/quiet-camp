@@ -37,7 +37,7 @@ namespace QuietCamp.Tests.Editor
         public async Task DefaultOffDoesNotInitializeOrQueueAnyActions()
         {
             var transport = new Transport(); int saves = 0;
-            using var analytics = new ComfortAnalytics(new SettingsSaveData(), transport, () => saves++);
+            using var analytics = new ComfortAnalytics(new SettingsSaveData { privacyAgeBand = (int)PrivacyAgeBand.Adult, privacyAgePolicyVersion = PrivacyEligibility.AgePolicyVersion }, transport, () => saves++);
             await analytics.RestoreConsent();
             analytics.BeginLevel(1, 4, 4, 0); analytics.Action(ComfortAction.Place);
             analytics.Tick(1, true, 1); analytics.EndLevel(ComfortOutcome.Left); analytics.Feedback(0);
@@ -50,7 +50,7 @@ namespace QuietCamp.Tests.Editor
         public async Task WithdrawalDuringDependencyLoadCannotReenableCollection()
         {
             var transport = new Transport { Pending = new TaskCompletionSource<bool>() };
-            using var analytics = new ComfortAnalytics(new SettingsSaveData(), transport);
+            using var analytics = new ComfortAnalytics(new SettingsSaveData { privacyAgeBand = (int)PrivacyAgeBand.Adult, privacyAgePolicyVersion = PrivacyEligibility.AgePolicyVersion }, transport);
             var starting = analytics.SetConsent(true); await analytics.SetConsent(false);
             transport.Pending.SetResult(true); await starting;
             analytics.BeginLevel(2, 5, 6, 1);
@@ -59,7 +59,7 @@ namespace QuietCamp.Tests.Editor
         [Test]
         public async Task SummariesContainNumericBoundedCountersAndActiveTimeOnly()
         {
-            var transport = new Transport(); using var analytics = new ComfortAnalytics(new SettingsSaveData(), transport);
+            var transport = new Transport(); using var analytics = new ComfortAnalytics(new SettingsSaveData { privacyAgeBand = (int)PrivacyAgeBand.Adult, privacyAgePolicyVersion = PrivacyEligibility.AgePolicyVersion }, transport);
             await analytics.SetConsent(true); analytics.BeginLevel(12, 9, 1, 9);
             for (int i = 0; i < 350; i++) analytics.Action(ComfortAction.InvalidDrop);
             for (int i = 0; i < 120; i++) analytics.Tick(.5f, false, 1);
@@ -72,7 +72,7 @@ namespace QuietCamp.Tests.Editor
         [Test]
         public async Task SessionCapNavigationDedupAndFeedbackLimitPreventSpam()
         {
-            var transport = new Transport(); using var analytics = new ComfortAnalytics(new SettingsSaveData(), transport);
+            var transport = new Transport(); using var analytics = new ComfortAnalytics(new SettingsSaveData { privacyAgeBand = (int)PrivacyAgeBand.Adult, privacyAgePolicyVersion = PrivacyEligibility.AgePolicyVersion }, transport);
             await analytics.SetConsent(true);
             for (int i = 0; i < 20; i++) analytics.Screen(ComfortScreen.Album);
             Assert.AreEqual(1, transport.Records.Count);
@@ -85,7 +85,7 @@ namespace QuietCamp.Tests.Editor
         [Test]
         public async Task SliderValuesAreCoarseDeduplicatedAndResetWithConsent()
         {
-            var transport=new Transport();using var analytics=new ComfortAnalytics(new SettingsSaveData(),transport);
+            var transport=new Transport();using var analytics=new ComfortAnalytics(new SettingsSaveData { privacyAgeBand = (int)PrivacyAgeBand.Adult, privacyAgePolicyVersion = PrivacyEligibility.AgePolicyVersion },transport);
             await analytics.SetConsent(true);
             for(int i=0;i<100;i++)analytics.Setting(ComfortSetting.Sound,5);
             analytics.Setting(ComfortSetting.Text,10);
@@ -97,7 +97,7 @@ namespace QuietCamp.Tests.Editor
         [Test]
         public async Task RuleDiagnosticsAreDeduplicatedAndFitFirebaseParameterLimit()
         {
-            var transport = new Transport(); using var analytics = new ComfortAnalytics(new SettingsSaveData(), transport);
+            var transport = new Transport(); using var analytics = new ComfortAnalytics(new SettingsSaveData { privacyAgeBand = (int)PrivacyAgeBand.Adult, privacyAgePolicyVersion = PrivacyEligibility.AgePolicyVersion }, transport);
             await analytics.SetConsent(true); analytics.BeginLevel(2, 5, 5, 1);
             var level = LevelLoader.Load("QC_TEST");
             foreach (var guest in level.guests) guest.shade = true;
@@ -116,13 +116,13 @@ namespace QuietCamp.Tests.Editor
             var settings = new SettingsSaveData { analyticsConsent = true, analyticsPolicyVersion = ComfortAnalytics.PolicyVersion - 1 };
             using var analytics = new ComfortAnalytics(settings, transport); await analytics.RestoreConsent();
             Assert.IsFalse(analytics.Consented); Assert.AreEqual(0, transport.Initializations);
-            using var offline = new ComfortAnalytics(new SettingsSaveData(), new OfflineComfortTransport()); await offline.SetConsent(true);
+            using var offline = new ComfortAnalytics(new SettingsSaveData { privacyAgeBand = (int)PrivacyAgeBand.Adult, privacyAgePolicyVersion = PrivacyEligibility.AgePolicyVersion }, new OfflineComfortTransport()); await offline.SetConsent(true);
             Assert.IsFalse(offline.Collecting); Assert.IsFalse(offline.Available);
         }
         [Test]
         public async Task TransportFailureDoesNotEscapeOrBlockGameplay()
         {
-            var transport = new Transport { FailSend = true }; using var analytics = new ComfortAnalytics(new SettingsSaveData(), transport);
+            var transport = new Transport { FailSend = true }; using var analytics = new ComfortAnalytics(new SettingsSaveData { privacyAgeBand = (int)PrivacyAgeBand.Adult, privacyAgePolicyVersion = PrivacyEligibility.AgePolicyVersion }, transport);
             await analytics.SetConsent(true); Assert.DoesNotThrow(() => analytics.Screen(ComfortScreen.Main));
             Assert.IsFalse(analytics.Collecting); Assert.IsFalse(transport.Enabled);
         }
@@ -140,7 +140,7 @@ namespace QuietCamp.Tests.Editor
         public async Task OnlyAnEarnedVideoGrantsACosmetic(AdResult adResult, CozyRewardResult expected)
         {
             var ads = new Ads { Result = adResult }; var progress = new ProgressionService();
-            var rewards = new CozyRewardService(ads, new SettingsSaveData(), progress, () => true);
+            var rewards = new CozyRewardService(ads, new SettingsSaveData { privacyAgeBand = (int)PrivacyAgeBand.Adult, privacyAgePolicyVersion = PrivacyEligibility.AgePolicyVersion }, progress, () => true);
             Assert.AreEqual(expected, await rewards.Request("album.lantern")); Assert.IsFalse(rewards.Owned);
             Assert.AreEqual(0, progress.CompletedCount);
         }
@@ -148,7 +148,7 @@ namespace QuietCamp.Tests.Editor
         public async Task ConcurrentClicksAreOneRequestAndOnePersistedGrant()
         {
             var ads = new Ads { Pending = new TaskCompletionSource<AdResult>() }; var progress = new ProgressionService(); int saves = 0;
-            var rewards = new CozyRewardService(ads, new SettingsSaveData(), progress, () => { saves++; return true; });
+            var rewards = new CozyRewardService(ads, new SettingsSaveData { privacyAgeBand = (int)PrivacyAgeBand.Adult, privacyAgePolicyVersion = PrivacyEligibility.AgePolicyVersion }, progress, () => { saves++; return true; });
             var first = rewards.Request("album.lantern");
             Assert.AreEqual(CozyRewardResult.Busy, await rewards.Request("camp.complete.lantern"));
             ads.Pending.SetResult(AdResult.Completed); Assert.AreEqual(CozyRewardResult.Granted, await first);
@@ -167,7 +167,7 @@ namespace QuietCamp.Tests.Editor
         [Test]
         public void NormalPlayEarnsTheSameLanternWithoutAnyAds()
         {
-            var ads = new Ads(); var progress = new ProgressionService(); var settings = new SettingsSaveData();
+            var ads = new Ads(); var progress = new ProgressionService(); var settings = new SettingsSaveData { privacyAgeBand = (int)PrivacyAgeBand.Adult, privacyAgePolicyVersion = PrivacyEligibility.AgePolicyVersion };
             var rewards = new CozyRewardService(ads, settings, progress, () => true);
             for (int i = 1; i <= 3; i++) progress.MarkCompleted("QC00" + i);
             rewards.EarnFromPlay(); Assert.IsTrue(rewards.Owned); Assert.IsTrue(settings.fireflyLantern); Assert.AreEqual(0, ads.Requests);
@@ -175,7 +175,7 @@ namespace QuietCamp.Tests.Editor
         [Test]
         public async Task SaveFailureDoesNotClaimTheRewardWasGranted()
         {
-            var settings = new SettingsSaveData(); var rewards = new CozyRewardService(new Ads(), settings, new ProgressionService(), () => false);
+            var settings = new SettingsSaveData { privacyAgeBand = (int)PrivacyAgeBand.Adult, privacyAgePolicyVersion = PrivacyEligibility.AgePolicyVersion }; var rewards = new CozyRewardService(new Ads(), settings, new ProgressionService(), () => false);
             Assert.AreEqual(CozyRewardResult.Failed, await rewards.Request("album.lantern"));
             Assert.IsFalse(rewards.Owned); Assert.IsFalse(settings.fireflyLantern);
         }

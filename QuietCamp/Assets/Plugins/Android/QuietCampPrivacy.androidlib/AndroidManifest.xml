@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" package="com.kruty1918.quietcamp.privacy">
   <application>
+    <!-- Firebase must not initialize in a native ContentProvider before the age/consent UI. -->
+    <provider android:name="com.google.firebase.provider.FirebaseInitProvider"
+        android:authorities="${applicationId}.firebaseinitprovider" tools:node="remove" />
+    <meta-data android:name="firebase_data_collection_default_enabled" android:value="false" tools:replace="android:value" />
+    <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false" tools:replace="android:value" />
+    <meta-data android:name="com.google.android.gms.ads.DELAY_APP_MEASUREMENT_INIT" android:value="true" tools:replace="android:value" />
     <meta-data android:name="firebase_analytics_collection_enabled" android:value="false" tools:replace="android:value" />
     <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" tools:replace="android:value" />
     <meta-data android:name="google_analytics_default_allow_analytics_storage" android:value="false" tools:replace="android:value" />

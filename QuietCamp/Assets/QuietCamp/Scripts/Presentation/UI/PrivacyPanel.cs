@@ -44,9 +44,21 @@ namespace QuietCamp.Presentation.UI
                         .Append(HtmlUi.Text(T(summary), "topic-summary")).Append("</view><view class=\"sc-chevron\">")
                         .Append(CampIcons.Mark("back")).Append("</view></button>");
                 }
+                html.Append(HtmlUi.Text(T("privacy.age.prompt"), "s-sub"));
+                foreach (PrivacyAgeBand band in new[] { PrivacyAgeBand.Under13, PrivacyAgeBand.From13To15, PrivacyAgeBand.From16To17, PrivacyAgeBand.Adult })
+                {
+                    var selected = band;
+                    html.Append(HtmlUi.Button(surface, "privacy-age-" + (int)band,
+                        T("privacy.age." + (int)band) + (PrivacyEligibility.Band(services.Settings) == band ? " ✓" : ""),
+                        async () => { await services.ChangePrivacyAge(selected); surface.Refresh(); }, "legal-link", !services.MonetizationBusy));
+                }
+                if (!PrivacyEligibility.OptionalServicesAllowed(services.Settings))
+                    html.Append(HtmlUi.Text(T("privacy.age.restricted"), "s-sub"));
                 html.Append("<view class=\"settings-topics\">");
                 Entry("data", "tent", "legal.summary.data");
                 Entry("analytics", "quiet", services.Analytics.Available ? "legal.summary.analytics" : "legal.summary.offline");
+                Entry("advertising", "quiet", "legal.summary.advertising");
+                Entry("diagnostics", "quiet", "legal.summary.diagnostics");
                 Entry("documents", "lock", "legal.summary.documents");
                 html.Append("</view>");
             }
@@ -80,7 +92,7 @@ namespace QuietCamp.Presentation.UI
                     Link("privacy-analytics-policy", "privacy.policy", config.privacyPolicyUrl);
                 }
                 surface.Callbacks.BindToggle("analytics-consent", async value =>
-                { if (!services.Analytics.Available) return; await services.Analytics.SetConsent(value); if (surface != null) surface.Refresh(); });
+                { if (!services.Analytics.Available) return; await services.Analytics.SetConsent(value); if (!services.Analytics.ChoicePersisted) services.Notifications?.Show(T("save.failed"), Kruty1918.Notifications.API.GameplayNotificationKind.Info); if (surface != null) surface.Refresh(); });
                 html.Append("<view class=\"toggle-row\"><view class=\"tr-text\"><label for=\"#analytics-consent\">")
                     .Append(HtmlUi.Escape(T("privacy.consent"))).Append("</label></view><switch id=\"analytics-consent\" checked=\"")
                     .Append(services.Analytics.Consented ? "true" : "false").Append("\" disabled=\"")
@@ -108,6 +120,34 @@ namespace QuietCamp.Presentation.UI
                         { services.Analytics.Feedback(choice); services.Notifications?.Show(T("privacy.thanks"), Kruty1918.Notifications.API.GameplayNotificationKind.Info); }, "legal-link"));
                     }
                 }
+            }
+            else if (nav.Section == "advertising")
+            {
+                html.Append(HtmlUi.Text(T("privacy.ads.explanation"), "s-sub"));
+                surface.Callbacks.BindToggle("advertising-consent", async value =>
+                { await services.SetAdvertisingConsent(value); if (surface != null) surface.Refresh(); });
+                html.Append("<view class=\"toggle-row\"><view class=\"tr-text\"><label for=\"#advertising-consent\">")
+                    .Append(HtmlUi.Escape(T("privacy.ads.choice")))
+                    .Append("</label></view><switch id=\"advertising-consent\" checked=\"")
+                    .Append(services.Settings.advertisingConsent && services.Settings.advertisingPolicyVersion == 1
+                        && services.Settings.advertisingPublicationRevision == config.PrivacyRevision ? "true" : "false")
+                    .Append("\" disabled=\"").Append(PrivacyEligibility.OptionalServicesAllowed(services.Settings) && !services.MonetizationBusy ? "false" : "true")
+                    .Append("\" onChange=\"Globals.campUi.Toggle('advertising-consent', event)\" /></view>");
+                Link("privacy-advertising-policy", "privacy.policy", config.privacyPolicyUrl);
+            }
+            else if (nav.Section == "diagnostics")
+            {
+                html.Append(HtmlUi.Text(T("privacy.crashes.explanation"), "s-sub"));
+                if (!services.CrashReports.Available) html.Append(HtmlUi.Text(T("privacy.crashes.unavailable"), "s-sub"));
+                surface.Callbacks.BindToggle("crash-consent", async value =>
+                { await services.CrashReports.SetConsent(value); if (!services.CrashReports.ChoicePersisted) services.Notifications?.Show(T("save.failed"), Kruty1918.Notifications.API.GameplayNotificationKind.Info); if (surface != null) surface.Refresh(); });
+                html.Append("<view class=\"toggle-row\"><view class=\"tr-text\"><label for=\"#crash-consent\">")
+                    .Append(HtmlUi.Escape(T("privacy.crashes.choice")))
+                    .Append("</label></view><switch id=\"crash-consent\" checked=\"")
+                    .Append(services.CrashReports.Consented ? "true" : "false").Append("\" disabled=\"")
+                    .Append(services.CrashReports.Available ? "false" : "true")
+                    .Append("\" onChange=\"Globals.campUi.Toggle('crash-consent', event)\" /></view>");
+                Link("privacy-crashes-policy", "privacy.policy", config.privacyPolicyUrl);
             }
             else if (nav.Section == "documents")
             {

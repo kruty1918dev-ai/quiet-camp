@@ -3,16 +3,6 @@ using System.Threading.Tasks;
 
 namespace QuietCamp.Application
 {
-    public interface IAdPrivacyOptions
-    {
-        bool PrivacyOptionsRequired { get; }
-        Task ShowPrivacyOptions();
-    }
-    public interface IAdRequestCancellation
-    {
-        bool CanCancelPending { get; }
-        void CancelPending();
-    }
     public enum CozyRewardResult { Granted, AlreadyOwned, Unavailable, Skipped, Failed, Busy }
 
     /// <summary>One optional cosmetic, also earned through normal play. No

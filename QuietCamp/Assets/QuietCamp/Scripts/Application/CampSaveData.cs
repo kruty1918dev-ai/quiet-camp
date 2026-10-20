@@ -40,6 +40,13 @@ namespace QuietCamp.Application
         public string lastMenuBackdropId;
         // Old saves deserialize with collection off. A policy version change
         // requires a fresh choice; consent is independent of advertising.
+        public int privacyAgeBand, privacyAgePolicyVersion;
+        public bool advertisingConsent;
+        public int advertisingPolicyVersion;
+        public string advertisingPublicationRevision;
+        public bool crashReportingConsent;
+        public int crashReportingPolicyVersion;
+        public string crashReportingPublicationRevision;
         public bool analyticsConsent;
         public int analyticsPolicyVersion;
         public string analyticsPublicationRevision;

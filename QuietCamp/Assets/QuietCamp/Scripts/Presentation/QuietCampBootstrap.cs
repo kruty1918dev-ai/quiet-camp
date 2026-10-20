@@ -248,6 +248,8 @@ namespace QuietCamp.Presentation
                 }
             }
             _ = _services.Analytics.RestoreConsent(); // Optional SDK/network cannot hold startup.
+            _ = _services.CrashReports.RestoreConsent();
+            if (_services.Ads is IAdLaunchPrivacy launchPrivacy) _ = launchPrivacy.RefreshPrivacyAtLaunch();
             UnityEngine.Application.targetFrameRate = 60;
             if (!_services.AmbientWindHandle.IsValid)
                 _services.AmbientWindHandle = _audio?.Play("ambience.wind", new AudioPlayOptions(initialPlaybackScale: 0)) ?? default;

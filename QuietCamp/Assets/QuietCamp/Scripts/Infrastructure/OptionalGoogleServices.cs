@@ -9,6 +9,11 @@ namespace QuietCamp.Infrastructure
     {
         public bool analyticsEnabled;
         public bool rewardedAdsEnabled;
+        public bool crashlyticsEnabled;
+        // Remains false until native initialization/queue and on-device privacy checks pass.
+        public bool crashlyticsRuntimeVerified;
+        [NonSerialized] public SettingsSaveData PrivacySettings;
+        [NonSerialized] public string PrivacyRevision = "";
         public bool useTestAds;
         public string privacyPolicyUrl = "";
         public string deletionRequestUrl = "";
@@ -54,10 +59,18 @@ namespace QuietCamp.Infrastructure
     {
         public static Func<IComfortTransport> AnalyticsFactory;
         public static Func<GoogleServicesConfiguration, IAdService> AdsFactory;
+        public static Func<ICrashReportTransport> CrashFactory;
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void Reset() { AnalyticsFactory = null; AdsFactory = null; }
+        static void Reset() { AnalyticsFactory = null; AdsFactory = null; CrashFactory = null; }
         public static IComfortTransport Analytics(GoogleServicesConfiguration config)
-            => config.analyticsEnabled && config.OnlineServicesApproved && AnalyticsFactory != null ? AnalyticsFactory() : new OfflineComfortTransport();
+            => new DeferredComfortTransport(
+                () => config.analyticsEnabled && config.OnlineServicesApproved && PrivacyEligibility.OptionalServicesAllowed(config.PrivacySettings) && AnalyticsFactory != null,
+                () => AnalyticsFactory());
+        public static ICrashReportTransport Crashes(GoogleServicesConfiguration config)
+            => new DeferredCrashReportTransport(
+                () => config.crashlyticsEnabled && config.crashlyticsRuntimeVerified && config.OnlineServicesApproved
+                    && PrivacyEligibility.OptionalServicesAllowed(config.PrivacySettings) && CrashFactory != null,
+                () => CrashFactory());
         public static IAdService Ads(GoogleServicesConfiguration config)
             => config.CanUseRewardedAds(UnityEngine.Application.isEditor || Debug.isDebugBuild)
                 && !string.IsNullOrWhiteSpace(config.CurrentRewardedUnitId) && AdsFactory != null ? AdsFactory(config) : new AdServiceStub();

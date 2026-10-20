@@ -584,6 +584,22 @@
     "rule.entry": "Das ist der Eingang zum Camp. Halte ihn frei.",
     "guide.adaptive.start": "Halte die Lichtung gedrückt und setze ein Zelt. Du kannst es verschieben.",
     "guide.adaptive.next": "Der Weg ist frei. Setze das nächste Zelt.",
-    "guide.adaptive.finish": "Alle Wünsche erfüllt. Tippe auf Fertig."
+    "guide.adaptive.finish": "Alle Wünsche erfüllt. Tippe auf Fertig.",
+    "privacy.age.prompt": "Bitte wähle deine Altersgruppe. Ein Geburtsdatum wird nicht abgefragt. Eine Änderung schaltet optionale Einwilligungen aus.",
+    "privacy.age.1": "Unter 13",
+    "privacy.age.2": "13–15 Jahre",
+    "privacy.age.3": "16–17 Jahre",
+    "privacy.age.4": "Ab 18",
+    "privacy.age.under13": "Quiet Camp richtet sich an Personen ab 13 Jahren. Optionale SDK-Dienste bleiben ausgeschaltet.",
+    "privacy.age.restricted": "Solange keine zulässige Altersgruppe ausgewählt ist, stehen Analytics, die Übermittlung von Absturzberichten und Werbeanfragen nicht zur Verfügung. Die lokalen Spielfunktionen benötigen diese Einwilligungen nicht.",
+    "legal.section.diagnostics": "Absturzberichte",
+    "legal.summary.diagnostics": "Eine unabhängige, freiwillige Entscheidung über technische Absturzberichte.",
+    "privacy.crashes.explanation": "Freiwillige Firebase-Crashlytics-Berichte können Stacktraces, Fehlermeldungen, Installationskennungen sowie Geräte-, Betriebssystem- und App-Angaben enthalten. Sie helfen bei der Untersuchung von Abstürzen. Diese Entscheidung ist von der Spielanalyse getrennt. Ein Widerruf beendet künftige Berichte, löscht aber bereits übermittelte Berichte nicht. Ausstehende Berichte werden getrennt von Spielständen behandelt.",
+    "privacy.crashes.choice": "Freiwillige Absturzberichte erlauben",
+    "privacy.crashes.unavailable": "Absturzberichte sind für diese Konfiguration oder Altersgruppe nicht aktiv. Vor der Aktivierung müssen die Prüfungen des Release-SDKs und des nativen Datenschutzverhaltens abgeschlossen sein.",
+    "legal.section.advertising": "Werbung gegen Belohnung",
+    "legal.summary.advertising": "Optionale nicht personalisierte Videos und Google-Datenschutzeinstellungen.",
+    "privacy.ads.explanation": "Freiwillige Videos gegen Belohnung nutzen Google AdMob. Google kann IP-Adresse, Werbe- oder App-Kennungen, Werbeinteraktionen und technische Daten zur Auslieferung, Messung und Betrugsbekämpfung verarbeiten. Wir fordern nicht personalisierte Werbung an. Diese Einwilligung ersetzt nicht das erforderliche Google-Formular; fehlt eine notwendige Einwilligung, werden keine Anzeigen angefordert. Für unter 16-Jährige oder bei unbekanntem Alter werden keine Werbeanfragen gestellt.",
+    "privacy.ads.choice": "Optionale nicht personalisierte Werbung gegen Belohnung erlauben"
   }
 }

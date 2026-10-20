@@ -90,3 +90,10 @@ python3 tools/verify_github_docs.py
 Art, audio й vendor assets зберігають власні умови ліцензування. [Ліцензії та provenance](docs/development.md#assets-і-ліцензії). Повні vendor model previews зберігаються локально.
 
 У майстерні — [20 сезонних пресетів із прев’ю](Design/LevelAuthoring/SeasonAtmosphere/index.html), п’ять помічників рослинності й чотири основні розділи. Усі 100 пазлів мають редаговані композиції. Нові соняхи мають метричні пропорції; сезонні моделі відновлюються при зміні пресету.
+
+## Privacy release preparation (2026-10-20)
+
+Age/optional-service controls and a matched en/uk/de candidate notice are prepared.
+Production approvals remain closed. See [implementation and verification limits](Design/Privacy/2026-10-20/IMPLEMENTATION.md).
+The dependency-free `tools/PrivacyProbe` checks core contracts and adapter calls
+with SDK doubles; it is not a player build or native SDK verification.

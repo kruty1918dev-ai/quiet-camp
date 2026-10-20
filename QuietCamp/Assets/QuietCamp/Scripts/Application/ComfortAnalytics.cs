@@ -47,6 +47,8 @@ namespace QuietCamp.Application
         readonly SettingsSaveData _settings;
         readonly IComfortTransport _transport;
         readonly Action _save;
+        readonly Func<bool> _persist;
+        public bool ChoicePersisted { get; private set; } = true;
         readonly string _publicationRevision;
         readonly long[] _counts = new long[Enum.GetValues(typeof(ComfortAction)).Length];
         static readonly string[] RuleKeys = { "bounds", "overlap", "path", "shade", "quiet", "friends", "missing" };
@@ -56,21 +58,22 @@ namespace QuietCamp.Application
         int _generation, _sent, _level, _width, _height, _preset;
         float _activeSeconds, _performanceSeconds, _frames, _frameTotal;
         ComfortScreen? _lastScreen;
-        public bool Available => _transport.Available;
+        public bool Available => _transport.Available && PrivacyEligibility.OptionalServicesAllowed(_settings);
         public bool ChoiceCurrent => _settings.analyticsPolicyVersion == PolicyVersion
             && (_settings.analyticsPublicationRevision ?? "") == _publicationRevision;
-        public bool Consented => _settings.analyticsConsent && ChoiceCurrent;
+        public bool Consented => _settings.analyticsConsent && ChoiceCurrent && PrivacyEligibility.OptionalServicesAllowed(_settings);
         public bool Collecting => !_disposed && Consented && _ready && Available;
         public bool HasActiveAttempt => _level > 0;
 
-        public ComfortAnalytics(SettingsSaveData settings, IComfortTransport transport, Action save = null, string publicationRevision = "")
-        { _settings = settings; _transport = transport ?? new OfflineComfortTransport(); _save = save;
+        public ComfortAnalytics(SettingsSaveData settings, IComfortTransport transport, Action save = null, string publicationRevision = "", Func<bool> persist = null)
+        { _settings = settings; _transport = transport ?? new OfflineComfortTransport(); _save = save; _persist = persist;
             _publicationRevision = publicationRevision ?? ""; }
 
         public async Task SetConsent(bool enabled)
         {
             if (_disposed) return;
             var generation = ++_generation;
+            enabled = enabled && PrivacyEligibility.OptionalServicesAllowed(_settings);
             _settings.analyticsConsent = enabled;
             _settings.analyticsPolicyVersion = PolicyVersion;
             _settings.analyticsPublicationRevision = _publicationRevision;
@@ -78,7 +81,8 @@ namespace QuietCamp.Application
             ClearAttempt(); _lastScreen = null;
             _settingBands.Clear();
             _performanceSeconds = _frames = _frameTotal = 0;
-            _save?.Invoke();
+            try { _save?.Invoke(); ChoicePersisted = _persist?.Invoke() ?? true; } catch { ChoicePersisted = false; }
+            if (!ChoicePersisted) { enabled = false; _settings.analyticsConsent = false; }
             if (!enabled)
             {
                 try { _transport.SetConsent(false); _transport.ResetLocalData(); } catch { }

@@ -584,6 +584,22 @@
     "rule.entry": "This is the camp entrance. Keep it clear.",
     "guide.adaptive.start": "Hold the clearing to place a tent. You can move it later.",
     "guide.adaptive.next": "The path is clear. Place the next tent.",
-    "guide.adaptive.finish": "All wishes are met. Tap Finish."
+    "guide.adaptive.finish": "All wishes are met. Tap Finish.",
+    "privacy.age.prompt": "Choose your age range. We do not ask for your date of birth. Changing this choice turns optional permissions off.",
+    "privacy.age.1": "Under 13",
+    "privacy.age.2": "13–15",
+    "privacy.age.3": "16–17",
+    "privacy.age.4": "18 or older",
+    "privacy.age.under13": "Quiet Camp is intended for ages 13 and older. Optional SDK services remain off.",
+    "privacy.age.restricted": "Until an eligible age range is selected, Analytics, crash-report transmission and advertising requests are unavailable. The game’s local functions do not require these permissions.",
+    "legal.section.diagnostics": "Crash reports",
+    "legal.summary.diagnostics": "An independent, optional choice for technical crash reports.",
+    "privacy.crashes.explanation": "Optional Firebase Crashlytics reports can contain stack traces, error messages, installation identifiers, device/OS and app information. They help investigate crashes. This choice is separate from gameplay Analytics. Withdrawal stops future reporting; it does not erase reports already sent. Pending reports are handled separately from game saves.",
+    "privacy.crashes.choice": "Allow optional crash reports",
+    "privacy.crashes.unavailable": "Crash reporting is not active for this configuration or age range. Release SDK and native privacy checks must be completed before it can be enabled.",
+    "legal.section.advertising": "Rewarded advertising",
+    "legal.summary.advertising": "Optional non-personalized videos and Google privacy options.",
+    "privacy.ads.explanation": "Optional rewarded videos use Google AdMob. Google may process IP address, advertising or app identifiers, ad interactions and technical data for delivery, measurement and fraud prevention. We request non-personalized ads. This permission does not replace the Google privacy form where required; refusing required consent prevents ad requests. No advertising is requested for ages below 16 or unknown age.",
+    "privacy.ads.choice": "Allow optional non-personalized rewarded ads"
   }
 }

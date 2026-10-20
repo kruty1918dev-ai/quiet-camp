@@ -42,6 +42,7 @@ namespace QuietCamp.Presentation
         /// <summary>Monetization boundary — offline stub until a real SDK adapter lands.</summary>
         public IAdService Ads { get; }
         public ComfortAnalytics Analytics { get; }
+        public CrashReportConsent CrashReports { get; }
         public CozyRewardService Rewards { get; }
         public BonusCampAccessService BonusCamps { get; }
         public CampEconomy Economy { get; private set; }
@@ -171,16 +172,20 @@ namespace QuietCamp.Presentation
             if (progression == null) Progression.Restore(save.Progress.completedIds, save.Progress.lastLevelId, save.Progress.cosmeticFlags);
             Legal = LegalConfiguration.Load();
             GoogleConfiguration = GoogleServicesConfiguration.Load(Legal);
+            GoogleConfiguration.PrivacySettings = save.Settings;
             if (save.Settings.privacyAcknowledgementDraft || save.Settings.privacyAcknowledgementRevision != Legal.revision
                 || string.IsNullOrEmpty(save.Settings.privacyAcknowledgementHash))
             {
                 GoogleConfiguration.analyticsEnabled = false;
+                GoogleConfiguration.crashlyticsEnabled = false;
                 if (!GoogleConfiguration.TestAdsActive) GoogleConfiguration.rewardedAdsEnabled = false;
             }
-            Ads = ads ?? OptionalGoogleServices.Ads(GoogleConfiguration);
+            Ads = new AgeRestrictedAdService(save.Settings, () => ads ?? OptionalGoogleServices.Ads(GoogleConfiguration));
             // Document acknowledgement never grants consent. Changed policy words also invalidate old optional choices.
             var consentPublication = Legal.Published ? Legal.revision + ":" + save.Settings.privacyAcknowledgementHash : Legal.revision;
-            Analytics = new ComfortAnalytics(save.Settings, OptionalGoogleServices.Analytics(GoogleConfiguration), () => save.Save(), consentPublication);
+            GoogleConfiguration.PrivacyRevision = consentPublication;
+            Analytics = new ComfortAnalytics(save.Settings, OptionalGoogleServices.Analytics(GoogleConfiguration), publicationRevision: consentPublication, persist: save.Save);
+            CrashReports = new CrashReportConsent(save.Settings, OptionalGoogleServices.Crashes(GoogleConfiguration), publicationRevision: consentPublication, persist: save.Save);
             Rewards = new CozyRewardService(Ads, save.Settings, Progression, save.Save);
             BonusCamps = new BonusCampAccessService(Progression,LevelLoader.MvpLevelIds(),BonusCampCatalog.IsPublished,
                 id=>BonusEntitlement?.Invoke(id)??false);
@@ -189,6 +194,32 @@ namespace QuietCamp.Presentation
             save.BeforeSave += SyncProgress;
             Tutorial.RetryReward();
             Rewards.EarnFromPlay();
+        }
+
+        public async System.Threading.Tasks.Task ChangePrivacyAge(PrivacyAgeBand band)
+        {
+            if (MonetizationBusy || PrivacyEligibility.Band(Settings) == band) return;
+            PrivacyEligibility.RecordAge(Settings, band);
+            (Ads as AgeRestrictedAdService)?.Invalidate();
+            await Analytics.SetConsent(false);
+            await CrashReports.SetConsent(false);
+            if (!Save.Save()) Notifications?.Show(Localization.T("save.failed"), Kruty1918.Notifications.API.GameplayNotificationKind.Info);
+            if (Ads is IAdLaunchPrivacy launch) await launch.RefreshPrivacyAtLaunch();
+        }
+
+        public async System.Threading.Tasks.Task SetAdvertisingConsent(bool enabled)
+        {
+            if (MonetizationBusy) return;
+            Settings.advertisingConsent = enabled && PrivacyEligibility.OptionalServicesAllowed(Settings);
+            Settings.advertisingPolicyVersion = 1;
+            Settings.advertisingPublicationRevision = GoogleConfiguration.PrivacyRevision;
+            (Ads as AgeRestrictedAdService)?.Invalidate();
+            if (!Save.Save())
+            {
+                Settings.advertisingConsent = false;
+                Notifications?.Show(Localization.T("save.failed"), Kruty1918.Notifications.API.GameplayNotificationKind.Info);
+            }
+            if (Settings.advertisingConsent && Ads is IAdLaunchPrivacy launch) await launch.RefreshPrivacyAtLaunch();
         }
 
         void ConfigureMonetization(IPurchaseProvider provider = null)
@@ -296,6 +327,8 @@ namespace QuietCamp.Presentation
             if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "MainMenu" || MonetizationBusy)
                 return false;
             await Analytics.ClearLocalDataAndWithdraw();
+            await CrashReports.SetConsent(false);
+            (Ads as AgeRestrictedAdService)?.Invalidate();
             if (!Save.MemoryOnly && !SaveAdapter.TryEraseLocalFiles(UnityEngine.Application.persistentDataPath, out _)) return false;
             Save.ResetAfterErase();
             Progression.Restore(null, null, 0);
@@ -328,6 +361,7 @@ namespace QuietCamp.Presentation
         {
             Save.BeforeSave -= SyncProgress;
             Analytics.Dispose();
+            CrashReports.Dispose();
             (Ads as IDisposable)?.Dispose();
             Haptics.Dispose();
             Audio?.Dispose();

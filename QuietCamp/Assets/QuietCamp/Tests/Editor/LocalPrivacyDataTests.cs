@@ -47,7 +47,7 @@ namespace QuietCamp.Tests.Editor
         }
         [Test] public async Task OldPublishedRevisionCannotRestoreCollection()
         {
-            var settings = new SettingsSaveData { analyticsConsent = true, analyticsPolicyVersion = ComfortAnalytics.PolicyVersion,
+            var settings = new SettingsSaveData { privacyAgeBand = (int)PrivacyAgeBand.Adult, privacyAgePolicyVersion = PrivacyEligibility.AgePolicyVersion, analyticsConsent = true, analyticsPolicyVersion = ComfortAnalytics.PolicyVersion,
                 analyticsPublicationRevision = "old-policy" };
             var transport = new Transport();
             using (var analytics = new ComfortAnalytics(settings, transport, publicationRevision: "reviewed-policy"))
