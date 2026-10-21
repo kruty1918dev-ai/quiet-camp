@@ -77,8 +77,9 @@ namespace QuietCamp.Marketing
             bootstrap.SendMessage("OnApplicationFocus",true,SendMessageOptions.RequireReceiver);
             Time.timeScale=1;AudioListener.pause=false;
             foreach(var adaptive in FindObjectsByType<AdaptiveCampQuality>(FindObjectsSortMode.None))adaptive.enabled=false;
-            services.EffectiveQuality=2;QualitySettings.SetQualityLevel(Mathf.Min(2,QualitySettings.names.Length-1),true);
-            foreach(var art in FindObjectsByType<CampArtView>(FindObjectsSortMode.None))art.SetQualityTier(2);
+            int quality=Mathf.Clamp(config.captureQuality,0,3);
+            services.EffectiveQuality=quality;QualitySettings.SetQualityLevel(Mathf.Min(quality,QualitySettings.names.Length-1),true);
+            foreach(var art in FindObjectsByType<CampArtView>(FindObjectsSortMode.None))art.SetQualityTier(quality);
             foreach(var device in InputSystem.devices)_inputStates[device]=device.enabled;
             _oldView=PlayModeWindow.GetViewType();
             if(_oldView!=PlayModeWindow.PlayModeViewTypes.GameView)PlayModeWindow.SetViewType(PlayModeWindow.PlayModeViewTypes.GameView);
@@ -91,6 +92,12 @@ namespace QuietCamp.Marketing
             services.Audio.SetBusVolume(AudioBus.Master,1);services.Audio.SetBusVolume(AudioBus.Music,0);services.Audio.SetBusVolume(AudioBus.Ambience,config.ambienceGain);services.Audio.SetBusVolume(AudioBus.Sfx,config.effectsGain);services.Audio.SetBusVolume(AudioBus.Ui,0);
             _rig=Instantiate(config.cameraRig);var director=_rig.GetComponent<PlayableDirector>();
             var camera=Camera.main;camera.orthographic=true;camera.rect=new Rect(0,0,1,1);
+            if(config.revision.StartsWith("v04"))
+            {
+                var cameraData=camera.GetUniversalAdditionalCameraData();cameraData.renderPostProcessing=true;
+                cameraData.antialiasing=AntialiasingMode.SubpixelMorphologicalAntiAliasing;
+                cameraData.antialiasingQuality=AntialiasingQuality.High;
+            }
             _blackout=new TeaserBlackout(camera);
             var brain=camera.GetComponent<CinemachineBrain>()??camera.gameObject.AddComponent<CinemachineBrain>();
             brain.UpdateMethod=CinemachineBrain.UpdateMethods.ManualUpdate;
@@ -161,9 +168,10 @@ namespace QuietCamp.Marketing
                 if(time>=config.fadeAt)
                 {
                     float fade=Mathf.Clamp01((float)(time-config.fadeAt)/Mathf.Max(.01f,config.fadeSeconds));AudioListener.volume=1-fade;
-                    if((config.revision=="v02"||config.revision=="v03")&&volume.profile.TryGet<ColorAdjustments>(out var grade))grade.postExposure.value=-4*fade*fade;
+                    if((config.revision=="v02"||config.revision=="v03"||config.revision.StartsWith("v04"))&&volume.profile.TryGet<ColorAdjustments>(out var grade))
+                    {grade.postExposure.overrideState=true;grade.postExposure.value=-4*fade*fade;}
                 }
-                if(config.revision=="v03"?Mathf.RoundToInt((float)time*30)>=Mathf.RoundToInt(config.blackAt*30):time>=config.blackAt)
+                if(config.revision=="v03"||config.revision.StartsWith("v04")?Mathf.RoundToInt((float)time*30)>=Mathf.RoundToInt(config.blackAt*30):time>=config.blackAt)
                 {
                     _blackout.Active=true;
                     camera.cullingMask=0;camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Color.black;

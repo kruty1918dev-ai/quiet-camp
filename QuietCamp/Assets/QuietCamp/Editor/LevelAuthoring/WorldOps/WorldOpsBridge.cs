@@ -48,6 +48,8 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                     if(SessionState.GetBool("QuietCamp.NativeTestsRunning",false)||File.Exists(Path.Combine(WorldOpsService.EditorProject,"Temp/ai/qc007-art-request.json")))throw new InvalidOperationException("Another native verification job is active.");
                     WorldOpsService.Start(WorldOpsStorage.Read<WorldRecipe>((string)request["recipe"]),(string)request["repositoryProject"],request["agentDelivery"]?.Value<bool>()??false,request["preexistingDirtyPaths"]?.ToObject<string[]>());
                 }
+                else if(command=="repair-witness")
+                {var result=WorldOpsWitnessRepair.Run((string)request["repositoryProject"],request["levelIds"].ToObject<string[]>());WorldOpsStorage.Json(Outbox,new{requestId,status="ok",result});return;}
                 else if(command=="resume")WorldOpsService.Resume((string)request["runId"]);
                 else if(command=="cancel")WorldOpsService.Cancel();
                 else if(command=="review")WorldOpsService.Submit(WorldOpsStorage.Read<ReviewVerdict>((string)request["verdict"]));
@@ -62,8 +64,9 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 var current=WorldOpsService.Current;
                 WorldOpsStorage.Json(Outbox,new{requestId,status="ok",runId=current?.id,path=current?.directory,runStatus=current?.status,busy=WorldOpsService.Busy});
             }
+            catch(IOException) when(requestId==null){ /* Retry a locked, not-yet-read request on the next Editor tick. */ }
             catch(Exception e){WorldOpsStorage.Json(Outbox,new{requestId,status="error",error=e.Message});}
-            finally{File.Delete(Inbox);}
+            finally{if(requestId!=null)File.Delete(Inbox);}
         }
     }
 }

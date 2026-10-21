@@ -78,7 +78,7 @@ namespace QuietCamp.Marketing
         public static TeaserConfig Build(TeaserConfig config,string root,string configPath,string scenePath)
         {
             var timeline=ScriptableObject.CreateInstance<TimelineAsset>();timeline.editorSettings.frameRate=30;timeline.durationMode=TimelineAsset.DurationMode.FixedLength;timeline.fixedDuration=config.totalFrames/30.0;
-            AssetDatabase.CreateAsset(timeline,root+"/Timelines/Master42_v02.playable");config.timeline=timeline;
+            AssetDatabase.CreateAsset(timeline,root+"/Timelines/"+(config.revision.StartsWith("v04")?"Master_"+config.revision:"Master42_v02")+".playable");config.timeline=timeline;
             var rig=new GameObject("Teaser V02 — curiosity, action, weather, destination");
             var director=rig.AddComponent<PlayableDirector>();director.playOnAwake=false;director.playableAsset=timeline;director.timeUpdateMode=DirectorUpdateMode.Manual;
             var cuts=timeline.CreateTrack<CinemachineTrack>(null,"Editorial shots");
@@ -98,7 +98,8 @@ namespace QuietCamp.Marketing
                 var move=motion.CreateClip(animation);move.start=start;move.duration=clip.duration;((AnimationPlayableAsset)move.asset).removeStartOffset=false;director.SetGenericBinding(motion,animator);
                 shot.look=ScriptableObject.CreateInstance<VolumeProfile>();AssetDatabase.CreateAsset(shot.look,root+"/Profiles/"+shot.id+".asset");
                 var vignette=shot.look.Add<Vignette>(true);vignette.intensity.Override(.055f);AssetDatabase.AddObjectToAsset(vignette,shot.look);
-                var grade=shot.look.Add<ColorAdjustments>(true);grade.postExposure.Override(0);AssetDatabase.AddObjectToAsset(grade,shot.look);
+                bool preserveWeather=config.revision.StartsWith("v04");
+                var grade=shot.look.Add<ColorAdjustments>(!preserveWeather);if(!preserveWeather)grade.postExposure.Override(0);AssetDatabase.AddObjectToAsset(grade,shot.look);
                 if(config.revision=="v02")shot.sunMultiplier=shot.id.Contains("rain")||shot.id.Contains("weather")?1.08f:1;
                 if(config.revision=="v02")shot.musicMultiplier=shot.id.Contains("rain")?.35f:shot.id.Contains("water")?.5f:1;
                 foreach(var cue in shot.cues)AddSignal(timeline,signals,start+cue.frame/30.0,cue.command);
@@ -110,7 +111,7 @@ namespace QuietCamp.Marketing
             var score=timeline.CreateTrack<AudioTrack>(null,"Continuous original score — recorded in engine");var music=score.CreateClip<AudioPlayableAsset>();music.start=0;music.duration=config.totalFrames/30.0;
             ((AudioPlayableAsset)music.asset).clip=config.music;((AudioPlayableAsset)music.asset).loop=true;director.SetGenericBinding(score,source);
             var weather=timeline.CreateTrack<ActivationTrack>(null,"Native weather until final darkness");var active=weather.CreateDefaultClip();active.duration=config.blackAt;weather.postPlaybackState=ActivationTrack.PostPlaybackState.Revert;
-            config.cameraRig=PrefabUtility.SaveAsPrefabAsset(rig,root+"/Cameras/TeaserRig_v02.prefab");AssetDatabase.CreateAsset(config,configPath);
+            config.cameraRig=PrefabUtility.SaveAsPrefabAsset(rig,root+"/Cameras/TeaserRig_"+(config.revision.StartsWith("v04")?config.revision:"v02")+".prefab");AssetDatabase.CreateAsset(config,configPath);
             var previous=UnityEngine.SceneManagement.SceneManager.GetActiveScene();var scene=EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Additive);
             UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(rig,scene);
             var output=new GameObject("Preview output — WorldOps binds real Camp camera").AddComponent<Camera>();UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(output.gameObject,scene);

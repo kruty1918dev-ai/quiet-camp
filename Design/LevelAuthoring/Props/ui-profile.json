@@ -1,0 +1,42 @@
+{
+  "status": "authoring-profile",
+  "frames": 60,
+  "unity": "6000.6.2f1",
+  "timings": [
+    {
+      "name": "Panel",
+      "available": true,
+      "samples": 59,
+      "averageMs": 0.854064406779661,
+      "peakMs": 2.2862
+    },
+    {
+      "name": "SceneView",
+      "available": true,
+      "samples": 59,
+      "averageMs": 0.18234406779661019,
+      "peakMs": 0.3127
+    },
+    {
+      "name": "Thumbnail",
+      "available": true,
+      "samples": 0,
+      "averageMs": 0.0,
+      "peakMs": 0.0
+    },
+    {
+      "name": "Rules",
+      "available": true,
+      "samples": 0,
+      "averageMs": 0.0,
+      "peakMs": 0.0
+    },
+    {
+      "name": "Landscape.Bake",
+      "available": true,
+      "samples": 0,
+      "averageMs": 0.0,
+      "peakMs": 0.0
+    }
+  ]
+}

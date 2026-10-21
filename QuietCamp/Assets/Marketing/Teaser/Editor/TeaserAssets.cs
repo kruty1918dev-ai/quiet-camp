@@ -18,7 +18,7 @@ namespace QuietCamp.Marketing
         public const string Root = "Assets/Marketing/Teaser";
         public const string ConfigPath = Root + "/Settings/TeaserConfig.asset";
         public const string ScenePath = Root + "/Scenes/Teaser.unity";
-        public static TeaserConfig Load() => AssetDatabase.LoadAssetAtPath<TeaserConfig>(TeaserPipeline.Version.StartsWith("v03") ? TeaserV03Assets.ConfigPath(TeaserPipeline.Version) : TeaserPipeline.Version == "v02" ? TeaserV02Assets.ConfigPath : ConfigPath);
+        public static TeaserConfig Load() => AssetDatabase.LoadAssetAtPath<TeaserConfig>(TeaserPipeline.Version.StartsWith("v04") ? TeaserV04Assets.ConfigPath(TeaserPipeline.Version) : TeaserPipeline.Version.StartsWith("v03") ? TeaserV03Assets.ConfigPath(TeaserPipeline.Version) : TeaserPipeline.Version == "v02" ? TeaserV02Assets.ConfigPath : ConfigPath);
         public static void Reframe(TeaserConfig config,int index)
         {
             if(TeaserPipeline.Busy||EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("Stop the capture before changing cameras.");
@@ -60,6 +60,7 @@ namespace QuietCamp.Marketing
 
         public static TeaserConfig Create()
         {
+            if(TeaserPipeline.Version.StartsWith("v04"))return TeaserV04Assets.Create(TeaserPipeline.Version);
             if(TeaserPipeline.Version.StartsWith("v03"))return TeaserV03Assets.Create(TeaserPipeline.Version);
             if(TeaserPipeline.Version=="v02")return TeaserV02Assets.Create();
             if (Load() != null) { EnsureRotations(Load()); return Load(); }

@@ -27,7 +27,7 @@ def capture(project,version):
         if state!=last:print(version,state,flush=True);last=state
         if job['status']=='error':raise RuntimeError(job['error'])
         if job['status']=='captured':
-            invoke('tools/package_teaser.py','--project',project,'--version',version,*(['--finish-v03'] if version=='v03' else []))
+            invoke('tools/package_teaser.py','--project',project,'--version',version,*(['--finish-v03'] if version in ('v03','v04') else []))
             return
         time.sleep(1)
     raise TimeoutError('Existing Editor capture did not finish; no new Editor was started.')

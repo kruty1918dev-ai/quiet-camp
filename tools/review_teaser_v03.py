@@ -90,7 +90,7 @@ def analyze(movie, folder, planned_cuts, black_at):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--project',type=Path,required=True)
-    p.add_argument('--version',required=True,choices=['v03-a','v03-b','v03-c','v03-rough','v03']);a=p.parse_args()
+    p.add_argument('--version',required=True,choices=['v03-a','v03-b','v03-c','v03-rough','v03','v04-pilot','v04']);a=p.parse_args()
     project=a.project.resolve();job=json.loads((project/'UserSettings/Teaser'/('job-'+a.version+'.json')).read_text(encoding='utf-8-sig'))
     receipts=takes(project,a.version);output=Path(job['output']);movie=output/(job['videoName']+'.mp4')
     ffmpeg=project/'UserSettings/QuietCampPromoTools/ffmpeg.exe';ffprobe=ffmpeg.with_name('ffprobe.exe')

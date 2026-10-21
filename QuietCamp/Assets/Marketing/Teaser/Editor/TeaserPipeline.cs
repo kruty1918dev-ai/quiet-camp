@@ -57,7 +57,7 @@ namespace QuietCamp.Marketing
         public static string Version => SessionState.GetString("QuietCamp.Marketing.Version","v01");
         public static void SelectVersion(string version)
         {
-            if(!new[]{"v01","v02","v03-a","v03-b","v03-c","v03-rough","v03"}.Contains(version))throw new ArgumentException("Unknown teaser revision.");
+            if(!new[]{"v01","v02","v03-a","v03-b","v03-c","v03-rough","v03","v04-pilot","v04"}.Contains(version))throw new ArgumentException("Unknown teaser revision.");
             if(version==Version)return;
             if(Busy||EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("Stop the active teaser before switching revision.");
             SessionState.SetString("QuietCamp.Marketing.Version",version);_job=null;
@@ -110,7 +110,7 @@ namespace QuietCamp.Marketing
             if(config.revision!=Version||config.shots.Select(s=>s.id).Distinct().Count()!=config.shots.Length)throw new InvalidDataException("Invalid revision or duplicate shot IDs.");
             if (config.width != 1920 || config.height != 1080 || config.timeline == null || Math.Abs(config.timeline.duration - config.totalFrames/30.0) > .001 || config.cameraRig == null || config.music == null)
                 throw new InvalidDataException("Missing assets or incorrect export/Timeline duration.");
-            if (EditorBuildSettings.scenes.Any(s=>s.enabled && (s.path==TeaserAssets.ScenePath||s.path==TeaserV02Assets.ScenePath||s.path.StartsWith("Assets/Marketing/TeaserV03/")))) throw new InvalidOperationException("Marketing scene must remain outside the player build.");
+            if (EditorBuildSettings.scenes.Any(s=>s.enabled && (s.path==TeaserAssets.ScenePath||s.path==TeaserV02Assets.ScenePath||s.path.StartsWith("Assets/Marketing/TeaserV03/")||s.path.StartsWith("Assets/Marketing/TeaserV04/")))) throw new InvalidOperationException("Marketing scene must remain outside the player build.");
             foreach (var shot in config.shots)
             {
                 if (shot.frames <= 0 || shot.motion == null || shot.scene!="Camp" || shot.transition != "Cut" || shot.transitionSeconds != 0) throw new InvalidDataException("Unsupported shot timing, scene or transition: " + shot.id);
@@ -138,9 +138,10 @@ namespace QuietCamp.Marketing
         {
             var files = Directory.GetFiles("Assets/Marketing/Teaser","*",SearchOption.AllDirectories)
                 .Concat(Directory.Exists("Assets/Marketing/TeaserV03")?Directory.GetFiles("Assets/Marketing/TeaserV03","*",SearchOption.AllDirectories):Array.Empty<string>())
+                .Concat(Directory.Exists("Assets/Marketing/TeaserV04")?Directory.GetFiles("Assets/Marketing/TeaserV04","*",SearchOption.AllDirectories):Array.Empty<string>())
                 .Concat(Directory.GetFiles("Assets/QuietCamp/Scripts","*.cs",SearchOption.AllDirectories))
                 .Concat(Directory.GetFiles("Assets/QuietCamp/Resources/QuietCamp","*",SearchOption.TopDirectoryOnly))
-                .Concat(new[]{"Packages/manifest.json","Packages/packages-lock.json"})
+                .Concat(new[]{"Assets/QuietCamp/Editor/LevelAuthoring/RecorderRenderBridge.cs","Assets/QuietCamp/Editor/LevelAuthoring/CampaignPromoRecorder.cs","Packages/manifest.json","Packages/packages-lock.json"})
                 .Where(p=>File.Exists(p)&&Path.GetExtension(p)!=".md").OrderBy(p=>p,StringComparer.Ordinal);
             var text = string.Join("\n", files.Select(p=>p+":"+WorldOpsStorage.FileHash(p))) + "\n" + UnityEngine.Application.unityVersion;
             var config = TeaserAssets.Load();
@@ -208,7 +209,7 @@ namespace QuietCamp.Marketing
             Debug.LogError("[Teaser] "+error);EditorApplication.delayCall+=()=>{if(EditorApplication.isPlaying)EditorApplication.ExitPlaymode();};
         }
         [MenuItem("Tools/Marketing/Teaser/Create Assets")] static void Create()=>TeaserAssets.Create();
-        [MenuItem("Tools/Marketing/Teaser/Open Teaser")] static void Open(){TeaserAssets.Create();if(!EditorApplication.isPlaying&&EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())EditorSceneManager.OpenScene(Version.StartsWith("v03")?TeaserV03Assets.Root+"/"+Version+"/Scenes/"+Version+".unity":Version=="v02"?TeaserV02Assets.ScenePath:TeaserAssets.ScenePath);}
+        [MenuItem("Tools/Marketing/Teaser/Open Teaser")] static void Open(){TeaserAssets.Create();if(!EditorApplication.isPlaying&&EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())EditorSceneManager.OpenScene(Version.StartsWith("v04")?TeaserV04Assets.Root+"/"+Version+"/Scenes/"+Version+".unity":Version.StartsWith("v03")?TeaserV03Assets.Root+"/"+Version+"/Scenes/"+Version+".unity":Version=="v02"?TeaserV02Assets.ScenePath:TeaserAssets.ScenePath);}
         [MenuItem("Tools/Marketing/Teaser/Validate Teaser")] static void ValidateMenu()=>Debug.Log(Validate());
         [MenuItem("Tools/Marketing/Teaser/Preview Teaser")] static void Preview()=>Start(false);
         [MenuItem("Tools/Marketing/Teaser/Record Teaser")] static void Record()=>Start(true);

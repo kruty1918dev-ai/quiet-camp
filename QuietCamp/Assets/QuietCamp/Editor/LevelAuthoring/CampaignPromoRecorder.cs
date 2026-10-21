@@ -24,6 +24,7 @@ namespace QuietCamp.Editor.LevelAuthoring
         const int Frames = 132;
         static CampaignPromoRecorder _active;
         RecorderController _controller;
+        RecorderRenderBridge _renderBridge;
         RecorderControllerSettings _settings;
         MovieRecorderSettings _movie;
         Mouse _mouse;
@@ -124,11 +125,11 @@ namespace QuietCamp.Editor.LevelAuthoring
             // Device Simulator can own the visible play view. Its rendering
             // does not resume Game View's WaitForEndOfFrame coroutine; still
             // inspection uses normal player frames and ScreenCapture instead.
-            for (int i = 0; i < 20; i++) yield return _stillsOnly ? null : new WaitForEndOfFrame();
+            for (int i = 0; i < 20; i++) yield return null;
             if(_worldCriteria!=null)
             {
                 EditorAuthoringPreview.CaptureClockRunning=true;
-                for(int i=0;i<60;i++)yield return _stillsOnly?null:new WaitForEndOfFrame();
+                for(int i=0;i<60;i++)yield return null;
             }
             // The temporary replay must keep receiving its virtual pointer while
             // Windows focuses the user's IDE. Never alter the project's input asset.
@@ -137,6 +138,7 @@ namespace QuietCamp.Editor.LevelAuthoring
             foreach (var device in _hardware) InputSystem.DisableDevice(device);
             _mouse = InputSystem.AddDevice<Mouse>("QuietCampPromoReplay"); _mouse.MakeCurrent();
             if (!_stillsOnly && !_controller.StartRecording()) throw new InvalidOperationException("Unity Recorder did not start.");
+            if(!_stillsOnly)_renderBridge=new RecorderRenderBridge(_controller,Camera.main);
             if (Screen.width != _width || Screen.height != _height) throw new InvalidOperationException("Game View did not reach the required review resolution.");
             _cameraBefore=OpeningCampaignGameplayProbe.CameraProof(host.Session.Level,
                 UnityEngine.Object.FindAnyObjectByType<CampArtView>()?.Definition);
@@ -154,7 +156,7 @@ namespace QuietCamp.Editor.LevelAuthoring
                 if(_worldCriteria!=null&&frame==115)
                 {
                     // Same placed tents, a later wind phase, before completion props.
-                    for(int tick=0;tick<24;tick++)yield return _stillsOnly?null:new WaitForEndOfFrame();
+                    for(int tick=0;tick<24;tick++)yield return RenderFrame();
                     WorldFrame("breeze");
                 }
                 _peakRainRunoff=Math.Max(_peakRainRunoff,atmosphere?.RainContacts?.RunoffCount??0);
@@ -225,15 +227,22 @@ namespace QuietCamp.Editor.LevelAuthoring
                 }
                 if(frame==124&&_worldCriteria?.inspectMapCoverage==true)
                     yield return InspectMapCoverage();
-                yield return _stillsOnly ? null : new WaitForEndOfFrame();
+                yield return RenderFrame();
             }
+        }
+
+        IEnumerator RenderFrame()
+        {
+            if(_stillsOnly){yield return null;yield break;}
+            int previous=_renderBridge.Frames;_renderBridge.Arm();
+            while(_renderBridge.Frames==previous){if(_renderBridge.Error!=null)throw _renderBridge.Error;yield return null;}
         }
 
         void Finish(string error)
         {
             if (_finished) return; _finished = true;
             if(_worldCriteria!=null)EditorAuthoringPreview.CaptureClockRunning=false;
-            try { _controller?.StopRecording(); }
+            try { _renderBridge?.Dispose();_controller?.StopRecording(); }
             catch (Exception e) { error = (error ?? "") + "\n" + e; }
             // Recorder's end-of-frame hook can outlive StopRecording by a frame.
             // The movie is closed; prevent its queued SkipFrame from rendering stopped audio.

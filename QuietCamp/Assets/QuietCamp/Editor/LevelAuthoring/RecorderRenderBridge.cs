@@ -6,7 +6,7 @@ using UnityEditor.Recorder;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace QuietCamp.Marketing
+namespace QuietCamp.Editor.LevelAuthoring
 {
     /// <summary>
     /// Recorder 5.1.7's EOF coroutine stalls in this 6000.6 Editor after Simulator.

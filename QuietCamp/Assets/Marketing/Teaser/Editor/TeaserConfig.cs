@@ -11,6 +11,7 @@ namespace QuietCamp.Marketing
         public const int Fps = 30;
         public int seed = 1918;
         public int totalFrames = 1260;
+        [Range(0,3)] public int captureQuality = 2;
         public string videoName;
         public int width = 1920, height = 1080;
         public string exportFolder = "Marketing/Exports";

@@ -119,6 +119,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         public double nativeRetryAt;
         public int nativeIoRetries;
         public int nativeOriginalQuality=-1;
+        public int nativeOriginalView=-1;
         public uint nativeOriginalWidth,nativeOriginalHeight;
         public bool workspaceCaptured;
         public string terrainScenePath;

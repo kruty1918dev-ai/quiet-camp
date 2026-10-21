@@ -61,6 +61,13 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         }
         static float Number(JObject p,string key,float fallback,float min,float max)
         {float value=p[key]?.Value<float>()??fallback;if(!Finite(value)||value<min||value>max)throw new ArgumentException("Invalid "+key);return value;}
+        static int ColorParameter(JObject p,string key,int fallback)
+        {
+            if(p[key]==null)return fallback;
+            string hex=p[key].Value<string>();
+            if(hex==null||hex.Length!=7||hex[0]!='#'||!ColorUtility.TryParseHtmlString(hex,out var c))throw new ArgumentException("Expected #RRGGBB for "+key);
+            return (Mathf.RoundToInt(c.r*255)<<16)|(Mathf.RoundToInt(c.g*255)<<8)|Mathf.RoundToInt(c.b*255);
+        }
         public static void Apply(LevelAuthoringDocument d,WorldOperation op,int seed)
         {
             if(!Kinds.Contains(op.kind))throw new ArgumentException("Unsupported operation: "+op.kind);
@@ -69,7 +76,10 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             if(op.kind=="ground.refine")
             {
                 var settings=p.ToObject<CampArtDefinition.GroundSurfaceSettings>();settings.Validate();
-                d.art.groundSurface=settings;return;
+                d.art.groundSurface=settings;
+                d.art.groundLow=ColorParameter(p,"groundLow",d.art.groundLow);
+                d.art.groundHigh=ColorParameter(p,"groundHigh",d.art.groundHigh);
+                d.art.soilColor=ColorParameter(p,"soilColor",d.art.soilColor);return;
             }
             if(op.kind=="vegetation.refine"){WorldOpsVegetation.Refine(d,op,seed);return;}
             if(op.kind=="camera.frame")
@@ -79,7 +89,19 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 {var e=p["euler"].ToObject<float[]>();if(e.Length!=3||e.Any(v=>!Finite(v)))throw new ArgumentException("Invalid camera Euler angles.");d.art.cameraEuler=e;}
                 return;
             }
-            if(op.kind=="atmosphere.preset"){SeasonAtmosphereAuthoring.Apply(d,SeasonAtmosphereCatalog.Get((string)p["preset"]));return;}
+            if(op.kind=="atmosphere.preset")
+            {
+                var preset=SeasonAtmosphereCatalog.Copy(SeasonAtmosphereCatalog.Get((string)p["preset"]));
+                if(p["sunIntensity"]!=null)preset.sunIntensity=Number(p,"sunIntensity",preset.sunIntensity,.2f,2);
+                if(p["contrast"]!=null)preset.contrast=Number(p,"contrast",preset.contrast,-15,30);
+                if(p["saturation"]!=null)preset.saturation=Number(p,"saturation",preset.saturation,-20,20);
+                if(p["temperature"]!=null)preset.temperature=Number(p,"temperature",preset.temperature,-25,25);
+                if(p["fog"]!=null)preset.fog=Number(p,"fog",preset.fog,0,.8f);
+                if(p["lowFog"]!=null)preset.lowFog=Number(p,"lowFog",preset.lowFog,0,.7f);
+                if(p["rays"]!=null)preset.rays=Number(p,"rays",preset.rays,0,1);
+                if(p["airLight"]!=null)preset.airLight=Number(p,"airLight",preset.airLight,0,.7f);
+                SeasonAtmosphereAuthoring.Apply(d,preset);return;
+            }
             if(op.kind=="vegetation.preset"){VegetationAuthoring.Apply(d,VegetationAuthoring.Presets.Single(x=>x.id==(string)p["preset"]),seed);return;}
             if(op.kind=="path.upsert"){UpsertPath(d,op);return;}
             if(op.kind=="path.remove")

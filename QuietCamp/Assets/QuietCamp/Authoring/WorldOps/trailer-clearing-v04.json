@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "id": "trailer-clearing-v04",
+  "label": "Галявина тизера: лісове світло та квітковий луг",
+  "levelIds": ["QC003"],
+  "seed": 1918,
+  "autoApply": false,
+  "capture": true,
+  "maxRepairRounds": 3,
+  "operations": [
+    {"id":"soil","kind":"ground.refine","parameters":{"patchScale":0.46,"facetScale":0.7,"relief":0.085,"stoneScale":1.15,"groundLow":"#35533b","groundHigh":"#66854c","soilColor":"#80634d"}},
+    {"id":"soft-meadow","kind":"vegetation.refine","selector":{"roles":["vegetation"],"generatedOnly":true},"parameters":{"accentRetention":0.28,"fieldCover":{"continuousMeadow":true,"density":28,"maximumHeight":0.13,"maximumSpan":0.27,"fringe":8,"broadLeafShare":0.03,"flowerCoverage":0.65,"softnessPixels":2.7}}},
+    {"id":"forest-light","kind":"atmosphere.preset","parameters":{"preset":"summer_forest","sunIntensity":1.35,"contrast":13,"saturation":9,"temperature":2,"fog":0.14,"lowFog":0.13,"rays":0.7,"airLight":0.35}},
+    {"id":"oak-at-left-border","kind":"building.move","selector":{"ids":["opening-003/11"]},"parameters":{"dx":-2.95,"dz":-0.47}},
+    {"id":"background-crown","kind":"building.move","selector":{"ids":["regrowth/tree/16"]},"parameters":{"dx":4.1,"dz":-0.47}},
+    {"id":"right-sapling","kind":"building.move","selector":{"ids":["opening-003/35"]},"parameters":{"dx":-0.33,"dz":3.04}},
+    {"id":"well-ensemble","kind":"building.move","selector":{"ids":["opening/QC003/landmark-0","opening/QC003/landmark-1","opening/QC003/landmark-2"]},"parameters":{"dx":1.4,"dz":-5.6}},
+    {"id":"ground-the-ensemble","kind":"building.ground","selector":{"ids":["opening-003/11","regrowth/tree/16","opening-003/35","opening/QC003/landmark-0","opening/QC003/landmark-1","opening/QC003/landmark-2"]},"parameters":{"maximumBurial":0.03}},
+    {"id":"shore-tree","kind":"building.move","selector":{"ids":["opening-003/10"]},"parameters":{"dx":3}},
+    {"id":"shore-tree-contact","kind":"building.ground","selector":{"ids":["opening-003/10"]},"parameters":{"maximumBurial":0.03}},
+    {"id":"cup-on-bench","kind":"building.ground","selector":{"ids":["opening/QC003/detail-1"]},"parameters":{"support":"object:opening/QC003/detail-0","maximumBurial":0.01}},
+    {"id":"game-framing","kind":"camera.frame","parameters":{"margin":1.45}}
+  ],
+  "criteria":{"autoRepair":false,"requireVisualReview":true,"profiles":["portrait","landscape"],"quality":3}
+}

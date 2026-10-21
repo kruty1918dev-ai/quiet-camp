@@ -1,5 +1,6 @@
 """Sync owned teaser sources into an existing QA project, preserving local UPM mappings."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -7,8 +8,21 @@ import shutil
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def migrate_bridge(project, source):
+    old=project/'Assets/Marketing/Teaser/Editor/RecorderRenderBridge.cs'
+    if not old.exists():return
+    old_meta=old.with_suffix('.cs.meta');canonical=source/'Assets/QuietCamp/Editor/LevelAuthoring/RecorderRenderBridge.cs.meta'
+    def guid(path):return next(line for line in path.read_text(encoding='utf-8-sig').splitlines() if line.startswith('guid:'))
+    if not old_meta.exists() or not canonical.exists() or guid(old_meta)!=guid(canonical):
+        raise RuntimeError('Refusing to move an unrecognized Recorder bridge; its GUID differs.')
+    backup=project/'UserSettings/Teaser/LegacyBridge'/hashlib.sha256(old.read_bytes()).hexdigest()
+    backup.mkdir(parents=True,exist_ok=True)
+    old.replace(backup/'RecorderRenderBridge.cs.txt');old_meta.replace(backup/'RecorderRenderBridge.cs.meta.txt')
+
+
 def install(project):
     source = ROOT / 'QuietCamp'
+    migrate_bridge(project,source)
     packages = project / 'Packages'
     manifest = packages / 'manifest.json'
     data = json.loads(manifest.read_text(encoding='utf-8-sig'))
@@ -24,7 +38,8 @@ def install(project):
                 raise SystemExit('Unresolved existing local package: ' + key)
     data['dependencies'].update({'com.unity.cinemachine': '3.1.7', 'com.unity.timeline': '6.6.0', 'com.unity.recorder': '5.1.7'})
     manifest.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
-    for relative in ['Assets/Marketing/Teaser', 'Assets/Marketing/TeaserV03', 'Assets/QuietCamp/Editor/LevelAuthoring/WorldOps/WorldOpsBridge.cs']:
+    editor_sources=['RecorderRenderBridge.cs','CampaignPromoRecorder.cs','WorldOps/WorldOpsBridge.cs','WorldOps/WorldOpsWitnessRepair.cs','WorldOps/WorldOpsTypes.cs','WorldOps/WorldOpsNativeRunner.cs','WorldOps/WorldOpsOperations.cs']
+    for relative in ['Assets/Marketing/Teaser', 'Assets/Marketing/TeaserV03', 'Assets/Marketing/TeaserV04']+['Assets/QuietCamp/Editor/LevelAuthoring/'+p for p in editor_sources]:
         src = source / relative
         if not src.exists(): continue
         dst = project / relative
@@ -42,6 +57,8 @@ def install(project):
                 shutil.copy2(file, target)
         else:
             shutil.copy2(src, dst)
+            meta=src.with_suffix(src.suffix+'.meta')
+            if meta.exists():shutil.copy2(meta,dst.with_suffix(dst.suffix+'.meta'))
     print('Teaser sources synchronized; local package mappings preserved. Refresh the existing Editor.')
 
 

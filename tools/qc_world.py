@@ -91,7 +91,7 @@ def main():
     teaser.add_argument('action', choices=['create', 'validate', 'preview', 'record', 'status', 'cancel', 'reframe', 'bake'])
     teaser.add_argument('--level')
     teaser.add_argument('--purpose')
-    teaser.add_argument('--version',choices=['v01','v02','v03-a','v03-b','v03-c','v03-rough','v03'],default='v01')
+    teaser.add_argument('--version',choices=['v01','v02','v03-a','v03-b','v03-c','v03-rough','v03','v04-pilot','v04'],default='v01')
     teaser.add_argument('--pitch',type=float)
     teaser.add_argument('--yaw',type=float)
     teaser.add_argument('--shot', type=int, default=-1, help='Zero-based individual take, or all seven by default')
@@ -107,6 +107,9 @@ def main():
     review = sub.add_parser('review'); review.add_argument('verdict', type=Path)
     rollback = sub.add_parser('rollback'); rollback.add_argument('level_id')
     sub.add_parser('apply')
+    repair = sub.add_parser('repair-witness',help='Canonical repair of one explicit obsolete reference solution; preserves rules')
+    repair.add_argument('level_ids',nargs='+')
+    repair.add_argument('--repository-project',type=Path,default=Path(__file__).resolve().parents[1]/'QuietCamp')
     sub.add_parser('verify-publication')
     delivery = sub.add_parser('deliver')
     delivery.add_argument('--message', default='Apply reviewed QuietCamp WorldOps changes')
@@ -119,6 +122,7 @@ def main():
     inbox = temp / 'qc-world-request.json'; outbox = temp / 'qc-world-result.json'
     # One writer per native bridge. Do not replace an outstanding request.
     payload = {'requestId': uuid.uuid4().hex, 'command': 'delivery' if args.command == 'deliver' else 'status' if args.command == 'watch' else args.command}
+    if args.command=='repair-witness':payload.update(levelIds=args.level_ids,repositoryProject=str(args.repository_project.resolve()))
     if args.command == 'teaser':
         payload.update(action=args.action, shot=args.shot, version=args.version)
         if args.level is not None: payload['levelId'] = args.level

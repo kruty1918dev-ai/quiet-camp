@@ -15,6 +15,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
 {
     public static class WorldOpsNativeRunner
     {
+        static EditorWindow _gameView;
         static string RoundFolder(WorldRun run,WorldLevelRun item)=>Path.Combine(WorldOpsService.LevelFolder(run,item.levelId),"round-"+item.round,"attempt-"+item.attempts);
         public static void Begin(WorldRun run,WorldLevelRun item)
         {
@@ -23,9 +24,16 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             item.attempts++;run.nativeLevel=item.levelId;run.nativeProfile=run.recipe.criteria.profiles[0];run.nativePhase=item.changes?.changed==true&&item.beforeFrames.Count==0?"before":"after";run.nativeState="launch";run.status="capturing";
             run.nativeOriginalQuality=QualitySettings.GetQualityLevel();
             PlayModeWindow.GetRenderingResolution(out run.nativeOriginalWidth,out run.nativeOriginalHeight);
+            run.nativeOriginalView=(int)PlayModeWindow.GetViewType();
+            PlayModeWindow.SetViewType(PlayModeWindow.PlayModeViewTypes.GameView);
+            EditorWindow.GetWindow(typeof(EditorWindow).Assembly.GetType("UnityEditor.GameView")).Focus();
         }
         public static bool Tick(WorldRun run)
         {
+            if(_gameView==null)_gameView=EditorWindow.GetWindow(typeof(EditorWindow).Assembly.GetType("UnityEditor.GameView"));
+            _gameView.Focus();_gameView.Repaint();
+            if(PlayModeWindow.GetViewType()!=PlayModeWindow.PlayModeViewTypes.GameView)PlayModeWindow.SetViewType(PlayModeWindow.PlayModeViewTypes.GameView);
+            EditorApplication.QueuePlayerLoopUpdate();
             var item=run.levels.Single(x=>x.levelId==run.nativeLevel);
             if(run.nativeState=="launch")
             {
@@ -162,6 +170,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         }
         public static void RestoreCaptureSettings(WorldRun run)
         {
+            if(run.nativeOriginalView>=0){PlayModeWindow.SetViewType((PlayModeWindow.PlayModeViewTypes)run.nativeOriginalView);run.nativeOriginalView=-1;}
             if(run.nativeOriginalQuality>=0){QualitySettings.SetQualityLevel(run.nativeOriginalQuality,true);run.nativeOriginalQuality=-1;}
             if(run.nativeOriginalWidth>0&&run.nativeOriginalHeight>0)
             {PlayModeWindow.SetCustomRenderingResolution(run.nativeOriginalWidth,run.nativeOriginalHeight,"QuietCamp restored Game View");run.nativeOriginalWidth=run.nativeOriginalHeight=0;}

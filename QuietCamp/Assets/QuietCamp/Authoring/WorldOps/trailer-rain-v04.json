@@ -1,0 +1,11 @@
+{
+  "version":1,"id":"trailer-rain-v04","label":"Дощовий табір: м'який луг і волога земля",
+  "levelIds":["QC009"],"seed":1918,"autoApply":false,"capture":true,"maxRepairRounds":3,
+  "operations":[
+    {"id":"rain-soil","kind":"ground.refine","parameters":{"patchScale":0.4,"facetScale":0.65,"relief":0.08,"stoneScale":1.0,"groundLow":"#2d4939","groundHigh":"#5e7651","soilColor":"#665345"}},
+    {"id":"wet-meadow","kind":"vegetation.refine","selector":{"roles":["vegetation"],"generatedOnly":true},"parameters":{"accentRetention":0.42,"fieldCover":{"continuousMeadow":true,"density":28,"maximumHeight":0.12,"maximumSpan":0.25,"fringe":8,"broadLeafShare":0.04,"flowerCoverage":0.09,"softnessPixels":2.8}}},
+    {"id":"rain-weather","kind":"atmosphere.preset","parameters":{"preset":"summer_rain","sunIntensity":0.85,"contrast":8,"saturation":4,"temperature":-4,"fog":0.26,"lowFog":0.2,"rays":0.1,"airLight":0.25}},
+    {"id":"frame-board","kind":"camera.frame","parameters":{"margin":1.45}}
+  ],
+  "criteria":{"autoRepair":true,"requireVisualReview":true,"profiles":["portrait","landscape"],"quality":3}
+}

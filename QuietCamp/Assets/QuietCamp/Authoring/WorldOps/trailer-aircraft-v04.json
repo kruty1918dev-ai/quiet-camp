@@ -1,0 +1,11 @@
+{
+  "version":1,"id":"trailer-aircraft-v04","label":"Уламки в теплому живому лісі",
+  "levelIds":["gen:qc_camp:57"],"seed":1918,"autoApply":false,"capture":true,"maxRepairRounds":3,
+  "operations":[
+    {"id":"natural-soil","kind":"ground.refine","parameters":{"patchScale":0.44,"facetScale":0.7,"relief":0.095,"stoneScale":1.2,"groundLow":"#344833","groundHigh":"#668054","soilColor":"#78604a"}},
+    {"id":"understory","kind":"vegetation.refine","selector":{"roles":["vegetation"],"generatedOnly":true},"parameters":{"accentRetention":0.45,"fieldCover":{"continuousMeadow":true,"density":28,"maximumHeight":0.14,"maximumSpan":0.28,"fringe":8,"broadLeafShare":0.05,"flowerCoverage":0.12,"softnessPixels":2.7}}},
+    {"id":"evening-light","kind":"atmosphere.preset","parameters":{"preset":"summer_evening","sunIntensity":1.3,"contrast":11,"saturation":7,"temperature":6,"fog":0.13,"lowFog":0.08,"rays":0.5,"airLight":0.32}},
+    {"id":"frame-board","kind":"camera.frame","parameters":{"margin":1.45}}
+  ],
+  "criteria":{"autoRepair":true,"requireVisualReview":true,"profiles":["portrait","landscape"],"quality":3}
+}
