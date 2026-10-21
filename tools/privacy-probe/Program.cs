@@ -18,6 +18,7 @@ namespace UnityEngine
     public enum RuntimePlatform { Android, IPhonePlayer }
     public static class Application
     {
+        public static string persistentDataPath = Path.GetTempPath();
         public static bool isEditor = true;
         public static RuntimePlatform platform = RuntimePlatform.Android;
     }

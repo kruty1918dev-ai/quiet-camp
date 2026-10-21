@@ -71,7 +71,11 @@ namespace QuietCamp.Infrastructure
             var ok = _loader.TryLoad(Slot, _modules, null, out error);
             if (_unsupportedVersion) { ok = false; error = "Unsupported save module version; files were not changed."; }
             _loadFailed = !ok;
-            if (ok) CampContent.Migrate(this);
+            if (ok)
+            {
+                CampContent.Migrate(this);
+                if (_loader.UsedBackup) PrivacyEligibility.Reset(Settings);
+            }
             return ok;
         }
 

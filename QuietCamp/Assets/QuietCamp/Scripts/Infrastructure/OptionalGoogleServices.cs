@@ -18,6 +18,16 @@ namespace QuietCamp.Infrastructure
         public const string AndroidTestRewardedUnitId = "ca-app-pub-3940256099942544/5224354917";
         public const string IosTestRewardedUnitId = "ca-app-pub-3940256099942544/1712485313";
         public bool TestAdsActive => useTestAds && (UnityEngine.Application.isEditor || Debug.isDebugBuild);
+        [NonSerialized] public SettingsSaveData PrivacySettings;
+        [NonSerialized] public string ConsentRevision;
+        public void BindPrivacy(SettingsSaveData settings, string revision) { PrivacySettings = settings; ConsentRevision = revision; }
+        public bool Eligible => PrivacyEligibility.Allowed(PrivacySettings);
+        public bool AnalyticsAllowed => Eligible && analyticsEnabled && OnlineServicesApproved && PrivacySettings.analyticsConsent
+            && PrivacySettings.analyticsPolicyVersion == ComfortAnalytics.PolicyVersion && PrivacySettings.analyticsPublicationRevision == ConsentRevision;
+        public bool CrashesAllowed => Eligible && crashlyticsEnabled && OnlineServicesApproved && PrivacySettings.crashReportingConsent
+            && PrivacySettings.crashPolicyVersion == CrashDiagnostics.PolicyVersion && PrivacySettings.crashPublicationRevision == ConsentRevision;
+        public bool AdvertisingAllowed => PrivacyEligibility.AdvertisingAllowed(PrivacySettings, ConsentRevision)
+            && PrivacySettings.optionalVideoBonuses && CanUseRewardedAds(UnityEngine.Application.isEditor || Debug.isDebugBuild);
         // A prototype can exercise Google sample inventory before publication.
         // Release players still require the normal publication and consent gates.
         public bool CanUseRewardedAds(bool developmentEnvironment)
@@ -60,14 +70,17 @@ namespace QuietCamp.Infrastructure
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void Reset() { AnalyticsFactory = null; AdsFactory = null; CrashFactory = null; FirebaseInitialization = null; }
         public static System.Threading.Tasks.Task<bool> InitializeFirebase(GoogleServicesConfiguration config)
-            => config.OnlineServicesApproved && (config.analyticsEnabled || config.crashlyticsEnabled)
+            => (config.AnalyticsAllowed || config.CrashesAllowed)
                 && FirebaseInitialization != null ? FirebaseInitialization() : System.Threading.Tasks.Task.FromResult(false);
         public static ICrashTransport Crashes(GoogleServicesConfiguration config)
-            => config.crashlyticsEnabled && config.OnlineServicesApproved && CrashFactory != null ? CrashFactory() : new OfflineCrashTransport();
+            => new PrivacyCrashTransport(() => config.Eligible && config.crashlyticsEnabled && config.OnlineServicesApproved && CrashFactory != null,
+                () => config.CrashesAllowed, () => CrashFactory());
         public static IComfortTransport Analytics(GoogleServicesConfiguration config)
-            => config.analyticsEnabled && config.OnlineServicesApproved && AnalyticsFactory != null ? AnalyticsFactory() : new OfflineComfortTransport();
+            => new PrivacyComfortTransport(() => config.Eligible && config.analyticsEnabled && config.OnlineServicesApproved && AnalyticsFactory != null,
+                () => config.AnalyticsAllowed, () => AnalyticsFactory());
         public static IAdService Ads(GoogleServicesConfiguration config)
-            => config.CanUseRewardedAds(UnityEngine.Application.isEditor || Debug.isDebugBuild)
-                && !string.IsNullOrWhiteSpace(config.CurrentRewardedUnitId) && AdsFactory != null ? AdsFactory(config) : new AdServiceStub();
+            => new PrivacyAdService(() => config.AdvertisingAllowed
+                && !string.IsNullOrWhiteSpace(config.CurrentRewardedUnitId) && AdsFactory != null,
+                () => config.Eligible, () => AdsFactory(config));
     }
 }

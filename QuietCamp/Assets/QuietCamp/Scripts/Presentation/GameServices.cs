@@ -171,6 +171,7 @@ namespace QuietCamp.Presentation
             Progression = progression ?? new ProgressionService();
             if (progression == null) Progression.Restore(save.Progress.completedIds, save.Progress.lastLevelId, save.Progress.cosmeticFlags);
             Legal = LegalConfiguration.Load();
+            if (!save.MemoryOnly) PrivacyInstallScope.Validate(save.Settings);
             GoogleConfiguration = GoogleServicesConfiguration.Load(Legal);
             if (save.Settings.privacyAcknowledgementDraft || save.Settings.privacyAcknowledgementRevision != Legal.revision
                 || string.IsNullOrEmpty(save.Settings.privacyAcknowledgementHash))
@@ -179,12 +180,15 @@ namespace QuietCamp.Presentation
                 GoogleConfiguration.crashlyticsEnabled = false;
                 if (!GoogleConfiguration.TestAdsActive) GoogleConfiguration.rewardedAdsEnabled = false;
             }
-            Ads = ads ?? OptionalGoogleServices.Ads(GoogleConfiguration);
             // Document acknowledgement never grants consent. Changed policy words also invalidate old optional choices.
             var consentPublication = Legal.Published ? Legal.revision + ":" + save.Settings.privacyAcknowledgementHash : Legal.revision;
+            GoogleConfiguration.BindPrivacy(save.Settings, consentPublication);
+            Ads = ads == null ? OptionalGoogleServices.Ads(GoogleConfiguration) : new PrivacyAdService(
+                () => PrivacyEligibility.AdvertisingAllowed(save.Settings, consentPublication) && save.Settings.optionalVideoBonuses,
+                () => PrivacyEligibility.Allowed(save.Settings), () => ads);
             Analytics = new ComfortAnalytics(save.Settings, OptionalGoogleServices.Analytics(GoogleConfiguration), () =>
-            { if (!save.Save()) throw new InvalidOperationException("Privacy choice could not be saved."); }, consentPublication);
-            Crashes = new CrashDiagnostics(save.Settings, OptionalGoogleServices.Crashes(GoogleConfiguration), save.Save, consentPublication);
+            { if (!PersistPrivacy()) throw new InvalidOperationException("Privacy choice could not be saved."); }, consentPublication);
+            Crashes = new CrashDiagnostics(save.Settings, OptionalGoogleServices.Crashes(GoogleConfiguration), PersistPrivacy, consentPublication);
             Save.SaveFailed += OnSaveFailed;
             Rewards = new CozyRewardService(Ads, save.Settings, Progression, save.Save);
             Rewards.RewardObserved += OnCosmeticReward;
@@ -346,6 +350,22 @@ namespace QuietCamp.Presentation
             Audio?.Dispose();
         }
         void OnSaveFailed(string ignoredMessage) => Crashes.Report(CrashArea.Save);
+        bool PersistPrivacy() => Save.MemoryOnly ? Save.Save() : PrivacyInstallScope.Commit(Settings, Save.Save);
+        public async System.Threading.Tasks.Task<bool> SetPrivacyAge(PrivacyAgeBand band)
+        {
+            if (PrivacyEligibility.Band(Settings) == band && Settings.privacyAgeVersion == PrivacyEligibility.AgeVersion) return true;
+            bool saved = PrivacyEligibility.ChangeAge(Settings, band, PersistPrivacy);
+            await Analytics.SetConsent(false);
+            await Crashes.SetConsent(false);
+            (Ads as IAdRequestCancellation)?.CancelPending();
+            return saved;
+        }
+        public bool SetAdvertisingConsent(bool enabled)
+        {
+            bool saved = PrivacyEligibility.SetAdvertising(Settings, enabled, GoogleConfiguration.ConsentRevision, PersistPrivacy);
+            if (!GoogleConfiguration.AdvertisingAllowed) (Ads as IAdRequestCancellation)?.CancelPending();
+            return saved;
+        }
         void OnLifeReward(RewardStage stage) => Analytics.Reward(stage, 0);
         void OnCosmeticReward(RewardStage stage) => Analytics.Reward(stage, 1);
     }

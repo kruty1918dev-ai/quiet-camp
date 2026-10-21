@@ -6,6 +6,7 @@ namespace Kruty1918.SaveSystem
 {
     public sealed class SaveLoadService : ISaveLoadService
     {
+        public bool UsedBackup { get; private set; }
         private readonly SaveModuleOrdering _ordering;
 
         public SaveLoadService(SaveModuleOrdering ordering = null)
@@ -16,6 +17,7 @@ namespace Kruty1918.SaveSystem
         public bool TryLoad(int slot, IReadOnlyList<ISaveModule> modules, string requiredBlockModuleFullName, out string errorMessage)
         {
             errorMessage = null;
+            UsedBackup = false;
             if (!SavePipelineHelper.ValidateSlot(slot))
             {
                 errorMessage = $"Invalid slot {slot}";
@@ -33,6 +35,7 @@ namespace Kruty1918.SaveSystem
                     out string backupError, out _))
             {
                 errorMessage = null;
+                UsedBackup = true;
                 return true;
             }
             errorMessage = $"{primaryError} Backup: {backupError}";

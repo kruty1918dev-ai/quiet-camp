@@ -12,27 +12,31 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
 {
     readonly string _unit;
     readonly bool _testAds;
+    readonly Func<bool> _authorized, _teen, _eligible;
     readonly SynchronizationContext _main;
     bool _initialized, _disposed, _busy, _showing, _consentForm;
     TaskCompletionSource<bool> _cancel;
     TaskCompletionSource<bool> _privacyClosed;
     TaskCompletionSource<AdResult> _adClosed;
     public bool CanCancelPending => _busy && !_showing && !_consentForm;
-    public void CancelPending() { if (CanCancelPending) _cancel?.TrySetResult(true); }
+    public void CancelPending() { _cancel?.TrySetResult(true); }
     async Task<bool> AwaitPending(Task task, int milliseconds)
-    { return await Task.WhenAny(task, Task.Delay(milliseconds), _cancel.Task) == task && !_disposed && !_cancel.Task.IsCompleted; }
+    { return await Task.WhenAny(task, Task.Delay(milliseconds), _cancel.Task) == task && !_disposed && _authorized() && !_cancel.Task.IsCompleted; }
     RewardedAd _ad;
-    public bool IsReady => !_disposed && !_busy && !string.IsNullOrEmpty(_unit);
-    public bool PrivacyOptionsRequired => !_testAds && ConsentInformation.PrivacyOptionsRequirementStatus == PrivacyOptionsRequirementStatus.Required;
-    public GoogleRewardedAdapter(string unit, bool testAds = false)
+    public bool IsReady => !_disposed && !_busy && _authorized() && !string.IsNullOrEmpty(_unit);
+    public bool PrivacyOptionsRequired => !_disposed && _eligible() && !_testAds && ConsentInformation.PrivacyOptionsRequirementStatus == PrivacyOptionsRequirementStatus.Required;
+    public GoogleRewardedAdapter(string unit, bool testAds = false, Func<bool> authorized = null, Func<bool> teen = null, Func<bool> eligible = null)
     {
         // Never skip UMP for a publisher's unit, even if a caller passes testAds.
         _testAds = testAds && (unit == GoogleServicesConfiguration.AndroidTestRewardedUnitId
             || unit == GoogleServicesConfiguration.IosTestRewardedUnitId);
         _unit = unit; _main = SynchronizationContext.Current;
+        _authorized = authorized ?? (() => false); _teen = teen ?? (() => false);
+        _eligible = eligible ?? _authorized;
     }
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    static void Register() => OptionalGoogleServices.AdsFactory = c => new GoogleRewardedAdapter(c.CurrentRewardedUnitId, c.TestAdsActive);
+    static void Register() => OptionalGoogleServices.AdsFactory = c => new GoogleRewardedAdapter(c.CurrentRewardedUnitId, c.TestAdsActive,
+        () => c.AdvertisingAllowed, () => PrivacyEligibility.Band(c.PrivacySettings) == PrivacyAgeBand.From16To17, () => c.Eligible);
     void Main(Action action) { if (_main != null) _main.Post(_ => action(), null); else action(); }
     public void ShowBanner(string placementId) { }
     public void HideBanner() { }
@@ -51,7 +55,7 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
     {
         var cancellation = _cancel.Task;
         var consent = new TaskCompletionSource<bool>();
-        ConsentInformation.Update(new ConsentRequestParameters(), error => Main(() =>
+        ConsentInformation.Update(new ConsentRequestParameters { TagForUnderAgeOfConsent = false }, error => Main(() =>
             consent.TrySetResult(error == null && !_disposed && !cancellation.IsCompleted)));
         return await AwaitPending(consent.Task, 30000) && await consent.Task;
     }
@@ -75,9 +79,15 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
                 var form = _privacyClosed;
                 ConsentForm.LoadAndShowConsentFormIfRequired(error => Main(() =>
                     form.TrySetResult(!_disposed && error == null && ConsentInformation.CanRequestAds())));
-                if (!await form.Task || _disposed) return AdResult.Unavailable;
+                if (!await form.Task || _disposed || cancellation.IsCompleted || !_authorized() || !DeviceStorageAllowed()) return AdResult.Unavailable;
                 _consentForm = false; _privacyClosed = null;
             }
+            if (!_authorized()) return AdResult.Unavailable;
+            MobileAds.SetRequestConfiguration(new RequestConfiguration
+            {
+                AgeRestrictedTreatment = _teen() ? AgeRestrictedTreatment.Teen : AgeRestrictedTreatment.Unspecified,
+                MaxAdContentRating = MaxAdContentRating.T
+            });
             // Google sample app IDs have no publisher UMP message configured.
             // This path is restricted to sample units in Editor/development players.
             if (!_initialized)
@@ -90,9 +100,11 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
             }
             var loaded = new TaskCompletionSource<RewardedAd>();
             bool abandoned = false;
-            RewardedAd.Load(_unit, new AdRequest(), (ad, error) => Main(() =>
+            var request = new AdRequest(); request.Extras.Add("npa", "1");
+            if (!_authorized()) return AdResult.Unavailable;
+            RewardedAd.Load(_unit, request, (ad, error) => Main(() =>
             {
-                if (abandoned || _disposed || cancellation.IsCompleted) { ad?.Destroy(); loaded.TrySetResult(null); }
+                if (abandoned || _disposed || !_authorized() || cancellation.IsCompleted) { ad?.Destroy(); loaded.TrySetResult(null); }
                 else
                 {
                     if (error != null) { Debug.LogWarning("[QuietCamp Ads] Load failed: " + error); ad?.Destroy(); }
@@ -102,7 +114,7 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
             if (!await AwaitPending(loaded.Task, 30000))
             { abandoned = true; return AdResult.Unavailable; }
             _ad = await loaded.Task;
-            if (_disposed || _ad == null || !_ad.CanShowAd()) return AdResult.Unavailable;
+            if (_disposed || !_authorized() || _ad == null || !_ad.CanShowAd()) return AdResult.Unavailable;
             var closed = _adClosed = new TaskCompletionSource<AdResult>();
             bool earned = false;
             _ad.OnAdFullScreenContentClosed += () => Main(() => closed.TrySetResult(earned ? AdResult.Completed : AdResult.Skipped));
@@ -115,10 +127,31 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
             _ad.Show(reward => Main(() => { if (!_disposed) earned = true; }));
             // Do not time out while an ad is actually visible: input/audio must
             // stay gated until its close callback, including app backgrounding.
-            return await closed.Task;
+            var result = await closed.Task;
+            return _authorized() && !cancellation.IsCompleted ? result : AdResult.Unavailable;
         }
         catch (Exception error) { Debug.LogWarning("[QuietCamp Ads] " + error.Message); return AdResult.Failed; }
         finally { _ad?.Destroy(); _ad = null; _adClosed = null; _privacyClosed = null; _busy = false; _showing = false; _consentForm = false; }
+    }
+    static bool DeviceStorageAllowed()
+    {
+        // A fresh UMP result remains mandatory. These IAB signals are an
+        // additional fail-closed check, never a replacement for SDK expiry checks.
+        if (ConsentInformation.ConsentStatus == ConsentStatus.NotRequired) return true;
+#if UNITY_ANDROID && !UNITY_EDITOR
+        using (var player = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+        using (var activity = player.GetStatic<AndroidJavaObject>("currentActivity"))
+        using (var preferences = new AndroidJavaClass("android.preference.PreferenceManager"))
+        using (var store = preferences.CallStatic<AndroidJavaObject>("getDefaultSharedPreferences", activity))
+        {
+            string purposes = store.Call<string>("getString", "IABTCF_PurposeConsents", "");
+            string vendors = store.Call<string>("getString", "IABTCF_VendorConsents", "");
+            return store.Call<int>("getInt", "IABTCF_gdprApplies", -1) == 1
+                && purposes.Length > 0 && purposes[0] == '1' && vendors.Length >= 755 && vendors[754] == '1';
+        }
+#else
+        return false;
+#endif
     }
     public async Task ShowPrivacyOptions()
     {

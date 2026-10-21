@@ -24,9 +24,24 @@ static class FirebaseRuntime
             { Debug.LogWarning("[QuietCamp Firebase] Dependency check timed out; gameplay continues."); return false; }
             if (await check != DependencyStatus.Available) return false;
             _ = FirebaseApp.DefaultInstance;
-#if QC_FIREBASE_CRASHLYTICS
-            Firebase.Crashlytics.Crashlytics.IsCrashlyticsCollectionEnabled = false;
-            Firebase.Crashlytics.Crashlytics.ReportUncaughtExceptionsAsFatal = false;
+            // Shared Core can create native components for both installed products.
+            // Deny their collection before either purpose-specific adapter enables its own work.
+            // This does not prove the absence of native files/traffic during DefaultInstance creation.
+#if QC_FIREBASE_ANALYTICS
+            Firebase.Analytics.FirebaseAnalytics.SetAnalyticsCollectionEnabled(false);
+            Firebase.Analytics.FirebaseAnalytics.SetConsent(new System.Collections.Generic.Dictionary<Firebase.Analytics.ConsentType, Firebase.Analytics.ConsentStatus>
+            {
+                [Firebase.Analytics.ConsentType.AnalyticsStorage] = Firebase.Analytics.ConsentStatus.Denied,
+                [Firebase.Analytics.ConsentType.AdStorage] = Firebase.Analytics.ConsentStatus.Denied,
+                [Firebase.Analytics.ConsentType.AdUserData] = Firebase.Analytics.ConsentStatus.Denied,
+                [Firebase.Analytics.ConsentType.AdPersonalization] = Firebase.Analytics.ConsentStatus.Denied
+            });
+#endif
+#if QC_FIREBASE_CRASHLYTICS && UNITY_ANDROID && !UNITY_EDITOR
+            // Use the native collection API without installing Unity Crashlytics handlers for Analytics-only.
+            using (var type = new AndroidJavaClass("com.google.firebase.crashlytics.FirebaseCrashlytics"))
+            using (var crash = type.CallStatic<AndroidJavaObject>("getInstance"))
+                crash.Call("setCrashlyticsCollectionEnabled", false);
 #endif
             Ready = true;
             return true;

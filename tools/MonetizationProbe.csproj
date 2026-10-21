@@ -22,6 +22,7 @@
     <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Application/JourneyAccessService.cs" />
     <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Application/PurchaseService.cs" />
     <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Application/ProgressionService.cs" />
+    <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Application/PrivacyEligibility.cs" />
     <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Application/DirectCampNavigation.cs" />
     <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Application/AdService.cs;../QuietCamp/Assets/QuietCamp/Scripts/Application/AdLifeService.cs;../QuietCamp/Assets/QuietCamp/Scripts/Application/CampSession.cs;../QuietCamp/Assets/QuietCamp/Scripts/Application/CampEvent.cs;../QuietCamp/Assets/QuietCamp/Scripts/Application/CampSaveData.cs;../QuietCamp/Assets/QuietCamp/Scripts/Application/CampMemoryService.cs" />
     <Compile Include="../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/SaveAdapter.cs;../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampContent.cs;../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampCompletionService.cs;../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampAttemptService.cs;../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/PerformanceAudit.cs" />

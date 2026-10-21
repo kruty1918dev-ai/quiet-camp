@@ -42,7 +42,7 @@ namespace QuietCamp.Application
     /// collection. A level has counters, not a trace of individual gestures.</summary>
     public sealed class ComfortAnalytics : IDisposable
     {
-        public const int PolicyVersion = 2;
+        public const int PolicyVersion = 3;
         public const int SessionEventLimit = 120;
         readonly SettingsSaveData _settings;
         readonly IComfortTransport _transport;
@@ -56,10 +56,10 @@ namespace QuietCamp.Application
         int _generation, _sent, _level, _width, _height, _preset;
         float _activeSeconds, _performanceSeconds, _frames, _frameTotal;
         ComfortScreen? _lastScreen;
-        public bool Available => _transport.Available;
+        public bool Available => !_disposed && PrivacyEligibility.Allowed(_settings) && _transport.Available;
         public bool ChoiceCurrent => _settings.analyticsPolicyVersion == PolicyVersion
             && (_settings.analyticsPublicationRevision ?? "") == _publicationRevision;
-        public bool Consented => _settings.analyticsConsent && ChoiceCurrent;
+        public bool Consented => PrivacyEligibility.Allowed(_settings) && _settings.analyticsConsent && ChoiceCurrent;
         public bool Collecting => !_disposed && Consented && _ready && Available;
         public bool HasActiveAttempt => _level > 0;
 
@@ -71,7 +71,7 @@ namespace QuietCamp.Application
         {
             if (_disposed) return;
             var generation = ++_generation;
-            _settings.analyticsConsent = enabled;
+            _settings.analyticsConsent = enabled && Available;
             _settings.analyticsPolicyVersion = PolicyVersion;
             _settings.analyticsPublicationRevision = _publicationRevision;
             _ready = false;
@@ -85,7 +85,7 @@ namespace QuietCamp.Application
                 try { _transport.SetConsent(false); _transport.ResetLocalData(); } catch { }
                 return;
             }
-            if (!enabled)
+            if (!Consented)
             {
                 try { _transport.SetConsent(false); _transport.ResetLocalData(); } catch { }
                 return;

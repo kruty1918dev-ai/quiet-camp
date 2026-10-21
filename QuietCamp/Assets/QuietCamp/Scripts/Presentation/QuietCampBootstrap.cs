@@ -248,9 +248,8 @@ namespace QuietCamp.Presentation
                 }
             }
             _ = _services.Analytics.RestoreConsent(); // Optional SDK/network cannot hold startup.
-            _ = OptionalGoogleServices.InitializeFirebase(_services.GoogleConfiguration);
             _ = _services.Crashes.RestoreConsent();
-            if (_services.Settings.optionalVideoBonuses && _services.Ads is IAdConsentInitialization adConsent)
+            if (_services.GoogleConfiguration.AdvertisingAllowed && _services.Ads is IAdConsentInitialization adConsent)
                 _ = adConsent.RefreshConsent();
             UnityEngine.Application.targetFrameRate = 60;
             if (!_services.AmbientWindHandle.IsValid)

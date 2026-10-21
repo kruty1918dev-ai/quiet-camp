@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using QuietCamp.Application;
 using QuietCamp.Infrastructure;
 using UnityEngine;
 
@@ -46,6 +47,8 @@ namespace QuietCamp.Presentation.UI
                 }
                 html.Append("<view class=\"settings-topics\">");
                 Entry("data", "tent", "legal.summary.data");
+                Entry("age", "quiet", "privacy.age.help");
+                Entry("advertising", "quiet", "privacy.advertising.help");
                 Entry("analytics", "quiet", services.Analytics.Available ? "legal.summary.analytics" : "legal.summary.offline");
                 Entry("crashes", "quiet", "privacy.crashes.summary");
                 Entry("documents", "lock", "legal.summary.documents");
@@ -75,6 +78,38 @@ namespace QuietCamp.Presentation.UI
                 if (legal.accountsEnabled) Link("account-delete", "legal.accountDelete", legal.accountDeletionUrl);
                 if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "MainMenu")
                     html.Append(HtmlUi.Text(T("legal.erase.menuOnly"), "s-sub"));
+            }
+            else if (nav.Section == "age")
+            {
+                html.Append(HtmlUi.Text(T("privacy.age.help"), "s-sub"));
+                foreach (PrivacyAgeBand band in Enum.GetValues(typeof(PrivacyAgeBand)))
+                {
+                    var choice = band;
+                    html.Append(HtmlUi.Button(surface, "privacy-age-" + (int)band,
+                        (PrivacyEligibility.Band(services.Settings) == band ? "✓ " : "") + T("privacy.age." + (int)band), async () =>
+                        {
+                            if (!await services.SetPrivacyAge(choice)) services.Notifications?.Show(T("save.failed"), Kruty1918.Notifications.API.GameplayNotificationKind.Info);
+                            surface.Refresh();
+                        }, "quiet"));
+                }
+                html.Append(HtmlUi.Text(T("privacy.age.restricted"), "s-sub"));
+                if (PrivacyEligibility.Band(services.Settings) == PrivacyAgeBand.Under13)
+                    html.Append(HtmlUi.Text(T("privacy.age.minimum"), "s-sub"));
+            }
+            else if (nav.Section == "advertising")
+            {
+                html.Append(HtmlUi.Text(T("privacy.advertising.help"), "s-sub"));
+                surface.Callbacks.BindToggle("advertising-consent", value =>
+                {
+                    if (!services.SetAdvertisingConsent(value)) services.Notifications?.Show(T("save.failed"), Kruty1918.Notifications.API.GameplayNotificationKind.Info);
+                    surface.Refresh();
+                });
+                html.Append("<view class=\"toggle-row\"><view class=\"tr-text\"><label for=\"#advertising-consent\">")
+                    .Append(HtmlUi.Escape(T("privacy.advertising.consent"))).Append("</label></view><switch id=\"advertising-consent\" checked=\"")
+                    .Append(PrivacyEligibility.AdvertisingAllowed(services.Settings, config.ConsentRevision) ? "true" : "false")
+                    .Append("\" disabled=\"").Append(config.Eligible ? "false" : "true")
+                    .Append("\" onChange=\"Globals.campUi.Toggle('advertising-consent', event)\" /></view>");
+                if (!config.Eligible) html.Append(HtmlUi.Text(T("privacy.age.restricted"), "s-sub"));
             }
             else if (nav.Section == "crashes")
             {

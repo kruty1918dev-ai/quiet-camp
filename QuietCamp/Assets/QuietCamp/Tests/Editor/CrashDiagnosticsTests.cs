@@ -21,7 +21,7 @@ namespace QuietCamp.Tests.Editor
         }
         [Test] public async Task FreshChoiceDoesNotSendHistoricalReportsOrEnableAnalytics()
         {
-            var settings = new SettingsSaveData(); var transport = new Transport();
+            var settings = new SettingsSaveData { privacyAgeBand = (int)PrivacyAgeBand.Adult, privacyAgeVersion = PrivacyEligibility.AgeVersion }; var transport = new Transport();
             using var diagnostics = new CrashDiagnostics(settings, transport, () => true, "r1");
             await diagnostics.RestoreConsent();
             diagnostics.Report(CrashArea.Save); Assert.AreEqual(0, transport.Reports);
@@ -35,14 +35,14 @@ namespace QuietCamp.Tests.Editor
         [Test] public async Task RevocationWhileInitializingCannotBeOverridden()
         {
             var transport = new Transport { Pending = new TaskCompletionSource<bool>() };
-            using var diagnostics = new CrashDiagnostics(new SettingsSaveData(), transport, () => true, "r1");
+            using var diagnostics = new CrashDiagnostics(new SettingsSaveData { privacyAgeBand = (int)PrivacyAgeBand.Adult, privacyAgeVersion = PrivacyEligibility.AgeVersion }, transport, () => true, "r1");
             var enabling = diagnostics.SetConsent(true); var revoking = diagnostics.SetConsent(false);
             transport.Pending.SetResult(true); await Task.WhenAll(enabling, revoking);
             Assert.IsFalse(diagnostics.Collecting); Assert.IsFalse(transport.Enabled);
         }
         [Test] public async Task OnlyPreviouslyConsentedSessionCanBeSentAfterRestart()
         {
-            var settings = new SettingsSaveData { crashReportingConsent = true, crashPolicyVersion = CrashDiagnostics.PolicyVersion,
+            var settings = new SettingsSaveData { privacyAgeBand = (int)PrivacyAgeBand.Adult, privacyAgeVersion = PrivacyEligibility.AgeVersion, crashReportingConsent = true, crashPolicyVersion = CrashDiagnostics.PolicyVersion,
                 crashPublicationRevision = "r1", crashSessionEligible = false };
             var transport = new Transport();
             using (var diagnostics = new CrashDiagnostics(settings, transport, () => true, "r1"))
@@ -54,7 +54,7 @@ namespace QuietCamp.Tests.Editor
         }
         [Test] public async Task FailedSaveCannotAuthorizeDiagnosticUploads()
         {
-            using var diagnostics = new CrashDiagnostics(new SettingsSaveData(), new Transport(), () => false, "r1");
+            using var diagnostics = new CrashDiagnostics(new SettingsSaveData { privacyAgeBand = (int)PrivacyAgeBand.Adult, privacyAgeVersion = PrivacyEligibility.AgeVersion }, new Transport(), () => false, "r1");
             await diagnostics.SetConsent(true); Assert.IsFalse(diagnostics.Collecting);
         }
     }

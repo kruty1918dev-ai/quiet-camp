@@ -95,9 +95,22 @@ namespace QuietCamp.Presentation.UI
                 + Button("boot-policy-source", T("boot.privacy.website"), () => _content.OpenSource(_publication.document), "policy-link", _content.CanOpenSource(_publication.document));
             if (!_content.Loading && Document == null)
                 links += Button("boot-policy-retry", T("boot.retry"), () => _content.Load(_publication.document, _locale.CurrentLanguageId, new UnityHtmlContentLoader(Path.Combine(UnityEngine.Application.persistentDataPath, "qc_policy_cache"))));
+            string age = "<text class=\"policy-note\">" + T("privacy.age.help") + "</text><view class=\"policy-links\">";
+            foreach (PrivacyAgeBand band in Enum.GetValues(typeof(PrivacyAgeBand)))
+            {
+                var choice = band;
+                age += Button("boot-age-" + (int)band,
+                    (PrivacyEligibility.Band(_save.Settings) == band ? "✓ " : "") + T("privacy.age." + (int)band), () =>
+                    {
+                        _saveFailed = !PrivacyEligibility.ChangeAge(_save.Settings, choice,
+                            () => _save.MemoryOnly ? _save.Save() : PrivacyInstallScope.Commit(_save.Settings, _save.Save));
+                        _dirty = true;
+                    }, "policy-link");
+            }
+            age += "</view><text class=\"policy-note\">" + T(PrivacyEligibility.Band(_save.Settings) == PrivacyAgeBand.Under13 ? "privacy.age.minimum" : "privacy.age.restricted") + "</text>";
             return "<view class=\"policy-page\"><view class=\"policy-card\"><text class=\"policy-title\">" + T("boot.privacy.title")
                 + "</text><text class=\"policy-status\">" + status + "</text><scroll id=\"boot-policy-scroll\" class=\"policy-scroll\"><view>" + text
-                + "<text class=\"policy-note\">" + T("boot.privacy.separate") + "</text></view></scroll><view class=\"policy-links\">" + links + "</view>"
+                + age + "<text class=\"policy-note\">" + T("boot.privacy.separate") + "</text></view></scroll><view class=\"policy-links\">" + links + "</view>"
                 + (_saveFailed ? "<text class=\"policy-status\">" + T("save.failed") + "</text>" : "")
                 + "<view class=\"policy-actions\">" + Button("boot-policy-exit", T("boot.privacy.exit"), Refuse)
                 + Button("boot-policy-ack", T(_publication.draft ? "boot.privacy.continueDraft" : "boot.privacy.continue"), Accept, "policy-primary", Document != null && !Declined)

@@ -5,19 +5,12 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
-/** Runs before FirebaseInitProvider (order 100). Clear the persisted Analytics
- * collection override before native Firebase startup; C# restores current consent.
- * Reflection keeps this small Android library independent of SDK compile deps.
+/** This provider deliberately performs no Firebase/ads calls. Optional SDKs are
+ * started by the game's eligible, saved purpose-specific opt-in, after UI choice.
+ * The vendor FirebaseInitProvider is excluded by the manifest merger.
  */
 public final class FirebasePrivacyProvider extends ContentProvider {
     @Override public boolean onCreate() {
-        try {
-            Class<?> analytics = Class.forName("com.google.firebase.analytics.FirebaseAnalytics");
-            Object instance = analytics.getMethod("getInstance", android.content.Context.class).invoke(null, getContext());
-            analytics.getMethod("setAnalyticsCollectionEnabled", boolean.class).invoke(instance, false);
-        } catch (Exception failure) {
-            android.util.Log.w("QuietCampPrivacy", "Analytics startup gate unavailable: " + failure.getClass().getSimpleName());
-        }
         return true;
     }
     @Override public Cursor query(Uri uri, String[] projection, String selection, String[] args, String order) { return null; }

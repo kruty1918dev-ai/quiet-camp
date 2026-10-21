@@ -15,10 +15,14 @@ ARTIFACTS = CACHE_PROJECT / "Library/Bee/artifacts"
 
 def main():
     player_sources = "--player-source-check" in sys.argv
+    android_sources = "--android-source-check" in sys.argv
+    if android_sources and not player_sources:
+        raise ValueError("Android source check requires --player-source-check (no player build).")
     sdk = subprocess.check_output(["dotnet", "--list-sdks"], text=True).splitlines()[-1]
     version, directory = sdk.split(" ", 1)
     compiler = Path(directory.strip("[]")) / version / "Roslyn/bincore/csc.dll"
-    assemblies = [("Kruty1918.InputRouting", "Packages/com.kruty1918.input-context/Runtime"),
+    assemblies = [("Kruty1918.SaveSystem", "Packages/com.kruty1918.save-system/Runtime"),
+                  ("Kruty1918.InputRouting", "Packages/com.kruty1918.input-context/Runtime"),
                   ("Kruty1918.Audio", "Packages/com.kruty1918.audio/Runtime"),
                   ("Kruty1918.UiFoundation", "Packages/com.kruty1918.ui-foundation/Runtime"),
                   ("Kruty1918.LevelKit", "Packages/com.kruty1918.levelkit/Runtime"),
@@ -77,6 +81,9 @@ def main():
                     symbols = re.split(r"[;,]", line[len("-define:"):])
                     symbols = [symbol for symbol in symbols if not symbol.startswith("UNITY_EDITOR")
                                and symbol != "UNITY_INCLUDE_TESTS"]
+                    if android_sources:
+                        symbols = [symbol for symbol in symbols if not symbol.startswith("UNITY_STANDALONE")]
+                        symbols.append("UNITY_ANDROID")
                     if not symbols:
                         continue
                     line = "-define:" + ";".join(symbols)

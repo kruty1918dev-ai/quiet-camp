@@ -27,7 +27,7 @@ namespace QuietCamp.Application
     // allow-listed diagnostic categories, never save contents or exception messages.
     public sealed class CrashDiagnostics : IDisposable
     {
-        public const int PolicyVersion = 1;
+        public const int PolicyVersion = 2;
         readonly SettingsSaveData _settings;
         readonly ICrashTransport _transport;
         readonly Func<bool> _save;
@@ -35,8 +35,8 @@ namespace QuietCamp.Application
         readonly HashSet<CrashArea> _reported = new HashSet<CrashArea>();
         int _generation, _level;
         bool _ready, _disposed;
-        public bool Available => _transport.Available;
-        public bool Consented => _settings.crashReportingConsent && _settings.crashPolicyVersion == PolicyVersion
+        public bool Available => !_disposed && PrivacyEligibility.Allowed(_settings) && _transport.Available;
+        public bool Consented => PrivacyEligibility.Allowed(_settings) && _settings.crashReportingConsent && _settings.crashPolicyVersion == PolicyVersion
             && (_settings.crashPublicationRevision ?? "") == _revision;
         public bool Collecting => !_disposed && _ready && Consented && Available;
         public CrashDiagnostics(SettingsSaveData settings, ICrashTransport transport, Func<bool> save, string revision)
@@ -56,7 +56,7 @@ namespace QuietCamp.Application
                 if (_save != null && !_save())
                 { _settings.crashReportingConsent = false; _settings.crashSessionEligible = false; }
                 if (!sendPreviousSession) _transport.SetConsent(false);
-                if (!Available) return;
+                if (!Consented) { _transport.SetConsent(false); return; }
                 bool ready = await _transport.Initialize();
                 if (_disposed || generation != _generation) return;
                 _ready = ready;

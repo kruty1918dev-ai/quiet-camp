@@ -8,7 +8,11 @@ using UnityEngine;
 
 sealed class FirebaseCrashTransport : ICrashTransport
 {
-    bool _ready, _enabled, _disposed;
+    bool _ready, _enabled, _disposed, _pendingFailed;
+    int _generation;
+    Task _pending = Task.CompletedTask;
+    readonly Func<string, Task> _reports;
+    public FirebaseCrashTransport(Func<string, Task> reports = null) { _reports = reports ?? PendingReports; }
     public bool Available => true;
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void Register() => OptionalGoogleServices.CrashFactory = () => new FirebaseCrashTransport();
@@ -17,25 +21,45 @@ sealed class FirebaseCrashTransport : ICrashTransport
         if (!await FirebaseRuntime.Initialize() || _disposed) return false;
         _ready = true;
         Crashlytics.IsCrashlyticsCollectionEnabled = false;
+        Crashlytics.ReportUncaughtExceptionsAsFatal = false;
         Crashlytics.SetCustomKey("game_version", UnityEngine.Application.version);
         Crashlytics.SetCustomKey("game_mode", "campaign");
         return true;
     }
     public void SetConsent(bool enabled, bool sendPreviousSession = false)
     {
-        _enabled = enabled && _ready && !_disposed;
+        _enabled = false;
+        int generation = ++_generation;
         if (!_ready) return;
         // Never persist a true automatic-upload override. Cached reports are sent
         // only after this launch has validated the game's current consent receipt.
         Crashlytics.IsCrashlyticsCollectionEnabled = false;
-        PendingReports(_enabled && sendPreviousSession ? "sendUnsentReports" : "deleteUnsentReports");
+        _pending = ApplyReports(_pending, generation, enabled, sendPreviousSession);
     }
-    static void PendingReports(string method)
+    async Task ApplyReports(Task previous, int generation, bool enabled, bool sendPreviousSession)
+    {
+        try
+        {
+            await previous;
+            if (_disposed || _pendingFailed || generation != _generation) return;
+            await _reports(enabled && sendPreviousSession ? "sendUnsentReports" : "deleteUnsentReports");
+            if (!_disposed && generation == _generation) _enabled = enabled;
+        }
+        catch { _pendingFailed = true; _enabled = false; Debug.LogWarning("[QuietCamp Firebase] Pending report operation failed; diagnostics remain disabled until restart."); }
+    }
+    static async Task PendingReports(string method)
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
         using (var type = new AndroidJavaClass("com.google.firebase.crashlytics.FirebaseCrashlytics"))
         using (var instance = type.CallStatic<AndroidJavaObject>("getInstance"))
-        using (var task = instance.Call<AndroidJavaObject>(method)) { }
+        using (var task = instance.Call<AndroidJavaObject>(method))
+        {
+            for (int i = 0; !task.Call<bool>("isComplete"); i++)
+            { if (i >= 200) throw new TimeoutException(); await Task.Delay(50); }
+            if (!task.Call<bool>("isSuccessful")) throw new InvalidOperationException("Pending report operation failed.");
+        }
+#else
+        await Task.CompletedTask;
 #endif
     }
     public void SetLevel(int level)
@@ -47,6 +71,6 @@ sealed class FirebaseCrashTransport : ICrashTransport
         // A fixed message avoids forwarding paths, save payloads or user input.
         Crashlytics.LogException(new InvalidOperationException("QuietCamp diagnostic: " + area));
     }
-    public void Dispose() { _enabled = false; _disposed = true; }
+    public void Dispose() { _enabled = false; _disposed = true; _generation++; }
 }
 #endif

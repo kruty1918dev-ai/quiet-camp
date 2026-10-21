@@ -17,7 +17,7 @@ class Program
     static async Task Finishes(Task task)
     { Check(await Task.WhenAny(task, Task.Delay(1000)) == task, "Unresolved adapter task"); await task; }
     static GoogleRewardedAdapter NewAd()
-    { ConsentInformation.Reset(); RewardedAd.Reset(); return new GoogleRewardedAdapter("test-only"); }
+    { ConsentInformation.Reset(); RewardedAd.Reset(); return new GoogleRewardedAdapter("test-only", authorized: () => true); }
     static void Pass(string name) { _passed++; Console.WriteLine("PASS " + name); }
     static async Task Main()
     {
@@ -26,11 +26,13 @@ class Program
         Check(config.RewardedUnitId(false) == GoogleServicesConfiguration.AndroidTestRewardedUnitId
             && config.RewardedUnitId(true) == GoogleServicesConfiguration.IosTestRewardedUnitId, "Test mode must override publisher IDs");
         Check(config.CanUseRewardedAds(true) && !config.CanUseRewardedAds(false), "Test mode is development only");
-        OptionalGoogleServices.AdsFactory = c => new GoogleRewardedAdapter(c.CurrentRewardedUnitId, c.TestAdsActive);
+        OptionalGoogleServices.AdsFactory = c => new GoogleRewardedAdapter(c.CurrentRewardedUnitId, c.TestAdsActive, () => c.AdvertisingAllowed);
         UnityEngine.Debug.isDebugBuild = false;
         Check(!OptionalGoogleServices.Ads(config).IsReady, "Release must not activate sample ads");
         UnityEngine.Debug.isDebugBuild = true;
-        using (var testProvider = (GoogleRewardedAdapter)OptionalGoogleServices.Ads(config))
+        var sampleSettings = new SettingsSaveData { privacyAgeBand = 4, privacyAgeVersion = 1, advertisingConsent = true, advertisingPolicyVersion = 1, advertisingRevision = "review" };
+        config.BindPrivacy(sampleSettings, "review");
+        using (var testProvider = (PrivacyAdService)OptionalGoogleServices.Ads(config))
         {
             ConsentInformation.Reset(); RewardedAd.Reset();
             var task = testProvider.ShowRewarded("camp.life");
@@ -43,7 +45,7 @@ class Program
         Check(config.RewardedUnitId(true) == "publisher-ios", "Live iOS unit selection");
         OptionalGoogleServices.AdsFactory = null;
         Pass("sample IDs, development gate, live publication gate and sample reward");
-        using (var provider = new GoogleRewardedAdapter("publisher-unit", true))
+        using (var provider = new GoogleRewardedAdapter("publisher-unit", true, () => true))
         {
             ConsentInformation.Reset(); RewardedAd.Reset();
             var task = provider.ShowRewarded("camp.life");
@@ -128,13 +130,70 @@ class Program
             provider.SetConsent(true); provider.Send(record);
             Check(FirebaseAnalytics.Events == 1 && FirebaseAnalytics.Collection, "Consent enables one event");
             foreach (var pair in FirebaseAnalytics.Consent)
-                Check(pair.Value == (pair.Key == ConsentType.AnalyticsStorage ? ConsentStatus.Granted : ConsentStatus.Denied), "Ad consent must be denied");
+                Check(pair.Value == (pair.Key == ConsentType.AnalyticsStorage ? Firebase.Analytics.ConsentStatus.Granted : Firebase.Analytics.ConsentStatus.Denied), "Ad consent must be denied");
             provider.ResetLocalData(); provider.Send(record);
             Check(!FirebaseAnalytics.Collection && FirebaseAnalytics.Resets == 1 && FirebaseAnalytics.Events == 1, "Reset withdraws collection");
             Pass("Firebase consent, numeric event and local reset boundary");
         }
+        await CheckAdvertisingPrivacy();
+        await CheckPendingReports();
         await CheckCrashPrivacy();
         Console.WriteLine(_passed + " contract scenarios passed. SDK doubles only; no real Google/Android integration verified.");
+    }
+    static async Task CheckAdvertisingPrivacy()
+    {
+        ConsentInformation.Reset(); RewardedAd.Reset();
+        using (var denied = new GoogleRewardedAdapter("publisher-unit"))
+        {
+            await denied.RefreshConsent();
+            Check(await denied.ShowRewarded("camp.life") == AdResult.Unavailable && ConsentInformation.Updates == 0,
+                "Default-denied adapter must not contact UMP");
+        }
+        Pass("adapter defaults to no UMP and no ad requests");
+        foreach (bool teen in new[] { false, true })
+        {
+            ConsentInformation.Reset(); RewardedAd.Reset();
+            using var ad = new GoogleRewardedAdapter("publisher-unit", authorized: () => true, teen: () => teen);
+            var result = ad.ShowRewarded("camp.life");
+            Check(RewardedAd.Request.Extras["npa"] == "1", "Every rewarded request must specify NPA");
+            Check(MobileAds.Configuration.AgeRestrictedTreatment == (teen ? AgeRestrictedTreatment.Teen : AgeRestrictedTreatment.Unspecified), "Age treatment");
+            ad.CancelPending(); RewardedAd.Last.Earn();
+            Check(!result.IsCompleted, "Revocation cannot release a still-visible native ad");
+            RewardedAd.Last.Close(); Check(await result == AdResult.Unavailable, "Revoked request must not grant after re-enable");
+        }
+        Pass("NPA, adult/teen signals and revoked visible reward waits for close");
+        ConsentInformation.Reset(); RewardedAd.Reset();
+        ConsentInformation.ConsentStatus = GoogleMobileAds.Ump.Api.ConsentStatus.Obtained;
+        using (var ad = new GoogleRewardedAdapter("publisher-unit", authorized: () => true))
+            Check(await ad.ShowRewarded("camp.life") == AdResult.Unavailable && RewardedAd.Last == null,
+                "CanRequestAds alone cannot substitute for device-storage consent");
+        ConsentInformation.ConsentStatus = GoogleMobileAds.Ump.Api.ConsentStatus.NotRequired;
+        Pass("no Limited Ads fallback without additional device-access signal");
+    }
+    static async Task CheckPendingReports()
+    {
+        var first = new TaskCompletionSource<bool>();
+        var operations = new List<string>();
+        using (var crash = new FirebaseCrashTransport(method =>
+        { operations.Add(method); return operations.Count == 1 ? first.Task : Task.CompletedTask; }))
+        {
+            Check(await crash.Initialize(), "Crash test initialization");
+            int before = Firebase.Crashlytics.Crashlytics.Reports;
+            crash.SetConsent(true, true); crash.SetConsent(false); crash.Report(CrashArea.Save);
+            Check(operations.Count == 1, "Report operations must serialize");
+            first.SetResult(true); await Task.Delay(20);
+            crash.Report(CrashArea.Save);
+            Check(operations.Count == 2 && operations[0] == "sendUnsentReports" && operations[1] == "deleteUnsentReports"
+                && Firebase.Crashlytics.Crashlytics.Reports == before, "Late send completion cannot restore consent");
+        }
+        Pass("pending send/delete order and late completion after withdrawal");
+        using (var crash = new FirebaseCrashTransport(_ => Task.FromException(new TimeoutException())))
+        {
+            await crash.Initialize(); int before = Firebase.Crashlytics.Crashlytics.Reports;
+            crash.SetConsent(true); crash.SetConsent(true, true); crash.Report(CrashArea.Save);
+            Check(Firebase.Crashlytics.Crashlytics.Reports == before, "A failed native pending operation stays disabled until restart");
+        }
+        Pass("failed pending report operation cannot be followed by enabled collection");
     }
     sealed class Crashes : ICrashTransport
     {
@@ -151,7 +210,7 @@ class Program
     }
     static async Task CheckCrashPrivacy()
     {
-        var settings = new SettingsSaveData(); var transport = new Crashes();
+        var settings = new SettingsSaveData { privacyAgeBand = 4, privacyAgeVersion = 1 }; var transport = new Crashes();
         using (var service = new CrashDiagnostics(settings, transport, () => true, "review"))
         {
             await service.RestoreConsent(); service.Report(CrashArea.Save);
@@ -163,7 +222,7 @@ class Program
             Check(!transport.Enabled && !settings.crashSessionEligible && transport.Reports == 1, "Withdrawal must stop diagnostics");
         }
         Pass("crash default-off, separate consent, first opt-in, deduplication and withdrawal");
-        settings = new SettingsSaveData(); transport = new Crashes { Pending = new TaskCompletionSource<bool>() };
+        settings = new SettingsSaveData { privacyAgeBand = 4, privacyAgeVersion = 1 }; transport = new Crashes { Pending = new TaskCompletionSource<bool>() };
         using (var service = new CrashDiagnostics(settings, transport, () => true, "r1"))
         {
             var enabling = service.SetConsent(true); var revoking = service.SetConsent(false);
@@ -171,7 +230,7 @@ class Program
             Check(!service.Collecting && !transport.Enabled, "Pending initialization cannot override withdrawal");
         }
         Pass("crash consent withdrawal wins over pending dependency check");
-        settings = new SettingsSaveData { crashReportingConsent = true, crashPolicyVersion = CrashDiagnostics.PolicyVersion,
+        settings = new SettingsSaveData { privacyAgeBand = 4, privacyAgeVersion = 1, crashReportingConsent = true, crashPolicyVersion = CrashDiagnostics.PolicyVersion,
             crashPublicationRevision = "r1", crashSessionEligible = false };
         transport = new Crashes();
         using (var service = new CrashDiagnostics(settings, transport, () => true, "r1"))
@@ -188,7 +247,7 @@ class Program
             await service.RestoreConsent(); Check(!transport.Enabled && !transport.SentPrevious, "New publication invalidates crash consent");
         }
         Pass("crash restart receipt, previous-session eligibility and publication revision");
-        using (var service = new CrashDiagnostics(new SettingsSaveData(), new Crashes(), () => false, "r1"))
+        using (var service = new CrashDiagnostics(new SettingsSaveData { privacyAgeBand = 4, privacyAgeVersion = 1 }, new Crashes(), () => false, "r1"))
         { await service.SetConsent(true); Check(!service.Collecting, "Failed consent save cannot enable diagnostics"); }
         Pass("crash consent save failure stays disabled");
         using (var sdk = new FirebaseCrashTransport())
@@ -241,10 +300,13 @@ namespace QuietCamp.Application
 {
     public sealed class SettingsSaveData
     {
-        public bool analyticsConsent, crashReportingConsent, crashSessionEligible;
+        public bool analyticsConsent, crashReportingConsent, crashSessionEligible, advertisingConsent, optionalVideoBonuses = true;
+        public int privacyAgeBand, privacyAgeVersion, advertisingPolicyVersion, analyticsPolicyVersion;
+        public string advertisingRevision, analyticsPublicationRevision;
         public int crashPolicyVersion;
         public string crashPublicationRevision;
     }
+    public static class ComfortAnalytics { public const int PolicyVersion = 3; }
     public interface IAdPrivacyOptions { bool PrivacyOptionsRequired { get; } Task ShowPrivacyOptions(); }
     public interface IAdRequestCancellation { bool CanCancelPending { get; } void CancelPending(); }
     public interface IComfortTransport : IDisposable { bool Available { get; } Task<bool> Initialize(); void SetConsent(bool value); void Send(ComfortRecord record); void ResetLocalData(); }
@@ -269,11 +331,13 @@ namespace QuietCamp.Infrastructure
 namespace GoogleMobileAds.Ump.Api
 {
     public enum PrivacyOptionsRequirementStatus { Required, NotRequired }
-    public class ConsentRequestParameters { }
+    public enum ConsentStatus { NotRequired, Required, Obtained }
+    public class ConsentRequestParameters { public bool TagForUnderAgeOfConsent; }
     public class FormError { }
     public static class ConsentInformation
     {
         public static PrivacyOptionsRequirementStatus PrivacyOptionsRequirementStatus => PrivacyOptionsRequirementStatus.Required;
+        public static ConsentStatus ConsentStatus = ConsentStatus.NotRequired;
         public static int Updates; public static bool HoldForm, HoldPrivacy, ThrowPrivacy;
         public static Action<FormError> FormCallback;
         public static void Update(ConsentRequestParameters parameters, Action<FormError> callback) { Updates++; callback(null); }
@@ -290,18 +354,24 @@ namespace GoogleMobileAds.Ump.Api
 }
 namespace GoogleMobileAds.Api
 {
-    public class AdRequest { }
+    public enum AgeRestrictedTreatment { Unspecified, Teen }
+    public enum MaxAdContentRating { T }
+    public class RequestConfiguration { public AgeRestrictedTreatment AgeRestrictedTreatment; public MaxAdContentRating MaxAdContentRating; }
+    public class AdRequest { public Dictionary<string,string> Extras = new Dictionary<string,string>(); }
     public class Reward { }
     public class AdError { }
     public class LoadAdError { }
     public class InitializationStatus { }
     public static class MobileAds
     {
+        public static RequestConfiguration Configuration;
+        public static void SetRequestConfiguration(RequestConfiguration value) { Configuration = value; }
         public static bool RaiseAdEventsOnUnityMainThread;
         public static void Initialize(Action<InitializationStatus> callback) => callback(new InitializationStatus());
     }
     public class RewardedAd
     {
+        public static AdRequest Request;
         public static RewardedAd Last; public static bool HoldLoad;
         static Action<RewardedAd, LoadAdError> _load;
         public bool Destroyed;
@@ -310,7 +380,7 @@ namespace GoogleMobileAds.Api
         Action<Reward> _reward;
         public static void Reset() { Last = null; HoldLoad = false; _load = null; }
         public static void Load(string unit, AdRequest request, Action<RewardedAd, LoadAdError> callback)
-        { _load = callback; if (!HoldLoad) CompleteLoad(); }
+        { Request = request; _load = callback; if (!HoldLoad) CompleteLoad(); }
         public static void CompleteLoad() { Last = new RewardedAd(); _load(Last, null); }
         public bool CanShowAd() => !Destroyed;
         public void Show(Action<Reward> callback) => _reward = callback;

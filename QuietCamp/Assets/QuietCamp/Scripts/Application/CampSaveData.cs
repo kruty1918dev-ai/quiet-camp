@@ -47,6 +47,11 @@ namespace QuietCamp.Application
         public int crashPolicyVersion;
         public string crashPublicationRevision;
         public bool crashSessionEligible;
+        public int privacyAgeBand, privacyAgeVersion;
+        public string privacyInstallToken;
+        public bool advertisingConsent;
+        public int advertisingPolicyVersion;
+        public string advertisingRevision;
         // Local acknowledgement receipt, never consent to optional processing.
         public string privacyAcknowledgementRevision, privacyAcknowledgementHash;
         public string privacyAcknowledgementLanguage, privacyAcknowledgedUtc;

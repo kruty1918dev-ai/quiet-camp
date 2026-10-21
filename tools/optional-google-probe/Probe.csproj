@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Include="../../QuietCamp/Assets/QuietCamp/OptionalSdk/*.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/AdService.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/OptionalPrivacy.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/PrivacyEligibility.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/CrashDiagnostics.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/OptionalGoogleServices.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/LegalConfiguration.cs" />

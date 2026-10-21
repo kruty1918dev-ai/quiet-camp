@@ -18,6 +18,7 @@ class MonetizationProbe
     static void Pass(string name) { Console.WriteLine("PASS " + name); _passed++; }
     static async Task Main(string[] args)
     {
+        if (args.Length == 1 && args[0] == "--privacy-save-check") { await NativeContracts(); return; }
         if (args.Length == 2 && args[0] == "--author-lighthouse") { AuthorLighthouse(args[1]); return; }
         if(args.Length==2&&args[0]=="--author-campaign100"){Campaign100Authoring.Publish(args[1]);return;}
         if(args.Length==2&&args[0]=="--author-first-ten"){Campaign100Authoring.PublishFirstTen(args[1]);return;}
@@ -216,6 +217,15 @@ class MonetizationProbe
             var blocks = Decode(path); var album = JObject.Parse(Encoding.UTF8.GetString(blocks[SaveFileCodec.ComputeBlockId("qc.album.v1")].Skip(4).ToArray()));
             Expect(album["futureAlbumField"].Value<int>() == 17 && album["entries"][0]["futureEntryField"].Value<int>() == 42, "Unknown optional fields survive round trip");
             Pass("native save module migration and unknown nested JSON preservation");
+            reload.Settings.privacyAgeBand = 4; reload.Settings.privacyAgeVersion = 1;
+            reload.Settings.analyticsConsent = reload.Settings.crashReportingConsent = reload.Settings.advertisingConsent = true;
+            Expect(reload.Save(), "Current privacy fixture save");
+            File.Copy(path, path + ".bak", true); File.WriteAllText(path, "synthetic corruption");
+            reload = new SaveAdapter(); Expect(reload.Load(out _), "Valid backup recovery");
+            Expect(!reload.Settings.analyticsConsent && !reload.Settings.crashReportingConsent && !reload.Settings.advertisingConsent
+                && PrivacyEligibility.Band(reload.Settings) == PrivacyAgeBand.Unknown, "Backup must revoke optional permissions");
+            Pass("backup recovery revokes privacy receipts without losing game progress");
+
             fixture["qc.economy.v1"] = "{\"version\":99}"; WriteFixture(path, fixture);
             var before = File.ReadAllBytes(path); reload = new SaveAdapter();
             Expect(!reload.Load(out _) && !reload.Save() && before.SequenceEqual(File.ReadAllBytes(path)), "Future mandatory version never rewrites primary, even with valid backup");

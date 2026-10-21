@@ -591,6 +591,18 @@
     "privacy.crashes.explanation": "Optional diagnostics are processed by Firebase Crashlytics (Google). Reports may include stack traces, exception messages, app and device details, diagnostic identifiers and approved context such as the level number. This choice is separate from analytics and advertising. Core play remains available when you decline. Automatic uploads are disabled; reports are sent on a later launch only when the previous session and the current privacy choice permit it. Withdrawal deletes pending stored reports; already uploaded reports require a separate privacy request.",
     "privacy.crashes.unavailable": "Crash reporting is disabled until the release privacy review is complete. Android app-storage controls also remove locally stored SDK data.",
     "privacy.crashes.consent": "Allow optional crash diagnostics",
-    "privacy.crashes.test": "Send a test diagnostic (development)"
+    "privacy.crashes.test": "Send a test diagnostic (development)",
+    "legal.section.age": "Age category",
+    "legal.section.advertising": "Optional advertising",
+    "privacy.age.help": "Choose an age category, or leave it unknown. We do not ask for a birth date or documents. Changing it switches off all optional permissions.",
+    "privacy.age.0": "Unknown / not selected",
+    "privacy.age.1": "Under 13",
+    "privacy.age.2": "13–15",
+    "privacy.age.3": "16–17",
+    "privacy.age.4": "18+",
+    "privacy.age.restricted": "With unknown age or under 16, analytics, crash uploads and ads stay off, including Google consent requests. The local game and policy remain available.",
+    "privacy.age.minimum": "Quiet Camp is intended for ages 13+. This selection does not verify identity or parental permission.",
+    "privacy.advertising.help": "Optional rewarded videos are off until you separately allow advertising. For ages 16+, Google may then ask for applicable permissions. Ads are non-personalized; refusal keeps the local game available. Video bonus availability is a separate gameplay preference.",
+    "privacy.advertising.consent": "Allow optional rewarded advertising"
   }
 }

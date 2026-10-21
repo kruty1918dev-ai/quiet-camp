@@ -591,6 +591,18 @@
     "privacy.crashes.explanation": "Optionale Diagnosen werden von Firebase Crashlytics (Google) verarbeitet. Berichte können Stacktraces, Fehlermeldungen, App- und Geräteinformationen, Diagnosekennungen und freigegebenen Kontext wie die Levelnummer enthalten. Diese Auswahl ist von Analyse und Werbung getrennt. Eine Ablehnung schränkt das Spiel nicht ein. Automatische Uploads sind aus: Berichte werden bei späteren Starts nur gesendet, wenn die vorherige Sitzung und die aktuelle Datenschutzauswahl dies erlauben. Ein Widerruf löscht gespeicherte ausstehende Berichte; bereits übertragene Daten erfordern eine gesonderte Anfrage.",
     "privacy.crashes.unavailable": "Absturzberichte sind bis zum Abschluss der Datenschutzprüfung für die Veröffentlichung deaktiviert. Lokale SDK-Daten lassen sich auch über die Android-App-Speichereinstellungen löschen.",
     "privacy.crashes.consent": "Optionale Absturzdiagnosen erlauben",
-    "privacy.crashes.test": "Testdiagnose senden (Entwicklung)"
+    "privacy.crashes.test": "Testdiagnose senden (Entwicklung)",
+    "legal.section.age": "Altersgruppe",
+    "legal.section.advertising": "Optionale Werbung",
+    "privacy.age.help": "Wähle eine Altersgruppe oder lasse sie unbekannt. Wir fragen weder Geburtsdatum noch Dokumente ab. Ein Wechsel deaktiviert alle optionalen Einwilligungen.",
+    "privacy.age.0": "Unbekannt / nicht gewählt",
+    "privacy.age.1": "Unter 13",
+    "privacy.age.2": "13–15",
+    "privacy.age.3": "16–17",
+    "privacy.age.4": "18+",
+    "privacy.age.restricted": "Bei unbekanntem Alter und unter 16 bleiben Analyse, Absturzübermittlung und Werbung aus, einschließlich Googles Einwilligungsanfragen. Das lokale Spiel und die Richtlinie bleiben zugänglich.",
+    "privacy.age.minimum": "Quiet Camp ist für Personen ab 13 Jahren gedacht. Diese Auswahl prüft weder Identität noch elterliche Erlaubnis.",
+    "privacy.advertising.help": "Freiwillige Belohnungsvideos bleiben aus, bis du Werbung separat erlaubst. Ab 16 kann Google danach die nötigen Einwilligungen abfragen. Werbung ist nicht personalisiert; Ablehnung lässt das lokale Spiel zugänglich. Die Verfügbarkeit von Videoboni ist eine eigene Spieleinstellung.",
+    "privacy.advertising.consent": "Optionale Belohnungswerbung erlauben"
   }
 }
