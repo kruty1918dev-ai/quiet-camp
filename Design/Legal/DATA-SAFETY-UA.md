@@ -1,38 +1,35 @@
-# Робоча таблиця Data safety
+# Дані Quiet Camp і робоча таблиця Google Play
 
-Стан джерел 2026-10-04. Ця таблиця допомагає заповнити форму; вона не є готовою відповіддю для всіх майбутніх релізів. Враховуються фактичні SDK, native auto-init, усі активні країни й доступні версії. [Google Play](https://support.google.com/googleplay/android-developer/answer/10787469?hl=en).
+Стан: privacy-runtime-completion, ревізія 2026-10-21.privacy-4, пакет com.quietcamp.game, Firebase project quiet-camp. Це підготовка декларації, а не підтверджена форма Play Console. Виробничі сервіси заблоковані до [перевірки релізу](PRIVACY-RUNTIME-UA.md).
 
-| Джерело | Дані | Поточний стан | Перевірити перед декларацією |
+Контролер — фізична особа **Oleksii Havryliuk**, публічне написання **Oleksiy Havryliuk**. **Kruty1918 Games** — бренд, не компанія. Повну поштову адресу не надано.
+
+## Облік даних
+
+| Джерело | Дані й одержувач | Контроль | Перевірити для Data safety |
 |---|---|---|---|
-| SaveAdapter | Проходження, розкладки, альбом, косметика, налаштування, вибір аналітики та редакція політики | На пристрої | OS backup/restore, зовнішні exports, доступ інших SDK; у грі видаляються основний файл і локальні recovery-копії |
-| ComfortAnalytics, власні події | Числові результати, лічильники дій/помилок, часові/кадрові діапазони, налаштування, добровільний відгук | Провайдер відсутній, збір вимкнений | App activity / app interactions та performance-related categories за визначеннями форми; purpose analytics, optional consent |
-| Firebase Analytics | Власні події + SDK instance ID й технічні метадані | SDK не встановлено | Exact version, app/device IDs, SDK automatic events, processing locations, recipients, defaults, retention/export/deletion |
-| AdMob/UMP | Дані згоди, рекламних запитів і показів; SDK identifiers/metadata | SDK не встановлено, ads=false | SDK disclosures, device IDs, advertising settings, приблизне місце/IP якщо обробляється, diagnostics, personalization, consent/regional flags |
-| Підтримка / запит прав | Пошта, текст добровільного звернення; вкладення лише за бажанням | Контакт/backend не задані | Оператор пошти/форми, retention, access controls, encrypted transport, request logging |
-| Майбутній account/cloud/IAP | Профіль, account ID, хмарні saves, purchase metadata | Не реалізовано | Новий аудит, account deletion, billing, disclosures, backups і processor agreements |
+| SaveAdapter | На пристрої: розкладки, прогрес, альбом, навчання, налаштування, локальні ресурси та заготовки entitlements/receipts; 8 save-модулів | Save не надсилається; локальне видалення primary/backup/tmp | OS backup, D2D, exports; локальне сховище саме по собі не є передаванням |
+| Privacy receipts | Локально: вікова категорія/версія, три дозволи/версії/ревізії, crash-session eligibility, acknowledgement/мова/хеш/час, ознака потрібних Google privacy options; install marker не передається | Unknown/<16 не допускає сервіси; зміна віку відкликає дозволи; noBackupFilesDir marker і backup fallback вимагають нових рішень | Реальний Android restore; немає DOB, документів або перевірки особи |
+| ComfortAnalytics | Google: 10 власних числових подій, рівень/сітка/preset/schema, обмежені лічильники, часові/кадрові діапазони, фіксований відгук, категорія винагороди | Від 16, окремий актуальний збережений opt-in, publication gate; 120 власних подій на екземпляр; без player ID, raw touches, save, довільного тексту | App activity / App interactions, Diagnostics за реальними параметрами; optional, Analytics |
+| Firebase Analytics 14.0.0 | Google: app-instance ID, app/device/OS/language, automatic events, IP/можливе приблизне місце | Analytics storage лише за opt-in; ad storage/user data/personalization denied; default collection false; withdrawal/reset через вже створений транспорт | Device or other IDs, automatic events окремо, Approximate location за фактичною обробкою; startup, retention, exports, серверне видалення |
+| Crashlytics 14.0.0 | Google: stack traces, exception messages, session/install/crash IDs, модель/ОС/версія, діагностика; можливі Analytics breadcrumbs | Від 16, незалежний opt-in; auto-upload false; попередній і поточний дозволи для send; ключі game_version/game_mode/level_index/failure_area; фіксований ручний текст | App info and performance / Crash logs / Diagnostics; Device or other IDs; реальні native payloads, files і handlers не перевірено |
+| AdMob Unity 11.6.0 / UMP | Google і фактично вибрані ad-tech providers: IP/приблизне місце, ad interactions, permitted advertising/app-set/SDK IDs, diagnostics, UMP choices | Лише rewarded; від 16 і окрема згода; npa=1; teen для 16–17; UMP перед production SDK; без device-storage/Google-vendor сигналів немає Limited Ads fallback | Advertising/marketing, Fraud prevention/security та фактичні інші цілі; Device or other IDs, App interactions, Diagnostics, Approximate location; одержувачі/ролі з консолі |
+| Email / сайт | Адреса, повідомлення, вкладення, метадані; розробник, mail/hosting providers | Добровільне звернення / відкриття сайту; статична політика без JS-аналітики | Email address / Other user-generated content за визначеннями форми; contracts, строки, доступи |
 
-Не позначати SDK-ідентифікатори як анонімні. Власна схема без імен не прибирає технічні дані провайдера. Firebase дає окремі відомості для декларації, які треба звірити з інтеграцією. [Firebase](https://firebase.google.com/docs/android/play-data-disclosure).
+Власні події: qc_level_begin, qc_level_summary, level_fail, qc_screen, qc_comfort_setting, qc_comfort_feedback, qc_frame_budget, rewarded_ad_requested, rewarded_ad_completed, reward_granted. Можливі first_open, session_start, user_engagement та інші automatic SDK events не включені до цього переліку або ліміту.
 
-Перед заповненням кожної категорії визначити: collected чи only on-device, shared за визначенням Play (із застосовними винятками для service provider), purpose, optional/required, ephemeral, encryption in transit, deletion route. Не прирівнювати будь-яку передачу обробнику до «sharing» автоматично та не вважати її завжди винятком.
+## Заповнення Play Console
 
-## Протокол конкретного релізу
+Не обирати «дані не збираються» лише через закритий publication gate, NPA або відсутність акаунта. Врахувати всі доступні користувачам варіанти релізу, автоматичні SDK-дані й необов’язкове передавання. Тестові Google ads теж контактують із Google.
 
-- Release/version: **[FILL]**
-- Audited SDK versions/dependency manifest: **[FILL]**
-- Countries / age protection design: **[FILL]**
-- Effective public privacy revision/date: **[FILL]**
-- Network observation: before consent / grant / revoke / offline / restart: **[NOT TESTED ON DEVICE]**
-- Merged Android manifest / permissions / backup evidence: **[NOT TESTED FOR THIS RELEASE]**
-- Server retention / deletion / exports / backup aging: **[FILL OR INAPPLICABLE WITH REASON]**
-- Actual support/deletion rehearsal: **[FILL]**
-- Reviewer / date / next review trigger: **[FILL]**
+Для кожної фактичної категорії встановити **Collected**, **Shared**, **Processed ephemerally**, **Required/Optional**, **Purpose** за [визначеннями Play](https://support.google.com/googleplay/android-developer/answer/10787469), ролями одержувачів і реальною збіркою. Service-provider exception не застосовується автоматично до всіх рекламних партнерів. Шифрування in transit перевірити для всіх одержувачів; HTTPS-посилання не є таким доказом. Локальний save не описувати як зашифрований.
 
-Зараз заборонено player builds. Наявні Editor-тести доводять інертність власних фабрик і роботу UI, але не доводять поведінку майбутніх native SDK або відсутність мережевого збору релізного APK.
+Акаунтів, Authentication, cloud save, активних продажів, Remote Config, банерів, interstitial і додаткових mediation SDK у цій інтеграції немає. Purchase DTO/disabled UI не означають активного білінгу.
 
-## Межі очищення й системні резервні копії
+## Очищення й строки
 
-Пакет збережень використовує `saves/slot00.mvs`, `slot00.mvs.bak` та `slot00.mvs.tmp`. Нове очищення даних гри видаляє всі три; інші файли/слоти не чіпає. При файловій помилці користувач отримує повідомлення про неповне очищення. Нове чисте збереження не містить старого прогресу, косметики чи згоди.
+Локальний reset/withdrawal не є серверним видаленням і не гарантує очищення OS backup. deleteUnsentReports стосується pending reports, не вже переданих даних. Відкликання не повертає вже розпочату/завершену передачу. UMP.Reset не використовується як нібито серверне видалення.
 
-У поточному Android privacy manifest **немає визначеної політики OS-backup**. Не обіцяти, що локальна дія видалить системні копії, перенесення між пристроями чи історичні backups. До подачі визначити backup/restore-поведінку; згоду після restore не трактувати автоматично як актуальну без перевірки редакції та провайдера. Для Android 12+ одного `allowBackup=false` може бути недостатньо для D2D на деяких пристроях: потрібна перевірка відповідних extraction rules і реального merged manifest. [Android Auto Backup](https://developer.android.com/identity/data/autobackup).
+Обрана GA4-модель: **2 months**, **Reset user data on new activity — off**; property не перевірено. Це не універсальний строк для агрегованих звітів/exports/всіх Google-даних. Для Crashlytics врахувати умови Google про 90 днів до початку видалення, а не обіцяти повне видалення на 90-й день. Поштовий графік 12 місяців після закриття звернення та законні винятки потребують підтвердження впровадження.
 
-SDK-згода реклами й власна згода аналітики незалежні. Поточне очищення даних гри відкликає власну аналітичну згоду, але не викликає `UMP.Reset()` і не видає рекламний consent reset за серверне видалення. Privacy options мають керуватися реальним провайдером перед його активацією.
+Джерела: [Firebase disclosure](https://firebase.google.com/docs/android/play-data-disclosure), [Firebase privacy](https://firebase.google.com/support/privacy), [Mobile Ads disclosure](https://developers.google.com/admob/android/privacy/play-data-disclosure). Остаточні відповіді звірити з [owner checklist](PRIVACY-RUNTIME-UA.md).
