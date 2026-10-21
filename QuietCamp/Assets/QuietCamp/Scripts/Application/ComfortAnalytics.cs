@@ -114,6 +114,16 @@ namespace QuietCamp.Application
             return Task.CompletedTask;
         }
         public Task ClearLocalDataAndWithdraw() => SetConsent(false);
+        // No persistence: used when another privacy save has already revoked
+        // this purpose, including while initialization is still pending.
+        public void Suspend()
+        {
+            _generation++; _ready = false;
+            ClearAttempt(); _lastScreen = null; _settingBands.Clear();
+            _performanceSeconds = _frames = _frameTotal = 0;
+            try { _transport.SetConsent(false); } catch { }
+            try { _transport.ResetLocalData(); } catch { }
+        }
 
         public void BeginLevel(int number, int width, int height, int preset)
         {

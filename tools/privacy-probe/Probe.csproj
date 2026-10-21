@@ -12,6 +12,7 @@
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/AdService.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/OptionalPrivacy.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/PrivacyEligibility.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/PrivacyConsentPersistence.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/PrivacyInstallScope.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Tests/Editor/OptionalPrivacyTests.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/CozyRewardService.cs" />

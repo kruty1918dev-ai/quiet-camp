@@ -135,10 +135,34 @@ class Program
             Check(!FirebaseAnalytics.Collection && FirebaseAnalytics.Resets == 1 && FirebaseAnalytics.Events == 1, "Reset withdraws collection");
             Pass("Firebase consent, numeric event and local reset boundary");
         }
+        await CheckConsentSaveFailures();
         await CheckAdvertisingPrivacy();
         await CheckPendingReports();
         await CheckCrashPrivacy();
         Console.WriteLine(_passed + " contract scenarios passed. SDK doubles only; no real Google/Android integration verified.");
+    }
+    static async Task CheckConsentSaveFailures()
+    {
+        foreach (var purpose in new[] { "advertising", "crash" })
+        {
+            var settings = new SettingsSaveData { privacyAgeBand = 4, privacyAgeVersion = 1 };
+            bool writable = true; int writes = 0;
+            var persistence = new PrivacyConsentPersistence(settings, () => { writes++; return writable; });
+            using var analytics = new ComfortAnalytics(settings, new FirebaseComfortTransport(),
+                () => { if (!persistence.Save()) throw new InvalidOperationException("Synthetic save failure"); }, "current");
+            using var crashes = new CrashDiagnostics(settings, new Crashes(), persistence.Save, "current");
+            persistence.Attach(analytics, crashes, new AdServiceStub());
+            await analytics.SetConsent(true);
+            Check(FirebaseAnalytics.Collection && analytics.Collecting, "Analytics must be active before regression trigger");
+            int before = writes; writable = false;
+            if (purpose == "advertising") PrivacyEligibility.SetAdvertising(settings, true, "current", persistence.Save);
+            else await crashes.SetConsent(true);
+            Check(!FirebaseAnalytics.Collection && !analytics.Collecting, purpose + " save failure must disable automatic SDK Analytics collection");
+            Check(writes == before + 1, "Revocation cannot recursively save");
+            foreach (var consent in FirebaseAnalytics.Consent.Values)
+                Check(consent == Firebase.Analytics.ConsentStatus.Denied, "Every Firebase storage purpose must be denied after failed save");
+            Pass("active SDK Analytics is disabled after failed " + purpose + " consent persistence");
+        }
     }
     static async Task CheckAdvertisingPrivacy()
     {
@@ -313,27 +337,9 @@ namespace QuietCamp.Application
         public int crashPolicyVersion;
         public string crashPublicationRevision;
     }
-    public static class ComfortAnalytics { public const int PolicyVersion = 3; }
     public interface IAdPrivacyOptions { bool PrivacyOptionsRequired { get; } Task ShowPrivacyOptions(); }
     public interface IAdRequestCancellation { bool CanCancelPending { get; } void CancelPending(); }
-    public interface IComfortTransport : IDisposable { bool Available { get; } Task<bool> Initialize(); void SetConsent(bool value); void Send(ComfortRecord record); void ResetLocalData(); }
-    public class ComfortRecord
-    {
-        public string Name; public IReadOnlyDictionary<string, long> Values;
-        public ComfortRecord(string name, Dictionary<string, long> values) { Name = name; Values = values; }
-    }
-}
-namespace QuietCamp.Infrastructure
-{
-    public sealed class OfflineComfortTransport : IComfortTransport
-    {
-        public bool Available => false;
-        public Task<bool> Initialize() => Task.FromResult(false);
-        public void SetConsent(bool value) { }
-        public void Send(ComfortRecord record) { }
-        public void ResetLocalData() { }
-        public void Dispose() { }
-    }
+
 }
 namespace GoogleMobileAds.Ump.Api
 {

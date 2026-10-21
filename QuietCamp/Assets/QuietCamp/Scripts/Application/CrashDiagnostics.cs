@@ -42,6 +42,12 @@ namespace QuietCamp.Application
         public CrashDiagnostics(SettingsSaveData settings, ICrashTransport transport, Func<bool> save, string revision)
         { _settings = settings; _transport = transport; _save = save; _revision = revision ?? ""; }
         public Task SetConsent(bool enabled) => ApplyConsent(enabled, false);
+        // Runtime revocation must not recursively invoke the save callback.
+        public void Suspend()
+        {
+            _generation++; _ready = false;
+            try { _transport.SetConsent(false); } catch { }
+        }
         async Task ApplyConsent(bool enabled, bool sendPreviousSession)
         {
             if (_disposed) return;

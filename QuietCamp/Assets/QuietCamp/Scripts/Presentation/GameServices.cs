@@ -67,6 +67,7 @@ namespace QuietCamp.Presentation
         public Func<string,bool> SubscriptionEntitlement { get; set; }
         public GoogleServicesConfiguration GoogleConfiguration { get; }
         public LegalConfiguration Legal { get; }
+        readonly PrivacyConsentPersistence _privacyPersistence;
         public bool PrivacyNoticePresented;
 
         /// <summary>Level chosen in the menu, consumed by the Camp scene host.</summary>
@@ -185,12 +186,15 @@ namespace QuietCamp.Presentation
             GoogleConfiguration.BindPrivacy(save.Settings, consentPublication);
             GoogleConfiguration.RememberPrivacyOptions = required =>
             { Settings.googlePrivacyOptionsRequired = required; Save.Save(); };
+            _privacyPersistence = new PrivacyConsentPersistence(save.Settings,
+                () => save.MemoryOnly ? save.Save() : PrivacyInstallScope.Commit(save.Settings, save.Save));
             Ads = ads == null ? OptionalGoogleServices.Ads(GoogleConfiguration) : new PrivacyAdService(
                 () => PrivacyEligibility.AdvertisingAllowed(save.Settings, consentPublication) && save.Settings.optionalVideoBonuses,
                 () => PrivacyEligibility.Allowed(save.Settings), () => ads);
             Analytics = new ComfortAnalytics(save.Settings, OptionalGoogleServices.Analytics(GoogleConfiguration), () =>
             { if (!PersistPrivacy()) throw new InvalidOperationException("Privacy choice could not be saved."); }, consentPublication);
             Crashes = new CrashDiagnostics(save.Settings, OptionalGoogleServices.Crashes(GoogleConfiguration), PersistPrivacy, consentPublication);
+            _privacyPersistence.Attach(Analytics, Crashes, Ads);
             Save.SaveFailed += OnSaveFailed;
             Rewards = new CozyRewardService(Ads, save.Settings, Progression, save.Save);
             Rewards.RewardObserved += OnCosmeticReward;
@@ -352,7 +356,7 @@ namespace QuietCamp.Presentation
             Audio?.Dispose();
         }
         void OnSaveFailed(string ignoredMessage) => Crashes.Report(CrashArea.Save);
-        bool PersistPrivacy() => Save.MemoryOnly ? Save.Save() : PrivacyInstallScope.Commit(Settings, Save.Save);
+        bool PersistPrivacy() => _privacyPersistence.Save();
         public async System.Threading.Tasks.Task<bool> SetPrivacyAge(PrivacyAgeBand band)
         {
             if (PrivacyEligibility.Band(Settings) == band && Settings.privacyAgeVersion == PrivacyEligibility.AgeVersion) return true;

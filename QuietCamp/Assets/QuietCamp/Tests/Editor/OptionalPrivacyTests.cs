@@ -129,6 +129,63 @@ namespace QuietCamp.Tests.Editor
             finally { OptionalGoogleServices.AnalyticsFactory = oldAnalytics; OptionalGoogleServices.CrashFactory = oldCrash; }
         }
         static SettingsSaveData Adult() => new SettingsSaveData { privacyAgeBand = 4, privacyAgeVersion = 1 };
+        [TestCase("advertising", false)] [TestCase("crash", false)]
+        [TestCase("advertising", true)] [TestCase("crash", true)]
+        public async Task FailedOtherPurposeSaveStopsAlreadyActiveAnalyticsAndAllTransports(string purpose, bool throws)
+        {
+            var settings = Adult(); bool fail = false; int writes = 0;
+            var persistence = new PrivacyConsentPersistence(settings, () =>
+            { writes++; if (fail && throws) throw new IOException("Synthetic write failure"); return !fail; });
+            var analyticsTransport = new RecordingAnalytics(); var crashTransport = new RecordingCrashes();
+            var ads = new RecordingAds();
+            using var analytics = new ComfortAnalytics(settings, analyticsTransport,
+                () => { if (!persistence.Save()) throw new IOException("Privacy save failed"); }, "current");
+            using var crashes = new CrashDiagnostics(settings, crashTransport, persistence.Save, "current");
+            persistence.Attach(analytics, crashes, ads);
+            await analytics.SetConsent(true); await crashes.SetConsent(true);
+            Assert.IsTrue(analyticsTransport.AutomaticCollection);
+            Assert.IsTrue(crashTransport.Enabled);
+            int before = writes, cancelled = ads.Cancellations; fail = true;
+            if (purpose == "advertising")
+                Assert.IsFalse(PrivacyEligibility.SetAdvertising(settings, true, "current", persistence.Save));
+            else await crashes.SetConsent(true);
+            Assert.AreEqual(before + 1, writes, "Emergency suspension must not save recursively.");
+            Assert.IsFalse(analyticsTransport.AutomaticCollection, "Model denial alone does not stop SDK automatic collection.");
+            Assert.IsFalse(analytics.Collecting); Assert.IsFalse(crashTransport.Enabled); Assert.IsFalse(crashes.Collecting);
+            Assert.Greater(ads.Cancellations, cancelled);
+            Assert.IsFalse(settings.analyticsConsent || settings.crashReportingConsent || settings.advertisingConsent);
+            Assert.AreEqual(PrivacyAgeBand.Unknown, PrivacyEligibility.Band(settings));
+        }
+        sealed class RecordingAnalytics : IComfortTransport
+        {
+            public bool AutomaticCollection;
+            public bool Available => true;
+            public Task<bool> Initialize() => Task.FromResult(true);
+            public void SetConsent(bool enabled) => AutomaticCollection = enabled;
+            public void ResetLocalData() => AutomaticCollection = false;
+            public void Send(ComfortRecord record) { }
+            public void Dispose() { }
+        }
+        sealed class RecordingCrashes : ICrashTransport
+        {
+            public bool Enabled;
+            public bool Available => true;
+            public Task<bool> Initialize() => Task.FromResult(true);
+            public void SetConsent(bool enabled, bool sendPreviousSession = false) => Enabled = enabled;
+            public void SetLevel(int level) { }
+            public void Report(CrashArea area) { }
+            public void Dispose() { }
+        }
+        sealed class RecordingAds : IAdService, IAdRequestCancellation
+        {
+            public int Cancellations;
+            public bool IsReady => true;
+            public bool CanCancelPending => true;
+            public void CancelPending() => Cancellations++;
+            public Task<AdResult> ShowRewarded(string placementId) => Task.FromResult(AdResult.Unavailable);
+            public void ShowBanner(string placementId) { }
+            public void HideBanner() { }
+        }
         sealed class PendingAd : IAdService, IAdPrivacyOptions
         {
             public int Options;
