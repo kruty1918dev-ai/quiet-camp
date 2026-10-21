@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "id": "triangle-budget-baseline",
+  "label": "Baseline geometry census before the 50,000 scene triangle target",
+  "levelIds": ["QC007"],
+  "seed": 4157,
+  "maxRepairRounds": 1,
+  "autoApply": false,
+  "capture": true,
+  "previewOnly": true,
+  "operations": [{"id": "baseline", "kind": "audit"}],
+  "criteria": {
+    "requireVisualReview": false,
+    "autoRepair": false,
+    "profiles": ["portrait", "landscape"],
+    "quality": 2
+  }
+}

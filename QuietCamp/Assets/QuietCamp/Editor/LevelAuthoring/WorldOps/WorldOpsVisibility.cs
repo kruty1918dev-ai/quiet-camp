@@ -88,6 +88,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         {
             var camera=Camera.main;var view=UnityEngine.Object.FindAnyObjectByType<CampArtView>();
             if(camera==null||view?.Definition==null)throw new InvalidOperationException("The real gameplay camera is required.");
+            WorldOpsStorage.Json(path+".geometry-census.json",WorldOpsGeometryCensus.Capture(camera));
             var art=view.Definition;var viewport=camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>();
             var rect=viewport!=null?viewport.Frame.NormalizedGameplay:new Rect(0,0,1,1);
             var primary=art.instances.SingleOrDefault(i=>i.id==art.primaryLandmarkInstanceId);var model=art.models.SingleOrDefault(m=>m.id==primary?.modelId);

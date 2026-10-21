@@ -43,7 +43,7 @@ static class PerformanceAuditDriver
         var request = JsonUtility.FromJson<Request>(File.ReadAllText(path));
         if (request == null || string.IsNullOrEmpty(request.productName) || !request.productName.StartsWith("QuietCampPerfQA"))
             throw new InvalidOperationException("Performance checks need a distinct QuietCampPerfQA product.");
-        if (!string.IsNullOrEmpty(request.suite) && request.suite != "performance" && request.suite != "foliage" && request.suite != "roadmap" && request.suite != "optimization-editor" && request.suite != "optimization-regressions" && request.suite != "roadmap-regressions" && request.suite != "lossless-editor" && request.suite != "lossless-runtime" && request.suite != "lossless-transitions")
+        if (!string.IsNullOrEmpty(request.suite) && request.suite != "performance" && request.suite != "foliage" && request.suite != "roadmap" && request.suite != "optimization-editor" && request.suite != "optimization-regressions" && request.suite != "roadmap-regressions" && request.suite != "lossless-editor" && request.suite != "lossless-runtime" && request.suite != "lossless-transitions" && request.suite != "geometry-census")
             throw new InvalidOperationException("Only the performance matrix, roadmap audit and foliage regression suite are allowed.");
         if ((request.suite == "performance" || request.suite == "lossless-transitions")
             && Resources.Load<Shader>("QuietCamp/LeafFlight") == null)
@@ -63,8 +63,9 @@ static class PerformanceAuditDriver
         File.Delete(path);
         PlayerSettings.productName = request.productName;
         Debug.Log("[QC-PERF] Starting native tests with isolated QA saves; existing Editor remains open.");
-        api.Execute(new ExecutionSettings(new Filter { testMode = request.suite == "optimization-editor" || request.suite == "lossless-editor" ? TestMode.EditMode : TestMode.PlayMode,
-            testNames = request.suite == "lossless-editor" ? new[] { "QuietCamp.Tests.SeasonModelChannelTests", "QuietCamp.Tests.SeasonPresentationTests", "QuietCamp.Tests.SeasonTransitionTests", "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.PerformanceCacheTests" }
+        api.Execute(new ExecutionSettings(new Filter { testMode = request.suite == "optimization-editor" || request.suite == "lossless-editor" || request.suite == "geometry-census" ? TestMode.EditMode : TestMode.PlayMode,
+            testNames = request.suite == "geometry-census" ? new[] { "QuietCamp.Tests.WorldGeometryCensusTests", "QuietCamp.Tests.WorldOpsTests.ReadOnlyAuditCannotRepairOrPublishWithoutFrames", "QuietCamp.Tests.WorldOpsTests.DiagnosticMaskDoesNotOccludeItsOwnCombinedMeshButDetectsARealOccluder" }
+                : request.suite == "lossless-editor" ? new[] { "QuietCamp.Tests.SeasonModelChannelTests", "QuietCamp.Tests.SeasonPresentationTests", "QuietCamp.Tests.SeasonTransitionTests", "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.PerformanceCacheTests" }
                 : request.suite == "lossless-runtime" ? new[] { "QuietCamp.Tests.AudioPlayModeTests", "QuietCamp.Tests.SeasonPresentationPlayModeTests.AuthoredDeciduousTreesKeepCollidersAndPinnedRootsButLoseWinterCrowns", "QuietCamp.Tests.SeasonPresentationPlayModeTests.WinterPropsKeepGeometryAndReleaseOnlyTheirOwnSnowMaterials" }
                 : request.suite == "lossless-transitions" ? new[] { "QuietCamp.Tests.OptimizationPlayModeTests", "QuietCamp.Tests.FoliageDivePlayModeTests" }
                 : request.suite == "optimization-editor" ? new[] { "QuietCamp.Tests.PerformanceCacheTests", "QuietCamp.Tests.LeafCurtainGraphicTests" }
