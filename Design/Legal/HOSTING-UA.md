@@ -1,5 +1,9 @@
 # Хостинг публічних юридичних сторінок
 
+Актуальний шлях на 2026-10-21: наявний репозиторій portfolio-oleksii-ha та домен oleksiy-havryliuk.de. Політика гри — /quiet-camp/privacy, /uk, /de; Impressum — /impressum, /uk, /de; окрема політика сайту — /privacy, /uk, /de. Джерела — legal/*/content.json і legal/controller.json; редизайн гілки privacy-site-review збережено. Збирання: node scripts/build.mjs → dist; game tools/sync_privacy_policy.py звіряє вбудовані тексти саме з цими сторінками. Старий legal_site.py та опис Pages нижче — альтернативні заготовки, не поточний production pipeline.
+
+Перед публікацією без перевірочної плашки виконати scripts/check-release.mjs та build.mjs --release у репозиторії сайту. Вони вимагають доказів для реальної Android-збірки, консолей і операційних правил. Публікація кандидата або push гілки не доводить фінальної готовності. Налаштування хостингу й договорів перевіряти за [OPERATIONS-UA.md](OPERATIONS-UA.md); строки всіх журналів не можна вивести з відсутності cookies на сторінці.
+
 Play вимагає: публічний HTTPS-URL, без входу, без геоблоків, не PDF, сторінка не редагується відвідувачами. URL з Console і в грі має вести на той самий документ.
 
 ## Варіант — статичний GitHub Pages

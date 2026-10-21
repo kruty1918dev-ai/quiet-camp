@@ -24,13 +24,13 @@ namespace QuietCamp.Editor
 
         [MenuItem("Tools/Quiet Camp/Build Android Dev APK")]
         public static void BuildAndroidDev()
-            => Build(DevProfilePath, Path.Combine(BuildDir, "QuietCamp-MVP-0.1.0-dev.apk"));
+            => Build(DevProfilePath, Path.Combine(BuildDir, "QuietCamp-MVP-0.1.0-dev.apk"), BuildOptions.Development);
 
         [MenuItem("Tools/Quiet Camp/Build Android Release APK")]
         public static void BuildAndroidRelease()
-            => Build(ReleaseProfilePath, Path.Combine(BuildDir, "QuietCamp-MVP-0.1.0.apk"));
+            => Build(ReleaseProfilePath, Path.Combine(BuildDir, "QuietCamp-MVP-0.1.0.apk"), BuildOptions.None);
 
-        private static void Build(string profilePath, string outputPath)
+        private static void Build(string profilePath, string outputPath, BuildOptions buildOptions)
         {
             var profile = AssetDatabase.LoadAssetAtPath<BuildProfile>(profilePath);
             if (profile == null)
@@ -53,7 +53,8 @@ namespace QuietCamp.Editor
             {
                 scenes = scenes,
                 locationPathName = outputPath,
-                target = BuildTarget.Android
+                target = BuildTarget.Android,
+                options = buildOptions
             };
             var report = BuildPipeline.BuildPlayer(options);
             var summary = report.summary;

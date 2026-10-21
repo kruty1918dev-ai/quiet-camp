@@ -32,6 +32,14 @@ manifest.json, packages-lock.json і фактичні tgz підтверджую
 
 ## Доступні перевірки
 
+У чинному Unity Editor 6000.6.2f1 реально виконано **76/76 EditMode-тестів**: попередні 74 та дві перевірки перенесення manifest-правил, збереження сторонніх компонентів/атрибутів, повторного застосування й відмови за відсутньої політики. Це не замінює Android-перевірку.
+
+Перша QA-компіляція завершилася без помилок, але перевірка пакета виявила FirebaseInitProvider у фінальному manifest і відсутній Development/debuggable прапорець. APK не запускався. Додано перенесення правил через AndroidPrivacyBuild у launcher manifest із вищим пріоритетом та явний BuildOptions.Development для Dev-команди. Повторна збірка очікує завершення Android Auto-Resolution у чинному Editor; виправлений APK і native matrix ще не перевірені.
+
+Фактичний Gradle releaseRuntimeClasspath першої збірки: Firebase Common 23.0.0, Analytics 24.0.0, Crashlytics/NDK 21.0.0, Installations 20.0.0, Unity-обгортки 14.0.0, Google Mobile Ads 25.5.0, UMP 4.0.0. Для наступного артефакту повторно звірити відповідність.
+
+tools/check_android_privacy_manifest.py читає manifest із самого APK через Android SDK apkanalyzer, звіряє всі правила канонічного privacy manifest, package com.quietcamp.game та, за --require-development, android:debuggable. Для першого APK правильно повертає помилки про провайдер і відсутність development. --output записує XML та SHA-256 в ігноровану папку.
+
 - Privacy probe: **74/74** NUnit-перевірки, включно з рекламною/crash-згодою після активної Analytics та поверненням false/винятком запису. Перевіряються вимкнення автоматичного збору, crash-транспорту й скасування реклами без повторного збереження.
 - Optional Google probe: **27/27** сценаріїв із SDK API doubles, включно з фактичним C# FirebaseComfortTransport і перевіркою SetAnalyticsCollectionEnabled(false) після міжцільової помилки запису. Це не Google/Android runtime.
 - Focused save probe: **6/6** груп; реальний SaveAdapter і пакет save-system, CRC/staged migration, backup recovery зі скиданням дозволів, IO rollback, винагороди й save transaction.

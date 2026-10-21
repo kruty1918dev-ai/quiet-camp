@@ -19,6 +19,10 @@ public sealed class MenuDeviceProbe : MonoBehaviour
         public string scene, language; public int width, height; public float textScale, master;
         public int orientation; public bool reducedMotion, highContrast, haptics;
         public bool privacyPending, privacyDeclined, privacyAcknowledged, startupReady;
+        public int privacyAgeBand;
+        public bool analyticsConsent, crashConsent, advertisingConsent;
+        public bool analyticsCollecting, crashesCollecting, analyticsAllowed, crashesAllowed, advertisingAllowed;
+        public string policyRevision;
         public int placements, boardRevision; public bool canUndo, canRedo, gameplayActive;
         public List<Target> placementTargets = new List<Target>();
         public List<Control> controls = new List<Control>(); public List<string> headings = new List<string>();
@@ -27,7 +31,8 @@ public sealed class MenuDeviceProbe : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Create()
     {
-        if (!UnityEngine.Application.identifier.EndsWith(".uiqa", StringComparison.Ordinal)) return;
+        if (!UnityEngine.Application.identifier.EndsWith(".uiqa", StringComparison.Ordinal)
+            && !(Debug.isDebugBuild && UnityEngine.Application.productName == "Quiet Camp QA")) return;
         var go = new GameObject("MenuDeviceProbe"); DontDestroyOnLoad(go); go.AddComponent<MenuDeviceProbe>();
     }
     void LateUpdate()
@@ -45,6 +50,16 @@ public sealed class MenuDeviceProbe : MonoBehaviour
             state.reducedMotion = services.Settings.reducedMotion; state.highContrast = services.Settings.highContrast;
             state.haptics = services.Settings.haptics;
             state.privacyAcknowledged = !string.IsNullOrEmpty(services.Settings.privacyAcknowledgementHash);
+            state.privacyAgeBand = services.Settings.privacyAgeBand;
+            state.analyticsConsent = services.Settings.analyticsConsent;
+            state.crashConsent = services.Settings.crashReportingConsent;
+            state.advertisingConsent = services.Settings.advertisingConsent;
+            state.analyticsCollecting = services.Analytics.Collecting;
+            state.crashesCollecting = services.Crashes.Collecting;
+            state.analyticsAllowed = services.GoogleConfiguration.AnalyticsAllowed;
+            state.crashesAllowed = services.GoogleConfiguration.CrashesAllowed;
+            state.advertisingAllowed = services.GoogleConfiguration.AdvertisingAllowed;
+            state.policyRevision = services.Legal.revision;
         }
         var session = CampSceneHost.Current?.Session; var camera = Camera.main;
         state.gameplayActive = CampSceneHost.Current?.GameplayActive ?? false;
