@@ -35,25 +35,29 @@ namespace QuietCamp.Application
     {
         readonly Func<bool> _allowed, _eligible;
         readonly Func<IAdService> _factory;
+        readonly Func<bool> _restorePrivacyOptions;
         IAdService _inner;
         bool _disposed;
-        public PrivacyAdService(Func<bool> allowed, Func<bool> eligible, Func<IAdService> factory)
-        { _allowed = allowed; _eligible = eligible; _factory = factory; }
+        int _generation;
+        public PrivacyAdService(Func<bool> allowed, Func<bool> eligible, Func<IAdService> factory, Func<bool> restorePrivacyOptions = null)
+        { _allowed = allowed; _eligible = eligible; _factory = factory; _restorePrivacyOptions = restorePrivacyOptions; }
         public bool IsReady => !_disposed && _allowed() && (_inner?.IsReady ?? true);
-        public bool PrivacyOptionsRequired => !_disposed && _eligible() && _inner is IAdPrivacyOptions privacy && privacy.PrivacyOptionsRequired;
+        public bool PrivacyOptionsRequired => !_disposed && _eligible() && ((_restorePrivacyOptions?.Invoke() ?? false)
+            || (_inner is IAdPrivacyOptions privacy && privacy.PrivacyOptionsRequired));
         public bool CanCancelPending => _inner is IAdRequestCancellation request && request.CanCancelPending;
-        public void CancelPending() => (_inner as IAdRequestCancellation)?.CancelPending();
+        public void CancelPending() { _generation++; (_inner as IAdRequestCancellation)?.CancelPending(); }
         IAdService Provider() => _inner ?? (_inner = _factory());
         public async Task<AdResult> ShowRewarded(string placementId)
         {
             if (!IsReady) return AdResult.Unavailable;
+            int generation = _generation;
             var result = await Provider().ShowRewarded(placementId);
-            return !_disposed && _allowed() ? result : AdResult.Unavailable;
+            return !_disposed && generation == _generation && _allowed() ? result : AdResult.Unavailable;
         }
         public Task RefreshConsent() => IsReady && Provider() is IAdConsentInitialization consent ? consent.RefreshConsent() : Task.CompletedTask;
-        public Task ShowPrivacyOptions() => PrivacyOptionsRequired ? ((IAdPrivacyOptions)_inner).ShowPrivacyOptions() : Task.CompletedTask;
+        public Task ShowPrivacyOptions() => PrivacyOptionsRequired && Provider() is IAdPrivacyOptions privacy ? privacy.ShowPrivacyOptions() : Task.CompletedTask;
         public void ShowBanner(string placementId) { }
         public void HideBanner() { }
-        public void Dispose() { _disposed = true; (_inner as IDisposable)?.Dispose(); }
+        public void Dispose() { _disposed = true; _generation++; (_inner as IDisposable)?.Dispose(); }
     }
 }

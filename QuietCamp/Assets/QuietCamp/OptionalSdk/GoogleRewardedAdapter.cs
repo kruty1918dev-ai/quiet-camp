@@ -13,6 +13,7 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
     readonly string _unit;
     readonly bool _testAds;
     readonly Func<bool> _authorized, _teen, _eligible;
+    readonly Action<bool> _rememberPrivacyOptions;
     readonly SynchronizationContext _main;
     bool _initialized, _disposed, _busy, _showing, _consentForm;
     TaskCompletionSource<bool> _cancel;
@@ -20,12 +21,13 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
     TaskCompletionSource<AdResult> _adClosed;
     public bool CanCancelPending => _busy && !_showing && !_consentForm;
     public void CancelPending() { _cancel?.TrySetResult(true); }
-    async Task<bool> AwaitPending(Task task, int milliseconds)
-    { return await Task.WhenAny(task, Task.Delay(milliseconds), _cancel.Task) == task && !_disposed && _authorized() && !_cancel.Task.IsCompleted; }
+    async Task<bool> AwaitPending(Task task, int milliseconds, bool privacyManagement = false)
+    { return await Task.WhenAny(task, Task.Delay(milliseconds), _cancel.Task) == task && !_disposed
+        && (privacyManagement ? _eligible() : _authorized()) && !_cancel.Task.IsCompleted; }
     RewardedAd _ad;
     public bool IsReady => !_disposed && !_busy && _authorized() && !string.IsNullOrEmpty(_unit);
     public bool PrivacyOptionsRequired => !_disposed && _eligible() && !_testAds && ConsentInformation.PrivacyOptionsRequirementStatus == PrivacyOptionsRequirementStatus.Required;
-    public GoogleRewardedAdapter(string unit, bool testAds = false, Func<bool> authorized = null, Func<bool> teen = null, Func<bool> eligible = null)
+    public GoogleRewardedAdapter(string unit, bool testAds = false, Func<bool> authorized = null, Func<bool> teen = null, Func<bool> eligible = null, Action<bool> rememberPrivacyOptions = null)
     {
         // Never skip UMP for a publisher's unit, even if a caller passes testAds.
         _testAds = testAds && (unit == GoogleServicesConfiguration.AndroidTestRewardedUnitId
@@ -33,10 +35,11 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
         _unit = unit; _main = SynchronizationContext.Current;
         _authorized = authorized ?? (() => false); _teen = teen ?? (() => false);
         _eligible = eligible ?? _authorized;
+        _rememberPrivacyOptions = rememberPrivacyOptions;
     }
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void Register() => OptionalGoogleServices.AdsFactory = c => new GoogleRewardedAdapter(c.CurrentRewardedUnitId, c.TestAdsActive,
-        () => c.AdvertisingAllowed, () => PrivacyEligibility.Band(c.PrivacySettings) == PrivacyAgeBand.From16To17, () => c.Eligible);
+        () => c.AdvertisingAllowed, () => PrivacyEligibility.Band(c.PrivacySettings) == PrivacyAgeBand.From16To17, () => c.Eligible, c.RememberPrivacyOptions);
     void Main(Action action) { if (_main != null) _main.Post(_ => action(), null); else action(); }
     public void ShowBanner(string placementId) { }
     public void HideBanner() { }
@@ -51,13 +54,17 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
         catch (Exception error) { Debug.LogWarning("[QuietCamp Ads] Consent refresh unavailable: " + error.GetType().Name); }
         finally { _busy = false; }
     }
-    async Task<bool> UpdateConsentInformation()
+    async Task<bool> UpdateConsentInformation(bool privacyManagement = false)
     {
         var cancellation = _cancel.Task;
         var consent = new TaskCompletionSource<bool>();
         ConsentInformation.Update(new ConsentRequestParameters { TagForUnderAgeOfConsent = false }, error => Main(() =>
-            consent.TrySetResult(error == null && !_disposed && !cancellation.IsCompleted)));
-        return await AwaitPending(consent.Task, 30000) && await consent.Task;
+        {
+            bool valid = error == null && !_disposed && !cancellation.IsCompleted && _eligible();
+            if (valid) _rememberPrivacyOptions?.Invoke(ConsentInformation.PrivacyOptionsRequirementStatus == PrivacyOptionsRequirementStatus.Required);
+            consent.TrySetResult(valid);
+        }));
+        return await AwaitPending(consent.Task, 30000, privacyManagement) && await consent.Task;
     }
 
     public async Task<AdResult> ShowRewarded(string placementId)
@@ -155,11 +162,15 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
     }
     public async Task ShowPrivacyOptions()
     {
-        if (!PrivacyOptionsRequired || _busy || _disposed) return;
-        _busy = true; _consentForm = true;
+        if (!_eligible() || _testAds || _busy || _disposed) return;
+        _busy = true; _cancel = new TaskCompletionSource<bool>();
         var closed = _privacyClosed = new TaskCompletionSource<bool>();
         try
         {
+            // Explicit management action after a prior required form is permitted
+            // even when local ad opt-in was withdrawn; it never initializes ads.
+            if (!await UpdateConsentInformation(true) || !PrivacyOptionsRequired) return;
+            _consentForm = true;
             ConsentForm.ShowPrivacyOptionsForm(error => Main(() => closed.TrySetResult(error == null && !_disposed)));
             await closed.Task;
         }

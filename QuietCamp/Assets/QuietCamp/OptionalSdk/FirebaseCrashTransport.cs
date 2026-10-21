@@ -47,20 +47,19 @@ sealed class FirebaseCrashTransport : ICrashTransport
         }
         catch { _pendingFailed = true; _enabled = false; Debug.LogWarning("[QuietCamp Firebase] Pending report operation failed; diagnostics remain disabled until restart."); }
     }
-    static async Task PendingReports(string method)
+    static Task PendingReports(string method)
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
         using (var type = new AndroidJavaClass("com.google.firebase.crashlytics.FirebaseCrashlytics"))
         using (var instance = type.CallStatic<AndroidJavaObject>("getInstance"))
-        using (var task = instance.Call<AndroidJavaObject>(method))
         {
-            for (int i = 0; !task.Call<bool>("isComplete"); i++)
-            { if (i >= 200) throw new TimeoutException(); await Task.Delay(50); }
-            if (!task.Call<bool>("isSuccessful")) throw new InvalidOperationException("Pending report operation failed.");
+            // Crashlytics Android 21.0.0 exposes void APIs here, not Google Tasks.
+            // Serialize issuance only; native completion is not observable through
+            // these public APIs and must not be inferred from this completed Task.
+            instance.Call(method);
         }
-#else
-        await Task.CompletedTask;
 #endif
+        return Task.CompletedTask;
     }
     public void SetLevel(int level)
     { if (_ready && _enabled && !_disposed) Crashlytics.SetCustomKey("level_index", level.ToString(System.Globalization.CultureInfo.InvariantCulture)); }

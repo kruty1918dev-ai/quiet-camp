@@ -183,6 +183,8 @@ namespace QuietCamp.Presentation
             // Document acknowledgement never grants consent. Changed policy words also invalidate old optional choices.
             var consentPublication = Legal.Published ? Legal.revision + ":" + save.Settings.privacyAcknowledgementHash : Legal.revision;
             GoogleConfiguration.BindPrivacy(save.Settings, consentPublication);
+            GoogleConfiguration.RememberPrivacyOptions = required =>
+            { Settings.googlePrivacyOptionsRequired = required; Save.Save(); };
             Ads = ads == null ? OptionalGoogleServices.Ads(GoogleConfiguration) : new PrivacyAdService(
                 () => PrivacyEligibility.AdvertisingAllowed(save.Settings, consentPublication) && save.Settings.optionalVideoBonuses,
                 () => PrivacyEligibility.Allowed(save.Settings), () => ads);
@@ -358,7 +360,7 @@ namespace QuietCamp.Presentation
             await Analytics.SetConsent(false);
             await Crashes.SetConsent(false);
             (Ads as IAdRequestCancellation)?.CancelPending();
-            return saved;
+            return saved && PrivacyEligibility.Band(Settings) == band && Settings.privacyAgeVersion == PrivacyEligibility.AgeVersion;
         }
         public bool SetAdvertisingConsent(bool enabled)
         {

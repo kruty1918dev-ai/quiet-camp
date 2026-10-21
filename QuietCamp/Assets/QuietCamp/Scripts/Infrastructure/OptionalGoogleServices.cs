@@ -20,6 +20,7 @@ namespace QuietCamp.Infrastructure
         public bool TestAdsActive => useTestAds && (UnityEngine.Application.isEditor || Debug.isDebugBuild);
         [NonSerialized] public SettingsSaveData PrivacySettings;
         [NonSerialized] public string ConsentRevision;
+        [NonSerialized] public Action<bool> RememberPrivacyOptions;
         public void BindPrivacy(SettingsSaveData settings, string revision) { PrivacySettings = settings; ConsentRevision = revision; }
         public bool Eligible => PrivacyEligibility.Allowed(PrivacySettings);
         public bool AnalyticsAllowed => Eligible && analyticsEnabled && OnlineServicesApproved && PrivacySettings.analyticsConsent
@@ -81,6 +82,7 @@ namespace QuietCamp.Infrastructure
         public static IAdService Ads(GoogleServicesConfiguration config)
             => new PrivacyAdService(() => config.AdvertisingAllowed
                 && !string.IsNullOrWhiteSpace(config.CurrentRewardedUnitId) && AdsFactory != null,
-                () => config.Eligible, () => AdsFactory(config));
+                () => config.Eligible, () => AdsFactory(config),
+                () => !config.useTestAds && config.PrivacySettings.googlePrivacyOptionsRequired && AdsFactory != null && config.CanUseRewardedAds(UnityEngine.Debug.isDebugBuild || UnityEngine.Application.isEditor));
     }
 }

@@ -84,13 +84,56 @@ namespace QuietCamp.Tests.Editor
             using (var unused = new PrivacyAdService(() => false, () => false, () => { factories++; return pending; })) { }
             Assert.Zero(factories);
             using var ads = new PrivacyAdService(() => allowed, () => true, () => pending);
-            var result = ads.ShowRewarded("camp.life"); allowed = false;
+            var result = ads.ShowRewarded("camp.life"); allowed = false; ads.CancelPending(); allowed = true;
             pending.Result.SetResult(AdResult.Completed);
-            Assert.AreEqual(AdResult.Unavailable, await result);
+            Assert.AreEqual(AdResult.Unavailable, await result, "Re-enabling cannot revive a revoked reward request.");
+        }
+        [TestCase(0)] [TestCase(1)] [TestCase(2)] [TestCase(3)] [TestCase(4)]
+        public async Task RequiredPrivacyOptionsAfterRestartNeedEligibleExplicitAction(int age)
+        {
+            bool eligible = age >= 3; int factories = 0;
+            var provider = new PendingAd();
+            using var ads = new PrivacyAdService(() => false, () => eligible,
+                () => { factories++; return provider; }, () => true);
+            Assert.AreEqual(eligible, ads.PrivacyOptionsRequired);
+            await ads.RefreshConsent(); Assert.Zero(factories, "The availability hint cannot start UMP.");
+            await ads.ShowPrivacyOptions(); Assert.AreEqual(eligible ? 1 : 0, factories);
+            Assert.AreEqual(eligible ? 1 : 0, provider.Options);
+            Assert.IsFalse(ads.IsReady, "Managing Google choices does not grant the game's ad consent.");
+        }
+        [TestCase(true)] [TestCase(false)]
+        public async Task PublishedSinglePurposeConsentDoesNotCreateOtherFirebaseTransport(bool analyticsChoice)
+        {
+            var s = Adult();
+            s.analyticsConsent = analyticsChoice; s.analyticsPolicyVersion = ComfortAnalytics.PolicyVersion;
+            s.analyticsPublicationRevision = "current";
+            s.crashReportingConsent = !analyticsChoice; s.crashPolicyVersion = CrashDiagnostics.PolicyVersion;
+            s.crashPublicationRevision = "current";
+            var c = new GoogleServicesConfiguration { analyticsEnabled = true, crashlyticsEnabled = true };
+            c.ResolveLegal(new LegalConfiguration { policyIsDraft = false, publisherName = "QA", supportEmail = "privacy@quietcamp.dev",
+                privacyPolicyUrl = "https://quietcamp.dev/privacy", dataRequestUrl = "https://quietcamp.dev/data",
+                revision = "current", publishedOn = "2026-10-21", teenPrivacyReviewed = true, sdkDisclosuresReviewed = true });
+            c.BindPrivacy(s, "current");
+            var oldAnalytics = OptionalGoogleServices.AnalyticsFactory; var oldCrash = OptionalGoogleServices.CrashFactory;
+            int analyticsFactories = 0, crashFactories = 0;
+            try
+            {
+                OptionalGoogleServices.AnalyticsFactory = () => { analyticsFactories++; return new OfflineComfortTransport(); };
+                OptionalGoogleServices.CrashFactory = () => { crashFactories++; return new OfflineCrashTransport(); };
+                using var analytics = new ComfortAnalytics(s, OptionalGoogleServices.Analytics(c), publicationRevision: "current");
+                using var crash = new CrashDiagnostics(s, OptionalGoogleServices.Crashes(c), () => true, "current");
+                await analytics.RestoreConsent(); await crash.RestoreConsent();
+                Assert.AreEqual(analyticsChoice ? 1 : 0, analyticsFactories);
+                Assert.AreEqual(analyticsChoice ? 0 : 1, crashFactories);
+            }
+            finally { OptionalGoogleServices.AnalyticsFactory = oldAnalytics; OptionalGoogleServices.CrashFactory = oldCrash; }
         }
         static SettingsSaveData Adult() => new SettingsSaveData { privacyAgeBand = 4, privacyAgeVersion = 1 };
-        sealed class PendingAd : IAdService
+        sealed class PendingAd : IAdService, IAdPrivacyOptions
         {
+            public int Options;
+            public bool PrivacyOptionsRequired => true;
+            public Task ShowPrivacyOptions() { Options++; return Task.CompletedTask; }
             public TaskCompletionSource<AdResult> Result = new TaskCompletionSource<AdResult>();
             public bool IsReady => true;
             public Task<AdResult> ShowRewarded(string placementId) => Result.Task;

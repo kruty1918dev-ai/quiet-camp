@@ -197,7 +197,7 @@ namespace QuietCamp.Presentation.UI
             }
             if (services.Ads is QuietCamp.Application.IAdPrivacyOptions privacy && privacy.PrivacyOptionsRequired)
                 html.Append(HtmlUi.Button(surface, "ads-privacy", T("privacy.adsOptions"), async () =>
-                { await privacy.ShowPrivacyOptions(); surface.Refresh(); }, "legal-link"));
+                { await privacy.ShowPrivacyOptions(); if (surface != null) surface.Refresh(); }, "legal-link"));
             return html.ToString();
         }
     }

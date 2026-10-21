@@ -52,6 +52,8 @@ namespace QuietCamp.Application
         public bool advertisingConsent;
         public int advertisingPolicyVersion;
         public string advertisingRevision;
+        // Availability hint only; never authorizes an ad or automatic UMP request.
+        public bool googlePrivacyOptionsRequired;
         // Local acknowledgement receipt, never consent to optional processing.
         public string privacyAcknowledgementRevision, privacyAcknowledgementHash;
         public string privacyAcknowledgementLanguage, privacyAcknowledgedUtc;

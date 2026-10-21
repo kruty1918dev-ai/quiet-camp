@@ -150,6 +150,13 @@ class Program
                 "Default-denied adapter must not contact UMP");
         }
         Pass("adapter defaults to no UMP and no ad requests");
+        using (var privacy = new GoogleRewardedAdapter("publisher-unit", authorized: () => false, eligible: () => true))
+        {
+            await privacy.RefreshConsent(); Check(ConsentInformation.Updates == 0, "Withdrawal prevents automatic UMP");
+            await privacy.ShowPrivacyOptions();
+            Check(ConsentInformation.Updates == 1 && RewardedAd.Last == null, "Explicit privacy management must not initialize an ad");
+        }
+        Pass("eligible player can explicitly reopen Google choices after local ad withdrawal");
         foreach (bool teen in new[] { false, true })
         {
             ConsentInformation.Reset(); RewardedAd.Reset();
@@ -300,7 +307,7 @@ namespace QuietCamp.Application
 {
     public sealed class SettingsSaveData
     {
-        public bool analyticsConsent, crashReportingConsent, crashSessionEligible, advertisingConsent, optionalVideoBonuses = true;
+        public bool analyticsConsent, crashReportingConsent, crashSessionEligible, advertisingConsent, googlePrivacyOptionsRequired, optionalVideoBonuses = true;
         public int privacyAgeBand, privacyAgeVersion, advertisingPolicyVersion, analyticsPolicyVersion;
         public string advertisingRevision, analyticsPublicationRevision;
         public int crashPolicyVersion;
