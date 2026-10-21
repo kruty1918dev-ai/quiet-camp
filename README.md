@@ -83,10 +83,16 @@ python3 tools/verify_github_docs.py
 
 ## Межі готовності
 
-Проєкт у розробці. Покупки, Pro, життя, підказки й обмін валюти мають локальні prototype contracts; реальні store purchases, rewarded ads та backend не підключені. Новий профіль починає з трьох підказок і п’яти життів. Mobile FPS, звук на пристроях і store release не заявляються.
+Проєкт у розробці. Покупки, Pro, життя, підказки й обмін валюти мають локальні prototype contracts; реальні store purchases, виробнича рекламна мережа та backend не активовані. Google sample rewarded ads доступні в development після вікового вибору й окремого дозволу. Новий профіль починає з трьох підказок і п’яти життів. Mobile FPS, звук на пристроях і store release не заявляються.
 
 Галереї 05–10.10.2026 — історичні докази конкретних ревізій. [Результати оптимізації 09.10](PERFORMANCE_MAP.md) не замінюють вимірів нової кампанії. Повна історія гілок об’єднана в main: [receipt 10.10](docs/maintenance/2026-10-10-main-consolidation.md).
 
 Art, audio й vendor assets зберігають власні умови ліцензування. [Ліцензії та provenance](docs/development.md#assets-і-ліцензії). Повні vendor model previews зберігаються локально.
 
 У майстерні — [20 сезонних пресетів із прев’ю](Design/LevelAuthoring/SeasonAtmosphere/index.html), п’ять помічників рослинності й чотири основні розділи. Усі 100 пазлів мають редаговані композиції. Нові соняхи мають метричні пропорції; сезонні моделі відновлюються при зміні пресету.
+
+## Приватність і Google SDK
+
+У main об’єднано privacy-гілки: Firebase Core/Analytics/Crashlytics 14.0.0, AdMob 11.6.0, вікові категорії й незалежні дозволи від 16 років. Політика en/uk/de має ревізію 2026-10-21.privacy-4; підтвердження документа не є згодою. Виробничі перевірки залишаються закритими.
+
+[Реалізація, результати перевірок і релізні блокери](Design/Legal/PRIVACY-RUNTIME-UA.md), [облік даних і Data safety](Design/Legal/DATA-SAFETY-UA.md), [зв’язок з офіційним сайтом](docs/privacy-integration.md). Поточні probe-проєкти: tools/privacy-probe та tools/optional-google-probe; платформа/SDK підміняються, перевірки не є Android runtime або player build.
