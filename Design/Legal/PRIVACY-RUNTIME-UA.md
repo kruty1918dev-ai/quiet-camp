@@ -40,6 +40,8 @@ manifest.json, packages-lock.json і фактичні tgz підтверджую
 
 tools/check_android_privacy_manifest.py читає manifest із самого APK через Android SDK apkanalyzer, звіряє всі правила канонічного privacy manifest, package com.quietcamp.game та, за --require-development, android:debuggable. Для першого APK правильно повертає помилки про провайдер і відсутність development. --output записує XML та SHA-256 в ігноровану папку.
 
+Повторний BuildPipeline зупинився в синхронному Google ResolveSync із відкритим Android Auto-Resolution; журнал понад 25 хвилин не оновлювався, активної компіляції/Gradle не було, штатний запит скасування не допоміг. Для наступного запуску підготовлено проєктний GvhProjectSettings.xml із GooglePlayServices.PromptBeforeAutoResolution=False; у QA також узгоджено відповідне поле Unity EDM 2.1.0. XML перевірено, активацію налаштування в новій сесії ще не перевірено. Після дозволеного перезапуску спочатку завершити Resolve поза BuildPipeline, лише потім запускати Dev APK. Спільні Editor/ADB preferences не змінювалися.
+
 - Privacy probe: **74/74** NUnit-перевірки, включно з рекламною/crash-згодою після активної Analytics та поверненням false/винятком запису. Перевіряються вимкнення автоматичного збору, crash-транспорту й скасування реклами без повторного збереження.
 - Optional Google probe: **27/27** сценаріїв із SDK API doubles, включно з фактичним C# FirebaseComfortTransport і перевіркою SetAnalyticsCollectionEnabled(false) після міжцільової помилки запису. Це не Google/Android runtime.
 - Focused save probe: **6/6** груп; реальний SaveAdapter і пакет save-system, CRC/staged migration, backup recovery зі скиданням дозволів, IO rollback, винагороди й save transaction.
