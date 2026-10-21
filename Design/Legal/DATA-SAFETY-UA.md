@@ -1,6 +1,8 @@
 # Дані Quiet Camp і робоча таблиця Google Play
 
-Стан: privacy-runtime-completion, ревізія 2026-10-21.privacy-4, пакет com.quietcamp.game, Firebase project quiet-camp. Це підготовка декларації, а не підтверджена форма Play Console. Виробничі сервіси заблоковані до [перевірки релізу](PRIVACY-RUNTIME-UA.md).
+Стан: main, ревізія 2026-10-21.privacy-5, пакет com.quietcamp.game, Firebase project quiet-camp. Це підготовка декларації, а не підтверджена форма Play Console. Виробничі сервіси заблоковані до [перевірки релізу](PRIVACY-RUNTIME-UA.md).
+
+Android QA підтвердила: локальні Crashlytics session/native файли виникають після явної ініціалізації Analytics через спільний Firebase Core навіть без crash opt-in. Crash automatic collection при цьому false. Окремо 4/4 native-регресії підтвердили вимкнення measurement_enabled після невдалого запису іншої згоди. Це не доводить відсутності локального діагностичного збору або передачі й не дозволяє заявляти «дані не збираються» за JSON gates. До фінальної форми потрібні payload/network/queue і фактичні налаштування Google для точного релізного артефакту.
 
 Контролер — фізична особа **Oleksii Havryliuk**, публічне написання **Oleksiy Havryliuk**. **Kruty1918 Games** — бренд, не компанія. Повну поштову адресу не надано.
 
