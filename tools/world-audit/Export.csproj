@@ -1,7 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>disable</Nullable><EnableDefaultCompileItems>false</EnableDefaultCompileItems></PropertyGroup>
 <ItemGroup>
-<Compile Include="Export.cs;MathBoundary.cs;PrefabGeometry.cs" />
+<Compile Include="../../QuietCamp/Assets/QuietCamp/Editor/LevelAuthoring/WorldOps/WorldOpsCompositionRepairs.cs" />
+<Compile Include="Export.cs;MathBoundary.cs;PrefabGeometry.cs;WellChecks.cs;CompositionChecks.cs" />
+<Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/WorldWellShafts.cs" />
+<Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/RiverSurfaceField.cs" />
 <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Domain/*.cs" />
 <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampArtDefinition.cs" />
 <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/FrozenLandscape.cs" />

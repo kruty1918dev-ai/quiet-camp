@@ -3,6 +3,7 @@ Blender materials, frozen river (before runtime rebuild), meadow/weather and HUD
 frustum are explicitly not a Unity visual-equivalence claim.
 """
 import bpy,sys,json,gzip,math,time,re
+from mathutils.bvhtree import BVHTree
 from pathlib import Path
 from mathutils import Matrix,Vector
 import numpy as np
@@ -48,7 +49,13 @@ for m in art['models']:
  if not m['vertices']:continue
  data=mesh_data(m['id'],m['vertices'],None,m['colors']);data.materials.append(solid);models[m['id']]=data
 for j,m in enumerate(art['landscape']['meshes']):
- data=mesh_data(m['name'],m['vertices'],m['triangles'],m['colors'],True);data.materials.append(watermat if m.get('water') else solid);o=bpy.data.objects.new(m['name'],data);scene.collection.objects.link(o)
+ display_colors=m['colors']
+ if m.get('water'):
+  # Water vertex RGBA encodes foam/transparency, not paint. Workbench
+  # cannot execute SW3; use the genuine material's shallow colour as a
+  # labelled flat display proxy instead of rendering its control data black.
+  display_colors=[.095,.29,.25,1]*(len(m['vertices'])//3)
+ data=mesh_data(m['name'],m['vertices'],m['triangles'],display_colors,True);data.materials.append(watermat if m.get('water') else solid);o=bpy.data.objects.new(m['name'],data);scene.collection.objects.link(o)
  # Frozen mesh coordinates are already converted; do not apply T a second time.
  o.pass_index=30000+j
 for i in art['instances']:
@@ -88,16 +95,38 @@ if scene.render.engine=='BLENDER_WORKBENCH':
  scene.display.light_direction=-direction.normalized()
 bpy.context.view_layer.update();deps=bpy.context.evaluated_depsgraph_get()
 shade=[];to_sun=-direction.normalized()
-for x,z in level['shade']:
- p=T.to_3x3()@Vector((x+.5-level['width']/2,.06,z+.5-level['height']/2));hit,loc,n,face,ob,matrix=scene.ray_cast(deps,p,to_sun,distance=150);shade.append({'cell':[x,z],'authoredGeometryShadow':bool(hit),'caster':ob.name if hit else None})
+if level['shade']:
+ vertices=[];triangles=[];owners=[];face_ends=[]
+ for r in records:
+  if not r.get('rendered') or r.get('state')=='solved' or r.get('seasonalRole') in ('groundcover','flower'):continue
+  ob=scene.collection.objects.get(r.get('blenderName',r['id']))
+  if ob is None:continue
+  corners=[ob.matrix_world@Vector(v) for v in ob.bound_box]
+  if max(p.z for p in corners)-min(p.z for p in corners)<.8:continue
+  mesh=ob.data;mesh.calc_loop_triangles();offset=len(vertices)
+  vertices.extend(ob.matrix_world@v.co for v in mesh.vertices)
+  triangles.extend(tuple(offset+i for i in t.vertices) for t in mesh.loop_triangles)
+  owners.append(r['id']);face_ends.append(len(triangles))
+ bvh=BVHTree.FromPolygons(vertices,triangles,all_triangles=True) if triangles else None
+ for x,z in level['shade']:
+  samples=[]
+  for dx in [.18,.5,.82]:
+   for dz in [.18,.5,.82]:
+    wx=x+dx-level['width']/2;wz=z+dz-level['height']/2
+    land=art['landscape'];n=land['resolution'];u=max(0,min(n-1,(wx-land['originX'])/land['size']*(n-1)));v=max(0,min(n-1,(wz-land['originZ'])/land['size']*(n-1)));ix=min(int(u),n-2);iz=min(int(v),n-2);h=land['heights'];height=(h[iz*n+ix]*(1-u+ix)+h[iz*n+ix+1]*(u-ix))*(1-v+iz)+(h[(iz+1)*n+ix]*(1-u+ix)+h[(iz+1)*n+ix+1]*(u-ix))*(v-iz)
+    p=T.to_3x3()@Vector((wx,max(.03,height+.03),wz));hit=bvh.ray_cast(p,to_sun,150) if bvh else (None,None,None,None)
+    caster=owners[int(np.searchsorted(face_ends,hit[2],side='right'))] if hit[0] is not None else None
+    samples.append({'offset':[dx,dz],'shadow':caster is not None,'caster':caster})
+  shade.append({'cell':[x,z],'authoredGeometryShadow':samples[4]['shadow'],'caster':samples[4]['caster'],'substantialCasterFraction':sum(s['shadow'] for s in samples)/9,'samples':samples})
 # Mathematically fit the actual board bounds to the source camera direction.
 # HUD reserve below is a disclosed approximation: runtime safe-area/text layout is not available offline.
 frame=[]
 for mode,width,height,reserve in [('landscape',960,720,.76),('portrait',540,960,.62)]:
  scene.render.resolution_x=width;scene.render.resolution_y=height;scene.render.resolution_percentage=100
- ext=[level['width']/2+.4,.4,level['height']/2+.4]
+ ext=[level['width']/2+.8,2.2,level['height']/2+.8] if art.get('frameGameplayBoard') else [level['width']/2+.4,.4,level['height']/2+.4]
+ margin=art.get('gameplayCameraMargin',1.12) if art.get('frameGameplayBoard') else 1
  points=[T.to_3x3()@Vector((sx*ext[0],sy*ext[1],sz*ext[2])) for sx in [-1,1] for sy in [-1,1] for sz in [-1,1]]
- maxx=max(abs(right.dot(p)) for p in points);maxy=max(abs(up.dot(p)) for p in points);camdata.ortho_scale=2*max(maxx/(width/height)*1.03,maxy/reserve)
+ maxx=max(abs(right.dot(p)) for p in points);maxy=max(abs(up.dot(p)) for p in points);camdata.ortho_scale=2*max(maxx/(width/height),maxy/reserve)*margin
  scene.render.filepath=str(out/f'{order:03d}-{mode}.png');bpy.ops.render.render(write_still=True)
  frame.append({'path':f'{order:03d}-{mode}.png','width':width,'height':height,'sourceEuler':art['cameraEuler'],'orthographicScale':camdata.ortho_scale,'hudReserveAssumption':reserve})
  if scene.render.engine=='BLENDER_WORKBENCH':
@@ -123,19 +152,26 @@ for mode,width,height,reserve in [('landscape',960,720,.76),('portrait',540,960,
 # The third state includes the real tent source meshes in the actual reference solution.
 scene.render.resolution_x=960;scene.render.resolution_y=720
 points=[T.to_3x3()@Vector((sx*ext[0],sy*ext[1],sz*ext[2])) for sx in [-1,1] for sy in [-1,1] for sz in [-1,1]]
-camdata.ortho_scale=2*max(max(abs(right.dot(p)) for p in points)/(960/720)*1.03,max(abs(up.dot(p)) for p in points)/.76)
+camdata.ortho_scale=2*max(max(abs(right.dot(p)) for p in points)/(960/720),max(abs(up.dot(p)) for p in points)/.76)*margin
 for ob in tents:ob.hide_render=False;ob.hide_viewport=False
 scene.render.filepath=str(out/f'{order:03d}-solved.png');bpy.ops.render.render(write_still=True)
 frame.append({'path':f'{order:03d}-solved.png','state':'saved-reference-layout','sourceEuler':art['cameraEuler']})
 # Detail views keep the player's camera direction; target/scale differ and are labelled diagnostics.
 for r in records:
  source=(r.get('sourceModelId') or r.get('modelId') or '')
- if not r.get('rendered') or not any(k in source for k in ['well','watermill','footbridge']):continue
+ if not r.get('rendered') or not (any(k in source for k in ['well','watermill','footbridge','aircraft']) or source in ['qc_campaign_landmark_009','qc_campaign_landmark_063','qc_campaign_landmark_078','qc_campaign_landmark_036','qc_campaign_landmark_038','qc_campaign_landmark_057','qc_campaign_landmark_088']):continue
  ob=scene.collection.objects.get(r.get('blenderName',r['id']))
  if ob is None:continue
  corners=[ob.matrix_world@Vector(p) for p in ob.bound_box];centre=sum(corners,Vector())/len(corners)
  cam.location=centre-forward*25;camdata.ortho_scale=max(2,max((p-centre).length for p in corners)*1.7)
  name=source.replace('/','_');scene.render.filepath=str(out/f'{order:03d}-detail-{name}.png');bpy.ops.render.render(write_still=True)
  frame.append({'path':f'{order:03d}-detail-{name}.png','state':'diagnostic-detail-same-direction','targetObject':r['id'],'notGameplayFraming':True})
-result={'order':order,'id':d['id'],'source':d['source'],'scope':d['scope'],'seconds':time.time()-started,'renderer':bpy.app.version_string,'quality':'Balanced authored regrowth bands; source-season model resolution','frames':frame,'shade':shade,'objects':records,'limitations':['Not Unity Game View. HUD reserve estimated from documented layout, orientation and board-fit math retained.','Frozen authored river, not runtime RiverLandscapeGeometry/river-bank extra meshes.','Procedural meadow, motion, weather, screen effects and dynamic cloth/story items are not reproduced; tents use original OBJ and reference poses.','Visible pixels refer to Blender colour-ID pass of included opaque geometry; missing procedural effects and translucent water are not native visibility proof.','Gameplay OBJ axes/importer smoothing may differ; real source palette and seasonal branch geometry are resolved in C#.']}
+# Full landscape coverage is an explicitly labelled diagnostic, never a player view.
+land=art['landscape'];centre=T.to_3x3()@Vector((land['originX']+land['size']/2,0,land['originZ']+land['size']/2))
+cam.location=centre-forward*40;span=land['size']/2
+corners=[T.to_3x3()@Vector((sx*span,sy*3,sz*span)) for sx in [-1,1] for sy in [-1,1] for sz in [-1,1]]
+camdata.ortho_scale=2*max(max(abs(right.dot(p)) for p in corners)/(960/720),max(abs(up.dot(p)) for p in corners))*1.04
+scene.render.filepath=str(out/f'{order:03d}-coverage.png');bpy.ops.render.render(write_still=True)
+frame.append({'path':f'{order:03d}-coverage.png','state':'diagnostic-full-landscape','notGameplayFraming':True,'sourceEuler':art['cameraEuler']})
+result={'order':order,'id':d['id'],'source':d['source'],'scope':d['scope'],'seconds':time.time()-started,'renderer':bpy.app.version_string,'quality':'Balanced authored regrowth bands; source-season model resolution','frames':frame,'shade':shade,'objects':records,'limitations':['Not Unity Game View. HUD reserve estimated from documented layout, orientation and board-fit math retained.','Frozen authored river, not runtime RiverLandscapeGeometry/river-bank extra meshes.','Procedural meadow, motion, weather, screen effects and dynamic cloth/story items are not reproduced; tents use original OBJ and reference poses.','Water uses a flat genuine material shallow colour; SW3 control channels are not paint or a black river.','Visible pixels refer to Blender colour-ID pass of included opaque geometry; missing procedural effects and translucent water are not native visibility proof.','Gameplay OBJ axes/importer smoothing may differ; real source palette and seasonal branch geometry are resolved in C#.']}
 (out/f'{order:03d}-inventory.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print('AUDIT_RENDER_DONE',order,round(result['seconds'],2),flush=True)

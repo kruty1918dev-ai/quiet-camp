@@ -9,6 +9,7 @@ namespace UnityEngine {
   public static float InverseLerp(float a,float b,float v)=>a==b?0:Clamp01((v-a)/(b-a));
   public static float PerlinNoise(float x,float y)=>throw new NotSupportedException("Native noise not used by seasonal colours/geometry");
   public const float Deg2Rad=(float)(Math.PI/180);
+  public static float Sign(float x)=>x>=0?1:-1;
   public static float Abs(float x)=>Math.Abs(x);
   public static float Min(params float[] v)=>System.Linq.Enumerable.Min(v);
   public static int Min(int a,int b)=>Math.Min(a,b);
@@ -24,11 +25,14 @@ namespace UnityEngine {
   public static int RoundToInt(float x)=>(int)Math.Round(x,MidpointRounding.ToEven);
   public static float SmoothStep(float a,float b,float t){t=Clamp01(t);return a+(b-a)*t*t*(3-2*t);}
  }
- public struct Vector2 { public float x,y;public Vector2(float x,float y){this.x=x;this.y=y;} }
+ public struct Vector2 { public float x,y;public Vector2(float x,float y){this.x=x;this.y=y;} public static Vector2 zero=>new();public float sqrMagnitude=>x*x+y*y;public float magnitude=>(float)Math.Sqrt(sqrMagnitude);public Vector2 normalized=>magnitude>0?this/magnitude:new();public static Vector2 Lerp(Vector2 a,Vector2 b,float t)=>a+(b-a)*Mathf.Clamp01(t);public static float Dot(Vector2 a,Vector2 b)=>a.x*b.x+a.y*b.y;public static Vector2 operator +(Vector2 a,Vector2 b)=>new(a.x+b.x,a.y+b.y);public static Vector2 operator -(Vector2 a,Vector2 b)=>new(a.x-b.x,a.y-b.y);public static Vector2 operator *(Vector2 a,float s)=>new(a.x*s,a.y*s);public static Vector2 operator /(Vector2 a,float s)=>new(a.x/s,a.y/s); }
+ public readonly record struct Vector2Int(int x,int y);
+
  public struct Vector3 {
   public float x,y,z;public Vector3(float x,float y,float z){this.x=x;this.y=y;this.z=z;}
   public static Vector3 zero=>new();public static Vector3 right=>new(1,0,0);public static Vector3 down=>new(0,-1,0);public void Normalize(){this=normalized;}public static Vector3 Lerp(Vector3 a,Vector3 b,float t)=>a+(b-a)*Mathf.Clamp01(t);
   public static Vector3 one=>new(1,1,1);public static Vector3 up=>new(0,1,0);
+  public static float Distance(Vector3 a,Vector3 b)=>(a-b).magnitude;public float magnitude=>(float)Math.Sqrt(sqrMagnitude);
   public float sqrMagnitude=>x*x+y*y+z*z;
   public Vector3 normalized=>sqrMagnitude>0?this/(float)Math.Sqrt(sqrMagnitude):new();
   public static Vector3 Scale(Vector3 a,Vector3 b)=>new(a.x*b.x,a.y*b.y,a.z*b.z);

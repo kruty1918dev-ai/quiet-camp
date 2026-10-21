@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "id": "shade-support-pilot-20261021",
+  "label": "Фізичний навіс: адресний попередній перегляд, оцінити перекриття композиції",
+  "orders": [
+    3,
+    16,
+    79,
+    85
+  ],
+  "seed": 4157,
+  "maxRepairRounds": 5,
+  "capture": true,
+  "autoApply": false,
+  "operations": [
+    {
+      "id": "physical-shade",
+      "kind": "shade.support",
+      "parameters": {
+        "minimumHeight": 2.6,
+        "maximumHeight": 4
+      }
+    }
+  ],
+  "criteria": {
+    "profiles": [
+      "portrait",
+      "landscape"
+    ],
+    "quality": 1,
+    "autoRepair": false,
+    "requireVisualReview": true,
+    "inspectMapCoverage": true
+  }
+}

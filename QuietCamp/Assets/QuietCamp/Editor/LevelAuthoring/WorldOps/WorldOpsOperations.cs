@@ -10,7 +10,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
 {
     public static class WorldOpsOperations
     {
-        public static readonly string[] Kinds={"audit","camera.frame","ground.refine","vegetation.refine","vegetation.redistribute","vegetation.scale","vegetation.preset","building.move","building.ground","building.refresh-model","model.age","model.simplify","path.upsert","path.remove","atmosphere.preset","river.edit","terrain.stamp"};
+        public static readonly string[] Kinds={"audit","well.opening","shade.support","bridge.crossing","camera.frame","ground.refine","vegetation.refine","vegetation.redistribute","vegetation.scale","vegetation.preset","building.move","building.ground","building.refresh-model","model.age","model.simplify","path.upsert","path.remove","atmosphere.preset","river.edit","terrain.stamp"};
         public static void Validate(WorldRecipe recipe)
         {
             if(recipe==null||recipe.version!=1||string.IsNullOrWhiteSpace(recipe.id)||recipe.maxRepairRounds<1||recipe.maxRepairRounds>5)throw new ArgumentException("Invalid WorldOps recipe/version/repair budget.");
@@ -73,6 +73,37 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             if(!Kinds.Contains(op.kind))throw new ArgumentException("Unsupported operation: "+op.kind);
             var p=op.parameters;
             if(op.kind=="audit")return;
+            if(op.kind=="bridge.crossing")
+            {
+                var bridges=Select(d,op.selector);
+                foreach(var root in bridges)foreach(var other in d.art.instances.Where(p=>p.id!=root.id&&Mathf.Abs(p.x-root.x)<.3f&&Mathf.Abs(p.z-root.z)<.3f))
+                    if(Record(d,other.id)?.pinned==true&&d.art.models.Any(m=>m.id==other.modelId&&WorldOpsCompositionRepairs.IsBridge(m.sourceModelId??m.id)))throw new InvalidOperationException("A pinned overlapping bridge prevents ensemble repair.");
+                foreach(var root in bridges)if((d.worldOps?.objects??new List<WorldObjectRecord>()).Any(r=>r.pinned&&(r.ensembleId==root.id||r.support=="object:"+root.id)))throw new InvalidOperationException("A pinned member prevents repairing the bridge ensemble.");
+                var oldIds=d.art.instances.Select(i=>i.id).ToHashSet();
+                WorldOpsCompositionRepairs.BridgeCrossings(d.art,bridges.Select(b=>b.id).ToArray());
+                var surviving=d.art.instances.Select(i=>i.id).ToHashSet();var removedIds=oldIds.Where(id=>!surviving.Contains(id)).ToHashSet();
+                if(d.worldOps!=null)
+                {
+                    d.worldOps.objects.RemoveAll(r=>removedIds.Contains(r.id));
+                    foreach(var path in d.worldOps.paths){if(removedIds.Contains(path.startObjectId??""))path.startObjectId=d.art.primaryLandmarkInstanceId;if(removedIds.Contains(path.endObjectId??""))path.endObjectId=d.art.primaryLandmarkInstanceId;}
+                }
+                foreach(var root in bridges.Where(b=>surviving.Contains(b.id)))
+                {
+                    var record=Record(d,"worldops/bridge-approach/"+root.id,true);record.owner=op.id;record.ensembleId=root.id;record.support="grounded";record.maximumBurial=.06f;
+                }
+                AuthoringWeatherExposure.Bake(d);return;
+            }
+            if(op.kind=="well.opening")
+            {
+                foreach(var pose in d.art.instances)if(Record(d,pose.id)?.pinned==true&&WorldWellShafts.ExcludesGroundPlant(d.art,pose.x,pose.y,pose.z))throw new InvalidOperationException("A pinned detail in the well opening needs explicit owner review.");
+                WorldOpsCompositionRepairs.OpenWells(d.art);return;
+            }
+            if(op.kind=="shade.support")
+            {
+                WorldOpsCompositionRepairs.ShadeSupport(d.art,d.level,Number(p,"minimumHeight",2.6f,2.2f,4),Number(p,"maximumHeight",4,2.2f,4));
+                if(d.art.instances.Any(i=>i.id=="worldops/shade-support")){var record=Record(d,"worldops/shade-support",true);record.owner=op.id;record.support="grounded";record.maximumBurial=.06f;}
+                return;
+            }
             if(op.kind=="ground.refine")
             {
                 var settings=p.ToObject<CampArtDefinition.GroundSurfaceSettings>();settings.Validate();

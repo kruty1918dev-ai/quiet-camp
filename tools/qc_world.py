@@ -94,6 +94,8 @@ def main():
     external.add_argument('--blender')
     external.add_argument('--render',action='store_true')
     external.add_argument('--skip-export',action='store_true')
+    external.add_argument('--repair-kinds',default='well.opening,bridge.crossing,shade.support',help='Comma-separated shared C# repair operations for candidate output')
+    external.add_argument('--composition-candidates',action='store_true',help='Prepare shared C# WorldOps repairs outside Assets; never publish')
     sub.add_parser('status')
     teaser = sub.add_parser('teaser', help='Isolated real-game marketing capture through the WorldOps extension')
     teaser.add_argument('action', choices=['create', 'validate', 'preview', 'record', 'status', 'cancel', 'reframe', 'bake'])

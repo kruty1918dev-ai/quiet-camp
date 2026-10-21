@@ -215,3 +215,14 @@ Editor та наявних/staged tests компілюється; native accepta
 ## Спільна річка — 2026-10-15
 
 Гайд користувача адаптовано на рівні спільного відображення й запікання: природні береги, мілководдя, прибережні деталі, контакти опадів, течія та справжні відображення сцени. Виправлено надмірну прозорість через неправильні одиниці параметрів поглинання. [Чотири сезонні ігрові порівняння](Design/LevelAuthoring/RiverGuide/index.html) і [стан перевірок](Design/LevelAuthoring/RiverGuide/README-UA.md). Індивідуальна постановка камер і об’єктів усіх 100 сцен залишається незавершеною; ці кадри не є її прийманням.
+
+## 2026-10-21 — Read-only composition audit and contact repair candidates
+
+Free Blender/.NET external diagnostics now cover the active campaign source, with
+per-instance inventories, source hashes, player-direction views and labelled full
+landscape/detail views. Published campaign JSON, level IDs, historical revisions,
+puzzles, saves and renderer assets remain unchanged. Runtime well presentation
+clips real shaft rims through ground/snow and excludes ground plants. Shared C#
+WorldOps bridge and physical shade support operations prepare review candidates;
+those candidates retain the native capture/publication gate. External images do
+not establish native appearance, performance, or acceptance of all 100 scenes.

@@ -13,6 +13,8 @@ namespace QuietCamp.Presentation.World
     public sealed class CampGroundDetails : MonoBehaviour
     {
         public const int MaximumPrints=256;
+        WorldWellShafts.Opening[] _wellOpenings=Array.Empty<WorldWellShafts.Opening>();
+        bool InWell(float x,float z){for(int i=0;i<_wellOpenings.Length;i++)if(_wellOpenings[i].Contains(x,z))return true;return false;}
         LevelData _level; CampArtDefinition _art; Material _ground,_fieldMaterial;
         CampAtmosphere _atmosphere; SeasonAtmosphereView _previewWeather; Func<bool> _paused,_reduced;
         Texture2D _useTexture; Color32[] _pixels; float _refresh,_melt=1,_printClock;
@@ -30,7 +32,7 @@ namespace QuietCamp.Presentation.World
         public int Residents=>0;
         public void Configure(LevelData level,Material ground,CampArtDefinition art=null)
         {
-            _level=level;_ground=ground;_art=art;
+            _level=level;_ground=ground;_art=art;_wellOpenings=WorldWellShafts.Find(art);
             VegetationBounds=CoverBounds(art?.fieldCover??new CampArtDefinition.FieldCoverSettings());
             var finish=art?.groundSurface??new CampArtDefinition.GroundSurfaceSettings();
             if(ground!=null&&ground.HasProperty("_GroundFinish"))ground.SetVector("_GroundFinish",new Vector4(finish.patchScale,finish.facetScale,finish.relief,0));
@@ -47,7 +49,7 @@ namespace QuietCamp.Presentation.World
             var finish=_art?.groundSurface??new CampArtDefinition.GroundSurfaceSettings();
             for(int k=0;k<_level.width*_level.height*2;k++)
             {
-                var at=new Vector3(((float)random.NextDouble()-.5f)*(_level.width+3),0,((float)random.NextDouble()-.5f)*(_level.height+3));at.y=Height(at)+.003f;if(at.y<-.08f)continue;
+                var at=new Vector3(((float)random.NextDouble()-.5f)*(_level.width+3),0,((float)random.NextDouble()-.5f)*(_level.height+3));at.y=Height(at)+.003f;if(at.y<-.08f||InWell(at.x,at.z))continue;
                 // Irregular groups leave quiet open soil instead of uniformly scattered dots.
                 if(Mathf.PerlinNoise(at.x*.65f+19,at.z*.65f+37)<.43f)continue;
                 var cell=BoardMath.CellOf(_level,at);
@@ -118,6 +120,7 @@ namespace QuietCamp.Presentation.World
             {
                 float x=Mathf.Lerp(tile.xMin,tile.xMax,(float)random.NextDouble()),z=Mathf.Lerp(tile.yMin,tile.yMax,(float)random.NextDouble());
                 var root=new Vector3(x,0,z);
+                if(InWell(x,z))continue;
                 float edge=Mathf.Max(Mathf.Abs(x)-_level.width*.5f,Mathf.Abs(z)-_level.height*.5f);
                 float border=Mathf.Min(Mathf.Min(x-area.xMin,area.xMax-x),Mathf.Min(z-area.yMin,area.yMax-z));
                 float fade=style.continuousMeadow?Mathf.SmoothStep(0,1,border/.6f)*CoverDensity(edge,style.density)/density
@@ -265,6 +268,15 @@ namespace QuietCamp.Presentation.World
                     indices.AddRange(new[]{a,b,c,a,c,d});
                 }
                 if(indices.Count==0)continue;
+                if(_wellOpenings.Length>0)
+                {
+                    var snow=new LandscapeMesh{name="snow",vertices=vertices.SelectMany(p=>new[]{p.x,p.y,p.z}).ToArray(),normals=normals.SelectMany(p=>new[]{p.x,p.y,p.z}).ToArray(),
+                        uv=new float[vertices.Count*2],colors=colors.SelectMany(p=>new[]{p.r,p.g,p.b,p.a}).ToArray(),triangles=indices.ToArray()};
+                    var cut=WorldWellShafts.Cut(snow,_wellOpenings);
+                    vertices=Enumerable.Range(0,cut.vertices.Length/3).Select(i=>new Vector3(cut.vertices[i*3],cut.vertices[i*3+1],cut.vertices[i*3+2])).ToList();
+                    normals=Enumerable.Range(0,cut.normals.Length/3).Select(i=>new Vector3(cut.normals[i*3],cut.normals[i*3+1],cut.normals[i*3+2])).ToList();
+                    colors=Enumerable.Range(0,cut.colors.Length/4).Select(i=>new Color(cut.colors[i*4],cut.colors[i*4+1],cut.colors[i*4+2],cut.colors[i*4+3])).ToList();indices=cut.triangles.ToList();
+                }
                 var mesh=new Mesh{name=$"Settled snow {tx},{tz}"};mesh.SetVertices(vertices);mesh.SetNormals(normals);mesh.SetColors(colors);mesh.SetTriangles(indices,0);mesh.RecalculateBounds();
                 var node=new GameObject(mesh.name,typeof(MeshFilter),typeof(MeshRenderer),typeof(OwnedCampMesh));node.transform.SetParent(_fieldCover.transform,false);node.layer=BoardRenderer.DecorLayer;
                 node.GetComponent<MeshFilter>().sharedMesh=mesh;node.GetComponent<OwnedCampMesh>().Mesh=mesh;node.GetComponent<MeshRenderer>().sharedMaterial=material;

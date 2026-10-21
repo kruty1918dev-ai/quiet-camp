@@ -102,3 +102,11 @@ Art, audio й vendor assets зберігають власні умови ліц�
 У main об’єднано privacy-гілки: Firebase Core/Analytics/Crashlytics 14.0.0, AdMob 11.6.0, вікові категорії й незалежні дозволи від 16 років. Політика en/uk/de має ревізію 2026-10-21.privacy-4; підтвердження документа не є згодою. Виробничі перевірки залишаються закритими.
 
 [Реалізація, результати перевірок і релізні блокери](Design/Legal/PRIVACY-RUNTIME-UA.md), [облік даних і Data safety](Design/Legal/DATA-SAFETY-UA.md), [зв’язок з офіційним сайтом](docs/privacy-integration.md). Поточні probe-проєкти: tools/privacy-probe та tools/optional-google-probe; платформа/SDK підміняються, перевірки не є Android runtime або player build.
+
+### Composition diagnostics without a Unity license
+
+`tools/qc_world.py --project QuietCamp external-audit --output <outside-Assets> --render`
+exports real committed geometry through the managed C# seasonal pipeline and
+renders it in free Blender. See `Design/LevelAuthoring/WorldOps.md` for the
+explicit camera/shader/runtime limits, contact repairs and native review gate.
+This is not a player build, Unity Game View, mobile benchmark or artistic approval.
