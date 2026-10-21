@@ -4,6 +4,8 @@ import argparse
 import hashlib
 import json
 import os
+import re
+import zipfile
 import subprocess
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
@@ -20,6 +22,7 @@ def main():
     parser.add_argument('--apkanalyzer', required=True, type=Path)
     parser.add_argument('--java-home', type=Path)
     parser.add_argument('--require-development', action='store_true')
+    parser.add_argument('--require-test-ads', action='store_true')
     parser.add_argument('--output', type=Path)
     args = parser.parse_args()
     env = os.environ.copy()
@@ -59,6 +62,21 @@ def main():
                         errors.append('Incorrect privacy attribute: ' + name + ' / ' + key)
     if args.require_development and app.get(ANDROID+'debuggable') != 'true':
         errors.append('QA APK is not debuggable; development build was not applied')
+    app_ids = [e.get(ANDROID+'value', '') for e in app.findall('meta-data')
+               if e.get(ANDROID+'name') == 'com.google.android.gms.ads.APPLICATION_ID']
+    app_id = app_ids[0] if len(app_ids) == 1 else ''
+    if not re.fullmatch(r'ca-app-pub-\d{16}~\d{10}', app_id):
+        errors.append('Missing or invalid AdMob application ID; SDK startup can fail')
+    sample_app_id = 'ca-app-pub-3940256099942544~3347511713'
+    if args.require_test_ads and app_id != sample_app_id:
+        errors.append('This sample-ad QA build must use the Google sample application ID')
+    # A manifest declaration alone can pass the merger while its Java source
+    # was omitted from compilation. Android then crashes before any C# starts.
+    with zipfile.ZipFile(args.apk) as archive:
+        dex_files = [name for name in archive.namelist() if re.fullmatch(r'classes\d*\.dex', name)]
+        provider_descriptor = b'Lcom/quietcamp/game/privacy/FirebasePrivacyProvider;'
+        if not any(provider_descriptor in archive.read(name) for name in dex_files):
+            errors.append('Privacy startup provider is declared but absent from APK DEX files')
     if errors:
         raise SystemExit('FAIL APK privacy manifest:\n' + '\n'.join(errors))
     with args.apk.open('rb') as artifact:
@@ -68,6 +86,8 @@ def main():
         'apkSha256': digest, 'apkBytes': args.apk.stat().st_size,
         'package': manifest.get('package'),
         'debuggable': app.get(ANDROID+'debuggable', 'false'),
+        'admobAppId': app_id,
+        'sampleAdmobAppId': app_id == sample_app_id,
         'firebaseInitProviderRemoved': True,
         'defaultCollectionRulesMatch': True,
         'providers': [p.get(ANDROID+'name') for p in app.findall('provider')],

@@ -23,6 +23,8 @@ public sealed class MenuDeviceProbe : MonoBehaviour
         public bool analyticsConsent, crashConsent, advertisingConsent;
         public bool analyticsCollecting, crashesCollecting, analyticsAllowed, crashesAllowed, advertisingAllowed;
         public string policyRevision;
+        public int androidUid;
+        public long uidTxBytes = -1, uidRxBytes = -1;
         public int placements, boardRevision; public bool canUndo, canRedo, gameplayActive;
         public List<Target> placementTargets = new List<Target>();
         public List<Control> controls = new List<Control>(); public List<string> headings = new List<string>();
@@ -40,6 +42,21 @@ public sealed class MenuDeviceProbe : MonoBehaviour
         if (Time.unscaledTime < _next) return; _next = Time.unscaledTime + .25f;
         var services = QuietCampBootstrap.ServicesRef;
         var state = new Snapshot { scene = SceneManager.GetActiveScene().name, width = Screen.width, height = Screen.height };
+#if UNITY_ANDROID && !UNITY_EDITOR
+        // OS counters include startup bytes sent before this probe existed.
+        // They are observations for this app UID, not provider/payload attribution.
+        try
+        {
+            using (var process = new AndroidJavaClass("android.os.Process"))
+                state.androidUid = process.CallStatic<int>("myUid");
+            using (var traffic = new AndroidJavaClass("android.net.TrafficStats"))
+            {
+                state.uidTxBytes = traffic.CallStatic<long>("getUidTxBytes", state.androidUid);
+                state.uidRxBytes = traffic.CallStatic<long>("getUidRxBytes", state.androidUid);
+            }
+        }
+        catch { }
+#endif
         state.privacyPending = BootPrivacyPanel.Current != null && !BootPrivacyPanel.Current.Accepted;
         state.privacyDeclined = BootPrivacyPanel.Current != null && BootPrivacyPanel.Current.Declined;
         state.startupReady = FindAnyObjectByType<QuietCampBootstrap>()?.StartupReady ?? false;
