@@ -47,13 +47,26 @@ namespace QuietCamp.Presentation
         public BonusCampAccessService BonusCamps { get; }
         public CampEconomy Economy { get; private set; }
         public AdLifeService AdLives { get; private set; }
+        public AdHintService AdHints { get; private set; }
         public JourneyCatalog Journeys { get; private set; }
         public JourneyAccessService JourneyAccess { get; private set; }
         public PurchaseService Purchases { get; private set; }
         public CampMemoryService Memories { get; private set; }
         public CampCompletionService Completion { get; private set; }
         public CampAttemptService Attempts { get; private set; }
-        public bool MonetizationBusy => Purchases.Busy || AdLives.Busy || Rewards.Busy;
+        public bool MonetizationBusy => Purchases.Busy || AdLives.Busy || AdHints.Busy || Rewards.Busy;
+        float _economyTickSeconds;
+        int _recoveryMinute = -1;
+        public void TickEconomy(float seconds)
+        {
+            if (Economy == null || seconds < 0 || float.IsNaN(seconds) || float.IsInfinity(seconds)) return;
+            _economyTickSeconds += seconds;
+            if (_economyTickSeconds < 1) return;
+            _economyTickSeconds = 0;
+            Economy.RefreshLives();
+            int minute = (int)Math.Ceiling(Economy.SecondsUntilNextLife / 60d);
+            if (minute != _recoveryMinute) { _recoveryMinute = minute; OnMonetizationChanged(); }
+        }
         #if UNITY_EDITOR
         public readonly Dictionary<string,int> RoadmapSeenFrontiers=new Dictionary<string,int>(StringComparer.Ordinal);
         #endif
@@ -184,12 +197,13 @@ namespace QuietCamp.Presentation
             // Document acknowledgement never grants consent. Changed policy words also invalidate old optional choices.
             var consentPublication = Legal.Published ? Legal.revision + ":" + save.Settings.privacyAcknowledgementHash : Legal.revision;
             GoogleConfiguration.BindPrivacy(save.Settings, consentPublication);
+            GoogleConfiguration.HasNoAdsEntitlement = () => save.Economy.pro;
             GoogleConfiguration.RememberPrivacyOptions = required =>
             { Settings.googlePrivacyOptionsRequired = required; Save.Save(); };
             _privacyPersistence = new PrivacyConsentPersistence(save.Settings,
                 () => save.MemoryOnly ? save.Save() : PrivacyInstallScope.Commit(save.Settings, save.Save));
             Ads = ads == null ? OptionalGoogleServices.Ads(GoogleConfiguration) : new PrivacyAdService(
-                () => PrivacyEligibility.AdvertisingAllowed(save.Settings, consentPublication) && save.Settings.optionalVideoBonuses,
+                () => PrivacyEligibility.AdvertisingAllowed(save.Settings, consentPublication) && save.Settings.optionalVideoBonuses && !save.Economy.pro,
                 () => PrivacyEligibility.Allowed(save.Settings), () => ads);
             Analytics = new ComfortAnalytics(save.Settings, OptionalGoogleServices.Analytics(GoogleConfiguration), () =>
             { if (!PersistPrivacy()) throw new InvalidOperationException("Privacy choice could not be saved."); }, consentPublication);
@@ -210,8 +224,10 @@ namespace QuietCamp.Presentation
         void ConfigureMonetization(IPurchaseProvider provider = null)
         {
             if (AdLives != null) AdLives.RewardObserved -= OnLifeReward;
+            if (AdHints != null) AdHints.RewardObserved -= OnHintReward;
             if (Economy != null) Economy.Changed -= OnMonetizationChanged;
             if (AdLives != null) AdLives.Changed -= OnMonetizationChanged;
+            if (AdHints != null) AdHints.Changed -= OnMonetizationChanged;
             if (Purchases != null) Purchases.Changed -= OnMonetizationChanged;
             var config = MonetizationConfiguration.Load();
             Economy = new CampEconomy(Save.Economy, config.economy, Save.Save);
@@ -220,10 +236,13 @@ namespace QuietCamp.Presentation
             Memories = new CampMemoryService(Save.Memories);
             Completion = new CampCompletionService(Save, Progression, Memories, Journeys);
             Attempts = new CampAttemptService(Save, Economy, Completion);
-            AdLives = new AdLifeService(Ads, Economy, () => Settings.optionalVideoBonuses && !Rewards.Busy && !Purchases.Busy);
+            AdLives = new AdLifeService(Ads, Economy, () => Settings.optionalVideoBonuses && !Rewards.Busy && !Purchases.Busy && !AdHints.Busy);
+            AdHints = new AdHintService(Ads, Economy, () => Settings.optionalVideoBonuses && !Rewards.Busy && !Purchases.Busy && !AdLives.Busy);
             AdLives.RewardObserved += OnLifeReward;
+            AdHints.RewardObserved += OnHintReward;
             Purchases = new PurchaseService(provider ?? new UnavailablePurchaseProvider(), config.products, Save.Purchases, GrantProduct, Save.Save);
-            Economy.Changed += OnMonetizationChanged; AdLives.Changed += OnMonetizationChanged; Purchases.Changed += OnMonetizationChanged;
+            Economy.Changed += OnMonetizationChanged; AdLives.Changed += OnMonetizationChanged; AdHints.Changed += OnMonetizationChanged; Purchases.Changed += OnMonetizationChanged;
+            Economy.RefreshLives();
         }
         /// <summary>Accept a downloaded/local, authenticated data manifest at the menu boundary.
         /// Delivery may later use Addressables; installation never changes an active puzzle.</summary>
@@ -347,6 +366,7 @@ namespace QuietCamp.Presentation
         {
             Rewards.RewardObserved -= OnCosmeticReward;
             AdLives.RewardObserved -= OnLifeReward;
+            AdHints.RewardObserved -= OnHintReward;
             Save.SaveFailed -= OnSaveFailed;
             Save.BeforeSave -= SyncProgress;
             Analytics.Dispose();
@@ -372,7 +392,10 @@ namespace QuietCamp.Presentation
             if (!GoogleConfiguration.AdvertisingAllowed) (Ads as IAdRequestCancellation)?.CancelPending();
             return saved;
         }
+        public bool SetOptionalVideoBonuses(bool enabled)
+            => PrivacyEligibility.SetVideoBonuses(Settings, enabled, PersistPrivacy);
         void OnLifeReward(RewardStage stage) => Analytics.Reward(stage, 0);
+        void OnHintReward(RewardStage stage) => Analytics.Reward(stage, 2);
         void OnCosmeticReward(RewardStage stage) => Analytics.Reward(stage, 1);
     }
 }

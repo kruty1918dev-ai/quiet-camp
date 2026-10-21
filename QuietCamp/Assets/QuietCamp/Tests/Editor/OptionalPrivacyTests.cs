@@ -129,6 +129,30 @@ namespace QuietCamp.Tests.Editor
             finally { OptionalGoogleServices.AnalyticsFactory = oldAnalytics; OptionalGoogleServices.CrashFactory = oldCrash; }
         }
         static SettingsSaveData Adult() => new SettingsSaveData { privacyAgeBand = 4, privacyAgeVersion = 1 };
+        [Test] public void VideoPreferenceCanBeReenabledWithoutGrantingTracking()
+        {
+            var settings = Adult(); settings.optionalVideoBonuses = false;
+            Assert.IsTrue(PrivacyEligibility.SetVideoBonuses(settings, true, () => true));
+            Assert.IsTrue(settings.optionalVideoBonuses);
+            Assert.IsFalse(settings.advertisingConsent || settings.analyticsConsent || settings.crashReportingConsent);
+        }
+        [TestCase(false)] [TestCase(true)]
+        public void FailedVideoPreferenceSaveCannotEnableVideoRequests(bool throws)
+        {
+            var settings = Adult(); settings.optionalVideoBonuses = false;
+            Assert.IsFalse(PrivacyEligibility.SetVideoBonuses(settings, true, () =>
+            { if (throws) throw new IOException("Synthetic preference save failure"); return false; }));
+            Assert.IsFalse(settings.optionalVideoBonuses);
+        }
+        [Test] public void TurningOffVideoPreferenceCancelsPendingAdsWithoutRevokingAnalytics()
+        {
+            var settings = Adult(); settings.advertisingConsent = settings.analyticsConsent = true;
+            var ads = new RecordingAds();
+            var persistence = new PrivacyConsentPersistence(settings, () => true); persistence.Attach(null, null, ads);
+            Assert.IsTrue(PrivacyEligibility.SetVideoBonuses(settings, false, persistence.Save));
+            Assert.Greater(ads.Cancellations, 0);
+            Assert.IsTrue(settings.analyticsConsent, "Video availability and analytics are independent.");
+        }
         [TestCase("advertising", false)] [TestCase("crash", false)]
         [TestCase("advertising", true)] [TestCase("crash", true)]
         public async Task FailedOtherPurposeSaveStopsAlreadyActiveAnalyticsAndAllTransports(string purpose, bool throws)

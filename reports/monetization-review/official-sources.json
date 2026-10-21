@@ -1,0 +1,78 @@
+{
+  "checkedOn": "2026-10-21",
+  "scope": "Official product/legal references, not evidence of developer account configuration",
+  "sources": [
+    {
+      "title": "Rewarded policy",
+      "url": "https://support.google.com/admob/answer/7313578?hl=en"
+    },
+    {
+      "title": "Limited Ads",
+      "url": "https://support.google.com/admob/answer/10105530?hl=en"
+    },
+    {
+      "title": "Google age treatment",
+      "url": "https://developers.google.com/admob/unity/targeting?hl=en"
+    },
+    {
+      "title": "UMP under age",
+      "url": "https://developers.google.com/admob/unity/privacy/gdpr"
+    },
+    {
+      "title": "Android LTD storage signal",
+      "url": "https://developers.google.com/admob/android/global-settings"
+    },
+    {
+      "title": "app-ads.txt",
+      "url": "https://developers.google.com/admob/android/app-ads"
+    },
+    {
+      "title": "Google Play User Data",
+      "url": "https://support.google.com/googleplay/android-developer/answer/10144311"
+    },
+    {
+      "title": "Families",
+      "url": "https://support.google.com/googleplay/android-developer/answer/9893335"
+    },
+    {
+      "title": "Target audience",
+      "url": "https://support.google.com/googleplay/android-developer/answer/9867159"
+    },
+    {
+      "title": "Firebase privacy",
+      "url": "https://firebase.google.com/support/privacy"
+    },
+    {
+      "title": "TDDDG section25",
+      "url": "https://www.gesetze-im-internet.de/ttdsg/__25.html"
+    },
+    {
+      "title": "EDPB consent Art8",
+      "url": "https://www.edpb.europa.eu/system/files/documents/files/file1/edpb_guidelines_202005_consent_en.pdf"
+    },
+    {
+      "title": "EDPB age assurance",
+      "url": "https://www.edpb.europa.eu/system/files/2025-04/edpb_statement_20250211ageassurance_v1-2_en.pdf"
+    },
+    {
+      "title": "Billing purchase verification",
+      "url": "https://developer.android.com/google/play/billing/security"
+    },
+    {
+      "title": "IAP privacy audit; not installed",
+      "url": "https://docs.unity.com/en-us/iap/privacy-and-consent/overview"
+    }
+  ],
+  "pinnedGmaSource": [
+    {
+      "url": "https://raw.githubusercontent.com/googleads/googleads-mobile-unity/v11.6.0/source/plugin/Assets/GoogleMobileAds/Api/Core/RequestConfiguration.cs",
+      "sha256": "4a2aa5812a08bab6da7280c28ee64b463367a2dbf50c6f1f53945da555fae4a4",
+      "confirmed": "AgeRestrictedTreatment/Child/Teen API available in installed11.6.0 source"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/googleads/googleads-mobile-unity/v11.6.0/source/plugin/Assets/GoogleMobileAds/Api/Core/AgeRestrictedTreatment.cs",
+      "sha256": "225acf2b404b8669040d6800deeb9d61cc302638e1eff4afc3f0d9aae307cb86",
+      "confirmed": "AgeRestrictedTreatment/Child/Teen API available in installed11.6.0 source"
+    }
+  ]
+}

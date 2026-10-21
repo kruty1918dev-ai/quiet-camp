@@ -24,6 +24,21 @@ namespace QuietCamp.Presentation.UI
                 + HtmlUi.Button(surface, "privacy-decline", T("privacy.decline"), () => { _ = services.Analytics.SetConsent(false); close(); }, "quiet")
                 + "</view>";
         }
+        // Availability preference is always reachable, including after turning it
+        // off. It never grants tracking consent or bypasses an age/UMP decision.
+        public static string VideoPreference(GameServices services, HtmlSurface surface)
+        {
+            surface.Callbacks.BindToggle("video-bonus-preference", value =>
+            {
+                if (!services.SetOptionalVideoBonuses(value)) services.Notifications?.Show(services.Localization.T("save.failed"), Kruty1918.Notifications.API.GameplayNotificationKind.Info);
+                surface.Refresh();
+            });
+            return "<view class=\"toggle-row\"><view class=\"tr-text\"><label for=\"#video-bonus-preference\">"
+                + HtmlUi.Escape(services.Localization.T("settings.videoBonuses"))
+                + "</label></view><switch id=\"video-bonus-preference\" checked=\""
+                + (services.Settings.optionalVideoBonuses ? "true" : "false")
+                + "\" onChange=\"Globals.campUi.Toggle('video-bonus-preference', event)\" /></view>";
+        }
         public static string Render(GameServices services, HtmlSurface surface, SettingsNav nav)
         {
             string T(string key) => services.Localization.T(key);
@@ -99,6 +114,11 @@ namespace QuietCamp.Presentation.UI
             else if (nav.Section == "advertising")
             {
                 html.Append(HtmlUi.Text(T("privacy.advertising.help"), "s-sub"));
+                html.Append(VideoPreference(services, surface));
+                if (PrivacyEligibility.Band(services.Settings) == PrivacyAgeBand.From13To15)
+                    html.Append(HtmlUi.Text(T(config.UnderAgeLimitedAdsAllowed ? "privacy.setup.limitedAvailable" : "privacy.setup.limitedInactive"), "s-sub"));
+                else
+                {
                 surface.Callbacks.BindToggle("advertising-consent", value =>
                 {
                     if (!services.SetAdvertisingConsent(value)) services.Notifications?.Show(T("save.failed"), Kruty1918.Notifications.API.GameplayNotificationKind.Info);
@@ -110,6 +130,7 @@ namespace QuietCamp.Presentation.UI
                     .Append("\" disabled=\"").Append(config.Eligible ? "false" : "true")
                     .Append("\" onChange=\"Globals.campUi.Toggle('advertising-consent', event)\" /></view>");
                 if (!config.Eligible) html.Append(HtmlUi.Text(T("privacy.age.restricted"), "s-sub"));
+                }
             }
             else if (nav.Section == "crashes")
             {

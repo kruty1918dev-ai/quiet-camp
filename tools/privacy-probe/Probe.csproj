@@ -12,11 +12,17 @@
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/AdService.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/OptionalPrivacy.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/PrivacyEligibility.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/PrivacySetup.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Tests/Editor/PrivacySetupTests.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/PrivacyConsentPersistence.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/PrivacyInstallScope.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Tests/Editor/OptionalPrivacyTests.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/CozyRewardService.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/CampSaveData.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/CampEconomy.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/AdLifeService.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/AdHintService.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Tests/Editor/MonetizationPrivacyTests.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/ProgressionService.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/PrivacyAcknowledgement.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/OptionalGoogleServices.cs" />

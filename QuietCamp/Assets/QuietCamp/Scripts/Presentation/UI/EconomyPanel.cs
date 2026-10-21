@@ -30,12 +30,19 @@ namespace QuietCamp.Presentation.UI
             else
             {
                 html.Append(Status(_services)).Append(HtmlUi.Text(string.Format(T("economy.balance"), e.Currency), "s-sub"));
+                if (e.Lives < e.LifeCapacity)
+                    html.Append(HtmlUi.Text(string.Format(T("economy.recovery"), Math.Max(1, (int)Math.Ceiling(e.SecondsUntilNextLife / 60d)), e.LifeCapacity), "s-sub"));
                 html.Append(Exchange("life", T("economy.life"), e.LifeCost, () => e.BuyLives(1), e.Currency >= e.LifeCost));
                 html.Append(Exchange("hint", T("action.hint"), e.HintCost, () => e.BuyHints(1), e.Currency >= e.HintCost));
                 if (_services.AdLives.Available)
                 {
                     html.Append(HtmlUi.Text(string.Format(T("economy.ad.remaining"), e.AdLivesRemaining), "s-sub"));
                     html.Append(HtmlUi.Button(_surface, "life-ad", T("economy.ad.life"), RunAd, "quiet", !_services.MonetizationBusy));
+                }
+                if (_services.AdHints.Available)
+                {
+                    html.Append(HtmlUi.Text(string.Format(T("economy.ad.hintsRemaining"), e.AdHintsRemaining), "s-sub"));
+                    html.Append(HtmlUi.Button(_surface, "hint-ad", T("economy.ad.hint"), RunHintAd, "quiet", !_services.MonetizationBusy));
                 }
                 foreach (var product in _services.Purchases.Products)
                 {
@@ -94,7 +101,14 @@ namespace QuietCamp.Presentation.UI
         }
         async void RunAd()
         {
-            try { var result = await _services.AdLives.Request(); if (!_disposed) { _result = "economy.result." + result; _surface.Refresh(); } }
+            if (_services.MonetizationBusy) return;
+            try { var result = await RewardedVideoPresentation.Run(_services, _surface, _services.AdLives.Request); if (!_disposed) { _result = "economy.result." + result; _surface.Refresh(); } }
+            catch { if (!_disposed) { _result = "purchase.Unavailable"; _surface.Refresh(); } }
+        }
+        async void RunHintAd()
+        {
+            if (_services.MonetizationBusy) return;
+            try { var result = await RewardedVideoPresentation.Run(_services, _surface, _services.AdHints.Request); if (!_disposed) { _result = "economy.result." + result; _surface.Refresh(); } }
             catch { if (!_disposed) { _result = "purchase.Unavailable"; _surface.Refresh(); } }
         }
         public void Dispose() => _disposed = true;

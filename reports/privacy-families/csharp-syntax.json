@@ -1,0 +1,14 @@
+{
+  "status": "pass",
+  "scope": "C# 9 syntax under player/Editor symbols only; not Unity assembly compilation or scene execution",
+  "files": [
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/BootPrivacyPanel.cs",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/UI/EconomyPanel.cs",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/CampEconomy.cs",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/PrivacySetup.cs",
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/LegalConfiguration.cs",
+    "QuietCamp/Assets/QuietCamp/Scripts/Application/PrivacyEligibility.cs",
+    "QuietCamp/Assets/QuietCamp/Tests/Editor/PrivacySetupTests.cs"
+  ],
+  "errors": []
+}

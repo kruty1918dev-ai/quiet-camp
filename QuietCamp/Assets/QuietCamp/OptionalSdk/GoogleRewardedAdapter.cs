@@ -13,6 +13,9 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
     readonly string _unit;
     readonly bool _testAds;
     readonly Func<bool> _authorized, _teen, _eligible;
+    readonly Func<bool> _underAge, _limitedApproved;
+    readonly Func<bool> _personalizedEligible;
+    readonly Func<bool, bool> _applyStorageMode;
     readonly Action<bool> _rememberPrivacyOptions;
     readonly SynchronizationContext _main;
     bool _initialized, _disposed, _busy, _showing, _consentForm;
@@ -26,8 +29,9 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
         && (privacyManagement ? _eligible() : _authorized()) && !_cancel.Task.IsCompleted; }
     RewardedAd _ad;
     public bool IsReady => !_disposed && !_busy && _authorized() && !string.IsNullOrEmpty(_unit);
-    public bool PrivacyOptionsRequired => !_disposed && _eligible() && !_testAds && ConsentInformation.PrivacyOptionsRequirementStatus == PrivacyOptionsRequirementStatus.Required;
-    public GoogleRewardedAdapter(string unit, bool testAds = false, Func<bool> authorized = null, Func<bool> teen = null, Func<bool> eligible = null, Action<bool> rememberPrivacyOptions = null)
+    public bool PrivacyOptionsRequired => !_disposed && !_underAge() && _eligible() && !_testAds && ConsentInformation.PrivacyOptionsRequirementStatus == PrivacyOptionsRequirementStatus.Required;
+    public GoogleRewardedAdapter(string unit, bool testAds = false, Func<bool> authorized = null, Func<bool> teen = null, Func<bool> eligible = null, Action<bool> rememberPrivacyOptions = null,
+        Func<bool> underAge = null, Func<bool> limitedApproved = null, Func<bool, bool> applyStorageMode = null, Func<bool> personalizedEligible = null)
     {
         // Never skip UMP for a publisher's unit, even if a caller passes testAds.
         _testAds = testAds && (unit == GoogleServicesConfiguration.AndroidTestRewardedUnitId
@@ -36,10 +40,14 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
         _authorized = authorized ?? (() => false); _teen = teen ?? (() => false);
         _eligible = eligible ?? _authorized;
         _rememberPrivacyOptions = rememberPrivacyOptions;
+        _underAge = underAge ?? (() => false); _limitedApproved = limitedApproved ?? (() => false);
+        _applyStorageMode = applyStorageMode ?? ApplyStorageMode;
+        _personalizedEligible = personalizedEligible ?? (() => false);
     }
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void Register() => OptionalGoogleServices.AdsFactory = c => new GoogleRewardedAdapter(c.CurrentRewardedUnitId, c.TestAdsActive,
-        () => c.AdvertisingAllowed, () => PrivacyEligibility.Band(c.PrivacySettings) == PrivacyAgeBand.From16To17, () => c.Eligible, c.RememberPrivacyOptions);
+        () => c.AdvertisingAllowed, () => PrivacyEligibility.Band(c.PrivacySettings) == PrivacyAgeBand.From16To17, () => c.Eligible, c.RememberPrivacyOptions,
+        () => PrivacyEligibility.Band(c.PrivacySettings) == PrivacyAgeBand.From13To15, () => c.LimitedAdsApproved, personalizedEligible: () => c.AdultPersonalizationApproved);
     void Main(Action action) { if (_main != null) _main.Post(_ => action(), null); else action(); }
     public void ShowBanner(string placementId) { }
     public void HideBanner() { }
@@ -48,7 +56,7 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
     {
         // Publisher inventory only. Refresh information each launch without
         // initializing ads or opening a native form over unrelated core play.
-        if (_testAds || !IsReady || UnityEngine.Application.internetReachability == NetworkReachability.NotReachable) return;
+        if (_testAds || _underAge() || !IsReady || UnityEngine.Application.internetReachability == NetworkReachability.NotReachable) return;
         _busy = true; _cancel = new TaskCompletionSource<bool>();
         try { await UpdateConsentInformation(); }
         catch (Exception error) { Debug.LogWarning("[QuietCamp Ads] Consent refresh unavailable: " + error.GetType().Name); }
@@ -58,9 +66,9 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
     {
         var cancellation = _cancel.Task;
         var consent = new TaskCompletionSource<bool>();
-        ConsentInformation.Update(new ConsentRequestParameters { TagForUnderAgeOfConsent = false }, error => Main(() =>
+        ConsentInformation.Update(new ConsentRequestParameters { TagForUnderAgeOfConsent = _underAge() }, error => Main(() =>
         {
-            bool valid = error == null && !_disposed && !cancellation.IsCompleted && _eligible();
+            bool valid = error == null && !_disposed && !cancellation.IsCompleted && (privacyManagement ? _eligible() : _authorized());
             if (valid) _rememberPrivacyOptions?.Invoke(ConsentInformation.PrivacyOptionsRequirementStatus == PrivacyOptionsRequirementStatus.Required);
             consent.TrySetResult(valid);
         }));
@@ -74,6 +82,9 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
         var cancellation = _cancel.Task;
         try
         {
+            bool underAge = _underAge();
+            bool limited = underAge;
+            if (underAge && (_testAds || !_limitedApproved())) return AdResult.Unavailable;
             if (!_testAds)
             {
                 // Refresh again for the explicit request; launch-cached consent
@@ -81,19 +92,27 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
                 if (!await UpdateConsentInformation()) return AdResult.Unavailable;
                 // This API loads and displays the UMP form in one operation. Never
                 // release the game gate on a timer while a native form may be open.
-                _consentForm = true;
-                _privacyClosed = new TaskCompletionSource<bool>();
-                var form = _privacyClosed;
-                ConsentForm.LoadAndShowConsentFormIfRequired(error => Main(() =>
-                    form.TrySetResult(!_disposed && error == null && ConsentInformation.CanRequestAds())));
-                if (!await form.Task || _disposed || cancellation.IsCompleted || !_authorized() || !DeviceStorageAllowed()) return AdResult.Unavailable;
-                _consentForm = false; _privacyClosed = null;
+                if (!underAge)
+                {
+                    _consentForm = true;
+                    _privacyClosed = new TaskCompletionSource<bool>();
+                    var form = _privacyClosed;
+                    ConsentForm.LoadAndShowConsentFormIfRequired(error => Main(() =>
+                        form.TrySetResult(!_disposed && error == null && ConsentInformation.CanRequestAds())));
+                    if (!await form.Task) return AdResult.Unavailable;
+                    _consentForm = false; _privacyClosed = null;
+                    bool storageAllowed = DeviceStorageAllowed();
+                    if (!storageAllowed) limited = _limitedApproved();
+                    if (!storageAllowed && !limited) return AdResult.Unavailable;
+                }
+                if (!ConsentInformation.CanRequestAds() || _disposed || cancellation.IsCompleted || !_authorized()) return AdResult.Unavailable;
             }
             if (!_authorized()) return AdResult.Unavailable;
+            if (!_applyStorageMode(limited)) return AdResult.Unavailable;
             MobileAds.SetRequestConfiguration(new RequestConfiguration
             {
-                AgeRestrictedTreatment = _teen() ? AgeRestrictedTreatment.Teen : AgeRestrictedTreatment.Unspecified,
-                MaxAdContentRating = MaxAdContentRating.T
+                AgeRestrictedTreatment = underAge ? AgeRestrictedTreatment.Child : _teen() ? AgeRestrictedTreatment.Teen : AgeRestrictedTreatment.Unspecified,
+                MaxAdContentRating = underAge ? MaxAdContentRating.G : MaxAdContentRating.T
             });
             // Google sample app IDs have no publisher UMP message configured.
             // This path is restricted to sample units in Editor/development players.
@@ -107,7 +126,10 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
             }
             var loaded = new TaskCompletionSource<RewardedAd>();
             bool abandoned = false;
-            var request = new AdRequest(); request.Extras.Add("npa", "1");
+            var request = new AdRequest();
+            // For approved adults the Google SDK must still honor the fresh UMP
+            // choice; omission of npa is not consent. Never personalize minors/LTD.
+            if (limited || underAge || _teen() || !_personalizedEligible()) request.Extras.Add("npa", "1");
             if (!_authorized()) return AdResult.Unavailable;
             RewardedAd.Load(_unit, request, (ad, error) => Main(() =>
             {
@@ -160,9 +182,41 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
         return false;
 #endif
     }
+    static bool ApplyStorageMode(bool limited)
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        // Google's documented LTD control. Never manufacture a consent=true signal.
+        try
+        {
+            using (var player = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+            using (var activity = player.GetStatic<AndroidJavaObject>("currentActivity"))
+            using (var preferences = new AndroidJavaClass("android.preference.PreferenceManager"))
+            using (var store = preferences.CallStatic<AndroidJavaObject>("getDefaultSharedPreferences", activity))
+            using (var edit = store.Call<AndroidJavaObject>("edit"))
+            {
+                const string key = "gad_has_consent_for_cookies", owner = "qc_limited_ads_override";
+                bool owned = store.Call<bool>("getBoolean", owner, false);
+                if (limited && store.Call<int>("getInt", key, -1) != 0)
+                {
+                    using (edit.Call<AndroidJavaObject>("putInt", key, 0)) { }
+                    using (edit.Call<AndroidJavaObject>("putBoolean", owner, true)) { }
+                }
+                else if (!limited && owned)
+                {
+                    using (edit.Call<AndroidJavaObject>("remove", key)) { }
+                    using (edit.Call<AndroidJavaObject>("remove", owner)) { }
+                }
+                return edit.Call<bool>("commit");
+            }
+        }
+        catch { return false; }
+#else
+        return !limited; // Native storage must be verified; contract tests inject a recording bridge.
+#endif
+    }
     public async Task ShowPrivacyOptions()
     {
-        if (!_eligible() || _testAds || _busy || _disposed) return;
+        if (!_eligible() || _underAge() || _testAds || _busy || _disposed) return;
         _busy = true; _cancel = new TaskCompletionSource<bool>();
         var closed = _privacyClosed = new TaskCompletionSource<bool>();
         try

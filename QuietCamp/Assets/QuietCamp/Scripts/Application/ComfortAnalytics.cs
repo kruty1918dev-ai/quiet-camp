@@ -136,7 +136,7 @@ namespace QuietCamp.Application
         { if (Collecting && _level > 0) Send("level_fail", new Dictionary<string, long> { ["level"] = _level }); }
         public void Reward(RewardStage stage, int category)
         {
-            if (!Enum.IsDefined(typeof(RewardStage), stage) || category < 0 || category > 1) return;
+            if (!Enum.IsDefined(typeof(RewardStage), stage) || category < 0 || category > 2) return;
             var name = stage == RewardStage.Requested ? "rewarded_ad_requested"
                 : stage == RewardStage.Completed ? "rewarded_ad_completed" : "reward_granted";
             Send(name, new Dictionary<string, long> { ["reward_category"] = category });

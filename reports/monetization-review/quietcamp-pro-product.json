@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "packageName": "com.quietcamp.game",
+  "productId": "quietcamp_pro",
+  "type": "one-time non-consumable",
+  "ownerRequestedOn": "2026-10-21",
+  "playConsoleProductCreated": false,
+  "salesEnabled": false,
+  "subscription": false,
+  "entitlements": [
+    "No resource limits or counters",
+    "No rewarded-video offers in any placement"
+  ],
+  "priceSource": "Google Play localized ProductDetails only; never hardcode a live price",
+  "futureDlcIncluded": "Unresolved; do not advertise before reviewing JourneyAccess Pro behavior",
+  "titles": {
+    "en": "Quiet Camp Pro",
+    "uk": "Quiet Camp Pro",
+    "de": "Quiet Camp Pro"
+  },
+  "descriptions": {
+    "en": "Play without waiting for lives, resource limits or video bonuses. One purchase, no subscription.",
+    "uk": "Грайте без очікування життів, ресурсних лімітів і відеобонусів. Одна покупка, без підписки.",
+    "de": "Spiele ohne Wartezeit auf Leben, Ressourcenlimits oder Videoboni. Einmaliger Kauf, kein Abonnement."
+  },
+  "activationRequires": [
+    "Create and activate actual Play Console product/purchase option and set localized price",
+    "Implement production Google Play Billing provider; current provider is UnavailablePurchaseProvider",
+    "Trusted server verification and durable purchase-token/entitlement ledger before grant; acknowledge after fulfillment",
+    "Restore, pending/cancel, duplicate token, failed save, reinstall and refund/revoke handling",
+    "Publish applicable purchase terms and update data inventory/policy for actual transaction processing",
+    "Native license-tester tests of exact release and store signing; no fake provider in production"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "verifiedAtUtc": "2026-10-21",
+  "gameBase": "030e76d46048f7b40500c3ff333795e181b32406",
+  "websiteReviewBase": "2a0642bfeb485eec7418260ea80a762410c21c8b",
+  "websiteProductionBase": "e2220fa14ba2f62cb622954cf8d5cd48903ebd3a",
+  "policyRevision": "2026-10-21.privacy-7-revenue",
+  "portableTests": {
+    "passed": 107,
+    "failed": 0,
+    "scope": "Real domain/privacy/economy sources compiled; Unity/platform doubles, no native SDK execution"
+  },
+  "sdkContractScenarios": {
+    "passed": 35,
+    "scope": "Real adapters against API doubles, not native Google"
+  },
+  "csharp9Syntax": {
+    "files": 21,
+    "errors": 0,
+    "symbols": [
+      "UNITY_ANDROID + all three QC Google defines",
+      "UNITY_EDITOR + all three QC Google defines"
+    ],
+    "fullUnityAssemblyCompilation": false
+  },
+  "browser": {
+    "pages": 30,
+    "widths": [
+      320,
+      375,
+      390,
+      768,
+      1440
+    ],
+    "layouts": 150,
+    "axeScans": 40,
+    "axeViolations": 0,
+    "jsDisabledForEssentialContent": true,
+    "externalAssetRequests": 0,
+    "cookies": 0
+  },
+  "currentCampaign100": {
+    "levels": 100,
+    "validatorsWitnessIndependentSolverAndHashes": "passed",
+    "fullMonetizationProbe": "failed on unchanged historical gen:qc_mt:8 witness:unsolved; same failure with baseline main runtime control",
+    "historicalLevelSha256": "f94f2d8842267980fde4bd8cf1c67ef2962b22c90be8a597f508492cc1c7c8bb",
+    "historicalLevelModified": false
+  },
+  "sku": {
+    "productId": "quietcamp_pro",
+    "ownerRequested": true,
+    "consoleCreated": false,
+    "published": false,
+    "realBillingImplemented": false
+  },
+  "nativeUnityRun": false,
+  "playerBuild": false,
+  "productionDeployment": false,
+  "googleAccountConfigured": false,
+  "legalClearance": false,
+  "releaseCheck": "BLOCKED: exact artifact and real account/legal/native evidence missing",
+  "policySourceSha256": "59a66f6aad430776d33a29bf916b722744dd5f330cbf82f8473d2d782f64e7f6"
+}

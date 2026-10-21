@@ -139,7 +139,66 @@ class Program
         await CheckAdvertisingPrivacy();
         await CheckPendingReports();
         await CheckCrashPrivacy();
+        await CheckRevenueModes();
         Console.WriteLine(_passed + " contract scenarios passed. SDK doubles only; no real Google/Android integration verified.");
+    }
+    static async Task CheckRevenueModes()
+    {
+        ConsentInformation.Reset(); RewardedAd.Reset(); ConsentInformation.ConsentStatus = GoogleMobileAds.Ump.Api.ConsentStatus.NotRequired;
+        int writes = 0;
+        using (var provider = new GoogleRewardedAdapter("publisher-unit", authorized: () => true, underAge: () => true,
+            limitedApproved: () => true, applyStorageMode: limited => { Check(limited, "Under-age path must force LTD before init"); writes++; return true; }))
+        {
+            await provider.RefreshConsent(); Check(ConsentInformation.Updates == 0, "No under-age startup UMP network request");
+            var view = provider.ShowRewarded("camp.hint");
+            Check(ConsentInformation.LastParameters.TagForUnderAgeOfConsent, "Under-age UMP tag must be explicit");
+            Check(ConsentInformation.FormLoads == 0 && !provider.PrivacyOptionsRequired, "No adult consent form for under-age users");
+            Check(MobileAds.Configuration.AgeRestrictedTreatment == AgeRestrictedTreatment.Child && MobileAds.Configuration.MaxAdContentRating == MaxAdContentRating.G,
+                "Under digital-consent age needs Child treatment / G content");
+            Check(writes == 1 && RewardedAd.Request.Extras["npa"] == "1", "Under-age request must retain restricted parameters");
+            RewardedAd.Last.Earn(); RewardedAd.Last.Close(); Check(await view == AdResult.Completed, "Restricted path still grants the promised reward");
+            Pass("13-15 approved LTD request is explicit, tagged, no adult form, correct reward lifecycle");
+        }
+        ConsentInformation.Reset(); RewardedAd.Reset();
+        using (var provider = new GoogleRewardedAdapter("publisher-unit", authorized: () => true, underAge: () => true))
+        {
+            Check(await provider.ShowRewarded("camp.life") == AdResult.Unavailable && ConsentInformation.Updates == 0 && RewardedAd.Last == null,
+                "A missing LTD approval must not become an under-age normal ad request");
+            Pass("unapproved under-age mode cannot fall back to normal ads");
+        }
+        ConsentInformation.Reset(); RewardedAd.Reset(); ConsentInformation.ConsentStatus = GoogleMobileAds.Ump.Api.ConsentStatus.Required;
+        using (var provider = new GoogleRewardedAdapter("publisher-unit", authorized: () => true, limitedApproved: () => true,
+            applyStorageMode: limited => { Check(limited, "Denied NPA storage must use LTD override"); return true; }))
+        {
+            var view = provider.ShowRewarded("camp.life"); Check(ConsentInformation.FormLoads == 1, "Adult LTD must still use the required fresh UMP form");
+            RewardedAd.Last.Close(); Check(await view == AdResult.Skipped, "No earned callback, no reward");
+            Pass("approved adult LTD preserves UMP and does not turn tracking refusal into a forced NPA request");
+        }
+        ConsentInformation.Reset(); RewardedAd.Reset(); ConsentInformation.ConsentStatus = GoogleMobileAds.Ump.Api.ConsentStatus.Required;
+        using (var provider = new GoogleRewardedAdapter("publisher-unit", authorized: () => true, limitedApproved: () => true, applyStorageMode: _ => false))
+        {
+            Check(await provider.ShowRewarded("camp.life") == AdResult.Unavailable && RewardedAd.Last == null, "Failed LTD storage control cannot load an ad");
+            Pass("failed LTD preference write prevents loading");
+        }
+        foreach (bool underAge in new[] { false, true })
+        {
+            ConsentInformation.Reset(); RewardedAd.Reset(); ConsentInformation.RequestsAllowed = false;
+            using var provider = new GoogleRewardedAdapter("publisher-unit", authorized: () => true, underAge: () => underAge,
+                limitedApproved: () => true, applyStorageMode: _ => throw new Exception("Must stop before storage/initialization"));
+            Check(await provider.ShowRewarded("camp.hint") == AdResult.Unavailable && RewardedAd.Last == null,
+                "Limited Ads approval cannot override UMP CanRequestAds=false");
+            Pass(underAge ? "under-age LTD honors UMP denial" : "adult LTD honors UMP denial");
+        }
+        foreach (bool teen in new[] { false, true })
+        {
+            ConsentInformation.Reset(); RewardedAd.Reset(); ConsentInformation.ConsentStatus = GoogleMobileAds.Ump.Api.ConsentStatus.NotRequired;
+            using var provider = new GoogleRewardedAdapter("publisher-unit", authorized: () => true, teen: () => teen, personalizedEligible: () => true);
+            var view = provider.ShowRewarded("camp.life");
+            Check(RewardedAd.Request.Extras.ContainsKey("npa") == teen, "Only approved adults may omit the forced NPA extra; Google still enforces UMP");
+            RewardedAd.Last.Close(); await view;
+            Pass(teen ? "teen requests remain NPA despite adult-personalization feature flag" : "approved adult request lets Google apply the actual UMP advertising mode");
+        }
+        ConsentInformation.Reset(); RewardedAd.Reset(); ConsentInformation.ConsentStatus = GoogleMobileAds.Ump.Api.ConsentStatus.NotRequired;
     }
     static async Task CheckConsentSaveFailures()
     {
@@ -332,6 +391,9 @@ namespace QuietCamp.Application
     public sealed class SettingsSaveData
     {
         public bool analyticsConsent, crashReportingConsent, crashSessionEligible, advertisingConsent, googlePrivacyOptionsRequired, optionalVideoBonuses = true;
+        public int privacySetupVersion;
+        public string language, privacyAcknowledgementRevision, privacyAcknowledgementHash, privacyAcknowledgementLanguage, privacyAcknowledgedUtc;
+        public bool privacyAcknowledgementDraft;
         public int privacyAgeBand, privacyAgeVersion, advertisingPolicyVersion, analyticsPolicyVersion;
         public string advertisingRevision, analyticsPublicationRevision;
         public int crashPolicyVersion;
@@ -350,25 +412,27 @@ namespace GoogleMobileAds.Ump.Api
     public static class ConsentInformation
     {
         public static PrivacyOptionsRequirementStatus PrivacyOptionsRequirementStatus => PrivacyOptionsRequirementStatus.Required;
-        public static ConsentStatus ConsentStatus = ConsentStatus.NotRequired;
-        public static int Updates; public static bool HoldForm, HoldPrivacy, ThrowPrivacy;
+        public static ConsentStatus ConsentStatus = GoogleMobileAds.Ump.Api.ConsentStatus.NotRequired;
+        public static ConsentRequestParameters LastParameters;
+        public static int FormLoads;
+        public static int Updates; public static bool HoldForm, HoldPrivacy, ThrowPrivacy, RequestsAllowed = true;
         public static Action<FormError> FormCallback;
-        public static void Update(ConsentRequestParameters parameters, Action<FormError> callback) { Updates++; callback(null); }
-        public static bool CanRequestAds() => true;
-        public static void Reset() { Updates = 0; HoldForm = HoldPrivacy = ThrowPrivacy = false; FormCallback = null; }
+        public static void Update(ConsentRequestParameters parameters, Action<FormError> callback) { Updates++; LastParameters = parameters; callback(null); }
+        public static bool CanRequestAds() => RequestsAllowed;
+        public static void Reset() { Updates = FormLoads = 0; HoldForm = HoldPrivacy = ThrowPrivacy = false; RequestsAllowed = true; FormCallback = null; }
     }
     public static class ConsentForm
     {
         public static void LoadAndShowConsentFormIfRequired(Action<FormError> callback)
-        { ConsentInformation.FormCallback = callback; if (!ConsentInformation.HoldForm) callback(null); }
+        { ConsentInformation.FormLoads++; ConsentInformation.FormCallback = callback; if (!ConsentInformation.HoldForm) callback(null); }
         public static void ShowPrivacyOptionsForm(Action<FormError> callback)
         { if (ConsentInformation.ThrowPrivacy) throw new InvalidOperationException("Native form unavailable"); if (!ConsentInformation.HoldPrivacy) callback(null); }
     }
 }
 namespace GoogleMobileAds.Api
 {
-    public enum AgeRestrictedTreatment { Unspecified, Teen }
-    public enum MaxAdContentRating { T }
+    public enum AgeRestrictedTreatment { Unspecified, Teen, Child }
+    public enum MaxAdContentRating { T, G }
     public class RequestConfiguration { public AgeRestrictedTreatment AgeRestrictedTreatment; public MaxAdContentRating MaxAdContentRating; }
     public class AdRequest { public Dictionary<string,string> Extras = new Dictionary<string,string>(); }
     public class Reward { }

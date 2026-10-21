@@ -376,6 +376,7 @@ namespace QuietCamp.Presentation
             _hotkeys?.Tick();
             _motion?.Tick();
             _audio?.Tick();
+            _services?.TickEconomy(Time.unscaledDeltaTime);
             if (_focused && !_paused)
                 _services?.Analytics.Tick(Time.unscaledDeltaTime, CampSceneHost.Current?.GameplayActive ?? false, _services.EffectiveQuality);
             var keyboard = Keyboard.current;
@@ -383,7 +384,7 @@ namespace QuietCamp.Presentation
             {
                 // Back on a required disclosure is a refusal, never implicit acknowledgement.
                 if (_privacyPanel != null && !_privacyPanel.Accepted)
-                { _exitRequested = true; UnityEngine.Application.Quit(); }
+                { _privacyPanel.RequestBack(); }
                 else EscapeRouterRef?.TryHandleEscape();
             }
         }

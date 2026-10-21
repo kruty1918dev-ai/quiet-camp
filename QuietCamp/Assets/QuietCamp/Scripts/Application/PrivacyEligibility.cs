@@ -21,7 +21,7 @@ namespace QuietCamp.Application
             settings.crashSessionEligible = false;
         }
         public static void Reset(SettingsSaveData settings)
-        { Revoke(settings); settings.privacyAgeBand = 0; settings.privacyAgeVersion = 0; }
+        { Revoke(settings); settings.privacyAgeBand = 0; settings.privacyAgeVersion = 0; settings.privacySetupVersion = 0; }
         public static bool ChangeAge(SettingsSaveData settings, PrivacyAgeBand band, Func<bool> save)
         {
             if (!Enum.IsDefined(typeof(PrivacyAgeBand), band)) return false;
@@ -40,6 +40,12 @@ namespace QuietCamp.Application
             settings.advertisingPolicyVersion = AdvertisingVersion; settings.advertisingRevision = revision;
             try { if (save()) return true; } catch { }
             settings.advertisingConsent = false; return false;
+        }
+        public static bool SetVideoBonuses(SettingsSaveData settings, bool enabled, Func<bool> save)
+        {
+            settings.optionalVideoBonuses = enabled;
+            try { if (save()) return true; } catch { }
+            settings.optionalVideoBonuses = false; return false;
         }
     }
 }

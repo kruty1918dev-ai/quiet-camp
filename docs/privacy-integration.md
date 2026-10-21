@@ -1,11 +1,11 @@
-# Політика Quiet Camp і офіційний сайт
+# Privacy Policy та сайт Quiet Camp
 
-Канонічна адреса: https://oleksiy-havryliuk.de/quiet-camp/privacy, українська /uk, німецька /de. Офіційний сайт — окремий репозиторій kruty1918dev-ai/portfolio-oleksii-ha; GitHub Pages у цьому репозиторії є ілюстрованим посібником і посилається на офіційну політику. Custom domain не переноситься на Pages.
+Канонічний URL: https://oleksiy-havryliuk.de/quiet-camp/privacy; `/uk` і `/de` — повні локалізації. Website repo: `kruty1918dev-ai/portfolio-oleksii-ha`; Unity docs GitHub Pages залишається окремим сайтом. Custom domain не переноситься на Pages.
 
-Поточна реалізація гри об’єднана в main. Firebase Core/Analytics/Crashlytics 14.0.0 та AdMob 11.6.0 встановлені; віковий вибір і три незалежні дозволи реалізовані. Unknown/<16 блокує необов’язкові SDK-запити; допустима реклама неперсоналізована, з teen treatment для 16–17. Production gates залишаються закритими. Ревізія вбудованої політики — 2026-10-21.privacy-4.
+Поточна підготовлена редакція: `2026-10-21.privacy-7-revenue`, базаmain030e76d. Основна аудиторія13+ з безпечним локальним fallback для молодших/невідомого віку. Це кандидат, не native Android clearance. 16+ мають незалежні optional choices;13–15 мають окремо підготовлений, не активований LTD шлях. Читання політики не є consent. Виробничі IDs/UMP/GA4/Play target groups власником ще не перевірені.
 
-Повний статичний текст сайту готується з legal/quiet-camp/content.json через scripts/render-quiet-camp-policy.py у репозиторії сайту. Вбудований документ синхронізується командою python tools/sync_privacy_policy.py --site-root ../portfolio-oleksii-ha --write; без --write команда лише перевіряє відповідність. Ця синхронізація не публікує сайт і не активує production SDK.
+[Реалізація](../reports/monetization-review/IMPLEMENTATION-UA.md), [аудит монетизації](../reports/monetization-review/AUDIT-UA.md). Families18+ / instant-free кандидат відкликано; історичні звіти не є поточними вимогами. Поточний website inventory/DataSafety/checklist — `reports/revenue-privacy` репозиторію сайту.
 
-[Поточні перевірки, owner checklist і Android-блокери](../Design/Legal/PRIVACY-RUNTIME-UA.md). [Облік даних і Data safety](../Design/Legal/DATA-SAFETY-UA.md). Попередній прототип описаний у Design/Privacy/2026-10-20/IMPLEMENTATION.md як історична версія; актуальні probes — tools/privacy-probe та tools/optional-google-probe.
+Синхронізація: `python3 tools/sync_privacy_policy.py --site-root <website> --write`, потім без`--write` для перевірки. Після зміни тексту змінити policy revision та оцінити повторні згоди. Source-presence14секцій×3мови не доводить Google console settings.
 
-Об’єднання гілок гри не об’єднує й не публікує окремий репозиторій сайту. Реальні консолі, native handlers/файли/трафік, merged manifest і resolved dependencies потребують окремих доказів. Публічна політика або прапорці JSON не замінюють перевірку Android-релізу.
+Termux передає повний сайт у website main і окрему game гілку `privacy/revenue-privacy`; не пушитьmainгри, не створюєAPK й не змінюєDNS/пошту. Повна публікація сайту допустима з чесною позначкою кандидата. `npm run release:check` / `build:release` вимагають реальні evidence для фінального допуску; не обходити їх видаленням плашки або вигаданими хешами.

@@ -13,6 +13,9 @@ namespace QuietCamp.Infrastructure
         public int minimumAge = 13;
         public bool accountsEnabled, cloudSavesEnabled, purchasesEnabled;
         public bool teenPrivacyReviewed, sdkDisclosuresReviewed;
+        // Purpose-specific evidence, never inferred from an NPA flag or age choice.
+        public bool limitedAdsReviewed, underAgeAdvertisingReviewed;
+        public bool adultPersonalizationReviewed;
         public bool policyIsDraft = true;
         public bool Published => !policyIsDraft && !string.IsNullOrWhiteSpace(publisherName) && Email(supportEmail)
             && PublishedUrl(privacyPolicyUrl) && !string.IsNullOrWhiteSpace(revision)

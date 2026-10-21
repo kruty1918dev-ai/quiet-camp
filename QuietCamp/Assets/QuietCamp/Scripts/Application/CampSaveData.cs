@@ -48,6 +48,7 @@ namespace QuietCamp.Application
         public string crashPublicationRevision;
         public bool crashSessionEligible;
         public int privacyAgeBand, privacyAgeVersion;
+        public int privacySetupVersion;
         public string privacyInstallToken;
         public bool advertisingConsent;
         public int advertisingPolicyVersion;

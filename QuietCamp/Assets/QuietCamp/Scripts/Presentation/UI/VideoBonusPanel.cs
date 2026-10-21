@@ -42,6 +42,28 @@ namespace QuietCamp.Presentation.UI
                 }, "quiet") + "</view>";
         }
     }
+    static class RewardedVideoPresentation
+    {
+        public static async System.Threading.Tasks.Task<T> Run<T>(GameServices services, HtmlSurface surface, System.Func<System.Threading.Tasks.Task<T>> operation)
+        {
+            var block = services.InputPolicy.AcquireBlock(GameplayInputKind.AllPointer, surface);
+            var context = services.ContextStack.Push(new UiContextRegistration("ResourceVideo", UiContextLayer.Modal, 200,
+                () => services.MonetizationBusy, new UiActionId("qc.back"), blocksLowerHotkeys: true));
+            GameObject gate = null;
+            try
+            {
+                gate = VideoBonusGate.Create(services, services.Localization.T("bonus.preparing"));
+                services.Audio?.SetBusVolume(AudioBus.Master, 0);
+                return await operation();
+            }
+            finally
+            {
+                block.Dispose(); context.Dispose();
+                services.Audio?.SetBusVolume(AudioBus.Master, services.Settings.master);
+                if (gate != null) Object.Destroy(gate);
+            }
+        }
+    }
     sealed class VideoBonusGate : MonoBehaviour
     {
         IAdRequestCancellation _cancel;

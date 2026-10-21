@@ -172,9 +172,9 @@ namespace QuietCamp.Presentation.UI
                         Toggle("settings.trailPennant", s.trailPennant, v => s.trailPennant = v, sub: true);
                     if (services.Rewards.Owned)
                         Toggle("settings.lantern", s.fireflyLantern, v => s.fireflyLantern = v, sub: true);
+                    html.Append(PrivacyPanel.VideoPreference(services, surface));
                     if (services.Ads.IsReady)
                     {
-                        Toggle("settings.videoBonuses", s.optionalVideoBonuses, v => s.optionalVideoBonuses = v, sub: true);
                         html.Append(VideoBonusPanel.Render(services, surface, "album.lantern"));
                     }
                     if (services.Ads is IAdPrivacyOptions privacy && privacy.PrivacyOptionsRequired)

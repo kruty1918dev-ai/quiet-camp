@@ -28,6 +28,10 @@ namespace QuietCamp.Presentation.UI
         ILocalizationService _locale;
         Publication _publication;
         bool _dirty = true, _full, _saveFailed;
+        PrivacySetup _setup;
+        bool _showDocument;
+        bool _published;
+        int _lastBackFrame = -1;
         public bool Accepted { get; private set; }
         public bool Declined { get; private set; }
         public ContentDocument Document => _content?.Document;
@@ -40,11 +44,20 @@ namespace QuietCamp.Presentation.UI
             var panel = root.gameObject.AddComponent<BootPrivacyPanel>();
             Current = panel; panel._save = save; panel._locale = locale;
             panel._host.NativeEventResolver = panel._callbacks.ResolveNativeEvent;
-            panel._host.BackRequested += panel.Refuse;
+            panel._host.BackRequested += panel.Back;
             var asset = Resources.Load<TextAsset>("QuietCamp/privacy_content");
             panel._publication = asset != null ? JsonUtility.FromJson<Publication>(asset.text) : null;
             if (panel._publication?.document == null) throw new InvalidOperationException("Bundled privacy preview is missing.");
             var legal = LegalConfiguration.Load();
+            panel._published = legal.Published;
+            var google = GoogleServicesConfiguration.Load(legal);
+            panel._setup = new PrivacySetup(
+                google.analyticsEnabled && google.OnlineServicesApproved && OptionalGoogleServices.AnalyticsFactory != null,
+                google.crashlyticsEnabled && google.OnlineServicesApproved && OptionalGoogleServices.CrashFactory != null,
+                google.CanUseRewardedAds(UnityEngine.Application.isEditor || Debug.isDebugBuild)
+                    && !string.IsNullOrWhiteSpace(google.CurrentRewardedUnitId) && OptionalGoogleServices.AdsFactory != null,
+                google.LimitedAdsApproved && google.underAgeLimitedAdsEnabled && legal.underAgeAdvertisingReviewed && !google.useTestAds
+                    && !string.IsNullOrWhiteSpace(google.CurrentRewardedUnitId) && OptionalGoogleServices.AdsFactory != null);
             // Draft resources never fetch a remote URL or create a network consent receipt.
             if (panel._publication.draft)
                 foreach (var variant in panel._publication.document.variants) variant.url = "";
@@ -64,8 +77,10 @@ namespace QuietCamp.Presentation.UI
         void DocumentChanged()
         {
             _dirty = true;
-            if (Document != null && PrivacyAcknowledgement.IsCurrent(_save.Settings, Document.Revision, Document.ContentHash, _publication.draft))
+            if (Document == null) return;
+            if (PrivacySetup.IsComplete(_save.Settings, Document.Revision, Document.ContentHash, _publication.draft))
                 Accepted = true;
+            else PrivacyEligibility.Revoke(_save.Settings); // No restored optional grants before the new flow completes.
         }
         string T(string key) => UnityHtmlContentReader.Escape(_locale.T(key));
         string Button(string id, string label, Action click, string classes = "", bool enabled = true)
@@ -95,36 +110,99 @@ namespace QuietCamp.Presentation.UI
                 + Button("boot-policy-source", T("boot.privacy.website"), () => _content.OpenSource(_publication.document), "policy-link", _content.CanOpenSource(_publication.document));
             if (!_content.Loading && Document == null)
                 links += Button("boot-policy-retry", T("boot.retry"), () => _content.Load(_publication.document, _locale.CurrentLanguageId, new UnityHtmlContentLoader(Path.Combine(UnityEngine.Application.persistentDataPath, "qc_policy_cache"))));
-            string age = "<text class=\"policy-note\">" + T("privacy.age.help") + "</text><view class=\"policy-links\">";
-            foreach (PrivacyAgeBand band in Enum.GetValues(typeof(PrivacyAgeBand)))
+            string body = text;
+            string actions;
+            if (_showDocument)
             {
-                var choice = band;
-                age += Button("boot-age-" + (int)band,
-                    (PrivacyEligibility.Band(_save.Settings) == band ? "✓ " : "") + T("privacy.age." + (int)band), () =>
-                    {
-                        _saveFailed = !PrivacyEligibility.ChangeAge(_save.Settings, choice,
-                            () => _save.MemoryOnly ? _save.Save() : PrivacyInstallScope.Commit(_save.Settings, _save.Save));
-                        _dirty = true;
-                    }, "policy-link");
+                body = _content.Render();
+                actions = Button("boot-document-back", T("privacy.setup.back"), () => { _showDocument = false; _dirty = true; });
             }
-            age += "</view><text class=\"policy-note\">" + T(PrivacyEligibility.Band(_save.Settings) == PrivacyAgeBand.Under13 ? "privacy.age.minimum" : "privacy.age.restricted") + "</text>";
+            else
+            {
+                if (_setup.Step != PrivacySetupStep.Policy)
+                {
+                    body = StepBody();
+                    status = T("privacy.setup.stage." + _setup.Step);
+                    links = Button("boot-policy-open", T("boot.privacy.full"), () => { _showDocument = true; _dirty = true; }, "policy-link", Document != null)
+                        + Button("boot-policy-source", T("boot.privacy.website"), () => _content.OpenSource(_publication.document), "policy-link", _content.CanOpenSource(_publication.document));
+                }
+                actions = StepActions();
+            }
             return "<view class=\"policy-page\"><view class=\"policy-card\"><text class=\"policy-title\">" + T("boot.privacy.title")
-                + "</text><text class=\"policy-status\">" + status + "</text><scroll id=\"boot-policy-scroll\" class=\"policy-scroll\"><view>" + text
-                + age + "<text class=\"policy-note\">" + T("boot.privacy.separate") + "</text></view></scroll><view class=\"policy-links\">" + links + "</view>"
+                + "</text><text class=\"policy-status\">" + status + "</text><scroll id=\"boot-policy-scroll\" class=\"policy-scroll\"><view>" + body
+                + "</view></scroll><view class=\"policy-links\">" + links + "</view>"
                 + (_saveFailed ? "<text class=\"policy-status\">" + T("save.failed") + "</text>" : "")
-                + "<view class=\"policy-actions\">" + Button("boot-policy-exit", T("boot.privacy.exit"), Refuse)
-                + Button("boot-policy-ack", T(_publication.draft ? "boot.privacy.continueDraft" : "boot.privacy.continue"), Accept, "policy-primary", Document != null && !Declined)
-                + "</view></view></view>";
+                + "<view class=\"policy-actions\">" + actions + "</view></view></view>";
+        }
+        string Note(string key) => "<text class=\"policy-note\">" + T(key) + "</text>";
+        string StepBody()
+        {
+            switch (_setup.Step)
+            {
+                case PrivacySetupStep.Age:
+                    string choices = Note("privacy.setup.ageHelp") + "<view class=\"policy-age-choices\">";
+                    foreach (PrivacyAgeBand band in Enum.GetValues(typeof(PrivacyAgeBand)))
+                    {
+
+                        var choice = band;
+                        choices += Button("boot-age-" + (int)band, (_setup.HasAgeChoice && _setup.Age == band ? "✓ " : "") + T("privacy.age." + (int)band),
+                            () => { _setup.SelectAge(choice); _dirty = true; }, _setup.HasAgeChoice && _setup.Age == band ? "policy-selected" : "");
+                    }
+                    return choices + "</view>";
+                case PrivacySetupStep.Analytics: return Note("privacy.explanation") + Note("privacy.provider") + Note("privacy.setup.optionalHelp");
+                case PrivacySetupStep.Crashes: return Note("privacy.crashes.explanation") + Note("privacy.setup.optionalHelp");
+                case PrivacySetupStep.Advertising: return Note("privacy.advertising.help") + Note("privacy.setup.adsHelp") + Note("privacy.setup.optionalHelp");
+                default:
+                    string body = Note(_setup.Eligible ? "privacy.setup.review" : "privacy.setup.protected");
+                    if (!_setup.HasOptionalServices) body += Note("privacy.setup.unavailable");
+                    body += Note("privacy.setup.local");
+                    foreach (var item in new[] { new KeyValuePair<string, bool>("privacy.setup.analytics", _setup.Analytics),
+                        new KeyValuePair<string, bool>("privacy.setup.crashes", _setup.Crashes) })
+                        body += "<text class=\"policy-note\">" + T(item.Key) + ": " + T(item.Value ? "privacy.setup.on" : "privacy.setup.off") + "</text>";
+                    body += _setup.Age == PrivacyAgeBand.From13To15
+                        ? Note(_setup.RestrictedVideosAvailable ? "privacy.setup.limitedAvailable" : "privacy.setup.limitedInactive")
+                        : "<text class=\"policy-note\">" + T("privacy.setup.ads") + ": " + T(_setup.Advertising ? "privacy.setup.on" : "privacy.setup.off") + "</text>";
+                    return body + Note("privacy.setup.withdraw");
+            }
+        }
+        string StepActions()
+        {
+            switch (_setup.Step)
+            {
+                case PrivacySetupStep.Policy:
+                    return Button("boot-policy-exit", T("boot.privacy.exit"), Refuse)
+                        + Button("boot-policy-ack", T("privacy.setup.next"), () => { _setup.ReadPolicy(); _dirty = true; }, "", Document != null && !Declined);
+                case PrivacySetupStep.Age:
+                    return Button("boot-privacy-back", T("privacy.setup.back"), Back)
+                        + Button("boot-age-next", T("privacy.setup.next"), () => { _setup.ConfirmAge(); _dirty = true; }, "", _setup.HasAgeChoice);
+                case PrivacySetupStep.Review:
+                    return Button("boot-privacy-back", T("privacy.setup.back"), Back)
+                        + Button("boot-privacy-finish", T("privacy.setup.play"), Accept);
+                default:
+                    return Button("boot-privacy-no", T("privacy.setup.decline"), () => { _setup.Choose(false); _dirty = true; })
+                        + Button("boot-privacy-yes", T("privacy.setup.allow"), () => { _setup.Choose(true); _dirty = true; })
+                        + Button("boot-privacy-skip", T("privacy.setup.skip"), () => { _setup.ContinueWithoutOptional(); _dirty = true; })
+                        + Button("boot-privacy-back", T("privacy.setup.back"), Back);
+            }
         }
         void Refuse() { if (!Accepted) Declined = true; }
+        void Back()
+        {
+            if (_lastBackFrame == Time.frameCount) return;
+            _lastBackFrame = Time.frameCount;
+            if (_showDocument) _showDocument = false;
+            else if (_setup.Step == PrivacySetupStep.Policy) Refuse();
+            else _setup.Back();
+            _dirty = true;
+        }
+        public void RequestBack() => Back();
         void Accept()
         {
             if (Accepted || Declined || Document == null) return;
-            string previous = JsonUtility.ToJson(_save.Settings);
-            PrivacyAcknowledgement.Record(_save.Settings, Document.Revision, Document.ContentHash, Document.Language, _publication.draft);
-            _save.Settings.language = _locale.CurrentLanguageId;
-            if (_save.Save()) Accepted = true;
-            else { JsonUtility.FromJsonOverwrite(previous, _save.Settings); _saveFailed = true; _dirty = true; }
+            Accepted = _setup.Commit(_save.Settings, Document.Revision, Document.ContentHash, _locale.CurrentLanguageId,
+                _publication.draft, () => _save.MemoryOnly ? _save.Save() : PrivacyInstallScope.Commit(_save.Settings, _save.Save),
+                _published ? Document.Revision + ":" + Document.ContentHash : Document.Revision);
+            _saveFailed = !Accepted; _dirty = true;
         }
         void LateUpdate()
         {
@@ -140,7 +218,7 @@ namespace QuietCamp.Presentation.UI
             }
             catch (Exception exception) { MountError = exception.Message; }
         }
-        void OnDestroy() { if (Current == this) Current = null; if (_content != null) _content.Changed -= DocumentChanged; _host.BackRequested -= Refuse; _host.Dispose(); }
+        void OnDestroy() { if (Current == this) Current = null; if (_content != null) _content.Changed -= DocumentChanged; _host.BackRequested -= Back; _host.Dispose(); }
         const string Css = @"
           .policy-page { width:100%; height:100%; padding:32px; justify-content:center; align-items:center; }
           .policy-card { width:100%; max-width:1120px; height:86%; max-height:1420px; padding:40px; background-color:#f5efdc; border-radius:32px; }
@@ -159,6 +237,9 @@ namespace QuietCamp.Presentation.UI
           .policy-actions { flex-direction:row; gap:20px; margin-top:24px; }
           .policy-actions button { flex-basis:0; flex-grow:1; }
           .policy-actions text, .policy-links text { width:100%; white-space:normal; text-align:center; }
+          .policy-age-choices { gap:14px; margin-top:24px; }
+          .policy-selected { background-color:#cad8bf; }
+          .policy-actions { flex-wrap:wrap; }
           .policy-primary { background-color:#2e5144; }
           .policy-primary text { color:#f5efdc; }
           @media (layout: wide) { .policy-card { height:94%; padding:28px 40px; } .policy-title { font-size:38px; margin-bottom:12px; } .policy-status { margin-bottom:12px; } .policy-links, .policy-actions { margin-top:14px; } button { min-height:80px; } }

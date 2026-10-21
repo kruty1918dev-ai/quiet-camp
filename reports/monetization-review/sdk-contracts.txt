@@ -1,0 +1,36 @@
+PASS sample IDs, development gate, live publication gate and sample reward
+PASS publisher unit cannot bypass UMP
+PASS publisher launch refresh requests consent information without loading an ad
+PASS offline makes no request
+PASS one request, reward waits for dismissal
+PASS dismissal without reward
+PASS full-screen failure
+PASS cancelled load destroys late ad
+PASS dispose releases pending full-screen task
+PASS native consent form keeps gate, dispose suppresses stale callback
+PASS privacy options dispose and native error release task
+PASS Firebase consent, numeric event and local reset boundary
+PASS active SDK Analytics is disabled after failed advertising consent persistence
+PASS active SDK Analytics is disabled after failed crash consent persistence
+PASS adapter defaults to no UMP and no ad requests
+PASS eligible player can explicitly reopen Google choices after local ad withdrawal
+PASS NPA, adult/teen signals and revoked visible reward waits for close
+PASS no Limited Ads fallback without additional device-access signal
+PASS pending send/delete order and late completion after withdrawal
+PASS failed pending report operation cannot be followed by enabled collection
+PASS crash default-off, separate consent, first opt-in, deduplication and withdrawal
+PASS crash consent withdrawal wins over pending dependency check
+PASS crash restart receipt, previous-session eligibility and publication revision
+PASS crash consent save failure stays disabled
+PASS Firebase single initialization and crash SDK transport consent boundary
+PASS policy review blocks Firebase startup and Crashlytics factory
+PASS Firebase dependency failure leaves optional adapters disabled without blocking gameplay
+PASS 13-15 approved LTD request is explicit, tagged, no adult form, correct reward lifecycle
+PASS unapproved under-age mode cannot fall back to normal ads
+PASS approved adult LTD preserves UMP and does not turn tracking refusal into a forced NPA request
+PASS failed LTD preference write prevents loading
+PASS adult LTD honors UMP denial
+PASS under-age LTD honors UMP denial
+PASS approved adult request lets Google apply the actual UMP advertising mode
+PASS teen requests remain NPA despite adult-personalization feature flag
+35 contract scenarios passed. SDK doubles only; no real Google/Android integration verified.

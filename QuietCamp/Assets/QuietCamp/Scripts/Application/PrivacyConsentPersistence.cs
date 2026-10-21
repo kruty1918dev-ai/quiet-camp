@@ -24,7 +24,7 @@ namespace QuietCamp.Application
             // Apply that revocation before attempting disk IO as well.
             if (_analytics != null && !_analytics.Consented) _analytics.Suspend();
             if (_crashes != null && !_crashes.Consented) _crashes.Suspend();
-            if (!_settings.advertisingConsent || !PrivacyEligibility.Allowed(_settings)) CancelAds();
+            if (!_settings.optionalVideoBonuses || !_settings.advertisingConsent || !PrivacyEligibility.Allowed(_settings)) CancelAds();
             try { if (_write()) return true; } catch { }
             PrivacyEligibility.Reset(_settings);
             SuspendAll();

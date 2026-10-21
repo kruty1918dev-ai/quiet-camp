@@ -1,0 +1,43 @@
+using System;
+using System.Threading.Tasks;
+
+namespace QuietCamp.Application
+{
+    public sealed class AdHintService
+    {
+        readonly IAdService _ads;
+        readonly CampEconomy _economy;
+        readonly Func<bool> _allowed;
+        string _pendingReward;
+        public bool Busy { get; private set; }
+        public bool Available => !Busy && !_economy.IsPro && _economy.AdHintsRemaining > 0 && _allowed() && (_pendingReward != null || _ads.IsReady);
+        public event Action Changed;
+        public event Action<RewardStage> RewardObserved;
+        void Observe(RewardStage stage) { try { RewardObserved?.Invoke(stage); } catch { } }
+        public AdHintService(IAdService ads, CampEconomy economy, Func<bool> allowed)
+        { _ads = ads; _economy = economy; _allowed = allowed; }
+        public async Task<EconomyResult> Request()
+        {
+            if (Busy) return EconomyResult.Busy;
+            if (_economy.AdHintsRemaining == 0) return EconomyResult.DailyLimit;
+            if (!Available) return EconomyResult.Unavailable;
+            Busy = true; Changed?.Invoke();
+            try
+            {
+                if (_pendingReward == null)
+                {
+                    Observe(RewardStage.Requested);
+                    if (await _ads.ShowRewarded("camp.hint") != AdResult.Completed) return EconomyResult.Unavailable;
+                    Observe(RewardStage.Completed);
+                    _pendingReward = "ad-hint:" + Guid.NewGuid().ToString("N");
+                }
+                var result = _economy.GrantAdHint(_pendingReward);
+                if (result == EconomyResult.Applied) Observe(RewardStage.Granted);
+                if (result == EconomyResult.Applied || result == EconomyResult.AlreadyApplied) _pendingReward = null;
+                return result;
+            }
+            catch { return EconomyResult.Unavailable; }
+            finally { Busy = false; Changed?.Invoke(); }
+        }
+    }
+}

@@ -6,6 +6,7 @@ namespace QuietCamp.Application
     [Serializable] public sealed class EconomyRules
     {
         public int initialLives = 5, initialHints = 3, lifeCost = 10, hintCost = 15, dailyAdLives = 10;
+        public int lifeRecoveryMinutes = 30, dailyAdHints = 5;
     }
     [Serializable] public sealed class AttemptRecord
     {
@@ -18,15 +19,17 @@ namespace QuietCamp.Application
     {
         public int version = 1;
         public bool initialized, pro;
-        public int lives, hints, currency, adLivesUsed;
+        public int lives, hints, currency, adLivesUsed, adHintsUsed;
         public string adDay;
+        public string lifeRecoveryAnchorUtc;
         public AttemptRecord[] attempts = Array.Empty<AttemptRecord>();
         public string[] appliedReceiptIds = Array.Empty<string>();
 
         public EconomySaveData Copy() => new EconomySaveData
         {
             version = version, initialized = initialized, pro = pro, lives = lives, hints = hints,
-            currency = currency, adLivesUsed = adLivesUsed, adDay = adDay,
+            currency = currency, adLivesUsed = adLivesUsed, adHintsUsed = adHintsUsed, adDay = adDay,
+            lifeRecoveryAnchorUtc = lifeRecoveryAnchorUtc,
             attempts = (attempts ?? Array.Empty<AttemptRecord>()).Select(a => new AttemptRecord { levelId = a.levelId, checks = a.checks, consecutiveFailures=a.consecutiveFailures, recoveryHintPending=a.recoveryHintPending }).ToArray(),
             appliedReceiptIds = (string[])(appliedReceiptIds ?? Array.Empty<string>()).Clone()
         };
@@ -34,7 +37,8 @@ namespace QuietCamp.Application
         {
             version = value.version; initialized = value.initialized; pro = value.pro;
             lives = value.lives; hints = value.hints; currency = value.currency;
-            adLivesUsed = value.adLivesUsed; adDay = value.adDay;
+            adLivesUsed = value.adLivesUsed; adHintsUsed = value.adHintsUsed; adDay = value.adDay;
+            lifeRecoveryAnchorUtc = value.lifeRecoveryAnchorUtc;
             attempts = value.attempts; appliedReceiptIds = value.appliedReceiptIds;
         }
     }
@@ -57,6 +61,40 @@ namespace QuietCamp.Application
         public bool CanCheck => IsPro || Lives > 0;
         public bool CanHint => IsPro || Hints > 0;
         public int AdLivesRemaining => Math.Max(0, _rules.dailyAdLives - (CurrentDay() == _data.adDay ? _data.adLivesUsed : 0));
+        public int AdHintsRemaining => Math.Max(0, _rules.dailyAdHints - (CurrentDay() == _data.adDay ? _data.adHintsUsed : 0));
+        public int LifeCapacity => _rules.initialLives;
+        DateTime UtcNow => _clock().ToUniversalTime();
+        static string Timestamp(DateTime value) => value.ToString("O", System.Globalization.CultureInfo.InvariantCulture);
+        bool RecoveryAnchor(out DateTime anchor) => DateTime.TryParseExact(_data.lifeRecoveryAnchorUtc, "O",
+            System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out anchor)
+            && anchor.Kind == DateTimeKind.Utc;
+        public double SecondsUntilNextLife
+        {
+            get
+            {
+                if (IsPro || Lives >= LifeCapacity) return 0;
+                double interval = _rules.lifeRecoveryMinutes * 60d;
+                if (!RecoveryAnchor(out var anchor)) return interval;
+                return Math.Max(0, Math.Min(interval, interval - (UtcNow - anchor).TotalSeconds));
+            }
+        }
+        /// <summary>Slow local recovery, never an instant free refill or SDK operation.</summary>
+        public EconomyResult RefreshLives()
+        {
+            if (IsPro || Lives >= LifeCapacity) return EconomyResult.Unavailable;
+            var now = UtcNow;
+            // Legacy saves start a timer; malformed/future clocks cannot grant a life.
+            if (!RecoveryAnchor(out var anchor) || now < anchor)
+                return Commit(() => _data.lifeRecoveryAnchorUtc = Timestamp(now));
+            var elapsed = (now - anchor).TotalMinutes;
+            int count = (int)Math.Min(LifeCapacity - Lives, Math.Floor(elapsed / _rules.lifeRecoveryMinutes));
+            if (count < 1) return EconomyResult.AlreadyApplied;
+            return Commit(() =>
+            {
+                _data.lives += count;
+                _data.lifeRecoveryAnchorUtc = Timestamp(_data.lives >= LifeCapacity ? now : anchor.AddMinutes((double)count * _rules.lifeRecoveryMinutes));
+            });
+        }
 
         public CampEconomy(EconomySaveData data, EconomyRules rules, Func<bool> persist, Func<DateTime> clock = null)
         {
@@ -65,7 +103,8 @@ namespace QuietCamp.Application
             _persist = persist ?? throw new ArgumentNullException(nameof(persist));
             _clock = clock ?? (() => DateTime.UtcNow);
             if (_data.version != 1 || data.lives < 0 || data.hints < 0 || data.currency < 0 || data.adLivesUsed < 0
-                || rules.initialLives < 1 || rules.initialHints < 0 || rules.lifeCost < 1 || rules.hintCost < 1 || rules.dailyAdLives != 10)
+                || data.adHintsUsed < 0 || rules.initialLives < 1 || rules.initialHints < 0 || rules.lifeCost < 1 || rules.hintCost < 1 || rules.dailyAdLives != 10
+                || rules.lifeRecoveryMinutes < 1 || rules.lifeRecoveryMinutes > 1440 || rules.dailyAdHints < 1 || rules.dailyAdHints > 10)
                 throw new ArgumentException("Unsupported economy data or rules");
             if (!data.initialized) { data.lives = rules.initialLives; data.hints = rules.initialHints; data.initialized = true; }
             data.attempts ??= Array.Empty<AttemptRecord>(); data.appliedReceiptIds ??= Array.Empty<string>();
@@ -98,7 +137,11 @@ namespace QuietCamp.Application
                 {
                     record.consecutiveFailures=Math.Min(3,record.consecutiveFailures+1);
                     if(record.consecutiveFailures==3){record.recoveryHintPending=true;record.consecutiveFailures=0;}
-                    if(!IsPro&&!learning)_data.lives--;
+                    if(!IsPro&&!learning)
+                    {
+                        if (_data.lives >= LifeCapacity || !RecoveryAnchor(out _)) _data.lifeRecoveryAnchorUtc = Timestamp(UtcNow);
+                        _data.lives--;
+                    }
                 }
             });
         }
@@ -139,8 +182,21 @@ namespace QuietCamp.Application
             return Commit(() =>
             {
                 var day = CurrentDay();
-                if (_data.adDay != day) { _data.adDay = day; _data.adLivesUsed = 0; }
+                if (_data.adDay != day) { _data.adDay = day; _data.adLivesUsed = _data.adHintsUsed = 0; }
                 _data.adLivesUsed++; _data.lives++; Receipt(rewardId);
+            });
+        }
+        public EconomyResult GrantAdHint(string rewardId)
+        {
+            if (IsPro || string.IsNullOrWhiteSpace(rewardId)) return EconomyResult.Invalid;
+            if (Applied(rewardId)) return EconomyResult.AlreadyApplied;
+            if (Hints == int.MaxValue) return EconomyResult.Invalid;
+            if (AdHintsRemaining == 0) return EconomyResult.DailyLimit;
+            return Commit(() =>
+            {
+                var day = CurrentDay();
+                if (_data.adDay != day) { _data.adDay = day; _data.adLivesUsed = _data.adHintsUsed = 0; }
+                _data.adHintsUsed++; _data.hints++; Receipt(rewardId);
             });
         }
         bool Applied(string id) => Array.IndexOf(_data.appliedReceiptIds, id) >= 0;

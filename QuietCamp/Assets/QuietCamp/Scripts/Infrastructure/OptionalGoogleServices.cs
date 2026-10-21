@@ -11,6 +11,8 @@ namespace QuietCamp.Infrastructure
         public bool crashlyticsEnabled;
         public bool rewardedAdsEnabled;
         public bool useTestAds;
+        public bool limitedAdsEnabled, underAgeLimitedAdsEnabled;
+        public bool adultPersonalizationEnabled;
         public string privacyPolicyUrl = "";
         public string deletionRequestUrl = "";
         public string androidRewardedUnitId = "";
@@ -21,14 +23,25 @@ namespace QuietCamp.Infrastructure
         [NonSerialized] public SettingsSaveData PrivacySettings;
         [NonSerialized] public string ConsentRevision;
         [NonSerialized] public Action<bool> RememberPrivacyOptions;
+        [NonSerialized] public Func<bool> HasNoAdsEntitlement;
         public void BindPrivacy(SettingsSaveData settings, string revision) { PrivacySettings = settings; ConsentRevision = revision; }
         public bool Eligible => PrivacyEligibility.Allowed(PrivacySettings);
         public bool AnalyticsAllowed => Eligible && analyticsEnabled && OnlineServicesApproved && PrivacySettings.analyticsConsent
             && PrivacySettings.analyticsPolicyVersion == ComfortAnalytics.PolicyVersion && PrivacySettings.analyticsPublicationRevision == ConsentRevision;
         public bool CrashesAllowed => Eligible && crashlyticsEnabled && OnlineServicesApproved && PrivacySettings.crashReportingConsent
             && PrivacySettings.crashPolicyVersion == CrashDiagnostics.PolicyVersion && PrivacySettings.crashPublicationRevision == ConsentRevision;
-        public bool AdvertisingAllowed => PrivacyEligibility.AdvertisingAllowed(PrivacySettings, ConsentRevision)
-            && PrivacySettings.optionalVideoBonuses && CanUseRewardedAds(UnityEngine.Application.isEditor || Debug.isDebugBuild);
+        public bool LimitedAdsApproved => OnlineServicesApproved && limitedAdsEnabled && _legal.limitedAdsReviewed;
+        public bool AdultPersonalizationApproved => OnlineServicesApproved && adultPersonalizationEnabled && _legal.adultPersonalizationReviewed
+            && PrivacyEligibility.Band(PrivacySettings) == PrivacyAgeBand.Adult;
+        public bool UnderAgeLimitedAdsAllowed => LimitedAdsApproved && underAgeLimitedAdsEnabled && _legal.underAgeAdvertisingReviewed
+            && !useTestAds && PrivacyEligibility.Band(PrivacySettings) == PrivacyAgeBand.From13To15
+            && PrivacySettings.privacySetupVersion == PrivacySetup.Version
+            && PrivacySettings.privacyAcknowledgementRevision == _legal.revision
+            && !PrivacySettings.privacyAcknowledgementDraft && !string.IsNullOrWhiteSpace(PrivacySettings.privacyAcknowledgementHash)
+            && ConsentRevision == _legal.revision + ":" + PrivacySettings.privacyAcknowledgementHash;
+        public bool AdvertisingAllowed => (PrivacyEligibility.AdvertisingAllowed(PrivacySettings, ConsentRevision) || UnderAgeLimitedAdsAllowed)
+            && PrivacySettings.optionalVideoBonuses && !(HasNoAdsEntitlement?.Invoke() ?? false)
+            && CanUseRewardedAds(UnityEngine.Application.isEditor || Debug.isDebugBuild);
         // A prototype can exercise Google sample inventory before publication.
         // Release players still require the normal publication and consent gates.
         public bool CanUseRewardedAds(bool developmentEnvironment)

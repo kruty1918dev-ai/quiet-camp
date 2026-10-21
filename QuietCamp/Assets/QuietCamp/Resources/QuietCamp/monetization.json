@@ -4,7 +4,9 @@
     "initialHints": 3,
     "lifeCost": 10,
     "hintCost": 15,
-    "dailyAdLives": 10
+    "dailyAdLives": 10,
+    "lifeRecoveryMinutes": 30,
+    "dailyAdHints": 5
   },
   "products": [
     {
@@ -14,7 +16,7 @@
       "published": false
     },
     {
-      "id": "qa.pro",
+      "id": "quietcamp_pro",
       "titleKey": "economy.pro",
       "pro": true,
       "published": false
