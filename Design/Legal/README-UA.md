@@ -1,10 +1,10 @@
 # Приватність Quiet Camp
 
-Поточна реалізація: privacy-runtime-completion, ревізія 2026-10-21.privacy-4. Android package: com.quietcamp.game. Контролер: фізична особа Oleksii Havryliuk, публічно Oleksiy Havryliuk; Kruty1918 Games — бренд.
+Поточна реалізація: main, ревізія 2026-10-21.privacy-5. Android package: com.quietcamp.game. Контролер: фізична особа Oleksii Havryliuk, публічно Oleksiy Havryliuk; Kruty1918 Games — бренд.
 
 Установлено Firebase Core / Analytics / Crashlytics 14.0.0 та Google Mobile Ads Unity 11.6.0. Незалежні згоди початково вимкнені й доступні від 16 років. За невідомого віку та до 16 гра не запускає необов’язкові SDK-запити. Локальна гра доступна без згоди; вікова категорія не є перевіркою особи. Допустима rewarded-реклама має NPA, для 16–17 — teen treatment. Тестова реклама має ті самі вікові й локальні дозвільні обмеження.
 
-Виробничі publication flags закриті. Нативна перевірка пристрою, Google-консолі, остаточний Data safety і повна поштова адреса ще потрібні. JSON і підміни SDK не підтверджують Android-реліз.
+Виробничі publication flags закриті. Нативна перевірка пристрою, Google-консолі, остаточний Data safety й підтвердження операційних строків зберігання ще потрібні. Поштова адреса й контакти підтверджені власником і відновлені з гілки редизайну. JSON і підміни SDK не підтверджують Android-реліз.
 
 - [Реалізація, перевірки, блокери й owner checklist](PRIVACY-RUNTIME-UA.md).
 - [Облік даних і таблиця Data safety](DATA-SAFETY-UA.md).
