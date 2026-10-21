@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "scope": "C# 9 syntax under player/Editor symbols only; not Unity assembly compilation or scene execution",
+  "files": [
+    "QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/WorldWellShafts.cs",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampArtView.cs",
+    "QuietCamp/Assets/QuietCamp/Scripts/Presentation/World/CampGroundDetails.cs",
+    "QuietCamp/Assets/QuietCamp/Editor/LevelAuthoring/WorldOps/WorldOpsCompositionRepairs.cs",
+    "QuietCamp/Assets/QuietCamp/Editor/LevelAuthoring/WorldOps/WorldOpsOperations.cs",
+    "QuietCamp/Assets/QuietCamp/Tests/Editor/CompositionContactTests.cs"
+  ],
+  "errors": []
+}

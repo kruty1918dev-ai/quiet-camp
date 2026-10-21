@@ -1,0 +1,11 @@
+{
+  "status": "pass",
+  "target": "netstandard2.1 / C#9 / UNITY_EDITOR",
+  "scope": "WorldWellShafts, WorldOpsCompositionRepairs and real Domain/ScenePlacement dependencies compiled against installed Unity managed API references. Compile only; no Editor/native engine execution, no CampArtView/CampGroundDetails assembly check. Unused authoring-generator and preview-entry boundaries throw NotSupportedException.",
+  "unityLaunched": false,
+  "nativeCallsExecuted": false,
+  "playerBuild": false,
+  "errors": 0,
+  "warnings": 4,
+  "projectSha256": "ae7c73b5fd5dbe19b130a645352eb00f8e550be379e4ff979887485cbbe273f5"
+}

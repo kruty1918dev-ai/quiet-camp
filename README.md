@@ -55,7 +55,7 @@ V01/V02 залишаються окремими версіями.
 
 Завершені табори лишаються в **Моїх кемпінгах**: їх можна роздивлятися, обертати й проходити повторно. Text scale, contrast, reduced motion, calm pacing, звук і haptics допомагають грати у власному темпі. [Правила й керування](docs/gameplay.md) · [Екрани й налаштування](docs/screens.md).
 
-**Quiet Camp** is a calm, offline-first campsite puzzle set in a recovering Ukrainian world. Arrange tents around paths, shade, quiet and friendship. All 100 campaign levels now have editable, reviewed compositions with unique main landmarks. Seven art correction rounds, 164 EditMode tests and a full automated Check/Next campaign run are recorded in the [current gallery](Design/LevelAuthoring/StoryCampaign/index.html). This is Editor evidence, not measured mobile performance or novice usability. The level-path screen remains excluded from gameplay and Editor Play Mode; its source backup is retained in commit 5035e856. The scene generator uses shared rules for framing, crossings, Stylized Water 3, vegetation, weather and living ground surfaces.
+**Quiet Camp** is a calm, offline-first campsite puzzle set in a recovering Ukrainian world. Arrange tents around paths, shade, quiet and friendship. All 100 campaign levels have editable compositions with unique main landmarks. The [historical gallery](Design/LevelAuthoring/StoryCampaign/index.html) records seven art correction rounds, 164 EditMode tests and an automated Check/Next campaign run. The [new composition audit](Design/LevelAuthoring/CompositionAudit/2026-10-21/REPORT.md) documents unresolved framing, shade and contact issues; the historical evidence does not establish acceptance of the current campaign. Neither report measures mobile performance or novice usability. The level-path screen remains excluded from gameplay and Editor Play Mode; its source backup is retained in commit 5035e856. The scene generator uses shared rules for framing, crossings, Stylized Water 3, vegetation, weather and living ground surfaces.
 
 ## З чого почати
 
@@ -110,3 +110,7 @@ exports real committed geometry through the managed C# seasonal pipeline and
 renders it in free Blender. See `Design/LevelAuthoring/WorldOps.md` for the
 explicit camera/shader/runtime limits, contact repairs and native review gate.
 This is not a player build, Unity Game View, mobile benchmark or artistic approval.
+The [100-level report](Design/LevelAuthoring/CompositionAudit/2026-10-21/REPORT.md)
+separates the runtime well fix, bridge candidates, rejected shade drafts and
+remaining composition work. The gallery ZIP contains all authored instances;
+native procedural inventory gaps are explicit.
