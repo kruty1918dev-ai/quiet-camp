@@ -86,6 +86,14 @@ def main():
     run.add_argument('recipe', type=Path)
     run.add_argument('--repository-project', type=Path, default=Path(__file__).resolve().parents[1] / 'QuietCamp')
     run.add_argument('--agent-delivery', action='store_true', help='Record protected user files for later explicit delivery')
+    external = sub.add_parser('external-audit', help='Read-only Blender geometry review; no Unity license, Editor or publication')
+    external.add_argument('--resource-root',type=Path)
+    external.add_argument('--output',type=Path,required=True)
+    external.add_argument('--orders',type=int,nargs='+')
+    external.add_argument('--dotnet')
+    external.add_argument('--blender')
+    external.add_argument('--render',action='store_true')
+    external.add_argument('--skip-export',action='store_true')
     sub.add_parser('status')
     teaser = sub.add_parser('teaser', help='Isolated real-game marketing capture through the WorldOps extension')
     teaser.add_argument('action', choices=['create', 'validate', 'preview', 'record', 'status', 'cancel', 'reframe', 'bake'])
@@ -115,6 +123,9 @@ def main():
     delivery.add_argument('--message', default='Apply reviewed QuietCamp WorldOps changes')
     delivery.add_argument('--push', action='store_true')
     args = parser.parse_args()
+    if args.command=='external-audit':
+        from world_audit import run as external_run
+        return external_run(args)
     project = args.project.resolve()
     if not (project / 'Temp/UnityLockfile').exists():
         raise SystemExit('The selected Unity project is not open. No Editor was launched.')
