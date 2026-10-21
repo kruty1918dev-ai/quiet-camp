@@ -5,7 +5,8 @@ import collections,csv,hashlib,html,json,shutil,sys
 from pathlib import Path
 from PIL import Image
 root=Path(sys.argv[1]);partial='--partial' in sys.argv;output=root/'gallery';output.mkdir(exist_ok=True);media=output/'media';media.mkdir(exist_ok=True);data=output/'data';data.mkdir(exist_ok=True)
-notes=json.loads((root/'review-notes.json').read_text()) if (root/'review-notes.json').exists() else {};labels=json.loads((root/'analysis/labels.json').read_text());summaries=[];image_manifest={}
+notes=json.loads((root/'review-notes.json').read_text()) if (root/'review-notes.json').exists() else {};labels_path=root/'analysis/labels.json';labels=json.loads((labels_path if labels_path.exists() else Path(__file__).with_name('object-labels.uk.json')).read_text());summaries=[];image_manifest={}
+baseline=root/('review-v2' if (root/'review-v2').is_dir() else 'baseline')
 def esc(x):return html.escape(str(x))
 def label(r):
  source=r.get('sourceModelId') or r.get('assetId') or r.get('modelId') or ''
@@ -27,7 +28,7 @@ def figure(folder,frame,prefix):
  if '-portrait.png' in frame['path']:caption='Портретний формат · напрямок камери гравця'
  return '<figure'+(' class="portrait"' if '-portrait.png' in frame['path'] else '')+'><a href="'+href+'"><img loading="lazy" src="'+href+'" alt="'+esc(caption)+' · рівень '+str(int(frame['path'][:3]))+'"></a><figcaption>'+esc(caption)+'</figcaption></figure>'
 for order in range(1,101):
- path=root/'review-v2'/f'{order:03}-inventory.json'
+ path=baseline/f'{order:03}-inventory.json'
  if not path.exists():
   if partial:continue
   raise SystemExit('Missing final render '+str(order))
@@ -48,7 +49,7 @@ for order in range(1,101):
  body=f'<p class="tag">Рівень {order:03} · {esc(facts.get("season"))}</p><h1>{esc(title)}</h1><p><code>{esc(d["id"])}</code></p><p class="note">{esc(review["notes"])}</p>'
  body+='<p>Це зовнішній геометричний огляд. Без HUD; розмір зарезервованої ділянки UI приблизний. URP, перебудова річки, процедурний луг і квіти, берегові доповнення, вогнища, погода, рух тканини та предмети мешканців не відтворені повністю. CSV перелічує всі авторські екземпляри й включені ігрові моделі, але не всі об’єкти, які процедурно створює запущена гра. Ці кадри не є нативним художнім прийманням.</p>'
  if 71<=order<=88:body+='<p class="note"><strong>Зимовий рівень: лише геометрична діагностика.</strong> Workbench не виконує шейдер снігу й не відтворює процедурний сніговий покрив. Зеленувата земля на цих кадрах не доводить, що сніг відсутній або має такий колір у грі.</p>'
- body+='<div class="views">'+''.join(figure(root/'review-v2',fr,'before') for fr in d['frames'])+'</div>'
+ body+='<div class="views">'+''.join(figure(baseline,fr,'before') for fr in d['frames'])+'</div>'
  extra=root/'contact-before'/f'{order:03}-inventory.json'
  if extra.exists():
   closeups=json.loads(extra.read_text());existing={fr['path'] for fr in d['frames']};frames=[fr for fr in closeups['frames'] if 'detail-' in fr['path'] and fr['path'] not in existing]
@@ -80,6 +81,8 @@ if summaries:
   writer=csv.DictWriter(f,fieldnames=list(summaries[0]),lineterminator="\n");writer.writeheader();writer.writerows(summaries)
 body='<p class="tag">WorldOps · зовнішній огляд · '+str(len(summaries))+'/100</p><h1>Quiet Camp<br>Композиція кожного табору</h1><p class="note">100 рівнів, справжня авторська геометрія та ігрові OBJ. Патч базується на main a54a4eb; повторний експорт довів точну рівність усіх 100 геометричних наборів із джерелами базового рендеру. Blender без запуску Unity та без player build. Кадри показують геометрію й контакти; шейдери, HUD та частина процедурних систем мають окремі обмеження. Усі рівні ще НЕ отримали нативного художнього приймання.</p><p>Відкрий рівень: портрет, ландшафт, еталонні намети, усе авторське оточення, деталі, склад об’єктів і затінення. Номери 071–088 показують геометрію без нативного снігового матеріалу.</p><div class="grid">'
 for s in summaries:
- thumb=image_file(root/'review-v2',f'{s["order"]:03}-landscape.png','before');body+=f'<article class="card"><a href="level-{s["order"]:03}.html"><img loading="lazy" src="{thumb}" alt="Рівень {s["order"]:03}"><h2>{s["order"]:03} · {esc(s["primary"])}</h2></a><p>{esc(s["notes"])}</p></article>'
+ thumb=image_file(baseline,f'{s["order"]:03}-landscape.png','before');body+=f'<article class="card"><a href="level-{s["order"]:03}.html"><img loading="lazy" src="{thumb}" alt="Рівень {s["order"]:03}"><h2>{s["order"]:03} · {esc(s["primary"])}</h2></a><p>{esc(s["notes"])}</p></article>'
 body+='</div>';(output/'index.html').write_text(page('Огляд 100 композицій',body));(output/'image-manifest.json').write_text(json.dumps(image_manifest,ensure_ascii=False,indent=2)+'\n');(output/'data/review-summary.json').write_text(json.dumps(summaries,ensure_ascii=False,indent=2)+'\n')
+if (root/'REPORT.md').exists():shutil.copy2(root/'REPORT.md',output/'REPORT.md')
+elif not (output/'REPORT.md').exists():(output/'REPORT.md').write_text('# Quiet Camp — зовнішня діагностика\n\nДив. data/level-summary.csv та окремі сторінки рівнів. Кадри не є Unity Game View чи нативним художнім прийманням; підсумковий людський звіт ще не додано.\n')
 print('GALLERY',len(summaries),'levels',len(image_manifest),'derived images; final=',not partial)

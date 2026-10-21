@@ -1,7 +1,7 @@
 from pathlib import Path
 from PIL import Image,ImageDraw
 import json,sys,hashlib
-root=Path(sys.argv[1]);source=root/'review-v2';target=root/'review-sheets';target.mkdir(exist_ok=True)
+root=Path(sys.argv[1]);source=root/('review-v2' if (root/'review-v2').is_dir() else 'baseline');target=root/'review-sheets';target.mkdir(exist_ok=True)
 for start in range(1,101,4):
  orders=list(range(start,min(start+4,101)))
  if not all((source/f'{n:03}-inventory.json').exists() for n in orders):continue
