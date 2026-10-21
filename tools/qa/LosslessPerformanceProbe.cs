@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Reflection;
 using Newtonsoft.Json;
 using QuietCamp.Infrastructure;
 using QuietCamp.Presentation.World;
@@ -57,7 +58,9 @@ static class LosslessPerformanceProbe
                         results.Add(Weather(preset, tier, reduced));
             }
             File.WriteAllText(Path.Combine(Control, round + ".json"), JsonConvert.SerializeObject(new
-            { unity = UnityEngine.Application.unityVersion, utc = DateTime.UtcNow, scope = "Editor CPU; calibrated Mono used-heap growth, -1 if collection occurred during a sample; fixed-step native particles; not device FPS or per-thread allocation totals", results }, Formatting.Indented));
+            { unity = UnityEngine.Application.unityVersion, utc = DateTime.UtcNow,
+                filterIlBytes=typeof(SeasonModelAppearance).GetMethod("Filter",BindingFlags.Static|BindingFlags.NonPublic).GetMethodBody().GetILAsByteArray().Length,
+                scope = "Editor CPU; calibrated Mono used-heap growth, -1 if collection occurred during a sample; fixed-step native particles; not device FPS or per-thread allocation totals", results }, Formatting.Indented));
             File.Delete(Path.Combine(Control, round + "-error.txt"));
             UnityEngine.Debug.Log("[QC-LOSSLESS] Completed " + round);
         }

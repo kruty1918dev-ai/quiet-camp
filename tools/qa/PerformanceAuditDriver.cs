@@ -43,8 +43,15 @@ static class PerformanceAuditDriver
         var request = JsonUtility.FromJson<Request>(File.ReadAllText(path));
         if (request == null || string.IsNullOrEmpty(request.productName) || !request.productName.StartsWith("QuietCampPerfQA"))
             throw new InvalidOperationException("Performance checks need a distinct QuietCampPerfQA product.");
-        if (!string.IsNullOrEmpty(request.suite) && request.suite != "performance" && request.suite != "foliage" && request.suite != "roadmap" && request.suite != "optimization-editor" && request.suite != "optimization-regressions" && request.suite != "roadmap-regressions" && request.suite != "lossless-editor" && request.suite != "lossless-runtime")
+        if (!string.IsNullOrEmpty(request.suite) && request.suite != "performance" && request.suite != "foliage" && request.suite != "roadmap" && request.suite != "optimization-editor" && request.suite != "optimization-regressions" && request.suite != "roadmap-regressions" && request.suite != "lossless-editor" && request.suite != "lossless-runtime" && request.suite != "lossless-transitions")
             throw new InvalidOperationException("Only the performance matrix, roadmap audit and foliage regression suite are allowed.");
+        if ((request.suite == "performance" || request.suite == "lossless-transitions")
+            && Resources.Load<Shader>("QuietCamp/LeafFlight") == null)
+        {
+            File.Copy(path, Path.Combine(Control, "refused-missing-shader.json"), true);File.Delete(path);
+            File.WriteAllText(Path.Combine(Control, "refused.txt"), "QA Resources are stale: synchronize LeafFlight.shader and its meta before profiling the production transition path.");
+            return;
+        }
         SessionState.SetString(Key + "OriginalProduct", PlayerSettings.productName);
         var settingsPath = Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, "../ProjectSettings/ProjectSettings.asset"));
         SessionState.SetString(Key + "OriginalProductLine", File.ReadAllLines(settingsPath).First(line => line.StartsWith("  productName:")));
@@ -59,6 +66,7 @@ static class PerformanceAuditDriver
         api.Execute(new ExecutionSettings(new Filter { testMode = request.suite == "optimization-editor" || request.suite == "lossless-editor" ? TestMode.EditMode : TestMode.PlayMode,
             testNames = request.suite == "lossless-editor" ? new[] { "QuietCamp.Tests.SeasonModelChannelTests", "QuietCamp.Tests.SeasonPresentationTests", "QuietCamp.Tests.SeasonTransitionTests", "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.PerformanceCacheTests" }
                 : request.suite == "lossless-runtime" ? new[] { "QuietCamp.Tests.AudioPlayModeTests", "QuietCamp.Tests.SeasonPresentationPlayModeTests.AuthoredDeciduousTreesKeepCollidersAndPinnedRootsButLoseWinterCrowns", "QuietCamp.Tests.SeasonPresentationPlayModeTests.WinterPropsKeepGeometryAndReleaseOnlyTheirOwnSnowMaterials" }
+                : request.suite == "lossless-transitions" ? new[] { "QuietCamp.Tests.OptimizationPlayModeTests", "QuietCamp.Tests.FoliageDivePlayModeTests" }
                 : request.suite == "optimization-editor" ? new[] { "QuietCamp.Tests.PerformanceCacheTests", "QuietCamp.Tests.LeafCurtainGraphicTests" }
                 : request.suite == "optimization-regressions" ? new[] { "QuietCamp.Tests.OptimizationPlayModeTests", "QuietCamp.Tests.FoliageDivePlayModeTests", "QuietCamp.Tests.ForestCoveragePlayModeTests", "QuietCamp.Tests.NativeHtmlUiPlayModeTests" }
                 : request.suite == "roadmap-regressions" ? new[] { "QuietCamp.Tests.ProceduralRoadmapPlayModeTests" }

@@ -20,18 +20,21 @@ namespace QuietCamp.Presentation.World
                 for(int j=0;j<m.vertices.Length;j+=3){m.vertices[j]*=growth;m.vertices[j+1]=bottom+(m.vertices[j+1]-bottom)*growth;m.vertices[j+2]*=growth;}
             }
             var leaf=new System.Collections.Generic.HashSet<int>(source.seasonalLeafTriangles??Array.Empty<int>());
+            bool autumn=preset.season=="autumn",spring=preset.season=="spring",winter=preset.season=="winter";
+            bool conifer=source.seasonalRole=="conifer",groundcover=source.seasonalRole=="groundcover";
+            var tint=autumn?new Color(.70f,.46f,.14f):spring?new Color(.38f,.53f,.22f):new Color(.32f,.43f,.18f);
+            var moss=winter?new Color(.31f,.36f,.26f):autumn?new Color(.30f,.35f,.15f):new Color(.27f,.38f,.16f);
+            float tintAmount=autumn?.68f:.27f,mossAmount=.75f+preset.wetness*.25f;
             for(int i=0;i<m.colors.Length;i++)
             {
-                var color=CampArtDefinition.Color(source.colors[i]);bool foliage=leaf.Contains(i/3)||source.seasonalRole=="conifer"&&color.g>color.r*1.04f||source.seasonalRole=="groundcover";
+                var color=CampArtDefinition.Color(source.colors[i]);bool foliage=leaf.Contains(i/3)||conifer&&color.g>color.r*1.04f||groundcover;
                 if(foliage)
                 {
-                    var tint=preset.season=="autumn"?new Color(.70f,.46f,.14f):preset.season=="spring"?new Color(.38f,.53f,.22f):new Color(.32f,.43f,.18f);
-                    if(preset.season!="winter"&&source.seasonalRole!="conifer")color=Color.Lerp(color,tint,preset.season=="autumn"?.68f:.27f);
+                    if(!winter&&!conifer)color=Color.Lerp(color,tint,tintAmount);
                 }
                 if(source.mossCoverage!=null)
                 {
-                    var moss=preset.season=="winter"?new Color(.31f,.36f,.26f):preset.season=="autumn"?new Color(.30f,.35f,.15f):new Color(.27f,.38f,.16f);
-                    color=Color.Lerp(color,moss,source.mossCoverage[i]*(.75f+preset.wetness*.25f));
+                    color=Color.Lerp(color,moss,source.mossCoverage[i]*mossAmount);
                 }
                 // Snow is applied in world space by the weather material, after scene shelter
                 // is known. Local normals alone paint interiors and rotated objects incorrectly.
@@ -68,13 +71,14 @@ namespace QuietCamp.Presentation.World
             m.tangents=SelectTriangles(m.tangents,triangles,12);
             int count=0;
             foreach(int triangle in triangles)if(leaves.Contains(triangle))count++;
-            var mappedLeaves=new int[count];int next=0;
+            var mappedLeaves=count==0?Array.Empty<int>():new int[count];int next=0;
             for(int i=0;i<triangles.Length;i++)if(leaves.Contains(triangles[i]))mappedLeaves[next++]=i;
             m.seasonalLeafTriangles=mappedLeaves;
         }
         static T[] SelectTriangles<T>(T[] source,int[] triangles,int width)
         {
             if(source==null)return null;
+            if(triangles.Length==0)return Array.Empty<T>();
             var selected=new T[triangles.Length*width];
             for(int i=0;i<triangles.Length;i++)Array.Copy(source,triangles[i]*width,selected,i*width,width);
             return selected;
