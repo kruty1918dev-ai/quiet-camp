@@ -43,7 +43,7 @@ static class PerformanceAuditDriver
         var request = JsonUtility.FromJson<Request>(File.ReadAllText(path));
         if (request == null || string.IsNullOrEmpty(request.productName) || !request.productName.StartsWith("QuietCampPerfQA"))
             throw new InvalidOperationException("Performance checks need a distinct QuietCampPerfQA product.");
-        if (!string.IsNullOrEmpty(request.suite) && request.suite != "performance" && request.suite != "foliage" && request.suite != "roadmap" && request.suite != "optimization-editor" && request.suite != "optimization-regressions" && request.suite != "roadmap-regressions")
+        if (!string.IsNullOrEmpty(request.suite) && request.suite != "performance" && request.suite != "foliage" && request.suite != "roadmap" && request.suite != "optimization-editor" && request.suite != "optimization-regressions" && request.suite != "roadmap-regressions" && request.suite != "lossless-editor" && request.suite != "lossless-runtime")
             throw new InvalidOperationException("Only the performance matrix, roadmap audit and foliage regression suite are allowed.");
         SessionState.SetString(Key + "OriginalProduct", PlayerSettings.productName);
         var settingsPath = Path.GetFullPath(Path.Combine(UnityEngine.Application.dataPath, "../ProjectSettings/ProjectSettings.asset"));
@@ -52,11 +52,14 @@ static class PerformanceAuditDriver
         SessionState.SetString(Key + "Context", request.context ?? "{}");
         SessionState.SetBool(Key + "Active", true);
         SessionState.SetBool(Key + "Finished", false);
-        File.Move(path, Path.Combine(Control, "started.json"));
+        File.Copy(path, Path.Combine(Control, "started.json"), true);
+        File.Delete(path);
         PlayerSettings.productName = request.productName;
         Debug.Log("[QC-PERF] Starting native tests with isolated QA saves; existing Editor remains open.");
-        api.Execute(new ExecutionSettings(new Filter { testMode = request.suite == "optimization-editor" ? TestMode.EditMode : TestMode.PlayMode,
-            testNames = request.suite == "optimization-editor" ? new[] { "QuietCamp.Tests.PerformanceCacheTests", "QuietCamp.Tests.LeafCurtainGraphicTests" }
+        api.Execute(new ExecutionSettings(new Filter { testMode = request.suite == "optimization-editor" || request.suite == "lossless-editor" ? TestMode.EditMode : TestMode.PlayMode,
+            testNames = request.suite == "lossless-editor" ? new[] { "QuietCamp.Tests.SeasonModelChannelTests", "QuietCamp.Tests.SeasonPresentationTests", "QuietCamp.Tests.SeasonTransitionTests", "QuietCamp.Tests.SeasonAtmosphereTests", "QuietCamp.Tests.PerformanceCacheTests" }
+                : request.suite == "lossless-runtime" ? new[] { "QuietCamp.Tests.AudioPlayModeTests", "QuietCamp.Tests.SeasonPresentationPlayModeTests.AuthoredDeciduousTreesKeepCollidersAndPinnedRootsButLoseWinterCrowns", "QuietCamp.Tests.SeasonPresentationPlayModeTests.WinterPropsKeepGeometryAndReleaseOnlyTheirOwnSnowMaterials" }
+                : request.suite == "optimization-editor" ? new[] { "QuietCamp.Tests.PerformanceCacheTests", "QuietCamp.Tests.LeafCurtainGraphicTests" }
                 : request.suite == "optimization-regressions" ? new[] { "QuietCamp.Tests.OptimizationPlayModeTests", "QuietCamp.Tests.FoliageDivePlayModeTests", "QuietCamp.Tests.ForestCoveragePlayModeTests", "QuietCamp.Tests.NativeHtmlUiPlayModeTests" }
                 : request.suite == "roadmap-regressions" ? new[] { "QuietCamp.Tests.ProceduralRoadmapPlayModeTests" }
                 : new[] { request.suite == "foliage" ? "QuietCamp.Tests.FoliageDivePlayModeTests"

@@ -57,14 +57,27 @@ namespace QuietCamp.Presentation.World
         }
         static void Filter(CampArtDefinition.Model m,int[] triangles,System.Collections.Generic.HashSet<int> leaves)
         {
-            m.vertices=triangles.SelectMany(t=>m.vertices.Skip(t*9).Take(9)).ToArray();
-            m.normals=triangles.SelectMany(t=>m.normals.Skip(t*9).Take(9)).ToArray();
-            m.colors=triangles.SelectMany(t=>m.colors.Skip(t*3).Take(3)).ToArray();
-            m.mossCoverage=m.mossCoverage==null?null:triangles.SelectMany(t=>m.mossCoverage.Skip(t*3).Take(3)).ToArray();
-            m.weatherExposure=m.weatherExposure==null?null:triangles.SelectMany(t=>m.weatherExposure.Skip(t*3).Take(3)).ToArray();
-            m.uv=m.uv==null?null:triangles.SelectMany(t=>m.uv.Skip(t*6).Take(6)).ToArray();
-            m.tangents=m.tangents==null?null:triangles.SelectMany(t=>m.tangents.Skip(t*12).Take(12)).ToArray();
-            m.seasonalLeafTriangles=triangles.Select((t,index)=>new{t,index}).Where(p=>leaves.Contains(p.t)).Select(p=>p.index).ToArray();
+            // Validated model channels have a fixed number of values per triangle.
+            // Copy each channel once without allocating enumerators for every face.
+            m.vertices=SelectTriangles(m.vertices,triangles,9);
+            m.normals=SelectTriangles(m.normals,triangles,9);
+            m.colors=SelectTriangles(m.colors,triangles,3);
+            m.mossCoverage=SelectTriangles(m.mossCoverage,triangles,3);
+            m.weatherExposure=SelectTriangles(m.weatherExposure,triangles,3);
+            m.uv=SelectTriangles(m.uv,triangles,6);
+            m.tangents=SelectTriangles(m.tangents,triangles,12);
+            int count=0;
+            foreach(int triangle in triangles)if(leaves.Contains(triangle))count++;
+            var mappedLeaves=new int[count];int next=0;
+            for(int i=0;i<triangles.Length;i++)if(leaves.Contains(triangles[i]))mappedLeaves[next++]=i;
+            m.seasonalLeafTriangles=mappedLeaves;
+        }
+        static T[] SelectTriangles<T>(T[] source,int[] triangles,int width)
+        {
+            if(source==null)return null;
+            var selected=new T[triangles.Length*width];
+            for(int i=0;i<triangles.Length;i++)Array.Copy(source,triangles[i]*width,selected,i*width,width);
+            return selected;
         }
         static int[][] LeafPieces(CampArtDefinition.Model m,System.Collections.Generic.HashSet<int> leaves)
         {

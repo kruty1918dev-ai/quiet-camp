@@ -18,7 +18,11 @@ namespace QuietCamp.Tests
             float deadline = Time.realtimeSinceStartup + 90;
             while (Object.FindAnyObjectByType<QuietCampBootstrap>()?.StartupReady != true && Time.realtimeSinceStartup < deadline)
             {
-                var button = Find("boot-policy-ack");
+                // Follow the current sequential setup through its real controls.
+                // Explicitly keep the synthetic QA age unknown and all optional purposes off.
+                var next=Find("boot-age-next");
+                var button = next!=null&&next.interactable?next:
+                    Find("boot-age-0")??Find("boot-privacy-skip")??Find("boot-privacy-finish")??Find("boot-policy-ack");
                 if (BootPrivacyPanel.Current?.Accepted == false && button != null && button.interactable) Tap(button);
                 yield return null;
             }

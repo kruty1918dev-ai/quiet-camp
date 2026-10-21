@@ -7,6 +7,7 @@ namespace QuietCamp.Presentation.World
 {
     public static class PlantWeatherResponse
     {
+        static readonly int Weather=Shader.PropertyToID("_QCWeather");
         public static Vector2[] Weights(CampArtDefinition.Model model)
         {
             var result=new Vector2[model.colors.Length];if(model.seasonalRole=="solid"||(string.IsNullOrEmpty(model.seasonalRole)&&model.shading!="foliage"))return result;
@@ -24,8 +25,8 @@ namespace QuietCamp.Presentation.World
         }
         public static void Set(Material material,float clock,float wind,float rain)
         {
-            if(material==null||!material.HasProperty("_QCWeather"))return;
-            material.SetVector("_QCWeather",new Vector4(clock,wind,rain,1));
+            if(material==null||!material.HasProperty(Weather))return;
+            material.SetVector(Weather,new Vector4(clock,wind,rain,1));
         }
     }
 }

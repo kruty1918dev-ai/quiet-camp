@@ -12,6 +12,8 @@ namespace QuietCamp.Presentation.World
     // Ticked by CampAtmosphere in game, the workspace in Editor, or the capture boundary.
     public sealed class SeasonAtmosphereView : MonoBehaviour
     {
+        static readonly int AtmosWindXZ=Shader.PropertyToID("_AtmosWindXZ"), AtmosWindStrength=Shader.PropertyToID("_AtmosWindStrength"), AtmosWindTime=Shader.PropertyToID("_AtmosWindTime");
+        static readonly int QCWind=Shader.PropertyToID("_QCWind"), WaveHeight=Shader.PropertyToID("_WaveHeight"), NormalStrength=Shader.PropertyToID("_NormalStrength"), IntersectionRippleStrength=Shader.PropertyToID("_IntersectionRippleStrength"), WaterSpeed=Shader.PropertyToID("_Speed");
         public SeasonAtmospherePreset Preset {get;private set;}
         public float WeatherClock=>_clock;
         WindSim _windSimulation;
@@ -42,6 +44,7 @@ namespace QuietCamp.Presentation.World
         readonly List<Material> _materials=new List<Material>();
         readonly List<Mesh> _meshes=new List<Mesh>();
         readonly List<Texture2D> _textures=new List<Texture2D>();
+        Texture2D _particleTexture,_softSnowTexture;
         AudioService _audio;
         float _clock,_audioAt;
         Camera _camera;
@@ -206,6 +209,8 @@ namespace QuietCamp.Presentation.World
                 var renderer=node.AddComponent<MeshRenderer>();renderer.sharedMaterial=material;renderer.shadowCastingMode=ShadowCastingMode.Off;
             }
             var driftMain=_drift.main;driftMain.startSize3D=true;driftMain.startSizeX=2.4f;driftMain.startSizeY=.32f;driftMain.startSizeZ=1;
+            var noise=_snow.noise;noise.enabled=true;noise.strength=.22f;noise.frequency=.18f;noise.scrollSpeed=.25f;
+            var drifting=_drift.noise;drifting.enabled=true;drifting.strength=.10f;drifting.frequency=.3f;drifting.scrollSpeed=.25f;
             RefreshSurfaces();
         }
         // Called after a terrain rebuild, never from the frame loop.
@@ -250,9 +255,14 @@ namespace QuietCamp.Presentation.World
         }
         Material ParticleMaterial(bool softSnow=false)
         {
-            var t=new Texture2D(32,32,TextureFormat.RGBA32,false);var colors=new Color[1024];
-            for(int y=0;y<32;y++)for(int x=0;x<32;x++){float r=new Vector2((x-15.5f)/15.5f,(y-15.5f)/15.5f).magnitude;colors[y*32+x]=new Color(1,1,1,softSnow?Mathf.Clamp01(1-r*r):Mathf.Clamp01((1-r)*4));}
-            t.SetPixels(colors);t.Apply();_textures.Add(t);
+            var t=softSnow?_softSnowTexture:_particleTexture;
+            if(t==null)
+            {
+                t=new Texture2D(32,32,TextureFormat.RGBA32,false);var colors=new Color[1024];
+                for(int y=0;y<32;y++)for(int x=0;x<32;x++){float r=new Vector2((x-15.5f)/15.5f,(y-15.5f)/15.5f).magnitude;colors[y*32+x]=new Color(1,1,1,softSnow?Mathf.Clamp01(1-r*r):Mathf.Clamp01((1-r)*4));}
+                t.SetPixels(colors);t.Apply();_textures.Add(t);
+                if(softSnow)_softSnowTexture=t;else _particleTexture=t;
+            }
             Material m;
             if(softSnow)
             {m=CozyParticleMaterial.Create(t,1);if(m==null)throw new InvalidOperationException("Soft snow particle shader missing.");m.SetFloat("_SoftDistance",.3f);}
@@ -298,12 +308,37 @@ namespace QuietCamp.Presentation.World
             return _surfaceField?.Height(x,z,ground,includeTents)??ground;
         }
         float _waterY=-.075f;
-        void Emit(ParticleSystem system,ref float accumulated,float rate,float dt,Func<Vector3> position)
+        enum EmissionOrigin { Rain, FarRain, Foam, Snow, FarSnow, NearSnow, Drift, Leaves, Bugs, Petals, Dust, Smoke, Embers }
+        Vector3 Around(float y)=>transform.parent.TransformPoint(new Vector3(Mathf.Lerp(_coverage.xMin,_coverage.xMax,Next()),y,Mathf.Lerp(_coverage.yMin,_coverage.yMax,Next())));
+        Vector3 EmissionPosition(EmissionOrigin origin)
+        {
+            // Keep the original random-sample order, including height before x/z.
+            switch(origin)
+            {
+                case EmissionOrigin.Rain:return Around(8+Next()*3);
+                case EmissionOrigin.FarRain:return Around(7+Next()*4);
+                case EmissionOrigin.Foam:
+                    var foam=_wheelContacts[_random.Next(_wheelContacts.Length)];foam.x+=(Next()-.5f)*.2f;foam.y=_waterY+.085f;foam.z-=(Next()*.5f);return transform.parent.TransformPoint(foam);
+                case EmissionOrigin.Snow:return Around(5+Next()*5);
+                case EmissionOrigin.FarSnow:return Around(7+Next()*4);
+                case EmissionOrigin.NearSnow:return _camera.ViewportToWorldPoint(new Vector3(Next()<.5f?.04f+Next()*.14f:.82f+Next()*.14f,Next(),.8f));
+                case EmissionOrigin.Drift:
+                    var drift=transform.parent.InverseTransformPoint(Around(0));drift.y=Surface(drift.x,drift.z)+.15f;return transform.parent.TransformPoint(drift);
+                case EmissionOrigin.Leaves:return transform.TransformPoint(_leafSources[_random.Next(_leafSources.Length)]+new Vector3((Next()-.5f)*2,Next(),(Next()-.5f)*2));
+                case EmissionOrigin.Bugs:return Habitat(.65f+Next()*1.5f);
+                case EmissionOrigin.Petals:return Habitat(2.5f+Next()*2);
+                case EmissionOrigin.Dust:return Habitat(.6f+Next()*3);
+                case EmissionOrigin.Smoke:return _firePosition+new Vector3((Next()-.5f)*.12f,.16f,(Next()-.5f)*.12f);
+                case EmissionOrigin.Embers:return _firePosition+new Vector3((Next()-.5f)*.12f,.2f,(Next()-.5f)*.12f);
+                default:throw new ArgumentOutOfRangeException(nameof(origin));
+            }
+        }
+        void Emit(ParticleSystem system,ref float accumulated,float rate,float dt,EmissionOrigin origin)
         {
             accumulated+=rate*dt;int count=Mathf.Min(64,Mathf.FloorToInt(accumulated));accumulated-=count;
             for(int i=0;i<count;i++)
             {
-                var at=position();var local=transform.InverseTransformPoint(at);
+                var at=EmissionPosition(origin);var local=transform.InverseTransformPoint(at);
                 var emit=new ParticleSystem.EmitParams{position=at,randomSeed=(uint)_random.Next(1,int.MaxValue)};
                 if(system==_rain||system==_farRain)emit.startLifetime=RainLifetime(local);
                 if(system==_snow||system==_farSnow){emit.startSize=(system==_snow?.06f:.035f)+Next()*(system==_snow?.16f:.045f);emit.rotation=Next()*360;}
@@ -317,8 +352,8 @@ namespace QuietCamp.Presentation.World
             var wind=_windSimulation.Advance(dt);
             Wind=new WindSim.Snapshot(wind.DirectionXZ,wind.BaseStrength,reduced?0:wind.GustEnvelope,reduced?0:wind.Strength,_clock);
             float w=WindStrength=Wind.Strength;var direction=Wind.DirectionXZ;
-            Shader.SetGlobalVector("_AtmosWindXZ",new Vector4(direction.x,direction.y,0,0));
-            Shader.SetGlobalFloat("_AtmosWindStrength",WindStrength);Shader.SetGlobalFloat("_AtmosWindTime",_clock);
+            Shader.SetGlobalVector(AtmosWindXZ,new Vector4(direction.x,direction.y,0,0));
+            Shader.SetGlobalFloat(AtmosWindStrength,WindStrength);Shader.SetGlobalFloat(AtmosWindTime,_clock);
             RainSurface.CaptureWind();_rainImpacts.SetQuality(tier,reduced);_rainImpacts.Advance(dt);
             _visibility?.Update(_clock,direction*w,tier);
             _shafts?.Advance(_clock,direction*w,tier,reduced);
@@ -328,30 +363,27 @@ namespace QuietCamp.Presentation.World
             if(!_coverageInitialized||Vector2.Distance(previousCoverage.center,_coverage.center)>2||_coverage.width*_coverage.height>previousCoverage.width*previousCoverage.height*1.12f)PrimeCoverage(previousCoverage,quality);
             _coverageInitialized=true;
             SetFlow(_snow,direction*w*6);SetFlow(_farSnow,direction*w*6);SetFlow(_leaves,direction*w*6);SetFlow(_rain,direction*w*4);SetFlow(_farRain,direction*w*4);SetFlow(_drift,direction*w*6);SetFlow(_petals,direction*w*3);SetFlow(_dust,direction*w*.6f);SetFlow(_smoke,direction*w*1.5f);SetFlow(_embers,direction*w);
-            var noise=_snow.noise;noise.enabled=true;noise.strength=.22f;noise.frequency=.18f;noise.scrollSpeed=.25f;
-            var drifting=_drift.noise;drifting.enabled=true;drifting.strength=.10f;drifting.frequency=.3f;drifting.scrollSpeed=.25f;
-            foreach(var material in _weatherMaterials){PlantWeatherResponse.Set(material,_clock,reduced?0:w,Mathf.Max(Preset.rain,Preset.wetness));material.SetVector("_QCWind",new Vector4(direction.x,direction.y,0,0));}
+            foreach(var material in _weatherMaterials){PlantWeatherResponse.Set(material,_clock,reduced?0:w,Mathf.Max(Preset.rain,Preset.wetness));material.SetVector(QCWind,new Vector4(direction.x,direction.y,0,0));}
             foreach(var material in _waterMaterials)
-            {if(material.HasProperty("_WaveHeight"))material.SetFloat("_WaveHeight",.012f+w*.02f);if(material.HasProperty("_NormalStrength"))material.SetFloat("_NormalStrength",.25f+w*.15f+Preset.rain*.12f);if(material.HasProperty("_IntersectionRippleStrength"))material.SetFloat("_IntersectionRippleStrength",.08f+Preset.rain*.16f);}
+            {if(material.HasProperty(WaveHeight))material.SetFloat(WaveHeight,.012f+w*.02f);if(material.HasProperty(NormalStrength))material.SetFloat(NormalStrength,.25f+w*.15f+Preset.rain*.12f);if(material.HasProperty(IntersectionRippleStrength))material.SetFloat(IntersectionRippleStrength,.08f+Preset.rain*.16f);}
             foreach(var material in _waterMaterials)
-                if(material.HasProperty("_Speed"))material.SetFloat("_Speed",reduced?0:(_riverProfile?.flowSpeed??.22f)*(Preset.season=="winter"?.12f:1)*(1+Preset.rain*.15f));
-            Vector3 Around(float y)=>transform.parent.TransformPoint(new Vector3(Mathf.Lerp(_coverage.xMin,_coverage.xMax,Next()),y,Mathf.Lerp(_coverage.yMin,_coverage.yMax,Next())));
+                if(material.HasProperty(WaterSpeed))material.SetFloat(WaterSpeed,reduced?0:(_riverProfile?.flowSpeed??.22f)*(Preset.season=="winter"?.12f:1)*(1+Preset.rain*.15f));
             float area=Mathf.Clamp(_coverage.width*_coverage.height/600,.65f,3);
-            Emit(_rain,ref _rainAmount,Preset.rain*440*quality*area,dt,()=>Around(8+Next()*3));
-            Emit(_farRain,ref _farRainAmount,Preset.rain*210*quality*area,dt,()=>Around(7+Next()*4));
-            if(_wheelContacts.Length>0)Emit(_foam,ref _foamAmount,(3+Preset.wind*3)*quality,dt,()=>{var p=_wheelContacts[_random.Next(_wheelContacts.Length)];p.x+=(Next()-.5f)*.2f;p.y=_waterY+.085f;p.z-=(Next()*.5f);return transform.parent.TransformPoint(p);});
-            Emit(_snow,ref _snowAmount,Preset.snow*(Preset.snow>.75f?360:110)*quality*area,dt,()=>Around(5+Next()*5));
-            Emit(_farSnow,ref _farSnowAmount,Preset.snow*100*quality*area,dt,()=>Around(7+Next()*4));
-            Emit(_nearSnow,ref _nearSnowAmount,Preset.snow*(reduced?0:5)*quality,dt,()=>_camera.ViewportToWorldPoint(new Vector3(Next()<.5f?.04f+Next()*.14f:.82f+Next()*.14f,Next(),.8f)));
-            Emit(_drift,ref _driftAmount,Preset.snow*Preset.wind*19*quality,dt,()=>{var p=transform.parent.InverseTransformPoint(Around(0));p.y=Surface(p.x,p.z)+.15f;return transform.parent.TransformPoint(p);});
-            if(_leafSources.Length>0)Emit(_leaves,ref _leafAmount,Preset.leaves*(reduced?0:10)*quality,dt,()=>transform.TransformPoint(_leafSources[_random.Next(_leafSources.Length)]+new Vector3((Next()-.5f)*2,Next(),(Next()-.5f)*2)));
-            Emit(_bugs,ref _bugAmount,Preset.insects*(reduced?0:10)*quality,dt,()=>Habitat(.65f+Next()*1.5f));
-            Emit(_petals,ref _petalAmount,Preset.pollen*(reduced?0:7)*quality,dt,()=>Habitat(2.5f+Next()*2));
-            Emit(_dust,ref _dustAmount,Preset.dust*(reduced?0:16)*quality,dt,()=>Habitat(.6f+Next()*3));
+            Emit(_rain,ref _rainAmount,Preset.rain*440*quality*area,dt,EmissionOrigin.Rain);
+            Emit(_farRain,ref _farRainAmount,Preset.rain*210*quality*area,dt,EmissionOrigin.FarRain);
+            if(_wheelContacts.Length>0)Emit(_foam,ref _foamAmount,(3+Preset.wind*3)*quality,dt,EmissionOrigin.Foam);
+            Emit(_snow,ref _snowAmount,Preset.snow*(Preset.snow>.75f?360:110)*quality*area,dt,EmissionOrigin.Snow);
+            Emit(_farSnow,ref _farSnowAmount,Preset.snow*100*quality*area,dt,EmissionOrigin.FarSnow);
+            Emit(_nearSnow,ref _nearSnowAmount,Preset.snow*(reduced?0:5)*quality,dt,EmissionOrigin.NearSnow);
+            Emit(_drift,ref _driftAmount,Preset.snow*Preset.wind*19*quality,dt,EmissionOrigin.Drift);
+            if(_leafSources.Length>0)Emit(_leaves,ref _leafAmount,Preset.leaves*(reduced?0:10)*quality,dt,EmissionOrigin.Leaves);
+            Emit(_bugs,ref _bugAmount,Preset.insects*(reduced?0:10)*quality,dt,EmissionOrigin.Bugs);
+            Emit(_petals,ref _petalAmount,Preset.pollen*(reduced?0:7)*quality,dt,EmissionOrigin.Petals);
+            Emit(_dust,ref _dustAmount,Preset.dust*(reduced?0:16)*quality,dt,EmissionOrigin.Dust);
             if(_fireActive)
             {
-                Emit(_smoke,ref _smokeAmount,5*quality,dt,()=>_firePosition+new Vector3((Next()-.5f)*.12f,.16f,(Next()-.5f)*.12f));
-                Emit(_embers,ref _emberAmount,4*quality,dt,()=>_firePosition+new Vector3((Next()-.5f)*.12f,.2f,(Next()-.5f)*.12f));
+                Emit(_smoke,ref _smokeAmount,5*quality,dt,EmissionOrigin.Smoke);
+                Emit(_embers,ref _emberAmount,4*quality,dt,EmissionOrigin.Embers);
                 _fireLight.intensity=.7f+.13f*Mathf.Sin(_clock*7)+w*.15f;
             }
             foreach(var system in _systems)
@@ -584,13 +616,17 @@ namespace QuietCamp.Presentation.World
                 if(Preset.audioKeys[i]=="ambience.wind"&&services?.Audio==_audio&&services.AmbientWindHandle.IsValid)
                 {continue;}
                 if(!catalog.TryGet(Preset.audioKeys[i],out var definition))continue;
-                if(definition.Loop && _voices.Any(h=>h.IsValid&&h.Source.clip==definition.Clip))continue;
+                bool alreadyPlaying=false;
+                if(definition.Loop)foreach(var voice in _voices)
+                    if(voice.IsValid&&voice.Source.clip==definition.Clip){alreadyPlaying=true;break;}
+                if(alreadyPlaying)continue;
                 // Ambience follows the game camera: an orthographic camera can be farther
                 // from the origin than a bird clip's maximum spatial distance.
                 var handle=_audio.Play(Preset.audioKeys[i],new AudioPlayOptions(initialPlaybackScale:_audioVisibility*Preset.audioGains[i],position:anchor));
                 if(handle.IsValid){_voices.Add(handle);_voiceGains[handle]=Preset.audioGains[i];}
             }
-            foreach(var voice in _voices.Where(h=>!h.IsValid).ToArray()){_voices.Remove(voice);_voiceGains.Remove(voice);}
+            for(int i=_voices.Count-1;i>=0;i--)
+                if(!_voices[i].IsValid){_voiceGains.Remove(_voices[i]);_voices.RemoveAt(i);}
         }
         void OnDestroy()
         {
