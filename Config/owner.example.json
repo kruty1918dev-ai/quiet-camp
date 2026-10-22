@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "mode": "development",
+  "android": { "packageName": "com.quietcamp.game" },
+  "admob": {
+    "appId": "", "rewardedLifeUnitId": "", "rewardedHintUnitId": "",
+    "interstitialUnitId": "", "publisherId": ""
+  },
+  "firebase": { "projectId": "quiet-camp", "androidGoogleServices": null },
+  "billing": { "proProductId": "quietcamp_pro", "verificationEndpoint": "" },
+  "operationalMetrics": { "endpoint": "" },
+  "legal": {
+    "privacyPolicyUrl": "https://oleksiy-havryliuk.de/quiet-camp/privacy",
+    "supportUrl": "", "termsUrl": "", "publishedPolicyRevision": "",
+    "publisherName": "", "supportEmail": "", "privacyEmail": "",
+    "dataRequestUrl": "", "publishedOn": "", "minimumAge": 0
+  },
+  "reviews": {
+    "policyPublished": false, "sdkDisclosures": false, "teenPrivacy": false,
+    "limitedAds": false, "underAgeAds": false, "childAds": false,
+    "childAdFormatsAndroid": false, "adultPersonalization": false,
+    "operationalMetricsLegalBasis": false, "billingTerms": false
+  },
+  "monetization": {
+    "firstInterstitialAfterCompletedLevels": 5,
+    "completedLevelsBetweenInterstitials": 4,
+    "minimumInterstitialIntervalSeconds": 180,
+    "interstitialCooldownAfterRewardSeconds": 180,
+    "maximumInterstitialsPerSession": 3
+  }
+}
