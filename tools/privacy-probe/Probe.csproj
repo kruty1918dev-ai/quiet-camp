@@ -4,6 +4,12 @@
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/PurchaseService.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/InterstitialService.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/OperationalMetrics.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/JourneyAccessService.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/OwnerClientConfiguration.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Tests/Editor/ProductionMonetizationTests.cs" />
     <PackageReference Include="NUnitLite" Version="3.14.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Domain/*.cs" />

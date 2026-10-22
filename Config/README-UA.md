@@ -15,7 +15,7 @@ git diff
 ```
 
 `validate` не змінює проєкт. `prepare` записує лише попередній перегляд із хешами,
-без приватних значень. `apply` звіряє конфігурацію й усі поточні файли з переглядом;
+назвами змінених полів, без приватних значень. `apply` звіряє конфігурацію й усі поточні файли з переглядом;
 застарілий перегляд відхиляється. Запис кожного файла атомарний, але весь набір
 не є транзакцією: після збою повторіть prepare та перевірте diff. Ручні поля
 наявних legal/google JSON зберігаються; перелічені в конфігурації поля замінюються.
@@ -82,3 +82,9 @@ Play signing/upload keys. Firebase client API key не є серверним с�
 
 Заповнений JSON **не є** юридичним допуском або Android-перевіркою. `readiness`
 показує налаштування та відсутні докази окремо для кожного сервісу.
+
+Портативні перевірки: `python -m unittest discover -s tools -p test_owner_config.py`,
+`python -m unittest discover -s Server`, проєкти `tools/privacy-probe/Probe.csproj`
+та `tools/optional-google-probe/Probe.csproj`. Існуючий `tools/MonetizationProbe.csproj`
+підтримує `-p:QCProbeTargetFramework=net8.0`, якщо встановлено лише .NET 8;
+його стандартний target лишився .NET 10. Це не перевірка Android або Unity import.

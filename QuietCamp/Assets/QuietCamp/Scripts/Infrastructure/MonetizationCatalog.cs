@@ -34,7 +34,7 @@ namespace QuietCamp.Infrastructure
             }
             var definitions = new List<JourneyDefinition>
             {
-                new JourneyDefinition { id = "main", titleKey = "journey.main.title", descriptionKey = "journey.main.description", levelIds = main.ToArray(), published = true, storyKeys = mainStories }
+                new JourneyDefinition { id = "main", includedInPro = true, titleKey = "journey.main.title", descriptionKey = "journey.main.description", levelIds = main.ToArray(), published = true, storyKeys = mainStories }
             };
 #if UNITY_EDITOR
             var test = LevelLoader.TestLevelId();

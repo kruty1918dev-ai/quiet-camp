@@ -58,6 +58,15 @@ def main():
                     package.extractall(extracted, filter="data")
                 google_references.extend((extracted / "package/Firebase/Plugins").glob("*.dll"))
             ads = sorted((CACHE_PROJECT / "Library/PackageCache").glob("com.google.ads.mobile@*/GoogleMobileAds"))
+            if os.environ.get("QC_GOOGLE_MOBILE_ADS_ROOT"):
+                # Offline API compilation against the pinned SDK without importing
+                # a Unity project or touching another session's PackageCache.
+                external = Path(os.environ["QC_GOOGLE_MOBILE_ADS_ROOT"])
+                import json
+                metadata = json.loads((external.parent / "package.json").read_text())
+                if metadata.get("version") != "11.6.0":
+                    raise RuntimeError("Expected pinned Google Mobile Ads 11.6.0 API")
+                ads = [external]
             if not ads:
                 raise RuntimeError("Install Google Mobile Ads 11.6.0 before checking its actual SDK API.")
             google_references.extend(ads[-1].glob("*.dll"))
@@ -70,6 +79,9 @@ def main():
                 template = "Assembly-CSharp"
             candidates = [path for path in ARTIFACTS.glob("*E*.dag/" + template + ".rsp")
                           if re.fullmatch(r"[0-9a-f]+E(?:Dbg|Rel)?\.dag", path.parent.name)]
+            if not candidates and is_package:
+                candidates = [path for path in ARTIFACTS.glob("*E*.dag/QuietCamp.Presentation.rsp")
+                              if re.fullmatch(r"[0-9a-f]+E(?:Dbg|Rel)?\.dag", path.parent.name)]
             if not candidates:
                 raise RuntimeError("Missing existing Unity compiler response: " + assembly)
             original = max(candidates, key=lambda path: path.stat().st_mtime)

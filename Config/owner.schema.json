@@ -33,7 +33,8 @@
       ],
       "properties": {
         "packageName": {
-          "type": "string"
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$"
         }
       }
     },
@@ -49,19 +50,24 @@
       ],
       "properties": {
         "appId": {
-          "type": "string"
+          "type": "string",
+          "pattern": "^$|^ca-app-pub-[0-9]{16}~[0-9]{10}$"
         },
         "rewardedLifeUnitId": {
-          "type": "string"
+          "type": "string",
+          "pattern": "^$|^ca-app-pub-[0-9]{16}/[0-9]{10}$"
         },
         "rewardedHintUnitId": {
-          "type": "string"
+          "type": "string",
+          "pattern": "^$|^ca-app-pub-[0-9]{16}/[0-9]{10}$"
         },
         "interstitialUnitId": {
-          "type": "string"
+          "type": "string",
+          "pattern": "^$|^ca-app-pub-[0-9]{16}/[0-9]{10}$"
         },
         "publisherId": {
-          "type": "string"
+          "type": "string",
+          "pattern": "^$|^pub-[0-9]{16}$"
         }
       }
     },
@@ -156,7 +162,9 @@
           "type": "string"
         },
         "minimumAge": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18
         }
       }
     },
@@ -220,19 +228,29 @@
       ],
       "properties": {
         "firstInterstitialAfterCompletedLevels": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 86400
         },
         "completedLevelsBetweenInterstitials": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 86400
         },
         "minimumInterstitialIntervalSeconds": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 86400
         },
         "interstitialCooldownAfterRewardSeconds": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 86400
         },
         "maximumInterstitialsPerSession": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 86400
         }
       }
     }

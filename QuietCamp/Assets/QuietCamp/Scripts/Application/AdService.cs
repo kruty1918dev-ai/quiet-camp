@@ -2,6 +2,10 @@ using System.Threading.Tasks;
 namespace QuietCamp.Application
 {
     public enum RewardStage { Requested, Completed, Granted }
+    public interface IInterstitialAdService
+    {
+        Task<AdResult> ShowInterstitial(string placementId);
+    }
     public interface IAdConsentInitialization
     {
         Task RefreshConsent();

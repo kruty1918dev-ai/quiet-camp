@@ -29,13 +29,7 @@ sealed class FirebaseComfortTransport : IComfortTransport
     {
         _enabled = enabled && !_disposed && _ready;
         if (!_ready) return;
-        FirebaseAnalytics.SetConsent(new Dictionary<ConsentType, ConsentStatus>
-        {
-            [ConsentType.AnalyticsStorage] = _enabled ? ConsentStatus.Granted : ConsentStatus.Denied,
-            [ConsentType.AdStorage] = ConsentStatus.Denied,
-            [ConsentType.AdUserData] = ConsentStatus.Denied,
-            [ConsentType.AdPersonalization] = ConsentStatus.Denied
-        });
+        FirebaseConsentSignals.SetAnalytics(_enabled);
         FirebaseAnalytics.SetAnalyticsCollectionEnabled(_enabled);
     }
     public void Send(ComfortRecord record)
@@ -47,7 +41,7 @@ sealed class FirebaseComfortTransport : IComfortTransport
         FirebaseAnalytics.LogEvent(record.Name, parameters);
     }
     public void ResetLocalData()
-    { if (_ready) { SetConsent(false); FirebaseAnalytics.ResetAnalyticsData(); } }
+    { if (_ready) { SetConsent(false); FirebaseAnalytics.ResetAnalyticsData(); FirebaseConsentSignals.Reapply(); } }
     public void Dispose() { SetConsent(false); _disposed = true; }
 }
 #endif

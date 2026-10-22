@@ -101,7 +101,7 @@ namespace QuietCamp.Tests.Editor
             legal.limitedAdsReviewed = true; Assert.IsFalse(c.AdvertisingAllowed);
             legal.underAgeAdvertisingReviewed = true; Assert.IsTrue(c.AdvertisingAllowed);
             Assert.IsFalse(s.advertisingConsent || s.analyticsConsent || s.crashReportingConsent);
-            Assert.IsFalse(c.Eligible || c.AnalyticsAllowed || c.CrashesAllowed);
+            Assert.IsTrue(c.Eligible); Assert.IsFalse(c.AnalyticsAllowed || c.CrashesAllowed);
             s.optionalVideoBonuses = false; Assert.IsFalse(c.AdvertisingAllowed);
             s.optionalVideoBonuses = true; s.privacyAcknowledgementHash = "stale"; Assert.IsFalse(c.AdvertisingAllowed);
             s.privacyAcknowledgementHash = "h"; s.privacyAgeBand = 1; Assert.IsFalse(c.AdvertisingAllowed);

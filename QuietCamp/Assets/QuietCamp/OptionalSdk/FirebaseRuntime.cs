@@ -29,13 +29,7 @@ static class FirebaseRuntime
             // This does not prove the absence of native files/traffic during DefaultInstance creation.
 #if QC_FIREBASE_ANALYTICS
             Firebase.Analytics.FirebaseAnalytics.SetAnalyticsCollectionEnabled(false);
-            Firebase.Analytics.FirebaseAnalytics.SetConsent(new System.Collections.Generic.Dictionary<Firebase.Analytics.ConsentType, Firebase.Analytics.ConsentStatus>
-            {
-                [Firebase.Analytics.ConsentType.AnalyticsStorage] = Firebase.Analytics.ConsentStatus.Denied,
-                [Firebase.Analytics.ConsentType.AdStorage] = Firebase.Analytics.ConsentStatus.Denied,
-                [Firebase.Analytics.ConsentType.AdUserData] = Firebase.Analytics.ConsentStatus.Denied,
-                [Firebase.Analytics.ConsentType.AdPersonalization] = Firebase.Analytics.ConsentStatus.Denied
-            });
+            FirebaseConsentSignals.ResetDenied();
 #endif
 #if QC_FIREBASE_CRASHLYTICS && UNITY_ANDROID && !UNITY_EDITOR
             // Use the native collection API without installing Unity Crashlytics handlers for Analytics-only.

@@ -42,9 +42,9 @@ namespace QuietCamp.Tests.Editor
             var legal = Ready(); var config = new GoogleServicesConfiguration(); config.ResolveLegal(legal);
             Assert.IsTrue(config.OnlineServicesApproved); Assert.IsFalse(config.analyticsEnabled);
             Assert.AreEqual(legal.privacyPolicyUrl, config.privacyPolicyUrl);
-            legal.teenPrivacyReviewed = false; Assert.IsFalse(config.OnlineServicesApproved);
+            legal.teenPrivacyReviewed = false; Assert.IsTrue(config.OnlineServicesApproved);
             legal.teenPrivacyReviewed = true; legal.sdkDisclosuresReviewed = false; Assert.IsFalse(config.OnlineServicesApproved);
-            legal.sdkDisclosuresReviewed = true; legal.minimumAge = 0; Assert.IsFalse(config.OnlineServicesApproved);
+            legal.sdkDisclosuresReviewed = true; legal.minimumAge = 0; Assert.IsTrue(config.OnlineServicesApproved);
         }
         [Test] public void PublicContactDetailsDoNotApproveAPolicyReviewCopy()
         {
@@ -64,11 +64,11 @@ namespace QuietCamp.Tests.Editor
             legal.accountDeletionUrl = "https://quietcamp.dev/delete-account";
             Assert.IsFalse(legal.PublicationIssues(google).Any(v => v.Contains("public web deletion")));
         }
-        [Test] public void OptionalFeaturesNeedTheirDocumentsBeforeAnyOnlineActivation()
+        [Test] public void PlannedAccountAndPurchaseFeaturesDoNotBlockIndependentServices()
         {
-            var legal = Ready(); legal.accountsEnabled = true; Assert.IsFalse(legal.OnlineServicesApproved);
+            var legal = Ready(); legal.accountsEnabled = true; Assert.IsTrue(legal.OnlineServicesApproved);
             legal.accountDeletionUrl = "https://quietcamp.dev/delete-account"; Assert.IsTrue(legal.OnlineServicesApproved);
-            legal.purchasesEnabled = true; Assert.IsFalse(legal.OnlineServicesApproved);
+            legal.purchasesEnabled = true; Assert.IsTrue(legal.OnlineServicesApproved);
             legal.termsUrl = "https://quietcamp.dev/terms"; Assert.IsTrue(legal.OnlineServicesApproved);
         }
         [Test] public void ContactDoesNotAcceptPlaceholdersHeadersOrDisplayNames()

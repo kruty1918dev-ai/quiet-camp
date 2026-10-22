@@ -378,6 +378,7 @@ namespace QuietCamp.Presentation
             _audio?.Tick();
             _services?.TickEconomy(Time.unscaledDeltaTime);
             if (_focused && !_paused)
+                _services?.RefreshPurchasesIfDue();
                 _services?.Analytics.Tick(Time.unscaledDeltaTime, CampSceneHost.Current?.GameplayActive ?? false, _services.EffectiveQuality);
             var keyboard = Keyboard.current;
             if (keyboard != null && keyboard.escapeKey.wasPressedThisFrame)
@@ -418,6 +419,7 @@ namespace QuietCamp.Presentation
             if (paused)
             {
                 _services?.Analytics.EndLevel(ComfortOutcome.Backgrounded, keepAttempt: true);
+                if (_services != null) _ = _services.OperationalMetrics.Flush();
                 _services?.Save.Save();
             }
             AudioListener.pause = _paused || !_focused;
@@ -426,7 +428,7 @@ namespace QuietCamp.Presentation
         void OnApplicationFocus(bool focused)
         {
             _focused = focused;
-            if (focused) RestoreScreenOrientation();
+            if (focused) { RestoreScreenOrientation(); if (_services != null && !_services.MonetizationBusy) _ = _services.Purchases.Restore(); }
             AudioListener.pause = _paused || !_focused;
             if (_services != null) _services.Haptics.Suspended = _paused || !_focused;
         }

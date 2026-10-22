@@ -51,10 +51,20 @@ namespace QuietCamp.Presentation
         public JourneyCatalog Journeys { get; private set; }
         public JourneyAccessService JourneyAccess { get; private set; }
         public PurchaseService Purchases { get; private set; }
+        public InterstitialService Interstitials { get; private set; }
+        public OwnerClientConfiguration OwnerConfiguration { get; private set; }
+        public OperationalMetrics OperationalMetrics { get; private set; }
+        DateTime _nextPurchaseRefresh;
+        public void RefreshPurchasesIfDue()
+        {
+            if (OwnerConfiguration == null || !OwnerConfiguration.BillingConfigured(Legal) || MonetizationBusy || DateTime.UtcNow < _nextPurchaseRefresh) return;
+            _nextPurchaseRefresh = DateTime.UtcNow.AddMinutes(15);
+            _ = Purchases.Restore();
+        }
         public CampMemoryService Memories { get; private set; }
         public CampCompletionService Completion { get; private set; }
         public CampAttemptService Attempts { get; private set; }
-        public bool MonetizationBusy => Purchases.Busy || AdLives.Busy || AdHints.Busy || Rewards.Busy;
+        public bool MonetizationBusy => (Interstitials?.Busy ?? false) || Purchases.Busy || AdLives.Busy || AdHints.Busy || Rewards.Busy;
         float _economyTickSeconds;
         int _recoveryMinute = -1;
         public void TickEconomy(float seconds)
@@ -63,7 +73,20 @@ namespace QuietCamp.Presentation
             _economyTickSeconds += seconds;
             if (_economyTickSeconds < 1) return;
             _economyTickSeconds = 0;
+            Interstitials = new InterstitialService(Ads,
+                () => !Economy.IsPro && !Purchases.Busy && !AdLives.Busy && !AdHints.Busy && !Rewards.Busy && GoogleConfiguration.interstitialsEnabled,
+                Progression.CompletedCount, OwnerConfiguration.firstInterstitialAfterCompletedLevels,
+                OwnerConfiguration.completedLevelsBetweenInterstitials, OwnerConfiguration.minimumInterstitialIntervalSeconds,
+                OwnerConfiguration.interstitialCooldownAfterRewardSeconds, OwnerConfiguration.maximumInterstitialsPerSession);
+            GoogleConfiguration.RewardEarned = placement => {
+                if (placement == "camp.life" || placement == "camp.hint") Economy.RememberEarnedAdReward(placement == "camp.hint");
+                Interstitials.Rewarded();
+            };
+            GoogleConfiguration.AdObserved = (placement, stage) => Analytics.AdEvent(stage,
+                placement == "camp.life" ? 0 : placement == "camp.hint" ? 1 : placement == "camp.interstitial" ? 3 : 2);
+            Purchases.StateObserved += state => Analytics.PurchaseEvent(state == PurchaseState.Owned ? 1 : 0);
             Economy.RefreshLives();
+            _ = Purchases.Restore();
             int minute = (int)Math.Ceiling(Economy.SecondsUntilNextLife / 60d);
             if (minute != _recoveryMinute) { _recoveryMinute = minute; OnMonetizationChanged(); }
         }
@@ -197,7 +220,7 @@ namespace QuietCamp.Presentation
             // Document acknowledgement never grants consent. Changed policy words also invalidate old optional choices.
             var consentPublication = Legal.Published ? Legal.revision + ":" + save.Settings.privacyAcknowledgementHash : Legal.revision;
             GoogleConfiguration.BindPrivacy(save.Settings, consentPublication);
-            GoogleConfiguration.HasNoAdsEntitlement = () => save.Economy.pro;
+            GoogleConfiguration.HasNoAdsEntitlement = () => Economy?.IsPro ?? false;
             GoogleConfiguration.RememberPrivacyOptions = required =>
             { Settings.googlePrivacyOptionsRequired = required; Save.Save(); };
             _privacyPersistence = new PrivacyConsentPersistence(save.Settings,
@@ -229,6 +252,7 @@ namespace QuietCamp.Presentation
             if (AdLives != null) AdLives.Changed -= OnMonetizationChanged;
             if (AdHints != null) AdHints.Changed -= OnMonetizationChanged;
             if (Purchases != null) Purchases.Changed -= OnMonetizationChanged;
+            Purchases?.Dispose();
             var config = MonetizationConfiguration.Load();
             Economy = new CampEconomy(Save.Economy, config.economy, Save.Save);
             Journeys = config.Catalog();
@@ -240,9 +264,33 @@ namespace QuietCamp.Presentation
             AdHints = new AdHintService(Ads, Economy, () => Settings.optionalVideoBonuses && !Rewards.Busy && !Purchases.Busy && !AdLives.Busy);
             AdLives.RewardObserved += OnLifeReward;
             AdHints.RewardObserved += OnHintReward;
-            Purchases = new PurchaseService(provider ?? new UnavailablePurchaseProvider(), config.products, Save.Purchases, GrantProduct, Save.Save);
+            OwnerConfiguration = OwnerClientConfiguration.Load();
+            OperationalMetrics?.Clear();
+            OperationalMetrics = new OperationalMetrics(
+                () => OwnerConfiguration.operationalMetricsReviewed && Legal.Published && LegalConfiguration.PublishedUrl(OwnerConfiguration.operationalMetricsEndpoint) && PrivacyEligibility.Band(Settings) == PrivacyAgeBand.Under13,
+                (name, bucket, count) => OperationalMetricsTransport.Send(OwnerConfiguration.operationalMetricsEndpoint, name, bucket, count));
+            if (OwnerConfiguration.BillingConfigured(Legal)) Economy.RequireProVerification();
+            var nativeProvider = provider ?? OptionalBilling.Create(OwnerConfiguration, Legal, Settings);
+            foreach (var product in config.products)
+                if (product.pro) { if (!string.IsNullOrWhiteSpace(OwnerConfiguration.proProductId)) product.id = OwnerConfiguration.proProductId; product.published = OwnerConfiguration.BillingConfigured(Legal); }
+            Purchases = new PurchaseService(nativeProvider, config.products, Save.Purchases, GrantProduct, Save.Save, product => product.pro ? Economy.SetProEntitlement(false) : EconomyResult.Unavailable,
+                receipt => Economy.GrantVerifiedPro(receipt.receiptId, receipt.validUntilUtc));
             Economy.Changed += OnMonetizationChanged; AdLives.Changed += OnMonetizationChanged; AdHints.Changed += OnMonetizationChanged; Purchases.Changed += OnMonetizationChanged;
+            Interstitials = new InterstitialService(Ads,
+                () => !Economy.IsPro && !Purchases.Busy && !AdLives.Busy && !AdHints.Busy && !Rewards.Busy && GoogleConfiguration.interstitialsEnabled,
+                Progression.CompletedCount, OwnerConfiguration.firstInterstitialAfterCompletedLevels,
+                OwnerConfiguration.completedLevelsBetweenInterstitials, OwnerConfiguration.minimumInterstitialIntervalSeconds,
+                OwnerConfiguration.interstitialCooldownAfterRewardSeconds, OwnerConfiguration.maximumInterstitialsPerSession);
+            GoogleConfiguration.RewardEarned = placement => {
+                if (placement == "camp.life" || placement == "camp.hint") Economy.RememberEarnedAdReward(placement == "camp.hint");
+                Interstitials.Rewarded();
+            };
+            GoogleConfiguration.AdObserved = (placement, stage) => Analytics.AdEvent(stage,
+                placement == "camp.life" ? 0 : placement == "camp.hint" ? 1 : placement == "camp.interstitial" ? 3 : 2);
+            Purchases.StateObserved += state => Analytics.PurchaseEvent(state == PurchaseState.Owned ? 1 : 0);
             Economy.RefreshLives();
+            _nextPurchaseRefresh = DateTime.UtcNow.AddMinutes(15);
+            _ = Purchases.Restore();
         }
         /// <summary>Accept a downloaded/local, authenticated data manifest at the menu boundary.
         /// Delivery may later use Addressables; installation never changes an active puzzle.</summary>
@@ -296,7 +344,7 @@ namespace QuietCamp.Presentation
         {
             var journey = Journeys.Find(id);
             if (journey == null || !journey.published || string.IsNullOrEmpty(journey.entitlementId)) return EconomyResult.Unavailable;
-            if (Economy.IsPro || Save.Entitlements.Has(journey.entitlementId)) return EconomyResult.AlreadyApplied;
+            if ((Economy.IsPro && journey.includedInPro) || Save.Entitlements.Has(journey.entitlementId)) return EconomyResult.AlreadyApplied;
             var before = Save.Entitlements.ownedIds;
             Save.Entitlements.ownedIds = new System.Collections.Generic.List<string>(before ?? Array.Empty<string>()) { journey.entitlementId }.ToArray();
             var result = Economy.SpendCurrency(journey.currencyCost);
@@ -334,6 +382,7 @@ namespace QuietCamp.Presentation
                 return false;
             await Analytics.ClearLocalDataAndWithdraw();
             await Crashes.SetConsent(false);
+            if (!Save.MemoryOnly && !(OptionalBilling.ClearLocalHistory?.Invoke() ?? true)) return false;
             if (!Save.MemoryOnly && !SaveAdapter.TryEraseLocalFiles(UnityEngine.Application.persistentDataPath, out _)) return false;
             Save.ResetAfterErase();
             Progression.Restore(null, null, 0);
@@ -369,6 +418,7 @@ namespace QuietCamp.Presentation
             AdHints.RewardObserved -= OnHintReward;
             Save.SaveFailed -= OnSaveFailed;
             Save.BeforeSave -= SyncProgress;
+            OperationalMetrics?.Clear(); Purchases?.Dispose();
             Analytics.Dispose();
             Crashes.Dispose();
             (Ads as IDisposable)?.Dispose();
@@ -380,6 +430,7 @@ namespace QuietCamp.Presentation
         public async System.Threading.Tasks.Task<bool> SetPrivacyAge(PrivacyAgeBand band)
         {
             if (PrivacyEligibility.Band(Settings) == band && Settings.privacyAgeVersion == PrivacyEligibility.AgeVersion) return true;
+            OperationalMetrics?.Clear();
             bool saved = PrivacyEligibility.ChangeAge(Settings, band, PersistPrivacy);
             await Analytics.SetConsent(false);
             await Crashes.SetConsent(false);

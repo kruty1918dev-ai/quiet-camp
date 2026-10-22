@@ -13,7 +13,7 @@ namespace QuietCamp.Presentation.UI
         readonly Dictionary<string, PurchaseDetails> _details = new Dictionary<string, PurchaseDetails>();
         string _confirm, _confirmLabel, _result;
         Func<EconomyResult> _exchange;
-        bool _disposed;
+        bool _disposed, _offerObserved;
         public EconomyPanel(GameServices services, HtmlSurface surface) { _services = services; _surface = surface; }
         string T(string key) => _services.Localization.T(key);
         public static string Status(GameServices services, string levelId = null)
@@ -23,6 +23,7 @@ namespace QuietCamp.Presentation.UI
         public string Render()
         {
             var e = _services.Economy;
+            if (!_offerObserved && !e.IsPro) { _offerObserved = true; _services.Analytics.ProOffer(); }
             var html = new StringBuilder("<view class=\"column economy-panel\">");
             html.Append(HtmlUi.Text(T("economy.explain"), "s-sub"));
             bool purchasesAvailable = false;

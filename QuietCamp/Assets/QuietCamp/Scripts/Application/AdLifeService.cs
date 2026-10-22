@@ -8,9 +8,9 @@ namespace QuietCamp.Application
         readonly IAdService _ads;
         readonly CampEconomy _economy;
         readonly Func<bool> _allowed;
-        string _pendingReward;
+        string _pendingReward => _economy.PendingAdReward(false);
         public bool Busy { get; private set; }
-        public bool Available => !Busy && !_economy.IsPro && _economy.AdLivesRemaining > 0 && _allowed() && (_pendingReward != null || _ads.IsReady);
+        public bool Available => !Busy && !_economy.IsPro && (_pendingReward != null || (_economy.AdLivesRemaining > 0 && _allowed() && _ads.IsReady));
         public event Action Changed;
         public event Action<RewardStage> RewardObserved;
         void Observe(RewardStage stage) { try { RewardObserved?.Invoke(stage); } catch { } }
@@ -29,11 +29,10 @@ namespace QuietCamp.Application
                     Observe(RewardStage.Requested);
                     if (await _ads.ShowRewarded("camp.life") != AdResult.Completed) return EconomyResult.Unavailable;
                     Observe(RewardStage.Completed);
-                    _pendingReward = "ad:" + Guid.NewGuid().ToString("N");
+                    _economy.RememberEarnedAdReward(false);
                 }
                 var result = _economy.GrantAdLife(_pendingReward);
                 if (result == EconomyResult.Applied) Observe(RewardStage.Granted);
-                if (result == EconomyResult.Applied || result == EconomyResult.AlreadyApplied) _pendingReward = null;
                 return result;
             }
             catch { return EconomyResult.Unavailable; }

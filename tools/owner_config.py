@@ -18,7 +18,7 @@ SAMPLE_PUBLISHER = "3940256099942544"
 APP = re.compile(r"ca-app-pub-(\d{16})~\d{10}\Z")
 UNIT = re.compile(r"ca-app-pub-(\d{16})/\d{10}\Z")
 PACKAGE = re.compile(r"[a-z][a-z0-9_]*(?:\.[a-z][a-z0-9_]*)+\Z")
-SECRET = re.compile(r"private.?key|password|secret|access.?token|refresh.?token|purchase.?token|keystore|service.?account", re.I)
+SECRET = re.compile(r"private.?key|password|secret|access.?token|refresh.?token|purchase.?token|keystore|service.?account|credential|signing.?key|authorization", re.I)
 
 
 class ConfigError(ValueError):
@@ -59,6 +59,13 @@ def https(value):
 
 
 def validate(config):
+    try:
+        return validate_fields(config)
+    except (TypeError, AttributeError, KeyError, IndexError):
+        return ["owner: malformed nested configuration or Firebase document"]
+
+
+def validate_fields(config):
     template = read(ROOT / "Config/owner.example.json")
     errors = []
     def fail(path, message):
@@ -107,6 +114,8 @@ def validate(config):
         if not match: fail("admob." + key, "expected App ID (~) or ad-unit ID (/) of the correct kind")
         else:
             publishers.add(match[1])
+            if len(set(match[1])) == 1 or len(set(value[-10:])) == 1:
+                fail("admob." + key, "placeholder numeric ID")
             if config["mode"] == "production" and match[1] == SAMPLE_PUBLISHER:
                 fail("admob." + key, "sample inventory forbidden in production")
     if any(ads[k] for k in ("rewardedLifeUnitId", "rewardedHintUnitId", "interstitialUnitId")) and not ads["appId"]:
@@ -137,6 +146,8 @@ def validate(config):
                 fail("firebase", "missing valid client API key")
             if not str(services.get("project_info", {}).get("project_number", "")).isdigit():
                 fail("firebase", "missing project_number")
+            elif clients[0]["client_info"]["mobilesdk_app_id"].split(":")[1] != str(services["project_info"]["project_number"]):
+                fail("firebase", "Android app ID and project_number mismatch")
     for section, keys in (("billing", ("verificationEndpoint",)), ("operationalMetrics", ("endpoint",)),
                           ("legal", ("privacyPolicyUrl", "supportUrl", "termsUrl", "dataRequestUrl"))):
         for key in keys:
@@ -161,6 +172,20 @@ def validate(config):
         if value < (1 if key == "completedLevelsBetweenInterstitials" else 0) or value > 86400:
             fail("monetization." + key, "out of supported range")
     return errors
+
+
+def native_firebase(config):
+    source = config["firebase"]["androidGoogleServices"]
+    if source is None: return None
+    client = next(c for c in source["client"] if c.get("client_info", {}).get("android_client_info", {}).get("package_name") == config["android"]["packageName"])
+    # Only the selected Android application's required native client fields.
+    # Arbitrary owner/Firebase extension fields never become build payload.
+    info = source["project_info"]
+    return {"project_info": {key: info[key] for key in ("project_number", "project_id", "storage_bucket", "firebase_url") if key in info},
+            "client": [{"client_info": {"mobilesdk_app_id": client["client_info"]["mobilesdk_app_id"],
+                                        "android_client_info": {"package_name": config["android"]["packageName"]}},
+                        "api_key": [{"current_key": item["current_key"]} for item in client["api_key"] if "current_key" in item]}],
+            "configuration_version": "1"}
 
 
 def planned(config, root=ROOT):
@@ -199,7 +224,7 @@ def planned(config, root=ROOT):
         "operationalMetricsEndpoint": config["operationalMetrics"]["endpoint"],
         "operationalMetricsReviewed": review["operationalMetricsLegalBasis"], **config["monetization"]})
     # Null removes previously generated Firebase config. Unknown files are never deleted without a preview hash.
-    outputs["QuietCamp/Assets/google-services.json"] = encoded(fb) if fb is not None else None
+    outputs["QuietCamp/Assets/google-services.json"] = encoded(native_firebase(config)) if fb is not None else None
     settings = "QuietCamp/Assets/GoogleMobileAds/Resources/GoogleMobileAdsSettings.asset"
     source = (root / settings).read_text(encoding="utf-8")
     # The SDK provider needs its App ID before C#. When ads are unconfigured,
@@ -229,8 +254,16 @@ def snapshot(root, outputs):
 
 def plan(config, root=ROOT):
     outputs = planned(config, root)
+    changed = {}
+    for path, data in outputs.items():
+        if path.endswith(".json") and data is not None:
+            before = read(root / path) if (root / path).exists() else {}
+            after = json.loads(data)
+            changed[path] = sorted(key for key in set(before) | set(after) if before.get(key) != after.get(key))
+        else:
+            changed[path] = ["native SDK settings"]
     return {"version": 1, "configHash": digest(encoded(config)), "before": snapshot(root, outputs),
-            "after": {p: digest(b) for p, b in outputs.items()}}
+            "after": {p: digest(b) for p, b in outputs.items()}, "changedFields": changed}
 
 
 def atomic(path, data):
@@ -263,14 +296,14 @@ def readiness(config):
     fb = config["firebase"]["androidGoogleServices"] is not None
     return {
         "advertising": {"configured": bool(ads["appId"] and (ads["rewardedLifeUnitId"] or ads["rewardedHintUnitId"] or ads["interstitialUnitId"])),
-                        "reviewed": common and r["teenPrivacy"], "missingEvidence": ["Android UMP, LTD, background, reward persistence, real creatives, revenue"]},
+                        "reviewed": common, "missingEvidence": ["SDK import, Android UMP, LTD, background, reward persistence, real creatives, revenue; teen/child review is separate"]},
         "analytics": {"configured": fb, "reviewed": common, "missingEvidence": ["Android consent and network capture, Firebase DebugView"]},
         "diagnostics": {"configured": fb, "reviewed": common, "missingEvidence": ["Android crash/restart, queued send/delete, independent consent"]},
         "purchases": {"configured": bool(config["billing"]["verificationEndpoint"] and config["billing"]["proProductId"]),
                       "reviewed": published and r["billingTerms"], "missingEvidence": ["Deploy backend, configure Play product, license tester pending/restore/refund/acknowledgment"]},
         "policy": {"configured": bool(config["legal"]["publishedPolicyRevision"]), "reviewed": published,
                    "missingEvidence": ["Owner/legal review, public policy matches bundled uk/en/de, Play Data Safety submission"]},
-        "operationalMetrics": {"configured": bool(config["operationalMetrics"]["endpoint"]), "reviewed": r["operationalMetricsLegalBasis"],
+        "operationalMetrics": {"configured": bool(config["operationalMetrics"]["endpoint"]), "reviewed": published and r["operationalMetricsLegalBasis"],
                                "missingEvidence": ["Legal basis, retention, ingress log/identifier audit"]}}
 
 
@@ -294,13 +327,17 @@ def main():
             for path, before in preview["before"].items():
                 after = preview["after"][path]
                 print(("UNCHANGED " if before == after else "DELETE " if after is None else "UPDATE ") + path)
+                if before != after and preview["changedFields"][path]: print("  fields: " + ", ".join(preview["changedFields"][path]))
             print("Preview contains hashes only. Review; then use apply with the same --config and --preview.")
         else:
             apply(config, read(args.preview))
             print("APPLIED: no Unity/build/deployment; inspect git diff and import in an authorized Editor session.")
         return 0
-    except (ConfigError, OSError):
-        print("ERROR: invalid configuration, stale preview, or inaccessible file. No configuration values logged.", file=sys.stderr)
+    except ConfigError as error:
+        print("ERROR: " + str(error), file=sys.stderr)
+        return 1
+    except OSError:
+        print("ERROR: inaccessible configuration or output file. No configuration values logged.", file=sys.stderr)
         return 1
 
 

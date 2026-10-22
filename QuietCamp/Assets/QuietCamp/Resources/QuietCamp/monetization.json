@@ -76,7 +76,8 @@
         "journey.lighthouse.story.20"
       ],
       "revision": 1,
-      "requiredCompletions": 55
+      "requiredCompletions": 55,
+      "includedInPro": true
     },
     {
       "id": "garden",
@@ -147,7 +148,8 @@
         "",
         "",
         ""
-      ]
+      ],
+      "includedInPro": true
     },
     {
       "id": "station",
@@ -198,7 +200,8 @@
         "",
         "",
         ""
-      ]
+      ],
+      "includedInPro": true
     },
     {
       "id": "memories",
@@ -217,7 +220,8 @@
         "journey.memories.story.2",
         "journey.memories.story.3"
       ],
-      "revision": 1
+      "revision": 1,
+      "includedInPro": true
     },
     {
       "id": "mountain",
@@ -280,7 +284,8 @@
         "",
         ""
       ],
-      "entitlementId": "embers.mountain"
+      "entitlementId": "embers.mountain",
+      "includedInPro": true
     },
     {
       "id": "resort",
@@ -355,7 +360,8 @@
         "",
         "journey.resort.story.30"
       ],
-      "entitlementId": "embers.resort"
+      "entitlementId": "embers.resort",
+      "includedInPro": true
     },
     {
       "id": "coast",
@@ -410,7 +416,8 @@
         "",
         "journey.coast.story.20"
       ],
-      "entitlementId": "embers.coast"
+      "entitlementId": "embers.coast",
+      "includedInPro": true
     }
   ]
 }

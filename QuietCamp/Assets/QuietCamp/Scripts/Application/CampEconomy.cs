@@ -18,26 +18,30 @@ namespace QuietCamp.Application
     [Serializable] public sealed class EconomySaveData
     {
         public int version = 1;
-        public bool initialized, pro;
+        public bool initialized, pro, proVerificationRequired;
+        public string proValidUntilUtc;
         public int lives, hints, currency, adLivesUsed, adHintsUsed;
         public string adDay;
+        public string pendingAdLifeReceipt, pendingAdHintReceipt;
         public string lifeRecoveryAnchorUtc;
         public AttemptRecord[] attempts = Array.Empty<AttemptRecord>();
         public string[] appliedReceiptIds = Array.Empty<string>();
 
         public EconomySaveData Copy() => new EconomySaveData
         {
-            version = version, initialized = initialized, pro = pro, lives = lives, hints = hints,
+            version = version, initialized = initialized, pro = pro, proVerificationRequired = proVerificationRequired, proValidUntilUtc = proValidUntilUtc, lives = lives, hints = hints,
             currency = currency, adLivesUsed = adLivesUsed, adHintsUsed = adHintsUsed, adDay = adDay,
+            pendingAdLifeReceipt = pendingAdLifeReceipt, pendingAdHintReceipt = pendingAdHintReceipt,
             lifeRecoveryAnchorUtc = lifeRecoveryAnchorUtc,
             attempts = (attempts ?? Array.Empty<AttemptRecord>()).Select(a => new AttemptRecord { levelId = a.levelId, checks = a.checks, consecutiveFailures=a.consecutiveFailures, recoveryHintPending=a.recoveryHintPending }).ToArray(),
             appliedReceiptIds = (string[])(appliedReceiptIds ?? Array.Empty<string>()).Clone()
         };
         public void Restore(EconomySaveData value)
         {
-            version = value.version; initialized = value.initialized; pro = value.pro;
+            version = value.version; initialized = value.initialized; pro = value.pro; proVerificationRequired = value.proVerificationRequired; proValidUntilUtc = value.proValidUntilUtc;
             lives = value.lives; hints = value.hints; currency = value.currency;
             adLivesUsed = value.adLivesUsed; adHintsUsed = value.adHintsUsed; adDay = value.adDay;
+            pendingAdLifeReceipt = value.pendingAdLifeReceipt; pendingAdHintReceipt = value.pendingAdHintReceipt;
             lifeRecoveryAnchorUtc = value.lifeRecoveryAnchorUtc;
             attempts = value.attempts; appliedReceiptIds = value.appliedReceiptIds;
         }
@@ -52,7 +56,8 @@ namespace QuietCamp.Application
         readonly Func<DateTime> _clock;
         public event Action Changed;
         public EconomySaveData Data => _data;
-        public bool IsPro => _data.pro;
+        public bool IsPro => _data.pro && (!_data.proVerificationRequired || (DateTime.TryParse(_data.proValidUntilUtc,
+            System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out var until) && until.ToUniversalTime() > _clock().ToUniversalTime()));
         public int Lives => _data.lives;
         public int Hints => _data.hints;
         public int Currency => _data.currency;
@@ -173,6 +178,31 @@ namespace QuietCamp.Application
             if (Applied(receiptId)) return EconomyResult.AlreadyApplied;
             return Commit(() => { _data.pro = true; Receipt(receiptId); });
         }
+        public string PendingAdReward(bool hint) => hint ? _data.pendingAdHintReceipt : _data.pendingAdLifeReceipt;
+        // Called synchronously from the native earned callback, before dismissal.
+        // A failed disk write keeps the receipt in memory for retry; never show a
+        // second ad to repair a failed reward save.
+        public string RememberEarnedAdReward(bool hint)
+        {
+            var receipt = PendingAdReward(hint);
+            if (string.IsNullOrEmpty(receipt))
+            {
+                receipt = (hint ? "ad-hint:" : "ad:") + Guid.NewGuid().ToString("N");
+                if (hint) _data.pendingAdHintReceipt = receipt; else _data.pendingAdLifeReceipt = receipt;
+            }
+            try { _persist(); } catch { }
+            return receipt;
+        }
+        public void RequireProVerification() { _data.proVerificationRequired = true; }
+        public EconomyResult GrantVerifiedPro(string receipt, string validUntilUtc)
+        {
+            if (string.IsNullOrWhiteSpace(receipt) || !DateTime.TryParse(validUntilUtc, System.Globalization.CultureInfo.InvariantCulture,
+                System.Globalization.DateTimeStyles.RoundtripKind, out var until) || until.ToUniversalTime() <= _clock().ToUniversalTime()
+                || until.ToUniversalTime() > _clock().ToUniversalTime().AddDays(2)) return EconomyResult.Invalid;
+            return Commit(() => { _data.pro = true; _data.proVerificationRequired = true; _data.proValidUntilUtc = validUntilUtc;
+                if (!Applied(receipt)) Receipt(receipt); });
+        }
+        public EconomyResult SetProEntitlement(bool active) => _data.pro == active ? EconomyResult.AlreadyApplied : Commit(() => _data.pro = active);
         public EconomyResult GrantAdLife(string rewardId)
         {
             if (IsPro || string.IsNullOrWhiteSpace(rewardId)) return EconomyResult.Invalid;
@@ -184,6 +214,7 @@ namespace QuietCamp.Application
                 var day = CurrentDay();
                 if (_data.adDay != day) { _data.adDay = day; _data.adLivesUsed = _data.adHintsUsed = 0; }
                 _data.adLivesUsed++; _data.lives++; Receipt(rewardId);
+                if (_data.pendingAdLifeReceipt == rewardId) _data.pendingAdLifeReceipt = null;
             });
         }
         public EconomyResult GrantAdHint(string rewardId)
@@ -197,6 +228,7 @@ namespace QuietCamp.Application
                 var day = CurrentDay();
                 if (_data.adDay != day) { _data.adDay = day; _data.adLivesUsed = _data.adHintsUsed = 0; }
                 _data.adHintsUsed++; _data.hints++; Receipt(rewardId);
+                if (_data.pendingAdHintReceipt == rewardId) _data.pendingAdHintReceipt = null;
             });
         }
         bool Applied(string id) => Array.IndexOf(_data.appliedReceiptIds, id) >= 0;

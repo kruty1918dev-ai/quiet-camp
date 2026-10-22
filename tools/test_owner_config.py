@@ -81,6 +81,17 @@ class OwnerTests(unittest.TestCase):
         for state in owner.readiness(self.config).values():
             self.assertTrue(state["missingEvidence"])
             self.assertFalse(state["reviewed"])
+    def test_nested_corruption_is_rejected_without_crashing(self):
+        for client in (None, {}, {"client_info": {"mobilesdk_app_id": 7, "android_client_info": {"package_name": "com.quietcamp.game"}}, "api_key": []}):
+            self.config["firebase"]["androidGoogleServices"] = {"project_info": {"project_id": "quiet-camp"}, "client": [client]}
+            self.assertTrue(owner.validate(self.config))
+    def test_native_output_drops_unknown_owner_fields(self):
+        source = {"project_info": {"project_id": "quiet-camp", "project_number": "123456", "not_for_build": "ignored"},
+                  "client": [{"client_info": {"mobilesdk_app_id": "1:123456:android:abcdef", "android_client_info": {"package_name": "com.quietcamp.game"}},
+                              "api_key": [{"current_key": "AIza" + "a" * 35}], "not_for_build": "ignored"}], "not_for_build": "ignored"}
+        self.config["firebase"]["androidGoogleServices"] = source
+        self.assertFalse(owner.validate(self.config))
+        self.assertNotIn("not_for_build", json.dumps(owner.native_firebase(self.config)))
 
 
 if __name__ == "__main__": unittest.main()
