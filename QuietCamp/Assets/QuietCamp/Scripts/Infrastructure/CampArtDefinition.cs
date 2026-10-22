@@ -26,10 +26,20 @@ namespace QuietCamp.Infrastructure
         [JsonProperty(NullValueHandling=NullValueHandling.Ignore)] public FieldCoverSettings fieldCover;
         public sealed class FieldCoverSettings
         {
+#if UNITY_EDITOR
+            [JsonProperty(NullValueHandling=NullValueHandling.Ignore)] public MeadowHeightFieldPatch[] heightFields;
+#endif
             public bool continuousMeadow=true;
             public float density=28,maximumHeight=.14f,maximumSpan=.28f,fringe=6,broadLeafShare=.04f,flowerCoverage=.06f,softnessPixels=2.2f;
             public void Validate()
             {
+#if UNITY_EDITOR
+                if(heightFields!=null)
+                {
+                    if(!continuousMeadow||heightFields.Length==0||heightFields.Length>256)throw new InvalidDataException("Height fields require a nonempty continuous-meadow preview.");
+                    foreach(var patch in heightFields)(patch??throw new InvalidDataException("Missing height-field patch.")).Validate();
+                }
+#endif
                 if(!new[]{density,maximumHeight,maximumSpan,fringe,broadLeafShare,flowerCoverage,softnessPixels}.All(Finite)||density<2||density>28||maximumHeight<.06f||maximumHeight>.2f||maximumSpan<.12f||maximumSpan>.45f||fringe<1||fringe>8||broadLeafShare<0||broadLeafShare>1||flowerCoverage<0||flowerCoverage>1||softnessPixels<0||softnessPixels>4)
                     throw new InvalidDataException("Invalid natural field-cover settings.");
             }

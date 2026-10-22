@@ -10,7 +10,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
 {
     public static class WorldOpsOperations
     {
-        public static readonly string[] Kinds={"audit","camera.frame","ground.refine","vegetation.refine","vegetation.redistribute","vegetation.scale","vegetation.preset","building.move","building.ground","building.refresh-model","model.age","model.simplify","path.upsert","path.remove","atmosphere.preset","river.edit","terrain.stamp"};
+        public static readonly string[] Kinds={"audit","camera.frame","ground.refine","vegetation.refine","vegetation.heightfield-preview","vegetation.redistribute","vegetation.scale","vegetation.preset","building.move","building.ground","building.refresh-model","model.age","model.simplify","path.upsert","path.remove","atmosphere.preset","river.edit","terrain.stamp"};
         public static void Validate(WorldRecipe recipe)
         {
             if(recipe==null||recipe.version!=1||string.IsNullOrWhiteSpace(recipe.id)||recipe.maxRepairRounds<1||recipe.maxRepairRounds>5)throw new ArgumentException("Invalid WorldOps recipe/version/repair budget.");
@@ -18,6 +18,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             if(recipe.levelIds==null||recipe.orders==null)throw new ArgumentException("Level selections must be arrays.");
             if(recipe.criteria==null||recipe.criteria.profiles==null||recipe.criteria.profiles.Length==0||recipe.criteria.profiles.Any(p=>p!="portrait"&&p!="landscape"))throw new ArgumentException("Expected portrait/landscape capture profiles.");
             if(recipe.operations==null||recipe.operations.Any(o=>o==null||string.IsNullOrWhiteSpace(o.id)||!Kinds.Contains(o.kind)||o.parameters==null||o.selector==null)||recipe.operations.Select(o=>o.id).Distinct().Count()!=recipe.operations.Length)throw new ArgumentException("Operations need unique IDs and allow-listed kinds.");
+            if(recipe.operations.Any(o=>o.kind=="vegetation.heightfield-preview")&&!recipe.previewOnly)throw new ArgumentException("Experimental height fields require previewOnly; publication is not supported.");
             if(recipe.operations.Any(o=>o.selector.ids==null||o.selector.modelIds==null||o.selector.roles==null))throw new ArgumentException("Object selectors must use arrays.");
             if(!recipe.capture&&(recipe.autoApply||recipe.criteria.autoRepair||recipe.operations.Any(o=>o.kind!="audit")))throw new ArgumentException("Skipping capture is allowed only for a read-only technical audit without repairs.");
             if(!Finite(recipe.criteria.contactTolerance)||recipe.criteria.contactTolerance<=0||recipe.criteria.contactTolerance>.1f||!Finite(recipe.criteria.minimumCellPixels)||recipe.criteria.minimumCellPixels<24||!Finite(recipe.criteria.maximumCentreError)||recipe.criteria.maximumCentreError<=0||recipe.criteria.maximumCentreError>2||recipe.criteria.quality<0||recipe.criteria.quality>3)throw new ArgumentException("Invalid acceptance limits.");
@@ -73,6 +74,10 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             if(!Kinds.Contains(op.kind))throw new ArgumentException("Unsupported operation: "+op.kind);
             var p=op.parameters;
             if(op.kind=="audit")return;
+            if(op.kind=="vegetation.heightfield-preview")
+            {
+                WorldOpsMeadowHeightFields.Bake(d,(int)Number(p,"resolution",512,256,1024),p["adaptive"]?.Value<bool>()??false);return;
+            }
             if(op.kind=="ground.refine")
             {
                 var settings=p.ToObject<CampArtDefinition.GroundSurfaceSettings>();settings.Validate();

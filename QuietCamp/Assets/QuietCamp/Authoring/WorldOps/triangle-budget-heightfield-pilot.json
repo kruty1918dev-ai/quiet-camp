@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "id": "triangle-budget-heightfield-pilot",
+  "label": "QC007 staged height-field representation; visual and GPU cost experiment",
+  "levelIds": ["QC007"],
+  "seed": 4157,
+  "maxRepairRounds": 1,
+  "autoApply": false,
+  "capture": true,
+  "previewOnly": true,
+  "operations": [{"id": "surface-pilot", "kind": "vegetation.heightfield-preview", "parameters": {"resolution": 512, "adaptive": true}}],
+  "criteria": {
+    "requireVisualReview": false,
+    "autoRepair": false,
+    "profiles": ["portrait", "landscape"],
+    "quality": 2
+  }
+}

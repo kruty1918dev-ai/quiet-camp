@@ -10,7 +10,7 @@ namespace QuietCamp.Presentation.World
 {
     /// <summary>Owns scene-local tent pressure and weather changes to the natural surface.
     /// Scene-local presentation; there are no fictitious steps when tents or routes change.</summary>
-    public sealed class CampGroundDetails : MonoBehaviour
+    public sealed class CampGroundDetails : MonoBehaviour,IDisposable
     {
         public const int MaximumPrints=256;
         LevelData _level; CampArtDefinition _art; Material _ground,_fieldMaterial;
@@ -20,6 +20,10 @@ namespace QuietCamp.Presentation.World
         readonly List<Transform> _tufts=new List<Transform>();
         readonly List<Vector3> _tuftScales=new List<Vector3>();
         GameObject _fieldCover,_pebbleCover;
+#if UNITY_EDITOR
+        public Action<Mesh,IReadOnlyList<int>> InspectGeneratedMeadow;
+        readonly List<Material> _previewFieldMaterials=new List<Material>();
+#endif
         public Rect VegetationBounds {get;private set;}
         public int VegetationPatchCount {get;private set;}
         public int SnowPatchCount {get;private set;}
@@ -76,6 +80,15 @@ namespace QuietCamp.Presentation.World
         void BuildFieldCover()
         {
             var season=_art?.atmosphere?.season??SeasonProfile.For(_level).Id;if(season=="winter"){BuildSnowCover();return;}
+#if UNITY_EDITOR
+            if(_art?.fieldCover?.heightFields!=null)
+            {
+                _art.fieldCover.Validate();
+                _fieldCover=new GameObject("Natural map cover — staged height fields");_fieldCover.transform.SetParent(transform,false);
+                _fieldCover.AddComponent<MeadowHeightFieldView>().Configure(_art.fieldCover.heightFields,_art,m=>{BindMaterial(m);_previewFieldMaterials.Add(m);});
+                VegetationPatchCount=_art.fieldCover.heightFields.Length;return;
+            }
+#endif
             var library=CozyVegetationLibrary.Load();var shapes=library?.plants.Where(p=>p.id.Contains("grass")&&p.mesh!=null&&p.mesh.isReadable&&p.colors?.Length>0)
                 .Select(p=>new{plant=p,points=p.mesh.vertices,slots=Enumerable.Range(0,p.mesh.subMeshCount).SelectMany(slot=>p.mesh.GetTriangles(slot)).ToArray(),bounds=p.mesh.bounds}).ToArray();
             if(shapes==null||shapes.Length==0)return;
@@ -84,6 +97,9 @@ namespace QuietCamp.Presentation.World
             var fine=shapes.Where(s=>s.plant.id.IndexOf("leaf",StringComparison.OrdinalIgnoreCase)<0).ToArray();
             var water=style==null?null:new RiverSurfaceField(_art?.landscape);
             var vertices=new List<Vector3>();var colors=new List<Color>();var response=new List<Vector2>();
+#if UNITY_EDITOR
+            var flowerVertices=new List<int>();
+#endif
             var palette=SeasonPalette.For(season);float fringe=style.fringe;
             var area=VegetationBounds;
             var blocked=new HashSet<Cell>((_level.blocked??Array.Empty<int[]>()).Concat(_level.noise??Array.Empty<int[]>()).Where(p=>p?.Length==2).Select(p=>new Cell(p[0],p[1])));
@@ -111,6 +127,9 @@ namespace QuietCamp.Presentation.World
             var tile=Rect.MinMaxRect(Mathf.Max(area.xMin,tx*patchSize),Mathf.Max(area.yMin,tz*patchSize),Mathf.Min(area.xMax,(tx+1)*patchSize),Mathf.Min(area.yMax,(tz+1)*patchSize));
             var random=new System.Random(unchecked(_level.decorSeed^4157^tx*73856093^tz*19349663));
             vertices.Clear();colors.Clear();response.Clear();int flowerCount=0;
+#if UNITY_EDITOR
+            flowerVertices.Clear();
+#endif
             float nearest=Mathf.Max(0,Mathf.Max(Mathf.Max(tile.xMin,-tile.xMax)-_level.width*.5f,Mathf.Max(tile.yMin,-tile.yMax)-_level.height*.5f));
             float density=style.continuousMeadow?CoverDensity(nearest,style.density):style.density;
             int attempts=Mathf.CeilToInt(tile.width*tile.height*density);
@@ -164,6 +183,9 @@ namespace QuietCamp.Presentation.World
                         float flowerScale=flowerHeight/Mathf.Max(.01f,flower.bounds.size.y);
                         foreach(var group in flower.groups)foreach(int index in group.indices)
                         {
+#if UNITY_EDITOR
+                            flowerVertices.Add(vertices.Count);
+#endif
                             var point=flower.points[index];point.y-=flower.bounds.min.y;
                             vertices.Add(root+rotation*point*flowerScale);
                             colors.Add(QualitySettings.activeColorSpace==ColorSpace.Linear?group.color.linear:group.color);
@@ -190,6 +212,9 @@ namespace QuietCamp.Presentation.World
             var carpetRenderer=patchObject.GetComponent<MeshRenderer>();carpetRenderer.sharedMaterial=material;
             carpetRenderer.shadowCastingMode=style.continuousMeadow?UnityEngine.Rendering.ShadowCastingMode.Off:UnityEngine.Rendering.ShadowCastingMode.On;
             carpetRenderer.receiveShadows=true;
+#if UNITY_EDITOR
+            InspectGeneratedMeadow?.Invoke(mesh,flowerVertices);
+#endif
             // Pressure and weather are shader-driven; no CPU geometry edits follow.
             mesh.UploadMeshData(true);
             VegetationPatchCount++;
@@ -302,13 +327,24 @@ namespace QuietCamp.Presentation.World
         void PublishFieldWeather()
         {
             var p=_art?.atmosphere;
-            if(_fieldMaterial!=null)
+#if UNITY_EDITOR
+            if(_fieldMaterial==null&&_previewFieldMaterials.Count==0)return;
+#else
+            if(_fieldMaterial==null)return;
+#endif
+            var weather=_atmosphere?.SeasonalWeather??_previewWeather;float clock=weather?.WeatherClock??_printClock;
+            var direction=weather?.WindDirection??new Vector2(Mathf.Sin((p?.windHeading??25)*Mathf.Deg2Rad),Mathf.Cos((p?.windHeading??25)*Mathf.Deg2Rad));
+            float wind=_reduced?.Invoke()==true?0:weather?.WindStrength??p?.wind??_atmosphere?.Wind.Strength??0;
+            float rain=p?.rain??_atmosphere?.Weather?.RainAmount??0;
+            void Apply(Material material)
             {
-                var weather=_atmosphere?.SeasonalWeather??_previewWeather;float clock=weather?.WeatherClock??_printClock;
-                var direction=weather?.WindDirection??new Vector2(Mathf.Sin((p?.windHeading??25)*Mathf.Deg2Rad),Mathf.Cos((p?.windHeading??25)*Mathf.Deg2Rad));
-                PlantWeatherResponse.Set(_fieldMaterial,clock,_reduced?.Invoke()==true?0:weather?.WindStrength??p?.wind??_atmosphere?.Wind.Strength??0,p?.rain??_atmosphere?.Weather?.RainAmount??0);
-                _fieldMaterial.SetVector("_QCWind",new Vector4(direction.x,direction.y,0,0));
+                if(material==null)return;PlantWeatherResponse.Set(material,clock,wind,rain);
+                material.SetVector("_QCWind",new Vector4(direction.x,direction.y,0,0));
             }
+            Apply(_fieldMaterial);
+#if UNITY_EDITOR
+            foreach(var material in _previewFieldMaterials)Apply(material);
+#endif
         }
         static float CoverDensity(float edge,float density)=>Mathf.Lerp(density*6,Mathf.Max(32,density*1.7f),Mathf.SmoothStep(0,1,Mathf.InverseLerp(2,12,edge)));
         Rect CoverBounds(CampArtDefinition.FieldCoverSettings cover)
@@ -378,10 +414,15 @@ namespace QuietCamp.Presentation.World
         }
 
         static void Release(UnityEngine.Object o){if(o==null)return;if(UnityEngine.Application.isPlaying)Destroy(o);else DestroyImmediate(o);}
-        void OnDestroy()
+        void OnDestroy()=>Dispose();
+        public void Dispose()
         {
             foreach(var m in _bound)if(m!=null){m.SetTexture("_CampUse",Texture2D.blackTexture);m.SetVector("_CampUseBounds",Vector4.zero);}
             Release(_pebbleCover);Release(_fieldCover);Release(_useTexture);
+            _pebbleCover=null;_fieldCover=null;_useTexture=null;_bound.Clear();
+#if UNITY_EDITOR
+            _previewFieldMaterials.Clear();
+#endif
         }
     }
 }
