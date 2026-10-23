@@ -808,7 +808,7 @@ PlayerSettings:
   webEnableSubmoduleStrippingCompatibility: 0
   webProgressiveAssetLoading: 0
   scriptingDefineSymbols:
-    Android: DOTWEEN
+    Android: DOTWEEN;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_INSPECTOR_3_2;ODIN_INSPECTOR_3_3;QUIETCAMP_PWB;QUIETCAMP_ODIN;QUIETCAMP_RIVER_TERRAIN
     Standalone: DOTWEEN
     iPhone: DOTWEEN
   additionalCompilerArguments: {}
