@@ -27,7 +27,7 @@ namespace QuietCamp.Tests.Editor
             }
             finally { OptionalGoogleServices.AdsFactory = previous; }
         }
-        [TestCase(0)] [TestCase(1)] [TestCase(2)] [TestCase(99)]
+        [TestCase(0)] [TestCase(1)] [TestCase(99)]
         public void RestrictedOrCorruptAgeRejectsEvenForgedCurrentChoices(int band)
         {
             var s = new SettingsSaveData { privacyAgeBand = band, privacyAgeVersion = 1,

@@ -140,7 +140,41 @@ class Program
         await CheckPendingReports();
         await CheckCrashPrivacy();
         await CheckRevenueModes();
+        await CheckProductionBoundaries();
         Console.WriteLine(_passed + " contract scenarios passed. SDK doubles only; no real Google/Android integration verified.");
+    }
+    static async Task CheckProductionBoundaries()
+    {
+        ConsentInformation.Reset(); RewardedAd.Reset();
+        var stages = new List<int>(); int earned = 0;
+        using (var provider = new GoogleRewardedAdapter("publisher-life", authorized: () => true,
+            selectUnit: placement => placement == "camp.hint" ? "publisher-hint" : placement == "camp.interstitial" ? "publisher-interstitial" : "publisher-life",
+            earned: _ => earned++, observed: (_, stage) => stages.Add(stage)))
+        {
+            var hint = provider.ShowRewarded("camp.hint");
+            Check(RewardedAd.LastUnit == "publisher-hint", "Hint must select its own unit");
+            RewardedAd.Last.Earn(); RewardedAd.Last.Earn();
+            Check(earned == 1 && !hint.IsCompleted, "Earned journal runs once before close");
+            RewardedAd.Last.Close(); Check(await hint == AdResult.Completed, "Hint completes after close");
+            Check(string.Join(",", stages) == "0,1,2,3", "Lifecycle events follow native load/show/close");
+            var interstitial = provider.ShowInterstitial("camp.interstitial");
+            Check(!interstitial.IsCompleted, "Interstitial keeps the game gate until native close");
+            InterstitialAd.Last.Close(); Check(await interstitial == AdResult.Completed && earned == 1, "Interstitial never grants a reward");
+            Pass("placement routing, native lifecycle, duplicate earned callback and interstitial dismissal");
+        }
+        FirebaseConsentSignals.ResetDenied();
+        FirebaseConsentSignals.SetAdvertising(true, true, false);
+        using (var analytics = new FirebaseComfortTransport())
+        {
+            await analytics.Initialize(); analytics.SetConsent(true); analytics.ResetLocalData();
+            Check(FirebaseAnalytics.Consent[ConsentType.AnalyticsStorage] == Firebase.Analytics.ConsentStatus.Denied
+                && FirebaseAnalytics.Consent[ConsentType.AdStorage] == Firebase.Analytics.ConsentStatus.Granted
+                && FirebaseAnalytics.Consent[ConsentType.AdUserData] == Firebase.Analytics.ConsentStatus.Granted
+                && FirebaseAnalytics.Consent[ConsentType.AdPersonalization] == Firebase.Analytics.ConsentStatus.Denied,
+                "Analytics withdrawal/reset must preserve independent advertising decisions");
+        }
+        FirebaseConsentSignals.ResetDenied();
+        Pass("one Firebase consent owner preserves independent advertising purposes through Analytics withdrawal");
     }
     static async Task CheckRevenueModes()
     {
@@ -446,8 +480,23 @@ namespace GoogleMobileAds.Api
         public static bool RaiseAdEventsOnUnityMainThread;
         public static void Initialize(Action<InitializationStatus> callback) => callback(new InitializationStatus());
     }
+    public class InterstitialAd
+    {
+        public static InterstitialAd Last;
+        public bool Destroyed;
+        public event Action OnAdFullScreenContentClosed;
+        public event Action<AdError> OnAdFullScreenContentFailed;
+        public static void Load(string unit, AdRequest request, Action<InterstitialAd, LoadAdError> callback)
+        { Last = new InterstitialAd(); callback(Last, null); }
+        public bool CanShowAd() => true;
+        public void Show() { }
+        public void Close() => OnAdFullScreenContentClosed?.Invoke();
+        public void Fail() => OnAdFullScreenContentFailed?.Invoke(new AdError());
+        public void Destroy() => Destroyed = true;
+    }
     public class RewardedAd
     {
+        public static string LastUnit;
         public static AdRequest Request;
         public static RewardedAd Last; public static bool HoldLoad;
         static Action<RewardedAd, LoadAdError> _load;
@@ -457,7 +506,7 @@ namespace GoogleMobileAds.Api
         Action<Reward> _reward;
         public static void Reset() { Last = null; HoldLoad = false; _load = null; }
         public static void Load(string unit, AdRequest request, Action<RewardedAd, LoadAdError> callback)
-        { Request = request; _load = callback; if (!HoldLoad) CompleteLoad(); }
+        { LastUnit = unit; Request = request; _load = callback; if (!HoldLoad) CompleteLoad(); }
         public static void CompleteLoad() { Last = new RewardedAd(); _load(Last, null); }
         public bool CanShowAd() => !Destroyed;
         public void Show(Action<Reward> callback) => _reward = callback;

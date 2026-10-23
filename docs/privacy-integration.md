@@ -1,5 +1,11 @@
 # Privacy Policy та сайт Quiet Camp
 
+Поточні runtime-правила й підготовка монетизації від 2026-10-22 описані в
+[Design/Legal/PRIVACY-RUNTIME-UA.md](../Design/Legal/PRIVACY-RUNTIME-UA.md).
+Наведені нижче відомості про редакцію privacy-7 є історією підготовки сайту,
+а не підтвердженням нових вікових правил або дозволом на публікацію.
+Для конфігурації використовуйте [owner JSON](../Config/README-UA.md).
+
 Канонічний URL: https://oleksiy-havryliuk.de/quiet-camp/privacy; `/uk` і `/de` — повні локалізації. Website repo: `kruty1918dev-ai/portfolio-oleksii-ha`; Unity docs GitHub Pages залишається окремим сайтом. Custom domain не переноситься на Pages.
 
 Поточна підготовлена редакція: `2026-10-21.privacy-7-revenue`, базаmain030e76d. Основна аудиторія13+ з безпечним локальним fallback для молодших/невідомого віку. Це кандидат, не native Android clearance. 16+ мають незалежні optional choices;13–15 мають окремо підготовлений, не активований LTD шлях. Читання політики не є consent. Виробничі IDs/UMP/GA4/Play target groups власником ще не перевірені.

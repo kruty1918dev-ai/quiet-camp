@@ -31,16 +31,16 @@ namespace QuietCamp.Application
         public void Report(CrashArea area) { if (_allowed()) _inner?.Report(area); }
         public void Dispose() => _inner?.Dispose();
     }
-    public sealed class PrivacyAdService : IAdService, IAdPrivacyOptions, IAdConsentInitialization, IAdRequestCancellation, IDisposable
+    public sealed class PrivacyAdService : IAdService, IInterstitialAdService, IAdPrivacyOptions, IAdConsentInitialization, IAdRequestCancellation, IDisposable
     {
         readonly Func<bool> _allowed, _eligible;
         readonly Func<IAdService> _factory;
-        readonly Func<bool> _restorePrivacyOptions;
+        readonly Func<bool> _restorePrivacyOptions, _rewardedAllowed;
         IAdService _inner;
         bool _disposed;
         int _generation;
-        public PrivacyAdService(Func<bool> allowed, Func<bool> eligible, Func<IAdService> factory, Func<bool> restorePrivacyOptions = null)
-        { _allowed = allowed; _eligible = eligible; _factory = factory; _restorePrivacyOptions = restorePrivacyOptions; }
+        public PrivacyAdService(Func<bool> allowed, Func<bool> eligible, Func<IAdService> factory, Func<bool> restorePrivacyOptions = null, Func<bool> rewardedAllowed = null)
+        { _allowed = allowed; _eligible = eligible; _factory = factory; _restorePrivacyOptions = restorePrivacyOptions; _rewardedAllowed = rewardedAllowed ?? allowed; }
         public bool IsReady => !_disposed && _allowed() && (_inner?.IsReady ?? true);
         public bool PrivacyOptionsRequired => !_disposed && _eligible() && ((_restorePrivacyOptions?.Invoke() ?? false)
             || (_inner is IAdPrivacyOptions privacy && privacy.PrivacyOptionsRequired));
@@ -49,9 +49,16 @@ namespace QuietCamp.Application
         IAdService Provider() => _inner ?? (_inner = _factory());
         public async Task<AdResult> ShowRewarded(string placementId)
         {
-            if (!IsReady) return AdResult.Unavailable;
+            if (!IsReady || !_rewardedAllowed()) return AdResult.Unavailable;
             int generation = _generation;
             var result = await Provider().ShowRewarded(placementId);
+            return !_disposed && generation == _generation && _allowed() ? result : AdResult.Unavailable;
+        }
+        public async Task<AdResult> ShowInterstitial(string placementId)
+        {
+            if (!IsReady || !(Provider() is IInterstitialAdService ads)) return AdResult.Unavailable;
+            int generation = _generation;
+            var result = await ads.ShowInterstitial(placementId);
             return !_disposed && generation == _generation && _allowed() ? result : AdResult.Unavailable;
         }
         public Task RefreshConsent() => IsReady && Provider() is IAdConsentInitialization consent ? consent.RefreshConsent() : Task.CompletedTask;

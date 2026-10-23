@@ -9,20 +9,21 @@ namespace QuietCamp.Application
     {
         public const int Version = 1;
         readonly bool _analyticsAvailable, _crashesAvailable, _adsAvailable;
-        readonly bool _restrictedVideosAvailable;
+        readonly bool _restrictedVideosAvailable, _teenServicesReviewed;
+        bool MeasurementEligible => Eligible && (Age == PrivacyAgeBand.Adult || _teenServicesReviewed);
         public PrivacySetupStep Step { get; private set; } = PrivacySetupStep.Policy;
         public PrivacyAgeBand Age { get; private set; } = PrivacyAgeBand.Unknown;
         public bool HasAgeChoice { get; private set; }
         public bool Analytics { get; private set; }
         public bool Crashes { get; private set; }
         public bool Advertising { get; private set; }
-        public bool Eligible => Age == PrivacyAgeBand.From16To17 || Age == PrivacyAgeBand.Adult;
+        public bool Eligible => Age == PrivacyAgeBand.From13To15 || Age == PrivacyAgeBand.From16To17 || Age == PrivacyAgeBand.Adult;
         public bool CanPlay => true;
         public bool HasOptionalServices => _analyticsAvailable || _crashesAvailable || _adsAvailable;
         public bool RestrictedVideosAvailable => Age == PrivacyAgeBand.From13To15 && _restrictedVideosAvailable;
 
-        public PrivacySetup(bool analyticsAvailable, bool crashesAvailable, bool adsAvailable, bool restrictedVideosAvailable = false)
-        { _analyticsAvailable = analyticsAvailable; _crashesAvailable = crashesAvailable; _adsAvailable = adsAvailable; _restrictedVideosAvailable = restrictedVideosAvailable; }
+        public PrivacySetup(bool analyticsAvailable, bool crashesAvailable, bool adsAvailable, bool restrictedVideosAvailable = false, bool teenServicesReviewed = true)
+        { _analyticsAvailable = analyticsAvailable; _crashesAvailable = crashesAvailable; _adsAvailable = adsAvailable; _restrictedVideosAvailable = restrictedVideosAvailable; _teenServicesReviewed = teenServicesReviewed; }
 
         public static bool IsComplete(SettingsSaveData settings, string revision, string hash, bool draft)
             => settings != null && settings.privacySetupVersion == Version
@@ -45,16 +46,16 @@ namespace QuietCamp.Application
         {
             if (Eligible)
             {
-                if (after < PrivacySetupStep.Advertising && _adsAvailable) return PrivacySetupStep.Advertising;
-                if (after < PrivacySetupStep.Analytics && _analyticsAvailable) return PrivacySetupStep.Analytics;
-                if (after < PrivacySetupStep.Crashes && _crashesAvailable) return PrivacySetupStep.Crashes;
+                if (after < PrivacySetupStep.Advertising && Age != PrivacyAgeBand.From13To15 && _adsAvailable) return PrivacySetupStep.Advertising;
+                if (after < PrivacySetupStep.Analytics && MeasurementEligible && _analyticsAvailable) return PrivacySetupStep.Analytics;
+                if (after < PrivacySetupStep.Crashes && MeasurementEligible && _crashesAvailable) return PrivacySetupStep.Crashes;
             }
             return PrivacySetupStep.Review;
         }
         public void Choose(bool allow)
         {
-            if (Step == PrivacySetupStep.Analytics) Analytics = allow && Eligible && _analyticsAvailable;
-            else if (Step == PrivacySetupStep.Crashes) Crashes = allow && Eligible && _crashesAvailable;
+            if (Step == PrivacySetupStep.Analytics) Analytics = allow && MeasurementEligible && _analyticsAvailable;
+            else if (Step == PrivacySetupStep.Crashes) Crashes = allow && MeasurementEligible && _crashesAvailable;
             else if (Step == PrivacySetupStep.Advertising) Advertising = allow && Eligible && _adsAvailable;
             else return;
             Step = Next(Step);
@@ -79,9 +80,9 @@ namespace QuietCamp.Application
             PrivacyEligibility.Revoke(settings);
             string processingRevision = string.IsNullOrWhiteSpace(consentRevision) ? revision : consentRevision;
             settings.privacyAgeBand = (int)Age; settings.privacyAgeVersion = PrivacyEligibility.AgeVersion;
-            settings.analyticsConsent = Analytics && Eligible && _analyticsAvailable;
+            settings.analyticsConsent = Analytics && MeasurementEligible && _analyticsAvailable;
             settings.analyticsPolicyVersion = ComfortAnalytics.PolicyVersion; settings.analyticsPublicationRevision = processingRevision;
-            settings.crashReportingConsent = Crashes && Eligible && _crashesAvailable;
+            settings.crashReportingConsent = Crashes && MeasurementEligible && _crashesAvailable;
             settings.crashPolicyVersion = CrashDiagnostics.PolicyVersion; settings.crashPublicationRevision = processingRevision;
             settings.advertisingConsent = Advertising && Eligible && _adsAvailable;
             settings.advertisingPolicyVersion = PrivacyEligibility.AdvertisingVersion; settings.advertisingRevision = processingRevision;

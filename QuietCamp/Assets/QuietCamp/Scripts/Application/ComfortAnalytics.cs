@@ -141,6 +141,18 @@ namespace QuietCamp.Application
                 : stage == RewardStage.Completed ? "rewarded_ad_completed" : "reward_granted";
             Send(name, new Dictionary<string, long> { ["reward_category"] = category });
         }
+        public void AdEvent(int stage, int category)
+        {
+            string[] names = { "qc_ad_requested", "qc_ad_loaded", "qc_ad_shown", "qc_ad_closed", "qc_ad_failed" };
+            if (stage < 0 || stage >= names.Length || category < 0 || category > 3) return;
+            Send(names[stage], new Dictionary<string, long> { ["placement_category"] = category });
+        }
+        public void PurchaseEvent(int stage)
+        {
+            if (stage < 0 || stage > 1) return;
+            Send(stage == 1 ? "qc_pro_verified" : "qc_pro_purchase_started", new Dictionary<string, long>());
+        }
+        public void ProOffer() => Send("qc_pro_offer", new Dictionary<string, long>());
         public void Action(ComfortAction action)
         {
             int index = (int)action;

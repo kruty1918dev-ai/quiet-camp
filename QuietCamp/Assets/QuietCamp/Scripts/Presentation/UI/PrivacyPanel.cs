@@ -115,7 +115,7 @@ namespace QuietCamp.Presentation.UI
             {
                 html.Append(HtmlUi.Text(T("privacy.advertising.help"), "s-sub"));
                 html.Append(VideoPreference(services, surface));
-                if (PrivacyEligibility.Band(services.Settings) == PrivacyAgeBand.From13To15)
+                if (PrivacyEligibility.Band(services.Settings) == PrivacyAgeBand.From13To15 || PrivacyEligibility.Band(services.Settings) == PrivacyAgeBand.Under13)
                     html.Append(HtmlUi.Text(T(config.UnderAgeLimitedAdsAllowed ? "privacy.setup.limitedAvailable" : "privacy.setup.limitedInactive"), "s-sub"));
                 else
                 {

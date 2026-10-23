@@ -8,6 +8,7 @@ namespace QuietCamp.Application
     {
         public string id, titleKey, descriptionKey, entitlementId, previewLevelId;
         public int revision = 1, currencyCost;
+        public bool includedInPro;
         public string subscriptionEntitlementId;
         public string[] requiredLevelIds = Array.Empty<string>();
         public bool published;
@@ -84,7 +85,7 @@ namespace QuietCamp.Application
             if (journey.requiredCompletions > 0 && MainCompleted() < journey.requiredCompletions)
                 return new AccessDecision(JourneyAccessState.Predecessor, journey);
             foreach(var id in journey.requiredLevelIds??Array.Empty<string>())if(!_progression.IsCompleted(id))return new AccessDecision(JourneyAccessState.Predecessor,journey);
-            if (_pro()) return new AccessDecision(JourneyAccessState.Available, journey);
+            if (_pro() && journey.includedInPro) return new AccessDecision(JourneyAccessState.Available, journey);
             if (!_grants.Has(journey.entitlementId)&&!(journey.subscriptionEntitlementId!=null&&(_subscription?.Invoke(journey.subscriptionEntitlementId)??false))) return new AccessDecision(JourneyAccessState.PurchaseRequired, journey);
             return new AccessDecision(_progression.IsCompleted(levelId) || _progression.IsUnlocked(levelId, journey.levelIds)
                 ? JourneyAccessState.Available : JourneyAccessState.Predecessor, journey);

@@ -63,8 +63,8 @@ class MonetizationProbe
         for (int i = 0; i < 100; i++) { Expect(restored.UseHint() == EconomyResult.Applied, "Unlimited hints"); Expect(restored.RecordCheck("QC001", false) == EconomyResult.Applied, "Unlimited attempts"); }
         Expect(restored.IsPro && restored.Lives == lives && restored.Hints == hints && restored.Attempts("QC001") == 6, "Pro consumes nothing and records no counters");
         Pass("restart and Pro unlimited without counters");
-        var main = new JourneyDefinition { id = "main", levelIds = new[] { "a", "b" }, published = true };
-        var dlc = new JourneyDefinition { id = "lighthouse", levelIds = new[] { "c", "d" }, entitlementId = "dlc.lighthouse", published = true };
+        var main = new JourneyDefinition { id = "main", levelIds = new[] { "a", "b" }, published = true, includedInPro = true };
+        var dlc = new JourneyDefinition { id = "lighthouse", levelIds = new[] { "c", "d" }, entitlementId = "dlc.lighthouse", published = true, includedInPro = true };
         var pending = new JourneyDefinition { id = "garden", levelIds = new[] { "e" }, entitlementId = "dlc.garden", published = false };
         var catalog = new JourneyCatalog(new[] { main, dlc, pending });
         var grants = new EntitlementSaveData();
@@ -74,7 +74,7 @@ class MonetizationProbe
         grants.ownedIds = new[] { "dlc.lighthouse" };
         Expect(access.Evaluate("c").CanStart && !access.Evaluate("d").CanStart && !access.Evaluate("e").CanStart, "Independent DLC start, unpublished blocked");
         var proAccess = new JourneyAccessService(catalog, new ProgressionService(), grants, () => true);
-        Expect(proAccess.Evaluate("c").CanStart && proAccess.Evaluate("d").CanStart && !proAccess.Evaluate("e").CanStart, "Pro opens all published levels but cannot create missing content");
+        Expect(proAccess.Evaluate("c").CanStart && proAccess.Evaluate("d").CanStart && !proAccess.Evaluate("e").CanStart, "Pro opens explicitly included published levels but cannot create missing content");
         Expect(JourneyCatalog.Validate(new[] { new JourneyDefinition { id = "first", levelIds = new[] { "a" }, published = true }, new JourneyDefinition { id = "other", levelIds = new[] { "a" }, published = true } }).Count > 0, "Duplicate level rejected");
         Pass("catalog, main progression, standalone DLC and missing content");
         var fake = new FakePurchaseProvider();

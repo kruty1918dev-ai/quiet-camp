@@ -1,0 +1,260 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "mode",
+    "android",
+    "admob",
+    "firebase",
+    "billing",
+    "operationalMetrics",
+    "legal",
+    "reviews",
+    "monetization"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "development",
+        "production"
+      ]
+    },
+    "android": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "packageName"
+      ],
+      "properties": {
+        "packageName": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$"
+        }
+      }
+    },
+    "admob": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "appId",
+        "rewardedLifeUnitId",
+        "rewardedHintUnitId",
+        "interstitialUnitId",
+        "publisherId"
+      ],
+      "properties": {
+        "appId": {
+          "type": "string",
+          "pattern": "^$|^ca-app-pub-[0-9]{16}~[0-9]{10}$"
+        },
+        "rewardedLifeUnitId": {
+          "type": "string",
+          "pattern": "^$|^ca-app-pub-[0-9]{16}/[0-9]{10}$"
+        },
+        "rewardedHintUnitId": {
+          "type": "string",
+          "pattern": "^$|^ca-app-pub-[0-9]{16}/[0-9]{10}$"
+        },
+        "interstitialUnitId": {
+          "type": "string",
+          "pattern": "^$|^ca-app-pub-[0-9]{16}/[0-9]{10}$"
+        },
+        "publisherId": {
+          "type": "string",
+          "pattern": "^$|^pub-[0-9]{16}$"
+        }
+      }
+    },
+    "firebase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "projectId",
+        "androidGoogleServices"
+      ],
+      "properties": {
+        "projectId": {
+          "type": "string"
+        },
+        "androidGoogleServices": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      }
+    },
+    "billing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "proProductId",
+        "verificationEndpoint"
+      ],
+      "properties": {
+        "proProductId": {
+          "type": "string"
+        },
+        "verificationEndpoint": {
+          "type": "string"
+        }
+      }
+    },
+    "operationalMetrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "endpoint"
+      ],
+      "properties": {
+        "endpoint": {
+          "type": "string"
+        }
+      }
+    },
+    "legal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "privacyPolicyUrl",
+        "supportUrl",
+        "termsUrl",
+        "publishedPolicyRevision",
+        "publisherName",
+        "supportEmail",
+        "privacyEmail",
+        "dataRequestUrl",
+        "publishedOn",
+        "minimumAge"
+      ],
+      "properties": {
+        "privacyPolicyUrl": {
+          "type": "string"
+        },
+        "supportUrl": {
+          "type": "string"
+        },
+        "termsUrl": {
+          "type": "string"
+        },
+        "publishedPolicyRevision": {
+          "type": "string"
+        },
+        "publisherName": {
+          "type": "string"
+        },
+        "supportEmail": {
+          "type": "string"
+        },
+        "privacyEmail": {
+          "type": "string"
+        },
+        "dataRequestUrl": {
+          "type": "string"
+        },
+        "publishedOn": {
+          "type": "string"
+        },
+        "minimumAge": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18
+        }
+      }
+    },
+    "reviews": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policyPublished",
+        "sdkDisclosures",
+        "teenPrivacy",
+        "limitedAds",
+        "underAgeAds",
+        "childAds",
+        "childAdFormatsAndroid",
+        "adultPersonalization",
+        "operationalMetricsLegalBasis",
+        "billingTerms"
+      ],
+      "properties": {
+        "policyPublished": {
+          "type": "boolean"
+        },
+        "sdkDisclosures": {
+          "type": "boolean"
+        },
+        "teenPrivacy": {
+          "type": "boolean"
+        },
+        "limitedAds": {
+          "type": "boolean"
+        },
+        "underAgeAds": {
+          "type": "boolean"
+        },
+        "childAds": {
+          "type": "boolean"
+        },
+        "childAdFormatsAndroid": {
+          "type": "boolean"
+        },
+        "adultPersonalization": {
+          "type": "boolean"
+        },
+        "operationalMetricsLegalBasis": {
+          "type": "boolean"
+        },
+        "billingTerms": {
+          "type": "boolean"
+        }
+      }
+    },
+    "monetization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "firstInterstitialAfterCompletedLevels",
+        "completedLevelsBetweenInterstitials",
+        "minimumInterstitialIntervalSeconds",
+        "interstitialCooldownAfterRewardSeconds",
+        "maximumInterstitialsPerSession"
+      ],
+      "properties": {
+        "firstInterstitialAfterCompletedLevels": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 86400
+        },
+        "completedLevelsBetweenInterstitials": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 86400
+        },
+        "minimumInterstitialIntervalSeconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 86400
+        },
+        "interstitialCooldownAfterRewardSeconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 86400
+        },
+        "maximumInterstitialsPerSession": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 86400
+        }
+      }
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Quiet Camp owner configuration"
+}

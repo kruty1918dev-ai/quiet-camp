@@ -57,7 +57,7 @@ namespace QuietCamp.Presentation.UI
                 google.CanUseRewardedAds(UnityEngine.Application.isEditor || Debug.isDebugBuild)
                     && !string.IsNullOrWhiteSpace(google.CurrentRewardedUnitId) && OptionalGoogleServices.AdsFactory != null,
                 google.LimitedAdsApproved && google.underAgeLimitedAdsEnabled && legal.underAgeAdvertisingReviewed && !google.useTestAds
-                    && !string.IsNullOrWhiteSpace(google.CurrentRewardedUnitId) && OptionalGoogleServices.AdsFactory != null);
+                    && !string.IsNullOrWhiteSpace(google.CurrentRewardedUnitId) && OptionalGoogleServices.AdsFactory != null, legal.teenPrivacyReviewed);
             // Draft resources never fetch a remote URL or create a network consent receipt.
             if (panel._publication.draft)
                 foreach (var variant in panel._publication.document.variants) variant.url = "";

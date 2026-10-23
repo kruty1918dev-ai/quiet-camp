@@ -12,7 +12,9 @@ namespace QuietCamp.Application
                 && Enum.IsDefined(typeof(PrivacyAgeBand), settings.privacyAgeBand)
                     ? (PrivacyAgeBand)settings.privacyAgeBand : PrivacyAgeBand.Unknown;
         public static bool Allowed(SettingsSaveData settings)
-            => Band(settings) == PrivacyAgeBand.From16To17 || Band(settings) == PrivacyAgeBand.Adult;
+            => Band(settings) == PrivacyAgeBand.From13To15 || Band(settings) == PrivacyAgeBand.From16To17 || Band(settings) == PrivacyAgeBand.Adult;
+        public static bool PurchasesAllowed(SettingsSaveData settings) => Allowed(settings);
+        public static bool PersonalizationAllowed(SettingsSaveData settings) => Band(settings) == PrivacyAgeBand.Adult;
         public static void Revoke(SettingsSaveData settings)
         {
             settings.analyticsConsent = settings.crashReportingConsent = settings.advertisingConsent = false;
@@ -32,11 +34,11 @@ namespace QuietCamp.Application
             Reset(settings); return false;
         }
         public static bool AdvertisingAllowed(SettingsSaveData settings, string revision)
-            => Allowed(settings) && settings.advertisingConsent && !string.IsNullOrWhiteSpace(revision)
+            => (Band(settings) == PrivacyAgeBand.From16To17 || Band(settings) == PrivacyAgeBand.Adult) && settings.advertisingConsent && !string.IsNullOrWhiteSpace(revision)
                 && settings.advertisingPolicyVersion == AdvertisingVersion && settings.advertisingRevision == revision;
         public static bool SetAdvertising(SettingsSaveData settings, bool enabled, string revision, Func<bool> save)
         {
-            settings.advertisingConsent = enabled && Allowed(settings) && !string.IsNullOrWhiteSpace(revision);
+            settings.advertisingConsent = enabled && (Band(settings) == PrivacyAgeBand.From16To17 || Band(settings) == PrivacyAgeBand.Adult) && !string.IsNullOrWhiteSpace(revision);
             settings.advertisingPolicyVersion = AdvertisingVersion; settings.advertisingRevision = revision;
             try { if (save()) return true; } catch { }
             settings.advertisingConsent = false; return false;

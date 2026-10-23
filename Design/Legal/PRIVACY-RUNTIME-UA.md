@@ -1,94 +1,122 @@
-# Перевірка privacy-механізмів перед Android-релізом
+# Монетизація й privacy: підготовка до production
 
-Дата: 2026-10-21. Канонічна гілка гри — `main`; політику перенесено на гілку редизайну сайту `privacy-site-review`, зі збереженням Impressum і окремої політики сайту. Політика: **2026-10-21.privacy-5**, перевірочний текст. Контролер — фізична особа Oleksii Havryliuk (публічно Oleksiy Havryliuk), Kruty1918 Games — бренд. Реквізити, підтверджені власником 2026-10-20: Kapitänspromenade 6, 23966 Wismar, Germany; privacy/support-скриньки працюють і керуються власником. Джерело реквізитів — legal/controller.json сайту.
+Оновлено 2026-10-22. Вихідний код аудиту: `e1cdf86e` з origin/main. У робочому
+main був незавершений сторонній merge; зміни підготовлено в окремому worktree та
+гілці `codex/production-readiness`. Сторонній merge не завершувався.
 
-## Що реалізовано
+## Фактичний стан і зміни
 
-Нейтральні категорії Unknown / Under13 / 13–15 / 16–17 / 18+ доступні на стартовому екрані й у Налаштуваннях → Дані й документи → Вікова категорія. Немає DOB, документів або батьківської верифікації. Для до 13 показано призначення гри 13+; локальна гра для 13–15 доступна. Відмова від необов’язкових цілей не блокує гру або юридичні документи. Підтвердження документа не створює жодної згоди.
+| Частина | Під час аудиту | Поточна реалізація |
+|---|---|---|
+| Google Mobile Ads / UMP | Unity 11.6.0; Dependencies.xml: Android Ads 25.5.0, UMP 4.0.0; тестові App ID | Версії збережено. Owner prepare задає App ID до C#, окремі life/hint/interstitial units; порожні ID вимикають шлях |
+| Firebase | Unity App/Analytics/Crashlytics 14.0.0; declared common 23.0.0, Analytics 24.0.0, Crashlytics NDK 21.0.0 | Версії збережено. Повний owner google-services object перевіряється; генерується лише allow-list полів вибраного Android client |
+| Ранній старт | FirebaseInitProvider виключено, collection/consent defaults false; Ads measurement delayed | Правила збережено. Без App ID prepare також прибирає MobileAdsInitProvider. Потрібен новий merged-manifest/traffic огляд на Android |
+| Вік | П'ять категорій уже існували, загальний gate 16+ | Unknown, Under13, 13–15, 16–17, Adult збережено. Analytics/diagnostics для підлітків потребують окремої вікової перевірки й кожен своєї згоди. Purchases незалежні від tracking |
+| Політика | legal.json: draft=true, publishedOn порожнє, minimumAge==13 у gate | Жорсткий ==13 прибрано. Публікація та докази кожної цілі окремі. Чернетку не оголошено опублікованою |
+| Firebase consent | Analytics-адаптер повторно записував denied для всіх рекламних цілей | Один FirebaseConsentSignals writer. Зміна Analytics не перезаписує окремий стан advertising. Рекламний export у Firebase консервативно denied без перевіреного окремого джерела; AdMob отримує UMP незалежно |
+| Реклама | Rewarded life/hint уже інтегровані через один unit; pending reward лише RAM | Окремі units. Native earned callback зберігає receipt до dismissal; economy застосовує та очищує його одним save. Повторні callbacks/restore не видають двічі |
+| Interstitial | Не було | Лише qc.next після завершення рівня. Окремі пороги рівнів, часовий інтервал, cooldown після reward, ліміт сесії, заборона для Pro. Немає реклами поверх перевірки головоломки |
+| Billing | UnavailablePurchaseProvider; Pro unpublished, fake лише Editor/probe | Реальний Play Billing 8.0.0 через JNI, ціна ProductDetails, server verification/ack, pending/restore/refund/revocation. За відсутності endpoint/перевірених умов лишається Unavailable |
+| Pro | Локальний прапорець; автоматично охоплював усі journeys | Серверне право на 24 години з перевіркою на старті/поверненні/кожні 15 хвилин. Наявні journeys явно includedInPro; нові DLC не включаються автоматично |
+| Економіка | 5 життів, 3 підказки; до 10 ad-життів і 5 ad-підказок на UTC день, recovery 30 хв | Значення не змінено. Ресурси не стираються після refund/закінчення Pro |
 
-Unknown/<16 не допускає власної ініціалізації Analytics/Crashlytics, передавання звітів, AdMob або UMP-запитів. Для 16+ є незалежні, початково вимкнені Analytics, crash і advertising opt-ins. optionalVideoBonuses — лише доступність бонусів. Зміна категорії відкликає всі три дозволи; застарілі версії/ревізії й некоректні категорії не приймаються.
+Це заявлені залежності та compiler API checks, а не resolved Gradle tree чи
+перевірка готового APK. Спільний Firebase Core може створювати локальні файли
+інших встановлених продуктів; default-off не доводить відсутність файлів/трафіку.
 
-Android install marker у noBackupFilesDir зв’язує локальне рішення з інсталяцією без передавання маркера. Відсутність/пошкодження/невідповідність marker та завантаження recovery-save скидають дозволи. Перед privacy-save marker змінюється: при невдалому записі старий save не має чинного receipt. Поточна помилка запису залишає цілі вимкненими; поведінку реального backup/D2D і файлових збоїв ще треба перевірити на пристрої.
+## Дозволи й інтерфейс
 
-Analytics зберігає десять власних подій і числові обмежені параметри, рекламні згоди Firebase — denied. Відкликання зупиняє події й робить local reset через вже створений транспорт. Crash reporting має окреме рішення, session receipt, послідовне видавання send/delete запитів і захист від пізнього завершення на боці гри; помилка видавання запиту вимикає транспорт до перезапуску. Auto-upload ніколи не записується як true. Ручні повідомлення фіксовані, ключі: game_version, game_mode, level_index, failure_area. Це не означає очищення всіх SDK-generated payloads.
+Коротке повідомлення → нейтральна вікова категорія без preselection → тільки
+доступні для віку цілі → локальне збереження рішення. Продовження після документа
+не є згодою на tracking. Немає DOB, документів або обов'язкового parent account.
+Для звичайної гри відмова нічого не блокує. Обробка, що потребує батьківської
+авторизації, не активується: такого механізму тут немає.
 
-Реклама лише rewarded: npa=1 для всіх; AgeRestrictedTreatment.Teen для 16–17, Unspecified для 18+, MaxAdContentRating.T. UMP оновлюється перед production-запитом; після форми додатково перевіряються device-storage purpose consent і Google vendor consent (IAB vendor 755 — Google Advertising Products, перевірено в поточному GVL 181). Відсутній/відхилений сигнал блокує показ замість Limited Ads fallback. Це додатковий fail-closed контроль, не власна повна реалізація CMP або доказ згоди всіх постачальників.
+Unknown не допускається до необов'язкових сервісів. Under13: Firebase tracking
+вимкнений; дитячий рекламний шлях потребує незалежних child reviews, LTD review,
+SDK disclosures, фактичних Android-format/close/identifier checks та поточного
+повідомлення. Шлях задає Child/G і вимикає device storage до MobileAds.Initialize.
+13–15: тільки окремо перевірений обмежений рекламний шлях, без фіктивного consent.
+16–17: реклама неперсоналізована. Персоналізація можлива лише дорослим після
+окремої перевірки та фактичних свіжих UMP-рішень. `CanRequestAds` обов'язковий.
+UMP Update виконується на запуску дозволеного рекламного шляху й перед запитом;
+privacy options залишаються доступними після локальної відмови.
 
-Після потрібного Google privacy-options рішення зберігається лише ознака доступності дії. Вона не дає рекламного дозволу й не запускає UMP автоматично. Допустимий користувач може явно відкрити Google choices після локального відкликання та перезапуску; тоді оновлюється UMP, без ініціалізації рекламного показу. Unknown/<16 не може виконати цю дію. Вебсторінка не імітує керування згодою гри.
+Analytics і Crashlytics мають окремі рішення; crash automatic upload лишається
+false. Попередні звіти надсилаються тільки за prior-session та current дозволом;
+перша згода й відкликання запитують delete. Завершення native delete/send не
+доводиться завершенням C# Task. Діагностичні повідомлення мають фіксовані категорії,
+без save payload, user text, receipt/token чи сирого SDK error.
 
-Sample ads — лише Editor/development, sample app/unit IDs, та сама вікова й локальна consent-перевірка. Вони пропускають publisher UMP, бо sample IDs не мають повідомлення видавця. Release не активує sample inventory. Винагорода потребує reward callback і закриття реклами; відкликання не звільняє ігрове блокування, поки видима native форма/реклама не закрилася, але скасовує очікувану винагороду. Збережені idempotence, save-before-reward_granted, 10 життів/UTC-добу й ліхтарик за звичайну гру. Баланс не змінено.
+Зміна віку відкликає цілі; помилка privacy-save вимикає runtime-обробку.
+Install marker у noBackupFilesDir та перевірка ревізії/хешу збережені. Нові поля
+save мають безпечні defaults; історичний version=1 читається без втрати прогресу.
+Зароблена нагорода відновлюється з pending receipt. Якщо диск не прийняв жодного
+запису й процес загинув, відновлення доказу неможливо гарантувати; RAM retry
+працює, але це не можна подавати як crash-durable запис при відмові сховища.
 
-Помилка будь-якого privacy-save тепер проходить через PrivacyConsentPersistence: скидання моделі → Suspend уже створених Analytics і CrashDiagnostics → скасування очікуваних рекламних запитів. Відкликання під час зміни віку застосовується й перед спробою запису. Suspend не записує налаштування повторно й не створює ледачі SDK. Для AdMob це припинення власних запитів і винагород; API повного shutdown уже ініціалізованого SDK немає, тому це не обіцянка зупинити весь внутрішній фоновий трафік Google.
+## Події
 
-## Порядок запуску і встановлені залежності
-
-1. До C# Android може запускати ContentProviders і завантажувати native plugins. Вихідний manifest виключає FirebaseInitProvider; власний FirebasePrivacyProvider тепер не викликає Firebase API. Є DELAY_APP_MEASUREMENT_INIT=true; це не доказ бездіяльності MobileAdsInitProvider.
-2. C# runtime registration лише реєструє фабрики. Boot читає документ/локальний вибір. GameServices перевіряє receipt, категорію, ревізії й publication gate, створює ліниві boundary-адаптери. Без належного opt-in фабрики SDK не викликаються.
-3. Analytics/crash opt-in запускає спільний FirebaseRuntime: dependency check → DefaultInstance → явна заборона Analytics collection/storage/ad purposes і native Crashlytics auto-collection → окремий дозволений адаптер. Гра не звертається до Unity Crashlytics API в Analytics-only C# шляху. На Android після явного QA-ввімкнення лише Analytics фактично з’явилися локальні Crashlytics open-session/native файли, Firebase Sessions і measurement database. Отже, відсутність окремої crash-згоди не означає відсутність локальних компонентів Crashlytics після запуску спільного Core.
-4. Перевірено збережені native measurement_enabled=false, measurement_enabled_from_api=false та firebase_crashlytics_collection_enabled=false після тесту й перезапуску. Це не доводить відсутності короткого раннього передавання, ідентифікаторів або попередньої черги. Ізоляція локального crash-збору від Analytics, фактичний payload/traffic та старі persistent overrides залишаються блокерами релізу. Виробничі gates лишаються закритими.
-5. Ads: чинний локальний дозвіл/вік → fresh UMP → потрібна форма → CanRequestAds і додатковий storage/vendor guard → teen/rating configuration → MobileAds.Initialize → NPA rewarded load → reward callback + close.
-
-manifest.json, packages-lock.json і фактичні tgz підтверджують Firebase Core/Analytics/Crashlytics **14.0.0**. UPM AdMob — **v11.6.0**; фактичний cached Core DLL скомпільовано з новими API. Декларовані Android-залежності з SDK Dependencies.xml: firebase-common 23.0.0, firebase-analytics 24.0.0, firebase-crashlytics-ndk 21.0.0, firebase-*-unity 14.0.0, play-services-base 18.11.0, play-services-ads 25.5.0, UMP 4.0.0. Це заявлені залежності, не resolved Gradle tree і не merged manifest готового AAB.
-
-## Доступні перевірки
-
-У чинному Unity Editor 6000.6.2f1 реально виконано **76/76 EditMode-тестів**: попередні 74 та дві перевірки перенесення manifest-правил, збереження сторонніх компонентів/атрибутів, повторного застосування й відмови за відсутньої політики. Це не замінює Android-перевірку.
-
-Android-збірки виявили й допомогли виправити три реальні дефекти: FirebaseInitProvider залишався через пріоритет бібліотечного manifest; Dev-команда не передавала BuildOptions.Development; Java-клас privacy provider не компілювався зі старої src/com. Правила тепер переносяться в launcher manifest, Dev-прапорець явний, Java-клас і його GUID збережені в стандартній src/main/java. Інструмент перевірки читає manifest і DEX самого APK та перевіряє наявність provider-класу, sample AdMob app ID й debuggable. Виправлена гра запускається на телефоні; нативна матриця нижче пройдена лише в зазначеному обсязі.
-
-QA APK ревізії privacy-5 з пасивним UI/traffic probe: SHA-256 **707e2dc4e7898df8ad1b6554bb3a6f9b9b08eca8f74840c8f26faf61ee1d16a4**. На Android 16 перевірено Unknown/Under13/13–15/16–17/18+: реальний UI записує категорії у save з валідним CRC і відповідним noBackup-маркером; усі дозволи після зміни віку вимкнені. Рекламний перемикач недоступний Unknown/<16 і доступний 16+. Adult ad-only зберігається після перезапуску, Analytics/crash залишаються вимкненими. Втрата реального noBackup-маркера та CRC-invalid primary → valid backup обидва скидають попередній ad-only до Unknown/all-off; гра доступна. Це керовані перевірки файлів саме цієї QA-інсталяції, не виконаний OS Backup/D2D.
-
-QA APK із явним NativeConsentFailureProbe: SHA-256 **d1d6d2ef8855714eb5ef776e09d209d54e482461a06fab167dbea3a0812400aa**. **4/4 нативні сценарії**: активна Analytics → advertising/crash save повертає false або кидає IOException → нативний збережений measurement_enabled змінюється true → false, усі ізольовані тестові дозволи скинуто, немає повторного запису. Використано реальні Firebase-адаптери й production-класи, синтетичні SettingsSaveData та імітацію IO-збою; публікаційні gates гри не змінювалися. QA-команда виконується лише явно, у Development-продукті Quiet Camp QA після вибору допустимого віку. Після тесту й перезапуску native Analytics/crash auto-collection залишаються false. Це не перевірка фізичного дискового збою на телефоні чи native Crashlytics send/delete completion.
-
-До явного Firebase init у app-private сховищі не знайдено Firebase/Crashlytics/measurement-файлів; був WorkManager. UID traffic counters фіксують вихідні байти; Development Player журналює UDP discovery broadcast. Лічильник не розрізняє Google і Unity traffic, отже нуль optional-трафіку не підтверджено. Є окрема стартова Unity-помилка ClassNotFoundException для Play Core AssetPackManager; гра продовжує працювати, але Console без помилок не підтверджена. Production UMP, фактичні NPA/Teen request signals, crash queue/payload і Google Console settings не пройдені.
-
-Фактичний Gradle releaseRuntimeClasspath першої збірки: Firebase Common 23.0.0, Analytics 24.0.0, Crashlytics/NDK 21.0.0, Installations 20.0.0, Unity-обгортки 14.0.0, Google Mobile Ads 25.5.0, UMP 4.0.0. Для наступного артефакту повторно звірити відповідність.
-
-tools/check_android_privacy_manifest.py читає manifest із самого APK через Android SDK apkanalyzer, звіряє правила канонічного privacy manifest, package com.quietcamp.game, provider у DEX, валідний AdMob app ID та, за --require-development/--require-test-ads, debuggable/sample ID. Негативні перевірки виявили початкові дефекти; обидва наведені виправлені QA APK проходять. --output записує XML та SHA-256 в ігноровану папку.
-
-Зависання синхронного Google ResolveSync усунуто після окремого дозволу власника на перезапуск лише QA Editor. Проєктний GvhProjectSettings.xml задає GooglePlayServices.PromptBeforeAutoResolution=False; у QA узгоджено поле Unity EDM 2.1.0. Спочатку Resolve завершено поза BuildPipeline, далі Dev APK збирається. ADB-пристрій залишився доступним; спільні Editor/ADB preferences не змінювалися.
-
-- Privacy probe: **74/74** NUnit-перевірки, включно з рекламною/crash-згодою після активної Analytics та поверненням false/винятком запису. Перевіряються вимкнення автоматичного збору, crash-транспорту й скасування реклами без повторного збереження.
-- Optional Google probe: **27/27** сценаріїв із SDK API doubles, включно з фактичним C# FirebaseComfortTransport і перевіркою SetAnalyticsCollectionEnabled(false) після міжцільової помилки запису. Це не Google/Android runtime.
-- Focused save probe: **6/6** груп; реальний SaveAdapter і пакет save-system, CRC/staged migration, backup recovery зі скиданням дозволів, IO rollback, винагороди й save transaction.
-- Розширений MonetizationProbe: 14 груп пройшли; повний запуск має окрему відому невідповідність контенту gen:qc_camp:106 (Campaign100Contracts). Повний набір не позначено успішним; контент кампанії в межах privacy-виправлення не змінювався.
-- Поточні C# sources компілюються з реальними SDK DLL і cached Unity references; окремо перевірено Android-умови коду без UNITY_EDITOR. Це compiler checks, без Unity import/scene execution/player build.
-- FirebasePrivacyProvider.java компілюється javac проти Android API 35. Це не перевірка manifest merger або стартового провайдера на телефоні.
-- Повні статичні en/uk/de: 14 розділів, одна ревізія, канонічні адреси, без script, без unresolved placeholders; синхронізація з bundledBody перевіряється tools/sync_privacy_policy.py.
-
-Команди з кореня: dotnet build tools/privacy-probe/Probe.csproj --artifacts-path QuietCamp/Temp/ai/privacy-probe; запуск відповідного Probe.dll --workers=0. Аналогічно tools/optional-google-probe. tools/MonetizationProbe.csproj підтримує --privacy-save-check; у поточному середовищі SDK .NET 8, тому використана тимчасова копія csproj з net8.0 й тими самими absolute Compile Includes. python tools/verify_monetization.py --google-sdk-check, а для Android sources додатково --player-source-check --android-source-check (це не player build). Логи лишаються в ignored QuietCamp/Temp/ai/.
-
-## Невиконані релізні перевірки — owner checklist
-
-Доступу до Firebase/GA4/AdMob/Play Console у цій сесії немає. Власник дозволив чинну QA-сесію Unity й ADB; Android QA-збірку запущено, телефон під’єднано. Підсумок нативної перевірки потрібно фіксувати окремо після завершення збірки. Public Android [AAR Crashlytics 21.0.0](https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-crashlytics/21.0.0/firebase-crashlytics-21.0.0.aar) перевірено javap: sendUnsentReports/deleteUnsentReports повертають void; JNI використовує Call(method), не Call<AndroidJavaObject>. Підтримуваний API не дає Task завершення цих операцій. Game-side Task.CompletedTask означає лише видавання запиту; API-double сценарії із затримками не доводять native completion/order. Це окремий блокер перевірки реальних pending files і наступних запусків.
-
-Використовується дозволений QA-проєкт C:/Users/Public/qcui-20261006/QuietCamp, Unity Editor 6000.6.2f1; завислий Editor перезапущено за явним дозволом власника, ADB не перезапускався. Інструментація з tools/qa копіюється лише в QA-проєкт і не є виробничим asset. Самі перевірки manifest, UI та native flag не знімають наведених нижче блокерів.
-
-| Власник / налаштування | Потрібний результат і доказ |
+| Події | Дані / джерело |
 |---|---|
-| GA4 → Admin → Data collection and modification → Data retention | User/event-level retention **2 months**, **Reset user data on new activity off**; скриншот property ID + дати, не ключів |
-| GA4 Account settings → Data sharing settings | Звірити всі чотири switches (Google products & services, Modeling contributions & business insights, Technical support, Recommendations for your business); записати фактичні значення й підставу, вимкнути необов’язкове sharing обраної моделі |
-| GA4 Data collection / Advertising features / Product links | Google signals, advertising personalization і непотрібні Google Ads/AdMob/BigQuery links/exports відсутні або вимкнені; скриншоти і фактичні settings. Два місяці не обмежують автоматично агрегати й exports |
-| AdMob → Apps → App settings / Ad units | Справжні app ID й rewarded ad-unit ID для com.quietcamp.game, readiness/status; у поточній грі production unit IDs порожні. Не підміняти sample app ID production unit ID |
-| AdMob → Privacy & messaging → European regulations | Published message, саме ця app, EEA/UK/Switzerland, en/uk/de або явно перевірений fallback; явні відмова/керування, фактичні purpose/vendor choices; список ad-tech providers і version/date. Перевірити certified CMP/TCF requirements |
-| UMP consent mode / Analytics synchronization | Перевірити й вимкнути автоматичне перенесення CMP-вибору на Firebase Analytics/storage, яке могло б обійти незалежну Analytics згоду або дозволити рекламні Firebase purposes. Потрібний доказ native consent state при ad-only, analytics-only і crash-only |
-| AdMob NPA / providers / Limited ads | NPA для всіх; додаткові RTB/mediation providers лише після перевірки розкриття та сигналів. На пристрої підтвердити npa=1, teen tfat, рейтинг, Google vendor/storage consent; відмова purpose 1 не дає навіть Limited Ads |
-| Firebase Crashlytics / exports / agreements | Auto-collection false, відсутні непотрібні exports; фактичні roles/contracts, retention та процедура data requests. Не обіцяти серверне видалення через local reset |
-| Play Console → App content | Privacy policy URLs і контролер, Ads declaration, Target audience 13–15/16–17/18+ за фактичним призначенням, rating із анкети, остаточний Data safety. Наявність 13+ сама по собі не доводить звільнення від Families rules |
-| Контролер / hosting / mail | Адреса й робота privacy/support-скриньок підтверджені власником. Ще потрібні фактичні договори/одержувачі/трансфери, строки логів/backups і виконання поштового графіка. Не просити паролі, токени, signing keys чи документи особи |
+| qc_level_begin, qc_level_summary, level_fail | Індекс рівня, числові категорії дій/результату, діапазони часу; реальні session/check/completion callbacks |
+| qc_screen, qc_comfort_setting, qc_comfort_feedback, qc_frame_budget події | Збережений обмежений каталог ComfortAnalytics; немає вільного тексту |
+| rewarded_ad_requested, rewarded_ad_completed, reward_granted | Наявні life/hint/cosmetic callbacks, category 0..2 |
+| qc_ad_requested, qc_ad_loaded, qc_ad_shown, qc_ad_closed, qc_ad_failed | Реальні SDK lifecycle callbacks, placement_category 0 life / 1 hint / 2 cosmetic / 3 interstitial |
+| qc_pro_offer, qc_pro_purchase_started, qc_pro_verified | Відкриття economy panel, реальна спроба покупки після отримання ціни, перше підтверджене виконання receipt |
+| ad_impression / рекламний дохід | Автоматичний Firebase–AdMob зв'язок після налаштування в консолях. Ручного дубля виручки немає; DebugView/звірку AdMob треба перевірити на Android |
+| Crashlytics | Фіксована failure_area, app version, mode, level index; незалежно від Analytics |
 
-## Точний Android-сценарій для зняття блокерів
+Окрема дитяча operational-statistics заготовка вимкнена за замовчуванням з обох
+боків; тільки агрегати й окремо підтверджена правова підстава. Це не твердження
+«анонімно». Поля, строки й мережеві ризики описані в [серверній інструкції](../../Server/README-UA.md).
 
-У чинній дозволеній QA-сесії зафіксувати commit/build hash, package, Android version, resolved dependency tree і merged manifest з усіма providers, metadata та backup/extraction rules. Не втручатися в інші сесії та не стирати наявні дані пристрою.
+## Перевірка й готовність
 
-Для clean install, upgrade зі старої версії (включно з раніше true SDK overrides), restart, backup restore і D2D виконати Unknown, Under13, 13–15, 16–17, 18+. У кожній допустимій категорії: all-off, analytics-only, crash-only, ad-only, усі opt-ins; потім зміна віку, відкликання під час dependency check/UMP/load/видимого ad, негайне повторне ввімкнення, background/resume і app termination. Після відмови основна гра та документи мають працювати.
+Використовуйте [конфігурацію власника](../../Config/README-UA.md): validate →
+prepare → перегляд → apply → readiness. Публікація політики, legal review,
+перевірка backend і Android не виводяться з факту заповненого JSON.
 
-Порівняти app-private files/shared preferences/noBackup до UI, до/після кожного вибору й після restart. Перевірити FIS/Crashlytics/session/app-instance/advertising IDs, Crashlytics NDK/minidump/log файли та diagnostic payloads: ключі, paths, exception messages, breadcrumbs; не обмежуватися чотирма ручними custom keys. Зіставити датовані мережеві captures із SDK/серверними записами; зашифрований нерозшифрований capture не доводить відсутності даних. Unknown/<16 та all-off не повинні робити optional SDK requests.
+Переносимі перевірки: tools/test_owner_config.py, Server/test_service.py,
+tools/privacy-probe (реальні EditMode-джерела через NUnitLite),
+tools/optional-google-probe (SDK doubles), tools/verify_monetization.py
+(cached compiler references, зокрема Android-conditioned source). Java bridge
+компілюється javac проти справжніх Billing 8.0.0 та Android API jars. Це не
+Unity import, native scene tests, player build чи інтеграційна перевірка Android.
+Старі captures/Android-звіти не є доказами цього набору змін.
 
-Для pending reports: crash без згоди → перша згода → restart (старий звіт не передається); valid prior crash opt-in → restart з чинним поточним дозволом (можливий send); withdrawal/age change між send/delete completions (немає нового enable); помилка JNI-виклику (транспорт вимкнений); native timeout після успішного void-виклику адаптер не спостерігає, це окрема перевірка. Наявність send/delete виклику не доводить фактичного завершення видалення або можливості скасувати вже початий upload.
+| Сервіс | Статус до даних власника й перевірок пристрою |
+|---|---|
+| Реклама | Код підготовлено; live units/App ID, AdMob/UMP setup, policy й фактичні креативи не підтверджені |
+| Аналітика | Код підготовлено; потрібні owner Firebase config, policy, consent/DebugView/traffic checks |
+| Діагностика | Окремий робочий код; потрібні crash/restart/send/delete та native file/traffic checks |
+| Покупки | Реальний provider і локальний backend-код; backend не розгорнуто, Play товар і license tests не підтверджені |
+| Політика | Чернетка; звірити опубліковану та bundled uk/en/de версії, перевірити дані й подати Data Safety власником |
 
-Для EEA/UK/CH перевірити UMP required/expired/refused/no-storage/no-vendor/error/offline, privacy options після локального withdrawal та restart. Debug geography — лише QA, не production. За неприйнятної/невідомої згоди немає ad load і Limited Ads fallback. Перевірити NPA/teen signals у native request, реальну взаємодію console consent mode із Firebase й sample/release isolation.
+На Android лишаються: clean install і backup/D2D restore; усі віки та незалежні
+згоди; privacy options; старі й змінені revisions; offline/no fill/timeouts;
+background/foreground та подвійні callbacks; kill між earned/save/dismiss/grant;
+disk-full; відновлення pending reward; Pro без реклами й зайвих DLC; pending,
+cancel, ITEM_ALREADY_OWNED, reinstall restore, ack, refund/RTDN/voided reconciliation,
+повторна покупка з новим token; expiration/offline; ціна й локаль Play; child G
+formats, закриття та ідентифікатори; merged manifest до runtime; фактичний
+network capture, Firebase DebugView/Crashlytics dashboard та revenue без дубля.
+Жодного з цих пунктів не позначено пройденим portable-тестами.
 
-Лише після цих доказів і console review можна узгодити остаточний текст та відкрити legal/publication flags. Ця робота не публікує policy на production-хостингу й не сертифікує реліз.
+Результат перевірок 2026-10-22: 116/116 NUnit-контрактів через privacy-probe,
+37/37 сценаріїв optional-google-probe, 8/8 owner-config і 8/8 backend Python-тестів.
+C# runtime компілюється з Android-умовами та справжніми SDK DLL; Java-мостик
+компілюється проти Billing 8.0.0 / Android API 35 (10 попереджень про Kotlin
+annotation metadata у перевірочному classpath). Console/Unity-native не запускалися.
 
-Джерела: [Google age treatment](https://developers.google.com/admob/unity/targeting), [UMP](https://developers.google.com/admob/unity/privacy), [NPA](https://support.google.com/admob/answer/7676680), [European messages](https://support.google.com/admob/answer/10114014), [GA retention](https://support.google.com/analytics/answer/7667196), [Firebase privacy](https://firebase.google.com/support/privacy).
+Повний старий MonetizationProbe з .NET 8 override пройшов 14 груп, включно з
+actual SaveAdapter/session, IO rollback, backup/recovery й невідомими JSON-полями,
+але завершився помилкою `Preserved historical level gen:qc_camp:106` під час
+перевірки архівної головоломки. Domain validator, CampContent і Baseline fixtures
+не змінені щодо e1cdf86e. Цей повний probe не вважається пройденим; його збій
+не виправлявся зміною контенту або послабленням перевірки в цьому завданні.
+
+Джерела API: [UMP Unity](https://developers.google.com/admob/unity/privacy),
+[Firebase defaults](https://firebase.google.com/docs/analytics/android/configure-data-collection),
+[Play Billing](https://developer.android.com/google/play/billing/integrate),
+[server verification](https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.productsv2/getproductpurchasev2).

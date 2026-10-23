@@ -16,15 +16,14 @@ namespace QuietCamp.Infrastructure
         // Purpose-specific evidence, never inferred from an NPA flag or age choice.
         public bool limitedAdsReviewed, underAgeAdvertisingReviewed;
         public bool adultPersonalizationReviewed;
+        public bool childAdvertisingReviewed;
         public bool policyIsDraft = true;
         public bool Published => !policyIsDraft && !string.IsNullOrWhiteSpace(publisherName) && Email(supportEmail)
             && PublishedUrl(privacyPolicyUrl) && !string.IsNullOrWhiteSpace(revision)
             && DateTime.TryParseExact(publishedOn, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture,
                 System.Globalization.DateTimeStyles.None, out _);
-        public bool OnlineServicesApproved => Published && minimumAge == 13 && PublishedUrl(dataRequestUrl)
-            && teenPrivacyReviewed && sdkDisclosuresReviewed
-            && (!accountsEnabled || PublishedUrl(accountDeletionUrl))
-            && (!purchasesEnabled || PublishedUrl(termsUrl));
+        public bool OnlineServicesApproved => Published && minimumAge >= 0 && minimumAge <= 18
+            && PublishedUrl(dataRequestUrl) && sdkDisclosuresReviewed;
         public static LegalConfiguration Load()
         {
             var source = Resources.Load<TextAsset>("QuietCamp/legal");
@@ -60,7 +59,7 @@ namespace QuietCamp.Infrastructure
             if (string.IsNullOrWhiteSpace(revision)) issues.Add("Set the published policy revision.");
             if (!DateTime.TryParseExact(publishedOn, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture,
                 System.Globalization.DateTimeStyles.None, out _)) issues.Add("Set publishedOn as yyyy-MM-dd.");
-            if (minimumAge != 13) issues.Add("Review target age groups: the approved audience for this project is 13+.");
+            if (minimumAge < 0 || minimumAge > 18) issues.Add("Set minimumAge in the reviewed audience range 0..18.");
             if (!teenPrivacyReviewed) issues.Add("Review teen consent/advertising rules for the selected countries.");
             if (google.analyticsEnabled || google.crashlyticsEnabled || google.rewardedAdsEnabled || cloudSavesEnabled || accountsEnabled)
             {

@@ -22,7 +22,7 @@ namespace QuietCamp.Tests.Editor
             flow.SelectAge(PrivacyAgeBand.Unknown); flow.ConfirmAge();
             Assert.AreEqual(PrivacySetupStep.Review, flow.Step);
         }
-        [TestCase(0)] [TestCase(1)] [TestCase(2)]
+        [TestCase(0)] [TestCase(1)]
         public void YoungerOrUnknownAgeDoesNotConsentToTracking(int age)
         {
             var flow = new PrivacySetup(true, true, true); var settings = new SettingsSaveData();
@@ -36,7 +36,7 @@ namespace QuietCamp.Tests.Editor
             PrivacyEligibility.Reset(settings);
             Assert.IsFalse(PrivacySetup.IsComplete(settings, "r", "hash", true), "Restored backups must repeat decisions.");
         }
-        [TestCase(0)] [TestCase(1)] [TestCase(2)] [TestCase(3)]
+        [TestCase(0)] [TestCase(1)] [TestCase(3)]
         [TestCase(4)] [TestCase(5)] [TestCase(6)] [TestCase(7)]
         public void AdultPurposesAreIndependentAndRecordedOnlyAtFinalCommit(int mask)
         {

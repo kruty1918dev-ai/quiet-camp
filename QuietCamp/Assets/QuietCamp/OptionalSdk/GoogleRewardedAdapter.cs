@@ -8,9 +8,13 @@ using QuietCamp.Application;
 using QuietCamp.Infrastructure;
 using UnityEngine;
 
-sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCancellation, IAdConsentInitialization, IDisposable
+sealed class GoogleRewardedAdapter : IAdService, IInterstitialAdService, IAdPrivacyOptions, IAdRequestCancellation, IAdConsentInitialization, IDisposable
 {
     readonly string _unit;
+    readonly Func<string, string> _selectUnit;
+    readonly Action<string> _earned;
+    readonly Action<string, int> _observed;
+    InterstitialAd _interstitial;
     readonly bool _testAds;
     readonly Func<bool> _authorized, _teen, _eligible;
     readonly Func<bool> _underAge, _limitedApproved;
@@ -31,11 +35,12 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
     public bool IsReady => !_disposed && !_busy && _authorized() && !string.IsNullOrEmpty(_unit);
     public bool PrivacyOptionsRequired => !_disposed && !_underAge() && _eligible() && !_testAds && ConsentInformation.PrivacyOptionsRequirementStatus == PrivacyOptionsRequirementStatus.Required;
     public GoogleRewardedAdapter(string unit, bool testAds = false, Func<bool> authorized = null, Func<bool> teen = null, Func<bool> eligible = null, Action<bool> rememberPrivacyOptions = null,
-        Func<bool> underAge = null, Func<bool> limitedApproved = null, Func<bool, bool> applyStorageMode = null, Func<bool> personalizedEligible = null)
+        Func<bool> underAge = null, Func<bool> limitedApproved = null, Func<bool, bool> applyStorageMode = null, Func<bool> personalizedEligible = null, Func<string, string> selectUnit = null, Action<string> earned = null, Action<string, int> observed = null)
     {
         // Never skip UMP for a publisher's unit, even if a caller passes testAds.
         _testAds = testAds && (unit == GoogleServicesConfiguration.AndroidTestRewardedUnitId
-            || unit == GoogleServicesConfiguration.IosTestRewardedUnitId);
+            || unit == GoogleServicesConfiguration.IosTestRewardedUnitId || unit == GoogleServicesConfiguration.AndroidTestInterstitialUnitId);
+        _selectUnit = selectUnit ?? (_ => unit); _earned = earned; _observed = observed;
         _unit = unit; _main = SynchronizationContext.Current;
         _authorized = authorized ?? (() => false); _teen = teen ?? (() => false);
         _eligible = eligible ?? _authorized;
@@ -45,9 +50,10 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
         _personalizedEligible = personalizedEligible ?? (() => false);
     }
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    static void Register() => OptionalGoogleServices.AdsFactory = c => new GoogleRewardedAdapter(c.CurrentRewardedUnitId, c.TestAdsActive,
-        () => c.AdvertisingAllowed, () => PrivacyEligibility.Band(c.PrivacySettings) == PrivacyAgeBand.From16To17, () => c.Eligible, c.RememberPrivacyOptions,
-        () => PrivacyEligibility.Band(c.PrivacySettings) == PrivacyAgeBand.From13To15, () => c.LimitedAdsApproved, personalizedEligible: () => c.AdultPersonalizationApproved);
+    static void Register() => OptionalGoogleServices.AdsFactory = c => new GoogleRewardedAdapter(!string.IsNullOrEmpty(c.CurrentRewardedUnitId) ? c.CurrentRewardedUnitId : !string.IsNullOrEmpty(c.androidHintUnitId) ? c.androidHintUnitId : c.androidInterstitialUnitId, c.TestAdsActive,
+        () => c.AdRequestsAllowed, () => PrivacyEligibility.Band(c.PrivacySettings) == PrivacyAgeBand.From16To17, () => c.Eligible, c.RememberPrivacyOptions,
+        () => PrivacyEligibility.Band(c.PrivacySettings) == PrivacyAgeBand.From13To15 || PrivacyEligibility.Band(c.PrivacySettings) == PrivacyAgeBand.Under13, () => c.LimitedAdsApproved, personalizedEligible: () => c.AdultPersonalizationApproved, selectUnit: c.UnitFor,
+        earned: placement => c.RewardEarned?.Invoke(placement), observed: (placement, stage) => c.AdObserved?.Invoke(placement, stage));
     void Main(Action action) { if (_main != null) _main.Post(_ => action(), null); else action(); }
     public void ShowBanner(string placementId) { }
     public void HideBanner() { }
@@ -75,8 +81,14 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
         return await AwaitPending(consent.Task, 30000, privacyManagement) && await consent.Task;
     }
 
-    public async Task<AdResult> ShowRewarded(string placementId)
+    public Task<AdResult> ShowRewarded(string placementId) => ShowFullscreen(placementId, false);
+    public Task<AdResult> ShowInterstitial(string placementId) => ShowFullscreen(placementId, true);
+    void Observe(string placement, int stage) { try { _observed?.Invoke(placement, stage); } catch { } }
+    async Task<AdResult> ShowFullscreen(string placementId, bool interstitial)
     {
+        string unit = _selectUnit(placementId);
+        if (string.IsNullOrEmpty(unit)) return AdResult.Unavailable;
+        Observe(placementId, 0);
         if (!IsReady || UnityEngine.Application.internetReachability == NetworkReachability.NotReachable) return AdResult.Unavailable;
         _busy = true; _cancel = new TaskCompletionSource<bool>();
         var cancellation = _cancel.Task;
@@ -124,19 +136,20 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
                 if (!await AwaitPending(init.Task, 20000) || !await init.Task) return AdResult.Unavailable;
                 _initialized = true;
             }
-            var loaded = new TaskCompletionSource<RewardedAd>();
-            bool abandoned = false;
             var request = new AdRequest();
             // For approved adults the Google SDK must still honor the fresh UMP
             // choice; omission of npa is not consent. Never personalize minors/LTD.
             if (limited || underAge || _teen() || !_personalizedEligible()) request.Extras.Add("npa", "1");
             if (!_authorized()) return AdResult.Unavailable;
-            RewardedAd.Load(_unit, request, (ad, error) => Main(() =>
+            if (interstitial) return await ShowInterstitialCore(unit, request, placementId);
+            var loaded = new TaskCompletionSource<RewardedAd>();
+            bool abandoned = false;
+            RewardedAd.Load(unit, request, (ad, error) => Main(() =>
             {
                 if (abandoned || _disposed || !_authorized() || cancellation.IsCompleted) { ad?.Destroy(); loaded.TrySetResult(null); }
                 else
                 {
-                    if (error != null) { Debug.LogWarning("[QuietCamp Ads] Load failed: " + error); ad?.Destroy(); }
+                    if (error != null) { Debug.LogWarning("[QuietCamp Ads] Load failed."); Observe(placementId, 4); ad?.Destroy(); }
                     loaded.TrySetResult(error == null ? ad : null);
                 }
             }));
@@ -144,23 +157,50 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
             { abandoned = true; return AdResult.Unavailable; }
             _ad = await loaded.Task;
             if (_disposed || !_authorized() || _ad == null || !_ad.CanShowAd()) return AdResult.Unavailable;
+            Observe(placementId, 1);
             var closed = _adClosed = new TaskCompletionSource<AdResult>();
             bool earned = false;
             _ad.OnAdFullScreenContentClosed += () => Main(() => closed.TrySetResult(earned ? AdResult.Completed : AdResult.Skipped));
             _ad.OnAdFullScreenContentFailed += error => Main(() =>
             {
-                Debug.LogWarning("[QuietCamp Ads] Show failed: " + error);
+                Debug.LogWarning("[QuietCamp Ads] Show failed."); Observe(placementId, 4);
                 closed.TrySetResult(AdResult.Failed);
             });
             _showing = true;
-            _ad.Show(reward => Main(() => { if (!_disposed) earned = true; }));
+            Observe(placementId, 2);
+            _ad.Show(reward => Main(() => {
+                if (_disposed || earned) return;
+                earned = true;
+                try { _earned?.Invoke(placementId); } catch { }
+            }));
             // Do not time out while an ad is actually visible: input/audio must
             // stay gated until its close callback, including app backgrounding.
             var result = await closed.Task;
+            if (result == AdResult.Completed || result == AdResult.Skipped) Observe(placementId, 3);
             return _authorized() && !cancellation.IsCompleted ? result : AdResult.Unavailable;
         }
-        catch (Exception error) { Debug.LogWarning("[QuietCamp Ads] " + error.Message); return AdResult.Failed; }
-        finally { _ad?.Destroy(); _ad = null; _adClosed = null; _privacyClosed = null; _busy = false; _showing = false; _consentForm = false; }
+        catch (Exception error) { Debug.LogWarning("[QuietCamp Ads] Request failed: " + error.GetType().Name); Observe(placementId, 4); return AdResult.Failed; }
+        finally { _interstitial?.Destroy(); _interstitial = null; _ad?.Destroy(); _ad = null; _adClosed = null; _privacyClosed = null; _busy = false; _showing = false; _consentForm = false; }
+    }
+    async Task<AdResult> ShowInterstitialCore(string unit, AdRequest request, string placement)
+    {
+        var loaded = new TaskCompletionSource<InterstitialAd>();
+        bool abandoned = false;
+        InterstitialAd.Load(unit, request, (ad, error) => Main(() => {
+            if (abandoned || _disposed || !_authorized() || _cancel.Task.IsCompleted || error != null)
+            { if (error != null) Observe(placement, 4); ad?.Destroy(); loaded.TrySetResult(null); }
+            else loaded.TrySetResult(ad);
+        }));
+        if (!await AwaitPending(loaded.Task, 30000)) { abandoned = true; return AdResult.Unavailable; }
+        _interstitial = await loaded.Task;
+        if (_interstitial == null || !_interstitial.CanShowAd()) return AdResult.Unavailable;
+        Observe(placement, 1);
+        var closed = _adClosed = new TaskCompletionSource<AdResult>();
+        _interstitial.OnAdFullScreenContentClosed += () => Main(() => closed.TrySetResult(AdResult.Completed));
+        _interstitial.OnAdFullScreenContentFailed += error => Main(() => { Observe(placement, 4); closed.TrySetResult(AdResult.Failed); });
+        _showing = true; Observe(placement, 2); _interstitial.Show();
+        var result = await closed.Task; if (result == AdResult.Completed) Observe(placement, 3);
+        return _authorized() && !_cancel.Task.IsCompleted ? result : AdResult.Unavailable;
     }
     static bool DeviceStorageAllowed()
     {
@@ -235,6 +275,7 @@ sealed class GoogleRewardedAdapter : IAdService, IAdPrivacyOptions, IAdRequestCa
     {
         _disposed = true; _cancel?.TrySetResult(true);
         _privacyClosed?.TrySetResult(false); _adClosed?.TrySetResult(AdResult.Unavailable);
+        _interstitial?.Destroy(); _interstitial = null;
         _ad?.Destroy(); _ad = null;
     }
 }

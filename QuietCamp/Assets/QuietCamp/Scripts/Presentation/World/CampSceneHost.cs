@@ -644,10 +644,18 @@ namespace QuietCamp.Presentation.World
                 _services.Save.Save();
                 _services.PendingMenuScreen=null;
                 var next = _services.NextLevel(_session.Level.id);
-                if (next != null) _router.GoToNextCamp(next);
-                else _router.GoToMenu();
+                _ = AdvanceAfterAd(next);
                 return Performed();
             }));
+            async System.Threading.Tasks.Task AdvanceAfterAd(string next)
+            {
+                try { await _services.Interstitials.AtLevelTransition(_services.Progression.CompletedCount); }
+                catch { }
+                if (this == null) return;
+                if (next != null) _router.GoToNextCamp(next);
+                else _router.GoToMenu();
+            }
+
             _leases.Add(h.Register(new UiActionId("qc.album"), () =>
             {
                 PersistSession();
@@ -718,6 +726,7 @@ namespace QuietCamp.Presentation.World
             if(outcome==CampAttemptResult.FailedAttempt)
             {
                 _services.Analytics.FailedLevelCheck();
+                _services.OperationalMetrics.Record(0, 1);
                 _services.Analytics.Action(ComfortAction.Check);
                 _advisor=new HintAdvisor(_session.Level);
                 if(report.Issues.Count>0)_services.Notifications.Show(_services.Localization.T("rule."+report.Issues[0].Code),GameplayNotificationKind.Warning,dedupKey:"attempt.failed");
@@ -735,6 +744,7 @@ namespace QuietCamp.Presentation.World
             _tutorial.ReportAction("complete", _session);
             TentStoryVisual.CloseAll(Find("World")?.transform, _services.ReducedMotion);
             _services.Analytics.EndLevel(ComfortOutcome.Completed);
+            _services.OperationalMetrics.Record(0, 0);
             // Completion ducks the forest briefly (0.75 / 100 ms / 500 ms /
             // 900 ms) instead of silencing it — ordinary taps never duck.
             _services.Audio?.DuckBus(Kruty1918.Audio.AudioBus.Ambience, .75f, .1f, .5f, .9f);
