@@ -18,7 +18,8 @@ namespace QuietCamp.Presentation.UI
             var root=QcUi.Stretch(parent,"CloudAccount");
             var panel=root.gameObject.AddComponent<CloudAccountPanel>(); Current=panel;
             CloudAccountView view=null;
-            panel._surface=HtmlSurface.Create(root,"CloudAccountHtml",services,()=>"<scroll class=\"settings-root-scroll\">"+(view?.Render() ?? "<view />")+"</scroll>");
+            panel._surface=HtmlSurface.Create(root,"CloudAccountHtml",services,()=>services.Cloud.HasAccount
+                ? "<scroll class=\"settings-root-scroll\">"+(view?.Render() ?? "<view />")+"</scroll>" : view?.Render() ?? "<view />");
             panel._surface.ExtraCss=Resources.Load<TextAsset>("QuietCamp/Html/CampSettings.css")?.text ?? "";
             view=new CloudAccountView(services,panel._surface,()=>panel.Accepted=true);
             panel._surface.Refresh(); return panel;
@@ -43,17 +44,52 @@ namespace QuietCamp.Presentation.UI
         }
         string Button(string id,string label,Action action,bool enabled=true)
             => HtmlUi.Button(_surface,"account-"+id,label,action,"quiet",enabled);
-        string ProviderButton(string provider, string label, Action action, bool enabled)
+        string ProviderButton(string provider, string label, Action action, bool enabled, bool compact = false)
         {
             string id = "account-" + provider;
             _surface.Callbacks.Bind(id, action);
-            string mark = provider == "google" ? "G" : provider == "facebook" ? "f" : "X";
-            return "<button id=\"" + id + "\" class=\"quiet account-provider\" onClick=\"Globals.campUi.Click('" + id + "')\""
+            string mark = provider == "google" ? "<img class=\"account-brand-image\" src=\"res:QuietCamp/UI/Icons/google-sign-in\"/>"
+                : "<text>" + (provider == "facebook" ? "f" : "X") + "</text>";
+            string button = "<button id=\"" + id + "\" class=\"quiet account-provider\" data-tooltip=\"" + label + "\" onClick=\"Globals.campUi.Click('" + id + "')\""
                 + (enabled ? "" : " disabled=\"true\"") + "><view class=\"account-provider-icon account-provider-" + provider
-                + "\"><text>" + mark + "</text></view><text>" + label + "</text></button>";
+                + "\">" + mark + "</view>" + (compact ? "" : "<text>" + label + "</text>") + "</button>";
+            return compact ? "<view class=\"account-choice-item\">" + button + HtmlUi.Text(label,"account-choice-label") + "</view>" : button;
+        }
+        async Task SignIn(string provider, string label)
+        {
+            if (!Cloud.Configured) { _notice=string.Format(T("setupRequired"),label); return; }
+            if (!Cloud.Allowed) { _notice=T("ageUnavailable"); return; }
+            if (Array.IndexOf(Cloud.Providers,provider)<0) await Cloud.LoadOptions();
+            if (Array.IndexOf(Cloud.Providers,provider)<0) { _notice=string.Format(T("providerUnavailable"),label); return; }
+            await Cloud.SignIn(provider,LinkLocal,UnityEngine.Application.OpenURL);
+            if(Cloud.Linked) {
+                await Cloud.Sync();
+                if(_continue!=null && Cloud.Status!=CloudSaveStatus.Conflict && Cloud.ContinueAccount()) _continue();
+            }
+            else _notice=T(Cloud.Status.ToString());
+        }
+        string RenderChoice()
+        {
+            var html = new StringBuilder("<view class=\"account-entry\"><view class=\"account-choice\">");
+            html.Append(HtmlUi.Text(T("chooseMethod"),"account-choice-title"));
+            html.Append("<view class=\"account-choice-icons\">");
+            foreach (string provider in new[]{"google","facebook","x"}) {
+                string captured=provider, label=provider=="google" ? "Google" : provider=="facebook" ? "Facebook" : "X";
+                html.Append(ProviderButton(provider,label,()=>Run(()=>SignIn(captured,label)),!Cloud.Busy,true));
+            }
+            _surface.Callbacks.Bind("account-local-only",()=> { if(!Cloud.Busy && Cloud.ContinueLocally()) _continue(); });
+            html.Append("<view class=\"account-choice-item\"><button id=\"account-local-only\" class=\"quiet account-provider\" onClick=\"Globals.campUi.Click('account-local-only')\""
+                + (Cloud.Busy ? " disabled=\"true\"" : "") + "><img class=\"account-brand-image\" src=\"res:QuietCamp/UI/Icons/guests\"/></button>"
+                + HtmlUi.Text(T("guestBrief"),"account-choice-label") + "</view></view>");
+            if (Cloud.Busy) html.Append(HtmlUi.Text(T("Working"),"account-choice-status") + Button("cancel",T("cancel"),()=>Cloud.Cancel()));
+            if (Cloud.PairCode!=null) html.Append(HtmlUi.Text(T("pairCode")+" "+Cloud.PairCode,"account-choice-status"));
+            if (_notice!=null) html.Append(HtmlUi.Text(_notice,"account-choice-status"));
+            if (Cloud.LoginUrl!=null) html.Append(Button("open-browser",T("openBrowser"),()=>UnityEngine.Application.OpenURL(Cloud.LoginUrl)));
+            return html.Append("</view></view>").ToString();
         }
         async void Run(Func<Task> task)
         {
+            _notice=null;
             try { await task(); }
             catch { _notice=T("Offline"); }
             finally { _surface?.Refresh(); }
@@ -61,35 +97,26 @@ namespace QuietCamp.Presentation.UI
         bool MainMenu => UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Camp";
         public string Render()
         {
-            bool choosing = _continue != null && !Cloud.HasAccount;
+            if (_continue != null && !Cloud.HasAccount) return RenderChoice();
             var html=new StringBuilder("<view class=\"surface column account-panel\">");
-            html.Append(HtmlUi.Text(T(choosing ? "chooseMethod" : "title"),"settings-group-title"));
-            if (!choosing) html.Append(HtmlUi.Text(T("explain"),"s-sub"));
+            html.Append(HtmlUi.Text(T("title"),"settings-group-title"));
+            html.Append(HtmlUi.Text(T("explain"),"s-sub"));
             if (!MainMenu) html.Append(HtmlUi.Text(T("menuOnly"),"s-sub"));
             if (!Cloud.Configured) html.Append(HtmlUi.Text(T("unavailable"),"s-sub"));
             else if (!Cloud.Allowed) html.Append(HtmlUi.Text(T("ageUnavailable"),"s-sub"));
-            if (!choosing) html.Append(HtmlUi.Text(T("cloudNotice"),"s-sub"));
+            html.Append(HtmlUi.Text(T("cloudNotice"),"s-sub"));
             if(Cloud.Linked) html.Append(HtmlUi.Text(T("linked")+" "+Cloud.Provider,"s-sub"));
             else {
-                html.Append(HtmlUi.Text(T(choosing ? "localBrief" : "anonymousWarning"),"s-sub"));
+                html.Append(HtmlUi.Text(T("anonymousWarning"),"s-sub"));
                 foreach(string provider in new[]{"google","facebook","x"}) {
-                    if (choosing && (!Cloud.Allowed || Array.IndexOf(Cloud.Providers,provider)<0)) continue;
                     string captured=provider, label=provider=="google" ? "Google" : provider=="facebook" ? "Facebook" : "X";
-                    html.Append(ProviderButton(provider,label,()=>Run(async()=>{
-                        await Cloud.SignIn(captured,LinkLocal,_=>{});
-                        if(Cloud.Linked) {
-                            await Cloud.Sync();
-                            if(_continue!=null && Cloud.Status!=CloudSaveStatus.Conflict && Cloud.ContinueAccount()) _continue();
-                        }
-                    }),MainMenu && Cloud.Allowed && !Cloud.Busy && Array.IndexOf(Cloud.Providers,provider)>=0));
+                    html.Append(ProviderButton(provider,label,()=>Run(()=>SignIn(captured,label)),MainMenu && Cloud.Allowed && !Cloud.Busy && Array.IndexOf(Cloud.Providers,provider)>=0));
                 }
-                if (!choosing || Cloud.Allowed && !Cloud.Busy && (Cloud.Providers.Length == 0 || Cloud.Status == CloudSaveStatus.Offline))
-                    html.Append(Button("retry",T("retry"),()=>Run(()=>Cloud.LoadOptions()),Cloud.Allowed && !Cloud.Busy));
+                html.Append(Button("retry",T("retry"),()=>Run(()=>Cloud.LoadOptions()),Cloud.Allowed && !Cloud.Busy));
             }
             if(Cloud.PairCode!=null) html.Append(HtmlUi.Text(T("pairCode")+" "+Cloud.PairCode,"s-sub"));
             if(Cloud.LoginUrl!=null) html.Append(Button("open-browser",T("openBrowser"),()=>UnityEngine.Application.OpenURL(Cloud.LoginUrl)));
-            if (!choosing || Cloud.Busy || Cloud.Status != CloudSaveStatus.Local && Cloud.Status != CloudSaveStatus.SignedOut)
-                html.Append(HtmlUi.Text(T(Cloud.Status.ToString()),"s-sub"));
+            html.Append(HtmlUi.Text(T(Cloud.Status.ToString()),"s-sub"));
             if(_notice!=null) html.Append(HtmlUi.Text(_notice,"s-sub"));
             if(Cloud.Status==CloudSaveStatus.Conflict) {
                 html.Append(HtmlUi.Text(T("conflictExplain")+" "+Cloud.CloudCompletedCount,"s-sub"));
@@ -119,7 +146,7 @@ namespace QuietCamp.Presentation.UI
                     if(Cloud.Status!=CloudSaveStatus.Conflict && Cloud.ContinueAccount()) _continue();
                 },!Cloud.Busy && Cloud.Status!=CloudSaveStatus.Conflict));
             }
-            if(!Cloud.HasAccount) html.Append(Button("local-only",T(choosing ? "guestBrief" : "anonymous"),()=>{
+            if(!Cloud.HasAccount) html.Append(Button("local-only",T("anonymous"),()=>{
                 if(Cloud.ContinueLocally()) { if(_continue!=null) _continue(); else _surface.Refresh(); }
             }));
             return html.Append("</view>").ToString();

@@ -122,6 +122,24 @@ namespace QuietCamp.Tests
             Assert.That(_service.Linked,Is.True);Assert.That(_settings.advertisingConsent,Is.False);
             Assert.That(_local.progress.completedIds,Is.EqualTo(new[]{"QC001"}));
         }
+        [Test] public async Task BrowserHandoffOpensValidatedLoginBeforeWaitingForAuthorization() {
+            Guest();string opened=null;
+            string url=Endpoint+"/login#"+Token+":google";
+            _network.Handler=(route,t,data)=>Task.FromResult(route=="options"
+                ? new CloudReply {status=200,providers=new[]{"google"}}
+                : new CloudReply {status=200,ticket=Token,pollSecret=Token,url=url});
+            await _service.LoadOptions();
+            using var cancel=new System.Threading.CancellationTokenSource();
+            var signIn=_service.SignIn("google",true,value=>opened=value,cancel.Token);
+            try {
+                Assert.That(opened,Is.EqualTo(url));
+                Assert.That(_service.LoginUrl,Is.EqualTo(url));
+                Assert.That(_service.Busy,Is.True);
+                Assert.That(_network.Calls,Does.Not.Contain("login-poll"));
+            } finally { cancel.Cancel();await signIn; }
+            Assert.That(_service.Busy,Is.False);
+            Assert.That(_service.HasAccount,Is.False,"Opening a browser alone does not authorize an account.");
+        }
         [Test] public async Task BrowserHandoffRejectsForeignOriginsWithoutOpeningThem() {
             Guest();bool opened=false;
             _network.Handler=(route,t,data)=>Task.FromResult(route=="options"
