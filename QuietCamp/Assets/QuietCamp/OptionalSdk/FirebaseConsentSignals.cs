@@ -1,26 +1,42 @@
 #if QC_FIREBASE_ANALYTICS && (UNITY_ANDROID || UNITY_EDITOR)
 using System.Collections.Generic;
 using Firebase.Analytics;
+using QuietCamp.Application;
 
 // Sole Firebase consent writer. Local Analytics opt-in never grants ad purposes.
 static class FirebaseConsentSignals
 {
-    static bool _analytics, _adStorage, _adUserData, _personalization;
+    static PrivacyPermissionService _permissions;
+    static bool _analyticsRuntimeEnabled;
+    public static bool AnalyticsEnabled => _analyticsRuntimeEnabled && (_permissions?.Decisions.AnalyticsAllowed ?? false);
+    public static void Bind(PrivacyPermissionService permissions)
+    {
+        if (_permissions != null) _permissions.Changed -= Apply;
+        _permissions = permissions;
+        if (_permissions != null) _permissions.Changed += Apply;
+        Apply();
+    }
     public static void ResetDenied()
-    { _analytics = _adStorage = _adUserData = _personalization = false; Apply(); }
-    public static void SetAnalytics(bool enabled) { _analytics = enabled; Apply(); }
-    // Call only with independently verified advertising decisions. The current
-    // AdMob integration lets UMP own ad consent and does not export it to Firebase.
-    public static void SetAdvertising(bool storage, bool userData, bool personalization)
-    { _adStorage = storage; _adUserData = userData; _personalization = personalization && storage && userData; Apply(); }
+    {
+        _analyticsRuntimeEnabled = false;
+        FirebaseAnalytics.SetAnalyticsCollectionEnabled(false);
+        FirebaseAnalytics.SetConsent(new Dictionary<ConsentType, ConsentStatus> {
+            [ConsentType.AnalyticsStorage] = ConsentStatus.Denied, [ConsentType.AdStorage] = ConsentStatus.Denied,
+            [ConsentType.AdUserData] = ConsentStatus.Denied, [ConsentType.AdPersonalization] = ConsentStatus.Denied });
+    }
+    public static void SetAnalytics(bool enabled) { _analyticsRuntimeEnabled = enabled; Apply(); }
     static ConsentStatus Status(bool allowed) => allowed ? ConsentStatus.Granted : ConsentStatus.Denied;
     public static void Reapply() => Apply();
-    static void Apply() => FirebaseAnalytics.SetConsent(new Dictionary<ConsentType, ConsentStatus>
+    static void Apply()
     {
-        [ConsentType.AnalyticsStorage] = Status(_analytics),
-        [ConsentType.AdStorage] = Status(_adStorage),
-        [ConsentType.AdUserData] = Status(_adUserData),
-        [ConsentType.AdPersonalization] = Status(_personalization)
-    });
+        if (!FirebaseRuntime.Ready) return; // Binding a decision must not initialize Firebase.
+        var decision = _permissions?.Decisions ?? default;
+        FirebaseAnalytics.SetConsent(new Dictionary<ConsentType, ConsentStatus> {
+            [ConsentType.AnalyticsStorage] = Status(AnalyticsEnabled),
+            [ConsentType.AdStorage] = Status(decision.AdStorage),
+            [ConsentType.AdUserData] = Status(decision.AdUserData),
+            [ConsentType.AdPersonalization] = Status(decision.AdPersonalization) });
+        FirebaseAnalytics.SetAnalyticsCollectionEnabled(AnalyticsEnabled);
+    }
 }
 #endif

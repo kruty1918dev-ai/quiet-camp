@@ -88,3 +88,67 @@ Play signing/upload keys. Firebase client API key не є серверним с�
 та `tools/optional-google-probe/Probe.csproj`. Існуючий `tools/MonetizationProbe.csproj`
 підтримує `-p:QCProbeTargetFramework=net8.0`, якщо встановлено лише .NET 8;
 його стандартний target лишився .NET 10. Це не перевірка Android або Unity import.
+
+## Підключені значення та незалежні дозволи — 23.10.2026
+
+Шаблон містить підтверджені власником публічні AdMob App ID, publisher ID,
+rewarded life/hint ID, `quietcamp_pro`, контакти та URL чинної політики.
+Interstital ID, verification endpoint і terms URL порожні. Чинний офіційний
+Firebase Android client збережено в локальній конфігурації; приватні серверні
+ключі не використовуються. `mode=development` залишає тестову рекламу Google;
+Editor і development player примусово обирають sample inventory навіть із
+виробничими ID. Порожній рекламний слот не отримує вигаданий тестовий замінник.
+У release development-конфігурація не дозволяє рекламні запити.
+
+`PrivacyPermissionService` є джерелом рішень для Analytics, діагностики,
+реклами та доступності покупок. UMP оновлюється для поточного запуску/запиту;
+помилка, зміна віку, відкликання чи застарілий callback не відновлюють дозвіл.
+Firebase отримує рекламні сигнали з `UMP_consentModeValues` лише після успішного
+оновлення: `ad_storage`, `ad_user_data`, `ad_personalization`, `analytics_storage`.
+Тільки `1` означає наданий дозвіл; відсутні/невідомі значення лишаються denied.
+Персоналізація додатково потребує повноліття та review. Четвертий сигнал не
+керує ігровою Analytics: Analytics mode у UMP вимкнений, її незалежний вибір
+лишається обов'язковим. `CanRequestAds` не є згодою на ці цілі.
+
+Це явний міст для встановленого Unity Firebase API, а не твердження, що нативна
+автоінтеграція вже випробувана. Потрібно перевірити фактичні сигнали Android,
+відмову, повторний запуск і відкликання. Документація:
+[UMP consent signals](https://developers.google.com/funding-choices/fc-sdks),
+[Unity UMP](https://developers.google.com/admob/unity/privacy).
+Review-прапорці не підтверджено лише через публікацію сайту; вони залишаються false.
+
+## Майбутнє внутрішнє тестування Google Play
+
+Наведені кроки призначені для окремо дозволеної майбутньої збірки; зараз
+Unity Player build, APK/AAB та завантаження в Play не виконуються.
+
+1. Перевірте package `com.quietcamp.game`, версію та підпис. У Play Console
+   створіть одноразовий non-consumable `quietcamp_pro`, потрібну purchase option,
+   країни/ціну та license testers. Pro прибирає рекламу й ресурсні обмеження,
+   відкриває лише явно включені journeys; майбутні DLC не обіцяються.
+2. Розгорніть і перевірте сервер за [Server/README-UA.md](../Server/README-UA.md),
+   RTDN та Voided Purchases reconciliation. Внесіть HTTPS verification endpoint
+   та чинні умови в `Config/owner.local.json`, підтвердьте відповідні reviews,
+   повторіть validate → prepare → review diff → apply. Purchase verification
+   endpoint не є AdMob SSV endpoint; rewarded SSV тут не розгорнуто.
+3. Перевірте публікацію UMP повідомлення, production inventory, вікову модель,
+   SDK disclosures, Data Safety, Target audience, Ads та Families, якщо застосовно.
+   Не вмикайте дитячу рекламу або персоналізацію без окремих доказів.
+4. Лише після нового дозволу зберіть підписаний AAB, перевірте фактичний merged
+   manifest і дозволи, включно з `com.android.vending.BILLING`, SDK залежності,
+   відсутність приватних ключів і фактичний трафік до/після згоди. Поточна
+   перевірка source manifest не замінює цю перевірку.
+5. Завантажте AAB у Internal testing, додайте тестерів і відкрийте opt-in URL.
+   Установлюйте через Google Play під license tester. Звірте справжню ціну
+   ProductDetails, скасування, pending → purchased, повторне відкриття,
+   відновлення/перевстановлення, duplicate callback, acknowledge на сервері,
+   повернення/refund та повторну перевірку права. Pending не надає Pro.
+6. На телефоні перевірте rewarded earned/close, відсутність подвійної винагороди,
+   offline/відновлення, Pro без реклами, cooldown/ліміти interstitial після
+   окремого надання його ID, зміну віку й відкликання кожної згоди.
+
+Офіційні вимоги:
+[Billing integration](https://developer.android.com/google/play/billing/integrate),
+[Billing tests](https://developer.android.com/google/play/billing/test).
+Продаж залишається недоступним, доки немає реального товару, ціни, endpoint
+та пройдених перевірок. Заповнення Product ID саме по собі його не активує.

@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Tests/Editor/PrivacyPermissionTests.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/PrivacyPermissionService.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/PurchaseService.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/InterstitialService.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/OperationalMetrics.cs" />

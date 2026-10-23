@@ -22,8 +22,6 @@ namespace QuietCamp.Infrastructure
             => schemaVersion == 1 && billingReviewed && legal.Published && LegalConfiguration.PublishedUrl(legal.termsUrl)
                 && LegalConfiguration.PublishedUrl(verificationEndpoint)
                 && !string.IsNullOrWhiteSpace(proProductId);
-        public bool BillingAvailable(LegalConfiguration legal, SettingsSaveData settings)
-            => BillingConfigured(legal) && PrivacyEligibility.PurchasesAllowed(settings);
     }
 
     // Native providers register here without adding SDK references to core asmdefs.
@@ -33,7 +31,7 @@ namespace QuietCamp.Infrastructure
         public static Func<bool> ClearLocalHistory;
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void Reset() { Factory = null; ClearLocalHistory = null; }
-        public static IPurchaseProvider Create(OwnerClientConfiguration config, LegalConfiguration legal, SettingsSaveData settings)
-            => Factory != null && config.BillingConfigured(legal) ? Factory(config, () => config.BillingAvailable(legal, settings)) : new UnavailablePurchaseProvider();
+        public static IPurchaseProvider Create(OwnerClientConfiguration config, LegalConfiguration legal, Func<bool> canBuy)
+            => Factory != null && config.BillingConfigured(legal) ? Factory(config, canBuy) : new UnavailablePurchaseProvider();
     }
 }

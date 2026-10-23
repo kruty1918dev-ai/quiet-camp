@@ -30,11 +30,10 @@ sealed class FirebaseComfortTransport : IComfortTransport
         _enabled = enabled && !_disposed && _ready;
         if (!_ready) return;
         FirebaseConsentSignals.SetAnalytics(_enabled);
-        FirebaseAnalytics.SetAnalyticsCollectionEnabled(_enabled);
     }
     public void Send(ComfortRecord record)
     {
-        if (!_enabled || !_ready || _disposed) return;
+        if (!_enabled || !_ready || _disposed || !FirebaseConsentSignals.AnalyticsEnabled) return;
         var parameters = new Parameter[record.Values.Count];
         int i = 0;
         foreach (var value in record.Values) parameters[i++] = new Parameter(value.Key, value.Value);

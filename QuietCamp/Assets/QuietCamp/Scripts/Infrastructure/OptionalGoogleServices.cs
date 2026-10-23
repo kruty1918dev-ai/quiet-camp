@@ -11,6 +11,7 @@ namespace QuietCamp.Infrastructure
         public bool crashlyticsEnabled;
         public bool rewardedAdsEnabled;
         public bool useTestAds;
+        public bool configurationPrepared;
         public bool limitedAdsEnabled, underAgeLimitedAdsEnabled;
         public bool adultPersonalizationEnabled, childAdsEnabled, interstitialsEnabled;
         public string androidHintUnitId = "", androidInterstitialUnitId = "";
@@ -23,31 +24,44 @@ namespace QuietCamp.Infrastructure
         public const string AndroidTestRewardedUnitId = "ca-app-pub-3940256099942544/5224354917";
         public const string AndroidTestInterstitialUnitId = "ca-app-pub-3940256099942544/1033173712";
         public const string IosTestRewardedUnitId = "ca-app-pub-3940256099942544/1712485313";
-        public bool TestAdsActive => useTestAds && (UnityEngine.Application.isEditor || Debug.isDebugBuild);
+        public bool TestAdsActive => UnityEngine.Application.isEditor || Debug.isDebugBuild;
         [NonSerialized] public SettingsSaveData PrivacySettings;
         [NonSerialized] public string ConsentRevision;
         [NonSerialized] public Action<bool> RememberPrivacyOptions;
         [NonSerialized] public Func<bool> HasNoAdsEntitlement;
-        public void BindPrivacy(SettingsSaveData settings, string revision) { PrivacySettings = settings; ConsentRevision = revision; }
+        PrivacyPermissionService _permissions;
+        public Func<bool> PurchasesConfigured;
+        public PrivacyPermissionService Permissions => _permissions ?? (_permissions = new PrivacyPermissionService(PermissionInputs));
+        public void BindPrivacy(SettingsSaveData settings, string revision)
+        { PrivacySettings = settings; ConsentRevision = revision; Permissions.InvalidateAdvertising(); OptionalGoogleServices.ConsentBinding?.Invoke(Permissions); }
+        PrivacyPermissionInputs PermissionInputs() => new PrivacyPermissionInputs {
+            Context = ConsentRevision + ":" + (int)PrivacyEligibility.Band(PrivacySettings),
+            AnalyticsAvailable = MeasurementEligible && analyticsEnabled && OnlineServicesApproved,
+            DiagnosticsAvailable = MeasurementEligible && crashlyticsEnabled && OnlineServicesApproved,
+            AdvertisingAvailable = CanUseRewardedAds(UnityEngine.Application.isEditor || Debug.isDebugBuild),
+            PurchasesAvailable = (PurchasesConfigured?.Invoke() ?? false) && PrivacyEligibility.PurchasesAllowed(PrivacySettings),
+            AnalyticsChoice = PrivacySettings != null && PrivacySettings.analyticsConsent && PrivacySettings.analyticsPolicyVersion == ComfortAnalytics.PolicyVersion && PrivacySettings.analyticsPublicationRevision == ConsentRevision,
+            DiagnosticsChoice = PrivacySettings != null && PrivacySettings.crashReportingConsent && PrivacySettings.crashPolicyVersion == CrashDiagnostics.PolicyVersion && PrivacySettings.crashPublicationRevision == ConsentRevision,
+            AdvertisingChoice = PrivacyEligibility.AdvertisingAllowed(PrivacySettings, ConsentRevision),
+            RestrictedAdvertising = UnderAgeLimitedAdsAllowed,
+            Adult = PrivacyEligibility.Band(PrivacySettings) == PrivacyAgeBand.Adult,
+            AdultPersonalizationReviewed = OnlineServicesApproved && adultPersonalizationEnabled && _legal.adultPersonalizationReviewed,
+            Pro = HasNoAdsEntitlement?.Invoke() ?? false
+        };
         public bool Eligible => PrivacyEligibility.Allowed(PrivacySettings);
         public bool MeasurementEligible => PrivacyEligibility.Band(PrivacySettings) == PrivacyAgeBand.Adult
             || (Eligible && _legal != null && _legal.teenPrivacyReviewed);
-        public bool AnalyticsAllowed => MeasurementEligible && analyticsEnabled && OnlineServicesApproved && PrivacySettings.analyticsConsent
-            && PrivacySettings.analyticsPolicyVersion == ComfortAnalytics.PolicyVersion && PrivacySettings.analyticsPublicationRevision == ConsentRevision;
-        public bool CrashesAllowed => MeasurementEligible && crashlyticsEnabled && OnlineServicesApproved && PrivacySettings.crashReportingConsent
-            && PrivacySettings.crashPolicyVersion == CrashDiagnostics.PolicyVersion && PrivacySettings.crashPublicationRevision == ConsentRevision;
+        public bool AnalyticsAllowed => Permissions.Decisions.AnalyticsAllowed;
+        public bool CrashesAllowed => Permissions.Decisions.DiagnosticsAllowed;
         public bool LimitedAdsApproved => OnlineServicesApproved && limitedAdsEnabled && _legal.limitedAdsReviewed;
-        public bool AdultPersonalizationApproved => OnlineServicesApproved && adultPersonalizationEnabled && _legal.adultPersonalizationReviewed
-            && PrivacyEligibility.Band(PrivacySettings) == PrivacyAgeBand.Adult;
+        public bool AdultPersonalizationApproved => Permissions.Decisions.AdPersonalization;
         public bool UnderAgeLimitedAdsAllowed => LimitedAdsApproved && !useTestAds && ((PrivacyEligibility.Band(PrivacySettings) == PrivacyAgeBand.From13To15 && underAgeLimitedAdsEnabled && _legal.underAgeAdvertisingReviewed)
                 || (PrivacyEligibility.Band(PrivacySettings) == PrivacyAgeBand.Under13 && childAdsEnabled && _legal.childAdvertisingReviewed))
             && PrivacySettings.privacySetupVersion == PrivacySetup.Version
             && PrivacySettings.privacyAcknowledgementRevision == _legal.revision
             && !PrivacySettings.privacyAcknowledgementDraft && !string.IsNullOrWhiteSpace(PrivacySettings.privacyAcknowledgementHash)
             && ConsentRevision == _legal.revision + ":" + PrivacySettings.privacyAcknowledgementHash;
-        public bool AdRequestsAllowed => PrivacySettings != null && (PrivacyEligibility.Band(PrivacySettings) != PrivacyAgeBand.From13To15 || UnderAgeLimitedAdsAllowed || TestAdsActive) && (PrivacyEligibility.AdvertisingAllowed(PrivacySettings, ConsentRevision) || UnderAgeLimitedAdsAllowed)
-            && !(HasNoAdsEntitlement?.Invoke() ?? false)
-            && CanUseRewardedAds(UnityEngine.Application.isEditor || Debug.isDebugBuild);
+        public bool AdRequestsAllowed => Permissions.Decisions.CanStartAdConsent;
         public bool AdvertisingAllowed => AdRequestsAllowed && PrivacySettings.optionalVideoBonuses;
         // A prototype can exercise Google sample inventory before publication.
         // Release players still require the normal publication and consent gates.
@@ -56,9 +70,16 @@ namespace QuietCamp.Infrastructure
         public string RewardedUnitId(bool ios)
             => useTestAds ? (ios ? IosTestRewardedUnitId : AndroidTestRewardedUnitId)
                 : (ios ? iosRewardedUnitId : androidRewardedUnitId);
-        public string UnitFor(string placement) => placement == "camp.interstitial" ? androidInterstitialUnitId
-            : placement == "camp.hint" && !useTestAds ? androidHintUnitId : CurrentRewardedUnitId;
-        public string CurrentRewardedUnitId => RewardedUnitId(UnityEngine.Application.platform == RuntimePlatform.IPhonePlayer);
+        public string UnitFor(string placement) => placement == "camp.interstitial"
+            ? (string.IsNullOrEmpty(androidInterstitialUnitId) ? "" : TestAdsActive ? AndroidTestInterstitialUnitId : androidInterstitialUnitId)
+            : placement == "camp.hint" ? (string.IsNullOrEmpty(androidHintUnitId) && (configurationPrepared || !useTestAds) ? "" : TestAdsActive ? AndroidTestRewardedUnitId : androidHintUnitId) : CurrentRewardedUnitId;
+        public string CurrentRewardedUnitId {
+            get {
+                bool ios = UnityEngine.Application.platform == RuntimePlatform.IPhonePlayer;
+                if (configurationPrepared && string.IsNullOrWhiteSpace(ios ? iosRewardedUnitId : androidRewardedUnitId)) return "";
+                return TestAdsActive ? (ios ? IosTestRewardedUnitId : AndroidTestRewardedUnitId) : RewardedUnitId(ios);
+            }
+        }
         // Enabling collection also requires published disclosures and a way to
         // request server-side deletion. Empty templates are intentionally inert.
         public bool PrivacyConfigured => Https(privacyPolicyUrl) && Https(deletionRequestUrl);
@@ -89,9 +110,10 @@ namespace QuietCamp.Infrastructure
         public static Func<IComfortTransport> AnalyticsFactory;
         public static Func<ICrashTransport> CrashFactory;
         public static Func<System.Threading.Tasks.Task<bool>> FirebaseInitialization;
+        public static Action<PrivacyPermissionService> ConsentBinding;
         public static Func<GoogleServicesConfiguration, IAdService> AdsFactory;
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void Reset() { AnalyticsFactory = null; AdsFactory = null; CrashFactory = null; FirebaseInitialization = null; }
+        static void Reset() { AnalyticsFactory = null; AdsFactory = null; CrashFactory = null; FirebaseInitialization = null; ConsentBinding = null; }
         public static System.Threading.Tasks.Task<bool> InitializeFirebase(GoogleServicesConfiguration config)
             => (config.AnalyticsAllowed || config.CrashesAllowed)
                 && FirebaseInitialization != null ? FirebaseInitialization() : System.Threading.Tasks.Task.FromResult(false);

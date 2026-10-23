@@ -202,7 +202,7 @@ def planned(config, root=ROOT):
     merged(RESOURCE + "google_services.json", {
         "analyticsEnabled": fb is not None, "crashlyticsEnabled": fb is not None,
         "rewardedAdsEnabled": bool(ads["appId"] and (ads["rewardedLifeUnitId"] or ads["rewardedHintUnitId"])),
-        "useTestAds": SAMPLE_PUBLISHER in ads["appId"],
+        "useTestAds": config["mode"] == "development", "configurationPrepared": True,
         "androidRewardedUnitId": ads["rewardedLifeUnitId"], "androidHintUnitId": ads["rewardedHintUnitId"],
         "androidInterstitialUnitId": ads["interstitialUnitId"],
         "interstitialsEnabled": bool(ads["appId"] and ads["interstitialUnitId"]),
@@ -230,9 +230,9 @@ def planned(config, root=ROOT):
     # The SDK provider needs its App ID before C#. When ads are unconfigured,
     # remove the provider rather than supplying a production sample ID.
     app_id = ads["appId"]
-    source, count = re.subn(r"(?m)^  adMobAndroidAppId:.*$", "  adMobAndroidAppId: " + app_id, source)
+    source, count = re.subn(r"(?m)^  adMobAndroidAppId:.*$", "  adMobAndroidAppId:" + (" " + app_id if app_id else ""), source)
     if count != 1: raise ConfigError("Cannot locate SDK App ID field")
-    source = re.sub(r"(?m)^  adMobIOSAppId:.*$", "  adMobIOSAppId: ", source)
+    source = re.sub(r"(?m)^  adMobIOSAppId:.*$", "  adMobIOSAppId:", source)
     outputs[settings] = source.encode("utf-8")
     manifest = "QuietCamp/Assets/Plugins/Android/QuietCampPrivacy.androidlib/AndroidManifest.xml"
     source = (root / manifest).read_text(encoding="utf-8")

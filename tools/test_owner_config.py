@@ -7,7 +7,20 @@ import owner_config as owner
 
 
 class OwnerTests(unittest.TestCase):
-    def setUp(self): self.config = owner.read(owner.ROOT / "Config/owner.example.json")
+    def setUp(self):
+        self.config = owner.read(owner.ROOT / "Config/owner.example.json")
+        # Partial-configuration fixtures must not inherit confirmed production IDs.
+        for key in self.config["admob"]: self.config["admob"][key] = ""
+
+    def test_confirmed_ids_development_inventory_and_empty_slots(self):
+        config = owner.read(owner.ROOT / "Config/owner.example.json")
+        self.assertFalse(owner.validate(config))
+        targets = owner.planned(config)  # Pure generation; no project writes.
+        google = next(value for path, value in targets.items() if str(path).endswith('google_services.json'))
+        snapshot = json.loads(google)
+        self.assertTrue(snapshot['useTestAds'])
+        self.assertTrue(snapshot['configurationPrepared'])
+        self.assertFalse(snapshot['interstitialsEnabled'])
     def test_empty_partial_corrupt_duplicate(self):
         self.assertEqual([], owner.validate(self.config))
         self.assertTrue(owner.validate({}))
@@ -52,6 +65,7 @@ class OwnerTests(unittest.TestCase):
         self.assertTrue(owner.validate(self.config))
         self.config["schemaVersion"] = 1
         self.config["reviews"]["policyPublished"] = True
+        self.config["legal"]["publishedPolicyRevision"] = ""  # Missing publication metadata.
         self.assertTrue(owner.validate(self.config))
     def test_preview_detects_manual_changes_and_config_change(self):
         with tempfile.TemporaryDirectory() as directory:

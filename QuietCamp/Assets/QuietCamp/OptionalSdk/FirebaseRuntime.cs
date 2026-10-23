@@ -11,9 +11,20 @@ static class FirebaseRuntime
     static Task<bool> _initialization;
     public static bool Ready { get; private set; }
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    static void Reset() { _initialization = null; Ready = false; }
+    static void Reset() {
+        _initialization = null; Ready = false;
+#if QC_FIREBASE_ANALYTICS
+        FirebaseConsentSignals.Bind(null);
+#endif
+    }
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    static void Register() => OptionalGoogleServices.FirebaseInitialization = Initialize;
+    static void Register()
+    {
+        OptionalGoogleServices.FirebaseInitialization = Initialize;
+#if QC_FIREBASE_ANALYTICS
+        OptionalGoogleServices.ConsentBinding = FirebaseConsentSignals.Bind;
+#endif
+    }
     public static Task<bool> Initialize() => _initialization ?? (_initialization = InitializeCore());
     static async Task<bool> InitializeCore()
     {
@@ -28,7 +39,6 @@ static class FirebaseRuntime
             // Deny their collection before either purpose-specific adapter enables its own work.
             // This does not prove the absence of native files/traffic during DefaultInstance creation.
 #if QC_FIREBASE_ANALYTICS
-            Firebase.Analytics.FirebaseAnalytics.SetAnalyticsCollectionEnabled(false);
             FirebaseConsentSignals.ResetDenied();
 #endif
 #if QC_FIREBASE_CRASHLYTICS && UNITY_ANDROID && !UNITY_EDITOR
@@ -38,6 +48,9 @@ static class FirebaseRuntime
                 crash.Call("setCrashlyticsCollectionEnabled", false);
 #endif
             Ready = true;
+#if QC_FIREBASE_ANALYTICS
+            FirebaseConsentSignals.Reapply();
+#endif
             return true;
         }
         catch (Exception e)

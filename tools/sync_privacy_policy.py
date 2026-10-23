@@ -55,7 +55,11 @@ def main():
         assert source['revision'] == revision
         suffix = '' if lang == 'en' else '/' + lang
         html = (args.site_root/'dist/quiet-camp/privacy'/suffix.lstrip('/')/'index.html').read_text(encoding='utf8')
-        assert '<script' not in html.lower() and '{{' not in html and '\ufffd' not in html
+        # Current site uses one local progressive-enhancement script. The policy
+        # must remain complete without it; reject inline or third-party scripts.
+        scripts = re.findall(r'<script\b[^>]*>.*?</script>', html, flags=re.I | re.S)
+        assert all(tag == '<script src="/assets/site.js" defer></script>' for tag in scripts)
+        assert '{{' not in html and '\ufffd' not in html
         assert f'<link rel="canonical" href="{BASE + suffix}">' in html
         assert len(source['sections']) == 14
         paragraphs = [source['title'], source['updated'] + ': ' + source['date'] + ' · ' + revision,

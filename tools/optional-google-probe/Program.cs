@@ -45,6 +45,11 @@ class Program
         Check(config.RewardedUnitId(true) == "publisher-ios", "Live iOS unit selection");
         OptionalGoogleServices.AdsFactory = null;
         Pass("sample IDs, development gate, live publication gate and sample reward");
+        var prepared = new GoogleServicesConfiguration { configurationPrepared = true, useTestAds = true, rewardedAdsEnabled = true,
+            androidHintUnitId = "publisher-hint" };
+        Check(prepared.CurrentRewardedUnitId == "" && prepared.UnitFor("camp.hint") == GoogleServicesConfiguration.AndroidTestRewardedUnitId
+            && prepared.UnitFor("camp.interstitial") == "", "Empty prepared slots stay disabled while configured development slots use samples");
+        Pass("development sample inventory does not invent missing placements");
         using (var provider = new GoogleRewardedAdapter("publisher-unit", true, () => true))
         {
             ConsentInformation.Reset(); RewardedAd.Reset();
@@ -116,12 +121,27 @@ class Program
             var task = provider.ShowPrivacyOptions(); Check(!provider.IsReady, "Privacy and ad must not overlap");
             provider.Dispose(); await Finishes(task);
         }
+        {
+            ConsentInformation.Reset(); RewardedAd.Reset(); ConsentInformation.HoldForm = true;
+            var permissions = new PrivacyPermissionService(() => new PrivacyPermissionInputs {
+                Context = "adult", Adult = true, AdvertisingAvailable = true, AdvertisingChoice = true });
+            using var provider = new GoogleRewardedAdapter("publisher-unit", authorized: () => true,
+                consentUpdated: permissions.AcceptUmp, invalidateConsent: permissions.InvalidateAdvertising,
+                consentEpoch: () => permissions.AdvertisingEpoch);
+            var task = provider.ShowRewarded("camp.life");
+            permissions.InvalidateAdvertising(); // Revoke and re-opt-in while the old native form remains open.
+            ConsentInformation.FormCallback(null);
+            Check(await task == AdResult.Unavailable && !permissions.Decisions.FreshUmp && RewardedAd.Last == null,
+                "A callback from before a privacy change cannot reactivate advertising");
+            Pass("stale native consent callback cannot reactivate a new privacy choice");
+        }
         using (var provider = NewAd())
         {
             ConsentInformation.ThrowPrivacy = true;
             await Finishes(provider.ShowPrivacyOptions()); Check(provider.IsReady, "Privacy failure left provider busy");
             Pass("privacy options dispose and native error release task");
         }
+        BindAnalyticsPermission();
         using (var provider = new FirebaseComfortTransport())
         {
             Check(await provider.Initialize(), "Dependencies available");
@@ -143,8 +163,18 @@ class Program
         await CheckProductionBoundaries();
         Console.WriteLine(_passed + " contract scenarios passed. SDK doubles only; no real Google/Android integration verified.");
     }
+    static PrivacyPermissionService BindAnalyticsPermission()
+    {
+        var permissions = new PrivacyPermissionService(() => new PrivacyPermissionInputs {
+            Context = "current", AnalyticsAvailable = true, AnalyticsChoice = true,
+            AdvertisingAvailable = true, AdvertisingChoice = true, Adult = true });
+        FirebaseConsentSignals.Bind(permissions); return permissions;
+    }
     static async Task CheckProductionBoundaries()
     {
+        typeof(FirebaseRuntime).GetMethod("Reset", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic).Invoke(null, null);
+        Firebase.FirebaseApp.Result = Firebase.DependencyStatus.Available;
+        Check(await FirebaseRuntime.Initialize(), "Fresh production-boundary fixture initializes Firebase");
         ConsentInformation.Reset(); RewardedAd.Reset();
         var stages = new List<int>(); int earned = 0;
         using (var provider = new GoogleRewardedAdapter("publisher-life", authorized: () => true,
@@ -163,7 +193,7 @@ class Program
             Pass("placement routing, native lifecycle, duplicate earned callback and interstitial dismissal");
         }
         FirebaseConsentSignals.ResetDenied();
-        FirebaseConsentSignals.SetAdvertising(true, true, false);
+        BindAnalyticsPermission().AcceptUmp(true, "1124");
         using (var analytics = new FirebaseComfortTransport())
         {
             await analytics.Initialize(); analytics.SetConsent(true); analytics.ResetLocalData();
@@ -183,7 +213,7 @@ class Program
         using (var provider = new GoogleRewardedAdapter("publisher-unit", authorized: () => true, underAge: () => true,
             limitedApproved: () => true, applyStorageMode: limited => { Check(limited, "Under-age path must force LTD before init"); writes++; return true; }))
         {
-            await provider.RefreshConsent(); Check(ConsentInformation.Updates == 0, "No under-age startup UMP network request");
+            await provider.RefreshConsent(); Check(ConsentInformation.Updates == 1, "Approved under-age path refreshes UMP with age restriction");
             var view = provider.ShowRewarded("camp.hint");
             Check(ConsentInformation.LastParameters.TagForUnderAgeOfConsent, "Under-age UMP tag must be explicit");
             Check(ConsentInformation.FormLoads == 0 && !provider.PrivacyOptionsRequired, "No adult consent form for under-age users");

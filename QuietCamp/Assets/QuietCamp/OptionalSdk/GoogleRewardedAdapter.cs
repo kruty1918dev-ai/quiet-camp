@@ -14,6 +14,11 @@ sealed class GoogleRewardedAdapter : IAdService, IInterstitialAdService, IAdPriv
     readonly Func<string, string> _selectUnit;
     readonly Action<string> _earned;
     readonly Action<string, int> _observed;
+    readonly Action<bool, string> _consentUpdated;
+    readonly Action _invalidateConsent;
+    readonly Func<long> _consentEpoch;
+    long _requestEpoch;
+    bool ConsentContextCurrent => _consentEpoch == null || _consentEpoch() == _requestEpoch;
     InterstitialAd _interstitial;
     readonly bool _testAds;
     readonly Func<bool> _authorized, _teen, _eligible;
@@ -35,11 +40,12 @@ sealed class GoogleRewardedAdapter : IAdService, IInterstitialAdService, IAdPriv
     public bool IsReady => !_disposed && !_busy && _authorized() && !string.IsNullOrEmpty(_unit);
     public bool PrivacyOptionsRequired => !_disposed && !_underAge() && _eligible() && !_testAds && ConsentInformation.PrivacyOptionsRequirementStatus == PrivacyOptionsRequirementStatus.Required;
     public GoogleRewardedAdapter(string unit, bool testAds = false, Func<bool> authorized = null, Func<bool> teen = null, Func<bool> eligible = null, Action<bool> rememberPrivacyOptions = null,
-        Func<bool> underAge = null, Func<bool> limitedApproved = null, Func<bool, bool> applyStorageMode = null, Func<bool> personalizedEligible = null, Func<string, string> selectUnit = null, Action<string> earned = null, Action<string, int> observed = null)
+        Func<bool> underAge = null, Func<bool> limitedApproved = null, Func<bool, bool> applyStorageMode = null, Func<bool> personalizedEligible = null, Func<string, string> selectUnit = null, Action<string> earned = null, Action<string, int> observed = null, Action<bool, string> consentUpdated = null, Action invalidateConsent = null, Func<long> consentEpoch = null)
     {
         // Never skip UMP for a publisher's unit, even if a caller passes testAds.
         _testAds = testAds && (unit == GoogleServicesConfiguration.AndroidTestRewardedUnitId
             || unit == GoogleServicesConfiguration.IosTestRewardedUnitId || unit == GoogleServicesConfiguration.AndroidTestInterstitialUnitId);
+        _consentUpdated = consentUpdated; _invalidateConsent = invalidateConsent;
         _selectUnit = selectUnit ?? (_ => unit); _earned = earned; _observed = observed;
         _unit = unit; _main = SynchronizationContext.Current;
         _authorized = authorized ?? (() => false); _teen = teen ?? (() => false);
@@ -47,13 +53,13 @@ sealed class GoogleRewardedAdapter : IAdService, IInterstitialAdService, IAdPriv
         _rememberPrivacyOptions = rememberPrivacyOptions;
         _underAge = underAge ?? (() => false); _limitedApproved = limitedApproved ?? (() => false);
         _applyStorageMode = applyStorageMode ?? ApplyStorageMode;
-        _personalizedEligible = personalizedEligible ?? (() => false);
+        _personalizedEligible = personalizedEligible ?? (() => false); _consentEpoch = consentEpoch;
     }
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    static void Register() => OptionalGoogleServices.AdsFactory = c => new GoogleRewardedAdapter(!string.IsNullOrEmpty(c.CurrentRewardedUnitId) ? c.CurrentRewardedUnitId : !string.IsNullOrEmpty(c.androidHintUnitId) ? c.androidHintUnitId : c.androidInterstitialUnitId, c.TestAdsActive,
+    static void Register() => OptionalGoogleServices.AdsFactory = c => new GoogleRewardedAdapter(!string.IsNullOrEmpty(c.CurrentRewardedUnitId) ? c.CurrentRewardedUnitId : !string.IsNullOrEmpty(c.UnitFor("camp.hint")) ? c.UnitFor("camp.hint") : c.UnitFor("camp.interstitial"), c.TestAdsActive,
         () => c.AdRequestsAllowed, () => PrivacyEligibility.Band(c.PrivacySettings) == PrivacyAgeBand.From16To17, () => c.Eligible, c.RememberPrivacyOptions,
         () => PrivacyEligibility.Band(c.PrivacySettings) == PrivacyAgeBand.From13To15 || PrivacyEligibility.Band(c.PrivacySettings) == PrivacyAgeBand.Under13, () => c.LimitedAdsApproved, personalizedEligible: () => c.AdultPersonalizationApproved, selectUnit: c.UnitFor,
-        earned: placement => c.RewardEarned?.Invoke(placement), observed: (placement, stage) => c.AdObserved?.Invoke(placement, stage));
+        earned: placement => c.RewardEarned?.Invoke(placement), observed: (placement, stage) => c.AdObserved?.Invoke(placement, stage), consentUpdated: c.Permissions.AcceptUmp, invalidateConsent: c.Permissions.InvalidateAdvertising, consentEpoch: () => c.Permissions.AdvertisingEpoch);
     void Main(Action action) { if (_main != null) _main.Post(_ => action(), null); else action(); }
     public void ShowBanner(string placementId) { }
     public void HideBanner() { }
@@ -62,7 +68,7 @@ sealed class GoogleRewardedAdapter : IAdService, IInterstitialAdService, IAdPriv
     {
         // Publisher inventory only. Refresh information each launch without
         // initializing ads or opening a native form over unrelated core play.
-        if (_testAds || _underAge() || !IsReady || UnityEngine.Application.internetReachability == NetworkReachability.NotReachable) return;
+        if (_testAds || !IsReady || UnityEngine.Application.internetReachability == NetworkReachability.NotReachable) return;
         _busy = true; _cancel = new TaskCompletionSource<bool>();
         try { await UpdateConsentInformation(); }
         catch (Exception error) { Debug.LogWarning("[QuietCamp Ads] Consent refresh unavailable: " + error.GetType().Name); }
@@ -70,15 +76,21 @@ sealed class GoogleRewardedAdapter : IAdService, IInterstitialAdService, IAdPriv
     }
     async Task<bool> UpdateConsentInformation(bool privacyManagement = false)
     {
+        _invalidateConsent?.Invoke();
+        _requestEpoch = _consentEpoch?.Invoke() ?? 0;
+        var requestCancellation = _cancel;
         var cancellation = _cancel.Task;
         var consent = new TaskCompletionSource<bool>();
         ConsentInformation.Update(new ConsentRequestParameters { TagForUnderAgeOfConsent = _underAge() }, error => Main(() =>
         {
-            bool valid = error == null && !_disposed && !cancellation.IsCompleted && (privacyManagement ? _eligible() : _authorized());
+            bool valid = error == null && !_disposed && !cancellation.IsCompleted && ConsentContextCurrent && (privacyManagement ? _eligible() : _authorized());
             if (valid) _rememberPrivacyOptions?.Invoke(ConsentInformation.PrivacyOptionsRequirementStatus == PrivacyOptionsRequirementStatus.Required);
+            if (valid) PublishConsent(); else _invalidateConsent?.Invoke();
             consent.TrySetResult(valid);
         }));
-        return await AwaitPending(consent.Task, 30000, privacyManagement) && await consent.Task;
+        bool finished = await AwaitPending(consent.Task, 30000, privacyManagement);
+        if (!finished) { requestCancellation.TrySetResult(true); _invalidateConsent?.Invoke(); }
+        return finished && await consent.Task;
     }
 
     public Task<AdResult> ShowRewarded(string placementId) => ShowFullscreen(placementId, false);
@@ -110,7 +122,11 @@ sealed class GoogleRewardedAdapter : IAdService, IInterstitialAdService, IAdPriv
                     _privacyClosed = new TaskCompletionSource<bool>();
                     var form = _privacyClosed;
                     ConsentForm.LoadAndShowConsentFormIfRequired(error => Main(() =>
-                        form.TrySetResult(!_disposed && error == null && ConsentInformation.CanRequestAds())));
+                    {
+                        bool valid = !_disposed && error == null && !cancellation.IsCompleted && ConsentContextCurrent && _authorized();
+                        if (valid) PublishConsent(); else _invalidateConsent?.Invoke();
+                        form.TrySetResult(valid && ConsentInformation.CanRequestAds());
+                    }));
                     if (!await form.Task) return AdResult.Unavailable;
                     _consentForm = false; _privacyClosed = null;
                     bool storageAllowed = DeviceStorageAllowed();
@@ -202,6 +218,21 @@ sealed class GoogleRewardedAdapter : IAdService, IInterstitialAdService, IAdPriv
         var result = await closed.Task; if (result == AdResult.Completed) Observe(placement, 3);
         return _authorized() && !_cancel.Task.IsCompleted ? result : AdResult.Unavailable;
     }
+    void PublishConsent()
+    {
+        if (!ConsentContextCurrent) return;
+        string values = null;
+#if UNITY_ANDROID && !UNITY_EDITOR
+        try {
+            using (var unity = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+            using (var activity = unity.GetStatic<AndroidJavaObject>("currentActivity"))
+            using (var manager = new AndroidJavaClass("android.preference.PreferenceManager"))
+            using (var preferences = manager.CallStatic<AndroidJavaObject>("getDefaultSharedPreferences", activity))
+                values = preferences.Call<string>("getString", "UMP_consentModeValues", "");
+        } catch { } // Missing/unsupported signal stays denied; never infer from CanRequestAds.
+#endif
+        _consentUpdated?.Invoke(ConsentInformation.CanRequestAds(), values);
+    }
     static bool DeviceStorageAllowed()
     {
         // A fresh UMP result remains mandatory. These IAB signals are an
@@ -265,7 +296,10 @@ sealed class GoogleRewardedAdapter : IAdService, IInterstitialAdService, IAdPriv
             // even when local ad opt-in was withdrawn; it never initializes ads.
             if (!await UpdateConsentInformation(true) || !PrivacyOptionsRequired) return;
             _consentForm = true;
-            ConsentForm.ShowPrivacyOptionsForm(error => Main(() => closed.TrySetResult(error == null && !_disposed)));
+            ConsentForm.ShowPrivacyOptionsForm(error => Main(() => {
+                if (error == null && !_disposed && !_cancel.Task.IsCompleted) PublishConsent(); else _invalidateConsent?.Invoke();
+                closed.TrySetResult(error == null && !_disposed);
+            }));
             await closed.Task;
         }
         catch { /* An unavailable native form must leave the game usable. */ }
@@ -273,7 +307,7 @@ sealed class GoogleRewardedAdapter : IAdService, IInterstitialAdService, IAdPriv
     }
     public void Dispose()
     {
-        _disposed = true; _cancel?.TrySetResult(true);
+        _disposed = true; _invalidateConsent?.Invoke(); _cancel?.TrySetResult(true);
         _privacyClosed?.TrySetResult(false); _adClosed?.TrySetResult(AdResult.Unavailable);
         _interstitial?.Destroy(); _interstitial = null;
         _ad?.Destroy(); _ad = null;

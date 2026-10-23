@@ -78,10 +78,10 @@ namespace QuietCamp.Tests.Editor
             Assert.IsFalse(LegalConfiguration.Email("privacy@quietcamp.dev\nBcc:other@quietcamp.dev"));
             Assert.IsTrue(LegalConfiguration.Email("privacy@quietcamp.dev"));
         }
-        [Test] public void SourceReleaseTemplateTargetsTeensAndRemainsOffline()
+        [Test] public void SourceDevelopmentConfigurationAllowsLocalPlayAndKeepsProductionServicesOffline()
         {
             var legal = LegalConfiguration.Load(); var google = GoogleServicesConfiguration.Load();
-            Assert.AreEqual(13, legal.minimumAge); Assert.IsFalse(legal.accountsEnabled);
+            Assert.AreEqual(0, legal.minimumAge); Assert.IsFalse(legal.accountsEnabled);
             Assert.IsFalse(legal.cloudSavesEnabled); Assert.IsFalse(legal.purchasesEnabled);
             Assert.IsFalse(legal.Published); Assert.IsFalse(google.OnlineServicesApproved);
             Assert.IsNotEmpty(legal.PublicationIssues(google));

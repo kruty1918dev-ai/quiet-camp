@@ -94,7 +94,7 @@ namespace QuietCamp.Presentation
         public readonly Dictionary<string,int> RoadmapSeenFrontiers=new Dictionary<string,int>(StringComparer.Ordinal);
         #endif
         public event Action MonetizationChanged;
-        void OnMonetizationChanged() => MonetizationChanged?.Invoke();
+        void OnMonetizationChanged() { GoogleConfiguration?.Permissions.Refresh(); MonetizationChanged?.Invoke(); }
         /// <summary>Optional verified entitlement adapter; no provider means no premium entitlement.</summary>
         public Func<string,bool> BonusEntitlement { get; set; }
         #if UNITY_EDITOR
@@ -270,7 +270,8 @@ namespace QuietCamp.Presentation
                 () => OwnerConfiguration.operationalMetricsReviewed && Legal.Published && LegalConfiguration.PublishedUrl(OwnerConfiguration.operationalMetricsEndpoint) && PrivacyEligibility.Band(Settings) == PrivacyAgeBand.Under13,
                 (name, bucket, count) => OperationalMetricsTransport.Send(OwnerConfiguration.operationalMetricsEndpoint, name, bucket, count));
             if (OwnerConfiguration.BillingConfigured(Legal)) Economy.RequireProVerification();
-            var nativeProvider = provider ?? OptionalBilling.Create(OwnerConfiguration, Legal, Settings);
+            GoogleConfiguration.PurchasesConfigured = () => OwnerConfiguration.BillingConfigured(Legal);
+            var nativeProvider = provider ?? OptionalBilling.Create(OwnerConfiguration, Legal, () => GoogleConfiguration.Permissions.Decisions.PurchasesAllowed);
             foreach (var product in config.products)
                 if (product.pro) { if (!string.IsNullOrWhiteSpace(OwnerConfiguration.proProductId)) product.id = OwnerConfiguration.proProductId; product.published = OwnerConfiguration.BillingConfigured(Legal); }
             Purchases = new PurchaseService(nativeProvider, config.products, Save.Purchases, GrantProduct, Save.Save, product => product.pro ? Economy.SetProEntitlement(false) : EconomyResult.Unavailable,
@@ -426,9 +427,16 @@ namespace QuietCamp.Presentation
             Audio?.Dispose();
         }
         void OnSaveFailed(string ignoredMessage) => Crashes.Report(CrashArea.Save);
-        bool PersistPrivacy() => _privacyPersistence.Save();
+        bool PersistPrivacy()
+        {
+            bool saved = _privacyPersistence.Save();
+            if (!saved) GoogleConfiguration.Permissions.InvalidateAdvertising();
+            GoogleConfiguration.Permissions.Refresh();
+            return saved;
+        }
         public async System.Threading.Tasks.Task<bool> SetPrivacyAge(PrivacyAgeBand band)
         {
+            GoogleConfiguration.Permissions.InvalidateAdvertising();
             if (PrivacyEligibility.Band(Settings) == band && Settings.privacyAgeVersion == PrivacyEligibility.AgeVersion) return true;
             OperationalMetrics?.Clear();
             bool saved = PrivacyEligibility.ChangeAge(Settings, band, PersistPrivacy);
@@ -439,6 +447,7 @@ namespace QuietCamp.Presentation
         }
         public bool SetAdvertisingConsent(bool enabled)
         {
+            GoogleConfiguration.Permissions.InvalidateAdvertising();
             bool saved = PrivacyEligibility.SetAdvertising(Settings, enabled, GoogleConfiguration.ConsentRevision, PersistPrivacy);
             if (!GoogleConfiguration.AdvertisingAllowed) (Ads as IAdRequestCancellation)?.CancelPending();
             return saved;
