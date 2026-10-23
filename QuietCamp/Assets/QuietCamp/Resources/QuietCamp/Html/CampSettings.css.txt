@@ -20,6 +20,15 @@ button:disabled { opacity: 0.42; }
 .row { flex-direction: row; align-items: center; gap: 16px; }
 .row > button { flex-grow: 1; flex-basis: 0; }
 .column { gap: 18px; }
+.account-panel { width:100%; max-width:760px; align-self:center; }
+.account-provider { flex-direction:row; align-items:center; justify-content:flex-start; gap:24px; min-height:100px; }
+.account-provider-icon { width:52px; height:52px; flex-shrink:0; border-radius:26px; background-color:#e2e7df; align-items:center; justify-content:center; }
+.account-provider-icon text { font-size:36px; font-weight:bold; text-align:center; }
+.account-provider-google text { color:#4285f4; }
+.account-provider-facebook { background-color:#1877f2; }
+.account-provider-facebook text { color:#ffffff; }
+.account-provider-x { background-color:#202420; }
+.account-provider-x text { color:#ffffff; }
 .economy-status { font-size: 32px; width: 100%; padding: 20px; background-color: #e8ead8; border-radius: 18px; white-space: normal; }
 .hint-control { min-height: 144px; max-width: 65%; padding: 20px 28px; }
 .hint-control text { font-size: 32px; }

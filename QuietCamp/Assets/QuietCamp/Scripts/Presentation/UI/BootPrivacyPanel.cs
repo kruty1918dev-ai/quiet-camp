@@ -32,6 +32,7 @@ namespace QuietCamp.Presentation.UI
         bool _showDocument;
         bool _published;
         int _lastBackFrame = -1;
+        int _ageThreshold = 18;
         public bool Accepted { get; private set; }
         public bool Declined { get; private set; }
         public ContentDocument Document => _content?.Document;
@@ -85,7 +86,7 @@ namespace QuietCamp.Presentation.UI
         string T(string key) => UnityHtmlContentReader.Escape(_locale.T(key));
         string Button(string id, string label, Action click, string classes = "", bool enabled = true)
         {
-            _callbacks.Bind(id, click);
+            _callbacks.Bind(id, () => { if (!_dirty) click(); });
             return "<button id=\"" + id + "\" class=\"" + classes + "\" " + (enabled ? "onClick=\"Globals.campUi.Click('" + id + "')\"" : "disabled=\"true\"") + "><text>" + label + "</text></button>";
         }
         string Render()
@@ -110,7 +111,7 @@ namespace QuietCamp.Presentation.UI
                 + Button("boot-policy-source", T("boot.privacy.website"), () => _content.OpenSource(_publication.document), "policy-link", _content.CanOpenSource(_publication.document));
             if (!_content.Loading && Document == null)
                 links += Button("boot-policy-retry", T("boot.retry"), () => _content.Load(_publication.document, _locale.CurrentLanguageId, new UnityHtmlContentLoader(Path.Combine(UnityEngine.Application.persistentDataPath, "qc_policy_cache"))));
-            string body = text;
+            string body = text + Note("privacy.setup.policyQuestion");
             string actions;
             if (_showDocument)
             {
@@ -140,29 +141,21 @@ namespace QuietCamp.Presentation.UI
             switch (_setup.Step)
             {
                 case PrivacySetupStep.Age:
-                    string choices = Note("privacy.setup.ageHelp") + "<view class=\"policy-age-choices\">";
-                    foreach (PrivacyAgeBand band in Enum.GetValues(typeof(PrivacyAgeBand)))
-                    {
-
-                        var choice = band;
-                        choices += Button("boot-age-" + (int)band, (_setup.HasAgeChoice && _setup.Age == band ? "✓ " : "") + T("privacy.age." + (int)band),
-                            () => { _setup.SelectAge(choice); _dirty = true; }, _setup.HasAgeChoice && _setup.Age == band ? "policy-selected" : "");
-                    }
-                    return choices + "</view>";
-                case PrivacySetupStep.Analytics: return Note("privacy.explanation") + Note("privacy.provider") + Note("privacy.setup.optionalHelp");
-                case PrivacySetupStep.Crashes: return Note("privacy.crashes.explanation") + Note("privacy.setup.optionalHelp");
-                case PrivacySetupStep.Advertising: return Note("privacy.advertising.help") + Note("privacy.setup.adsHelp") + Note("privacy.setup.optionalHelp");
+                    return Note("privacy.setup.ageQuestion." + _ageThreshold) + Note("privacy.setup.ageBrief");
+                case PrivacySetupStep.Analytics: return Note("privacy.setup.analyticsBrief");
+                case PrivacySetupStep.Crashes: return Note("privacy.setup.crashesBrief");
+                case PrivacySetupStep.Advertising: return Note("privacy.setup.adsBrief");
                 default:
-                    string body = Note(_setup.Eligible ? "privacy.setup.review" : "privacy.setup.protected");
+                    string body = Note("privacy.setup.reviewQuestion");
+                    if (!_setup.Eligible) body += Note("privacy.setup.protectedBrief");
                     if (!_setup.HasOptionalServices) body += Note("privacy.setup.unavailable");
-                    body += Note("privacy.setup.local");
                     foreach (var item in new[] { new KeyValuePair<string, bool>("privacy.setup.analytics", _setup.Analytics),
                         new KeyValuePair<string, bool>("privacy.setup.crashes", _setup.Crashes) })
                         body += "<text class=\"policy-note\">" + T(item.Key) + ": " + T(item.Value ? "privacy.setup.on" : "privacy.setup.off") + "</text>";
                     body += _setup.Age == PrivacyAgeBand.From13To15
                         ? Note(_setup.RestrictedVideosAvailable ? "privacy.setup.limitedAvailable" : "privacy.setup.limitedInactive")
                         : "<text class=\"policy-note\">" + T("privacy.setup.ads") + ": " + T(_setup.Advertising ? "privacy.setup.on" : "privacy.setup.off") + "</text>";
-                    return body + Note("privacy.setup.withdraw");
+                    return body + Note("privacy.setup.changeLater");
             }
         }
         string StepActions()
@@ -170,20 +163,30 @@ namespace QuietCamp.Presentation.UI
             switch (_setup.Step)
             {
                 case PrivacySetupStep.Policy:
-                    return Button("boot-policy-exit", T("boot.privacy.exit"), Refuse)
-                        + Button("boot-policy-ack", T("privacy.setup.next"), () => { _setup.ReadPolicy(); _dirty = true; }, "", Document != null && !Declined);
+                    return Button("boot-policy-exit", T("privacy.setup.no"), Refuse)
+                        + Button("boot-policy-ack", T("privacy.setup.yes"), () => { _setup.ReadPolicy(); _dirty = true; }, "", Document != null && !Declined);
                 case PrivacySetupStep.Age:
-                    return Button("boot-privacy-back", T("privacy.setup.back"), Back)
-                        + Button("boot-age-next", T("privacy.setup.next"), () => { _setup.ConfirmAge(); _dirty = true; }, "", _setup.HasAgeChoice);
+                    return Button("boot-age-no", T("privacy.setup.no"), () => AnswerAge(false))
+                        + Button("boot-age-yes", T("privacy.setup.yes"), () => AnswerAge(true));
                 case PrivacySetupStep.Review:
-                    return Button("boot-privacy-back", T("privacy.setup.back"), Back)
-                        + Button("boot-privacy-finish", T("privacy.setup.play"), Accept);
+                    return Button("boot-privacy-back", T("privacy.setup.no"), Back)
+                        + Button("boot-privacy-finish", T("privacy.setup.yes"), Accept);
                 default:
-                    return Button("boot-privacy-no", T("privacy.setup.decline"), () => { _setup.Choose(false); _dirty = true; })
-                        + Button("boot-privacy-yes", T("privacy.setup.allow"), () => { _setup.Choose(true); _dirty = true; })
-                        + Button("boot-privacy-skip", T("privacy.setup.skip"), () => { _setup.ContinueWithoutOptional(); _dirty = true; })
-                        + Button("boot-privacy-back", T("privacy.setup.back"), Back);
+                    return Button("boot-privacy-no", T("privacy.setup.no"), () => { _setup.Choose(false); _dirty = true; })
+                        + Button("boot-privacy-yes", T("privacy.setup.yes"), () => { _setup.Choose(true); _dirty = true; });
             }
+        }
+        void AnswerAge(bool yes)
+        {
+            if (_setup.Step != PrivacySetupStep.Age) return;
+            if (!yes && _ageThreshold > 13) _ageThreshold = _ageThreshold == 18 ? 16 : 13;
+            else
+            {
+                _setup.SelectAge(!yes ? PrivacyAgeBand.Under13 : _ageThreshold == 18 ? PrivacyAgeBand.Adult
+                    : _ageThreshold == 16 ? PrivacyAgeBand.From16To17 : PrivacyAgeBand.From13To15);
+                _setup.ConfirmAge();
+            }
+            _dirty = true;
         }
         void Refuse() { if (!Accepted) Declined = true; }
         void Back()
@@ -192,7 +195,7 @@ namespace QuietCamp.Presentation.UI
             _lastBackFrame = Time.frameCount;
             if (_showDocument) _showDocument = false;
             else if (_setup.Step == PrivacySetupStep.Policy) Refuse();
-            else _setup.Back();
+            else { _setup.Back(); _ageThreshold = 18; }
             _dirty = true;
         }
         public void RequestBack() => Back();
@@ -211,7 +214,7 @@ namespace QuietCamp.Presentation.UI
             try
             {
                 var css = System.Text.RegularExpressions.Regex.Replace(Css, @"font-size:\s*([0-9.]+)px", match => "font-size:" + HtmlUi.Number(float.Parse(match.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture) * _save.Settings.textScale) + "px");
-                _host.Motion.ReducedMotion = _save.Settings.reducedMotion;
+                _host.Motion.ReducedMotion = true; // Setup text and actions must be immediately readable and tappable.
                 var result = _host.Mount((RectTransform)transform, new UnityHtmlDocument(Render(), css, "Boot privacy"), new Dictionary<string, object>
                 { ["campFont"] = CampTypography.Font, ["moyvaFont"] = CampTypography.Font });
                 if (!result.Succeeded) MountError = result.ErrorMessage;
@@ -229,17 +232,17 @@ namespace QuietCamp.Presentation.UI
           .policy-summary, .remote-paragraph, .remote-list-item { margin-bottom:24px; }
           .remote-heading { font-size:36px; margin-bottom:18px; }
           .policy-note { color:#546c58; font-size:26px; margin-top:24px; }
-          .policy-links { flex-direction:row; flex-wrap:wrap; gap:14px; margin-top:24px; }
+          .policy-links { flex-direction:row; flex-wrap:nowrap; flex-shrink:0; gap:14px; margin-top:24px; }
           button { min-height:100px; border-radius:20px; background-color:#e6e0ce; padding:16px 24px; justify-content:center; align-items:center; }
           button:disabled { opacity:0.45; }
           .policy-link { min-height:76px; flex-grow:1; }
           .policy-link text { font-size:24px; }
-          .policy-actions { flex-direction:row; gap:20px; margin-top:24px; }
+          .policy-actions { flex-direction:row; flex-shrink:0; min-height:100px; gap:20px; margin-top:24px; }
           .policy-actions button { flex-basis:0; flex-grow:1; }
           .policy-actions text, .policy-links text { width:100%; white-space:normal; text-align:center; }
           .policy-age-choices { gap:14px; margin-top:24px; }
           .policy-selected { background-color:#cad8bf; }
-          .policy-actions { flex-wrap:wrap; }
+          .policy-actions { flex-wrap:nowrap; }
           .policy-primary { background-color:#2e5144; }
           .policy-primary text { color:#f5efdc; }
           @media (layout: wide) { .policy-card { height:94%; padding:28px 40px; } .policy-title { font-size:38px; margin-bottom:12px; } .policy-status { margin-bottom:12px; } .policy-links, .policy-actions { margin-top:14px; } button { min-height:80px; } }

@@ -92,6 +92,34 @@ namespace QuietCamp.Tests
                 Assert.IsTrue(BootPrivacyPanel.Current.Declined);
             }
         }
+        [UnityTest] public IEnumerator YesAndNoStayInPlaceAcrossAgeAndPurposeQuestions()
+        {
+            Size(720,1600); ClearReceipt(); yield return ColdBoot(); yield return WaitPanel();
+            PrivacyBootTestSupport.Tap(PrivacyBootTestSupport.Find("boot-policy-ack")); yield return Frames();
+            var panel = BootPrivacyPanel.Current;
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            var flow = new PrivacySetup(true, true, true); flow.ReadPolicy();
+            typeof(BootPrivacyPanel).GetField("_setup", flags).SetValue(panel, flow);
+            typeof(BootPrivacyPanel).GetField("_dirty", flags).SetValue(panel, true);
+            yield return Frames();
+            Vector3 Center(string id) { var rect=(RectTransform)PrivacyBootTestSupport.Find(id).transform; return rect.TransformPoint(rect.rect.center); }
+            var no = Center("boot-age-no"); var yes = Center("boot-age-yes");
+            Assert.Less(no.x, yes.x);
+            PrivacyBootTestSupport.Tap(PrivacyBootTestSupport.Find("boot-age-yes")); yield return Frames();
+            foreach (var step in new[] { PrivacySetupStep.Advertising, PrivacySetupStep.Analytics, PrivacySetupStep.Crashes })
+            {
+                Assert.AreEqual(step, flow.Step);
+                Assert.Less(Vector3.Distance(no, Center("boot-privacy-no")), 2);
+                Assert.Less(Vector3.Distance(yes, Center("boot-privacy-yes")), 2);
+                Assert.IsNull(PrivacyBootTestSupport.Find("boot-privacy-skip"));
+                PrivacyBootTestSupport.Tap(PrivacyBootTestSupport.Find("boot-privacy-no")); yield return Frames();
+            }
+            Assert.AreEqual(PrivacySetupStep.Review, flow.Step);
+            Assert.Less(Vector3.Distance(no, Center("boot-privacy-back")), 2);
+            Assert.Less(Vector3.Distance(yes, Center("boot-privacy-finish")), 2);
+            Assert.IsFalse(flow.Analytics || flow.Crashes || flow.Advertising);
+        }
+
         [UnityTest] public IEnumerator ChangedContentRequiresNewAcknowledgementBeforeServices()
         {
             Size(1080,1920); ClearReceipt();

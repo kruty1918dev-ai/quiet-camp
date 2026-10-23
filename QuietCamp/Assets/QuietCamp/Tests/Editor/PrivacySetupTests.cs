@@ -7,6 +7,30 @@ namespace QuietCamp.Tests.Editor
 {
     public sealed class PrivacySetupTests
     {
+        [TestCase(0, true, PrivacyAgeBand.Adult)]
+        [TestCase(1, true, PrivacyAgeBand.From16To17)]
+        [TestCase(2, true, PrivacyAgeBand.From13To15)]
+        [TestCase(2, false, PrivacyAgeBand.Under13)]
+        public void BinaryAgeAnswersPreserveEveryAgeBand(int precedingNoAnswers, bool lastAnswer, PrivacyAgeBand expected)
+        {
+            var root = new UnityEngine.GameObject("PrivacyAgeTest");
+            try
+            {
+                var panel = root.AddComponent<QuietCamp.Presentation.UI.BootPrivacyPanel>();
+                var flow = new PrivacySetup(true, true, true);
+                flow.ReadPolicy();
+                var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+                typeof(QuietCamp.Presentation.UI.BootPrivacyPanel).GetField("_setup", flags).SetValue(panel, flow);
+                var answer = typeof(QuietCamp.Presentation.UI.BootPrivacyPanel).GetMethod("AnswerAge", flags);
+                for (int i = 0; i < precedingNoAnswers; i++) answer.Invoke(panel, new object[] { false });
+                answer.Invoke(panel, new object[] { lastAnswer });
+                Assert.AreEqual(expected, flow.Age);
+                Assert.AreNotEqual(PrivacySetupStep.Age, flow.Step, "The final answer advances without a separate Next tap.");
+                Assert.IsFalse(flow.Analytics || flow.Crashes || flow.Advertising, "Answering an age question never grants consent.");
+            }
+            finally { UnityEngine.Object.DestroyImmediate(root); }
+        }
+
         static PrivacySetup Adult(bool analytics = true, bool crashes = true, bool ads = true)
         {
             var flow = new PrivacySetup(analytics, crashes, ads);
