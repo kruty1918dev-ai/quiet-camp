@@ -24,6 +24,8 @@ namespace QuietCamp.Tests
                 var button = next!=null&&next.interactable?next:
                     Find("boot-age-0")??Find("boot-privacy-skip")??Find("boot-privacy-finish")??Find("boot-policy-ack");
                 if (BootPrivacyPanel.Current?.Accepted == false && button != null && button.interactable) Tap(button);
+                var localOnly=Find("account-local-only");
+                if(CloudAccountPanel.Current!=null && localOnly!=null && localOnly.interactable) Tap(localOnly);
                 yield return null;
             }
             Assert.IsTrue(Object.FindAnyObjectByType<QuietCampBootstrap>()?.StartupReady == true, "Boot did not reach the menu after explicit QA acknowledgement.");

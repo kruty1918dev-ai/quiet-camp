@@ -1,1 +1,10 @@
-{"name":"QuietCamp.Application","rootNamespace":"QuietCamp.Application","references":["QuietCamp.Domain","Kruty1918.Tutorials"],"autoReferenced":true}
+{
+  "name": "QuietCamp.Application",
+  "rootNamespace": "QuietCamp.Application",
+  "references": [
+    "QuietCamp.Domain",
+    "Kruty1918.Tutorials",
+    "Newtonsoft.Json"
+  ],
+  "autoReferenced": true
+}

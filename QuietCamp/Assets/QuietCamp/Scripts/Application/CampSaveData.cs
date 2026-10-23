@@ -60,6 +60,11 @@ namespace QuietCamp.Application
         public string privacyAcknowledgementLanguage, privacyAcknowledgedUtc;
         public bool privacyAcknowledgementDraft;
         public bool optionalVideoBonuses = true;
+        // Device-only account choice/reminder state, excluded from cloud progress.
+        public int accountChoiceVersion, cloudConsentVersion;
+        public bool cloudSyncEnabled;
+        public int accountReminderCompleted, accountReminderRewards;
+        public string accountReminderUtc;
         public bool fireflyLantern;
         public bool trailPennant = true;
     }

@@ -270,6 +270,30 @@
           "type": "string"
         }
       }
+    },
+    "cloudSave": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enabled",
+        "endpoint",
+        "reviewed",
+        "teenReviewed"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "reviewed": {
+          "type": "boolean"
+        },
+        "teenReviewed": {
+          "type": "boolean"
+        }
+      }
     }
   },
   "$schema": "https://json-schema.org/draft/2020-12/schema",

@@ -26,7 +26,7 @@
     "privacyPolicyUrl": "https://oleksiy-havryliuk.de/quiet-camp/privacy",
     "supportUrl": "https://oleksiy-havryliuk.de/contact",
     "termsUrl": "",
-    "publishedPolicyRevision": "2026-10-23.public-policy-3",
+    "publishedPolicyRevision": "2026-10-23.public-policy-6-linked-accounts",
     "publisherName": "Oleksii Havryliuk",
     "supportEmail": "support@oleksiy-havryliuk.de",
     "privacyEmail": "privacy@oleksiy-havryliuk.de",
@@ -56,5 +56,11 @@
   "complimentaryAccess": {
     "enabled": true,
     "endpoint": "https://quietcamp-access.oleksiy-havryliuk.workers.dev/v1/access"
+  },
+  "cloudSave": {
+    "enabled": false,
+    "endpoint": "",
+    "reviewed": false,
+    "teenReviewed": false
   }
 }

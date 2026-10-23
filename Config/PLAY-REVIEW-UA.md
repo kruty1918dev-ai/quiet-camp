@@ -105,8 +105,10 @@ CampEconomy зберігає токен, endpoint та додаткове пра
    sign out, повернення мережі. Billing/rewarded ads потребують окремих тестів.
 3. Звірити фактичний Android-інтерфейс із 451 символом, лише тоді подати
    актуальні приватні дані Google та позначити доступ готовим.
-4. Перед релізом узгодити опублікований privacy-текст: сайт за цією вказівкою
-   не змінювався й усе ще описує доступ як підготовлений. Юридичні review flags
-   залишилися false.
+4. Окреме оновлення від 23.10.2026 синхронізує політику en/uk/de із розгорнутим
+   Cloudflare Workers + EU D1: `2026-10-23.public-policy-4-cloudflare`.
+   [Джерела й межі перевірки](../docs/privacy-cloudflare-2026-10-23.md).
+   Це не підтверджує Android або договори постачальників; юридичні review flags
+   залишаються false.
 
 Джерело: [Google Play — Requirements for providing sign in details for review](https://support.google.com/googleplay/android-developer/answer/15748846?hl=en).

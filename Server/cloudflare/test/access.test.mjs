@@ -13,7 +13,8 @@ const account = JSON.stringify({schema:1,kind:"generated-alnum32-hmac-sha256-v1"
 let mf, db;
 beforeEach(async () => {
   mf = new Miniflare(convertV4MiniflareOptions({
-    modules:true, scriptPath:fileURLToPath(new URL("../src/index.mjs",import.meta.url)),
+    modules:[{type:"ESModule",path:fileURLToPath(new URL("../src/index.mjs",import.meta.url))},
+      {type:"ESModule",path:fileURLToPath(new URL("../src/cloud.mjs",import.meta.url))}],
     compatibilityDate:"2026-10-23", d1Databases:{ACCESS_DB:"quietcamp-local-only"},
     bindings:{QC_ANDROID_PACKAGE:"com.quietcamp.game",QC_PRO_PRODUCT:"quietcamp_pro",QC_EXPLORE_PUBLISHED:"true",
       QC_ACCESS_ACCOUNT:account,QC_ACCESS_PEPPER:pepper.toString("base64url")}

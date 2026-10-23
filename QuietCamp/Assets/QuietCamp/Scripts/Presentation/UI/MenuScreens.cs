@@ -116,6 +116,7 @@ namespace QuietCamp.Presentation.UI
                 + "<view class=\"grow\"></view>"
                 + "<view class=\"menu-actions\" id=\"menu-actions\" data-motion-role=\"edge-bottom\" data-motion-delay=\"0.08\">"
                 + (_services.Tutorial.NeedsMenuIntro ? MenuGuideIntro() : "")
+                + AccountReminder()
                 + Cta(ctaTitle, ctaSub)
                 + "<view class=\"menu-cards\">"
 
@@ -137,6 +138,19 @@ namespace QuietCamp.Presentation.UI
                 + "</view>"
                 + HtmlUi.Button(_surface, "menu-guide-ok", T("guide.menu.ok"), Dismiss, "primary guide-ok")
                 + "</view>";
+        }
+
+        string AccountReminder()
+        {
+            if(!_services.Cloud.LinkReminderDue || _services.Cloud.HasAccount) return "";
+            return "<view class=\"guide-card menu-guide\"><view class=\"guide-copy\">"
+                + HtmlUi.Text(T("account.reminder"),"guide-instruction") + "</view>"
+                + HtmlUi.Button(_surface,"account-reminder-link",T("account.protectProgress"),()=>{
+                    _services.Cloud.DismissLinkReminder(); Show("Settings"); _setNav.Open("account"); RefreshAll();
+                },"quiet")
+                + HtmlUi.Button(_surface,"account-reminder-later",T("account.later"),()=>{
+                    _services.Cloud.DismissLinkReminder(); RefreshAll();
+                },"quiet") + "</view>";
         }
 
         string OrbButton(string id, string icon, string tooltip, Action click)
@@ -254,6 +268,7 @@ namespace QuietCamp.Presentation.UI
             if (_setNav.Category == "privacy" && _setNav.Section == "data")
             {
                 extra = "<view class=\"settings-reset\">" + HtmlUi.Text(T("settings.reset.section"), "settings-group-title");
+                if(_confirmReset && _services.Cloud.OptedIn) extra+=HtmlUi.Text(T("account.resetCloudWarning"),"s-sub");
                 if (!_confirmReset)
                     extra += OverlayButton("reset", "settings.reset", () => { _confirmReset = true; _confirmErase = false; _overlay.Refresh(); }, "legal-link danger");
                 else extra += HtmlUi.Text(T("settings.reset.confirm"), "s-sub") + "<view class=\"row\">" +

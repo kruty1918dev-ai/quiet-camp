@@ -1,5 +1,8 @@
 # Налаштування власника Quiet Camp
 
+Добровільні акаунти та хмарні збереження: [CLOUD-SAVES-UA.md](CLOUD-SAVES-UA.md).
+Це окремий від complimentary Pro сервіс; наразі він вимкнений у конфігурації.
+
 Працюйте з кореня репозиторію, Python 3.10+. `owner.local.json` — поза Unity Assets,
 виключений із Git. Створіть його копію з `owner.example.json`, якщо файлу ще немає.
 Схема редактора — `owner.schema.json`; CLI додатково перевіряє семантику.

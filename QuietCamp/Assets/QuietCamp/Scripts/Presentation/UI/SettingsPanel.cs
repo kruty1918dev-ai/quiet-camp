@@ -18,8 +18,10 @@ namespace QuietCamp.Presentation.UI
         public string Section;
         public bool Advanced, PrivacyDetails, Licenses, DataInformation;
         internal int DisclosureRevision;
+        internal CloudAccountView AccountView;
         public void Open(string category, string section = null)
         {
+            AccountView = null;
             Category = category; Section = section;
             Advanced = PrivacyDetails = Licenses = DataInformation = false;
             DisclosureRevision++;
@@ -162,6 +164,7 @@ namespace QuietCamp.Presentation.UI
                         } catch { services.Notifications.Show(T("diagnostics.failed")); }
                     }, "quiet"));
                 }
+                html.Append(HtmlUi.Button(surface,"account-open",T("account.title"),()=>Navigate(surface,nav,"account"),"quiet"));
                 html.Append(HtmlUi.Button(surface, "complimentary-access", T("access.title"), () =>
                     services.Actions.Execute(new Kruty1918.UIActions.API.UiActionRequest(new Kruty1918.UIActions.API.UiActionId("qc.economy"),
                         Kruty1918.UIActions.API.UiActionSource.Button, "Settings")), "quiet"));
@@ -178,6 +181,9 @@ namespace QuietCamp.Presentation.UI
 
             switch (nav.Category)
             {
+                case "account":
+                    html.Append((nav.AccountView ??= new CloudAccountView(services,surface)).Render());
+                    break;
                 case "privacy":
                     html.Append(PrivacyPanel.Render(services, surface, nav));
                     break;

@@ -58,6 +58,10 @@ def https(value):
         return False
 
 
+def cloud_config(config):
+    return config.get('cloudSave', {'enabled': False, 'endpoint': '', 'reviewed': False, 'teenReviewed': False})
+
+
 def validate(config):
     try:
         return validate_fields(config)
@@ -66,6 +70,8 @@ def validate(config):
 
 
 def validate_fields(config):
+    # Existing private owner files remain valid; a new online feature defaults off.
+    config = {**config, "cloudSave": cloud_config(config)}
     template = read(ROOT / "Config/owner.example.json")
     errors = []
     def fail(path, message):
@@ -155,6 +161,12 @@ def validate_fields(config):
     billing = config["billing"]
     if config['complimentaryAccess']['enabled'] and not config['complimentaryAccess']['endpoint']:
         fail('complimentaryAccess.endpoint', 'enabled access requires a deployed HTTPS endpoint')
+    cloud = cloud_config(config)
+    if cloud['endpoint'] and (not https(cloud['endpoint']) or urlsplit(cloud['endpoint']).query
+                              or urlsplit(cloud['endpoint']).path.rstrip('/') != '/v1/cloud'):
+        fail('cloudSave.endpoint', 'use the deployed HTTPS /v1/cloud endpoint without query')
+    if cloud['enabled'] and not cloud['endpoint']:
+        fail('cloudSave.endpoint', 'enabled cloud saves require a deployed endpoint')
     if billing["proProductId"] and not re.fullmatch(r"[a-z0-9][a-z0-9_.]{0,147}", billing["proProductId"]):
         fail("billing.proProductId", "invalid Play product ID")
     if billing["verificationEndpoint"] and not billing["proProductId"]: fail("billing", "endpoint requires product ID")
@@ -218,10 +230,30 @@ def planned(config, root=ROOT):
                   limitedAdsReviewed=review["limitedAds"], underAgeAdvertisingReviewed=review["underAgeAds"],
                   childAdvertisingReviewed=review["childAds"] and review["childAdFormatsAndroid"],
                   adultPersonalizationReviewed=review["adultPersonalization"])
+    cloud = cloud_config(config)
+    publication = read(root / (RESOURCE + 'privacy_content.json'))
+    if review['policyPublished']:
+        variants = publication.get('document', {}).get('variants', [])
+        if len(variants) != 3 or {v.get('language') for v in variants} != {'uk','en','de'}:
+            raise ConfigError('Publish only a complete uk/en/de policy bundle')
+        for variant in variants:
+            expected = legal['privacyPolicyUrl'].rstrip('/') + ('' if variant['language']=='en' else '/'+variant['language'])
+            if variant.get('revision') != legal['publishedPolicyRevision'] or variant.get('sourceUrl') != expected or not variant.get('bundledBody'):
+                raise ConfigError('Published policy metadata does not match the synchronized bundle')
+            variant['url'] = expected
+    else:
+        for variant in publication.get('document', {}).get('variants', []): variant['url'] = ''
+    publication['draft'] = not review['policyPublished']
+    outputs[RESOURCE + 'privacy_content.json'] = encoded(publication)
+    fields.update(accountsEnabled=bool(cloud['enabled'] and cloud['reviewed'] and review['policyPublished']),
+                  cloudSavesEnabled=bool(cloud['enabled'] and cloud['reviewed'] and review['policyPublished']),
+                  accountDeletionUrl=cloud['endpoint'].rstrip('/')+'/delete-account' if cloud['enabled'] else '')
     merged(RESOURCE + "legal.json", fields)
     outputs[RESOURCE + "owner_client.json"] = encoded({
         "schemaVersion": 1, "mode": config["mode"], "androidPackageName": config["android"]["packageName"],
         "complimentaryAccessEnabled": config['complimentaryAccess']['enabled'], "complimentaryAccessEndpoint": config['complimentaryAccess']['endpoint'],
+        "cloudSaveEnabled": cloud['enabled'], "cloudSaveEndpoint": cloud['endpoint'],
+        "cloudSaveReviewed": cloud['reviewed'], "cloudSaveTeenReviewed": cloud['teenReviewed'],
         "proProductId": config["billing"]["proProductId"], "verificationEndpoint": config["billing"]["verificationEndpoint"],
         "billingReviewed": review["billingTerms"],
         "operationalMetricsEndpoint": config["operationalMetrics"]["endpoint"],
@@ -307,6 +339,9 @@ def readiness(config):
         "complimentaryAccess": {"configured": bool(config['complimentaryAccess']['endpoint']), "enabled": config['complimentaryAccess']['enabled'], "reviewed": False,
                                 "missingEvidence": ["Android form/keyboard, full content navigation, cold start/offline/expiry and independent privacy choices; recheck public credentials before submitting App access instructions"]
                                 if config['complimentaryAccess']['enabled'] and config['complimentaryAccess']['endpoint'] else ["Deploy public HTTPS access service and verify supplied credentials and Android form"]},
+        "cloudSaves": {"configured": bool(cloud_config(config)['enabled'] and cloud_config(config)['endpoint']),
+                       "reviewed": published and cloud_config(config)['reviewed'],
+                       "missingEvidence": ["Firebase Auth providers/authorized domain, D1 migration, Android Keystore/login/link/conflict/offline/delete and current policy/Data Safety; teen authorization separate"]},
         "policy": {"configured": bool(config["legal"]["publishedPolicyRevision"]), "reviewed": published,
                    "missingEvidence": ["Owner/legal review, public policy matches bundled uk/en/de, Play Data Safety submission"]},
         "operationalMetrics": {"configured": bool(config["operationalMetrics"]["endpoint"]), "reviewed": published and r["operationalMetricsLegalBasis"],

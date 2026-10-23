@@ -36,6 +36,7 @@ namespace QuietCamp.Infrastructure
 
         public event Action<string> SaveFailed;
         public event Action BeforeSave;
+        public event Action SaveCommitted;
 
         public SaveAdapter(ISaveWriteService writer = null,bool memoryOnly=false)
         {
@@ -91,8 +92,8 @@ namespace QuietCamp.Infrastructure
             using var audit = PerformanceAudit.Measure("QC.SaveAdapter.Save");
             if (_loadFailed) { SaveFailed?.Invoke("Existing save could not be loaded; writing is disabled."); return false; }
             BeforeSave?.Invoke();
-            if(_memoryOnly)return true;
-            if (_writer.TrySave(Slot, _modules, null, out var error)) return true;
+            if(_memoryOnly) { SaveCommitted?.Invoke(); return true; }
+            if (_writer.TrySave(Slot, _modules, null, out var error)) { SaveCommitted?.Invoke(); return true; }
             Debug.LogError($"[QuietCamp] Save failed: {error}");
             SaveFailed?.Invoke(error);
             return false;

@@ -19,6 +19,19 @@
   <assembly fullname="Newtonsoft.Json" preserve="all"/>
   <assembly fullname="Unity.Newtonsoft.Json" preserve="all"/>
   <assembly fullname="QuietCamp.Domain" preserve="all"/>
+  <assembly fullname="QuietCamp.Application">
+    <type fullname="QuietCamp.Application.CloudSnapshot" preserve="all"/>
+    <type fullname="QuietCamp.Application.CloudResources" preserve="all"/>
+    <type fullname="QuietCamp.Application.AttemptRecord" preserve="all"/>
+    <type fullname="QuietCamp.Application.CloudCredential" preserve="all"/>
+    <type fullname="QuietCamp.Application.CloudReply" preserve="all"/>
+    <type fullname="QuietCamp.Application.ProgressSaveData" preserve="all"/>
+    <type fullname="QuietCamp.Application.SessionSaveData" preserve="all"/>
+    <type fullname="QuietCamp.Application.AlbumSaveData" preserve="all"/>
+    <type fullname="QuietCamp.Application.AlbumSaveData/Entry" preserve="all"/>
+    <type fullname="QuietCamp.Application.MemorySaveData" preserve="all"/>
+    <type fullname="QuietCamp.Application.TutorialSaveData" preserve="all"/>
+  </assembly>
   <assembly fullname="QuietCamp.Runtime" preserve="all"/>
   <assembly fullname="QuietCamp.Infrastructure">
     <type fullname="QuietCamp.Infrastructure.LocalSessionDocument" preserve="all"/>
