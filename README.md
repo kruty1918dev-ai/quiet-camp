@@ -99,7 +99,7 @@ Art, audio й vendor assets зберігають власні умови ліц�
 
 ## Приватність і Google SDK
 
-У main об’єднано privacy-гілки: Firebase Core/Analytics/Crashlytics 14.0.0, AdMob 11.6.0, вікові категорії й незалежні дозволи від 16 років. Політика en/uk/de має ревізію 2026-10-21.privacy-4; підтвердження документа не є згодою. Виробничі перевірки залишаються закритими.
+У main об’єднано privacy-гілки: Firebase Core/Analytics/Crashlytics 14.0.0, AdMob 11.6.0, вікові категорії й незалежні дозволи від 16 років. Політика en/uk/de має ревізію `2026-10-23.public-policy-4-cloudflare` та описує розгорнутий безоплатний Pro-доступ через Cloudflare Workers і EU D1; підтвердження документа не є згодою. Виробничі перевірки залишаються закритими. [Джерела оновлення](docs/privacy-cloudflare-2026-10-23.md).
 
 [Реалізація, результати перевірок і релізні блокери](Design/Legal/PRIVACY-RUNTIME-UA.md), [облік даних і Data safety](Design/Legal/DATA-SAFETY-UA.md), [зв’язок з офіційним сайтом](docs/privacy-integration.md). Поточні probe-проєкти: tools/privacy-probe та tools/optional-google-probe; платформа/SDK підміняються, перевірки не є Android runtime або player build.
 
