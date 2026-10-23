@@ -1,6 +1,41 @@
 [← Головна](README.md) · [Довідник](docs/README.md) · [Карта коду](docs/project-map.md) · [Стан](docs/status.md) · [Інтерактивні виміри](https://kruty1918dev-ai.github.io/quiet-camp/performance.html)
 
-# Карта продуктивності Quiet Camp · 09.10.2026
+# Карта продуктивності Quiet Camp
+
+## Мобільний runtime · 23.10.2026
+
+Завантаження оформлення використовує один typed JSON decode замість DOM,
+окремого profile decode та повторного decode всього документа. Позначка
+`absent`, профілі, seed і чинна серіалізація збережені; приватні поля envelope
+явно включені в IL2CPP linker rules. Після складання статичних batch-мешів
+player звільняє їхні тимчасові model-меші; рухомі моделі та геометрія для
+погодних/shelter-запитів залишаються доступними. Рахунок трикутників більше
+не копіює весь індексний буфер у керований масив.
+
+HTML surface індексує IDs одним обходом за кадр із повторним використанням
+списку; remount/layout скидають індекс, а вузли з disposed context ігноруються.
+HUD використовує цей індекс для anchors. Вода отримує власника атмосфери явно,
+fallback-пошук обмежено одним разом на секунду. Строки Pro кешують лише розбір
+дати: годинник, зміни збереження й відкликання перевіряються надалі.
+Вузькі CSS-набори відтворюють поточні правила навчальних підказок із канонічного
+CSS; перевірено збереження правил та їхнього порядку в усіх чотирьох наборах.
+
+Графічні профілі, авторська геометрія, освітлення, тіні й роздільність збережені.
+Поточний portable probe порівнює decoded data/серіалізацію QC001/QC007/QC010,
+`absent`/profile-контракти та час/алокації керованого коду:
+
+```bash
+dotnet run --configuration Release --project tools/world-audit/Export.csproj -- --mobile-performance QuietCamp/Assets/QuietCamp/Resources
+dotnet run --configuration Release --project tools/world-audit/Export.csproj -- --mobile-check-all QuietCamp/Assets/QuietCamp/Resources
+```
+
+Вивід — поточні виміри на хості, **не** Unity loading time, RAM телефона, FPS,
+GPU/thermal benchmark або підтвердження художньої відповідності. Кеш строків
+додатково перевіряється focused-тестами `tools/privacy-probe/Probe.csproj`.
+Для нативної перевірки потрібні дозволений Unity/телефонний сеанс і актуальні
+Game View кадри через WorldOps. Player build і новий Editor зараз не запускалися.
+
+## Історичний native замір · 09.10.2026
 
 **Перший раунд оптимізації виконано й переміряно в тому самому Unity Editor.** Рух листя перенесено в GPU shader, створення світу розподілено між кадрами, мапа кешує проєктну геометрію й створює кнопки лише для видимого вікна зі стабільними IDs, HTML UI використовує згенеровані вузькі стилі та один dirty-document pass на кадр.
 

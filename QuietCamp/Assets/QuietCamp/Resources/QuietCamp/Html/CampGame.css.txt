@@ -202,8 +202,7 @@ button text, .gc-text text { white-space: normal; }
 .guide-concept { flex-direction: row; align-items: center; gap: 12px; margin-bottom: 8px; }
 .guide-concept .ico { width: 48px; height: 48px; min-width: 48px; min-height: 48px; }
 .guide-concept text { font-size: 28px; font-weight: bold; color: #294537; }
-.guest-card.wish-focus-shade .ico-shade, .guest-card.wish-focus-quiet .ico-quiet,
-.guest-card.wish-focus-friends .ico-guests { background-color: #eadfab; border: 3px solid #6d8060; border-radius: 12px; width: 56px; height: 56px; min-width: 56px; min-height: 56px; }
+.guest-card.wish-focus-shade .ico-shade, .guest-card.wish-focus-quiet .ico-quiet, .guest-card.wish-focus-friends .ico-guests { background-color: #eadfab; border: 3px solid #6d8060; border-radius: 12px; width: 56px; height: 56px; min-width: 56px; min-height: 56px; }
 .demo-guide-name { font-size: 28px; font-weight: bold; color: #294537; }
 .intro-continue { font-size: 26px; color: #294537; margin-top: 10px; }
 .camp-hud .guide-card { min-height: 220px; }

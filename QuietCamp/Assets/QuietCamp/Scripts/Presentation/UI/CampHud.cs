@@ -944,10 +944,10 @@ namespace QuietCamp.Presentation.UI
                 if (button != null) button.interactable = !_placement.HasPreview;
             }
             _anchorRects.Clear();
-            foreach (var rect in _surface.GetComponentsInChildren<RectTransform>())
-                foreach (var pair in _projectedAnchors)
-                    if (rect.name == "<view #tent-chip-" + pair.Key + ">")
-                        _anchorRects.Add((pair.Key, rect, pair.Value));
+            foreach (var pair in _projectedAnchors) {
+                var rect = _surface.Element("tent-chip-" + pair.Key);
+                if (rect != null && rect.gameObject.activeInHierarchy) _anchorRects.Add((pair.Key, rect, pair.Value));
+            }
         }
 
         /// <summary>Follow animated tents without rebuilding the HTML document every frame.</summary>

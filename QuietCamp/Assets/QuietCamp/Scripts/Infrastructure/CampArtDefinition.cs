@@ -10,6 +10,10 @@ namespace QuietCamp.Infrastructure
     /// <summary>Resolved presentation data. Puzzle data and saved revisions stay separate.</summary>
     public sealed class CampArtDefinition
     {
+        // Load-only envelope fields. Defaults are omitted so authored documents
+        // and composition hashes retain their existing serialization.
+        [JsonProperty("absent", DefaultValueHandling=DefaultValueHandling.Ignore, NullValueHandling=NullValueHandling.Ignore)] bool _absent;
+        [JsonProperty("profile", DefaultValueHandling=DefaultValueHandling.Ignore)] string _profile;
         public SeasonAtmospherePreset atmosphere;
         [JsonProperty(NullValueHandling=NullValueHandling.Ignore)] public GroundSurfaceSettings groundSurface;
         public sealed class GroundSurfaceSettings
@@ -118,14 +122,19 @@ namespace QuietCamp.Infrastructure
             var current = Resources.Load<TextAsset>("QuietCamp/ArtCompositions/" + level.id.Replace(':', '_'));
             var asset = revision ?? current;
             if (asset == null) return null;
-            if (Newtonsoft.Json.Linq.JObject.Parse(asset.text).Value<bool?>("absent") == true) return null;
-            var reference = JsonConvert.DeserializeObject<ProfileReference>(asset.text);
-            if (!string.IsNullOrEmpty(reference.profile)) return CampCompositionGenerator.Generate(level, reference.profile, reference.seed, out _);
-            var definition = JsonConvert.DeserializeObject<CampArtDefinition>(asset.text);
+            var definition = ReadDocument(asset.text, out var profile);
+            if (definition == null) return null;
+            if (!string.IsNullOrEmpty(profile)) return CampCompositionGenerator.Generate(level, profile, definition.seed, out _);
             definition.Validate(level);
             return definition;
         }
-        sealed class ProfileReference { public string profile; public int seed; }
+        public static CampArtDefinition ReadDocument(string json, out string profile)
+        {
+            var definition = JsonConvert.DeserializeObject<CampArtDefinition>(json);
+            if (definition == null) throw new InvalidDataException("Camp art document must be an object.");
+            profile = definition._profile;
+            return definition._absent ? null : definition;
+        }
         public void Validate(LevelData level)
         {
             atmosphere?.Validate();

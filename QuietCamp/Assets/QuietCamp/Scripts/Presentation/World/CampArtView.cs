@@ -81,6 +81,7 @@ namespace QuietCamp.Presentation.World
                 _meshes.Add(mesh); catalogMeshes.Add(source.id, mesh);
             }
             var batches = new List<CombineInstance>(); var foliageBatches = new List<CombineInstance>();
+            var movingModels = new HashSet<string>(StringComparer.Ordinal);
             var regrowthBatches=new[]{new List<CombineInstance>(),new List<CombineInstance>(),new List<CombineInstance>()};
             var bankPlants=excludeLandscape?Array.Empty<CampArtDefinition.Instance>():RiverBankEcology.Generate(definition,PresentedLandscape,riverProfile);
             var riverField=new RiverSurfaceField(PresentedLandscape);
@@ -106,6 +107,7 @@ namespace QuietCamp.Presentation.World
                 if(!string.IsNullOrEmpty(item.motion)&&!string.IsNullOrEmpty(item.modelId))
                 {
                     var moving=AddMesh("Scenery_"+item.id,catalogMeshes[item.modelId],material);
+                    movingModels.Add(item.modelId);
                     moving.transform.localPosition=position;moving.transform.localRotation=rotation;moving.transform.localScale=scale;
                     moving.gameObject.AddComponent<WeatherObjectMotion>().Configure(item);
 #if UNITY_EDITOR
@@ -173,6 +175,13 @@ namespace QuietCamp.Presentation.World
                 var weatherArt=definition.EditingCopy();weatherArt.landscape=PresentedLandscape;
                 SeasonAtmosphere.Configure(definition.atmosphere,weatherArt,_camera,_root.transform);
             }
+#if !UNITY_EDITOR
+            // Static instances have already been copied into the final batches.
+            // Moving models still render their source mesh; weather surface
+            // sources and final batches remain readable for later shelter updates.
+            foreach (var pair in catalogMeshes)
+                if (!movingModels.Contains(pair.Key)) { _meshes.Remove(pair.Value); DestroyOwned(pair.Value); }
+#endif
         }
         public void SetQualityTier(int tier)
         {
@@ -401,7 +410,8 @@ namespace QuietCamp.Presentation.World
             go.AddComponent<MeshFilter>().sharedMesh = mesh;
             var renderer = go.AddComponent<MeshRenderer>(); renderer.sharedMaterial = material;
             renderer.shadowCastingMode = casts ? ShadowCastingMode.On : ShadowCastingMode.Off; renderer.receiveShadows = true;
-            TriangleCount += mesh.triangles.Length / 3;
+            for (int submesh = 0; submesh < mesh.subMeshCount; submesh++)
+                TriangleCount += (int)mesh.GetIndexCount(submesh) / 3;
             return renderer;
         }
         Mesh MakeMesh(string name, List<Vector3> positions, List<Color> colors)

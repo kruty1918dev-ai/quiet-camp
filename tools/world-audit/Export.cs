@@ -5,6 +5,8 @@ using Newtonsoft.Json.Linq;
 using QuietCamp.Domain;
 using QuietCamp.Infrastructure;
 using QuietCamp.Presentation.World;
+if(args.Length>0&&args[0]=="--mobile-performance"){MobilePerformanceChecks.Run(args[1]);return;}
+if(args.Length>0&&args[0]=="--mobile-check-all"){MobilePerformanceChecks.CheckAll(args[1]);return;}
 if(args.Length>0&&args[0]=="--composition-check"){CompositionChecks.Run(args[1],args[2]);return;}
 if(args.Length>0&&args[0]=="--well-check"){WellChecks.Run(args[1]);return;}
 if(args.Length<2)throw new ArgumentException("resources-directory output-directory [comma-separated campaign orders]");

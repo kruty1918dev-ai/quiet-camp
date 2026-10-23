@@ -94,5 +94,22 @@ namespace QuietCamp.Tests.Editor
             Assert.IsTrue(access.Evaluate("included.1").CanStart);
             Assert.AreEqual(JourneyAccessState.PurchaseRequired,access.Evaluate("future.1").State);
         }
+        [Test] public void CachedPurchaseExpiryStillObservesClockAndRestoredSaveChanges()
+        {
+            _data.pro=true; _data.proVerificationRequired=true; _data.proValidUntilUtc=_now.AddHours(1).ToString("O");
+            Assert.IsTrue(_economy.IsPro); var saved=_data.Copy();
+            _data.proValidUntilUtc="corrupt"; Assert.IsFalse(_economy.IsPro);
+            _data.Restore(saved); Assert.IsTrue(_economy.IsPro);
+            _now=_now.AddHours(2); Assert.IsFalse(_economy.IsPro);
+            _data.proValidUntilUtc=_now.AddHours(1).ToString("O"); Assert.IsTrue(_economy.IsPro);
+        }
+        [Test] public async Task CachedComplimentaryExpiryDoesNotExtendAnExpiredOrRevokedLease()
+        {
+            await _access.SignIn("play-review","password"); Assert.IsTrue(_economy.IsPro);
+            _data.complimentaryValidUntilUtc=_now.AddMinutes(-1).ToString("O"); Assert.IsFalse(_economy.IsPro);
+            _data.complimentaryValidUntilUtc=_now.AddMinutes(1).ToString("O"); Assert.IsTrue(_economy.IsPro);
+            _now=_now.AddMinutes(2); Assert.IsFalse(_economy.IsPro);
+            _access.SignOut(); Assert.IsFalse(_economy.HasComplimentaryPro);
+        }
     }
 }

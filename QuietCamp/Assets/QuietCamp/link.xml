@@ -20,6 +20,12 @@
   <assembly fullname="Unity.Newtonsoft.Json" preserve="all"/>
   <assembly fullname="QuietCamp.Domain" preserve="all"/>
   <assembly fullname="QuietCamp.Runtime" preserve="all"/>
+  <assembly fullname="QuietCamp.Infrastructure">
+    <type fullname="QuietCamp.Infrastructure.CampArtDefinition" preserve="nothing">
+      <field name="_absent"/>
+      <field name="_profile"/>
+    </type>
+  </assembly>
   <assembly fullname="DOTween" preserve="all"/>
   <assembly fullname="DOTweenPro" preserve="all"/>
   <assembly fullname="UnityHTML.Runtime" preserve="all"/>

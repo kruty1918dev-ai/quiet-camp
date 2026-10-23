@@ -59,13 +59,23 @@ namespace QuietCamp.Application
         readonly Func<DateTime> _clock;
         string _complimentaryEndpoint;
         bool _complimentaryRevoked;
+        string _cachedProExpiry, _cachedComplimentaryExpiry;
+        DateTime _proExpiry, _complimentaryExpiry;
         public event Action Changed;
         public EconomySaveData Data => _data;
-        public bool IsPro => HasComplimentaryPro || (_data.pro && (!_data.proVerificationRequired || (DateTime.TryParse(_data.proValidUntilUtc,
-            System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out var until) && until.ToUniversalTime() > _clock().ToUniversalTime())));
+        public bool IsPro => HasComplimentaryPro || (_data.pro && (!_data.proVerificationRequired
+            || LeaseActive(_data.proValidUntilUtc, ref _cachedProExpiry, ref _proExpiry)));
         public bool HasComplimentaryPro => !_complimentaryRevoked && !string.IsNullOrEmpty(ComplimentarySessionToken)
-            && DateTime.TryParse(_data.complimentaryValidUntilUtc, System.Globalization.CultureInfo.InvariantCulture,
-                System.Globalization.DateTimeStyles.RoundtripKind, out var until) && until.ToUniversalTime() > UtcNow;
+            && LeaseActive(_data.complimentaryValidUntilUtc, ref _cachedComplimentaryExpiry, ref _complimentaryExpiry);
+        bool LeaseActive(string value, ref string cachedValue, ref DateTime expiry)
+        {
+            if (value != cachedValue) {
+                cachedValue = value;
+                expiry = DateTime.TryParse(value, System.Globalization.CultureInfo.InvariantCulture,
+                    System.Globalization.DateTimeStyles.RoundtripKind, out var until) ? until.ToUniversalTime() : DateTime.MinValue;
+            }
+            return expiry > UtcNow; // The clock is checked on every query; only parsing is cached.
+        }
         public string ComplimentarySessionToken => !_complimentaryRevoked && !string.IsNullOrEmpty(_complimentaryEndpoint) && _complimentaryEndpoint == _data.complimentaryEndpoint
             ? _data.complimentarySessionToken : null;
         public void ConfigureComplimentaryAccess(string endpoint) { _complimentaryEndpoint = endpoint; }

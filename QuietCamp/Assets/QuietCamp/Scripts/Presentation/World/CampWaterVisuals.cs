@@ -8,11 +8,15 @@ namespace QuietCamp.Presentation.World
     /// <summary>Authored shoreline using Stylized Water 3; a small sky cube replaces reflection cameras.</summary>
     public sealed class CampWaterVisuals : MonoBehaviour
     {
+        static readonly int Speed = Shader.PropertyToID("_Speed"), WaveHeight = Shader.PropertyToID("_WaveHeight"),
+            NormalStrength = Shader.PropertyToID("_NormalStrength"), SunReflectionStrength = Shader.PropertyToID("_SunReflectionStrength");
         Material _water, _bank;
         readonly List<Mesh> _meshes = new List<Mesh>();
         Cubemap _sky;
         ReflectionProbe _probe;
         CampAtmosphere _atmosphere;
+        float _nextOwnerSearch;
+        public void BindAtmosphere(CampAtmosphere atmosphere) { _atmosphere = atmosphere; }
         readonly Color[] _pixels = new Color[16*16];
         float _nextSky;
         Color _lastSky, _lastHorizon;
@@ -96,18 +100,19 @@ namespace QuietCamp.Presentation.World
         void LateUpdate()
         {
             if(_water==null)return;
-            if(_atmosphere==null)
+            if(_atmosphere==null && Time.unscaledTime >= _nextOwnerSearch)
             {
+                _nextOwnerSearch = Time.unscaledTime + 1;
                 var composition=GetComponentInParent<EnvironmentComposer>();
                 foreach(var owner in FindObjectsByType<CampAtmosphere>(FindObjectsSortMode.None))
                     if(owner.Environment==composition){_atmosphere=owner;break;}
             }
             bool reduced=QuietCampBootstrap.ServicesRef?.ReducedMotion??false;
             float wind=_atmosphere?.Wind.Strength??.2f,rain=_atmosphere?.Weather?.RainAmount??0;
-            _water.SetFloat("_Speed",reduced?.02f:.25f+wind*.15f);
-            _water.SetFloat("_WaveHeight",reduced?.006f:.023f+wind*.026f);
-            _water.SetFloat("_NormalStrength",.05f+rain*.055f);
-            _water.SetFloat("_SunReflectionStrength",Mathf.Lerp(.65f,.12f,_atmosphere?.Weather?.Cloudiness??0));
+            _water.SetFloat(Speed,reduced?.02f:.25f+wind*.15f);
+            _water.SetFloat(WaveHeight,reduced?.006f:.023f+wind*.026f);
+            _water.SetFloat(NormalStrength,.05f+rain*.055f);
+            _water.SetFloat(SunReflectionStrength,Mathf.Lerp(.65f,.12f,_atmosphere?.Weather?.Cloudiness??0));
             if(Time.unscaledTime>=_nextSky){_nextSky=Time.unscaledTime+2;UpdateSky();}
         }
         void UpdateSky()

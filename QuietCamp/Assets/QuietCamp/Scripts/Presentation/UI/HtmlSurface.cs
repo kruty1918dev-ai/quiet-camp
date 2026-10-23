@@ -31,6 +31,9 @@ namespace QuietCamp.Presentation.UI
         static int _mountFrame = -1;
         readonly Dictionary<string, object> _globals = new Dictionary<string, object>();
         Slider[] _sliders = Array.Empty<Slider>();
+        readonly List<RectTransform> _elementRects = new List<RectTransform>();
+        readonly Dictionary<string, RectTransform> _elements = new Dictionary<string, RectTransform>(StringComparer.Ordinal);
+        int _elementFrame = -1;
         int _themeFrames;
         Tween _settingsSave;
         bool _savePending;
@@ -80,16 +83,30 @@ namespace QuietCamp.Presentation.UI
 
         public RectTransform Element(string id)
         {
-            foreach (var rect in GetComponentsInChildren<RectTransform>(true))
-                if (rect.name.Contains("#" + id + ">"))
-                {
-                    // CSS/text-scale remount destroys the old hierarchy at end of frame. Both
-                    // trees can still be under this root during Mounted: never attach native
-                    // artwork to a matching element whose React context has already disposed.
-                    var element=rect.GetComponentInParent<ReactUnity.UGUI.Behaviours.ReactElement>();
-                    if(element?.Component?.Context!=null&&!element.Component.Context.IsDisposed)return rect;
-                }
-            return null;
+            if (string.IsNullOrEmpty(id)) return null;
+            if (_elementFrame != Time.frameCount) IndexElements();
+            return _elements.TryGetValue(id, out var rect) && LiveElement(rect) ? rect : null;
+        }
+        static bool LiveElement(RectTransform rect)
+        {
+            if (rect == null) return false;
+            // A remount can leave the disposed tree under the same root until
+            // end-of-frame. It must never become an artwork/input attachment target.
+            var element = rect.GetComponentInParent<ReactUnity.UGUI.Behaviours.ReactElement>();
+            return element?.Component?.Context != null && !element.Component.Context.IsDisposed;
+        }
+        void IndexElements()
+        {
+            _elementFrame = Time.frameCount; _elements.Clear();
+            GetComponentsInChildren(true, _elementRects);
+            foreach (var rect in _elementRects) {
+                string name = rect.name;
+                int start = name.IndexOf('#');
+                int end = start >= 0 ? name.IndexOf('>', start + 1) : -1;
+                if (end <= start + 1 || !LiveElement(rect)) continue;
+                string id = name.Substring(start + 1, end - start - 1);
+                if (!_elements.ContainsKey(id)) _elements.Add(id, rect);
+            }
         }
 
         public void Refresh() => _dirty = true;
@@ -135,6 +152,7 @@ namespace QuietCamp.Presentation.UI
 
         void MountDocument()
         {
+            _elementFrame = -1;
             using var audit = PerformanceAudit.Measure("QC.HtmlSurface.MountDocument");
             _callbacks.Clear();
             var html = _render();
@@ -168,7 +186,7 @@ namespace QuietCamp.Presentation.UI
             // An intentionally empty menu layer needs no React/CSS context.
             if (html == "<view />" || html == "<view/>")
             {
-                _host.Unmount(); _sliders = Array.Empty<Slider>();
+                _host.Unmount(); _sliders = Array.Empty<Slider>(); _elements.Clear(); _elementRects.Clear();
                 IsMounted = true; LastMountError = null; _themeFrames = 0; Mounted?.Invoke(); return;
             }
             if (_globals.Count == 0)
@@ -177,6 +195,7 @@ namespace QuietCamp.Presentation.UI
                 _globals["campUi"] = _callbacks; _globals["campFont"] = font; _globals["moyvaFont"] = font;
             }
             var result = _host.Mount((RectTransform)transform, new UnityHtmlDocument(html, css, name), _globals);
+            _elementFrame = -1;
             if (!result.Succeeded) { MountFailed(result.ErrorMessage); return; }
             IsMounted = true;
             LastMountError = null;
@@ -279,6 +298,7 @@ namespace QuietCamp.Presentation.UI
 
         void OnLayoutChanged()
         {
+            _elementFrame = -1;
             using var audit = PerformanceAudit.Measure("QC.HtmlSurface.OnLayoutChanged");
             ApplyNativeControlTheme();
             LayoutChanged?.Invoke();
@@ -289,6 +309,7 @@ namespace QuietCamp.Presentation.UI
             FlushSettingsSave();
             if (_services != null) _services.Localization.LanguageChanged -= Refresh;
             _host.Dispose();
+            _elements.Clear(); _elementRects.Clear();
             _callbacks.Clear();
         }
     }

@@ -182,6 +182,7 @@ namespace QuietCamp.Presentation.World
                 var compositionRoot=new GameObject("ComposedEnvironment");compositionRoot.transform.SetParent(decorRoot,false);
                 _composition=compositionRoot.AddComponent<EnvironmentComposer>();
                 _composition.Configure(level,camera,decorRoot,QuietCampBootstrap.ServicesRef?.Assets??AssetCatalog.Load(),UnityEngine.Application.isPlaying);
+                foreach (var water in _composition.GetComponentsInChildren<CampWaterVisuals>(true)) water.BindAtmosphere(this);
                 _windSim.SetShelter(_composition.Shelter);
                 _windShelterTexture=_composition.Shelter?.CreateTexture();
                 PublishShelter();
