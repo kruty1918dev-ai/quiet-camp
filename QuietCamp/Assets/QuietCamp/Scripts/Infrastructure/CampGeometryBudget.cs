@@ -19,6 +19,12 @@ namespace QuietCamp.Infrastructure
 
         public static bool IsGrass(CampArtDefinition.Model model)
             =>model.seasonalRole=="groundcover";
+        public static CampArtDefinition DenseMeadow(CampArtDefinition source)
+        {
+            if(source==null||source.mobileMeadow)return source;
+            if(!source.mobileGeometryBudget)throw new InvalidOperationException("Dense meadow requires the scene budget stage first.");
+            var result=source.EditingCopy();result.mobileMeadow=true;return result;
+        }
         static uint Stable(string id)
         {uint h=2166136261;foreach(char c in id??"")h=unchecked((h^c)*16777619);return h;}
 

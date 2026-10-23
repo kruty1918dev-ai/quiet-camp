@@ -9,7 +9,7 @@ def mobile_budget(args):
  dotnet=args.dotnet or shutil.which('dotnet')
  if not dotnet:raise SystemExit('Install .NET SDK 8+ or pass --dotnet. No Unity Editor was launched.')
  output.mkdir(parents=True,exist_ok=True);original_prefabs(repo,output)
- sources=[repo/'tools/world-audit'/p for p in ['Export.csproj','MobileBudgetChecks.cs','MathBoundary.cs','PrefabGeometry.cs']]+[repo/'QuietCamp/Assets/QuietCamp/Scripts'/p for p in ['Infrastructure/CampGeometryBudget.cs','Infrastructure/CampArtDefinition.cs','Infrastructure/WorldWellShafts.cs','Infrastructure/FrozenLandscape.cs','Infrastructure/RiverSurfaceField.cs','Presentation/CampQualityPolicy.cs']]
+ sources=[repo/'tools/world-audit'/p for p in ['Export.csproj','MobileBudgetChecks.cs','MathBoundary.cs','PrefabGeometry.cs']]+[repo/'QuietCamp/Assets/QuietCamp/Scripts'/p for p in ['Infrastructure/CampGeometryBudget.cs','Infrastructure/CampMeadowImpostors.cs','Infrastructure/MobileMeadowPattern.cs','Infrastructure/CampArtDefinition.cs','Infrastructure/WorldWellShafts.cs','Infrastructure/FrozenLandscape.cs','Infrastructure/RiverSurfaceField.cs','Presentation/CampQualityPolicy.cs']]
  hashes={str(p.relative_to(repo)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}
  subprocess.run([dotnet,'run','--project',str(repo/'tools/world-audit/Export.csproj'),'--','--budget-check',str(project/'Assets/QuietCamp/Resources'),str(output)],check=True,cwd=repo)
  if any(hashlib.sha256((repo/p).read_bytes()).hexdigest()!=sha for p,sha in hashes.items()):raise SystemExit('Budget sources changed during audit; discard mixed results.')

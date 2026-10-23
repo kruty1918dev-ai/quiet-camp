@@ -244,6 +244,7 @@ namespace QuietCamp.Presentation.World
         }
         void GroundPalette(Material material)
         {
+            MobileMeadowMaterial.Bind(material,Definition);
             var finish=Definition.groundSurface??new CampArtDefinition.GroundSurfaceSettings();
             material.SetVector("_GroundFinish",new Vector4(finish.patchScale,finish.facetScale,finish.relief,0));
             material.SetVector("_CampFieldSize",new Vector4(_level.width*.5f,_level.height*.5f,0,0));

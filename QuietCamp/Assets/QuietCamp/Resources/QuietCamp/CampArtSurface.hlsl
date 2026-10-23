@@ -1,5 +1,6 @@
 // Shared surface lighting for native meshes and the staged height-field experiment.
             #include "NaturalGround.hlsl"
+            #include "MobileMeadow.hlsl"
             float ArtHash(float2 p) { return frac(sin(dot(p,float2(127.1,311.7)))*43758.5453); }
             float ArtNoise(float2 p)
             {
@@ -9,10 +10,12 @@
             half4 CampArtColor(Varyings input)
             {
                 float3 normal=normalize(input.normalWS);
+                MeadowDetail meadow=(MeadowDetail)0;
                 if(_ArtGround>.5)
                 {
                     float2 p=input.positionWS.xz;float4 use=CampUse(p);
                     normal=NaturalGroundNormal(normal,p,_GroundFinish,_CampClimate.x+use.a,_CampClimate.y);
+                    if(_MobileMeadow>.5){meadow=SampleMeadowDetail(p);normal=DenseMeadowNormal(normal,meadow,use.g,_CampClimate.y);}
                 }
                 if(_ArtMeadow>.5)normal=normalize(lerp(float3(0,1,0),normal,.12));
                 Light sun=GetMainLight(TransformWorldToShadowCoord(input.positionWS));
@@ -51,6 +54,7 @@
                 {
                     float2 p=input.positionWS.xz;float4 use=CampUse(p);
                     float3 natural=MeadowSubstrate(NaturalGroundColor(p,_GroundLow.rgb,_GroundHigh.rgb,_SoilTone.rgb,_GroundFinish,_CampClimate.x),p,_MeadowExtent);
+                    if(_MobileMeadow>.5)natural=DenseMeadowColor(natural,_GroundLow.rgb,_GroundHigh.rgb,meadow,use.g,use.r,_CampClimate.y);
                     // Preserve authored scars and banks without retaining a differently painted puzzle rectangle.
                     float fieldDistance=max(abs(p.x)-_CampFieldSize.x,abs(p.y)-_CampFieldSize.y);
                     float undisturbed=1-smoothstep(.3,2.0,fieldDistance+(ArtNoise(p*.8f)-.5)*.45);

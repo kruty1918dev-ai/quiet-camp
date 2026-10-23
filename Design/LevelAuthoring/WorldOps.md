@@ -459,3 +459,16 @@ particle capacity, включно з неактивними об’єктами.
 виконує реальний C# алгоритм для 100 активних ревізій і solved gameplay OBJ.
 Це read-only перевірка джерел і часткового бюджету, не native capture/apply.
 [Результати та відкриті перевірки](../../reports/mobile-geometry-budget/2026-10-23/README-UA.md).
+
+## Густий mobile meadow — етап 2
+
+Після `scene.mobile-budget` додано `vegetation.mobile-meadow`: щільний
+малюнок травинок і нормалей на непрозорій землі плюс один alpha-clipped
+mesh перехрещених пучків до 1 152 трикутників. Бюджет не повертається
+до сотень тисяч примірників. Спільні текстури генерує `MobileMeadowPattern`.
+
+Рецепти `mobile-meadow-pilot.json` і `mobile-meadow-all.json` мають обидва
+етапи, coverage, меню, обидві орієнтації та native ліміт 50 000; auto-apply
+вимкнено. `mobile-budget-audit` тепер перевіряє також фактичний C# bake
+текстур і card mesh. Це не оцінка кадрів і не вимірювання GPU.
+[Результати, діагностика та відкриті перевірки](../../reports/dense-meadow/2026-10-23/README-UA.md).

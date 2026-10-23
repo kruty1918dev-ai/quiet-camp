@@ -16,6 +16,7 @@ namespace QuietCamp.Infrastructure
         [JsonProperty("profile", DefaultValueHandling=DefaultValueHandling.Ignore)] string _profile;
         public SeasonAtmospherePreset atmosphere;
         [JsonProperty(DefaultValueHandling=DefaultValueHandling.Ignore)] public bool mobileGeometryBudget;
+        [JsonProperty(DefaultValueHandling=DefaultValueHandling.Ignore)] public bool mobileMeadow;
         [JsonProperty(NullValueHandling=NullValueHandling.Ignore)] public GroundSurfaceSettings groundSurface;
         public sealed class GroundSurfaceSettings
         {
@@ -127,7 +128,7 @@ namespace QuietCamp.Infrastructure
             if (definition == null) return null;
             if (!string.IsNullOrEmpty(profile)) return CampCompositionGenerator.Generate(level, profile, definition.seed, out _);
             definition.Validate(level);
-            return CampGeometryBudget.Prepare(definition);
+            return CampGeometryBudget.DenseMeadow(CampGeometryBudget.Prepare(definition));
         }
         public static CampArtDefinition ReadDocument(string json, out string profile)
         {

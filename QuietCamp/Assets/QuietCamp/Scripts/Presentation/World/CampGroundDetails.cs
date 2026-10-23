@@ -227,14 +227,15 @@ namespace QuietCamp.Presentation.World
         }
         void BuildBudgetCover()
         {
-            var data=CampGeometryBudget.SparseCover(_art,_level.width,_level.height,_level.decorSeed);
+            var data=_art.mobileMeadow?CampMeadowImpostors.Build(_art,_level.width,_level.height,_level.decorSeed)
+                :CampGeometryBudget.SparseCover(_art,_level.width,_level.height,_level.decorSeed);
             if(data.triangles.Length==0)return;
             var mesh=data.CreateMesh();mesh.name=data.name;
-            mesh.uv2=Enumerable.Range(0,mesh.vertexCount).Select(i=>new Vector2(i%3==1?1:0,1)).ToArray();
+            mesh.uv2=_art.mobileMeadow?mesh.uv.Select(v=>new Vector2(v.y,1)).ToArray():Enumerable.Range(0,mesh.vertexCount).Select(i=>new Vector2(i%3==1?1:0,1)).ToArray();
             _fieldCover=new GameObject(data.name,typeof(MeshFilter),typeof(MeshRenderer),typeof(OwnedCampMesh),typeof(OwnedCampMaterial));
             _fieldCover.transform.SetParent(transform,false);_fieldCover.layer=BoardRenderer.DecorLayer;
             _fieldCover.GetComponent<MeshFilter>().sharedMesh=mesh;_fieldCover.GetComponent<OwnedCampMesh>().Mesh=mesh;
-            var material=new Material(Resources.Load<Shader>("QuietCamp/CampArtLit")){name="Sparse meadow accents"};
+            var material=new Material(Resources.Load<Shader>(_art.mobileMeadow?"QuietCamp/MobileMeadowCards":"QuietCamp/CampArtLit")){name=data.name};
             material.SetFloat("_ArtGrass",1);material.SetFloat("_ArtMeadow",1);
             material.SetColor("_ArtAmbient",CampArtDefinition.Color(_art.atmosphere?.ambientColor??_art.ambientColor)*.55f);
             _fieldMaterial=material;_fieldCover.GetComponent<OwnedCampMaterial>().Material=material;
@@ -342,6 +343,7 @@ namespace QuietCamp.Presentation.World
         }
         void BindMaterial(Material material)
         {
+            MobileMeadowMaterial.Bind(material,_art);
             if(material==null||!material.HasProperty("_CampUse")||_bound.Contains(material))return;
             var cover=_art?.fieldCover??new CampArtDefinition.FieldCoverSettings();
             var area=CoverBounds(cover);

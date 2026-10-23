@@ -9,6 +9,8 @@
 
 <p align="center">Unity 6 / URP · Offline-first · Українська / English / Deutsch</p>
 
+23.10.2026 — [етап 2: густий луг через detail mapping і grass cards](reports/dense-meadow/2026-10-23/README-UA.md). Матеріал землі створює густоту, один card mesh додає силует; максимум 1 152 трикутники для цього шару. Native вигляд та FPS ще не перевірено.
+
 Кандидат оптимізації 23.10.2026: [звіт оптимізації геометрії](reports/mobile-geometry-budget/2026-10-23/README-UA.md). 100 рівнів перевірено автономно; повний native бюджет 50 000 та FPS на телефоні ще не підтверджені.
 
 Діагностичний Android APK із локальним JSON для кожного сеансу:
