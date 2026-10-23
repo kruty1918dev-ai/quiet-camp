@@ -21,6 +21,7 @@ namespace QuietCamp.Application
         public bool initialized, pro, proVerificationRequired;
         public string proValidUntilUtc;
         public string complimentarySessionToken, complimentaryValidUntilUtc, complimentaryEndpoint;
+        public bool complimentaryExplorePublishedContent;
         public int lives, hints, currency, adLivesUsed, adHintsUsed;
         public string adDay;
         public string pendingAdLifeReceipt, pendingAdHintReceipt;
@@ -35,6 +36,7 @@ namespace QuietCamp.Application
             pendingAdLifeReceipt = pendingAdLifeReceipt, pendingAdHintReceipt = pendingAdHintReceipt,
             lifeRecoveryAnchorUtc = lifeRecoveryAnchorUtc,
             complimentarySessionToken = complimentarySessionToken, complimentaryValidUntilUtc = complimentaryValidUntilUtc, complimentaryEndpoint = complimentaryEndpoint,
+            complimentaryExplorePublishedContent = complimentaryExplorePublishedContent,
             attempts = (attempts ?? Array.Empty<AttemptRecord>()).Select(a => new AttemptRecord { levelId = a.levelId, checks = a.checks, consecutiveFailures=a.consecutiveFailures, recoveryHintPending=a.recoveryHintPending }).ToArray(),
             appliedReceiptIds = (string[])(appliedReceiptIds ?? Array.Empty<string>()).Clone()
         };
@@ -46,6 +48,7 @@ namespace QuietCamp.Application
             pendingAdLifeReceipt = value.pendingAdLifeReceipt; pendingAdHintReceipt = value.pendingAdHintReceipt;
             lifeRecoveryAnchorUtc = value.lifeRecoveryAnchorUtc;
             complimentarySessionToken = value.complimentarySessionToken; complimentaryValidUntilUtc = value.complimentaryValidUntilUtc; complimentaryEndpoint = value.complimentaryEndpoint;
+            complimentaryExplorePublishedContent = value.complimentaryExplorePublishedContent;
             attempts = value.attempts; appliedReceiptIds = value.appliedReceiptIds;
         }
     }
@@ -67,6 +70,7 @@ namespace QuietCamp.Application
             || LeaseActive(_data.proValidUntilUtc, ref _cachedProExpiry, ref _proExpiry)));
         public bool HasComplimentaryPro => !_complimentaryRevoked && !string.IsNullOrEmpty(ComplimentarySessionToken)
             && LeaseActive(_data.complimentaryValidUntilUtc, ref _cachedComplimentaryExpiry, ref _complimentaryExpiry);
+        public bool CanExplorePublishedContent => HasComplimentaryPro && _data.complimentaryExplorePublishedContent;
         bool LeaseActive(string value, ref string cachedValue, ref DateTime expiry)
         {
             if (value != cachedValue) {
@@ -79,7 +83,7 @@ namespace QuietCamp.Application
         public string ComplimentarySessionToken => !_complimentaryRevoked && !string.IsNullOrEmpty(_complimentaryEndpoint) && _complimentaryEndpoint == _data.complimentaryEndpoint
             ? _data.complimentarySessionToken : null;
         public void ConfigureComplimentaryAccess(string endpoint) { _complimentaryEndpoint = endpoint; }
-        public EconomyResult GrantComplimentaryPro(string token, string validUntilUtc)
+        public EconomyResult GrantComplimentaryPro(string token, string validUntilUtc, bool explorePublishedContent = false)
         {
             if (string.IsNullOrEmpty(_complimentaryEndpoint) || token == null || token.Length != 43
                 || token.Any(c => !(c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c >= '0' && c <= '9' || c == '-' || c == '_'))
@@ -87,6 +91,7 @@ namespace QuietCamp.Application
                     System.Globalization.DateTimeStyles.RoundtripKind, out var until) || until.ToUniversalTime() <= UtcNow || until.ToUniversalTime() > UtcNow.AddDays(1).AddMinutes(1))
                 return EconomyResult.Invalid;
             var result = Commit(() => { _complimentaryRevoked = false; _data.complimentarySessionToken = token;
+                _data.complimentaryExplorePublishedContent = explorePublishedContent;
                 _data.complimentaryEndpoint = _complimentaryEndpoint; _data.complimentaryValidUntilUtc = validUntilUtc; });
             if (result != EconomyResult.Applied) _complimentaryRevoked = true;
             return result;
@@ -94,7 +99,7 @@ namespace QuietCamp.Application
         public EconomyResult RevokeComplimentaryPro()
         {
             _complimentaryRevoked = true;
-            return Commit(() => { _data.complimentarySessionToken = _data.complimentaryValidUntilUtc = _data.complimentaryEndpoint = null; });
+            return Commit(() => { _data.complimentarySessionToken = _data.complimentaryValidUntilUtc = _data.complimentaryEndpoint = null; _data.complimentaryExplorePublishedContent = false; });
         }
         public int Lives => _data.lives;
         public int Hints => _data.hints;

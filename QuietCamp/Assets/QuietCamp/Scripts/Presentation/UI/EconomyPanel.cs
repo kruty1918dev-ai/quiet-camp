@@ -15,12 +15,15 @@ namespace QuietCamp.Presentation.UI
         string _accessUsername = "", _accessPassword = "";
         Func<EconomyResult> _exchange;
         bool _disposed, _offerObserved;
-        public EconomyPanel(GameServices services, HtmlSurface surface) { _services = services; _surface = surface; }
+        readonly Action<string> _playLevel;
+        string _browseJourney;
+        int _browsePage;
+        public EconomyPanel(GameServices services, HtmlSurface surface, Action<string> playLevel = null) { _services = services; _surface = surface; _playLevel = playLevel; }
         string T(string key) => _services.Localization.T(key);
         public static string Status(GameServices services, string levelId = null)
             => services.Economy.IsPro ? "" : HtmlUi.Text(string.Format(services.Localization.T("economy.status"),
                 services.Economy.Lives, services.Economy.Hints), "economy-status");
-        public void ResetConfirmation() { _confirm = _confirmLabel = null; _exchange = null; _accessUsername = _accessPassword = ""; }
+        public void ResetConfirmation() { _confirm = _confirmLabel = _browseJourney = null; _browsePage = 0; _exchange = null; _accessUsername = _accessPassword = ""; }
         public string Render()
         {
             var e = _services.Economy;
@@ -80,6 +83,8 @@ namespace QuietCamp.Presentation.UI
             html.Append(HtmlUi.Text(T("access.explain"), "s-sub"));
             if (_services.Economy.HasComplimentaryPro) {
                 html.Append(HtmlUi.Text(T("access.Granted"), "s-sub"));
+                if (_services.Economy.CanExplorePublishedContent) html.Append(HtmlUi.Text(T("access.explorePublished"), "s-sub"));
+                if (_services.Economy.CanExplorePublishedContent && _playLevel != null) RenderContentBrowser(html);
                 html.Append(HtmlUi.Button(_surface, "access-sign-out", T("access.signOut"), () => { access.SignOut(); _surface.Refresh(); }, "quiet", !access.Busy));
             } else {
                 _surface.Callbacks.BindText("access-username", value => _accessUsername = (value ?? "").Length <= 100 ? value : "");
@@ -92,6 +97,29 @@ namespace QuietCamp.Presentation.UI
                 if (access.State != ComplimentaryAccessState.Unavailable) html.Append(HtmlUi.Text(T("access." + access.State), "s-sub"));
             }
             return html.Append("</view>").ToString();
+        }
+        void RenderContentBrowser(StringBuilder html)
+        {
+            html.Append(HtmlUi.Text(T("access.browse"), "s-sub"));
+            foreach (var journey in _services.Journeys.Journeys) {
+                if (!journey.published || journey.id == "qa") continue;
+                string id = journey.id;
+                html.Append(HtmlUi.Button(_surface, "access-journey-" + id, T(journey.titleKey), () => {
+                    _browseJourney = id; _browsePage = 0; _surface.Refresh();
+                }, "quiet"));
+            }
+            var selected = _services.Journeys.Find(_browseJourney);
+            if (selected == null || !selected.published) return;
+            const int pageSize = 20;
+            int start = _browsePage * pageSize, end = Math.Min(start + pageSize, selected.levelIds.Length);
+            for (int i = start; i < end; i++) {
+                string id = selected.levelIds[i];
+                html.Append(HtmlUi.Button(_surface, "access-level-" + i,
+                    (i + 1) + ". " + LevelDisplay.Title(id, _services.Localization, _services.Journeys),
+                    () => { if (_services.Economy.CanExplorePublishedContent && _services.CanStart(id)) _playLevel(id); }, "quiet", _services.CanStart(id)));
+            }
+            if (_browsePage > 0) html.Append(HtmlUi.Button(_surface, "access-page-previous", T("access.previousPage"), () => { _browsePage--; _surface.Refresh(); }, "quiet"));
+            if (end < selected.levelIds.Length) html.Append(HtmlUi.Button(_surface, "access-page-next", T("access.nextPage"), () => { _browsePage++; _surface.Refresh(); }, "quiet"));
         }
         async void SignInComplimentary()
         {

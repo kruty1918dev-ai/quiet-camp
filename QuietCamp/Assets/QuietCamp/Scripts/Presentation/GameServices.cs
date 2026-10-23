@@ -260,7 +260,7 @@ namespace QuietCamp.Presentation
             var config = MonetizationConfiguration.Load();
             Economy = new CampEconomy(Save.Economy, config.economy, Save.Save);
             Journeys = config.Catalog();
-            JourneyAccess = new JourneyAccessService(Journeys, Progression, Save.Entitlements, () => Economy.IsPro,id=>SubscriptionEntitlement?.Invoke(id)??false);
+            JourneyAccess = new JourneyAccessService(Journeys, Progression, Save.Entitlements, () => Economy.IsPro,id=>SubscriptionEntitlement?.Invoke(id)??false, () => Economy.CanExplorePublishedContent);
             Memories = new CampMemoryService(Save.Memories);
             Completion = new CampCompletionService(Save, Progression, Memories, Journeys);
             Attempts = new CampAttemptService(Save, Economy, Completion);
@@ -312,7 +312,7 @@ namespace QuietCamp.Presentation
             if (errors.Count > 0) return errors;
             Journeys = MonetizationConfiguration.Load().Catalog();
             JourneyAccess = new JourneyAccessService(Journeys, Progression, Save.Entitlements,
-                () => Economy.IsPro, id => SubscriptionEntitlement?.Invoke(id) ?? false);
+                () => Economy.IsPro, id => SubscriptionEntitlement?.Invoke(id) ?? false, () => Economy.CanExplorePublishedContent);
             Completion = new CampCompletionService(Save, Progression, Memories, Journeys);
             Attempts = new CampAttemptService(Save, Economy, Completion);
             OnMonetizationChanged();

@@ -11,7 +11,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import quote
-from complimentary_access import ComplimentaryAccess, AccessDenied
+from complimentary_access import ComplimentaryAccess, AccessDenied, AccessRateLimited
 
 
 class Rejected(ValueError):
@@ -163,14 +163,17 @@ class Service:
 def wsgi(service, oidc_verify=None, complimentary=None):
     def application(environ, start_response):
         status, body = "200 OK", {}
+        headers = []
         try:
+            route = environ.get("PATH_INFO")
+            if route in ("/v1/access/sign-in", "/v1/access/refresh") and complimentary is not None:
+                complimentary.check_rate(environ.get('REMOTE_ADDR', 'unknown'), route)
             if environ.get("REQUEST_METHOD") != "POST": raise Rejected("POST required")
             size = int(environ.get("CONTENT_LENGTH") or 0)
             if size < 2 or size > 16384: raise Rejected("Invalid body size")
             if environ.get("CONTENT_TYPE", "").split(";")[0] != "application/json": raise Rejected("JSON required")
             request = json.loads(environ["wsgi.input"].read(size))
             if not isinstance(request, dict): raise Rejected("Object required")
-            route = environ.get("PATH_INFO")
             if route == "/v1/purchases/verify": body = service.verify(request)
             elif route in ("/v1/access/sign-in", "/v1/access/refresh"):
                 if complimentary is None: raise RuntimeError("Complimentary access disabled")
@@ -184,6 +187,9 @@ def wsgi(service, oidc_verify=None, complimentary=None):
                 data = json.loads(base64.b64decode(message["data"], validate=True))
                 service.notification(data)
             else: status = "404 Not Found"
+        except AccessRateLimited:
+            status, body = "429 Too Many Requests", {"error": "Retry later"}
+            headers.append(('Retry-After', '600'))
         except AccessDenied:
             status, body = "401 Unauthorized", {"error": "Access denied"}
         except (Rejected, ValueError, KeyError, TypeError):
@@ -192,7 +198,7 @@ def wsgi(service, oidc_verify=None, complimentary=None):
             # Never echo Google exceptions: they can include purchase-token URLs.
             status, body = "503 Service Unavailable", {"error": "Retry later"}
         encoded = json.dumps(body, separators=(",", ":")).encode()
-        start_response(status, [("Content-Type", "application/json"), ("Cache-Control", "no-store"), ("Content-Length", str(len(encoded)))])
+        start_response(status, [("Content-Type", "application/json"), ("Cache-Control", "no-store"), ("Content-Length", str(len(encoded))), *headers])
         return [encoded]
     return application
 
@@ -213,7 +219,8 @@ def production_app():
         except Exception: raise Rejected("OIDC rejected") from None
         if claims.get("email") != identity or claims.get("email_verified") is not True: raise Rejected("Wrong push identity")
     complimentary = ComplimentaryAccess(store, package, product, os.environ.get('QC_COMPLIMENTARY_USERNAME', ''),
-                                       os.environ.get('QC_COMPLIMENTARY_PASSWORD_HASH', ''))
+                                       os.environ.get('QC_COMPLIMENTARY_PASSWORD_HASH', ''),
+                                       explore_published=os.environ.get('QC_COMPLIMENTARY_EXPLORE_PUBLISHED') == 'true')
     return wsgi(service, verify_oidc, complimentary)
 
 

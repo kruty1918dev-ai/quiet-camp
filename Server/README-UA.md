@@ -3,6 +3,10 @@
 Цей каталог не входить до Unity Assets. Сервер не розгорнуто. Реальні покупки,
 Google credentials, продукт Play та production endpoint не надані.
 
+Для чинного Vercel підготовлений окремий complimentary-only варіант:
+[точне розгортання, змінні й перевірки](VERCEL-UA.md). Він ще не розгорнутий;
+використовує постійне Redis-сховище, а не SQLite у serverless `/tmp`.
+
 `service.py` надає WSGI-застосунок: `POST /v1/purchases/verify`,
 `POST /v1/play/notifications` і вимкнений за замовчуванням `POST /v1/metrics`.
 Тести не потребують Google credentials: `python -m unittest discover -s Server -q`.
@@ -13,6 +17,9 @@ Google credentials, продукт Play та production endpoint не надан
 `POST /v1/access/refresh` — `packageName`, `sessionToken`. Обидва повертають
 вузьку область `scope=pro`, package/product і право на 24 години. Відсутня
 серверна конфігурація дає 503, неправильні дані — 401 без їхнього відображення.
+`explorePublishedContent=true` — додаткове явне серверне право на весь
+опублікований контент без prerequisite/progression/paywall gates; його не
+слід плутати зі звичайним Pro. Увімкнення — `QC_COMPLIMENTARY_EXPLORE_PUBLISHED=true`.
 Пароль не має строку дії, одноразового коду чи геообмеження. Нових користувачів
 ці endpoints не реєструють. Товар Play і його квитанції для них не потрібні.
 
@@ -21,9 +28,12 @@ Google credentials, продукт Play та production endpoint не надан
 Інструмент не перезаписує існуючі дані та не вмикає доступ. Приватний JSON
 призначений для полів Play Console після перевірки; `.private.env` містить
 `QC_COMPLIMENTARY_USERNAME` і PBKDF2-хеш для сервера. Не кладіть ці файли в Git.
-Без них доступ вимкнений. Сесії зберігаються хешованими у тому самому SQLite;
-неактивні 90 днів очищуються під час наступного входу. Обмежте auth-запити на
-ingress, вимкніть body/header logging, забезпечте HTTPS і постійний диск.
+Без них доступ вимкнений. Для WSGI сесії зберігаються хешованими у тому самому
+SQLite; неактивні 90 днів очищуються під час наступного входу й відхиляються
+на refresh. Durable rate limit: 8 входів/10 хв на peer IP, 200/10 хв загалом,
+120 refresh/10 хв на IP; 429 із Retry-After. Хости повинні передавати справжній
+peer IP через довірений ingress, не довільний заголовок клієнта. Не зберігайте
+тіла/секретні заголовки в журналах; забезпечте HTTPS і постійний диск.
 Зміна серверного хешу відкликає старі сесії при повторній перевірці.
 
 Повний статус та інструкції: [Config/PLAY-REVIEW-UA.md](../Config/PLAY-REVIEW-UA.md).

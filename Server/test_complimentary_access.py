@@ -76,5 +76,31 @@ class AccessTests(unittest.TestCase):
         with self.assertRaises(ValueError): provision(path.parent)
         with self.assertRaises(ValueError): provision(Path(__file__).resolve().parent/'unsafe')
 
+    def test_rate_limit_is_shared_after_restart_and_expires_without_locking_account(self):
+        wrong = dict(self.credentials, password='incorrect-password')
+        for _ in range(8): self.assertEqual('401 Unauthorized', self.call('/v1/access/sign-in', wrong)[0])
+        restarted = ComplimentaryAccess(Store(self.store.path), 'com.quietcamp.game', 'quietcamp_pro', 'play-review', self.encoded, lambda:self.now)
+        app = wsgi(Service(None,self.store), complimentary=restarted)
+        status, body = self.call('/v1/access/sign-in', self.credentials, app)
+        self.assertEqual('429 Too Many Requests', status)
+        self.assertNotIn('sessionToken', body)
+        self.now += 600
+        self.assertEqual('200 OK', self.call('/v1/access/sign-in', self.credentials, app)[0])
+
+    def test_full_content_is_a_separate_explicit_grant_and_rotation_revokes_it(self):
+        full = ComplimentaryAccess(self.store, 'com.quietcamp.game', 'quietcamp_pro', 'play-review', self.encoded, lambda:self.now, explore_published=True)
+        app = wsgi(Service(None,self.store), complimentary=full)
+        status, grant = self.call('/v1/access/sign-in', self.credentials, app)
+        self.assertEqual('200 OK', status); self.assertTrue(grant['explorePublishedContent'])
+        self.assertFalse(self.access.sign_in(self.credentials)['explorePublishedContent'])
+        self.assertEqual('401 Unauthorized', self.call('/v1/access/refresh', dict(packageName='com.quietcamp.game', sessionToken=grant['sessionToken']))[0])
+
+    def test_missing_store_fails_closed_without_echoing_credentials(self):
+        def unavailable(*args): raise RuntimeError('private backend details')
+        self.access.sessions.allow = unavailable
+        status, body = self.call('/v1/access/sign-in', self.credentials)
+        self.assertEqual('503 Service Unavailable', status)
+        self.assertNotIn('private', json.dumps(body)); self.assertNotIn(self.credentials['password'], json.dumps(body))
+
 
 if __name__ == '__main__': unittest.main()

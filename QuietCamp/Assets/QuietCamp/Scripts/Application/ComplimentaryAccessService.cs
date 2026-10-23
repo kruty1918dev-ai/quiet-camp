@@ -7,6 +7,7 @@ namespace QuietCamp.Application
     [Serializable] public sealed class ComplimentaryGrant
     {
         public string packageName, productId, scope, state, sessionToken, validUntilUtc;
+        public bool explorePublishedContent;
     }
     public interface IComplimentaryAccessTransport
     {
@@ -49,7 +50,7 @@ namespace QuietCamp.Application
                 if (grant.state == "Denied") { _economy.RevokeComplimentaryPro(); return Set(ComplimentaryAccessState.Denied); }
                 if (grant.state != "Granted" || grant.packageName != _package || grant.productId != _product || grant.scope != "pro"
                     || (expectedToken != null && expectedToken != grant.sessionToken)) return Set(ComplimentaryAccessState.Denied);
-                var result = _economy.GrantComplimentaryPro(grant.sessionToken, grant.validUntilUtc);
+                var result = _economy.GrantComplimentaryPro(grant.sessionToken, grant.validUntilUtc, grant.explorePublishedContent);
                 return Set(result == EconomyResult.Applied ? ComplimentaryAccessState.Granted
                     : result == EconomyResult.SaveFailed ? ComplimentaryAccessState.SaveFailed : ComplimentaryAccessState.Denied);
             }

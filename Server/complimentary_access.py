@@ -4,9 +4,14 @@ import hmac
 import secrets
 import time
 from datetime import datetime, timezone
+from access_store import SqliteAccessStore
 
 
 class AccessDenied(ValueError):
+    pass
+
+
+class AccessRateLimited(Exception):
     pass
 
 
@@ -17,25 +22,35 @@ def password_hash(password, salt=None):
 
 
 class ComplimentaryAccess:
-    def __init__(self, store, package, product, username='', encoded_password='', clock=time.time):
+    def __init__(self, store, package, product, username='', encoded_password='', clock=time.time, *, session_store=None, explore_published=False):
         self.store, self.package, self.product, self.clock = store, package, product, clock
         self.username, self.encoded_password = username, encoded_password
-        self.generation = hashlib.sha256((username + ':' + encoded_password).encode()).hexdigest()
+        self.explore_published = explore_published
+        self.generation = hashlib.sha256((username + ':' + encoded_password + ':' + str(explore_published)).encode()).hexdigest()
         if username or encoded_password:
             parts = encoded_password.split('$')
             if not username or len(username) > 100 or len(parts) != 4 or parts[:2] != ['pbkdf2-sha256', '600000']:
                 raise ValueError('Invalid complimentary account configuration')
             if len(bytes.fromhex(parts[2])) != 16 or len(bytes.fromhex(parts[3])) != 32:
                 raise ValueError('Invalid complimentary password hash')
-        with store.connect() as db:
-            db.execute('CREATE TABLE IF NOT EXISTS complimentary_session (token_hash TEXT PRIMARY KEY, generation TEXT NOT NULL, checked INTEGER NOT NULL)')
+        self.sessions = session_store or SqliteAccessStore(store, clock)
+
+    def check_rate(self, address, route):
+        self.configured()
+        # The host supplies the trusted peer address. Never trust a client-supplied ID.
+        peer = hmac.new(self.generation.encode(), address.encode(), hashlib.sha256).hexdigest()
+        signin = route.endswith('/sign-in')
+        if not self.sessions.allow(('signin:' if signin else 'refresh:') + peer, 8 if signin else 120, 600):
+            raise AccessRateLimited()
+        if signin and not self.sessions.allow('signin:global', 200, 600):
+            raise AccessRateLimited()
 
     def configured(self):
         if not self.username or not self.encoded_password:
             raise RuntimeError('Complimentary access disabled')
 
     def grant(self, token):
-        return dict(packageName=self.package, productId=self.product, scope='pro', state='Granted',
+        return dict(packageName=self.package, productId=self.product, scope='pro', state='Granted', explorePublishedContent=self.explore_published,
                     sessionToken=token, validUntilUtc=datetime.fromtimestamp(self.clock() + 86400, timezone.utc).isoformat())
 
     def sign_in(self, request):
@@ -50,11 +65,7 @@ class ComplimentaryAccess:
         if not valid_password or not hmac.compare_digest(username.encode(), self.username.encode()):
             raise AccessDenied()
         token = secrets.token_urlsafe(32)
-        with self.store.connect() as db:
-            # Sessions unused for 90 days can sign in again with the same reusable credentials.
-            db.execute('DELETE FROM complimentary_session WHERE checked < ?', (int(self.clock()) - 90 * 86400,))
-            db.execute('INSERT INTO complimentary_session VALUES (?,?,?)',
-                       (self.store.receipt(token), self.generation, int(self.clock())))
+        self.sessions.create(hashlib.sha256(token.encode()).hexdigest(), self.generation)
         return self.grant(token)
 
     def refresh(self, request):
@@ -64,9 +75,6 @@ class ComplimentaryAccess:
         token = request['sessionToken']
         if not isinstance(token, str) or len(token) != 43 or not all(c.isascii() and (c.isalnum() or c in '-_') for c in token):
             raise AccessDenied()
-        with self.store.connect() as db:
-            found = db.execute('SELECT generation FROM complimentary_session WHERE token_hash=?', (self.store.receipt(token),)).fetchone()
-            if not found or not hmac.compare_digest(found[0], self.generation):
-                raise AccessDenied()
-            db.execute('UPDATE complimentary_session SET checked=? WHERE token_hash=?', (int(self.clock()), self.store.receipt(token)))
+        if not self.sessions.refresh(hashlib.sha256(token.encode()).hexdigest(), self.generation):
+            raise AccessDenied()
         return self.grant(token)

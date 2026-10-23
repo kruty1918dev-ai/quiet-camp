@@ -74,12 +74,16 @@ namespace QuietCamp.Application
         readonly EntitlementSaveData _grants;
         readonly Func<bool> _pro;
         readonly Func<string,bool> _subscription;
-        public JourneyAccessService(JourneyCatalog catalog, ProgressionService progression, EntitlementSaveData grants, Func<bool> pro,Func<string,bool> subscription=null)
-        { _catalog = catalog; _progression = progression; _grants = grants; _pro = pro; _subscription=subscription; }
+        readonly Func<bool> _explorePublished;
+        public JourneyAccessService(JourneyCatalog catalog, ProgressionService progression, EntitlementSaveData grants, Func<bool> pro,Func<string,bool> subscription=null, Func<bool> explorePublished=null)
+        { _catalog = catalog; _progression = progression; _grants = grants; _pro = pro; _subscription=subscription; _explorePublished=explorePublished; }
         public AccessDecision Evaluate(string levelId)
         {
             var journey = _catalog.ForLevel(levelId);
             if (journey == null || !journey.published) return new AccessDecision(JourneyAccessState.MissingContent, journey);
+            // An explicit complimentary content grant opens released content without
+            // forging completion stamps, purchases, cosmetics or player progress.
+            if (_explorePublished?.Invoke() == true) return new AccessDecision(JourneyAccessState.Available, journey);
             // A progress-gated branch reports "keep walking the main path"
             // before any purchase question is even asked.
             if (journey.requiredCompletions > 0 && MainCompleted() < journey.requiredCompletions)

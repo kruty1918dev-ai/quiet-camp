@@ -10,7 +10,8 @@ from complimentary_access import password_hash
 TITLE = 'Quiet Camp - full Pro access'
 INSTRUCTIONS = ('In Settings, choose English, then open Complimentary Pro access. Scroll to the sign-in form. '
                 'Enter the supplied username and password and tap Sign in. No payment, registration or developer contact is required. '
-                'This grants standard Pro: no ads, unlimited lives/hints and included journeys. Normal progression and privacy choices still apply.')
+                'Pro removes ads and limits on lives/hints. Browse published levels opens every released level and journey without completing earlier levels. '
+                'Choose a journey, then a level; More levels shows the next page. Privacy choices remain independent.')
 
 
 def provision(output):
@@ -26,11 +27,12 @@ def provision(output):
     assert len(TITLE) <= 60 and len(INSTRUCTIONS) <= 500
     data = dict(readyForPlayConsole=False, status='NOT CONNECTED: deploy and verify the endpoint and Android UI before submission',
                 title=TITLE, username=username, password=password, instructions=INSTRUCTIONS,
-                grants=['No advertising requests', 'Unlimited lives and hints', 'Journeys explicitly included in Pro'],
-                doesNotGrant=['Unpublished content', 'Unspecified future DLC', 'Privacy consent or purchase simulation'])
+                grants=['No advertising requests', 'Unlimited lives and hints', 'Journeys explicitly included in Pro', 'Explicit exploration grant: all published levels and journeys without progression gates'],
+                doesNotGrant=['Unpublished content', 'Forged completions or earned cosmetics', 'Privacy consent or purchase simulation'])
     with private.open('x', encoding='utf-8') as file: file.write(json.dumps(data, indent=2)+'\n')
     with environment.open('x', encoding='utf-8') as file:
-        file.write('QC_COMPLIMENTARY_USERNAME='+username+'\nQC_COMPLIMENTARY_PASSWORD_HASH='+password_hash(password)+'\n')
+        file.write('QC_COMPLIMENTARY_USERNAME='+username+'\nQC_COMPLIMENTARY_PASSWORD_HASH='+password_hash(password)+'\nQC_COMPLIMENTARY_EXPLORE_PUBLISHED=true\n')
+        file.write('CRON_SECRET='+secrets.token_urlsafe(32)+'\n')
     for path in (private, environment):
         os.chmod(path, 0o600)
     return private

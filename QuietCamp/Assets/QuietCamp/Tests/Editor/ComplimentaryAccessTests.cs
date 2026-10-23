@@ -94,6 +94,28 @@ namespace QuietCamp.Tests.Editor
             Assert.IsTrue(access.Evaluate("included.1").CanStart);
             Assert.AreEqual(JourneyAccessState.PurchaseRequired,access.Evaluate("future.1").State);
         }
+        [Test] public async Task ExplicitContentGrantOpensEveryPublishedGateWithoutForgingProgress()
+        {
+            var progress = new ProgressionService();
+            var main = new JourneyDefinition {id="main",published=true,includedInPro=true,levelIds=new[]{"main.1","main.2"}};
+            var journey = new JourneyDefinition {id="paid",published=true,entitlementId="dlc.paid",requiredCompletions=2,requiredLevelIds=new[]{"main.2"},levelIds=new[]{"paid.1","paid.2"}};
+            var draft = new JourneyDefinition {id="draft",published=false,levelIds=new[]{"draft.1"}};
+            var catalog = new JourneyCatalog(new[]{main,journey,draft});
+            var access = new JourneyAccessService(catalog,progress,new EntitlementSaveData(),()=>_economy.IsPro,explorePublished:()=>_economy.CanExplorePublishedContent);
+            Assert.IsFalse(access.Evaluate("main.2").CanStart);
+            await _access.SignIn("play-review","password");
+            Assert.IsFalse(_economy.CanExplorePublishedContent); Assert.IsFalse(access.Evaluate("paid.2").CanStart,"Ordinary Pro retains progress gates");
+            _transport.Grant.explorePublishedContent=true;
+            await _access.SignIn("play-review","password");
+            foreach(var id in new[]{"main.1","main.2","paid.1","paid.2"}) Assert.IsTrue(access.Evaluate(id).CanStart,id);
+            Assert.IsFalse(access.Evaluate("draft.1").CanStart); Assert.IsFalse(access.Evaluate("absent").CanStart);
+            Assert.AreEqual(0,progress.CompletedCount); Assert.AreEqual(0,progress.CosmeticFlags);
+            var restored = new CampEconomy(_data.Copy(),new EconomyRules(),()=>true,()=>_now); restored.ConfigureComplimentaryAccess(Endpoint);
+            Assert.IsTrue(restored.CanExplorePublishedContent);
+            _transport.Grant=null; await _access.Refresh(); Assert.IsTrue(_economy.CanExplorePublishedContent);
+            _now=_now.AddDays(2); Assert.IsFalse(_economy.CanExplorePublishedContent); Assert.IsFalse(access.Evaluate("paid.2").CanStart);
+            _now=_now.AddDays(-2); _access.SignOut(); Assert.IsFalse(_economy.CanExplorePublishedContent);
+        }
         [Test] public void CachedPurchaseExpiryStillObservesClockAndRestoredSaveChanges()
         {
             _data.pro=true; _data.proVerificationRequired=true; _data.proValidUntilUtc=_now.AddHours(1).ToString("O");

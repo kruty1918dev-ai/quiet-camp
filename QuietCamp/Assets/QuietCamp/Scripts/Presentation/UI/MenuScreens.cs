@@ -61,7 +61,7 @@ namespace QuietCamp.Presentation.UI
                 _bleed.transform.SetSiblingIndex(0);
                 _bleed.Mounted += UpdateMenuVisibility;
                 _overlay = HtmlSurface.Create(canvasRoot, "MenuOverlay", services, RenderOverlay);
-                _economyPanel = new EconomyPanel(services, _overlay);
+                _economyPanel = new EconomyPanel(services, _overlay, id => Action("qc.play", id));
                 _overlay.Mounted += OnOverlayMounted;
                 _overlay.Motion.ExitFinished += OnExitFinished;
             }
