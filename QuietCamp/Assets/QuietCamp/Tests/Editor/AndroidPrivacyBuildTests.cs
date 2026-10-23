@@ -37,6 +37,25 @@ namespace QuietCamp.Tests.Editor
         }
 
         [Test]
+        public void BillingDependenciesReachChildModuleAndRemainIdempotent()
+        {
+            var folder = Path.Combine(Path.GetTempPath(), "quietcamp-gradle-" + Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(folder);
+            try {
+                string gradle = Path.Combine(folder, "build.gradle");
+                string declaration = Path.Combine(UnityEngine.Application.dataPath, "QuietCamp/OptionalSdk/Editor/PlayBillingDependencies.xml");
+                File.WriteAllText(gradle, "apply plugin: 'com.android.library'\n");
+                AndroidPrivacyBuild.ApplyBillingDependencies(gradle, declaration);
+                string first = File.ReadAllText(gradle);
+                AndroidPrivacyBuild.ApplyBillingDependencies(gradle, declaration);
+                Assert.AreEqual(first, File.ReadAllText(gradle));
+                foreach (var entry in XDocument.Load(declaration).Descendants("androidPackage"))
+                    StringAssert.Contains("implementation '" + entry.Attribute("spec").Value + "'", first);
+                StringAssert.StartsWith("apply plugin:", first);
+            } finally { Directory.Delete(folder, true); }
+        }
+
+        [Test]
         public void MissingPrivacyPolicyStopsBuild()
         {
             Assert.Throws<BuildFailedException>(() => AndroidPrivacyBuild.ApplyPolicy("missing-launcher", "missing-policy"));

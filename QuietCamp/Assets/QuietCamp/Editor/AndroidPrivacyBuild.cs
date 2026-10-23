@@ -1,6 +1,7 @@
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using System.Text.RegularExpressions;
 using UnityEditor.Build;
 #if UNITY_ANDROID
 using UnityEditor.Android;
@@ -24,6 +25,29 @@ namespace QuietCamp.Editor
             var policy = Path.Combine(UnityEngine.Application.dataPath,
                 "Plugins/Android/QuietCampPrivacy.androidlib/AndroidManifest.xml");
             ApplyPolicy(launcher, policy);
+            ApplyBillingDependencies(Path.Combine(unityLibraryPath, "QuietCampPrivacy.androidlib/build.gradle"),
+                Path.Combine(UnityEngine.Application.dataPath, "QuietCamp/OptionalSdk/Editor/PlayBillingDependencies.xml"));
+        }
+
+        // The androidlib compiles independently: unityLibrary's implementation
+        // dependencies are not on this child module's Java compile classpath.
+        public static void ApplyBillingDependencies(string gradlePath, string dependenciesPath)
+        {
+            if (!File.Exists(gradlePath) || !File.Exists(dependenciesPath))
+                throw new BuildFailedException("Billing module or dependency declaration missing.");
+            var packages = XDocument.Load(dependenciesPath).Descendants("androidPackage")
+                .Select(e => (string)e.Attribute("spec")).Distinct().ToArray();
+            if (packages.Length == 0 || packages.Any(p => p == null || !Regex.IsMatch(p, @"^[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+:[0-9][a-zA-Z0-9_.+\-]*$")))
+                throw new BuildFailedException("Invalid Billing Maven dependency declaration.");
+            const string start = "// QuietCamp Billing dependencies start", end = "// QuietCamp Billing dependencies end";
+            string text = File.ReadAllText(gradlePath);
+            int first = text.IndexOf(start, System.StringComparison.Ordinal), last = text.IndexOf(end, System.StringComparison.Ordinal);
+            if (first >= 0) {
+                if (last < first) throw new BuildFailedException("Incomplete Billing dependency block.");
+                text = text.Remove(first, last + end.Length - first);
+            }
+            File.WriteAllText(gradlePath, text.TrimEnd() + "\n" + start + "\ndependencies {\n"
+                + string.Join("\n", packages.Select(p => "    implementation '" + p + "'")) + "\n}\n" + end + "\n");
         }
 
         public static void ApplyPolicy(string launcherPath, string policyPath)

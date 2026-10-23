@@ -20,6 +20,7 @@ namespace UnityEngine
     public static class Application
     {
         public static string persistentDataPath = Path.GetTempPath();
+        public static string dataPath = Path.GetFullPath("QuietCamp/Assets");
         public static bool isEditor = true;
         public static RuntimePlatform platform = RuntimePlatform.Android;
     }
@@ -39,6 +40,11 @@ namespace UnityEngine
     }
     public static class JsonUtility
     { public static T FromJson<T>(string json) => JsonConvert.DeserializeObject<T>(json); }
+}
+namespace UnityEditor.Build
+{
+    public sealed class BuildFailedException : Exception
+    { public BuildFailedException(string message) : base(message) { } }
 }
 namespace QuietCamp.Application
 {

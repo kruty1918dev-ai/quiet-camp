@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Editor/AndroidPrivacyBuild.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Tests/Editor/AndroidPrivacyBuildTests.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/LocalSessionJournal.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Tests/Editor/LocalSessionJournalTests.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/CloudSaveService.cs" />
