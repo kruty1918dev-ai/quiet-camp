@@ -148,11 +148,13 @@ def validate_fields(config):
                 fail("firebase", "missing project_number")
             elif clients[0]["client_info"]["mobilesdk_app_id"].split(":")[1] != str(services["project_info"]["project_number"]):
                 fail("firebase", "Android app ID and project_number mismatch")
-    for section, keys in (("billing", ("verificationEndpoint",)), ("operationalMetrics", ("endpoint",)),
+    for section, keys in (("complimentaryAccess", ("endpoint",)), ("billing", ("verificationEndpoint",)), ("operationalMetrics", ("endpoint",)),
                           ("legal", ("privacyPolicyUrl", "supportUrl", "termsUrl", "dataRequestUrl"))):
         for key in keys:
             if config[section][key] and not https(config[section][key]): fail(section + "." + key, "use a real HTTPS URL without credentials or fragments")
     billing = config["billing"]
+    if config['complimentaryAccess']['enabled'] and not config['complimentaryAccess']['endpoint']:
+        fail('complimentaryAccess.endpoint', 'enabled access requires a deployed HTTPS endpoint')
     if billing["proProductId"] and not re.fullmatch(r"[a-z0-9][a-z0-9_.]{0,147}", billing["proProductId"]):
         fail("billing.proProductId", "invalid Play product ID")
     if billing["verificationEndpoint"] and not billing["proProductId"]: fail("billing", "endpoint requires product ID")
@@ -219,6 +221,7 @@ def planned(config, root=ROOT):
     merged(RESOURCE + "legal.json", fields)
     outputs[RESOURCE + "owner_client.json"] = encoded({
         "schemaVersion": 1, "mode": config["mode"], "androidPackageName": config["android"]["packageName"],
+        "complimentaryAccessEnabled": config['complimentaryAccess']['enabled'], "complimentaryAccessEndpoint": config['complimentaryAccess']['endpoint'],
         "proProductId": config["billing"]["proProductId"], "verificationEndpoint": config["billing"]["verificationEndpoint"],
         "billingReviewed": review["billingTerms"],
         "operationalMetricsEndpoint": config["operationalMetrics"]["endpoint"],
@@ -301,6 +304,8 @@ def readiness(config):
         "diagnostics": {"configured": fb, "reviewed": common, "missingEvidence": ["Android crash/restart, queued send/delete, independent consent"]},
         "purchases": {"configured": bool(config["billing"]["verificationEndpoint"] and config["billing"]["proProductId"]),
                       "reviewed": published and r["billingTerms"], "missingEvidence": ["Deploy backend, configure Play product, license tester pending/restore/refund/acknowledgment"]},
+        "complimentaryAccess": {"configured": bool(config['complimentaryAccess']['endpoint']), "enabled": config['complimentaryAccess']['enabled'], "reviewed": False,
+                                "missingEvidence": ["Deploy public HTTPS access service, verify supplied credentials and Android form before submitting App access instructions"]},
         "policy": {"configured": bool(config["legal"]["publishedPolicyRevision"]), "reviewed": published,
                    "missingEvidence": ["Owner/legal review, public policy matches bundled uk/en/de, Play Data Safety submission"]},
         "operationalMetrics": {"configured": bool(config["operationalMetrics"]["endpoint"]), "reviewed": published and r["operationalMetricsLegalBasis"],

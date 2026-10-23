@@ -11,7 +11,8 @@
     "operationalMetrics",
     "legal",
     "reviews",
-    "monetization"
+    "monetization",
+    "complimentaryAccess"
   ],
   "properties": {
     "schemaVersion": {
@@ -251,6 +252,22 @@
           "type": "integer",
           "minimum": 0,
           "maximum": 86400
+        }
+      }
+    },
+    "complimentaryAccess": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enabled",
+        "endpoint"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "endpoint": {
+          "type": "string"
         }
       }
     }

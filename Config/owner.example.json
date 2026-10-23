@@ -26,7 +26,7 @@
     "privacyPolicyUrl": "https://oleksiy-havryliuk.de/quiet-camp/privacy",
     "supportUrl": "https://oleksiy-havryliuk.de/contact",
     "termsUrl": "",
-    "publishedPolicyRevision": "2026-10-23.public-policy-2",
+    "publishedPolicyRevision": "2026-10-23.public-policy-3",
     "publisherName": "Oleksii Havryliuk",
     "supportEmail": "support@oleksiy-havryliuk.de",
     "privacyEmail": "privacy@oleksiy-havryliuk.de",
@@ -52,5 +52,9 @@
     "minimumInterstitialIntervalSeconds": 180,
     "interstitialCooldownAfterRewardSeconds": 180,
     "maximumInterstitialsPerSession": 3
+  },
+  "complimentaryAccess": {
+    "enabled": false,
+    "endpoint": ""
   }
 }

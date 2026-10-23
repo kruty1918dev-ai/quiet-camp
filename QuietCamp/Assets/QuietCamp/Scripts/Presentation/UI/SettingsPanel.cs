@@ -150,6 +150,9 @@ namespace QuietCamp.Presentation.UI
             if (nav.Category == null)
             {
                 html.Append(Language());
+                html.Append(HtmlUi.Button(surface, "complimentary-access", T("access.title"), () =>
+                    services.Actions.Execute(new Kruty1918.UIActions.API.UiActionRequest(new Kruty1918.UIActions.API.UiActionId("qc.economy"),
+                        Kruty1918.UIActions.API.UiActionSource.Button, "Settings")), "quiet"));
                 html.Append(HtmlUi.Button(surface, "tutorial-learn-again", T("guide.learn-again"), () =>
                     services.Actions.Execute(new Kruty1918.UIActions.API.UiActionRequest(new Kruty1918.UIActions.API.UiActionId("qc.tutorial.restart"),
                         Kruty1918.UIActions.API.UiActionSource.Button, "Settings")), "quiet guide-learning"));

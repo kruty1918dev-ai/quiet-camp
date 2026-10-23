@@ -8,7 +8,8 @@ using QuietCamp.Domain;
 // platform doubles. It does not instantiate Unity, native Firebase or a player.
 class Program
 {
-    static int Main(string[] args) => new AutoRun().Execute(args);
+    static int Main(string[] args) => Array.IndexOf(args,"--complimentary-http-probe") >= 0
+        ? ComplimentaryHttpProbe.Run().GetAwaiter().GetResult() : new AutoRun().Execute(args);
 }
 namespace UnityEngine
 {

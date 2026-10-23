@@ -20,6 +20,7 @@ namespace QuietCamp.Application
         public int version = 1;
         public bool initialized, pro, proVerificationRequired;
         public string proValidUntilUtc;
+        public string complimentarySessionToken, complimentaryValidUntilUtc, complimentaryEndpoint;
         public int lives, hints, currency, adLivesUsed, adHintsUsed;
         public string adDay;
         public string pendingAdLifeReceipt, pendingAdHintReceipt;
@@ -33,6 +34,7 @@ namespace QuietCamp.Application
             currency = currency, adLivesUsed = adLivesUsed, adHintsUsed = adHintsUsed, adDay = adDay,
             pendingAdLifeReceipt = pendingAdLifeReceipt, pendingAdHintReceipt = pendingAdHintReceipt,
             lifeRecoveryAnchorUtc = lifeRecoveryAnchorUtc,
+            complimentarySessionToken = complimentarySessionToken, complimentaryValidUntilUtc = complimentaryValidUntilUtc, complimentaryEndpoint = complimentaryEndpoint,
             attempts = (attempts ?? Array.Empty<AttemptRecord>()).Select(a => new AttemptRecord { levelId = a.levelId, checks = a.checks, consecutiveFailures=a.consecutiveFailures, recoveryHintPending=a.recoveryHintPending }).ToArray(),
             appliedReceiptIds = (string[])(appliedReceiptIds ?? Array.Empty<string>()).Clone()
         };
@@ -43,6 +45,7 @@ namespace QuietCamp.Application
             adLivesUsed = value.adLivesUsed; adHintsUsed = value.adHintsUsed; adDay = value.adDay;
             pendingAdLifeReceipt = value.pendingAdLifeReceipt; pendingAdHintReceipt = value.pendingAdHintReceipt;
             lifeRecoveryAnchorUtc = value.lifeRecoveryAnchorUtc;
+            complimentarySessionToken = value.complimentarySessionToken; complimentaryValidUntilUtc = value.complimentaryValidUntilUtc; complimentaryEndpoint = value.complimentaryEndpoint;
             attempts = value.attempts; appliedReceiptIds = value.appliedReceiptIds;
         }
     }
@@ -54,10 +57,35 @@ namespace QuietCamp.Application
         readonly EconomyRules _rules;
         readonly Func<bool> _persist;
         readonly Func<DateTime> _clock;
+        string _complimentaryEndpoint;
+        bool _complimentaryRevoked;
         public event Action Changed;
         public EconomySaveData Data => _data;
-        public bool IsPro => _data.pro && (!_data.proVerificationRequired || (DateTime.TryParse(_data.proValidUntilUtc,
-            System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out var until) && until.ToUniversalTime() > _clock().ToUniversalTime()));
+        public bool IsPro => HasComplimentaryPro || (_data.pro && (!_data.proVerificationRequired || (DateTime.TryParse(_data.proValidUntilUtc,
+            System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.RoundtripKind, out var until) && until.ToUniversalTime() > _clock().ToUniversalTime())));
+        public bool HasComplimentaryPro => !_complimentaryRevoked && !string.IsNullOrEmpty(ComplimentarySessionToken)
+            && DateTime.TryParse(_data.complimentaryValidUntilUtc, System.Globalization.CultureInfo.InvariantCulture,
+                System.Globalization.DateTimeStyles.RoundtripKind, out var until) && until.ToUniversalTime() > UtcNow;
+        public string ComplimentarySessionToken => !_complimentaryRevoked && !string.IsNullOrEmpty(_complimentaryEndpoint) && _complimentaryEndpoint == _data.complimentaryEndpoint
+            ? _data.complimentarySessionToken : null;
+        public void ConfigureComplimentaryAccess(string endpoint) { _complimentaryEndpoint = endpoint; }
+        public EconomyResult GrantComplimentaryPro(string token, string validUntilUtc)
+        {
+            if (string.IsNullOrEmpty(_complimentaryEndpoint) || token == null || token.Length != 43
+                || token.Any(c => !(c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c >= '0' && c <= '9' || c == '-' || c == '_'))
+                || !DateTime.TryParse(validUntilUtc, System.Globalization.CultureInfo.InvariantCulture,
+                    System.Globalization.DateTimeStyles.RoundtripKind, out var until) || until.ToUniversalTime() <= UtcNow || until.ToUniversalTime() > UtcNow.AddDays(1).AddMinutes(1))
+                return EconomyResult.Invalid;
+            var result = Commit(() => { _complimentaryRevoked = false; _data.complimentarySessionToken = token;
+                _data.complimentaryEndpoint = _complimentaryEndpoint; _data.complimentaryValidUntilUtc = validUntilUtc; });
+            if (result != EconomyResult.Applied) _complimentaryRevoked = true;
+            return result;
+        }
+        public EconomyResult RevokeComplimentaryPro()
+        {
+            _complimentaryRevoked = true;
+            return Commit(() => { _data.complimentarySessionToken = _data.complimentaryValidUntilUtc = _data.complimentaryEndpoint = null; });
+        }
         public int Lives => _data.lives;
         public int Hints => _data.hints;
         public int Currency => _data.currency;

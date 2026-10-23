@@ -298,11 +298,14 @@ namespace QuietCamp.Presentation.UI
     public sealed class HtmlCallbacks
     {
         static readonly Regex NativeExpression = new Regex(
-            @"^Globals\.campUi\.(Click|Number|Toggle)\('([^']*)'(?:,\s*event)?\)$");
+            @"^Globals\.campUi\.(Click|Number|Toggle|Text)\('([^']*)'(?:,\s*event)?\)$");
         readonly Dictionary<string, Action> _clicks = new Dictionary<string, Action>();
         readonly Dictionary<string, Action<float>> _numbers = new Dictionary<string, Action<float>>();
         readonly Dictionary<string, Action<bool>> _toggles = new Dictionary<string, Action<bool>>();
-        public void Clear() { _clicks.Clear(); _numbers.Clear(); _toggles.Clear(); }
+        readonly Dictionary<string, Action<string>> _texts = new Dictionary<string, Action<string>>();
+        public void Clear() { _clicks.Clear(); _numbers.Clear(); _toggles.Clear(); _texts.Clear(); }
+        public void BindText(string id, Action<string> callback) => _texts[id] = callback;
+        [Preserve] public void Text(string id, string value) { if (_texts.TryGetValue(id, out var action)) action(value); }
         public void Bind(string id, Action callback) => _clicks[id] = callback;
         public void BindNumber(string id, Action<float> callback) => _numbers[id] = callback;
         public void BindToggle(string id, Action<bool> callback) => _toggles[id] = callback;
@@ -321,6 +324,7 @@ namespace QuietCamp.Presentation.UI
                     Number(id, Convert.ToSingle(value, CultureInfo.InvariantCulture)));
                 case "Toggle": return new Action<object, object>((value, _) =>
                     Toggle(id, Convert.ToBoolean(value, CultureInfo.InvariantCulture)));
+                case "Text": return new Action<object, object>((value, _) => Text(id, Convert.ToString(value, CultureInfo.InvariantCulture)));
                 default: throw new InvalidOperationException(expression);
             }
         }

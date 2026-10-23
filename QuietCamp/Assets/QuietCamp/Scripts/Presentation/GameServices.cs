@@ -51,20 +51,22 @@ namespace QuietCamp.Presentation
         public JourneyCatalog Journeys { get; private set; }
         public JourneyAccessService JourneyAccess { get; private set; }
         public PurchaseService Purchases { get; private set; }
+        public ComplimentaryAccessService ComplimentaryAccess { get; private set; }
         public InterstitialService Interstitials { get; private set; }
         public OwnerClientConfiguration OwnerConfiguration { get; private set; }
         public OperationalMetrics OperationalMetrics { get; private set; }
         DateTime _nextPurchaseRefresh;
         public void RefreshPurchasesIfDue()
         {
-            if (OwnerConfiguration == null || !OwnerConfiguration.BillingConfigured(Legal) || MonetizationBusy || DateTime.UtcNow < _nextPurchaseRefresh) return;
+            if (OwnerConfiguration == null || MonetizationBusy || DateTime.UtcNow < _nextPurchaseRefresh) return;
             _nextPurchaseRefresh = DateTime.UtcNow.AddMinutes(15);
-            _ = Purchases.Restore();
+            if (OwnerConfiguration.BillingConfigured(Legal)) _ = Purchases.Restore();
+            _ = ComplimentaryAccess.Refresh();
         }
         public CampMemoryService Memories { get; private set; }
         public CampCompletionService Completion { get; private set; }
         public CampAttemptService Attempts { get; private set; }
-        public bool MonetizationBusy => (Interstitials?.Busy ?? false) || Purchases.Busy || AdLives.Busy || AdHints.Busy || Rewards.Busy;
+        public bool MonetizationBusy => (ComplimentaryAccess?.Busy ?? false) || (Interstitials?.Busy ?? false) || Purchases.Busy || AdLives.Busy || AdHints.Busy || Rewards.Busy;
         float _economyTickSeconds;
         int _recoveryMinute = -1;
         public void TickEconomy(float seconds)
@@ -87,6 +89,7 @@ namespace QuietCamp.Presentation
             Purchases.StateObserved += state => Analytics.PurchaseEvent(state == PurchaseState.Owned ? 1 : 0);
             Economy.RefreshLives();
             _ = Purchases.Restore();
+            _ = ComplimentaryAccess.Refresh();
             int minute = (int)Math.Ceiling(Economy.SecondsUntilNextLife / 60d);
             if (minute != _recoveryMinute) { _recoveryMinute = minute; OnMonetizationChanged(); }
         }
@@ -252,6 +255,7 @@ namespace QuietCamp.Presentation
             if (AdLives != null) AdLives.Changed -= OnMonetizationChanged;
             if (AdHints != null) AdHints.Changed -= OnMonetizationChanged;
             if (Purchases != null) Purchases.Changed -= OnMonetizationChanged;
+            if (ComplimentaryAccess != null) { ComplimentaryAccess.Changed -= OnMonetizationChanged; ComplimentaryAccess.Dispose(); }
             Purchases?.Dispose();
             var config = MonetizationConfiguration.Load();
             Economy = new CampEconomy(Save.Economy, config.economy, Save.Save);
@@ -265,6 +269,11 @@ namespace QuietCamp.Presentation
             AdLives.RewardObserved += OnLifeReward;
             AdHints.RewardObserved += OnHintReward;
             OwnerConfiguration = OwnerClientConfiguration.Load();
+            Economy.ConfigureComplimentaryAccess(OwnerConfiguration.ComplimentaryAccessConfigured ? OwnerConfiguration.complimentaryAccessEndpoint : "");
+            ComplimentaryAccess = new ComplimentaryAccessService(Economy,
+                OwnerConfiguration.ComplimentaryAccessConfigured ? new ComplimentaryAccessTransport(OwnerConfiguration.complimentaryAccessEndpoint, OwnerConfiguration.androidPackageName) : null,
+                OwnerConfiguration.androidPackageName, OwnerConfiguration.proProductId);
+            ComplimentaryAccess.Changed += OnMonetizationChanged;
             OperationalMetrics?.Clear();
             OperationalMetrics = new OperationalMetrics(
                 () => OwnerConfiguration.operationalMetricsReviewed && Legal.Published && LegalConfiguration.PublishedUrl(OwnerConfiguration.operationalMetricsEndpoint) && PrivacyEligibility.Band(Settings) == PrivacyAgeBand.Under13,
@@ -292,6 +301,7 @@ namespace QuietCamp.Presentation
             Economy.RefreshLives();
             _nextPurchaseRefresh = DateTime.UtcNow.AddMinutes(15);
             _ = Purchases.Restore();
+            _ = ComplimentaryAccess.Refresh();
         }
         /// <summary>Accept a downloaded/local, authenticated data manifest at the menu boundary.
         /// Delivery may later use Addressables; installation never changes an active puzzle.</summary>
@@ -419,7 +429,7 @@ namespace QuietCamp.Presentation
             AdHints.RewardObserved -= OnHintReward;
             Save.SaveFailed -= OnSaveFailed;
             Save.BeforeSave -= SyncProgress;
-            OperationalMetrics?.Clear(); Purchases?.Dispose();
+            OperationalMetrics?.Clear(); Purchases?.Dispose(); ComplimentaryAccess?.Dispose();
             Analytics.Dispose();
             Crashes.Dispose();
             (Ads as IDisposable)?.Dispose();

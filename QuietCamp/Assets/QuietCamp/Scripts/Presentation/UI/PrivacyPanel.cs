@@ -72,7 +72,9 @@ namespace QuietCamp.Presentation.UI
             else if (nav.Section == "data")
             {
                 html.Append(HtmlUi.Text(T("legal.localExplanation"), "s-sub"));
-                if (!legal.accountsEnabled && !legal.cloudSavesEnabled)
+                if (services.OwnerConfiguration.ComplimentaryAccessConfigured)
+                    html.Append(HtmlUi.Text(T("access.explain"), "s-sub"));
+                else if (!legal.accountsEnabled && !legal.cloudSavesEnabled)
                     html.Append(HtmlUi.Text(T("legal.noAccount"), "s-sub"));
                 html.Append(HtmlUi.Button(surface, "legal-data-information", T("legal.dataInformation"), () =>
                 { SettingsPanel.ChangeDisclosure(surface, nav, () => nav.DataInformation = !nav.DataInformation); }, "settings-disclosure"));

@@ -89,6 +89,12 @@ Play signing/upload keys. Firebase client API key не є серверним с�
 підтримує `-p:QCProbeTargetFramework=net8.0`, якщо встановлено лише .NET 8;
 його стандартний target лишився .NET 10. Це не перевірка Android або Unity import.
 
+Необов'язковий безоплатний доступ: `complimentaryAccess.enabled` та
+`complimentaryAccess.endpoint` у тому самому owner JSON. Значення false/порожньо
+лишають доступ непідключеним. Паролі й серверні хеші сюди не додаються.
+Статус, приватні поля для Anmeldedaten та умови перевірки:
+[PLAY-REVIEW-UA.md](PLAY-REVIEW-UA.md).
+
 ## Підключені значення та незалежні дозволи — 23.10.2026
 
 Шаблон містить підтверджені власником публічні AdMob App ID, publisher ID,

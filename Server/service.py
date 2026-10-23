@@ -11,6 +11,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import quote
+from complimentary_access import ComplimentaryAccess, AccessDenied
 
 
 class Rejected(ValueError):
@@ -19,12 +20,18 @@ class Rejected(ValueError):
 
 class GooglePlay:
     def __init__(self, package, product):
+        self._http = None
+        self.base = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/" + quote(package, safe="")
+        self.product = product
+
+    @property
+    def http(self):
+        if self._http is not None: return self._http
         import google.auth
         from google.auth.transport.requests import AuthorizedSession
         credentials, _ = google.auth.default(scopes=["https://www.googleapis.com/auth/androidpublisher"])
-        self.http = AuthorizedSession(credentials)
-        self.base = "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/" + quote(package, safe="")
-        self.product = product
+        self._http = AuthorizedSession(credentials)
+        return self._http
 
     def get(self, token):
         response = self.http.get(self.base + "/purchases/productsv2/tokens/" + quote(token, safe=""), timeout=15)
@@ -153,7 +160,7 @@ class Service:
             db.execute("DELETE FROM metrics WHERE day<?", (cutoff,))
 
 
-def wsgi(service, oidc_verify=None):
+def wsgi(service, oidc_verify=None, complimentary=None):
     def application(environ, start_response):
         status, body = "200 OK", {}
         try:
@@ -165,6 +172,9 @@ def wsgi(service, oidc_verify=None):
             if not isinstance(request, dict): raise Rejected("Object required")
             route = environ.get("PATH_INFO")
             if route == "/v1/purchases/verify": body = service.verify(request)
+            elif route in ("/v1/access/sign-in", "/v1/access/refresh"):
+                if complimentary is None: raise RuntimeError("Complimentary access disabled")
+                body = complimentary.sign_in(request) if route.endswith('sign-in') else complimentary.refresh(request)
             elif route == "/v1/metrics": service.metrics(request)
             elif route == "/v1/play/notifications":
                 # Pub/Sub push OIDC is mandatory, checked before decoding data.
@@ -174,6 +184,8 @@ def wsgi(service, oidc_verify=None):
                 data = json.loads(base64.b64decode(message["data"], validate=True))
                 service.notification(data)
             else: status = "404 Not Found"
+        except AccessDenied:
+            status, body = "401 Unauthorized", {"error": "Access denied"}
         except (Rejected, ValueError, KeyError, TypeError):
             status, body = "400 Bad Request", {"error": "Request rejected"}
         except Exception:
@@ -200,7 +212,9 @@ def production_app():
         try: claims = verify_oauth2_token(header[7:], Request(), audience=audience)
         except Exception: raise Rejected("OIDC rejected") from None
         if claims.get("email") != identity or claims.get("email_verified") is not True: raise Rejected("Wrong push identity")
-    return wsgi(service, verify_oidc)
+    complimentary = ComplimentaryAccess(store, package, product, os.environ.get('QC_COMPLIMENTARY_USERNAME', ''),
+                                       os.environ.get('QC_COMPLIMENTARY_PASSWORD_HASH', ''))
+    return wsgi(service, verify_oidc, complimentary)
 
 
 # Lazy initialization allows importing and testing without credentials or network.

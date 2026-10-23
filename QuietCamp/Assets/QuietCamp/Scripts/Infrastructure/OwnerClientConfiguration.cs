@@ -11,6 +11,9 @@ namespace QuietCamp.Infrastructure
         public string mode = "development", androidPackageName = "com.quietcamp.game";
         public string proProductId = "quietcamp_pro", verificationEndpoint = "", operationalMetricsEndpoint = "";
         public bool billingReviewed, operationalMetricsReviewed;
+        public bool complimentaryAccessEnabled;
+        public string complimentaryAccessEndpoint = "";
+        public bool ComplimentaryAccessConfigured => schemaVersion == 1 && complimentaryAccessEnabled && LegalConfiguration.PublishedUrl(complimentaryAccessEndpoint);
         public int firstInterstitialAfterCompletedLevels = 5, completedLevelsBetweenInterstitials = 4;
         public int minimumInterstitialIntervalSeconds = 180, interstitialCooldownAfterRewardSeconds = 180, maximumInterstitialsPerSession = 3;
         public static OwnerClientConfiguration Load()

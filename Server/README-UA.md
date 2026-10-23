@@ -7,6 +7,27 @@ Google credentials, продукт Play та production endpoint не надан
 `POST /v1/play/notifications` і вимкнений за замовчуванням `POST /v1/metrics`.
 Тести не потребують Google credentials: `python -m unittest discover -s Server -q`.
 
+## Необов'язковий безоплатний Pro
+
+`POST /v1/access/sign-in` приймає `packageName`, `username`, `password`;
+`POST /v1/access/refresh` — `packageName`, `sessionToken`. Обидва повертають
+вузьку область `scope=pro`, package/product і право на 24 години. Відсутня
+серверна конфігурація дає 503, неправильні дані — 401 без їхнього відображення.
+Пароль не має строку дії, одноразового коду чи геообмеження. Нових користувачів
+ці endpoints не реєструють. Товар Play і його квитанції для них не потрібні.
+
+Підготуйте окремі дані командою
+`python Server/provision_complimentary_access.py --output <private-directory-outside-repository>`.
+Інструмент не перезаписує існуючі дані та не вмикає доступ. Приватний JSON
+призначений для полів Play Console після перевірки; `.private.env` містить
+`QC_COMPLIMENTARY_USERNAME` і PBKDF2-хеш для сервера. Не кладіть ці файли в Git.
+Без них доступ вимкнений. Сесії зберігаються хешованими у тому самому SQLite;
+неактивні 90 днів очищуються під час наступного входу. Обмежте auth-запити на
+ingress, вимкніть body/header logging, забезпечте HTTPS і постійний диск.
+Зміна серверного хешу відкликає старі сесії при повторній перевірці.
+
+Повний статус та інструкції: [Config/PLAY-REVIEW-UA.md](../Config/PLAY-REVIEW-UA.md).
+
 ## Підготовка середовища власником
 
 1. Створіть окремий backend-проєкт/службову ідентичність. Увімкніть Google Play

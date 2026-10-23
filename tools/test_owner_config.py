@@ -21,6 +21,16 @@ class OwnerTests(unittest.TestCase):
         self.assertTrue(snapshot['useTestAds'])
         self.assertTrue(snapshot['configurationPrepared'])
         self.assertFalse(snapshot['interstitialsEnabled'])
+    def test_complimentary_access_requires_endpoint_and_cannot_contain_credentials(self):
+        self.config['complimentaryAccess']['enabled'] = True
+        self.assertTrue(owner.validate(self.config))
+        self.config['complimentaryAccess']['endpoint'] = 'https://access.quietcamp.dev/v1/access'
+        self.assertFalse(owner.validate(self.config))
+        client = json.loads(owner.planned(self.config)[owner.RESOURCE+'owner_client.json'])
+        self.assertTrue(client['complimentaryAccessEnabled'])
+        self.assertNotIn('password', client)
+        self.config['complimentaryAccess']['password'] = 'not-allowed'
+        self.assertTrue(owner.validate(self.config))
     def test_empty_partial_corrupt_duplicate(self):
         self.assertEqual([], owner.validate(self.config))
         self.assertTrue(owner.validate({}))
