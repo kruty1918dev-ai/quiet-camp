@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Linq;
 using QuietCamp.Editor.LevelAuthoring.WorldOps;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -7,6 +8,15 @@ namespace QuietCamp.Tests
 {
     public sealed class WorldGeometryCensusTests
     {
+        [Test] public void SceneBudgetIncludesInactiveMeshesUiAndParticleCapacity()
+        {
+            var census=new WorldOpsGeometryCensus.Snapshot{sceneMeshTriangles=48000,uiTriangles=1000,particleTriangleCapacity=1000};
+            Assert.IsEmpty(WorldOpsGeometryCensus.CheckBudget(census,50000,"test"));
+            census.particleTriangleCapacity++;
+            Assert.AreEqual("scene.triangle-budget",WorldOpsGeometryCensus.CheckBudget(census,50000,"test").Single().code);
+            census.particleTriangleCapacity=0;census.uncountedRenderers.Add("Unsupported trail");
+            Assert.AreEqual("scene.unbounded-geometry",WorldOpsGeometryCensus.CheckBudget(census,50000,"test").Single().code);
+        }
         static Mesh Mesh()
         {
             var mesh=new Mesh{vertices=new[]{new Vector3(-1,-1,0),new Vector3(1,-1,0),new Vector3(0,1,0)}};

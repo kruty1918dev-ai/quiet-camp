@@ -2,6 +2,14 @@
 
 # Карта продуктивності Quiet Camp
 
+## Густота без густої сітки · 23.10.2026
+
+[етап 2: густий луг через detail mapping і grass cards](reports/dense-meadow/2026-10-23/README-UA.md): одна непрозора деталізація землі плюс bounded card mesh. Верхня межа карток 1 152 трикутники, дві спільні текстури приблизно 0,42 МіБ із mipmaps. 100/100 portable checks; native URP вигляд, повний scene total і Galaxy A52 FPS не виміряно.
+
+## Геометрія для Galaxy A52 · 23.10.2026
+
+[звіт оптимізації геометрії](reports/mobile-geometry-budget/2026-10-23/README-UA.md): 100/100 portable checks, трава до 600 трикутників акцентів плюс захищене обростання та процедурний меш до 1 200. Відомий максимум з наметами — 39 160; це не повний native scene total. Додано WorldOps gate на 50 000 з UI й particle capacity. Unity checks та вимірювання на телефоні залишаються відкритими.
+
 ## Мобільний runtime · 23.10.2026
 
 Завантаження оформлення використовує один typed JSON decode замість DOM,

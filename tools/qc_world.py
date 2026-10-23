@@ -96,6 +96,9 @@ def main():
     external.add_argument('--skip-export',action='store_true')
     external.add_argument('--repair-kinds',default='well.opening,bridge.crossing,shade.support',help='Comma-separated shared C# repair operations for candidate output')
     external.add_argument('--composition-candidates',action='store_true',help='Prepare shared C# WorldOps repairs outside Assets; never publish')
+    budget = sub.add_parser('mobile-budget-audit', help='Read-only shared C# mobile-budget checks for all 100 levels; no Unity or publication')
+    budget.add_argument('--output', type=Path, required=True)
+    budget.add_argument('--dotnet')
     sub.add_parser('status')
     teaser = sub.add_parser('teaser', help='Isolated real-game marketing capture through the WorldOps extension')
     teaser.add_argument('action', choices=['create', 'validate', 'preview', 'record', 'status', 'cancel', 'reframe', 'bake'])
@@ -125,6 +128,9 @@ def main():
     delivery.add_argument('--message', default='Apply reviewed QuietCamp WorldOps changes')
     delivery.add_argument('--push', action='store_true')
     args = parser.parse_args()
+    if args.command=='mobile-budget-audit':
+        from world_audit import mobile_budget
+        return mobile_budget(args)
     if args.command=='external-audit':
         from world_audit import run as external_run
         return external_run(args)

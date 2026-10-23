@@ -21,6 +21,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         public float contactTolerance=.03f,minimumCellPixels=24,maximumCentreError=2;
         public string[] profiles={"portrait","landscape"};
         public int quality=2;
+        public int maximumSceneTriangles;
     }
     public sealed class WorldSelector
     {

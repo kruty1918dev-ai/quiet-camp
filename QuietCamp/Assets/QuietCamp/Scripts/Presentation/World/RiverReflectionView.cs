@@ -75,7 +75,13 @@ namespace QuietCamp.Presentation.World
         }
         public void SetQuality(int tier)
         {
-            if(_renderer!=null)_renderer.renderScale=tier==0?.25f:tier==1?_scale:Mathf.Min(.6f,_scale*1.3f);
+            if(_renderer!=null)
+            {
+                // Even a small reflection texture redraws the world. Low uses
+                // the existing environment probe instead of a second scene pass.
+                _renderer.enabled=tier>0;
+                if(tier>0)_renderer.renderScale=tier==1?_scale:Mathf.Min(.6f,_scale*1.3f);
+            }
         }
     }
 }

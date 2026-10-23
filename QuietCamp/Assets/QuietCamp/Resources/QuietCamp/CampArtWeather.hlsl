@@ -5,6 +5,7 @@
         float4 _CampUseBounds,_CampClimate,_WeatherSkyBounds,_WeatherSkyGrid;
         float4x4 _WeatherSkyToLocal,_WeatherSkyNormalToLocal;
         float _WeatherSnowCover;
+        float _MobileMeadow;
         float _ArtGround,_ArtSnowSurface,_ArtWater,_ArtGrass,_ArtMeadow;
         float _ArtRiverDetail,_ArtRiverWaterline;
         CBUFFER_END

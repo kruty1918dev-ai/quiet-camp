@@ -445,3 +445,30 @@ python tools/world-audit/build_report.py /path/to/audit
 
 Ці Python-звіти потребують Pillow та NumPy. Ручні нотатки — діагностичні,
 не WorldOps ReviewVerdict. Повний звіт не створюється без усіх 100 нотаток.
+
+## Mobile budget — 23.10.2026
+
+Операція `scene.mobile-budget` використовує спільний runtime/WorldOps алгоритм
+`CampGeometryBudget`. Рецепти `mobile-budget-pilot.json` (1/7/42/44/71/100),
+потім `mobile-budget-all.json`; обидва без auto-apply. Критерій
+`maximumSceneTriangles:50000` обов’язковий: усі mesh instances, UI та
+particle capacity, включно з неактивними об’єктами. Непорахована динамічна
+геометрія блокує підтвердження. Перевірка додана також до меню.
+
+Без Unity: `qc_world.py --project QuietCamp mobile-budget-audit --output /path/outside-Assets`
+виконує реальний C# алгоритм для 100 активних ревізій і solved gameplay OBJ.
+Це read-only перевірка джерел і часткового бюджету, не native capture/apply.
+[Результати та відкриті перевірки](../../reports/mobile-geometry-budget/2026-10-23/README-UA.md).
+
+## Густий mobile meadow — етап 2
+
+Після `scene.mobile-budget` додано `vegetation.mobile-meadow`: щільний
+малюнок травинок і нормалей на непрозорій землі плюс один alpha-clipped
+mesh перехрещених пучків до 1 152 трикутників. Бюджет не повертається
+до сотень тисяч примірників. Спільні текстури генерує `MobileMeadowPattern`.
+
+Рецепти `mobile-meadow-pilot.json` і `mobile-meadow-all.json` мають обидва
+етапи, coverage, меню, обидві орієнтації та native ліміт 50 000; auto-apply
+вимкнено. `mobile-budget-audit` тепер перевіряє також фактичний C# bake
+текстур і card mesh. Це не оцінка кадрів і не вимірювання GPU.
+[Результати, діагностика та відкриті перевірки](../../reports/dense-meadow/2026-10-23/README-UA.md).

@@ -3,6 +3,8 @@ Shader "QuietCamp/Meadow"
     Properties
     {
         _CampUse("Observed surface use",2D)="black"{}
+        _MobileMeadow("Dense meadow",Float)=0
+        _MeadowDetailMap("Dense meadow detail",2D)="gray"{}
         _ClearingHalfSize ("Clearing half size", Vector) = (5,5,0,0)
         _GroundLow("Dark grass",Color)=(.27,.4,.23,1)
         _GroundHigh("Light grass",Color)=(.43,.57,.31,1)
@@ -28,6 +30,7 @@ Shader "QuietCamp/Meadow"
             half4 _GroundLow,_GroundHigh,_SoilTone;
             float4 _GroundFinish,_MeadowExtent;
             float _CellGrid;
+            float _MobileMeadow;
             float4 _PlacementFocus;
             float _SnowSeason,_HeatMelt;
             float4 _HeatSite0,_HeatSite1,_HeatSite2,_HeatSite3;
@@ -67,6 +70,7 @@ Shader "QuietCamp/Meadow"
             }
             #include "CampSurfaceUse.hlsl"
             #include "NaturalGround.hlsl"
+            #include "MobileMeadow.hlsl"
             half4 Frag(Varyings i) : SV_Target
             {
                 float2 ground = i.positionWS.xz;
@@ -89,6 +93,8 @@ Shader "QuietCamp/Meadow"
                     grass=lerp(grass,_SoilTone.rgb*half3(.75,.53,.38),thaw*_HeatMelt*saturate(_SnowSeason));
                 }
                 float4 use=CampUse(ground);float snow=_CampClimate.y;
+                MeadowDetail meadow=(MeadowDetail)0;
+                if(_MobileMeadow>.5){meadow=SampleMeadowDetail(ground);grass=DenseMeadowColor(grass,_GroundLow.rgb,_GroundHigh.rgb,meadow,use.g,use.r,snow);}
                 grass=lerp(grass,SettledSnowColor(ground),snow);
                 grass=lerp(grass,_SoilTone.rgb*(1-_CampClimate.x*.23),use.r*(1-snow)*(.67+Noise(ground*2.8)*.23));
                 grass=lerp(grass,float3(.68,.78,.86),use.b*snow*.42);
@@ -105,6 +111,7 @@ Shader "QuietCamp/Meadow"
                 grass*=1-max(seam.x,seam.y)*.14*_CellGrid*lerp(1,focus,_PlacementFocus.w)*smoothstep(.015,.06,insideEdge);
                 Light sun = GetMainLight(TransformWorldToShadowCoord(i.positionWS));
                 half3 normal=NaturalGroundNormal(float3(0,1,0),ground,_GroundFinish,_CampClimate.x+use.a,snow);
+                if(_MobileMeadow>.5)normal=DenseMeadowNormal(normal,meadow,use.g,snow);
                 half3 lighting = SampleSH(normal)
                     + sun.color * saturate(dot(normal,sun.direction)) * sun.shadowAttenuation;
                 lighting=lerp(lighting,max(lighting,SampleSH(float3(0,1,0))*1.15+sun.color*.18*sun.shadowAttenuation),snow);

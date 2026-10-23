@@ -83,7 +83,9 @@ namespace QuietCamp.Presentation.World
             var batches = new List<CombineInstance>(); var foliageBatches = new List<CombineInstance>();
             var movingModels = new HashSet<string>(StringComparer.Ordinal);
             var regrowthBatches=new[]{new List<CombineInstance>(),new List<CombineInstance>(),new List<CombineInstance>()};
-            var bankPlants=excludeLandscape?Array.Empty<CampArtDefinition.Instance>():RiverBankEcology.Generate(definition,PresentedLandscape,riverProfile);
+            // Authored bank accents survive the budget pass; do not add another
+            // unbudgeted full-model plant population at runtime.
+            var bankPlants=excludeLandscape||definition.mobileGeometryBudget?Array.Empty<CampArtDefinition.Instance>():RiverBankEcology.Generate(definition,PresentedLandscape,riverProfile);
             var riverField=new RiverSurfaceField(PresentedLandscape);
             var sourceModels=definition.models.ToDictionary(m=>m.id);
             var modelHeights=definition.models.ToDictionary(m=>m.id,m=>Enumerable.Range(0,m.vertices.Length/3).Max(i=>m.vertices[i*3+1])-Enumerable.Range(0,m.vertices.Length/3).Min(i=>m.vertices[i*3+1]));
@@ -167,7 +169,8 @@ namespace QuietCamp.Presentation.World
                 _regrowthRenderers[band]=AddMesh("ForestRegrowth"+band,mesh,grassMaterial);
                 RegrowthTriangleBands[band]=mesh.vertexCount/3;
             }
-            _blur = new CampArtEdgeBlur(_camera, definition.blurPixels, () => PresentationActive,definition.fieldCover?.softnessPixels??2.2f);
+            if(definition.blurPixels>0||(definition.fieldCover?.softnessPixels??2.2f)>0)
+                _blur = new CampArtEdgeBlur(_camera, definition.blurPixels, () => PresentationActive,definition.fieldCover?.softnessPixels??2.2f);
             _camera.GetUniversalAdditionalCameraData().renderPostProcessing = true;
             if(definition.atmosphere!=null)
             {
@@ -241,6 +244,7 @@ namespace QuietCamp.Presentation.World
         }
         void GroundPalette(Material material)
         {
+            MobileMeadowMaterial.Bind(material,Definition);
             var finish=Definition.groundSurface??new CampArtDefinition.GroundSurfaceSettings();
             material.SetVector("_GroundFinish",new Vector4(finish.patchScale,finish.facetScale,finish.relief,0));
             material.SetVector("_CampFieldSize",new Vector4(_level.width*.5f,_level.height*.5f,0,0));
@@ -316,6 +320,7 @@ namespace QuietCamp.Presentation.World
             => PresentedLandscape?.SampleHeight(x,z)??Definition.GroundHeight(x,z);
         void BuildGroundcover(Material material)
         {
+            if(Definition.cover.Length==0)return;
             var library = CozyVegetationLibrary.Load();
             if (library == null) throw new InvalidOperationException("Project vegetation library unavailable.");
             var shapes = library.plants.Where(p => p.mesh != null && p.mesh.isReadable && p.colors != null && p.colors.Length > 0)
