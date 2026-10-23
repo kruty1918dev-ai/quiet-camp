@@ -52,6 +52,7 @@ namespace QuietCamp.Presentation
         public JourneyAccessService JourneyAccess { get; private set; }
         public PurchaseService Purchases { get; private set; }
         public ComplimentaryAccessService ComplimentaryAccess { get; private set; }
+        public CloudSaveService Cloud { get; private set; }
         public InterstitialService Interstitials { get; private set; }
         public OwnerClientConfiguration OwnerConfiguration { get; private set; }
         public OperationalMetrics OperationalMetrics { get; private set; }
@@ -243,6 +244,14 @@ namespace QuietCamp.Presentation
             Tutorial = CreateTutorial();
             ConfigureMonetization(purchaseProvider);
             save.BeforeSave += SyncProgress;
+            Cloud=new CloudSaveService(Settings,new CloudCredentialStore(save.MemoryOnly),new CloudTransport(OwnerConfiguration.cloudSaveEndpoint),
+                OwnerConfiguration.cloudSaveEndpoint,OwnerConfiguration.CloudSaveConfigured(Legal) && !save.MemoryOnly,
+                () => !Settings.privacyAcknowledgementDraft && Settings.privacyAcknowledgementRevision==Legal.revision
+                    && (PrivacyEligibility.Band(Settings)==PrivacyAgeBand.Adult
+                        || PrivacyEligibility.Band(Settings)==PrivacyAgeBand.From16To17 && OwnerConfiguration.cloudSaveTeenReviewed),
+                CaptureCloudProgress,ApplyCloudProgress,save.Save);
+            save.SaveCommitted += OnCloudSaveCommitted;
+            OnCloudSaveCommitted();
             Tutorial.RetryReward();
             Rewards.EarnFromPlay();
         }
@@ -374,6 +383,33 @@ namespace QuietCamp.Presentation
             Save.Progress.tutorial = Tutorial?.Save;
         }
 
+        CloudSnapshot CaptureCloudProgress()
+        {
+            SyncProgress();
+            var snapshot=new CloudSnapshot {progress=Save.Progress,session=Save.Session,album=Save.Album,memories=Save.Memories,
+                resources=CloudResources.Capture(Save.Economy)};
+            // Detach from live gameplay before an asynchronous HTTP request.
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<CloudSnapshot>(Newtonsoft.Json.JsonConvert.SerializeObject(snapshot));
+        }
+        bool ApplyCloudProgress(CloudSnapshot snapshot)
+        {
+            var scene=UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            if ((scene!="MainMenu" && scene!="Boot") || MonetizationBusy || !CloudSaveService.Valid(snapshot)) return false;
+            var before=CaptureCloudProgress();
+            bool Replace(CloudSnapshot data)
+            {
+                Save.Progress=data.progress; Save.Session=data.session; Save.Album=data.album; Save.Memories=data.memories;
+                data.resources.Apply(Save.Economy); // Never copies Pro, purchase tokens or device privacy choices.
+                CampContent.Migrate(Save);
+                Progression.Restore(Save.Progress.completedIds,Save.Progress.lastLevelId,Save.Progress.cosmeticFlags);
+                Tutorial=CreateTutorial(); ConfigureMonetization(); PendingLevelId=null; AlbumIndex=0;
+                return true;
+            }
+            try { Replace(snapshot); if(Save.Save()) return true; }
+            catch { }
+            Replace(before); return false;
+        }
+
         TutorialDirector CreateTutorial()
         {
             if (Save.Progress == null) Save.Progress = new ProgressSaveData();
@@ -391,6 +427,9 @@ namespace QuietCamp.Presentation
         {
             if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "MainMenu" || MonetizationBusy)
                 return false;
+            if (Cloud.Busy) return false;
+            await Cloud.SignOut();
+            if (Cloud.HasAccount) return false; // Credential erasure failed; do not claim a complete local erase.
             await Analytics.ClearLocalDataAndWithdraw();
             await Crashes.SetConsent(false);
             if (!Save.MemoryOnly && !(OptionalBilling.ClearLocalHistory?.Invoke() ?? true)) return false;
@@ -429,6 +468,8 @@ namespace QuietCamp.Presentation
             AdHints.RewardObserved -= OnHintReward;
             Save.SaveFailed -= OnSaveFailed;
             Save.BeforeSave -= SyncProgress;
+            Save.SaveCommitted -= OnCloudSaveCommitted;
+            Cloud.Dispose();
             OperationalMetrics?.Clear(); Purchases?.Dispose(); ComplimentaryAccess?.Dispose();
             Analytics.Dispose();
             Crashes.Dispose();
@@ -450,6 +491,7 @@ namespace QuietCamp.Presentation
             if (PrivacyEligibility.Band(Settings) == band && Settings.privacyAgeVersion == PrivacyEligibility.AgeVersion) return true;
             OperationalMetrics?.Clear();
             bool saved = PrivacyEligibility.ChangeAge(Settings, band, PersistPrivacy);
+            Cloud.EligibilityChanged();
             await Analytics.SetConsent(false);
             await Crashes.SetConsent(false);
             (Ads as IAdRequestCancellation)?.CancelPending();
@@ -467,5 +509,10 @@ namespace QuietCamp.Presentation
         void OnLifeReward(RewardStage stage) => Analytics.Reward(stage, 0);
         void OnHintReward(RewardStage stage) => Analytics.Reward(stage, 2);
         void OnCosmeticReward(RewardStage stage) => Analytics.Reward(stage, 1);
+        void OnCloudSaveCommitted()
+        {
+            Cloud.MarkDirty();
+            Cloud.ObserveMilestones(Progression.CompletedCount,Save.Memories.rewardIds?.Length ?? 0);
+        }
     }
 }

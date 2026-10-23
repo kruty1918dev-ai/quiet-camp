@@ -9,7 +9,10 @@
   "vars": {
     "QC_ANDROID_PACKAGE": "com.quietcamp.game",
     "QC_PRO_PRODUCT": "quietcamp_pro",
-    "QC_EXPLORE_PUBLISHED": "true"
+    "QC_EXPLORE_PUBLISHED": "true",
+    "QC_CLOUD_ENABLED": "false",
+    "QC_CLOUD_SCHEMA": "0",
+    "QC_CLOUD_PROVIDERS": ""
   },
   "d1_databases": [{
     "binding": "ACCESS_DB",

@@ -12,6 +12,13 @@ namespace QuietCamp.Infrastructure
         public string proProductId = "quietcamp_pro", verificationEndpoint = "", operationalMetricsEndpoint = "";
         public bool billingReviewed, operationalMetricsReviewed;
         public bool complimentaryAccessEnabled;
+        public bool cloudSaveEnabled, cloudSaveReviewed, cloudSaveTeenReviewed;
+        public string cloudSaveEndpoint = "";
+        public bool CloudSaveConfigured(LegalConfiguration legal) => schemaVersion==1 && cloudSaveEnabled && cloudSaveReviewed
+            && legal.Published && legal.accountsEnabled && legal.cloudSavesEnabled && LegalConfiguration.PublishedUrl(legal.accountDeletionUrl)
+            && LegalConfiguration.PublishedUrl(cloudSaveEndpoint)
+            && Uri.TryCreate(cloudSaveEndpoint,UriKind.Absolute,out var uri) && uri.AbsolutePath.TrimEnd('/')=="/v1/cloud"
+            && string.IsNullOrEmpty(uri.Query) && string.IsNullOrEmpty(uri.Fragment) && string.IsNullOrEmpty(uri.UserInfo);
         public string complimentaryAccessEndpoint = "";
         public bool ComplimentaryAccessConfigured => schemaVersion == 1 && complimentaryAccessEnabled && LegalConfiguration.PublishedUrl(complimentaryAccessEndpoint);
         public int firstInterstitialAfterCompletedLevels = 5, completedLevelsBetweenInterstitials = 4;

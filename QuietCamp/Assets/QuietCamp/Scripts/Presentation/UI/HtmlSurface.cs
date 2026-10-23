@@ -77,6 +77,7 @@ namespace QuietCamp.Presentation.UI
             // Keep CSS/Yoga/uGUI rendering, but avoid Android native VM/AOT binding.
             surface._host.NativeEventResolver = surface._callbacks.ResolveNativeEvent;
             if (services != null) services.Localization.LanguageChanged += surface.Refresh;
+            if (services?.Cloud != null) services.Cloud.Changed += surface.Refresh;
             surface.Refresh();
             return surface;
         }
@@ -308,6 +309,7 @@ namespace QuietCamp.Presentation.UI
         {
             FlushSettingsSave();
             if (_services != null) _services.Localization.LanguageChanged -= Refresh;
+            if (_services?.Cloud != null) _services.Cloud.Changed -= Refresh;
             _host.Dispose();
             _elements.Clear(); _elementRects.Clear();
             _callbacks.Clear();

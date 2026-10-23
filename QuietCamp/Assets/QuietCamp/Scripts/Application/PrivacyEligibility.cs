@@ -23,7 +23,10 @@ namespace QuietCamp.Application
             settings.crashSessionEligible = false;
         }
         public static void Reset(SettingsSaveData settings)
-        { Revoke(settings); settings.privacyAgeBand = 0; settings.privacyAgeVersion = 0; settings.privacySetupVersion = 0; }
+        {
+            Revoke(settings); settings.privacyAgeBand = 0; settings.privacyAgeVersion = 0; settings.privacySetupVersion = 0;
+            settings.cloudSyncEnabled=false; settings.cloudConsentVersion=0; settings.accountChoiceVersion=0;
+        }
         public static bool ChangeAge(SettingsSaveData settings, PrivacyAgeBand band, Func<bool> save)
         {
             if (!Enum.IsDefined(typeof(PrivacyAgeBand), band)) return false;

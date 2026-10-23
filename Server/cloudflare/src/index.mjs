@@ -1,3 +1,4 @@
+import { handleCloud, cleanupCloud } from './cloud.mjs';
 // Explicit complimentary access, identical for everyone issued an account.
 // Passwords/tokens never enter URLs, logs, D1 or the client configuration.
 const encode = new TextEncoder();
@@ -107,6 +108,7 @@ async function refresh(env, config, data, now) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === '/v1/cloud' || url.pathname.startsWith('/v1/cloud/')) return handleCloud(request, env);
     if (url.protocol !== "https:" && url.hostname !== "localhost") return json(400, { error: "HTTPS required" });
     if (url.search) return json(400, { error: "Request rejected" });
     const route = url.pathname.match(/^\/v1\/access\/(sign-in|refresh|health)$/)?.[1];
@@ -127,6 +129,7 @@ export default {
     } catch { return unavailable(); }
   },
   async scheduled(_controller, env, ctx) {
+    if (env.QC_CLOUD_SCHEMA === '3') ctx.waitUntil(cleanupCloud(env));
     const now = Math.floor(Date.now() / 1000);
     ctx.waitUntil(env.ACCESS_DB.batch([
       env.ACCESS_DB.prepare("DELETE FROM complimentary_limit WHERE expires<=?").bind(now),

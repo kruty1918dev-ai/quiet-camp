@@ -247,6 +247,24 @@ namespace QuietCamp.Presentation
                     _bootView.Fail(); _startup = null; yield break;
                 }
             }
+            if (!authoringPreview && !_startupSave.MemoryOnly)
+            {
+                // Every launch checks a remembered account after privacy; offline keeps the local copy.
+                var launchSync=_services.Cloud.Sync();
+                while(!launchSync.IsCompleted) yield return null;
+            }
+            if (!authoringPreview && !_startupSave.MemoryOnly && (_startupSave.Settings.accountChoiceVersion != CloudSaveService.ChoiceVersion
+                || _services.Cloud.Status==CloudSaveStatus.Conflict))
+            {
+                _bootView.ShowPolicy(true);
+                var account=CloudAccountPanel.Create(_bootView.PolicyParent,_services);
+                while(!account.Accepted && !_exitRequested) {
+                    if(account.MountError!=null) { Destroy(account.gameObject); _bootView.ShowPolicy(false); _bootView.Fail(); _startup=null; yield break; }
+                    yield return null;
+                }
+                Destroy(account.gameObject); _bootView.ShowPolicy(false);
+                if(_exitRequested) { _startup=null; yield break; }
+            }
             _ = _services.Analytics.RestoreConsent(); // Optional SDK/network cannot hold startup.
             _ = _services.Crashes.RestoreConsent();
             if (_services.GoogleConfiguration.AdvertisingAllowed && _services.Ads is IAdConsentInitialization adConsent)
@@ -373,6 +391,7 @@ namespace QuietCamp.Presentation
         void Update()
         {
             if (_exitRequested) return;
+            if(StartupReady && _focused && !_paused) _services?.Cloud?.Tick();
             _hotkeys?.Tick();
             _motion?.Tick();
             _audio?.Tick();
@@ -414,7 +433,7 @@ namespace QuietCamp.Presentation
         void OnApplicationPause(bool paused)
         {
             _paused = paused;
-            if (!paused) RestoreScreenOrientation();
+            if (!paused) { RestoreScreenOrientation(); _services?.Cloud?.ConnectionResumed(); }
             if (_services != null) _services.Haptics.Suspended = _paused || !_focused;
             if (paused)
             {
@@ -428,7 +447,7 @@ namespace QuietCamp.Presentation
         void OnApplicationFocus(bool focused)
         {
             _focused = focused;
-            if (focused) { RestoreScreenOrientation(); if (_services != null && !_services.MonetizationBusy) _ = _services.Purchases.Restore(); }
+            if (focused) { RestoreScreenOrientation(); _services?.Cloud?.ConnectionResumed(); if (_services != null && !_services.MonetizationBusy) _ = _services.Purchases.Restore(); }
             AudioListener.pause = _paused || !_focused;
             if (_services != null) _services.Haptics.Suspended = _paused || !_focused;
         }

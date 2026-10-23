@@ -21,6 +21,26 @@ class OwnerTests(unittest.TestCase):
         self.assertTrue(snapshot['useTestAds'])
         self.assertTrue(snapshot['configurationPrepared'])
         self.assertFalse(snapshot['interstitialsEnabled'])
+    def test_existing_owner_config_defaults_cloud_off(self):
+        del self.config['cloudSave']
+        self.assertFalse(owner.validate(self.config))
+        client=json.loads(owner.planned(self.config)[owner.RESOURCE+'owner_client.json'])
+        self.assertFalse(client['cloudSaveEnabled'])
+    def test_cloud_endpoint_requires_exact_api_and_rejects_credentials(self):
+        cloud=self.config['cloudSave'];cloud['enabled']=True
+        for endpoint in ('', 'https://cloud.quietcamp.dev/v1/access','https://cloud.quietcamp.dev/v1/cloud?token=private'):
+            cloud['endpoint']=endpoint;self.assertTrue(owner.validate(self.config))
+        cloud['endpoint']='https://cloud.quietcamp.dev/v1/cloud';self.assertFalse(owner.validate(self.config))
+        cloud['secret']='never-copy';self.assertTrue(owner.validate(self.config))
+    def test_cloud_activation_and_published_bundle_are_independent_of_tracking(self):
+        self.config['cloudSave'].update(enabled=True,endpoint='https://cloud.quietcamp.dev/v1/cloud',reviewed=True)
+        self.config['reviews']['policyPublished']=True
+        output=owner.planned(self.config)
+        legal=json.loads(output[owner.RESOURCE+'legal.json']);publication=json.loads(output[owner.RESOURCE+'privacy_content.json'])
+        self.assertTrue(legal['cloudSavesEnabled']);self.assertFalse(legal['sdkDisclosuresReviewed']);self.assertFalse(publication['draft'])
+        self.assertTrue(all(v['url']==v['sourceUrl'] for v in publication['document']['variants']))
+        self.config['legal']['publishedPolicyRevision']='wrong-revision'
+        with self.assertRaises(owner.ConfigError):owner.planned(self.config)
     def test_complimentary_access_requires_endpoint_and_cannot_contain_credentials(self):
         self.config['complimentaryAccess']['enabled'] = True
         self.config['complimentaryAccess']['endpoint'] = ''
@@ -81,7 +101,7 @@ class OwnerTests(unittest.TestCase):
     def test_preview_detects_manual_changes_and_config_change(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            paths = [owner.RESOURCE + "google_services.json", owner.RESOURCE + "legal.json",
+            paths = [owner.RESOURCE + "google_services.json", owner.RESOURCE + "legal.json", owner.RESOURCE + "privacy_content.json",
                      "QuietCamp/Assets/GoogleMobileAds/Resources/GoogleMobileAdsSettings.asset",
                      "QuietCamp/ProjectSettings/ProjectSettings.asset",
                      "QuietCamp/Assets/Plugins/Android/QuietCampPrivacy.androidlib/AndroidManifest.xml"]
