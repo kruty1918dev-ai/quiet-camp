@@ -51,3 +51,32 @@ Batch entry: `QuietCamp.Editor.QuietCampBuild.BuildAndroidSessionLogs`.
 Підготовка APK сама по собі не підтверджує роботу експорту чи Pro на телефоні.
 Google Play Review залишається непідтвердженим до перевірки придатної
 Android-збірки на пристрої. Ця збірка не публікується в Google Play.
+
+## Фактичний результат 2026-10-23
+
+- APK зібрано з `main` (`29fb709c`): Unity 6000.6.2f1, IL2CPP, ARM64,
+  версія гри 0.1.0, Android 8+ (API 26), target API 35. Розмір: 223 656 182 байти.
+- SHA-256: `06f00f5b78390b0ed3322f039d2d340e2d15726d4a0d656b9a67741d24b8e9cc`.
+- 181 C#-тест виконано на .NET із платформними підмінами; не Android runtime.
+  13 перевірок owner-конфігурації пройшли.
+- Перевірено фактичні player defines: `QC_SESSION_LOGS` є, `QC_TEST` немає.
+  У метаданих готового APK присутні класи запису JSON та експорту.
+- Підпис APK v2 валідний. Zip alignment 16 КБ пройшов; усі 17 ARM64-бібліотек
+  мають ELF LOAD alignment не менше 16 КБ.
+- Маніфест готового APK перевірено: стандартний FirebaseInitProvider видалено,
+  власний privacy provider присутній у DEX, правила початкової заборони збору
+  даних збережено. Ця перевірка не доводить відсутність мережевого трафіку.
+- Збірка завершилася з `BuildResult.Succeeded`, проте Unity BuildReport показав
+  2 errors і 2 warnings. У журналі є несумісність **Odin Editor** з
+  `UnityEngine.EntityId.MagicVersion`, повідомлення headless GPU і попередження
+  про iOS-плагін Google Ads. Це не звіт про чистий production-реліз.
+- Для проходження фактичної Java-компіляції виправлено classpath дочірнього
+  `QuietCampPrivacy.androidlib`: він отримує ті самі Billing/AndroidX залежності
+  з чинного `PlayBillingDependencies.xml`. Платежі не активовано.
+- У локальному кеші VFX 17.6.0 відновлено відсутній `.meta` для класу міграції
+  з [офіційного Unity Graphics](https://github.com/Unity-Technologies/Graphics/blob/master/Packages/com.unity.visualeffectgraph/Runtime/Utilities/Playables/VisualEffectActivationDeprecated/VisualEffectActivationTrackMigration.cs.meta).
+  Інсталяцію Unity не змінено. При очищенні кешу цей дефект пакета може повторитися.
+
+На телефон APK не встановлювали. Створення файлів, експорт через MediaStore,
+вхід Pro, повторний запуск та FPS на реальному Android ще не перевірені.
+Службові результати перевірок і повний build log лежать в ігнорованому `Temp/ai/`.
