@@ -16,6 +16,7 @@ namespace UnityEngine {
   public static float Max(params float[] v)=>System.Linq.Enumerable.Max(v);
   public static int Max(int a,int b)=>Math.Max(a,b);
   public static float Clamp(float x,float a,float b)=>Math.Clamp(x,a,b);
+  public static int Clamp(int x,int a,int b)=>Math.Clamp(x,a,b);
   public static float Clamp01(float x)=>Math.Clamp(x,0,1);
   public static float Lerp(float a,float b,float t)=>a+(b-a)*Clamp01(t);
   public static float Sqrt(float x)=>(float)Math.Sqrt(x);

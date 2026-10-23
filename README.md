@@ -9,6 +9,8 @@
 
 <p align="center">Unity 6 / URP · Offline-first · Українська / English / Deutsch</p>
 
+Кандидат оптимізації 23.10.2026: [звіт оптимізації геометрії](reports/mobile-geometry-budget/2026-10-23/README-UA.md). 100 рівнів перевірено автономно; повний native бюджет 50 000 та FPS на телефоні ще не підтверджені.
+
 Діагностичний Android APK із локальним JSON для кожного сеансу:
 [збирання та копіювання журналів через USB](SESSION-LOGS-UA.md).
 

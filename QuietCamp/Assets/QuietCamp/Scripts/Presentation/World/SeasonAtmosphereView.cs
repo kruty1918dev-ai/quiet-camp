@@ -243,6 +243,7 @@ namespace QuietCamp.Presentation.World
         }
         ParticleSystem Pool(string name,Color color,float size,float life,Vector3 speed,int budget,bool softSnow=false)
         {
+            if(_art.mobileGeometryBudget)budget=CampGeometryBudget.WeatherParticleCapacity(budget);
             var node=new GameObject(name);node.transform.SetParent(transform,false);var s=node.AddComponent<ParticleSystem>();s.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);
             var main=s.main;main.playOnAwake=false;main.loop=false;main.maxParticles=budget;main.startLifetime=life;main.startSize=size;main.startColor=color;main.startSpeed=0;main.simulationSpace=ParticleSystemSimulationSpace.World;main.useUnscaledTime=true;main.cullingMode=ParticleSystemCullingMode.AlwaysSimulate;
             var emission=s.emission;emission.enabled=false;var shape=s.shape;shape.enabled=false;

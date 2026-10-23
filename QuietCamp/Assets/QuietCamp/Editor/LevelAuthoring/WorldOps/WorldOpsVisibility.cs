@@ -88,14 +88,17 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         {
             var camera=Camera.main;var view=UnityEngine.Object.FindAnyObjectByType<CampArtView>();
             if(camera==null||view?.Definition==null)throw new InvalidOperationException("The real gameplay camera is required.");
-            WorldOpsStorage.Json(path+".geometry-census.json",WorldOpsGeometryCensus.Capture(camera));
+            var census=WorldOpsGeometryCensus.Capture(camera);
+            WorldOpsStorage.Json(path+".geometry-census.json",census);
+            var budgetFindings=WorldOpsGeometryCensus.CheckBudget(census,criteria.maximumSceneTriangles,view.Definition.levelId);
             var art=view.Definition;var viewport=camera.GetComponent<Kruty1918.GameplayViewport.GameplayViewport>();
             var rect=viewport!=null?viewport.Frame.NormalizedGameplay:new Rect(0,0,1,1);
             var primary=art.instances.SingleOrDefault(i=>i.id==art.primaryLandmarkInstanceId);var model=art.models.SingleOrDefault(m=>m.id==primary?.modelId);
-            if(primary==null||model==null){WorldOpsStorage.Json(path+".diagnostics.json",new{kind="diagnostic-only",findings=Project(camera,art,rect,criteria),mask=false});return;}
+            if(primary==null||model==null){WorldOpsStorage.Json(path+".diagnostics.json",new{kind="diagnostic-only",findings=Project(camera,art,rect,criteria).Concat(budgetFindings).ToArray(),mask=false});return;}
             if(!view.TryGetPrimaryPresentedGeometry(out var mesh,out var primaryMatrix))throw new InvalidOperationException("The live primary mesh is unavailable; source geometry cannot substitute for it.");
             var worldVertices=mesh.vertices.Select(primaryMatrix.MultiplyPoint3x4).ToArray();
             var findings=Project(camera,art,rect,criteria,worldVertices);
+            findings.AddRange(budgetFindings);
             var shader=Shader.Find("Hidden/QuietCamp/WorldOpsMask");if(shader==null)throw new InvalidOperationException("WorldOps diagnostic shader was not imported.");
             var material=new Material(shader){hideFlags=HideFlags.HideAndDontSave};
             int width=Screen.width,height=Screen.height,remaining=2,visible=0,potential=0;string error=null;Color32[] scenePixels=null,isolatedPixels=null;

@@ -20,9 +20,10 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         }
         [Serializable] public sealed class Snapshot
         {
-            public string scope="Indexed MeshRenderer/SkinnedMeshRenderer instances in loaded non-preview scenes, including inactive/disabled objects. UI separate; dynamic particle/trail/terrain geometry not included in mesh totals. No pass multiplication.";
+            public string scope="Indexed MeshRenderer/SkinnedMeshRenderer instances in loaded non-preview scenes, including inactive/disabled objects. UI separate. Particle capacities count worst-case quads/meshes; unsupported dynamic renderers remain explicit. No pass multiplication.";
             public long sceneMeshTriangles,activeMeshTriangles,uniqueMeshTriangles,frustumCandidateTriangles,activeShadowCasterTriangles,uiTriangles;
             public int indexedMeshInstances,liveParticles;
+            public long particleTriangleCapacity;
             public List<Entry> entries=new List<Entry>();
             public List<string> uncountedRenderers=new List<string>();
         }
@@ -50,8 +51,22 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 else if(renderer is MeshRenderer)mesh=renderer.GetComponent<MeshFilter>()?.sharedMesh;
                 else
                 {
-                    result.uncountedRenderers.Add(Path(renderer.transform)+" ["+renderer.GetType().Name+"]");
-                    if(renderer is ParticleSystemRenderer)result.liveParticles+=renderer.GetComponent<ParticleSystem>()?.particleCount??0;
+                    if(renderer is ParticleSystemRenderer particles)
+                    {
+                        var system=renderer.GetComponent<ParticleSystem>();
+                        if(system==null)continue;
+                        result.liveParticles+=system.particleCount;
+                        long perParticle=2;
+                        if(particles.renderMode==ParticleSystemRenderMode.None)perParticle=0;
+                        else if(particles.renderMode==ParticleSystemRenderMode.Mesh)
+                        {
+                            var variants=new Mesh[particles.meshCount];particles.GetMeshes(variants);
+                            perParticle=variants.Select(Triangles).DefaultIfEmpty(0).Max();
+                        }
+                        result.particleTriangleCapacity+=(long)system.main.maxParticles*perParticle;
+                        if(system.trails.enabled)result.uncountedRenderers.Add(Path(renderer.transform)+" [particle trails]");
+                    }
+                    else result.uncountedRenderers.Add(Path(renderer.transform)+" ["+renderer.GetType().Name+"]");
                     continue;
                 }
                 if(mesh==null)continue;
@@ -69,8 +84,20 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             }
             foreach(var renderer in UnityEngine.Object.FindObjectsByType<CanvasRenderer>(FindObjectsInactive.Include,FindObjectsSortMode.None))
                 if(InScene(renderer.gameObject))result.uiTriangles+=Triangles(renderer.GetMesh());
+            foreach(var terrain in UnityEngine.Object.FindObjectsByType<Terrain>(FindObjectsInactive.Include,FindObjectsSortMode.None))
+                if(InScene(terrain.gameObject))result.uncountedRenderers.Add(Path(terrain.transform)+" [Terrain tessellation]");
             result.entries=result.entries.OrderByDescending(e=>e.triangles).ThenBy(e=>e.path,StringComparer.Ordinal).ToList();
             return result;
+        }
+        public static List<ValidationFinding> CheckBudget(Snapshot census,int limit,string levelId)
+        {
+            var findings=new List<ValidationFinding>();if(limit<=0)return findings;
+            long total=census.sceneMeshTriangles+census.uiTriangles+census.particleTriangleCapacity;
+            if(total>limit)findings.Add(new ValidationFinding{code="scene.triangle-budget",levelId=levelId,measured=total,limit=limit,
+                message="Scene mesh instances + UI + maximum particle geometry exceed the triangle budget (including inactive objects)."});
+            if(census.uncountedRenderers.Count>0)findings.Add(new ValidationFinding{code="scene.unbounded-geometry",levelId=levelId,
+                message="Cannot certify the full scene budget while dynamic geometry is uncounted: "+string.Join(", ",census.uncountedRenderers)});
+            return findings;
         }
         static bool InScene(GameObject go)=>go.scene.IsValid()&&go.scene.isLoaded&&!EditorSceneManager.IsPreviewScene(go.scene);
         static string Category(Renderer renderer)

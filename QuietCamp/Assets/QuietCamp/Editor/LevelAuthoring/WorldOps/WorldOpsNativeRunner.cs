@@ -117,6 +117,9 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             {
                 if(!File.Exists(Path.Combine(run.nativeFolder,"menu.png")))return false;
                 if(QuietCampBootstrap.ServicesRef?.Save.MemoryOnly!=true)throw new InvalidOperationException("The menu capture left memory-only progress.");
+                var census=WorldOpsGeometryCensus.Capture(Camera.main);
+                WorldOpsStorage.Json(Path.Combine(run.nativeFolder,"menu.geometry-census.json"),census);
+                WorldOpsStorage.Json(Path.Combine(run.nativeFolder,"menu-budget.json"),WorldOpsGeometryCensus.CheckBudget(census,run.recipe.criteria.maximumSceneTriangles,item.levelId));
                 WorldOpsStorage.Json(Path.Combine(run.nativeFolder,"menu-capture.json"),new{kind="native-main-menu-with-ui",levelId=item.levelId,profile=run.nativeProfile,phase=run.nativePhase,seed=run.recipe.seed,width=Screen.width,height=Screen.height,quality=QualitySettings.GetQualityLevel(),memoryOnly=true});
                 return Advance(run);
             }
@@ -156,7 +159,9 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                     string file=Path.Combine(folder,"menu.png");var png=File.ReadAllBytes(file);
                     int width=(png[16]<<24)|(png[17]<<16)|(png[18]<<8)|png[19],height=(png[20]<<24)|(png[21]<<16)|(png[22]<<8)|png[23];
                     if(width!=(profile=="portrait"?750:1440)||height!=(profile=="portrait"?1334:1080))throw new InvalidDataException("Main menu dimensions do not match the capture profile.");
-                    frames.Add(new WorldFrame{path=file,sha256=WorldOpsStorage.FileHash(file),profile=profile,state="menu",phase=phase,evidence=evidence});
+                    var defects=WorldOpsStorage.Read<List<ValidationFinding>>(Path.Combine(folder,"menu-budget.json"));
+                    foreach(var defect in defects){defect.profile=profile;defect.evidence=file;if(phase=="after")findings.Add(defect);}
+                    frames.Add(new WorldFrame{path=file,sha256=WorldOpsStorage.FileHash(file),profile=profile,state="menu",phase=phase,evidence=evidence,findings=defects});
                 }
             }
             WorldOpsService.NativeFinished(item,frames,findings);run.status="running";return true;

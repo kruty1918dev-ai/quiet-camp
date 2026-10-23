@@ -2,6 +2,9 @@
 <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>disable</Nullable><EnableDefaultCompileItems>false</EnableDefaultCompileItems></PropertyGroup>
 <ItemGroup>
 <Compile Include="MobilePerformanceChecks.cs" />
+<Compile Include="MobileBudgetChecks.cs" />
+<Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampGeometryBudget.cs" />
+<Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Presentation/CampQualityPolicy.cs" />
 <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/CampEconomy.cs" />
 <Compile Include="../../QuietCamp/Assets/QuietCamp/Editor/LevelAuthoring/WorldOps/WorldOpsCompositionRepairs.cs" />
 <Compile Include="Export.cs;MathBoundary.cs;PrefabGeometry.cs;WellChecks.cs;CompositionChecks.cs" />

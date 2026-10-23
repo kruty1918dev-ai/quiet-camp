@@ -2,6 +2,20 @@
 import hashlib,json,re,shutil,subprocess,sys,time
 from pathlib import Path
 
+def mobile_budget(args):
+ repo=Path(__file__).resolve().parents[1];project=args.project.resolve();output=args.output.resolve()
+ if output==project or output.is_relative_to(project/'Assets') or output.is_relative_to(repo/'QuietCamp/Assets'):
+  raise SystemExit('Audit output must be outside Unity Assets; publication is not supported.')
+ dotnet=args.dotnet or shutil.which('dotnet')
+ if not dotnet:raise SystemExit('Install .NET SDK 8+ or pass --dotnet. No Unity Editor was launched.')
+ output.mkdir(parents=True,exist_ok=True);original_prefabs(repo,output)
+ sources=[repo/'tools/world-audit'/p for p in ['Export.csproj','MobileBudgetChecks.cs','MathBoundary.cs','PrefabGeometry.cs']]+[repo/'QuietCamp/Assets/QuietCamp/Scripts'/p for p in ['Infrastructure/CampGeometryBudget.cs','Infrastructure/CampArtDefinition.cs','Infrastructure/WorldWellShafts.cs','Infrastructure/FrozenLandscape.cs','Infrastructure/RiverSurfaceField.cs','Presentation/CampQualityPolicy.cs']]
+ hashes={str(p.relative_to(repo)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}
+ subprocess.run([dotnet,'run','--project',str(repo/'tools/world-audit/Export.csproj'),'--','--budget-check',str(project/'Assets/QuietCamp/Resources'),str(output)],check=True,cwd=repo)
+ if any(hashlib.sha256((repo/p).read_bytes()).hexdigest()!=sha for p,sha in hashes.items()):raise SystemExit('Budget sources changed during audit; discard mixed results.')
+ (output/'budget-source-manifest.json').write_text(json.dumps(hashes,indent=2)+'\n',encoding='utf-8')
+ return 0
+
 def original_prefabs(repo,output):
  folder=output/'prefab-sources';folder.mkdir(parents=True,exist_ok=True)
  catalog=json.loads((repo/'QuietCamp/Assets/QuietCamp/Resources/QuietCamp/asset_catalog.json').read_text(encoding="utf-8-sig"));materials={};prefabs={}

@@ -51,7 +51,8 @@ namespace QuietCamp.Presentation.World
             float snow=_art?.atmosphere?.snowCover??SeasonProfile.For(_level).SnowCoverage;
             var directions=new[]{Vector3.left,Vector3.forward,Vector3.right,Vector3.back};
             var finish=_art?.groundSurface??new CampArtDefinition.GroundSurfaceSettings();
-            for(int k=0;k<_level.width*_level.height*2;k++)
+            int stoneAttempts=_art?.mobileGeometryBudget==true?Mathf.Min(64,_level.width*_level.height*2):_level.width*_level.height*2;
+            for(int k=0;k<stoneAttempts;k++)
             {
                 var at=new Vector3(((float)random.NextDouble()-.5f)*(_level.width+3),0,((float)random.NextDouble()-.5f)*(_level.height+3));at.y=Height(at)+.003f;if(at.y<-.08f||InWell(at.x,at.z))continue;
                 // Irregular groups leave quiet open soil instead of uniformly scattered dots.
@@ -81,6 +82,7 @@ namespace QuietCamp.Presentation.World
         }
         void BuildFieldCover()
         {
+            if(_art?.mobileGeometryBudget==true){BuildBudgetCover();return;}
             var season=_art?.atmosphere?.season??SeasonProfile.For(_level).Id;if(season=="winter"){BuildSnowCover();return;}
 #if UNITY_EDITOR
             if(_art?.fieldCover?.heightFields!=null)
@@ -222,6 +224,27 @@ namespace QuietCamp.Presentation.World
             mesh.UploadMeshData(true);
             VegetationPatchCount++;
             }
+        }
+        void BuildBudgetCover()
+        {
+            var data=CampGeometryBudget.SparseCover(_art,_level.width,_level.height,_level.decorSeed);
+            if(data.triangles.Length==0)return;
+            var mesh=data.CreateMesh();mesh.name=data.name;
+            mesh.uv2=Enumerable.Range(0,mesh.vertexCount).Select(i=>new Vector2(i%3==1?1:0,1)).ToArray();
+            _fieldCover=new GameObject(data.name,typeof(MeshFilter),typeof(MeshRenderer),typeof(OwnedCampMesh),typeof(OwnedCampMaterial));
+            _fieldCover.transform.SetParent(transform,false);_fieldCover.layer=BoardRenderer.DecorLayer;
+            _fieldCover.GetComponent<MeshFilter>().sharedMesh=mesh;_fieldCover.GetComponent<OwnedCampMesh>().Mesh=mesh;
+            var material=new Material(Resources.Load<Shader>("QuietCamp/CampArtLit")){name="Sparse meadow accents"};
+            material.SetFloat("_ArtGrass",1);material.SetFloat("_ArtMeadow",1);
+            material.SetColor("_ArtAmbient",CampArtDefinition.Color(_art.atmosphere?.ambientColor??_art.ambientColor)*.55f);
+            _fieldMaterial=material;_fieldCover.GetComponent<OwnedCampMaterial>().Material=material;
+            var renderer=_fieldCover.GetComponent<MeshRenderer>();renderer.sharedMaterial=material;
+            renderer.shadowCastingMode=ShadowCastingMode.Off;renderer.receiveShadows=true;
+            BindMaterial(material);VegetationPatchCount=1;
+#if UNITY_EDITOR
+            InspectGeneratedMeadow?.Invoke(mesh,Array.Empty<int>());
+#endif
+            mesh.UploadMeshData(true);
         }
         void BuildSnowCover()
         {
