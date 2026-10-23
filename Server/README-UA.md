@@ -1,17 +1,24 @@
-# Сервер Quiet Camp — підготовка без розгортання
+# Сервер Quiet Camp
 
-Цей каталог не входить до Unity Assets. Сервер не розгорнуто. Реальні покупки,
-Google credentials, продукт Play та production endpoint не надані.
+Цей каталог не входить до Unity Assets. Complimentary Pro працює на наявних
+Cloudflare Worker + EU D1: `https://quietcamp-access.oleksiy-havryliuk.workers.dev/v1/access`.
+Розгортання, секрети, міграції та перевірки: [CLOUDFLARE-UA.md](CLOUDFLARE-UA.md).
+Android ще не перевірений; це не готовність для Google Play Review.
 
-Для чинного Vercel підготовлений окремий complimentary-only варіант:
-[точне розгортання, змінні й перевірки](VERCEL-UA.md). Він ще не розгорнутий;
-використовує постійне Redis-сховище, а не SQLite у serverless `/tmp`.
+Billing, Google credentials і товар Play залишаються окремою незавершеною
+інтеграцією. Нижче — WSGI/SQLite reference для purchase verification та локальних
+тестів; його PBKDF2-перевірка не виконується у Worker. Виробничий complimentary
+контракт реалізований у `cloudflare/src/index.mjs`, тести — workerd + D1.
 
 `service.py` надає WSGI-застосунок: `POST /v1/purchases/verify`,
 `POST /v1/play/notifications` і вимкнений за замовчуванням `POST /v1/metrics`.
 Тести не потребують Google credentials: `python -m unittest discover -s Server -q`.
 
 ## Необов'язковий безоплатний Pro
+
+Цей підрозділ описує WSGI reference. Чинний Cloudflare backend використовує
+HMAC-перевірку спеціально згенерованого випадкового пароля — обґрунтування
+та виміряний CPU наведено в CLOUDFLARE-UA.md. Vercel і Upstash не використовуються.
 
 `POST /v1/access/sign-in` приймає `packageName`, `username`, `password`;
 `POST /v1/access/refresh` — `packageName`, `sessionToken`. Обидва повертають

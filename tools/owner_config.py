@@ -305,7 +305,8 @@ def readiness(config):
         "purchases": {"configured": bool(config["billing"]["verificationEndpoint"] and config["billing"]["proProductId"]),
                       "reviewed": published and r["billingTerms"], "missingEvidence": ["Deploy backend, configure Play product, license tester pending/restore/refund/acknowledgment"]},
         "complimentaryAccess": {"configured": bool(config['complimentaryAccess']['endpoint']), "enabled": config['complimentaryAccess']['enabled'], "reviewed": False,
-                                "missingEvidence": ["Deploy public HTTPS access service, verify supplied credentials and Android form before submitting App access instructions"]},
+                                "missingEvidence": ["Android form/keyboard, full content navigation, cold start/offline/expiry and independent privacy choices; recheck public credentials before submitting App access instructions"]
+                                if config['complimentaryAccess']['enabled'] and config['complimentaryAccess']['endpoint'] else ["Deploy public HTTPS access service and verify supplied credentials and Android form"]},
         "policy": {"configured": bool(config["legal"]["publishedPolicyRevision"]), "reviewed": published,
                    "missingEvidence": ["Owner/legal review, public policy matches bundled uk/en/de, Play Data Safety submission"]},
         "operationalMetrics": {"configured": bool(config["operationalMetrics"]["endpoint"]), "reviewed": published and r["operationalMetricsLegalBasis"],

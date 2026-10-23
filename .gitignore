@@ -143,3 +143,7 @@ QuietCamp/Packages/com.jbooth.microverse*/
 /Server/.env
 /Server/.venv/
 /Server/*.sqlite*
+/Server/cloudflare/node_modules/
+/Server/cloudflare/.wrangler/
+/Server/cloudflare/.dev.vars*
+/Server/cloudflare/secrets*.json

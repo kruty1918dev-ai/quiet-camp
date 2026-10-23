@@ -54,7 +54,7 @@
     "maximumInterstitialsPerSession": 3
   },
   "complimentaryAccess": {
-    "enabled": false,
-    "endpoint": ""
+    "enabled": true,
+    "endpoint": "https://quietcamp-access.oleksiy-havryliuk.workers.dev/v1/access"
   }
 }

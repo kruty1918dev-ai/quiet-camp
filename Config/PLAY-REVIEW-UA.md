@@ -1,26 +1,25 @@
-# Доступ Google Play Review — ще не підключений
+# Доступ Google Play Review — HTTPS працює, Android ще не перевірений
 
-**Не подавати як робочу інструкцію.** Backend не розгорнуто, серверні secrets
-не встановлені, `complimentaryAccess.enabled=false`, endpoint порожній.
-Придатна Android-збірка та перевірка на пристрої відсутні. Локальні HTTP-тести
-і компіляція джерел не означають готовності для Google Review.
+Backend розгорнуто та перевірено через публічний HTTPS:
+`https://quietcamp-access.oleksiy-havryliuk.workers.dev/v1/access`.
+Secrets встановлено в Worker; owner config і згенерований клієнтський snapshot
+містять перевірений endpoint та `enabled=true`. **Для Google Review ще не готово:**
+придатної Android-збірки й перевірки UI/нативної мережі немає. Гру не збирали.
 
 ## Хостинг
 
-Підготовлено функцію для чинного Vercel-сайту з постійним Redis-сховищем.
-[Server/VERCEL-UA.md](../Server/VERCEL-UA.md) містить проєкти, вісім змінних,
-точні дії в консолях, команди перенесення коду та production-перевірок.
-Потрібен доступ до Vercel акаунта власника: тариф і Free Redis наразі не
-підтверджені. Hobby не підходить для комерційного Quiet Camp; upgrade не робити.
-Платних ресурсів, нового сайту, DNS і пошти не створено й не змінено.
-Запланована адреса `/v1/access` на чинному домені ще не є робочим сервісом.
+Використано надані Worker `quietcamp-access` і D1 `quietcamp-access`,
+UUID `f8e41926-e58f-4306-8a89-9b0616b367fc`, jurisdiction `eu`, replication disabled.
+[Server/CLOUDFLARE-UA.md](../Server/CLOUDFLARE-UA.md) містить міграції,
+Wrangler/browser login, secrets, обґрунтування HMAC та виміряний Cloudflare CPU.
+Vercel і Upstash не використовуються; стару підготовку видалено. Платних ресурсів,
+дублікатів, trial/upgrade немає. Сайт, DNS, пошту й домен не змінювали.
 
 ## Реалізований інтерфейс
 
 У головному меню: **Settings → English → Complimentary Pro access**.
 Останній пункт відкриває панель **Hints and lives**, унизу якої розділ доступу.
-Поки owner config вимкнений, показано **Complimentary access is not connected
-yet.** Форми немає. Після підключення з'являться **Username**, **Password** і
+Увімкнений owner config показує **Username**, **Password** і
 **Sign in**. Пароль маскується; після відправлення обидва поля очищуються.
 
 Активне право показує **Complimentary Pro is active.** і **Sign out**.
@@ -66,6 +65,8 @@ In Settings, choose English, then open Complimentary Pro access. Scroll to the s
 - Видимий список у панелі доступу обходить навігаційне обмеження мапи її
   набором waystones. Немає reviewer detection чи прихованої підміни гри.
 - Поточний main catalog: 100 рівнів — 10 authored IDs і 90 generated IDs.
+  Реальне HTTPS-право перевірено C# access authority на всіх 100 ID з Resources
+  при нульовому прогресі; зараз published journey одна — main.
   Lighthouse/garden/station/memories/mountain/resort/coast зараз не опубліковані
   й не є доступними платними journeys цього релізу. Їх не обіцяємо перевіряльнику.
   Право охоплює опублікований runtime catalog, включно з published content packs,
@@ -79,26 +80,33 @@ In Settings, choose English, then open Complimentary Pro access. Scroll to the s
 
 ## Збереження та захист
 
-Сервер перевіряє PBKDF2-хеш і зберігає лише хеші випадкових токенів.
+Worker перевіряє HMAC-SHA256 згенерованого 190-bit випадкового credential.
+Pepper і verifier — Worker Secrets; у D1 лише хеші токенів. Початковий
+PBKDF2 на 600000 ітерацій звірено при provisioning, він не виконується
+на кожен запит Worker. Пароль лишився незмінним.
 Lease — 24 години, refresh на запуску, поверненні й кожні 15 хвилин.
 CampEconomy зберігає токен, endpoint та додаткове право; після перезапуску
 відновлює лише чинну lease. Без мережі право не подовжується. Вихід або
 завершення lease знімає complimentary права, не стираючи окрему справжню покупку.
 Неправильні дані — 401, сховище недоступне — 503, ліміт — 429 із Retry-After.
-Сесії й ліміти постійні та спільні між workers/перезапусками; деталі — VERCEL-UA.md.
+Сесії й ліміти постійні та спільні між isolates/redeploy; деталі — CLOUDFLARE-UA.md.
 
 ## Залишок перевірок
 
-1. Дозволений без додаткової оплати хостинг, Vercel secrets і Free Redis;
-   реальне HTTPS-розгортання та підключення owner config.
-2. Публічні правильний/неправильний вхід, повторний вхід, refresh, redeploy зі
-   збереженою сесією, 429, відмова Redis/сервера та відновлення доступності.
-3. На Android після окремого дозволу на збірку: форма/клавіатура, маскування
+1. Публічні правильний/неправильний вхід, повторний вхід, refresh, збереження
+   сесії й 429 після redeploy, контрольована помилка D1 (503) та її відновлення
+   вже перевірені. C# lease не подовжується при помилці й відновлюється після
+   перезапуску. CPU Cloudflare: P50 2,757 мс, P99 6,764 мс, execution errors 0
+   у тестовій вибірці; це не навантажувальна гарантія.
+2. На Android після окремого дозволу на збірку: форма/клавіатура, маскування
    й очищення пароля, запуск довільного пізнього рівня без прогресу, gameplay
    та Album, Pro-життя/підказки, відсутність рекламних запитів, незалежні згоди,
    cold start/force-stop, offline до/після lease, очищення даних і повторний вхід,
    sign out, повернення мережі. Billing/rewarded ads потребують окремих тестів.
-4. Звірити фактичний Android-інтерфейс із 451 символом, лише тоді подати
+3. Звірити фактичний Android-інтерфейс із 451 символом, лише тоді подати
    актуальні приватні дані Google та позначити доступ готовим.
+4. Перед релізом узгодити опублікований privacy-текст: сайт за цією вказівкою
+   не змінювався й усе ще описує доступ як підготовлений. Юридичні review flags
+   залишилися false.
 
 Джерело: [Google Play — Requirements for providing sign in details for review](https://support.google.com/googleplay/android-developer/answer/15748846?hl=en).

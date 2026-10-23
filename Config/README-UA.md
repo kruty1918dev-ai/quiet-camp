@@ -95,6 +95,12 @@ Play signing/upload keys. Firebase client API key не є серверним с�
 Статус, приватні поля для Anmeldedaten та умови перевірки:
 [PLAY-REVIEW-UA.md](PLAY-REVIEW-UA.md).
 
+Чинні public values в owner.local та шаблоні: `enabled=true`, endpoint
+`https://quietcamp-access.oleksiy-havryliuk.workers.dev/v1/access`.
+HTTPS перевірено на Cloudflare Workers + EU D1, включно з C#-відновленням
+права, 429/redeploy та помилкою бази. Пароль, HMAC-verifier і pepper — лише
+в приватному каталозі/Worker Secrets. Android readiness лишається false.
+
 ## Підключені значення та незалежні дозволи — 23.10.2026
 
 Шаблон містить підтверджені власником публічні AdMob App ID, publisher ID,

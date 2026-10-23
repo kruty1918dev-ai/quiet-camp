@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "quietcamp-access",
+  "account_id": "54bd1b2351d1bbd189427b2a4e43aa5b",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": true,
+  "preview_urls": false,
+  "vars": {
+    "QC_ANDROID_PACKAGE": "com.quietcamp.game",
+    "QC_PRO_PRODUCT": "quietcamp_pro",
+    "QC_EXPLORE_PUBLISHED": "true"
+  },
+  "d1_databases": [{
+    "binding": "ACCESS_DB",
+    "database_name": "quietcamp-access",
+    "database_id": "f8e41926-e58f-4306-8a89-9b0616b367fc",
+    "migrations_dir": "migrations"
+  }],
+  // EU jurisdiction is immutable on the existing database. Wrangler 4.152.0
+  // resolves it by UUID; neither its D1 binding nor migration command accepts
+  // a jurisdiction option. ops.py preflight checks the remote value is "eu".
+  "triggers": { "crons": ["17 3 * * *"] },
+  "observability": {
+    "enabled": true,
+    "redact_query_string": true,
+    "logs": { "enabled": true, "invocation_logs": false }
+  }
+}

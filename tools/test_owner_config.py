@@ -23,6 +23,7 @@ class OwnerTests(unittest.TestCase):
         self.assertFalse(snapshot['interstitialsEnabled'])
     def test_complimentary_access_requires_endpoint_and_cannot_contain_credentials(self):
         self.config['complimentaryAccess']['enabled'] = True
+        self.config['complimentaryAccess']['endpoint'] = ''
         self.assertTrue(owner.validate(self.config))
         self.config['complimentaryAccess']['endpoint'] = 'https://access.quietcamp.dev/v1/access'
         self.assertFalse(owner.validate(self.config))
