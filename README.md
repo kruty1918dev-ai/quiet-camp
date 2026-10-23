@@ -9,6 +9,9 @@
 
 <p align="center">Unity 6 / URP · Offline-first · Українська / English / Deutsch</p>
 
+Діагностичний Android APK із локальним JSON для кожного сеансу:
+[збирання та копіювання журналів через USB](SESSION-LOGS-UA.md).
+
 <p align="center">
   <a href="https://kruty1918dev-ai.github.io/quiet-camp/">Ілюстрований сайт</a> ·
   <a href="https://kruty1918dev-ai.github.io/quiet-camp/campaign100/">Кампанія: 100 рівнів</a> ·

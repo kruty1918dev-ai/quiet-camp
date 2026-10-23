@@ -1,5 +1,9 @@
 {
   "entries": {
+    "diagnostics.notice": "Diagnostic build: sessions are recorded locally without passwords or tokens. Up to 50 recent sessions are retained.",
+    "diagnostics.export": "Export session JSON to Downloads",
+    "diagnostics.exported": "Session JSON saved in Downloads/QuietCamp.",
+    "diagnostics.failed": "Export failed. On Android 8/9, copy session-logs via USB debugging (adb).",
     "hud.camp.exit": "Exit",
     "guide.quiet.extinguished": "The fire has gone out. It is quiet here now, so its noise no longer bothers guests.",
     "guide.quiet.intro": "This is the Quiet icon on the guest card. Place their entire tent in the green area. The orange area near the fire is noisy.",

@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine.UI;
 using Kruty1918.Audio;
 using QuietCamp.Application;
+using QuietCamp.Infrastructure;
 using UnityEngine;
 
 namespace QuietCamp.Presentation.UI
@@ -150,6 +151,17 @@ namespace QuietCamp.Presentation.UI
             if (nav.Category == null)
             {
                 html.Append(Language());
+                if (services.SessionDiagnostics != null)
+                {
+                    html.Append(HtmlUi.Text(T("diagnostics.notice"), "s-sub"));
+                    html.Append(HtmlUi.Button(surface, "export-session-logs", T("diagnostics.export"), async () =>
+                    {
+                        try {
+                            await SessionLogExport.ToDownloads(services.SessionDiagnostics);
+                            services.Notifications.Show(T("diagnostics.exported"));
+                        } catch { services.Notifications.Show(T("diagnostics.failed")); }
+                    }, "quiet"));
+                }
                 html.Append(HtmlUi.Button(surface, "complimentary-access", T("access.title"), () =>
                     services.Actions.Execute(new Kruty1918.UIActions.API.UiActionRequest(new Kruty1918.UIActions.API.UiActionId("qc.economy"),
                         Kruty1918.UIActions.API.UiActionSource.Button, "Settings")), "quiet"));

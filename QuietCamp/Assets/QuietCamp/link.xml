@@ -21,6 +21,10 @@
   <assembly fullname="QuietCamp.Domain" preserve="all"/>
   <assembly fullname="QuietCamp.Runtime" preserve="all"/>
   <assembly fullname="QuietCamp.Infrastructure">
+    <type fullname="QuietCamp.Infrastructure.LocalSessionDocument" preserve="all"/>
+    <type fullname="QuietCamp.Infrastructure.LocalSessionDevice" preserve="all"/>
+    <type fullname="QuietCamp.Infrastructure.LocalSessionEvent" preserve="all"/>
+    <type fullname="QuietCamp.Infrastructure.LocalSessionSample" preserve="all"/>
     <type fullname="QuietCamp.Infrastructure.CampArtDefinition" preserve="nothing">
       <field name="_absent"/>
       <field name="_profile"/>

@@ -47,6 +47,7 @@ namespace QuietCamp.Presentation
         [SerializeField] string _firstSceneName = "MainMenu";
 
         GameServices _services;
+        LocalSessionCapture _sessionCapture;
         ScreenRouter _router;
         UiHotkeyService _hotkeys;
         UiMotionService _motion;
@@ -66,6 +67,9 @@ namespace QuietCamp.Presentation
             }
             _instance = this;
             DontDestroyOnLoad(gameObject);
+#if QC_SESSION_LOGS
+            _sessionCapture = gameObject.AddComponent<LocalSessionCapture>();
+#endif
             QualitySettings.vSyncCount = 0;
             UnityEngine.Application.targetFrameRate = 60;
             _bootView = BootCampView.Create(transform, RetryBoot);
@@ -110,7 +114,8 @@ namespace QuietCamp.Presentation
             _bootView.Stage("boot.controls", .65f);
             var inputPolicy = new GameplayInputPolicy();
             var contexts = new UiContextStack();
-            var journal = new UiActionJournal();
+            IUiActionJournal journal = new UiActionJournal();
+            if (_sessionCapture?.Journal != null) journal = new SessionActionJournal(journal, _sessionCapture.Journal);
             var dispatch = new QcActionHandler();
             RegisterAllActionIds(dispatch);
             var router = new UiActionRouter(
@@ -133,7 +138,9 @@ namespace QuietCamp.Presentation
             _services = new GameServices(
                 save, localization, audioCatalog, _audio, assets,
                 inputPolicy, contexts, router, dispatch, _hotkeys, journal,
-                escape, _motion, notifications, transitions, progression);
+                escape, _motion, notifications, transitions, progression,
+                sessionDiagnostics: _sessionCapture?.Journal);
+            _sessionCapture?.Configure(_services);
             gameObject.AddComponent<AdaptiveCampQuality>().Configure(_services);
             _services.Haptics.Suspended = _paused || !_focused;
             _router = new ScreenRouter(_services);

@@ -1,5 +1,9 @@
 {
   "entries": {
+    "diagnostics.notice": "Діагностична збірка: сеанси записуються локально без паролів і токенів. Зберігаються до 50 останніх сеансів.",
+    "diagnostics.export": "Експортувати JSON сеансів у Downloads",
+    "diagnostics.exported": "JSON сеансів збережено в Downloads/QuietCamp.",
+    "diagnostics.failed": "Не вдалося експортувати. На Android 8/9 скопіюйте session-logs через USB debugging (adb).",
     "hud.camp.exit": "Вихід",
     "guide.quiet.extinguished": "Багаття згасло — тепер тут тихо. Його шум більше не заважає гостям.",
     "guide.quiet.intro": "Це значок «Тиша» на картці гостя. Постав увесь його намет у зеленій зоні. Помаранчева зона біля багаття — шумна.",

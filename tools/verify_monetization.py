@@ -131,6 +131,8 @@ def main():
             destination = output / (assembly + ".dll")
             options.extend(['-out:"' + str(destination) + '"', '-refout:"' + str(output / (assembly + ".ref.dll")) + '"'])
             options.append('-parallel-')
+            if "--session-logs-check" in sys.argv:
+                options.append("-define:QC_SESSION_LOGS")
             source_root = PROJECT / folder if is_package else PROJECT / "Assets/QuietCamp" / folder
             sources = sorted(source_root.rglob("*.cs"))
             if name == "OptionalSdk" and google_sdk:

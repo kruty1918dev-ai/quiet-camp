@@ -31,7 +31,8 @@ namespace QuietCamp.Presentation
         public IUiContextStack ContextStack { get; }
         public IUiActionRouter Actions { get; }
         public QcActionHandler Dispatch { get; }
-        public UiActionJournal Journal { get; }
+        public IUiActionJournal Journal { get; }
+        public LocalSessionJournal SessionDiagnostics { get; }
         public UiEscapeRouter Escape { get; }
         public IUiMotionService Motion { get; }
         public IGameplayNotificationService Notifications { get; }
@@ -181,7 +182,7 @@ namespace QuietCamp.Presentation
             IUiActionRouter actions,
             QcActionHandler dispatch,
             UiHotkeyService hotkeyService,
-            UiActionJournal journal,
+            IUiActionJournal journal,
             UiEscapeRouter escape,
             IUiMotionService motion,
             IGameplayNotificationService notifications,
@@ -189,8 +190,10 @@ namespace QuietCamp.Presentation
             ProgressionService progression,
             IAdService ads = null,
             HapticsService haptics = null,
-            IPurchaseProvider purchaseProvider = null)
+            IPurchaseProvider purchaseProvider = null,
+            LocalSessionJournal sessionDiagnostics = null)
         {
+            SessionDiagnostics = sessionDiagnostics;
             Save = save;
             Localization = localization;
             AudioCatalog = audioCatalog;
@@ -271,7 +274,8 @@ namespace QuietCamp.Presentation
             OwnerConfiguration = OwnerClientConfiguration.Load();
             Economy.ConfigureComplimentaryAccess(OwnerConfiguration.ComplimentaryAccessConfigured ? OwnerConfiguration.complimentaryAccessEndpoint : "");
             ComplimentaryAccess = new ComplimentaryAccessService(Economy,
-                OwnerConfiguration.ComplimentaryAccessConfigured ? new ComplimentaryAccessTransport(OwnerConfiguration.complimentaryAccessEndpoint, OwnerConfiguration.androidPackageName) : null,
+                OwnerConfiguration.ComplimentaryAccessConfigured ? new ComplimentaryAccessTransport(OwnerConfiguration.complimentaryAccessEndpoint, OwnerConfiguration.androidPackageName,
+                    value => SessionDiagnostics?.Access(value)) : null,
                 OwnerConfiguration.androidPackageName, OwnerConfiguration.proProductId);
             ComplimentaryAccess.Changed += OnMonetizationChanged;
             OperationalMetrics?.Clear();
@@ -436,7 +440,7 @@ namespace QuietCamp.Presentation
             Haptics.Dispose();
             Audio?.Dispose();
         }
-        void OnSaveFailed(string ignoredMessage) => Crashes.Report(CrashArea.Save);
+        void OnSaveFailed(string ignoredMessage) { SessionDiagnostics?.SaveFailed(); Crashes.Report(CrashArea.Save); }
         bool PersistPrivacy()
         {
             bool saved = _privacyPersistence.Save();

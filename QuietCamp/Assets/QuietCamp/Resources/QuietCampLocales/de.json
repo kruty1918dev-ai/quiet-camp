@@ -1,5 +1,9 @@
 {
   "entries": {
+    "diagnostics.notice": "Diagnoseversion: Sitzungen werden lokal ohne Passwörter oder Tokens aufgezeichnet. Bis zu 50 letzte Sitzungen werden gespeichert.",
+    "diagnostics.export": "Sitzungs-JSON nach Downloads exportieren",
+    "diagnostics.exported": "Sitzungs-JSON in Downloads/QuietCamp gespeichert.",
+    "diagnostics.failed": "Export fehlgeschlagen. Unter Android 8/9 session-logs per USB-Debugging (adb) kopieren.",
     "hud.camp.exit": "Ausgang",
     "guide.quiet.extinguished": "Das Feuer ist erloschen. Jetzt ist es hier ruhig und das Feuer stört die Gäste nicht mehr.",
     "guide.quiet.intro": "Das ist das Ruhe-Symbol auf der Gästekarte. Stelle das ganze Zelt in den grünen Bereich. Der orange Bereich am Feuer ist laut.",

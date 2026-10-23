@@ -30,7 +30,11 @@ namespace QuietCamp.Editor
         public static void BuildAndroidRelease()
             => Build(ReleaseProfilePath, Path.Combine(BuildDir, "QuietCamp-MVP-0.1.0.apk"), BuildOptions.None);
 
-        private static void Build(string profilePath, string outputPath, BuildOptions buildOptions)
+        [MenuItem("Tools/Quiet Camp/Build Android Session Logs APK")]
+        public static void BuildAndroidSessionLogs()
+            => Build(ReleaseProfilePath, Path.Combine(BuildDir, "QuietCamp-session-logs.apk"), BuildOptions.None, new[] { "QC_SESSION_LOGS" });
+
+        private static void Build(string profilePath, string outputPath, BuildOptions buildOptions, string[] extraDefines = null)
         {
             var profile = AssetDatabase.LoadAssetAtPath<BuildProfile>(profilePath);
             if (profile == null)
@@ -54,7 +58,8 @@ namespace QuietCamp.Editor
                 scenes = scenes,
                 locationPathName = outputPath,
                 target = BuildTarget.Android,
-                options = buildOptions
+                options = buildOptions,
+                extraScriptingDefines = extraDefines ?? Array.Empty<string>()
             };
             var report = BuildPipeline.BuildPlayer(options);
             var summary = report.summary;
