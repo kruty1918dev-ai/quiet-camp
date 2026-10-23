@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "id": "composition-contact-20261021",
+  "label": "Криниці та переходи через річку — кандидат, не публікація",
+  "orders": [
+    3,
+    9,
+    36,
+    38,
+    57,
+    63,
+    69,
+    78,
+    88,
+    100
+  ],
+  "seed": 4157,
+  "maxRepairRounds": 5,
+  "capture": true,
+  "autoApply": false,
+  "operations": [
+    {
+      "id": "well-shafts",
+      "kind": "well.opening",
+      "selector": {
+        "modelIds": [
+          "ua_well_sweep",
+          "ua_valley_well",
+          "qc_campaign_landmark_009",
+          "qc_campaign_landmark_063",
+          "qc_campaign_landmark_078"
+        ],
+        "generatedOnly": false
+      },
+      "parameters": {}
+    },
+    {
+      "id": "bridge-crossings",
+      "kind": "bridge.crossing",
+      "selector": {
+        "modelIds": [
+          "ua_valley_footbridge",
+          "qc_campaign_landmark_036",
+          "qc_campaign_landmark_038",
+          "qc_campaign_landmark_057",
+          "qc_campaign_landmark_088"
+        ],
+        "generatedOnly": false
+      },
+      "parameters": {}
+    }
+  ],
+  "criteria": {
+    "profiles": [
+      "portrait",
+      "landscape"
+    ],
+    "quality": 1,
+    "autoRepair": false,
+    "requireVisualReview": true,
+    "inspectMapCoverage": true
+  }
+}

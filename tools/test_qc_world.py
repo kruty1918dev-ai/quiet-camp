@@ -93,4 +93,28 @@ class LegacyRoutingTests(unittest.TestCase):
             self.assertEqual(2,len(attempts))
 
 
+class ExternalRoutingTests(unittest.TestCase):
+    def test_external_review_does_not_require_or_start_an_editor(self):
+        with tempfile.TemporaryDirectory(prefix='qc-external-route-') as temporary:
+            project=Path(temporary)/'QuietCamp';output=Path(temporary)/'review'
+            with mock.patch('sys.argv',['qc_world.py','--project',str(project),'external-audit','--output',str(output)]),mock.patch('world_audit.run',return_value=0) as external:
+                self.assertEqual(0,main())
+                self.assertEqual(output,external.call_args.args[0].output)
+
+    def test_external_output_cannot_touch_input_resources(self):
+        from world_audit import run
+        with tempfile.TemporaryDirectory(prefix='qc-external-readonly-') as temporary:
+            project=Path(temporary)/'QuietCamp';resources=Path(temporary)/'readonly-resources'
+            args=SimpleNamespace(project=project,output=resources/'bad',resource_root=resources,orders=[1])
+            with mock.patch('world_audit.original_prefabs',side_effect=AssertionError('must not reach file writes')):
+                with self.assertRaises(SystemExit):run(args)
+                self.assertFalse(args.output.exists())
+
+    def test_external_selection_rejects_duplicates_before_writing(self):
+        from world_audit import run
+        with tempfile.TemporaryDirectory(prefix='qc-external-selection-') as temporary:
+            args=SimpleNamespace(project=Path(temporary)/'QuietCamp',output=Path(temporary)/'out',resource_root=Path(temporary)/'resources',orders=[3,3])
+            with self.assertRaises(SystemExit):run(args)
+            self.assertFalse(args.output.exists())
+
 if __name__ == '__main__': unittest.main()

@@ -49,7 +49,8 @@ namespace QuietCamp.Presentation.World
             if (Definition != null) throw new InvalidOperationException("Camp art is already configured.");
             Definition = definition; _level = level; _camera = GetComponent<Camera>();
             var riverProfile=RiverEnvironmentProfile.Load();
-            PresentedLandscape=excludeLandscape?definition.landscape:RiverLandscapeGeometry.Resolve(definition,riverProfile);
+            WorldWellShafts.Invalidate(definition);
+            PresentedLandscape=excludeLandscape?definition.landscape:WorldWellShafts.Resolve(definition,RiverLandscapeGeometry.Resolve(definition,riverProfile));
             _camera.transform.rotation=Quaternion.Euler(CampArtDefinition.Vector(definition.cameraEuler));
             _root = new GameObject("AuthoredCampSurround"); _root.transform.SetParent(parent, false);
             var shader = Resources.Load<Shader>("QuietCamp/CampArtLit");
@@ -87,6 +88,8 @@ namespace QuietCamp.Presentation.World
             var modelHeights=definition.models.ToDictionary(m=>m.id,m=>Enumerable.Range(0,m.vertices.Length/3).Max(i=>m.vertices[i*3+1])-Enumerable.Range(0,m.vertices.Length/3).Min(i=>m.vertices[i*3+1]));
             foreach (var item in definition.instances.Concat(bankPlants))
             {
+                if(item.modelId!=null&&sourceModels.TryGetValue(item.modelId,out var rimPlant)
+                    &&(rimPlant.seasonalRole=="groundcover"||rimPlant.seasonalRole=="flower")&&WorldWellShafts.ExcludesGroundPlant(definition,item.x,item.y,item.z))continue;
                 var position = new Vector3(item.x, item.y, item.z);
                 if(item.surfaceAttached==true&&PresentedLandscape!=null&&definition.landscape!=null&&!item.id.StartsWith("river-bank/",StringComparison.Ordinal))
                     position.y+=PresentedLandscape.SampleHeight(item.x,item.z)-definition.landscape.SampleHeight(item.x,item.z);
@@ -294,7 +297,8 @@ namespace QuietCamp.Presentation.World
             {
                 var mesh = data.CreateMesh();
                 _meshes.Add(mesh);
-                var renderer=AddMesh(data.name, mesh, data.water ? water : data.decoration ? detail : ground, data.decoration);
+                var displayMaterial=data.water?water:data.name.StartsWith("Well shaft — ",StringComparison.Ordinal)?material:data.decoration?detail:ground;
+                var renderer=AddMesh(data.name, mesh, displayMaterial, data.decoration);
                 if(data.water)waterSurfaces.Add(renderer);
             }
             RiverReflections=RiverReflectionView.Attach(_root.transform,_camera,waterSurfaces,RiverEnvironmentProfile.Load());
@@ -317,6 +321,7 @@ namespace QuietCamp.Presentation.World
             var vertices = new List<Vector3>(); var colors = new List<Color>();
             foreach (var item in Definition.cover)
             {
+                if(WorldWellShafts.ExcludesGroundPlant(Definition,item.x,item.y,item.z))continue;
                 var root = new Vector3(item.x, item.y, item.z);
                 var rotation = Quaternion.Euler(0, item.yaw, 0);
                 if (item.kind == 3)

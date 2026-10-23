@@ -1,0 +1,3102 @@
+{
+  "1": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "У цих кадрах вказівник не видно в жодному форматі; поле обрамлене великими кущами. Два еталонні намети читаються, але сюжетний орієнтир втрачений.",
+    "inspectedFrames": [
+      {
+        "order": 1,
+        "frame": "001-landscape.png",
+        "sha256": "de29c994c9caab8b9c0c82219cbf97062f1d8c3aa9c8cd7df9144fd3b7b8a23d"
+      },
+      {
+        "order": 1,
+        "frame": "001-portrait.png",
+        "sha256": "323d93e6c28206d4f177b12ec9c728f1425d346e045af83e0c5fba599b96af16"
+      },
+      {
+        "order": 1,
+        "frame": "001-solved.png",
+        "sha256": "2a856be163d86a30e92bcabf934ea8a39037f7e708b8dae9f5029fea73d134e5"
+      }
+    ],
+    "contactSheetSha256": "cd2b09627de4fe81a33bc940861089727b09f40ae4206a6f1b06fb9fd721229e",
+    "inspectedCoverage": [
+      {
+        "label": "001 diagnostic entire source landscape",
+        "path": "review-v2/001-coverage.png",
+        "sha256": "cd87de346242f7bf15a2f02a563266a01eb4ade6c57356f610e422d0baa94870"
+      }
+    ],
+    "coverageSheetSha256": "ebf0d62349c732f591fb5f9115557297b8a376aef29f0c1c51042b7d97c0fed8"
+  },
+  "2": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Стіл з’являється лише в нижній частині портрета; у ландшафті його немає. Колода й ромашки задають край галявини; стіл потребує перевірки розташування щодо обох форматів.",
+    "inspectedFrames": [
+      {
+        "order": 2,
+        "frame": "002-landscape.png",
+        "sha256": "bb17c4b184e8c9d4a70ff908bdb756f43c40fe8759d1b7c06ef978a14db88157"
+      },
+      {
+        "order": 2,
+        "frame": "002-portrait.png",
+        "sha256": "f6884ddf31d480925c4ef9718f667173224cb392f94628ebdb2ceda83e0da8f0"
+      },
+      {
+        "order": 2,
+        "frame": "002-solved.png",
+        "sha256": "5ce9d2b0a3807771c3a21e737824fe4806f19213ed6ffbe512f389d8033ef0e6"
+      }
+    ],
+    "contactSheetSha256": "cd2b09627de4fe81a33bc940861089727b09f40ae4206a6f1b06fb9fd721229e",
+    "inspectedCoverage": [
+      {
+        "label": "002 diagnostic entire source landscape",
+        "path": "review-v2/002-coverage.png",
+        "sha256": "8e4f0ad4de9c655d0d256968ab73042b580fdd109df9c93f9bac28cafa91366c"
+      }
+    ],
+    "coverageSheetSha256": "ebf0d62349c732f591fb5f9115557297b8a376aef29f0c1c51042b7d97c0fed8"
+  },
+  "3": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Криниця, лавка й відра утворюють зрозуміле місце набору води. У початковій шахті видно землю; передні дерева сильно обрамлюють портрет. Дослідний навіс частково перекриває криницю і художньо не прийнятий.",
+    "inspectedFrames": [
+      {
+        "order": 3,
+        "frame": "003-landscape.png",
+        "sha256": "ed3358972e8835340c7389d6bc52b50937652385f55af320536a787c29f7d737"
+      },
+      {
+        "order": 3,
+        "frame": "003-portrait.png",
+        "sha256": "901b1b564de1c725c3d0bcfff0dc3a9d29463d0f2e0f3da4b8907d24e077e996"
+      },
+      {
+        "order": 3,
+        "frame": "003-solved.png",
+        "sha256": "8a58febd9b438e0c03f5babe6a888e8eb202d4ef921794f71220cb0336ea9654"
+      }
+    ],
+    "contactSheetSha256": "cd2b09627de4fe81a33bc940861089727b09f40ae4206a6f1b06fb9fd721229e",
+    "inspectedCoverage": [
+      {
+        "label": "003 diagnostic entire source landscape",
+        "path": "review-v2/003-coverage.png",
+        "sha256": "2aac5a5c6b2d4098d1acf5acb37d481fa11657aec34886c5a8b93040d01c9d5f"
+      }
+    ],
+    "coverageSheetSha256": "ebf0d62349c732f591fb5f9115557297b8a376aef29f0c1c51042b7d97c0fed8"
+  },
+  "4": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Кухня з димарем не потрапляє в жоден із цих ігрових кадрів. Видима колода й відкрита ділянка не передають заявлений кухонний ансамбль; потрібна адресна перевірка орієнтира.",
+    "inspectedFrames": [
+      {
+        "order": 4,
+        "frame": "004-landscape.png",
+        "sha256": "ef4658aefa0b5ec538194ad9e9a62e4359060edda05482aad60852c4d6d6b402"
+      },
+      {
+        "order": 4,
+        "frame": "004-portrait.png",
+        "sha256": "419cec02f96a26d3ed12da619d21984891aeb3ce770bcda5f0d80f89217d0e04"
+      },
+      {
+        "order": 4,
+        "frame": "004-solved.png",
+        "sha256": "fda6bee0eafd9ade4af9061188171dde70bb0195e6010875b27cc1eb9d4143e1"
+      }
+    ],
+    "contactSheetSha256": "cd2b09627de4fe81a33bc940861089727b09f40ae4206a6f1b06fb9fd721229e",
+    "inspectedCoverage": [
+      {
+        "label": "004 diagnostic entire source landscape",
+        "path": "review-v2/004-coverage.png",
+        "sha256": "ac7519c37a9aa634fada78922509d23b2329d872730d263902f6e6673b3cbd9c"
+      }
+    ],
+    "coverageSheetSha256": "ebf0d62349c732f591fb5f9115557297b8a376aef29f0c1c51042b7d97c0fed8"
+  },
+  "5": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "На правому краї видно кошики й лавку, але основна стара яблуня поза обома кадрами. Три намети залишаються читабельними; зв’язок кошиків із садом втрачається.",
+    "inspectedFrames": [
+      {
+        "order": 5,
+        "frame": "005-landscape.png",
+        "sha256": "4e6ac4860d87650eabb2a4b545df1dde8df743631cf7165f0f954d2a8d32013e"
+      },
+      {
+        "order": 5,
+        "frame": "005-portrait.png",
+        "sha256": "3368e018089a79720d1ae78225e1b790d8a3e829b6655c43317f58a90aba7ae4"
+      },
+      {
+        "order": 5,
+        "frame": "005-solved.png",
+        "sha256": "82d81ebf21efed460a5a3a3b79c2cc2ef23a1ae9793d88c358397a7d3aa8e370"
+      }
+    ],
+    "contactSheetSha256": "c543c5eb86be1ef7a357bc6808d2adb974c677789c944a4ceefe908bb374c806",
+    "inspectedCoverage": [
+      {
+        "label": "005 diagnostic entire source landscape",
+        "path": "review-v2/005-coverage.png",
+        "sha256": "340cfd27c9140ede09be11f1d72e8578fd7933bf4c7782c41f71774e3527b3c5"
+      }
+    ],
+    "coverageSheetSha256": "ebf0d62349c732f591fb5f9115557297b8a376aef29f0c1c51042b7d97c0fed8"
+  },
+  "6": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Дерево й камінь добре розділяють поле, проте мозаїчної зупинки не видно. Передня крона забирає значну частину портрета; повертати зупинку варто без збільшення її масштабу.",
+    "inspectedFrames": [
+      {
+        "order": 6,
+        "frame": "006-landscape.png",
+        "sha256": "5c044ced3c8746e0a230660965773c8bad25f1debf3e42a5ae10cc38f6c1d2c5"
+      },
+      {
+        "order": 6,
+        "frame": "006-portrait.png",
+        "sha256": "d3c7ece7a5adfdaefb9bac584e1c65718c8b564242c62e0a43c99462e552b182"
+      },
+      {
+        "order": 6,
+        "frame": "006-solved.png",
+        "sha256": "f844f21b0d36647ff0b4a9f4093d3c2ae8d0cfbf4a8ceb55f0a12f8ac9e6aa90"
+      }
+    ],
+    "contactSheetSha256": "c543c5eb86be1ef7a357bc6808d2adb974c677789c944a4ceefe908bb374c806",
+    "inspectedCoverage": [
+      {
+        "label": "006 diagnostic entire source landscape",
+        "path": "review-v2/006-coverage.png",
+        "sha256": "6cdab03260b34d12b71ae34983d43cd184f65bff1bf3ca856b8b4c87fc4684f9"
+      }
+    ],
+    "coverageSheetSha256": "ebf0d62349c732f591fb5f9115557297b8a376aef29f0c1c51042b7d97c0fed8"
+  },
+  "7": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Пошкоджена огорожа сильно обрізана ландшафтним краєм і краще розкривається в портреті. Центр поля відкритий; для огорожі важливо залишити зрозумілий прохід, а не глухий фрагмент.",
+    "inspectedFrames": [
+      {
+        "order": 7,
+        "frame": "007-landscape.png",
+        "sha256": "5b602a68c5db654906dafe50560c2738a0a77def69d54b50a5e7a6feb9a2cf52"
+      },
+      {
+        "order": 7,
+        "frame": "007-portrait.png",
+        "sha256": "c38b3b47ed12d3842809ed58fdcc4723c807165caf173111e990c5b324db61bd"
+      },
+      {
+        "order": 7,
+        "frame": "007-solved.png",
+        "sha256": "56d89cba0b34c33278be8c59fb484143b39148a2c89c1e3cb718eebdf4709fd5"
+      }
+    ],
+    "contactSheetSha256": "c543c5eb86be1ef7a357bc6808d2adb974c677789c944a4ceefe908bb374c806",
+    "inspectedCoverage": [
+      {
+        "label": "007 diagnostic entire source landscape",
+        "path": "review-v2/007-coverage.png",
+        "sha256": "d2ffc427c87d66bd57097583df0f1a66b6b4b8367feedc940b333c9c6cefe2a7"
+      }
+    ],
+    "coverageSheetSha256": "ebf0d62349c732f591fb5f9115557297b8a376aef29f0c1c51042b7d97c0fed8"
+  },
+  "8": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Поштова шафа читається знизу портрета, але обрубана ландшафтним краєм. У стані з наметами крайній намет візуально наближається до шафи; перевірити силует і підхід.",
+    "inspectedFrames": [
+      {
+        "order": 8,
+        "frame": "008-landscape.png",
+        "sha256": "c549583c559adbea2465e2f41093cc34724f4978c3601cccd8839b4ad248b982"
+      },
+      {
+        "order": 8,
+        "frame": "008-portrait.png",
+        "sha256": "2cf5269572718da845738b43610361d20cd2e1d47046eda70181bc389624bb3f"
+      },
+      {
+        "order": 8,
+        "frame": "008-solved.png",
+        "sha256": "c03c6f5e6cac0eeb2d36442500aa0604c6cc92dc30d3d5add0d920c2c2ffc6d0"
+      }
+    ],
+    "contactSheetSha256": "c543c5eb86be1ef7a357bc6808d2adb974c677789c944a4ceefe908bb374c806",
+    "inspectedCoverage": [
+      {
+        "label": "008 diagnostic entire source landscape",
+        "path": "review-v2/008-coverage.png",
+        "sha256": "a57e7dc7d2acff3601cb10e3195395f1decfd7ba010ae6709f08740ee7d36578"
+      }
+    ],
+    "coverageSheetSha256": "ebf0d62349c732f591fb5f9115557297b8a376aef29f0c1c51042b7d97c0fed8"
+  },
+  "9": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Кам’яна криниця з коловоротом стоїть перед полем і краще читається в портреті. Її відкритий внутрішній простір потребує окремої шахти; це додаткова криниця, не та сама модель, що QC003.",
+    "inspectedFrames": [
+      {
+        "order": 9,
+        "frame": "009-landscape.png",
+        "sha256": "0e375cea9fa2efe00ca2b84d2afb9a8e5db7ac3e3b254cd8cd93631969c1ddf3"
+      },
+      {
+        "order": 9,
+        "frame": "009-portrait.png",
+        "sha256": "261191b91e7a82e3997179c45ff755a8c8ae08eb97779dbb709729828f7b19da"
+      },
+      {
+        "order": 9,
+        "frame": "009-solved.png",
+        "sha256": "8dc1aa878caf6b98ba75f883af3dfb4c3c8047bb65bc4a958fed99b99428e5f7"
+      }
+    ],
+    "contactSheetSha256": "4fad93d968bb9ba3fa2ffdd18140135cc524f0745515319f5e0544007f72266b",
+    "inspectedCoverage": [
+      {
+        "label": "009 diagnostic entire source landscape",
+        "path": "review-v2/009-coverage.png",
+        "sha256": "9ba815779bb68657ccdb7a3f7109cadb811ac194b194ff2cbedc88261364d6aa"
+      }
+    ],
+    "coverageSheetSha256": "ebf0d62349c732f591fb5f9115557297b8a376aef29f0c1c51042b7d97c0fed8"
+  },
+  "10": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Двобічний ліхтар видно біля нижнього краю; його стовп зрозумілий у портреті. Камінь і дерево не приховують еталонні намети, але частина орієнтира зрізається ландшафтним кадром.",
+    "inspectedFrames": [
+      {
+        "order": 10,
+        "frame": "010-landscape.png",
+        "sha256": "c7beb7692e3c761c211f6978ae8244da1b27f6cb361276c965dcd265b8e74296"
+      },
+      {
+        "order": 10,
+        "frame": "010-portrait.png",
+        "sha256": "a64a60595b32e1dc265ab1f7b07fde91ca8dbaaf1e5d2975ca91ddd5f69ec1be"
+      },
+      {
+        "order": 10,
+        "frame": "010-solved.png",
+        "sha256": "a5607ad4dae82151dcebc5a9a38d4679da6223d3a30e420917a60224f3dfe9a7"
+      }
+    ],
+    "contactSheetSha256": "4fad93d968bb9ba3fa2ffdd18140135cc524f0745515319f5e0544007f72266b",
+    "inspectedCoverage": [
+      {
+        "label": "010 diagnostic entire source landscape",
+        "path": "review-v2/010-coverage.png",
+        "sha256": "dd22ae913aea80dc9fd6bfbe64ca368fc327c84e23b2d7a2831869eeb6db264f"
+      }
+    ],
+    "coverageSheetSha256": "ebf0d62349c732f591fb5f9115557297b8a376aef29f0c1c51042b7d97c0fed8"
+  },
+  "11": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Яблучний прес, відро та бочка утворюють переконливу робочу групу справа. Прес зрізаний краєм ландшафту; у портреті його конструкцію видно повніше.",
+    "inspectedFrames": [
+      {
+        "order": 11,
+        "frame": "011-landscape.png",
+        "sha256": "2ea1584bac038653d2a02b7b8dc9ff4130ccf9103620f324a85cd0b9401057d4"
+      },
+      {
+        "order": 11,
+        "frame": "011-portrait.png",
+        "sha256": "cec55e6e13951b1dcb8c6b0cfdfdfbbc73251dfbdc1eb0ed44eb2d4856ee29ed"
+      },
+      {
+        "order": 11,
+        "frame": "011-solved.png",
+        "sha256": "2787ae583adb111b11d753972f6c2556b8c798c8f9868f0a8ad93f4133f101a7"
+      }
+    ],
+    "contactSheetSha256": "4fad93d968bb9ba3fa2ffdd18140135cc524f0745515319f5e0544007f72266b",
+    "inspectedCoverage": [
+      {
+        "label": "011 diagnostic entire source landscape",
+        "path": "review-v2/011-coverage.png",
+        "sha256": "7b54ab044bc3e239ee7bebf78572f46af327d4ef86badaf960f296cc8cfdc083"
+      }
+    ],
+    "coverageSheetSha256": "9105aa53ca9a5106d57247d50d738757eba7d450d5e55aec72e61cc683cd3929"
+  },
+  "12": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Дім і його дах займають великий передній план та закривають частину нижнього силуету намету. Стан руїни читається, але масштаб її присутності потребує зменшення перекриття поля через розміщення.",
+    "inspectedFrames": [
+      {
+        "order": 12,
+        "frame": "012-landscape.png",
+        "sha256": "78784d2271f63f588cdf159b717fc75ebee6b0171b80a0ee710d44eea5d4e0cc"
+      },
+      {
+        "order": 12,
+        "frame": "012-portrait.png",
+        "sha256": "74919067ebcb93a2a40c8dc192e0bd08eff5b4002eae095a1cc5d5b7768ff933"
+      },
+      {
+        "order": 12,
+        "frame": "012-solved.png",
+        "sha256": "af2f0c5a5e7440cd8c646cbad418623b1268838829e3b53f37f359f1efc86859"
+      }
+    ],
+    "contactSheetSha256": "4fad93d968bb9ba3fa2ffdd18140135cc524f0745515319f5e0544007f72266b",
+    "inspectedCoverage": [
+      {
+        "label": "012 diagnostic entire source landscape",
+        "path": "review-v2/012-coverage.png",
+        "sha256": "d430cdd3349ad0dbb29f27147acc2bbd8aac6da1ce76e0b0dc0601ddc6cb1feb"
+      }
+    ],
+    "coverageSheetSha256": "9105aa53ca9a5106d57247d50d738757eba7d450d5e55aec72e61cc683cd3929"
+  },
+  "13": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Шкільна парта, речі й кошик читаються як окремий куточок відпочинку біля поля. Пень і колода не блокують еталонні намети; фізичне затінення логічної тіньової зони слід звірити з пробами.",
+    "inspectedFrames": [
+      {
+        "order": 13,
+        "frame": "013-landscape.png",
+        "sha256": "1fba6eece38e90d4007b25b3d8dc3e80fb8712609f6db7301ab1b44e1e0fa26a"
+      },
+      {
+        "order": 13,
+        "frame": "013-portrait.png",
+        "sha256": "aad78d0b71cc06ad12d2912902e29680f83f11dd41c16e85722f585dd19d7636"
+      },
+      {
+        "order": 13,
+        "frame": "013-solved.png",
+        "sha256": "7183712b837c50faf1d3d70938d58c0b7018dea9aabfb6e13d83424052fd68c6"
+      }
+    ],
+    "contactSheetSha256": "daed9adad5dff65e5c6945b8bd3ef08492c83480025925b58eee1a731cdf77c9",
+    "inspectedCoverage": [
+      {
+        "label": "013 diagnostic entire source landscape",
+        "path": "review-v2/013-coverage.png",
+        "sha256": "9e60189110ba175f213d4a092190b0065a1e4e96f511ba9e933714689634ab8a"
+      }
+    ],
+    "coverageSheetSha256": "9105aa53ca9a5106d57247d50d738757eba7d450d5e55aec72e61cc683cd3929"
+  },
+  "14": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Видимі дерево, пень і квітковий край, але головної хвіртки в цих кадрах немає. Через це заявлений вхід у місце не читається, хоча намети розміщуються зрозуміло.",
+    "inspectedFrames": [
+      {
+        "order": 14,
+        "frame": "014-landscape.png",
+        "sha256": "4d1e04fb9ecdc8e6e8e063e3860b9f082eef1a815ab6c8a33ba2ad8c06487c0a"
+      },
+      {
+        "order": 14,
+        "frame": "014-portrait.png",
+        "sha256": "130ffbd112c030fea4b57dcbb1528ebe16266659e08860bcf0221a6d98d3751b"
+      },
+      {
+        "order": 14,
+        "frame": "014-solved.png",
+        "sha256": "0cb79d8d914a6f37586ce15b78291fb79f6d8183efce65166df2c49162c2b7f3"
+      }
+    ],
+    "contactSheetSha256": "daed9adad5dff65e5c6945b8bd3ef08492c83480025925b58eee1a731cdf77c9",
+    "inspectedCoverage": [
+      {
+        "label": "014 diagnostic entire source landscape",
+        "path": "review-v2/014-coverage.png",
+        "sha256": "6d953f6ceb6629e8d5966d1360aac1c8288f131d7264dfc91b6b72ac07aefc1e"
+      }
+    ],
+    "coverageSheetSha256": "9105aa53ca9a5106d57247d50d738757eba7d450d5e55aec72e61cc683cd3929"
+  },
+  "15": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Бічні стійки арки видно, верхній зв’язок зрізаний кадром; конструкція сприймається як два окремі стовпи. Рама має читатися цілісно, зберігаючи відкритим поле.",
+    "inspectedFrames": [
+      {
+        "order": 15,
+        "frame": "015-landscape.png",
+        "sha256": "8e11884e950c1510a2f7f7d87600ff643f3f451f4aa643df2f577d99ce1d8343"
+      },
+      {
+        "order": 15,
+        "frame": "015-portrait.png",
+        "sha256": "5d92f76c6758ce55067ceac4a7712db23fbcd554bae2399a1a177b479e413cfe"
+      },
+      {
+        "order": 15,
+        "frame": "015-solved.png",
+        "sha256": "72c318e6087247f67a4f3b7f95aafd5cdf3a282128cc5c78f44ba6b8f8f096b7"
+      }
+    ],
+    "contactSheetSha256": "daed9adad5dff65e5c6945b8bd3ef08492c83480025925b58eee1a731cdf77c9",
+    "inspectedCoverage": [
+      {
+        "label": "015 diagnostic entire source landscape",
+        "path": "review-v2/015-coverage.png",
+        "sha256": "c472278ef49642d12c5a98cec71823777ddce7a773e78d71422ac31cae4a3cdb"
+      }
+    ],
+    "coverageSheetSha256": "9105aa53ca9a5106d57247d50d738757eba7d450d5e55aec72e61cc683cd3929"
+  },
+  "16": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Мозаїчна зупинка добре впізнається в портреті, але її великий навіс обрізаний переднім краєм ландшафту. Важливо перевірити, щоб навіс і прилегла огорожа не приховували крайні намети.",
+    "inspectedFrames": [
+      {
+        "order": 16,
+        "frame": "016-landscape.png",
+        "sha256": "9084d67d822650ea26edaf7dc8746502f5b3469b480b712d0ce0825c8196dded"
+      },
+      {
+        "order": 16,
+        "frame": "016-portrait.png",
+        "sha256": "72dc5b5f8c3ac0d39f5e3327c066a302a0257cebf3962901ce296199daabaf3c"
+      },
+      {
+        "order": 16,
+        "frame": "016-solved.png",
+        "sha256": "cd268ca877bbc5bdd1e1f07f8c45d920ebd8cfb317a5b19909bdb8e54d75c010"
+      }
+    ],
+    "contactSheetSha256": "daed9adad5dff65e5c6945b8bd3ef08492c83480025925b58eee1a731cdf77c9",
+    "inspectedCoverage": [
+      {
+        "label": "016 diagnostic entire source landscape",
+        "path": "review-v2/016-coverage.png",
+        "sha256": "bfc94f89a6b020815506c259e19d6db91b532555833d503cfdaf125452e39c90"
+      }
+    ],
+    "coverageSheetSha256": "9105aa53ca9a5106d57247d50d738757eba7d450d5e55aec72e61cc683cd3929"
+  },
+  "17": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Руїна з піччю має зрозумілі стіни й стоїть обабіч поля, але верх обрізаний ландшафтом. Наметам ігрове дерево не перекриває основу; руїну слід оцінити разом із підходом.",
+    "inspectedFrames": [
+      {
+        "order": 17,
+        "frame": "017-landscape.png",
+        "sha256": "8b9fb5b2968535b0216646b3aed933313727eef387c3bf5ebdc5befd9afea057"
+      },
+      {
+        "order": 17,
+        "frame": "017-portrait.png",
+        "sha256": "bf592226e606c0eb910227058e84312a478b21f40a509892da7e54ff0dc41a92"
+      },
+      {
+        "order": 17,
+        "frame": "017-solved.png",
+        "sha256": "feb11b7fbc9d784d0c48d607b8b7b1ba79f174c45a51919c1142b70769bb6c0d"
+      }
+    ],
+    "contactSheetSha256": "14e93e98eb14a36730d0d72ba868a86828f1eefe582085c58fbf066c69ba784e",
+    "inspectedCoverage": [
+      {
+        "label": "017 diagnostic entire source landscape",
+        "path": "review-v2/017-coverage.png",
+        "sha256": "0deabb8ff0dec6a87426fa18c95263548d43665f30e93e266f786d983e557928"
+      }
+    ],
+    "coverageSheetSha256": "9105aa53ca9a5106d57247d50d738757eba7d450d5e55aec72e61cc683cd3929"
+  },
+  "18": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Шкільна стіна видима лише вузьким фрагментом правого краю, у портреті зникає. Квіткова рамка виразніша за сюжетний об’єкт; віконний отвір не читається.",
+    "inspectedFrames": [
+      {
+        "order": 18,
+        "frame": "018-landscape.png",
+        "sha256": "5f040dbaebb55ba1b01ac072aa250509eb6046a8e0a0f3f341d321ae6736aee8"
+      },
+      {
+        "order": 18,
+        "frame": "018-portrait.png",
+        "sha256": "3da293f0c00f9af508d4a7659ce2328efb3388931d17ede9291b2bef8479956f"
+      },
+      {
+        "order": 18,
+        "frame": "018-solved.png",
+        "sha256": "e2ce53f8dfa6fc4c8d513306135317a97de32fc8163b09a2d0c0edd5f3e1912b"
+      }
+    ],
+    "contactSheetSha256": "14e93e98eb14a36730d0d72ba868a86828f1eefe582085c58fbf066c69ba784e",
+    "inspectedCoverage": [
+      {
+        "label": "018 diagnostic entire source landscape",
+        "path": "review-v2/018-coverage.png",
+        "sha256": "88ead09a28664c20fa2551232c98366b25bfe48cccda8775818b5ec76a0ecd14"
+      }
+    ],
+    "coverageSheetSha256": "9105aa53ca9a5106d57247d50d738757eba7d450d5e55aec72e61cc683cd3929"
+  },
+  "19": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Курник зі сходинками впізнається справа вгорі, особливо в портреті. Переднє дерево й його крона близькі до правого намету; зберегти читабельність входу.",
+    "inspectedFrames": [
+      {
+        "order": 19,
+        "frame": "019-landscape.png",
+        "sha256": "58beb4d85714dacd2e1379a23bff9fcc3283a7e57e1dd29748238184e3bda1ea"
+      },
+      {
+        "order": 19,
+        "frame": "019-portrait.png",
+        "sha256": "7badd19570236ccf5810c28a6166439ead0c5e928763431d3a8060b4d96b5eaa"
+      },
+      {
+        "order": 19,
+        "frame": "019-solved.png",
+        "sha256": "0e000f91471e635f907d4dd935a9d0783e8cc0f27b232b61d76eac410bc47408"
+      }
+    ],
+    "contactSheetSha256": "14e93e98eb14a36730d0d72ba868a86828f1eefe582085c58fbf066c69ba784e",
+    "inspectedCoverage": [
+      {
+        "label": "019 diagnostic entire source landscape",
+        "path": "review-v2/019-coverage.png",
+        "sha256": "d4168019606a803a7a2d834f47d7dc8dbafa26bc6d8742abd6dbf99b07bad215"
+      }
+    ],
+    "coverageSheetSha256": "9105aa53ca9a5106d57247d50d738757eba7d450d5e55aec72e61cc683cd3929"
+  },
+  "20": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Сушарка з речами добре розкривається в портреті, але в ландшафті лишаються майже тільки крайні деталі. Велика передня крона потребує перевірки перекриття нижнього поля.",
+    "inspectedFrames": [
+      {
+        "order": 20,
+        "frame": "020-landscape.png",
+        "sha256": "c8b3fb5ba4c0864b4173f8e224f62a9c4a2861fad3de0d4111e13d28bc795d2c"
+      },
+      {
+        "order": 20,
+        "frame": "020-portrait.png",
+        "sha256": "75afaa5578baf3374930868ee6df7c7b5eeee425cf021056fff60460eef425c4"
+      },
+      {
+        "order": 20,
+        "frame": "020-solved.png",
+        "sha256": "57084c8591ce509663492a698422247bb2b75b486bffe5c4b4ac6163f9c61bba"
+      }
+    ],
+    "contactSheetSha256": "14e93e98eb14a36730d0d72ba868a86828f1eefe582085c58fbf066c69ba784e",
+    "inspectedCoverage": [
+      {
+        "label": "020 diagnostic entire source landscape",
+        "path": "review-v2/020-coverage.png",
+        "sha256": "78b7dd3583147f109984827a4c7cd509562c39388a3927b3010543c8651a4438"
+      }
+    ],
+    "coverageSheetSha256": "9105aa53ca9a5106d57247d50d738757eba7d450d5e55aec72e61cc683cd3929"
+  },
+  "21": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Вулик дуже дрібний і проглядається лише в портреті; бочки й зелень візуально сильніші. Вхід до вулика й відокремлення робочої зони від наметів потребують ближчого огляду.",
+    "inspectedFrames": [
+      {
+        "order": 21,
+        "frame": "021-landscape.png",
+        "sha256": "dfa0959cab659064c7a2e1573b2109cc3faff0404e97eef8d6e33ebe9475b6f0"
+      },
+      {
+        "order": 21,
+        "frame": "021-portrait.png",
+        "sha256": "a123e5a3bb8e7f7ba04aca273772ac5b58145b1acfabcc074d6f530201a0a901"
+      },
+      {
+        "order": 21,
+        "frame": "021-solved.png",
+        "sha256": "ac3e11bca5999bc23e1b872a8cd28f89fc5443f969309472c648482db516b522"
+      }
+    ],
+    "contactSheetSha256": "9cf51020f2eb1e94e1a8a4e952ea0016da02b8dc35b90f4b0386a1e8f0173644",
+    "inspectedCoverage": [
+      {
+        "label": "021 diagnostic entire source landscape",
+        "path": "review-v2/021-coverage.png",
+        "sha256": "435318078548b5ac96966dea2c4970df2da8814f239e09cbb2fc56971b4ae57b"
+      }
+    ],
+    "coverageSheetSha256": "5e600593f2aff6ef0d32391174bf045421f1a7fc6be21bc3160d9dafa93a25e8"
+  },
+  "22": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Хвіртка з перголою зрізається справа вгорі; в портреті видно більше її конструкції. Пишний край рослин не повинен ховати прохід через хвіртку.",
+    "inspectedFrames": [
+      {
+        "order": 22,
+        "frame": "022-landscape.png",
+        "sha256": "5f50a361366d8c7cf2daba54261cfe59cdf5bdbf700be3a6cc048ff6397540c0"
+      },
+      {
+        "order": 22,
+        "frame": "022-portrait.png",
+        "sha256": "796fb1939dfab0bc6913e02ec23e899a3a123cf0a5b24679f78e8ab9626c8446"
+      },
+      {
+        "order": 22,
+        "frame": "022-solved.png",
+        "sha256": "0f5c4542707d87d425f0bdca8999e66131e894708c2b9cea6e612f299621f7b6"
+      }
+    ],
+    "contactSheetSha256": "9cf51020f2eb1e94e1a8a4e952ea0016da02b8dc35b90f4b0386a1e8f0173644",
+    "inspectedCoverage": [
+      {
+        "label": "022 diagnostic entire source landscape",
+        "path": "review-v2/022-coverage.png",
+        "sha256": "2da9af90c2bb158a26dfcce08c2d08bdaa31022cc849afe30aaafac6200b28cb"
+      }
+    ],
+    "coverageSheetSha256": "5e600593f2aff6ef0d32391174bf045421f1a7fc6be21bc3160d9dafa93a25e8"
+  },
+  "23": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Водорозбірної помпи не видно в обох кадрах; лавка й камінь не пояснюють водну тему місця. Повернення помпи до видимого краю має врахувати місце набору води.",
+    "inspectedFrames": [
+      {
+        "order": 23,
+        "frame": "023-landscape.png",
+        "sha256": "573d25ac2a8dae479a4a518c9a77953a8c8573e1328354f05fa93fce4050a212"
+      },
+      {
+        "order": 23,
+        "frame": "023-portrait.png",
+        "sha256": "7c5a6cb8767afdbe8adefcff7ddebf0e0910105a804221b069bd9679f7a1d3c6"
+      },
+      {
+        "order": 23,
+        "frame": "023-solved.png",
+        "sha256": "e0f331bb252adb4fe9f59babe64310c5d3b740f6fa647035fe78cbe9a34c91ef"
+      }
+    ],
+    "contactSheetSha256": "9cf51020f2eb1e94e1a8a4e952ea0016da02b8dc35b90f4b0386a1e8f0173644",
+    "inspectedCoverage": [
+      {
+        "label": "023 diagnostic entire source landscape",
+        "path": "review-v2/023-coverage.png",
+        "sha256": "ea56db077b365291b024fa318a9795b94b90ed30a1e9dbc6ce464804d9f5b5c4"
+      }
+    ],
+    "coverageSheetSha256": "5e600593f2aff6ef0d32391174bf045421f1a7fc6be21bc3160d9dafa93a25e8"
+  },
+  "24": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Сарай читається переднім дахом і відкритою частиною покрівлі, але великий дах змагається з нижнім наметом. Потрібно залишити видимими двері й шлях до споруди.",
+    "inspectedFrames": [
+      {
+        "order": 24,
+        "frame": "024-landscape.png",
+        "sha256": "f2fe12df0734ca1b125f54df8c25678ca3e2d2ed25d9e345b7105f9802a9826e"
+      },
+      {
+        "order": 24,
+        "frame": "024-portrait.png",
+        "sha256": "06627a6191f8a1e6f159c1231bc88cbf0dfee9b7ba39a0edcd0f45bf830f2a07"
+      },
+      {
+        "order": 24,
+        "frame": "024-solved.png",
+        "sha256": "a2258d0f94785d405826132ea55ebfb2a419971723bd63c13e54eb91b7d88970"
+      }
+    ],
+    "contactSheetSha256": "9cf51020f2eb1e94e1a8a4e952ea0016da02b8dc35b90f4b0386a1e8f0173644",
+    "inspectedCoverage": [
+      {
+        "label": "024 diagnostic entire source landscape",
+        "path": "review-v2/024-coverage.png",
+        "sha256": "aa37a4b1f614fd54dbe8928264e22aa575d74b6d7bea29a7e7b670c0b5130acf"
+      }
+    ],
+    "coverageSheetSha256": "5e600593f2aff6ef0d32391174bf045421f1a7fc6be21bc3160d9dafa93a25e8"
+  },
+  "25": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Теплиця не потрапляє в жоден із кадрів; поле виглядає як ще одна лісова галявина. Рослини по периметру читаються, сюжет волонтерського городу — ні.",
+    "inspectedFrames": [
+      {
+        "order": 25,
+        "frame": "025-landscape.png",
+        "sha256": "f8e61c28884ea172ad4d31a014d4fd1947bfac2a31f29923f57be285726f6ff6"
+      },
+      {
+        "order": 25,
+        "frame": "025-portrait.png",
+        "sha256": "8c843b99b660a2aef3f6a57b6f4a055c779e77dac60745898b6564832ac72f34"
+      },
+      {
+        "order": 25,
+        "frame": "025-solved.png",
+        "sha256": "a9d9481326f09a4ac7f0b6f2a54a34182d4c5a4d6d670a20a548d5df6c64e034"
+      }
+    ],
+    "contactSheetSha256": "9661c4328d6adc77e424f1b78cae1e95ae47c765d8b107bf93966f05bf461b79",
+    "inspectedCoverage": [
+      {
+        "label": "025 diagnostic entire source landscape",
+        "path": "review-v2/025-coverage.png",
+        "sha256": "9f967512ff5fa8f20f04cbbdbf0672f281b100e1c65d411bf64899229561bdaf"
+      }
+    ],
+    "coverageSheetSha256": "5e600593f2aff6ef0d32391174bf045421f1a7fc6be21bc3160d9dafa93a25e8"
+  },
+  "26": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Навіс над верстаком займає великий передній план і приховує частину нижнього намету. Сам верстак майже не видно; потрібна адресна правка розміщення ансамблю.",
+    "inspectedFrames": [
+      {
+        "order": 26,
+        "frame": "026-landscape.png",
+        "sha256": "810e7f47b0abf9fafef512193522997631f564dbe1e7a2a0f45c99fe709fa96e"
+      },
+      {
+        "order": 26,
+        "frame": "026-portrait.png",
+        "sha256": "699d1927230ec0498a38e3a049b6eb220c7061d54e1f0abccea6dd2a365e9420"
+      },
+      {
+        "order": 26,
+        "frame": "026-solved.png",
+        "sha256": "1a5700da8d10f573ed08b81834a2d7e435f62336c15a7c6887f972738b25319c"
+      }
+    ],
+    "contactSheetSha256": "9661c4328d6adc77e424f1b78cae1e95ae47c765d8b107bf93966f05bf461b79",
+    "inspectedCoverage": [
+      {
+        "label": "026 diagnostic entire source landscape",
+        "path": "review-v2/026-coverage.png",
+        "sha256": "c18dbebe5e385064d1e733e51178df9aabb79c7f0701aeeaca0291f2aa281926"
+      }
+    ],
+    "coverageSheetSha256": "5e600593f2aff6ef0d32391174bf045421f1a7fc6be21bc3160d9dafa93a25e8"
+  },
+  "27": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Каркас берегової альтанки видно переважно в портреті біля річки. Відкритий верх має читатися як жива гілкова конструкція; перевірити зв’язок стійок із берегом і підходом.",
+    "inspectedFrames": [
+      {
+        "order": 27,
+        "frame": "027-landscape.png",
+        "sha256": "4253ec192e7cd5691a524a8b87c9c0a498f2d577a57bed7f8fdc06b9b7789065"
+      },
+      {
+        "order": 27,
+        "frame": "027-portrait.png",
+        "sha256": "cb7fa6fca55caef55c1d631c43e1e79b9ba79c5514a2022253defc7b408c3271"
+      },
+      {
+        "order": 27,
+        "frame": "027-solved.png",
+        "sha256": "b4fec19b02a369d68d0b29a267565096c206b7961f10922da64f3c80d0ba5015"
+      }
+    ],
+    "contactSheetSha256": "9661c4328d6adc77e424f1b78cae1e95ae47c765d8b107bf93966f05bf461b79",
+    "inspectedCoverage": [
+      {
+        "label": "027 diagnostic entire source landscape",
+        "path": "review-v2/027-coverage.png",
+        "sha256": "b1809f126adb5b9727c1e6349ee9db512fffcfa5b54b1423ea78dea29162d74c"
+      }
+    ],
+    "coverageSheetSha256": "5e600593f2aff6ef0d32391174bf045421f1a7fc6be21bc3160d9dafa93a25e8"
+  },
+  "28": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Іржава ґратчаста опора проглядається у верхній частині портрета; в ландшафті лишаються фрагменти. Потрібно перевірити читабельність обірваного маршруту лінії, щоб опора не виглядала випадковою.",
+    "inspectedFrames": [
+      {
+        "order": 28,
+        "frame": "028-landscape.png",
+        "sha256": "56be9781f99b6f79ab7452f40922ad40b2c758709aa7779b2dc0ac349a78c48a"
+      },
+      {
+        "order": 28,
+        "frame": "028-portrait.png",
+        "sha256": "85113afa781702423d7fde446469bca34cb1dd74b4d1c753730d234416ce3db5"
+      },
+      {
+        "order": 28,
+        "frame": "028-solved.png",
+        "sha256": "222e6010e4b4fef312387f8bd94c386f1f566e307d0965a9ee82a84ed6107c5d"
+      }
+    ],
+    "contactSheetSha256": "9661c4328d6adc77e424f1b78cae1e95ae47c765d8b107bf93966f05bf461b79",
+    "inspectedCoverage": [
+      {
+        "label": "028 diagnostic entire source landscape",
+        "path": "review-v2/028-coverage.png",
+        "sha256": "49f118c5d9f735a4f0f0fdf96ce1a34a61211c4e606a08df75fed3ed9e7507a7"
+      }
+    ],
+    "coverageSheetSha256": "5e600593f2aff6ef0d32391174bf045421f1a7fc6be21bc3160d9dafa93a25e8"
+  },
+  "29": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Пасічницький павільйон читається в портреті справа вгорі, але майже весь відсутній у ландшафті. Велике листя обрамлює поле; верхній намет у зовнішньому кадрі перетинається з листяним силуетом.",
+    "inspectedFrames": [
+      {
+        "order": 29,
+        "frame": "029-landscape.png",
+        "sha256": "99a8d32936968306eb0a49ddcb4ac7e6f1ee7dee9d37da9050cb2628e8053b14"
+      },
+      {
+        "order": 29,
+        "frame": "029-portrait.png",
+        "sha256": "738162c5c57b59f63779f8632ef2a0a159dd5012459c99a52edf00ae27e7d987"
+      },
+      {
+        "order": 29,
+        "frame": "029-solved.png",
+        "sha256": "77ec517a79edb7de70def5a7e9d753bda42ac50fedfd2598e5f1ea4102262aab"
+      }
+    ],
+    "contactSheetSha256": "a85c93dd8cb4887df049c42ee63113687b81d8cd72360b5f84935ee6d34c223c",
+    "inspectedCoverage": [
+      {
+        "label": "029 diagnostic entire source landscape",
+        "path": "review-v2/029-coverage.png",
+        "sha256": "c208b14e0423cc4bdeb2b701fb4d59a579bf6aae075a5fe500bb0c1eccfe916b"
+      }
+    ],
+    "coverageSheetSha256": "5e600593f2aff6ef0d32391174bf045421f1a7fc6be21bc3160d9dafa93a25e8"
+  },
+  "30": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Стіл для пакунків перекриває передній край, а велике ігрове дерево закриває частину лівого намету. Потрібна перевірка силуетів і цілого столу, особливо при нижньому розміщенні гостей.",
+    "inspectedFrames": [
+      {
+        "order": 30,
+        "frame": "030-landscape.png",
+        "sha256": "09da103d6172ced22086573037422ae0f9fc474063f1fcc04710656d86cd7798"
+      },
+      {
+        "order": 30,
+        "frame": "030-portrait.png",
+        "sha256": "25fc06ce19ce9a8787b8d63780bc40c0f464e295a99df2a7dfa66b6114f08cbe"
+      },
+      {
+        "order": 30,
+        "frame": "030-solved.png",
+        "sha256": "06815fb238a6618c0698dfff80008ebbac2bad06ab6e57417d3fcbc533d206fc"
+      }
+    ],
+    "contactSheetSha256": "a85c93dd8cb4887df049c42ee63113687b81d8cd72360b5f84935ee6d34c223c",
+    "inspectedCoverage": [
+      {
+        "label": "030 diagnostic entire source landscape",
+        "path": "review-v2/030-coverage.png",
+        "sha256": "9d2805e22f115033201f18c00f7264db8f1df6a04ff820ffcebcd1a1ec5ce2e7"
+      }
+    ],
+    "coverageSheetSha256": "5e600593f2aff6ef0d32391174bf045421f1a7fc6be21bc3160d9dafa93a25e8"
+  },
+  "31": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Станційний годинник практично не видно: ID-проба дає лише поодинокі пікселі. Поле й намети читаються, але залізничний орієнтир загублений у зелені/за кадром.",
+    "inspectedFrames": [
+      {
+        "order": 31,
+        "frame": "031-landscape.png",
+        "sha256": "5564317d2b1fe4244199cec00e9070ae2551bab769599280ecbe4a771ae1a3ea"
+      },
+      {
+        "order": 31,
+        "frame": "031-portrait.png",
+        "sha256": "552a0c5e7cd0511c2e9ec7e798639ffa35c6b77e8f5ff5051ad5bffbfb3a68c4"
+      },
+      {
+        "order": 31,
+        "frame": "031-solved.png",
+        "sha256": "9c7293f69c54e3d98c36856daa4ad098000f1d074b6dfc2acbd66530bf967d71"
+      }
+    ],
+    "contactSheetSha256": "a85c93dd8cb4887df049c42ee63113687b81d8cd72360b5f84935ee6d34c223c",
+    "inspectedCoverage": [
+      {
+        "label": "031 diagnostic entire source landscape",
+        "path": "review-v2/031-coverage.png",
+        "sha256": "987a7b4ee62940aa2721d051875c898e3dabb61e3fe132ccb0ff86aacf0db173"
+      }
+    ],
+    "coverageSheetSha256": "e3a9dde889825562bbae95be5300398b34f81403760057055ee089d9fa91b9b1"
+  },
+  "32": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Довгу лаву видно знизу портрета, у ландшафтному кадрі її немає. Простір навколо дерева й каменя придатний для читання пазла; сюжетне місце відпочинку потребує кращого показу.",
+    "inspectedFrames": [
+      {
+        "order": 32,
+        "frame": "032-landscape.png",
+        "sha256": "bcad1f31284dcb21cc0147d7847d8388dea28c4aa2a756bd09cce0de07985b10"
+      },
+      {
+        "order": 32,
+        "frame": "032-portrait.png",
+        "sha256": "80b1eed65ee1e863e4bfac522e9b82078114d128f45263d35b43e0e6a2dc3d6a"
+      },
+      {
+        "order": 32,
+        "frame": "032-solved.png",
+        "sha256": "5a19110407da0effef8473236b4decbb987e8d014ffcf2236bad8a9f73bf02ef"
+      }
+    ],
+    "contactSheetSha256": "a85c93dd8cb4887df049c42ee63113687b81d8cd72360b5f84935ee6d34c223c",
+    "inspectedCoverage": [
+      {
+        "label": "032 diagnostic entire source landscape",
+        "path": "review-v2/032-coverage.png",
+        "sha256": "8c2750abfd5528ed150ad2d97a85195dea3971e155bf2bbc76f4f8b8af07059d"
+      }
+    ],
+    "coverageSheetSha256": "e3a9dde889825562bbae95be5300398b34f81403760057055ee089d9fa91b9b1"
+  },
+  "33": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Багажний візок не потрапляє в обидва кадри. Лавка, пень і колода читаються як лісовий декор, але не пояснюють станційну тему.",
+    "inspectedFrames": [
+      {
+        "order": 33,
+        "frame": "033-landscape.png",
+        "sha256": "426494f7a05a80c2c2e380eafda19630120e99b519464f9c93536337cbe7827d"
+      },
+      {
+        "order": 33,
+        "frame": "033-portrait.png",
+        "sha256": "eb18a2cb41d85d654c4e0d4768b7d6a753c39b153d73d67353a0eac64d008266"
+      },
+      {
+        "order": 33,
+        "frame": "033-solved.png",
+        "sha256": "339c7e48739eb6784c17115198dd4a96bbc44c4bbc7e05d0fca6cb1a2f85d156"
+      }
+    ],
+    "contactSheetSha256": "b776ca8cec11094b38cdef618154cd80339f6c25889947237e650233f1f67722",
+    "inspectedCoverage": [
+      {
+        "label": "033 diagnostic entire source landscape",
+        "path": "review-v2/033-coverage.png",
+        "sha256": "73f62315a4b7e52131ea3fbf75d52308ffc2c0183fa2830ad4af1054d7756414"
+      }
+    ],
+    "coverageSheetSha256": "e3a9dde889825562bbae95be5300398b34f81403760057055ee089d9fa91b9b1"
+  },
+  "34": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Колійний буфер читається знизу портрета, у ландшафті лише малим фрагментом. Перевірити продовження залишків колії й зв’язок із насипом, щоб буфер не був окремою випадковою рамою.",
+    "inspectedFrames": [
+      {
+        "order": 34,
+        "frame": "034-landscape.png",
+        "sha256": "c7760ec1c3c5f9b5139bb9b96a6afea4bd668528577e9ebfddf17876d36cfb3b"
+      },
+      {
+        "order": 34,
+        "frame": "034-portrait.png",
+        "sha256": "2591302ae9465dbc68d04bdd08d5f326b1937ddc3828945fd720ae2c7cf86f72"
+      },
+      {
+        "order": 34,
+        "frame": "034-solved.png",
+        "sha256": "4079a6a117c936aeef6ed61f074bd6b447c48bea72b9295c16049fa02d597d3c"
+      }
+    ],
+    "contactSheetSha256": "b776ca8cec11094b38cdef618154cd80339f6c25889947237e650233f1f67722",
+    "inspectedCoverage": [
+      {
+        "label": "034 diagnostic entire source landscape",
+        "path": "review-v2/034-coverage.png",
+        "sha256": "010a306aa329bf24d3e49973ecc4843a1400a24425110c440479b2199d0000ac"
+      }
+    ],
+    "coverageSheetSha256": "e3a9dde889825562bbae95be5300398b34f81403760057055ee089d9fa91b9b1"
+  },
+  "35": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Кам’яні сходи насипу практично невидимі в обох форматах. Зелень праворуч наближається до крайніх наметів; сходи й їхня точка виходу мають читатися поза ігровим полем.",
+    "inspectedFrames": [
+      {
+        "order": 35,
+        "frame": "035-landscape.png",
+        "sha256": "cf88aeaea45b438fb712452eadedf5d539f289aa5233a0e017d6f8a9ff544266"
+      },
+      {
+        "order": 35,
+        "frame": "035-portrait.png",
+        "sha256": "030020cb9cc342fdcbc6d428feed2ea4ce82b3d257898c3f46578b3e7919564a"
+      },
+      {
+        "order": 35,
+        "frame": "035-solved.png",
+        "sha256": "cfd6977a13fceb9a291ac9a877c605a9e9015cd2d9ec9b58548bf6e68df7b274"
+      }
+    ],
+    "contactSheetSha256": "b776ca8cec11094b38cdef618154cd80339f6c25889947237e650233f1f67722",
+    "inspectedCoverage": [
+      {
+        "label": "035 diagnostic entire source landscape",
+        "path": "review-v2/035-coverage.png",
+        "sha256": "8e173bdc38c6e272ba26b6d48b2ead85f854f9d8d3cf3b8b37b700c84668b2be"
+      }
+    ],
+    "coverageSheetSha256": "e3a9dde889825562bbae95be5300398b34f81403760057055ee089d9fa91b9b1"
+  },
+  "36": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Унікальна підвісна кладка майже поза ігровим кадром. Деталі й геометрія виявили старий другий міст у тому самому центрі; ремонт прибирає дублікат, зберігає підвісний міст і додає берегові підходи.",
+    "inspectedFrames": [
+      {
+        "order": 36,
+        "frame": "036-landscape.png",
+        "sha256": "4759001e50179d62f1079de1bb17d6fa56bbc8f876ec8796c01481a36c9e5108"
+      },
+      {
+        "order": 36,
+        "frame": "036-portrait.png",
+        "sha256": "2199a95e7e3221c93cc0dc9d2ddfb7cfe3efa76bec94ab9e309588bd0158bbb3"
+      },
+      {
+        "order": 36,
+        "frame": "036-solved.png",
+        "sha256": "f3b680330ab56f6f774b577bacd9f74b76f60e172ca03e88b345c9d6158df5ff"
+      }
+    ],
+    "contactSheetSha256": "b776ca8cec11094b38cdef618154cd80339f6c25889947237e650233f1f67722",
+    "inspectedCoverage": [
+      {
+        "label": "036 diagnostic entire source landscape",
+        "path": "review-v2/036-coverage.png",
+        "sha256": "b8350e51f514fe2514e6c45cc3ea2e51743a91fddf313f87be7a1ebe8d83672b"
+      }
+    ],
+    "coverageSheetSha256": "e3a9dde889825562bbae95be5300398b34f81403760057055ee089d9fa91b9b1"
+  },
+  "37": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Вежа з ліхтарем читається зліва, човен лежить поряд із берегом. Велика платформа має виразні опори; потрібно перевірити доступ на платформу та зв’язок човна з місцем спуску.",
+    "inspectedFrames": [
+      {
+        "order": 37,
+        "frame": "037-landscape.png",
+        "sha256": "2156e44262420cb39b84da8be638b27dbbc8fb9b69daa09deafc82d834f087d9"
+      },
+      {
+        "order": 37,
+        "frame": "037-portrait.png",
+        "sha256": "23f96f5ac687e3021fe1bb48e1f0d732f01961fb4154191c9413d1ed79efb5b5"
+      },
+      {
+        "order": 37,
+        "frame": "037-solved.png",
+        "sha256": "e03d43b4d308e57c37a5f14e8b192f762d7740446f9701d4cb2e763345afc87e"
+      }
+    ],
+    "contactSheetSha256": "1316da15765427eecb3eac7eda48b55acc3c9b6c3f87dcc2a1f89b535961f05a",
+    "inspectedCoverage": [
+      {
+        "label": "037 diagnostic entire source landscape",
+        "path": "review-v2/037-coverage.png",
+        "sha256": "836c437bb227f7a9314988ca6c03be7d1efa23a438e8e14d01a91492d55ee5f3"
+      }
+    ],
+    "coverageSheetSha256": "e3a9dde889825562bbae95be5300398b34f81403760057055ee089d9fa91b9b1"
+  },
+  "38": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Кладка на кам’яних устоях майже не потрапляє у формат гравця. Її перетинає старий допоміжний міст; саме цей дубль прибирається, а не унікальна кам’яна конструкція.",
+    "inspectedFrames": [
+      {
+        "order": 38,
+        "frame": "038-landscape.png",
+        "sha256": "70bad56702eff2896d06c3109c92aaf6ecb232309ecabd82e0c416a85860954d"
+      },
+      {
+        "order": 38,
+        "frame": "038-portrait.png",
+        "sha256": "098017a263611d6ad427a7294b0b355cc219b9345b4163b7ee791bab03db41f8"
+      },
+      {
+        "order": 38,
+        "frame": "038-solved.png",
+        "sha256": "8dc9dce325d5ce4cda0b82055371a69fc64d40ae28c6f8d091298132d2db8368"
+      }
+    ],
+    "contactSheetSha256": "1316da15765427eecb3eac7eda48b55acc3c9b6c3f87dcc2a1f89b535961f05a",
+    "inspectedCoverage": [
+      {
+        "label": "038 diagnostic entire source landscape",
+        "path": "review-v2/038-coverage.png",
+        "sha256": "d38695042a4339fcbfaecf0a19b77c5f7f9a0541bd08ebb057605bcb0d668bc2"
+      }
+    ],
+    "coverageSheetSha256": "e3a9dde889825562bbae95be5300398b34f81403760057055ee089d9fa91b9b1"
+  },
+  "39": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Станційного водяного бака в обох кадрах немає. Поле оточене рослинами й повторними базовими предметами; водопостачальний сюжет наразі не читається з камери гравця.",
+    "inspectedFrames": [
+      {
+        "order": 39,
+        "frame": "039-landscape.png",
+        "sha256": "25c89f143cb626f91ff24a290bd0066746f83b41b468c89d056e4fda300b2328"
+      },
+      {
+        "order": 39,
+        "frame": "039-portrait.png",
+        "sha256": "a9fd660e3a8ada7763a119f05f4f475823704cec207f750c0cb110d150ab173d"
+      },
+      {
+        "order": 39,
+        "frame": "039-solved.png",
+        "sha256": "67bdf7d5ada83e37aa0ff7ba73a15136b9d6f5698f66225e13509ed0869f0dc3"
+      }
+    ],
+    "contactSheetSha256": "1316da15765427eecb3eac7eda48b55acc3c9b6c3f87dcc2a1f89b535961f05a",
+    "inspectedCoverage": [
+      {
+        "label": "039 diagnostic entire source landscape",
+        "path": "review-v2/039-coverage.png",
+        "sha256": "22b2b8f60f43ee4d862d06cdf60e57ca0b9236ac48760adb6bc483c3617e87e9"
+      }
+    ],
+    "coverageSheetSha256": "e3a9dde889825562bbae95be5300398b34f81403760057055ee089d9fa91b9b1"
+  },
+  "40": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Диспетчерський кіоск займає передній край і закриває частину нижнього намету. У портреті видно більше будівлі; зміщення має зберегти двері й підхід, не змінюючи розмір наметів.",
+    "inspectedFrames": [
+      {
+        "order": 40,
+        "frame": "040-landscape.png",
+        "sha256": "27b53e4707f2bb7a82057e331067d2b9ae8cc182dbac2a555f7868be7c11baf9"
+      },
+      {
+        "order": 40,
+        "frame": "040-portrait.png",
+        "sha256": "dfcd941e9e335b36477e8aa62a471582a3ceb8f9642e538d922a4f3189ea2de9"
+      },
+      {
+        "order": 40,
+        "frame": "040-solved.png",
+        "sha256": "d82c55be110e2e273b01af2e2bba7afd8ad229d13148956a7bac0c6f4ecb6f54"
+      }
+    ],
+    "contactSheetSha256": "1316da15765427eecb3eac7eda48b55acc3c9b6c3f87dcc2a1f89b535961f05a",
+    "inspectedCoverage": [
+      {
+        "label": "040 diagnostic entire source landscape",
+        "path": "review-v2/040-coverage.png",
+        "sha256": "f69d7b88d66b9b84b15bf81b73ccd71c28f87ed0b33b908e488a3cc401e374a9"
+      }
+    ],
+    "coverageSheetSha256": "e3a9dde889825562bbae95be5300398b34f81403760057055ee089d9fa91b9b1"
+  },
+  "41": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Вітряна помпа читається у верхній частині портрета; в ландшафті видно переважно її стійки. Важливо показати робочий ротор і місце подачі води разом, не залишати лише високі жердини.",
+    "inspectedFrames": [
+      {
+        "order": 41,
+        "frame": "041-landscape.png",
+        "sha256": "0e2775cfb6f079199fc3b83727af90deed43e07d06e40a8e0be674273b040b50"
+      },
+      {
+        "order": 41,
+        "frame": "041-portrait.png",
+        "sha256": "b612ad644fa5dbdf79f13f7d5e75cb1ab913f1c9ce828a33fc87ca01f6697ee6"
+      },
+      {
+        "order": 41,
+        "frame": "041-solved.png",
+        "sha256": "c17897ac15c46146170a83fef588fb113f71dffcb1ed9e14b37875c15f957478"
+      }
+    ],
+    "contactSheetSha256": "4aad1a1f3906d6dbecf62956ceccdd63ccce33e842797b5717cccdd230c1b83a",
+    "inspectedCoverage": [
+      {
+        "label": "041 diagnostic entire source landscape",
+        "path": "review-v2/041-coverage.png",
+        "sha256": "5a8285bfc3bc5f868ce10a1f422035b619f4fc036355a1b545a494a6fdc2ea6c"
+      }
+    ],
+    "coverageSheetSha256": "88b9b51a97fabf471907c9f35c2b87929f4c5e88f1324014668c5309ac1df0d3"
+  },
+  "42": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Передню частину літака не видно в обох цих ігрових кадрах. Чистіше поле тут пов’язане також із невідтвореним процедурним лугом; це не доказ порожнього поля в Unity. Для літака потрібні окремі загальний і детальні огляди.",
+    "inspectedFrames": [
+      {
+        "order": 42,
+        "frame": "042-landscape.png",
+        "sha256": "ffc903c5455cad4cbc1699cdc161cf45408a2c25a2ecd2433ec6475089237241"
+      },
+      {
+        "order": 42,
+        "frame": "042-portrait.png",
+        "sha256": "6a064b5ece6333740d764a05f822bc80efbb66702cb667cc1d3ee347f73a6ff9"
+      },
+      {
+        "order": 42,
+        "frame": "042-solved.png",
+        "sha256": "036273c8f2dc3e8409cb9af7360927ab1eb57494ff2b798dba949b1c07345915"
+      }
+    ],
+    "contactSheetSha256": "4aad1a1f3906d6dbecf62956ceccdd63ccce33e842797b5717cccdd230c1b83a",
+    "inspectedCoverage": [
+      {
+        "label": "042 diagnostic entire source landscape",
+        "path": "review-v2/042-coverage.png",
+        "sha256": "2628084a68120e9c506bd9045b94abf5e6c0d1764193a83a8bab2a3c7be6dfdc"
+      }
+    ],
+    "coverageSheetSha256": "88b9b51a97fabf471907c9f35c2b87929f4c5e88f1324014668c5309ac1df0d3"
+  },
+  "43": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Хвіст літака читається в нижній частині портрета, у ландшафті лишаються обрізані секції по краях. Сюжетний силует розірваний кадруванням; навіс над полем не повинен додатково перекривати уламки.",
+    "inspectedFrames": [
+      {
+        "order": 43,
+        "frame": "043-landscape.png",
+        "sha256": "b8e05b8cfcd9821cbfc4a6cd838eb57de949be1c9b565b9c4acfe1d19088e138"
+      },
+      {
+        "order": 43,
+        "frame": "043-portrait.png",
+        "sha256": "7c677673d6fdd4b03d8e9335726ed1f4ea243e713c95104225ab80ba8bc9f599"
+      },
+      {
+        "order": 43,
+        "frame": "043-solved.png",
+        "sha256": "e14f1441c9a3320dd3a76208425a70e46ad608a683f9b2a40fae81b14e2e38d3"
+      }
+    ],
+    "contactSheetSha256": "4aad1a1f3906d6dbecf62956ceccdd63ccce33e842797b5717cccdd230c1b83a",
+    "inspectedCoverage": [
+      {
+        "label": "043 diagnostic entire source landscape",
+        "path": "review-v2/043-coverage.png",
+        "sha256": "319500b1f2b1ee9a7e00d31dcad8e6bef684f6b4f0957c4c2be31a6be31d9e6f"
+      }
+    ],
+    "coverageSheetSha256": "88b9b51a97fabf471907c9f35c2b87929f4c5e88f1324014668c5309ac1df0d3"
+  },
+  "44": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Відірване крило видно внизу портрета, у ландшафті літак поза кадром. У діагностиці помітні довгі тіні, але їхній вигляд не тотожний URP; звірити, щоб крило мало зрозумілу опору й читабельний контур.",
+    "inspectedFrames": [
+      {
+        "order": 44,
+        "frame": "044-landscape.png",
+        "sha256": "eff9da505fa8bfdb238d82637ce4b5b80543bed7dcf0801d2723c615a64a1511"
+      },
+      {
+        "order": 44,
+        "frame": "044-portrait.png",
+        "sha256": "de614999cc71165db3c0d759f8270cccda9e86053743867f1d78abecd6d47131"
+      },
+      {
+        "order": 44,
+        "frame": "044-solved.png",
+        "sha256": "64c9886efdefe7cf8bd9b7be0cc929a91b13b601e8df45143bcfd143a05f3c0d"
+      }
+    ],
+    "contactSheetSha256": "4aad1a1f3906d6dbecf62956ceccdd63ccce33e842797b5717cccdd230c1b83a",
+    "inspectedCoverage": [
+      {
+        "label": "044 diagnostic entire source landscape",
+        "path": "review-v2/044-coverage.png",
+        "sha256": "869f79f55812ea5409fed7026913b01a658f5d1bc512825b4f4719809cbcc523"
+      }
+    ],
+    "coverageSheetSha256": "88b9b51a97fabf471907c9f35c2b87929f4c5e88f1324014668c5309ac1df0d3"
+  },
+  "45": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Меморіальна ніша проглядається справа вгорі, частково зрізана ландшафтним краєм. Предмети поруч не заважають наметам; потрібен спокійний доступ до ніші, без випадкового перегородження кущами.",
+    "inspectedFrames": [
+      {
+        "order": 45,
+        "frame": "045-landscape.png",
+        "sha256": "567414912058aad2acde45325d058f8d09e7739e61aae9c407e3fe8005268c62"
+      },
+      {
+        "order": 45,
+        "frame": "045-portrait.png",
+        "sha256": "83b01419ab8dbaa6a33f09f59175323211b7619090e4d4f072ed06682d05504c"
+      },
+      {
+        "order": 45,
+        "frame": "045-solved.png",
+        "sha256": "3dd6fbecb95f3de11b46e6c08186ed326685e8837b9d5207c9be69e97ad975ae"
+      }
+    ],
+    "contactSheetSha256": "ebde7f0999b46c69525ac96ad859d33630e9286ec70184b8c16cfabfda6590d8",
+    "inspectedCoverage": [
+      {
+        "label": "045 diagnostic entire source landscape",
+        "path": "review-v2/045-coverage.png",
+        "sha256": "c0f8c92ffa166bb9d12a7029ded4a10772e241ecba131c990618c1e2e67a7657"
+      }
+    ],
+    "coverageSheetSha256": "88b9b51a97fabf471907c9f35c2b87929f4c5e88f1324014668c5309ac1df0d3"
+  },
+  "46": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Кругла лава пам’яті майже втрачена правим краєм: за ID-пробою видно лише малу частину. Звичайна лавка вгорі помітніша за основний круглий ансамбль.",
+    "inspectedFrames": [
+      {
+        "order": 46,
+        "frame": "046-landscape.png",
+        "sha256": "ab8b5350aa02c2128a60f94328ad5b5025762774dd202b8f7e39eb8ad8578403"
+      },
+      {
+        "order": 46,
+        "frame": "046-portrait.png",
+        "sha256": "39f2e0cd5a9003d3dc2a1b62f306b478257a9c0bf03b5c39472d4440e04fef1c"
+      },
+      {
+        "order": 46,
+        "frame": "046-solved.png",
+        "sha256": "7a4b71859a4fa70ddc9f750c5c98942ce6761c00b4f90a733d05845cd74c204a"
+      }
+    ],
+    "contactSheetSha256": "ebde7f0999b46c69525ac96ad859d33630e9286ec70184b8c16cfabfda6590d8",
+    "inspectedCoverage": [
+      {
+        "label": "046 diagnostic entire source landscape",
+        "path": "review-v2/046-coverage.png",
+        "sha256": "75f534491cdb483869aa45aaf1c304a2641eca234e5101a7b83892f96e7ac28f"
+      }
+    ],
+    "coverageSheetSha256": "88b9b51a97fabf471907c9f35c2b87929f4c5e88f1324014668c5309ac1df0d3"
+  },
+  "47": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Старий вітряк видно у верхній частині портрета, у ландшафті його немає. Потрібно перевірити зчитування лопатей і підошви споруди разом; не трактувати обрізаний дерев’яний фрагмент як самостійний об’єкт.",
+    "inspectedFrames": [
+      {
+        "order": 47,
+        "frame": "047-landscape.png",
+        "sha256": "74e127ba9c184e1a1bb3f5c7830562eeb5d6785e745998f7274f3e81ac54760e"
+      },
+      {
+        "order": 47,
+        "frame": "047-portrait.png",
+        "sha256": "28c6ae7c586ed29ab8c8d04168b1d31dcdebc714c18d55122bc290f0dc8f335a"
+      },
+      {
+        "order": 47,
+        "frame": "047-solved.png",
+        "sha256": "a8f766df54dfb542ddbf94eb35cbca7264f1e450a5cc3e1f9a94f026758d94fe"
+      }
+    ],
+    "contactSheetSha256": "ebde7f0999b46c69525ac96ad859d33630e9286ec70184b8c16cfabfda6590d8",
+    "inspectedCoverage": [
+      {
+        "label": "047 diagnostic entire source landscape",
+        "path": "review-v2/047-coverage.png",
+        "sha256": "716586158455072948ab5b73f47b250e3faeba39939c0532dc67558a3b0560e5"
+      }
+    ],
+    "coverageSheetSha256": "88b9b51a97fabf471907c9f35c2b87929f4c5e88f1324014668c5309ac1df0d3"
+  },
+  "48": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Пошкоджений трансформатор читається лише крайовими деталями; рослини й ігрове дерево сильніші за сюжетний предмет. Важливо показати підставку та обірвані підключення, не створюючи враження випадкової коробки.",
+    "inspectedFrames": [
+      {
+        "order": 48,
+        "frame": "048-landscape.png",
+        "sha256": "37c4738e96be2b1425465f34e12f864e847e32ded6391542c83428315263c82d"
+      },
+      {
+        "order": 48,
+        "frame": "048-portrait.png",
+        "sha256": "09c817acb2929aba5c8329d438ded7ef83c4e66b3097e600f1fa0940030633ee"
+      },
+      {
+        "order": 48,
+        "frame": "048-solved.png",
+        "sha256": "d5f7b4ef3cef81c6df37389997e535ba962516bc5b46623ecdfb9947270488c1"
+      }
+    ],
+    "contactSheetSha256": "ebde7f0999b46c69525ac96ad859d33630e9286ec70184b8c16cfabfda6590d8",
+    "inspectedCoverage": [
+      {
+        "label": "048 diagnostic entire source landscape",
+        "path": "review-v2/048-coverage.png",
+        "sha256": "ab4af3a487f9e49a275614b2e048e44cb9753eb846795ce558417c53ea05f05b"
+      }
+    ],
+    "coverageSheetSha256": "88b9b51a97fabf471907c9f35c2b87929f4c5e88f1324014668c5309ac1df0d3"
+  },
+  "49": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Польовий навіс на триногах відсутній у двох кадрах. Сезонна жовта рослинність і голе ігрове дерево читаються; затишний прихисток не показаний.",
+    "inspectedFrames": [
+      {
+        "order": 49,
+        "frame": "049-landscape.png",
+        "sha256": "405a31fc0d896196357e17697416010d508bcc1260446b97f608b5e5726a68d3"
+      },
+      {
+        "order": 49,
+        "frame": "049-portrait.png",
+        "sha256": "6729812aec871a4df2c7ffad9191eaa6b1c85c080d0c28b3652d8d0dcbe22c8f"
+      },
+      {
+        "order": 49,
+        "frame": "049-solved.png",
+        "sha256": "f1eaf91817c181e6eff9b46bd973ef60dee2bd62a44aeaa9a6cab63e554363f4"
+      }
+    ],
+    "contactSheetSha256": "efe70d51d8c71a8e5aa6385375ea22150ea221ac33db9cc77ed18976d1d90a71",
+    "inspectedCoverage": [
+      {
+        "label": "049 diagnostic entire source landscape",
+        "path": "review-v2/049-coverage.png",
+        "sha256": "86b11009ee4fbd61ca57f5693fac2f897fb42378ddd76cf0c9d055e6eefa8634"
+      }
+    ],
+    "coverageSheetSha256": "88b9b51a97fabf471907c9f35c2b87929f4c5e88f1324014668c5309ac1df0d3"
+  },
+  "50": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Зерновий підйомник обрізаний справа вгорі, тоді як лавка чітко видима знизу. Потрібно показати опорну конструкцію й ліхтар, зберігши вільним силует чотирьох наметів.",
+    "inspectedFrames": [
+      {
+        "order": 50,
+        "frame": "050-landscape.png",
+        "sha256": "1968edc81b9830bbb3b384fcc96a84cfabbf799093702d62673d365b83ebe844"
+      },
+      {
+        "order": 50,
+        "frame": "050-portrait.png",
+        "sha256": "7630f96e086c0f246f15904495f9833bc936c758bd1bc1caa94e65de50411bba"
+      },
+      {
+        "order": 50,
+        "frame": "050-solved.png",
+        "sha256": "5465d73a4f3ff2952f7ed06f2a1fb6bd23cee167bbec82cf7f5464ec459088e2"
+      }
+    ],
+    "contactSheetSha256": "efe70d51d8c71a8e5aa6385375ea22150ea221ac33db9cc77ed18976d1d90a71",
+    "inspectedCoverage": [
+      {
+        "label": "050 diagnostic entire source landscape",
+        "path": "review-v2/050-coverage.png",
+        "sha256": "3aac53896d3b045eca88152b9874e7696fc651836ce4a301fd69b1500ac78505"
+      }
+    ],
+    "coverageSheetSha256": "88b9b51a97fabf471907c9f35c2b87929f4c5e88f1324014668c5309ac1df0d3"
+  },
+  "51": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Старий човен частково зрізаний лівим краєм і в портреті дуже дрібний. Мотузка й берегові предмети підтримують водну тему; місце спуску човна потребує огляду всього берега.",
+    "inspectedFrames": [
+      {
+        "order": 51,
+        "frame": "051-landscape.png",
+        "sha256": "9fc0d3ffaf4c25c4921dea0c358bf4c9377e1f7929c5118c52f264be1ab194f0"
+      },
+      {
+        "order": 51,
+        "frame": "051-portrait.png",
+        "sha256": "41352622aa5c857332b85561da4959bc13419b6d5094595251e74464154e3973"
+      },
+      {
+        "order": 51,
+        "frame": "051-solved.png",
+        "sha256": "bc97ebb5323b5c59177567a3a3c310632eaf060e0a73f922c627e306410184b3"
+      }
+    ],
+    "contactSheetSha256": "efe70d51d8c71a8e5aa6385375ea22150ea221ac33db9cc77ed18976d1d90a71",
+    "inspectedCoverage": [
+      {
+        "label": "051 diagnostic entire source landscape",
+        "path": "review-v2/051-coverage.png",
+        "sha256": "2a503d4fe9ad528250169160d036eb9b25d3b909d4f5cb4c9f90ea9857978aad"
+      }
+    ],
+    "coverageSheetSha256": "b9e9c94d5eb508343685c0fc9b22c651b0b2b16ba553174dfdc1c0a06b20ae0d"
+  },
+  "52": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Вербовий поміст не потрапляє в обидва кадри; у портреті видно край річки. Без помосту зв’язок відкритої ділянки з берегом не читається; нові деталі слід прив’язувати до самого помосту.",
+    "inspectedFrames": [
+      {
+        "order": 52,
+        "frame": "052-landscape.png",
+        "sha256": "cded32ccbb68fc37ed7c584c2eba36798e5b2b54acb10e16f64b0edefd162652"
+      },
+      {
+        "order": 52,
+        "frame": "052-portrait.png",
+        "sha256": "1c6147a14ab4853590833cd700fc8fb75baa5a3e70ffd5a461a8fdda21d4983f"
+      },
+      {
+        "order": 52,
+        "frame": "052-solved.png",
+        "sha256": "641b742876d8201cac0b587af279ab7c4952de36d7548d636db221bbf489576b"
+      }
+    ],
+    "contactSheetSha256": "efe70d51d8c71a8e5aa6385375ea22150ea221ac33db9cc77ed18976d1d90a71",
+    "inspectedCoverage": [
+      {
+        "label": "052 diagnostic entire source landscape",
+        "path": "review-v2/052-coverage.png",
+        "sha256": "0cf85f0cdd17d302fe2457307190d5010e599d0735fcf3a639934968efe1d9f8"
+      }
+    ],
+    "coverageSheetSha256": "b9e9c94d5eb508343685c0fc9b22c651b0b2b16ba553174dfdc1c0a06b20ae0d"
+  },
+  "53": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Сходи причалу не потрапляють в обидва кадри; човен унизу справа задає водну тему без видимого спуску. Перевірити зв’язок човна, сходів і води в загальному береговому ракурсі.",
+    "inspectedFrames": [
+      {
+        "order": 53,
+        "frame": "053-landscape.png",
+        "sha256": "20c3b7a74866cdd25dccbef187d19d5603bdaf1087bfdaa827be69500ab78b78"
+      },
+      {
+        "order": 53,
+        "frame": "053-portrait.png",
+        "sha256": "353544e67d05a166a4686567bda21156ec07df9f6f96483b86c4fac2783e1cf4"
+      },
+      {
+        "order": 53,
+        "frame": "053-solved.png",
+        "sha256": "d17dc4abf44ffc9fbb3f1a51efa19bf95bc511a8f5a3e4b991dc9ff04c4969fe"
+      }
+    ],
+    "contactSheetSha256": "14396e653e9a8d08c0b2d514d7b79f31857704c1847a16874b4a894fa8a3dea1",
+    "inspectedCoverage": [
+      {
+        "label": "053 diagnostic entire source landscape",
+        "path": "review-v2/053-coverage.png",
+        "sha256": "9b7e77f5ce86214e92c707593452f8b5d18025d56f14045b9e5f0f7554deb5c3"
+      }
+    ],
+    "coverageSheetSha256": "b9e9c94d5eb508343685c0fc9b22c651b0b2b16ba553174dfdc1c0a06b20ae0d"
+  },
+  "54": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Регулятор двох плес не видно; помітні окрема водна ділянка і річка в портреті. Потрібно показати керувальний вузол і пояснити зв’язок водойм, не оцінюючи колір плоскої води як URP.",
+    "inspectedFrames": [
+      {
+        "order": 54,
+        "frame": "054-landscape.png",
+        "sha256": "4a89fffc34d132aa066cfd0be6ad0c49b5dad6112f83fad76bf8a97860cd501e"
+      },
+      {
+        "order": 54,
+        "frame": "054-portrait.png",
+        "sha256": "d84160a223640a7bd37ddf68506e22e8eab0b6585c4a29d14212b4ab4678b9ad"
+      },
+      {
+        "order": 54,
+        "frame": "054-solved.png",
+        "sha256": "59c8e5fd3c2ca2f0f081aadbb07ebb3168646a3ed481b308ed4afcf55a9857fc"
+      }
+    ],
+    "contactSheetSha256": "14396e653e9a8d08c0b2d514d7b79f31857704c1847a16874b4a894fa8a3dea1",
+    "inspectedCoverage": [
+      {
+        "label": "054 diagnostic entire source landscape",
+        "path": "review-v2/054-coverage.png",
+        "sha256": "7948c41fd4ee8b6632aa681331a0a53f7d0f74e7fffa8b3a813abc853e539185"
+      }
+    ],
+    "coverageSheetSha256": "b9e9c94d5eb508343685c0fc9b22c651b0b2b16ba553174dfdc1c0a06b20ae0d"
+  },
+  "55": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Велика будівля водного поста займає лівий передній план і приховує частину лівого намету. Двері видно, але масштаб присутності споруди зменшує читабельність розміщення гостей.",
+    "inspectedFrames": [
+      {
+        "order": 55,
+        "frame": "055-landscape.png",
+        "sha256": "468aa30f09f0622441a9510eb4b3f3910cc9a4f31484928fceffef056fc7c879"
+      },
+      {
+        "order": 55,
+        "frame": "055-portrait.png",
+        "sha256": "c23c971952f18534f465a834704725eaa0b7dd95909b8fe7d259d41fb945afbb"
+      },
+      {
+        "order": 55,
+        "frame": "055-solved.png",
+        "sha256": "6c086903dc8915d337b00f3f5b581ecc395b53186eea5a3e45c647df14c7bfa5"
+      }
+    ],
+    "contactSheetSha256": "14396e653e9a8d08c0b2d514d7b79f31857704c1847a16874b4a894fa8a3dea1",
+    "inspectedCoverage": [
+      {
+        "label": "055 diagnostic entire source landscape",
+        "path": "review-v2/055-coverage.png",
+        "sha256": "114b15196177a37337f37d8045d52113fcbe77d813727b15ebba90c5090d4fcf"
+      }
+    ],
+    "coverageSheetSha256": "b9e9c94d5eb508343685c0fc9b22c651b0b2b16ba553174dfdc1c0a06b20ae0d"
+  },
+  "56": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Пролом греблі в цьому ракурсі сприймається великим бетонним масивом унизу. Частина намету закрита; призначення пролому та його зв’язок із водою слід перевіряти в охопленні всього берега.",
+    "inspectedFrames": [
+      {
+        "order": 56,
+        "frame": "056-landscape.png",
+        "sha256": "517f7437c1d7e1f7ce770a58785d4239103f92f576ba7cd2c092f6ab2692420e"
+      },
+      {
+        "order": 56,
+        "frame": "056-portrait.png",
+        "sha256": "4bf458860a212c97def426791f61439f1e1d356b3e5a4e7914394e42812b2dcc"
+      },
+      {
+        "order": 56,
+        "frame": "056-solved.png",
+        "sha256": "446fa80a1f948c217e2b866e39613a583a16065bfc0dfef0a1ee1740f201132c"
+      }
+    ],
+    "contactSheetSha256": "14396e653e9a8d08c0b2d514d7b79f31857704c1847a16874b4a894fa8a3dea1",
+    "inspectedCoverage": [
+      {
+        "label": "056 diagnostic entire source landscape",
+        "path": "review-v2/056-coverage.png",
+        "sha256": "d311b5b99543c6a9163fcd35693f336f2f471be06326e311c35eb61687deb015"
+      }
+    ],
+    "coverageSheetSha256": "b9e9c94d5eb508343685c0fc9b22c651b0b2b16ba553174dfdc1c0a06b20ae0d"
+  },
+  "57": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Фермовий міст не видно в ігровому кадрі; інвентаризація підтвердила накладений старий допоміжний міст. Ремонт зберігає ферми, прибирає дубль і влаштовує два сухі підходи.",
+    "inspectedFrames": [
+      {
+        "order": 57,
+        "frame": "057-landscape.png",
+        "sha256": "1c31a2ec30c9a393540d67c5f28b1069148db49a9e89817872c565972453f5ce"
+      },
+      {
+        "order": 57,
+        "frame": "057-portrait.png",
+        "sha256": "d22d32b1e937b3119537682d0dcf90646cdbfc210ab72209cf1a4cb04111978b"
+      },
+      {
+        "order": 57,
+        "frame": "057-solved.png",
+        "sha256": "e939f9ae91a4cbdf25352127b9962acda0e183814ead343d093d9f7b92ef070e"
+      }
+    ],
+    "contactSheetSha256": "8f11d509aa73c16213689b54e54329b1d913065fec5b14894ad2e249150abfb6",
+    "inspectedCoverage": [
+      {
+        "label": "057 diagnostic entire source landscape",
+        "path": "review-v2/057-coverage.png",
+        "sha256": "ee98fb86ff04264a40fc201035aa265736027f171dd833ffed1e0f6fd52a7b63"
+      }
+    ],
+    "coverageSheetSha256": "b9e9c94d5eb508343685c0fc9b22c651b0b2b16ba553174dfdc1c0a06b20ae0d"
+  },
+  "58": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Рятувального човна з рубкою в обох кадрах немає. Видимі лавка, колода й сезонна рослинність; без основного човна рятувальний характер місця не читається.",
+    "inspectedFrames": [
+      {
+        "order": 58,
+        "frame": "058-landscape.png",
+        "sha256": "543ade052e65d75c7f72f66fa72c603af7778e78fb617a5c7e1a89bdef8a261e"
+      },
+      {
+        "order": 58,
+        "frame": "058-portrait.png",
+        "sha256": "a0388fbc321506bfeaf6627c01be43f6cc9ac2ce461ee0c8e477e1e76af8d0d7"
+      },
+      {
+        "order": 58,
+        "frame": "058-solved.png",
+        "sha256": "a91d62917e48d8f0cff5173cc049772abcf858aee37f974dc50502862fddca54"
+      }
+    ],
+    "contactSheetSha256": "8f11d509aa73c16213689b54e54329b1d913065fec5b14894ad2e249150abfb6",
+    "inspectedCoverage": [
+      {
+        "label": "058 diagnostic entire source landscape",
+        "path": "review-v2/058-coverage.png",
+        "sha256": "2b05f3f0a49dc9984b4c9af1bccbc33963689c4ec693684d52c0e8d7b4ac1648"
+      }
+    ],
+    "coverageSheetSha256": "b9e9c94d5eb508343685c0fc9b22c651b0b2b16ba553174dfdc1c0a06b20ae0d"
+  },
+  "59": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Садова тераса читається зліва вгорі разом із тачкою та кошиками. Платформа має зрозумілі сходи; перевірити, щоб їхній кінець доходив до доступного ґрунту, не губився за заростями.",
+    "inspectedFrames": [
+      {
+        "order": 59,
+        "frame": "059-landscape.png",
+        "sha256": "894e46269baf162b45fa25e0f94011947240c72432b3c72942f28ccd0cf1daf0"
+      },
+      {
+        "order": 59,
+        "frame": "059-portrait.png",
+        "sha256": "641baf6f0d475d261d220c5df4d3818f8692776e258b8360b1d9b04002904f23"
+      },
+      {
+        "order": 59,
+        "frame": "059-solved.png",
+        "sha256": "0266e6ac8400d4bbad1d1461b6fe06e6ecef286162adfde51c3d18a1ca84965d"
+      }
+    ],
+    "contactSheetSha256": "8f11d509aa73c16213689b54e54329b1d913065fec5b14894ad2e249150abfb6",
+    "inspectedCoverage": [
+      {
+        "label": "059 diagnostic entire source landscape",
+        "path": "review-v2/059-coverage.png",
+        "sha256": "a1b00aba5c01fc458a603e2b44f49a7d38642ee62b558b8e769a6d1c7ddd78b2"
+      }
+    ],
+    "coverageSheetSha256": "b9e9c94d5eb508343685c0fc9b22c651b0b2b16ba553174dfdc1c0a06b20ae0d"
+  },
+  "60": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Млин добре читається внизу портрета, у ландшафті обрізаний. Реальна геометрія колеса входить у русло, нижній край приблизно на 34 см під рівнем води; переносити млин лише за положенням його origin було б помилкою.",
+    "inspectedFrames": [
+      {
+        "order": 60,
+        "frame": "060-landscape.png",
+        "sha256": "376f46923a5b6f5c125db631d8cd4123835a5edda6b8f6a012305414f130a66c"
+      },
+      {
+        "order": 60,
+        "frame": "060-portrait.png",
+        "sha256": "c175c80e7aec1ece3b62ad08d09c309a001acd3147a05e80beb55f22909277cf"
+      },
+      {
+        "order": 60,
+        "frame": "060-solved.png",
+        "sha256": "81bb16f4d8bc1a7ef9340b317e4374c5327465324aab32b9b8d2550deb2757b4"
+      }
+    ],
+    "contactSheetSha256": "8f11d509aa73c16213689b54e54329b1d913065fec5b14894ad2e249150abfb6",
+    "inspectedCoverage": [
+      {
+        "label": "060 diagnostic entire source landscape",
+        "path": "review-v2/060-coverage.png",
+        "sha256": "df7d7d25bad557dab3a56f1b088b64c419c6daabc88dc4137b8be97fcaf4f20f"
+      }
+    ],
+    "coverageSheetSha256": "b9e9c94d5eb508343685c0fc9b22c651b0b2b16ba553174dfdc1c0a06b20ae0d"
+  },
+  "61": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Цегляного павільйону не видно в обох кадрах. Окремий стовп і лавка не дають прочитати цілу зупинку; потрібно показати павільйон і його підхід.",
+    "inspectedFrames": [
+      {
+        "order": 61,
+        "frame": "061-landscape.png",
+        "sha256": "a6f95594888eb019394bc04ae93b81c2ad0f32f31196d0532272b992cdff51fe"
+      },
+      {
+        "order": 61,
+        "frame": "061-portrait.png",
+        "sha256": "d9be9e6289cf1384d7f487aa5b80c86aea2f00a67f05907166779c56410e8775"
+      },
+      {
+        "order": 61,
+        "frame": "061-solved.png",
+        "sha256": "21c84eef427b328e554fe5cae378f2eda347b7dbc79f92f11504246ee1345a61"
+      }
+    ],
+    "contactSheetSha256": "e9d80299b890f81ef34dbcaf80456f5192d704a3c9457232ed984435f41f32a9",
+    "inspectedCoverage": [
+      {
+        "label": "061 diagnostic entire source landscape",
+        "path": "review-v2/061-coverage.png",
+        "sha256": "fda7e820b23ebde52598413c1eec529d2e2e25c182b9e9996b7a7269fec53b83"
+      }
+    ],
+    "coverageSheetSha256": "71cca0afc16f65c07002fd4308be05405beefed8073a1490b6abfe875118853d"
+  },
+  "62": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Двір із сінником читається внизу портрета, але в ландшафті домінує дах, який перекриває нижній намет. Стіл і господарські речі мають лишатися частиною доступного двору.",
+    "inspectedFrames": [
+      {
+        "order": 62,
+        "frame": "062-landscape.png",
+        "sha256": "0d259e225e2919e73fae77bd7347a6622fc05567e0d88bdb7991ae945db353af"
+      },
+      {
+        "order": 62,
+        "frame": "062-portrait.png",
+        "sha256": "d04863953099b3a8a953e102e6f4bd0101a8d512c81c2ec875ec263837146020"
+      },
+      {
+        "order": 62,
+        "frame": "062-solved.png",
+        "sha256": "7556ff7040fe406c8f7d0cb229be92c1789b815ed839a31a7a4d82105a52aceb"
+      }
+    ],
+    "contactSheetSha256": "e9d80299b890f81ef34dbcaf80456f5192d704a3c9457232ed984435f41f32a9",
+    "inspectedCoverage": [
+      {
+        "label": "062 diagnostic entire source landscape",
+        "path": "review-v2/062-coverage.png",
+        "sha256": "8cbdd5b71d89b76e2a8e0853eb740fa3fdb66ea6f906c8c3cd22bf042e1e90e6"
+      }
+    ],
+    "coverageSheetSha256": "71cca0afc16f65c07002fd4308be05405beefed8073a1490b6abfe875118853d"
+  },
+  "63": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Накрита восьмигранна криниця відсутня в ігрових кадрах. Її шахту перевірено окремо як особливу модель; сухе ігрове дерево не пояснює тіньові клітинки саме по собі.",
+    "inspectedFrames": [
+      {
+        "order": 63,
+        "frame": "063-landscape.png",
+        "sha256": "3a7927daf9fc985f92696f5bbc7cf91fa5ed8c0e86a85362d45cd070636b51a7"
+      },
+      {
+        "order": 63,
+        "frame": "063-portrait.png",
+        "sha256": "274e3b58ee580c66d55cc531f539f18ffec6d3a8d81d12e4805fcbdd111253c4"
+      },
+      {
+        "order": 63,
+        "frame": "063-solved.png",
+        "sha256": "ea5828c5ebb58d5606dba2f15df5834d938fb06304e843af607915d739555bae"
+      }
+    ],
+    "contactSheetSha256": "e9d80299b890f81ef34dbcaf80456f5192d704a3c9457232ed984435f41f32a9",
+    "inspectedCoverage": [
+      {
+        "label": "063 diagnostic entire source landscape",
+        "path": "review-v2/063-coverage.png",
+        "sha256": "d3f5baea9ee57e367cca93a65d74ee83b411299b73cd4084d56eeaec646410a6"
+      }
+    ],
+    "coverageSheetSha256": "71cca0afc16f65c07002fd4308be05405beefed8073a1490b6abfe875118853d"
+  },
+  "64": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Дерев’яний каркас будинку має читабельні стійки й крокви, але передні балки перекривають нижній намет. Оцінювати підпори й входи слід у цілому ансамблі; каркас будівництва є осмисленим об’єктом.",
+    "inspectedFrames": [
+      {
+        "order": 64,
+        "frame": "064-landscape.png",
+        "sha256": "fd1ae6698e8c7004a874b3eb1a309585ffd12be5deba51839c67040c754e3524"
+      },
+      {
+        "order": 64,
+        "frame": "064-portrait.png",
+        "sha256": "b673e0ab4a68fcdb1ae96ab524869513c74323ed81c1a178e254517012b0fb39"
+      },
+      {
+        "order": 64,
+        "frame": "064-solved.png",
+        "sha256": "07691e733f0267df6d59636b668d1c2892334c5b6f9d2ec8191a8b77dc75cac2"
+      }
+    ],
+    "contactSheetSha256": "e9d80299b890f81ef34dbcaf80456f5192d704a3c9457232ed984435f41f32a9",
+    "inspectedCoverage": [
+      {
+        "label": "064 diagnostic entire source landscape",
+        "path": "review-v2/064-coverage.png",
+        "sha256": "8ec62cfc613cc53a331c6d13a6ec810142f0708e9d7f4807e5e3b34a3a4ded9f"
+      }
+    ],
+    "coverageSheetSha256": "71cca0afc16f65c07002fd4308be05405beefed8073a1490b6abfe875118853d"
+  },
+  "65": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Кам’яна брама зрізана правим верхнім краєм; поруч видно огорожу та господарські речі. Стулки, проріз і підхід мають читатися разом, інакше залишаються лише окремі високі стовпи.",
+    "inspectedFrames": [
+      {
+        "order": 65,
+        "frame": "065-landscape.png",
+        "sha256": "ddfcdb725a4515afe56680a90259a632b2a83f3ce21d8547a684ffadcb53176e"
+      },
+      {
+        "order": 65,
+        "frame": "065-portrait.png",
+        "sha256": "2369973a051fa5324d87a03baad533d600d18e359e3d8ad8b525f78518900601"
+      },
+      {
+        "order": 65,
+        "frame": "065-solved.png",
+        "sha256": "d7b692fb0854bbdeaa0be7f8d4ef550f16390aa871c7488260027483e27961f4"
+      }
+    ],
+    "contactSheetSha256": "ffac7eb783461bdfda8d802495ca3046300549a6da23f2d0f427b948a56423e5",
+    "inspectedCoverage": [
+      {
+        "label": "065 diagnostic entire source landscape",
+        "path": "review-v2/065-coverage.png",
+        "sha256": "3611bff9d6ac1334d4e042c822125f03e0f8763ba76c0d20ef2d1dd6351891a4"
+      }
+    ],
+    "coverageSheetSha256": "71cca0afc16f65c07002fd4308be05405beefed8073a1490b6abfe875118853d"
+  },
+  "66": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Відкрита сцена переважно розкривається у портреті справа; у ландшафті помітні лише край навісу й опора. Передня велика крона змагається з наметами, які стоять біля ігрового дерева.",
+    "inspectedFrames": [
+      {
+        "order": 66,
+        "frame": "066-landscape.png",
+        "sha256": "05a2bed01b1204fbf2ce39db8cf4833dde89669b2b5a35f4fe374debc0e7bf34"
+      },
+      {
+        "order": 66,
+        "frame": "066-portrait.png",
+        "sha256": "03af2853fac93305954694a0c86ed1b0dba4e5cd98f20ee2709b07a0b3009680"
+      },
+      {
+        "order": 66,
+        "frame": "066-solved.png",
+        "sha256": "6508a32b34025b3ee2722dbb13da23d04a2add8ca7c8f3b967f11a3e23be836b"
+      }
+    ],
+    "contactSheetSha256": "ffac7eb783461bdfda8d802495ca3046300549a6da23f2d0f427b948a56423e5",
+    "inspectedCoverage": [
+      {
+        "label": "066 diagnostic entire source landscape",
+        "path": "review-v2/066-coverage.png",
+        "sha256": "3d25ecb5527b27d810ca65c860af4269f1dcd77b365d8ffb1c6a7a127eda76b4"
+      }
+    ],
+    "coverageSheetSha256": "71cca0afc16f65c07002fd4308be05405beefed8073a1490b6abfe875118853d"
+  },
+  "67": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Теплицю з похилим склінням не видно в обох форматах. Відкрите осіннє поле читається, але теплична тема і місце роботи з рослинами в кадрі відсутні.",
+    "inspectedFrames": [
+      {
+        "order": 67,
+        "frame": "067-landscape.png",
+        "sha256": "0e8aca1c545860fa224a069fa1f4d4768a04a389bc5b0cb530e45d381a99e4a7"
+      },
+      {
+        "order": 67,
+        "frame": "067-portrait.png",
+        "sha256": "8614474ec27e436f57a119328f7085a80158d258a1a074ba9a42bcac22bb361d"
+      },
+      {
+        "order": 67,
+        "frame": "067-solved.png",
+        "sha256": "4e2cd9a2ac8bb85470fcafe4f7388094ecf2f61b3966ef8797735a9342d7e079"
+      }
+    ],
+    "contactSheetSha256": "ffac7eb783461bdfda8d802495ca3046300549a6da23f2d0f427b948a56423e5",
+    "inspectedCoverage": [
+      {
+        "label": "067 diagnostic entire source landscape",
+        "path": "review-v2/067-coverage.png",
+        "sha256": "d61811dee9903a31674ae32f540ef8524596e92b098996327fe18dda6e3e5894"
+      }
+    ],
+    "coverageSheetSha256": "71cca0afc16f65c07002fd4308be05405beefed8073a1490b6abfe875118853d"
+  },
+  "68": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Ремонтний козел добре проглядається внизу портрета, у ландшафті поперечина обрізана. Поряд є бочка й інструментальні деталі; потрібно показати всю опору та зв’язок робочих речей.",
+    "inspectedFrames": [
+      {
+        "order": 68,
+        "frame": "068-landscape.png",
+        "sha256": "7962268988efffdeba1af07f9d12666ac0c763deb61975b6ccf4981961ec2860"
+      },
+      {
+        "order": 68,
+        "frame": "068-portrait.png",
+        "sha256": "2335cfb004fa818fc338d1356647e4442983207a6fa5ddf845bb59efde97a1ca"
+      },
+      {
+        "order": 68,
+        "frame": "068-solved.png",
+        "sha256": "67bf8bd0c6be6a3f3c21921edfc78b54dea8127a9a442985bec2177aa493df97"
+      }
+    ],
+    "contactSheetSha256": "ffac7eb783461bdfda8d802495ca3046300549a6da23f2d0f427b948a56423e5",
+    "inspectedCoverage": [
+      {
+        "label": "068 diagnostic entire source landscape",
+        "path": "review-v2/068-coverage.png",
+        "sha256": "9fae58404f60fa3424bb1049f8b507ef082b1763e3eb633bad37eff73d6a54fb"
+      }
+    ],
+    "coverageSheetSha256": "71cca0afc16f65c07002fd4308be05405beefed8073a1490b6abfe875118853d"
+  },
+  "69": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Аварійний береговий устій лежить за межами обох кадрів. Окрема допоміжна кладка зберігається: її повернуто впоперек течії та забезпечено сухими кінцями й підходами.",
+    "inspectedFrames": [
+      {
+        "order": 69,
+        "frame": "069-landscape.png",
+        "sha256": "0b9922a7688f108b3ba1216b1eba9a40da4bffbdc90dc91f479ef8cc0f4cd802"
+      },
+      {
+        "order": 69,
+        "frame": "069-portrait.png",
+        "sha256": "727215befd773c334fb23ed55d3baf32ca863f8823775c0df7a62b3dbc427a85"
+      },
+      {
+        "order": 69,
+        "frame": "069-solved.png",
+        "sha256": "79e8ce87a11b21bfb78473795c49c1c37c779f5b45ed4e8db2d88b87729984c7"
+      }
+    ],
+    "contactSheetSha256": "bc1415acb29312e970ab4b5d1124f8e9dd7540438bf1e726dd19b1a9e6126637",
+    "inspectedCoverage": [
+      {
+        "label": "069 diagnostic entire source landscape",
+        "path": "review-v2/069-coverage.png",
+        "sha256": "ca5de5723e5f388a4fa054662c8e366c6d765e680bc68db2ac5745f2aec4ef1e"
+      }
+    ],
+    "coverageSheetSha256": "71cca0afc16f65c07002fd4308be05405beefed8073a1490b6abfe875118853d"
+  },
+  "70": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Будинок лісничого читається переднім дахом і стіною, але в ландшафті частково ховає нижній намет. У портреті конструкцію видно цілісніше; перевірити вхід і вільний простір біля дверей.",
+    "inspectedFrames": [
+      {
+        "order": 70,
+        "frame": "070-landscape.png",
+        "sha256": "33c8990a36a4640d72d4c6c73e9219c11654c8c6a96fea4250fde8da9b1d7ed5"
+      },
+      {
+        "order": 70,
+        "frame": "070-portrait.png",
+        "sha256": "a4b1fdf12cfd7776d35556598e2bc013a2018363aca9e2c770028cf07a968ba4"
+      },
+      {
+        "order": 70,
+        "frame": "070-solved.png",
+        "sha256": "2c2d9c04cb9b00b34de0247731a7efccfaf4ba15c64108a06fda1ad84c6590e4"
+      }
+    ],
+    "contactSheetSha256": "bc1415acb29312e970ab4b5d1124f8e9dd7540438bf1e726dd19b1a9e6126637",
+    "inspectedCoverage": [
+      {
+        "label": "070 diagnostic entire source landscape",
+        "path": "review-v2/070-coverage.png",
+        "sha256": "a40999e97fde2653b2c4af4400ac1a78d12242af6b72081ddff46f6edcb21421"
+      }
+    ],
+    "coverageSheetSha256": "71cca0afc16f65c07002fd4308be05405beefed8073a1490b6abfe875118853d"
+  },
+  "71": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Ковані ворота розкладаються на крайові фрагменти ліворуч і праворуч, цілісний вхід читається слабко. Це зимова геометрія без нативного снігового матеріалу; зелений діагностичний ґрунт не є виглядом Android-релізу.",
+    "inspectedFrames": [
+      {
+        "order": 71,
+        "frame": "071-landscape.png",
+        "sha256": "ecf0887d82fd3066e50a995396e14a1035c0fdafdf38e2c7c25f9d2a6648c2d1"
+      },
+      {
+        "order": 71,
+        "frame": "071-portrait.png",
+        "sha256": "c7001cffd471cf25bf4a2117498df9a97f35dc0de8f9205343cfd7f6e65efe5a"
+      },
+      {
+        "order": 71,
+        "frame": "071-solved.png",
+        "sha256": "4add4df30f5390280ac70af7dfe4e1e1c9421aaee0f27534fdb321f1954eee91"
+      }
+    ],
+    "contactSheetSha256": "bc1415acb29312e970ab4b5d1124f8e9dd7540438bf1e726dd19b1a9e6126637",
+    "inspectedCoverage": [
+      {
+        "label": "071 diagnostic entire source landscape",
+        "path": "review-v2/071-coverage.png",
+        "sha256": "686339f56ae51e41746e835b24326af42369615db2e18d2dbfad56eb1f1ca001"
+      }
+    ],
+    "coverageSheetSha256": "e4e8fae364bc907ff6cef871c04a13bcd58a4ffda91bfc6154606d904bda88d5"
+  },
+  "72": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Комору видно частково справа вгорі, у портреті силует повніший. Сухе дерево й лавка лишають простір наметам; зимовий сніг і погода тут не відтворені, тому оцінюється розміщення конструкцій.",
+    "inspectedFrames": [
+      {
+        "order": 72,
+        "frame": "072-landscape.png",
+        "sha256": "6b93445ba541ea6a938cbff40ac8d75906fe37a128ce95db698be200bafea29f"
+      },
+      {
+        "order": 72,
+        "frame": "072-portrait.png",
+        "sha256": "dc7c93b1b2b19429d4ff745e49f4b3d3c1576737d81fe4ad0c9d8af4b752ab93"
+      },
+      {
+        "order": 72,
+        "frame": "072-solved.png",
+        "sha256": "6bf075b2d828a3a27f4dd76c53e0e21c4d217b196814bf8892633726385cbcae"
+      }
+    ],
+    "contactSheetSha256": "bc1415acb29312e970ab4b5d1124f8e9dd7540438bf1e726dd19b1a9e6126637",
+    "inspectedCoverage": [
+      {
+        "label": "072 diagnostic entire source landscape",
+        "path": "review-v2/072-coverage.png",
+        "sha256": "da01576a2063b9aa85b02311cb4ebadeac472f81a71c605bed2401dd86e74d45"
+      }
+    ],
+    "coverageSheetSha256": "e4e8fae364bc907ff6cef871c04a13bcd58a4ffda91bfc6154606d904bda88d5"
+  },
+  "73": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "А-подібне лісове укриття відсутнє в обох кадрах. Видно тільки дерево, пень і колоду; зимова тема затишного прихистку має бути підтверджена окремим ракурсом укриття.",
+    "inspectedFrames": [
+      {
+        "order": 73,
+        "frame": "073-landscape.png",
+        "sha256": "8203b8b7f488ae3208aef3f6533cf741842a122ea2bc0163cca6a1d3b1bb3993"
+      },
+      {
+        "order": 73,
+        "frame": "073-portrait.png",
+        "sha256": "7e49a14bd60f89493598ea0bc6c591bda040a7ebd6749269777c335e17c0a4be"
+      },
+      {
+        "order": 73,
+        "frame": "073-solved.png",
+        "sha256": "0118494ecd337db558d861e338a353b1d54c1e16743a4f73611c2bee6f38838d"
+      }
+    ],
+    "contactSheetSha256": "482e476244849d5879b135144b552411fe6851bc52009a77bbd76d2fd5eb580c",
+    "inspectedCoverage": [
+      {
+        "label": "073 diagnostic entire source landscape",
+        "path": "review-v2/073-coverage.png",
+        "sha256": "f42d53d2cc584a8d895c0a477ce54770ac48829dbee32867db50e0bf5e461955"
+      }
+    ],
+    "coverageSheetSha256": "e4e8fae364bc907ff6cef871c04a13bcd58a4ffda91bfc6154606d904bda88d5"
+  },
+  "74": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Сторожка з ґанком займає передній край і затуляє частину нижнього намету; портрет краще показує ґанок. Потрібно залишити відкритими сходи й двері та перевірити сніговий контакт нативно.",
+    "inspectedFrames": [
+      {
+        "order": 74,
+        "frame": "074-landscape.png",
+        "sha256": "0b6d03c10b0a925c60e932235a8884fe42c8161d142156456431b7df2ba21d8a"
+      },
+      {
+        "order": 74,
+        "frame": "074-portrait.png",
+        "sha256": "7c7bddef5ff6db93ba035cc777ae2f0555b7c26bc83678d481ae39679ea5c91f"
+      },
+      {
+        "order": 74,
+        "frame": "074-solved.png",
+        "sha256": "74735c6d60103e31f0010c0a99a1e7864eb05045b6aa308050dc9ce98516e617"
+      }
+    ],
+    "contactSheetSha256": "482e476244849d5879b135144b552411fe6851bc52009a77bbd76d2fd5eb580c",
+    "inspectedCoverage": [
+      {
+        "label": "074 diagnostic entire source landscape",
+        "path": "review-v2/074-coverage.png",
+        "sha256": "8f37de02697387ee46939a7d621f5607243bb8ec0a8b5b1539e7abac2aa93859"
+      }
+    ],
+    "coverageSheetSha256": "e4e8fae364bc907ff6cef871c04a13bcd58a4ffda91bfc6154606d904bda88d5"
+  },
+  "75": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Зимовий тамбур зупинки не видно, натомість стовп із поперечиною домінує як ізольований елемент. Потрібно перевірити зв’язок із маршрутом лінії та показати сам тамбур.",
+    "inspectedFrames": [
+      {
+        "order": 75,
+        "frame": "075-landscape.png",
+        "sha256": "fa5fec5c306f83ad234bf816adabdd822d1aaa2a7aa03a72bd1e400daedbee59"
+      },
+      {
+        "order": 75,
+        "frame": "075-portrait.png",
+        "sha256": "7662ca097e6c60a6474714c13088a0115338fb78f2a9c3dc21d52d1d9278764d"
+      },
+      {
+        "order": 75,
+        "frame": "075-solved.png",
+        "sha256": "40bb2e368f1429a2979757cfd632ad6b3d25170f7e513738b11d2dd62a1ef176"
+      }
+    ],
+    "contactSheetSha256": "482e476244849d5879b135144b552411fe6851bc52009a77bbd76d2fd5eb580c",
+    "inspectedCoverage": [
+      {
+        "label": "075 diagnostic entire source landscape",
+        "path": "review-v2/075-coverage.png",
+        "sha256": "29d5663d83e084941f038218b2521602c0fbdfa52f3aaea1c54da3dfdd1066aa"
+      }
+    ],
+    "coverageSheetSha256": "e4e8fae364bc907ff6cef871c04a13bcd58a4ffda91bfc6154606d904bda88d5"
+  },
+  "76": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Дровник із розкосами читається у портреті; його довгий дах затуляє передню частину ландшафтного кадру. Опори логічні, але намет під нижнім краєм втрачає силует; нативний сніг перевіряється окремо.",
+    "inspectedFrames": [
+      {
+        "order": 76,
+        "frame": "076-landscape.png",
+        "sha256": "b4fd6e036888614fcf7ea8be42dc97ee34348769ddbb635a0f54a5b528652193"
+      },
+      {
+        "order": 76,
+        "frame": "076-portrait.png",
+        "sha256": "cdc6b7d363fb7e4beb58c4dc73f7f3891c939227a6ab0be7f94d57230453a3bc"
+      },
+      {
+        "order": 76,
+        "frame": "076-solved.png",
+        "sha256": "cccb4bfeecaee8cbaaed0b85066d32435ded8eb4887b8e8ab823e8d76557cc42"
+      }
+    ],
+    "contactSheetSha256": "482e476244849d5879b135144b552411fe6851bc52009a77bbd76d2fd5eb580c",
+    "inspectedCoverage": [
+      {
+        "label": "076 diagnostic entire source landscape",
+        "path": "review-v2/076-coverage.png",
+        "sha256": "c94b012b79545fd62f32700d379eeb1467f12e9ee6b3640cbad0466618cbeeb1"
+      }
+    ],
+    "coverageSheetSha256": "e4e8fae364bc907ff6cef871c04a13bcd58a4ffda91bfc6154606d904bda88d5"
+  },
+  "77": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Лави й стела читаються лише у верхній частині портрета; у ландшафті немає їхнього сюжетного зв’язку з табором. Потрібен огляд доступу до лав без перекриття поля. Зимовий сніг зовнішній Workbench не відтворює.",
+    "inspectedFrames": [
+      {
+        "order": 77,
+        "frame": "077-landscape.png",
+        "sha256": "838803b1b1b37e19fdf336d51799df38278ef8158de1c6073b0a787b35ab3485"
+      },
+      {
+        "order": 77,
+        "frame": "077-portrait.png",
+        "sha256": "c074ad1e301fb1ac5c1f6a4e1998adcff25abbd3927e630e422e474d34a5ca5c"
+      },
+      {
+        "order": 77,
+        "frame": "077-solved.png",
+        "sha256": "2d6583a87f37eb4f04b5c702add82c4df9e6e3c6b46d07f2b606cd887c28718d"
+      }
+    ],
+    "contactSheetSha256": "b50389da9f0c3292dcb13bac2a06aaf21cc15275204444d93ea0d9c1c2508192",
+    "inspectedCoverage": [
+      {
+        "label": "077 diagnostic entire source landscape",
+        "path": "review-v2/077-coverage.png",
+        "sha256": "bf14eff80b35d901c5900ec207cefe058e1f3337cac263101ff2ef78874ff3f3"
+      }
+    ],
+    "coverageSheetSha256": "e4e8fae364bc907ff6cef871c04a13bcd58a4ffda91bfc6154606d904bda88d5"
+  },
+  "78": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Зрубна криниця читається в портреті, але її дах у ландшафті займає передній край і обрізається. Окремий патч шахти прибирає землю й наземну рослинність з отвору; кадрування та доступ до відер потребують нативної перевірки. Зимовий матеріал тут не відтворено.",
+    "inspectedFrames": [
+      {
+        "order": 78,
+        "frame": "078-landscape.png",
+        "sha256": "9bcbe6c4b9aedd691efd30dbffea81a967b0f4095f9a2eae88aa125a23efffc8"
+      },
+      {
+        "order": 78,
+        "frame": "078-portrait.png",
+        "sha256": "bc0db33add86641242b6af9edf4560c319a826b46591d26b4c1f96eda7ef43e5"
+      },
+      {
+        "order": 78,
+        "frame": "078-solved.png",
+        "sha256": "9c178e5645f7d8248a76892acfce0bdc4584426f11a31fa22051d0aa80d0f507"
+      }
+    ],
+    "contactSheetSha256": "b50389da9f0c3292dcb13bac2a06aaf21cc15275204444d93ea0d9c1c2508192",
+    "inspectedCoverage": [
+      {
+        "label": "078 diagnostic entire source landscape",
+        "path": "review-v2/078-coverage.png",
+        "sha256": "d46b7cf843ed06a565db4d29d3b55c0c259129f5f6fa675e9a1ce4dee28ac421"
+      }
+    ],
+    "coverageSheetSha256": "e4e8fae364bc907ff6cef871c04a13bcd58a4ffda91bfc6154606d904bda88d5"
+  },
+  "79": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Станційний навіс у ландшафті відсутній, у портреті видно лише фрагмент. Логічне правило тіні не підтверджене вихідною геометрією. Дослідний окремий навіс не є прийнятим оформленням. Зимовий матеріал тут не відтворено.",
+    "inspectedFrames": [
+      {
+        "order": 79,
+        "frame": "079-landscape.png",
+        "sha256": "c1a6aeddcfaae457f529ccd2e1ec1f79f4776725719fe554898c885b551f1a16"
+      },
+      {
+        "order": 79,
+        "frame": "079-portrait.png",
+        "sha256": "35234c388d8e80b2d3ce1e9f3e2c00e753cc4d2a9f405adbd0534290e2fee110"
+      },
+      {
+        "order": 79,
+        "frame": "079-solved.png",
+        "sha256": "419a581d315ec0156a64c0de1f355daededc57fb11cef48426c8eccad1431cda"
+      }
+    ],
+    "contactSheetSha256": "b50389da9f0c3292dcb13bac2a06aaf21cc15275204444d93ea0d9c1c2508192",
+    "inspectedCoverage": [
+      {
+        "label": "079 diagnostic entire source landscape",
+        "path": "review-v2/079-coverage.png",
+        "sha256": "c1575281b7538bc660f3207c2c68176fd0beea8af532c9f9263dc7b398d1b9a1"
+      }
+    ],
+    "coverageSheetSha256": "e4e8fae364bc907ff6cef871c04a13bcd58a4ffda91bfc6154606d904bda88d5"
+  },
+  "80": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Дах громадської печі перекриває передній край табору; у портреті краще видно піч, опори й господарські речі. Потрібно зберегти доступ до топки та не закривати взаємодію з наметами. Нативний сніг не перевірено.",
+    "inspectedFrames": [
+      {
+        "order": 80,
+        "frame": "080-landscape.png",
+        "sha256": "3d8ed1f2ec47c920c5f1cb879e412dd8a5a8e20a575bf99af64f35a73995039d"
+      },
+      {
+        "order": 80,
+        "frame": "080-portrait.png",
+        "sha256": "e18d8d2a0f5882912d3b66e46d5f07d7eed862988e496156f44d1a18483f1988"
+      },
+      {
+        "order": 80,
+        "frame": "080-solved.png",
+        "sha256": "438b7e903f985f41f4f2c618de701724e17442ec3fa570101b02748b473aa2b5"
+      }
+    ],
+    "contactSheetSha256": "b50389da9f0c3292dcb13bac2a06aaf21cc15275204444d93ea0d9c1c2508192",
+    "inspectedCoverage": [
+      {
+        "label": "080 diagnostic entire source landscape",
+        "path": "review-v2/080-coverage.png",
+        "sha256": "67fdfa54cd1b0bf08537c4fce482b71cd4b1240b2a17dfb2c5102ba9569553d7"
+      }
+    ],
+    "coverageSheetSha256": "e4e8fae364bc907ff6cef871c04a13bcd58a4ffda91bfc6154606d904bda88d5"
+  },
+  "81": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Лісова хатина не потрапляє в жодний із двох наближених ігрових кадрів: сюжет рівня зникає. Еталонні намети читаються, проте це не художнє приймання. Нативний зимовий покрив тут не відтворено.",
+    "inspectedFrames": [
+      {
+        "order": 81,
+        "frame": "081-landscape.png",
+        "sha256": "fa28d1f21eb38b132a121106b73fc50b02a57b8c8834242b2b3a93bb0ddba8c8"
+      },
+      {
+        "order": 81,
+        "frame": "081-portrait.png",
+        "sha256": "a7b2dd8ce23dd2ae3b08d6c7ff401b1cf31143e146da714697ccd1100b52dcf7"
+      },
+      {
+        "order": 81,
+        "frame": "081-solved.png",
+        "sha256": "0f116bad986b18c588ddbda6ed030436135c4301c62e3a224f4d7b9f2b225d10"
+      }
+    ],
+    "contactSheetSha256": "8ec0c91cd867453d2cd380d380a76f21d9dd6a102a284b0d50cae5cfc373c53c",
+    "inspectedCoverage": [
+      {
+        "label": "081 diagnostic entire source landscape",
+        "path": "review-v2/081-coverage.png",
+        "sha256": "b47b093a667f5eff6495072c2e4cb81b7480e1fc67034c943391cda9384ac6f5"
+      }
+    ],
+    "coverageSheetSha256": "b08b652165996ce3f4c2a4fa7f96159bbc68447f790d397ec66435fcfb7b7b4a"
+  },
+  "82": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Причал і кран відсутні в обох ігрових кадрах; берегова функція місця не читається. Є дерево з фізичною тінню, але потрібні клітинки правила повністю не затінено. Нативний сніг не відтворено.",
+    "inspectedFrames": [
+      {
+        "order": 82,
+        "frame": "082-landscape.png",
+        "sha256": "2a229590daaff089d1ff39b853d24cc0fc68371152fbf292cf777c6e090e950b"
+      },
+      {
+        "order": 82,
+        "frame": "082-portrait.png",
+        "sha256": "725fcc035b9fdca3d8003563629da114a8e9066355b12810494cb38548f98d6b"
+      },
+      {
+        "order": 82,
+        "frame": "082-solved.png",
+        "sha256": "cb91a1b574a849b11ca51dafa6645d9bd38903d5016204c15c8689c06727a32e"
+      }
+    ],
+    "contactSheetSha256": "8ec0c91cd867453d2cd380d380a76f21d9dd6a102a284b0d50cae5cfc373c53c",
+    "inspectedCoverage": [
+      {
+        "label": "082 diagnostic entire source landscape",
+        "path": "review-v2/082-coverage.png",
+        "sha256": "981d962fdb695926a93652f90b2d522aefa3fe3c7e4304b85e29aafb16757a89"
+      }
+    ],
+    "coverageSheetSha256": "b08b652165996ce3f4c2a4fa7f96159bbc68447f790d397ec66435fcfb7b7b4a"
+  },
+  "83": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Павільйон із лавою-дугою за межами обох ігрових кадрів. Зв’язок опори зі стежкою та місце відпочинку слід перевірити за загальним планом; саме поле не пояснює локацію. Зимові шейдери тут відсутні.",
+    "inspectedFrames": [
+      {
+        "order": 83,
+        "frame": "083-landscape.png",
+        "sha256": "459fe383f05bff91c9f166a19824124bd672fce408ddcf024907f37a1fd17ad6"
+      },
+      {
+        "order": 83,
+        "frame": "083-portrait.png",
+        "sha256": "aa97f9fceb17c6ef919f6cb0d390e30312b1522cf13a32dd71b40ac973d15dfd"
+      },
+      {
+        "order": 83,
+        "frame": "083-solved.png",
+        "sha256": "155df2e088f50cb9a5894108d86b6ab9bd44666d5b74828472ce1b889548a8c5"
+      }
+    ],
+    "contactSheetSha256": "8ec0c91cd867453d2cd380d380a76f21d9dd6a102a284b0d50cae5cfc373c53c",
+    "inspectedCoverage": [
+      {
+        "label": "083 diagnostic entire source landscape",
+        "path": "review-v2/083-coverage.png",
+        "sha256": "665f52cf2cfef7b14079ac6deec90db6ada54483c92808d678ca201ee63b9663"
+      }
+    ],
+    "coverageSheetSha256": "b08b652165996ce3f4c2a4fa7f96159bbc68447f790d397ec66435fcfb7b7b4a"
+  },
+  "84": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Спостережна платформа не читається в обох ігрових форматах. Для логічного берега потрібні видимі підхід, опори й напрямок огляду; пересувати об’єкт без перевірки води не можна. Зимовий матеріал тут не відтворено.",
+    "inspectedFrames": [
+      {
+        "order": 84,
+        "frame": "084-landscape.png",
+        "sha256": "a99f57b58c67facf7a95bdafc30e87340c12492540deeabbb349e8aeea27ab28"
+      },
+      {
+        "order": 84,
+        "frame": "084-portrait.png",
+        "sha256": "b4a030de3780d9ac101ffce6ad0b0b31a0a7a9822689384877729d0867c5895f"
+      },
+      {
+        "order": 84,
+        "frame": "084-solved.png",
+        "sha256": "15b27c4f520e3564cebef59f1500a0b55ba5b1d0f7a77d4631a80b645db01a31"
+      }
+    ],
+    "contactSheetSha256": "8ec0c91cd867453d2cd380d380a76f21d9dd6a102a284b0d50cae5cfc373c53c",
+    "inspectedCoverage": [
+      {
+        "label": "084 diagnostic entire source landscape",
+        "path": "review-v2/084-coverage.png",
+        "sha256": "683899b5a6edd5dfca66207f55f717c22162a5de43e2f3255bb1fc51f25ba840"
+      }
+    ],
+    "coverageSheetSha256": "b08b652165996ce3f4c2a4fa7f96159bbc68447f790d397ec66435fcfb7b7b4a"
+  },
+  "85": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Водопійний жолоб поза обома кадрами. Це надземний жолоб, а не вертикальна криниця: вирізати під ним шахту неправильно. У зоні логічної тіні немає підтвердженого фізичного укриття. Нативний сніг не перевірено.",
+    "inspectedFrames": [
+      {
+        "order": 85,
+        "frame": "085-landscape.png",
+        "sha256": "42cf7dbac1ef913db23ffc4860226bad1f8894c5bc8cef09981885a2016c3e1d"
+      },
+      {
+        "order": 85,
+        "frame": "085-portrait.png",
+        "sha256": "66ae90fca0bf6ea25e4f0edb24e7f1e9ac1ef8289e7646e03cd6fb58a0c25e05"
+      },
+      {
+        "order": 85,
+        "frame": "085-solved.png",
+        "sha256": "7722f4c8d66a60680595e4aeb48172cbaed1494aba90c452ceb543867c0d2e98"
+      }
+    ],
+    "contactSheetSha256": "899100ea1fb242a0d95cd2c940816f21855597c8962e269145c2d22d77e2b262",
+    "inspectedCoverage": [
+      {
+        "label": "085 diagnostic entire source landscape",
+        "path": "review-v2/085-coverage.png",
+        "sha256": "9dda3b7561b312769dbad726ea3a6039aaac60aff0d24c3834bad12a81be448f"
+      }
+    ],
+    "coverageSheetSha256": "b08b652165996ce3f4c2a4fa7f96159bbc68447f790d397ec66435fcfb7b7b4a"
+  },
+  "86": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Підняті грядки видно збоку, але їх обрізає рамка; порожні зимові грядки мають сенс, сама зовнішня зелена земля не відображає зимовий шейдер гри. Перевірити досяжність проходів та опирання рам на рельєф.",
+    "inspectedFrames": [
+      {
+        "order": 86,
+        "frame": "086-landscape.png",
+        "sha256": "6929eb82f967ea26ddd0589414e3af4c764dd59190e7a9666825d1043dad6358"
+      },
+      {
+        "order": 86,
+        "frame": "086-portrait.png",
+        "sha256": "55fe238e7125cd275f673e86044956a96bdb2c01e30ced974aa5be63d25d31ce"
+      },
+      {
+        "order": 86,
+        "frame": "086-solved.png",
+        "sha256": "7024555b3d9c69647e8d938896a73cad4f92d07ae40129a0f4cbd70f7726c783"
+      }
+    ],
+    "contactSheetSha256": "899100ea1fb242a0d95cd2c940816f21855597c8962e269145c2d22d77e2b262",
+    "inspectedCoverage": [
+      {
+        "label": "086 diagnostic entire source landscape",
+        "path": "review-v2/086-coverage.png",
+        "sha256": "4b969975b0c1d50a5680cea3e80528a680475a2677bcefddb8d186fcb7bf7c96"
+      }
+    ],
+    "coverageSheetSha256": "b08b652165996ce3f4c2a4fa7f96159bbc68447f790d397ec66435fcfb7b7b4a"
+  },
+  "87": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Дерев’яний стенд читається праворуч, але його площина у зовнішньому кадрі порожня. Потрібно перевірити фактичне оформлення стенда в грі, не додавати випадковий текст. Заявлена тінь вихідною геометрією не підтверджена; зимовий матеріал відсутній.",
+    "inspectedFrames": [
+      {
+        "order": 87,
+        "frame": "087-landscape.png",
+        "sha256": "fdad28fa18666e65a9b4be6409a3a29db48045b1b68c0c7f6bdd7cb95ae8949f"
+      },
+      {
+        "order": 87,
+        "frame": "087-portrait.png",
+        "sha256": "2ab02e3714cf29544a3b6aa069e436ce31c87c9b59dff5c1db24578b2adb6212"
+      },
+      {
+        "order": 87,
+        "frame": "087-solved.png",
+        "sha256": "a0829e704cbf0ec0bab6d4c60186e0ae34d01f18a1968b46022571fd23ac1154"
+      }
+    ],
+    "contactSheetSha256": "899100ea1fb242a0d95cd2c940816f21855597c8962e269145c2d22d77e2b262",
+    "inspectedCoverage": [
+      {
+        "label": "087 diagnostic entire source landscape",
+        "path": "review-v2/087-coverage.png",
+        "sha256": "e0a1bd6d6c16fc91273ef84c69eabe6a19bb601e622fa7ac9abc351e0209235d"
+      }
+    ],
+    "coverageSheetSha256": "b08b652165996ce3f4c2a4fa7f96159bbc68447f790d397ec66435fcfb7b7b4a"
+  },
+  "88": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Арковий міст видно лише малим обрізаним фрагментом. Виявлено накладений старий місток: кандидат прибирає саме дублікат і зберігає арку, додаючи сухі підходи. Потрібні нативні перевірки стежок, води й зимового покриву.",
+    "inspectedFrames": [
+      {
+        "order": 88,
+        "frame": "088-landscape.png",
+        "sha256": "3ead0cf4fb994f103caee52f044ff3bec9914daabd1dcee1d02cfac87947e119"
+      },
+      {
+        "order": 88,
+        "frame": "088-portrait.png",
+        "sha256": "d3b82ae4e5a55027d18a76e5f360eec97c6e057b2f2aaf1a8e962dc19aa01928"
+      },
+      {
+        "order": 88,
+        "frame": "088-solved.png",
+        "sha256": "97ea87e65579506924df6816f26b654113a69e9836c8b026211356b708be1502"
+      }
+    ],
+    "contactSheetSha256": "899100ea1fb242a0d95cd2c940816f21855597c8962e269145c2d22d77e2b262",
+    "inspectedCoverage": [
+      {
+        "label": "088 diagnostic entire source landscape",
+        "path": "review-v2/088-coverage.png",
+        "sha256": "2ddfecd6f68dbd5a6f57f1289727a5cb02622f9577890f857537f1c0792de1bf"
+      }
+    ],
+    "coverageSheetSha256": "b08b652165996ce3f4c2a4fa7f96159bbc68447f790d397ec66435fcfb7b7b4a"
+  },
+  "89": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Майстерня відсутня в обох наближених ігрових кадрах. Рослинність утворює зелену рамку табору, але назва й господарська логіка місця втрачаються; перевірити адресне кадрування, не замінювати майстерню випадковим декором.",
+    "inspectedFrames": [
+      {
+        "order": 89,
+        "frame": "089-landscape.png",
+        "sha256": "e9530ff73c739fe1e46434353d0777b59452800ea7645679ffdcb19eb4cf5145"
+      },
+      {
+        "order": 89,
+        "frame": "089-portrait.png",
+        "sha256": "7bfa8f49dde4c0a0adb08de60db638d2fc4423e8b7c5fcdb50418d4de7058d45"
+      },
+      {
+        "order": 89,
+        "frame": "089-solved.png",
+        "sha256": "4ee7d2abb1113aa971821448b3684a8cd006ddf75e75df323a55a358ab6c035f"
+      }
+    ],
+    "contactSheetSha256": "184004ed06510bfcb432a2a8a16ca1623a78198276bb6b488e21657ad88fb560",
+    "inspectedCoverage": [
+      {
+        "label": "089 diagnostic entire source landscape",
+        "path": "review-v2/089-coverage.png",
+        "sha256": "0f003c9923fb521c42584beb10ef967183c7dcc2e873db60aded7bfcc17d071c"
+      }
+    ],
+    "coverageSheetSha256": "b08b652165996ce3f4c2a4fa7f96159bbc68447f790d397ec66435fcfb7b7b4a"
+  },
+  "90": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Берегова альтанка обрізається великим дахом на передньому плані. У портреті вона читається краще, проте зв’язок сходів із берегом слабкий. Тінь потрібних клітинок вихідними об’єктами не підтверджена; дослідний навіс не прийнято.",
+    "inspectedFrames": [
+      {
+        "order": 90,
+        "frame": "090-landscape.png",
+        "sha256": "c2f40349a258f7be8870f5300287b977252d3720fd2571017a798f248c269e3f"
+      },
+      {
+        "order": 90,
+        "frame": "090-portrait.png",
+        "sha256": "4a7572006beb583a965b3e4cf9c7d1c6d3fc1c318e473b7e9a2a84b5cd480a3b"
+      },
+      {
+        "order": 90,
+        "frame": "090-solved.png",
+        "sha256": "991e430df936f38d1ef5db1a5e71688f4a0155fe9f46069edfeb96d33bbee487"
+      }
+    ],
+    "contactSheetSha256": "184004ed06510bfcb432a2a8a16ca1623a78198276bb6b488e21657ad88fb560",
+    "inspectedCoverage": [
+      {
+        "label": "090 diagnostic entire source landscape",
+        "path": "review-v2/090-coverage.png",
+        "sha256": "b2d35786bff37368da913fdd9eb039b37854f461a7f71b4c277a5e2c247d3170"
+      }
+    ],
+    "coverageSheetSha256": "b08b652165996ce3f4c2a4fa7f96159bbc68447f790d397ec66435fcfb7b7b4a"
+  },
+  "91": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Розсадник із рядами саджанців впізнається збоку. Між стовпчиками та табором слід залишити господарський прохід; рослинність не повинна маскувати край грядки. Потрібна перевірка нативної трави біля основ саджанців.",
+    "inspectedFrames": [
+      {
+        "order": 91,
+        "frame": "091-landscape.png",
+        "sha256": "2a22a3fe17005708da87d5b34c9e305bbd5af29405155ee4f0b2777238373e95"
+      },
+      {
+        "order": 91,
+        "frame": "091-portrait.png",
+        "sha256": "8e225ca2dd151329426a46052428aceed0f98065208b50ad25bfefb396c9b2c3"
+      },
+      {
+        "order": 91,
+        "frame": "091-solved.png",
+        "sha256": "a5c724ef85c9fb799e311e990d57bc8298e428d336d697b0c071571ec84ec34d"
+      }
+    ],
+    "contactSheetSha256": "184004ed06510bfcb432a2a8a16ca1623a78198276bb6b488e21657ad88fb560",
+    "inspectedCoverage": [
+      {
+        "label": "091 diagnostic entire source landscape",
+        "path": "review-v2/091-coverage.png",
+        "sha256": "02cda5eeaaba673f15bfe05d86c9d754c2cf73b262105f8d83c08f404f9b0257"
+      }
+    ],
+    "coverageSheetSha256": "5af13f03fc685c1426a4c4e3e06bf83a039507b9fcccb6b4093741ad695e9919"
+  },
+  "92": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Дім із верандою читається в портреті, у ландшафті дах перекриває передній край поля. Лави та огорожа підтримують функцію подвір’я; потрібно перевірити видимість входу й останнього ряду наметів з активним HUD.",
+    "inspectedFrames": [
+      {
+        "order": 92,
+        "frame": "092-landscape.png",
+        "sha256": "6c59601678fc4e032afe13db89de6d597ec6f0570b012c939de595f504a354ac"
+      },
+      {
+        "order": 92,
+        "frame": "092-portrait.png",
+        "sha256": "8e10997a688b053f1f136309751f6ab2d74f49a2dd274bdca0b8ad4878ee0713"
+      },
+      {
+        "order": 92,
+        "frame": "092-solved.png",
+        "sha256": "e636c0bf68c584338070d556a2b5c44812ca18def42b57a7a9f494101c0d0523"
+      }
+    ],
+    "contactSheetSha256": "184004ed06510bfcb432a2a8a16ca1623a78198276bb6b488e21657ad88fb560",
+    "inspectedCoverage": [
+      {
+        "label": "092 diagnostic entire source landscape",
+        "path": "review-v2/092-coverage.png",
+        "sha256": "ad708f426166dfb456f8b5346c734a966bb206033231e4319f51b1378f585c7c"
+      }
+    ],
+    "coverageSheetSha256": "5af13f03fc685c1426a4c4e3e06bf83a039507b9fcccb6b4093741ad695e9919"
+  },
+  "93": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Пасічницький віз майже за кадром у ландшафті, у портреті залишається зверху. Потрібно показати вулики та колеса як єдиний предмет, забезпечити обхід. Фізичної тіні у потрібних клітинках не підтверджено.",
+    "inspectedFrames": [
+      {
+        "order": 93,
+        "frame": "093-landscape.png",
+        "sha256": "ca2c67506c646999542966f574eab8e737e20de3ba2f847224899c3a46147360"
+      },
+      {
+        "order": 93,
+        "frame": "093-portrait.png",
+        "sha256": "f5d8b2c5c626cce1cf947cc7de5808b12fa1202eac1420aaf5979ae8c84ccf64"
+      },
+      {
+        "order": 93,
+        "frame": "093-solved.png",
+        "sha256": "08aadeeb51af9c0bfe97bcf02cd3c0f42d93d3662889a1b01c1dbf034e7b6443"
+      }
+    ],
+    "contactSheetSha256": "8cf8b4c3b5450ade9630264e035c56f1901173980c85cf4a23b8b132829e53a3",
+    "inspectedCoverage": [
+      {
+        "label": "093 diagnostic entire source landscape",
+        "path": "review-v2/093-coverage.png",
+        "sha256": "b273d90fb5398e9ced8d1a23309c677520c7137c6f0472a7e9eb51b21077c3f6"
+      }
+    ],
+    "coverageSheetSha256": "5af13f03fc685c1426a4c4e3e06bf83a039507b9fcccb6b4093741ad695e9919"
+  },
+  "94": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Теплиця читається внизу портрета, але ландшафт обрізає її дах. Рама й грядки відповідають садовій темі; матеріал прозорого накриття Workbench не відтворює. Потрібно перевірити підхід до дверей і край поля.",
+    "inspectedFrames": [
+      {
+        "order": 94,
+        "frame": "094-landscape.png",
+        "sha256": "9fe270d5b5fa35a91efb1ec95c6da779b73199265acb3ad680ec04eb784169af"
+      },
+      {
+        "order": 94,
+        "frame": "094-portrait.png",
+        "sha256": "ee23dcbd62b1de8848a8c3597fdc23ff9cb7a57abbf3063365c0da4c88be82e8"
+      },
+      {
+        "order": 94,
+        "frame": "094-solved.png",
+        "sha256": "d798951123ec23d5aa0616b475af09fbc29467439035a3c9af134f603acb6972"
+      }
+    ],
+    "contactSheetSha256": "8cf8b4c3b5450ade9630264e035c56f1901173980c85cf4a23b8b132829e53a3",
+    "inspectedCoverage": [
+      {
+        "label": "094 diagnostic entire source landscape",
+        "path": "review-v2/094-coverage.png",
+        "sha256": "8abae81d0e801f61ad64043002dc6dfee8988c17f8c858fa699dd34e5099ad56"
+      }
+    ],
+    "coverageSheetSha256": "5af13f03fc685c1426a4c4e3e06bf83a039507b9fcccb6b4093741ad695e9919"
+  },
+  "95": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Зупинка з вежею не потрапляє в обидва наближені ігрові кадри. Зелена рамка затишна, але унікальна функція місця не видима; потрібен адресний перегляд композиції зі збереженням головоломки.",
+    "inspectedFrames": [
+      {
+        "order": 95,
+        "frame": "095-landscape.png",
+        "sha256": "ed2516fa4c5d56748e396eca2628ecb39fab404630d27c92c4a0c21f813b1c26"
+      },
+      {
+        "order": 95,
+        "frame": "095-portrait.png",
+        "sha256": "18125ba63a3754cf0e8d3864a3b24d814b94c526b0dc3599684e4463dc905456"
+      },
+      {
+        "order": 95,
+        "frame": "095-solved.png",
+        "sha256": "f68c309ad14cd40e8f5aea1d261976bf7bfbc789c0494e1224cc6a1b722ec308"
+      }
+    ],
+    "contactSheetSha256": "8cf8b4c3b5450ade9630264e035c56f1901173980c85cf4a23b8b132829e53a3",
+    "inspectedCoverage": [
+      {
+        "label": "095 diagnostic entire source landscape",
+        "path": "review-v2/095-coverage.png",
+        "sha256": "8e4cde139e0ad3b05b8eaaa25b44ba5b2a15fdebcf05d8f260c7011f63f23729"
+      }
+    ],
+    "coverageSheetSha256": "5af13f03fc685c1426a4c4e3e06bf83a039507b9fcccb6b4093741ad695e9919"
+  },
+  "96": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Арка саду пам’яті читається лише зверху в портреті. Її слід поєднати видимим проходом із місцем відпочинку; нинішній ландшафт утрачає сюжет. Логічна тінь не збігається повністю з фізичними затінювачами.",
+    "inspectedFrames": [
+      {
+        "order": 96,
+        "frame": "096-landscape.png",
+        "sha256": "9c7b9b0e0daf20931655ed14b1582b3781b7677ca4accf605601e3b65db24954"
+      },
+      {
+        "order": 96,
+        "frame": "096-portrait.png",
+        "sha256": "8ed633cf1955eacf8ebbb64f18676e10264875b9784048d07c52e68c4a4bbfda"
+      },
+      {
+        "order": 96,
+        "frame": "096-solved.png",
+        "sha256": "e497bcc6414345eb8ba5a8d052e98b6321123c42f2be5c2b20b60bd703c212e8"
+      }
+    ],
+    "contactSheetSha256": "8cf8b4c3b5450ade9630264e035c56f1901173980c85cf4a23b8b132829e53a3",
+    "inspectedCoverage": [
+      {
+        "label": "096 diagnostic entire source landscape",
+        "path": "review-v2/096-coverage.png",
+        "sha256": "57908038f934642f2f2af8d3401b72c5bf37d3e0f731b9361a4574d4a931425f"
+      }
+    ],
+    "coverageSheetSha256": "5af13f03fc685c1426a4c4e3e06bf83a039507b9fcccb6b4093741ad695e9919"
+  },
+  "97": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Стела Гавані читається праворуч, але верх обрізано. Господарські дрібниці мають зрозуміле походження, однак необхідно звірити масштаб стели й прохід навколо неї та видимість із HUD.",
+    "inspectedFrames": [
+      {
+        "order": 97,
+        "frame": "097-landscape.png",
+        "sha256": "e404da0cde1151c33829e907c8147cc33b82824aef715dfe6eaf15546181c2de"
+      },
+      {
+        "order": 97,
+        "frame": "097-portrait.png",
+        "sha256": "6434c8f3db21c09985b95b6b382f1f099b325c2b6f4e2b2069962644db0516aa"
+      },
+      {
+        "order": 97,
+        "frame": "097-solved.png",
+        "sha256": "6f9b480936cfbb5db37a81bedcb72e5dffe279bf9f6e35e3bc418e21defc8fdd"
+      }
+    ],
+    "contactSheetSha256": "7cc92a21060c8cc70188385e88e6d05893c62952e458bd71e552cc2b3d2c58fa",
+    "inspectedCoverage": [
+      {
+        "label": "097 diagnostic entire source landscape",
+        "path": "review-v2/097-coverage.png",
+        "sha256": "30754d0b5eb4ac75ea60b463dfa73c5a1a83697a255ae5161d6e4fc6b47866cd"
+      }
+    ],
+    "coverageSheetSha256": "5af13f03fc685c1426a4c4e3e06bf83a039507b9fcccb6b4093741ad695e9919"
+  },
+  "98": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Кам’яне склепіння джерела читається у портреті, але в ландшафті видно лише обрізану арку. Це не одна з шести вертикальних криниць; не застосовувати сліпо виріз шахти. Перевірити окремо чашу, стік і доступ до води.",
+    "inspectedFrames": [
+      {
+        "order": 98,
+        "frame": "098-landscape.png",
+        "sha256": "41ab89254284718392e7d6105b65fd1bfa115f069e719d266ee73d0aea86c975"
+      },
+      {
+        "order": 98,
+        "frame": "098-portrait.png",
+        "sha256": "d958dee3c233a5ea6aa7f7673ee87836bbdbbf58cf04fd0c3239155f9b967f06"
+      },
+      {
+        "order": 98,
+        "frame": "098-solved.png",
+        "sha256": "c5eb78488ce5df85b88967bff5a7e84a433c5cc8024617086e4957cd1b6c7dab"
+      }
+    ],
+    "contactSheetSha256": "7cc92a21060c8cc70188385e88e6d05893c62952e458bd71e552cc2b3d2c58fa",
+    "inspectedCoverage": [
+      {
+        "label": "098 diagnostic entire source landscape",
+        "path": "review-v2/098-coverage.png",
+        "sha256": "cf89388f12e5606246073892d46657a5ec3625bde49c8f91b9b67aa1382ffa1c"
+      }
+    ],
+    "coverageSheetSha256": "5af13f03fc685c1426a4c4e3e06bf83a039507b9fcccb6b4093741ad695e9919"
+  },
+  "99": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Ротонда видно праворуч, проте ландшафт обрізає дах. Садова рослинність підтримує місце відпочинку, але потрібні сухий підхід і затінення ігрової зони: вихідні затінювачі його не підтверджують.",
+    "inspectedFrames": [
+      {
+        "order": 99,
+        "frame": "099-landscape.png",
+        "sha256": "24a4a9f940861c7c0de957c45cf3c0e4f679e643d81ec6b864be25d4ee35966d"
+      },
+      {
+        "order": 99,
+        "frame": "099-portrait.png",
+        "sha256": "30b0da94dffdf3bdd61cecc26396c5fbd0cb9b7743d100f0dcd399b6b05f3af9"
+      },
+      {
+        "order": 99,
+        "frame": "099-solved.png",
+        "sha256": "39dae0cbb49c3292f5c1608cebc35b83c20498e76c970f3e93ea4dbf98b06459"
+      }
+    ],
+    "contactSheetSha256": "7cc92a21060c8cc70188385e88e6d05893c62952e458bd71e552cc2b3d2c58fa",
+    "inspectedCoverage": [
+      {
+        "label": "099 diagnostic entire source landscape",
+        "path": "review-v2/099-coverage.png",
+        "sha256": "c984e34604ea4d089806dbf773e57e7adee7a669a6a2b3949dfe680d0b0b7de3"
+      }
+    ],
+    "coverageSheetSha256": "5af13f03fc685c1426a4c4e3e06bf83a039507b9fcccb6b4093741ad695e9919"
+  },
+  "100": {
+    "status": "external-diagnostic-reviewed-with-residuals",
+    "nativeAccepted": false,
+    "notes": "Спільний дім та господарські об’єкти добре пояснюють завершальну локацію у портреті, але дах обрізано у ландшафті. Обидві додаткові криниці отримують окремі глибокі шахти без видимої води; зв’язок стежок і порогів ще потребує нативного огляду.",
+    "inspectedFrames": [
+      {
+        "order": 100,
+        "frame": "100-landscape.png",
+        "sha256": "3c8fd57b89f30e2d1abf4bf98903d4e228d28971f4c62853ecff2606b1f8c211"
+      },
+      {
+        "order": 100,
+        "frame": "100-portrait.png",
+        "sha256": "5f06d1ffec3c00f1ff89ab9150219e2b81736c4a06aa2a4c0ca8a25414b87f74"
+      },
+      {
+        "order": 100,
+        "frame": "100-solved.png",
+        "sha256": "3e86f633d779a175e3d08e06ce180efbe6a4eddbd3bc55ef8f2504cd711c5d90"
+      }
+    ],
+    "contactSheetSha256": "7cc92a21060c8cc70188385e88e6d05893c62952e458bd71e552cc2b3d2c58fa",
+    "inspectedCoverage": [
+      {
+        "label": "100 diagnostic entire source landscape",
+        "path": "review-v2/100-coverage.png",
+        "sha256": "93edff761c5f9a3dfdd2bc049e3cb0e200631221b4ce0262ef0ad93ed2e99785"
+      }
+    ],
+    "coverageSheetSha256": "5af13f03fc685c1426a4c4e3e06bf83a039507b9fcccb6b4093741ad695e9919"
+  }
+}
