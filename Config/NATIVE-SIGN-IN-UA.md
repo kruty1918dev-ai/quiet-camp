@@ -1,8 +1,10 @@
 # Промпт агенту Unity — нативний вхід і спільний профіль Quiet Camp
 
 Реалізуй зміни в існуючому Unity-проєкті, не лише план. Прочитай AGENTS.md і
-поточні джерела, збережи чужі/локальні зміни. Підготовлена гілка репозиторію
-kruty1918dev-ai/quiet-camp: feature/shared-player-accounts-20261024.
+поточні джерела, збережи чужі/локальні зміни. Серверна підготовка вже в main
+репозиторію kruty1918dev-ai/quiet-camp (PR #1), сайт опубліковано (PR #8).
+Власник підтвердив кабінет, Google-вхід і доступ до приватного списку.
+Нову SQL-міграцію 0004 вже виконано вручну, повторно її не застосовувати.
 Контракт: Server/cloudflare/ACCOUNT-API.md. Консольні кроки власнику:
 Server/cloudflare/PLAYER-ACCOUNTS-UA.md. Не роби reset/checkout поверх змін.
 
@@ -32,13 +34,36 @@ X/Twitter, Apple/iCloud, email/password та anonymous cloud не додават
 - Сайт https://oleksiy-havryliuk.de/quiet-camp/account (є /uk, /de).
 - Кабінет /v1/cloud/account?lang=uk; форма /v1/cloud/delete-account.
 - Нова API: /native/sign-in, /native/delete, /status з profile.
-- Політика підготовленої гілки: 2026-10-24.public-policy-11-shared-player-accounts.
+- Опублікована політика: 2026-10-24.public-policy-11-shared-player-accounts.
 
-У перевіреному локальному google-services.json не було OAuth clients; поточну
-консоль власника ще треба звірити. Власник додає SHA-1/SHA-256 debug/release/Play
-App signing і дає новий google-services.json та Web OAuth client ID виду
-*.apps.googleusercontent.com. Цих відбитків/Web client ID у завданні немає —
-не вигадуй їх. Не плутай serverClientId з API key/Firebase App ID/Android ID.
+Оновлений google-services.json власник надав 24.10.2026. Структуру перевірено:
+project/app/package збігаються, є Android OAuth client type 1 та Web type 3.
+
+- serverClientId / Web OAuth Client ID (саме це передати Credential Manager):
+  `327790204451-1t6rfqnmj82urke0c951cn28tqcb7t96.apps.googleusercontent.com`
+- Android OAuth Client ID (довідково, НЕ serverClientId):
+  `327790204451-1mnepnfhmics1fag1b8e5fb2d9i4scbg.apps.googleusercontent.com`
+- Зареєстрований SHA-1 сертифіката з Play Console:
+  `41:DE:E8:1D:66:A6:52:1B:A7:D2:AE:7F:4C:DC:CE:85:16:1A:37:74`
+- SHA-256 у google-services.json не міститься; його додавання у Firebase
+  підтвердив власник. Не видавай це за незалежну перевірку SHA-256.
+
+Власник має покласти оновлений файл під точною назвою
+`QuietCamp/Assets/google-services.json` і передати його агенту локально. Файл
+ignored у Git; він не передається іншим машинам через звичайний git pull.
+Не підміняй його старою локальною копією і не коміть raw конфіг. Публічні
+client IDs вище не є OAuth client secret. API key бери з цього файлу.
+
+Зараз у файлі є один Android certificate hash для Play-підпису. Для прямого
+APK/debug/release визнач фактичний сертифікат існуючої збірки або keystore
+власника й виведи тільки SHA-1/SHA-256 для додавання у Firebase. Використовуй
+read-only apksigner/keytool; новий player build для цього не запускай. Не
+генеруй і не підміняй signing key, не використовуй випадковий cloud debug
+сертифікат. Якщо потрібний файл/доступ відсутній, назви точний відсутній input.
+Не вимагай від власника пароль/приватний ключ у чаті чи логах.
+
+Не плутай serverClientId з API key/Firebase App ID/Android ID. Новий Web OAuth
+client створювати не потрібно: чинний тип 3 наведений вище.
 Для Meta надай власнику точні Activity class/Key Hash/Client Token inputs,
 відповідні реальному SDK/manifest. App Secret залишається у Firebase Console.
 Не потрібні Gmail/Drive scopes, нові Firebase/Worker/D1, секрети в клієнті.
