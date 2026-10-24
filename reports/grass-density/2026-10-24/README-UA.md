@@ -28,5 +28,13 @@ QC001, QC007, QC009, №44 і №71 у двох орієнтаціях із ме
 native census. [Результати](portable/mobile-budget-audit.json),
 [маніфест джерел](portable/budget-source-manifest.json).
 
-Native після змін, художній verdict і повний scene budget ще перевіряються.
+Unity імпортував і скомпілював поточні джерела. Фокусні native EditMode
+перевірки: **8 passed, 0 failed**, 8,44 с: shader/material binding, спільні
+mipmapped textures, збереження силуету, runtime audit policy, захист джерел
+і заборона публікації. [Оригінальний результат](native-tests/mobile-meadow-tests.json).
+Попередній широкий WorldOps suite до перекомпіляції: 40 passed, 2 failed
+у старих field-cover очікуваннях (`FieldCoverHasAHeightLimitAndBlendsPastTheOldRectangularApron`,
+`FieldCoverStyleSurvivesCaptureAndOnlyRefreshesTheBoard`); це не успішний suite.
+
+Native кадри після змін, художній verdict і повний scene budget ще перевіряються.
 Player build не запускався.
