@@ -51,5 +51,8 @@ mipmapped textures, збереження силуету, runtime audit policy, �
 41 100 (№44). [Нові результати](tufts-portable/mobile-budget-audit.json),
 [нові джерела](tufts-portable/budget-source-manifest.json).
 Попередні 8 тестів і portable результати вище належать відхиленим карткам.
+Новий варіант без карток: **8/8 native EditMode**, 10,81 с,
+[результат](native-tests/tufts-tests.json). Перевіряються компактні підняті
+листки, відсутність card shader, матеріали, захист джерел і runtime audit.
 Native кадри нового варіанта, його verdict і повний scene budget перевіряються.
 Player build не запускався.
