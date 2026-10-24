@@ -182,6 +182,7 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                 string folder=LevelFolder(_run,item.levelId);Directory.CreateDirectory(folder);
                 if(RestoreCacheEarly(item,folder))return;
                 var doc=LevelAuthoringCampaign.Open(item.levelId,Path.Combine(_run.repositoryProject,Content),Path.Combine(_run.repositoryProject,Drafts),false);
+                WorldOpsOperations.PrepareRuntimePresentation(doc,_run.recipe);
                 item.beforePath=Path.Combine(folder,"before.draft.json");WorldOpsStorage.Json(item.beforePath,doc);
                 item.beforeFileHash=WorldOpsStorage.FileHash(item.beforePath);
                 string key=WorldOpsStorage.Digest(_run.recipe);

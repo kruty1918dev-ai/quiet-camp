@@ -14,7 +14,7 @@ namespace QuietCamp.Infrastructure
         public const int SceneTriangles=50000;
         public const int AuthoredTriangles=38000;
         public const int GrassAccentTriangles=600;
-        public const int ProceduralGrassTriangles=1200;
+        public const int ProceduralGrassTriangles=3200;
         public static int WeatherParticleCapacity(int requested)=>requested<=0?0:Math.Max(1,Math.Min(400,requested/4));
 
         public static bool IsGrass(CampArtDefinition.Model model)

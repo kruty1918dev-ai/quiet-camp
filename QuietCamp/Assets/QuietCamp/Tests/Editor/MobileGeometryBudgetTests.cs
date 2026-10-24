@@ -3,6 +3,8 @@ using System.Linq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using QuietCamp.Infrastructure;
+using QuietCamp.Editor.LevelAuthoring;
+using QuietCamp.Editor.LevelAuthoring.WorldOps;
 using QuietCamp.Presentation.World;
 using UnityEngine;
 
@@ -10,6 +12,30 @@ namespace QuietCamp.Tests
 {
     public sealed class MobileGeometryBudgetTests
     {
+        [Test] public void ClippedGrassSurvivesGameplayMipLevelsWithoutSolidCards()
+        {
+            var mips=MobileMeadowPattern.CardMips();
+            Assert.AreEqual(9,mips.Length);
+            double Occupied(byte[] data)=>Enumerable.Range(0,data.Length/4).Count(i=>data[i*4+3]>102)/(double)(data.Length/4);
+            double coverage=Occupied(mips[0]);Assert.That(coverage,Is.InRange(.25,.85));
+            for(int i=1;i<=4;i++)
+                Assert.That(Occupied(mips[i]),Is.EqualTo(coverage).Within(.06),"Clipped silhouettes disappeared or filled their quad at mip "+i);
+            CollectionAssert.AreEqual(mips[3],MobileMeadowPattern.CardMips()[3]);
+        }
+        [Test] public void RuntimeAuditMatchesThePlayerPolicyAndCannotPublishOrMutate()
+        {
+            var recipe=new WorldRecipe{id="runtime-test",previewOnly=true,autoApply=false,runtimePresentation=true,
+                operations=new[]{new WorldOperation{id="current",kind="audit"}},criteria=new WorldCriteria{maximumSceneTriangles=50000}};
+            var text=Resources.Load<TextAsset>("QuietCamp/ArtCompositions/QC007");
+            var original=CampArtDefinition.ReadDocument(text.text,out _);string before=JsonConvert.SerializeObject(original);
+            var doc=LevelAuthoringDocument.Create(false);doc.art=original;
+            WorldOpsOperations.PrepareRuntimePresentation(doc,recipe);
+            Assert.AreEqual(before,JsonConvert.SerializeObject(original));
+            Assert.AreEqual(JsonConvert.SerializeObject(CampGeometryBudget.DenseMeadow(CampGeometryBudget.Prepare(original))),JsonConvert.SerializeObject(doc.art));
+            recipe.autoApply=true;Assert.Throws<ArgumentException>(()=>WorldOpsOperations.Validate(recipe));
+            recipe.autoApply=false;recipe.previewOnly=false;Assert.Throws<ArgumentException>(()=>WorldOpsOperations.Validate(recipe));
+            recipe.previewOnly=true;recipe.operations[0].kind="vegetation.refine";Assert.Throws<ArgumentException>(()=>WorldOpsOperations.Validate(recipe));
+        }
         [Test] public void DenseDetailTexturesHaveMipsAndAreSharedBetweenMaterials()
         {
             var shader=Resources.Load<Shader>("QuietCamp/MobileMeadowCards");Assert.NotNull(shader);

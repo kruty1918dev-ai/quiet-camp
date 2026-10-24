@@ -1,7 +1,7 @@
 // Identical weather displacement and material layout across passes.
         CBUFFER_START(UnityPerMaterial)
         float4 _QCWeather,_QCWind,_GroundFinish,_MeadowExtent;
-        float4 _ArtAmbient,_GroundLow,_GroundHigh,_SoilTone,_CampFieldSize;
+        float4 _ArtAmbient,_GroundLow,_GroundHigh,_SoilTone,_CampFieldSize,_MeadowTint;
         float4 _CampUseBounds,_CampClimate,_WeatherSkyBounds,_WeatherSkyGrid;
         float4x4 _WeatherSkyToLocal,_WeatherSkyNormalToLocal;
         float _WeatherSnowCover;

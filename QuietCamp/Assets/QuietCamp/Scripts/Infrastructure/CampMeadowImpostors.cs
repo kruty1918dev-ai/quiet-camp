@@ -9,6 +9,7 @@ namespace QuietCamp.Infrastructure
     /// The opaque ground detail supplies distant density; these cards only add silhouette.</summary>
     public static class CampMeadowImpostors
     {
+        public static Color SeasonTint(string season)=>season=="autumn"?new Color(.96f,.94f,.83f):new Color(.72f,1f,.78f);
         public static LandscapeMesh Build(CampArtDefinition art,int width,int height,int seed)
         {
             var points=new List<float>();var normals=new List<float>();var colors=new List<float>();var uv=new List<float>();var triangles=new List<int>();
@@ -19,20 +20,22 @@ namespace QuietCamp.Infrastructure
             bool Dry(float x,float z)=>x>=art.landscape.originX&&x<=art.landscape.originX+art.landscape.size
                 &&z>=art.landscape.originZ&&z<=art.landscape.originZ+art.landscape.size
                 &&!holes.Any(h=>h.Contains(x,z,-.03f))&&(!water.TrySample(x,z,out var wet)||!wet.Wet);
-            const int side=12,patches=side*side;
-            for(int i=0;i<patches*2;i++)
+            const int farSide=16,nearSide=23,farPatches=farSide*farSide;
+            for(int i=0;i<farPatches+nearSide*nearSide;i++)
             {
-                bool near=i>=patches;int k=i%patches;
-                float u=(k%side+.28f+(float)random.NextDouble()*.44f)/side,v=(k/side+.28f+(float)random.NextDouble()*.44f)/side;
-                float x=near?(u-.5f)*(width+10):art.landscape.originX+u*art.landscape.size;
-                float z=near?(v-.5f)*(height+10):art.landscape.originZ+v*art.landscape.size;
+                bool near=i>=farPatches;int k=near?i-farPatches:i,side=near?nearSide:farSide;
+                float u=(k%side+.08f+(float)random.NextDouble()*.84f)/side,v=(k/side+.08f+(float)random.NextDouble()*.84f)/side;
+                float x=near?(u-.5f)*(width+14):art.landscape.originX+u*art.landscape.size;
+                float z=near?(v-.5f)*(height+14):art.landscape.originZ+v*art.landscape.size;
                 if(!Dry(x,z))continue;
-                float span=near?(Math.Max(width,height)+10)/(float)side*1.12f:2.8f;
-                float h=Math.Abs(x)<width*.5f&&Math.Abs(z)<height*.5f?.075f:.13f+(float)random.NextDouble()*.045f;
-                if(art.atmosphere?.season=="autumn")h*=.55f;
+                // Short, raised clumps instead of metre-long, almost flat ribbons.
+                // The broad layer still spans all four distant terrain regions.
+                float span=near?.65f+(float)random.NextDouble()*.48f:1.8f+(float)random.NextDouble()*.8f;
+                bool onField=Math.Abs(x)<width*.5f+.3f&&Math.Abs(z)<height*.5f+.3f;
+                float h=onField?.10f:.22f+(float)random.NextDouble()*.13f;
+                if(art.atmosphere?.season=="autumn")h*=.72f;
                 float yaw=(float)random.NextDouble()*Mathf.PI;
-                var tint=Color.Lerp(CampArtDefinition.Color(art.groundLow),CampArtDefinition.Color(art.groundHigh),.35f+(float)random.NextDouble()*.3f);
-                if(art.atmosphere?.season=="autumn")tint=Color.Lerp(tint,new Color(.57f,.42f,.19f),.55f);
+                var tint=Color.Lerp(CampArtDefinition.Color(art.groundLow),CampArtDefinition.Color(art.groundHigh),.25f+(float)random.NextDouble()*.4f)*SeasonTint(art.atmosphere?.season);
                 for(int card=0;card<2;card++)
                 {
                     float angle=yaw+card*Mathf.PI*.5f,dx=Mathf.Cos(angle)*span*.5f,dz=Mathf.Sin(angle)*span*.5f;
@@ -43,7 +46,7 @@ namespace QuietCamp.Infrastructure
                     for(int corner=0;corner<4;corner++)
                     {
                         bool right=corner>=2,top=corner==1||corner==2;float px=x+(right?dx:-dx),pz=z+(right?dz:-dz);
-                        points.AddRange(new[]{px,art.GroundHeight(px,pz)+.006f+(top?h:0),pz});
+                        points.AddRange(new[]{px,art.GroundHeight(px,pz)+.003f+(top?h:0),pz});
                         normals.AddRange(new[]{0f,1f,0f});colors.AddRange(new[]{tint.r,tint.g,tint.b,1f});uv.AddRange(new[]{right?1f:0,top?1f:0});
                     }
                     triangles.AddRange(new[]{first,first+1,first+2,first,first+2,first+3});

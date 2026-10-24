@@ -5,6 +5,7 @@ Shader "QuietCamp/Meadow"
         _CampUse("Observed surface use",2D)="black"{}
         _MobileMeadow("Dense meadow",Float)=0
         _MeadowDetailMap("Dense meadow detail",2D)="gray"{}
+        _MeadowTint("Seasonal meadow tint",Vector)=(1,1,1,1)
         _ClearingHalfSize ("Clearing half size", Vector) = (5,5,0,0)
         _GroundLow("Dark grass",Color)=(.27,.4,.23,1)
         _GroundHigh("Light grass",Color)=(.43,.57,.31,1)
@@ -29,6 +30,7 @@ Shader "QuietCamp/Meadow"
             float4 _ClearingHalfSize;
             half4 _GroundLow,_GroundHigh,_SoilTone;
             float4 _GroundFinish,_MeadowExtent;
+            float4 _MeadowTint;
             float _CellGrid;
             float _MobileMeadow;
             float4 _PlacementFocus;

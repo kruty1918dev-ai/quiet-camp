@@ -21,6 +21,8 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
             if(recipe.operations==null||recipe.operations.Any(o=>o==null||string.IsNullOrWhiteSpace(o.id)||!Kinds.Contains(o.kind)||o.parameters==null||o.selector==null)||recipe.operations.Select(o=>o.id).Distinct().Count()!=recipe.operations.Length)throw new ArgumentException("Operations need unique IDs and allow-listed kinds.");
             if(recipe.operations.Any(o=>o.kind=="scene.mobile-budget"||o.kind=="vegetation.mobile-meadow")&&recipe.criteria.maximumSceneTriangles!=CampGeometryBudget.SceneTriangles)
                 throw new ArgumentException("Mobile budget recipes require the full 50000-triangle scene acceptance limit.");
+            if(recipe.runtimePresentation&&(!recipe.previewOnly||recipe.operations.Any(o=>o.kind!="audit")||recipe.criteria.maximumSceneTriangles!=CampGeometryBudget.SceneTriangles))
+                throw new ArgumentException("Runtime presentation audits require previewOnly, audit operations and the complete 50000-triangle scene gate.");
             if(recipe.operations.Any(o=>o.kind=="vegetation.heightfield-preview")&&!recipe.previewOnly)throw new ArgumentException("Experimental height fields require previewOnly; publication is not supported.");
             if(recipe.operations.Any(o=>o.selector.ids==null||o.selector.modelIds==null||o.selector.roles==null))throw new ArgumentException("Object selectors must use arrays.");
             if(!recipe.capture&&(recipe.autoApply||recipe.criteria.autoRepair||recipe.operations.Any(o=>o.kind!="audit")))throw new ArgumentException("Skipping capture is allowed only for a read-only technical audit without repairs.");
@@ -30,6 +32,14 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
                     if(token.Type==JTokenType.Float&&(double.IsNaN(token.Value<double>())||double.IsInfinity(token.Value<double>())))throw new ArgumentException("Non-finite operation parameter.");
         }
         static bool Finite(float v)=>!float.IsNaN(v)&&!float.IsInfinity(v);
+        public static void PrepareRuntimePresentation(LevelAuthoringDocument document,WorldRecipe recipe)
+        {
+            if(!recipe.runtimePresentation)return;
+            Validate(recipe);
+            // Match CampArtDefinition.Load, retaining the canonical document and
+            // its source hashes. A read-only audit cannot publish this copy.
+            document.art=CampGeometryBudget.DenseMeadow(CampGeometryBudget.Prepare(document.art));
+        }
         public static string Role(CampArtDefinition art,CampArtDefinition.Instance pose,CampArtDefinition.Model model)
         {
             if(pose.id==art.primaryLandmarkInstanceId)return "primary";

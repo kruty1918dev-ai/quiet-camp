@@ -24,9 +24,17 @@ namespace QuietCamp.Presentation.World
             if(!enabled)return;
             if(_ground==null)_ground=Texture(MobileMeadowPattern.Ground(),MobileMeadowPattern.GroundSize,MobileMeadowPattern.GroundSize,true,"Packed dense meadow detail");
             material.SetTexture("_MeadowDetailMap",_ground);
+            if(material.HasProperty("_MeadowTint"))material.SetVector("_MeadowTint",CampMeadowImpostors.SeasonTint(art.atmosphere?.season));
             if(material.HasProperty("_MeadowCardMap"))
             {
-                if(_cards==null)_cards=Texture(MobileMeadowPattern.Cards(),MobileMeadowPattern.CardWidth,MobileMeadowPattern.CardHeight,false,"Meadow clump silhouettes");
+                if(_cards==null)
+                {
+                    _cards=new Texture2D(MobileMeadowPattern.CardWidth,MobileMeadowPattern.CardHeight,TextureFormat.RGBA32,true,true)
+                    {name="Coverage-preserving meadow clumps",wrapMode=TextureWrapMode.Clamp,filterMode=FilterMode.Trilinear,anisoLevel=2};
+                    var mips=MobileMeadowPattern.CardMips();
+                    for(int i=0;i<mips.Length;i++)_cards.SetPixelData(mips[i],i);
+                    _cards.Apply(false,true);
+                }
                 material.SetTexture("_MeadowCardMap",_cards);
             }
         }
