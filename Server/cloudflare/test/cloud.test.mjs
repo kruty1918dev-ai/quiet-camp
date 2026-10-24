@@ -159,6 +159,19 @@ test('browser auth uses only supported providers and explicitly handles cancelle
  const syntax=spawnSync(process.execPath,['--input-type=module','--check'],{input:script,encoding:'utf8',windowsHide:true});
  assert.equal(syntax.status,0,syntax.stderr);
 });
+test('deletion page keeps destructive actions hidden and disabled and retains strict response headers',async()=>{
+ const response=await mf.dispatchFetch(origin+'/v1/cloud/delete-account');
+ assert.equal(response.status,200);
+ const html=await response.text();
+ assert.match(html,/<button class="danger" id="delete" hidden disabled>/);
+ assert.match(html,/\[hidden\]\{display:none!important\}/);
+ assert.match(html,/<noscript>/);
+ const nonce=html.match(/<style nonce="([a-f0-9]+)">/)[1];
+ assert.ok(response.headers.get('Content-Security-Policy').includes("'nonce-"+nonce+"'"));
+ assert.ok(!response.headers.get('Content-Security-Policy').includes('unsafe-'));
+ assert.equal(response.headers.get('Cache-Control'),'no-store');
+ assert.equal(response.headers.get('Referrer-Policy'),'no-referrer');
+});
 test('handoff requires its independent poll secret, is single use and expires',async()=>{
  const start=await begin();await authenticate(start);
  assert.equal((await call('login-poll',{ticket:start.ticket,pollSecret:'a'.repeat(64)})).status,410);

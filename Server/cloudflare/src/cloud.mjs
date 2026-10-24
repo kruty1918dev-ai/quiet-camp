@@ -40,7 +40,7 @@ async function body(request, limit = 16384) {
   try {
     const bytes = new Uint8Array(length); let offset = 0;
     for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.length; }
-    const value = JSON.parse(new TextDecoder('utf-8', {fatal:true}).decode(bytes));
+    const value = JSON.parse(new TextDecoder('utf-8', {fatal:true,ignoreBOM:false}).decode(bytes));
     check(value && !Array.isArray(value) && typeof value === 'object'); return value;
   } catch (error) { if (error instanceof Failure) throw error; throw new Failure(400, 'invalid_request'); }
 }
@@ -258,46 +258,69 @@ export async function handleCloud(request, env) {
 
 function authPage(env, deletion) {
   const config = JSON.stringify(webConfig(env)).replace(/</g,'\\u003c');
-  const providers=JSON.stringify(providerList(env));
-  const nonce=random();
-  const html=`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Quiet Camp account</title><style nonce="${nonce}">body{font:18px system-ui;max-width:34rem;margin:4rem auto;padding:1rem;background:#eff3ec;color:#17342b}button{font:inherit;padding:1rem;margin:.5rem 0;display:block;width:100%}p{line-height:1.6}</style>
-<h1>Quiet Camp</h1><p>${deletion ? 'Delete your cloud account and cloud progress. Your progress on this device is handled separately in the game.' : 'Sign in to connect your cloud progress. This does not enable advertising or analytics.'}</p>
-<div id="buttons"></div><p id="status" role="status">Choose your sign-in provider.</p>
-<button id="delete" hidden>Delete my cloud account and progress</button>
-<p><a href="https://oleksiy-havryliuk.de/quiet-camp/privacy">Privacy policy</a></p>
+  const providers = JSON.stringify(providerList(env));
+  const nonce = random();
+  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#132e25">
+<title>${deletion ? 'Delete your account' : 'Connect your progress'} — Quiet Camp</title>
+<style nonce="${nonce}">
+:root{color-scheme:dark;--bg:#132e25;--card:#1b382e;--cream:#f6efdF;--muted:#bdcbbd;--line:#395348;--accent:#ddbf86;--danger:#f1b6a8}
+*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--bg);color:var(--cream);font:16px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;background-image:radial-gradient(ellipse at 90% 0%,#2c493c 0,transparent 55%)}a{color:inherit;text-underline-offset:4px}a:hover{color:var(--accent)}a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:5px}button{font:inherit;cursor:pointer}button:disabled{cursor:wait;opacity:.6}header,footer{max-width:1120px;margin:auto;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:inline-flex;align-items:center;gap:12px;text-decoration:none;font-family:Georgia,serif;font-size:24px}.brand svg{width:35px;height:35px;color:var(--accent)}.back{font-size:14px;color:var(--muted);text-decoration:none}main{max-width:1040px;margin:36px auto 64px;padding:0 32px;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}.eyebrow{color:var(--accent);text-transform:uppercase;letter-spacing:.18em;font-size:11px;font-weight:650;margin:0 0 18px}h1{font:normal clamp(42px,5vw,64px)/1.08 Georgia,serif;letter-spacing:-.035em;margin:0 0 24px}p{margin:0 0 18px}.intro{color:var(--muted);font-size:17px;max-width:400px}.details{margin-top:38px;border-top:1px solid var(--line);padding-top:24px}.details h2{font-size:14px;margin:0 0 14px;font-weight:600}.details ul{padding:0;list-style:none;margin:0}.details li{position:relative;padding-left:22px;margin:12px 0;color:var(--muted);font-size:14px}.details li:before{content:'✓';position:absolute;left:0;color:var(--accent)}.details .removal:before{content:'−';color:var(--danger)}.card{border:1px solid var(--line);border-radius:24px;padding:32px;background:var(--card);box-shadow:0 24px 70px #061a142b}.steps{display:flex;gap:24px;margin-bottom:30px;color:var(--muted);font-size:12px}.step{display:flex;align-items:center;gap:8px}.step span{display:grid;place-items:center;width:24px;height:24px;border:1px solid var(--line);border-radius:50%;font-size:11px}.step.current{color:var(--cream)}.step.current span{background:var(--cream);border-color:var(--cream);color:var(--bg)}h2{font:normal 26px/1.2 Georgia,serif;margin:0 0 12px}.card-copy{font-size:14px;color:var(--muted)}.provider{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;border:1px solid #e5e4de;border-radius:10px;min-height:54px;padding:12px 18px;margin-top:12px;background:#faf9f5;color:#24362e;font-weight:600;font-size:14px}.provider:hover{background:#e9eddf}.provider svg{width:20px;height:20px;flex:none}.status{font-size:13px;color:var(--muted);margin:20px 0 0;overflow-wrap:anywhere}.status[data-tone=error]{color:#ffc5b7}.status[data-tone=success]{color:#d0e8b8}.status:focus{outline:none}.identity{font-size:14px;color:var(--muted);overflow-wrap:anywhere;margin-bottom:20px}.warning{border-left:2px solid var(--danger);padding:3px 0 3px 16px;font-size:14px;color:var(--muted);margin:24px 0}.warning strong{display:block;color:var(--cream);margin-bottom:4px}.danger{width:100%;min-height:54px;padding:13px 16px;border:1px solid var(--danger);border-radius:10px;background:var(--danger);color:#42251f;font-size:14px;font-weight:650}.danger:hover{background:#ffd0c4}.secondary{display:block;margin:18px auto 0;padding:4px;background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;text-underline-offset:4px;min-height:36px}.secure{border-top:1px solid var(--line);margin:26px 0 0;padding-top:18px;color:var(--muted);font-size:12px;display:flex;gap:9px;align-items:flex-start}.secure svg{flex:none;width:16px;height:20px}.success-mark{display:grid;place-items:center;width:48px;height:48px;border:1px solid #6f8c68;border-radius:50%;color:#d0e8b8;font-size:24px;margin:0 0 24px}.return-link{display:inline-block;margin-top:12px;color:var(--accent);font-size:14px}footer{border-top:1px solid var(--line);color:var(--muted);font-size:12px;flex-wrap:wrap}footer nav{display:flex;gap:22px;flex-wrap:wrap}footer a{text-decoration:none}noscript p{color:var(--danger);padding-top:12px}@media(max-width:760px){header,footer{padding:22px 24px}main{grid-template-columns:1fr;gap:32px;margin:24px auto 40px;padding:0 24px}.brand{font-size:22px}.back{font-size:12px}h1{font-size:44px}.intro{max-width:none}.details{margin-top:26px;padding-top:20px}.card{padding:26px 24px;border-radius:20px}.steps{margin-bottom:24px}}@media(prefers-reduced-motion:no-preference){button,a{transition:background .15s,color .15s}}
+</style></head><body>
+<header><a class="brand" href="https://oleksiy-havryliuk.de/quiet-camp"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M4 31 20 7l16 24H4Z" stroke="currentColor" stroke-width="1.6"/><path d="m14 31 6-12 6 12M20 7v12M6 35h28" stroke="currentColor" stroke-width="1.6"/></svg>Quiet Camp</a><a class="back" href="https://oleksiy-havryliuk.de/quiet-camp">← Back to the game</a></header>
+<main><section aria-labelledby="page-title"><p class="eyebrow">Your account · Your choice</p><h1 id="page-title">${deletion ? 'A little space.<br>A fresh start.' : 'Your camp,<br>wherever you go.'}</h1>
+<p class="intro">${deletion ? 'Delete your Quiet Camp cloud account and saved cloud progress. Sign in with your usual provider to get started.' : 'Connect your Quiet Camp progress with Google or Facebook, then return to your game.'}</p>
+<div class="details"><h2>${deletion ? 'What happens when you delete?' : 'Keep your progress close'}</h2><ul>${deletion ? '<li class="removal">Your Quiet Camp cloud account and cloud save are permanently removed.</li><li>Progress stored on your devices stays on those devices. Manage it separately in the game.</li><li>Your Google or Facebook account stays active.</li>' : '<li>Use the same sign-in method you use in the game.</li><li>Your sign-in is only used for your Quiet Camp cloud account.</li><li>This does not enable advertising or analytics.</li>'}</ul></div></section>
+<section class="card" aria-label="${deletion ? 'Delete your account' : 'Connect your account'}">
+${deletion ? '<div class="steps" aria-label="Deletion steps"><div id="step-signin" class="step current" aria-current="step"><span>1</span>Verify account</div><div id="step-confirm" class="step"><span>2</span>Confirm deletion</div></div>' : ''}
+<div id="signin"><h2>${deletion ? 'Delete your account' : 'Continue to Quiet Camp'}</h2><p class="card-copy">${deletion ? 'First, verify the account you want to delete. Choose the provider you used in Quiet Camp.' : 'Choose your sign-in provider to securely connect your progress.'}</p><div id="buttons"></div></div>
+<div id="confirmation" hidden><h2>Confirm deletion</h2><p id="identity" class="identity"></p><div class="warning"><strong>This is permanent.</strong>Your cloud account and saved cloud progress will be deleted. You cannot undo this action.</div><button class="danger" id="delete" hidden disabled>Delete my cloud account &amp; progress</button><button class="secondary" id="change-account">Use a different account</button></div>
+<div id="complete" hidden><div class="success-mark" aria-hidden="true">✓</div><h2 id="complete-title"></h2><p class="card-copy" id="complete-copy"></p><a class="return-link" href="https://oleksiy-havryliuk.de/quiet-camp">Return to Quiet Camp →</a></div>
+<p id="status" class="status" role="status" aria-live="polite" tabindex="-1">Preparing secure sign-in…</p>
+<p class="secure"><svg viewBox="0 0 20 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="12" height="10" rx="2" stroke="currentColor"/><path d="M6 10V7a4 4 0 0 1 8 0v3m-4 4v2" stroke="currentColor" stroke-linecap="round"/></svg>Sign in securely with your provider. Quiet Camp never receives your Google or Facebook password.</p>
+<noscript><p>Enable JavaScript to sign in, or contact <a href="mailto:privacy@oleksiy-havryliuk.de">privacy@oleksiy-havryliuk.de</a> for help with account deletion.</p></noscript>
+</section></main><footer><span>Quiet Camp · Kruty1918 Games</span><nav aria-label="Account help"><a href="https://oleksiy-havryliuk.de/quiet-camp/account">Account help</a><a href="https://oleksiy-havryliuk.de/quiet-camp/privacy">Privacy policy</a><a href="mailto:privacy@oleksiy-havryliuk.de">Contact</a></nav></footer>
 <script type="module" nonce="${nonce}">
-import {initializeApp} from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js';
-import {getAuth,setPersistence,inMemoryPersistence,signInWithPopup,signOut,GoogleAuthProvider,FacebookAuthProvider} from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js';
-const auth=getAuth(initializeApp(${config})); await setPersistence(auth,inMemoryPersistence);
 const allowed=${providers}, deletion=${JSON.stringify(deletion)}, parts=location.hash.slice(1).split(':'), ticket=parts[0], selected=parts[1];
 history.replaceState(null,'',location.pathname);
-const status=document.getElementById('status'), buttons=document.getElementById('buttons');
+const el=id=>document.getElementById(id), status=el('status'), buttons=el('buttons'), remove=el('delete');
 const validTicket=/^[a-f0-9]{64}$/.test(ticket) && allowed.includes(selected);
-if(!deletion) status.textContent=validTicket?'Only continue if Quiet Camp on your device shows this code: '+ticket.slice(0,8).toUpperCase():'Start sign-in from Quiet Camp, then return here.';
-const factories={google:()=>{const p=new GoogleAuthProvider();p.setCustomParameters({prompt:'select_account'});return p;},facebook:()=>new FacebookAuthProvider()};
-const labels={google:'Google',facebook:'Facebook'};
-let identity=null,finished=false;
+let identity=null,finished=false,busy=false;
+function message(text,tone=''){status.textContent=text;status.dataset.tone=tone;}
+function lock(value){busy=value;for(const b of document.querySelectorAll('button'))b.disabled=value;remove.disabled=value||!identity;}
+function reset(){identity=null;el('confirmation').hidden=true;remove.hidden=true;remove.disabled=true;el('signin').hidden=false;if(deletion){el('step-signin').classList.add('current');el('step-signin').setAttribute('aria-current','step');el('step-confirm').classList.remove('current');el('step-confirm').removeAttribute('aria-current');}}
+function complete(title,copy){identity=null;el('signin').hidden=true;el('confirmation').hidden=true;remove.hidden=true;remove.disabled=true;el('complete-title').textContent=title;el('complete-copy').textContent=copy;el('complete').hidden=false;document.querySelector('.steps')?.setAttribute('hidden','');message('All done.','success');status.focus();}
 async function send(path,data){const r=await fetch('/v1/cloud/'+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data),credentials:'omit'});if(!r.ok)throw Error('request_failed');return r.json();}
 addEventListener('pagehide',()=>{if(!deletion && validTicket && !finished)navigator.sendBeacon('/v1/cloud/login-cancel',new Blob([JSON.stringify({ticket})],{type:'application/json'}));});
-for(const provider of allowed.filter(p=>deletion||validTicket&&p===selected)) {
- const b=document.createElement('button');b.textContent='Continue with '+labels[provider];buttons.appendChild(b);
- b.onclick=async()=>{b.disabled=true;try{
-  const result=await signInWithPopup(auth,factories[provider]());identity=result.user;
-  if(deletion){status.textContent='Signed in. Confirm below to permanently delete cloud progress.';document.getElementById('delete').hidden=false;}
-  else {await send('login-complete',{ticket,idToken:await identity.getIdToken(true)});finished=true;await signOut(auth);status.textContent='Sign-in completed. Return to Quiet Camp.';buttons.replaceChildren();}
- }catch(e){
-  const cancelled=['auth/popup-closed-by-user','auth/cancelled-popup-request','auth/user-cancelled'].includes(e.code);
-  if(cancelled&&!deletion){await send('login-cancel',{ticket}).catch(()=>{});finished=true;buttons.replaceChildren();}
-  status.textContent=cancelled?'Sign-in cancelled. Return to Quiet Camp; your local progress is safe.':e.code==='auth/popup-blocked'?'Your browser blocked the sign-in window. Tap the provider button again to retry.':e.code==='auth/account-exists-with-different-credential'?'This email already uses another provider. Choose the original sign-in method in the game.':'Sign-in did not complete. Return to the game and retry; your local progress is safe.';
- }finally{b.disabled=false;}};
-}
-document.getElementById('delete').onclick=async()=>{
- if(!identity||!confirm('Permanently delete your Quiet Camp cloud account and cloud progress?'))return;
- try{await send('delete-federated',{idToken:await identity.getIdToken(true),confirm:true});await signOut(auth);identity=null;buttons.replaceChildren();document.getElementById('delete').hidden=true;status.textContent='Cloud account deleted. Local progress on your devices was not erased.';}
- catch{status.textContent='Deletion did not complete. Sign in again and retry, or contact privacy@oleksiy-havryliuk.de.';}
-};
-</script></html>`;
+try{
+ const [{initializeApp},{getAuth,setPersistence,inMemoryPersistence,signInWithPopup,signOut,GoogleAuthProvider,FacebookAuthProvider}]=await Promise.all([import('https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js'),import('https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js')]);
+ const auth=getAuth(initializeApp(${config}));await setPersistence(auth,inMemoryPersistence);
+ const factories={google:()=>{const p=new GoogleAuthProvider();p.setCustomParameters({prompt:'select_account'});return p;},facebook:()=>new FacebookAuthProvider()};
+ const labels={google:'Google',facebook:'Facebook'};
+ const icons={google:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.23c0-.71-.06-1.39-.18-2.05H12v3.87h5.38a4.6 4.6 0 0 1-2 3.02v2.51h3.24c1.9-1.75 2.98-4.33 2.98-7.35Z"/><path fill="#34A853" d="M12 22c2.7 0 4.96-.9 6.62-2.42l-3.24-2.51c-.9.6-2.04.97-3.38.97-2.6 0-4.8-1.76-5.59-4.12H3.07v2.59A10 10 0 0 0 12 22Z"/><path fill="#FBBC05" d="M6.41 13.92a6 6 0 0 1 0-3.84V7.49H3.07a10 10 0 0 0 0 9.02l3.34-2.59Z"/><path fill="#EA4335" d="M12 5.96c1.47 0 2.79.5 3.82 1.49l2.87-2.87A9.6 9.6 0 0 0 12 2a10 10 0 0 0-8.93 5.49l3.34 2.59C7.2 7.72 9.4 5.96 12 5.96Z"/></svg>',facebook:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877F2" d="M24 12a12 12 0 1 0-13.88 11.85v-8.38H7.08V12h3.04V9.36c0-3.01 1.79-4.68 4.53-4.68 1.31 0 2.69.24 2.69.24v2.95h-1.52c-1.49 0-1.95.93-1.95 1.88V12h3.32l-.53 3.47h-2.79v8.38A12 12 0 0 0 24 12Z"/></svg>'};
+ message(deletion?'Choose your sign-in provider.':validTicket?'Only continue if Quiet Camp on your device shows this code: '+ticket.slice(0,8).toUpperCase():'Start sign-in from Quiet Camp, then return here.');
+ if(deletion&&!allowed.length)message('Sign-in is temporarily unavailable. Contact privacy@oleksiy-havryliuk.de for help.','error');
+ for(const provider of allowed.filter(p=>deletion||validTicket&&p===selected)){
+  const b=document.createElement('button');b.className='provider';b.innerHTML=icons[provider];b.append(document.createTextNode('Continue with '+labels[provider]));buttons.appendChild(b);
+  b.onclick=async()=>{if(busy)return;lock(true);message('Opening '+labels[provider]+' sign-in…');try{
+   const result=await signInWithPopup(auth,factories[provider]());identity=result.user;
+   if(deletion){el('identity').textContent=identity.email||identity.displayName||'Your '+labels[provider]+' account';el('signin').hidden=true;el('confirmation').hidden=false;remove.hidden=false;el('step-signin').classList.remove('current');el('step-signin').removeAttribute('aria-current');el('step-confirm').classList.add('current');el('step-confirm').setAttribute('aria-current','step');message('Account verified. Review the details before deleting.');}
+   else{await send('login-complete',{ticket,idToken:await identity.getIdToken(true)});finished=true;await signOut(auth).catch(()=>{});complete('You’re connected.','Sign-in completed. Return to Quiet Camp to continue your game.');}
+  }catch(e){reset();await signOut(auth).catch(()=>{});
+   const cancelled=['auth/popup-closed-by-user','auth/cancelled-popup-request','auth/user-cancelled'].includes(e.code);
+   if(cancelled&&!deletion){await send('login-cancel',{ticket}).catch(()=>{});finished=true;buttons.replaceChildren();}
+   message(cancelled?(deletion?'Sign-in cancelled. No account data was deleted. Choose a provider to try again.':'Sign-in cancelled. Return to Quiet Camp; your local progress is safe.'):e.code==='auth/popup-blocked'?'Your browser blocked the sign-in window. Tap the provider button again to retry.':e.code==='auth/account-exists-with-different-credential'?'This email already uses another provider. Choose your original sign-in method.':'Sign-in did not complete. Please try again; your local progress is safe.',cancelled?'':'error');
+  }finally{lock(false);}};
+ }
+ el('change-account').onclick=async()=>{if(busy)return;lock(true);reset();try{await signOut(auth);message('Choose the account you want to delete.');}catch{message('Could not sign out. Refresh this page and try again.','error');}finally{lock(false);}};
+ remove.onclick=async()=>{
+  if(busy||!identity||!confirm('Permanently delete your Quiet Camp cloud account and cloud progress? This cannot be undone.'))return;
+  lock(true);message('Deleting your cloud account…');try{
+   await send('delete-federated',{idToken:await identity.getIdToken(true),confirm:true});await signOut(auth).catch(()=>{});complete('Your account is deleted.','Your Quiet Camp cloud account and cloud progress were deleted. Progress stored on your devices and your Google or Facebook account were not erased.');
+  }catch{reset();await signOut(auth).catch(()=>{});message('Deletion could not be confirmed. Sign in again to retry, or contact privacy@oleksiy-havryliuk.de.','error');}finally{lock(false);}
+ };
+}catch{reset();message('Secure sign-in could not load. Refresh this page to retry, or contact privacy@oleksiy-havryliuk.de.','error');}
+</script></body></html>`;
   return new Response(html,{headers:{'Content-Type':'text/html;charset=utf-8','Cache-Control':'no-store','Referrer-Policy':'no-referrer',
     'X-Content-Type-Options':'nosniff','Content-Security-Policy':`default-src 'none'; script-src 'nonce-${nonce}' https://www.gstatic.com https://apis.google.com; style-src 'nonce-${nonce}'; connect-src 'self' https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com; frame-src https://${webConfig(env).authDomain}; base-uri 'none'; frame-ancestors 'none'; form-action 'none'`}});
 }

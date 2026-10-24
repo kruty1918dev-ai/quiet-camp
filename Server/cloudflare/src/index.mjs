@@ -73,7 +73,7 @@ async function readBody(request) {
   } finally { reader.releaseLock(); }
   const bytes = new Uint8Array(size); let offset = 0;
   for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.length; }
-  const value = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes));
+  const value = JSON.parse(new TextDecoder("utf-8", { fatal: true, ignoreBOM: false }).decode(bytes));
   if (!value || typeof value !== "object" || Array.isArray(value)) throw Error("Object required");
   return value;
 }
