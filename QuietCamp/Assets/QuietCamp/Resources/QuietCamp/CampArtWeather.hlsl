@@ -2,13 +2,14 @@
         CBUFFER_START(UnityPerMaterial)
         float4 _QCWeather,_QCWind,_GroundFinish,_MeadowExtent;
         float4 _ArtAmbient,_GroundLow,_GroundHigh,_SoilTone,_CampFieldSize,_MeadowTint;
-        float4 _CampUseBounds,_CampClimate,_WeatherSkyBounds,_WeatherSkyGrid;
+        float4 _CampUseBounds,_CampClimate,_WeatherSkyBounds,_WeatherSkyGrid,_GroundContactBounds;
         float4x4 _WeatherSkyToLocal,_WeatherSkyNormalToLocal;
         float _WeatherSnowCover;
         float _MobileMeadow;
         float _ArtGround,_ArtSnowSurface,_ArtWater,_ArtGrass,_ArtMeadow;
         float _ArtRiverDetail,_ArtRiverWaterline;
         CBUFFER_END
+        TEXTURE2D(_GroundContact); SAMPLER(sampler_GroundContact);
         #define QC_CAMP_SURFACE_UNIFORMS
         #include "CampSurfaceUse.hlsl"
         #include "WeatherSky.hlsl"

@@ -18,6 +18,11 @@ namespace QuietCamp.Presentation.World
         LevelData _level; CampArtDefinition _art; Material _ground,_fieldMaterial;
         CampAtmosphere _atmosphere; SeasonAtmosphereView _previewWeather; Func<bool> _paused,_reduced;
         Texture2D _useTexture; Color32[] _pixels; float _refresh,_melt=1,_printClock;
+        Texture2D _contactTexture;
+        CampTerrainSurface _terrain;
+        CampGroundContactField _contact;
+        Color32[] _staticContacts;
+        Transform _contactObstacles;
         readonly List<Material> _bound=new List<Material>();
         readonly List<Transform> _tufts=new List<Transform>();
         readonly List<Vector3> _tuftScales=new List<Vector3>();
@@ -35,9 +40,11 @@ namespace QuietCamp.Presentation.World
         public IReadOnlyList<Vector3> PrintCentres=>Array.Empty<Vector3>();
         public float MeltAmount=>_melt;
         public int Residents=>0;
+        public void ContactObstacles(Transform obstacles)=>_contactObstacles=obstacles;
         public void Configure(LevelData level,Material ground,CampArtDefinition art=null)
         {
             _level=level;_ground=ground;_art=art;_wellOpenings=WorldWellShafts.Find(art);
+            if(art?.landscape!=null)_terrain=new CampTerrainSurface(art.landscape);
             VegetationBounds=CoverBounds(art?.fieldCover??new CampArtDefinition.FieldCoverSettings());
             var finish=art?.groundSurface??new CampArtDefinition.GroundSurfaceSettings();
             if(ground!=null&&ground.HasProperty("_GroundFinish"))ground.SetVector("_GroundFinish",new Vector4(finish.patchScale,finish.facetScale,finish.relief,0));
@@ -60,13 +67,12 @@ namespace QuietCamp.Presentation.World
                 if(Mathf.PerlinNoise(at.x*.65f+19,at.z*.65f+37)<.43f)continue;
                 var cell=BoardMath.CellOf(_level,at);
                 if(CampAccess.IsReserved(_level,cell)||Array.Exists(_level.noise,n=>n[0]==cell.X&&n[1]==cell.Z))continue;
-                bool earth=k%4==0;
-                float size=(.026f+(float)random.NextDouble()*.045f)*finish.stoneScale*(earth?1.6f:1);
-                bool onField=Mathf.Abs(at.x)<_level.width*.5f&&Mathf.Abs(at.z)<_level.height*.5f;
-                float elevation=earth?(onField ? .008f : .025f):size*.45f;
+                // Soil colour belongs to the continuous material, not scattered brown pyramids.
+                if(k%4==0)continue;
+                float size=(.022f+(float)random.NextDouble()*.035f)*Mathf.Min(1,finish.stoneScale);
+                float elevation=size*.32f;
                 var top=at+Vector3.up*elevation;
-                var tint=earth?(_art==null?new Color(.40f,.44f,.25f):CampArtDefinition.Color(_art.soilColor)):
-                    Color.Lerp(new Color(.42f,.44f,.34f),new Color(.61f,.58f,.45f),(float)random.NextDouble());
+                var tint=Color.Lerp(new Color(.48f,.49f,.39f),new Color(.61f,.58f,.45f),(float)random.NextDouble());
                 float yaw=(float)random.NextDouble()*360;var rotation=Quaternion.Euler(0,yaw,0);
                 for(int face=0;face<4;face++)
                 {
@@ -336,6 +342,9 @@ namespace QuietCamp.Presentation.World
         public void Bind(Transform decor,CampAtmosphere atmosphere=null,Func<bool> paused=null,Func<bool> reduced=null,SeasonAtmosphereView previewWeather=null)
         {
             _atmosphere=atmosphere;_previewWeather=previewWeather;_paused=paused;_reduced=reduced;
+            var view=FindObjectsByType<CampArtView>(FindObjectsInactive.Include,FindObjectsSortMode.None).FirstOrDefault(v=>ReferenceEquals(v.Definition,_art));
+            if(view?.PresentedSurface!=null)_terrain=view.PresentedSurface;
+            BuildContacts();
             foreach(var renderer in GetComponentsInChildren<Renderer>(true))foreach(var material in renderer.sharedMaterials)BindMaterial(material);
             if(decor!=null)foreach(var renderer in decor.GetComponentsInChildren<Renderer>(true))foreach(var material in renderer.sharedMaterials)BindMaterial(material);
             _tufts.Clear();_tuftScales.Clear();
@@ -352,6 +361,42 @@ namespace QuietCamp.Presentation.World
                 ?new Vector4(Mathf.Max(Mathf.Abs(area.xMin),Mathf.Abs(area.xMax)),Mathf.Max(Mathf.Abs(area.yMin),Mathf.Abs(area.yMax)),.6f,1)
                 :new Vector4(_level.width*.5f,_level.height*.5f,cover.fringe,0));
             material.SetTexture("_CampUse",_useTexture);material.SetVector("_CampUseBounds",new Vector4(Surface.Bounds.xMin,Surface.Bounds.yMin,1/Surface.Bounds.width,1/Surface.Bounds.height));_bound.Add(material);
+            BindContact(material);
+        }
+        void BindContact(Material material)
+        {
+            if(_contactTexture==null||!material.HasProperty("_GroundContact"))return;
+            var b=_contact.Bounds;material.SetTexture("_GroundContact",_contactTexture);material.SetVector("_GroundContactBounds",new Vector4(b.xMin,b.yMin,1/b.width,1/b.height));
+        }
+        void BuildContacts()
+        {
+            if(_terrain==null||_art==null)return;
+            var area=_terrain.Bounds;
+            int size=Mathf.Clamp(Mathf.CeilToInt(Mathf.Max(area.width,area.height)/.14f),128,512);
+            _contact=new CampGroundContactField(area,size,_terrain.Sample);
+            var models=_art.models.ToDictionary(m=>m.id);
+            foreach(var item in _art.instances)
+            {
+                if(item.modelId==null||!models.TryGetValue(item.modelId,out var model)||model.shading=="foliage"&&model.seasonalRole!="deciduous"&&model.seasonalRole!="conifer"||model.seasonalRole=="groundcover"||!string.IsNullOrEmpty(item.motion))continue;
+                var rotation=item.rotationEuler!=null?Quaternion.Euler(CampArtDefinition.Vector(item.rotationEuler)):Quaternion.Euler(0,item.yaw,0);
+                var scale=item.scaleXYZ!=null?CampArtDefinition.Vector(item.scaleXYZ):Vector3.one*item.scale;
+                var matrix=Matrix4x4.TRS(_terrain.Position(_art,item),rotation,scale);
+                Vector3 Point(int i)=>matrix.MultiplyPoint3x4(new Vector3(model.vertices[i],model.vertices[i+1],model.vertices[i+2]));
+                for(int i=0;i+8<model.vertices.Length;i+=9)_contact.Triangle(Point(i),Point(i+3),Point(i+6));
+            }
+            if(_contactObstacles!=null)
+                foreach(var filter in _contactObstacles.GetComponentsInChildren<MeshFilter>(true))
+                {
+                    var mesh=filter.sharedMesh;if(mesh==null||!mesh.isReadable)continue;
+                    var matrix=_contactObstacles.parent.worldToLocalMatrix*filter.transform.localToWorldMatrix;
+                    var vertices=mesh.vertices;var indices=mesh.triangles;
+                    for(int i=0;i<indices.Length;i+=3)_contact.Triangle(matrix.MultiplyPoint3x4(vertices[indices[i]]),matrix.MultiplyPoint3x4(vertices[indices[i+1]]),matrix.MultiplyPoint3x4(vertices[indices[i+2]]));
+                }
+            _staticContacts=_contact.Pixels();
+            Release(_contactTexture);
+            _contactTexture=new Texture2D(size,size,TextureFormat.RGBA32,false,true){name="Physical ground contacts",wrapMode=TextureWrapMode.Clamp,filterMode=FilterMode.Bilinear};
+            _contactTexture.SetPixels32(_staticContacts);_contactTexture.Apply(false,false);
+            foreach(var m in _bound)if(m!=null)BindContact(m);
         }
         void Publish()
         {
@@ -395,12 +440,33 @@ namespace QuietCamp.Presentation.World
             float half=_art!=null?Mathf.Max(19.2f,_art.surroundExtent):Mathf.Max(_level.width,_level.height)*.5f+24;
             return new Rect(-half,-half,half*2,half*2);
         }
-        float Height(Vector3 p)=>_art?.GroundHeight(p.x,p.z)??MeadowSurface.GroundY;
+        float Height(Vector3 p)=>_terrain?.Sample(p.x,p.z)??_art?.GroundHeight(p.x,p.z)??MeadowSurface.GroundY;
         public void Rebuild(IReadOnlyList<Placement> placements)
         {
             Surface.ClearOccupancy();
             foreach(var p in placements){var at=BoardMath.TentCenter(_level,p.x,p.z);Surface.Tent(new Rect(at.x-1,at.z-1,2,2),Stable(p.guestId));}
+            RebuildTentContacts(placements);
             Publish();
+        }
+        void RebuildTentContacts(IReadOnlyList<Placement> placements)
+        {
+            if(_contact==null||_staticContacts==null)return;
+            _contact.Clear();var catalog=AssetCatalog.Load();
+            foreach(var placement in placements)
+            {
+                var guest=Array.Find(_level.guests,g=>g.id==placement.guestId);var prefab=guest==null?null:catalog.Prefab(guest.assetId);
+                if(prefab==null)continue;
+                var target=Matrix4x4.TRS(BoardMath.TentCenter(_level,placement.x,placement.z),Quaternion.Euler(0,BoardMath.TentYaw(placement.rotation),0),prefab.transform.localScale);
+                foreach(var filter in prefab.GetComponentsInChildren<MeshFilter>(true))
+                {
+                    var mesh=filter.sharedMesh;if(mesh==null||!mesh.isReadable)continue;
+                    var matrix=target*prefab.transform.worldToLocalMatrix*filter.transform.localToWorldMatrix;
+                    var vertices=mesh.vertices;var indices=mesh.triangles;
+                    for(int i=0;i<indices.Length;i+=3)_contact.Triangle(matrix.MultiplyPoint3x4(vertices[indices[i]]),matrix.MultiplyPoint3x4(vertices[indices[i+1]]),matrix.MultiplyPoint3x4(vertices[indices[i+2]]));
+                }
+            }
+            var pixels=_contact.Pixels();for(int i=0;i<pixels.Length;i++)pixels[i].r=Math.Max(pixels[i].r,_staticContacts[i].r);
+            _contactTexture.SetPixels32(pixels);_contactTexture.Apply(false,false);
         }
         static int Stable(string id){uint h=2166136261;foreach(char c in id??"")h=unchecked((h^c)*16777619);return (int)(h&65535);}
         public void Advance(float seconds,float rain,float snowfall,bool reduced=false)
@@ -457,8 +523,9 @@ namespace QuietCamp.Presentation.World
         void OnDestroy()=>Dispose();
         public void Dispose()
         {
-            foreach(var m in _bound)if(m!=null){m.SetTexture("_CampUse",Texture2D.blackTexture);m.SetVector("_CampUseBounds",Vector4.zero);}
-            Release(_pebbleCover);Release(_fieldCover);Release(_useTexture);
+            foreach(var m in _bound)if(m!=null){m.SetTexture("_CampUse",Texture2D.blackTexture);m.SetVector("_CampUseBounds",Vector4.zero);if(m.HasProperty("_GroundContact")){m.SetTexture("_GroundContact",Texture2D.blackTexture);m.SetVector("_GroundContactBounds",Vector4.zero);}}
+            Release(_pebbleCover);Release(_fieldCover);Release(_useTexture);Release(_contactTexture);
+            _contactTexture=null;_contact=null;_staticContacts=null;_terrain=null;
             _pebbleCover=null;_fieldCover=null;_useTexture=null;_bound.Clear();
 #if UNITY_EDITOR
             _previewFieldMaterials.Clear();

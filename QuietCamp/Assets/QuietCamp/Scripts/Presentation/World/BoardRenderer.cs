@@ -80,6 +80,7 @@ namespace QuietCamp.Presentation.World
             BuildObstacles();
             _groundDetails = _gridRoot.gameObject.AddComponent<CampGroundDetails>();
             _groundDetails.Configure(_level,_groundMaterial,_art);
+            _groundDetails.ContactObstacles(_obstacleRoot);
 
         }
 

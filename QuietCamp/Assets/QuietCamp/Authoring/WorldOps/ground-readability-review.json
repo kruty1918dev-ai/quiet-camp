@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "id": "ground-readability-v1",
+  "label": "Continuous ground and physical support review",
+  "orders": [44, 1, 7, 9, 71],
+  "seed": 4157,
+  "maxRepairRounds": 5,
+  "autoApply": false,
+  "capture": true,
+  "previewOnly": true,
+  "runtimePresentation": true,
+  "operations": [{"id": "shared-ground-renderer", "kind": "audit", "parameters": {}}],
+  "criteria": {
+    "autoRepair": false,
+    "requireVisualReview": true,
+    "inspectMapCoverage": true,
+    "includeMenu": true,
+    "profiles": ["portrait", "landscape"],
+    "quality": 2,
+    "maximumSceneTriangles": 50000
+  }
+}

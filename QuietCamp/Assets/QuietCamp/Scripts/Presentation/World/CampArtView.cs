@@ -28,6 +28,7 @@ namespace QuietCamp.Presentation.World
         public int TriangleCount { get; private set; }
         public SeasonAtmosphereView SeasonAtmosphere {get;private set;}
         public FrozenLandscape PresentedLandscape {get;private set;}
+        public CampTerrainSurface PresentedSurface {get;private set;}
         public RiverReflectionView RiverReflections {get;private set;}
 #if UNITY_EDITOR
         Mesh _primaryPresentedMesh;
@@ -51,6 +52,7 @@ namespace QuietCamp.Presentation.World
             var riverProfile=RiverEnvironmentProfile.Load();
             WorldWellShafts.Invalidate(definition);
             PresentedLandscape=excludeLandscape?definition.landscape:WorldWellShafts.Resolve(definition,RiverLandscapeGeometry.Resolve(definition,riverProfile));
+            if(PresentedLandscape!=null)PresentedSurface=new CampTerrainSurface(PresentedLandscape);
             _camera.transform.rotation=Quaternion.Euler(CampArtDefinition.Vector(definition.cameraEuler));
             _root = new GameObject("AuthoredCampSurround"); _root.transform.SetParent(parent, false);
             var shader = Resources.Load<Shader>("QuietCamp/CampArtLit");
@@ -93,9 +95,7 @@ namespace QuietCamp.Presentation.World
             {
                 if(item.modelId!=null&&sourceModels.TryGetValue(item.modelId,out var rimPlant)
                     &&(rimPlant.seasonalRole=="groundcover"||rimPlant.seasonalRole=="flower")&&WorldWellShafts.ExcludesGroundPlant(definition,item.x,item.y,item.z))continue;
-                var position = new Vector3(item.x, item.y, item.z);
-                if(item.surfaceAttached==true&&PresentedLandscape!=null&&definition.landscape!=null&&!item.id.StartsWith("river-bank/",StringComparison.Ordinal))
-                    position.y+=PresentedLandscape.SampleHeight(item.x,item.z)-definition.landscape.SampleHeight(item.x,item.z);
+                var position = PresentedSurface!=null&&definition.landscape!=null?PresentedSurface.Position(definition,item):new Vector3(item.x,item.y,item.z);
                 var rotation = item.rotationEuler != null ? Quaternion.Euler(CampArtDefinition.Vector(item.rotationEuler)) : Quaternion.Euler(0, item.yaw, 0);
                 var scale = item.scaleXYZ != null ? CampArtDefinition.Vector(item.scaleXYZ) : Vector3.one * item.scale;
                 if(item.surfaceAttached==true&&item.modelId!=null&&sourceModels.TryGetValue(item.modelId,out var plant)&&(plant.seasonalRole=="groundcover"||plant.seasonalRole=="flower")

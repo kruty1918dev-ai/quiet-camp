@@ -12,6 +12,27 @@ namespace QuietCamp.Tests
 {
     public sealed class MobileGeometryBudgetTests
     {
+        [Test] public void DisplayedSurfaceUsesTrianglesInsteadOfTheUnchangedBilinearHeightField()
+        {
+            var landscape=new FrozenLandscape{originX=0,originZ=0,size=2,resolution=2,heights=new[]{0f,0,0,2},meshes=new[]{new LandscapeMesh{
+                vertices=new[]{0f,0,0, 2,0,0, 0,0,2, 2,2,2},triangles=new[]{0,2,1,1,2,3}}}};
+            var surface=new CampTerrainSurface(landscape);
+            Assert.AreEqual(.5f,landscape.SampleHeight(1,1));Assert.AreEqual(0,surface.Sample(1,1));
+            var art=new CampArtDefinition{landscape=landscape};
+            var item=new CampArtDefinition.Instance{id="attached",x=1,z=1,y=.7f,surfaceAttached=true};
+            Assert.AreEqual(.2f,surface.Position(art,item).y,.0001f);
+            item.surfaceAttached=false;Assert.AreEqual(.7f,surface.Position(art,item).y,.0001f);
+            Assert.AreEqual(.7f,item.y);Assert.AreEqual(.5f,landscape.SampleHeight(1,1));
+        }
+        [Test] public void ContactOcclusionUsesTheFootprintAndLeavesElevatedOpeningsClear()
+        {
+            var field=new CampGroundContactField(new Rect(-2,-2,4,4),64,(x,z)=>0);
+            field.Triangle(new Vector3(-1,1,-1),new Vector3(1,1,-1),new Vector3(0,1,1));
+            Assert.IsTrue(field.Pixels().All(c=>c.r==0),"An elevated roof painted a ground stain.");
+            field.Triangle(new Vector3(-1,.01f,-1),new Vector3(-.7f,.01f,-1),new Vector3(-1,.01f,-.7f));
+            var pixels=field.Pixels();Assert.Greater(pixels[16*64+16].r,200);Assert.AreEqual(0,pixels[32*64+32].r,"Open space between supports was filled.");
+            field.Clear();Assert.IsTrue(field.Pixels().All(c=>c.r==0),"Removed tent contact survived undo.");
+        }
         [Test] public void MenuTentsInheritTheirInactiveBoardBudgetBeforeArtViewExists()
         {
             var root=new GameObject("Inactive menu background");root.SetActive(false);

@@ -110,10 +110,10 @@
                 }
                 if(_ArtGround>.5)
                 {
-                    float grainWeight=1-smoothstep(.12,.45,max(length(ddx(input.positionWS.xz)),length(ddy(input.positionWS.xz)))*6);
-                    float exposedEarth=1-saturate(_CampClimate.y);
-                    color*=lerp(1,.90+ArtNoise(input.positionWS.xz*.43)*.15+ArtNoise(input.positionWS.xz*2.4)*.06,exposedEarth);
-                    color*=1+(ArtNoise(input.positionWS.xz*7)-.5)*.06*grainWeight*exposedEarth;
+                    float2 contactUV=(input.positionWS.xz-_GroundContactBounds.xy)*_GroundContactBounds.zw;
+                    float inside=step(0,contactUV.x)*step(contactUV.x,1)*step(0,contactUV.y)*step(contactUV.y,1);
+                    float contact=SAMPLE_TEXTURE2D(_GroundContact,sampler_GroundContact,contactUV).r*inside;
+                    color*=1-contact*.32;
                 }
                 if(_ArtWater>.5)
                 {

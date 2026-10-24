@@ -26,7 +26,7 @@ float3 GroundRelief(float2 p,float scale)
 float3 NaturalGroundNormal(float3 authored,float2 p,float4 finish,float wet,float snow)
 {
     float3 relief=GroundRelief(p,finish.y);
-    relief*=finish.z*lerp(1,.85,saturate(wet));
+    relief*=finish.z*.45*lerp(1,.85,saturate(wet));
     float3 snowRelief=GroundRelief(p,.38)*.22+GroundRelief(p,1.4)*.025;
     relief=lerp(relief,snowRelief,saturate(snow));
     float weight=smoothstep(.4,.9,authored.y);
@@ -42,20 +42,18 @@ float3 NaturalGroundColor(float2 p,float3 low,float3 high,float3 soil,float4 fin
 {
     float broad=GroundNoise(p*finish.x+17);
     float medium=GroundNoise(p*.83+31);
-    float patches=saturate((broad*.78+medium*.22-.5)*1.8+.5);
-    float earth=smoothstep(.51,.75,GroundNoise(p*.46+61));
-    float moss=smoothstep(.45,.74,GroundNoise(p*.31-23));
+    float patches=saturate(.25+broad*.55+medium*.08);
+    float earth=smoothstep(.42,.86,GroundNoise(p*.19+61));
+    float moss=smoothstep(.35,.85,GroundNoise(p*.16-23));
     float3 color=lerp(low,high,patches);
-    color=lerp(color,soil,earth*.60);
-    color=lerp(color,low*float3(.85,1,.91),moss*.28);
-    color*=lerp(.98,1.02,GroundNoise(p*finish.y));
+    color=lerp(color,soil,earth*.27);
+    color=lerp(color,low*float3(.94,1,.96),moss*.14);
+    color*=lerp(.99,1.01,GroundNoise(p*finish.y));
     return color*(1-saturate(wet)*(.05+earth*.07));
 }
 float3 MeadowSubstrate(float3 color,float2 p,float4 extent)
 {
-    float edge=max(abs(p.x)-extent.x,abs(p.y)-extent.y);
-    float fringe=max(.1,extent.z);
-    float cover=(1-smoothstep(-.2,fringe,edge+(GroundNoise(p*.6+13)-.5)*.9))*extent.w;
-    return color*lerp(float3(1,1,1),float3(.86,.94,.85),cover);
+    // The same substrate extends through the whole landscape, without a board-shaped tint.
+    return color;
 }
 #endif

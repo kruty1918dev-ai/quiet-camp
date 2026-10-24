@@ -29,22 +29,8 @@ namespace QuietCamp.Infrastructure
                 &&!holes.Any(h=>h.Contains(x,z,-.04f))&&(!water.TrySample(x,z,out var wet)||!wet.Wet);
             // Roots use the displayed terrain triangles, which may have been
             // resampled for the budget. The physical height field stays intact.
-            var ground=art.landscape.meshes.Where(m=>!m.water&&!m.decoration).ToArray();
-            float Ground(float x,float z)
-            {
-                foreach(var mesh in ground)for(int i=0;i<mesh.triangles.Length;i+=3)
-                {
-                    int a=mesh.triangles[i]*3,b=mesh.triangles[i+1]*3,c=mesh.triangles[i+2]*3;var v=mesh.vertices;
-                    if(x<Math.Min(v[a],Math.Min(v[b],v[c]))-.00001f||x>Math.Max(v[a],Math.Max(v[b],v[c]))+.00001f
-                        ||z<Math.Min(v[a+2],Math.Min(v[b+2],v[c+2]))-.00001f||z>Math.Max(v[a+2],Math.Max(v[b+2],v[c+2]))+.00001f)continue;
-                    float determinant=(v[b+2]-v[c+2])*(v[a]-v[c])+(v[c]-v[b])*(v[a+2]-v[c+2]);
-                    if(Math.Abs(determinant)<1e-10f)continue;
-                    float u=((v[b+2]-v[c+2])*(x-v[c])+(v[c]-v[b])*(z-v[c+2]))/determinant;
-                    float t=((v[c+2]-v[a+2])*(x-v[c])+(v[a]-v[c])*(z-v[c+2]))/determinant;
-                    if(u>=-.00001f&&t>=-.00001f&&u+t<=1.00001f)return u*v[a+1]+t*v[b+1]+(1-u-t)*v[c+1];
-                }
-                return art.GroundHeight(x,z);
-            }
+            var surface=new CampTerrainSurface(art.landscape);
+            float Ground(float x,float z)=>surface.Sample(x,z);
             const int farSide=16,nearSide=23,farPatches=farSide*farSide;
             for(int i=0;i<farPatches+nearSide*nearSide;i++)
             {
