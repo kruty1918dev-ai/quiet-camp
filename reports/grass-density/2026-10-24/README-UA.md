@@ -74,4 +74,8 @@ Native кадри нового варіанта, його verdict і повни�
 [Результат](final-portable/mobile-budget-audit.json),
 [джерела](final-portable/budget-source-manifest.json). Це досі частковий
 підрахунок; повний native після корекції перевіряється окремо.
+Фінальні EditMode контракти: **11 passed, 0 failed**, 11,79 с:
+[оригінальний результат](native-tests/final-tests.json). Додатково перевірено
+незмінність первинних вершин і rigid submeshes обох наметів, спільний кеш
+кожної деталізації, збереження двох меж terrain margins і відхилення cut mesh.
 Player build не запускався.
