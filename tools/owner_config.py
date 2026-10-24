@@ -195,11 +195,36 @@ def native_firebase(config):
     # Only the selected Android application's required native client fields.
     # Arbitrary owner/Firebase extension fields never become build payload.
     info = source["project_info"]
-    return {"project_info": {key: info[key] for key in ("project_number", "project_id", "storage_bucket", "firebase_url") if key in info},
+    def oauth_clients(values):
+        if not isinstance(values,list): raise ConfigError('Invalid Firebase OAuth client list')
+        result=[]
+        for item in values:
+            if not isinstance(item,dict): raise ConfigError('Invalid Firebase OAuth client')
+            kind=item.get('client_type')
+            if kind not in (1,3): continue  # Android and Web only; never an unrelated platform's config.
+            client_id=item.get('client_id')
+            if not isinstance(client_id,str) or not re.fullmatch(r'[0-9]+-[a-z0-9]+\.apps\.googleusercontent\.com',client_id):
+                raise ConfigError('Invalid Firebase OAuth client ID')
+            value={'client_id':client_id,'client_type':kind}
+            if kind==1:
+                android=item.get('android_info',{})
+                if not isinstance(android,dict) or android.get('package_name')!=config['android']['packageName'] or not re.fullmatch(r'[0-9a-fA-F]{40}',str(android.get('certificate_hash',''))):
+                    raise ConfigError('Invalid Android OAuth package or certificate hash')
+                value['android_info']={key:android[key] for key in ('package_name','certificate_hash')}
+            result.append(value)
+        return result
+    result = {"project_info": {key: info[key] for key in ("project_number", "project_id", "storage_bucket", "firebase_url") if key in info},
             "client": [{"client_info": {"mobilesdk_app_id": client["client_info"]["mobilesdk_app_id"],
                                         "android_client_info": {"package_name": config["android"]["packageName"]}},
                         "api_key": [{"current_key": item["current_key"]} for item in client["api_key"] if "current_key" in item]}],
             "configuration_version": "1"}
+    if 'oauth_client' in client:
+        result['client'][0]['oauth_client']=oauth_clients(client['oauth_client'])
+    invite=client.get('services',{}).get('appinvite_service',{})
+    if 'other_platform_oauth_client' in invite:
+        result['client'][0]['services']={'appinvite_service':{'other_platform_oauth_client':[
+            item for item in oauth_clients(invite['other_platform_oauth_client']) if item['client_type']==3]}}
+    return result
 
 
 def planned(config, root=ROOT):
@@ -273,7 +298,7 @@ def planned(config, root=ROOT):
     source = (root / manifest).read_text(encoding="utf-8")
     source = re.sub(r'(?m)^.*<provider android:name="com.google.android.gms.ads.MobileAdsInitProvider" tools:node="remove" />\s*\n', '', source)
     if not app_id:
-        source = source.replace("  <application>", '  <application>\n    <provider android:name="com.google.android.gms.ads.MobileAdsInitProvider" tools:node="remove" />')
+        source = re.sub(r'<application\b[^>]*>',lambda match:match[0]+'\n    <provider android:name="com.google.android.gms.ads.MobileAdsInitProvider" tools:node="remove" />',source,count=1)
     outputs[manifest] = source.encode("utf-8")
     project = "QuietCamp/ProjectSettings/ProjectSettings.asset"
     source = (root / project).read_text(encoding="utf-8")

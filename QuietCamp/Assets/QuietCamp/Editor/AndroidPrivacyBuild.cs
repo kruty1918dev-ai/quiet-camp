@@ -71,6 +71,10 @@ namespace QuietCamp.Editor
             document.Root.SetAttributeValue(XNamespace.Xmlns + "tools", tools.NamespaceName);
             foreach(var attribute in rules.Attributes().Where(a=>a.Name.Namespace==android))
                 app.SetAttributeValue(attribute.Name,attribute.Value);
+            var replacements=((string)app.Attribute(tools+"replace") ?? "").Split(',')
+                .Concat(((string)rules.Attribute(tools+"replace") ?? "").Split(','))
+                .Select(value=>value.Trim()).Where(value=>value.Length>0).Distinct().ToArray();
+            if(replacements.Length>0) app.SetAttributeValue(tools+"replace",string.Join(",",replacements));
             foreach (var rule in rules.Elements())
             {
                 var name = (string)rule.Attribute(android + "name");

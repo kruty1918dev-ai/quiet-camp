@@ -29,6 +29,8 @@ namespace QuietCamp.Tests.Editor
                 Assert.That((string)app.Attribute(android + "label"), Is.EqualTo("preserved"));
                 Assert.That((string)app.Attribute(android + "fullBackupContent"),Is.EqualTo("@xml/qc_backup_rules"));
                 Assert.That((string)app.Attribute(android + "dataExtractionRules"),Is.EqualTo("@xml/qc_data_extraction_rules"));
+                Assert.That(((string)app.Attribute(tools+"replace")).Split(','),Does.Contain("android:fullBackupContent"));
+                Assert.That(((string)app.Attribute(tools+"replace")).Split(','),Does.Contain("android:dataExtractionRules"));
                 Assert.That(app.Elements("provider").Any(e => (string)e.Attribute(android + "name") == "unrelated.Provider"), Is.True);
                 var removal = app.Elements("provider").Single(e => (string)e.Attribute(android + "name") == "com.google.firebase.provider.FirebaseInitProvider");
                 Assert.That((string)removal.Attribute(tools + "node"), Is.EqualTo("remove"));

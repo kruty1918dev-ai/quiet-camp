@@ -250,9 +250,8 @@ namespace QuietCamp.Presentation
             Cloud=new CloudSaveService(Settings,new CloudCredentialStore(save.MemoryOnly),new CloudTransport(OwnerConfiguration.cloudSaveEndpoint),
                 OwnerConfiguration.cloudSaveEndpoint,OwnerConfiguration.CloudSaveConfigured(Legal) && !save.MemoryOnly,
                 () => !Settings.privacyAcknowledgementDraft && Settings.privacyAcknowledgementRevision==Legal.revision
-                    && (PrivacyEligibility.Band(Settings)==PrivacyAgeBand.Adult
-                        || PrivacyEligibility.Band(Settings)==PrivacyAgeBand.From16To17 && OwnerConfiguration.cloudSaveTeenReviewed),
-                CaptureCloudProgress,ApplyCloudProgress,save.Save);
+                    && Settings.privacySetupVersion==PrivacySetup.Version && !string.IsNullOrWhiteSpace(Settings.privacyAcknowledgementHash),
+                CaptureCloudProgress,ApplyCloudProgress,save.Save,nativeIdentity:NativeIdentityProviders.Create());
             save.SaveCommitted += OnCloudSaveCommitted;
             OnCloudSaveCommitted();
             Tutorial.RetryReward();

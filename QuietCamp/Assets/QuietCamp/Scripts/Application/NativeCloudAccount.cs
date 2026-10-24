@@ -154,7 +154,7 @@ namespace QuietCamp.Application
                     BlockForDeletion(reply.error=="deletion_pending" ? CloudSaveStatus.DeletionPending : CloudSaveStatus.DeletionRetry);
                     if(token!=null) await Call("sign-out",new {},token);
                 }
-            } catch(OperationCanceledException) { if(Current(generation)) Notify(CloudSaveStatus.Cancelled); }
+            } catch(OperationCanceledException) { if(Current(generation)) Notify(cancellation.IsCancellationRequested && !cancel.IsCancellationRequested ? CloudSaveStatus.TimedOut : CloudSaveStatus.Cancelled); }
             catch(CloudIdentityException e) { if(Current(generation)) Notify(e.NoCredentials ? CloudSaveStatus.NoCredentials : CloudSaveStatus.Unavailable); }
             catch { if(Current(generation)) Notify(CloudSaveStatus.Offline); }
             finally {

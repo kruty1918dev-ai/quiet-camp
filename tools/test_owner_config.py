@@ -138,5 +138,21 @@ class OwnerTests(unittest.TestCase):
         self.assertFalse(owner.validate(self.config))
         self.assertNotIn("not_for_build", json.dumps(owner.native_firebase(self.config)))
 
+    def test_native_output_preserves_android_and_web_oauth_without_extension_fields(self):
+        source={"project_info":{"project_id":"quiet-camp","project_number":"123456"},
+                "client":[{"client_info":{"mobilesdk_app_id":"1:123456:android:abcdef","android_client_info":{"package_name":"com.quietcamp.game"}},
+                           "api_key":[{"current_key":"AIza"+'a'*35}]}]}
+        web={'client_type':3,'client_id':'123456-web.apps.googleusercontent.com'}
+        android={'client_type':1,'client_id':'123456-android.apps.googleusercontent.com','android_info':{'package_name':'com.quietcamp.game','certificate_hash':'ab'*20}}
+        source['client'][0]['oauth_client']=[{**web,'not_for_build':'ignored'},android]
+        source['client'][0]['services']={'appinvite_service':{'other_platform_oauth_client':[web]}}
+        self.config['firebase']['androidGoogleServices']=source
+        native=owner.native_firebase(self.config)['client'][0]
+        self.assertEqual([web,android],native['oauth_client'])
+        self.assertEqual([web],native['services']['appinvite_service']['other_platform_oauth_client'])
+        self.assertNotIn('not_for_build',json.dumps(native))
+        android['android_info']['package_name']='com.other.game'
+        with self.assertRaises(owner.ConfigError):owner.native_firebase(self.config)
+
 
 if __name__ == "__main__": unittest.main()
