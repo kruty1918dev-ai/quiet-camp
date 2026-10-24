@@ -1,10 +1,11 @@
 // Optional account/cloud API. Firebase Auth verifies social identity; D1 owns progress.
 // This module never grants Pro or imports the player's privacy/purchase state.
+import {ACCOUNT_POST_ROUTES,portalEnabled,accountDocument,handleAccountRoute,verifiedProfile,pendingDeletion,eraseIdentity,saveProfile,publicProfile} from './accounts.mjs';
 const PREFIX = '/v1/cloud';
 const SESSION_AGE = 90 * 86400;
 const MAX_PAYLOAD = 768 * 1024;
 const PROVIDERS = {google: 'google.com', facebook: 'facebook.com'};
-const POST_ROUTES = new Set(['/login-start','/login-poll','/login-cancel','/login-complete','/delete-federated','/status','/read','/write','/sign-out','/delete']);
+const POST_ROUTES = new Set(['/login-start','/login-poll','/login-cancel','/login-complete','/delete-federated','/status','/read','/write','/sign-out','/delete',...ACCOUNT_POST_ROUTES]);
 const encoder = new TextEncoder();
 const now = () => Math.floor(Date.now() / 1000);
 const random = () => Array.from(crypto.getRandomValues(new Uint8Array(32)), b => b.toString(16).padStart(2, '0')).join('');
@@ -73,7 +74,7 @@ async function rate(request, env, route) {
     ON CONFLICT(key) DO UPDATE SET count=CASE WHEN expires<=? THEN 1 ELSE count+1 END,
     expires=CASE WHEN expires<=? THEN excluded.expires ELSE expires END RETURNING count`)
     .bind('cloud:'+route+':'+digest,now()+600,now(),now()).first();
-  check(count.count <= (route === 'login-start' ? 10 : 240), 429, 'rate_limited');
+  check(count.count <= (['login-start','web/sign-in','native/sign-in'].includes(route) ? 10 : 240), 429, 'rate_limited');
 }
 function validateSave(value) {
   check(value && Object.getPrototypeOf(value) === Object.prototype && value.schemaVersion === 2);
@@ -112,13 +113,15 @@ export async function verifyFirebase(idToken, env, fetcher = fetch) {
   check(user && !user.disabled && typeof user.localId === 'string' && user.localId === claims.sub,
     401, 'identity_rejected');
   check(!user.validSince || claims.auth_time >= Number(user.validSince),401,'reauthenticate');
-  return {uid:user.localId, provider:claims.firebase?.sign_in_provider, idToken};
+  return {uid:user.localId, provider:claims.firebase?.sign_in_provider, idToken,profile:verifiedProfile(user,claims.firebase?.sign_in_provider)};
 }
 async function deleteAccount(env, id) {
   await env.ACCESS_DB.batch([
     env.ACCESS_DB.prepare('DELETE FROM cloud_login WHERE account_id=?').bind(id),
     env.ACCESS_DB.prepare('DELETE FROM cloud_save WHERE account_id=?').bind(id),
     env.ACCESS_DB.prepare('DELETE FROM cloud_session WHERE account_id=?').bind(id),
+    env.ACCESS_DB.prepare('DELETE FROM cloud_web_session WHERE account_id=?').bind(id),
+    env.ACCESS_DB.prepare('DELETE FROM cloud_profile WHERE account_id=?').bind(id),
     env.ACCESS_DB.prepare('DELETE FROM cloud_account WHERE id=?').bind(id)
   ]);
 }
@@ -128,6 +131,8 @@ export async function cleanupCloud(env) {
     env.ACCESS_DB.prepare('DELETE FROM cloud_login WHERE expires<?').bind(now()),
     env.ACCESS_DB.prepare('DELETE FROM cloud_handoff WHERE expires<?').bind(now()),
     env.ACCESS_DB.prepare('DELETE FROM cloud_session WHERE checked<?').bind(now()-SESSION_AGE),
+    env.ACCESS_DB.prepare('DELETE FROM cloud_web_session WHERE expires<=?').bind(now()),
+    env.ACCESS_DB.prepare('DELETE FROM cloud_deletion WHERE completed IS NOT NULL AND completed<?').bind(now()-86400),
     env.ACCESS_DB.prepare('DELETE FROM cloud_account WHERE firebase_uid IS NULL AND touched<?').bind(now()-180*86400)
   ]);
 }
@@ -138,18 +143,25 @@ export async function handleCloud(request, env) {
     check(enabled(env),503,'cloud_unavailable');
     check(env.ACCESS_DB,503,'cloud_unavailable');
     const route = url.pathname.slice(PREFIX.length);
+    const dependencies={check,now,reply,verifyFirebase,random,hash,issue,webConfig,providerList,deleteAccount};
+    if(route==='/account'||route==='/admin'){
+      check(request.method==='GET',405,'method_not_allowed');
+      check([...url.searchParams.keys()].every(k=>k==='lang'));
+      return accountDocument(env,route==='/admin',url.searchParams.get('lang')||'en',dependencies);
+    }
     if (route === '/login' || route === '/delete-account') {
       check(request.method === 'GET'); return authPage(env, route === '/delete-account');
     }
     check(!url.search,400,'invalid_request');
     if (route === '/options') {
       check(request.method === 'GET'); if(providerList(env).length) webConfig(env);
-      return reply({providers:providerList(env)});
+      return reply({providers:providerList(env),accountPortal:portalEnabled(env),nativeSignIn:portalEnabled(env)});
     }
     check(request.method === 'POST',405,'method_not_allowed');
     check(POST_ROUTES.has(route),404,'not_found');
     await rate(request,env,route.slice(1));
     const data = await body(request,route === '/write' ? MAX_PAYLOAD+65536 : 16384);
+    if(ACCOUNT_POST_ROUTES.includes(route))return await handleAccountRoute(route,request,env,data,dependencies);
     if (route === '/login-start') {
       webConfig(env);
       check(providerList(env).includes(data.provider) && ['signin','link'].includes(data.mode));
@@ -179,23 +191,16 @@ export async function handleCloud(request, env) {
       const identity = await verifyFirebase(data.idToken,env);
       if (route === '/delete-federated') {
         check(data.confirm === true,400,'confirmation_required');
-        const account = await env.ACCESS_DB.prepare('SELECT id FROM cloud_account WHERE firebase_uid=?').bind(identity.uid).first();
-        // Delete game data first. If Firebase fails, the same browser identity can retry
-        // removing its Auth record even after the D1 account is already gone.
-        await env.ACCESS_DB.prepare('DELETE FROM cloud_handoff WHERE firebase_uid=?').bind(identity.uid).run();
-        if (account) await deleteAccount(env,account.id);
-        const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:delete?key='+encodeURIComponent(webConfig(env).apiKey),{
-          method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({idToken:identity.idToken})
-        });
-        check(response.ok,503,'deletion_retry');
+        await eraseIdentity(env,identity,dependencies);
         return reply({deleted:true});
       }
+      check(!await pendingDeletion(env,identity.uid),409,'deletion_pending');
       check(tokenFormat(data.ticket));
       const login = await env.ACCESS_DB.prepare('SELECT * FROM cloud_handoff WHERE ticket_hash=? AND expires>? AND claimed=0')
         .bind(await hash(data.ticket),now()).first();
       check(login && PROVIDERS[login.provider] === identity.provider,401,'identity_rejected');
-      const updated = await env.ACCESS_DB.prepare('UPDATE cloud_handoff SET firebase_uid=?,claimed=1 WHERE ticket_hash=? AND claimed=0 RETURNING ticket_hash')
-        .bind(identity.uid,login.ticket_hash).first();
+      const updated = await env.ACCESS_DB.prepare('UPDATE cloud_handoff SET firebase_uid=?,profile_json=?,claimed=1 WHERE ticket_hash=? AND claimed=0 RETURNING ticket_hash')
+        .bind(identity.uid,JSON.stringify(identity.profile),login.ticket_hash).first();
       check(updated,409,'login_used'); return reply({complete:true});
     }
     if (route === '/login-poll') {
@@ -204,6 +209,7 @@ export async function handleCloud(request, env) {
         .bind(await hash(data.ticket),await hash(data.pollSecret),now()).first();
       check(login,410,'login_expired');
       if(!login.firebase_uid) return reply({pending:true},202);
+      check(!await pendingDeletion(env,login.firebase_uid),409,'deletion_pending');
       const consumed=await env.ACCESS_DB.prepare('DELETE FROM cloud_handoff WHERE ticket_hash=? RETURNING ticket_hash').bind(login.ticket_hash).first();
       check(consumed,410,'login_expired');
       let account=await env.ACCESS_DB.prepare('SELECT id,provider FROM cloud_account WHERE firebase_uid=?').bind(login.firebase_uid).first();
@@ -213,8 +219,9 @@ export async function handleCloud(request, env) {
       if(!account) {
         const id=crypto.randomUUID();
         const inserted=await env.ACCESS_DB.prepare(`INSERT INTO cloud_account(id,firebase_uid,provider,created,touched)
-          VALUES (?,?,?,?,?) ON CONFLICT(firebase_uid) DO NOTHING RETURNING id`)
-          .bind(id,login.firebase_uid,login.provider,now(),now()).first();
+          SELECT ?,?,?,?,? WHERE NOT EXISTS (SELECT 1 FROM cloud_deletion WHERE firebase_uid=?)
+          ON CONFLICT(firebase_uid) DO NOTHING RETURNING id`)
+          .bind(id,login.firebase_uid,login.provider,now(),now(),login.firebase_uid).first();
         check(inserted || login.mode!=='link',409,'identity_already_linked');
         account=inserted || await env.ACCESS_DB.prepare('SELECT id FROM cloud_account WHERE firebase_uid=?').bind(login.firebase_uid).first();
         created=!!inserted;
@@ -222,10 +229,11 @@ export async function handleCloud(request, env) {
       // A freshly verified supported provider may reauthenticate the same Firebase UID.
       // Preserve its account/save; do not merge identities or enable legacy X sessions.
       await env.ACCESS_DB.prepare('UPDATE cloud_account SET provider=? WHERE id=?').bind(login.provider,account.id).run();
+      if(login.profile_json)await saveProfile(env,account.id,JSON.parse(login.profile_json),now);
       return reply({...await issue(env,account.id),created});
     }
     const account = await session(request,env);
-    if (route === '/status') return reply({accountId:account.id,provider:account.provider});
+    if (route === '/status') return reply({accountId:account.id,provider:account.provider,profile:await publicProfile(env,account,now)});
     if (route === '/sign-out') {
       await env.ACCESS_DB.prepare('DELETE FROM cloud_session WHERE token_hash=?').bind(account.token_hash).run(); return reply({signedOut:true});
     }
