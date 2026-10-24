@@ -1,0 +1,37 @@
+{
+  "runId": "20261024T160418586-df0c41",
+  "levelId": "gen:qc_camp:60",
+  "inputHash": "836dec196bc78213c94f0692c180e127cfe1bca291e37bc5f88ddbae1c751924",
+  "documentHash": "21513572b46238b43a04483594bf3944bcbefc018bb55d7d6303a0cf919274be",
+  "round": 0,
+  "reviewer": "Codex native visual review",
+  "accepted": false,
+  "inspectedFrameHashes": [
+    "80036448f38ba558e971c0299bd2d04a037611588f11b0bed16c34819ab676e4",
+    "a10e1a0e77b131c06e648e25189333d9a6cd08df9a96f8cf8af426c08f08f6cb",
+    "ea449a64c144edc9acd576bd6522d3f4ddc1a59b47da3788066c9496d0308fff",
+    "0d5d1759f43b80f9db57ecc5b11e0e253b0a97d87d0d25d67205c4f6f12ff80a",
+    "db5c0811fd182d90e1a0aebb8a4875b213c45a68a8cad52cb8254c9ef9a7429a",
+    "16a1c8eaace1ee8b0ca24699113b06707b0c3c8c55276801ac362e6c6e28abb1",
+    "85ee796a4a24f8e0efe81c09d9c547efb1c5978f3c54d1e4adaf19baa8f67404",
+    "a4740806e5995f41680ee149229b4d8d3ae9e3e06004f37c60df0ef3b8be60c2",
+    "ff0b5f631fc7834c9fd1635357d4fb200a79151b73647423aee134f8dfd0fe92",
+    "2f7cc97890c0519d4ed224c3067e5bc947fc13d80a9fbd738f91e0706d554264",
+    "82c82bd8f8eb495c9ff58bdfc87e346874b5e3515e55b6e1f6934a5949fb12d9",
+    "ff4baf9cc3e0a4a4956d4a09cec9565a321edff1fca9325a14fded6162c6e86f",
+    "ff537396be1a7373ed6beabe96bc77aa3b484b7cf588dcf5e2d2bbbe40001c21",
+    "cb6bbae69c8f2865d9798b6387a644606e2d598dcef9cbfb9808a193972a6fe5",
+    "706b4bebf77e8bfca79124b7e6f34ab9af09949ea48871e648b0ed8b1ce4dfc2",
+    "44e8bea7eb8ba72c76b993264060fb3a800d8a00f7e316da71e539fdae014477",
+    "8f7f6af863c607a8058c8b9efd916e6ff3395188596277000ff8fb7e104d9fb3",
+    "69a833efd887a574ea1b0d24e7587f0d10f0032fb3ed39c5c9a49a2c53563bf3",
+    "80020a4a15fa3de524d4d335a41a1c6bcf0c9ec05702e7068744a2557ccb4eb1",
+    "2a77d2482cb664c5132dad5fc342d8f538d27f92013a5d6eb90d407e9a552b60"
+  ],
+  "corrections": [],
+  "residuals": [
+    "landmark.clipped",
+    "support.floating"
+  ],
+  "notes": "All 20 current frames inspected in both profile contact sheets, plus full-size placed gameplay and menu views. Requested grass ribbons/cards are absent; compact individual leaves remain, lighting and tent pressure are coherent, distant margin ground has continuous coverage. Complete indexed scene + UI + worst-case particle geometry passes: peak 49634, menu 47086, no uncounted renderers. Full level acceptance remains rejected for pre-existing landmark clipping and floating support; no canonical campaign publication. Grass and geometry-budget implementation goals are met for this native heavy-scene check; no all-100 native or mobile FPS claim."
+}
