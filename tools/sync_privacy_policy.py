@@ -35,7 +35,9 @@ def plain(markup):
 def main():
     cli = argparse.ArgumentParser(description=__doc__)
     cli.add_argument('--site-root', type=Path, required=True)
-    cli.add_argument('--write', action='store_true')
+    modes = cli.add_mutually_exclusive_group()
+    modes.add_argument('--write', action='store_true', help='Update an existing draft candidate only')
+    modes.add_argument('--write-published', action='store_true', help='Update an already published policy; preserve all service-review flags')
     args = cli.parse_args()
     content = json.loads((args.site_root/'legal/quiet-camp/content.json').read_text(encoding='utf8'))
     controller = json.loads((args.site_root/'legal/controller.json').read_text(encoding='utf8'))
@@ -46,7 +48,13 @@ def main():
     bundle = json.loads(bundle_path.read_text(encoding='utf8'))
     legal_path = RESOURCES/'legal.json'
     legal = json.loads(legal_path.read_text(encoding='utf8'))
-    assert bundle['draft'] and legal['policyIsDraft'], 'Candidate sync refuses to overwrite a published policy'
+    draft = bundle['draft']
+    assert isinstance(draft, bool) and legal['policyIsDraft'] is draft, 'Policy publication states differ'
+    if args.write_published:
+        assert not draft, '--write-published requires an already published policy'
+    elif args.write:
+        assert draft, 'Candidate sync refuses to overwrite a published policy; use --write-published explicitly'
+    write = args.write or args.write_published
     revision = content['en']['revision']
     assert set(content) == {'en', 'uk', 'de'}
     for variant in bundle['document']['variants']:
@@ -76,31 +84,32 @@ def main():
                 paragraphs.extend(' | '.join(row) for row in source['rows'])
         body = '\n\n'.join(paragraphs)
         assert '{{' not in body and '???' not in body
-        if args.write:
-            variant.update(revision=revision, bundledBody=body, url='', sourceUrl=BASE + suffix)
+        if write:
+            variant.update(revision=revision, bundledBody=body, url='' if draft else BASE + suffix, sourceUrl=BASE + suffix)
         else:
             assert variant['revision'] == revision and variant['bundledBody'] == body, lang
         summary = next(s for s in bundle['summaries'] if s['language'] == lang)
         text = source['intro'] + '\n\n' + source['sections'][1]['paragraphs'][1] + '\n\n' + source['notice']
-        if args.write:
+        if write:
             summary.update(revision=revision, text=plain(markup(text)))
         else:
             assert summary['revision'] == revision and summary['text'] == plain(markup(text)), lang
-    if args.write:
-        # Explicit draft remains in force until separate native/account release review.
-        bundle['draft'] = True
+    if write:
+        # Synchronize text only. Publication state and service-review gates are preserved.
+        bundle['draft'] = draft
         legal['revision'] = revision
         for path, data in [(bundle_path, bundle), (legal_path, legal)]:
             path.write_text(json.dumps(data, ensure_ascii=False, indent=2)+'\n', encoding='utf8')
-    assert legal['revision'] == revision and bundle['draft'] and legal['policyIsDraft']
+    assert legal['revision'] == revision and bundle['draft'] is draft and legal['policyIsDraft'] is draft
     hashes = {v['language']: hashlib.sha256(v['bundledBody'].encode('utf8')).hexdigest()
               for v in bundle['document']['variants']}
     metadata = {'revision': revision,
                 'gameResource': str(bundle_path.relative_to(ROOT)).replace('\\', '/'),
                 'bodySha256': hashes,
-                'status': 'candidate; native Android, account and operational evidence pending'}
+                'status': ('candidate; native Android, account and operational evidence pending' if draft
+                           else 'published policy text synchronized; native Android and service activation evidence remain separate')}
     metadata_path = args.site_root/'legal/bundled-policy-source.json'
-    if args.write:
+    if write:
         metadata_path.write_text(json.dumps(metadata, indent=2)+'\n', encoding='utf8')
     else:
         stored = json.loads(metadata_path.read_text(encoding='utf8'))
