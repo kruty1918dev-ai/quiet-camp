@@ -1,5 +1,13 @@
 # Акаунти та хмарний прогрес Quiet Camp
 
+Оновлення підготовки 24.10.2026: спільний вебкабінет, приватний список власника
+та native API описані в `Server/cloudflare/PLAYER-ACCOUNTS-UA.md` і
+`Server/cloudflare/ACCOUNT-API.md`. Для нового Unity-клієнта застосовується
+`Config/NATIVE-SIGN-IN-UA.md`: нативний Google, той самий Firebase UID і старт
+«ознайомлення з політикою → вибір входу → гра» без збору віку. Нижче збережений
+опис поточного браузерного Unity-клієнта; native SDK ще не інтегрований.
+Підготовлена політика 11 та Worker потребують описаного порядку публікації.
+
 Підтримуються Google і Facebook через Firebase project `quiet-camp` та наявний
 Worker `quietcamp-access`. X/Twitter прибрано з UI, клієнтського allow-list,
 браузерного входу та серверної авторизації. Apple/iCloud не додаються.
