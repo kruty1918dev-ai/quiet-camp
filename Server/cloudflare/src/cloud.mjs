@@ -3,7 +3,8 @@
 const PREFIX = '/v1/cloud';
 const SESSION_AGE = 90 * 86400;
 const MAX_PAYLOAD = 768 * 1024;
-const PROVIDERS = {google: 'google.com', facebook: 'facebook.com', x: 'twitter.com'};
+const PROVIDERS = {google: 'google.com', facebook: 'facebook.com'};
+const POST_ROUTES = new Set(['/login-start','/login-poll','/login-cancel','/login-complete','/delete-federated','/status','/read','/write','/sign-out','/delete']);
 const encoder = new TextEncoder();
 const now = () => Math.floor(Date.now() / 1000);
 const random = () => Array.from(crypto.getRandomValues(new Uint8Array(32)), b => b.toString(16).padStart(2, '0')).join('');
@@ -16,7 +17,7 @@ class Failure extends Error { constructor(status, code) { super(code); this.stat
 const check = (condition, status = 400, code = 'invalid_request') => { if (!condition) throw new Failure(status, code); };
 const tokenFormat = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value);
 const enabled = env => env.QC_CLOUD_ENABLED === 'true' && env.QC_CLOUD_SCHEMA === '3';
-const providerList = env => [...new Set((env.QC_CLOUD_PROVIDERS || '').split(',').map(p=>p.trim()).filter(p => PROVIDERS[p]))];
+const providerList = env => [...new Set((env.QC_CLOUD_PROVIDERS || '').split(',').map(p=>p.trim()).filter(p => Object.hasOwn(PROVIDERS,p)))];
 function webConfig(env) {
   try {
     const c = JSON.parse(env.QC_FIREBASE_WEB_CONFIG || '{}');
@@ -49,7 +50,7 @@ async function session(request, env) {
   const row = await env.ACCESS_DB.prepare(`SELECT a.*,s.token_hash FROM cloud_session s
     JOIN cloud_account a ON a.id=s.account_id WHERE s.token_hash=? AND s.checked>=?`)
     .bind(await hash(token), now() - SESSION_AGE).first();
-  check(row && row.firebase_uid, 401, 'signed_out');
+  check(row && row.firebase_uid && Object.hasOwn(PROVIDERS,row.provider), 401, 'signed_out');
   await env.ACCESS_DB.batch([
     env.ACCESS_DB.prepare('UPDATE cloud_session SET checked=? WHERE token_hash=?').bind(now(), row.token_hash),
     env.ACCESS_DB.prepare('UPDATE cloud_account SET touched=? WHERE id=?').bind(now(), row.id)
@@ -97,6 +98,8 @@ export async function verifyFirebase(idToken, env, fetcher = fetch) {
   catch { throw new Failure(401, 'identity_rejected'); }
   check(claims.aud === config.projectId && claims.iss === 'https://securetoken.google.com/' + config.projectId,
     401, 'identity_rejected');
+  check(typeof claims.sub === 'string' && claims.sub.length > 0 && claims.sub.length <= 128
+    && Object.values(PROVIDERS).includes(claims.firebase?.sign_in_provider),401,'identity_rejected');
   check(Number.isInteger(claims.exp) && claims.exp > now() && Number.isInteger(claims.iat) && claims.iat <= now()+30
     && Number.isInteger(claims.auth_time) && claims.auth_time <= now()+30 && claims.auth_time >= now()-600,
     401, 'reauthenticate');
@@ -144,7 +147,7 @@ export async function handleCloud(request, env) {
       return reply({providers:providerList(env)});
     }
     check(request.method === 'POST',405,'method_not_allowed');
-    if(route === '/anonymous') throw new Failure(404,'not_found');
+    check(POST_ROUTES.has(route),404,'not_found');
     await rate(request,env,route.slice(1));
     const data = await body(request,route === '/write' ? MAX_PAYLOAD+65536 : 16384);
     if (route === '/login-start') {
@@ -155,6 +158,20 @@ export async function handleCloud(request, env) {
       await env.ACCESS_DB.prepare('INSERT INTO cloud_handoff(ticket_hash,poll_hash,provider,mode,expires) VALUES (?,?,?,?,?)')
         .bind(await hash(ticket),await hash(pollSecret),data.provider,data.mode,now()+600).run();
       return reply({ticket,pollSecret,url:url.origin+PREFIX+'/login#'+ticket+':'+data.provider});
+    }
+    if (route === '/login-cancel') {
+      check(tokenFormat(data.ticket));
+      if (data.pollSecret !== undefined) {
+        check(tokenFormat(data.pollSecret));
+        await env.ACCESS_DB.prepare('DELETE FROM cloud_handoff WHERE ticket_hash=? AND poll_hash=?')
+          .bind(await hash(data.ticket),await hash(data.pollSecret)).run();
+      } else {
+        check(request.headers.get('Origin') === url.origin,403,'origin_rejected');
+        // A browser can only withdraw an unfinished attempt, never erase an authenticated session.
+        await env.ACCESS_DB.prepare('DELETE FROM cloud_handoff WHERE ticket_hash=? AND claimed=0')
+          .bind(await hash(data.ticket)).run();
+      }
+      return reply({cancelled:true});
     }
     if (route === '/login-complete' || route === '/delete-federated') {
       // Same-origin browser operation, never a permissive cross-origin CORS endpoint.
@@ -189,7 +206,7 @@ export async function handleCloud(request, env) {
       if(!login.firebase_uid) return reply({pending:true},202);
       const consumed=await env.ACCESS_DB.prepare('DELETE FROM cloud_handoff WHERE ticket_hash=? RETURNING ticket_hash').bind(login.ticket_hash).first();
       check(consumed,410,'login_expired');
-      let account=await env.ACCESS_DB.prepare('SELECT id FROM cloud_account WHERE firebase_uid=?').bind(login.firebase_uid).first();
+      let account=await env.ACCESS_DB.prepare('SELECT id,provider FROM cloud_account WHERE firebase_uid=?').bind(login.firebase_uid).first();
       // Late guest linking must never switch to, overwrite or merge an existing profile.
       check(login.mode!=='link' || !account,409,'identity_already_linked');
       let created=false;
@@ -202,6 +219,9 @@ export async function handleCloud(request, env) {
         account=inserted || await env.ACCESS_DB.prepare('SELECT id FROM cloud_account WHERE firebase_uid=?').bind(login.firebase_uid).first();
         created=!!inserted;
       }
+      // A freshly verified supported provider may reauthenticate the same Firebase UID.
+      // Preserve its account/save; do not merge identities or enable legacy X sessions.
+      await env.ACCESS_DB.prepare('UPDATE cloud_account SET provider=? WHERE id=?').bind(login.provider,account.id).run();
       return reply({...await issue(env,account.id),created});
     }
     const account = await session(request,env);
@@ -248,23 +268,29 @@ function authPage(env, deletion) {
 <p><a href="https://oleksiy-havryliuk.de/quiet-camp/privacy">Privacy policy</a></p>
 <script type="module" nonce="${nonce}">
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js';
-import {getAuth,setPersistence,inMemoryPersistence,signInWithPopup,signOut,GoogleAuthProvider,FacebookAuthProvider,TwitterAuthProvider} from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js';
+import {getAuth,setPersistence,inMemoryPersistence,signInWithPopup,signOut,GoogleAuthProvider,FacebookAuthProvider} from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js';
 const auth=getAuth(initializeApp(${config})); await setPersistence(auth,inMemoryPersistence);
 const allowed=${providers}, deletion=${JSON.stringify(deletion)}, parts=location.hash.slice(1).split(':'), ticket=parts[0], selected=parts[1];
 history.replaceState(null,'',location.pathname);
 const status=document.getElementById('status'), buttons=document.getElementById('buttons');
-if(!deletion) status.textContent='Only continue if Quiet Camp on your device shows this code: '+ticket.slice(0,8).toUpperCase();
-const factories={google:()=>new GoogleAuthProvider(),facebook:()=>new FacebookAuthProvider(),x:()=>new TwitterAuthProvider()};
-const labels={google:'Google',facebook:'Facebook',x:'X'};
-let identity=null;
+const validTicket=/^[a-f0-9]{64}$/.test(ticket) && allowed.includes(selected);
+if(!deletion) status.textContent=validTicket?'Only continue if Quiet Camp on your device shows this code: '+ticket.slice(0,8).toUpperCase():'Start sign-in from Quiet Camp, then return here.';
+const factories={google:()=>{const p=new GoogleAuthProvider();p.setCustomParameters({prompt:'select_account'});return p;},facebook:()=>new FacebookAuthProvider()};
+const labels={google:'Google',facebook:'Facebook'};
+let identity=null,finished=false;
 async function send(path,data){const r=await fetch('/v1/cloud/'+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data),credentials:'omit'});if(!r.ok)throw Error('request_failed');return r.json();}
-for(const provider of allowed.filter(p=>deletion||p===selected)) {
+addEventListener('pagehide',()=>{if(!deletion && validTicket && !finished)navigator.sendBeacon('/v1/cloud/login-cancel',new Blob([JSON.stringify({ticket})],{type:'application/json'}));});
+for(const provider of allowed.filter(p=>deletion||validTicket&&p===selected)) {
  const b=document.createElement('button');b.textContent='Continue with '+labels[provider];buttons.appendChild(b);
  b.onclick=async()=>{b.disabled=true;try{
   const result=await signInWithPopup(auth,factories[provider]());identity=result.user;
   if(deletion){status.textContent='Signed in. Confirm below to permanently delete cloud progress.';document.getElementById('delete').hidden=false;}
-  else {await send('login-complete',{ticket,idToken:await identity.getIdToken(true)});await signOut(auth);status.textContent='Sign-in completed. Return to Quiet Camp.';buttons.replaceChildren();}
- }catch(e){status.textContent=e.code==='auth/account-exists-with-different-credential'?'This email already uses another provider. Choose the original sign-in method in the game.':'Sign-in did not complete. Return to the game and retry; your local progress is safe.';}finally{b.disabled=false;}};
+  else {await send('login-complete',{ticket,idToken:await identity.getIdToken(true)});finished=true;await signOut(auth);status.textContent='Sign-in completed. Return to Quiet Camp.';buttons.replaceChildren();}
+ }catch(e){
+  const cancelled=['auth/popup-closed-by-user','auth/cancelled-popup-request','auth/user-cancelled'].includes(e.code);
+  if(cancelled&&!deletion){await send('login-cancel',{ticket}).catch(()=>{});finished=true;buttons.replaceChildren();}
+  status.textContent=cancelled?'Sign-in cancelled. Return to Quiet Camp; your local progress is safe.':e.code==='auth/popup-blocked'?'Your browser blocked the sign-in window. Tap the provider button again to retry.':e.code==='auth/account-exists-with-different-credential'?'This email already uses another provider. Choose the original sign-in method in the game.':'Sign-in did not complete. Return to the game and retry; your local progress is safe.';
+ }finally{b.disabled=false;}};
 }
 document.getElementById('delete').onclick=async()=>{
  if(!identity||!confirm('Permanently delete your Quiet Camp cloud account and cloud progress?'))return;

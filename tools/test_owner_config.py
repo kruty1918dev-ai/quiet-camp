@@ -59,7 +59,7 @@ class OwnerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "owner.json"
             for content in ('{', '{"mode":"development","mode":"production"}'):
-                path.write_text(content)
+                path.write_text(content, encoding="utf-8")
                 with self.assertRaises(owner.ConfigError): owner.read(path)
     def test_kind_publisher_and_sample(self):
         a = self.config["admob"]
@@ -110,15 +110,15 @@ class OwnerTests(unittest.TestCase):
                 (root / path).write_bytes((owner.ROOT / path).read_bytes())
             preview = owner.plan(self.config, root)
             path = root / paths[0]
-            path.write_text(path.read_text() + " ")
+            path.write_text(path.read_text(encoding="utf-8") + " ", encoding="utf-8")
             with self.assertRaises(owner.ConfigError): owner.apply(self.config, preview, root)
             preview = owner.plan(self.config, root)
             owner.apply(self.config, preview, root)
-            generated = json.loads((root / (owner.RESOURCE + "owner_client.json")).read_text())
+            generated = json.loads((root / (owner.RESOURCE + "owner_client.json")).read_text(encoding="utf-8"))
             self.assertNotIn("firebase", generated)
-            self.assertFalse(json.loads(path.read_text())["rewardedAdsEnabled"])
-            self.assertIn("MobileAdsInitProvider", (root / paths[-1]).read_text())
-            self.assertNotIn(owner.SAMPLE_PUBLISHER, (root / paths[2]).read_text())
+            self.assertFalse(json.loads(path.read_text(encoding="utf-8"))["rewardedAdsEnabled"])
+            self.assertIn("MobileAdsInitProvider", (root / paths[-1]).read_text(encoding="utf-8"))
+            self.assertNotIn(owner.SAMPLE_PUBLISHER, (root / paths[2]).read_text(encoding="utf-8"))
             self.assertFalse((root / "QuietCamp/Assets/google-services.json").exists())
             stable = owner.plan(self.config, root)
             self.assertEqual(stable["before"], stable["after"])

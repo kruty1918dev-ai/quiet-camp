@@ -38,25 +38,28 @@ public final class CloudCredentialStorage {
             byte[] iv=new byte[12]; System.arraycopy(bytes,0,iv,0,12);
             Cipher cipher=Cipher.getInstance("AES/GCM/NoPadding");
             cipher.init(Cipher.DECRYPT_MODE,key(),new GCMParameterSpec(128,iv));
-            return new String(cipher.doFinal(bytes,12,bytes.length-12),StandardCharsets.UTF_8);
+            byte[] clear=cipher.doFinal(bytes,12,bytes.length-12);
+            try { return new String(clear,StandardCharsets.UTF_8); }
+            finally { java.util.Arrays.fill(clear,(byte)0); }
         } catch(Exception ignored) { return ""; }
     }
     public static synchronized boolean write(Context context,String json) {
-        AtomicFile storage=file(context); FileOutputStream output=null;
+        AtomicFile storage=file(context); FileOutputStream output=null; byte[] clear=null;
         try {
             if (json==null || json.isEmpty()) {
                 storage.delete();
                 KeyStore store=KeyStore.getInstance("AndroidKeyStore"); store.load(null); store.deleteEntry(ALIAS);
                 return !storage.getBaseFile().exists();
             }
-            byte[] clear=json.getBytes(StandardCharsets.UTF_8);
+            clear=json.getBytes(StandardCharsets.UTF_8);
             if (clear.length>8192) return false;
             Cipher cipher=Cipher.getInstance("AES/GCM/NoPadding"); cipher.init(Cipher.ENCRYPT_MODE,key());
             byte[] encrypted=cipher.doFinal(clear),iv=cipher.getIV();
             if (iv.length!=12) return false;
             output=storage.startWrite(); output.write(iv); output.write(encrypted); storage.finishWrite(output);
-            java.util.Arrays.fill(clear,(byte)0); return true;
+            return true;
         } catch(Exception ignored) { if(output!=null)storage.failWrite(output); return false; }
+        finally { if(clear!=null)java.util.Arrays.fill(clear,(byte)0); }
     }
     private CloudCredentialStorage() {}
 }

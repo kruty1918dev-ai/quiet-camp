@@ -7,6 +7,8 @@ namespace QuietCamp.Tests.Editor
 {
     public sealed class PrivacySetupTests
     {
+#if UNITY_EDITOR
+        // Requires real Unity objects; the portable privacy probe exercises the domain tests below.
         [TestCase(0, true, PrivacyAgeBand.Adult)]
         [TestCase(1, true, PrivacyAgeBand.From16To17)]
         [TestCase(2, true, PrivacyAgeBand.From13To15)]
@@ -30,6 +32,7 @@ namespace QuietCamp.Tests.Editor
             }
             finally { UnityEngine.Object.DestroyImmediate(root); }
         }
+#endif
 
         static PrivacySetup Adult(bool analytics = true, bool crashes = true, bool ads = true)
         {

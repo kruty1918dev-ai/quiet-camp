@@ -43,6 +43,61 @@ namespace QuietCamp.Tests
             _service=new CloudSaveService(_settings,_store,_network,Endpoint,true,()=>_eligible,()=>_local,
                 snapshot=>{if(!_apply)return false;_local=snapshot;return true;},()=>_persist);
         }
+        void PendingLogin() {
+            Guest();
+            _network.Handler=(route,t,data)=>Task.FromResult(route=="options"
+                ? new CloudReply {status=200,providers=new[]{"google","facebook","x","unsupported"}}
+                : route=="login-start" ? new CloudReply {status=200,ticket=Token,pollSecret=Token,url=Endpoint+"/login#"+Token+":google"}
+                : new CloudReply {status=202});
+        }
+        [Test] public async Task UnsupportedProvidersAndLegacyXCredentialsNeverAuthorizeCloud() {
+            PendingLogin();await _service.LoadOptions();
+            Assert.That(_service.Providers,Is.EqualTo(new[]{"google","facebook"}));
+            await _service.SignIn("x",false,_=>Assert.Fail("X must never open a browser"));
+            Assert.That(_network.Calls,Does.Not.Contain("login-start"));
+            _store.Value=Credential();_store.Value.provider="x";
+            _service.Dispose();
+            _service=new CloudSaveService(_settings,_store,_network,Endpoint,true,()=>true,()=>_local,_=>true,()=>true);
+            Assert.That(_service.HasAccount,Is.False);
+            Assert.That(_service.NeedsReauthentication,Is.True);
+            Assert.That(_service.ContinueLocally(),Is.True);Assert.That(_store.Value,Is.Null);
+            Assert.That(_service.NeedsReauthentication,Is.False);
+        }
+        [Test] public async Task CancelImmediatelyStopsLoginAndWithdrawsTheTicketWithItsPollSecret() {
+            PendingLogin();await _service.LoadOptions();
+            var login=_service.SignIn("google",false,_=>{});
+            _service.Cancel();
+            Assert.That(await Task.WhenAny(login,Task.Delay(1000)),Is.SameAs(login));await login;
+            Assert.That(_service.Busy,Is.False);Assert.That(_service.Status,Is.EqualTo(CloudSaveStatus.Cancelled));
+            Assert.That(_service.LoginUrl,Is.Null);Assert.That(_network.Calls,Does.Contain("login-cancel"));
+            Assert.That(_service.HasAccount,Is.False);Assert.That(_local.progress.completedIds,Is.EqualTo(new[]{"QC001"}));
+        }
+        [Test] public async Task ForegroundReturnImmediatelyPollsAndRecognizesBrowserCancellation() {
+            PendingLogin();await _service.LoadOptions();
+            var previous=_network.Handler;
+            _network.Handler=(route,t,data)=>route=="login-poll" ? Task.FromResult(new CloudReply {status=410}) : previous(route,t,data);
+            var login=_service.SignIn("google",false,_=>{});_service.ConnectionResumed();
+            Assert.That(await Task.WhenAny(login,Task.Delay(1000)),Is.SameAs(login));await login;
+            Assert.That(_service.Status,Is.EqualTo(CloudSaveStatus.Cancelled));Assert.That(_service.HasAccount,Is.False);
+        }
+        [Test] public async Task LoginDeadlineWithdrawsAttemptWithoutChangingLocalProgress() {
+            PendingLogin();_service.Dispose();var now=DateTime.UtcNow;
+            _service=new CloudSaveService(_settings,_store,_network,Endpoint,true,()=>true,()=>_local,_=>true,()=>true,()=>now);
+            await _service.LoadOptions();await _service.SignIn("google",false,_=>now=now.AddMinutes(7));
+            Assert.That(_service.Status,Is.EqualTo(CloudSaveStatus.TimedOut));Assert.That(_service.Busy,Is.False);
+            Assert.That(_network.Calls,Does.Contain("login-cancel"));Assert.That(_network.Calls,Does.Not.Contain("login-poll"));
+            Assert.That(_local.progress.completedIds,Is.EqualTo(new[]{"QC001"}));
+        }
+        [Test] public async Task CancelledInFlightPollRevokesItsLateSessionInsteadOfRememberingIt() {
+            PendingLogin();await _service.LoadOptions();var previous=_network.Handler;
+            var pending=new TaskCompletionSource<CloudReply>();
+            var requested=new TaskCompletionSource<bool>();
+            _network.Handler=(route,t,data)=> {if(route=="login-poll"){requested.TrySetResult(true);return pending.Task;}return previous(route,t,data);};
+            var login=_service.SignIn("google",false,_=>{});_service.ConnectionResumed();await requested.Task;
+            _service.Cancel();pending.SetResult(new CloudReply {status=200,sessionToken=Token,accountId="late",provider="google",created=true});
+            await login;Assert.That(_service.HasAccount,Is.False);Assert.That(_store.Value,Is.Null);
+            Assert.That(_network.Calls,Does.Contain("sign-out"));
+        }
         [Test] public async Task LocalGuestAndDefaultOffNeverContactServer() {
             Guest();Assert.That(_service.ContinueLocally(),Is.True);await _service.Sync();_service.Tick();
             Assert.That(_network.Calls,Is.Empty);Assert.That(_settings.accountChoiceVersion,Is.EqualTo(CloudSaveService.ChoiceVersion));

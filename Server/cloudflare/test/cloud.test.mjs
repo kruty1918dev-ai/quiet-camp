@@ -2,6 +2,7 @@ import {test,beforeEach,afterEach} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
+import {spawnSync} from 'node:child_process';
 import {Miniflare,convertV4MiniflareOptions} from 'miniflare';
 import {cleanupCloud} from '../src/cloud.mjs';
 const origin='https://quietcamp.test';
@@ -14,7 +15,7 @@ beforeEach(async()=>{
  mf=new Miniflare(convertV4MiniflareOptions({
   modules:['index','cloud'].map(name=>({type:'ESModule',path:fileURLToPath(new URL('../src/'+name+'.mjs',import.meta.url))})),
   compatibilityDate:'2026-10-23',d1Databases:{ACCESS_DB:'cloud-test-only'},
-  bindings:{QC_CLOUD_ENABLED:'true',QC_CLOUD_SCHEMA:'3',QC_CLOUD_PROVIDERS:'google,facebook,x',
+  bindings:{QC_CLOUD_ENABLED:'true',QC_CLOUD_SCHEMA:'3',QC_CLOUD_PROVIDERS:'google,facebook',
     QC_CLOUD_RATE_PEPPER:'test-only-32-byte-rate-key-never-a-production-secret',
     QC_FIREBASE_WEB_CONFIG:JSON.stringify({apiKey:'AIza'+'a'.repeat(35),projectId:'quiet-camp',authDomain:'quiet-camp.firebaseapp.com',appId:'1:123456:web:abcdef'})},
   outboundService:async request=>{
@@ -22,7 +23,8 @@ beforeEach(async()=>{
     if(new URL(request.url).pathname.endsWith('accounts:delete')) return Response.json({});
     if(!data.idToken?.endsWith('.accepted-by-identity-test-double')) return Response.json({error:'invalid'}, {status:400});
     const claims=JSON.parse(Buffer.from(data.idToken.split('.')[1],'base64url'));
-    return Response.json({users:[{localId:claims.sub,disabled:claims.sub==='disabled'}]});
+    return Response.json({users:[{localId:claims.sub==='uid-mismatch'?'another-user':claims.sub,disabled:claims.sub==='disabled',
+      ...(claims.sub==='revoked'?{validSince:Math.floor(Date.now()/1000)}:{})}]});
   }
  }));
  db=await mf.getD1Database('ACCESS_DB');
@@ -51,7 +53,7 @@ async function authenticate(parts,uid='firebase-one',provider='google.com') {
 async function finish(parts) {return call('login-poll',{ticket:parts.ticket,pollSecret:parts.pollSecret});}
 async function login(uid='firebase-one',mode='signin',provider='google') {
  const parts=await begin(provider,mode);
- assert.equal((await authenticate(parts,uid,{google:'google.com',facebook:'facebook.com',x:'twitter.com'}[provider])).status,200);
+ assert.equal((await authenticate(parts,uid,{google:'google.com',facebook:'facebook.com'}[provider])).status,200);
  return finish(parts);
 }
 async function account(uid='firebase-one') {const r=await login(uid);assert.equal(r.status,200);return r.body;}
@@ -96,16 +98,66 @@ test('late linking refuses an occupied account and a new account accepts the com
  assert.equal((await call('write',{expectedRevision:0,snapshot:local},linked.body.sessionToken)).status,200);
  assert.deepEqual((await call('read',{},linked.body.sessionToken)).body.snapshot,local);
 });
-test('Google, Facebook and X identities are verified against the selected provider',async()=>{
- for(const [provider,uid] of [['google','one'],['facebook','two'],['x','three']]) {
+test('Google and Facebook identities are verified and X is rejected',async()=>{
+ assert.deepEqual((await call('options')).body.providers,['google','facebook']);
+ assert.equal((await call('login-start',{provider:'x',mode:'signin'})).status,400);
+ for(const [provider,uid] of [['google','one'],['facebook','two']]) {
   const a=await login(uid,'signin',provider);assert.equal(a.status,200);assert.equal(a.body.provider,provider);
  }
  const start=await begin();
  assert.equal((await authenticate(start,'x-user','twitter.com')).status,401);
  for(const [idToken,originValue] of [[token(),'https://attacker.test'],[token('wrong','google.com',{aud:'wrong-project'}),origin],
-  [token('forged').replace('accepted-by-identity-test-double','forged'),origin],[token('disabled'),origin]]) {
+  [token('forged').replace('accepted-by-identity-test-double','forged'),origin],[token('disabled'),origin],
+  [token('expired','google.com',{exp:0}),origin],[token('old','google.com',{auth_time:0}),origin],
+  [token('issuer','google.com',{iss:'https://attacker.test'}),origin],[token('','google.com'),origin],
+  [token('uid-mismatch'),origin],[token('revoked','google.com',{auth_time:Math.floor(Date.now()/1000)-60}),origin]]) {
   assert.ok([401,403].includes((await call('login-complete',{ticket:start.ticket,idToken},undefined,{Origin:originValue})).status));
  }
+});
+test('unknown routes cannot create arbitrary rate-limit buckets',async()=>{
+ assert.equal((await call('arbitrary-route')).status,404);
+ assert.equal((await db.prepare('SELECT count(*) n FROM complimentary_limit').first()).n,0);
+});
+test('client cancellation requires the poll secret and prevents late OAuth from creating a profile',async()=>{
+ const start=await begin();
+ await call('login-cancel',{ticket:start.ticket,pollSecret:'a'.repeat(64)});
+ assert.equal((await finish(start)).status,202);
+ assert.equal((await call('login-cancel',{ticket:start.ticket,pollSecret:start.pollSecret})).status,200);
+ assert.equal((await finish(start)).status,410);
+ assert.equal((await authenticate(start)).status,401);
+ assert.equal((await db.prepare('SELECT count(*) n FROM cloud_account').first()).n,0);
+ assert.equal((await db.prepare('SELECT count(*) n FROM cloud_session').first()).n,0);
+});
+test('browser close/cancellation is same-origin and cannot revoke an authorized handoff',async()=>{
+ const start=await begin();
+ assert.equal((await call('login-cancel',{ticket:start.ticket},undefined,{Origin:'https://attacker.test'})).status,403);
+ assert.equal((await finish(start)).status,202);
+ assert.equal((await call('login-cancel',{ticket:start.ticket},undefined,{Origin:origin})).status,200);
+ assert.equal((await finish(start)).status,410);
+ const complete=await begin();await authenticate(complete);
+ await call('login-cancel',{ticket:complete.ticket},undefined,{Origin:origin});
+ assert.equal((await finish(complete)).status,200);
+});
+test('supported reauthentication preserves a legacy account and its save while X sessions are retired',async()=>{
+ const original=await account();
+ await call('write',{expectedRevision:0,snapshot:snapshot(['QC007'])},original.sessionToken);
+ await db.prepare("UPDATE cloud_account SET provider='x' WHERE id=?").bind(original.accountId).run();
+ assert.equal((await call('read',{},original.sessionToken)).status,401);
+ const renewed=await login();
+ assert.equal(renewed.body.accountId,original.accountId);
+ assert.equal(renewed.body.created,false);
+ assert.equal(renewed.body.provider,'google');
+ assert.deepEqual((await call('read',{},renewed.body.sessionToken)).body.snapshot.progress.completedIds,['QC007']);
+});
+test('browser auth uses only supported providers and explicitly handles cancelled popups',async()=>{
+ const result=await mf.dispatchFetch(origin+'/v1/cloud/login');const html=await result.text();
+ assert.equal(result.status,200);
+ assert.ok(!html.includes('TwitterAuthProvider'));
+ assert.ok(html.includes('auth/popup-closed-by-user')&&html.includes('login-cancel')&&html.includes('pagehide'));
+ const script=html.match(/<script type="module" nonce="[a-f0-9]+">([\s\S]*?)<\/script>/)[1];
+ assert.ok(script.includes('validTicket'));
+ const syntax=spawnSync(process.execPath,['--input-type=module','--check'],{input:script,encoding:'utf8',windowsHide:true});
+ assert.equal(syntax.status,0,syntax.stderr);
 });
 test('handoff requires its independent poll secret, is single use and expires',async()=>{
  const start=await begin();await authenticate(start);

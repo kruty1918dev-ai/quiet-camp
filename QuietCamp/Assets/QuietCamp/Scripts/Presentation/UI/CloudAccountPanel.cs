@@ -32,7 +32,7 @@ namespace QuietCamp.Presentation.UI
         readonly GameServices _services;
         readonly HtmlSurface _surface;
         readonly Action _continue;
-        bool LinkLocal => _services.Settings.accountChoiceVersion==CloudSaveService.ChoiceVersion;
+        bool LinkLocal => _services.Settings.accountChoiceVersion==CloudSaveService.ChoiceVersion && !Cloud.NeedsReauthentication;
         bool _confirmCloud, _confirmLocal, _confirmDelete, _confirmSignOut;
         string _notice;
         CloudSaveService Cloud => _services.Cloud;
@@ -49,7 +49,7 @@ namespace QuietCamp.Presentation.UI
             string id = "account-" + provider;
             _surface.Callbacks.Bind(id, action);
             string mark = provider == "google" ? "<img class=\"account-brand-image\" src=\"res:QuietCamp/UI/Icons/google-sign-in\"/>"
-                : "<text>" + (provider == "facebook" ? "f" : "X") + "</text>";
+                : "<text>f</text>";
             string button = "<button id=\"" + id + "\" class=\"quiet account-provider\" data-tooltip=\"" + label + "\" onClick=\"Globals.campUi.Click('" + id + "')\""
                 + (enabled ? "" : " disabled=\"true\"") + "><view class=\"account-provider-icon account-provider-" + provider
                 + "\">" + mark + "</view>" + (compact ? "" : "<text>" + label + "</text>") + "</button>";
@@ -73,15 +73,14 @@ namespace QuietCamp.Presentation.UI
             var html = new StringBuilder("<view class=\"account-entry\"><view class=\"account-choice\">");
             html.Append(HtmlUi.Text(T("chooseMethod"),"account-choice-title"));
             html.Append("<view class=\"account-choice-icons\">");
-            foreach (string provider in new[]{"google","facebook","x"}) {
-                string captured=provider, label=provider=="google" ? "Google" : provider=="facebook" ? "Facebook" : "X";
+            foreach (string provider in new[]{"google","facebook"}) {
+                string captured=provider, label=provider=="google" ? "Google" : "Facebook";
                 html.Append(ProviderButton(provider,label,()=>Run(()=>SignIn(captured,label)),!Cloud.Busy,true));
             }
-            _surface.Callbacks.Bind("account-local-only",()=> { if(!Cloud.Busy && Cloud.ContinueLocally()) _continue(); });
-            html.Append("<view class=\"account-choice-item\"><button id=\"account-local-only\" class=\"quiet account-provider\" onClick=\"Globals.campUi.Click('account-local-only')\""
-                + (Cloud.Busy ? " disabled=\"true\"" : "") + "><img class=\"account-brand-image\" src=\"res:QuietCamp/UI/Icons/guests\"/></button>"
+            _surface.Callbacks.Bind("account-local-only",()=> { if(Cloud.ContinueLocally()) _continue(); });
+            html.Append("<view class=\"account-choice-item\"><button id=\"account-local-only\" class=\"quiet account-provider\" onClick=\"Globals.campUi.Click('account-local-only')\"><img class=\"account-brand-image\" src=\"res:QuietCamp/UI/Icons/guests\"/></button>"
                 + HtmlUi.Text(T("guestBrief"),"account-choice-label") + "</view></view>");
-            if (Cloud.Busy) html.Append(HtmlUi.Text(T("Working"),"account-choice-status") + Button("cancel",T("cancel"),()=>Cloud.Cancel()));
+            if (Cloud.Busy) html.Append(HtmlUi.Text(T(Cloud.Status==CloudSaveStatus.Offline ? "Offline" : "Working"),"account-choice-status") + Button("cancel",T("cancel"),()=>Cloud.Cancel()));
             if (Cloud.PairCode!=null) html.Append(HtmlUi.Text(T("pairCode")+" "+Cloud.PairCode,"account-choice-status"));
             if (_notice!=null) html.Append(HtmlUi.Text(_notice,"account-choice-status"));
             if (Cloud.LoginUrl!=null) html.Append(Button("open-browser",T("openBrowser"),()=>UnityEngine.Application.OpenURL(Cloud.LoginUrl)));
@@ -108,8 +107,8 @@ namespace QuietCamp.Presentation.UI
             if(Cloud.Linked) html.Append(HtmlUi.Text(T("linked")+" "+Cloud.Provider,"s-sub"));
             else {
                 html.Append(HtmlUi.Text(T("anonymousWarning"),"s-sub"));
-                foreach(string provider in new[]{"google","facebook","x"}) {
-                    string captured=provider, label=provider=="google" ? "Google" : provider=="facebook" ? "Facebook" : "X";
+                foreach(string provider in new[]{"google","facebook"}) {
+                    string captured=provider, label=provider=="google" ? "Google" : "Facebook";
                     html.Append(ProviderButton(provider,label,()=>Run(()=>SignIn(captured,label)),MainMenu && Cloud.Allowed && !Cloud.Busy && Array.IndexOf(Cloud.Providers,provider)>=0));
                 }
                 html.Append(Button("retry",T("retry"),()=>Run(()=>Cloud.LoadOptions()),Cloud.Allowed && !Cloud.Busy));

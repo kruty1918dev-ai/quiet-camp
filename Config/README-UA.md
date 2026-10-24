@@ -130,7 +130,13 @@ Firebase отримує рекламні сигнали з `UMP_consentModeValue
 відмову, повторний запуск і відкликання. Документація:
 [UMP consent signals](https://developers.google.com/funding-choices/fc-sdks),
 [Unity UMP](https://developers.google.com/admob/unity/privacy).
-Review-прапорці не підтверджено лише через публікацію сайту; вони залишаються false.
+Review-прапорці SDK, реклами, billing та teen access не підтверджено лише через публікацію сайту; вони залишаються false.
+
+## Акаунти й опублікована політика — 24.10.2026
+
+Політика `2026-10-23.public-policy-7-google-facebook` звірена з трьома опублікованими мовами. У наявному owner.local змінено тільки cloudSave, publishedPolicyRevision та policyPublished. `cloudSave.enabled=true`, endpoint — чинний `/v1/cloud`, reviewed=true, teenReviewed=false. Це вмикає налаштований account flow дорослим, а не є доказом Android QA. Pro, SDK inputs та решта reviews не змінені.
+
+Публічний allow-listed `owner_client.json` з endpoint і review-рішеннями версіонується разом із наявним meta. Він не містить приватного owner input, серверних секретів чи сесій користувача. Приватний owner.local і native provider config залишаються ignored. Використовуйте validate → readiness → prepare → review diff → apply; не замінюйте owner.local шаблоном. Поточні сценарії та необхідні Android-перевірки: [CLOUD-SAVES-UA.md](CLOUD-SAVES-UA.md).
 
 ## Майбутнє внутрішнє тестування Google Play
 

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "mode": "development",
+  "androidPackageName": "com.quietcamp.game",
+  "complimentaryAccessEnabled": true,
+  "complimentaryAccessEndpoint": "https://quietcamp-access.oleksiy-havryliuk.workers.dev/v1/access",
+  "cloudSaveEnabled": true,
+  "cloudSaveEndpoint": "https://quietcamp-access.oleksiy-havryliuk.workers.dev/v1/cloud",
+  "cloudSaveReviewed": true,
+  "cloudSaveTeenReviewed": false,
+  "proProductId": "quietcamp_pro",
+  "verificationEndpoint": "",
+  "billingReviewed": false,
+  "operationalMetricsEndpoint": "",
+  "operationalMetricsReviewed": false,
+  "firstInterstitialAfterCompletedLevels": 5,
+  "completedLevelsBetweenInterstitials": 4,
+  "minimumInterstitialIntervalSeconds": 180,
+  "interstitialCooldownAfterRewardSeconds": 180,
+  "maximumInterstitialsPerSession": 3
+}

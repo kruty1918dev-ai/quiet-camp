@@ -261,7 +261,7 @@ namespace QuietCamp.Presentation
                 while(!launchSync.IsCompleted) yield return null;
             }
             if (!authoringPreview && !_startupSave.MemoryOnly && (_startupSave.Settings.accountChoiceVersion != CloudSaveService.ChoiceVersion
-                || _services.Cloud.Status==CloudSaveStatus.Conflict))
+                || _services.Cloud.Status==CloudSaveStatus.Conflict || _services.Cloud.NeedsReauthentication))
             {
                 _bootView.ShowPolicy(true);
                 var account=CloudAccountPanel.Create(_bootView.PolicyParent,_services);
