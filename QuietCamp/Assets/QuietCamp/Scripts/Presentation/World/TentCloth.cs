@@ -28,6 +28,18 @@ namespace QuietCamp.Presentation.World
             if (root.activeInHierarchy) owner.Initialize();
         }
         void OnEnable() => Initialize();
+        static bool UsesGeometryBudget(Transform tent)
+        {
+            // Menu tents exist before CampArtView is configured. Their owning
+            // board has already configured the ground, even under an inactive
+            // background root. Prefer that owner over another loaded world.
+            for(var parent=tent.parent;parent!=null;parent=parent.parent)
+            {
+                var ground=parent.GetComponentInChildren<CampGroundDetails>(true);
+                if(ground!=null)return ground.HasGeometryBudget;
+            }
+            return UnityEngine.Object.FindAnyObjectByType<CampGroundDetails>()?.HasGeometryBudget==true;
+        }
         void Initialize()
         {
             if (_initialized) return;
@@ -61,7 +73,7 @@ namespace QuietCamp.Presentation.World
                     // Budgeted worlds keep one refinement pass: the original
                     // fabric, rigid submeshes and colliders are unchanged.
                     // A second pass quadrupled every tent, including its ghost.
-                    bool budgeted=UnityEngine.Object.FindAnyObjectByType<CampArtView>()?.Definition?.mobileGeometryBudget==true;
+                    bool budgeted=UsesGeometryBudget(root.transform);
                     var geometry=FabricGeometry.Acquire(mesh,fabricSlots,budgeted?1:2);
                     if(geometry!=null)
                     {

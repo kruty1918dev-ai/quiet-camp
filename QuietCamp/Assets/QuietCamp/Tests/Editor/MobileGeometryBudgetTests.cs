@@ -12,6 +12,21 @@ namespace QuietCamp.Tests
 {
     public sealed class MobileGeometryBudgetTests
     {
+        [Test] public void MenuTentsInheritTheirInactiveBoardBudgetBeforeArtViewExists()
+        {
+            var root=new GameObject("Inactive menu background");root.SetActive(false);
+            try
+            {
+                var grid=new GameObject("Grid");grid.transform.SetParent(root.transform);var ground=grid.AddComponent<CampGroundDetails>();
+                var tents=new GameObject("Tents");tents.transform.SetParent(root.transform);var tent=new GameObject("Tent");tent.transform.SetParent(tents.transform);
+                var art=typeof(CampGroundDetails).GetField("_art",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
+                var check=typeof(TentCloth).GetMethod("UsesGeometryBudget",System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.NonPublic);
+                Assert.IsNull(root.GetComponentInChildren<CampArtView>(true));
+                art.SetValue(ground,new CampArtDefinition{mobileGeometryBudget=true});Assert.IsTrue((bool)check.Invoke(null,new object[]{tent.transform}));
+                art.SetValue(ground,new CampArtDefinition());Assert.IsFalse((bool)check.Invoke(null,new object[]{tent.transform}));
+            }
+            finally{UnityEngine.Object.DestroyImmediate(root);}
+        }
         [TestCase("tent_smallOpen")] [TestCase("tent_detailedOpen")]
         public void BudgetedFabricRetainsSourceAndRigidGeometryAndSharesItsOwnCache(string id)
         {

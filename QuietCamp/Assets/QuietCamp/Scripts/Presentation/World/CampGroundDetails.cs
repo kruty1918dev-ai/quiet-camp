@@ -30,6 +30,7 @@ namespace QuietCamp.Presentation.World
         public int VegetationPatchCount {get;private set;}
         public int SnowPatchCount {get;private set;}
         public CampSurfaceUseField Surface {get;private set;}
+        public bool HasGeometryBudget=>_art?.mobileGeometryBudget==true;
         public int PrintCount=>0;
         public IReadOnlyList<Vector3> PrintCentres=>Array.Empty<Vector3>();
         public float MeltAmount=>_melt;

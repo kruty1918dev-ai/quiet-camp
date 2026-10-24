@@ -1,0 +1,36 @@
+{
+  "runId": "20261024T155150161-cec2d3",
+  "levelId": "gen:qc_camp:91",
+  "inputHash": "1b7b0219b80c5a3f472ab5aac0e5dfa266581edd2a18f3f7c93a2304d4eec2d5",
+  "documentHash": "3b0122d04b89841bd9d0d3359a20695e7e2642095a7ceb3ed73db2efa4b13c4f",
+  "round": 0,
+  "reviewer": "Codex native visual review",
+  "accepted": false,
+  "inspectedFrameHashes": [
+    "6a7118d3bc6de26588a8641f39ad6972945cb2883e258a60ff1f29469871c694",
+    "fe47d9a4d0a3d9153708b413f61e40cd3e7aecd703c6219bb51912791f803e10",
+    "dddd19aa9af7ffd038e338616a0d7fe75afe5ba280e5f06aa828869a03c913c1",
+    "eeb9c88f501b23e96db2fb48212bb4643c14e99eccb7c65963361dad8e21785a",
+    "26848fcc740f2bd3135094c43dc58f3f5e2a887e70d7cadb56dc4c1150239ce5",
+    "dc36ad48bb468048c5dd74c64b686c19d451cd0a7fe62323b0224520feeec50a",
+    "f715194f3f95449bbb358e788c35484ba900b2565c093bc2f2c77f80a0e497b6",
+    "0ac88e2324d1dc7899d711977e899741867198eb9a95bae10a539d14f11ffdee",
+    "8049343d99a0b9d379412189e4b83e33b3a996fbd1ed44d03ee71d9d4ba55b3d",
+    "1aa75d9da275245daa659e1d89eba3ed36561c085582b3c1d01baf57948d9e7f",
+    "6c25a2a7f4d9defaef117cd5604347627991e38fdf8e06c3e7c030aedc560ef2",
+    "0a1a11e989bcace66aa2226abbf4e2baac262a36cd04f5fb41ecb4321fe51e2d",
+    "4ac26af1423536e79fdedbde3827ced6bc37e2b1f6e03c57700c406ca0c4bc9c",
+    "dd241496b8a8f2fa03a2b0e0f81ac8a6eb840d39da5a77dde830a5dae4ea06bb",
+    "f9d7dcb329a0be27ccdb91960c9faf810400ce2e6262c5f13d1aa1dbb0cfac99",
+    "ae9103c523aff198a003f8ba5cb97dd524b66185ada9bf9751c8bc9c90d250a9",
+    "14a46951f515dd16d3e444a0c6272350f38a3d1394b5a2c3756bbb3045ab5a33",
+    "0f420b5e057eb7d27b1090fe5baa5b7bc156d2329c7d2fb072c8376139016f52",
+    "cd61565acc3db1b1351c141dbb6e3de2ba6b67d41509dc82c1717ed0d92825ca",
+    "028b646496e568232ba978929fabeb3905c39f1fb71a6e602e7abde3807ae45e"
+  ],
+  "corrections": [],
+  "residuals": [
+    "landmark.clipped"
+  ],
+  "notes": "Inspected all 20 current native frames across both orientations, menu and four distant terrain regions in contact sheets; full-size grass/placed views also checked. Flat ribbon grass is removed. Raised compact leaves, terrain colour, tent pressure, seasonal coverage and lighting inspected. Existing landmark/contact findings remain; the heavy summer menu still exceeds 50000 (51310), while its gameplay peak is 49634. No full artistic acceptance or publication. Next correction makes menu tents use their owning ground budget before CampArtView initialization."
+}

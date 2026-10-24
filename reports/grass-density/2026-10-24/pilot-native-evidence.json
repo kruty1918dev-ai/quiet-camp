@@ -1,0 +1,720 @@
+{
+  "kind": "Derived summary of original WorldOps native evidence; not a replacement receipt",
+  "runId": "20261024T155150161-cec2d3",
+  "sourceManifestHash": "46ecd8222af6b132afd5abe466488adfe5cd9bb06a51fa8a9ebe66e20742d271",
+  "status": "rejected-before-menu-owner-fix",
+  "frames": 100,
+  "scope": "Five selected levels, both profiles, active UI, gameplay, menu and distant diagnostics. Not all-100 native validation or device FPS.",
+  "levels": [
+    {
+      "levelId": "QC001",
+      "peak": 41510,
+      "findings": [
+        "landmark.clipped",
+        "support.floating"
+      ],
+      "census": [
+        {
+          "profile": "landscape",
+          "state": "breeze",
+          "sceneMeshTriangles": 31779,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 3181,
+          "total": 38746,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC001\\round-0\\attempt-1\\after\\landscape\\breeze.geometry-census.json",
+          "sha256": "6703d0146a80fd2b365f926a9ea06d1d0c0b03dbbed0d383b21f5c0fa99b62e1"
+        },
+        {
+          "profile": "landscape",
+          "state": "complete",
+          "sceneMeshTriangles": 32027,
+          "uiTriangles": 0,
+          "particleTriangleCapacity": 3181,
+          "total": 35208,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC001\\round-0\\attempt-1\\after\\landscape\\complete.geometry-census.json",
+          "sha256": "3395c8cd8d3ded4afcb489b8bf0774e192b10ea954c9015399644ff179175494"
+        },
+        {
+          "profile": "landscape",
+          "state": "empty",
+          "sceneMeshTriangles": 28313,
+          "uiTriangles": 2720,
+          "particleTriangleCapacity": 3181,
+          "total": 34214,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC001\\round-0\\attempt-1\\after\\landscape\\empty.geometry-census.json",
+          "sha256": "b226abd2499e28c571a050ebca8a0558b67b3c127fd57da22de3574c509f98a4"
+        },
+        {
+          "profile": "landscape",
+          "state": "menu",
+          "sceneMeshTriangles": 35173,
+          "uiTriangles": 3012,
+          "particleTriangleCapacity": 2933,
+          "total": 41118,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC001\\round-0\\attempt-1\\after\\landscape\\menu.geometry-census.json",
+          "sha256": "a978b3a4c7da7fe8d774f06ac6a0298be926e6dfb9ac180943f14a73207f4fb5"
+        },
+        {
+          "profile": "landscape",
+          "state": "placed",
+          "sceneMeshTriangles": 31743,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 3181,
+          "total": 38710,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC001\\round-0\\attempt-1\\after\\landscape\\placed.geometry-census.json",
+          "sha256": "e140dbaa1b38081b6991506613fe8d8d4ebd91a54128dbc81753da76ecffee09"
+        },
+        {
+          "profile": "landscape",
+          "state": "placement",
+          "sceneMeshTriangles": 30461,
+          "uiTriangles": 4096,
+          "particleTriangleCapacity": 3181,
+          "total": 37738,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC001\\round-0\\attempt-1\\after\\landscape\\placement.geometry-census.json",
+          "sha256": "a634bc61cb34a4114890a0654037a2d2ac21fea4467806560c093d6f1f1e88d8"
+        },
+        {
+          "profile": "portrait",
+          "state": "breeze",
+          "sceneMeshTriangles": 31779,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 3181,
+          "total": 38746,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC001\\round-0\\attempt-1\\after\\portrait\\breeze.geometry-census.json",
+          "sha256": "f455849de8dd1cc14e11d8dfc430880bbfae49266f4f15d61dd332d4622552cc"
+        },
+        {
+          "profile": "portrait",
+          "state": "complete",
+          "sceneMeshTriangles": 32027,
+          "uiTriangles": 0,
+          "particleTriangleCapacity": 3181,
+          "total": 35208,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC001\\round-0\\attempt-1\\after\\portrait\\complete.geometry-census.json",
+          "sha256": "efa6013e1f3bed1a5c0c26be20f7c7258445e595de0d9d613848860cb3f50372"
+        },
+        {
+          "profile": "portrait",
+          "state": "empty",
+          "sceneMeshTriangles": 28313,
+          "uiTriangles": 2720,
+          "particleTriangleCapacity": 3181,
+          "total": 34214,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC001\\round-0\\attempt-1\\after\\portrait\\empty.geometry-census.json",
+          "sha256": "9984d7384bd944cb9aa81478f94dfe31667e528855917845fc743512a905df23"
+        },
+        {
+          "profile": "portrait",
+          "state": "menu",
+          "sceneMeshTriangles": 35173,
+          "uiTriangles": 3404,
+          "particleTriangleCapacity": 2933,
+          "total": 41510,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC001\\round-0\\attempt-1\\after\\portrait\\menu.geometry-census.json",
+          "sha256": "2cf496ab79a22d564aacad8bebd12d683855aa3f139aae7cd1a4670b07edf0a7"
+        },
+        {
+          "profile": "portrait",
+          "state": "placed",
+          "sceneMeshTriangles": 31743,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 3181,
+          "total": 38710,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC001\\round-0\\attempt-1\\after\\portrait\\placed.geometry-census.json",
+          "sha256": "5f71307cf3d1b5ad4aaa677c41c7e7267b832749703dea68b51d6b82442775ed"
+        },
+        {
+          "profile": "portrait",
+          "state": "placement",
+          "sceneMeshTriangles": 30461,
+          "uiTriangles": 4096,
+          "particleTriangleCapacity": 3181,
+          "total": 37738,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC001\\round-0\\attempt-1\\after\\portrait\\placement.geometry-census.json",
+          "sha256": "2a55a21b567814e613a6f111eda718ac7d4a043fa75813d6abe65a61f7c0f506"
+        }
+      ]
+    },
+    {
+      "levelId": "QC007",
+      "peak": 42263,
+      "findings": [
+        "landmark.clipped"
+      ],
+      "census": [
+        {
+          "profile": "landscape",
+          "state": "breeze",
+          "sceneMeshTriangles": 33510,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 3181,
+          "total": 40477,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC007\\round-0\\attempt-1\\after\\landscape\\breeze.geometry-census.json",
+          "sha256": "2921eed0c7554467ea341aa6db20b72059968949b9b43460a28181518557a6b5"
+        },
+        {
+          "profile": "landscape",
+          "state": "complete",
+          "sceneMeshTriangles": 33882,
+          "uiTriangles": 0,
+          "particleTriangleCapacity": 3181,
+          "total": 37063,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC007\\round-0\\attempt-1\\after\\landscape\\complete.geometry-census.json",
+          "sha256": "d8ed9195b1e94643092582c15d3393d10d18ccfb289a7e8e197d19b1d3e5ade0"
+        },
+        {
+          "profile": "landscape",
+          "state": "empty",
+          "sceneMeshTriangles": 29066,
+          "uiTriangles": 2726,
+          "particleTriangleCapacity": 3181,
+          "total": 34973,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC007\\round-0\\attempt-1\\after\\landscape\\empty.geometry-census.json",
+          "sha256": "5868c34089f57fe8063b6d0846e9182f6166c804c18797d2e4c8a3adb8412dc0"
+        },
+        {
+          "profile": "landscape",
+          "state": "menu",
+          "sceneMeshTriangles": 35926,
+          "uiTriangles": 3012,
+          "particleTriangleCapacity": 2933,
+          "total": 41871,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC007\\round-0\\attempt-1\\after\\landscape\\menu.geometry-census.json",
+          "sha256": "e4ff26654ba2a10efe352603d0397706542438149678459d51b2521eca132e31"
+        },
+        {
+          "profile": "landscape",
+          "state": "placed",
+          "sceneMeshTriangles": 33510,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 3181,
+          "total": 40477,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC007\\round-0\\attempt-1\\after\\landscape\\placed.geometry-census.json",
+          "sha256": "84a7ca80910af6f41af3887d8d83b79b398ef2f3bc9c1e37d4e544b9de184e5c"
+        },
+        {
+          "profile": "landscape",
+          "state": "placement",
+          "sceneMeshTriangles": 32388,
+          "uiTriangles": 4096,
+          "particleTriangleCapacity": 3181,
+          "total": 39665,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC007\\round-0\\attempt-1\\after\\landscape\\placement.geometry-census.json",
+          "sha256": "0af8de21fd27fa7e98190414b2a1222daa7f287cd600314300e3ea0d92c33bef"
+        },
+        {
+          "profile": "portrait",
+          "state": "breeze",
+          "sceneMeshTriangles": 33510,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 3181,
+          "total": 40477,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC007\\round-0\\attempt-1\\after\\portrait\\breeze.geometry-census.json",
+          "sha256": "5fcd27b6b019ad30132712577f555648f7797ad0498792d92b2343b63fbb7924"
+        },
+        {
+          "profile": "portrait",
+          "state": "complete",
+          "sceneMeshTriangles": 33882,
+          "uiTriangles": 0,
+          "particleTriangleCapacity": 3181,
+          "total": 37063,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC007\\round-0\\attempt-1\\after\\portrait\\complete.geometry-census.json",
+          "sha256": "89dc7b423f1fc5b6019d75261c4e6d2349503ba8b1d42d1ef430678cb9f16699"
+        },
+        {
+          "profile": "portrait",
+          "state": "empty",
+          "sceneMeshTriangles": 29066,
+          "uiTriangles": 2726,
+          "particleTriangleCapacity": 3181,
+          "total": 34973,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC007\\round-0\\attempt-1\\after\\portrait\\empty.geometry-census.json",
+          "sha256": "bfbe4dde21535344288a104acb98016ecfa90b72861e870189cb680e8f98c404"
+        },
+        {
+          "profile": "portrait",
+          "state": "menu",
+          "sceneMeshTriangles": 35926,
+          "uiTriangles": 3404,
+          "particleTriangleCapacity": 2933,
+          "total": 42263,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC007\\round-0\\attempt-1\\after\\portrait\\menu.geometry-census.json",
+          "sha256": "a4e131b7dcb9cfea0a11e436a93efad4d262c3213b29349ee50c7c8343edccad"
+        },
+        {
+          "profile": "portrait",
+          "state": "placed",
+          "sceneMeshTriangles": 33510,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 3181,
+          "total": 40477,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC007\\round-0\\attempt-1\\after\\portrait\\placed.geometry-census.json",
+          "sha256": "fbe52936403891cd26abc40c74380a877e7c9cdec216863116c49c745a935afc"
+        },
+        {
+          "profile": "portrait",
+          "state": "placement",
+          "sceneMeshTriangles": 32388,
+          "uiTriangles": 4096,
+          "particleTriangleCapacity": 3181,
+          "total": 39665,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC007\\round-0\\attempt-1\\after\\portrait\\placement.geometry-census.json",
+          "sha256": "a0a5fc058ae6be2427aba643b0395e5ea761e668c01d0ab3c5a7e2f76313faef"
+        }
+      ]
+    },
+    {
+      "levelId": "QC009",
+      "peak": 43752,
+      "findings": [
+        "landmark.clipped",
+        "support.floating",
+        "vegetation.water"
+      ],
+      "census": [
+        {
+          "profile": "landscape",
+          "state": "breeze",
+          "sceneMeshTriangles": 36361,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 3181,
+          "total": 43328,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC009\\round-0\\attempt-1\\after\\landscape\\breeze.geometry-census.json",
+          "sha256": "9b18973fc111e24b57c16a61f31619b34a4538d29231503368543ae897ef81f7"
+        },
+        {
+          "profile": "landscape",
+          "state": "complete",
+          "sceneMeshTriangles": 36857,
+          "uiTriangles": 0,
+          "particleTriangleCapacity": 3181,
+          "total": 40038,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC009\\round-0\\attempt-1\\after\\landscape\\complete.geometry-census.json",
+          "sha256": "f731eafa16f6aa56e34a1312561964639f1c80e8721d2177fa6c2473e349e38d"
+        },
+        {
+          "profile": "landscape",
+          "state": "empty",
+          "sceneMeshTriangles": 30553,
+          "uiTriangles": 2720,
+          "particleTriangleCapacity": 3181,
+          "total": 36454,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC009\\round-0\\attempt-1\\after\\landscape\\empty.geometry-census.json",
+          "sha256": "f2d39faf243df59f7803de9b0d6b791064f8d5408ab6cac4f041464837a47058"
+        },
+        {
+          "profile": "landscape",
+          "state": "menu",
+          "sceneMeshTriangles": 37413,
+          "uiTriangles": 3014,
+          "particleTriangleCapacity": 2933,
+          "total": 43360,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC009\\round-0\\attempt-1\\after\\landscape\\menu.geometry-census.json",
+          "sha256": "17fdd39dd93473028e00d04511110a02f368a21a14f8df7762126c1e2826aa93"
+        },
+        {
+          "profile": "landscape",
+          "state": "placed",
+          "sceneMeshTriangles": 36397,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 3181,
+          "total": 43364,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC009\\round-0\\attempt-1\\after\\landscape\\placed.geometry-census.json",
+          "sha256": "18465ee56ca70f3a7200094b661e691e8cdecf25c5517bdd86c3be92a8fbc0a8"
+        },
+        {
+          "profile": "landscape",
+          "state": "placement",
+          "sceneMeshTriangles": 35239,
+          "uiTriangles": 4096,
+          "particleTriangleCapacity": 3181,
+          "total": 42516,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC009\\round-0\\attempt-1\\after\\landscape\\placement.geometry-census.json",
+          "sha256": "2cf888e3f46070778ca6dd3a653d2f8b1f91642389eade6af3d2b182d00bdc34"
+        },
+        {
+          "profile": "portrait",
+          "state": "breeze",
+          "sceneMeshTriangles": 36361,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 3181,
+          "total": 43328,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC009\\round-0\\attempt-1\\after\\portrait\\breeze.geometry-census.json",
+          "sha256": "9c45429bc249c42afeb3e64e09938a67cbc5178d9d435acb47ddbf4b25bb1663"
+        },
+        {
+          "profile": "portrait",
+          "state": "complete",
+          "sceneMeshTriangles": 36857,
+          "uiTriangles": 0,
+          "particleTriangleCapacity": 3181,
+          "total": 40038,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC009\\round-0\\attempt-1\\after\\portrait\\complete.geometry-census.json",
+          "sha256": "6e2f7bd1280e71d135f589cf73a837291e855357edd240a93e4cdc7dd2027ef9"
+        },
+        {
+          "profile": "portrait",
+          "state": "empty",
+          "sceneMeshTriangles": 30553,
+          "uiTriangles": 2720,
+          "particleTriangleCapacity": 3181,
+          "total": 36454,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC009\\round-0\\attempt-1\\after\\portrait\\empty.geometry-census.json",
+          "sha256": "935ff42601d0e7c7b03fc05f5a496e633c1a5012cc9dbc2fc8da7c8dfd8875b3"
+        },
+        {
+          "profile": "portrait",
+          "state": "menu",
+          "sceneMeshTriangles": 37413,
+          "uiTriangles": 3406,
+          "particleTriangleCapacity": 2933,
+          "total": 43752,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC009\\round-0\\attempt-1\\after\\portrait\\menu.geometry-census.json",
+          "sha256": "aec529f24b9d25d5a8db6a77660b73e8687e63206999c618cad9321632b5dc8c"
+        },
+        {
+          "profile": "portrait",
+          "state": "placed",
+          "sceneMeshTriangles": 36397,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 3181,
+          "total": 43364,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC009\\round-0\\attempt-1\\after\\portrait\\placed.geometry-census.json",
+          "sha256": "ec35db71be637709272ad1f813d0178936e9ef8c619a14673ed9eda72994710f"
+        },
+        {
+          "profile": "portrait",
+          "state": "placement",
+          "sceneMeshTriangles": 35239,
+          "uiTriangles": 4096,
+          "particleTriangleCapacity": 3181,
+          "total": 42516,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\QC009\\round-0\\attempt-1\\after\\portrait\\placement.geometry-census.json",
+          "sha256": "450765c9f5c9d4edd4aab9c3f71bf347021b3fc420ae6977b5b5ff94562b699e"
+        }
+      ]
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "peak": 51310,
+      "findings": [
+        "landmark.clipped",
+        "scene.triangle-budget",
+        "support.floating"
+      ],
+      "census": [
+        {
+          "profile": "landscape",
+          "state": "breeze",
+          "sceneMeshTriangles": 42950,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 2898,
+          "total": 49634,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\breeze.geometry-census.json",
+          "sha256": "746d79675735613bc8dac5bd80b965a1cedf0e08b74cd5eb29b824f4c1acc5b9"
+        },
+        {
+          "profile": "landscape",
+          "state": "complete",
+          "sceneMeshTriangles": 43322,
+          "uiTriangles": 0,
+          "particleTriangleCapacity": 2898,
+          "total": 46220,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\complete.geometry-census.json",
+          "sha256": "b90d2acd763216635b5a19144b5f96c792e1e43853c102b836156a7a32ce0b55"
+        },
+        {
+          "profile": "landscape",
+          "state": "empty",
+          "sceneMeshTriangles": 38346,
+          "uiTriangles": 2720,
+          "particleTriangleCapacity": 2898,
+          "total": 43964,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\empty.geometry-census.json",
+          "sha256": "7c6a0e1a74e5993550c1370f9c02b38d11ebbd11a8a9dc2812c0cdd5c5f960c6"
+        },
+        {
+          "profile": "landscape",
+          "state": "menu",
+          "sceneMeshTriangles": 45254,
+          "uiTriangles": 3014,
+          "particleTriangleCapacity": 2650,
+          "total": 50918,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\menu.geometry-census.json",
+          "sha256": "4e3249776eb24e9cc685b3192dc4cc4ebe59391ed4adeb3b8db7c27eea2b033a"
+        },
+        {
+          "profile": "landscape",
+          "state": "placed",
+          "sceneMeshTriangles": 42914,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 2898,
+          "total": 49598,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\placed.geometry-census.json",
+          "sha256": "c3a19a4421f8b73e1f8c4b4dfc790e7f46a4f762afa19193dbaf36b858ac0506"
+        },
+        {
+          "profile": "landscape",
+          "state": "placement",
+          "sceneMeshTriangles": 41768,
+          "uiTriangles": 4096,
+          "particleTriangleCapacity": 2898,
+          "total": 48762,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\placement.geometry-census.json",
+          "sha256": "dc3c3ba64332cfe4bf6720614d49d3562544c415575db8aa943ff58f57efaff9"
+        },
+        {
+          "profile": "portrait",
+          "state": "breeze",
+          "sceneMeshTriangles": 42950,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 2898,
+          "total": 49634,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\breeze.geometry-census.json",
+          "sha256": "d6b61ea8f15722d0faf7c90375f72d0450b2ff22dea0a01fa3d070955821a0f6"
+        },
+        {
+          "profile": "portrait",
+          "state": "complete",
+          "sceneMeshTriangles": 43322,
+          "uiTriangles": 0,
+          "particleTriangleCapacity": 2898,
+          "total": 46220,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\complete.geometry-census.json",
+          "sha256": "0c5b257d20c992301b59d3667b50ba89eb9c1f727c32927a14b5ee71122c3502"
+        },
+        {
+          "profile": "portrait",
+          "state": "empty",
+          "sceneMeshTriangles": 38346,
+          "uiTriangles": 2720,
+          "particleTriangleCapacity": 2898,
+          "total": 43964,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\empty.geometry-census.json",
+          "sha256": "906c3387bec99d66eb2ab58e3b38c0b232a407a559dc3c4736ae991f395f4fed"
+        },
+        {
+          "profile": "portrait",
+          "state": "menu",
+          "sceneMeshTriangles": 45254,
+          "uiTriangles": 3406,
+          "particleTriangleCapacity": 2650,
+          "total": 51310,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\menu.geometry-census.json",
+          "sha256": "db398b117d7318901772181a0655c63dbcd5975eb746335df7d41a169ed0d1f2"
+        },
+        {
+          "profile": "portrait",
+          "state": "placed",
+          "sceneMeshTriangles": 42914,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 2898,
+          "total": 49598,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\placed.geometry-census.json",
+          "sha256": "c849d96b7304493cdf98b121968a7b8ce714b5fb462cf7c64a00fdd0eba47063"
+        },
+        {
+          "profile": "portrait",
+          "state": "placement",
+          "sceneMeshTriangles": 41768,
+          "uiTriangles": 4096,
+          "particleTriangleCapacity": 2898,
+          "total": 48762,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\placement.geometry-census.json",
+          "sha256": "5546446e4c25baa024b307f154fc8102a76e478b79fcc9da8a285b739aa807a0"
+        }
+      ]
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "peak": 33783,
+      "findings": [
+        "landmark.clipped"
+      ],
+      "census": [
+        {
+          "profile": "landscape",
+          "state": "breeze",
+          "sceneMeshTriangles": 26546,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 3181,
+          "total": 33513,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\breeze.geometry-census.json",
+          "sha256": "589d7564160f3a6da02f019ae8bc9fea0b5d65fd8db62c9011f7b1f83275640d"
+        },
+        {
+          "profile": "landscape",
+          "state": "complete",
+          "sceneMeshTriangles": 27042,
+          "uiTriangles": 0,
+          "particleTriangleCapacity": 3181,
+          "total": 30223,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\complete.geometry-census.json",
+          "sha256": "6bc83f35914e8cadd4b78807c17c264c1090194faa4681e1c70385b9e5bbcd8a"
+        },
+        {
+          "profile": "landscape",
+          "state": "empty",
+          "sceneMeshTriangles": 20584,
+          "uiTriangles": 2732,
+          "particleTriangleCapacity": 3181,
+          "total": 26497,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\empty.geometry-census.json",
+          "sha256": "68512a14aabb555f2588770bb7814361d4e892de6990ad95b3a77bba6a0bd048"
+        },
+        {
+          "profile": "landscape",
+          "state": "menu",
+          "sceneMeshTriangles": 27444,
+          "uiTriangles": 3014,
+          "particleTriangleCapacity": 2933,
+          "total": 33391,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\menu.geometry-census.json",
+          "sha256": "cec7336da7b7ddd4ebf63dcf401a0c8ddd35bbe52469fcbbbb7d68cb6bfde63f"
+        },
+        {
+          "profile": "landscape",
+          "state": "placed",
+          "sceneMeshTriangles": 26546,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 3181,
+          "total": 33513,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\placed.geometry-census.json",
+          "sha256": "cda5e326bcc8bb838c39a0288e9b03bedaed3987cbb46fae4bd50af488b4fa14"
+        },
+        {
+          "profile": "landscape",
+          "state": "placement",
+          "sceneMeshTriangles": 25192,
+          "uiTriangles": 4206,
+          "particleTriangleCapacity": 3181,
+          "total": 32579,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\placement.geometry-census.json",
+          "sha256": "038fe8cf1bbce35191668174ac83e973d5dbe90037c8dbe1ddc0b5d294702ba8"
+        },
+        {
+          "profile": "portrait",
+          "state": "breeze",
+          "sceneMeshTriangles": 26546,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 3181,
+          "total": 33513,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\breeze.geometry-census.json",
+          "sha256": "32eef69fc007a8574d6b6358bc2ba53851c384cca8d126395ce5ecf42bc9419f"
+        },
+        {
+          "profile": "portrait",
+          "state": "complete",
+          "sceneMeshTriangles": 27042,
+          "uiTriangles": 0,
+          "particleTriangleCapacity": 3181,
+          "total": 30223,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\complete.geometry-census.json",
+          "sha256": "81540a62944e59035ebdbb4954a8e68be6dd9477f9b835f0feed1a66af788389"
+        },
+        {
+          "profile": "portrait",
+          "state": "empty",
+          "sceneMeshTriangles": 20584,
+          "uiTriangles": 2732,
+          "particleTriangleCapacity": 3181,
+          "total": 26497,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\empty.geometry-census.json",
+          "sha256": "e907645831b0c837fe5a862c5392b62007304e1f5b5bca39c41122d5003e7e3c"
+        },
+        {
+          "profile": "portrait",
+          "state": "menu",
+          "sceneMeshTriangles": 27444,
+          "uiTriangles": 3406,
+          "particleTriangleCapacity": 2933,
+          "total": 33783,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\menu.geometry-census.json",
+          "sha256": "4e9741019ff8da8ddd8beaffbae1224398fb17e3a56a9b0b1c55e87048f6e079"
+        },
+        {
+          "profile": "portrait",
+          "state": "placed",
+          "sceneMeshTriangles": 26546,
+          "uiTriangles": 3786,
+          "particleTriangleCapacity": 3181,
+          "total": 33513,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\placed.geometry-census.json",
+          "sha256": "d5a7a13c95a5e2f4689aa88fe6273715e15eda2162a34b08cb0b6dbd4c388995"
+        },
+        {
+          "profile": "portrait",
+          "state": "placement",
+          "sceneMeshTriangles": 25192,
+          "uiTriangles": 4206,
+          "particleTriangleCapacity": 3181,
+          "total": 32579,
+          "uncountedRenderers": [],
+          "path": "QuietCamp\\UserSettings\\WorldOps\\20261024T155150161-cec2d3\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\placement.geometry-census.json",
+          "sha256": "1eec98d7ef3c63ec78c2d2a5ce336a3d821c0fcf167ed0c1b15105bd1b207b09"
+        }
+      ]
+    }
+  ]
+}
