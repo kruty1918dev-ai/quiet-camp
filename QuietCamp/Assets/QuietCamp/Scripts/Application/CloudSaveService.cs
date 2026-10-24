@@ -41,6 +41,8 @@ namespace QuietCamp.Application
         public string syncedHash;
         public bool restorePending;
         public string restoreLocalHash;
+        public string firebaseUid;
+        public bool deletionPending;
     }
     public interface ICloudCredentialStore
     {
@@ -53,6 +55,8 @@ namespace QuietCamp.Application
         public string error, accountId, sessionToken, provider, ticket, pollSecret, url;
         public string[] providers;
         public bool created;
+        public bool nativeSignIn, accountPortal, deleted;
+        public CloudAccountProfile profile;
         public long revision;
         public CloudSnapshot snapshot;
         public bool Ok => status >= 200 && status < 300;
@@ -61,10 +65,10 @@ namespace QuietCamp.Application
     {
         Task<CloudReply> Call(string route, string token, object data = null);
     }
-    public enum CloudSaveStatus { Local, Working, Ready, Saved, Offline, Conflict, Unavailable, SignedOut, StorageError, LinkedElsewhere, InvalidData, Cancelled, TimedOut }
+    public enum CloudSaveStatus { Local, Working, Ready, Saved, Offline, Conflict, Unavailable, SignedOut, StorageError, LinkedElsewhere, InvalidData, Cancelled, TimedOut, IdentityMismatch, DeletionRetry, DeletionPending, Deleted, NoCredentials }
 
     /// <summary>Explicit opt-in. CAS conflicts always require a player choice, never clock-based overwrites.</summary>
-    public sealed class CloudSaveService : IDisposable
+    public sealed partial class CloudSaveService : IDisposable
     {
         public const int ChoiceVersion = 2;
         readonly SettingsSaveData _settings;
@@ -95,6 +99,10 @@ namespace QuietCamp.Application
         public bool Linked => HasAccount;
         public bool LinkReminderDue { get; private set; }
         public string Provider => _credential?.provider ?? "anonymous";
+        public string AccountId => _credential?.accountId;
+        public CloudAccountProfile Profile { get; private set; }
+        public bool NativeSignInSupported { get; private set; }
+        public bool AccountPortalSupported { get; private set; }
         public string PairCode { get; private set; }
         public string LoginUrl { get; private set; }
         public string[] Providers { get; private set; } = Array.Empty<string>();
@@ -102,17 +110,18 @@ namespace QuietCamp.Application
 
         public CloudSaveService(SettingsSaveData settings, ICloudCredentialStore store, ICloudTransport transport,
             string endpoint, bool configured, Func<bool> allowed, Func<CloudSnapshot> capture,
-            Func<CloudSnapshot, bool> apply, Func<bool> persist, Func<DateTime> utcNow = null)
+            Func<CloudSnapshot, bool> apply, Func<bool> persist, Func<DateTime> utcNow = null, ICloudNativeIdentity nativeIdentity = null)
         {
             _settings=settings; _store=store; _transport=transport; _endpoint=endpoint;
             _configured=configured; _allowed=allowed; _capture=capture; _apply=apply; _persist=persist;
             _utcNow=utcNow ?? (()=>DateTime.UtcNow);
+            _nativeIdentity=nativeIdentity;
             try { _credential=store.Read(); } catch { }
             _legacyReauthentication=_credential?.provider=="x" && _credential.endpoint==endpoint
                 && !string.IsNullOrEmpty(_credential.accountId) && Token(_credential.sessionToken);
             if (_credential?.endpoint != endpoint || !Social(_credential?.provider)
                 || string.IsNullOrEmpty(_credential?.accountId) || _credential.sessionToken!=null && !Token(_credential.sessionToken)) _credential=null;
-            Status=CloudSaveStatus.Local;
+            Status=DeletionNeedsRetry ? CloudSaveStatus.DeletionRetry : CloudSaveStatus.Local;
         }
         static bool Social(string value) => value=="google" || value=="facebook";
         static bool Token(string value) => value != null && value.Length == 64 && Array.TrueForAll(value.ToCharArray(), c => c >= '0' && c <= '9' || c >= 'a' && c <= 'f');
@@ -205,24 +214,35 @@ namespace QuietCamp.Application
                 var reply=await Call("options"); if (!Current(generation)) return;
                 if (!reply.Ok) { Notify(CloudSaveStatus.Offline); return; }
                 Providers=Array.FindAll(reply.providers ?? Array.Empty<string>(),Social);
+                NativeSignInSupported=reply.nativeSignIn;
+                AccountPortalSupported=reply.accountPortal;
                 Notify(CloudSaveStatus.Ready);
             } finally { _busy=false; Changed?.Invoke(); }
         }
-        bool Remember(CloudReply reply, bool restoreExisting, string localHash)
+        bool Remember(CloudReply reply, bool restoreExisting, string localHash, string firebaseUid = null)
         {
             if (!reply.Ok || !Token(reply.sessionToken) || string.IsNullOrWhiteSpace(reply.accountId)
-                || !Social(reply.provider)) { Notify(CloudSaveStatus.Offline); return false; }
+                || !Social(reply.provider) || reply.profile!=null && reply.profile.accountId!=reply.accountId)
+                { Notify(CloudSaveStatus.Offline); return false; }
             var credential=new CloudCredential {endpoint=_endpoint,accountId=reply.accountId,sessionToken=reply.sessionToken,
-                provider=reply.provider,revision=0,syncedHash=null,restorePending=restoreExisting && !reply.created,restoreLocalHash=localHash};
+                provider=reply.provider,revision=0,syncedHash=null,restorePending=restoreExisting && !reply.created,restoreLocalHash=localHash,firebaseUid=firebaseUid};
             if (_credential?.accountId == credential.accountId && _credential.syncedHash!=null) {
                 credential.revision=_credential.revision; credential.syncedHash=_credential.syncedHash;
                 credential.restorePending=false; credential.restoreLocalHash=null;
             }
             if (!_store.Write(credential)) { Notify(CloudSaveStatus.StorageError); return false; }
-            _credential=credential; _legacyReauthentication=false; _pendingCloud=null; _nextSync=DateTime.MinValue; LinkReminderDue=false; return ContinueAccount();
+            var previous=_credential;
+            _credential=credential;
+            if(!ContinueAccount()) {
+                // The caller revokes the issued session even when erasing its disk copy fails.
+                _credential=previous; _store.Write(previous); return false;
+            }
+            Profile=reply.profile; _legacyReauthentication=false; _pendingCloud=null;
+            _nextSync=DateTime.MinValue; LinkReminderDue=false; return true;
         }
         public async Task SignIn(string provider, bool link, Action<string> openBrowser, CancellationToken cancel=default)
         {
+            if(DeletionNeedsRetry) { Notify(CloudSaveStatus.DeletionRetry); return; }
             if (!Allowed || HasAccount || _busy || !Social(provider) || Array.IndexOf(Providers,provider)<0 || openBrowser==null) return;
             int generation=_generation; _busy=true; Notify(CloudSaveStatus.Working);
             using var cancellation=CancellationTokenSource.CreateLinkedTokenSource(cancel);
@@ -259,8 +279,8 @@ namespace QuietCamp.Application
                     if (result.status == 0 || result.status == 429 || result.status>=500) { Notify(CloudSaveStatus.Offline); continue; }
                     if (result.status == 410) { Notify(CloudSaveStatus.Cancelled); return; }
                     if (result.status == 409) { Notify(CloudSaveStatus.LinkedElsewhere); return; }
-                    if (!Remember(result,!link,localHash)) {
-                        if(!HasAccount && result.Ok && Token(result.sessionToken)) await Call("sign-out",new {},result.sessionToken);
+                    if (!Remember(result,!link && MayRestoreOnSignIn,localHash)) {
+                        if(result.Ok && Token(result.sessionToken)) await Call("sign-out",new {},result.sessionToken);
                         return;
                     }
                     completed=true;
@@ -338,10 +358,14 @@ namespace QuietCamp.Application
         }
         void HandleFailure(CloudReply reply)
         {
+            if(reply.error=="deletion_retry" || reply.error=="deletion_pending") {
+                BlockForDeletion(reply.error=="deletion_pending" ? CloudSaveStatus.DeletionPending : CloudSaveStatus.DeletionRetry); return;
+            }
             if (reply.status==401) {
                 // Keep only the sync baseline so reauthentication of the same account cannot erase offline work.
                 _credential.sessionToken=null; _store.Write(_credential); _settings.accountChoiceVersion=0;
                 _settings.cloudSyncEnabled=false; _persist(); Notify(CloudSaveStatus.SignedOut);
+                _=ClearNativeState();
             }
             else Notify(reply.status==413 || reply.status==400 ? CloudSaveStatus.InvalidData : CloudSaveStatus.Offline);
         }
@@ -350,10 +374,17 @@ namespace QuietCamp.Application
             if (_busy) return;
             _generation++; _pendingCloud=null;
             var token=_credential?.sessionToken;
-            if (!_store.Write(null)) { Notify(CloudSaveStatus.StorageError); return; }
-            _credential=null; _legacyReauthentication=false; _settings.accountChoiceVersion=0; _settings.cloudSyncEnabled=false; _settings.cloudConsentVersion=0; _persist();
+            if(DeletionNeedsRetry) {
+                _credential.sessionToken=null;
+                if(!_store.Write(_credential)) { Notify(CloudSaveStatus.StorageError); return; }
+            } else {
+                if (!_store.Write(null)) { Notify(CloudSaveStatus.StorageError); return; }
+                _credential=null;
+            }
+            Profile=null; _legacyReauthentication=false; _settings.accountChoiceVersion=0; _settings.cloudSyncEnabled=false; _settings.cloudConsentVersion=0; _persist();
             Notify(CloudSaveStatus.Local);
             if (token != null && Configured && _allowed()) await Call("sign-out",new {},token);
+            await ClearNativeState();
         }
         public void Cancel() { _generation++; _loginCancellation?.Cancel(); PairCode=LoginUrl=null; Notify(OptedIn ? CloudSaveStatus.Ready : CloudSaveStatus.Cancelled); }
         public void Dispose() { _disposed=true; _generation++; _loginCancellation?.Cancel(); Changed=null; }

@@ -9,6 +9,8 @@
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/LocalSessionJournal.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Tests/Editor/LocalSessionJournalTests.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/CloudSaveService.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/NativeCloudAccount.cs" />
+    <Compile Include="../../QuietCamp/Assets/QuietCamp/Tests/Editor/NativeCloudAccountTests.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/CampMemoryService.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Tests/Editor/CloudSaveTests.cs" />
     <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/ComplimentaryAccessService.cs" />
