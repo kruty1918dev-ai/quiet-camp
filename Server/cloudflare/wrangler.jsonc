@@ -13,6 +13,8 @@
     "QC_CLOUD_ENABLED": "true",
     "QC_CLOUD_SCHEMA": "3",
     "QC_CLOUD_PROVIDERS": "google,facebook"
+    // After migration 0004, enable QC_ACCOUNT_PORTAL_ENABLED=true in Dashboard
+    // or add it here. QC_ADMIN_FIREBASE_UIDS is an explicit owner UID allow-list.
   },
   "d1_databases": [{
     "binding": "ACCESS_DB",
