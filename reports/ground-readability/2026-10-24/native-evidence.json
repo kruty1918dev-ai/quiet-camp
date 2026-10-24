@@ -1,0 +1,1560 @@
+{
+  "kind": "Derived summary of original, unmodified WorldOps evidence",
+  "runId": "20261024T164649958-cc6322",
+  "capturedUtc": "2026-10-24T16:46:49.9684822Z",
+  "sourceManifestHash": "1c8dc3bc7de9573e33c40ee448ffeaca0b09e66e123c0467b78ecb2b52abed6f",
+  "scope": "Six native scenes, all seasons, active UI, real placement replay, menu and four labelled distant diagnostic views in both orientations. Not an all-100 native visual review or mobile FPS measurement.",
+  "frameCount": 120,
+  "sceneCensusCount": 72,
+  "sceneLimit": 50000,
+  "scenePeak": 49590,
+  "geometryBudgetPassed": true,
+  "fullArtisticAcceptance": false,
+  "canonicalCampaignPublication": false,
+  "playerBuild": false,
+  "rendererSha256": "32c8e313d48bedeb412c06f98aa4ab7fa04586263f13669d740477792939f66d",
+  "levels": [
+    {
+      "levelId": "QC001",
+      "inputHash": "dbe80f35b308a9a3dbd1046c965ef5ac1365165417adbd29ea57ae85effe6a94",
+      "documentHash": "ae8141a7ce617e2821e036e4731218361b2630a9aeb7c5b4373dd8ba2f3f0001",
+      "frameCount": 20,
+      "sceneCensusCount": 12,
+      "scenePeak": 38714,
+      "residuals": [
+        "landmark.clipped",
+        "support.floating"
+      ],
+      "fullArtisticAcceptance": false,
+      "observation": "Spring: continuous broad meadow tones, stable tent/stump/rock contact in both views and menu; four distant regions share the same finish. The pre-existing mug support declaration and clipped primary landmark remain unresolved."
+    },
+    {
+      "levelId": "QC008",
+      "inputHash": "d737201d129a4504d97c1e0afbb2fd5a6a61fc6e2eb24a1affd9a98a58b5ada6",
+      "documentHash": "ac21851d3744064d4ad2743a1da196b003f04b8600bff1ad67a56d8096ef87cc",
+      "frameCount": 20,
+      "sceneCensusCount": 12,
+      "scenePeak": 40545,
+      "residuals": [
+        "landmark.clipped",
+        "support.floating"
+      ],
+      "fullArtisticAcceptance": false,
+      "observation": "Spring slope: coherent ground through the surrounding terrain; tree roots, shed, bench, stones and tents read against the surface. Source offsets are preserved. Mug support declaration and landmark clipping remain unresolved."
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "inputHash": "c9ac03dfeecaa0179c6765f54f77f782a3b95f6524daa80d4ea0d54766077934",
+      "documentHash": "b1d066b0bc3d6a696face55d0439863e351f2eada7a49ed931d8556bc54a01aa",
+      "frameCount": 20,
+      "sceneCensusCount": 12,
+      "scenePeak": 44944,
+      "residuals": [
+        "landmark.clipped",
+        "support.floating",
+        "vegetation.water"
+      ],
+      "fullArtisticAcceptance": false,
+      "observation": "Summer river scene: ground finish and near-surface occlusion remain coherent through gameplay, menu and distant views. Bridge/landmark support findings, one aquatic plant and landmark framing remain unresolved."
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "inputHash": "836dec196bc78213c94f0692c180e127cfe1bca291e37bc5f88ddbae1c751924",
+      "documentHash": "21513572b46238b43a04483594bf3944bcbefc018bb55d7d6303a0cf919274be",
+      "frameCount": 20,
+      "sceneCensusCount": 12,
+      "scenePeak": 49590,
+      "residuals": [
+        "landmark.clipped",
+        "support.floating"
+      ],
+      "fullArtisticAcceptance": false,
+      "observation": "Heavy summer wreck scene: former granular ground and scattered brown soil pyramids are removed. Rock, stump, tent bases and awning feet have local contact shading without additional surfaces; the complete scene budget passes. Existing pot/mug/awning support findings and clipped landmarks remain unresolved."
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "inputHash": "676df41cdcb96d82c90131770caad453eb1d2db4836ac6ca7e76b3f3e387d6db",
+      "documentHash": "be3db31c3c87ba3ce3c12fd6d5295d28015dcd79f5e3b9e31507bda751055dd3",
+      "frameCount": 20,
+      "sceneCensusCount": 12,
+      "scenePeak": 40421,
+      "residuals": [
+        "landmark.clipped",
+        "support.floating",
+        "vegetation.water"
+      ],
+      "fullArtisticAcceptance": false,
+      "observation": "Autumn rain: subdued wet soil/meadow transitions stay continuous, with readable stone, stump, bench and tent contact under overcast light. No terrain-root drift is visible in the four distant diagnostics. Existing primary support, aquatic plants and landmark clipping remain unresolved."
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "inputHash": "1b7b0219b80c5a3f472ab5aac0e5dfa266581edd2a18f3f7c93a2304d4eec2d5",
+      "documentHash": "3b0122d04b89841bd9d0d3359a20695e7e2642095a7ceb3ed73db2efa4b13c4f",
+      "frameCount": 20,
+      "sceneCensusCount": 12,
+      "scenePeak": 33481,
+      "residuals": [
+        "landmark.clipped"
+      ],
+      "fullArtisticAcceptance": false,
+      "observation": "Winter: snow cover and seasonal story are retained, with local contact at tent bases, fence, stumps and rocks. Snow transitions retain their existing broad patch treatment. Landmark clipping remains unresolved."
+    }
+  ],
+  "images": [
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "landscape",
+      "state": "placed",
+      "path": "images/ground-after-landscape.png",
+      "sha256": "0a333acfa443817cbc4367cd3eddbdab212d19ae876a483e774fe13529ee557d"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "portrait",
+      "state": "placed",
+      "path": "images/ground-after-portrait.png",
+      "sha256": "c067ac9c1504b3324339de2fe2896ad2277222c4f5409632337f3338e68bf56f"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "portrait",
+      "state": "menu",
+      "path": "images/ground-menu-portrait.png",
+      "sha256": "766f9cfa2f05053e5495ce1b02b19cb3626610045ebfc58dbe074181d1167b69"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "portrait",
+      "state": "placed",
+      "path": "images/ground-autumn-portrait.png",
+      "sha256": "9adbb1fd50b260907fe5f564fe3f3ff53c05ed680aab7942942118a534d9140c"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "landscape",
+      "state": "placed",
+      "path": "images/ground-winter-landscape.png",
+      "sha256": "5db3a19278570801cbcd35ccf20c290b1cb77097a2ee9b248e8ac5ccb21bb475"
+    }
+  ],
+  "censuses": [
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\landscape\\breeze.geometry-census.json",
+      "sha256": "6da5bec53f6ef753bcd12fae861e28315b108083e700c56b24121c60db50e20d",
+      "sceneMeshTriangles": 31747,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 38714
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\landscape\\complete.geometry-census.json",
+      "sha256": "52b00af09190c60bc742f2d8354de42e509207582335900c1b73bb867c8e6448",
+      "sceneMeshTriangles": 31995,
+      "uiTriangles": 0,
+      "particleTriangleCapacity": 3181,
+      "total": 35176
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\landscape\\empty.geometry-census.json",
+      "sha256": "cbfa4c7bde6746d83013620294ada8ba0800cb66892584535860d967b3f60a78",
+      "sceneMeshTriangles": 28281,
+      "uiTriangles": 2720,
+      "particleTriangleCapacity": 3181,
+      "total": 34182
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\landscape\\menu.geometry-census.json",
+      "sha256": "e94496d89e957e0d7f03f56d18b92c27ff0eadecc9461f83c306de7b3578d24f",
+      "sceneMeshTriangles": 30917,
+      "uiTriangles": 3012,
+      "particleTriangleCapacity": 2933,
+      "total": 36862
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\landscape\\placed.geometry-census.json",
+      "sha256": "0888d3d47176f424c1d7b788fc71d6e00161e652dcc3ccf3a8650046dea2b09b",
+      "sceneMeshTriangles": 31711,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 38678
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\landscape\\placement.geometry-census.json",
+      "sha256": "1968a589ceecb6ad59e23857832b530be9bea82813551272cb7ff8a1dcb5ea93",
+      "sceneMeshTriangles": 30429,
+      "uiTriangles": 4096,
+      "particleTriangleCapacity": 3181,
+      "total": 37706
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\portrait\\breeze.geometry-census.json",
+      "sha256": "95104d1d4c332f85980dc4cbab4681ffd35fffe6c7f9f91bd040a1f728b4d13c",
+      "sceneMeshTriangles": 31747,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 38714
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\portrait\\complete.geometry-census.json",
+      "sha256": "5cb9b30fec2513633c1125ef48643bf87e0e0e8e2462ade2440c2dae0aa8559e",
+      "sceneMeshTriangles": 31995,
+      "uiTriangles": 0,
+      "particleTriangleCapacity": 3181,
+      "total": 35176
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\portrait\\empty.geometry-census.json",
+      "sha256": "653788514a3facdca47e116db6c9a8579663ce4eec86426a931b8f7c0c67bc1e",
+      "sceneMeshTriangles": 28281,
+      "uiTriangles": 2720,
+      "particleTriangleCapacity": 3181,
+      "total": 34182
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\portrait\\menu.geometry-census.json",
+      "sha256": "b9364a87ddb20e674ef875a6890f445dd7ae99192587da6fafb14f704c7fb77e",
+      "sceneMeshTriangles": 30917,
+      "uiTriangles": 3404,
+      "particleTriangleCapacity": 2933,
+      "total": 37254
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\portrait\\placed.geometry-census.json",
+      "sha256": "22585104aa4f266edf5df1735ee4659e9eb8c6d823c978de58ee79383c55e1f8",
+      "sceneMeshTriangles": 31711,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 38678
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\portrait\\placement.geometry-census.json",
+      "sha256": "f3f3e8eaf30a1e1f332bd274b57c939292a1ab2108f7d6405b5d362623c2056b",
+      "sceneMeshTriangles": 30429,
+      "uiTriangles": 4096,
+      "particleTriangleCapacity": 3181,
+      "total": 37706
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\landscape\\breeze.geometry-census.json",
+      "sha256": "188cadff92f88894170e7d09908b8eea91a57ff86014c70753308bd68222d04d",
+      "sceneMeshTriangles": 33578,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 40545
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\landscape\\complete.geometry-census.json",
+      "sha256": "b2733b32aa0d72944c8ec32676b0446ca4adafaaafc2d9603438373db1afc956",
+      "sceneMeshTriangles": 33950,
+      "uiTriangles": 0,
+      "particleTriangleCapacity": 3181,
+      "total": 37131
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\landscape\\empty.geometry-census.json",
+      "sha256": "4596484dde45400fbdd2d1f631183160a007bf110bbc3808f399c88ecf65ae26",
+      "sceneMeshTriangles": 29150,
+      "uiTriangles": 2720,
+      "particleTriangleCapacity": 3181,
+      "total": 35051
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\landscape\\menu.geometry-census.json",
+      "sha256": "e77b1d8693de117ed940643d7b1955da9dddf3746ebfd7126c5c588c7d033df5",
+      "sceneMeshTriangles": 31786,
+      "uiTriangles": 3012,
+      "particleTriangleCapacity": 2933,
+      "total": 37731
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\landscape\\placed.geometry-census.json",
+      "sha256": "67f0d425ed28067b682b28168a505aaec75b90f9bd67ff611f6add2e59df735d",
+      "sceneMeshTriangles": 33542,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 40509
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\landscape\\placement.geometry-census.json",
+      "sha256": "55e689834499045329b6c7d09e1de50c322655faaaf7f5032f86b96b164c5439",
+      "sceneMeshTriangles": 32420,
+      "uiTriangles": 4096,
+      "particleTriangleCapacity": 3181,
+      "total": 39697
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\portrait\\breeze.geometry-census.json",
+      "sha256": "312dab3821c102f3bc47dc40cd82aa3954f1e4c91f01648600dfb4901efa08f9",
+      "sceneMeshTriangles": 33578,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 40545
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\portrait\\complete.geometry-census.json",
+      "sha256": "62340f0a3e4fed765c801df1f634ccfd38e6423483c0cc048b2f272828daeed9",
+      "sceneMeshTriangles": 33950,
+      "uiTriangles": 0,
+      "particleTriangleCapacity": 3181,
+      "total": 37131
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\portrait\\empty.geometry-census.json",
+      "sha256": "46217f83371cfcd4dde39e97f5c24b3afbb9fc418bec9ee587b2b1a27722fdcf",
+      "sceneMeshTriangles": 29150,
+      "uiTriangles": 2720,
+      "particleTriangleCapacity": 3181,
+      "total": 35051
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\portrait\\menu.geometry-census.json",
+      "sha256": "20c7a0dc7900a29579094a2ce1d77848d998e526c4203f3d7af1baf7068b5216",
+      "sceneMeshTriangles": 31786,
+      "uiTriangles": 3404,
+      "particleTriangleCapacity": 2933,
+      "total": 38123
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\portrait\\placed.geometry-census.json",
+      "sha256": "1575ee2b40e40276cec3e816d640876877d09f5fee4e2f77d29301bc1f16d21b",
+      "sceneMeshTriangles": 33542,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 40509
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\portrait\\placement.geometry-census.json",
+      "sha256": "cfbb3793ec7e9c76df22344a2f7d8527ecdcb3b2c690fbd534e1ad0d7258f22c",
+      "sceneMeshTriangles": 32420,
+      "uiTriangles": 4096,
+      "particleTriangleCapacity": 3181,
+      "total": 39697
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\landscape\\breeze.geometry-census.json",
+      "sha256": "3ecf6ff3e6881001299808f83e4a2ff00258479714c176535ff161fb89aa76c0",
+      "sceneMeshTriangles": 37977,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 44944
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\landscape\\complete.geometry-census.json",
+      "sha256": "b32551847950620bb59729de984146740a84ff6d838f4c2215802f9897e2d78b",
+      "sceneMeshTriangles": 38473,
+      "uiTriangles": 0,
+      "particleTriangleCapacity": 3181,
+      "total": 41654
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\landscape\\empty.geometry-census.json",
+      "sha256": "2d9a027f2cf1a942d002397ea444492c0e750fff75cba6c77587179aa1427c76",
+      "sceneMeshTriangles": 31871,
+      "uiTriangles": 2726,
+      "particleTriangleCapacity": 3181,
+      "total": 37778
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\landscape\\menu.geometry-census.json",
+      "sha256": "7e18248a90bb28187db6966b5ca1ba8751640ac772fc3e5476c761331fb7c68c",
+      "sceneMeshTriangles": 34555,
+      "uiTriangles": 3014,
+      "particleTriangleCapacity": 2933,
+      "total": 40502
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\landscape\\placed.geometry-census.json",
+      "sha256": "a3eefccf38ff77af6415e901e89fc28a0c3dbb6b8bb29b20b4131878bac8abf1",
+      "sceneMeshTriangles": 37941,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 44908
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\landscape\\placement.geometry-census.json",
+      "sha256": "8b5df8a2605bfbcde98069729d32723bafa1130dfe02ea8b9d576b70abade138",
+      "sceneMeshTriangles": 36635,
+      "uiTriangles": 4206,
+      "particleTriangleCapacity": 3181,
+      "total": 44022
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\portrait\\breeze.geometry-census.json",
+      "sha256": "38325e1cadc6c37bfc41613dba05593a21e3cd787833da241754404d4e58aa50",
+      "sceneMeshTriangles": 37977,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 44944
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\portrait\\complete.geometry-census.json",
+      "sha256": "796fbcb8ddff268efc79f833f3b38b9222b4ab5ecac8e0cea081f183f7f6fbfa",
+      "sceneMeshTriangles": 38473,
+      "uiTriangles": 0,
+      "particleTriangleCapacity": 3181,
+      "total": 41654
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\portrait\\empty.geometry-census.json",
+      "sha256": "53b6dea1b694f816838e5ad7632937e12d49f27cb8b16cc377a98ed528176952",
+      "sceneMeshTriangles": 31871,
+      "uiTriangles": 2726,
+      "particleTriangleCapacity": 3181,
+      "total": 37778
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\portrait\\menu.geometry-census.json",
+      "sha256": "786be7d01b06b4793e3378884ff9081fd00a0d23f756550082eebc8e30e914e4",
+      "sceneMeshTriangles": 34555,
+      "uiTriangles": 3406,
+      "particleTriangleCapacity": 2933,
+      "total": 40894
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\portrait\\placed.geometry-census.json",
+      "sha256": "07696746dc73083cf5a1b8c56c8ae5c8f5f91d7b6f0bfb1886e8dd87606d8d4d",
+      "sceneMeshTriangles": 37941,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 44908
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\portrait\\placement.geometry-census.json",
+      "sha256": "6613311bb1ab730777761460b59d78cefe2419607f4d59f57eb470b522f75f9b",
+      "sceneMeshTriangles": 36635,
+      "uiTriangles": 4206,
+      "particleTriangleCapacity": 3181,
+      "total": 44022
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\breeze.geometry-census.json",
+      "sha256": "9303539b81e16a5204867d2df21da8f49ff3b65e16aeef024254119c13000132",
+      "sceneMeshTriangles": 42906,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 2898,
+      "total": 49590
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\complete.geometry-census.json",
+      "sha256": "917439eb1762d6e4af95f5ada415431e3fb7cc97bb9327fd92ff4195a8c1fefe",
+      "sceneMeshTriangles": 43278,
+      "uiTriangles": 0,
+      "particleTriangleCapacity": 2898,
+      "total": 46176
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\empty.geometry-census.json",
+      "sha256": "1c30810c2064c70ea2f15ad7b2d52b20ff9eea2698096e71239b46a01009f6bf",
+      "sceneMeshTriangles": 38302,
+      "uiTriangles": 2720,
+      "particleTriangleCapacity": 2898,
+      "total": 43920
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\menu.geometry-census.json",
+      "sha256": "068a319fe9c1494d8507b5a0e3c17820527d1c2c9377820059854e81cbafb353",
+      "sceneMeshTriangles": 40986,
+      "uiTriangles": 3014,
+      "particleTriangleCapacity": 2650,
+      "total": 46650
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\placed.geometry-census.json",
+      "sha256": "a6a83097cf80f43152a1d833c476c23dba3158aba7336787b30e07e706ac2cc5",
+      "sceneMeshTriangles": 42870,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 2898,
+      "total": 49554
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\placement.geometry-census.json",
+      "sha256": "12d0d7ce4b8e98f7c3c7884a50fbb2e8bc78a5bff96056293f9b2f71e761af6e",
+      "sceneMeshTriangles": 41724,
+      "uiTriangles": 4096,
+      "particleTriangleCapacity": 2898,
+      "total": 48718
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\breeze.geometry-census.json",
+      "sha256": "3736d6130148147b4d25b4815a2bc37a7817a507067044c31061507a06b117b6",
+      "sceneMeshTriangles": 42906,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 2898,
+      "total": 49590
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\complete.geometry-census.json",
+      "sha256": "18614c9631b07ca8837f70244fb5ec64b7c9552e8cba0e2f8edf63a45e3161b9",
+      "sceneMeshTriangles": 43278,
+      "uiTriangles": 0,
+      "particleTriangleCapacity": 2898,
+      "total": 46176
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\empty.geometry-census.json",
+      "sha256": "aa32ebcbe8690ff54f856bdab39f0258218a794c59fdf275ead7b0fdeda721e5",
+      "sceneMeshTriangles": 38302,
+      "uiTriangles": 2720,
+      "particleTriangleCapacity": 2898,
+      "total": 43920
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\menu.geometry-census.json",
+      "sha256": "75c53b2335b99a1ebfcb443e537b8da85bfc280b51ec757de35cf8c3edfd2026",
+      "sceneMeshTriangles": 40986,
+      "uiTriangles": 3406,
+      "particleTriangleCapacity": 2650,
+      "total": 47042
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\placed.geometry-census.json",
+      "sha256": "82c42ca566c0fdf8828346f6508c19c5d91c0248c7d5eab9a23d3f5371d1e07e",
+      "sceneMeshTriangles": 42870,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 2898,
+      "total": 49554
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\placement.geometry-census.json",
+      "sha256": "7f52bde880ae84b2b4bd76854142674da32688e98398587d421a565215ea2ea1",
+      "sceneMeshTriangles": 41724,
+      "uiTriangles": 4096,
+      "particleTriangleCapacity": 2898,
+      "total": 48718
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\landscape\\breeze.geometry-census.json",
+      "sha256": "de92532aaa595d9909ffe3f09e93b4ef8edbc7cb8e576482ba7512aa0a212fb9",
+      "sceneMeshTriangles": 33454,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 40421
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\landscape\\complete.geometry-census.json",
+      "sha256": "16d5a2a5fb9ddeaf9eeb7e25f914bc91b99037d42ea35950613ea2cd08de1d2d",
+      "sceneMeshTriangles": 33826,
+      "uiTriangles": 0,
+      "particleTriangleCapacity": 3181,
+      "total": 37007
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\landscape\\empty.geometry-census.json",
+      "sha256": "ca040419220e7754df543e90354cce78b966c6b7d72168d0eeaa6cf3fbdf1ce2",
+      "sceneMeshTriangles": 29010,
+      "uiTriangles": 2726,
+      "particleTriangleCapacity": 3181,
+      "total": 34917
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\landscape\\menu.geometry-census.json",
+      "sha256": "738fb35d22d51db97b48136d7c448d779c009bd4f06df82bbfe9cc99f76f6d5a",
+      "sceneMeshTriangles": 31646,
+      "uiTriangles": 3014,
+      "particleTriangleCapacity": 2933,
+      "total": 37593
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\landscape\\placed.geometry-census.json",
+      "sha256": "a0abeb7b313ff6274c11b84e2f832b1cb3c063e0554de084bf7f5e2123afcd0a",
+      "sceneMeshTriangles": 33454,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 40421
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\landscape\\placement.geometry-census.json",
+      "sha256": "e7fc6133becb7bb2f033415eb0cacf2dbe4be681e986b4b0df1ea507a66da5ad",
+      "sceneMeshTriangles": 32332,
+      "uiTriangles": 4096,
+      "particleTriangleCapacity": 3181,
+      "total": 39609
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\portrait\\breeze.geometry-census.json",
+      "sha256": "313f49bae4c7246c2b6e12a9fc23c040cd86130cd0b53f8521099f52c7385194",
+      "sceneMeshTriangles": 33454,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 40421
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\portrait\\complete.geometry-census.json",
+      "sha256": "950f942ac4ebac53270e390840d570974a95a822b0a394fbea3976710b9e52fa",
+      "sceneMeshTriangles": 33826,
+      "uiTriangles": 0,
+      "particleTriangleCapacity": 3181,
+      "total": 37007
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\portrait\\empty.geometry-census.json",
+      "sha256": "3706fcfeec819794c754702ac78c3ddd17345a702a8c2514fc0ba2522f7e45cf",
+      "sceneMeshTriangles": 29010,
+      "uiTriangles": 2726,
+      "particleTriangleCapacity": 3181,
+      "total": 34917
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\portrait\\menu.geometry-census.json",
+      "sha256": "8dcf5dfe45d0b8a86d5cb3db2c85f984677c63f5164c3a661b162ee8e64c6293",
+      "sceneMeshTriangles": 31646,
+      "uiTriangles": 3406,
+      "particleTriangleCapacity": 2933,
+      "total": 37985
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\portrait\\placed.geometry-census.json",
+      "sha256": "5094b406e01272398badc14731732731af4ceec65652c53677679e88740ca36c",
+      "sceneMeshTriangles": 33454,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 40421
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\portrait\\placement.geometry-census.json",
+      "sha256": "612f9d3bf379a57861288d67bf95d76a6e89f15528dafc8230b1ced9be26670f",
+      "sceneMeshTriangles": 32332,
+      "uiTriangles": 4096,
+      "particleTriangleCapacity": 3181,
+      "total": 39609
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\breeze.geometry-census.json",
+      "sha256": "b15ff59103b3e704106c27774cdc1dd0f78d72fa27a7e97d844eb12ae08e3256",
+      "sceneMeshTriangles": 26514,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 33481
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\complete.geometry-census.json",
+      "sha256": "f888040f69b00ee5922b197347ff556f7aba89a9c578ced70ee6a7e7f08c17a2",
+      "sceneMeshTriangles": 27010,
+      "uiTriangles": 0,
+      "particleTriangleCapacity": 3181,
+      "total": 30191
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\empty.geometry-census.json",
+      "sha256": "e29d7c9308ca87a9235888da5cc75fcd7f8dcae36102369bef97df102a6221d8",
+      "sceneMeshTriangles": 20552,
+      "uiTriangles": 2732,
+      "particleTriangleCapacity": 3181,
+      "total": 26465
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\menu.geometry-census.json",
+      "sha256": "e77a6683b85de00e3d999b58e2c652632f12e63e8c324acf85f414363377535c",
+      "sceneMeshTriangles": 23188,
+      "uiTriangles": 3006,
+      "particleTriangleCapacity": 2933,
+      "total": 29127
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\placed.geometry-census.json",
+      "sha256": "7de5f8f2a01c6000cc5a0d60e7bf5ee38432eef1230e6a60470e7de760caeb9d",
+      "sceneMeshTriangles": 26514,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 33481
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\placement.geometry-census.json",
+      "sha256": "726dc66ab4e516af0ae412c86797ca061d62470ee01a78c0576b62b1954a8824",
+      "sceneMeshTriangles": 25232,
+      "uiTriangles": 4206,
+      "particleTriangleCapacity": 3181,
+      "total": 32619
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\breeze.geometry-census.json",
+      "sha256": "c280940fe05476ce1d0a85e8c566f08c0833f1ce3ddc438d85794ebc35283e07",
+      "sceneMeshTriangles": 26514,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 33481
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\complete.geometry-census.json",
+      "sha256": "197a03d66982c956a659f13d143f0b84880dc705c0a692698a1596566347edc7",
+      "sceneMeshTriangles": 27010,
+      "uiTriangles": 0,
+      "particleTriangleCapacity": 3181,
+      "total": 30191
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\empty.geometry-census.json",
+      "sha256": "8fed6d5ce3f7277fba5c2461dc54131c062eac2f9bf2f53ebdba145ffda1cc65",
+      "sceneMeshTriangles": 20552,
+      "uiTriangles": 2732,
+      "particleTriangleCapacity": 3181,
+      "total": 26465
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\menu.geometry-census.json",
+      "sha256": "0739196903934099bc803d25e378792646bdb2a9c40e27b3111951ab39a11843",
+      "sceneMeshTriangles": 23188,
+      "uiTriangles": 3406,
+      "particleTriangleCapacity": 2933,
+      "total": 29527
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\placed.geometry-census.json",
+      "sha256": "1c25bed332b47a238a1333917da520e3365162ad66bc314ab16abffa6fc89dec",
+      "sceneMeshTriangles": 26514,
+      "uiTriangles": 3786,
+      "particleTriangleCapacity": 3181,
+      "total": 33481
+    },
+    {
+      "sourcePath": "QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\placement.geometry-census.json",
+      "sha256": "cc65b09cb71f262e76658bc356a1b5c2e9dbec32fcf16cc105153ab323cab634",
+      "sceneMeshTriangles": 25196,
+      "uiTriangles": 4206,
+      "particleTriangleCapacity": 3181,
+      "total": 32583
+    }
+  ],
+  "frameManifest": [
+    {
+      "levelId": "QC001",
+      "profile": "portrait",
+      "state": "empty",
+      "sha256": "d810326896fc129fc920f120eb98c849f560a18420d92dfa3bd064181c2ce51f",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\portrait\\empty.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "portrait",
+      "state": "placement",
+      "sha256": "f149795ecd7d9412907447669e4a9b7a07ef13f118c67d2d306490994c9bc0a5",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\portrait\\gameplay.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "portrait",
+      "state": "placed",
+      "sha256": "c0b541d581cf626e6275bf817420bc2354b67bc8240045be931260d2e0090b37",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\portrait\\placed.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "portrait",
+      "state": "breeze",
+      "sha256": "28df12f0b087f15d8ee7ac449e71c2aaec07ad46b94b3d04a43af222b26d9d72",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\portrait\\breeze.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "portrait",
+      "state": "complete",
+      "sha256": "f55f27e990f44387a2364850bcb252fbd493bcc9f138fc467acdd8e48c373c44",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\portrait\\complete.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "portrait",
+      "state": "environment-coverage-0",
+      "sha256": "4b2a2e3154a3cabf9f2a178d1a9ba8926d34e68e4886546a7899d38d80b2491c",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\portrait\\coverage-0.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "portrait",
+      "state": "environment-coverage-1",
+      "sha256": "37a55e3dc42eef4d39f645af9f3a0c75f4ae16ef63a4db4209f10947e9d28651",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\portrait\\coverage-1.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "portrait",
+      "state": "environment-coverage-2",
+      "sha256": "24b891bc0d769cea2f7a4a2760fd15e4e390fb67f8ef959aaf07866cb8a5102d",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\portrait\\coverage-2.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "portrait",
+      "state": "environment-coverage-3",
+      "sha256": "3004a1bba7283e089e439ece138d21b1c756f3f45a4e178b787baeb6554bbca1",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\portrait\\coverage-3.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "portrait",
+      "state": "menu",
+      "sha256": "d2b25e85ede9ff271f3250af5bc05e9e8aa5b3e08cae4c803ecac550ad51c75c",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\portrait\\menu.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "landscape",
+      "state": "empty",
+      "sha256": "41bd3c549f200cae95210687e5111442df0c9f105d30004d4823de45064e7c42",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\landscape\\empty.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "landscape",
+      "state": "placement",
+      "sha256": "a245052a53dfae1d5dce087033c0b89538c3fd9ee27eca90ff7f435c48b8f022",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\landscape\\gameplay.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "landscape",
+      "state": "placed",
+      "sha256": "51bf5aa136146420c99df5156ea54be6f485435fd832bd721c0ed071264fb61d",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\landscape\\placed.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "landscape",
+      "state": "breeze",
+      "sha256": "0ec159c1d3f272d0dd3d9e578f4e7ea64fdefcb5ccb4f0771a1ef0f5e5a18fda",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\landscape\\breeze.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "landscape",
+      "state": "complete",
+      "sha256": "8546ea3f8f568ea343e2359b70f9dfb8c42a5e0ce42626d5f7e080c9c34e8398",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\landscape\\complete.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "landscape",
+      "state": "environment-coverage-0",
+      "sha256": "cab740d3a9a0b98809e99e0c4bc35911e3f34504f0c2662cc8692c6ce253d2d4",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\landscape\\coverage-0.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "landscape",
+      "state": "environment-coverage-1",
+      "sha256": "a6ed1c13cb8e3ce8f6e5adc050767f42a0182b6d22db54b1c40253288a18bdd8",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\landscape\\coverage-1.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "landscape",
+      "state": "environment-coverage-2",
+      "sha256": "a246fe6144a3f3bbe9583b98e3356f50fc7edf6ce3b6e13da16f9c6af9e387d0",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\landscape\\coverage-2.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "landscape",
+      "state": "environment-coverage-3",
+      "sha256": "dc5e2de57b9bab0cd909fdd50c611c9389ad5de8d65e8a95c20ccda7d0068eab",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\landscape\\coverage-3.png"
+    },
+    {
+      "levelId": "QC001",
+      "profile": "landscape",
+      "state": "menu",
+      "sha256": "deb1e62f446f95d732379d5550c62682eb71db3cb7e79dfbe841e0c4846ebcd8",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC001\\round-0\\attempt-1\\after\\landscape\\menu.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "portrait",
+      "state": "empty",
+      "sha256": "4bb2702984e2b671eb56a5bb05444ae2c63ce782991d66fd4bda7205af21c6cb",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\portrait\\empty.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "portrait",
+      "state": "placement",
+      "sha256": "85f04a93401f279275d401d19d32f30bfae4f26ca215eb0016ff516ca837da3a",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\portrait\\gameplay.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "portrait",
+      "state": "placed",
+      "sha256": "ec2a9037d9d7ff4ac60470979c8a77869a34e8ffe3fd6079573e0a49680cc70d",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\portrait\\placed.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "portrait",
+      "state": "breeze",
+      "sha256": "a46af005b5c888b28b84d6b3444cc60a13a897cba97b1417eca15fb2baa2590e",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\portrait\\breeze.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "portrait",
+      "state": "complete",
+      "sha256": "b24b9443d9a0e9a2bfaeeb0ad07a2bb25ed1e71f034c989f67c0cd588711c2ee",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\portrait\\complete.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "portrait",
+      "state": "environment-coverage-0",
+      "sha256": "f1fa57de814f448fbb1cd2720c414412c3eae3287b20ec70734932e7fea1ada2",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\portrait\\coverage-0.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "portrait",
+      "state": "environment-coverage-1",
+      "sha256": "7353fab98b0e9d7d75e5813ffa59d8633b5226272005ad28573d8e8574284cf3",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\portrait\\coverage-1.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "portrait",
+      "state": "environment-coverage-2",
+      "sha256": "1ba304bbde0284d77119550dff23185687fbd1a8ad24675ea11e4b43a31d440c",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\portrait\\coverage-2.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "portrait",
+      "state": "environment-coverage-3",
+      "sha256": "93a9a8088ce17a45d03c80c43bb3fb430593fbb629e178aea815f3a4b45430a7",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\portrait\\coverage-3.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "portrait",
+      "state": "menu",
+      "sha256": "119fe679eb11f65934ad9ed2f7a7c7d4f5eed6ab0c9911edb3e72207a5d08a33",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\portrait\\menu.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "landscape",
+      "state": "empty",
+      "sha256": "db5f1327fe040a2f26a8e61e49ec99cc406cb88b25d8a516618954923694654e",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\landscape\\empty.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "landscape",
+      "state": "placement",
+      "sha256": "4391d6fa2c7d6e7696b26272137aaa5cbe38e89ead56ba839737c31f1604445f",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\landscape\\gameplay.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "landscape",
+      "state": "placed",
+      "sha256": "ba2bfe8bcd5a109ac9c0d37fab315b69d86143139a9490a490e075e866aeed3e",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\landscape\\placed.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "landscape",
+      "state": "breeze",
+      "sha256": "c4fb4716e2b3ee2ab1327bfcac991b0e082f12422d70966e16f8bd3f5d1a004a",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\landscape\\breeze.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "landscape",
+      "state": "complete",
+      "sha256": "94cf8fac49f5bb2c247d66f8b60f86c6b2270db9f6a1485bb703ce8fdfc94f94",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\landscape\\complete.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "landscape",
+      "state": "environment-coverage-0",
+      "sha256": "dfc3b499cf4c7852425fca8f9d52dab0618b0913f43bd9f7056c386ff0deecd4",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\landscape\\coverage-0.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "landscape",
+      "state": "environment-coverage-1",
+      "sha256": "405addf305bbcb4ba5346e7acf76f43a9565d6e0412c3571a35a6b28ce1c6b1f",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\landscape\\coverage-1.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "landscape",
+      "state": "environment-coverage-2",
+      "sha256": "1b07c396a253bd101ed17189e257671233e22b45399671f1e4508efdf3c7b56d",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\landscape\\coverage-2.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "landscape",
+      "state": "environment-coverage-3",
+      "sha256": "56030fdec23c568885b911756b0973305f7a724e9f62d7d4e40dd996c9ef59c3",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\landscape\\coverage-3.png"
+    },
+    {
+      "levelId": "QC008",
+      "profile": "landscape",
+      "state": "menu",
+      "sha256": "eb9c5797966b95e7a65dfda493f284b45feebc439baed95a50fc46c81959a025",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\QC008\\round-0\\attempt-1\\after\\landscape\\menu.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "portrait",
+      "state": "empty",
+      "sha256": "3bba251b1c6809031d101f57e8369c5a00d80cc0a463caff5cca38da971f7ac4",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\portrait\\empty.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "portrait",
+      "state": "placement",
+      "sha256": "df6f9dc33f97d5ad20fac961997ccd688479450476f2b9010a0956068ddc166d",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\portrait\\gameplay.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "portrait",
+      "state": "placed",
+      "sha256": "2ee03fe35568a4d4159378b9245b54d1b92b632a3f4b9d77df34e2371fee64a6",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\portrait\\placed.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "portrait",
+      "state": "breeze",
+      "sha256": "fd17e289e7dd9f498b523f73a5effc5ff721a3703fa03a78f7fdf44eb7999a32",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\portrait\\breeze.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "portrait",
+      "state": "complete",
+      "sha256": "ecd2082aed7ad7226cf04e1162e658a96e6028c0ce30681a6ef5b6b22eddb863",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\portrait\\complete.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "portrait",
+      "state": "environment-coverage-0",
+      "sha256": "d76e773159a3b688a3a77ff09f3c6328cc56a666909d278eaca09a641cfa2bcb",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\portrait\\coverage-0.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "portrait",
+      "state": "environment-coverage-1",
+      "sha256": "15b254d94513d0be5e6971dc683e60535b2d161a4c422cd78a0d8087c1f771d1",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\portrait\\coverage-1.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "portrait",
+      "state": "environment-coverage-2",
+      "sha256": "e25613057fac862bab3a4cdb4f67d9dbb1da556b81c254ece73cfaa4dc7b44ba",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\portrait\\coverage-2.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "portrait",
+      "state": "environment-coverage-3",
+      "sha256": "8710c401e31f6e257267431bf7aab886f9f77d208cbef80cb0ab5a1a2dec1106",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\portrait\\coverage-3.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "portrait",
+      "state": "menu",
+      "sha256": "ab9613cd33cadccd4e28b9162d23a82d59394d74b1ebaa185b1f2448660c9f01",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\portrait\\menu.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "landscape",
+      "state": "empty",
+      "sha256": "018fab1f0261b14165eed83285c2ebba0455de1dce748a2b78fd84ee2ab378c3",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\landscape\\empty.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "landscape",
+      "state": "placement",
+      "sha256": "d4614834014f8855d997f6bcd0ac5241981a4c3eeb09782ab7da520c38bd370d",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\landscape\\gameplay.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "landscape",
+      "state": "placed",
+      "sha256": "8cb0e74bc4396cf2469a2986705bd5f362b784abb3afab0b56c36dbbe9340ee0",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\landscape\\placed.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "landscape",
+      "state": "breeze",
+      "sha256": "6d496592e5aba00343e20900cfd8a449c4c1c86f173f924de75a369a873c59bb",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\landscape\\breeze.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "landscape",
+      "state": "complete",
+      "sha256": "20c103f776652701d5cb9335344fa3e43e78e2b4e8060789981c08e0ee2128a2",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\landscape\\complete.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "landscape",
+      "state": "environment-coverage-0",
+      "sha256": "4ea48f8ed590c20f208140ddc1c244448c8a97e646e80abcbf279465b63510ab",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\landscape\\coverage-0.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "landscape",
+      "state": "environment-coverage-1",
+      "sha256": "34338fbb0c52901f4e336090fefdb321fa15668d93797123888f69c211e1eb9a",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\landscape\\coverage-1.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "landscape",
+      "state": "environment-coverage-2",
+      "sha256": "deb978dba8ecf04c153fbf996cbef9c91680ea5f8c98b295d8be0d6134426efc",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\landscape\\coverage-2.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "landscape",
+      "state": "environment-coverage-3",
+      "sha256": "e7a323376e7d0c8b2f856b7516fd6e34783fc97f05bb9067cfc462630396d041",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\landscape\\coverage-3.png"
+    },
+    {
+      "levelId": "gen:qc_camp:29",
+      "profile": "landscape",
+      "state": "menu",
+      "sha256": "0652ffc3bea403883d531d140b1fe452639bd36ad71ab30ce271170735f402f7",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_29\\round-0\\attempt-1\\after\\landscape\\menu.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "portrait",
+      "state": "empty",
+      "sha256": "71d2f15482c7cf9d5f11b534d86e790376c09ada19badb7b4874e126481a6d4b",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\empty.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "portrait",
+      "state": "placement",
+      "sha256": "cca7209426f11b0de9f03ca21551d3b3a01c80f0d0dee56ca828780f54680711",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\gameplay.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "portrait",
+      "state": "placed",
+      "sha256": "c067ac9c1504b3324339de2fe2896ad2277222c4f5409632337f3338e68bf56f",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\placed.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "portrait",
+      "state": "breeze",
+      "sha256": "e8139d3f4c3a854e094f77dc83269e42a0d03f75c882bf8ed3b6e6af846cb754",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\breeze.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "portrait",
+      "state": "complete",
+      "sha256": "b55881b69831c1363c48dee6a06098508927d09b13db8789e77710e3d84cc059",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\complete.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "portrait",
+      "state": "environment-coverage-0",
+      "sha256": "c089035ef4561b420027f71f6b9cb548abb53e740877512b6b1c1e101b5a2f13",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\coverage-0.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "portrait",
+      "state": "environment-coverage-1",
+      "sha256": "758ead7ffdcb5ed7e703df598bbb3b4ed9bc55f0e2a812c16ccb1a762b80de66",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\coverage-1.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "portrait",
+      "state": "environment-coverage-2",
+      "sha256": "86f16c11a2e9bc40103396648681ba70fb32e9d30daa600d828d6d5e00ee1225",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\coverage-2.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "portrait",
+      "state": "environment-coverage-3",
+      "sha256": "0fa9668e11b8f45a0e774751de77d7f677b0d89cc56d5764971de76189e02ea2",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\coverage-3.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "portrait",
+      "state": "menu",
+      "sha256": "766f9cfa2f05053e5495ce1b02b19cb3626610045ebfc58dbe074181d1167b69",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\portrait\\menu.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "landscape",
+      "state": "empty",
+      "sha256": "969aa2974655ce9de0a1140233cfd21c5a9f2ac3db084899fa0a838a57ad05db",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\empty.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "landscape",
+      "state": "placement",
+      "sha256": "29079f2d2f5ef077cdf37db1b13cb394409074771955cde8c887364faa26971d",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\gameplay.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "landscape",
+      "state": "placed",
+      "sha256": "0a333acfa443817cbc4367cd3eddbdab212d19ae876a483e774fe13529ee557d",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\placed.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "landscape",
+      "state": "breeze",
+      "sha256": "a97627a7cf4a47f1a20799f0deaab551d9e7ed5e3794e3b6ad3028f17c40319b",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\breeze.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "landscape",
+      "state": "complete",
+      "sha256": "923a68f2f1595bbf26d5d178d7fce62bcd9b9809a02fff56f8d8fd292ee4e521",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\complete.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "landscape",
+      "state": "environment-coverage-0",
+      "sha256": "b485b5bd238db1e8771ff38cdd05617501795fbf51b13f63e4b56cea4d8e92a8",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\coverage-0.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "landscape",
+      "state": "environment-coverage-1",
+      "sha256": "e23f0bfde705486330a6ba09aad9423979c8ff418c4d364b626d537eb4a72739",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\coverage-1.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "landscape",
+      "state": "environment-coverage-2",
+      "sha256": "f219bf081ef9833572e7c4627abbae0b732d324546bde6cc47a3d3882a5c41db",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\coverage-2.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "landscape",
+      "state": "environment-coverage-3",
+      "sha256": "e08084b499f504428099bae199a2574cf48bb98385aa655a3c161027bda901e5",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\coverage-3.png"
+    },
+    {
+      "levelId": "gen:qc_camp:60",
+      "profile": "landscape",
+      "state": "menu",
+      "sha256": "61afda1d2dbb36cbf51d776915089eb329fa22a9c013e7d18e5a7097c39e7c2b",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_60\\round-0\\attempt-1\\after\\landscape\\menu.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "portrait",
+      "state": "empty",
+      "sha256": "ddd4c06aec0bbf0d1b0445bf9e89f28f8449c713cdf97d5240009801af358286",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\portrait\\empty.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "portrait",
+      "state": "placement",
+      "sha256": "e4547b6a04ce324eb12b28475380d1681a742587e7b0a328f49fcbfcc4b3dafa",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\portrait\\gameplay.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "portrait",
+      "state": "placed",
+      "sha256": "9adbb1fd50b260907fe5f564fe3f3ff53c05ed680aab7942942118a534d9140c",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\portrait\\placed.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "portrait",
+      "state": "breeze",
+      "sha256": "1d0dbbf55fcb89130bf11debd0f755d3fb916751fb2c9fde31e7586a94525920",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\portrait\\breeze.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "portrait",
+      "state": "complete",
+      "sha256": "91b909888ace62c3d398b7b0972ebca4d41bb1a7beeae3f9a6df240ec1933759",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\portrait\\complete.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "portrait",
+      "state": "environment-coverage-0",
+      "sha256": "c1fc968c6e50f5e210b839539ff7ebd1caea5fa762c9133e163043ed5d8231f0",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\portrait\\coverage-0.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "portrait",
+      "state": "environment-coverage-1",
+      "sha256": "f9c374ea376463e8bac207563f2559116499c4e13a889b05a462727d1e54daf5",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\portrait\\coverage-1.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "portrait",
+      "state": "environment-coverage-2",
+      "sha256": "d86ccba82f0c07f8cdc65719efbcc3f2bc4a3b3b235213f2dd01ea0d20d86ae3",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\portrait\\coverage-2.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "portrait",
+      "state": "environment-coverage-3",
+      "sha256": "210adaeb0a0a624809e43cce13538c96651d2eb669fb574a8187a88d8d4d6ddb",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\portrait\\coverage-3.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "portrait",
+      "state": "menu",
+      "sha256": "dec8a0e2d3fc3115883c679f8965a880dd2db5f1e9faaa546b2ea41e592b46b2",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\portrait\\menu.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "landscape",
+      "state": "empty",
+      "sha256": "09271662ca98d2d97b2075852a166c1801fa1d40059d3548bd6d533b7fe06c43",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\landscape\\empty.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "landscape",
+      "state": "placement",
+      "sha256": "32bbd64f8eb5454f4ba44a2433d7e447fe2c4d58e075d4b646c9ea3f7642b645",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\landscape\\gameplay.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "landscape",
+      "state": "placed",
+      "sha256": "f5228ee72c149eed86addfddf164b3439c922aa9da62dc5e166405a5576dc69d",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\landscape\\placed.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "landscape",
+      "state": "breeze",
+      "sha256": "f84e8a011b8d8c7216eda851ad0d0f13ad15ac1691b1149d7077995e11169018",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\landscape\\breeze.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "landscape",
+      "state": "complete",
+      "sha256": "dbc698117e2cb17ba1eec910e592e1b5d869177cab1f0cc066a4fdf97af60af8",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\landscape\\complete.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "landscape",
+      "state": "environment-coverage-0",
+      "sha256": "94d7514f851e8277a53ed120a3c7e55328dc9311bf68f2e0cf306f2bdc43d811",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\landscape\\coverage-0.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "landscape",
+      "state": "environment-coverage-1",
+      "sha256": "2e6879700da1d17cd2412b318b83dbd8f9fe71f0ebc9e28854a9442d2abff430",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\landscape\\coverage-1.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "landscape",
+      "state": "environment-coverage-2",
+      "sha256": "ca6e34708dac0bc858dd7519625c4b2ad5db32916399e1e663fb39b0be617e81",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\landscape\\coverage-2.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "landscape",
+      "state": "environment-coverage-3",
+      "sha256": "81305185f50f13076f6d42b998331932377a416876b6e0419ee64f32d63d93f9",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\landscape\\coverage-3.png"
+    },
+    {
+      "levelId": "gen:qc_camp:76",
+      "profile": "landscape",
+      "state": "menu",
+      "sha256": "4d655f317eb96eedc1d19a06ef9be5516d205e454fb043e5ae0d58acf194ddc2",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_76\\round-0\\attempt-1\\after\\landscape\\menu.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "portrait",
+      "state": "empty",
+      "sha256": "fb87ac5c87fe785425e04ae7c14425f8e76e319065ea72a641bffae5689ec453",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\empty.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "portrait",
+      "state": "placement",
+      "sha256": "310a04528ac61493d3a6ff0232e07f47f66f13a8aab11cce93d44e2e4e58c381",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\gameplay.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "portrait",
+      "state": "placed",
+      "sha256": "373114cd48f42c16c1e09a3ee437afae27d3da110967964be1665a297662256e",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\placed.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "portrait",
+      "state": "breeze",
+      "sha256": "54a294dfee324262a39235bbd270379b8ea5d01e919b9152bc6f0cda5a266258",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\breeze.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "portrait",
+      "state": "complete",
+      "sha256": "ed7701b42833abe38fb3a9117c0848fd0f0985b2e04706508eea4e2206cc88cc",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\complete.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "portrait",
+      "state": "environment-coverage-0",
+      "sha256": "c03c5eeb17c4197aafc879260655b5fdee7db54f27bef32c468aa9fa2d4ed949",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\coverage-0.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "portrait",
+      "state": "environment-coverage-1",
+      "sha256": "52543f33aef464bdcc2dd713d981c5294ecf23c7f5841a31c89912cffa4e2132",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\coverage-1.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "portrait",
+      "state": "environment-coverage-2",
+      "sha256": "94b701a4c327ee9928b86e9b3c56c4102a77cfc5ab4d027f414fcc5a35c2c796",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\coverage-2.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "portrait",
+      "state": "environment-coverage-3",
+      "sha256": "fb7f64139d505cfdbdc22779b9ea0389cd8d4229e8533f75f5f93a3d23b8ffb1",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\coverage-3.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "portrait",
+      "state": "menu",
+      "sha256": "0fe5088d4bd2ee91fbe86bcd6dd2b23b7bdb17b85d7533f8b66a8249ffa3a4bd",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\portrait\\menu.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "landscape",
+      "state": "empty",
+      "sha256": "207230ca9b376c83051937488305b07c32bae597755a3c7a6c58f8f442e6dbf4",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\empty.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "landscape",
+      "state": "placement",
+      "sha256": "6d54576ccc1716eaf2c8649a485b32b9502439a1f26cbe052e1b014d6d946a75",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\gameplay.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "landscape",
+      "state": "placed",
+      "sha256": "5db3a19278570801cbcd35ccf20c290b1cb77097a2ee9b248e8ac5ccb21bb475",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\placed.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "landscape",
+      "state": "breeze",
+      "sha256": "071bb8d7db7375c1996442fbe324acf928f875b3ee9ee473656a403e25b0fc75",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\breeze.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "landscape",
+      "state": "complete",
+      "sha256": "738c247c9d9e4150eef1def5e370af8240c96538cb384deaa6a78746c7138204",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\complete.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "landscape",
+      "state": "environment-coverage-0",
+      "sha256": "7ec7f64a23ce4db119fd122af8cefdd6ff83d96ac2ef8915e267fa1ed60ac100",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\coverage-0.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "landscape",
+      "state": "environment-coverage-1",
+      "sha256": "305b15bc1e106cdf14be69040add0e54c27bf27c995f0263ee3fb024e1c27f31",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\coverage-1.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "landscape",
+      "state": "environment-coverage-2",
+      "sha256": "9bce5f58ddfa7929d3f19992a546272e8906cb44f972c64a93f41940ef6dc174",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\coverage-2.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "landscape",
+      "state": "environment-coverage-3",
+      "sha256": "54cc5d1ecc254603d0f34133b1a91a24c5a24960eb68a84639a6508cd0ae8f93",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\coverage-3.png"
+    },
+    {
+      "levelId": "gen:qc_camp:91",
+      "profile": "landscape",
+      "state": "menu",
+      "sha256": "9ec4777cffa6572ea8e082d86f826dae144ef176a59464feda5a520d3e6ba28d",
+      "sourcePath": "C:\\Users\\yelyzaveta.khodos.TP-GE26-20\\Documents\\GitHub\\quiet-camp\\QuietCamp\\UserSettings\\WorldOps\\20261024T164649958-cc6322\\gen_qc_camp_91\\round-0\\attempt-1\\after\\landscape\\menu.png"
+    }
+  ]
+}

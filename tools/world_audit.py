@@ -1,5 +1,6 @@
 """Read-only external review backend for WorldOps. Never publishes authoring data."""
-import hashlib,json,re,shutil,subprocess,sys,time
+import hashlib,json,re,shutil,subprocess,sys,time,glob
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 def mobile_budget(args):
@@ -9,7 +10,14 @@ def mobile_budget(args):
  dotnet=args.dotnet or shutil.which('dotnet')
  if not dotnet:raise SystemExit('Install .NET SDK 8+ or pass --dotnet. No Unity Editor was launched.')
  output.mkdir(parents=True,exist_ok=True);original_prefabs(repo,output)
- sources=[repo/'tools/world-audit'/p for p in ['Export.csproj','MobileBudgetChecks.cs','MathBoundary.cs','PrefabGeometry.cs']]+[repo/'QuietCamp/Assets/QuietCamp/Scripts'/p for p in ['Infrastructure/CampGeometryBudget.cs','Infrastructure/CampMeadowTufts.cs','Infrastructure/MobileMeadowPattern.cs','Infrastructure/CampArtDefinition.cs','Infrastructure/WorldWellShafts.cs','Infrastructure/FrozenLandscape.cs','Infrastructure/RiverSurfaceField.cs','Presentation/CampQualityPolicy.cs']]
+ probe=repo/'tools/world-audit/Export.csproj'
+ # Hash every compiled input, including new shared support/terrain code. A
+ # hand-maintained subset silently loses evidence when another link is added.
+ sources={Path(__file__).resolve(),probe}
+ for item in ET.parse(probe).findall('.//Compile'):
+  for include in item.attrib['Include'].split(';'):
+   sources.update(Path(p).resolve() for p in glob.glob(str(probe.parent/include)))
+ sources=sorted(sources)
  hashes={str(p.relative_to(repo)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}
  subprocess.run([dotnet,'run','--project',str(repo/'tools/world-audit/Export.csproj'),'--','--budget-check',str(project/'Assets/QuietCamp/Resources'),str(output)],check=True,cwd=repo)
  if any(hashlib.sha256((repo/p).read_bytes()).hexdigest()!=sha for p,sha in hashes.items()):raise SystemExit('Budget sources changed during audit; discard mixed results.')
