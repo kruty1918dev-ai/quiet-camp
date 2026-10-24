@@ -113,6 +113,10 @@ https://console.cloud.google.com/auth/clients?project=quiet-camp
 для serverClientId у Credential Manager. Агенту потрібен Web ID виду
 `...apps.googleusercontent.com`, не API key/Firebase App ID/Android client ID.
 Немає потреби в Gmail/Drive scopes, client secret у грі або другому проєкті.
+У Google Auth Platform також звірити Branding (домен сайту, посилання на
+політику, контакт) та Audience/статус публікації. Якщо екран входу обмежує
+доступ тестовими користувачами, додати свої тестові Google-акаунти; перед
+загальнодоступним релізом виконати вимоги Google для чинного режиму.
 
 ## 7. Meta Android, якщо додається нативний Facebook
 

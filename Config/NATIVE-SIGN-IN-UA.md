@@ -80,6 +80,12 @@ App signing і дає новий google-services.json та Web OAuth client ID �
 10. /status також повертає profile: ім'я й методи входу показати в існуючих
     налаштуваннях акаунта. Null email нормальний. Кабінет/політика/допомога
     можуть відкриватися звичайним браузером.
+    displayName/email — користувацькі дані: екранувати штатним HtmlUi.Text,
+    не вставляти як raw HTML у Unity HtmlSurface.
+11. Після публікації політики 11 звірити legal.publishedPolicyRevision у
+    owner.local/owner_client та legal.revision штатним owner_config.py workflow
+    validate/readiness/prepare/apply. Зберегти чинні ключі й налаштування власника,
+    не замінювати їх шаблоном і не вмикати чужі review/ads/Analytics flags.
 
 ## Видалення та приватність
 
