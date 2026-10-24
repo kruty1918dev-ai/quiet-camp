@@ -6,17 +6,18 @@ namespace QuietCamp.Presentation.World
     /// <summary>Cached refinement of fabric triangles; rigid submeshes and colliders retain authored geometry.</summary>
     internal sealed class FabricGeometry
     {
-        static readonly Dictionary<(Mesh, ulong), FabricGeometry> Cache = new Dictionary<(Mesh, ulong), FabricGeometry>();
-        readonly (Mesh, ulong) _key;
+        static readonly Dictionary<(Mesh, ulong, int), FabricGeometry> Cache = new Dictionary<(Mesh, ulong, int), FabricGeometry>();
+        readonly (Mesh, ulong, int) _key;
         int _owners;
         public Mesh Mesh { get; private set; }
         public Bounds FabricBounds { get; }
         public static int CachedCount => Cache.Count;
-        FabricGeometry((Mesh, ulong) key, Mesh mesh, Bounds fabricBounds) { _key = key; Mesh = mesh; FabricBounds = fabricBounds; }
-        public static FabricGeometry Acquire(Mesh source, ulong fabricSlots)
+        FabricGeometry((Mesh, ulong, int) key, Mesh mesh, Bounds fabricBounds) { _key = key; Mesh = mesh; FabricBounds = fabricBounds; }
+        public static FabricGeometry Acquire(Mesh source, ulong fabricSlots,int maximumPasses=2)
         {
             if (!source.isReadable || fabricSlots == 0 || source.subMeshCount > 64) return null;
-            var key = (source, fabricSlots);
+            maximumPasses=Mathf.Clamp(maximumPasses,1,2);
+            var key = (source, fabricSlots,maximumPasses);
             // Native resources can be unloaded between Editor sessions without a domain reload.
             if (Cache.TryGetValue(key, out var stale) && stale.Mesh == null) Cache.Remove(key);
             if (!Cache.TryGetValue(key, out var geometry))
@@ -61,7 +62,7 @@ namespace QuietCamp.Presentation.World
                     }
                     // A sparse imported roof needs distributed folds, not one moving
                     // midpoint making a sharp dent. Keep dense fabric within the old budget.
-                    for(int pass=0;pass<(triangles<=256?2:1);pass++)
+                    for(int pass=0;pass<Mathf.Min(maximumPasses,triangles<=256?2:1);pass++)
                     {
                         var refined = new int[original.Length * 4]; int next = 0;
                         void Triangle(int a, int b, int c) { refined[next++] = a; refined[next++] = b; refined[next++] = c; }

@@ -114,7 +114,49 @@ namespace QuietCamp.Infrastructure
         {
             var result=new FrozenLandscape{resolution=source.resolution,originX=source.originX,originZ=source.originZ,size=source.size,
                 heights=source.heights,riverEnvironmentVersion=source.riverEnvironmentVersion,riverContacts=source.riverContacts,
-                meshes=source.meshes.Select(m=>m.water||m.decoration?m:SimplifyGrid(m,4)).ToArray()};
+                meshes=source.meshes.Select(m=>m.water||m.decoration?m:m.name=="Surrounding ground margins"?SimplifyMargins(m,source.resolution,4):SimplifyGrid(m,4)).ToArray()};
+            result.Validate();return result;
+        }
+        // The authoring owner emits four independent (resolution x 5) ruled
+        // bands. Verify that exact topology and planar parameterisation before
+        // sampling them; an arbitrary cut/modified mesh remains untouched.
+        public static LandscapeMesh SimplifyMargins(LandscapeMesh source,int columns,int stride)
+        {
+            const int rows=5,sides=4;
+            if(columns<3||stride<2||source.name!="Surrounding ground margins"||source.vertices.Length!=columns*rows*sides*3
+                ||source.triangles.Length!=(columns-1)*(rows-1)*sides*6)return source;
+            int at=0;
+            for(int side=0;side<sides;side++)for(int row=0;row<rows-1;row++)for(int col=0;col<columns-1;col++)
+            {
+                int a=side*rows*columns+row*columns+col,b=a+1,c=a+columns,d=c+1;
+                foreach(int index in new[]{a,b,c,b,d,c})if(source.triangles[at++]!=index)return source;
+            }
+            for(int side=0;side<sides;side++)for(int row=0;row<rows;row++)for(int col=0;col<columns;col++)
+            {
+                int first=side*rows*columns,last=first+(rows-1)*columns;
+                float u=col/(float)(columns-1),v=row/(float)(rows-1);
+                foreach(int channel in new[]{0,2})
+                {
+                    float inner=Mathf.Lerp(source.vertices[first*3+channel],source.vertices[(first+columns-1)*3+channel],u);
+                    float outer=Mathf.Lerp(source.vertices[last*3+channel],source.vertices[(last+columns-1)*3+channel],u);
+                    if(Mathf.Abs(source.vertices[(first+row*columns+col)*3+channel]-Mathf.Lerp(inner,outer,v))>.0001f)return source;
+                }
+            }
+            var axis=Enumerable.Range(0,(columns-2)/stride+1).Select(i=>i*stride).Concat(new[]{columns-1}).ToArray();
+            var indices=Enumerable.Range(0,sides).SelectMany(side=>new[]{0,rows-1}.SelectMany(row=>axis.Select(col=>side*rows*columns+row*columns+col))).ToArray();
+            float[] Channel(float[] input,int width)
+            {
+                if(input==null||input.Length==0)return input;
+                var output=new float[indices.Length*width];
+                for(int i=0;i<indices.Length;i++)Array.Copy(input,indices[i]*width,output,i*width,width);
+                return output;
+            }
+            var triangles=new List<int>();int n=axis.Length;
+            for(int side=0;side<sides;side++)for(int col=0;col<n-1;col++)
+            {int a=side*n*2+col,b=a+1,c=a+n,d=c+1;triangles.AddRange(new[]{a,b,c,b,d,c});}
+            var result=new LandscapeMesh{name=source.name,vertices=Channel(source.vertices,3),normals=Channel(source.normals,3),
+                colors=Channel(source.colors,4),uv=Channel(source.uv,2),lightmapUv=Channel(source.lightmapUv,2),
+                flow=Channel(source.flow,3),tangents=Channel(source.tangents,4),triangles=triangles.ToArray()};
             result.Validate();return result;
         }
         // Only a verified complete rectangular grid can be resampled. A cut well,

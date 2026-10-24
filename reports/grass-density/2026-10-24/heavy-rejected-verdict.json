@@ -1,0 +1,37 @@
+{
+  "runId": "20261024T154008336-769e5f",
+  "levelId": "gen:qc_camp:60",
+  "inputHash": "836dec196bc78213c94f0692c180e127cfe1bca291e37bc5f88ddbae1c751924",
+  "documentHash": "40d09246b95832121952ee26753c77a1416a1d9a9a65250b320ba4add00460b5",
+  "round": 0,
+  "reviewer": "Codex visual review",
+  "accepted": false,
+  "inspectedFrameHashes": [
+    "66d65dbd1d9fe2d21bff9baeff6173d4cad50d456eb407cf45d7adf5e3a7aece",
+    "bd3f44a88c43853b4d87e72c46596b34c26296265e436d8226db8f1b6560c706",
+    "495e1c8f6206e52ab309e23803616ba1fba3d86100786a4ab8243bc2f9962c1e",
+    "1bf5ec836eee853f2bcd1145bdc933d1f880ef45ebee3a9ca5e8219127c31915",
+    "aef7630a4c6561f8df1474fb5ee1abd7c061bd483e2d4f2ef7eb08449e6faba0",
+    "7ae391163aa2e91b0c7af2fab78b0cef68707e5b04be4cdc66733e19314231c5",
+    "f4ad6d59b3d726ef3ef46b45a84af0c3538008b28961374cc2315aff306f1311",
+    "fdd3bb10c598f0373973c4b02d17e86181c5235fe512f37427fb11c6c7e86024",
+    "688ed2417c8499bc8a594a9ebec6f5bc853c79440daa4a994e525330718dd069",
+    "b8a3666d0d571459a6ccfe6b1486e0a2ead9e64d2b196e22a185fbad56f510b4",
+    "e0767f013d3014777e1416341caf142664ce219327bb18e4815939d0249968f3",
+    "8d67150abdb990e7c1d8d7e87491e493bc887f252c74af7b038875d06bdac239",
+    "291ce57c28435db94a609bfa12d907f1237eeb4cf387f8c032af9b2954c0873b",
+    "916ac03fc28d8a7910ebe3fc5473cf40ca7ec890bf2479b552bfbbeb76bb25b6",
+    "d9fe14765b97e54bb0242f3980ea9fc98d86947f68bda8145eb8e7b180ad6930",
+    "9b2ed54b4d15d9d3648e9c120eca1948440d2a855b2e00dc86ce6bbb50645847",
+    "a0573b637b7146ba8ce7b1637cf196063d371107beafc73e3caddae5f18a69b8",
+    "6ccb909aaa087f34f07d2731b4bb8a62ba8dd34cb6a687c7f450cd76ae19cda4",
+    "5865e5f1891eb4f8f430045f920f33b7aafd1b17e85e49bcd78c6e89a59ef2af",
+    "d37e7c44151362f3d2695a2111fc74cfee8696cd4075db18e1539db5d89e69ae"
+  ],
+  "corrections": [],
+  "residuals": [
+    "Full native scene exceeds 50000 triangles: peak 60578 including UI and particle capacity.",
+    "Existing landmark/contact findings remain in the packet."
+  ],
+  "notes": "Inspected all 20 current frames in portrait/landscape contact sheets and full-size empty/placed views. Flat grass ribbons are gone; compact individual leaves read as raised tufts. Budget is rejected: 60578. Next correction targets runtime cloth refinement and the verified terrain-margin strips, preserving source meshes and physical heights."
+}

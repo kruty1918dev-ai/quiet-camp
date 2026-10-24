@@ -388,6 +388,8 @@ namespace QuietCamp.Presentation.World
         {
             if(!cover.continuousMeadow)return new Rect(-_level.width*.5f-cover.fringe,-_level.height*.5f-cover.fringe,_level.width+cover.fringe*2,_level.height+cover.fringe*2);
             var landscape=_art?.landscape;
+            if(landscape!=null&&_art.mobileGeometryBudget)
+            {var bounds=CampMeadowTufts.GroundBounds(_art);return Rect.MinMaxRect(bounds.minX,bounds.minZ,bounds.maxX,bounds.maxZ);}
             if(landscape!=null)return new Rect(landscape.originX,landscape.originZ,landscape.size,landscape.size);
             float half=_art!=null?Mathf.Max(19.2f,_art.surroundExtent):Mathf.Max(_level.width,_level.height)*.5f+24;
             return new Rect(-half,-half,half*2,half*2);

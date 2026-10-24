@@ -79,6 +79,15 @@ static class MobileBudgetChecks
                 Require(before==Digest(source),"A failed protected optimization mutated its input");
             }
             optimized.Validate(level);
+            foreach(var margin in source.landscape.meshes.Where(m=>m.name=="Surrounding ground margins"))
+            {
+                var reduced=CampGeometryBudget.SimplifyMargins(margin,source.landscape.resolution,4);
+                Require(reduced.triangles.Length<margin.triangles.Length,"Verified terrain margins were not simplified");
+                var cut=JsonConvert.DeserializeObject<LandscapeMesh>(JsonConvert.SerializeObject(margin));cut.triangles=cut.triangles.Skip(3).ToArray();
+                Require(ReferenceEquals(cut,CampGeometryBudget.SimplifyMargins(cut,source.landscape.resolution,4)),"Cut margin topology was filled");
+                var bounds=CampMeadowTufts.GroundBounds(optimized);
+                Require(bounds.minX<=optimized.landscape.originX&&bounds.maxX>=optimized.landscape.originX+optimized.landscape.size,"Margin coverage clipped the authored terrain");
+            }
             Require(before==Digest(source),"Source mutated by presentation optimization: "+id);
             Require(ReferenceEquals(optimized,CampGeometryBudget.Prepare(optimized)),"Budget pass must be idempotent");
             Require(ReferenceEquals(optimized,CampGeometryBudget.DenseMeadow(optimized)),"Dense meadow stage must be idempotent");

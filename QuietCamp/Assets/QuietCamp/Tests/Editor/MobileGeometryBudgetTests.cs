@@ -12,6 +12,44 @@ namespace QuietCamp.Tests
 {
     public sealed class MobileGeometryBudgetTests
     {
+        [TestCase("tent_smallOpen")] [TestCase("tent_detailedOpen")]
+        public void BudgetedFabricRetainsSourceAndRigidGeometryAndSharesItsOwnCache(string id)
+        {
+            var prefab=AssetCatalog.Load().Prefab(id);var filter=prefab.GetComponentInChildren<MeshFilter>();
+            var source=filter.sharedMesh;var materials=filter.GetComponent<MeshRenderer>().sharedMaterials;
+            ulong mask=0;for(int i=0;i<materials.Length;i++)
+            {string name=materials[i].name.ToLowerInvariant();if(name.Contains("red")||name.Contains("yellow")||name.Contains("fabric"))mask|=1UL<<i;}
+            var type=typeof(TentCloth).Assembly.GetType("QuietCamp.Presentation.World.FabricGeometry");
+            var acquire=type.GetMethod("Acquire");var release=type.GetMethod("Release");var meshProperty=type.GetProperty("Mesh");
+            object budget=null,shared=null,rich=null;int cached=TentCloth.CachedGeometryCount;var vertices=source.vertices;var triangles=source.triangles;
+            try
+            {
+                budget=acquire.Invoke(null,new object[]{source,mask,1});shared=acquire.Invoke(null,new object[]{source,mask,1});rich=acquire.Invoke(null,new object[]{source,mask,2});
+                var reduced=(Mesh)meshProperty.GetValue(budget);var detailed=(Mesh)meshProperty.GetValue(rich);
+                Assert.AreSame(reduced,meshProperty.GetValue(shared));Assert.AreNotSame(reduced,detailed);
+                Assert.Less(reduced.triangles.Length,detailed.triangles.Length);
+                CollectionAssert.AreEqual(vertices,reduced.vertices.Take(vertices.Length));
+                for(int slot=0;slot<source.subMeshCount;slot++)if((mask&(1UL<<slot))==0)
+                    CollectionAssert.AreEqual(source.GetTriangles(slot),reduced.GetTriangles(slot),"Rigid poles/pegs changed.");
+                CollectionAssert.AreEqual(vertices,source.vertices);CollectionAssert.AreEqual(triangles,source.triangles);
+            }
+            finally{if(budget!=null)release.Invoke(budget,null);if(shared!=null)release.Invoke(shared,null);if(rich!=null)release.Invoke(rich,null);}
+            Assert.AreEqual(cached,TentCloth.CachedGeometryCount);
+        }
+        [Test] public void MarginResamplingRetainsBothBoundariesAndRejectsCutTopology()
+        {
+            var text=Resources.Load<TextAsset>("QuietCamp/ArtCompositions/gen_qc_camp_60");
+            var art=CampArtDefinition.ReadDocument(text.text,out _);var source=art.landscape.meshes.Single(m=>m.name=="Surrounding ground margins");
+            string before=JsonConvert.SerializeObject(source);int n=art.landscape.resolution;
+            var reduced=CampGeometryBudget.SimplifyMargins(source,n,4);Assert.AreEqual(256,reduced.triangles.Length/3);
+            int width=(n-1)/4+1;
+            for(int side=0;side<4;side++)for(int row=0;row<2;row++)for(int col=0;col<width;col++)for(int channel=0;channel<3;channel++)
+                Assert.AreEqual(source.vertices[(side*n*5+row*n*4+col*4)*3+channel],reduced.vertices[(side*width*2+row*width+col)*3+channel]);
+            Assert.AreEqual(before,JsonConvert.SerializeObject(source));
+            var cut=JsonConvert.DeserializeObject<LandscapeMesh>(before);cut.triangles=cut.triangles.Skip(3).ToArray();
+            Assert.AreSame(cut,CampGeometryBudget.SimplifyMargins(cut,n,4));
+            var bounds=CampMeadowTufts.GroundBounds(art);Assert.AreEqual(-50,bounds.minX);Assert.AreEqual(50,bounds.maxX);
+        }
         [Test] public void GrassUsesCompactRaisedLeavesInsteadOfRibbonQuads()
         {
             var level=LevelLoader.Load("QC007");var art=CampArtDefinition.Load(level);

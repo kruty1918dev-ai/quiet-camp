@@ -58,7 +58,11 @@ namespace QuietCamp.Presentation.World
                 if(changed)
                 {
                     renderer.sharedMaterials=mats;
-                    var geometry=FabricGeometry.Acquire(mesh,fabricSlots);
+                    // Budgeted worlds keep one refinement pass: the original
+                    // fabric, rigid submeshes and colliders are unchanged.
+                    // A second pass quadrupled every tent, including its ghost.
+                    bool budgeted=UnityEngine.Object.FindAnyObjectByType<CampArtView>()?.Definition?.mobileGeometryBudget==true;
+                    var geometry=FabricGeometry.Acquire(mesh,fabricSlots,budgeted?1:2);
                     if(geometry!=null)
                     {
                         owner._geometry.Add(geometry);renderer.GetComponent<MeshFilter>().sharedMesh=geometry.Mesh;

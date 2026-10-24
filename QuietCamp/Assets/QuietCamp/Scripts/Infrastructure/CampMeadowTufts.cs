@@ -10,6 +10,13 @@ namespace QuietCamp.Infrastructure
     public static class CampMeadowTufts
     {
         public static Color SeasonTint(string season)=>season=="autumn"?new Color(.96f,.94f,.83f):new Color(.72f,1f,.78f);
+        public static (float minX,float minZ,float maxX,float maxZ) GroundBounds(CampArtDefinition art)
+        {
+            float minX=art.landscape.originX,minZ=art.landscape.originZ,maxX=minX+art.landscape.size,maxZ=minZ+art.landscape.size;
+            foreach(var mesh in art.landscape.meshes.Where(m=>!m.water&&!m.decoration))for(int i=0;i<mesh.vertices.Length;i+=3)
+            {minX=Math.Min(minX,mesh.vertices[i]);maxX=Math.Max(maxX,mesh.vertices[i]);minZ=Math.Min(minZ,mesh.vertices[i+2]);maxZ=Math.Max(maxZ,mesh.vertices[i+2]);}
+            return(minX,minZ,maxX,maxZ);
+        }
         public static LandscapeMesh Build(CampArtDefinition art,int width,int height,int seed)
         {
             var points=new List<float>();var normals=new List<float>();var colors=new List<float>();var uv=new List<float>();var triangles=new List<int>();
@@ -17,8 +24,8 @@ namespace QuietCamp.Infrastructure
                 colors=Array.Empty<float>(),uv=Array.Empty<float>(),triangles=Array.Empty<int>()};
             if(art.atmosphere?.season=="winter")return result;
             var water=new RiverSurfaceField(art.landscape);var holes=WorldWellShafts.Find(art);var random=new System.Random(seed^6289);
-            bool Dry(float x,float z)=>x>=art.landscape.originX&&x<=art.landscape.originX+art.landscape.size
-                &&z>=art.landscape.originZ&&z<=art.landscape.originZ+art.landscape.size
+            var bounds=GroundBounds(art);
+            bool Dry(float x,float z)=>x>=bounds.minX&&x<=bounds.maxX&&z>=bounds.minZ&&z<=bounds.maxZ
                 &&!holes.Any(h=>h.Contains(x,z,-.04f))&&(!water.TrySample(x,z,out var wet)||!wet.Wet);
             // Roots use the displayed terrain triangles, which may have been
             // resampled for the budget. The physical height field stays intact.
@@ -43,8 +50,8 @@ namespace QuietCamp.Infrastructure
             {
                 bool near=i>=farPatches;int k=near?i-farPatches:i,side=near?nearSide:farSide;
                 float u=(k%side+.08f+(float)random.NextDouble()*.84f)/side,v=(k/side+.08f+(float)random.NextDouble()*.84f)/side;
-                float x=near?(u-.5f)*(width+14):art.landscape.originX+u*art.landscape.size;
-                float z=near?(v-.5f)*(height+14):art.landscape.originZ+v*art.landscape.size;
+                float x=near?(u-.5f)*(width+14):Mathf.Lerp(bounds.minX,bounds.maxX,u);
+                float z=near?(v-.5f)*(height+14):Mathf.Lerp(bounds.minZ,bounds.maxZ,v);
                 if(!Dry(x,z))continue;
                 bool onField=Math.Abs(x)<width*.5f+.3f&&Math.Abs(z)<height*.5f+.3f;
                 float tuftHeight=onField?.09f:.19f+(float)random.NextDouble()*.13f;
