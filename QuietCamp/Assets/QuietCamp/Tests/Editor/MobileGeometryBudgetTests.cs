@@ -12,6 +12,27 @@ namespace QuietCamp.Tests
 {
     public sealed class MobileGeometryBudgetTests
     {
+        [Test] public void MenuAndGameplayProduceTheSamePhysicalTentContactsRegardlessOfConstructionOrder()
+        {
+            var level=LevelLoader.Load("QC001");var art=CampArtDefinition.Load(level);
+            var earlyRoot=new GameObject("Menu contact order");var lateRoot=new GameObject("Gameplay contact order");
+            var earlyMaterial=new Material(Resources.Load<Shader>("QuietCamp/CampArtLit"));var lateMaterial=new Material(earlyMaterial);
+            try
+            {
+                var early=earlyRoot.AddComponent<CampGroundDetails>();early.Configure(level,earlyMaterial,art);
+                early.Rebuild(level.witness);early.Bind(null);
+                var late=lateRoot.AddComponent<CampGroundDetails>();late.Configure(level,lateMaterial,art);late.Bind(null);
+                var staticPixels=((Texture2D)lateMaterial.GetTexture("_GroundContact")).GetPixels32();
+                late.Rebuild(level.witness);
+                var expected=((Texture2D)lateMaterial.GetTexture("_GroundContact")).GetPixels32();
+                CollectionAssert.AreEqual(expected,((Texture2D)earlyMaterial.GetTexture("_GroundContact")).GetPixels32());
+                Assert.IsTrue(expected.Where((p,i)=>p.r>staticPixels[i].r).Any(),"Committed tents did not contribute their source geometry.");
+                late.Rebuild(Array.Empty<QuietCamp.Domain.Placement>());
+                CollectionAssert.AreEqual(staticPixels,((Texture2D)lateMaterial.GetTexture("_GroundContact")).GetPixels32(),"Undo retained a removed tent footprint.");
+            }
+            finally
+            {UnityEngine.Object.DestroyImmediate(earlyRoot);UnityEngine.Object.DestroyImmediate(lateRoot);UnityEngine.Object.DestroyImmediate(earlyMaterial);UnityEngine.Object.DestroyImmediate(lateMaterial);}
+        }
         [Test] public void DisplayedSurfaceUsesTrianglesInsteadOfTheUnchangedBilinearHeightField()
         {
             var landscape=new FrozenLandscape{originX=0,originZ=0,size=2,resolution=2,heights=new[]{0f,0,0,2},meshes=new[]{new LandscapeMesh{

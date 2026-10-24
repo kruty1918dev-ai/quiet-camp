@@ -23,11 +23,18 @@ namespace UnityEngine {
   public static float Sin(float x)=>(float)Math.Sin(x);
   public static float Cos(float x)=>(float)Math.Cos(x);
   public static int FloorToInt(float x)=>(int)Math.Floor(x);
+  public static int CeilToInt(float x)=>(int)Math.Ceiling(x);
   public static int RoundToInt(float x)=>(int)Math.Round(x,MidpointRounding.ToEven);
   public static float SmoothStep(float a,float b,float t){t=Clamp01(t);return a+(b-a)*t*t*(3-2*t);}
  }
  public struct Vector2 { public float x,y;public Vector2(float x,float y){this.x=x;this.y=y;} public static Vector2 zero=>new();public float sqrMagnitude=>x*x+y*y;public float magnitude=>(float)Math.Sqrt(sqrMagnitude);public Vector2 normalized=>magnitude>0?this/magnitude:new();public static Vector2 Lerp(Vector2 a,Vector2 b,float t)=>a+(b-a)*Mathf.Clamp01(t);public static float Dot(Vector2 a,Vector2 b)=>a.x*b.x+a.y*b.y;public static Vector2 operator +(Vector2 a,Vector2 b)=>new(a.x+b.x,a.y+b.y);public static Vector2 operator -(Vector2 a,Vector2 b)=>new(a.x-b.x,a.y-b.y);public static Vector2 operator *(Vector2 a,float s)=>new(a.x*s,a.y*s);public static Vector2 operator /(Vector2 a,float s)=>new(a.x/s,a.y/s); }
  public readonly record struct Vector2Int(int x,int y);
+ public struct Rect {
+  public float xMin,yMin,width,height;public float xMax=>xMin+width;public float yMax=>yMin+height;
+  public Rect(float x,float y,float w,float h){xMin=x;yMin=y;width=w;height=h;}
+  public static Rect MinMaxRect(float x0,float y0,float x1,float y1)=>new(x0,y0,x1-x0,y1-y0);
+ }
+ public struct Color32 {public byte r,g,b,a;public Color32(byte r,byte g,byte b,byte a){this.r=r;this.g=g;this.b=b;this.a=a;}}
 
  public struct Vector3 {
   public float x,y,z;public Vector3(float x,float y,float z){this.x=x;this.y=y;this.z=z;}

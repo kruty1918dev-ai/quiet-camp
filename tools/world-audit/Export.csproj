@@ -5,6 +5,8 @@
 <Compile Include="MobileBudgetChecks.cs" />
 <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampGeometryBudget.cs" />
 <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampMeadowTufts.cs" />
+<Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampTerrainSurface.cs" />
+<Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/CampGroundContactField.cs" />
 <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Infrastructure/MobileMeadowPattern.cs" />
 <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Presentation/CampQualityPolicy.cs" />
 <Compile Include="../../QuietCamp/Assets/QuietCamp/Scripts/Application/CampEconomy.cs" />

@@ -23,6 +23,7 @@ namespace QuietCamp.Presentation.World
         CampGroundContactField _contact;
         Color32[] _staticContacts;
         Transform _contactObstacles;
+        Placement[] _contactPlacements=Array.Empty<Placement>();
         readonly List<Material> _bound=new List<Material>();
         readonly List<Transform> _tufts=new List<Transform>();
         readonly List<Vector3> _tuftScales=new List<Vector3>();
@@ -396,6 +397,7 @@ namespace QuietCamp.Presentation.World
             Release(_contactTexture);
             _contactTexture=new Texture2D(size,size,TextureFormat.RGBA32,false,true){name="Physical ground contacts",wrapMode=TextureWrapMode.Clamp,filterMode=FilterMode.Bilinear};
             _contactTexture.SetPixels32(_staticContacts);_contactTexture.Apply(false,false);
+            RebuildTentContacts(_contactPlacements);
             foreach(var m in _bound)if(m!=null)BindContact(m);
         }
         void Publish()
@@ -443,6 +445,7 @@ namespace QuietCamp.Presentation.World
         float Height(Vector3 p)=>_terrain?.Sample(p.x,p.z)??_art?.GroundHeight(p.x,p.z)??MeadowSurface.GroundY;
         public void Rebuild(IReadOnlyList<Placement> placements)
         {
+            _contactPlacements=placements.Select(p=>p.Copy()).ToArray();
             Surface.ClearOccupancy();
             foreach(var p in placements){var at=BoardMath.TentCenter(_level,p.x,p.z);Surface.Tent(new Rect(at.x-1,at.z-1,2,2),Stable(p.guestId));}
             RebuildTentContacts(placements);

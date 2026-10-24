@@ -98,6 +98,29 @@ static class MobileBudgetChecks
             foreach(var water in source.landscape.meshes.Where(m=>m.water||m.decoration))Require(optimized.landscape.meshes.Contains(water),"Water/decorative topology changed");
             long authored=CampGeometryBudget.CountAuthored(optimized);
             var sparse=CampMeadowTufts.Build(optimized,level.width,level.height,level.decorSeed);
+            var surface=new CampTerrainSurface(optimized.landscape);
+            double maximumSurfaceAdjustment=0;
+            foreach(var item in optimized.instances.Where(i=>i.surfaceAttached==true))
+            {
+                var p=surface.Position(optimized,item);
+                Require(float.IsFinite(p.y),"Nonfinite displayed support in "+id+" / "+item.id);
+                Require(Math.Abs(p.y-item.y-(surface.Sample(item.x,item.z)-optimized.landscape.SampleHeight(item.x,item.z)))<.0001,"Attached offset was lost");
+                maximumSurfaceAdjustment=Math.Max(maximumSurfaceAdjustment,Math.Abs(p.y-item.y));
+            }
+            var contact=new CampGroundContactField(surface.Bounds,128,surface.Sample);
+            var contactModels=optimized.models.ToDictionary(m=>m.id);
+            foreach(var item in optimized.instances)
+            {
+                if(item.modelId==null||!contactModels.TryGetValue(item.modelId,out var contactModel)||contactModel.shading=="foliage"&&contactModel.seasonalRole!="deciduous"&&contactModel.seasonalRole!="conifer"||contactModel.seasonalRole=="groundcover"||!string.IsNullOrEmpty(item.motion))continue;
+                var rotation=item.rotationEuler!=null?UnityEngine.Quaternion.Euler(CampArtDefinition.Vector(item.rotationEuler)):UnityEngine.Quaternion.Euler(0,item.yaw,0);
+                var scale=item.scaleXYZ!=null?CampArtDefinition.Vector(item.scaleXYZ):UnityEngine.Vector3.one*item.scale;
+                var matrix=UnityEngine.Matrix4x4.TRS(surface.Position(optimized,item),rotation,scale);
+                UnityEngine.Vector3 Point(int i)=>matrix.MultiplyPoint3x4(new UnityEngine.Vector3(contactModel.vertices[i],contactModel.vertices[i+1],contactModel.vertices[i+2]));
+                for(int i=0;i+8<contactModel.vertices.Length;i+=9)contact.Triangle(Point(i),Point(i+3),Point(i+6));
+            }
+            int contactTexels=contact.Pixels().Count(c=>c.r>0);
+            Require(contactTexels>0,"No physical scenery contact was found in "+id);
+            Require(before==Digest(source),"Ground presentation mutated canonical source "+id);
             Require(sparse.triangles.Length/3<=CampGeometryBudget.ProceduralGrassTriangles,"Unbounded grass generation");
             if(sparse.triangles.Length>0)sparse.Validate();
             Require(Digest(sparse)==Digest(CampMeadowTufts.Build(optimized,level.width,level.height,level.decorSeed)),"Meadow tufts are not deterministic");
@@ -117,7 +140,7 @@ static class MobileBudgetChecks
             rows.Add(new{order=n+1,id,season=optimized.atmosphere?.season,sourceTriangles=CampGeometryBudget.CountAuthored(source),authoredTriangles=authored,
                 authoredInstancesBefore=source.instances.Length,authoredInstancesAfter=optimized.instances.Length,proceduralGrassTriangles=sparse.triangles.Length/3,
                 solvedGameplayTriangles=gameplayTriangles,knownGeometrySubtotal=subtotal,remainingForRuntimeAndUI=CampGeometryBudget.SceneTriangles-subtotal,
-                sourceUnchanged=true,nativeSceneVerified=false});
+                sourceUnchanged=true,groundContactTexelsAt128=contactTexels,maximumSurfaceAdjustment,nativeSceneVerified=false});
             Console.WriteLine($"PASS {n+1:000} {id}: {CampGeometryBudget.CountAuthored(source)} -> {authored} authored; known subtotal {subtotal}; remaining {CampGeometryBudget.SceneTriangles-subtotal}");
         }
         var report=new{scope="Real shared C# budget policy, all 100 active frozen revisions, actual solved gameplay OBJ geometry. Subtotal excludes runtime river rebuild, UI, belongings, effects and other loaded worlds. Not a native scene census or device FPS measurement.",
