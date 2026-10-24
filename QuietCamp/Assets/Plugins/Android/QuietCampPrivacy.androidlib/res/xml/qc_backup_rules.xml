@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+  <!-- Firebase Auth's per-app preference filename varies with app identity.
+       Game save modules remain files; native identity sessions must not transfer. -->
+  <exclude domain="sharedpref" path="." />
+</full-backup-content>
