@@ -6,9 +6,32 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from urllib.parse import urlsplit
 
 SOURCE = Path(__file__).with_name('sync_privacy_policy.py')
 BASE = 'https://oleksiy-havryliuk.de/quiet-camp/privacy'
+
+class BundledPublicationTests(unittest.TestCase):
+    def test_boot_policy_matches_published_metadata_and_origins(self):
+        resources = SOURCE.parents[1]/'QuietCamp/Assets/QuietCamp/Resources/QuietCamp'
+        bundle = json.loads((resources/'privacy_content.json').read_text(encoding='utf8'))
+        legal = json.loads((resources/'legal.json').read_text(encoding='utf8'))
+        self.assertEqual(legal['policyIsDraft'], bundle['draft'])
+        if bundle['draft']:
+            return
+        document = bundle['document']
+        self.assertEqual({'en', 'uk', 'de'}, {v['language'] for v in document['variants']})
+        for variant in document['variants']:
+            with self.subTest(language=variant['language']):
+                self.assertEqual(legal['revision'], variant['revision'], 'Boot rejects mismatched policy revisions')
+                url = urlsplit(variant['url'])
+                self.assertEqual('https', url.scheme)
+                self.assertIsNone(url.username)
+                self.assertIsNone(url.password)
+                self.assertIn(f'{url.scheme}://{url.netloc}', document['allowedOrigins'])
+                self.assertEqual(variant['sourceUrl'], variant['url'])
+                summary = next(s for s in bundle['summaries'] if s['language'] == variant['language'])
+                self.assertEqual(legal['revision'], summary['revision'])
 
 class SyncPolicyTests(unittest.TestCase):
     def setUp(self):
