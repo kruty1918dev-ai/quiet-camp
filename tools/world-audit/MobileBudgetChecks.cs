@@ -37,17 +37,13 @@ static class MobileBudgetChecks
     public static void Run(string resources,string output)
     {
         QualityChecks();
-        var groundPattern=MobileMeadowPattern.Ground();var cardPattern=MobileMeadowPattern.Cards();
-        Require(groundPattern.SequenceEqual(MobileMeadowPattern.Ground())&&cardPattern.SequenceEqual(MobileMeadowPattern.Cards()),"Meadow textures are not deterministic");
-        Require(groundPattern.Length==256*256*4&&cardPattern.Length==256*64*4,"Unexpected meadow texture allocation");
+        var groundPattern=MobileMeadowPattern.Ground();
+        Require(groundPattern.SequenceEqual(MobileMeadowPattern.Ground()),"Ground detail is not deterministic");
+        Require(groundPattern.Length==256*256*4,"Unexpected meadow texture allocation");
         double groundCoverage=Enumerable.Range(0,256*256).Count(i=>groundPattern[i*4]>55)/(double)(256*256);
-        double cardCoverage=Enumerable.Range(0,256*64).Count(i=>cardPattern[i*4+3]>102)/(double)(256*64);
-        Console.WriteLine($"Meadow pattern coverage: ground {groundCoverage:P1}, cards {cardCoverage:P1}.");
         Require(groundCoverage>.90,"Dense ground lost its blade coverage");
-        Require(cardCoverage>.25&&cardCoverage<.85,"Card silhouette is empty or a solid rectangle");
-        Require(Enumerable.Range(0,256).All(x=>cardPattern[((64-1)*256+x)*4+3]==0),"Clump tips reach the card edge");
-        File.WriteAllBytes(Path.Combine(output,"meadow-ground.rgba"),groundPattern);File.WriteAllBytes(Path.Combine(output,"meadow-cards.rgba"),cardPattern);
-        Console.WriteLine($"PASS dense meadow patterns: ground blade coverage {groundCoverage:P1}, card silhouette occupancy {cardCoverage:P1}; deterministic, mipmapped runtime textures.");
+        File.WriteAllBytes(Path.Combine(output,"meadow-ground.rgba"),groundPattern);
+        Console.WriteLine($"PASS ground detail: {groundCoverage:P1} coverage; grass cards removed, opaque individual leaves.");
         foreach(int requested in new[]{0,1,10,40,100,1800,100000})
             Require(CampGeometryBudget.WeatherParticleCapacity(requested)<=requested&&CampGeometryBudget.WeatherParticleCapacity(requested)<=400,"Particle capacity is unbounded");
         var campaign=JObject.Parse(File.ReadAllText(Path.Combine(resources,"QuietCamp/campaign.json")));
@@ -92,11 +88,17 @@ static class MobileBudgetChecks
             Require(optimized.landscape.heights.SequenceEqual(source.landscape.heights),"Height field/physical support changed");
             foreach(var water in source.landscape.meshes.Where(m=>m.water||m.decoration))Require(optimized.landscape.meshes.Contains(water),"Water/decorative topology changed");
             long authored=CampGeometryBudget.CountAuthored(optimized);
-            var sparse=CampMeadowImpostors.Build(optimized,level.width,level.height,level.decorSeed);
+            var sparse=CampMeadowTufts.Build(optimized,level.width,level.height,level.decorSeed);
             Require(sparse.triangles.Length/3<=CampGeometryBudget.ProceduralGrassTriangles,"Unbounded grass generation");
             if(sparse.triangles.Length>0)sparse.Validate();
-            Require(Digest(sparse)==Digest(CampMeadowImpostors.Build(optimized,level.width,level.height,level.decorSeed)),"Meadow cards are not deterministic");
-            Require(sparse.triangles.Length%6==0&&sparse.vertices.Length/3%4==0,"Impostors must be whole quads");
+            Require(Digest(sparse)==Digest(CampMeadowTufts.Build(optimized,level.width,level.height,level.decorSeed)),"Meadow tufts are not deterministic");
+            Require(sparse.vertices.Length==sparse.triangles.Length*3,"Grass must contain individual triangular leaves, not card quads");
+            for(int i=0;i<sparse.vertices.Length;i+=9)
+            {
+                float dx=sparse.vertices[i]-sparse.vertices[i+3],dz=sparse.vertices[i+2]-sparse.vertices[i+5];
+                Require(dx*dx+dz*dz<.011,"Grass leaf became an oversized strip");
+                Require(sparse.vertices[i+7]-Math.Max(sparse.vertices[i+1],sparse.vertices[i+4])>.025,"Grass leaf is flat or buried in its supporting terrain");
+            }
             if(optimized.atmosphere?.season=="winter")Require(sparse.triangles.Length==0,"Winter generated a second ground carpet");
             var gameplay=PrefabGeometry.Build(level,optimized,Path.Combine(output,"prefab-sources"));
             long gameplayTriangles=gameplay.Sum(g=>(long)((JArray)g["model"]["vertices"]).Count/9);
@@ -111,8 +113,8 @@ static class MobileBudgetChecks
         }
         var report=new{scope="Real shared C# budget policy, all 100 active frozen revisions, actual solved gameplay OBJ geometry. Subtotal excludes runtime river rebuild, UI, belongings, effects and other loaded worlds. Not a native scene census or device FPS measurement.",
             sceneLimit=CampGeometryBudget.SceneTriangles,levels=rows,worstKnownGeometrySubtotal=worst,worstOrder,
-            meadowAppearance="opaque packed blade detail + bounded crossed clump cards",groundCoverage,cardCoverage,
-            textureBytesIncludingMips=(groundPattern.Length+cardPattern.Length)*4/3,nativeVisualAcceptance=false,playerBuild=false};
+            meadowAppearance="opaque packed ground detail + compact individual geometric grass leaves",groundCoverage,
+            textureBytesIncludingMips=groundPattern.Length*4/3,nativeVisualAcceptance=false,playerBuild=false};
         File.WriteAllText(Path.Combine(output,"mobile-budget-audit.json"),JsonConvert.SerializeObject(report,Formatting.Indented)+"\n");
         Console.WriteLine("PASS 100/100 source-preservation, budget, ownership, determinism and solved-gameplay geometry checks. Native scene/FPS still unverified.");
     }

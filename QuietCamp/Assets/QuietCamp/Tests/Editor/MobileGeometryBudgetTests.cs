@@ -12,15 +12,18 @@ namespace QuietCamp.Tests
 {
     public sealed class MobileGeometryBudgetTests
     {
-        [Test] public void ClippedGrassSurvivesGameplayMipLevelsWithoutSolidCards()
+        [Test] public void GrassUsesCompactRaisedLeavesInsteadOfRibbonQuads()
         {
-            var mips=MobileMeadowPattern.CardMips();
-            Assert.AreEqual(9,mips.Length);
-            double Occupied(byte[] data)=>Enumerable.Range(0,data.Length/4).Count(i=>data[i*4+3]>102)/(double)(data.Length/4);
-            double coverage=Occupied(mips[0]);Assert.That(coverage,Is.InRange(.25,.85));
-            for(int i=1;i<=4;i++)
-                Assert.That(Occupied(mips[i]),Is.EqualTo(coverage).Within(.06),"Clipped silhouettes disappeared or filled their quad at mip "+i);
-            CollectionAssert.AreEqual(mips[3],MobileMeadowPattern.CardMips()[3]);
+            var level=LevelLoader.Load("QC007");var art=CampArtDefinition.Load(level);
+            var mesh=CampMeadowTufts.Build(art,level.width,level.height,level.decorSeed);
+            Assert.Greater(mesh.triangles.Length/3,2800);
+            for(int i=0;i<mesh.vertices.Length;i+=9)
+            {
+                float width=Vector2.Distance(new Vector2(mesh.vertices[i],mesh.vertices[i+2]),new Vector2(mesh.vertices[i+3],mesh.vertices[i+5]));
+                Assert.That(width,Is.InRange(.04f,.101f));
+                Assert.Greater(mesh.vertices[i+7]-Mathf.Max(mesh.vertices[i+1],mesh.vertices[i+4]),.04f);
+            }
+            Assert.IsNull(Resources.Load<Shader>("QuietCamp/MobileMeadowCards"));
         }
         [Test] public void RuntimeAuditMatchesThePlayerPolicyAndCannotPublishOrMutate()
         {
@@ -38,18 +41,17 @@ namespace QuietCamp.Tests
         }
         [Test] public void DenseDetailTexturesHaveMipsAndAreSharedBetweenMaterials()
         {
-            var shader=Resources.Load<Shader>("QuietCamp/MobileMeadowCards");Assert.NotNull(shader);
+            var shader=Resources.Load<Shader>("QuietCamp/CampArtLit");Assert.NotNull(shader);
             var first=new Material(shader);var second=new Material(shader);
             try
             {
                 var art=new CampArtDefinition{mobileGeometryBudget=true,mobileMeadow=true};
                 MobileMeadowMaterial.Bind(first,art);MobileMeadowMaterial.Bind(second,art);
-                var ground=(Texture2D)first.GetTexture("_MeadowDetailMap");var cards=(Texture2D)first.GetTexture("_MeadowCardMap");
+                var ground=(Texture2D)first.GetTexture("_MeadowDetailMap");
                 Assert.AreEqual(256,ground.width);Assert.AreEqual(256,ground.height);Assert.Greater(ground.mipmapCount,1);
-                Assert.AreEqual(256,cards.width);Assert.AreEqual(64,cards.height);Assert.Greater(cards.mipmapCount,1);
                 Assert.AreEqual(FilterMode.Trilinear,ground.filterMode);Assert.AreEqual(TextureWrapMode.Repeat,ground.wrapMode);
-                Assert.IsFalse(ground.isReadable);Assert.IsFalse(cards.isReadable);
-                Assert.AreSame(ground,second.GetTexture("_MeadowDetailMap"));Assert.AreSame(cards,second.GetTexture("_MeadowCardMap"));
+                Assert.IsFalse(ground.isReadable);
+                Assert.AreSame(ground,second.GetTexture("_MeadowDetailMap"));
                 MobileMeadowMaterial.Bind(second,null);Assert.AreEqual(0,second.GetFloat("_MobileMeadow"));
             }
             finally{UnityEngine.Object.DestroyImmediate(first);UnityEngine.Object.DestroyImmediate(second);}
@@ -66,7 +68,7 @@ namespace QuietCamp.Tests
             Assert.LessOrEqual(CampGeometryBudget.CountAuthored(reduced),CampGeometryBudget.AuthoredTriangles);
             Assert.AreSame(reduced,CampGeometryBudget.Prepare(reduced));
             Assert.IsTrue(reduced.instances.Any(i=>i.id==original.primaryLandmarkInstanceId));
-            var cover=CampMeadowImpostors.Build(reduced,level.width,level.height,level.decorSeed);
+            var cover=CampMeadowTufts.Build(reduced,level.width,level.height,level.decorSeed);
             Assert.LessOrEqual(cover.triangles.Length/3,CampGeometryBudget.ProceduralGrassTriangles);
             if(reduced.atmosphere?.season=="winter")Assert.IsEmpty(cover.triangles);
             Assert.AreEqual(0,reduced.blurPixels);Assert.AreEqual(0,reduced.fieldCover.softnessPixels);

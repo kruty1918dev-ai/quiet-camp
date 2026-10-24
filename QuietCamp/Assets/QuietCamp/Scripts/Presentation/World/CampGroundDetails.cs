@@ -227,7 +227,7 @@ namespace QuietCamp.Presentation.World
         }
         void BuildBudgetCover()
         {
-            var data=_art.mobileMeadow?CampMeadowImpostors.Build(_art,_level.width,_level.height,_level.decorSeed)
+            var data=_art.mobileMeadow?CampMeadowTufts.Build(_art,_level.width,_level.height,_level.decorSeed)
                 :CampGeometryBudget.SparseCover(_art,_level.width,_level.height,_level.decorSeed);
             if(data.triangles.Length==0)return;
             var mesh=data.CreateMesh();mesh.name=data.name;
@@ -235,7 +235,7 @@ namespace QuietCamp.Presentation.World
             _fieldCover=new GameObject(data.name,typeof(MeshFilter),typeof(MeshRenderer),typeof(OwnedCampMesh),typeof(OwnedCampMaterial));
             _fieldCover.transform.SetParent(transform,false);_fieldCover.layer=BoardRenderer.DecorLayer;
             _fieldCover.GetComponent<MeshFilter>().sharedMesh=mesh;_fieldCover.GetComponent<OwnedCampMesh>().Mesh=mesh;
-            var material=new Material(Resources.Load<Shader>(_art.mobileMeadow?"QuietCamp/MobileMeadowCards":"QuietCamp/CampArtLit")){name=data.name};
+            var material=new Material(Resources.Load<Shader>("QuietCamp/CampArtLit")){name=data.name};
             material.SetFloat("_ArtGrass",1);material.SetFloat("_ArtMeadow",1);
             material.SetColor("_ArtAmbient",CampArtDefinition.Color(_art.atmosphere?.ambientColor??_art.ambientColor)*.55f);
             _fieldMaterial=material;_fieldCover.GetComponent<OwnedCampMaterial>().Material=material;

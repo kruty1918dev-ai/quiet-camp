@@ -175,10 +175,10 @@ namespace QuietCamp.Editor.LevelAuthoring.WorldOps
         }
         public static void RestoreCaptureSettings(WorldRun run)
         {
-            if(run.nativeOriginalView>=0){PlayModeWindow.SetViewType((PlayModeWindow.PlayModeViewTypes)run.nativeOriginalView);run.nativeOriginalView=-1;}
             if(run.nativeOriginalQuality>=0){QualitySettings.SetQualityLevel(run.nativeOriginalQuality,true);run.nativeOriginalQuality=-1;}
             if(run.nativeOriginalWidth>0&&run.nativeOriginalHeight>0)
             {PlayModeWindow.SetCustomRenderingResolution(run.nativeOriginalWidth,run.nativeOriginalHeight,"QuietCamp restored Game View");run.nativeOriginalWidth=run.nativeOriginalHeight=0;}
+            if(run.nativeOriginalView>=0){PlayModeWindow.SetViewType((PlayModeWindow.PlayModeViewTypes)run.nativeOriginalView);run.nativeOriginalView=-1;}
         }
     }
 }
