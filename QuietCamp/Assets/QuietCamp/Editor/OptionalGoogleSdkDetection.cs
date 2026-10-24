@@ -24,6 +24,8 @@ namespace QuietCamp.Editor
                 && ConsentApiAvailable();
             bool crashes = dlls.Any(p => File.Exists(p) && Path.GetFileName(p) == "Firebase.Crashlytics.dll")
                 && Has("Firebase.Crashlytics.Crashlytics") && Has("Firebase.FirebaseApp");
+            bool auth = dlls.Any(p => File.Exists(p) && Path.GetFileName(p) == "Firebase.Auth.dll")
+                && Has("Firebase.Auth.FirebaseAuth") && Has("Firebase.FirebaseApp");
             bool ads = (sourceFiles.Any(p => Path.GetFileName(p) == "RewardedAd.cs") || dlls.Any(p => File.Exists(p) && Path.GetFileName(p).StartsWith("GoogleMobileAds")))
                 && Has("GoogleMobileAds.Api.RewardedAd") && Has("GoogleMobileAds.Ump.Api.ConsentInformation")
                 && Has("GoogleMobileAds.Api.AgeRestrictedTreatment");
@@ -33,6 +35,7 @@ namespace QuietCamp.Editor
                 var symbols = new HashSet<string>(old.Split(';').Where(s => !string.IsNullOrWhiteSpace(s)));
                 Set(symbols, "QC_FIREBASE_ANALYTICS", firebase);
                 Set(symbols, "QC_FIREBASE_CRASHLYTICS", crashes);
+                Set(symbols, "QC_FIREBASE_AUTH", auth);
                 Set(symbols, "QC_GOOGLE_REWARDED", ads);
                 var next = string.Join(";", symbols.OrderBy(s => s));
                 if (new HashSet<string>(old.Split(';')).SetEquals(next.Split(';'))) continue;

@@ -17,6 +17,7 @@ ORIGINAL_SHA256 = {
     "app": "734acab59427b8f51d7aaa326f8a6e9ec61c54b37cbb64ea19eefd1f30e79926",
     "analytics": "406c9b8efdb34c13f93c8371ec895e59b826d04d09742685dd7818b90eccf544",
     "crashlytics": "8cd97c49ea5ab5f2133bf1c93178bff3c3568bf9b8df1faa615774c9701112b8",
+    "auth": "c217d4f4c37e1417c67ff6e394c4a5d987272b89e2327a7026a679a89481f884",
 }
 
 
@@ -25,7 +26,7 @@ def main():
     output = ROOT / "QuietCamp/GooglePackages"
     cache.mkdir(parents=True, exist_ok=True)
     output.mkdir(parents=True, exist_ok=True)
-    for product in ("app", "analytics", "crashlytics"):
+    for product in ("app", "analytics", "crashlytics", "auth"):
         name = "com.google.firebase." + product
         filename = name + "-" + VERSION + ".tgz"
         source = cache / filename
@@ -57,7 +58,7 @@ def main():
         else:
             destination.write_bytes(source.read_bytes())
         print(filename + " original SHA256=" + hashlib.sha256(source.read_bytes()).hexdigest())
-    print("Prepared three Firebase 14.0.0 packages; only Core EDM metadata differs.")
+    print("Prepared four Firebase 14.0.0 packages; only Core EDM metadata differs.")
 
 
 if __name__ == "__main__":

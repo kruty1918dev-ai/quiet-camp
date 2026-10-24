@@ -181,6 +181,11 @@ namespace QuietCamp.Tests
             var deletion=_cloud.DeleteNative(true);_cloud.Cancel();pending.SetResult(new CloudReply {status=200,deleted=true});await deletion;
             Assert.That(_cloud.HasAccount,Is.False);Assert.That(_cloud.Status,Is.EqualTo(CloudSaveStatus.Deleted));
         }
+        [Test] public async Task CrashDuringDeletionCannotResumeSyncWithStoredOldBearer() {
+            _store.Value=new CloudCredential {accountId="shared-website-account",endpoint=Endpoint,sessionToken=Token,provider="google",firebaseUid="firebase-one",deletionPending=true};
+            Create(true);_cloud.Tick();await _cloud.Sync();
+            Assert.That(_cloud.HasAccount,Is.False);Assert.That(_cloud.DeletionNeedsRetry,Is.True);Assert.That(_network.Calls,Is.Empty);
+        }
         [Test] public async Task RevokedSessionStopsSyncAndPreservesOfflineWork() {
             await Login();_network.Reply=_=>new CloudReply {status=401};await _cloud.Sync();int calls=_network.Calls.Count;
             _cloud.Tick();await _cloud.Sync();Assert.That(_network.Calls.Count,Is.EqualTo(calls));

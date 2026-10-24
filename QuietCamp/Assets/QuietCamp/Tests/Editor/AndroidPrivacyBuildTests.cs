@@ -27,6 +27,8 @@ namespace QuietCamp.Tests.Editor
                 XNamespace android = "http://schemas.android.com/apk/res/android";
                 XNamespace tools = "http://schemas.android.com/tools";
                 Assert.That((string)app.Attribute(android + "label"), Is.EqualTo("preserved"));
+                Assert.That((string)app.Attribute(android + "fullBackupContent"),Is.EqualTo("@xml/qc_backup_rules"));
+                Assert.That((string)app.Attribute(android + "dataExtractionRules"),Is.EqualTo("@xml/qc_data_extraction_rules"));
                 Assert.That(app.Elements("provider").Any(e => (string)e.Attribute(android + "name") == "unrelated.Provider"), Is.True);
                 var removal = app.Elements("provider").Single(e => (string)e.Attribute(android + "name") == "com.google.firebase.provider.FirebaseInitProvider");
                 Assert.That((string)removal.Attribute(tools + "node"), Is.EqualTo("remove"));
@@ -53,6 +55,37 @@ namespace QuietCamp.Tests.Editor
                     StringAssert.Contains("implementation '" + entry.Attribute("spec").Value + "'", first);
                 StringAssert.StartsWith("apply plugin:", first);
             } finally { Directory.Delete(folder, true); }
+        }
+
+        [Test]
+        public void NativeDependenciesReachChildModuleWithoutReplacingBilling()
+        {
+            var folder=Path.Combine(Path.GetTempPath(),"quietcamp-native-gradle-"+Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(folder);
+            try {
+                string gradle=Path.Combine(folder,"build.gradle");File.WriteAllText(gradle,"apply plugin: 'com.android.library'\n");
+                string declarations=Path.Combine(UnityEngine.Application.dataPath,"QuietCamp/OptionalSdk/Editor");
+                AndroidPrivacyBuild.ApplyBillingDependencies(gradle,Path.Combine(declarations,"PlayBillingDependencies.xml"));
+                var path=Path.Combine(declarations,"NativeAuthDependencies.xml");
+                AndroidPrivacyBuild.ApplyDependencies(gradle,path,"Native Auth");
+                string first=File.ReadAllText(gradle);
+                AndroidPrivacyBuild.ApplyDependencies(gradle,path,"Native Auth");
+                Assert.That(File.ReadAllText(gradle),Is.EqualTo(first));
+                StringAssert.Contains("com.android.billingclient:billing:8.0.0",first);
+                foreach(var entry in XDocument.Load(path).Descendants("androidPackage"))
+                    StringAssert.Contains("implementation '"+entry.Attribute("spec").Value+"'",first);
+            } finally { Directory.Delete(folder,true); }
+        }
+
+        [Test]
+        public void NativeAuthPreferencesAreExcludedFromBackupAndDeviceTransfer()
+        {
+            string folder=Path.Combine(UnityEngine.Application.dataPath,"Plugins/Android/QuietCampPrivacy.androidlib/res/xml");
+            var backup=XDocument.Load(Path.Combine(folder,"qc_backup_rules.xml"));
+            Assert.That(backup.Root.Elements("exclude").Any(e=>(string)e.Attribute("domain")=="sharedpref" && (string)e.Attribute("path")=="."),Is.True);
+            var extraction=XDocument.Load(Path.Combine(folder,"qc_data_extraction_rules.xml"));
+            foreach(string mode in new[]{"cloud-backup","device-transfer"})
+                Assert.That(extraction.Root.Element(mode).Elements("exclude").Any(e=>(string)e.Attribute("domain")=="sharedpref" && (string)e.Attribute("path")=="."),Is.True);
         }
 
         [Test]

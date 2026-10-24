@@ -51,7 +51,7 @@ def main():
         output = Path(temporary)
         google_references = []
         if google_sdk:
-            for product in ("app", "analytics", "crashlytics"):
+            for product in ("app", "analytics", "crashlytics", "auth"):
                 archive = PROJECT / "GooglePackages" / ("com.google.firebase." + product + "-14.0.0.tgz")
                 extracted = output / product
                 with tarfile.open(archive) as package:
@@ -138,7 +138,7 @@ def main():
             if name == "OptionalSdk" and google_sdk:
                 google_names = {path.name for path in google_references}
                 options = [line for line in options if not (line.startswith("-r:") and Path(line[3:].strip('"')).name in google_names)]
-                options.append("-define:QC_FIREBASE_ANALYTICS;QC_FIREBASE_CRASHLYTICS;QC_GOOGLE_REWARDED;UNITY_ANDROID")
+                options.append("-define:QC_FIREBASE_AUTH;QC_FIREBASE_ANALYTICS;QC_FIREBASE_CRASHLYTICS;QC_GOOGLE_REWARDED;UNITY_ANDROID")
                 options.extend('-r:"' + str(path) + '"' for path in google_references)
             if name == "Kruty1918.LevelGen":
                 sources = [path for path in sources if "LevelKitBridge" not in path.parts]

@@ -27,11 +27,16 @@ namespace QuietCamp.Editor
             ApplyPolicy(launcher, policy);
             ApplyBillingDependencies(Path.Combine(unityLibraryPath, "QuietCampPrivacy.androidlib/build.gradle"),
                 Path.Combine(UnityEngine.Application.dataPath, "QuietCamp/OptionalSdk/Editor/PlayBillingDependencies.xml"));
+            ApplyDependencies(Path.Combine(unityLibraryPath, "QuietCampPrivacy.androidlib/build.gradle"),
+                Path.Combine(UnityEngine.Application.dataPath, "QuietCamp/OptionalSdk/Editor/NativeAuthDependencies.xml"), "Native Auth");
         }
 
         // The androidlib compiles independently: unityLibrary's implementation
         // dependencies are not on this child module's Java compile classpath.
         public static void ApplyBillingDependencies(string gradlePath, string dependenciesPath)
+            => ApplyDependencies(gradlePath, dependenciesPath, "Billing");
+
+        public static void ApplyDependencies(string gradlePath, string dependenciesPath, string label)
         {
             if (!File.Exists(gradlePath) || !File.Exists(dependenciesPath))
                 throw new BuildFailedException("Billing module or dependency declaration missing.");
@@ -39,7 +44,7 @@ namespace QuietCamp.Editor
                 .Select(e => (string)e.Attribute("spec")).Distinct().ToArray();
             if (packages.Length == 0 || packages.Any(p => p == null || !Regex.IsMatch(p, @"^[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+:[0-9][a-zA-Z0-9_.+\-]*$")))
                 throw new BuildFailedException("Invalid Billing Maven dependency declaration.");
-            const string start = "// QuietCamp Billing dependencies start", end = "// QuietCamp Billing dependencies end";
+            string start = "// QuietCamp " + label + " dependencies start", end = "// QuietCamp " + label + " dependencies end";
             string text = File.ReadAllText(gradlePath);
             int first = text.IndexOf(start, System.StringComparison.Ordinal), last = text.IndexOf(end, System.StringComparison.Ordinal);
             if (first >= 0) {
@@ -64,6 +69,8 @@ namespace QuietCamp.Editor
                 throw new BuildFailedException("Android privacy manifest has no application element.");
             document.Root.SetAttributeValue(XNamespace.Xmlns + "android", android.NamespaceName);
             document.Root.SetAttributeValue(XNamespace.Xmlns + "tools", tools.NamespaceName);
+            foreach(var attribute in rules.Attributes().Where(a=>a.Name.Namespace==android))
+                app.SetAttributeValue(attribute.Name,attribute.Value);
             foreach (var rule in rules.Elements())
             {
                 var name = (string)rule.Attribute(android + "name");

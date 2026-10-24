@@ -94,7 +94,7 @@ namespace QuietCamp.Application
         public bool Allowed => Configured && !_disposed && _allowed();
         public bool Busy => _busy;
         public bool OptedIn => Linked && _settings.accountChoiceVersion == ChoiceVersion;
-        public bool HasAccount => !string.IsNullOrEmpty(_credential?.sessionToken);
+        public bool HasAccount => !DeletionNeedsRetry && !string.IsNullOrEmpty(_credential?.sessionToken);
         public bool NeedsReauthentication => _legacyReauthentication || _credential!=null && !HasAccount;
         public bool Linked => HasAccount;
         public bool LinkReminderDue { get; private set; }

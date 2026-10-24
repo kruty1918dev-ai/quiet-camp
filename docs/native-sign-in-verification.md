@@ -23,3 +23,34 @@ application code with deterministic identity/network/storage doubles. They do no
 prove a native chooser, production website↔game accountId, Firebase traffic,
 Android Keystore, or device deletion. Android bridge/API compilation and device
 evidence are separate checks. No player build is authorized.
+
+The Android bridge now compiles with Java 17 against the actual Android 35,
+AndroidX Credentials 1.6.0 and googleid 1.2.1 APIs. The Unity optional adapter
+compiles against the original Firebase Auth 14.0.0 DLL, matching the installed
+Core suite. SDK detection registers it only for Android players; Editor keeps
+browser authentication. The full portable privacy probe passed 212 tests with
+one worker, including native-account, existing cloud-save and manifest contracts.
+
+```sh
+python tools/check_native_auth_bridge.py --android-player <Unity-AndroidPlayer-directory>
+python tools/verify_monetization.py --google-sdk-check --player-source-check --android-source-check
+dotnet run --project tools/privacy-probe/Probe.csproj -- --workers=1 --noresult
+```
+
+The Java API check compiles only the bridge's class files in ignored Temp. The
+C# check uses cached Unity references and the real SDK DLLs without importing
+Unity, resolving a full Gradle player, packaging or deploying anything.
+
+Auth always starts with an interactive Google credential and new Firebase
+sign-in, then requests `TokenAsync(true)`. The Firebase client session is signed
+out after obtaining the proof; only the Worker credential persists in the
+existing Keystore/noBackupFilesDir store. Firebase Auth may transiently write
+its own SharedPreferences during sign-in. Android backup and device-transfer
+rules exclude SharedPreferences, preserving file-based game saves. Final merged
+manifest, on-device files/traffic, process death and transport behavior still
+require Android evidence. No Auth startup grants Analytics or Crashlytics consent.
+
+The bridge uses the official explicit-button
+[GetSignInWithGoogleOption flow](https://developer.android.com/identity/sign-in/credential-manager-siwg-implementation),
+the [stable Credentials release](https://developer.android.com/jetpack/androidx/releases/credentials),
+and [Firebase's Unity credential exchange](https://firebase.google.com/docs/auth/unity/google-signin).
